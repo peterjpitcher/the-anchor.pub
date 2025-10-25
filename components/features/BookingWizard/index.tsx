@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { WizardStep1Date } from './WizardStep1Date'
@@ -42,6 +42,7 @@ export function BookingWizard({
 }: BookingWizardProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
+  const wizardRef = useRef<HTMLDivElement | null>(null)
   
   // Wizard state
   const [currentStep, setCurrentStep] = useState(initialStep)
@@ -106,7 +107,16 @@ export function BookingWizard({
   // Handle step navigation
   const goToStep = useCallback((step: number) => {
     setCurrentStep(step)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    if (wizardRef.current) {
+      const prefersReducedMotion =
+        typeof window !== 'undefined' &&
+        window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches
+
+      wizardRef.current.scrollIntoView({
+        behavior: prefersReducedMotion ? 'auto' : 'smooth',
+        block: 'nearest'
+      })
+    }
   }, [])
   
   const goNext = useCallback(() => {
@@ -319,7 +329,7 @@ export function BookingWizard({
   }
   
   return (
-    <div className={cn('bg-gradient-to-b from-white to-anchor-cream py-8', className)}>
+    <div ref={wizardRef} className={cn('bg-gradient-to-b from-white to-anchor-cream py-8', className)}>
       {/* Progress Indicator */}
       <WizardProgress
         currentStep={currentStep}
