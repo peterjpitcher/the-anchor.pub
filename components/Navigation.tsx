@@ -369,7 +369,7 @@ export function Navigation({
       )
     }
 
-    const baseClasses = 'font-semibold transition-all rounded-full px-4 py-1.5 text-sm xl:px-6 xl:py-2 xl:text-base'
+    const baseClasses = 'inline-flex items-center justify-center font-semibold transition-all rounded-full px-4 py-1.5 text-sm xl:px-6 xl:py-2 xl:text-base'
     const variantClasses = button.variant === 'secondary'
       ? 'bg-white text-anchor-green hover:bg-white/90 border border-white'
       : cn(mergedTheme.ctaBackground, mergedTheme.ctaText, mergedTheme.ctaHoverBackground)

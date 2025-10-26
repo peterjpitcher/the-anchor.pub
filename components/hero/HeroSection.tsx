@@ -69,10 +69,10 @@ const paddingClasses: Record<HeroSize, string> = {
 
 // Consistent overlay options
 const overlayClasses: Record<string, string> = {
-  light: 'bg-black/30',
-  medium: 'bg-black/50',
-  dark: 'bg-black/70',
-  gradient: 'bg-gradient-to-b from-black/70 via-black/50 to-black/70'
+  light: 'bg-black/25',
+  medium: 'bg-black/45',
+  dark: 'bg-black/65',
+  gradient: 'bg-gradient-to-b from-black/55 via-black/30 to-black/65'
 }
 
 // Text alignment classes
@@ -174,6 +174,7 @@ export function HeroSection({
                 blurDataURL={blurDataURL}
                 style={{ objectPosition }}
                 onError={() => setImageError(true)}
+                unoptimized
               />
             </picture>
           ) : (
@@ -189,6 +190,7 @@ export function HeroSection({
               blurDataURL={blurDataURL}
               style={{ objectPosition }}
               onError={image.fallbackSrc ? () => setImageError(true) : undefined}
+              unoptimized
             />
           )}
         </div>
