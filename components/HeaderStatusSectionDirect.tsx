@@ -4,10 +4,10 @@ import { StatusBar } from './StatusBar'
 
 export function HeaderStatusSectionDirect() {
   return (
-    <div className="flex w-full max-w-full justify-center sm:justify-end">
+    <div className="flex w-full flex-wrap items-center justify-center lg:w-auto lg:justify-end">
       <StatusBar
         variant="navigation"
-        className="w-auto"
+        className="w-full px-0 text-center text-white lg:w-auto lg:px-0 lg:text-left"
         showKitchen
       />
     </div>

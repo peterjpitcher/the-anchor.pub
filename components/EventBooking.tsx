@@ -207,7 +207,7 @@ function EventBookingComponent({ event, className = '' }: EventBookingProps) {
             <p className="text-sm text-gray-600">Event: <span className="font-semibold text-gray-800">{bookingResponse.event.name}</span></p>
             <p className="text-sm text-gray-600">Date: <span className="font-semibold text-gray-800">{bookingResponse.event.date}</span></p>
             <p className="text-sm text-gray-600">Time: <span className="font-semibold text-gray-800">{bookingResponse.event.time}</span></p>
-            <p className="text-sm text-gray-600">Available seats: <span className="font-semibold text-gray-800">{bookingResponse.event.available_seats}</span></p>
+            <p className="text-sm text-gray-600">Available tickets: <span className="font-semibold text-gray-800">{bookingResponse.event.available_seats}</span></p>
           </div>
         )}
         <p className="text-sm text-green-600 mt-4">

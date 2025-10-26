@@ -338,11 +338,6 @@ export default function HeathrowLayoverDiningPage() {
 
       <FoodStickyCtaBar
         ctaContext="heathrow_layover"
-        whatsapp={{
-          href: 'https://wa.me/441753682707?text=Hi%20Anchor%20Team!%20I%20have%20a%20Heathrow%20layover%20and%20need%20to%20book%20a%20table.',
-          label: 'Plan via WhatsApp',
-          id: 'whatsapp_heathrow_layover'
-        }}
         label="Book Layover Meal"
       />
     </>

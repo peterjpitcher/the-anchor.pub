@@ -210,7 +210,7 @@ function EventBookingComponent({ event, className = '' }: EventBookingProps) {
               <p className="text-sm"><span className="font-medium">Date:</span> {bookingResponse.event.date}</p>
               <p className="text-sm"><span className="font-medium">Time:</span> {bookingResponse.event.time}</p>
               <p className="text-sm">
-                <span className="font-medium">Available seats:</span>{' '}
+                <span className="font-medium">Available tickets:</span>{' '}
                 <Badge variant="success" size="sm">{bookingResponse.event.available_seats}</Badge>
               </p>
             </CardBody>

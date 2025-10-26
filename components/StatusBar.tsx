@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils'
 import { StatusIndicator } from '@/components/ui/StatusIndicator'
 import { LoadingState } from '@/components/ui/LoadingState'
 import { useBusinessHours } from '@/hooks/useBusinessHours'
-import { formatTime12Hour, getTomorrowHours, getTodayHours } from '@/lib/status-boundary-calculator'
+import { formatTime12Hour, getTodayHours, getTomorrowHours, findNextKitchenOpening } from '@/lib/status-boundary-calculator'
 import { KitchenStatus } from '@/lib/api'
 
 interface StatusBarProps {
@@ -118,61 +118,57 @@ function getKitchenStatus(hours: any): {
 } {
   const { currentStatus } = hours
   const todayHours = resolveTodaySchedule(hours)
+
+  const futureOpeningMessage = (
+    fallbackStatus: string,
+    fallbackIndicator: 'open' | 'warning' | 'closed' = 'closed',
+    options: { includeToday?: boolean } = {}
+  ): { status: string; indicator: 'open' | 'warning' | 'closed' } => {
+    const nextOpening = findNextKitchenOpening(hours, {
+      includeToday: options.includeToday ?? false
+    })
+
+    if (!nextOpening) {
+      return {
+        status: fallbackStatus,
+        indicator: fallbackIndicator
+      }
+    }
+
+    const timeLabel = formatTime12Hour(nextOpening.opens)
+    const whenLabel =
+      nextOpening.offset === 0
+        ? `today at ${timeLabel}`
+        : nextOpening.offset === 1
+          ? `tomorrow at ${timeLabel}`
+          : `${nextOpening.dayName} at ${timeLabel}`
+
+    return {
+      status: `Kitchen: Opens ${whenLabel}`,
+      indicator: currentStatus.isOpen ? 'warning' : 'closed'
+    }
+  }
   
   // Guard 1: Check if there are no hours for today (fully closed)
   if (!todayHours) {
-    return {
-      status: 'Kitchen: Closed',
-      indicator: 'closed'
-    }
+    return futureOpeningMessage('Kitchen: Closed')
   }
   
   const kitchenHours = todayHours.kitchen
   const kitchenClosedToday = (todayHours as any).is_kitchen_closed === true
 
   if (kitchenClosedToday) {
-    const tomorrowHours = getTomorrowHours(hours)
-    if (tomorrowHours?.kitchen && isKitchenOpen(tomorrowHours.kitchen)) {
-      return {
-        status: `Kitchen: Opens tomorrow at ${formatTime12Hour(tomorrowHours.kitchen.opens)}`,
-        indicator: 'closed'
-      }
-    }
-    return {
-      status: 'Kitchen: Closed today',
-      indicator: 'closed'
-    }
+    return futureOpeningMessage('Kitchen: Closed today')
   }
 
   // Guard 2: Check if kitchen data exists
   if (kitchenHours === null || kitchenHours === undefined) {
-    // No kitchen service today
-    const tomorrowHours = getTomorrowHours(hours)
-    if (tomorrowHours?.kitchen && isKitchenOpen(tomorrowHours.kitchen)) {
-      return {
-        status: `Kitchen: Opens tomorrow at ${formatTime12Hour(tomorrowHours.kitchen.opens)}`,
-        indicator: 'closed'
-      }
-    }
-    return {
-      status: 'Kitchen: No service',
-      indicator: 'closed'
-    }
+    return futureOpeningMessage('Kitchen: No service')
   }
   
   if (isKitchenClosed(kitchenHours)) {
     // Kitchen explicitly closed today
-    const tomorrowHours = getTomorrowHours(hours)
-    if (tomorrowHours?.kitchen && isKitchenOpen(tomorrowHours.kitchen)) {
-      return {
-        status: `Kitchen: Opens tomorrow at ${formatTime12Hour(tomorrowHours.kitchen.opens)}`,
-        indicator: 'closed'
-      }
-    }
-    return {
-      status: 'Kitchen: Closed today',
-      indicator: 'closed'
-    }
+    return futureOpeningMessage('Kitchen: Closed today')
   }
   
   // Kitchen has hours - check current status
@@ -199,28 +195,16 @@ function getKitchenStatus(hours: any): {
         }
       }
       
-      // Kitchen won't open again today, check tomorrow
-      const tomorrowHours = getTomorrowHours(hours)
-      if (tomorrowHours?.kitchen && isKitchenOpen(tomorrowHours.kitchen)) {
-        return {
-          status: `Kitchen: Opens tomorrow at ${formatTime12Hour(tomorrowHours.kitchen.opens)}`,
-          indicator: currentStatus.isOpen ? 'warning' : 'closed'
-        }
-      }
-      
-      // Kitchen closed with no next opening
-      return {
-        status: 'Kitchen: Closed',
-        indicator: currentStatus.isOpen ? 'warning' : 'closed'
-      }
+      // Kitchen won't open again today, find next available service
+      return futureOpeningMessage(
+        'Kitchen: Closed',
+        currentStatus.isOpen ? 'warning' : 'closed'
+      )
     }
   }
   
   // Fallback
-  return {
-    status: 'Kitchen: Closed',
-    indicator: 'closed'
-  }
+  return futureOpeningMessage('Kitchen: Closed')
 }
 
 export function StatusBar({ 

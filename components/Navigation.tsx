@@ -65,18 +65,18 @@ const defaultItems: NavigationItem[] = [
       { label: 'Drag Shows', href: '/whats-on/drag-shows' }
     ]
   },
-  { 
-    label: 'Food', 
+  {
+    label: 'Menus',
     href: '/food-menu',
     items: [
-      { label: 'Full Menu', href: '/food-menu' },
+      { label: 'Food Menu', href: '/food-menu' },
       { label: 'Sunday Lunch', href: '/sunday-lunch' },
       { label: 'Pizza Tuesday Deal', href: '/pizza-tuesday' }
     ]
   },
   { label: 'Drinks', href: '/drinks' },
-  { 
-    label: 'Events', 
+  {
+    label: 'Events & Hire',
     href: '/book-event',
     items: [
       { label: 'Book an Event', href: '/book-event' },
@@ -86,13 +86,12 @@ const defaultItems: NavigationItem[] = [
       { label: 'Function Room Hire', href: '/function-room-hire' }
     ]
   },
-  { label: 'Blog', href: '/blog' },
-  { label: 'Find Us', href: '/find-us' },
-  { 
-    label: 'Near Heathrow', 
-    href: '/near-heathrow',
+  {
+    label: 'Visit Us',
+    href: '/find-us',
     items: [
-      { label: 'Overview', href: '/near-heathrow' },
+      { label: 'Find Us', href: '/find-us' },
+      { label: 'Near Heathrow Overview', href: '/near-heathrow' },
       { label: 'Layover Dining', href: '/heathrow-layover-dining' },
       { label: 'Terminal 2', href: '/near-heathrow/terminal-2' },
       { label: 'Terminal 3', href: '/near-heathrow/terminal-3' },
@@ -102,7 +101,8 @@ const defaultItems: NavigationItem[] = [
       { label: 'M25 Junction 14', href: '/m25-junction-14-pub' },
       { label: 'Plane Spotting Guide', href: '/plane-spotting-heathrow' }
     ]
-  }
+  },
+  { label: 'Blog', href: '/blog' }
 ]
 
 const defaultLogo = {
@@ -143,11 +143,26 @@ export function Navigation({
   const focusTrapRef = useFocusTrap(isMobileMenuOpen)
 
   const mergedTheme = { ...defaultTheme, ...theme }
-  const breakpointClass = {
+  const desktopFlexClass = {
+    sm: 'hidden sm:flex',
+    md: 'hidden md:flex',
+    lg: 'hidden lg:flex'
+  }[mobileBreakpoint]
+  const mobileBlockClass = {
+    sm: 'block sm:hidden',
+    md: 'block md:hidden',
+    lg: 'block lg:hidden'
+  }[mobileBreakpoint]
+  const mobileHiddenClass = {
     sm: 'sm:hidden',
     md: 'md:hidden',
     lg: 'lg:hidden'
   }[mobileBreakpoint]
+  const showUtilityRow = Boolean(
+    ctaButton ||
+    secondaryCtaButton ||
+    (showWeather && weatherComponent)
+  )
 
   useEffect(() => {
     if (!sticky) return
@@ -357,7 +372,7 @@ export function Navigation({
           source={isMobile ? 'header_mobile' : 'header_desktop'}
           variant="primary"
           size={isMobile ? 'md' : 'sm'}
-          className={cn('self-center', isMobile && 'block w-full mt-4')}
+          className={cn(isMobile && 'block w-full')}
           onClickAfterTracking={() => {
             if (isMobile) {
               setIsMobileMenuOpen(false)
@@ -377,9 +392,8 @@ export function Navigation({
     const ctaClass = cn(
       baseClasses,
       variantClasses,
-      'self-center',
       button.className,
-      isMobile && 'block text-center py-3 mt-4 text-base px-6'
+      isMobile && 'block w-full text-center py-3 text-base px-6'
     )
 
     if (button.external) {
@@ -429,27 +443,34 @@ export function Navigation({
     )
   }
 
-  const renderCTAs = (isMobile = false) => {
-    const buttons = [ctaButton, secondaryCtaButton].filter(Boolean) as HeaderCtaButton[]
-    if (!buttons.length) return null
+  const renderLogo = (size: 'sm' | 'lg' = 'lg') => (
+    <Link href="/" className="flex items-center flex-shrink-0">
+      <Image
+        src={logo.src}
+        alt={logo.alt}
+        width={logo.width}
+        height={logo.height}
+        className={cn(size === 'sm' ? 'h-12 w-auto' : 'h-16 w-auto')}
+        priority
+        sizes={size === 'sm' ? '120px' : '150px'}
+      />
+    </Link>
+  )
 
-    if (isMobile) {
-      return (
-        <div className="flex flex-col">
-          {buttons.map((button, index) =>
-            renderSingleCTA(button, true, `${button.href}-${index}`)
-          )}
-        </div>
-      )
-    }
+  const renderPrimaryCTA = (isMobile = false, extraClass?: string) => {
+    if (!ctaButton) return null
+    const button = extraClass
+      ? { ...ctaButton, className: cn(ctaButton.className, extraClass) }
+      : ctaButton
+    return renderSingleCTA(button, isMobile, `${ctaButton.href}-${isMobile ? 'mobile' : 'desktop'}`)
+  }
 
-    return (
-      <div className="flex items-center gap-4">
-        {buttons.map((button, index) =>
-          renderSingleCTA(button, false, `${button.href}-${index}`)
-        )}
-      </div>
-    )
+  const renderSecondaryCTA = (isMobile = false, extraClass?: string) => {
+    if (!secondaryCtaButton) return null
+    const button = extraClass
+      ? { ...secondaryCtaButton, className: cn(secondaryCtaButton.className, extraClass) }
+      : secondaryCtaButton
+    return renderSingleCTA(button, isMobile, `${secondaryCtaButton.href}-${isMobile ? 'mobile' : 'desktop'}`)
   }
 
   return (
@@ -475,73 +496,79 @@ export function Navigation({
         itemType="https://schema.org/SiteNavigationElement"
       >
         <div className="container mx-auto px-4">
-          {/* Desktop Layout */}
-          <div className="hidden lg:block">
-            <div className="flex items-center justify-between h-20">
-              {/* Logo and Status Section */}
-              <div className="flex items-center gap-8">
-                <Link href="/" className="flex items-center">
-                  <Image
-                    src={logo.src}
-                    alt={logo.alt}
-                    width={logo.width}
-                    height={logo.height}
-                    className="h-12 w-auto"
-                    priority
-                    sizes="150px"
-                  />
-                </Link>
-                
-                {/* Status and Weather */}
-                {showStatus && (
-                  <div className={cn('flex items-center gap-6', mergedTheme.text)}>
-                    {statusComponent}
-                    {showWeather && (
-                      <div className="border-l border-white/20 pl-6">
-                        {weatherComponent}
-                      </div>
-                    )}
+          {/* Desktop utility row */}
+          {showUtilityRow && (
+            <div
+              className={cn(
+                desktopFlexClass,
+                'flex-wrap items-center justify-between gap-4 border-b border-white/10 py-2 text-sm',
+                mergedTheme.text
+              )}
+            >
+              {renderLogo('sm')}
+              <div className="flex flex-wrap items-center justify-end gap-3">
+                {renderPrimaryCTA(false, 'px-4 py-1 text-sm')}
+                {renderSecondaryCTA(false, 'px-4 py-1 text-sm')}
+                {showWeather && weatherComponent && (
+                  <div className="hidden xl:block">
+                    {weatherComponent}
                   </div>
                 )}
               </div>
-
-              {/* Desktop Navigation */}
-              <div className="flex items-center space-x-6 xl:space-x-8 relative z-40">
-                {items.map(item => renderLink(item))}
-                
-                
-                {renderCTAs()}
-              </div>
             </div>
+          )}
+
+          {/* Desktop primary row */}
+          <div
+            className={cn(
+              desktopFlexClass,
+              'items-center justify-between gap-6 py-4'
+            )}
+          >
+            <div className="flex items-center gap-4 flex-shrink-0">
+              {!showUtilityRow && renderLogo('lg')}
+              {showStatus && (
+                <div className="max-w-md">
+                  {statusComponent}
+                </div>
+              )}
+              {showWeather && weatherComponent && (
+                <div className="block xl:hidden">
+                  {weatherComponent}
+                </div>
+              )}
+            </div>
+
+            <div className="relative z-40 ml-auto flex flex-1 flex-wrap items-center justify-end gap-4 text-right xl:gap-6">
+              {items.map(item => renderLink(item))}
+            </div>
+
+            {(!showUtilityRow && (ctaButton || secondaryCtaButton)) && (
+              <div className="flex items-center gap-3 flex-shrink-0">
+                {renderPrimaryCTA()}
+                {renderSecondaryCTA(false)}
+              </div>
+            )}
           </div>
 
-          {/* Mobile Layout - Single Row */}
-          <div className="block lg:hidden">
-            <div className="flex items-center justify-between h-16 gap-2">
-              {/* Logo */}
-              <Link href="/" className="flex-shrink-0">
+          {/* Mobile Layout */}
+          <div className={cn(mobileBlockClass, 'pt-[8px]')}>
+            <div className="relative flex items-center h-12">
+              <Link href="/" className="mx-auto flex-shrink-0">
                 <Image
                   src={logo.src}
                   alt={logo.alt}
                   width={logo.width}
                   height={logo.height}
-                  className="h-8 w-auto"
+                  className="h-12 w-auto"
                   priority
-                  sizes="100px"
+                  sizes="150px"
                 />
               </Link>
 
-              {/* Status and Reviews */}
-              {showStatus && (
-                <div className={cn('flex-1 min-w-0 flex justify-center sm:justify-start', mergedTheme.text)}>
-                  {statusComponent}
-                </div>
-              )}
-
-              {/* Menu Button */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className={cn('flex-shrink-0 p-2', mergedTheme.text)}
+                className={cn('absolute right-0 top-1/2 -translate-y-1/2 p-2', mergedTheme.text)}
                 aria-expanded={isMobileMenuOpen}
                 aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
               >
@@ -554,6 +581,17 @@ export function Navigation({
                 </svg>
               </button>
             </div>
+
+            {(showStatus || (showWeather && weatherComponent)) && (
+              <div className="mt-1 w-full space-y-2 pb-2">
+                {showStatus && statusComponent}
+                {showWeather && weatherComponent && (
+                  <div className={cn('text-sm', mergedTheme.text)}>
+                    {weatherComponent}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
 
@@ -562,15 +600,21 @@ export function Navigation({
         <div 
           ref={focusTrapRef}
           className={cn(
-            'lg:hidden bg-anchor-green-dark border-t border-anchor-green-light shadow-lg'
+            mobileHiddenClass,
+            'bg-anchor-green-dark border-t border-anchor-green-light shadow-lg'
           )}
           role="dialog"
           aria-label="Mobile navigation menu"
           aria-modal="true"
         >
-          <div className="container mx-auto px-4 py-6 space-y-4">
+          <div className="container mx-auto px-4 py-6 space-y-6">
+            {(ctaButton || secondaryCtaButton) && (
+              <div className="space-y-3">
+                {renderPrimaryCTA(true)}
+                {renderSecondaryCTA(true)}
+              </div>
+            )}
             {items.map(item => renderLink(item, true))}
-            {renderCTAs(true)}
           </div>
         </div>
       )}

@@ -32,7 +32,7 @@ import { BookTableButton } from '@/components/BookTableButton'
 export const metadata: Metadata = {
   title: 'Cash Bingo Near Heathrow | Jackpot Night at The Anchor',
   description:
-    'Play cash bingo near Heathrow with £10 cash-only books, a rolling snowball and jackpots that keep climbing. Reserve your seat for the next big win at The Anchor Stanwell Moor.',
+    'Play cash bingo near Heathrow with £10 cash-only books, a rolling snowball and jackpots that keep climbing. Reserve your ticket for the next big win at The Anchor Stanwell Moor.',
   keywords:
     'cash bingo, cash bingo games, play bingo for cash, cash bingo near heathrow, bingo games for money, pub bingo night, bingo night stanwell moor'
 }
@@ -85,7 +85,7 @@ const FAQS = [
   {
     question: 'Do I need to book in advance?',
     answer:
-      'Yes—seats fill fast. Pop your mobile number into the booking form above or call 01753 682707 and we’ll reserve a table. Walk-ins are welcome while capacity lasts.'
+      'Yes—tickets sell fast. Pop your mobile number into the booking form above or call 01753 682707 and we’ll reserve a table. Walk-ins are welcome while capacity lasts.'
   },
   {
     question: 'Is there an age limit for bingo night?',
@@ -170,7 +170,7 @@ function BingoEventCards({ events }: { events: Event[] }) {
                   <p className="text-gray-700 leading-relaxed">{event.description}</p>
                 )}
                 <p className="text-sm text-gray-600">
-                  £10 cash-only books cover all ten games. The jackpot pot grows with every seat sold, and the snowball bonus increases by £20—and two extra calls—each time it rolls over. Stay loyal, sign the Snowball Register and the prize gets easier to win.
+                  £10 cash-only books cover all ten games. The jackpot pot grows with every ticket sold, and the snowball bonus increases by £20—and two extra calls—each time it rolls over. Stay loyal, sign the Snowball Register and the prize gets easier to win.
                 </p>
               </div>
 
@@ -293,7 +293,7 @@ export default async function CashBingoPage() {
               <CardBody>
                 <h3 className="text-xl font-semibold text-anchor-green mb-2">All-Day Menu & Cocktails</h3>
                 <p className="text-sm text-gray-700 mb-4">
-                  Burgers, wings, puddings and themed cocktails delivered direct to your bingo seats throughout the night.
+                  Burgers, wings, puddings and themed cocktails delivered direct to your bingo table throughout the night.
                 </p>
                 <div className="flex flex-col gap-2">
                   <BookTableButton
@@ -409,7 +409,7 @@ export default async function CashBingoPage() {
               </Card>
               <Card className="h-full bg-white border border-gray-100 shadow-sm">
                 <CardBody className="space-y-3">
-                  <h3 className="text-xl font-semibold text-anchor-charcoal">Arrive early for the good seats</h3>
+                  <h3 className="text-xl font-semibold text-anchor-charcoal">Arrive early for the best spots</h3>
                   <p className="text-gray-700 text-sm leading-relaxed">
                     Doors open at 6 pm. Turn up early, claim a clear sightline to the caller, order dinner and review the snowball rules before Game 1.
                   </p>
@@ -455,7 +455,7 @@ export default async function CashBingoPage() {
           <div className="max-w-4xl mx-auto bg-gradient-to-br from-anchor-green to-anchor-green/80 rounded-2xl p-8 text-white text-center shadow-lg">
             <h2 className="text-3xl font-bold mb-4 text-white">Ready to shout “Bingo”?</h2>
             <p className="text-lg mb-6">
-              Book your £10 cash book today or call the bar team and we’ll keep seats for your crew.
+              Book your £10 cash book today or call the bar team and we’ll hold tickets for your crew.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <PhoneButton

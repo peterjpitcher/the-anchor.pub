@@ -92,7 +92,7 @@ export function EventMetadata({
       metadata.push({
         icon: '⚠️',
         label: 'Availability',
-        value: `${event.remainingAttendeeCapacity} seats left`,
+        value: `${event.remainingAttendeeCapacity} tickets left`,
         className: 'text-amber-600 font-semibold'
       })
     }

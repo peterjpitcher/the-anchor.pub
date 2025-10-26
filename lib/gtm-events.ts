@@ -130,7 +130,7 @@ export function trackEventBookingStart(eventData: {
 export function trackEventBookingComplete(eventData: {
   eventId: string
   eventName: string
-  seats: number
+  tickets: number
   totalValue?: number
 }) {
   pushToDataLayer({
@@ -138,7 +138,7 @@ export function trackEventBookingComplete(eventData: {
     event_category: 'Event Booking',
     event_label: eventData.eventName,
     event_id: eventData.eventId,
-    quantity: eventData.seats,
+    quantity: eventData.tickets,
     value: eventData.totalValue,
     currency: 'GBP'
   })

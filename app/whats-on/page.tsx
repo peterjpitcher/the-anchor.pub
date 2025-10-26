@@ -303,7 +303,7 @@ export default function WhatsOnPage({ searchParams }: WhatsOnPageProps) {
                     Cash Prize Bingo
                   </h3>
                   <p className="text-gray-700 mb-4">
-                    £10 cash-only books, £160 snowball and jackpots that roll to £300+. Reserve your seats early!
+                    £10 cash-only books, £160 snowball and jackpots that roll to £300+. Reserve your tickets early!
                   </p>
                   <p className="text-sm font-bold text-green-600 group-hover:text-green-700">Play bingo for cash →</p>
                 </CardBody>

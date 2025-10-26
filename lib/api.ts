@@ -86,7 +86,7 @@ export interface Event {
     url?: string
   }
   isAccessibleForFree?: boolean
-  remainingAttendeeCapacity?: number // Available seats
+  remainingAttendeeCapacity?: number // Available tickets
   maximumAttendeeCapacity?: number // Total capacity
   url?: string // New field: event page URL
   identifier?: string // New field: same as id

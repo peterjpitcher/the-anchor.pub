@@ -59,7 +59,7 @@ export function FloatingActions() {
               <span className="text-2xl" aria-hidden="true">📞</span>
               <span className="font-medium">Call Us</span>
             </PhoneLink>
-            
+
             <WhatsAppLink
               phone="01753682707"
               source="floating_actions"
@@ -70,7 +70,6 @@ export function FloatingActions() {
               <span className="text-2xl" aria-hidden="true">💬</span>
               <span className="font-medium">WhatsApp</span>
             </WhatsAppLink>
-            
             <div onClick={() => setIsOpen(false)} role="menuitem">
               <DirectionsLink
                 href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ"

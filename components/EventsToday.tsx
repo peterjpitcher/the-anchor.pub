@@ -23,7 +23,7 @@ function mapEventToDisplay(event: Event) {
     price: event.offers?.price,
     priceCurrency: event.offers?.priceCurrency,
     soldOut: event.remainingAttendeeCapacity === 0,
-    remainingSeats: event.remainingAttendeeCapacity,
+    remainingTickets: event.remainingAttendeeCapacity,
     limitedAvailability: hasLimitedAvailability(event),
     doorTime: formatDoorTime(event.doorTime),
     performer: event.performer?.name,
@@ -225,8 +225,8 @@ export function EventsToday() {
             {event.limitedAvailability && !event.soldOut && (
               <p className="text-sm text-amber-600 font-semibold animate-pulse">LIMITED AVAILABILITY</p>
             )}
-            {event.remainingSeats && event.remainingSeats > 0 && !event.limitedAvailability && (
-              <p className="text-sm text-gray-700">Spaces available</p>
+            {event.remainingTickets && event.remainingTickets > 0 && !event.limitedAvailability && (
+              <p className="text-sm text-gray-700">Tickets available</p>
             )}
           </div>
           <Link 

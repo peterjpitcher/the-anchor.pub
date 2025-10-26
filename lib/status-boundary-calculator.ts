@@ -191,3 +191,61 @@ export function getTomorrowDayName(): string {
   const tomorrow = now.plus({ days: 1 })
   return tomorrow.toFormat('cccc').toLowerCase()
 }
+
+interface DayHoursResult {
+  hours: any
+  dayName: string
+  date: DateTime
+}
+
+function getHoursForDayOffset(data: BusinessHours, offset: number): DayHoursResult {
+  const now = DateTime.now().setZone('Europe/London')
+  const target = now.plus({ days: offset })
+  const dayNameLower = target.toFormat('cccc').toLowerCase()
+  const dateStr = target.toFormat('yyyy-MM-dd')
+  const specialHours = data.specialHours?.find(sh => sh.date === dateStr)
+  const hours = specialHours || data.regularHours[dayNameLower]
+  return {
+    hours,
+    dayName: target.toFormat('cccc'),
+    date: target
+  }
+}
+
+export interface NextKitchenOpening {
+  offset: number
+  opens: string
+  closes: string
+  dayName: string
+  date: Date
+}
+
+export function findNextKitchenOpening(
+  data: BusinessHours,
+  options: { includeToday?: boolean; maxDays?: number } = {}
+): NextKitchenOpening | null {
+  const { includeToday = false, maxDays = 14 } = options
+  const startOffset = includeToday ? 0 : 1
+
+  for (let offset = startOffset; offset <= maxDays; offset += 1) {
+    const { hours, dayName, date } = getHoursForDayOffset(data, offset)
+    if (!hours || hours.is_closed) continue
+
+    const kitchen = (hours as any).kitchen ?? null
+    const kitchenClosedFlag = (hours as any).is_kitchen_closed === true
+
+    if (kitchenClosedFlag) continue
+    if (!kitchen) continue
+    if (!isKitchenOpen(kitchen)) continue
+
+    return {
+      offset,
+      opens: kitchen.opens,
+      closes: kitchen.closes,
+      dayName,
+      date: date.toJSDate()
+    }
+  }
+
+  return null
+}

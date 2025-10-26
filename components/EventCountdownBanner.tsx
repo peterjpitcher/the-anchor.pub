@@ -74,26 +74,26 @@ const shouldSuppressPath = (pathname: string | null) => {
   return HIDDEN_PATH_PREFIXES.some(prefix => pathname.startsWith(prefix))
 }
 
-const getSeatsCopy = (remaining: number | null | undefined) => {
-  if (typeof remaining !== 'number') return 'Seats available now'
+const getTicketsCopy = (remaining: number | null | undefined) => {
+  if (typeof remaining !== 'number') return 'Tickets available now'
   if (remaining <= 0) return 'Almost fully booked'
-  if (remaining === 1) return 'Only 1 seat left'
-  if (remaining <= 5) return `Only ${remaining} seats left`
-  if (remaining <= 12) return `${remaining} seats remaining`
-  return 'Plenty of seats available'
+  if (remaining === 1) return 'Only 1 ticket left'
+  if (remaining <= 5) return `Only ${remaining} tickets left`
+  if (remaining <= 12) return `${remaining} tickets remaining`
+  return 'Plenty of tickets available'
 }
 
 type BannerTone = 'dark' | 'light' | 'alert' | 'muted'
 
 const getUrgencyCopy = (event: Event, daysUntil: number, hoursUntil: number) => {
   const remaining = event.remainingAttendeeCapacity
-  const seatsText = getSeatsCopy(remaining)
+  const ticketsText = getTicketsCopy(remaining)
   const eventDate = new Date(event.startDate)
 
   if (hoursUntil <= 24) {
     return {
       title: `Happening ${hoursUntil <= 12 ? 'tonight' : 'tomorrow'}: ${event.name}`,
-      message: `${seatsText}. Starts ${getFormattedDate(eventDate)} at ${eventDate.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}.`,
+      message: `${ticketsText}. Starts ${getFormattedDate(eventDate)} at ${eventDate.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}.`,
       tone: 'alert' as BannerTone,
       backgroundClass: 'bg-red-600 text-white'
     }
@@ -102,7 +102,7 @@ const getUrgencyCopy = (event: Event, daysUntil: number, hoursUntil: number) => 
   if (daysUntil <= 2) {
     return {
       title: `${event.name} is almost here`,
-      message: `${seatsText}. Join us this ${getWeekday(eventDate)} at ${eventDate.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}.`,
+      message: `${ticketsText}. Join us this ${getWeekday(eventDate)} at ${eventDate.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}.`,
       tone: 'light' as BannerTone,
       backgroundClass: 'bg-anchor-gold text-anchor-charcoal'
     }
@@ -111,7 +111,7 @@ const getUrgencyCopy = (event: Event, daysUntil: number, hoursUntil: number) => 
   if (daysUntil <= 4) {
     return {
       title: `${event.name} this ${getWeekday(eventDate)}`,
-      message: `${seatsText}. Secure your spot before we fill up.`,
+      message: `${ticketsText}. Secure your spot before we fill up.`,
       tone: 'dark' as BannerTone,
       backgroundClass: 'bg-anchor-green text-white'
     }
@@ -119,7 +119,7 @@ const getUrgencyCopy = (event: Event, daysUntil: number, hoursUntil: number) => 
 
   return {
     title: `${event.name} next ${getWeekday(eventDate)}`,
-    message: `${seatsText}. Early bookings get the best tables.`,
+    message: `${ticketsText}. Early bookings get the best tables.`,
     tone: 'muted' as BannerTone,
     backgroundClass: 'bg-anchor-green/95 text-white'
   }
@@ -163,8 +163,8 @@ export function EventCountdownBanner() {
           if (!timing) continue
           if (timing.daysUntil > MAX_LEAD_DAYS) continue
 
-          const seats = event.remainingAttendeeCapacity
-          if (typeof seats === 'number' && seats <= 0) continue
+          const ticketsRemaining = event.remainingAttendeeCapacity
+          if (typeof ticketsRemaining === 'number' && ticketsRemaining <= 0) continue
 
           selected = {
             event,
@@ -262,7 +262,7 @@ export function EventCountdownBanner() {
     if (!banner) return
     trackCtaClick({
       id: 'event_banner_cta',
-      label: 'Reserve seats',
+      label: 'Reserve tickets',
       location: 'event_countdown_banner',
       destination: 'event_page',
       context: banner.event.slug || banner.event.id
@@ -307,7 +307,7 @@ export function EventCountdownBanner() {
             onClick={handleCtaClick}
             className="inline-flex items-center justify-center rounded-full bg-white text-anchor-charcoal px-4 py-2 text-sm font-semibold transition hover:bg-anchor-gold hover:text-white"
           >
-            Reserve seats
+            Reserve tickets
           </Link>
         </div>
         <button

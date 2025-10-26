@@ -103,7 +103,7 @@ export async function UpcomingEvents() {
                         )}
                         {event.remainingAttendeeCapacity && event.remainingAttendeeCapacity > 0 && !hasLimitedAvailability(event) && (
                           <span className="text-gray-600">
-                            {event.remainingAttendeeCapacity} seats available
+                            {event.remainingAttendeeCapacity} tickets available
                           </span>
                         )}
                         {formatDoorTime(event.doorTime) && (
