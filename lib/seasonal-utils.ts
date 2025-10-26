@@ -62,6 +62,13 @@ export function getSeasonalHomepageImage(testDate?: Date): SeasonalImage {
   }
   
   imagePath = `/images/page-headers/home/seasonal/${season}/page-headers-homepage.jpg`
+
+  if (!validateSeasonalImage(imagePath)) {
+    if (typeof window === 'undefined' && process.env.NODE_ENV !== 'production') {
+      console.warn(`[Seasonal Image] Falling back to default header image. Missing asset at ${imagePath}`)
+    }
+    return { src: defaultImage, season, fallback: defaultImage }
+  }
   
   // Log which seasonal image is being served (server-side only, in development)
   if (typeof window === 'undefined' && process.env.NODE_ENV === 'development') {
@@ -149,24 +156,23 @@ export function validateSeasonalImage(imagePath: string): boolean {
     // Client-side, assume image exists
     return true
   }
-  
-  // In production on Vercel, public/ isn't on disk, so skip validation
-  if (process.env.NODE_ENV === 'production') {
-    return true
-  }
-  
+
   try {
     const fs = require('fs')
     const path = require('path')
-    const publicPath = path.join(process.cwd(), 'public', imagePath)
+    const normalizedPath = imagePath.startsWith('/') ? imagePath.slice(1) : imagePath
+    const publicPath = path.join(process.cwd(), 'public', normalizedPath)
     const exists = fs.existsSync(publicPath)
-    
-    if (!exists) {
-      console.warn(`[Seasonal Image] Missing file at ${imagePath}`)
+
+    if (!exists && process.env.NODE_ENV !== 'production') {
+      console.warn(`[Seasonal Image] Missing file at ${publicPath}`)
     }
-    
+
     return exists
-  } catch {
+  } catch (error) {
+    if (process.env.NODE_ENV !== 'production') {
+      console.warn('[Seasonal Image] Failed to validate image path', error)
+    }
     return false
   }
 }

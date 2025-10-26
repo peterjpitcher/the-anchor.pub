@@ -1,9 +1,10 @@
 'use client'
 
 import { MouseEvent } from 'react'
-import Link from 'next/link'
 import { Button } from '@/components/ui'
+import { useRouter } from 'next/navigation'
 import { trackContextCtaClick } from '@/lib/gtm-events'
+import { cn } from '@/lib/utils'
 
 interface MenuSectionCtaProps {
   label: string
@@ -13,6 +14,7 @@ interface MenuSectionCtaProps {
   location: string
   variant?: 'primary' | 'secondary' | 'outline'
   fullWidth?: boolean
+  className?: string
 }
 
 export function MenuSectionCta({
@@ -22,12 +24,14 @@ export function MenuSectionCta({
   analyticsLabel,
   location,
   variant = 'secondary',
-  fullWidth = false
+  fullWidth = false,
+  className
 }: MenuSectionCtaProps) {
+  const router = useRouter()
   const destination = href ?? (scrollToId ? `#${scrollToId}` : '')
   const mode = scrollToId ? 'scroll' : 'link'
 
-  const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     trackContextCtaClick({
       label,
       destination,
@@ -48,28 +52,29 @@ export function MenuSectionCta({
       if (history.replaceState) {
         history.replaceState(null, '', `#${scrollToId}`)
       }
+      return
+    }
+
+    if (href) {
+      event.preventDefault()
+      if (href.startsWith('http')) {
+        window.location.assign(href)
+      } else {
+        router.push(href)
+      }
     }
   }
 
-  const buttonContent = href ? (
-    <Link href={href} onClick={handleClick}>
-      {label}
-    </Link>
-  ) : (
-    <a href={destination || '#'} onClick={handleClick}>
-      {label}
-    </a>
-  )
-
   return (
     <Button
-      asChild
       variant={variant}
       size="lg"
       fullWidth={fullWidth}
-      className="min-w-[200px]"
+      className={cn('min-w-[200px]', className)}
+      onClick={handleClick}
+      data-destination={destination}
     >
-      {buttonContent}
+      {label}
     </Button>
   )
 }

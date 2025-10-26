@@ -357,7 +357,7 @@ export function Navigation({
           source={isMobile ? 'header_mobile' : 'header_desktop'}
           variant="primary"
           size={isMobile ? 'md' : 'sm'}
-          className={cn(isMobile && 'block w-full mt-4')}
+          className={cn('self-center', isMobile && 'block w-full mt-4')}
           onClickAfterTracking={() => {
             if (isMobile) {
               setIsMobileMenuOpen(false)
@@ -377,6 +377,7 @@ export function Navigation({
     const ctaClass = cn(
       baseClasses,
       variantClasses,
+      'self-center',
       button.className,
       isMobile && 'block text-center py-3 mt-4 text-base px-6'
     )
@@ -432,8 +433,22 @@ export function Navigation({
     const buttons = [ctaButton, secondaryCtaButton].filter(Boolean) as HeaderCtaButton[]
     if (!buttons.length) return null
 
-    return buttons.map((button, index) =>
-      renderSingleCTA(button, isMobile, `${button.href}-${index}`)
+    if (isMobile) {
+      return (
+        <div className="flex flex-col">
+          {buttons.map((button, index) =>
+            renderSingleCTA(button, true, `${button.href}-${index}`)
+          )}
+        </div>
+      )
+    }
+
+    return (
+      <div className="flex items-center gap-4">
+        {buttons.map((button, index) =>
+          renderSingleCTA(button, false, `${button.href}-${index}`)
+        )}
+      </div>
     )
   }
 

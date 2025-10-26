@@ -21,9 +21,6 @@ import { DEFAULT_PIZZA_IMAGE } from '@/lib/image-fallbacks'
 import { generateMenuItemOffer, generateNutritionInfo, generateSuitableForDiet } from '@/lib/schema-utils'
 import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 
-const HERO_GRADIENT =
-  'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="none"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="%230f1e14"/><stop offset="50%" stop-color="%231c3a2a"/><stop offset="100%" stop-color="%230f1e14"/></linearGradient></defs><rect width="800" height="600" fill="url(%23g)"/></svg>'
-
 const ANCHOR_LINKS = [
   { id: 'sunday-roast', label: 'Sunday Roast', icon: '🍖' },
   { id: 'pizza-tuesday', label: 'Pizza Tuesday', icon: '🍕' },
@@ -199,11 +196,6 @@ export default async function FoodMenuPage() {
     ? buildKitchenSchedule(businessHours)
     : 'Tuesday to Friday 6pm-9pm, Saturday 1pm-7pm, Sunday 12pm-5pm'
 
-  const heroImage = {
-    src: HERO_GRADIENT,
-    alt: 'Green gradient backdrop'
-  }
-
   return (
     <>
       <SpeakableSchema />
@@ -222,8 +214,8 @@ export default async function FoodMenuPage() {
         description="Sunday roasts, 2-for-1 Pizza Tuesday and proper pub classics with free parking and rapid service."
         size="small"
         alignment="center"
+        overlay="light"
         showStatusBar
-        image={heroImage}
         breadcrumbs={[{ name: 'Food & Drink' }]}
         tags={[
           { label: '🍖 Roast pre-orders', variant: 'default' },
@@ -233,7 +225,7 @@ export default async function FoodMenuPage() {
         ]}
         cta={
           <div
-            className="flex flex-col sm:flex-row gap-4 justify-center"
+            className="flex flex-col sm:flex-row sm:items-center gap-4 justify-center"
             data-sticky-cta-guard="true"
           >
             <BookTableButton
@@ -251,8 +243,9 @@ export default async function FoodMenuPage() {
               scrollToId="menu"
               analyticsLabel="view_full_menu"
               location="food_menu_hero"
-              variant="outline"
+              variant="secondary"
               fullWidth
+              className="sm:w-auto sm:min-w-0"
             />
           </div>
         }
@@ -397,6 +390,7 @@ export default async function FoodMenuPage() {
                     location="food_menu_roast_section"
                     variant="outline"
                     fullWidth
+                    className="sm:w-auto sm:min-w-0"
                   />
                 </div>
               </CardBody>
@@ -450,6 +444,7 @@ export default async function FoodMenuPage() {
                     location="food_menu_pizza_section"
                     variant="outline"
                     fullWidth
+                    className="sm:w-auto sm:min-w-0"
                   />
                 </div>
               </CardBody>
@@ -545,6 +540,7 @@ export default async function FoodMenuPage() {
                   location="food_menu_dietary_section"
                   variant="outline"
                   fullWidth
+                  className="sm:w-auto sm:min-w-0"
                 />
               </div>
             </CardBody>
@@ -576,6 +572,7 @@ export default async function FoodMenuPage() {
                   location="food_menu_heathrow_section"
                   variant="outline"
                   fullWidth
+                  className="sm:w-auto sm:min-w-0"
                 />
               </div>
             </CardBody>
