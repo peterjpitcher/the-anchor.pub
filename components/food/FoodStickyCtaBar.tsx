@@ -294,7 +294,7 @@ export function FoodStickyCtaBar({
   }
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-[60] border-t border-gray-200 bg-white/95 shadow-xl backdrop-blur supports-[backdrop-filter]:backdrop-blur">
+    <div className="fixed inset-x-0 bottom-0 z-[60] border-t border-gray-200 bg-white/95 shadow-xl backdrop-blur supports-[backdrop-filter]:backdrop-blur" data-testid="food-sticky-cta-bar">
       <div className="mx-auto max-w-5xl px-4 py-3 pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))]">
         <div className="flex flex-col gap-3">
           <div className="text-left">
