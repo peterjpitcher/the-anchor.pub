@@ -610,3 +610,60 @@ export function trackBannerEvent(data: {
     banner_campaign: data.campaign
   })
 }
+
+export function trackAnchorNavClick(data: {
+  section: string
+  deviceType?: 'mobile' | 'tablet' | 'desktop' | 'unknown'
+  location?: string
+}) {
+  if (typeof window === 'undefined') return
+
+  pushToDataLayer({
+    event: 'anchor_nav_click',
+    section: data.section,
+    device_type: data.deviceType,
+    location: data.location,
+    page_path: window.location.pathname,
+    page_location: window.location.href
+  })
+}
+
+export function trackContextCtaClick(data: {
+  label: string
+  destination: string
+  context: string
+  location: string
+  mode?: string
+}) {
+  if (typeof window === 'undefined') return
+
+  pushToDataLayer({
+    event: 'context_cta_click',
+    label: data.label,
+    destination: data.destination,
+    context: data.context,
+    location: data.location,
+    mode: data.mode,
+    page_path: window.location.pathname,
+    page_location: window.location.href
+  })
+}
+
+export function trackStickyCtaShown(data: {
+  secondsVisible: number
+  context: string
+  deviceType: 'mobile' | 'tablet' | 'desktop' | 'unknown'
+  location?: string
+}) {
+  if (typeof window === 'undefined') return
+
+  pushToDataLayer({
+    event: 'sticky_cta_shown',
+    seconds_visible: data.secondsVisible,
+    context: data.context,
+    device_type: data.deviceType,
+    location: data.location,
+    page_path: window.location.pathname,
+    page_location: window.location.href
+  })
+}

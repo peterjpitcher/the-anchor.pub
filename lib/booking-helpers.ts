@@ -36,116 +36,7 @@ export async function getAvailabilityForNext30Days(): Promise<AvailabilityData> 
     dates.push(date.toISOString().split('T')[0])
   }
   
-  // Fetch business hours first to understand kitchen/venue schedules
-  try {
-    const businessHoursResponse = await fetch(
-      `${process.env.ANCHOR_API_KEY ? 'https://management.orangejelly.co.uk/api' : 'http://localhost:3000/api'}/business/hours`,
-      {
-        headers: {
-          'X-API-Key': process.env.ANCHOR_API_KEY || ''
-        }
-      }
-    )
-    
-    if (businessHoursResponse.ok) {
-      const hoursData = await businessHoursResponse.json()
-      const businessHours = hoursData.data || hoursData
-      
-      // Process each date
-      for (const dateStr of dates) {
-        const date = new Date(dateStr + 'T12:00:00')
-        const isSunday = date.getDay() === 0
-        
-        // Get effective hours for this date (handles special hours override)
-        const effectiveHours = getEffectiveDayHours(
-          dateStr,
-          businessHours.regularHours,
-          businessHours.specialHours
-        )
-        
-        // Check if venue is closed
-        const isClosed = isVenueClosed(effectiveHours)
-        
-        // Check if kitchen is closed using unified logic
-        // Business rule: Monday kitchen is closed by default
-        const dayOfWeek = date.getDay()
-        const isMonday = dayOfWeek === 1
-        
-        // For Mondays, only consider kitchen open if special hours explicitly say so
-        let kitchenClosed = isKitchenClosed(effectiveHours)
-        if (isMonday && !businessHours.specialHours?.find((sh: any) => sh.date === dateStr)) {
-          // It's a regular Monday (no special hours), so kitchen is closed
-          kitchenClosed = true
-        }
-        
-        // Check for special hours note
-        let specialNote: string | undefined
-        const special = businessHours.specialHours?.find((sh: any) => sh.date === dateStr)
-        if (special) {
-          specialNote = special.note || special.reason
-        }
-        
-        // Generate time slots if venue is open
-        const times: TimeSlot[] = []
-        if (!isClosed && effectiveHours.opens && effectiveHours.closes) {
-          const openTime = parseTime(effectiveHours.opens)
-          const closeTime = parseTime(effectiveHours.closes)
-          
-          // Generate 30-minute slots
-          let currentTime = openTime
-          while (currentTime < (closeTime || 24)) {
-            const hours = Math.floor(currentTime)
-            const minutes = (currentTime % 1) * 60
-            const timeStr = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`
-            
-            // Determine availability based on kitchen hours
-            let available = true
-            
-            // If kitchen is explicitly closed, no times are available for food bookings
-            if (kitchenClosed) {
-              available = false
-            } else if (effectiveHours.kitchen && typeof effectiveHours.kitchen === 'object' && 
-                      'opens' in effectiveHours.kitchen && 'closes' in effectiveHours.kitchen) {
-              // If kitchen has specific hours, check if current time is within them
-              const kitchenOpen = parseTime(effectiveHours.kitchen.opens)
-              const kitchenClose = parseTime(effectiveHours.kitchen.closes)
-              available = currentTime >= kitchenOpen && currentTime < kitchenClose
-            }
-            // If kitchen is not closed and no specific hours, assume it follows venue hours
-            
-            times.push({
-              time: timeStr,
-              available,
-              busy: false,
-              remaining: available ? 10 : 0
-            })
-            
-            currentTime += 0.5 // Add 30 minutes
-          }
-        }
-        
-        // Add to appropriate lists
-        if (isClosed) {
-          blockedDates.push(dateStr)
-        }
-        
-        if (isSunday && !isClosed && !kitchenClosed) {
-          sundayRoastDates.push(dateStr)
-        }
-        
-        days.push({
-          date: dateStr,
-          isClosed,
-          isKitchenClosed: kitchenClosed,
-          times,
-          specialNote
-        })
-      }
-    }
-  } catch (error) {
-    console.error('Failed to fetch business hours for availability:', error)
-    
-    // Fallback: generate basic availability
+  const populateFallbackAvailability = () => {
     for (const dateStr of dates) {
       const date = new Date(dateStr + 'T12:00:00')
       const isSunday = date.getDay() === 0
@@ -184,6 +75,128 @@ export async function getAvailabilityForNext30Days(): Promise<AvailabilityData> 
         sundayRoastDates.push(dateStr)
       }
     }
+  }
+  
+  const skipExternal =
+    typeof window === 'undefined' &&
+    process.env.NEXT_PHASE === 'phase-production-build' &&
+    process.env.ENABLE_BUILD_TIME_EXTERNAL_API !== 'true'
+
+  if (!skipExternal) {
+    try {
+      const businessHoursResponse = await fetch(
+        `${process.env.ANCHOR_API_KEY ? 'https://management.orangejelly.co.uk/api' : 'http://localhost:3000/api'}/business/hours`,
+        {
+          headers: {
+            'X-API-Key': process.env.ANCHOR_API_KEY || ''
+          }
+        }
+      )
+      
+      if (businessHoursResponse.ok) {
+        const hoursData = await businessHoursResponse.json()
+        const businessHours = hoursData.data || hoursData
+        
+        // Process each date
+        for (const dateStr of dates) {
+          const date = new Date(dateStr + 'T12:00:00')
+          const isSunday = date.getDay() === 0
+          
+          // Get effective hours for this date (handles special hours override)
+          const effectiveHours = getEffectiveDayHours(
+            dateStr,
+            businessHours.regularHours,
+            businessHours.specialHours
+          )
+          
+          // Check if venue is closed
+          const isClosed = isVenueClosed(effectiveHours)
+          
+          // Check if kitchen is closed using unified logic
+          // Business rule: Monday kitchen is closed by default
+          const dayOfWeek = date.getDay()
+          const isMonday = dayOfWeek === 1
+          
+          // For Mondays, only consider kitchen open if special hours explicitly say so
+          let kitchenClosed = isKitchenClosed(effectiveHours)
+          if (isMonday && !businessHours.specialHours?.find((sh: any) => sh.date === dateStr)) {
+            // It's a regular Monday (no special hours), so kitchen is closed
+            kitchenClosed = true
+          }
+          
+          // Check for special hours note
+          let specialNote: string | undefined
+          const special = businessHours.specialHours?.find((sh: any) => sh.date === dateStr)
+          if (special) {
+            specialNote = special.note || special.reason
+          }
+          
+          // Generate time slots if venue is open
+          const times: TimeSlot[] = []
+          if (!isClosed && effectiveHours.opens && effectiveHours.closes) {
+            const openTime = parseTime(effectiveHours.opens)
+            const closeTime = parseTime(effectiveHours.closes)
+            
+            // Generate 30-minute slots
+            let currentTime = openTime
+            while (currentTime < (closeTime || 24)) {
+              const hours = Math.floor(currentTime)
+              const minutes = (currentTime % 1) * 60
+              const timeStr = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`
+              
+              // Determine availability based on kitchen hours
+              let available = true
+              
+              // If kitchen is explicitly closed, no times are available for food bookings
+              if (kitchenClosed) {
+                available = false
+              } else if (effectiveHours.kitchen && typeof effectiveHours.kitchen === 'object' && 
+                        'opens' in effectiveHours.kitchen && 'closes' in effectiveHours.kitchen) {
+                // If kitchen has specific hours, check if current time is within them
+                const kitchenOpen = parseTime(effectiveHours.kitchen.opens)
+                const kitchenClose = parseTime(effectiveHours.kitchen.closes)
+                available = currentTime >= kitchenOpen && currentTime < kitchenClose
+              }
+              // If kitchen is not closed and no specific hours, assume it follows venue hours
+              
+              times.push({
+                time: timeStr,
+                available,
+                busy: false,
+                remaining: available ? 10 : 0
+              })
+              
+              currentTime += 0.5 // Add 30 minutes
+            }
+          }
+          
+          // Add to appropriate lists
+          if (isClosed) {
+            blockedDates.push(dateStr)
+          }
+          
+          if (isSunday && !isClosed && !kitchenClosed) {
+            sundayRoastDates.push(dateStr)
+          }
+          
+          days.push({
+            date: dateStr,
+            isClosed,
+            isKitchenClosed: kitchenClosed,
+            times,
+            specialNote
+          })
+        }
+      } else {
+        populateFallbackAvailability()
+      }
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error)
+      console.warn('Failed to fetch business hours for availability:', message)
+      populateFallbackAvailability()
+    }
+  } else {
+    populateFallbackAvailability()
   }
   
   const availabilityData: AvailabilityData = {

@@ -11,6 +11,38 @@ import { ALLERGEN_TYPES } from '@/hooks/useAllergenFilter'
 import { cn } from '@/lib/utils'
 import { Container } from '@/components/ui'
 
+function extractSchemaPrice(price?: string): string {
+  if (!price) return ''
+  const match = price.match(/(\d+[.,]?\d*)/)
+  return match ? match[1].replace(',', '') : ''
+}
+
+function normalizePrice(price?: string): {
+  displayPrice: string
+  schemaPrice: string
+  gfAvailable: boolean
+} {
+  if (!price) {
+    return {
+      displayPrice: '',
+      schemaPrice: '',
+      gfAvailable: false
+    }
+  }
+
+  const gfRegex = /\(.*?gf available.*?\)/i
+  const gfAvailable = gfRegex.test(price)
+  const cleanedPrice = price.replace(gfRegex, '').replace(/\s+/g, ' ').trim()
+  const displayPrice = cleanedPrice.replace(/£/g, '').trim()
+  const schemaPrice = extractSchemaPrice(cleanedPrice)
+
+  return {
+    displayPrice,
+    schemaPrice,
+    gfAvailable
+  }
+}
+
 interface MenuRendererProps {
   menuData: MenuData
   accentColor?: string
@@ -38,7 +70,7 @@ export function MenuRenderer({ menuData, accentColor = 'anchor-gold' }: MenuRend
           "description": item.description,
           "offers": {
             "@type": "Offer",
-            "price": item.price.replace('£', ''),
+            "price": extractSchemaPrice(item.price),
             "priceCurrency": "GBP"
           },
           "suitableForDiet": item.vegetarian ? "https://schema.org/VegetarianDiet" : undefined
@@ -93,7 +125,7 @@ export function MenuRenderer({ menuData, accentColor = 'anchor-gold' }: MenuRend
       />
       {/* Kitchen Hours */}
       {menuData.kitchenHours && (
-        <section className="section-spacing bg-anchor-gold/10">
+        <section className="section-spacing bg-anchor-gold/10" id="kitchen-hours">
           <Container className="text-center">
             <p className="text-lg text-anchor-green font-semibold">
               Kitchen Hours: {Object.entries(menuData.kitchenHours).map(([day, hours], index) => (
@@ -241,6 +273,8 @@ interface MenuItemProps {
 const MenuItemCard = memo(function MenuItemCard({ item, itemId, isFocused, onFocus, isHighlighted }: MenuItemProps) {
   const isManagersSpecial = item.special === true
   const [specialImagePath, setSpecialImagePath] = useState<string | null>(null)
+  const { displayPrice, schemaPrice, gfAvailable } = normalizePrice(item.price)
+  const priceLabel = displayPrice ? `, ${displayPrice}` : ''
   
   useEffect(() => {
     if (isManagersSpecial) {
@@ -270,7 +304,7 @@ const MenuItemCard = memo(function MenuItemCard({ item, itemId, isFocused, onFoc
       // Removed tabIndex to improve keyboard navigation
       data-menu-item
       data-item-id={itemId}
-      aria-label={`${item.name}, ${item.price}${item.vegetarian ? ', vegetarian' : ''}`}
+      aria-label={`${item.name}${priceLabel}${item.vegetarian ? ', vegetarian' : ''}`}
     >
       <div className="flex justify-between items-start mb-4">
         <h3 className={`font-bold ${isHighlighted ? 'text-lg' : 'text-xl'} text-anchor-green flex items-center flex-wrap`} itemProp="name">
@@ -282,13 +316,22 @@ const MenuItemCard = memo(function MenuItemCard({ item, itemId, isFocused, onFoc
             <span className="text-anchor-gold text-sm font-bold bg-green-100 px-2 py-1 rounded ml-2">(V)</span>
           )}
         </h3>
-        <span className={`font-bold whitespace-nowrap ml-4 ${isHighlighted ? 'text-2xl text-amber-600' : 'text-xl text-anchor-gold'}`} itemProp="offers" itemScope itemType="https://schema.org/Offer">
-          <span itemProp="price" content={item.price.replace('£', '')}>{item.price}</span>
-          <meta itemProp="priceCurrency" content="GBP" />
-        </span>
+        {displayPrice && (
+          <span className={`font-bold whitespace-nowrap ml-4 ${isHighlighted ? 'text-2xl text-amber-600' : 'text-xl text-anchor-gold'}`} itemProp="offers" itemScope itemType="https://schema.org/Offer">
+            <span itemProp="price" content={schemaPrice}>{displayPrice}</span>
+            <meta itemProp="priceCurrency" content="GBP" />
+          </span>
+        )}
       </div>
       {item.description && (
         <p className={`${isHighlighted ? 'text-gray-800 text-sm leading-relaxed' : 'text-gray-700'}`} itemProp="description">{item.description}</p>
+      )}
+      {gfAvailable && (
+        <div className="mt-3">
+          <span className="inline-flex items-center rounded-full bg-anchor-green/10 px-2 py-1 text-xs font-semibold text-anchor-green">
+            GF option available
+          </span>
+        </div>
       )}
       <AllergenInfo item={item} />
       {item.vegetarian && (
@@ -320,7 +363,7 @@ const MenuItemCard = memo(function MenuItemCard({ item, itemId, isFocused, onFoc
           role="listitem"
           data-menu-item
           data-item-id={itemId}
-          aria-label={`${item.name}, ${item.price}${item.vegetarian ? ', vegetarian' : ''}`}
+          aria-label={`${item.name}${priceLabel}${item.vegetarian ? ', vegetarian' : ''}`}
         >
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
             {/* Left side - Image (25% width on desktop) */}
@@ -354,10 +397,19 @@ const MenuItemCard = memo(function MenuItemCard({ item, itemId, isFocused, onFoc
                   {item.name}
                 </h3>
               </div>
-              <div className="font-bold text-lg text-green-700 mb-3" itemProp="offers" itemScope itemType="https://schema.org/Offer">
-                <span itemProp="price" content={item.price.replace('£', '')}>{item.price}</span>
-                <meta itemProp="priceCurrency" content="GBP" />
-              </div>
+              {displayPrice && (
+                <div className="font-bold text-lg text-green-700 mb-3" itemProp="offers" itemScope itemType="https://schema.org/Offer">
+                  <span itemProp="price" content={schemaPrice}>{displayPrice}</span>
+                  <meta itemProp="priceCurrency" content="GBP" />
+                </div>
+              )}
+              {gfAvailable && (
+                <div className="mb-3">
+                  <span className="inline-flex items-center rounded-full bg-anchor-green/10 px-2 py-1 text-xs font-semibold text-anchor-green">
+                    GF option available
+                  </span>
+                </div>
+              )}
               {item.description && (
                 <p className="text-gray-700 mb-4" itemProp="description">{item.description}</p>
               )}
@@ -407,6 +459,9 @@ const AllergenInfo = memo(function AllergenInfo({ item }: { item: MenuItem }) {
 })
 
 const MenuItemList = memo(function MenuItemList({ item, itemId, isFocused, onFocus }: MenuItemProps) {
+  const { displayPrice, schemaPrice, gfAvailable } = normalizePrice(item.price)
+  const priceLabel = displayPrice ? `, ${displayPrice}` : ''
+
   return (
     <div 
       className={`flex justify-between p-2 rounded transition-all ${isFocused ? 'bg-amber-50' : ''}`}
@@ -416,19 +471,28 @@ const MenuItemList = memo(function MenuItemList({ item, itemId, isFocused, onFoc
       // Removed tabIndex to improve keyboard navigation
       data-menu-item
       data-item-id={itemId}
-      aria-label={`${item.name}, ${item.price}${item.vegetarian ? ', vegetarian' : ''}`}
+      aria-label={`${item.name}${priceLabel}${item.vegetarian ? ', vegetarian' : ''}`}
     >
       <div className="flex-1">
-        <div className="flex justify-between items-center">
+        <div className="flex flex-wrap items-center justify-between gap-2">
           <span itemProp="name">
             {item.name}
             {item.vegetarian && <span className="text-sm text-green-600 ml-1">(V)</span>}
           </span>
-          <span className="text-anchor-gold font-semibold ml-4" itemProp="offers" itemScope itemType="https://schema.org/Offer">
-            <span itemProp="price" content={item.price.replace('£', '')}>{item.price}</span>
-            <meta itemProp="priceCurrency" content="GBP" />
-          </span>
+          {displayPrice && (
+            <span className="text-anchor-gold font-semibold ml-4" itemProp="offers" itemScope itemType="https://schema.org/Offer">
+              <span itemProp="price" content={schemaPrice}>{displayPrice}</span>
+              <meta itemProp="priceCurrency" content="GBP" />
+            </span>
+          )}
         </div>
+        {gfAvailable && (
+          <div className="mt-1">
+            <span className="inline-flex items-center rounded-full bg-anchor-green/10 px-2 py-0.5 text-[11px] font-semibold text-anchor-green">
+              GF option available
+            </span>
+          </div>
+        )}
         {item.allergens && item.allergens.length > 0 && (
           <div className="text-xs text-gray-500 mt-1">
             <span>Contains: {item.allergens.join(', ')}</span>

@@ -40,30 +40,35 @@
             {
               "name": "Chips",
               "price": "£3.49",
+              "description": "Skin-on chips fried to order and finished with sea salt.",
               "allergens": [],
               "vegetarian": true
             },
             {
               "name": "Chunky Chips",
               "price": "£4.49",
+              "description": "Thick-cut pub chips with a fluffy centre and crisp exterior.",
               "allergens": [],
               "vegetarian": true
             },
             {
               "name": "Cheesy Chips",
               "price": "£4.99",
+              "description": "Golden chips under a blanket of melted mature cheddar.",
               "allergens": ["milk"],
               "vegetarian": true
             },
             {
               "name": "Sweet Potato Fries",
               "price": "£4.49",
+              "description": "Lightly spiced sweet potato fries, perfect for sharing.",
               "allergens": [],
               "vegetarian": true
             },
             {
               "name": "6 Onion Rings",
               "price": "£3.49",
+              "description": "Beer-battered onion rings with a satisfying crunch.",
               "allergens": ["gluten"],
               "vegetarian": true
             }
@@ -84,21 +89,21 @@
             {
               "name": "4 Chicken Goujons with Chips",
               "price": "£7.49",
-              "description": "",
+              "description": "Crispy chicken strips with chips and your choice of dip.",
               "allergens": ["gluten"],
               "vegetarian": false
             },
             {
               "name": "5 Salt & Chilli Squid with Chips",
               "price": "£7.49",
-              "description": "",
+              "description": "Lightly spiced squid bites with chips and a zingy dip.",
               "allergens": ["gluten", "molluscs"],
               "vegetarian": false
             },
             {
               "name": "3 Fish Fingers with Chips",
               "price": "£7.49",
-              "description": "",
+              "description": "Hand-cut fish fingers in breadcrumbs served with chips and lemon.",
               "allergens": ["gluten", "fish"],
               "vegetarian": false
             }
@@ -216,48 +221,56 @@
             {
               "name": "Bisto Gravy",
               "price": "",
+              "description": "Proper gravy to soak your roast or chips.",
               "allergens": [],
               "vegetarian": true
             },
             {
               "name": "Mayonnaise",
               "price": "",
+              "description": "Classic creamy mayo for dipping.",
               "allergens": ["eggs", "milk"],
               "vegetarian": true
             },
             {
               "name": "Garlic Mayonnaise",
               "price": "",
+              "description": "House garlic mayo with a gentle warmth.",
               "allergens": ["eggs", "milk"],
               "vegetarian": true
             },
             {
               "name": "Ketchup",
               "price": "",
+              "description": "Tomato ketchup, a chip shop staple.",
               "allergens": [],
               "vegetarian": true
             },
             {
               "name": "English Mustard",
               "price": "",
+              "description": "Sharp English mustard for a proper kick.",
               "allergens": ["gluten"],
               "vegetarian": true
             },
             {
               "name": "Tartar Sauce",
               "price": "",
+              "description": "Tangy tartar sauce with capers and herbs.",
               "allergens": ["eggs", "milk"],
               "vegetarian": true
             },
             {
               "name": "Mint Sauce",
               "price": "",
+              "description": "Cool mint sauce to cut through rich roasts.",
               "allergens": [],
               "vegetarian": true
             },
             {
               "name": "Cranberry Sauce",
               "price": "",
+              "description": "Sweet cranberry relish for turkey and cheese.",
               "allergens": [],
               "vegetarian": true
             }
@@ -354,18 +367,21 @@
             {
               "name": "BBQ Sauce",
               "price": "",
+              "description": "Smoky barbecue glaze made for goujons and burgers.",
               "allergens": ["gluten", "peanuts"],
               "vegetarian": true
             },
             {
               "name": "Burger Sauce",
               "price": "",
+              "description": "Creamy burger sauce with a tangy edge.",
               "allergens": ["eggs", "milk"],
               "vegetarian": true
             },
             {
               "name": "Sweet Chilli Dipping Sauce",
               "price": "",
+              "description": "Sweet chilli sauce with a gentle heat.",
               "allergens": [],
               "vegetarian": true
             }
@@ -525,24 +541,28 @@
             {
               "name": "Chocolate Sauce",
               "price": "",
+              "description": "Silky chocolate sauce for drizzling or dipping.",
               "allergens": [],
               "vegetarian": true
             },
             {
               "name": "Strawberry Sauce",
               "price": "",
+              "description": "Sweet strawberry drizzle for ice cream.",
               "allergens": [],
               "vegetarian": true
             },
             {
               "name": "Toffee Sauce",
               "price": "",
+              "description": "Rich toffee sauce with brown sugar sweetness.",
               "allergens": ["milk"],
               "vegetarian": true
             },
             {
               "name": "Balsamic Dressing",
               "price": "",
+              "description": "Classic balsamic dressing to brighten salads.",
               "allergens": ["sulphites"],
               "vegetarian": true
             }
@@ -562,24 +582,28 @@
             {
               "name": "Americano",
               "price": "£2.10",
+              "description": "Double-shot espresso topped with hot water.",
               "allergens": [],
               "vegetarian": true
             },
             {
               "name": "Latte",
               "price": "£2.50",
+              "description": "Velvety espresso finished with steamed milk.",
               "allergens": ["milk"],
               "vegetarian": true
             },
             {
               "name": "Cappuccino",
               "price": "£2.50",
+              "description": "Equal parts espresso, steamed milk and foam.",
               "allergens": ["milk"],
               "vegetarian": true
             },
             {
               "name": "Hot Chocolate",
               "price": "£2.40",
+              "description": "Creamy cocoa topped with froth.",
               "allergens": ["milk"],
               "vegetarian": true
             },

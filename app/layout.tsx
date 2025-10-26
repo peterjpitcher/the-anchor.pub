@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { Outfit, Merriweather } from 'next/font/google'
 import './globals.css'
 import { WebVitals } from './web-vitals'
 import { Navigation } from '@/components/Navigation'
@@ -30,6 +29,8 @@ const criticalCSS = `
   --anchor-warm-white: #ffffff;
   --anchor-sage: #7a8b7f;
   --anchor-sand: #f5e6d3;
+  --font-outfit: 'Outfit', 'Helvetica Neue', 'Arial', sans-serif;
+  --font-merriweather: 'Merriweather', 'Georgia', serif;
 }
 
 * {
@@ -98,26 +99,6 @@ body {
 }
 `
 
-const outfit = Outfit({ 
-  subsets: ['latin'], 
-  variable: '--font-outfit',
-  weight: ['400', '600', '700'],
-  display: 'swap',
-  preload: true,
-  fallback: ['system-ui', '-apple-system', 'sans-serif'],
-  adjustFontFallback: true,
-})
-
-const merriweather = Merriweather({ 
-  subsets: ['latin'], 
-  variable: '--font-merriweather',
-  weight: ['400'],
-  display: 'swap',
-  preload: false,
-  fallback: ['Georgia', 'serif'],
-  adjustFontFallback: true,
-})
-
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.the-anchor.pub'),
   title: {
@@ -177,7 +158,7 @@ export default function RootLayout({
   const gtmId = process.env.NEXT_PUBLIC_GTM_ID || ''
 
   return (
-    <html lang="en" className={`${outfit.variable} ${merriweather.variable}`}>
+    <html lang="en">
       <head>
         <GoogleTagManager gtmId={gtmId} />
         

@@ -2,6 +2,7 @@
 // Handles all API calls to the management system
 
 import { logError } from '@/lib/error-handling'
+import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 
 // Use internal API routes to avoid CORS issues and keep API key secure
 const API_BASE_URL = typeof window === 'undefined' 
@@ -576,6 +577,302 @@ export interface SundayLunchMenuResponse {
   last_updated: string
 }
 
+const FALLBACK_BUSINESS_HOURS: BusinessHours = {
+  regularHours: {
+    monday: {
+      opens: '16:00',
+      closes: '22:00',
+      kitchen: { is_closed: true },
+      is_closed: true
+    },
+    tuesday: {
+      opens: '16:00',
+      closes: '22:00',
+      kitchen: { opens: '18:00', closes: '21:00' },
+      is_closed: false
+    },
+    wednesday: {
+      opens: '16:00',
+      closes: '22:00',
+      kitchen: { opens: '18:00', closes: '21:00' },
+      is_closed: false
+    },
+    thursday: {
+      opens: '16:00',
+      closes: '22:00',
+      kitchen: { opens: '18:00', closes: '21:00' },
+      is_closed: false
+    },
+    friday: {
+      opens: '16:00',
+      closes: '00:00',
+      kitchen: { opens: '18:00', closes: '21:30' },
+      is_closed: false
+    },
+    saturday: {
+      opens: '12:00',
+      closes: '00:00',
+      kitchen: { opens: '13:00', closes: '19:00' },
+      is_closed: false
+    },
+    sunday: {
+      opens: '12:00',
+      closes: '22:00',
+      kitchen: { opens: '12:00', closes: '17:00' },
+      is_closed: false
+    }
+  },
+  specialHours: [],
+  currentStatus: {
+    isOpen: true,
+    kitchenOpen: true,
+    closesIn: null,
+    opensIn: null
+  },
+  timezone: 'Europe/London',
+  lastUpdated: '2024-01-01T00:00:00.000Z'
+}
+
+const buildPhaseSkipLogged = new Set<string>()
+
+const FALLBACK_EVENT_CATEGORIES: EventCategoriesResponse = {
+  categories: [
+    {
+      id: 'drag-shows',
+      name: 'Drag & Cabaret',
+      slug: 'drag-shows',
+      description: 'Signature drag shows, bingo, and cabaret nights at The Anchor.',
+      color: '#8b5cf6',
+      icon: '🎭',
+      is_active: true,
+      default_start_time: '20:00',
+      default_capacity: 120,
+      event_count: 0
+    },
+    {
+      id: 'quiz-nights',
+      name: 'Quiz Nights',
+      slug: 'quiz-nights',
+      description: 'Weekly quiz nights with rolling jackpots and prizes.',
+      color: '#0ea5e9',
+      icon: '🧠',
+      is_active: true,
+      default_start_time: '19:30',
+      default_capacity: 80,
+      event_count: 0
+    },
+    {
+      id: 'live-music',
+      name: 'Live Music',
+      slug: 'live-music',
+      description: 'Acoustic sets, tribute nights, and live bands.',
+      color: '#22c55e',
+      icon: '🎶',
+      is_active: true,
+      default_start_time: '20:00',
+      default_capacity: 100,
+      event_count: 0
+    }
+  ],
+  meta: {
+    total: 3,
+    lastUpdated: '2024-01-01T00:00:00.000Z'
+  }
+}
+
+const FALLBACK_PARKING_RATES: ParkingRateCard = {
+  id: 'fallback-parking-rates',
+  effective_from: '2024-01-01T00:00:00.000Z',
+  hourly_rate: 2.5,
+  daily_rate: 12,
+  weekly_rate: 55,
+  monthly_rate: 180,
+  capacity_override: 40,
+  notes: 'Offline fallback rates. Contact the venue to confirm current pricing.',
+  created_at: '2024-01-01T00:00:00.000Z'
+}
+
+const FALLBACK_SUNDAY_LUNCH_MENU: SundayLunchMenuResponse = {
+  menu: {
+    starters: [
+      {
+        name: 'Seasonal Soup',
+        description: 'Chef-made soup served with warm bread.',
+        price: 6.5,
+        dietary: ['vegetarian']
+      },
+      {
+        name: 'Prawn Cocktail',
+        description: 'North Atlantic prawns with Marie Rose sauce.',
+        price: 7.5,
+        dietary: []
+      }
+    ],
+    mains: [
+      {
+        name: 'Roast Beef',
+        description: 'Served with Yorkshire pudding, roast potatoes, and gravy.',
+        price: 14.5,
+        dietary: []
+      },
+      {
+        name: 'Roast Chicken',
+        description: 'Free-range chicken with sage stuffing and seasonal vegetables.',
+        price: 13.5,
+        dietary: []
+      },
+      {
+        name: 'Vegetable Wellington',
+        description: 'Puff pastry filled with seasonal vegetables and mushroom duxelles.',
+        price: 12.5,
+        dietary: ['vegetarian']
+      }
+    ],
+    desserts: [
+      {
+        name: 'Sticky Toffee Pudding',
+        description: 'Rich sponge with butterscotch sauce and vanilla ice cream.',
+        price: 6,
+        dietary: []
+      },
+      {
+        name: 'Apple Crumble',
+        description: 'Bramley apples with oat crumble topping.',
+        price: 5.5,
+        dietary: ['vegetarian']
+      }
+    ]
+  },
+  service_times: {
+    start: '12:00',
+    end: '17:00'
+  },
+  last_updated: '2024-01-01T00:00:00.000Z'
+}
+
+function createFallbackEvent(eventId: string): Event {
+  const normalizedId = eventId.replace(/\/+$/, '')
+  const id = normalizedId || 'the-anchor-event'
+  const now = new Date()
+  const nextSaturday = new Date(now)
+  nextSaturday.setDate(now.getDate() + (6 - now.getDay() + 7) % 7)
+  nextSaturday.setHours(20, 0, 0, 0)
+
+  return {
+    '@type': 'Event',
+    id,
+    slug: id,
+    name: 'The Anchor Live Event',
+    description: 'Offline placeholder for our live events. Call 01753 682707 for the latest lineup.',
+    shortDescription: 'Offline event placeholder.',
+    startDate: nextSaturday.toISOString(),
+    endDate: null,
+    doorTime: '2025-01-01T19:00:00+00:00',
+    duration: 'PT3H',
+    about: null,
+    eventStatus: 'https://schema.org/EventScheduled',
+    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+    location: {
+      '@type': 'Place',
+      name: 'The Anchor, Stanwell Moor',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Horton Road',
+        addressLocality: 'Stanwell Moor',
+        addressRegion: 'Surrey',
+        postalCode: 'TW19 6AQ',
+        addressCountry: 'GB'
+      }
+    },
+    performer: {
+      '@type': 'MusicGroup',
+      name: 'Resident Entertainers'
+    },
+    offers: {
+      '@type': 'Offer',
+      price: '0.00',
+      priceCurrency: 'GBP',
+      availability: 'https://schema.org/InStock',
+      validFrom: now.toISOString(),
+      url: 'https://www.the-anchor.pub/book-event'
+    },
+    image: [DEFAULT_EVENT_IMAGE],
+    video: [],
+    heroImageUrl: DEFAULT_EVENT_IMAGE,
+    thumbnailImageUrl: DEFAULT_EVENT_IMAGE,
+    posterImageUrl: DEFAULT_EVENT_IMAGE,
+    galleryImages: [],
+    promoVideoUrl: null,
+    highlightVideos: [],
+    organizer: {
+      '@type': 'Organization',
+      name: 'The Anchor'
+    },
+    isAccessibleForFree: true,
+    remainingAttendeeCapacity: 60,
+    maximumAttendeeCapacity: 120,
+    url: `https://www.the-anchor.pub/events/${id}`,
+    identifier: id,
+    metaTitle: 'Event at The Anchor',
+    metaDescription: 'Join us at The Anchor for live entertainment near Heathrow Airport.',
+    category: {
+      id: 'fallback',
+      name: 'Venue Event',
+      slug: 'venue-event',
+      color: '#005131',
+      icon: '🎉'
+    },
+    booking_rules: {
+      max_seats_per_booking: 6,
+      requires_customer_details: true,
+      allows_notes: true,
+      sms_confirmation_enabled: true
+    },
+    custom_messages: {},
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `https://www.the-anchor.pub/events/${id}`
+    },
+    potentialAction: {
+      '@type': 'ReserveAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: 'https://www.the-anchor.pub/book-event',
+        inLanguage: 'en-GB'
+      },
+      result: {
+        '@type': 'Reservation',
+        name: 'Event Reservation'
+      }
+    },
+    faq: [],
+    faqPage: undefined
+  }
+}
+
+function createFallbackEventsResponse(): EventsResponse {
+  const event = createFallbackEvent('the-anchor-showcase')
+  return {
+    events: [event],
+    pagination: {
+      total: 1,
+      limit: 1,
+      offset: 0
+    }
+  }
+}
+
+function createFallbackAvailability(eventId: string): EventAvailability {
+  return {
+    available: true,
+    event_id: eventId,
+    capacity: 120,
+    booked: 60,
+    remaining: 60,
+    percentage_full: 50
+  }
+}
+
 export class AnchorAPI {
   private baseURL: string
   private apiKey: string
@@ -595,6 +892,22 @@ export class AnchorAPI {
     options: RequestInit = {}
   ): Promise<T> {
     const url = `${this.baseURL}${endpoint}`
+    const baseEndpoint = endpoint.split('?')[0]
+    const isBuildPhase =
+      typeof window === 'undefined' &&
+      process.env.NEXT_PHASE === 'phase-production-build' &&
+      process.env.ENABLE_BUILD_TIME_EXTERNAL_API !== 'true'
+
+    if (isBuildPhase) {
+      const buildFallback = this.getFallbackResponse(baseEndpoint)
+      if (buildFallback) {
+        if (!buildPhaseSkipLogged.has(baseEndpoint)) {
+          console.warn(`[api-request] Skipping external fetch for ${baseEndpoint} during build`)
+          buildPhaseSkipLogged.add(baseEndpoint)
+        }
+        return buildFallback as T
+      }
+    }
     
     try {
       // Try both authentication methods as documented
@@ -697,20 +1010,42 @@ export class AnchorAPI {
         details: { response: data }
       }
     } catch (error: any) {
-      // Ensure error has proper structure
-      const structuredError = {
-        code: error.code || 'NETWORK_ERROR',
-        message: error.message || 'Network request failed',
-        status: error.status || 0,
-        details: error.details || {}
+      const isNetworkError =
+        !error?.status ||
+        error?.code === 'ENOTFOUND' ||
+        error?.code === 'EAI_AGAIN' ||
+        error?.code === 'NETWORK_ERROR' ||
+        (typeof error?.message === 'string' && /fetch failed|network/i.test(error.message))
+
+      const fallback = this.getFallbackResponse(baseEndpoint)
+
+      if (fallback) {
+        console.warn(`[api-request] Using fallback data for ${baseEndpoint}`, {
+          reason: isNetworkError ? 'network-unavailable' : error?.code || 'unknown'
+        })
+        return fallback as T
       }
-      
-      logError('api-request', structuredError, { 
-        endpoint, 
-        url,
-        method: options.method || 'GET' 
-      })
-      
+
+      const structuredError = {
+        code: error?.code || (isNetworkError ? 'NETWORK_ERROR' : 'API_ERROR'),
+        message: error?.message || 'Request failed',
+        status: error?.status || 0,
+        details: error?.details || {}
+      }
+
+      if (isNetworkError) {
+        console.warn(`[api-request] ${structuredError.message}`, {
+          endpoint: baseEndpoint,
+          status: structuredError.status
+        })
+      } else {
+        logError('api-request', structuredError, {
+          endpoint,
+          url,
+          method: options.method || 'GET'
+        })
+      }
+
       throw structuredError
     }
   }
@@ -935,6 +1270,47 @@ export class AnchorAPI {
     }
   }> {
     return this.request('/business/amenities')
+}
+
+  private getFallbackResponse(endpoint: string): any | null {
+    if (endpoint === '/event-categories') {
+      return FALLBACK_EVENT_CATEGORIES
+    }
+
+    if (endpoint === '/parking/rates') {
+      return FALLBACK_PARKING_RATES
+    }
+
+    if (endpoint === '/table-bookings/menu/sunday-lunch') {
+      return FALLBACK_SUNDAY_LUNCH_MENU
+    }
+
+    if (endpoint === '/business/hours') {
+      return FALLBACK_BUSINESS_HOURS
+    }
+
+    if (endpoint === '/events' || endpoint === '/events/') {
+      return createFallbackEventsResponse()
+    }
+
+    if (endpoint === '/events/today') {
+      return createFallbackEventsResponse()
+    }
+
+    if (endpoint.startsWith('/events/') && endpoint.endsWith('/check-availability')) {
+      const eventId = endpoint
+        .replace('/events/', '')
+        .replace('/check-availability', '')
+        .replace(/\/+$/, '') || 'event'
+      return createFallbackAvailability(eventId)
+    }
+
+    if (endpoint.startsWith('/events/')) {
+      const eventId = endpoint.replace('/events/', '').replace(/\/+$/, '') || 'event'
+      return createFallbackEvent(eventId)
+    }
+
+    return null
   }
 }
 

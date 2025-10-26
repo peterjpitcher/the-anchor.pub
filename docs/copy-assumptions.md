@@ -16,6 +16,13 @@ Maintains a single source of truth for marketing assumptions that appear in site
 | A-10 | Pizza Ops | Crew can pre-order Pizza Tuesday takeaway boxes. | ✅ Resolved Oct ’25 | Pizza Tuesday blog, CTA copy | Messaging softened to “let us know your timing” without promising pre-orders. |
 | A-11 | Roast Ops | Quiz night & bingo guests can pre-order roasts same day. | ✅ Resolved Oct ’25 | Quiz night & cash bingo pages | Calls-to-action now ask guests to book tables instead of pre-ordering. |
 | A-12 | Partnerships | We can introduce layover guests to partner hotels for late check-out. | ❌ Not offered | Layover itineraries | Copy now suggests nearby hotel recommendations rather than formal partnerships. |
+| A-13 | Private Hire | Conservatory references now point to the rebuilt Dining Room (26 seated / 50 standing). | ✅ Confirmed Oct ’25 | Hire pages, brochures | Rename space to “Dining Room” wherever “Conservatory” still appears. |
+| A-14 | Private Hire | Garden max 64 seated / 150 standing; Main Pub 50 seated indoors, 64 seated outdoors, 300 standing. | ✅ Confirmed Oct ’25 | Hire pages, enquiry assets | Use these capacities in comparison tables and FAQ answers. |
+| A-15 | Private Hire | Room hire fees: Dining Room £75/hr, Garden £75/hr, Entire Pub (closed) £250/hr. | ✅ Confirmed Oct ’25 | Pricing sections, enquiry forms | Surface rates or “from” pricing when discussing venue hire. |
+| A-16 | Catering | Buffets priced per head: Sandwich £8.50, Finger £9.50, Burger £8.99, Premium £11.99; kids meals £7pp; pizza buffet priced on request. | ✅ Confirmed Oct ’25 | Catering modules, downloadable menus | Mirror names/pricing exactly; flag pizza buffet as POA. |
+| A-17 | Drinks | Drinks packages: Unlimited tea & coffee £4.49pp, Pimm’s jar £4.99pp, Kids squash £2.50pp, Welcome Prosecco/OJ £6.99pp, cocktail pitchers POA. | ✅ Confirmed Oct ’25 | Hire pages, enquiry follow-ups | Present figures in pricing tables; note cocktail pitchers “priced on enquiry.” |
+| A-18 | Policies | BYOF permitted with signed waiver; extra services (decor, DJ, entertainment, sweets cart, etc.) available on enquiry. | ✅ Confirmed Oct ’25 | FAQs, confirmation emails | Mention waiver requirement and that add-ons are bespoke. |
+| A-19 | Policies | Request earliest possible lead time; £200 deposit required (booking + damage cover); do not publish cancellation terms. | ✅ Confirmed Oct ’25 | Hire CTAs, enquiry scripts | Embed deposit message and omit cancellation copy unless policy changes. |
 
 Legend: ✅ Confirmed | ⚠️ Needs verification | ❌ Remove/Adjust
 

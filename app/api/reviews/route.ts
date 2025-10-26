@@ -41,7 +41,7 @@ export async function GET(request: Request) {
 
     // Use mock data if API is not configured or returns no reviews
     if (reviews.length === 0) {
-      logError('reviews-api-fallback', new Error('No reviews returned from API, using mock data'), {
+      console.warn('reviews-api-fallback: using mock reviews', {
         hasClient: !!client,
         filter
       })

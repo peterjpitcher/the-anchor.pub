@@ -1,77 +1,103 @@
-import Image from 'next/image'
 import Link from 'next/link'
-import { Button, Container, Section, Card, CardBody, Alert } from '@/components/ui'
-import { BookTableButton } from '@/components/BookTableButton'
-import { StatusBar } from '@/components/StatusBar'
-import { FilteredMenuRenderer } from '@/components/FilteredMenuRenderer'
-import { DailySpecials } from '@/components/DailySpecials'
-import { HeroWrapper, Breadcrumbs } from '@/components/hero'
-import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { PageTitle } from '@/components/ui/typography/PageTitle'
-import { parseMenuMarkdown } from '@/lib/menu-parser'
-import { getBusinessHours } from '@/lib/api'
 import { Metadata } from 'next'
-import { CTASection, SectionHeader, FeatureGrid, InfoBoxGrid, AlertBox } from '@/components/ui'
-import { getTwitterMetadata } from '@/lib/twitter-metadata'
+import { Container, Section, Card, CardBody, Alert } from '@/components/ui'
+import { CTASection, SectionHeader, FeatureGrid } from '@/components/ui'
+import { BookTableButton } from '@/components/BookTableButton'
+import { HeroWrapper } from '@/components/hero'
+import { MenuAnchorNav } from '@/components/food/MenuAnchorNav'
+import { MenuSectionCta } from '@/components/food/MenuSectionCta'
+import { FilteredMenuRenderer } from '@/components/FilteredMenuRenderer'
 import { MenuPageTracker } from '@/components/MenuPageTracker'
 import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
 import { SpeakableSchema } from '@/components/seo/SpeakableSchema'
 import { SpeakableContent } from '@/components/voice/SpeakableContent'
-import { KitchenHoursDisplay } from '@/components/KitchenHoursDisplay'
+import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
+import { parseMenuMarkdown } from '@/lib/menu-parser'
+import { getBusinessHours, isKitchenOpen, type BusinessHours } from '@/lib/api'
 import { formatTime12Hour } from '@/lib/time-utils'
-import { isKitchenOpen, BusinessHours } from '@/lib/api'
-import { generateSuitableForDiet, generateNutritionInfo, generateMenuItemOffer } from '@/lib/schema-utils'
+import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { specialAnnouncementSchema } from '@/lib/schema'
 import { DEFAULT_PIZZA_IMAGE } from '@/lib/image-fallbacks'
+import { generateMenuItemOffer, generateNutritionInfo, generateSuitableForDiet } from '@/lib/schema-utils'
 import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 
-// Helper function to build kitchen schedule string from business hours
+const HERO_GRADIENT =
+  'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" preserveAspectRatio="none"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="%230f1e14"/><stop offset="50%" stop-color="%231c3a2a"/><stop offset="100%" stop-color="%230f1e14"/></linearGradient></defs><rect width="800" height="600" fill="url(%23g)"/></svg>'
+
+const ANCHOR_LINKS = [
+  { id: 'sunday-roast', label: 'Sunday Roast', icon: '🍖' },
+  { id: 'pizza-tuesday', label: 'Pizza Tuesday', icon: '🍕' },
+  { id: 'pub-classics', label: 'Pub Classics', icon: '🍔' },
+  { id: 'dietary', label: 'Veggie & Gluten-Friendly', icon: '🌱' },
+  { id: 'near-heathrow', label: 'Near Heathrow', icon: '✈️' }
+]
+
+const MENU_SECTION_LIST = [
+  {
+    position: 1,
+    name: 'Sunday Roasts',
+    url: 'https://www.the-anchor.pub/food-menu#sunday-roast'
+  },
+  {
+    position: 2,
+    name: 'Pizza Tuesday',
+    url: 'https://www.the-anchor.pub/food-menu#pizza-tuesday'
+  },
+  {
+    position: 3,
+    name: 'Pub Classics',
+    url: 'https://www.the-anchor.pub/food-menu#pub-classics'
+  },
+  {
+    position: 4,
+    name: 'Vegetarian & Gluten-Friendly',
+    url: 'https://www.the-anchor.pub/food-menu#dietary'
+  },
+  {
+    position: 5,
+    name: 'Near Heathrow',
+    url: 'https://www.the-anchor.pub/food-menu#near-heathrow'
+  }
+]
+
 function buildKitchenSchedule(hours: BusinessHours): string {
   const schedule: string[] = []
-  
-  // Check Tuesday to Friday
-  const weekdays = ['tuesday', 'wednesday', 'thursday', 'friday']
-  const weekdayHours = weekdays.map(day => {
-    const dayHours = hours.regularHours[day]
-    if (!dayHours || !dayHours.kitchen || !isKitchenOpen(dayHours.kitchen)) return null
-    return {
-      day,
-      opens: formatTime12Hour(dayHours.kitchen.opens),
-      closes: formatTime12Hour(dayHours.kitchen.closes)
-    }
-  }).filter(Boolean)
-  
-  // Check if all weekdays have same hours
-  if (weekdayHours.length === 4 && weekdayHours.every(h => 
-    h?.opens === weekdayHours[0]?.opens && h?.closes === weekdayHours[0]?.closes
-  )) {
-    schedule.push(`Tuesday to Friday from ${weekdayHours[0]?.opens}-${weekdayHours[0]?.closes}`)
-  } else {
-    // Add individually
-    weekdayHours.forEach(h => {
-      if (h) {
-        schedule.push(`${h.day.charAt(0).toUpperCase() + h.day.slice(1)} from ${h.opens}-${h.closes}`)
+
+  const weekdays: Array<keyof BusinessHours['regularHours']> = ['tuesday', 'wednesday', 'thursday', 'friday']
+  const weekdayHours = weekdays
+    .map(day => {
+      const dayHours = hours.regularHours[day]
+      if (!dayHours?.kitchen || !isKitchenOpen(dayHours.kitchen)) return null
+      return {
+        day,
+        opens: formatTime12Hour(dayHours.kitchen.opens),
+        closes: formatTime12Hour(dayHours.kitchen.closes)
       }
     })
+    .filter(Boolean) as Array<{ day: string; opens: string; closes: string }>
+
+  if (
+    weekdayHours.length === weekdays.length &&
+    weekdayHours.every(h => h.opens === weekdayHours[0].opens && h.closes === weekdayHours[0].closes)
+  ) {
+    schedule.push(`Tuesday to Friday ${weekdayHours[0].opens}-${weekdayHours[0].closes}`)
+  } else {
+    weekdayHours.forEach(h => {
+      schedule.push(`${h.day.charAt(0).toUpperCase() + h.day.slice(1)} ${h.opens}-${h.closes}`)
+    })
   }
-  
-  // Saturday
-  const saturdayHours = hours.regularHours.saturday
-  if (saturdayHours?.kitchen && isKitchenOpen(saturdayHours.kitchen)) {
-    const opens = formatTime12Hour(saturdayHours.kitchen.opens)
-    const closes = formatTime12Hour(saturdayHours.kitchen.closes)
-    schedule.push(`Saturday from ${opens}-${closes}`)
+
+  const saturdayHours = hours.regularHours.saturday?.kitchen
+  if (saturdayHours && isKitchenOpen(saturdayHours)) {
+    schedule.push(`Saturday ${formatTime12Hour(saturdayHours.opens)}-${formatTime12Hour(saturdayHours.closes)}`)
   }
-  
-  // Sunday
-  const sundayHours = hours.regularHours.sunday
-  if (sundayHours?.kitchen && isKitchenOpen(sundayHours.kitchen)) {
-    const opens = formatTime12Hour(sundayHours.kitchen.opens)
-    const closes = formatTime12Hour(sundayHours.kitchen.closes)
-    schedule.push(`Sunday from ${opens}-${closes}`)
+
+  const sundayHours = hours.regularHours.sunday?.kitchen
+  if (sundayHours && isKitchenOpen(sundayHours)) {
+    schedule.push(`Sunday ${formatTime12Hour(sundayHours.opens)}-${formatTime12Hour(sundayHours.closes)}`)
   }
-  
-  return schedule.join(', ') || "Please check our current hours"
+
+  return schedule.join(', ') || 'Please check our current hours'
 }
 
 export const metadata: Metadata = {
@@ -93,16 +119,74 @@ export const metadata: Metadata = {
   }
 }
 
+const pizzaBogofSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Offer',
+  name: 'Buy One Get One Free Pizza - Every Tuesday',
+  description: 'BOGOF on all stone-baked pizzas every Tuesday at The Anchor. Dine-in and takeaway available.',
+  url: 'https://www.the-anchor.pub/food-menu#pizza-tuesday',
+  priceCurrency: 'GBP',
+  eligibleRegion: {
+    '@type': 'Place',
+    name: 'Stanwell Moor, Staines, Ashford, Feltham, and surrounding Surrey areas'
+  },
+  availabilityStarts: '2025-01-01',
+  availabilityEnds: '2025-12-31',
+  validFrom: '16:00',
+  validThrough: '22:00',
+  dayOfWeek: 'https://schema.org/Tuesday',
+  itemOffered: {
+    '@type': 'Product',
+    name: 'Stone-Baked Pizzas',
+    category: 'Pizza',
+    description: 'Stone-baked pizzas with hand-stretched dough, rich tomato sauce and generous toppings available at The Anchor near Heathrow.',
+    image: `https://www.the-anchor.pub${DEFAULT_PIZZA_IMAGE}`,
+    offers: {
+      '@type': 'Offer',
+      name: 'Tuesday Pizza BOGOF',
+      description: 'Buy one get one free on all pizzas every Tuesday',
+      price: '9.99',
+      priceCurrency: 'GBP',
+      availability: 'https://schema.org/InStock',
+      url: 'https://www.the-anchor.pub/food-menu#pizza-tuesday'
+    }
+  },
+  seller: {
+    '@type': 'LocalBusiness',
+    name: 'The Anchor',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Stanwell Moor',
+      addressRegion: 'Surrey'
+    }
+  }
+}
+
+const fridayFishOfferSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Offer',
+  name: '50% Off Fish & Chips for Over 65s - Every Friday',
+  description: 'Half price fish and chips for senior citizens every Friday at The Anchor.',
+  url: 'https://www.the-anchor.pub/food-menu#pub-classics',
+  priceCurrency: 'GBP',
+  eligibleRegion: {
+    '@type': 'Place',
+    name: 'Stanwell Moor and surrounding areas'
+  },
+  eligibleCustomerType: 'Senior Citizens (65+)',
+  dayOfWeek: 'https://schema.org/Friday',
+  seller: {
+    '@type': 'LocalBusiness',
+    name: 'The Anchor'
+  }
+}
+
 export default async function FoodMenuPage() {
   const [menuData, businessHours] = await Promise.all([
     parseMenuMarkdown('food'),
     getBusinessHours()
   ])
-  
-  // Build dynamic kitchen schedule string
-  const kitchenSchedule = businessHours ? buildKitchenSchedule(businessHours) : 
-    "Tuesday to Friday from 6pm-9pm, Saturday from 1pm-7pm, and Sunday from 12pm-5pm"
-  
+
   if (!menuData) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -111,324 +195,220 @@ export default async function FoodMenuPage() {
     )
   }
 
-  const isOpen = businessHours?.currentStatus?.isOpen || false
+  const kitchenSchedule = businessHours
+    ? buildKitchenSchedule(businessHours)
+    : 'Tuesday to Friday 6pm-9pm, Saturday 1pm-7pm, Sunday 12pm-5pm'
 
-  // Create schemas
-  const pizzaBOGOFSchema = {
-    "@context": "https://schema.org",
-    "@type": "Offer",
-    "name": "Buy One Get One Free Pizza - Every Tuesday",
-    "description": "BOGOF on all stone-baked pizzas every Tuesday at The Anchor. Dine-in and takeaway available.",
-    "url": "https://www.the-anchor.pub/food-menu#pizza",
-    "priceCurrency": "GBP",
-    "eligibleRegion": {
-      "@type": "Place",
-      "name": "Stanwell Moor, Staines, Ashford, Feltham, and surrounding Surrey areas"
-    },
-    "availabilityStarts": "2025-01-01",
-    "availabilityEnds": "2025-12-31",
-    "validFrom": "16:00",
-    "validThrough": "22:00",
-    "dayOfWeek": "https://schema.org/Tuesday",
-    "itemOffered": {
-      "@type": "Product",
-      "name": "Stone-Baked Pizzas",
-      "category": "Pizza",
-      "description": "Stone-baked pizzas with hand-stretched dough, rich tomato sauce and generous toppings available at The Anchor near Heathrow.",
-      "image": `https://www.the-anchor.pub${DEFAULT_PIZZA_IMAGE}`,
-      "offers": {
-        "@type": "Offer",
-        "name": "Tuesday Pizza BOGOF",
-        "description": "Buy one get one free on all pizzas every Tuesday",
-        "price": "9.99",
-        "priceCurrency": "GBP",
-        "availability": "https://schema.org/InStock",
-        "url": "https://www.the-anchor.pub/food-menu#pizza"
-      }
-    },
-    "seller": {
-      "@type": "LocalBusiness",
-      "name": "The Anchor",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Stanwell Moor",
-        "addressRegion": "Surrey"
-      }
-    }
+  const heroImage = {
+    src: HERO_GRADIENT,
+    alt: 'Green gradient backdrop'
   }
-
-  const fridayFishOfferSchema = {
-    "@context": "https://schema.org",
-    "@type": "Offer",
-    "name": "50% Off Fish & Chips for Over 65s - Every Friday",
-    "description": "Half price fish and chips for senior citizens every Friday at The Anchor.",
-    "url": "https://www.the-anchor.pub/food-menu#mains",
-    "priceCurrency": "GBP",
-    "eligibleRegion": {
-      "@type": "Place",
-      "name": "Stanwell Moor and surrounding areas"
-    },
-    "eligibleCustomerType": "Senior Citizens (65+)",
-    "dayOfWeek": "https://schema.org/Friday",
-    "seller": {
-      "@type": "LocalBusiness",
-      "name": "The Anchor"
-    }
-  }
-
-  const menuSectionList = [
-    {
-      position: 1,
-      name: "Sunday Roasts",
-      url: "https://www.the-anchor.pub/food-menu#roasts"
-    },
-    {
-      position: 2,
-      name: "Pizza Tuesday",
-      url: "https://www.the-anchor.pub/food-menu#pizza"
-    },
-    {
-      position: 3,
-      name: "Pub Classics",
-      url: "https://www.the-anchor.pub/food-menu#classics"
-    },
-    {
-      position: 4,
-      name: "Dietary Options",
-      url: "https://www.the-anchor.pub/food-menu#dietary"
-    },
-    {
-      position: 5,
-      name: "Visiting Heathrow",
-      url: "https://www.the-anchor.pub/food-menu#travel"
-    }
-  ]
 
   return (
     <>
       <SpeakableSchema />
-      <MenuPageTracker 
-        menuType="food" 
+      <MenuPageTracker
+        menuType="food"
         specialOffers={[
-          "Buy One Get One Free Pizza - Every Tuesday",
-          "50% Off Fish & Chips for Over 65s - Every Friday"
+          'Buy One Get One Free Pizza - Every Tuesday',
+          '50% Off Fish & Chips for Over 65s - Every Friday'
         ]}
       />
       <ScrollDepthTracker />
-      {/* Hero Section */}
+
       <HeroWrapper
         route="/food-menu"
         title="Book Pub Food Minutes from Heathrow"
-        description="Sunday roasts, 2-for-1 Pizza Tuesday and pub classics with free parking and rapid service."
+        description="Sunday roasts, 2-for-1 Pizza Tuesday and proper pub classics with free parking and rapid service."
         size="small"
-        showStatusBar={true}
-        breadcrumbs={[
-          { name: 'Food & Drink' }
-        ]}
+        alignment="center"
+        showStatusBar
+        image={heroImage}
+        breadcrumbs={[{ name: 'Food & Drink' }]}
         tags={[
-          { label: '🍖 Sunday Roast Pre-Orders', variant: 'default' },
+          { label: '🍖 Roast pre-orders', variant: 'default' },
           { label: '🍕 2-for-1 Pizza Tuesday', variant: 'default' },
-          { label: '🍔 Pub Classics & Burgers', variant: 'default' },
-          { label: '🌱 Veggie & Gluten-Friendly', variant: 'default' }
+          { label: '🍺 Pub classics', variant: 'default' },
+          { label: '🌱 Veggie friendly', variant: 'default' }
         ]}
         cta={
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div
+            className="flex flex-col sm:flex-row gap-4 justify-center"
+            data-sticky-cta-guard="true"
+          >
             <BookTableButton
               source="food_menu_hero"
               context="food"
               variant="primary"
               size="lg"
-              fullWidth
               className="sm:w-auto"
+              trackingLabel="Hero Book a Table"
             >
-              Reserve a Table
+              Book a Table
             </BookTableButton>
-            <Link href="#menu" className="w-full sm:w-auto">
-              <Button 
-                variant="secondary"
-                size="lg"
-                fullWidth
-                className="sm:w-auto bg-white text-anchor-green hover:bg-gray-100"
-              >
-                📖 View Full Menu
-              </Button>
-            </Link>
+            <MenuSectionCta
+              label="View Full Menu"
+              scrollToId="menu"
+              analyticsLabel="view_full_menu"
+              location="food_menu_hero"
+              variant="outline"
+              fullWidth
+            />
           </div>
         }
-      />
+      >
+        <p className="mt-6 text-sm sm:text-base text-white/80 max-w-2xl mx-auto">
+          Working nearby or passing through Heathrow? Pop in for proper pub food, quick service, and free parking.
+        </p>
+      </HeroWrapper>
 
-      {/* Quick Jump Links */}
       <Section background="white" spacing="sm">
         <Container>
-          <div className="flex flex-wrap justify-center gap-3">
-            {[
-              { href: '#roasts', label: '🍖 Sunday Roast' },
-              { href: '#pizza', label: '🍕 Pizza Tuesday' },
-              { href: '#classics', label: '🍔 Pub Classics' },
-              { href: '#dietary', label: '🌱 Vegetarian & Gluten-Friendly' },
-              { href: '#travel', label: '✈️ Heathrow Travellers' }
-            ].map(link => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="inline-flex items-center gap-2 rounded-full border border-anchor-green/20 bg-white px-4 py-2 text-sm font-semibold text-anchor-green shadow-sm transition hover:border-anchor-gold hover:text-anchor-gold"
-              >
-                {link.label}
-              </a>
-            ))}
-          </div>
+          <MenuAnchorNav links={ANCHOR_LINKS} />
         </Container>
       </Section>
 
-      {/* Menu Highlights */}
-      <Section background="white" spacing="md" id="highlights">
+      <div id="menu" className="section-spacing bg-white">
+        <Container>
+          <SectionHeader
+            title="Full Food Menu"
+            subtitle="Use the dietary filters to tailor the menu to your table."
+            align="center"
+            className="mb-10"
+          />
+          <FilteredMenuRenderer menuData={menuData} accentColor="anchor-gold" />
+        </Container>
+      </div>
+
+      <Section background="white" spacing="md">
         <Container>
           <SectionHeader
             title="What Guests Book Us For"
             subtitle="Choose the section that matches your plans and pre-book to guarantee your table."
           />
-          <FeatureGrid
-            columns={4}
-            features={[
-              {
-                icon: "🍖",
-                title: "Signature Sunday Roast",
-                description: (
-                  <>
-                    Book by 1pm Saturday to guarantee proper roasts with Yorkshire puddings and crispy potatoes.
-                    <div className="mt-3">
-                      <Link href="/sunday-lunch" className="text-anchor-gold font-semibold hover:text-anchor-green transition">
-                        Explore roast menu →
+          <SpeakableContent selector="menu-highlights" priority="high">
+            <FeatureGrid
+              columns={4}
+              features={[
+                {
+                  icon: '🍖',
+                  title: 'Signature Sunday Roast',
+                  description: (
+                    <>
+                      Book by 1pm Saturday to lock in roasts with Yorkshires, crispy spuds, and rich gravy.
+                      <Link
+                        href="/sunday-lunch"
+                        className="mt-2 block text-anchor-gold font-semibold hover:text-anchor-green transition"
+                      >
+                        View roast options →
                       </Link>
-                    </div>
-                  </>
-                ),
-                className: "text-left",
-                variant: "colored",
-                color: "bg-anchor-cream/60"
-              },
-              {
-                icon: "🍕",
-                title: "Pizza Tuesday BOGOF",
-                description: (
-                  <>
-                    All stone-baked pizzas are buy-one-get-one-free every Tuesday. Dine in or takeaway with free parking.
-                    <div className="mt-3">
-                      <Link href="/pizza-tuesday" className="text-anchor-gold font-semibold hover:text-anchor-green transition">
-                        See the deal →
+                    </>
+                  ),
+                  className: 'text-left bg-anchor-cream/60 rounded-2xl p-6 shadow-sm'
+                },
+                {
+                  icon: '🍕',
+                  title: 'Pizza Tuesday BOGOF',
+                  description: (
+                    <>
+                      Hand-stretched dough, stone-baked, and two-for-one every Tuesday evening.
+                      <Link
+                        href="/pizza-tuesday"
+                        className="mt-2 block text-anchor-gold font-semibold hover:text-anchor-green transition"
+                      >
+                        Read the deal →
                       </Link>
-                    </div>
-                  </>
-                ),
-                className: "text-left",
-                variant: "colored",
-                color: "bg-white"
-              },
-              {
-                icon: "🍔",
-                title: "Pub Classics & Burgers",
-                description: (
-                  <>
-                    From double-stacked burgers to fish & chips, quick service keeps Heathrow schedules on track.
-                    <div className="mt-3">
-                      <a href="#classics" className="text-anchor-gold font-semibold hover:text-anchor-green transition">
-                        Jump to pub favourites →
-                      </a>
-                    </div>
-                  </>
-                ),
-                className: "text-left",
-                variant: "colored",
-                color: "bg-white"
-              },
-              {
-                icon: "🌱",
-                title: "Vegetarian & Gluten-Friendly",
-                description: (
-                  <>
-                    Dedicated veggie mains, salads and gluten-aware options. Speak to us about allergens anytime.
-                    <div className="mt-3">
-                      <a href="#dietary" className="text-anchor-gold font-semibold hover:text-anchor-green transition">
-                        View dietary picks →
-                      </a>
-                    </div>
-                  </>
-                ),
-                className: "text-left",
-                variant: "colored",
-                color: "bg-white"
-              }
-            ]}
-          />
+                    </>
+                  ),
+                  className: 'text-left bg-white rounded-2xl p-6 shadow-sm'
+                },
+                {
+                  icon: '🍔',
+                  title: 'Pub Classics, Fast',
+                  description: 'Order at the bar or from your table — mains land within 15 minutes.',
+                  className: 'text-left bg-white rounded-2xl p-6 shadow-sm'
+                },
+                {
+                  icon: '🌱',
+                  title: 'Veggie & Gluten-Friendly',
+                  description: 'Dedicated mains, salads and gluten-aware bases. Ask us about allergens anytime.',
+                  className: 'text-left bg-white rounded-2xl p-6 shadow-sm'
+                }
+              ]}
+            />
+          </SpeakableContent>
         </Container>
       </Section>
 
-      {/* Social Proof */}
       <Section background="white" spacing="sm">
         <Container>
-          <Card className="max-w-4xl mx-auto bg-anchor-cream/60">
-            <CardBody>
-              <p className="text-sm uppercase tracking-[0.3em] text-anchor-gold mb-3 text-center">
-                Guest feedback
-              </p>
-              <blockquote className="text-center text-xl font-semibold text-anchor-green">
-                “The food was fantastic and great value. Sunday roast cooked to perfection and the pizza offer was brilliant.
-                Staff were welcoming and the free parking made flying from Heathrow so much easier.”
-              </blockquote>
-              <p className="mt-4 text-center text-sm text-gray-600">— Google Review, September 2025</p>
-            </CardBody>
-          </Card>
+          <div className="grid gap-6 md:grid-cols-2">
+            <Card className="bg-anchor-cream/60">
+              <CardBody>
+                <blockquote className="text-lg font-semibold text-anchor-green">
+                  “Sunday lunch was faultless — Yorkshire puddings like clouds, quick service, and the team could not do enough for us.”
+                </blockquote>
+                <p className="mt-4 text-sm text-gray-600">Google review · August 2025</p>
+              </CardBody>
+            </Card>
+            <Card className="bg-white">
+              <CardBody>
+                <blockquote className="text-lg font-semibold text-anchor-green">
+                  “We stopped on the way past Heathrow. Proper food, fair prices, and parking was a breeze — booked again for next month.”
+                </blockquote>
+                <p className="mt-4 text-sm text-gray-600">Tripadvisor review · July 2025</p>
+              </CardBody>
+            </Card>
+          </div>
         </Container>
       </Section>
-      {/* Sunday Roast Focus */}
-      <Section background="white" spacing="md" id="roasts">
+
+      <Section background="white" spacing="md" id="sunday-roast">
         <Container>
-          <div className="grid gap-6 md:grid-cols-[1.4fr_1fr]">
+          <div className="grid gap-6 lg:grid-cols-[1.5fr_1fr] items-start">
             <Card className="bg-white shadow-md">
               <CardBody>
                 <SectionHeader
                   title="Sunday Roast Near Heathrow"
-                  subtitle="Book by 1pm Saturday to lock in your favourite roast and all the trimmings."
+                  subtitle="Book by 1pm Saturday to secure your favourite roast and all the trimmings."
                   align="left"
                   className="mb-6"
                 />
                 <ul className="space-y-3 text-gray-700">
-                  <li>• Beef, chicken, lamb and vegetarian roasts with all the trimmings.</li>
-                  <li>• £5 deposit secures your spot — perfect for families and group catch-ups.</li>
-                  <li>• Kids portions, high chairs and colouring packs available.</li>
+                  <li>• Beef, chicken, lamb and vegetarian roasts with lashings of gravy.</li>
+                  <li>• £5 deposit secures your table — ideal for families and group catch-ups.</li>
+                  <li>• Kids portions, high chairs and activity packs on request.</li>
                 </ul>
                 <div className="mt-6 flex flex-col sm:flex-row gap-3">
                   <BookTableButton
-                    source="food_menu_roast_cta"
-                    context="sunday_roast"
-                    variant="primary"
-                    size="lg"
-                    fullWidth
-                    className="sm:w-auto"
+                    source='food_menu_roast_preorder'
+                    context='sunday_roast'
+                    variant='primary'
+                    size='lg'
+                    className='sm:w-auto'
+                    trackingLabel='Pre-Order Roast'
                   >
-                    Book Sunday Roast
+                    Pre-Order Roast
                   </BookTableButton>
-                  <Link href="/sunday-lunch" className="w-full sm:w-auto">
-                    <Button
-                      variant="secondary"
-                      size="lg"
-                      fullWidth
-                      className="sm:w-auto bg-white text-anchor-green hover:bg-gray-100"
-                    >
-                      View Roast Menu
-                    </Button>
-                  </Link>
+                  <MenuSectionCta
+                    label="View Roast Menu"
+                    href="/sunday-lunch"
+                    analyticsLabel="view_roast_menu"
+                    location="food_menu_roast_section"
+                    variant="outline"
+                    fullWidth
+                  />
                 </div>
               </CardBody>
             </Card>
-            <Card className="bg-anchor-cream/50 shadow-md">
+            <Card className="bg-anchor-cream/40 shadow-md">
               <CardBody>
-                <h3 className="text-lg font-semibold text-anchor-green mb-3">Roast FAQ</h3>
+                <h3 className="text-lg font-semibold text-anchor-green mb-3">Sunday Serving Notes</h3>
                 <ul className="space-y-2 text-sm text-gray-700">
-                  <li><strong>Times:</strong> Served 12pm–5pm every Sunday.</li>
-                  <li><strong>Deposits:</strong> £5pp, fully deducted from your bill.</li>
-                  <li><strong>Dietary:</strong> Gluten-aware gravy and veggie options available.</li>
-                  <li><strong>Extras:</strong> Add-on cauliflower cheese, extra Yorkies and seasonal puddings.</li>
+                  <li><strong>Service:</strong> 12pm–5pm every Sunday.</li>
+                  <li><strong>Deposits:</strong> £5 per guest, deducted from your bill.</li>
+                  <li><strong>Gluten-aware:</strong> Alternative gravy available — just ask.</li>
+                  <li><strong>Extras:</strong> Add cauliflower cheese, extra Yorkies, or seasonal puds.</li>
                 </ul>
               </CardBody>
             </Card>
@@ -436,596 +416,381 @@ export default async function FoodMenuPage() {
         </Container>
       </Section>
 
-      {/* Pizza Tuesday Focus */}
-      <Section background="white" spacing="md" id="pizza">
+      <Section background="white" spacing="md" id="pizza-tuesday">
         <Container>
-          <div className="grid gap-6 md:grid-cols-[1fr_1.2fr]">
+          <div className="grid gap-6 lg:grid-cols-[1fr_1.2fr] items-start">
             <Card className="bg-anchor-cream/40 shadow-md">
               <CardBody>
                 <SectionHeader
                   title="2-for-1 Pizza Tuesday"
-                  subtitle="Hand-stretched dough, San Marzano sauce and a free pizza with every order every Tuesday."
+                  subtitle="Hand-stretched bases, San Marzano sauce, and a free pizza with every order."
                   align="left"
                   className="mb-6"
                 />
                 <ul className="space-y-3 text-gray-700">
-                  <li>• Deal runs all evening during kitchen hours (6pm–9pm).</li>
-                  <li>• Mix and match toppings, dine-in or takeaway.</li>
-                  <li>• Free on-site parking and rapid service for pre-flight dinners.</li>
+                  <li>• Offer runs all evening during kitchen hours.</li>
+                  <li>• Mix and match toppings — dine in or takeaway with free parking.</li>
+                  <li>• Gluten-aware bases available when you pre-book.</li>
                 </ul>
                 <div className="mt-6 flex flex-col sm:flex-row gap-3">
                   <BookTableButton
-                    source="food_menu_pizza_cta"
-                    context="pizza_tuesday"
-                    variant="primary"
-                    size="lg"
-                    fullWidth
-                    className="sm:w-auto"
+                    source='food_menu_pizza_cta'
+                    context='pizza_tuesday'
+                    variant='primary'
+                    size='lg'
+                    className='sm:w-auto'
+                    trackingLabel='Reserve Pizza Tuesday'
                   >
-                    Reserve Pizza Tuesday
+                    Reserve for Tuesday
                   </BookTableButton>
-                  <Link href="/pizza-tuesday" className="w-full sm:w-auto">
-                    <Button
-                      variant="secondary"
-                      size="lg"
-                      fullWidth
-                      className="sm:w-auto bg-white text-anchor-green hover:bg-gray-100"
-                    >
-                      Pizza Deal Details
-                    </Button>
-                  </Link>
+                  <MenuSectionCta
+                    label="Deal Details"
+                    href="/pizza-tuesday"
+                    analyticsLabel="deal_details"
+                    location="food_menu_pizza_section"
+                    variant="outline"
+                    fullWidth
+                  />
                 </div>
               </CardBody>
             </Card>
             <Card className="bg-white shadow-md">
               <CardBody>
-                <h3 className="text-lg font-semibold text-anchor-green mb-3">Pizza Line-Up</h3>
+                <h3 className="text-lg font-semibold text-anchor-green mb-3">Pizza Highlights</h3>
                 <ul className="space-y-2 text-sm text-gray-700">
-                  <li><strong>Margherita:</strong> House favourite with buffalo mozzarella and basil.</li>
-                  <li><strong>Fully Loaded:</strong> Pepperoni, ham, mushrooms and peppers.</li>
-                  <li><strong>Nice & Spicy:</strong> Jalapeños and nduja for a fiery kick.</li>
+                  <li><strong>Margherita:</strong> Buffalo mozzarella, basil, and our house tomato sauce.</li>
+                  <li><strong>Fully Loaded:</strong> Pepperoni, ham, mushrooms and peppers in every slice.</li>
+                  <li><strong>Nice &amp; Spicy:</strong> Jalapeños and nduja for those who like heat.</li>
                   <li><strong>Garden Club:</strong> Veggie-friendly with grilled courgette and peppers.</li>
                 </ul>
-                <p className="text-sm text-gray-600 mt-4">Gluten-aware bases available — ask the team when you pre-book.</p>
               </CardBody>
             </Card>
           </div>
         </Container>
       </Section>
 
-      {/* Pub Classics & Dietary Options */}
-      <Section background="white" spacing="md" id="classics">
+      <Section background="white" spacing="md" id="pub-classics">
         <Container>
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid gap-6 lg:grid-cols-[1.2fr_1fr] items-start">
             <Card className="bg-white shadow-md">
               <CardBody>
                 <SectionHeader
                   title="Pub Classics Done Properly"
                   subtitle="Order at the bar or from your table — mains usually land within 15 minutes."
                   align="left"
-                  className="mb-4"
+                  className="mb-6"
                 />
-                <ul className="space-y-2 text-gray-700">
-                  <li>• Beer-battered fish & chips with minted peas.</li>
-                  <li>• Double-stacked burgers with thick-cut chips.</li>
-                  <li>• Chicken wings, sharers and bar snacks for groups.</li>
+                <ul className="space-y-3 text-gray-700">
+                  <li>• Beer-battered fish &amp; chips with minted peas and tartar sauce.</li>
+                  <li>• Double-stacked burgers with thick-cut chips and optional upgrades.</li>
+                  <li>• Chicken katsu, pies, curries and hearty pub favourites served hot.</li>
+                  <li>• Quick enough for lunch breaks or pre-flight dinners.</li>
                 </ul>
-                <div className="mt-5">
+                <div className="mt-6 max-w-xs">
                   <BookTableButton
-                    source="food_menu_classics_cta"
-                    context="food"
-                    variant="primary"
-                    size="md"
-                    fullWidth
-                    className="sm:w-auto"
+                    source='food_menu_classics_cta'
+                    context='food'
+                    variant='primary'
+                    size='lg'
+                    trackingLabel='Book Dinner Table'
                   >
                     Book a Table for Dinner
                   </BookTableButton>
                 </div>
               </CardBody>
             </Card>
-            <Card className="bg-anchor-cream/40 shadow-md" id="dietary">
+            <Card className="bg-anchor-cream/30 shadow-md">
               <CardBody>
-                <h3 className="text-lg font-semibold text-anchor-green mb-3">Vegetarian & Gluten-Friendly Picks</h3>
-                <ul className="space-y-2 text-gray-700">
-                  <li>• Halloumi burger with roasted pepper relish.</li>
-                  <li>• Mediterranean vegetable pizza with vegan cheese option.</li>
-                  <li>• Seasonal salads and sides designed for sharing.</li>
-                  <li>• Speak to the kitchen about allergens — we’ll adapt wherever possible.</li>
-                </ul>
-                <p className="text-sm text-gray-600 mt-4">Add your requirements when you book and we’ll be ready.</p>
+                <h3 className="text-lg font-semibold text-anchor-green mb-3">Kitchen Today</h3>
+                <p className="text-sm text-gray-700">
+                  Kitchen open: {kitchenSchedule}. Call ahead on <a href="tel:+441753682707" className="text-anchor-gold font-semibold hover:text-anchor-green">01753 682707</a> for large parties.
+                </p>
               </CardBody>
             </Card>
           </div>
         </Container>
       </Section>
 
-      {/* Heathrow & Terminal Messaging */}
-      <Section background="white" spacing="md" className="bg-anchor-cream/40" id="travel">
+      <Section background="white" spacing="md" id="dietary">
         <Container>
-          <SectionHeader
-            title="Flying from Heathrow? Eat Properly Before You Go"
-            subtitle="Seven minutes from Terminal 5 with free parking, fast service, and prices that beat airport restaurants every time."
-          />
-          <InfoBoxGrid
-            columns={3}
-            className="max-w-6xl mx-auto"
-            boxes={[
-              {
-                title: "🍽️ Better Than Terminal Dining",
-                content: (
-                  <p className="text-gray-700">
-                    Swap food courts for fresh British favourites. Travellers tell us we&apos;re the best alternative to{" "}
-                    <strong>restaurants at Heathrow Terminal 5</strong> thanks to our quick service and proper portions.
-                  </p>
-                ),
-                variant: "colored",
-                color: "bg-white rounded-2xl p-6 shadow-sm"
-              },
-              {
-                title: "⏱️ Terminal Timings",
-                content: (
-                  <ul className="space-y-2 text-gray-700">
-                    <li><strong>Terminal 5:</strong> 7 minutes door-to-door</li>
-                    <li><strong>Terminals 2 &amp; 3:</strong> 11 minutes avoiding airport car park queues</li>
-                    <li><strong>Terminal 4:</strong> 12 minutes via Stanwell Moor</li>
-                  </ul>
-                ),
-                variant: "colored",
-                color: "bg-white rounded-2xl p-6 shadow-sm"
-              },
-              {
-                title: "💷 Save £20-£40 Every Visit",
-                content: (
-                  <p className="text-gray-700">
-                    Free on-site parking and local pub prices mean more for your travel budget. Download receipts and eat properly before your flight.
-                  </p>
-                ),
-                variant: "colored",
-                color: "bg-white rounded-2xl p-6 shadow-sm"
-              }
-            ]}
-          />
-          <AlertBox
-            variant="success"
-            title="Need a Heathrow restaurant alternative?"
-            className="mt-10 max-w-3xl mx-auto"
-            content={
-              <p className="text-gray-700">
-                Combine your meal with our{' '}
-                <Link href="/restaurants-near-heathrow" className="text-anchor-gold font-semibold hover:text-anchor-green transition-colors">
-                  Heathrow dining guide
-                </Link>{' '}
-                for tips on timing, taxi fares and flight-ready menu picks.
-              </p>
-            }
-          />
-        </Container>
-      </Section>
-
-      {/* Page Title for SEO */}
-      <Section background="white" spacing="sm">
-        <Container>
-          <PageTitle 
-            className="text-center text-anchor-green"
-            seo={{ structured: true, speakable: true }}
-          >
-            Food Menu - The Anchor Restaurant
-          </PageTitle>
-        </Container>
-      </Section>
-
-      {/* Daily Specials - Shows only on relevant days */}
-      <SpeakableContent selector="special-offers" priority="high">
-        <DailySpecials isOpen={isOpen} />
-      </SpeakableContent>
-
-      {/* Perfect Pre-Flight Meal Section */}
-      <Section background="white" spacing="md">
-        <Container>
-          <div className="max-w-4xl mx-auto">
-            <SectionHeader
-              title="Perfect Pre-Flight Meal - 5 Minutes from Heathrow"
-            />
-            <InfoBoxGrid
-              columns={2}
-              boxes={[
-                {
-                  title: "✈️ Quick Access from All Terminals",
-                  content: (
-                    <>
-                      <ul className="space-y-3 text-gray-700">
-                        <li className="flex items-start">
-                          <span className="font-semibold mr-2">T2 & T3:</span>
-                          <span>5 minutes by taxi</span>
-                        </li>
-                        <li className="flex items-start">
-                          <span className="font-semibold mr-2">T4:</span>
-                          <span>7 minutes via Southern Perimeter Road</span>
-                        </li>
-                        <li className="flex items-start">
-                          <span className="font-semibold mr-2">T5:</span>
-                          <span>8 minutes via M25</span>
-                        </li>
-                      </ul>
-                      <p className="text-sm text-gray-600 mt-4">Free parking available - no airport fees!</p>
-                    </>
-                  ),
-                  variant: "colored",
-                  color: "bg-gray-50 rounded-lg p-8"
-                },
-                {
-                  title: "🍽️ Why Eat at the Airport?",
-                  content: (
-                    <>
-                      <ul className="space-y-3 text-gray-700">
-                        <li>• Proper portions at local prices</li>
-                        <li>• Relaxed atmosphere without the rush</li>
-                        <li>• Real food, freshly cooked to order</li>
-                        <li>• Free WiFi to check flight status</li>
-                      </ul>
-                      <p className="text-sm text-gray-600 mt-4">Most meals served within 15 minutes</p>
-                    </>
-                  ),
-                  variant: "colored",
-                  color: "bg-gray-50 rounded-lg p-8"
-                }
-              ]}
-              className="mb-8"
-            />
-          </div>
-        </Container>
-      </Section>
-
-      {/* Staines & Local Authority Content */}
-      <Section background="gray" spacing="md">
-        <Container>
-          <div className="max-w-4xl mx-auto text-center">
-            <SectionHeader
-              title="Staines' Favourite Traditional British Food"
-              subtitle="Serving Stanwell Moor, Staines, and surrounding areas with proper British food since opening our doors. Where Heathrow workers grab lunch, families gather for Sunday roasts, and locals know they'll always get a warm welcome."
-            />
-            <SpeakableContent selector="menu-highlights" priority="high">
-              <FeatureGrid
-                columns={3}
-                features={[
-                  {
-                    icon: "🐟",
-                    title: "Famous Fish & Chips",
-                    description: "Beer-battered to order, served with proper mushy peas",
-                    variant: "default",
-                    className: "bg-white rounded-lg p-6 shadow-md text-center"
-                  },
-                  {
-                    icon: "🥧",
-                    title: "Homestyle Pies",
-                    description: "Beef & ale, chicken & mushroom - proper comfort food",
-                    variant: "default",
-                    className: "bg-white rounded-lg p-6 shadow-md text-center"
-                  },
-                  {
-                    icon: "🍖",
-                    title: "Sunday Roasts",
-                    description: (
-                      <>
-                        The talk of Stanwell Moor - book early to avoid disappointment
-                        <Link href="/sunday-lunch" className="block mt-2">
-                          <span className="text-anchor-gold font-semibold hover:text-anchor-green transition-colors">
-                            View Sunday Menu →
-                          </span>
-                        </Link>
-                      </>
-                    ),
-                    variant: "default",
-                    className: "bg-white rounded-lg p-6 shadow-md text-center"
-                  }
-                ]}
+          <Card className="bg-white shadow-md">
+            <CardBody>
+              <SectionHeader
+                title="Vegetarian & Gluten-Friendly Picks"
+                subtitle="Dedicated veggie mains, salads, pizzas with gluten-aware bases, and staff ready to help with any allergen query."
+                align="left"
+                className="mb-6"
               />
-            </SpeakableContent>
-          </div>
+              <div className="grid gap-6 md:grid-cols-2">
+                <div>
+                  <ul className="space-y-3 text-gray-700">
+                    <li>• Veggie stack burger with charred peppers and a toasted brioche bun.</li>
+                    <li>• Garden Club pizza with grilled courgette, peppers, and balsamic glaze.</li>
+                    <li>• Fresh salads with optional grilled chicken or halloumi.</li>
+                  </ul>
+                </div>
+                <div>
+                  <ul className="space-y-3 text-gray-700">
+                    <li>• Gluten-aware pizza bases available when pre-booked.</li>
+                    <li>• Allergen matrix on hand — just ask the team.</li>
+                    <li>• Vegetarian roast available every Sunday.</li>
+                  </ul>
+                </div>
+              </div>
+              <div className="mt-6 max-w-xs">
+                <MenuSectionCta
+                  label="View Dietary Picks"
+                  href="?veg=1#menu"
+                  analyticsLabel="dietary_picks"
+                  location="food_menu_dietary_section"
+                  variant="outline"
+                  fullWidth
+                />
+              </div>
+            </CardBody>
+          </Card>
         </Container>
       </Section>
 
-      {/* Food & Drink Pairings */}
-      <Section background="white" spacing="md" className="bg-anchor-gold/10">
+      <Section background="white" spacing="md" id="near-heathrow">
         <Container>
-          <div className="max-w-4xl mx-auto">
-            <SectionHeader
-              title="Perfect Pairings - Food & Drinks Together"
-            />
-            <InfoBoxGrid
-              columns={2}
-              boxes={[
-                {
-                  title: "🍔 With Our Burgers",
-                  content: (
-                    <ul className="space-y-2 text-gray-700">
-                      <li><strong>Beef Burger:</strong> Pairs perfectly with a pint of Stella or Carlsberg</li>
-                      <li><strong>Spicy Chicken:</strong> Cool it down with a crisp Birra Moretti</li>
-                      <li><strong>Veggie Stack:</strong> Try with our refreshing Aspall cider</li>
-                    </ul>
-                  )
-                },
-                {
-                  title: "🍕 With Our Pizzas",
-                  content: (
-                    <ul className="space-y-2 text-gray-700">
-                      <li><strong>Fully Loaded:</strong> Italian Birra Moretti is the classic choice</li>
-                      <li><strong>Nice & Spicy:</strong> Smirnoff & lemonade cuts through the heat</li>
-                      <li><strong>Garden Club:</strong> Light Pinot Grigio complements perfectly</li>
-                    </ul>
-                  )
-                },
-                {
-                  title: "🐟 With Fish & Chips",
-                  content: (
-                    <ul className="space-y-2 text-gray-700">
-                      <li><strong>Classic pairing:</strong> A pint of bitter or Guinness</li>
-                      <li><strong>Lighter option:</strong> Sauvignon Blanc cuts through the batter</li>
-                      <li><strong>Traditional choice:</strong> A proper cup of tea!</li>
-                    </ul>
-                  )
-                },
-                {
-                  title: "🥘 With Sunday Roast",
-                  content: (
-                    <ul className="space-y-2 text-gray-700">
-                      <li><strong>Chicken:</strong> Chardonnay or a smooth Carlsberg</li>
-                      <li><strong>Lamb:</strong> Malbec brings out the flavours beautifully</li>
-                      <li><strong>Pork:</strong> Full-bodied Shiraz or a pint of bitter</li>
-                    </ul>
-                  )
-                }
-              ]}
-            />
-            <p className="text-center text-gray-600 mt-8">
-              Ask our staff for recommendations - they know their stuff!
-            </p>
-          </div>
+          <Card className="bg-anchor-cream/60 shadow-md">
+            <CardBody>
+              <SectionHeader
+                title="Near Heathrow"
+                subtitle="Ideal for crews, airport teams, and anyone passing through — no airport prices, no parking stress."
+                align="left"
+                className="mb-6"
+              />
+              <ul className="space-y-3 text-gray-700">
+                <li>• 7 minutes to Terminal 5 by taxi.</li>
+                <li>• 11 minutes to Terminals 2 &amp; 3 avoiding car-park queues.</li>
+                <li>• Free on-site parking with downloadable receipts.</li>
+                <li>• Most meals served within 15 minutes.</li>
+              </ul>
+              <div className="mt-6 max-w-xs">
+                <MenuSectionCta
+                  label="Plan Your Pre-Flight Meal"
+                  href="/heathrow-layover-dining"
+                  analyticsLabel="near_heathrow"
+                  location="food_menu_heathrow_section"
+                  variant="outline"
+                  fullWidth
+                />
+              </div>
+            </CardBody>
+          </Card>
         </Container>
       </Section>
 
-      {/* Menu Content */}
-      <div id="menu">
-        <FilteredMenuRenderer menuData={menuData} />
-      </div>
-
-      {/* Additional Information */}
       <Section background="gray" spacing="md">
         <Container>
-          <div className="max-w-4xl mx-auto">
-            <Alert
-              variant="warning"
-              title="Allergen Information"
-              className="mb-8"
-            >
-              <p className="text-gray-700">
-                All our dishes are prepared in a single kitchen where allergens are present. While we take every 
-                precaution, we cannot guarantee dishes are free from cross-contamination. If you have allergies or 
-                dietary requirements, please speak to a member of our team before ordering. We use vegetable oil 
-                where necessary to keep dishes light yet warming during colder months.
-              </p>
-            </Alert>
-          </div>
+          <Alert
+            variant="warning"
+            title="Allergen Information"
+            className="max-w-4xl mx-auto"
+          >
+            <p className="text-gray-700">
+              Gluten-aware bases and vegetarian mains are available. All dishes are prepared in a single kitchen where allergens are present — speak to us about your needs before ordering.
+            </p>
+          </Alert>
         </Container>
       </Section>
 
-      {/* FAQ Section */}
-      <FAQAccordionWithSchema 
+      <FAQAccordionWithSchema
         faqs={[
           {
-            question: "What time is the kitchen open at The Anchor?",
-            answer: `Our kitchen is open ${kitchenSchedule} for our famous Sunday roasts. The kitchen is closed Mondays. During busy periods we recommend booking ahead.`
+            question: 'What time is the kitchen open at The Anchor?',
+            answer: `Our kitchen is open ${kitchenSchedule}. The kitchen is closed on Mondays.`
           },
           {
-            question: "Do you serve Sunday roast at The Anchor?",
-            answer: "Yes! Our celebrated Sunday roasts are served every Sunday from 12pm-5pm. We offer beef, chicken, lamb, and vegetarian options. Sunday roasts require a booking with £5 per person deposit by 1pm Saturday. The remaining balance is paid on the day. Booking is essential as we're very popular - many say we serve the best Sunday roast in Surrey!"
+            question: 'Do you serve Sunday roast at The Anchor?',
+            answer: 'Yes. Sunday roasts run 12pm–5pm with beef, chicken, lamb, and vegetarian plates. Book by 1pm Saturday with a £5 deposit per guest.'
           },
           {
-            question: "Is there a children's menu at The Anchor?",
-            answer: "Yes, we have a dedicated children's menu with smaller portions and kid-friendly options. Children are always welcome at The Anchor with no time restrictions. We also provide high chairs and colouring activities to keep the little ones entertained."
+            question: "Is there a children's menu?",
+            answer: "We have smaller portions, high chairs, and colouring packs on request."
           },
           {
-            question: "What's the Tuesday pizza deal at The Anchor?",
-            answer: "Every Tuesday we offer Buy One Get One Free (BOGOF) on all our stone-baked pizzas! This applies to eat-in and takeaway. It's our most popular offer - perfect for families and pizza lovers."
+            question: "What's the Tuesday pizza deal?",
+            answer: "Every Tuesday evening is buy-one-get-one-free on all pizzas for dine-in or takeaway."
           },
           {
-            question: "Do you cater for dietary requirements?",
-            answer: "Yes, we have vegetarian options marked on our menu and can accommodate most dietary requirements. Please inform our staff about any allergies or dietary needs when ordering. Note that all dishes are prepared in the same kitchen where allergens are present."
+            question: 'Do you cater for dietary requirements?',
+            answer: 'Yes. Vegetarian dishes are marked and we can guide you through allergens at the bar.'
           },
           {
-            question: "Can I book a table for food at The Anchor?",
-            answer: "Absolutely! We recommend booking ahead, especially for Sunday roasts and weekend evenings. Call us on 01753 682707 to reserve your table. We can accommodate large groups with advance notice."
+            question: 'Can I book a table for food?',
+            answer: 'Absolutely. Reserve online or call 01753 682707 — ideal for larger groups or pre-flight meals.'
           },
           {
-            question: "Do you offer takeaway food?",
-            answer: "Yes, our entire food menu is available for takeaway. Call ahead on 01753 682707 to place your order and we'll have it ready for collection. Tuesday pizza BOGOF deal applies to takeaway too!"
-          },
-          {
-            question: "What's the best pub food near Heathrow Airport?",
-            answer: "The Anchor is just 7 minutes from Terminal 5 and serves traditional British food at local prices - much better value than airport restaurants! We're perfect for pre-flight meals with free parking and quick service."
-          },
-          {
-            question: "What payment methods are accepted at The Anchor?",
-            answer: "We accept cash and all major credit and debit cards, including American Express. Whether you're dining in, getting takeaway, or just having drinks, we make payment easy and convenient."
+            question: 'Is takeaway available?',
+            answer: 'Yes. Call ahead and we will have your order ready for collection.'
           }
         ]}
         className="bg-white"
       />
 
-      {/* CTA Section */}
-      <CTASection
-        title="Hungry? Book Your Table Now"
-        description="Our kitchen gets busy, especially on weekends. Book ahead to avoid disappointment!"
-        buttons={[
-          {
-            text: "📞 Call: 01753 682707",
-            href: "tel:+441753682707",
-            variant: "white"
-          },
-          {
-            text: "🍺 View Drinks Menu",
-            href: "/drinks",
-            variant: "white"
-          }
-        ]}
-        variant="green"
-      />
+      <div data-sticky-cta-guard="true">
+        <CTASection
+          title="Hungry? Book Your Table Now"
+          description="Weekends and roast services fill quickly. Book today and we will have your table ready."
+          buttons={[
+            {
+              text: '📞 Call: 01753 682707',
+              href: 'tel:+441753682707',
+              variant: 'white',
+              isPhone: true,
+              phoneSource: 'food_menu_footer'
+            },
+            {
+              text: '🍺 View Drinks Menu',
+              href: '/drinks',
+              variant: 'white'
+            }
+          ]}
+          variant="green"
+        />
+      </div>
 
       <FoodStickyCtaBar
         ctaContext="food"
-        whatsapp={{
-          href: 'https://wa.me/441753682707?text=Hi%20Anchor%20Team!%20Can%20I%20book%20a%20table%20for%20food%3F',
-          label: 'WhatsApp to Book',
-          id: 'whatsapp_food_menu'
-        }}
-        label="Book Food Table"
+        label="Book a Table"
       />
 
-      {/* JSON-LD Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify([
             {
-              "@context": "https://schema.org",
-              "@type": "Menu",
-              "@id": "https://www.the-anchor.pub/food-menu#menu",
-              "name": "The Anchor Food Menu",
-              "description": "Traditional British food menu with allergen information",
-              "hasMenuSection": menuData.categories.map(category => ({
-                "@type": "MenuSection",
-                "name": category.title,
-                "description": `${category.title} options at The Anchor`,
-                "image": category.emoji ? `https://www.the-anchor.pub/images/menu-categories/${category.title.toLowerCase().replace(' ', '-')}.jpg` : undefined,
-                "hasMenuItem": category.sections.flatMap(section => 
+              '@context': 'https://schema.org',
+              '@type': 'Menu',
+              '@id': 'https://www.the-anchor.pub/food-menu#menu',
+              name: 'The Anchor Food Menu',
+              description: 'Traditional British food menu with allergen information',
+              hasMenuSection: menuData.categories.map(category => ({
+                '@type': 'MenuSection',
+                name: category.title,
+                description: category.description,
+                hasMenuItem: category.sections.flatMap(section =>
                   section.items.map(item => ({
-                    "@type": "MenuItem",
-                    "name": item.name,
-                    "description": item.description || item.name,
-                    "offers": item.price && !item.price.includes('sauces') ? {
-                      "@type": "Offer",
-                      "price": item.price.replace(/[£$]/, '').split(' / ')[0],
-                      "priceCurrency": "GBP",
-                      "availability": "https://schema.org/InStock",
-                      ...(generateMenuItemOffer(item, new Date().toLocaleDateString('en-US', { weekday: 'long' }))?.[0] || {})
-                    } : undefined,
-                    "nutrition": item.price && !item.price.includes('sauces') ? generateNutritionInfo(item.name, category.title) : undefined,
-                    "suitableForDiet": generateSuitableForDiet(item),
-                    ...(item.allergens && item.allergens.length > 0 && {
-                      "additionalProperty": [
-                        {
-                          "@type": "PropertyValue",
-                          "name": "allergens",
-                          "value": item.allergens.join(", ")
-                        }
-                      ]
-                    })
+                    '@type': 'MenuItem',
+                    name: item.name,
+                    description: item.description,
+                    offers: generateMenuItemOffer(item, new Date().toLocaleString('en-GB', { weekday: 'long' }))?.[0] ?? {
+                      '@type': 'Offer',
+                      price: item.price ? item.price.replace(/£/g, '').trim() : undefined,
+                      priceCurrency: 'GBP'
+                    },
+                    suitableForDiet: generateSuitableForDiet(item),
+                    nutrition: generateNutritionInfo(item.name, category.id)
                   }))
                 )
-              })),
-              "inLanguage": "en-GB",
-              "provider": {
-                "@type": "Restaurant",
-                "@id": "https://www.the-anchor.pub/#business",
-                "name": "The Anchor",
-                "address": {
-                  "@type": "PostalAddress",
-                  "streetAddress": "Horton Road",
-                  "addressLocality": "Stanwell Moor",
-                  "addressRegion": "Surrey",
-                  "postalCode": "TW19 6AQ",
-                  "addressCountry": "GB"
-                },
-                "servesCuisine": ["British", "Pizza", "Pub Food"],
-                "priceRange": "££",
-                "acceptsReservations": "true",
-                "telephone": "+441753682707",
-                "url": "https://www.the-anchor.pub"
-              },
-              "mainEntityOfPage": {
-                "@type": "WebPage",
-                "@id": "https://www.the-anchor.pub/food-menu"
-              }
-            },
-            {
-              "@context": "https://schema.org",
-              "@type": "ItemList",
-              "name": "Food Menu Sections",
-              "itemListElement": menuSectionList.map(section => ({
-                "@type": "ListItem",
-                "position": section.position,
-                "name": section.name,
-                "url": section.url
               }))
             },
-            specialAnnouncementSchema,
             {
-              "@context": "https://schema.org",
-              "@type": "FoodEstablishment",
-              "@id": "https://www.the-anchor.pub/#food-establishment",
-              "name": "The Anchor Restaurant",
-              "description": "Traditional British pub restaurant near Heathrow Airport",
-              "servesCuisine": ["British", "Pizza", "Pub Food"],
-              "hasMenu": {
-                "@id": "https://www.the-anchor.pub/food-menu#menu"
+              '@context': 'https://schema.org',
+              '@type': 'Restaurant',
+              '@id': 'https://www.the-anchor.pub/#business',
+              name: 'The Anchor',
+              description: 'Traditional British pub restaurant near Heathrow Airport',
+              servesCuisine: ['British', 'Pizza', 'Pub Food'],
+              hasMenu: {
+                '@id': 'https://www.the-anchor.pub/food-menu#menu'
               },
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "Horton Road",
-                "addressLocality": "Stanwell Moor",
-                "addressRegion": "Surrey",
-                "postalCode": "TW19 6AQ",
-                "addressCountry": "GB"
+              address: {
+                '@type': 'PostalAddress',
+                streetAddress: 'Horton Road',
+                addressLocality: 'Stanwell Moor',
+                addressRegion: 'Surrey',
+                postalCode: 'TW19 6AQ',
+                addressCountry: 'GB'
               },
-              "geo": {
-                "@type": "GeoCoordinates",
-                "latitude": 51.462509,
-                "longitude": -0.502067
+              geo: {
+                '@type': 'GeoCoordinates',
+                latitude: 51.462509,
+                longitude: -0.502067
               },
-              "openingHoursSpecification": businessHours ? [
+              openingHoursSpecification: businessHours
+                ? [
+                    {
+                      '@type': 'OpeningHoursSpecification',
+                      name: 'Kitchen Hours',
+                      dayOfWeek: ['Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+                      opens: '18:00',
+                      closes: '21:00'
+                    },
+                    {
+                      '@type': 'OpeningHoursSpecification',
+                      name: 'Kitchen Hours',
+                      dayOfWeek: 'Saturday',
+                      opens: '13:00',
+                      closes: '19:00'
+                    },
+                    {
+                      '@type': 'OpeningHoursSpecification',
+                      name: 'Kitchen Hours',
+                      dayOfWeek: 'Sunday',
+                      opens: '12:00',
+                      closes: '17:00'
+                    }
+                  ]
+                : [],
+              telephone: '+441753682707',
+              url: 'https://www.the-anchor.pub',
+              priceRange: '££'
+            },
+            {
+              '@context': 'https://schema.org',
+              '@type': 'FAQPage',
+              mainEntity: [
                 {
-                  "@type": "OpeningHoursSpecification",
-                  "name": "Kitchen Hours",
-                  "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday"],
-                  "opens": "18:00",
-                  "closes": "21:00"
+                  '@type': 'Question',
+                  name: 'What time is the kitchen open at The Anchor?',
+                  acceptedAnswer: {
+                    '@type': 'Answer',
+                    text: `Our kitchen is open ${kitchenSchedule}. The kitchen is closed on Mondays.`
+                  }
                 },
                 {
-                  "@type": "OpeningHoursSpecification",
-                  "name": "Kitchen Hours",
-                  "dayOfWeek": "Saturday",
-                  "opens": "13:00",
-                  "closes": "19:00"
+                  '@type': 'Question',
+                  name: 'Do you serve Sunday roast at The Anchor?',
+                  acceptedAnswer: {
+                    '@type': 'Answer',
+                    text: 'Yes. Sunday roasts run 12pm–5pm with beef, chicken, lamb, and vegetarian plates. Book by 1pm Saturday with a £5 deposit per guest.'
+                  }
                 },
                 {
-                  "@type": "OpeningHoursSpecification",
-                  "name": "Kitchen Hours",
-                  "dayOfWeek": "Sunday",
-                  "opens": "12:00",
-                  "closes": "17:00"
-                }
-              ] : [],
-              "paymentAccepted": ["Cash", "Credit Card", "Debit Card", "American Express"],
-              "amenityFeature": [
-                {
-                  "@type": "LocationFeatureSpecification",
-                  "name": "Allergen Information Available",
-                  "value": true
+                  '@type': 'Question',
+                  name: "Is there a children's menu?",
+                  acceptedAnswer: {
+                    '@type': 'Answer',
+                    text: "We have smaller portions, high chairs, and colouring packs on request."
+                  }
                 },
                 {
-                  "@type": "LocationFeatureSpecification",
-                  "name": "Vegetarian Options",
-                  "value": true
-                },
-                {
-                  "@type": "LocationFeatureSpecification",
-                  "name": "Children's Menu",
-                  "value": true
+                  '@type': 'Question',
+                  name: "What's the Tuesday pizza deal?",
+                  acceptedAnswer: {
+                    '@type': 'Answer',
+                    text: 'Every Tuesday evening is buy-one-get-one-free on all pizzas for dine-in or takeaway.'
+                  }
                 }
               ]
             },
-            pizzaBOGOFSchema,
+            {
+              '@context': 'https://schema.org',
+              '@type': 'ItemList',
+              name: 'Food Menu Sections',
+              itemListElement: MENU_SECTION_LIST.map(section => ({
+                '@type': 'ListItem',
+                position: section.position,
+                name: section.name,
+                url: section.url
+              }))
+            },
+            specialAnnouncementSchema,
+            pizzaBogofSchema,
             fridayFishOfferSchema
           ])
         }}

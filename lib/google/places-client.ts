@@ -26,10 +26,14 @@ export class GooglePlacesClient {
         return data.result as PlaceDetails
       }
 
-      console.error('Google Places API error:', data.status, data.error_message)
+      console.warn('Google Places API error:', {
+        status: data.status,
+        message: data.error_message
+      })
       return null
     } catch (error) {
-      console.error('Failed to fetch place details:', error)
+      const message = error instanceof Error ? error.message : String(error)
+      console.warn('Failed to fetch place details:', message)
       return null
     }
   }
@@ -53,13 +57,26 @@ export class GooglePlacesClient {
 
 // Singleton instance for The Anchor
 let anchorPlacesClient: GooglePlacesClient | null = null
+let buildWarningLogged = false
 
 export function getAnchorPlacesClient(): GooglePlacesClient | null {
   // Use server-side API key if available, fallback to regular key
   const API_KEY = process.env.GOOGLE_PLACES_API_KEY_SERVER || process.env.GOOGLE_PLACES_API_KEY;
+  const isBuildPhase =
+    typeof window === 'undefined' &&
+    process.env.NEXT_PHASE === 'phase-production-build' &&
+    process.env.ENABLE_BUILD_TIME_EXTERNAL_API !== 'true'
   
   if (!API_KEY || !process.env.GOOGLE_PLACE_ID) {
     console.warn('Google Places API credentials not configured')
+    return null
+  }
+
+  if (isBuildPhase) {
+    if (!buildWarningLogged) {
+      console.info('Google Places API disabled during build; using mock reviews')
+      buildWarningLogged = true
+    }
     return null
   }
 

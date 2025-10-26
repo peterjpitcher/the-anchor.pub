@@ -24,7 +24,7 @@ export function CategoryFilter() {
   const containerRef = useRef<HTMLDivElement>(null)
   const searchParams = useSearchParams()
   const router = useRouter()
-  const currentCategory = searchParams.get('category')
+  const currentCategory = searchParams?.get('category') ?? null
 
   // Minimum swipe distance (in px)
   const minSwipeDistance = 50
@@ -68,7 +68,7 @@ export function CategoryFilter() {
   }, [])
 
   const handleCategoryChange = useCallback((categorySlug: string | null) => {
-    const params = new URLSearchParams(searchParams.toString())
+    const params = new URLSearchParams(searchParams?.toString() ?? '')
     
     if (categorySlug) {
       params.set('category', categorySlug)

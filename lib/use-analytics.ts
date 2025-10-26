@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 import { analytics } from './analytics'
 
 export function useAnalytics() {
-  const pathname = usePathname()
+  const pathname = usePathname() ?? '/'
 
   useEffect(() => {
     analytics.pageView(pathname)

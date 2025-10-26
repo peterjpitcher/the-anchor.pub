@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import { cn } from '@/lib/utils'
 import { ALLERGEN_TYPES, type AllergenType } from '@/hooks/useAllergenFilter'
-import { Button } from '@/components/ui'
 import { ChevronDown, ChevronUp, X } from 'lucide-react'
 import { trackAllergenFilterToggle, trackClearAllFilters } from '@/lib/gtm-events/menu-events'
 
@@ -29,10 +28,14 @@ export function AllergenFilterBar({
   const [isExpanded, setIsExpanded] = useState(false)
 
   return (
-    <div className={cn(
-      "sticky top-0 z-40 bg-white border-b border-gray-200 shadow-sm",
-      className
-    )}>
+    <div
+      className={cn(
+        'sticky top-0 z-40 bg-white/95 backdrop-blur supports-[backdrop-filter]:backdrop-blur border-b border-gray-200 shadow-sm',
+        className
+      )}
+      role="region"
+      aria-label="Dietary and allergen filters"
+    >
       <div className="container mx-auto px-4">
         {/* Mobile: Collapsed view */}
         <div className="md:hidden">
@@ -55,11 +58,9 @@ export function AllergenFilterBar({
         </div>
 
         {/* Desktop: Always visible */}
-        <div className={cn(
-          "md:block",
-          isExpanded ? "block" : "hidden",
-          "pb-4 md:pb-0"
-        )}>
+        <div
+          className={cn('md:block', isExpanded ? 'block' : 'hidden', 'pb-4 md:pb-0')}
+        >
           {/* Active filters summary */}
           {activeFilterCount > 0 && (
             <div className="py-2 md:py-3 border-b border-gray-100">
@@ -88,7 +89,7 @@ export function AllergenFilterBar({
                   className="text-sm text-red-600 hover:text-red-700 font-medium flex items-center gap-1"
                   aria-label="Clear all filters"
                 >
-                  <X size={16} />
+                  <X size={16} aria-hidden="true" />
                   Clear all
                 </button>
               </div>
@@ -97,29 +98,31 @@ export function AllergenFilterBar({
 
           {/* Filter controls */}
           <div className="py-4 md:py-3">
-            <div className="flex flex-col md:flex-row md:items-center gap-4">
+            <div className="flex flex-col gap-4 md:flex-row md:items-center">
               {/* Vegetarian toggle */}
               <div className="flex items-center">
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={showVegetarianOnly}
-                    onChange={() => {
-                      trackAllergenFilterToggle(
-                        'vegetarian',
-                        'vegetarian',
-                        !showVegetarianOnly,
-                        showVegetarianOnly ? activeFilterCount - 1 : activeFilterCount + 1
-                      )
-                      onToggleVegetarian()
-                    }}
-                    className="w-4 h-4 text-green-600 rounded focus:ring-green-500"
-                    aria-label="Show vegetarian items only"
-                  />
-                  <span className="text-sm font-medium flex items-center gap-1">
-                    🌱 Vegetarian only
-                  </span>
-                </label>
+                <button
+                  type="button"
+                  aria-pressed={showVegetarianOnly}
+                  onClick={() => {
+                    trackAllergenFilterToggle(
+                      'vegetarian',
+                      'vegetarian_only',
+                      !showVegetarianOnly,
+                      showVegetarianOnly ? activeFilterCount - 1 : activeFilterCount + 1
+                    )
+                    onToggleVegetarian()
+                  }}
+                  className={cn(
+                    'inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-anchor-gold',
+                    showVegetarianOnly
+                      ? 'bg-emerald-600 text-white shadow'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  )}
+                >
+                  <span aria-hidden="true">🌱</span>
+                  <span>Vegetarian only</span>
+                </button>
               </div>
 
               {/* Separator */}
@@ -127,41 +130,37 @@ export function AllergenFilterBar({
 
               {/* Allergen filters */}
               <div className="flex-1">
-                <div className="flex items-start md:items-center gap-2 md:gap-4">
-                  <span className="text-sm font-medium text-gray-700 mt-2 md:mt-0">
+                <div className="flex flex-col gap-3 md:flex-row md:items-center md:gap-4">
+                  <span className="text-sm font-medium text-gray-700">
                     Hide items with:
                   </span>
                   <div className="flex flex-wrap gap-2">
                     {(Object.entries(ALLERGEN_TYPES) as Array<[AllergenType, typeof ALLERGEN_TYPES[AllergenType]]>).map(
                       ([key, config]) => (
-                        <label
+                        <button
                           key={key}
+                          type="button"
+                          aria-pressed={selectedAllergens.has(key)}
+                          onClick={() => {
+                            const willBeSelected = !selectedAllergens.has(key)
+                            trackAllergenFilterToggle(
+                              'allergen',
+                              `hide_${key}`,
+                              willBeSelected,
+                              willBeSelected ? activeFilterCount + 1 : activeFilterCount - 1
+                            )
+                            onToggleAllergen(key)
+                          }}
                           className={cn(
-                            "flex items-center gap-1 cursor-pointer px-3 py-1.5 rounded-full text-sm transition-colors",
+                            'flex items-center gap-2 rounded-full px-3 py-1.5 text-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-anchor-gold',
                             selectedAllergens.has(key)
-                              ? "bg-amber-500 text-white"
-                              : "bg-gray-100 hover:bg-gray-200 text-gray-700"
+                              ? 'bg-amber-500 text-white shadow'
+                              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                           )}
                         >
-                          <input
-                            type="checkbox"
-                            checked={selectedAllergens.has(key)}
-                            onChange={() => {
-                              const willBeSelected = !selectedAllergens.has(key)
-                              trackAllergenFilterToggle(
-                                'allergen',
-                                config.label,
-                                willBeSelected,
-                                willBeSelected ? activeFilterCount + 1 : activeFilterCount - 1
-                              )
-                              onToggleAllergen(key)
-                            }}
-                            className="sr-only"
-                            aria-label={`Hide items containing ${config.label}`}
-                          />
-                          <span>{config.icon}</span>
-                          <span className="text-xs md:text-sm">{config.label}</span>
-                        </label>
+                          <span aria-hidden="true">{config.icon}</span>
+                          <span className="text-xs md:text-sm">No {config.label}</span>
+                        </button>
                       )
                     )}
                   </div>

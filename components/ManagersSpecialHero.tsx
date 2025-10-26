@@ -11,9 +11,9 @@ export function ManagersSpecialHero() {
   const [currentPromotion, setCurrentPromotion] = useState<any>(null)
   const [loading, setLoading] = useState(true)
   const searchParams = useSearchParams()
-  const preview = searchParams.get('preview')
-  const token = searchParams.get('token')
-  const date = searchParams.get('date')
+  const preview = searchParams?.get('preview') ?? undefined
+  const token = searchParams?.get('token') ?? undefined
+  const date = searchParams?.get('date') ?? undefined
   
   useEffect(() => {
     // Get current promotion from API

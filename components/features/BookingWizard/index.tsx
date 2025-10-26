@@ -88,7 +88,7 @@ export function BookingWizard({
   
   // Update URL with current step
   useEffect(() => {
-    const params = new URLSearchParams(searchParams.toString())
+    const params = new URLSearchParams(searchParams?.toString() ?? '')
     params.set('step', currentStep.toString())
     if (bookingData.date) params.set('date', bookingData.date)
     if (bookingData.bookingType) params.set('type', bookingData.bookingType)

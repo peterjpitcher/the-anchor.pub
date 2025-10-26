@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation'
 import { getCanonicalUrl, shouldHaveCanonical } from '@/lib/canonical-url'
 
 export function CanonicalLink() {
-  const pathname = usePathname()
+  const pathname = usePathname() ?? '/'
   
   if (!shouldHaveCanonical(pathname)) {
     return null

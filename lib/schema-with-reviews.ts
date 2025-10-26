@@ -17,7 +17,8 @@ export async function getEnhancedSchemas() {
       }
     }
   } catch (error) {
-    console.error('Failed to fetch rating for schema:', error)
+    const message = error instanceof Error ? error.message : String(error)
+    console.warn('Failed to fetch rating for schema:', message)
     // Use defaults on error
   }
 
