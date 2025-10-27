@@ -244,10 +244,6 @@ export default async function FoodMenuPage() {
         route="/food-menu"
         title="Book Pub Food Minutes from Heathrow"
         description="Sunday roasts, 2-for-1 Pizza Tuesday and proper pub classics with free parking and rapid service."
-        size="small"
-        alignment="center"
-        overlay="light"
-        showStatusBar
         breadcrumbs={[{ name: 'Food & Drink' }]}
         tags={[
           { label: '🍖 Roast pre-orders', variant: 'default' },

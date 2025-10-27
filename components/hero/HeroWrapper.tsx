@@ -62,9 +62,9 @@ export function HeroWrapper({
   description,
   eyebrow,
   lead,
-  size = 'medium',
+  size = 'small',
   alignment = 'center',
-  overlay = 'gradient',
+  overlay = 'light',
   style,
   image,
   breadcrumbs,
@@ -72,7 +72,7 @@ export function HeroWrapper({
   tags,
   showStatusBar = true,
   statusBarPosition = 'below',
-  statusBarVariant = 'hero',
+  statusBarVariant = 'compact',
   statusBarTheme,
   statusBarShowKitchen = true,
   cta,
@@ -123,10 +123,10 @@ export function HeroWrapper({
   const breadcrumbItems = breadcrumbs || generateBreadcrumbsFromRoute(route)
   
   const heroStatusTheme = {
-    background: 'bg-anchor-green',
-    border: 'border-2 border-anchor-gold',
-    text: 'text-white',
-    accentText: 'text-amber-100/90',
+    background: 'bg-white/80',
+    border: 'border border-white/60',
+    text: 'text-anchor-green',
+    accentText: 'text-anchor-gold',
     ...statusBarTheme
   }
 
