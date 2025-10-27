@@ -271,38 +271,38 @@ export default async function HeathrowParkingPage() {
         route="/heathrow-parking"
         title="Heathrow Parking – Book, Pay & Park in Stanwell Moor"
         description="Secure long stay and short stay Heathrow parking from £5 per hour. Drop your car with us in Stanwell Moor, then grab a taxi or the 442 bus to Heathrow in minutes."
-        size="large"
-        showStatusBar
+        variant="default"
         tags={[
           { label: '💳 PayPal checkout', variant: 'primary' },
           { label: '🕗 24/7 access', variant: 'success' },
           { label: '🚘 CCTV monitored', variant: 'default' },
           { label: '📍 Stanwell Moor', variant: 'warning' }
         ]}
-        cta={
-          <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
-            <Link href="#book-parking" className="w-full sm:w-auto">
-              <Button size="lg" variant="primary" fullWidth className="sm:w-auto">
-                🚗 Book Heathrow parking now
-              </Button>
-            </Link>
-            <Link href="tel:+441753682707" className="w-full sm:w-auto">
-              <Button size="lg" variant="secondary" fullWidth className="sm:w-auto">
-                ☎️ Speak to the team 01753 682707
-              </Button>
-            </Link>
+        primaryCta={
+          <Link href="#book-parking" className="w-full sm:w-auto">
+            <Button size="lg" variant="primary" fullWidth className="sm:w-auto">
+              🚗 Book Heathrow parking now
+            </Button>
+          </Link>
+        }
+        secondaryCta={
+          <Link href="tel:+441753682707" className="w-full sm:w-auto">
+            <Button size="lg" variant="secondary" fullWidth className="sm:w-auto">
+              ☎️ Speak to the team 01753 682707
+            </Button>
+          </Link>
+        }
+        secondaryInfo={
+          <div className="mt-6 max-w-3xl mx-auto rounded-xl bg-white/90 p-4 text-center text-anchor-charcoal backdrop-blur-sm">
+            <p className="font-semibold">
+              Swap £39 Heathrow short stay for £15 per day with us. Ideal for Terminal 3 long stay passengers, Terminal 5 flyers, cabin crew and airport staff.
+            </p>
+            <p className="mt-3 text-sm text-gray-700">
+              We are not inside the airport. Park at The Anchor in Stanwell Moor, then take a taxi or the daytime 442 bus from outside the pub. Vehicles stay at the owner&apos;s risk and drivers keep their keys.
+            </p>
           </div>
         }
-      >
-        <div className="mt-6 max-w-3xl mx-auto rounded-xl bg-white/90 p-4 text-center text-anchor-charcoal backdrop-blur-sm">
-          <p className="font-semibold">
-            Swap £39 Heathrow short stay for £15 per day with us. Ideal for Terminal 3 long stay passengers, Terminal 5 flyers, cabin crew and airport staff.
-          </p>
-          <p className="mt-3 text-sm text-gray-700">
-            We are not inside the airport. Park at The Anchor in Stanwell Moor, then take a taxi or the daytime 442 bus from outside the pub. Vehicles stay at the owner&apos;s risk and drivers keep their keys.
-          </p>
-        </div>
-      </HeroWrapper>
+      />
 
       <Section background="white" spacing="lg">
         <Container>

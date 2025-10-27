@@ -5,7 +5,6 @@ interface BusinessHoursSectionProps {
   subtitle?: string
   variant?: 'default' | 'centered' | 'card'
   showKitchen?: boolean
-  showWeather?: boolean
   className?: string
 }
 
@@ -14,7 +13,6 @@ export function BusinessHoursSection({
   subtitle,
   variant = 'default',
   showKitchen = false,
-  showWeather = false,
   className = '' 
 }: BusinessHoursSectionProps) {
   const sectionClasses = {
@@ -45,13 +43,11 @@ export function BusinessHoursSection({
             <div className="bg-gray-50 rounded-xl p-6">
               <BusinessHours 
                 showKitchen={showKitchen}
-                showWeather={showWeather}
               />
             </div>
           ) : (
             <BusinessHours 
               showKitchen={showKitchen}
-              showWeather={showWeather}
             />
           )}
         </div>

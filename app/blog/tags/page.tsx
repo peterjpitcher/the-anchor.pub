@@ -112,13 +112,12 @@ export default async function AllTagsPage() {
         route="/blog/tags"
         title="All Blog Topics"
         description={`Explore all ${tagCounts.size} topics from our blog`}
-        overlay="gradient"
-        showStatusBar={false}
+        variant="feature"
         breadcrumbs={[
           { name: 'Blog', href: '/blog' },
           { name: 'All Topics' }
         ]}
-        cta={
+        secondaryCta={
           <Link 
             href="/blog"
             className="inline-flex items-center text-white/90 hover:text-white transition-colours"

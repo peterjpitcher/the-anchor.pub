@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Metadata } from 'next'
 
 // Note: Since this is a client component, we can't export metadata directly
 // The page title is set in the component itself
@@ -18,14 +17,13 @@ import {
   trackEventBookingStart,
   trackReviewClick,
   trackOpeningHoursCheck,
-  trackWeatherView,
   trackFlightStatusCheck,
   trackFormStart,
   trackFormComplete,
   pushToDataLayer
 } from '@/lib/gtm-events'
 import { Button, Card, CardBody, CardHeader, CardTitle, Alert, Section } from '@/components/ui'
-import { Info, Phone, MessageCircle, Navigation, Calendar, Menu, Scroll, Star, Clock, Cloud, Plane, FileText } from 'lucide-react'
+import { Info, Phone, MessageCircle, Navigation, Calendar, Menu, Scroll, Star, Clock, Plane, FileText } from 'lucide-react'
 import { WhatsAppLink } from '@/components/WhatsAppLink'
 import { BookTableButton } from '@/components/BookTableButton'
 
@@ -165,9 +163,6 @@ export default function TestTrackingPage() {
   const testBusinessFeatures = () => {
     logDebug('🕐 Testing opening hours check')
     trackOpeningHoursCheck()
-    
-    logDebug('☁️ Testing weather view')
-    trackWeatherView()
     
     logDebug('✈️ Testing flight status check')
     trackFlightStatusCheck('Terminal 5')
@@ -446,7 +441,7 @@ export default function TestTrackingPage() {
                   Test All Business Features
                 </Button>
                 <div className="text-xs text-muted-foreground">
-                  Tests: Opening Hours, Weather, Flight Status
+                  Tests: Opening Hours & Flight Status
                 </div>
               </CardBody>
             </Card>

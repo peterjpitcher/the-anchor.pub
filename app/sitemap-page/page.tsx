@@ -84,20 +84,20 @@ export default function SitemapPage() {
         route="/sitemap-page"
         title="Sitemap"
         description="Find your way around The Anchor website"
-        size="small"
-        cta={
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/">
-              <Button variant="primary" size="lg">
-                🏠 Back to Home
-              </Button>
-            </Link>
-            <Link href="/find-us">
-              <Button variant="secondary" size="lg">
-                📍 Find Us
-              </Button>
-            </Link>
-          </div>
+        variant="feature"
+        primaryCta={
+          <Link href="/">
+            <Button variant="primary" size="lg" className="w-full sm:w-auto">
+              🏠 Back to Home
+            </Button>
+          </Link>
+        }
+        secondaryCta={
+          <Link href="/find-us">
+            <Button variant="secondary" size="lg" className="w-full sm:w-auto">
+              📍 Find Us
+            </Button>
+          </Link>
         }
       />
 

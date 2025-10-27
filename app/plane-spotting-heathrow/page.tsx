@@ -91,33 +91,32 @@ export default function PlaneSpottingHeathrowPage() {
         route="/plane-spotting-heathrow"
         title="Plane Spotting at Heathrow"
         description="Watch widebodies roar overhead every 90 seconds from our beer garden"
-        size="large"
-        showStatusBar={true}
+        variant="default"
         tags={[
           { label: '✈️ A380 & Dreamliner Views', variant: 'primary' },
           { label: '🍺 Full Bar Service', variant: 'default' },
           { label: '🆓 Free Parking', variant: 'success' },
           { label: '📶 Free WiFi', variant: 'default' }
         ]}
-        cta={
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <BookTableButton
-              variant="primary"
-              size="lg"
-              source="plane_spotting_hero"
-              className="w-full sm:w-auto"
-            >
-              📅 Reserve a Table
-            </BookTableButton>
-            <DirectionsButton
-              source="plane_spotting_hero"
-              size="lg"
-              href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ"
-              className="w-full sm:w-auto"
-            >
-              📍 Get Directions
-            </DirectionsButton>
-          </div>
+        primaryCta={
+          <BookTableButton
+            variant="primary"
+            size="lg"
+            source="plane_spotting_hero"
+            className="w-full sm:w-auto"
+          >
+            📅 Reserve a Table
+          </BookTableButton>
+        }
+        secondaryCta={
+          <DirectionsButton
+            source="plane_spotting_hero"
+            size="lg"
+            href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ"
+            className="w-full sm:w-auto"
+          >
+            📍 Get Directions
+          </DirectionsButton>
         }
       />
 

@@ -50,31 +50,31 @@ export default function Terminal3Page() {
         route="/near-heathrow/terminal-3"
         title="Your Family Pub Near Heathrow Terminal 3"
         description="Perfect for Virgin Atlantic & Emirates travelers • Free parking • British hospitality"
-        size="large"
+        variant="default"
         tags={[
           { label: "Just 11 minutes away", variant: "warning" }
         ]}
-        cta={
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <PhoneButton
-              phone="01753 682707"
-              source="terminal_3_hero"
-              variant="primary"
+        primaryCta={
+          <PhoneButton
+            phone="01753 682707"
+            source="terminal_3_hero"
+            variant="primary"
+            size="lg"
+            className="w-full sm:w-auto"
+          >
+            📞 Book a Table
+          </PhoneButton>
+        }
+        secondaryCta={
+          <Link href="#directions">
+            <Button 
+              variant="secondary"
               size="lg"
+              className="bg-white text-anchor-green hover:bg-gray-100 w-full sm:w-auto"
             >
-              📞 Book a Table
-            </PhoneButton>
-            
-            <Link href="#directions">
-              <Button 
-                variant="secondary"
-                size="lg"
-                className="bg-white text-anchor-green hover:bg-gray-100"
-              >
-                📍 Get Directions
-              </Button>
-            </Link>
-          </div>
+              📍 Get Directions
+            </Button>
+          </Link>
         }
       />
 

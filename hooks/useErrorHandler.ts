@@ -74,13 +74,6 @@ export function useBookingError(onError?: (error: unknown) => void) {
   })
 }
 
-export function useWeatherError(onError?: (error: unknown) => void) {
-  return useErrorHandler({
-    context: { feature: 'weather', action: 'load' },
-    onError
-  })
-}
-
 export function useFlightError(onError?: (error: unknown) => void) {
   return useErrorHandler({
     context: { feature: 'flights', action: 'load' },

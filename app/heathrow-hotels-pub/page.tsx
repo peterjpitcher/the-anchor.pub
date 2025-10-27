@@ -103,24 +103,24 @@ export default function HeathrowHotelsPubPage() {
         route="/heathrow-hotels-pub"
         title="Escape Heathrow Hotel Prices"
         description="Traditional British pub just minutes from your hotel"
-        size="medium"
-        showStatusBar={true}
-        cta={
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <PhoneButton
-              phone={CONTACT.phone}
-              source="heathrow_hotels_pub_hero"
-              variant="primary"
-              size="lg"
-            >
-              📞 Book a Table
-            </PhoneButton>
-            <Link href="/food-menu">
-              <Button variant="secondary" size="lg">
-                🍽️ View Menu
-              </Button>
-            </Link>
-          </div>
+        variant="default"
+        primaryCta={
+          <PhoneButton
+            phone={CONTACT.phone}
+            source="heathrow_hotels_pub_hero"
+            variant="primary"
+            size="lg"
+            className="w-full sm:w-auto"
+          >
+            📞 Book a Table
+          </PhoneButton>
+        }
+        secondaryCta={
+          <Link href="/food-menu">
+            <Button variant="secondary" size="lg" className="w-full sm:w-auto">
+              🍽️ View Menu
+            </Button>
+          </Link>
         }
       />
 

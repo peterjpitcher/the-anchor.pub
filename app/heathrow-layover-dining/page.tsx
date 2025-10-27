@@ -74,7 +74,7 @@ export default function HeathrowLayoverDiningPage() {
         route="/heathrow-layover-dining"
         title="Heathrow Layover Dining in 90 Minutes"
         description="Swap airport queues for proper British pub food with free parking just 7 minutes from Terminal 5."
-        size="large"
+        variant="default"
         breadcrumbs={[
           { name: 'Near Heathrow', href: '/near-heathrow' },
           { name: 'Layover Dining' }
@@ -85,28 +85,28 @@ export default function HeathrowLayoverDiningPage() {
           { label: '🍽️ Full menu served fast', variant: 'default' },
           { label: '🚗 Free parking', variant: 'default' }
         ]}
-        cta={
-          <div className="flex flex-col sm:flex-row gap-4">
-            <BookTableButton
-              source="layover_hero"
-              context="heathrow_layover"
-              variant="primary"
+        primaryCta={
+          <BookTableButton
+            source="layover_hero"
+            context="heathrow_layover"
+            variant="primary"
+            size="lg"
+            className="w-full sm:w-auto"
+          >
+            Book Layover Table
+          </BookTableButton>
+        }
+        secondaryCta={
+          <Link href="#itineraries" className="w-full sm:w-auto">
+            <Button
+              variant="secondary"
               size="lg"
-              className="w-full sm:w-auto"
+              fullWidth
+              className="sm:w-auto"
             >
-              Book Layover Table
-            </BookTableButton>
-            <Link href="#itineraries" className="w-full sm:w-auto">
-              <Button
-                variant="secondary"
-                size="lg"
-                fullWidth
-                className="sm:w-auto"
-              >
-                View Layover Itineraries
-              </Button>
-            </Link>
-          </div>
+              View Layover Itineraries
+            </Button>
+          </Link>
         }
       />
 

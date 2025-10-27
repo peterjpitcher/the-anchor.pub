@@ -48,31 +48,31 @@ export default function Terminal4Page() {
         route="/near-heathrow/terminal-4"
         title="Traditional British Pub Near Heathrow Terminal 4"
         description="Perfect for SkyTeam & budget travelers • Free parking • Real British hospitality"
-        size="large"
+        variant="default"
         tags={[
           { label: "Just 12 minutes away", variant: "warning" }
         ]}
-        cta={
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <BookTableButton
-              source="terminal_4_hero"
-              context="heathrow_terminal_4"
-              variant="primary"
+        primaryCta={
+          <BookTableButton
+            source="terminal_4_hero"
+            context="heathrow_terminal_4"
+            variant="primary"
+            size="lg"
+            className="w-full sm:w-auto"
+          >
+            📅 Book a Table Online
+          </BookTableButton>
+        }
+        secondaryCta={
+          <Link href="#directions">
+            <Button 
+              variant="secondary"
               size="lg"
+              className="bg-white text-anchor-green hover:bg-gray-100 w-full sm:w-auto"
             >
-              📅 Book a Table Online
-            </BookTableButton>
-            
-            <Link href="#directions">
-              <Button 
-                variant="secondary"
-                size="lg"
-                className="bg-white text-anchor-green hover:bg-gray-100"
-              >
-                📍 Get Directions
-              </Button>
-            </Link>
-          </div>
+              📍 Get Directions
+            </Button>
+          </Link>
         }
       />
 

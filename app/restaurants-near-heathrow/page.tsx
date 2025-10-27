@@ -133,29 +133,29 @@ export default function RestaurantsNearHeathrowPage() {
         route="/restaurants-near-heathrow"
         title="Restaurant Near Heathrow Airport"
         description="Skip the expensive terminal dining - proper British food just 7 minutes away"
-        size="large"
-        showStatusBar={true}
+        variant="default"
         tags={[
           { label: "✅ Free Parking Saves £20-40", variant: "success" },
           { label: "⏱️ 7 mins from Terminal 5", variant: "warning" },
           { label: "💷 50% Less Than Airport Prices", variant: "primary" },
           { label: "🍽️ Cooked Fresh to Order", variant: "default" }
         ]}
-        cta={
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <BookTableButton
-              variant="primary"
-              size="lg"
-              source="restaurants_near_heathrow_hero"
-            >
-              📅 Book a Table
-            </BookTableButton>
-            <Link href="/food-menu">
-              <Button variant="secondary" size="lg">
-                🍽️ View Full Menu
-              </Button>
-            </Link>
-          </div>
+        primaryCta={
+          <BookTableButton
+            variant="primary"
+            size="lg"
+            source="restaurants_near_heathrow_hero"
+            className="w-full sm:w-auto"
+          >
+            📅 Book a Table
+          </BookTableButton>
+        }
+        secondaryCta={
+          <Link href="/food-menu">
+            <Button variant="secondary" size="lg" className="w-full sm:w-auto">
+              🍽️ View Full Menu
+            </Button>
+          </Link>
         }
       />
 

@@ -229,23 +229,24 @@ export default async function QuizNightPage() {
         route="/quiz-night"
         title="Quiz Night Wednesdays at The Anchor"
         description="Proper pub quiz energy, seasonal themes and prizes worth bragging about."
-        size="medium"
-        showStatusBar
+        variant="promo"
         tags={[
           { label: '📍 7 mins from Heathrow', variant: 'default' },
           { label: '🧠 Fresh themes monthly', variant: 'primary' },
           { label: '💷 £3 per player · teams up to 6', variant: 'default' }
         ]}
-        cta={
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <BookTableButton
-              source="quiz_night_hero"
-              variant="primary"
-              size="lg"
-              className="w-full sm:w-auto"
-            >
-              📅 Book Your Quiz Table
-            </BookTableButton>
+        primaryCta={
+          <BookTableButton
+            source="quiz_night_hero"
+            variant="primary"
+            size="lg"
+            className="w-full sm:w-auto"
+          >
+            📅 Book Your Quiz Table
+          </BookTableButton>
+        }
+        secondaryCta={
+          <>
             <Link
               href="#quiz-dates"
               className={cn(
@@ -283,7 +284,7 @@ export default async function QuizNightPage() {
             >
               📞 Call to reserve: 01753 682707
             </PhoneButton>
-          </div>
+          </>
         }
       />
 

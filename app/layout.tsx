@@ -3,7 +3,6 @@ import './globals.css'
 import { WebVitals } from './web-vitals'
 import { Navigation } from '@/components/Navigation'
 import { Footer } from '@/components/Footer'
-import { Weather } from '@/components/Weather'
 import { HeaderStatusSectionDirect } from '@/components/HeaderStatusSectionDirect'
 import { FloatingActions } from '@/components/FloatingActions'
 import { DynamicSchema } from '@/components/DynamicSchema'
@@ -166,7 +165,6 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://management.orangejelly.co.uk" />
-        <link rel="preconnect" href="https://openweathermap.org" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
         
@@ -206,7 +204,6 @@ export default function RootLayout({
               <header role="banner">
                 <Navigation 
                   statusComponent={<HeaderStatusSectionDirect />}
-                  showWeather={false}
                 />
               </header>
             </ErrorBoundary>

@@ -85,25 +85,28 @@ export default function BeerGardenPage() {
         route="/beer-garden"
         title="Beer Garden & Plane Spotting"
         description="Watch aircraft every 90 seconds while enjoying a pint"
-        size="large"
-        showStatusBar={true}
+        variant="default"
         tags={[
           { label: '🛬 Every 90 Seconds', variant: 'success' },
           { label: '📸 Photo Opportunities', variant: 'primary' },
           { label: '🐕 Dog Friendly', variant: 'default' },
           { label: '🍺 Full Bar Service', variant: 'default' }
         ]}
-        cta={
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <BookTableButton
-              source="beer_garden_hero"
-              variant="primary"
-              size="lg"
-            />
+        primaryCta={
+          <BookTableButton
+            source="beer_garden_hero"
+            variant="primary"
+            size="lg"
+            className="w-full sm:w-auto"
+          />
+        }
+        secondaryCta={
+          <>
             <Link href="/plane-spotting-heathrow">
               <Button 
                 variant="secondary"
                 size="lg"
+                className="w-full sm:w-auto"
               >
                 ✈️ Plane Spotting Guide
               </Button>
@@ -112,6 +115,7 @@ export default function BeerGardenPage() {
               <Button 
                 variant="secondary"
                 size="lg"
+                className="w-full sm:w-auto"
               >
                 🍺 View Drinks Menu
               </Button>
@@ -120,11 +124,12 @@ export default function BeerGardenPage() {
               <Button 
                 variant="secondary"
                 size="lg"
+                className="w-full sm:w-auto"
               >
                 📍 Get Directions
               </Button>
             </Link>
-          </div>
+          </>
         }
       >
         <div className="bg-white/90 backdrop-blur-sm text-anchor-green font-bold text-lg md:text-xl px-6 py-3 rounded-full inline-block mt-4">

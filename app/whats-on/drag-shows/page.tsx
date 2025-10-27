@@ -40,34 +40,34 @@ export default function DragShowsPage() {
           </>
         }
         description="Where Stanwell Moor meets Vegas, darling!"
-        overlay="gradient"
-        className="min-h-[70vh]"
+        variant="promo"
         tags={[
           { label: '👑 7PM Start', variant: 'default' },
           { label: '🎭 Live Performance', variant: 'default' },
           { label: '🏳️‍🌈 Everyone Welcome', variant: 'default' },
           { label: '🍹 Themed Cocktails', variant: 'default' }
         ]}
-        cta={
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <BookTableButton
-              source="drag_shows_hero"
-              variant="primary"
-              size="lg"
-              context="drag_show"
-            >
-              👑 Book Your Table
-            </BookTableButton>
-            <PhoneButton
-              phone="01753 682707"
-              source="drag_shows_hero"
-              variant="secondary"
-              size="lg"
-              className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm"
-            >
-              📞 Call: 01753 682707
-            </PhoneButton>
-          </div>
+        primaryCta={
+          <BookTableButton
+            source="drag_shows_hero"
+            variant="primary"
+            size="lg"
+            context="drag_show"
+            className="w-full sm:w-auto"
+          >
+            👑 Book Your Table
+          </BookTableButton>
+        }
+        secondaryCta={
+          <PhoneButton
+            phone="01753 682707"
+            source="drag_shows_hero"
+            variant="secondary"
+            size="lg"
+            className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm w-full sm:w-auto"
+          >
+            📞 Call: 01753 682707
+          </PhoneButton>
         }
       />
 

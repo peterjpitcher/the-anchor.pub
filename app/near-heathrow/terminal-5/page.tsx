@@ -48,31 +48,32 @@ export default function Terminal5Page() {
         route="/near-heathrow/terminal-5"
         title="The Closest Pub to Heathrow Terminal 5"
         description="Perfect for British Airways travelers • Free parking • Traditional British pub"
-        size="small"
+        variant="default"
         tags={[
           { label: '✈️ Just 7 minutes away', variant: 'success' },
           { label: '🇬🇧 British Airways Terminal', variant: 'primary' }
         ]}
-        cta={
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <BookTableButton
-              source="terminal_5_hero"
-              context="heathrow_terminal_5"
-              variant="primary"
+        primaryCta={
+          <BookTableButton
+            source="terminal_5_hero"
+            context="heathrow_terminal_5"
+            variant="primary"
+            size="lg"
+            className="w-full sm:w-auto"
+          >
+            📅 Book a Table Online
+          </BookTableButton>
+        }
+        secondaryCta={
+          <Link href="#directions">
+            <Button 
+              variant="secondary"
               size="lg"
+              className="w-full sm:w-auto"
             >
-              📅 Book a Table Online
-            </BookTableButton>
-            
-            <Link href="#directions">
-              <Button 
-                variant="secondary"
-                size="lg"
-              >
-                📍 Get Directions
-              </Button>
-            </Link>
-          </div>
+              📍 Get Directions
+            </Button>
+          </Link>
         }
       />
 

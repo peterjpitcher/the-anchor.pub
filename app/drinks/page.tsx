@@ -306,25 +306,26 @@ export default async function DrinksMenuPage({ searchParams }: { searchParams: P
         route="/drinks"
         title="Drinks at The Anchor"
         description="From real ales to premium spirits - something for everyone"
-        size="medium"
-        showStatusBar={true}
+        variant="default"
         tags={[
           { label: '🍺 Real Ales', variant: 'default' },
           { label: '🥃 Premium Spirits', variant: 'default' },
           { label: '🍷 Wine Selection', variant: 'default' },
           { label: '🍹 Cocktails', variant: 'primary' }
         ]}
-        cta={
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <BookTableButton
-              source="drinks_hero"
-              variant="secondary"
-              size="lg"
-              fullWidth
-              className="w-full sm:w-auto bg-white text-anchor-green hover:bg-gray-100"
-            >
-              Reserve a Table
-            </BookTableButton>
+        primaryCta={
+          <BookTableButton
+            source="drinks_hero"
+            variant="secondary"
+            size="lg"
+            fullWidth
+            className="w-full sm:w-auto bg-white text-anchor-green hover:bg-gray-100"
+          >
+            Reserve a Table
+          </BookTableButton>
+        }
+        secondaryCta={
+          <>
             <Link href="#menu" className="w-full sm:w-auto">
               <Button 
                 variant="secondary"
@@ -355,7 +356,7 @@ export default async function DrinksMenuPage({ searchParams }: { searchParams: P
                 🍖 Sunday Roast Info
               </Button>
             </Link>
-          </div>
+          </>
         }
       />
 

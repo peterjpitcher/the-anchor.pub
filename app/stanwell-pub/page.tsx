@@ -94,21 +94,20 @@ export default function StanwellPubPage() {
         route="/stanwell-pub"
         title="Stanwell's Traditional Village Pub"
         description="The heart of the Stanwell community since generations"
-        size="medium"
-        showStatusBar={true}
-        cta={
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href={CONTACT.phoneHref}>
-              <Button variant="primary" size="lg">
-                📞 Call Us
-              </Button>
-            </Link>
-            <Link href="/food-menu">
-              <Button variant="secondary" size="lg">
-                🍽️ View Menu
-              </Button>
-            </Link>
-          </div>
+        variant="default"
+        primaryCta={
+          <Link href={CONTACT.phoneHref} className="w-full sm:w-auto">
+            <Button variant="primary" size="lg" className="w-full sm:w-auto">
+              📞 Call Us
+            </Button>
+          </Link>
+        }
+        secondaryCta={
+          <Link href="/food-menu" className="w-full sm:w-auto">
+            <Button variant="secondary" size="lg" className="w-full sm:w-auto">
+              🍽️ View Menu
+            </Button>
+          </Link>
         }
       />
 

@@ -452,14 +452,6 @@ export function trackOpeningHoursCheck() {
   })
 }
 
-export function trackWeatherView() {
-  pushToDataLayer({
-    event: 'weather_check',
-    event_category: 'User Behaviour',
-    event_label: 'Weather Widget'
-  })
-}
-
 export function trackFlightStatusCheck(terminal: string) {
   pushToDataLayer({
     event: 'flight_status_check',

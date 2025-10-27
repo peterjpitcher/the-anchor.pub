@@ -91,12 +91,10 @@ export default async function BlogPage({
         route="/blog"
         title="The Anchor Blog"
         description="News, events, and stories from your local pub"
-        overlay="gradient"
-        className="min-h-[50vh]"
-        showStatusBar={true}
-        cta={
+        variant="feature"
+        secondaryInfo={
           currentPage > 1 ? (
-            <p className="text-lg text-white/80 mt-4">
+            <p className="text-lg text-white/80">
               Page {currentPage} of {totalPages}
             </p>
           ) : undefined

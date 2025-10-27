@@ -88,14 +88,12 @@ export default function HomePage() {
       {/* Custom Hero Section with Seasonal Image */}
       <HeroWrapper
         route="/"
-        size="hero"
-        alignment="center"
+        variant="dark"
         title={
           <span className="drop-shadow-[0_2px_6px_rgba(0,0,0,0.65)]">
             {seasonalGreeting}
           </span>
         }
-        overlay="gradient"
         className="hero-focal"
         style={{
           '--hero-ox': `${focal.x}%`,
@@ -151,29 +149,29 @@ export default function HomePage() {
           { label: 'Step-Free Access', icon: '♿', size: 'small', className: 'bg-white/15 text-white backdrop-blur-sm border border-white/10' },
           { label: '7 mins from Heathrow', icon: '✈️', size: 'small', className: 'bg-white/15 text-white backdrop-blur-sm border border-white/10' }
         ]}
-        cta={
-          <div className="flex flex-col sm:flex-row gap-4 justify-center px-2 sm:px-0 max-w-md mx-auto">
-            <BookTableButton
-              source="homepage_hero"
-              variant="primary"
+        ctaContainerClassName="px-2 sm:px-0 max-w-md mx-auto"
+        primaryCta={
+          <BookTableButton
+            source="homepage_hero"
+            variant="primary"
+            size="lg"
+            fullWidth
+            className="w-full"
+          />
+        }
+        secondaryCta={
+          <Link
+            href="/food-menu"
+            className="w-full"
+          >
+            <Button 
+              variant="secondary"
               size="lg"
               fullWidth
-              className="flex-1"
-            />
-
-            <Link
-              href="/food-menu"
-              className="flex-1"
             >
-              <Button 
-                variant="secondary"
-                size="lg"
-                fullWidth
-              >
-                🍽️ View Menu
-              </Button>
-            </Link>
-          </div>
+              🍽️ View Menu
+            </Button>
+          </Link>
         }
         showStatusBar={false}
         showBreadcrumbs={false}
@@ -676,8 +674,8 @@ export default function HomePage() {
               </div>
               
               <div className="bg-white/10 rounded-lg p-4">
-                <h3 className="text-lg font-bold mb-3 text-white">🕐 Hours & Weather</h3>
-                <BusinessHours variant="condensed" showKitchen={true} showWeather={true} />
+                <h3 className="text-lg font-bold mb-3 text-white">🕐 Opening Hours</h3>
+                <BusinessHours variant="condensed" showKitchen={true} />
               </div>
             </Grid>
           </div>

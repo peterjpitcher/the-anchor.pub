@@ -5,7 +5,7 @@
 import { analytics } from '@/lib/analytics'
 
 export interface ErrorContext {
-  feature: 'events' | 'booking' | 'weather' | 'flights' | 'hours' | 'business-hours' | 'general'
+  feature: 'events' | 'booking' | 'flights' | 'hours' | 'business-hours' | 'general'
   action: 'load' | 'submit' | 'fetch' | 'process'
   showContactInfo?: boolean
   showRetry?: boolean
@@ -22,10 +22,6 @@ const ERROR_MESSAGES: Record<string, Record<string, string>> = {
     load: "We couldn't load the booking form. Please refresh the page or call us at 01753 682707.",
     submit: "We couldn't process your booking online. Please call us at 01753 682707 and we'll reserve your spot right away.",
     process: "There was an issue with your booking. Please try again or give us a call at 01753 682707."
-  },
-  weather: {
-    load: "We couldn't get the current weather. Don't worry, we're still open during our regular hours!",
-    fetch: "Weather information is temporarily unavailable."
   },
   flights: {
     load: "Flight information is temporarily unavailable. For real-time updates, visit the Heathrow Airport website.",
@@ -53,9 +49,6 @@ export const FALLBACK_CONTENT = {
     title: "Check Our Events",
     message: "Call us at 01753 682707 for today's events schedule",
     link: "/whats-on"
-  },
-  weather: {
-    message: "Weather unavailable"
   },
   hours: {
     title: "Opening Hours",

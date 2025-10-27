@@ -83,27 +83,28 @@ export default function FelthamPubPage() {
         route="/feltham-pub"
         title="Your Local Pub Near Feltham"
         description="Just 10 minutes away with free parking"
-        size="medium"
-        showStatusBar={true}
-        cta={
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <PhoneButton
-              phone="01753 682707"
-              source="feltham_pub_hero"
-              variant="primary"
+        variant="default"
+        primaryCta={
+          <PhoneButton
+            phone="01753 682707"
+            source="feltham_pub_hero"
+            variant="primary"
+            size="lg"
+            className="w-full sm:w-auto"
+          >
+            📞 Call to Book
+          </PhoneButton>
+        }
+        secondaryCta={
+          <Link href="/food-menu">
+            <Button 
+              variant="secondary"
               size="lg"
+              className="w-full sm:w-auto"
             >
-              📞 Call to Book
-            </PhoneButton>
-            <Link href="/food-menu">
-              <Button 
-                variant="secondary"
-                size="lg"
-              >
-                🍽️ View Menu
-              </Button>
-            </Link>
-          </div>
+              🍽️ View Menu
+            </Button>
+          </Link>
         }
       />
 

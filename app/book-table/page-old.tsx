@@ -39,11 +39,9 @@ export default function BookTablePage({
       
       <HeroWrapper
         route="/book-table"
-        size="medium"
-        alignment="center"
+        variant="default"
         title="Book a Table"
         description="Reserve your spot for great food and drinks"
-        overlay="gradient"
         image={{
           src: DEFAULT_PAGE_HEADER_IMAGE,
           alt: 'The Anchor entrance with warm lighting and traditional British pub signage',

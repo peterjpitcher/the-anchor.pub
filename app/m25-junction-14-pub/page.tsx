@@ -100,21 +100,20 @@ export default function M25Junction14PubPage() {
         route="/m25-junction-14-pub"
         title="Your M25 Junction 14 Pit Stop"
         description="Just 5 minutes from the motorway - real food, real prices"
-        size="medium"
-        showStatusBar={true}
-        cta={
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href={CONTACT.phoneHref}>
-              <Button variant="primary" size="lg">
-                📞 Call Ahead
-              </Button>
-            </Link>
-            <Link href="/food-menu">
-              <Button variant="secondary" size="lg">
-                🍽️ View Menu
-              </Button>
-            </Link>
-          </div>
+        variant="default"
+        primaryCta={
+          <Link href={CONTACT.phoneHref} className="w-full sm:w-auto">
+            <Button variant="primary" size="lg" className="w-full sm:w-auto">
+              📞 Call Ahead
+            </Button>
+          </Link>
+        }
+        secondaryCta={
+          <Link href="/food-menu" className="w-full sm:w-auto">
+            <Button variant="secondary" size="lg" className="w-full sm:w-auto">
+              🍽️ View Menu
+            </Button>
+          </Link>
         }
       />
 

@@ -104,24 +104,24 @@ export default function AshfordPubPage() {
         route="/ashford-pub"
         title="Traditional British Pub Near Ashford"
         description="Just 10 minutes from Ashford with free parking"
-        size="medium"
-        showStatusBar={true}
-        cta={
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <BookTableButton
-              source="ashford_pub_hero"
-              context="location_ashford"
-              variant="primary"
-              size="lg"
-            >
-              📞 Call to Book
-            </BookTableButton>
-            <Link href="/food-menu">
-              <Button variant="secondary" size="lg">
-                🍽️ View Menu
-              </Button>
-            </Link>
-          </div>
+        variant="default"
+        primaryCta={
+          <BookTableButton
+            source="ashford_pub_hero"
+            context="location_ashford"
+            variant="primary"
+            size="lg"
+            className="w-full sm:w-auto"
+          >
+            📞 Call to Book
+          </BookTableButton>
+        }
+        secondaryCta={
+          <Link href="/food-menu">
+            <Button variant="secondary" size="lg" className="w-full sm:w-auto">
+              🍽️ View Menu
+            </Button>
+          </Link>
         }
       />
 

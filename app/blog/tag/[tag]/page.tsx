@@ -68,14 +68,13 @@ export default async function TagPage({ params }: { params: { tag: string } }) {
         route={`/blog/tag/${params.tag}`}
         title={displayName}
         description={seoContent.heroContent}
-        overlay="gradient"
-        className="min-h-[40vh]"
+        variant="feature"
         breadcrumbs={[
           { name: 'Blog', href: '/blog' },
           { name: displayName }
         ]}
-        cta={
-          <p className="text-white/80 mt-4">
+        secondaryInfo={
+          <p className="text-white/80">
             {taggedPosts.length} {taggedPosts.length === 1 ? 'post' : 'posts'}
           </p>
         }

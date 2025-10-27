@@ -116,37 +116,38 @@ export default function FishAndChipsPage() {
         route="/food/fish-and-chips"
         title="Traditional British Fish & Chips"
         description="Beer-battered cod with triple-cooked chips - a proper British classic"
-        size="large"
-        showStatusBar={true}
+        variant="default"
         tags={[
           { label: "🐟 Fresh Cod Daily", variant: "success" },
           { label: "👴 50% Off Fridays for Over 65s", variant: "warning" },
           { label: "🍟 Triple-Cooked Chips", variant: "default" },
           { label: "⏱️ Cooked Fresh in 15 mins", variant: "primary" }
         ]}
-        cta={
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <BookTableButton
-              variant="primary"
-              size="lg"
-              source="fish_chips_hero"
-            >
-              📅 Book a Table
-            </BookTableButton>
-            <Link href="/food-menu">
-              <Button variant="secondary" size="lg">
-                📋 View Full Menu
-              </Button>
-            </Link>
+        primaryCta={
+          <BookTableButton
+            variant="primary"
+            size="lg"
+            source="fish_chips_hero"
+            className="w-full sm:w-auto"
+          >
+            📅 Book a Table
+          </BookTableButton>
+        }
+        secondaryCta={
+          <Link href="/food-menu">
+            <Button variant="secondary" size="lg" className="w-full sm:w-auto">
+              📋 View Full Menu
+            </Button>
+          </Link>
+        }
+        secondaryInfo={
+          <div className="bg-amber-600/90 backdrop-blur-sm rounded-lg p-4 max-w-2xl mx-auto">
+            <p className="text-white font-bold text-lg text-center">
+              🎣 "Best Fish & Chips Near Heathrow" - Local Favourite Since 1995
+            </p>
           </div>
         }
-      >
-        <div className="mt-6 bg-amber-600/90 backdrop-blur-sm rounded-lg p-4 max-w-2xl mx-auto">
-          <p className="text-white font-bold text-lg text-center">
-            🎣 "Best Fish & Chips Near Heathrow" - Local Favourite Since 1995
-          </p>
-        </div>
-      </HeroWrapper>
+      />
 
       {/* Page Title for SEO */}
       <Section background="white" spacing="md" container>

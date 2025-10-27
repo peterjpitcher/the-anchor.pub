@@ -114,26 +114,26 @@ export default function WhatsOnPage({ searchParams }: WhatsOnPageProps) {
         route="/whats-on"
         title="What's On at The Anchor"
         description="From drag shows to quiz nights - there's always something happening!"
-        size="large"
-        showStatusBar={true}
-        statusBarPosition="below"
+        variant="promo"
         tags={[
           { label: '👑 Drag Shows', variant: 'primary' },
           { label: '🧠 Quiz Night £3', variant: 'warning' },
           { label: '🎱 Pool & Darts FREE', variant: 'default' },
           { label: '🍺 Great Atmosphere', variant: 'success' }
         ]}
-        cta={
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <BookTableButton
-              source="whats_on_hero"
-              variant="primary"
-              size="lg"
-              fullWidth
-              className="w-full sm:w-auto"
-            >
-              📅 Reserve a Table
-            </BookTableButton>
+        primaryCta={
+          <BookTableButton
+            source="whats_on_hero"
+            variant="primary"
+            size="lg"
+            fullWidth
+            className="w-full sm:w-auto"
+          >
+            📅 Reserve a Table
+          </BookTableButton>
+        }
+        secondaryCta={
+          <>
             <Link href="#upcoming-events" className="w-full sm:w-auto">
               <Button 
                 variant="secondary"
@@ -174,7 +174,7 @@ export default function WhatsOnPage({ searchParams }: WhatsOnPageProps) {
                 🎉 Book Private Event
               </Button>
             </Link>
-          </div>
+          </>
         }
       />
 

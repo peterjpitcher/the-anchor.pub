@@ -177,7 +177,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
         route={`/blog/${params.slug}`}
         title={post.title}
         description={
-          <div className="text-center">
+          <div className="text-left sm:text-center">
             <p className="text-white/90 mb-2">
               By {post.author} • {new Date(post.date).toLocaleDateString('en-GB', { 
                 year: 'numeric', 
@@ -190,20 +190,17 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
             </p>
           </div>
         }
-        size="medium"
-        showStatusBar={true}
+        variant="feature"
         tags={post.tags.map(tag => ({
           label: tag,
           variant: 'default' as const,
           href: `/blog/tag/${tag}`
         }))}
-        cta={
-          <div className="flex justify-center">
-            <BlogShareButtons 
-              postSlug={post.slug}
-              postTitle={post.title}
-            />
-          </div>
+        secondaryCta={
+          <BlogShareButtons 
+            postSlug={post.slug}
+            postTitle={post.title}
+          />
         }
       />
 

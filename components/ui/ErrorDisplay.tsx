@@ -125,16 +125,6 @@ export function BookingErrorDisplay({ onRetry }: { onRetry?: () => void }) {
   )
 }
 
-export function WeatherErrorDisplay() {
-  return (
-    <ErrorDisplay
-      message="We couldn't get the current weather. Don't worry, we're still open during our regular hours!"
-      showContactInfo={false}
-      variant="inline"
-    />
-  )
-}
-
 export function FlightErrorDisplay({ onRetry }: { onRetry?: () => void }) {
   return (
     <ErrorDisplay

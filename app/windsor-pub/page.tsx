@@ -103,21 +103,20 @@ export default function WindsorPubPage() {
         route="/windsor-pub"
         title="Traditional British Pub Near Windsor"
         description="Just 15 minutes from Windsor Castle with free parking"
-        size="medium"
-        showStatusBar={true}
-        cta={
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href={CONTACT.phoneHref}>
-              <Button variant="primary" size="lg">
-                📞 Call to Book
-              </Button>
-            </Link>
-            <Link href="/food-menu">
-              <Button variant="secondary" size="lg">
-                🍽️ View Menu
-              </Button>
-            </Link>
-          </div>
+        variant="default"
+        primaryCta={
+          <Link href={CONTACT.phoneHref} className="w-full sm:w-auto">
+            <Button variant="primary" size="lg" className="w-full sm:w-auto">
+              📞 Call to Book
+            </Button>
+          </Link>
+        }
+        secondaryCta={
+          <Link href="/food-menu" className="w-full sm:w-auto">
+            <Button variant="secondary" size="lg" className="w-full sm:w-auto">
+              🍽️ View Menu
+            </Button>
+          </Link>
         }
       />
 

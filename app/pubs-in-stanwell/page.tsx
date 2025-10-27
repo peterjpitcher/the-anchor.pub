@@ -108,37 +108,38 @@ export default function PubsInStanwellPage() {
         route="/pubs-in-stanwell"
         title="Your Local Pub in Stanwell Moor"
         description="Traditional British pub serving our community since 1995"
-        size="large"
-        showStatusBar={true}
+        variant="default"
         tags={[
           { label: "🍺 Traditional Local", variant: "success" },
           { label: "👨‍👩‍👧‍👦 Family Friendly", variant: "default" },
           { label: "🌳 Beer Garden", variant: "primary" },
           { label: "🚗 Free Parking", variant: "warning" }
         ]}
-        cta={
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <BookTableButton
-              variant="primary"
-              size="lg"
-              source="stanwell_pubs_hero"
-            >
-              📅 Book a Table
-            </BookTableButton>
-            <Link href="/food-menu">
-              <Button variant="secondary" size="lg">
-                🍽️ View Menu
-              </Button>
-            </Link>
+        primaryCta={
+          <BookTableButton
+            variant="primary"
+            size="lg"
+            source="stanwell_pubs_hero"
+            className="w-full sm:w-auto"
+          >
+            📅 Book a Table
+          </BookTableButton>
+        }
+        secondaryCta={
+          <Link href="/food-menu">
+            <Button variant="secondary" size="lg" className="w-full sm:w-auto">
+              🍽️ View Menu
+            </Button>
+          </Link>
+        }
+        secondaryInfo={
+          <div className="bg-anchor-green/90 backdrop-blur-sm rounded-lg p-4 max-w-2xl mx-auto">
+            <p className="text-white font-bold text-lg text-center">
+              ⭐ "The Heart of Stanwell Moor Village" - Serving Locals & Visitors Since 1995
+            </p>
           </div>
         }
-      >
-        <div className="mt-6 bg-anchor-green/90 backdrop-blur-sm rounded-lg p-4 max-w-2xl mx-auto">
-          <p className="text-white font-bold text-lg text-center">
-            ⭐ "The Heart of Stanwell Moor Village" - Serving Locals & Visitors Since 1995
-          </p>
-        </div>
-      </HeroWrapper>
+      />
 
       {/* Page Title for SEO */}
       <section className="bg-white py-8">

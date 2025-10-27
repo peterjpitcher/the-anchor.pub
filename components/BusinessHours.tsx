@@ -1,66 +1,23 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import Image from 'next/image'
 import { DateTime } from 'luxon'
 import { type BusinessHours } from '@/lib/api'
 import { StatusBar } from './StatusBar'
-import { FALLBACK_CONTENT, CONTACT_INFO, logError } from '@/lib/error-handling'
+import { CONTACT_INFO } from '@/lib/error-handling'
 import { LoadingState } from '@/components/ui/LoadingState'
 import { parseApiDuration } from '@/lib/time-utils'
 import { useBusinessHours } from '@/hooks/useBusinessHours'
 
-interface WeatherForecast {
-  date: string
-  day: string
-  temp_max: number
-  temp_min: number
-  description: string
-  icon: string
-}
-
 interface BusinessHoursProps {
   variant?: 'compact' | 'full' | 'status' | 'dark' | 'condensed'
   showKitchen?: boolean
-  showWeather?: boolean
 }
 
-export function BusinessHours({ variant = 'full', showKitchen = true, showWeather = false }: BusinessHoursProps) {
-  const [forecast, setForecast] = useState<WeatherForecast[]>([])
-  const [weatherLoading, setWeatherLoading] = useState(false)
-  
+export function BusinessHours({ variant = 'full', showKitchen = true }: BusinessHoursProps) {
   // Use the useBusinessHours hook instead of manual fetching
   const { hours, loading, error } = useBusinessHours({
     refreshInterval: 5 * 60 * 1000 // 5 minutes
   })
-
-  // Fetch weather data separately if needed
-  useEffect(() => {
-    async function fetchWeather() {
-      if (!showWeather || (variant !== 'dark' && variant !== 'condensed')) {
-        return
-      }
-      
-      try {
-        setWeatherLoading(true)
-        const weatherData = await fetch('/api/weather?type=forecast').then(r => r.json())
-        
-        if (weatherData && weatherData.forecast) {
-          setForecast(weatherData.forecast)
-        }
-      } catch (err) {
-        logError('weather-fetch', err, { variant })
-        // Weather is optional, so we don't set an error state
-      } finally {
-        setWeatherLoading(false)
-      }
-    }
-
-    fetchWeather()
-    // Refresh weather every 30 minutes
-    const interval = setInterval(fetchWeather, 30 * 60 * 1000)
-    return () => clearInterval(interval)
-  }, [showWeather, variant])
 
   if (loading) {
     if (variant === 'status') {
@@ -215,11 +172,10 @@ export function BusinessHours({ variant = 'full', showKitchen = true, showWeathe
           )}
         </div>
 
-        {/* Regular Hours with Weather */}
+        {/* Regular Hours */}
         <div className="space-y-2">
           {upcomingDays.map((day, index) => {
             const dayHours = hours.regularHours[day.key]
-            const dayForecast = forecast[index]
             const specialHours = getSpecialHoursForDate(day.isoDate)
             const displayHours = specialHours || dayHours
             const hasSpecialHours = !!specialHours
@@ -237,21 +193,6 @@ export function BusinessHours({ variant = 'full', showKitchen = true, showWeathe
                     {day.isToday && <span className="text-sm sm:text-xs ml-2 text-white">(Today)</span>}
                     {hasSpecialHours && <span className="text-sm sm:text-xs ml-2 text-yellow-400">({specialHours?.note || specialHours?.reason || 'Special hours'})</span>}
                   </span>
-                  {showWeather && dayForecast && (
-                    <div className="flex items-center gap-2">
-                      <Image 
-                        src={`https://openweathermap.org/img/wn/${dayForecast.icon}.png`}
-                        alt={dayForecast.description}
-                        width={24}
-                        height={24}
-                        className="w-6 h-6"
-                        sizes="24px"
-                      />
-                      <span className="text-sm sm:text-xs text-white/80">
-                        {Math.round(dayForecast.temp_max)}°/{Math.round(dayForecast.temp_min)}°C
-                      </span>
-                    </div>
-                  )}
                 </div>
                 <div className="text-right space-y-1">
                   {displayHours.is_closed ? (
@@ -311,7 +252,6 @@ export function BusinessHours({ variant = 'full', showKitchen = true, showWeathe
         <div className="space-y-1">
           {upcomingDays.map((day, index) => {
             const dayHours = hours.regularHours[day.key]
-            const dayForecast = showWeather ? forecast[index] : null
             const specialHours = getSpecialHoursForDate(day.isoDate)
             const displayHours = specialHours || dayHours
             const hasSpecialHours = !!specialHours
@@ -327,27 +267,12 @@ export function BusinessHours({ variant = 'full', showKitchen = true, showWeathe
                   day.isToday ? 'bg-white/10 ring-1 ring-white/30' : 'hover:bg-white/5'
                 } ${hasSpecialHours ? 'ring-1 ring-yellow-400/50' : ''}`}
               >
-                {/* Left: Day & Weather */}
+                {/* Left: Day */}
                 <div className="flex items-center gap-3 min-w-0">
                   <span className={`text-sm font-medium capitalize w-16 ${day.isToday ? 'text-white' : 'text-white'}`}>
                     {day.label.slice(0, 3)}
                     {day.isToday && <span className="text-sm sm:text-xs"> •</span>}
                   </span>
-                  {showWeather && dayForecast && (
-                    <div className="flex items-center gap-1">
-                      <Image
-                        src={`https://openweathermap.org/img/wn/${dayForecast.icon}.png`}
-                        alt={dayForecast.description}
-                        width={20}
-                        height={20}
-                        className="w-5 h-5"
-                        sizes="20px"
-                      />
-                      <span className="text-sm sm:text-xs text-white/80">
-                        {Math.round(dayForecast.temp_max)}°/{Math.round(dayForecast.temp_min)}°C
-                      </span>
-                    </div>
-                  )}
                 </div>
 
                 {/* Right: Hours */}

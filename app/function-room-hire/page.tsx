@@ -76,40 +76,45 @@ export default function FunctionRoomHirePage() {
         route="/function-room-hire"
         title="Function Room Hire"
         description="Versatile event spaces with flexible pricing"
-        size="large"
+        variant="promo"
         tags={[
           { label: "🏢 Multiple Spaces", variant: "default" },
           { label: "💷 Flexible Pricing", variant: "success" },
           { label: "🚗 Free Parking", variant: "default" },
           { label: "📍 Near Heathrow", variant: "success" }
         ]}
-        cta={
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <BookTableButton
-              source="function_room_hero"
-              variant="primary"
-              size="lg"
-              context="function_room"
-            >
-              🏢 Book Function Room
-            </BookTableButton>
+        primaryCta={
+          <BookTableButton
+            source="function_room_hero"
+            variant="primary"
+            size="lg"
+            context="function_room"
+            className="w-full sm:w-auto"
+          >
+            🏢 Book Function Room
+          </BookTableButton>
+        }
+        secondaryCta={
+          <>
             <PhoneButton
               phone="01753 682707"
               source="function_room_hero"
               variant="secondary"
               size="lg"
+              className="w-full sm:w-auto"
             >
               📞 Call: 01753 682707
             </PhoneButton>
-            <Link href="https://wa.me/441753682707?text=Hi,%20I" target="_blank" rel="noopener noreferrer">
-      <Button 
-        variant="secondary"
-        size="lg"
-      >
-        💬 WhatsApp Enquiry
-      </Button>
-    </Link>
-          </div>
+            <Link href="https://wa.me/441753682707?text=Hi,%20I" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
+              <Button 
+                variant="secondary"
+                size="lg"
+                className="w-full sm:w-auto"
+              >
+                💬 WhatsApp Enquiry
+              </Button>
+            </Link>
+          </>
         }
       />
 

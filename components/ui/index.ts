@@ -55,7 +55,7 @@ export { Price, PriceRange } from './Price'
 export { OpeningHours, OpenStatus } from './OpeningHours'
 export { Icon, type IconName } from './Icon'
 export * from './Icon' // Export all icon components
-export { ErrorDisplay, EventsErrorDisplay, BookingErrorDisplay, WeatherErrorDisplay, FlightErrorDisplay } from './ErrorDisplay'
+export { ErrorDisplay, EventsErrorDisplay, BookingErrorDisplay, FlightErrorDisplay } from './ErrorDisplay'
 export { LoadingState, CardSkeleton, EventCardSkeleton, TableRowSkeleton } from './LoadingState'
 
 // Re-export component types

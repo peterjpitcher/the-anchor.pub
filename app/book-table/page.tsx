@@ -72,25 +72,25 @@ export default async function BookPage({
         route="/book-table"
         title="Book a Table at The Anchor"
         description="Reserve your spot for Sunday lunch, family meals, or pre-flight dining in under two minutes."
-        size="medium"
+        variant="default"
         statusBarPosition="above"
-        cta={
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <PhoneButton
-              phone="01753 682707"
-              source="book_table_hero"
-              variant="primary"
-              size="lg"
-              className="w-full sm:w-auto"
-            >
-              📞 Prefer to call? 01753 682707
-            </PhoneButton>
-            <Link href="/food-menu" className="w-full sm:w-auto">
-              <Button variant="secondary" size="lg" fullWidth>
-                🍽️ Browse Menu
-              </Button>
-            </Link>
-          </div>
+        primaryCta={
+          <PhoneButton
+            phone="01753 682707"
+            source="book_table_hero"
+            variant="primary"
+            size="lg"
+            className="w-full sm:w-auto"
+          >
+            📞 Prefer to call? 01753 682707
+          </PhoneButton>
+        }
+        secondaryCta={
+          <Link href="/food-menu" className="w-full sm:w-auto">
+            <Button variant="secondary" size="lg" fullWidth>
+              🍽️ Browse Menu
+            </Button>
+          </Link>
         }
       />
 

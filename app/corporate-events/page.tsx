@@ -49,25 +49,27 @@ export default function CorporateEventsPage() {
         route="/corporate-events"
         title="Corporate Event Venue Near Heathrow"
         description="Professional meeting spaces and business event hosting 7 minutes from Terminal 5"
-        size="large"
+        variant="promo"
         tags={[
           { label: "✈️ 7 mins from Heathrow", variant: "success" },
           { label: "🚗 Free Parking", variant: "default" },
           { label: "📊 AV Equipment", variant: "default" },
           { label: "🚫 Outside ULEZ", variant: "success" }
         ]}
-        cta={
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <BookTableButton
-              source="corporate_events_hero"
-              variant="primary"
-              size="lg"
-              context="corporate_event"
-              fullWidth
-              className="w-full sm:w-auto"
-            >
-              📅 Book Your Event
-            </BookTableButton>
+        primaryCta={
+          <BookTableButton
+            source="corporate_events_hero"
+            variant="primary"
+            size="lg"
+            context="corporate_event"
+            fullWidth
+            className="w-full sm:w-auto"
+          >
+            📅 Book Your Event
+          </BookTableButton>
+        }
+        secondaryCta={
+          <>
             <Link href={CONTACT.phoneHref} className="w-full sm:w-auto">
               <Button variant="secondary" size="lg" fullWidth className="sm:w-auto">
                 📞 Discuss Your Event
@@ -78,7 +80,7 @@ export default function CorporateEventsPage() {
                 💼 Explore Our Solutions
               </Button>
             </Link>
-          </div>
+          </>
         }
       />
 

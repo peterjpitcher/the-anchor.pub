@@ -244,6 +244,7 @@ export default async function FoodMenuPage() {
         route="/food-menu"
         title="Book Pub Food Minutes from Heathrow"
         description="Sunday roasts, 2-for-1 Pizza Tuesday and proper pub classics with free parking and rapid service."
+        variant="default"
         breadcrumbs={[{ name: 'Food & Drink' }]}
         tags={[
           { label: '🍖 Roast pre-orders', variant: 'default' },
@@ -251,37 +252,37 @@ export default async function FoodMenuPage() {
           { label: '🍺 Pub classics', variant: 'default' },
           { label: '🌱 Veggie friendly', variant: 'default' }
         ]}
-        cta={
-          <div
-            className="flex flex-col sm:flex-row sm:items-center gap-4 justify-center"
-            data-sticky-cta-guard="true"
+        ctaContainerClassName="gap-4 sm:items-center"
+        ctaContainerProps={{ 'data-sticky-cta-guard': 'true' }}
+        primaryCta={
+          <BookTableButton
+            source="food_menu_hero"
+            context="food"
+            variant="primary"
+            size="lg"
+            className="sm:w-auto"
+            trackingLabel="Hero Book a Table"
           >
-            <BookTableButton
-              source="food_menu_hero"
-              context="food"
-              variant="primary"
-              size="lg"
-              className="sm:w-auto"
-              trackingLabel="Hero Book a Table"
-            >
-              Book a Table
-            </BookTableButton>
-            <MenuSectionCta
-              label="View Full Menu"
-              scrollToId="menu"
-              analyticsLabel="view_full_menu"
-              location="food_menu_hero"
-              variant="secondary"
-              fullWidth
-              className="sm:w-auto sm:min-w-0"
-            />
-          </div>
+            Book a Table
+          </BookTableButton>
         }
-      >
-        <p className="mt-6 text-sm sm:text-base text-white/80 max-w-2xl mx-auto">
-          Working nearby or passing through Heathrow? Pop in for proper pub food, quick service, and free parking.
-        </p>
-      </HeroWrapper>
+        secondaryCta={
+          <MenuSectionCta
+            label="View Full Menu"
+            scrollToId="menu"
+            analyticsLabel="view_full_menu"
+            location="food_menu_hero"
+            variant="secondary"
+            fullWidth
+            className="sm:w-auto sm:min-w-0"
+          />
+        }
+        secondaryInfo={
+          <p className="text-sm sm:text-base text-white/80 max-w-2xl mx-auto">
+            Working nearby or passing through Heathrow? Pop in for proper pub food, quick service, and free parking.
+          </p>
+        }
+      />
 
       <Section background="white" spacing="sm">
         <Container>

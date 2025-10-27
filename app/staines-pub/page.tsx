@@ -89,27 +89,27 @@ export default function StainesPubPage() {
         route="/staines-pub"
         title="Your Local Staines Pub"
         description="Traditional British pub serving the Staines community with great food, entertainment, and a warm welcome"
-        size="medium"
-        showStatusBar={true}
+        variant="default"
         tags={[
           { label: "📍 Just 8 Minutes from Staines", variant: "warning" }
         ]}
-        cta={
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <PhoneButton
-              phone={CONTACT.phone}
-              source="staines_pub_hero"
-              variant="primary"
-              size="lg"
-            >
-              📞 Call {CONTACT.phone}
-            </PhoneButton>
-            <Link href="/food-menu">
-              <Button variant="secondary" size="lg">
-                View Our Menu
-              </Button>
-            </Link>
-          </div>
+        primaryCta={
+          <PhoneButton
+            phone={CONTACT.phone}
+            source="staines_pub_hero"
+            variant="primary"
+            size="lg"
+            className="w-full sm:w-auto"
+          >
+            📞 Call {CONTACT.phone}
+          </PhoneButton>
+        }
+        secondaryCta={
+          <Link href="/food-menu">
+            <Button variant="secondary" size="lg" className="w-full sm:w-auto">
+              View Our Menu
+            </Button>
+          </Link>
         }
       />
 

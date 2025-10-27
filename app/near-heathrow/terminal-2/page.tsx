@@ -42,7 +42,7 @@ export default function Terminal2Page() {
         route="/near-heathrow/terminal-2"
         title="Your Local Pub Near Heathrow Terminal 2"
         description="Perfect for Star Alliance travelers • Free parking • Traditional British hospitality"
-        size="large"
+        variant="default"
         breadcrumbs={[
           { name: 'Near Heathrow', href: '/near-heathrow' },
           { name: 'Terminal 2' }
@@ -50,27 +50,27 @@ export default function Terminal2Page() {
         tags={[
           { label: "Just 11 minutes away", variant: "warning" }
         ]}
-        cta={
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <PhoneButton
-              phone="01753 682707"
-              source="terminal_2_hero"
-              variant="primary"
+        primaryCta={
+          <PhoneButton
+            phone="01753 682707"
+            source="terminal_2_hero"
+            variant="primary"
+            size="lg"
+            className="w-full sm:w-auto"
+          >
+            📞 Book a Table
+          </PhoneButton>
+        }
+        secondaryCta={
+          <Link href="#directions">
+            <Button 
+              variant="secondary"
               size="lg"
+              className="bg-white text-anchor-green hover:bg-gray-100 w-full sm:w-auto"
             >
-              📞 Book a Table
-            </PhoneButton>
-            
-            <Link href="#directions">
-              <Button 
-                variant="secondary"
-                size="lg"
-                className="bg-white text-anchor-green hover:bg-gray-100"
-              >
-                📍 Get Directions
-              </Button>
-            </Link>
-          </div>
+              📍 Get Directions
+            </Button>
+          </Link>
         }
       />
 

@@ -40,8 +40,6 @@ interface NavigationProps {
   className?: string
   showStatus?: boolean
   statusComponent?: ReactNode
-  showWeather?: boolean
-  weatherComponent?: ReactNode
   mobileBreakpoint?: 'sm' | 'md' | 'lg'
 }
 
@@ -134,8 +132,6 @@ export function Navigation({
   className,
   showStatus = true,
   statusComponent,
-  showWeather = true,
-  weatherComponent,
   mobileBreakpoint = 'md'
 }: NavigationProps) {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -160,8 +156,7 @@ export function Navigation({
   }[mobileBreakpoint]
   const showUtilityRow = Boolean(
     ctaButton ||
-    secondaryCtaButton ||
-    (showWeather && weatherComponent)
+    secondaryCtaButton
   )
 
   useEffect(() => {
@@ -509,11 +504,6 @@ export function Navigation({
               <div className="flex flex-wrap items-center justify-end gap-3">
                 {renderPrimaryCTA(false, 'px-4 py-1 text-sm')}
                 {renderSecondaryCTA(false, 'px-4 py-1 text-sm')}
-                {showWeather && weatherComponent && (
-                  <div className="hidden xl:block">
-                    {weatherComponent}
-                  </div>
-                )}
               </div>
             </div>
           )}
@@ -530,11 +520,6 @@ export function Navigation({
               {showStatus && (
                 <div className="max-w-md">
                   {statusComponent}
-                </div>
-              )}
-              {showWeather && weatherComponent && (
-                <div className="block xl:hidden">
-                  {weatherComponent}
                 </div>
               )}
             </div>
@@ -582,14 +567,9 @@ export function Navigation({
               </button>
             </div>
 
-            {(showStatus || (showWeather && weatherComponent)) && (
+            {showStatus && (
               <div className="mt-1 w-full space-y-2 pb-2">
-                {showStatus && statusComponent}
-                {showWeather && weatherComponent && (
-                  <div className={cn('text-sm', mergedTheme.text)}>
-                    {weatherComponent}
-                  </div>
-                )}
+                {statusComponent}
               </div>
             )}
           </div>

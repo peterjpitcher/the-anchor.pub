@@ -50,25 +50,27 @@ export default function PrivatePartyVenuePage() {
         route="/private-party-venue"
         title="Private Party Venue"
         description="Create unforgettable celebrations at The Anchor"
-        size="large"
+        variant="promo"
         tags={[
           { label: "🎉 10-200 Guests", variant: "success" },
           { label: "🎂 All Occasions", variant: "default" },
           { label: "🚗 Free Parking", variant: "default" },
           { label: "🍽️ Custom Menus", variant: "success" }
         ]}
-        cta={
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <BookTableButton
-              source="private_party_hero"
-              variant="primary"
-              size="lg"
-              context="private_party"
-              fullWidth
-              className="w-full sm:w-auto"
-            >
-              🎉 Book Your Party
-            </BookTableButton>
+        primaryCta={
+          <BookTableButton
+            source="private_party_hero"
+            variant="primary"
+            size="lg"
+            context="private_party"
+            fullWidth
+            className="w-full sm:w-auto"
+          >
+            🎉 Book Your Party
+          </BookTableButton>
+        }
+        secondaryCta={
+          <>
             <PhoneButton
               phone="01753 682707"
               source="private_party_hero"
@@ -93,20 +95,21 @@ export default function PrivatePartyVenuePage() {
                 💬 WhatsApp Us
               </Button>
             </Link>
-          </div>
+          </>
         }
-      >
-        <AlertBox
-          variant="success"
-          title="Popular dates book fast!"
-          className="mt-6 max-w-2xl mx-auto"
-          content={
-            <p className="text-center">
-              Saturdays are our most requested days. Contact us early to secure your preferred date.
-            </p>
-          }
-        />
-      </HeroWrapper>
+        secondaryInfo={
+          <AlertBox
+            variant="success"
+            title="Popular dates book fast!"
+            className="mt-6 max-w-2xl mx-auto"
+            content={
+              <p className="text-center">
+                Saturdays are our most requested days. Contact us early to secure your preferred date.
+              </p>
+            }
+          />
+        }
+      />
 
       {/* Page Title */}
       <section className="py-8 bg-white">

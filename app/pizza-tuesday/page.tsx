@@ -192,30 +192,30 @@ export default function PizzaTuesdayPage() {
         route="/pizza-tuesday"
         title="2-for-1 Pizza Tuesday Near Heathrow"
         description="Hand-stretched pizzas, buy one get one free every Tuesday from 6pm. Dine-in or takeaway with free parking."
-        size="large"
+        variant="promo"
         tags={[
           { label: "🔥 BOGOF 6pm–9pm", variant: "success" },
           { label: "From £7.49 per pizza", variant: "warning" },
           { label: "7 mins from Heathrow", variant: "default" }
         ]}
-        cta={
-          <div className="flex flex-col sm:flex-row gap-4">
-            <BookTableButton
-              source="pizza_tuesday_hero"
-              context="pizza_tuesday"
-              variant="primary"
-              size="lg"
-              fullWidth
-              className="sm:w-auto"
-            >
-              Reserve Pizza Tuesday
-            </BookTableButton>
-            <Link href="#menu-preview" className="w-full sm:w-auto">
-              <Button variant="secondary" size="lg" fullWidth className="sm:w-auto bg-white text-anchor-green hover:bg-gray-100">
-                View Pizza Line-Up
-              </Button>
-            </Link>
-          </div>
+        primaryCta={
+          <BookTableButton
+            source="pizza_tuesday_hero"
+            context="pizza_tuesday"
+            variant="primary"
+            size="lg"
+            fullWidth
+            className="sm:w-auto"
+          >
+            Reserve Pizza Tuesday
+          </BookTableButton>
+        }
+        secondaryCta={
+          <Link href="#menu-preview" className="w-full sm:w-auto">
+            <Button variant="secondary" size="lg" fullWidth className="sm:w-auto bg-white text-anchor-green hover:bg-gray-100">
+              View Pizza Line-Up
+            </Button>
+          </Link>
         }
       />
 

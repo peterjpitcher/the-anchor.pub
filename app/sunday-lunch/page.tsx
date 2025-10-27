@@ -72,50 +72,50 @@ export default function SundayLunchPage() {
         route="/sunday-lunch"
         title="Sunday Roast Near Heathrow Airport"
         description="Book by 1pm Saturday and enjoy Yorkshire puddings, crispy potatoes and proper gravy minutes before your flight."
-        size="large"
+        variant="default"
         tags={[
           { label: "Served Sundays 12pm–5pm", variant: "warning" },
           { label: "£5 Deposit Secures Table", variant: "default" },
           { label: "Free Parking • Family Friendly", variant: "default" }
         ]}
-        cta={
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <BookTableButton
-              source="sunday_roast_hero"
-              context="sunday_roast"
-              variant="primary"
+        primaryCta={
+          <BookTableButton
+            source="sunday_roast_hero"
+            context="sunday_roast"
+            variant="primary"
+            size="lg"
+            fullWidth
+            className="sm:w-auto"
+          >
+            Book Sunday Roast
+          </BookTableButton>
+        }
+        secondaryCta={
+          <Link href="#menu" className="w-full sm:w-auto">
+            <Button 
+              variant="secondary"
               size="lg"
               fullWidth
-              className="sm:w-auto"
+              className="sm:w-auto bg-white text-anchor-green hover:bg-gray-100"
             >
-              Book Sunday Roast
-            </BookTableButton>
-            
-            <Link href="#menu" className="w-full sm:w-auto">
-              <Button 
-                variant="secondary"
-                size="lg"
-                fullWidth
-                className="sm:w-auto bg-white text-anchor-green hover:bg-gray-100"
-              >
-                View Roast Menu
-              </Button>
-            </Link>
+              View Roast Menu
+            </Button>
+          </Link>
+        }
+        secondaryInfo={
+          <div className="bg-red-600/90 backdrop-blur-sm rounded-lg p-4 max-w-2xl mx-auto">
+            <p className="text-white font-bold text-lg mb-1">
+              ⚠️ IMPORTANT: Advance Booking & £5 Deposit Required
+            </p>
+            <p className="text-white text-sm">
+              Sunday roasts require a booking with £5 per person deposit by 1pm Saturday
+            </p>
+            <p className="text-white/90 text-sm sm:text-xs mt-2">
+              Regular menu also available on Sundays without booking ahead
+            </p>
           </div>
         }
-      >
-        <div className="mt-6 bg-red-600/90 backdrop-blur-sm rounded-lg p-4 max-w-2xl mx-auto">
-          <p className="text-white font-bold text-lg mb-1">
-            ⚠️ IMPORTANT: Advance Booking & £5 Deposit Required
-          </p>
-          <p className="text-white text-sm">
-            Sunday roasts require a booking with £5 per person deposit by 1pm Saturday
-          </p>
-          <p className="text-white/90 text-sm sm:text-xs mt-2">
-            Regular menu also available on Sundays without booking ahead
-          </p>
-        </div>
-      </HeroWrapper>
+      />
 
       {/* Page Title for SEO */}
       <section className="bg-white py-8">

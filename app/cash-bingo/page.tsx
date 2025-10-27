@@ -202,33 +202,32 @@ export default async function CashBingoPage() {
         route="/cash-bingo"
         title="Cash Bingo Nights at The Anchor"
         description="Play bingo for cash near Heathrow with £10 books, a rolling snowball and jackpots that keep climbing."
-        size="medium"
-        showStatusBar
+        variant="promo"
         tags={[
           { label: '💷 £10 cash-only books', variant: 'default' },
           { label: '🎯 Snowball grows every month', variant: 'primary' },
           { label: '🍽️ Full menu 6 pm–9 pm', variant: 'default' }
         ]}
-        cta={
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="#bingo-dates"
-              className={cn(
-                'inline-flex items-center justify-center font-semibold text-center transition-all duration-200 rounded-full whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-anchor-gold focus:ring-offset-2 bg-white text-anchor-green border-2 border-anchor-green hover:bg-anchor-green hover:text-white px-8 py-3.5 text-lg min-h-[48px] w-full sm:w-auto'
-              )}
-            >
-              📅 See upcoming bingo dates
-            </a>
-            <PhoneButton
-              phone="01753 682707"
-              source="cash_bingo_hero"
-              variant="secondary"
-              size="lg"
-              className="w-full sm:w-auto"
-            >
-              📞 Call to reserve: 01753 682707
-            </PhoneButton>
-          </div>
+        primaryCta={
+          <a
+            href="#bingo-dates"
+            className={cn(
+              'inline-flex items-center justify-center font-semibold text-center transition-all duration-200 rounded-full whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-anchor-gold focus:ring-offset-2 bg-white text-anchor-green border-2 border-anchor-green hover:bg-anchor-green hover:text-white px-8 py-3.5 text-lg min-h-[48px] w-full sm:w-auto'
+            )}
+          >
+            📅 See upcoming bingo dates
+          </a>
+        }
+        secondaryCta={
+          <PhoneButton
+            phone="01753 682707"
+            source="cash_bingo_hero"
+            variant="secondary"
+            size="lg"
+            className="w-full sm:w-auto"
+          >
+            📞 Call to reserve: 01753 682707
+          </PhoneButton>
         }
       />
 

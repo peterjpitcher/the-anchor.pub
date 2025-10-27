@@ -36,8 +36,7 @@ export default function NearHeathrowPage() {
         route="/near-heathrow"
         title="The Closest Pub to Heathrow Airport"
         description="Just 7 minutes from Terminal 5 • 11 minutes from Terminals 2 & 3"
-        size="medium"
-        showStatusBar={true}
+        variant="default"
         breadcrumbs={[
           { name: 'Near Heathrow' }
         ]}
@@ -48,29 +47,28 @@ export default function NearHeathrowPage() {
           { label: '⏰ Late Opening', variant: 'default' },
           { label: '📶 Free WiFi', variant: 'default' }
         ]}
-        cta={
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <BookTableButton
-              source="near_heathrow_hero"
-              context="heathrow_traveler"
-              variant="primary"
+        primaryCta={
+          <BookTableButton
+            source="near_heathrow_hero"
+            context="heathrow_traveler"
+            variant="primary"
+            size="lg"
+            className="w-full sm:w-auto"
+          >
+            📞 Book a Table: 01753 682707
+          </BookTableButton>
+        }
+        secondaryCta={
+          <Link href="#terminals" className="w-full sm:w-auto">
+            <Button 
+              variant="secondary"
               size="lg"
-              className="w-full sm:w-auto"
+              fullWidth
+              className="sm:w-auto"
             >
-              📞 Book a Table: 01753 682707
-            </BookTableButton>
-            
-            <Link href="#terminals" className="w-full sm:w-auto">
-              <Button 
-                variant="secondary"
-                size="lg"
-                fullWidth
-                className="sm:w-auto"
-              >
-                📍 Get Directions
-              </Button>
-            </Link>
-          </div>
+              📍 Get Directions
+            </Button>
+          </Link>
         }
       />
 

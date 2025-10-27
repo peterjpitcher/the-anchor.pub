@@ -244,26 +244,27 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
         route="/drinks/managers-special"
         title={`${spirit.discount} ${spirit.name}`}
         description={promotion.subheadline}
-        size="medium"
-        showStatusBar={true}
+        variant="promo"
         tags={heroTags}
         breadcrumbs={[
           { name: 'Drinks', href: '/drinks' },
           { name: "Manager's Special" }
         ]}
-        cta={
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <BookTableButton
-              source="managers_special_hero"
-              variant="secondary"
-              size="lg"
-              className="bg-white text-purple-700 hover:bg-gray-100"
-            />
+        primaryCta={
+          <BookTableButton
+            source="managers_special_hero"
+            variant="secondary"
+            size="lg"
+            className="bg-white text-purple-700 hover:bg-gray-100 w-full sm:w-auto"
+          />
+        }
+        secondaryCta={
+          <>
             <Link href="#details">
               <Button 
                 variant="secondary"
                 size="lg"
-                className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm"
+                className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm w-full sm:w-auto"
               >
                 🍸 View Details
               </Button>
@@ -272,10 +273,10 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
               phone="01753 682707"
               variant="secondary"
               size="lg"
-              className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm"
+              className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm w-full sm:w-auto"
               source="managers_special_hero"
             />
-          </div>
+          </>
         }
       />
 

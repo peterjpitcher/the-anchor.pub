@@ -89,8 +89,8 @@ export default function BookEventPage() {
         route="/book-event"
         title="Private Bookings at The Anchor"
         description="Transform your special occasion into an unforgettable experience"
-        size="medium"
-        cta={
+        variant="promo"
+        primaryCta={
           <PhoneButton
             phone="01753 682707"
             source="book_event_hero"

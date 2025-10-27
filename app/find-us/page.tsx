@@ -71,34 +71,33 @@ export default function FindUsPage() {
         route="/find-us"
         title="Find The Anchor"
         description="Easy to find, hard to leave!"
-        size="small"
-        showStatusBar={true}
+        variant="default"
         tags={[
           { label: "🏡 Independent village pub minutes from Heathrow", variant: "default" },
           { label: "✈️ Horton Road plane-spotting area", variant: "primary" },
           { label: "🚗 Free Parking", variant: "success" }
         ]}
-        cta={
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <DirectionsButton
-              href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ"
-              source="find_us_hero"
-              variant="primary"
-              size="lg"
-              className="w-full sm:w-auto"
-            >
-              📍 Get Directions
-            </DirectionsButton>
-            <PhoneButton 
-              phone="01753682707" 
-              source="find_us_hero"
-              variant="secondary"
-              size="lg"
-              className="w-full sm:w-auto"
-            >
-              📞 Call Us
-            </PhoneButton>
-          </div>
+        primaryCta={
+          <DirectionsButton
+            href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ"
+            source="find_us_hero"
+            variant="primary"
+            size="lg"
+            className="w-full sm:w-auto"
+          >
+            📍 Get Directions
+          </DirectionsButton>
+        }
+        secondaryCta={
+          <PhoneButton 
+            phone="01753682707" 
+            source="find_us_hero"
+            variant="secondary"
+            size="lg"
+            className="w-full sm:w-auto"
+          >
+            📞 Call Us
+          </PhoneButton>
         }
       />
 
@@ -323,14 +322,14 @@ export default function FindUsPage() {
               </div>
             </div>
             
-            {/* Business Hours & Weather */}
+            {/* Business Hours */}
             <div className="mt-12">
               <SectionHeader
-                title="Hours & Weather"
+                title="Opening Hours"
               />
               <SpeakableContent selector="opening-hours" priority="high">
                 <div className="bg-anchor-green/95 rounded-2xl shadow-lg p-6 max-w-2xl mx-auto">
-                  <BusinessHours variant="condensed" showKitchen={true} showWeather={true} />
+                  <BusinessHours variant="condensed" showKitchen={true} />
                 </div>
               </SpeakableContent>
             </div>
