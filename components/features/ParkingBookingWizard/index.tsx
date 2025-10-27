@@ -40,6 +40,33 @@ const HOURS_IN_DAY = 24
 const HOURS_IN_WEEK = 24 * 7
 const HOURS_IN_MONTH = 24 * 30
 
+async function parseJsonResponse<T = any>(
+  response: Response,
+  context: string,
+  fallbackMessage: string
+): Promise<T> {
+  const rawText = await response.text()
+  const trimmed = rawText.trim()
+
+  if (!trimmed) {
+    console.error(`[ParkingBookingWizard][${context}] Empty response body`, {
+      status: response.status
+    })
+    throw new Error(fallbackMessage)
+  }
+
+  try {
+    return JSON.parse(trimmed) as T
+  } catch (error) {
+    console.error(`[ParkingBookingWizard][${context}] Failed to parse JSON`, {
+      status: response.status,
+      error,
+      sample: trimmed.slice(0, 200)
+    })
+    throw new Error(fallbackMessage)
+  }
+}
+
 function calculateEstimate(
   rates: ParkingRateCard | null,
   startAt: string,
@@ -203,12 +230,24 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
 
       try {
         const response = await fetch('/api/parking/rates')
-        const json = await response.json()
-        if (!response.ok || json.success === false) {
-          throw new Error(json?.error?.message || 'Unable to load rates')
+        const payload = await parseJsonResponse<{
+          success?: boolean
+          data?: ParkingRateCard
+          error?: { message?: string }
+        }>(
+          response,
+          'rates',
+          'We could not load pricing right now. Please try again later or call 01753 682707.'
+        )
+
+        if (!response.ok || payload?.success === false) {
+          throw new Error(payload?.error?.message || 'Unable to load rates')
+        }
+        if (!payload?.data) {
+          throw new Error('We could not load pricing right now. Please try again later or call 01753 682707.')
         }
         if (!ignore) {
-          setRates(json.data)
+          setRates(payload.data)
         }
       } catch (error: any) {
         if (!ignore) {
@@ -243,12 +282,23 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
       })
 
       const response = await fetch(`/api/parking/availability?${params.toString()}`)
-      const json = await response.json()
-      if (!response.ok || json.success === false) {
-        throw new Error(json?.error?.message || 'We could not check availability. Please try again.')
+      const payload = await parseJsonResponse<{
+        success?: boolean
+        data?: any
+        error?: { message?: string }
+      }>(
+        response,
+        'availability',
+        'Our live parking availability is offline at the moment. Please call 01753 682707 and we will secure your space.'
+      )
+      if (!response.ok || payload?.success === false) {
+        throw new Error(payload?.error?.message || 'We could not check availability. Please try again.')
       }
 
-      const slices = Array.isArray(json.data) ? json.data : []
+      const slices = Array.isArray(payload?.data) ? payload?.data : []
+      if (slices.length === 0) {
+        throw new Error('We could not retrieve live availability just now. Please call 01753 682707 and we will help you secure a space.')
+      }
       const allAvailable = slices.every((slot: any) => slot.remaining > 0)
       const minRemaining = slices.reduce((acc: number, slot: any) => Math.min(acc, slot.remaining), Infinity)
 
@@ -314,14 +364,29 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
         body: JSON.stringify(payload)
       })
 
-      const json = await response.json()
+      const payloadResponse = await parseJsonResponse<{
+        success?: boolean
+        data?: {
+          paypal_approval_url?: string
+          reference?: string
+        }
+        error?: { message?: string }
+      }>(
+        response,
+        'create-booking',
+        'We could not complete your booking online right now. Please call 01753 682707 and we will secure your space.'
+      )
 
-      if (!response.ok || json.success === false) {
-        throw new Error(json?.error?.message || 'We could not complete your booking. Please try again.')
+      if (!response.ok || payloadResponse?.success === false) {
+        throw new Error(payloadResponse?.error?.message || 'We could not complete your booking. Please try again.')
       }
 
-      const approvalUrl = json?.data?.paypal_approval_url
-      const reference = json?.data?.reference
+      if (!payloadResponse?.data) {
+        throw new Error('We created your booking but did not receive the confirmation details. Please call 01753 682707 so we can confirm everything for you.')
+      }
+
+      const approvalUrl = payloadResponse.data.paypal_approval_url
+      const reference = payloadResponse.data.reference
 
       if (approvalUrl) {
         setSubmissionSuccess('Redirecting you to PayPal to finish payment...')
