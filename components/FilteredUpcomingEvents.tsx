@@ -10,7 +10,7 @@ export async function FilteredUpcomingEvents({ categorySlug }: FilteredUpcomingE
   try {
     // Fetch events and categories in parallel
     const [events, categories] = await Promise.all([
-      getUpcomingEvents(50), // Get more events for filtering
+      getUpcomingEvents(24), // API limits event listings to 24 per request
       getEventCategories()
     ])
     

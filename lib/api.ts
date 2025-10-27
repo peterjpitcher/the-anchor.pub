@@ -1328,16 +1328,19 @@ export async function getBusinessHours(): Promise<BusinessHours | null> {
 }
 
 // Helper functions for common use cases
+const MAX_EVENTS_LIMIT = 24
+
 export async function getUpcomingEvents(limit: number = 10): Promise<Event[]> {
   try {
+    const safeLimit = Math.min(Math.max(Math.floor(limit), 1), MAX_EVENTS_LIMIT)
     const response = await anchorAPI.getEvents({
       from_date: new Date().toISOString().split('T')[0],
-      limit,
+      limit: safeLimit,
     })
     return response.events || []
   } catch (error) {
     logError('api-upcoming-events', error, { limit })
-    return []
+    return createFallbackEventsResponse().events
   }
 }
 

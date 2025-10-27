@@ -8,8 +8,9 @@ import { type Event } from '@/lib/api'
 import { trackBannerEvent, trackCtaClick } from '@/lib/gtm-events'
 
 const BANNER_STORAGE_KEY = 'event_banner_dismissed_until'
+const SESSION_ELIGIBILITY_KEY = 'event_banner_session_show'
 const DISMISS_DURATION_MS = 1000 * 60 * 60 * 24 // 24 hours
-const MAX_LEAD_DAYS = 7
+const MAX_LEAD_DAYS = 3
 const HIDDEN_PATH_PREFIXES = ['/events']
 
 interface BannerState {
@@ -66,6 +67,22 @@ const markDismissal = () => {
     )
   } catch (error) {
     console.warn('Unable to persist dismissal state', error)
+  }
+}
+
+const determineSessionEligibility = () => {
+  if (typeof window === 'undefined') return true
+  try {
+    const stored = window.sessionStorage.getItem(SESSION_ELIGIBILITY_KEY)
+    if (stored === 'true') return true
+    if (stored === 'false') return false
+
+    const allow = Math.random() < 0.5
+    window.sessionStorage.setItem(SESSION_ELIGIBILITY_KEY, String(allow))
+    return allow
+  } catch (error) {
+    console.warn('Unable to persist session eligibility', error)
+    return Math.random() < 0.5
   }
 }
 
@@ -129,6 +146,7 @@ export function EventCountdownBanner() {
   const pathname = usePathname()
   const [banner, setBanner] = useState<BannerState | null>(null)
   const [dismissed, setDismissed] = useState(false)
+  const [sessionEligible] = useState(determineSessionEligibility)
 
   useEffect(() => {
     if (shouldSuppressPath(pathname)) {
@@ -137,6 +155,10 @@ export function EventCountdownBanner() {
     }
     if (hasRecentDismissal()) {
       setDismissed(true)
+      setBanner(null)
+      return
+    }
+    if (!sessionEligible) {
       setBanner(null)
       return
     }
@@ -188,7 +210,7 @@ export function EventCountdownBanner() {
     return () => {
       cancelled = true
     }
-  }, [pathname])
+  }, [pathname, sessionEligible])
 
   const [countdown, setCountdown] = useState('')
 

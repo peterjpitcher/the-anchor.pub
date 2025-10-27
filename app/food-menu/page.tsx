@@ -196,6 +196,38 @@ export default async function FoodMenuPage() {
     ? buildKitchenSchedule(businessHours)
     : 'Tuesday to Friday 6pm-9pm, Saturday 1pm-7pm, Sunday 12pm-5pm'
 
+  const faqItems = [
+    {
+      question: 'What time is the kitchen open at The Anchor?',
+      answer: `Our kitchen is open ${kitchenSchedule}. The kitchen is closed on Mondays.`
+    },
+    {
+      question: 'Do you serve Sunday roast at The Anchor?',
+      answer:
+        'Yes. Sunday roasts run 12pm–5pm with beef, chicken, lamb, and vegetarian plates. Book by 1pm Saturday with a £5 deposit per guest.'
+    },
+    {
+      question: "Is there a children's menu?",
+      answer: 'We have smaller portions, high chairs, and colouring packs on request.'
+    },
+    {
+      question: "What's the Tuesday pizza deal?",
+      answer: 'Every Tuesday evening is buy-one-get-one-free on all pizzas for dine-in or takeaway.'
+    },
+    {
+      question: 'Do you cater for dietary requirements?',
+      answer: 'Yes. Vegetarian dishes are marked and we can guide you through allergens at the bar.'
+    },
+    {
+      question: 'Can I book a table for food?',
+      answer: 'Absolutely. Reserve online or call 01753 682707 — ideal for larger groups or pre-flight meals.'
+    },
+    {
+      question: 'Is takeaway available?',
+      answer: 'Yes. Call ahead and we will have your order ready for collection.'
+    }
+  ]
+
   return (
     <>
       <SpeakableSchema />
@@ -324,7 +356,7 @@ export default async function FoodMenuPage() {
                 {
                   icon: '🌱',
                   title: 'Veggie & Gluten-Friendly',
-                  description: 'Dedicated mains, salads and gluten-aware bases. Ask us about allergens anytime.',
+                  description: 'Dedicated mains and gluten-aware bases. Ask us about allergens anytime.',
                   className: 'text-left bg-white rounded-2xl p-6 shadow-sm'
                 }
               ]}
@@ -512,7 +544,7 @@ export default async function FoodMenuPage() {
             <CardBody>
               <SectionHeader
                 title="Vegetarian & Gluten-Friendly Picks"
-                subtitle="Dedicated veggie mains, salads, pizzas with gluten-aware bases, and staff ready to help with any allergen query."
+                subtitle="Dedicated veggie mains, pizzas with gluten-aware bases, and staff ready to help with any allergen query."
                 align="left"
                 className="mb-6"
               />
@@ -521,7 +553,7 @@ export default async function FoodMenuPage() {
                   <ul className="space-y-3 text-gray-700">
                     <li>• Veggie stack burger with charred peppers and a toasted brioche bun.</li>
                     <li>• Garden Club pizza with grilled courgette, peppers, and balsamic glaze.</li>
-                    <li>• Fresh salads with optional grilled chicken or halloumi.</li>
+                    <li>• Roasted veggie bowls with optional grilled chicken or halloumi.</li>
                   </ul>
                 </div>
                 <div>
@@ -595,37 +627,9 @@ export default async function FoodMenuPage() {
       </Section>
 
       <FAQAccordionWithSchema
-        faqs={[
-          {
-            question: 'What time is the kitchen open at The Anchor?',
-            answer: `Our kitchen is open ${kitchenSchedule}. The kitchen is closed on Mondays.`
-          },
-          {
-            question: 'Do you serve Sunday roast at The Anchor?',
-            answer: 'Yes. Sunday roasts run 12pm–5pm with beef, chicken, lamb, and vegetarian plates. Book by 1pm Saturday with a £5 deposit per guest.'
-          },
-          {
-            question: "Is there a children's menu?",
-            answer: "We have smaller portions, high chairs, and colouring packs on request."
-          },
-          {
-            question: "What's the Tuesday pizza deal?",
-            answer: "Every Tuesday evening is buy-one-get-one-free on all pizzas for dine-in or takeaway."
-          },
-          {
-            question: 'Do you cater for dietary requirements?',
-            answer: 'Yes. Vegetarian dishes are marked and we can guide you through allergens at the bar.'
-          },
-          {
-            question: 'Can I book a table for food?',
-            answer: 'Absolutely. Reserve online or call 01753 682707 — ideal for larger groups or pre-flight meals.'
-          },
-          {
-            question: 'Is takeaway available?',
-            answer: 'Yes. Call ahead and we will have your order ready for collection.'
-          }
-        ]}
+        faqs={faqItems}
         className="bg-white"
+        renderSchema={false}
       />
 
       <div data-sticky-cta-guard="true">
@@ -740,40 +744,14 @@ export default async function FoodMenuPage() {
             {
               '@context': 'https://schema.org',
               '@type': 'FAQPage',
-              mainEntity: [
-                {
-                  '@type': 'Question',
-                  name: 'What time is the kitchen open at The Anchor?',
-                  acceptedAnswer: {
-                    '@type': 'Answer',
-                    text: `Our kitchen is open ${kitchenSchedule}. The kitchen is closed on Mondays.`
-                  }
-                },
-                {
-                  '@type': 'Question',
-                  name: 'Do you serve Sunday roast at The Anchor?',
-                  acceptedAnswer: {
-                    '@type': 'Answer',
-                    text: 'Yes. Sunday roasts run 12pm–5pm with beef, chicken, lamb, and vegetarian plates. Book by 1pm Saturday with a £5 deposit per guest.'
-                  }
-                },
-                {
-                  '@type': 'Question',
-                  name: "Is there a children's menu?",
-                  acceptedAnswer: {
-                    '@type': 'Answer',
-                    text: "We have smaller portions, high chairs, and colouring packs on request."
-                  }
-                },
-                {
-                  '@type': 'Question',
-                  name: "What's the Tuesday pizza deal?",
-                  acceptedAnswer: {
-                    '@type': 'Answer',
-                    text: 'Every Tuesday evening is buy-one-get-one-free on all pizzas for dine-in or takeaway.'
-                  }
+              mainEntity: faqItems.map(faq => ({
+                '@type': 'Question',
+                name: faq.question,
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: faq.answer
                 }
-              ]
+              }))
             },
             {
               '@context': 'https://schema.org',

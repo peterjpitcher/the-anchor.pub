@@ -1,12 +1,96 @@
 'use client'
 
-import { useState, useEffect, useCallback, useMemo, useRef } from 'react'
+import { useState, useEffect, useCallback, useMemo, useRef, memo } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useInView } from 'react-intersection-observer'
 import { formatEventDate, formatEventTime, formatPrice, getEventShortDescription, formatDoorTime, type Event } from '@/lib/api'
 import EventAvailability from '@/components/EventAvailability'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
+
+const MAX_URGENCY_DAYS = 3
+
+function getTicketAvailabilityText(remaining: number | null | undefined) {
+  if (typeof remaining !== 'number') return 'Tickets available now'
+  if (remaining <= 0) return 'Almost fully booked'
+  if (remaining === 1) return 'Only 1 ticket left'
+  if (remaining <= 5) return `Only ${remaining} tickets left`
+  if (remaining <= 12) return `${remaining} tickets remaining`
+  return 'Plenty of tickets available'
+}
+
+type EventUrgency = {
+  label: string
+  message: string
+  badgeClassName: string
+  panelClassName: string
+}
+
+interface EventTimingInfo {
+  relativeLabel: string
+  urgency: EventUrgency | null
+}
+
+function getEventTimingInfo(event: Event): EventTimingInfo | null {
+  const eventDate = new Date(event.startDate)
+  if (Number.isNaN(eventDate.getTime())) {
+    return null
+  }
+
+  const now = new Date()
+  const diffMs = eventDate.getTime() - now.getTime()
+  const isToday = now.toDateString() === eventDate.toDateString()
+  const isTomorrow = new Date(now.getTime() + 86400000).toDateString() === eventDate.toDateString()
+  const relativeLabel =
+    diffMs <= 0
+      ? 'Happening now'
+      : isToday
+      ? 'Today'
+      : isTomorrow
+      ? 'Tomorrow'
+      : eventDate.toLocaleDateString('en-GB', { weekday: 'long' })
+
+  let urgency: EventUrgency | null = null
+
+  if (diffMs > 0) {
+    const hoursUntil = diffMs / (1000 * 60 * 60)
+    const totalDaysUntil = diffMs / (1000 * 60 * 60 * 24)
+    const daysUntil = Math.floor(totalDaysUntil)
+
+    if (totalDaysUntil <= MAX_URGENCY_DAYS) {
+      const ticketsCopy = getTicketAvailabilityText(event.remainingAttendeeCapacity)
+
+      if (hoursUntil <= 24) {
+        urgency = {
+          label: hoursUntil <= 12 ? 'Starts tonight' : 'Starts tomorrow',
+          message: `${ticketsCopy}. We kick off at ${formatEventTime(event.startDate)}.`,
+          badgeClassName: 'bg-red-600 text-white',
+          panelClassName: 'bg-red-50 border border-red-200 text-red-700'
+        }
+      } else if (daysUntil <= 2) {
+        urgency = {
+          label: 'Almost here',
+          message: `${ticketsCopy}. Join us this ${eventDate.toLocaleDateString('en-GB', { weekday: 'long' })}.`,
+          badgeClassName: 'bg-anchor-gold text-anchor-charcoal',
+          panelClassName: 'bg-anchor-gold/20 border border-anchor-gold/40 text-anchor-charcoal'
+        }
+      } else {
+        const urgencyDayCount = Math.max(1, Math.round(totalDaysUntil))
+        urgency = {
+          label: `Only ${urgencyDayCount} day${urgencyDayCount === 1 ? '' : 's'} to go`,
+          message: `${ticketsCopy}. Secure your spot while the best tables are available.`,
+          badgeClassName: 'bg-anchor-green text-white',
+          panelClassName: 'bg-anchor-green/10 border border-anchor-green/30 text-anchor-green'
+        }
+      }
+    }
+  }
+
+  return {
+    relativeLabel,
+    urgency
+  }
+}
 
 interface EventCardProps {
   event: Event
@@ -23,6 +107,7 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
   const startTime = formatEventTime(event.startDate)
   const eventDate = formatEventDate(event.startDate)
   const eventImage = event.image?.[0] || event.heroImageUrl || DEFAULT_EVENT_IMAGE
+  const timingInfo = getEventTimingInfo(event)
 
   return (
     <div ref={ref} className="bg-white rounded-2xl shadow-lg overflow-hidden">
@@ -63,6 +148,30 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
               
               {/* Mobile Content */}
               <div className="flex-1 min-w-0">
+                {timingInfo && (
+                  <div className="mb-3">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="inline-flex items-center gap-2 rounded-full bg-anchor-green/10 px-2 py-1 text-xs font-semibold uppercase tracking-wide text-anchor-green">
+                        {timingInfo.relativeLabel}
+                      </span>
+                      {timingInfo.urgency && (
+                        <span className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-semibold uppercase tracking-wide shadow-sm ${timingInfo.urgency.badgeClassName}`}>
+                          {timingInfo.urgency.label}
+                        </span>
+                      )}
+                    </div>
+                    {timingInfo.urgency && (
+                      <div className={`mt-2 rounded-xl p-3 text-xs leading-relaxed shadow-sm ${timingInfo.urgency.panelClassName}`}>
+                        <p className="font-semibold uppercase tracking-wide">
+                          {timingInfo.urgency.label}
+                        </p>
+                        <p className="mt-1">
+                          {timingInfo.urgency.message}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                )}
                 <p className="text-sm text-gray-700 line-clamp-2 mb-2">
                   {getEventShortDescription(event)}
                 </p>
@@ -123,6 +232,30 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
               </Link>
               
               <div className="flex-1">
+                {timingInfo && (
+                  <div className="mb-4">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="inline-flex items-center gap-2 rounded-full bg-anchor-green/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-anchor-green">
+                        {timingInfo.relativeLabel}
+                      </span>
+                      {timingInfo.urgency && (
+                        <span className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide shadow-sm ${timingInfo.urgency.badgeClassName}`}>
+                          {timingInfo.urgency.label}
+                        </span>
+                      )}
+                    </div>
+                    {timingInfo.urgency && (
+                      <div className={`mt-3 rounded-2xl p-4 text-sm leading-relaxed shadow-sm ${timingInfo.urgency.panelClassName}`}>
+                        <p className="font-semibold uppercase tracking-wide">
+                          {timingInfo.urgency.label}
+                        </p>
+                        <p className="mt-2">
+                          {timingInfo.urgency.message}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                )}
                 <p className="text-gray-700 mb-3">
                   {getEventShortDescription(event)}
                 </p>
@@ -216,8 +349,6 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
     </div>
   )
 })
-
-import { memo } from 'react'
 
 // Virtual scrolling configuration
 const INITIAL_LOAD = 10
