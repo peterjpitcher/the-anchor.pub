@@ -551,9 +551,9 @@ export default async function FoodMenuPage() {
               <div className="grid gap-6 md:grid-cols-2">
                 <div>
                   <ul className="space-y-3 text-gray-700">
-                    <li>• Veggie stack burger with charred peppers and a toasted brioche bun.</li>
+                    <li>• Vegetable burger served with chips and house salad.</li>
                     <li>• Garden Club pizza with grilled courgette, peppers, and balsamic glaze.</li>
-                    <li>• Roasted veggie bowls with optional grilled chicken or halloumi.</li>
+                    <li>• Spinach & Ricotta Cannelloni baked with tomato sauce and garlic bread.</li>
                   </ul>
                 </div>
                 <div>
