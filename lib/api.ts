@@ -1070,20 +1070,201 @@ export class AnchorAPI {
   }
 
   async getEvent(idOrSlug: string): Promise<Event> {
-    try {
-      // Try the individual event endpoint first
-      return await this.request<Event>(`/events/${idOrSlug}`)
-    } catch (error: any) {
-      // If individual endpoint fails, fallback to searching in events list
-      // This ensures we get capacity information which may not be in individual endpoint
-      console.log('Fetching event from events list for capacity data')
-      const eventsResponse = await this.getEvents({ limit: 100 })
-      const event = eventsResponse.events.find(e => e.id === idOrSlug || e.slug === idOrSlug)
-      if (event) {
-        return event
-      }
-      throw { message: 'Event not found', status: 404 }
+    const lookupValue = idOrSlug.trim()
+    const encodedLookup = encodeURIComponent(lookupValue)
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json'
     }
+
+    if (this.apiKey) {
+      headers['X-API-Key'] = this.apiKey
+    }
+
+    const searchWindows = [
+      0,       // today onwards (future events)
+      90,      // include events from the past 3 months
+      365      // include events from the past year as a last resort
+    ]
+
+    const resolveSiteOrigin = (): string | null => {
+      if (typeof window !== 'undefined') {
+        return window.location.origin
+      }
+
+      if (process.env.NEXT_PUBLIC_SITE_URL) {
+        return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/+$/, '')
+      }
+
+      if (process.env.VERCEL_URL) {
+        return `https://${process.env.VERCEL_URL}`.replace(/\/+$/, '')
+      }
+
+      if (process.env.NODE_ENV === 'development') {
+        return 'http://localhost:3000'
+      }
+
+      return null
+    }
+
+    const fetchOptions = (requestHeaders: Record<string, string>) => {
+      const options: RequestInit & { next?: { revalidate: number } } = {
+        headers: requestHeaders
+      }
+
+      if (typeof window === 'undefined') {
+        options.next = { revalidate: 300 }
+      }
+
+      return options
+    }
+
+    const fetchEventsFromBase = async (
+      baseUrl: string,
+      requestHeaders: Record<string, string>,
+      daysAgo: number
+    ): Promise<Event[]> => {
+      const fromDate = new Date()
+      if (daysAgo > 0) {
+        fromDate.setDate(fromDate.getDate() - daysAgo)
+      }
+
+      const query = new URLSearchParams({
+        limit: '200',
+        from_date: fromDate.toISOString().split('T')[0]
+      })
+
+      const endpoint = `/events?${query.toString()}`
+      const url = `${baseUrl}${endpoint}`
+
+      const response = await fetch(url, fetchOptions(requestHeaders))
+
+      if (!response.ok) {
+        const payload = await response.text()
+        throw {
+          code: 'API_EVENTS_ERROR',
+          status: response.status,
+          message: `Failed to load events list (${response.status})`,
+          details: payload
+        }
+      }
+
+      const data = await response.json()
+      if (data.success === false && data.error) {
+        throw {
+          code: data.error.code || 'API_EVENTS_ERROR',
+          status: 400,
+          message: data.error.message || 'Unable to load events list',
+          details: data.error.details || {}
+        }
+      }
+
+      const responseData = data.data || data
+      return responseData.events || responseData
+    }
+
+    const fetchDirectEvent = async (): Promise<Event | null> => {
+      const endpoint = `/events/${encodedLookup}`
+      const url = `${this.baseURL}${endpoint}`
+
+      const response = await fetch(url, fetchOptions(headers))
+
+      if (response.status === 404) {
+        return null
+      }
+
+      if (!response.ok) {
+        const errorPayload = await response.text()
+        throw {
+          code: 'API_EVENT_ERROR',
+          status: response.status,
+          message: `Failed to load event: ${response.statusText}`,
+          details: errorPayload
+        }
+      }
+
+      const data = await response.json()
+      if (data.success === false && data.error) {
+        if ((data.error.code === 'NOT_FOUND' || data.error.message === 'Event not found')) {
+          return null
+        }
+
+        throw {
+          code: data.error.code || 'API_EVENT_ERROR',
+          status: 400,
+          message: data.error.message || 'Unable to retrieve event',
+          details: data.error.details || {}
+        }
+      }
+
+      return data.data || data
+    }
+
+    const fetchEventsFromWindow = async (daysAgo: number): Promise<Event[]> => {
+      try {
+        return await fetchEventsFromBase(this.baseURL, headers, daysAgo)
+      } catch (primaryError) {
+        // If we're on the server, fall back to the public API endpoint
+        if (typeof window === 'undefined') {
+          const origin = resolveSiteOrigin()
+          if (origin) {
+            try {
+              return await fetchEventsFromBase(
+                `${origin}/api`,
+                { 'Content-Type': 'application/json' },
+                daysAgo
+              )
+            } catch (internalError) {
+              logError('api-get-event-fallback-internal', internalError, {
+                idOrSlug: lookupValue,
+                daysAgo,
+                origin
+              })
+            }
+          }
+        }
+
+        throw primaryError
+      }
+    }
+
+    try {
+      const directEvent = await fetchDirectEvent()
+      if (directEvent) {
+        return directEvent
+      }
+    } catch (error) {
+      logError('api-get-event-direct', error, {
+        idOrSlug: lookupValue
+      })
+    }
+
+    console.log('Fetching event from events list for capacity data')
+
+    for (const daysAgo of searchWindows) {
+      try {
+        const events = await fetchEventsFromWindow(daysAgo)
+        const matchedEvent = events.find(event => {
+          const candidates = [
+            event.id,
+            event.slug,
+            event.identifier
+          ].filter(Boolean).map(value => `${value}`.trim())
+
+          return candidates.some(candidate => candidate === lookupValue)
+        })
+
+        if (matchedEvent) {
+          return matchedEvent
+        }
+      } catch (error) {
+        logError('api-get-event-fallback', error, {
+          idOrSlug: lookupValue,
+          daysAgo
+        })
+      }
+    }
+
+    throw { message: 'Event not found', status: 404 }
   }
 
   async getTodaysEvents(): Promise<EventsResponse> {

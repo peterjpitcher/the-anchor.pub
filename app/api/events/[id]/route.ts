@@ -1,8 +1,69 @@
 import { NextResponse } from 'next/server'
 import { createApiErrorResponse, logError } from '@/lib/error-handling'
+import type { Event } from '@/lib/api'
 
 const API_KEY = process.env.ANCHOR_API_KEY
 const API_BASE_URL = 'https://management.orangejelly.co.uk/api'
+
+function buildSearchWindows(): string[] {
+  const offsets = [0, 90, 365]
+  return offsets.map(offset => {
+    const date = new Date()
+    if (offset > 0) {
+      date.setDate(date.getDate() - offset)
+    }
+    return date.toISOString().split('T')[0]
+  })
+}
+
+async function findEventFromList(idOrSlug: string): Promise<Event | null> {
+  if (!API_KEY) {
+    return null
+  }
+
+  const searchTargets = idOrSlug.trim().toLowerCase()
+  const headers = {
+    'X-API-Key': API_KEY
+  }
+
+  for (const fromDate of buildSearchWindows()) {
+    try {
+      const response = await fetch(
+        `${API_BASE_URL}/events?from_date=${fromDate}&limit=200`,
+        { headers }
+      )
+
+      if (!response.ok) {
+        continue
+      }
+
+      const payload = await response.json()
+      const data = payload.success && payload.data ? payload.data : payload
+      const events: Event[] = data.events || data
+
+      const match = events.find(event => {
+        const candidates = [
+          event.id,
+          event.slug,
+          event.identifier
+        ].filter(Boolean).map(value => `${value}`.trim().toLowerCase())
+
+        return candidates.some(candidate => candidate === searchTargets)
+      })
+
+      if (match) {
+        return match
+      }
+    } catch (error) {
+      logError('api/events/[id]-fallback-list', error, {
+        idOrSlug,
+        fromDate
+      })
+    }
+  }
+
+  return null
+}
 
 export async function GET(
   request: Request,
@@ -15,7 +76,7 @@ export async function GET(
 
   try {
     const response = await fetch(
-      `${API_BASE_URL}/events/${params.id}`,
+      `${API_BASE_URL}/events/${encodeURIComponent(params.id)}`,
       {
         headers: {
           'X-API-Key': API_KEY
@@ -32,6 +93,14 @@ export async function GET(
       }
       
       if (response.status === 404) {
+        const fallbackEvent = await findEventFromList(params.id)
+        if (fallbackEvent) {
+          return NextResponse.json({
+            success: true,
+            data: fallbackEvent
+          })
+        }
+
         return createApiErrorResponse('Event not found', 404)
       }
       
@@ -61,6 +130,20 @@ export async function GET(
       data: eventData
     })
   } catch (error) {
+    // If the direct request failed, try to recover by searching the events list
+    try {
+      const fallbackEvent = await findEventFromList(params.id)
+
+      if (fallbackEvent) {
+        return NextResponse.json({
+          success: true,
+          data: fallbackEvent
+        })
+      }
+    } catch (fallbackError) {
+      logError('api/events/[id]-fallback', fallbackError, { id: params.id })
+    }
+
     logError('api/events/[id]', error, { id: params.id })
     return createApiErrorResponse(
       'We couldn\'t load this event. Please try again later.',
