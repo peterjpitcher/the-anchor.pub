@@ -199,6 +199,56 @@
         "metaDescription": "Indulge in Hennessy VS Cognac this October at The Anchor. Save 25% all month long — singles £3.38 (was £4.50). Perfect for autumn evenings near Heathrow.",
         "heroAlt": "Glass of Hennessy VS cognac alongside the iconic bottle on a polished bar"
       }
+    },
+    {
+      "id": "chase-sloe-november-2025",
+      "startDate": "2025-11-01",
+      "endDate": "2025-11-30",
+      "imageFolder": "november-2025",
+      "active": true,
+      "spirit": {
+        "name": "Chase Sloe Gin",
+        "category": "Sloe Gin",
+        "originalPrice": "£3.50",
+        "specialPrice": "£2.63",
+        "discount": "25% OFF",
+        "description": "Chase Sloe Gin brings hedgerow berries, almond sweetness and winter spice to your glass.",
+        "longDescription": "Crafted on the Chase family farm in Herefordshire, this sloe gin starts with their award-winning potato spirit before being macerated with handpicked sloes for up to six months. The result is a luxuriously rich liqueur bursting with damson jam, warming spice and a silky almond finish that makes November evenings feel instantly cosier.",
+        "tastingNotes": [
+          "Rich damson and blackcurrant jam",
+          "Almond marzipan sweetness",
+          "Juniper backbone with orange zest",
+          "Lingering cinnamon and clove warmth"
+        ],
+        "servingSuggestions": [
+          "Classic Sloe Gin Fizz with fresh lemon and a Giorgio & Gianni Prosecco float",
+          "Fever-Tree Elderflower tonic with an orange twist and star anise",
+          "Hot Sloe Toddy with apple juice and cinnamon",
+          "Neat over ice to savour the hedgerow fruit"
+        ],
+        "botanicals": [
+          "Juniper Berries",
+          "Herefordshire Sloe Berries",
+          "Coriander Seed",
+          "Cardamom",
+          "Liquorice Root",
+          "Bitter Orange Peel",
+          "Angelica Root",
+          "Almond"
+        ],
+        "abv": "29%",
+        "origin": "Herefordshire, England",
+        "distillery": "Chase Distillery"
+      },
+      "promotion": {
+        "headline": "November's Manager's Special",
+        "subheadline": "Hedgerow Warmth for Frosty Nights",
+        "offerText": "Enjoy 25% off Chase Sloe Gin throughout November",
+        "ctaText": "Cosy up for just £2.63",
+        "metaTitle": "November Manager's Special - 25% OFF Chase Sloe Gin | The Anchor Stanwell Moor",
+        "metaDescription": "Sip hedgerow warmth this November with 25% off Chase Sloe Gin at The Anchor. Singles £2.63 (was £3.50), doubles £5.25 (was £7.00). Perfect for frosty nights near Heathrow.",
+        "heroAlt": "Cut-glass tumbler of Chase Sloe Gin with berries and frosted foliage on a winter bar"
+      }
     }
   ]
 }

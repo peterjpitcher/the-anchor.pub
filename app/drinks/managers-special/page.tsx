@@ -99,6 +99,7 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
   const isWarners = spiritName.includes('warners')
   const isRedleg = spiritName.includes('redleg')
   const isHennessy = spiritName.includes('hennessy')
+  const isChaseSloe = spiritName.includes('chase') && spiritName.includes('sloe')
   const dynamicImagePath = getPromotionImage(currentPromotion.imageFolder)
 
   const promotionMonthName = new Date(currentPromotion.startDate).toLocaleDateString('en-GB', {
@@ -193,6 +194,23 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
       question: "Why is spiced rum perfect for September?",
       answer: "As summer transitions to autumn, Redleg's warming spices - ginger, vanilla, and cinnamon - provide the perfect golden glow for cooler evenings. It's like Caribbean sunshine in a glass, ideal for the changing season."
     }
+  ] : isChaseSloe ? [
+    {
+      question: "What is Chase Sloe Gin?",
+      answer: "Chase Sloe Gin starts life as the Chase family's award-winning potato spirit before being steeped with wild Herefordshire sloes for up to six months. The result is a richly fruited liqueur that balances tart hedgerow berries with almond sweetness."
+    },
+    {
+      question: "Is sloe gin very sweet?",
+      answer: "Chase Sloe Gin is luscious but not syrupy. The natural tartness from the sloes is rounded off with a touch of demerara sugar and the juniper backbone of the base gin, so you still get a proper gin character rather than a dessert drink."
+    },
+    {
+      question: "How should I drink Chase Sloe Gin?",
+      answer: "Sip it neat over ice to savour the berry jam flavours, pair it with premium tonic and an orange twist for a refreshing highball, or ask for our November special Sloe Gin Fizz topped with Prosecco. It's also delicious warmed gently with apple juice and spices."
+    },
+    {
+      question: "Why is it November's Manager's Special?",
+      answer: "As the evenings turn frosty, Chase Sloe Gin delivers comforting hedgerow flavours that feel tailor-made for fireside moments. It's a seasonal British classic that pairs perfectly with November walks along the Thames or a cosy night in our snug."
+    }
   ] : isHennessy ? [
     {
       question: "What makes Hennessy VS a 'Very Special' cognac?",
@@ -212,12 +230,50 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
     }
   ] : []
 
-  const heroTags = [
+  const defaultHeroTags = [
     { label: '🎯 Limited Time', variant: 'primary' as const },
     { label: `Valid until ${new Date(currentPromotion.endDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'long' })}`, variant: 'default' as const },
     ...(spirit.abv ? [{ label: spirit.abv, variant: 'default' as const }] : []),
     ...(spirit.origin ? [{ label: spirit.origin, variant: 'default' as const }] : [])
   ]
+
+  const heroTags = isChaseSloe
+    ? [
+        { label: '🍇 Hedgerow Crafted', variant: 'primary' as const },
+        { label: '🔥 Cosy Winter Serve', variant: 'primary' as const },
+        ...defaultHeroTags
+      ]
+    : defaultHeroTags
+
+  const heroEyebrow = isChaseSloe ? "Manager's Special · November 2025" : undefined
+
+  const heroLead = isChaseSloe ? (
+    <div className="flex w-full flex-col gap-4 rounded-2xl bg-black/25 p-4 backdrop-blur-sm shadow-lg shadow-black/30 sm:flex-row sm:items-center sm:justify-center sm:gap-6">
+      <div className="flex items-center gap-3 text-white/90">
+        <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/15 text-lg font-semibold text-white">
+          £
+        </span>
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white/60">Offer Price</p>
+          <p className="text-base font-semibold">Singles {spirit.specialPrice} (was {spirit.originalPrice})</p>
+        </div>
+      </div>
+      <div className="hidden h-10 w-px bg-white/20 sm:block" />
+      <div className="flex items-center gap-3 text-white/90">
+        <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/15 text-lg">
+          🍸
+        </span>
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white/60">Signature Serves</p>
+          <p className="text-base font-semibold">Sloe Fizz · Hedgerow Highball · Orchard Warmer</p>
+        </div>
+      </div>
+    </div>
+  ) : undefined
+
+  const heroOverlay = isChaseSloe ? 'gradient' : undefined
+
+  const heroContentClassName = isChaseSloe ? 'max-w-4xl' : undefined
 
   const spiritDetails = [
     spirit.abv ? { label: 'ABV', value: spirit.abv } : null,
@@ -245,6 +301,9 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
         title={`${spirit.discount} ${spirit.name}`}
         description={promotion.subheadline}
         variant="promo"
+        overlay={heroOverlay}
+        eyebrow={heroEyebrow}
+        lead={heroLead}
         tags={heroTags}
         breadcrumbs={[
           { name: 'Drinks', href: '/drinks' },
@@ -278,6 +337,7 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
             />
           </>
         }
+        contentClassName={heroContentClassName}
       />
 
       {/* Page Title for SEO */}
@@ -396,6 +456,57 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
         </div>
       </FullWidthSection>
 
+      {isChaseSloe && (
+        <FullWidthSection className="py-12 md:py-20 bg-gradient-to-r from-rose-50 via-purple-50 to-rose-100">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-3xl mx-auto text-center">
+              <h2 className="text-3xl md:text-4xl font-bold text-purple-900 mb-4">
+                Why Chase Sloe Gin Is November's Pick
+              </h2>
+              <p className="text-lg md:text-xl text-purple-900/80 leading-relaxed">
+                Hedgerow berries, winter spice and silky almond sweetness make Chase Sloe Gin the definition of a British cosy season classic. We pour it as our November special because it celebrates local fruit, artisan craft and evenings spent warming up after crisp walks along the Colne Valley.
+              </p>
+            </div>
+            <div className="mt-12 grid gap-6 md:grid-cols-3">
+              <div className="bg-white border border-rose-200 rounded-xl p-6 shadow-sm">
+                <h3 className="text-xl font-semibold text-purple-900 mb-2">Farm-to-Glass Provenance</h3>
+                <p className="text-purple-900/80">Every bottle is made at the Chase family farm in Herefordshire using their field-to-bottle potato spirit before sloes from surrounding hedgerows are steeped for half a year.</p>
+              </div>
+              <div className="bg-white border border-rose-200 rounded-xl p-6 shadow-sm">
+                <h3 className="text-xl font-semibold text-purple-900 mb-2">Seasonal Comfort</h3>
+                <p className="text-purple-900/80">Think mulled berries, almond frangipane and a whisper of cinnamon. It's the flavour profile we crave when the first frosts arrive and the fire is lit in the snug.</p>
+              </div>
+              <div className="bg-white border border-rose-200 rounded-xl p-6 shadow-sm">
+                <h3 className="text-xl font-semibold text-purple-900 mb-2">Versatile Serves</h3>
+                <p className="text-purple-900/80">From sparkling Sloe Gin Fizzes to hot toddies spiked with apple juice, this liqueur adapts to whatever November night you're planning at The Anchor.</p>
+              </div>
+            </div>
+          </div>
+        </FullWidthSection>
+      )}
+
+      {isChaseSloe && (
+        <Section spacing="lg" container containerSize="md" className="bg-white">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold text-gray-900 mb-6">Cosy Sloe Gin Serves To Try This Month</h2>
+            <div className="space-y-6">
+              <div className="border border-rose-200 rounded-xl p-6 shadow-sm">
+                <h3 className="text-xl font-semibold text-gray-900">The Anchor Sloe Fizz</h3>
+                <p className="text-gray-700">Chase Sloe Gin shaken with fresh lemon, a touch of sugar and crowned with Giorgio &amp; Gianni Prosecco. It's bright, bubbly and perfect as a pre-dinner celebration.</p>
+              </div>
+              <div className="border border-rose-200 rounded-xl p-6 shadow-sm">
+                <h3 className="text-xl font-semibold text-gray-900">Hedgerow Highball</h3>
+                <p className="text-gray-700">Lengthen with Fever-Tree Elderflower, a squeeze of orange and a star anise pod. The mixer lifts the berry notes while keeping the serve refreshing.</p>
+              </div>
+              <div className="border border-rose-200 rounded-xl p-6 shadow-sm">
+                <h3 className="text-xl font-semibold text-gray-900">Mulled Orchard Warmer</h3>
+                <p className="text-gray-700">Ask the bar team to warm Chase Sloe Gin gently with cloudy apple juice, cinnamon and clove. It's like mulled wine's sophisticated cousin and ideal post-walk.</p>
+              </div>
+            </div>
+          </div>
+        </Section>
+      )}
+
       {isHennessy && (
         <FullWidthSection className="py-12 md:py-20 bg-gradient-to-r from-amber-50 via-orange-50 to-amber-100">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -414,7 +525,7 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
               </div>
               <div className="bg-white border border-amber-200 rounded-xl p-6 shadow-sm">
                 <h3 className="text-xl font-semibold text-amber-900 mb-2">Perfect Moment</h3>
-                <p className="text-amber-900/80">Nurse a glass while catching up after Sunday lunch, or treat yourself before a Heathrow red-eye. Cognac’s slow sip pace rewards taking the evening down a notch.</p>
+                <p className="text-amber-900/80">Nurse a glass while catching up after Sunday lunch, or treat yourself before a Heathrow red-eye. Cognac's slow sip pace rewards taking the evening down a notch.</p>
               </div>
               <div className="bg-white border border-amber-200 rounded-xl p-6 shadow-sm">
                 <h3 className="text-xl font-semibold text-amber-900 mb-2">Food Pairing</h3>
@@ -432,7 +543,7 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
             <div className="space-y-6">
               <div className="border border-gray-200 rounded-xl p-6 shadow-sm">
                 <h3 className="text-xl font-semibold text-gray-900">Autumn Sidecar</h3>
-                <p className="text-gray-700">Hennessy VS, triple sec, fresh lemon and a cinnamon sugar rim. Bright citrus meets warming spice — ideal before dinner.</p>
+                <p className="text-gray-700">Hennessy VS, triple sec, fresh lemon and a cinnamon sugar rim. Bright citrus meets warming spice - ideal before dinner.</p>
               </div>
               <div className="border border-gray-200 rounded-xl p-6 shadow-sm">
                 <h3 className="text-xl font-semibold text-gray-900">VS Old Fashioned</h3>
@@ -517,13 +628,22 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
                     warming rum that brings Caribbean sunshine to even the greyest British autumn day.
                   </p>
                 </>
+              ) : isChaseSloe ? (
+                <>
+                  <p className="text-lg leading-relaxed">
+                    William Chase built his eponymous distillery on the family farm in Herefordshire, turning potatoes grown in their own fields into an award-winning neutral spirit. After the autumn harvest, the team hand-picks sloes from local hedgerows and leaves them to macerate slowly with that spirit for months.
+                  </p>
+                  <p className="text-lg leading-relaxed">
+                    The patient infusion captures the deep crimson colour and marzipan richness that define a proper sloe gin. Expect flavours of blackberry conserve, baked plum crumble and toasted almonds - a liquid love letter to the British countryside as winter closes in.
+                  </p>
+                </>
               ) : isHennessy ? (
                 <>
                   <p className="text-lg leading-relaxed">
                     Maison Hennessy has crafted cognac on the banks of the Charente River since 1765. The VS (Very Special) expression blends youthful eaux-de-vie aged in French oak barrels to capture vibrant fruit, toasted almond and warming spice.
                   </p>
                   <p className="text-lg leading-relaxed">
-                    Each barrel contributes subtly different layers; cellar masters marry them to create the signature house style. The result is a cognac that feels both luxurious and approachable — perfect for making October evenings at The Anchor feel that little bit elevated.
+                    Each barrel contributes subtly different layers; cellar masters marry them to create the signature house style. The result is a cognac that feels both luxurious and approachable - perfect for making October evenings at The Anchor feel that little bit elevated.
                   </p>
                 </>
               ) : null}
