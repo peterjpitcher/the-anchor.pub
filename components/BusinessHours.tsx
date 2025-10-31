@@ -103,6 +103,34 @@ export function BusinessHours({ variant = 'full', showKitchen = true }: Business
     return minutes === '00' ? `${displayHour}${ampm}` : `${displayHour}:${minutes}${ampm}`
   }
 
+  const resolveKitchenInfo = (
+    specialHoursEntry: any | null,
+    regularHoursEntry: any | null
+  ) => {
+    const source = specialHoursEntry ?? regularHoursEntry ?? null
+
+    let kitchen: any = null
+    if (specialHoursEntry && Object.prototype.hasOwnProperty.call(specialHoursEntry, 'kitchen')) {
+      kitchen = specialHoursEntry.kitchen
+    } else if (regularHoursEntry && Object.prototype.hasOwnProperty.call(regularHoursEntry, 'kitchen')) {
+      kitchen = regularHoursEntry.kitchen
+    } else if (source && typeof source === 'object' && 'kitchen' in source) {
+      kitchen = source.kitchen
+    }
+
+    const explicitClosed =
+      (specialHoursEntry?.is_kitchen_closed ?? regularHoursEntry?.is_kitchen_closed) === true
+
+    const kitchenClosed =
+      explicitClosed ||
+      (kitchen && typeof kitchen === 'object' && 'is_closed' in kitchen && kitchen.is_closed === true)
+
+    return {
+      kitchen,
+      kitchenClosed
+    }
+  }
+
   // Status variant - just shows open/closed
   if (variant === 'status') {
     return (
@@ -179,6 +207,7 @@ export function BusinessHours({ variant = 'full', showKitchen = true }: Business
             const specialHours = getSpecialHoursForDate(day.isoDate)
             const displayHours = specialHours || dayHours
             const hasSpecialHours = !!specialHours
+            const { kitchen, kitchenClosed } = resolveKitchenInfo(specialHours, dayHours)
 
             return (
               <div
@@ -208,18 +237,18 @@ export function BusinessHours({ variant = 'full', showKitchen = true }: Business
                       </div>
                       
                       {/* Kitchen Hours */}
-                      {showKitchen && !hasSpecialHours && (
+                      {showKitchen && (
                         <div className="text-sm">
                           <span className="text-gray-400 mr-2">Kitchen:</span>
                           {(() => {
-                            if (!dayHours.kitchen || dayHours.kitchen === null) {
+                            if (kitchenClosed) {
+                              return <span className={hasSpecialHours ? 'text-yellow-400' : 'text-amber-400'}>Closed</span>
+                            } else if (!kitchen || kitchen === null) {
                               return <span className="text-gray-500">No service</span>
-                            } else if ('is_closed' in dayHours.kitchen && dayHours.kitchen.is_closed === true) {
-                              return <span className="text-amber-400">Closed</span>
-                            } else if ('opens' in dayHours.kitchen && 'closes' in dayHours.kitchen) {
+                            } else if ('opens' in kitchen && 'closes' in kitchen) {
                               return (
-                                <span className="text-white">
-                                  {formatTime(dayHours.kitchen.opens)} - {formatTime(dayHours.kitchen.closes)}
+                                <span className={hasSpecialHours ? 'text-yellow-400' : 'text-white'}>
+                                  {formatTime(kitchen.opens)} - {formatTime(kitchen.closes)}
                                 </span>
                               )
                             } else {
@@ -250,11 +279,12 @@ export function BusinessHours({ variant = 'full', showKitchen = true }: Business
 
         {/* All Days Vertical List - Compact */}
         <div className="space-y-1">
-          {upcomingDays.map((day, index) => {
+          {upcomingDays.map((day) => {
             const dayHours = hours.regularHours[day.key]
             const specialHours = getSpecialHoursForDate(day.isoDate)
             const displayHours = specialHours || dayHours
             const hasSpecialHours = !!specialHours
+            const { kitchen, kitchenClosed } = resolveKitchenInfo(specialHours, dayHours)
 
             if (!displayHours) {
               return null
@@ -292,18 +322,20 @@ export function BusinessHours({ variant = 'full', showKitchen = true }: Business
                         </span>
                       </div>
 
-                      {showKitchen && !hasSpecialHours && dayHours && (
+                      {showKitchen && (
                         <div className="text-xs">
                           <span className="text-white/60 mr-1">Kitchen:</span>
                           {(() => {
-                            if (!dayHours.kitchen || dayHours.kitchen === null) {
+                            if (kitchenClosed) {
+                              return <span className={hasSpecialHours ? 'text-yellow-400' : 'text-white/70'}>Closed</span>
+                            }
+                            if (!kitchen || kitchen === null) {
                               return <span className="text-white/50">No service</span>
-                            } else if ('is_closed' in dayHours.kitchen && dayHours.kitchen.is_closed === true) {
-                              return <span className="text-amber-400">Closed</span>
-                            } else if ('opens' in dayHours.kitchen && 'closes' in dayHours.kitchen) {
+                            }
+                            if ('opens' in kitchen && 'closes' in kitchen) {
                               return (
-                                <span className="text-white/80">
-                                  {formatTime(dayHours.kitchen.opens)} - {formatTime(dayHours.kitchen.closes)}
+                                <span className={hasSpecialHours ? 'text-yellow-400' : 'text-white/80'}>
+                                  {formatTime(kitchen.opens)} - {formatTime(kitchen.closes)}
                                 </span>
                               )
                             }
@@ -380,6 +412,7 @@ export function BusinessHours({ variant = 'full', showKitchen = true }: Business
             const displayHours = specialHours || dayHours
             const hasSpecialHours = !!specialHours
             const isToday = day === todayKey
+            const { kitchen, kitchenClosed } = resolveKitchenInfo(specialHours, dayHours)
 
             if (!displayHours) {
               return null
@@ -409,18 +442,19 @@ export function BusinessHours({ variant = 'full', showKitchen = true }: Business
                         </span>
                       </div>
 
-                      {showKitchen && !hasSpecialHours && dayHours && (
+                      {showKitchen && (
                         <div className="text-sm">
                           <span className="text-gray-500 mr-2">Kitchen:</span>
                           {(() => {
-                            if (!dayHours.kitchen || dayHours.kitchen === null) {
+                            if (kitchenClosed) {
+                              return <span className={hasSpecialHours ? 'text-yellow-600 font-medium' : 'text-amber-600 font-medium'}>Closed</span>
+                            }
+                            if (!kitchen || kitchen === null) {
                               return <span className="text-gray-500">No service</span>
-                            } else if ('is_closed' in dayHours.kitchen && dayHours.kitchen.is_closed === true) {
-                              return <span className="text-amber-600 font-medium">Closed</span>
-                            } else if ('opens' in dayHours.kitchen && 'closes' in dayHours.kitchen) {
+                            } else if ('opens' in kitchen && 'closes' in kitchen) {
                               return (
-                                <span>
-                                  {formatTime(dayHours.kitchen.opens)} - {formatTime(dayHours.kitchen.closes)}
+                                <span className={hasSpecialHours ? 'text-yellow-600 font-medium' : ''}>
+                                  {formatTime(kitchen.opens)} - {formatTime(kitchen.closes)}
                                 </span>
                               )
                             }
