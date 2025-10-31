@@ -113,7 +113,7 @@ const testScenarios = [
       }
     },
     expected: 'Bar: Open until 10pm',
-    expectedKitchen: 'Kitchen: Closed today'
+    expectedKitchen: 'Kitchen: Opens Tuesday at 6pm'
   },
   {
     name: 'Kitchen explicitly closed flag',

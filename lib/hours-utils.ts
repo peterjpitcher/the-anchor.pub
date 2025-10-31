@@ -79,6 +79,20 @@ export function isKitchenClosed(effective: DayHours): boolean {
   if (typeof effective.kitchen === 'object' && 'is_closed' in effective.kitchen) {
     return effective.kitchen.is_closed === true;
   }
+
+  // Some API responses provide opens/closes keys but leave them empty/null when closed
+  if (
+    typeof effective.kitchen === 'object' &&
+    'opens' in effective.kitchen &&
+    'closes' in effective.kitchen
+  ) {
+    const opens = (effective.kitchen as any).opens;
+    const closes = (effective.kitchen as any).closes;
+    
+    if (!opens || !closes) {
+      return true;
+    }
+  }
   
   return false;
 }
