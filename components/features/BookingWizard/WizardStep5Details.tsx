@@ -53,7 +53,9 @@ export function WizardStep5Details({
       newErrors.phone = 'Please enter a valid phone number'
     }
     
-    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (!email.trim()) {
+      newErrors.email = 'Email address is required'
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
       newErrors.email = 'Please enter a valid email address'
     }
     
@@ -179,7 +181,7 @@ export function WizardStep5Details({
         {/* Email */}
         <div>
           <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-            Email Address (optional)
+            Email Address *
           </label>
           <div className="relative">
             <input
@@ -188,6 +190,7 @@ export function WizardStep5Details({
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               autoComplete="email"
+              required
               className={`w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-anchor-gold ${
                 errors.email ? 'border-red-300' : 'border-gray-300'
               }`}
@@ -199,7 +202,7 @@ export function WizardStep5Details({
             <p className="text-red-600 text-sm mt-1">{errors.email}</p>
           )}
           <p className="text-xs text-gray-500 mt-1">
-            We'll send a confirmation email if provided
+            We use this to send your confirmation and payment details
           </p>
         </div>
       </div>

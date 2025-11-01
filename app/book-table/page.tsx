@@ -215,12 +215,13 @@ export default async function BookPage({
                   
                   <div>
                     <label htmlFor="email" className="block text-sm font-medium mb-1">
-                      Email (optional)
+                      Email
                     </label>
                     <input
                       type="email"
                       id="email"
                       name="email"
+                      required
                       autoComplete="email"
                       className="w-full p-2 border rounded"
                     />

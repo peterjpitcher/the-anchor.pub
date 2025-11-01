@@ -1,39 +1,27 @@
 'use client'
 
 import { cn } from '@/lib/utils'
+import type { WizardFlowStep } from './types'
 
 interface WizardProgressProps {
   currentStep: number
-  totalSteps: number
-  isSunday: boolean
+  steps: WizardFlowStep[]
 }
 
-export function WizardProgress({ currentStep, totalSteps, isSunday }: WizardProgressProps) {
-  // Define step labels based on whether it's Sunday
-  const getStepLabels = () => {
-    if (isSunday) {
-      return [
-        'Date',
-        'Roast?',
-        'Party',
-        'Time',
-        'Details',
-        'Special',
-        'Confirm'
-      ]
-    }
-    return [
-      'Date',
-      'Party',
-      'Time',
-      'Details',
-      'Special',
-      'Confirm'
-    ]
-  }
-  
-  const stepLabels = getStepLabels()
-  const progressPercentage = ((currentStep - 1) / (totalSteps - 1)) * 100
+const STEP_LABELS: Record<WizardFlowStep, string> = {
+  date: 'Date',
+  sunday_offer: 'Sunday?',
+  party_size: 'Party',
+  menu_selection: 'Menu',
+  time: 'Time',
+  details: 'Details',
+  confirm: 'Confirm'
+}
+
+export function WizardProgress({ currentStep, steps }: WizardProgressProps) {
+  const totalSteps = steps.length
+  const stepLabels = steps.map((step) => STEP_LABELS[step] ?? step)
+  const progressPercentage = totalSteps > 1 ? ((currentStep - 1) / (totalSteps - 1)) * 100 : 0
   
   return (
     <div className="bg-white border-b border-gray-200 sticky top-0 z-40">
@@ -103,7 +91,8 @@ export function WizardProgress({ currentStep, totalSteps, isSunday }: WizardProg
         {/* Mobile Step Label */}
         <div className="mt-3 text-center md:hidden">
           <p className="text-sm font-medium text-gray-700">
-            Step {currentStep} of {totalSteps}: {stepLabels[currentStep - 1]}
+            Step {Math.min(currentStep, totalSteps)} of {totalSteps}:{' '}
+            {stepLabels[currentStep - 1] ?? stepLabels[stepLabels.length - 1] ?? ''}
           </p>
         </div>
       </div>

@@ -78,9 +78,10 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
   const [sideSelections, setSideSelections] = useState<SideSelection[]>([])
   
   // Customer info
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [mobile, setMobile] = useState('')
+const [firstName, setFirstName] = useState('')
+const [lastName, setLastName] = useState('')
+const [mobile, setMobile] = useState('')
+const [email, setEmail] = useState('')
   const [specialRequirements, setSpecialRequirements] = useState('')
   const [dietaryRequirements, setDietaryRequirements] = useState<string[]>([])
   const [allergies, setAllergies] = useState<string[]>([])
@@ -237,6 +238,21 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
       setError(null)
     }
     
+    const trimmedEmail = email.trim()
+    if (!trimmedEmail) {
+      if (isMountedRef.current) {
+        setError('Please enter your email address')
+      }
+      return
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) {
+      if (isMountedRef.current) {
+        setError('Please enter a valid email address')
+      }
+      return
+    }
+
     // Validate menu selections
     const invalidSelections = menuSelections.filter(s => !s.menu_item_id || !s.guest_name)
     if (invalidSelections.length > 0) {
@@ -335,6 +351,7 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
         customer: {
           first_name: firstName,
           last_name: lastName,
+          email: trimmedEmail,
           mobile_number: mobile,
           sms_opt_in: smsOptIn
         },
@@ -1007,6 +1024,21 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
                 onChange={(e) => setMobile(e.target.value)}
                 required
                 placeholder="07700900000"
+                className="w-full border rounded-md px-4 py-3 text-base"
+              />
+            </div>
+            
+            <div className="md:col-span-2">
+              <label htmlFor="email" className="block text-sm font-medium mb-2">
+                Email Address *
+              </label>
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                placeholder="you@example.com"
                 className="w-full border rounded-md px-4 py-3 text-base"
               />
             </div>

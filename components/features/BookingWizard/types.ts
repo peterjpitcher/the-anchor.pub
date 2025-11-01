@@ -1,9 +1,42 @@
-export interface MenuSelection {
+export type WizardFlowStep =
+  | 'date'
+  | 'sunday_offer'
+  | 'party_size'
+  | 'menu_selection'
+  | 'time'
+  | 'details'
+  | 'confirm'
+
+export interface MenuSelectionPayload {
+  custom_item_name: string
+  item_type: 'main' | 'side'
+  quantity: number
   guest_name: string
-  menu_item_id: string
-  item_type: 'main'
-  quantity: 1
   price_at_booking: number
+  special_requests?: string
+}
+
+export interface MenuGuestSummary {
+  guestName: string
+  mainName: string
+  price: number
+}
+
+export interface MenuExtrasSummary {
+  name: string
+  quantity: number
+  price: number
+}
+
+export interface MenuSummary {
+  guests: MenuGuestSummary[]
+  extras: MenuExtrasSummary[]
+  totals: {
+    mains: number
+    extras: number
+    total: number
+    deposit: number
+  }
 }
 
 export interface BookingWizardData {
@@ -14,7 +47,8 @@ export interface BookingWizardData {
   bookingType: 'regular' | 'sunday_lunch'
   
   // Step 2b (Sunday lunch only)
-  menuSelections?: MenuSelection[]
+  menuSelections?: MenuSelectionPayload[]
+  menuSummary?: MenuSummary
   
   // Step 3
   partySize: number

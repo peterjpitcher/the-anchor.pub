@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { Icon } from '@/components/ui/Icon'
+import type { MenuSummary } from '@/components/features/BookingWizard/types'
 import { pushToDataLayer } from '@/lib/gtm-events'
 
 interface MenuSelection {
@@ -19,6 +20,7 @@ interface BookingData {
   date: string
   time: string
   partySize: number
+  menuSummary?: MenuSummary
   menuSelections?: MenuSelection[]
   customerName: string
   totalPrice?: number
@@ -50,16 +52,23 @@ export function BookingDetails({ bookingRef }: { bookingRef: string }) {
   useEffect(() => {
     if (!bookingData || hasTrackedRef.current) return
 
+    const hasPreorder = Boolean(
+      bookingData.menuSummary?.guests?.length ||
+      (bookingData.menuSelections && bookingData.menuSelections.length > 0)
+    )
+
+    const bookingValue = bookingData.menuSummary?.totals?.total || bookingData.totalPrice || undefined
+
     pushToDataLayer({
       event: 'table_booking_complete',
       booking_reference: bookingData.reference || bookingRef,
       booking_date: bookingData.date,
       booking_time: bookingData.time,
       party_size: bookingData.partySize,
-      booking_type: bookingData.menuSelections && bookingData.menuSelections.length > 0 ? 'sunday_roast' : 'standard',
-      has_preorder: Boolean(bookingData.menuSelections && bookingData.menuSelections.length > 0),
-      has_total: Boolean(bookingData.totalPrice),
-      booking_value: bookingData.totalPrice || undefined
+      booking_type: hasPreorder ? 'sunday_roast' : 'standard',
+      has_preorder: hasPreorder,
+      has_total: Boolean(bookingValue),
+      booking_value: bookingValue
     })
 
     hasTrackedRef.current = true
@@ -79,6 +88,11 @@ export function BookingDetails({ bookingRef }: { bookingRef: string }) {
       day: 'numeric'
     })
   }
+
+  const menuSummary: MenuSummary | undefined = bookingData.menuSummary
+  const hasMenuSummary = Boolean(menuSummary && menuSummary.guests.length > 0)
+  const legacyMenuSelections = Array.isArray(bookingData.menuSelections) ? bookingData.menuSelections : []
+  const totalPrice = menuSummary?.totals.total || bookingData.totalPrice || undefined
   
   return (
     <div className="space-y-6">
@@ -108,13 +122,61 @@ export function BookingDetails({ bookingRef }: { bookingRef: string }) {
       </div>
       
       {/* Menu Selections (if any) */}
-      {bookingData.menuSelections && bookingData.menuSelections.length > 0 && (
+      {hasMenuSummary && menuSummary && (
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
           <h3 className="text-lg font-semibold text-anchor-charcoal mb-4">
             Pre-Ordered Sunday Roasts
           </h3>
           <div className="space-y-3">
-            {bookingData.menuSelections.map((selection, index) => (
+            {menuSummary.guests.map(guest => (
+              <div key={guest.guestName} className="border-b border-gray-100 pb-3 last:border-0">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <p className="font-medium text-anchor-charcoal">{guest.guestName}</p>
+                    <p className="text-sm text-gray-600 mt-1">{guest.mainName}</p>
+                  </div>
+                  <span className="font-medium">£{guest.price.toFixed(2)}</span>
+                </div>
+              </div>
+            ))}
+
+            {menuSummary.extras.length > 0 && (
+              <div className="pt-3">
+                <p className="font-medium text-sm text-gray-700 mb-2">Extras for the table</p>
+                <ul className="space-y-1 text-sm text-gray-600">
+                  {menuSummary.extras.map(extra => (
+                    <li key={extra.name} className="flex justify-between">
+                      <span>{extra.name} ×{extra.quantity}</span>
+                      <span>£{extra.price.toFixed(2)}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            <div className="pt-3 border-t border-gray-200">
+              <div className="flex justify-between items-center">
+                <span className="font-semibold">Total:</span>
+                <span className="font-bold text-lg">
+                  £{menuSummary.totals.total.toFixed(2)}
+                </span>
+              </div>
+              <p className="text-sm text-gray-600 mt-2">
+                <Icon name="info" className="w-4 h-4 inline mr-1" />
+                £5 per person deposit has been paid. Remaining balance due on arrival.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {!hasMenuSummary && legacyMenuSelections.length > 0 && (
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+          <h3 className="text-lg font-semibold text-anchor-charcoal mb-4">
+            Pre-Ordered Sunday Roasts
+          </h3>
+          <div className="space-y-3">
+            {legacyMenuSelections.map((selection: any, index: number) => (
               <div key={index} className="border-b border-gray-100 pb-3 last:border-0">
                 <div className="flex justify-between items-start">
                   <div>
@@ -124,34 +186,13 @@ export function BookingDetails({ bookingRef }: { bookingRef: string }) {
                     <p className="text-sm text-gray-600 mt-1">
                       {selection.menu_item_name || 'Sunday roast main course'}
                     </p>
-                    {selection.special_requests && (
-                      <p className="text-sm text-gray-500 mt-1 italic">
-                        Note: {selection.special_requests}
-                      </p>
-                    )}
                   </div>
                   <span className="font-medium">
-                    £{selection.price_at_booking.toFixed(2)}
+                    £{selection.price_at_booking?.toFixed?.(2) ?? '0.00'}
                   </span>
                 </div>
               </div>
             ))}
-            
-            {/* Total */}
-            {bookingData.totalPrice && (
-              <div className="pt-3 border-t border-gray-200">
-                <div className="flex justify-between items-center">
-                  <span className="font-semibold">Total:</span>
-                  <span className="font-bold text-lg">
-                    £{bookingData.totalPrice.toFixed(2)}
-                  </span>
-                </div>
-                <p className="text-sm text-gray-600 mt-2">
-                  <Icon name="info" className="w-4 h-4 inline mr-1" />
-                  £5 per person deposit has been paid. Remaining balance due on arrival.
-                </p>
-              </div>
-            )}
           </div>
         </div>
       )}
@@ -163,7 +204,7 @@ export function BookingDetails({ bookingRef }: { bookingRef: string }) {
         </h4>
         <ul className="text-sm text-amber-800 space-y-1">
           <li>• Please arrive on time for your reservation</li>
-          {bookingData.menuSelections && bookingData.menuSelections.length > 0 && (
+          {(hasMenuSummary || legacyMenuSelections.length > 0) && (
             <>
               <li>• Your Sunday roasts have been pre-ordered</li>
               <li>• Menu changes on the day may be limited</li>

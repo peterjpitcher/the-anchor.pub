@@ -11,6 +11,7 @@ const badgeVariants = cva(
         default: 'bg-gray-100 text-gray-800',
         primary: 'bg-anchor-gold/10 text-anchor-gold',
         secondary: 'bg-anchor-green/10 text-anchor-green',
+        outline: 'border border-gray-300 text-gray-700 bg-transparent',
         success: 'bg-green-100 text-green-800',
         warning: 'bg-yellow-100 text-yellow-800',
         error: 'bg-red-100 text-red-800'

@@ -14,6 +14,7 @@ export interface CustomerDetailsData {
   firstName: string
   lastName: string
   phone: string
+  email: string
   specialRequirements?: string
   dietaryRequirements?: string
   allergies?: string
@@ -53,6 +54,7 @@ export default function CustomerDetails({
     firstName: '',
     lastName: '',
     phone: '',
+    email: '',
     specialRequirements: '',
     dietaryRequirements: '',
     allergies: '',
@@ -91,7 +93,13 @@ export default function CustomerDetails({
       ...prev,
       [field]: value
     }))
-    
+    if (field === 'email' && typeof value === 'string') {
+      const trimmed = value.trim()
+      if (trimmed && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
+        setErrors(prev => ({ ...prev, email: 'Please enter a valid email address' }))
+      }
+    }
+
     // Clear error when user starts typing
     if (errors[field]) {
       setErrors(prev => {
@@ -132,6 +140,12 @@ export default function CustomerDetails({
     } else if (!validatePhone(formData.phone)) {
       newErrors.phone = 'Please enter a valid UK phone number'
     }
+
+    if (!formData.email.trim()) {
+      newErrors.email = 'Please enter your email address'
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
+      newErrors.email = 'Please enter a valid email address'
+    }
     
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors)
@@ -142,7 +156,11 @@ export default function CustomerDetails({
     trackFormComplete('Table Booking - Customer Details')
     
     // Submit form
-    onSubmit(formData)
+    onSubmit({
+      ...formData,
+      phone: formData.phone.trim(),
+      email: formData.email.trim()
+    })
   }, [formData, onSubmit])
 
   return (
@@ -193,7 +211,7 @@ export default function CustomerDetails({
             />
           </div>
 
-          <div>
+          <div className="grid gap-4 sm:grid-cols-2">
             <Input
               id="customer-phone"
               type="tel"
@@ -203,6 +221,17 @@ export default function CustomerDetails({
               placeholder="07700 900123"
               error={errors.phone}
               helperText={!errors.phone ? "We'll text you a reminder" : undefined}
+              disabled={loading}
+              required
+            />
+            <Input
+              id="customer-email"
+              type="email"
+              label="Email Address"
+              value={formData.email}
+              onChange={(e) => handleInputChange('email', e.target.value)}
+              placeholder="you@example.com"
+              error={errors.email}
               disabled={loading}
               required
             />

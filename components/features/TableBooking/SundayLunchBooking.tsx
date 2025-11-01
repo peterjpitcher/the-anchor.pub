@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { anchorAPI } from '@/lib/api'
 import type { TableBookingRequest, TableBookingResponse } from '@/lib/api'
 import BookingDatePicker from './BookingDatePicker'
@@ -14,6 +14,8 @@ import { Button } from '@/components/ui/primitives/Button'
 import { Icon } from '@/components/ui/Icon'
 import { PhoneLink } from '@/components/PhoneLink'
 import { Select } from '@/components/ui/forms/Select'
+import { LoadingState } from '@/components/ui/LoadingState'
+import { Badge } from '@/components/ui/primitives/Badge'
 import { trackTableBookingClick, trackFormComplete, trackError } from '@/lib/gtm-events'
 import { logError } from '@/lib/error-handling'
 import { analytics } from '@/lib/analytics'
@@ -23,7 +25,13 @@ interface SundayLunchBookingProps {
   onSuccess?: (booking: TableBookingResponse) => void
 }
 
-type BookingStep = 'pre-order-info' | 'date-selection' | 'availability' | 'details' | 'confirmation'
+type BookingStep =
+  | 'pre-order-info'
+  | 'date-selection'
+  | 'availability'
+  | 'menu'
+  | 'details'
+  | 'confirmation'
 
 interface BookingState {
   step: BookingStep
@@ -31,6 +39,39 @@ interface BookingState {
   time: string | null
   partySize: number
   confirmedTime: string | null
+}
+
+interface MenuItem {
+  id: string
+  name: string
+  description?: string | null
+  price: number
+  dietary_info?: string[]
+  allergens?: string[]
+  is_available?: boolean
+}
+
+interface SideItem extends MenuItem {
+  included: boolean
+}
+
+interface MenuData {
+  menu_date: string
+  mains: MenuItem[]
+  sides: SideItem[]
+  cutoff_time?: string
+}
+
+interface MenuSelection {
+  guest_name: string
+  menu_item_id: string
+  price_at_booking: number
+}
+
+interface SideSelection {
+  menu_item_id: string
+  quantity: number
+  price_at_booking: number
 }
 
 // Helper functions for Sunday calculations
@@ -125,6 +166,243 @@ export default function SundayLunchBooking({
   const [bookingResponse, setBookingResponse] = useState<TableBookingResponse | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [menu, setMenu] = useState<MenuData | null>(null)
+  const [menuLoading, setMenuLoading] = useState(false)
+  const [menuError, setMenuError] = useState<string | null>(null)
+  const [menuSelections, setMenuSelections] = useState<MenuSelection[]>([])
+  const [sideSelections, setSideSelections] = useState<SideSelection[]>([])
+
+  const loadMenu = useCallback(async (date: string, partySize: number) => {
+    try {
+      setMenuLoading(true)
+      setMenuError(null)
+
+      const params = new URLSearchParams()
+      params.set('date', date)
+
+      const response = await fetch(`/api/table-bookings/menu/sunday-lunch?${params.toString()}`)
+      const payload = await response.json()
+
+      if (!response.ok || payload?.error) {
+        setMenuError(payload?.error || 'Unable to load menu. Please try again.')
+        setMenu(null)
+        return
+      }
+
+      const rawMenu = payload.data || payload.menu || payload
+      const normalized: MenuData = {
+        menu_date: rawMenu.menu_date || date,
+        mains: Array.isArray(rawMenu.mains)
+          ? rawMenu.mains.map((item: any) => ({
+              id: item.id,
+              name: item.name,
+              description: item.description,
+              price: Number(item.price ?? 0),
+              dietary_info: item.dietary_info || [],
+              allergens: item.allergens || [],
+              is_available: item.is_available ?? true
+            }))
+          : [],
+        sides: Array.isArray(rawMenu.sides)
+          ? rawMenu.sides.map((item: any) => ({
+              id: item.id,
+              name: item.name,
+              description: item.description,
+              price: Number(item.price ?? 0),
+              dietary_info: item.dietary_info || [],
+              allergens: item.allergens || [],
+              included: item.included ?? Number(item.price ?? 0) === 0
+            }))
+          : [],
+        cutoff_time: rawMenu.cutoff_time
+      }
+
+      setMenu(normalized)
+      setMenuSelections(
+        Array.from({ length: partySize }, (_, index) => ({
+          guest_name: `Guest ${index + 1}`,
+          menu_item_id: '',
+          price_at_booking: 0
+        }))
+      )
+      setSideSelections(prev =>
+        normalized.sides
+          .filter(side => !side.included)
+          .map(side => {
+            const existing = prev.find(item => item.menu_item_id === side.id)
+            return {
+              menu_item_id: side.id,
+              quantity: existing?.quantity ?? 0,
+              price_at_booking: side.price
+            }
+          })
+      )
+    } catch (err) {
+      setMenuError('Unable to load menu. Please try again.')
+      setMenu(null)
+    } finally {
+      setMenuLoading(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (bookingState.step !== 'menu' || !bookingState.date) {
+      return
+    }
+
+    if (menu && menu.menu_date === bookingState.date) {
+      return
+    }
+
+    loadMenu(bookingState.date, bookingState.partySize)
+  }, [bookingState.step, bookingState.date, bookingState.partySize, loadMenu, menu])
+
+  useEffect(() => {
+    setMenuSelections(prev => {
+      const updated: MenuSelection[] = Array.from({ length: bookingState.partySize }, (_, index) => {
+        const existing = prev[index]
+        return {
+          guest_name: existing?.guest_name || `Guest ${index + 1}`,
+          menu_item_id: existing?.menu_item_id || '',
+          price_at_booking: existing?.price_at_booking || 0
+        }
+      })
+      return updated
+    })
+  }, [bookingState.partySize])
+
+  useEffect(() => {
+    if (!menu) {
+      setSideSelections([])
+      return
+    }
+
+    const optionalSides = menu.sides.filter(side => !side.included)
+    setSideSelections(prev =>
+      optionalSides.map(side => {
+        const existing = prev.find(s => s.menu_item_id === side.id)
+        return {
+          menu_item_id: side.id,
+          quantity: existing?.quantity ?? 0,
+          price_at_booking: side.price
+        }
+      })
+    )
+  }, [menu])
+
+  const updateMenuSelection = (index: number, field: 'guest_name' | 'menu_item_id', value: string) => {
+    setMenuSelections(prev => {
+      const next = [...prev]
+      const current = { ...next[index] }
+
+      if (field === 'guest_name') {
+        current.guest_name = value
+      } else if (field === 'menu_item_id') {
+        current.menu_item_id = value
+        const main = menu?.mains.find(item => item.id === value)
+        current.price_at_booking = main ? main.price : 0
+      }
+
+      next[index] = current
+      return next
+    })
+  }
+
+  const updateSideSelection = (sideId: string, quantity: number) => {
+    setSideSelections(prev =>
+      prev.map(selection =>
+        selection.menu_item_id === sideId
+          ? { ...selection, quantity }
+          : selection
+      )
+    )
+  }
+
+  const includedSides = menu?.sides.filter(side => side.included) ?? []
+  const optionalSides = menu?.sides.filter(side => !side.included) ?? []
+
+  const mainCoursesTotal = menuSelections.reduce((sum, selection) => sum + (selection.price_at_booking || 0), 0)
+  const sidesTotal = sideSelections.reduce(
+    (sum, side) => sum + side.price_at_booking * (side.quantity || 0),
+    0
+  )
+  const depositAmount = bookingState.partySize * 5
+  const totalAmount = mainCoursesTotal + sidesTotal
+
+  const buildMenuPayload = () => {
+    if (!menu) return []
+
+    const payload: Array<{
+      custom_item_name: string
+      item_type: string
+      quantity: number
+      guest_name: string
+      price_at_booking: number
+      special_requests?: string
+    }> = []
+
+    menuSelections.forEach((selection, index) => {
+      if (!selection.menu_item_id) return
+      const main = menu.mains.find(item => item.id === selection.menu_item_id)
+      if (!main) return
+
+      const guestName = selection.guest_name?.trim() || `Guest ${index + 1}`
+
+      payload.push({
+        custom_item_name: main.name,
+        item_type: 'main',
+        quantity: 1,
+        guest_name: guestName,
+        price_at_booking: main.price
+      })
+
+      includedSides.forEach(side => {
+        payload.push({
+          custom_item_name: side.name,
+          item_type: 'side',
+          quantity: 1,
+          guest_name: guestName,
+          price_at_booking: 0
+        })
+      })
+    })
+
+    sideSelections
+      .filter(side => side.quantity > 0)
+      .forEach(side => {
+        const sideItem = optionalSides.find(item => item.id === side.menu_item_id)
+        if (!sideItem) return
+
+        for (let i = 0; i < side.quantity; i++) {
+          payload.push({
+            custom_item_name: sideItem.name,
+            item_type: 'side',
+            quantity: 1,
+            guest_name: 'Table',
+            price_at_booking: sideItem.price
+          })
+        }
+      })
+
+    return payload
+  }
+
+  const handleMenuContinue = () => {
+    if (!menu) {
+      setMenuError('Unable to load menu. Please try again.')
+      return
+    }
+
+    const missingSelection = menuSelections.some(selection => !selection.menu_item_id)
+
+    if (missingSelection) {
+      setMenuError('Please choose a main course for each guest.')
+      return
+    }
+
+    setMenuError(null)
+    setBookingState(prev => ({ ...prev, step: 'details' }))
+  }
 
   // Handle initial proceed
   const handleProceed = () => {
@@ -147,7 +425,7 @@ export default function SundayLunchBooking({
   const handleTimeConfirm = (time: string) => {
     setBookingState(prev => ({
       ...prev,
-      step: 'details',
+      step: 'menu',
       confirmedTime: time
     }))
     setError(null)
@@ -160,8 +438,10 @@ export default function SundayLunchBooking({
         return { ...prev, step: 'pre-order-info' }
       } else if (prev.step === 'availability') {
         return { ...prev, step: 'date-selection' }
-      } else if (prev.step === 'details') {
+      } else if (prev.step === 'menu') {
         return { ...prev, step: 'availability' }
+      } else if (prev.step === 'details') {
+        return { ...prev, step: 'menu' }
       }
       return prev
     })
@@ -172,6 +452,22 @@ export default function SundayLunchBooking({
   const handleBookingSubmit = async (customerDetails: CustomerDetailsData) => {
     if (!bookingState.date || !bookingState.confirmedTime) {
       setError('Missing booking information. Please start again.')
+      return
+    }
+
+    if (!menu) {
+      setError('We couldn\'t load the Sunday lunch menu. Please go back and try again.')
+      return
+    }
+
+    if (menuSelections.some(selection => !selection.menu_item_id)) {
+      setError('Please choose a main course for each guest before continuing.')
+      return
+    }
+
+    const menuPayload = buildMenuPayload()
+    if (menuPayload.length === 0) {
+      setError('Please choose a main course for each guest before continuing.')
       return
     }
 
@@ -188,6 +484,7 @@ export default function SundayLunchBooking({
       customer: {
         first_name: customerDetails.firstName,
         last_name: customerDetails.lastName,
+        email: customerDetails.email,
         mobile_number: customerDetails.phone,
         sms_opt_in: true
       },
@@ -197,7 +494,8 @@ export default function SundayLunchBooking({
       dietary_requirements: customerDetails.dietaryRequirements ? [customerDetails.dietaryRequirements] : undefined,
       allergies: customerDetails.allergies ? [customerDetails.allergies] : undefined,
       celebration_type: customerDetails.occasion || 'sunday_roast',
-      source: 'website'
+      source: 'website',
+      menu_selections: menuPayload
     }
 
     try {
@@ -421,6 +719,208 @@ export default function SundayLunchBooking({
         />
       )
 
+    case 'menu':
+      return (
+        <Card variant="elevated" className={className}>
+          <CardBody>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={handleBack}
+                className="w-full sm:w-auto"
+              >
+                <Icon name="arrowLeft" className="mr-2" />
+                Back
+              </Button>
+              <div className="flex items-center gap-3 text-sm text-gray-600">
+                <Badge variant="outline">Deposit £{depositAmount.toFixed(2)} due today</Badge>
+                <span>Total so far £{totalAmount.toFixed(2)}</span>
+              </div>
+            </div>
+
+            <h3 className="text-xl font-semibold text-amber-900 mb-2">Choose Your Sunday Lunch</h3>
+            <p className="text-sm text-gray-600 mb-6">
+              Pick a main course for each guest. Classic sides are included; add optional extras for the table if you like.
+            </p>
+
+            {menuLoading && (
+              <div className="py-12">
+                <LoadingState text="Loading Sunday lunch menu..." />
+              </div>
+            )}
+
+            {!menuLoading && menuError && (
+              <Alert variant="error" className="mb-6">
+                <div className="flex items-center justify-between gap-3">
+                  <span>{menuError}</span>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() =>
+                      bookingState.date &&
+                      loadMenu(bookingState.date, bookingState.partySize)
+                    }
+                  >
+                    Retry
+                  </Button>
+                </div>
+              </Alert>
+            )}
+
+            {!menuLoading && menu && !menuError && (
+              <div className="space-y-6">
+                <div className="space-y-4">
+                  {menuSelections.map((selection, index) => {
+                    const selectedMain = selection.menu_item_id
+                      ? menu.mains.find(item => item.id === selection.menu_item_id)
+                      : null
+
+                    return (
+                      <div
+                        key={`guest-${index}`}
+                        className="border border-amber-200 rounded-lg p-4 bg-amber-50/40"
+                      >
+                        <h4 className="font-semibold text-amber-900 mb-3">
+                          Guest {index + 1}
+                        </h4>
+                        <div className="grid gap-4 sm:grid-cols-2">
+                          <div>
+                            <label className="block text-sm font-medium mb-1" htmlFor={`guest-name-${index}`}>
+                              Guest name (optional)
+                            </label>
+                            <input
+                              id={`guest-name-${index}`}
+                              type="text"
+                              value={selection.guest_name}
+                              onChange={(event) => updateMenuSelection(index, 'guest_name', event.target.value)}
+                              className="w-full border rounded-md px-4 py-2"
+                              placeholder={`Guest ${index + 1}`}
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium mb-1" htmlFor={`guest-main-${index}`}>
+                              Main course
+                            </label>
+                            <select
+                              id={`guest-main-${index}`}
+                              value={selection.menu_item_id}
+                              onChange={(event) => updateMenuSelection(index, 'menu_item_id', event.target.value)}
+                              className="w-full border rounded-md px-4 py-2"
+                              required
+                            >
+                              <option value="">Select a main</option>
+                              {menu.mains
+                                .filter(item => item.is_available !== false)
+                                .map(item => (
+                                  <option key={item.id} value={item.id}>
+                                    {item.name}
+                                  </option>
+                                ))}
+                            </select>
+                            {selectedMain && (
+                              <div className="mt-2 text-sm text-gray-600">
+                                <p>{selectedMain.description}</p>
+                                <p className="font-medium mt-1">£{selectedMain.price.toFixed(2)}</p>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+
+                {optionalSides.length > 0 && (
+                  <div className="border border-amber-200 rounded-lg p-4 bg-white">
+                    <h4 className="font-semibold text-amber-900 mb-2">Optional extras for the table</h4>
+                    <p className="text-sm text-gray-600 mb-4">
+                      Add extra sides to share. Included sides are already part of each roast.
+                    </p>
+                    <div className="space-y-3">
+                      {optionalSides.map(side => {
+                        const selection = sideSelections.find(item => item.menu_item_id === side.id)
+                        return (
+                          <div key={side.id} className="flex items-start justify-between gap-4">
+                            <div>
+                              <p className="font-medium">{side.name}</p>
+                              <p className="text-sm text-gray-600">£{side.price.toFixed(2)} each</p>
+                              {side.description && (
+                                <p className="text-sm text-gray-500 mt-1">{side.description}</p>
+                              )}
+                            </div>
+                            <div className="flex items-center gap-2">
+                              <label className="text-sm" htmlFor={`side-${side.id}`}>Qty</label>
+                              <select
+                                id={`side-${side.id}`}
+                                value={selection?.quantity ?? 0}
+                                onChange={(event) => updateSideSelection(side.id, Number(event.target.value))}
+                                className="border rounded-md px-3 py-2"
+                              >
+                                {[0, 1, 2, 3, 4, 5].map(quantity => (
+                                  <option key={quantity} value={quantity}>{quantity}</option>
+                                ))}
+                              </select>
+                            </div>
+                          </div>
+                        )
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                <div className="border border-amber-200 rounded-lg p-4 bg-amber-50">
+                  <h4 className="font-semibold text-amber-900 mb-2">Order summary</h4>
+                  <div className="space-y-2 text-sm text-gray-700">
+                    <div className="flex justify-between">
+                      <span>Main courses</span>
+                      <span>£{mainCoursesTotal.toFixed(2)}</span>
+                    </div>
+                    {sidesTotal > 0 && (
+                      <div className="flex justify-between">
+                        <span>Extras</span>
+                        <span>£{sidesTotal.toFixed(2)}</span>
+                      </div>
+                    )}
+                    <div className="flex justify-between pt-2 border-t border-amber-200">
+                      <span className="font-semibold">Total</span>
+                      <span className="font-semibold">£{totalAmount.toFixed(2)}</span>
+                    </div>
+                    <div className="flex justify-between text-xs text-gray-600">
+                      <span>Deposit due now</span>
+                      <span>£{depositAmount.toFixed(2)}</span>
+                    </div>
+                    <div className="flex justify-between text-xs text-gray-600">
+                      <span>Balance on arrival</span>
+                      <span>£{(totalAmount - depositAmount).toFixed(2)}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-3 justify-end">
+                  <Button
+                    variant="outline"
+                    onClick={handleBack}
+                    className="w-full sm:w-auto"
+                  >
+                    <Icon name="arrowLeft" className="mr-2" />
+                    Back
+                  </Button>
+                  <Button
+                    variant="primary"
+                    onClick={handleMenuContinue}
+                    className="w-full sm:w-auto"
+                    disabled={menuLoading}
+                  >
+                    Continue to guest details
+                  </Button>
+                </div>
+              </div>
+            )}
+          </CardBody>
+        </Card>
+      )
+
     case 'details':
       return (
         <div className={className}>
@@ -431,6 +931,44 @@ export default function SundayLunchBooking({
               pre-ordered and paid for by 1pm on Saturday.
             </p>
           </Alert>
+
+          <div className="border border-amber-200 rounded-lg p-4 bg-amber-50 mb-6">
+            <h4 className="font-semibold text-amber-900 mb-3">Your menu selections</h4>
+            <div className="space-y-2 text-sm text-gray-700">
+              {menuSelections.map((selection, index) => {
+                const main = selection.menu_item_id
+                  ? menu?.mains.find(item => item.id === selection.menu_item_id)
+                  : null
+                if (!main) {
+                  return (
+                    <div key={`summary-${index}`}>Guest {index + 1}: Main not selected</div>
+                  )
+                }
+
+                const guest = selection.guest_name?.trim() || `Guest ${index + 1}`
+                return (
+                  <div key={`summary-${index}`} className="flex justify-between">
+                    <span>{guest}</span>
+                    <span>{main.name}</span>
+                  </div>
+                )
+              })}
+              {sideSelections.some(side => side.quantity > 0) && (
+                <div className="pt-2 border-t border-amber-200">
+                  <p className="font-medium">Extras:</p>
+                  {sideSelections.filter(side => side.quantity > 0).map(side => {
+                    const sideItem = menu?.sides.find(item => item.id === side.menu_item_id)
+                    return (
+                      <div key={`summary-side-${side.menu_item_id}`} className="flex justify-between">
+                        <span>{sideItem?.name}</span>
+                        <span>×{side.quantity}</span>
+                      </div>
+                    )
+                  })}
+                </div>
+              )}
+            </div>
+          </div>
           
           <CustomerDetails
             date={bookingState.date!}

@@ -12,7 +12,11 @@ import { WizardStep5DetailsAndRequirements } from './WizardStep5DetailsAndRequir
 import { WizardStep6Confirm } from './WizardStep6Confirm'
 import { WizardProgress } from './WizardProgress'
 import { trackBookingWizardStep, trackFormComplete, trackError } from '@/lib/gtm-events'
-import type { BookingWizardData, AvailabilityData, MenuSelection } from './types'
+import type {
+  BookingWizardData,
+  AvailabilityData,
+  WizardFlowStep
+} from './types'
 
 const BOOKING_DEBUG = process.env.NEXT_PUBLIC_BOOKING_DEBUG === 'true'
 
@@ -24,13 +28,32 @@ interface BookingWizardProps {
   className?: string
 }
 
-// Define the step flow
-type StepType = 'date' | 'sunday_offer' | 'party_size' | 'menu_selection' | 'time' | 'details' | 'confirm'
-
 interface Step {
-  type: StepType
+  type: WizardFlowStep
   label: string
-  condition?: (data: BookingWizardData) => boolean
+}
+
+const computeWizardSteps = (data: BookingWizardData): Step[] => {
+  const isSunday = data.date ? new Date(data.date).getDay() === 0 : false
+  const isSundayLunch = data.bookingType === 'sunday_lunch'
+
+  const steps: Step[] = [{ type: 'date', label: 'Select Date' }]
+
+  if (isSunday) {
+    steps.push({ type: 'sunday_offer', label: 'Sunday Options' })
+  }
+
+  steps.push({ type: 'party_size', label: 'Party Size' })
+
+  if (isSundayLunch) {
+    steps.push({ type: 'menu_selection', label: 'Menu Selection' })
+  }
+
+  steps.push({ type: 'time', label: 'Select Time' })
+  steps.push({ type: 'details', label: 'Your Details' })
+  steps.push({ type: 'confirm', label: 'Confirm' })
+
+  return steps
 }
 
 export function BookingWizard({
@@ -43,14 +66,12 @@ export function BookingWizard({
   const router = useRouter()
   const searchParams = useSearchParams()
   const wizardRef = useRef<HTMLDivElement | null>(null)
-  
-  // Wizard state
-  const [currentStep, setCurrentStep] = useState(initialStep)
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [bookingData, setBookingData] = useState<BookingWizardData>({
+
+  const initialBookingData: BookingWizardData = {
     date: preselectedDate || '',
     bookingType: initialBookingType || 'regular',
     menuSelections: undefined,
+    menuSummary: undefined,
     partySize: 2,
     time: '',
     firstName: '',
@@ -62,29 +83,73 @@ export function BookingWizard({
     occasion: '',
     specialRequirements: '',
     marketingOptIn: true
+  }
+
+  // Wizard state
+  const [steps, setSteps] = useState<Step[]>(() => computeWizardSteps(initialBookingData))
+  const [currentStep, setCurrentStep] = useState(() => {
+    const clamped = Math.min(Math.max(initialStep, 1), steps.length || 1)
+    return clamped
   })
-  
-  // Check if selected date is Sunday
-  const isSunday = bookingData.date ? new Date(bookingData.date).getDay() === 0 : false
-  const isSundayLunch = bookingData.bookingType === 'sunday_lunch'
-  
-  // Define all possible steps with conditions
-  const allSteps: Step[] = [
-    { type: 'date', label: 'Select Date' },
-    { type: 'sunday_offer', label: 'Sunday Options', condition: () => isSunday },
-    { type: 'party_size', label: 'Party Size' },
-    { type: 'menu_selection', label: 'Menu Selection', condition: () => isSundayLunch },
-    { type: 'time', label: 'Select Time' },
-    { type: 'details', label: 'Your Details' },
-    { type: 'confirm', label: 'Confirm' }
-  ]
-  
-  // Get active steps based on conditions
-  const activeSteps = allSteps.filter(step => !step.condition || step.condition(bookingData))
-  const totalSteps = activeSteps.length
-  
-  // Get current step type
-  const currentStepType = activeSteps[currentStep - 1]?.type
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [bookingData, setBookingData] = useState<BookingWizardData>(initialBookingData)
+
+  const totalSteps = steps.length
+  const currentStepType = steps[currentStep - 1]?.type
+
+  useEffect(() => {
+    const newSteps = computeWizardSteps(bookingData)
+    const existingTypes = steps.map(step => step.type)
+    const newTypes = newSteps.map(step => step.type)
+
+    const changed =
+      existingTypes.length !== newTypes.length ||
+      existingTypes.some((type, index) => type !== newTypes[index])
+
+    if (!changed) {
+      return
+    }
+
+    const previousType = steps[currentStep - 1]?.type
+    const maxIndex = Math.max(newSteps.length - 1, 0)
+    let targetIndex = Math.min(currentStep - 1, maxIndex)
+
+    if (previousType) {
+      const matchedIndex = newSteps.findIndex(step => step.type === previousType)
+      if (matchedIndex !== -1) {
+        if (matchedIndex < targetIndex) {
+          targetIndex = matchedIndex
+        } else if (matchedIndex > targetIndex) {
+          // The previous step shifted forward because new steps were inserted ahead of it.
+          // Keep the same numerical index so the user lands on the new step instead of skipping it.
+          targetIndex = Math.min(targetIndex, maxIndex)
+        }
+      } else {
+        const fallbackMap: Partial<Record<WizardFlowStep, WizardFlowStep>> = {
+          sunday_offer: 'party_size',
+          menu_selection: 'time'
+        }
+
+        const fallbackType =
+          fallbackMap[previousType] ||
+          newSteps[targetIndex]?.type ||
+          newSteps[0]?.type
+
+        const fallbackIndex = fallbackType
+          ? newSteps.findIndex(step => step.type === fallbackType)
+          : -1
+
+        targetIndex = fallbackIndex !== -1
+          ? fallbackIndex
+          : Math.min(targetIndex, maxIndex)
+      }
+    } else {
+      targetIndex = Math.min(targetIndex, maxIndex)
+    }
+
+    setSteps(newSteps)
+    setCurrentStep(targetIndex + 1)
+  }, [bookingData, steps, currentStep])
   
   // Update URL with current step
   useEffect(() => {
@@ -106,7 +171,8 @@ export function BookingWizard({
   
   // Handle step navigation
   const goToStep = useCallback((step: number) => {
-    setCurrentStep(step)
+    const clamped = Math.min(Math.max(step, 1), steps.length || 1)
+    setCurrentStep(clamped)
     if (wizardRef.current) {
       const prefersReducedMotion =
         typeof window !== 'undefined' &&
@@ -117,7 +183,7 @@ export function BookingWizard({
         block: 'nearest'
       })
     }
-  }, [])
+  }, [steps.length])
   
   const goNext = useCallback(() => {
     if (currentStep < totalSteps) {
@@ -137,13 +203,44 @@ export function BookingWizard({
       console.debug('[BookingWizard] Updating data', data)
     }
     setBookingData(prev => {
-      const newData = { ...prev, ...data }
+      const newData: BookingWizardData = { ...prev, ...data }
+
+      if (typeof data.date === 'string') {
+        const parsedDate = new Date(`${data.date}T12:00:00`)
+        const isValidDate = !Number.isNaN(parsedDate.getTime())
+        const isSunday = isValidDate ? parsedDate.getDay() === 0 : false
+
+        if (!isSunday) {
+          newData.bookingType = 'regular'
+          newData.menuSelections = undefined
+          newData.menuSummary = undefined
+        }
+      }
+
       if (BOOKING_DEBUG) {
         console.debug('[BookingWizard] New state', newData)
       }
       return newData
     })
   }, [])
+
+  const goToStepType = useCallback((stepType: WizardFlowStep) => {
+    const index = steps.findIndex(step => step.type === stepType)
+    if (index !== -1) {
+      goToStep(index + 1)
+    }
+  }, [steps, goToStep])
+
+  useEffect(() => {
+    const hasMenuStep = steps.some(step => step.type === 'menu_selection')
+    if (!hasMenuStep && (bookingData.menuSelections || bookingData.menuSummary)) {
+      setBookingData(prev => ({
+        ...prev,
+        menuSelections: undefined,
+        menuSummary: undefined
+      }))
+    }
+  }, [steps, bookingData.menuSelections, bookingData.menuSummary])
   
   // Handle final submission
   const handleSubmit = useCallback(async () => {
@@ -176,9 +273,14 @@ export function BookingWizard({
             time: bookingData.time,
             partySize: bookingData.partySize,
             menuSelections: bookingData.menuSelections,
+            menuSummary: bookingData.menuSummary,
             customerName: `${bookingData.firstName} ${bookingData.lastName}`,
-            totalPrice: bookingData.menuSelections?.reduce((sum: number, item: any) => 
-              sum + (item.price_at_booking || 0), 0) || 0
+            totalPrice:
+              bookingData.menuSummary?.totals.total ??
+              (bookingData.menuSelections?.reduce(
+                (sum: number, item: any) => sum + (item.price_at_booking || 0),
+                0
+              ) ?? 0)
           }))
         }
         // Redirect to payment URL
@@ -192,6 +294,7 @@ export function BookingWizard({
             time: bookingData.time,
             partySize: bookingData.partySize,
             menuSelections: bookingData.menuSelections,
+            menuSummary: bookingData.menuSummary,
             customerName: `${bookingData.firstName} ${bookingData.lastName}`
           }))
         }
@@ -272,8 +375,8 @@ export function BookingWizard({
           <WizardStep2bMenuSelection
             partySize={bookingData.partySize}
             date={bookingData.date}
-            onNext={(menuSelections) => {
-              updateBookingData({ menuSelections: menuSelections as any })
+            onNext={({ payload, summary }) => {
+              updateBookingData({ menuSelections: payload, menuSummary: summary })
               goNext()
             }}
             onBack={goBack}
@@ -287,6 +390,7 @@ export function BookingWizard({
             partySize={bookingData.partySize}
             availabilityData={availabilityData}
             value={bookingData.time}
+            bookingType={bookingData.bookingType}
             onNext={(time) => {
               updateBookingData({ time })
               goNext()
@@ -319,10 +423,10 @@ export function BookingWizard({
             isSubmitting={isSubmitting}
             onConfirm={handleSubmit}
             onBack={goBack}
-            onEdit={(step: number) => goToStep(step)}
+            onEdit={goToStepType}
           />
         )
-      
+
       default:
         return null
     }
@@ -333,8 +437,7 @@ export function BookingWizard({
       {/* Progress Indicator */}
       <WizardProgress
         currentStep={currentStep}
-        totalSteps={totalSteps}
-        isSunday={isSunday}
+        steps={steps.map(step => step.type)}
       />
       
       {/* Wizard Content */}

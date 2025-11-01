@@ -10,6 +10,7 @@ interface WizardStep4TimeProps extends WizardStepProps {
   partySize: number
   availabilityData: AvailabilityData
   value: string
+  bookingType: 'regular' | 'sunday_lunch'
   onNext: (time: string) => void
   onBack: () => void
 }
@@ -19,6 +20,7 @@ export function WizardStep4Time({
   partySize, 
   availabilityData, 
   value, 
+  bookingType,
   onNext, 
   onBack 
 }: WizardStep4TimeProps) {
@@ -30,18 +32,45 @@ export function WizardStep4Time({
   const fetchAvailability = useCallback(async () => {
     setLoading(true)
     try {
+      const params = new URLSearchParams({
+        date,
+        party_size: String(partySize)
+      })
+
+      if (bookingType) {
+        params.set('booking_type', bookingType)
+      }
+
       const response = await fetch(
-        `/api/table-bookings/availability?date=${date}&party_size=${partySize}`
+        `/api/table-bookings/availability?${params.toString()}`
       )
       const data = await response.json()
       
       if (data.success && data.data.time_slots) {
-        setTimeSlots(data.data.time_slots.map((slot: any) => ({
-          time: slot.time,
-          available: slot.available,
-          busy: slot.tables_available < 3,
-          remaining: slot.tables_available
-        })))
+        setTimeSlots(
+          data.data.time_slots.map((slot: any) => {
+            const availableCapacity =
+              typeof slot.available_capacity === 'number'
+                ? slot.available_capacity
+                : typeof slot.tables_available === 'number'
+                  ? slot.tables_available
+                  : typeof slot.remaining === 'number'
+                    ? slot.remaining
+                    : 0
+
+            const isAvailable =
+              typeof slot.available === 'boolean'
+                ? slot.available
+                : availableCapacity > 0
+
+            return {
+              time: slot.time,
+              available: isAvailable,
+              busy: isAvailable && availableCapacity <= 2,
+              remaining: availableCapacity
+            }
+          })
+        )
       }
     } catch (error) {
       console.error('Failed to fetch availability:', error)
@@ -49,7 +78,7 @@ export function WizardStep4Time({
     } finally {
       setLoading(false)
     }
-  }, [date, partySize])
+  }, [date, partySize, bookingType])
   
   // Get available times for selected date
   useEffect(() => {

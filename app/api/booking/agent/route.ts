@@ -21,10 +21,10 @@ export async function POST(request: Request) {
     }
     
     // Validate customer data
-    if (!body.customer.firstName || !body.customer.lastName || !body.customer.phone) {
+    if (!body.customer.firstName || !body.customer.lastName || !body.customer.phone || !body.customer.email) {
       return NextResponse.json({
         success: false,
-        error: 'Missing customer fields: firstName, lastName, phone'
+        error: 'Missing customer fields: firstName, lastName, phone, email'
       }, { status: 400 })
     }
     
@@ -44,7 +44,12 @@ export async function POST(request: Request) {
     // Determine if it's a Sunday roast booking
     const date = new Date(bookingDate + 'T12:00:00')
     const isSunday = date.getDay() === 0
-    const bookingType = body.type || (isSunday && body.type !== 'regular' ? 'sunday_roast' : 'regular')
+    const requestedType =
+      body.type === 'sunday_lunch' || body.type === 'regular'
+        ? body.type
+        : undefined
+
+    const bookingType = requestedType || (isSunday ? 'sunday_lunch' : 'regular')
     
     // Create booking request
     const bookingRequest: TableBookingRequest = {
@@ -55,6 +60,7 @@ export async function POST(request: Request) {
       customer: {
         first_name: body.customer.firstName,
         last_name: body.customer.lastName,
+        email: body.customer.email,
         mobile_number: body.customer.phone,
         sms_opt_in: true
       },
@@ -64,11 +70,6 @@ export async function POST(request: Request) {
       allergies: body.allergies,
       celebration_type: body.occasion,
       source: 'ai_agent'
-    }
-    
-    // Add email if provided
-    if (body.customer.email) {
-      bookingRequest.customer.email = body.customer.email
     }
     
     // Create booking via API
@@ -89,8 +90,8 @@ export async function POST(request: Request) {
           phone: body.customer.phone
         },
         message: `Booking confirmed for ${body.partySize} people on ${formatDateForDisplay(bookingDate)} at ${formatTimeForDisplay(body.time)}`,
-        specialInstructions: isSunday && bookingType === 'sunday_roast' 
-          ? 'Sunday roast booking requires £5 per person deposit. Payment link will be sent via SMS.'
+        specialInstructions: isSunday && bookingType === 'sunday_lunch'
+          ? 'Sunday lunch bookings require a £5 per person deposit. A payment link will be sent via SMS.'
           : null
       }
     })
@@ -114,6 +115,7 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
   const date = searchParams.get('date')
   const partySize = searchParams.get('partySize')
+  const typeParam = searchParams.get('type')
   
   if (!date) {
     return NextResponse.json({
@@ -137,21 +139,37 @@ export async function GET(request: Request) {
     }
     
     // Check availability
+    const isSunday = new Date(checkDate + 'T12:00:00').getDay() === 0
+    const requestedType =
+      typeParam === 'sunday_lunch' || typeParam === 'regular'
+        ? typeParam
+        : undefined
+    const bookingType = requestedType || (isSunday ? 'sunday_lunch' : 'regular')
+
     const availability = await anchorAPI.checkTableAvailability({
       date: checkDate,
       time: '12:00', // Check all times
-      party_size: parseInt(partySize || '2', 10)
+      party_size: parseInt(partySize || '2', 10),
+      booking_type: bookingType
     })
     
     return NextResponse.json({
       success: true,
       date: checkDate,
       available: availability.available,
-      times: availability.time_slots?.map((slot: any) => ({
-        time: slot.time,
-        available: slot.available
-      })) || [],
-      isSunday: new Date(checkDate + 'T12:00:00').getDay() === 0,
+      times:
+        availability.time_slots?.map((slot: any) => {
+          const availableCapacity =
+            typeof slot.available_capacity === 'number'
+              ? slot.available_capacity
+              : 0
+          return {
+            time: slot.time,
+            available: slot.available ?? availableCapacity > 0
+          }
+        }) || [],
+      isSunday,
+      bookingType,
       message: availability.message
     })
     

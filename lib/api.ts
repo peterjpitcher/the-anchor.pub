@@ -435,6 +435,14 @@ export interface TableBookingRequest {
   customer_phone?: string
   occasion?: string  // UI field that gets mapped to celebration_type
   marketing_opt_in?: boolean
+  menu_selections?: Array<{
+    custom_item_name: string
+    item_type: string
+    quantity: number
+    guest_name: string
+    price_at_booking: number
+    special_requests?: string
+  }>
 }
 
 export interface TableBookingResponse {

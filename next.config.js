@@ -1,3 +1,5 @@
+process.env.BROWSERSLIST_IGNORE_OLD_DATA = '1'
+
 /** @type {import('next').NextConfig} */
 const blogRedirects = require('./config/redirects/blog-redirects.json')
 const tagRedirects = require('./config/redirects/tag-redirects.json')

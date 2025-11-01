@@ -117,6 +117,7 @@ export default function TableBookingForm({
       customer: {
         first_name: customerDetails.firstName,
         last_name: customerDetails.lastName,
+        email: customerDetails.email,
         mobile_number: customerDetails.phone,
         sms_opt_in: true
       },

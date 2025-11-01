@@ -82,12 +82,13 @@ const typeChecks = async () => {
     booking_type: 'regular',
     date: '2024-01-20',
     time: '19:00',
-    party_size: 4,
-    customer: {
-      first_name: 'John',
-      last_name: 'Doe',
-      mobile_number: '07700900000'
-    },
+  party_size: 4,
+  customer: {
+    first_name: 'John',
+    last_name: 'Doe',
+    email: 'john@example.com',
+    mobile_number: '07700900000'
+  },
     celebration_type: 'birthday'
   }
   const booking: TableBookingResponse = await anchorAPI.createTableBooking(bookingRequest)

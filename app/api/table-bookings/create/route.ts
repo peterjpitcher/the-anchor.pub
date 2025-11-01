@@ -14,6 +14,7 @@ interface BookingRequest {
   customer: {
     first_name: string
     last_name: string
+    email?: string
     mobile_number: string
     sms_opt_in?: boolean
   }
@@ -106,6 +107,7 @@ export async function POST(request: Request) {
       if (!body.customer.first_name) missingFields.push('customer.first_name')
       if (!body.customer.last_name) missingFields.push('customer.last_name')
       if (!body.customer.mobile_number) missingFields.push('customer.mobile_number')
+      if (!body.customer.email) missingFields.push('customer.email')
     }
     
     if (missingFields.length > 0) {
@@ -183,6 +185,7 @@ export async function POST(request: Request) {
       customer: {
         first_name: body.customer.first_name,
         last_name: body.customer.last_name,
+        email: body.customer.email?.trim(),
         mobile_number: normaliseUKPhone(body.customer.mobile_number),
         sms_opt_in: body.customer.sms_opt_in ?? true  // Default true if not specified
       },

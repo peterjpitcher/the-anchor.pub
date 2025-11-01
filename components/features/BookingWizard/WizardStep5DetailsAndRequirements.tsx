@@ -68,10 +68,10 @@ export function WizardStep5DetailsAndRequirements({
   const handleContinue = () => {
     if (validateForm()) {
       onNext({
-        firstName,
-        lastName,
-        phone,
-        email,
+        firstName: firstName.trim(),
+        lastName: lastName.trim(),
+        phone: phone.trim(),
+        email: email.trim(),
         marketingOptIn,
         specialRequirements
       })
@@ -158,13 +158,14 @@ export function WizardStep5DetailsAndRequirements({
         {/* Email */}
         <div>
           <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-            Email Address (Optional)
+            Email Address *
           </label>
           <input
             type="email"
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
             className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-anchor-green ${
               errors.email ? 'border-red-500' : 'border-gray-300'
             }`}
@@ -174,7 +175,7 @@ export function WizardStep5DetailsAndRequirements({
             <p className="text-red-500 text-sm mt-1">{errors.email}</p>
           )}
           <p className="text-sm text-gray-500 mt-1">
-            We'll send you a booking confirmation
+            We'll send your confirmation and payment details here
           </p>
         </div>
 

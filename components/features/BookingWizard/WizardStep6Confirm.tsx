@@ -2,14 +2,14 @@
 
 import { Icon } from '@/components/ui/Icon'
 import { cn } from '@/lib/utils'
-import type { BookingWizardData } from './types'
+import type { BookingWizardData, WizardFlowStep } from './types'
 
 interface WizardStep6ConfirmProps {
   bookingData: BookingWizardData
   isSubmitting: boolean
   onConfirm: () => void
   onBack: () => void
-  onEdit: (step: number) => void
+  onEdit: (step: WizardFlowStep) => void
 }
 
 export function WizardStep6Confirm({ 
@@ -41,7 +41,8 @@ export function WizardStep6Confirm({
   
   // Calculate deposit if Sunday lunch
   const isSundayLunch = bookingData.bookingType === 'sunday_lunch'
-  const depositAmount = isSundayLunch ? bookingData.partySize * 5 : 0
+  const depositAmount = bookingData.menuSummary?.totals.deposit ?? (isSundayLunch ? bookingData.partySize * 5 : 0)
+  const menuSummary = bookingData.menuSummary
   
   return (
     <div className="space-y-6">
@@ -70,7 +71,7 @@ export function WizardStep6Confirm({
           </div>
           <button
             type="button"
-            onClick={() => onEdit(1)}
+            onClick={() => onEdit('date')}
             className="text-sm text-anchor-green hover:underline"
           >
             Edit
@@ -93,12 +94,59 @@ export function WizardStep6Confirm({
           </div>
           <button
             type="button"
-            onClick={() => onEdit(3)}
+            onClick={() => onEdit('party_size')}
             className="text-sm text-anchor-green hover:underline"
           >
             Edit
           </button>
         </div>
+
+        {menuSummary && (
+          <div className="flex justify-between items-start pt-4 border-t border-anchor-gold/20">
+            <div className="space-y-2">
+              <p className="text-sm text-gray-600">Sunday Lunch Order</p>
+              <div className="space-y-1 text-sm text-gray-700">
+                {menuSummary.guests.map(guest => (
+                  <div key={guest.guestName} className="flex justify-between gap-4">
+                    <span>{guest.guestName}</span>
+                    <span className="font-medium">{guest.mainName}</span>
+                  </div>
+                ))}
+              </div>
+              {menuSummary.extras.length > 0 && (
+                <div className="mt-2 text-sm text-gray-700">
+                  <p className="font-medium">Extras for the table</p>
+                  <ul className="list-disc list-inside">
+                    {menuSummary.extras.map(extra => (
+                      <li key={extra.name}>{extra.name} ×{extra.quantity} — £{extra.price.toFixed(2)}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              <div className="mt-2 text-sm text-gray-700 space-y-1">
+                <div className="flex justify-between">
+                  <span>Mains total</span>
+                  <span>£{menuSummary.totals.mains.toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Extras</span>
+                  <span>£{menuSummary.totals.extras.toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between font-semibold">
+                  <span>Total</span>
+                  <span>£{menuSummary.totals.total.toFixed(2)}</span>
+                </div>
+              </div>
+            </div>
+            <button
+              type="button"
+              onClick={() => onEdit('menu_selection')}
+              className="text-sm text-anchor-green hover:underline"
+            >
+              Edit
+            </button>
+          </div>
+        )}
         
         {/* Contact Details */}
         <div className="flex justify-between items-start pt-4 border-t border-anchor-gold/20">
@@ -114,7 +162,7 @@ export function WizardStep6Confirm({
           </div>
           <button
             type="button"
-            onClick={() => onEdit(5)}
+            onClick={() => onEdit('details')}
             className="text-sm text-anchor-green hover:underline"
           >
             Edit
@@ -152,7 +200,7 @@ export function WizardStep6Confirm({
             </div>
             <button
               type="button"
-              onClick={() => onEdit(6)}
+              onClick={() => onEdit('details')}
               className="text-sm text-anchor-green hover:underline"
             >
               Edit
@@ -162,7 +210,7 @@ export function WizardStep6Confirm({
       </div>
       
       {/* Sunday Lunch Deposit Info */}
-      {isSundayLunch && (
+      {isSundayLunch && depositAmount > 0 && (
         <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
           <div className="flex gap-3">
             <Icon name="dollar" className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
