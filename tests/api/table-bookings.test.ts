@@ -93,7 +93,10 @@ const typeChecks = async () => {
   const booking: TableBookingResponse = await anchorAPI.createTableBooking(bookingRequest)
 
   // Get booking
-  const bookingDetails: TableBookingResponse = await anchorAPI.getTableBooking('REF123')
+  const bookingDetails: TableBookingResponse = await anchorAPI.getTableBooking(
+    'REF123',
+    'guest@example.com'
+  )
 
   // Cancel booking  
   const cancellation = await anchorAPI.cancelTableBooking('REF123', 'Changed plans')

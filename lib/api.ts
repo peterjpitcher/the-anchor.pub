@@ -924,14 +924,27 @@ export class AnchorAPI {
       if (options.headers) {
         Object.assign(headers, options.headers)
       }
-      
-      
-      const response = await fetch(url, {
-        ...options,
+     
+      const { next: providedNext, ...requestInit } = options as RequestInit & {
+        next?: { revalidate?: number | false }
+      }
+
+      const fetchOptions: RequestInit & { next?: { revalidate: number } } = {
+        ...requestInit,
         headers,
-        // Next.js specific caching
-        next: { revalidate: 300 }, // Cache for 5 minutes
-      })
+      }
+
+      if (typeof window === 'undefined') {
+        const revalidate =
+          typeof providedNext?.revalidate === 'number'
+            ? providedNext.revalidate
+            : 300
+        fetchOptions.next = {
+          revalidate,
+        }
+      }
+
+      const response = await fetch(url, fetchOptions)
 
       if (!response.ok) {
         let errorCode = 'UNKNOWN_ERROR'
@@ -1317,7 +1330,7 @@ export class AnchorAPI {
     time: string
     party_size: number
     duration?: number
-    booking_type?: 'regular' | 'sunday_lunch' | 'food'
+    booking_type?: 'regular' | 'sunday_lunch'
   }): Promise<TableAvailabilityResponse> {
     const query = new URLSearchParams({
       date: params.date,
@@ -1330,29 +1343,54 @@ export class AnchorAPI {
     return this.request<TableAvailabilityResponse>(`/table-bookings/availability?${query}`)
   }
 
-  async createTableBooking(data: TableBookingRequest, idempotencyKey?: string): Promise<TableBookingResponse> {
-    console.log('🔍 API REQUEST to /table-bookings:', JSON.stringify(data, null, 2))
-    
-    // Generate idempotency key if not provided (recommended for preventing duplicates)
-    const headers: Record<string, string> = {}
-    if (idempotencyKey) {
-      headers['Idempotency-Key'] = idempotencyKey
-      console.log('🔍 Using Idempotency-Key:', idempotencyKey)
+  async createTableBooking(
+    data: TableBookingRequest,
+    idempotencyKey?: string
+  ): Promise<TableBookingResponse> {
+    const endpoint =
+      typeof window === 'undefined'
+        ? '/table-bookings'
+        : '/table-bookings/create'
+
+    const key =
+      idempotencyKey ||
+      (typeof crypto !== 'undefined' && 'randomUUID' in crypto
+        ? crypto.randomUUID()
+        : `tbl_${Date.now()}_${Math.random().toString(16).slice(2)}`)
+
+    const headers: Record<string, string> = {
+      'Idempotency-Key': key
     }
-    
-    const response = await this.request<TableBookingResponse>('/table-bookings', {
+
+    const response = await this.request<TableBookingResponse>(endpoint, {
       method: 'POST',
       body: JSON.stringify(data),
       headers,
     })
-    
-    console.log('🔍 API RESPONSE from /table-bookings:', JSON.stringify(response, null, 2))
-    
+
     return response
   }
 
-  async getTableBooking(reference: string): Promise<TableBookingResponse> {
-    return this.request<TableBookingResponse>(`/table-bookings/${reference}`)
+  async getTableBooking(
+    reference: string,
+    customerEmail: string
+  ): Promise<TableBookingResponse> {
+    if (!customerEmail) {
+      throw new Error('Customer email is required to retrieve booking details')
+    }
+
+    let endpoint = `/table-bookings/${encodeURIComponent(reference)}`
+    const headers: Record<string, string> = {}
+
+    if (customerEmail) {
+      headers['X-Customer-Email'] = customerEmail
+      if (typeof window !== 'undefined') {
+        const url = new URLSearchParams({ customer_email: customerEmail })
+        endpoint = `${endpoint}?${url.toString()}`
+      }
+    }
+
+    return this.request<TableBookingResponse>(endpoint, { headers })
   }
 
   async cancelTableBooking(reference: string, reason?: string): Promise<{ success: boolean; message: string }> {

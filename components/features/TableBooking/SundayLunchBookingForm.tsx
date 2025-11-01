@@ -318,7 +318,7 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
             for (let i = 0; i < sideSelection.quantity; i++) {
               menuItems.push({
                 custom_item_name: sideItem.name,
-                item_type: 'extra',
+                item_type: 'side',
                 quantity: 1,
                 guest_name: `Table`, // Shared by all guests
                 price_at_booking: sideItem.price

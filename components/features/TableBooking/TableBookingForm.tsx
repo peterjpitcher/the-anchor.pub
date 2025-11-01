@@ -266,6 +266,7 @@ export default function TableBookingForm({
           onTimeSelect={handleTimeConfirm}
           onBack={handleBack}
           className={className}
+          bookingType="regular"
         />
       )
 

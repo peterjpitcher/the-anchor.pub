@@ -75,6 +75,10 @@ export async function GET(request: Request) {
     if (duration) {
       query.append('duration', duration)
     }
+    
+    if (bookingType) {
+      query.append('booking_type', bookingType)
+    }
 
     const response = await fetch(
       `${API_BASE_URL}/table-bookings/availability?${query.toString()}`,

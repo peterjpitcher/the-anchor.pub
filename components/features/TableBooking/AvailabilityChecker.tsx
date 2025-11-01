@@ -19,6 +19,7 @@ export interface AvailabilityCheckerProps {
   onTimeSelect: (time: string) => void
   onBack: () => void
   className?: string
+  bookingType?: 'regular' | 'sunday_lunch'
 }
 
 export default function AvailabilityChecker({
@@ -27,7 +28,8 @@ export default function AvailabilityChecker({
   partySize,
   onTimeSelect,
   onBack,
-  className = ''
+  className = '',
+  bookingType = 'regular'
 }: AvailabilityCheckerProps) {
   const [availability, setAvailability] = useState<TableAvailabilityResponse | null>(null)
   const [loading, setLoading] = useState(true)
@@ -45,7 +47,7 @@ export default function AvailabilityChecker({
         time,
         party_size: partySize,
         duration: 120, // Default 2 hours
-        booking_type: 'food' // Check kitchen availability
+        booking_type: bookingType
       })
       
       // Validate response format
@@ -69,7 +71,7 @@ export default function AvailabilityChecker({
     } finally {
       setLoading(false)
     }
-  }, [date, time, partySize])
+  }, [date, time, partySize, bookingType])
 
   useEffect(() => {
     checkAvailability()

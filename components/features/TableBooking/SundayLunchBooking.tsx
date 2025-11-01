@@ -417,6 +417,7 @@ export default function SundayLunchBooking({
           onTimeSelect={handleTimeConfirm}
           onBack={handleBack}
           className={className}
+          bookingType="sunday_lunch"
         />
       )
 

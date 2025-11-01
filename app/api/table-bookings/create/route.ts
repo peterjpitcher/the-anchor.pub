@@ -50,6 +50,12 @@ export async function POST(request: Request) {
   }
 
   try {
+    const headerIdempotencyKey = request.headers.get('Idempotency-Key')
+    const idempotencyKey = headerIdempotencyKey ||
+      (typeof crypto !== 'undefined' && 'randomUUID' in crypto
+        ? crypto.randomUUID()
+        : `web-${Date.now()}-${Math.random().toString(16).slice(2)}`)
+
     const body: BookingRequest = await request.json()
     console.log('Table booking request body:', JSON.stringify(body, null, 2))
     
@@ -243,7 +249,8 @@ export async function POST(request: Request) {
             method: 'POST',
             headers: {
               'X-API-Key': API_KEY,
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'Idempotency-Key': idempotencyKey
             },
             body: JSON.stringify(apiPayload)
           }

@@ -8,6 +8,11 @@ export async function GET(
   request: Request,
   { params }: { params: { reference: string } }
 ) {
+  const customerEmail =
+    request.headers.get('x-customer-email') ||
+    new URL(request.url).searchParams.get('customer_email') ||
+    undefined
+  
   if (!API_KEY) {
     console.error('ANCHOR_API_KEY is not set in environment variables')
     return createApiErrorResponse('Service temporarily unavailable. Please try again later.', 503)
@@ -19,12 +24,17 @@ export async function GET(
     return createApiErrorResponse('Booking reference is required', 400)
   }
 
+  if (!customerEmail) {
+    return createApiErrorResponse('Customer email required to verify booking', 400)
+  }
+
   try {
     const response = await fetch(
       `${API_BASE_URL}/table-bookings/${reference}`,
       {
         headers: {
-          'X-API-Key': API_KEY
+          'X-API-Key': API_KEY,
+          'X-Customer-Email': customerEmail
         }
       }
     )
@@ -82,6 +92,11 @@ export async function DELETE(
   request: Request,
   { params }: { params: { reference: string } }
 ) {
+  const customerEmail =
+    request.headers.get('x-customer-email') ||
+    new URL(request.url).searchParams.get('customer_email') ||
+    undefined
+
   if (!API_KEY) {
     console.error('ANCHOR_API_KEY is not set in environment variables')
     return createApiErrorResponse('Service temporarily unavailable. Please try again later.', 503)
@@ -109,7 +124,8 @@ export async function DELETE(
         method: 'POST',
         headers: {
           'X-API-Key': API_KEY,
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          ...(customerEmail ? { 'X-Customer-Email': customerEmail } : {})
         },
         body: JSON.stringify({ reason })
       }

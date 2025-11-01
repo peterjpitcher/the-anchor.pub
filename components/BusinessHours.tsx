@@ -343,6 +343,12 @@ export function BusinessHours({ variant = 'full', showKitchen = true }: Business
                           })()}
                         </div>
                       )}
+
+                      {hasSpecialHours && (specialHours?.note || specialHours?.reason) && (
+                        <div className="text-xs text-yellow-300/90 mt-1 text-right">
+                          {specialHours?.note || specialHours?.reason}
+                        </div>
+                      )}
                     </>
                   )}
                 </div>
