@@ -696,7 +696,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
               <p className="text-sm text-red-700 font-semibold">Available for festive parties of six or more guests.</p>
               <div className="space-y-5 text-left">
                 <div className="rounded-2xl border border-red-100 bg-white/90 p-5 shadow-sm space-y-3">
-                  <h3 className="text-lg font-semibold text-anchor-charcoal">Starters to warm things up</h3>
+                  <h3 className="text-lg font-semibold text-anchor-charcoal">Starter</h3>
                   <ul className="space-y-3 text-sm text-gray-700">
                     <li>
                       <p className="font-semibold text-anchor-charcoal">Classic prawn cocktail</p>
@@ -704,7 +704,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                     </li>
                     <li>
                       <p className="font-semibold text-anchor-charcoal">Chicken liver pâté</p>
-                      <p className="text-gray-600">Silky chicken liver parfait with caramelised onion chutney and freshly baked rolls for spreading.</p>
+                      <p className="text-gray-600">Silky chicken liver pâté with caramelised onion chutney and freshly baked rolls for spreading.</p>
                     </li>
                     <li>
                       <p className="font-semibold text-anchor-charcoal">Leek, potato &amp; West Country Cheddar soup (v)</p>
@@ -713,7 +713,8 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                   </ul>
                 </div>
                 <div className="rounded-2xl border border-red-100 bg-white/90 p-5 shadow-sm space-y-3">
-                  <h3 className="text-lg font-semibold text-anchor-charcoal">Mains carved at their best</h3>
+                  <h3 className="text-lg font-semibold text-anchor-charcoal">Main</h3>
+                  <p className="text-sm text-gray-600">All served with Christmas trimmings.</p>
                   <ul className="space-y-3 text-sm text-gray-700">
                     <li>
                       <p className="font-semibold text-anchor-charcoal">Festive roast turkey &amp; Christmas trimmings</p>
@@ -730,12 +731,13 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                     <li>
                       <p className="font-semibold text-anchor-charcoal">Beetroot &amp; butternut squash Wellington &amp; Christmas trimmings (VG)</p>
                       <p className="text-gray-600">Golden puff pastry filled with beetroot and butternut squash, baked with caramelised onions and rosemary, served with herb-crusted triple-cooked roast potatoes, seasonal vegetables, sage &amp; onion stuffing, Yorkshire pudding and our signature gravy.</p>
+                      <p className="text-xs text-gray-500">Vegan option served without Yorkshire pudding.</p>
                     </li>
                   </ul>
                   <p className="mt-3 text-xs text-gray-500">Vegetarian gravy available on request for every main course.</p>
                 </div>
                 <div className="rounded-2xl border border-red-100 bg-white/90 p-5 shadow-sm space-y-3">
-                  <h3 className="text-lg font-semibold text-anchor-charcoal">Puddings worth lingering over</h3>
+                  <h3 className="text-lg font-semibold text-anchor-charcoal">Dessert</h3>
                   <ul className="space-y-3 text-sm text-gray-700">
                     <li>
                       <p className="font-semibold text-anchor-charcoal">Steamed Christmas pudding</p>
