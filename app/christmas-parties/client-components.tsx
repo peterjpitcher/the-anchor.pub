@@ -643,7 +643,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                 </tbody>
               </table>
               <p className="px-4 py-4 text-sm text-gray-600 border-t border-gray-200">
-                Children under 12 dine for £12.95 (2 courses) or £15.95 (3 courses). Christmas bookings are for parties of 6+ and require a £10pp deposit. Pre-orders for 8+ due 7 days prior. 2-hour table time. Dietary requests welcome.
+                Children under 12 dine for £12.95 (2 courses) or £15.95 (3 courses). Christmas bookings are for parties of six or more. A £10 per person deposit secures your festive reservation and is non-refundable. Full pre-orders for every guest are due seven days in advance; we&apos;ll do our utmost with late changes but can&apos;t guarantee them. Please flag dietary requirements when you order so we can arrange suitable alternatives – some substitutions may carry a small surcharge. Tables are reserved for two hours as standard.
               </p>
             </div>
             <div className="flex flex-col md:flex-row justify-center gap-4">
@@ -1026,12 +1026,12 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
           </div>
           <div className="max-w-3xl mx-auto mt-8">
             <ul className="space-y-3 text-sm text-gray-700">
-              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-green-600" />Deposit £10 per person for Christmas parties of six or more guests (deducted from your final bill).</li>
-              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-green-600" />Pre-orders for eight or more guests due seven days before your booking.</li>
-              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-green-600" />Confirm final numbers 72 hours prior; deposits become non-refundable after this point.</li>
+              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-green-600" />Deposit £10 per person to secure your festive booking – deposits are non-refundable.</li>
+              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-green-600" />Full pre-orders for every guest are required at least seven days before your meal.</li>
+              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-green-600" />We&apos;ll always try to help with last-minute changes, but we can&apos;t guarantee them once your order is confirmed.</li>
               <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-green-600" />Standard table time is two hours, with longer sittings available for larger parties.</li>
               <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-green-600" />An optional 10% service charge applies to tables of six or more.</li>
-              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-green-600" />We happily accommodate dietary requirements - include details on your pre-order.</li>
+              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-green-600" />Include any dietary requirements or allergies with your pre-order so we can provide suitable alternatives; some substitutions may carry a small surcharge.</li>
               <li className="flex items-start gap-3">
                 <Icon name="check" className="mt-0.5 h-5 w-5 text-green-600" />
                 <span>Need guest parking? Share our <Link href="/blog/cheap-heathrow-parking-alternatives" className="underline decoration-dotted hover:text-anchor-green transition-colors">cheap Heathrow parking tips</Link> or direct drivers to <Link href="/heathrow-parking" className="underline decoration-dotted hover:text-anchor-green transition-colors">pre-booked spaces at The Anchor</Link>.</span>
