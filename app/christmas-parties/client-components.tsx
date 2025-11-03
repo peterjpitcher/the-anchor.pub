@@ -700,15 +700,15 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                   <ul className="space-y-3 text-sm text-gray-700">
                     <li>
                       <p className="font-semibold text-anchor-charcoal">Classic prawn cocktail</p>
-                      <p className="text-gray-600">North Atlantic prawns layered with crisp gem lettuce, tangy Marie Rose sauce and buttered brioche.</p>
+                      <p className="text-gray-600">North Atlantic prawns layered with crisp gem lettuce, tangy Marie Rose sauce and freshly baked rolls.</p>
                     </li>
                     <li>
                       <p className="font-semibold text-anchor-charcoal">Chicken liver pâté</p>
-                      <p className="text-gray-600">Silky chicken liver parfait with caramelised onion chutney and toasted brioche soldiers.</p>
+                      <p className="text-gray-600">Silky chicken liver parfait with caramelised onion chutney and freshly baked rolls for spreading.</p>
                     </li>
                     <li>
-                      <p className="font-semibold text-anchor-charcoal">Roasted parsnip & apple soup (v)</p>
-                      <p className="text-gray-600">Velvety roasted parsnip and Bramley apple soup finished with spiced seeds and herb focaccia for dipping.</p>
+                      <p className="font-semibold text-anchor-charcoal">Leek, potato &amp; West Country Cheddar soup (v)</p>
+                      <p className="text-gray-600">Silky leek and potato soup enriched with tangy West Country Cheddar, soft potato pieces, a splash of cream and freshly baked rolls on the side.</p>
                     </li>
                   </ul>
                 </div>
@@ -716,33 +716,38 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                   <h3 className="text-lg font-semibold text-anchor-charcoal">Mains carved at their best</h3>
                   <ul className="space-y-3 text-sm text-gray-700">
                     <li>
-                      <p className="font-semibold text-anchor-charcoal">Festive roast turkey with all the trimmings</p>
-                      <p className="text-gray-600">Hand-carved British turkey breast with sage &amp; onion stuffing, pigs in blankets and a giant Yorkshire pudding, served with herb-crusted triple-cooked roast potatoes, seasonal vegetables and plenty of our signature gravy.</p>
+                      <p className="font-semibold text-anchor-charcoal">Festive roast turkey &amp; Christmas trimmings</p>
+                      <p className="text-gray-600">Hand-carved British turkey breast with sage &amp; onion stuffing, pigs in blankets and a homemade Yorkshire pudding, served with herb-crusted triple-cooked roast potatoes, seasonal vegetables and plenty of our signature gravy.</p>
                     </li>
                     <li>
-                      <p className="font-semibold text-anchor-charcoal">Crispy pork belly</p>
-                      <p className="text-gray-600">Slow-roasted pork belly finished with crisp crackling, Bramley apple sauce, sage &amp; onion stuffing, pigs in blankets and a giant Yorkshire pudding, served with herb-crusted triple-cooked roast potatoes, seasonal vegetables and our signature gravy (vegetarian gravy available on request).</p>
+                      <p className="font-semibold text-anchor-charcoal">Crispy pork belly &amp; Christmas trimmings</p>
+                      <p className="text-gray-600">Slow-roasted pork belly finished with crisp crackling, Bramley apple sauce, sage &amp; onion stuffing, pigs in blankets and a homemade Yorkshire pudding, served with herb-crusted triple-cooked roast potatoes, seasonal vegetables and our signature gravy.</p>
                     </li>
                     <li>
-                      <p className="font-semibold text-anchor-charcoal">Beetroot &amp; butternut squash Wellington (VG)</p>
+                      <p className="font-semibold text-anchor-charcoal">Slow-cooked lamb shank &amp; Christmas trimmings</p>
+                      <p className="text-gray-600">Tender slow-braised lamb shank in rich red wine gravy, served with herb-crusted triple-cooked roast potatoes, seasonal vegetables, sage &amp; onion stuffing, pigs in blankets, a Yorkshire pudding and our signature gravy.</p>
+                    </li>
+                    <li>
+                      <p className="font-semibold text-anchor-charcoal">Beetroot &amp; butternut squash Wellington &amp; Christmas trimmings (VG)</p>
                       <p className="text-gray-600">Golden puff pastry filled with beetroot and butternut squash, baked with caramelised onions and rosemary, served with herb-crusted triple-cooked roast potatoes, seasonal vegetables, sage &amp; onion stuffing, Yorkshire pudding and our signature gravy.</p>
                     </li>
                   </ul>
+                  <p className="mt-3 text-xs text-gray-500">Vegetarian gravy available on request for every main course.</p>
                 </div>
                 <div className="rounded-2xl border border-red-100 bg-white/90 p-5 shadow-sm space-y-3">
                   <h3 className="text-lg font-semibold text-anchor-charcoal">Puddings worth lingering over</h3>
                   <ul className="space-y-3 text-sm text-gray-700">
                     <li>
                       <p className="font-semibold text-anchor-charcoal">Steamed Christmas pudding</p>
-                      <p className="text-gray-600">Rich fruit pudding drenched in brandy custard and dusted with redcurrants.</p>
+                      <p className="text-gray-600">Traditional fruit pudding steamed until glossy, served warm with pouring cream and a sparkle of festive redcurrants.</p>
                     </li>
                     <li>
                       <p className="font-semibold text-anchor-charcoal">Winter berry cheesecake</p>
-                      <p className="text-gray-600">Vanilla cheesecake topped with mulled berry compote and whipped cream.</p>
+                      <p className="text-gray-600">Silky vanilla cheesecake on a buttery biscuit base, finished with a jewel-bright berry compote and pillows of whipped cream.</p>
                     </li>
                     <li>
-                      <p className="font-semibold text-anchor-charcoal">Chocolate & orange torte</p>
-                      <p className="text-gray-600">Decadent dark chocolate and orange torte served warm with Rodda's clotted cream.</p>
+                      <p className="font-semibold text-anchor-charcoal">Indulgent chocolate fudge cake</p>
+                      <p className="text-gray-600">Moist chocolate sponge layered with silky fudge icing, served warm with pouring cream or custard for pure comfort. Vegetarian friendly.</p>
                     </li>
                   </ul>
                   <p className="text-xs text-gray-600">Prefer cheese? Swap dessert for our farmhouse cheeseboard (+£3) or add it as a fourth course for £7.95.</p>
@@ -883,7 +888,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
               {
                 title: 'Festive Premium Grazing',
                 price: '£16.95 per person',
-                description: 'Charcuterie and cheese boards with fresh rolls, salads, and hot bites including pigs in blankets, mini quiches, sausage rolls and spring rolls.'
+                description: 'Charcuterie and cheese boards with freshly baked rolls, salads, and hot bites including pigs in blankets, mini quiches, sausage rolls and spring rolls.'
               }
             ].map(tier => (
               <Card key={tier.title} className="h-full">
