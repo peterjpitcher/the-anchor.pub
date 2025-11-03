@@ -135,11 +135,6 @@ const FESTIVE_PRICING = [
     includes: 'Private dining room or main bar layout, late bar option until midnight and support for DJs or entertainment'
   },
   {
-    tier: 'Sunday festive lunches',
-    price: '£32.95 adults / £15.95 children',
-    includes: 'Family-style roasts with all the trimmings – ideal for families and community groups'
-  },
-  {
     tier: 'Festive buffets (26+ guests)',
     price: 'From £10.95 per person',
     includes: 'Three buffet tiers with hot finger food, salads and grazing boards refreshed for the first hour'
