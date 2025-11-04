@@ -29,6 +29,7 @@ interface HeroSectionProps {
   description?: string | ReactNode
   eyebrow?: ReactNode
   lead?: ReactNode
+  titleClassName?: string
   children?: ReactNode
   
   // Image
@@ -75,6 +76,13 @@ const overlayClasses: Record<string, string> = {
   gradient: 'bg-gradient-to-b from-black/55 via-black/30 to-black/65'
 }
 
+const titleSizeClasses: Record<HeroSize, string> = {
+  small: 'text-3xl sm:text-4xl md:text-5xl',
+  medium: 'text-4xl sm:text-5xl md:text-6xl',
+  large: 'text-4xl sm:text-5xl md:text-6xl lg:text-7xl',
+  hero: 'text-5xl sm:text-6xl md:text-7xl lg:text-8xl'
+}
+
 // Text alignment classes
 const alignmentClasses: Record<string, string> = {
   left: 'text-left items-start',
@@ -106,6 +114,7 @@ export function HeroSection({
   eyebrow,
   lead,
   children,
+  titleClassName,
   image,
   size = 'medium',
   alignment = 'center',
@@ -227,11 +236,8 @@ export function HeroSection({
             {/* Title */}
             <h1 className={cn(
               'font-bold text-white mb-4 sm:mb-6',
-              size === 'small' && 'text-3xl sm:text-4xl md:text-5xl',
-              size === 'medium' && 'text-4xl sm:text-5xl md:text-6xl',
-              size === 'large' && 'text-4xl sm:text-5xl md:text-6xl lg:text-7xl',
-              size === 'hero' && 'text-5xl sm:text-6xl md:text-7xl lg:text-8xl',
-              blockAlignmentClasses[alignment]
+              blockAlignmentClasses[alignment],
+              titleClassName ?? titleSizeClasses[size]
             )}>
               {title}
             </h1>

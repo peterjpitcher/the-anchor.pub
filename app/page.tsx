@@ -89,6 +89,7 @@ export default function HomePage() {
       <HeroWrapper
         route="/"
         variant="dark"
+        titleClassName="text-5xl sm:text-5xl md:text-6xl lg:text-7xl"
         title={
           <span className="drop-shadow-[0_2px_6px_rgba(0,0,0,0.65)]">
             {seasonalGreeting}

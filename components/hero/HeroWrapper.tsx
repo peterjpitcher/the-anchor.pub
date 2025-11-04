@@ -31,6 +31,7 @@ interface HeroWrapperProps {
   description?: string | ReactNode
   eyebrow?: ReactNode
   lead?: ReactNode
+  titleClassName?: string
 
   // Variant driven styling
   variant?: HeroVariantName
@@ -97,6 +98,7 @@ export function HeroWrapper({
   description,
   eyebrow,
   lead,
+  titleClassName,
   variant = DEFAULT_VARIANT,
   size,
   alignment,
@@ -250,6 +252,7 @@ export function HeroWrapper({
       description={description}
       eyebrow={eyebrow}
       lead={lead}
+      titleClassName={titleClassName}
       image={{
         ...resolvedImage
       }}

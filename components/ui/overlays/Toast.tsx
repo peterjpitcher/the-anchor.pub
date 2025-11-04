@@ -1,6 +1,6 @@
 'use client'
 
-import { forwardRef, useEffect, useState, createContext, useContext, useCallback } from 'react'
+import { forwardRef, useEffect, useState, createContext, useContext, useCallback, useRef } from 'react'
 import { createPortal } from 'react-dom'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
@@ -189,13 +189,15 @@ export const ToastProvider: React.FC<ToastProviderProps> = ({
 }) => {
   const [toasts, setToasts] = useState<ToastItem[]>([])
   const [mounted, setMounted] = useState(false)
+  const idCounterRef = useRef(0)
 
   useEffect(() => {
     setMounted(true)
   }, [])
 
   const toast = useCallback((props: Omit<ToastItem, 'id'>) => {
-    const id = Date.now().toString()
+    idCounterRef.current += 1
+    const id = `${Date.now()}-${idCounterRef.current}`
     const newToast: ToastItem = { ...props, id }
 
     setToasts((prev) => {
