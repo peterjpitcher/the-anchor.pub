@@ -2,12 +2,13 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useState, useEffect, ReactNode } from 'react'
+import { useState, useEffect, useMemo, useCallback, ReactNode } from 'react'
 import { cn } from '@/lib/utils'
-import type { NavigationItem, BusinessInfo } from '@/lib/types'
+import type { NavigationItem } from '@/lib/types'
 import { useFocusTrap } from '@/hooks/useFocusTrap'
 import { BookTableButton } from '@/components/BookTableButton'
-import { trackNavigationClick, trackTableBookingClick } from '@/lib/gtm-events'
+import { trackNavigationClick } from '@/lib/gtm-events'
+import { nowInLondon, parseLondonDate } from '@/lib/time-london'
 
 interface HeaderCtaButton {
   label: string
@@ -138,6 +139,24 @@ export function Navigation({
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const focusTrapRef = useFocusTrap(isMobileMenuOpen)
 
+  const christmasEndDate = useMemo(() => parseLondonDate('2025-12-25'), [])
+  const computeChristmasActive = useCallback(() => nowInLondon() < christmasEndDate, [christmasEndDate])
+  const [showChristmasCta, setShowChristmasCta] = useState<boolean>(() => computeChristmasActive())
+
+  useEffect(() => {
+    setShowChristmasCta(computeChristmasActive())
+  }, [computeChristmasActive])
+  const christmasCtaButton: HeaderCtaButton | null = useMemo(() => {
+    if (!showChristmasCta) return null
+    return {
+      label: 'Christmas Parties',
+      href: '/christmas-parties',
+      icon: '🎄',
+      external: false,
+      variant: 'secondary'
+    }
+  }, [showChristmasCta])
+
   const mergedTheme = { ...defaultTheme, ...theme }
   const desktopFlexClass = {
     sm: 'hidden sm:flex',
@@ -156,7 +175,8 @@ export function Navigation({
   }[mobileBreakpoint]
   const showUtilityRow = Boolean(
     ctaButton ||
-    secondaryCtaButton
+    secondaryCtaButton ||
+    christmasCtaButton
   )
 
   useEffect(() => {
@@ -468,6 +488,14 @@ export function Navigation({
     return renderSingleCTA(button, isMobile, `${secondaryCtaButton.href}-${isMobile ? 'mobile' : 'desktop'}`)
   }
 
+  const renderChristmasCTA = (isMobile = false, extraClass?: string) => {
+    if (!christmasCtaButton) return null
+    const button = extraClass
+      ? { ...christmasCtaButton, className: cn(christmasCtaButton.className, extraClass) }
+      : christmasCtaButton
+    return renderSingleCTA(button, isMobile, `${christmasCtaButton.href}-${isMobile ? 'mobile' : 'desktop'}-seasonal`)
+  }
+
   return (
     <>
       {/* Skip to main content link for accessibility */}
@@ -504,6 +532,7 @@ export function Navigation({
               <div className="flex flex-wrap items-center justify-end gap-3">
                 {renderPrimaryCTA(false, 'px-4 py-1 text-sm')}
                 {renderSecondaryCTA(false, 'px-4 py-1 text-sm')}
+                {renderChristmasCTA(false, 'px-4 py-1 text-sm')}
               </div>
             </div>
           )}
@@ -532,6 +561,7 @@ export function Navigation({
               <div className="flex items-center gap-3 flex-shrink-0">
                 {renderPrimaryCTA()}
                 {renderSecondaryCTA(false)}
+                {renderChristmasCTA(false)}
               </div>
             )}
           </div>
@@ -588,10 +618,11 @@ export function Navigation({
           aria-modal="true"
         >
           <div className="container mx-auto px-4 py-6 space-y-6">
-            {(ctaButton || secondaryCtaButton) && (
+            {(ctaButton || secondaryCtaButton || christmasCtaButton) && (
               <div className="space-y-3">
                 {renderPrimaryCTA(true)}
                 {renderSecondaryCTA(true)}
+                {renderChristmasCTA(true)}
               </div>
             )}
             {items.map(item => renderLink(item, true))}
