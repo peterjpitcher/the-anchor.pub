@@ -17,6 +17,9 @@ interface WizardStep1DateProps extends WizardStepProps {
 export function WizardStep1Date({ value, availabilityData, eventsByDate, onNext }: WizardStep1DateProps) {
   const [selectedDate, setSelectedDate] = useState(value || '')
   const [error, setError] = useState('')
+  const sundayLunchOverrides = availabilityData.sundayLunchOverrides || []
+  const globalSundayLunchEnabled = availabilityData.sundayLunchStatus?.isEnabled ?? true
+  const globalSundayLunchMessage = availabilityData.sundayLunchStatus?.message || null
   
   // Get today's date and max booking date (30 days)
   const today = new Date()
@@ -39,6 +42,8 @@ export function WizardStep1Date({ value, availabilityData, eventsByDate, onNext 
       specialNote?: string
       hasEvent: boolean
       events: DateEventSummary[]
+      sundayLunchUnavailable: boolean
+      overrideMessage?: string | null
     }> = []
     const currentDate = new Date(today)
     
@@ -63,7 +68,23 @@ export function WizardStep1Date({ value, availabilityData, eventsByDate, onNext 
         : isMonday // Mondays default to kitchen closed unless API says otherwise
         
       const drinksOnly = !venueClosed && kitchenClosed // Venue open but kitchen closed
-      
+
+      const override = sundayLunchOverrides.find(
+        (entry) => entry.startDate <= dateStr && entry.endDate >= dateStr
+      )
+      const sundayLunchUnavailable = isSunday && (
+        override ? override.isEnabled === false : !globalSundayLunchEnabled
+      )
+      const overrideMessage = override?.message || globalSundayLunchMessage
+
+      let specialNote = dayData?.specialNote
+      if (!specialNote && drinksOnly) {
+        specialNote = 'Kitchen closed - drinks only'
+      }
+      if (!specialNote && sundayLunchUnavailable) {
+        specialNote = overrideMessage || 'Sunday lunch bookings are currently unavailable.'
+      }
+
       days.push({
         date: dateStr,
         dayNum: currentDate.getDate(),
@@ -73,10 +94,12 @@ export function WizardStep1Date({ value, availabilityData, eventsByDate, onNext 
         isSunday,
         isBlocked: venueClosed, // Only block if venue is closed
         isDrinksOnly: drinksOnly, // New flag for drinks-only days
-        hasRoast: isSunday && !venueClosed && !kitchenClosed, // Show Sunday lunch icon if Sunday and kitchen is open,
-        specialNote: dayData?.specialNote || (drinksOnly ? 'Kitchen closed - drinks only' : ''),
+        hasRoast: isSunday && !venueClosed && !kitchenClosed && !sundayLunchUnavailable,
+        specialNote,
         hasEvent: dayEvents.length > 0,
-        events: dayEvents
+        events: dayEvents,
+        sundayLunchUnavailable,
+        overrideMessage,
       })
       
       currentDate.setDate(currentDate.getDate() + 1)
@@ -88,13 +111,25 @@ export function WizardStep1Date({ value, availabilityData, eventsByDate, onNext 
   const calendarDays = generateCalendarDays()
   const selectedEvents = selectedDate ? eventsByDate[selectedDate] || [] : []
   
-  const handleDateSelect = (date: string, isBlocked: boolean, isDrinksOnly: boolean) => {
+  const handleDateSelect = (
+    date: string,
+    isBlocked: boolean,
+    isDrinksOnly: boolean,
+    sundayLunchUnavailable: boolean,
+    overrideMessage?: string | null
+  ) => {
     if (isBlocked) return
     
     // Don't allow selection of drinks-only days - they must call
     if (isDrinksOnly) {
       setSelectedDate('') // Clear any previous selection
       setError('Kitchen is closed on this day. For drinks-only bookings, please call 01753 682707')
+      return
+    }
+
+    if (sundayLunchUnavailable) {
+      setSelectedDate('')
+      setError(overrideMessage || 'Sunday lunch bookings are unavailable on this date. Please choose another Sunday.')
       return
     }
     
@@ -112,6 +147,11 @@ export function WizardStep1Date({ value, availabilityData, eventsByDate, onNext 
     const selectedDay = calendarDays.find(d => d.date === selectedDate)
     if (selectedDay?.isDrinksOnly) {
       setError('Kitchen is closed on this day. For drinks-only bookings, please call 01753 682707')
+      return
+    }
+
+    if (selectedDay?.sundayLunchUnavailable) {
+      setError(selectedDay.overrideMessage || 'Sunday lunch bookings are unavailable on this date. Please choose another Sunday.')
       return
     }
     
@@ -182,7 +222,7 @@ export function WizardStep1Date({ value, availabilityData, eventsByDate, onNext 
               <button
                 key={day.date}
                 type="button"
-                onClick={() => handleDateSelect(day.date, day.isBlocked || false, day.isDrinksOnly || false)}
+                onClick={() => handleDateSelect(day.date, day.isBlocked || false, day.isDrinksOnly || false, day.sundayLunchUnavailable || false, day.overrideMessage)}
                 disabled={day.isBlocked}
                 title={tooltip || undefined}
                 className={cn(
@@ -191,8 +231,9 @@ export function WizardStep1Date({ value, availabilityData, eventsByDate, onNext 
                   isSelected && 'bg-anchor-green text-white border-anchor-green',
                   !isSelected && day.isBlocked && 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed',
                   !isSelected && day.isDrinksOnly && 'bg-blue-50 hover:bg-blue-100 border-blue-200',
+                  !isSelected && day.sundayLunchUnavailable && !day.isBlocked && !day.isDrinksOnly && 'bg-amber-100 text-amber-800 border-amber-300',
                   !isSelected && !day.isBlocked && !day.isDrinksOnly && day.hasEvent && 'bg-purple-50 hover:bg-purple-100 border-purple-200',
-                  !isSelected && !day.isBlocked && !day.isDrinksOnly && !day.hasEvent && day.isSunday && 'bg-amber-50 hover:bg-amber-100 border-amber-200',
+                  !isSelected && !day.isBlocked && !day.isDrinksOnly && !day.hasEvent && day.isSunday && !day.sundayLunchUnavailable && 'bg-amber-50 hover:bg-amber-100 border-amber-200',
                   !isSelected && !day.isBlocked && !day.isDrinksOnly && !day.hasEvent && day.isToday && 'bg-anchor-cream border-2 border-anchor-gold',
                   !isSelected && !day.isBlocked && !day.isDrinksOnly && !day.hasEvent && !day.isSunday && !day.isToday && 'bg-white hover:bg-gray-50 border-gray-200'
                 )}
@@ -215,6 +256,9 @@ export function WizardStep1Date({ value, availabilityData, eventsByDate, onNext 
                 )}
                 {day.isDrinksOnly && (
                   <Icon name="wine" className="w-3 h-3 mt-1 text-blue-500" />
+                )}
+                {day.sundayLunchUnavailable && !day.isBlocked && !day.isDrinksOnly && (
+                  <Icon name="alert" className="w-3 h-3 mt-1 text-amber-600" />
                 )}
                 {day.isBlocked && (
                   <Icon name="close" className="w-3 h-3 mt-1 text-red-400" />
@@ -292,6 +336,10 @@ export function WizardStep1Date({ value, availabilityData, eventsByDate, onNext 
         <div className="flex items-center gap-2">
           <div className="w-4 h-4 bg-amber-50 rounded border border-amber-200" />
           <span>Sunday (Lunch available)</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-4 h-4 bg-amber-100 rounded border border-amber-300" />
+          <span>Sunday lunch unavailable</span>
         </div>
         <div className="flex items-center gap-2">
           <div className="w-4 h-4 bg-blue-50 rounded border border-blue-200" />

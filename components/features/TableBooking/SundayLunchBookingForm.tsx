@@ -73,7 +73,7 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
     message: null
   })
   const isMountedRef = useRef(true)
-  
+
   // Form state
   const [date, setDate] = useState('')
   const [time, setTime] = useState('')
@@ -82,14 +82,30 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
   const [sideSelections, setSideSelections] = useState<SideSelection[]>([])
   
   // Customer info
-const [firstName, setFirstName] = useState('')
-const [lastName, setLastName] = useState('')
-const [mobile, setMobile] = useState('')
-const [email, setEmail] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [mobile, setMobile] = useState('')
+  const [email, setEmail] = useState('')
   const [specialRequirements, setSpecialRequirements] = useState('')
   const [dietaryRequirements, setDietaryRequirements] = useState<string[]>([])
   const [allergies, setAllergies] = useState<string[]>([])
   const [smsOptIn, setSmsOptIn] = useState(true)
+
+  const sundayLunchOverrides = (businessHours?.serviceOverrides?.sunday_lunch ?? []) as Array<{
+    startDate: string
+    endDate: string
+    isEnabled: boolean
+    message: string | null
+  }>
+  const selectedOverride = date
+    ? sundayLunchOverrides.find(
+        (override) => override.startDate <= date && override.endDate >= date
+      )
+    : undefined
+  const globalDisabled = !sundayLunchStatus.isEnabled
+  const overrideDisabled = !!(selectedOverride && selectedOverride.isEnabled === false)
+  const bookingDisabled = globalDisabled || overrideDisabled
+  const statusMessage = selectedOverride?.message || sundayLunchStatus.message
   
   // Track form view
   useEffect(() => {
@@ -244,8 +260,6 @@ const [email, setEmail] = useState('')
   const mainCoursesTotal = menuSelections.reduce((sum, selection) => sum + selection.price_at_booking, 0)
   const sidesTotal = sideSelections.reduce((sum, selection) => sum + (selection.price_at_booking * selection.quantity), 0)
   const totalAmount = mainCoursesTotal + sidesTotal
-  const isSundayLunchEnabled = sundayLunchStatus.isEnabled
-  const formDisabled = !isSundayLunchEnabled
   
   // Update menu selection
   const updateMenuSelection = (index: number, field: keyof MenuSelection, value: any) => {
@@ -270,9 +284,9 @@ const [email, setEmail] = useState('')
       setError(null)
     }
 
-    if (formDisabled) {
+    if (bookingDisabled) {
       if (isMountedRef.current) {
-        setError('Sunday lunch bookings are currently unavailable. Please choose a regular dining booking instead.')
+        setError(statusMessage || 'Sunday lunch bookings are currently unavailable. Please choose a regular dining booking instead.')
       }
       return
     }
@@ -543,6 +557,10 @@ const [email, setEmail] = useState('')
       const schedule = getScheduleForDate(isoDate)
       if (!schedule || schedule.is_closed) continue
       if (!hasKitchenService(schedule)) continue
+      const override = sundayLunchOverrides.find(
+        (entry) => entry.startDate <= isoDate && entry.endDate >= isoDate
+      )
+      if (override && override.isEnabled === false) continue
 
       sundays.push(isoDate)
     }
@@ -600,6 +618,14 @@ const [email, setEmail] = useState('')
         '12:00', '12:30', '13:00', '13:30', '14:00',
         '14:30', '15:00', '15:30', '16:00', '16:30'
       ]
+    }
+
+    const override = sundayLunchOverrides.find(
+      (entry) => entry.startDate <= selectedDate && entry.endDate >= selectedDate
+    )
+
+    if (override && override.isEnabled === false) {
+      return []
     }
 
     const schedule = getScheduleForDate(selectedDate)
@@ -687,19 +713,19 @@ const [email, setEmail] = useState('')
   
   return (
     <form onSubmit={handleSubmit} className={`w-full ${className || ''}`}>
-      {formDisabled && (
+      {bookingDisabled && (
         <Alert variant="info" className="mb-4">
           <Icon name="info" className="h-4 w-4" />
           <div>
             <p className="font-medium">Sunday lunch bookings are paused</p>
             <p className="text-sm mt-1">
-              {sundayLunchStatus.message || 'We\'re not taking Sunday lunch pre-orders for the selected period, but our regular menu is still available to book.'}
+              {statusMessage || 'We\'re not taking Sunday lunch pre-orders for the selected period, but our regular menu is still available to book.'}
             </p>
           </div>
         </Alert>
       )}
 
-      <div className={formDisabled ? 'pointer-events-none opacity-50' : ''}>
+      <div className={globalDisabled ? 'pointer-events-none opacity-50' : ''}>
         {/* Booking reminder */}
       <Alert variant="warning" className="mb-4">
         <Icon name="alert" className="h-4 w-4" />
@@ -726,7 +752,7 @@ const [email, setEmail] = useState('')
       </Alert>
       
       {/* Kitchen closure warning */}
-      {businessHours && !formDisabled && getAvailableSundays().length === 0 && (
+      {businessHours && !globalDisabled && getAvailableSundays().length === 0 && (
         <Alert variant="error" className="mb-4">
           <Icon name="alert" className="h-4 w-4" />
           <div>
@@ -847,7 +873,7 @@ const [email, setEmail] = useState('')
                 value={time}
                 onChange={(e) => setTime(e.target.value)}
                 required
-                disabled={!date}
+                disabled={!date || overrideDisabled || globalDisabled}
                 className="w-full border rounded-md px-4 py-3 text-base disabled:bg-gray-100"
               >
                 <option value="">Select time</option>
@@ -916,6 +942,7 @@ const [email, setEmail] = useState('')
                     value={selection.guest_name}
                     onChange={(e) => updateMenuSelection(index, 'guest_name', e.target.value)}
                     required
+                    disabled={bookingDisabled}
                     className="w-full border rounded-md px-4 py-3 text-base"
                     placeholder={`Guest ${index + 1}`}
                   />
@@ -930,6 +957,7 @@ const [email, setEmail] = useState('')
                     value={selection.menu_item_id}
                     onChange={(e) => updateMenuSelection(index, 'menu_item_id', e.target.value)}
                     required
+                    disabled={bookingDisabled}
                     className="w-full border rounded-md px-4 py-3 text-base"
                   >
                     <option value="">Select a main course</option>
@@ -1099,6 +1127,7 @@ const [email, setEmail] = useState('')
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 placeholder="you@example.com"
+                disabled={bookingDisabled}
                 className="w-full border rounded-md px-4 py-3 text-base"
               />
             </div>
@@ -1113,6 +1142,7 @@ const [email, setEmail] = useState('')
               value={specialRequirements}
               onChange={(e) => setSpecialRequirements(e.target.value)}
               rows={3}
+              disabled={bookingDisabled}
               className="w-full border rounded-md px-4 py-3 text-base"
               placeholder="Any special requests, dietary requirements, or allergies..."
             />
@@ -1124,6 +1154,7 @@ const [email, setEmail] = useState('')
               id="sms_opt_in"
               checked={smsOptIn}
               onChange={(e) => setSmsOptIn(e.target.checked)}
+              disabled={bookingDisabled}
               className="mr-2"
             />
             <label htmlFor="sms_opt_in" className="text-sm">
@@ -1149,7 +1180,7 @@ const [email, setEmail] = useState('')
           type="submit"
           variant="primary"
           size="lg"
-          disabled={loading || formDisabled || !date || !time || menuSelections.some(s => !s.menu_item_id)}
+          disabled={loading || bookingDisabled || !date || !time || menuSelections.some(s => !s.menu_item_id)}
           className="w-full md:w-auto"
         >
           {loading ? (

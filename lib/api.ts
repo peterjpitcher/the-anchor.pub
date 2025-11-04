@@ -279,6 +279,17 @@ export interface BusinessHours {
       updatedAt: string
     }
   >
+  serviceOverrides?: Record<
+    string,
+    Array<{
+      startDate: string
+      endDate: string
+      isEnabled: boolean
+      message: string | null
+      updatedAt: string
+      createdBy?: string
+    }>
+  >
   currentStatus: {
     isOpen: boolean
     kitchenOpen: boolean
@@ -350,6 +361,7 @@ export interface BusinessHours {
         slots: string[]
         bookingRequired: boolean
         lastOrderTime: string
+        message?: string | null
       }
     }
     bar: {

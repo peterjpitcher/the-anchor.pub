@@ -1,4 +1,4 @@
-import { AvailabilityData, DayAvailability, TimeSlot } from '@/components/features/BookingWizard/types'
+import { AvailabilityData, DayAvailability, TimeSlot, SundayLunchOverride } from '@/components/features/BookingWizard/types'
 import { getEffectiveDayHours, isKitchenClosed, isVenueClosed } from '@/lib/hours-utils'
 
 // Cache availability data for 5 minutes
@@ -27,6 +27,7 @@ export async function getAvailabilityForNext30Days(): Promise<AvailabilityData> 
   let sundayLunchEnabled = true
   let sundayLunchMessage: string | null = null
   let sundayLunchUpdatedAt: string | undefined
+  const sundayLunchOverrides: SundayLunchOverride[] = []
 
   const today = new Date()
   today.setHours(0, 0, 0, 0)
@@ -110,6 +111,17 @@ export async function getAvailabilityForNext30Days(): Promise<AvailabilityData> 
           sundayLunchMessage = null
           sundayLunchUpdatedAt = undefined
         }
+
+        if (Array.isArray(businessHours.serviceOverrides?.sunday_lunch)) {
+          for (const override of businessHours.serviceOverrides.sunday_lunch) {
+            sundayLunchOverrides.push({
+              startDate: override.startDate,
+              endDate: override.endDate,
+              isEnabled: override.isEnabled,
+              message: override.message ?? null,
+            })
+          }
+        }
         
         // Process each date
         for (const dateStr of dates) {
@@ -190,8 +202,15 @@ export async function getAvailabilityForNext30Days(): Promise<AvailabilityData> 
           }
 
           if (isSunday) {
-            if (!sundayLunchEnabled) {
-              specialNote = sundayLunchMessage || 'Sunday lunch bookings are currently unavailable.'
+            const override = sundayLunchOverrides.find(
+              (entry) => entry.startDate <= dateStr && entry.endDate >= dateStr
+            )
+            const effectiveSundayLunchEnabled = override
+              ? override.isEnabled !== false
+              : sundayLunchEnabled
+
+            if (!effectiveSundayLunchEnabled) {
+              specialNote = override?.message || sundayLunchMessage || 'Sunday lunch bookings are currently unavailable.'
             } else if (!isClosed && !kitchenClosed) {
               sundayRoastDates.push(dateStr)
             }
@@ -226,6 +245,7 @@ export async function getAvailabilityForNext30Days(): Promise<AvailabilityData> 
       message: sundayLunchMessage ?? null,
       updatedAt: sundayLunchUpdatedAt,
     },
+    sundayLunchOverrides: sundayLunchOverrides.map((override) => ({ ...override })),
   }
   
   // Update cache

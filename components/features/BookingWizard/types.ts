@@ -87,6 +87,13 @@ export interface DayAvailability {
   specialNote?: string
 }
 
+export interface SundayLunchOverride {
+  startDate: string
+  endDate: string
+  isEnabled: boolean
+  message?: string | null
+}
+
 export interface AvailabilityData {
   days: DayAvailability[]
   blockedDates: string[]
@@ -96,6 +103,7 @@ export interface AvailabilityData {
     message?: string | null
     updatedAt?: string
   }
+  sundayLunchOverrides?: SundayLunchOverride[]
 }
 
 export interface DateEventSummary {
