@@ -68,6 +68,10 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
   const [success, setSuccess] = useState(false)
   const [businessHours, setBusinessHours] = useState<BusinessHours | null>(null)
   const [hoursLoading, setHoursLoading] = useState(true)
+  const [sundayLunchStatus, setSundayLunchStatus] = useState<{ isEnabled: boolean; message: string | null; updatedAt?: string }>({
+    isEnabled: true,
+    message: null
+  })
   const isMountedRef = useRef(true)
   
   // Form state
@@ -117,10 +121,27 @@ const [email, setEmail] = useState('')
           const businessHoursData = data.success && data.data ? data.data : data
           if (isMountedRef.current) {
             setBusinessHours(businessHoursData)
+            const sundayStatus = businessHoursData.serviceStatus?.sunday_lunch
+            setSundayLunchStatus({
+              isEnabled: sundayStatus ? sundayStatus.isEnabled !== false : true,
+              message: sundayStatus?.message || null,
+              updatedAt: sundayStatus?.updatedAt,
+            })
           }
+        } else if (isMountedRef.current) {
+          setSundayLunchStatus({
+            isEnabled: true,
+            message: null,
+          })
         }
       } catch (err) {
         console.error('Failed to fetch business hours:', err)
+        if (isMountedRef.current) {
+          setSundayLunchStatus({
+            isEnabled: true,
+            message: null,
+          })
+        }
       } finally {
         if (isMountedRef.current) {
           setHoursLoading(false)
@@ -133,6 +154,15 @@ const [email, setEmail] = useState('')
   
   // Fetch menu data
   useEffect(() => {
+    if (!sundayLunchStatus.isEnabled) {
+      if (isMountedRef.current) {
+        setMenu(null)
+        setMenuError(null)
+        setMenuLoading(false)
+      }
+      return
+    }
+
     const fetchMenu = async () => {
       try {
         if (isMountedRef.current) {
@@ -174,7 +204,7 @@ const [email, setEmail] = useState('')
     }
     
     fetchMenu()
-  }, [])
+  }, [sundayLunchStatus.isEnabled])
   
   // Initialize menu selections when party size changes
   useEffect(() => {
@@ -214,6 +244,8 @@ const [email, setEmail] = useState('')
   const mainCoursesTotal = menuSelections.reduce((sum, selection) => sum + selection.price_at_booking, 0)
   const sidesTotal = sideSelections.reduce((sum, selection) => sum + (selection.price_at_booking * selection.quantity), 0)
   const totalAmount = mainCoursesTotal + sidesTotal
+  const isSundayLunchEnabled = sundayLunchStatus.isEnabled
+  const formDisabled = !isSundayLunchEnabled
   
   // Update menu selection
   const updateMenuSelection = (index: number, field: keyof MenuSelection, value: any) => {
@@ -236,6 +268,13 @@ const [email, setEmail] = useState('')
     e.preventDefault()
     if (isMountedRef.current) {
       setError(null)
+    }
+
+    if (formDisabled) {
+      if (isMountedRef.current) {
+        setError('Sunday lunch bookings are currently unavailable. Please choose a regular dining booking instead.')
+      }
+      return
     }
     
     const trimmedEmail = email.trim()
@@ -479,6 +518,10 @@ const [email, setEmail] = useState('')
 
   // Get available Sundays (next 8 weeks) - filtered by kitchen availability
   const getAvailableSundays = () => {
+    if (!sundayLunchStatus.isEnabled) {
+      return []
+    }
+
     if (!businessHours) {
       return []
     }
@@ -548,6 +591,10 @@ const [email, setEmail] = useState('')
 
   // Get available times for a specific date
   const getAvailableTimesForDate = (selectedDate: string) => {
+    if (!sundayLunchStatus.isEnabled) {
+      return []
+    }
+
     if (!businessHours || !selectedDate) {
       return [
         '12:00', '12:30', '13:00', '13:30', '14:00',
@@ -640,7 +687,20 @@ const [email, setEmail] = useState('')
   
   return (
     <form onSubmit={handleSubmit} className={`w-full ${className || ''}`}>
-      {/* Booking reminder */}
+      {formDisabled && (
+        <Alert variant="info" className="mb-4">
+          <Icon name="info" className="h-4 w-4" />
+          <div>
+            <p className="font-medium">Sunday lunch bookings are paused</p>
+            <p className="text-sm mt-1">
+              {sundayLunchStatus.message || 'We\'re not taking Sunday lunch pre-orders for the selected period, but our regular menu is still available to book.'}
+            </p>
+          </div>
+        </Alert>
+      )}
+
+      <div className={formDisabled ? 'pointer-events-none opacity-50' : ''}>
+        {/* Booking reminder */}
       <Alert variant="warning" className="mb-4">
         <Icon name="alert" className="h-4 w-4" />
         <div>
@@ -666,7 +726,7 @@ const [email, setEmail] = useState('')
       </Alert>
       
       {/* Kitchen closure warning */}
-      {businessHours && getAvailableSundays().length === 0 && (
+      {businessHours && !formDisabled && getAvailableSundays().length === 0 && (
         <Alert variant="error" className="mb-4">
           <Icon name="alert" className="h-4 w-4" />
           <div>
@@ -1072,6 +1132,7 @@ const [email, setEmail] = useState('')
           </div>
         </CardBody>
       </Card>
+      </div>
       
       {error && (
         <Alert variant="error" className="mb-6">
@@ -1088,7 +1149,7 @@ const [email, setEmail] = useState('')
           type="submit"
           variant="primary"
           size="lg"
-          disabled={loading || !date || !time || menuSelections.some(s => !s.menu_item_id)}
+          disabled={loading || formDisabled || !date || !time || menuSelections.some(s => !s.menu_item_id)}
           className="w-full md:w-auto"
         >
           {loading ? (

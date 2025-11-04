@@ -15,13 +15,15 @@ import { trackBookingWizardStep, trackFormComplete, trackError } from '@/lib/gtm
 import type {
   BookingWizardData,
   AvailabilityData,
-  WizardFlowStep
+  WizardFlowStep,
+  EventsByDate
 } from './types'
 
 const BOOKING_DEBUG = process.env.NEXT_PUBLIC_BOOKING_DEBUG === 'true'
 
 interface BookingWizardProps {
   availabilityData: AvailabilityData
+  eventsByDate?: EventsByDate
   initialStep?: number
   preselectedDate?: string
   bookingType?: 'regular' | 'sunday_lunch'
@@ -58,6 +60,7 @@ const computeWizardSteps = (data: BookingWizardData): Step[] => {
 
 export function BookingWizard({
   availabilityData,
+  eventsByDate = {},
   initialStep = 1,
   preselectedDate,
   bookingType: initialBookingType,
@@ -319,6 +322,7 @@ export function BookingWizard({
           <WizardStep1Date
             value={bookingData.date}
             availabilityData={availabilityData}
+            eventsByDate={eventsByDate}
             onNext={(date) => {
               updateBookingData({ date })
               goNext()

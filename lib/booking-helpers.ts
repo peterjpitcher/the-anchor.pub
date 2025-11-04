@@ -24,7 +24,10 @@ export async function getAvailabilityForNext30Days(): Promise<AvailabilityData> 
   const days: DayAvailability[] = []
   const blockedDates: string[] = []
   const sundayRoastDates: string[] = []
-  
+  let sundayLunchEnabled = true
+  let sundayLunchMessage: string | null = null
+  let sundayLunchUpdatedAt: string | undefined
+
   const today = new Date()
   today.setHours(0, 0, 0, 0)
   
@@ -96,6 +99,17 @@ export async function getAvailabilityForNext30Days(): Promise<AvailabilityData> 
       if (businessHoursResponse.ok) {
         const hoursData = await businessHoursResponse.json()
         const businessHours = hoursData.data || hoursData
+        const sundayStatus = businessHours.serviceStatus?.sunday_lunch
+
+        if (sundayStatus) {
+          sundayLunchEnabled = sundayStatus.isEnabled !== false
+          sundayLunchMessage = sundayStatus.message || null
+          sundayLunchUpdatedAt = sundayStatus.updatedAt
+        } else {
+          sundayLunchEnabled = true
+          sundayLunchMessage = null
+          sundayLunchUpdatedAt = undefined
+        }
         
         // Process each date
         for (const dateStr of dates) {
@@ -174,9 +188,13 @@ export async function getAvailabilityForNext30Days(): Promise<AvailabilityData> 
           if (isClosed) {
             blockedDates.push(dateStr)
           }
-          
-          if (isSunday && !isClosed && !kitchenClosed) {
-            sundayRoastDates.push(dateStr)
+
+          if (isSunday) {
+            if (!sundayLunchEnabled) {
+              specialNote = sundayLunchMessage || 'Sunday lunch bookings are currently unavailable.'
+            } else if (!isClosed && !kitchenClosed) {
+              sundayRoastDates.push(dateStr)
+            }
           }
           
           days.push({
@@ -202,7 +220,12 @@ export async function getAvailabilityForNext30Days(): Promise<AvailabilityData> 
   const availabilityData: AvailabilityData = {
     days,
     blockedDates,
-    sundayRoastDates
+    sundayRoastDates,
+    sundayLunchStatus: {
+      isEnabled: sundayLunchEnabled,
+      message: sundayLunchMessage ?? null,
+      updatedAt: sundayLunchUpdatedAt,
+    },
   }
   
   // Update cache

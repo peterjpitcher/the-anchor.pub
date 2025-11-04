@@ -1,17 +1,20 @@
 'use client'
 
+import Link from 'next/link'
 import { useState } from 'react'
 import { cn } from '@/lib/utils'
 import { Icon } from '@/components/ui/Icon'
-import type { WizardStepProps, AvailabilityData } from './types'
+import { formatEventTime } from '@/lib/api'
+import type { WizardStepProps, AvailabilityData, EventsByDate, DateEventSummary } from './types'
 
 interface WizardStep1DateProps extends WizardStepProps {
   value: string
   availabilityData: AvailabilityData
+  eventsByDate: EventsByDate
   onNext: (date: string) => void
 }
 
-export function WizardStep1Date({ value, availabilityData, onNext }: WizardStep1DateProps) {
+export function WizardStep1Date({ value, availabilityData, eventsByDate, onNext }: WizardStep1DateProps) {
   const [selectedDate, setSelectedDate] = useState(value || '')
   const [error, setError] = useState('')
   
@@ -23,7 +26,20 @@ export function WizardStep1Date({ value, availabilityData, onNext }: WizardStep1
   
   // Generate calendar days
   const generateCalendarDays = () => {
-    const days = []
+    const days: Array<{
+      date: string
+      dayNum: number
+      dayName: string
+      month: string
+      isToday: boolean
+      isSunday: boolean
+      isBlocked: boolean
+      isDrinksOnly: boolean
+      hasRoast: boolean
+      specialNote?: string
+      hasEvent: boolean
+      events: DateEventSummary[]
+    }> = []
     const currentDate = new Date(today)
     
     while (currentDate <= maxDate) {
@@ -32,6 +48,7 @@ export function WizardStep1Date({ value, availabilityData, onNext }: WizardStep1
       const isBlocked = availabilityData.blockedDates.includes(dateStr)
       const isSunday = currentDate.getDay() === 0
       const isMonday = currentDate.getDay() === 1
+      const dayEvents = eventsByDate[dateStr] ?? []
       
       // Separate venue closed from kitchen closed
       // Use dayData if available, otherwise default to false (open)
@@ -57,7 +74,9 @@ export function WizardStep1Date({ value, availabilityData, onNext }: WizardStep1
         isBlocked: venueClosed, // Only block if venue is closed
         isDrinksOnly: drinksOnly, // New flag for drinks-only days
         hasRoast: isSunday && !venueClosed && !kitchenClosed, // Show Sunday lunch icon if Sunday and kitchen is open,
-        specialNote: dayData?.specialNote || (drinksOnly ? 'Kitchen closed - drinks only' : '')
+        specialNote: dayData?.specialNote || (drinksOnly ? 'Kitchen closed - drinks only' : ''),
+        hasEvent: dayEvents.length > 0,
+        events: dayEvents
       })
       
       currentDate.setDate(currentDate.getDate() + 1)
@@ -67,6 +86,7 @@ export function WizardStep1Date({ value, availabilityData, onNext }: WizardStep1
   }
   
   const calendarDays = generateCalendarDays()
+  const selectedEvents = selectedDate ? eventsByDate[selectedDate] || [] : []
   
   const handleDateSelect = (date: string, isBlocked: boolean, isDrinksOnly: boolean) => {
     if (isBlocked) return
@@ -142,45 +162,133 @@ export function WizardStep1Date({ value, availabilityData, onNext }: WizardStep1
           })()}
           
           {/* Calendar days */}
-          {calendarDays.map(day => (
-            <button
-              key={day.date}
-              type="button"
-              onClick={() => handleDateSelect(day.date, day.isBlocked || false, day.isDrinksOnly || false)}
-              disabled={day.isBlocked}
-              title={day.specialNote || ''}
-              className={cn(
-                'relative p-2 rounded-lg text-center transition-all',
-                'hover:scale-105 focus:outline-none focus:ring-2 focus:ring-anchor-gold',
-                'min-h-[60px] flex flex-col items-center justify-center',
-                selectedDate === day.date ? 'bg-anchor-green text-white' :
-                day.isBlocked ? 'bg-gray-100 text-gray-400 cursor-not-allowed' :
-                day.isDrinksOnly ? 'bg-blue-50 hover:bg-blue-100 border border-blue-200' :
-                day.isSunday && !day.isBlocked && !day.isDrinksOnly ? 'bg-amber-50 hover:bg-amber-100 border border-amber-200' :
-                day.isToday ? 'bg-anchor-cream border-2 border-anchor-gold' :
-                'bg-white hover:bg-gray-50 border border-gray-200'
-              )}
-            >
-              <span className="text-sm font-medium">{day.dayNum}</span>
-              {day.isToday && (
-                <span className="text-xs mt-1">Today</span>
-              )}
-              {day.hasRoast && !day.isBlocked && !day.isDrinksOnly && (
-                <Icon name="utensils" className="w-3 h-3 mt-1" />
-              )}
-              {day.isDrinksOnly && (
-                <Icon name="wine" className="w-3 h-3 mt-1 text-blue-500" />
-              )}
-              {day.isBlocked && (
-                <Icon name="close" className="w-3 h-3 mt-1 text-red-400" />
-              )}
-            </button>
-          ))}
+          {calendarDays.map(day => {
+            const tooltipParts: string[] = []
+            if (day.specialNote) {
+              tooltipParts.push(day.specialNote)
+            }
+            if (day.hasEvent && day.events.length > 0) {
+              const eventNames = day.events.map(event => event.name).join(', ')
+              tooltipParts.push(
+                day.events.length > 1
+                  ? `${day.events.length} events: ${eventNames}`
+                  : `Event: ${eventNames}`
+              )
+            }
+            const tooltip = tooltipParts.join(' • ')
+            const isSelected = selectedDate === day.date
+
+            return (
+              <button
+                key={day.date}
+                type="button"
+                onClick={() => handleDateSelect(day.date, day.isBlocked || false, day.isDrinksOnly || false)}
+                disabled={day.isBlocked}
+                title={tooltip || undefined}
+                className={cn(
+                  'relative p-2 rounded-lg text-center transition-all hover:scale-105 focus:outline-none focus:ring-2 focus:ring-anchor-gold',
+                  'min-h-[60px] flex flex-col items-center justify-center border',
+                  isSelected && 'bg-anchor-green text-white border-anchor-green',
+                  !isSelected && day.isBlocked && 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed',
+                  !isSelected && day.isDrinksOnly && 'bg-blue-50 hover:bg-blue-100 border-blue-200',
+                  !isSelected && !day.isBlocked && !day.isDrinksOnly && day.hasEvent && 'bg-purple-50 hover:bg-purple-100 border-purple-200',
+                  !isSelected && !day.isBlocked && !day.isDrinksOnly && !day.hasEvent && day.isSunday && 'bg-amber-50 hover:bg-amber-100 border-amber-200',
+                  !isSelected && !day.isBlocked && !day.isDrinksOnly && !day.hasEvent && day.isToday && 'bg-anchor-cream border-2 border-anchor-gold',
+                  !isSelected && !day.isBlocked && !day.isDrinksOnly && !day.hasEvent && !day.isSunday && !day.isToday && 'bg-white hover:bg-gray-50 border-gray-200'
+                )}
+              >
+                <span className="text-sm font-medium">{day.dayNum}</span>
+                {day.hasEvent && !day.isBlocked && (
+                  <Icon
+                    name="sparkles"
+                    className={cn(
+                      'w-3 h-3 mt-1',
+                      isSelected ? 'text-white' : 'text-purple-500'
+                    )}
+                  />
+                )}
+                {day.isToday && (
+                  <span className="text-xs mt-1">Today</span>
+                )}
+                {day.hasRoast && !day.isBlocked && !day.isDrinksOnly && (
+                  <Icon name="utensils" className="w-3 h-3 mt-1" />
+                )}
+                {day.isDrinksOnly && (
+                  <Icon name="wine" className="w-3 h-3 mt-1 text-blue-500" />
+                )}
+                {day.isBlocked && (
+                  <Icon name="close" className="w-3 h-3 mt-1 text-red-400" />
+                )}
+              </button>
+            )
+          })}
         </div>
       </div>
       
+      {/* Event notice for selected date */}
+      {selectedDate && selectedEvents.length > 0 && (
+        <div className="flex gap-4 rounded-xl border border-purple-200 bg-purple-50/70 p-4">
+          <div className="mt-1">
+            <Icon name="sparkles" className="h-6 w-6 text-purple-500" />
+          </div>
+          <div className="space-y-3">
+            <div>
+              <h3 className="text-lg font-semibold text-anchor-green">
+                {selectedEvents.length > 1 ? 'We have events on this date' : 'We have an event on this date'}
+              </h3>
+              <p className="text-sm text-gray-700">
+                We&apos;re still open as usual, so you&apos;re welcome to book a table as normal. If you&apos;d like to join in, take a look at the event details below.
+              </p>
+            </div>
+            <ul className="space-y-3">
+              {selectedEvents.map(event => {
+                const eventTime = event.startDate ? formatEventTime(event.startDate) : ''
+                const eventHref = event.slug ? `/events/${event.slug}` : `/events/${event.id}`
+                
+                return (
+                  <li
+                    key={event.id}
+                    className="rounded-lg border border-purple-100 bg-white p-3 shadow-sm"
+                  >
+                    <div className="flex flex-wrap items-center justify-between gap-2">
+                      <Link
+                        href={eventHref}
+                        className="text-anchor-gold font-semibold hover:text-anchor-gold-light"
+                      >
+                        {event.name}
+                      </Link>
+                      {eventTime && (
+                        <span className="text-sm text-gray-600">
+                          Starts {eventTime}
+                        </span>
+                      )}
+                    </div>
+                    {event.shortDescription && (
+                      <p className="mt-1 text-sm text-gray-700">
+                        {event.shortDescription}
+                      </p>
+                    )}
+                    <Link
+                      href={eventHref}
+                      className="mt-2 inline-flex items-center gap-1 text-sm text-anchor-green hover:text-anchor-gold"
+                    >
+                      View event details
+                      <Icon name="arrowRight" className="h-3.5 w-3.5" />
+                    </Link>
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
+        </div>
+      )}
+      
       {/* Legend */}
       <div className="flex flex-wrap gap-4 text-sm text-gray-600">
+        <div className="flex items-center gap-2">
+          <div className="w-4 h-4 rounded border border-purple-200 bg-purple-50" />
+          <span>Special event running</span>
+        </div>
         <div className="flex items-center gap-2">
           <div className="w-4 h-4 bg-amber-50 rounded border border-amber-200" />
           <span>Sunday (Lunch available)</span>

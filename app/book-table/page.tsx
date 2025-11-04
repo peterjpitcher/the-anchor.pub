@@ -7,6 +7,9 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { PhoneButton } from '@/components/PhoneButton'
 import { getAvailabilityForNext30Days } from '@/lib/booking-helpers'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
+import { getUpcomingEvents, getEventShortDescription } from '@/lib/api'
+import { UpcomingEvents } from '@/components/UpcomingEvents'
+import type { EventsByDate, DateEventSummary } from '@/components/features/BookingWizard/types'
 
 export const metadata: Metadata = {
   title: 'Book a Table Online | The Anchor - Heathrow Pub & Dining',
@@ -25,7 +28,59 @@ export default async function BookPage({
   searchParams: { step?: string; date?: string; type?: string }
 }) {
   // Pre-load availability data on server
-  const availabilityData = await getAvailabilityForNext30Days()
+  const [availabilityData, upcomingEvents] = await Promise.all([
+    getAvailabilityForNext30Days(),
+    getUpcomingEvents(50)
+  ])
+  
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  const startIso = today.toISOString().split('T')[0]
+  const endDate = new Date(today)
+  endDate.setDate(endDate.getDate() + 30)
+  const endIso = endDate.toISOString().split('T')[0]
+  
+  const eventsByDate: EventsByDate = upcomingEvents
+    .filter(event => {
+      if (!event.startDate) {
+        return false
+      }
+      
+      const start = new Date(event.startDate)
+      if (Number.isNaN(start.getTime())) {
+        return false
+      }
+      
+      const eventIso = start.toISOString().split('T')[0]
+      return eventIso >= startIso && eventIso <= endIso
+    })
+    .reduce<EventsByDate>((acc, event) => {
+      const start = new Date(event.startDate)
+      const eventIso = start.toISOString().split('T')[0]
+      
+      const eventPath = event.slug ? `/events/${event.slug}` : `/events/${event.id}`
+
+      const summary: DateEventSummary = {
+        id: event.id,
+        name: event.name,
+        startDate: event.startDate,
+        slug: event.slug,
+        url: eventPath,
+        shortDescription: getEventShortDescription(event, 200)
+      }
+      
+      if (!acc[eventIso]) {
+        acc[eventIso] = [summary]
+      } else {
+        acc[eventIso] = [...acc[eventIso], summary].sort((a, b) => {
+          const aTime = new Date(a.startDate).getTime()
+          const bTime = new Date(b.startDate).getTime()
+          return aTime - bTime
+        })
+      }
+      
+      return acc
+    }, {})
   
   // Determine initial step from URL params (for direct linking)
   const initialStep = parseInt(searchParams.step || '1', 10)
@@ -268,6 +323,7 @@ export default async function BookPage({
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100">
               <BookingWizard
                 availabilityData={availabilityData}
+                eventsByDate={eventsByDate}
                 initialStep={initialStep}
                 preselectedDate={preselectedDate}
                 bookingType={bookingType}
@@ -316,6 +372,20 @@ export default async function BookPage({
               </ul>
             </div>
           </aside>
+        </div>
+      </Section>
+
+      <Section background="white" spacing="xl" container containerSize="lg">
+        <div className="mx-auto max-w-3xl text-center">
+          <PageTitle className="text-anchor-green">
+            What&apos;s On at The Anchor
+          </PageTitle>
+          <p className="mt-4 text-lg text-gray-700">
+            Browse our upcoming events, live entertainment, and special evenings. Every event night still has tables for regular diners, so feel free to book as normal or dive into the details if you fancy joining the fun.
+          </p>
+        </div>
+        <div className="mt-12">
+          <UpcomingEvents />
         </div>
       </Section>
     </>

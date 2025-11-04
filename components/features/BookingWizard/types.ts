@@ -91,7 +91,23 @@ export interface AvailabilityData {
   days: DayAvailability[]
   blockedDates: string[]
   sundayRoastDates: string[]
+  sundayLunchStatus?: {
+    isEnabled: boolean
+    message?: string | null
+    updatedAt?: string
+  }
 }
+
+export interface DateEventSummary {
+  id: string
+  name: string
+  startDate: string
+  slug?: string
+  url?: string
+  shortDescription?: string | null
+}
+
+export type EventsByDate = Record<string, DateEventSummary[]>
 
 export interface WizardStepProps {
   onNext: (data: any) => void

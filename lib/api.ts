@@ -270,6 +270,15 @@ export interface BusinessHours {
     note?: string
     kitchen?: KitchenStatus
   }>
+  serviceStatus?: Record<
+    string,
+    {
+      displayName: string
+      isEnabled: boolean
+      message: string | null
+      updatedAt: string
+    }
+  >
   currentStatus: {
     isOpen: boolean
     kitchenOpen: boolean
