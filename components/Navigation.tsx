@@ -557,7 +557,7 @@ export function Navigation({
               {items.map(item => renderLink(item))}
             </div>
 
-            {(!showUtilityRow && (ctaButton || secondaryCtaButton)) && (
+            {(!showUtilityRow && (ctaButton || secondaryCtaButton || christmasCtaButton)) && (
               <div className="flex items-center gap-3 flex-shrink-0">
                 {renderPrimaryCTA()}
                 {renderSecondaryCTA(false)}
