@@ -45,6 +45,7 @@ export interface BookingWizardData {
   
   // Step 2 (Sunday only)
   bookingType: 'regular' | 'sunday_lunch'
+  sundayLunchAvailable: boolean
   
   // Step 2b (Sunday lunch only)
   menuSelections?: MenuSelectionPayload[]

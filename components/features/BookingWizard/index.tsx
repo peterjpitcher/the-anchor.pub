@@ -36,12 +36,13 @@ interface Step {
 }
 
 const computeWizardSteps = (data: BookingWizardData): Step[] => {
-  const isSunday = data.date ? new Date(data.date).getDay() === 0 : false
-  const isSundayLunch = data.bookingType === 'sunday_lunch'
+  const isSunday = data.date ? new Date(`${data.date}T12:00:00`).getDay() === 0 : false
+  const sundayLunchEnabled = isSunday && data.sundayLunchAvailable
+  const isSundayLunch = data.bookingType === 'sunday_lunch' && sundayLunchEnabled
 
   const steps: Step[] = [{ type: 'date', label: 'Select Date' }]
 
-  if (isSunday) {
+  if (sundayLunchEnabled) {
     steps.push({ type: 'sunday_offer', label: 'Sunday Options' })
   }
 
@@ -70,9 +71,21 @@ export function BookingWizard({
   const searchParams = useSearchParams()
   const wizardRef = useRef<HTMLDivElement | null>(null)
 
+  const initialDate = preselectedDate || ''
+  const isInitialSunday = initialDate ? new Date(`${initialDate}T12:00:00`).getDay() === 0 : false
+  const initialSundayLunchAvailable =
+    isInitialSunday && availabilityData.sundayRoastDates.includes(initialDate)
+  const resolvedInitialBookingType =
+    initialBookingType === 'sunday_lunch'
+      ? (initialDate
+          ? (initialSundayLunchAvailable ? 'sunday_lunch' : 'regular')
+          : 'sunday_lunch')
+      : initialBookingType || 'regular'
+
   const initialBookingData: BookingWizardData = {
-    date: preselectedDate || '',
-    bookingType: initialBookingType || 'regular',
+    date: initialDate,
+    bookingType: resolvedInitialBookingType,
+    sundayLunchAvailable: initialSundayLunchAvailable,
     menuSelections: undefined,
     menuSummary: undefined,
     partySize: 2,
@@ -209,15 +222,32 @@ export function BookingWizard({
       const newData: BookingWizardData = { ...prev, ...data }
 
       if (typeof data.date === 'string') {
-        const parsedDate = new Date(`${data.date}T12:00:00`)
-        const isValidDate = !Number.isNaN(parsedDate.getTime())
-        const isSunday = isValidDate ? parsedDate.getDay() === 0 : false
+        const nextDate = data.date
 
-        if (!isSunday) {
+        if (nextDate) {
+          const parsedDate = new Date(`${nextDate}T12:00:00`)
+          const isValidDate = !Number.isNaN(parsedDate.getTime())
+          const isSunday = isValidDate && parsedDate.getDay() === 0
+          const sundayLunchAvailableForDate =
+            isSunday && availabilityData.sundayRoastDates.includes(nextDate)
+
+          newData.sundayLunchAvailable = sundayLunchAvailableForDate
+
+          if (!isSunday || !sundayLunchAvailableForDate) {
+            newData.bookingType = 'regular'
+            newData.menuSelections = undefined
+            newData.menuSummary = undefined
+          }
+        } else {
+          newData.sundayLunchAvailable = false
           newData.bookingType = 'regular'
           newData.menuSelections = undefined
           newData.menuSummary = undefined
         }
+      }
+
+      if (data.bookingType === 'sunday_lunch' && !newData.sundayLunchAvailable) {
+        newData.bookingType = 'regular'
       }
 
       if (BOOKING_DEBUG) {
@@ -225,7 +255,7 @@ export function BookingWizard({
       }
       return newData
     })
-  }, [])
+  }, [availabilityData])
 
   const goToStepType = useCallback((stepType: WizardFlowStep) => {
     const index = steps.findIndex(step => step.type === stepType)
