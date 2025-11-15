@@ -3,7 +3,6 @@
 import { useState, useEffect, useMemo } from 'react'
 import { Icon } from '@/components/ui/Icon'
 import { Alert } from '@/components/ui/feedback/Alert'
-import { Button } from '@/components/ui/primitives/Button'
 import { Badge } from '@/components/ui/primitives/Badge'
 import type { MenuSelectionPayload, MenuSummary } from './types'
 
@@ -28,11 +27,12 @@ interface MenuData {
   sides: MenuItem[]
 }
 
-interface WizardStep2bMenuSelectionProps {
+interface SundayMenuSelectionProps {
   partySize: number
   date?: string
-  onNext: (result: { payload: MenuSelectionPayload[]; summary: MenuSummary }) => void
-  onBack: () => void
+  existingSummary?: MenuSummary
+  onChange: (payload: MenuSelectionPayload[], summary: MenuSummary) => void
+  onValidityChange?: (isValid: boolean) => void
 }
 
 const toMenuItem = (item: any, options: { inferIncluded?: boolean } = {}): MenuItem => {
@@ -54,12 +54,13 @@ const toMenuItem = (item: any, options: { inferIncluded?: boolean } = {}): MenuI
   }
 }
 
-export function WizardStep2bMenuSelection({ 
+export function SundayMenuSelection({
   partySize,
   date,
-  onNext, 
-  onBack 
-}: WizardStep2bMenuSelectionProps) {
+  existingSummary,
+  onChange,
+  onValidityChange
+}: SundayMenuSelectionProps) {
   const [menuData, setMenuData] = useState<MenuData>({ mains: [], sides: [] })
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -152,6 +153,44 @@ export function WizardStep2bMenuSelection({
     )
   }, [menuData.sides])
 
+  useEffect(() => {
+    if (!existingSummary || menuData.mains.length === 0) {
+      return
+    }
+
+    setSelections(prev =>
+      Array.from({ length: partySize }, (_, index) => {
+        const summaryGuest = existingSummary.guests[index]
+        if (!summaryGuest) {
+          return {
+            guest_name: `Guest ${index + 1}`,
+            menu_item_id: prev[index]?.menu_item_id || ''
+          }
+        }
+
+        const matchedMain = menuData.mains.find(item => item.name === summaryGuest.mainName)
+        return {
+          guest_name: summaryGuest.guestName || `Guest ${index + 1}`,
+          menu_item_id: matchedMain?.id || ''
+        }
+      })
+    )
+
+    setSideSelections(prev => {
+      const base = menuData.sides
+        .filter(side => !side.included)
+        .map(side => {
+          const existingExtra = existingSummary.extras.find(extra => extra.name === side.name)
+          return {
+            menu_item_id: side.id,
+            quantity: existingExtra?.quantity ?? 0
+          }
+        })
+
+      return base.length > 0 ? base : prev
+    })
+  }, [existingSummary, menuData.mains, menuData.sides, partySize])
+
   const updateSelection = (index: number, field: 'guest_name' | 'menu_item_id', value: string) => {
     setSelections(prev => {
       const next = [...prev]
@@ -162,7 +201,6 @@ export function WizardStep2bMenuSelection({
 
   const optionalSides = menuData.sides.filter(side => !side.included)
   const includedSides = menuData.sides.filter(side => side.included)
-  const disableContinue = selections.some(selection => !selection.menu_item_id)
 
   const updateSideSelection = (sideId: string, quantity: number) => {
     setSideSelections(prev =>
@@ -252,22 +290,16 @@ export function WizardStep2bMenuSelection({
   }, [selections, sideSelections, includedSides, optionalSides, partySize, menuData.mains])
 
   const totals = menuComputation.summary.totals
+  const allGuestsSelected = selections.every(selection => selection.menu_item_id)
 
-  const handleContinue = () => {
-    const allSelected = selections.every(selection => selection.menu_item_id)
-    if (!allSelected) {
-      alert('Please select a main course for each guest before continuing.')
-      return
+  useEffect(() => {
+    const isValid = allGuestsSelected && menuComputation.payload.length > 0
+    onValidityChange?.(isValid)
+
+    if (isValid) {
+      onChange(menuComputation.payload, menuComputation.summary)
     }
-
-    const { payload, summary } = menuComputation
-    if (payload.length === 0) {
-      alert('Please select a main course for each guest before continuing.')
-      return
-    }
-
-    onNext({ payload, summary })
-  }
+  }, [allGuestsSelected, menuComputation, onChange, onValidityChange])
 
   // Show loading state
   if (loading) {
@@ -296,12 +328,9 @@ export function WizardStep2bMenuSelection({
             })}
           </p>
         )}
-        <button 
-          onClick={onBack}
-          className="px-6 py-2 bg-anchor-green text-white rounded-lg hover:bg-anchor-green/90 transition-colors"
-        >
-          ← Go Back to Previous Step
-        </button>
+        <p className="text-sm text-gray-600">
+          Give us a ring on 01753 682707 and we&apos;ll get you booked manually.
+        </p>
       </div>
     )
   }
@@ -463,22 +492,17 @@ export function WizardStep2bMenuSelection({
         </p>
       </Alert>
 
-      <div className="flex flex-col sm:flex-row gap-3 justify-between">
-        <Button type="button" variant="outline" onClick={onBack} className="sm:w-auto">
-          <Icon name="arrowLeft" className="w-4 h-4 mr-2" />
-          Back
-        </Button>
-        <Button
-          type="button"
-          variant="primary"
-          onClick={handleContinue}
-          className="sm:w-auto"
-          disabled={disableContinue}
-        >
-          Continue
-          <Icon name="arrowRight" className="w-4 h-4 ml-2" />
-        </Button>
-      </div>
+      <Alert variant="info">
+        <p className="font-medium">Booking deadline</p>
+        <p className="text-sm mt-1">
+          Sunday lunch bookings, including all pre-orders, must be confirmed by 1pm on Saturday so we can prepare everything fresh.
+        </p>
+        {!allGuestsSelected && (
+          <p className="text-sm mt-2 text-amber-800">
+            Choose a roast for every guest to enable the confirmation button.
+          </p>
+        )}
+      </Alert>
     </div>
   )
 }

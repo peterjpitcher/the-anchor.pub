@@ -4,9 +4,10 @@ import { useState, useEffect, useCallback, useMemo, useRef, memo } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useInView } from 'react-intersection-observer'
-import { formatEventDate, formatEventTime, formatPrice, getEventShortDescription, formatDoorTime, type Event } from '@/lib/api'
+import { formatEventDate, formatEventTime, formatPrice, getEventShortDescription, formatDoorTime } from '@/lib/api'
 import EventAvailability from '@/components/EventAvailability'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
+import type { DisplayEvent } from '@/types/display-event'
 
 const MAX_URGENCY_DAYS = 3
 
@@ -31,7 +32,7 @@ interface EventTimingInfo {
   urgency: EventUrgency | null
 }
 
-function getEventTimingInfo(event: Event): EventTimingInfo | null {
+function getEventTimingInfo(event: DisplayEvent): EventTimingInfo | null {
   const eventDate = new Date(event.startDate)
   if (Number.isNaN(eventDate.getTime())) {
     return null
@@ -92,8 +93,52 @@ function getEventTimingInfo(event: Event): EventTimingInfo | null {
   }
 }
 
+function formatTimeChangeDate(startDate?: string | null, endDate?: string | null): string {
+  if (!startDate) return 'Date TBC'
+  const start = new Date(`${startDate}T00:00:00Z`)
+  if (!endDate || endDate === startDate) {
+    return start.toLocaleDateString('en-GB', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long'
+    })
+  }
+
+  const end = new Date(`${endDate}T00:00:00Z`)
+  const sameMonthYear =
+    start.getUTCFullYear() === end.getUTCFullYear() &&
+    start.getUTCMonth() === end.getUTCMonth()
+
+  const startLabel = start.toLocaleDateString('en-GB', {
+    weekday: 'short',
+    day: 'numeric',
+    month: 'short'
+  })
+
+  const endLabel = end.toLocaleDateString('en-GB', {
+    weekday: 'short',
+    day: 'numeric',
+    month: sameMonthYear ? 'short' : 'short',
+    year: sameMonthYear ? undefined : 'numeric'
+  })
+
+  return `${startLabel} – ${endLabel}`
+}
+
+function formatSimpleTime(time?: string | null): string | null {
+  if (!time) return null
+  const [rawHours, rawMinutes] = time.split(':')
+  const hours = Number(rawHours)
+  if (Number.isNaN(hours)) return null
+  const minutes = Number(rawMinutes ?? '0')
+  const period = hours >= 12 ? 'pm' : 'am'
+  const displayHour = hours % 12 || 12
+  const minutePart = minutes === 0 ? '' : `:${minutes.toString().padStart(2, '0')}`
+  return `${displayHour}${minutePart}${period}`
+}
+
 interface EventCardProps {
-  event: Event
+  event: DisplayEvent
   index: number
 }
 
@@ -104,10 +149,36 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
     rootMargin: '100px'
   })
 
-  const startTime = formatEventTime(event.startDate)
-  const eventDate = formatEventDate(event.startDate)
+  const isTimeChange = !!event.isTimeChange
   const eventImage = event.image?.[0] || event.heroImageUrl || DEFAULT_EVENT_IMAGE
-  const timingInfo = getEventTimingInfo(event)
+  const timingInfo = isTimeChange ? null : getEventTimingInfo(event)
+
+  const startTime = isTimeChange
+    ? event.timeChangeStatus === 'closed'
+      ? 'Closed'
+      : formatSimpleTime(event.timeChangeOpens) || 'TBC'
+    : formatEventTime(event.startDate)
+
+  const endTime = isTimeChange
+    ? event.timeChangeStatus === 'closed'
+      ? null
+      : formatSimpleTime(event.timeChangeCloses)
+    : null
+
+  const eventDate = isTimeChange
+    ? formatTimeChangeDate(event.timeChangeDate, event.timeChangeRangeEnd)
+    : formatEventDate(event.startDate)
+
+  const timeChangeSchedule =
+    event.timeChangeStatus === 'closed'
+      ? 'Closed'
+      : `Open ${event.timeChangeOpens || 'TBC'} - ${event.timeChangeCloses || 'TBC'}`
+
+  const timeChangeMessage =
+    event.timeChangeNote ||
+    (event.timeChangeStatus === 'closed'
+      ? 'The venue is closed on this date.'
+      : 'Opening hours have been adjusted for this date.')
 
   return (
     <div ref={ref} className="bg-white rounded-2xl shadow-lg overflow-hidden">
@@ -122,7 +193,12 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
               </div>
               <div className="flex-shrink-0 text-right">
                 <p className="text-lg sm:text-xl font-bold text-white">{startTime}</p>
-                {formatDoorTime(event.doorTime) && (
+                {endTime && (
+                  <p className="text-lg sm:text-xl font-bold text-white/90">
+                    → {endTime}
+                  </p>
+                )}
+                {!isTimeChange && formatDoorTime(event.doorTime) && (
                   <p className="text-sm sm:text-xs opacity-75 text-white/75">{formatDoorTime(event.doorTime)}</p>
                 )}
               </div>
@@ -133,18 +209,20 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
           <div className="sm:hidden p-4">
             <div className="flex items-start gap-3">
               {/* Mobile Thumbnail */}
-              <Link href={`/events/${event.slug || event.id}`} className="flex-shrink-0">
-                <div className="relative w-20 h-20 rounded-lg overflow-hidden">
-                  <Image
-                    src={eventImage}
-                    alt={`${event.name} event promotional image - ${event.category?.name || 'entertainment'} at The Anchor`}
-                    fill
-                    className="object-contain"
-                    sizes="80px"
-                    loading={index < 3 ? "eager" : "lazy"}
-                  />
-                </div>
-              </Link>
+              {isTimeChange ? null : (
+                <Link href={`/events/${event.slug || event.id}`} className="flex-shrink-0">
+                  <div className="relative w-20 h-20 rounded-lg overflow-hidden">
+                    <Image
+                      src={eventImage}
+                      alt={`${event.name} event promotional image - ${event.category?.name || 'entertainment'} at The Anchor`}
+                      fill
+                      className="object-contain"
+                      sizes="80px"
+                      loading={index < 3 ? "eager" : "lazy"}
+                    />
+                  </div>
+                </Link>
+              )}
               
               {/* Mobile Content */}
               <div className="flex-1 min-w-0">
@@ -173,12 +251,12 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
                   </div>
                 )}
                 <p className="text-sm text-gray-700 line-clamp-2 mb-2">
-                  {getEventShortDescription(event)}
+                  {isTimeChange ? timeChangeMessage : getEventShortDescription(event)}
                 </p>
                 
                 {/* Mobile Meta Info */}
                 <div className="flex flex-wrap items-center gap-2 text-sm sm:text-xs mb-3">
-                  {event.offers && (
+                  {!isTimeChange && event.offers && (
                     <span className={event.offers.price === "0" ? "text-green-600 font-semibold" : "text-anchor-gold font-semibold"}>
                       {event.offers.price === "0" ? "FREE TICKETS - Book while they\'re available" : formatPrice(event.offers.price, event.offers.priceCurrency)}
                     </span>
@@ -197,19 +275,21 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
                     </span>
                   )}
                   
-                  <EventAvailability eventId={event.id} />
+                  {!isTimeChange && <EventAvailability eventId={event.id} />}
                 </div>
                 
                 {/* Mobile CTA */}
-                <Link 
-                  href={`/events/${event.slug || event.id}`}
-                  className="inline-flex items-center text-anchor-gold font-semibold text-sm"
-                >
-                  View {event.name} Details
-                  <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </Link>
+                {!isTimeChange && (
+                  <Link 
+                    href={`/events/${event.slug || event.id}`}
+                    className="inline-flex items-center text-anchor-gold font-semibold text-sm"
+                  >
+                    View {event.name} Details
+                    <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                )}
               </div>
             </div>
           </div>
@@ -218,18 +298,20 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
           <div className="hidden sm:block p-6">
             <div className="flex items-start gap-4">
               {/* Event Image */}
-              <Link href={`/events/${event.slug || event.id}`} className="flex-shrink-0">
-                <div className="relative w-32 h-32 rounded-lg overflow-hidden">
-                  <Image
-                    src={eventImage}
-                    alt={`${event.name} event promotional image - ${event.category?.name || 'entertainment'} at The Anchor`}
-                    fill
-                    className="object-contain hover:scale-105 transition-transform duration-300"
-                    sizes="128px"
-                    loading={index < 3 ? "eager" : "lazy"}
-                  />
-                </div>
-              </Link>
+              {isTimeChange ? null : (
+                <Link href={`/events/${event.slug || event.id}`} className="flex-shrink-0">
+                  <div className="relative w-32 h-32 rounded-lg overflow-hidden">
+                    <Image
+                      src={eventImage}
+                      alt={`${event.name} event promotional image - ${event.category?.name || 'entertainment'} at The Anchor`}
+                      fill
+                      className="object-contain hover:scale-105 transition-transform duration-300"
+                      sizes="128px"
+                      loading={index < 3 ? "eager" : "lazy"}
+                    />
+                  </div>
+                </Link>
+              )}
               
               <div className="flex-1">
                 {timingInfo && (
@@ -257,11 +339,11 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
                   </div>
                 )}
                 <p className="text-gray-700 mb-3">
-                  {getEventShortDescription(event)}
+                  {isTimeChange ? timeChangeMessage : getEventShortDescription(event)}
                 </p>
                 
                 {/* Event highlights if available */}
-                {event.highlights && event.highlights.length > 0 && (
+                {!isTimeChange && event.highlights && event.highlights.length > 0 && (
                   <div className="flex flex-wrap gap-2 mb-3">
                     {event.highlights.slice(0, 3).map((highlight, idx) => (
                       <span key={idx} className="text-sm sm:text-xs bg-gray-100 px-2 py-1 rounded-full text-gray-700 whitespace-nowrap">
@@ -272,24 +354,29 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
                 )}
                 
                 <div className="flex flex-wrap items-center gap-4 text-sm">
-                  {event.offers && (
+                  {!isTimeChange && event.offers && (
                     <span className={event.offers.price === "0" ? "text-green-600 font-semibold" : "text-anchor-gold font-semibold"}>
                       {event.offers.price === "0" ? "FREE TICKETS - Book while they\'re available" : formatPrice(event.offers.price, event.offers.priceCurrency)}
                     </span>
                   )}
                   
                   {/* Real-time availability */}
-                  <EventAvailability eventId={event.id} />
+                  {!isTimeChange && <EventAvailability eventId={event.id} />}
                   
-                  {event.performer && (
+                  {!isTimeChange && event.performer && (
                     <span className="text-gray-700">
                       Featuring: {event.performer.name}
                     </span>
                   )}
                   
-                  {event.duration && (
+                  {!isTimeChange && event.duration && (
                     <span className="text-gray-700 text-sm sm:text-xs">
                       Duration: {event.duration.replace('PT', '').replace('H', 'h ').replace('M', 'm')}
+                    </span>
+                  )}
+                  {isTimeChange && (
+                    <span className="inline-flex items-center gap-2 text-sm font-semibold text-anchor-green">
+                      ⏰ {timeChangeSchedule}
                     </span>
                   )}
                 </div>
@@ -309,22 +396,24 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
                       </span>
                     )}
                     
-                    {event.video && event.video.length > 0 && (
+                    {!isTimeChange && event.video && event.video.length > 0 && (
                       <span className="text-sm sm:text-xs text-gray-700">
                         📹 Video available
                       </span>
                     )}
                   </div>
                   
-                  <Link 
-                    href={`/events/${event.slug || event.id}`}
-                    className="inline-flex items-center text-anchor-gold hover:text-anchor-gold-light font-semibold text-sm"
-                  >
-                    View {event.name} Details & Book
-                    <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </Link>
+                  {!isTimeChange && (
+                    <Link 
+                      href={`/events/${event.slug || event.id}`}
+                      className="inline-flex items-center text-anchor-gold hover:text-anchor-gold-light font-semibold text-sm"
+                    >
+                      View {event.name} Details & Book
+                      <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>
@@ -356,7 +445,7 @@ const BATCH_SIZE = 10
 const OVERSCAN = 3 // Render this many items above/below viewport
 
 interface FilteredUpcomingEventsClientProps {
-  events: Event[]
+  events: DisplayEvent[]
   categorySlug?: string | null
 }
 

@@ -1,9 +1,5 @@
 export type WizardFlowStep =
-  | 'date'
-  | 'sunday_offer'
-  | 'party_size'
-  | 'menu_selection'
-  | 'time'
+  | 'plan_visit'
   | 'details'
   | 'confirm'
 

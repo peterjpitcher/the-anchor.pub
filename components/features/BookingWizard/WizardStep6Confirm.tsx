@@ -71,7 +71,7 @@ export function WizardStep6Confirm({
           </div>
           <button
             type="button"
-            onClick={() => onEdit('date')}
+            onClick={() => onEdit('plan_visit')}
             className="text-sm text-anchor-green hover:underline"
           >
             Edit
@@ -94,7 +94,7 @@ export function WizardStep6Confirm({
           </div>
           <button
             type="button"
-            onClick={() => onEdit('party_size')}
+            onClick={() => onEdit('plan_visit')}
             className="text-sm text-anchor-green hover:underline"
           >
             Edit
@@ -140,7 +140,7 @@ export function WizardStep6Confirm({
             </div>
             <button
               type="button"
-              onClick={() => onEdit('menu_selection')}
+              onClick={() => onEdit('details')}
               className="text-sm text-anchor-green hover:underline"
             >
               Edit

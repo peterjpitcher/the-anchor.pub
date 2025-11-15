@@ -9,11 +9,7 @@ interface WizardProgressProps {
 }
 
 const STEP_LABELS: Record<WizardFlowStep, string> = {
-  date: 'Date',
-  sunday_offer: 'Sunday?',
-  party_size: 'Party',
-  menu_selection: 'Menu',
-  time: 'Time',
+  plan_visit: 'Plan Visit',
   details: 'Details',
   confirm: 'Confirm'
 }

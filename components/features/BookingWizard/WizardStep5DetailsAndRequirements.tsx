@@ -1,8 +1,11 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Icon } from '@/components/ui/Icon'
 import { Alert } from '@/components/ui/feedback/Alert'
+import { SundayMenuSelection } from './WizardStep2bMenuSelection'
+import { cn } from '@/lib/utils'
+import type { MenuSelectionPayload, MenuSummary } from './types'
 
 interface WizardStep5DetailsAndRequirementsProps {
   firstName: string
@@ -11,6 +14,14 @@ interface WizardStep5DetailsAndRequirementsProps {
   email: string
   marketingOptIn: boolean
   specialRequirements: string
+  bookingType: 'regular' | 'sunday_lunch'
+  sundayLunchAvailable: boolean
+  selectedDate: string
+  partySize: number
+  menuSummary?: MenuSummary
+  menuSelections?: MenuSelectionPayload[]
+  onBookingTypeChange: (type: 'regular' | 'sunday_lunch') => void
+  onMenuSelectionChange: (payload?: MenuSelectionPayload[], summary?: MenuSummary) => void
   onNext: (data: {
     firstName: string
     lastName: string
@@ -18,6 +29,9 @@ interface WizardStep5DetailsAndRequirementsProps {
     email: string
     marketingOptIn: boolean
     specialRequirements: string
+    bookingType: 'regular' | 'sunday_lunch'
+    menuSelections?: MenuSelectionPayload[]
+    menuSummary?: MenuSummary
   }) => void
   onBack: () => void
 }
@@ -29,6 +43,14 @@ export function WizardStep5DetailsAndRequirements({
   email: initialEmail,
   marketingOptIn: initialMarketingOptIn,
   specialRequirements: initialSpecialRequirements,
+  bookingType,
+  sundayLunchAvailable,
+  selectedDate,
+  partySize,
+  menuSummary,
+  menuSelections,
+  onBookingTypeChange,
+  onMenuSelectionChange,
   onNext,
   onBack
 }: WizardStep5DetailsAndRequirementsProps) {
@@ -39,6 +61,15 @@ export function WizardStep5DetailsAndRequirements({
   const [marketingOptIn, setMarketingOptIn] = useState(initialMarketingOptIn ?? true)
   const [specialRequirements, setSpecialRequirements] = useState(initialSpecialRequirements || '')
   const [errors, setErrors] = useState<Record<string, string>>({})
+  const [menuValid, setMenuValid] = useState(!!menuSummary)
+  const [localMenuSummary, setLocalMenuSummary] = useState<MenuSummary | undefined>(menuSummary)
+  const [localMenuSelections, setLocalMenuSelections] = useState<MenuSelectionPayload[] | undefined>(menuSelections)
+
+  useEffect(() => {
+    setLocalMenuSummary(menuSummary)
+    setLocalMenuSelections(menuSelections)
+    setMenuValid(bookingType === 'sunday_lunch' ? !!menuSummary : true)
+  }, [menuSummary, menuSelections, bookingType])
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {}
@@ -56,25 +87,85 @@ export function WizardStep5DetailsAndRequirements({
     } else if (!/^[\d\s+()-]+$/.test(phone)) {
       newErrors.phone = 'Please enter a valid phone number'
     }
-    
-    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+
+    if (!email.trim()) {
+      newErrors.email = 'Email address is required'
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       newErrors.email = 'Please enter a valid email address'
     }
-    
+
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
   }
 
   const handleContinue = () => {
     if (validateForm()) {
+      if (bookingType === 'sunday_lunch' && canPreOrder && !menuValid) {
+        setErrors(prev => ({
+          ...prev,
+          menu: 'Please choose a roast for every guest.'
+        }))
+        return
+      }
+
       onNext({
         firstName: firstName.trim(),
         lastName: lastName.trim(),
         phone: phone.trim(),
         email: email.trim(),
         marketingOptIn,
-        specialRequirements
+        specialRequirements,
+        bookingType: canPreOrder ? bookingType : 'regular',
+        menuSelections: bookingType === 'sunday_lunch' ? localMenuSelections : undefined,
+        menuSummary: bookingType === 'sunday_lunch' ? localMenuSummary : undefined
       })
+    }
+  }
+
+  const isSunday = selectedDate
+    ? new Date(selectedDate + 'T12:00:00').getDay() === 0
+    : false
+
+  const sundayDeadlinePassed = (() => {
+    if (!selectedDate) return false
+    const bookingDate = new Date(selectedDate + 'T12:00:00')
+    const saturday = new Date(bookingDate)
+    saturday.setDate(saturday.getDate() - 1)
+    saturday.setHours(13, 0, 0, 0)
+    return new Date() > saturday
+  })()
+
+  const canPreOrder = sundayLunchAvailable && isSunday && !sundayDeadlinePassed
+  const depositAmount = partySize * 5
+
+  const handleSelectBookingType = (type: 'regular' | 'sunday_lunch') => {
+    if (type === 'sunday_lunch' && !canPreOrder) {
+      return
+    }
+    onBookingTypeChange(type)
+    if (type === 'regular') {
+      setLocalMenuSelections(undefined)
+      setLocalMenuSummary(undefined)
+      onMenuSelectionChange(undefined, undefined)
+      setMenuValid(true)
+    } else {
+      setMenuValid(!!menuSummary)
+    }
+  }
+
+  const handleMenuChange = (payload: MenuSelectionPayload[], summary: MenuSummary) => {
+    setLocalMenuSelections(payload)
+    setLocalMenuSummary(summary)
+    onMenuSelectionChange(payload, summary)
+    setMenuValid(true)
+  }
+
+  const handleMenuValidity = (isValid: boolean) => {
+    setMenuValid(isValid)
+    if (!isValid) {
+      setLocalMenuSelections(undefined)
+      setLocalMenuSummary(undefined)
+      onMenuSelectionChange(undefined, undefined)
     }
   }
 
@@ -89,6 +180,101 @@ export function WizardStep5DetailsAndRequirements({
           Please provide your contact information
         </p>
       </div>
+
+      {isSunday && (
+        <div className="space-y-4 border border-amber-200 rounded-lg p-4 bg-amber-50/40">
+          <div className="flex items-center justify-between flex-wrap gap-3">
+            <div>
+              <h3 className="text-lg font-semibold text-anchor-charcoal">Sunday options</h3>
+              <p className="text-sm text-gray-600">
+                Pre-order to guarantee roasts and pay the £5pp deposit online.
+              </p>
+            </div>
+            <div className="text-sm text-amber-800 font-medium">
+              Deposit today: £{depositAmount.toFixed(2)}
+            </div>
+          </div>
+
+          <div className="grid gap-3 md:grid-cols-2">
+            <button
+              type="button"
+              onClick={() => handleSelectBookingType('sunday_lunch')}
+              disabled={!canPreOrder}
+              className={cn(
+                'text-left border rounded-lg p-4 transition-all',
+                bookingType === 'sunday_lunch'
+                  ? 'border-amber-400 bg-white shadow-sm'
+                  : 'border-dashed border-amber-200 bg-amber-50/60',
+                !canPreOrder && 'opacity-50 cursor-not-allowed'
+              )}
+            >
+              <div className="flex items-center gap-2 mb-2">
+                <Icon name="utensils" className="w-5 h-5 text-amber-700" />
+                <p className="font-semibold text-anchor-charcoal">Pre-order Sunday roast</p>
+              </div>
+              <p className="text-sm text-gray-700">
+                Choose everyone&apos;s roast now and pay the deposit. We&apos;ll have everything ready.
+              </p>
+              {sundayDeadlinePassed && (
+                <p className="text-sm text-amber-700 mt-2">
+                  Pre-orders close 1pm on Saturday.
+                </p>
+              )}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => handleSelectBookingType('regular')}
+              className={cn(
+                'text-left border rounded-lg p-4 transition-all',
+                bookingType === 'regular'
+                  ? 'border-anchor-green bg-white shadow-sm'
+                  : 'border-dashed border-gray-200 bg-gray-50'
+              )}
+            >
+              <div className="flex items-center gap-2 mb-2">
+                <Icon name="bookOpen" className="w-5 h-5 text-anchor-green" />
+                <p className="font-semibold text-anchor-charcoal">Book regular menu</p>
+              </div>
+              <p className="text-sm text-gray-700">
+                Keep your booking and choose from the main menu on the day (no deposit needed).
+              </p>
+            </button>
+          </div>
+
+          {bookingType === 'sunday_lunch' && canPreOrder && (
+            <div className="space-y-4 mt-4">
+              <div className="bg-white border border-amber-200 rounded-lg p-4">
+                <h4 className="font-semibold text-amber-900 mb-1">Roast pre-order</h4>
+                <p className="text-sm text-gray-700 mb-4">
+                  Pick a roast for every guest and add optional extras for the table.
+                </p>
+                <SundayMenuSelection
+                  partySize={partySize}
+                  date={selectedDate}
+                  existingSummary={menuSummary}
+                  onChange={handleMenuChange}
+                  onValidityChange={handleMenuValidity}
+                />
+                {errors.menu && (
+                  <p className="text-red-500 text-sm mt-2">{errors.menu}</p>
+                )}
+              </div>
+            </div>
+          )}
+
+          {!canPreOrder && sundayLunchAvailable && (
+            <Alert variant="warning">
+              <p className="font-semibold text-amber-900 mb-1">
+                Sunday roast pre-orders close at 1pm on Saturday.
+              </p>
+              <p className="text-sm text-amber-800">
+                We&apos;ll reserve you a table from the regular menu instead. Call us if you need to check availability.
+              </p>
+            </Alert>
+          )}
+        </div>
+      )}
 
       {/* Contact Details Section */}
       <div className="space-y-4">
