@@ -8,8 +8,13 @@ export async function POST(
   request: Request,
   { params }: { params: { id: string } }
 ) {
-  console.log('Availability check for event:', params.id)
-  console.log('API_KEY exists:', !!API_KEY)
+  const verboseLogging = process.env.API_DEBUG_LOGS === 'true'
+  const logDebug = (...args: unknown[]) => {
+    if (verboseLogging) console.log(...args)
+  }
+  
+  logDebug('Availability check for event:', params.id)
+  logDebug('API_KEY exists:', !!API_KEY)
   
   if (!API_KEY) {
     console.error('ANCHOR_API_KEY is not set in environment variables')
@@ -21,7 +26,7 @@ export async function POST(
     const body = await request.json()
     const seats = body.seats || 1
     
-    console.log('Checking availability for seats:', seats)
+    logDebug('Checking availability for seats:', seats)
     
     // Try the check-availability endpoint with POST method
     const response = await fetch(
@@ -36,7 +41,7 @@ export async function POST(
       }
     )
 
-    console.log('Check-availability response status:', response.status)
+    logDebug('Check-availability response status:', response.status)
     
     // Handle authentication errors specifically
     if (response.status === 401) {
@@ -46,7 +51,7 @@ export async function POST(
     
     // If check-availability doesn't exist or errors, fall back to getting the full event
     if (response.status === 404 || response.status === 405 || !response.ok) {
-      console.log('Falling back to full event endpoint')
+      logDebug('Falling back to full event endpoint')
       const eventResponse = await fetch(
         `${API_BASE_URL}/events/${params.id}`,
         {
@@ -56,11 +61,11 @@ export async function POST(
         }
       )
 
-      console.log('Event response status:', eventResponse.status)
+      logDebug('Event response status:', eventResponse.status)
       
       if (!eventResponse.ok) {
         // If individual event endpoint fails, try to get from events list
-        console.log('Individual event endpoint failed, trying events list')
+        logDebug('Individual event endpoint failed, trying events list')
         const eventsResponse = await fetch(
           `${API_BASE_URL}/events?limit=100`,
           {
@@ -173,7 +178,7 @@ export async function POST(
         }
       }
     } catch (e) {
-      console.log('Could not fetch event details for capacity')
+      logDebug('Could not fetch event details for capacity')
     }
     
     // Map the API response to our expected format

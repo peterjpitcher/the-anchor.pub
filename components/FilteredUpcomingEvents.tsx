@@ -53,64 +53,28 @@ export async function FilteredUpcomingEvents({ categorySlug }: FilteredUpcomingE
   }
 }
 
-function mapSpecialHoursToEvents(businessHours: BusinessHours | null): DisplayEvent[] {
+export function mapSpecialHoursToEvents(businessHours: BusinessHours | null): DisplayEvent[] {
   if (!businessHours?.specialHours?.length) return []
 
   const now = new Date()
+  const cutoff = new Date(now)
+  cutoff.setDate(cutoff.getDate() + 30)
 
   const specials = [...businessHours.specialHours].sort((a, b) => a.date.localeCompare(b.date))
-  const futureSpecials = specials.filter(special => {
+  const withinNextMonth = specials.filter(special => {
     const specialDateEnd = new Date(`${special.date}T23:59:59Z`)
-    return specialDateEnd >= now
+    return specialDateEnd >= now && specialDateEnd <= cutoff
   })
 
-  const grouped: Array<{
-    start: string
-    end: string
-    opens?: string | null
-    closes?: string | null
-    status?: string | null
-    note?: string | null
-    reason?: string | null
-    is_closed?: boolean
-  }> = []
-
-  for (const current of futureSpecials) {
-    const last = grouped[grouped.length - 1]
-    if (
-      last &&
-      areConsecutive(last.end, current.date) &&
-      last.status === (current as any).status &&
-      last.opens === (current as any).opens &&
-      last.closes === (current as any).closes &&
-      (last.note || '') === ((current as any).note || '') &&
-      (last.reason || '') === ((current as any).reason || '') &&
-      last.is_closed === (current as any).is_closed
-    ) {
-      last.end = current.date
-    } else {
-      grouped.push({
-        start: current.date,
-        end: current.date,
-        opens: (current as any).opens,
-        closes: (current as any).closes,
-        status: (current as any).status,
-        note: (current as any).note,
-        reason: (current as any).reason,
-        is_closed: (current as any).is_closed
-      })
-    }
-  }
-
-  return grouped
-    .map(group => {
-      const { start, end, opens, closes, status, note, reason, is_closed } = group
+  return withinNextMonth
+    .map(special => {
+      const { date: start, opens, closes, status, note, reason, is_closed } = special as any
       const statusLabel = status || (is_closed ? 'closed' : 'modified')
       const openTime = formatTimeString(opens)
       const closeTime = formatTimeString(closes)
       const startDate = `${start}T${openTime || '00:00'}:00Z`
 
-      const name = `Special Opening Hours – ${formatSpecialDate(start, end)}`
+      const name = `Special Opening Hours – ${formatSpecialDate(start, start)}`
 
       const description =
         note ||
@@ -195,7 +159,7 @@ function mapSpecialHoursToEvents(businessHours: BusinessHours | null): DisplayEv
         timeChangeOpens: openTime,
         timeChangeCloses: closeTime,
         timeChangeDate: start,
-        timeChangeRangeEnd: end
+        timeChangeRangeEnd: start
       } as DisplayEvent
     })
     .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
@@ -235,12 +199,4 @@ function formatTimeString(value?: string | null): string | null {
     return `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}`
   }
   return value
-}
-
-function areConsecutive(prev: string, current: string): boolean {
-  const prevDate = new Date(`${prev}T00:00:00Z`)
-  const nextDay = new Date(prevDate)
-  nextDay.setDate(prevDate.getDate() + 1)
-  const currentDate = new Date(`${current}T00:00:00Z`)
-  return nextDay.toISOString().slice(0, 10) === currentDate.toISOString().slice(0, 10)
 }

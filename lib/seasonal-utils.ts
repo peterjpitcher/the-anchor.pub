@@ -19,12 +19,15 @@ export interface SeasonalImage {
  * - Christmas: Nov 12 - Dec 31
  */
 export function getSeasonalHomepageImage(testDate?: Date): SeasonalImage {
+  const seasonalLoggingEnabled = process.env.SEASONAL_IMAGE_LOGS === 'true' || process.env.API_DEBUG_LOGS === 'true'
   const defaultImage = '/images/page-headers/home/page-headers-homepage.jpg'
   
   // Development override (no NODE_ENV check so it works in preview deployments)
   const forced = process.env.NEXT_PUBLIC_FORCE_SEASON as SeasonalImage['season'] | undefined
   if (forced) {
-    console.log(`[Seasonal Image] Forced season: ${forced}`)
+    if (seasonalLoggingEnabled) {
+      console.log(`[Seasonal Image] Forced season: ${forced}`)
+    }
     return {
       src: `/images/page-headers/home/seasonal/${forced}/page-headers-homepage.jpg`,
       season: forced,
@@ -73,7 +76,7 @@ export function getSeasonalHomepageImage(testDate?: Date): SeasonalImage {
   }
   
   // Log which seasonal image is being served (server-side only, in development)
-  if (typeof window === 'undefined' && process.env.NODE_ENV === 'development') {
+  if (typeof window === 'undefined' && process.env.NODE_ENV === 'development' && seasonalLoggingEnabled) {
     console.log(`[Seasonal Image] Serving ${season} image: ${imagePath}`)
   }
   

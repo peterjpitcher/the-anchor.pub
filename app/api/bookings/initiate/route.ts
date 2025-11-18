@@ -4,8 +4,13 @@ const API_KEY = process.env.ANCHOR_API_KEY
 const API_BASE_URL = 'https://management.orangejelly.co.uk/api'
 
 export async function POST(request: Request) {
-  console.log('Booking initiate request received')
-  console.log('API_KEY exists:', !!API_KEY)
+  const verboseLogging = process.env.API_DEBUG_LOGS === 'true'
+  const logDebug = (...args: unknown[]) => {
+    if (verboseLogging) console.log(...args)
+  }
+
+  logDebug('Booking initiate request received')
+  logDebug('API_KEY exists:', !!API_KEY)
   
   if (!API_KEY) {
     console.error('ANCHOR_API_KEY is not set in environment variables')
@@ -17,7 +22,7 @@ export async function POST(request: Request) {
 
   try {
     const body = await request.json()
-    console.log('Booking request body:', JSON.stringify(body, null, 2))
+    logDebug('Booking request body:', JSON.stringify(body, null, 2))
     
     // Validate required fields
     if (!body.event_id || !body.mobile_number) {
@@ -39,7 +44,7 @@ export async function POST(request: Request) {
       }
     )
 
-    console.log(`Booking API response status: ${response.status}`)
+    logDebug(`Booking API response status: ${response.status}`)
 
     if (!response.ok) {
       let errorData;
@@ -81,7 +86,7 @@ export async function POST(request: Request) {
     }
     
     const data = await response.json()
-    console.log('Booking initiation successful:', data)
+    logDebug('Booking initiation successful:', data)
 
     return NextResponse.json(data)
   } catch (error: any) {

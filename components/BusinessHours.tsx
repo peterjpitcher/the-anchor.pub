@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { DateTime } from 'luxon'
 import { type BusinessHours } from '@/lib/api'
 import { StatusBar } from './StatusBar'
@@ -18,6 +19,10 @@ export function BusinessHours({ variant = 'full', showKitchen = true }: Business
   const { hours, loading, error } = useBusinessHours({
     refreshInterval: 5 * 60 * 1000 // 5 minutes
   })
+
+  // UI state for condensed toggle
+  const [daysToShow, setDaysToShow] = useState(7)
+  const isCondensedVariant = variant === 'condensed'
 
   if (loading) {
     if (variant === 'status') {
@@ -63,13 +68,23 @@ export function BusinessHours({ variant = 'full', showKitchen = true }: Business
   const londonNow = DateTime.now().setZone('Europe/London')
   const todayKey = londonNow.toFormat('cccc').toLowerCase()
   const dayOrder = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
+  const sundayLunchOverrides = (hours.serviceOverrides?.sunday_lunch ?? []) as Array<{
+    startDate: string
+    endDate: string
+    isEnabled: boolean
+    message: string | null
+  }>
+  const sundayLunchStatus = hours.serviceStatus?.sunday_lunch
 
-  const upcomingDays = Array.from({ length: 7 }, (_, index) => {
+  const maxListDays = isCondensedVariant ? daysToShow : 7
+
+  const upcomingDays = Array.from({ length: maxListDays }, (_, index) => {
     const target = londonNow.plus({ days: index })
     return {
       key: target.toFormat('cccc').toLowerCase(),
       isoDate: target.toISODate(),
       label: target.toFormat('cccc'),
+      dateLabel: target.toFormat('ccc dd MMM'),
       isToday: index === 0
     }
   })
@@ -128,6 +143,29 @@ export function BusinessHours({ variant = 'full', showKitchen = true }: Business
     return {
       kitchen,
       kitchenClosed
+    }
+  }
+
+  const getSundayLunchInfoForDate = (isoDate?: string | null) => {
+    if (!isoDate) return null
+
+    const date = DateTime.fromISO(isoDate, { zone: 'Europe/London' })
+    if (!date.isValid || date.weekday !== 7) {
+      return null
+    }
+
+    const override = sundayLunchOverrides.find(
+      (entry) => entry.startDate <= isoDate && entry.endDate >= isoDate
+    )
+
+    const baseEnabled = sundayLunchStatus ? sundayLunchStatus.isEnabled !== false : true
+    const effectiveEnabled = typeof override?.isEnabled === 'boolean'
+      ? override.isEnabled
+      : baseEnabled
+
+    return {
+      available: effectiveEnabled,
+      message: override?.message || sundayLunchStatus?.message || 'Sunday lunch service unavailable',
     }
   }
 
@@ -270,6 +308,8 @@ export function BusinessHours({ variant = 'full', showKitchen = true }: Business
 
   // Condensed variant - compact vertical layout
   if (variant === 'condensed') {
+    const isExpanded = daysToShow > 7
+
     return (
       <div className="space-y-3">
         {/* Status Bar */}
@@ -285,6 +325,51 @@ export function BusinessHours({ variant = 'full', showKitchen = true }: Business
             const displayHours = specialHours || dayHours
             const hasSpecialHours = !!specialHours
             const { kitchen, kitchenClosed } = resolveKitchenInfo(specialHours, dayHours)
+            const differsFromRegular = (() => {
+              if (!dayHours || !displayHours) return false
+              if (hasSpecialHours) return true
+
+              // Bar changes
+              if (dayHours.is_closed !== displayHours.is_closed) return true
+              if (!dayHours.is_closed && displayHours.opens && displayHours.closes) {
+                if (dayHours.opens !== displayHours.opens || dayHours.closes !== displayHours.closes) return true
+              }
+
+              // Kitchen changes (covers sunday lunch exclusions or modified kitchen hours)
+              const regularKitchen = dayHours.kitchen ?? null
+              const specialKitchen = displayHours.kitchen ?? null
+
+              const regularKitchenClosed =
+                (dayHours as any).is_kitchen_closed === true ||
+                (regularKitchen && 'is_closed' in regularKitchen && regularKitchen.is_closed === true)
+              const specialKitchenClosed =
+                (displayHours as any).is_kitchen_closed === true ||
+                (specialKitchen && 'is_closed' in specialKitchen && specialKitchen.is_closed === true)
+
+              if (regularKitchenClosed !== specialKitchenClosed) return true
+
+              // Compare open kitchen hours when both are open
+              if (!regularKitchenClosed && !specialKitchenClosed) {
+                if (!!regularKitchen !== !!specialKitchen) return true
+                if (
+                  regularKitchen &&
+                  specialKitchen &&
+                  'opens' in regularKitchen &&
+                  'opens' in specialKitchen
+                ) {
+                  if (
+                    regularKitchen.opens !== specialKitchen.opens ||
+                    regularKitchen.closes !== specialKitchen.closes
+                  ) {
+                    return true
+                  }
+                }
+              }
+
+              return false
+            })()
+            const sundayLunchInfo = getSundayLunchInfoForDate(day.isoDate)
+            const hasSundayLunchNotice = !!(sundayLunchInfo && !sundayLunchInfo.available)
 
             if (!displayHours) {
               return null
@@ -295,14 +380,24 @@ export function BusinessHours({ variant = 'full', showKitchen = true }: Business
                 key={day.isoDate || day.key}
                 className={`flex items-center justify-between px-3 py-1.5 rounded ${
                   day.isToday ? 'bg-white/10 ring-1 ring-white/30' : 'hover:bg-white/5'
-                } ${hasSpecialHours ? 'ring-1 ring-yellow-400/50' : ''}`}
+                } ${(hasSpecialHours || hasSundayLunchNotice) ? 'ring-1 ring-yellow-400/50' : ''}`}
               >
                 {/* Left: Day */}
                 <div className="flex items-center gap-3 min-w-0">
-                  <span className={`text-sm font-medium capitalize w-16 ${day.isToday ? 'text-white' : 'text-white'}`}>
-                    {day.label.slice(0, 3)}
-                    {day.isToday && <span className="text-sm sm:text-xs"> •</span>}
-                  </span>
+                  <div className="flex flex-col leading-tight">
+                    <span className={`text-sm font-medium capitalize ${day.isToday ? 'text-white' : 'text-white'}`}>
+                      {day.label.slice(0, 3)}
+                      {day.isToday && <span className="text-sm sm:text-xs"> •</span>}
+                    </span>
+                    {isExpanded && (
+                      <span className="text-[11px] text-white/70">{day.dateLabel}</span>
+                    )}
+                    {(differsFromRegular || hasSundayLunchNotice) && (
+                      <span className="text-[11px] text-amber-300 font-semibold">
+                        {hasSundayLunchNotice ? 'Sunday lunch update' : 'Special hours'}
+                      </span>
+                    )}
+                  </div>
                 </div>
 
                 {/* Right: Hours */}
@@ -349,12 +444,27 @@ export function BusinessHours({ variant = 'full', showKitchen = true }: Business
                           {specialHours?.note || specialHours?.reason}
                         </div>
                       )}
+                      {hasSundayLunchNotice && (
+                        <div className="text-xs text-amber-200 mt-1 text-right">
+                          {sundayLunchInfo?.message || 'Sunday lunch unavailable'}
+                        </div>
+                      )}
                     </>
                   )}
                 </div>
               </div>
             )
           })}
+        </div>
+
+        <div className="flex justify-center">
+          <button
+            type="button"
+            onClick={() => setDaysToShow(isExpanded ? 7 : 30)}
+            className="text-xs text-white/80 underline hover:text-white"
+          >
+            {isExpanded ? 'Show 7 days' : 'Show 30 days'}
+          </button>
         </div>
       </div>
     )

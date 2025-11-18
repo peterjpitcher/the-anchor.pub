@@ -42,8 +42,13 @@ interface BookingRequest {
 }
 
 export async function POST(request: Request) {
-  console.log('Table booking create request received')
-  console.log('API_KEY exists:', !!API_KEY)
+  const verboseLogging = process.env.API_DEBUG_LOGS === 'true'
+  const logDebug = (...args: unknown[]) => {
+    if (verboseLogging) console.log(...args)
+  }
+
+  logDebug('Table booking create request received')
+  logDebug('API_KEY exists:', !!API_KEY)
   
   if (!API_KEY) {
     console.error('ANCHOR_API_KEY is not set in environment variables')
@@ -58,7 +63,7 @@ export async function POST(request: Request) {
         : `web-${Date.now()}-${Math.random().toString(16).slice(2)}`)
 
     const body: BookingRequest = await request.json()
-    console.log('Table booking request body:', JSON.stringify(body, null, 2))
+    logDebug('Table booking request body:', JSON.stringify(body, null, 2))
     
     // Check kitchen status using unified logic
     try {
@@ -238,7 +243,7 @@ export async function POST(request: Request) {
       }
     }
     
-    console.log('Transformed API payload:', JSON.stringify(apiPayload, null, 2))
+    logDebug('Transformed API payload:', JSON.stringify(apiPayload, null, 2))
     
     // Make request to external API with retry logic
     let lastError: Error | null = null
@@ -259,7 +264,7 @@ export async function POST(request: Request) {
           }
         )
 
-        console.log(`Table booking API response status (attempt ${attempt}): ${response.status}`)
+        logDebug(`Table booking API response status (attempt ${attempt}): ${response.status}`)
 
         if (!response.ok) {
           let errorData
@@ -342,7 +347,7 @@ export async function POST(request: Request) {
         }
         
         const data = await response.json()
-        console.log('Table booking creation response:', data)
+        logDebug('Table booking creation response:', data)
         
         // Check if the response has the expected format
         if (data.success === false) {
@@ -386,11 +391,11 @@ export async function POST(request: Request) {
         
         // Extract booking data from success response
         const bookingData = data.data || data
-        console.log('Table booking creation successful:', bookingData)
+        logDebug('Table booking creation successful:', bookingData)
         
         // For Sunday lunch bookings, ensure payment details are included
         if (body.booking_type === 'sunday_lunch' && bookingData.status === 'pending_payment') {
-          console.log('Sunday lunch booking requires payment:', bookingData.payment_details)
+          logDebug('Sunday lunch booking requires payment:', bookingData.payment_details)
         }
 
         return NextResponse.json(bookingData)

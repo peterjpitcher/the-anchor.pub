@@ -1,12 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function POST(request: NextRequest) {
+  const verboseLogging = process.env.API_DEBUG_LOGS === 'true'
+
   try {
     const data = await request.json()
     
     // In production, you would send this to your analytics service
     // For now, we'll just log it in development
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === 'development' && verboseLogging) {
       console.log('[Analytics API]', data)
     }
     

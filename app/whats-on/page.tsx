@@ -19,6 +19,8 @@ import { SpeakableContent } from '@/components/voice/SpeakableContent'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
 import { BookTableButton } from '@/components/BookTableButton'
 import { quizNightEventSeries, dragShowEventSeries, bingoEventSeries } from '@/lib/schema'
+import { getBusinessHours } from '@/lib/api'
+import { buildOpeningHoursSchema, DEFAULT_OPENING_HOURS_SCHEMA } from '@/lib/opening-hours-schema'
 
 export const metadata: Metadata = {
   title: "Heathrow Pub Events Tonight - Drag Shows, Quiz & Bingo Near Terminal 5",
@@ -43,7 +45,24 @@ type WhatsOnPageProps = {
   searchParams: { category?: string }
 }
 
-export default function WhatsOnPage({ searchParams }: WhatsOnPageProps) {
+async function getOpeningHoursSpecification() {
+  try {
+    // Avoid blocking the page if the API is slow or unreachable
+    const hours = await Promise.race([
+      getBusinessHours(),
+      new Promise<null>((resolve) => setTimeout(() => resolve(null), 2000))
+    ])
+
+    return buildOpeningHoursSchema(hours?.regularHours)
+  } catch (error) {
+    console.warn('Failed to load opening hours for /whats-on schema, using defaults', error)
+    return DEFAULT_OPENING_HOURS_SCHEMA
+  }
+}
+
+export default async function WhatsOnPage({ searchParams }: WhatsOnPageProps) {
+  const openingHoursSpecification = await getOpeningHoursSpecification()
+
   return (
     <>
       <SpeakableSchema />
@@ -97,14 +116,7 @@ export default function WhatsOnPage({ searchParams }: WhatsOnPageProps) {
               "isAccessibleForFree": false,
               "currenciesAccepted": "GBP",
               "paymentAccepted": ["Cash", "Credit Card", "Debit Card"],
-              "openingHoursSpecification": [
-                {
-                  "@type": "OpeningHoursSpecification",
-                  "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-                  "opens": "16:00",
-                  "closes": "23:00"
-                }
-              ]
+              "openingHoursSpecification": openingHoursSpecification
             }
           ])
         }}

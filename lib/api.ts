@@ -1061,7 +1061,10 @@ export class AnchorAPI {
 
       const fallback = this.getFallbackResponse(baseEndpoint)
 
-      if (fallback) {
+      // Never serve stale business hours at runtime – a network error shouldn't show wrong times
+      const shouldSkipFallback = baseEndpoint === '/business/hours'
+
+      if (fallback && !shouldSkipFallback) {
         console.warn(`[api-request] Using fallback data for ${baseEndpoint}`, {
           reason: isNetworkError ? 'network-unavailable' : error?.code || 'unknown'
         })
