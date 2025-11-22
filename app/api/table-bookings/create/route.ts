@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { createApiErrorResponse, logError } from '@/lib/error-handling'
 import { getEffectiveDayHours, isKitchenClosed, normaliseUKPhone } from '@/lib/hours-utils'
+import { anchorAPI } from '@/lib/api'
 
 const API_KEY = process.env.ANCHOR_API_KEY
 const API_BASE_URL = 'https://management.orangejelly.co.uk/api'
@@ -67,33 +68,21 @@ export async function POST(request: Request) {
     
     // Check kitchen status using unified logic
     try {
-      const businessHoursResponse = await fetch(
-        `${API_BASE_URL}/business/hours`,
-        {
-          headers: {
-            'X-API-Key': API_KEY
-          }
-        }
+      const businessHours = await anchorAPI.getBusinessHours()
+      
+      // Get effective hours for this date (handles special hours)
+      const effectiveHours = getEffectiveDayHours(
+        body.date,
+        businessHours.regularHours,
+        businessHours.specialHours
       )
       
-      if (businessHoursResponse.ok) {
-        const hoursData = await businessHoursResponse.json()
-        const businessHours = hoursData.data || hoursData
-        
-        // Get effective hours for this date (handles special hours)
-        const effectiveHours = getEffectiveDayHours(
-          body.date,
-          businessHours.regularHours,
-          businessHours.specialHours
+      // Check if kitchen is closed using unified logic
+      if (isKitchenClosed(effectiveHours)) {
+        return createApiErrorResponse(
+          'Kitchen is closed on this date. Bar service only - please call 01753 682707 for drinks-only reservations.',
+          400
         )
-        
-        // Check if kitchen is closed using unified logic
-        if (isKitchenClosed(effectiveHours)) {
-          return createApiErrorResponse(
-            'Kitchen is closed on this date. Bar service only - please call 01753 682707 for drinks-only reservations.',
-            400
-          )
-        }
       }
     } catch (err) {
       console.error('Failed to check kitchen status:', err)
@@ -243,6 +232,8 @@ export async function POST(request: Request) {
       }
     }
     
+    // ... (validation logic remains above)
+
     logDebug('Transformed API payload:', JSON.stringify(apiPayload, null, 2))
     
     // Make request to external API with retry logic
@@ -251,146 +242,8 @@ export async function POST(request: Request) {
     
     for (let attempt = 1; attempt <= maxRetries; attempt++) {
       try {
-        const response = await fetch(
-          `${API_BASE_URL}/table-bookings`,
-          {
-            method: 'POST',
-            headers: {
-              'X-API-Key': API_KEY,
-              'Content-Type': 'application/json',
-              'Idempotency-Key': idempotencyKey
-            },
-            body: JSON.stringify(apiPayload)
-          }
-        )
-
-        logDebug(`Table booking API response status (attempt ${attempt}): ${response.status}`)
-
-        if (!response.ok) {
-          let errorData
-          let errorMessage = `API error: ${response.status}`
-          
-          try {
-            errorData = await response.json()
-            // Handle new API error format
-            if (errorData.success === false && errorData.error) {
-              errorMessage = errorData.error.message || errorMessage
-              console.error('Table booking API error response:', errorData.error)
-            } else {
-              errorMessage = errorData.error || errorData.message || errorMessage
-              console.error('Table booking API error response:', errorData)
-            }
-          } catch (e) {
-            const textError = await response.text()
-            console.error('Table booking API error text:', textError)
-            errorMessage = textError || errorMessage
-          }
-          
-          if (response.status === 401) {
-            return createApiErrorResponse(
-              'Authentication failed. Service temporarily unavailable.',
-              503
-            )
-          }
-          
-          // Handle specific HTTP status codes and error codes
-          if (errorData?.error?.code) {
-            switch (errorData.error.code) {
-              case 'VALIDATION_ERROR':
-                return createApiErrorResponse(errorMessage, 400, errorData.error)
-              case 'NO_AVAILABILITY':
-                return createApiErrorResponse(
-                  'This time slot is no longer available. Please choose a different time.',
-                  409,
-                  errorData.error
-                )
-              case 'UNAUTHORIZED':
-                return createApiErrorResponse(
-                  'Authentication failed. Service temporarily unavailable.',
-                  503
-                )
-              case 'FORBIDDEN':
-                return createApiErrorResponse(
-                  'Insufficient permissions. Please contact support.',
-                  503
-                )
-              case 'RATE_LIMIT_EXCEEDED':
-                return createApiErrorResponse(
-                  'Too many requests. Please try again later.',
-                  429,
-                  errorData.error
-                )
-            }
-          }
-          
-          // Handle by HTTP status if no specific error code
-          if (response.status === 400) {
-            // Don't retry client errors
-            return createApiErrorResponse(errorMessage, 400, errorData)
-          }
-          
-          if (response.status === 409) {
-            // Conflict - table not available
-            return createApiErrorResponse(
-              'This time slot is no longer available. Please choose a different time.',
-              409,
-              errorData
-            )
-          }
-          
-          // For server errors, throw to trigger retry
-          if (response.status >= 500) {
-            throw new Error(`Server error: ${response.status}`)
-          }
-          
-          return createApiErrorResponse(errorMessage, response.status, errorData)
-        }
+        const bookingData = await anchorAPI.createTableBooking(apiPayload, idempotencyKey)
         
-        const data = await response.json()
-        logDebug('Table booking creation response:', data)
-        
-        // Check if the response has the expected format
-        if (data.success === false) {
-          console.error('API returned error:', data.error)
-          
-          // Handle specific error codes
-          switch (data.error?.code) {
-            case 'NO_AVAILABILITY':
-              return createApiErrorResponse(
-                data.error.message || 'This time slot is no longer available',
-                409,
-                data.error
-              )
-            case 'VALIDATION_ERROR':
-              return createApiErrorResponse(
-                data.error.message || 'Invalid booking details',
-                400,
-                data.error
-              )
-            case 'RATE_LIMIT_EXCEEDED':
-              return createApiErrorResponse(
-                'Too many requests. Please try again later.',
-                429,
-                data.error
-              )
-            case 'DATABASE_ERROR':
-            case 'INTERNAL_ERROR':
-              return createApiErrorResponse(
-                'Service temporarily unavailable. Please try again later.',
-                503,
-                data.error
-              )
-            default:
-              return createApiErrorResponse(
-                data.error?.message || 'Failed to create booking',
-                400,
-                data.error
-              )
-          }
-        }
-        
-        // Extract booking data from success response
-        const bookingData = data.data || data
         logDebug('Table booking creation successful:', bookingData)
         
         // For Sunday lunch bookings, ensure payment details are included
@@ -399,9 +252,27 @@ export async function POST(request: Request) {
         }
 
         return NextResponse.json(bookingData)
-      } catch (error) {
+      } catch (error: any) {
         lastError = error as Error
         console.error(`Table booking attempt ${attempt} failed:`, error)
+        
+        // Handle specific errors that shouldn't be retried
+        if (error.code === 'VALIDATION_ERROR' || error.status === 400) {
+             return createApiErrorResponse(error.message, 400, error.details)
+        }
+        if (error.code === 'NO_AVAILABILITY' || error.status === 409) {
+             return createApiErrorResponse(
+                  error.message || 'This time slot is no longer available. Please choose a different time.',
+                  409,
+                  error.details
+             )
+        }
+        if (error.code === 'UNAUTHORIZED' || error.status === 401) {
+             return createApiErrorResponse(
+                  'Authentication failed. Service temporarily unavailable.',
+                  503
+             )
+        }
         
         if (attempt < maxRetries) {
           // Wait before retrying (exponential backoff)

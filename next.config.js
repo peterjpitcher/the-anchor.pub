@@ -165,8 +165,6 @@ const nextConfig = {
     ]
   },
   images: {
-    loader: 'custom',
-    loaderFile: './lib/custom-image-loader.js',
     domains: ['the-anchor.pub', 'www.the-anchor.pub', 'management.orangejelly.co.uk', 'example.com', 'tfcasgxopxegwrabvwat.supabase.co'],
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],  // Common device sizes
@@ -187,8 +185,6 @@ const nextConfig = {
     reactRemoveProperties: process.env.NODE_ENV === 'production',
   },
   experimental: {
-    // Optimize CSS delivery
-    optimizeCss: false, // Disabled due to previous issues
     // Track web vitals
     webVitalsAttribution: ['CLS', 'LCP', 'FCP', 'FID', 'TTFB'],
     // Optimize for edge runtime
@@ -196,63 +192,6 @@ const nextConfig = {
     outputFileTracingIncludes: {
       '/content/blog/[...path]': ['./content/blog/**/*']
     }
-  },
-  webpack: (config, { isServer }) => {
-    // Optimize bundle splitting
-    if (!isServer) {
-      config.optimization = {
-        ...config.optimization,
-        runtimeChunk: 'single',
-        splitChunks: {
-          chunks: 'all',
-          cacheGroups: {
-            default: false,
-            vendors: false,
-            // Vendor chunk
-            vendor: {
-              name: 'vendor',
-              chunks: 'all',
-              test: /node_modules/,
-              priority: 20
-            },
-            // Common chunk
-            common: {
-              name: 'common',
-              chunks: 'all',
-              minChunks: 2,
-              priority: 10,
-              reuseExistingChunk: true,
-              enforce: true
-            },
-            // UI components chunk
-            ui: {
-              name: 'ui',
-              test: /components\/(ui|primitives|forms|layout|navigation|overlays|feedback)/,
-              chunks: 'all',
-              priority: 30,
-              reuseExistingChunk: true
-            },
-            // Feature components chunk
-            features: {
-              name: 'features',
-              test: /components\/features/,
-              chunks: 'all',
-              priority: 25,
-              reuseExistingChunk: true
-            },
-            // Hero components chunk (frequently used)
-            hero: {
-              name: 'hero',
-              test: /components\/hero/,
-              chunks: 'all',
-              priority: 35,
-              reuseExistingChunk: true
-            },
-          },
-        },
-      }
-    }
-    return config
   },
 }
 

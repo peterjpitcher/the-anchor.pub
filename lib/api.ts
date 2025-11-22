@@ -1471,8 +1471,9 @@ export class AnchorAPI {
     return this.request<ParkingBookingDetails>(`/parking/bookings/${id}`)
   }
 
-  async getSundayLunchMenu(): Promise<SundayLunchMenuResponse> {
-    return this.request<SundayLunchMenuResponse>('/table-bookings/menu/sunday-lunch')
+  async getSundayLunchMenu(date?: string): Promise<SundayLunchMenuResponse> {
+    const query = date ? `?date=${date}` : ''
+    return this.request<SundayLunchMenuResponse>(`/table-bookings/menu/sunday-lunch${query}`)
   }
 
   // Business Information

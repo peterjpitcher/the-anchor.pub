@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { getUpcomingEvents, formatEventDate, formatEventTime, formatPrice, getEventShortDescription, formatDoorTime, hasLimitedAvailability } from '@/lib/api'
-import { EventSchema } from '@/components/EventSchema'
+import { EventSchema } from '@/components/seo/EventSchema'
 import { PhoneLink } from '@/components/PhoneLink'
 
 export async function UpcomingEvents() {

@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { StatusBar } from '@/components/StatusBar'
+import { StatusBar } from '@/components/layout/StatusBar'
 
 // Mock the hooks
 jest.mock('@/hooks/useBusinessHours', () => ({

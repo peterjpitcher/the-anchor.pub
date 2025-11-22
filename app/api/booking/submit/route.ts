@@ -108,15 +108,6 @@ export async function POST(request: Request) {
       // Use the proper API booking type for Sunday lunch with menu selections
       bookingType = 'sunday_lunch'
       menuSelections = bookingData.menuSelections
-      console.log('🔍 SUNDAY LUNCH BOOKING DETECTED')
-      console.log('🔍 Menu selections:', JSON.stringify(menuSelections, null, 2))
-      console.log('🔍 Booking type will be:', bookingType)
-      
-      // API v2: Server enriches menu data automatically, no need for workarounds
-      console.log('🔍 Menu selections being sent to API (v2 simplified):')
-      menuSelections.forEach((s: any) => {
-        console.log(`   - ${s.guest_name}: menu_item_id="${s.menu_item_id}", quantity=${s.quantity}`)
-      })
     }
     
     // Create booking request
@@ -149,25 +140,10 @@ export async function POST(request: Request) {
     const idempotencyKey = `${bookingData.date}-${bookingData.time}-${normaliseUKPhone(bookingData.phone)}-${Date.now()}`
     
     // Submit to API
-    console.log('🔍 FINAL REQUEST to API:')
-    console.log('🔍 Booking type:', bookingRequest.booking_type)
-    console.log('🔍 Menu selections count:', menuSelections?.length || 0)
-    console.log('🔍 Idempotency Key:', idempotencyKey)
-    if (menuSelections && menuSelections.length > 0) {
-      console.log('🔍 Full menu_selections:', JSON.stringify(bookingRequest.menu_selections, null, 2))
-    }
-    
     const booking = await anchorAPI.createTableBooking(bookingRequest, idempotencyKey)
-    
-    console.log('🔍 API RESPONSE ANALYSIS:')
-    console.log('🔍 Status:', booking.status)
-    console.log('🔍 Payment Required:', booking.payment_required)
-    console.log('🔍 Payment Details:', JSON.stringify(booking.payment_details, null, 2))
-    console.log('🔍 Full Response:', JSON.stringify(booking, null, 2))
     
     // Check if payment is required (Sunday lunch bookings should return this from API)
     if (booking.payment_required && booking.payment_details) {
-      console.log('Payment required - redirecting to PayPal')
       // Return payment details for redirect
       return NextResponse.json({
         success: true,

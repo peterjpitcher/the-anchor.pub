@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { Button, Container, Section, Card, CardBody, Grid, Alert } from '@/components/ui'
-import { StatusBar } from '@/components/StatusBar'
+import { StatusBar } from '@/components/layout/StatusBar'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { Metadata } from 'next'
 import { BusinessHours } from '@/components/BusinessHours'

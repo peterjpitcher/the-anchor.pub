@@ -1,8 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { StatusBar } from '@/components/StatusBar'
-import { HeaderStatusSectionDirect } from '@/components/HeaderStatusSectionDirect'
+import { StatusBar } from '@/components/layout/StatusBar'
+import { HeaderStatusSectionDirect } from '@/components/layout/HeaderStatusSectionDirect'
 import { useBusinessHours } from '@/hooks/useBusinessHours'
 import { Section } from '@/components/ui'
 

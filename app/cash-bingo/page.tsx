@@ -14,7 +14,7 @@ import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { PhoneButton } from '@/components/PhoneButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { EventSchema } from '@/components/EventSchema'
+import { EventSchema } from '@/components/seo/EventSchema'
 import EventBooking from '@/components/EventBooking'
 import {
   getUpcomingEvents,

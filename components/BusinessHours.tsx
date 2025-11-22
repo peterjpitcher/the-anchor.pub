@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { DateTime } from 'luxon'
 import { type BusinessHours } from '@/lib/api'
-import { StatusBar } from './StatusBar'
+import { StatusBar } from '@/components/layout/StatusBar'
 import { CONTACT_INFO } from '@/lib/error-handling'
 import { LoadingState } from '@/components/ui/LoadingState'
 import { parseApiDuration } from '@/lib/time-utils'

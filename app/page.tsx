@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import { Metadata } from 'next'
-import { StatusBar } from '@/components/StatusBar'
+import { StatusBar } from '@/components/layout/StatusBar'
 import { NextEventServer } from '@/components/NextEventServer'
 import { Suspense, type CSSProperties } from 'react'
 import { homepageFAQSchema } from '@/lib/enhanced-schemas'
@@ -21,6 +21,7 @@ import { SpeakableContent } from '@/components/voice/SpeakableContent'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
 import { getSeasonalHomepageImage, getSeasonalGreeting, getSeasonalAltText, getSeasonalFocal } from '@/lib/seasonal-utils'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
+import { JsonLd } from '@/components/JsonLd'
 import { 
   Button, 
   Card, 
@@ -77,14 +78,75 @@ export default function HomePage() {
   const seasonalAltText = getSeasonalAltText(seasonalImage.season)
   const focal = getSeasonalFocal(seasonalImage.season)
   
+  const localBusinessSchema = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": "https://www.the-anchor.pub/#business",
+    "name": "The Anchor",
+    "description": "The closest traditional British pub to Heathrow Airport. Famous Sunday roasts, beer garden under flight path, FREE parking.",
+    "url": "https://www.the-anchor.pub",
+    "telephone": "+441753682707",
+    "email": "manager@the-anchor.pub",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Horton Road",
+      "addressLocality": "Stanwell Moor",
+      "addressRegion": "Surrey",
+      "postalCode": "TW19 6AQ",
+      "addressCountry": "GB"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 51.462509,
+      "longitude": -0.502067
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday"],
+        "opens": "16:00",
+        "closes": "22:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Friday",
+        "opens": "16:00",
+        "closes": "00:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Saturday",
+        "opens": "12:00",
+        "closes": "00:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": "Sunday",
+        "opens": "12:00",
+        "closes": "22:00"
+      }
+    ],
+    "priceRange": "££",
+    "servesCuisine": ["British", "Pub Food"],
+    "amenityFeature": [
+      { "@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "Dog Friendly", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "Family Friendly", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "Wheelchair Accessible", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "Free WiFi", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "Beer Garden", "value": true }
+    ],
+    "hasMap": "https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ",
+    "publicAccess": true,
+    "isAccessibleForFree": true,
+    "keywords": "The Anchor, pub near Heathrow, Stanwell Moor pub, plane spotting pub, Sunday roast Surrey"
+  }
+
   return (
     <>
       <ScrollDepthTracker />
       <SpeakableSchema />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([homepageFAQSchema, parkingFacilitySchema]) }}
-      />
+      <JsonLd data={[homepageFAQSchema, parkingFacilitySchema]} />
       {/* Custom Hero Section with Seasonal Image */}
       <HeroWrapper
         route="/"
@@ -684,74 +746,7 @@ export default function HomePage() {
       </div>
 
       {/* LocalBusiness Schema for SEO */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "LocalBusiness",
-            "@id": "https://www.the-anchor.pub/#business",
-            "name": "The Anchor",
-            "description": "The closest traditional British pub to Heathrow Airport. Famous Sunday roasts, beer garden under flight path, FREE parking.",
-            "url": "https://www.the-anchor.pub",
-            "telephone": "+441753682707",
-            "email": "manager@the-anchor.pub",
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "Horton Road",
-              "addressLocality": "Stanwell Moor",
-              "addressRegion": "Surrey",
-              "postalCode": "TW19 6AQ",
-              "addressCountry": "GB"
-            },
-            "geo": {
-              "@type": "GeoCoordinates",
-              "latitude": 51.462509,
-              "longitude": -0.502067
-            },
-            "openingHoursSpecification": [
-              {
-                "@type": "OpeningHoursSpecification",
-                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday"],
-                "opens": "16:00",
-                "closes": "22:00"
-              },
-              {
-                "@type": "OpeningHoursSpecification",
-                "dayOfWeek": "Friday",
-                "opens": "16:00",
-                "closes": "00:00"
-              },
-              {
-                "@type": "OpeningHoursSpecification",
-                "dayOfWeek": "Saturday",
-                "opens": "12:00",
-                "closes": "00:00"
-              },
-              {
-                "@type": "OpeningHoursSpecification",
-                "dayOfWeek": "Sunday",
-                "opens": "12:00",
-                "closes": "22:00"
-              }
-            ],
-            "priceRange": "££",
-            "servesCuisine": ["British", "Pub Food"],
-            "amenityFeature": [
-              { "@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true },
-              { "@type": "LocationFeatureSpecification", "name": "Dog Friendly", "value": true },
-              { "@type": "LocationFeatureSpecification", "name": "Family Friendly", "value": true },
-              { "@type": "LocationFeatureSpecification", "name": "Wheelchair Accessible", "value": true },
-              { "@type": "LocationFeatureSpecification", "name": "Free WiFi", "value": true },
-              { "@type": "LocationFeatureSpecification", "name": "Beer Garden", "value": true }
-            ],
-            "hasMap": "https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ",
-            "publicAccess": true,
-            "isAccessibleForFree": true,
-            "keywords": "The Anchor, pub near Heathrow, Stanwell Moor pub, plane spotting pub, Sunday roast Surrey"
-          })
-        }}
-      />
+      <JsonLd data={localBusinessSchema} />
 
     </>
   )

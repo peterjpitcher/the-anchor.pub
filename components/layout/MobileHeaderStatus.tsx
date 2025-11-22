@@ -1,6 +1,6 @@
 'use client'
 
-import { StatusBar } from './StatusBar'
+import { StatusBar } from '@/components/layout/StatusBar'
 
 interface MobileHeaderStatusProps {
   showStatus?: boolean

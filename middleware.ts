@@ -1,23 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-const TRACKING_PARAMS = [
-  'utm_source',
-  'utm_medium',
-  'utm_campaign',
-  'utm_content',
-  'utm_term',
-  'utm_id',
-  'fbclid',
-  'gclid',
-  'ver',
-  'id',
-  'items',
-  'container',
-  'wordfence_logHuman',
-  'hid'
-]
-
 export function middleware(request: NextRequest) {
   // Handle domain redirects (non-www to www) and force HTTPS for production hostname
   const host = request.headers.get('host') || ''
@@ -40,15 +23,7 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(url, 301)
   }
 
-  // Strip tracking parameters to minimise duplicate content
   let shouldRedirect = false
-
-  TRACKING_PARAMS.forEach((param) => {
-    if (url.searchParams.has(param)) {
-      url.searchParams.delete(param)
-      shouldRedirect = true
-    }
-  })
 
   // Normalise blog pagination (?page=1 -> /blog)
   if (url.pathname === '/blog' && url.searchParams.get('page') === '1') {

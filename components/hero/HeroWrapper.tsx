@@ -12,7 +12,7 @@ import {
   type HeroStatusBarThemeKey
 } from './heroVariants'
 import { getPageHeaderImage, getDefaultHeaderImage } from '@/lib/page-header-images'
-import { StatusBar } from '@/components/StatusBar'
+import { StatusBar } from '@/components/layout/StatusBar'
 import { cn } from '@/lib/utils'
 import { getSeasonalAltText, getSeasonalFocal, getSeasonalHomepageImage } from '@/lib/seasonal-utils'
 

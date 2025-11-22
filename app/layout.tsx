@@ -1,102 +1,20 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { WebVitals } from './web-vitals'
-import { Navigation } from '@/components/Navigation'
-import { Footer } from '@/components/Footer'
-import { HeaderStatusSectionDirect } from '@/components/HeaderStatusSectionDirect'
-import { FloatingActions } from '@/components/FloatingActions'
-import { DynamicSchema } from '@/components/DynamicSchema'
-import { AnalyticsProvider } from '@/components/AnalyticsProvider'
-import { GoogleTagManager, GoogleTagManagerNoscript } from '@/components/GoogleTagManager'
-import { GTMProvider, GTMNoscript } from '@/components/GTMProvider'
-import { CanonicalLink } from '@/components/CanonicalLink'
+import { Navigation } from '@/components/layout/Navigation'
+import { Footer } from '@/components/layout/Footer'
+import { HeaderStatusSectionDirect } from '@/components/layout/HeaderStatusSectionDirect'
+import { FloatingActions } from '@/components/layout/FloatingActions'
+import { AnalyticsProvider } from '@/components/tracking/AnalyticsProvider'
+import { GoogleTagManager, GoogleTagManagerNoscript } from '@/components/tracking/GoogleTagManager'
+import { GTMProvider, GTMNoscript } from '@/components/tracking/GTMProvider'
+import { CanonicalLink } from '@/components/seo/CanonicalLink'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import CookieBanner from '@/components/CookieBanner'
 import { ChristmasGlobalLightbox } from '@/components/ChristmasGlobalLightbox'
 import { EventCountdownBanner } from '@/components/EventCountdownBanner'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
-// Critical CSS for above-the-fold content
-const criticalCSS = `
-/* Critical CSS for above-the-fold content */
-:root {
-  --anchor-green: #005131;
-  --anchor-gold: #a57626;
-  --anchor-cream: #faf8f3;
-  --anchor-charcoal: #1a1a1a;
-  --anchor-gold-light: #d4a574;
-  --anchor-green-dark: #003d25;
-  --anchor-warm-white: #ffffff;
-  --anchor-sage: #7a8b7f;
-  --anchor-sand: #f5e6d3;
-  --font-outfit: 'Outfit', 'Helvetica Neue', 'Arial', sans-serif;
-  --font-merriweather: 'Merriweather', 'Georgia', serif;
-}
-
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
-
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 80px;
-}
-
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-  background: var(--anchor-warm-white);
-}
-
-body {
-  color: var(--anchor-charcoal);
-  font-family: var(--font-outfit), system-ui, -apple-system, sans-serif;
-  font-weight: 400;
-  line-height: 1.7;
-}
-
-/* Critical hero section styles */
-.relative { position: relative; }
-.absolute { position: absolute; }
-.inset-0 { inset: 0; }
-.z-10 { z-index: 10; }
-.min-h-\[90vh\] { min-height: 90vh; }
-.flex { display: flex; }
-.items-center { align-items: center; }
-.justify-center { justify-content: center; }
-.text-center { text-align: center; }
-.object-cover { object-fit: cover; }
-
-/* Critical text styles */
-.text-white { color: white; }
-.text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
-
-@media (min-width: 768px) {
-  .md\:text-6xl { font-size: 3.75rem; line-height: 1; }
-}
-
-@media (min-width: 1024px) {
-  .lg\:text-7xl { font-size: 4.5rem; line-height: 1; }
-}
-
-/* Prevent layout shift */
-.min-h-\[44px\] { min-height: 44px; }
-.h-\[44px\] { height: 44px; }
-.w-\[280px\] { width: 280px; }
-.h-\[300px\] { height: 300px; }
-
-/* Reduce motion */
-@media (prefers-reduced-motion: reduce) {
-  *, ::before, ::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
-`
+import { DynamicSchema } from '@/components/seo/DynamicSchema'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.the-anchor.pub'),
@@ -181,9 +99,6 @@ export default function RootLayout({
         
         {/* Canonical URL */}
         <CanonicalLink />
-        
-        {/* Inline critical CSS to prevent render blocking */}
-        <style dangerouslySetInnerHTML={{ __html: criticalCSS }} />
         
         {/* Next.js handles font and image prioritisation automatically */}
         <DynamicSchema />

@@ -30,7 +30,9 @@ function buildHours(specialHours: BusinessHours['specialHours']): BusinessHours 
       kitchenOpen: false,
       closesIn: null,
       opensIn: null
-    }
+    },
+    timezone: 'Europe/London',
+    lastUpdated: new Date().toISOString()
   }
 }
 

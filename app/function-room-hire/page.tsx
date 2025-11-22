@@ -13,6 +13,7 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
+import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
   title: 'Heathrow Function Room Hire - Venue with Free Parking | The Anchor',
@@ -30,7 +31,7 @@ export const metadata: Metadata = {
   })
 }
 
-// TODO: Add functionRoomSchema when generateServiceSchema is available
+// Function room schema for SEO
 const functionRoomSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
@@ -66,10 +67,7 @@ export default function FunctionRoomHirePage() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([functionRoomSchema, breadcrumbSchema]) }}
-      />
+      <JsonLd data={[functionRoomSchema, breadcrumbSchema]} />
       
       {/* Hero Section */}
       <HeroWrapper

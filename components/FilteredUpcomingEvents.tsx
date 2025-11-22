@@ -1,6 +1,6 @@
 import { getUpcomingEvents, getEventCategories, getBusinessHours, type BusinessHours } from '@/lib/api'
 import { FilteredUpcomingEventsClient } from './FilteredUpcomingEventsClient'
-import { EventSchema } from '@/components/EventSchema'
+import { EventSchema } from '@/components/seo/EventSchema'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import type { DisplayEvent } from '@/types/display-event'
 

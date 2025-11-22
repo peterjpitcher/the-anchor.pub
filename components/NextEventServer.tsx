@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { getUpcomingEvents, formatEventTime } from '@/lib/api'
-import { EventSchema } from '@/components/EventSchema'
+import { EventSchema } from '@/components/seo/EventSchema'
 import { Button } from '@/components/ui'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 

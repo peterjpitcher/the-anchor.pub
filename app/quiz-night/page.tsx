@@ -16,7 +16,7 @@ import { PhoneButton } from '@/components/PhoneButton'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { EventSchema } from '@/components/EventSchema'
+import { EventSchema } from '@/components/seo/EventSchema'
 import EventBooking from '@/components/EventBooking'
 import { BookTableButton } from '@/components/BookTableButton'
 import {
