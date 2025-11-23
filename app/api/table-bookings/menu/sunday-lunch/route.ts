@@ -5,7 +5,7 @@ import { createApiErrorResponse, logError } from '@/lib/error-handling'
 export const dynamic = 'force-dynamic'
 
 let menuCache: { data: any; timestamp: number } | null = null
-const CACHE_DURATION = 60 * 60 * 1000 // 1 hour
+const CACHE_DURATION = 60 * 1000 // 1 minute
 
 export async function GET() {
   try {
