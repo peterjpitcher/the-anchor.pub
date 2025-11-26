@@ -175,6 +175,30 @@ export async function POST(request: Request) {
       replyTo: body.email
     })
 
+    // Forward to Management App
+    const managementUrl = 'https://management.orangejelly.co.uk'
+    const managementKey = process.env.ANCHOR_API_KEY
+
+    if (managementKey) {
+      try {
+        const cleanUrl = managementUrl.replace(/\/$/, '')
+        const mgmtResponse = await fetch(`${cleanUrl}/api/external/create-booking`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-API-Key': managementKey
+          },
+          body: JSON.stringify(body)
+        })
+
+        if (!mgmtResponse.ok) {
+          console.error('Failed to create booking in management app:', await mgmtResponse.text())
+        }
+      } catch (dbError) {
+        console.error('Error contacting management app:', dbError)
+      }
+    }
+
     return NextResponse.json({ success: true })
   } catch (error) {
     console.error('Christmas enquiry submission failed:', error)
