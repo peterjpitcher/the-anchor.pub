@@ -48,12 +48,6 @@ Thumbs.db
 *.tsbuildinfo
 next-env.d.ts
 
-# Temporary files
-temp/
-tmp/
-*.tmp
-*.temp
-
 # Logs
 logs/
 *.log

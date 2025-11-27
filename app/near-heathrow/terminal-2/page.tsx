@@ -18,8 +18,8 @@ import { PARKING } from '@/lib/constants'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-  title: 'Pub Near Terminal 2 | The Anchor - Heathrow Pub & Dining',
-  description: 'Escape Terminal 2 hotel dining for authentic British pub experience. The Anchor offers local atmosphere, traditional food & ales just 11 mins from T2 hotels.',
+  title: 'Pub Near Heathrow Terminal 2 (11 Mins) | Free Parking | The Anchor',
+  description: 'Escape the Queen\'s Terminal for a proper British pub. Just 11 mins from T2. Free parking, home-cooked food & garden. Perfect for Star Alliance flyers.',
   keywords: 'pub near terminal 2, heathrow terminal 2 restaurant, closest pub to T2, star alliance terminal pub, queens terminal restaurant, local pub near terminal 2 hotels',
   openGraph: {
     title: 'The Anchor - Local Pub Near Terminal 2 Hotels',

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { Outfit, Merriweather } from 'next/font/google'
 import './globals.css'
 import { WebVitals } from './web-vitals'
 import { Navigation } from '@/components/layout/Navigation'
@@ -8,13 +9,25 @@ import { FloatingActions } from '@/components/layout/FloatingActions'
 import { AnalyticsProvider } from '@/components/tracking/AnalyticsProvider'
 import { GoogleTagManager, GoogleTagManagerNoscript } from '@/components/tracking/GoogleTagManager'
 import { GTMProvider, GTMNoscript } from '@/components/tracking/GTMProvider'
-import { CanonicalLink } from '@/components/seo/CanonicalLink'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import CookieBanner from '@/components/CookieBanner'
 import { ChristmasGlobalLightbox } from '@/components/ChristmasGlobalLightbox'
 import { EventCountdownBanner } from '@/components/EventCountdownBanner'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { DynamicSchema } from '@/components/seo/DynamicSchema'
+
+const outfit = Outfit({
+  subsets: ['latin'],
+  variable: '--font-outfit',
+  display: 'swap',
+})
+
+const merriweather = Merriweather({
+  weight: ['300', '400', '700', '900'],
+  subsets: ['latin'],
+  variable: '--font-merriweather',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.the-anchor.pub'),
@@ -80,8 +93,6 @@ export default function RootLayout({
         <GoogleTagManager gtmId={gtmId} />
         
         {/* Resource hints for performance */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preconnect" href="https://management.orangejelly.co.uk" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
@@ -97,13 +108,10 @@ export default function RootLayout({
         <meta name="theme-color" content="#005131" />
         <meta name="format-detection" content="telephone=no" />
         
-        {/* Canonical URL */}
-        <CanonicalLink />
-        
         {/* Next.js handles font and image prioritisation automatically */}
         <DynamicSchema />
       </head>
-      <body className="font-sans antialiased">
+      <body className={`font-sans antialiased ${outfit.variable} ${merriweather.variable}`}>
         <GTMNoscript gtmId={gtmId} />
         <GTMProvider gtmId={gtmId}>
           <AnalyticsProvider>

@@ -96,8 +96,6 @@
   --anchor-focus-ring-width: 3px;
   --anchor-focus-ring-offset: 2px;
   --header-height: 80px;
-  --font-outfit: 'Outfit', 'Helvetica Neue', 'Arial', sans-serif;
-  --font-merriweather: 'Merriweather', 'Georgia', serif;
 }
 
 * {

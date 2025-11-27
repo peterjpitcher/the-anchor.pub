@@ -19,8 +19,8 @@ import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 
 export const metadata: Metadata = {
-  title: 'Pub Near Heathrow Terminal 4 - 12 Minute Taxi | The Anchor',
-  description: 'Swap Terminal 4 hotel dining for The Anchor: local pub food, free parking and SkyTeam-friendly hospitality just 12 minutes from the terminal.',
+  title: 'Pub Near Heathrow Terminal 4 (12 Mins) | Free Parking & Food | The Anchor',
+  description: 'Escape Terminal 4 prices. Just a 12-minute drive for authentic British pub food, real ales & free parking. Ideal for SkyTeam layovers & crew.',
   keywords: 'pub near heathrow terminal 4, skyteam crew pub, hilton t4 restaurant alternative, free parking near terminal 4, taxi from terminal 4 to pub',
   openGraph: {
     title: 'Pub Near Heathrow Terminal 4 - Free Parking & British Food',

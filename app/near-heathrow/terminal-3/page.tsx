@@ -20,8 +20,8 @@ import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 
 export const metadata: Metadata = {
-  title: 'Pub Near Heathrow Terminal 3 - 11 Minute Taxi | The Anchor',
-  description: 'Choose The Anchor near Heathrow Terminal 3 for real British pub food, free parking and family-friendly atmosphere. 11 minute taxi from Virgin Atlantic and Emirates arrivals.',
+  title: 'Pub Near Heathrow Terminal 3 (11 Mins) | Family Friendly | The Anchor',
+  description: 'The perfect pre-flight stop near Terminal 3. 11 mins away, free parking & family-friendly dining. Great for Virgin & Emirates travelers avoiding airport crowds.',
   keywords: 'pub near heathrow terminal 3, virgin atlantic crew pub, emirates terminal 3 restaurant alternative, family pub near heathrow hotels, taxi from terminal 3 to pub',
   openGraph: {
     title: 'Pub Near Heathrow Terminal 3 - Free Parking & British Food',

@@ -10,8 +10,8 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-  title: 'Plane Spotting at Heathrow - Watch Aircraft from The Anchor Beer Garden',
-  description: 'Discover the best Heathrow plane spotting pub. The Anchor beer garden sits under the flight path with aircraft every 90 seconds, free parking, refreshments and WiFi.',
+  title: 'Heathrow Plane Spotting Pub | Garden Views Every 90 Secs | The Anchor',
+  description: 'The ultimate Heathrow plane spotting pub. Watch A380s & Dreamliners from our beer garden under the flight path. Free parking, WiFi & food. 7 mins from T5.',
   keywords: 'plane spotting heathrow, heathrow plane spotting pub, watch planes heathrow, aircraft spotting terminal 5, plane spotting bar near heathrow',
   openGraph: {
     title: 'Plane Spotting at Heathrow - The Anchor Beer Garden',

@@ -17,7 +17,15 @@ export default function robots(): MetadataRoute.Robots {
           '/leave-review',
           '/subscribe',
           '/leave-a-review',
-          '/subscribe-for-digital-flyers'
+          '/subscribe-for-digital-flyers',
+          '/test-gtm',
+          '/test-hours',
+          '/test-navigation-tracking',
+          '/test-reviews',
+          '/test-simple',
+          '/test-tracking',
+          '/gtm-debug',
+          '/p5-demo'
         ]
       }
     ],

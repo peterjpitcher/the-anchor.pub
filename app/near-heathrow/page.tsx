@@ -12,8 +12,8 @@ import { parkingFacilitySchema } from '@/lib/schemas/parking'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-  title: 'Pub Near Heathrow Airport - Free Parking & British Food | The Anchor',
-  description: 'Plan your visit to The Anchor, the closest village pub to Heathrow Airport. 7 minutes from Terminal 5 with free parking, local ales and home-cooked food.',
+  title: 'Closest Pub to Heathrow T5 (7 Mins) | Free Parking & Food | The Anchor',
+  description: 'The closest village pub to Heathrow Terminal 5 (7 mins). Avoid airport prices with free parking, home-cooked meals, and a beer garden. Book your table.',
   keywords: 'pub near heathrow airport, closest pub to terminal 5, heathrow village pub with parking, british pub near airport hotels',
   openGraph: {
     title: 'Pub Near Heathrow Airport - The Anchor Stanwell Moor',

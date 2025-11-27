@@ -19,8 +19,8 @@ import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 
 export const metadata: Metadata = {
-  title: 'Pub Near Heathrow Terminal 5 - 7 Minute Drive | The Anchor',
-  description: 'Visit The Anchor, the closest traditional pub to Heathrow Terminal 5. 7 minute taxi, free parking, proper British food and drinks for Sofitel and Hilton guests.',
+  title: 'Closest Pub to Heathrow Terminal 5 (7 Mins) | Free Parking | The Anchor',
+  description: 'Just 7 mins from Terminal 5. Escape airport prices at the closest village pub. Free parking, British food & real ales. Perfect for BA travelers & crew.',
   keywords: 'pub near heathrow terminal 5, closest pub to t5, hilton terminal 5 restaurant alternative, sofitel t5 pub, british airways crew pub, taxi from terminal 5 to pub',
   openGraph: {
     title: 'Pub Near Heathrow Terminal 5 - Free Parking & 7 Minute Taxi',
