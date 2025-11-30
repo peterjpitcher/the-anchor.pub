@@ -180,9 +180,12 @@ export function BookingWizard({
         }
       }
 
-      if (data.bookingType === 'sunday_lunch' && !newData.sundayLunchAvailable) {
-        newData.bookingType = 'regular'
-      }
+          // No longer revert bookingType to regular here, as the WizardStepPlanVisit
+          // component's disabled state for the button and its handling of empty time
+          // slots should correctly guide the user.
+          // The intention is to let the user's selection of 'sunday_lunch' stick if made,
+          // and then display appropriate availability (or lack thereof) for that type.
+
 
       if (BOOKING_DEBUG) {
         console.debug('[BookingWizard] New state', newData)
@@ -276,9 +279,11 @@ export function BookingWizard({
             date={bookingData.date}
             partySize={bookingData.partySize}
             time={bookingData.time}
+            bookingType={bookingData.bookingType}
             availabilityData={availabilityData}
             eventsByDate={eventsByDate}
             sundayLunchAvailable={bookingData.sundayLunchAvailable}
+            onBookingTypeChange={(type) => updateBookingData({ bookingType: type, time: '' })}
             onNext={(data) => {
               updateBookingData(data)
               goNext()
@@ -341,7 +346,7 @@ export function BookingWizard({
       />
       
       {/* Wizard Content */}
-      <div className="max-w-2xl mx-auto px-4">
+      <div className="max-w-4xl mx-auto px-4">
         <div className="bg-white rounded-lg shadow-lg p-6 md:p-8">
           {renderStep()}
         </div>

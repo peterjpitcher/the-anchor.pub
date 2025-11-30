@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
 import { 
   trackTableBookingView, 
@@ -17,7 +17,7 @@ import { Alert } from '@/components/ui/feedback/Alert'
 import { Icon } from '@/components/ui/Icon'
 import { PhoneLink } from '@/components/PhoneLink'
 import { DateTime } from 'luxon'
-import { type BusinessHours, isKitchenOpen, getKitchenStatus } from '@/lib/api'
+import { type BusinessHours, isKitchenOpen, getKitchenStatus, anchorAPI } from '@/lib/api'
 
 interface MenuItem {
   id: string
@@ -72,6 +72,11 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
     isEnabled: true,
     message: null
   })
+  
+  // Availability state
+  const [availableSlots, setAvailableSlots] = useState<string[]>([])
+  const [slotsLoading, setSlotsLoading] = useState(false)
+
   const isMountedRef = useRef(true)
 
   // Form state
@@ -91,12 +96,16 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
   const [allergies, setAllergies] = useState<string[]>([])
   const [smsOptIn, setSmsOptIn] = useState(true)
 
-  const sundayLunchOverrides = (businessHours?.serviceOverrides?.sunday_lunch ?? []) as Array<{
-    startDate: string
-    endDate: string
-    isEnabled: boolean
-    message: string | null
-  }>
+  const sundayLunchOverrides = useMemo(
+    () =>
+      (businessHours?.serviceOverrides?.sunday_lunch ?? []) as Array<{
+        startDate: string
+        endDate: string
+        isEnabled: boolean
+        message: string | null
+      }>,
+    [businessHours]
+  )
   const selectedOverride = date
     ? sundayLunchOverrides.find(
         (override) => override.startDate <= date && override.endDate >= date
@@ -222,6 +231,78 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
     fetchMenu()
   }, [sundayLunchStatus.isEnabled])
   
+  // Fetch available slots when date or party size changes
+  useEffect(() => {
+    const fetchSlots = async () => {
+      if (!date || !sundayLunchStatus.isEnabled) {
+        setAvailableSlots([])
+        return
+      }
+
+      // Check if there's an override disabling the date
+      const override = sundayLunchOverrides.find(
+        (entry) => entry.startDate <= date && entry.endDate >= date
+      )
+      if (override && override.isEnabled === false) {
+        setAvailableSlots([])
+        return
+      }
+
+      try {
+        setSlotsLoading(true)
+        // We pass '12:00' as a dummy time because the API requires it, 
+        // but the response includes all slots for the day.
+        const response = await anchorAPI.checkTableAvailability({
+          date,
+          time: '12:00',
+          party_size: partySize,
+          booking_type: 'sunday_lunch'
+        })
+
+        if (isMountedRef.current) {
+          if (response && response.time_slots) {
+            let slots = response.time_slots
+              .filter(slot => slot.available_capacity >= partySize)
+              .map(slot => slot.time)
+
+            // Client-side filtering based on schedule_config if available
+            if (businessHours) {
+               // Determine day of week for the selected date
+               const dateObj = new Date(date)
+               const dayName = dateObj.toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase()
+               const dayConfig = businessHours.regularHours[dayName]
+               
+               if (dayConfig && dayConfig.schedule_config) {
+                 const sundayLunchConfig = dayConfig.schedule_config.find(c => c.booking_type === 'sunday_lunch')
+                 if (sundayLunchConfig) {
+                   // Filter slots that are outside the configured range
+                   slots = slots.filter(time => {
+                     return time >= sundayLunchConfig.starts_at && time < sundayLunchConfig.ends_at
+                   })
+                 }
+               }
+            }
+
+            setAvailableSlots(slots)
+          } else {
+            setAvailableSlots([])
+          }
+        }
+      } catch (err) {
+        console.error('Failed to fetch availability slots:', err)
+        if (isMountedRef.current) {
+          setAvailableSlots([])
+        }
+      } finally {
+        if (isMountedRef.current) {
+          setSlotsLoading(false)
+        }
+      }
+    }
+
+    fetchSlots()
+  }, [date, partySize, sundayLunchStatus.isEnabled, sundayLunchOverrides, businessHours])
+
   // Initialize menu selections when party size changes
   useEffect(() => {
     const newSelections: MenuSelection[] = []
@@ -607,61 +688,7 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
     return closures
   }
 
-  // Get available times for a specific date
-  const getAvailableTimesForDate = (selectedDate: string) => {
-    if (!sundayLunchStatus.isEnabled) {
-      return []
-    }
-
-    if (!businessHours || !selectedDate) {
-      return [
-        '12:00', '12:30', '13:00', '13:30', '14:00',
-        '14:30', '15:00', '15:30', '16:00', '16:30'
-      ]
-    }
-
-    const override = sundayLunchOverrides.find(
-      (entry) => entry.startDate <= selectedDate && entry.endDate >= selectedDate
-    )
-
-    if (override && override.isEnabled === false) {
-      return []
-    }
-
-    const schedule = getScheduleForDate(selectedDate)
-    if (!schedule || schedule.is_closed) {
-      return []
-    }
-
-    const kitchenInfo = schedule.kitchen
-    if (!kitchenInfo || !isKitchenOpen(kitchenInfo)) {
-      return []
-    }
-
-    if (!kitchenInfo.opens || !kitchenInfo.closes) {
-      return []
-    }
-
-    const openTime = DateTime.fromISO(`${selectedDate}T${kitchenInfo.opens}`, { zone: 'Europe/London' })
-    const closeTime = DateTime.fromISO(`${selectedDate}T${kitchenInfo.closes}`, { zone: 'Europe/London' })
-
-    if (!openTime.isValid || !closeTime.isValid || openTime >= closeTime) {
-      return []
-    }
-
-    const slots: string[] = []
-    const minimumDuration = { minutes: 90 }
-    let slot = openTime
-
-    while (slot < closeTime) {
-      if (slot.plus(minimumDuration) <= closeTime) {
-        slots.push(slot.toFormat('HH:mm'))
-      }
-      slot = slot.plus({ minutes: 30 })
-    }
-
-    return slots
-  }
+  // Render logic begins here
   
   if (menuLoading || hoursLoading) {
     return (
@@ -873,11 +900,11 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
                 value={time}
                 onChange={(e) => setTime(e.target.value)}
                 required
-                disabled={!date || overrideDisabled || globalDisabled}
+                disabled={!date || overrideDisabled || globalDisabled || slotsLoading}
                 className="w-full border rounded-md px-4 py-3 text-base disabled:bg-gray-100"
               >
-                <option value="">Select time</option>
-                {date && getAvailableTimesForDate(date).map(timeSlot => {
+                <option value="">{slotsLoading ? 'Loading times...' : 'Select time'}</option>
+                {!slotsLoading && availableSlots.map(timeSlot => {
                   const [hour, min] = timeSlot.split(':').map(Number)
                   const displayHour = hour > 12 ? hour - 12 : hour
                   const amPm = hour >= 12 ? 'PM' : 'AM'
@@ -889,7 +916,7 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
                     </option>
                   )
                 })}
-                {date && getAvailableTimesForDate(date).length === 0 && (
+                {!slotsLoading && date && availableSlots.length === 0 && (
                   <option value="" disabled>No times available for this date</option>
                 )}
               </select>

@@ -6,6 +6,7 @@ import { LoadingState } from '@/components/ui/LoadingState'
 import { useBusinessHours } from '@/hooks/useBusinessHours'
 import { formatTime12Hour, getTodayHours, getTomorrowHours, findNextKitchenOpening } from '@/lib/status-boundary-calculator'
 import { KitchenStatus } from '@/lib/api'
+import { useBusinessHoursContext } from '@/components/providers/BusinessHoursProvider'
 
 interface StatusBarProps {
   variant?: 'default' | 'compact' | 'navigation' | 'hero'
@@ -215,7 +216,9 @@ export function StatusBar({
   theme = defaultTheme,
   labels = defaultLabels
 }: StatusBarProps) {
-  const { hours, loading, error, isStale } = useBusinessHours({ apiEndpoint })
+  const contextValue = useBusinessHoursContext()
+  const hookValue = useBusinessHours({ apiEndpoint, enabled: !contextValue })
+  const { hours, loading, error, isStale } = contextValue ?? hookValue
   
   const mergedTheme = { ...defaultTheme, ...theme }
   const mergedLabels = { ...defaultLabels, ...labels }

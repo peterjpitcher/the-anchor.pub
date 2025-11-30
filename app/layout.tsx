@@ -15,6 +15,7 @@ import { ChristmasGlobalLightbox } from '@/components/ChristmasGlobalLightbox'
 import { EventCountdownBanner } from '@/components/EventCountdownBanner'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { DynamicSchema } from '@/components/seo/DynamicSchema'
+import { BusinessHoursProvider } from '@/components/providers/BusinessHoursProvider'
 
 const outfit = Outfit({
   subsets: ['latin'],
@@ -115,35 +116,37 @@ export default function RootLayout({
         <GTMNoscript gtmId={gtmId} />
         <GTMProvider gtmId={gtmId}>
           <AnalyticsProvider>
-            <WebVitals />
-            {/* Skip Navigation Links for Accessibility */}
-            <a 
-              href="#main-content" 
-              className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-anchor-gold focus:text-white focus:rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-anchor-gold"
-            >
-              Skip to main content
-            </a>
-            <ErrorBoundary>
-              <header role="banner">
-                <Navigation 
-                  statusComponent={<HeaderStatusSectionDirect />}
-                />
-              </header>
-            </ErrorBoundary>
-            <main id="main-content" role="main">
+            <BusinessHoursProvider>
+              <WebVitals />
+              {/* Skip Navigation Links for Accessibility */}
+              <a 
+                href="#main-content" 
+                className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-anchor-gold focus:text-white focus:rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-anchor-gold"
+              >
+                Skip to main content
+              </a>
               <ErrorBoundary>
-                {children}
+                <header role="banner">
+                  <Navigation 
+                    statusComponent={<HeaderStatusSectionDirect />}
+                  />
+                </header>
               </ErrorBoundary>
-            </main>
-            <ErrorBoundary>
-              <footer role="contentinfo">
-                <Footer />
-              </footer>
-            </ErrorBoundary>
-            <FloatingActions />
-            <CookieBanner />
-            <ChristmasGlobalLightbox />
-            <EventCountdownBanner />
+              <main id="main-content" role="main">
+                <ErrorBoundary>
+                  {children}
+                </ErrorBoundary>
+              </main>
+              <ErrorBoundary>
+                <footer role="contentinfo">
+                  <Footer />
+                </footer>
+              </ErrorBoundary>
+              <FloatingActions />
+              <CookieBanner />
+              <ChristmasGlobalLightbox />
+              <EventCountdownBanner />
+            </BusinessHoursProvider>
           </AnalyticsProvider>
         </GTMProvider>
       </body>

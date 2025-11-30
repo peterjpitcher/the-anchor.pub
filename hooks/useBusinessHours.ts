@@ -8,6 +8,11 @@ import { computeNextStatusChange } from '@/lib/status-boundary-calculator'
 interface UseBusinessHoursOptions {
   refreshInterval?: number
   apiEndpoint?: string
+  /**
+   * When false, the hook will skip fetching and remain idle.
+   * Useful when a parent provider is already supplying the data.
+   */
+  enabled?: boolean
 }
 
 interface CachedData {
@@ -32,7 +37,8 @@ interface UseBusinessHoursReturn {
 export function useBusinessHours(options: UseBusinessHoursOptions = {}): UseBusinessHoursReturn {
   const {
     apiEndpoint = '/api/business/hours',
-    refreshInterval = 60 * 1000
+    refreshInterval = 60 * 1000,
+    enabled = true
   } = options
 
   const debugLogging = process.env.NEXT_PUBLIC_STATUSBAR_DEBUG === 'true'
@@ -43,7 +49,7 @@ export function useBusinessHours(options: UseBusinessHoursOptions = {}): UseBusi
     lastFetchTime: null,
     isStale: false
   })
-  const [loading, setLoading] = useState(true)
+  const [loading, setLoading] = useState(enabled)
   const [error, setError] = useState<Error | null>(null)
   
   const retryCount = useRef(0)
@@ -96,6 +102,10 @@ export function useBusinessHours(options: UseBusinessHoursOptions = {}): UseBusi
   }
 
   const fetchHours = async (trigger: string = 'unknown') => {
+    if (!enabled) {
+      return
+    }
+
     const currentCache = cachedRef.current
 
     try {
@@ -191,6 +201,11 @@ export function useBusinessHours(options: UseBusinessHoursOptions = {}): UseBusi
 
   // Initial fetch on mount
   useEffect(() => {
+    if (!enabled) {
+      setLoading(false)
+      return undefined
+    }
+
     fetchHours('mount')
     
     if (refreshInterval > 0) {
@@ -213,10 +228,12 @@ export function useBusinessHours(options: UseBusinessHoursOptions = {}): UseBusi
       abortControllerRef.current?.abort()
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [apiEndpoint, refreshInterval])
+  }, [apiEndpoint, refreshInterval, enabled])
 
   // Refresh on visibility/focus changes
   useEffect(() => {
+    if (!enabled) return
+
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'visible') {
         fetchHours('visibility')
@@ -234,13 +251,13 @@ export function useBusinessHours(options: UseBusinessHoursOptions = {}): UseBusi
       document.removeEventListener('visibilitychange', handleVisibilityChange)
       window.removeEventListener('focus', handleFocus)
     }
-  }, [])
+  }, [enabled])
 
   return {
     hours: cached.data,
     loading,
     error,
     isStale: cached.isStale,
-    refresh: () => fetchHours('manual')
+    refresh: () => enabled ? fetchHours('manual') : Promise.resolve()
   }
 }

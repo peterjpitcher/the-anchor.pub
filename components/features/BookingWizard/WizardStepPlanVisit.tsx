@@ -18,6 +18,8 @@ interface WizardStepPlanVisitProps extends WizardStepProps {
   partySize: number
   time: string
   sundayLunchAvailable: boolean
+  bookingType: 'regular' | 'sunday_lunch'
+  onBookingTypeChange: (type: 'regular' | 'sunday_lunch') => void
 }
 
 const MIN_PARTY = 1
@@ -29,7 +31,9 @@ export function WizardStepPlanVisit({
   date,
   partySize,
   time,
+  bookingType,
   sundayLunchAvailable,
+  onBookingTypeChange,
   onNext
 }: WizardStepPlanVisitProps) {
   const [selectedDate, setSelectedDate] = useState(date || '')
@@ -124,36 +128,40 @@ export function WizardStepPlanVisit({
     [calendarDays, selectedDate]
   )
 
-  const fetchTimeSlots = useCallback(async (targetDate: string, party: number) => {
+  const isSunday = selectedDay?.isSunday ?? false
+  const sundayLunchDisabledReason = (() => {
+    if (!isSunday) return null
+    if (selectedDay?.sundayLunchUnavailable) {
+      return selectedDay?.specialNote || 'Sunday lunch is unavailable on this date.'
+    }
+    const bookingDate = new Date((selectedDate || '') + 'T12:00:00')
+    const saturday = new Date(bookingDate)
+    saturday.setDate(saturday.getDate() - 1)
+    saturday.setHours(13, 0, 0, 0)
+    if (new Date() > saturday) {
+      return 'Sunday lunch orders close at 1pm on Saturday.'
+    }
+    return null
+  })()
+  // Let the user try Sunday lunch on any Sunday unless explicitly disabled or past cutoff
+  const canChooseSundayLunch = isSunday && !sundayLunchDisabledReason
+
+  const fetchTimeSlots = useCallback(async (targetDate: string, party: number, type: 'regular' | 'sunday_lunch') => {
     if (!targetDate) {
       setTimeSlots([])
       return
     }
 
-    const preloaded = availabilityData.days.find(day => day.date === targetDate)
-    if (preloaded) {
-      const now = new Date()
-      const selected = new Date(targetDate + 'T00:00:00')
-      let slots = [...(preloaded.times || [])]
-
-      if (selected.toDateString() === now.toDateString()) {
-        const currentMinutes = now.getHours() * 60 + now.getMinutes() + 30
-        slots = slots.filter(slot => {
-          const [h, m] = slot.time.split(':').map(Number)
-          return h * 60 + m > currentMinutes
-        })
-      }
-
-      setTimeSlots(slots)
-      return
-    }
-
     setLoadingTimes(true)
+    setTimeSlots([])
     try {
       const params = new URLSearchParams({
         date: targetDate,
         party_size: String(party)
       })
+      if (type) {
+        params.set('booking_type', type)
+      }
       const response = await fetch(`/api/table-bookings/availability?${params.toString()}`)
       const data = await response.json()
 
@@ -180,14 +188,19 @@ export function WizardStepPlanVisit({
     } finally {
       setLoadingTimes(false)
     }
-  }, [availabilityData.days])
+  }, [])
 
   useEffect(() => {
     if (selectedDate) {
-      fetchTimeSlots(selectedDate, selectedPartySize)
-      setSelectedTime('')
+      fetchTimeSlots(selectedDate, selectedPartySize, bookingType)
     }
-  }, [selectedDate, selectedPartySize, fetchTimeSlots])
+    // Removed automatic reversion to regular here.
+    // The `handleBookingTypeSelect` already prevents selection if !canChooseSundayLunch.
+    // If a user manages to select it (e.g., through direct URL manipulation or if
+    // conditions change after selection), the time slots will simply be empty,
+    // and the system should display "No online slots left."
+
+  }, [selectedDate, selectedPartySize, bookingType, fetchTimeSlots, canChooseSundayLunch, onBookingTypeChange])
 
   const handleDateSelect = (targetDate: string, blocked: boolean, drinksOnly: boolean) => {
     if (blocked) return
@@ -210,6 +223,17 @@ export function WizardStepPlanVisit({
     setError('')
   }
 
+  const handleBookingTypeSelect = (type: 'regular' | 'sunday_lunch') => {
+    if (type === 'sunday_lunch' && !canChooseSundayLunch) return
+    if (type !== bookingType) {
+      onBookingTypeChange(type)
+      setSelectedTime('')
+      if (selectedDate) {
+        fetchTimeSlots(selectedDate, selectedPartySize, type)
+      }
+    }
+  }
+
   const handleContinue = () => {
     if (!selectedDate) {
       setError('Please choose a date for your visit.')
@@ -220,7 +244,13 @@ export function WizardStepPlanVisit({
       return
     }
 
-    onNext({ date: selectedDate, partySize: selectedPartySize, time: selectedTime })
+    if (bookingType === 'sunday_lunch' && !canChooseSundayLunch) {
+      setError(sundayLunchDisabledReason || 'Sunday lunch is not available for this date.')
+      return
+    }
+
+    const finalType = bookingType === 'sunday_lunch' && canChooseSundayLunch ? 'sunday_lunch' : 'regular'
+    onNext({ date: selectedDate, partySize: selectedPartySize, time: selectedTime, bookingType: finalType })
   }
 
   return (
@@ -234,7 +264,7 @@ export function WizardStepPlanVisit({
         </p>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-[1.4fr,0.6fr]">
+      <div className="grid gap-6 lg:grid-cols-2">
         <div className="space-y-6">
           <div className="border rounded-lg p-4">
             <div className="grid grid-cols-7 gap-2 mb-4">
@@ -380,9 +410,65 @@ export function WizardStepPlanVisit({
             )}
           </div>
 
+          {isSunday && (
+            <div className="bg-white border rounded-lg p-4 space-y-3 shadow-sm">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <h3 className="font-semibold text-anchor-charcoal">Choose your menu</h3>
+                <span className="text-xs text-gray-600">Pick menu before time</span>
+              </div>
+              <div className="grid gap-3 md:grid-cols-2">
+                <button
+                  type="button"
+                  onClick={() => handleBookingTypeSelect('sunday_lunch')}
+                  disabled={!canChooseSundayLunch}
+                  className={cn(
+                    'text-left border rounded-lg p-3 transition-all h-full',
+                    bookingType === 'sunday_lunch'
+                      ? 'border-amber-400 bg-amber-50 shadow'
+                      : 'border-dashed border-amber-200 bg-amber-50/60 hover:border-amber-300',
+                    !canChooseSundayLunch && 'opacity-60 cursor-not-allowed'
+                  )}
+                >
+                  <div className="flex items-center gap-2 mb-1">
+                    <Icon name="utensils" className="w-5 h-5 text-amber-700" />
+                    <span className="font-semibold text-anchor-charcoal">Sunday lunch</span>
+                  </div>
+                  <p className="text-sm text-gray-700">
+                    Pre-order roasts and pay the £5pp deposit now.
+                  </p>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => handleBookingTypeSelect('regular')}
+                  className={cn(
+                    'text-left border rounded-lg p-3 transition-all h-full',
+                    bookingType === 'regular'
+                      ? 'border-anchor-green bg-white shadow'
+                      : 'border-dashed border-gray-200 bg-gray-50 hover:border-gray-300'
+                  )}
+                >
+                  <div className="flex items-center gap-2 mb-1">
+                    <Icon name="bookOpen" className="w-5 h-5 text-anchor-green" />
+                    <span className="font-semibold text-anchor-charcoal">Regular menu</span>
+                  </div>
+                  <p className="text-sm text-gray-700">
+                    Book a table and order from the main menu on arrival.
+                  </p>
+                </button>
+              </div>
+              {sundayLunchDisabledReason && (
+                <p className="text-sm text-amber-700">{sundayLunchDisabledReason}</p>
+              )}
+            </div>
+          )}
+
           <div className="bg-white border rounded-lg p-4">
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex flex-wrap items-center justify-between mb-4 gap-2">
               <h3 className="font-semibold text-anchor-charcoal">Available times</h3>
+            <span className="text-xs text-gray-500">
+              {bookingType === 'sunday_lunch' ? 'Sunday lunch pre-order' : 'Regular dining'}
+            </span>
               {selectedDate && (
                 <span className="text-sm text-gray-600">
                   {new Date(selectedDate + 'T12:00:00').toLocaleDateString('en-GB', {
@@ -461,7 +547,7 @@ export function WizardStepPlanVisit({
               month: 'long'
             })}{' '}
             · {selectedPartySize} {selectedPartySize === 1 ? 'person' : 'people'}{' '}
-            {selectedTime && `· ${selectedTime}`}
+            {selectedTime && `· ${selectedTime}`} · {bookingType === 'sunday_lunch' ? 'Sunday lunch' : 'Regular menu'}
           </p>
         </div>
       )}

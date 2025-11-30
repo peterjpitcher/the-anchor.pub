@@ -8,7 +8,6 @@ import { PhoneButton } from '@/components/PhoneButton'
 import { getAvailabilityForNext30Days } from '@/lib/booking-helpers'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { getUpcomingEvents, getEventShortDescription } from '@/lib/api'
-import { UpcomingEvents } from '@/components/UpcomingEvents'
 import type { EventsByDate, DateEventSummary } from '@/components/features/BookingWizard/types'
 
 export const metadata: Metadata = {
@@ -375,19 +374,6 @@ export default async function BookPage({
         </div>
       </Section>
 
-      <Section background="white" spacing="xl" container containerSize="lg">
-        <div className="mx-auto max-w-3xl text-center">
-          <PageTitle className="text-anchor-green">
-            What&apos;s On at The Anchor
-          </PageTitle>
-          <p className="mt-4 text-lg text-gray-700">
-            Browse our upcoming events, live entertainment, and special evenings. Every event night still has tables for regular diners, so feel free to book as normal or dive into the details if you fancy joining the fun.
-          </p>
-        </div>
-        <div className="mt-12">
-          <UpcomingEvents />
-        </div>
-      </Section>
     </>
   )
 }

@@ -6,7 +6,7 @@ import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 
 // Use internal API routes to avoid CORS issues and keep API key secure
 const API_BASE_URL = typeof window === 'undefined' 
-  ? 'https://management.orangejelly.co.uk/api'  // Server-side: direct API calls
+  ? (process.env.ANCHOR_API_BASE_URL || 'https://management.orangejelly.co.uk/api')  // Server-side: use env var or default to prod
   : '/api'  // Client-side: use Next.js API routes
 
 // API Response wrapper types
@@ -258,6 +258,13 @@ export interface BusinessHours {
       closes: string
       kitchen?: KitchenStatus
       is_closed: boolean
+      schedule_config?: Array<{
+        name: string
+        starts_at: string
+        ends_at: string
+        capacity: number
+        booking_type: string
+      }>
     }
   }
   specialHours: Array<{
@@ -1372,7 +1379,9 @@ export class AnchorAPI {
       ...(params.booking_type && { booking_type: params.booking_type })
     })
     
-    return this.request<TableAvailabilityResponse>(`/table-bookings/availability?${query}`)
+    return this.request<TableAvailabilityResponse>(`/table-bookings/availability?${query}`, {
+      next: { revalidate: 0 }
+    } as any)
   }
 
   async createTableBooking(

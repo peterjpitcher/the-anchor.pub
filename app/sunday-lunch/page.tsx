@@ -7,10 +7,11 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { ReviewSection } from '@/components/reviews'
 import { MenuPageTracker } from '@/components/tracking/MenuPageTracker'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
-import { generateNutritionInfo, generateSuitableForDiet } from '@/lib/schema-utils'
+import { generateNutritionInfo } from '@/lib/schema-utils'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BookTableButton } from '@/components/BookTableButton'
 import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
+import { anchorAPI } from '@/lib/api'
 
 export const metadata: Metadata = {
   title: 'Sunday Roast Near Heathrow Airport | Book At The Anchor',
@@ -31,33 +32,330 @@ export const metadata: Metadata = {
   }
 }
 
-const sundayRoastItems = [
-  {
-    position: 1,
-    name: 'Roasted Chicken',
-    url: 'https://www.the-anchor.pub/sunday-lunch#menu',
-    description: 'Oven-roasted chicken breast with sage & onion stuffing balls and roast trimmings.'
-  },
-  {
-    position: 2,
-    name: 'Slow-Cooked Lamb Shank',
-    url: 'https://www.the-anchor.pub/sunday-lunch#menu',
-    description: 'Tender lamb shank in red wine gravy with seasonal vegetables and Yorkshire pudding.'
-  },
-  {
-    position: 3,
-    name: 'Crispy Pork Belly',
-    url: 'https://www.the-anchor.pub/sunday-lunch#menu',
-    description: 'Slow-roasted pork belly with crackling, apple sauce and roast accompaniments.'
-  },
-  {
-    position: 4,
-    name: 'Beetroot & Butternut Squash Wellington',
-    url: 'https://www.the-anchor.pub/sunday-lunch#menu',
-    description: 'Plant-based Wellington served with vegetarian gravy and seasonal vegetables.'
+export const revalidate = 120
+
+type NormalizedMenuItem = {
+  id?: string
+  name: string
+  description?: string | null
+  price?: number
+  dietary_info?: string[]
+  allergens?: string[]
+  included?: boolean
+  is_available?: boolean
+}
+
+type NormalizedMenu = {
+  menuDate?: string
+  cutoffTime?: string
+  mains: NormalizedMenuItem[]
+  sides: NormalizedMenuItem[]
+}
+
+const FALLBACK_MENU: NormalizedMenu = {
+  mains: [
+    {
+      name: 'Roasted Chicken',
+      description: 'Oven-roasted chicken breast with sage & onion stuffing balls, roast potatoes, vegetables, Yorkshire pudding and gravy.',
+      price: 14.99
+    },
+    {
+      name: 'Slow-Cooked Lamb Shank',
+      description: 'Tender lamb shank in red wine gravy with seasonal vegetables and Yorkshire pudding.',
+      price: 15.49
+    },
+    {
+      name: 'Crispy Pork Belly',
+      description: 'Slow-roasted pork belly with crackling, apple sauce, roast potatoes, vegetables, Yorkshire pudding and gravy.',
+      price: 15.99
+    },
+    {
+      name: 'Beetroot & Butternut Squash Wellington',
+      description: 'Plant-based Wellington with roast potatoes, vegetables and vegetarian gravy.',
+      price: 15.49,
+      dietary_info: ['vegan']
+    }
+  ],
+  sides: [
+    {
+      name: 'Cauliflower Cheese',
+      description: 'Creamy mature cheddar sauce, baked until golden and bubbling.',
+      price: 3.99,
+      included: false
+    }
+  ],
+  menuDate: undefined,
+  cutoffTime: undefined
+}
+
+function normalizeMenu(raw: any): NormalizedMenu {
+  const payload = raw?.data ?? raw ?? {}
+  const mainsSource = payload.mains || payload.menu?.mains || []
+  const sidesSource = payload.sides || payload.menu?.sides || []
+
+  const mapItem = (item: any): NormalizedMenuItem => {
+    const price = Number(item?.price ?? item?.selling_price ?? item?.price_at_booking ?? NaN)
+    const defaultIncluded = (Number.isFinite(price) ? price <= 0 : false) || item?.is_default_side || false
+    return {
+      id: item?.id || item?.dish_id,
+      name: item?.name || 'Sunday Roast',
+      description: item?.description,
+      price: Number.isFinite(price) ? price : undefined,
+      dietary_info: item?.dietary_info || item?.dietary_flags || [],
+      allergens: item?.allergens || item?.allergen_flags || [],
+      included: item?.included ?? defaultIncluded,
+      is_available: item?.is_available ?? item?.is_active ?? true
+    }
   }
-]
-export default function SundayLunchPage() {
+
+  return {
+    menuDate: payload.menu_date || payload.date || payload.menu?.menu_date,
+    cutoffTime: payload.cutoff_time || payload.menu?.cutoff_time,
+    mains: Array.isArray(mainsSource) ? mainsSource.map(mapItem) : [],
+    sides: Array.isArray(sidesSource) ? sidesSource.map(mapItem) : []
+  }
+}
+
+async function loadSundayMenu(): Promise<{ menu: NormalizedMenu; fromFallback: boolean; error?: string }> {
+  try {
+    const data = await anchorAPI.getSundayLunchMenu()
+    const menu = normalizeMenu(data)
+
+    if (menu.mains.length || menu.sides.length) {
+      return { menu, fromFallback: false }
+    }
+  } catch (error: any) {
+    console.error('Sunday lunch menu fetch failed', error)
+    return {
+      menu: FALLBACK_MENU,
+      fromFallback: true,
+      error: error?.message || 'Unable to load Sunday lunch menu'
+    }
+  }
+
+  return { menu: FALLBACK_MENU, fromFallback: true }
+}
+
+function formatCutoff(cutoff?: string) {
+  if (!cutoff) return 'Saturday 1pm'
+  const date = new Date(cutoff)
+  if (isNaN(date.getTime())) return 'Saturday 1pm'
+  return date.toLocaleString('en-GB', {
+    weekday: 'long',
+    hour: 'numeric',
+    minute: '2-digit'
+  })
+}
+
+export default async function SundayLunchPage() {
+  const { menu, fromFallback, error: menuError } = await loadSundayMenu()
+  const includedSides = menu.sides.filter(side => side.included)
+  const extraSides = menu.sides.filter(side => !side.included && (side.price ?? 0) > 0)
+  const menuItemsForSchema = menu.mains.length ? menu.mains : FALLBACK_MENU.mains
+  const priceValues = menuItemsForSchema.map(item => item.price).filter((p): p is number => typeof p === 'number')
+  const minPrice = priceValues.length ? Math.min(...priceValues) : undefined
+  const maxPrice = priceValues.length ? Math.max(...priceValues) : undefined
+  const priceRangeText = minPrice !== undefined && maxPrice !== undefined
+    ? `£${minPrice.toFixed(2)} - £${maxPrice.toFixed(2)}`
+    : undefined
+  const menuDateDisplay = menu.menuDate
+    ? new Date(menu.menuDate).toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' })
+    : null
+  const schemaMenuItems = menuItemsForSchema.map(item => ({
+    '@type': 'MenuItem',
+    name: item.name,
+    description: item.description,
+    ...(typeof item.price === 'number'
+      ? {
+          offers: {
+            '@type': 'Offer',
+            price: item.price.toFixed(2),
+            priceCurrency: 'GBP',
+            availability: 'https://schema.org/PreOrder'
+          }
+        }
+      : {}),
+    nutrition: generateNutritionInfo(item.name, 'sunday-roast')
+  }))
+  const schemaMenuSections: any[] = [
+    {
+      '@type': 'MenuSection',
+      name: 'Sunday Roasts',
+      description: 'Served with roast potatoes, Yorkshire pudding, vegetables and gravy',
+      hasMenuItem: schemaMenuItems
+    }
+  ]
+
+  if (menu.sides.length) {
+    schemaMenuSections.push({
+      '@type': 'MenuSection',
+      name: 'Sides',
+      hasMenuItem: menu.sides.map(side => ({
+        '@type': 'MenuItem',
+        name: side.name,
+        description: side.description,
+        ...(typeof side.price === 'number'
+          ? {
+              offers: {
+                '@type': 'Offer',
+                price: side.price.toFixed(2),
+                priceCurrency: 'GBP'
+              }
+            }
+          : {})
+      }))
+    })
+  }
+
+  const schemaItemList = menuItemsForSchema.map((item, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: item.name,
+    description: item.description,
+    url: 'https://www.the-anchor.pub/sunday-lunch#menu'
+  }))
+
+  const schemaData = JSON.stringify(
+    [
+      {
+        '@context': 'https://schema.org',
+        '@type': 'Restaurant',
+        '@id': 'https://www.the-anchor.pub/#sunday-roast',
+        name: 'The Anchor - Sunday Roast',
+        servesCuisine: ['British', 'Sunday Roast'],
+        priceRange: '££',
+        telephone: '+441753682707',
+        url: 'https://www.the-anchor.pub/sunday-lunch',
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: 'Horton Road',
+          addressLocality: 'Stanwell Moor',
+          addressRegion: 'Surrey',
+          postalCode: 'TW19 6AQ',
+          addressCountry: 'GB'
+        },
+        openingHoursSpecification: [
+          {
+            '@type': 'OpeningHoursSpecification',
+            dayOfWeek: 'Sunday',
+            opens: '12:00',
+            closes: '17:00',
+            description: 'Sunday Roast service hours'
+          }
+        ],
+        advanceBookingRequirement: {
+          '@type': 'QuantitativeValue',
+          minValue: 1,
+          unitCode: 'DAY',
+          description: 'Sunday roasts must be booked by 1pm Saturday'
+        },
+        acceptsReservations: 'required',
+        reservationPolicy:
+          'Advance booking required by 1pm Saturday. £5 per person deposit required at time of booking, balance due on arrival.',
+        hasMenu: {
+          '@type': 'Menu',
+          name: 'Sunday Roast Menu',
+          description: 'Traditional British Sunday roast dinners',
+          hasMenuSection: schemaMenuSections,
+          inLanguage: 'en-GB'
+        },
+        aggregateRating: {
+          '@type': 'AggregateRating',
+          ratingValue: '4.8',
+          reviewCount: '127',
+          bestRating: '5',
+          worstRating: '1'
+        }
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'Offer',
+        name: 'Sunday Roast Pre-Order Special',
+        description:
+          'Traditional British Sunday roast dinners with all the trimmings. Sunday roasts require a booking with £5 per person deposit by 1pm Saturday.',
+        url: 'https://www.the-anchor.pub/sunday-lunch',
+        priceCurrency: 'GBP',
+        ...(priceRangeText ? { priceRange: priceRangeText } : {}),
+        eligibleRegion: {
+          '@type': 'Place',
+          name: 'Stanwell Moor and surrounding areas'
+        },
+        availableAtOrFrom: {
+          '@type': 'Place',
+          name: 'The Anchor',
+          address: {
+            '@type': 'PostalAddress',
+            streetAddress: 'Horton Road',
+            addressLocality: 'Stanwell Moor',
+            addressRegion: 'Surrey',
+            postalCode: 'TW19 6AQ'
+          }
+        },
+        itemOffered: {
+          '@type': 'MenuItem',
+          name: 'Sunday Roast Selection',
+          description: 'Choice of roasted meats served with Yorkshire pudding, roast potatoes, seasonal vegetables and gravy'
+        },
+        validFrom: '12:00',
+        validThrough: '17:00',
+        eligibleDuration: {
+          '@type': 'Duration',
+          description: 'Available Sundays only'
+        },
+        availabilityStarts: '2025-01-01',
+        availabilityEnds: '2025-12-31',
+        seller: {
+          '@id': 'https://www.the-anchor.pub/#business'
+        },
+        priceSpecification: {
+          '@type': 'CompoundPriceSpecification',
+          priceComponent: [
+            {
+              '@type': 'UnitPriceSpecification',
+              name: 'Deposit',
+              price: '5.00',
+              priceCurrency: 'GBP',
+              unitText: 'per person',
+              description: 'Required at time of booking'
+            },
+            {
+              '@type': 'UnitPriceSpecification',
+              name: 'Balance',
+              priceCurrency: 'GBP',
+              unitText: 'per person',
+              description: 'Payable on arrival'
+            }
+          ]
+        }
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'ItemList',
+        name: 'Sunday Roast Options',
+        itemListElement: schemaItemList
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: 'https://www.the-anchor.pub'
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Sunday Lunch',
+            item: 'https://www.the-anchor.pub/sunday-lunch'
+          }
+        ]
+      }
+    ],
+    null,
+    2
+  )
   return (
     <>
       <MenuPageTracker 
@@ -264,9 +562,7 @@ export default function SundayLunchPage() {
       <section id="menu" className="section-spacing bg-anchor-cream">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <SectionHeader
-              title="Sunday Roast Menu"
-            />
+            <SectionHeader title="Sunday Roast Menu" />
             <AlertBox
               variant="warning"
               title="📝 Advance Booking (New for 2025)"
@@ -311,117 +607,111 @@ export default function SundayLunchPage() {
                 </>
               }
             />
+
+            {menuError && fromFallback && (
+              <AlertBox
+                variant="error"
+                title="Live menu unavailable"
+                className="mb-6"
+                content="We're showing our standard Sunday roast pricing while we reconnect to the management system. Call 01753 682707 for today's details."
+              />
+            )}
+
             <p className="text-center text-sm text-gray-600 italic mb-12">
-              All dishes served with herb and garlic-crusted roast potatoes, seasonal vegetables, 
+              {menuDateDisplay ? `Menu for ${menuDateDisplay}. ` : ''}All dishes served with herb and garlic-crusted roast potatoes, seasonal vegetables, 
               Yorkshire pudding, and red wine gravy. Vegetarian gravy available on request.
             </p>
             
             {/* Main Roasts */}
             <div className="space-y-6 mb-12">
-              {/* Roasted Chicken */}
-              <div className="bg-white rounded-2xl p-8 shadow-md">
-                <div className="flex justify-between items-start mb-4">
-                  <h3 className="text-2xl font-bold text-anchor-green">Roasted Chicken</h3>
-                  <span className="text-2xl font-bold text-anchor-gold">£14.99</span>
+              {menu.mains.map(item => (
+                <div key={item.id || item.name} className="bg-white rounded-2xl p-8 shadow-md">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-3">
+                    <div>
+                      <h3 className="text-2xl font-bold text-anchor-green">{item.name}</h3>
+                      {item.dietary_info?.length ? (
+                        <div className="flex flex-wrap gap-2 mt-2">
+                          {item.dietary_info.map(tag => (
+                            <span key={`${item.name}-${tag}`} className="text-xs font-semibold text-anchor-gold bg-amber-50 px-2 py-1 rounded">
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      ) : null}
+                    </div>
+                    {typeof item.price === 'number' && (
+                      <span className="text-2xl font-bold text-anchor-gold whitespace-nowrap">£{item.price.toFixed(2)}</span>
+                    )}
+                  </div>
+                  {item.description && (
+                    <p className="text-gray-700 mb-3">{item.description}</p>
+                  )}
+                  {item.allergens?.length ? (
+                    <p className="text-xs text-gray-500">Allergens: {item.allergens.join(', ')}</p>
+                  ) : null}
+                  {item.is_available === false && (
+                    <p className="text-sm text-red-600 font-semibold mt-2">Currently unavailable</p>
+                  )}
                 </div>
-                <p className="text-gray-700 mb-4">
-                  Oven-roasted chicken breast with sage & onion stuffing balls, herb and garlic-crusted roast potatoes, 
-                  seasonal vegetables, Yorkshire pudding, and red wine gravy. Vegetarian gravy available on request.
-                </p>
-                <p className="text-sm text-gray-600 italic">
-                  Pair with: El Pico Sauvignon Blanc – crisp and refreshing | Pint of Birra Moretti – smooth and well-rounded.
-                </p>
-              </div>
-              
-              {/* Slow-Cooked Lamb Shank */}
-              <div className="bg-white rounded-2xl p-8 shadow-md">
-                <div className="flex justify-between items-start mb-4">
-                  <h3 className="text-2xl font-bold text-anchor-green">Slow-Cooked Lamb Shank</h3>
-                  <span className="text-2xl font-bold text-anchor-gold">£15.49</span>
+              ))}
+
+              {!menu.mains.length && (
+                <div className="bg-white rounded-2xl p-8 shadow-md text-center text-gray-700">
+                  Live menu unavailable right now. Please call us on 01753 682707 for today&apos;s roast choices.
                 </div>
-                <p className="text-gray-700 mb-4">
-                  Tender slow-braised lamb shank in rich red wine gravy, served with herb and garlic-crusted roast 
-                  potatoes, seasonal vegetables, and a Yorkshire pudding. Vegetarian gravy available on request.
-                </p>
-                <p className="text-sm text-gray-600 italic">
-                  Pair with: Rocoso Malbec – bold and velvety | Pint of Guinness Draught – smooth and malty.
-                </p>
-              </div>
-              
-              {/* Crispy Pork Belly */}
-              <div className="bg-white rounded-2xl p-8 shadow-md">
-                <div className="flex justify-between items-start mb-4">
-                  <h3 className="text-2xl font-bold text-anchor-green">Crispy Pork Belly</h3>
-                  <span className="text-2xl font-bold text-anchor-gold">£15.99</span>
-                </div>
-                <p className="text-gray-700 mb-4">
-                  Crispy crackling and tender slow-roasted pork belly with Bramley apple sauce, herb and garlic-crusted 
-                  roast potatoes, seasonal vegetables, Yorkshire pudding, and red wine gravy. Vegetarian gravy available on request.
-                </p>
-                <p className="text-sm text-gray-600 italic">
-                  Pair with: Counterpoint Shiraz – rich and full-bodied | Pint of Inches Cider – crisp and fruity.
-                </p>
-              </div>
-              
-              {/* Beetroot & Butternut Squash Wellington */}
-              <div className="bg-white rounded-2xl p-8 shadow-md">
-                <div className="flex justify-between items-start mb-4">
-                  <h3 className="text-2xl font-bold text-anchor-green">Beetroot & Butternut Squash Wellington</h3>
-                  <span className="text-anchor-gold text-sm font-bold bg-green-100 px-2 py-1 rounded ml-2">(VG)</span>
-                  <span className="text-2xl font-bold text-anchor-gold">£15.49</span>
-                </div>
-                <p className="text-gray-700 mb-4">
-                  Golden puff pastry filled with beetroot & butternut squash, served with herb and garlic-crusted roast 
-                  potatoes, seasonal vegetables, and vegetarian gravy.
-                </p>
-                <p className="text-sm text-gray-600 italic">
-                  Pair with: Giotto Pinot Grigio – light and fresh | Pint of Pravha – clean and crisp.
-                </p>
-              </div>
-              
-              {/* Kids Roasted Chicken */}
-              <div className="bg-white rounded-2xl p-8 shadow-md">
-                <div className="flex justify-between items-start mb-4">
-                  <h3 className="text-2xl font-bold text-anchor-green">Kids Roasted Chicken</h3>
-                  <span className="text-2xl font-bold text-anchor-gold">£9.99</span>
-                </div>
-                <p className="text-gray-700 mb-4">
-                  A smaller portion of our roasted chicken with herb and garlic-crusted roast potatoes, seasonal 
-                  vegetables, Yorkshire pudding, and red wine gravy. Vegetarian gravy available on request.
-                </p>
-              </div>
-              
+              )}
             </div>
             
-            {/* Optional Extras */}
-            <div className="bg-white rounded-2xl p-8 shadow-md mb-12">
-              <h3 className="text-2xl font-bold text-anchor-green mb-6 text-center">Optional Extras</h3>
-              <div className="text-center">
-                <div className="inline-block">
-                  <div className="flex justify-between items-center gap-8">
-                    <p className="font-semibold text-lg text-anchor-green">Cauliflower Cheese</p>
-                    <span className="text-lg font-bold text-anchor-gold">£3.99</span>
-                  </div>
-                  <p className="text-gray-700 mt-2">
-                    Creamy mature cheddar sauce, baked until golden and bubbling.
-                  </p>
+            {includedSides.length > 0 && (
+              <div className="bg-white rounded-2xl p-8 shadow-md mb-12">
+                <h3 className="text-2xl font-bold text-anchor-green mb-4 text-center">Included Sides</h3>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  {includedSides.map(side => (
+                    <div key={side.id || side.name} className="flex flex-col gap-1">
+                      <p className="font-semibold text-anchor-green">{side.name}</p>
+                      {side.description && <p className="text-sm text-gray-700">{side.description}</p>}
+                      {side.allergens?.length ? (
+                        <p className="text-xs text-gray-500">Allergens: {side.allergens.join(', ')}</p>
+                      ) : null}
+                    </div>
+                  ))}
                 </div>
               </div>
-            </div>
+            )}
+
+            {extraSides.length > 0 && (
+              <div className="bg-white rounded-2xl p-8 shadow-md mb-12">
+                <h3 className="text-2xl font-bold text-anchor-green mb-6 text-center">Optional Extras</h3>
+                <div className="grid sm:grid-cols-2 gap-6">
+                  {extraSides.map(side => (
+                    <div key={side.id || side.name} className="flex justify-between items-start gap-6">
+                      <div>
+                        <p className="font-semibold text-lg text-anchor-green">{side.name}</p>
+                        {side.description && <p className="text-sm text-gray-700 mt-1">{side.description}</p>}
+                        {side.allergens?.length ? (
+                          <p className="text-xs text-gray-500 mt-1">Allergens: {side.allergens.join(', ')}</p>
+                        ) : null}
+                      </div>
+                      {typeof side.price === 'number' && (
+                        <span className="text-lg font-bold text-anchor-gold whitespace-nowrap">£{side.price.toFixed(2)}</span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
             
             {/* Deposit Information */}
             <div className="bg-red-50 border-2 border-red-200 rounded-xl p-6 mb-8 text-center animate-pulse">
               <h4 className="text-lg font-bold text-red-900 mb-2">🚨 BOOK NOW - Limited Sunday Spaces!</h4>
               <p className="text-red-800">
-                <strong>Deadline: Saturday 1pm</strong> • £5 deposit secures your roast
+                <strong>Deadline: {formatCutoff(menu.cutoffTime)}</strong> • £5 deposit secures your roast
               </p>
               <p className="text-red-700 text-sm mt-1">
                 We sell out most Sundays • Don't be disappointed!
               </p>
               <p className="text-red-600 text-xs mt-2">
-                {new Date().getDay() === 0 ? 'Too late for today - book for next Sunday!' : 
-                 new Date().getDay() === 6 ? 'Last chance for tomorrow!' : 
-                 'Book now for this Sunday!'}
+                Book now for this Sunday or the next available date.
               </p>
             </div>
             
@@ -786,196 +1076,7 @@ export default function SundayLunchPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify([
-            {
-              "@context": "https://schema.org",
-              "@type": "Restaurant",
-              "@id": "https://www.the-anchor.pub/#sunday-roast",
-              "name": "The Anchor - Sunday Roast",
-              "servesCuisine": ["British", "Sunday Roast"],
-              "priceRange": "££",
-              "telephone": "+441753682707",
-              "url": "https://www.the-anchor.pub/sunday-lunch",
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "Horton Road",
-                "addressLocality": "Stanwell Moor",
-                "addressRegion": "Surrey",
-                "postalCode": "TW19 6AQ",
-                "addressCountry": "GB"
-              },
-              "openingHoursSpecification": [
-                {
-                  "@type": "OpeningHoursSpecification",
-                  "dayOfWeek": "Sunday",
-                  "opens": "12:00",
-                  "closes": "17:00",
-                  "description": "Sunday Roast service hours"
-                }
-              ],
-              "advanceBookingRequirement": {
-                "@type": "QuantitativeValue",
-                "minValue": 1,
-                "unitCode": "DAY",
-            "description": "Sunday roasts must be booked by 1pm Saturday"
-              },
-              "acceptsReservations": "required",
-              "reservationPolicy": "Advance booking required by 1pm Saturday. £5 per person deposit required at time of booking, balance due on arrival.",
-            "hasMenu": {
-              "@type": "Menu",
-              "name": "Sunday Roast Menu",
-              "description": "Traditional British Sunday roast dinners",
-              "hasMenuSection": {
-                "@type": "MenuSection",
-                "name": "Sunday Roasts",
-                "description": "Served with roast potatoes, Yorkshire pudding, vegetables and gravy",
-                "hasMenuItem": [
-                  {
-                    "@type": "MenuItem",
-                    "name": "Roasted Chicken",
-                    "description": "Oven-roasted chicken breast with sage & onion stuffing balls",
-                    "offers": {
-                      "@type": "Offer",
-                      "price": "14.99",
-                      "priceCurrency": "GBP",
-                      "availability": "https://schema.org/PreOrder"
-                    },
-                    "nutrition": generateNutritionInfo("Roasted Chicken", "sunday-roast")
-                  },
-                  {
-                    "@type": "MenuItem",
-                    "name": "Slow-Cooked Lamb Shank",
-                    "description": "Tender slow-braised lamb shank in rich red wine gravy",
-                    "offers": {
-                      "@type": "Offer",
-                      "price": "15.49",
-                      "priceCurrency": "GBP"
-                    }
-                  },
-                  {
-                    "@type": "MenuItem",
-                    "name": "Crispy Pork Belly",
-                    "description": "Crispy crackling and tender slow-roasted pork belly with Bramley apple sauce",
-                    "offers": {
-                      "@type": "Offer",
-                      "price": "15.99",
-                      "priceCurrency": "GBP"
-                    }
-                  },
-                  {
-                    "@type": "MenuItem",
-                    "name": "Beetroot & Butternut Squash Wellington",
-                    "description": "Golden puff pastry filled with beetroot & butternut squash (Vegan)",
-                    "offers": {
-                      "@type": "Offer",
-                      "price": "15.49",
-                      "priceCurrency": "GBP"
-                    },
-                    "suitableForDiet": ["https://schema.org/VeganDiet", "https://schema.org/VegetarianDiet"]
-                  }
-                ]
-              },
-              "inLanguage": "en-GB"
-            },
-            "aggregateRating": {
-              "@type": "AggregateRating",
-              "ratingValue": "4.8",
-              "reviewCount": "127",
-              "bestRating": "5",
-              "worstRating": "1"
-            }
-          },
-          {
-            "@context": "https://schema.org",
-            "@type": "Offer",
-            "name": "Sunday Roast Pre-Order Special",
-            "description": "Traditional British Sunday roast dinners with all the trimmings. Sunday roasts require a booking with £5 per person deposit by 1pm Saturday.",
-            "url": "https://www.the-anchor.pub/sunday-lunch",
-            "priceCurrency": "GBP",
-            "priceRange": "£14.99 - £15.99",
-            "eligibleRegion": {
-              "@type": "Place",
-              "name": "Stanwell Moor and surrounding areas"
-            },
-            "availableAtOrFrom": {
-              "@type": "Place",
-              "name": "The Anchor",
-              "address": {
-                "@type": "PostalAddress",
-                "streetAddress": "Horton Road",
-                "addressLocality": "Stanwell Moor",
-                "addressRegion": "Surrey",
-                "postalCode": "TW19 6AQ"
-              }
-            },
-            "itemOffered": {
-              "@type": "MenuItem",
-              "name": "Sunday Roast Selection",
-              "description": "Choice of roasted meats served with Yorkshire pudding, roast potatoes, seasonal vegetables and gravy"
-            },
-            "validFrom": "12:00",
-            "validThrough": "17:00",
-            "eligibleDuration": {
-              "@type": "Duration",
-              "description": "Available Sundays only"
-            },
-            "availabilityStarts": "2025-01-01",
-            "availabilityEnds": "2025-12-31",
-            "seller": {
-              "@id": "https://www.the-anchor.pub/#business"
-            },
-            "priceSpecification": {
-              "@type": "CompoundPriceSpecification",
-              "priceComponent": [
-                {
-                  "@type": "UnitPriceSpecification",
-                  "name": "Deposit",
-                  "price": "5.00",
-                  "priceCurrency": "GBP",
-                  "unitText": "per person",
-                  "description": "Required at time of booking"
-                },
-                {
-                  "@type": "UnitPriceSpecification",
-                  "name": "Balance",
-                  "priceCurrency": "GBP",
-                  "unitText": "per person",
-                  "description": "Payable on arrival"
-                }
-              ]
-            }
-          },
-          {
-            "@context": "https://schema.org",
-            "@type": "ItemList",
-            "name": "Sunday Roast Options",
-            "itemListElement": sundayRoastItems.map(item => ({
-              "@type": "ListItem",
-              "position": item.position,
-              "name": item.name,
-              "description": item.description,
-              "url": item.url
-            }))
-          },
-          {
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Home",
-                "item": "https://www.the-anchor.pub"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Sunday Lunch",
-                "item": "https://www.the-anchor.pub/sunday-lunch"
-              }
-            ]
-          }
-        ])
+          __html: schemaData
         }}
       />
 
