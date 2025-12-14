@@ -180,6 +180,31 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
       ? 'The venue is closed on this date.'
       : 'Opening hours have been adjusted for this date.')
 
+  if (isTimeChange) {
+    return (
+      <div ref={ref} className="bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+        {inView ? (
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6">
+             <div className="flex items-center gap-3 sm:min-w-[160px]">
+               <span className="text-xl">⏰</span>
+               <span className="font-bold text-gray-900">{eventDate}</span>
+             </div>
+             
+             <div className="flex-1 text-gray-700">
+                {timeChangeMessage}
+             </div>
+             
+             <div className="text-sm font-semibold text-anchor-green whitespace-nowrap bg-anchor-green/5 px-3 py-1 rounded-full">
+                {timeChangeSchedule}
+             </div>
+          </div>
+        ) : (
+           <div className="h-12 bg-gray-50 animate-pulse rounded"></div>
+        )}
+      </div>
+    )
+  }
+
   return (
     <div ref={ref} className="bg-white rounded-2xl shadow-lg overflow-hidden">
       {inView ? (

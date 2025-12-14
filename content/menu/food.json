@@ -1,7 +1,7 @@
 {
   "title": "Food Menu",
   "description": "Traditional British pub food at The Anchor",
-  "lastUpdated": "2024-01-15",
+  "lastUpdated": "2025-12-14",
   "kitchenHours": {
     "Tuesday to Friday": "6pm-9pm",
     "Saturday": "1pm-7pm",
@@ -88,21 +88,21 @@
           "items": [
             {
               "name": "4 Chicken Goujons with Chips",
-              "price": "£7.49",
+              "price": "£8.49",
               "description": "Crispy chicken strips with chips and your choice of dip.",
               "allergens": ["gluten"],
               "vegetarian": false
             },
             {
               "name": "5 Salt & Chilli Squid with Chips",
-              "price": "£7.49",
+              "price": "£8.49",
               "description": "Lightly spiced squid bites with chips and a zingy dip.",
               "allergens": ["gluten", "molluscs"],
               "vegetarian": false
             },
             {
               "name": "3 Fish Fingers with Chips",
-              "price": "£7.49",
+              "price": "£8.49",
               "description": "Hand-cut fish fingers in breadcrumbs served with chips and lemon.",
               "allergens": ["gluten", "fish"],
               "vegetarian": false
@@ -150,7 +150,7 @@
             },
             {
               "name": "Lamb Shank",
-              "price": "£14.99",
+              "price": "£22.99",
               "description": "Slow-cooked lamb shank, served with smooth mash (contains dairy) or chunky chips (dairy-free option) and seasonal veg. Finished with a rich mint-infused gravy.",
               "allergens": [],
               "vegetarian": false,

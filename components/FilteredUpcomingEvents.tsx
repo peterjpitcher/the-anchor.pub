@@ -32,7 +32,7 @@ export async function FilteredUpcomingEvents({ categorySlug }: FilteredUpcomingE
     const mergedEvents: DisplayEvent[] = [...filteredEvents, ...timeChangeEvents].sort((a, b) => {
       return new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
     })
-    
+
     return (
       <>
         {mergedEvents.map(event => (
@@ -43,7 +43,7 @@ export async function FilteredUpcomingEvents({ categorySlug }: FilteredUpcomingE
     )
   } catch (error) {
     // Error: Failed to load upcoming events
-    
+
     return (
       <div className="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
         <p className="text-red-700 mb-2">Unable to load upcoming events at the moment.</p>
@@ -68,30 +68,30 @@ export function mapSpecialHoursToEvents(businessHours: BusinessHours | null): Di
 
   return withinNextMonth
     .map(special => {
-      const { date: start, opens, closes, status, note, reason, is_closed } = special as any
+      const { date, opens, closes, status, note, reason, is_closed } = special as any
       const statusLabel = status || (is_closed ? 'closed' : 'modified')
       const openTime = formatTimeString(opens)
       const closeTime = formatTimeString(closes)
-      const startDate = `${start}T${openTime || '00:00'}:00Z`
+      const startDate = `${date}T${openTime || '00:00'}:00Z`
 
-      const name = `Special Opening Hours – ${formatSpecialDate(start, start)}`
+      const name = `Special Opening Hours – ${formatSpecialDate(date, date)}`
 
       const description =
         note ||
         reason ||
         (statusLabel === 'closed'
-          ? 'We are closed on this date. Please call us if you need assistance.'
+          ? 'We are closed on these dates. Please call us if you need assistance.'
           : `Opening hours have changed. We are open ${openTime || 'TBC'} - ${closeTime || 'TBC'}.`)
 
       return {
         '@type': 'Event',
-        id: `time-change-${start}`,
-        slug: `opening-hours-${start}`,
+        id: `time-change-${date}`,
+        slug: `opening-hours-${date}`,
         name,
         description,
         shortDescription: description,
         startDate,
-        endDate: startDate,
+        endDate: startDate, // Schema technically usually wants single dates, but for display this serves our ID purpose
         doorTime: null,
         duration: null,
         about: null,
@@ -134,7 +134,7 @@ export function mapSpecialHoursToEvents(businessHours: BusinessHours | null): Di
         remainingAttendeeCapacity: undefined,
         maximumAttendeeCapacity: undefined,
         url: `https://www.the-anchor.pub/whats-on`,
-        identifier: `time-change-${start}`,
+        identifier: `time-change-${date}`,
         metaTitle: null,
         metaDescription: description,
         category: {
@@ -158,8 +158,8 @@ export function mapSpecialHoursToEvents(businessHours: BusinessHours | null): Di
         timeChangeStatus: statusLabel,
         timeChangeOpens: openTime,
         timeChangeCloses: closeTime,
-        timeChangeDate: start,
-        timeChangeRangeEnd: start
+        timeChangeDate: date,
+        timeChangeRangeEnd: date
       } as DisplayEvent
     })
     .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
