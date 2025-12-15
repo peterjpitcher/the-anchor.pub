@@ -66,15 +66,50 @@ export function mapSpecialHoursToEvents(businessHours: BusinessHours | null): Di
     return specialDateEnd >= now && specialDateEnd <= cutoff
   })
 
-  return withinNextMonth
+  // Group consecutive days with same details
+  const grouped: any[] = []
+
+  withinNextMonth.forEach((special) => {
+    const lastGroup = grouped[grouped.length - 1]
+
+    // Check if this special hour matches the last one
+    const isConsecutive = lastGroup && (() => {
+      const lastDate = new Date(lastGroup.endDate)
+      const thisDate = new Date(special.date)
+      const diffTime = Math.abs(thisDate.getTime() - lastDate.getTime())
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+
+      return diffDays === 1 && // Must be next day
+        lastGroup.status === special.status &&
+        lastGroup.is_closed === special.is_closed &&
+        lastGroup.opens === special.opens &&
+        lastGroup.closes === special.closes &&
+        lastGroup.note === special.note &&
+        lastGroup.reason === special.reason
+    })()
+
+    if (isConsecutive) {
+      // Extend the last group
+      lastGroup.endDate = special.date
+    } else {
+      // Start new group
+      grouped.push({
+        ...special,
+        endDate: special.date,
+        startDate: special.date
+      })
+    }
+  })
+
+  return grouped
     .map(special => {
-      const { date, opens, closes, status, note, reason, is_closed } = special as any
+      const { startDate: firstDate, endDate: lastDate, opens, closes, status, note, reason, is_closed } = special
       const statusLabel = status || (is_closed ? 'closed' : 'modified')
       const openTime = formatTimeString(opens)
       const closeTime = formatTimeString(closes)
-      const startDate = `${date}T${openTime || '00:00'}:00Z`
+      const startDateStr = `${firstDate}T${openTime || '00:00'}:00Z`
 
-      const name = `Special Opening Hours – ${formatSpecialDate(date, date)}`
+      const name = `Special Opening Hours – ${formatSpecialDate(firstDate, lastDate)}`
 
       const description =
         note ||
@@ -85,13 +120,13 @@ export function mapSpecialHoursToEvents(businessHours: BusinessHours | null): Di
 
       return {
         '@type': 'Event',
-        id: `time-change-${date}`,
-        slug: `opening-hours-${date}`,
+        id: `time-change-${firstDate}`,
+        slug: `opening-hours-${firstDate}`,
         name,
         description,
         shortDescription: description,
-        startDate,
-        endDate: startDate, // Schema technically usually wants single dates, but for display this serves our ID purpose
+        startDate: startDateStr,
+        endDate: startDateStr, // Schema technically usually wants single dates, but for display this serves our ID purpose
         doorTime: null,
         duration: null,
         about: null,
@@ -134,7 +169,7 @@ export function mapSpecialHoursToEvents(businessHours: BusinessHours | null): Di
         remainingAttendeeCapacity: undefined,
         maximumAttendeeCapacity: undefined,
         url: `https://www.the-anchor.pub/whats-on`,
-        identifier: `time-change-${date}`,
+        identifier: `time-change-${firstDate}`,
         metaTitle: null,
         metaDescription: description,
         category: {
@@ -158,8 +193,8 @@ export function mapSpecialHoursToEvents(businessHours: BusinessHours | null): Di
         timeChangeStatus: statusLabel,
         timeChangeOpens: openTime,
         timeChangeCloses: closeTime,
-        timeChangeDate: date,
-        timeChangeRangeEnd: date
+        timeChangeDate: firstDate,
+        timeChangeRangeEnd: lastDate
       } as DisplayEvent
     })
     .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
