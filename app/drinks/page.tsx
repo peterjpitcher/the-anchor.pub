@@ -24,17 +24,17 @@ import { getPromotionImage } from '@/lib/managers-special-utils'
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
-  title: 'Heathrow Pub Drinks Menu - Carling, Cocktails & Wine Near Terminal 5',
-  description: 'Explore The Anchor drinks menu near Heathrow Terminal 5: Carling, Coors Light, Inch’s Cider, draught Guinness, cocktails, premium spirits and wines at local pub prices.',
-  keywords: 'heathrow pub drinks menu, carling near heathrow, coors light pub terminal 5, cocktails stanwell moor, wine bar near heathrow, affordable pub drinks tw19',
+  title: 'Heathrow & Staines Pub Drinks Menu - Beers, Cocktails & Popular Shots',
+  description: 'Explore The Anchor drinks menu near Heathrow and Staines: Carling, Coors Light, Inch’s Cider, draught Guinness, cocktails, premium spirits, wines and popular shots like Baby Guinness.',
+  keywords: 'heathrow pub drinks menu, drinks menu staines, popular shots near heathrow, cocktails stanwell moor, wine bar near heathrow, affordable pub drinks tw19',
   openGraph: {
-    title: 'Heathrow Pub Drinks Menu - Real Ale, Cocktails & Wine',
-    description: 'See The Anchor drinks list: cask ales, draught beer including Carling & Coors, cocktails and wine at fair pub prices near Heathrow.',
+    title: 'Heathrow & Staines Pub Drinks Menu - Real Ale, Cocktails & Shots',
+    description: 'See The Anchor drinks list: cask ales, draught beer, cocktails, wines and popular shots at fair pub prices near Heathrow.',
     images: [DEFAULT_DRINKS_IMAGE],
   },
   twitter: getTwitterMetadata({
-    title: 'Heathrow Pub Drinks Menu - Carling, Cocktails & Wine',
-    description: 'See The Anchor drinks list: draught Carling, Coors Light, Guinness, cocktails and wine at fair pub prices near Heathrow.',
+    title: 'Heathrow & Staines Pub Drinks Menu - Beers, Cocktails & Shots',
+    description: 'See The Anchor drinks list: draught beer, cocktails, wines and popular shots at fair pub prices near Heathrow and Staines.',
     images: [DEFAULT_DRINKS_IMAGE]
   }),
   alternates: {
@@ -336,14 +336,14 @@ export default async function DrinksMenuPage({ searchParams }: { searchParams: P
                 📖 Jump to Menu
               </Button>
             </Link>
-            <Link href="/pizza-tuesday" className="w-full sm:w-auto">
+            <Link href="/food-menu#pizza" className="w-full sm:w-auto">
               <Button 
                 variant="secondary"
                 size="lg"
                 fullWidth
                 className="sm:w-auto"
               >
-                🍕 Pizza Tuesday Deal
+                🍕 Pizza Menu
               </Button>
             </Link>
             <Link href="/sunday-lunch" className="w-full sm:w-auto">
@@ -443,10 +443,10 @@ export default async function DrinksMenuPage({ searchParams }: { searchParams: P
               </Link>
             ))}
             <Link 
-              href="/pizza-tuesday" 
+              href="/food-menu#pizza" 
               className="rounded-lg bg-white px-6 py-3 shadow transition-shadow hover:shadow-md"
             >
-              🍕 Pizza Tuesday 2-for-1
+              🍕 Pizza Menu
             </Link>
             <Link 
               href="/sunday-lunch" 
@@ -597,6 +597,41 @@ export default async function DrinksMenuPage({ searchParams }: { searchParams: P
         </Container>
       </Section>
 
+      <Section background="white" spacing="md">
+        <Container>
+          <SectionHeader
+            title="Popular Shots & Cocktails Near Heathrow"
+            subtitle="Ask the bar team for favourites alongside the full drinks menu."
+          />
+          <div className="grid gap-6 md:grid-cols-2">
+            <Card className="bg-anchor-cream/40 shadow-sm">
+              <CardBody>
+                <h3 className="text-lg font-semibold text-anchor-green mb-2">Popular shots at the bar</h3>
+                <p className="text-sm text-gray-700 mb-3">
+                  Guests regularly order popular shots like Baby Guinness at our Heathrow bar, alongside creamy
+                  liqueurs and seasonal specials. Tell us what you like and we will recommend a pour.
+                </p>
+                <Link
+                  href="/drinks/baby-guinness"
+                  className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition"
+                >
+                  Baby Guinness guide →
+                </Link>
+              </CardBody>
+            </Card>
+            <Card className="bg-white shadow-sm">
+              <CardBody>
+                <h3 className="text-lg font-semibold text-anchor-green mb-2">Cocktails, mixers and long drinks</h3>
+                <p className="text-sm text-gray-700">
+                  Espresso martinis, mojitos and classic G&Ts share the menu with premium spirits and
+                  alcohol-free options, perfect for pre-flight meetups or Staines nights out near Heathrow.
+                </p>
+              </CardBody>
+            </Card>
+          </div>
+        </Container>
+      </Section>
+
       {/* Menu Content */}
       <div id="menu">
         <MenuRenderer menuData={menuDataWithManagersSpecial} accentColor="anchor-green" />
@@ -655,7 +690,7 @@ export default async function DrinksMenuPage({ searchParams }: { searchParams: P
               Join Us for a Drink
             </h2>
             <p className="text-xl text-white/90 mb-8">
-              Book ahead for Pizza Tuesday, Sunday roast or a post-flight celebration with pints and cocktails.
+              Book ahead for stone-baked pizzas, Sunday roast or a post-flight celebration with pints and cocktails.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <BookTableButton
@@ -672,9 +707,9 @@ export default async function DrinksMenuPage({ searchParams }: { searchParams: P
                   📞 Call Us
                 </Button>
               </Link>
-              <Link href="/pizza-tuesday" className="w-full sm:w-auto">
+              <Link href="/food-menu#pizza" className="w-full sm:w-auto">
                 <Button size="lg" variant="secondary" fullWidth className="sm:w-auto bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
-                  🍕 Pizza Tuesday Deal
+                  🍕 Pizza Menu
                 </Button>
               </Link>
               <Link href="/sunday-lunch" className="w-full sm:w-auto">

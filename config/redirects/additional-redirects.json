@@ -6,7 +6,7 @@
   },
   {
     "source": "/food/pizza",
-    "destination": "/pizza-tuesday",
+    "destination": "/food-menu#pizza",
     "permanent": false,
     "statusCode": 301
   },
@@ -32,7 +32,7 @@
   },
   {
     "source": "/events/pizza-tuesday",
-    "destination": "/pizza-tuesday",
+    "destination": "/food-menu#pizza",
     "permanent": true
   },
   {
@@ -350,6 +350,12 @@
     "source": "/food",
     "destination": "/food-menu",
     "permanent": true
+  },
+  {
+    "source": "/food/fish-and-chips",
+    "destination": "/food-menu",
+    "permanent": false,
+    "statusCode": 301
   },
   {
     "source": "/drink",

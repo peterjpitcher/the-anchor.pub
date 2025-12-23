@@ -26,7 +26,6 @@ const locationPages = [
 const foodPages = [
   { file: 'app/food-menu/page.tsx', breadcrumbs: [{ name: 'Food & Drink', href: '/food-menu' }, { name: 'Menu' }] },
   { file: 'app/drinks/page.tsx', breadcrumbs: [{ name: 'Food & Drink', href: '/food-menu' }, { name: 'Drinks' }] },
-  { file: 'app/pizza-tuesday/page.tsx', breadcrumbs: [{ name: 'Food & Drink', href: '/food-menu' }, { name: 'Pizza Tuesday' }] },
   { file: 'app/food/pizza/page.tsx', breadcrumbs: [{ name: 'Food & Drink', href: '/food-menu' }, { name: 'Pizza Menu' }] },
   { file: 'app/sunday-lunch/page.tsx', breadcrumbs: [{ name: 'Food & Drink', href: '/food-menu' }, { name: 'Sunday Lunch' }] }
 ];

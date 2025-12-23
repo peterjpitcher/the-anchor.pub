@@ -8,7 +8,7 @@ import type { NavigationItem } from '@/lib/types'
 import { useFocusTrap } from '@/hooks/useFocusTrap'
 import { BookTableButton } from '@/components/BookTableButton'
 import { trackNavigationClick } from '@/lib/gtm-events'
-import { nowInLondon, parseLondonDate } from '@/lib/time-london'
+
 
 interface HeaderCtaButton {
   label: string
@@ -70,7 +70,7 @@ const defaultItems: NavigationItem[] = [
     items: [
       { label: 'Food Menu', href: '/food-menu' },
       { label: 'Sunday Lunch', href: '/sunday-lunch' },
-      { label: 'Pizza Tuesday Deal', href: '/pizza-tuesday' }
+      { label: 'Pizza Menu', href: '/food-menu#pizza' }
     ]
   },
   { label: 'Drinks', href: '/drinks' },
@@ -81,7 +81,7 @@ const defaultItems: NavigationItem[] = [
       { label: 'Book an Event', href: '/book-event' },
       { label: 'Private Parties', href: '/private-party-venue' },
       { label: 'Corporate Events', href: '/corporate-events' },
-      { label: 'Christmas Parties', href: '/christmas-parties' },
+
       { label: 'Function Room Hire', href: '/function-room-hire' }
     ]
   },
@@ -111,6 +111,16 @@ const defaultLogo = {
   height: 60
 }
 
+const quickTasks = [
+  { label: 'Book a Table', href: '/book-table', icon: '📅' },
+  { label: 'Food Menu', href: '/food-menu', icon: '🍽️' },
+  { label: "What's On", href: '/whats-on', icon: '🎭' },
+  { label: 'Find Us', href: '/find-us', icon: '📍' }
+]
+
+const toMenuId = (label: string) =>
+  `nav-${label.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`
+
 export function Navigation({
   logo = defaultLogo,
   items = defaultItems,
@@ -137,25 +147,10 @@ export function Navigation({
 }: NavigationProps) {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [openMobileSections, setOpenMobileSections] = useState<Record<string, boolean>>({})
   const focusTrapRef = useFocusTrap(isMobileMenuOpen)
 
-  const christmasEndDate = useMemo(() => parseLondonDate('2025-12-25'), [])
-  const computeChristmasActive = useCallback(() => nowInLondon() < christmasEndDate, [christmasEndDate])
-  const [showChristmasCta, setShowChristmasCta] = useState<boolean>(() => computeChristmasActive())
 
-  useEffect(() => {
-    setShowChristmasCta(computeChristmasActive())
-  }, [computeChristmasActive])
-  const christmasCtaButton: HeaderCtaButton | null = useMemo(() => {
-    if (!showChristmasCta) return null
-    return {
-      label: 'Christmas Parties',
-      href: '/christmas-parties',
-      icon: '🎄',
-      external: false,
-      variant: 'secondary'
-    }
-  }, [showChristmasCta])
 
   const mergedTheme = { ...defaultTheme, ...theme }
   const desktopFlexClass = {
@@ -175,8 +170,7 @@ export function Navigation({
   }[mobileBreakpoint]
   const showUtilityRow = Boolean(
     ctaButton ||
-    secondaryCtaButton ||
-    christmasCtaButton
+    secondaryCtaButton
   )
 
   useEffect(() => {
@@ -208,6 +202,7 @@ export function Navigation({
       document.body.style.overflow = 'hidden'
     } else {
       document.body.style.overflow = ''
+      setOpenMobileSections({})
     }
 
     return () => {
@@ -216,6 +211,12 @@ export function Navigation({
   }, [isMobileMenuOpen])
 
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
+  const toggleMobileSection = useCallback((label: string) => {
+    setOpenMobileSections((prev) => ({
+      ...prev,
+      [label]: !prev[label]
+    }))
+  }, [])
 
 
 
@@ -230,16 +231,32 @@ export function Navigation({
 
     // Handle dropdown items for desktop
     if (!isMobile && item.items && item.items.length > 0) {
+      const dropdownId = toMenuId(item.label)
+
       return (
         <div 
           key={item.href} 
           className="relative group"
           onMouseEnter={() => setOpenDropdown(item.label)}
           onMouseLeave={() => setOpenDropdown(null)}
+          onFocus={() => setOpenDropdown(item.label)}
+          onBlur={(event) => {
+            if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+              setOpenDropdown(null)
+            }
+          }}
+          onKeyDown={(event) => {
+            if (event.key === 'Escape') {
+              setOpenDropdown(null)
+            }
+          }}
         >
           <Link
             href={item.href}
             className={cn(linkClass, 'flex items-center gap-1')}
+            aria-haspopup="menu"
+            aria-expanded={openDropdown === item.label}
+            aria-controls={dropdownId}
             onClick={() => trackNavigationClick({
               label: item.label,
               url: item.href,
@@ -257,13 +274,14 @@ export function Navigation({
           <div className={cn(
             'absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-anchor-green-dark ring-1 ring-black ring-opacity-5 transition-all duration-200',
             openDropdown === item.label ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
-          )}>
+          )} id={dropdownId} role="menu">
             <div className="py-1">
               {item.items.map((subItem) => (
                 <Link
                   key={subItem.href}
                   href={subItem.href}
                   className="block px-4 py-2 text-sm text-white hover:bg-anchor-gold hover:text-white transition-colors"
+                  role="menuitem"
                   onClick={() => trackNavigationClick({
                     label: subItem.label,
                     url: subItem.href,
@@ -284,26 +302,51 @@ export function Navigation({
 
     // Handle mobile dropdown items
     if (isMobile && item.items && item.items.length > 0) {
+      const sectionId = `${toMenuId(item.label)}-mobile`
+      const isOpen = openMobileSections[item.label]
+
       return (
-        <div key={item.href}>
-          <Link
-            href={item.href}
-            className={cn(linkClass, 'border-b border-anchor-green-light')}
-            onClick={() => {
-              trackNavigationClick({
-                label: item.label,
-                url: item.href,
-                level: 'main',
-                deviceType: 'mobile',
-                isExternal: false,
-                location: 'mobile_menu'
-              })
-              setIsMobileMenuOpen(false)
-            }}
+        <div key={item.href} className="border-b border-anchor-green-light/30 pb-2">
+          <button
+            type="button"
+            className={cn(
+              'flex w-full items-center justify-between rounded-md py-3 text-left text-lg font-medium transition-colors',
+              mergedTheme.text,
+              mergedTheme.hoverText
+            )}
+            aria-expanded={isOpen}
+            aria-controls={sectionId}
+            onClick={() => toggleMobileSection(item.label)}
           >
-            {item.label}
-          </Link>
-          <div className="pl-4">
+            <span>{item.label}</span>
+            <svg
+              className={cn('h-4 w-4 transition-transform', isOpen && 'rotate-180')}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div id={sectionId} className={cn('mt-1 space-y-2 pl-4', isOpen ? 'block' : 'hidden')}>
+            <Link
+              href={item.href}
+              className={cn(linkClass, 'text-base py-2')}
+              onClick={() => {
+                trackNavigationClick({
+                  label: item.label,
+                  url: item.href,
+                  level: 'main',
+                  deviceType: 'mobile',
+                  isExternal: false,
+                  location: 'mobile_menu'
+                })
+                setIsMobileMenuOpen(false)
+              }}
+            >
+              All {item.label}
+            </Link>
             {item.items.map((subItem) => (
               <Link
                 key={subItem.href}
@@ -488,25 +531,19 @@ export function Navigation({
     return renderSingleCTA(button, isMobile, `${secondaryCtaButton.href}-${isMobile ? 'mobile' : 'desktop'}`)
   }
 
-  const renderChristmasCTA = (isMobile = false, extraClass?: string) => {
-    if (!christmasCtaButton) return null
-    const button = extraClass
-      ? { ...christmasCtaButton, className: cn(christmasCtaButton.className, extraClass) }
-      : christmasCtaButton
-    return renderSingleCTA(button, isMobile, `${christmasCtaButton.href}-${isMobile ? 'mobile' : 'desktop'}-seasonal`)
-  }
+
 
   return (
     <>
       {/* Skip to main content link for accessibility */}
-      <a 
-        href="#main-content" 
+      <a
+        href="#main-content"
         className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-anchor-gold focus:text-white focus:rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-anchor-gold-light"
       >
         Skip to main content
       </a>
-      
-      <nav 
+
+      <nav
         className={cn(
           'transition-all duration-300 shadow-md',
           sticky && 'sticky top-0 z-50',
@@ -515,7 +552,7 @@ export function Navigation({
         )}
         role="navigation"
         aria-label="Main navigation"
-        itemScope 
+        itemScope
         itemType="https://schema.org/SiteNavigationElement"
       >
         <div className="container mx-auto px-4">
@@ -532,7 +569,7 @@ export function Navigation({
               <div className="flex flex-wrap items-center justify-end gap-3">
                 {renderPrimaryCTA(false, 'px-4 py-1 text-sm')}
                 {renderSecondaryCTA(false, 'px-4 py-1 text-sm')}
-                {renderChristmasCTA(false, 'px-4 py-1 text-sm')}
+
               </div>
             </div>
           )}
@@ -557,11 +594,11 @@ export function Navigation({
               {items.map(item => renderLink(item))}
             </div>
 
-            {(!showUtilityRow && (ctaButton || secondaryCtaButton || christmasCtaButton)) && (
+            {(!showUtilityRow && (ctaButton || secondaryCtaButton)) && (
               <div className="flex items-center gap-3 flex-shrink-0">
                 {renderPrimaryCTA()}
                 {renderSecondaryCTA(false)}
-                {renderChristmasCTA(false)}
+
               </div>
             )}
           </div>
@@ -605,30 +642,60 @@ export function Navigation({
           </div>
         </div>
 
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div 
-          ref={focusTrapRef}
-          className={cn(
-            mobileHiddenClass,
-            'bg-anchor-green-dark border-t border-anchor-green-light shadow-lg'
-          )}
-          role="dialog"
-          aria-label="Mobile navigation menu"
-          aria-modal="true"
-        >
-          <div className="container mx-auto px-4 py-6 space-y-6">
-            {(ctaButton || secondaryCtaButton || christmasCtaButton) && (
-              <div className="space-y-3">
-                {renderPrimaryCTA(true)}
-                {renderSecondaryCTA(true)}
-                {renderChristmasCTA(true)}
-              </div>
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div
+            ref={focusTrapRef}
+            className={cn(
+              mobileHiddenClass,
+              'bg-anchor-green-dark border-t border-anchor-green-light shadow-lg'
             )}
-            {items.map(item => renderLink(item, true))}
+            role="dialog"
+            aria-label="Mobile navigation menu"
+            aria-modal="true"
+          >
+            <div className="container mx-auto px-4 py-6 space-y-6">
+              {(ctaButton || secondaryCtaButton) && (
+                <div className="space-y-3">
+                  {renderPrimaryCTA(true)}
+                  {renderSecondaryCTA(true)}
+
+                </div>
+              )}
+              <div className="rounded-xl border border-white/10 bg-anchor-green/60 p-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white/70">
+                  Top tasks
+                </p>
+                <div className="mt-3 grid grid-cols-2 gap-3">
+                  {quickTasks.map((task) => (
+                    <Link
+                      key={task.href}
+                      href={task.href}
+                      className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-white bg-white/10 hover:bg-white/20 transition-colors"
+                      onClick={() => {
+                        trackNavigationClick({
+                          label: task.label,
+                          url: task.href,
+                          level: 'main',
+                          deviceType: 'mobile',
+                          isExternal: false,
+                          location: 'mobile_menu'
+                        })
+                        setIsMobileMenuOpen(false)
+                      }}
+                    >
+                      <span aria-hidden="true">{task.icon}</span>
+                      <span>{task.label}</span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+              <div className="space-y-1">
+                {items.map(item => renderLink(item, true))}
+              </div>
+            </div>
           </div>
-        </div>
-      )}
+        )}
       </nav>
 
     </>

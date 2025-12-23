@@ -12,6 +12,7 @@ interface WhatsAppLinkProps {
   showIcon?: boolean
   iconPosition?: 'left' | 'right'
   onClick?: () => void
+  role?: string
 }
 
 export function WhatsAppLink({
@@ -22,7 +23,8 @@ export function WhatsAppLink({
   className,
   showIcon = true,
   iconPosition = 'left',
-  onClick
+  onClick,
+  role
 }: WhatsAppLinkProps) {
   // Clean the phone number - remove spaces and add country code if needed
   const cleanPhone = phone.replace(/\s/g, '').replace(/^0/, '44')
@@ -51,6 +53,7 @@ export function WhatsAppLink({
       rel="noopener noreferrer"
       className={cn('inline-flex items-center gap-2', className)}
       onClick={handleClick}
+      role={role}
     >
       {icon && iconPosition === 'left' && <span aria-hidden="true">{icon}</span>}
       {children}

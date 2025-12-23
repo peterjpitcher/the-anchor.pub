@@ -75,7 +75,7 @@ const defaultSections: FooterSection[] = [
     items: [
       { label: 'Beer Garden & Plane Spotting', href: '/beer-garden' },
       { label: 'Plane Spotting Guide', href: '/plane-spotting-heathrow' },
-      { label: 'Tuesday Pizza BOGOF', href: '/pizza-tuesday' },
+      { label: 'Pizza Menu', href: '/food-menu#pizza' },
       { label: 'Drag Shows', href: '/whats-on/drag-shows' },
       { label: 'Free Parking', href: '/find-us' }
     ]
@@ -202,7 +202,123 @@ export function Footer({
   return (
     <footer className={cn(mergedTheme.background, 'text-white py-12', className)}>
       <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 mb-8">
+        <div className="md:hidden">
+          <div className="mb-6">
+            {businessInfo.logo && (
+              <Image
+                src={businessInfo.logo}
+                alt="The Anchor logo - white anchor symbol with traditional pub lettering on dark background"
+                width={180}
+                height={72}
+                className="h-16 w-auto mb-4"
+                sizes="180px"
+              />
+            )}
+            <p className={cn(mergedTheme.text, 'leading-relaxed')}>
+              {businessInfo.description}
+            </p>
+          </div>
+          <div className="space-y-4">
+            {sections.map((section, index) => (
+              <details
+                key={index}
+                className="rounded-lg border border-gray-700/60 bg-white/5"
+              >
+                <summary className={cn('cursor-pointer px-4 py-3 text-base font-semibold', section.titleClass || mergedTheme.headingText)}>
+                  {section.title}
+                </summary>
+                <ul className={cn('space-y-2 px-4 pb-4 text-sm', section.itemClass || mergedTheme.text)}>
+                  {section.items.map(item => renderLink(item))}
+                </ul>
+              </details>
+            ))}
+            {contact && (
+              <details className="rounded-lg border border-gray-700/60 bg-white/5">
+                <summary className={cn('cursor-pointer px-4 py-3 text-base font-semibold', mergedTheme.headingText)}>
+                  Get in Touch
+                </summary>
+                <ul className={cn('space-y-2 px-4 pb-4 text-sm', mergedTheme.text)}>
+                  {contact.phone && (
+                    <>
+                      <li>
+                        <PhoneLink 
+                          phone={contact.phone} 
+                          source="footer" 
+                          className={mergedTheme.linkHover}
+                        />
+                      </li>
+                      <li>
+                        <WhatsAppLink
+                          phone={contact.phone}
+                          source="footer"
+                          className={mergedTheme.linkHover}
+                        >
+                          WhatsApp Us
+                        </WhatsAppLink>
+                      </li>
+                    </>
+                  )}
+                  {contact.email && (
+                    <li>
+                      <EmailLink
+                        email={contact.email}
+                        source="footer"
+                        className={mergedTheme.linkHover}
+                        showIcon={true}
+                      />
+                    </li>
+                  )}
+                  {contact.address && (
+                    <li itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
+                      📍 <DirectionsLink
+                        href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ"
+                        source="footer_address"
+                        className={mergedTheme.linkHover}
+                      >
+                        <span itemProp="streetAddress">Horton Road</span>, 
+                        <span itemProp="addressLocality">Stanwell Moor</span>, 
+                        <span itemProp="addressRegion">Surrey</span>, 
+                        <span itemProp="postalCode">TW19 6AQ</span>
+                      </DirectionsLink>
+                    </li>
+                  )}
+                  {contact.social && contact.social.length > 0 && (
+                    <li className="pt-2">
+                      <div className="flex gap-4">
+                        {contact.social.map(social => (
+                          <SocialLinkComponent
+                            key={social.platform}
+                            platform={social.platform as any}
+                            href={social.href}
+                            source="footer"
+                            className={cn(mergedTheme.linkHover, 'hover:text-anchor-gold')}
+                            ariaLabel={`Visit our ${social.label || social.platform} page`}
+                          >
+                            {social.label || social.platform}
+                          </SocialLinkComponent>
+                        ))}
+                      </div>
+                    </li>
+                  )}
+                </ul>
+              </details>
+            )}
+            {features && features.length > 0 && (
+              <details className="rounded-lg border border-gray-700/60 bg-white/5">
+                <summary className={cn('cursor-pointer px-4 py-3 text-base font-semibold', mergedTheme.headingText)}>
+                  For Everyone
+                </summary>
+                <ul className={cn('space-y-2 px-4 pb-4 text-sm', mergedTheme.text)}>
+                  {features.map(feature => (
+                    <li key={feature}>{feature}</li>
+                  ))}
+                </ul>
+              </details>
+            )}
+          </div>
+        </div>
+
+        <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 mb-8">
           {/* Business Info */}
           <div>
             {businessInfo.logo && (

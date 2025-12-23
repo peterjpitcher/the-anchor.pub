@@ -145,21 +145,21 @@ export default function PlaneSpottingHeathrowPage() {
             </Card>
             <Card className="bg-white shadow-sm">
               <CardBody>
-                <h3 className="text-lg font-semibold text-anchor-green mb-2">Pizza Tuesday 2-for-1</h3>
+                <h3 className="text-lg font-semibold text-anchor-green mb-2">Stone-Baked Pizzas</h3>
                 <p className="text-sm text-gray-700 mb-4">
-                  Stay for buy-one-get-one-free stone-baked pizzas every Tuesday evening – a favourite with aviation meet-ups and crew nights.
+                  Hand-stretched pizzas with bold toppings — a favourite with aviation meet-ups and crew nights.
                 </p>
                 <div className="flex flex-col gap-2">
                   <BookTableButton
                     source="plane_spotting_pizza_cta"
-                    context="pizza_tuesday"
+                    context="pizza_menu"
                     variant="primary"
                     size="sm"
                   >
-                    Reserve Pizza Tuesday
+                    Book a Table
                   </BookTableButton>
-                  <Link href="/pizza-tuesday" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
-                    Pizza Tuesday details →
+                  <Link href="/food-menu#pizza" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
+                    View pizza menu →
                   </Link>
                 </div>
               </CardBody>
@@ -338,7 +338,7 @@ export default function PlaneSpottingHeathrowPage() {
 
       <CTASection
         title="Ready for Heathrow Plane Spotting?"
-        description="Book a table, grab Pizza Tuesday or Sunday roasts, and plan your route to our beer garden."
+        description="Book a table, grab stone-baked pizzas or Sunday roasts, and plan your route to our beer garden."
         buttons={[
           {
             text: "📅 Book a Table",
@@ -346,8 +346,8 @@ export default function PlaneSpottingHeathrowPage() {
             variant: "white"
           },
           {
-            text: "🍕 Pizza Tuesday Deal",
-            href: "/pizza-tuesday",
+            text: "🍕 Pizza Menu",
+            href: "/food-menu#pizza",
             variant: "white"
           },
           {

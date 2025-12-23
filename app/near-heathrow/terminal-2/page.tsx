@@ -18,9 +18,9 @@ import { PARKING } from '@/lib/constants'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-  title: 'Pub Near Heathrow Terminal 2 (11 Mins) | Free Parking | The Anchor',
-  description: 'Escape the Queen\'s Terminal for a proper British pub. Just 11 mins from T2. Free parking, home-cooked food & garden. Perfect for Star Alliance flyers.',
-  keywords: 'pub near terminal 2, heathrow terminal 2 restaurant, closest pub to T2, star alliance terminal pub, queens terminal restaurant, local pub near terminal 2 hotels',
+  title: 'Pubs Near Heathrow Terminal 2 (11 Mins) | The Anchor',
+  description: 'Looking for pubs near Heathrow Terminal 2? The Anchor is 11 minutes from T2 with free parking, home-cooked food and a beer garden. A relaxed alternative to terminal restaurants.',
+  keywords: 'pubs near heathrow terminal 2, pub near terminal 2, heathrow terminal 2 restaurant alternative, food at terminal 2 heathrow, queens terminal pub',
   openGraph: {
     title: 'The Anchor - Local Pub Near Terminal 2 Hotels',
     description: 'Escape hotel dining! Family pub 11 mins from T2. Real atmosphere.',
@@ -30,7 +30,10 @@ export const metadata: Metadata = {
     title: 'The Anchor - Local Pub Near Terminal 2 Hotels',
     description: 'Escape hotel dining! Family pub 11 mins from T2. Real atmosphere.',
     images: [DEFAULT_NEAR_HEATHROW_IMAGE]
-  })
+  }),
+  alternates: {
+    canonical: '/near-heathrow/terminal-2'
+  }
 }
 
 export default function Terminal2Page() {
@@ -112,7 +115,7 @@ export default function Terminal2Page() {
           <div className="max-w-5xl mx-auto">
             <SectionHeader
               title="Eat & Drink Before or After Terminal 2"
-              subtitle="Pre-book so your table, roast or pizza deal is ready when you arrive."
+              subtitle="Pre-book so your table, roast or pizza order is ready when you arrive."
             />
             <div className="grid md:grid-cols-3 gap-6">
               <div className="bg-white rounded-xl shadow-sm p-6">
@@ -135,22 +138,22 @@ export default function Terminal2Page() {
                 </div>
               </div>
               <div className="bg-white rounded-xl shadow-sm p-6">
-                <h3 className="text-xl font-semibold text-anchor-green mb-2">Pizza Tuesday 2-for-1</h3>
+                <h3 className="text-xl font-semibold text-anchor-green mb-2">Stone-Baked Pizzas</h3>
                 <p className="text-sm text-gray-700 mb-4">
-                  Buy one get one free on stone-baked pizzas every Tuesday from 6pm. Ideal for crew meetups or family send-offs.
+                  Hand-stretched pizzas with bold toppings — ideal for crew meetups or family send-offs.
                 </p>
                 <div className="flex flex-col gap-2">
                   <BookTableButton
                     source="terminal2_pizza_cta"
-                    context="pizza_tuesday"
+                    context="pizza_menu"
                     variant="primary"
                     size="sm"
                     className="w-full"
                   >
-                    Reserve Pizza Night
+                    Book a Table
                   </BookTableButton>
-                  <Link href="/pizza-tuesday" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
-                    Pizza Tuesday details →
+                  <Link href="/food-menu#pizza" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
+                    View pizza menu →
                   </Link>
                 </div>
               </div>
@@ -662,7 +665,7 @@ export default function Terminal2Page() {
       {/* CTA Section */}
       <CTASection
         title="See You Soon at The Anchor!"
-        description="Just 11 minutes from Terminal 2 • Free Parking • Sunday roast & Pizza Tuesday deals"
+        description="Just 11 minutes from Terminal 2 • Free Parking • Sunday roast & stone-baked pizzas"
         variant="green"
         buttons={[
           {
@@ -672,8 +675,8 @@ export default function Terminal2Page() {
             size: "lg"
           },
           {
-            text: "🍕 Pizza Tuesday Deal",
-            href: "/pizza-tuesday",
+            text: "🍕 Pizza Menu",
+            href: "/food-menu#pizza",
             variant: "white",
             size: "lg"
           },

@@ -10,7 +10,7 @@ interface MenuSectionCtaProps {
   label: string
   href?: string
   scrollToId?: string
-  analyticsLabel: 'preorder_roast' | 'pizza_2for1' | 'view_roast_menu' | 'deal_details' | 'book_dinner' | 'dietary_picks' | 'near_heathrow' | 'view_full_menu'
+  analyticsLabel: 'preorder_roast' | 'pizza_menu' | 'view_roast_menu' | 'book_dinner' | 'dietary_picks' | 'near_heathrow' | 'view_full_menu'
   location: string
   variant?: 'primary' | 'secondary' | 'outline'
   fullWidth?: boolean

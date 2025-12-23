@@ -200,10 +200,10 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     name: 'Romantic Dining & Date Nights',
     description: 'Cosy dinners, sharer menus and intimate tables for two',
     metaTitle: 'Romantic Dining Near Heathrow | Date Night at The Anchor Pub',
-    metaDescription: 'Plan a romantic dinner near Heathrow at The Anchor: 2-for-1 pizzas, candle-lit tables, sharer boards and a cosy village pub atmosphere with free parking.',
+    metaDescription: 'Plan a romantic dinner near Heathrow at The Anchor: stone-baked pizzas, candle-lit tables, sharer boards and a cosy village pub atmosphere with free parking.',
     heroContent: 'Turn an ordinary evening into a date night worth talking about. The Anchor offers intimate corners, sharing boards and a cosy glow perfect for couples.',
     introContent: 'Whether you are staying near Heathrow, heading to Windsor for a day out or live locally, The Anchor sets the scene for relaxed romantic dining. Think stone-baked pizzas fresh from the oven, proper Sunday roasts, sharer desserts and fair drink prices.',
-    valueProposition: 'Reserve a quiet table, add a bottle of prosecco and enjoy great food without city crowds. Ask about our pizza sharing deal and Sunday roast specials for two.',
+    valueProposition: 'Reserve a quiet table, add a bottle of prosecco and enjoy great food without city crowds. Ask about our sharer boards and Sunday roast specials for two.',
     keywords: ['romantic dinner near heathrow', 'date night pub stanwell moor', 'couples dining staines', 'romantic restaurant near terminal 5', 'cosy pub for couples surrey']
   },
 

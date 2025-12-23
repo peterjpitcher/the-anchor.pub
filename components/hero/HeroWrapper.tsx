@@ -167,7 +167,9 @@ export function HeroWrapper({
       } as CSSProperties)
     : undefined
 
+  const baseImageConfig = seasonalImage ? {} : headerImageConfig
   const resolvedImage: HeroImageConfig = {
+    ...baseImageConfig,
     src: seasonalImage ? seasonalImage.src : headerImageConfig.src,
     alt: seasonalImage ? getSeasonalAltText(seasonalImage.season) : headerImageConfig.alt,
     priority: true,

@@ -15,22 +15,6 @@ interface SpecialOffer {
 
 const specialOffers: SpecialOffer[] = [
   {
-    id: 'pizza-bogof',
-    title: 'BOGOF Pizza Deal Today!',
-    description: 'Buy one get one FREE on all stone-baked pizzas - Dine in & takeaway',
-    emoji: '🍕',
-    dayOfWeek: [2, 3], // Tuesday & Wednesday
-    sectionId: 'pizza'
-  },
-  {
-    id: 'fish-friday',
-    title: "Fish Friday - 50% Off for Over 65's",
-    description: 'Half price fish & chips for seniors every Friday',
-    emoji: '🐟',
-    dayOfWeek: [5], // Friday
-    sectionId: 'mains'
-  },
-  {
     id: 'sunday-lunch-deadline',
     title: 'Sunday Lunch - Booking Deadline Today!',
     description: 'Bookings required by 1pm today for tomorrow\'s roast',

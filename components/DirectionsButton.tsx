@@ -16,6 +16,8 @@ interface DirectionsButtonProps {
   mapPlatform?: 'google_maps' | 'apple_maps' | 'waze'
   fromLocation?: string
   asLink?: boolean
+  onClick?: () => void
+  role?: string
 }
 
 export function DirectionsButton({ 
@@ -28,7 +30,9 @@ export function DirectionsButton({
   destination = 'The Anchor Stanwell Moor',
   mapPlatform,
   fromLocation,
-  asLink = false
+  asLink = false,
+  onClick,
+  role
 }: DirectionsButtonProps) {
   // Determine map platform from URL if not provided
   const platform = mapPlatform || (() => {
@@ -58,6 +62,9 @@ export function DirectionsButton({
       map_platform: platform,
       from_location: extractedFromLocation
     })
+    if (onClick) {
+      onClick()
+    }
   }
 
   if (asLink) {
@@ -68,6 +75,7 @@ export function DirectionsButton({
         rel="noopener noreferrer"
         onClick={handleClick}
         className={className}
+        role={role}
       >
         {children}
       </Link>
@@ -80,6 +88,7 @@ export function DirectionsButton({
       target="_blank"
       rel="noopener noreferrer"
       onClick={handleClick}
+      role={role}
     >
       <Button 
         variant={variant === 'link' ? 'ghost' : variant}
@@ -100,7 +109,9 @@ export function DirectionsLink({
   className = 'text-anchor-gold hover:text-anchor-gold-light',
   destination = 'The Anchor Stanwell Moor',
   mapPlatform,
-  fromLocation
+  fromLocation,
+  onClick,
+  role
 }: Omit<DirectionsButtonProps, 'variant' | 'size' | 'asLink'>) {
   return (
     <DirectionsButton
@@ -111,6 +122,8 @@ export function DirectionsLink({
       fromLocation={fromLocation}
       className={className}
       asLink={true}
+      onClick={onClick}
+      role={role}
     >
       {children}
     </DirectionsButton>

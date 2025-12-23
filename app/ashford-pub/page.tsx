@@ -15,6 +15,7 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
+import { getBusinessStats } from '@/lib/schema-with-reviews'
 
 export const metadata: Metadata = {
   title: 'Traditional Ashford Pub | The Anchor - Heathrow Pub & Dining',
@@ -33,46 +34,55 @@ export const metadata: Metadata = {
   })
 }
 
-const localBusinessSchema = {
-  "@context": "https://schema.org",
-  "@type": ["Restaurant", "BarOrPub"],
-  "@id": "https://www.the-anchor.pub/ashford-pub#business",
-  "name": `${BRAND.name} - Near Ashford`,
-  "image": `https://www.the-anchor.pub${DEFAULT_PAGE_HEADER_IMAGE}`,
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": CONTACT.address.street,
-    "addressLocality": CONTACT.address.town,
-    "addressRegion": "Surrey",
-    "postalCode": CONTACT.address.postcode,
-    "addressCountry": "GB"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": CONTACT.coordinates.lat,
-    "longitude": CONTACT.coordinates.lng
-  },
-  "areaServed": [
-    {
-      "@type": "City",
-      "name": "Ashford"
-    },
-    {
-      "@type": "City",
-      "name": "Ashford Common"
-    },
-    {
-      "@type": "Place",
-      "name": "Littleton"
-    }
-  ],
-  "priceRange": "££",
-  "servesCuisine": ["British", "Traditional English", "Sunday Roast"],
-  "telephone": CONTACT.phoneIntl,
-  "url": "https://www.the-anchor.pub/ashford-pub"
-}
+export default async function AshfordPubPage() {
+  const { rating, reviewCount } = await getBusinessStats()
 
-export default function AshfordPubPage() {
+  const localBusinessSchema = {
+    "@context": "https://schema.org",
+    "@type": ["Restaurant", "BarOrPub"],
+    "@id": "https://www.the-anchor.pub/ashford-pub#business",
+    "name": `${BRAND.name} - Near Ashford`,
+    "image": `https://www.the-anchor.pub${DEFAULT_PAGE_HEADER_IMAGE}`,
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": CONTACT.address.street,
+      "addressLocality": CONTACT.address.town,
+      "addressRegion": "Surrey",
+      "postalCode": CONTACT.address.postcode,
+      "addressCountry": "GB"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": CONTACT.coordinates.lat,
+      "longitude": CONTACT.coordinates.lng
+    },
+    "areaServed": [
+      {
+        "@type": "City",
+        "name": "Ashford"
+      },
+      {
+        "@type": "City",
+        "name": "Ashford Common"
+      },
+      {
+        "@type": "Place",
+        "name": "Littleton"
+      }
+    ],
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": rating,
+      "reviewCount": reviewCount,
+      "bestRating": "5",
+      "worstRating": "1"
+    },
+    "priceRange": "££",
+    "servesCuisine": ["British", "Traditional English", "Sunday Roast"],
+    "telephone": CONTACT.phoneIntl,
+    "url": "https://www.the-anchor.pub/ashford-pub"
+  }
+
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: 'Home', url: '/' },
     { name: 'Locations', url: '/locations' },
@@ -98,7 +108,7 @@ export default function AshfordPubPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify([localBusinessSchema, breadcrumbSchema, directionsSchema]) }}
       />
-      
+
       {/* Hero Section */}
       <HeroWrapper
         route="/ashford-pub"
@@ -153,7 +163,7 @@ export default function AshfordPubPage() {
               title="Ashford's Favourite Traditional Pub Experience"
               subtitle="Just a 10-minute drive from Ashford, The Anchor offers the perfect escape from busy town life. Enjoy traditional British hospitality, fantastic food, and a warm welcome in our historic Stanwell Moor location."
             />
-            
+
             <FeatureGrid
               columns={3}
               features={[
@@ -195,7 +205,7 @@ export default function AshfordPubPage() {
             <SectionHeader
               title="Why Ashford Residents Love The Anchor"
             />
-            
+
             <div className="grid md:grid-cols-2 gap-8">
               <div>
                 <h3 className="text-2xl font-bold text-anchor-green mb-4">Worth the Short Journey</h3>
@@ -226,20 +236,14 @@ export default function AshfordPubPage() {
                   </li>
                 </ul>
               </div>
-              
+
               <div>
                 <h3 className="text-2xl font-bold text-anchor-green mb-4">Special Events & Offers</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
                     <span className="text-anchor-gold text-xl">🍕</span>
                     <div>
-                      <strong>Tuesday Pizza BOGOF</strong> - Worth the trip from Ashford for 2-for-1 pizzas
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">🐟</span>
-                    <div>
-                      <strong>Friday Fish Special</strong> - 50% off for over 65s on chip shop favourites
+                      <strong>Stone-baked pizzas</strong> - Worth the trip from Ashford for hand-stretched pies
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
@@ -257,7 +261,7 @@ export default function AshfordPubPage() {
                 </ul>
               </div>
             </div>
-            
+
             <AlertBox
               variant="info"
               title="Plane Spotting Bonus"
@@ -279,7 +283,7 @@ export default function AshfordPubPage() {
             <SectionHeader
               title="Popular with Ashford Groups"
             />
-            
+
             <div className="grid md:grid-cols-2 gap-8 mb-8">
               <div className="bg-amber-50 rounded-xl p-6">
                 <h3 className="text-xl font-bold text-amber-800 mb-4">Sports & Social</h3>
@@ -291,7 +295,7 @@ export default function AshfordPubPage() {
                   <li>• Quiz teams from Ashford</li>
                 </ul>
               </div>
-              
+
               <div className="bg-blue-50 rounded-xl p-6">
                 <h3 className="text-xl font-bold text-blue-800 mb-4">Special Occasions</h3>
                 <ul className="space-y-2 text-gray-700">
@@ -303,19 +307,19 @@ export default function AshfordPubPage() {
                 </ul>
               </div>
             </div>
-            
+
             <div className="text-center">
               <p className="text-lg text-gray-700 mb-6">
                 Private areas available for Ashford groups - from intimate dinners to parties of 250!
               </p>
               <Link href="/book-event">
-      <Button 
-        variant="primary"
-        size="lg"
-      >
-        Enquire About Private Hire
-      </Button>
-    </Link>
+                <Button
+                  variant="primary"
+                  size="lg"
+                >
+                  Enquire About Private Hire
+                </Button>
+              </Link>
             </div>
           </div>
         </Container>
@@ -329,7 +333,7 @@ export default function AshfordPubPage() {
               title="Event Venue for Ashford Celebrations"
               subtitle="Just 10 minutes from Ashford with free parking"
             />
-            
+
             <div className="grid md:grid-cols-2 gap-8 mb-8">
               <div className="bg-gray-50 rounded-xl p-6">
                 <h3 className="text-xl font-bold text-anchor-green mb-4">Why Ashford Chooses The Anchor</h3>
@@ -352,7 +356,7 @@ export default function AshfordPubPage() {
                   </li>
                 </ul>
               </div>
-              
+
               <div className="bg-amber-50 rounded-xl p-6">
                 <h3 className="text-xl font-bold text-anchor-green mb-4">Popular Ashford Events</h3>
                 <div className="space-y-4">
@@ -375,21 +379,21 @@ export default function AshfordPubPage() {
                 </div>
               </div>
             </div>
-            
+
             <div className="bg-blue-50 rounded-xl p-6 text-center">
               <p className="text-lg text-gray-800 mb-4">
-                <strong>Book your Ashford event today!</strong> 
+                <strong>Book your Ashford event today!</strong>
                 We love being part of the Ashford community.
               </p>
               <div className="flex flex-wrap justify-center gap-4">
                 <Link href="/book-event">
-      <Button 
-        variant="primary"
-        size="md"
-      >
-        View All Event Options
-      </Button>
-    </Link>
+                  <Button
+                    variant="primary"
+                    size="md"
+                  >
+                    View All Event Options
+                  </Button>
+                </Link>
                 <PhoneButton
                   phone="01753 682707"
                   source="ashford_pub_event_cta"
@@ -399,13 +403,13 @@ export default function AshfordPubPage() {
                   📞 Call: 01753 682707
                 </PhoneButton>
                 <Link href="https://wa.me/441753682707?text=Hi,%20I" target="_blank" rel="noopener noreferrer">
-      <Button 
-        variant="secondary"
-        size="md"
-      >
-        💬 WhatsApp Us
-      </Button>
-    </Link>
+                  <Button
+                    variant="secondary"
+                    size="md"
+                  >
+                    💬 WhatsApp Us
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
@@ -419,7 +423,7 @@ export default function AshfordPubPage() {
             <SectionHeader
               title="Getting to The Anchor from Ashford"
             />
-            
+
             <div className="grid md:grid-cols-2 gap-8">
               <div className="bg-white rounded-xl p-6">
                 <h3 className="text-xl font-bold mb-4">🚗 Driving Directions</h3>
@@ -449,7 +453,7 @@ export default function AshfordPubPage() {
                   <strong>Journey time:</strong> 10 minutes in normal traffic
                 </p>
               </div>
-              
+
               <div className="bg-white rounded-xl p-6">
                 <h3 className="text-xl font-bold mb-4">🚌 Alternative Routes</h3>
                 <div className="space-y-4">
@@ -468,7 +472,7 @@ export default function AshfordPubPage() {
                 </div>
               </div>
             </div>
-            
+
             <div className="mt-8 text-center">
               <DirectionsButton
                 href="https://maps.google.com/maps?saddr=Ashford+Surrey&daddr=The+Anchor+Stanwell+Moor+TW19+6AQ"
@@ -491,7 +495,7 @@ export default function AshfordPubPage() {
             <SectionHeader
               title="Ashford to The Anchor - Local Connections"
             />
-            
+
             <div className="grid md:grid-cols-3 gap-6 mb-8">
               <div className="bg-gray-50 rounded-xl p-6">
                 <h3 className="font-bold text-lg mb-3">Nearby Landmarks</h3>
@@ -502,7 +506,7 @@ export default function AshfordPubPage() {
                   <li>• 5 mins from M25 Junction 14</li>
                 </ul>
               </div>
-              
+
               <div className="bg-gray-50 rounded-xl p-6">
                 <h3 className="font-bold text-lg mb-3">Local Areas Served</h3>
                 <ul className="space-y-2 text-gray-700 text-sm">
@@ -512,7 +516,7 @@ export default function AshfordPubPage() {
                   <li>• Laleham</li>
                 </ul>
               </div>
-              
+
               <div className="bg-gray-50 rounded-xl p-6">
                 <h3 className="font-bold text-lg mb-3">Journey Times</h3>
                 <ul className="space-y-2 text-gray-700 text-sm">
@@ -523,7 +527,7 @@ export default function AshfordPubPage() {
                 </ul>
               </div>
             </div>
-            
+
             <p className="text-lg text-gray-700">
               Join the many Ashford residents who've discovered their new favourite pub!
             </p>
@@ -547,7 +551,7 @@ export default function AshfordPubPage() {
       </section>
 
       {/* FAQ Section */}
-      <FAQAccordionWithSchema 
+      <FAQAccordionWithSchema
         faqs={[
           {
             question: "How far is The Anchor from Ashford town centre?",
@@ -563,7 +567,7 @@ export default function AshfordPubPage() {
           },
           {
             question: "Do you get many customers from Ashford?",
-            answer: "Absolutely! Many Ashford residents are regulars here, especially for our Sunday roasts, Tuesday pizza deals, and quiz nights. The 10-minute journey is worth it for the authentic pub atmosphere and better prices."
+            answer: "Absolutely! Many Ashford residents are regulars here, especially for our Sunday roasts, stone-baked pizzas, and quiz nights. The 10-minute journey is worth it for the authentic pub atmosphere and better prices."
           },
           {
             question: "What's the best route from Ashford to avoid traffic?",

@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
 import { ChristmasPartiesPageClient } from './client-components'
+import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 export const metadata: Metadata = {
-  title: 'Christmas Parties, Shared Party Nights & Private Hire Near Heathrow | The Anchor',
+  title: 'Christmas Parties Near Heathrow & Staines | The Anchor Pub',
   description:
-    'Plan 2025 Christmas parties, shared party nights and private festive hire at The Anchor near Heathrow Terminal 5. Three-course menus from £36.95, buffets for 26+, corporate packages, Prosecco upgrades, free parking outside the ULEZ and rapid rides from airport hotels.',
+    'Plan 2025 Christmas parties, shared party nights and private festive hire at The Anchor near Heathrow Terminal 5 and Staines. Three-course menus from £36.95, buffets for 26+, corporate packages, Prosecco upgrades, free parking outside the ULEZ and rapid rides from airport hotels.',
   keywords:
-    'christmas party venue near heathrow, shared christmas party heathrow, corporate christmas party heathrow, christmas dinner staines, christmas party pub surrey, christmas party packages heathrow, cheap christmas parties heathrow, christmas buffet near heathrow, private christmas dining surrey',
+    'christmas party venue near heathrow, christmas party pub staines, shared christmas party heathrow, corporate christmas party heathrow, christmas dinner staines, christmas party pub surrey, christmas party packages heathrow, cheap christmas parties heathrow, christmas buffet near heathrow, private christmas dining surrey',
   openGraph: {
     title: 'Christmas Parties 2025 Near Heathrow Terminal 5 | Shared Nights & Private Hire',
     description:
@@ -145,5 +146,15 @@ const structuredData = {
 }
 
 export default function ChristmasPartiesPage() {
-  return <ChristmasPartiesPageClient structuredData={structuredData} />
+  return (
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Christmas Parties', url: '/christmas-parties' }
+        ]}
+      />
+      <ChristmasPartiesPageClient structuredData={structuredData} />
+    </>
+  )
 }

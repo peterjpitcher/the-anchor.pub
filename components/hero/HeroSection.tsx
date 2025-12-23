@@ -183,7 +183,6 @@ export function HeroSection({
                 blurDataURL={blurDataURL}
                 style={{ objectPosition }}
                 onError={() => setImageError(true)}
-                unoptimized
               />
             </picture>
           ) : (
@@ -199,7 +198,6 @@ export function HeroSection({
               blurDataURL={blurDataURL}
               style={{ objectPosition }}
               onError={image.fallbackSrc ? () => setImageError(true) : undefined}
-              unoptimized
             />
           )}
         </div>

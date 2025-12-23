@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react'
 import Script from 'next/script'
-import { initializeConsentMode, getConsentStatus, hasUserConsented } from '@/lib/cookies'
+import { initializeConsentMode, getConsentStatus } from '@/lib/cookies'
 
 interface GTMProviderProps {
   gtmId: string
@@ -30,12 +30,6 @@ export function GTMProvider({ gtmId, children }: GTMProviderProps) {
     // Initialize Google consent mode before GTM loads
     initializeConsentMode()
     
-    // Push initial GTM event
-    window.dataLayer.push({
-      'gtm.start': new Date().getTime(),
-      event: 'gtm.js'
-    })
-
     // Listen for consent updates
     const handleConsentUpdate = () => {
       const consent = getConsentStatus()

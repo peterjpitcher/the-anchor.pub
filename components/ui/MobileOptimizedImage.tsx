@@ -1,7 +1,7 @@
 'use client'
 
 import Image, { ImageProps } from 'next/image'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { cn } from '@/lib/utils'
 
 interface MobileOptimizedImageProps extends Omit<ImageProps, 'alt' | 'sizes'> {
@@ -10,7 +10,6 @@ interface MobileOptimizedImageProps extends Omit<ImageProps, 'alt' | 'sizes'> {
   loading?: 'lazy' | 'eager'
   sizes?: string
   mobileSrc?: string // Optional mobile-specific image
-  mobileQuality?: number
   desktopQuality?: number
   objectPosition?: string
   aspectRatio?: 'square' | 'video' | 'portrait' | 'landscape' | 'auto'
@@ -34,7 +33,6 @@ export function MobileOptimizedImage({
   sizes,
   src,
   mobileSrc,
-  mobileQuality = 65,
   desktopQuality = 85,
   quality,
   className,
@@ -44,28 +42,6 @@ export function MobileOptimizedImage({
   ...props 
 }: MobileOptimizedImageProps) {
   const [isLoading, setIsLoading] = useState(true)
-  const [currentSrc, setCurrentSrc] = useState(src)
-  const [isMobile, setIsMobile] = useState(false)
-  
-  // Detect mobile device
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
-    
-    checkMobile()
-    window.addEventListener('resize', checkMobile)
-    return () => window.removeEventListener('resize', checkMobile)
-  }, [])
-  
-  // Switch image source based on device
-  useEffect(() => {
-    if (mobileSrc && isMobile) {
-      setCurrentSrc(mobileSrc)
-    } else {
-      setCurrentSrc(src)
-    }
-  }, [isMobile, mobileSrc, src])
   
   // Default sizes for better mobile optimization
   const defaultSizes = sizes || `
@@ -76,8 +52,7 @@ export function MobileOptimizedImage({
     40vw
   `.trim()
   
-  // Use mobile quality for mobile devices
-  const imageQuality = quality || (isMobile ? mobileQuality : desktopQuality)
+  const imageQuality = quality || desktopQuality
   
   return (
     <div className={cn(
@@ -92,23 +67,31 @@ export function MobileOptimizedImage({
         />
       )}
       
-      <Image
-        src={currentSrc}
-        alt={alt}
-        priority={priority}
-        loading={priority ? 'eager' : loading}
-        quality={imageQuality}
-        placeholder="blur"
-        blurDataURL={props.blurDataURL || DEFAULT_BLUR_DATA_URL}
-        sizes={defaultSizes}
-        onLoadingComplete={() => setIsLoading(false)}
-        className={cn(
-          'transition-opacity duration-300',
-          isLoading ? 'opacity-0' : 'opacity-100',
-          props.fill && `object-cover object-${objectPosition}`
+      <picture>
+        {mobileSrc && (
+          <source
+            srcSet={mobileSrc}
+            media="(max-width: 767px)"
+          />
         )}
-        {...props}
-      />
+        <Image
+          src={src}
+          alt={alt}
+          priority={priority}
+          loading={priority ? 'eager' : loading}
+          quality={imageQuality}
+          placeholder="blur"
+          blurDataURL={props.blurDataURL || DEFAULT_BLUR_DATA_URL}
+          sizes={defaultSizes}
+          onLoadingComplete={() => setIsLoading(false)}
+          className={cn(
+            'transition-opacity duration-300',
+            isLoading ? 'opacity-0' : 'opacity-100',
+            props.fill && `object-cover object-${objectPosition}`
+          )}
+          {...props}
+        />
+      </picture>
     </div>
   )
 }
@@ -180,7 +163,6 @@ export function HeroImage({
         className="absolute inset-0"
         sizes="100vw"
         objectPosition="center"
-        mobileQuality={60}
         desktopQuality={90}
       />
       

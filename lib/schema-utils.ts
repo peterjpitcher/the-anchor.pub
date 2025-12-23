@@ -203,21 +203,9 @@ export function generateNutritionInfo(itemName: string, category: string) {
 
 // Generate offer schema for menu items with special deals
 export function generateMenuItemOffer(item: any, dayOfWeek?: string) {
-  const offers: any[] = []
-  
-  // Tuesday pizza BOGOF
-  if (item.name.toLowerCase().includes('pizza') && dayOfWeek === 'Tuesday') {
-    offers.push({
-      "@type": "Offer",
-      "name": "Buy One Get One Free",
-      "description": "BOGOF on all pizzas every Tuesday",
-      "dayOfWeek": "https://schema.org/Tuesday",
-      "price": item.price.replace(/[£$]/, ''),
-      "priceCurrency": "GBP"
-    })
-  }
-  
-  return offers.length > 0 ? offers : undefined
+  void item
+  void dayOfWeek
+  return undefined
 }
 
 // Generate ContactPoint schema
@@ -242,7 +230,7 @@ export function generateContactPoints() {
 }
 
 // Generate Event schema for recurring events
-export function generateEventSchema(eventType: 'quiz' | 'bingo' | 'drag' | 'pizza') {
+export function generateEventSchema(eventType: 'quiz' | 'bingo' | 'drag') {
   const baseLocation = {
     "@type": "Place",
     "name": "The Anchor",
@@ -339,33 +327,6 @@ export function generateEventSchema(eventType: 'quiz' | 'bingo' | 'drag' | 'pizz
       "duration": "PT2H30M",
       "startTime": "21:00",
       "endTime": "23:30"
-    },
-    pizza: {
-      "@type": "Event",
-      "name": "Pizza Tuesday BOGOF Deal",
-      "description": "Buy one get one FREE on all stone-baked pizzas every Tuesday! Perfect for families, couples, or friends looking for great value dining.",
-      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-      "eventStatus": "https://schema.org/EventScheduled",
-      "eventSchedule": {
-        "@type": "Schedule",
-        "repeatFrequency": "P1W",
-        "byDay": "https://schema.org/Tuesday",
-        "startTime": "18:00",
-        "endTime": "21:00"
-      },
-      "location": baseLocation,
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "GBP",
-        "availability": "https://schema.org/InStock",
-        "description": "Buy one pizza, get one free"
-      },
-      "organizer": {
-        "@type": "Organization",
-        "name": "The Anchor",
-        "url": "https://www.the-anchor.pub"
-      }
     }
   }
 

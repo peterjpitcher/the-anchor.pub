@@ -21,12 +21,11 @@ export function DailySpecials({ isOpen }: DailySpecialsProps) {
   // Don't show specials if closed
   if (!isOpen) return null
 
-  // Tuesday = 2, Wednesday = 3, Friday = 5, Saturday = 6
+  // Tuesday = 2, Saturday = 6
   const showPizzaOffer = currentDay === 2 // Tuesday only
-  const showFishFriday = currentDay === 5 // Friday
   const showSundayBooking = currentDay === 6 // Saturday
 
-  if (!showPizzaOffer && !showFishFriday && !showSundayBooking) return null
+  if (!showPizzaOffer && !showSundayBooking) return null
 
   const handlePizzaClick = () => {
     // If we're already on the food-menu page, just scroll to the pizza section
@@ -70,46 +69,6 @@ export function DailySpecials({ isOpen }: DailySpecialsProps) {
                 onClick={handlePizzaClick}
               >
                 View Pizza Menu
-              </Button>
-            </Link>
-          </div>
-        )}
-
-        {showFishFriday && (
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="bg-yellow-400 text-red-900 font-bold text-lg md:text-xl px-6 py-3 rounded-full inline-block mb-4">
-              🐟 FISH FRIDAY 🐟
-            </div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-              50% Off Chip Shop Menu
-            </h2>
-            <p className="text-xl mb-6 text-white/90">
-              For Over 65s - Every Friday!
-            </p>
-            <p className="text-lg mb-8">
-              All chip shop menu items including fish & chips, scampi, and sausages
-            </p>
-            <Link href="/food-menu#mains">
-              <Button 
-                variant="warning" 
-                size="lg"
-                onClick={() => {
-                  if (pathname === '/food-menu') {
-                    const mainsSection = document.getElementById('mains')
-                    if (mainsSection) {
-                      const headerOffset = 80 // Height of fixed header
-                      const elementPosition = mainsSection.getBoundingClientRect().top
-                      const offsetPosition = elementPosition + window.pageYOffset - headerOffset
-                      
-                      window.scrollTo({
-                        top: offsetPosition,
-                        behavior: 'smooth'
-                      })
-                    }
-                  }
-                }}
-              >
-                View Fish & Chips
               </Button>
             </Link>
           </div>

@@ -5,17 +5,25 @@ export async function POST(request: NextRequest) {
 
   try {
     const data = await request.json()
+    const events = Array.isArray(data)
+      ? data
+      : Array.isArray(data?.events)
+        ? data.events
+        : [data]
     
     // In production, you would send this to your analytics service
     // For now, we'll just log it in development
     if (process.env.NODE_ENV === 'development' && verboseLogging) {
-      console.log('[Analytics API]', data)
+      console.log('[Analytics API]', {
+        count: events.length,
+        sample: events[0]
+      })
     }
     
     // You could also store this in a database or send to Google Analytics
     // Example: await db.analytics.create({ data })
     
-    return NextResponse.json({ success: true })
+    return NextResponse.json({ success: true, count: events.length })
   } catch (error) {
     // Don't return errors for analytics - it should fail silently
     return NextResponse.json({ success: false })

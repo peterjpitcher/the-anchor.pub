@@ -36,7 +36,7 @@ const sitemapSections = [
     links: [
       { label: 'Full Food Menu', href: '/food-menu' },
       { label: 'Sunday Lunch Menu', href: '/sunday-lunch' },
-      { label: 'Tuesday Pizza BOGOF', href: '/pizza-tuesday' },
+      { label: 'Pizza Menu', href: '/food-menu#pizza' },
       { label: 'Drinks Menu', href: '/drinks' },
     ]
   },

@@ -16,7 +16,7 @@ import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 export const metadata: Metadata = {
   title: 'Heathrow Layover Dining Guide | Eat in 90 Minutes at The Anchor',
   description: 'Make the most of a Heathrow layover with The Anchor’s fast pub dining, free parking, and book-ahead tips. Perfect for 2–3 hour stopovers near Terminal 5.',
-  keywords: 'heathrow layover dining, layover restaurant near heathrow, layover itinerary terminal 5, eat near heathrow airport, quick restaurant near heathrow',
+  keywords: 'heathrow layover dining, layover restaurant near heathrow, layover itinerary terminal 5, eat near heathrow airport, quick restaurant near heathrow, food at terminal 5 heathrow, food in terminal 3 heathrow',
   openGraph: {
     title: 'Heathrow Layover Dining in 90 Minutes | The Anchor Stanwell Moor',
     description: 'Swap airport queues for proper pub food 7 minutes from Heathrow. Booking tips, itineraries, and travel times for stress-free layovers.',
@@ -42,6 +42,14 @@ const faqItems = [
   {
     question: 'How long do I need for a layover meal at The Anchor?',
     answer: 'Allow 90 minutes door-to-door from Terminal 5 (longer if using Terminals 2–4). That gives you 15 minutes travel each way and 60 minutes to dine. Let us know your timing on booking so the kitchen can pace your service.'
+  },
+  {
+    question: 'Can I leave the airport for food at Heathrow Terminal 5?',
+    answer: 'Yes. If you are searching for food at Terminal 5 Heathrow, we are 7 minutes away by taxi. Pre-book to keep the layover tight and we will time your meal around boarding.'
+  },
+  {
+    question: 'Is there an alternative to food in Terminal 3 Heathrow?',
+    answer: 'The Anchor is around 11 minutes from Terminal 3. We offer a calmer setting, quick service, and easy taxi transfers back to departures.'
   },
   {
     question: 'Can I store luggage while I dine?',
@@ -119,8 +127,67 @@ export default function HeathrowLayoverDiningPage() {
             Heathrow Layover Dining at The Anchor
           </PageTitle>
           <SpeakableContent className="mt-6 text-lg text-gray-700 text-center max-w-3xl mx-auto">
-            Plan a stress-free Heathrow layover meal. The Anchor serves Sunday roasts, Pizza Tuesday, and pub classics with free parking, fast service, and reliable travel times back to your terminal.
+            Plan a stress-free Heathrow layover meal. The Anchor serves Sunday roasts, stone-baked pizzas, and pub classics with free parking, fast service, and reliable travel times back to your terminal.
           </SpeakableContent>
+        </Container>
+      </Section>
+
+      <Section background="white" spacing="md">
+        <Container>
+          <SectionHeader
+            title="Terminal Food Alternatives for Layovers"
+            subtitle="If you are searching for food at Heathrow Terminal 5 or food in Terminal 3 Heathrow, we are a short ride away."
+            align="center"
+          />
+          <InfoBoxGrid
+            columns={2}
+            boxes={[
+              {
+                title: "Food at Terminal 5 Heathrow - a calmer option",
+                content: (
+                  <p>
+                    We are 7 minutes from Terminal 5 with quick table service and pre-booked meals.
+                    Skip terminal queues and enjoy proper dining before you return to security.
+                  </p>
+                ),
+                variant: "colored",
+                color: "bg-white"
+              },
+              {
+                title: "Food in Terminal 3 Heathrow - leave the airport",
+                content: (
+                  <p>
+                    Terminal 3 guests reach us in around 11 minutes. Let us know your flight time and we will pace your meal
+                    for a smooth return to departures.
+                  </p>
+                ),
+                variant: "colored",
+                color: "bg-white"
+              },
+              {
+                title: "Terminal 2 & 4 layovers",
+                content: (
+                  <p>
+                    Allow 12-14 minutes from Terminals 2 and 4. We will coordinate taxi timing so you can dine without stress
+                    and still make it back for boarding.
+                  </p>
+                ),
+                variant: "colored",
+                color: "bg-white"
+              },
+              {
+                title: "Book ahead for express service",
+                content: (
+                  <p>
+                    Share your terminal and boarding time when you book. We will have a table ready and time mains to land
+                    within minutes of your arrival.
+                  </p>
+                ),
+                variant: "colored",
+                color: "bg-white"
+              }
+            ]}
+          />
         </Container>
       </Section>
 
@@ -142,7 +209,7 @@ export default function HeathrowLayoverDiningPage() {
               {
                 icon: '🍽️',
                 title: 'Full Menu, All Day',
-                description: 'From Sunday roasts to 2-for-1 Pizza Tuesday, vegetarian plates, and speedy sharers, every layover party finds something spot on.'
+                description: 'From Sunday roasts to stone-baked pizzas, vegetarian plates, and speedy sharers, every layover party finds something spot on.'
               },
               {
                 icon: '🚗',

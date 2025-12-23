@@ -28,6 +28,67 @@ export interface TrackingDispatchOptions {
   includePageContext?: boolean
 }
 
+const API_BATCH_SIZE = 8
+const API_FLUSH_DELAY = 2000
+
+let apiQueue: Record<string, unknown>[] = []
+let apiFlushTimer: number | null = null
+let flushListenersAttached = false
+
+function attachFlushListeners() {
+  if (flushListenersAttached || typeof window === 'undefined') return
+  flushListenersAttached = true
+
+  const flush = () => flushApiQueue('pagehide')
+
+  window.addEventListener('pagehide', flush)
+  window.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') {
+      flushApiQueue('visibility')
+    }
+  })
+}
+
+function scheduleApiFlush() {
+  if (apiFlushTimer || typeof window === 'undefined') return
+  apiFlushTimer = window.setTimeout(() => flushApiQueue('timer'), API_FLUSH_DELAY)
+}
+
+function flushApiQueue(reason: string) {
+  if (!apiQueue.length) return
+
+  const batch = apiQueue
+  apiQueue = []
+
+  if (apiFlushTimer) {
+    window.clearTimeout(apiFlushTimer)
+    apiFlushTimer = null
+  }
+
+  sendApiBatch(batch, reason)
+}
+
+function sendApiBatch(events: Record<string, unknown>[], reason: string) {
+  try {
+    const body = JSON.stringify({ events, reason })
+
+    if (typeof navigator !== 'undefined' && typeof navigator.sendBeacon === 'function') {
+      const blob = new Blob([body], { type: 'application/json' })
+      navigator.sendBeacon('/api/analytics', blob)
+      return
+    }
+
+    void fetch('/api/analytics', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body,
+      keepalive: true
+    })
+  } catch (error) {
+    // Analytics should never block the UX; swallow errors silently
+  }
+}
+
 function sanitizePayload(payload: Record<string, unknown>): Record<string, unknown> {
   const cleaned: Record<string, unknown> = {}
   for (const [key, value] of Object.entries(payload)) {
@@ -91,19 +152,18 @@ export function dispatchTrackingEvent(
   }
 
   if (sendToApi) {
-    try {
-      void fetch('/api/analytics', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...dataLayerPayload,
-          event: gtagEventName ?? dataLayerPayload.event,
-          timestamp,
-          userAgent: navigator.userAgent
-        })
-      })
-    } catch (error) {
-      // Analytics should never block the UX; swallow fetch errors silently
+    attachFlushListeners()
+    apiQueue.push({
+      ...dataLayerPayload,
+      event: gtagEventName ?? dataLayerPayload.event,
+      timestamp,
+      userAgent: navigator.userAgent
+    })
+
+    if (apiQueue.length >= API_BATCH_SIZE) {
+      flushApiQueue('batch')
+    } else {
+      scheduleApiFlush()
     }
   }
 }

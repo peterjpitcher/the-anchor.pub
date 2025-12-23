@@ -15,7 +15,7 @@ const formatRate = (value: number | null | undefined, fallback: string) =>
 export const metadata: Metadata = {
   title: 'Heathrow Parking | Secure Long Stay & Short Stay at The Anchor',
   description: 'Book Heathrow airport parking from £5 per hour or £15 per day. Secure paid parking near Terminals 2-5 with PayPal checkout, CCTV and on-site pub hospitality.',
-  keywords: 'heathrow parking, heathrow car parking, long stay parking heathrow, terminal 5 parking, terminal 3 long stay car park, airport long term parking, cheap heathrow parking, long stay parking near me',
+  keywords: 'heathrow parking, heathrow car parking, heathrow airport car parking, parking heathrow airport, parking near heathrow, long stay parking heathrow, terminal 5 car parking, parking at terminal 5 heathrow, terminal 3 car parking, terminal 2 car parking, terminal 4 car parking, airport long term parking, cheap heathrow parking, long stay parking near me',
   openGraph: {
     title: 'Heathrow Parking – Pre-book & Pay at The Anchor',
     description: 'Reserve secure Heathrow airport parking 7 minutes from Terminal 5. PayPal checkout, CCTV, flexible long stay and short stay options.',
@@ -116,6 +116,10 @@ const faqs = (rateCard: ParkingRateCard | null) => {
   {
     question: 'Is The Anchor cheaper than Heathrow long stay parking?',
     answer: `Yes – our daily rate is £${daily} compared to Heathrow short stay at £39 and long stay often £118+ per week. The price comparison table shows real-world savings for 24 hours, one week and two weeks of parking.`
+  },
+  {
+    question: 'Is this Heathrow airport car parking or parking near Heathrow airport?',
+    answer: 'It is secure parking near Heathrow airport in Stanwell Moor, around 7 minutes from Terminal 5 and 10-12 minutes from Terminals 2, 3 and 4. Many drivers searching for Heathrow airport car parking choose us for better value and faster exits.'
   },
   {
     question: 'Where can I find cheap parking near Heathrow Terminal 5?',
@@ -357,6 +361,34 @@ export default async function HeathrowParkingPage() {
           <p className="mx-auto mt-4 max-w-4xl text-center text-lg text-gray-700">
             Travellers searching for Heathrow parking, Heathrow car parking or "long stay parking near me" choose The Anchor because we combine affordable airport-long term parking with the warmth of a real pub. Book online in minutes, grab a bite or coffee while you wait, then take a taxi or the 442 bus for a five to ten minute ride to any Heathrow terminal.
           </p>
+        </Container>
+      </Section>
+
+      <Section background="white" spacing="md">
+        <Container>
+          <div className="mx-auto max-w-5xl rounded-2xl p-6 bg-anchor-cream/40 shadow-sm">
+            <h2 className="text-2xl font-bold text-anchor-green text-center">
+              Heathrow Airport Car Parking for Every Terminal
+            </h2>
+            <p className="mt-4 text-center text-gray-700">
+              If you are searching for parking Heathrow airport, Heathrow airport car parking, or parking near Heathrow,
+              The Anchor keeps you close to Terminals 2, 3, 4 and 5 without the on-airport queues.
+            </p>
+            <div className="grid md:grid-cols-2 mt-4 gap-4">
+              <div className="rounded-xl p-4 bg-white">
+                <h3 className="text-lg font-semibold text-anchor-charcoal">Terminal 5 car parking alternative</h3>
+                <p className="mt-2 text-sm text-gray-700">
+                  We are 7 minutes from T5, making us a smart option for Terminal 5 car parking without premium prices.
+                </p>
+              </div>
+              <div className="rounded-xl p-4 bg-white">
+                <h3 className="text-lg font-semibold text-anchor-charcoal">Terminal 2, 3 & 4 parking</h3>
+                <p className="mt-2 text-sm text-gray-700">
+                  Park once and reach Terminals 2, 3 or 4 in 10-12 minutes. Ideal for long stay, overnight or crew parking.
+                </p>
+              </div>
+            </div>
+          </div>
         </Container>
       </Section>
 

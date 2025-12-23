@@ -13,7 +13,7 @@ export default function robots(): MetadataRoute.Robots {
           '/_partials/',
           '/_api/',
           '/_scripts/',
-          '/images/page-headers/home/optimized/',
+
           '/leave-review',
           '/subscribe',
           '/leave-a-review',

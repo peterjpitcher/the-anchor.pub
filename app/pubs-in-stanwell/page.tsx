@@ -199,7 +199,7 @@ export default function PubsInStanwellPage() {
                       <div className="space-y-3">
                         <p className="text-gray-700">
                           We're not just another pub - we're your local. From our famous 
-                          Sunday roasts to Tuesday pizza deals, we offer something for everyone 
+                          Sunday roasts to stone-baked pizzas, we offer something for everyone 
                           in a warm, welcoming environment.
                         </p>
                         <ul className="space-y-2 text-gray-700">
@@ -416,7 +416,7 @@ export default function PubsInStanwellPage() {
                 <div className="text-3xl">🍕</div>
                 <div className="flex-1">
                   <h3 className="font-bold">Tuesday - Pizza Night</h3>
-                  <p className="text-gray-600">BOGOF on all pizzas • Kitchen 6pm-9pm</p>
+                  <p className="text-gray-600">Stone-baked pizzas • Kitchen 6pm-9pm</p>
                 </div>
               </div>
               
@@ -432,7 +432,7 @@ export default function PubsInStanwellPage() {
                 <div className="text-3xl">🐟</div>
                 <div className="flex-1">
                   <h3 className="font-bold">Friday - Fish & Chips</h3>
-                  <p className="text-gray-600">50% off for over 65s • Kitchen 6pm-9pm</p>
+                  <p className="text-gray-600">Fish & chips served • Kitchen 6pm-9pm</p>
                 </div>
               </div>
               
@@ -488,7 +488,7 @@ export default function PubsInStanwellPage() {
           },
           {
             question: "What food do you serve?",
-            answer: "We serve traditional British pub food including our famous Sunday roasts, fish & chips (50% off for over 65s on Fridays), stone-baked pizzas (BOGOF on Tuesdays), burgers, steaks, and vegetarian options. Kitchen hours vary by day - closed Mondays, dinner service Tuesday-Friday, lunch and dinner on weekends."
+            answer: "We serve traditional British pub food including our famous Sunday roasts, fish & chips, stone-baked pizzas, burgers, steaks, and vegetarian options. Kitchen hours vary by day - closed Mondays, dinner service Tuesday-Friday, lunch and dinner on weekends."
           },
           {
             question: "How far is The Anchor from Stanwell village?",

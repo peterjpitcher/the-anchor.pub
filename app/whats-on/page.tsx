@@ -21,18 +21,19 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { quizNightEventSeries, dragShowEventSeries, bingoEventSeries } from '@/lib/schema'
 import { getBusinessHours } from '@/lib/api'
 import { buildOpeningHoursSchema, DEFAULT_OPENING_HOURS_SCHEMA } from '@/lib/opening-hours-schema'
+import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 export const metadata: Metadata = {
-  title: "Heathrow Pub Events Tonight - Drag Shows, Quiz & Bingo Near Terminal 5",
-  description: "See what's on at The Anchor near Heathrow Terminal 5: drag shows, £3 quiz nights, cash bingo, live sport, and free pool & darts. Book tables for headline events.",
-  keywords: "heathrow pub events tonight, drag show near heathrow, quiz night stanwell moor, bingo near terminal 5, whats on the anchor pub, heathrow nightlife",
+  title: "Heathrow & Staines Pub Events Tonight - Drag Shows, Quiz & Bingo",
+  description: "See what's on at The Anchor near Heathrow Terminal 5 and Staines: drag shows, £3 quiz nights, cash bingo, live sport, and free pool & darts. Book tables for headline events.",
+  keywords: "heathrow pub events tonight, staines pub events, drag show near heathrow, quiz night stanwell moor, bingo near terminal 5, whats on the anchor pub",
   openGraph: {
-    title: "Heathrow Pub Events Tonight Near Terminal 5",
+    title: "Heathrow & Staines Pub Events Tonight",
     description: "Live calendar for drag shows, quiz nights, bingo and sport at The Anchor - the Heathrow pub for entertainment seven minutes from Terminal 5.",
     images: ["/images/events/drag-shows/the-anchor-drag-show-nikki-manfadge-stanwell-moor.jpg"],
   },
   twitter: getTwitterMetadata({
-    title: "Heathrow Pub Events Tonight Near Terminal 5",
+    title: "Heathrow & Staines Pub Events Tonight",
     description: "See The Anchor's entertainment diary for drag shows, quiz nights, bingo and live sport close to Heathrow.",
     images: ["/images/events/drag-shows/the-anchor-drag-show-nikki-manfadge-stanwell-moor.jpg"]
   }),
@@ -65,12 +66,18 @@ export default async function WhatsOnPage({ searchParams }: WhatsOnPageProps) {
 
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Events', url: '/whats-on' }
+        ]}
+      />
       <SpeakableSchema />
       <ScrollDepthTracker />
       {/* JSON-LD Event Series Schemas */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ 
+        dangerouslySetInnerHTML={{
           __html: JSON.stringify([
             quizNightEventSeries,
             dragShowEventSeries,
@@ -147,7 +154,7 @@ export default async function WhatsOnPage({ searchParams }: WhatsOnPageProps) {
         secondaryCta={
           <>
             <Link href="#upcoming-events" className="w-full sm:w-auto">
-              <Button 
+              <Button
                 variant="secondary"
                 size="lg"
                 fullWidth
@@ -156,18 +163,18 @@ export default async function WhatsOnPage({ searchParams }: WhatsOnPageProps) {
                 📅 View All Events
               </Button>
             </Link>
-            <Link href="/pizza-tuesday" className="w-full sm:w-auto">
-              <Button 
+            <Link href="/food-menu#pizza" className="w-full sm:w-auto">
+              <Button
                 variant="secondary"
                 size="lg"
                 fullWidth
                 className="sm:w-auto"
               >
-                🍕 Pizza Tuesday Deal
+                🍕 Pizza Menu
               </Button>
             </Link>
             <Link href="/sunday-lunch" className="w-full sm:w-auto">
-              <Button 
+              <Button
                 variant="secondary"
                 size="lg"
                 fullWidth
@@ -177,7 +184,7 @@ export default async function WhatsOnPage({ searchParams }: WhatsOnPageProps) {
               </Button>
             </Link>
             <Link href="/book-event" className="w-full sm:w-auto">
-              <Button 
+              <Button
                 variant="secondary"
                 size="lg"
                 fullWidth
@@ -247,6 +254,38 @@ export default async function WhatsOnPage({ searchParams }: WhatsOnPageProps) {
         </Container>
       </Section>
 
+      <Section background="white" spacing="md">
+        <Container>
+          <SectionHeader
+            title="Local Nights Out for Staines & Heathrow"
+            subtitle="Regular events for Staines-upon-Thames, Ashford, Feltham and the Heathrow villages."
+          />
+          <FeatureGrid
+            columns={3}
+            features={[
+              {
+                icon: "📍",
+                title: "Staines-Upon-Thames",
+                description: "Ten minutes from Staines High Street with free parking and late-night taxi options.",
+                className: "text-center"
+              },
+              {
+                icon: "🚗",
+                title: "Ashford & Feltham",
+                description: "Easy A3044 route for groups looking for quiz nights, drag shows and bingo.",
+                className: "text-center"
+              },
+              {
+                icon: "✈️",
+                title: "Heathrow Crew Hangouts",
+                description: "Events timed around flight banks for crews and airport teams after shifts.",
+                className: "text-center"
+              }
+            ]}
+          />
+        </Container>
+      </Section>
+
       {/* Upcoming Events from API */}
       <Section id="upcoming-events" background="white" spacing="md">
         <Container>
@@ -254,7 +293,7 @@ export default async function WhatsOnPage({ searchParams }: WhatsOnPageProps) {
             title="Upcoming Events"
             subtitle="Live updates from our events calendar"
           />
-          
+
           <SpeakableContent selector="events-list" priority="high">
             <div className="max-w-5xl mx-auto">
               <Suspense fallback={<div className="text-center py-8">Loading events...</div>}>
@@ -275,7 +314,7 @@ export default async function WhatsOnPage({ searchParams }: WhatsOnPageProps) {
             title="Monthly Highlights - Great Value Entertainment"
             subtitle="FREE entry to most events • Small entry fees support charity & prizes"
           />
-          
+
           <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             <Link href="/whats-on/drag-shows" className="group">
               <Card variant="default" className="h-full transition-all hover:shadow-lg hover:scale-105 bg-gradient-to-br from-purple-100 to-pink-100">
@@ -291,7 +330,7 @@ export default async function WhatsOnPage({ searchParams }: WhatsOnPageProps) {
                 </CardBody>
               </Card>
             </Link>
-            
+
             <Link href="/quiz-night" className="group">
               <Card variant="default" className="h-full bg-gradient-to-br from-blue-50 to-green-50 transition-all hover:shadow-lg hover:scale-105">
                 <CardBody className="text-center p-8">
@@ -332,7 +371,7 @@ export default async function WhatsOnPage({ searchParams }: WhatsOnPageProps) {
             title="FREE Daily Entertainment & Games"
             subtitle="Pool table, darts, and more - all FREE to play! No coins or booking needed"
           />
-          
+
           <FeatureGrid
             columns={4}
             features={[
@@ -367,14 +406,14 @@ export default async function WhatsOnPage({ searchParams }: WhatsOnPageProps) {
             ]}
             className="max-w-5xl mx-auto"
           />
-          
+
           <Card variant="default" className="mt-12 max-w-3xl mx-auto">
             <CardBody className="text-center">
               <h3 className="text-2xl font-bold text-anchor-green mb-4">
                 <span className="text-3xl">📶</span> Free WiFi Throughout
               </h3>
               <p className="text-gray-700">
-                Stay connected with our free, high-speed WiFi. Perfect for checking emails, social media, or even getting some work done. 
+                Stay connected with our free, high-speed WiFi. Perfect for checking emails, social media, or even getting some work done.
                 Our dining room features tables with power points - ideal for remote workers and digital nomads.
               </p>
             </CardBody>
@@ -390,7 +429,7 @@ export default async function WhatsOnPage({ searchParams }: WhatsOnPageProps) {
             title="Special Events & Celebrations"
             subtitle="Throughout the year, we host special themed events and celebrations"
           />
-          
+
           <SpeakableContent selector="special-events" priority="medium">
             <FeatureGrid
               columns={3}
@@ -417,7 +456,7 @@ export default async function WhatsOnPage({ searchParams }: WhatsOnPageProps) {
               className="max-w-5xl mx-auto"
             />
           </SpeakableContent>
-          
+
           <InfoBoxGrid
             columns={1}
             boxes={[
@@ -505,14 +544,14 @@ export default async function WhatsOnPage({ searchParams }: WhatsOnPageProps) {
       {/* Internal Links for SEO */}
       <Section background="white" spacing="md">
         <Container>
-          <InternalLinkingSection 
+          <InternalLinkingSection
             title="Discover More at The Anchor"
             links={[...commonLinkGroups.dining, { href: '/blog', title: 'Latest News', description: 'Updates and announcements' }]}
           />
         </Container>
       </Section>
 
-      <FAQAccordionWithSchema 
+      <FAQAccordionWithSchema
         faqs={[
           {
             question: "When are the drag shows at The Anchor?",

@@ -8,7 +8,7 @@ resolved_issues=(
   "67"  # Christmas Parties page optimized
   "66"  # Free Parking page created
   "65"  # Pubs in Stanwell page created
-  "58"  # SEO pages created (Pizza Tuesday, Function Room optimized)
+  "58"  # SEO pages created (Food menu, Function Room optimized)
   "57"  # Brand search optimization (homepage title fixed)
   "51"  # Private hire packages created
   "30"  # Sunday Roast page enhanced

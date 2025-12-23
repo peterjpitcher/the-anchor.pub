@@ -19,9 +19,9 @@ import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 
 export const metadata: Metadata = {
-  title: 'Pub Near Heathrow Terminal 4 (12 Mins) | Free Parking & Food | The Anchor',
-  description: 'Escape Terminal 4 prices. Just a 12-minute drive for authentic British pub food, real ales & free parking. Ideal for SkyTeam layovers & crew.',
-  keywords: 'pub near heathrow terminal 4, skyteam crew pub, hilton t4 restaurant alternative, free parking near terminal 4, taxi from terminal 4 to pub',
+  title: 'Pubs Near Heathrow Terminal 4 (12 Mins) | The Anchor',
+  description: 'Looking for pubs near Heathrow Terminal 4? The Anchor is a 12-minute drive with free parking, British food and real ales. A calm alternative to terminal dining.',
+  keywords: 'pubs near heathrow terminal 4, pub near heathrow terminal 4, food at heathrow terminal 4 alternative, skyteam crew pub, hilton t4 restaurant alternative',
   openGraph: {
     title: 'Pub Near Heathrow Terminal 4 - Free Parking & British Food',
     description: 'The Anchor is the closest village pub to Heathrow Terminal 4 with free parking, British dishes and real ales.',
@@ -31,7 +31,10 @@ export const metadata: Metadata = {
     title: 'Pub Near Heathrow Terminal 4 - Free Parking & British Food',
     description: 'The Anchor is the closest village pub to Heathrow Terminal 4 with free parking, British dishes and real ales.',
     images: [DEFAULT_NEAR_HEATHROW_IMAGE]
-  })
+  }),
+  alternates: {
+    canonical: '/near-heathrow/terminal-4'
+  }
 }
 
 export default function Terminal4Page() {
@@ -158,22 +161,22 @@ export default function Terminal4Page() {
                 </div>
               </div>
               <div className="bg-white rounded-xl shadow-sm p-6">
-                <h3 className="text-xl font-semibold text-anchor-green mb-2">Pizza Tuesday</h3>
+                <h3 className="text-xl font-semibold text-anchor-green mb-2">Stone-Baked Pizzas</h3>
                 <p className="text-sm text-gray-700 mb-4">
-                  Buy one get one free on stone-baked pizzas every Tuesday evening — ideal for crew nights or family send-offs.
+                  Hand-stretched pizzas with bold toppings — ideal for crew nights or family send-offs.
                 </p>
                 <div className="flex flex-col gap-2">
                   <BookTableButton
                     source="terminal4_pizza_cta"
-                    context="pizza_tuesday"
+                    context="pizza_menu"
                     variant="primary"
                     size="sm"
                     className="w-full"
                   >
-                    Reserve Pizza Night
+                    Book a Table
                   </BookTableButton>
-                  <Link href="/pizza-tuesday" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
-                    Pizza Tuesday details →
+                  <Link href="/food-menu#pizza" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
+                    View pizza menu →
                   </Link>
                 </div>
               </div>
@@ -642,7 +645,7 @@ export default function Terminal4Page() {
       {/* CTA Section */}
       <CTASection
         title="See You Soon at The Anchor!"
-        description="Just 12 minutes from Terminal 4 • Free Parking • Sunday roast & Pizza Tuesday deals"
+        description="Just 12 minutes from Terminal 4 • Free Parking • Sunday roast & stone-baked pizzas"
         variant="green"
         buttons={[
           {
@@ -652,8 +655,8 @@ export default function Terminal4Page() {
             size: "lg"
           },
           {
-            text: "🍕 Pizza Tuesday Deal",
-            href: "/pizza-tuesday",
+            text: "🍕 Pizza Menu",
+            href: "/food-menu#pizza",
             variant: "white",
             size: "lg"
           },

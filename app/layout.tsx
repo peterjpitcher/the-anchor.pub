@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Outfit, Merriweather } from 'next/font/google'
+import dynamic from 'next/dynamic'
 import './globals.css'
 import { WebVitals } from './web-vitals'
 import { Navigation } from '@/components/layout/Navigation'
@@ -7,15 +8,20 @@ import { Footer } from '@/components/layout/Footer'
 import { HeaderStatusSectionDirect } from '@/components/layout/HeaderStatusSectionDirect'
 import { FloatingActions } from '@/components/layout/FloatingActions'
 import { AnalyticsProvider } from '@/components/tracking/AnalyticsProvider'
-import { GoogleTagManager, GoogleTagManagerNoscript } from '@/components/tracking/GoogleTagManager'
 import { GTMProvider, GTMNoscript } from '@/components/tracking/GTMProvider'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import CookieBanner from '@/components/CookieBanner'
-import { ChristmasGlobalLightbox } from '@/components/ChristmasGlobalLightbox'
-import { EventCountdownBanner } from '@/components/EventCountdownBanner'
-import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { DynamicSchema } from '@/components/seo/DynamicSchema'
 import { BusinessHoursProvider } from '@/components/providers/BusinessHoursProvider'
+import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
+import { Suspense } from 'react'
+
+const ChristmasGlobalLightbox = dynamic(() => import('@/components/ChristmasGlobalLightbox').then(mod => mod.ChristmasGlobalLightbox), {
+  ssr: false
+})
+const EventCountdownBanner = dynamic(() => import('@/components/EventCountdownBanner').then(mod => mod.EventCountdownBanner), {
+  ssr: false
+})
 
 const outfit = Outfit({
   subsets: ['latin'],
@@ -91,24 +97,22 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <GoogleTagManager gtmId={gtmId} />
-        
         {/* Resource hints for performance */}
         <link rel="preconnect" href="https://management.orangejelly.co.uk" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="dns-prefetch" href="https://www.google-analytics.com" />
-        
+
         {/* Favicons and manifest */}
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
-        
+
         {/* Meta tags */}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#005131" />
         <meta name="format-detection" content="telephone=no" />
-        
+
         {/* Next.js handles font and image prioritisation automatically */}
         <DynamicSchema />
       </head>
@@ -119,15 +123,15 @@ export default function RootLayout({
             <BusinessHoursProvider>
               <WebVitals />
               {/* Skip Navigation Links for Accessibility */}
-              <a 
-                href="#main-content" 
+              <a
+                href="#main-content"
                 className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-anchor-gold focus:text-white focus:rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-anchor-gold"
               >
                 Skip to main content
               </a>
               <ErrorBoundary>
                 <header role="banner">
-                  <Navigation 
+                  <Navigation
                     statusComponent={<HeaderStatusSectionDirect />}
                   />
                 </header>
@@ -144,8 +148,10 @@ export default function RootLayout({
               </ErrorBoundary>
               <FloatingActions />
               <CookieBanner />
-              <ChristmasGlobalLightbox />
-              <EventCountdownBanner />
+              <Suspense fallback={null}>
+                <ChristmasGlobalLightbox />
+                <EventCountdownBanner />
+              </Suspense>
             </BusinessHoursProvider>
           </AnalyticsProvider>
         </GTMProvider>

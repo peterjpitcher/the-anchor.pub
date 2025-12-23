@@ -38,7 +38,6 @@ const filesToMigrate = [
   'app/bedfont-pub/page.tsx',
   'app/heathrow-hotels-pub/page.tsx',
   'app/m25-junction-14-pub/page.tsx',
-  'app/pizza-tuesday/page.tsx',
   'app/near-heathrow/terminal-2/page.tsx',
   'app/near-heathrow/terminal-3/page.tsx',
   'app/near-heathrow/terminal-4/page.tsx',

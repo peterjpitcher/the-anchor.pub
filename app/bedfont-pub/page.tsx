@@ -306,7 +306,7 @@ export default function BedfontPubPage() {
               <div className="grid md:grid-cols-3 gap-4">
                 <div className="bg-anchor-cream p-4 rounded-lg">
                   <p className="font-bold">Tuesday</p>
-                  <p className="text-gray-700">Pizza BOGOF Night</p>
+                  <p className="text-gray-700">Stone-Baked Pizza Night</p>
                 </div>
                 <div className="bg-anchor-cream p-4 rounded-lg">
                   <p className="font-bold">Wednesday</p>

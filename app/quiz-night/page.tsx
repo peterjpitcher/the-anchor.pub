@@ -30,11 +30,11 @@ import { getEventWebsiteUrl } from '@/lib/event-url'
 import { staticEvents } from '@/lib/static-events'
 
 export const metadata: Metadata = {
-  title: 'Quiz Night Near Heathrow | Monthly Pub Quiz at The Anchor Stanwell Moor',
+  title: 'Quiz Night Pub Near Heathrow | The Anchor Trivia Night',
   description:
-    'Join The Anchor’s Wednesday quiz night near Heathrow. Free entry, £25 bar tab for winners, bottle of wine for the second-from-last team, friendly host vibe. Save your spot today.',
+    "Join The Anchor's quiz night pub near Heathrow for a monthly trivia night with a £25 bar tab prize, £3 entry, and a friendly pub trivia crowd in Stanwell Moor.",
   keywords:
-    'quiz night, quiz nights near me, pub quiz near heathrow, pub quiz staines, trivia night near me, pub trivia, stanwell moor quiz night'
+    'quiz night pub, quiz night, quiz night quiz, trivia, trivia night, pub trivia, night trivia, pub quiz near heathrow, pub quiz staines, stanwell moor quiz night'
 }
 
 function getQuizEvents(events: Event[]) {
@@ -47,7 +47,7 @@ const WHY_LOVE_IT = [
   {
     icon: '🧠',
     title: 'Four Curated Rounds',
-    body: 'Fresh themes every month mix legends, cult film clues, riddles and general trivia. Expect 50% easy wins, 35% brain-teasers and a tasty 15% “ooh, good one”.'
+    body: 'Every quiz night quiz features four curated rounds mixing legends, cult film clues, riddles and general trivia. Expect 50% easy wins, 35% brain-teasers and a tasty 15% "ooh, good one".'
   },
   {
     icon: '📝',
@@ -228,7 +228,7 @@ export default async function QuizNightPage() {
       <HeroWrapper
         route="/quiz-night"
         title="Quiz Night Wednesdays at The Anchor"
-        description="Proper pub quiz energy, seasonal themes and prizes worth bragging about."
+        description="Proper quiz night pub energy with trivia rounds, seasonal themes and prizes worth bragging about. Your Heathrow pub trivia night HQ."
         variant="promo"
         tags={[
           { label: '📍 7 mins from Heathrow', variant: 'default' },
@@ -255,14 +255,14 @@ export default async function QuizNightPage() {
             >
               📅 See upcoming quiz dates
             </Link>
-            <Link href="/pizza-tuesday" className="w-full sm:w-auto">
+            <Link href="/food-menu#pizza" className="w-full sm:w-auto">
               <Button
                 variant="secondary"
                 size="lg"
                 fullWidth
                 className="sm:w-auto"
               >
-                🍕 Pizza Tuesday Deal
+                🍕 Pizza Menu
               </Button>
             </Link>
             <Link href="/sunday-lunch" className="w-full sm:w-auto">
@@ -291,11 +291,11 @@ export default async function QuizNightPage() {
       <Section spacing="sm" background="white">
         <Container>
           <PageTitle className="text-center text-anchor-green" seo={{ structured: true, speakable: true }}>
-            Heathrow Pub Quiz Night – Stanwell Moor, Staines & Surrey
+            Heathrow Quiz Night Pub & Trivia Night - Stanwell Moor, Staines & Surrey
           </PageTitle>
           <p className="text-lg text-gray-700 text-center max-w-3xl mx-auto">
-            Looking for a pub quiz near Heathrow that still feels like your local? Every first Wednesday we transform The Anchor into
-            a trivia night HQ for Stanwell Moor, Staines, Ashford, Bedfont and stopover crews chasing smart fun. {heroDescription}
+            Looking for a quiz night pub near Heathrow that still feels like your local? Every first Wednesday we turn The Anchor into
+            a trivia night HQ and night trivia spot for Stanwell Moor, Staines, Ashford, Bedfont and stopover crews chasing smart fun. {heroDescription}
           </p>
         </Container>
       </Section>
@@ -326,22 +326,22 @@ export default async function QuizNightPage() {
             </Card>
             <Card className="bg-white shadow-sm">
               <CardBody>
-                <h3 className="text-xl font-semibold text-anchor-green mb-2">Pizza Tuesday Teams</h3>
+                <h3 className="text-xl font-semibold text-anchor-green mb-2">Stone-Baked Pizza Teams</h3>
                 <p className="text-sm text-gray-700 mb-4">
-                  Arrive for Pizza Tuesday (BOGOF 6 pm–9 pm) and fuel up on stone-baked pizzas before trivia kicks off.
+                  Arrive early and fuel up on stone-baked pizzas before trivia kicks off.
                 </p>
                 <div className="flex flex-col gap-2">
                   <BookTableButton
                     source="quiz_night_pizza_cta"
-                    context="pizza_tuesday"
+                    context="pizza_menu"
                     variant="primary"
                     size="sm"
                     className="w-full"
                   >
-                    Reserve Pizza Tuesday
+                    Book a Table
                   </BookTableButton>
-                  <Link href="/pizza-tuesday" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
-                    Pizza Tuesday details →
+                  <Link href="/food-menu#pizza" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
+                    View pizza menu →
                   </Link>
                 </div>
               </CardBody>
@@ -402,7 +402,7 @@ export default async function QuizNightPage() {
                 <h3 className="text-2xl font-bold text-anchor-charcoal">How the night runs</h3>
                 <ul className="space-y-3 text-gray-700">
                   <li><strong>6:30 pm</strong> · Doors open, soundtrack on, grab sharers & themed cocktails.</li>
-                  <li><strong>7:00 pm</strong> · Round one kicks off. Four rounds × 10 questions with occasional bonus trivia prompts.</li>
+                  <li><strong>7:00 pm</strong> · Quiz night quiz kicks off. Four rounds × 10 questions with occasional bonus trivia prompts.</li>
                   <li><strong>8:15 pm</strong> · Interactive quick-fire round to get everyone on their feet.</li>
                   <li><strong>8:30 pm</strong> · Comfort break & last call for kitchen orders.</li>
                   <li><strong>9:45 pm</strong> · Final scores, prize ladder and best team name shout-outs.</li>
@@ -499,7 +499,7 @@ export default async function QuizNightPage() {
           <div className="max-w-5xl mx-auto">
             <h2 className="text-3xl font-bold text-anchor-charcoal text-center mb-6">Quiz team tips for the win</h2>
             <p className="text-gray-700 text-center max-w-3xl mx-auto mb-6">
-              Whether you’re searching for “pub quiz near me”, “trivia night near me” or recruiting Heathrow crew mates, these quick tips help you build a quiz team that can take the £25 bar tab every month.
+              Whether you're searching for "pub quiz near me", "trivia night near me", a quiz night pub or a night trivia fix, these quick tips help you build a pub trivia team that can take the £25 bar tab every month.
             </p>
             <div className="grid md:grid-cols-2 gap-4">
               <Card className="h-full bg-white border border-gray-100 shadow-sm">
@@ -557,14 +557,14 @@ export default async function QuizNightPage() {
               >
                 📅 Book Your Team Table
               </BookTableButton>
-              <Link href="/pizza-tuesday" className="w-full sm:w-auto">
+              <Link href="/food-menu#pizza" className="w-full sm:w-auto">
                 <Button
                   size="lg"
                   variant="secondary"
                   fullWidth
                   className="sm:w-auto bg-white/10 text-white hover:bg-white/20"
                 >
-                  🍕 Pizza Tuesday Deal
+                  🍕 Pizza Menu
                 </Button>
               </Link>
               <Link href="/sunday-lunch" className="w-full sm:w-auto">

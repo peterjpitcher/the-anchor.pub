@@ -49,7 +49,7 @@ export const homepageFAQSchema = {
 }
 
 // Breadcrumb Schema Generator
-export function generateBreadcrumbSchema(items: Array<{name: string, url: string}>) {
+export function generateBreadcrumbSchema(items: Array<{ name: string, url: string }>) {
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -265,16 +265,16 @@ export const detailedOpeningHoursSchema = {
   "specialOpeningHoursSpecification": [
     {
       "@type": "OpeningHoursSpecification",
-      "validFrom": "2024-12-24",
-      "validThrough": "2024-12-24",
+      "validFrom": "2025-12-24",
+      "validThrough": "2025-12-24",
       "opens": "12:00",
       "closes": "18:00",
       "description": "Christmas Eve - Early closing"
     },
     {
       "@type": "OpeningHoursSpecification",
-      "validFrom": "2024-12-25",
-      "validThrough": "2024-12-25",
+      "validFrom": "2025-12-25",
+      "validThrough": "2025-12-25",
       "opens": "00:00",
       "closes": "00:00",
       "description": "Christmas Day - Closed"
@@ -321,8 +321,8 @@ export const over65sOfferSchema = {
     "priceCurrency": "GBP",
     "valueAddedTaxIncluded": true
   },
-  "validFrom": "2024-01-01",
-  "validThrough": "2024-12-31",
+  "validFrom": "2025-01-01",
+  "validThrough": "2025-12-31",
   "availabilityStarts": "12:00",
   "availabilityEnds": "21:00",
   "availableDay": "Friday"

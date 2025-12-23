@@ -7,7 +7,7 @@ import { StatusBar } from '@/components/layout/StatusBar'
 import { CONTACT_INFO } from '@/lib/error-handling'
 import { LoadingState } from '@/components/ui/LoadingState'
 import { parseApiDuration } from '@/lib/time-utils'
-import { useBusinessHours } from '@/hooks/useBusinessHours'
+import { useBusinessHoursContext } from '@/components/providers/BusinessHoursProvider'
 
 interface BusinessHoursProps {
   variant?: 'compact' | 'full' | 'status' | 'dark' | 'condensed'
@@ -15,10 +15,9 @@ interface BusinessHoursProps {
 }
 
 export function BusinessHours({ variant = 'full', showKitchen = true }: BusinessHoursProps) {
-  // Use the useBusinessHours hook instead of manual fetching
-  const { hours, loading, error } = useBusinessHours({
-    refreshInterval: 5 * 60 * 1000 // 5 minutes
-  })
+  // Use the context instead of manual fetching to avoid duplicate requests
+  const context = useBusinessHoursContext()
+  const { hours, loading, error } = context || { hours: null, loading: true, error: null }
 
   // UI state for condensed toggle
   const [daysToShow, setDaysToShow] = useState(7)
@@ -33,7 +32,7 @@ export function BusinessHours({ variant = 'full', showKitchen = true }: Business
 
   if (error || !hours) {
     const errorMessage = error?.message || `We couldn't load our opening hours. We're typically open 4pm-10pm Mon, 12pm-10pm Tue-Thu, 12pm-11pm Fri-Sat, and 12pm-9pm Sun. Call us at ${CONTACT_INFO.phone} for today's hours.`
-    
+
     if (variant === 'status') {
       return (
         <span className="text-sm text-red-600">
@@ -230,8 +229,8 @@ export function BusinessHours({ variant = 'full', showKitchen = true }: Business
           </div>
           {showKitchen && (
             <p className="text-sm mt-2 text-gray-600">
-              Kitchen: {hours.currentStatus.kitchenOpen ? 
-                <span className="text-green-400 font-medium">Open for food orders</span> : 
+              Kitchen: {hours.currentStatus.kitchenOpen ?
+                <span className="text-green-400 font-medium">Open for food orders</span> :
                 <span className="text-red-400 font-medium">Closed</span>
               }
             </p>
@@ -250,9 +249,8 @@ export function BusinessHours({ variant = 'full', showKitchen = true }: Business
             return (
               <div
                 key={day.isoDate || day.key}
-                className={`flex justify-between items-start py-2 px-3 rounded ${
-                  day.isToday ? 'bg-white/10' : ''
-                } ${hasSpecialHours ? 'ring-1 ring-yellow-400/50' : ''}`}
+                className={`flex justify-between items-start py-2 px-3 rounded ${day.isToday ? 'bg-white/10' : ''
+                  } ${hasSpecialHours ? 'ring-1 ring-yellow-400/50' : ''}`}
               >
                 <div className="flex items-center gap-3">
                   <span className={`font-medium capitalize ${day.isToday ? 'text-white' : 'text-white'}`}>
@@ -273,7 +271,7 @@ export function BusinessHours({ variant = 'full', showKitchen = true }: Business
                           {formatTime(displayHours.opens!)} - {formatTime(displayHours.closes!)}
                         </span>
                       </div>
-                      
+
                       {/* Kitchen Hours */}
                       {showKitchen && (
                         <div className="text-sm">
@@ -378,9 +376,8 @@ export function BusinessHours({ variant = 'full', showKitchen = true }: Business
             return (
               <div
                 key={day.isoDate || day.key}
-                className={`flex items-center justify-between px-3 py-1.5 rounded ${
-                  day.isToday ? 'bg-white/10 ring-1 ring-white/30' : 'hover:bg-white/5'
-                } ${(hasSpecialHours || hasSundayLunchNotice) ? 'ring-1 ring-yellow-400/50' : ''}`}
+                className={`flex items-center justify-between px-3 py-1.5 rounded ${day.isToday ? 'bg-white/10 ring-1 ring-white/30' : 'hover:bg-white/5'
+                  } ${(hasSpecialHours || hasSundayLunchNotice) ? 'ring-1 ring-yellow-400/50' : ''}`}
               >
                 {/* Left: Day */}
                 <div className="flex items-center gap-3 min-w-0">
@@ -509,8 +506,8 @@ export function BusinessHours({ variant = 'full', showKitchen = true }: Business
         </div>
         {showKitchen && (
           <p className="text-sm mt-2 text-gray-700">
-            Kitchen: {hours.currentStatus.kitchenOpen ? 
-              <span className="text-green-700 font-medium">Open for food orders</span> : 
+            Kitchen: {hours.currentStatus.kitchenOpen ?
+              <span className="text-green-700 font-medium">Open for food orders</span> :
               <span className="text-red-700 font-medium">Closed</span>
             }
           </p>
@@ -537,9 +534,8 @@ export function BusinessHours({ variant = 'full', showKitchen = true }: Business
             return (
               <div
                 key={day}
-                className={`flex justify-between items-start py-2 px-3 rounded ${
-                  isToday ? 'bg-anchor-cream' : ''
-                } ${hasSpecialHours ? 'ring-2 ring-yellow-400' : ''}`}
+                className={`flex justify-between items-start py-2 px-3 rounded ${isToday ? 'bg-anchor-cream' : ''
+                  } ${hasSpecialHours ? 'ring-2 ring-yellow-400' : ''}`}
               >
                 <span className={`font-medium capitalize ${isToday ? 'text-anchor-green' : ''}`} itemProp="dayOfWeek">
                   {day}

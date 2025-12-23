@@ -17,13 +17,13 @@ import { getBusinessHours, isKitchenOpen, type BusinessHours } from '@/lib/api'
 import { formatTime12Hour } from '@/lib/time-utils'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { specialAnnouncementSchema } from '@/lib/schema'
-import { DEFAULT_PIZZA_IMAGE } from '@/lib/image-fallbacks'
 import { generateMenuItemOffer, generateNutritionInfo, generateSuitableForDiet } from '@/lib/schema-utils'
 import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
+import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 const ANCHOR_LINKS = [
   { id: 'sunday-roast', label: 'Sunday Roast', icon: '🍖' },
-  { id: 'pizza-tuesday', label: 'Pizza Tuesday', icon: '🍕' },
+  { id: 'pizza', label: 'Pizza Menu', icon: '🍕' },
   { id: 'pub-classics', label: 'Pub Classics', icon: '🍔' },
   { id: 'dietary', label: 'Veggie & Gluten-Friendly', icon: '🌱' },
   { id: 'near-heathrow', label: 'Near Heathrow', icon: '✈️' }
@@ -37,8 +37,8 @@ const MENU_SECTION_LIST = [
   },
   {
     position: 2,
-    name: 'Pizza Tuesday',
-    url: 'https://www.the-anchor.pub/food-menu#pizza-tuesday'
+    name: 'Pizza Menu',
+    url: 'https://www.the-anchor.pub/food-menu#pizza'
   },
   {
     position: 3,
@@ -98,64 +98,21 @@ function buildKitchenSchedule(hours: BusinessHours): string {
 }
 
 export const metadata: Metadata = {
-  title: 'Heathrow Pub Food Menu & Sunday Roasts | The Anchor',
-  description: "See The Anchor's full menu 7 minutes from Heathrow: Sunday roasts, 2-for-1 Pizza Tuesday, pub classics and veggie options. Book your table with free parking.",
-  keywords: 'heathrow food menu, sunday roast near heathrow airport, pub food near me heathrow, pizza tuesday deal heathrow, book table the anchor',
+  title: 'Food Menu | Pub Food Menu, Sunday Roast & Pizza | The Anchor',
+  description: "Explore The Anchor food menu and pub food menu in Stanwell Moor near Staines and Heathrow: Sunday roast and Sunday lunch, fish & chips, pizza menu, plus vegetarian and gluten free menu options.",
+  keywords: 'food menu, pub food menu, pub food, sunday roast, sunday lunch, fish & chips menu, pizza menu, vegetarian menu, gluten free menu, the anchor menu',
   openGraph: {
-    title: 'Heathrow Pub Food Menu & Sunday Roasts',
-    description: "Browse The Anchor's menu near Heathrow: Sunday roasts, stone-baked pizzas and pub favourites with free parking. Reserve your table today.",
+    title: 'Food Menu | Pub Food, Sunday Roast & Pizza',
+    description: "See The Anchor food menu near Staines and Heathrow: Sunday roast, fish & chips, pizza menu, vegetarian and gluten free options with free parking.",
     images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg'],
   },
   twitter: getTwitterMetadata({
-    title: 'Heathrow Pub Food Menu & Sunday Roasts',
-    description: "Explore The Anchor's menu minutes from Heathrow: Sunday roasts, Pizza Tuesday deal and pub classics. Book a table with free parking.",
+    title: 'Food Menu | Pub Food, Sunday Roast & Pizza',
+    description: "Explore The Anchor food menu near Staines and Heathrow: Sunday roast, pizza menu, pub classics and vegetarian options with free parking.",
     images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg']
   }),
   alternates: {
     canonical: '/food-menu'
-  }
-}
-
-const pizzaBogofSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Offer',
-  name: 'Buy One Get One Free Pizza - Every Tuesday',
-  description: 'BOGOF on all stone-baked pizzas every Tuesday at The Anchor. Dine-in and takeaway available.',
-  url: 'https://www.the-anchor.pub/food-menu#pizza-tuesday',
-  priceCurrency: 'GBP',
-  eligibleRegion: {
-    '@type': 'Place',
-    name: 'Stanwell Moor, Staines, Ashford, Feltham, and surrounding Surrey areas'
-  },
-  availabilityStarts: '2025-01-01',
-  availabilityEnds: '2025-12-31',
-  validFrom: '16:00',
-  validThrough: '22:00',
-  dayOfWeek: 'https://schema.org/Tuesday',
-  itemOffered: {
-    '@type': 'Product',
-    name: 'Stone-Baked Pizzas',
-    category: 'Pizza',
-    description: 'Stone-baked pizzas with hand-stretched dough, rich tomato sauce and generous toppings available at The Anchor near Heathrow.',
-    image: `https://www.the-anchor.pub${DEFAULT_PIZZA_IMAGE}`,
-    offers: {
-      '@type': 'Offer',
-      name: 'Tuesday Pizza BOGOF',
-      description: 'Buy one get one free on all pizzas every Tuesday',
-      price: '9.99',
-      priceCurrency: 'GBP',
-      availability: 'https://schema.org/InStock',
-      url: 'https://www.the-anchor.pub/food-menu#pizza-tuesday'
-    }
-  },
-  seller: {
-    '@type': 'LocalBusiness',
-    name: 'The Anchor',
-    address: {
-      '@type': 'PostalAddress',
-      addressLocality: 'Stanwell Moor',
-      addressRegion: 'Surrey'
-    }
   }
 }
 
@@ -202,21 +159,25 @@ export default async function FoodMenuPage() {
       answer: `Our kitchen is open ${kitchenSchedule}. The kitchen is closed on Mondays.`
     },
     {
+      question: 'Where can I view your food menu or pub menu online?',
+      answer: 'You can view the full food menu and pub menu on this page. Use the filters for vegetarian menu and gluten free menu options, then book a table when you are ready.'
+    },
+    {
       question: 'Do you serve Sunday roast at The Anchor?',
       answer:
-        'Yes. Sunday roasts run 12pm–5pm with beef, chicken, lamb, and vegetarian plates. Book by 1pm Saturday with a £5 deposit per guest.'
+        'Yes. Sunday roast and Sunday lunch service runs 12pm-5pm with beef, chicken, lamb, and vegetarian plates. Book by 1pm Saturday with a £5 deposit per guest.'
     },
     {
       question: "Is there a children's menu?",
       answer: 'We have smaller portions, high chairs, and colouring packs on request.'
     },
     {
-      question: "What's the Tuesday pizza deal?",
-      answer: 'Every Tuesday evening is buy-one-get-one-free on all pizzas for dine-in or takeaway.'
+      question: 'Do you serve fish & chips?',
+      answer: 'Yes. Our pub food menu includes beer-battered fish & chips with tartar sauce and chunky chips, plus gluten free options on request.'
     },
     {
       question: 'Do you cater for dietary requirements?',
-      answer: 'Yes. Vegetarian dishes are marked and we can guide you through allergens at the bar.'
+      answer: 'Yes. We offer vegetarian menu choices and gluten free menu options, and we can guide you through allergens at the bar.'
     },
     {
       question: 'Can I book a table for food?',
@@ -224,17 +185,30 @@ export default async function FoodMenuPage() {
     },
     {
       question: 'Is takeaway available?',
-      answer: 'Yes. Call ahead and we will have your order ready for collection.'
+      answer: 'Yes. Call ahead and we will have your order ready for collection from the same food menu.'
+    },
+    {
+      question: 'Where can I find a British pub food menu near Staines?',
+      answer: 'The Anchor in Stanwell Moor is a 10-minute drive from Staines-upon-Thames and serves classic British pub dishes, Sunday roast, fish & chips, and a stone-baked pizza menu.'
+    },
+    {
+      question: 'Do you offer Sunday roasts for Staines locals?',
+      answer: 'Yes. Our Sunday roasts are popular with Staines guests; book by 1pm Saturday to reserve your table.'
     }
   ]
 
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Food Menu', url: '/food-menu' }
+        ]}
+      />
       <SpeakableSchema />
       <MenuPageTracker
         menuType="food"
         specialOffers={[
-          'Buy One Get One Free Pizza - Every Tuesday',
           '50% Off Fish & Chips for Over 65s - Every Friday'
         ]}
       />
@@ -243,12 +217,12 @@ export default async function FoodMenuPage() {
       <HeroWrapper
         route="/food-menu"
         title="Book Pub Food Minutes from Heathrow"
-        description="Sunday roasts, 2-for-1 Pizza Tuesday and proper pub classics with free parking and rapid service."
+        description="Sunday roasts, stone-baked pizzas and proper pub classics with free parking and rapid service."
         variant="default"
         breadcrumbs={[{ name: 'Food & Drink' }]}
         tags={[
           { label: '🍖 Roast pre-orders', variant: 'default' },
-          { label: '🍕 2-for-1 Pizza Tuesday', variant: 'default' },
+          { label: '🍕 Stone-baked pizzas', variant: 'default' },
           { label: '🍺 Pub classics', variant: 'default' },
           { label: '🌱 Veggie friendly', variant: 'default' }
         ]}
@@ -290,10 +264,34 @@ export default async function FoodMenuPage() {
         </Container>
       </Section>
 
+      <Section background="white" spacing="sm">
+        <Container>
+          <Card className="bg-anchor-cream/40">
+            <CardBody>
+              <SectionHeader
+                title="Food Menu & Pub Food Menu for Staines & Heathrow"
+                subtitle="Traditional favourites, quick service and free parking just outside the terminals."
+              />
+              <p className="text-gray-700">
+                Looking for a food menu or pub menu in Staines? The Anchor sits on Horton Road in Stanwell Moor,
+                just 10 minutes from Staines High Street and 7 minutes from Heathrow Terminal 5. Our pub food menu
+                covers Sunday roast and Sunday lunch, a fish & chips menu, a pizza menu, plus vegetarian menu and
+                gluten free menu options.
+              </p>
+              <ul className="mt-4 space-y-2 text-gray-700">
+                <li>• Free parking and easy access from Staines, Ashford and Feltham.</li>
+                <li>• Sunday roasts and family-friendly seating every weekend.</li>
+                <li>• Stone-baked pizzas and pub classics served during kitchen hours.</li>
+              </ul>
+            </CardBody>
+          </Card>
+        </Container>
+      </Section>
+
       <div id="menu" className="section-spacing bg-white">
         <Container>
           <SectionHeader
-            title="Full Food Menu"
+            title="Full Food Menu & Pub Menu"
             subtitle="Use the dietary filters to tailor the menu to your table."
             align="center"
             className="mb-10"
@@ -330,15 +328,15 @@ export default async function FoodMenuPage() {
                 },
                 {
                   icon: '🍕',
-                  title: 'Pizza Tuesday BOGOF',
+                  title: 'Stone-Baked Pizzas',
                   description: (
                     <>
-                      Hand-stretched dough, stone-baked, and two-for-one every Tuesday evening.
+                      Hand-stretched dough, stone-baked, and topped to order during kitchen hours.
                       <Link
-                        href="/pizza-tuesday"
+                        href="/food-menu#pizza"
                         className="mt-2 block text-anchor-gold font-semibold hover:text-anchor-green transition"
                       >
-                        Read the deal →
+                        See pizza picks →
                       </Link>
                     </>
                   ),
@@ -353,7 +351,7 @@ export default async function FoodMenuPage() {
                 {
                   icon: '🌱',
                   title: 'Veggie & Gluten-Friendly',
-                  description: 'Dedicated mains and gluten-aware bases. Ask us about allergens anytime.',
+                  description: 'Vegetarian menu and gluten free menu options, plus gluten-aware bases. Ask us about allergens anytime.',
                   className: 'text-left bg-white rounded-2xl p-6 shadow-sm'
                 }
               ]}
@@ -391,7 +389,7 @@ export default async function FoodMenuPage() {
             <Card className="bg-white shadow-md">
               <CardBody>
                 <SectionHeader
-                  title="Sunday Roast Near Heathrow"
+                  title="Sunday Roast and Sunday Lunch Near Heathrow"
                   subtitle="Book by 1pm Saturday to secure your favourite roast and all the trimmings."
                   align="left"
                   className="mb-6"
@@ -439,37 +437,37 @@ export default async function FoodMenuPage() {
         </Container>
       </Section>
 
-      <Section background="white" spacing="md" id="pizza-tuesday">
+      <Section background="white" spacing="md" id="pizza">
         <Container>
           <div className="grid gap-6 lg:grid-cols-[1fr_1.2fr] items-start">
             <Card className="bg-anchor-cream/40 shadow-md">
               <CardBody>
                 <SectionHeader
-                  title="2-for-1 Pizza Tuesday"
-                  subtitle="Hand-stretched bases, San Marzano sauce, and a free pizza with every order."
+                  title="Stone-Baked Pizzas"
+                  subtitle="Hand-stretched bases, San Marzano sauce, and generous toppings."
                   align="left"
                   className="mb-6"
                 />
                 <ul className="space-y-3 text-gray-700">
-                  <li>• Offer runs all evening during kitchen hours.</li>
+                  <li>• Stone-baked pizzas served during kitchen hours.</li>
                   <li>• Mix and match toppings — dine in or takeaway with free parking.</li>
                   <li>• Gluten-aware bases available when you pre-book.</li>
                 </ul>
                 <div className="mt-6 flex flex-col sm:flex-row gap-3">
                   <BookTableButton
                     source='food_menu_pizza_cta'
-                    context='pizza_tuesday'
+                    context='pizza_menu'
                     variant='primary'
                     size='lg'
                     className='sm:w-auto'
-                    trackingLabel='Reserve Pizza Tuesday'
+                    trackingLabel='Book Pizza Table'
                   >
-                    Reserve for Tuesday
+                    Book a Table
                   </BookTableButton>
                   <MenuSectionCta
-                    label="Deal Details"
-                    href="/pizza-tuesday"
-                    analyticsLabel="deal_details"
+                    label="View Pizza Menu"
+                    scrollToId="menu"
+                    analyticsLabel="view_full_menu"
                     location="food_menu_pizza_section"
                     variant="outline"
                     fullWidth
@@ -711,28 +709,28 @@ export default async function FoodMenuPage() {
               },
               openingHoursSpecification: businessHours
                 ? [
-                    {
-                      '@type': 'OpeningHoursSpecification',
-                      name: 'Kitchen Hours',
-                      dayOfWeek: ['Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-                      opens: '18:00',
-                      closes: '21:00'
-                    },
-                    {
-                      '@type': 'OpeningHoursSpecification',
-                      name: 'Kitchen Hours',
-                      dayOfWeek: 'Saturday',
-                      opens: '13:00',
-                      closes: '19:00'
-                    },
-                    {
-                      '@type': 'OpeningHoursSpecification',
-                      name: 'Kitchen Hours',
-                      dayOfWeek: 'Sunday',
-                      opens: '12:00',
-                      closes: '17:00'
-                    }
-                  ]
+                  {
+                    '@type': 'OpeningHoursSpecification',
+                    name: 'Kitchen Hours',
+                    dayOfWeek: ['Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+                    opens: '18:00',
+                    closes: '21:00'
+                  },
+                  {
+                    '@type': 'OpeningHoursSpecification',
+                    name: 'Kitchen Hours',
+                    dayOfWeek: 'Saturday',
+                    opens: '13:00',
+                    closes: '19:00'
+                  },
+                  {
+                    '@type': 'OpeningHoursSpecification',
+                    name: 'Kitchen Hours',
+                    dayOfWeek: 'Sunday',
+                    opens: '12:00',
+                    closes: '17:00'
+                  }
+                ]
                 : [],
               telephone: '+441753682707',
               url: 'https://www.the-anchor.pub',
@@ -762,7 +760,6 @@ export default async function FoodMenuPage() {
               }))
             },
             specialAnnouncementSchema,
-            pizzaBogofSchema,
             fridayFishOfferSchema
           ])
         }}

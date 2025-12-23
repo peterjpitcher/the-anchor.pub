@@ -9,6 +9,7 @@ import { GoogleReviews } from '@/components/reviews'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { BookTableButton } from '@/components/BookTableButton'
 import { parkingFacilitySchema } from '@/lib/schemas/parking'
+import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 export const metadata: Metadata = {
   title: 'Beer Garden Under Heathrow Flight Path | Plane Spotting Pub | The Anchor',
@@ -75,11 +76,17 @@ const planeSpottingSchema = {
 export default function BeerGardenPage() {
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Beer Garden', url: '/beer-garden' }
+        ]}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify([planeSpottingSchema, parkingFacilitySchema]) }}
       />
-      
+
       {/* Hero Section */}
       <HeroWrapper
         route="/beer-garden"
@@ -103,7 +110,7 @@ export default function BeerGardenPage() {
         secondaryCta={
           <>
             <Link href="/plane-spotting-heathrow">
-              <Button 
+              <Button
                 variant="secondary"
                 size="lg"
                 className="w-full sm:w-auto"
@@ -112,7 +119,7 @@ export default function BeerGardenPage() {
               </Button>
             </Link>
             <Link href="/drinks">
-              <Button 
+              <Button
                 variant="secondary"
                 size="lg"
                 className="w-full sm:w-auto"
@@ -121,7 +128,7 @@ export default function BeerGardenPage() {
               </Button>
             </Link>
             <Link href="/find-us">
-              <Button 
+              <Button
                 variant="secondary"
                 size="lg"
                 className="w-full sm:w-auto"
@@ -163,21 +170,21 @@ export default function BeerGardenPage() {
             </Card>
             <Card className="bg-white shadow-sm">
               <CardBody>
-                <h3 className="text-lg font-semibold text-anchor-green mb-2">Pizza Tuesday 2-for-1</h3>
+                <h3 className="text-lg font-semibold text-anchor-green mb-2">Stone-Baked Pizzas</h3>
                 <p className="text-sm text-gray-700 mb-4">
-                  Buy one stone-baked pizza, get one free every Tuesday 6pm–9pm. Perfect for aviation meet-ups or crew nights.
+                  Hand-stretched pizzas with bold toppings, ideal for aviation meet-ups or crew nights.
                 </p>
                 <div className="flex flex-col gap-2">
                   <BookTableButton
                     source="beer_garden_pizza_cta"
-                    context="pizza_tuesday"
+                    context="pizza_menu"
                     variant="primary"
                     size="sm"
                   >
-                    Reserve Pizza Tuesday
+                    Book a Table
                   </BookTableButton>
-                  <Link href="/pizza-tuesday" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
-                    Pizza Tuesday details →
+                  <Link href="/food-menu#pizza" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
+                    View pizza menu →
                   </Link>
                 </div>
               </CardBody>
@@ -209,7 +216,7 @@ export default function BeerGardenPage() {
       {/* Page Title for SEO */}
       <section className="bg-white py-8">
         <Container>
-          <PageTitle 
+          <PageTitle
             className="text-center text-anchor-green"
             seo={{ structured: true, speakable: true }}
           >
@@ -225,7 +232,7 @@ export default function BeerGardenPage() {
             <SectionHeader
               title="Heathrow's Best Kept Secret for Plane Spotting"
             />
-            
+
             <InfoBoxGrid
               columns={2}
               boxes={[
@@ -275,7 +282,7 @@ export default function BeerGardenPage() {
               ]}
               className="mb-12"
             />
-            
+
           </div>
         </Container>
       </section>
@@ -287,7 +294,7 @@ export default function BeerGardenPage() {
             <h2 className="text-3xl font-bold text-anchor-green text-center mb-8">
               What Visitors Say About Our Beer Garden
             </h2>
-            <GoogleReviews 
+            <GoogleReviews
               layout="carousel"
               showTitle={false}
             />
@@ -302,7 +309,7 @@ export default function BeerGardenPage() {
             <SectionHeader
               title="Our Unique Beer Garden"
             />
-            
+
             <FeatureGrid
               columns={3}
               features={[
@@ -355,7 +362,7 @@ export default function BeerGardenPage() {
             <SectionHeader
               title="Plane Spotting Tips for Visitors"
             />
-            
+
             <InfoBoxGrid
               columns={1}
               boxes={[
@@ -405,7 +412,7 @@ export default function BeerGardenPage() {
 
 
       {/* FAQ Section */}
-      <FAQAccordionWithSchema 
+      <FAQAccordionWithSchema
         faqs={[
           {
             question: "What planes can I see from The Anchor beer garden?",
@@ -435,7 +442,7 @@ export default function BeerGardenPage() {
               Ready for Planes, Pints & Proper Food?
             </h2>
             <p className="text-xl text-white/90 mb-8">
-              Join fellow aviation enthusiasts, enjoy 2-for-1 Pizza Tuesday or pre-order Sunday roast before wheels-up.
+              Join fellow aviation enthusiasts, enjoy stone-baked pizzas or pre-order Sunday roast before wheels-up.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <BookTableButton

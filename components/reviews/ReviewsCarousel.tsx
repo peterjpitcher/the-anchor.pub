@@ -16,16 +16,41 @@ export function ReviewsCarousel({
   interval = 5000 
 }: ReviewsCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [isPaused, setIsPaused] = useState(false)
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
 
   useEffect(() => {
-    if (!autoPlay || reviews.length <= 1) return
+    if (typeof window === 'undefined') return
+
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const handleChange = () => setPrefersReducedMotion(mediaQuery.matches)
+
+    handleChange()
+
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener('change', handleChange)
+    } else {
+      mediaQuery.addListener(handleChange)
+    }
+
+    return () => {
+      if (mediaQuery.removeEventListener) {
+        mediaQuery.removeEventListener('change', handleChange)
+      } else {
+        mediaQuery.removeListener(handleChange)
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!autoPlay || reviews.length <= 1 || isPaused || prefersReducedMotion) return
 
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % reviews.length)
     }, interval)
 
     return () => clearInterval(timer)
-  }, [autoPlay, interval, reviews.length])
+  }, [autoPlay, interval, reviews.length, isPaused, prefersReducedMotion])
 
   const goToNext = () => {
     setCurrentIndex((prev) => (prev + 1) % reviews.length)
@@ -38,7 +63,17 @@ export function ReviewsCarousel({
   if (reviews.length === 0) return null
 
   return (
-    <div className="relative max-w-4xl mx-auto">
+    <div
+      className="relative max-w-4xl mx-auto"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+      onFocus={() => setIsPaused(true)}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget as Node)) {
+          setIsPaused(false)
+        }
+      }}
+    >
       <div className="overflow-hidden">
         <div 
           className="flex transition-transform duration-500 ease-in-out"

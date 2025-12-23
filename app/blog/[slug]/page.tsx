@@ -31,6 +31,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     title: `${post.title} | The Anchor Blog`,
     description: post.description,
     keywords: post.keywords.join(', '),
+    alternates: {
+      canonical: `/blog/${params.slug}`
+    },
     openGraph: {
       title: post.title,
       description: post.description,

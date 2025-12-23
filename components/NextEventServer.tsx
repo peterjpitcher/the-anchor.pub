@@ -120,7 +120,6 @@ export async function NextEventServer() {
                   fill
                   className="object-contain drop-shadow-xl"
                   sizes="(max-width: 1024px) 70vw, 360px"
-                  priority
                 />
               </div>
             </div>

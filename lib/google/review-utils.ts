@@ -119,7 +119,7 @@ export const mockReviews: GoogleReview[] = [
     language: "en",
     rating: 4,
     relative_time_description: "a month ago",
-    text: "Lovely atmosphere and the Tuesday pizza deal is brilliant. Only reason for 4 stars is it can get quite busy on quiz nights, but that's a good sign really!",
+    text: "Lovely atmosphere and the stone-baked pizzas are brilliant. Only reason for 4 stars is it can get quite busy on quiz nights, but that's a good sign really!",
     time: Math.floor(Date.now() / 1000) - 2592000
   },
   {

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { PhoneLink } from '@/components/PhoneLink'
 import { DirectionsLink } from '@/components/DirectionsButton'
 import { WhatsAppLink } from '@/components/WhatsAppLink'
@@ -8,6 +8,32 @@ import { trackTableBookingClick } from '@/lib/gtm-events'
 
 export function FloatingActions() {
   const [isOpen, setIsOpen] = useState(false)
+  const menuRef = useRef<HTMLDivElement | null>(null)
+  const buttonRef = useRef<HTMLButtonElement | null>(null)
+  const menuId = 'floating-actions-menu'
+
+  useEffect(() => {
+    if (!isOpen) return
+
+    const focusTarget = menuRef.current?.querySelector<HTMLElement>(
+      'a, button, [tabindex]:not([tabindex="-1"])'
+    )
+    focusTarget?.focus()
+  }, [isOpen])
+
+  useEffect(() => {
+    if (!isOpen) return
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsOpen(false)
+        buttonRef.current?.focus()
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [isOpen])
 
   return (
     <>
@@ -31,6 +57,8 @@ export function FloatingActions() {
           role="menu"
           aria-orientation="vertical"
           aria-labelledby="floating-action-button"
+          id={menuId}
+          ref={menuRef}
         >
           <div className="bg-white rounded-2xl shadow-2xl p-3 min-w-[200px] space-y-2">
             <a
@@ -66,20 +94,21 @@ export function FloatingActions() {
               className="flex items-center gap-3 p-3 hover:bg-anchor-cream rounded-lg transition-colors w-full"
               showIcon={false}
               onClick={() => setIsOpen(false)}
+              role="menuitem"
             >
               <span className="text-2xl" aria-hidden="true">💬</span>
               <span className="font-medium">WhatsApp</span>
             </WhatsAppLink>
-            <div onClick={() => setIsOpen(false)} role="menuitem">
-              <DirectionsLink
-                href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ"
-                source="floating_actions"
-                className="flex items-center gap-3 p-3 hover:bg-anchor-cream rounded-lg transition-colours w-full"
-              >
-                <span className="text-2xl" aria-hidden="true">📍</span>
-                <span className="font-medium">Get Directions</span>
-              </DirectionsLink>
-            </div>
+            <DirectionsLink
+              href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ"
+              source="floating_actions"
+              className="flex items-center gap-3 p-3 hover:bg-anchor-cream rounded-lg transition-colours w-full"
+              onClick={() => setIsOpen(false)}
+              role="menuitem"
+            >
+              <span className="text-2xl" aria-hidden="true">📍</span>
+              <span className="font-medium">Get Directions</span>
+            </DirectionsLink>
             
             <a
               href="/food-menu"
@@ -105,7 +134,9 @@ export function FloatingActions() {
           `}
           aria-label="Quick actions menu"
           aria-expanded={isOpen}
-          aria-haspopup="true"
+          aria-haspopup="menu"
+          aria-controls={menuId}
+          ref={buttonRef}
         >
           <svg 
             className="w-6 h-6" 

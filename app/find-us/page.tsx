@@ -21,9 +21,9 @@ import { parkingFacilitySchema } from '@/lib/schemas/parking'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-  title: 'Find The Anchor Pub - Directions & Free Parking Near Heathrow Terminals',
-  description: 'Get step-by-step directions from Heathrow Terminal 5, Terminal 3, Terminal 2 and Terminal 4 to The Anchor on Horton Road. Seven minutes from T5 with free parking and easy access from M25, Staines and Ashford.',
-  keywords: 'find the anchor pub, directions to the anchor heathrow, heathrow terminal 5 to pub, pub with free parking stanwell moor, horton road pub location',
+  title: 'Find The Anchor Pub - Directions Near Heathrow & M25 J14',
+  description: 'Get step-by-step directions from Heathrow Terminal 5, Terminal 3, Terminal 2 and Terminal 4 to The Anchor on Horton Road. Seven minutes from T5 with free parking and easy access from M25 Junction 14, Staines and Ashford.',
+  keywords: 'find the anchor pub, directions to the anchor heathrow, m25 junction 14 pub directions, heathrow terminal 5 to pub, pub with free parking stanwell moor',
   openGraph: {
     title: 'Find The Anchor Pub Near Heathrow Terminals',
     description: 'Driving and public transport directions from every Heathrow terminal to The Anchor on Horton Road with free parking details.',

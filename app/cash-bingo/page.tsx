@@ -30,11 +30,11 @@ import { cn } from '@/lib/utils'
 import { BookTableButton } from '@/components/BookTableButton'
 
 export const metadata: Metadata = {
-  title: 'Cash Bingo Near Heathrow | Jackpot Night at The Anchor',
+  title: 'Cash Bingo Near Heathrow | Bingo Games & Jackpots | The Anchor',
   description:
-    'Play cash bingo near Heathrow with £10 cash-only books, a rolling snowball and jackpots that keep climbing. Reserve your ticket for the next big win at The Anchor Stanwell Moor.',
+    'Play cash bingo and bingo games near Heathrow at The Anchor. £10 bingo tickets, bingo calls, cash prizes, snowball bonus, and jackpot bingo in Stanwell Moor.',
   keywords:
-    'cash bingo, cash bingo games, play bingo for cash, cash bingo near heathrow, bingo games for money, pub bingo night, bingo night stanwell moor'
+    'cash bingo, bingo night, bingo games, play bingo for cash, bingo hall, bingo tickets, bingo books, jackpot bingo, cash prizes, bingo calls, bingo numbers, bingo number caller, bingo near heathrow'
 }
 
 function getBingoEvents(events: Event[]) {
@@ -47,12 +47,12 @@ const WHY_LOVE_IT = [
   {
     icon: '💷',
     title: 'Cash-first bingo night',
-    body: 'Ten lively games with £10 cash books, instant prizes, a snowball chase that climbs by £20 each month and a jackpot that rolls to £300+ when the room sells out.'
+    body: 'Ten lively bingo games for money with £10 bingo books (tickets), instant cash prizes, a snowball bingo bonus that climbs by £20 each month and a jackpot bingo pot that rolls to £300+ when the room sells out.'
   },
   {
     icon: '🎙️',
     title: 'Classic calls with Anchor humour',
-    body: 'Traditional bingo calls mixed with Anchor in-jokes – Two Little Ducks gets a crowd quack, 59 earns a toast. Friendly hosts keep the pace spot on.'
+    body: 'Traditional bingo calls and bingo numbers delivered by our bingo number caller, mixed with Anchor in-jokes – Two Little Ducks gets a crowd quack, 59 earns a toast. Friendly hosts keep the pace spot on.'
   },
   {
     icon: '🍽️',
@@ -75,12 +75,12 @@ const FAQS = [
   {
     question: 'When does cash bingo start and finish?',
     answer:
-      'Book sales and seating open at 6 pm. We run ten games from 7 pm to around 9:30 pm with two 10-minute breaks for food, drinks and extra book sales.'
+      'Book sales and seating open at 6 pm. Bingo starts at 7 pm and runs to around 9:30 pm with two 10-minute breaks for food, drinks and extra book sales.'
   },
   {
     question: 'How much is it to play and how do I pay?',
     answer:
-      'Each book is £10 and payment is cash-only (same for £1 daubers). Prizes are paid out in cash on the night, so bring notes or hit the ATM before you arrive.'
+      'Each bingo book (your bingo tickets for the night) is £10 and payment is cash-only (same for £1 daubers). Prizes are paid out in cash on the night, so bring notes or hit the ATM before you arrive.'
   },
   {
     question: 'Do I need to book in advance?',
@@ -193,19 +193,19 @@ export default async function CashBingoPage() {
   const doorTime = nextEvent ? formatDoorTime(nextEvent.doorTime) ?? '6:00 pm' : '6:00 pm'
 
   const heroDescription = nextEvent
-    ? `Doors ${doorTime}. Books are £10 cash-only and eyes down at ${nextEventTime}. Reserve online or call 01753 682707 to lock in your table.`
-    : 'Doors 6:00 pm. Books are £10 cash-only and games begin at 7:00 pm. Reserve online or call 01753 682707 to lock in your table.'
+    ? `Doors ${doorTime}. Bingo starts at ${nextEventTime} with £10 cash-only bingo tickets (books). Reserve online or call 01753 682707 to lock in your table.`
+    : 'Doors 6:00 pm. Bingo starts at 7:00 pm with £10 cash-only bingo tickets (books). Reserve online or call 01753 682707 to lock in your table.'
 
   return (
     <>
       <HeroWrapper
         route="/cash-bingo"
-        title="Cash Bingo Nights at The Anchor"
-        description="Play bingo for cash near Heathrow with £10 books, a rolling snowball and jackpots that keep climbing."
+        title="Cash Bingo Nights & Bingo Games at The Anchor"
+        description="Play bingo for cash and classic bingo games near Heathrow with £10 bingo tickets and books, bingo calls and numbers, a snowball bonus and jackpot bingo prizes."
         variant="promo"
         tags={[
-          { label: '💷 £10 cash-only books', variant: 'default' },
-          { label: '🎯 Snowball grows every month', variant: 'primary' },
+          { label: '🎟️ £10 bingo tickets & books', variant: 'default' },
+          { label: '🎯 Snowball bingo bonus grows monthly', variant: 'primary' },
           { label: '🍽️ Full menu 6 pm–9 pm', variant: 'default' }
         ]}
         primaryCta={
@@ -234,10 +234,10 @@ export default async function CashBingoPage() {
       <Section spacing="sm" background="white">
         <Container>
           <PageTitle className="text-center text-anchor-green" seo={{ structured: true, speakable: true }}>
-            Cash Bingo Night – Stanwell Moor & Heathrow
+            Cash Bingo Night & Bingo Games – Stanwell Moor & Heathrow
           </PageTitle>
           <p className="text-lg text-gray-700 text-center max-w-3xl mx-auto">
-            Searching for cash bingo games near Heathrow? Every few weeks we turn The Anchor into a buzzing bingo hall with cash prizes, hot food from the kitchen and a friendly crowd of locals, cabin crew and Stanwell Moor neighbours. {heroDescription}
+            Searching for cash bingo games near Heathrow? Every few weeks we turn The Anchor into a buzzing bingo hall and bingo room with bingo games for money, cash prizes, hot food from the kitchen and a friendly crowd of locals, cabin crew and Stanwell Moor neighbours. {heroDescription}
           </p>
         </Container>
       </Section>
@@ -268,22 +268,22 @@ export default async function CashBingoPage() {
             </Card>
             <Card className="bg-white shadow-sm">
               <CardBody>
-                <h3 className="text-xl font-semibold text-anchor-green mb-2">Pizza Tuesday Warm-Up</h3>
+                <h3 className="text-xl font-semibold text-anchor-green mb-2">Stone-Baked Pizza Warm-Up</h3>
                 <p className="text-sm text-gray-700 mb-4">
-                  Buy-one-get-one-free pizzas every Tuesday 6 pm–9 pm. Share slices between games without leaving your table.
+                  Hand-stretched pizzas with bold toppings. Share slices between games without leaving your table.
                 </p>
                 <div className="flex flex-col gap-2">
                   <BookTableButton
                     source="bingo_pizza_cta"
-                    context="pizza_tuesday"
+                    context="pizza_menu"
                     variant="primary"
                     size="sm"
                     className="w-full"
                   >
-                    Reserve Pizza Tuesday
+                    Book a Table
                   </BookTableButton>
-                  <Link href="/pizza-tuesday" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
-                    Pizza Tuesday details →
+                  <Link href="/food-menu#pizza" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
+                    View pizza menu →
                   </Link>
                 </div>
               </CardBody>
@@ -322,7 +322,7 @@ export default async function CashBingoPage() {
                 <h2 className="text-3xl font-bold text-anchor-charcoal">{nextEvent ? nextEvent.name : 'Next cash bingo announced soon'}</h2>
                 <p className="text-anchor-green font-semibold">{nextEvent ? `${nextEventDate} · ${nextEventTime}` : 'Check back for the next date'}</p>
                 <p className="text-gray-700 whitespace-pre-line">
-                  £10 cash book includes all ten games, two breaks and eligibility for instant prizes, the rolling snowball (we add £20 and two extra calls every time it rolls over) and the headline jackpot.
+                  £10 cash book includes all ten bingo games, two breaks and eligibility for instant cash prizes, the rolling snowball bingo bonus (we add £20 and two extra calls every time it rolls over) and the jackpot bingo pot.
                 </p>
                 <div className="space-y-3">
                   {nextEvent ? (
@@ -343,7 +343,7 @@ export default async function CashBingoPage() {
               <CardBody className="space-y-4">
                 <h3 className="text-2xl font-bold text-anchor-charcoal">How the night feels</h3>
                 <p className="text-gray-700">
-                  We keep things punchy: ten quick-fire games with two planned pauses so you can top up drinks, grab fresh cards and order from the kitchen without missing a call.
+                  We keep things punchy in the bingo room: ten quick-fire games with two planned pauses so you can top up drinks, grab fresh cards and order from the kitchen without missing a call.
                 </p>
                 <p className="text-gray-700">
                   Expect classic bingo banter, cheeky spot prizes and a snowball countdown that gets louder as the numbers close in. When you shout bingo, our host will check the board and make sure the pot lands in the right hands.
@@ -384,7 +384,7 @@ export default async function CashBingoPage() {
           <div className="max-w-4xl mx-auto text-gray-700 space-y-4">
             <h2 className="text-3xl font-bold text-anchor-charcoal text-center">What’s up for grabs?</h2>
             <p>
-              We keep prizes fresh so every cash bingo night feels different. Expect a lively mix of free drinks, chocolate bars, quiz night tickets, food vouchers, £10 cash boosts, cheeky spot prizes and a jackpot pot that grows with every £10 book sold. The snowball bonus carries over an extra £20—and two additional calls—each month it survives, so loyal dabbers see the prize get juicier and easier to win.
+              We keep prizes fresh so every cash bingo night feels different. Expect a lively mix of bingo prizes and cash prizes: free drinks, chocolate bars, quiz night tickets, food vouchers, £10 cash boosts, cheeky spot prizes and a jackpot bingo pot that grows with every £10 book sold. The snowball bonus carries over an extra £20—and two additional calls—each month it survives, so loyal dabbers see the prize get juicier and easier to win.
             </p>
           </div>
         </Container>
@@ -402,7 +402,7 @@ export default async function CashBingoPage() {
                 <CardBody className="space-y-3">
                   <h3 className="text-xl font-semibold text-anchor-charcoal">Bring the right kit</h3>
                   <p className="text-gray-700 text-sm leading-relaxed">
-                    Cash-only entry, so bring notes and coins for books and daubers. Pack spare daubers or lucky charms—confidence helps when the jackpot numbers fall.
+                    Cash-only entry, so bring notes and coins for bingo tickets, £10 bingo books and £1 daubers. Pack spare daubers or lucky charms—confidence helps when the jackpot numbers fall.
                   </p>
                 </CardBody>
               </Card>
@@ -410,7 +410,7 @@ export default async function CashBingoPage() {
                 <CardBody className="space-y-3">
                   <h3 className="text-xl font-semibold text-anchor-charcoal">Arrive early for the best spots</h3>
                   <p className="text-gray-700 text-sm leading-relaxed">
-                    Doors open at 6 pm. Turn up early, claim a clear sightline to the caller, order dinner and review the snowball rules before Game 1.
+                    Doors open at 6 pm. Bingo start time is 7 pm. Turn up early, claim a clear sightline to the caller, order dinner and review the snowball rules before Game 1.
                   </p>
                 </CardBody>
               </Card>
@@ -418,7 +418,7 @@ export default async function CashBingoPage() {
                 <CardBody className="space-y-3">
                   <h3 className="text-xl font-semibold text-anchor-charcoal">Keep your focus between calls</h3>
                   <p className="text-gray-700 text-sm leading-relaxed">
-                    Use the breaks to stretch, order drinks and catch up. During games keep conversations low, phones away and eyes on the card so you never miss the money ball.
+                    Use the breaks to stretch, order drinks and catch up. During games keep conversations low, phones away and eyes on the card so you never miss the bingo calls or numbers.
                   </p>
                 </CardBody>
               </Card>

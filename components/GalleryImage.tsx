@@ -1,6 +1,3 @@
-'use client'
-
-import { useState } from 'react'
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
 
@@ -43,25 +40,15 @@ export function GalleryImage({
   className = '',
   priority = false
 }: GalleryImageProps) {
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [isHovered, setIsHovered] = useState(false)
-
   return (
     <div 
       className={cn(
         "relative aspect-square rounded-lg overflow-hidden group cursor-pointer card-warm",
         className
       )}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
       role="img"
       aria-label={caption ? `${alt}. ${caption}` : alt}
     >
-      <div className={cn(
-        "absolute inset-0 bg-anchor-sand/20 transition-opacity duration-300",
-        isLoaded ? "opacity-0" : "opacity-100"
-      )} />
-      
       <Image
         src={src}
         alt={alt}
@@ -69,23 +56,19 @@ export function GalleryImage({
         height={height}
         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
         className={cn(
-          "object-cover transition-all duration-300",
-          isHovered && "scale-105",
-          !isLoaded && "opacity-0"
+          "object-cover transition-transform duration-300 group-hover:scale-105"
         )}
         loading={priority ? 'eager' : 'lazy'}
         priority={priority}
         quality={75}
         placeholder="blur"
         blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(width, height))}`}
-        onLoad={() => setIsLoaded(true)}
       />
       
       {caption && (
         <div 
           className={cn(
-            "absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent transition-opacity",
-            isHovered ? "opacity-100" : "opacity-0"
+            "absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100"
           )}
           aria-hidden="true"
         >

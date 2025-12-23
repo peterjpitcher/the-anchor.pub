@@ -10,7 +10,7 @@ import { useKitchenStatus } from '@/hooks/useKitchenStatus'
 import { StatusIndicator } from '@/components/ui/StatusIndicator'
 import { formatTime12Hour } from '@/lib/time-utils'
 
-type StickyContext = 'food' | 'sunday_roast' | 'pizza_tuesday' | 'heathrow_layover'
+type StickyContext = 'food' | 'sunday_roast' | 'pizza_menu' | 'heathrow_layover'
 
 interface FoodStickyCtaBarProps {
   ctaContext: StickyContext
@@ -27,7 +27,7 @@ type DeviceType = 'mobile' | 'tablet' | 'desktop' | 'unknown'
 
 interface SecondaryCta {
   label: string
-  analyticsLabel: 'preorder_roast' | 'pizza_2for1' | 'view_hours'
+  analyticsLabel: 'preorder_roast' | 'pizza_menu' | 'view_hours'
   action: 'scroll' | 'link'
   targetId?: string
   href?: string
@@ -68,10 +68,10 @@ function buildSecondaryCta(): SecondaryCta {
 
   if (day === 2 && minutes >= 16 * 60 && minutes <= 21 * 60 + 30) {
     return {
-      label: 'Pizza 2-for-1 Tonight',
-      analyticsLabel: 'pizza_2for1',
+      label: 'Pizza Tonight',
+      analyticsLabel: 'pizza_menu',
       action: 'scroll',
-      targetId: 'pizza-tuesday'
+      targetId: 'pizza'
     }
   }
 

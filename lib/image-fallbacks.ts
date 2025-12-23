@@ -2,7 +2,6 @@ export const DEFAULT_PAGE_HEADER_IMAGE = '/images/page-headers/home/page-headers
 export const DEFAULT_EVENT_IMAGE = '/images/page-headers/whats-on/whats-on.jpg'
 export const DEFAULT_DRINKS_IMAGE = '/images/page-headers/drinks/drinks.jpg'
 export const DEFAULT_FOOD_IMAGE = '/images/page-headers/food-menu/food-menu.jpg'
-export const DEFAULT_PIZZA_IMAGE = '/images/page-headers/pizza-tuesday/pizza-tuesday.jpg'
 export const DEFAULT_CORPORATE_IMAGE = '/images/page-headers/corporate-events/corporate-events.jpg'
 export const DEFAULT_SUNDAY_LUNCH_IMAGE = '/images/page-headers/sunday-lunch/sunday-lunch.jpg'
 export const DEFAULT_NEAR_HEATHROW_IMAGE = '/images/page-headers/near-heathrow/Heathrow.jpg'

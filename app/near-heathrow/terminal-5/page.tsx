@@ -19,9 +19,9 @@ import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 
 export const metadata: Metadata = {
-  title: 'Closest Pub to Heathrow Terminal 5 (7 Mins) | Free Parking | The Anchor',
-  description: 'Just 7 mins from Terminal 5. Escape airport prices at the closest village pub. Free parking, British food & real ales. Perfect for BA travelers & crew.',
-  keywords: 'pub near heathrow terminal 5, closest pub to t5, hilton terminal 5 restaurant alternative, sofitel t5 pub, british airways crew pub, taxi from terminal 5 to pub',
+  title: 'Pubs Near Heathrow Terminal 5 (7 Mins) | The Anchor',
+  description: 'Looking for pubs near Heathrow Terminal 5? The Anchor is 7 minutes away with free parking, British food and real ales. Perfect for BA travellers and crew.',
+  keywords: 'pubs near heathrow terminal 5, pub near heathrow terminal 5, closest pub to t5, hilton terminal 5 restaurant alternative, sofitel t5 pub, british airways crew pub',
   openGraph: {
     title: 'Pub Near Heathrow Terminal 5 - Free Parking & 7 Minute Taxi',
     description: 'The Anchor is the nearest village pub to Heathrow Terminal 5 with free parking, great food and British hospitality.',
@@ -31,7 +31,10 @@ export const metadata: Metadata = {
     title: 'Pub Near Heathrow Terminal 5 - Free Parking & 7 Minute Taxi',
     description: 'The Anchor is the nearest village pub to Heathrow Terminal 5 with free parking, great food and British hospitality.',
     images: [DEFAULT_NEAR_HEATHROW_IMAGE]
-  })
+  }),
+  alternates: {
+    canonical: '/near-heathrow/terminal-5'
+  }
 }
 
 export default function Terminal5Page() {
@@ -157,21 +160,21 @@ export default function Terminal5Page() {
               </div>
             </div>
             <div className="bg-white rounded-xl shadow-sm p-6">
-              <h3 className="text-lg font-semibold text-anchor-green mb-2">Pizza Tuesday (6–9pm)</h3>
+              <h3 className="text-lg font-semibold text-anchor-green mb-2">Stone-Baked Pizzas</h3>
               <p className="text-sm text-gray-700 mb-4">
-                Buy one get one free on all stone-baked pizzas — perfect for crew nights, family send-offs or late layovers.
+                Hand-stretched pizzas with bold toppings — perfect for crew nights, family send-offs or late layovers.
               </p>
               <div className="flex flex-col gap-2">
                 <BookTableButton
                   source="terminal5_pizza_cta"
-                  context="pizza_tuesday"
+                  context="pizza_menu"
                   variant="primary"
                   size="sm"
                 >
-                  Reserve Pizza Tuesday
+                  Book a Table
                 </BookTableButton>
-                <Link href="/pizza-tuesday" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
-                  Pizza Tuesday details →
+                <Link href="/food-menu#pizza" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
+                  View pizza menu →
                 </Link>
               </div>
             </div>
@@ -621,7 +624,7 @@ export default function Terminal5Page() {
       <InternalLinkingSection
         title="Plan The Rest Of Your Visit"
         links={[
-          { href: '/food-menu', title: 'Food Menu', description: 'Pizza Tuesdays, burgers and Sunday roast pre-orders' },
+          { href: '/food-menu', title: 'Food Menu', description: 'Stone-baked pizzas, burgers and Sunday roast pre-orders' },
           { href: '/drinks', title: 'Drinks Menu', description: 'Real ales, cocktails and value pub prices near Heathrow' },
           { href: '/book-event', title: 'Book an Event', description: 'Reserve private space for crew briefings or celebrations' },
           { href: '/near-heathrow/terminal-3', title: 'Terminal 3 Guide', description: 'Directions and tips for Virgin and Emirates flights' }

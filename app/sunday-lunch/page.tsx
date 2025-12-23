@@ -14,17 +14,17 @@ import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 import { anchorAPI } from '@/lib/api'
 
 export const metadata: Metadata = {
-  title: 'Sunday Roast Near Heathrow Airport | Book At The Anchor',
-  description: 'Traditional Sunday roast with Yorkshire puddings minutes from Heathrow. Reserve with a £5 deposit, family-friendly seating and free parking.',
-  keywords: 'sunday roast near heathrow airport, sunday lunch near me, roast dinner near me, best sunday roast staines, book sunday roast the anchor',
+  title: 'Sunday Roast Near Staines & Heathrow | The Anchor',
+  description: 'Traditional Sunday roast with Yorkshire puddings near Staines and Heathrow. Reserve with a £5 deposit, family-friendly seating and free parking.',
+  keywords: 'sunday roast near heathrow airport, sunday roasts staines, sunday lunch near me, roast dinner near me, book sunday roast the anchor',
   openGraph: {
-    title: 'Sunday Roast Near Heathrow Airport',
-    description: 'Reserve The Anchor’s Sunday roast close to Heathrow: Yorkshire puddings, crispy potatoes and family seating with free parking.',
+    title: 'Sunday Roast Near Staines & Heathrow',
+    description: 'Reserve The Anchor’s Sunday roast near Staines and Heathrow: Yorkshire puddings, crispy potatoes and family seating with free parking.',
     images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg'],
   },
   twitter: getTwitterMetadata({
-    title: 'Sunday Roast Near Heathrow Airport',
-    description: 'Traditional Sunday roast minutes from Heathrow. Secure your table with a £5 booking deposit and enjoy free parking.',
+    title: 'Sunday Roast Near Staines & Heathrow',
+    description: 'Traditional Sunday roast near Staines and Heathrow. Secure your table with a £5 booking deposit and enjoy free parking.',
     images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg']
   }),
   alternates: {
@@ -435,7 +435,7 @@ export default async function SundayLunchPage() {
               { href: '#heathrow', label: '✈️ Heathrow Timing Guide' },
               { href: '#families', label: '👨‍👩‍👧 Family-Friendly' },
               { href: '#menu', label: '🍽️ Roast Menu' },
-              { href: '#pizza', label: '🍕 Pizza Tuesday Deal' },
+              { href: '/food-menu#pizza', label: '🍕 Pizza Menu' },
               { href: '#faq', label: '❓ Roast FAQ' }
             ].map(link => (
               <a

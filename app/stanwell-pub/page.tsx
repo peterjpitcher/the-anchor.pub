@@ -10,60 +10,69 @@ import { CONTACT, BRAND, PARKING } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
+import { getBusinessStats } from '@/lib/schema-with-reviews'
 
 export const metadata: Metadata = {
   title: `Stanwell Village Pub - Sunday Roasts & Events | ${BRAND.name}`,
-  description: `${BRAND.name} is Stanwell's village pub with Sunday roasts, 2-for-1 pizza Tuesdays, quiz nights and free parking just minutes from Heathrow.`,
-  keywords: 'stanwell village pub, sunday roast stanwell moor, quiz night stanwell, pizza deals stanwell, local pub near heathrow',
+  description: `${BRAND.name} is Stanwell's village pub with Sunday roasts, stone-baked pizzas, quiz nights and free parking just minutes from Heathrow.`,
+  keywords: 'stanwell village pub, sunday roast stanwell moor, quiz night stanwell, stone-baked pizza stanwell, local pub near heathrow',
   openGraph: {
     title: 'Stanwell Village Pub - The Anchor Stanwell Moor',
-    description: 'Enjoy Sunday roasts, pizza deals and local events at The Anchor, Stanwell Moor\'s village pub near Heathrow.',
+    description: 'Enjoy Sunday roasts, stone-baked pizzas and local events at The Anchor, Stanwell Moor\'s village pub near Heathrow.',
     images: [DEFAULT_PAGE_HEADER_IMAGE],
     type: 'website',
   },
   twitter: getTwitterMetadata({
     title: 'Stanwell Village Pub - The Anchor Stanwell Moor',
-    description: 'Enjoy Sunday roasts, pizza deals and local events at The Anchor, Stanwell Moor\'s village pub near Heathrow.',
+    description: 'Enjoy Sunday roasts, stone-baked pizzas and local events at The Anchor, Stanwell Moor\'s village pub near Heathrow.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   })
 }
 
-const localBusinessSchema = {
-  "@context": "https://schema.org",
-  "@type": ["Restaurant", "BarOrPub"],
-  "@id": "https://www.the-anchor.pub/stanwell-pub#business",
-  "name": `${BRAND.name} - Stanwell Village Pub`,
-  "image": `https://www.the-anchor.pub${DEFAULT_PAGE_HEADER_IMAGE}`,
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": CONTACT.address.street,
-    "addressLocality": "Stanwell Moor, Stanwell",
-    "addressRegion": "Surrey",
-    "postalCode": CONTACT.address.postcode,
-    "addressCountry": "GB"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": CONTACT.coordinates.lat,
-    "longitude": CONTACT.coordinates.lng
-  },
-  "areaServed": [
-    {
-      "@type": "City",
-      "name": "Stanwell"
-    },
-    {
-      "@type": "Place", 
-      "name": "Stanwell Moor"
-    }
-  ],
-  "priceRange": "££",
-  "servesCuisine": ["British", "Traditional English", "Sunday Roast"],
-  "telephone": CONTACT.phoneIntl,
-  "url": "https://www.the-anchor.pub/stanwell-pub"
-}
+export default async function StanwellPubPage() {
+  const { rating, reviewCount } = await getBusinessStats()
 
-export default function StanwellPubPage() {
+  const localBusinessSchema = {
+    "@context": "https://schema.org",
+    "@type": ["Restaurant", "BarOrPub"],
+    "@id": "https://www.the-anchor.pub/stanwell-pub#business",
+    "name": `${BRAND.name} - Stanwell Village Pub`,
+    "image": `https://www.the-anchor.pub${DEFAULT_PAGE_HEADER_IMAGE}`,
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": CONTACT.address.street,
+      "addressLocality": "Stanwell Moor, Stanwell",
+      "addressRegion": "Surrey",
+      "postalCode": CONTACT.address.postcode,
+      "addressCountry": "GB"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": CONTACT.coordinates.lat,
+      "longitude": CONTACT.coordinates.lng
+    },
+    "areaServed": [
+      {
+        "@type": "City",
+        "name": "Stanwell"
+      },
+      {
+        "@type": "Place",
+        "name": "Stanwell Moor"
+      }
+    ],
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": rating,
+      "reviewCount": reviewCount,
+      "bestRating": "5",
+      "worstRating": "1"
+    },
+    "priceRange": "££",
+    "servesCuisine": ["British", "Traditional English", "Sunday Roast"],
+    "telephone": CONTACT.phoneIntl,
+    "url": "https://www.the-anchor.pub/stanwell-pub"
+  }
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: 'Home', url: '/' },
     { name: 'Locations', url: '/locations' },
@@ -88,7 +97,7 @@ export default function StanwellPubPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify([localBusinessSchema, breadcrumbSchema, directionsSchema]) }}
       />
-      
+
       {/* Hero Section */}
       <HeroWrapper
         route="/stanwell-pub"
@@ -139,7 +148,7 @@ export default function StanwellPubPage() {
               title="Welcome to Your Local Stanwell Pub"
               subtitle="Located in the heart of Stanwell Moor, The Anchor has been serving the Stanwell community for generations. We're more than just a pub - we're where neighbours become friends and visitors become regulars."
             />
-            
+
             <FeatureGrid
               columns={3}
               features={[
@@ -181,7 +190,7 @@ export default function StanwellPubPage() {
             <SectionHeader
               title="Why Stanwell Residents Choose The Anchor"
             />
-            
+
             <div className="grid md:grid-cols-2 gap-8">
               <div>
                 <h3 className="text-2xl font-bold text-anchor-green mb-4">Your Nearest Traditional Pub</h3>
@@ -212,7 +221,7 @@ export default function StanwellPubPage() {
                   </li>
                 </ul>
               </div>
-              
+
               <div>
                 <h3 className="text-2xl font-bold text-anchor-green mb-4">Community Events & Activities</h3>
                 <ul className="space-y-3">
@@ -237,16 +246,16 @@ export default function StanwellPubPage() {
                   <li className="flex items-start gap-3">
                     <span className="text-anchor-gold text-xl">🍕</span>
                     <div>
-                      <strong>Tuesday Pizza BOGOF</strong> - Stanwell's favourite midweek treat
+                      <strong>Stone-baked pizzas</strong> - Stanwell's favourite midweek treat
                     </div>
                   </li>
                 </ul>
               </div>
             </div>
-            
+
             <div className="mt-8 bg-green-50 rounded-xl p-6 text-center">
               <p className="text-lg text-green-800">
-                <span className="font-bold">Outside ULEZ Zone</span> - Perfect for visitors from 
+                <span className="font-bold">Outside ULEZ Zone</span> - Perfect for visitors from
                 London without the £12.50 daily charge
               </p>
             </div>
@@ -261,7 +270,7 @@ export default function StanwellPubPage() {
             <SectionHeader
               title="Stanwell's Favourite Pub Food"
             />
-            
+
             <div className="grid md:grid-cols-2 gap-8 mb-8">
               <div className="bg-amber-50 rounded-xl p-6">
                 <h3 className="text-xl font-bold text-amber-800 mb-4">Famous Sunday Roasts</h3>
@@ -274,7 +283,7 @@ export default function StanwellPubPage() {
                 </ul>
                 <p className="mt-3 text-sm text-amber-700">Book early - Stanwell locals fill tables fast!</p>
               </div>
-              
+
               <div className="bg-blue-50 rounded-xl p-6">
                 <h3 className="text-xl font-bold text-blue-800 mb-4">Weekday Favourites</h3>
                 <p className="mb-3">Classic British pub fare loved by Stanwell residents</p>
@@ -287,7 +296,7 @@ export default function StanwellPubPage() {
                 <p className="mt-3 text-sm text-blue-700">Kitchen: Tue-Fri 6-9pm, Sat 1-7pm, Sun 12-5pm</p>
               </div>
             </div>
-            
+
             <div className="text-center">
               <Link href="/food-menu">
                 <Button variant="primary" size="lg">
@@ -306,7 +315,7 @@ export default function StanwellPubPage() {
             <SectionHeader
               title="Getting to The Anchor from Stanwell"
             />
-            
+
             <div className="grid md:grid-cols-2 gap-8">
               <div className="bg-white rounded-xl p-6">
                 <h3 className="text-xl font-bold mb-4">📍 From Stanwell Village</h3>
@@ -336,7 +345,7 @@ export default function StanwellPubPage() {
                   <strong>Journey time:</strong> 5 minutes by car, 20 minutes walking
                 </p>
               </div>
-              
+
               <div className="bg-white rounded-xl p-6">
                 <h3 className="text-xl font-bold mb-4">🚌 Public Transport</h3>
                 <div className="space-y-4">
@@ -355,7 +364,7 @@ export default function StanwellPubPage() {
                 </div>
               </div>
             </div>
-            
+
             <div className="mt-8 text-center">
               <DirectionsButton
                 href="https://maps.google.com/maps?daddr=The+Anchor+Stanwell+Moor+TW19+6AQ"
@@ -377,7 +386,7 @@ export default function StanwellPubPage() {
             <SectionHeader
               title="Part of the Stanwell Community"
             />
-            
+
             <div className="grid md:grid-cols-2 gap-8 mb-8">
               <div className="text-left">
                 <h3 className="text-xl font-bold mb-4">Local Connections</h3>
@@ -389,7 +398,7 @@ export default function StanwellPubPage() {
                   <li>• Dog walkers' favourite refreshment stop</li>
                 </ul>
               </div>
-              
+
               <div className="text-left">
                 <h3 className="text-xl font-bold mb-4">Near Stanwell Landmarks</h3>
                 <ul className="space-y-3 text-gray-700">
@@ -401,9 +410,9 @@ export default function StanwellPubPage() {
                 </ul>
               </div>
             </div>
-            
+
             <p className="text-lg text-gray-700">
-              Whether you're a lifelong Stanwell resident or new to the area, 
+              Whether you're a lifelong Stanwell resident or new to the area,
               The Anchor welcomes you with warm hospitality and cold pints!
             </p>
           </div>
@@ -423,7 +432,7 @@ export default function StanwellPubPage() {
       </section>
 
       {/* FAQ Section */}
-      <FAQAccordionWithSchema 
+      <FAQAccordionWithSchema
         faqs={[
           {
             question: "How far is The Anchor from Stanwell Village?",
@@ -443,7 +452,7 @@ export default function StanwellPubPage() {
           },
           {
             question: "Do Stanwell residents get any special offers?",
-            answer: "All our regular offers are available to everyone! This includes Tuesday Pizza BOGOF, Friday Fish & Chips 50% off for over 65s, and our famous Sunday roasts. We're Stanwell's local, so all locals are treated like family!"
+            answer: "All our regular offers are available to everyone! This includes our famous Sunday roasts and stone-baked pizzas. We're Stanwell's local, so all locals are treated like family!"
           }
         ]}
         className="bg-white"

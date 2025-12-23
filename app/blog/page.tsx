@@ -11,19 +11,22 @@ import { getBlogHeroUrl, BLOG_FALLBACK_IMAGE } from '@/lib/blog-image'
 import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 
 export const metadata: Metadata = {
-  title: 'Heathrow Pub Blog - News, Events & Guides | The Anchor',
-  description: 'Read The Anchor blog for Heathrow travel tips, pub events, food and drink guides, and community stories from Stanwell Moor.',
-  keywords: 'heathrow pub blog, the anchor news, stanwell moor events, pub food updates, travel tips near heathrow',
+  title: 'Heathrow & Staines Pub Blog - News, Events & Guides | The Anchor',
+  description: 'Read The Anchor blog for Heathrow travel tips, pub events, food and drink guides, and community stories from Stanwell Moor and Staines.',
+  keywords: 'heathrow pub blog, staines pub blog, the anchor news, stanwell moor events, pub food updates, travel tips near heathrow',
   openGraph: {
-    title: 'Heathrow Pub Blog - The Anchor News & Guides',
+    title: 'Heathrow & Staines Pub Blog - The Anchor News & Guides',
     description: 'Heathrow travel tips, pub events, food and drink guides and local stories from The Anchor.',
     images: [BLOG_FALLBACK_IMAGE],
   },
   twitter: getTwitterMetadata({
-    title: 'Heathrow Pub Blog - The Anchor News & Guides',
+    title: 'Heathrow & Staines Pub Blog - The Anchor News & Guides',
     description: 'Heathrow travel tips, pub events, food and drink guides and local stories from The Anchor.',
     images: [BLOG_FALLBACK_IMAGE]
-  })
+  }),
+  alternates: {
+    canonical: '/blog'
+  }
 }
 
 // Configuration

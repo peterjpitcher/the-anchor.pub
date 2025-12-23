@@ -86,7 +86,7 @@ export default function DragShowsPage() {
           <div className="max-w-5xl mx-auto">
             <SectionHeader
               title="Make a Night of It"
-              subtitle="Book your table, grab Pizza Tuesday or Sunday roast before the show."
+              subtitle="Book your table, grab stone-baked pizzas or Sunday roast before the show."
             />
             <div className="grid md:grid-cols-3 gap-6">
               <div className="bg-white rounded-xl shadow-sm p-6">
@@ -109,22 +109,22 @@ export default function DragShowsPage() {
                 </div>
               </div>
               <div className="bg-white rounded-xl shadow-sm p-6">
-                <h3 className="text-xl font-semibold text-anchor-green mb-2">Pizza Tuesday Afterparty</h3>
+                <h3 className="text-xl font-semibold text-anchor-green mb-2">Stone-Baked Pizza Afterparty</h3>
                 <p className="text-sm text-gray-700 mb-4">
-                  Buy one get one free pizzas every Tuesday 6pm–9pm — perfect for drag troupe rehearsals, crew socials and girls’ nights out.
+                  Hand-stretched pizzas with bold toppings — perfect for drag troupe rehearsals, crew socials and girls’ nights out.
                 </p>
                 <div className="flex flex-col gap-2">
                   <BookTableButton
                     source="drag_show_pizza_cta"
-                    context="pizza_tuesday"
+                    context="pizza_menu"
                     variant="primary"
                     size="sm"
                     className="w-full"
                   >
-                    Reserve Pizza Night
+                    Book a Table
                   </BookTableButton>
-                  <Link href="/pizza-tuesday" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
-                    Pizza Tuesday deal →
+                  <Link href="/food-menu#pizza" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
+                    View pizza menu →
                   </Link>
                 </div>
               </div>
@@ -822,13 +822,13 @@ export default function DragShowsPage() {
             >
               👑 Book Your Table
             </BookTableButton>
-            <Link href="/pizza-tuesday" className="w-full sm:w-auto">
+            <Link href="/food-menu#pizza" className="w-full sm:w-auto">
               <Button 
                 variant="secondary"
                 size="lg"
                 className="w-full sm:w-auto bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm"
               >
-                🍕 Pizza Tuesday Deal
+                🍕 Pizza Menu
               </Button>
             </Link>
             <Link href="/sunday-lunch" className="w-full sm:w-auto">

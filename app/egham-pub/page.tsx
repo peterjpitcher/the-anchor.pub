@@ -12,16 +12,16 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
   title: 'Egham Pub Alternative - Free Parking & Sunday Roast | The Anchor',
-  description: 'Skip busy town pubs. The Anchor is 12 minutes from Egham with free parking, Sunday roasts, pizza deals and a warm local welcome for Royal Holloway students.',
+  description: 'Skip busy town pubs. The Anchor is 12 minutes from Egham with free parking, Sunday roasts, stone-baked pizzas and a warm local welcome for Royal Holloway students.',
   keywords: 'egham pub alternative, sunday roast near egham, royal holloway pub, free parking pub egham, village pub near egham',
   openGraph: {
     title: 'Egham Pub Alternative - The Anchor Stanwell Moor',
-    description: 'Traditional village pub 12 minutes from Egham with free parking, Sunday roast and pizza deals.',
+    description: 'Traditional village pub 12 minutes from Egham with free parking, Sunday roast and stone-baked pizzas.',
     images: [DEFAULT_PAGE_HEADER_IMAGE],
   },
   twitter: getTwitterMetadata({
     title: 'Egham Pub Alternative - The Anchor Stanwell Moor',
-    description: 'Traditional village pub 12 minutes from Egham with free parking, Sunday roast and pizza deals.',
+    description: 'Traditional village pub 12 minutes from Egham with free parking, Sunday roast and stone-baked pizzas.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   })
 }
@@ -321,7 +321,7 @@ export default function EghamPubPage() {
                       <ul className="space-y-2">
                         <li className="flex items-start">
                           <span className="text-blue-500 mr-2">•</span>
-                          Tuesday Pizza BOGOF
+                          Stone-Baked Pizzas
                         </li>
                         <li className="flex items-start">
                           <span className="text-blue-500 mr-2">•</span>

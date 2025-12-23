@@ -66,7 +66,6 @@ for source, destination in all_redirects.items():
 # Find URLs mentioned in GSC errors
 gsc_errors = [
     "/whats-on",
-    "/pizza-tuesday",
     "/drinks",
     "/food-menu",
     "/sunday-lunch",
@@ -94,4 +93,3 @@ for url in gsc_errors:
                 count += 1
         if len(destinations) > 5:
             print(f"  ... and {len(destinations) - 5} more")
-

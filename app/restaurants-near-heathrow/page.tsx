@@ -13,8 +13,8 @@ import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
   title: 'Restaurant Near Heathrow Airport | The Anchor - Better Than Terminal Dining',
-  description: 'Traditional British restaurant 7 minutes from Heathrow Terminal 5. Free parking saves £20-40. Proper meals at pub prices, not airport prices. Fresh food, full bar service.',
-  keywords: 'restaurants near heathrow, places to eat near heathrow airport, dining near heathrow, restaurant near terminal 5, heathrow restaurants, where to eat near heathrow',
+  description: 'Traditional British restaurant 7 minutes from Heathrow Terminal 5 and 10-15 minutes from Terminals 2, 3 and 4. Free parking saves £20-40. Proper meals at pub prices, not airport prices.',
+  keywords: 'restaurants near heathrow, places to eat near heathrow airport, dining near heathrow, restaurants at heathrow terminal 5, restaurants at heathrow terminal 3, restaurants at heathrow terminal 4, restaurants at heathrow terminal 2, food at heathrow airport, restaurant near terminal 5',
   openGraph: {
     title: 'Restaurant Near Heathrow - The Anchor',
     description: 'Skip expensive airport dining. Traditional British food, free parking, 7 minutes from Terminal 5.',
@@ -87,7 +87,7 @@ const restaurantSchema = {
       {
         "@type": "MenuSection",
         "name": "Pizza",
-        "description": "Stone-baked pizzas with Tuesday BOGOF deal"
+        "description": "Stone-baked pizzas with hand-stretched bases and bold toppings"
       },
       {
         "@type": "MenuSection",
@@ -168,6 +168,64 @@ export default function RestaurantsNearHeathrowPage() {
           >
             Restaurant Near Heathrow - Traditional British Dining Alternative to Airport Food
           </PageTitle>
+        </Container>
+      </section>
+
+      <section className="section-spacing bg-white">
+        <Container>
+          <SectionHeader
+            title="Restaurants at Heathrow Terminal 2, 3, 4 & 5 - Try a Local Alternative"
+            subtitle="If you are searching for terminal restaurants, we are a short ride away with free parking and better prices."
+          />
+          <InfoBoxGrid
+            columns={2}
+            boxes={[
+              {
+                title: "Terminal 5 restaurant alternative",
+                content: (
+                  <p>
+                    Guests looking for restaurants at Heathrow Terminal 5 or food at Terminal 5 Heathrow reach us in 7 minutes.
+                    Pre-book and skip airport queues.
+                  </p>
+                ),
+                variant: "colored",
+                color: "bg-white"
+              },
+              {
+                title: "Terminal 3 food alternative",
+                content: (
+                  <p>
+                    Searching for restaurants at Heathrow Terminal 3 or food in Terminal 3 Heathrow? We are 11 minutes away
+                    with traditional pub dining and quick service.
+                  </p>
+                ),
+                variant: "colored",
+                color: "bg-white"
+              },
+              {
+                title: "Terminal 2 dining alternative",
+                content: (
+                  <p>
+                    Instead of restaurants at Heathrow Terminal 2, ride to Stanwell Moor for British classics, Sunday roasts,
+                    and free parking before you return to the airport.
+                  </p>
+                ),
+                variant: "colored",
+                color: "bg-white"
+              },
+              {
+                title: "Terminal 4 dining alternative",
+                content: (
+                  <p>
+                    If Terminal 4 food feels overpriced, our restaurant is about 12 minutes away with proper meals, a full bar,
+                    and space for luggage.
+                  </p>
+                ),
+                variant: "colored",
+                color: "bg-white"
+              }
+            ]}
+          />
         </Container>
       </section>
 
@@ -283,13 +341,13 @@ export default function RestaurantsNearHeathrowPage() {
                 {
                   icon: "🐟",
                   title: "Fish & Chips",
-                  description: "Beer-battered cod with triple-cooked chips, mushy peas & tartare sauce. Senior citizens 50% off Fridays!",
+                  description: "Beer-battered cod with triple-cooked chips, mushy peas & tartare sauce.",
                   className: "text-center"
                 },
                 {
                   icon: "🍕",
-                  title: "Tuesday Pizza BOGOF",
-                  description: "Buy One Get One FREE on all stone-baked pizzas every Tuesday. Perfect for families!",
+                  title: "Stone-Baked Pizzas",
+                  description: "Hand-stretched bases, rich tomato sauce and generous toppings made to order.",
                   className: "text-center"
                 },
                 {
@@ -481,6 +539,14 @@ export default function RestaurantsNearHeathrowPage() {
           {
             question: "How far is The Anchor restaurant from Heathrow Airport?",
             answer: "We're just 7 minutes from Terminal 5, 10 minutes from Terminal 4, and 15 minutes from Terminals 2 & 3. Much quicker than navigating airport restaurants!"
+          },
+          {
+            question: "Are you a good alternative to restaurants at Heathrow Terminal 5?",
+            answer: "Yes. If you're searching for restaurants at Heathrow Terminal 5 or food at Terminal 5 Heathrow, we're 7 minutes away with free parking, larger portions, and faster service when you pre-book."
+          },
+          {
+            question: "Is there food near Heathrow Terminal 3 if I want to leave the airport?",
+            answer: "The Anchor is about 11 minutes from Terminal 3. Guests looking for food in Terminal 3 Heathrow often choose us for a calmer meal, then return by taxi."
           },
           {
             question: "Is parking really free at your restaurant?",

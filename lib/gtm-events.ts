@@ -570,7 +570,7 @@ export function trackCtaClick(data: CtaEvent) {
 
   pushToDataLayer(payload)
 
-  const foodContexts = new Set(['food', 'sunday_roast', 'pizza_tuesday', 'heathrow_layover'])
+  const foodContexts = new Set(['food', 'sunday_roast', 'pizza_menu', 'heathrow_layover'])
   if (data.context && foodContexts.has(data.context)) {
     pushToDataLayer({
       event: 'food_cta_click',

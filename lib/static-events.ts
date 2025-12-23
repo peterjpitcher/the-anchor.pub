@@ -94,30 +94,6 @@ export function createRecurringEvent(params: {
 
 // Pre-configured events that can be imported and used
 export const staticEvents = {
-  pizzaTuesday: createRecurringEvent({
-    id: 'pizza-tuesday-weekly',
-    slug: 'pizza-tuesday',
-    name: 'Pizza Tuesday at The Anchor',
-    description: 'Weekly BOGOF pizza deal every Tuesday. Buy one pizza, get one free on our entire stone-baked pizza menu.',
-    longDescription: 'Weekly BOGOF pizza deal every Tuesday. Buy one pizza, get one free on our entire stone-baked pizza menu. Perfect for families, couples, or friends looking for great value dining near Heathrow.',
-    shortDescription: 'Buy one pizza, get one FREE every Tuesday!',
-    image: [
-      '/images/food/pizza/the-anchor-stone-baked-pizza-stanwell-moor.jpg',
-      '/images/food/pizza/margherita-pizza-the-anchor.jpg'
-    ],
-    price: '0',
-    category: {
-      id: 'special-offers',
-      name: 'Special Offers',
-      slug: 'special-offers',
-      color: '#D4AF37',
-      icon: '🍕'
-    },
-    dayOfWeek: 'Tuesday',
-    startTime: '18:00',
-    endTime: '21:00'
-  }),
-  
   corporateEvents: createRecurringEvent({
     id: 'corporate-events',
     slug: 'corporate-events',

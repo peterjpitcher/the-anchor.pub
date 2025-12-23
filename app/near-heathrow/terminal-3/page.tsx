@@ -20,9 +20,9 @@ import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 
 export const metadata: Metadata = {
-  title: 'Pub Near Heathrow Terminal 3 (11 Mins) | Family Friendly | The Anchor',
-  description: 'The perfect pre-flight stop near Terminal 3. 11 mins away, free parking & family-friendly dining. Great for Virgin & Emirates travelers avoiding airport crowds.',
-  keywords: 'pub near heathrow terminal 3, virgin atlantic crew pub, emirates terminal 3 restaurant alternative, family pub near heathrow hotels, taxi from terminal 3 to pub',
+  title: 'Pubs Near Heathrow Terminal 3 (11 Mins) | The Anchor',
+  description: 'Looking for pubs near Heathrow Terminal 3? The Anchor is 11 minutes away with free parking, family-friendly dining, and quick access for Virgin & Emirates travellers.',
+  keywords: 'pubs heathrow terminal 3, pub near heathrow terminal 3, virgin atlantic crew pub, emirates terminal 3 restaurant alternative, family pub near heathrow hotels',
   openGraph: {
     title: 'Pub Near Heathrow Terminal 3 - Free Parking & British Food',
     description: 'The Anchor offers an authentic pub alternative to Terminal 3 hotels with free parking and traditional British dishes.',
@@ -32,7 +32,10 @@ export const metadata: Metadata = {
     title: 'Pub Near Heathrow Terminal 3 - Free Parking & British Food',
     description: 'The Anchor offers an authentic pub alternative to Terminal 3 hotels with free parking and traditional British dishes.',
     images: [DEFAULT_NEAR_HEATHROW_IMAGE]
-  })
+  }),
+  alternates: {
+    canonical: '/near-heathrow/terminal-3'
+  }
 }
 
 export default function Terminal3Page() {
@@ -146,7 +149,7 @@ export default function Terminal3Page() {
           <div className="max-w-5xl mx-auto">
             <SectionHeader
               title="Eat & Drink Before Your Terminal 3 Flight"
-              subtitle="Pre-book to enjoy Sunday roast, Pizza Tuesday or a quick meal before departures."
+              subtitle="Pre-book to enjoy Sunday roast, stone-baked pizzas or a quick meal before departures."
             />
             <div className="grid md:grid-cols-3 gap-6">
               <div className="bg-white rounded-xl shadow-sm p-6">
@@ -169,22 +172,22 @@ export default function Terminal3Page() {
                 </div>
               </div>
               <div className="bg-white rounded-xl shadow-sm p-6">
-                <h3 className="text-xl font-semibold text-anchor-green mb-2">Pizza Tuesday</h3>
+                <h3 className="text-xl font-semibold text-anchor-green mb-2">Stone-Baked Pizzas</h3>
                 <p className="text-sm text-gray-700 mb-4">
-                  Buy one get one free on stone-baked pizzas every Tuesday 6pm–9pm — ideal for family send-offs and crew nights.
+                  Hand-stretched pizzas with bold toppings — ideal for family send-offs and crew nights.
                 </p>
                 <div className="flex flex-col gap-2">
                   <BookTableButton
                     source="terminal3_pizza_cta"
-                    context="pizza_tuesday"
+                    context="pizza_menu"
                     variant="primary"
                     size="sm"
                     className="w-full"
                   >
-                    Reserve Pizza Night
+                    Book a Table
                   </BookTableButton>
-                  <Link href="/pizza-tuesday" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
-                    Pizza Tuesday details →
+                  <Link href="/food-menu#pizza" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
+                    View pizza menu →
                   </Link>
                 </div>
               </div>
@@ -592,7 +595,7 @@ export default function Terminal3Page() {
       <InternalLinkingSection
         title="Make The Most Of Your Heathrow Stop"
         links={[
-          { href: '/pizza-tuesday', title: 'Tuesday Pizza Deal', description: '2-for-1 stone-baked pizzas for crew and families' },
+          { href: '/food-menu#pizza', title: 'Pizza Menu', description: 'Stone-baked pizzas for crew and families' },
           { href: '/food-menu', title: 'Full Food Menu', description: 'Pub classics and Sunday roast pre-orders' },
           { href: '/drinks', title: 'Drinks Menu', description: 'Energy boost before red-eye flights' },
           { href: '/near-heathrow/terminal-4', title: 'Terminal 4 Guide', description: 'Travel tips for other Heathrow terminals' }
@@ -642,7 +645,7 @@ export default function Terminal3Page() {
       {/* CTA Section */}
       <CTASection
         title="See You Soon at The Anchor!"
-        description="Just 11 minutes from Terminal 3 • Free Parking • Sunday roast & Pizza Tuesday deals"
+        description="Just 11 minutes from Terminal 3 • Free Parking • Sunday roast & stone-baked pizzas"
         variant="green"
         buttons={[
           {
@@ -652,8 +655,8 @@ export default function Terminal3Page() {
             size: "lg"
           },
           {
-            text: "🍕 Pizza Tuesday Deal",
-            href: "/pizza-tuesday",
+            text: "🍕 Pizza Menu",
+            href: "/food-menu#pizza",
             variant: "white",
             size: "lg"
           },

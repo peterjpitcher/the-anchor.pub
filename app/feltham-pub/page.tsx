@@ -12,16 +12,16 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
   title: 'Feltham Pub Alternative - Free Parking & Sunday Roast | The Anchor',
-  description: 'Head 10 minutes from Feltham to The Anchor for free parking, Sunday roasts, pizza deals and quiz nights in a relaxed Surrey village setting.',
-  keywords: 'feltham pub alternative, sunday roast near feltham, pub with parking feltham, quiz night near feltham, pizza deals feltham area',
+  description: 'Head 10 minutes from Feltham to The Anchor for free parking, Sunday roasts, stone-baked pizzas and quiz nights in a relaxed Surrey village setting.',
+  keywords: 'feltham pub alternative, sunday roast near feltham, pub with parking feltham, quiz night near feltham, stone-baked pizza feltham area',
   openGraph: {
     title: 'Feltham Pub Alternative - The Anchor Stanwell Moor',
-    description: '10 minutes from Feltham with free parking, Sunday roasts, pizza deals and quiz nights.',
+    description: '10 minutes from Feltham with free parking, Sunday roasts, stone-baked pizzas and quiz nights.',
     images: [DEFAULT_PAGE_HEADER_IMAGE],
   },
   twitter: getTwitterMetadata({
     title: 'Feltham Pub Alternative - The Anchor Stanwell Moor',
-    description: '10 minutes from Feltham with free parking, Sunday roasts, pizza deals and quiz nights.',
+    description: '10 minutes from Feltham with free parking, Sunday roasts, stone-baked pizzas and quiz nights.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   })
 }

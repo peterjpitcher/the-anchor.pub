@@ -22,29 +22,29 @@ import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/Inter
 import { getSeasonalHomepageImage, getSeasonalGreeting, getSeasonalAltText, getSeasonalFocal } from '@/lib/seasonal-utils'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { JsonLd } from '@/components/JsonLd'
-import { 
-  Button, 
-  Card, 
-  CardBody, 
-  Container, 
-  Grid, 
+import {
+  Button,
+  Card,
+  CardBody,
+  Container,
+  Grid,
   GridItem,
   Alert,
-  CTASection, 
-  SectionHeader, 
-  FeatureGrid, 
-  QuickInfoGrid, 
+  CTASection,
+  SectionHeader,
+  FeatureGrid,
+  QuickInfoGrid,
   InfoBoxGrid,
-  Section 
+  Section
 } from '@/components/ui'
 
 // Revalidate every 24 hours to ensure seasonal images update
 export const revalidate = 60 * 60 * 24 // 24 hours
 
 export const metadata: Metadata = {
-  title: 'Heathrow Pub & Dining - The Anchor Stanwell Moor | Free Parking',
-  description: 'Visit The Anchor near Heathrow: 7 minutes from Terminal 5 with free parking, Sunday roasts, 2-for-1 Tuesday pizzas, drag shows and quiz nights. Book on 01753 682707.',
-  keywords: 'heathrow pub with parking, traditional british pub near terminal 5, sunday roast stanwell moor, pizza deal heathrow, drag show pub london airport',
+  title: 'The Anchor Pub | Stanwell Moor Near Heathrow & Staines',
+  description: 'The Anchor pub in Stanwell Moor is 7 minutes from Heathrow Terminal 5 and 10 minutes from Staines. Free parking, Sunday roasts, stone-baked pizzas, drag shows and quiz nights.',
+  keywords: 'the anchor pub, stanwell moor pub, staines pub, heathrow pub with parking, sunday roast near staines, stone-baked pizza',
   alternates: {
     canonical: './'
   }
@@ -77,70 +77,8 @@ export default function HomePage() {
   const seasonalGreeting = getSeasonalGreeting(seasonalImage.season)
   const seasonalAltText = getSeasonalAltText(seasonalImage.season)
   const focal = getSeasonalFocal(seasonalImage.season)
-  
-  const localBusinessSchema = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "@id": "https://www.the-anchor.pub/#business",
-    "name": "The Anchor",
-    "description": "The closest traditional British pub to Heathrow Airport. Famous Sunday roasts, beer garden under flight path, FREE parking.",
-    "url": "https://www.the-anchor.pub",
-    "telephone": "+441753682707",
-    "email": "manager@the-anchor.pub",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Horton Road",
-      "addressLocality": "Stanwell Moor",
-      "addressRegion": "Surrey",
-      "postalCode": "TW19 6AQ",
-      "addressCountry": "GB"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 51.462509,
-      "longitude": -0.502067
-    },
-    "openingHoursSpecification": [
-      {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday"],
-        "opens": "16:00",
-        "closes": "22:00"
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": "Friday",
-        "opens": "16:00",
-        "closes": "00:00"
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": "Saturday",
-        "opens": "12:00",
-        "closes": "00:00"
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": "Sunday",
-        "opens": "12:00",
-        "closes": "22:00"
-      }
-    ],
-    "priceRange": "££",
-    "servesCuisine": ["British", "Pub Food"],
-    "amenityFeature": [
-      { "@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true },
-      { "@type": "LocationFeatureSpecification", "name": "Dog Friendly", "value": true },
-      { "@type": "LocationFeatureSpecification", "name": "Family Friendly", "value": true },
-      { "@type": "LocationFeatureSpecification", "name": "Wheelchair Accessible", "value": true },
-      { "@type": "LocationFeatureSpecification", "name": "Free WiFi", "value": true },
-      { "@type": "LocationFeatureSpecification", "name": "Beer Garden", "value": true }
-    ],
-    "hasMap": "https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ",
-    "publicAccess": true,
-    "isAccessibleForFree": true,
-    "keywords": "The Anchor, pub near Heathrow, Stanwell Moor pub, plane spotting pub, Sunday roast Surrey"
-  }
+
+
 
   return (
     <>
@@ -189,10 +127,6 @@ export default function HomePage() {
               Where Everyone&apos;s Welcome
             </p>
 
-            <p className="text-lg md:text-xl text-white font-medium drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-              Your local pub <span className="inline-block motion-safe:wave">👋</span>
-            </p>
-
             <div className="flex justify-center px-2 sm:px-0 w-full">
               <StatusBar
                 variant="hero"
@@ -227,7 +161,7 @@ export default function HomePage() {
             href="/food-menu"
             className="w-full"
           >
-            <Button 
+            <Button
               variant="secondary"
               size="lg"
               fullWidth
@@ -243,7 +177,7 @@ export default function HomePage() {
       {/* Main Page Title for SEO */}
       <div className="bg-white pt-12 pb-8">
         <Container>
-          <PageTitle 
+          <PageTitle
             className="text-center text-anchor-green"
             seo={{ structured: true, speakable: true }}
           >
@@ -252,9 +186,9 @@ export default function HomePage() {
           <p className="text-center text-lg text-gray-700 mt-4">
             The closest traditional British pub to Heathrow Airport - just 7 minutes from Terminal 5
           </p>
-          
+
           {/* Trust Signals */}
-        <div className="flex flex-wrap justify-center gap-4 mt-6 text-sm text-gray-600">
+          <div className="flex flex-wrap justify-center gap-4 mt-6 text-sm text-gray-600">
             <span className="flex items-center gap-1">⭐ Highest-rated non-airport pub near Heathrow (Google 4.6/5, 21 Sept 2025)</span>
             <span className="flex items-center gap-1">💷 Pub classics £10–£20 – fair village prices near Heathrow</span>
             <span className="flex items-center gap-1">🏡 Independent village pub minutes from Heathrow – no terminal access needed</span>
@@ -277,7 +211,7 @@ export default function HomePage() {
                 </div>
                 <div className="flex items-start gap-2">
                   <span className="font-semibold text-anchor-gold">🍽️</span>
-                  <span>2-for-1 Pizza Tuesdays, Sunday roasts and daily pub classics</span>
+                  <span>Stone-baked pizzas, Sunday roasts and daily pub classics</span>
                 </div>
                 <div className="flex items-start gap-2">
                   <span className="font-semibold text-anchor-gold">🎉</span>
@@ -297,7 +231,7 @@ export default function HomePage() {
             title="What Makes Us Special"
             subtitle="More than just a pub - we're the heart of the community"
           />
-          
+
           <FeatureGrid
             columns={3}
             features={[
@@ -312,7 +246,7 @@ export default function HomePage() {
               {
                 icon: "🍽️",
                 title: "Honest Food",
-                description: "Traditional British pub classics. Famous Sunday roasts (pre-order required), fish & chips, burgers, and proper pub grub. Tuesday: Pizza BOGOF Deal!",
+                description: "Traditional British pub classics. Famous Sunday roasts (pre-order required), fish & chips, burgers, and proper pub grub.",
                 variant: "colored",
                 color: "bg-anchor-sand/30",
                 className: "card-warm p-8 text-center"
@@ -345,7 +279,7 @@ export default function HomePage() {
             <SectionHeader
               title="Everything You Need to Know"
             />
-            
+
             <QuickInfoGrid
               columns={4}
               items={[
@@ -389,10 +323,10 @@ export default function HomePage() {
                 }
               ]}
             />
-            
+
             <div className="mt-8 p-6 bg-white rounded-xl shadow-sm">
               <p className="text-center text-gray-700">
-                <strong className="text-anchor-green">Important:</strong> Sunday roasts require a booking with £5 per person deposit by 1pm Saturday. 
+                <strong className="text-anchor-green">Important:</strong> Sunday roasts require a booking with £5 per person deposit by 1pm Saturday.
                 Regular menu available on Sundays without pre-order. Free parking for all guests.
               </p>
             </div>
@@ -422,7 +356,7 @@ export default function HomePage() {
               title="✈️ Perfect for Heathrow Travelers"
               subtitle="Just 7-12 minutes from all terminals • Free parking • Real British experience"
             />
-            
+
             <InfoBoxGrid
               columns={2}
               boxes={[
@@ -515,7 +449,7 @@ export default function HomePage() {
           <SectionHeader
             title="Life at The Anchor"
           />
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {/* Food Photo - Now First */}
             <GalleryImage
@@ -524,9 +458,8 @@ export default function HomePage() {
               caption="Famous Sunday Roasts - Sunday roasts require a booking with £5 per person deposit by 1pm Saturday"
               width={600}
               height={600}
-              priority
             />
-            
+
             {/* Event Photo - Now Second */}
             <GalleryImage
               src="/images/events/drag-shows/the-anchor-drag-show-nikki-manfadge-stanwell-moor.jpg"
@@ -536,7 +469,7 @@ export default function HomePage() {
               height={600}
               priority={false}
             />
-            
+
             {/* Garden Photo */}
             <Link href="/beer-garden">
               <GalleryImage
@@ -560,7 +493,7 @@ export default function HomePage() {
               title="Host Your Event at The Anchor"
               subtitle="From intimate gatherings to grand celebrations"
             />
-            
+
             <Grid cols={3} gap="lg" className="mb-12">
               <Link href="/corporate-events" className="group">
                 <Card variant="default" className="h-full transition-all hover:shadow-lg hover:scale-105">
@@ -568,35 +501,35 @@ export default function HomePage() {
                     <div className="text-4xl mb-4">💼</div>
                     <h2 className="text-xl font-bold text-anchor-green mb-2 group-hover:text-anchor-gold">Corporate Events</h2>
                     <p className="text-gray-700 mb-4">
-                      Professional venue for meetings, team building, and conferences. 
+                      Professional venue for meetings, team building, and conferences.
                       7 minutes from Heathrow with free parking.
                     </p>
                     <p className="text-anchor-gold font-semibold">Learn more →</p>
                   </CardBody>
                 </Card>
               </Link>
-              
+
               <Link href="/christmas-parties" className="group">
                 <Card variant="default" className="h-full transition-all hover:shadow-lg hover:scale-105 bg-red-50">
                   <CardBody className="text-center">
                     <div className="text-4xl mb-4">🎄</div>
                     <h2 className="text-xl font-bold text-anchor-green mb-2 group-hover:text-anchor-gold">Christmas Parties</h2>
-                  <p className="text-gray-700 mb-4">
-                    Book your festive celebration now! Traditional menus, 
-                    festive atmosphere, and memorable celebrations.
-                  </p>
-                  <p className="text-anchor-gold font-semibold">Check availability →</p>
+                    <p className="text-gray-700 mb-4">
+                      Book your festive celebration now! Traditional menus,
+                      festive atmosphere, and memorable celebrations.
+                    </p>
+                    <p className="text-anchor-gold font-semibold">Check availability →</p>
                   </CardBody>
                 </Card>
               </Link>
-              
+
               <Link href="/private-party-venue" className="group">
                 <Card variant="default" className="h-full transition-all hover:shadow-lg hover:scale-105 bg-pink-50">
                   <CardBody className="text-center">
                     <div className="text-4xl mb-4">🎉</div>
                     <h2 className="text-xl font-bold text-anchor-green mb-2 group-hover:text-anchor-gold">Private Parties</h2>
                     <p className="text-gray-700 mb-4">
-                      Birthdays, anniversaries, and celebrations. 
+                      Birthdays, anniversaries, and celebrations.
                       Flexible spaces, custom menus, your music.
                     </p>
                     <p className="text-anchor-gold font-semibold">Plan your party →</p>
@@ -604,64 +537,64 @@ export default function HomePage() {
                 </Card>
               </Link>
             </Grid>
-            
+
             <Card variant="default" className="bg-anchor-cream">
               <CardBody>
                 <Grid cols={2} gap="lg" align="center">
-                <div>
-                  <h2 className="text-2xl font-bold text-anchor-green mb-4">Why Choose The Anchor?</h2>
-                  <ul className="space-y-3">
-                    <li className="flex items-start gap-3">
-                      <span className="text-green-600">✓</span>
-                      <span><strong>Flexible venue hire pricing</strong> - tailored to your event</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="text-green-600">✓</span>
-                      <span><strong>Free parking</strong> for all your guests</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="text-green-600">✓</span>
-                      <span><strong>Flexible spaces</strong> for 10-200 guests</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="text-green-600">✓</span>
-                      <span><strong>Custom catering</strong> to suit all budgets</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="text-green-600">✓</span>
-                      <span><strong>Experienced team</strong> to handle every detail</span>
-                    </li>
-                  </ul>
-                </div>
-                <div className="text-center">
-                  <p className="text-lg text-gray-700 mb-6">
-                    From business meetings to birthday parties, 
-                    we make your event special.
-                  </p>
-                  <Link href="/book-event">
-                    <Button 
-                      variant="primary" 
-                      size="lg"
-                    >
-                      Explore All Event Options
-                    </Button>
-                  </Link>
-                  <div className="mt-4 space-y-2">
-                    <p className="text-sm text-gray-600">
-                      <strong>Quick enquiry?</strong>
-                    </p>
-                    <QuickEnquiryLinks />
+                  <div>
+                    <h2 className="text-2xl font-bold text-anchor-green mb-4">Why Choose The Anchor?</h2>
+                    <ul className="space-y-3">
+                      <li className="flex items-start gap-3">
+                        <span className="text-green-600">✓</span>
+                        <span><strong>Flexible venue hire pricing</strong> - tailored to your event</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <span className="text-green-600">✓</span>
+                        <span><strong>Free parking</strong> for all your guests</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <span className="text-green-600">✓</span>
+                        <span><strong>Flexible spaces</strong> for 10-200 guests</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <span className="text-green-600">✓</span>
+                        <span><strong>Custom catering</strong> to suit all budgets</span>
+                      </li>
+                      <li className="flex items-start gap-3">
+                        <span className="text-green-600">✓</span>
+                        <span><strong>Experienced team</strong> to handle every detail</span>
+                      </li>
+                    </ul>
                   </div>
-                </div>
-              </Grid>
-            </CardBody>
-          </Card>
+                  <div className="text-center">
+                    <p className="text-lg text-gray-700 mb-6">
+                      From business meetings to birthday parties,
+                      we make your event special.
+                    </p>
+                    <Link href="/book-event">
+                      <Button
+                        variant="primary"
+                        size="lg"
+                      >
+                        Explore All Event Options
+                      </Button>
+                    </Link>
+                    <div className="mt-4 space-y-2">
+                      <p className="text-sm text-gray-600">
+                        <strong>Quick enquiry?</strong>
+                      </p>
+                      <QuickEnquiryLinks />
+                    </div>
+                  </div>
+                </Grid>
+              </CardBody>
+            </Card>
           </div>
         </Container>
       </div>
 
       {/* Customer Reviews */}
-      <ReviewSection 
+      <ReviewSection
         title="What Our Customers Say"
         subtitle="Real reviews from our guests"
         background="white"
@@ -681,13 +614,13 @@ export default function HomePage() {
           },
           {
             question: 'When is the kitchen open?',
-            answer: 'We serve food Tuesday to Friday 6pm-9pm, Saturday 1pm-7pm and Sunday 12pm-5pm. Pizza Tuesday brings 2-for-1 stone-baked pizzas every week.'
+            answer: 'We serve food Tuesday to Friday 6pm-9pm, Saturday 1pm-7pm and Sunday 12pm-5pm.'
           }
         ]}
       />
 
       {/* Internal Links for SEO */}
-      <InternalLinkingSection 
+      <InternalLinkingSection
         title="Explore More"
         links={commonLinkGroups.mainPages}
         className="section-spacing-md"
@@ -702,7 +635,7 @@ export default function HomePage() {
                 Come Visit Us!
               </h2>
             </div>
-            
+
             <Grid cols={2} gap="lg" align="center">
               <div>
                 <div className="bg-white/10 rounded-lg p-5 mb-4">
@@ -714,7 +647,7 @@ export default function HomePage() {
                     Surrey TW19 6AQ
                   </address>
                 </div>
-                
+
                 <div className="bg-white/10 rounded-lg p-5 mb-5">
                   <h3 className="text-xl font-bold mb-3 text-white">🚗 Getting Here</h3>
                   <ul className="space-y-1.5 text-base">
@@ -724,7 +657,7 @@ export default function HomePage() {
                     <li>♿ Step-free access to most areas</li>
                   </ul>
                 </div>
-                
+
                 <DirectionsButton
                   href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ"
                   source="home_footer_cta"
@@ -735,7 +668,7 @@ export default function HomePage() {
                   Get Directions on Google Maps
                 </DirectionsButton>
               </div>
-              
+
               <div className="bg-white/10 rounded-lg p-4">
                 <h3 className="text-lg font-bold mb-3 text-white">🕐 Opening Hours</h3>
                 <BusinessHours variant="condensed" showKitchen={true} />
@@ -746,7 +679,7 @@ export default function HomePage() {
       </div>
 
       {/* LocalBusiness Schema for SEO */}
-      <JsonLd data={localBusinessSchema} />
+
 
     </>
   )

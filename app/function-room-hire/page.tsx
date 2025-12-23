@@ -16,9 +16,9 @@ import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 import { JsonLd } from '@/components/JsonLd'
 
 export const metadata: Metadata = {
-  title: 'Heathrow Function Room Hire - Venue with Free Parking | The Anchor',
-  description: 'Hire flexible function rooms near Heathrow for 10-200 guests. The Anchor offers free parking, tailored catering and AV support for meetings, parties and celebrations.',
-  keywords: 'heathrow function room hire, venue hire near terminal 5, event space with parking, private room hire staines, flexible venue near m25',
+  title: 'Function Room Hire Near Heathrow & Staines | The Anchor',
+  description: 'Hire flexible function rooms near Heathrow and Staines for 10-200 guests. The Anchor offers free parking, tailored catering and AV support for meetings, parties and celebrations.',
+  keywords: 'function room hire staines, private room hire staines, heathrow function room hire, venue hire near terminal 5, event space with parking, flexible venue near m25',
   openGraph: {
     title: 'Heathrow Function Room Hire - The Anchor Stanwell Moor',
     description: 'Flexible venue with free parking, catering and AV support for meetings and celebrations near Heathrow.',
@@ -28,7 +28,10 @@ export const metadata: Metadata = {
     title: 'Heathrow Function Room Hire - The Anchor Stanwell Moor',
     description: 'Flexible venue with free parking, catering and AV support for meetings and celebrations near Heathrow.',
     images: [DEFAULT_CORPORATE_IMAGE]
-  })
+  }),
+  alternates: {
+    canonical: '/function-room-hire'
+  }
 }
 
 // Function room schema for SEO

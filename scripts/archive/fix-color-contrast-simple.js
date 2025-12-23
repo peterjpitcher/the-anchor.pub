@@ -24,7 +24,6 @@ const filesToUpdate = [
   'app/sitemap-page/page.tsx',
   'app/food/pizza/page.tsx',
   'app/book-event/page.tsx',
-  'app/pizza-tuesday/page.tsx',
   'app/near-heathrow/page.tsx',
   'app/m25-junction-14-pub/page.tsx',
   'app/heathrow-hotels-pub/page.tsx',

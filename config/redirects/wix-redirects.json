@@ -261,7 +261,7 @@
   },
   {
     "source": "/post/buy-one-get-one-free-pizza-deal",
-    "destination": "/pizza-tuesday",
+    "destination": "/food-menu#pizza",
     "permanent": true
   },
   {
@@ -381,7 +381,7 @@
   },
   {
     "source": "/post/buy-one-get-one-half-price-on-all-dine-in-pizza-every-tuesday",
-    "destination": "/pizza-tuesday",
+    "destination": "/food-menu#pizza",
     "permanent": true
   },
   {
@@ -581,7 +581,7 @@
   },
   {
     "source": "/post/pizza-anyone",
-    "destination": "/pizza-tuesday",
+    "destination": "/food-menu#pizza",
     "permanent": true
   },
   {
