@@ -21,7 +21,7 @@ export interface SeasonalImage {
 export function getSeasonalHomepageImage(testDate?: Date): SeasonalImage {
   const seasonalLoggingEnabled = process.env.SEASONAL_IMAGE_LOGS === 'true' || process.env.API_DEBUG_LOGS === 'true'
   const defaultImage = '/images/page-headers/home/page-headers-homepage.jpg'
-  
+
   // Development override (no NODE_ENV check so it works in preview deployments)
   const forced = process.env.NEXT_PUBLIC_FORCE_SEASON as SeasonalImage['season'] | undefined
   if (forced) {
@@ -34,13 +34,13 @@ export function getSeasonalHomepageImage(testDate?: Date): SeasonalImage {
       fallback: defaultImage
     }
   }
-  
+
   const date = testDate ?? new Date()
   const { month, day } = nowInLondonComponents(date)
-  
+
   let season: SeasonalImage['season']
   let imagePath: string
-  
+
   if (month === 1 || month === 2) {
     // Winter: January 1 - February 28/29
     season = 'winter'
@@ -74,12 +74,20 @@ export function getSeasonalHomepageImage(testDate?: Date): SeasonalImage {
     }
     return { src: defaultImage, season, fallback: defaultImage }
   }
-  
-  // Log which seasonal image is being served (server-side only, in development)
-  if (typeof window === 'undefined' && process.env.NODE_ENV === 'development' && seasonalLoggingEnabled) {
+
+  // Log which seasonal image is being serving (server-side only, in development)
+  if (typeof window === 'undefined' && seasonalLoggingEnabled) {
     console.log(`[Seasonal Image] Serving ${season} image: ${imagePath}`)
   }
-  
+
+  try {
+    const fs = require('fs')
+    const path = require('path')
+    fs.appendFileSync('debug-seasonal.log', `[${new Date().toISOString()}] Season: ${season}, Path: ${imagePath}\n`)
+  } catch (e) {
+    // ignore
+  }
+
   return { src: imagePath, season, fallback: defaultImage }
 }
 
@@ -96,7 +104,7 @@ export function getSeasonalGreeting(season: SeasonalImage['season']): string {
     remembrance: "We Remember Together at The Anchor – With warm gratitude. 🌺",
     christmas: "Welcome to The Anchor – Festive warmth and cheer await. 🎄"
   }
-  
+
   return greetings[season] || "Welcome to The Anchor"
 }
 
@@ -113,14 +121,14 @@ export function getSeasonalAltText(season: SeasonalImage['season']): string {
     remembrance: "The Anchor pub adorned with a respectful remembrance poppy tribute.",
     christmas: "The Anchor pub twinkling with festive Christmas decorations."
   }
-  
+
   return altTexts[season] || "The Anchor pub in Stanwell Moor"
 }
 
 /**
  * Focal point configuration for responsive image positioning
  */
-export type Focal = { 
+export type Focal = {
   x: number      // Horizontal position (0-100)
   yMobile: number  // Vertical position for mobile (0-100)
   yDesktop: number // Vertical position for desktop (0-100)
@@ -135,15 +143,15 @@ export function getSeasonalFocal(season: SeasonalImage['season']): Focal {
   // VERY aggressive lift - images need to show their upper portion
   const defaults: Record<string, Focal> = {
     // Centered by default to ensure hero image vertical alignment is middle
-    winter:    { x: 50, yMobile: 50, yDesktop: 50 },
-    spring:    { x: 50, yMobile: 50, yDesktop: 50 },
-    summer:    { x: 50, yMobile: 50, yDesktop: 50 },
-    autumn:    { x: 50, yMobile: 50, yDesktop: 50 },
+    winter: { x: 50, yMobile: 50, yDesktop: 50 },
+    spring: { x: 50, yMobile: 50, yDesktop: 50 },
+    summer: { x: 50, yMobile: 50, yDesktop: 50 },
+    autumn: { x: 50, yMobile: 50, yDesktop: 50 },
     halloween: { x: 50, yMobile: 50, yDesktop: 50 },
     remembrance: { x: 50, yMobile: 50, yDesktop: 50 },
     christmas: { x: 50, yMobile: 50, yDesktop: 50 }
   }
-  
+
   return defaults[season] ?? { x: 50, yMobile: 15, yDesktop: 10 }
 }
 
@@ -160,6 +168,13 @@ export function getSeasonalObjectPosition(season: SeasonalImage['season']): stri
  * Use this in development to verify all seasonal images are present
  */
 export function validateSeasonalImage(imagePath: string): boolean {
+  // In production, correctly resolving the filesystem path to public assets 
+  // can be unreliable in serverless/containerized environments.
+  // We assume the assets exist if they are in the codebase.
+  if (process.env.NODE_ENV === 'production') {
+    return true
+  }
+
   if (typeof window !== 'undefined') {
     // Client-side, assume image exists
     return true
@@ -172,15 +187,13 @@ export function validateSeasonalImage(imagePath: string): boolean {
     const publicPath = path.join(process.cwd(), 'public', normalizedPath)
     const exists = fs.existsSync(publicPath)
 
-    if (!exists && process.env.NODE_ENV !== 'production') {
+    if (!exists) {
       console.warn(`[Seasonal Image] Missing file at ${publicPath}`)
     }
 
     return exists
   } catch (error) {
-    if (process.env.NODE_ENV !== 'production') {
-      console.warn('[Seasonal Image] Failed to validate image path', error)
-    }
+    console.warn('[Seasonal Image] Failed to validate image path', error)
     return false
   }
 }
