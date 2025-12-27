@@ -11,7 +11,7 @@ function getSafeDate(value?: string): Date {
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://www.the-anchor.pub'
-  
+
   // Define all static routes
   const staticRoutes = [
     '',
@@ -36,7 +36,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/corporate-events',
     '/private-party-venue',
     '/function-room-hire',
-    '/leave-review',
+
     '/heathrow-parking',
     '/sitemap-page',
     '/ashford-pub',
@@ -49,11 +49,42 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/stanwell-pub',
     '/windsor-pub',
     '/book-table',
+    '/horton-pub',
+    '/wraysbury-pub',
+    '/colnbrook-pub',
+    '/longford-pub',
+    '/sunbury-pub',
+    '/private-hire/engagement-parties',
+    '/private-hire/milestone-birthdays',
+    '/private-hire/gender-reveal',
+    '/private-hire/retirement-parties',
+    '/luggage-storage-heathrow',
+    '/pre-flight-meal',
+    '/heathrow-family-dining',
+    '/coach-parking-heathrow',
+    '/live-sport-pub',
+    '/pool-darts-pub',
+    '/corporate-christmas-parties',
+    '/summer-garden-parties',
+    '/live-sport/six-nations',
+    '/live-sport/premier-league',
+    '/live-sport/f1',
+    '/live-sport/boxing',
+    '/fish-and-chips-heathrow',
+    '/pizza-menu',
+    '/burger-menu',
+    '/dog-friendly-pub-heathrow',
+    '/family-friendly-pub-heathrow',
+    '/pub-garden-heathrow',
+    '/live-music',
+    '/cash-bingo',
+    '/privacy-policy',
+    '/quiz-night',
   ]
 
   // Get all blog posts
   const blogPosts = await getAllBlogPosts()
-  
+
   // Get all unique tags
   const allTags = new Set<string>()
   blogPosts.forEach(post => {

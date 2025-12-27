@@ -64,7 +64,7 @@ describe('mapSpecialHoursToEvents', () => {
     expect(events).toHaveLength(0)
   })
 
-  it('keeps each special hour ungrouped per date', () => {
+  it('groups consecutive special hours with same details', () => {
     const first = dateOffset(2)
     const second = dateOffset(3)
     const hours = buildHours([
@@ -73,6 +73,8 @@ describe('mapSpecialHoursToEvents', () => {
     ])
 
     const events = mapSpecialHoursToEvents(hours)
-    expect(events.map(e => e.slug)).toEqual([`opening-hours-${first}`, `opening-hours-${second}`])
+    // Expecting one grouped event
+    expect(events).toHaveLength(1)
+    expect(events[0].slug).toBe(`opening-hours-${first}`)
   })
 })

@@ -43,10 +43,13 @@ export const metadata: Metadata = {
     template: '%s | The Anchor - Heathrow Pub & Dining'
   },
   description: 'The Anchor in Stanwell Moor, Surrey\'s best kept secret near Heathrow Airport. Traditional British venue with drag shows, quiz nights & more. Dog-friendly beer garden under the flight path.',
-  keywords: ['bar near me', 'bar near Heathrow', 'Stanwell Moor bar', 'drag shows near me', 'quiz night', 'dog friendly bar', 'beer garden', 'TW19 bar'],
+  keywords: ['bar near me', 'bar near Heathrow', 'Stanwell Moor bar', 'drag shows near me', 'quiz night', 'dog friendly bar', 'beer garden', 'pub garden', 'live music', 'TW19 bar'],
   authors: [{ name: 'The Anchor' }],
   creator: 'The Anchor',
   publisher: 'The Anchor',
+  alternates: {
+    canonical: './',
+  },
   formatDetection: {
     email: false,
     address: false,

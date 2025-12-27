@@ -11,6 +11,7 @@ import {
   SectionHeader
 } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { PhoneButton } from '@/components/PhoneButton'
 import { cn } from '@/lib/utils'
@@ -457,9 +458,9 @@ export default async function QuizNightPage() {
         <Container>
           <div className="max-w-5xl mx-auto">
             <h2 className="text-3xl font-bold text-anchor-charcoal text-center mb-6">Upcoming quiz night dates</h2>
-          <p className="text-gray-700 text-center mb-8">
-            We list confirmed quiz night dates below. For the very latest schedule—including bonus weekend quizzes—check our <Link href="/whats-on" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">What’s On page</Link> or call 01753 682707 and we’ll give you the next available date.
-          </p>
+            <p className="text-gray-700 text-center mb-8">
+              We list confirmed quiz night dates below. For the very latest schedule—including bonus weekend quizzes—check our <Link href="/whats-on" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">What’s On page</Link> or call 01753 682707 and we’ll give you the next available date.
+            </p>
             <QuizNightEvents events={events} />
           </div>
         </Container>
@@ -618,14 +619,10 @@ export default async function QuizNightPage() {
               </div>
             </div>
             <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
-              <iframe
-                title="Map to The Anchor Pub"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3157.226815508708!2d-0.487349023408861!3d51.465454371740584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487672926f5099cf%3A0x9e8922e968bcf5e3!2sThe%20Anchor%20Stanwell%20Moor!5e0!3m2!1sen!2suk!4v1698499999999!5m2!1sen!2suk"
-                className="w-full h-72 border-0"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                allowFullScreen
-              ></iframe>
+              <GoogleMapEmbed
+                query="The Anchor, Stanwell Moor"
+                className="h-full min-h-[300px] border border-gray-200 rounded-xl overflow-hidden shadow-sm"
+              />
             </div>
           </div>
         </Container>

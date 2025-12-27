@@ -1,0 +1,194 @@
+import Link from 'next/link'
+import { Button, CTASection, SectionHeader, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
+import { BusinessHours } from '@/components/BusinessHours'
+import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
+import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
+import { Metadata } from 'next'
+import { CONTACT, BRAND } from '@/lib/constants'
+import { getTwitterMetadata } from '@/lib/twitter-metadata'
+import { BookTableButton } from '@/components/BookTableButton'
+import { PhoneButton } from '@/components/PhoneButton'
+import { PageTitle } from '@/components/ui/typography/PageTitle'
+import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
+
+export const metadata: Metadata = {
+    title: 'Dining Near Heathrow T5 | Best Pre-Flight Meal',
+    description: `Avoid the airline food! Enjoy a proper British meal at ${BRAND.name} before you fly. Authentic Fish & Chips, Burgers, and Real Ale just 5 mins from T5.`,
+    keywords: 'restaurants near heathrow terminal 5, pub food heathrow, dinner before flight heathrow, best food near heathrow airport',
+    openGraph: {
+        title: 'The Last Proper Meal Before You Fly',
+        description: 'Don\'t settle for an expensive airport sandwich. Enjoy authentic British pub food just minutes from your terminal.',
+        images: [DEFAULT_PAGE_HEADER_IMAGE],
+        type: 'website',
+    },
+    twitter: getTwitterMetadata({
+        title: 'The Last Proper Meal Before You Fly',
+        description: 'Don\'t settle for an expensive airport sandwich. Enjoy authentic British pub food just minutes from your terminal.',
+        images: [DEFAULT_PAGE_HEADER_IMAGE]
+    })
+}
+
+export default function PreFlightDiningPage() {
+    const breadcrumbSchema = generateBreadcrumbSchema([
+        { name: 'Home', url: '/' },
+        { name: 'Dining', url: '/pre-flight-meal' }
+    ])
+
+    return (
+        <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify([breadcrumbSchema]) }}
+            />
+
+            <HeroWrapper
+                route="/pre-flight-meal"
+                title="Your Last Proper Meal Before Flying"
+                description="Authentic British food. Real Ale. 5 Minutes from Terminal 5."
+                variant="default"
+                primaryCta={
+                    <BookTableButton
+                        source="preflight_hero"
+                        context="dining_preflight"
+                        variant="primary"
+                        size="lg"
+                        className="w-full sm:w-auto"
+                    >
+                        📞 Book Your Table
+                    </BookTableButton>
+                }
+                secondaryCta={
+                    <Link href="/food-menu">
+                        <Button variant="secondary" size="lg" className="w-full sm:w-auto">
+                            🍽️ View Menu
+                        </Button>
+                    </Link>
+                }
+            />
+
+            <section className="py-8 bg-white">
+                <Container>
+                    <div className="max-w-4xl mx-auto text-center">
+                        <PageTitle className="text-anchor-green mb-4">
+                            Plane Food Can Wait
+                        </PageTitle>
+                        <p className="text-lg text-gray-700">
+                            You're about to spend hours on a plane. Why start that journey hungry or disappointed by an overpriced terminal sandwich? Stop at The Anchor for a hearty, cooked-to-order meal that will keep you satisfied halfway across the Atlantic.
+                        </p>
+                    </div>
+                </Container>
+            </section>
+
+            <section className="section-spacing bg-gray-50">
+                <Container>
+                    <div className="max-w-4xl mx-auto text-center">
+                        <SectionHeader
+                            title="British Classics Done Right"
+                            subtitle="Visitors from all over the world stop here for a taste of Britain before they leave."
+                        />
+
+                        <FeatureGrid
+                            columns={3}
+                            features={[
+                                {
+                                    icon: "🐟",
+                                    title: "Fish & Chips",
+                                    description: "Freshly battered cod, chunky chips, and mushy peas. The ultimate British goodbye.",
+                                    variant: "colored",
+                                    color: "bg-anchor-cream",
+                                    className: "rounded-xl p-6 text-center"
+                                },
+                                {
+                                    icon: "🍔",
+                                    title: "Gourmet Burgers",
+                                    description: "Stacked high and served with fries. Perfect comfort food for travel.",
+                                    variant: "colored",
+                                    color: "bg-anchor-cream",
+                                    className: "rounded-xl p-6 text-center"
+                                },
+                                {
+                                    icon: "🥩",
+                                    title: "Steak & Ale Pie",
+                                    description: "Proper pastry, tender meat, and rich gravy. It beats a foil tray meal any day.",
+                                    variant: "colored",
+                                    color: "bg-anchor-cream",
+                                    className: "rounded-xl p-6 text-center"
+                                }
+                            ]}
+                            className="mb-8"
+                        />
+                    </div>
+                </Container>
+            </section>
+
+            <section className="section-spacing bg-white">
+                <Container>
+                    <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h3 className="text-3xl font-bold mb-4 text-gray-900">Timing is Everything</h3>
+                            <p className="mb-4 text-gray-700">
+                                We know you have a flight to catch. Our service is friendly but efficient. Let us know your timeline when you arrive, and we'll make sure you're fed and watered with plenty of time to get to the gate.
+                            </p>
+                            <div className="bg-gray-100 p-4 rounded-lg">
+                                <p className="font-bold">Estimated Taxi Times:</p>
+                                <ul className="mt-2 space-y-1 text-sm text-gray-600">
+                                    <li>✈️ Terminal 5: 5-7 mins</li>
+                                    <li>✈️ Terminal 4: 8-10 mins</li>
+                                    <li>✈️ Terminal 2 & 3: 10-12 mins</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div className="bg-anchor-green text-white p-8 rounded-xl text-center">
+                            <h3 className="text-2xl font-bold mb-4">Taxi Service</h3>
+                            <p className="mb-6">
+                                Need a ride to the terminal? We have direct numbers for reliable local taxi firms who know exactly where we are and which drop-off zone you need.
+                            </p>
+                            <PhoneButton phone={CONTACT.phone} source="preflight_taxi_info" variant="secondary">
+                                Check Taxi Availability
+                            </PhoneButton>
+                        </div>
+                    </div>
+                </Container>
+            </section>
+
+            <FAQAccordionWithSchema
+                faqs={[
+                    {
+                        question: "Do I need to book?",
+                        answer: "We highly recommend booking, especially for dinner or Sunday Lunch. We hate turning hungry travellers away!"
+                    },
+                    {
+                        question: "Is there a kids menu?",
+                        answer: "Yes, we have a great value kids menu with all the favourites (nuggets, sausages, fish fingers) to keep the little ones happy."
+                    },
+                    {
+                        question: "Can I bring my luggage inside?",
+                        answer: "Yes! We are very luggage friendly. We have ample space to stow suitcases safely while you eat."
+                    }
+                ]}
+                className="bg-white"
+            />
+
+            <CTASection
+                title="Fuel Up Before You Fly"
+                description="Book a table and start your holiday early."
+                buttons={[
+                    {
+                        text: "📞 Book Now",
+                        href: `${CONTACT.phoneHref}`,
+                        isPhone: true,
+                        phoneSource: "preflight_cta",
+                        variant: "primary"
+                    },
+                    {
+                        text: "🍽️ See the Menu",
+                        href: "/food-menu",
+                        variant: "secondary"
+                    }
+                ]}
+                variant="green"
+            />
+        </>
+    )
+}

@@ -14,6 +14,7 @@ export default function robots(): MetadataRoute.Robots {
           '/_api/',
           '/_scripts/',
 
+          '/components',
           '/leave-review',
           '/subscribe',
           '/leave-a-review',

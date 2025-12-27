@@ -61,6 +61,7 @@ const defaultItems: NavigationItem[] = [
       { label: 'Upcoming Events', href: '/whats-on#upcoming-events' },
       { label: 'Quiz Night', href: '/quiz-night' },
       { label: 'Cash Bingo', href: '/cash-bingo' },
+      { label: 'Live Music', href: '/live-music' },
       { label: 'Drag Shows', href: '/whats-on/drag-shows' }
     ]
   },
@@ -79,9 +80,13 @@ const defaultItems: NavigationItem[] = [
     href: '/book-event',
     items: [
       { label: 'Book an Event', href: '/book-event' },
+      { label: 'Private Hire Overview', href: '/private-hire' },
+      { label: 'Wakes & Memorials', href: '/private-hire/wakes' },
+      { label: 'Christenings', href: '/private-hire/christenings' },
+      { label: 'Weddings', href: '/private-hire/weddings' },
+      { label: 'Baby Showers', href: '/private-hire/baby-showers' },
       { label: 'Private Parties', href: '/private-party-venue' },
       { label: 'Corporate Events', href: '/corporate-events' },
-
       { label: 'Function Room Hire', href: '/function-room-hire' }
     ]
   },
@@ -234,8 +239,8 @@ export function Navigation({
       const dropdownId = toMenuId(item.label)
 
       return (
-        <div 
-          key={item.href} 
+        <div
+          key={item.href}
           className="relative group"
           onMouseEnter={() => setOpenDropdown(item.label)}
           onMouseLeave={() => setOpenDropdown(null)}

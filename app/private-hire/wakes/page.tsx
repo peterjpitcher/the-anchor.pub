@@ -1,0 +1,204 @@
+import Link from 'next/link'
+import { Metadata } from 'next'
+import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { Container, SectionHeader, FeatureGrid, InfoBoxGrid, Button, AlertBox } from '@/components/ui'
+import { BookTableButton } from '@/components/BookTableButton'
+import { PhoneButton } from '@/components/PhoneButton'
+import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
+import { PageTitle } from '@/components/ui/typography/PageTitle'
+import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
+import { landmarks } from '@/lib/local-seo-data'
+import { PrivateBookingCalculator } from '@/components/PrivateBookingCalculator'
+
+export const metadata: Metadata = {
+    title: 'Wake Venue Near South West Middlesex Crematorium | The Anchor',
+    description: 'A peaceful and respectful venue for wakes and funeral receptions near South West Middlesex Crematorium and Staines Cemetery. Private rooms, buffet packages, and compassionate staff.',
+    openGraph: {
+        title: 'Wake & Funeral Reception Venue | The Anchor Stanwell Moor',
+        description: 'Respectful, private spaces for post-service gatherings. Just minutes from local crematoriums.',
+        images: [DEFAULT_CORPORATE_IMAGE],
+    }
+}
+
+const nearbyCrematoriums = landmarks.filter(l => l.type === 'crematorium');
+
+export default function WakesPage() {
+    return (
+        <>
+            <HeroWrapper
+                route="/private-hire/wakes"
+                title="Wakes & Funeral Receptions"
+                description="A peaceful, respectful venue for gathering with family and friends"
+                variant="promo"
+                tags={[
+                    { label: "📍 Near SW Middlesex Crematorium", variant: "default" },
+                    { label: "🤝 Compassionate Team", variant: "success" },
+                    { label: "☕ Buffet & Tea Packages", variant: "default" },
+                    { label: "🚗 Free Parking", variant: "success" }
+                ]}
+                primaryCta={
+                    <BookTableButton
+                        source="wakes_hero"
+                        variant="primary"
+                        size="lg"
+                        context="wakes"
+                    >
+                        Check Availability
+                    </BookTableButton>
+                }
+                secondaryCta={
+                    <PhoneButton
+                        phone="01753 682707"
+                        source="wakes_hero"
+                        variant="secondary"
+                        size="lg"
+                    >
+                        Call 01753 682707
+                    </PhoneButton>
+                }
+            />
+
+            <section className="py-12 bg-white">
+                <Container size="md">
+                    <PageTitle className="text-center mb-6" seo={{ structured: true, speakable: true }}>
+                        Compassionate & Professional Service
+                    </PageTitle>
+                    <p className="text-lg text-gray-700 text-center mb-8">
+                        We understand that organising a wake can be a difficult time. Our experienced team is here to handle the arrangements with sensitivity and care, ensuring a peaceful environment for you to remember your loved one.
+                    </p>
+
+                    <AlertBox
+                        variant="info"
+                        title="Convenient Location"
+                        content={
+                            <ul className="grid sm:grid-cols-2 gap-2 mt-2">
+                                {nearbyCrematoriums.map(l => (
+                                    <li key={l.slug} className="flex items-center gap-2">
+                                        <span className="text-anchor-gold">📍</span>
+                                        <Link href={`/private-hire/near/${l.slug}`} className="hover:underline text-anchor-green font-medium">
+                                            {l.name} ({l.distance})
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        }
+                    />
+                </Container>
+            </section>
+
+            <section className="py-12 bg-gray-50 border-y border-gray-200">
+                <Container size="md">
+                    <SectionHeader
+                        title="Instant Quote & Check Availability"
+                        subtitle="Get an immediate cost estimate for your gathering."
+                    />
+                    <div className="max-w-3xl mx-auto">
+                        <PrivateBookingCalculator />
+                    </div>
+                </Container>
+            </section>
+
+            <section className="section-spacing bg-white">
+                <Container>
+                    <SectionHeader
+                        title="Catering Packages"
+                        subtitle="Simple, dignified menu options to suit your needs"
+                    />
+
+                    <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+                        <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 text-center">
+                            <h3 className="text-xl font-bold text-anchor-green mb-2">Afternoon Tea</h3>
+                            <p className="text-gray-600 mb-4 italic">Catering packages available upon request</p>
+                            <ul className="space-y-3 text-gray-600 mb-6 text-left">
+                                <li>• Selection of finger sandwiches</li>
+                                <li>• Scones with jam & cream</li>
+                                <li>• Assorted cakes</li>
+                                <li>• Unlimited tea & coffee</li>
+                            </ul>
+                        </div>
+
+                        <div className="bg-white p-8 rounded-xl shadow-md border-t-4 border-anchor-gold text-center transform md:-translate-y-2">
+                            <div className="uppercase tracking-wide text-xs font-bold text-anchor-gold mb-2">Most Popular</div>
+                            <h3 className="text-xl font-bold text-anchor-green mb-2">Classic Buffet</h3>
+                            <p className="text-gray-600 mb-4 italic">Catering packages available upon request</p>
+                            <ul className="space-y-3 text-gray-600 mb-6 text-left">
+                                <li>• Selection of sandwiches</li>
+                                <li>• Sausage rolls & pork pies</li>
+                                <li>• Quiche selection</li>
+                                <li>• Chicken goujons</li>
+                                <li>• Chips & dips</li>
+                                <li>• Tea & coffee included</li>
+                            </ul>
+                        </div>
+
+                        <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 text-center">
+                            <h3 className="text-xl font-bold text-anchor-green mb-2">Grand Buffet</h3>
+                            <p className="text-gray-600 mb-4 italic">Catering packages available upon request</p>
+                            <ul className="space-y-3 text-gray-600 mb-6 text-left">
+                                <li>• Everything in Classic Buffet</li>
+                                <li>• Plus: Selection of cold meats</li>
+                                <li>• Plus: Fresh salads & pasta</li>
+                                <li>• Plus: Dessert platter</li>
+                                <li>• Tea & coffee included</li>
+                            </ul>
+                        </div>
+                    </div>
+                </Container>
+            </section>
+
+            <section className="section-spacing bg-white">
+                <Container>
+                    <SectionHeader
+                        title="Private Spaces"
+                        subtitle="Choose the right space for your gathering"
+                    />
+                    <FeatureGrid
+                        columns={1}
+                        features={[
+                            {
+                                icon: "🏠",
+                                title: "The Dining Room",
+                                description: "A private, enclosed space suitable for 20-60 guests. Quiet and self-contained with direct access to facilities.",
+                                className: "text-center"
+                            }
+                        ]}
+                    />
+                </Container>
+            </section>
+
+            <FAQAccordionWithSchema
+                faqs={[
+                    {
+                        question: "How quickly can I book a wake?",
+                        answer: "We understand that wakes often need to be arranged at short notice. Call us on 01753 682707 and we will do our best to accommodate you, often within 24-48 hours."
+                    },
+                    {
+                        question: "Is there parking for guests?",
+                        answer: "Yes, we have a large, free car park with 20 spaces. There is also ample street parking nearby with no restrictions."
+                    },
+                    {
+                        question: "Can we play our own music?",
+                        answer: "Yes, we have a sound system in the private dining room where you can play a playlist of your choice quietly in the background."
+                    },
+                    {
+                        question: "Do you cater for allergies?",
+                        answer: "Absolutely. Please let us know of any dietary requirements when booking, and we will ensure suitable options are provided separately."
+                    }
+                ]}
+            />
+
+            <section className="bg-gray-100 py-12">
+                <Container size="sm" className="text-center">
+                    <h2 className="text-2xl font-bold text-anchor-green mb-4">Contact Our Team</h2>
+                    <p className="mb-8 text-gray-600">We are here to help make this day as stress-free as possible.</p>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                        <PhoneButton phone="01753 682707" size="lg" variant="primary" source="wakes_cta_bottom">Call 01753 682707</PhoneButton>
+                        <Link href="mailto:manager@the-anchor.pub?subject=Wake Enquiry" className="inline-block">
+                            <Button variant="secondary" size="lg" className="w-full sm:w-auto">Email Us</Button>
+                        </Link>
+                    </div>
+                </Container>
+            </section>
+        </>
+    )
+}

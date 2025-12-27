@@ -35,7 +35,7 @@ export function createRecurringEvent(params: {
   const now = new Date()
   const oneYearLater = new Date(now)
   oneYearLater.setFullYear(oneYearLater.getFullYear() + 1)
-  
+
   return {
     '@type': 'Event',
     id: params.id,
@@ -119,7 +119,7 @@ export const staticEvents = {
       type: 'Organization'
     }
   }),
-  
+
   christmasParties: createRecurringEvent({
     id: 'christmas-parties-2024',
     slug: 'christmas-parties',
@@ -147,7 +147,7 @@ export const staticEvents = {
     startTime: '12:00',
     endTime: '23:00'
   }),
-  
+
   privateParties: createRecurringEvent({
     id: 'private-parties',
     slug: 'private-parties',
@@ -170,7 +170,7 @@ export const staticEvents = {
     },
     maximumAttendeeCapacity: 200
   }),
-  
+
   dragShows: createRecurringEvent({
     id: 'monthly-drag-shows',
     slug: 'drag-shows',
@@ -198,7 +198,7 @@ export const staticEvents = {
     endTime: '23:30',
     maximumAttendeeCapacity: 150
   }),
-  
+
   quizNight: createRecurringEvent({
     id: 'monthly-quiz-night',
     slug: 'quiz-night',
@@ -226,7 +226,7 @@ export const staticEvents = {
     endTime: '22:00',
     maximumAttendeeCapacity: 80
   }),
-  
+
   bingoNight: createRecurringEvent({
     id: 'monthly-cash-bingo',
     slug: 'bingo-night',
@@ -249,5 +249,33 @@ export const staticEvents = {
     startTime: '19:00',
     endTime: '21:00',
     maximumAttendeeCapacity: 60
+  }),
+
+  liveMusic: createRecurringEvent({
+    id: 'live-music-events',
+    slug: 'live-music',
+    name: 'Live Music at The Anchor',
+    description: 'Live bands, acoustic sets and local talent. Free entry and great atmosphere.',
+    longDescription: 'Experience the best live music near Heathrow at The Anchor. From acoustic soloists to full party bands, we host regular live music nights that get the pub jumping. Enjoy great tunes, cold pints, and a proper pub atmosphere. Entry is always free!',
+    shortDescription: 'Live bands & acoustic sets. Free entry.',
+    image: [
+      '/images/events/live-music/the-anchor-live-music-band.jpg'
+    ],
+    price: '0',
+    duration: 'PT3H',
+    category: {
+      id: 'live-music',
+      name: 'Live Music',
+      slug: 'live-music',
+      color: '#22c55e',
+      icon: '🎶'
+    },
+    performer: {
+      name: 'Various Artists',
+      type: 'MusicGroup'
+    },
+    startTime: '20:30',
+    endTime: '23:30',
+    maximumAttendeeCapacity: 150
   })
 }

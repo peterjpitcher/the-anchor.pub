@@ -75,7 +75,13 @@ const defaultSections: FooterSection[] = [
     items: [
       { label: 'Beer Garden & Plane Spotting', href: '/beer-garden' },
       { label: 'Plane Spotting Guide', href: '/plane-spotting-heathrow' },
-      { label: 'Pizza Menu', href: '/food-menu#pizza' },
+      { label: 'Pizza Menu', href: '/pizza-menu' },
+      { label: 'Burger Menu', href: '/burger-menu' },
+      { label: 'Fish & Chips', href: '/fish-and-chips-heathrow' },
+      { label: 'Six Nations Rugby', href: '/live-sport/six-nations' },
+      { label: 'Premier League', href: '/live-sport/premier-league' },
+      { label: 'Dog Friendly Pub', href: '/dog-friendly-pub-heathrow' },
+      { label: 'Family Friendly', href: '/family-friendly-pub-heathrow' },
       { label: 'Drag Shows', href: '/whats-on/drag-shows' },
       { label: 'Free Parking', href: '/find-us' }
     ]
@@ -159,8 +165,8 @@ export function Footer({
     if (item.external) {
       return (
         <li key={item.href}>
-          <a 
-            href={item.href} 
+          <a
+            href={item.href}
             className={mergedTheme.linkHover}
             target="_blank"
             rel="noopener noreferrer"
@@ -181,8 +187,8 @@ export function Footer({
 
     return (
       <li key={item.href}>
-        <Link 
-          href={item.href} 
+        <Link
+          href={item.href}
           className={mergedTheme.linkHover}
           onClick={() => trackNavigationClick({
             label: item.label,
@@ -241,9 +247,9 @@ export function Footer({
                   {contact.phone && (
                     <>
                       <li>
-                        <PhoneLink 
-                          phone={contact.phone} 
-                          source="footer" 
+                        <PhoneLink
+                          phone={contact.phone}
+                          source="footer"
                           className={mergedTheme.linkHover}
                         />
                       </li>
@@ -275,9 +281,9 @@ export function Footer({
                         source="footer_address"
                         className={mergedTheme.linkHover}
                       >
-                        <span itemProp="streetAddress">Horton Road</span>, 
-                        <span itemProp="addressLocality">Stanwell Moor</span>, 
-                        <span itemProp="addressRegion">Surrey</span>, 
+                        <span itemProp="streetAddress">Horton Road</span>,
+                        <span itemProp="addressLocality">Stanwell Moor</span>,
+                        <span itemProp="addressRegion">Surrey</span>,
                         <span itemProp="postalCode">TW19 6AQ</span>
                       </DirectionsLink>
                     </li>
@@ -335,7 +341,7 @@ export function Footer({
               {businessInfo.description}
             </p>
           </div>
-          
+
           {/* Dynamic Sections */}
           {sections.map((section, index) => (
             <div key={index}>
@@ -347,7 +353,7 @@ export function Footer({
               </ul>
             </div>
           ))}
-          
+
           {/* Contact Info */}
           {contact && (
             <div>
@@ -358,9 +364,9 @@ export function Footer({
                 {contact.phone && (
                   <>
                     <li>
-                      <PhoneLink 
-                        phone={contact.phone} 
-                        source="footer" 
+                      <PhoneLink
+                        phone={contact.phone}
+                        source="footer"
                         className={mergedTheme.linkHover}
                       />
                     </li>
@@ -392,9 +398,9 @@ export function Footer({
                       source="footer_address"
                       className={mergedTheme.linkHover}
                     >
-                      <span itemProp="streetAddress">Horton Road</span>, 
-                      <span itemProp="addressLocality">Stanwell Moor</span>, 
-                      <span itemProp="addressRegion">Surrey</span>, 
+                      <span itemProp="streetAddress">Horton Road</span>,
+                      <span itemProp="addressLocality">Stanwell Moor</span>,
+                      <span itemProp="addressRegion">Surrey</span>,
                       <span itemProp="postalCode">TW19 6AQ</span>
                     </DirectionsLink>
                   </li>
@@ -420,7 +426,7 @@ export function Footer({
               </ul>
             </div>
           )}
-          
+
           {/* Features */}
           {features && features.length > 0 && (
             <div>
@@ -435,7 +441,7 @@ export function Footer({
             </div>
           )}
         </div>
-        
+
         {/* Copyright */}
         {copyright && (
           <div className={cn('border-t pt-8 text-center text-white', mergedTheme.borderColor)}>

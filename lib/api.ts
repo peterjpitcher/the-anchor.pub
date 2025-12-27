@@ -5,11 +5,75 @@ import { logError } from '@/lib/error-handling'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 
 // Use internal API routes to avoid CORS issues and keep API key secure
-const API_BASE_URL = typeof window === 'undefined' 
+const API_BASE_URL = typeof window === 'undefined'
   ? (process.env.ANCHOR_API_BASE_URL || 'https://management.orangejelly.co.uk/api')  // Server-side: use env var or default to prod
   : '/api'  // Client-side: use Next.js API routes
 
 // API Response wrapper types
+// Private Booking Types
+export interface PrivateBookingConfig {
+  spaces: {
+    id: string
+    name: string
+    description?: string
+    capacity_seated?: number
+    capacity_standing?: number
+    rate_per_hour: number
+    minimum_hours: number
+    setup_fee: number
+  }[]
+  packages: {
+    id: string
+    name: string
+    description?: string
+    package_type?: string
+    cost_per_head: number
+    minimum_guests: number
+    dietary_notes?: string
+  }[]
+  vendors: {
+    id: string
+    name: string
+    service_type: string
+    typical_rate?: number
+    company_name?: string
+  }[]
+}
+
+export interface PrivateBookingItem {
+  item_type: 'space' | 'catering' | 'vendor' | 'other'
+  description: string
+  quantity: number
+  unit_price: number
+  line_total: number
+  notes?: string
+  space_id?: string
+  package_id?: string
+  vendor_id?: string
+}
+
+export interface PrivateBookingRequest {
+  customer_first_name: string
+  customer_last_name?: string
+  contact_phone: string
+  contact_email?: string
+  event_date?: string
+  start_time?: string
+  end_time?: string
+  guest_count?: number
+  event_type?: string
+  internal_notes?: string
+  items?: PrivateBookingItem[]
+}
+
+export interface PrivateBookingResponse {
+  success: boolean
+  data: {
+    id: string
+    reference: string
+  }
+}
+
 export interface ApiSuccessResponse<T> {
   success: true
   data: T
@@ -177,6 +241,79 @@ export interface BookingInitiationResponse {
   sms_sent: boolean
 }
 
+// Private Booking API Methods
+export async function getPrivateBookingConfig(): Promise<ApiResponse<PrivateBookingConfig>> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/public/private-booking/config`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      next: { revalidate: 3600 } // Cache for 1 hour
+    })
+
+    if (!res.ok) {
+      throw new Error(`Failed to fetch private booking config: ${res.statusText}`)
+    }
+
+    return await res.json()
+  } catch (error) {
+    logError('Error fetching private booking config', error)
+    // Fallback? Or let it fail handled by UI
+    return {
+      success: false,
+      error: {
+        code: 'CONFIG_FETCH_ERROR',
+        message: 'Could not load pricing configuration'
+      }
+    }
+  }
+}
+
+export async function createPrivateBooking(data: PrivateBookingRequest): Promise<ApiResponse<PrivateBookingResponse['data']>> {
+  try {
+    const res = await fetch(`${API_BASE_URL}/public/private-booking`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    })
+
+    const responseData = await res.json()
+
+    if (!res.ok) {
+      return {
+        success: false,
+        error: {
+          code: 'BOOKING_CREATION_ERROR',
+          message: responseData.error || 'Failed to create booking'
+        }
+      }
+    }
+
+    return responseData
+  } catch (error) {
+    logError('Error creating private booking', error)
+    return {
+      success: false,
+      error: {
+        code: 'NETWORK_ERROR',
+        message: 'Failed to submit booking request'
+      }
+    }
+  }
+}
+
+// Helper function to format currency
+export function formatCurrency(amount: number): string {
+  return new Intl.NumberFormat('en-GB', {
+    style: 'currency',
+    currency: 'GBP'
+  }).format(amount)
+}
+
+// Event Tracking (Analytics)
 // Event availability check
 export interface EventAvailability {
   available: boolean
@@ -916,7 +1053,7 @@ export class AnchorAPI {
   constructor(apiKey?: string) {
     this.baseURL = API_BASE_URL
     this.apiKey = apiKey || process.env.ANCHOR_API_KEY || ''
-    
+
     // Only warn on server-side where API key is expected
     if (!this.apiKey && typeof window === 'undefined') {
       console.warn('ANCHOR_API_KEY is not set. API calls will fail.')
@@ -944,23 +1081,23 @@ export class AnchorAPI {
         return buildFallback as T
       }
     }
-    
+
     try {
       // Try both authentication methods as documented
       const headers: Record<string, string> = {
         'Content-Type': 'application/json',
       }
-      
+
       // Add authentication header (using X-API-Key as recommended)
       if (this.apiKey) {
         headers['X-API-Key'] = this.apiKey
       }
-      
+
       // Merge with any provided headers
       if (options.headers) {
         Object.assign(headers, options.headers)
       }
-     
+
       const { next: providedNext, ...requestInit } = options as RequestInit & {
         next?: { revalidate?: number | false }
       }
@@ -986,10 +1123,10 @@ export class AnchorAPI {
         let errorCode = 'UNKNOWN_ERROR'
         let errorMessage = `API request failed: ${response.status}`
         let errorDetails: any = {}
-        
+
         try {
           const errorData = await response.json()
-          
+
           // Handle API error wrapper format
           if (errorData.success === false && errorData.error) {
             errorCode = errorData.error.code || errorCode
@@ -1004,7 +1141,7 @@ export class AnchorAPI {
           // If JSON parsing fails, use status text
           errorMessage = `${response.status} ${response.statusText}`
         }
-        
+
         // Map HTTP status to error codes
         if (response.status === 401) {
           errorCode = 'UNAUTHORIZED'
@@ -1019,17 +1156,17 @@ export class AnchorAPI {
         } else if (response.status >= 500) {
           errorCode = 'INTERNAL_ERROR'
         }
-        
-        throw { 
+
+        throw {
           code: errorCode,
-          message: errorMessage, 
+          message: errorMessage,
           status: response.status,
           details: errorDetails
         }
       }
 
       const data = await response.json()
-      
+
       // Handle API success wrapper format
       if (data.success === false && data.error) {
         throw {
@@ -1039,18 +1176,18 @@ export class AnchorAPI {
           details: data.error.details || {}
         }
       }
-      
+
       // Extract data from wrapper if present
       if (data.success === true && data.data) {
         return data.data
       }
-      
+
       // Some endpoints return data directly without wrapper (legacy format)
       // Check if this looks like valid data (not an error)
       if (!data.error && !data.success) {
         return data
       }
-      
+
       // If no wrapper format and no direct data, this is likely an error
       throw {
         code: 'INVALID_RESPONSE',
@@ -1117,7 +1254,7 @@ export class AnchorAPI {
         query.append(key, value.toString())
       }
     })
-    
+
     return this.request<EventsResponse>(`/events?${query.toString()}`)
   }
 
@@ -1333,7 +1470,7 @@ export class AnchorAPI {
     const endpoint = typeof window === 'undefined'
       ? `/events/${eventId}/check-availability`  // Server: external API endpoint
       : `/events/${eventId}/availability`        // Client: internal API route
-    
+
     return this.request<EventAvailability>(endpoint, {
       method: 'POST',
       body: JSON.stringify({ seats })
@@ -1378,7 +1515,7 @@ export class AnchorAPI {
       ...(params.duration && { duration: params.duration.toString() }),
       ...(params.booking_type && { booking_type: params.booking_type })
     })
-    
+
     return this.request<TableAvailabilityResponse>(`/table-bookings/availability?${query}`, {
       next: { revalidate: 0 }
     } as any)
@@ -1531,7 +1668,7 @@ export class AnchorAPI {
     }
   }> {
     return this.request('/business/amenities')
-}
+  }
 
   private getFallbackResponse(endpoint: string): any | null {
     if (endpoint === '/event-categories') {
@@ -1591,16 +1728,23 @@ export async function getBusinessHours(): Promise<BusinessHours | null> {
 // Helper functions for common use cases
 const MAX_EVENTS_LIMIT = 24
 
-export async function getUpcomingEvents(limit: number = 10): Promise<Event[]> {
+export async function getUpcomingEvents(limit: number = 10, daysLookahead: number = 30): Promise<Event[]> {
   try {
     const safeLimit = Math.min(Math.max(Math.floor(limit), 1), MAX_EVENTS_LIMIT)
+
+    // Calculate to_date based on daysLookahead
+    const now = new Date()
+    const toDate = new Date(now)
+    toDate.setDate(now.getDate() + daysLookahead)
+
     const response = await anchorAPI.getEvents({
-      from_date: new Date().toISOString().split('T')[0],
+      from_date: now.toISOString().split('T')[0],
+      to_date: toDate.toISOString().split('T')[0],
       limit: safeLimit,
     })
     return response.events || []
   } catch (error) {
-    logError('api-upcoming-events', error, { limit })
+    logError('api-upcoming-events', error, { limit, daysLookahead })
     return createFallbackEventsResponse().events
   }
 }
@@ -1643,14 +1787,14 @@ export function formatEventDate(dateString: string): string {
 
 export function formatEventTime(dateString: string): string {
   let date: Date
-  
+
   // IMPORTANT: The API returns times like "2025-07-18T19:00+00:00" which are UTC
   // But these events are actually scheduled for local UK time (7pm local, not 7pm UTC)
   // So we need to treat the numeric time as local time, ignoring the timezone offset
-  
+
   // Extract just the date and time part, ignoring any timezone info
   let cleanDateString = dateString
-  
+
   // Remove timezone offset (+00:00, -05:00, etc) or Z
   if (dateString.includes('+') || dateString.includes('Z')) {
     cleanDateString = dateString.split('+')[0].split('Z')[0]
@@ -1658,7 +1802,7 @@ export function formatEventTime(dateString: string): string {
     // Handle negative offsets (but not the date separators)
     cleanDateString = dateString.substring(0, dateString.lastIndexOf('-'))
   }
-  
+
   // Parse as local time
   if (cleanDateString.includes('T')) {
     date = new Date(cleanDateString)
@@ -1667,13 +1811,13 @@ export function formatEventTime(dateString: string): string {
     const isoString = cleanDateString.replace(' ', 'T')
     date = new Date(isoString)
   }
-  
+
   // Format the time
   const hours = date.getHours()
   const minutes = date.getMinutes()
   const period = hours >= 12 ? 'pm' : 'am'
   const displayHours = hours % 12 || 12
-  
+
   // Convert to the desired format (8pm instead of 8:00 pm)
   if (minutes === 0) {
     return `${displayHours}${period}`
@@ -1691,13 +1835,13 @@ export function formatPrice(price: string | number, currency: string = 'GBP'): s
 }
 
 export function isEventSoldOut(event: Event): boolean {
-  return event.remainingAttendeeCapacity === 0 || 
+  return event.remainingAttendeeCapacity === 0 ||
     event.offers?.availability === 'https://schema.org/SoldOut'
 }
 
 export function isEventFree(event: Event): boolean {
-  return event.isAccessibleForFree === true || 
-    event.offers?.price === '0' || 
+  return event.isAccessibleForFree === true ||
+    event.offers?.price === '0' ||
     event.offers?.price === '0.00'
 }
 
@@ -1706,7 +1850,7 @@ export function getEventShortDescription(event: Event, maxLength: number = 150):
   if (event.shortDescription) {
     return event.shortDescription
   }
-  
+
   // Otherwise use description
   if (!event.description) {
     // Generate a default description based on event type
@@ -1726,12 +1870,12 @@ export function getEventShortDescription(event: Event, maxLength: number = 150):
     }
     return `Join us for ${event.name} at The Anchor.`
   }
-  
+
   // Truncate long descriptions
   if (event.description.length > maxLength) {
     return event.description.substring(0, maxLength).trim() + '...'
   }
-  
+
   return event.description
 }
 
@@ -1787,10 +1931,10 @@ export const getKitchenStatus = (kitchen: KitchenStatus): 'open' | 'closed' | 'n
 // Helper to format door time
 export function formatDoorTime(doorTimeString: string | null | undefined): string | null {
   if (!doorTimeString) return null
-  
+
   // Use the same logic as formatEventTime - strip timezone and treat as local time
   let cleanDateString = doorTimeString
-  
+
   // Remove timezone offset (+00:00, -05:00, etc) or Z
   if (doorTimeString.includes('+') || doorTimeString.includes('Z')) {
     cleanDateString = doorTimeString.split('+')[0].split('Z')[0]
@@ -1798,7 +1942,7 @@ export function formatDoorTime(doorTimeString: string | null | undefined): strin
     // Handle negative offsets (but not the date separators)
     cleanDateString = doorTimeString.substring(0, doorTimeString.lastIndexOf('-'))
   }
-  
+
   // Parse as local time
   let date: Date
   if (cleanDateString.includes('T')) {
@@ -1808,30 +1952,30 @@ export function formatDoorTime(doorTimeString: string | null | undefined): strin
     const isoString = cleanDateString.replace(' ', 'T')
     date = new Date(isoString)
   }
-  
+
   const hours = date.getHours()
   const minutes = date.getMinutes()
   const period = hours >= 12 ? 'pm' : 'am'
   const displayHours = hours % 12 || 12
-  
-  const timeString = minutes === 0 
+
+  const timeString = minutes === 0
     ? `${displayHours}${period}`
     : `${displayHours}:${minutes.toString().padStart(2, '0')}${period}`
-  
+
   return 'Doors: ' + timeString
 }
 
 // Helper to format event duration
 export function formatEventDuration(duration: string | null | undefined): string | null {
   if (!duration) return null
-  
+
   // Parse ISO 8601 duration (e.g., PT3H30M)
   const match = duration.match(/PT(?:(\d+)H)?(?:(\d+)M)?/)
   if (!match) return null
-  
+
   const hours = parseInt(match[1] || '0')
   const minutes = parseInt(match[2] || '0')
-  
+
   if (hours && minutes) {
     return `${hours}h ${minutes}m`
   } else if (hours) {
@@ -1839,7 +1983,7 @@ export function formatEventDuration(duration: string | null | undefined): string
   } else if (minutes) {
     return `${minutes} minutes`
   }
-  
+
   return null
 }
 

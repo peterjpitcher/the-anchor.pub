@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { Button, Container, Section, Card, CardBody, Grid, Alert } from '@/components/ui'
 import { StatusBar } from '@/components/layout/StatusBar'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import { Metadata } from 'next'
 import { BusinessHours } from '@/components/BusinessHours'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -44,7 +45,7 @@ export default function FindUsPage() {
     { name: 'Home', url: '/' },
     { name: 'Find Us', url: '/find-us' }
   ])
-  
+
   const howToFromHeathrowSchema = generateHowToDirectionsSchema(
     "Heathrow Terminal 5",
     "The Anchor",
@@ -89,8 +90,8 @@ export default function FindUsPage() {
           </DirectionsButton>
         }
         secondaryCta={
-          <PhoneButton 
-            phone="01753682707" 
+          <PhoneButton
+            phone="01753682707"
             source="find_us_hero"
             variant="secondary"
             size="lg"
@@ -104,7 +105,7 @@ export default function FindUsPage() {
       {/* Page Title for SEO */}
       <Section background="white" spacing="sm">
         <Container>
-          <PageTitle 
+          <PageTitle
             className="text-center text-anchor-green"
             seo={{ structured: true, speakable: true }}
           >
@@ -246,19 +247,23 @@ export default function FindUsPage() {
                 />
                 <div className="bg-anchor-cream rounded-2xl p-8">
                   <SpeakableContent selector="contact-info" priority="high">
-                    <address className="not-italic text-lg space-y-2">
-                      <p className="font-bold text-xl text-anchor-green">The Anchor</p>
-                      <p>Horton Road</p>
-                      <p>Stanwell Moor</p>
-                      <p>Surrey</p>
-                      <p className="font-bold">TW19 6AQ</p>
-                    </address>
-                    
+                    <div className="mb-8">
+                      <GoogleMapEmbed query="The Anchor, Stanwell Moor" height="250px" className="mb-6 rounded-xl" />
+
+                      <address className="not-italic text-lg space-y-2">
+                        <p className="font-bold text-xl text-anchor-green">The Anchor</p>
+                        <p>Horton Road</p>
+                        <p>Stanwell Moor</p>
+                        <p>Surrey</p>
+                        <p className="font-bold">TW19 6AQ</p>
+                      </address>
+                    </div>
+
                     <div className="mt-6 pt-6 border-t border-gray-300">
                       <p className="font-bold text-anchor-green mb-3">Contact</p>
                       <p className="mb-2">
-                        <PhoneLink 
-                          phone="01753682707" 
+                        <PhoneLink
+                          phone="01753682707"
                           source="find_us_contact"
                           className="text-anchor-gold hover:text-anchor-gold-light"
                         />
@@ -285,7 +290,7 @@ export default function FindUsPage() {
                   </SpeakableContent>
                 </div>
               </div>
-              
+
               <div>
                 <SectionHeader
                   title="Landmarks"
@@ -312,7 +317,7 @@ export default function FindUsPage() {
                       <span>Traditional pub building with garden</span>
                     </li>
                   </ul>
-                  
+
                   <div className="mt-6 p-4 bg-white rounded-lg">
                     <p className="text-sm text-gray-700 italic">
                       "If you can hear the planes, you're close!"
@@ -321,7 +326,7 @@ export default function FindUsPage() {
                 </div>
               </div>
             </div>
-            
+
             {/* Business Hours */}
             <div className="mt-12">
               <SectionHeader
@@ -343,7 +348,7 @@ export default function FindUsPage() {
           <SectionHeader
             title="Directions from Popular Locations"
           />
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {/* From M25 */}
             <div className="bg-white rounded-xl p-6 shadow-md">
@@ -471,13 +476,13 @@ export default function FindUsPage() {
               subtitle="Reserve your table now and enjoy The Anchor experience"
               className="text-white"
             />
-            
+
             <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8">
               <h3 className="text-2xl font-bold text-white mb-6">Ready to Book?</h3>
               <p className="text-white/90 mb-8 text-lg">
                 Book your table online through our booking system or give us a call.
               </p>
-              
+
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
                 <Link href="/book-table">
                   <Button
@@ -498,7 +503,7 @@ export default function FindUsPage() {
                   📞 Call: 01753 682707
                 </PhoneButton>
               </div>
-              
+
               {/* Quick Info */}
               <div className="grid md:grid-cols-2 gap-6 mt-8 pt-8 border-t border-white/20">
                 <div className="space-y-3">
@@ -520,7 +525,7 @@ export default function FindUsPage() {
                     <p className="text-white/90 text-sm">Dogs welcome in bar & garden</p>
                   </div>
                 </div>
-                
+
                 <div>
                   <h4 className="text-lg font-semibold text-white mb-3">Opening Hours</h4>
                   <BusinessHours variant="dark" showKitchen={false} />
@@ -564,7 +569,7 @@ export default function FindUsPage() {
                   </li>
                 </ul>
               </div>
-              
+
               <div className="bg-white rounded-2xl p-8 shadow-sm">
                 <h3 className="text-2xl font-bold text-anchor-green mb-6">Work & Connectivity</h3>
                 <ul className="space-y-3">
@@ -591,7 +596,7 @@ export default function FindUsPage() {
                 </ul>
               </div>
             </div>
-            
+
             <div className="mt-8 bg-white rounded-2xl p-8 shadow-sm">
               <h3 className="text-2xl font-bold text-anchor-green mb-6 text-center">Guest Services</h3>
               <div className="grid md:grid-cols-3 gap-6">
@@ -618,11 +623,11 @@ export default function FindUsPage() {
                 </div>
               </div>
             </div>
-            
+
             <div className="mt-8 text-center bg-white rounded-xl p-6 shadow-sm">
               <p className="text-gray-700">
-                <strong className="text-anchor-green">Digital Nomad Friendly:</strong> Our dining room is equipped with tables 
-                featuring power points, making it perfect for remote workers and digital nomads. Combined with free WiFi 
+                <strong className="text-anchor-green">Digital Nomad Friendly:</strong> Our dining room is equipped with tables
+                featuring power points, making it perfect for remote workers and digital nomads. Combined with free WiFi
                 and a quiet weekday atmosphere, it's an ideal workspace near Heathrow.
               </p>
             </div>
@@ -631,7 +636,7 @@ export default function FindUsPage() {
       </Section>
 
       {/* FAQ Section */}
-      <FAQAccordionWithSchema 
+      <FAQAccordionWithSchema
         faqs={[
           {
             question: "Is there parking at The Anchor?",

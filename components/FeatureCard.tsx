@@ -7,16 +7,16 @@ interface FeatureCardProps {
   className?: string
 }
 
-export function FeatureCard({ 
-  icon, 
-  title, 
-  description, 
+export function FeatureCard({
+  icon,
+  title,
+  description,
   variant = 'default',
   color,
   className = ''
 }: FeatureCardProps) {
   const baseClasses = 'rounded-xl p-6'
-  
+
   const variantClasses = {
     default: 'bg-white shadow-sm',
     cream: 'bg-anchor-cream',
@@ -42,12 +42,13 @@ export function FeatureCard({
 
 interface FeatureGridProps {
   features: FeatureCardProps[]
-  columns?: 2 | 3 | 4
+  columns?: 1 | 2 | 3 | 4
   className?: string
 }
 
 export function FeatureGrid({ features, columns = 3, className = '' }: FeatureGridProps) {
   const gridCols = {
+    1: 'grid-cols-1 max-w-xl mx-auto',
     2: 'md:grid-cols-2',
     3: 'md:grid-cols-3',
     4: 'md:grid-cols-2 lg:grid-cols-4'
