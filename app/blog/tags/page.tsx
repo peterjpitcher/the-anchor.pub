@@ -23,55 +23,19 @@ export const metadata: Metadata = {
 
 // Tag display names and descriptions
 const tagInfo: Record<string, { name: string; description: string; category: string }> = {
-  // Food & Dining
-  'food': { name: 'Food & Dining', description: 'Delicious pub food and dining experiences', category: 'Primary' },
-  'sunday-roast': { name: 'Sunday Roast', description: 'Traditional Sunday lunches', category: 'Food' },
-  'pizza': { name: 'Pizza', description: 'Stone-baked pizzas', category: 'Food' },
-  'fish-and-chips': { name: 'Fish & Chips', description: 'Traditional British classic', category: 'Food' },
-  'british-cuisine': { name: 'British Cuisine', description: 'Classic British pub food', category: 'Food' },
-  'burgers': { name: 'Burgers', description: 'Gourmet burger selection', category: 'Food' },
-  'seasonal-menu': { name: 'Seasonal Menu', description: 'Seasonal specials', category: 'Food' },
-  
-  // Drinks
-  'drinks': { name: 'Drinks & Bar', description: 'Craft beers, spirits, and wines', category: 'Primary' },
-  'beer': { name: 'Beer', description: 'Craft and traditional beers', category: 'Drinks' },
-  'cocktails': { name: 'Cocktails', description: 'Signature cocktails', category: 'Drinks' },
-  'wine': { name: 'Wine', description: 'Wine selection', category: 'Drinks' },
-  'spirits': { name: 'Spirits', description: 'Premium spirits', category: 'Drinks' },
-  'tasting-events': { name: 'Tasting Events', description: 'Spirit and wine tastings', category: 'Drinks' },
-  
-  // Events
-  'events': { name: 'Events', description: 'Live entertainment and special events', category: 'Primary' },
-  'quiz-night': { name: 'Quiz Nights', description: 'Test your knowledge', category: 'Events' },
-  'drag-shows': { name: 'Drag Shows', description: 'Fabulous drag entertainment', category: 'Events' },
-  'bingo': { name: 'Bingo', description: 'Fun-filled bingo nights', category: 'Events' },
-  'karaoke': { name: 'Karaoke', description: 'Sing your heart out', category: 'Events' },
-  
-  // Community & Sports
-  'community': { name: 'Community', description: 'Local news and initiatives', category: 'Primary' },
-  'sports': { name: 'Sports', description: 'Terrestrial sports and fixtures', category: 'Primary' },
-  'football': { name: 'Football', description: 'Live football screenings', category: 'Sports' },
-  'rugby': { name: 'Rugby', description: 'Rugby matches', category: 'Sports' },
-  
-  // Special Offers & Seasonal
-  'special-offers': { name: 'Special Offers', description: 'Deals and promotions', category: 'Primary' },
-  'christmas': { name: 'Christmas', description: 'Festive celebrations', category: 'Seasonal' },
-  'easter': { name: 'Easter', description: 'Easter celebrations', category: 'Seasonal' },
-  'halloween': { name: 'Halloween', description: 'Spooky celebrations', category: 'Seasonal' },
-  'valentines': { name: "Valentine's Day", description: 'Romantic celebrations', category: 'Seasonal' },
-  'new-year': { name: 'New Year', description: 'New Year celebrations', category: 'Seasonal' },
-  
-  // Location & Features
-  'heathrow-area': { name: 'Near Heathrow', description: 'Perfect for airport workers', category: 'Location' },
-  'stanwell-moor': { name: 'Stanwell Moor', description: 'Your local village pub', category: 'Location' },
-  'dog-friendly': { name: 'Dog Friendly', description: 'Welcoming for dogs', category: 'Features' },
-  'family-friendly': { name: 'Family Friendly', description: 'Perfect for families', category: 'Features' },
-  'outdoor-seating': { name: 'Beer Garden', description: 'Outdoor dining', category: 'Features' },
+  // Core Categories
+  'food-and-drink': { name: 'Food & Drink', description: 'Delicious pub food, dining experiences, and drink selections', category: 'Core' },
+  'events': { name: 'Events', description: 'Live entertainment, quizzes, and special events', category: 'Core' },
+  'community': { name: 'Community', description: 'Local news, charity initiatives, and village stories', category: 'Core' },
+  'sports': { name: 'Sports', description: 'Live sports coverage and fixtures', category: 'Core' },
+  'offers': { name: 'Special Offers', description: 'Latest deals, discounts, and promotions', category: 'Core' },
+  'seasonal': { name: 'Seasonal', description: 'Festive celebrations and holiday updates', category: 'Core' },
+  'news': { name: 'News', description: 'General updates and announcements', category: 'Core' },
 }
 
 export default async function AllTagsPage() {
   const allPosts = await getAllBlogPosts()
-  
+
   // Get all unique tags with counts
   const tagCounts = new Map<string, number>()
   allPosts.forEach(post => {
@@ -79,27 +43,20 @@ export default async function AllTagsPage() {
       tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1)
     })
   })
-  
+
   // Group tags by category
   const categorizedTags: Record<string, Array<[string, number]>> = {
-    'Primary': [],
-    'Food': [],
-    'Drinks': [],
-    'Events': [],
-    'Sports': [],
-    'Seasonal': [],
-    'Location': [],
-    'Features': [],
+    'Core': [],
     'Other': []
   }
-  
+
   // Sort tags into categories
   Array.from(tagCounts.entries()).forEach(([tag, count]) => {
     const info = tagInfo[tag]
     const category = info?.category || 'Other'
     categorizedTags[category].push([tag, count])
   })
-  
+
   // Sort each category by count
   Object.keys(categorizedTags).forEach(category => {
     categorizedTags[category].sort((a, b) => b[1] - a[1])
@@ -118,7 +75,7 @@ export default async function AllTagsPage() {
           { name: 'All Topics' }
         ]}
         secondaryCta={
-          <Link 
+          <Link
             href="/blog"
             className="inline-flex items-center text-white/90 hover:text-white transition-colours"
           >
@@ -131,19 +88,19 @@ export default async function AllTagsPage() {
       <Section spacing="lg" container containerSize="lg">
         {Object.entries(categorizedTags).map(([category, tags]) => {
           if (tags.length === 0) return null
-          
+
           return (
             <div key={category} className="mb-12 last:mb-0">
               <h2 className="text-2xl font-bold text-anchor-green mb-6">
-                {category === 'Primary' ? 'Main Categories' : category}
+                {category === 'Core' ? 'Browse by Topic' : category}
               </h2>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                 {tags.map(([tag, count]) => {
-                  const info = tagInfo[tag] || { 
-                    name: tag.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()), 
+                  const info = tagInfo[tag] || {
+                    name: tag.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
                     description: `Posts about ${tag}`
                   }
-                  
+
                   return (
                     <Link
                       key={tag}

@@ -23,11 +23,8 @@ keywords:
   - pancake dinner stanwell moor
   - shrove tuesday near heathrow
 tags:
-  - food
-  - pancake-day
-  - shrove-tuesday
-  - traditional
-  - february
+  - food-and-drink
+  - news
 featured: false
 hero: hero.png
 images: []

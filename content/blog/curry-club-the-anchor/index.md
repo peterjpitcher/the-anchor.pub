@@ -1,9 +1,11 @@
 ---
 title: Curry Night Near Heathrow Airport | Authentic Indian Thali Stanwell Moor
 description: >-
-  Experience authentic Indian curry nights at The Anchor pub near Heathrow Airport. Monthly curry club featuring
-  traditional thali, butter chicken, and vegetarian options. Just 7 minutes from Terminal 5. Expert chef, amazing value
-  at £12.99, perfect for airport staff and curry lovers in Stanwell Moor and Staines.
+  Experience authentic Indian curry nights at The Anchor pub near Heathrow
+  Airport. Monthly curry club featuring traditional thali, butter chicken, and
+  vegetarian options. Just 7 minutes from Terminal 5. Expert chef, amazing value
+  at £12.99, perfect for airport staff and curry lovers in Stanwell Moor and
+  Staines.
 date: '2025-01-15'
 oldUrl: 'https://www.the-anchor.pub/post/curry-club-the-anchor'
 author: Billy
@@ -21,11 +23,10 @@ keywords:
   - pub curry night heathrow
   - authentic indian near terminal 5
 tags:
-  - curry-night
+  - news
   - events
-  - food
-  - heathrow-area
-  - indian-food
+  - food-and-drink
+  - community
 featured: true
 hero: hero.jpg
 images: []

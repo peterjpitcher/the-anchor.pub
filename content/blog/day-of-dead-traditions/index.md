@@ -24,10 +24,7 @@ keywords:
   - mexican culture near airport
 tags:
   - community
-  - day-of-the-dead
-  - mexican-culture
-  - traditions
-  - october
+  - news
 featured: false
 hero: hero.png
 images: []

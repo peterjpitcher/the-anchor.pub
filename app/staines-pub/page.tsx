@@ -522,6 +522,11 @@ export default async function StainesPubPage() {
             variant: "secondary"
           },
           {
+            text: "🎉 Book an Event",
+            href: "/book-event",
+            variant: "white"
+          },
+          {
             text: "📍 Get Directions from Staines",
             href: "https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor",
             variant: "outline",

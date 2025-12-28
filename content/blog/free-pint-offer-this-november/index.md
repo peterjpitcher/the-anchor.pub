@@ -21,11 +21,9 @@ keywords:
   - signature ale near terminal 5
   - stanwell moor residents offer
 tags:
-  - special-offers
-  - november
-  - drinks
-  - promotion
-  - limited-time
+  - offers
+  - news
+  - food-and-drink
 featured: false
 hero: hero.png
 images: []

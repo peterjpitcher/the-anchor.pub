@@ -8,6 +8,7 @@ import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { landmarks } from '@/lib/local-seo-data'
+import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 
 export const metadata: Metadata = {
     title: 'Christening Venue Near Staines & Stanwell | The Anchor',
@@ -137,6 +138,8 @@ export default function ChristeningsPage() {
                     />
                 </Container>
             </section>
+
+            <PrivateBookingSection eventType="Christening / Baby Shower" />
 
             <FAQAccordionWithSchema
                 faqs={[

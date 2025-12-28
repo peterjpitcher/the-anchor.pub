@@ -1,10 +1,17 @@
 ---
-title: "Charity Walk for Holly: Stanwell Moor to Brighton | Community Event Near Heathrow"
+title: >-
+  Charity Walk for Holly: Stanwell Moor to Brighton | Community Event Near
+  Heathrow
 slug: charity-walk-holly
-description: "Join Jason West's 65-mile charity walk from The Anchor pub Stanwell Moor to Brighton Pier for Holly's cancer fight. Supporting Momentum Children's Charity. Local pub near Heathrow hosts community fundraiser. Donate or join the walk starting March 21st."
-date: "2024-02-14"
-oldUrl: "https://www.the-anchor.pub/post/charity-walk-for-holly-near-heathrow-stanwell-moor"
-author: "Billy"
+description: >-
+  Join Jason West's 65-mile charity walk from The Anchor pub Stanwell Moor to
+  Brighton Pier for Holly's cancer fight. Supporting Momentum Children's
+  Charity. Local pub near Heathrow hosts community fundraiser. Donate or join
+  the walk starting March 21st.
+date: '2024-02-14'
+oldUrl: >-
+  https://www.the-anchor.pub/post/charity-walk-for-holly-near-heathrow-stanwell-moor
+author: Billy
 keywords:
   - charity walk stanwell moor
   - holly west fundraiser
@@ -16,14 +23,12 @@ keywords:
   - stanwell moor community
   - local fundraising event
 tags:
-  - charity
   - community
   - events
-  - local-heroes
+  - news
 featured: true
-hero: "hero.png"
-images:
-  []
+hero: hero.png
+images: []
 ---
 
 ![Charity Walk for Holly - Supporting Momentum Children's Charity](/content/blog/charity-walk-holly/hero.png)

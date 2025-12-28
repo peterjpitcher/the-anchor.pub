@@ -456,6 +456,11 @@ export default function FelthamPubPage() {
             variant: "white"
           },
           {
+            text: "🎉 Book an Event",
+            href: "/book-event",
+            variant: "white"
+          },
+          {
             text: "📍 Get Directions",
             href: "/find-us",
             variant: "white"

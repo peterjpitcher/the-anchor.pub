@@ -22,11 +22,8 @@ keywords:
   - pet wellbeing guide
   - heathrow area pet support
 tags:
-  - dog-friendly
-  - heathrow-area
-  - mental-health
-  - pet-health
-  - wellbeing
+  - community
+  - news
 featured: false
 hero: hero.png
 images: []

@@ -23,10 +23,9 @@ keywords:
   - manager specials near heathrow
   - rum bar near terminal 5
 tags:
-  - cocktails
-  - heathrow-area
-  - special-offers
-  - spirits
+  - food-and-drink
+  - community
+  - offers
 featured: true
 hero: hero.jpg
 images: []

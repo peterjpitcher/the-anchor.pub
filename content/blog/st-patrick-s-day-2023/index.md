@@ -21,10 +21,9 @@ keywords:
   - the anchor st patricks
 tags:
   - events
-  - st-patricks-day
-  - irish
-  - special-offers
-  - march
+  - seasonal
+  - news
+  - offers
 featured: false
 hero: hero.png
 images: []

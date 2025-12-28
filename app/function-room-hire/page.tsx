@@ -14,6 +14,7 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 import { JsonLd } from '@/components/JsonLd'
+import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 
 export const metadata: Metadata = {
   title: 'Function Room Hire Near Heathrow & Staines | The Anchor',
@@ -591,6 +592,8 @@ export default function FunctionRoomHirePage() {
           </div>
         </div>
       </section>
+
+      <PrivateBookingSection eventType="Other" />
 
       <InternalLinkingSection
         title="Next Steps For Your Event"

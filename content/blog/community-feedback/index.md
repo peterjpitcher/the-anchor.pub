@@ -2,11 +2,14 @@
 title: Community Pub Near Heathrow | The Anchor's Local Journey
 slug: community-feedback
 description: >-
-  The Anchor pub near Heathrow Airport values community feedback. Historic village pub in Stanwell Moor, 7 minutes from
-  Terminal 5, seeking local input. Perfect meeting spot for Heathrow workers and Staines residents. Nearly 300 years
-  serving the community. Share your ideas for events, menu, and improvements. Free parking available.
+  The Anchor pub near Heathrow Airport values community feedback. Historic
+  village pub in Stanwell Moor, 7 minutes from Terminal 5, seeking local input.
+  Perfect meeting spot for Heathrow workers and Staines residents. Nearly 300
+  years serving the community. Share your ideas for events, menu, and
+  improvements. Free parking available.
 date: '2023-10-08'
-oldUrl: 'https://www.the-anchor.pub/post/the-anchor-s-journey-harnessing-community-feedback'
+oldUrl: >-
+  https://www.the-anchor.pub/post/the-anchor-s-journey-harnessing-community-feedback
 author: Billy
 keywords:
   - community pub near heathrow
@@ -21,10 +24,7 @@ keywords:
   - feedback near airport
 tags:
   - community
-  - feedback
-  - improvement
-  - customer-service
-  - listening
+  - news
 featured: false
 hero: hero.jpg
 images: []

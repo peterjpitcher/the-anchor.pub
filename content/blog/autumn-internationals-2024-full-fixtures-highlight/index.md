@@ -1,10 +1,12 @@
 ---
 title: Autumn Internationals Rugby 2024 Near Heathrow | Live Fixtures & Pub Guide
 description: >-
-  Watch the Autumn Internationals rugby 2024 at The Anchor near Heathrow. Follow every November fixture with free
-  parking, big screens and hearty pub food minutes from Terminal 5.
+  Watch the Autumn Internationals rugby 2024 at The Anchor near Heathrow. Follow
+  every November fixture with free parking, big screens and hearty pub food
+  minutes from Terminal 5.
 date: '2024-08-23'
-oldUrl: 'https://www.the-anchor.pub/post/autumn-internationals-2024-full-fixtures-highlight'
+oldUrl: >-
+  https://www.the-anchor.pub/post/autumn-internationals-2024-full-fixtures-highlight
 author: Billy
 keywords:
   - autumn internationals 2024
@@ -17,8 +19,6 @@ keywords:
   - traditional pub food
 tags:
   - events
-  - live-sports
-  - rugby
   - sports
 featured: true
 hero: hero.jpg

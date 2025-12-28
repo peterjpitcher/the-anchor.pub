@@ -1,8 +1,9 @@
 ---
 title: Christmas Fair Near Heathrow | Annual Market at The Anchor Stanwell Moor
 description: >-
-  Join our annual Christmas Fair at The Anchor pub near Heathrow Airport. Local artisan stalls, festive shopping, mulled
-  wine, and family fun just 7 minutes from Terminal 5. Stanwell Moor's favourite Christmas market. Perfect weekend
+  Join our annual Christmas Fair at The Anchor pub near Heathrow Airport. Local
+  artisan stalls, festive shopping, mulled wine, and family fun just 7 minutes
+  from Terminal 5. Stanwell Moor's favourite Christmas market. Perfect weekend
   activity for Heathrow travelers and locals.
 date: '2019-09-21'
 oldUrl: 'https://www.the-anchor.pub/post/christmas-fair-at-the-anchor'
@@ -20,10 +21,9 @@ keywords:
   - stanwell moor christmas market
 tags:
   - events
-  - christmas
-  - market
+  - seasonal
+  - news
   - community
-  - december
 featured: false
 hero: hero.jpg
 images: []

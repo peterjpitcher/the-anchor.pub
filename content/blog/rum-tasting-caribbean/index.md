@@ -24,10 +24,8 @@ keywords:
   - tasting events near airport
 tags:
   - events
-  - rum
-  - tasting-events
-  - caribbean
-  - spirits
+  - news
+  - food-and-drink
 featured: false
 hero: hero.png
 images: []

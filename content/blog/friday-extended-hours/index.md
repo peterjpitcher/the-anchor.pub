@@ -23,11 +23,9 @@ keywords:
   - lunch meeting venue near terminal 5
   - friday pub food stanwell moor
 tags:
-  - food
-  - friday
-  - heathrow-area
-  - lunch
-  - opening-hours
+  - food-and-drink
+  - news
+  - community
 featured: false
 hero: hero.png
 images: []

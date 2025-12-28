@@ -22,11 +22,8 @@ keywords:
   - dog friendly pub surrey
   - kindness celebration pub
 tags:
-  - annual-celebrations
+  - news
   - community
-  - family-friendly
-  - heathrow-area
-  - kindness-day
 featured: false
 hero: hero.png
 images: []

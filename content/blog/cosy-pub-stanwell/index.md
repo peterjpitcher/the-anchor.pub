@@ -2,9 +2,10 @@
 title: Cosy Pub Near Heathrow | The Anchor in Stanwell Moor Village
 slug: cosy-pub-stanwell
 description: >-
-  Discover the perfect cosy pub near Heathrow Airport. The Anchor in Stanwell Moor offers traditional pub atmosphere,
-  local ales, comfort food, and a warm welcome just 7 minutes from Terminal 5. Dog-friendly village pub with beer garden
-  and regular events.
+  Discover the perfect cosy pub near Heathrow Airport. The Anchor in Stanwell
+  Moor offers traditional pub atmosphere, local ales, comfort food, and a warm
+  welcome just 7 minutes from Terminal 5. Dog-friendly village pub with beer
+  garden and regular events.
 date: '2023-03-17'
 oldUrl: 'https://www.the-anchor.pub/post/stanwell-moor-ideal-for-a-cosy-pub'
 author: Billy
@@ -18,11 +19,8 @@ keywords:
   - local pub terminal 5
   - family friendly pub staines
 tags:
-  - local-area
-  - pub-life
+  - news
   - community
-  - dog-friendly
-  - beer-garden
 featured: false
 hero: hero.jpg
 images: []

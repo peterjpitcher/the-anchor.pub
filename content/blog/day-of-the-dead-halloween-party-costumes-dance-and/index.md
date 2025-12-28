@@ -1,11 +1,14 @@
 ---
 title: Halloween Party Near Heathrow | Day of the Dead at The Anchor
 description: >-
-  Join The Anchor's annual Halloween party near Heathrow Airport with Day of the Dead themes. Family-friendly costume
-  party in Stanwell Moor, just 7 minutes from Terminal 5. Live DJ, fancy dress competition, shot paddles. Perfect
-  Halloween event for Heathrow workers and Staines residents. Free parking available.
+  Join The Anchor's annual Halloween party near Heathrow Airport with Day of the
+  Dead themes. Family-friendly costume party in Stanwell Moor, just 7 minutes
+  from Terminal 5. Live DJ, fancy dress competition, shot paddles. Perfect
+  Halloween event for Heathrow workers and Staines residents. Free parking
+  available.
 date: '2024-11-02'
-oldUrl: 'https://www.the-anchor.pub/post/day-of-the-dead-halloween-party-costumes-dance-and'
+oldUrl: >-
+  https://www.the-anchor.pub/post/day-of-the-dead-halloween-party-costumes-dance-and
 author: Billy
 keywords:
   - halloween party near heathrow
@@ -20,10 +23,9 @@ keywords:
   - community halloween near terminal 5
 tags:
   - community
-  - drinks
+  - food-and-drink
   - events
-  - food
-  - special-offers
+  - offers
 featured: false
 hero: hero.png
 images: null

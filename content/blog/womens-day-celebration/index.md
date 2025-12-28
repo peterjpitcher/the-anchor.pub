@@ -23,10 +23,7 @@ keywords:
   - womens day drinks heathrow
 tags:
   - events
-  - womens-day
-  - march
-  - equality
-  - celebration
+  - news
 featured: false
 hero: hero.png
 images: []

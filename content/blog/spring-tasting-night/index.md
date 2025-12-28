@@ -1,10 +1,15 @@
 ---
-title: "Spring Tasting Events at The Anchor | Premium Spirits Near Heathrow"
+title: Spring Tasting Events at The Anchor | Premium Spirits Near Heathrow
 slug: spring-tasting-night
-description: "Join our exclusive tasting events at The Anchor pub near Heathrow. Spring spirits, cocktail masterclasses, and seasonal tastings in Stanwell Moor. Book our next rum tasting event June 2025. Quality drinks experiences just 7 minutes from Terminal 5."
-date: "2025-03-31"
-oldUrl: "https://www.the-anchor.pub/post/spring-tasting-night-at-the-anchor-unmissable-flav"
-author: "Billy"
+description: >-
+  Join our exclusive tasting events at The Anchor pub near Heathrow. Spring
+  spirits, cocktail masterclasses, and seasonal tastings in Stanwell Moor. Book
+  our next rum tasting event June 2025. Quality drinks experiences just 7
+  minutes from Terminal 5.
+date: '2025-03-31'
+oldUrl: >-
+  https://www.the-anchor.pub/post/spring-tasting-night-at-the-anchor-unmissable-flav
+author: Billy
 keywords:
   - pub events near heathrow
   - tasting events stanwell moor
@@ -16,11 +21,10 @@ keywords:
   - pub tastings staines
 tags:
   - events
-  - tastings
-  - spirits
-  - cocktails
+  - news
+  - food-and-drink
 featured: false
-hero: "hero.png"
+hero: hero.png
 images: []
 ---
 

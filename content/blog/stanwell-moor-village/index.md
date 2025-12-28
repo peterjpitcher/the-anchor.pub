@@ -22,10 +22,7 @@ keywords:
   - support local stanwell moor
 tags:
   - community
-  - stanwell-moor
-  - village-life
-  - local-area
-  - guide
+  - news
 featured: false
 hero: hero.png
 images: []

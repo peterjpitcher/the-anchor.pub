@@ -1,6 +1,9 @@
 ---
 title: Best Sunday Roast Near Heathrow Airport | The Anchor Stanwell Moor
-description: Discover the best Sunday roast near Heathrow with The Anchor's hand-carved meats, veggie options, and family-friendly dining just 7 minutes from Terminal 5.
+description: >-
+  Discover the best Sunday roast near Heathrow with The Anchor's hand-carved
+  meats, veggie options, and family-friendly dining just 7 minutes from Terminal
+  5.
 date: '2025-10-13'
 author: The Anchor Team
 keywords:
@@ -10,14 +13,12 @@ keywords:
   - sunday lunch near heathrow hotels
   - family sunday roast staines
 tags:
-  - food
-  - sunday-roast
-  - heathrow
-  - family
+  - food-and-drink
+  - news
 featured: true
 hero: hero.jpg
 images: []
-canonical: https://www.the-anchor.pub/blog/best-sunday-roast-near-heathrow
+canonical: 'https://www.the-anchor.pub/blog/best-sunday-roast-near-heathrow'
 ---
 
 ![Carvery-style Sunday roast near Heathrow](/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg)

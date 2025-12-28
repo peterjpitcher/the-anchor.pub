@@ -22,11 +22,8 @@ keywords:
   - pet business guide
   - heathrow area pet services
 tags:
-  - business-tips
-  - dog-friendly
-  - entrepreneurship
-  - heathrow-area
-  - pet-friendly
+  - news
+  - community
 featured: false
 hero: hero.png
 images: []

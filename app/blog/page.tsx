@@ -39,18 +39,18 @@ export default async function BlogPage({
 }) {
   const currentPage = Number(searchParams.page) || 1
   const allPosts = await getAllBlogPosts()
-  
+
   // Calculate pagination
   const totalPosts = allPosts.length
   const totalPages = Math.ceil(totalPosts / POSTS_PER_PAGE)
   const startIndex = (currentPage - 1) * POSTS_PER_PAGE
   const endIndex = startIndex + POSTS_PER_PAGE
-  
+
   // Get posts for current page
   const posts = allPosts.slice(startIndex, endIndex)
   const featuredPost = currentPage === 1 ? (allPosts.find(post => post.featured) || posts[0]) : null
   const otherPosts = featuredPost ? posts.filter(post => post.slug !== featuredPost.slug) : posts
-  
+
   // Get all unique tags with counts
   const tagCounts = new Map<string, number>()
   allPosts.forEach(post => {
@@ -58,36 +58,32 @@ export default async function BlogPage({
       tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1)
     })
   })
-  
+
   // Sort tags by count (most popular first)
   const sortedTags = Array.from(tagCounts.entries())
     .sort((a, b) => b[1] - a[1])
-  
+
   // Tag display names
   const tagNames: Record<string, string> = {
-    'food': 'Food & Dining',
-    'drinks': 'Drinks & Bar',
+    'food-and-drink': 'Food & Drink',
     'events': 'Events',
     'community': 'Community',
     'sports': 'Sports',
-    'special-offers': 'Special Offers',
-    'quiz-night': 'Quiz Nights',
-    'drag-shows': 'Drag Shows',
-    'tasting-events': 'Tastings',
-    'sunday-roast': 'Sunday Roast',
-    'christmas': 'Christmas',
-    'heathrow-area': 'Near Heathrow',
-    'dog-friendly': 'Dog Friendly',
+    'offers': 'Special Offers',
+    'seasonal': 'Seasonal',
+    'news': 'News',
   }
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(generateBreadcrumbSchema([
-          { name: 'Home', url: '/' },
-          { name: 'Blog', url: '/blog' }
-        ])) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(generateBreadcrumbSchema([
+            { name: 'Home', url: '/' },
+            { name: 'Blog', url: '/blog' }
+          ]))
+        }}
       />
       {/* Hero Section */}
       <HeroWrapper
@@ -150,7 +146,7 @@ export default async function BlogPage({
               </div>
               {sortedTags.length > 12 && (
                 <div className="text-center">
-                  <Link 
+                  <Link
                     href="/blog/tags"
                     className="inline-flex items-center text-anchor-gold hover:text-anchor-gold-light font-semibold transition-colours"
                   >
@@ -192,7 +188,7 @@ export default async function BlogPage({
                     <div className="flex flex-wrap gap-2 mb-4">
                       {featuredPost.tags.map(tag => (
                         <Link key={tag} href={`/blog/tag/${tag}`}>
-                          <Badge 
+                          <Badge
                             variant="default"
                             size="sm"
                             className="bg-anchor-gold/20 text-anchor-green hover:bg-anchor-gold hover:text-white transition-colours"
@@ -239,7 +235,7 @@ export default async function BlogPage({
             <h2 className="text-2xl md:text-3xl font-bold text-anchor-green mb-8">
               {currentPage === 1 ? 'Latest Stories' : 'All Stories'}
             </h2>
-            
+
             {otherPosts.length > 0 ? (
               <>
                 <Grid cols={3} gap="lg" className="mb-12">
@@ -265,7 +261,7 @@ export default async function BlogPage({
                         <div className="flex flex-wrap gap-2 mb-3">
                           {post.tags.map(tag => (
                             <Link key={tag} href={`/blog/tag/${tag}`}>
-                              <Badge 
+                              <Badge
                                 variant="default"
                                 size="sm"
                                 className="bg-gray-100 text-gray-600 hover:bg-anchor-gold hover:text-white transition-colours"
@@ -329,7 +325,7 @@ export default async function BlogPage({
                             key={page}
                             href={page === 1 ? '/blog' : `/blog?page=${page}`}
                           >
-                            <Button 
+                            <Button
                               variant={page === currentPage ? 'primary' : 'outline'}
                               size="sm"
                             >
@@ -392,7 +388,7 @@ export default async function BlogPage({
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/whats-on" className="w-full sm:w-auto">
-              <Button 
+              <Button
                 variant="secondary"
                 size="lg"
                 fullWidth
@@ -402,7 +398,7 @@ export default async function BlogPage({
               </Button>
             </Link>
             <Link href="/find-us" className="w-full sm:w-auto">
-              <Button 
+              <Button
                 variant="secondary"
                 size="lg"
                 fullWidth

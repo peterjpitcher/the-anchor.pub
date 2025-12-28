@@ -20,11 +20,9 @@ keywords:
   - cultural events staines
   - october events pub
 tags:
-  - cultural
-  - day-of-the-dead
+  - news
   - events
-  - mexican
-  - spirits
+  - food-and-drink
 featured: false
 hero: hero.png
 images: []

@@ -23,10 +23,7 @@ keywords:
   - responsible hospitality heathrow
 tags:
   - community
-  - sustainability
-  - environment
-  - green
-  - responsibility
+  - news
 featured: false
 hero: hero.png
 images: []

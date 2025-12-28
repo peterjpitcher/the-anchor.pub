@@ -22,9 +22,8 @@ keywords:
   - celebrations near airport
 tags:
   - community
-  - drinks
+  - food-and-drink
   - events
-  - food
 featured: false
 hero: hero.png
 images: []

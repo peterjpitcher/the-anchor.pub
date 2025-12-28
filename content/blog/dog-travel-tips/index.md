@@ -24,10 +24,9 @@ keywords:
   - dog pub near heathrow airport
 tags:
   - community
-  - drinks
+  - food-and-drink
   - events
-  - food
-  - special-offers
+  - offers
 featured: false
 hero: hero.png
 images: []

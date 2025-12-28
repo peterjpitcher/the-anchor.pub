@@ -23,10 +23,7 @@ keywords:
   - sustainable pub near heathrow
 tags:
   - community
-  - earth-day
-  - environment
-  - april
-  - volunteer
+  - news
 featured: false
 hero: hero.png
 images: []

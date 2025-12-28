@@ -8,6 +8,7 @@ import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { landmarks } from '@/lib/local-seo-data'
+import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 
 export const metadata: Metadata = {
     title: 'Wedding Reception & Engagement Party Venue | The Anchor',
@@ -149,6 +150,8 @@ export default function WeddingsPage() {
                     />
                 </Container>
             </section>
+
+            <PrivateBookingSection eventType="Wedding Reception" />
 
             <FAQAccordionWithSchema
                 faqs={[

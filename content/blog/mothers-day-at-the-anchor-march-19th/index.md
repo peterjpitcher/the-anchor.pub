@@ -21,10 +21,9 @@ keywords:
   - traditional sunday lunch heathrow
 tags:
   - events
-  - mothers-day
-  - sunday-roast
-  - family-dining
-  - march
+  - seasonal
+  - food-and-drink
+  - news
 featured: false
 hero: hero.png
 images: []

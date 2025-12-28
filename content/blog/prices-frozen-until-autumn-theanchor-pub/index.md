@@ -20,10 +20,9 @@ keywords:
   - proper pub prices heathrow
 tags:
   - community
-  - drinks
+  - food-and-drink
   - events
-  - food
-  - special-offers
+  - offers
 featured: false
 hero: hero.jpg
 images: []

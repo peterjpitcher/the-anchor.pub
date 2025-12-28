@@ -24,10 +24,7 @@ keywords:
   - hospitality careers stanwell moor
 tags:
   - community
-  - jobs
-  - careers
-  - hiring
-  - opportunity
+  - news
 featured: false
 hero: hero.png
 images: []

@@ -27,6 +27,7 @@ export interface PrivateBookingConfig {
     name: string
     description?: string
     package_type?: string
+    category?: 'food' | 'drink' | 'addon'
     cost_per_head: number
     minimum_guests: number
     dietary_notes?: string
@@ -40,16 +41,23 @@ export interface PrivateBookingConfig {
   }[]
 }
 
+
+export type ItemType = 'space' | 'catering' | 'vendor' | 'other'
+export type DiscountType = 'percent' | 'fixed'
+
 export interface PrivateBookingItem {
-  item_type: 'space' | 'catering' | 'vendor' | 'other'
-  description: string
-  quantity: number
-  unit_price: number
-  line_total: number
-  notes?: string
+  item_type: ItemType
   space_id?: string
   package_id?: string
   vendor_id?: string
+  description: string
+  quantity: number
+  unit_price: number
+  line_total: number // Kept for frontend calculation/display, backend might recalculate
+  discount_type?: DiscountType
+  discount_value?: number
+  discount_reason?: string
+  notes?: string
 }
 
 export interface PrivateBookingRequest {

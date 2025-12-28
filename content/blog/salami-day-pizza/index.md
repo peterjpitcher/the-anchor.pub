@@ -23,11 +23,9 @@ keywords:
   - discount pizza near terminal 5
   - italian food near airport
 tags:
-  - food
-  - pizza
-  - special-offers
-  - italian
-  - september
+  - food-and-drink
+  - offers
+  - news
 featured: false
 hero: hero.png
 images: []

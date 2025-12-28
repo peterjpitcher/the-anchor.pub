@@ -1,14 +1,14 @@
 ---
-title: >-
-slug: piano-christmas-performance
-  Live Piano Near Heathrow Airport | Christmas Market Entertainment Stanwell
-  Moor
+title: ''
+slug: >-
+  piano-christmas-performance Live Piano Near Heathrow Airport | Christmas
+  Market Entertainment Stanwell Moor
 description: >-
   Experience live piano performances at The Anchor's Christmas Market near
   Heathrow Airport. Featuring talented young musicians at our festive events in
-  Stanwell Moor. Family-friendly atmosphere, just 7 minutes from
-  Terminal 5. Perfect for airport staff and locals seeking quality entertainment
-  and Christmas shopping.
+  Stanwell Moor. Family-friendly atmosphere, just 7 minutes from Terminal 5.
+  Perfect for airport staff and locals seeking quality entertainment and
+  Christmas shopping.
 date: '2025-01-15'
 oldUrl: >-
   https://www.the-anchor.pub/post/arjun-r-s-piano-performance-at-the-anchor-s-christ
@@ -27,10 +27,8 @@ keywords:
   - festive piano near heathrow
   - local talent showcase
 tags:
-  - christmas-market
-  - entertainment
+  - news
   - events
-  - piano
 featured: true
 hero: hero.png
 images: []

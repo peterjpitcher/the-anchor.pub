@@ -21,7 +21,7 @@ keywords:
   - winter retreat heathrow
 tags:
   - events
-  - drinks
+  - food-and-drink
 featured: false
 hero: hero.png
 images: []

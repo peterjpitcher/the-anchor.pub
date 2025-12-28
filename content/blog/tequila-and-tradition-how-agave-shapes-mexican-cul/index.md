@@ -20,9 +20,8 @@ keywords:
   - traditional mexican drinks
   - best tequila near me
 tags:
-  - culture
-  - drinks
-  - spirits
+  - news
+  - food-and-drink
 featured: false
 hero: hero.png
 images: []

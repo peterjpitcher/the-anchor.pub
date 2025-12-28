@@ -22,10 +22,8 @@ keywords:
   - armistice day near terminal 5
 tags:
   - events
-  - remembrance-day
+  - news
   - community
-  - november
-  - british-history
 featured: false
 hero: hero.png
 images: []

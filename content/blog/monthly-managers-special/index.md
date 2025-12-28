@@ -20,11 +20,9 @@ keywords:
   - quality spirits near me
   - pub offers staines
 tags:
-  - special-offers
-  - monthly
-  - drinks
-  - manager-picks
-  - value
+  - offers
+  - news
+  - food-and-drink
 featured: true
 hero: hero.png
 images: []

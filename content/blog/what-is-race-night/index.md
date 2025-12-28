@@ -19,9 +19,8 @@ keywords:
   - horse racing nights
 tags:
   - events
-  - charity
-  - entertainment
-  - race-night
+  - community
+  - news
 featured: false
 hero: hero.gif
 images: []

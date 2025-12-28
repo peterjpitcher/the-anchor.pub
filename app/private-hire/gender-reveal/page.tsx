@@ -11,6 +11,7 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
+import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 
 export const metadata: Metadata = {
     title: 'Gender Reveal Party Venue | The Anchor',
@@ -157,6 +158,8 @@ export default function GenderRevealPage() {
                     </div>
                 </Container>
             </section>
+
+            <PrivateBookingSection eventType="Christening / Baby Shower" />
 
             <FAQAccordionWithSchema
                 faqs={[

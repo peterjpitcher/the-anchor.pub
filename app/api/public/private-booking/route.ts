@@ -17,6 +17,11 @@ export async function POST(request: Request) {
         const data = await res.json()
 
         if (!res.ok) {
+            console.error('Upstream Private Booking Error:', {
+                status: res.status,
+                statusText: res.statusText,
+                data
+            })
             return NextResponse.json(data, { status: res.status })
         }
 

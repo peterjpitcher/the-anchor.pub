@@ -11,6 +11,7 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
+import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 
 export const metadata: Metadata = {
     title: 'Milestone Birthday Party Venue | 30th, 40th, 50th Parties',
@@ -178,6 +179,8 @@ export default function MilestoneBirthdaysPage() {
                     </div>
                 </Container>
             </section>
+
+            <PrivateBookingSection eventType="Birthday Party" />
 
             <FAQAccordionWithSchema
                 faqs={[

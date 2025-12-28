@@ -2,11 +2,13 @@
 title: British Pie Week Near Heathrow Airport | Best Pies Stanwell Moor Pub
 slug: british-pie-week-2024
 description: >-
-  Celebrate British Pie Week at The Anchor pub near Heathrow Airport. Enjoy 50% off traditional British pies including
-  steak & ale, chicken & mushroom. Just 7 minutes from Terminal 5. Perfect for airport staff lunches and authentic
+  Celebrate British Pie Week at The Anchor pub near Heathrow Airport. Enjoy 50%
+  off traditional British pies including steak & ale, chicken & mushroom. Just 7
+  minutes from Terminal 5. Perfect for airport staff lunches and authentic
   British dining. Our celebrated pies in Stanwell Moor with free parking.
 date: '2025-01-15'
-oldUrl: 'https://www.the-anchor.pub/post/celebrate-british-pie-week-heathrow-2024-stanwell-'
+oldUrl: >-
+  https://www.the-anchor.pub/post/celebrate-british-pie-week-heathrow-2024-stanwell-
 author: Billy
 keywords:
   - british pie week near heathrow
@@ -22,11 +24,10 @@ keywords:
   - traditional food near heathrow
   - best pie pub stanwell moor
 tags:
-  - british-cuisine
-  - british-pie-week
-  - food
-  - heathrow-area
-  - special-offers
+  - food-and-drink
+  - news
+  - community
+  - offers
 featured: true
 hero: hero.jpg
 images: []

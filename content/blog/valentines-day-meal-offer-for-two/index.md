@@ -18,10 +18,9 @@ keywords:
   - date night near me
   - the anchor valentines
 tags:
-  - dining
-  - romance
-  - special-offers
-  - valentines
+  - news
+  - offers
+  - seasonal
 featured: false
 hero: hero.png
 images: []

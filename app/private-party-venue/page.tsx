@@ -10,6 +10,7 @@ import { EventSchema } from '@/components/seo/EventSchema'
 import { staticEvents } from '@/lib/static-events'
 import { PhoneButton } from '@/components/PhoneButton'
 import { BookTableButton } from '@/components/BookTableButton'
+import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 
@@ -491,6 +492,8 @@ export default function PrivatePartyVenuePage() {
           </div>
         </Container>
       </section>
+
+      <PrivateBookingSection eventType="Birthday Party" />
 
       {/* FAQ Section */}
       <FAQAccordionWithSchema 

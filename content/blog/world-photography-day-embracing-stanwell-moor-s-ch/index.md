@@ -22,10 +22,7 @@ keywords:
   - community photo contest
 tags:
   - community
-  - heathrow-area
-  - photography
-  - stanwell-moor
-  - world-photography-day
+  - news
 featured: false
 hero: hero.png
 images: []

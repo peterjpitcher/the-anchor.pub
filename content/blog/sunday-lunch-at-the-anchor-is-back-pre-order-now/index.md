@@ -19,10 +19,8 @@ keywords:
   - quality sunday lunch
   - the anchor sunday menu
 tags:
-  - dining
-  - food
-  - sunday-roast
-  - traditional
+  - news
+  - food-and-drink
 featured: true
 hero: hero.jpg
 images: []

@@ -594,6 +594,11 @@ export default async function AshfordPubPage() {
             variant: "secondary"
           },
           {
+            text: "🎉 Book an Event",
+            href: "/book-event",
+            variant: "white"
+          },
+          {
             text: "🎉 View Offers",
             href: "/special-offers",
             variant: "white"

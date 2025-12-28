@@ -1,12 +1,77 @@
 [
   {
     "source": "/blog/tag/offers",
-    "destination": "/blog/tag/special-offers",
+    "destination": "/blog/tag/offers",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/special-offers",
+    "destination": "/blog/tag/offers",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/deals",
+    "destination": "/blog/tag/offers",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/discounts",
+    "destination": "/blog/tag/offers",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/promotions",
+    "destination": "/blog/tag/offers",
     "permanent": true
   },
   {
     "source": "/blog/tag/pet-friendly",
-    "destination": "/blog/tag/dog-friendly",
+    "destination": "/blog/tag/community",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/dog-friendly",
+    "destination": "/blog/tag/community",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/community",
+    "destination": "/blog/tag/community",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/stanwell-moor",
+    "destination": "/blog/tag/community",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/heathrow-area",
+    "destination": "/blog/tag/community",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/charity",
+    "destination": "/blog/tag/community",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/fundraising",
+    "destination": "/blog/tag/community",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/local-news",
+    "destination": "/blog/tag/community",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/history",
+    "destination": "/blog/tag/community",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/families",
+    "destination": "/blog/tag/community",
     "permanent": true
   },
   {
@@ -15,23 +80,258 @@
     "permanent": true
   },
   {
+    "source": "/blog/tag/updates",
+    "destination": "/blog/tag/news",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/news",
+    "destination": "/blog/tag/news",
+    "permanent": true
+  },
+  {
     "source": "/blog/tag/festive",
-    "destination": "/blog/tag/christmas",
+    "destination": "/blog/tag/seasonal",
     "permanent": true
   },
   {
     "source": "/blog/tag/festive-menu",
-    "destination": "/blog/tag/christmas",
+    "destination": "/blog/tag/seasonal",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/christmas",
+    "destination": "/blog/tag/seasonal",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/easter",
+    "destination": "/blog/tag/seasonal",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/halloween",
+    "destination": "/blog/tag/seasonal",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/valentines",
+    "destination": "/blog/tag/seasonal",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/new-year",
+    "destination": "/blog/tag/seasonal",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/mothers-day",
+    "destination": "/blog/tag/seasonal",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/fathers-day",
+    "destination": "/blog/tag/seasonal",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/bank-holiday",
+    "destination": "/blog/tag/seasonal",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/summer",
+    "destination": "/blog/tag/seasonal",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/st-patricks-day",
+    "destination": "/blog/tag/seasonal",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/diwali",
+    "destination": "/blog/tag/seasonal",
     "permanent": true
   },
   {
     "source": "/blog/tag/new-arrivals",
-    "destination": "/blog/tag/new-arrival",
+    "destination": "/blog/tag/news",
     "permanent": true
   },
   {
-    "source": "/blog/tag/updates",
-    "destination": "/blog/tag/news",
+    "source": "/blog/tag/food",
+    "destination": "/blog/tag/food-and-drink",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/drinks",
+    "destination": "/blog/tag/food-and-drink",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/beer",
+    "destination": "/blog/tag/food-and-drink",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/cocktails",
+    "destination": "/blog/tag/food-and-drink",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/wine",
+    "destination": "/blog/tag/food-and-drink",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/spirits",
+    "destination": "/blog/tag/food-and-drink",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/sunday-roast",
+    "destination": "/blog/tag/food-and-drink",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/pizza",
+    "destination": "/blog/tag/food-and-drink",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/fish-and-chips",
+    "destination": "/blog/tag/food-and-drink",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/british-cuisine",
+    "destination": "/blog/tag/food-and-drink",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/burgers",
+    "destination": "/blog/tag/food-and-drink",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/seasonal-menu",
+    "destination": "/blog/tag/food-and-drink",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/tasting-events",
+    "destination": "/blog/tag/food-and-drink",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/steak-night",
+    "destination": "/blog/tag/food-and-drink",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/curry-club",
+    "destination": "/blog/tag/food-and-drink",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/breakfast",
+    "destination": "/blog/tag/food-and-drink",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/new-menu",
+    "destination": "/blog/tag/food-and-drink",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/events",
+    "destination": "/blog/tag/events",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/quiz-night",
+    "destination": "/blog/tag/events",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/drag-shows",
+    "destination": "/blog/tag/events",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/bingo",
+    "destination": "/blog/tag/events",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/karaoke",
+    "destination": "/blog/tag/events",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/live-music",
+    "destination": "/blog/tag/events",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/gameshow",
+    "destination": "/blog/tag/events",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/party",
+    "destination": "/blog/tag/events",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/entertainment",
+    "destination": "/blog/tag/events",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/sports",
+    "destination": "/blog/tag/sports",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/football",
+    "destination": "/blog/tag/sports",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/rugby",
+    "destination": "/blog/tag/sports",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/premier-league",
+    "destination": "/blog/tag/sports",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/six-nations",
+    "destination": "/blog/tag/sports",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/euro-2024",
+    "destination": "/blog/tag/sports",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/world-cup",
+    "destination": "/blog/tag/sports",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/boxing",
+    "destination": "/blog/tag/sports",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/live-sports",
+    "destination": "/blog/tag/sports",
     "permanent": true
   }
 ]

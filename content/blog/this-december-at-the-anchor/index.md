@@ -20,11 +20,9 @@ keywords:
   - december pub events
   - christmas near heathrow airport
 tags:
-  - christmas
+  - seasonal
   - community
-  - december-events
-  - festive
-  - heathrow-area
+  - news
 featured: false
 hero: hero.png
 images: []

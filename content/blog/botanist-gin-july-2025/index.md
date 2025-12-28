@@ -23,11 +23,9 @@ keywords:
   - gin and tonic stanwell moor
   - botanical gin near airport
 tags:
-  - drinks
-  - gin
-  - special-offers
-  - premium-spirits
-  - july
+  - food-and-drink
+  - news
+  - offers
 featured: false
 hero: hero.jpg
 images: []

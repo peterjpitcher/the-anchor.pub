@@ -9,6 +9,7 @@ import { PhoneButton } from '@/components/PhoneButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
+import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 
 // Generate static params for all landmarks at build time
 export async function generateStaticParams() {
@@ -51,6 +52,13 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
 
     const title = isWake ? 'Wakes & Memorials' : isWedding ? 'Wedding Celebrations' : isBaby ? 'Baby Showers & Events' : 'Private Hire & Events'
     const context = isWake ? 'wakes' : isWedding ? 'wedding' : isBaby ? 'baby_shower' : 'private_party'
+    const eventType = isWake
+        ? 'Wake / Memorial'
+        : isWedding
+            ? 'Wedding Reception'
+            : isBaby
+                ? 'Christening / Baby Shower'
+                : 'Other'
 
     return (
         <>
@@ -166,6 +174,8 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
                     />
                 </Container>
             </section>
+
+            <PrivateBookingSection eventType={eventType} />
 
             <section className="bg-anchor-green py-16 text-white text-center">
                 <Container>

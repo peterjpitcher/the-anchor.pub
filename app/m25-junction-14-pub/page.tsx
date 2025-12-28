@@ -587,6 +587,11 @@ export default function M25Junction14PubPage() {
             variant: "secondary"
           },
           {
+            text: "🎉 Book an Event",
+            href: "/book-event",
+            variant: "white"
+          },
+          {
             text: "📍 Get Directions",
             href: "/find-us",
             variant: "white"

@@ -25,11 +25,10 @@ keywords:
   - xmas pub near airport
   - seasonal events stanwell moor
 tags:
-  - christmas
+  - seasonal
   - community
   - events
-  - festive
-  - heathrow-area
+  - news
 featured: true
 hero: hero.png
 images: []

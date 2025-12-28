@@ -20,11 +20,8 @@ keywords:
   - monthly events staines
   - fun nights out surrey
 tags:
-  - music-bingo
+  - news
   - events
-  - wednesday
-  - entertainment
-  - games
 featured: false
 hero: hero.png
 images: []

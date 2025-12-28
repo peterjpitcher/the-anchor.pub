@@ -1,5 +1,7 @@
 ---
-title: Watch Six Nations Rugby Near Heathrow Airport | Friendly Sports Pub Stanwell Moor
+title: >-
+  Watch Six Nations Rugby Near Heathrow Airport | Friendly Sports Pub Stanwell
+  Moor
 description: >-
   Experience Six Nations rugby at The Anchor pub, just 7 minutes from Heathrow
   Airport. Multiple HD screens, traditional pub food, and a passionate
@@ -24,9 +26,7 @@ keywords:
   - six nations 2025 heathrow
 tags:
   - events
-  - heathrow-area
-  - rugby
-  - six-nations
+  - community
   - sports
 featured: true
 hero: hero.png

@@ -1,6 +1,8 @@
 ---
 title: Family-Friendly Sunday Lunch Near Heathrow | The Anchor Pub Guide
-description: Plan a stress-free family Sunday lunch minutes from Heathrow. Kids’ roasts, high chairs, colouring packs, and free parking at The Anchor Stanwell Moor.
+description: >-
+  Plan a stress-free family Sunday lunch minutes from Heathrow. Kids’ roasts,
+  high chairs, colouring packs, and free parking at The Anchor Stanwell Moor.
 date: '2025-10-13'
 author: The Anchor Team
 keywords:
@@ -10,14 +12,12 @@ keywords:
   - child friendly pub near heathrow
   - sunday roast with kids near airport
 tags:
-  - food
-  - sunday-roast
-  - family
-  - heathrow
+  - food-and-drink
+  - news
 featured: false
 hero: hero.jpg
 images: []
-canonical: https://www.the-anchor.pub/blog/family-friendly-sunday-lunch-heathrow
+canonical: 'https://www.the-anchor.pub/blog/family-friendly-sunday-lunch-heathrow'
 ---
 
 ![Family Sunday lunch table setup at The Anchor](/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg)

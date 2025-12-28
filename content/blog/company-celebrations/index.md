@@ -2,11 +2,14 @@
 title: Corporate Events Near Heathrow | Company Parties at The Anchor
 slug: company-celebrations
 description: >-
-  Host corporate events at The Anchor pub near Heathrow Airport. Perfect venue for company parties in Stanwell Moor,
-  just 7 minutes from Terminal 5. Ideal for Heathrow business meetings, team building, Christmas parties. Free parking,
-  private areas, tailored packages. Traditional pub atmosphere near Staines for corporate celebrations.
+  Host corporate events at The Anchor pub near Heathrow Airport. Perfect venue
+  for company parties in Stanwell Moor, just 7 minutes from Terminal 5. Ideal
+  for Heathrow business meetings, team building, Christmas parties. Free
+  parking, private areas, tailored packages. Traditional pub atmosphere near
+  Staines for corporate celebrations.
 date: '2023-03-10'
-oldUrl: 'https://www.the-anchor.pub/post/host-your-company-celebrations-at-the-anchor-pub-i'
+oldUrl: >-
+  https://www.the-anchor.pub/post/host-your-company-celebrations-at-the-anchor-pub-i
 author: Billy
 keywords:
   - corporate events near heathrow
@@ -21,10 +24,8 @@ keywords:
   - corporate pub stanwell moor
 tags:
   - events
-  - corporate
-  - venue-hire
-  - parties
-  - christmas
+  - news
+  - seasonal
 featured: false
 hero: hero.jpg
 images: []

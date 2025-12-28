@@ -22,11 +22,9 @@ keywords:
   - may events near heathrow
   - british heritage pub surrey
 tags:
-  - british-celebrations
+  - news
   - community
   - events
-  - traditional-food
-  - ve-day
 featured: false
 hero: hero.jpg
 images: []

@@ -8,7 +8,7 @@ import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { landmarks } from '@/lib/local-seo-data'
-import { PrivateBookingCalculator } from '@/components/PrivateBookingCalculator'
+import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 
 export const metadata: Metadata = {
     title: 'Wake Venue Near South West Middlesex Crematorium | The Anchor',
@@ -86,65 +86,9 @@ export default function WakesPage() {
                 </Container>
             </section>
 
-            <section className="py-12 bg-gray-50 border-y border-gray-200">
-                <Container size="md">
-                    <SectionHeader
-                        title="Instant Quote & Check Availability"
-                        subtitle="Get an immediate cost estimate for your gathering."
-                    />
-                    <div className="max-w-3xl mx-auto">
-                        <PrivateBookingCalculator />
-                    </div>
-                </Container>
-            </section>
+            <PrivateBookingSection eventType="Wake / Memorial" />
 
-            <section className="section-spacing bg-white">
-                <Container>
-                    <SectionHeader
-                        title="Catering Packages"
-                        subtitle="Simple, dignified menu options to suit your needs"
-                    />
 
-                    <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-                        <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 text-center">
-                            <h3 className="text-xl font-bold text-anchor-green mb-2">Afternoon Tea</h3>
-                            <p className="text-gray-600 mb-4 italic">Catering packages available upon request</p>
-                            <ul className="space-y-3 text-gray-600 mb-6 text-left">
-                                <li>• Selection of finger sandwiches</li>
-                                <li>• Scones with jam & cream</li>
-                                <li>• Assorted cakes</li>
-                                <li>• Unlimited tea & coffee</li>
-                            </ul>
-                        </div>
-
-                        <div className="bg-white p-8 rounded-xl shadow-md border-t-4 border-anchor-gold text-center transform md:-translate-y-2">
-                            <div className="uppercase tracking-wide text-xs font-bold text-anchor-gold mb-2">Most Popular</div>
-                            <h3 className="text-xl font-bold text-anchor-green mb-2">Classic Buffet</h3>
-                            <p className="text-gray-600 mb-4 italic">Catering packages available upon request</p>
-                            <ul className="space-y-3 text-gray-600 mb-6 text-left">
-                                <li>• Selection of sandwiches</li>
-                                <li>• Sausage rolls & pork pies</li>
-                                <li>• Quiche selection</li>
-                                <li>• Chicken goujons</li>
-                                <li>• Chips & dips</li>
-                                <li>• Tea & coffee included</li>
-                            </ul>
-                        </div>
-
-                        <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 text-center">
-                            <h3 className="text-xl font-bold text-anchor-green mb-2">Grand Buffet</h3>
-                            <p className="text-gray-600 mb-4 italic">Catering packages available upon request</p>
-                            <ul className="space-y-3 text-gray-600 mb-6 text-left">
-                                <li>• Everything in Classic Buffet</li>
-                                <li>• Plus: Selection of cold meats</li>
-                                <li>• Plus: Fresh salads & pasta</li>
-                                <li>• Plus: Dessert platter</li>
-                                <li>• Tea & coffee included</li>
-                            </ul>
-                        </div>
-                    </div>
-                </Container>
-            </section>
 
             <section className="section-spacing bg-white">
                 <Container>

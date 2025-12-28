@@ -23,10 +23,7 @@ keywords:
   - the anchor remote work
 tags:
   - community
-  - digital-nomad
-  - pet-friendly
-  - remote-work
-  - wifi
+  - news
 featured: false
 hero: hero.jpg
 images: []

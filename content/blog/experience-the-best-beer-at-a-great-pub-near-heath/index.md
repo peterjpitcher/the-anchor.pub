@@ -1,10 +1,11 @@
 ---
 title: Fresh Draught Beer Near Heathrow Airport | Premium T-Bar Pumps Stanwell Moor
 description: >-
-  Discover refreshing draught beer near Heathrow at The Anchor pub. State-of-the-art
-  T-Bar pumps help us serve ice-cold pints just 7 minutes from Terminal 5. Featuring
-  familiar favourites on tap and a welcoming beer garden. Ideal for airport staff,
-  travelers, and beer enthusiasts looking for reliable quality before or after a flight.
+  Discover refreshing draught beer near Heathrow at The Anchor pub.
+  State-of-the-art T-Bar pumps help us serve ice-cold pints just 7 minutes from
+  Terminal 5. Featuring familiar favourites on tap and a welcoming beer garden.
+  Ideal for airport staff, travelers, and beer enthusiasts looking for reliable
+  quality before or after a flight.
 date: '2025-01-15'
 oldUrl: >-
   https://www.the-anchor.pub/post/experience-the-best-beer-at-a-great-pub-near-heath
@@ -23,10 +24,9 @@ keywords:
   - airport pub with parking
   - carling coors pub heathrow
 tags:
-  - beer
-  - drinks
-  - heathrow-area
-  - pub-upgrades
+  - food-and-drink
+  - community
+  - news
 featured: true
 hero: hero.png
 images: []

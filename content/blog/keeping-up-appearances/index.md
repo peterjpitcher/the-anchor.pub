@@ -21,9 +21,7 @@ keywords:
   - improved parking heathrow pub
 tags:
   - community
-  - heathrow-area
-  - improvements
-  - renovations
+  - news
 featured: false
 hero: hero.png
 images: []

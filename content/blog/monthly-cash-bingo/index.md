@@ -1,10 +1,15 @@
 ---
-title: "Bingo Near Heathrow | Win £50 Cash at The Anchor Monthly Bingo"
+title: Bingo Near Heathrow | Win £50 Cash at The Anchor Monthly Bingo
 slug: monthly-cash-bingo
-description: "Play cash bingo near Heathrow Airport at The Anchor pub. Win up to £50 every first Thursday! Three games, cash prizes, fun atmosphere, and fish & chips available. Just 7 minutes from Terminal 5. 18+ only. Book your table for Stanwell Moor's best bingo night."
-date: "2025-01-26"
-oldUrl: "https://www.the-anchor.pub/post/cash-bingo-at-the-anchor-win-50-at-our-monthly-bin"
-author: "Billy"
+description: >-
+  Play cash bingo near Heathrow Airport at The Anchor pub. Win up to £50 every
+  first Thursday! Three games, cash prizes, fun atmosphere, and fish & chips
+  available. Just 7 minutes from Terminal 5. 18+ only. Book your table for
+  Stanwell Moor's best bingo night.
+date: '2025-01-26'
+oldUrl: >-
+  https://www.the-anchor.pub/post/cash-bingo-at-the-anchor-win-50-at-our-monthly-bin
+author: Billy
 keywords:
   - bingo near heathrow
   - cash bingo stanwell moor
@@ -15,15 +20,11 @@ keywords:
   - pub bingo staines
   - £50 prize bingo
 tags:
-  - bingo
   - events
-  - thursday
-  - cash-prizes
-  - entertainment
+  - news
 featured: false
-hero: "hero.jpg"
-images:
-  []
+hero: hero.jpg
+images: []
 ---
 
 ![A vibrant promotional graphic for The Anchor's Monthly Cash Bingo, featuring colourful bingo balls, bold 3D text, and the pub's logo on a dark green background.](/content/blog/monthly-cash-bingo/hero.jpg)

@@ -23,11 +23,8 @@ keywords:
   - mexican culture pub heathrow
   - tequila offerings near terminal 5
 tags:
-  - drinks
-  - tequila
-  - day-of-the-dead
-  - mexican-culture
-  - spirits
+  - food-and-drink
+  - news
 featured: false
 hero: hero.png
 images: []

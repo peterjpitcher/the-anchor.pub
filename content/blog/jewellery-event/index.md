@@ -25,11 +25,9 @@ keywords:
   - gift shopping near heathrow
   - artisan markets stanwell moor
 tags:
-  - artisan
+  - news
   - events
-  - heathrow-area
-  - jewellery
-  - shopping
+  - community
 featured: true
 hero: hero.png
 images: []

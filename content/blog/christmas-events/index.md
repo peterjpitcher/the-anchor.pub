@@ -1,10 +1,15 @@
 ---
-title: "Christmas at The Anchor | Festive Events & Menu Near Heathrow"
+title: Christmas at The Anchor | Festive Events & Menu Near Heathrow
 slug: christmas-events
-description: "Celebrate Christmas at The Anchor pub near Heathrow Airport. Festive menu, Christmas parties, carol nights, and New Year's Eve celebrations in Stanwell Moor. Book your Christmas event at our traditional pub - perfect for families, groups, and Heathrow travelers."
-date: "2023-12-09"
-oldUrl: "https://www.the-anchor.pub/post/celebrate-christmas-2023-at-the-anchor-events-and-"
-author: "Billy"
+description: >-
+  Celebrate Christmas at The Anchor pub near Heathrow Airport. Festive menu,
+  Christmas parties, carol nights, and New Year's Eve celebrations in Stanwell
+  Moor. Book your Christmas event at our traditional pub - perfect for families,
+  groups, and Heathrow travelers.
+date: '2023-12-09'
+oldUrl: >-
+  https://www.the-anchor.pub/post/celebrate-christmas-2023-at-the-anchor-events-and-
+author: Billy
 keywords:
   - christmas pub near heathrow
   - festive events stanwell moor
@@ -15,14 +20,12 @@ keywords:
   - traditional christmas dinner
   - the anchor christmas
 tags:
-  - christmas
-  - events
   - seasonal
-  - festive-menu
+  - events
+  - news
 featured: true
-hero: "hero.png"
-images:
-  []
+hero: hero.png
+images: []
 ---
 
 ![Christmas event schedule at The Anchor pub featuring key dates for karaoke, market, quiz, bingo, and parties with festive decorations.](/content/blog/christmas-events/hero.png)

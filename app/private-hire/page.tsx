@@ -6,6 +6,7 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
+import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 
 export const metadata: Metadata = {
     title: 'Private Hire Venue Near Heathrow | The Anchor Stanwell Moor',
@@ -159,6 +160,8 @@ export default function PrivateHirePage() {
                     </div>
                 </Container>
             </section>
+
+            <PrivateBookingSection id="enquiry" eventType="Other" />
 
             <section className="section-spacing bg-gray-50">
                 <Container>

@@ -20,9 +20,8 @@ keywords:
   - the anchor dog policy
 tags:
   - community
-  - dog-friendly
-  - family-friendly
-  - sunday-roast
+  - news
+  - food-and-drink
 featured: false
 hero: hero.png
 images: []

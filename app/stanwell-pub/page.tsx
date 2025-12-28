@@ -469,6 +469,11 @@ export default async function StanwellPubPage() {
             variant: "secondary"
           },
           {
+            text: "🎉 Book an Event",
+            href: "/book-event",
+            variant: "white"
+          },
+          {
             text: "📅 What's On",
             href: "/whats-on",
             variant: "white"

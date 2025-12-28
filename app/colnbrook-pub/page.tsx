@@ -265,6 +265,11 @@ export default async function ColnbrookPubPage() {
                         variant: "secondary"
                     },
                     {
+                        text: "🎉 Book an Event",
+                        href: "/book-event",
+                        variant: "white"
+                    },
+                    {
                         text: "📍 Get Directions",
                         href: "https://maps.google.com/maps?saddr=Colnbrook&daddr=The+Anchor+Stanwell+Moor+TW19+6AQ",
                         variant: "white"

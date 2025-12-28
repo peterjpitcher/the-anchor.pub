@@ -21,10 +21,7 @@ keywords:
   - pub credit system
 tags:
   - community
-  - update
-  - payment
-  - service-change
-  - important
+  - news
 featured: false
 hero: hero.png
 images: []

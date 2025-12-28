@@ -3,7 +3,8 @@ title: Children's Mental Health Week Near Heathrow | Free Kids Meals
 slug: childrens-mental-health-week
 description: "Children’s Mental Health Week\_(3rd – 9th February 2025) is an opportunity to raise awareness, encourage open conversations, and promote positive mental well-being for young minds.At The Anchor, we understand how important it is for families to spend quality time together. That’s why, for one week only, we’re offering free meals for children\_when dining with an adult who orders from our mains, burgers, or 12” pizza menus.\U0001F4C5 Offer valid from Tuesday 4th to Sunday 9th February 2025\U0001F37D️ Available for"
 date: '2025-01-27'
-oldUrl: 'https://www.the-anchor.pub/post/children-s-mental-health-week-supporting-young-min'
+oldUrl: >-
+  https://www.the-anchor.pub/post/children-s-mental-health-week-supporting-young-min
 author: Billy
 keywords:
   - childrens mental health week near heathrow
@@ -18,10 +19,7 @@ keywords:
   - family dining near terminal 5
 tags:
   - community
-  - mental-health
-  - children
-  - awareness
-  - february
+  - news
 featured: false
 hero: hero.jpg
 images: []

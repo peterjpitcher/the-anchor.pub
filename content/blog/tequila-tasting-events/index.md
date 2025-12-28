@@ -20,11 +20,8 @@ keywords:
   - stanwell moor events
   - pub tasting events staines
 tags:
-  - drinks
-  - mexican
-  - reviews
-  - spirits
-  - tasting-events
+  - food-and-drink
+  - news
 featured: true
 hero: hero.png
 images: []

@@ -23,10 +23,7 @@ keywords:
   - peaceful community staines
 tags:
   - community
-  - peace-day
-  - september
-  - stanwell-moor
-  - awareness
+  - news
 featured: false
 hero: hero.png
 images: []

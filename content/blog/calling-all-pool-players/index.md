@@ -22,11 +22,9 @@ keywords:
   - pool players wanted heathrow
   - sports pub near terminal 5
 tags:
-  - heathrow-area
-  - leagues
-  - pool
+  - community
+  - news
   - sports
-  - team-sports
 featured: true
 hero: hero.png
 images: []

@@ -24,9 +24,9 @@ keywords:
   - pub spirits near airport
 tags:
   - community
-  - drinks
+  - food-and-drink
   - events
-  - special-offers
+  - offers
 featured: false
 hero: hero.png
 images: []

@@ -24,10 +24,9 @@ keywords:
   - community events stanwell moor
 tags:
   - community
-  - drinks
+  - food-and-drink
   - events
-  - food
-  - special-offers
+  - offers
 featured: false
 hero: hero.jpg
 images: []

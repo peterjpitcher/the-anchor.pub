@@ -1,10 +1,15 @@
 ---
-title: "Best Burgers Near Heathrow | The Anchor's Gourmet Burger Menu"
+title: Best Burgers Near Heathrow | The Anchor's Gourmet Burger Menu
 slug: national-burger-day
-description: "Discover the best burgers near Heathrow Airport at The Anchor pub in Stanwell Moor. Hand-pressed beef patties, crispy chicken burgers, veggie options, and loaded stacks. Quality pub food just 7 minutes from Terminal 5. Perfect for pre-flight meals or local dining."
-date: "2023-08-11"
-oldUrl: "https://www.the-anchor.pub/post/celebrating-national-burger-day-a-half-price-burge"
-author: "Billy"
+description: >-
+  Discover the best burgers near Heathrow Airport at The Anchor pub in Stanwell
+  Moor. Hand-pressed beef patties, crispy chicken burgers, veggie options, and
+  loaded stacks. Quality pub food just 7 minutes from Terminal 5. Perfect for
+  pre-flight meals or local dining.
+date: '2023-08-11'
+oldUrl: >-
+  https://www.the-anchor.pub/post/celebrating-national-burger-day-a-half-price-burge
+author: Billy
 keywords:
   - best burgers near heathrow
   - burger pub stanwell moor
@@ -15,14 +20,11 @@ keywords:
   - loaded burgers near terminal 5
   - traditional pub burgers
 tags:
-  - food
-  - burgers
-  - pub-menu
-  - dining
+  - food-and-drink
+  - news
 featured: false
-hero: "hero.png"
-images:
-  []
+hero: hero.png
+images: []
 ---
 
 ![celebrating national burger day a half price burge image](/content/blog/national-burger-day/hero.png)

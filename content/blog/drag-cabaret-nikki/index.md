@@ -21,11 +21,8 @@ keywords:
   - free entertainment staines
   - friday night shows surrey
 tags:
-  - comedy
-  - drag-cabaret
-  - entertainment
+  - news
   - events
-  - weekly-specials
 featured: true
 hero: hero.png
 images: []

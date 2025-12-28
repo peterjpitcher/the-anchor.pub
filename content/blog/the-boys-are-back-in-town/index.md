@@ -20,10 +20,9 @@ keywords:
   - quality beers terminal 5
 tags:
   - community
-  - drinks
+  - food-and-drink
   - events
-  - food
-  - special-offers
+  - offers
 featured: false
 hero: hero.jpeg
 images: []

@@ -11,6 +11,7 @@ import { staticEvents } from '@/lib/static-events'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
+import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 
 export const metadata: Metadata = {
   title: 'Heathrow Corporate Event Venue - Meeting Rooms with Parking | The Anchor',
@@ -569,6 +570,8 @@ export default function CorporateEventsPage() {
           </div>
         </Container>
       </section>
+
+      <PrivateBookingSection eventType="Corporate Event" />
 
       {/* FAQ Section */}
       <FAQAccordionWithSchema 

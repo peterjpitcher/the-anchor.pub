@@ -24,10 +24,8 @@ keywords:
   - womens achievements near airport
 tags:
   - events
-  - womens-day
-  - march
-  - special-offers
-  - celebration
+  - news
+  - offers
 featured: false
 hero: hero.png
 images: []

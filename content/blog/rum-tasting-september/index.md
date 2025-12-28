@@ -2,8 +2,8 @@
 title: Rum Tasting Event Review | Premium Spirits Night at The Anchor
 slug: rum-tasting-september
 description: >-
-  Read about our spectacular rum tasting event at The Anchor pub near Heathrow Airport.
-  A special evening with 5-star reviews in Stanwell Moor, just 7
+  Read about our spectacular rum tasting event at The Anchor pub near Heathrow
+  Airport. A special evening with 5-star reviews in Stanwell Moor, just 7
   minutes from Terminal 5. Limited to 25 guests with Caribbean food pairings.
   Check back for future special events.
 date: '2024-06-15'
@@ -23,10 +23,9 @@ keywords:
   - spirits club near terminal 5
 tags:
   - community
-  - drinks
+  - food-and-drink
   - events
-  - food
-  - special-offers
+  - offers
 featured: false
 hero: hero.png
 images: []

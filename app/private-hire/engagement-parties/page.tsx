@@ -11,6 +11,7 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
+import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 
 export const metadata: Metadata = {
     title: 'Engagement Party Venue Near Heathrow | The Anchor',
@@ -190,6 +191,8 @@ export default function EngagementPartiesPage() {
                     </div>
                 </Container>
             </section>
+
+            <PrivateBookingSection eventType="Other" />
 
             <FAQAccordionWithSchema
                 faqs={[

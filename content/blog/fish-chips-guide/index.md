@@ -1,10 +1,14 @@
 ---
-title: "Best Fish and Chips Near Heathrow | The Anchor Pub Guide"
+title: Best Fish and Chips Near Heathrow | The Anchor Pub Guide
 slug: fish-chips-guide
-description: "Discover the best fish and chips near Heathrow at The Anchor. Fresh North Atlantic cod, hand-cut chips, free parking and Chip Shop Friday deals minutes from Terminal 5."
-date: "2025-01-26"
-oldUrl: "https://www.the-anchor.pub/post/the-ultimate-guide-to-the-british-chip-shop-experi"
-author: "Billy"
+description: >-
+  Discover the best fish and chips near Heathrow at The Anchor. Fresh North
+  Atlantic cod, hand-cut chips, free parking and Chip Shop Friday deals minutes
+  from Terminal 5.
+date: '2025-01-26'
+oldUrl: >-
+  https://www.the-anchor.pub/post/the-ultimate-guide-to-the-british-chip-shop-experi
+author: Billy
 keywords:
   - fish and chips near heathrow
   - chip shop staines
@@ -16,14 +20,11 @@ keywords:
   - traditional british food
   - chip shop friday deals
 tags:
-  - food
-  - british-cuisine
-  - fish-and-chips
-  - traditional
+  - food-and-drink
+  - news
 featured: true
-hero: "hero.jpg"
-images:
-  []
+hero: hero.jpg
+images: []
 ---
 
 ![A plate of fish and chips with peas and tartar sauce, promoting "Chip Shop Fridays" at The Anchor.](/content/blog/fish-chips-guide/hero.jpg)

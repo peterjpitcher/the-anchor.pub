@@ -23,10 +23,9 @@ keywords:
   - special menu near terminal 5
 tags:
   - events
-  - fathers-day
-  - sunday-roast
-  - family-dining
-  - june
+  - seasonal
+  - food-and-drink
+  - news
 featured: false
 hero: hero.png
 images: []

@@ -22,11 +22,9 @@ keywords:
   - the anchor valentines
   - february 14 restaurant heathrow
 tags:
-  - special-offers
-  - valentines
-  - romantic-dining
-  - couples
-  - february
+  - offers
+  - seasonal
+  - news
 featured: false
 hero: hero.png
 images: []

@@ -2,10 +2,11 @@
 title: House Lager Near Heathrow | Stanwell Moor Brew at The Anchor
 slug: stanwell-moor-brew
 description: >-
-  Try Stanwell Moor Brew, the exclusive house lager at The Anchor pub near Heathrow
-  Airport. A Scottish-brewed partnership with Greene King brings a crisp pint to
-  Stanwell Moor, just 7 minutes from Terminal 5. Perfect for Heathrow workers and
-  Staines locals. Free parking and a traditional pub atmosphere near the airport.
+  Try Stanwell Moor Brew, the exclusive house lager at The Anchor pub near
+  Heathrow Airport. A Scottish-brewed partnership with Greene King brings a
+  crisp pint to Stanwell Moor, just 7 minutes from Terminal 5. Perfect for
+  Heathrow workers and Staines locals. Free parking and a traditional pub
+  atmosphere near the airport.
 date: '2024-04-20'
 oldUrl: >-
   https://www.the-anchor.pub/post/introducing-stanwell-moor-brew-at-the-anchor-thean
@@ -22,10 +23,8 @@ keywords:
   - exclusive lager near terminal 5
   - signature beer near heathrow
 tags:
-  - drinks
-  - beer
-  - local-brew
-  - new-arrival
+  - food-and-drink
+  - news
 featured: false
 hero: hero.png
 images: []

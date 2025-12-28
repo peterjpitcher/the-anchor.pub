@@ -282,6 +282,11 @@ export default async function HortonPubPage() {
                         variant: "secondary"
                     },
                     {
+                        text: "🎉 Book an Event",
+                        href: "/book-event",
+                        variant: "white"
+                    },
+                    {
                         text: "🍽️ View Menu",
                         href: "/food-menu",
                         variant: "white"

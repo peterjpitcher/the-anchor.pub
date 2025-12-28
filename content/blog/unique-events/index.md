@@ -24,10 +24,9 @@ keywords:
   - entertainment venue stanwell moor
 tags:
   - events
-  - entertainment
-  - variety
+  - news
   - community
-  - special-offers
+  - offers
 featured: false
 hero: hero.png
 images: []

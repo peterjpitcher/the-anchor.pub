@@ -23,11 +23,9 @@ keywords:
   - refreshing lager near terminal 5
   - pilsner pub near airport
 tags:
-  - drinks
-  - beer
-  - new-arrival
-  - czech-beer
-  - special-offers
+  - food-and-drink
+  - news
+  - offers
 featured: false
 hero: hero.png
 images: []

@@ -25,11 +25,9 @@ keywords:
   - football viewing near airport
   - premier league sports bar
 tags:
-  - football
-  - heathrow-area
-  - live-matches
-  - premier-league
   - sports
+  - community
+  - news
 featured: true
 hero: hero.png
 images: []

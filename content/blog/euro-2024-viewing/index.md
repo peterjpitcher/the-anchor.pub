@@ -1,10 +1,14 @@
 ---
-title: "Watch Euro 2024 Near Heathrow | Live Football Pub Guide"
+title: Watch Euro 2024 Near Heathrow | Live Football Pub Guide
 slug: euro-2024-viewing
-description: "Watch Euro 2024 and free-to-air football near Heathrow at The Anchor. Four HD screens, lively atmosphere, free parking and full pub menu just seven minutes from Terminal 5."
-date: "2024-06-26"
-oldUrl: "https://www.the-anchor.pub/post/watch-euro-2024-games-stanwell-moor-village-staine"
-author: "Billy"
+description: >-
+  Watch Euro 2024 and free-to-air football near Heathrow at The Anchor. Four HD
+  screens, lively atmosphere, free parking and full pub menu just seven minutes
+  from Terminal 5.
+date: '2024-06-26'
+oldUrl: >-
+  https://www.the-anchor.pub/post/watch-euro-2024-games-stanwell-moor-village-staine
+author: Billy
 keywords:
   - sports bar near heathrow
   - watch football stanwell moor
@@ -16,14 +20,11 @@ keywords:
   - sports screens near me
 tags:
   - sports
-  - football
-  - live-events
-  - terrestrial-sport
-  - entertainment
+  - news
+  - events
 featured: false
-hero: "hero.png"
-images:
-  []
+hero: hero.png
+images: []
 ---
 
 ![Euro 2024 promotional image for The Anchor](/content/blog/euro-2024-viewing/hero.png)

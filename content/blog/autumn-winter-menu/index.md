@@ -2,11 +2,14 @@
 title: Winter Menu Near Heathrow | Seasonal Food at The Anchor
 slug: autumn-winter-menu
 description: >-
-  Discover hearty winter food at The Anchor pub near Heathrow Airport. Traditional British comfort dishes and seasonal
-  specials in Stanwell Moor, just 7 minutes from Terminal 5. Perfect for Heathrow workers seeking warming meals. Cozy
-  pub atmosphere near Staines with winter warmers and classic favourites.
+  Discover hearty winter food at The Anchor pub near Heathrow Airport.
+  Traditional British comfort dishes and seasonal specials in Stanwell Moor,
+  just 7 minutes from Terminal 5. Perfect for Heathrow workers seeking warming
+  meals. Cozy pub atmosphere near Staines with winter warmers and classic
+  favourites.
 date: '2023-09-13'
-oldUrl: 'https://www.the-anchor.pub/post/dive-into-the-anchor-s-autumn-winter-menu-cozy-del'
+oldUrl: >-
+  https://www.the-anchor.pub/post/dive-into-the-anchor-s-autumn-winter-menu-cozy-del
 author: Billy
 keywords:
   - winter menu near heathrow
@@ -21,10 +24,9 @@ keywords:
   - traditional winter food heathrow
 tags:
   - community
-  - drinks
+  - food-and-drink
   - events
-  - food
-  - special-offers
+  - offers
 featured: false
 hero: hero.jpg
 images: []

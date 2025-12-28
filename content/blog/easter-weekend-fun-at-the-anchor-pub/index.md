@@ -21,10 +21,9 @@ keywords:
   - traditional easter lunch heathrow
 tags:
   - events
-  - easter
-  - family-friendly
-  - sunday-roast
-  - april
+  - seasonal
+  - news
+  - food-and-drink
 featured: false
 hero: hero.png
 images: []

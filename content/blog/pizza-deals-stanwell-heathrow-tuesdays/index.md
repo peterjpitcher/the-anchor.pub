@@ -1,6 +1,9 @@
 ---
 title: Tuesday Pizza Deals Near Heathrow | 2-for-1 Nights in Stanwell Moor
-description: Find the best Tuesday pizza deals near Heathrow with The Anchor’s buy one get one free stone-baked pizzas. Dine-in or takeaway just 7 minutes from Terminal 5.
+description: >-
+  Find the best Tuesday pizza deals near Heathrow with The Anchor’s buy one get
+  one free stone-baked pizzas. Dine-in or takeaway just 7 minutes from Terminal
+  5.
 date: '2025-10-13'
 author: The Anchor Team
 keywords:
@@ -10,14 +13,13 @@ keywords:
   - pizza tuesday deal staines
   - 2 for 1 pizza near terminal 5
 tags:
-  - food
-  - pizza
-  - special-offers
-  - heathrow
+  - food-and-drink
+  - offers
+  - news
 featured: true
 hero: hero.jpg
 images: []
-canonical: https://www.the-anchor.pub/blog/pizza-deals-stanwell-heathrow-tuesdays
+canonical: 'https://www.the-anchor.pub/blog/pizza-deals-stanwell-heathrow-tuesdays'
 ---
 
 ![Stone-baked pizzas fresh from the oven at The Anchor](/images/page-headers/pizza-tuesday/pizza-tuesday.jpg)

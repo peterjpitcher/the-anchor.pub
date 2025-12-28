@@ -7,6 +7,7 @@ import { CTASection, SectionHeader, InfoBoxGrid, FeatureGrid, QuickInfoGrid } fr
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { ReviewSection } from '@/components/reviews'
 import { PhoneButton } from '@/components/PhoneButton'
+import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { Container } from '@/components/ui/layout/Container'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
@@ -111,6 +112,8 @@ export default function BookEventPage() {
           </PageTitle>
         </Container>
       </div>
+
+      <PrivateBookingSection eventType="Other" />
 
       {/* Venue Spaces */}
       <section className="section-spacing bg-white">

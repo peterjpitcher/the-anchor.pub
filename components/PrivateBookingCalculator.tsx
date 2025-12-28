@@ -4,7 +4,11 @@ import { useState, useEffect, useMemo } from 'react'
 import { PrivateBookingConfig, PrivateBookingItem, getPrivateBookingConfig, formatCurrency } from '@/lib/api'
 import { PrivateBookingInquiryForm } from './PrivateBookingInquiryForm'
 
-export function PrivateBookingCalculator() {
+interface PrivateBookingCalculatorProps {
+    eventType?: string
+}
+
+export function PrivateBookingCalculator({ eventType }: PrivateBookingCalculatorProps) {
     const [config, setConfig] = useState<PrivateBookingConfig | null>(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
@@ -14,8 +18,11 @@ export function PrivateBookingCalculator() {
     const [selectedSpaceId, setSelectedSpaceId] = useState<string>('')
     const [guestCount, setGuestCount] = useState<number>(30)
     const [hours, setHours] = useState<number>(4)
-    const [selectedPackageId, setSelectedPackageId] = useState<string>('')
+    const [selectedPackages, setSelectedPackages] = useState<Array<{ id: string, quantity: number }>>([])
     const [selectedVendorIds, setSelectedVendorIds] = useState<Set<string>>(new Set())
+
+    // UI State
+    const [isAddingItem, setIsAddingItem] = useState(false)
 
     useEffect(() => {
         async function fetchConfig() {
@@ -41,15 +48,28 @@ export function PrivateBookingCalculator() {
         config?.spaces.find(s => s.id === selectedSpaceId), [config, selectedSpaceId]
     )
 
-    const selectedPackage = useMemo(() =>
-        config?.packages.find(p => p.id === selectedPackageId), [config, selectedPackageId]
-    )
-
     const toggleVendor = (vendorId: string) => {
         const newSet = new Set(selectedVendorIds)
         if (newSet.has(vendorId)) newSet.delete(vendorId)
         else newSet.add(vendorId)
         setSelectedVendorIds(newSet)
+    }
+
+    const addPackage = (packageId: string) => {
+        if (!selectedPackages.find(p => p.id === packageId)) {
+            setSelectedPackages([...selectedPackages, { id: packageId, quantity: guestCount }])
+        }
+        setIsAddingItem(false)
+    }
+
+    const removePackage = (packageId: string) => {
+        setSelectedPackages(selectedPackages.filter(p => p.id !== packageId))
+    }
+
+    const updatePackageQuantity = (packageId: string, quantity: number) => {
+        setSelectedPackages(selectedPackages.map(p =>
+            p.id === packageId ? { ...p, quantity } : p
+        ))
     }
 
     // Calculate Totals and Generate Items
@@ -60,68 +80,90 @@ export function PrivateBookingCalculator() {
         const generatedItems: PrivateBookingItem[] = []
 
         // 1. Venue Hire
-        const spaceCost = (selectedSpace.rate_per_hour * hours) + selectedSpace.setup_fee
+        // 1. Venue Hire
+        const setupFee = Number(selectedSpace.setup_fee)
+        const hourlyRate = Number(selectedSpace.rate_per_hour)
+        const spaceCost = (hourlyRate * hours) + setupFee
         calculatedTotal += spaceCost
         generatedItems.push({
             item_type: 'space',
+            space_id: selectedSpace.id,
             description: `${selectedSpace.name} Hire (${hours} hours)`,
             quantity: hours,
-            unit_price: selectedSpace.rate_per_hour,
-            line_total: spaceCost - selectedSpace.setup_fee, // Logic could be cleaner, but setup fee implies separate item potentially? 
-            // Actually simpler to bundle for estimation or separate
-            notes: `Includes £${selectedSpace.setup_fee} setup fee`
+            unit_price: hourlyRate,
+            line_total: spaceCost - setupFee,
+            notes: `Includes £${setupFee} setup fee`
         })
 
         // 2. Catering
-        if (selectedPackage) {
-            const cateringCost = selectedPackage.cost_per_head * guestCount
-            calculatedTotal += cateringCost
-            generatedItems.push({
-                item_type: 'catering',
-                description: `${selectedPackage.name} (${guestCount} guests)`,
-                quantity: guestCount,
-                unit_price: selectedPackage.cost_per_head,
-                line_total: cateringCost,
-                package_id: selectedPackage.id
-            })
-        }
+        selectedPackages.forEach(selection => {
+            const pkg = config.packages.find(p => p.id === selection.id)
+            if (pkg) {
+                const costPerHead = Number(pkg.cost_per_head)
+                const cost = costPerHead * selection.quantity
+                calculatedTotal += cost
+                generatedItems.push({
+                    item_type: 'catering',
+                    description: `${pkg.name} (${selection.quantity} guests)`,
+                    quantity: selection.quantity,
+                    unit_price: costPerHead,
+                    line_total: cost,
+                    package_id: pkg.id
+                })
+            }
+        })
 
         // 3. Vendors
         selectedVendorIds.forEach(vendorId => {
             const vendor = config.vendors.find(v => v.id === vendorId)
             if (vendor && vendor.typical_rate) {
-                calculatedTotal += vendor.typical_rate
+                const rate = Number(vendor.typical_rate)
+                calculatedTotal += rate
                 generatedItems.push({
                     item_type: 'vendor',
                     description: vendor.name,
                     quantity: 1,
-                    unit_price: vendor.typical_rate,
-                    line_total: vendor.typical_rate,
+                    unit_price: rate,
+                    line_total: rate,
                     vendor_id: vendor.id
                 })
             }
         })
 
         return { total: calculatedTotal, items: generatedItems }
-    }, [config, selectedSpace, hours, guestCount, selectedPackage, selectedVendorIds])
+    }, [config, selectedSpace, hours, guestCount, selectedPackages, selectedVendorIds])
 
     if (loading) return <div className="animate-pulse h-64 bg-slate-100 rounded-lg"></div>
     if (error) return <div className="p-4 text-red-600 bg-red-50 rounded-lg">Unable to load calculator: {error}</div>
     if (!config) return null
 
+    const inquiryData = {
+        guest_count: guestCount,
+        items,
+        internal_notes: `Calculated Estimate: ${formatCurrency(total)}`,
+        ...(eventType ? { event_type: eventType } : {})
+    }
+
     if (showInquiryForm) {
         return (
             <PrivateBookingInquiryForm
-                initialData={{
-                    guest_count: guestCount,
-                    items: items,
-                    internal_notes: `Calculated Estimate: ${formatCurrency(total)}`,
-                    event_type: 'Private Party'
-                }}
+                initialData={inquiryData}
                 onCancel={() => setShowInquiryForm(false)}
             />
         )
     }
+
+    // Group available packages
+    const availablePackages = config.packages.filter(p => !selectedPackages.find(sp => sp.id === p.id))
+
+    // Sort helper
+    const byPrice = (a: typeof config.packages[0], b: typeof config.packages[0]) => a.cost_per_head - b.cost_per_head
+
+    const foodPackages = availablePackages.filter(p => !p.category || p.category === 'food').sort(byPrice)
+    const drinkPackages = availablePackages.filter(p => p.category === 'drink').sort(byPrice)
+    const addonPackages = availablePackages.filter(p => p.category === 'addon').sort(byPrice)
+
+    const formatPrice = (price: number) => price === 0 ? 'Price on Enquiry' : `${formatCurrency(price)} pp`
 
     return (
         <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
@@ -139,8 +181,8 @@ export function PrivateBookingCalculator() {
                             <label
                                 key={space.id}
                                 className={`relative flex flex-col p-4 cursor-pointer rounded-lg border-2 transition-all ${selectedSpaceId === space.id
-                                        ? 'border-indigo-600 bg-indigo-50'
-                                        : 'border-slate-200 hover:border-slate-300'
+                                    ? 'border-indigo-600 bg-indigo-50'
+                                    : 'border-slate-200 hover:border-slate-300'
                                     }`}
                             >
                                 <input
@@ -162,7 +204,7 @@ export function PrivateBookingCalculator() {
                 {/* Event Details */}
                 <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-2">Guest Count</label>
+                        <label className="block text-sm font-medium text-slate-700 mb-2">Total Guests</label>
                         <input
                             type="number"
                             min="10"
@@ -187,45 +229,157 @@ export function PrivateBookingCalculator() {
 
                 {/* Catering */}
                 <section>
-                    <h4 className="font-medium text-slate-900 mb-4">3. Add Catering (Optional)</h4>
-                    <div className="space-y-3">
-                        <label className={`flex items-center justify-between p-4 rounded-lg border cursor-pointer hover:bg-slate-50 ${selectedPackageId === '' ? 'border-indigo-600 ring-1 ring-indigo-600' : 'border-slate-200'}`}>
-                            <div className="flex items-center">
-                                <input
-                                    type="radio"
-                                    name="catering"
-                                    value=""
-                                    checked={selectedPackageId === ''}
-                                    onChange={() => setSelectedPackageId('')}
-                                    className="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500"
-                                />
-                                <span className="ml-3 font-medium text-slate-900">No Catering / Room Only</span>
-                            </div>
-                        </label>
+                    <div className="flex justify-between items-center mb-4">
+                        <h4 className="font-medium text-slate-900">3. Catering & Drinks</h4>
+                        <button
+                            onClick={() => setIsAddingItem(true)}
+                            className="text-sm text-indigo-600 font-medium hover:text-indigo-800 flex items-center"
+                        >
+                            <svg className="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                            </svg>
+                            Add Option
+                        </button>
+                    </div>
 
-                        {config.packages.map(pkg => (
-                            <label
-                                key={pkg.id}
-                                className={`flex items-center justify-between p-4 rounded-lg border cursor-pointer hover:bg-slate-50 ${selectedPackageId === pkg.id ? 'border-indigo-600 ring-1 ring-indigo-600' : 'border-slate-200'}`}
-                            >
-                                <div className="flex items-center">
-                                    <input
-                                        type="radio"
-                                        name="catering"
-                                        value={pkg.id}
-                                        checked={selectedPackageId === pkg.id}
-                                        onChange={() => setSelectedPackageId(pkg.id)}
-                                        className="h-4 w-4 text-indigo-600 border-gray-300 focus:ring-indigo-500"
-                                    />
-                                    <div className="ml-3">
-                                        <span className="block font-medium text-slate-900">{pkg.name}</span>
-                                        <span className="block text-sm text-slate-500">{pkg.description}</span>
+                    <div className="space-y-4">
+                        {selectedPackages.length === 0 && (
+                            <div className="text-sm text-slate-500 italic p-4 bg-slate-50 rounded-lg text-center border border-slate-100">
+                                No catering selected. Use "Add Option" to choose food or drinks.
+                            </div>
+                        )}
+
+                        {selectedPackages.map(selection => {
+                            const pkg = config.packages.find(p => p.id === selection.id)
+                            if (!pkg) return null
+                            return (
+                                <div key={selection.id} className="flex items-center justify-between p-4 bg-white border border-slate-200 rounded-lg shadow-sm">
+                                    <div className="flex-1">
+                                        <div className="font-medium text-slate-900">{pkg.name}</div>
+                                        <div className="text-sm text-slate-500">{formatPrice(pkg.cost_per_head)}</div>
+                                    </div>
+
+                                    <div className="flex items-center gap-4">
+                                        <div className="flex items-center gap-2">
+                                            <label className="text-xs text-slate-500 uppercase font-semibold">Qty</label>
+                                            <input
+                                                type="number"
+                                                min={pkg.minimum_guests || 1}
+                                                max={guestCount}
+                                                value={selection.quantity}
+                                                onChange={(e) => updatePackageQuantity(pkg.id, Number(e.target.value))}
+                                                className="w-20 px-2 py-1 text-right border border-slate-300 rounded focus:ring-indigo-500 focus:border-indigo-500"
+                                            />
+                                        </div>
+                                        <div className="w-24 text-right font-semibold text-slate-900">
+                                            {formatCurrency(pkg.cost_per_head * selection.quantity)}
+                                        </div>
+                                        <button
+                                            onClick={() => removePackage(pkg.id)}
+                                            className="text-slate-400 hover:text-red-600 transition-colors"
+                                            title="Remove"
+                                        >
+                                            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                        </button>
                                     </div>
                                 </div>
-                                <span className="text-slate-900 font-semibold">{formatCurrency(pkg.cost_per_head)} pp</span>
-                            </label>
-                        ))}
+                            )
+                        })}
                     </div>
+
+                    {/* Add Item Modal/Dropdown Area */}
+                    {isAddingItem && (
+                        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={() => setIsAddingItem(false)}>
+                            <div className="bg-white rounded-xl shadow-xl w-full max-w-lg max-h-[80vh] overflow-y-auto" onClick={e => e.stopPropagation()}>
+                                <div className="p-4 border-b border-slate-100 flex justify-between items-center sticky top-0 bg-white">
+                                    <h3 className="font-semibold text-lg text-slate-900">Add Service</h3>
+                                    <button onClick={() => setIsAddingItem(false)} className="text-slate-400 hover:text-slate-600">
+                                        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div className="p-2">
+                                    {availablePackages.length === 0 ? (
+                                        <p className="p-4 text-center text-slate-500">No more options available.</p>
+                                    ) : (
+                                        <div className="space-y-6 p-2">
+                                            {foodPackages.length > 0 && (
+                                                <div>
+                                                    <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 px-2">Food Menus</h4>
+                                                    <div className="space-y-1">
+                                                        {foodPackages.map(pkg => (
+                                                            <button
+                                                                key={pkg.id}
+                                                                onClick={() => addPackage(pkg.id)}
+                                                                className="w-full text-left p-3 hover:bg-slate-50 rounded-lg transition-colors flex justify-between items-center group"
+                                                            >
+                                                                <div>
+                                                                    <div className="font-medium text-slate-900 group-hover:text-indigo-700">{pkg.name}</div>
+                                                                    {pkg.description && <div className="text-sm text-slate-500">{pkg.description}</div>}
+                                                                </div>
+                                                                <div className="text-indigo-600 font-semibold text-sm whitespace-nowrap pl-2">
+                                                                    {formatPrice(pkg.cost_per_head)}
+                                                                </div>
+                                                            </button>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            )}
+
+                                            {drinkPackages.length > 0 && (
+                                                <div>
+                                                    <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 px-2">Drinks Packages</h4>
+                                                    <div className="space-y-1">
+                                                        {drinkPackages.map(pkg => (
+                                                            <button
+                                                                key={pkg.id}
+                                                                onClick={() => addPackage(pkg.id)}
+                                                                className="w-full text-left p-3 hover:bg-slate-50 rounded-lg transition-colors flex justify-between items-center group"
+                                                            >
+                                                                <div>
+                                                                    <div className="font-medium text-slate-900 group-hover:text-indigo-700">{pkg.name}</div>
+                                                                    {pkg.description && <div className="text-sm text-slate-500">{pkg.description}</div>}
+                                                                </div>
+                                                                <div className="text-indigo-600 font-semibold text-sm whitespace-nowrap pl-2">
+                                                                    {formatPrice(pkg.cost_per_head)}
+                                                                </div>
+                                                            </button>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            )}
+
+                                            {addonPackages.length > 0 && (
+                                                <div>
+                                                    <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 px-2">Add-ons</h4>
+                                                    <div className="space-y-1">
+                                                        {addonPackages.map(pkg => (
+                                                            <button
+                                                                key={pkg.id}
+                                                                onClick={() => addPackage(pkg.id)}
+                                                                className="w-full text-left p-3 hover:bg-slate-50 rounded-lg transition-colors flex justify-between items-center group"
+                                                            >
+                                                                <div>
+                                                                    <div className="font-medium text-slate-900 group-hover:text-indigo-700">{pkg.name}</div>
+                                                                    {pkg.description && <div className="text-sm text-slate-500">{pkg.description}</div>}
+                                                                </div>
+                                                                <div className="text-indigo-600 font-semibold text-sm whitespace-nowrap pl-2">
+                                                                    {formatPrice(pkg.cost_per_head)}
+                                                                </div>
+                                                            </button>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </section>
 
                 {/* Vendors */}

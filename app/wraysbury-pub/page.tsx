@@ -275,6 +275,11 @@ export default async function WraysburyPubPage() {
                         variant: "secondary"
                     },
                     {
+                        text: "🎉 Book an Event",
+                        href: "/book-event",
+                        variant: "white"
+                    },
+                    {
                         text: "📍 Get Directions",
                         href: "https://maps.google.com/maps?saddr=Wraysbury&daddr=The+Anchor+Stanwell+Moor+TW19+6AQ",
                         variant: "white"

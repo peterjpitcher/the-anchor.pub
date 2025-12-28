@@ -23,10 +23,7 @@ keywords:
   - pub manners near airport
 tags:
   - community
-  - guide
-  - pub-culture
-  - etiquette
-  - advice
+  - news
 featured: false
 hero: hero.jpg
 images: []

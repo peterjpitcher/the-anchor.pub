@@ -24,9 +24,8 @@ keywords:
   - cultural events near heathrow
 tags:
   - events
-  - diwali
-  - indian-culture
-  - november
+  - seasonal
+  - news
   - community
 featured: false
 hero: hero.png
