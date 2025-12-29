@@ -33,99 +33,114 @@ import { cn } from '@/lib/utils'
 import { BookTableButton } from '@/components/BookTableButton'
 
 export const metadata: Metadata = {
-    title: 'Live Music Pub Near Heathrow | Live Bands & Local Gigs | The Anchor',
+    title: 'Karaoke Nights Near Heathrow | Sing Out at The Anchor',
     description:
-        'Enjoy live music near Heathrow at The Anchor. Featuring local bands, acoustic sets, and tribute acts in Stanwell Moor. Free entry, great atmosphere, and cold pints.',
+        'Join the best karaoke night near Heathrow at The Anchor. Thousands of songs, great atmosphere, and free entry. Sing your heart out in Stanwell Moor!',
     keywords:
-        'live music pub, live bands, pub gigs, music production, stanwell moor live music, heathrow live music, pub music staines, acoustic night, pub rock bands'
+        'karaoke near heathrow, karaoke pub, karaoke night, sing karaoke, pub karaoke, stanwell moor karaoke, karaoke bar staines, free karaoke'
 }
 
-const LIVE_MUSIC_CATEGORY = {
-    name: 'Live Music',
-    slug: 'live-music'
-}
+const KARAOKE_CATEGORIES = [
+    {
+        name: 'Karaoke',
+        slug: 'karaoke-night'
+    },
+    {
+        name: "Nikki's Karaoke Night",
+        slug: 'nikkis-karaoke-night'
+    }
+]
 
 const normalizeCategoryValue = (value?: string | null) =>
     value?.toLowerCase().replace(/\s+/g, ' ').trim() ?? ''
 
-function getCategoryIdByLabel(categories: EventCategory[], label: typeof LIVE_MUSIC_CATEGORY) {
-    const targetName = normalizeCategoryValue(label.name)
-    const targetSlug = normalizeCategoryValue(label.slug)
+function getCategoryIdsByLabels(categories: EventCategory[], labels: typeof KARAOKE_CATEGORIES) {
+    return labels
+        .map(label => {
+            const targetName = normalizeCategoryValue(label.name)
+            const targetSlug = normalizeCategoryValue(label.slug)
 
-    return categories.find(category => {
-        const categoryName = normalizeCategoryValue(category.name)
-        const categorySlug = normalizeCategoryValue(category.slug)
-        return categoryName === targetName || categorySlug === targetSlug
-    })?.id
+            return categories.find(category => {
+                const categoryName = normalizeCategoryValue(category.name)
+                const categorySlug = normalizeCategoryValue(category.slug)
+                return categoryName === targetName || categorySlug === targetSlug
+            })?.id
+        })
+        .filter((id): id is string => Boolean(id))
 }
 
-async function getLiveMusicEvents() {
+async function getKaraokeEvents() {
     const categories = await getEventCategories()
-    const categoryId = getCategoryIdByLabel(categories, LIVE_MUSIC_CATEGORY)
-    if (!categoryId) return []
+    const categoryIds = getCategoryIdsByLabels(categories, KARAOKE_CATEGORIES)
+    if (!categoryIds.length) return []
 
-    const events = await getUpcomingEventsByCategory(categoryId, 60, 365)
-    return events.sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
+    const eventSets = await Promise.all(
+        categoryIds.map(categoryId => getUpcomingEventsByCategory(categoryId, 60, 365))
+    )
+    const events = eventSets.flat()
+    const uniqueEvents = Array.from(new Map(events.map(event => [event.id, event])).values())
+
+    return uniqueEvents.sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
 }
 
 const WHY_LOVE_IT = [
     {
-        icon: '🎸',
-        title: 'Top Local Talent',
-        body: 'From high-energy party bands to soulful acoustic soloists, we hand-pick the best local performers to get the pub jumping.'
+        icon: '🎤',
+        title: 'Thousands of Songs',
+        body: 'From 80s power ballads to today’s chart-toppers, we’ve got a massive library to choose from. If you can hum it, you can probably sing it.'
     },
     {
         icon: '💸',
-        title: 'Always Free Entry',
-        body: 'No tickets, no cover charge. Just turn up, grab a pint, and enjoy the show. We believe live music should be accessible to everyone.'
+        title: 'Free to Sing',
+        body: 'No entry fee, no cost to sing. Just grab a drink, pick your track, and claim the spotlight. It’s all about having fun.'
     },
     {
         icon: '🍻',
-        title: 'Proper Pub Atmosphere',
-        body: 'Great acoustics, friendly crowds, and plenty of space to dance or chill. It’s exactly how a pub gig should feel.'
+        title: 'Liquid Courage',
+        body: 'Need a confidence boost? Our bar is fully stocked with craft beers, cocktails, and shots to help you hit those high notes.'
     },
     {
-        icon: '🍔',
-        title: 'Fuel for the Show',
-        body: 'Kitchen open until 9pm for burgers, pizzas and sharers. Perfect for lining the stomach before the band starts.'
+        icon: '🎉',
+        title: 'Supportive Crowd',
+        body: 'Whether you’re a pro vocalist or just having a laugh, the Stanwell Moor crowd is always behind you. Good vibes only!'
     }
 ]
 
 const FAQS = [
     {
-        question: 'When is live music on?',
+        question: 'When is karaoke night?',
         answer:
-            'We host live music regularly, typically on weekends or special events. Check our upcoming dates list below or the What’s On page for the latest schedule.'
+            'Karaoke nights are regular features on our calendar. Check the upcoming dates below or our What’s On page to see when the next session is.'
     },
     {
-        question: 'Is there an entry fee?',
+        question: 'Do I have to pay to sing?',
         answer:
-            'Nope! Live music at The Anchor is always free entry. Just bring money for drinks and food.'
-    },
-    {
-        question: 'What kind of music do you have?',
-        answer:
-            'We offer a mix of genres, from classic rock and pop covers to acoustic sessions and tribute acts. There’s something for everyone.'
+            'Not a penny! Entry is free and singing is free. Just buy a drink and enjoy the night.'
     },
     {
         question: 'Do I need to book a table?',
         answer:
-            'Booking is recommended if you want to guarantee a seat, especially for popular bands. However, there’s usually plenty of standing room at the bar.'
+            'It’s first come, first served for tables, but there’s plenty of room. If you’re bringing a big group, give us a call on 01753 682707 and we’ll try to save you a spot.'
     },
     {
-        question: 'Can kids come to live music?',
+        question: 'Can I request a specific song?',
         answer:
-            'Yes, until 9pm. After that, due to licensing, it’s 18+ only.'
+            'Absolutely! Our karaoke host has a huge digital library. Just ask them on the night and they’ll get you queued up.'
+    },
+    {
+        question: 'Is it suitable for children?',
+        answer:
+            'Karaoke is great fun for families in the early evening. However, after 9pm, it’s strictly 18+ as the pub gets busier.'
     }
 ]
 
-function MusicEventCards({ events }: { events: Event[] }) {
+function KaraokeEventCards({ events }: { events: Event[] }) {
     if (!events.length) {
         return (
             <div className="bg-white border border-gray-200 rounded-xl p-6 text-center">
-                <p className="text-lg font-semibold text-anchor-green mb-2">New gigs announced soon</p>
+                <p className="text-lg font-semibold text-anchor-green mb-2">Next karaoke dates coming soon</p>
                 <p className="text-gray-600">
-                    We’re booking our next acts right now. Call 01753 682707 or check back soon for the latest lineup.
+                    We’re tuning the mics and scheduling the next night. Call 01753 682707 or check back shortly.
                 </p>
             </div>
         )
@@ -145,7 +160,7 @@ function MusicEventCards({ events }: { events: Event[] }) {
                         <div className="bg-anchor-green text-white px-5 py-4 flex flex-wrap items-center justify-between gap-3">
                             <div className="min-w-0">
                                 <div className="flex items-center gap-2 mb-1">
-                                    <p className="text-xs uppercase tracking-wide text-white/70">Live Music Event</p>
+                                    <p className="text-xs uppercase tracking-wide text-white/70">Karaoke Night</p>
                                     {isTentative && (
                                         <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-blue-500 text-white border border-blue-400">
                                             TENTATIVE
@@ -184,7 +199,7 @@ function MusicEventCards({ events }: { events: Event[] }) {
                                     <p className="text-gray-700 leading-relaxed">{event.description}</p>
                                 )}
                                 <p className="text-sm text-gray-600">
-                                    Join us for a fantastic night of live music. Great beer, great atmosphere, and no cover charge.
+                                    Grab the mic and show us what you’ve got! Thousands of songs, supportive crowd, and free entry all night.
                                 </p>
                             </div>
 
@@ -199,42 +214,42 @@ function MusicEventCards({ events }: { events: Event[] }) {
     )
 }
 
-export default async function LiveMusicPage() {
-    const events = await getLiveMusicEvents()
+export default async function KaraokePage() {
+    const events = await getKaraokeEvents()
     const nextEvent = events[0]
-    const nextEventDate = nextEvent ? formatEventDate(nextEvent.startDate) : 'Check our socials'
-    const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '8:30pm approx'
+    const nextEventDate = nextEvent ? formatEventDate(nextEvent.startDate) : 'Dates announced soon'
+    const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '8:00pm approx'
 
     const heroDescription = nextEvent
-        ? `Next gig: ${nextEvent.name} on ${nextEventDate} at ${nextEventTime}. Free entry!`
-        : 'Local bands, acoustic sets and tribute acts. Free entry and great atmosphere.'
+        ? `Next karaoke night: ${nextEvent.name} on ${nextEventDate} at ${nextEventTime}. Free entry, endless tunes!`
+        : 'Sing your heart out at The Anchor. Thousands of songs, cold drinks, and a great atmosphere. Free entry!'
 
     return (
         <>
             <HeroWrapper
-                route="/live-music"
-                title="Live Music at The Anchor"
-                description="Experience the best live music pub near Heathrow. From acoustic sessions to full bands, enjoy great tunes and free entry in Stanwell Moor."
+                route="/karaoke"
+                title="Karaoke Nights at The Anchor"
+                description="The stage is yours! Join us near Heathrow for the ultimate karaoke night. Thousands of songs, liquid courage on tap, and free entry."
                 variant="promo"
                 tags={[
-                    { label: '🎸 Live Local Talent', variant: 'primary' },
+                    { label: '🎤 Thousands of Songs', variant: 'primary' },
                     { label: '💸 Always Free Entry', variant: 'default' },
-                    { label: '🍻 Cold Pints & Hot Food', variant: 'default' }
+                    { label: '🍻 Liquid Courage Available', variant: 'default' }
                 ]}
                 primaryCta={
                     <a
-                        href="#music-dates"
+                        href="#karaoke-dates"
                         className={cn(
                             'inline-flex items-center justify-center font-semibold text-center transition-all duration-200 rounded-full whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-anchor-gold focus:ring-offset-2 bg-white text-anchor-green border-2 border-anchor-green hover:bg-anchor-green hover:text-white px-8 py-3.5 text-lg min-h-[48px] w-full sm:w-auto'
                         )}
                     >
-                        📅 See upcoming gigs
+                        📅 See upcoming dates
                     </a>
                 }
                 secondaryCta={
                     <PhoneButton
                         phone="01753 682707"
-                        source="live_music_hero"
+                        source="karaoke_hero"
                         variant="secondary"
                         size="lg"
                         className="w-full sm:w-auto"
@@ -247,10 +262,10 @@ export default async function LiveMusicPage() {
             <Section spacing="sm" background="white">
                 <Container>
                     <PageTitle className="text-center text-anchor-green" seo={{ structured: true, speakable: true }}>
-                        Live Music Pub Near Heathrow – Bands, Gigs & Good Times
+                        Karaoke Pub Near Heathrow – Sing Your Way to Stardom
                     </PageTitle>
                     <p className="text-lg text-gray-700 text-center max-w-3xl mx-auto">
-                        Looking for live music near Heathrow? The Anchor brings you the best local talent, from foot-tapping acoustic sets to high-energy party bands. Located in Stanwell Moor, just minutes from the airport, we’re the perfect spot for music lovers to unwind with a pint and a gig. {heroDescription}
+                        Ready to unleash your inner rock star? The Anchor’s karaoke nights are legendary in Stanwell Moor. Whether you’re belting out ballads or rapping 90s classics, we provide the stage, the mic, and the enthusiastic crowd. Just minutes from Heathrow, it’s the perfect place to let loose. {heroDescription}
                     </p>
                 </Container>
             </Section>
@@ -260,11 +275,11 @@ export default async function LiveMusicPage() {
                     <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-stretch">
                         <Card className="bg-white shadow-lg border border-anchor-sand">
                             <CardBody className="space-y-4">
-                                <p className="text-sm uppercase tracking-wide text-anchor-gold font-semibold">Next live gig</p>
-                                <h2 className="text-3xl font-bold text-anchor-charcoal">{nextEvent ? nextEvent.name : 'Next gig announced soon'}</h2>
+                                <p className="text-sm uppercase tracking-wide text-anchor-gold font-semibold">Next karaoke night</p>
+                                <h2 className="text-3xl font-bold text-anchor-charcoal">{nextEvent ? nextEvent.name : 'Next karaoke night announced soon'}</h2>
                                 <p className="text-anchor-green font-semibold">{nextEvent ? `${nextEventDate} · ${nextEventTime}` : 'Check back for the next date'}</p>
                                 <p className="text-gray-700 whitespace-pre-line">
-                                    {nextEvent?.description || 'From acoustic sessions to full rock bands, our live music nights are always free entry and full of energy.'}
+                                    Join us for free-entry karaoke. Thousands of songs, no cover charge, and a crowd that cheers for everyone.
                                 </p>
                                 <div className="space-y-3">
                                     {nextEvent ? (
@@ -283,15 +298,15 @@ export default async function LiveMusicPage() {
                         </Card>
                         <Card className="bg-anchor-cream border border-amber-100 shadow-sm">
                             <CardBody className="space-y-4">
-                                <h3 className="text-2xl font-bold text-anchor-charcoal">Gig Guide</h3>
+                                <h3 className="text-2xl font-bold text-anchor-charcoal">How it works</h3>
                                 <ul className="space-y-3 text-gray-700">
-                                    <li><strong>Start time:</strong> Bands usually kick off around 8:30 pm.</li>
-                                    <li><strong>Cost:</strong> Always free entry. Support local music by buying a pint!</li>
-                                    <li><strong>Food:</strong> Kitchen open until 9 pm for gig fuel.</li>
-                                    <li><strong>Atmosphere:</strong> Up-close, personal and friendly. Standing room at the bar, tables available to book.</li>
+                                    <li><strong>Start time:</strong> Music kicks off around 8:00 pm (check listing).</li>
+                                    <li><strong>Choose your track:</strong> Browse our digital library or ask the host. We have everything from Abba to ZZ Top.</li>
+                                    <li><strong>Eat & Drink:</strong> Kitchen open until 9 pm for pre-show burgers. Bar open late.</li>
+                                    <li><strong>Free Entry:</strong> Always free entry, always good vibes.</li>
                                 </ul>
                                 <p className="text-sm text-gray-600">
-                                    Families welcome until 9pm. After that, it's an 18+ venue.
+                                    Solo singers, duets and group ensembles all welcome. We’ll even provide backing vocals if you need a hand!
                                 </p>
                             </CardBody>
                         </Card>
@@ -299,14 +314,14 @@ export default async function LiveMusicPage() {
                 </Container>
             </Section>
 
-            <Section spacing="md" background="white" id="music-dates">
+            <Section spacing="md" background="white" id="karaoke-dates">
                 <Container>
                     <div className="max-w-5xl mx-auto">
-                        <h2 className="text-3xl font-bold text-anchor-charcoal text-center mb-6">Upcoming Gigs</h2>
+                        <h2 className="text-3xl font-bold text-anchor-charcoal text-center mb-6">Upcoming Karaoke Nights</h2>
                         <p className="text-gray-700 text-center mb-8">
-                            Here’s who’s playing next. For the most up-to-date info, keep an eye on our <Link href="https://facebook.com/theanchorstanwellmoor" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">Facebook page</Link>.
+                            Mic check, one two! Here’s when you can next take the stage. For updates, check our <Link href="https://facebook.com/theanchorstanwellmoor" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">Facebook page</Link>.
                         </p>
-                        <MusicEventCards events={events} />
+                        <KaraokeEventCards events={events} />
                     </div>
                 </Container>
             </Section>
@@ -316,13 +331,13 @@ export default async function LiveMusicPage() {
                     <div className="max-w-5xl mx-auto grid gap-6 md:grid-cols-3">
                         <Card className="bg-anchor-cream/50 shadow-sm">
                             <CardBody>
-                                <h3 className="text-xl font-semibold text-anchor-green mb-2">Pre-Gig Dinner</h3>
+                                <h3 className="text-xl font-semibold text-anchor-green mb-2">Pre-Show Fuel</h3>
                                 <p className="text-sm text-gray-700 mb-4">
-                                    Kitchen open until 9pm. Grab a burger or pizza before the music starts.
+                                    Calm the nerves with a burger or pizza before you hit the stage. Kitchen open late.
                                 </p>
                                 <div className="flex flex-col gap-2">
                                     <BookTableButton
-                                        source="live_music_food_cta"
+                                        source="karaoke_food_cta"
                                         variant="primary"
                                         size="sm"
                                         className="w-full"
@@ -337,30 +352,30 @@ export default async function LiveMusicPage() {
                         </Card>
                         <Card className="bg-white shadow-sm">
                             <CardBody>
-                                <h3 className="text-xl font-semibold text-anchor-green mb-2">Sunday Sessions</h3>
+                                <h3 className="text-xl font-semibold text-anchor-green mb-2">Group Bookings</h3>
                                 <p className="text-sm text-gray-700 mb-4">
-                                    Relaxed acoustic vibes to go with your Sunday Roast. The perfect end to the week.
+                                    Planning a birthday or office party? Reserve a specialized area for your team.
                                 </p>
                                 <div className="flex flex-col gap-2">
                                     <BookTableButton
-                                        source="live_music_roast_cta"
+                                        source="karaoke_group_cta"
                                         variant="primary"
                                         size="sm"
                                         className="w-full"
                                     >
-                                        Book Sunday Roast
+                                        Book for Groups
                                     </BookTableButton>
-                                    <Link href="/sunday-lunch" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
-                                        Sunday Menu →
+                                    <Link href="/contact" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
+                                        Contact Us →
                                     </Link>
                                 </div>
                             </CardBody>
                         </Card>
                         <Card className="bg-anchor-cream/50 shadow-sm">
                             <CardBody>
-                                <h3 className="text-xl font-semibold text-anchor-green mb-2">Drinks & Cocktails</h3>
+                                <h3 className="text-xl font-semibold text-anchor-green mb-2">Cocktails & Shots</h3>
                                 <p className="text-sm text-gray-700 mb-4">
-                                    Full bar service with craft beers, ales, wines and cocktails to enjoy while you listen.
+                                    From courage-boosting shots to celebratory cocktails, the bar is stocked for the occasion.
                                 </p>
                                 <div className="flex flex-col gap-2">
                                     <Link href="/food-menu#drinks" className="w-full">
@@ -377,7 +392,7 @@ export default async function LiveMusicPage() {
                 <Container>
                     <div className="max-w-6xl mx-auto">
                         <h2 className="text-3xl md:text-4xl font-bold text-anchor-charcoal mb-8 text-center">
-                            Why catch a gig at The Anchor?
+                            Why our karaoke nights hit the high notes
                         </h2>
                         <Grid cols={WHY_LOVE_IT.length > 3 ? 4 : 3} gap="md">
                             {WHY_LOVE_IT.map(feature => (
@@ -431,7 +446,7 @@ export default async function LiveMusicPage() {
                 </Container>
             </Section>
 
-            <EventSchema event={staticEvents.liveMusic} />
+            <EventSchema event={staticEvents.karaoke} />
             {events.map(event => (
                 <EventSchema key={`event-schema-${event.id}`} event={event} />
             ))}

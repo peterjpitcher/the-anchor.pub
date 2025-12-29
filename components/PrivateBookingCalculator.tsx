@@ -131,7 +131,7 @@ export function PrivateBookingCalculator({ eventType }: PrivateBookingCalculator
         })
 
         return { total: calculatedTotal, items: generatedItems }
-    }, [config, selectedSpace, hours, guestCount, selectedPackages, selectedVendorIds])
+    }, [config, selectedSpace, hours, selectedPackages, selectedVendorIds])
 
     if (loading) return <div className="animate-pulse h-64 bg-slate-100 rounded-lg"></div>
     if (error) return <div className="p-4 text-red-600 bg-red-50 rounded-lg">Unable to load calculator: {error}</div>

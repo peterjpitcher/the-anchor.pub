@@ -277,5 +277,29 @@ export const staticEvents = {
     startTime: '20:30',
     endTime: '23:30',
     maximumAttendeeCapacity: 150
+  }),
+
+  karaoke: createRecurringEvent({
+    id: 'monthly-karaoke',
+    slug: 'karaoke',
+    name: 'Karaoke at The Anchor',
+    description: 'Sing your heart out at our lively karaoke nights. Free entry and thousands of songs.',
+    longDescription: 'Take the stage at The Anchor’s karaoke nights! Choose from thousands of songs, grab the mic, and enjoy a night of singing, laughter, and great vibes. Whether you’re a power baladeer or a rock star, everyone’s welcome to have a go. Great drinks, supportive crowd, and free entry!',
+    shortDescription: 'Free entry karaoke with thousands of songs.',
+    image: [
+      '/images/events/karaoke/the-anchor-karaoke-night.jpg'
+    ],
+    price: '0',
+    duration: 'PT4H',
+    category: {
+      id: 'entertainment',
+      name: 'Entertainment',
+      slug: 'entertainment',
+      color: '#ec4899',
+      icon: '🎤'
+    },
+    startTime: '20:00',
+    endTime: '23:59',
+    maximumAttendeeCapacity: 100
   })
 }

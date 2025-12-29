@@ -1762,6 +1762,34 @@ export async function getUpcomingEvents(limit: number = 10, daysLookahead: numbe
   }
 }
 
+export async function getUpcomingEventsByCategory(
+  categoryId: string,
+  limit: number = 10,
+  daysLookahead: number = 30
+): Promise<Event[]> {
+  if (!categoryId) return []
+
+  try {
+    const safeLimit = Math.min(Math.max(Math.floor(limit), 1), MAX_EVENTS_LIMIT)
+
+    const now = new Date()
+    const toDate = new Date(now)
+    toDate.setDate(now.getDate() + daysLookahead)
+
+    const response = await anchorAPI.getEvents({
+      from_date: now.toISOString().split('T')[0],
+      to_date: toDate.toISOString().split('T')[0],
+      limit: safeLimit,
+      status: 'scheduled,draft',
+      category_id: categoryId
+    })
+    return response.events || []
+  } catch (error) {
+    logError('api-upcoming-events-by-category', error, { categoryId, limit, daysLookahead })
+    return []
+  }
+}
+
 export async function getTodaysEvents(): Promise<Event[]> {
   try {
     const response = await anchorAPI.getTodaysEvents('scheduled,draft')

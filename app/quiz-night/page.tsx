@@ -21,11 +21,13 @@ import { EventSchema } from '@/components/seo/EventSchema'
 import EventBooking from '@/components/EventBooking'
 import { BookTableButton } from '@/components/BookTableButton'
 import {
-  getUpcomingEvents,
+  getEventCategories,
+  getUpcomingEventsByCategory,
   formatEventDate,
   formatEventTime,
   formatDoorTime,
-  type Event
+  type Event,
+  type EventCategory
 } from '@/lib/api'
 import { getEventWebsiteUrl } from '@/lib/event-url'
 import { staticEvents } from '@/lib/static-events'
@@ -38,10 +40,32 @@ export const metadata: Metadata = {
     'quiz night pub, quiz night, quiz night quiz, trivia, trivia night, pub trivia, night trivia, pub quiz near heathrow, pub quiz staines, stanwell moor quiz night'
 }
 
-function getQuizEvents(events: Event[]) {
-  return events
-    .filter(event => (event.name || '').toLowerCase().includes('quiz'))
-    .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
+const QUIZ_CATEGORY = {
+  name: 'Pub Quiz Night',
+  slug: 'quiz-night-stanwell-moor'
+}
+
+const normalizeCategoryValue = (value?: string | null) =>
+  value?.toLowerCase().replace(/\s+/g, ' ').trim() ?? ''
+
+function getCategoryIdByLabel(categories: EventCategory[], label: typeof QUIZ_CATEGORY) {
+  const targetName = normalizeCategoryValue(label.name)
+  const targetSlug = normalizeCategoryValue(label.slug)
+
+  return categories.find(category => {
+    const categoryName = normalizeCategoryValue(category.name)
+    const categorySlug = normalizeCategoryValue(category.slug)
+    return categoryName === targetName || categorySlug === targetSlug
+  })?.id
+}
+
+async function getQuizEvents() {
+  const categories = await getEventCategories()
+  const categoryId = getCategoryIdByLabel(categories, QUIZ_CATEGORY)
+  if (!categoryId) return []
+
+  const events = await getUpcomingEventsByCategory(categoryId, 60, 365)
+  return events.sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
 }
 
 const WHY_LOVE_IT = [
@@ -222,7 +246,7 @@ function QuizNightEvents({ events }: { events: Event[] }) {
 }
 
 export default async function QuizNightPage() {
-  const events = getQuizEvents(await getUpcomingEvents(60, 365))
+  const events = await getQuizEvents()
   const nextEvent = events[0]
   const nextEventDate = nextEvent ? formatEventDate(nextEvent.startDate) : 'Next date announced soon'
   const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '7:30 pm start'
@@ -309,6 +333,63 @@ export default async function QuizNightPage() {
         </Container>
       </Section>
 
+      <Section spacing="md" background="gray">
+        <Container>
+          <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-stretch">
+            <Card className="bg-white shadow-lg border border-anchor-sand">
+              <CardBody className="space-y-4">
+                <p className="text-sm uppercase tracking-wide text-anchor-gold font-semibold">Next quiz night</p>
+                <h2 className="text-3xl font-bold text-anchor-charcoal">{nextEvent ? nextEvent.name : 'Next quiz night announced soon'}</h2>
+                <p className="text-anchor-green font-semibold">{nextEvent ? `${nextEventDate} · ${nextEventTime}` : 'Check back for the next date'}</p>
+                {nextEvent?.longDescription && (
+                  <p className="text-gray-700 whitespace-pre-line">{nextEvent.longDescription}</p>
+                )}
+                <div className="space-y-3">
+                  {nextEvent ? (
+                    <EventBooking event={nextEvent} className="w-full" />
+                  ) : (
+                    <Button
+                      size="lg"
+                      asChild
+                      className="w-full bg-anchor-green text-white hover:bg-anchor-green-dark"
+                    >
+                      <Link href="tel:+441753682707">📞 Call 01753 682707</Link>
+                    </Button>
+                  )}
+                </div>
+              </CardBody>
+            </Card>
+            <Card className="bg-anchor-cream border border-amber-100 shadow-sm">
+              <CardBody className="space-y-4">
+                <h3 className="text-2xl font-bold text-anchor-charcoal">How the night runs</h3>
+                <ul className="space-y-3 text-gray-700">
+                  <li><strong>6:30 pm</strong> · Doors open, soundtrack on, grab sharers & themed cocktails.</li>
+                  <li><strong>7:00 pm</strong> · Quiz night quiz kicks off. Four rounds × 10 questions with occasional bonus trivia prompts.</li>
+                  <li><strong>8:15 pm</strong> · Interactive quick-fire round to get everyone on their feet.</li>
+                  <li><strong>8:30 pm</strong> · Comfort break & last call for kitchen orders.</li>
+                  <li><strong>9:45 pm</strong> · Final scores, prize ladder and best team name shout-outs.</li>
+                </ul>
+                <p className="text-sm text-gray-600">
+                  Teams up to six. House rule: phones away during rounds or it’s a cheeky –5 points. We keep things welcoming, witty and PG-13.
+                </p>
+              </CardBody>
+            </Card>
+          </div>
+        </Container>
+      </Section>
+
+      <Section spacing="md" background="white" id="quiz-dates">
+        <Container>
+          <div className="max-w-5xl mx-auto">
+            <h2 className="text-3xl font-bold text-anchor-charcoal text-center mb-6">Upcoming quiz night dates</h2>
+            <p className="text-gray-700 text-center mb-8">
+              We list confirmed quiz night dates below. For the very latest schedule—including bonus weekend quizzes—check our <Link href="/whats-on" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">What’s On page</Link> or call 01753 682707 and we’ll give you the next available date.
+            </p>
+            <QuizNightEvents events={events} />
+          </div>
+        </Container>
+      </Section>
+
       <Section spacing="sm" background="white">
         <Container>
           <div className="max-w-5xl mx-auto grid gap-6 md:grid-cols-3">
@@ -380,52 +461,7 @@ export default async function QuizNightPage() {
         </Container>
       </Section>
 
-      <Section spacing="md" background="gray">
-        <Container>
-          <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-stretch">
-            <Card className="bg-white shadow-lg border border-anchor-sand">
-              <CardBody className="space-y-4">
-                <p className="text-sm uppercase tracking-wide text-anchor-gold font-semibold">Next quiz night</p>
-                <h2 className="text-3xl font-bold text-anchor-charcoal">{nextEvent ? nextEvent.name : 'Next quiz night announced soon'}</h2>
-                <p className="text-anchor-green font-semibold">{nextEvent ? `${nextEventDate} · ${nextEventTime}` : 'Check back for the next date'}</p>
-                {nextEvent?.longDescription && (
-                  <p className="text-gray-700 whitespace-pre-line">{nextEvent.longDescription}</p>
-                )}
-                <div className="space-y-3">
-                  {nextEvent ? (
-                    <EventBooking event={nextEvent} className="w-full" />
-                  ) : (
-                    <Button
-                      size="lg"
-                      asChild
-                      className="w-full bg-anchor-green text-white hover:bg-anchor-green-dark"
-                    >
-                      <Link href="tel:+441753682707">📞 Call 01753 682707</Link>
-                    </Button>
-                  )}
-                </div>
-              </CardBody>
-            </Card>
-            <Card className="bg-anchor-cream border border-amber-100 shadow-sm">
-              <CardBody className="space-y-4">
-                <h3 className="text-2xl font-bold text-anchor-charcoal">How the night runs</h3>
-                <ul className="space-y-3 text-gray-700">
-                  <li><strong>6:30 pm</strong> · Doors open, soundtrack on, grab sharers & themed cocktails.</li>
-                  <li><strong>7:00 pm</strong> · Quiz night quiz kicks off. Four rounds × 10 questions with occasional bonus trivia prompts.</li>
-                  <li><strong>8:15 pm</strong> · Interactive quick-fire round to get everyone on their feet.</li>
-                  <li><strong>8:30 pm</strong> · Comfort break & last call for kitchen orders.</li>
-                  <li><strong>9:45 pm</strong> · Final scores, prize ladder and best team name shout-outs.</li>
-                </ul>
-                <p className="text-sm text-gray-600">
-                  Teams up to six. House rule: phones away during rounds or it’s a cheeky –5 points. We keep things welcoming, witty and PG-13.
-                </p>
-              </CardBody>
-            </Card>
-          </div>
-        </Container>
-      </Section>
-
-      <Section spacing="md" background="white" id="quiz-dates">
+      <Section spacing="md" background="white">
         <Container>
           <div className="max-w-6xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-anchor-charcoal mb-8 text-center">
@@ -457,18 +493,6 @@ export default async function QuizNightPage() {
               <PrizeCard title="Second from Last" reward="Bottle of Wine" copy="A cheeky consolation prize that keeps everyone in the game." />
               <PrizeCard title="Bonus Challenges" reward="Surprise Treats" copy="Nail the bonus prompts to pick up Anchor goodies and bragging rights." />
             </div>
-          </div>
-        </Container>
-      </Section>
-
-      <Section spacing="md" background="white">
-        <Container>
-          <div className="max-w-5xl mx-auto">
-            <h2 className="text-3xl font-bold text-anchor-charcoal text-center mb-6">Upcoming quiz night dates</h2>
-            <p className="text-gray-700 text-center mb-8">
-              We list confirmed quiz night dates below. For the very latest schedule—including bonus weekend quizzes—check our <Link href="/whats-on" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">What’s On page</Link> or call 01753 682707 and we’ll give you the next available date.
-            </p>
-            <QuizNightEvents events={events} />
           </div>
         </Container>
       </Section>

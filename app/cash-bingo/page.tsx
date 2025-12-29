@@ -18,11 +18,13 @@ import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { EventSchema } from '@/components/seo/EventSchema'
 import EventBooking from '@/components/EventBooking'
 import {
-  getUpcomingEvents,
+  getEventCategories,
+  getUpcomingEventsByCategory,
   formatEventDate,
   formatEventTime,
   formatDoorTime,
-  type Event
+  type Event,
+  type EventCategory
 } from '@/lib/api'
 import { getEventWebsiteUrl } from '@/lib/event-url'
 import { staticEvents } from '@/lib/static-events'
@@ -38,10 +40,32 @@ export const metadata: Metadata = {
     'cash bingo, bingo night, bingo games, play bingo for cash, bingo hall, bingo tickets, bingo books, jackpot bingo, cash prizes, bingo calls, bingo numbers, bingo number caller, bingo near heathrow'
 }
 
-function getBingoEvents(events: Event[]) {
-  return events
-    .filter(event => (event.name || '').toLowerCase().includes('bingo'))
-    .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
+const BINGO_CATEGORY = {
+  name: 'Bingo Night',
+  slug: 'bingo-night'
+}
+
+const normalizeCategoryValue = (value?: string | null) =>
+  value?.toLowerCase().replace(/\s+/g, ' ').trim() ?? ''
+
+function getCategoryIdByLabel(categories: EventCategory[], label: typeof BINGO_CATEGORY) {
+  const targetName = normalizeCategoryValue(label.name)
+  const targetSlug = normalizeCategoryValue(label.slug)
+
+  return categories.find(category => {
+    const categoryName = normalizeCategoryValue(category.name)
+    const categorySlug = normalizeCategoryValue(category.slug)
+    return categoryName === targetName || categorySlug === targetSlug
+  })?.id
+}
+
+async function getBingoEvents() {
+  const categories = await getEventCategories()
+  const categoryId = getCategoryIdByLabel(categories, BINGO_CATEGORY)
+  if (!categoryId) return []
+
+  const events = await getUpcomingEventsByCategory(categoryId, 60, 365)
+  return events.sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
 }
 
 const WHY_LOVE_IT = [
@@ -195,7 +219,7 @@ function BingoEventCards({ events }: { events: Event[] }) {
 }
 
 export default async function CashBingoPage() {
-  const events = getBingoEvents(await getUpcomingEvents(60, 365))
+  const events = await getBingoEvents()
   const nextEvent = events[0]
   const nextEventDate = nextEvent ? formatEventDate(nextEvent.startDate) : 'Next date announced soon'
   const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '7:00 pm start'
@@ -248,6 +272,62 @@ export default async function CashBingoPage() {
           <p className="text-lg text-gray-700 text-center max-w-3xl mx-auto">
             Searching for cash bingo games near Heathrow? Every few weeks we turn The Anchor into a buzzing bingo hall and bingo room with bingo games for money, cash prizes, hot food from the kitchen and a friendly crowd of locals, cabin crew and Stanwell Moor neighbours. {heroDescription}
           </p>
+        </Container>
+      </Section>
+
+      <Section spacing="md" background="gray">
+        <Container>
+          <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-stretch">
+            <Card className="bg-white shadow-lg border border-anchor-sand">
+              <CardBody className="space-y-4">
+                <p className="text-sm uppercase tracking-wide text-anchor-gold font-semibold">Next cash bingo night</p>
+                <h2 className="text-3xl font-bold text-anchor-charcoal">{nextEvent ? nextEvent.name : 'Next cash bingo announced soon'}</h2>
+                <p className="text-anchor-green font-semibold">{nextEvent ? `${nextEventDate} · ${nextEventTime}` : 'Check back for the next date'}</p>
+                <p className="text-gray-700 whitespace-pre-line">
+                  £10 cash book includes all ten bingo games, two breaks and eligibility for instant cash prizes, the rolling snowball bingo bonus (we add £20 and two extra calls every time it rolls over) and the jackpot bingo pot.
+                </p>
+                <div className="space-y-3">
+                  {nextEvent ? (
+                    <EventBooking event={nextEvent} className="w-full" />
+                  ) : (
+                    <Button
+                      size="lg"
+                      asChild
+                      className="w-full bg-anchor-green text-white hover:bg-anchor-green-dark"
+                    >
+                      <Link href="tel:+441753682707">📞 Call 01753 682707</Link>
+                    </Button>
+                  )}
+                </div>
+              </CardBody>
+            </Card>
+            <Card className="bg-anchor-cream border border-amber-100 shadow-sm">
+              <CardBody className="space-y-4">
+                <h3 className="text-2xl font-bold text-anchor-charcoal">How the night feels</h3>
+                <p className="text-gray-700">
+                  We keep things punchy in the bingo room: ten quick-fire games with two planned pauses so you can top up drinks, grab fresh cards and order from the kitchen without missing a call.
+                </p>
+                <p className="text-gray-700">
+                  Expect classic bingo banter, cheeky spot prizes and a snowball countdown that gets louder as the numbers close in. When you shout bingo, our host will check the board and make sure the pot lands in the right hands.
+                </p>
+                <p className="text-sm text-gray-600">
+                  Caller’s decision is final, mobiles stay on silent and tied games split the winnings evenly.
+                </p>
+              </CardBody>
+            </Card>
+          </div>
+        </Container>
+      </Section>
+
+      <Section spacing="md" background="white" id="bingo-dates">
+        <Container>
+          <div className="max-w-5xl mx-auto">
+            <h2 className="text-3xl font-bold text-anchor-charcoal text-center mb-6">Upcoming cash bingo dates</h2>
+            <p className="text-gray-700 text-center mb-8">
+              We’ve listed confirmed bingo nights below. For the very latest schedule—including bonus specials—visit our <Link href="/whats-on" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">What’s On page</Link> or call 01753 682707.
+            </p>
+            <BingoEventCards events={events} />
+          </div>
         </Container>
       </Section>
 
@@ -322,49 +402,6 @@ export default async function CashBingoPage() {
         </Container>
       </Section>
 
-      <Section spacing="md" background="gray">
-        <Container>
-          <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-stretch">
-            <Card className="bg-white shadow-lg border border-anchor-sand">
-              <CardBody className="space-y-4">
-                <p className="text-sm uppercase tracking-wide text-anchor-gold font-semibold">Next cash bingo night</p>
-                <h2 className="text-3xl font-bold text-anchor-charcoal">{nextEvent ? nextEvent.name : 'Next cash bingo announced soon'}</h2>
-                <p className="text-anchor-green font-semibold">{nextEvent ? `${nextEventDate} · ${nextEventTime}` : 'Check back for the next date'}</p>
-                <p className="text-gray-700 whitespace-pre-line">
-                  £10 cash book includes all ten bingo games, two breaks and eligibility for instant cash prizes, the rolling snowball bingo bonus (we add £20 and two extra calls every time it rolls over) and the jackpot bingo pot.
-                </p>
-                <div className="space-y-3">
-                  {nextEvent ? (
-                    <EventBooking event={nextEvent} className="w-full" />
-                  ) : (
-                    <Button
-                      size="lg"
-                      asChild
-                      className="w-full bg-anchor-green text-white hover:bg-anchor-green-dark"
-                    >
-                      <Link href="tel:+441753682707">📞 Call 01753 682707</Link>
-                    </Button>
-                  )}
-                </div>
-              </CardBody>
-            </Card>
-            <Card className="bg-anchor-cream border border-amber-100 shadow-sm">
-              <CardBody className="space-y-4">
-                <h3 className="text-2xl font-bold text-anchor-charcoal">How the night feels</h3>
-                <p className="text-gray-700">
-                  We keep things punchy in the bingo room: ten quick-fire games with two planned pauses so you can top up drinks, grab fresh cards and order from the kitchen without missing a call.
-                </p>
-                <p className="text-gray-700">
-                  Expect classic bingo banter, cheeky spot prizes and a snowball countdown that gets louder as the numbers close in. When you shout bingo, our host will check the board and make sure the pot lands in the right hands.
-                </p>
-                <p className="text-sm text-gray-600">
-                  Caller’s decision is final, mobiles stay on silent and tied games split the winnings evenly.
-                </p>
-              </CardBody>
-            </Card>
-          </div>
-        </Container>
-      </Section>
       <Section spacing="md" background="white">
         <Container>
           <div className="max-w-6xl mx-auto">
@@ -440,18 +477,6 @@ export default async function CashBingoPage() {
                 </CardBody>
               </Card>
             </div>
-          </div>
-        </Container>
-      </Section>
-
-      <Section spacing="md" background="white" id="bingo-dates">
-        <Container>
-          <div className="max-w-5xl mx-auto">
-            <h2 className="text-3xl font-bold text-anchor-charcoal text-center mb-6">Upcoming cash bingo dates</h2>
-            <p className="text-gray-700 text-center mb-8">
-              We’ve listed confirmed bingo nights below. For the very latest schedule—including bonus specials—visit our <Link href="/whats-on" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">What’s On page</Link> or call 01753 682707.
-            </p>
-            <BingoEventCards events={events} />
           </div>
         </Container>
       </Section>
