@@ -14,6 +14,7 @@ import { Button, LiveRegion, useLiveRegion } from '@/components/ui'
 interface EventBookingProps {
   event: Event
   className?: string
+  isTentative?: boolean
 }
 
 // Retry configuration
@@ -22,7 +23,7 @@ const RETRY_DELAY = 1000 // Start with 1 second
 
 const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
-function EventBookingComponent({ event, className = '' }: EventBookingProps) {
+function EventBookingComponent({ event, className = '', isTentative = false }: EventBookingProps) {
   const [isBooking, setIsBooking] = useState(false)
   const [phoneNumber, setPhoneNumber] = useState('')
   const [error, setError] = useState<string | null>(null)
@@ -37,17 +38,17 @@ function EventBookingComponent({ event, className = '' }: EventBookingProps) {
   const validatePhoneNumber = useCallback((phone: string): boolean => {
     // Remove spaces and special characters
     const cleaned = phone.replace(/[\s-()]/g, '')
-    
+
     // UK mobile number patterns
     const ukMobilePattern = /^(?:(?:\+44|0044|0)7(?:\d{9}))$/
-    
+
     return ukMobilePattern.test(cleaned)
   }, [])
 
   const formatPhoneNumber = useCallback((phone: string): string => {
     // Remove spaces and special characters
     let cleaned = phone.replace(/[\s-()]/g, '')
-    
+
     // Convert to standard format
     if (cleaned.startsWith('+44')) {
       return cleaned
@@ -56,7 +57,7 @@ function EventBookingComponent({ event, className = '' }: EventBookingProps) {
     } else if (cleaned.startsWith('07')) {
       return '+44' + cleaned.substring(1)
     }
-    
+
     return cleaned
   }, [])
 
@@ -86,7 +87,7 @@ function EventBookingComponent({ event, className = '' }: EventBookingProps) {
     setStatusMessage('Processing your booking request...')
     setRetryCount(0)
     announce('Processing your booking request', 'polite')
-    
+
     // Track booking start for remarketing
     trackEventBookingStart({
       eventId: event.id,
@@ -110,7 +111,7 @@ function EventBookingComponent({ event, className = '' }: EventBookingProps) {
 
         // Check if we should retry
         const isRetryable = err?.status >= 500 || err?.message?.includes('network') || err?.message?.includes('timeout')
-        
+
         if (isRetryable && attemptNumber < MAX_RETRIES) {
           const delay = RETRY_DELAY * Math.pow(2, attemptNumber) // Exponential backoff
           const retryMsg = `Connection issue. Retrying... (attempt ${attemptNumber + 1}/${MAX_RETRIES})`
@@ -120,7 +121,7 @@ function EventBookingComponent({ event, className = '' }: EventBookingProps) {
           await sleep(delay)
           return attemptBooking(attemptNumber + 1)
         }
-        
+
         throw err
       }
     }
@@ -135,7 +136,7 @@ function EventBookingComponent({ event, className = '' }: EventBookingProps) {
         const successMsg = 'Booking initiated successfully! Check your messages for the confirmation link.'
         setStatusMessage(successMsg)
         announce(successMsg, 'assertive')
-        
+
         // Track successful booking
         analytics.formSubmit('booking', event.name, 1)
       } else {
@@ -143,13 +144,13 @@ function EventBookingComponent({ event, className = '' }: EventBookingProps) {
         setError(errorMsg)
         setStatusMessage(errorMsg)
         announce(errorMsg, 'assertive')
-        
+
         // Track error
         analytics.error('booking', `${event.name}: ${errorMsg}`)
       }
     } catch (err: any) {
       // Error: Booking error
-      
+
       // Check for specific error messages
       let errorMsg: string
       if (err?.message?.includes('temporarily unavailable') || err?.status === 503) {
@@ -183,6 +184,18 @@ function EventBookingComponent({ event, className = '' }: EventBookingProps) {
     }
   }, [])
 
+  // If event is tentative, show message
+  if (isTentative) {
+    return (
+      <div className={`bg-blue-50 border border-blue-200 rounded-lg p-4 ${className}`}>
+        <p className="text-blue-800 font-semibold">Tentative Date</p>
+        <p className="text-blue-600 text-sm mt-1">
+          This date is tentative. Confirmed status and booking will be available 1 month before the event.
+        </p>
+      </div>
+    )
+  }
+
   // If event is sold out or not available, show appropriate message
   if (event.remainingAttendeeCapacity === 0) {
     return (
@@ -211,8 +224,8 @@ function EventBookingComponent({ event, className = '' }: EventBookingProps) {
           </div>
         )}
         <p className="text-sm text-green-600 mt-4">
-          The confirmation link expires in 24 hours. Didn't receive the message? 
-          <Button 
+          The confirmation link expires in 24 hours. Didn't receive the message?
+          <Button
             onClick={() => {
               setSuccess(false)
               setBookingResponse(null)
@@ -235,7 +248,7 @@ function EventBookingComponent({ event, className = '' }: EventBookingProps) {
       {/* Live region for status announcements */}
       <LiveRegion message={liveMessage} type="polite" />
       <h3 className="text-lg font-semibold text-amber-900 mb-4">Book Your Spot</h3>
-      
+
       {event.remainingAttendeeCapacity && event.remainingAttendeeCapacity < 10 && (
         <p className="text-amber-700 text-sm mb-4 font-semibold">
           Limited spaces remaining - book now!
@@ -270,10 +283,10 @@ function EventBookingComponent({ event, className = '' }: EventBookingProps) {
         </div>
 
         {error && (
-          <div 
+          <div
             ref={errorRef}
-            id="phone-error" 
-            className="bg-red-50 border border-red-200 rounded p-3" 
+            id="phone-error"
+            className="bg-red-50 border border-red-200 rounded p-3"
             role="alert"
             aria-live="assertive"
           >
@@ -312,9 +325,9 @@ function EventBookingComponent({ event, className = '' }: EventBookingProps) {
       <div className="mt-4 pt-4 border-t border-amber-200">
         <p className="text-sm text-gray-600">
           Prefer to call? Ring us at{' '}
-          <PhoneLink 
-            phone="01753682707" 
-            source="event_booking_form" 
+          <PhoneLink
+            phone="01753682707"
+            source="event_booking_form"
             className="font-semibold text-amber-700 underline"
             showIcon={false}
           >

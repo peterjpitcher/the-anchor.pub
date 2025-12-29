@@ -115,6 +115,7 @@ export interface Event {
   duration?: string | null // New field: ISO 8601 duration
   about?: string | null // New field: extended description
   eventStatus: string
+  event_status?: string // Exposed raw status from API
   eventAttendanceMode: string
   location: {
     '@type': 'Place'
@@ -1255,6 +1256,7 @@ export class AnchorAPI {
     available_only?: boolean
     limit?: number
     offset?: number
+    status?: string
   } = {}): Promise<EventsResponse> {
     const query = new URLSearchParams()
     Object.entries(params).forEach(([key, value]) => {
@@ -1464,8 +1466,10 @@ export class AnchorAPI {
     throw { message: 'Event not found', status: 404 }
   }
 
-  async getTodaysEvents(): Promise<EventsResponse> {
-    return this.request<EventsResponse>('/events/today')
+  async getTodaysEvents(status: string = 'scheduled'): Promise<EventsResponse> {
+    const query = new URLSearchParams()
+    if (status) query.append('status', status)
+    return this.request<EventsResponse>(`/events/today?${query.toString()}`)
   }
 
   async getEventCategories(): Promise<EventCategoriesResponse> {
@@ -1734,7 +1738,7 @@ export async function getBusinessHours(): Promise<BusinessHours | null> {
 }
 
 // Helper functions for common use cases
-const MAX_EVENTS_LIMIT = 24
+const MAX_EVENTS_LIMIT = 100
 
 export async function getUpcomingEvents(limit: number = 10, daysLookahead: number = 30): Promise<Event[]> {
   try {
@@ -1749,6 +1753,7 @@ export async function getUpcomingEvents(limit: number = 10, daysLookahead: numbe
       from_date: now.toISOString().split('T')[0],
       to_date: toDate.toISOString().split('T')[0],
       limit: safeLimit,
+      status: 'scheduled,draft'
     })
     return response.events || []
   } catch (error) {
@@ -1759,7 +1764,7 @@ export async function getUpcomingEvents(limit: number = 10, daysLookahead: numbe
 
 export async function getTodaysEvents(): Promise<Event[]> {
   try {
-    const response = await anchorAPI.getTodaysEvents()
+    const response = await anchorAPI.getTodaysEvents('scheduled,draft')
     return response.events || []
   } catch (error) {
     logError('api-todays-events', error)

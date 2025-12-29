@@ -149,6 +149,7 @@ function QuizNightEvents({ events }: { events: Event[] }) {
       {events.map((event, index) => {
         const doorTime = formatDoorTime(event.doorTime)
         const startTime = formatEventTime(event.startDate)
+        const isTentative = new Date(event.startDate).getTime() > new Date().getTime() + 30 * 24 * 60 * 60 * 1000 || (event.eventStatus || '').toLowerCase().includes('draft')
         const eventUrl = getEventWebsiteUrl(event)
         const imageSrc = event.heroImageUrl || event.image?.[0] || null
 
@@ -156,7 +157,14 @@ function QuizNightEvents({ events }: { events: Event[] }) {
           <Card key={event.id} className="overflow-hidden border border-anchor-sand shadow-lg">
             <div className="bg-anchor-green text-white px-5 py-4 flex flex-wrap items-center justify-between gap-3">
               <div className="min-w-0">
-                <p className="text-xs uppercase tracking-wide text-white/70">Monthly quiz night</p>
+                <div className="flex items-center gap-2 mb-1">
+                  <p className="text-xs uppercase tracking-wide text-white/70">Monthly quiz night</p>
+                  {isTentative && (
+                    <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-blue-500 text-white border border-blue-400">
+                      TENTATIVE
+                    </span>
+                  )}
+                </div>
                 <Link href={eventUrl} className="block text-xl font-bold text-white hover:text-anchor-gold transition">
                   {event.name}
                 </Link>
@@ -203,7 +211,7 @@ function QuizNightEvents({ events }: { events: Event[] }) {
               </div>
 
               <div className="w-full lg:w-64 space-y-3">
-                <EventBooking event={event} className="w-full" />
+                <EventBooking event={event} className="w-full" isTentative={isTentative} />
               </div>
             </CardBody>
           </Card>
@@ -214,7 +222,7 @@ function QuizNightEvents({ events }: { events: Event[] }) {
 }
 
 export default async function QuizNightPage() {
-  const events = getQuizEvents(await getUpcomingEvents(20))
+  const events = getQuizEvents(await getUpcomingEvents(60, 365))
   const nextEvent = events[0]
   const nextEventDate = nextEvent ? formatEventDate(nextEvent.startDate) : 'Next date announced soon'
   const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '7:30 pm start'
@@ -444,10 +452,9 @@ export default async function QuizNightPage() {
         <Container>
           <div className="max-w-5xl mx-auto">
             <h2 className="text-3xl font-bold text-anchor-charcoal text-center mb-6">Prizes & bragging rights</h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
               <PrizeCard title="Champions" reward="£25 Bar Tab" copy="Spend it on celebratory pints, cocktails or post-quiz snacks." />
               <PrizeCard title="Second from Last" reward="Bottle of Wine" copy="A cheeky consolation prize that keeps everyone in the game." />
-              <PrizeCard title="Best Team Name" reward="Seasonal Prop" copy="Take home the themed mini-cauldron or trophy-of-the-month." />
               <PrizeCard title="Bonus Challenges" reward="Surprise Treats" copy="Nail the bonus prompts to pick up Anchor goodies and bragging rights." />
             </div>
           </div>
