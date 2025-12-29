@@ -78,7 +78,7 @@ Love a proper spirit? You can **double up any of our optic spirits for just £2 
 
   
 
-🔗 [Explore our drinks menu](https://www.the-anchor.pub/drink)
+🔗 [Explore our drinks menu](https://www.the-anchor.pub/drinks)
 
   
 
@@ -108,11 +108,11 @@ Each month we feature a **premium spirit at 25% off**. Past favourites include B
 
 Our events aren't just entertainment—they're tradition. They're what make us _the living room of the village_.
 
-*   [**Pub Quiz**](https://www.the-anchor.pub/event-details/pub-pursuit-live-the-ultimate-quiz-night-at-the-anchor-2025-04-02-19-00) – _Monthly quiz nights_, £3 entry
+*   [**Pub Quiz**](https://www.the-anchor.pub/whats-on) – _Monthly quiz nights_, £3 entry
     
-*   [**Cash Bingo**](https://www.the-anchor.pub/event-details/monthly-cash-bingo-night-50-jackpot-chip-shop-fridays-2025-04-25-18-00) – _Last Friday monthly at 6pm_, £10 per book
+*   [**Cash Bingo**](https://www.the-anchor.pub/whats-on) – _Last Friday monthly at 6pm_, £10 per book
     
-*   [**Live Entertainment**](https://www.the-anchor.pub/event-details/gameshow-house-party-2025-05-30-19-00) – _Monthly events_ – including FREE drag cabaret shows
+*   [**Live Entertainment**](https://www.the-anchor.pub/whats-on) – _Monthly events_ – including FREE drag cabaret shows
     
 
   
@@ -186,6 +186,6 @@ We're here for you. Local and proud. **Always doing the right thing.**
 
   
 
-🍻 [See the Menu](https://www.the-anchor.pub/food) | [What's On](https://www.the-anchor.pub/our-events)
+🍻 [See the Menu](https://www.the-anchor.pub/food-menu) | [What's On](https://www.the-anchor.pub/whats-on)
 
 *The Anchor - Fair prices, great atmosphere, just minutes from Heathrow Airport*

@@ -42,15 +42,15 @@ At **The Anchor** pub in **Stanwell Moor**, just **7 minutes from Heathrow Termi
 
 ## Exciting Promotions & Offers Near Heathrow
 
-*   **Monthly Manager Specials** This year, we’re spotlighting our premium spirits with Monthly Manager Specials. Each month, we’ll select a different premium spirit and offer an exclusive discount, making it the perfect opportunity to try something new or enjoy a favourite at a great price. See full details here: [https://bit.ly/40UdOSu](https://bit.ly/40UdOSu). _Terms apply, visit_ [_the-anchor.pub_](http://the-anchor.pub) _for details_
+*   **Monthly Manager Specials** This year, we’re spotlighting our premium spirits with Monthly Manager Specials. Each month, we’ll select a different premium spirit and offer an exclusive discount, making it the perfect opportunity to try something new or enjoy a favourite at a great price. See full details here: [https://bit.ly/40UdOSu](https://bit.ly/40UdOSu). _Terms apply, visit_ [_the-anchor.pub_](https://www.the-anchor.pub) _for details_
     
       
     
-*   **Double Up on Optics for Just £2** If you love a good tipple, you’re going to love this! We’re introducing a brand-new double-up promotion where you can upgrade any of our optic spirits to a double for just £2 more. Whether you prefer [Jameson](https://www.jamesonwhiskey.com), [The Famous Grouse](https://www.thefamousgrouse.com), [Jack Daniel’s](https://www.jackdaniels.com), [Bell’s](https://www.bells.co.uk), [Gordon’s](https://www.gordonsgin.com), Gordon’s Pink, [Bacardi](https://www.bacardi.com), [Smirnoff](https://www.smirnoff.com), or [Captain Morgan](https://www.captainmorgan.com) Gold Spiced Rum, you can now enjoy even more of your favourite drinks at a great value. See full details here: [https://bit.ly/40WT6kO](https://bit.ly/40WT6kO) _Terms apply, visit_ [_the-anchor.pub_](http://the-anchor.pub) _for details_
+*   **Double Up on Optics for Just £2** If you love a good tipple, you’re going to love this! We’re introducing a brand-new double-up promotion where you can upgrade any of our optic spirits to a double for just £2 more. Whether you prefer [Jameson](https://www.jamesonwhiskey.com), [The Famous Grouse](https://www.thefamousgrouse.com), [Jack Daniel’s](https://www.jackdaniels.com), [Bell’s](https://www.bells.co.uk), [Gordon’s](https://www.gordonsgin.com), Gordon’s Pink, [Bacardi](https://www.bacardi.com), [Smirnoff](https://www.smirnoff.com), or [Captain Morgan](https://www.captainmorgan.com) Gold Spiced Rum, you can now enjoy even more of your favourite drinks at a great value. See full details here: [https://bit.ly/40WT6kO](https://bit.ly/40WT6kO) _Terms apply, visit_ [_the-anchor.pub_](https://www.the-anchor.pub) _for details_
     
       
     
-*   **Chip Shop Fridays – 50% Off for Over-65s** Every Friday, we’re offering an exclusive 50% discount on our entire Chip Shop menu for guests aged 65 and over. It’s a great chance to enjoy some proper British comfort food at an unbeatable price. See full details here: [https://bit.ly/4hGfm80](https://bit.ly/4hGfm80) _Terms apply, visit_ [_the-anchor.pub_](http://the-anchor.pub) _for details._
+*   **Chip Shop Fridays – 50% Off for Over-65s** Every Friday, we’re offering an exclusive 50% discount on our entire Chip Shop menu for guests aged 65 and over. It’s a great chance to enjoy some proper British comfort food at an unbeatable price. See full details here: [https://bit.ly/4hGfm80](https://bit.ly/4hGfm80) _Terms apply, visit_ [_the-anchor.pub_](https://www.the-anchor.pub) _for details._
     
 
   
@@ -88,7 +88,7 @@ For more details, visit: [https://bit.ly/4aDMXNy](https://bit.ly/4aDMXNy)
     
       
     
-*   **"An Indian Summer" Event – A Cultural Celebration** In summer 2025, we’re launching a brand-new event – **"An Indian Summer"**! This special evening will feature performances by Sonia Panesar, an authentic Indian menu, and an atmosphere brimming with colour and festivity. Keep an eye on [the-anchor.pub](http://the-anchor.pub) and our social media for further updates.
+*   **"An Indian Summer" Event – A Cultural Celebration** In summer 2025, we’re launching a brand-new event – **"An Indian Summer"**! This special evening will feature performances by Sonia Panesar, an authentic Indian menu, and an atmosphere brimming with colour and festivity. Keep an eye on [the-anchor.pub](https://www.the-anchor.pub) and our social media for further updates.
     
     Details to be released soon.
     
@@ -138,7 +138,7 @@ We’re **very excited** to be welcoming back our **Sunday Lunch menu** every 
 
   
 
-We’ll be accepting pre-orders **until 1pm on the Saturday** before each Sunday service. We’ll also continue to offer our weekday menu on Sundays for anyone who couldn’t order ahead of time. Keep an eye on [the-anchor.pub](http://the-anchor.pub) for more details and updates on our Sunday lunches.
+We’ll be accepting pre-orders **until 1pm on the Saturday** before each Sunday service. We’ll also continue to offer our weekday menu on Sundays for anyone who couldn’t order ahead of time. Keep an eye on [the-anchor.pub](https://www.the-anchor.pub) for more details and updates on our Sunday lunches.
 
   
 
@@ -174,7 +174,7 @@ We couldn’t be more excited for everything that’s in store for 2025, and we�
 
   
 
-Follow us on social media for updates, offers, and event announcements, and visit [the-anchor.pub](http://the-anchor.pub) for all the latest details. Here’s to a fantastic year ahead at The Anchor! Cheers!
+Follow us on social media for updates, offers, and event announcements, and visit [the-anchor.pub](https://www.the-anchor.pub) for all the latest details. Here’s to a fantastic year ahead at The Anchor! Cheers!
 
   
 
@@ -205,7 +205,7 @@ Follow us on social media for updates, offers, and event announcements, and visi
 
   
 
-Or simply head over to [the-anchor.pub](http://the-anchor.pub) to see the full terms and our latest announcements.
+Or simply head over to [the-anchor.pub](https://www.the-anchor.pub) to see the full terms and our latest announcements.
 
 
 ### Why Choose The Anchor for 2025 Events Near Heathrow

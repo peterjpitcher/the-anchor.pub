@@ -84,7 +84,7 @@ Don't miss out on our delicious food menu, available during key Premier League m
 *   **Sunday:** 12 PM - 5 PM
     
 
-Whether you fancy a classic beef burger, a slice of our famous lasagne, or a refreshing pint of Greene King IPA, we've got you covered. Our full menu includes a range of light bites, mains, special burgers, pizzas, and more. Pair your meal with a selection from our extensive drinks menu, featuring bottled ales, draught beers, spirits, and cocktails. [Check out our weekday menu](https://www.the-anchor.pub/food).
+Whether you fancy a classic beef burger, a slice of our famous lasagne, or a refreshing pint of Greene King IPA, we've got you covered. Our full menu includes a range of light bites, mains, special burgers, pizzas, and more. Pair your meal with a selection from our extensive drinks menu, featuring bottled ales, draught beers, spirits, and cocktails. [Check out our weekday menu](https://www.the-anchor.pub/food-menu).
 
   
 

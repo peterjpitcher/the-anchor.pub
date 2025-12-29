@@ -111,7 +111,7 @@
   },
   {
     "source": "/post/quiz-night-at-the-anchor",
-    "destination": "/blog/pub-quiz-nights",
+    "destination": "/blog/quiz-night-at-the-anchor",
     "permanent": true
   },
   {
@@ -146,7 +146,7 @@
   },
   {
     "source": "/post/hop-into-the-easter-weekend-at-the-anchor-pub-fun-food-and-festivities",
-    "destination": "/blog/easter-weekend-celebrations",
+    "destination": "/blog/easter-weekend-fun-at-the-anchor-pub",
     "permanent": true
   },
   {
@@ -181,7 +181,7 @@
   },
   {
     "source": "/post/remembrance-day-anchor-staines",
-    "destination": "/blog/remembrance-day-event",
+    "destination": "/blog/reflecting-on-sacrifice-remembrance-day-observance",
     "permanent": true
   },
   {
@@ -191,12 +191,12 @@
   },
   {
     "source": "/post/easter-weekend-at-the-anchor",
-    "destination": "/blog/easter-weekend-celebrations",
+    "destination": "/blog/easter-weekend-fun-at-the-anchor-pub",
     "permanent": true
   },
   {
     "source": "/post/enjoy-pravha-at-the-anchor",
-    "destination": "/blog/pravha-lager-launch",
+    "destination": "/blog/pravha-beer",
     "permanent": true
   },
   {
@@ -226,22 +226,22 @@
   },
   {
     "source": "/post/premier-league-2024-25-at-the-anchor",
-    "destination": "/blog/premier-league-viewing",
+    "destination": "/blog/premier-league-2024-25",
     "permanent": true
   },
   {
     "source": "/post/welcoming-ice-breaker-ipa-on-draught",
-    "destination": "/blog/new-beer-arrivals",
+    "destination": "/drinks",
     "permanent": true
   },
   {
     "source": "/post/stanwell-moor-brew-craft-beer",
-    "destination": "/blog/craft-beer-selection",
+    "destination": "/blog/stanwell-moor-brew",
     "permanent": true
   },
   {
     "source": "/post/pub-etiquette-night-out-manners-guide",
-    "destination": "/blog/pub-etiquette-guide",
+    "destination": "/blog/pub-etiquette-tips",
     "permanent": true
   },
   {
@@ -281,22 +281,22 @@
   },
   {
     "source": "/post/zombie-apocalypse-halloween-party-at-the-anchor",
-    "destination": "/blog/halloween-party",
+    "destination": "/blog/day-of-the-dead-halloween-party-costumes-dance-and",
     "permanent": true
   },
   {
     "source": "/post/why-stanwell-moor-village-is-the-perfect-location-for-a-cosy-pub",
-    "destination": "/blog/stanwell-moor-history",
+    "destination": "/blog/cosy-pub-stanwell",
     "permanent": true
   },
   {
     "source": "/post/pub-jobs-near-heathrow",
-    "destination": "/blog/bar-staff-wanted",
+    "destination": "/blog/pub-jobs-heathrow",
     "permanent": true
   },
   {
     "source": "/post/prices-frozen-until-autumn-the-anchor-pub",
-    "destination": "/blog/prices-frozen",
+    "destination": "/blog/prices-frozen-until-autumn-theanchor-pub",
     "permanent": true
   },
   {
@@ -316,7 +316,7 @@
   },
   {
     "source": "/post/what-makes-stanwell-moor-a-lovely-little-village",
-    "destination": "/blog/stanwell-moor-history",
+    "destination": "/blog/stanwell-moor-village",
     "permanent": true
   },
   {
@@ -341,17 +341,17 @@
   },
   {
     "source": "/post/what-s-new-at-the-anchor",
-    "destination": "/blog/whats-new-2023",
+    "destination": "/blog/events-offers-2025",
     "permanent": true
   },
   {
     "source": "/post/six-nations-rugby-at-the-anchor-2023",
-    "destination": "/blog/six-nations-viewing",
+    "destination": "/blog/six-nations-rugby-at-the-anchor-2023",
     "permanent": true
   },
   {
     "source": "/post/anchor-sports-update",
-    "destination": "/blog/sports-viewing-update",
+    "destination": "/blog/sports-update",
     "permanent": true
   },
   {
@@ -361,22 +361,22 @@
   },
   {
     "source": "/post/introducing-affordable-fosters-lager",
-    "destination": "/blog/new-beer-arrivals",
+    "destination": "/drinks",
     "permanent": true
   },
   {
     "source": "/post/opihr-gin-the-anchor",
-    "destination": "/blog/new-spirits-arrivals",
+    "destination": "/drinks/managers-special",
     "permanent": true
   },
   {
     "source": "/post/bombay-sapphire-the-anchor-pub",
-    "destination": "/blog/gin-selection",
+    "destination": "/drinks/managers-special",
     "permanent": true
   },
   {
     "source": "/post/book-valentines-day-the-anchor",
-    "destination": "/blog/valentines-day-celebration",
+    "destination": "/blog/valentines-day-meal-offer-for-two",
     "permanent": true
   },
   {
@@ -396,12 +396,12 @@
   },
   {
     "source": "/post/great-pub-near-heathrow-new-beer-pumps-installed",
-    "destination": "/blog/new-beer-arrivals",
+    "destination": "/blog/experience-the-best-beer-at-a-great-pub-near-heath",
     "permanent": true
   },
   {
     "source": "/post/the-anchor-2024-updates",
-    "destination": "/blog/whats-new-2024",
+    "destination": "/blog/events-offers-2025",
     "permanent": true
   },
   {
@@ -411,7 +411,7 @@
   },
   {
     "source": "/post/managers-special-the-anchor-pub",
-    "destination": "/blog/monthly-specials",
+    "destination": "/blog/monthly-managers-special",
     "permanent": true
   },
   {
@@ -421,12 +421,12 @@
   },
   {
     "source": "/post/bar-staff-wanted",
-    "destination": "/blog/bar-staff-wanted",
+    "destination": "/blog/pub-jobs-heathrow",
     "permanent": true
   },
   {
     "source": "/post/rum-tasting-night-stanwell-moor",
-    "destination": "/blog/rum-tasting-night",
+    "destination": "/blog/rum-tasting-caribbean",
     "permanent": true
   },
   {
@@ -436,12 +436,12 @@
   },
   {
     "source": "/post/extended-opening-hours-fridays",
-    "destination": "/blog/opening-hours-update",
+    "destination": "/blog/friday-extended-hours",
     "permanent": true
   },
   {
     "source": "/post/free-pint-stanwell-moor",
-    "destination": "/blog/special-offers",
+    "destination": "/blog/free-pint-offer-this-november",
     "permanent": true
   },
   {
@@ -451,7 +451,7 @@
   },
   {
     "source": "/post/enjoy-our-sunny-sunday-bbqs-at-the-anchor",
-    "destination": "/blog/summer-bbq",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
@@ -486,7 +486,7 @@
   },
   {
     "source": "/post/spring-clocks-change-2023",
-    "destination": "/blog/spring-forward-2023",
+    "destination": "/find-us",
     "permanent": true
   },
   {
@@ -496,12 +496,12 @@
   },
   {
     "source": "/post/have-you-tried-kraken-rum",
-    "destination": "/blog/kraken-rum-special",
+    "destination": "/blog/25-off-kraken-rum-this-june-manager-s-special",
     "permanent": true
   },
   {
     "source": "/post/2020-quiz-league",
-    "destination": "/blog/quiz-league-2020",
+    "destination": "/blog/quiz-night-at-the-anchor",
     "permanent": true
   },
   {
@@ -511,32 +511,32 @@
   },
   {
     "source": "/post/welcoming-old-mout",
-    "destination": "/blog/new-cider-arrivals",
+    "destination": "/drinks",
     "permanent": true
   },
   {
     "source": "/post/womens-world-cup-final-the-anchor",
-    "destination": "/blog/world-cup-viewing",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
     "source": "/post/childrens-mental-health-week-supporting-young-minds",
-    "destination": "/blog/mental-health-awareness",
+    "destination": "/blog/childrens-mental-health-week",
     "permanent": true
   },
   {
     "source": "/post/world-photography-day-stanwell-moor-celebration",
-    "destination": "/blog/photography-day",
+    "destination": "/blog/world-photography-day-embracing-stanwell-moor-s-ch",
     "permanent": true
   },
   {
     "source": "/post/pub-quiz-new-wave",
-    "destination": "/blog/pub-quiz-nights",
+    "destination": "/blog/quiz-night-at-the-anchor",
     "permanent": true
   },
   {
     "source": "/post/creations-by-lee-jewellery-event-anchor",
-    "destination": "/blog/special-events",
+    "destination": "/blog/jewellery-event",
     "permanent": true
   },
   {
@@ -546,12 +546,12 @@
   },
   {
     "source": "/post/reopening-update",
-    "destination": "/blog/reopening-2021",
+    "destination": "/find-us",
     "permanent": true
   },
   {
     "source": "/post/introducing-coke-signature-mixers",
-    "destination": "/blog/new-drinks-arrivals",
+    "destination": "/drinks",
     "permanent": true
   },
   {
@@ -561,7 +561,7 @@
   },
   {
     "source": "/post/international-day-of-peace-stanwell-moor",
-    "destination": "/blog/peace-day-celebration",
+    "destination": "/blog/peace-day-stanwell",
     "permanent": true
   },
   {
@@ -576,7 +576,7 @@
   },
   {
     "source": "/post/the-botanist-gin-july-2025-managers-special-stanwell-moor",
-    "destination": "/blog/botanist-gin-special",
+    "destination": "/blog/botanist-gin-july-2025",
     "permanent": true
   },
   {
@@ -586,32 +586,32 @@
   },
   {
     "source": "/post/closed-for-one-day-monday-october-12th",
-    "destination": "/blog/temporary-closure",
+    "destination": "/find-us",
     "permanent": true
   },
   {
     "source": "/post/2019-feedback-survey",
-    "destination": "/blog/customer-feedback",
+    "destination": "/blog/community-feedback",
     "permanent": true
   },
   {
     "source": "/post/easter-weekend-2022",
-    "destination": "/blog/easter-weekend-celebrations",
+    "destination": "/blog/easter-weekend-fun-at-the-anchor-pub",
     "permanent": true
   },
   {
     "source": "/post/welcome-to-halloween-2021",
-    "destination": "/blog/halloween-party",
+    "destination": "/blog/day-of-the-dead-halloween-party-costumes-dance-and",
     "permanent": true
   },
   {
     "source": "/post/kraken-rum-offer-stanwell-moor",
-    "destination": "/blog/kraken-rum-special",
+    "destination": "/blog/25-off-kraken-rum-this-june-manager-s-special",
     "permanent": true
   },
   {
     "source": "/post/the-anchor-5-star-rating-in-food-hygiene-2023",
-    "destination": "/blog/food-hygiene-rating",
+    "destination": "/blog/5-star-food-rating",
     "permanent": true
   },
   {
@@ -636,7 +636,7 @@
   },
   {
     "source": "/post/rum-tasting-night-june-success",
-    "destination": "/blog/rum-tasting-night",
+    "destination": "/blog/rum-tasting-september",
     "permanent": true
   },
   {
@@ -646,17 +646,17 @@
   },
   {
     "source": "/post/pricing-update-at-the-anchor-april-2019",
-    "destination": "/blog/pricing-update",
+    "destination": "/find-us",
     "permanent": true
   },
   {
     "source": "/post/2019-rennovations",
-    "destination": "/blog/renovation-update",
+    "destination": "/blog/new-dining-room",
     "permanent": true
   },
   {
     "source": "/post/eat-out-to-help-out-coming-in-august",
-    "destination": "/blog/eat-out-help-out",
+    "destination": "/blog",
     "permanent": true
   },
   {
@@ -681,7 +681,7 @@
   },
   {
     "source": "/post/hope-of-opening-getting-closer",
-    "destination": "/blog/reopening-2021",
+    "destination": "/find-us",
     "permanent": true
   },
   {
@@ -691,22 +691,22 @@
   },
   {
     "source": "/post/opening-times-are-changing-from-april-1st",
-    "destination": "/blog/opening-hours-update",
+    "destination": "/find-us",
     "permanent": true
   },
   {
     "source": "/post/post-lock-down-information",
-    "destination": "/blog/reopening-2021",
+    "destination": "/find-us",
     "permanent": true
   },
   {
     "source": "/post/new-rules-from-september-24th-2020",
-    "destination": "/blog/covid-updates",
+    "destination": "/find-us",
     "permanent": true
   },
   {
     "source": "/post/tabs-are-changing",
-    "destination": "/blog/service-updates",
+    "destination": "/blog/tabs-are-changing",
     "permanent": true
   },
   {
@@ -716,12 +716,12 @@
   },
   {
     "source": "/post/changes-to-food-until-mid-april-2019",
-    "destination": "/blog/menu-updates",
+    "destination": "/food-menu",
     "permanent": true
   },
   {
     "source": "/post/calling-all-pool-players",
-    "destination": "/blog/pool-league",
+    "destination": "/blog/calling-all-pool-players",
     "permanent": true
   },
   {
@@ -731,27 +731,27 @@
   },
   {
     "source": "/post/winter-closing-hours",
-    "destination": "/blog/opening-hours-update",
+    "destination": "/find-us",
     "permanent": true
   },
   {
     "source": "/post/reopening-update-april-2021",
-    "destination": "/blog/reopening-2021",
+    "destination": "/find-us",
     "permanent": true
   },
   {
     "source": "/post/covid-19-updates",
-    "destination": "/blog/covid-updates",
+    "destination": "/find-us",
     "permanent": true
   },
   {
     "source": "/post/valentines-day-meal-offer",
-    "destination": "/blog/valentines-day-celebration",
+    "destination": "/blog/valentines-day-meal-offer-for-two",
     "permanent": true
   },
   {
     "source": "/post/restrictions-update-july-2021",
-    "destination": "/blog/covid-updates",
+    "destination": "/find-us",
     "permanent": true
   },
   {
@@ -767,6 +767,21 @@
   {
     "source": "/_serverless/:path*",
     "destination": "/",
+    "permanent": true
+  },
+  {
+    "source": "/post/travelling-with-dogs-tips",
+    "destination": "/blog/dog-travel-tips",
+    "permanent": true
+  },
+  {
+    "source": "/post/tequila-and-tradition-role-",
+    "destination": "/blog/tequila-and-tradition-how-agave-shapes-mexican-cul",
+    "permanent": true
+  },
+  {
+    "source": "/post/a-",
+    "destination": "/blog",
     "permanent": true
   }
 ]

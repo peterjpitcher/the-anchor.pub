@@ -118,4 +118,4 @@ There are a lot of other small businesses in the Moor; if you run your own busin
 
   
 
-[#lovelocal](https://www.the-anchor.pub/blog/hashtags/lovelocal) [#supportlocal](https://www.the-anchor.pub/blog/hashtags/supportlocal) [#staylocal](https://www.the-anchor.pub/blog/hashtags/staylocal)
+[#lovelocal](https://www.the-anchor.pub/blog/tag/community) [#supportlocal](https://www.the-anchor.pub/blog/tag/community) [#staylocal](https://www.the-anchor.pub/blog/tag/community)

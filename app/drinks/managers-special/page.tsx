@@ -14,7 +14,6 @@ import { PhoneButton } from '@/components/PhoneButton'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { getPromotionImage } from '@/lib/managers-special-utils'
-import { notFound } from 'next/navigation'
 import { DEFAULT_DRINKS_IMAGE } from '@/lib/image-fallbacks'
 import { getCurrentPromotion as getCurrentManagersSpecial, getPromotionById } from '@/lib/managers-special'
 import type { ManagersSpecial } from '@/types/managers-special'
@@ -88,9 +87,78 @@ export async function generateMetadata({ searchParams }: { searchParams: PageSea
 export default function ManagersSpecialPage({ searchParams }: { searchParams: PageSearchParams }) {
   const { promotion: currentPromotion } = resolvePromotion(searchParams)
   
-  // If no active promotion, show 404
   if (!currentPromotion) {
-    notFound()
+    const breadcrumbSchema = generateBreadcrumbSchema([
+      { name: 'Home', url: '/' },
+      { name: 'Drinks Menu', url: '/drinks' },
+      { name: "Manager's Special", url: '/drinks/managers-special' }
+    ])
+
+    return (
+      <>
+        <MenuPageTracker menuType="managers_special" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        />
+        <HeroWrapper
+          route="/drinks/managers-special"
+          title="Manager's Special"
+          description="Our monthly drink offer is being refreshed. Check back soon, or explore the full drinks menu today."
+          variant="promo"
+          tags={[
+            { label: 'New offer coming soon', variant: 'primary' as const },
+            { label: 'Updated monthly', variant: 'default' as const }
+          ]}
+          breadcrumbs={[
+            { name: 'Drinks', href: '/drinks' },
+            { name: "Manager's Special" }
+          ]}
+          primaryCta={(
+            <BookTableButton
+              source="managers_special_hero"
+              variant="secondary"
+              size="lg"
+              className="w-full bg-white text-purple-700 hover:bg-gray-100 sm:w-auto"
+            />
+          )}
+          secondaryCta={(
+            <Link href="/drinks">
+              <Button
+                variant="secondary"
+                size="lg"
+                className="w-full bg-white/10 text-white hover:bg-white/20 sm:w-auto"
+              >
+                View Drinks Menu
+              </Button>
+            </Link>
+          )}
+        />
+        <Section spacing="md" container className="bg-white">
+          <div className="mx-auto flex max-w-3xl flex-col items-center gap-6 text-center">
+            <PageTitle className="text-purple-700" seo={{ structured: true }}>
+              Manager&apos;s Special at The Anchor
+            </PageTitle>
+            <p className="text-lg text-gray-700">
+              We&apos;re curating the next spirit feature. In the meantime, explore
+              our full drinks selection or see what&apos;s on this month.
+            </p>
+            <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+              <Link href="/drinks">
+                <Button size="lg" className="w-full sm:w-auto">
+                  Explore Drinks
+                </Button>
+              </Link>
+              <Link href="/whats-on">
+                <Button variant="outline" size="lg" className="w-full sm:w-auto">
+                  See What&apos;s On
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </Section>
+      </>
+    )
   }
   
   const { spirit, promotion } = currentPromotion

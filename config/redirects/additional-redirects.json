@@ -36,6 +36,36 @@
     "permanent": true
   },
   {
+    "source": "/events/drag-shows",
+    "destination": "/whats-on/drag-shows",
+    "permanent": true
+  },
+  {
+    "source": "/events/quiz-night",
+    "destination": "/quiz-night",
+    "permanent": true
+  },
+  {
+    "source": "/events/bingo-night",
+    "destination": "/cash-bingo",
+    "permanent": true
+  },
+  {
+    "source": "/events/bingo-night-:path*",
+    "destination": "/cash-bingo",
+    "permanent": true
+  },
+  {
+    "source": "/events/nikki-s-games-night-school-sports-day-special-2025-07-25",
+    "destination": "/whats-on",
+    "permanent": true
+  },
+  {
+    "source": "/events/christmas-parties",
+    "destination": "/christmas-parties",
+    "permanent": true
+  },
+  {
     "source": "/favicon.ico",
     "destination": "/favicon.png",
     "permanent": true
@@ -53,6 +83,11 @@
   {
     "source": "/blog/tag/LiveMusic",
     "destination": "/whats-on",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/craft-beer",
+    "destination": "/blog/tag/food-and-drink",
     "permanent": true
   },
   {
@@ -203,6 +238,11 @@
   },
   {
     "source": "/bolt-performance",
+    "destination": "/",
+    "permanent": true
+  },
+  {
+    "source": "/cdn-cgi/l/email-protection",
     "destination": "/",
     "permanent": true
   },

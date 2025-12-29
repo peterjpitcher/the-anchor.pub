@@ -105,7 +105,7 @@ export default async function BookPage({
                 "postalCode": "TW19 6AB"
               }
             },
-            "url": "https://www.the-anchor.pub/book",
+            "url": "https://www.the-anchor.pub/book-table",
             "potentialAction": {
               "@type": "ReserveAction",
               "target": {

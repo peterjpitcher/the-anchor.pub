@@ -132,7 +132,7 @@ The Anchor's signature approach to hospitality—friendly, unpretentious, and vi
 Tickets are just **£30 per person** and include everything: tastings, food, cocktails, and all the island vibes you can handle. 
 
 ### Booking Options:
-- **Online**: Book directly via [www.the-anchor.pub](http://www.the-anchor.pub)
+- **Online**: Book directly via [www.the-anchor.pub](https://www.the-anchor.pub)
 - **Phone**: Call us on **01753 682707**
 - **In Person**: Pop in and secure your spot
 

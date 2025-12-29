@@ -227,11 +227,11 @@ At **The Anchor**, we believe that **small moments—like sharing a meal togethe
 
 📍 **Book your table now and make the most of this special week!**
 
-👉 [www.the-anchor.pub](http://www.the-anchor.pub)
+👉 [www.the-anchor.pub](https://www.the-anchor.pub/book-table)
 
   
 
-[#ChildrensMentalHealthWeek](https://www.the-anchor.pub/blog/hashtags/ChildrensMentalHealthWeek) [#TheAnchorCommunity](https://www.the-anchor.pub/blog/hashtags/TheAnchorCommunity) [#FamilyFirst](https://www.the-anchor.pub/blog/hashtags/FamilyFirst)
+[#ChildrensMentalHealthWeek](https://www.the-anchor.pub/blog/tag/news) [#TheAnchorCommunity](https://www.the-anchor.pub/blog/tag/community) [#FamilyFirst](https://www.the-anchor.pub/blog/tag/community)
 
   
 

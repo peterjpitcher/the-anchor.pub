@@ -74,7 +74,7 @@ Looking for a **Friday lunch spot near Heathrow Airport**? The Anchor pub in **S
 - **Dietary options** available
 - **Kids menu** for families
 
-[View Our Full Menu](https://www.the-anchor.pub/food)
+[View Our Full Menu](https://www.the-anchor.pub/food-menu)
 
 ## Book Your Friday Lunch Table Near Terminal 5
 
@@ -86,7 +86,7 @@ Looking for a **Friday lunch spot near Heathrow Airport**? The Anchor pub in **S
 
 **Easy Booking Options:**
 📞 **Call**: 01753 682707
-🌐 **Online**: [Book a table](https://www.the-anchor.pub/contact)
+🌐 **Online**: [Book a table](https://www.the-anchor.pub/book-table)
 🚶 **Walk-ins**: Always welcome
 
 **Group Bookings Welcome:**

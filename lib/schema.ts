@@ -524,7 +524,7 @@ export const createImageObjectSchema = (image: {
       }
     },
     "license": "https://www.the-anchor.pub/terms",
-    "acquireLicensePage": "https://www.the-anchor.pub/contact"
+    "acquireLicensePage": "https://www.the-anchor.pub/find-us"
   }
 }
 
@@ -566,7 +566,7 @@ export const createReservationSchema = (reservation: {
     "programMembershipUsed": {
       "@type": "ProgramMembership",
       "programName": "The Anchor Booking System",
-      "url": "https://www.the-anchor.pub/book"
+      "url": "https://www.the-anchor.pub/book-table"
     },
     "bookingAgent": {
       "@type": "Organization",

@@ -34,7 +34,7 @@ images: []
 
 ## Weekly Events and Entertainment Near Heathrow Airport
 
-Looking for entertainment near **Heathrow Terminal 5**? [The Anchor](https://www.the-anchor.pub/our-events) pub in **Stanwell Moor**, just **7 minutes from the airport**, offers weekly events perfect for **Heathrow workers**, **Staines residents**, and visitors. From drag shows to quiz nights, our traditional pub provides quality entertainment without airport prices or hassle.
+Looking for entertainment near **Heathrow Terminal 5**? [The Anchor](https://www.the-anchor.pub/whats-on) pub in **Stanwell Moor**, just **7 minutes from the airport**, offers weekly events perfect for **Heathrow workers**, **Staines residents**, and visitors. From drag shows to quiz nights, our traditional pub provides quality entertainment without airport prices or hassle.
 
   
 
@@ -125,7 +125,7 @@ Feedback from locals suggests that events at The Anchor create memorable experie
 
   
 
-Make sure to check the events calendar at [The Anchor](https://www.the-anchor.pub/our-events) for upcoming happenings. Some highlights on the horizon include:
+Make sure to check the events calendar at [The Anchor](https://www.the-anchor.pub/whats-on) for upcoming happenings. Some highlights on the horizon include:
 
   
 
