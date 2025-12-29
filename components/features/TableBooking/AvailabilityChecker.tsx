@@ -196,7 +196,7 @@ export default function AvailabilityChecker({
                 <Alert variant="error" className="mt-4">
                   <strong>No tables available</strong>
                   <p className="mt-1">
-                    {availability.message || 
+                    {availability.message || availability.special_notes || 
                      'Unfortunately, we don\'t have any tables available for your party size on this date. Please try a different date or call us at 01753 682707.'}
                   </p>
                 </Alert>

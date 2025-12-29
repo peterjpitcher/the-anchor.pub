@@ -100,7 +100,10 @@ const typeChecks = async () => {
   )
 
   // Cancel booking  
-  const cancellation = await anchorAPI.cancelTableBooking('REF123', 'Changed plans')
+  const cancellation = await anchorAPI.cancelTableBooking('REF123', {
+    reason: 'Changed plans',
+    customerEmail: 'guest@example.com'
+  })
 
   // Get Sunday lunch menu
   const menu: SundayLunchMenuResponse = await anchorAPI.getSundayLunchMenu()

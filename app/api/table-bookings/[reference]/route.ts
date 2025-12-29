@@ -50,10 +50,19 @@ export async function DELETE(
   request: Request,
   { params }: { params: { reference: string } }
 ) {
+  const customerEmail =
+    request.headers.get('x-customer-email') ||
+    new URL(request.url).searchParams.get('customer_email') ||
+    ''
+
   const { reference } = params
   
   if (!reference) {
     return createApiErrorResponse('Booking reference is required', 400)
+  }
+
+  if (!customerEmail) {
+    return createApiErrorResponse('Customer email required to verify booking', 400)
   }
 
   try {
@@ -66,7 +75,10 @@ export async function DELETE(
       // Body parsing failed, continue without reason
     }
 
-    const response = await anchorAPI.cancelTableBooking(reference, reason)
+    const response = await anchorAPI.cancelTableBooking(reference, {
+      reason: reason || 'Cancelled via website',
+      customerEmail
+    })
 
     // Return with success wrapper format for consistency
     return NextResponse.json({

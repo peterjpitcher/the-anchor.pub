@@ -217,6 +217,9 @@ export interface Event {
       }
     }>
   }
+  _meta?: {
+    lastUpdated: string
+  }
 }
 
 export interface EventsResponse {
@@ -378,11 +381,78 @@ export interface MenuSection {
   hasMenuItem: MenuItem[]
 }
 
-export interface MenuResponse {
+export interface MenuSchema {
   '@context': string
   '@type': 'Menu'
   name: string
   hasMenuSection: MenuSection[]
+}
+
+export interface MenuSectionItem {
+  id: string
+  name: string
+  description?: string | null
+  price: number
+  calories?: number | null
+  dietary_info?: string[]
+  allergens?: string[]
+  is_available: boolean
+  is_special?: boolean
+  available_from?: string | null
+  available_until?: string | null
+  image_url?: string | null
+  sort_order: number
+}
+
+export interface MenuSectionData {
+  id: string
+  name: string
+  description?: string | null
+  sort_order: number
+  items: MenuSectionItem[]
+}
+
+export interface MenuResponse {
+  menu: MenuSchema
+  sections: MenuSectionData[]
+}
+
+export interface DietaryMenuItem {
+  '@type': 'MenuItem'
+  id: string
+  name: string
+  description?: string
+  offers: {
+    '@type': 'Offer'
+    price: string
+    priceCurrency: string
+    availability: string
+    availableAtOrFrom?: string
+    availableThrough?: string
+  }
+  nutrition?: {
+    '@type': 'NutritionInformation'
+    calories?: string
+  }
+  dietary_info?: string[]
+  allergens?: string[]
+  image?: string
+}
+
+export interface DietaryMenuSection {
+  '@type': 'MenuSection'
+  name: string
+  items: DietaryMenuItem[]
+  sort_order?: number
+}
+
+export interface DietaryMenuResponse {
+  dietary_type: string
+  menu_sections: DietaryMenuSection[]
+  meta: {
+    total_items: number
+    lastUpdated: string
+  }
 }
 
 // Kitchen status types
@@ -558,6 +628,19 @@ export interface BusinessHours {
   lastUpdated: string
 }
 
+export interface Amenity {
+  type: string
+  available: boolean
+  details?: string | null
+  capacity?: number | null
+  [key: string]: unknown
+}
+
+export interface AmenitiesResponse {
+  amenities: Amenity[]
+  lastUpdated?: string
+}
+
 // Table Booking Types
 export interface TableAvailabilitySlot {
   time: string
@@ -577,6 +660,7 @@ export interface TableAvailabilityResponse {
     closes: string
   } | null
   message?: string
+  special_notes?: string
   time?: string
   party_size?: number
   remaining_capacity?: number
@@ -740,23 +824,21 @@ export interface ParkingRateCard {
 }
 
 export interface SundayLunchMenuItem {
+  id: string
   name: string
   description?: string
   price: number
-  dietary?: string[]
+  dietary_info?: string[]
+  allergens?: string[]
+  is_available?: boolean
+  included?: boolean
 }
 
 export interface SundayLunchMenuResponse {
-  menu: {
-    starters: SundayLunchMenuItem[]
-    mains: SundayLunchMenuItem[]
-    desserts: SundayLunchMenuItem[]
-  }
-  service_times: {
-    start: string
-    end: string
-  }
-  last_updated: string
+  menu_date: string
+  mains: SundayLunchMenuItem[]
+  sides: SundayLunchMenuItem[]
+  cutoff_time?: string
 }
 
 const FALLBACK_BUSINESS_HOURS: BusinessHours = {
@@ -875,61 +957,66 @@ const FALLBACK_PARKING_RATES: ParkingRateCard = {
 }
 
 const FALLBACK_SUNDAY_LUNCH_MENU: SundayLunchMenuResponse = {
-  menu: {
-    starters: [
-      {
-        name: 'Seasonal Soup',
-        description: 'Chef-made soup served with warm bread.',
-        price: 6.5,
-        dietary: ['vegetarian']
-      },
-      {
-        name: 'Prawn Cocktail',
-        description: 'North Atlantic prawns with Marie Rose sauce.',
-        price: 7.5,
-        dietary: []
-      }
-    ],
-    mains: [
-      {
-        name: 'Roast Beef',
-        description: 'Served with Yorkshire pudding, roast potatoes, and gravy.',
-        price: 14.5,
-        dietary: []
-      },
-      {
-        name: 'Roast Chicken',
-        description: 'Free-range chicken with sage stuffing and seasonal vegetables.',
-        price: 13.5,
-        dietary: []
-      },
-      {
-        name: 'Vegetable Wellington',
-        description: 'Puff pastry filled with seasonal vegetables and mushroom duxelles.',
-        price: 12.5,
-        dietary: ['vegetarian']
-      }
-    ],
-    desserts: [
-      {
-        name: 'Sticky Toffee Pudding',
-        description: 'Rich sponge with butterscotch sauce and vanilla ice cream.',
-        price: 6,
-        dietary: []
-      },
-      {
-        name: 'Apple Crumble',
-        description: 'Bramley apples with oat crumble topping.',
-        price: 5.5,
-        dietary: ['vegetarian']
-      }
-    ]
-  },
-  service_times: {
-    start: '12:00',
-    end: '17:00'
-  },
-  last_updated: '2024-01-01T00:00:00.000Z'
+  menu_date: '2024-01-01',
+  mains: [
+    {
+      id: 'fallback-roast-beef',
+      name: 'Roast Beef',
+      description: 'Served with Yorkshire pudding, roast potatoes, and gravy.',
+      price: 14.5,
+      dietary_info: [],
+      allergens: [],
+      is_available: true
+    },
+    {
+      id: 'fallback-roast-chicken',
+      name: 'Roast Chicken',
+      description: 'Free-range chicken with sage stuffing and seasonal vegetables.',
+      price: 13.5,
+      dietary_info: [],
+      allergens: [],
+      is_available: true
+    },
+    {
+      id: 'fallback-veg-wellington',
+      name: 'Vegetable Wellington',
+      description: 'Puff pastry filled with seasonal vegetables and mushroom duxelles.',
+      price: 12.5,
+      dietary_info: ['vegetarian'],
+      allergens: ['gluten'],
+      is_available: true
+    }
+  ],
+  sides: [
+    {
+      id: 'fallback-roast-potatoes',
+      name: 'Roast Potatoes',
+      description: 'Crispy roast potatoes.',
+      price: 0,
+      dietary_info: ['vegetarian'],
+      allergens: [],
+      included: true
+    },
+    {
+      id: 'fallback-yorkshire-pudding',
+      name: 'Yorkshire Pudding',
+      description: 'Traditional Yorkshire pudding.',
+      price: 0,
+      dietary_info: [],
+      allergens: ['gluten'],
+      included: true
+    },
+    {
+      id: 'fallback-cauliflower-cheese',
+      name: 'Cauliflower Cheese',
+      description: 'Extra side for the table.',
+      price: 3.5,
+      dietary_info: ['vegetarian'],
+      allergens: ['dairy'],
+      included: false
+    }
+  ],
+  cutoff_time: '2024-01-06T13:00:00.000Z'
 }
 
 function createFallbackEvent(eventId: string): Event {
@@ -1395,7 +1482,11 @@ export class AnchorAPI {
         }
       }
 
-      return data.data || data
+      const resolved = data.data || data
+      if (resolved && typeof resolved === 'object' && 'event' in resolved) {
+        return (resolved as { event: Event }).event
+      }
+      return resolved
     }
 
     const fetchEventsFromWindow = async (daysAgo: number): Promise<Event[]> => {
@@ -1508,8 +1599,8 @@ export class AnchorAPI {
     return this.request('/menu/specials')
   }
 
-  async getDietaryMenu(type: 'vegetarian' | 'vegan' | 'gluten-free' | 'dairy-free' | 'nut-free'): Promise<MenuResponse> {
-    return this.request<MenuResponse>(`/menu/dietary/${type}`)
+  async getDietaryMenu(type: 'vegetarian' | 'vegan' | 'gluten-free' | 'dairy-free' | 'nut-free'): Promise<DietaryMenuResponse> {
+    return this.request<DietaryMenuResponse>(`/menu/dietary/${type}`)
   }
 
   // Table Bookings
@@ -1583,10 +1674,17 @@ export class AnchorAPI {
     return this.request<TableBookingResponse>(endpoint, { headers })
   }
 
-  async cancelTableBooking(reference: string, reason?: string): Promise<{ success: boolean; message: string }> {
+  async cancelTableBooking(
+    reference: string,
+    options?: { reason?: string; customerEmail?: string }
+  ): Promise<{ success: boolean; message: string }> {
+    const payload: Record<string, string> = {}
+    if (options?.reason) payload.reason = options.reason
+    if (options?.customerEmail) payload.customer_email = options.customerEmail
+
     return this.request(`/table-bookings/${reference}/cancel`, {
       method: 'POST',
-      body: JSON.stringify({ reason }),
+      body: JSON.stringify(payload),
     })
   }
 
@@ -1643,42 +1741,7 @@ export class AnchorAPI {
     return data
   }
 
-  async getAmenities(): Promise<{
-    amenities: {
-      accessibility: {
-        wheelchairAccessible: boolean
-        accessibleParking: boolean
-        accessibleRestrooms: boolean
-        assistanceAnimalsAllowed: boolean
-      }
-      facilities: {
-        wifi: boolean
-        parking: boolean
-        outdoorSeating: boolean
-        privateRooms: boolean
-        sportsTv: boolean
-      }
-      services: {
-        reservations: boolean
-        catering: boolean
-        privateEvents: boolean
-        delivery: boolean
-        takeaway: boolean
-      }
-      payments: {
-        acceptsCash: boolean
-        acceptsCards: boolean
-        acceptsContactless: boolean
-        acceptsMobilePayments: boolean
-      }
-      capacity: {
-        total: number
-        restaurant: number
-        bar: number
-        privateRoom: number
-      }
-    }
-  }> {
+  async getAmenities(): Promise<AmenitiesResponse> {
     return this.request('/business/amenities')
   }
 

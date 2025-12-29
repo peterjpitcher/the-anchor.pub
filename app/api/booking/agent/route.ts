@@ -170,7 +170,7 @@ export async function GET(request: Request) {
         }) || [],
       isSunday,
       bookingType,
-      message: availability.message
+      message: availability.message || availability.special_notes
     })
     
   } catch (error: any) {
