@@ -16,9 +16,7 @@ import { BusinessHoursProvider } from '@/components/providers/BusinessHoursProvi
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { Suspense } from 'react'
 
-const ChristmasGlobalLightbox = dynamic(() => import('@/components/ChristmasGlobalLightbox').then(mod => mod.ChristmasGlobalLightbox), {
-  ssr: false
-})
+
 const EventCountdownBanner = dynamic(() => import('@/components/EventCountdownBanner').then(mod => mod.EventCountdownBanner), {
   ssr: false
 })
@@ -152,7 +150,6 @@ export default function RootLayout({
               <FloatingActions />
               <CookieBanner />
               <Suspense fallback={null}>
-                <ChristmasGlobalLightbox />
                 <EventCountdownBanner />
               </Suspense>
             </BusinessHoursProvider>

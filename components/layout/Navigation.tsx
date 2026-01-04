@@ -29,6 +29,7 @@ interface NavigationProps {
   items?: NavigationItem[]
   ctaButton?: HeaderCtaButton
   secondaryCtaButton?: HeaderCtaButton | null
+  tertiaryCtaButton?: HeaderCtaButton | null
   theme?: {
     background?: string
     text?: string
@@ -144,6 +145,13 @@ export function Navigation({
     external: false,
     variant: 'secondary'
   },
+  tertiaryCtaButton = {
+    label: 'Book Six Nations',
+    href: '/live-sport/six-nations',
+    icon: '🏉',
+    external: false,
+    variant: 'secondary'
+  },
   theme = defaultTheme,
   sticky = true,
   className,
@@ -176,7 +184,8 @@ export function Navigation({
   }[mobileBreakpoint]
   const showUtilityRow = Boolean(
     ctaButton ||
-    secondaryCtaButton
+    secondaryCtaButton ||
+    tertiaryCtaButton
   )
 
   useEffect(() => {
@@ -537,6 +546,14 @@ export function Navigation({
     return renderSingleCTA(button, isMobile, `${secondaryCtaButton.href}-${isMobile ? 'mobile' : 'desktop'}`)
   }
 
+  const renderTertiaryCTA = (isMobile = false, extraClass?: string) => {
+    if (!tertiaryCtaButton) return null
+    const button = extraClass
+      ? { ...tertiaryCtaButton, className: cn(tertiaryCtaButton.className, extraClass) }
+      : tertiaryCtaButton
+    return renderSingleCTA(button, isMobile, `${tertiaryCtaButton.href}-${isMobile ? 'mobile' : 'desktop'}`)
+  }
+
 
 
   return (
@@ -575,7 +592,7 @@ export function Navigation({
               <div className="flex flex-wrap items-center justify-end gap-3">
                 {renderPrimaryCTA(false, 'px-4 py-1 text-sm')}
                 {renderSecondaryCTA(false, 'px-4 py-1 text-sm')}
-
+                {renderTertiaryCTA(false, 'px-4 py-1 text-sm')}
               </div>
             </div>
           )}
@@ -600,11 +617,11 @@ export function Navigation({
               {items.map(item => renderLink(item))}
             </div>
 
-            {(!showUtilityRow && (ctaButton || secondaryCtaButton)) && (
+            {(!showUtilityRow && (ctaButton || secondaryCtaButton || tertiaryCtaButton)) && (
               <div className="flex items-center gap-3 flex-shrink-0">
                 {renderPrimaryCTA()}
                 {renderSecondaryCTA(false)}
-
+                {renderTertiaryCTA(false)}
               </div>
             )}
           </div>
@@ -661,11 +678,11 @@ export function Navigation({
             aria-modal="true"
           >
             <div className="container mx-auto px-4 py-6 space-y-6">
-              {(ctaButton || secondaryCtaButton) && (
+              {(ctaButton || secondaryCtaButton || tertiaryCtaButton) && (
                 <div className="space-y-3">
                   {renderPrimaryCTA(true)}
                   {renderSecondaryCTA(true)}
-
+                  {renderTertiaryCTA(true)}
                 </div>
               )}
               <div className="rounded-xl border border-white/10 bg-anchor-green/60 p-4">

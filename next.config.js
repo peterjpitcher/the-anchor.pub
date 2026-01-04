@@ -161,7 +161,13 @@ const nextConfig = {
     ]
   },
   images: {
-    domains: ['the-anchor.pub', 'www.the-anchor.pub', 'management.orangejelly.co.uk', 'example.com', 'tfcasgxopxegwrabvwat.supabase.co'],
+    remotePatterns: [
+      { protocol: 'https', hostname: 'the-anchor.pub' },
+      { protocol: 'https', hostname: 'www.the-anchor.pub' },
+      { protocol: 'https', hostname: 'management.orangejelly.co.uk' },
+      { protocol: 'https', hostname: 'example.com' },
+      { protocol: 'https', hostname: 'tfcasgxopxegwrabvwat.supabase.co' }
+    ],
     formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],  // Common device sizes
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],

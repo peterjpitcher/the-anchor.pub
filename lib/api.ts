@@ -1783,6 +1783,24 @@ export class AnchorAPI {
       return createFallbackEvent(eventId)
     }
 
+    if (endpoint === '/bookings/initiate') {
+      return {
+        status: 'pending',
+        booking_token: 'fallback-token',
+        confirmation_url: 'https://example.com/confirm',
+        expires_at: new Date().toISOString(),
+        event: {
+          id: 'fallback-event',
+          name: 'Fallback Event',
+          date: '2025-01-01',
+          time: '19:00',
+          available_seats: 10
+        },
+        customer_exists: false,
+        sms_sent: false
+      }
+    }
+
     return null
   }
 }

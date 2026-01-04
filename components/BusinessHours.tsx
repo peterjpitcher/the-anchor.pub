@@ -109,9 +109,13 @@ export function BusinessHours({ variant = 'full', showKitchen = true }: Business
   }
 
   // Format time from 24h to 12h
-  const formatTime = (time: string) => {
-    const [hours, minutes] = time.split(':')
+  const formatTime = (time?: string | null) => {
+    if (!time) return ''
+    const parts = time.split(':')
+    if (parts.length < 2) return time
+    const [hours, minutes] = parts
     const hour = parseInt(hours)
+    if (isNaN(hour)) return time
     const ampm = hour >= 12 ? 'pm' : 'am'
     const displayHour = hour % 12 || 12
     return minutes === '00' ? `${displayHour}${ampm}` : `${displayHour}:${minutes}${ampm}`
@@ -268,7 +272,7 @@ export function BusinessHours({ variant = 'full', showKitchen = true }: Business
                       <div>
                         <span className="text-sm text-gray-400 mr-2">Bar:</span>
                         <span className={hasSpecialHours ? 'text-yellow-400' : 'text-white'}>
-                          {formatTime(displayHours.opens!)} - {formatTime(displayHours.closes!)}
+                          {formatTime(displayHours.opens)} - {formatTime(displayHours.closes)}
                         </span>
                       </div>
 
@@ -410,7 +414,7 @@ export function BusinessHours({ variant = 'full', showKitchen = true }: Business
                       <div>
                         <span className="text-xs text-white/60 mr-1">Bar:</span>
                         <span className={hasSpecialHours ? 'text-yellow-400' : 'text-white'}>
-                          {formatTime(displayHours.opens!)} - {formatTime(displayHours.closes!)}
+                          {formatTime(displayHours.opens)} - {formatTime(displayHours.closes)}
                         </span>
                       </div>
 
@@ -550,7 +554,7 @@ export function BusinessHours({ variant = 'full', showKitchen = true }: Business
                       <div>
                         <span className="text-sm text-gray-500 mr-2">Bar:</span>
                         <span className={hasSpecialHours ? 'text-yellow-600 font-medium' : ''}>
-                          <time itemProp="opens" content={displayHours.opens}>{formatTime(displayHours.opens!)}</time> - <time itemProp="closes" content={displayHours.closes}>{formatTime(displayHours.closes!)}</time>
+                          <time itemProp="opens" content={displayHours.opens}>{formatTime(displayHours.opens)}</time> - <time itemProp="closes" content={displayHours.closes}>{formatTime(displayHours.closes)}</time>
                         </span>
                       </div>
 
