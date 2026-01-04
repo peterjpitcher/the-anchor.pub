@@ -128,7 +128,7 @@ All these changes are part of our commitment to ensuring that The Anchor remains
 
 ## Find The Best Beer Pub Near Heathrow Airport
 
-**Location**: Town Lane, **Stanwell Moor** (**7 minutes from Heathrow Terminal 5**)
+**Location**: Horton Road, **Stanwell Moor** (**7 minutes from Heathrow Terminal 5**)
 
 **Perfect for**:
 - Airport staff enjoying **cold beer near Heathrow** after shifts

@@ -31,7 +31,7 @@ export function ContactLink({
   children,
   phoneNumber = CONTACT_INFO.phone,
   email = 'manager@the-anchor.pub',
-  address = 'The Anchor, Town Lane, Stanwell Moor, TW19 6AB'
+  address = 'The Anchor, Horton Road, Stanwell Moor, TW19 6AQ'
 }: ContactLinkProps) {
   if (type === 'phone') {
     return (

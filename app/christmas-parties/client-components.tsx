@@ -66,7 +66,7 @@ const ENQUIRY_STORAGE_KEYS = {
 
 const TIME_OPTIONS = ['5:30 pm', '6:00 pm', '6:30 pm', '7:00 pm', '7:30 pm', '8:00 pm']
 
-const EARLY_BIRD_DEADLINE = '2025-10-31T23:59:59'
+const EARLY_BIRD_DEADLINE = '2026-10-01T23:59:59'
 
 interface CountdownState {
   days: number
@@ -119,7 +119,7 @@ const useCountdown = (target: string | Date) => {
 }
 
 const PERK_OPTIONS = [
-  { id: 'early-bird', label: 'Early-Bird: free glass of Prosecco when you book by 31 Oct (parties of 6+)' },
+  { id: 'early-bird', label: 'Early-Bird: 20% off food bill when you book by 1 Oct (parties of 6+)' },
   { id: 'mid-week', label: 'Tue-Wed: free coffee & mince pie with dinner' }
 ]
 
@@ -177,7 +177,7 @@ const FAQ_ITEMS = [
   },
   {
     question: "Are you close to Heathrow and Staines?",
-    answer: "Yes - we're five minutes from Heathrow Terminal 5, around fifteen minutes from the Terminal 2 landside entrance and just ten minutes from Staines-upon-Thames. We're an easy Surrey Christmas party venue for Ashford, Windsor and the Heathrow villages."
+    answer: "Yes - we're seven minutes from Heathrow Terminal 5, around fifteen minutes from the Terminal 2 landside entrance and just eight minutes from Staines-upon-Thames. We're an easy Surrey Christmas party venue for Ashford, Windsor and the Heathrow villages."
   },
   {
     question: "Can we bring our own food?",
@@ -197,7 +197,7 @@ const FAQ_ITEMS = [
   },
   {
     question: "Is parking available?",
-    answer: "Yes - around 20 free spaces on-site just five minutes from Heathrow Terminal 5. You're welcome to leave cars overnight and collect them the next day."
+    answer: "Yes - around 20 free spaces on-site just seven minutes from Heathrow Terminal 5. You're welcome to leave cars overnight and collect them the next day."
   },
   {
     question: "How do you handle dietary requests?",
@@ -261,7 +261,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
       id: 'christmas_earlybird_banner',
       action: 'view',
       label: 'Early-Bird Offer',
-      campaign: 'christmas_2025'
+      campaign: 'christmas_2026'
     })
   }, [])
 
@@ -332,7 +332,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
       id: 'christmas_earlybird_banner',
       action: 'click',
       label: 'Early-Bird Offer',
-      campaign: 'christmas_2025'
+      campaign: 'christmas_2026'
     })
     trackCtaClick({
       id: 'christmas_earlybird_cta',
@@ -438,13 +438,13 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
         alignment="center"
         className="bg-anchor-charcoal text-white"
         contentClassName="max-w-4xl"
-        eyebrow={<span className="text-red-100">Christmas 2025</span>}
+        eyebrow={<span className="text-red-100">Christmas 2026</span>}
         title="A proper village-pub Christmas minutes from Heathrow"
         description="Three-course feasts piled with herb-crusted triple-cooked roast potatoes, pigs in blankets and sage & onion stuffing - with crackers, candles and festive decor waiting at your table."
         overlay="dark"
         image={{
-          src: '/images/page-headers/christmas-parties/christmas-parties.jpg',
-          alt: 'Festive Christmas dinner near Heathrow Terminal 5 at The Anchor',
+          src: '/images/page-headers/christmas-parties/2026/hero-table.png',
+          alt: 'Festive Christmas dinner table setting at The Anchor near Heathrow',
           priority: true
         }}
         cta={heroActions}
@@ -457,7 +457,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
               <div className="flex items-center gap-2">
                 <Icon name="sparkles" className="h-5 w-5" />
                 <p className="text-sm md:text-base font-semibold">
-                  Book by 31 Oct to enjoy a complimentary glass of Prosecco (or alcohol-free fizz) for every adult in parties of six or more.
+                  Book by 1 Oct to enjoy 20% off your food bill for every adult in parties of six or more.
                 </p>
               </div>
               <EarlyBirdCountdown className="text-red-100 text-xs md:text-sm" />
@@ -511,7 +511,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
       <Section background="gray" spacing="md">
         <Container>
           <div className="mx-auto max-w-5xl space-y-4 text-center">
-            <h2 className="text-3xl font-bold text-anchor-charcoal">2025 festive packages &amp; pricing</h2>
+            <h2 className="text-3xl font-bold text-anchor-charcoal">2026 festive packages &amp; pricing</h2>
             <p className="text-base text-gray-700">
               Book shared party nights, private dining and Sunday lunches with transparent per-person pricing. Pick the option that fits your Heathrow Christmas party or Surrey celebration, then submit your enquiry to lock in dates.
             </p>
@@ -580,7 +580,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
           <div className="mx-auto max-w-4xl space-y-4 text-center">
             <h2 className="text-2xl font-bold text-anchor-charcoal">Christmas party venue minutes from Heathrow &amp; Staines</h2>
             <p className="text-base text-gray-700">
-              The Anchor is a favourite choice for Christmas party venues near Heathrow, Staines-upon-Thames and Ashford. We're five minutes from Terminal 5, fifteen from the Terminal 2 landside entrance and just over the river from Windsor - so airport teams, local businesses and Surrey neighbours can celebrate without the stress of city travel. As a relaxed Christmas party venue Surrey organisers rely on, we host Christmas parties Heathrow crews and remain one of the Christmas party venues Heathrow teams book year after year.
+              The Anchor is a favourite choice for Christmas party venues near Heathrow, Staines-upon-Thames and Ashford. We're seven minutes from Terminal 5, fifteen from the Terminal 2 landside entrance and just over the river from Windsor - so airport teams, local businesses and Surrey neighbours can celebrate without the stress of city travel. As a relaxed Christmas party venue Surrey organisers rely on, we host Christmas parties Heathrow crews and remain one of the Christmas party venues Heathrow teams book year after year.
             </p>
             <p className="text-sm text-gray-600">
               Looking for great value or even cheap Christmas parties around Heathrow? Weeknight dining is priced from £36.95 for full three-course feasts with all the trimmings, making us one of the best-priced Christmas party pubs in Surrey without compromising on hospitality. It's a welcoming Christmas party pub Staines teams can walk to, the Christmas party pub Terminal 2 landside crews recommend, and a handy base for a Christmas party in Staines, Ashford or Windsor.
@@ -685,6 +685,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
             <div className="space-y-6">
               <Badge className="bg-red-100 text-red-700 w-fit">Festive 3-course set menu</Badge>
               <h2 className="text-3xl font-bold text-anchor-charcoal">Christmas menu snapshot</h2>
+              <p className="text-sm italic text-gray-500 mb-2">Sample menu - 2026 selection to be confirmed in October</p>
               <p className="text-base sm:text-lg text-gray-700">
                 Three generous courses that feel like Christmas at home - just with more room for everyone. Whether you're after a Christmas dinner near Heathrow, typing "Christmas dinner near me" from Terminal 5, eyeing a Christmas lunch near Staines or planning a festive pub feast for Surrey colleagues, every main arrives with herb-crusted triple-cooked roast potatoes, seasonal vegetables, Yorkshire puddings, pigs in blankets, sage &amp; onion stuffing and our signature gravy to share.
               </p>
@@ -750,13 +751,13 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                   <p className="text-xs text-gray-600">Prefer cheese? Swap dessert for our farmhouse cheeseboard (+£3) or add it as a fourth course for £7.95.</p>
                 </div>
               </div>
-          <div className="inline-flex items-center gap-2 rounded-full bg-red-50 px-4 py-2 text-sm font-semibold text-red-700">
-            <Icon name="star" className="h-4 w-4" /> All mains arrive family-style with Yorkshire puddings, pigs in blankets, herb-crusted triple-cooked roast potatoes, seasonal vegetables, sage &amp; onion stuffing and plenty of our signature gravy.
-          </div>
+              <div className="inline-flex items-center gap-2 rounded-full bg-red-50 px-4 py-2 text-sm font-semibold text-red-700">
+                <Icon name="star" className="h-4 w-4" /> All mains arrive family-style with Yorkshire puddings, pigs in blankets, herb-crusted triple-cooked roast potatoes, seasonal vegetables, sage &amp; onion stuffing and plenty of our signature gravy.
+              </div>
             </div>
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-gray-200 shadow-sm">
               <Image
-                src="/images/events/christmas/christmas-trimmings-board.jpg"
+                src="/images/page-headers/christmas-parties/2026/trimmings-board.png"
                 alt="Christmas trimmings board at The Anchor pub near Staines with Yorkshire puddings and pigs in blankets"
                 fill
                 className="object-cover"
@@ -1041,10 +1042,10 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
       <Section background="white" spacing="md">
         <Container>
           <FAQAccordionWithSchema
-              title="Christmas Party FAQs"
-              faqs={FAQ_ITEMS}
-              className="bg-gray-50"
-            />
+            title="Christmas Party FAQs"
+            faqs={FAQ_ITEMS}
+            className="bg-gray-50"
+          />
         </Container>
       </Section>
 
@@ -1132,7 +1133,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
       <Section className="py-16 bg-white">
         <Container>
           <div ref={enquiryRef} id="christmas-enquiry" className="max-w-3xl mx-auto scroll-mt-32">
-           <ChristmasEnquiryForm
+            <ChristmasEnquiryForm
               context={context}
               onContextChange={handleContextChange}
               onSuccess={handleFormSuccess}
@@ -1513,7 +1514,7 @@ function ChristmasLightbox({ suppressed, context, onContextChange, onSubmitSucce
         id: 'christmas_earlybird_lightbox',
         action: 'view',
         label: 'Early-Bird Lightbox',
-        campaign: 'christmas_2025'
+        campaign: 'christmas_2026'
       })
       markLocalStorage(ENQUIRY_STORAGE_KEYS.lightbox, String(Date.now()))
     }
@@ -1544,7 +1545,7 @@ function ChristmasLightbox({ suppressed, context, onContextChange, onSubmitSucce
       id: 'christmas_earlybird_lightbox',
       action: 'dismiss',
       label: 'Early-Bird Lightbox',
-      campaign: 'christmas_2025'
+      campaign: 'christmas_2026'
     })
     setVisible(false)
   }
@@ -1664,9 +1665,9 @@ function ChristmasLightbox({ suppressed, context, onContextChange, onSubmitSucce
               className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
             />
             <div className="grid grid-cols-2 gap-3">
-            <input
-              type="number"
-              min={context.mode === 'buffet' ? 26 : 6}
+              <input
+                type="number"
+                min={context.mode === 'buffet' ? 26 : 6}
                 placeholder="Party size"
                 value={partySize}
                 onChange={event => setPartySize(event.target.value)}

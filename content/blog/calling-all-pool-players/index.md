@@ -53,7 +53,7 @@ Looking for a **pool league near Heathrow**? The Anchor pub in **Stanwell Moor**
 
 ### Pool League Details
 
-**Home Venue**: The Anchor, Town Lane, **Stanwell Moor** (near **Staines**)
+**Home Venue**: The Anchor, Horton Road, **Stanwell Moor** (near **Staines**)
 **League Play**: Local Surrey pool leagues
 **Practise Nights**: Regular team practise sessions
 **Match Nights**: Flexible scheduling to accommodate all players

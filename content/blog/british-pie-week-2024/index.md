@@ -105,7 +105,7 @@ We have the perfect pie waiting for you!
 
 ## Visit The Anchor for British Pie Week
 
-**Location**: Town Lane, Stanwell Moor (**7 minutes from Heathrow Terminal 5**)
+**Location**: Horton Road, Stanwell Moor (**7 minutes from Heathrow Terminal 5**)
 **Call**: 01753 682707
 **Special Offer**: 50% off all pies during British Pie Week
 **Features**: Free parking • Dog-friendly • Traditional atmosphere

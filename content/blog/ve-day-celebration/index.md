@@ -136,7 +136,7 @@ Whether you're 18 or 80, come for the food, the music, or the memories. Our door
 ## Getting to The Anchor from Heathrow
 
 **Location & Transport:**
-📍 The Anchor, Horton Road, Stanwell Moor, TW19 7EW  
+📍 The Anchor, Horton Road, Stanwell Moor, TW19 6AQ  
 🚗 Just 7 minutes from Heathrow Terminal 5  
 🚌 Bus routes 441 & 442 from airport  
 🅿️ Free parking available  

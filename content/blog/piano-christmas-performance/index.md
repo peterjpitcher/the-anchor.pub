@@ -117,7 +117,7 @@ Skip the crowded **airport shopping** and discover authentic Christmas charm at 
 
 ### Visit Our Christmas Market
 
-📍 **Location**: The Anchor, Town Lane, Stanwell Moor
+📍 **Location**: The Anchor, Horton Road, Stanwell Moor
 📞 **Information**: 01753 682707
 🎄 **When**: First Saturday in December
 🎹 **Entertainment**: Live piano all day

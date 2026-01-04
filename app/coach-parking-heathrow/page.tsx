@@ -14,7 +14,7 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
     title: 'Pub With Coach Parking Near Heathrow | Group Bookings',
-    description: `${BRAND.name} welcomes coach parties! Large car park with easy turning, group menus available, and the driver eats FREE. Just 5 mins from T5.`,
+    description: `${BRAND.name} welcomes coach parties! Large car park with easy turning, group menus available, and the driver eats FREE. We're just 7 mins from T5.`,
     keywords: 'coach parking heathrow, pub with coach parking, tour group dining heathrow, large group restaurant heathrow',
     openGraph: {
         title: 'Coach Parties Welcome at The Anchor',

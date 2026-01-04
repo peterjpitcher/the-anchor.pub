@@ -80,7 +80,7 @@ Ready to plan your perfect celebration? Our **private event space near Heathrow*
 **Call**: 01753 682707
 **WhatsApp**: [Click here to message us](https://api.whatsapp.com/send?phone=4401753682707)
 **Facebook**: [Message us on Facebook](http://m.me/theanchorpubsm)
-**Visit**: The Anchor, Town Lane, Stanwell Moor (7 minutes from Terminal 5)
+**Visit**: The Anchor, Horton Road, Stanwell Moor (7 minutes from Terminal 5)
 
 Ask for Billy to discuss your requirements - we'll provide a no-obligation quote and help bring your vision to life at the premier **party venue near Heathrow Airport**.
 

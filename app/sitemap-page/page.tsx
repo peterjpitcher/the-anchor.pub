@@ -7,6 +7,17 @@ import { PhoneLink } from '@/components/PhoneLink'
 import { EmailLink } from '@/components/EmailLink'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 
+type SitemapLink = {
+  label: string
+  href: string
+  note?: string
+}
+
+type SitemapSection = {
+  title: string
+  links: SitemapLink[]
+}
+
 export const metadata: Metadata = {
   title: 'Sitemap | The Anchor - Heathrow Pub & Dining',
   description: 'Complete sitemap of The Anchor website. Find all our pages including menus, events, location information and special offers.',
@@ -20,60 +31,146 @@ export const metadata: Metadata = {
   })
 }
 
-const sitemapSections = [
+const sitemapSections: SitemapSection[] = [
   {
     title: 'Main Pages',
     links: [
       { label: 'Home', href: '/' },
-      { label: "What's On", href: '/whats-on' },
-      { label: 'Food Menu', href: '/food-menu' },
-      { label: 'Drinks Menu', href: '/drinks' },
       { label: 'Find Us', href: '/find-us' },
+      { label: 'Book a Table', href: '/book-table' },
+      { label: 'Book an Event', href: '/book-event' },
+      { label: 'Sitemap', href: '/sitemap-page' },
     ]
   },
   {
     title: 'Food & Drink',
     links: [
-      { label: 'Full Food Menu', href: '/food-menu' },
-      { label: 'Sunday Lunch Menu', href: '/sunday-lunch' },
-      { label: 'Pizza Menu', href: '/food-menu#pizza' },
+      { label: 'Food Menu', href: '/food-menu' },
+      { label: 'Sunday Lunch', href: '/sunday-lunch' },
+      { label: 'Pizza Menu', href: '/pizza-menu' },
+      { label: 'Burger Menu', href: '/burger-menu' },
+      { label: 'Fish & Chips', href: '/fish-and-chips-heathrow' },
+      { label: 'Pizza Tuesday', href: '/pizza-tuesday' },
       { label: 'Drinks Menu', href: '/drinks' },
+      { label: "Manager's Special", href: '/drinks/managers-special' },
+      { label: 'Baby Guinness', href: '/drinks/baby-guinness' },
     ]
   },
   {
     title: 'Events & Entertainment',
     links: [
-      { label: 'All Events', href: '/whats-on' },
-      { label: 'Saturday Drag Shows', href: '/whats-on/drag-shows' },
-      { label: 'Book an Event', href: '/book-event' },
+      { label: "What's On", href: '/whats-on' },
+      { label: 'Drag Shows', href: '/whats-on/drag-shows' },
+      { label: 'Quiz Night', href: '/quiz-night' },
+      { label: 'Cash Bingo', href: '/cash-bingo' },
+      { label: 'Karaoke', href: '/karaoke' },
+      { label: 'Live Music', href: '/live-music' },
+      { label: 'Premier League', href: '/live-sport/premier-league' },
+      { label: 'Six Nations Rugby', href: '/live-sport/six-nations' },
+      { label: 'F1 Racing', href: '/live-sport/f1' },
+      { label: 'Boxing Nights', href: '/live-sport/boxing' },
+      { label: 'Summer Garden Parties', href: '/summer-garden-parties' },
     ]
   },
   {
-    title: 'Near Heathrow',
+    title: 'Private Hire & Celebrations',
     links: [
-      { label: 'All Terminals', href: '/near-heathrow' },
+      { label: 'Private Hire Overview', href: '/private-hire' },
+      { label: 'Private Party Venue', href: '/private-party-venue' },
+      { label: 'Function Room Hire', href: '/function-room-hire' },
+      { label: 'Corporate Events', href: '/corporate-events' },
+      { label: 'Corporate Christmas Parties', href: '/corporate-christmas-parties' },
+      { label: 'Christmas Parties', href: '/christmas-parties' },
+      { label: 'Weddings', href: '/private-hire/weddings' },
+      { label: 'Wakes & Memorials', href: '/private-hire/wakes' },
+      { label: 'Christenings', href: '/private-hire/christenings' },
+      { label: 'Baby Showers', href: '/private-hire/baby-showers' },
+      { label: 'Engagement Parties', href: '/private-hire/engagement-parties' },
+      { label: 'Gender Reveal Parties', href: '/private-hire/gender-reveal' },
+      { label: 'Milestone Birthdays', href: '/private-hire/milestone-birthdays' },
+      { label: 'Retirement Parties', href: '/private-hire/retirement-parties' },
+    ]
+  },
+  {
+    title: 'Heathrow & Travel',
+    links: [
+      { label: 'Near Heathrow Overview', href: '/near-heathrow' },
       { label: 'Terminal 2', href: '/near-heathrow/terminal-2' },
       { label: 'Terminal 3', href: '/near-heathrow/terminal-3' },
       { label: 'Terminal 4', href: '/near-heathrow/terminal-4' },
       { label: 'Terminal 5', href: '/near-heathrow/terminal-5' },
+      { label: 'Heathrow Hotels', href: '/heathrow-hotels-pub' },
+      { label: 'M25 Junction 14', href: '/m25-junction-14-pub' },
+      { label: 'Layover Dining', href: '/heathrow-layover-dining' },
+      { label: 'Pre-Flight Meal', href: '/pre-flight-meal' },
+      { label: 'Family Dining', href: '/heathrow-family-dining' },
+      { label: 'Luggage Storage', href: '/luggage-storage-heathrow' },
+      { label: 'Heathrow Parking', href: '/heathrow-parking' },
+      { label: 'Coach Parking', href: '/coach-parking-heathrow' },
+      { label: 'Restaurants Near Heathrow', href: '/restaurants-near-heathrow' },
+      { label: 'Pubs in Stanwell', href: '/pubs-in-stanwell' },
     ]
   },
   {
-    title: 'Special Features',
+    title: 'Highlights & Facilities',
     links: [
-      { label: 'Beer Garden & Plane Spotting', href: '/beer-garden' },
-      { label: 'Dog Friendly Guide', href: '/dog-friendly', note: 'Coming Soon' },
-      { label: 'Family Friendly', href: '/family-friendly', note: 'Coming Soon' },
+      { label: 'Beer Garden', href: '/beer-garden' },
+      { label: 'Pub Garden', href: '/pub-garden-heathrow' },
+      { label: 'Plane Spotting Guide', href: '/plane-spotting-heathrow' },
+      { label: 'Live Sport Pub', href: '/live-sport-pub' },
+      { label: 'Pool & Darts', href: '/pool-darts-pub' },
+      { label: 'Dog Friendly Pub', href: '/dog-friendly-pub-heathrow' },
+      { label: 'Family Friendly', href: '/family-friendly-pub-heathrow' },
+      { label: 'Free Parking', href: '/free-parking' },
     ]
   },
   {
-    title: 'Location Pages',
+    title: 'Areas We Serve',
     links: [
-      { label: 'Staines Location', href: '/staines-pub', note: 'Coming Soon' },
-      { label: 'Stanwell Moor Location', href: '/stanwell-moor-pub', note: 'Coming Soon' },
-      { label: 'TW19 Area', href: '/locations/tw19', note: 'Coming Soon' },
+      { label: 'Ashford', href: '/ashford-pub' },
+      { label: 'Bedfont', href: '/bedfont-pub' },
+      { label: 'Colnbrook', href: '/colnbrook-pub' },
+      { label: 'Egham', href: '/egham-pub' },
+      { label: 'Feltham', href: '/feltham-pub' },
+      { label: 'Horton', href: '/horton-pub' },
+      { label: 'Longford', href: '/longford-pub' },
+      { label: 'Staines', href: '/staines-pub' },
+      { label: 'Stanwell', href: '/stanwell-pub' },
+      { label: 'Sunbury', href: '/sunbury-pub' },
+      { label: 'Windsor', href: '/windsor-pub' },
+      { label: 'Wraysbury', href: '/wraysbury-pub' },
     ]
-  }
+  },
+  {
+    title: 'Blog',
+    links: [
+      { label: 'All Posts', href: '/blog' },
+      { label: 'Browse Tags', href: '/blog/tags' },
+    ]
+  },
+  {
+    title: 'Guest Services',
+    links: [
+      { label: 'Leave a Review', href: '/leave-review' },
+      { label: 'Privacy Policy', href: '/privacy-policy' },
+      { label: 'Booking Confirmation', href: '/booking-confirmation' },
+    ]
+  },
+  {
+    title: 'Diagnostics & Demos',
+    links: [
+      { label: 'Components Library', href: '/components' },
+      { label: 'Demo Header', href: '/demo-header' },
+      { label: 'Debug Hours', href: '/debug-hours' },
+      { label: 'GTM Debug', href: '/gtm-debug' },
+      { label: 'Test GTM', href: '/test-gtm' },
+      { label: 'Test Hours', href: '/test-hours' },
+      { label: 'Test Navigation Tracking', href: '/test-navigation-tracking' },
+      { label: 'Test Reviews', href: '/test-reviews' },
+      { label: 'Test Simple', href: '/test-simple' },
+      { label: 'Test Tracking', href: '/test-tracking' },
+    ]
+  },
 ]
 
 export default function SitemapPage() {

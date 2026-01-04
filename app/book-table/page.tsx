@@ -100,9 +100,9 @@ export default async function BookPage({
               "name": "The Anchor",
               "address": {
                 "@type": "PostalAddress",
-                "streetAddress": "High Street",
+                "streetAddress": "Horton Road",
                 "addressLocality": "Stanwell Moor",
-                "postalCode": "TW19 6AB"
+                "postalCode": "TW19 6AQ"
               }
             },
             "url": "https://www.the-anchor.pub/book-table",

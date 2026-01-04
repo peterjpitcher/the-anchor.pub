@@ -14,7 +14,7 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
     title: 'Live Sport Pub Near Heathrow | Sky Sports & TNT | The Anchor',
-    description: `Watch live football, rugby, and F1 at ${BRAND.name}. Multiple HD screens, Sky Sports, TNT Sports, and a great atmosphere. Just 5 mins from Heathrow T5.`,
+    description: `Watch live football, rugby, and F1 at ${BRAND.name}. Multiple HD screens, Sky Sports, TNT Sports, and a great atmosphere. We're just 7 mins from Heathrow T5.`,
     keywords: 'pub showing football heathrow, sky sports pub staines, where to watch football heathrow, live sport pub stanwell',
     openGraph: {
         title: 'Live Sport at The Anchor Pub',
@@ -46,9 +46,9 @@ export default function LiveSportPage() {
             "streetAddress": CONTACT.address.street,
             "addressLocality": CONTACT.address.town,
             "postalCode": CONTACT.address.postcode,
-            "addressCountry": "UK"
+            "addressCountry": CONTACT.address.country
         },
-        "telephone": CONTACT.phone,
+        "telephone": CONTACT.phoneIntl,
         "image": DEFAULT_PAGE_HEADER_IMAGE
     }
 

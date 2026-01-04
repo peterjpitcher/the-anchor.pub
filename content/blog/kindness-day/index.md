@@ -109,7 +109,7 @@ At The Anchor, we're proud to be a part of a community that values and practises
 So, this Random Acts of Kindness Day, let's come together to celebrate the power of kindness and its ability to transform our village and the world. Join us at **The Anchor pub in Stanwell Moor**, just minutes from Heathrow Airport.
 
 **Location & Details:**
-📍 The Anchor, Horton Road, Stanwell Moor, TW19 7EW  
+📍 The Anchor, Horton Road, Stanwell Moor, TW19 6AQ  
 🚗 7 minutes from Heathrow Terminal 5  
 🚌 Bus routes 441 & 442 from airport  
 🅿️ Free parking available  

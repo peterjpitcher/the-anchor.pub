@@ -43,7 +43,7 @@ export const revalidate = 60 * 60 * 24 // 24 hours
 
 export const metadata: Metadata = {
   title: 'The Anchor Pub | Stanwell Moor Near Heathrow & Staines',
-  description: 'The Anchor pub in Stanwell Moor is 7 minutes from Heathrow Terminal 5 and 10 minutes from Staines. Free parking, Sunday roasts, stone-baked pizzas, drag shows and quiz nights.',
+  description: 'The Anchor pub in Stanwell Moor - we\'re 7 minutes from Heathrow Terminal 5 and 8 minutes from Staines. Free parking, Sunday roasts, stone-baked pizzas, drag shows and quiz nights.',
   keywords: 'the anchor pub, stanwell moor pub, staines pub, heathrow pub with parking, sunday roast near staines, stone-baked pizza',
   alternates: {
     canonical: './'

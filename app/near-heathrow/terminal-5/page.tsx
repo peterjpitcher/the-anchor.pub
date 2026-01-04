@@ -645,7 +645,7 @@ export default function Terminal5Page() {
           },
           {
             question: "Can I get a taxi from Terminal 5 to The Anchor?",
-            answer: "Yes, taxis are readily available from Terminal 5. The journey costs £20-£25 and takes about 4-7 minutes. Tell your driver 'The Anchor, Horton Road, Stanwell Moor, TW19 6AQ'. Alternatively, take bus route 442 which stops directly outside the pub - it runs every 20 minutes and costs about what a pint should cost."
+            answer: "Yes, taxis are readily available from Terminal 5. The journey costs £20-£25 and takes about 7 minutes. Tell your driver 'The Anchor, Horton Road, Stanwell Moor, TW19 6AQ'. Alternatively, take bus route 442 which stops directly outside the pub - it runs every 20 minutes and costs about what a pint should cost."
           },
           {
             question: "What time should I leave The Anchor to catch my flight from T5?",

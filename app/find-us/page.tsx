@@ -74,9 +74,9 @@ export default function FindUsPage() {
         description="Easy to find, hard to leave!"
         variant="default"
         tags={[
-          { label: "🏡 Independent village pub minutes from Heathrow", variant: "default" },
-          { label: "✈️ Horton Road plane-spotting area", variant: "primary" },
-          { label: "🚗 Free Parking", variant: "success" }
+          { label: "🏡 Independent village pub minutes from Heathrow", variant: "default", size: "medium" },
+          { label: "✈️ Horton Road plane-spotting area", variant: "primary", size: "medium" },
+          { label: "🚗 Free Parking", variant: "success", size: "medium" }
         ]}
         primaryCta={
           <DirectionsButton

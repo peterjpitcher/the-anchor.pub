@@ -251,7 +251,7 @@ export default function NearHeathrowPage() {
               {
                 href: '/heathrow-parking',
                 title: 'Cheapest Heathrow parking',
-                description: 'Reserve secure parking from £15 per day, five minutes from Terminal 5.'
+                description: 'Reserve secure parking from £15 per day, seven minutes from Terminal 5.'
               },
               {
                 href: '/heathrow-layover-dining',
@@ -305,7 +305,7 @@ export default function NearHeathrowPage() {
                 <div className="card-warm bg-white p-6 h-full group-hover:shadow-lg transition-all">
                   <div className="flex items-center justify-between mb-4">
                     <h2 className="text-2xl font-bold text-anchor-green">Terminal 2</h2>
-                    <span className="text-anchor-gold font-semibold">10 mins</span>
+                    <span className="text-anchor-gold font-semibold">11 mins</span>
                   </div>
                   <p className="text-gray-700 mb-4">The Queen&apos;s Terminal</p>
                   <ul className="space-y-2 text-gray-700 text-sm">
@@ -324,7 +324,7 @@ export default function NearHeathrowPage() {
                 <div className="card-warm bg-white p-6 h-full group-hover:shadow-lg transition-all">
                   <div className="flex items-center justify-between mb-4">
                     <h2 className="text-2xl font-bold text-anchor-green">Terminal 3</h2>
-                    <span className="text-anchor-gold font-semibold">10 mins</span>
+                    <span className="text-anchor-gold font-semibold">11 mins</span>
                   </div>
                   <p className="text-gray-700 mb-4">Virgin Atlantic & Emirates</p>
                   <ul className="space-y-2 text-gray-700 text-sm">

@@ -182,7 +182,7 @@ At The Anchor, we understand the unique challenges of pet ownership near a busy 
 Join our welcoming **pet-friendly community near Heathrow**:
 
 **Location & Details:**
-📍 The Anchor, Horton Road, Stanwell Moor, TW19 7EW  
+📍 The Anchor, Horton Road, Stanwell Moor, TW19 6AQ  
 🚗 7 minutes from Heathrow Terminal 5  
 🚌 Bus routes 441 & 442  
 🅿️ Free parking  

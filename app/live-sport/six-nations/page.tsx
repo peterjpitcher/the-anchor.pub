@@ -51,7 +51,7 @@ export default function SixNationsPage() {
         "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
         "eventStatus": "https://schema.org/EventScheduled",
         "location": {
-            "@type": "Pub",
+            "@type": "Place",
             "name": BRAND.name,
             "address": {
                 "@type": "PostalAddress",
@@ -66,12 +66,7 @@ export default function SixNationsPage() {
                 "longitude": CONTACT.coordinates.lng
             },
             "telephone": CONTACT.phone,
-            "url": "https://www.the-anchor.pub",
-            "areaServed": [
-                { "@type": "Place", "name": "Heathrow" },
-                { "@type": "Place", "name": "Staines" },
-                { "@type": "Place", "name": "Stanwell Moor" }
-            ]
+            "url": "https://www.the-anchor.pub"
         },
         "description": "Watch every Six Nations 2026 match live on big screens with sound at The Anchor. Just 7 minutes from Heathrow Terminal 5.",
         "image": DEFAULT_PAGE_HEADER_IMAGE,
@@ -80,12 +75,17 @@ export default function SixNationsPage() {
             "name": BRAND.name,
             "url": "https://www.the-anchor.pub"
         },
+        "performer": {
+            "@type": "Organization",
+            "name": "Six Nations Rugby"
+        },
         "offers": {
             "@type": "Offer",
             "price": "0",
             "priceCurrency": "GBP",
             "availability": "https://schema.org/InStock",
             "url": "https://www.the-anchor.pub/book-table",
+            "validFrom": "2025-01-01",
             "description": "Free entry, table booking recommended"
         }
     }

@@ -5,14 +5,14 @@ import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 export const metadata: Metadata = {
   title: 'Christmas Parties Near Heathrow & Staines | The Anchor Pub',
   description:
-    'Plan 2025 Christmas parties, shared party nights and private festive hire at The Anchor near Heathrow Terminal 5 and Staines. Three-course menus from £36.95, buffets for 26+, corporate packages, Prosecco upgrades, free parking outside the ULEZ and rapid rides from airport hotels.',
+    'Plan 2026 Christmas parties, shared party nights and private festive hire at The Anchor near Heathrow Terminal 5 and Staines. Three-course menus from £36.95, buffets for 26+, corporate packages, Prosecco upgrades, free parking outside the ULEZ and rapid rides from airport hotels.',
   keywords:
     'christmas party venue near heathrow, christmas party pub staines, shared christmas party heathrow, corporate christmas party heathrow, christmas dinner staines, christmas party pub surrey, christmas party packages heathrow, cheap christmas parties heathrow, christmas buffet near heathrow, private christmas dining surrey',
   openGraph: {
-    title: 'Christmas Parties 2025 Near Heathrow Terminal 5 | Shared Nights & Private Hire',
+    title: 'Christmas Parties 2026 Near Heathrow Terminal 5 | Shared Nights & Private Hire',
     description:
       'A proper village-pub Christmas with shared party nights, private hire, generous roasts and buffet options. Free parking minutes from Heathrow Terminal 5 and close to Staines, Ashford and Windsor.',
-    images: ['/images/page-headers/christmas-parties/christmas-parties.jpg']
+    images: ['/images/page-headers/christmas-parties/2026/hero-table.png']
   },
   alternates: {
     canonical: '/christmas-parties'
@@ -22,13 +22,13 @@ export const metadata: Metadata = {
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'Event',
-  name: 'Christmas Parties & Festive Dinners 2025 at The Anchor, Stanwell Moor',
+  name: 'Christmas Parties & Festive Dinners 2026 at The Anchor, Stanwell Moor',
   description:
-    'Celebrate Christmas 2025 at The Anchor near Heathrow Terminal 5. Three-course pub roasts with Yorkshire puddings and pigs in blankets, free parking outside the ULEZ, buffet options for informal gatherings, and space for up to 60 seated guests.',
-  startDate: '2025-11-24',
-  endDate: '2025-12-23',
+    'Celebrate Christmas 2026 at The Anchor near Heathrow Terminal 5. Three-course pub roasts with Yorkshire puddings and pigs in blankets, free parking outside the ULEZ, buffet options for informal gatherings, and space for up to 60 seated guests.',
+  startDate: '2026-11-24',
+  endDate: '2026-12-23',
   eventStatus: 'https://schema.org/EventScheduled',
-  image: ['https://www.the-anchor.pub/images/page-headers/christmas-parties/christmas-parties.jpg'],
+  image: ['https://www.the-anchor.pub/images/page-headers/christmas-parties/2026/hero-table.png'],
   location: {
     '@type': 'Place',
     name: 'The Anchor, Stanwell Moor',
@@ -61,6 +61,12 @@ const structuredData = {
         name: 'Village pub dining rooms',
         value: 'Up to 60 seated, 200 standing for Christmas events'
       }
+    ],
+    areaServed: [
+      { '@type': 'City', name: 'Staines-upon-Thames' },
+      { '@type': 'City', name: 'Ashford' },
+      { '@type': 'City', name: 'Windsor' },
+      { '@type': 'Place', name: 'Heathrow Airport' }
     ]
   },
   organizer: {
@@ -87,8 +93,8 @@ const structuredData = {
       price: '36.95',
       priceCurrency: 'GBP',
       availability: 'https://schema.org/InStock',
-      availabilityStarts: '2025-09-01',
-      availabilityEnds: '2025-12-23',
+      availabilityStarts: '2026-09-01',
+      availabilityEnds: '2026-12-23',
       url: 'https://www.the-anchor.pub/christmas-parties',
       description: 'Three-course Christmas dinner with Yorkshire puddings, pigs in blankets, roast potatoes, seasonal vegetables and gravy. Available Tuesday to Thursday.'
     },
@@ -98,8 +104,8 @@ const structuredData = {
       price: '39.95',
       priceCurrency: 'GBP',
       availability: 'https://schema.org/InStock',
-      availabilityStarts: '2025-09-01',
-      availabilityEnds: '2025-12-23',
+      availabilityStarts: '2026-09-01',
+      availabilityEnds: '2026-12-23',
       url: 'https://www.the-anchor.pub/christmas-parties',
       description: 'Friday and Saturday Christmas dinners with all the trimmings, perfect for larger celebrations.'
     },

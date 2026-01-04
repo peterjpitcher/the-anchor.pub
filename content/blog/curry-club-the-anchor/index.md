@@ -159,7 +159,7 @@ Our **curry night near Terminal 5** attracts:
 Don't miss the **best curry near Heathrow Airport**:
 
 📞 **Call**: 01753 682707
-📍 **Visit**: The Anchor, Town Lane, Stanwell Moor
+📍 **Visit**: The Anchor, Horton Road, Stanwell Moor
 ⏱️ **Location**: Just 7 minutes from Terminal 5
 
 ### Special Dietary Requirements

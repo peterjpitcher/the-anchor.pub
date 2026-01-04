@@ -37,7 +37,7 @@ images:
 
 ![Festive pub table set for a company Christmas party near Heathrow](/images/events/christmas/christmas-trimmings-board.jpg)
 
-Need to plan a **Christmas get-together near Heathrow** without spending a fortune? The Anchor in Stanwell Moor is a cosy village pub five minutes from Terminal 5, ten minutes from Staines-upon-Thames, and easy for Ashford or Windsor teams. Here's how to make your celebration feel generous, festive and affordable.
+Need to plan a **Christmas get-together near Heathrow** without spending a fortune? The Anchor in Stanwell Moor is a cosy village pub - we're seven minutes from Terminal 5, eight minutes from Staines-upon-Thames, and easy for Ashford or Windsor teams. Here's how to make your celebration feel generous, festive and affordable.
 
 ## 1. Pick the best-value dates
 

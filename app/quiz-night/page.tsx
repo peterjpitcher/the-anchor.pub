@@ -135,7 +135,7 @@ const FAQS = [
   {
     question: 'Is this the closest pub quiz near Heathrow hotels?',
     answer:
-      'Yes—The Anchor is just seven minutes from Heathrow Terminal 5 and 10 minutes from Staines. We’re the go-to “pub quiz near me” for airport crews, local hotels and Stanwell Moor neighbours looking for a proper quiz night without London prices.'
+      'Yes—we\'re just seven minutes from Heathrow Terminal 5 and 8 minutes from Staines. We\'re the go-to “pub quiz near me” for airport crews, local hotels and Stanwell Moor neighbours looking for a proper quiz night without London prices.'
   },
   {
     question: 'Do you run quiz nights on weekends?',
@@ -627,7 +627,7 @@ export default async function QuizNightPage() {
             <div>
               <h2 className="text-2xl font-bold text-anchor-charcoal mb-3">Find us</h2>
               <p className="text-gray-700 mb-4">
-                The Anchor · Horton Road, Stanwell Moor, TW19 6AQ · Free on-site parking · 7 minutes from Heathrow T5 · 10 minutes from Staines.
+                The Anchor · Horton Road, Stanwell Moor, TW19 6AQ · Free on-site parking · 7 minutes from Heathrow T5 · 8 minutes from Staines.
               </p>
               <ul className="space-y-3 text-gray-700 text-sm">
                 <li><strong>Driving:</strong> Use postcode TW19 6AQ. Plenty of free parking right outside.</li>

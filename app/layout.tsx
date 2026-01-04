@@ -21,6 +21,10 @@ const EventCountdownBanner = dynamic(() => import('@/components/EventCountdownBa
   ssr: false
 })
 
+const ChristmasLightbox = dynamic(() => import('@/components/features/christmas/ChristmasLightbox').then(mod => mod.ChristmasLightbox), {
+  ssr: false
+})
+
 const outfit = Outfit({
   subsets: ['latin'],
   variable: '--font-outfit',
@@ -134,6 +138,30 @@ export default function RootLayout({
                 <header role="banner">
                   <Navigation
                     statusComponent={<HeaderStatusSectionDirect />}
+                    tertiaryCtaButton={(() => {
+                      const now = new Date()
+                      // Six Nations ends March 15th 2026
+                      if (now < new Date('2026-03-16')) { // Using 16th to include the full day of 15th
+                        return {
+                          label: 'Six Nations 2026',
+                          href: '/live-sport/six-nations',
+                          icon: '🏉',
+                          external: false,
+                          variant: 'secondary'
+                        }
+                      }
+                      // Show Christmas from August 1st 2026
+                      if (now >= new Date('2026-08-01')) {
+                        return {
+                          label: 'Christmas 2026',
+                          href: '/christmas-parties',
+                          icon: '🎄',
+                          external: false,
+                          variant: 'secondary'
+                        }
+                      }
+                      return null
+                    })()}
                   />
                 </header>
               </ErrorBoundary>
@@ -151,6 +179,7 @@ export default function RootLayout({
               <CookieBanner />
               <Suspense fallback={null}>
                 <EventCountdownBanner />
+                <ChristmasLightbox />
               </Suspense>
             </BusinessHoursProvider>
           </AnalyticsProvider>

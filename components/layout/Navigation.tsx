@@ -64,6 +64,8 @@ const defaultItems: NavigationItem[] = [
       { label: 'Cash Bingo', href: '/cash-bingo' },
       { label: 'Karaoke', href: '/karaoke' },
       { label: 'Live Music', href: '/live-music' },
+      { label: 'Live Sport', href: '/live-sport-pub' },
+      { label: 'Pool & Darts', href: '/pool-darts-pub' },
       { label: 'Drag Shows', href: '/whats-on/drag-shows' }
     ]
   },
@@ -83,12 +85,18 @@ const defaultItems: NavigationItem[] = [
     items: [
       { label: 'Book an Event', href: '/book-event' },
       { label: 'Private Hire Overview', href: '/private-hire' },
-      { label: 'Wakes & Memorials', href: '/private-hire/wakes' },
+      { label: 'Private Parties', href: '/private-party-venue' },
+      { label: 'Milestone Birthdays', href: '/private-hire/milestone-birthdays' },
+      { label: 'Engagement Parties', href: '/private-hire/engagement-parties' },
+      { label: 'Gender Reveal Parties', href: '/private-hire/gender-reveal' },
+      { label: 'Baby Showers', href: '/private-hire/baby-showers' },
       { label: 'Christenings', href: '/private-hire/christenings' },
       { label: 'Weddings', href: '/private-hire/weddings' },
-      { label: 'Baby Showers', href: '/private-hire/baby-showers' },
-      { label: 'Private Parties', href: '/private-party-venue' },
+      { label: 'Wakes & Memorials', href: '/private-hire/wakes' },
+      { label: 'Retirement Parties', href: '/private-hire/retirement-parties' },
       { label: 'Corporate Events', href: '/corporate-events' },
+      { label: 'Corporate Christmas Parties', href: '/corporate-christmas-parties' },
+      { label: 'Christmas Parties', href: '/christmas-parties' },
       { label: 'Function Room Hire', href: '/function-room-hire' }
     ]
   },
@@ -146,9 +154,9 @@ export function Navigation({
     variant: 'secondary'
   },
   tertiaryCtaButton = {
-    label: 'Book Six Nations',
-    href: '/live-sport/six-nations',
-    icon: '🏉',
+    label: 'Christmas 2026',
+    href: '/christmas-parties',
+    icon: '🎄',
     external: false,
     variant: 'secondary'
   },

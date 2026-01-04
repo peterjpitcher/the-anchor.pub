@@ -320,7 +320,7 @@ Thank you for making The Anchor your **Christmas pub of choice near Heathrow Air
 
 ## Visit The Anchor - Your Community Pub Near Heathrow
 
-**Location**: Town Lane, Stanwell Moor (**7 minutes from Heathrow Terminal 5**)
+**Location**: Horton Road, Stanwell Moor (**7 minutes from Heathrow Terminal 5**)
 **Call**: 01753 682707
 **Features**: Free parking • Dog-friendly • Traditional pub food • Festive events
 

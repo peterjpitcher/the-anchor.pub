@@ -122,7 +122,7 @@ Ready for the ultimate **football viewing experience near Heathrow Airport**? Jo
 
 ### Visit Details
 
-📍 **Location**: Town Lane, Stanwell Moor (**7 minutes from Terminal 5**)
+📍 **Location**: Horton Road, Stanwell Moor (**7 minutes from Terminal 5**)
 📞 **Call**: 01753 682707
 🚗 **Parking**: Free on-site parking
 🍺 **Bar**: Full selection of beers and spirits

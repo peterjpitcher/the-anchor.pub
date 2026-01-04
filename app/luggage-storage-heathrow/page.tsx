@@ -14,7 +14,7 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
     title: 'Luggage Storage Near Heathrow | Free with Dining | The Anchor',
-    description: `Need to store luggage near Heathrow? Don't pay airport prices. Store your bags for FREE at ${BRAND.name} when you stop for a meal. Just 5 mins from T5.`,
+    description: `Need to store luggage near Heathrow? Don't pay airport prices. Store your bags for FREE at ${BRAND.name} when you stop for a meal. We're just 7 mins from T5.`,
     keywords: 'luggage storage heathrow, baggage storage heathrow, pub with luggage storage, eat and park heathrow',
     openGraph: {
         title: 'Free Luggage Storage Near Heathrow (With Dining)',

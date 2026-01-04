@@ -14,7 +14,7 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
     title: 'Dining Near Heathrow T5 | Best Pre-Flight Meal',
-    description: `Avoid the airline food! Enjoy a proper British meal at ${BRAND.name} before you fly. Authentic Fish & Chips, Burgers, and Real Ale just 5 mins from T5.`,
+    description: `Avoid the airline food! Enjoy a proper British meal at ${BRAND.name} before you fly. Authentic Fish & Chips, Burgers, and Real Ale - we're just 7 mins from T5.`,
     keywords: 'restaurants near heathrow terminal 5, pub food heathrow, dinner before flight heathrow, best food near heathrow airport',
     openGraph: {
         title: 'The Last Proper Meal Before You Fly',

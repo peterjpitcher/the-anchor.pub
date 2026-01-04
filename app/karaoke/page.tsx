@@ -419,7 +419,7 @@ export default async function KaraokePage() {
                         <div>
                             <h2 className="text-2xl font-bold text-anchor-charcoal mb-3">Find us</h2>
                             <p className="text-gray-700 mb-4">
-                                The Anchor · Horton Road, Stanwell Moor, TW19 6AQ · Free on-site parking · 7 minutes from Heathrow T5 · 10 minutes from Staines.
+                                The Anchor · Horton Road, Stanwell Moor, TW19 6AQ · Free on-site parking · 7 minutes from Heathrow T5 · 8 minutes from Staines.
                             </p>
                             <div className="flex flex-col sm:flex-row gap-3 mt-4">
                                 <Link

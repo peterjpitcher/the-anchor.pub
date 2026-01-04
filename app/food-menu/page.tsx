@@ -273,8 +273,8 @@ export default async function FoodMenuPage() {
                 subtitle="Traditional favourites, quick service and free parking just outside the terminals."
               />
               <p className="text-gray-700">
-                Looking for a food menu or pub menu in Staines? The Anchor sits on Horton Road in Stanwell Moor,
-                just 10 minutes from Staines High Street and 7 minutes from Heathrow Terminal 5. Our pub food menu
+                Looking for a food menu or pub menu in Staines? We sit on Horton Road in Stanwell Moor,
+                just 8 minutes from Staines High Street and 7 minutes from Heathrow Terminal 5. Our pub food menu
                 covers Sunday roast and Sunday lunch, a fish & chips menu, a pizza menu, plus vegetarian menu and
                 gluten free menu options.
               </p>

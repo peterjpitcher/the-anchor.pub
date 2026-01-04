@@ -244,7 +244,7 @@ Ready to make your business pet-friendly? Start with:
 See our **pet-friendly success near Terminal 5** in action:
 
 **Location & Details:**
-📍 The Anchor, Horton Road, Stanwell Moor, TW19 7EW  
+📍 The Anchor, Horton Road, Stanwell Moor, TW19 6AQ  
 🚗 7 minutes from Heathrow Terminal 5  
 🚌 Bus routes 441 & 442  
 🅿️ Free parking  

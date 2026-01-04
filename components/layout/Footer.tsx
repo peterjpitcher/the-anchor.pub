@@ -63,10 +63,20 @@ const defaultSections: FooterSection[] = [
     title: 'Private Events',
     titleClass: 'text-anchor-gold',
     items: [
+      { label: 'Private Hire Overview', href: '/private-hire' },
       { label: 'Christmas Parties', href: '/christmas-parties' },
+      { label: 'Corporate Christmas Parties', href: '/corporate-christmas-parties' },
       { label: 'Corporate Events', href: '/corporate-events' },
-      { label: 'Birthday Parties', href: '/private-party-venue' },
-      { label: 'Function Room Hire', href: '/function-room-hire' }
+      { label: 'Function Room Hire', href: '/function-room-hire' },
+      { label: 'Private Parties', href: '/private-party-venue' },
+      { label: 'Milestone Birthdays', href: '/private-hire/milestone-birthdays' },
+      { label: 'Engagement Parties', href: '/private-hire/engagement-parties' },
+      { label: 'Gender Reveal Parties', href: '/private-hire/gender-reveal' },
+      { label: 'Baby Showers', href: '/private-hire/baby-showers' },
+      { label: 'Christenings', href: '/private-hire/christenings' },
+      { label: 'Weddings', href: '/private-hire/weddings' },
+      { label: 'Wakes & Memorials', href: '/private-hire/wakes' },
+      { label: 'Retirement Parties', href: '/private-hire/retirement-parties' }
     ]
   },
   {
@@ -74,16 +84,35 @@ const defaultSections: FooterSection[] = [
     titleClass: 'text-anchor-gold',
     items: [
       { label: 'Beer Garden & Plane Spotting', href: '/beer-garden' },
+      { label: 'Pub Garden', href: '/pub-garden-heathrow' },
       { label: 'Plane Spotting Guide', href: '/plane-spotting-heathrow' },
+      { label: 'Live Sport Pub', href: '/live-sport-pub' },
       { label: 'Pizza Menu', href: '/pizza-menu' },
       { label: 'Burger Menu', href: '/burger-menu' },
       { label: 'Fish & Chips', href: '/fish-and-chips-heathrow' },
       { label: 'Six Nations Rugby', href: '/live-sport/six-nations' },
       { label: 'Premier League', href: '/live-sport/premier-league' },
+      { label: 'F1 Racing', href: '/live-sport/f1' },
+      { label: 'Boxing Nights', href: '/live-sport/boxing' },
+      { label: 'Pool & Darts', href: '/pool-darts-pub' },
       { label: 'Dog Friendly Pub', href: '/dog-friendly-pub-heathrow' },
       { label: 'Family Friendly', href: '/family-friendly-pub-heathrow' },
       { label: 'Drag Shows', href: '/whats-on/drag-shows' },
-      { label: 'Free Parking', href: '/find-us' }
+      { label: 'Free Parking', href: '/free-parking' }
+    ]
+  },
+  {
+    title: 'Travel & Services',
+    titleClass: 'text-anchor-gold',
+    items: [
+      { label: 'Heathrow Parking', href: '/heathrow-parking' },
+      { label: 'Coach Parking', href: '/coach-parking-heathrow' },
+      { label: 'Luggage Storage', href: '/luggage-storage-heathrow' },
+      { label: 'Pre-Flight Meal', href: '/pre-flight-meal' },
+      { label: 'Family Dining', href: '/heathrow-family-dining' },
+      { label: 'Layover Dining', href: '/heathrow-layover-dining' },
+      { label: 'Restaurants Near Heathrow', href: '/restaurants-near-heathrow' },
+      { label: 'Pubs in Stanwell', href: '/pubs-in-stanwell' }
     ]
   },
   {
@@ -104,13 +133,18 @@ const defaultSections: FooterSection[] = [
     items: [
       { label: 'Ashford', href: '/ashford-pub' },
       { label: 'Bedfont', href: '/bedfont-pub' },
+      { label: 'Colnbrook', href: '/colnbrook-pub' },
       { label: 'Egham', href: '/egham-pub' },
       { label: 'Feltham', href: '/feltham-pub' },
+      { label: 'Horton', href: '/horton-pub' },
       { label: 'Heathrow Hotels', href: '/heathrow-hotels-pub' },
+      { label: 'Longford', href: '/longford-pub' },
       { label: 'M25 Junction 14', href: '/m25-junction-14-pub' },
       { label: 'Staines', href: '/staines-pub' },
       { label: 'Stanwell', href: '/stanwell-pub' },
-      { label: 'Windsor', href: '/windsor-pub' }
+      { label: 'Sunbury', href: '/sunbury-pub' },
+      { label: 'Windsor', href: '/windsor-pub' },
+      { label: 'Wraysbury', href: '/wraysbury-pub' }
     ]
   }
 ]
