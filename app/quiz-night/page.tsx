@@ -173,7 +173,9 @@ function QuizNightEvents({ events }: { events: Event[] }) {
       {events.map((event, index) => {
         const doorTime = formatDoorTime(event.doorTime)
         const startTime = formatEventTime(event.startDate)
-        const isTentative = new Date(event.startDate).getTime() > new Date().getTime() + 30 * 24 * 60 * 60 * 1000 || (event.eventStatus || '').toLowerCase().includes('draft')
+        const isDraft = (event.eventStatus || '').toLowerCase().includes('draft')
+        const isScheduled = (event.eventStatus || '').toLowerCase().includes('scheduled')
+        const isTentative = isDraft || (!isScheduled && new Date(event.startDate).getTime() > new Date().getTime() + 30 * 24 * 60 * 60 * 1000)
         const eventUrl = getEventWebsiteUrl(event)
         const imageSrc = event.heroImageUrl || event.image?.[0] || null
 
