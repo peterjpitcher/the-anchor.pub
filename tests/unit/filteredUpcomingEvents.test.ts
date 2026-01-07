@@ -45,7 +45,7 @@ describe('mapSpecialHoursToEvents', () => {
     jest.useRealTimers()
   })
 
-  it('includes special hours within the next 30 days', () => {
+  it('includes future special hours', () => {
     const hours = buildHours([
       { date: dateOffset(5), opens: '10:00', closes: '20:00', is_closed: false, reason: 'Test' }
     ])
@@ -55,13 +55,13 @@ describe('mapSpecialHoursToEvents', () => {
     expect(events[0].slug).toBe(`opening-hours-${dateOffset(5)}`)
   })
 
-  it('excludes special hours beyond 30 days', () => {
+  it('includes special hours beyond 30 days', () => {
     const hours = buildHours([
       { date: dateOffset(40), opens: '10:00', closes: '20:00', is_closed: false, reason: 'Late' }
     ])
 
     const events = mapSpecialHoursToEvents(hours)
-    expect(events).toHaveLength(0)
+    expect(events).toHaveLength(1)
   })
 
   it('groups consecutive special hours with same details', () => {

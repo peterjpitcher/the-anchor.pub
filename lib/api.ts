@@ -1849,21 +1849,29 @@ export async function getBusinessHours(): Promise<BusinessHours | null> {
 // Helper functions for common use cases
 const MAX_EVENTS_LIMIT = 100
 
-export async function getUpcomingEvents(limit: number = 10, daysLookahead: number = 30): Promise<Event[]> {
+export async function getUpcomingEvents(limit: number = 10, daysLookahead?: number): Promise<Event[]> {
   try {
     const safeLimit = Math.min(Math.max(Math.floor(limit), 1), MAX_EVENTS_LIMIT)
 
-    // Calculate to_date based on daysLookahead
     const now = new Date()
-    const toDate = new Date(now)
-    toDate.setDate(now.getDate() + daysLookahead)
-
-    const response = await anchorAPI.getEvents({
+    const params: {
+      from_date: string
+      to_date?: string
+      limit: number
+      status: string
+    } = {
       from_date: now.toISOString().split('T')[0],
-      to_date: toDate.toISOString().split('T')[0],
       limit: safeLimit,
       status: 'scheduled,draft'
-    })
+    }
+
+    if (typeof daysLookahead === 'number' && Number.isFinite(daysLookahead)) {
+      const toDate = new Date(now)
+      toDate.setDate(now.getDate() + daysLookahead)
+      params.to_date = toDate.toISOString().split('T')[0]
+    }
+
+    const response = await anchorAPI.getEvents(params)
     return response.events || []
   } catch (error) {
     logError('api-upcoming-events', error, { limit, daysLookahead })
@@ -1874,7 +1882,7 @@ export async function getUpcomingEvents(limit: number = 10, daysLookahead: numbe
 export async function getUpcomingEventsByCategory(
   categoryId: string,
   limit: number = 10,
-  daysLookahead: number = 30
+  daysLookahead?: number
 ): Promise<Event[]> {
   if (!categoryId) return []
 
@@ -1882,16 +1890,26 @@ export async function getUpcomingEventsByCategory(
     const safeLimit = Math.min(Math.max(Math.floor(limit), 1), MAX_EVENTS_LIMIT)
 
     const now = new Date()
-    const toDate = new Date(now)
-    toDate.setDate(now.getDate() + daysLookahead)
-
-    const response = await anchorAPI.getEvents({
+    const params: {
+      from_date: string
+      to_date?: string
+      limit: number
+      status: string
+      category_id: string
+    } = {
       from_date: now.toISOString().split('T')[0],
-      to_date: toDate.toISOString().split('T')[0],
       limit: safeLimit,
       status: 'scheduled,draft',
       category_id: categoryId
-    })
+    }
+
+    if (typeof daysLookahead === 'number' && Number.isFinite(daysLookahead)) {
+      const toDate = new Date(now)
+      toDate.setDate(now.getDate() + daysLookahead)
+      params.to_date = toDate.toISOString().split('T')[0]
+    }
+
+    const response = await anchorAPI.getEvents(params)
     return response.events || []
   } catch (error) {
     logError('api-upcoming-events-by-category', error, { categoryId, limit, daysLookahead })

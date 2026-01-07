@@ -43,19 +43,16 @@ export function mapSpecialHoursToEvents(businessHours: BusinessHours | null): Di
   if (!businessHours?.specialHours?.length) return []
 
   const now = new Date()
-  const cutoff = new Date(now)
-  cutoff.setDate(cutoff.getDate() + 30)
-
   const specials = [...businessHours.specialHours].sort((a, b) => a.date.localeCompare(b.date))
-  const withinNextMonth = specials.filter(special => {
+  const upcomingSpecials = specials.filter(special => {
     const specialDateEnd = new Date(`${special.date}T23:59:59Z`)
-    return specialDateEnd >= now && specialDateEnd <= cutoff
+    return specialDateEnd >= now
   })
 
   // Group consecutive days with same details
   const grouped: any[] = []
 
-  withinNextMonth.forEach((special) => {
+  upcomingSpecials.forEach((special) => {
     const lastGroup = grouped[grouped.length - 1]
 
     // Check if this special hour matches the last one
