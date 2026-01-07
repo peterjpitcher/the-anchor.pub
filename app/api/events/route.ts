@@ -16,13 +16,22 @@ export async function GET(request: Request) {
     let data
     
     if (today) {
-      data = await anchorAPI.getTodaysEvents()
+      data = await anchorAPI.getTodaysEvents('scheduled')
     } else {
       data = await anchorAPI.getEvents({
         from_date: fromDate,
         limit,
         category_id: categoryId,
-        available_only: availableOnly || undefined
+        available_only: availableOnly || undefined,
+        status: 'scheduled'
+      })
+    }
+
+    if (data?.events) {
+      const nowMs = Date.now()
+      data.events = data.events.filter((event: any) => {
+        const startMs = Date.parse(event?.startDate)
+        return Number.isFinite(startMs) && startMs > nowMs
       })
     }
 

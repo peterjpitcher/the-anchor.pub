@@ -1862,7 +1862,7 @@ export async function getUpcomingEvents(limit: number = 10, daysLookahead?: numb
     } = {
       from_date: now.toISOString().split('T')[0],
       limit: safeLimit,
-      status: 'scheduled,draft'
+      status: 'scheduled'
     }
 
     if (typeof daysLookahead === 'number' && Number.isFinite(daysLookahead)) {
@@ -1872,7 +1872,13 @@ export async function getUpcomingEvents(limit: number = 10, daysLookahead?: numb
     }
 
     const response = await anchorAPI.getEvents(params)
-    return response.events || []
+    const events = response.events || []
+    const nowMs = Date.now()
+
+    return events.filter(event => {
+      const startMs = Date.parse(event.startDate)
+      return Number.isFinite(startMs) && startMs > nowMs
+    })
   } catch (error) {
     logError('api-upcoming-events', error, { limit, daysLookahead })
     return createFallbackEventsResponse().events
@@ -1899,7 +1905,7 @@ export async function getUpcomingEventsByCategory(
     } = {
       from_date: now.toISOString().split('T')[0],
       limit: safeLimit,
-      status: 'scheduled,draft',
+      status: 'scheduled',
       category_id: categoryId
     }
 
@@ -1910,7 +1916,13 @@ export async function getUpcomingEventsByCategory(
     }
 
     const response = await anchorAPI.getEvents(params)
-    return response.events || []
+    const events = response.events || []
+    const nowMs = Date.now()
+
+    return events.filter(event => {
+      const startMs = Date.parse(event.startDate)
+      return Number.isFinite(startMs) && startMs > nowMs
+    })
   } catch (error) {
     logError('api-upcoming-events-by-category', error, { categoryId, limit, daysLookahead })
     return []
@@ -1919,8 +1931,14 @@ export async function getUpcomingEventsByCategory(
 
 export async function getTodaysEvents(): Promise<Event[]> {
   try {
-    const response = await anchorAPI.getTodaysEvents('scheduled,draft')
-    return response.events || []
+    const response = await anchorAPI.getTodaysEvents('scheduled')
+    const events = response.events || []
+    const nowMs = Date.now()
+
+    return events.filter(event => {
+      const startMs = Date.parse(event.startDate)
+      return Number.isFinite(startMs) && startMs > nowMs
+    })
   } catch (error) {
     logError('api-todays-events', error)
     return []
