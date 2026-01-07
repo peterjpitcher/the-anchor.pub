@@ -2,7 +2,6 @@ import Link from 'next/link'
 import { Button, Container, Section, Card, CardBody, Grid } from '@/components/ui'
 import { StatusBar } from '@/components/layout/StatusBar'
 import { FilteredUpcomingEvents } from '@/components/FilteredUpcomingEvents'
-import { CategoryFilter } from '@/components/CategoryFilter'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
@@ -42,10 +41,6 @@ export const metadata: Metadata = {
   }
 }
 
-type WhatsOnPageProps = {
-  searchParams: { category?: string }
-}
-
 async function getOpeningHoursSpecification() {
   try {
     // Avoid blocking the page if the API is slow or unreachable
@@ -61,7 +56,7 @@ async function getOpeningHoursSpecification() {
   }
 }
 
-export default async function WhatsOnPage({ searchParams }: WhatsOnPageProps) {
+export default async function WhatsOnPage() {
   const openingHoursSpecification = await getOpeningHoursSpecification()
 
   return (
@@ -297,10 +292,7 @@ export default async function WhatsOnPage({ searchParams }: WhatsOnPageProps) {
           <SpeakableContent selector="events-list" priority="high">
             <div className="max-w-5xl mx-auto">
               <Suspense fallback={<div className="text-center py-8">Loading events...</div>}>
-                <CategoryFilter />
-              </Suspense>
-              <Suspense fallback={<div className="text-center py-8">Loading events...</div>}>
-                <FilteredUpcomingEvents categorySlug={searchParams.category} />
+                <FilteredUpcomingEvents />
               </Suspense>
             </div>
           </SpeakableContent>

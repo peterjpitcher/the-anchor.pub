@@ -1,35 +1,21 @@
-import { getUpcomingEvents, getEventCategories, getBusinessHours, type BusinessHours } from '@/lib/api'
+import { getUpcomingEvents, getBusinessHours, type BusinessHours } from '@/lib/api'
 import { FilteredUpcomingEventsClient } from './FilteredUpcomingEventsClient'
 import { EventSchema } from '@/components/seo/EventSchema'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import type { DisplayEvent } from '@/types/display-event'
 
-interface FilteredUpcomingEventsProps {
-  categorySlug?: string | null
-}
-
-export async function FilteredUpcomingEvents({ categorySlug }: FilteredUpcomingEventsProps) {
+export async function FilteredUpcomingEvents() {
   try {
-    // Fetch events and categories in parallel
-    const [events, categories, businessHours] = await Promise.all([
+    // Fetch events and business hours in parallel
+    const [events, businessHours] = await Promise.all([
       getUpcomingEvents(24), // API limits event listings to 24 per request
-      getEventCategories(),
       getBusinessHours()
     ])
 
     const timeChangeEvents = mapSpecialHoursToEvents(businessHours)
 
-    // Filter by category if specified (time-change notices always show)
-    let filteredEvents: DisplayEvent[] = events
-    if (categorySlug) {
-      const category = categories.find(cat => cat.slug === categorySlug)
-      if (category) {
-        filteredEvents = events.filter(event => event.category?.id === category.id)
-      }
-    }
-
     // Merge time changes and sort chronologically
-    const mergedEvents: DisplayEvent[] = [...filteredEvents, ...timeChangeEvents].sort((a, b) => {
+    const mergedEvents: DisplayEvent[] = [...events, ...timeChangeEvents].sort((a, b) => {
       return new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
     })
 
@@ -38,7 +24,7 @@ export async function FilteredUpcomingEvents({ categorySlug }: FilteredUpcomingE
         {mergedEvents.map(event => (
           !event.isTimeChange && <EventSchema key={`event-schema-${event.id}`} event={event} />
         ))}
-        <FilteredUpcomingEventsClient events={mergedEvents} categorySlug={categorySlug} />
+        <FilteredUpcomingEventsClient events={mergedEvents} />
       </>
     )
   } catch (error) {

@@ -295,7 +295,6 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
                         color: event.category.color
                       }}
                     >
-                      {event.category.icon && <span className="mr-1">{event.category.icon}</span>}
                       {event.category.name}
                     </span>
                   )}
@@ -416,7 +415,6 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
                           color: event.category.color
                         }}
                       >
-                        {event.category.icon && <span className="mr-1">{event.category.icon}</span>}
                         {event.category.name}
                       </span>
                     )}
@@ -471,10 +469,9 @@ const OVERSCAN = 3 // Render this many items above/below viewport
 
 interface FilteredUpcomingEventsClientProps {
   events: DisplayEvent[]
-  categorySlug?: string | null
 }
 
-export function FilteredUpcomingEventsClient({ events, categorySlug }: FilteredUpcomingEventsClientProps) {
+export function FilteredUpcomingEventsClient({ events }: FilteredUpcomingEventsClientProps) {
   const [displayCount, setDisplayCount] = useState(INITIAL_LOAD)
   const [isLoadingMore, setIsLoadingMore] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -548,10 +545,7 @@ export function FilteredUpcomingEventsClient({ events, categorySlug }: FilteredU
     return (
       <div className="text-center py-12 bg-gray-50 rounded-2xl">
         <p className="text-gray-700 text-lg">
-          {categorySlug 
-            ? `No upcoming events in this category at the moment.`
-            : `No upcoming events scheduled at the moment.`
-          }
+          No upcoming events scheduled at the moment.
         </p>
         <p className="text-gray-700 mt-2">Check back soon or follow us on social media for updates!</p>
       </div>
@@ -559,7 +553,7 @@ export function FilteredUpcomingEventsClient({ events, categorySlug }: FilteredU
   }
 
   return (
-    <div ref={containerRef} className="space-y-6" role="feed" aria-busy={isLoadingMore}>
+    <div id="events-list" ref={containerRef} className="space-y-6" role="feed" aria-busy={isLoadingMore}>
       {/* Spacer for items above viewport */}
       {visibleRange.start > 0 && (
         <div 
