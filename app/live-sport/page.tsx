@@ -13,9 +13,9 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-    title: 'Live Sport Pub Near Heathrow | Sky Sports & TNT | The Anchor',
-    description: `Watch live football, rugby, and F1 at ${BRAND.name}. Multiple HD screens, Sky Sports, TNT Sports, and a great atmosphere. We're just 7 mins from Heathrow T5.`,
-    keywords: 'pub showing football heathrow, sky sports pub staines, where to watch football heathrow, live sport pub stanwell',
+    title: 'Live Sport Pub Near Heathrow | The Anchor',
+    description: `Watch live terrestrial sport, rugby, and F1 at ${BRAND.name}. Multiple HD screens and a great atmosphere. We're just 7 mins from Heathrow T5.`,
+    keywords: 'pub showing football heathrow, live sport pub stanwell, rugby pub heathrow',
     openGraph: {
         title: 'Live Sport at The Anchor Pub',
         description: 'Every goal, every try, every lap. Watch it live on our big screens with a cold pint in hand.',
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
 export default function LiveSportPage() {
     const breadcrumbSchema = generateBreadcrumbSchema([
         { name: 'Home', url: '/' },
-        { name: 'Live Sport', url: '/live-sport-pub' }
+        { name: 'Live Sport', url: '/live-sport' }
     ])
 
     // Using SportsActivityLocation schema if possible, or generic LocalBusiness with specific description
@@ -40,7 +40,7 @@ export default function LiveSportPage() {
         "@context": "https://schema.org",
         "@type": "SportsActivityLocation",
         "name": `${BRAND.name} Sports Bar`,
-        "description": "A premier destination for watching live sports events including Premier League Football, Six Nations Rugby, and Formula 1.",
+        "description": "A premier destination for watching live sports events including Six Nations Rugby and Formula 1.",
         "address": {
             "@type": "PostalAddress",
             "streetAddress": CONTACT.address.street,
@@ -60,9 +60,9 @@ export default function LiveSportPage() {
             />
 
             <HeroWrapper
-                route="/live-sport-pub"
+                route="/live-sport"
                 title="Live Sport at The Anchor"
-                description="Sky Sports. TNT Sports. Multiple Screens. The best atmosphere outside the stadium."
+                description="Terrestrial Channels Only (BBC/ITV). Multiple Screens. Great Food. The best atmosphere outside the stadium."
                 variant="default"
                 primaryCta={
                     <BookTableButton
@@ -91,7 +91,7 @@ export default function LiveSportPage() {
                             Never Miss a Moment
                         </PageTitle>
                         <p className="text-lg text-gray-700">
-                            Whether it's the Premier League title decider, the Six Nations crunch match, or the F1 season finale, we show it all. With multiple HD screens positioned throughout the pub, you won't have to crane your neck to see the action.
+                            Whether it's the Six Nations crunch match, the F1 season finale, or major tournaments, we show it all. With multiple HD screens positioned throughout the pub, you won't have to crane your neck to see the action.
                         </p>
                     </div>
                 </Container>
@@ -110,8 +110,8 @@ export default function LiveSportPage() {
                             features={[
                                 {
                                     icon: "📺",
-                                    title: "Sky & TNT Sports",
-                                    description: "We have the full commercial packages, so if it's televised, we can show it.",
+                                    title: "Terrestrial Sport Only",
+                                    description: "We show major events on free-to-air channels (BBC, ITV, Channel 4). Please note we NOT do have Sky Sports or TNT Sports.",
                                     variant: "colored",
                                     color: "bg-anchor-cream",
                                     className: "rounded-xl p-6 text-center"
@@ -126,8 +126,8 @@ export default function LiveSportPage() {
                                 },
                                 {
                                     icon: "🍺",
-                                    title: "Table Service",
-                                    description: "During major events, we offer table service so you don't miss a goal while queuing at the bar.",
+                                    title: "Great Atmosphere",
+                                    description: "Enjoy a cold pint and great food in a proper pub atmosphere. No booking required, just turn up and enjoy.",
                                     variant: "colored",
                                     color: "bg-anchor-cream",
                                     className: "rounded-xl p-6 text-center"
@@ -147,10 +147,9 @@ export default function LiveSportPage() {
                             <div className="border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow">
                                 <h3 className="text-xl font-bold text-anchor-green mb-4 border-b pb-2">⚽ Football</h3>
                                 <ul className="space-y-2">
-                                    <li>• Premier League</li>
-                                    <li>• Champions League</li>
-                                    <li>• FA Cup & Carabao Cup</li>
                                     <li>• International Tournaments (Euros / World Cup)</li>
+                                    <li>• FA Cup (Select Games)</li>
+                                    <li>• Women's Super League (BBC games)</li>
                                 </ul>
                             </div>
                             <div className="border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow">
@@ -170,12 +169,12 @@ export default function LiveSportPage() {
                                 </ul>
                             </div>
                             <div className="border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow">
-                                <h3 className="text-xl font-bold text-anchor-green mb-4 border-b pb-2">🥊 Boxing & More</h3>
+                                <h3 className="text-xl font-bold text-anchor-green mb-4 border-b pb-2">🏇 Other Sport</h3>
                                 <ul className="space-y-2">
-                                    <li>• Major Title Fights</li>
-                                    <li>• Cricket (The Ashes / T20)</li>
-                                    <li>• Golf Majors</li>
-                                    <li>• Horse Racing (Cheltenham / Grand National)</li>
+                                    <li>• Cricket (Terrestrial Only)</li>
+                                    <li>• Golf Majors (Highlights/BBC)</li>
+                                    <li>• Horse Racing (ITV Racing)</li>
+                                    <li>• Athletics & Olympics</li>
                                 </ul>
                             </div>
                         </div>
@@ -184,7 +183,7 @@ export default function LiveSportPage() {
                             variant="info"
                             title="Specific Requests?"
                             className="max-w-2xl mx-auto mt-8"
-                            content={`Want to watch a specific game that might not be the 'main event'? Just ask the bar staff! If we have a screen free, we'll happily put it on for you.`}
+                            content={`Want to watch a specific game shown on BBC, ITV, or Channel 4? Just ask the bar staff! If we have a screen free, we'll happily put it on for you. Please remember we cannot show games exclusive to Sky or TNT.`}
                         />
                     </div>
                 </Container>
@@ -197,8 +196,8 @@ export default function LiveSportPage() {
                         answer: "For big games (like England matches or Cup Finals), booking is essential as we get very full. For standard league games, walk-ins are usually fine, but booking guarantees a good view."
                     },
                     {
-                        question: "Do you show 3pm kick-offs?",
-                        answer: "We adhere to UK broadcasting laws, so we cannot show live 3pm Saturday Premier League kick-offs. We show all televised matches available on Sky and TNT."
+                        question: "Do you show Premier League games?",
+                        answer: "We only show Premier League games that are broadcast on terrestrial television (e.g. Amazon Prime fixtures shown on BBC/ITV, or highlights). We do not have Sky Sports or TNT Sports packages."
                     },
                     {
                         question: "Are children allowed during matches?",

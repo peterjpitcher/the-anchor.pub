@@ -67,10 +67,8 @@ Looking for authentic **British apple cider near Heathrow Airport**? The Anchor 
 - **Group celebrations** - Plenty of outdoor space
 
 **Serving Options:**
-- Pint - £4.95
-- Half pint - £2.50
-- Tasting paddle - Try before you buy
-- Pitcher for sharing - Garden groups
+- Pint or half pint
+- Ask at the bar for today's price
 
   
 
@@ -99,15 +97,13 @@ Looking for authentic **British apple cider near Heathrow Airport**? The Anchor 
 
 **Main Dishes:**
 - **Fish & Chips** - Cuts through the batter beautifully
-- **BBQ Burger** - Balances smoky flavours
-- **Pork Dishes** - Classic apple & pork combination
-- **Sunday Roast** - Refreshing with rich gravy
+- **Beef Burger** - A great match with crisp apple notes
+- **Beef & Ale Pie** - Rich gravy and a refreshing finish
+- **Stone-baked pizza** - Brilliant with a cold pint
 
 **Light Bites:**
-- **Cheese Board** - Especially with cheddar
 - **Salt & Chilli Squid** - Cleanses the palate
-- **Nachos** - Cools spicy toppings
-- **Scotch Eggs** - Traditional pairing
+- **Chips** - Simple, salty, and perfect with cider
 
   
 
@@ -120,7 +116,7 @@ Looking for authentic **British apple cider near Heathrow Airport**? The Anchor 
 🌳 **Garden**: Perfect for cider drinking
 🚗 **Parking**: Free on-site
 ✈️ **From Heathrow**: 7 minutes from T5
-💷 **Price**: From £2.50 half pint
+💷 **Price**: Ask at the bar for today's price
 
 ### Why Choose The Anchor for Cider
 

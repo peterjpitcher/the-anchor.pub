@@ -17,7 +17,7 @@ import { Alert } from '@/components/ui/feedback/Alert'
 import { Icon } from '@/components/ui/Icon'
 import { PhoneLink } from '@/components/PhoneLink'
 import { DateTime } from 'luxon'
-import { type BusinessHours, isKitchenOpen, getKitchenStatus, anchorAPI } from '@/lib/api'
+import { formatPrice, type BusinessHours, isKitchenOpen, getKitchenStatus, anchorAPI } from '@/lib/api'
 
 interface MenuItem {
   id: string
@@ -336,7 +336,7 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
     setTime('') // Reset time selection when date changes
   }, [date])
   
-  // Calculate deposit amount (£5 per person)
+  // Calculate deposit amount (GBP 5 per person)
   const depositAmount = partySize * 5
   const mainCoursesTotal = menuSelections.reduce((sum, selection) => sum + selection.price_at_booking, 0)
   const sidesTotal = sideSelections.reduce((sum, selection) => sum + (selection.price_at_booking * selection.quantity), 0)
@@ -757,11 +757,11 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
       <Alert variant="warning" className="mb-4">
         <Icon name="alert" className="h-4 w-4" />
         <div>
-          <p className="font-medium">Advance Booking Required by 1pm Saturday</p>
-          <p className="text-sm mt-1">
-            Sunday roasts require a confirmed booking with £{depositAmount.toFixed(2)} deposit (£5 per person) by 1pm Saturday.
-            The remaining balance is due on arrival.
-          </p>
+	          <p className="font-medium">Advance Booking Required by 1pm Saturday</p>
+	          <p className="text-sm mt-1">
+	            Sunday roasts require a confirmed booking with {formatPrice(depositAmount)} deposit (GBP 5 per person) by 1pm Saturday.
+	            The remaining balance is due on arrival.
+	          </p>
           {(() => {
             const now = new Date()
             const day = now.getDay()
@@ -1004,13 +1004,13 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
                   {selection.menu_item_id && menu && (() => {
                     const selectedMain = menu.mains.find(m => m.id === selection.menu_item_id)
                     if (selectedMain) {
-                      return (
-                        <div className="mt-2">
-                          <p className="text-sm text-muted-foreground">{selectedMain.description}</p>
-                          <p className="text-sm font-medium mt-1">£{selectedMain.price.toFixed(2)}</p>
-                        </div>
-                      )
-                    }
+	                      return (
+	                        <div className="mt-2">
+	                          <p className="text-sm text-muted-foreground">{selectedMain.description}</p>
+	                          <p className="text-sm font-medium mt-1">{formatPrice(selectedMain.price)}</p>
+	                        </div>
+	                      )
+	                    }
                     return null
                   })()}
                 </div>
@@ -1032,13 +1032,13 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
                   return (
                     <div key={side.id} className="space-y-2">
                       <div className="flex items-start justify-between gap-4">
-                        <div className="flex-1">
-                          <div className="font-medium">{side.name}</div>
-                          <div className="text-sm text-muted-foreground">£{side.price.toFixed(2)} each</div>
-                          {side.description && (
-                            <p className="text-sm text-muted-foreground mt-1">{side.description}</p>
-                          )}
-                        </div>
+	                        <div className="flex-1">
+	                          <div className="font-medium">{side.name}</div>
+	                          <div className="text-sm text-muted-foreground">{formatPrice(side.price)} each</div>
+	                          {side.description && (
+	                            <p className="text-sm text-muted-foreground mt-1">{side.description}</p>
+	                          )}
+	                        </div>
                         <div className="flex items-center gap-2 flex-shrink-0">
                           <label htmlFor={`side_${side.id}`} className="text-sm">Quantity:</label>
                           <select
@@ -1068,28 +1068,28 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
           )}
           
           <div className="mt-6 mx-4 p-4 bg-gray-50 rounded-lg md:mx-0">
-            <div className="flex justify-between items-center mb-2">
-              <span className="font-medium">Main Courses:</span>
-              <span>£{mainCoursesTotal.toFixed(2)}</span>
-            </div>
-            {sidesTotal > 0 && (
-              <div className="flex justify-between items-center mb-2">
-                <span className="font-medium">Sides:</span>
-                <span>£{sidesTotal.toFixed(2)}</span>
-              </div>
-            )}
-            <div className="flex justify-between items-center mb-2 pt-2 border-t">
-              <span className="font-medium">Total Amount:</span>
-              <span className="text-lg font-bold">£{totalAmount.toFixed(2)}</span>
-            </div>
-            <div className="flex justify-between items-center text-sm text-muted-foreground">
-              <span>Deposit Due Now:</span>
-              <span className="font-medium">£{depositAmount.toFixed(2)}</span>
-            </div>
-            <div className="flex justify-between items-center text-sm text-muted-foreground">
-              <span>Balance Due on Arrival:</span>
-              <span className="font-medium">£{(totalAmount - depositAmount).toFixed(2)}</span>
-            </div>
+	            <div className="flex justify-between items-center mb-2">
+	              <span className="font-medium">Main Courses:</span>
+	              <span>{formatPrice(mainCoursesTotal)}</span>
+	            </div>
+	            {sidesTotal > 0 && (
+	              <div className="flex justify-between items-center mb-2">
+	                <span className="font-medium">Sides:</span>
+	                <span>{formatPrice(sidesTotal)}</span>
+	              </div>
+	            )}
+	            <div className="flex justify-between items-center mb-2 pt-2 border-t">
+	              <span className="font-medium">Total Amount:</span>
+	              <span className="text-lg font-bold">{formatPrice(totalAmount)}</span>
+	            </div>
+	            <div className="flex justify-between items-center text-sm text-muted-foreground">
+	              <span>Deposit Due Now:</span>
+	              <span className="font-medium">{formatPrice(depositAmount)}</span>
+	            </div>
+	            <div className="flex justify-between items-center text-sm text-muted-foreground">
+	              <span>Balance Due on Arrival:</span>
+	              <span className="font-medium">{formatPrice(totalAmount - depositAmount)}</span>
+	            </div>
           </div>
         </CardBody>
       </Card>
@@ -1215,13 +1215,13 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
               <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
               Processing...
             </>
-          ) : (
-            <span className="inline-flex items-center whitespace-nowrap">
-              <Icon name="creditCard" className="mr-2 flex-shrink-0" />
-              <span>Proceed to Payment (£{depositAmount.toFixed(2)} deposit)</span>
-            </span>
-          )}
-        </Button>
+	          ) : (
+	            <span className="inline-flex items-center whitespace-nowrap">
+	              <Icon name="creditCard" className="mr-2 flex-shrink-0" />
+	              <span>Proceed to Payment ({formatPrice(depositAmount)} deposit)</span>
+	            </span>
+	          )}
+	        </Button>
         
         <p className="text-sm text-muted-foreground text-center">
           You will be redirected to our secure payment page to complete your booking

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
-import { anchorAPI } from '@/lib/api'
+import { anchorAPI, formatPrice } from '@/lib/api'
 import type { TableBookingRequest, TableBookingResponse } from '@/lib/api'
 import BookingDatePicker from './BookingDatePicker'
 import AvailabilityChecker from './AvailabilityChecker'
@@ -723,7 +723,7 @@ export default function SundayLunchBooking({
       return (
         <Card variant="elevated" className={className}>
           <CardBody>
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
+	            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
               <Button
                 variant="ghost"
                 size="sm"
@@ -733,11 +733,11 @@ export default function SundayLunchBooking({
                 <Icon name="arrowLeft" className="mr-2" />
                 Back
               </Button>
-              <div className="flex items-center gap-3 text-sm text-gray-600">
-                <Badge variant="outline">Deposit £{depositAmount.toFixed(2)} due today</Badge>
-                <span>Total so far £{totalAmount.toFixed(2)}</span>
-              </div>
-            </div>
+	              <div className="flex items-center gap-3 text-sm text-gray-600">
+	                <Badge variant="outline">Deposit {formatPrice(depositAmount)} due today</Badge>
+	                <span>Total so far {formatPrice(totalAmount)}</span>
+	              </div>
+	            </div>
 
             <h3 className="text-xl font-semibold text-amber-900 mb-2">Choose Your Sunday Lunch</h3>
             <p className="text-sm text-gray-600 mb-6">
@@ -818,12 +818,12 @@ export default function SundayLunchBooking({
                                   </option>
                                 ))}
                             </select>
-                            {selectedMain && (
-                              <div className="mt-2 text-sm text-gray-600">
-                                <p>{selectedMain.description}</p>
-                                <p className="font-medium mt-1">£{selectedMain.price.toFixed(2)}</p>
-                              </div>
-                            )}
+	                            {selectedMain && (
+	                              <div className="mt-2 text-sm text-gray-600">
+	                                <p>{selectedMain.description}</p>
+	                                <p className="font-medium mt-1">{formatPrice(selectedMain.price)}</p>
+	                              </div>
+	                            )}
                           </div>
                         </div>
                       </div>
@@ -842,13 +842,13 @@ export default function SundayLunchBooking({
                         const selection = sideSelections.find(item => item.menu_item_id === side.id)
                         return (
                           <div key={side.id} className="flex items-start justify-between gap-4">
-                            <div>
-                              <p className="font-medium">{side.name}</p>
-                              <p className="text-sm text-gray-600">£{side.price.toFixed(2)} each</p>
-                              {side.description && (
-                                <p className="text-sm text-gray-500 mt-1">{side.description}</p>
-                              )}
-                            </div>
+	                            <div>
+	                              <p className="font-medium">{side.name}</p>
+	                              <p className="text-sm text-gray-600">{formatPrice(side.price)} each</p>
+	                              {side.description && (
+	                                <p className="text-sm text-gray-500 mt-1">{side.description}</p>
+	                              )}
+	                            </div>
                             <div className="flex items-center gap-2">
                               <label className="text-sm" htmlFor={`side-${side.id}`}>Qty</label>
                               <select
@@ -872,28 +872,28 @@ export default function SundayLunchBooking({
                 <div className="border border-amber-200 rounded-lg p-4 bg-amber-50">
                   <h4 className="font-semibold text-amber-900 mb-2">Order summary</h4>
                   <div className="space-y-2 text-sm text-gray-700">
-                    <div className="flex justify-between">
-                      <span>Main courses</span>
-                      <span>£{mainCoursesTotal.toFixed(2)}</span>
-                    </div>
-                    {sidesTotal > 0 && (
-                      <div className="flex justify-between">
-                        <span>Extras</span>
-                        <span>£{sidesTotal.toFixed(2)}</span>
-                      </div>
-                    )}
-                    <div className="flex justify-between pt-2 border-t border-amber-200">
-                      <span className="font-semibold">Total</span>
-                      <span className="font-semibold">£{totalAmount.toFixed(2)}</span>
-                    </div>
-                    <div className="flex justify-between text-xs text-gray-600">
-                      <span>Deposit due now</span>
-                      <span>£{depositAmount.toFixed(2)}</span>
-                    </div>
-                    <div className="flex justify-between text-xs text-gray-600">
-                      <span>Balance on arrival</span>
-                      <span>£{(totalAmount - depositAmount).toFixed(2)}</span>
-                    </div>
+	                    <div className="flex justify-between">
+	                      <span>Main courses</span>
+	                      <span>{formatPrice(mainCoursesTotal)}</span>
+	                    </div>
+	                    {sidesTotal > 0 && (
+	                      <div className="flex justify-between">
+	                        <span>Extras</span>
+	                        <span>{formatPrice(sidesTotal)}</span>
+	                      </div>
+	                    )}
+	                    <div className="flex justify-between pt-2 border-t border-amber-200">
+	                      <span className="font-semibold">Total</span>
+	                      <span className="font-semibold">{formatPrice(totalAmount)}</span>
+	                    </div>
+	                    <div className="flex justify-between text-xs text-gray-600">
+	                      <span>Deposit due now</span>
+	                      <span>{formatPrice(depositAmount)}</span>
+	                    </div>
+	                    <div className="flex justify-between text-xs text-gray-600">
+	                      <span>Balance on arrival</span>
+	                      <span>{formatPrice(totalAmount - depositAmount)}</span>
+	                    </div>
                   </div>
                 </div>
 

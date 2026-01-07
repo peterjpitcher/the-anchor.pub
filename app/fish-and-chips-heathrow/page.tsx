@@ -9,6 +9,7 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
+import { parseMenuMarkdown } from '@/lib/menu-parser'
 
 export const metadata: Metadata = {
     title: 'Best Fish and Chips Near Heathrow | Fresh Beer Battered Cod',
@@ -27,7 +28,12 @@ export const metadata: Metadata = {
     })
 }
 
-export default function FishAndChipsPage() {
+export default async function FishAndChipsPage() {
+    const menuData = await parseMenuMarkdown('food')
+    // Find the 'Mains' category, then the section with title 'Classic Chip Shop Favourites'
+    const mainsCategory = menuData?.categories.find(c => c.id === 'mains')
+    const fishSection = mainsCategory?.sections.find(s => s.title === 'Classic Chip Shop Favourites')
+
     const breadcrumbSchema = generateBreadcrumbSchema([
         { name: 'Home', url: '/' },
         { name: 'Food', url: '/food-menu' },
@@ -55,11 +61,36 @@ export default function FishAndChipsPage() {
         }
     }
 
+    // Create a Menu schema for the specific items
+    const menuItems = fishSection?.items.map(item => ({
+        "@type": "MenuItem",
+        "name": item.name,
+        "description": item.description,
+        "offers": {
+            "@type": "Offer",
+            "price": item.price?.replace(/\u00A3/g, ''),
+            "priceCurrency": "GBP"
+        }
+    })) || []
+
+    const menuSchema = {
+        "@context": "https://schema.org",
+        "@type": "Menu",
+        "name": "Fish & Chips Menu",
+        "hasMenuSection": [
+            {
+                "@type": "MenuSection",
+                "name": "Fish & Chips",
+                "hasMenuItem": menuItems
+            }
+        ]
+    }
+
     return (
         <>
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify([productSchema, breadcrumbSchema]) }}
+                dangerouslySetInnerHTML={{ __html: JSON.stringify([productSchema, menuSchema, breadcrumbSchema]) }}
             />
 
             <HeroWrapper
@@ -142,6 +173,33 @@ export default function FishAndChipsPage() {
                             ]}
                             className="mb-8"
                         />
+
+                        {/* Dynamic Menu Items */}
+                        {fishSection && (
+                            <div className="mt-12 mb-12">
+                                <h3 className="text-2xl font-bold text-anchor-green mb-6">Our Fish Bar Menu</h3>
+                                <div className="grid md:grid-cols-2 gap-6 text-left max-w-3xl mx-auto">
+                                    {fishSection.items.map((item, idx) => (
+                                        <div key={idx} className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                                            <div className="flex justify-between items-start mb-2">
+                                                <h4 className="font-bold text-xl text-anchor-green">{item.name}</h4>
+                                                {item.price && <span className="font-bold text-anchor-gold bg-anchor-cream/50 px-2 py-1 rounded text-sm">{item.price}</span>}
+                                            </div>
+                                            <p className="text-gray-600 text-sm mb-3">{item.description}</p>
+
+                                            {/* Tags */}
+                                            <div className="flex flex-wrap gap-2">
+                                                {item.allergens && item.allergens.length > 0 && (
+                                                    <span className="text-xs text-gray-500 border border-gray-200 px-2 py-1 rounded-full">
+                                                        Contains: {item.allergens.join(', ')}
+                                                    </span>
+                                                )}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
 
                         <AlertBox
                             variant="success"

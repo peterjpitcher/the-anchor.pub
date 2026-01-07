@@ -178,10 +178,10 @@ export default function FelthamPubPage() {
                   <span className="text-anchor-gold mr-3">✓</span>
                   <span>Traditional pub atmosphere you won't find in chain venues</span>
                 </li>
-                <li className="flex items-start">
-                  <span className="text-anchor-gold mr-3">✓</span>
-                  <span>Our celebrated Sunday roasts - Sunday roasts require a booking with £5 per person deposit by 1pm Saturday</span>
-                </li>
+	                <li className="flex items-start">
+	                  <span className="text-anchor-gold mr-3">✓</span>
+	                  <span>Our celebrated Sunday roasts - Sunday roasts require a booking with GBP 5 per person deposit by 1pm Saturday</span>
+	                </li>
                 <li className="flex items-start">
                   <span className="text-anchor-gold mr-3">✓</span>
                   <span>Regular entertainment including drag shows and quiz nights</span>
@@ -273,10 +273,10 @@ export default function FelthamPubPage() {
                     <>
                       <p className="mb-3">Popular with teams from Feltham's business parks. Private areas available for corporate events.</p>
                       <ul className="space-y-2">
-                        <li className="flex items-start">
-                          <span className="text-amber-500 mr-2">•</span>
-                          Buffet menus from £12pp
-                        </li>
+	                        <li className="flex items-start">
+	                          <span className="text-amber-500 mr-2">•</span>
+	                          Buffet menus from GBP 12pp
+	                        </li>
                         <li className="flex items-start">
                           <span className="text-amber-500 mr-2">•</span>
                           Reserved areas available
@@ -301,10 +301,10 @@ export default function FelthamPubPage() {
                           <span className="text-blue-500 mr-2">•</span>
                           Saturday drag shows
                         </li>
-                        <li className="flex items-start">
-                          <span className="text-blue-500 mr-2">•</span>
-                          Sunday roasts - Sunday roasts require a booking with £5 per person deposit by 1pm Saturday
-                        </li>
+	                        <li className="flex items-start">
+	                          <span className="text-blue-500 mr-2">•</span>
+	                          Sunday roasts - Sunday roasts require a booking with GBP 5 per person deposit by 1pm Saturday
+	                        </li>
                         <li className="flex items-start">
                           <span className="text-blue-500 mr-2">•</span>
                           Quiz nights & bingo

@@ -36,7 +36,7 @@ export function MenuDisplay({ menuData, accentColor = 'anchor-gold' }: MenuDispl
           "description": item.description,
           "offers": {
             "@type": "Offer",
-            "price": item.price.replace('£', ''),
+            "price": item.price.replace(/\u00A3/g, '').trim(),
             "priceCurrency": "GBP"
           },
           "suitableForDiet": item.vegetarian ? "https://schema.org/VegetarianDiet" : undefined
@@ -246,10 +246,12 @@ const MenuItemCard = memo(function MenuItemCard({ item, itemId, isFocused, onFoc
               <Badge variant="success" size="sm">(V)</Badge>
             )}
           </h3>
-          <span className="text-xl font-bold text-anchor-gold whitespace-nowrap ml-4" itemProp="offers" itemScope itemType="https://schema.org/Offer">
-            <span itemProp="price" content={item.price.replace('£', '')}>{item.price}</span>
-            <meta itemProp="priceCurrency" content="GBP" />
-          </span>
+	          <span className="text-xl font-bold text-anchor-gold whitespace-nowrap ml-4" itemProp="offers" itemScope itemType="https://schema.org/Offer">
+	            <span itemProp="price" content={item.price.replace(/\u00A3/g, '').trim()}>
+	              {item.price.replace(/\u00A3/g, '').trim()}
+	            </span>
+	            <meta itemProp="priceCurrency" content="GBP" />
+	          </span>
         </div>
         {item.description && (
           <p className="text-gray-700" itemProp="description">{item.description}</p>
@@ -275,15 +277,17 @@ const MenuItemList = memo(function MenuItemList({ item, itemId, isFocused, onFoc
       data-menu-item
       data-item-id={itemId}
       aria-label={`${item.name}, ${item.price}${item.vegetarian ? ', vegetarian' : ''}`}
-    >
+	    >
       <span className="flex items-center gap-2" itemProp="name">
         {item.name}
         {item.vegetarian && <Badge variant="success" size="sm" dot>(V)</Badge>}
       </span>
-      <span className="text-anchor-gold font-semibold" itemProp="offers" itemScope itemType="https://schema.org/Offer">
-        <span itemProp="price" content={item.price.replace('£', '')}>{item.price}</span>
-        <meta itemProp="priceCurrency" content="GBP" />
-      </span>
+	      <span className="text-anchor-gold font-semibold" itemProp="offers" itemScope itemType="https://schema.org/Offer">
+	        <span itemProp="price" content={item.price.replace(/\u00A3/g, '').trim()}>
+	          {item.price.replace(/\u00A3/g, '').trim()}
+	        </span>
+	        <meta itemProp="priceCurrency" content="GBP" />
+	      </span>
       {item.vegetarian && (
         <meta itemProp="suitableForDiet" content="https://schema.org/VegetarianDiet" />
       )}

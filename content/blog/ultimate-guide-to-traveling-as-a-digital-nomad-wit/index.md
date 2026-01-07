@@ -138,7 +138,7 @@ The Anchor welcomes **digital nomads with dogs**, offering:
 - **From T4**: 10 minutes via Southern Perimeter Road
 - **From T2/T3**: 12 minutes via A3044
 - **Public transport**: Bus routes 441 & 442
-- **Taxi**: £10-15 from any terminal
+- **Taxi**: GBP 10-15 from any terminal
 - **Walking**: Pleasant routes from nearby hotels
 
 ### Working Day Packages

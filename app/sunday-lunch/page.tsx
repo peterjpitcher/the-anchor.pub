@@ -11,11 +11,11 @@ import { generateNutritionInfo } from '@/lib/schema-utils'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BookTableButton } from '@/components/BookTableButton'
 import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
-import { anchorAPI } from '@/lib/api'
+import { anchorAPI, formatPrice } from '@/lib/api'
 
 export const metadata: Metadata = {
   title: 'Sunday Roast Near Staines & Heathrow | The Anchor',
-  description: 'Traditional Sunday roast with Yorkshire puddings near Staines and Heathrow. Reserve with a £5 deposit, family-friendly seating and free parking.',
+  description: 'Traditional Sunday roast with Yorkshire puddings near Staines and Heathrow. Reserve with a GBP 5 deposit, family-friendly seating and free parking.',
   keywords: 'sunday roast near heathrow airport, sunday roasts staines, sunday lunch near me, roast dinner near me, book sunday roast the anchor',
   openGraph: {
     title: 'Sunday Roast Near Staines & Heathrow',
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   },
   twitter: getTwitterMetadata({
     title: 'Sunday Roast Near Staines & Heathrow',
-    description: 'Traditional Sunday roast near Staines and Heathrow. Secure your table with a £5 booking deposit and enjoy free parking.',
+    description: 'Traditional Sunday roast near Staines and Heathrow. Secure your table with a GBP 5 booking deposit and enjoy free parking.',
     images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg']
   }),
   alternates: {
@@ -156,7 +156,7 @@ export default async function SundayLunchPage() {
   const minPrice = priceValues.length ? Math.min(...priceValues) : undefined
   const maxPrice = priceValues.length ? Math.max(...priceValues) : undefined
   const priceRangeText = minPrice !== undefined && maxPrice !== undefined
-    ? `£${minPrice.toFixed(2)} - £${maxPrice.toFixed(2)}`
+    ? `${formatPrice(minPrice)} - ${formatPrice(maxPrice)}`
     : undefined
   const menuDateDisplay = menu.menuDate
     ? new Date(menu.menuDate).toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' })
@@ -223,7 +223,7 @@ export default async function SundayLunchPage() {
         '@id': 'https://www.the-anchor.pub/#sunday-roast',
         name: 'The Anchor - Sunday Roast',
         servesCuisine: ['British', 'Sunday Roast'],
-        priceRange: '££',
+        priceRange: 'moderate',
         telephone: '+441753682707',
         url: 'https://www.the-anchor.pub/sunday-lunch',
         address: {
@@ -251,7 +251,7 @@ export default async function SundayLunchPage() {
         },
         acceptsReservations: 'required',
         reservationPolicy:
-          'Advance booking required by 1pm Saturday. £5 per person deposit required at time of booking, balance due on arrival.',
+          'Advance booking required by 1pm Saturday. GBP 5 per person deposit required at time of booking, balance due on arrival.',
         hasMenu: {
           '@type': 'Menu',
           name: 'Sunday Roast Menu',
@@ -272,7 +272,7 @@ export default async function SundayLunchPage() {
         '@type': 'Offer',
         name: 'Sunday Roast Pre-Order Special',
         description:
-          'Traditional British Sunday roast dinners with all the trimmings. Sunday roasts require a booking with £5 per person deposit by 1pm Saturday.',
+          'Traditional British Sunday roast dinners with all the trimmings. Sunday roasts require a booking with GBP 5 per person deposit by 1pm Saturday.',
         url: 'https://www.the-anchor.pub/sunday-lunch',
         priceCurrency: 'GBP',
         ...(priceRangeText ? { priceRange: priceRangeText } : {}),
@@ -373,7 +373,7 @@ export default async function SundayLunchPage() {
         variant="default"
         tags={[
           { label: "Served Sundays 12pm–5pm", variant: "warning" },
-          { label: "£5 Deposit Secures Table", variant: "default" },
+          { label: "GBP 5 Deposit Secures Table", variant: "default" },
           { label: "Free Parking • Family Friendly", variant: "default" }
         ]}
         primaryCta={
@@ -403,10 +403,10 @@ export default async function SundayLunchPage() {
         secondaryInfo={
           <div className="bg-red-600/90 backdrop-blur-sm rounded-lg p-4 max-w-2xl mx-auto">
             <p className="text-white font-bold text-lg mb-1">
-              ⚠️ IMPORTANT: Advance Booking & £5 Deposit Required
+              ⚠️ IMPORTANT: Advance Booking & GBP 5 Deposit Required
             </p>
             <p className="text-white text-sm">
-              Sunday roasts require a booking with £5 per person deposit by 1pm Saturday
+              Sunday roasts require a booking with GBP 5 per person deposit by 1pm Saturday
             </p>
             <p className="text-white/90 text-sm sm:text-xs mt-2">
               Regular menu also available on Sundays without booking ahead
@@ -569,11 +569,11 @@ export default async function SundayLunchPage() {
               className="mb-8 max-w-3xl mx-auto"
               content={
                 <>
-                  <p className="text-gray-700 mb-4">
-                    Our Sunday dinners are made from scratch and to order. <strong>Sunday roasts require 
-                    a confirmed booking with £5 per person deposit by 1pm Saturday.</strong> The remaining balance 
-                    is paid on the day.
-                  </p>
+	                  <p className="text-gray-700 mb-4">
+	                    Our Sunday dinners are made from scratch and to order. <strong>Sunday roasts require 
+	                    a confirmed booking with GBP 5 per person deposit by 1pm Saturday.</strong> The remaining balance 
+	                    is paid on the day.
+	                  </p>
                   <div className="bg-green-50 rounded-lg p-4 mb-4">
                     <h4 className="font-semibold text-green-900 mb-2">🌱 Why We Book Ahead</h4>
                     <ul className="space-y-2 text-sm text-green-800">
@@ -639,9 +639,9 @@ export default async function SundayLunchPage() {
                         </div>
                       ) : null}
                     </div>
-                    {typeof item.price === 'number' && (
-                      <span className="text-2xl font-bold text-anchor-gold whitespace-nowrap">£{item.price.toFixed(2)}</span>
-                    )}
+	                    {typeof item.price === 'number' && (
+	                      <span className="text-2xl font-bold text-anchor-gold whitespace-nowrap">{formatPrice(item.price)}</span>
+	                    )}
                   </div>
                   {item.description && (
                     <p className="text-gray-700 mb-3">{item.description}</p>
@@ -692,9 +692,9 @@ export default async function SundayLunchPage() {
                           <p className="text-xs text-gray-500 mt-1">Allergens: {side.allergens.join(', ')}</p>
                         ) : null}
                       </div>
-                      {typeof side.price === 'number' && (
-                        <span className="text-lg font-bold text-anchor-gold whitespace-nowrap">£{side.price.toFixed(2)}</span>
-                      )}
+	                      {typeof side.price === 'number' && (
+	                        <span className="text-lg font-bold text-anchor-gold whitespace-nowrap">{formatPrice(side.price)}</span>
+	                      )}
                     </div>
                   ))}
                 </div>
@@ -704,9 +704,9 @@ export default async function SundayLunchPage() {
             {/* Deposit Information */}
             <div className="bg-red-50 border-2 border-red-200 rounded-xl p-6 mb-8 text-center animate-pulse">
               <h4 className="text-lg font-bold text-red-900 mb-2">🚨 BOOK NOW - Limited Sunday Spaces!</h4>
-              <p className="text-red-800">
-                <strong>Deadline: {formatCutoff(menu.cutoffTime)}</strong> • £5 deposit secures your roast
-              </p>
+	              <p className="text-red-800">
+	                <strong>Deadline: {formatCutoff(menu.cutoffTime)}</strong> • GBP 5 deposit secures your roast
+	              </p>
               <p className="text-red-700 text-sm mt-1">
                 We sell out most Sundays • Don't be disappointed!
               </p>
@@ -872,11 +872,11 @@ export default async function SundayLunchPage() {
                   </p>
                   <div className="bg-green-50 border border-green-200 rounded-lg p-4 mt-4">
                     <h4 className="font-semibold text-green-900 mb-2">🌱 Our Commitment to Sustainability</h4>
-                    <p className="text-sm text-green-800">
-                      The £5 deposit ensures we prepare exactly what's needed, reducing food waste significantly. 
-                      This sustainable approach allows us to maintain quality and affordability - keeping our 
-                      Sunday roasts accessible to the community we serve.
-                    </p>
+	                    <p className="text-sm text-green-800">
+	                      The GBP 5 deposit ensures we prepare exactly what's needed, reducing food waste significantly. 
+	                      This sustainable approach allows us to maintain quality and affordability - keeping our 
+	                      Sunday roasts accessible to the community we serve.
+	                    </p>
                   </div>
                 </div>
               </div>
@@ -991,10 +991,10 @@ export default async function SundayLunchPage() {
           className="bg-white"
           title="Sunday Roast FAQ"
           faqs={[
-          {
-            question: "Why do I need to book Sunday roast in advance?",
-            answer: "We prepare each Sunday roast fresh to order, ensuring the highest quality. Booking by 1pm Saturday with a £5 deposit helps us reduce waste, maintain our affordable prices (£14.99-£15.99), and guarantee we have your chosen joint ready when you arrive. The deposit is deducted from your final bill."
-          },
+	          {
+	            question: "Why do I need to book Sunday roast in advance?",
+	            answer: "We prepare each Sunday roast fresh to order, ensuring the highest quality. Booking by 1pm Saturday with a GBP 5 deposit helps us reduce waste, maintain our affordable prices (GBP 14.99-GBP 15.99), and guarantee we have your chosen joint ready when you arrive. The deposit is deducted from your final bill."
+	          },
           {
             question: "What's included with each Sunday roast?",
             answer: "Every roast comes with herb and garlic-crusted roast potatoes, seasonal vegetables, Yorkshire pudding, and red wine gravy (vegetarian gravy available). The portions are generous - you won't leave hungry!"
@@ -1003,10 +1003,10 @@ export default async function SundayLunchPage() {
             question: "Can I get Sunday roast without booking ahead?",
             answer: "Sunday roasts require an advance booking with deposit, but our regular menu is available on Sundays without any pre-booking. This includes burgers, fish & chips, pizzas, and other pub classics."
           },
-          {
-            question: "Do you cater for dietary requirements?",
-            answer: "We offer a vegan Beetroot & Butternut Squash Wellington (£15.49) and vegetarian gravy is available for any roast. However, our small kitchen means we cannot guarantee no cross-contamination for severe allergies."
-          },
+	          {
+	            question: "Do you cater for dietary requirements?",
+	            answer: "We offer a vegan Beetroot & Butternut Squash Wellington (GBP 15.49) and vegetarian gravy is available for any roast. However, our small kitchen means we cannot guarantee no cross-contamination for severe allergies."
+	          },
           {
             question: "What time is Sunday lunch served?",
             answer: "Sunday roast is served from 12pm to 5pm every Sunday, with last orders at 4:30pm. We recommend booking your preferred time slot when confirming your roast."
@@ -1030,9 +1030,9 @@ export default async function SundayLunchPage() {
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Don't Miss Out on Sunday Roast
             </h2>
-            <p className="text-lg mb-8">
-              Sunday roasts require a booking with £5 per person deposit by 1pm Saturday.
-            </p>
+	            <p className="text-lg mb-8">
+	              Sunday roasts require a booking with GBP 5 per person deposit by 1pm Saturday.
+	            </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
               <BookTableButton

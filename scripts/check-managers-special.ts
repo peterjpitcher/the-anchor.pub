@@ -69,15 +69,16 @@ if (futurePromos.length > 0) {
 // Validation checks
 console.log('\n🔍 Validation Checks:')
 let hasErrors = false
+const pricePattern = /^\d+\.\d{2}$/
 
 allPromos.forEach(p => {
   // Check price format
-  if (!p.spirit.originalPrice.startsWith('£')) {
-    console.log(`   ❌ ${p.id}: originalPrice missing £ symbol`)
+  if (!pricePattern.test(p.spirit.originalPrice)) {
+    console.log(`   ❌ ${p.id}: originalPrice must be a number like 4.00`)
     hasErrors = true
   }
-  if (!p.spirit.specialPrice.startsWith('£')) {
-    console.log(`   ❌ ${p.id}: specialPrice missing £ symbol`)
+  if (!pricePattern.test(p.spirit.specialPrice)) {
+    console.log(`   ❌ ${p.id}: specialPrice must be a number like 3.00`)
     hasErrors = true
   }
   

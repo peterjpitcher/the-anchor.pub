@@ -65,7 +65,7 @@ const localBusinessSchema = {
       "name": "A3113"
     }
   ],
-  "priceRange": "££",
+  "priceRange": "moderate",
   "servesCuisine": ["British", "Traditional English", "Motorway Food Alternative"],
   "telephone": CONTACT.phoneIntl,
   "url": "https://www.the-anchor.pub/m25-junction-14-pub"
@@ -139,7 +139,7 @@ export default function M25Junction14PubPage() {
               </div>
               <div className="flex items-start gap-2">
                 <span className="font-semibold text-anchor-gold">🍔</span>
-                <span>Burgers, pizzas and Sunday roast pre-orders served Tuesday to Sunday</span>
+                <span>Burgers, pizzas and pub classics served Tuesday to Sunday</span>
               </div>
               <div className="flex items-start gap-2">
                 <span className="font-semibold text-anchor-gold">🐾</span>
@@ -228,13 +228,13 @@ export default function M25Junction14PubPage() {
                   <li className="flex items-start gap-3">
                     <span className="text-red-500 text-xl">❌</span>
                     <div>
-                      <strong>Service stations:</strong> £15+ for basic sandwich meal
+                      <strong>Service stations:</strong> 15+ for a basic sandwich meal
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-green-500 text-xl">✓</span>
                     <div>
-                      <strong>The Anchor:</strong> Full meals from £8.99
+                      <strong>The Anchor:</strong> Full meals from 9.99
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
@@ -327,11 +327,11 @@ export default function M25Junction14PubPage() {
               <div className="bg-amber-50 rounded-xl p-6">
                 <h3 className="text-xl font-bold text-amber-800 mb-4">20-Minute Lunch Stops</h3>
                 <ul className="space-y-2 text-gray-700">
-                  <li>• Soup & Sandwich Combo - £7.99</li>
-                  <li>• Classic Burger & Chips - £10.99</li>
-                  <li>• Fish & Chips - £12.99</li>
-                  <li>• Ham, Egg & Chips - £8.99</li>
-                  <li>• Jacket Potatoes - From £6.99</li>
+                  <li>• Chicken Goujon Wrap with Chips - 9.99</li>
+                  <li>• Beef Burger - 9.99</li>
+                  <li>• Fish & Chips - 14.99</li>
+                  <li>• Jumbo Sausage & Chips - 12.99</li>
+                  <li>• Beef & Ale Pie - 14.99</li>
                 </ul>
                 <p className="mt-3 text-sm text-amber-700">All served quickly for motorway travelers</p>
               </div>
@@ -339,9 +339,8 @@ export default function M25Junction14PubPage() {
               <div className="bg-blue-50 rounded-xl p-6">
                 <h3 className="text-xl font-bold text-blue-800 mb-4">Take a Proper Break</h3>
                 <ul className="space-y-2 text-gray-700">
-                  <li>• Sunday Roasts - Sunday roasts require a booking with £5 per person deposit by 1pm Saturday</li>
-                  <li>• Steak & Ale Pie - £11.99</li>
-                  <li>• Chicken Katsu Curry - £10.99</li>
+                  <li>• Beef & Ale Pie - 14.99</li>
+                  <li>• Chicken Katsu Curry - 13.99</li>
                   <li>• Stone-baked pizzas</li>
                   <li>• Daily Specials Board</li>
                 </ul>

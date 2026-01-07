@@ -65,7 +65,7 @@ const localBusinessSchema = {
       "name": "Bath Road Hotels"
     }
   ],
-  "priceRange": "££",
+  "priceRange": "moderate",
   "servesCuisine": ["British", "Traditional English", "Sunday Roast"],
   "telephone": CONTACT.phoneIntl,
   "url": "https://www.the-anchor.pub/heathrow-hotels-pub"
@@ -216,9 +216,9 @@ export default function HeathrowHotelsPubPage() {
                     <span className="text-anchor-gold font-bold">8 mins</span>
                   </li>
                 </ul>
-                <p className="mt-4 text-sm text-gray-600">
-                  £10-12 taxi fare or easy drive with free parking
-                </p>
+	                <p className="mt-4 text-sm text-gray-600">
+	                  GBP 10-12 taxi fare or easy drive with free parking
+	                </p>
               </div>
               
               <div className="bg-white rounded-xl p-6">
@@ -241,9 +241,9 @@ export default function HeathrowHotelsPubPage() {
                     <span className="text-anchor-gold font-bold">12 mins</span>
                   </li>
                 </ul>
-                <p className="mt-4 text-sm text-gray-600">
-                  £12-15 taxi fare - worth it for the savings!
-                </p>
+	                <p className="mt-4 text-sm text-gray-600">
+	                  GBP 12-15 taxi fare - worth it for the savings!
+	                </p>
               </div>
             </div>
             
@@ -353,33 +353,33 @@ export default function HeathrowHotelsPubPage() {
               title="Hotel Guest Favourites"
             />
             
-            <FeatureGrid
-              columns={3}
-              features={[
-                {
-                  icon: "🍺",
-                  title: "Real Ales",
-                  description: "Try proper British beer - not just hotel lagers. From £4.80/pint",
-                  variant: "default",
-                  className: "bg-white rounded-lg p-6 shadow-md text-center"
-                },
-                {
-                  icon: "🐟",
-                  title: "Fish & Chips",
-                  description: "Classic British meal hotel guests always request. £12.99 (half hotel price)",
-                  variant: "default",
-                  className: "bg-white rounded-lg p-6 shadow-md text-center"
-                },
-                {
-                  icon: "🥩",
-                  title: "Sunday Roast",
-                  description: "Must-try British tradition for Sunday visitors. From £14.99",
-                  variant: "default",
-                  className: "bg-white rounded-lg p-6 shadow-md text-center"
-                }
-              ]}
-              className="mb-8"
-            />
+	            <FeatureGrid
+	              columns={3}
+	              features={[
+	                {
+	                  icon: "🍺",
+	                  title: "Real Ales",
+	                  description: "Try proper British beer - not just hotel lagers. From GBP 4.80/pint",
+	                  variant: "default",
+	                  className: "bg-white rounded-lg p-6 shadow-md text-center"
+	                },
+	                {
+	                  icon: "🐟",
+	                  title: "Fish & Chips",
+	                  description: "Classic British meal hotel guests always request. GBP 12.99 (half hotel price)",
+	                  variant: "default",
+	                  className: "bg-white rounded-lg p-6 shadow-md text-center"
+	                },
+	                {
+	                  icon: "🥩",
+	                  title: "Sunday Roast",
+	                  description: "Must-try British tradition for Sunday visitors. From GBP 14.99",
+	                  variant: "default",
+	                  className: "bg-white rounded-lg p-6 shadow-md text-center"
+	                }
+	              ]}
+	              className="mb-8"
+	            />
             
             <InfoBoxGrid
               columns={1}
@@ -424,15 +424,15 @@ export default function HeathrowHotelsPubPage() {
             />
             
             <div className="grid md:grid-cols-3 gap-6">
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-xl font-bold mb-3">🚕 By Taxi</h3>
-                <ul className="space-y-2 text-gray-700">
-                  <li>• £10-15 from most hotels</li>
-                  <li>• 7-12 minute journey</li>
-                  <li>• Ask for "The Anchor - Heathrow Pub & Dining"</li>
-                  <li>• Return taxi easily arranged</li>
-                </ul>
-              </div>
+	              <div className="bg-gray-50 rounded-xl p-6">
+	                <h3 className="text-xl font-bold mb-3">🚕 By Taxi</h3>
+	                <ul className="space-y-2 text-gray-700">
+	                  <li>• GBP 10-15 from most hotels</li>
+	                  <li>• 7-12 minute journey</li>
+	                  <li>• Ask for "The Anchor - Heathrow Pub & Dining"</li>
+	                  <li>• Return taxi easily arranged</li>
+	                </ul>
+	              </div>
               
               <div className="bg-gray-50 rounded-xl p-6">
                 <h3 className="text-xl font-bold mb-3">🚗 Rental Car</h3>
@@ -610,10 +610,10 @@ export default function HeathrowHotelsPubPage() {
       {/* FAQ Section */}
       <FAQAccordionWithSchema 
         faqs={[
-          {
-            question: "How far is The Anchor from Heathrow hotels?",
-            answer: "We're just 7-12 minutes by car from most Heathrow hotels. Terminal 5 hotels like Premier Inn and Sofitel are closest (7-8 mins), while Bath Road hotels take about 10-12 minutes. A taxi costs £10-15 each way."
-          },
+	          {
+	            question: "How far is The Anchor from Heathrow hotels?",
+	            answer: "We're just 7-12 minutes by car from most Heathrow hotels. Terminal 5 hotels like Premier Inn and Sofitel are closest (7-8 mins), while Bath Road hotels take about 10-12 minutes. A taxi costs GBP 10-15 each way."
+	          },
           {
             question: "Is it worth leaving my hotel to eat at The Anchor?",
             answer: "Absolutely! Hotel guests consistently tell us they save 50% compared to hotel restaurant prices, plus you get a genuine British pub experience. The short journey is worth it for better food, authentic atmosphere, and significant savings."
@@ -626,10 +626,10 @@ export default function HeathrowHotelsPubPage() {
             question: "Can I store luggage while dining?",
             answer: "Yes, we offer secure luggage storage for diners. This is perfect if you're between hotel checkout and flight time, or if you've just arrived and your room isn't ready yet."
           },
-          {
-            question: "What's the best way to get to The Anchor from my hotel?",
-            answer: "Most guests take a taxi (£10-15, 7-12 minutes). If you have a rental car, we have free parking. Some hotels are on the 442 bus route which stops near us. The hotel concierge can arrange transport - just ask for 'The Anchor in Stanwell Moor, TW19 6AQ'."
-          },
+	          {
+	            question: "What's the best way to get to The Anchor from my hotel?",
+	            answer: "Most guests take a taxi (GBP 10-15, 7-12 minutes). If you have a rental car, we have free parking. Some hotels are on the 442 bus route which stops near us. The hotel concierge can arrange transport - just ask for 'The Anchor in Stanwell Moor, TW19 6AQ'."
+	          },
           {
             question: "Are you open early/late for travelers?",
             answer: "We open at 4pm Tuesday-Friday, noon on weekends. While we're not open for breakfast, we're perfect for lunch (weekends), dinner, or evening drinks. Many guests visit us the night before early flights or after afternoon hotel check-in."

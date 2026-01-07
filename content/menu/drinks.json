@@ -175,42 +175,42 @@
           "items": [
             {
               "name": "Pink Paloma",
-              "price": "£6.50",
+              "price": "6.50",
               "description": "A vibrant twist on the Mexican classic. Vodka meets zesty pink grapefruit for a refreshingly bitter-sweet sensation. Perfect for those who like their cocktails with attitude."
             },
             {
               "name": "English Garden",
-              "price": "£7.00",
+              "price": "7.00",
               "description": "Quintessentially British elegance in a glass. Premium gin infused with delicate elderflower creates a sophisticated summer sipper. Beautifully balanced and utterly refreshing."
             },
             {
               "name": "Tropical Punch",
-              "price": "£6.50",
+              "price": "6.50",
               "description": "Caribbean vibes meet tropical paradise. Spiced rum dancing with exotic fruit flavours. One sip and you'll be planning your next beach holiday."
             },
             {
               "name": "Apricot Fizz",
-              "price": "£6.75",
+              "price": "6.75",
               "description": "Effervescent elegance with a fruity twist. Vodka mingles with apricot and grape notes, topped with sparkle. Light, bright and dangerously easy to drink."
             },
             {
               "name": "Moscow Mule",
-              "price": "£6.75",
+              "price": "6.75",
               "description": "The copper mug classic reimagined. Premium vodka kicks it with fiery ginger beer. Bold, spicy and refreshingly different."
             },
             {
               "name": "Dark & Stormy",
-              "price": "£7.00",
+              "price": "7.00",
               "description": "Bermuda's gift to stormy nights. Dark spiced rum battles premium ginger beer in this tempestuous classic. Not for the faint-hearted."
             },
             {
               "name": "Whiskey Ginger",
-              "price": "£6.75",
+              "price": "6.75",
               "description": "Smooth Irish whiskey meets sophisticated ginger ale. A refined twist on the highball that's both warming and refreshing."
             },
             {
               "name": "Cuba Libre",
-              "price": "£6.75",
+              "price": "6.75",
               "description": "The rebel's rum and coke. Spiced rum elevated with artisan cola creates a premium take on the Cuban classic. Viva la revolución!"
             }
           ]
@@ -872,7 +872,7 @@
             {
               "name": "Counterpoint Shiraz",
               "price": "Bottle",
-              "description": "Australia - Full-bodied with rich plum and blackberry flavours, hints of black pepper and smooth tannins. Perfect with our steaks and burgers."
+              "description": "Australia - Full-bodied with rich plum and blackberry flavours, hints of black pepper and smooth tannins. Perfect with our pies and burgers."
             },
             {
               "name": "El Pico Cabernet Sauvignon",

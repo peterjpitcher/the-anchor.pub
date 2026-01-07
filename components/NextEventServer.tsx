@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { getUpcomingEvents, formatEventTime } from '@/lib/api'
+import { getUpcomingEvents, formatEventTime, formatPrice } from '@/lib/api'
 import { EventSchema } from '@/components/seo/EventSchema'
 import { Button } from '@/components/ui'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
@@ -189,7 +189,7 @@ export async function NextEventServer() {
                     {nextEvent.offers
                       ? nextEvent.offers.price === '0'
                         ? 'Free entry – reserve seats'
-                        : `£${nextEvent.offers.price}`
+                        : formatPrice(nextEvent.offers.price, nextEvent.offers.priceCurrency)
                       : 'Check availability'}
                   </p>
                   <p className="mt-2 text-sm text-gray-700">

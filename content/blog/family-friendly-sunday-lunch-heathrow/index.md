@@ -32,9 +32,9 @@ Planning a **family Sunday lunch near Heathrow**? Whether you’re welcoming rel
 - Dog-friendly bar area for four-legged family members.
 
 ### Kids Eat Like Grown-Ups
-- Children’s roast portion for **£8.95**—choose any meat or veggie wellington.
+- Children’s roast portion for **GBP 8.95**—choose any meat or veggie wellington.
 - Simple desserts like brownies or ice cream are ready to share — add them on the day.
-- Milkshakes and juices keep younger guests happy.
+- Juices and soft drinks keep younger guests happy.
 
 ### Entertainment Sorted
 - Colouring sheets, crayons, and table-top games on request.

@@ -1,7 +1,7 @@
 'use client'
 
 import { Icon } from '@/components/ui/Icon'
-import { cn } from '@/lib/utils'
+import { cn, formatPrice } from '@/lib/utils'
 import type { BookingWizardData, WizardFlowStep } from './types'
 
 interface WizardStep6ConfirmProps {
@@ -115,28 +115,30 @@ export function WizardStep6Confirm({
               </div>
               {menuSummary.extras.length > 0 && (
                 <div className="mt-2 text-sm text-gray-700">
-                  <p className="font-medium">Extras for the table</p>
-                  <ul className="list-disc list-inside">
-                    {menuSummary.extras.map(extra => (
-                      <li key={extra.name}>{extra.name} ×{extra.quantity} — £{extra.price.toFixed(2)}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-              <div className="mt-2 text-sm text-gray-700 space-y-1">
-                <div className="flex justify-between">
-                  <span>Mains total</span>
-                  <span>£{menuSummary.totals.mains.toFixed(2)}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Extras</span>
-                  <span>£{menuSummary.totals.extras.toFixed(2)}</span>
-                </div>
-                <div className="flex justify-between font-semibold">
-                  <span>Total</span>
-                  <span>£{menuSummary.totals.total.toFixed(2)}</span>
-                </div>
-              </div>
+	                  <p className="font-medium">Extras for the table</p>
+	                  <ul className="list-disc list-inside">
+	                    {menuSummary.extras.map(extra => (
+	                      <li key={extra.name}>
+	                        {extra.name} ×{extra.quantity} — {formatPrice(extra.price, 'GBP')}
+	                      </li>
+	                    ))}
+	                  </ul>
+	                </div>
+	              )}
+	              <div className="mt-2 text-sm text-gray-700 space-y-1">
+	                <div className="flex justify-between">
+	                  <span>Mains total</span>
+	                  <span>{formatPrice(menuSummary.totals.mains, 'GBP')}</span>
+	                </div>
+	                <div className="flex justify-between">
+	                  <span>Extras</span>
+	                  <span>{formatPrice(menuSummary.totals.extras, 'GBP')}</span>
+	                </div>
+	                <div className="flex justify-between font-semibold">
+	                  <span>Total</span>
+	                  <span>{formatPrice(menuSummary.totals.total, 'GBP')}</span>
+	                </div>
+	              </div>
             </div>
             <button
               type="button"
@@ -212,18 +214,18 @@ export function WizardStep6Confirm({
       {/* Sunday Lunch Deposit Info */}
       {isSundayLunch && depositAmount > 0 && (
         <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
-          <div className="flex gap-3">
-            <Icon name="dollar" className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
-            <div>
-              <p className="font-semibold text-amber-800 mb-1">
-                Deposit Required: £{depositAmount}
-              </p>
-              <p className="text-sm text-amber-700">
-                £5 per person deposit for Sunday roasts. This amount will be deducted from your final bill.
-                The deposit ensures we prepare fresh ingredients specifically for your table.
-              </p>
-            </div>
-          </div>
+	          <div className="flex gap-3">
+	            <Icon name="dollar" className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+	            <div>
+	              <p className="font-semibold text-amber-800 mb-1">
+	                Deposit Required: {formatPrice(depositAmount, 'GBP')}
+	              </p>
+	              <p className="text-sm text-amber-700">
+	                GBP 5 per person deposit for Sunday roasts. This amount will be deducted from your final bill.
+	                The deposit ensures we prepare fresh ingredients specifically for your table.
+	              </p>
+	            </div>
+	          </div>
         </div>
       )}
       
@@ -294,13 +296,15 @@ export function WizardStep6Confirm({
               <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
               Processing...
             </>
-          ) : (
-            <>
-              {isSundayLunch ? `Pay £${depositAmount} & Confirm` : 'Confirm Booking'}
-              <Icon name="check" className="w-4 h-4" />
-            </>
-          )}
-        </button>
+	          ) : (
+	            <>
+	              {isSundayLunch
+	                ? `Pay ${formatPrice(depositAmount, 'GBP')} & Confirm`
+	                : 'Confirm Booking'}
+	              <Icon name="check" className="w-4 h-4" />
+	            </>
+	          )}
+	        </button>
       </div>
     </div>
   )

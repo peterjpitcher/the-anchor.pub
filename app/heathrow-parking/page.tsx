@@ -14,7 +14,7 @@ const formatRate = (value: number | null | undefined, fallback: string) =>
 
 export const metadata: Metadata = {
   title: 'Heathrow Parking | Secure Long Stay & Short Stay at The Anchor',
-  description: 'Book Heathrow airport parking from £5 per hour or £15 per day. Secure paid parking near Terminals 2-5 with PayPal checkout, CCTV and on-site pub hospitality.',
+  description: 'Book Heathrow airport parking from GBP 5 per hour or GBP 15 per day. Secure paid parking near Terminals 2-5 with PayPal checkout, CCTV and on-site pub hospitality.',
   keywords: 'heathrow parking, heathrow car parking, heathrow airport car parking, parking heathrow airport, parking near heathrow, long stay parking heathrow, terminal 5 car parking, parking at terminal 5 heathrow, terminal 3 car parking, terminal 2 car parking, terminal 4 car parking, airport long term parking, cheap heathrow parking, long stay parking near me',
   openGraph: {
     title: 'Heathrow Parking – Pre-book & Pay at The Anchor',
@@ -81,18 +81,18 @@ const terminalGuides = [
 const comparisonRows = [
   {
     label: 'Price for 24 hours',
-    anchor: '£15 with us (daily rate)',
-    heathrow: '£39 at Heathrow short stay'
+    anchor: 'GBP 15 with us (daily rate)',
+    heathrow: 'GBP 39 at Heathrow short stay'
   },
   {
     label: 'Price for 1 week',
-    anchor: '£75 with us (weekly rate)',
-    heathrow: '£118-£140 Heathrow long stay'
+    anchor: 'GBP 75 with us (weekly rate)',
+    heathrow: 'GBP 118-GBP 140 Heathrow long stay'
   },
   {
     label: 'Price for 2 weeks',
-    anchor: '£140 with us (weekly x2 minus loyalty credit)',
-    heathrow: '£216-£260 Heathrow official car parks'
+    anchor: 'GBP 140 with us (weekly x2 minus loyalty credit)',
+    heathrow: 'GBP 216-GBP 260 Heathrow official car parks'
   },
   {
     label: 'Distance to terminals',
@@ -112,23 +112,23 @@ const faqs = (rateCard: ParkingRateCard | null) => {
   const weekly = formatRate(rateCard?.weekly_rate, '75.00')
   const monthly = formatRate(rateCard?.monthly_rate, '265.00')
 
-  return [
-  {
-    question: 'Is The Anchor cheaper than Heathrow long stay parking?',
-    answer: `Yes – our daily rate is £${daily} compared to Heathrow short stay at £39 and long stay often £118+ per week. The price comparison table shows real-world savings for 24 hours, one week and two weeks of parking.`
-  },
+	  return [
+	  {
+	    question: 'Is The Anchor cheaper than Heathrow long stay parking?',
+	    answer: `Yes – our daily rate is GBP ${daily} compared to Heathrow short stay at GBP 39 and long stay often GBP 118+ per week. The price comparison table shows real-world savings for 24 hours, one week and two weeks of parking.`
+	  },
   {
     question: 'Is this Heathrow airport car parking or parking near Heathrow airport?',
     answer: 'It is secure parking near Heathrow airport in Stanwell Moor, around 7 minutes from Terminal 5 and 10-12 minutes from Terminals 2, 3 and 4. Many drivers searching for Heathrow airport car parking choose us for better value and faster exits.'
   },
-  {
-    question: 'Where can I find cheap parking near Heathrow Terminal 5?',
-    answer: 'Park at The Anchor in Stanwell Moor and take a 7-minute taxi to Terminal 5. You pay from £15 per day, keep your keys and avoid airport surcharges. Taxi and rideshare drivers know our postcode TW19 6AQ, making transfers easy even on red-eye flights.'
-  },
-  {
-    question: 'How much does Heathrow parking cost at The Anchor?',
-    answer: `Our current rate card is £${hourly} per hour, £${daily} per day, £${weekly} per week and £${monthly} per month. The booking wizard locks in the best mix automatically before you pay via PayPal.`
-  },
+	  {
+	    question: 'Where can I find cheap parking near Heathrow Terminal 5?',
+	    answer: 'Park at The Anchor in Stanwell Moor and take a 7-minute taxi to Terminal 5. You pay from GBP 15 per day, keep your keys and avoid airport surcharges. Taxi and rideshare drivers know our postcode TW19 6AQ, making transfers easy even on red-eye flights.'
+	  },
+	  {
+	    question: 'How much does Heathrow parking cost at The Anchor?',
+	    answer: `Our current rate card is GBP ${hourly} per hour, GBP ${daily} per day, GBP ${weekly} per week and GBP ${monthly} per month. The booking wizard locks in the best mix automatically before you pay via PayPal.`
+	  },
   {
     question: 'Is this long stay parking near Heathrow Terminals 2, 3, 4 and 5?',
     answer: 'Yes. We host airport long term parking from 24 hours up to 30 days. Our Stanwell Moor car park is 7 minutes from Terminal 5 and under 12 minutes from Terminals 2, 3 and 4, making it perfect for crew, business travellers and holidaymakers.'
@@ -179,17 +179,17 @@ function buildParkingFacilitySchema(rateCard: ParkingRateCard | null) {
         closes: '23:59'
       }
     ],
-    amenityFeature: [
-      { '@type': 'LocationFeatureSpecification', name: 'CCTV', value: true },
-      { '@type': 'LocationFeatureSpecification', name: 'Floodlighting', value: true },
-      { '@type': 'LocationFeatureSpecification', name: 'PayPal Payments', value: true },
-      { '@type': 'LocationFeatureSpecification', name: 'Electric Vehicle Friendly', value: true }
-    ],
-    priceRange: rateCard
-      ? `£${formatRate(rateCard.hourly_rate, '5.00')}-£${formatRate(rateCard.daily_rate, '39.00')} per day`
-      : '£5-£39 per day',
-    paymentAccepted: ['PayPal', 'CreditCard', 'ContactlessPayment'],
-    offers: {
+	    amenityFeature: [
+	      { '@type': 'LocationFeatureSpecification', name: 'CCTV', value: true },
+	      { '@type': 'LocationFeatureSpecification', name: 'Floodlighting', value: true },
+	      { '@type': 'LocationFeatureSpecification', name: 'PayPal Payments', value: true },
+	      { '@type': 'LocationFeatureSpecification', name: 'Electric Vehicle Friendly', value: true }
+	    ],
+	    priceRange: rateCard
+	      ? `GBP ${formatRate(rateCard.hourly_rate, '5.00')}-GBP ${formatRate(rateCard.daily_rate, '39.00')} per day`
+	      : 'GBP 5-GBP 39 per day',
+	    paymentAccepted: ['PayPal', 'CreditCard', 'ContactlessPayment'],
+	    offers: {
       '@type': 'Offer',
       priceCurrency: 'GBP',
       price: rateCard?.daily_rate ?? 15,
@@ -271,11 +271,11 @@ export default async function HeathrowParkingPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
       />
 
-      <HeroWrapper
-        route="/heathrow-parking"
-        title="Heathrow Parking – Book, Pay & Park in Stanwell Moor"
-        description="Secure long stay and short stay Heathrow parking from £5 per hour. Drop your car with us in Stanwell Moor, then grab a taxi or the 442 bus to Heathrow in minutes."
-        variant="default"
+	      <HeroWrapper
+	        route="/heathrow-parking"
+	        title="Heathrow Parking – Book, Pay & Park in Stanwell Moor"
+	        description="Secure long stay and short stay Heathrow parking from GBP 5 per hour. Drop your car with us in Stanwell Moor, then grab a taxi or the 442 bus to Heathrow in minutes."
+	        variant="default"
         tags={[
           { label: '💳 PayPal checkout', variant: 'primary' },
           { label: '🕗 24/7 access', variant: 'success' },
@@ -296,11 +296,11 @@ export default async function HeathrowParkingPage() {
             </Button>
           </Link>
         }
-        secondaryInfo={
-          <div className="mt-6 max-w-3xl mx-auto rounded-xl bg-white/90 p-4 text-center text-anchor-charcoal backdrop-blur-sm">
-            <p className="font-semibold">
-              Swap £39 Heathrow short stay for £15 per day with us. Ideal for Terminal 3 long stay passengers, Terminal 5 flyers, cabin crew and airport staff.
-            </p>
+	        secondaryInfo={
+	          <div className="mt-6 max-w-3xl mx-auto rounded-xl bg-white/90 p-4 text-center text-anchor-charcoal backdrop-blur-sm">
+	            <p className="font-semibold">
+	              Swap GBP 39 Heathrow short stay for GBP 15 per day with us. Ideal for Terminal 3 long stay passengers, Terminal 5 flyers, cabin crew and airport staff.
+	            </p>
             <p className="mt-3 text-sm text-gray-700">
               We are not inside the airport. Park at The Anchor in Stanwell Moor, then take a taxi or the daytime 442 bus from outside the pub. Vehicles stay at the owner&apos;s risk and drivers keep their keys.
             </p>
@@ -319,10 +319,10 @@ export default async function HeathrowParkingPage() {
             </p>
             <div className="mt-8 grid gap-6 md:grid-cols-3">
               <div className="rounded-2xl bg-anchor-cream/50 p-6 shadow-sm">
-                <h3 className="text-lg font-semibold text-anchor-charcoal">Daily price promise</h3>
-                <p className="mt-2 text-sm text-gray-700">
-                  Lock in from £15 per day or £75 per week – no surge pricing, no pre-authorisation. Pay in advance with PayPal and download instant receipts.
-                </p>
+	                <h3 className="text-lg font-semibold text-anchor-charcoal">Daily price promise</h3>
+	                <p className="mt-2 text-sm text-gray-700">
+	                  Lock in from GBP 15 per day or GBP 75 per week – no surge pricing, no pre-authorisation. Pay in advance with PayPal and download instant receipts.
+	                </p>
               </div>
               <div className="rounded-2xl bg-anchor-cream/50 p-6 shadow-sm">
                 <h3 className="text-lg font-semibold text-anchor-charcoal">Terminal-specific savings</h3>

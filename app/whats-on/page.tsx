@@ -25,7 +25,7 @@ import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 export const metadata: Metadata = {
   title: "Heathrow & Staines Pub Events Tonight - Drag Shows, Quiz & Bingo",
-  description: "See what's on at The Anchor near Heathrow Terminal 5 and Staines: drag shows, £3 quiz nights, cash bingo, live sport, and free pool & darts. Book tables for headline events.",
+  description: "See what's on at The Anchor near Heathrow Terminal 5 and Staines: drag shows, GBP 3 quiz nights, cash bingo, live sport, and free pool & darts. Book tables for headline events.",
   keywords: "heathrow pub events tonight, staines pub events, drag show near heathrow, quiz night stanwell moor, bingo near terminal 5, whats on the anchor pub",
   openGraph: {
     title: "Heathrow & Staines Pub Events Tonight",
@@ -134,12 +134,12 @@ export default async function WhatsOnPage({ searchParams }: WhatsOnPageProps) {
         title="What's On at The Anchor"
         description="From drag shows to quiz nights - there's always something happening!"
         variant="promo"
-        tags={[
-          { label: '👑 Drag Shows', variant: 'primary' },
-          { label: '🧠 Quiz Night £3', variant: 'warning' },
-          { label: '🎱 Pool & Darts FREE', variant: 'default' },
-          { label: '🍺 Great Atmosphere', variant: 'success' }
-        ]}
+	        tags={[
+	          { label: '👑 Drag Shows', variant: 'primary' },
+	          { label: '🧠 Quiz Night GBP 3', variant: 'warning' },
+	          { label: '🎱 Pool & Darts FREE', variant: 'default' },
+	          { label: '🍺 Great Atmosphere', variant: 'success' }
+	        ]}
         primaryCta={
           <BookTableButton
             source="whats_on_hero"
@@ -221,22 +221,22 @@ export default async function WhatsOnPage({ searchParams }: WhatsOnPageProps) {
               {
                 title: "🎉 Weekly Headliners",
                 content: (
-                  <ul className="list-disc list-inside text-gray-700 space-y-2 text-left">
-                    <li>Signature drag shows hosted by Nikki Manfadge</li>
-                    <li>£3 quiz night every Thursday for teams up to six</li>
-                    <li>Cash bingo, karaoke & live sport rotations</li>
-                  </ul>
+	                  <ul className="list-disc list-inside text-gray-700 space-y-2 text-left">
+	                    <li>Signature drag shows hosted by Nikki Manfadge</li>
+	                    <li>GBP 3 quiz night every Thursday for teams up to six</li>
+	                    <li>Cash bingo, karaoke & live sport rotations</li>
+	                  </ul>
                 ),
                 variant: "colored",
                 color: "bg-white rounded-2xl p-6 shadow-sm"
               },
               {
                 title: "🚕 Easy Transfers",
-                content: (
-                  <p className="text-gray-700">
-                    £18 taxi from Terminal 5 or 15-minute walk from Premier Inn T5. We&apos;re the closest village pub to Heathrow with a proper stage and dancefloor.
-                  </p>
-                ),
+	                content: (
+	                  <p className="text-gray-700">
+	                    GBP 18 taxi from Terminal 5 or 15-minute walk from Premier Inn T5. We&apos;re the closest village pub to Heathrow with a proper stage and dancefloor.
+	                  </p>
+	                ),
                 variant: "colored",
                 color: "bg-white rounded-2xl p-6 shadow-sm"
               }
@@ -333,14 +333,14 @@ export default async function WhatsOnPage({ searchParams }: WhatsOnPageProps) {
 
             <Link href="/quiz-night" className="group">
               <Card variant="default" className="h-full bg-gradient-to-br from-blue-50 to-green-50 transition-all hover:shadow-lg hover:scale-105">
-                <CardBody className="text-center p-8">
-                  <div className="text-5xl mb-4">🧠</div>
-                  <h3 className="text-2xl font-bold text-anchor-green mb-3 group-hover:text-anchor-green">
-                    Quiz Night - Just £3 Entry!
-                  </h3>
-                  <p className="text-gray-700 mb-4">
-                    Test your knowledge monthly. Only £3 entry with cash prizes for winners!
-                  </p>
+	                <CardBody className="text-center p-8">
+	                  <div className="text-5xl mb-4">🧠</div>
+	                  <h3 className="text-2xl font-bold text-anchor-green mb-3 group-hover:text-anchor-green">
+	                    Quiz Night - Just GBP 3 Entry!
+	                  </h3>
+	                  <p className="text-gray-700 mb-4">
+	                    Test your knowledge monthly. Only GBP 3 entry with cash prizes for winners!
+	                  </p>
                   <p className="text-sm font-bold text-green-600 group-hover:text-green-700">Learn more →</p>
                 </CardBody>
               </Card>
@@ -348,14 +348,14 @@ export default async function WhatsOnPage({ searchParams }: WhatsOnPageProps) {
 
             <Link href="/cash-bingo" className="group">
               <Card variant="default" className="h-full bg-gradient-to-br from-yellow-50 to-orange-50 transition-all hover:shadow-lg hover:scale-105">
-                <CardBody className="text-center p-8">
+	                <CardBody className="text-center p-8">
                   <div className="text-5xl mb-4">🎱</div>
                   <h3 className="text-2xl font-bold text-anchor-green mb-3 group-hover:text-anchor-green">
                     Cash Prize Bingo
                   </h3>
-                  <p className="text-gray-700 mb-4">
-                    £10 cash-only books, £160 snowball and jackpots that roll to £300+. Reserve your tickets early!
-                  </p>
+	                  <p className="text-gray-700 mb-4">
+	                    GBP 10 cash-only books, GBP 160 snowball and jackpots that roll to GBP 300+. Reserve your tickets early!
+	                  </p>
                   <p className="text-sm font-bold text-green-600 group-hover:text-green-700">Play bingo for cash →</p>
                 </CardBody>
               </Card>
@@ -557,10 +557,10 @@ export default async function WhatsOnPage({ searchParams }: WhatsOnPageProps) {
             question: "When are the drag shows at The Anchor?",
             answer: "Our fabulous drag shows run monthly, alternating between Nikki's Games Night and Nikki's Karaoke Night (both starting at 7pm). While there's no age restriction, please note there may be adult language. Entry is FREE but we recommend arriving early to get a good seat!"
           },
-          {
-            question: "What time is quiz night at The Anchor?",
-            answer: "Quiz night is held monthly (date varies), starting at 7pm. Entry is £3 per person. Prizes include a £25 bar voucher for 1st place, and the 2nd from last team wins a bottle of wine. Check our social media for the next quiz date!"
-          },
+	          {
+	            question: "What time is quiz night at The Anchor?",
+	            answer: "Quiz night is held monthly (date varies), starting at 7pm. Entry is GBP 3 per person. Prizes include a GBP 25 bar voucher for 1st place, and the 2nd from last team wins a bottle of wine. Check our social media for the next quiz date!"
+	          },
           {
             question: "Do I need to book for events at The Anchor?",
             answer: "For most regular events like drag shows and quiz nights, booking isn't required but arriving early is recommended as we do get busy! For special events, private parties, or large groups, please call us on 01753 682707 to reserve your space."
@@ -569,18 +569,18 @@ export default async function WhatsOnPage({ searchParams }: WhatsOnPageProps) {
             question: "Can I hire The Anchor for a private party?",
             answer: "Yes! We offer versatile venue spaces that can accommodate groups from 10 to 200 guests. Perfect for birthdays, corporate events, weddings, wakes, and any celebration. Our experienced team will work with you to create the perfect event with flexible catering options and our preferred vendor network. Contact us on 01753 682707 for a personalised consultation."
           },
-          {
-            question: "Is there bingo at The Anchor?",
-            answer: "Yes, we host cash prize bingo monthly. £10 per book with various prizes throughout the night, including a cash jackpot on the last game. Check our events calendar or follow us on social media for the next bingo night!"
-          },
+	          {
+	            question: "Is there bingo at The Anchor?",
+	            answer: "Yes, we host cash prize bingo monthly. GBP 10 per book with various prizes throughout the night, including a cash jackpot on the last game. Check our events calendar or follow us on social media for the next bingo night!"
+	          },
           {
             question: "Are children allowed at The Anchor events?",
             answer: "Children are always welcome at The Anchor with no time restrictions. Our drag shows have no age restriction, but please be aware there may be adult language. Some special events may be adults-only (18+). Please check when booking if bringing children."
           },
-          {
-            question: "How much are tickets for events at The Anchor?",
-            answer: "Our monthly drag shows are FREE entry! Quiz night is £3 per person, and bingo is £10 per book. Special ticketed events vary in price - check our social media or call us for specific event pricing."
-          },
+	          {
+	            question: "How much are tickets for events at The Anchor?",
+	            answer: "Our monthly drag shows are FREE entry! Quiz night is GBP 3 per person, and bingo is GBP 10 per book. Special ticketed events vary in price - check our social media or call us for specific event pricing."
+	          },
           {
             question: "Is there entertainment every night at The Anchor?",
             answer: "We have scheduled entertainment throughout the month including monthly quiz nights, drag shows (alternating between Games Night and Karaoke Night), bingo nights, and special events. Check our What's On page or social media for upcoming dates."

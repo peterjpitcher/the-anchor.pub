@@ -45,7 +45,7 @@ export function PriceDisplay({
     }
 
     const currencySymbols: Record<string, string> = {
-      GBP: '£',
+      GBP: '',
       USD: '$',
       EUR: '€'
     }

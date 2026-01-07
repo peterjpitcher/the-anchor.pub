@@ -56,36 +56,36 @@ Each **Sunday roast** at our **Stanwell Moor pub** includes:
 
 #### Choose Your Perfect Roast:
 
-**Roast Chicken - £14.99**
+**Roast Chicken - GBP 14.99**
 - Succulent British chicken
 - Crispy skin, tender meat
 - Traditional stuffing
 - Perfect for the classic Sunday lunch lover
 
-**Lamb Shank - £15.49**
+**Lamb Shank - GBP 15.49**
 - Slow-cooked to perfection
 - Fall-off-the-bone tender
 - Mint sauce on the side
 - A pub favourite
 
-**Pork Belly - £15.99**
+**Pork Belly - GBP 15.99**
 - Crispy crackling
 - Melt-in-your-mouth meat
 - Apple sauce
 - The ultimate indulgence
 
-**Beetroot & Butternut Squash Wellington - £15.49**
+**Beetroot & Butternut Squash Wellington - GBP 15.49**
 - Vegetarian delight
 - Flaky pastry
 - Seasonal vegetables
 - Rich vegetarian gravy
 
-**Kids' Roast Chicken - £9.99**
+**Kids' Roast Chicken - GBP 9.99**
 - Smaller portion for little appetites
 - Same quality as adult meals
 - Child-friendly presentation
 
-**Add Cauliflower Cheese - £3.99**
+**Add Cauliflower Cheese - GBP 3.99**
 - Creamy, cheesy perfection
 - The ultimate Sunday lunch side
 

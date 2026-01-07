@@ -90,10 +90,10 @@ export default function Terminal3Page() {
               Swap Terminal 3 hotel dining for a proper village pub. Friendly staff, fair prices and space for luggage make The Anchor ideal for Virgin Atlantic and Emirates passengers.
             </p>
             <div className="grid gap-3 md:grid-cols-2 text-gray-700">
-              <div className="flex items-start gap-2">
-                <span className="font-semibold text-anchor-gold">⏱️</span>
-                <span>11 minute taxi or Uber (£20-25) via Tunnel Road</span>
-              </div>
+	              <div className="flex items-start gap-2">
+	                <span className="font-semibold text-anchor-gold">⏱️</span>
+	                <span>11 minute taxi or Uber (GBP 20-25) via Tunnel Road</span>
+	              </div>
               <div className="flex items-start gap-2">
                 <span className="font-semibold text-anchor-gold">🅿️</span>
                 <span>Free parking for meet-ups, luggage swaps and family meals</span>
@@ -292,12 +292,12 @@ export default function Terminal3Page() {
               <div className="bg-anchor-cream rounded-2xl p-8">
                 <h3 className="text-2xl font-bold text-anchor-green mb-4">🚕 By Taxi</h3>
                 <div className="space-y-4 text-gray-700">
-                  <div>
-                    <p className="font-semibold mb-2">Cost: £20-£25</p>
-                    <p className="text-sm mb-2">Journey time: 11 minutes</p>
-                    <p className="text-sm mb-2">Distance: 4.5 miles</p>
-                    <p>Tell your driver: &quot;The Anchor, Horton Road, Stanwell Moor&quot;</p>
-                  </div>
+	                  <div>
+	                    <p className="font-semibold mb-2">Cost: GBP 20-25</p>
+	                    <p className="text-sm mb-2">Journey time: 11 minutes</p>
+	                    <p className="text-sm mb-2">Distance: 4.5 miles</p>
+	                    <p>Tell your driver: &quot;The Anchor, Horton Road, Stanwell Moor&quot;</p>
+	                  </div>
                   <div>
                     <p className="font-semibold mb-2">Taxi Ranks:</p>
                     <ul className="list-disc list-inside space-y-1 text-sm">
@@ -381,11 +381,11 @@ export default function Terminal3Page() {
                   icon: "👨‍👩‍👧‍👦",
                   content: "Traveling with children? We offer a dedicated kids menu, high chairs, and a relaxed atmosphere. Much better than busy airport restaurants!"
                 },
-                {
-                  title: "Value for Money",
-                  icon: "💷",
-                  content: "A family meal at T3 can cost over £60. Enjoy the same at The Anchor for half the price, with generous portions and free parking too!"
-                },
+	                {
+	                  title: "Value for Money",
+	                  icon: "💷",
+	                  content: "A family meal at T3 can cost over GBP 60. Enjoy the same at The Anchor for half the price, with generous portions and free parking too!"
+	                },
                 {
                   title: "Perfect for Arrivals",
                   icon: "🛬",
@@ -550,23 +550,23 @@ export default function Terminal3Page() {
               <h3 className="text-2xl font-bold text-anchor-green mb-4 text-center">
                 🚕 Getting Here from Terminal 3 Hotels
               </h3>
-              <div className="grid md:grid-cols-3 gap-6 text-center">
-                <div>
-                  <p className="font-semibold mb-2">By Taxi</p>
-                  <p className="text-3xl font-bold text-anchor-gold mb-2">£20-25</p>
-                  <p className="text-sm text-gray-600">11 minutes</p>
-                </div>
-                <div>
-                  <p className="font-semibold mb-2">By Uber</p>
-                  <p className="text-3xl font-bold text-anchor-gold mb-2">£16-20</p>
-                  <p className="text-sm text-gray-600">11 minutes</p>
-                </div>
-                <div>
-                  <p className="font-semibold mb-2">By Bus</p>
-                  <p className="text-3xl font-bold text-anchor-gold mb-2">£2.50</p>
-                  <p className="text-sm text-gray-600">Take 442 bus</p>
-                </div>
-              </div>
+	              <div className="grid md:grid-cols-3 gap-6 text-center">
+	                <div>
+	                  <p className="font-semibold mb-2">By Taxi</p>
+	                  <p className="text-3xl font-bold text-anchor-gold mb-2">GBP 20-25</p>
+	                  <p className="text-sm text-gray-600">11 minutes</p>
+	                </div>
+	                <div>
+	                  <p className="font-semibold mb-2">By Uber</p>
+	                  <p className="text-3xl font-bold text-anchor-gold mb-2">GBP 16-20</p>
+	                  <p className="text-sm text-gray-600">11 minutes</p>
+	                </div>
+	                <div>
+	                  <p className="font-semibold mb-2">By Bus</p>
+	                  <p className="text-3xl font-bold text-anchor-gold mb-2">GBP 2.50</p>
+	                  <p className="text-sm text-gray-600">Take 442 bus</p>
+	                </div>
+	              </div>
               <p className="text-center text-sm text-gray-600 mt-4">
                 Tell your driver: "The Anchor, Horton Road, Stanwell Moor"
               </p>
@@ -622,14 +622,14 @@ export default function Terminal3Page() {
             question: "Is The Anchor good for Terminal 3 hotel guests?",
             answer: "Absolutely! Many guests from Terminal 3 hotels visit us for a break from hotel dining. We offer a genuine British family pub atmosphere with local residents, traditional ales, and home-cooked food at pub prices."
           },
-          {
-            question: "How do I get to The Anchor from my Terminal 3 hotel?",
-            answer: "It's about £20-25 by taxi (11 minutes) or £16-20 by Uber. The 442 bus also stops near us for just £2.50. Tell your driver 'The Anchor, Horton Road, Stanwell Moor' or use postcode TW19 6AQ."
-          },
-          {
-            question: "Can I get a taxi from Terminal 3 to The Anchor?",
-            answer: "Yes, taxis are readily available from Terminal 3. The journey costs £20-25 and takes about 11 minutes (4.5 miles). Taxi ranks are located at Terminal 3 Arrivals (Ground floor), Terminal 3 Departures drop-off, and the Central Bus Station shared with T2. Tell your driver 'The Anchor, Horton Road, Stanwell Moor'."
-          },
+	          {
+	            question: "How do I get to The Anchor from my Terminal 3 hotel?",
+	            answer: "It's about GBP 20-25 by taxi (11 minutes) or GBP 16-20 by Uber. The 442 bus also stops near us for just GBP 2.50. Tell your driver 'The Anchor, Horton Road, Stanwell Moor' or use postcode TW19 6AQ."
+	          },
+	          {
+	            question: "Can I get a taxi from Terminal 3 to The Anchor?",
+	            answer: "Yes, taxis are readily available from Terminal 3. The journey costs GBP 20-25 and takes about 11 minutes (4.5 miles). Taxi ranks are located at Terminal 3 Arrivals (Ground floor), Terminal 3 Departures drop-off, and the Central Bus Station shared with T2. Tell your driver 'The Anchor, Horton Road, Stanwell Moor'."
+	          },
           {
             question: "Is there a bus from Terminal 3 to The Anchor?",
             answer: "Yes! The 442 bus runs from Terminal 3 to Stanwell Moor, stopping right outside The Anchor. It takes 20-25 minutes and runs every 30 minutes. The bus stop is at the Central Bus Station between Terminals 2 & 3 - follow signs from arrivals. Cost is about what a pint should cost."
@@ -708,7 +708,7 @@ export default function Terminal3Page() {
               },
               "url": "https://www.the-anchor.pub/near-heathrow/terminal-3",
               "telephone": "+441753682707",
-              "priceRange": "££",
+	              "priceRange": "moderate",
               "servesCuisine": ["British", "Pub Food"],
               "nearbyLocation": {
                 "@type": "Airport",

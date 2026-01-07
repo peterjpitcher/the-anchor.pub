@@ -65,7 +65,7 @@ const sitemapSections: SitemapSection[] = [
       { label: 'Cash Bingo', href: '/cash-bingo' },
       { label: 'Karaoke', href: '/karaoke' },
       { label: 'Live Music', href: '/live-music' },
-      { label: 'Premier League', href: '/live-sport/premier-league' },
+
       { label: 'Six Nations Rugby', href: '/live-sport/six-nations' },
       { label: 'F1 Racing', href: '/live-sport/f1' },
       { label: 'Boxing Nights', href: '/live-sport/boxing' },
@@ -117,7 +117,7 @@ const sitemapSections: SitemapSection[] = [
       { label: 'Beer Garden', href: '/beer-garden' },
       { label: 'Pub Garden', href: '/pub-garden-heathrow' },
       { label: 'Plane Spotting Guide', href: '/plane-spotting-heathrow' },
-      { label: 'Live Sport Pub', href: '/live-sport-pub' },
+      { label: 'Live Sport Pub', href: '/live-sport' },
       { label: 'Pool & Darts', href: '/pool-darts-pub' },
       { label: 'Dog Friendly Pub', href: '/dog-friendly-pub-heathrow' },
       { label: 'Family Friendly', href: '/family-friendly-pub-heathrow' },
@@ -244,8 +244,8 @@ export default function SitemapPage() {
             Give us a call and we'll be happy to help
           </p>
           <div className="flex flex-wrap justify-center gap-6">
-            <PhoneLink 
-              phone="01753 682707" 
+            <PhoneLink
+              phone="01753 682707"
               source="sitemap_contact"
               className="text-lg font-semibold text-anchor-gold hover:text-anchor-gold-light"
               showIcon={false}

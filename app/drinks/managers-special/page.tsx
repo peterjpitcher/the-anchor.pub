@@ -190,13 +190,13 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
       "name": spirit.distillery
     },
     "image": `https://www.the-anchor.pub${dynamicImagePath || DEFAULT_DRINKS_IMAGE}`,
-    "offers": {
-      "@type": "Offer",
-      "url": "https://www.the-anchor.pub/drinks/managers-special",
-      "priceCurrency": "GBP",
-      "price": spirit.specialPrice.replace('£', ''),
-      "priceValidUntil": currentPromotion.endDate,
-      "availability": "https://schema.org/InStock",
+	    "offers": {
+	      "@type": "Offer",
+	      "url": "https://www.the-anchor.pub/drinks/managers-special",
+	      "priceCurrency": "GBP",
+	      "price": spirit.specialPrice.replace(/\u00A3/g, ''),
+	      "priceValidUntil": currentPromotion.endDate,
+	      "availability": "https://schema.org/InStock",
       "seller": {
         "@type": "BarOrPub",
         "name": "The Anchor",
@@ -211,7 +211,7 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
     }
   }
 
-  const faqs = isBotanist ? [
+	  const faqs = isBotanist ? [
     {
       question: "What makes The Botanist gin special?",
       answer: "The Botanist features 22 hand-foraged botanicals from the Isle of Islay, making it one of the most complex gins in the world. Each botanical is picked at its peak and contributes to the gin's unique layered flavor profile."
@@ -220,10 +220,10 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
       question: "How should I serve The Botanist?",
       answer: "The Botanist is versatile - try it with premium tonic and lemon peel, elderflower tonic with fresh thyme, in a classic martini, or neat over ice to appreciate its complexity. Each serve highlights different botanical notes."
     },
-    {
-      question: "What's included in the 25% off offer?",
-      answer: "The discount applies to all serves of The Botanist throughout the promotion period. Singles are £2.78 (was £3.70). The offer is available at the bar - no booking required."
-    },
+	    {
+	      question: "What's included in the 25% off offer?",
+	      answer: "The discount applies to all serves of The Botanist throughout the promotion period. Singles are GBP 2.78 (was GBP 3.70). The offer is available at the bar - no booking required."
+	    },
     {
       question: "Can I book a table to try The Botanist?",
       answer: "Walk-ins are always welcome at The Anchor! While you don't need to book for drinks, if you're planning to dine with us too, you can book a table online or call 01753 682707."
@@ -237,10 +237,10 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
       question: "What's the best way to serve Warners Elderflower?",
       answer: "We recommend pairing it with Schweppes Slimline Elderflower tonic and fresh lime for a double elderflower experience. The elderflower tonic amplifies the gin's floral notes while keeping things light and refreshing."
     },
-    {
-      question: "What's included in the 25% off offer?",
-      answer: "The discount applies to all serves of Warners Elderflower throughout August. Singles are £2.85 (was £3.80). Available every day at the bar - no booking required."
-    },
+	    {
+	      question: "What's included in the 25% off offer?",
+	      answer: "The discount applies to all serves of Warners Elderflower throughout August. Singles are GBP 2.85 (was GBP 3.80). Available every day at the bar - no booking required."
+	    },
     {
       question: "Is Warners Elderflower good for gin cocktails?",
       answer: "Absolutely! Beyond G&Ts, try it in an Elderflower Collins with lemon and soda, or with premium tonic and cucumber ribbon. The natural elderflower sweetness makes it perfect for refreshing summer cocktails."
@@ -254,10 +254,10 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
       question: "What's the best way to serve Redleg?",
       answer: "Redleg shines with premium ginger beer and fresh lime for a warming serve, or keep it classic with cola and a lime squeeze. As September nights draw in, it's also exceptional neat over ice to appreciate the vanilla and spice notes."
     },
-    {
-      question: "What's included in the 25% off offer?",
-      answer: "The discount applies to all serves of Redleg Spiced Rum throughout September. Singles are £3.00 (was £4.00). Available every day at the bar - no booking required."
-    },
+	    {
+	      question: "What's included in the 25% off offer?",
+	      answer: "The discount applies to all serves of Redleg Spiced Rum throughout September. Singles are GBP 3.00 (was GBP 4.00). Available every day at the bar - no booking required."
+	    },
     {
       question: "Why is spiced rum perfect for September?",
       answer: "As summer transitions to autumn, Redleg's warming spices - ginger, vanilla, and cinnamon - provide the perfect golden glow for cooler evenings. It's like Caribbean sunshine in a glass, ideal for the changing season."
@@ -288,13 +288,13 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
       question: "How do you recommend serving Hennessy VS at The Anchor?",
       answer: "Ask our bar team for it neat or over a single cube to appreciate the oak, or try our October serve with premium ginger ale and an orange twist. We also shake it into an Autumn Sidecar if you fancy a cocktail."
     },
-    {
-      question: "Is the 25% discount just for singles?",
-      answer: "The headline offer covers 25ml singles at £3.38 (was £4.50). Doubles are still available at the bar's standard pricing if you'd like a longer sip."
-    },
+	    {
+	      question: "Is the 25% discount just for singles?",
+	      answer: "The headline offer covers 25ml singles at GBP 3.38 (was GBP 4.50). Doubles are still available at the bar's standard pricing if you'd like a longer sip."
+	    },
     {
       question: "Does Hennessy pair well with food?",
-      answer: "Absolutely. Hennessy VS works beautifully alongside our slow-cooked short rib, rich desserts like sticky toffee pudding, or simply as a digestif after Sunday roast."
+      answer: "Absolutely. Hennessy VS works beautifully alongside our Beef & Ale Pie, rich desserts like sticky toffee pudding, or simply as a digestif after your meal."
     }
   ] : []
 
@@ -317,10 +317,10 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
 
   const heroLead = isChaseSloe ? (
     <div className="flex w-full flex-col gap-4 rounded-2xl bg-black/25 p-4 backdrop-blur-sm shadow-lg shadow-black/30 sm:flex-row sm:items-center sm:justify-center sm:gap-6">
-      <div className="flex items-center gap-3 text-white/90">
-        <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/15 text-lg font-semibold text-white">
-          £
-        </span>
+	      <div className="flex items-center gap-3 text-white/90">
+	        <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/15 text-lg font-semibold text-white">
+	          GBP
+	        </span>
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white/60">Offer Price</p>
           <p className="text-base font-semibold">Singles {spirit.specialPrice} (was {spirit.originalPrice})</p>
@@ -597,7 +597,7 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
               </div>
               <div className="bg-white border border-amber-200 rounded-xl p-6 shadow-sm">
                 <h3 className="text-xl font-semibold text-amber-900 mb-2">Food Pairing</h3>
-                <p className="text-amber-900/80">Pair it with our short rib, charcuterie boards or sticky toffee pudding. The caramel notes in Hennessy link beautifully with roasted and spiced dishes.</p>
+                <p className="text-amber-900/80">Pair it with our Beef & Ale Pie or sticky toffee pudding. The caramel notes in Hennessy link beautifully with roasted and spiced dishes.</p>
               </div>
             </div>
           </div>

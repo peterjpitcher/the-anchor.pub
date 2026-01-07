@@ -57,9 +57,9 @@ This February, enjoy **25% off Gordon's White Peach Gin** - a sophisticated twis
 - Light, refreshing finish
 - Perfect spring transition spirit
 
-**Regular Price**: £4.50 per serve  
-**Manager's Special**: £3.38 per serve  
-**You Save**: £1.12 per drink
+**Regular Price**: GBP 4.50 per serve  
+**Manager's Special**: GBP 3.38 per serve  
+**You Save**: GBP 1.12 per drink
 
 ### Perfect Serves at The Anchor
 

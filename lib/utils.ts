@@ -12,8 +12,9 @@ export function formatTime(time: string): string {
   return minutes === 0 ? `${displayHours}${period}` : `${displayHours}:${minutes.toString().padStart(2, '0')}${period}`
 }
 
-export function formatPrice(price: number, currency = '£'): string {
-  return `${currency}${price.toFixed(2)}`
+export function formatPrice(price: number, currency = ''): string {
+  const formatted = price.toFixed(2)
+  return currency ? `${currency} ${formatted}` : formatted
 }
 
 export function formatDuration(minutes: number): string {

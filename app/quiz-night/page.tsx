@@ -35,7 +35,7 @@ import { staticEvents } from '@/lib/static-events'
 export const metadata: Metadata = {
   title: 'Quiz Night Pub Near Heathrow | The Anchor Trivia Night',
   description:
-    "Join The Anchor's quiz night pub near Heathrow for a monthly trivia night with a £25 bar tab prize, £3 entry, and a friendly pub trivia crowd in Stanwell Moor.",
+    "Join The Anchor's quiz night pub near Heathrow for a monthly trivia night with a GBP 25 bar tab prize, GBP 3 entry, and a friendly pub trivia crowd in Stanwell Moor.",
   keywords:
     'quiz night pub, quiz night, quiz night quiz, trivia, trivia night, pub trivia, night trivia, pub quiz near heathrow, pub quiz staines, stanwell moor quiz night'
 }
@@ -82,7 +82,7 @@ const WHY_LOVE_IT = [
   {
     icon: '🏆',
     title: 'Prizes & Bragging Rights',
-    body: '£25 bar tab for the champions, bottle of house wine for the second-from-last team, and seasonal props for the best team name. Bonus trivia prompts scoop extra bragging points.'
+    body: 'GBP 25 bar tab for the champions, bottle of house wine for the second-from-last team, and seasonal props for the best team name. Bonus trivia prompts scoop extra bragging points.'
   },
   {
     icon: '🎶',
@@ -105,7 +105,7 @@ const FAQS = [
   {
     question: 'How much is entry and do we need to book?',
     answer:
-      'It’s £3 per player. Reserve your spot by dropping your mobile number into the booking form above or call 01753 682707 and we’ll lock in your team.'
+      'It’s GBP 3 per player. Reserve your spot by dropping your mobile number into the booking form above or call 01753 682707 and we’ll lock in your team.'
   },
   {
     question: 'How many players can we bring?',
@@ -196,11 +196,11 @@ function QuizNightEvents({ events }: { events: Event[] }) {
                 </Link>
                 <p className="text-sm text-white/80 line-clamp-1">{formatEventDate(event.startDate)}</p>
               </div>
-              <div className="text-right">
-                <p className="text-lg font-semibold text-white">{startTime}</p>
-                <p className="text-xs text-white/70">Doors {doorTime ?? '6:30pm'}</p>
-                <p className="text-xs text-white/70">£3 per player</p>
-              </div>
+	              <div className="text-right">
+	                <p className="text-lg font-semibold text-white">{startTime}</p>
+	                <p className="text-xs text-white/70">Doors {doorTime ?? '6:30pm'}</p>
+	                <p className="text-xs text-white/70">GBP 3 per player</p>
+	              </div>
             </div>
 
             <CardBody className="flex flex-col gap-6 lg:flex-row lg:items-stretch lg:gap-8">
@@ -223,17 +223,17 @@ function QuizNightEvents({ events }: { events: Event[] }) {
                 {event.description && (
                   <p className="text-gray-700 leading-relaxed">{event.description}</p>
                 )}
-                <div className="flex flex-wrap items-center gap-3 text-sm">
-                  <span className="inline-flex items-center px-3 py-1 rounded-full bg-anchor-sand/40 text-anchor-green font-semibold">
-                    🏅 £25 bar tab for winners
-                  </span>
+	                <div className="flex flex-wrap items-center gap-3 text-sm">
+	                  <span className="inline-flex items-center px-3 py-1 rounded-full bg-anchor-sand/40 text-anchor-green font-semibold">
+	                    🏅 GBP 25 bar tab for winners
+	                  </span>
                   <span className="inline-flex items-center px-3 py-1 rounded-full bg-amber-100 text-amber-700 font-semibold">
                     🍷 Bottle of wine for second-from-last
                   </span>
                 </div>
-                <p className="text-sm text-gray-600">
-                  £3 per player · Teams up to six · Solo players welcome (we’ll match you on arrival)
-                </p>
+	                <p className="text-sm text-gray-600">
+	                  GBP 3 per player · Teams up to six · Solo players welcome (we’ll match you on arrival)
+	                </p>
               </div>
 
               <div className="w-full lg:w-64 space-y-3">
@@ -254,9 +254,9 @@ export default async function QuizNightPage() {
   const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '7:30 pm start'
   const doorTime = nextEvent ? formatDoorTime(nextEvent.doorTime) ?? '6:30 pm' : '6:30 pm'
 
-  const heroDescription = nextEvent
-    ? `Doors ${doorTime}. Quiz starts ${nextEventTime}. It’s £3 per player — build a team of up to six or arrive solo and we’ll match you.`
-    : 'Doors 6:30 pm. Quiz starts 7:00 pm. It’s £3 per player — build a team of up to six or arrive solo and we’ll match you.'
+	  const heroDescription = nextEvent
+	    ? `Doors ${doorTime}. Quiz starts ${nextEventTime}. It’s GBP 3 per player — build a team of up to six or arrive solo and we’ll match you.`
+	    : 'Doors 6:30 pm. Quiz starts 7:00 pm. It’s GBP 3 per player — build a team of up to six or arrive solo and we’ll match you.'
 
   return (
     <>
@@ -265,11 +265,11 @@ export default async function QuizNightPage() {
         title="Quiz Night Wednesdays at The Anchor"
         description="Proper quiz night pub energy with trivia rounds, seasonal themes and prizes worth bragging about. Your Heathrow pub trivia night HQ."
         variant="promo"
-        tags={[
-          { label: '📍 7 mins from Heathrow', variant: 'default' },
-          { label: '🧠 Fresh themes monthly', variant: 'primary' },
-          { label: '💷 £3 per player · teams up to 6', variant: 'default' }
-        ]}
+	        tags={[
+	          { label: '📍 7 mins from Heathrow', variant: 'default' },
+	          { label: '🧠 Fresh themes monthly', variant: 'primary' },
+	          { label: '💷 GBP 3 per player · teams up to 6', variant: 'default' }
+	        ]}
         primaryCta={
           <BookTableButton
             source="quiz_night_hero"
@@ -489,12 +489,12 @@ export default async function QuizNightPage() {
       <Section spacing="md" background="gray">
         <Container>
           <div className="max-w-5xl mx-auto">
-            <h2 className="text-3xl font-bold text-anchor-charcoal text-center mb-6">Prizes & bragging rights</h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-              <PrizeCard title="Champions" reward="£25 Bar Tab" copy="Spend it on celebratory pints, cocktails or post-quiz snacks." />
-              <PrizeCard title="Second from Last" reward="Bottle of Wine" copy="A cheeky consolation prize that keeps everyone in the game." />
-              <PrizeCard title="Bonus Challenges" reward="Surprise Treats" copy="Nail the bonus prompts to pick up Anchor goodies and bragging rights." />
-            </div>
+	            <h2 className="text-3xl font-bold text-anchor-charcoal text-center mb-6">Prizes & bragging rights</h2>
+	            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+	              <PrizeCard title="Champions" reward="GBP 25 Bar Tab" copy="Spend it on celebratory pints, cocktails or post-quiz snacks." />
+	              <PrizeCard title="Second from Last" reward="Bottle of Wine" copy="A cheeky consolation prize that keeps everyone in the game." />
+	              <PrizeCard title="Bonus Challenges" reward="Surprise Treats" copy="Nail the bonus prompts to pick up Anchor goodies and bragging rights." />
+	            </div>
           </div>
         </Container>
       </Section>
@@ -532,9 +532,9 @@ export default async function QuizNightPage() {
         <Container>
           <div className="max-w-5xl mx-auto">
             <h2 className="text-3xl font-bold text-anchor-charcoal text-center mb-6">Quiz team tips for the win</h2>
-            <p className="text-gray-700 text-center max-w-3xl mx-auto mb-6">
-              Whether you're searching for "pub quiz near me", "trivia night near me", a quiz night pub or a night trivia fix, these quick tips help you build a pub trivia team that can take the £25 bar tab every month.
-            </p>
+	            <p className="text-gray-700 text-center max-w-3xl mx-auto mb-6">
+	              Whether you're searching for "pub quiz near me", "trivia night near me", a quiz night pub or a night trivia fix, these quick tips help you build a pub trivia team that can take the GBP 25 bar tab every month.
+	            </p>
             <div className="grid md:grid-cols-2 gap-4">
               <Card className="h-full bg-white border border-gray-100 shadow-sm">
                 <CardBody className="space-y-3">

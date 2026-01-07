@@ -102,7 +102,7 @@ export default function FamilyDiningPage() {
                                 {
                                     icon: "🍟",
                                     title: "Kids Menu",
-                                    description: "Proper portions of favourites like Fish Fingers, Sausages, and Chicken Nuggets - nothing too fancy!",
+                                    description: "Proper portions of favourites like fish fingers and sausages - nothing too fancy!",
                                     variant: "colored",
                                     color: "bg-anchor-cream",
                                     className: "rounded-xl p-6 text-center"

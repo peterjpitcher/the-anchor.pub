@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { anchorAPI, ParkingBookingDetails } from '@/lib/api'
+import { anchorAPI, formatPrice, ParkingBookingDetails } from '@/lib/api'
 import { Section, Container, Button } from '@/components/ui'
 import { Icon } from '@/components/ui/Icon'
 
@@ -109,14 +109,14 @@ export default async function ParkingBookingStatusPage({ params, searchParams }:
               </div>
               <div>
                 <h2 className="text-lg font-semibold text-anchor-charcoal">Contact</h2>
-                <ul className="mt-3 space-y-2 text-sm text-gray-700">
-                  <li><strong>Name:</strong> {booking.customer_first_name} {booking.customer_last_name}</li>
-                  <li><strong>Mobile:</strong> {booking.customer_mobile}</li>
-                  {booking.customer_email && <li><strong>Email:</strong> {booking.customer_email}</li>}
-                  <li><strong>Amount due:</strong> £{booking.calculated_price.toFixed(2)} {booking.payment_status === 'paid' ? '(paid)' : '(pending)'}</li>
-                  <li><strong>Payment deadline:</strong> {formatter.format(new Date(booking.payment_due_at))}</li>
-                </ul>
-              </div>
+	                <ul className="mt-3 space-y-2 text-sm text-gray-700">
+	                  <li><strong>Name:</strong> {booking.customer_first_name} {booking.customer_last_name}</li>
+	                  <li><strong>Mobile:</strong> {booking.customer_mobile}</li>
+	                  {booking.customer_email && <li><strong>Email:</strong> {booking.customer_email}</li>}
+	                  <li><strong>Amount due:</strong> {formatPrice(booking.calculated_price)} {booking.payment_status === 'paid' ? '(paid)' : '(pending)'}</li>
+	                  <li><strong>Payment deadline:</strong> {formatter.format(new Date(booking.payment_due_at))}</li>
+	                </ul>
+	              </div>
             </div>
 
             <div className="rounded-2xl bg-anchor-cream px-6 py-4 text-sm text-gray-700">

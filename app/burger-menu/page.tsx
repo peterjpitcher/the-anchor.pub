@@ -9,10 +9,11 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
+import { parseMenuMarkdown } from '@/lib/menu-parser'
 
 export const metadata: Metadata = {
     title: 'Gourmet Burger Menu Near Heathrow | Best Pub Burgers',
-    description: `Craving a proper burger? Try our double-stacked gourmet burgers at ${BRAND.name}. 100% beef, brioche buns, and loaded fries. Just minutes from Heathrow.`,
+    description: `Craving a proper burger? Try our double-stacked gourmet burgers at ${BRAND.name}. 100% beef, brioche buns, and chips. Just minutes from Heathrow.`,
     keywords: 'burger menu heathrow, best burgers staines, pub burgers near me, gourmet burgers stanwell',
     openGraph: {
         title: 'Proper Pub Burgers',
@@ -27,39 +28,40 @@ export const metadata: Metadata = {
     })
 }
 
-export default function BurgerMenuPage() {
+export default async function BurgerMenuPage() {
+    const menuData = await parseMenuMarkdown('food')
+    const burgerCategory = menuData?.categories.find(c => c.id === 'burgers')
+
     const breadcrumbSchema = generateBreadcrumbSchema([
         { name: 'Home', url: '/' },
         { name: 'Food', url: '/food-menu' },
         { name: 'Burger Menu', url: '/burger-menu' }
     ])
 
-    const menuSchema = {
-        "@context": "https://schema.org",
-        "@type": "Menu",
-        "name": "Burger Menu",
-        "description": "Gourmet burgers served with fries.",
-        "hasMenuSection": [
-            {
-                "@type": "MenuSection",
-                "name": "Burgers",
-                "hasMenuItem": [
-                    {
-                        "@type": "MenuItem",
-                        "name": "The Classic",
-                        "description": "Double beef patty, american cheese, lettuce, tomato, house sauce."
-                    },
-                    {
-                        "@type": "MenuItem",
-                        "name": "The Anchor Stack",
-                        "description": "Double beef patty, bacon, onion rings, bbq sauce, cheese."
-                    },
-                    {
-                        "@type": "MenuItem",
-                        "name": "Chicken Royale",
-                        "description": "Crispy buttermilk chicken breast, mayo, lettuce."
-                    }
-                ]
+    // Generate dynamic schema based on fetched data
+    const menuItems = burgerCategory?.sections.flatMap(section =>
+	        section.items.map(item => ({
+	            "@type": "MenuItem",
+	            "name": item.name,
+	            "description": item.description,
+	            "offers": {
+	                "@type": "Offer",
+	                "price": item.price?.replace(/\u00A3/g, ''),
+	                "priceCurrency": "GBP"
+	            }
+	        }))
+	    ) || []
+
+	    const menuSchema = {
+	        "@context": "https://schema.org",
+	        "@type": "Menu",
+	        "name": "Burger Menu",
+	        "description": "Gourmet burgers served with chips.",
+	        "hasMenuSection": [
+	            {
+	                "@type": "MenuSection",
+	                "name": "Burgers",
+                "hasMenuItem": menuItems
             }
         ]
     }
@@ -74,7 +76,7 @@ export default function BurgerMenuPage() {
             <HeroWrapper
                 route="/burger-menu"
                 title="Gourmet Pub Burgers"
-                description="Juicy. Stacked. Delicious. Served in a brioche bun with skin-on fries."
+                description="Juicy. Stacked. Delicious. Served in a brioche bun with chips."
                 variant="default"
                 primaryCta={
                     <BookTableButton
@@ -114,27 +116,55 @@ export default function BurgerMenuPage() {
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
                             title="Build Your Perfect Burger"
-                            subtitle="Classic combos or fully loaded."
+                            subtitle={burgerCategory?.description || "Classic combos or fully loaded."}
                         />
 
-                        <div className="grid md:grid-cols-2 gap-6 text-left max-w-2xl mx-auto mb-8">
-                            <div className="bg-white p-6 rounded-xl shadow-sm">
-                                <h3 className="font-bold text-xl text-anchor-green mb-2">The Classic Cheese</h3>
-                                <p className="text-gray-600 mb-2">6oz beef patty, melting American cheese, pickles, burger sauce.</p>
+                        {/* Dynamic Menu Rendering */}
+                        {burgerCategory ? (
+                            <div className="space-y-12 mb-12">
+                                {burgerCategory.sections.map((section, idx) => (
+                                    <div key={idx} className="text-left max-w-3xl mx-auto">
+                                        {section.title && (
+                                            <h3 className="text-2xl font-bold text-anchor-green mb-6 text-center">{section.title}</h3>
+                                        )}
+                                        {section.description && (
+                                            <p className="text-gray-600 mb-6 text-center -mt-4">{section.description}</p>
+                                        )}
+
+                                        <div className="grid md:grid-cols-2 gap-6">
+                                            {section.items.map((item, itemIdx) => (
+                                                <div key={itemIdx} className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                                                    <div className="flex justify-between items-start mb-2">
+                                                        <h4 className="font-bold text-xl text-anchor-green">{item.name}</h4>
+                                                        {item.price && <span className="font-bold text-anchor-gold bg-anchor-cream/50 px-2 py-1 rounded text-sm">{item.price}</span>}
+                                                    </div>
+                                                    <p className="text-gray-600 text-sm mb-3">{item.description}</p>
+
+                                                    {/* Tags */}
+                                                    <div className="flex flex-wrap gap-2">
+                                                        {item.vegetarian && (
+                                                            <span className="text-xs font-semibold px-2 py-1 bg-green-100 text-green-700 rounded-full">Vegetarian</span>
+                                                        )}
+                                                        {item.allergens && item.allergens.length > 0 && (
+                                                            <span className="text-xs text-gray-500 border border-gray-200 px-2 py-1 rounded-full">
+                                                                Contains: {item.allergens.join(', ')}
+                                                            </span>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
-                            <div className="bg-white p-6 rounded-xl shadow-sm">
-                                <h3 className="font-bold text-xl text-anchor-green mb-2">Smokey BBQ</h3>
-                                <p className="text-gray-600 mb-2">Beef patty, crispy bacon, onion rings, BBQ drizzle.</p>
-                            </div>
-                            <div className="bg-white p-6 rounded-xl shadow-sm">
-                                <h3 className="font-bold text-xl text-anchor-green mb-2">Buttermilk Chicken</h3>
-                                <p className="text-gray-600 mb-2">Fried chicken breast, garlic mayo, lettuce.</p>
-                            </div>
-                            <div className="bg-white p-6 rounded-xl shadow-sm">
-                                <h3 className="font-bold text-xl text-anchor-green mb-2">The Veggie Stack (V)</h3>
-                                <p className="text-gray-600 mb-2">Plant-based patty, halloumi, chilli jam.</p>
-                            </div>
-                        </div>
+                        ) : (
+                            <AlertBox
+                                variant="info"
+                                title="Menu Update"
+                                content="Our burger menu is currently being updated. Please check back soon or call us for today's specials."
+                                className="mb-8"
+                            />
+                        )}
 
                         <FeatureGrid
                             columns={3}
@@ -149,8 +179,8 @@ export default function BurgerMenuPage() {
                                 },
                                 {
                                     icon: "🍟",
-                                    title: "Skin-on Fries",
-                                    description: "Every burger comes with a generous portion of our crispy skin-on fries.",
+                                    title: "Chips Included",
+                                    description: "Every burger comes with chips as standard.",
                                     variant: "colored",
                                     color: "bg-anchor-cream",
                                     className: "rounded-xl p-6 text-center"
@@ -182,7 +212,7 @@ export default function BurgerMenuPage() {
                     },
                     {
                         question: "Are there vegetarian options?",
-                        answer: "Yes, we have a delicious plant-based burger and halloumi options."
+                        answer: "Yes — try our Vegetable Burger or Veggie Stack."
                     }
                 ]}
                 className="bg-white"

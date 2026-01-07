@@ -162,11 +162,11 @@ export default async function FoodMenuPage() {
       question: 'Where can I view your food menu or pub menu online?',
       answer: 'You can view the full food menu and pub menu on this page. Use the filters for vegetarian menu and gluten free menu options, then book a table when you are ready.'
     },
-    {
-      question: 'Do you serve Sunday roast at The Anchor?',
-      answer:
-        'Yes. Sunday roast and Sunday lunch service runs 12pm-5pm with beef, chicken, lamb, and vegetarian plates. Book by 1pm Saturday with a £5 deposit per guest.'
-    },
+	    {
+	      question: 'Do you serve Sunday roast at The Anchor?',
+	      answer:
+	        'Yes. Sunday roast and Sunday lunch service runs 12pm-5pm with beef, chicken, lamb, and vegetarian plates. Book by 1pm Saturday with a GBP 5 deposit per guest.'
+	    },
     {
       question: "Is there a children's menu?",
       answer: 'We have smaller portions, high chairs, and colouring packs on request.'
@@ -394,11 +394,11 @@ export default async function FoodMenuPage() {
                   align="left"
                   className="mb-6"
                 />
-                <ul className="space-y-3 text-gray-700">
-                  <li>• Beef, chicken, lamb and vegetarian roasts with lashings of gravy.</li>
-                  <li>• £5 deposit secures your table — ideal for families and group catch-ups.</li>
-                  <li>• Kids portions, high chairs and activity packs on request.</li>
-                </ul>
+	                <ul className="space-y-3 text-gray-700">
+	                  <li>• Beef, chicken, lamb and vegetarian roasts with lashings of gravy.</li>
+	                  <li>• GBP 5 deposit secures your table — ideal for families and group catch-ups.</li>
+	                  <li>• Kids portions, high chairs and activity packs on request.</li>
+	                </ul>
                 <div className="mt-6 flex flex-col sm:flex-row gap-3">
                   <BookTableButton
                     source='food_menu_roast_preorder'
@@ -425,12 +425,12 @@ export default async function FoodMenuPage() {
             <Card className="bg-anchor-cream/40 shadow-md">
               <CardBody>
                 <h3 className="text-lg font-semibold text-anchor-green mb-3">Sunday Serving Notes</h3>
-                <ul className="space-y-2 text-sm text-gray-700">
-                  <li><strong>Service:</strong> 12pm–5pm every Sunday.</li>
-                  <li><strong>Deposits:</strong> £5 per guest, deducted from your bill.</li>
-                  <li><strong>Gluten-aware:</strong> Alternative gravy available — just ask.</li>
-                  <li><strong>Extras:</strong> Add cauliflower cheese, extra Yorkies, or seasonal puds.</li>
-                </ul>
+	                <ul className="space-y-2 text-sm text-gray-700">
+	                  <li><strong>Service:</strong> 12pm–5pm every Sunday.</li>
+	                  <li><strong>Deposits:</strong> GBP 5 per guest, deducted from your bill.</li>
+	                  <li><strong>Gluten-aware:</strong> Alternative gravy available — just ask.</li>
+	                  <li><strong>Extras:</strong> Add cauliflower cheese, extra Yorkies, or seasonal puds.</li>
+	                </ul>
               </CardBody>
             </Card>
           </div>
@@ -480,10 +480,10 @@ export default async function FoodMenuPage() {
               <CardBody>
                 <h3 className="text-lg font-semibold text-anchor-green mb-3">Pizza Highlights</h3>
                 <ul className="space-y-2 text-sm text-gray-700">
-                  <li><strong>Margherita:</strong> Buffalo mozzarella, basil, and our house tomato sauce.</li>
-                  <li><strong>Fully Loaded:</strong> Pepperoni, ham, mushrooms and peppers in every slice.</li>
-                  <li><strong>Nice &amp; Spicy:</strong> Jalapeños and nduja for those who like heat.</li>
-                  <li><strong>Garden Club:</strong> Veggie-friendly with grilled courgette and peppers.</li>
+                  <li><strong>Rustic Classic:</strong> Rich tomato sauce and mozzarella on a crisp stone-baked base.</li>
+                  <li><strong>Fully Loaded:</strong> Napoli salami, speck ham, fennel salami and mozzarella.</li>
+                  <li><strong>Nice &amp; Spicy:</strong> Nduja, Ventricina and roquito peppers for those who like heat.</li>
+                  <li><strong>Garden Club:</strong> Roasted courgette, caramelised onions, rocket and mozzarella.</li>
                 </ul>
               </CardBody>
             </Card>
@@ -673,11 +673,11 @@ export default async function FoodMenuPage() {
                     '@type': 'MenuItem',
                     name: item.name,
                     description: item.description,
-                    offers: generateMenuItemOffer(item, new Date().toLocaleString('en-GB', { weekday: 'long' }))?.[0] ?? {
-                      '@type': 'Offer',
-                      price: item.price ? item.price.replace(/£/g, '').trim() : undefined,
-                      priceCurrency: 'GBP'
-                    },
+	                    offers: generateMenuItemOffer(item, new Date().toLocaleString('en-GB', { weekday: 'long' }))?.[0] ?? {
+	                      '@type': 'Offer',
+	                      price: item.price ? item.price.replace(/\u00A3/g, '').trim() : undefined,
+	                      priceCurrency: 'GBP'
+	                    },
                     suitableForDiet: generateSuitableForDiet(item),
                     nutrition: generateNutritionInfo(item.name, category.id)
                   }))
@@ -732,10 +732,10 @@ export default async function FoodMenuPage() {
                   }
                 ]
                 : [],
-              telephone: '+441753682707',
-              url: 'https://www.the-anchor.pub',
-              priceRange: '££'
-            },
+	              telephone: '+441753682707',
+	              url: 'https://www.the-anchor.pub',
+	              priceRange: 'moderate'
+	            },
             {
               '@context': 'https://schema.org',
               '@type': 'FAQPage',

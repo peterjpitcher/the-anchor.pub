@@ -164,7 +164,7 @@ export const findUsPlaceSchema = {
   ],
   "paymentAccepted": "Cash, Credit Card, Debit Card, Contactless",
   "currenciesAccepted": "GBP",
-  "priceRange": "££"
+  "priceRange": "moderate"
 }
 
 // Event Booking Service Schema

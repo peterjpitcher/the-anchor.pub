@@ -159,7 +159,7 @@ export const staticEvents = {
       '/images/venue/function-room/the-anchor-private-party-venue-stanwell-moor.jpg',
       '/images/venue/function-room/party-setup-the-anchor.jpg'
     ],
-    price: 'From £15',
+    price: 'From 15',
     duration: 'PT5H',
     category: {
       id: 'private-events',
@@ -203,9 +203,9 @@ export const staticEvents = {
     id: 'monthly-quiz-night',
     slug: 'quiz-night',
     name: 'Monthly Quiz Night',
-    description: 'Test your knowledge at our popular monthly quiz night. £3 entry, great prizes!',
-    longDescription: 'Join us for our monthly quiz night featuring questions on general knowledge, sports, music, and more. Entry is just £3 per person, teams up to 6 people. Prizes include a £25 bar voucher for 1st place, and the 2nd from last team wins a bottle of wine!',
-    shortDescription: '£3 entry quiz with cash prizes',
+    description: 'Test your knowledge at our popular monthly quiz night. 3 entry, great prizes!',
+    longDescription: 'Join us for our monthly quiz night featuring questions on general knowledge, sports, music, and more. Entry is just 3 per person, teams up to 6 people. Prizes include a 25 bar voucher for 1st place, and the 2nd from last team wins a bottle of wine!',
+    shortDescription: '3 entry quiz with cash prizes',
     image: [
       '/images/events/quiz-night/the-anchor-quiz-night-stanwell-moor.jpg'
     ],
@@ -231,9 +231,9 @@ export const staticEvents = {
     id: 'monthly-cash-bingo',
     slug: 'bingo-night',
     name: 'Monthly Cash Bingo',
-    description: 'Monthly bingo night with cash prizes. £10 per book entry.',
-    longDescription: 'Try your luck at our monthly cash bingo night! £10 per book gets you 10 games throughout the evening with various prizes including drinks, chocolates, vouchers, and a cash jackpot on the final game. A fun night out for all ages!',
-    shortDescription: '£10 per book, cash prizes',
+    description: 'Monthly bingo night with cash prizes. 10 per book entry.',
+    longDescription: 'Try your luck at our monthly cash bingo night! 10 per book gets you 10 games throughout the evening with various prizes including drinks, chocolates, vouchers, and a cash jackpot on the final game. A fun night out for all ages!',
+    shortDescription: '10 per book, cash prizes',
     image: [
       '/images/events/bingo/the-anchor-bingo-night-stanwell-moor.jpg'
     ],

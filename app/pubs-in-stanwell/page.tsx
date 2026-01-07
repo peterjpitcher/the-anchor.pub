@@ -54,7 +54,7 @@ const localPubSchema = {
     "longitude": -0.5147
   },
   "telephone": "+441753682707",
-  "priceRange": "££",
+  "priceRange": "moderate",
   "servesCuisine": ["British", "Pub Food"],
   "hasMenu": "https://www.the-anchor.pub/food-menu",
   "acceptsReservations": true,
@@ -478,17 +478,17 @@ export default function PubsInStanwellPage() {
             question: "What makes The Anchor the best pub in Stanwell Moor?",
             answer: "We're the only traditional pub in Stanwell Moor village, serving our community since 1995. We offer free parking, a large beer garden, home-cooked food, regular entertainment, and a genuine local atmosphere. Our combination of location, facilities, and friendly service makes us the preferred choice for locals."
           },
-          {
-            question: "Do you have parking at the pub?",
-            answer: "Yes! We have 20 free parking spaces, which is rare for pubs in this area. You'll never have to worry about parking meters or finding a space. This is especially valuable compared to Staines town center pubs where parking can cost £3-5."
-          },
+	          {
+	            question: "Do you have parking at the pub?",
+	            answer: "Yes! We have 20 free parking spaces, which is rare for pubs in this area. You'll never have to worry about parking meters or finding a space. This is especially valuable compared to Staines town center pubs where parking can cost GBP 3-5."
+	          },
           {
             question: "Are families welcome at The Anchor?",
             answer: "Absolutely! We're a family-friendly pub with a children's menu available. Kids are welcome throughout the pub and in our beer garden. We provide a relaxed atmosphere where families can enjoy meals together."
           },
           {
             question: "What food do you serve?",
-            answer: "We serve traditional British pub food including our famous Sunday roasts, fish & chips, stone-baked pizzas, burgers, steaks, and vegetarian options. Kitchen hours vary by day - closed Mondays, dinner service Tuesday-Friday, lunch and dinner on weekends."
+            answer: "We serve traditional British pub food including our famous Sunday roasts, fish & chips, stone-baked pizzas, burgers, pies, and vegetarian options. Kitchen hours vary by day - closed Mondays, dinner service Tuesday-Friday, lunch and dinner on weekends."
           },
           {
             question: "How far is The Anchor from Stanwell village?",

@@ -89,9 +89,9 @@ Join us for an evening of brain-teasing fun, friendly competition, and great pri
 Our **monthly pub quiz** offers fantastic prizes:
 
 **Regular Prizes:**
-- **1st Place**: £50 bar tab
-- **2nd Place**: £30 bar tab
-- **3rd Place**: £20 bar tab
+- **1st Place**: GBP 50 bar tab
+- **2nd Place**: GBP 30 bar tab
+- **3rd Place**: GBP 20 bar tab
 - **Spot prizes**: Free drinks throughout
 - **Bonus rounds**: Extra chances to win
 
@@ -138,7 +138,7 @@ Keep your team fed and focused:
 - **Special quiz combo deals**
 
 **Popular Choices:**
-- Sharing nachos
+- Cheesy chips
 - Mixed platters
 - Burger and quiz deal
 - Pizza perfect for teams

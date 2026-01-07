@@ -8,7 +8,7 @@ import { CONTACT, BRAND } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
-import foodData from '@/content/menu/food.json'
+import { parseMenuMarkdown } from '@/lib/menu-parser'
 import Image from 'next/image'
 
 export const metadata: Metadata = {
@@ -28,15 +28,16 @@ export const metadata: Metadata = {
     })
 }
 
-export default function PizzaMenuPage() {
+export default async function PizzaMenuPage() {
     const breadcrumbSchema = generateBreadcrumbSchema([
         { name: 'Home', url: '/' },
         { name: 'Food', url: '/food-menu' },
         { name: 'Pizza Menu', url: '/pizza-menu' }
     ])
 
+    const menuData = await parseMenuMarkdown('food')
     // Get Pizza Category
-    const pizzaCategory = foodData.categories.find(c => c.id === 'pizza')
+    const pizzaCategory = menuData?.categories.find(c => c.id === 'pizza')
 
     // Generate Menu Schema dynamically from food.json
     const menuSchema = {
@@ -68,32 +69,32 @@ export default function PizzaMenuPage() {
             />
 
             <HeroWrapper
-              route="/pizza-menu"
-              title="Pizza at The Anchor"
-              description="Stone-baked, freshly prepared, and served with a smile. The perfect treat near Heathrow."
-              image={{
-                src: "/images/page-headers/pizza-tuesday/pizza-tuesday.jpg",
-                alt: "Stone-baked pizza at The Anchor"
-              }}
-              variant="default"
-              primaryCta={
-                <BookTableButton
-                  source="pizza_hero"
-                  context="pizza_menu"
-                  variant="primary"
-                  size="lg"
-                  className="w-full sm:w-auto"
-                >
-                  🍕 Book Table
-                </BookTableButton>
-              }
-              secondaryCta={
-                <Link href="/contact">
-                  <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-                    🥡 Order Takeaway
-                  </Button>
-                </Link>
-              }
+                route="/pizza-menu"
+                title="Pizza at The Anchor"
+                description="Stone-baked, freshly prepared, and served with a smile. The perfect treat near Heathrow."
+                image={{
+                    src: "/images/page-headers/pizza-tuesday/pizza-tuesday.jpg",
+                    alt: "Stone-baked pizza at The Anchor"
+                }}
+                variant="default"
+                primaryCta={
+                    <BookTableButton
+                        source="pizza_hero"
+                        context="pizza_menu"
+                        variant="primary"
+                        size="lg"
+                        className="w-full sm:w-auto"
+                    >
+                        🍕 Book Table
+                    </BookTableButton>
+                }
+                secondaryCta={
+                    <Link href="/contact">
+                        <Button variant="secondary" size="lg" className="w-full sm:w-auto">
+                            🥡 Order Takeaway
+                        </Button>
+                    </Link>
+                }
             />
 
             <section className="py-12 bg-white">

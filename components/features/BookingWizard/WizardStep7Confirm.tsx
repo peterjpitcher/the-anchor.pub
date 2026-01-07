@@ -1,7 +1,7 @@
 'use client'
 
 import { Icon } from '@/components/ui/Icon'
-import { cn } from '@/lib/utils'
+import { cn, formatPrice } from '@/lib/utils'
 import type { BookingWizardData } from './types'
 
 interface WizardStep7ConfirmProps {
@@ -165,18 +165,18 @@ export function WizardStep7Confirm({
       {isSundayLunch && (
         <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
           <div className="flex gap-3">
-            <Icon name="dollar" className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
-            <div>
-              <p className="font-semibold text-amber-800 mb-1">
-                Deposit Required: £{depositAmount}
-              </p>
-              <p className="text-sm text-amber-700">
-                £5 per person deposit for Sunday roasts. This amount will be deducted from your final bill.
-                The deposit ensures we prepare fresh ingredients specifically for your table.
-              </p>
-            </div>
-          </div>
-        </div>
+	            <Icon name="dollar" className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+	            <div>
+	              <p className="font-semibold text-amber-800 mb-1">
+	                Deposit Required: {formatPrice(depositAmount, 'GBP')}
+	              </p>
+	              <p className="text-sm text-amber-700">
+	                GBP 5 per person deposit for Sunday roasts. This amount will be deducted from your final bill.
+	                The deposit ensures we prepare fresh ingredients specifically for your table.
+	              </p>
+	            </div>
+	          </div>
+	        </div>
       )}
       
       {/* Terms & Conditions */}
@@ -246,13 +246,15 @@ export function WizardStep7Confirm({
               <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
               Processing...
             </>
-          ) : (
-            <>
-              {isSundayLunch ? `Pay £${depositAmount} & Confirm` : 'Confirm Booking'}
-              <Icon name="check" className="w-4 h-4" />
-            </>
-          )}
-        </button>
+	          ) : (
+	            <>
+	              {isSundayLunch
+	                ? `Pay ${formatPrice(depositAmount, 'GBP')} & Confirm`
+	                : 'Confirm Booking'}
+	              <Icon name="check" className="w-4 h-4" />
+	            </>
+	          )}
+	        </button>
       </div>
     </div>
   )

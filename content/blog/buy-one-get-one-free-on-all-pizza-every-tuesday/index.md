@@ -77,29 +77,29 @@ Choose from our delicious selection (all included in the 2-for-1 deal):
 - Tomato base
 - Simply delicious salami
 
-**The Works**
-- Loaded with premium toppings
+**Fully Loaded**
 - Napoli salami, speck ham, fennel salami
-- Onions, olives
-- Our most popular choice
+- Mozzarella
+- Bold stone-baked base
+- Packed with flavour
 
-**Smoky Chilli Chicken**
-- Spiced chicken breast
-- Jalapeños
-- Red onions
-- BBQ drizzle
+**Smoked Chilli Chicken**
+- Chicken
+- Smoky paprika base
+- Roquito peppers
+- Mozzarella
 
 **The Garden Club**
-- Fresh vegetables
-- Mushrooms, peppers, onions
-- Tomatoes, olives
-- Perfect vegetarian option
+- Roasted courgettes
+- Caramelised onions
+- Rocket
+- Mozzarella
 
 **Nice & Spicy**
-- Spicy beef
-- Chilli flakes
-- Hot sauce
-- For heat lovers
+- 'Nduja
+- Ventricina
+- Roquito peppers
+- A fiery favourite
 
 ![Selection of authentic Italian pizzas](/content/blog/buy-one-get-one-free-on-all-pizza-every-tuesday/image-3.jpg)
 

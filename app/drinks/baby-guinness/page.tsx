@@ -8,15 +8,15 @@ import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { DEFAULT_DRINKS_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-  title: 'Baby Guinness Shot £3.50 | The Anchor - Heathrow Pub & Dining | Near Heathrow',
-  description: 'Perfect Baby Guinness shots at The Anchor, just 7 minutes from Heathrow. £3.50 each or 2 for £6. Popular for hen parties and celebrations. Much cheaper than airport bars.',
+  title: 'Baby Guinness Shot GBP 3.50 | The Anchor - Heathrow Pub & Dining | Near Heathrow',
+  description: 'Perfect Baby Guinness shots at The Anchor, just 7 minutes from Heathrow. GBP 3.50 each or 2 for GBP 6. Popular for hen parties and celebrations. Much cheaper than airport bars.',
   keywords: 'baby guinness, baby guinness shot, layered shot, kahlua baileys, pub shots, The Anchor - Heathrow Pub & Dining',
   alternates: {
     canonical: '/drinks/baby-guinness'
   },
   openGraph: {
     title: 'Baby Guinness Shot at The Anchor',
-    description: 'The perfect layered shot that looks like a tiny Guinness. £3.50 each or 2 for £6.',
+    description: 'The perfect layered shot that looks like a tiny Guinness. GBP 3.50 each or 2 for GBP 6.',
     images: [DEFAULT_DRINKS_IMAGE],
   }
 }
@@ -51,14 +51,14 @@ export default function BabyGuinnessPage() {
               </h1>
               
               {/* Price Badge */}
-              <div className="flex gap-4 mb-8">
-                <Badge variant="primary" className="text-lg px-4 py-2">
-                  £3.50 each
-                </Badge>
-                <Badge variant="success" className="text-lg px-4 py-2">
-                  2 for £6
-                </Badge>
-              </div>
+	              <div className="flex gap-4 mb-8">
+	                <Badge variant="primary" className="text-lg px-4 py-2">
+	                  GBP 3.50 each
+	                </Badge>
+	                <Badge variant="success" className="text-lg px-4 py-2">
+	                  2 for GBP 6
+	                </Badge>
+	              </div>
 
               {/* What is a Baby Guinness */}
               <section className="mb-12">
@@ -158,27 +158,27 @@ export default function BabyGuinnessPage() {
               <section className="mb-12">
                 <h2 className="text-2xl font-bold text-anchor-green mb-4">Variations We Also Serve</h2>
                 <div className="grid md:grid-cols-3 gap-4">
-                  <Card>
-                    <CardBody className="text-center">
-                      <h3 className="font-semibold mb-2">Classic Baby Guinness</h3>
-                      <p className="text-sm text-gray-600">Kahlúa & Bailey's</p>
-                      <p className="text-anchor-gold font-bold">£3.50</p>
-                    </CardBody>
-                  </Card>
-                  <Card>
-                    <CardBody className="text-center">
-                      <h3 className="font-semibold mb-2">Slippery Nipple</h3>
-                      <p className="text-sm text-gray-600">Vodka, Bailey's & Grenadine</p>
-                      <p className="text-anchor-gold font-bold">£4.00</p>
-                    </CardBody>
-                  </Card>
-                  <Card>
-                    <CardBody className="text-center">
-                      <h3 className="font-semibold mb-2">B52</h3>
-                      <p className="text-sm text-gray-600">Kahlúa, Bailey's & Grand Marnier</p>
-                      <p className="text-anchor-gold font-bold">£4.50</p>
-                    </CardBody>
-                  </Card>
+	                  <Card>
+	                    <CardBody className="text-center">
+	                      <h3 className="font-semibold mb-2">Classic Baby Guinness</h3>
+	                      <p className="text-sm text-gray-600">Kahlúa & Bailey's</p>
+	                      <p className="text-anchor-gold font-bold">GBP 3.50</p>
+	                    </CardBody>
+	                  </Card>
+	                  <Card>
+	                    <CardBody className="text-center">
+	                      <h3 className="font-semibold mb-2">Slippery Nipple</h3>
+	                      <p className="text-sm text-gray-600">Vodka, Bailey's & Grenadine</p>
+	                      <p className="text-anchor-gold font-bold">GBP 4.00</p>
+	                    </CardBody>
+	                  </Card>
+	                  <Card>
+	                    <CardBody className="text-center">
+	                      <h3 className="font-semibold mb-2">B52</h3>
+	                      <p className="text-sm text-gray-600">Kahlúa, Bailey's & Grand Marnier</p>
+	                      <p className="text-anchor-gold font-bold">GBP 4.50</p>
+	                    </CardBody>
+	                  </Card>
                 </div>
               </section>
 
@@ -189,10 +189,10 @@ export default function BabyGuinnessPage() {
                 </h2>
                 <div className="bg-anchor-green/10 rounded-lg p-6">
                   <ul className="space-y-3">
-                    <li className="flex items-start">
-                      <span className="text-anchor-gold mr-3">✓</span>
-                      <span><strong>Better Value:</strong> £3.50 vs £8+ at Heathrow Airport bars</span>
-                    </li>
+	                    <li className="flex items-start">
+	                      <span className="text-anchor-gold mr-3">✓</span>
+	                      <span><strong>Better Value:</strong> GBP 3.50 vs GBP 8+ at Heathrow Airport bars</span>
+	                    </li>
                     <li className="flex items-start">
                       <span className="text-anchor-gold mr-3">✓</span>
                       <span><strong>Perfect Location:</strong> Just 7 minutes from Terminal 5</span>
@@ -232,11 +232,11 @@ export default function BabyGuinnessPage() {
                     <p className="text-gray-700">Absolutely! They're perfect for celebrations. For groups of 
                     10 or more, give us a heads up and we'll have them ready when you arrive.</p>
                   </div>
-                  <div>
-                    <h3 className="font-semibold mb-2">Do you offer any deals on Baby Guinness shots?</h3>
-                    <p className="text-gray-700">Yes! Get 2 for £6 - perfect for sharing with a friend or 
-                    for when one just isn't enough!</p>
-                  </div>
+	                  <div>
+	                    <h3 className="font-semibold mb-2">Do you offer any deals on Baby Guinness shots?</h3>
+	                    <p className="text-gray-700">Yes! Get 2 for GBP 6 - perfect for sharing with a friend or 
+	                    for when one just isn't enough!</p>
+	                  </div>
                 </div>
               </section>
             </div>

@@ -117,7 +117,7 @@ Enjoy our full menu during **music bingo**:
 - Sharing platters perfect for teams
 
 **Popular Choices:**
-- Loaded nachos to share
+- Cheesy chips to share
 - Burger and chips
 - Fish and chips
 - Vegetarian options

@@ -5,6 +5,7 @@ import { Icon } from '@/components/ui/Icon'
 import { Alert } from '@/components/ui/feedback/Alert'
 import { Badge } from '@/components/ui/primitives/Badge'
 import type { MenuSelectionPayload, MenuSummary } from './types'
+import { formatPrice } from '@/lib/utils'
 
 interface GuestSelection {
   guest_name: string
@@ -358,7 +359,7 @@ export function SundayMenuSelection({
                   Guest {index + 1}
                 </h3>
                 {selectedMain && (
-                  <Badge variant="outline">£{selectedMain.price.toFixed(2)}</Badge>
+                  <Badge variant="outline">{formatPrice(selectedMain.price, 'GBP')}</Badge>
                 )}
               </div>
               <div className="space-y-3">
@@ -388,7 +389,7 @@ export function SundayMenuSelection({
                     <option value="">Select a main course</option>
                     {menuData.mains.map(item => (
                       <option key={item.id} value={item.id}>
-                        {item.name} — £{item.price.toFixed(2)}
+                        {item.name} — {formatPrice(item.price, 'GBP')}
                       </option>
                     ))}
                   </select>
@@ -433,7 +434,7 @@ export function SundayMenuSelection({
                 <div key={side.id} className="flex flex-col sm:flex-row sm:items-center gap-3">
                   <div className="flex-1">
                     <p className="font-medium text-anchor-charcoal">{side.name}</p>
-                    <p className="text-sm text-gray-600">£{side.price.toFixed(2)} each</p>
+                    <p className="text-sm text-gray-600">{formatPrice(side.price, 'GBP')} each</p>
                     {side.description && (
                       <p className="text-sm text-gray-500 mt-1">{side.description}</p>
                     )}
@@ -461,19 +462,19 @@ export function SundayMenuSelection({
       <div className="bg-amber-50 border-2 border-amber-300 rounded-lg p-4 space-y-2">
         <div className="flex justify-between text-sm text-gray-700">
           <span>Mains total</span>
-          <span>£{totals.mains.toFixed(2)}</span>
+          <span>{formatPrice(totals.mains, 'GBP')}</span>
         </div>
         <div className="flex justify-between text-sm text-gray-700">
           <span>Extras</span>
-          <span>£{totals.extras.toFixed(2)}</span>
+          <span>{formatPrice(totals.extras, 'GBP')}</span>
         </div>
         <div className="flex justify-between text-lg font-semibold pt-2 border-t border-amber-200">
           <span>Total</span>
-          <span>£{totals.total.toFixed(2)}</span>
+          <span>{formatPrice(totals.total, 'GBP')}</span>
         </div>
         <div className="flex justify-between text-sm text-amber-800">
-          <span>Deposit due now (£5 per guest)</span>
-          <span>£{totals.deposit.toFixed(2)}</span>
+          <span>Deposit due now (GBP 5 per guest)</span>
+          <span>{formatPrice(totals.deposit, 'GBP')}</span>
         </div>
         {menuComputation.summary.extras.length > 0 && (
           <div className="text-xs text-gray-600">

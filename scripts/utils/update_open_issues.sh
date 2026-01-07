@@ -92,7 +92,7 @@ gh issue edit 61 --add-label "P1-High,enhancement,ux" --body "## Priority: P1 (H
 Menu selection dropdown only shows name and price, making selection difficult:
 
 **Current Implementation:**
-- Dropdown shows: \`{item.name} - £{price}\`
+- Dropdown shows: \`{item.name} - GBP {price}\`
 - Description only appears AFTER selection
 - Users can't see what they're selecting
 

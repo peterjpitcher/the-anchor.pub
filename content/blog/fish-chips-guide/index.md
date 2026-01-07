@@ -40,7 +40,7 @@ Looking for authentic **fish and chips near Heathrow**? The Anchor in Stanwell M
 
 ### Related Links
 
-- [Full food menu](/food-menu) for burgers, roasts and desserts
+- [Full food menu](/food-menu) for burgers, pizzas and desserts
 - [Tuesday pizza deals](/pizza-tuesday) if your group wants a mix of dishes
 - [Drinks menu](/drinks) featuring cask ales and British ciders
 - [Directions and parking guide](/find-us) before you visit
@@ -76,22 +76,19 @@ Our signature dish features:
 ### Full Chip Shop Selection at The Anchor
 
 **Fish Options:**
-- **Cod** - The British classic, large portions
-- **Haddock** - Slightly sweeter, equally delicious
-- **Plaice** - Delicate flavour, lighter option
-- **Scampi** - Breaded langoustine tails
+- **Fish & Chips** - Our classic battered fish with chunky chips
+- **Half Fish & Chips** - A lighter portion with all the trimmings
+- **Scampi & Chips** - Crispy scampi with chunky chips
 
 **Other Chip Shop Favourites:**
-- **Battered sausages** - Proper British bangers
-- **Steak & kidney pie** - Served with chips and gravy
-- **Chicken & mushroom pie** - Creamy comfort food
-- **Vegetable spring rolls** - Crispy vegetarian option
+- **Jumbo Sausage & Chips** - A hearty chip shop favourite
+- **Beef & Ale Pie** - Served with chips and gravy
+- **Chicken & Wild Mushroom Pie** - Creamy comfort food
+- **Salt & Chilli Squid with Chips** - A pub favourite with chip shop vibes
 
 **Sides & Extras:**
 - **Mushy peas** - The traditional accompaniment
-- **Curry sauce** - For authentic chip shop style
-- **Pickled onions** - Classic British condiment
-- **Bread & butter** - For a chip butty!
+- **Onion Rings** - Crispy and perfect for sharing
 
 ## Chip Shop Fridays at The Anchor
 

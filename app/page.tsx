@@ -190,11 +190,11 @@ export default function HomePage() {
           {/* Trust Signals */}
           <div className="flex flex-wrap justify-center gap-4 mt-6 text-sm text-gray-600">
             <span className="flex items-center gap-1">⭐ Highest-rated non-airport pub near Heathrow (Google 4.6/5, 21 Sept 2025)</span>
-            <span className="flex items-center gap-1">💷 Pub classics £10–£20 – fair village prices near Heathrow</span>
+            <span className="flex items-center gap-1">💷 Pub classics GBP 10–20 – fair village prices near Heathrow</span>
             <span className="flex items-center gap-1">🏡 Independent village pub minutes from Heathrow – no terminal access needed</span>
             <span className="flex items-center gap-1">✈️ Horton Road plane-spotting area – fuel up before or after your flight</span>
             <span className="flex items-center gap-1">🚗 20 FREE Parking Spaces</span>
-            <span className="flex items-center gap-1">📍 Outside ULEZ Zone - Save £12.50 Daily</span>
+            <span className="flex items-center gap-1">📍 Outside ULEZ Zone - Save GBP 12.50 Daily</span>
           </div>
 
           <div className="mt-8">
@@ -326,7 +326,7 @@ export default function HomePage() {
 
             <div className="mt-8 p-6 bg-white rounded-xl shadow-sm">
               <p className="text-center text-gray-700">
-                <strong className="text-anchor-green">Important:</strong> Sunday roasts require a booking with £5 per person deposit by 1pm Saturday.
+                <strong className="text-anchor-green">Important:</strong> Sunday roasts require a booking with GBP 5 per person deposit by 1pm Saturday.
                 Regular menu available on Sundays without pre-order. Free parking for all guests.
               </p>
             </div>
@@ -455,7 +455,7 @@ export default function HomePage() {
             <GalleryImage
               src="/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg"
               alt="Traditional Sunday roast at The Anchor"
-              caption="Famous Sunday Roasts - Sunday roasts require a booking with £5 per person deposit by 1pm Saturday"
+              caption="Famous Sunday Roasts - Sunday roasts require a booking with GBP 5 per person deposit by 1pm Saturday"
               width={600}
               height={600}
             />

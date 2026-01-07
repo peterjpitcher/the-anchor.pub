@@ -89,10 +89,10 @@ export default function Terminal5Page() {
               The Anchor is the closest independent pub to Terminal 5. Swap hotel bars for real British hospitality, fair pint prices and free parking.
             </p>
             <div className="grid gap-3 md:grid-cols-2 text-gray-700">
-              <div className="flex items-start gap-2">
-                <span className="font-semibold text-anchor-gold">⏱️</span>
-                <span>7 minute taxi or Uber (£20-25 fixed fare) from BA arrivals</span>
-              </div>
+	              <div className="flex items-start gap-2">
+	                <span className="font-semibold text-anchor-gold">⏱️</span>
+	                <span>7 minute taxi or Uber (GBP 20-25 fixed fare) from BA arrivals</span>
+	              </div>
               <div className="flex items-start gap-2">
                 <span className="font-semibold text-anchor-gold">🅿️</span>
                 <span>Free on-site parking for pick-ups, drop-offs and diners</span>
@@ -293,10 +293,10 @@ export default function Terminal5Page() {
               <div className="bg-amber-50 rounded-2xl p-8 border-2 border-amber-200">
                 <h3 className="text-2xl font-bold text-anchor-green mb-4">🚕 By Taxi/Uber</h3>
                 <div className="space-y-4 text-gray-700">
-                  <div className="bg-white p-4 rounded-lg">
-                    <p className="font-bold text-lg text-green-700 mb-1">£20-25 fixed fare</p>
-                    <p className="text-sm text-gray-600">7 minutes • 2.8 miles</p>
-                  </div>
+	                  <div className="bg-white p-4 rounded-lg">
+	                    <p className="font-bold text-lg text-green-700 mb-1">GBP 20-25 fixed fare</p>
+	                    <p className="text-sm text-gray-600">7 minutes • 2.8 miles</p>
+	                  </div>
                   <div>
                     <p className="font-semibold mb-2">Tell your driver:</p>
                     <p className="italic">&quot;The Anchor pub, Horton Road, Stanwell Moor, TW19 6AQ&quot;</p>
@@ -320,10 +320,10 @@ export default function Terminal5Page() {
               <div className="bg-sky-50 rounded-2xl p-8 border-2 border-sky-200">
                 <h3 className="text-2xl font-bold text-anchor-green mb-4">🚌 By Bus (Budget Option)</h3>
                 <div className="space-y-4 text-gray-700">
-                  <div className="bg-white p-4 rounded-lg">
-                    <p className="font-bold text-lg text-green-700 mb-1">£2.50 single fare</p>
-                    <p className="text-sm text-gray-600">15-20 minutes journey</p>
-                  </div>
+	                  <div className="bg-white p-4 rounded-lg">
+	                    <p className="font-bold text-lg text-green-700 mb-1">GBP 2.50 single fare</p>
+	                    <p className="text-sm text-gray-600">15-20 minutes journey</p>
+	                  </div>
                   <div>
                     <p className="font-semibold mb-2">Routes to The Anchor:</p>
                     <ul className="space-y-2 text-sm">
@@ -387,16 +387,16 @@ export default function Terminal5Page() {
                   icon: "✈️",
                   content: "Terminal 5 is British Airways' exclusive hub. Whether you're flying Club World or Euro Traveller, enjoy a proper British welcome just minutes away."
                 },
-                {
-                  title: "Beat the Airport Prices",
-                  icon: "💰",
-                  content: "T5 sandwich: £15. Our full meal: £12.95. T5 pint: £8. Our pint: £4.50. Save 50% on dining!"
-                },
-                {
-                  title: "FREE Parking vs T5 Charges",
-                  icon: "🅿️",
-                  content: "T5 Short Stay: £7.50/hour. T5 Long Stay: £25/day. The Anchor: FREE! Perfect for picking up/dropping off."
-                },
+	                {
+	                  title: "Beat the Airport Prices",
+	                  icon: "💰",
+	                  content: "T5 sandwich: GBP 15. Our full meal: GBP 12.95. T5 pint: GBP 8. Our pint: GBP 4.50. Save 50% on dining!"
+	                },
+	                {
+	                  title: "FREE Parking vs T5 Charges",
+	                  icon: "🅿️",
+	                  content: "T5 Short Stay: GBP 7.50/hour. T5 Long Stay: GBP 25/day. The Anchor: FREE! Perfect for picking up/dropping off."
+	                },
                 {
                   title: "Pre-Flight Dining",
                   icon: "🍽️",
@@ -475,10 +475,10 @@ export default function Terminal5Page() {
                     <span>💡</span>
                     <span>We can store luggage for short periods if you&apos;re between flights</span>
                   </li>
-                  <li className="flex gap-3">
-                    <span>💡</span>
-                    <span>Our Sunday roast is famous among T5 staff - Sunday roasts require a booking with £5 per person deposit by 1pm Saturday!</span>
-                  </li>
+	                  <li className="flex gap-3">
+	                    <span>💡</span>
+	                    <span>Our Sunday roast is famous among T5 staff - Sunday roasts require a booking with GBP 5 per person deposit by 1pm Saturday!</span>
+	                  </li>
                 </ul>
               }
             />
@@ -546,14 +546,14 @@ export default function Terminal5Page() {
                     <span className="text-anchor-gold">✓</span>
                     <span>Real cask ales, not just lagers</span>
                   </li>
-                  <li className="flex gap-2">
-                    <span className="text-anchor-gold">✓</span>
-                    <span>Stone-baked pizzas from £12</span>
-                  </li>
-                  <li className="flex gap-2">
-                    <span className="text-anchor-gold">✓</span>
-                    <span>Sunday roasts that locals queue for - Sunday roasts require a booking with £5 per person deposit by 1pm Saturday</span>
-                  </li>
+	                  <li className="flex gap-2">
+	                    <span className="text-anchor-gold">✓</span>
+	                    <span>Stone-baked pizzas from GBP 12</span>
+	                  </li>
+	                  <li className="flex gap-2">
+	                    <span className="text-anchor-gold">✓</span>
+	                    <span>Sunday roasts that locals queue for - Sunday roasts require a booking with GBP 5 per person deposit by 1pm Saturday</span>
+	                  </li>
                   <li className="flex gap-2">
                     <span className="text-anchor-gold">✓</span>
                     <span>Garden terrace for sunny days</span>
@@ -570,18 +570,18 @@ export default function Terminal5Page() {
                 🚕 Getting Here from Your Hotel
               </h3>
               <div className="grid md:grid-cols-3 gap-6">
-                <div className="text-center">
-                  <p className="font-semibold mb-2">By Taxi</p>
-                  <p className="text-3xl font-bold text-anchor-gold mb-2">£12-15</p>
-                  <p className="text-sm text-gray-600">5-8 minutes</p>
-                  <p className="text-sm text-gray-600 mt-2">Ask for "The Anchor, Stanwell Moor"</p>
-                </div>
-                <div className="text-center">
-                  <p className="font-semibold mb-2">By Uber</p>
-                  <p className="text-3xl font-bold text-anchor-gold mb-2">£10-13</p>
-                  <p className="text-sm text-gray-600">5-8 minutes</p>
-                  <p className="text-sm text-gray-600 mt-2">Postcode: TW19 6AQ</p>
-                </div>
+	                <div className="text-center">
+	                  <p className="font-semibold mb-2">By Taxi</p>
+	                  <p className="text-3xl font-bold text-anchor-gold mb-2">GBP 12-15</p>
+	                  <p className="text-sm text-gray-600">5-8 minutes</p>
+	                  <p className="text-sm text-gray-600 mt-2">Ask for "The Anchor, Stanwell Moor"</p>
+	                </div>
+	                <div className="text-center">
+	                  <p className="font-semibold mb-2">By Uber</p>
+	                  <p className="text-3xl font-bold text-anchor-gold mb-2">GBP 10-13</p>
+	                  <p className="text-sm text-gray-600">5-8 minutes</p>
+	                  <p className="text-sm text-gray-600 mt-2">Postcode: TW19 6AQ</p>
+	                </div>
                 <div className="text-center">
                   <p className="font-semibold mb-2">Walking</p>
                   <p className="text-3xl font-bold text-anchor-gold mb-2">25-30 min</p>
@@ -643,10 +643,10 @@ export default function Terminal5Page() {
             question: "Is there parking at The Anchor near Terminal 5?",
             answer: "Yes! We offer free parking for all customers. This is perfect for meeting arriving passengers or enjoying a meal before your flight without paying expensive airport parking fees."
           },
-          {
-            question: "Can I get a taxi from Terminal 5 to The Anchor?",
-            answer: "Yes, taxis are readily available from Terminal 5. The journey costs £20-£25 and takes about 7 minutes. Tell your driver 'The Anchor, Horton Road, Stanwell Moor, TW19 6AQ'. Alternatively, take bus route 442 which stops directly outside the pub - it runs every 20 minutes and costs about what a pint should cost."
-          },
+	          {
+	            question: "Can I get a taxi from Terminal 5 to The Anchor?",
+	            answer: "Yes, taxis are readily available from Terminal 5. The journey costs GBP 20-25 and takes about 7 minutes. Tell your driver 'The Anchor, Horton Road, Stanwell Moor, TW19 6AQ'. Alternatively, take bus route 442 which stops directly outside the pub - it runs every 20 minutes and costs about what a pint should cost."
+	          },
           {
             question: "What time should I leave The Anchor to catch my flight from T5?",
             answer: "Allow 7 minutes to drive from The Anchor to Terminal 5, plus parking time if needed. For short-haul flights, leave 2.5 hours before departure. For long-haul, leave 3.5 hours before."
@@ -663,10 +663,10 @@ export default function Terminal5Page() {
             question: "Do you welcome guests from nearby hotels?",
             answer: "Absolutely! We're popular with guests from the Sofitel, Hilton, and other Terminal 5 hotels. Many hotel guests visit us to experience authentic British pub culture and enjoy traditional food at more reasonable prices than hotel restaurants."
           },
-          {
-            question: "How do I get to The Anchor from my Terminal 5 hotel?",
-            answer: "From Sofitel or Hilton T5, it's just £12-15 by taxi (5-8 minutes). Tell the driver 'The Anchor, Stanwell Moor'. Uber costs about £10-13. For the adventurous, it's a pleasant 25-30 minute walk via Stanwell Moor Road."
-          },
+	          {
+	            question: "How do I get to The Anchor from my Terminal 5 hotel?",
+	            answer: "From Sofitel or Hilton T5, it's just GBP 12-15 by taxi (5-8 minutes). Tell the driver 'The Anchor, Stanwell Moor'. Uber costs about GBP 10-13. For the adventurous, it's a pleasant 25-30 minute walk via Stanwell Moor Road."
+	          },
           {
             question: "Why should I leave my hotel to eat at The Anchor?",
             answer: "Hotel restaurants serve the same international menu worldwide. At The Anchor, you'll experience genuine British hospitality, meet locals, enjoy traditional ales, and pay half what you'd spend at your hotel. This is the authentic Britain you came to see!"
@@ -731,7 +731,7 @@ export default function Terminal5Page() {
               },
               "url": "https://www.the-anchor.pub/near-heathrow/terminal-5",
               "telephone": "+441753682707",
-              "priceRange": "££",
+	              "priceRange": "moderate",
               "servesCuisine": ["British", "Pub Food"],
               "nearbyLocation": {
                 "@type": "Airport",
@@ -808,16 +808,16 @@ export default function Terminal5Page() {
                   "name": "Car",
                   "description": "7 minutes drive, FREE parking available"
                 },
-                {
-                  "@type": "Vehicle", 
-                  "name": "Taxi",
-                  "description": "£20-25 fixed fare, 7 minutes"
-                },
-                {
-                  "@type": "Vehicle",
-                  "name": "Bus",
-                  "description": "Route 442/441, £2.50 single, 15-20 minutes"
-                }
+	                {
+	                  "@type": "Vehicle", 
+	                  "name": "Taxi",
+	                  "description": "GBP 20-25 fixed fare, 7 minutes"
+	                },
+	                {
+	                  "@type": "Vehicle",
+	                  "name": "Bus",
+	                  "description": "Route 442/441, GBP 2.50 single, 15-20 minutes"
+	                }
               ]
             }
           ])

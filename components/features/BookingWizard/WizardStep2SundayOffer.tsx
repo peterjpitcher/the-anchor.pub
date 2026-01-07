@@ -85,11 +85,11 @@ export function WizardStep2SundayOffer({ onSelect, onBack, selectedDate }: Wizar
               <div className="space-y-2 text-sm">
                 <div className="flex items-center gap-2 text-amber-700">
                   <Icon name="check" className="w-4 h-4" />
-                  <span>£14.95 per person</span>
+                  <span>GBP 14.95 per person</span>
                 </div>
                 <div className="flex items-center gap-2 text-amber-700">
                   <Icon name="info" className="w-4 h-4" />
-                  <span>£5 per person deposit required (comes off your bill)</span>
+                  <span>GBP 5 per person deposit required (comes off your bill)</span>
                 </div>
                 <div className="flex items-center gap-2 text-amber-700">
                   <Icon name="clock" className="w-4 h-4" />
@@ -144,7 +144,7 @@ export function WizardStep2SundayOffer({ onSelect, onBack, selectedDate }: Wizar
           <div className="text-sm text-blue-800">
             <p className="font-medium mb-1">Why do we require a deposit for Sunday roasts?</p>
             <p>
-              The £5 per person deposit ensures we prepare fresh ingredients specifically for your table,
+              The GBP 5 per person deposit ensures we prepare fresh ingredients specifically for your table,
               reducing waste and keeping our prices fair. The deposit comes straight off your final bill.
             </p>
           </div>

@@ -1,8 +1,8 @@
 ---
-title: Bingo Near Heathrow | Win £50 Cash at The Anchor Monthly Bingo
+title: Bingo Near Heathrow | Win GBP 50 Cash at The Anchor Monthly Bingo
 slug: monthly-cash-bingo
 description: >-
-  Play cash bingo near Heathrow Airport at The Anchor pub. Win up to £50 every
+  Play cash bingo near Heathrow Airport at The Anchor pub. Win up to GBP 50 every
   first Thursday! Three games, cash prizes, fun atmosphere, and fish & chips
   available. Just 7 minutes from Terminal 5. 18+ only. Book your table for
   Stanwell Moor's best bingo night.
@@ -18,7 +18,7 @@ keywords:
   - the anchor bingo
   - thursday bingo surrey
   - pub bingo staines
-  - £50 prize bingo
+  - GBP 50 prize bingo
 tags:
   - events
   - news
@@ -29,7 +29,7 @@ images: []
 
 ![A vibrant promotional graphic for The Anchor's Monthly Cash Bingo, featuring colourful bingo balls, bold 3D text, and the pub's logo on a dark green background.](/content/blog/monthly-cash-bingo/hero.jpg)
 
-Looking for **bingo near Heathrow** with real cash prizes? Join us at The Anchor every first Thursday for our legendary Cash Bingo Night! With up to £50 to win, great atmosphere, and just 10 minutes from the airport, we're Stanwell Moor's premier bingo destination. Eyes down for a fantastic night out!
+Looking for **bingo near Heathrow** with real cash prizes? Join us at The Anchor every first Thursday for our legendary Cash Bingo Night! With up to GBP 50 to win, great atmosphere, and just 10 minutes from the airport, we're Stanwell Moor's premier bingo destination. Eyes down for a fantastic night out!
 
 ## Monthly Cash Bingo at The Anchor
 
@@ -41,7 +41,7 @@ Our **cash bingo nights** have become the highlight of the month for locals and 
 - 📅 **First Thursday** of every month
 - 🕐 **Doors open** at 6:00 PM
 - 🎱 **Games start** at 8:00 PM
-- 💷 **£50 cash jackpot** in the final game
+- 💷 **GBP 50 cash jackpot** in the final game
 - 🎁 **Prizes** in every round
 - 🔞 **18+ only** (ID required)
 
@@ -65,9 +65,9 @@ Join the excitement and win real money at Surrey's friendliest bingo night!
 - Competition heats up
 - Crowd gets livelier
 
-**🎱 Game 3 - £50 JACKPOT**
+**🎱 Game 3 - GBP 50 JACKPOT**
 - The big one everyone's waiting for!
-- Full house wins £50 cash
+- Full house wins GBP 50 cash
 - Must play all 3 games to qualify
 - Winner takes all!
 
@@ -100,10 +100,11 @@ Make it a proper night out with our **Chip Shop Friday** menu:
 
 **Menu Highlights:**
 - 🐟 Classic fish & chips
-- 🍟 Golden fries
-- 🌭 Battered sausages
-- 🥧 Steak & kidney pies
-- 🧀 Cheese & onion pasties
+- 🍟 Chips & sides to share
+- 🦐 Scampi & chips
+- 🌭 Jumbo sausage & chips
+- 🥧 Beef & ale pie
+- 🧅 Onion rings
 
 **Special Offer:**
 - **50% OFF for over 65s**
@@ -139,7 +140,7 @@ Make it a proper night out with our **Chip Shop Friday** menu:
 **7:45 PM** - Buy bingo tickets
 **8:00 PM** - Game 1 begins
 **8:30 PM** - Game 2 starts
-**9:00 PM** - £50 Jackpot game
+**9:00 PM** - GBP 50 Jackpot game
 **9:30 PM** - Celebrate & socialize
 
 ## Why Choose The Anchor for Bingo
@@ -154,7 +155,7 @@ Make it a proper night out with our **Chip Shop Friday** menu:
 - **Easy to find** - just off M25
 
 **What Sets Us Apart:**
-- Guaranteed £50 prize
+- Guaranteed GBP 50 prize
 - Three games keep interest high
 - Food available during kitchen hours
 - Friendly, inclusive atmosphere
@@ -225,7 +226,7 @@ Follow our social media for special event announcements!
 A: Booking recommended but not essential
 
 **Q: Can I just play one game?**
-A: Yes, but you won't qualify for the £50 jackpot
+A: Yes, but you won't qualify for the GBP 50 jackpot
 
 **Q: What forms of ID are accepted?**
 A: Passport, driving licence, or proof of age card
@@ -248,12 +249,12 @@ A: No, come as you are!
 
 ## Join Us for Cash Bingo
 
-Ready to win **£50 cash at bingo near Heathrow**? Join us next first Thursday for an unforgettable night of fun, prizes, and community spirit!
+Ready to win **GBP 50 cash at bingo near Heathrow**? Join us next first Thursday for an unforgettable night of fun, prizes, and community spirit!
 
 **Next Bingo Night:**  
 📅 First Thursday of the month  
 ⏰ Games start 8:00 PM  
-💷 £50 cash jackpot  
+💷 GBP 50 cash jackpot  
 📍 The Anchor, Stanwell Moor  
 
 **Remember: 18+ only, valid ID required**

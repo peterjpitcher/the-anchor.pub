@@ -39,7 +39,7 @@ Our **tequila tasting events** have set a new standard for spirits experiences i
 - **6 Premium Tequilas & Mezcals** - From smoky to sweet
 - **Expert-Led Journey** - Learn how tequila is made
 - **Interactive Scorecards** - Track your favourites
-- **Mexican Food Pairings** - Authentic tacos included
+- **Mexican-Inspired Food Pairings** - served alongside the tasting
 - **Cocktail Making Session** - Master the perfect margarita
 - **Día de Muertos Theme** - Vibrant, festive atmosphere
 
@@ -75,7 +75,7 @@ Our **spirits tasting near Heathrow** stands out because:
 ![Mexican themed decorations and table setup](/content/blog/tequila-tasting-events/image-2.png)
 
 **7:00 PM - Welcome & Introduction**
-- Arrival drink (Tequila Sunrise)
+- Arrival drink (welcome cocktail)
 - Introduction to tequila types
 - Meet fellow tasting enthusiasts
 
@@ -90,13 +90,12 @@ Our **spirits tasting near Heathrow** stands out because:
 - Tips from our expert bartenders
 
 **9:00 PM - Mexican Feast**
-- Chicken or chickpea tacos
-- All the authentic toppings
+- Mexican-inspired dinner
 - Paired with selected tequila
 
 **9:45 PM - Premium Tastings**
 - Aged and specialty tequilas
-- Coffee tequila White Russian
+- Coffee tequila cocktail
 - Group favourites revealed
 
 **10:30 PM - Tequila Quiz & Prizes**
@@ -170,7 +169,7 @@ Following our tequila success, join us for:
   - Warming Whiskies
   - Spiced Rums
 - **Includes**: Seasonal food pairings
-- **Price**: £35 per person
+- **Price**: GBP 35 per person
 
 **Future Events:**
 - Rum Journey (Spring 2025)
@@ -185,7 +184,7 @@ Our **tequila tasting near Heathrow** events sell out quickly:
 
 **Booking Information:**
 - **Capacity**: Maximum 25 guests
-- **Price**: £35 per person
+- **Price**: GBP 35 per person
 - **Duration**: 3.5 hours
 - **Includes**: All tastings, food, and materials
 - **Location**: The Anchor, Stanwell Moor
@@ -201,7 +200,7 @@ Our **tequila tasting near Heathrow** events sell out quickly:
 
 ![Selection of premium tequilas](/content/blog/tequila-tasting-events/image-5.png)
 
-**Your £35 Ticket Includes:**
+**Your GBP 35 Ticket Includes:**
 - Welcome drink on arrival
 - 6 premium spirit tastings
 - Professional guidance throughout

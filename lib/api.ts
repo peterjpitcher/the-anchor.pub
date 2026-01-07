@@ -321,8 +321,9 @@ export async function createPrivateBooking(data: PrivateBookingRequest): Promise
 export function formatCurrency(amount: number): string {
   return new Intl.NumberFormat('en-GB', {
     style: 'currency',
-    currency: 'GBP'
-  }).format(amount)
+    currency: 'GBP',
+    currencyDisplay: 'code'
+  }).format(amount).replace(/\u00A0/g, ' ')
 }
 
 // Event Tracking (Analytics)
@@ -960,29 +961,38 @@ const FALLBACK_SUNDAY_LUNCH_MENU: SundayLunchMenuResponse = {
   menu_date: '2024-01-01',
   mains: [
     {
-      id: 'fallback-roast-beef',
-      name: 'Roast Beef',
-      description: 'Served with Yorkshire pudding, roast potatoes, and gravy.',
-      price: 14.5,
+      id: 'fallback-roasted-chicken',
+      name: 'Roasted Chicken',
+      description: 'Oven-roasted chicken with stuffing, roast potatoes, seasonal vegetables, Yorkshire pudding and gravy.',
+      price: 14.99,
       dietary_info: [],
       allergens: [],
       is_available: true
     },
     {
-      id: 'fallback-roast-chicken',
-      name: 'Roast Chicken',
-      description: 'Free-range chicken with sage stuffing and seasonal vegetables.',
-      price: 13.5,
+      id: 'fallback-lamb-shank',
+      name: 'Slow-Cooked Lamb Shank',
+      description: 'Tender lamb shank served with seasonal vegetables, Yorkshire pudding and rich gravy.',
+      price: 15.49,
       dietary_info: [],
       allergens: [],
       is_available: true
     },
     {
-      id: 'fallback-veg-wellington',
-      name: 'Vegetable Wellington',
-      description: 'Puff pastry filled with seasonal vegetables and mushroom duxelles.',
-      price: 12.5,
-      dietary_info: ['vegetarian'],
+      id: 'fallback-crispy-pork-belly',
+      name: 'Crispy Pork Belly',
+      description: 'Slow-roasted pork belly with crackling, apple sauce, roast potatoes, seasonal vegetables, Yorkshire pudding and gravy.',
+      price: 15.99,
+      dietary_info: [],
+      allergens: [],
+      is_available: true
+    },
+    {
+      id: 'fallback-vegan-wellington',
+      name: 'Beetroot & Butternut Squash Wellington',
+      description: 'Plant-based Wellington with roast potatoes, seasonal vegetables and vegetarian gravy.',
+      price: 15.49,
+      dietary_info: ['vegan'],
       allergens: ['gluten'],
       is_available: true
     }
@@ -991,7 +1001,7 @@ const FALLBACK_SUNDAY_LUNCH_MENU: SundayLunchMenuResponse = {
     {
       id: 'fallback-roast-potatoes',
       name: 'Roast Potatoes',
-      description: 'Crispy roast potatoes.',
+      description: 'Herb and garlic-crusted roast potatoes.',
       price: 0,
       dietary_info: ['vegetarian'],
       allergens: [],
@@ -1007,10 +1017,28 @@ const FALLBACK_SUNDAY_LUNCH_MENU: SundayLunchMenuResponse = {
       included: true
     },
     {
+      id: 'fallback-seasonal-veg',
+      name: 'Seasonal Vegetables',
+      description: 'Fresh seasonal vegetables.',
+      price: 0,
+      dietary_info: ['vegetarian'],
+      allergens: [],
+      included: true
+    },
+    {
+      id: 'fallback-red-wine-gravy',
+      name: 'Red Wine Gravy',
+      description: 'Rich gravy served with your roast.',
+      price: 0,
+      dietary_info: [],
+      allergens: [],
+      included: true
+    },
+    {
       id: 'fallback-cauliflower-cheese',
       name: 'Cauliflower Cheese',
       description: 'Extra side for the table.',
-      price: 3.5,
+      price: 3.99,
       dietary_info: ['vegetarian'],
       allergens: ['dairy'],
       included: false
@@ -1951,9 +1979,12 @@ export function formatEventTime(dateString: string): string {
 export function formatPrice(price: string | number, currency: string = 'GBP'): string {
   const formatter = new Intl.NumberFormat('en-GB', {
     style: 'currency',
-    currency: currency
+    currency: currency,
+    currencyDisplay: 'code'
   })
-  return formatter.format(typeof price === 'string' ? parseFloat(price) : price)
+  return formatter
+    .format(typeof price === 'string' ? parseFloat(price) : price)
+    .replace(/\u00A0/g, ' ')
 }
 
 export function isEventSoldOut(event: Event): boolean {

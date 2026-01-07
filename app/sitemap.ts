@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next'
 import { getAllBlogPosts } from '@/lib/markdown'
+import { landmarks } from '@/lib/local-seo-data'
 
 function getSafeDate(value?: string): Date {
   if (!value) {
@@ -32,8 +33,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/cash-bingo',
     '/karaoke',
     '/live-music',
-    '/live-sport-pub',
-    '/live-sport/premier-league',
+    '/live-sport',
+
     '/live-sport/six-nations',
     '/live-sport/f1',
     '/live-sport/boxing',
@@ -141,5 +142,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }))
 
-  return [...staticSitemap, ...blogSitemap, ...tagSitemap]
+  const landmarkSitemap = landmarks.map((landmark) => ({
+    url: `${baseUrl}/private-hire/near/${landmark.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }))
+
+  return [...staticSitemap, ...blogSitemap, ...tagSitemap, ...landmarkSitemap]
 }

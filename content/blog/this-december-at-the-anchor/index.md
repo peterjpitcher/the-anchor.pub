@@ -42,7 +42,7 @@ We'll be celebrating non-stop this December to make Christmas magical on The Moo
 - Every Wednesday in December
 - Festive themed rounds
 - Prizes and seasonal surprises
-- £3 entry, booking recommended
+- GBP 3 entry, booking recommended
 - Perfect for airport staff teams
 
 **🎤 Festive Karaoke**

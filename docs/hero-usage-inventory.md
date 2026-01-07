@@ -14,7 +14,7 @@
 | /book-event | promo | — | primary slot |
 | /book-table | default | breadcrumbs=[ { name: 'Home', href: '/' }, { name: 'Booking' } ]<br/>tags=[ { label: 'Easy Online Booking', icon: '📅', size: 'small' }, { label: 'Instant Confirmation', icon: '✅', size: 'small' }, { label: 'Sunday Roasts', icon: '🍽️', size: 'small' } ] | — |
 | /book-table | default | statusBarPosition=above | primary slot, secondary slot |
-| /cash-bingo | promo | tags=[ { label: '💷 £10 cash-only books', variant: 'default' }, { label: '🎯 Snowball grows every month', variant: 'primary' }, { label: '🍽️ Full menu 6 pm–9 pm', variant: 'default' } ] | primary slot, secondary slot |
+| /cash-bingo | promo | tags=[ { label: '💷 GBP 10 cash-only books', variant: 'default' }, { label: '🎯 Snowball grows every month', variant: 'primary' }, { label: '🍽️ Full menu 6 pm–9 pm', variant: 'default' } ] | primary slot, secondary slot |
 | /corporate-events | promo | tags=[ { label: "✈️ 7 mins from Heathrow", variant: "success" }, { label: "🚗 Free Parking", variant: "default" }, { label: "📊 AV Equipment", variant: "default" }, { label: "🚫 Outside ULEZ", variant: "success" } ] | primary slot, secondary slot |
 | /demo-header | default (implicit) | — | — |
 | /drinks/baby-guinness | default (implicit) | overlay=gradient<br/>className=min-h-[40vh]<br/>breadcrumbs=[ { name: 'Drinks', href: '/drinks' }, { name: 'Baby Guinness' } ] | — |
@@ -39,14 +39,14 @@
 | /privacy-policy | default (implicit) | — | — |
 | /private-party-venue | promo | tags=[ { label: "🎉 10-200 Guests", variant: "success" }, { label: "🎂 All Occasions", variant: "default" }, { label: "🚗 Free Parking", variant: "default" }, { label: "🍽️ Custom Menus", variant: "success" } ] | primary slot, secondary slot, info slot |
 | /pubs-in-stanwell | default | tags=[ { label: "🍺 Traditional Local", variant: "success" }, { label: "👨‍👩‍👧‍👦 Family Friendly", variant: "default" }, { label: "🌳 Beer Garden", variant: "primary" }, { label: "🚗 Free Parking", variant: "warning" } ] | primary slot, secondary slot, info slot |
-| /quiz-night | promo | tags=[ { label: '📍 7 mins from Heathrow', variant: 'default' }, { label: '🧠 Fresh themes monthly', variant: 'primary' }, { label: '💷 £3 per player · teams up to 6', variant: 'default' } ] | primary slot, secondary slot |
-| /restaurants-near-heathrow | default | tags=[ { label: "✅ Free Parking Saves £20-40", variant: "success" }, { label: "⏱️ 7 mins from Terminal 5", variant: "warning" }, { label: "💷 50% Less Than Airport Prices", variant: "primary" }, { label: "🍽️ Cooked Fresh to Order", variant: "default" } ] | primary slot, secondary slot |
+| /quiz-night | promo | tags=[ { label: '📍 7 mins from Heathrow', variant: 'default' }, { label: '🧠 Fresh themes monthly', variant: 'primary' }, { label: '💷 GBP 3 per player · teams up to 6', variant: 'default' } ] | primary slot, secondary slot |
+| /restaurants-near-heathrow | default | tags=[ { label: "✅ Free Parking Saves GBP 20-40", variant: "success" }, { label: "⏱️ 7 mins from Terminal 5", variant: "warning" }, { label: "💷 50% Less Than Airport Prices", variant: "primary" }, { label: "🍽️ Cooked Fresh to Order", variant: "default" } ] | primary slot, secondary slot |
 | /sitemap-page | feature | — | primary slot, secondary slot |
 | /staines-pub | default | tags=[ { label: "📍 Just 8 Minutes from Staines", variant: "warning" } ] | primary slot, secondary slot |
 | /stanwell-pub | default | — | primary slot, secondary slot |
-| /sunday-lunch | default | tags=[ { label: "Served Sundays 12pm–5pm", variant: "warning" }, { label: "£5 Deposit Secures Table", variant: "default" }, { label: "Free Parking • Family Friendly", variant: "default" } ] | primary slot, secondary slot, info slot |
+| /sunday-lunch | default | tags=[ { label: "Served Sundays 12pm–5pm", variant: "warning" }, { label: "GBP 5 Deposit Secures Table", variant: "default" }, { label: "Free Parking • Family Friendly", variant: "default" } ] | primary slot, secondary slot, info slot |
 | /whats-on/drag-shows | promo | tags=[ { label: '👑 7PM Start', variant: 'default' }, { label: '🎭 Live Performance', variant: 'default' }, { label: '🏳️‍🌈 Everyone Welcome', variant: 'default' }, { label: '🍹 Themed Cocktails', variant: 'default' } ] | primary slot, secondary slot |
-| /whats-on | promo | tags=[ { label: '👑 Drag Shows', variant: 'primary' }, { label: '🧠 Quiz Night £3', variant: 'warning' }, { label: '🎱 Pool & Darts FREE', variant: 'default' }, { label: '🍺 Great Atmosphere', variant: 'success' } ] | primary slot, secondary slot |
+| /whats-on | promo | tags=[ { label: '👑 Drag Shows', variant: 'primary' }, { label: '🧠 Quiz Night GBP 3', variant: 'warning' }, { label: '🎱 Pool & Darts FREE', variant: 'default' }, { label: '🍺 Great Atmosphere', variant: 'success' } ] | primary slot, secondary slot |
 | /windsor-pub | default | — | primary slot, secondary slot |
 
 ## Direct HeroSection Usage

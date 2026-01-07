@@ -68,7 +68,7 @@ export default async function StanwellPubPage() {
       "bestRating": "5",
       "worstRating": "1"
     },
-    "priceRange": "££",
+	    "priceRange": "moderate",
     "servesCuisine": ["British", "Traditional English", "Sunday Roast"],
     "telephone": CONTACT.phoneIntl,
     "url": "https://www.the-anchor.pub/stanwell-pub"
@@ -253,12 +253,12 @@ export default async function StanwellPubPage() {
               </div>
             </div>
 
-            <div className="mt-8 bg-green-50 rounded-xl p-6 text-center">
-              <p className="text-lg text-green-800">
-                <span className="font-bold">Outside ULEZ Zone</span> - Perfect for visitors from
-                London without the £12.50 daily charge
-              </p>
-            </div>
+	            <div className="mt-8 bg-green-50 rounded-xl p-6 text-center">
+	              <p className="text-lg text-green-800">
+	                <span className="font-bold">Outside ULEZ Zone</span> - Perfect for visitors from
+	                London without the GBP 12.50 daily charge
+	              </p>
+	            </div>
           </div>
         </Container>
       </section>
@@ -275,12 +275,12 @@ export default async function StanwellPubPage() {
               <div className="bg-amber-50 rounded-xl p-6">
                 <h3 className="text-xl font-bold text-amber-800 mb-4">Famous Sunday Roasts</h3>
                 <p className="mb-3">The talk of Stanwell! Our traditional Sunday roasts must be ordered by 1pm Saturday.</p>
-                <ul className="space-y-2 text-gray-700">
-                  <li>• Roast Chicken - £14.99</li>
-                  <li>• Lamb Shank - £15.49</li>
-                  <li>• Pork Belly - £15.99</li>
-                  <li>• Veggie Wellington - £15.49</li>
-                </ul>
+	                <ul className="space-y-2 text-gray-700">
+	                  <li>• Roast Chicken - GBP 14.99</li>
+	                  <li>• Lamb Shank - GBP 15.49</li>
+	                  <li>• Pork Belly - GBP 15.99</li>
+	                  <li>• Veggie Wellington - GBP 15.49</li>
+	                </ul>
                 <p className="mt-3 text-sm text-amber-700">Book early - Stanwell locals fill tables fast!</p>
               </div>
 
@@ -289,7 +289,7 @@ export default async function StanwellPubPage() {
                 <p className="mb-3">Classic British pub fare loved by Stanwell residents</p>
                 <ul className="space-y-2 text-gray-700">
                   <li>• Fish & Chips Fridays</li>
-                  <li>• Steak & Ale Pie</li>
+                  <li>• Beef & Ale Pie</li>
                   <li>• Chicken Katsu Curry</li>
                   <li>• Stone-baked Pizzas</li>
                 </ul>

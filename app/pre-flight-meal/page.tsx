@@ -102,14 +102,14 @@ export default function PreFlightDiningPage() {
                                 {
                                     icon: "🍔",
                                     title: "Gourmet Burgers",
-                                    description: "Stacked high and served with fries. Perfect comfort food for travel.",
+                                    description: "Stacked high and served with chips. Perfect comfort food for travel.",
                                     variant: "colored",
                                     color: "bg-anchor-cream",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
                                     icon: "🥩",
-                                    title: "Steak & Ale Pie",
+                                    title: "Beef & Ale Pie",
                                     description: "Proper pastry, tender meat, and rich gravy. It beats a foil tray meal any day.",
                                     variant: "colored",
                                     color: "bg-anchor-cream",
@@ -160,7 +160,7 @@ export default function PreFlightDiningPage() {
                     },
                     {
                         question: "Is there a kids menu?",
-                        answer: "Yes, we have a great value kids menu with all the favourites (nuggets, sausages, fish fingers) to keep the little ones happy."
+                        answer: "Yes — we have smaller portions and family favourites (sausages and fish fingers) to keep the little ones happy."
                     },
                     {
                         question: "Can I bring my luggage inside?",

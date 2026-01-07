@@ -164,7 +164,7 @@ export default function EngagementPartiesPage() {
                                 </p>
                                 <ul className="list-disc pl-5 text-gray-700 space-y-2">
                                     <li>Capacity for 30-100 guests</li>
-                                    <li>Buffet prices start from £12pp</li>
+                                    <li>Buffet prices start from GBP 12pp</li>
                                     <li>Space for entertainment</li>
                                 </ul>
                             </div>

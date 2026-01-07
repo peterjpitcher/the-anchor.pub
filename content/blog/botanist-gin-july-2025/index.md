@@ -4,7 +4,7 @@ slug: botanist-gin-july-2025
 description: >-
   The Botanist gin special offer at The Anchor pub near Heathrow Airport.
   Premium Scottish gin in Stanwell Moor, just 7 minutes from Terminal 5. July
-  special £2.78 single, £5.55 double. Perfect for Heathrow workers and Staines
+  special GBP 2.78 single, GBP 5.55 double. Perfect for Heathrow workers and Staines
   gin lovers. 31 botanicals, Islay distilled. Free parking, beer garden
   available.
 date: '2025-06-30'
@@ -35,7 +35,7 @@ images: []
 
 ## Premium Gin Offers Near Heathrow Airport
 
-Welcome to The Anchor in **Stanwell Moor**, just **7 minutes from Heathrow Terminal 5**, where we're celebrating The Botanist gin with special July prices! At just £2.78 a single or £5.55 a double, it's perfect for **Heathrow workers** after shifts, **Staines residents** enjoying premium spirits, or travelers seeking quality gin near the **airport** without inflated prices.
+Welcome to The Anchor in **Stanwell Moor**, just **7 minutes from Heathrow Terminal 5**, where we're celebrating The Botanist gin with special July prices! At just GBP 2.78 a single or GBP 5.55 a double, it's perfect for **Heathrow workers** after shifts, **Staines residents** enjoying premium spirits, or travelers seeking quality gin near the **airport** without inflated prices.
 
   
 
@@ -67,7 +67,7 @@ Dogs are welcome (they might enjoy the botanical aromas too!), families feel rig
 
 ## **Make July Your Botanist Month**
 
-At just £2.78 for a single or £5.55 for a double (that's 25% off!), July is the perfect time to discover why gin lovers go wild for The Botanist. Each G&T is a little taste of the Scottish wilderness, served with a smile in the heart of Surrey.
+At just GBP 2.78 for a single or GBP 5.55 for a double (that's 25% off!), July is the perfect time to discover why gin lovers go wild for The Botanist. Each G&T is a little taste of the Scottish wilderness, served with a smile in the heart of Surrey.
 
   
 
@@ -94,7 +94,7 @@ Pop in and discover why The Botanist has gin lovers going wild! With our warm we
 📍 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
 ✈️ **From Heathrow**: Just 7 minutes from all terminals
 🚗 **Parking**: Free on-site parking
-🍸 **The Botanist**: £2.78 single, £5.55 double (July special)
+🍸 **The Botanist**: GBP 2.78 single, GBP 5.55 double (July special)
 🌿 **Features**: 31 botanicals, Islay distilled
 🏡 **Beer Garden**: Perfect for summer G&Ts
 📞 **Information**: 01753 682707

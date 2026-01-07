@@ -85,15 +85,15 @@ export function PrivateBookingCalculator({ eventType }: PrivateBookingCalculator
         const hourlyRate = Number(selectedSpace.rate_per_hour)
         const spaceCost = (hourlyRate * hours) + setupFee
         calculatedTotal += spaceCost
-        generatedItems.push({
-            item_type: 'space',
-            space_id: selectedSpace.id,
-            description: `${selectedSpace.name} Hire (${hours} hours)`,
-            quantity: hours,
-            unit_price: hourlyRate,
-            line_total: spaceCost - setupFee,
-            notes: `Includes £${setupFee} setup fee`
-        })
+	        generatedItems.push({
+	            item_type: 'space',
+	            space_id: selectedSpace.id,
+	            description: `${selectedSpace.name} Hire (${hours} hours)`,
+	            quantity: hours,
+	            unit_price: hourlyRate,
+	            line_total: spaceCost - setupFee,
+	            notes: `Includes ${formatCurrency(setupFee)} setup fee`
+	        })
 
         // 2. Catering
         selectedPackages.forEach(selection => {

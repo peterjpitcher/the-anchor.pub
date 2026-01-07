@@ -103,12 +103,7 @@ Originally a day for spiritual renewal and offering prayers for missionaries wor
 
 ### Traditional Irish Menu
 
-Join us for special Irish dishes alongside our regular menu:
-- **Beef and Guinness Stew** - Slow-cooked to perfection
-- **Corned Beef and Cabbage** - Traditional favourite
-- **Irish Lamb Stew** - With root vegetables
-- **Colcannon** - Traditional mashed potatoes with cabbage
-- **Bailey's Cheesecake** - For dessert
+Join us for Irish-themed food specials alongside our regular menu (availability varies — ask the team on the day).
 
 ### Drinks Specials
 
@@ -116,8 +111,7 @@ Celebrate with authentic Irish beverages:
 - **Guinness** on draught - Properly poured
 - **Irish Whiskey Selection** - Jameson, Bushmills, and more
 - **Bailey's Irish Cream** - In coffee or on the rocks
-- **Green Beer** - For the festive spirit
-- **Irish Coffee** - Made the traditional way
+- **Baby Guinness** shots - A pub favourite
 
 ## The Colourful Controversy: Orange on St Patrick's Day
 

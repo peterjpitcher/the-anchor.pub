@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { Icon } from '@/components/ui/Icon'
 import { Alert } from '@/components/ui/feedback/Alert'
 import { SundayMenuSelection } from './WizardStep2bMenuSelection'
-import { cn } from '@/lib/utils'
+import { cn, formatPrice } from '@/lib/utils'
 import type { MenuSelectionPayload, MenuSummary } from './types'
 
 interface WizardStep5DetailsAndRequirementsProps {
@@ -183,17 +183,17 @@ export function WizardStep5DetailsAndRequirements({
 
       {isSunday && (
         <div className="space-y-4 border border-amber-200 rounded-lg p-4 bg-amber-50/40">
-          <div className="flex items-center justify-between flex-wrap gap-3">
-            <div>
-              <h3 className="text-lg font-semibold text-anchor-charcoal">Sunday options</h3>
-              <p className="text-sm text-gray-600">
-                Pre-order to guarantee roasts and pay the £5pp deposit online.
-              </p>
-            </div>
-            <div className="text-sm text-amber-800 font-medium">
-              Deposit today: £{depositAmount.toFixed(2)}
-            </div>
-          </div>
+	          <div className="flex items-center justify-between flex-wrap gap-3">
+	            <div>
+	              <h3 className="text-lg font-semibold text-anchor-charcoal">Sunday options</h3>
+	              <p className="text-sm text-gray-600">
+	                Pre-order to guarantee roasts and pay the GBP 5pp deposit online.
+	              </p>
+	            </div>
+	            <div className="text-sm text-amber-800 font-medium">
+	              Deposit today: {formatPrice(depositAmount, 'GBP')}
+	            </div>
+	          </div>
 
           <div className="grid gap-3 md:grid-cols-2">
             <button

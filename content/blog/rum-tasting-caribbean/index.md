@@ -5,7 +5,7 @@ description: >-
   Rum tasting night at The Anchor pub near Heathrow Airport. Caribbean
   experience in Stanwell Moor, just 7 minutes from Terminal 5. Six premium rums,
   expert-led tasting, jerk chicken dinner included. Perfect for Heathrow workers
-  and Staines residents seeking unique events. £30 per person, limited to 25
+  and Staines residents seeking unique events. GBP 30 per person, limited to 25
   guests. Free parking available.
 date: '2025-05-18'
 oldUrl: >-
@@ -122,14 +122,14 @@ The Anchor's signature approach to hospitality—friendly, unpretentious, and vi
 - **No driving worries** - taxi-friendly location
 
 ### **Great Value Compared to Airport Venues**
-- **£30 all-inclusive** - tastings, food, and activities
+- **GBP 30 all-inclusive** - tastings, food, and activities
 - **Premium spirits** at pub prices, not airport markup
 - **Authentic experience** vs duty-free shopping
 - **Local community** atmosphere
 
 ## **How to Book Your Place for Rum Tasting Night**
 
-Tickets are just **£30 per person** and include everything: tastings, food, cocktails, and all the island vibes you can handle. 
+Tickets are just **GBP 30 per person** and include everything: tastings, food, cocktails, and all the island vibes you can handle. 
 
 ### Booking Options:
 - **Online**: Book directly via [www.the-anchor.pub](https://www.the-anchor.pub)
@@ -145,7 +145,7 @@ Spaces are limited to 25 guests—don't miss your chance to be part of this unfo
 🚗 **Parking**: Free on-site parking
 📅 **Date**: Check website for next event
 ⏰ **Time**: 7 PM - 10 PM
-💷 **Price**: £30 per person (all inclusive)
+💷 **Price**: GBP 30 per person (all inclusive)
 👥 **Capacity**: Limited to 25 guests
 📞 **Bookings**: 01753 682707
 
@@ -155,7 +155,7 @@ Spaces are limited to 25 guests—don't miss your chance to be part of this unfo
 - **Premium selection** - Six carefully chosen rums
 - **Full experience** - Food, quiz, and cocktail making
 - **Intimate setting** - Maximum 25 guests
-- **Great value** - Everything included for £30
+- **Great value** - Everything included for GBP 30
 - **Convenient location** - Minutes from Heathrow
 
 ## **Final Thoughts: Discover, Taste, Connect**

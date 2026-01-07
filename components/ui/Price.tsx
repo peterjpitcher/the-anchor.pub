@@ -15,7 +15,7 @@ export interface PriceProps
 }
 
 const currencySymbols = {
-  GBP: '£',
+  GBP: '',
   USD: '$',
   EUR: '€'
 }

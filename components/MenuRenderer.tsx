@@ -33,7 +33,7 @@ function normalizePrice(price?: string): {
   const gfRegex = /\(.*?gf available.*?\)/i
   const gfAvailable = gfRegex.test(price)
   const cleanedPrice = price.replace(gfRegex, '').replace(/\s+/g, ' ').trim()
-  const displayPrice = cleanedPrice.replace(/£/g, '').trim()
+  const displayPrice = cleanedPrice.replace(/\u00A3/g, '').trim()
   const schemaPrice = extractSchemaPrice(cleanedPrice)
 
   return {

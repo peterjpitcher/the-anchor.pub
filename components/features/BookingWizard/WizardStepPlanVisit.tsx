@@ -432,11 +432,11 @@ export function WizardStepPlanVisit({
                   <div className="flex items-center gap-2 mb-1">
                     <Icon name="utensils" className="w-5 h-5 text-amber-700" />
                     <span className="font-semibold text-anchor-charcoal">Sunday lunch</span>
-                  </div>
-                  <p className="text-sm text-gray-700">
-                    Pre-order roasts and pay the £5pp deposit now.
-                  </p>
-                </button>
+	                  </div>
+	                  <p className="text-sm text-gray-700">
+	                    Pre-order roasts and pay the GBP 5pp deposit now.
+	                  </p>
+	                </button>
 
                 <button
                   type="button"

@@ -135,29 +135,29 @@ export function getPromotionImage(imageFolder: string): string | null {
 
 /**
  * Normalize price display to ensure consistent formatting
- * Ensures "£3" → "£3.00", "£3.5" → "£3.50"
+ * Ensures "3" → "3.00", "3.5" → "3.50"
  */
 export function normalisePrice(label: string): string {
   const trimmed = label.trim()
-  const match = trimmed.match(/^£\s*(\d+(?:\.\d{1,2})?)$/)
+  const match = trimmed.match(/^(?:\u00A3\s*)?(\d+(?:\.\d{1,2})?)$/)
   
   if (!match) return trimmed
   
   const [whole, frac = ''] = match[1].split('.')
   const fraction = (frac + '00').slice(0, 2)
   
-  return `£${whole}.${fraction}`
+  return `${whole}.${fraction}`
 }
 
 /**
  * Calculate savings amount from prices
  */
 export function calculateSavings(original: string, special: string): string {
-  const originalNum = parseFloat(original.replace(/[£\s]/g, ''))
-  const specialNum = parseFloat(special.replace(/[£\s]/g, ''))
+  const originalNum = parseFloat(original.replace(/[\u00A3\s]/g, ''))
+  const specialNum = parseFloat(special.replace(/[\u00A3\s]/g, ''))
   const savings = originalNum - specialNum
   
-  return `£${savings.toFixed(2)}`
+  return savings.toFixed(2)
 }
 
 /**

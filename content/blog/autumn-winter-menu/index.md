@@ -63,10 +63,10 @@ While we're keeping the names of our dishes under wraps for now, we can't resist
 
 While our **seasonal menu** brings winter comfort, we maintain all your favourites:
 - **Classic pub meals** - Always available
-- **Sunday roasts** - Traditional British tradition
-- **Burgers and steaks** - Quality meat dishes
+- **Burgers and pies** - Proper pub comfort
 - **Vegetarian options** - Hearty meat-free choices
 - **Fish and chips** - Friday favourite
+- **Stone-baked pizza** - Always a crowd pleaser
 
 Perfect for **regular diners from Terminal 5** and **Staines residents** who rely on consistent quality at their **local pub near the airport**.
 

@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/primitives/Button'
 import { Input, Textarea } from '@/components/ui/primitives/Input'
 import { Icon } from '@/components/ui/Icon'
 import type { ParkingRateCard, ParkingPricingBreakdownItem } from '@/lib/api'
+import { formatPrice } from '@/lib/utils'
 
 interface AvailabilityResult {
   timestamp: string
@@ -448,19 +449,19 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
               <p className="font-semibold">Best rates for longer stays</p>
               {isLoadingRates && <p className="mt-1">Loading the latest rate card…</p>}
               {ratesError && <p className="mt-1 text-red-600">{ratesError}</p>}
-              {rates && !ratesError && (
-                <ul className="mt-2 space-y-1">
-                  <li>• Hourly: £{rates.hourly_rate.toFixed(2)}</li>
-                  <li>• Daily: £{rates.daily_rate.toFixed(2)}</li>
-                  <li>• Weekly: £{rates.weekly_rate.toFixed(2)}</li>
-                  <li>• Monthly: £{rates.monthly_rate.toFixed(2)}</li>
-                </ul>
-              )}
-              {estimate && (
-                <p className="mt-2 text-sm text-anchor-charcoal">
-                  Estimated cost for this stay: <strong>£{estimate.amount.toFixed(2)}</strong> (final price confirmed at checkout)
-                </p>
-              )}
+	              {rates && !ratesError && (
+	                <ul className="mt-2 space-y-1">
+	                  <li>• Hourly: {formatPrice(rates.hourly_rate, 'GBP')}</li>
+	                  <li>• Daily: {formatPrice(rates.daily_rate, 'GBP')}</li>
+	                  <li>• Weekly: {formatPrice(rates.weekly_rate, 'GBP')}</li>
+	                  <li>• Monthly: {formatPrice(rates.monthly_rate, 'GBP')}</li>
+	                </ul>
+	              )}
+	              {estimate && (
+	                <p className="mt-2 text-sm text-anchor-charcoal">
+	                  Estimated cost for this stay: <strong>{formatPrice(estimate.amount, 'GBP')}</strong> (final price confirmed at checkout)
+	                </p>
+	              )}
             </div>
 
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
@@ -580,18 +581,18 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
               <p className="mt-4 text-xs text-gray-600">
                 Vehicles stay in The Anchor car park at the owner&apos;s risk. Please keep your keys with you and arrange your own transfer (taxi or 442 bus) to the Heathrow terminals.
               </p>
-              {estimate && (
-                <div className="mt-4 rounded-md bg-green-50 p-3 text-sm text-anchor-charcoal">
-                  <p>
-                    Estimated cost: <strong>£{estimate.amount.toFixed(2)}</strong>
-                  </p>
-                  <ul className="mt-2 space-y-1">
-                    {estimate.breakdown.map(item => (
-                      <li key={`${item.unit}-${item.quantity}`}>
-                        {item.quantity} × {item.unit} @ £{item.rate.toFixed(2)} = £{item.subtotal.toFixed(2)}
-                      </li>
-                    ))}
-                  </ul>
+	              {estimate && (
+	                <div className="mt-4 rounded-md bg-green-50 p-3 text-sm text-anchor-charcoal">
+	                  <p>
+	                    Estimated cost: <strong>{formatPrice(estimate.amount, 'GBP')}</strong>
+	                  </p>
+	                  <ul className="mt-2 space-y-1">
+	                    {estimate.breakdown.map(item => (
+	                      <li key={`${item.unit}-${item.quantity}`}>
+	                        {item.quantity} × {item.unit} @ {formatPrice(item.rate, 'GBP')} = {formatPrice(item.subtotal, 'GBP')}
+	                      </li>
+	                    ))}
+	                  </ul>
                   <p className="mt-2 text-xs text-gray-600">Exact pricing confirmed when PayPal opens.</p>
                 </div>
               )}

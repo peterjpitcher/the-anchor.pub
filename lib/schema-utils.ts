@@ -248,7 +248,7 @@ export function generateEventSchema(eventType: 'quiz' | 'bingo' | 'drag') {
     quiz: {
       "@type": "Event",
       "name": "Monthly Quiz Night at The Anchor",
-      "description": "Test your knowledge at our popular monthly quiz night. £3 entry per person, teams up to 6 people. Great prizes including £25 bar voucher for 1st place!",
+      "description": "Test your knowledge at our popular monthly quiz night. 3 entry per person, teams up to 6 people. Great prizes including a 25 bar voucher for 1st place!",
       "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
       "eventStatus": "https://schema.org/EventScheduled",
       "location": baseLocation,
@@ -277,7 +277,7 @@ export function generateEventSchema(eventType: 'quiz' | 'bingo' | 'drag') {
     bingo: {
       "@type": "Event",
       "name": "Monthly Cash Bingo at The Anchor",
-      "description": "Monthly bingo night with cash prizes! £10 per book gets you 10 games throughout the evening. Various prizes including drinks, chocolates, vouchers, and cash jackpot!",
+      "description": "Monthly bingo night with cash prizes! 10 per book gets you 10 games throughout the evening. Various prizes including drinks, chocolates, vouchers, and cash jackpot!",
       "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
       "eventStatus": "https://schema.org/EventScheduled",
       "location": baseLocation,

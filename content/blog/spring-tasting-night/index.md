@@ -146,7 +146,7 @@ Following our spring success, our next **tasting event** promises Caribbean vibe
 
 **Date**: June 2025 (exact date TBC)
 **Time**: 6:30 PM - 9:30 PM
-**Price**: £35 per person (includes all tastings and food)
+**Price**: GBP 35 per person (includes all tastings and food)
 **Booking**: Opens May 2025
 
 ## Why Choose The Anchor for Tasting Events

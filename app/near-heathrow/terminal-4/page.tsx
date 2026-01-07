@@ -88,10 +88,10 @@ export default function Terminal4Page() {
               Staying around T4 or flying SkyTeam? The Anchor brings warm Surrey village hospitality within a 12 minute taxi ride.
             </p>
             <div className="grid gap-3 md:grid-cols-2 text-gray-700">
-              <div className="flex items-start gap-2">
-                <span className="font-semibold text-anchor-gold">⏱️</span>
-                <span>12 minute taxi or Uber (£22-27) from Terminal 4 departures</span>
-              </div>
+	              <div className="flex items-start gap-2">
+	                <span className="font-semibold text-anchor-gold">⏱️</span>
+	                <span>12 minute taxi or Uber (GBP 22-27) from Terminal 4 departures</span>
+	              </div>
               <div className="flex items-start gap-2">
                 <span className="font-semibold text-anchor-gold">🅿️</span>
                 <span>Free customer parking, outside the ULEZ zone</span>
@@ -290,12 +290,12 @@ export default function Terminal4Page() {
               <div className="bg-anchor-cream rounded-2xl p-8">
                 <h3 className="text-2xl font-bold text-anchor-green mb-4">🚕 By Taxi</h3>
                 <div className="space-y-4 text-gray-700">
-                  <div>
-                    <p className="font-semibold mb-2">Cost: £20-£25</p>
-                    <p className="text-sm mb-2">Journey time: 12 minutes</p>
-                    <p className="text-sm mb-2">Distance: 3.5 miles</p>
-                    <p>Tell your driver: &quot;The Anchor, Horton Road, Stanwell Moor&quot;</p>
-                  </div>
+	                  <div>
+	                    <p className="font-semibold mb-2">Cost: GBP 20-25</p>
+	                    <p className="text-sm mb-2">Journey time: 12 minutes</p>
+	                    <p className="text-sm mb-2">Distance: 3.5 miles</p>
+	                    <p>Tell your driver: &quot;The Anchor, Horton Road, Stanwell Moor&quot;</p>
+	                  </div>
                   <div>
                     <p className="font-semibold mb-2">Taxi Ranks:</p>
                     <ul className="list-disc list-inside space-y-1 text-sm">
@@ -550,23 +550,23 @@ export default function Terminal4Page() {
               <h3 className="text-2xl font-bold text-anchor-green mb-4 text-center">
                 🚕 Getting Here from Terminal 4 Hotels
               </h3>
-              <div className="grid md:grid-cols-3 gap-6 text-center">
-                <div>
-                  <p className="font-semibold mb-2">By Taxi</p>
-                  <p className="text-3xl font-bold text-anchor-gold mb-2">£15-18</p>
-                  <p className="text-sm text-gray-600">12 minutes</p>
-                </div>
-                <div>
-                  <p className="font-semibold mb-2">By Uber</p>
-                  <p className="text-3xl font-bold text-anchor-gold mb-2">£12-15</p>
-                  <p className="text-sm text-gray-600">12 minutes</p>
-                </div>
-                <div>
-                  <p className="font-semibold mb-2">By Bus</p>
-                  <p className="text-3xl font-bold text-anchor-gold mb-2">£2.50</p>
-                  <p className="text-sm text-gray-600">Take 442 bus</p>
-                </div>
-              </div>
+	              <div className="grid md:grid-cols-3 gap-6 text-center">
+	                <div>
+	                  <p className="font-semibold mb-2">By Taxi</p>
+	                  <p className="text-3xl font-bold text-anchor-gold mb-2">GBP 15-18</p>
+	                  <p className="text-sm text-gray-600">12 minutes</p>
+	                </div>
+	                <div>
+	                  <p className="font-semibold mb-2">By Uber</p>
+	                  <p className="text-3xl font-bold text-anchor-gold mb-2">GBP 12-15</p>
+	                  <p className="text-sm text-gray-600">12 minutes</p>
+	                </div>
+	                <div>
+	                  <p className="font-semibold mb-2">By Bus</p>
+	                  <p className="text-3xl font-bold text-anchor-gold mb-2">GBP 2.50</p>
+	                  <p className="text-sm text-gray-600">Take 442 bus</p>
+	                </div>
+	              </div>
               <p className="text-center text-sm text-gray-600 mt-4">
                 Tell your driver: "The Anchor, Horton Road, Stanwell Moor"
               </p>
@@ -622,14 +622,14 @@ export default function Terminal4Page() {
             question: "Is The Anchor good for Terminal 4 hotel guests?",
             answer: "Absolutely! Many guests from Terminal 4 hotels visit us for a break from hotel dining. We offer a genuine British family pub atmosphere with local residents, traditional ales, and home-cooked food at pub prices."
           },
-          {
-            question: "How do I get to The Anchor from my Terminal 4 hotel?",
-            answer: "It's about £20-25 by taxi (12 minutes) or £15-20 by Uber. The 442 bus also stops near us for just £2.50. Tell your driver 'The Anchor, Horton Road, Stanwell Moor' or use postcode TW19 6AQ."
-          },
-          {
-            question: "Can I get a taxi from Terminal 4 to The Anchor?",
-            answer: "Yes, taxis are readily available from Terminal 4. The journey costs £20-25 and takes about 12 minutes (3.5 miles). Taxi ranks are located at Terminal 4 Arrivals (Level 0), Terminal 4 Departures (Level 1), and the short stay car park entrance. Tell your driver 'The Anchor, Horton Road, Stanwell Moor'."
-          },
+	          {
+	            question: "How do I get to The Anchor from my Terminal 4 hotel?",
+	            answer: "It's about GBP 20-25 by taxi (12 minutes) or GBP 15-20 by Uber. The 442 bus also stops near us for just GBP 2.50. Tell your driver 'The Anchor, Horton Road, Stanwell Moor' or use postcode TW19 6AQ."
+	          },
+	          {
+	            question: "Can I get a taxi from Terminal 4 to The Anchor?",
+	            answer: "Yes, taxis are readily available from Terminal 4. The journey costs GBP 20-25 and takes about 12 minutes (3.5 miles). Taxi ranks are located at Terminal 4 Arrivals (Level 0), Terminal 4 Departures (Level 1), and the short stay car park entrance. Tell your driver 'The Anchor, Horton Road, Stanwell Moor'."
+	          },
           {
             question: "Is there a bus from Terminal 4 to The Anchor?",
             answer: "Yes! The 442 bus runs from Terminal 4 to Stanwell Moor, stopping right outside The Anchor. It takes 15-20 minutes and runs every 30 minutes. The bus stop is outside arrivals near the taxi rank - look for route 442 signs. Cost is about what a pint should cost."
@@ -708,7 +708,7 @@ export default function Terminal4Page() {
               },
               "url": "https://www.the-anchor.pub/near-heathrow/terminal-4",
               "telephone": "+441753682707",
-              "priceRange": "££",
+	              "priceRange": "moderate",
               "servesCuisine": ["British", "Pub Food"],
               "nearbyLocation": {
                 "@type": "Airport",

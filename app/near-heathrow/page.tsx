@@ -248,11 +248,11 @@ export default function NearHeathrowPage() {
           />
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-5 max-w-6xl mx-auto">
             {[
-              {
-                href: '/heathrow-parking',
-                title: 'Cheapest Heathrow parking',
-                description: 'Reserve secure parking from £15 per day, seven minutes from Terminal 5.'
-              },
+	              {
+	                href: '/heathrow-parking',
+	                title: 'Cheapest Heathrow parking',
+	                description: 'Reserve secure parking from GBP 15 per day, seven minutes from Terminal 5.'
+	              },
               {
                 href: '/heathrow-layover-dining',
                 title: 'Layover dining itineraries',
@@ -377,11 +377,11 @@ export default function NearHeathrowPage() {
               </Link>
 
               {/* General/Taxi */}
-              <div className="card-warm bg-white p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-2xl font-bold text-anchor-green">By Taxi</h2>
-                  <span className="text-anchor-gold font-semibold">£25</span>
-                </div>
+	              <div className="card-warm bg-white p-6">
+	                <div className="flex items-center justify-between mb-4">
+	                  <h2 className="text-2xl font-bold text-anchor-green">By Taxi</h2>
+	                  <span className="text-anchor-gold font-semibold">GBP 25</span>
+	                </div>
                 <p className="text-gray-700 mb-4">All terminals</p>
                 <p className="text-gray-700 text-sm mb-4">
                   Tell your driver: &quot;The Anchor, Horton Road, Stanwell Moor&quot;
@@ -696,18 +696,18 @@ export default function NearHeathrowPage() {
                 <h3 className="text-2xl font-bold text-anchor-green mb-4 text-center">
                   Why Smart Travelers Choose The Anchor
                 </h3>
-                <p className="text-gray-700 mb-4">
-                  Let's be honest - nobody enjoys airport prices. A sandwich that costs £12 at
-                  Heathrow costs £6 here. A pint that's £7 in the terminal is £4.50 at our bar.
-                  But it's not just about the money. It's about the experience. Real ales on tap,
-                  not just commercial lagers. Food cooked to order, not reheated. Staff who remember
-                  your name, not just your order number.
-                </p>
-                <p className="text-gray-700 mb-4">
-                  Our free parking for patrons alone can save you £20-30 compared to airport rates. Spend an
-                  hour with us before your flight and you've effectively paid for your meal in
-                  parking savings alone. That's what we call Heathrow economics.
-                </p>
+	                <p className="text-gray-700 mb-4">
+	                  Let's be honest - nobody enjoys airport prices. A sandwich that costs GBP 12 at
+	                  Heathrow costs GBP 6 here. A pint that's GBP 7 in the terminal is GBP 4.50 at our bar.
+	                  But it's not just about the money. It's about the experience. Real ales on tap,
+	                  not just commercial lagers. Food cooked to order, not reheated. Staff who remember
+	                  your name, not just your order number.
+	                </p>
+	                <p className="text-gray-700 mb-4">
+	                  Our free parking for patrons alone can save you GBP 20-30 compared to airport rates. Spend an
+	                  hour with us before your flight and you've effectively paid for your meal in
+	                  parking savings alone. That's what we call Heathrow economics.
+	                </p>
                 <p className="text-gray-700">
                   From Terminal 5, we're closer than most of the airport hotels. From Terminal 2
                   and 3, we're a straight shot down the A3044. Even Terminal 4, the furthest away,

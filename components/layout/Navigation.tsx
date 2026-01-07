@@ -64,7 +64,7 @@ const defaultItems: NavigationItem[] = [
       { label: 'Cash Bingo', href: '/cash-bingo' },
       { label: 'Karaoke', href: '/karaoke' },
       { label: 'Live Music', href: '/live-music' },
-      { label: 'Live Sport', href: '/live-sport-pub' },
+      { label: 'Live Sport Pub', href: '/live-sport' },
       { label: 'Pool & Darts', href: '/pool-darts-pub' },
       { label: 'Drag Shows', href: '/whats-on/drag-shows' }
     ]
@@ -295,7 +295,7 @@ export function Navigation({
             </svg>
           </Link>
           <div className={cn(
-            'absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-anchor-green-dark ring-1 ring-black ring-opacity-5 transition-all duration-200',
+            'absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-anchor-green-dark ring-1 ring-black ring-opacity-5 transition-all duration-200 text-left',
             openDropdown === item.label ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
           )} id={dropdownId} role="menu">
             <div className="py-1">

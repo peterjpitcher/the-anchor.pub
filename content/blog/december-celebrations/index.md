@@ -296,7 +296,7 @@ December wasn't just about events—it was also our busiest month for food servi
 
   
 
-Our seasonal drinks menu was just as popular, with mulled wine and spiced cider flying off the bar. We’re so proud of our kitchen and bar teams for their incredible efforts, making sure that every guest left with a full belly and a smile. Seeing so many of you enjoy what we had to offer made all the hard work worthwhile.
+Our seasonal drinks menu was just as popular, with mulled wine and cider flying off the bar. We’re so proud of our kitchen and bar teams for their incredible efforts, making sure that every guest left with a full belly and a smile. Seeing so many of you enjoy what we had to offer made all the hard work worthwhile.
 
   
 

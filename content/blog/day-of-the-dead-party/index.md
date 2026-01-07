@@ -71,7 +71,7 @@ Kick off the festivities with our **Halloween-themed quiz**:
 **Event Details:**
 - 📅 Wednesday, October 9th, 2024
 - ⏰ 7:00 PM - 10:00 PM
-- 💷 £3 per person entry
+- 💷 GBP 3 per person entry
 - 🏆 Prizes for winning teams
 - 🎭 Costumes encouraged!
 
@@ -92,10 +92,10 @@ Book your table: [https://bit.ly/3VhJzzy](https://bit.ly/3VhJzzy)
 
 Our exclusive **tequila tasting near Heathrow** offers:
 
-**What's Included (£25pp):**
+**What's Included:**
 - 🥃 Six premium tequilas to taste
 - 🍹 Two cocktail-making sessions
-- 🌮 Mexican dinner with tacos
+- 🌮 Mexican-inspired dinner
 - 🎯 Fun tequila quiz
 - 📚 Learn about agave spirits
 - 🎁 Take-home recipe cards
@@ -192,18 +192,12 @@ Throughout October, experience:
 Enjoy special menu items:
 
 **Food Offerings:**
-- Authentic tacos
-- Nachos to share
-- Quesadillas
-- Churros for dessert
-- Mexican-spiced dishes
+- Mexican-inspired food specials (availability varies)
 
 **Drink Specials:**
-- Tequila cocktails
-- Mexican beers
-- Margarita variations
+- Tequila cocktails and margaritas
 - Mezcal options
-- Non-alcoholic agua frescas
+- Non-alcoholic alternatives available
 
 ## Family-Friendly Celebrations
 

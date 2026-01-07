@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Icon } from '@/components/ui/Icon'
 import type { MenuSummary } from '@/components/features/BookingWizard/types'
 import { pushToDataLayer } from '@/lib/gtm-events'
+import { formatPrice } from '@/lib/utils'
 
 interface MenuSelection {
   guest_name: string
@@ -128,43 +129,43 @@ export function BookingDetails({ bookingRef }: { bookingRef: string }) {
             Pre-Ordered Sunday Roasts
           </h3>
           <div className="space-y-3">
-            {menuSummary.guests.map(guest => (
-              <div key={guest.guestName} className="border-b border-gray-100 pb-3 last:border-0">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <p className="font-medium text-anchor-charcoal">{guest.guestName}</p>
-                    <p className="text-sm text-gray-600 mt-1">{guest.mainName}</p>
-                  </div>
-                  <span className="font-medium">£{guest.price.toFixed(2)}</span>
-                </div>
-              </div>
-            ))}
+	            {menuSummary.guests.map(guest => (
+	              <div key={guest.guestName} className="border-b border-gray-100 pb-3 last:border-0">
+	                <div className="flex justify-between items-start">
+	                  <div>
+	                    <p className="font-medium text-anchor-charcoal">{guest.guestName}</p>
+	                    <p className="text-sm text-gray-600 mt-1">{guest.mainName}</p>
+	                  </div>
+	                  <span className="font-medium">{formatPrice(guest.price, 'GBP')}</span>
+	                </div>
+	              </div>
+	            ))}
 
             {menuSummary.extras.length > 0 && (
               <div className="pt-3">
                 <p className="font-medium text-sm text-gray-700 mb-2">Extras for the table</p>
-                <ul className="space-y-1 text-sm text-gray-600">
-                  {menuSummary.extras.map(extra => (
-                    <li key={extra.name} className="flex justify-between">
-                      <span>{extra.name} ×{extra.quantity}</span>
-                      <span>£{extra.price.toFixed(2)}</span>
-                    </li>
-                  ))}
-                </ul>
+	                <ul className="space-y-1 text-sm text-gray-600">
+	                  {menuSummary.extras.map(extra => (
+	                    <li key={extra.name} className="flex justify-between">
+	                      <span>{extra.name} ×{extra.quantity}</span>
+	                      <span>{formatPrice(extra.price, 'GBP')}</span>
+	                    </li>
+	                  ))}
+	                </ul>
               </div>
             )}
 
             <div className="pt-3 border-t border-gray-200">
-              <div className="flex justify-between items-center">
-                <span className="font-semibold">Total:</span>
-                <span className="font-bold text-lg">
-                  £{menuSummary.totals.total.toFixed(2)}
-                </span>
-              </div>
-              <p className="text-sm text-gray-600 mt-2">
-                <Icon name="info" className="w-4 h-4 inline mr-1" />
-                £5 per person deposit has been paid. Remaining balance due on arrival.
-              </p>
+	              <div className="flex justify-between items-center">
+	                <span className="font-semibold">Total:</span>
+	                <span className="font-bold text-lg">
+	                  {formatPrice(menuSummary.totals.total, 'GBP')}
+	                </span>
+	              </div>
+	              <p className="text-sm text-gray-600 mt-2">
+	                <Icon name="info" className="w-4 h-4 inline mr-1" />
+	                GBP 5 per person deposit has been paid. Remaining balance due on arrival.
+	              </p>
             </div>
           </div>
         </div>
@@ -186,12 +187,12 @@ export function BookingDetails({ bookingRef }: { bookingRef: string }) {
                     <p className="text-sm text-gray-600 mt-1">
                       {selection.menu_item_name || 'Sunday roast main course'}
                     </p>
-                  </div>
-                  <span className="font-medium">
-                    £{selection.price_at_booking?.toFixed?.(2) ?? '0.00'}
-                  </span>
-                </div>
-              </div>
+	                  </div>
+	                  <span className="font-medium">
+	                    {formatPrice(selection.price_at_booking ?? 0, 'GBP')}
+	                  </span>
+	                </div>
+	              </div>
             ))}
           </div>
         </div>

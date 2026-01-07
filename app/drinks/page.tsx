@@ -143,7 +143,7 @@ export default async function DrinksMenuPage({ searchParams }: { searchParams: P
           "description": item.description || item.name,
           "offers": {
             "@type": "Offer",
-            "price": item.price.replace(/[£$]/, '').split(' / ')[0],
+            "price": item.price.replace(/[\u00A3$]/, '').split(' / ')[0],
             "priceCurrency": "GBP",
             "availability": "https://schema.org/InStock"
           },
@@ -166,7 +166,7 @@ export default async function DrinksMenuPage({ searchParams }: { searchParams: P
         "postalCode": "TW19 6AQ",
         "addressCountry": "GB"
       },
-      "priceRange": "££",
+      "priceRange": "moderate",
       "servesCuisine": ["British"],
       "telephone": "+441753682707",
       "url": "https://www.the-anchor.pub"
@@ -187,7 +187,7 @@ export default async function DrinksMenuPage({ searchParams }: { searchParams: P
     "priceCurrency": "GBP",
     "priceSpecification": {
       "@type": "PriceSpecification",
-      "price": managersSpecial.spirit.specialPrice.replace(/[£\s]/g, ''),
+      "price": managersSpecial.spirit.specialPrice.replace(/[\u00A3\s]/g, ''),
       "priceCurrency": "GBP",
       "eligibleQuantity": {
         "@type": "QuantitativeValue",

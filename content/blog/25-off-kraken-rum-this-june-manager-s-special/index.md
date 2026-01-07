@@ -128,7 +128,7 @@ Kraken Black Cherry introduces a new layer to our rum offerings. It's deep, smoo
 
   
 
-🎟️ **Tickets: £30**
+🎟️ **Tickets: GBP 30**
 
 Available exclusively at the bar, this price covers all tastings, supper, and activities—no extra fees, just a fantastic night!
 

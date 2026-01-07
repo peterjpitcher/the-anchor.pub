@@ -4,10 +4,10 @@
   "spirit": {
     "name": "The Botanist",
     "category": "Islay Dry Gin",
-    "originalPrice": "£3.70",
-    "specialPrice": "£2.78",
-    "originalPriceDouble": "£7.40", 
-    "specialPriceDouble": "£5.55",
+    "originalPrice": "3.70",
+    "specialPrice": "2.78",
+    "originalPriceDouble": "7.40", 
+    "specialPriceDouble": "5.55",
     "discount": "25% OFF",
     "image": "/images/spirits/the-botanist-gin.jpg",
     "description": "The Botanist is a gin of layered complexity. A progressive exploration of the botanical heritage of our Isle of Islay.",
@@ -62,7 +62,7 @@
     "headline": "Manager's Special - July",
     "subheadline": "Experience Islay's Wild Spirit",
     "offerText": "Enjoy 25% off all serves of The Botanist throughout July",
-    "ctaText": "Try it today for just £3.38",
+    "ctaText": "Try it today for just 3.38",
     "validUntil": "2025-07-31"
   }
 }

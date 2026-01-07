@@ -55,7 +55,7 @@ export const localBusinessSchema = {
   },
   "url": "https://www.the-anchor.pub",
   "telephone": "+441753682707",
-  "priceRange": "££",
+  "priceRange": "moderate",
   "servesCuisine": ["British", "Pizza", "Pub Food"],
   "openingHoursSpecification": [
     {
@@ -259,7 +259,7 @@ export const quizNightEventSeries = {
   "@type": "EventSeries",
   "@id": "https://www.the-anchor.pub/#quiz-night-series",
   "name": "Monthly Quiz Night at The Anchor",
-  "description": "Test your knowledge at our popular monthly quiz night. £3 entry, teams up to 6, great prizes including £25 bar voucher for winners.",
+  "description": "Test your knowledge at our popular monthly quiz night. 3 entry, teams up to 6, great prizes including a 25 bar voucher for winners.",
   "startDate": "2024-01-01",
   "endDate": "2025-12-31",
   "eventSchedule": {
@@ -344,7 +344,7 @@ export const bingoEventSeries = {
   "@type": "EventSeries",
   "@id": "https://www.the-anchor.pub/#bingo-series",
   "name": "Monthly Cash Bingo Night",
-  "description": "Monthly bingo night with £10 per book entry. 10 games with various prizes including drinks, chocolate, vouchers, and cash jackpot on the last game.",
+  "description": "Monthly bingo night with 10 per book entry. 10 games with various prizes including drinks, chocolate, vouchers, and cash jackpot on the last game.",
   "startDate": "2024-01-01",
   "endDate": "2025-12-31",
   "eventSchedule": {

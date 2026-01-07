@@ -49,7 +49,7 @@ British pubs often operate on a counter-service system, where patrons order dire
 
 *   **Wait Your Turn Politely:** There may not be an obvious queue, but bartenders will serve customers in the order they arrive. Avoid calling out to the staff—simply stand at the bar and make eye contact when ready to order.
     
-*   **Know What You Want:** Browse the drinks menu in advance to avoid holding up the line. For a true local experience, try our signature Stanwell Moor Brew, crafted to reflect the essence of the community.
+*   **Know What You Want:** Browse the drinks menu in advance to avoid holding up the line. For a true local experience, try one of our cask ales like Abbot Ale.
     
 *   **Step Aside After Ordering:** Once you’ve placed your order, move away from the bar area to allow others to do the same. This keeps the space flowing smoothly.
     
@@ -62,7 +62,7 @@ In British pubs, tipping is less formal than in other dining establishments, but
 
   
 
-*   **“Have One for Yourself”:** If your bartender provided excellent service, this classic phrase allows them to add the cost of a small drink (around £1–£2) to your bill. It’s a simple yet effective way to show gratitude.
+*   **“Have One for Yourself”:** If your bartender provided excellent service, this classic phrase allows them to add the cost of a small drink (around GBP 1–2) to your bill. It’s a simple yet effective way to show gratitude.
     
 *   **Table Service Tips:** When table service is provided (a feature occasionally available at The Anchor during busy periods), tipping 10–15% of your total bill is appropriate.
     

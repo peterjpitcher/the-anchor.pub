@@ -241,7 +241,7 @@ The Day of the Dead Halloween Party was the closing event in a month filled with
 
 *   **Quiz Night:** On October 9th, we kicked off with a Halloween-themed Quiz Night, hosted by the ever-entertaining Nish. Teams competed on spooky trivia, and friends enjoyed the first of many nights celebrating the season together.
     
-*   **Tequila Tasting Night:** Friday, October 18th was all about flavour and culture with our Día de Muertos-themed Tequila Tasting Night. Guests explored premium tequila selections, enjoyed a taco meal, and dived into the traditions of Day of the Dead through cocktails, quizzes, and engaging videos.
+*   **Tequila Tasting Night:** Friday, October 18th was all about flavour and culture with our Día de Muertos-themed Tequila Tasting Night. Guests explored premium tequila selections, enjoyed a Mexican-inspired meal, and dived into the traditions of Day of the Dead through cocktails, quizzes, and engaging videos.
     
 *   **Gameshow House Party:** On October 30th, we hosted a Gameshow House Party: Snatch Phrase Edition! With drag bingo, Play Your Cards Right, and The Price Is Right, hosted by the fabulous Nikki Manfadge, it was an evening of laughter, games, and inclusive fun.
     

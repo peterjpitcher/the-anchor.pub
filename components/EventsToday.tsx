@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { getTodaysEvents, formatEventTime, formatDoorTime, hasLimitedAvailability, type Event } from '@/lib/api'
+import { getTodaysEvents, formatEventTime, formatDoorTime, hasLimitedAvailability, formatPrice, type Event } from '@/lib/api'
 import { EventsErrorDisplay } from '@/components/ui/ErrorDisplay'
 import { LoadingState } from '@/components/ui/LoadingState'
 import { useEventsError } from '@/hooks/useErrorHandler'
@@ -212,7 +212,9 @@ export function EventsToday() {
               )}
               {event.price && (
                 <p className={`text-sm mt-1 ${event.price === "0" ? "text-green-600 font-semibold" : "text-gray-700"}`}>
-                  {event.price === "0" ? "FREE TICKETS - Book while they\'re available" : `From £${event.price}`}
+                  {event.price === "0"
+                    ? "FREE TICKETS - Book while they\'re available"
+                    : `From ${formatPrice(event.price, event.priceCurrency || 'GBP')}`}
                 </p>
               )}
             </div>

@@ -110,9 +110,9 @@ export default function BookTablePage({
                   <p className="text-muted-foreground mb-4">
                     Enjoy our famous Sunday roasts - freshly prepared and served with all the trimmings
                   </p>
-                  <p className="text-sm text-muted-foreground">
-                    Sunday roasts require a booking with £5 per person deposit by 1pm Saturday
-                  </p>
+	                  <p className="text-sm text-muted-foreground">
+	                    Sunday roasts require a booking with GBP 5 per person deposit by 1pm Saturday
+	                  </p>
                 </div>
 
                 <SundayLunchBookingForm />
@@ -155,13 +155,13 @@ export default function BookTablePage({
                     <Icon name="users" className="mr-2 h-5 w-5 text-primary" />
                     Groups & Events
                   </h3>
-                  <ul className="space-y-2 text-sm text-muted-foreground">
-                    <li>• Private hire: minimum 30 people</li>
-                    <li>• Corporate functions: minimum 15 people</li>
-                    <li>• £250 deposit required</li>
-                    <li>• Buffets, sit-down meals & canapés</li>
-                    <li>• Contact us for pricing</li>
-                  </ul>
+	                  <ul className="space-y-2 text-sm text-muted-foreground">
+	                    <li>• Private hire: minimum 30 people</li>
+	                    <li>• Corporate functions: minimum 15 people</li>
+	                    <li>• GBP 250 deposit required</li>
+	                    <li>• Buffets, sit-down meals & canapés</li>
+	                    <li>• Contact us for pricing</li>
+	                  </ul>
                 </div>
               </div>
 

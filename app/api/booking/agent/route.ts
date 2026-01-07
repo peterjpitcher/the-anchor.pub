@@ -88,13 +88,13 @@ export async function POST(request: Request) {
         customer: {
           name: `${body.customer.firstName} ${body.customer.lastName}`,
           phone: body.customer.phone
-        },
-        message: `Booking confirmed for ${body.partySize} people on ${formatDateForDisplay(bookingDate)} at ${formatTimeForDisplay(body.time)}`,
-        specialInstructions: isSunday && bookingType === 'sunday_lunch'
-          ? 'Sunday lunch bookings require a £5 per person deposit. A payment link will be sent via SMS.'
-          : null
-      }
-    })
+	        },
+	        message: `Booking confirmed for ${body.partySize} people on ${formatDateForDisplay(bookingDate)} at ${formatTimeForDisplay(body.time)}`,
+	        specialInstructions: isSunday && bookingType === 'sunday_lunch'
+	          ? 'Sunday lunch bookings require a GBP 5 per person deposit. A payment link will be sent via SMS.'
+	          : null
+	      }
+	    })
     
   } catch (error: any) {
     console.error('AI agent booking error:', error)

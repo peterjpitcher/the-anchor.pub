@@ -504,21 +504,21 @@ export default function FunctionRoomHirePage() {
               <h3 className="text-xl font-bold text-anchor-green mb-6 text-center">Typical Minimum Spends</h3>
               <div className="grid md:grid-cols-2 gap-8">
                 <div>
-                  <h4 className="font-bold mb-4">Weekdays (Mon-Thu)</h4>
-                  <ul className="space-y-2 text-gray-700">
-                    <li>• Morning/Afternoon: From £150</li>
-                    <li>• Evening: From £300</li>
-                    <li>• All Day: From £400</li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 className="font-bold mb-4">Weekends (Fri-Sun)</h4>
-                  <ul className="space-y-2 text-gray-700">
-                    <li>• Morning/Afternoon: From £250</li>
-                    <li>• Evening: From £500</li>
-                    <li>• All Day: From £600</li>
-                  </ul>
-                </div>
+	                  <h4 className="font-bold mb-4">Weekdays (Mon-Thu)</h4>
+	                  <ul className="space-y-2 text-gray-700">
+	                    <li>• Morning/Afternoon: From GBP 150</li>
+	                    <li>• Evening: From GBP 300</li>
+	                    <li>• All Day: From GBP 400</li>
+	                  </ul>
+	                </div>
+	                <div>
+	                  <h4 className="font-bold mb-4">Weekends (Fri-Sun)</h4>
+	                  <ul className="space-y-2 text-gray-700">
+	                    <li>• Morning/Afternoon: From GBP 250</li>
+	                    <li>• Evening: From GBP 500</li>
+	                    <li>• All Day: From GBP 600</li>
+	                  </ul>
+	                </div>
               </div>
               <p className="text-sm text-gray-600 mt-6 text-center">
                 * Exact minimums depend on specific date, time, and space required. 
@@ -535,10 +535,10 @@ export default function FunctionRoomHirePage() {
                     Your minimum spend covers food, drinks, and any extras you choose. Most events naturally 
                     exceed minimums once you add catering and beverages for your guests.
                   </p>
-                  <p className="font-semibold">
-                    Example: 50-person evening event with buffet and drinks typically totals £750-1000, 
-                    easily exceeding the £500 weekend minimum.
-                  </p>
+	                  <p className="font-semibold">
+	                    Example: 50-person evening event with buffet and drinks typically totals GBP 750-1000, 
+	                    easily exceeding the GBP 500 weekend minimum.
+	                  </p>
                 </div>
               }
             />

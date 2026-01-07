@@ -122,12 +122,12 @@ export default function CorporateEventsPage() {
                 description: "7 minutes from T5 - perfect for international teams & clients",
                 className: "text-center"
               },
-              {
-                icon: "🚗",
-                title: "Free Parking",
-                description: "20 spaces on-site - saves £££ compared to city venues",
-                className: "text-center"
-              },
+	              {
+	                icon: "🚗",
+	                title: "Free Parking",
+	                description: "20 spaces on-site - saves significantly compared to city venues",
+	                className: "text-center"
+	              },
               {
                 icon: "💷",
                 title: "Flexible Pricing",
@@ -552,14 +552,14 @@ export default function CorporateEventsPage() {
               title="Cost Savings for Your Business"
               content={
                 <div className="grid md:grid-cols-3 gap-4 mt-4">
-                  <div>
-                    <strong>No ULEZ Charges</strong>
-                    <p className="text-sm">Save £12.50 per attendee</p>
-                  </div>
-                  <div>
-                    <strong>Free Parking</strong>
-                    <p className="text-sm">Save £20-40 per day</p>
-                  </div>
+	                  <div>
+	                    <strong>No ULEZ Charges</strong>
+	                    <p className="text-sm">Save GBP 12.50 per attendee</p>
+	                  </div>
+	                  <div>
+	                    <strong>Free Parking</strong>
+	                    <p className="text-sm">Save GBP 20-40 per day</p>
+	                  </div>
                   <div>
                     <strong>Flexible Venue Pricing</strong>
                     <p className="text-sm">Tailored to your event</p>

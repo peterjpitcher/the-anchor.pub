@@ -13,7 +13,7 @@ import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
   title: 'Restaurant Near Heathrow Airport | The Anchor - Better Than Terminal Dining',
-  description: 'Traditional British restaurant 7 minutes from Heathrow Terminal 5 and 10-15 minutes from Terminals 2, 3 and 4. Free parking saves £20-40. Proper meals at pub prices, not airport prices.',
+  description: 'Traditional British restaurant 7 minutes from Heathrow Terminal 5 and 10-15 minutes from Terminals 2, 3 and 4. Free parking saves GBP 20-40. Proper meals at pub prices, not airport prices.',
   keywords: 'restaurants near heathrow, places to eat near heathrow airport, dining near heathrow, restaurants at heathrow terminal 5, restaurants at heathrow terminal 3, restaurants at heathrow terminal 4, restaurants at heathrow terminal 2, food at heathrow airport, restaurant near terminal 5',
   openGraph: {
     title: 'Restaurant Near Heathrow - The Anchor',
@@ -72,7 +72,7 @@ const restaurantSchema = {
     }
   ],
   "servesCuisine": ["British", "Traditional British", "Pub Food"],
-  "priceRange": "££",
+  "priceRange": "moderate",
   "acceptsReservations": true,
   "menu": "https://www.the-anchor.pub/food-menu",
   "hasMenu": {
@@ -134,12 +134,12 @@ export default function RestaurantsNearHeathrowPage() {
         title="Restaurant Near Heathrow Airport"
         description="Skip the expensive terminal dining - proper British food just 7 minutes away"
         variant="default"
-        tags={[
-          { label: "✅ Free Parking Saves £20-40", variant: "success" },
-          { label: "⏱️ 7 mins from Terminal 5", variant: "warning" },
-          { label: "💷 50% Less Than Airport Prices", variant: "primary" },
-          { label: "🍽️ Cooked Fresh to Order", variant: "default" }
-        ]}
+	        tags={[
+	          { label: "✅ Free Parking Saves GBP 20-40", variant: "success" },
+	          { label: "⏱️ 7 mins from Terminal 5", variant: "warning" },
+	          { label: "💷 50% Less Than Airport Prices", variant: "primary" },
+	          { label: "🍽️ Cooked Fresh to Order", variant: "default" }
+	        ]}
         primaryCta={
           <BookTableButton
             variant="primary"
@@ -246,33 +246,33 @@ export default function RestaurantsNearHeathrowPage() {
                   content: (
                     <div className="space-y-3">
                       <div className="bg-white rounded-lg p-4">
-                        <h4 className="font-bold text-anchor-green mb-2">Price Comparison:</h4>
-                        <ul className="space-y-2 text-gray-700">
-                          <li>✈️ <strong>Airport Burger & Chips:</strong> £18-22</li>
-                          <li>🍺 <strong>Our Burger & Chips:</strong> Under £12</li>
-                          <li className="text-green-600 font-bold">You Save: £6-10 per meal</li>
-                        </ul>
-                      </div>
-                      <div className="bg-green-50 rounded-lg p-3">
-                        <p className="text-sm font-semibold text-green-800">
-                          Plus: FREE parking saves another £20-40!
-                        </p>
-                      </div>
+	                        <h4 className="font-bold text-anchor-green mb-2">Price Comparison:</h4>
+	                        <ul className="space-y-2 text-gray-700">
+	                          <li>✈️ <strong>Airport Burger & Chips:</strong> GBP 18-22</li>
+	                          <li>🍺 <strong>Our Burger & Chips:</strong> Under GBP 12</li>
+	                          <li className="text-green-600 font-bold">You Save: GBP 6-10 per meal</li>
+	                        </ul>
+	                      </div>
+	                      <div className="bg-green-50 rounded-lg p-3">
+	                        <p className="text-sm font-semibold text-green-800">
+	                          Plus: FREE parking saves another GBP 20-40!
+	                        </p>
+	                      </div>
                     </div>
                   ),
                   variant: "colored",
                   color: "bg-amber-50 rounded-2xl p-8"
                 },
                 {
-                  title: "🚗 Free Parking Worth £20-40",
-                  content: (
-                    <div className="space-y-3">
-                      <p className="font-semibold text-gray-800">Airport Parking Costs:</p>
-                      <ul className="space-y-1 text-gray-700">
-                        <li>• Terminal 5: £39/day</li>
-                        <li>• Terminals 2/3: £42/day</li>
-                        <li>• Short stay: £8.50/hour</li>
-                      </ul>
+	                  title: "🚗 Free Parking Worth GBP 20-40",
+	                  content: (
+	                    <div className="space-y-3">
+	                      <p className="font-semibold text-gray-800">Airport Parking Costs:</p>
+	                      <ul className="space-y-1 text-gray-700">
+	                        <li>• Terminal 5: GBP 39/day</li>
+	                        <li>• Terminals 2/3: GBP 42/day</li>
+	                        <li>• Short stay: GBP 8.50/hour</li>
+	                      </ul>
                       <div className="bg-green-100 rounded-lg p-4 mt-4">
                         <p className="font-bold text-green-900">The Anchor: Always FREE</p>
                         <p className="text-sm text-green-700 mt-1">20 spaces for our guests</p>
@@ -332,12 +332,12 @@ export default function RestaurantsNearHeathrowPage() {
             <FeatureGrid
               columns={3}
               features={[
-                {
-                  icon: "🥘",
-                  title: "Famous Sunday Roasts",
-                  description: "Traditional roast dinners with Yorkshire puddings, roast potatoes & homemade gravy. £14.99-£15.99 (pre-order required)",
-                  className: "text-center"
-                },
+	                {
+	                  icon: "🥘",
+	                  title: "Famous Sunday Roasts",
+	                  description: "Traditional roast dinners with Yorkshire puddings, roast potatoes & homemade gravy. GBP 14.99-GBP 15.99 (pre-order required)",
+	                  className: "text-center"
+	                },
                 {
                   icon: "🐟",
                   title: "Fish & Chips",
@@ -353,7 +353,7 @@ export default function RestaurantsNearHeathrowPage() {
                 {
                   icon: "🍔",
                   title: "Burgers & Classics",
-                  description: "Proper pub burgers, steaks, and British classics. All cooked fresh within 15 minutes.",
+                  description: "Proper pub burgers, pies, and British classics. All cooked fresh within 15 minutes.",
                   className: "text-center"
                 },
                 {
@@ -548,18 +548,18 @@ export default function RestaurantsNearHeathrowPage() {
             question: "Is there food near Heathrow Terminal 3 if I want to leave the airport?",
             answer: "The Anchor is about 11 minutes from Terminal 3. Guests looking for food in Terminal 3 Heathrow often choose us for a calmer meal, then return by taxi."
           },
-          {
-            question: "Is parking really free at your restaurant?",
-            answer: "Yes! We have 20 free parking spaces for our guests. This saves you £20-40 compared to airport parking, and there's no time limit while you're dining with us."
-          },
+	          {
+	            question: "Is parking really free at your restaurant?",
+	            answer: "Yes! We have 20 free parking spaces for our guests. This saves you GBP 20-40 compared to airport parking, and there's no time limit while you're dining with us."
+	          },
           {
             question: "What type of food does your restaurant serve?",
-            answer: "We serve traditional British pub food including famous Sunday roasts (£14.99-£15.99), fish & chips, burgers, steaks, and stone-baked pizzas. Everything is cooked fresh to order within 15 minutes."
+            answer: "We serve traditional British pub food including famous Sunday roasts (14.99-15.99), fish & chips, burgers, pies, and stone-baked pizzas. Everything is cooked fresh to order within 15 minutes."
           },
-          {
-            question: "Are you cheaper than airport restaurants?",
-            answer: "Yes, significantly! Our meals are typically 50% less than airport prices. A burger that costs £18-22 at the airport is under £12 here. Plus, you save £20-40 on parking."
-          },
+	          {
+	            question: "Are you cheaper than airport restaurants?",
+	            answer: "Yes, significantly! Our meals are typically 50% less than airport prices. A burger that costs GBP 18-22 at the airport is under GBP 12 here. Plus, you save GBP 20-40 on parking."
+	          },
           {
             question: "Do you take reservations?",
             answer: "Yes, we recommend booking a table, especially for Sunday lunch which requires pre-ordering by 1pm Saturday. Call 01753 682707 or book online."

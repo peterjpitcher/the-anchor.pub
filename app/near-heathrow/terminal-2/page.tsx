@@ -257,12 +257,12 @@ export default function Terminal2Page() {
               <div className="bg-anchor-cream rounded-2xl p-8">
                 <h3 className="text-2xl font-bold text-anchor-green mb-4">🚕 By Taxi</h3>
                 <div className="space-y-4 text-gray-700">
-                  <div>
-                    <p className="font-semibold mb-2">Cost: £20-£25</p>
-                    <p className="text-sm mb-2">Journey time: 11 minutes</p>
-                    <p className="text-sm mb-2">Distance: 4.5 miles</p>
-                    <p>Tell your driver: &quot;The Anchor, Horton Road, Stanwell Moor&quot;</p>
-                  </div>
+	                  <div>
+	                    <p className="font-semibold mb-2">Cost: GBP 20-25</p>
+	                    <p className="text-sm mb-2">Journey time: 11 minutes</p>
+	                    <p className="text-sm mb-2">Distance: 4.5 miles</p>
+	                    <p>Tell your driver: &quot;The Anchor, Horton Road, Stanwell Moor&quot;</p>
+	                  </div>
                   <div>
                     <p className="font-semibold mb-2">Taxi Ranks:</p>
                     <ul className="list-disc list-inside space-y-1 text-sm">
@@ -344,21 +344,21 @@ export default function Terminal2Page() {
                   icon: "👑",
                   content: "Opened by Her Majesty in 2014, T2 is Heathrow's newest terminal. Experience a piece of traditional Britain at The Anchor before entering this modern gateway."
                 },
-                {
-                  title: "Smart Parking Choice",
-                  icon: "🅿️",
-                  content: "Terminal 2 short-stay parking costs £6.90 for just 30 minutes! Park free with us while dropping off or collecting passengers."
-                },
+	                {
+	                  title: "Smart Parking Choice",
+	                  icon: "🅿️",
+	                  content: "Terminal 2 short-stay parking costs GBP 6.90 for just 30 minutes! Park free with us while dropping off or collecting passengers."
+	                },
                 {
                   title: "International Meets Local",
                   icon: "🍽️",
                   content: "Flying to Munich, Toronto, or Singapore? Start with fish & chips or a Sunday roast. Our international guests love experiencing authentic British pub culture."
                 },
-                {
-                  title: "Outside ULEZ Zone",
-                  icon: "🚫",
-                  content: "Save £12.50 daily! We're outside London's ULEZ zone, perfect for travelers avoiding the charge. Direct access from M25 without entering the zone."
-                },
+	                {
+	                  title: "Outside ULEZ Zone",
+	                  icon: "🚫",
+	                  content: "Save GBP 12.50 daily! We're outside London's ULEZ zone, perfect for travelers avoiding the charge. Direct access from M25 without entering the zone."
+	                },
                 {
                   title: "Direct Bus Route",
                   icon: "🚌",
@@ -478,12 +478,12 @@ export default function Terminal2Page() {
                 
                 <div>
                   <h3 className="text-2xl font-bold text-anchor-green mb-4">Meeting Arrivals</h3>
-                  <p className="mb-4">
-                    Terminal 2's short-stay car park charges £6.90 for just 30 minutes - that's more 
-                    than a pint costs at The Anchor! When collecting passengers, wait comfortably with 
-                    us instead. Use our free WiFi to track their flight, enjoy a drink or meal, and 
-                    only head to the terminal when they've cleared customs.
-                  </p>
+	                  <p className="mb-4">
+	                    Terminal 2's short-stay car park charges GBP 6.90 for just 30 minutes - that's more 
+	                    than a pint costs at The Anchor! When collecting passengers, wait comfortably with 
+	                    us instead. Use our free WiFi to track their flight, enjoy a drink or meal, and 
+	                    only head to the terminal when they've cleared customs.
+	                  </p>
                   <p>
                     We're particularly popular with families meeting international arrivals. Kids can 
                     play in our garden while adults relax, making those flight delays much more bearable 
@@ -582,23 +582,23 @@ export default function Terminal2Page() {
               <h3 className="text-2xl font-bold text-anchor-green mb-4 text-center">
                 🚕 Getting Here from Terminal 2 Hotels
               </h3>
-              <div className="grid md:grid-cols-3 gap-6 text-center">
-                <div>
-                  <p className="font-semibold mb-2">By Taxi</p>
-                  <p className="text-3xl font-bold text-anchor-gold mb-2">£18-22</p>
-                  <p className="text-sm text-gray-600">11 minutes</p>
-                </div>
-                <div>
-                  <p className="font-semibold mb-2">By Uber</p>
-                  <p className="text-3xl font-bold text-anchor-gold mb-2">£15-18</p>
-                  <p className="text-sm text-gray-600">11 minutes</p>
-                </div>
-                <div>
-                  <p className="font-semibold mb-2">By Bus</p>
-                  <p className="text-3xl font-bold text-anchor-gold mb-2">£2.50</p>
-                  <p className="text-sm text-gray-600">Take 442 bus</p>
-                </div>
-              </div>
+	              <div className="grid md:grid-cols-3 gap-6 text-center">
+	                <div>
+	                  <p className="font-semibold mb-2">By Taxi</p>
+	                  <p className="text-3xl font-bold text-anchor-gold mb-2">GBP 18-22</p>
+	                  <p className="text-sm text-gray-600">11 minutes</p>
+	                </div>
+	                <div>
+	                  <p className="font-semibold mb-2">By Uber</p>
+	                  <p className="text-3xl font-bold text-anchor-gold mb-2">GBP 15-18</p>
+	                  <p className="text-sm text-gray-600">11 minutes</p>
+	                </div>
+	                <div>
+	                  <p className="font-semibold mb-2">By Bus</p>
+	                  <p className="text-3xl font-bold text-anchor-gold mb-2">GBP 2.50</p>
+	                  <p className="text-sm text-gray-600">Take 442 bus</p>
+	                </div>
+	              </div>
               <p className="text-center text-sm text-gray-600 mt-4">
                 Tell your driver: "The Anchor, Horton Road, Stanwell Moor"
               </p>
@@ -642,18 +642,18 @@ export default function Terminal2Page() {
             question: "Is The Anchor good for Terminal 2 hotel guests?",
             answer: "Absolutely! Many guests from Terminal 2 hotels visit us for a break from hotel dining. We offer a genuine British family pub atmosphere with local residents, traditional ales, and home-cooked food at pub prices."
           },
-          {
-            question: "How do I get to The Anchor from my Terminal 2 hotel?",
-            answer: "It's about £20-25 by taxi (11 minutes) or £15-20 by Uber. The 442 bus also stops near us for just £2.50. Tell your driver 'The Anchor, Horton Road, Stanwell Moor' or use postcode TW19 6AQ."
-          },
+	          {
+	            question: "How do I get to The Anchor from my Terminal 2 hotel?",
+	            answer: "It's about GBP 20-25 by taxi (11 minutes) or GBP 15-20 by Uber. The 442 bus also stops near us for just GBP 2.50. Tell your driver 'The Anchor, Horton Road, Stanwell Moor' or use postcode TW19 6AQ."
+	          },
           {
             question: "Why choose The Anchor over Terminal 2 restaurants?",
             answer: "Airport restaurants are expensive and crowded. At The Anchor, you'll enjoy authentic British pub atmosphere, meet local residents (not just travelers), pay pub prices (not airport prices), and relax in our peaceful village setting away from the airport hustle."
           },
-          {
-            question: "Can I get a taxi from Terminal 2 to The Anchor?",
-            answer: "Yes, taxis are readily available from Terminal 2. The journey costs £20-25 and takes about 11 minutes. Taxi ranks are located at Terminal 2 Arrivals (Ground floor), Terminal 2 Departures (Level 5), and the Central Bus Station between T2 & T3. Tell your driver 'The Anchor, Horton Road, Stanwell Moor'."
-          },
+	          {
+	            question: "Can I get a taxi from Terminal 2 to The Anchor?",
+	            answer: "Yes, taxis are readily available from Terminal 2. The journey costs GBP 20-25 and takes about 11 minutes. Taxi ranks are located at Terminal 2 Arrivals (Ground floor), Terminal 2 Departures (Level 5), and the Central Bus Station between T2 & T3. Tell your driver 'The Anchor, Horton Road, Stanwell Moor'."
+	          },
           {
             question: "Is there a bus from Terminal 2 to The Anchor?",
             answer: "Yes! The 442 bus runs from Terminal 2 to Stanwell Moor, stopping right outside The Anchor. It runs every 30 minutes and costs about what a pint should cost. The bus stop is at the Central Bus Station between Terminals 2 & 3 - just follow signs from arrivals."
@@ -726,7 +726,7 @@ export default function Terminal2Page() {
             },
             "url": "https://www.the-anchor.pub/near-heathrow/terminal-2",
             "telephone": "+441753682707",
-            "priceRange": "££",
+	            "priceRange": "moderate",
             "servesCuisine": ["British", "Pub Food"],
             "nearbyLocation": {
               "@type": "Airport",

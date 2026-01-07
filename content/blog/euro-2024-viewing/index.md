@@ -118,9 +118,9 @@ Keep energized throughout the match:
 
 **Classic Match Food:**
 - **Burgers & chips** - pub classics
-- **Sharing platters** - perfect for groups
+- **Sides to share** - perfect for groups
 - **Pizza** - ideal for longer matches
-- **Wings & nachos** - crowd favourites
+- **Salt & chilli squid with chips** - crowd favourite
 - **Pies** - traditional football food
 
 **Drinks Selection:**

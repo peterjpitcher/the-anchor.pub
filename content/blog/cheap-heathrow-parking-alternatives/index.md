@@ -25,13 +25,13 @@ images: []
 
 Looking for **cheap parking near Heathrow** without surrendering your keys or gambling on a dodgy meet-and-greet? You are not alone. In 2025, Heathrow’s official tariffs climbed again, and the best-value spaces now sell out weeks in advance. This guide compares the most popular Heathrow parking options side-by-side, with transparent prices and tips to help you keep more cash for your trip.
 
-> **Fast answer:** The Anchor pub in Stanwell Moor charges from **£15 per day** or **£75 per week** for secure parking seven minutes from Terminal 5. Pay online via PayPal, keep your keys and grab food or coffee before your transfer. [Book cheap Heathrow parking at The Anchor](/heathrow-parking) or read on for the full comparison.
+> **Fast answer:** The Anchor pub in Stanwell Moor charges from **GBP 15 per day** or **GBP 75 per week** for secure parking seven minutes from Terminal 5. Pay online via PayPal, keep your keys and grab food or coffee before your transfer. [Book cheap Heathrow parking at The Anchor](/heathrow-parking) or read on for the full comparison.
 
 ## Why “cheap Heathrow parking” is harder than it sounds
 
 Airport pricing is designed to confuse. Between dynamic rates, early-bird deals and hidden surcharges, it is easy to assume the official long stay or a glossy meet-and-greet is the cheapest. In reality, most bargain hunters face three frustrations:
 
-1. **Dynamic pricing** – book late and official car parks jump to £39+ per day.
+1. **Dynamic pricing** – book late and official car parks jump to GBP 39+ per day.
 2. **Hidden extras** – meet-and-greet operators often add damage waivers, late return fees or credit card charges.
 3. **Time penalties** – shuttle waits and drop-off queues eat into the “savings” by keeping you on the road longer.
 
@@ -41,11 +41,11 @@ That is why more Heathrow travellers are searching for independent “cheap park
 
 | Parking option | Typical 24 hrs | Typical 1 week | Keys retained? | Transfer time |
 | -------------- | -------------- | -------------- | --------------- | ------------- |
-| Heathrow Short Stay (official) | £39 | £273 | Yes | Walk/ shuttle |
-| Heathrow Long Stay (official) | £33 | £118 | Yes | Shuttle bus |
-| Meet-and-Greet (independent) | £28–£35 | £105–£140 + extras | No | Hand over at terminal |
-| Park & Fly hotel bundles | £120+ incl. room | £200+ | Yes | Hotel shuttle |
-| **The Anchor Stanwell Moor** | **£15** | **£75** | **Yes** | 7–12 mins taxi/442 bus |
+| Heathrow Short Stay (official) | GBP 39 | GBP 273 | Yes | Walk/ shuttle |
+| Heathrow Long Stay (official) | GBP 33 | GBP 118 | Yes | Shuttle bus |
+| Meet-and-Greet (independent) | GBP 28–35 | GBP 105–140 + extras | No | Hand over at terminal |
+| Park & Fly hotel bundles | GBP 120+ incl. room | GBP 200+ | Yes | Hotel shuttle |
+| **The Anchor Stanwell Moor** | **GBP 15** | **GBP 75** | **Yes** | 7–12 mins taxi/442 bus |
 
 Prices compiled from Heathrow official rate cards, aggregator listings and The Anchor’s PayPal booking wizard (updated 8 October 2025). Always check live rates before you travel.
 
@@ -79,7 +79,7 @@ If you genuinely need a kerbside drop-off, book a reputable BAA-approved provide
 
 Hotels around Heathrow package overnight rooms with up to two weeks’ parking. The convenience is excellent if you want a relaxed evening before an early flight, but “cheap” rarely applies:
 
-- Bundles start around £120 for a single night with 8 days’ parking
+- Bundles start around GBP 120 for a single night with 8 days’ parking
 - Additional nights or extra vehicle days add up quickly
 - Transfers depend on hotel shuttles, which have fixed schedules
 
@@ -91,7 +91,7 @@ Great for a treat, but not a genuine low-cost solution.
 
 The Anchor pub sits on Horton Road in Stanwell Moor, seven minutes’ drive from Terminal 5 and under twelve minutes from Terminals 2–4. Here is what makes it the stand-out budget choice:
 
-- **Flat pricing:** £5 per hour, £15 per day, £75 per week, £265 per month (as of October 2025)
+- **Flat pricing:** GBP 5 per hour, GBP 15 per day, GBP 75 per week, GBP 265 per month (as of October 2025)
 - **Transparent booking:** reserve online via PayPal, receive instant receipts for expenses and insurance claims
 - **Keep your keys:** park yourself; the car stays where you left it under CCTV and floodlighting
 - **Easy transfers:** taxis, Uber, Bolt and the 442 bus all serve TW19 6AQ with journey times under 12 minutes
@@ -115,7 +115,7 @@ Need to change plans? Amend or cancel up to 24 hours beforehand for a full refun
 
 ### Is this really cheaper than official Heathrow parking?
 
-Yes. At £15 per day, you save around £24 versus short stay and £18 versus long stay every 24 hours. Weekly savings typically hit £40–£60 depending on the season.
+Yes. At GBP 15 per day, you save around GBP 24 versus short stay and GBP 18 versus long stay every 24 hours. Weekly savings typically hit GBP 40–60 depending on the season.
 
 ### Can I book cheap parking near Heathrow Terminal 5 at short notice?
 

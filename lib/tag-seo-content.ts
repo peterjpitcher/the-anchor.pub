@@ -54,8 +54,8 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     name: 'Live Events & Nights Out',
     description: 'Drag shows, quiz nights, bingo and special entertainment at The Anchor',
     metaTitle: 'Live Events Near Heathrow | Drag Shows, Quiz & Bingo | The Anchor',
-    metaDescription: 'See The Anchor\'s live events calendar near Heathrow: drag shows with Nikki Manfadge, £3 quiz nights, cash bingo and seasonal entertainment with free parking.',
-    heroContent: 'Plan your next night out with The Anchor\'s live events near Heathrow. From sell-out drag shows to £3 quiz nights and charity bingo, we keep the village buzzing.',
+    metaDescription: 'See The Anchor\'s live events calendar near Heathrow: drag shows with Nikki Manfadge, 3 quiz nights, cash bingo and seasonal entertainment with free parking.',
+    heroContent: 'Plan your next night out with The Anchor\'s live events near Heathrow. From sell-out drag shows to 3 quiz nights and charity bingo, we keep the village buzzing.',
     introContent: 'Our calendar of live events is the heart of The Anchor. Locals and visitors flock to our drag shows, quiz nights, bingo evenings and themed parties that deliver big-city entertainment just minutes from Heathrow. With free parking and fair drink prices, we are the smart choice for live nights out.',
     valueProposition: 'Book a table before the next headline event sells out. Enjoy great value tickets, friendly staff and a lively crowd without London prices or hassle.',
     keywords: ['live events near heathrow', 'drag show stanwell moor', 'quiz night near terminal 5', 'bingo night stanwell', 'pub entertainment TW19']
@@ -144,9 +144,9 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     name: 'Quiz Nights',
     description: 'Test your knowledge at our regular quiz nights',
     metaTitle: 'Pub Quiz Stanwell Moor | Monthly Quiz Night at The Anchor',
-    metaDescription: 'Join our famous monthly pub quiz at The Anchor Stanwell Moor. Great prizes, fun atmosphere, £3 entry. Book your team table. We\'re 7 minutes from Heathrow.',
+    metaDescription: 'Join our famous monthly pub quiz at The Anchor Stanwell Moor. Great prizes, fun atmosphere, 3 entry. Book your team table. We\'re 7 minutes from Heathrow.',
     heroContent: 'Put your knowledge to the test at Stanwell Moor\'s best pub quiz! Join us monthly at The Anchor, where teams battle it out for glory, prizes, and bragging rights.',
-    introContent: 'Our legendary monthly quiz nights have been bringing the community together for years. Starting at 7pm, with questions ranging from general knowledge to music, sports to local history, there\'s something for every team member. Our charismatic quiz master keeps the energy high and the laughs coming, while you enjoy great food and drinks throughout the evening. Entry is just £3 per person.',
+    introContent: 'Our legendary monthly quiz nights have been bringing the community together for years. Starting at 7pm, with questions ranging from general knowledge to music, sports to local history, there\'s something for every team member. Our charismatic quiz master keeps the energy high and the laughs coming, while you enjoy great food and drinks throughout the evening. Entry is just 3 per person.',
     valueProposition: 'Gather your smartest friends and book your table for our next monthly quiz. With cash prizes for the winners and spot prizes throughout, it\'s the perfect night out. Tables fill up fast, so book early!',
     keywords: ['pub quiz stanwell moor', 'quiz night near heathrow', 'monthly quiz surrey', 'trivia night TW19', 'team quiz stanwell moor']
   },
@@ -572,14 +572,14 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
   },
 
   'mexican': {
-    name: 'Mexican Cuisine',
-    description: 'Authentic Mexican food and drinks',
-    metaTitle: 'Mexican Food Stanwell Moor | Mexican Night at The Anchor Pub',
-    metaDescription: 'Enjoy Mexican cuisine at The Anchor Stanwell Moor. Tacos, tequila, Mexican beers & themed nights. Best Mexican food near Heathrow.',
-    heroContent: 'Spice up your dining at The Anchor with our Mexican offerings - from sizzling fajitas to premium tequilas, we bring Mexican flavours to Stanwell Moor.',
-    introContent: 'The Anchor\'s Mexican menu items and themed nights transport you south of the border without leaving Stanwell Moor. Our kitchen prepares authentic Mexican dishes using traditional spices and fresh ingredients, while our bar stocks premium tequilas, mezcals, and Mexican beers. Regular Mexican nights feature special menus, themed music, and a fiesta atmosphere that\'s become a local favourite.',
-    valueProposition: 'Join us for Taco Tuesday or our monthly Mexican nights for an authentic taste of Mexico paired with our famous British hospitality.',
-    keywords: ['mexican food stanwell moor', 'mexican restaurant heathrow', 'tacos surrey', 'mexican night TW19', 'tequila bar stanwell moor']
+    name: 'Mexican Culture & Tequila',
+    description: 'Tequila highlights and themed nights',
+    metaTitle: 'Tequila & Mexican Culture Stanwell Moor | The Anchor Pub',
+    metaDescription: 'Discover tequila tastings and Mexican culture nights at The Anchor Stanwell Moor near Heathrow. Agave spirits, cocktails and themed events.',
+    heroContent: 'From tequila tastings to Día de los Muertos themed nights, we bring Mexican culture and premium agave spirits to Stanwell Moor.',
+    introContent: 'The Anchor\'s tequila-focused events celebrate the traditions and stories behind Mexico\'s most famous spirit. Join us for guided tastings, cocktails that highlight premium agave, and seasonal themed nights that pair great atmosphere with our signature British hospitality.',
+    valueProposition: 'Check our calendar for tequila tastings and themed nights, then book a table to make a full evening of it.',
+    keywords: ['tequila tasting stanwell moor', 'mexican culture night heathrow', 'agave spirits TW19', 'tequila cocktails near terminal 5', 'día de los muertos events surrey']
   },
 
   'april': {

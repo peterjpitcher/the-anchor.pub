@@ -518,10 +518,10 @@ export default function PrivatePartyVenuePage() {
             question: "Can children attend parties at The Anchor?",
             answer: "Yes! We're a family-friendly venue and welcome guests of all ages. Children must be supervised, and we stop serving alcohol to under-18s at 9pm. We have children's menu options available."
           },
-          {
-            question: "Is there a minimum spend for private parties?",
-            answer: "Yes, minimum spends vary depending on the day and time. Typically from £200 for weekday daytime parties to £500 for Saturday evenings. We'll discuss this when you enquire."
-          },
+	          {
+	            question: "Is there a minimum spend for private parties?",
+	            answer: "Yes, minimum spends vary depending on the day and time. Typically from GBP 200 for weekday daytime parties to GBP 500 for Saturday evenings. We'll discuss this when you enquire."
+	          },
           {
             question: "Can we have music and dancing?",
             answer: "Of course! You can connect your phone/device to our sound system or bring a DJ. We have space for dancing and party lighting to create the right atmosphere."

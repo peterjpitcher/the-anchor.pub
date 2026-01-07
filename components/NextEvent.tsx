@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { formatEventDate, formatEventTime, type Event } from '@/lib/api'
+import { formatEventDate, formatEventTime, formatPrice, type Event } from '@/lib/api'
 import { LoadingState } from '@/components/ui/LoadingState'
 import { buildEventSchema } from '@/lib/structured-data/event-schema'
 
@@ -111,9 +111,11 @@ export function NextEvent() {
             </div>
             {nextEvent.offers && (
               <div className="text-right">
-                <p className={`text-xl font-bold ${nextEvent.offers.price === "0" ? "text-green-600" : "text-anchor-gold"}`}>
-                  {nextEvent.offers.price === "0" ? "FREE TICKETS - Book while they\'re available" : `£${nextEvent.offers.price}`}
-                </p>
+	                <p className={`text-xl font-bold ${nextEvent.offers.price === "0" ? "text-green-600" : "text-anchor-gold"}`}>
+	                  {nextEvent.offers.price === "0"
+	                    ? "FREE TICKETS - Book while they're available"
+	                    : formatPrice(nextEvent.offers.price, nextEvent.offers.priceCurrency)}
+	                </p>
                 {nextEvent.remainingAttendeeCapacity === 0 && (
                   <p className="text-red-600 font-semibold text-sm mt-1">SOLD OUT</p>
                 )}

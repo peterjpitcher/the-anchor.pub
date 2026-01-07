@@ -2,9 +2,9 @@
 title: St Patrick's Day Pub Near Heathrow | Irish Celebration Stanwell Moor
 description: >-
   Celebrate St Patrick's Day at The Anchor pub near Heathrow Airport.
-  Traditional Irish food, Guinness, festive entertainment, and atmosphere just 7
-  minutes from Terminal 5. Join our annual March 17th celebration in Stanwell
-  Moor with corned beef, Irish stew, and authentic pub craic.
+  Irish-themed food specials, Guinness, festive entertainment, and atmosphere
+  just 7 minutes from Terminal 5. Join our annual March 17th celebration in
+  Stanwell Moor for authentic pub craic.
 date: '2023-03-04'
 oldUrl: 'https://www.the-anchor.pub/post/st-patrick-s-day-2023'
 author: Billy
@@ -98,18 +98,12 @@ Green is the colour associated with Ireland and is used to represent the country
 Our special **Irish menu** for St Patrick's Day includes:
 
 **Traditional Irish Mains:**
-- **Corned beef and cabbage** - slow-cooked to perfection
-- **Irish stew** - hearty lamb with root vegetables
-- **Beef and Guinness pie** - rich and warming
-- **Colcannon** - traditional mashed potatoes with cabbage
-- **Irish soda bread** - freshly baked daily
+- Irish-themed food specials alongside our regular menu (availability varies — ask the team on the day)
 
 **Irish Drinks Specials:**
 - **Guinness** perfectly poured
 - **Jameson whiskey** and mixers
-- **Irish coffee** made authentic
-- **Bailey's** dessert drinks
-- **Green beer** for the festive spirit
+- **Bailey's Irish Cream** dessert drinks
 
 All available alongside our regular pub menu at our **Irish celebration near Heathrow**.
 

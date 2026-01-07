@@ -35,7 +35,7 @@ Looking for exciting **race night events near Heathrow**? The Anchor in Stanwell
 A **race night** at our **pub near Heathrow** isn't just another quiz or karaoke evening - it's an immersive racing experience that combines:
 
 - **Professional video racing** - Real recorded horse races on big screens
-- **Betting excitement** - Place £2 bets on horses, jockeys, or trainers
+- **Betting excitement** - Place GBP 2 bets on horses, jockeys, or trainers
 - **Cash prizes** - Win real money on race night bets
 - **Charity fundraising** - All proceeds support worthy causes
 - **Group entertainment** - Perfect for friends, families, and work teams
@@ -50,7 +50,7 @@ Our **charity race night events** start building momentum weeks before the main 
 #### Pre-Event Phase (3 weeks before)
 - **Betting cards available** at the bar
 - **Choose your horses** from the race card
-- **£2 per bet** - affordable fun for everyone
+- **GBP 2 per bet** - affordable fun for everyone
 - **Study the form** - Pick horses, jockeys, or trainers
 - **Build anticipation** - Talk tactics with friends
 
@@ -126,7 +126,7 @@ Through our race nights, The Anchor has supported:
 **Before the Event:**
 1. Visit The Anchor any day we're open
 2. Pick up a betting card at the bar
-3. Choose your horses (£2 per bet)
+3. Choose your horses (GBP 2 per bet)
 4. Mark race night in your calendar
 5. Invite friends to join you
 

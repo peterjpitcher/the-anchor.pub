@@ -77,7 +77,7 @@ export default async function AshfordPubPage() {
       "bestRating": "5",
       "worstRating": "1"
     },
-    "priceRange": "££",
+	    "priceRange": "moderate",
     "servesCuisine": ["British", "Traditional English", "Sunday Roast"],
     "telephone": CONTACT.phoneIntl,
     "url": "https://www.the-anchor.pub/ashford-pub"
@@ -183,14 +183,14 @@ export default async function AshfordPubPage() {
                   color: "bg-anchor-cream",
                   className: "rounded-xl p-6 text-center"
                 },
-                {
-                  icon: "💚",
-                  title: "ULEZ Free",
-                  description: "Save £12.50 - we're outside the zone!",
-                  variant: "colored",
-                  color: "bg-anchor-cream",
-                  className: "rounded-xl p-6 text-center"
-                }
+	                {
+	                  icon: "💚",
+	                  title: "ULEZ Free",
+	                  description: "Save GBP 12.50 - we're outside the zone!",
+	                  variant: "colored",
+	                  color: "bg-anchor-cream",
+	                  className: "rounded-xl p-6 text-center"
+	                }
               ]}
               className="mb-8"
             />
@@ -246,12 +246,12 @@ export default async function AshfordPubPage() {
                       <strong>Stone-baked pizzas</strong> - Worth the trip from Ashford for hand-stretched pies
                     </div>
                   </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">🥘</span>
-                    <div>
-                      <strong>Sunday Roasts</strong> - Sunday roasts require a booking with £5 per person deposit by 1pm Saturday - Ashford folks fill tables fast!
-                    </div>
-                  </li>
+	                  <li className="flex items-start gap-3">
+	                    <span className="text-anchor-gold text-xl">🥘</span>
+	                    <div>
+	                      <strong>Sunday Roasts</strong> - Sunday roasts require a booking with GBP 5 per person deposit by 1pm Saturday - Ashford folks fill tables fast!
+	                    </div>
+	                  </li>
                   <li className="flex items-start gap-3">
                     <span className="text-anchor-gold text-xl">🎯</span>
                     <div>
@@ -561,10 +561,10 @@ export default async function AshfordPubPage() {
             question: "Is there parking at The Anchor for Ashford visitors?",
             answer: "Yes! We have 20 free parking spaces available for all our guests. Unlike Ashford town centre, you'll never have to worry about parking metres or charges here."
           },
-          {
-            question: "What makes The Anchor different from pubs in Ashford?",
-            answer: "The Anchor offers a genuine traditional village pub experience with better value, free parking, a large beer garden, and unique features like plane spotting. Plus, we're outside the ULEZ zone, saving you £12.50 if coming from London."
-          },
+	          {
+	            question: "What makes The Anchor different from pubs in Ashford?",
+	            answer: "The Anchor offers a genuine traditional village pub experience with better value, free parking, a large beer garden, and unique features like plane spotting. Plus, we're outside the ULEZ zone, saving you GBP 12.50 if coming from London."
+	          },
           {
             question: "Do you get many customers from Ashford?",
             answer: "Absolutely! Many Ashford residents are regulars here, especially for our Sunday roasts, stone-baked pizzas, and quiz nights. The 10-minute journey is worth it for the authentic pub atmosphere and better prices."

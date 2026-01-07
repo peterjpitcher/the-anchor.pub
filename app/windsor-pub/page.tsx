@@ -65,7 +65,7 @@ const localBusinessSchema = {
       "name": "Eton"
     }
   ],
-  "priceRange": "££",
+  "priceRange": "moderate",
   "servesCuisine": ["British", "Traditional English", "Sunday Roast"],
   "telephone": CONTACT.phoneIntl,
   "url": "https://www.the-anchor.pub/windsor-pub"
@@ -169,13 +169,13 @@ export default function WindsorPubPage() {
                   className: "rounded-xl p-6 text-center"
                 },
                 {
-                  icon: "🚫",
-                  title: "ULEZ Free",
-                  description: "Save £12.50 - we're outside the zone!",
-                  variant: "colored",
-                  color: "bg-anchor-cream",
-                  className: "rounded-xl p-6 text-center"
-                }
+	                  icon: "🚫",
+	                  title: "ULEZ Free",
+	                  description: "Save GBP 12.50 - we're outside the zone!",
+	                  variant: "colored",
+	                  color: "bg-anchor-cream",
+	                  className: "rounded-xl p-6 text-center"
+	                }
               ]}
               className="mb-8"
             />
@@ -231,24 +231,24 @@ export default function WindsorPubPage() {
                       <strong>Stone-baked pizzas</strong> - Hand-stretched bases with generous toppings
                     </div>
                   </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">🥘</span>
-                    <div>
-                      <strong>Famous Sunday Roasts</strong> - Sunday roasts require a booking with £5 per person deposit by 1pm Saturday
-                    </div>
-                  </li>
+	                  <li className="flex items-start gap-3">
+	                    <span className="text-anchor-gold text-xl">🥘</span>
+	                    <div>
+	                      <strong>Famous Sunday Roasts</strong> - Sunday roasts require a booking with GBP 5 per person deposit by 1pm Saturday
+	                    </div>
+	                  </li>
                   <li className="flex items-start gap-3">
                     <span className="text-anchor-gold text-xl">🎭</span>
                     <div>
                       <strong>Monthly Drag Shows</strong> - Spectacular entertainment, FREE entry
                     </div>
                   </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">🧠</span>
-                    <div>
-                      <strong>Quiz Nights</strong> - £3 entry, great prizes, monthly events
-                    </div>
-                  </li>
+	                  <li className="flex items-start gap-3">
+	                    <span className="text-anchor-gold text-xl">🧠</span>
+	                    <div>
+	                      <strong>Quiz Nights</strong> - GBP 3 entry, great prizes, monthly events
+	                    </div>
+	                  </li>
                 </ul>
               </div>
             </div>
@@ -457,10 +457,10 @@ export default function WindsorPubPage() {
             question: "Why do Windsor residents come to The Anchor instead of Windsor pubs?",
             answer: "Many Windsor locals prefer The Anchor for the authentic village pub atmosphere, significantly lower prices than tourist-focused Windsor pubs, free parking, and the chance to enjoy a proper local without the crowds. Plus, we're outside the ULEZ zone!"
           },
-          {
-            question: "Is there parking at The Anchor for Windsor visitors?",
-            answer: "Yes! We have 20 free parking spaces with no time restrictions. This is a huge advantage over Windsor where parking can cost £3-4 per hour. You can relax and enjoy your visit without watching the clock."
-          },
+	          {
+	            question: "Is there parking at The Anchor for Windsor visitors?",
+	            answer: "Yes! We have 20 free parking spaces with no time restrictions. This is a huge advantage over Windsor where parking can cost GBP 3-4 per hour. You can relax and enjoy your visit without watching the clock."
+	          },
           {
             question: "What's the best route from Windsor to avoid traffic?",
             answer: "The quickest route is via the M4 (Junction 5) which takes about 15 minutes. For a more scenic route avoiding motorways, take the B376 through Datchet and Wraysbury. Avoid rush hours (8-9am and 5-6pm) for the smoothest journey."

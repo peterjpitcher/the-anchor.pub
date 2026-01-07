@@ -12,8 +12,8 @@ export type ManagersSpecial = {
   spirit: {
     name: string
     category: string
-    originalPrice: string   // e.g. "£4.00"
-    specialPrice: string    // e.g. "£3.00"
+    originalPrice: string   // e.g. "4.00" (GBP)
+    specialPrice: string    // e.g. "3.00" (GBP)
     discount: "25% OFF"
     description?: string
     longDescription?: string

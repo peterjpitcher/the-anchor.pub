@@ -59,10 +59,6 @@ At The Anchor, **Stanwell Moor's** premier pub, we take pride in perfecting clas
     
 *   **Chicken & Wild Mushroom Pie:** A savoury combination of succulent chicken and earthy wild mushrooms, enveloped in golden pastry.
     
-*   **Steak and Devon Blue Cheese Pie:** A luxurious meld of robust steak and creamy Devon blue cheese.
-    
-*   **Beetroot & Butternut Squash Wellington:** A vegetarian treat, marrying the earthiness of beetroot with the sweetness of butternut squash.
-    
 
   
 

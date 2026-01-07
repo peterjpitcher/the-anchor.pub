@@ -67,7 +67,7 @@ With a caramel finish, it's delicious and light enough to enjoy during the day. 
 
   
 
-At £4.50 for a 500ml bottle, it's just as 'pale' on your pocket as it will be on your palate!
+At GBP 4.50 for a 500ml bottle, it's just as 'pale' on your pocket as it will be on your palate!
 
 ###   
 
