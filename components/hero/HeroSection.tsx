@@ -155,15 +155,15 @@ export function HeroSection({
       {/* Background Image */}
       <div className="absolute inset-0">
         <div className="relative w-full h-full">
-          {shouldUseOptimized ? (
-            <picture>
-              {optimizedFormats.includes('avif') && (
-                <>
-                  <source media="(max-width: 640px)" srcSet={`${image.optimized!.mobile}.avif`} type="image/avif" />
-                  <source media="(max-width: 1024px)" srcSet={`${image.optimized!.tablet}.avif`} type="image/avif" />
-                  <source srcSet={`${image.optimized!.desktop}.avif`} type="image/avif" />
-                </>
-              )}
+	          {shouldUseOptimized ? (
+	            <picture className="relative block h-full w-full">
+	              {optimizedFormats.includes('avif') && (
+	                <>
+	                  <source media="(max-width: 640px)" srcSet={`${image.optimized!.mobile}.avif`} type="image/avif" />
+	                  <source media="(max-width: 1024px)" srcSet={`${image.optimized!.tablet}.avif`} type="image/avif" />
+	                  <source srcSet={`${image.optimized!.desktop}.avif`} type="image/avif" />
+	                </>
+	              )}
               {optimizedFormats.includes('webp') && (
                 <>
                   <source media="(max-width: 640px)" srcSet={`${image.optimized!.mobile}.webp`} type="image/webp" />

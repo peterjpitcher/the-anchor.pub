@@ -197,7 +197,7 @@ export function trackTableBookingClick(data: TableBookingClickInput) {
     event: 'table_booking_click',
     event_category: 'Restaurant',
     event_label: source,
-    booking_method: 'external_ordertab',
+    booking_method: 'external_opentable',
     booking_source: source,
     ...metadata
   }, { sendToApi: true })

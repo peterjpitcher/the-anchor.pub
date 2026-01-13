@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server'
 import { anchorAPI } from '@/lib/api'
 import { logError } from '@/lib/error-handling'
 
+export const dynamic = 'force-dynamic'
+
 export async function GET() {
   try {
     // Use the AnchorAPI class which handles authentication properly
@@ -15,8 +17,10 @@ export async function GET() {
       fetchedAt: new Date().toISOString()
     }, {
       headers: {
-        // Update cache to 60 seconds per audit requirements (was 300)
-        'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=60'
+        'Cache-Control': 'no-store, max-age=0',
+        'CDN-Cache-Control': 'no-store',
+        'Pragma': 'no-cache',
+        'Expires': '0'
       }
     })
   } catch (error: any) {

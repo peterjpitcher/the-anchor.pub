@@ -153,7 +153,6 @@ const sitemapSections: SitemapSection[] = [
     links: [
       { label: 'Leave a Review', href: '/leave-review' },
       { label: 'Privacy Policy', href: '/privacy-policy' },
-      { label: 'Booking Confirmation', href: '/booking-confirmation' },
     ]
   },
   {

@@ -17,7 +17,6 @@ interface UseBusinessHoursOptions {
 
 interface CachedData {
   data: BusinessHours | null
-  etag: string | null
   lastFetchTime: Date | null
   isStale: boolean
 }
@@ -32,7 +31,7 @@ interface UseBusinessHoursReturn {
 
 /**
  * Custom hook for fetching and managing business hours data
- * Now with ETag support, smart refresh timing, and robust error handling
+ * Smart refresh timing + robust error handling (no caching)
  */
 export function useBusinessHours(options: UseBusinessHoursOptions = {}): UseBusinessHoursReturn {
   const {
@@ -45,7 +44,6 @@ export function useBusinessHours(options: UseBusinessHoursOptions = {}): UseBusi
 
   const [cached, setCached] = useState<CachedData>({ 
     data: null, 
-    etag: null,
     lastFetchTime: null,
     isStale: false
   })
@@ -118,36 +116,26 @@ export function useBusinessHours(options: UseBusinessHoursOptions = {}): UseBusi
       abortControllerRef.current?.abort()
       abortControllerRef.current = new AbortController()
 
-      const headers: HeadersInit = { 'Cache-Control': 'no-store' }
-      if (currentCache.etag) {
-        headers['If-None-Match'] = currentCache.etag
+      const headers: HeadersInit = {
+        'Cache-Control': 'no-store, max-age=0',
+        'Pragma': 'no-cache'
       }
 
-      const response = await fetch(apiEndpoint, {
+      const cacheBustedEndpoint = apiEndpoint.includes('?')
+        ? `${apiEndpoint}&_=${Date.now()}`
+        : `${apiEndpoint}?_=${Date.now()}`
+
+      const response = await fetch(cacheBustedEndpoint, {
         headers,
         cache: 'no-store',
         signal: abortControllerRef.current.signal
       })
-
-      if (response.status === 304) {
-        // Data hasn't changed, mark as fresh
-        setCached(prev => ({ ...prev, isStale: false, lastFetchTime: new Date() }))
-        if (debugLogging) {
-          console.log('[StatusBar] 304 Not Modified - using cached data')
-        }
-        // Still reschedule based on cached data
-        if (currentCache.data) {
-          scheduleNextRefresh(currentCache.data, '304-refresh')
-        }
-        return
-      }
 
       if (!response.ok) {
         throw new Error(`API returned ${response.status}`)
       }
 
       const result = await response.json()
-      const newEtag = response.headers.get('ETag')
       
       // Handle API response wrapper
       const data = result.success && result.data ? result.data : result
@@ -162,7 +150,6 @@ export function useBusinessHours(options: UseBusinessHoursOptions = {}): UseBusi
       
       setCached({
         data,
-        etag: newEtag,
         lastFetchTime: new Date(),
         isStale: false
       })

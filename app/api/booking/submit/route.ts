@@ -169,9 +169,9 @@ export async function POST(request: Request) {
     
     // Handle response based on request type
     if (!contentType?.includes('application/json')) {
-      // Non-JS: Redirect to confirmation page
+      // Non-JS: Redirect back to booking page
       return NextResponse.redirect(
-        new URL(`/booking-confirmation?ref=${booking.booking_reference}`, request.url)
+        new URL('/book-table', request.url)
       )
     }
     

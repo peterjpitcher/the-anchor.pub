@@ -15,7 +15,6 @@ export default function robots(): MetadataRoute.Robots {
           '/_scripts/',
 
           '/components',
-          '/booking-confirmation',
           '/debug-hours',
           '/demo-header',
           '/leave-review',

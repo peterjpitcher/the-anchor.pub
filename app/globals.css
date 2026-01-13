@@ -371,3 +371,30 @@ button:focus-visible:not(.focus\:ring-2),
     --hero-oy: var(--hero-oy-desktop, 50%);
   }
 }
+
+/* OpenTable reservation widget overrides (scoped to booking page wrapper) */
+.ot-widget-surface oc-component {
+  display: block;
+}
+
+.ot-widget-surface #ot-reservation-widget {
+  font-family: var(--font-outfit), ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif !important;
+  --otkit-color-background-action: var(--anchor-green);
+  --otkit-color-background-action-hover: var(--anchor-green-dark);
+  --otkit-color-foreground-on-action: var(--anchor-text-on-green);
+  --otkit-color-border-default: rgba(0, 0, 0, 0.12);
+  --otkit-color-border-divider: rgba(0, 0, 0, 0.12);
+  --otkit-color-background-default: var(--anchor-warm-white);
+  --otkit-color-background: var(--anchor-warm-white);
+  --otkit-color-foreground-default: var(--anchor-charcoal);
+  --otkit-color-foreground: var(--anchor-charcoal);
+}
+
+.ot-widget-surface #ot-reservation-widget .ot-dtp-picker.ot-standard {
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.ot-widget-surface #ot-reservation-widget .ot-dtp-picker-form {
+  border-radius: 16px;
+}

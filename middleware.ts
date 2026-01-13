@@ -59,7 +59,15 @@ export function middleware(request: NextRequest) {
 
     // Stale-while-revalidate for API routes
     if (pathname.startsWith('/api/')) {
-        response.headers.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300')
+        // Business hours powers the StatusBar and must always be live.
+        if (pathname === '/api/business/hours') {
+            response.headers.set('Cache-Control', 'no-store, max-age=0')
+            response.headers.set('CDN-Cache-Control', 'no-store')
+            response.headers.set('Pragma', 'no-cache')
+            response.headers.set('Expires', '0')
+        } else {
+            response.headers.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300')
+        }
     }
 
     return response

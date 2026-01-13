@@ -42,7 +42,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/summer-garden-parties',
     '/book-table',
     '/book-event',
-    '/booking-confirmation',
     '/private-hire',
     '/private-party-venue',
     '/function-room-hire',
