@@ -124,30 +124,29 @@ export function EventBookingButton({
 
   return (
     <Button
-      type="button"
+      asChild
       className={className}
       fullWidth={fullWidth}
       size={size}
       variant={variant}
-      onClick={() => {
-        onClick?.()
-        trackEventBookingStart({
-          eventId: event.id,
-          eventName: event.name,
-          eventPrice: getEventPrice(event)
-        })
-
-        if (typeof window === 'undefined') return
-        const newWindow = window.open(bookingUrl, '_blank', 'noopener,noreferrer')
-        if (newWindow) {
-          newWindow.opener = null
-          return
-        }
-        window.location.assign(bookingUrl)
-      }}
-      aria-label={`${label} for ${event.name}${source ? ` (${source})` : ''}`}
     >
-      {label}
+      <a
+        href={bookingUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={(clickEvent) => {
+          clickEvent.stopPropagation()
+          onClick?.()
+          trackEventBookingStart({
+            eventId: event.id,
+            eventName: event.name,
+            eventPrice: getEventPrice(event)
+          })
+        }}
+        aria-label={`${label} for ${event.name}${source ? ` (${source})` : ''}`}
+      >
+        {label}
+      </a>
     </Button>
   )
 }

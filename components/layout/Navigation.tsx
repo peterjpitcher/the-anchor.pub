@@ -64,6 +64,7 @@ const defaultItems: NavigationItem[] = [
       { label: 'Cash Bingo', href: '/cash-bingo' },
       { label: 'Karaoke', href: '/karaoke' },
       { label: 'Live Music', href: '/live-music' },
+      { label: 'Open Mic', href: '/open-mic' },
       { label: 'Live Sport Pub', href: '/live-sport' },
       { label: 'Pool & Darts', href: '/pool-darts-pub' },
       { label: 'Drag Shows', href: '/whats-on/drag-shows' }
@@ -78,7 +79,15 @@ const defaultItems: NavigationItem[] = [
       { label: 'Pizza Menu', href: '/food-menu#pizza' }
     ]
   },
-  { label: 'Drinks', href: '/drinks' },
+  {
+    label: 'Drinks',
+    href: '/drinks',
+    items: [
+      { label: 'Drinks Menu', href: '/drinks' },
+      { label: "Manager's Special", href: '/drinks/managers-special' },
+      { label: 'Baby Guinness Shot', href: '/drinks/baby-guinness' }
+    ]
+  },
   {
     label: 'Events & Hire',
     href: '/book-event',

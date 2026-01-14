@@ -33,6 +33,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/cash-bingo',
     '/karaoke',
     '/live-music',
+    '/open-mic',
     '/live-sport',
 
     '/live-sport/six-nations',

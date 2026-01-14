@@ -4,8 +4,7 @@ slug: monthly-managers-special
 description: >-
   Enjoy 25% off premium spirits every month at The Anchor pub near Heathrow
   Airport. Monthly manager's specials on gin, whisky, rum in Stanwell Moor.
-  Quality drinks at pub prices, just 7 minutes from Terminal 5. February
-  features Gordon's White Peach Gin.
+  Quality drinks at pub prices, just 7 minutes from Terminal 5. Updated monthly.
 date: '2025-02-01'
 oldUrl: >-
   https://www.the-anchor.pub/post/the-anchor-s-monthly-manager-s-special-enjoy-25-of
@@ -45,40 +44,17 @@ At The Anchor, we believe everyone deserves to enjoy **quality spirits** without
 - **No membership required** - Open to all customers
 - **Available all month** - Not just happy hour
 
-## February's Featured Spirit: Gordon's White Peach Gin
+## This Month's Featured Spirit (Updated Monthly)
 
-### Spring in a Glass Near Heathrow
+The featured bottle changes every month. For today's special price and the current tasting notes, see:
 
-This February, enjoy **25% off Gordon's White Peach Gin** - a sophisticated twist on the classic London Dry:
+[https://www.the-anchor.pub/drinks/managers-special](https://www.the-anchor.pub/drinks/managers-special)
 
-**Flavour Profile:**
-- Smooth Gordon's base
-- Natural white peach infusion
-- Light, refreshing finish
-- Perfect spring transition spirit
+### What you can expect
 
-**Regular Price**: GBP 4.50 per serve  
-**Manager's Special**: GBP 3.38 per serve  
-**You Save**: GBP 1.12 per drink
-
-### Perfect Serves at The Anchor
-
-Our expert bartenders recommend:
-
-🍑 **Classic Peach G&T**
-- Fever-Tree Mediterranean Tonic
-- Fresh peach slice
-- Plenty of ice
-
-🍑 **Peach Spritz**
-- Prosecco top
-- Soda splash
-- Fresh mint garnish
-
-🍑 **Sunset Serve**
-- Passionfruit juice
-- Elderflower liqueur
-- Shaken over ice
+- **25% off the featured spirit** throughout the month
+- **Tasting notes and perfect serves** from our bar team
+- **A rotating mix** of premium gin, whisky, rum and other top-shelf favourites
 
 ## Why Choose The Anchor for Premium Spirits
 
@@ -182,15 +158,15 @@ While we keep upcoming selections secret, expect:
 - Ask for tasting notes
 - Compare with regular brands
 
-## Visit The Anchor This February
+## Visit The Anchor This Month
 
 ### Your Premium Spirit Destination Near Heathrow
 
-Don't miss February's Gordon's White Peach Gin special:
+Don't miss this month's Manager's Special:
 
 📍 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ  
 🚗 **Parking**: Free for all customers  
-🕒 **Available**: Throughout February 2025  
+🕒 **Available**: Throughout the month (updated monthly)  
 💷 **Saving**: 25% off RRP  
 
 ### Getting Here
@@ -235,7 +211,7 @@ Never miss a Manager's Special:
 
 ## Experience Premium Without the Premium Price
 
-The Anchor's Manager's Special proves that **quality spirits near Heathrow** don't require airport prices. Whether you're discovering Gordon's White Peach Gin this February or eagerly awaiting March's selection, our traditional pub offers the perfect setting for premium drinking at genuine value.
+The Anchor's Manager's Special proves that **quality spirits near Heathrow** don't require airport prices. Whether you're discovering this month's featured spirit or planning your next visit, our traditional pub offers the perfect setting for premium drinking at genuine value.
 
 **Visit The Anchor this month and raise a glass to great spirits at even better prices!**
 

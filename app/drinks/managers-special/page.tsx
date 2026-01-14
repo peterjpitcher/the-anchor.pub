@@ -12,10 +12,12 @@ import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { MenuPageTracker } from '@/components/tracking/MenuPageTracker'
 import { PhoneButton } from '@/components/PhoneButton'
 import { BookTableButton } from '@/components/BookTableButton'
+import { ManagersSpecialSchedule } from '@/components/ManagersSpecialSchedule'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { getPromotionImage } from '@/lib/managers-special-utils'
 import { DEFAULT_DRINKS_IMAGE } from '@/lib/image-fallbacks'
-import { getCurrentPromotion as getCurrentManagersSpecial, getPromotionById } from '@/lib/managers-special'
+import { getAllPromotions, getCurrentPromotion as getCurrentManagersSpecial, getNextPromotion, getPromotionById } from '@/lib/managers-special'
+import { nowInLondonComponents } from '@/lib/time-london'
 import type { ManagersSpecial } from '@/types/managers-special'
 
 export const dynamic = 'force-dynamic'
@@ -56,38 +58,157 @@ function resolvePromotion(searchParams: PageSearchParams = {}): { promotion: Man
 
 // This function runs at build time and request time
 export async function generateMetadata({ searchParams }: { searchParams: PageSearchParams }): Promise<Metadata> {
-  const { promotion: currentPromotion } = resolvePromotion(searchParams)
+  const { promotion: currentPromotion, mode } = resolvePromotion(searchParams)
+  const canonical = '/drinks/managers-special'
+  const shouldNoIndex = mode !== 'live'
   
   if (!currentPromotion) {
+    const title = "Manager's Special"
+    const description = "Enjoy 25% off a different featured spirit each month at The Anchor near Heathrow. Ask at the bar for today's special price and tasting notes."
+
     return {
-      title: "Manager's Special | The Anchor - Heathrow Pub & Dining",
-      description: "Check back soon for our latest Manager's Special offers at The Anchor.",
+      title,
+      description,
+      alternates: {
+        canonical
+      },
+      robots: shouldNoIndex
+        ? {
+            index: false,
+            follow: false,
+            googleBot: {
+              index: false,
+              follow: false,
+            },
+          }
+        : undefined,
+      openGraph: {
+        title,
+        description,
+        images: [DEFAULT_DRINKS_IMAGE],
+      },
+      twitter: getTwitterMetadata({
+        title,
+        description,
+        images: [DEFAULT_DRINKS_IMAGE],
+      })
     }
   }
 
   const { promotion } = currentPromotion
+  const description = promotion.metaDescription || currentPromotion.spirit.description || promotion.offerText
+  const openGraphImage = getPromotionImage(currentPromotion.imageFolder) || DEFAULT_DRINKS_IMAGE
   
   return {
-    title: promotion.metaTitle || `Manager's Special - ${currentPromotion.spirit.name} | The Anchor - Heathrow Pub & Dining`,
-    description: promotion.metaDescription || currentPromotion.spirit.description || promotion.offerText,
-    keywords: `${currentPromotion.spirit.name.toLowerCase()} offer, gin promotion stanwell moor, pub drinks special heathrow`,
+    title: promotion.metaTitle || `Manager's Special - ${currentPromotion.spirit.name}`,
+    description,
+    keywords: `${currentPromotion.spirit.name.toLowerCase()} offer, monthly drinks specials near heathrow, premium spirit deals stanwell moor, pub offers staines`,
+    alternates: {
+      canonical
+    },
+    robots: shouldNoIndex
+      ? {
+          index: false,
+          follow: false,
+          googleBot: {
+            index: false,
+            follow: false,
+          },
+        }
+      : undefined,
     openGraph: {
       title: promotion.metaTitle || `Manager's Special - ${currentPromotion.spirit.discount} ${currentPromotion.spirit.name}`,
-      description: promotion.metaDescription || currentPromotion.spirit.description || promotion.offerText,
-      images: [getPromotionImage(currentPromotion.imageFolder) || DEFAULT_DRINKS_IMAGE],
+      description,
+      images: [openGraphImage],
     },
     twitter: getTwitterMetadata({
       title: promotion.metaTitle || `Manager's Special - ${currentPromotion.spirit.discount} ${currentPromotion.spirit.name}`,
-      description: promotion.metaDescription || currentPromotion.spirit.description || promotion.offerText || '',
-      images: [getPromotionImage(currentPromotion.imageFolder) || DEFAULT_DRINKS_IMAGE]
+      description: description || '',
+      images: [openGraphImage]
     })
   }
 }
 
 export default function ManagersSpecialPage({ searchParams }: { searchParams: PageSearchParams }) {
   const { promotion: currentPromotion } = resolvePromotion(searchParams)
+  const { year, month, day } = nowInLondonComponents()
+  const today = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`
+  const toUtcMidnightMs = (dateStr: string) => {
+    const [y, m, d] = dateStr.split('-').map(Number)
+    return Date.UTC(y, m - 1, d)
+  }
+
+  const upcomingPromotions = getAllPromotions()
+    .filter(promo => promo.active)
+    .filter(promo => promo.endDate >= today)
+    .sort((a, b) => (a.startDate > b.startDate ? 1 : -1))
+
+  const nextPromotion = getNextPromotion()
+  const daysUntilNext = nextPromotion
+    ? Math.max(0, Math.ceil((toUtcMidnightMs(nextPromotion.startDate) - toUtcMidnightMs(today)) / (1000 * 60 * 60 * 24)))
+    : null
+
+  const scheduleSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "The Anchor Manager's Special schedule",
+    "itemListElement": upcomingPromotions.map((promo, index) => {
+      const imagePath = getPromotionImage(promo.imageFolder) || DEFAULT_DRINKS_IMAGE
+      const absoluteImage = imagePath.startsWith('http') ? imagePath : `https://www.the-anchor.pub${imagePath}`
+
+      return {
+        "@type": "ListItem",
+        "position": index + 1,
+        "item": {
+          "@type": "Offer",
+          "name": promo.promotion.headline,
+          "description": promo.promotion.offerText,
+          "url": "https://www.the-anchor.pub/drinks/managers-special",
+          "priceCurrency": "GBP",
+          "price": promo.spirit.specialPrice.replace(/[\u00A3\s]/g, ''),
+          "validFrom": `${promo.startDate}T00:00:00Z`,
+          "validThrough": `${promo.endDate}T23:59:59Z`,
+          "availability": "https://schema.org/InStock",
+          "seller": {
+            "@id": "https://www.the-anchor.pub/#business"
+          },
+          "itemOffered": {
+            "@type": "Product",
+            "name": promo.spirit.name,
+            "description": promo.spirit.description || promo.spirit.longDescription || promo.promotion.offerText,
+            "image": absoluteImage,
+            "brand": promo.spirit.distillery
+              ? {
+                  "@type": "Brand",
+                  "name": promo.spirit.distillery
+                }
+              : undefined
+          }
+        }
+      }
+    })
+  }
   
   if (!currentPromotion) {
+    const fallbackFaqs = [
+      {
+        question: "What is the Manager's Special?",
+        answer: "Each month, we pick one premium spirit and take 25% off every serve. It's a simple way to try top-shelf drinks at a great pub price near Heathrow."
+      },
+      {
+        question: "How often does it change?",
+        answer: "The featured spirit changes monthly. Ask at the bar or check back here for the latest spirit, tasting notes, and special price."
+      },
+      {
+        question: "Do I need to book to get the offer?",
+        answer: "No booking is required for drinks. If you're planning to eat as well, booking a table is recommended - especially on weekends."
+      },
+      {
+        question: "Is it available every day?",
+        answer: "Yes - the discount runs throughout the month during normal opening hours, subject to availability. Challenge 25 applies."
+      }
+    ]
+
     const breadcrumbSchema = generateBreadcrumbSchema([
       { name: 'Home', url: '/' },
       { name: 'Drinks Menu', url: '/drinks' },
@@ -99,15 +220,15 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
         <MenuPageTracker menuType="managers_special" />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify([breadcrumbSchema, scheduleSchema]) }}
         />
         <HeroWrapper
           route="/drinks/managers-special"
           title="Manager's Special"
-          description="Our monthly drink offer is being refreshed. Check back soon, or explore the full drinks menu today."
+          description="25% off a different featured spirit each month. Ask at the bar for today's special price and tasting notes."
           variant="promo"
           tags={[
-            { label: 'New offer coming soon', variant: 'primary' as const },
+            { label: '25% off featured spirit', variant: 'primary' as const },
             { label: 'Updated monthly', variant: 'default' as const }
           ]}
           breadcrumbs={[
@@ -140,8 +261,8 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
               Manager&apos;s Special at The Anchor
             </PageTitle>
             <p className="text-lg text-gray-700">
-              We&apos;re curating the next spirit feature. In the meantime, explore
-              our full drinks selection or see what&apos;s on this month.
+              Every month we choose one premium spirit and take 25% off every serve. It&apos;s the easiest way
+              to discover top-shelf gins, whiskies, rums and more at genuine pub prices near Heathrow.
             </p>
             <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
               <Link href="/drinks">
@@ -156,6 +277,22 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
               </Link>
             </div>
           </div>
+        </Section>
+
+        <ManagersSpecialSchedule
+          promotions={upcomingPromotions}
+          currentPromotionId={null}
+          nextPromotionId={nextPromotion?.id}
+          daysUntilNext={daysUntilNext}
+          className="bg-gray-50"
+        />
+
+        <Section spacing="lg" container className="bg-white">
+          <FAQAccordionWithSchema
+            title="Manager's Special FAQs"
+            faqs={fallbackFaqs}
+            className="bg-white"
+          />
         </Section>
       </>
     )
@@ -360,7 +497,7 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([productSchema, breadcrumbSchema]) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([productSchema, breadcrumbSchema, scheduleSchema]) }}
       />
       
       {/* Hero Section */}
@@ -419,6 +556,14 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
       </Section>
 
       {/* Product showcase with image */}
+      <ManagersSpecialSchedule
+        promotions={upcomingPromotions}
+        currentPromotionId={currentPromotion.id}
+        nextPromotionId={nextPromotion?.id}
+        daysUntilNext={daysUntilNext}
+        className="bg-gray-50"
+      />
+
       <FullWidthSection id="details" className="bg-gradient-to-br from-purple-50 to-purple-100/50 py-12 md:py-20">
         <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">

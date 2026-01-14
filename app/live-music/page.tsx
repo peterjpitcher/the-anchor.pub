@@ -45,6 +45,11 @@ const LIVE_MUSIC_CATEGORY = {
     slug: 'live-music'
 }
 
+const OPEN_MIC_CATEGORY = {
+    name: 'Open Mic Night',
+    slug: 'open-mic-night'
+}
+
 const normalizeCategoryValue = (value?: string | null) =>
     value?.toLowerCase().replace(/\s+/g, ' ').trim() ?? ''
 
@@ -59,13 +64,31 @@ function getCategoryIdByLabel(categories: EventCategory[], label: typeof LIVE_MU
     })?.id
 }
 
+function isOpenMicEvent(event: Event) {
+    const targetName = normalizeCategoryValue(OPEN_MIC_CATEGORY.name)
+    const targetSlug = normalizeCategoryValue(OPEN_MIC_CATEGORY.slug)
+    const categoryName = normalizeCategoryValue(event.category?.name)
+    const categorySlug = normalizeCategoryValue(event.category?.slug)
+
+    return categoryName === targetName || categorySlug === targetSlug
+}
+
 async function getLiveMusicEvents() {
     const categories = await getEventCategories()
-    const categoryId = getCategoryIdByLabel(categories, LIVE_MUSIC_CATEGORY)
-    if (!categoryId) return []
+    const liveMusicCategoryId = getCategoryIdByLabel(categories, LIVE_MUSIC_CATEGORY)
+    const openMicCategoryId = getCategoryIdByLabel(categories, OPEN_MIC_CATEGORY)
 
-    const events = await getUpcomingEventsByCategory(categoryId, 60, 365)
-    return events.sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
+    const categoryIds = [liveMusicCategoryId, openMicCategoryId].filter(Boolean) as string[]
+    if (categoryIds.length === 0) return []
+
+    const results = await Promise.all(
+        categoryIds.map((categoryId) => getUpcomingEventsByCategory(categoryId, 60, 365))
+    )
+
+    const merged = results.flat()
+    const deduped = Array.from(new Map(merged.map(event => [event.id, event])).values())
+
+    return deduped.sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
 }
 
 const WHY_LOVE_IT = [
@@ -139,6 +162,7 @@ function MusicEventCards({ events }: { events: Event[] }) {
                 const isDraft = (event.eventStatus || '').toLowerCase().includes('draft')
                 const isScheduled = (event.eventStatus || '').toLowerCase().includes('scheduled')
                 const isTentative = isDraft || (!isScheduled && new Date(event.startDate).getTime() > new Date().getTime() + 30 * 24 * 60 * 60 * 1000)
+                const openMic = isOpenMicEvent(event)
                 const eventUrl = getEventWebsiteUrl(event)
                 const imageSrc = event.heroImageUrl || event.image?.[0] || null
 
@@ -147,7 +171,9 @@ function MusicEventCards({ events }: { events: Event[] }) {
                         <div className="bg-anchor-green text-white px-5 py-4 flex flex-wrap items-center justify-between gap-3">
                             <div className="min-w-0">
                                 <div className="flex items-center gap-2 mb-1">
-                                    <p className="text-xs uppercase tracking-wide text-white/70">Live Music Event</p>
+                                    <p className="text-xs uppercase tracking-wide text-white/70">
+                                        {openMic ? 'Open Mic Night' : 'Live Music Event'}
+                                    </p>
                                     {isTentative && (
                                         <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-blue-500 text-white border border-blue-400">
                                             TENTATIVE
@@ -161,7 +187,7 @@ function MusicEventCards({ events }: { events: Event[] }) {
                             </div>
                             <div className="text-right">
                                 <p className="text-lg font-semibold text-white">{startTime}</p>
-                                <p className="text-xs text-white/70">Free Entry</p>
+                                <p className="text-xs text-white/70">{openMic ? 'Walk-ins welcome' : 'Free Entry'}</p>
                             </div>
                         </div>
 
@@ -186,12 +212,19 @@ function MusicEventCards({ events }: { events: Event[] }) {
                                     <p className="text-gray-700 leading-relaxed">{event.description}</p>
                                 )}
                                 <p className="text-sm text-gray-600">
-                                    Join us for a fantastic night of live music. Great beer, great atmosphere, and no cover charge.
+                                    {openMic
+                                        ? 'Acoustic-friendly to start, with all performer types welcome for future events. Walk-ins are welcome, and you can book a table if you’d like a guaranteed seat.'
+                                        : 'Join us for a fantastic night of live music. Great beer, great atmosphere, and no cover charge.'}
                                 </p>
                             </div>
 
                             <div className="w-full lg:w-64 space-y-3">
-                                <EventBookingButton event={event} className="w-full" source="live_music_event_card" />
+                                <EventBookingButton
+                                    event={event}
+                                    className="w-full"
+                                    source="live_music_event_card"
+                                    label={openMic ? 'Book a table' : 'Book Now'}
+                                />
                             </div>
                         </CardBody>
                     </Card>

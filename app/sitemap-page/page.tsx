@@ -65,6 +65,7 @@ const sitemapSections: SitemapSection[] = [
       { label: 'Cash Bingo', href: '/cash-bingo' },
       { label: 'Karaoke', href: '/karaoke' },
       { label: 'Live Music', href: '/live-music' },
+      { label: 'Open Mic', href: '/open-mic' },
 
       { label: 'Six Nations Rugby', href: '/live-sport/six-nations' },
       { label: 'F1 Racing', href: '/live-sport/f1' },

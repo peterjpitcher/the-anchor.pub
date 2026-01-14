@@ -55,6 +55,7 @@ const defaultSections: FooterSection[] = [
       { label: 'Food Menu', href: '/food-menu' },
       { label: 'Sunday Roast', href: '/sunday-lunch' },
       { label: 'Drinks Menu', href: '/drinks' },
+      { label: "Manager's Special", href: '/drinks/managers-special' },
       { label: 'Book an Event', href: '/book-event' },
       { label: 'Sitemap', href: '/sitemap-page' }
     ]
