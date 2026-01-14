@@ -16,7 +16,7 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { PhoneButton } from '@/components/PhoneButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { EventSchema } from '@/components/seo/EventSchema'
-import EventBooking from '@/components/EventBooking'
+import { EventBookingButton } from '@/components/EventBookingButton'
 import {
     getEventCategories,
     getUpcomingEventsByCategory,
@@ -191,7 +191,7 @@ function MusicEventCards({ events }: { events: Event[] }) {
                             </div>
 
                             <div className="w-full lg:w-64 space-y-3">
-                                <EventBooking event={event} className="w-full" isTentative={isTentative} />
+                                <EventBookingButton event={event} className="w-full" source="live_music_event_card" />
                             </div>
                         </CardBody>
                     </Card>
@@ -268,13 +268,13 @@ export default async function LiveMusicPage() {
                                 <p className="text-gray-700 whitespace-pre-line">
                                     {nextEvent?.description || 'From acoustic sessions to full rock bands, our live music nights are always free entry and full of energy.'}
                                 </p>
-                                <div className="space-y-3">
-                                    {nextEvent ? (
-                                        <EventBooking event={nextEvent} className="w-full" />
-                                    ) : (
-                                        <Button
-                                            size="lg"
-                                            asChild
+                <div className="space-y-3">
+                  {nextEvent ? (
+                    <EventBookingButton event={nextEvent} className="w-full" source="live_music_next_event" />
+                  ) : (
+                    <Button
+                      size="lg"
+                      asChild
                                             className="w-full bg-anchor-green text-white hover:bg-anchor-green-dark"
                                         >
                                             <Link href="tel:+441753682707">📞 Call 01753 682707</Link>

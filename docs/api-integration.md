@@ -100,36 +100,11 @@ GET /bookings/availability/{date}
 
 ### Event Bookings
 
-#### Initiate Event Booking
-```typescript
-POST /bookings/initiate
-{
-  event_id: "event-uuid",
-  mobile_number: "+447700900000",
-  idempotency_key: "unique-key"
-}
-// Returns OTP verification requirement
-```
+Event bookings are handled via external booking links configured in the management system.
 
-#### Verify OTP
-```typescript
-POST /bookings/verify-otp
-{
-  booking_id: "booking-uuid",
-  otp: "123456"
-}
-```
-
-#### Submit Event Booking
-```typescript
-POST /bookings/submit
-{
-  booking_id: "booking-uuid",
-  event_id: "event-uuid",
-  customer_details: {...},
-  tickets: [{type: "standard", quantity: 2}]
-}
-```
+- Each event can include a `bookingUrl` field (nullable) returned from the Management API.
+- The website should render a prominent **Book Now** CTA linking to `bookingUrl` (open in a new tab).
+- If `bookingUrl` is missing, show a disabled CTA such as “Booking options available closer to the event”.
 
 ### Menu Management
 ```typescript

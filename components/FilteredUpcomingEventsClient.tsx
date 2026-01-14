@@ -4,21 +4,13 @@ import { useState, useEffect, useCallback, useMemo, useRef, memo } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useInView } from 'react-intersection-observer'
-import { formatEventDate, formatEventTime, formatPrice, getEventShortDescription, formatDoorTime } from '@/lib/api'
-import EventAvailability from '@/components/EventAvailability'
+import { formatEventDate, formatEventTime, getEventShortDescription, formatDoorTime } from '@/lib/api'
+import { EventBookingButton } from '@/components/EventBookingButton'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
+import { getEventPriceLabel } from '@/lib/event-pricing'
 import type { DisplayEvent } from '@/types/display-event'
 
 const MAX_URGENCY_DAYS = 3
-
-function getTicketAvailabilityText(remaining: number | null | undefined) {
-  if (typeof remaining !== 'number') return 'Tickets available now'
-  if (remaining <= 0) return 'Almost fully booked'
-  if (remaining === 1) return 'Only 1 ticket left'
-  if (remaining <= 5) return `Only ${remaining} tickets left`
-  if (remaining <= 12) return `${remaining} tickets remaining`
-  return 'Plenty of tickets available'
-}
 
 type EventUrgency = {
   label: string
@@ -59,19 +51,17 @@ function getEventTimingInfo(event: DisplayEvent): EventTimingInfo | null {
     const daysUntil = Math.floor(totalDaysUntil)
 
     if (totalDaysUntil <= MAX_URGENCY_DAYS) {
-      const ticketsCopy = getTicketAvailabilityText(event.remainingAttendeeCapacity)
-
       if (hoursUntil <= 24) {
         urgency = {
           label: hoursUntil <= 12 ? 'Starts tonight' : 'Starts tomorrow',
-          message: `${ticketsCopy}. We kick off at ${formatEventTime(event.startDate)}.`,
+          message: `We kick off at ${formatEventTime(event.startDate)}.`,
           badgeClassName: 'bg-red-600 text-white',
           panelClassName: 'bg-red-50 border border-red-200 text-red-700'
         }
       } else if (daysUntil <= 2) {
         urgency = {
           label: 'Almost here',
-          message: `${ticketsCopy}. Join us this ${eventDate.toLocaleDateString('en-GB', { weekday: 'long' })}.`,
+          message: `Join us this ${eventDate.toLocaleDateString('en-GB', { weekday: 'long' })}.`,
           badgeClassName: 'bg-anchor-gold text-anchor-charcoal',
           panelClassName: 'bg-anchor-gold/20 border border-anchor-gold/40 text-anchor-charcoal'
         }
@@ -79,7 +69,7 @@ function getEventTimingInfo(event: DisplayEvent): EventTimingInfo | null {
         const urgencyDayCount = Math.max(1, Math.round(totalDaysUntil))
         urgency = {
           label: `Only ${urgencyDayCount} day${urgencyDayCount === 1 ? '' : 's'} to go`,
-          message: `${ticketsCopy}. Secure your spot while the best tables are available.`,
+          message: 'Book early to get your preferred time.',
           badgeClassName: 'bg-anchor-green text-white',
           panelClassName: 'bg-anchor-green/10 border border-anchor-green/30 text-anchor-green'
         }
@@ -152,6 +142,7 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
   const isTimeChange = !!event.isTimeChange
   const eventImage = event.image?.[0] || event.heroImageUrl || DEFAULT_EVENT_IMAGE
   const timingInfo = isTimeChange ? null : getEventTimingInfo(event)
+  const priceLabel = isTimeChange ? null : getEventPriceLabel(event)
 
   const startTime = isTimeChange
     ? event.timeChangeStatus === 'closed'
@@ -281,12 +272,9 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
                 
                 {/* Mobile Meta Info */}
                 <div className="flex flex-wrap items-center gap-2 text-sm sm:text-xs mb-3">
-                  {!isTimeChange && event.offers && (
-                    <span className={event.offers.price === "0" ? "text-green-600 font-semibold" : "text-anchor-gold font-semibold"}>
-                      {event.offers.price === "0" ? "FREE TICKETS - Book while they\'re available" : formatPrice(event.offers.price, event.offers.priceCurrency)}
-                    </span>
+                  {priceLabel && (
+                    <span className="text-anchor-gold font-semibold">{priceLabel}</span>
                   )}
-                  
                   {event.category && (
                     <span 
                       className="inline-flex items-center px-2 py-0.5 font-semibold rounded-full"
@@ -298,21 +286,22 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
                       {event.category.name}
                     </span>
                   )}
-                  
-                  {!isTimeChange && <EventAvailability eventId={event.id} />}
                 </div>
                 
                 {/* Mobile CTA */}
                 {!isTimeChange && (
-                  <Link 
-                    href={`/events/${event.slug || event.id}`}
-                    className="inline-flex items-center text-anchor-gold font-semibold text-sm"
-                  >
-                    View {event.name} Details
-                    <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </Link>
+                  <div className="space-y-2">
+                    <EventBookingButton event={event} size="lg" source="whats_on_event_card_mobile" />
+                    <Link
+                      href={`/events/${event.slug || event.id}`}
+                      className="inline-flex items-center text-anchor-gold font-semibold text-sm"
+                    >
+                      View details
+                      <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </Link>
+                  </div>
                 )}
               </div>
             </div>
@@ -378,15 +367,9 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
                 )}
                 
                 <div className="flex flex-wrap items-center gap-4 text-sm">
-                  {!isTimeChange && event.offers && (
-                    <span className={event.offers.price === "0" ? "text-green-600 font-semibold" : "text-anchor-gold font-semibold"}>
-                      {event.offers.price === "0" ? "FREE TICKETS - Book while they\'re available" : formatPrice(event.offers.price, event.offers.priceCurrency)}
-                    </span>
+                  {priceLabel && (
+                    <span className="text-anchor-gold font-semibold">{priceLabel}</span>
                   )}
-                  
-                  {/* Real-time availability */}
-                  {!isTimeChange && <EventAvailability eventId={event.id} />}
-                  
                   {!isTimeChange && event.performer && (
                     <span className="text-gray-700">
                       Featuring: {event.performer.name}
@@ -427,15 +410,24 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
                   </div>
                   
                   {!isTimeChange && (
-                    <Link 
-                      href={`/events/${event.slug || event.id}`}
-                      className="inline-flex items-center text-anchor-gold hover:text-anchor-gold-light font-semibold text-sm"
-                    >
-                      View {event.name} Details & Book
-                      <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </Link>
+                    <div className="flex flex-col items-stretch gap-2 sm:flex-row sm:items-center sm:justify-end">
+                      <EventBookingButton
+                        event={event}
+                        className="sm:min-w-[220px]"
+                        fullWidth={false}
+                        size="lg"
+                        source="whats_on_event_card_desktop"
+                      />
+                      <Link
+                        href={`/events/${event.slug || event.id}`}
+                        className="inline-flex items-center justify-center text-anchor-gold hover:text-anchor-gold-light font-semibold text-sm"
+                      >
+                        View details
+                        <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                      </Link>
+                    </div>
                   )}
                 </div>
               </div>

@@ -16,7 +16,7 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { PhoneButton } from '@/components/PhoneButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { EventSchema } from '@/components/seo/EventSchema'
-import EventBooking from '@/components/EventBooking'
+import { EventBookingButton } from '@/components/EventBookingButton'
 import {
     getEventCategories,
     getUpcomingEventsByCategory,
@@ -204,7 +204,7 @@ function KaraokeEventCards({ events }: { events: Event[] }) {
                             </div>
 
                             <div className="w-full lg:w-64 space-y-3">
-                                <EventBooking event={event} className="w-full" isTentative={isTentative} />
+                                <EventBookingButton event={event} className="w-full" source="karaoke_event_card" />
                             </div>
                         </CardBody>
                     </Card>
@@ -281,13 +281,13 @@ export default async function KaraokePage() {
                                 <p className="text-gray-700 whitespace-pre-line">
                                     Join us for free-entry karaoke. Thousands of songs, no cover charge, and a crowd that cheers for everyone.
                                 </p>
-                                <div className="space-y-3">
-                                    {nextEvent ? (
-                                        <EventBooking event={nextEvent} className="w-full" />
-                                    ) : (
-                                        <Button
-                                            size="lg"
-                                            asChild
+                <div className="space-y-3">
+                  {nextEvent ? (
+                    <EventBookingButton event={nextEvent} className="w-full" source="karaoke_next_event" />
+                  ) : (
+                    <Button
+                      size="lg"
+                      asChild
                                             className="w-full bg-anchor-green text-white hover:bg-anchor-green-dark"
                                         >
                                             <Link href="tel:+441753682707">📞 Call 01753 682707</Link>

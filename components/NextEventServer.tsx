@@ -1,20 +1,13 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { getUpcomingEvents, formatEventTime, formatPrice } from '@/lib/api'
+import { getUpcomingEvents, formatEventTime } from '@/lib/api'
+import { getEventPriceLabel } from '@/lib/event-pricing'
 import { EventSchema } from '@/components/seo/EventSchema'
+import { EventBookingButton } from '@/components/EventBookingButton'
 import { Button } from '@/components/ui'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 
 const MAX_URGENCY_DAYS = 3
-
-function getTicketAvailabilityText(remaining: number | null | undefined) {
-  if (typeof remaining !== 'number') return 'Tickets available now'
-  if (remaining <= 0) return 'Almost fully booked'
-  if (remaining === 1) return 'Only 1 ticket left'
-  if (remaining <= 5) return `Only ${remaining} tickets left`
-  if (remaining <= 12) return `${remaining} tickets remaining`
-  return 'Plenty of tickets available'
-}
 
 export async function NextEventServer() {
   try {
@@ -63,7 +56,7 @@ export async function NextEventServer() {
       month: 'long'
     })
     const timeLabel = formatEventTime(nextEvent.startDate)
-    const availabilityCopy = getTicketAvailabilityText(nextEvent.remainingAttendeeCapacity)
+    const priceLabel = getEventPriceLabel(nextEvent)
 
     let urgency: {
       label: string
@@ -76,19 +69,19 @@ export async function NextEventServer() {
       if (hoursUntil <= 24) {
         urgency = {
           label: hoursUntil <= 12 ? 'Starts tonight' : 'Starts tomorrow',
-          message: `${availabilityCopy}. We kick off at ${eventDate.toLocaleTimeString('en-GB', {
+          message: `We kick off at ${eventDate.toLocaleTimeString('en-GB', {
             hour: '2-digit',
             minute: '2-digit'
-          })}.`,
+          })}. Book early to get your preferred time.`,
           badgeClassName: 'bg-red-600 text-white',
           panelClassName: 'bg-red-50 border border-red-200 text-red-700'
         }
       } else if (daysUntil <= 2) {
         urgency = {
           label: 'Almost here',
-          message: `${availabilityCopy}. Join us this ${eventDate.toLocaleDateString('en-GB', {
+          message: `Join us this ${eventDate.toLocaleDateString('en-GB', {
             weekday: 'long'
-          })}.`,
+          })}. Book early to get your preferred time.`,
           badgeClassName: 'bg-anchor-gold text-anchor-charcoal',
           panelClassName: 'bg-anchor-gold/20 border border-anchor-gold/40 text-anchor-charcoal'
         }
@@ -96,7 +89,7 @@ export async function NextEventServer() {
         const urgencyDayCount = Math.max(1, Math.round(totalDaysUntil))
         urgency = {
           label: `Only ${urgencyDayCount} day${urgencyDayCount === 1 ? '' : 's'} to go`,
-          message: `${availabilityCopy}. Secure your spot while the best tables are available.`,
+          message: 'Book early to get your preferred time.',
           badgeClassName: 'bg-anchor-green text-white',
           panelClassName: 'bg-anchor-green/10 border border-anchor-green/30 text-anchor-green'
         }
@@ -182,19 +175,25 @@ export async function NextEventServer() {
                 </div>
 
                 <div className="rounded-2xl border border-anchor-green/20 bg-white/80 p-5 shadow-sm backdrop-blur">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-anchor-green/70">
-                    Tickets
-                  </p>
-                  <p className="mt-2 text-xl font-bold text-anchor-green">
-                    {nextEvent.offers
-                      ? nextEvent.offers.price === '0'
-                        ? 'Free entry – reserve seats'
-                        : formatPrice(nextEvent.offers.price, nextEvent.offers.priceCurrency)
-                      : 'Check availability'}
-                  </p>
-                  <p className="mt-2 text-sm text-gray-700">
-                    {availabilityCopy}
-                  </p>
+                  {priceLabel ? (
+                    <>
+                      <p className="text-xs font-semibold uppercase tracking-wide text-anchor-green/70">
+                        Price
+                      </p>
+                      <p className="mt-2 text-xl font-bold text-anchor-green">
+                        {priceLabel}
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <p className="text-xs font-semibold uppercase tracking-wide text-anchor-green/70">
+                        Booking
+                      </p>
+                      <p className="mt-2 text-xl font-bold text-anchor-green">
+                        Book online (opens in a new tab)
+                      </p>
+                    </>
+                  )}
                 </div>
               </div>
 
@@ -205,14 +204,17 @@ export async function NextEventServer() {
               )}
 
               <div className="flex flex-wrap gap-3">
+                <div className="w-full sm:w-auto">
+                  <EventBookingButton
+                    event={nextEvent}
+                    size="lg"
+                    className="sm:min-w-[220px]"
+                    source="homepage_next_event"
+                  />
+                </div>
                 <Link href={`/events/${nextEvent.slug || nextEvent.id}`} className="w-full sm:w-auto">
-                  <Button variant="primary" size="lg" fullWidth className="sm:min-w-[220px]">
-                    View Details & Book
-                  </Button>
-                </Link>
-                <Link href="/whats-on" className="w-full sm:w-auto">
-                  <Button variant="ghost" size="lg" fullWidth className="sm:min-w-[200px]">
-                    Browse All Events
+                  <Button variant="secondary" size="lg" fullWidth className="sm:min-w-[200px]">
+                    View Details
                   </Button>
                 </Link>
               </div>

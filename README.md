@@ -6,7 +6,7 @@ A modern, SEO-optimised website for The Anchor pub in Stanwell Moor, featuring e
 
 - 🎯 **Local SEO Optimised** - Targeting "near me" searches and Heathrow traffic
 - 📱 **Mobile-First Design** - Responsive and fast on all devices
-- 🎭 **Event Management** - Live event updates via API integration with SMS booking
+- 🎭 **Event Management** - Live event updates via Management API (external booking links)
 - 🍽️ **Dynamic Menus** - Food and drinks menus with pricing
 - ✈️ **Heathrow Landing Pages** - Terminal-specific pages for travelers
 - 📝 **Blog System** - Markdown-based blog for news, offers, and updates

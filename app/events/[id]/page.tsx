@@ -4,9 +4,8 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Button, Container, Section, Card, CardBody, Badge, Alert, Grid, GridItem } from '@/components/ui'
 import { EventSchema } from '@/components/seo/EventSchema'
-import EventBooking from '@/components/EventBooking'
-import EventAvailability from '@/components/EventAvailability'
-import { anchorAPI, formatEventDate, formatEventTime, formatPrice, isEventFree, isEventSoldOut, formatDoorTime, formatEventDuration, hasLimitedAvailability } from '@/lib/api'
+import { EventBookingButton } from '@/components/EventBookingButton'
+import { anchorAPI, formatEventDate, formatEventTime, formatDoorTime, formatEventDuration } from '@/lib/api'
 import { EventPageTracker } from '@/components/tracking/EventPageTracker'
 import { PhoneButton } from '@/components/PhoneButton'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
@@ -49,16 +48,6 @@ export default async function EventPage({ params }: Props) {
 
   const eventDate = formatEventDate(event.startDate)
   const eventTime = formatEventTime(event.startDate)
-  const isFree = isEventFree(event)
-  const isSoldOut = isEventSoldOut(event)
-  
-  // Determine event type for styling
-  const eventType = event.name.toLowerCase()
-  const isDragShow = eventType.includes('drag')
-  const isQuiz = eventType.includes('quiz')
-  const isSpecialEvent = eventType.includes('special') || eventType.includes('celebration')
-  const isBingo = eventType.includes('bingo')
-  const isMusic = eventType.includes('music') || eventType.includes('karaoke')
   
   return (
     <>
@@ -131,19 +120,6 @@ export default async function EventPage({ params }: Props) {
                 )}
               </div>
               
-              {(isSoldOut || hasLimitedAvailability(event)) && (
-                <div className="flex justify-center mt-4">
-                  {isSoldOut ? (
-                    <span className="px-6 py-3 bg-red-600 text-white font-bold text-lg rounded-full">
-                      SOLD OUT
-                    </span>
-                  ) : hasLimitedAvailability(event) ? (
-                    <span className="px-6 py-3 bg-amber-600 text-white font-bold text-lg rounded-full animate-pulse">
-                      LIMITED AVAILABILITY
-                    </span>
-                  ) : null}
-                </div>
-              )}
             </div>
           </div>
         </Container>
@@ -172,9 +148,7 @@ export default async function EventPage({ params }: Props) {
             
             {/* Mobile: Booking First for Better CTA */}
             <div className="lg:hidden mb-6">
-              {!isSoldOut && event.booking_rules?.sms_confirmation_enabled !== false && (
-                <EventBooking event={event} className="max-w-md mx-auto" />
-              )}
+              <EventBookingButton event={event} size="xl" className="max-w-md mx-auto" source="event_page_mobile" />
             </div>
             
             {/* Main Content Grid */}
@@ -195,51 +169,13 @@ export default async function EventPage({ params }: Props) {
                   </div>
                 )}
                 
-                {/* Quick Info Cards - Mobile: Grid, Desktop: Stack */}
-                <div className="grid grid-cols-2 gap-3 lg:grid-cols-1 lg:gap-4">
-                  {/* Price */}
-                  <Card variant="default" className="bg-anchor-cream">
-                    <CardBody className="p-4 md:p-6">
-                      <p className="text-sm md:text-base text-gray-600 mb-1">Entry Price</p>
-                      <p className={`text-xl md:text-2xl font-bold ${isFree ? 'text-green-600' : 'text-anchor-gold'}`}>
-                        {isFree ? 'FREE TICKETS - Book while they\'re available' : event.offers ? formatPrice(event.offers.price, event.offers.priceCurrency) : 'TBC'}
-                      </p>
-                    </CardBody>
-                  </Card>
-                  
-                  {/* Capacity */}
-                  <Card variant="default" className="bg-anchor-cream">
-                    <CardBody className="p-4 md:p-6">
-                      <p className="text-sm md:text-base text-gray-600 mb-1">Availability</p>
-                      <EventAvailability eventId={event.id} showDetails={true} />
-                    </CardBody>
-                  </Card>
-                  
-                  {/* Status */}
-                  <Card variant="default" className="bg-anchor-cream col-span-2 lg:col-span-1">
-                    <CardBody className="p-4 md:p-6">
-                      <p className="text-sm md:text-base text-gray-600 mb-1">Status</p>
-                      <p className={`text-base md:text-lg font-bold ${
-                        event.eventStatus.includes('Cancelled') ? 'text-red-600' :
-                        event.eventStatus.includes('Postponed') ? 'text-orange-600' :
-                        'text-green-600'
-                      }`}>
-                        {event.eventStatus.includes('Cancelled') ? 'CANCELLED' :
-                         event.eventStatus.includes('Postponed') ? 'POSTPONED' :
-                         'CONFIRMED'}
-                      </p>
-                    </CardBody>
-                  </Card>
-                </div>
               </div>
               
               {/* Right Column - Details and Booking */}
               <div className="lg:col-span-2 order-1 lg:order-2">
                 {/* Desktop Booking Component */}
                 <div className="hidden lg:block">
-                  {!isSoldOut && event.booking_rules?.sms_confirmation_enabled !== false && (
-                    <EventBooking event={event} className="mb-8" />
-                  )}
+                  <EventBookingButton event={event} size="xl" className="mb-8" source="event_page_desktop" />
                 </div>
                 
                 {/* Description */}
@@ -350,16 +286,22 @@ export default async function EventPage({ params }: Props) {
       <Section className="bg-anchor-green" spacing="md">
         <Container className="text-center text-white">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4 md:mb-6">
-            {isSoldOut ? "Join Our Waiting List" : "Reserve Your Spot"}
+            Reserve Your Spot
           </h2>
           <p className="text-base md:text-lg lg:text-xl mb-6 md:mb-8 max-w-2xl mx-auto px-2">
-            {isSoldOut 
-              ? "This event is sold out but cancellations do happen. Call us to join the waiting list."
-              : "Don't miss out! Book now to secure your place at this event."
-            }
+            Choose your preferred time and booking option using the button below.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center max-w-md mx-auto sm:max-w-none">
+            <div className="w-full sm:w-auto">
+              <EventBookingButton
+                event={event}
+                className="w-full sm:w-auto"
+                fullWidth={false}
+                size="xl"
+                source={`event_page_cta_${params.id}`}
+              />
+            </div>
             <div className="w-full sm:w-auto">
               <PhoneButton 
                 phone="01753682707" 

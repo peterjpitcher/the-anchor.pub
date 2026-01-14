@@ -1,11 +1,11 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { type Event } from '@/lib/api'
 import { trackBannerEvent, trackCtaClick } from '@/lib/gtm-events'
+import { EventBookingButton } from '@/components/EventBookingButton'
 
 const BANNER_STORAGE_KEY = 'event_banner_dismissed_until'
 const SESSION_ELIGIBILITY_KEY = 'event_banner_session_show'
@@ -91,26 +91,15 @@ const shouldSuppressPath = (pathname: string | null) => {
   return HIDDEN_PATH_PREFIXES.some(prefix => pathname.startsWith(prefix))
 }
 
-const getTicketsCopy = (remaining: number | null | undefined) => {
-  if (typeof remaining !== 'number') return 'Tickets available now'
-  if (remaining <= 0) return 'Almost fully booked'
-  if (remaining === 1) return 'Only 1 ticket left'
-  if (remaining <= 5) return `Only ${remaining} tickets left`
-  if (remaining <= 12) return `${remaining} tickets remaining`
-  return 'Plenty of tickets available'
-}
-
 type BannerTone = 'dark' | 'light' | 'alert' | 'muted'
 
 const getUrgencyCopy = (event: Event, daysUntil: number, hoursUntil: number) => {
-  const remaining = event.remainingAttendeeCapacity
-  const ticketsText = getTicketsCopy(remaining)
   const eventDate = new Date(event.startDate)
 
   if (hoursUntil <= 24) {
     return {
       title: `Happening ${hoursUntil <= 12 ? 'tonight' : 'tomorrow'}: ${event.name}`,
-      message: `${ticketsText}. Starts ${getFormattedDate(eventDate)} at ${eventDate.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}.`,
+      message: `Starts ${getFormattedDate(eventDate)} at ${eventDate.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}. Book early to get your preferred time.`,
       tone: 'alert' as BannerTone,
       backgroundClass: 'bg-red-600 text-white'
     }
@@ -119,7 +108,7 @@ const getUrgencyCopy = (event: Event, daysUntil: number, hoursUntil: number) => 
   if (daysUntil <= 2) {
     return {
       title: `${event.name} is almost here`,
-      message: `${ticketsText}. Join us this ${getWeekday(eventDate)} at ${eventDate.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}.`,
+      message: `Join us this ${getWeekday(eventDate)} at ${eventDate.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}. Book early to get your preferred time.`,
       tone: 'light' as BannerTone,
       backgroundClass: 'bg-anchor-gold text-anchor-charcoal'
     }
@@ -128,7 +117,7 @@ const getUrgencyCopy = (event: Event, daysUntil: number, hoursUntil: number) => 
   if (daysUntil <= 4) {
     return {
       title: `${event.name} this ${getWeekday(eventDate)}`,
-      message: `${ticketsText}. Secure your spot before we fill up.`,
+      message: 'Book early to get your preferred time.',
       tone: 'dark' as BannerTone,
       backgroundClass: 'bg-anchor-green text-white'
     }
@@ -136,7 +125,7 @@ const getUrgencyCopy = (event: Event, daysUntil: number, hoursUntil: number) => 
 
   return {
     title: `${event.name} next ${getWeekday(eventDate)}`,
-    message: `${ticketsText}. Early bookings get the best tables.`,
+    message: 'Book early to get your preferred time.',
     tone: 'muted' as BannerTone,
     backgroundClass: 'bg-anchor-green/95 text-white'
   }
@@ -184,9 +173,6 @@ export function EventCountdownBanner() {
           const timing = computeTiming(event.startDate)
           if (!timing) continue
           if (timing.daysUntil > MAX_LEAD_DAYS) continue
-
-          const ticketsRemaining = event.remainingAttendeeCapacity
-          if (typeof ticketsRemaining === 'number' && ticketsRemaining <= 0) continue
 
           selected = {
             event,
@@ -265,7 +251,6 @@ export function EventCountdownBanner() {
   }
 
   const { event, eventDate } = banner
-  const bookingLink = `/events/${event.slug || event.id}`
 
   const handleDismiss = () => {
     if (banner) {
@@ -284,9 +269,9 @@ export function EventCountdownBanner() {
     if (!banner) return
     trackCtaClick({
       id: 'event_banner_cta',
-      label: 'Reserve tickets',
+      label: 'Book now',
       location: 'event_countdown_banner',
-      destination: 'event_page',
+      destination: 'booking_link',
       context: banner.event.slug || banner.event.id
     })
     trackBannerEvent({
@@ -324,13 +309,14 @@ export function EventCountdownBanner() {
           <span>{weekday} · {timeString}</span>
         </div>
         <div className="mt-3">
-          <Link
-            href={bookingLink}
+          <EventBookingButton
+            event={event}
+            fullWidth={false}
+            size="sm"
+            variant="outline"
+            source="event_countdown_banner"
             onClick={handleCtaClick}
-            className="inline-flex items-center justify-center rounded-full bg-white text-anchor-charcoal px-4 py-2 text-sm font-semibold transition hover:bg-anchor-gold hover:text-white"
-          >
-            Reserve tickets
-          </Link>
+          />
         </div>
         <button
           type="button"

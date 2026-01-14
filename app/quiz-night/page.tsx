@@ -18,7 +18,7 @@ import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { EventSchema } from '@/components/seo/EventSchema'
-import EventBooking from '@/components/EventBooking'
+import { EventBookingButton } from '@/components/EventBookingButton'
 import { BookTableButton } from '@/components/BookTableButton'
 import {
   getEventCategories,
@@ -105,7 +105,7 @@ const FAQS = [
   {
     question: 'How much is entry and do we need to book?',
     answer:
-      'It’s GBP 3 per player. Reserve your spot by dropping your mobile number into the booking form above or call 01753 682707 and we’ll lock in your team.'
+      'It’s GBP 3 per player. If booking is open you’ll see a Book Now button above (it opens in a new tab). If not, booking options are available closer to the event — check back nearer the date or call 01753 682707 and we’ll help.'
   },
   {
     question: 'How many players can we bring?',
@@ -237,7 +237,7 @@ function QuizNightEvents({ events }: { events: Event[] }) {
               </div>
 
               <div className="w-full lg:w-64 space-y-3">
-                <EventBooking event={event} className="w-full" isTentative={isTentative} />
+                <EventBookingButton event={event} className="w-full" source="quiz_night_event_card" />
               </div>
             </CardBody>
           </Card>
@@ -348,7 +348,7 @@ export default async function QuizNightPage() {
                 )}
                 <div className="space-y-3">
                   {nextEvent ? (
-                    <EventBooking event={nextEvent} className="w-full" />
+                    <EventBookingButton event={nextEvent} className="w-full" source="quiz_night_next_event" />
                   ) : (
                     <Button
                       size="lg"

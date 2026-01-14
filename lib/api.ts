@@ -161,6 +161,7 @@ export interface Event {
   isAccessibleForFree?: boolean
   remainingAttendeeCapacity?: number // Available tickets
   maximumAttendeeCapacity?: number // Total capacity
+  bookingUrl?: string | null // External booking link
   url?: string // New field: event page URL
   identifier?: string // New field: same as id
   metaTitle?: string | null
@@ -229,28 +230,6 @@ export interface EventsResponse {
     limit: number
     offset: number
   }
-}
-
-// New types for booking functionality
-export interface BookingInitiation {
-  event_id: string
-  mobile_number: string
-}
-
-export interface BookingInitiationResponse {
-  status: 'pending'
-  booking_token: string
-  confirmation_url: string
-  expires_at: string
-  event: {
-    id: string
-    name: string
-    date: string
-    time: string
-    available_seats: number
-  }
-  customer_exists: boolean
-  sms_sent: boolean
 }
 
 // Private Booking API Methods
@@ -1595,7 +1574,7 @@ export class AnchorAPI {
     return this.request<EventCategoriesResponse>('/event-categories')
   }
 
-  // New methods for booking functionality
+  // Event availability
   async checkEventAvailability(eventId: string, seats: number = 1): Promise<EventAvailability> {
     // Use different endpoint for client vs server
     const endpoint = typeof window === 'undefined'
@@ -1607,14 +1586,6 @@ export class AnchorAPI {
       body: JSON.stringify({ seats })
     })
   }
-
-  async initiateBooking(data: BookingInitiation): Promise<BookingInitiationResponse> {
-    return this.request<BookingInitiationResponse>('/bookings/initiate', {
-      method: 'POST',
-      body: JSON.stringify(data),
-    })
-  }
-
 
   // Menu
   async getMenu(): Promise<MenuResponse> {
@@ -1809,24 +1780,6 @@ export class AnchorAPI {
     if (endpoint.startsWith('/events/')) {
       const eventId = endpoint.replace('/events/', '').replace(/\/+$/, '') || 'event'
       return createFallbackEvent(eventId)
-    }
-
-    if (endpoint === '/bookings/initiate') {
-      return {
-        status: 'pending',
-        booking_token: 'fallback-token',
-        confirmation_url: 'https://example.com/confirm',
-        expires_at: new Date().toISOString(),
-        event: {
-          id: 'fallback-event',
-          name: 'Fallback Event',
-          date: '2025-01-01',
-          time: '19:00',
-          available_seats: 10
-        },
-        customer_exists: false,
-        sms_sent: false
-      }
     }
 
     return null
@@ -2068,26 +2021,13 @@ export function getEventShortDescription(event: Event, maxLength: number = 150):
   return event.description
 }
 
-// New helper functions for booking functionality
+// Event helper functions
 export async function checkEventAvailability(eventId: string, seats: number = 1): Promise<EventAvailability | null> {
   try {
     return await anchorAPI.checkEventAvailability(eventId, seats)
   } catch (error) {
     logError('api-check-availability', error, { eventId, seats })
     return null
-  }
-}
-
-export async function initiateEventBooking(eventId: string, mobileNumber: string): Promise<BookingInitiationResponse | null> {
-  try {
-    return await anchorAPI.initiateBooking({
-      event_id: eventId,
-      mobile_number: mobileNumber,
-    })
-  } catch (error: any) {
-    logError('api-initiate-booking', error, { eventId })
-    // Re-throw the error so the component can handle it
-    throw error
   }
 }
 

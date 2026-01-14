@@ -12,6 +12,7 @@ function calculateEndDate(startDate: string, duration?: string): string {
 export function buildEventSchema(event: Event) {
   const eventUrl = getEventWebsiteUrl(event, { absolute: true })
   const eventImage = event.image?.[0] || event.heroImageUrl || event.thumbnailImageUrl || DEFAULT_EVENT_IMAGE
+  const bookingUrl = event.bookingUrl || eventUrl
 
   return {
     '@context': 'https://schema.org',
@@ -64,7 +65,7 @@ export function buildEventSchema(event: Event) {
         },
     offers: {
       '@type': 'Offer',
-      url: eventUrl,
+      url: bookingUrl,
       price: event.offers?.price || '0',
       priceCurrency: event.offers?.priceCurrency || 'GBP',
       availability:

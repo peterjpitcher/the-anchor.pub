@@ -16,7 +16,7 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { PhoneButton } from '@/components/PhoneButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { EventSchema } from '@/components/seo/EventSchema'
-import EventBooking from '@/components/EventBooking'
+import { EventBookingButton } from '@/components/EventBookingButton'
 import {
   getEventCategories,
   getUpcomingEventsByCategory,
@@ -110,7 +110,7 @@ const FAQS = [
   {
     question: 'Do I need to book in advance?',
     answer:
-      'Yes—tickets sell fast. Pop your mobile number into the booking form above or call 01753 682707 and we’ll reserve a table. Walk-ins are welcome while capacity lasts.'
+      'Yes—tickets sell fast. If booking is open you’ll see a Book Now button above (it opens in a new tab). If not, booking options are available closer to the event — check back nearer the date or call 01753 682707 and we’ll help.'
   },
   {
     question: 'Is there an age limit for bingo night?',
@@ -210,7 +210,7 @@ function BingoEventCards({ events }: { events: Event[] }) {
               </div>
 
               <div className="w-full lg:w-64 space-y-3">
-                <EventBooking event={event} className="w-full" isTentative={isTentative} />
+                <EventBookingButton event={event} className="w-full" source="cash_bingo_event_card" />
               </div>
             </CardBody>
           </Card>
@@ -290,7 +290,7 @@ export default async function CashBingoPage() {
 	                </p>
                 <div className="space-y-3">
                   {nextEvent ? (
-                    <EventBooking event={nextEvent} className="w-full" />
+                    <EventBookingButton event={nextEvent} className="w-full" source="cash_bingo_next_event" />
                   ) : (
                     <Button
                       size="lg"
