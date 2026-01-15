@@ -13,19 +13,19 @@ const payloadSchema = z.object({
   performerTypes: z.array(z.string().trim().min(1)).min(1),
   performerTypeOther: z.string().trim().optional().nullable(),
   bio: z.string().trim().min(1).max(800),
-  links: z.record(z.array(z.string().trim().min(1).max(500))).optional(),
-  socialHandles: z.record(z.string().trim().max(200)).optional(),
+  links: z.record(z.string(), z.array(z.string().trim().min(1).max(500))).optional(),
+  socialHandles: z.record(z.string(), z.string().trim().max(200)).optional(),
   experienceLevel: z.enum(['none', 'some', 'regular']).optional().nullable(),
   pronouns: z.string().trim().max(100).optional().nullable(),
   accessibilityNotes: z.string().trim().max(1000).optional().nullable(),
   availabilityGeneral: z.enum(['weeknights', 'weekends', 'either']),
   canStartAround8pm: z.enum(['yes', 'no', 'depends']),
-  availability: z.record(z.any()).optional(),
+  availability: z.record(z.string(), z.unknown()).optional(),
   setLengthMinutes: z.union([z.literal(5), z.literal(10), z.literal(15), z.literal(20)]).optional(),
   contentRating: z.enum(['family_friendly', 'mild_language', 'adults_only']).optional(),
   musicOriginalsCovers: z.enum(['original', 'covers', 'mix']).optional(),
   genres: z.array(z.string().trim().min(1).max(50)).max(25).optional(),
-  techNeeds: z.record(z.any()).optional(),
+  techNeeds: z.record(z.string(), z.unknown()).optional(),
   techNeedsOther: z.string().trim().max(500).optional().nullable(),
   bringOwnGear: z.enum(['yes', 'no', 'some']).optional(),
   setupTimeMinutes: z.number().int().min(0).max(180).optional(),
@@ -50,7 +50,7 @@ export async function POST(request: Request) {
     const body = payloadSchema.safeParse(await request.json())
     if (!body.success) {
       return NextResponse.json(
-        { success: false, error: body.error.errors[0]?.message ?? 'Invalid submission.' },
+        { success: false, error: body.error.issues[0]?.message ?? 'Invalid submission.' },
         { status: 400 }
       )
     }
@@ -87,4 +87,3 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: false, error: message }, { status: 500 })
   }
 }
-
