@@ -4,6 +4,7 @@ import type { Event } from '@/lib/api'
 import { trackEventBookingStart } from '@/lib/gtm-events'
 import { getEventWebsiteUrl } from '@/lib/event-url'
 import { Button } from '@/components/ui'
+import { cn } from '@/lib/utils'
 
 type EventBookingButtonProps = {
   event: Event
@@ -111,7 +112,7 @@ export function EventBookingButton({
   if (!bookingUrl) {
     return (
       <Button
-        className={className}
+        className={cn('whitespace-normal break-words', className)}
         disabled
         fullWidth={fullWidth}
         size={size}
