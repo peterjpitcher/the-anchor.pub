@@ -242,7 +242,7 @@ export default async function OpenMicPage() {
                 <ul className="space-y-2 text-gray-700">
                   <li>Arrive from ~7:30pm if you can (sign-in / quick chat)</li>
                   <li>First act around 8pm</li>
-                  <li>Short slots (often 10–15 minutes, depending on turnout)</li>
+                  <li>Depending on turnout, we may have to resort to slotted times (often 10–15 minutes)</li>
                   <li>Respectful, community-led atmosphere</li>
                 </ul>
                 <div className="rounded-xl bg-white border border-gray-200 p-4">
