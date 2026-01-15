@@ -100,4 +100,30 @@ describe('Button', () => {
     expect(button).toHaveAttribute('form', 'test-form')
     expect(button).toHaveAttribute('aria-label', 'Submit form')
   })
+
+  it('applies styles to child when using asChild', () => {
+    render(
+      <Button asChild variant="primary">
+        <a href="#test">Link Button</a>
+      </Button>
+    )
+
+    const link = screen.getByRole('link', { name: 'Link Button' })
+    expect(link).toHaveClass('bg-anchor-gold')
+    expect(link).toHaveClass('inline-flex')
+  })
+
+  it('handles click events when using asChild', async () => {
+    const handleClick = jest.fn((event: React.MouseEvent) => {
+      event.preventDefault()
+    })
+    render(
+      <Button asChild onClick={handleClick}>
+        <a href="#test">Link Button</a>
+      </Button>
+    )
+    
+    await userEvent.click(screen.getByRole('link', { name: 'Link Button' }))
+    expect(handleClick).toHaveBeenCalledTimes(1)
+  })
 })
