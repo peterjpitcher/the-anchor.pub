@@ -27,7 +27,10 @@ export const metadata: Metadata = {
         title: 'Milestone Birthday Parties at The Anchor',
         description: 'Planning a big birthday? Discover our party packages perfect for 30ths, 40ths, and 50ths. Great food, music, and atmosphere.',
         images: [DEFAULT_CORPORATE_IMAGE]
-    })
+    }),
+    alternates: {
+        canonical: '/private-hire/milestone-birthdays'
+    }
 }
 
 export default function MilestoneBirthdaysPage() {

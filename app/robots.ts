@@ -13,25 +13,13 @@ export default function robots(): MetadataRoute.Robots {
           '/_partials/',
           '/_api/',
           '/_scripts/',
-
-          '/components',
-          '/debug-hours',
-          '/demo-header',
-          '/leave-review',
           '/subscribe',
           '/leave-a-review',
           '/subscribe-for-digital-flyers',
-          '/test-gtm',
-          '/test-hours',
-          '/test-navigation-tracking',
-          '/test-reviews',
-          '/test-simple',
-          '/test-tracking',
-          '/gtm-debug',
           '/p5-demo'
         ]
       }
     ],
-    sitemap: 'https://www.the-anchor.pub/sitemap.xml',
+    sitemap: ['https://www.the-anchor.pub/sitemap.xml'],
   }
 }

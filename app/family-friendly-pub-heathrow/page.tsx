@@ -24,7 +24,10 @@ export const metadata: Metadata = {
         title: 'Family Dining at The Anchor',
         description: 'Relaxed atmosphere, great food for little ones, and space to unwind.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
-    })
+    }),
+    alternates: {
+        canonical: '/family-friendly-pub-heathrow'
+    }
 }
 
 export default function FamilyFriendlyPage() {

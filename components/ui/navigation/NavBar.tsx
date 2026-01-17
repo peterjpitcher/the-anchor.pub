@@ -126,22 +126,13 @@ export const NavBar = ({
   }[mobileBreakpoint]
 
   return (
-    <>
-      {/* Skip to main content */}
-      <a 
-        href="#main-content" 
-        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-anchor-gold focus:text-white focus:rounded-md"
-      >
-        Skip to main content
-      </a>
-
-      <nav 
-        className={navClasses}
-        role="navigation"
-        aria-label="Main navigation"
-        data-testid={testId}
-        {...props}
-      >
+    <nav
+      className={navClasses}
+      role="navigation"
+      aria-label="Main navigation"
+      data-testid={testId}
+      {...props}
+    >
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-full">
             {/* Logo */}
@@ -198,8 +189,7 @@ export const NavBar = ({
           variant={variant || 'default'}
           onClose={() => setIsMobileMenuOpen(false)}
         />
-      </nav>
-    </>
+    </nav>
   )
 }
 

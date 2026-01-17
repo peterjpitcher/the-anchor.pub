@@ -23,7 +23,10 @@ export const metadata: Metadata = {
     title: 'Egham Pub Alternative - The Anchor Stanwell Moor',
     description: 'Traditional village pub 12 minutes from Egham with free parking, Sunday roast and stone-baked pizzas.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
-  })
+  }),
+  alternates: {
+    canonical: '/egham-pub'
+  }
 }
 
 export default function EghamPubPage() {

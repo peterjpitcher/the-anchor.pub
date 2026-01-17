@@ -22,17 +22,17 @@ import { parkingFacilitySchema } from '@/lib/schemas/parking'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-  title: 'Find The Anchor Pub - Directions Near Heathrow & M25 J14',
-  description: 'Get step-by-step directions from Heathrow Terminal 5, Terminal 3, Terminal 2 and Terminal 4 to The Anchor on Horton Road. Seven minutes from T5 with free parking and easy access from M25 Junction 14, Staines and Ashford.',
-  keywords: 'find the anchor pub, directions to the anchor heathrow, m25 junction 14 pub directions, heathrow terminal 5 to pub, pub with free parking stanwell moor',
+  title: 'Directions to The Anchor (TW19 6AQ) | Free Parking | Near Heathrow T5',
+  description: 'Get directions to The Anchor on Horton Road, Stanwell Moor TW19 6AQ. Seven minutes from Heathrow Terminal 5 with free parking and easy access from M25 Junction 14 and Staines.',
+  keywords: 'directions to the anchor, the anchor tw19 6aq, horton road stanwell moor, heathrow terminal 5 to pub, m25 junction 14 pub directions, free parking pub near heathrow',
   openGraph: {
-    title: 'Find The Anchor Pub Near Heathrow Terminals',
-    description: 'Driving and public transport directions from every Heathrow terminal to The Anchor on Horton Road with free parking details.',
+    title: 'Directions to The Anchor Pub (TW19 6AQ)',
+    description: 'Driving and public transport directions from Heathrow terminals to The Anchor on Horton Road with free parking.',
     images: [DEFAULT_PAGE_HEADER_IMAGE],
   },
   twitter: getTwitterMetadata({
-    title: 'Find The Anchor Pub Near Heathrow',
-    description: 'See directions from Heathrow Terminal 5, Terminal 3 and Terminal 4 plus free parking info for The Anchor in Stanwell Moor.',
+    title: 'Directions to The Anchor Pub (TW19 6AQ)',
+    description: 'See directions from Heathrow terminals plus free parking info for The Anchor in Stanwell Moor.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
   alternates: {

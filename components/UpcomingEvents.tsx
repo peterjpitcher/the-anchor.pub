@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { getUpcomingEvents, formatEventDate, formatEventTime, formatPrice, getEventShortDescription, formatDoorTime, hasLimitedAvailability } from '@/lib/api'
 import { EventSchema } from '@/components/seo/EventSchema'
 import { PhoneLink } from '@/components/PhoneLink'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export async function UpcomingEvents() {
   try {
@@ -52,7 +53,7 @@ export async function UpcomingEvents() {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(eventListSchema)
+            __html: jsonLdSafeStringify(eventListSchema)
           }}
         />
         

@@ -5,7 +5,7 @@ export default function TestReviewsPage() {
   return (
     <Section spacing="lg" container containerSize="lg" className="space-y-16">
       <SectionHeader
-        title="Google Reviews Integration Test"
+        title="Reviews UI Test"
         subtitle="Testing different layouts and configurations"
       />
 
@@ -68,22 +68,13 @@ export default function TestReviewsPage() {
         />
       </div>
 
-      {/* Environment Variable Check */}
+      {/* Notes */}
       <div className="p-6 bg-gray-100 rounded-lg">
-        <h3 className="font-bold mb-2">Environment Variable Status:</h3>
-        <p>GOOGLE_PLACES_API_KEY: {process.env.GOOGLE_PLACES_API_KEY ? '✅ SET' : '❌ NOT SET'}</p>
-        <p>GOOGLE_PLACE_ID: {process.env.GOOGLE_PLACE_ID || '❌ NOT SET - Using mock data'}</p>
-        <p className="mt-4 text-sm text-gray-600">
-          To see actual Google reviews, you need to:
-        </p>
-        <ol className="list-decimal list-inside text-sm text-gray-600 mt-2">
-          <li>Find your Google Place ID using the instructions in scripts/find-place-id.js</li>
-          <li>Add it to your .env.local file as GOOGLE_PLACE_ID</li>
-          <li>Restart the development server</li>
-        </ol>
-        <p className="mt-4 text-sm text-gray-500">
-          Note: Google Places API only returns the 5 most recent reviews. For all reviews, 
-          you'll need to use the Google My Business API.
+        <h3 className="font-bold mb-2">Notes</h3>
+        <p className="text-sm text-gray-600">
+          Reviews are served from static data via <code>/api/reviews</code>. Update{' '}
+          <code>lib/google/review-utils.ts</code> to change the displayed review cards or the
+          rating/review totals.
         </p>
       </div>
     </Section>

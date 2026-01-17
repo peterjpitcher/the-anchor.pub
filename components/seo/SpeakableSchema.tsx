@@ -1,7 +1,3 @@
-'use client'
-
-import { useEffect } from 'react'
-
 interface SpeakableSchemaProps {
   selectors?: string[]
 }
@@ -17,27 +13,21 @@ const defaultSelectors = [
 ]
 
 export function SpeakableSchema({ selectors = defaultSelectors }: SpeakableSchemaProps) {
-  useEffect(() => {
-    // Create and inject the speakable schema
-    const schema = {
-      "@context": "https://schema.org",
-      "@type": "WebPage",
-      "speakable": {
-        "@type": "SpeakableSpecification",
-        "cssSelector": selectors
-      }
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: selectors
     }
+  }
 
-    const script = document.createElement('script')
-    script.type = 'application/ld+json'
-    script.text = JSON.stringify(schema)
-    document.head.appendChild(script)
-
-    return () => {
-      // Clean up on unmount
-      document.head.removeChild(script)
-    }
-  }, [selectors])
-
-  return null
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(schema).replace(/</g, '\u003c')
+      }}
+    />
+  )
 }

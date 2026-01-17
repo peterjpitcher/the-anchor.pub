@@ -5,6 +5,16 @@
     "permanent": true
   },
   {
+    "source": "/blog/euro-2024-viewing",
+    "destination": "/live-sport",
+    "permanent": true
+  },
+  {
+    "source": "/blog/autumn-internationals-2024-full-fixtures-highlight",
+    "destination": "/live-sport",
+    "permanent": true
+  },
+  {
     "source": "/live-sport-pub",
     "destination": "/live-sport",
     "permanent": true

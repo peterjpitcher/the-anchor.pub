@@ -2,6 +2,7 @@
 
 import { useMemo, memo, useRef, useState } from 'react'
 import { MenuData, MenuCategory, MenuSection, MenuItem } from '@/lib/menu-parser'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { SpecialOfferNotifications } from '../SpecialOfferNotifications'
 import { Card, CardBody, CardHeader, CardTitle } from '@/components/ui/layout/Card'
 import { Container, Section } from '@/components/ui/layout/Container'
@@ -87,7 +88,7 @@ export function MenuDisplay({ menuData, accentColor = 'anchor-gold' }: MenuDispl
       {/* Schema.org Menu markup */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(menuSchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(menuSchema) }}
       />
       
       {/* Kitchen Hours */}

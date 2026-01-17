@@ -1,0 +1,607 @@
+import type { Metadata } from 'next'
+import Image from 'next/image'
+import Link from 'next/link'
+import { cache } from 'react'
+import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
+import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { PhoneButton } from '@/components/PhoneButton'
+import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
+import { EventSchema } from '@/components/seo/EventSchema'
+import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
+import { anchorAPI, formatEventDate, formatEventTime, type Event } from '@/lib/api'
+import { DEFAULT_EVENT_IMAGE, DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
+import { getTwitterMetadata } from '@/lib/twitter-metadata'
+import { Badge, Button, Card, CardBody, Container, Section } from '@/components/ui'
+import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
+
+export const dynamic = 'force-dynamic'
+
+type ValentinesEventResult = {
+  targetYear: number
+  event: Event | null
+  allMatches: Event[]
+}
+
+type TimeRange = {
+  start: string
+  end: string
+}
+
+function normaliseWhitespace(value: string): string {
+  return value.trim().replace(/\s+/g, ' ')
+}
+
+function formatClockTime(value: string): string {
+  return value
+    .trim()
+    .replace(/\s+/g, '')
+    .replace(/:00(?=[ap]m$)/i, '')
+    .toLowerCase()
+}
+
+function formatTimeRange(value: TimeRange): string {
+  return `${formatClockTime(value.start)}–${formatClockTime(value.end)}`
+}
+
+function extractTimeRange(source: string, pattern: RegExp): TimeRange | null {
+  const match = source.match(pattern)
+  if (!match?.[1] || !match?.[2]) return null
+  return { start: match[1], end: match[2] }
+}
+
+function getTextExcerpt(value: string, maxLength: number): string {
+  const cleaned = normaliseWhitespace(value)
+  if (cleaned.length <= maxLength) return cleaned
+
+  const truncated = cleaned.slice(0, maxLength)
+  const lastStop = truncated.lastIndexOf('. ')
+  if (lastStop > 160) {
+    return truncated.slice(0, lastStop + 1)
+  }
+
+  return `${truncated}…`
+}
+
+function getNextValentinesYear(now: Date): number {
+  const valentinesEnd = new Date(Date.UTC(now.getUTCFullYear(), 1, 14, 23, 59, 59))
+  return now.getTime() > valentinesEnd.getTime() ? now.getUTCFullYear() + 1 : now.getUTCFullYear()
+}
+
+function isValentinesCandidate(event: Event): boolean {
+  const haystack = [
+    event.name,
+    event.shortDescription,
+    event.description,
+    event.about,
+    event.slug,
+    event.identifier,
+    event.keywords
+  ]
+    .filter(Boolean)
+    .join(' ')
+    .toLowerCase()
+
+  return haystack.includes('valentin')
+}
+
+function getFebruaryDateRange(year: number): { fromDate: string; toDate: string } {
+  return {
+    fromDate: `${year}-02-01`,
+    toDate: `${year}-02-28`
+  }
+}
+
+const getValentinesEvent = cache(async (): Promise<ValentinesEventResult> => {
+  const now = new Date()
+  const targetYear = getNextValentinesYear(now)
+  const { fromDate, toDate } = getFebruaryDateRange(targetYear)
+
+  try {
+    const response = await anchorAPI.getEvents({
+      from_date: fromDate,
+      to_date: toDate,
+      limit: 200,
+      status: 'scheduled'
+    })
+
+    const events = response.events || []
+    const matches = events.filter(isValentinesCandidate)
+
+    const valentinesTarget = new Date(Date.UTC(targetYear, 1, 14, 12, 0, 0)).getTime()
+    const sorted = [...matches].sort((a, b) => {
+      const aMs = Date.parse(a.startDate)
+      const bMs = Date.parse(b.startDate)
+      const aScore = Number.isFinite(aMs) ? Math.abs(aMs - valentinesTarget) : Number.POSITIVE_INFINITY
+      const bScore = Number.isFinite(bMs) ? Math.abs(bMs - valentinesTarget) : Number.POSITIVE_INFINITY
+      return aScore - bScore
+    })
+
+    return {
+      targetYear,
+      event: sorted[0] ?? null,
+      allMatches: sorted
+    }
+  } catch {
+    return {
+      targetYear,
+      event: null,
+      allMatches: []
+    }
+  }
+})
+
+export async function generateMetadata(): Promise<Metadata> {
+  const { event, targetYear } = await getValentinesEvent()
+  const eventDateLabel = event
+    ? new Date(event.startDate).toLocaleDateString('en-GB', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+        timeZone: 'Europe/London'
+      })
+    : `14 February ${targetYear}`
+  const performerName = event?.performer?.name
+  const proseccoOffer = event?.highlights?.find((highlight) => /prosecco/i.test(highlight))
+
+  const title = event?.metaTitle
+    ? event.metaTitle
+    : event?.name
+    ? `${event.name} | Valentine’s Day at The Anchor`
+    : 'Valentine’s Day at The Anchor | Dinner Near Heathrow'
+
+  const description = event?.metaDescription
+    ? event.metaDescription
+    : event
+    ? [
+        `Celebrate Valentine’s Day near Heathrow at The Anchor in Stanwell Moor (TW19).`,
+        performerName ? `Live music from ${performerName}.` : 'Live music, great food and a brilliant atmosphere.',
+        proseccoOffer ? `${proseccoOffer}.` : 'Book early to secure your preferred time.',
+        `Date: ${eventDateLabel}.`
+      ].join(' ')
+    : `Celebrate Valentine’s Day near Heathrow at The Anchor in Stanwell Moor (TW19). Romantic dining, great atmosphere, and online table bookings for ${eventDateLabel}.`
+
+  const keywords = event?.keywords
+    ? event.keywords
+    : 'valentines day stanwell moor, valentines near heathrow, romantic dinner TW19, live music valentines'
+
+  const socialImages = [
+    DEFAULT_PAGE_HEADER_IMAGE,
+    event?.image?.[0]
+  ].filter((value): value is string => typeof value === 'string' && value.length > 0)
+
+  return {
+    title,
+    description,
+    keywords,
+    alternates: {
+      canonical: '/valentines-day'
+    },
+    openGraph: {
+      title,
+      description,
+      images: socialImages,
+      type: 'website'
+    },
+    twitter: getTwitterMetadata({
+      title,
+      description,
+      images: socialImages
+    })
+  }
+}
+
+export default async function ValentinesDayPage() {
+  const { event, targetYear } = await getValentinesEvent()
+
+  const heroImage = event?.image?.[0] || DEFAULT_EVENT_IMAGE
+  const eventDate = event ? formatEventDate(event.startDate) : `14 February ${targetYear}`
+  const eventTime = event ? formatEventTime(event.startDate) : 'Evening'
+  const eventPageUrl = event ? `/events/${event.slug || event.id}` : '/whats-on'
+  const performerName = event?.performer?.name
+  const proseccoOffer = event?.highlights?.find((highlight) => /prosecco/i.test(highlight)) || null
+
+  const aboutText = event?.about ? normaliseWhitespace(event.about) : ''
+  const dinnerRange = aboutText
+    ? extractTimeRange(aboutText, /full menu available from\s+(\d{1,2}:\d{2}\s*(?:AM|PM))\s+to\s+(\d{1,2}:\d{2}\s*(?:AM|PM))/i)
+    : null
+  const lateMenuRange = aboutText
+    ? extractTimeRange(aboutText, /late menu[\s\S]*?available from\s+(\d{1,2}:\d{2}\s*(?:AM|PM))\s+to\s+(\d{1,2}:\d{2}\s*(?:AM|PM))/i)
+    : null
+  const musicRange = aboutText
+    ? extractTimeRange(aboutText, /music kicks off at\s+(\d{1,2}:\d{2}\s*(?:AM|PM))[\s\S]*?runs until\s+(\d{1,2}:\d{2}\s*(?:AM|PM))/i)
+    : null
+  const partyUntilMidnight = aboutText ? /until midnight/i.test(aboutText) : false
+
+  const isFreeEntry = Boolean(
+    event &&
+      (event.isAccessibleForFree ||
+        (typeof event.offers?.price === 'string' && Number.parseFloat(event.offers.price) === 0) ||
+        event.highlights?.some((highlight) => /free entry|no tickets/i.test(highlight)))
+  )
+
+  const address = event?.location?.address
+  const addressLine = address
+    ? `${address.streetAddress}, ${address.addressLocality}, ${address.addressRegion}, ${address.postalCode}`
+    : 'Horton Road, Stanwell Moor, Surrey, TW19 6AQ'
+  const mapQuery = address
+    ? `${event?.location?.name || 'The Anchor'}, ${address.streetAddress}, ${address.postalCode}`
+    : 'The Anchor Stanwell Moor TW19 6AQ'
+
+  const faqs = event
+    ? [
+        {
+          question: 'When is Valentine’s Day at The Anchor?',
+          answer: `${event.name} is on ${eventDate}. The event starts at around ${eventTime}.`
+        },
+        {
+          question: 'Is it free entry?',
+          answer: isFreeEntry
+            ? 'Yes — entry is free (no tickets needed). We recommend booking a table for dinner to guarantee your spot.'
+            : 'Please use the booking link on this page for the latest entry and booking details.'
+        },
+        {
+          question: 'What time is food served?',
+          answer: dinnerRange
+            ? `Our full menu is available ${formatTimeRange(dinnerRange)}. ${lateMenuRange ? `A late menu runs ${formatTimeRange(lateMenuRange)}.` : ''}`.trim()
+            : 'Our full menu is served earlier in the evening. Book your table to dine before the music.'
+        },
+        {
+          question: 'What time does the live music start?',
+          answer: musicRange
+            ? `Live music runs ${formatTimeRange(musicRange)}${partyUntilMidnight ? ', followed by party tunes until midnight.' : '.'}`
+            : `The event is listed for ${eventTime}. Check the event details for the latest running order.`
+        },
+        {
+          question: 'How do I book?',
+          answer:
+            'Book online via our table booking page, or call 01753 682707 if you’re booking for 8+ guests or need help with a special request.'
+        },
+        {
+          question: 'Where is The Anchor?',
+          answer: `You’ll find us at ${addressLine}. We’re seven minutes from Heathrow Terminal 5 with free on-site parking.`
+        }
+      ]
+    : [
+        {
+          question: 'When is Valentine’s Day at The Anchor?',
+          answer: `Valentine’s Day is 14 February ${targetYear}. We’ll publish this year’s details here as soon as they’re confirmed.`
+        },
+        {
+          question: 'How do I book?',
+          answer:
+            'Book online via our table booking page, or call 01753 682707 if you’re booking for 8+ guests or need help with a special request.'
+        }
+      ]
+
+  return (
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Valentine’s Day', url: '/valentines-day' }
+        ]}
+      />
+
+      {event && <EventSchema event={event} />}
+
+      <HeroWrapper
+        route="/valentines-day"
+        title="Valentine’s Day at The Anchor"
+        description={event?.description || 'Book early for Valentine’s Day near Heathrow at The Anchor in Stanwell Moor (TW19).'}
+        eyebrow={eventDate}
+        lead={
+          <p className="text-white/90 text-base sm:text-lg">
+            {performerName ? `Live music from ${performerName}. ` : 'Live music, great food and a brilliant atmosphere. '}
+            Free parking • Seven minutes from Heathrow Terminal 5
+          </p>
+        }
+        variant="promo"
+        breadcrumbs={[
+          { name: 'Home', href: '/' },
+          { name: 'Valentine’s Day' }
+        ]}
+        tags={[
+          { label: `⏰ ${eventTime}`, variant: 'default' },
+          ...(isFreeEntry ? [{ label: '🎟️ Free entry', variant: 'success' as const }] : []),
+          ...(proseccoOffer ? [{ label: '🥂 Prosecco offer', variant: 'primary' as const }] : []),
+          { label: '💚 Bookings recommended', variant: 'success' }
+        ]}
+        primaryCta={
+          <Link href="/book-table" className="w-full sm:w-auto">
+            <Button variant="primary" size="lg" fullWidth className="w-full sm:w-auto">
+              💘 Book Valentine’s Table
+            </Button>
+          </Link>
+        }
+        secondaryCta={
+          <>
+            <Link href={eventPageUrl} className="w-full sm:w-auto">
+              <Button variant="secondary" size="lg" fullWidth className="w-full sm:w-auto">
+                {event ? 'View full event details' : "See what’s on"}
+              </Button>
+            </Link>
+            <PhoneButton
+              phone="01753 682707"
+              source="valentines_hero"
+              variant="secondary"
+              size="lg"
+              className="w-full sm:w-auto"
+            >
+              📞 Call: 01753 682707
+            </PhoneButton>
+          </>
+        }
+        secondaryInfo={
+          'Book online on our table booking page, or call 01753 682707.'
+        }
+      />
+
+      <Section spacing="md" background="white">
+        <Container size="lg">
+          <div className="mx-auto grid max-w-6xl items-start gap-8 lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)]">
+            <Card variant="elevated" className="overflow-hidden">
+              <div className="relative aspect-[3/4] bg-gradient-to-br from-anchor-green/10 via-white to-anchor-green/5">
+                <Image
+                  src={heroImage}
+                  alt={event ? `${event.name} promotional poster` : 'Valentine’s Day event poster'}
+                  fill
+                  className="object-contain p-6"
+                  sizes="(max-width: 1024px) 80vw, 360px"
+                  priority
+                />
+              </div>
+              <CardBody className="space-y-4 p-6">
+                <div className="space-y-2">
+                  <p className="text-sm font-semibold uppercase tracking-wide text-gray-600">Date</p>
+                  <p className="text-lg font-bold text-anchor-green">{eventDate}</p>
+                </div>
+                <div className="space-y-2">
+                  <p className="text-sm font-semibold uppercase tracking-wide text-gray-600">Time</p>
+                  <p className="text-lg font-bold text-anchor-green">{eventTime}</p>
+                </div>
+                {event?.highlights?.length ? (
+                  <div className="space-y-2">
+                    <p className="text-sm font-semibold uppercase tracking-wide text-gray-600">Highlights</p>
+                    <ul className="space-y-2 text-sm text-gray-700">
+                      {event.highlights.map((highlight) => (
+                        <li key={highlight} className="flex gap-2">
+                          <span className="text-anchor-gold">•</span>
+                          <span>{highlight}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
+              </CardBody>
+            </Card>
+
+            <div className="space-y-6">
+              <div>
+                <h2 className="text-2xl md:text-3xl font-bold text-anchor-green">
+                  Valentine’s Day dinner near Heathrow
+                </h2>
+                <p className="mt-4 text-gray-700 text-lg leading-relaxed">
+                  Celebrate Valentine’s Day in Stanwell Moor at The Anchor — a cosy village pub with free parking,
+                  seven minutes from{' '}
+                  <Link href="/near-heathrow/terminal-5" className="font-semibold text-anchor-green hover:text-anchor-green-dark underline decoration-dotted">
+                    Heathrow Terminal 5
+                  </Link>
+                  .
+                </p>
+                <p className="mt-3 text-gray-700 leading-relaxed">
+                  {event
+                    ? `This year’s Valentine’s event is ${event.name} on ${eventDate}. ${isFreeEntry ? 'Entry is free — book your table for dinner and enjoy the night.' : 'Book early to secure your place.'}`
+                    : 'We’ll publish this year’s Valentine’s details here as soon as they’re confirmed. In the meantime, you can still book a regular table below.'}
+                </p>
+
+                {event?.about && (
+                  <div className="mt-6 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-100">
+                    <h3 className="text-lg font-semibold text-anchor-green">What to expect</h3>
+                    <p className="mt-3 text-sm text-gray-700 leading-relaxed">
+                      {getTextExcerpt(event.about, 520)}
+                    </p>
+                    <Link
+                      href={eventPageUrl}
+                      className="mt-3 inline-flex items-center text-sm font-semibold text-anchor-gold hover:text-anchor-gold-light"
+                    >
+                      Read the full event details<span className="ml-1">→</span>
+                    </Link>
+                  </div>
+                )}
+              </div>
+
+              {event ? (
+                <div className="rounded-2xl border border-anchor-green/20 bg-anchor-green/5 p-6">
+                  <div className="flex flex-wrap items-center gap-3">
+                    <Badge variant="success" size="sm">
+                      {isFreeEntry ? 'Free entry' : 'Booking recommended'}
+                    </Badge>
+                    <Badge variant="default" size="sm">
+                      {performerName ? `Live music: ${performerName}` : 'Live music'}
+                    </Badge>
+                    <Badge variant="default" size="sm">
+                      Dinner bookings recommended
+                    </Badge>
+                    {proseccoOffer ? (
+                      <Badge variant="primary" size="sm">
+                        {proseccoOffer}
+                      </Badge>
+                    ) : null}
+                  </div>
+
+                  <div className="mt-5 flex flex-col gap-3 sm:flex-row">
+                    <div className="w-full sm:w-auto">
+                      <Link href="/book-table" className="w-full sm:w-auto">
+                        <Button variant="primary" size="lg" fullWidth className="w-full sm:w-auto sm:min-w-[220px]">
+                          💘 Book a Table
+                        </Button>
+                      </Link>
+                    </div>
+                    <Link href={`/events/${event.slug || event.id}`} className="w-full sm:w-auto">
+                      <Button variant="secondary" size="lg" fullWidth className="sm:min-w-[200px]">
+                        View full event details
+                      </Button>
+                    </Link>
+                  </div>
+
+                  {(dinnerRange || musicRange || lateMenuRange || partyUntilMidnight) && (
+                    <div className="mt-6 rounded-2xl bg-white/70 p-5 ring-1 ring-white/60">
+                      <h3 className="text-sm font-semibold uppercase tracking-wide text-anchor-green">
+                        Timings at a glance
+                      </h3>
+                      <dl className="mt-3 space-y-2 text-sm text-gray-700">
+                        {dinnerRange && (
+                          <div className="flex items-start justify-between gap-6">
+                            <dt className="font-semibold text-anchor-green">Full menu</dt>
+                            <dd className="text-right">{formatTimeRange(dinnerRange)}</dd>
+                          </div>
+                        )}
+                        {musicRange && (
+                          <div className="flex items-start justify-between gap-6">
+                            <dt className="font-semibold text-anchor-green">Live music</dt>
+                            <dd className="text-right">{formatTimeRange(musicRange)}</dd>
+                          </div>
+                        )}
+                        {lateMenuRange && (
+                          <div className="flex items-start justify-between gap-6">
+                            <dt className="font-semibold text-anchor-green">Late menu</dt>
+                            <dd className="text-right">{formatTimeRange(lateMenuRange)}</dd>
+                          </div>
+                        )}
+                        {partyUntilMidnight && (
+                          <div className="flex items-start justify-between gap-6">
+                            <dt className="font-semibold text-anchor-green">Party tunes</dt>
+                            <dd className="text-right">until midnight</dd>
+                          </div>
+                        )}
+                      </dl>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div className="rounded-2xl border border-amber-200 bg-amber-50 p-6 text-amber-900">
+                  <p className="font-semibold">We’re updating our Valentine’s listings.</p>
+                  <p className="mt-2 text-sm">
+                    In the meantime, book online via our table booking page or call us to reserve your table.
+                  </p>
+                </div>
+              )}
+
+              <div className="grid gap-4 sm:grid-cols-2">
+                <Card variant="default" className="bg-white">
+                  <CardBody className="space-y-2 p-6">
+                    <h2 className="text-lg font-semibold text-anchor-green">Getting here</h2>
+                    <p className="text-sm text-gray-700">
+                      {addressLine}. Free parking on site, seven minutes from Heathrow Terminal 5, and outside the ULEZ.
+                    </p>
+                    <Link href="/find-us" className="inline-flex items-center text-sm font-semibold text-anchor-gold hover:text-anchor-gold-light">
+                      Get directions
+                      <span className="ml-1">→</span>
+                    </Link>
+                  </CardBody>
+                </Card>
+
+                <Card variant="default" className="bg-white">
+                  <CardBody className="space-y-2 p-6">
+                    <h2 className="text-lg font-semibold text-anchor-green">Prefer to talk?</h2>
+                    <p className="text-sm text-gray-700">
+                      Booking for 8+ or need a special request? Give us a call and we’ll sort it.
+                    </p>
+                    <PhoneButton
+                      phone="01753 682707"
+                      source="valentines_body"
+                      variant="outline"
+                      size="md"
+                      className="w-full"
+                    >
+                      📞 Call 01753 682707
+                    </PhoneButton>
+                  </CardBody>
+                </Card>
+              </div>
+            </div>
+          </div>
+        </Container>
+      </Section>
+
+      <Section background="gray" spacing="lg">
+        <Container size="lg">
+          <div className="mx-auto max-w-4xl text-center space-y-6">
+            <h2 className="text-2xl md:text-3xl font-bold text-anchor-green">Book your Valentine’s table</h2>
+            <p className="text-gray-700 text-lg">
+              We take online bookings on our table booking page. Choose your date, time, and party size — and book early to get your preferred slot.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Link href="/book-table" className="w-full sm:w-auto">
+                <Button variant="primary" size="lg" fullWidth className="w-full sm:w-auto">
+                  📅 Book a Table Online
+                </Button>
+              </Link>
+              <PhoneButton
+                phone="01753 682707"
+                source="valentines_cta"
+                variant="secondary"
+                size="lg"
+                className="w-full sm:w-auto"
+              >
+                📞 Call 01753 682707
+              </PhoneButton>
+            </div>
+            <p className="text-sm text-gray-600">Tables for 8+ guests — please call.</p>
+          </div>
+        </Container>
+      </Section>
+
+      <Section spacing="lg" background="white">
+        <Container size="lg">
+          <div className="mx-auto max-w-6xl space-y-8">
+            <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
+              <div className="space-y-4">
+                <h2 className="text-2xl md:text-3xl font-bold text-anchor-green">Where we are</h2>
+                <p className="text-gray-700 leading-relaxed">
+                  The Anchor is in Stanwell Moor, Surrey (TW19 6AQ) — a quick drive from Heathrow and easy to reach
+                  from Staines-upon-Thames, Ashford and Windsor. If you’re searching for a Valentine’s Day restaurant
+                  near Heathrow, this is the easy, stress-free option with free parking.
+                </p>
+                <p className="text-gray-700">
+                  Address: <span className="font-semibold text-anchor-green">{addressLine}</span>
+                </p>
+                <div className="flex flex-col gap-3 sm:flex-row">
+                  <Link href="/find-us" className="w-full sm:w-auto">
+                    <Button variant="secondary" size="lg" fullWidth className="w-full sm:w-auto">
+                      📍 Directions & parking
+                    </Button>
+                  </Link>
+                  <PhoneButton
+                    phone="01753 682707"
+                    source="valentines_location"
+                    variant="secondary"
+                    size="lg"
+                    className="w-full sm:w-auto"
+                  >
+                    📞 Call 01753 682707
+                  </PhoneButton>
+                </div>
+              </div>
+              <GoogleMapEmbed query={mapQuery} height={360} />
+            </div>
+          </div>
+        </Container>
+      </Section>
+
+      <FAQAccordionWithSchema title="Valentine’s Day FAQs" faqs={faqs} className="bg-gray-50" />
+
+      <InternalLinkingSection
+        title="More to explore at The Anchor"
+        links={[
+          { href: '/book-table', title: 'Book a Table', description: 'Reserve online in minutes' },
+          ...(event
+            ? [{ href: eventPageUrl, title: 'Valentine’s event details', description: 'Full listing and updates' }]
+            : [{ href: '/whats-on', title: "What's On", description: 'Upcoming events and entertainment' }]),
+          ...commonLinkGroups.dining,
+          ...commonLinkGroups.location
+        ]}
+      />
+    </>
+  )
+}

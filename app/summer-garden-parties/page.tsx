@@ -26,7 +26,10 @@ export const metadata: Metadata = {
         title: 'Summer Garden Parties at The Anchor',
         description: 'Sun, Cider, and BBQ. The perfect ingredients for a summer bash.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
-    })
+    }),
+    alternates: {
+        canonical: '/summer-garden-parties'
+    }
 }
 
 export default function SummerGardenPartiesPage() {

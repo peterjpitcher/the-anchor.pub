@@ -13,29 +13,41 @@ const nextConfig = {
     return [...wixRedirects, ...blogRedirects, ...tagRedirects, ...legacyRedirects, ...drinksRedirects, ...additionalRedirects]
   },
   async headers() {
-    return [
+    const securityHeaders = [
+      {
+        key: 'X-Content-Type-Options',
+        value: 'nosniff',
+      },
+      {
+        key: 'X-Frame-Options',
+        value: 'DENY',
+      },
+      {
+        key: 'X-XSS-Protection',
+        value: '1; mode=block',
+      },
+      {
+        key: 'X-DNS-Prefetch-Control',
+        value: 'on',
+      },
+    ]
+
+    const baseHeaders = [
       {
         source: '/:path*',
-        headers: [
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff',
-          },
-          {
-            key: 'X-Frame-Options',
-            value: 'DENY',
-          },
-          {
-            key: 'X-XSS-Protection',
-            value: '1; mode=block',
-          },
-          {
-            key: 'X-DNS-Prefetch-Control',
-            value: 'on',
-          },
-        ],
+        headers: securityHeaders,
       },
-      // Add cache headers for static files
+    ]
+
+    // In development, avoid long-lived caching for Next.js build assets.
+    // A cached 404 for a stale chunk can leave the site unstyled until cache is cleared.
+    if (process.env.NODE_ENV !== 'production') {
+      return baseHeaders
+    }
+
+    return [
+      ...baseHeaders,
+      // Add cache headers for static files (production only)
       {
         source: '/favicon.ico',
         headers: [
@@ -46,7 +58,7 @@ const nextConfig = {
           {
             key: 'X-Robots-Tag',
             value: 'noindex, nofollow',
-          }
+          },
         ],
       },
       {
@@ -59,7 +71,7 @@ const nextConfig = {
           {
             key: 'X-Robots-Tag',
             value: 'noindex, nofollow',
-          }
+          },
         ],
       },
       {
@@ -81,7 +93,7 @@ const nextConfig = {
           {
             key: 'X-Robots-Tag',
             value: 'noindex, nofollow',
-          }
+          },
         ],
       },
       {
@@ -94,7 +106,7 @@ const nextConfig = {
           {
             key: 'X-Robots-Tag',
             value: 'noindex, nofollow',
-          }
+          },
         ],
       },
       {
@@ -107,7 +119,7 @@ const nextConfig = {
           {
             key: 'X-Robots-Tag',
             value: 'noindex, nofollow',
-          }
+          },
         ],
       },
       {
@@ -120,7 +132,7 @@ const nextConfig = {
           {
             key: 'X-Robots-Tag',
             value: 'noindex, nofollow',
-          }
+          },
         ],
       },
       {
@@ -142,7 +154,7 @@ const nextConfig = {
           {
             key: 'X-Robots-Tag',
             value: 'noindex, nofollow',
-          }
+          },
         ],
       },
       {
@@ -155,7 +167,7 @@ const nextConfig = {
           {
             key: 'X-Robots-Tag',
             value: 'noindex, nofollow',
-          }
+          },
         ],
       },
     ]

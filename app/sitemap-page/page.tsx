@@ -28,7 +28,10 @@ export const metadata: Metadata = {
   twitter: getTwitterMetadata({
     title: 'Sitemap | The Anchor - Heathrow Pub & Dining',
     description: 'Complete sitemap of The Anchor website. Find all our pages including menus, events, location information and special offers.'
-  })
+  }),
+  alternates: {
+    canonical: '/sitemap-page'
+  }
 }
 
 const sitemapSections: SitemapSection[] = [
@@ -60,6 +63,8 @@ const sitemapSections: SitemapSection[] = [
     title: 'Events & Entertainment',
     links: [
       { label: "What's On", href: '/whats-on' },
+      { label: 'Valentine’s Day', href: '/valentines-day' },
+      { label: "Mother's Day", href: '/mothers-day' },
       { label: 'Drag Shows', href: '/whats-on/drag-shows' },
       { label: 'Quiz Night', href: '/quiz-night' },
       { label: 'Cash Bingo', href: '/cash-bingo' },
@@ -70,6 +75,7 @@ const sitemapSections: SitemapSection[] = [
       { label: 'Six Nations Rugby', href: '/live-sport/six-nations' },
       { label: 'F1 Racing', href: '/live-sport/f1' },
       { label: 'Boxing Nights', href: '/live-sport/boxing' },
+      { label: 'World Cup 2026', href: '/live-sport/world-cup' },
       { label: 'Summer Garden Parties', href: '/summer-garden-parties' },
     ]
   },

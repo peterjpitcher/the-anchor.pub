@@ -24,7 +24,10 @@ export const metadata: Metadata = {
         title: 'The Anchor Beer Garden',
         description: 'Sun, cider, and space to relax. The best garden in Stanwell Moor.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
-    })
+    }),
+    alternates: {
+        canonical: '/pub-garden-heathrow'
+    }
 }
 
 export default function PubGardenPage() {

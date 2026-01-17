@@ -26,7 +26,10 @@ export const metadata: Metadata = {
         title: 'Family Friendly Dining Near Heathrow',
         description: 'Let the kids burn off some energy in our garden before the flight. Great food for them, cold drinks for you.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
-    })
+    }),
+    alternates: {
+        canonical: '/heathrow-family-dining'
+    }
 }
 
 export default function FamilyDiningPage() {

@@ -2,6 +2,7 @@ import { getUpcomingEvents, getBusinessHours, type BusinessHours } from '@/lib/a
 import { FilteredUpcomingEventsClient } from './FilteredUpcomingEventsClient'
 import { EventSchema } from '@/components/seo/EventSchema'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
+import { getEventDateRangeUtc } from '@/lib/event-calendar'
 import type { DisplayEvent } from '@/types/display-event'
 
 export async function FilteredUpcomingEvents() {
@@ -16,7 +17,7 @@ export async function FilteredUpcomingEvents() {
 
     // Merge time changes and sort chronologically
     const mergedEvents: DisplayEvent[] = [...events, ...timeChangeEvents].sort((a, b) => {
-      return new Date(a.startDate).getTime() - new Date(b.startDate).getTime()
+      return getEventDateRangeUtc(a).start.getTime() - getEventDateRangeUtc(b).start.getTime()
     })
 
     return (
@@ -180,7 +181,7 @@ export function mapSpecialHoursToEvents(businessHours: BusinessHours | null): Di
         timeChangeRangeEnd: lastDate
       } as DisplayEvent
     })
-    .sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
+    .sort((a, b) => getEventDateRangeUtc(a).start.getTime() - getEventDateRangeUtc(b).start.getTime())
 }
 
 function formatSpecialDate(start: string, end: string): string {

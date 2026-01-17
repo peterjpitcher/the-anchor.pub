@@ -9,6 +9,7 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { dragShowEventSeries } from '@/lib/schema'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
   title: 'Drag Shows | The Anchor - Heathrow Pub & Dining | Monthly Entertainment',
@@ -23,7 +24,10 @@ export const metadata: Metadata = {
     title: 'Monthly Drag Shows at The Anchor',
     description: 'Join us for spectacular drag performances with Nikki Manfadge - check our What\'s On page for dates!',
     images: ['/images/events/drag-shows/the-anchor-drag-show-nikki-manfadge-stanwell-moor.jpg']
-  })
+  }),
+  alternates: {
+    canonical: '/whats-on/drag-shows'
+  }
 }
 
 export default function DragShowsPage() {
@@ -876,7 +880,7 @@ export default function DragShowsPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ 
-          __html: JSON.stringify([
+          __html: jsonLdSafeStringify([
             dragShowEventSeries,
             {
               "@context": "https://schema.org",

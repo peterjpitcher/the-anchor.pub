@@ -37,7 +37,10 @@ export const metadata: Metadata = {
   description:
     "Join The Anchor's quiz night pub near Heathrow for a monthly trivia night with a GBP 25 bar tab prize, GBP 3 entry, and a friendly pub trivia crowd in Stanwell Moor.",
   keywords:
-    'quiz night pub, quiz night, quiz night quiz, trivia, trivia night, pub trivia, night trivia, pub quiz near heathrow, pub quiz staines, stanwell moor quiz night'
+    'quiz night pub, quiz night, quiz night quiz, trivia, trivia night, pub trivia, night trivia, pub quiz near heathrow, pub quiz staines, stanwell moor quiz night',
+  alternates: {
+    canonical: '/quiz-night'
+  }
 }
 
 const QUIZ_CATEGORY = {

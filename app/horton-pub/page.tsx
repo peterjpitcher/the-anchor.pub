@@ -28,7 +28,10 @@ export const metadata: Metadata = {
         title: 'The Anchor - Traditional Pub Near Horton',
         description: 'Your local village pub, just a 2-minute drive from Horton. Authentic British food, real ales, and a warm welcome.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
-    })
+    }),
+    alternates: {
+        canonical: '/horton-pub'
+    }
 }
 
 export default async function HortonPubPage() {

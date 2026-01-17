@@ -32,6 +32,12 @@ images: []
 
 Looking for the perfect **Christmas pub near Heathrow**? The Anchor in Stanwell Moor transforms into a festive wonderland each December. From traditional Christmas dinners to lively New Year's Eve parties, discover why we're the go-to destination for **festive events** near Heathrow Airport.
 
+## Book Christmas Parties Near Heathrow & Staines
+
+Planning a work do or family get-together? Our Christmas party details (menus, shared nights and enquiries) live on the main page:
+
+- [Christmas Parties at The Anchor →](/christmas-parties)
+
 ## Why Choose The Anchor for Your Christmas Celebration
 
 ### The Perfect Festive Venue Near Heathrow

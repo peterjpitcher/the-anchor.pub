@@ -17,7 +17,7 @@ This folder now holds the pared-down set of documents that still matter for the 
 - `copy-assumptions.md` – Source of truth for operational claims referenced in site content.
 - `image-optimization.md` – Workflow for the image optimiser script and bundle guardrails.
 - `style-guide.md` – Front-end colour and component rules that protect accessibility and brand consistency.
-- `google-places.md` – How to configure and troubleshoot Google Places / reviews integration.
+- `google-places.md` – Legacy Google Places / reviews notes (integration removed).
 
 ## Maintenance Expectations
 

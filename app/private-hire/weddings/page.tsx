@@ -17,6 +17,9 @@ export const metadata: Metadata = {
         title: 'Wedding & Engagement Venue | The Anchor Stanwell Moor',
         description: 'Relaxed wedding celebrations, engagement parties, and day-after brunches.',
         images: [DEFAULT_CORPORATE_IMAGE],
+    },
+    alternates: {
+        canonical: '/private-hire/weddings'
     }
 }
 

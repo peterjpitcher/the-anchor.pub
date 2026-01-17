@@ -37,7 +37,10 @@ export const metadata: Metadata = {
     description:
         'Join the best karaoke night near Heathrow at The Anchor. Thousands of songs, great atmosphere, and free entry. Sing your heart out in Stanwell Moor!',
     keywords:
-        'karaoke near heathrow, karaoke pub, karaoke night, sing karaoke, pub karaoke, stanwell moor karaoke, karaoke bar staines, free karaoke'
+        'karaoke near heathrow, karaoke pub, karaoke night, sing karaoke, pub karaoke, stanwell moor karaoke, karaoke bar staines, free karaoke',
+    alternates: {
+        canonical: '/karaoke'
+    }
 }
 
 const KARAOKE_CATEGORIES = [

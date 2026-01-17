@@ -27,7 +27,10 @@ export const metadata: Metadata = {
         title: 'Celebrate Your Engagement at The Anchor',
         description: 'She said yes! Now let\'s celebrate. Discover our engagement party packages with prosecco, buffets, and private areas.',
         images: [DEFAULT_CORPORATE_IMAGE]
-    })
+    }),
+    alternates: {
+        canonical: '/private-hire/engagement-parties'
+    }
 }
 
 export default function EngagementPartiesPage() {

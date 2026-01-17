@@ -25,7 +25,10 @@ export const metadata: Metadata = {
     title: 'The Anchor - Traditional Pub Near Heathrow Hotels',
     description: 'Escape expensive hotel restaurants! Authentic British pub with free parking, just minutes from all Heathrow hotels.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
-  })
+  }),
+  alternates: {
+    canonical: '/heathrow-hotels-pub'
+  }
 }
 
 const localBusinessSchema = {

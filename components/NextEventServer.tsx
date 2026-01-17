@@ -1,18 +1,30 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { getUpcomingEvents, formatEventTime } from '@/lib/api'
+import { getEventDateRangeUtc } from '@/lib/event-calendar'
 import { getEventPriceLabel } from '@/lib/event-pricing'
 import { EventSchema } from '@/components/seo/EventSchema'
 import { EventBookingButton } from '@/components/EventBookingButton'
 import { Button } from '@/components/ui'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
+import { EventSecondaryActions } from '@/components/events/EventSecondaryActions'
 
 const MAX_URGENCY_DAYS = 3
+const LONDON_TIME_ZONE = 'Europe/London'
+
+function getLondonDateKey(value: Date): string {
+  return value.toLocaleDateString('en-GB', {
+    timeZone: LONDON_TIME_ZONE,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  })
+}
 
 export async function NextEventServer() {
   try {
-    const events = await getUpcomingEvents(1)
-    const nextEvent = events?.[0]
+    const events = await getUpcomingEvents(3)
+    const [nextEvent, ...otherEvents] = events || []
     
     if (!nextEvent) {
       return (
@@ -34,14 +46,17 @@ export async function NextEventServer() {
       )
     }
 
-    const eventDate = new Date(nextEvent.startDate)
     const now = new Date()
-    const diffMs = eventDate.getTime() - now.getTime()
+    const eventStart = getEventDateRangeUtc(nextEvent).start
+    const diffMs = eventStart.getTime() - now.getTime()
     const hoursUntil = diffMs / (1000 * 60 * 60)
     const totalDaysUntil = diffMs / (1000 * 60 * 60 * 24)
     const daysUntil = Math.floor(totalDaysUntil)
-    const isToday = now.toDateString() === eventDate.toDateString()
-    const isTomorrow = new Date(now.getTime() + 86400000).toDateString() === eventDate.toDateString()
+    const todayKey = getLondonDateKey(now)
+    const tomorrowKey = getLondonDateKey(new Date(now.getTime() + 86400000))
+    const eventKey = getLondonDateKey(eventStart)
+    const isToday = todayKey === eventKey
+    const isTomorrow = tomorrowKey === eventKey
     const relativeLabel =
       diffMs <= 0
         ? 'Happening now'
@@ -49,11 +64,12 @@ export async function NextEventServer() {
         ? 'Today'
         : isTomorrow
         ? 'Tomorrow'
-        : eventDate.toLocaleDateString('en-GB', { weekday: 'long' })
-    const longDateLabel = eventDate.toLocaleDateString('en-GB', {
+        : eventStart.toLocaleDateString('en-GB', { weekday: 'long', timeZone: LONDON_TIME_ZONE })
+    const longDateLabel = eventStart.toLocaleDateString('en-GB', {
       weekday: 'long',
       day: 'numeric',
-      month: 'long'
+      month: 'long',
+      timeZone: LONDON_TIME_ZONE
     })
     const timeLabel = formatEventTime(nextEvent.startDate)
     const priceLabel = getEventPriceLabel(nextEvent)
@@ -67,24 +83,26 @@ export async function NextEventServer() {
 
     if (diffMs > 0 && totalDaysUntil <= MAX_URGENCY_DAYS) {
       if (hoursUntil <= 24) {
-        urgency = {
-          label: hoursUntil <= 12 ? 'Starts tonight' : 'Starts tomorrow',
-          message: `We kick off at ${eventDate.toLocaleTimeString('en-GB', {
-            hour: '2-digit',
-            minute: '2-digit'
-          })}. Book early to get your preferred time.`,
-          badgeClassName: 'bg-red-600 text-white',
-          panelClassName: 'bg-red-50 border border-red-200 text-red-700'
-        }
+	        urgency = {
+	          label: hoursUntil <= 12 ? 'Starts tonight' : 'Starts tomorrow',
+	          message: `We kick off at ${eventStart.toLocaleTimeString('en-GB', {
+	            hour: '2-digit',
+	            minute: '2-digit',
+	            timeZone: LONDON_TIME_ZONE
+	          })}. Book early to get your preferred time.`,
+	          badgeClassName: 'bg-red-600 text-white',
+	          panelClassName: 'bg-red-50 border border-red-200 text-red-700'
+	        }
       } else if (daysUntil <= 2) {
-        urgency = {
-          label: 'Almost here',
-          message: `Join us this ${eventDate.toLocaleDateString('en-GB', {
-            weekday: 'long'
-          })}. Book early to get your preferred time.`,
-          badgeClassName: 'bg-anchor-gold text-anchor-charcoal',
-          panelClassName: 'bg-anchor-gold/20 border border-anchor-gold/40 text-anchor-charcoal'
-        }
+	        urgency = {
+	          label: 'Almost here',
+	          message: `Join us this ${eventStart.toLocaleDateString('en-GB', {
+	            weekday: 'long',
+	            timeZone: LONDON_TIME_ZONE
+	          })}. Book early to get your preferred time.`,
+	          badgeClassName: 'bg-anchor-gold text-anchor-charcoal',
+	          panelClassName: 'bg-anchor-gold/20 border border-anchor-gold/40 text-anchor-charcoal'
+	        }
       } else if (daysUntil <= MAX_URGENCY_DAYS) {
         const urgencyDayCount = Math.max(1, Math.round(totalDaysUntil))
         urgency = {
@@ -100,7 +118,7 @@ export async function NextEventServer() {
     const eventImage = nextEvent.image?.[0] || nextEvent.heroImageUrl || DEFAULT_EVENT_IMAGE
     
     return (
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-5xl mx-auto space-y-8">
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
           <EventSchema event={nextEvent} />
           
@@ -218,9 +236,86 @@ export async function NextEventServer() {
                   </Button>
                 </Link>
               </div>
+
+              <EventSecondaryActions
+                event={nextEvent}
+                source="homepage_next_event_actions"
+                className="justify-start"
+                size="sm"
+              />
             </div>
           </div>
         </div>
+
+        {otherEvents.length > 0 && (
+          <div className="grid gap-6 md:grid-cols-2">
+            {otherEvents.map((event) => {
+              const previewStart = getEventDateRangeUtc(event).start
+              const previewDateLabel = previewStart.toLocaleDateString('en-GB', {
+                weekday: 'short',
+                day: 'numeric',
+                month: 'short',
+                timeZone: LONDON_TIME_ZONE
+              })
+              const previewTimeLabel = formatEventTime(event.startDate)
+              const previewImage = event.image?.[0] || event.heroImageUrl || DEFAULT_EVENT_IMAGE
+
+              return (
+                <div key={event.id} className="bg-white rounded-2xl shadow-lg overflow-hidden">
+                  <EventSchema event={event} />
+                  <div className="grid grid-cols-[96px_1fr] gap-4 p-5">
+                    <div className="relative w-24 h-32 rounded-xl overflow-hidden bg-gray-50">
+                      <Image
+                        src={previewImage}
+                        alt={`${event.name} event promotional poster`}
+                        fill
+                        className="object-contain"
+                        sizes="96px"
+                      />
+                    </div>
+
+                    <div className="min-w-0">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-anchor-green/70">
+                        {previewDateLabel} • {previewTimeLabel}
+                      </p>
+                      <Link href={`/events/${event.slug || event.id}`}>
+                        <h3 className="mt-1 text-lg font-bold text-anchor-green hover:text-anchor-gold transition-colors">
+                          {event.name}
+                        </h3>
+                      </Link>
+                      <p className="mt-2 text-sm text-gray-700 line-clamp-2">
+                        {event.shortDescription || event.description || 'Special Event'}
+                      </p>
+                      <div className="mt-4 flex flex-wrap gap-3">
+                        <div className="w-full sm:w-auto">
+                          <EventBookingButton
+                            event={event}
+                            size="md"
+                            className="sm:min-w-[140px]"
+                            source="homepage_next_event_list"
+                            label="Book"
+                          />
+                        </div>
+                        <Link href={`/events/${event.slug || event.id}`} className="w-full sm:w-auto">
+                          <Button variant="secondary" size="md" fullWidth className="sm:min-w-[140px]">
+                            Details
+                          </Button>
+                        </Link>
+                      </div>
+
+                      <EventSecondaryActions
+                        event={event}
+                        source="homepage_next_event_list_actions"
+                        className="mt-3 justify-start"
+                        size="xs"
+                      />
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        )}
       </div>
     )
   } catch (error) {

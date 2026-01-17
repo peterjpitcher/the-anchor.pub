@@ -1273,7 +1273,7 @@ while not_done:
 - `/docs/copy-assumptions.md` - Verified operational claims that appear in copy
 - `/docs/api-integration.md` - Core management API usage
 - `/docs/parking-api.md` - Parking subsystem contract
-- `/docs/google-places.md` - Google reviews configuration and troubleshooting
+- `/docs/google-places.md` - Legacy Google Places / reviews notes (integration removed)
 
 #### Business Logic Rules
 1. **Monday Kitchen**: Always closed unless special hours explicitly open it
@@ -1550,7 +1550,7 @@ const HeavyComponent = dynamic(
 Whenever making changes to API usage, consult:
 - `/docs/api-integration.md`
 - `/docs/parking-api.md`
-- `/docs/google-places.md`
+- `/docs/google-places.md` (legacy; integration removed)
 
 ---
 

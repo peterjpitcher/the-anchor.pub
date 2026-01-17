@@ -26,7 +26,10 @@ export const metadata: Metadata = {
         title: 'The Last Proper Meal Before You Fly',
         description: 'Don\'t settle for an expensive airport sandwich. Enjoy authentic British pub food just minutes from your terminal.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
-    })
+    }),
+    alternates: {
+        canonical: '/pre-flight-meal'
+    }
 }
 
 export default function PreFlightDiningPage() {

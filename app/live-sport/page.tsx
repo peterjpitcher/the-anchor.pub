@@ -26,7 +26,10 @@ export const metadata: Metadata = {
         title: 'Live Sport at The Anchor Pub',
         description: 'Every goal, every try, every lap. Watch it live on our big screens with a cold pint in hand.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
-    })
+    }),
+    alternates: {
+        canonical: '/live-sport'
+    }
 }
 
 export default function LiveSportPage() {

@@ -31,7 +31,10 @@ export const metadata: Metadata = {
     title: 'The Anchor - Traditional Pub Near Ashford',
     description: 'Just 10 minutes from Ashford with free parking. Sunday roasts, British classics, and regular events.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
-  })
+  }),
+  alternates: {
+    canonical: '/ashford-pub'
+  }
 }
 
 export default async function AshfordPubPage() {

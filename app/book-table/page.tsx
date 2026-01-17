@@ -15,6 +15,9 @@ export const metadata: Metadata = {
     title: 'Book a Table at The Anchor',
     description: 'Quick and easy table booking via OpenTable.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
+  },
+  alternates: {
+    canonical: '/book-table'
   }
 }
 
@@ -159,4 +162,3 @@ export default function BookPage() {
     </>
   )
 }
-

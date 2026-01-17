@@ -17,6 +17,9 @@ export const metadata: Metadata = {
         title: 'Wake & Funeral Reception Venue | The Anchor Stanwell Moor',
         description: 'Respectful, private spaces for post-service gatherings. Just minutes from local crematoriums.',
         images: [DEFAULT_CORPORATE_IMAGE],
+    },
+    alternates: {
+        canonical: '/private-hire/wakes'
     }
 }
 

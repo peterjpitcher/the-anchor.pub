@@ -1,18 +1,49 @@
 import { Event } from '@/lib/api'
+import { getEventDateRangeUtc } from '@/lib/event-calendar'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getEventWebsiteUrl } from '@/lib/event-url'
-
-function calculateEndDate(startDate: string, duration?: string): string {
-  const start = new Date(startDate)
-  const durationHours = duration ? parseInt(duration.replace(/\D/g, '')) || 3 : 3
-  start.setHours(start.getHours() + durationHours)
-  return start.toISOString()
-}
 
 export function buildEventSchema(event: Event) {
   const eventUrl = getEventWebsiteUrl(event, { absolute: true })
   const eventImage = event.image?.[0] || event.heroImageUrl || event.thumbnailImageUrl || DEFAULT_EVENT_IMAGE
   const bookingUrl = event.bookingUrl || eventUrl
+  const { start, end } = getEventDateRangeUtc(event)
+  const startDate = Number.isNaN(start.getTime()) ? event.startDate : start.toISOString()
+  const endDate = Number.isNaN(end.getTime())
+    ? event.endDate || undefined
+    : end.toISOString()
+
+  const rawPrice = event.offers?.price
+  const numericPrice =
+    typeof rawPrice === 'string' ? Number.parseFloat(rawPrice) : Number(rawPrice)
+  const hasNumericPrice = Number.isFinite(numericPrice)
+  const isAccessibleForFree =
+    typeof event.isAccessibleForFree === 'boolean'
+      ? event.isAccessibleForFree
+      : hasNumericPrice
+        ? numericPrice <= 0
+        : undefined
+
+  const offer: Record<string, unknown> = {
+    '@type': 'Offer',
+    url: bookingUrl,
+    availability:
+      event.remainingAttendeeCapacity === 0
+        ? 'https://schema.org/SoldOut'
+        : 'https://schema.org/InStock'
+  }
+
+  if (typeof rawPrice === 'string' && rawPrice.trim().length > 0 && hasNumericPrice && numericPrice >= 0) {
+    offer.price = rawPrice
+  }
+
+  if (event.offers?.priceCurrency) {
+    offer.priceCurrency = event.offers.priceCurrency
+  }
+
+  if (event.offers?.validFrom) {
+    offer.validFrom = event.offers.validFrom
+  }
 
   return {
     '@context': 'https://schema.org',
@@ -30,9 +61,8 @@ export function buildEventSchema(event: Event) {
     ...(event.keywords && {
       keywords: Array.isArray(event.keywords) ? event.keywords.join(', ') : event.keywords
     }),
-    startDate: event.startDate,
-    endDate: event.endDate || calculateEndDate(event.startDate, event.duration || undefined),
-    ...(event.doorTime && { doorTime: event.doorTime }),
+    startDate,
+    ...(endDate && { endDate }),
     ...(event.duration && { duration: event.duration }),
     eventStatus: 'https://schema.org/EventScheduled',
     eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
@@ -63,17 +93,7 @@ export function buildEventSchema(event: Event) {
           name: 'The Anchor Entertainment',
           url: 'https://www.the-anchor.pub'
         },
-    offers: {
-      '@type': 'Offer',
-      url: bookingUrl,
-      price: event.offers?.price || '0',
-      priceCurrency: event.offers?.priceCurrency || 'GBP',
-      availability:
-        event.remainingAttendeeCapacity === 0
-          ? 'https://schema.org/SoldOut'
-          : 'https://schema.org/InStock',
-      validFrom: event.offers?.validFrom || new Date().toISOString()
-    },
+    offers: offer,
     image: Array.isArray(event.image) && event.image.length > 0 ? event.image : [eventImage],
     ...(event.thumbnailImageUrl && { thumbnailUrl: event.thumbnailImageUrl }),
     organizer:
@@ -82,7 +102,7 @@ export function buildEventSchema(event: Event) {
         name: 'The Anchor',
         url: 'https://www.the-anchor.pub'
       },
-    isAccessibleForFree: event.isAccessibleForFree || event.offers?.price === '0',
+    ...(typeof isAccessibleForFree === 'boolean' ? { isAccessibleForFree } : {}),
     ...(event.maximumAttendeeCapacity && {
       maximumAttendeeCapacity: event.maximumAttendeeCapacity
     }),

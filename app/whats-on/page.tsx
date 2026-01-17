@@ -21,19 +21,20 @@ import { quizNightEventSeries, dragShowEventSeries, bingoEventSeries } from '@/l
 import { getBusinessHours } from '@/lib/api'
 import { buildOpeningHoursSchema, DEFAULT_OPENING_HOURS_SCHEMA } from '@/lib/opening-hours-schema'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
-  title: "Heathrow & Staines Pub Events Tonight - Drag Shows, Quiz & Bingo",
-  description: "See what's on at The Anchor near Heathrow Terminal 5 and Staines: drag shows, GBP 3 quiz nights, cash bingo, live sport, and free pool & darts. Book tables for headline events.",
-  keywords: "heathrow pub events tonight, staines pub events, drag show near heathrow, quiz night stanwell moor, bingo near terminal 5, whats on the anchor pub",
+  title: "What's On at The Anchor (Near Heathrow T5) | Drag Shows, Quiz & Bingo",
+  description: "See what's on at The Anchor in Stanwell Moor near Heathrow Terminal 5 and Staines: drag shows, quiz nights, cash bingo, live sport, and free pool & darts. Free parking on site.",
+  keywords: "whats on near heathrow terminal 5, pub events near staines, drag show near heathrow, quiz night stanwell moor, bingo near terminal 5, the anchor events",
   openGraph: {
-    title: "Heathrow & Staines Pub Events Tonight",
-    description: "Live calendar for drag shows, quiz nights, bingo and sport at The Anchor - the Heathrow pub for entertainment seven minutes from Terminal 5.",
+    title: "What's On at The Anchor Near Heathrow Terminal 5",
+    description: "Live calendar for drag shows, quiz nights, bingo and sport at The Anchor in Stanwell Moor with free parking.",
     images: ["/images/events/drag-shows/the-anchor-drag-show-nikki-manfadge-stanwell-moor.jpg"],
   },
   twitter: getTwitterMetadata({
-    title: "Heathrow & Staines Pub Events Tonight",
-    description: "See The Anchor's entertainment diary for drag shows, quiz nights, bingo and live sport close to Heathrow.",
+    title: "What's On at The Anchor Near Heathrow Terminal 5",
+    description: "See The Anchor's entertainment diary for drag shows, quiz nights, bingo and live sport close to Heathrow with free parking.",
     images: ["/images/events/drag-shows/the-anchor-drag-show-nikki-manfadge-stanwell-moor.jpg"]
   }),
   alternates: {
@@ -73,7 +74,7 @@ export default async function WhatsOnPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify([
+          __html: jsonLdSafeStringify([
             quizNightEventSeries,
             dragShowEventSeries,
             bingoEventSeries,
@@ -288,6 +289,13 @@ export default async function WhatsOnPage() {
             title="Upcoming Events"
             subtitle="Live updates from our events calendar"
           />
+          <div className="mt-4 flex justify-center">
+            <Button asChild variant="ghost" size="sm">
+              <a href="/api/calendar/upcoming">
+                Add all upcoming events to your calendar (.ics)
+              </a>
+            </Button>
+          </div>
 
           <SpeakableContent selector="events-list" priority="high">
             <div className="max-w-5xl mx-auto">
@@ -460,10 +468,10 @@ export default async function WhatsOnPage() {
                       Catch all the major sporting events on our screens! We show all terrestrial channel sports including:
                     </p>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                      <div>
-                        <div className="text-3xl mb-2">⚽</div>
-                        <p className="font-semibold">World Cup</p>
-                      </div>
+	                      <div>
+	                        <div className="text-3xl mb-2">⚽</div>
+	                        <p className="font-semibold">World Cup</p>
+	                      </div>
                       <div>
                         <div className="text-3xl mb-2">🏆</div>
                         <p className="font-semibold">Euros</p>

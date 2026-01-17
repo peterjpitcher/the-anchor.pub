@@ -18,7 +18,10 @@ export const metadata: Metadata = {
     title: 'All Blog Topics - The Anchor',
     description: 'Explore all blog categories and topics',
     images: [BLOG_FALLBACK_IMAGE]
-  })
+  }),
+  alternates: {
+    canonical: '/blog/tags'
+  }
 }
 
 // Tag display names and descriptions

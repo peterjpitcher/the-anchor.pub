@@ -15,6 +15,7 @@ import { Alert } from '@/components/ui/feedback/Alert'
 import { trackBannerEvent, trackCtaClick, trackFormComplete, trackFormStart } from '@/lib/gtm-events'
 import { analytics } from '@/lib/analytics'
 import { HeroSection } from '@/components/hero/HeroSection'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 const CONTACT_EMAIL = 'manager@the-anchor.pub'
 const CONTACT_PHONE = '01753 682707'
@@ -1151,7 +1152,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
 
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(structuredData) }}
       />
     </>
   )

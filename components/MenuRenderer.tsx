@@ -9,6 +9,7 @@ import Link from 'next/link'
 import { logError } from '@/lib/error-handling'
 import { ALLERGEN_TYPES } from '@/hooks/useAllergenFilter'
 import { cn } from '@/lib/utils'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { Container } from '@/components/ui'
 
 function extractSchemaPrice(price?: string): string {
@@ -121,7 +122,7 @@ export function MenuRenderer({ menuData, accentColor = 'anchor-gold' }: MenuRend
       {/* Schema.org Menu markup */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(menuSchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(menuSchema) }}
       />
       {/* Kitchen Hours */}
       {menuData.kitchenHours && (

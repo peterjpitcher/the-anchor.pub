@@ -32,7 +32,10 @@ export const metadata: Metadata = {
         title: 'Watch Six Nations 2026 at The Anchor',
         description: 'Every match live on big screens with sound.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
-    })
+    }),
+    alternates: {
+        canonical: '/live-sport/six-nations'
+    }
 }
 
 export default function SixNationsPage() {

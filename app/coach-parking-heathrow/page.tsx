@@ -26,7 +26,10 @@ export const metadata: Metadata = {
         title: 'Coach Parties Welcome at The Anchor',
         description: 'Looking for a tour stop? We have coach parking, group menus, and a special offer for drivers.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
-    })
+    }),
+    alternates: {
+        canonical: '/coach-parking-heathrow'
+    }
 }
 
 export default function CoachParkingPage() {

@@ -1,4 +1,5 @@
 export const DEFAULT_PAGE_HEADER_IMAGE = '/images/page-headers/home/page-headers-homepage.jpg'
+export const DEFAULT_OG_IMAGE = '/images/page-headers/home/optimized/hero-desktop.jpg'
 export const DEFAULT_EVENT_IMAGE = '/images/page-headers/whats-on/whats-on.jpg'
 export const DEFAULT_DRINKS_IMAGE = '/images/page-headers/drinks/drinks.jpg'
 export const DEFAULT_FOOD_IMAGE = '/images/page-headers/food-menu/food-menu.jpg'

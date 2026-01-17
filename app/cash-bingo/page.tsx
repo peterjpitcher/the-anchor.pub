@@ -37,7 +37,10 @@ export const metadata: Metadata = {
   description:
     'Play cash bingo and bingo games near Heathrow at The Anchor. GBP 10 bingo tickets, bingo calls, cash prizes, snowball bonus, and jackpot bingo in Stanwell Moor.',
   keywords:
-    'cash bingo, bingo night, bingo games, play bingo for cash, bingo hall, bingo tickets, bingo books, jackpot bingo, cash prizes, bingo calls, bingo numbers, bingo number caller, bingo near heathrow'
+    'cash bingo, bingo night, bingo games, play bingo for cash, bingo hall, bingo tickets, bingo books, jackpot bingo, cash prizes, bingo calls, bingo numbers, bingo number caller, bingo near heathrow',
+  alternates: {
+    canonical: '/cash-bingo'
+  }
 }
 
 const BINGO_CATEGORY = {

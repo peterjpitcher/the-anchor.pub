@@ -13,7 +13,7 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { getBusinessStats } from '@/lib/schema-with-reviews'
 
 export const metadata: Metadata = {
-  title: `Stanwell Village Pub - Sunday Roasts & Events | ${BRAND.name}`,
+  title: `Stanwell Village Pub | Sunday Roasts, Pizza & Free Parking | ${BRAND.name}`,
   description: `${BRAND.name} is Stanwell's village pub with Sunday roasts, stone-baked pizzas, quiz nights and free parking just minutes from Heathrow.`,
   keywords: 'stanwell village pub, sunday roast stanwell moor, quiz night stanwell, stone-baked pizza stanwell, local pub near heathrow',
   openGraph: {
@@ -26,7 +26,10 @@ export const metadata: Metadata = {
     title: 'Stanwell Village Pub - The Anchor Stanwell Moor',
     description: 'Enjoy Sunday roasts, stone-baked pizzas and local events at The Anchor, Stanwell Moor\'s village pub near Heathrow.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
-  })
+  }),
+  alternates: {
+    canonical: '/stanwell-pub'
+  }
 }
 
 export default async function StanwellPubPage() {

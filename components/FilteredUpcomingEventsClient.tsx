@@ -5,12 +5,24 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useInView } from 'react-intersection-observer'
 import { formatEventDate, formatEventTime, getEventShortDescription, formatDoorTime } from '@/lib/api'
+import { getEventDateRangeUtc } from '@/lib/event-calendar'
 import { EventBookingButton } from '@/components/EventBookingButton'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getEventPriceLabel } from '@/lib/event-pricing'
+import { EventSecondaryActions } from '@/components/events/EventSecondaryActions'
 import type { DisplayEvent } from '@/types/display-event'
 
 const MAX_URGENCY_DAYS = 3
+const LONDON_TIME_ZONE = 'Europe/London'
+
+function getLondonDateKey(value: Date): string {
+  return value.toLocaleDateString('en-GB', {
+    timeZone: LONDON_TIME_ZONE,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  })
+}
 
 type EventUrgency = {
   label: string
@@ -25,15 +37,18 @@ interface EventTimingInfo {
 }
 
 function getEventTimingInfo(event: DisplayEvent): EventTimingInfo | null {
-  const eventDate = new Date(event.startDate)
-  if (Number.isNaN(eventDate.getTime())) {
+  const eventStart = getEventDateRangeUtc(event).start
+  if (Number.isNaN(eventStart.getTime())) {
     return null
   }
 
   const now = new Date()
-  const diffMs = eventDate.getTime() - now.getTime()
-  const isToday = now.toDateString() === eventDate.toDateString()
-  const isTomorrow = new Date(now.getTime() + 86400000).toDateString() === eventDate.toDateString()
+  const diffMs = eventStart.getTime() - now.getTime()
+  const todayKey = getLondonDateKey(now)
+  const tomorrowKey = getLondonDateKey(new Date(now.getTime() + 86400000))
+  const eventKey = getLondonDateKey(eventStart)
+  const isToday = todayKey === eventKey
+  const isTomorrow = tomorrowKey === eventKey
   const relativeLabel =
     diffMs <= 0
       ? 'Happening now'
@@ -41,7 +56,7 @@ function getEventTimingInfo(event: DisplayEvent): EventTimingInfo | null {
       ? 'Today'
       : isTomorrow
       ? 'Tomorrow'
-      : eventDate.toLocaleDateString('en-GB', { weekday: 'long' })
+      : eventStart.toLocaleDateString('en-GB', { weekday: 'long', timeZone: LONDON_TIME_ZONE })
 
   let urgency: EventUrgency | null = null
 
@@ -61,7 +76,7 @@ function getEventTimingInfo(event: DisplayEvent): EventTimingInfo | null {
       } else if (daysUntil <= 2) {
         urgency = {
           label: 'Almost here',
-          message: `Join us this ${eventDate.toLocaleDateString('en-GB', { weekday: 'long' })}.`,
+          message: `Join us this ${eventStart.toLocaleDateString('en-GB', { weekday: 'long', timeZone: LONDON_TIME_ZONE })}.`,
           badgeClassName: 'bg-anchor-gold text-anchor-charcoal',
           panelClassName: 'bg-anchor-gold/20 border border-anchor-gold/40 text-anchor-charcoal'
         }
@@ -301,6 +316,12 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
                     </Link>
+                    <EventSecondaryActions
+                      event={event}
+                      source="whats_on_event_card_mobile_actions"
+                      className="pt-2 justify-start"
+                      size="xs"
+                    />
                   </div>
                 )}
               </div>
@@ -430,6 +451,15 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
                     </div>
                   )}
                 </div>
+
+                {!isTimeChange && (
+                  <EventSecondaryActions
+                    event={event}
+                    source="whats_on_event_card_desktop_actions"
+                    className="mt-4 justify-end"
+                    size="xs"
+                  />
+                )}
               </div>
             </div>
           </div>

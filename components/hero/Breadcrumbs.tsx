@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { ChevronRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export interface BreadcrumbItem {
   name: string
@@ -47,7 +48,7 @@ export function Breadcrumbs({
       {/* Schema markup */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(breadcrumbSchema) }}
       />
       
       {/* Visual breadcrumbs */}

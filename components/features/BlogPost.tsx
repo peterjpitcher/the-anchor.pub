@@ -8,6 +8,7 @@ import { Breadcrumb } from '@/components/ui/navigation/Breadcrumb'
 import { Grid } from '@/components/ui/layout/Grid'
 import { BlogShareButtons } from '@/components/BlogShareButtons'
 import { getBlogHeroUrl } from '@/lib/blog-image'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 interface BlogPostProps {
   post: {
@@ -89,7 +90,7 @@ export function BlogPost({ post, prevPost, nextPost }: BlogPostProps) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLdSafeStringify({
             "@context": "https://schema.org",
             "@type": "Article",
             "headline": post.title,
@@ -257,7 +258,7 @@ export function BlogPost({ post, prevPost, nextPost }: BlogPostProps) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLdSafeStringify({
             "@context": "https://schema.org",
             "@type": "BlogPosting",
             "headline": post.title,

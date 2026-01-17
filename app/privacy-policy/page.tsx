@@ -12,6 +12,9 @@ export const metadata: Metadata = {
     title: 'Privacy Policy & Cookie Policy | The Anchor',
     description: 'Learn how The Anchor collects, uses, and protects your personal information and data.',
   },
+  alternates: {
+    canonical: '/privacy-policy'
+  }
 }
 
 export default function PrivacyPolicyPage() {

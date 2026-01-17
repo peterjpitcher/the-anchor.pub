@@ -28,8 +28,8 @@ if (current) {
 }
 
 // Test September 1st (force date)
-console.log('\n2️⃣ Testing September 1st, 2025:')
-const sept1 = new Date('2025-09-01T12:00:00Z')
+console.log('\n2️⃣ Testing September 1st, 2026:')
+const sept1 = new Date('2026-09-01T12:00:00Z')
 const septPromo = getCurrentPromotion(sept1)
 if (septPromo) {
   console.log(`✅ Will activate: ${septPromo.spirit.name}`)
@@ -39,8 +39,8 @@ if (septPromo) {
 }
 
 // Test August 31st at 23:59:59
-console.log('\n3️⃣ Testing August 31st, 2025 at 23:59:59:')
-const aug31 = new Date('2025-08-31T23:59:59Z')
+console.log('\n3️⃣ Testing August 31st, 2026 at 23:59:59:')
+const aug31 = new Date('2026-08-31T23:59:59Z')
 const augPromo = getCurrentPromotion(aug31)
 if (augPromo) {
   console.log(`✅ Still active: ${augPromo.spirit.name}`)
@@ -58,12 +58,13 @@ all.forEach(p => {
 
 // Test preview by ID
 console.log('\n5️⃣ Testing Preview Mode:')
-const preview = getPromotionById('redleg-september-2025')
+const previewId = 'kraken-october-2026'
+const preview = getPromotionById(previewId)
 if (preview) {
   console.log(`✅ Preview available: ${preview.spirit.name}`)
-  console.log(`   Can be previewed with: ?preview=redleg-september-2025&token=YOUR_TOKEN`)
+  console.log(`   Can be previewed with: ?preview=${previewId}&token=YOUR_TOKEN`)
 } else {
-  console.log('❌ September promotion not found')
+  console.log('❌ Preview promotion not found')
 }
 
 console.log('\n=====================================')

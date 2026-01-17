@@ -14,7 +14,7 @@ import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 import { getBusinessStats } from '@/lib/schema-with-reviews'
 
 export const metadata: Metadata = {
-  title: 'Staines Pub with Sunday Roasts & Private Rooms | The Anchor',
+  title: 'Staines Pub | Sunday Roasts, Private Rooms & Free Parking',
   description: 'Visit The Anchor near Staines-upon-Thames for Sunday roasts, stone-baked pizzas, drag shows, quiz nights, and private rooms for celebrations. Free parking and real ales just 8 minutes from town.',
   keywords: 'staines pub near heathrow, sunday roasts staines, traditional english pubs staines, private rooms staines pub, wedding receptions staines',
   openGraph: {

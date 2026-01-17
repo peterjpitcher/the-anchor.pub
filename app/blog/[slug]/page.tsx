@@ -8,6 +8,7 @@ import { BlogShareButtons } from '@/components/BlogShareButtons'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { getBlogHeroUrl, BLOG_FALLBACK_IMAGE } from '@/lib/blog-image'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export async function generateStaticParams() {
   const posts = await getAllBlogPosts()
@@ -172,7 +173,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([blogPostingSchema, blogSchema, breadcrumbSchema]) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([blogPostingSchema, blogSchema, breadcrumbSchema]) }}
       />
       <ScrollDepthTracker />
       {/* Hero Section */}

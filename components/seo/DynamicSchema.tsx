@@ -1,4 +1,5 @@
 import { getEnhancedSchemas } from '@/lib/schema-with-reviews'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export async function DynamicSchema() {
   const schemas = await getEnhancedSchemas()
@@ -7,7 +8,7 @@ export async function DynamicSchema() {
     <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
-        __html: JSON.stringify([
+        __html: jsonLdSafeStringify([
           schemas.organizationSchema,
           schemas.localBusinessSchema,
           schemas.webSiteSchema

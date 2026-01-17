@@ -37,7 +37,10 @@ export const metadata: Metadata = {
     description:
         'Enjoy live music near Heathrow at The Anchor. Featuring local bands, acoustic sets, and tribute acts in Stanwell Moor. Free entry, great atmosphere, and cold pints.',
     keywords:
-        'live music pub, live bands, pub gigs, music production, stanwell moor live music, heathrow live music, pub music staines, acoustic night, pub rock bands'
+        'live music pub, live bands, pub gigs, music production, stanwell moor live music, heathrow live music, pub music staines, acoustic night, pub rock bands',
+    alternates: {
+        canonical: '/live-music'
+    }
 }
 
 const LIVE_MUSIC_CATEGORY = {

@@ -26,7 +26,10 @@ export const metadata: Metadata = {
     title: 'Heathrow Corporate Event Venue - The Anchor Stanwell Moor',
     description: 'Private meeting rooms, AV support and free parking 7 minutes from Heathrow Terminal 5.',
     images: [DEFAULT_CORPORATE_IMAGE]
-  })
+  }),
+  alternates: {
+    canonical: '/corporate-events'
+  }
 }
 
 

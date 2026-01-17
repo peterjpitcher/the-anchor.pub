@@ -13,17 +13,17 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 
 export const metadata: Metadata = {
-  title: `Junction 14 M25 Pub Stop - Free Parking & British Food | ${BRAND.name}`,
+  title: `M25 Junction 14 Pub (5 Mins) - Free Parking & Food | ${BRAND.name}`,
   description: `Pull off Junction 14 M25 for The Anchor: free parking, proper British pub food, real ales and a relaxed Surrey village break minutes from Heathrow.`,
   keywords: 'junction 14 m25 pub stop, m25 junction 14 pub, motorway pub with parking, british food near m25, pub near heathrow junction 14',
   openGraph: {
-    title: 'Junction 14 M25 Pub Stop - The Anchor Stanwell Moor',
+    title: 'M25 Junction 14 Pub Stop - The Anchor Stanwell Moor',
     description: '5 minutes from M25 J14 with free parking, British pub food and real ales.',
     images: [DEFAULT_PAGE_HEADER_IMAGE],
     type: 'website',
   },
   twitter: getTwitterMetadata({
-    title: 'Junction 14 M25 Pub Stop - The Anchor Stanwell Moor',
+    title: 'M25 Junction 14 Pub Stop - The Anchor Stanwell Moor',
     description: '5 minutes from M25 J14 with free parking, British pub food and real ales.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),

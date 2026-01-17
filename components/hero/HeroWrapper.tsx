@@ -1,5 +1,6 @@
 import { CSSProperties, HTMLAttributes, ReactNode } from 'react'
-import { HeroSection, HeroSize, type HeroImageConfig } from './HeroSection'
+import { HeroSectionServer } from './HeroSectionServer'
+import type { HeroSize, HeroImageConfig } from './HeroSection'
 import { Breadcrumbs, BreadcrumbItem } from './Breadcrumbs'
 import { HeroTag } from './HeroTag'
 import {
@@ -152,7 +153,7 @@ export function HeroWrapper({
   if (shouldUseSeasonalImage && process.env.NODE_ENV !== 'production') {
     console.warn(
       `HeroWrapper: using seasonal homepage image for route "${route}". ` +
-        'Add a page-specific image under public/images/page-headers or pass the `image` prop to HeroWrapper to suppress this warning.'
+      'Add a page-specific image under public/images/page-headers or pass the `image` prop to HeroWrapper to suppress this warning.'
     )
   }
 
@@ -167,10 +168,10 @@ export function HeroWrapper({
 
   const seasonalStyle: CSSProperties | undefined = seasonalImage
     ? ({
-        '--hero-ox': `${focal?.x ?? 50}%`,
-        '--hero-oy-mobile': `${focal?.yMobile ?? 50}%`,
-        '--hero-oy-desktop': `${focal?.yDesktop ?? 50}%`
-      } as CSSProperties)
+      '--hero-ox': `${focal?.x ?? 50}%`,
+      '--hero-oy-mobile': `${focal?.yMobile ?? 50}%`,
+      '--hero-oy-desktop': `${focal?.yDesktop ?? 50}%`
+    } as CSSProperties)
     : undefined
 
   const baseImageConfig = seasonalImage ? {} : safeHeaderImageConfig
@@ -224,10 +225,16 @@ export function HeroWrapper({
   const shouldRenderStatusBarBelow = resolvedShowStatusBar && resolvedStatusBarPosition === 'below'
   const hasHeroActions = Boolean(ctaContent) || shouldRenderStatusBarAbove || shouldRenderStatusBarBelow
 
+  const alignmentClass = {
+    left: 'justify-start',
+    center: 'justify-center',
+    right: 'justify-end'
+  }[resolvedAlignment]
+
   const heroCta = hasHeroActions ? (
     <>
       {shouldRenderStatusBarAbove && (
-        <div className="mb-6">
+        <div className={cn('mb-6 w-full flex', alignmentClass)}>
           <StatusBar
             variant={resolvedStatusBarVariant}
             showKitchen={statusBarShowKitchen}
@@ -237,7 +244,7 @@ export function HeroWrapper({
       )}
       {ctaContent}
       {shouldRenderStatusBarBelow && (
-        <div className={cn(ctaContent ? 'mt-6' : 'mt-0')}>
+        <div className={cn('w-full flex', ctaContent ? 'mt-6' : 'mt-0', alignmentClass)}>
           <StatusBar
             variant={resolvedStatusBarVariant}
             showKitchen={statusBarShowKitchen}
@@ -255,7 +262,7 @@ export function HeroWrapper({
   const legacyChildren = hasStructuredCtaApi ? undefined : children
 
   return (
-    <HeroSection
+    <HeroSectionServer
       title={title}
       description={description}
       eyebrow={eyebrow}
@@ -296,7 +303,7 @@ export function HeroWrapper({
       contentClassName={resolvedContentClassName}
     >
       {legacyChildren}
-    </HeroSection>
+    </HeroSectionServer>
   )
 }
 

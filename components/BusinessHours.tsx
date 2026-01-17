@@ -8,6 +8,7 @@ import { CONTACT_INFO } from '@/lib/error-handling'
 import { LoadingState } from '@/components/ui/LoadingState'
 import { parseApiDuration } from '@/lib/time-utils'
 import { useBusinessHoursContext } from '@/components/providers/BusinessHoursProvider'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 interface BusinessHoursProps {
   variant?: 'compact' | 'full' | 'status' | 'dark' | 'condensed'
@@ -478,7 +479,7 @@ export function BusinessHours({ variant = 'full', showKitchen = true }: Business
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLdSafeStringify({
             "@context": "https://schema.org",
             "@type": "OpeningHoursSpecification",
             "@id": "https://www.the-anchor.pub/#opening-hours",

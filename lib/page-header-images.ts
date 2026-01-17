@@ -53,6 +53,46 @@ const PAGE_HEADER_ALT_TEXT: Record<string, string> = {
   'near-heathrow-terminal-5': 'The Anchor pub exterior with Terminal 5 aircraft passing overhead'
 };
 
+function resolvePublicPath(urlPath: string): string {
+  const normalizedPath = urlPath.startsWith('/') ? urlPath.slice(1) : urlPath;
+  return path.join(process.cwd(), 'public', normalizedPath);
+}
+
+function inferOptimizedFormats(optimized: NonNullable<HeaderImageConfig['optimized']>): Array<'avif' | 'webp'> {
+  const sizeKeys = ['mobile', 'tablet', 'desktop'] as const;
+  const formats: Array<'avif' | 'webp'> = [];
+
+  const hasEverySize = (extension: 'avif' | 'webp') =>
+    sizeKeys.every((key) => fs.existsSync(resolvePublicPath(`${optimized[key]}.${extension}`)));
+
+  if (hasEverySize('avif')) {
+    formats.push('avif');
+  }
+  if (hasEverySize('webp')) {
+    formats.push('webp');
+  }
+
+  return formats;
+}
+
+function normaliseOptimizedConfig(
+  optimized: NonNullable<HeaderImageConfig['optimized']>
+): NonNullable<HeaderImageConfig['optimized']> | null {
+  if (!optimized?.mobile || !optimized?.tablet || !optimized?.desktop) {
+    return null;
+  }
+
+  const desktopJpgPath = resolvePublicPath(`${optimized.desktop}.jpg`);
+  if (!fs.existsSync(desktopJpgPath)) {
+    return null;
+  }
+
+  return {
+    ...optimized,
+    formats: inferOptimizedFormats(optimized)
+  };
+}
+
 function getOptimizedConfig(pageFolderPath: string): Pick<HeaderImageConfig, 'optimized' | 'blurDataURL'> | null {
   const optimizedDir = path.join(pageFolderPath, 'optimized');
   if (!fs.existsSync(optimizedDir)) {
@@ -64,8 +104,12 @@ function getOptimizedConfig(pageFolderPath: string): Pick<HeaderImageConfig, 'op
     try {
       const metadata = JSON.parse(fs.readFileSync(heroMetaPath, 'utf-8'));
       if (metadata?.optimized?.mobile && metadata?.optimized?.tablet && metadata?.optimized?.desktop) {
+        const normalizedOptimizedConfig = normaliseOptimizedConfig(metadata.optimized);
+        if (!normalizedOptimizedConfig) {
+          return null;
+        }
         return {
-          optimized: metadata.optimized,
+          optimized: normalizedOptimizedConfig,
           blurDataURL: metadata.blurDataURL
         };
       }
@@ -105,8 +149,12 @@ function getOptimizedConfig(pageFolderPath: string): Pick<HeaderImageConfig, 'op
     }, {} as Record<typeof OPTIMIZED_TARGETS[number]['key'], string>);
 
     if (optimized.mobile && optimized.tablet && optimized.desktop) {
+      const normalizedOptimizedConfig = normaliseOptimizedConfig(optimized);
+      if (!normalizedOptimizedConfig) {
+        return null;
+      }
       return {
-        optimized,
+        optimized: normalizedOptimizedConfig,
         blurDataURL: metadata?.blurDataURL
       };
     }

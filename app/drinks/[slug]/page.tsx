@@ -1,4 +1,4 @@
-import { redirect } from 'next/navigation'
+import { permanentRedirect } from 'next/navigation'
 
 type DrinksRedirectProps = {
   params: {
@@ -11,8 +11,8 @@ export default function LegacyDrinksRedirect({ params }: DrinksRedirectProps) {
   // Specific drinks with bespoke content have dedicated routes (e.g. baby-guinness),
   // so this catch-all only handles legacy slugs.
   if (!params?.slug) {
-    redirect('/drinks')
+    permanentRedirect('/drinks')
   }
 
-  redirect('/drinks')
+  permanentRedirect('/drinks')
 }

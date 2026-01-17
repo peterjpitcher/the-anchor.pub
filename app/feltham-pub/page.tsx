@@ -23,7 +23,10 @@ export const metadata: Metadata = {
     title: 'Feltham Pub Alternative - The Anchor Stanwell Moor',
     description: '10 minutes from Feltham with free parking, Sunday roasts, stone-baked pizzas and quiz nights.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
-  })
+  }),
+  alternates: {
+    canonical: '/feltham-pub'
+  }
 }
 
 export default function FelthamPubPage() {

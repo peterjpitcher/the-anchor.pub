@@ -7,6 +7,7 @@ import { notFound } from 'next/navigation'
 import { getTagSEOContent } from '@/lib/tag-seo-content'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { getBlogHeroUrl, BLOG_FALLBACK_IMAGE } from '@/lib/blog-image'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export async function generateStaticParams() {
   const posts = await getAllBlogPosts()
@@ -30,7 +31,7 @@ export async function generateMetadata({ params }: { params: { tag: string } }):
     description: seoContent.metaDescription,
     keywords: seoContent.keywords.join(', '),
     alternates: {
-      canonical: './', // Use relative canonical to strip parameters
+      canonical: `/blog/tag/${tag}`,
     },
     openGraph: {
       title: seoContent.metaTitle,
@@ -189,7 +190,7 @@ export default async function TagPage({ params }: { params: { tag: string } }) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLdSafeStringify({
             "@context": "https://schema.org",
             "@type": "CollectionPage",
             "name": `${displayName} at The Anchor`,

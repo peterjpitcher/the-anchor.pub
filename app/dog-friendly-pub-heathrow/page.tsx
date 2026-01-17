@@ -24,7 +24,10 @@ export const metadata: Metadata = {
         title: 'Dogs Welcome at The Anchor',
         description: 'Water bowls, treats, and plenty of fuss for your four-legged friends.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
-    })
+    }),
+    alternates: {
+        canonical: '/dog-friendly-pub-heathrow'
+    }
 }
 
 export default function DogFriendlyPage() {

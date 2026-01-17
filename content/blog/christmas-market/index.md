@@ -33,6 +33,12 @@ images: []
 
 Looking for a magical **Christmas market near Heathrow**? The Anchor's annual Festive Market transforms our traditional pub into a winter wonderland of local crafts, seasonal treats, and community spirit. Just 7 minutes from Terminal 5, discover unique gifts and festive cheer in the heart of Stanwell Moor.
 
+## Planning a Christmas Party Too?
+
+If you're looking for Christmas party nights, festive menus or private hire near Heathrow and Staines, start here:
+
+- [Christmas Parties at The Anchor →](/christmas-parties)
+
 ## The Anchor's Christmas Market Experience
 
 ### A Festive Shopping Paradise Near Heathrow Airport

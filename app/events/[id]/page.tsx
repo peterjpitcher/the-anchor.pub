@@ -8,7 +8,8 @@ import { EventBookingButton } from '@/components/EventBookingButton'
 import { anchorAPI, formatEventDate, formatEventTime, formatDoorTime, formatEventDuration } from '@/lib/api'
 import { EventPageTracker } from '@/components/tracking/EventPageTracker'
 import { PhoneButton } from '@/components/PhoneButton'
-import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
+import { getTwitterMetadata } from '@/lib/twitter-metadata'
+import { EventSecondaryActions } from '@/components/events/EventSecondaryActions'
 
 type Props = {
   params: { id: string }
@@ -17,17 +18,41 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   try {
     const event = await anchorAPI.getEvent(params.id)
+    const canonical = `/events/${event.slug || params.id}`
+    const ogImage = `${canonical}/opengraph-image`
+    const description =
+      event.metaDescription ||
+      event.shortDescription ||
+      event.description ||
+      `Join us for ${event.name} at The Anchor in Stanwell Moor. ${formatEventDate(event.startDate)} at ${formatEventTime(event.startDate)}.`
     
     return {
       title: event.metaTitle || `${event.name} | The Anchor - Heathrow Pub & Dining`,
-      description: event.metaDescription || event.shortDescription || event.description || `Join us for ${event.name} at The Anchor in Stanwell Moor. ${formatEventDate(event.startDate)} at ${formatEventTime(event.startDate)}.`,
+      description,
       keywords: Array.isArray(event.keywords) ? event.keywords.join(', ') : event.keywords,
+      alternates: {
+        canonical
+      },
       openGraph: {
         title: event.name,
         description: event.shortDescription || event.description || `Event at The Anchor - ${formatEventDate(event.startDate)}`,
-        images: event.heroImageUrl ? [event.heroImageUrl] : event.image?.[0] ? [event.image[0]] : [DEFAULT_EVENT_IMAGE],
+        url: canonical,
+        siteName: 'The Anchor',
+        images: [
+          {
+            url: ogImage,
+            width: 1200,
+            height: 630,
+            alt: `${event.name} at The Anchor`
+          }
+        ],
         type: 'website',
       },
+      twitter: getTwitterMetadata({
+        title: event.name,
+        description,
+        images: [ogImage]
+      })
     }
   } catch {
     return {
@@ -149,6 +174,7 @@ export default async function EventPage({ params }: Props) {
             {/* Mobile: Booking First for Better CTA */}
             <div className="lg:hidden mb-6">
               <EventBookingButton event={event} size="xl" className="max-w-md mx-auto" source="event_page_mobile" />
+              <EventSecondaryActions event={event} source="event_page_mobile_actions" className="mt-4" size="sm" />
             </div>
             
             {/* Main Content Grid */}
@@ -176,6 +202,12 @@ export default async function EventPage({ params }: Props) {
                 {/* Desktop Booking Component */}
                 <div className="hidden lg:block">
                   <EventBookingButton event={event} size="xl" className="mb-8" source="event_page_desktop" />
+                  <EventSecondaryActions
+                    event={event}
+                    source="event_page_desktop_actions"
+                    className="justify-start mb-8"
+                    size="sm"
+                  />
                 </div>
                 
                 {/* Description */}

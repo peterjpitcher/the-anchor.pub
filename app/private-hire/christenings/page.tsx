@@ -17,6 +17,9 @@ export const metadata: Metadata = {
         title: 'Christening Party Venue | The Anchor Stanwell Moor',
         description: 'Celebrate your little one\'s special day. Family-friendly venue with private rooms.',
         images: [DEFAULT_CORPORATE_IMAGE],
+    },
+    alternates: {
+        canonical: '/private-hire/christenings'
     }
 }
 

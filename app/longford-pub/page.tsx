@@ -28,7 +28,10 @@ export const metadata: Metadata = {
         title: 'The Anchor - Traditional Pub Near Longford Hotels',
         description: 'Escape the hotel prices! Authentic British pub food and drinks just minutes from Longford.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
-    })
+    }),
+    alternates: {
+        canonical: '/longford-pub'
+    }
 }
 
 export default async function LongfordPubPage() {

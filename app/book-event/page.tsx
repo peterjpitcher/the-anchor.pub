@@ -25,7 +25,10 @@ export const metadata: Metadata = {
     title: 'Heathrow Event Venue Hire - The Anchor Stanwell Moor',
     description: 'Flexible private event spaces with catering, AV support and free parking minutes from Heathrow.',
     images: [DEFAULT_CORPORATE_IMAGE]
-  })
+  }),
+  alternates: {
+    canonical: '/book-event'
+  }
 }
 
 export default function BookEventPage() {

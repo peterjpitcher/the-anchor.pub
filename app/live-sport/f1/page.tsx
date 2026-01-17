@@ -24,7 +24,10 @@ export const metadata: Metadata = {
         title: 'Watch F1 Live at The Anchor',
         description: 'Lights out and away we go! Watch every Grand Prix with us.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
-    })
+    }),
+    alternates: {
+        canonical: '/live-sport/f1'
+    }
 }
 
 export default function F1Page() {

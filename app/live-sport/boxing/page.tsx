@@ -24,7 +24,10 @@ export const metadata: Metadata = {
         title: 'Fight Night at The Anchor',
         description: 'Big screens, big atmosphere. Watch the heavyweights comfortably.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
-    })
+    }),
+    alternates: {
+        canonical: '/live-sport/boxing'
+    }
 }
 
 export default function BoxingPage() {

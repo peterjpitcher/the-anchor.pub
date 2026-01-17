@@ -24,7 +24,10 @@ export const metadata: Metadata = {
     title: 'The Anchor - Heathrow Pub & Dining - Your Local Pub Near Bedfont',
     description: 'Just 5 minutes from Bedfont with free parking and great food.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
-  })
+  }),
+  alternates: {
+    canonical: '/bedfont-pub'
+  }
 }
 
 export default function BedfontPubPage() {

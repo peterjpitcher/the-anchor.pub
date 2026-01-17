@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server'
-import { getAnchorPlacesClient } from '@/lib/google/places-client'
-import { filterReviews, mockReviews } from '@/lib/google/review-utils'
+import { DEFAULT_REVIEW_STATS, filterReviews, mockReviews } from '@/lib/google/review-utils'
 import { ReviewsFilter } from '@/lib/google/types'
 import { logError } from '@/lib/error-handling'
 
@@ -19,40 +18,8 @@ export async function GET(request: Request) {
       sortBy: searchParams.get('sortBy') as ReviewsFilter['sortBy'],
     }
 
-    // Try to get reviews from Google Places API
-    const client = getAnchorPlacesClient()
-    let reviews: any[] = []
-    let rating = 0
-    let totalReviews = 0
-    let source: 'places' | 'mock' = 'places'
-
-    if (client) {
-      const [apiReviews, ratingInfo] = await Promise.all([
-        client.getReviews(),
-        client.getRatingInfo()
-      ])
-      
-      if (apiReviews.length > 0) {
-        reviews = apiReviews
-        rating = ratingInfo?.rating || 0
-        totalReviews = ratingInfo?.totalReviews || 0
-      }
-    }
-
-    // Use mock data if API is not configured or returns no reviews
-    if (reviews.length === 0) {
-      console.warn('reviews-api-fallback: using mock reviews', {
-        hasClient: !!client,
-        filter
-      })
-      reviews = mockReviews
-      source = 'mock'
-      rating = 4.6
-      totalReviews = 312
-    }
-
-    // Apply filters
-    const filteredReviews = filterReviews(reviews, filter)
+    // Static reviews (Google Places integration removed)
+    const filteredReviews = filterReviews(mockReviews, filter)
 
     // Set cache headers (cache for 1 hour, revalidate in background)
     const headers = {
@@ -61,9 +28,9 @@ export async function GET(request: Request) {
 
     return NextResponse.json({
       reviews: filteredReviews,
-      rating,
-      totalReviews,
-      source,
+      rating: DEFAULT_REVIEW_STATS.rating,
+      totalReviews: DEFAULT_REVIEW_STATS.totalReviews,
+      source: 'mock',
       lastUpdated: new Date().toISOString()
     }, { headers })
 

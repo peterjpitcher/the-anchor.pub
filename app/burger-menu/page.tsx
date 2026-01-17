@@ -10,6 +10,7 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { parseMenuMarkdown } from '@/lib/menu-parser'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
     title: 'Gourmet Burger Menu Near Heathrow | Best Pub Burgers',
@@ -25,7 +26,10 @@ export const metadata: Metadata = {
         title: 'Proper Pub Burgers',
         description: 'Double stacked, juicy, and packed with flavour.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
-    })
+    }),
+    alternates: {
+        canonical: '/burger-menu'
+    }
 }
 
 export default async function BurgerMenuPage() {
@@ -70,7 +74,7 @@ export default async function BurgerMenuPage() {
         <>
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify([menuSchema, breadcrumbSchema]) }}
+                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([menuSchema, breadcrumbSchema]) }}
             />
 
             <HeroWrapper

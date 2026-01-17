@@ -1,79 +1,118 @@
 {
   "promotions": [
     {
-      "id": "botanist-july-2025",
-      "startDate": "2025-07-01",
-      "endDate": "2025-07-31",
-      "imageFolder": "july-2025",
+      "id": "makers-mark-january-2026",
+      "startDate": "2026-01-01",
+      "endDate": "2026-01-31",
+      "imageFolder": "january-2026",
       "active": true,
       "spirit": {
-        "name": "The Botanist",
-        "category": "Islay Dry Gin",
-        "originalPrice": "3.70",
-        "specialPrice": "2.78",
+        "name": "Maker's Mark",
+        "category": "Kentucky Bourbon",
+        "originalPrice": "4.40",
+        "specialPrice": "3.30",
         "discount": "25% OFF",
-        "description": "The Botanist is a gin of layered complexity. A progressive exploration of the botanical heritage of our Isle of Islay.",
-        "longDescription": "Hand-foraged on the windswept hills of Islay, The Botanist features 22 local botanicals that are gently distilled in our unique Lomond pot still. This artisanal Islay gin is a rare expression of the heart and soul of our remote Scottish island home.",
+        "description": "Smooth, approachable bourbon with caramel and vanilla sweetness, finished with gentle oak spice.",
+        "longDescription": "Maker's Mark is a classic Kentucky bourbon known for its mellow, rounded character. Expect a soft sweetness up front, warming spice through the middle, and a smooth finish that makes it perfect neat, over ice, or lengthened with your favourite mixer.",
         "tastingNotes": [
-          "Delicate menthol and floral notes",
-          "Apple mint and spring woodlands",
-          "Juniper, citrus and wildflower meadows",
-          "Long, luxurious finish"
+          "Caramel, vanilla and toffee",
+          "Baked oak and gentle spice",
+          "Soft, rounded finish"
         ],
         "servingSuggestions": [
-          "Premium tonic water with a twist of lemon peel",
-          "Elderflower tonic with fresh thyme",
-          "Classic dry martini (3:1 ratio)",
-          "Neat over ice to appreciate the complexity"
+          "Neat or over a single cube",
+          "Bourbon & cola with a fresh lime squeeze",
+          "Classic Old Fashioned with orange oils"
         ],
-        "botanicals": [
-          "Angelica Root",
-          "Apple Mint",
-          "Birch Leaves",
-          "Bog Myrtle",
-          "Cassia Bark",
-          "Chamomile",
-          "Cinnamon Bark",
-          "Coriander Seed",
-          "Creeping Thistle",
-          "Elder",
-          "Gorse",
-          "Heather",
-          "Hawthorn",
-          "Juniper",
-          "Lady's Bedstraw",
-          "Lemon Balm",
-          "Liquorice Root",
-          "Meadowsweet",
-          "Mugwort",
-          "Orris Root",
-          "Peppermint",
-          "Red Clover",
-          "Sweet Cicely",
-          "Tansy",
-          "Thyme",
-          "Water Mint",
-          "White Clover",
-          "Wood Sage"
-        ],
-        "abv": "46%",
-        "origin": "Islay, Scotland",
-        "distillery": "Bruichladdich"
+        "origin": "USA",
+        "distillery": "Maker's Mark"
       },
       "promotion": {
-        "headline": "Manager's Special - July",
-        "subheadline": "Experience Islay's Wild Spirit",
-        "offerText": "Enjoy 25% off all serves of The Botanist throughout July",
-        "ctaText": "Try it today for just 2.78",
-        "metaTitle": "Manager's Special - 25% OFF The Botanist Gin | The Anchor Stanwell Moor",
-        "metaDescription": "Enjoy 25% off The Botanist Islay Dry Gin throughout July at The Anchor pub. Singles 2.78 (was 3.70), Doubles 5.55 (was 7.40). Limited time offer."
+        "headline": "January's Manager's Special",
+        "subheadline": "A Smooth Bourbon Start to the Year",
+        "offerText": "Enjoy 25% off Maker's Mark throughout January",
+        "ctaText": "Try it today for just 3.30",
+        "metaTitle": "January Manager's Special - 25% OFF Maker's Mark | The Anchor Stanwell Moor",
+        "metaDescription": "Enjoy 25% off Maker's Mark bourbon throughout January at The Anchor near Heathrow. Singles 3.30 (was 4.40). Ask at the bar for your perfect serve."
       }
     },
     {
-      "id": "warners-august-2025",
-      "startDate": "2025-08-01",
-      "endDate": "2025-08-31",
-      "imageFolder": "august-2025",
+      "id": "tanqueray-blackcurrant-royale-february-2026",
+      "startDate": "2026-02-01",
+      "endDate": "2026-02-28",
+      "imageFolder": "february-2026",
+      "active": true,
+      "spirit": {
+        "name": "Tanqueray Blackcurrant Royale",
+        "category": "Flavoured Gin",
+        "originalPrice": "3.80",
+        "specialPrice": "2.85",
+        "discount": "25% OFF",
+        "description": "A rich, fruity twist on Tanqueray with bold blackcurrant and a hint of vanilla sweetness.",
+        "longDescription": "Tanqueray Blackcurrant Royale brings a luxurious berry note to your gin serve. It's vibrant, smooth and brilliantly easy to enjoy as a G&T, with lemonade, or in a sparkling spritz for a fruit-forward refresher.",
+        "tastingNotes": [
+          "Deep blackcurrant and berry fruit",
+          "Soft vanilla sweetness",
+          "Classic gin backbone"
+        ],
+        "servingSuggestions": [
+          "With tonic and a lemon wedge",
+          "With lemonade over plenty of ice",
+          "Top with Prosecco for a Royale spritz"
+        ],
+        "origin": "United Kingdom",
+        "distillery": "Tanqueray"
+      },
+      "promotion": {
+        "headline": "February's Manager's Special",
+        "subheadline": "Blackcurrant-Led, Smooth and Stylish",
+        "offerText": "Enjoy 25% off Tanqueray Blackcurrant Royale throughout February",
+        "ctaText": "Try it today for just 2.85",
+        "metaTitle": "February Manager's Special - 25% OFF Tanqueray Blackcurrant Royale | The Anchor",
+        "metaDescription": "Enjoy 25% off Tanqueray Blackcurrant Royale throughout February at The Anchor near Heathrow. Singles 2.85 (was 3.80). A rich, fruity gin serve at a great pub price."
+      }
+    },
+    {
+      "id": "bushmills-march-2026",
+      "startDate": "2026-03-01",
+      "endDate": "2026-03-31",
+      "imageFolder": "march-2026",
+      "active": true,
+      "spirit": {
+        "name": "Bushmills",
+        "category": "Irish Whiskey",
+        "originalPrice": "3.60",
+        "specialPrice": "2.70",
+        "discount": "25% OFF",
+        "description": "Classic Irish whiskey: light, smooth and easy-drinking with gentle fruit and honey notes.",
+        "longDescription": "Bushmills is a well-loved Irish whiskey with a smooth character that works brilliantly neat, on the rocks, or lengthened with ginger ale. It's an easy way to explore Irish whiskey flavours without the burn.",
+        "tastingNotes": [
+          "Honeyed sweetness and vanilla",
+          "Light orchard fruit",
+          "Soft, clean finish"
+        ],
+        "servingSuggestions": [
+          "Neat or over ice",
+          "With ginger ale and a lime wedge",
+          "In a simple Whiskey Sour"
+        ],
+        "origin": "Ireland",
+        "distillery": "Bushmills"
+      },
+      "promotion": {
+        "headline": "March's Manager's Special",
+        "subheadline": "Smooth Irish Whiskey for Easy Sipping",
+        "offerText": "Enjoy 25% off Bushmills throughout March",
+        "ctaText": "Try it today for just 2.70",
+        "metaTitle": "March Manager's Special - 25% OFF Bushmills Irish Whiskey | The Anchor",
+        "metaDescription": "Enjoy 25% off Bushmills Irish Whiskey throughout March at The Anchor near Heathrow. Singles 2.70 (was 3.60). Smooth, classic and perfect with ginger ale."
+      }
+    },
+    {
+      "id": "warners-elderflower-april-2026",
+      "startDate": "2026-04-01",
+      "endDate": "2026-04-30",
+      "imageFolder": "april-2026",
       "active": true,
       "spirit": {
         "name": "Warners Elderflower Gin",
@@ -81,130 +120,179 @@
         "originalPrice": "3.80",
         "specialPrice": "2.85",
         "discount": "25% OFF",
-        "description": "Warners Elderflower gin captures everything we love about British summertime in a glass. Made on a working farm in Northamptonshire, infused with fresh elderflowers handpicked from the hedgerows.",
-        "longDescription": "Warners Elderflower gin is infused with fresh elderflowers handpicked from the hedgerows surrounding Falls Farm. When you sip a Warners Elderflower G&T, you're tasting the countryside at its finest. Every bottle contains ingredients grown on their farm, and that connection to the land shines through in every sip.",
+        "description": "A floral, hedgerow-fresh gin with delicate elderflower sweetness and a bright, refreshing finish.",
+        "longDescription": "Warners Elderflower Gin brings a countryside lift to your glass with soft floral notes balanced by classic juniper. It's ideal for a crisp G&T, an elderflower-forward highball, or a light springtime spritz.",
         "tastingNotes": [
-          "Fresh elderflower blossoms",
-          "Delicate floral sweetness",
-          "Classic juniper backbone",
-          "Citrus zest and summer meadows"
+          "Fresh elderflower blossom",
+          "Gentle floral sweetness",
+          "Clean juniper finish"
         ],
         "servingSuggestions": [
-          "Schweppes Slimline Elderflower tonic with fresh lime",
+          "Elderflower tonic and a fresh lime wedge",
           "Premium tonic with cucumber ribbon",
-          "Elderflower Collins with lemon and soda",
-          "Neat over ice to appreciate the floral notes"
+          "Elderflower Collins with lemon and soda"
         ],
-        "botanicals": [
-          "Juniper",
-          "Elderflower",
-          "Coriander Seed",
-          "Angelica Root",
-          "Orange Peel",
-          "Lemon Peel",
-          "Cinnamon",
-          "Nutmeg",
-          "Black Pepper",
-          "Cardamom"
-        ],
-        "abv": "40%",
-        "origin": "Northamptonshire, England",
+        "origin": "England",
         "distillery": "Warners Distillery"
       },
       "promotion": {
-        "headline": "August's Manager's Special",
-        "subheadline": "Summer's Perfect Finale",
-        "offerText": "Celebrate summer's grand finale with Warners Elderflower gin at just 2.85 a single all August",
+        "headline": "April's Manager's Special",
+        "subheadline": "Floral, Fresh and Perfect with Tonic",
+        "offerText": "Enjoy 25% off Warners Elderflower Gin throughout April",
         "ctaText": "Try it today for just 2.85",
-        "metaTitle": "Warners Elderflower Gin Special Offer August 2025 | The Anchor Stanwell Moor",
-        "metaDescription": "Celebrate summer's grand finale with Warners Elderflower gin at just 2.85 a single all August at The Anchor pub in Stanwell Moor. Fresh, floral, and perfect for sunny days. Dog-friendly Surrey pub near Heathrow."
+        "metaTitle": "April Manager's Special - 25% OFF Warners Elderflower Gin | The Anchor",
+        "metaDescription": "Enjoy 25% off Warners Elderflower Gin throughout April at The Anchor near Heathrow. Singles 2.85 (was 3.80). A bright, floral G&T favourite."
       }
     },
     {
-      "id": "redleg-september-2025",
-      "startDate": "2025-09-01",
-      "endDate": "2025-09-30",
-      "imageFolder": "september-2025",
+      "id": "gordons-tropical-passionfruit-may-2026",
+      "startDate": "2026-05-01",
+      "endDate": "2026-05-31",
+      "imageFolder": "may-2026",
       "active": true,
       "spirit": {
-        "name": "Redleg Spiced Rum",
-        "category": "Caribbean Spiced Rum",
-        "originalPrice": "4.00",
-        "specialPrice": "3.00",
+        "name": "Gordon's Tropical Passionfruit",
+        "category": "Flavoured Gin",
+        "originalPrice": "3.50",
+        "specialPrice": "2.63",
         "discount": "25% OFF",
-        "description": "Caribbean warmth in a glass. Redleg Spiced Rum brings notes of vanilla, ginger and exotic spices to chase away the autumn chill.",
-        "longDescription": "As September ushers in the first whispers of autumn, Redleg Spiced Rum arrives at The Anchor as your perfect seasonal companion. This Caribbean treasure takes its name from the red leg hermit crab, a symbol of the islands' vibrant spirit and warmth. Crafted with Jamaican pot still rum and infused with island spices including ginger, vanilla, cinnamon, and nutmeg, Redleg delivers a warming embrace that's perfect for those cooling September evenings.",
+        "description": "Tropical, fruity and super refreshing — passionfruit sweetness with a light gin backbone.",
+        "longDescription": "Gordon's Tropical Passionfruit is a bright, fruit-forward pour that's made for long, sunny afternoons. Enjoy it long with tonic or lemonade, and ask the bar team for a garnish that brings the tropical notes forward.",
         "tastingNotes": [
-          "Warm vanilla and ginger spice",
-          "Tropical notes of pineapple and mango",
-          "Cinnamon and nutmeg warmth",
-          "Smooth caramel finish"
+          "Ripe passionfruit and tropical fruit",
+          "Light citrus lift",
+          "Clean, easy finish"
         ],
         "servingSuggestions": [
-          "With premium ginger beer and fresh lime",
-          "Classic rum & cola with a lime squeeze",
-          "Caribbean Dark & Stormy with ginger beer float",
-          "Neat over ice to appreciate the spice blend"
+          "With tonic and a squeeze of lime",
+          "With lemonade over plenty of ice",
+          "Add a splash of soda for extra refreshment"
         ],
-        "abv": "37.5%",
+        "origin": "United Kingdom",
+        "distillery": "Gordon's"
+      },
+      "promotion": {
+        "headline": "May's Manager's Special",
+        "subheadline": "Tropical Passionfruit, Pub-Perfect",
+        "offerText": "Enjoy 25% off Gordon's Tropical Passionfruit throughout May",
+        "ctaText": "Try it today for just 2.63",
+        "metaTitle": "May Manager's Special - 25% OFF Gordon's Tropical Passionfruit | The Anchor",
+        "metaDescription": "Enjoy 25% off Gordon's Tropical Passionfruit throughout May at The Anchor near Heathrow. Singles 2.63 (was 3.50). A tropical gin serve made for sunshine."
+      }
+    },
+    {
+      "id": "williams-chase-pink-grapefruit-june-2026",
+      "startDate": "2026-06-01",
+      "endDate": "2026-06-30",
+      "imageFolder": "june-2026",
+      "active": true,
+      "spirit": {
+        "name": "Williams Chase Pink Grapefruit Gin",
+        "category": "Pink Grapefruit Gin",
+        "originalPrice": "3.90",
+        "specialPrice": "2.93",
+        "discount": "25% OFF",
+        "description": "Crisp, citrusy and fresh — bright pink grapefruit with a clean gin finish.",
+        "longDescription": "Williams Chase Pink Grapefruit Gin is all about zesty, bittersweet citrus. It's brilliant with tonic and a grapefruit wedge, and it makes a cracking base for long summer serves when you want something light, fresh and flavour-packed.",
+        "tastingNotes": [
+          "Zesty pink grapefruit citrus",
+          "Light bitterness and freshness",
+          "Clean gin finish"
+        ],
+        "servingSuggestions": [
+          "With premium tonic and a grapefruit wedge",
+          "With soda and a twist of lemon",
+          "In a Grapefruit Gin Spritz with sparkling wine"
+        ],
+        "origin": "United Kingdom",
+        "distillery": "Chase Distillery"
+      },
+      "promotion": {
+        "headline": "June's Manager's Special",
+        "subheadline": "Zesty Pink Grapefruit, Ice-Cold and Crisp",
+        "offerText": "Enjoy 25% off Williams Chase Pink Grapefruit Gin throughout June",
+        "ctaText": "Try it today for just 2.93",
+        "metaTitle": "June Manager's Special - 25% OFF Chase Pink Grapefruit Gin | The Anchor",
+        "metaDescription": "Enjoy 25% off Williams Chase Pink Grapefruit Gin throughout June at The Anchor near Heathrow. Singles 2.93 (was 3.90). Crisp citrus gin perfect with tonic."
+      }
+    },
+    {
+      "id": "captain-morgans-tiki-july-2026",
+      "startDate": "2026-07-01",
+      "endDate": "2026-07-31",
+      "imageFolder": "july-2026",
+      "active": true,
+      "spirit": {
+        "name": "Captain Morgan's Tiki",
+        "category": "Flavoured Rum",
+        "originalPrice": "3.40",
+        "specialPrice": "2.55",
+        "discount": "25% OFF",
+        "description": "A tropical, easy-going rum with bright fruit flavour that shines in long summer serves.",
+        "longDescription": "Captain Morgan's Tiki is a fun, fruit-led rum made for holiday-vibe mixers. Keep it simple with cola and lime, or go full tropical with pineapple juice and plenty of ice.",
+        "tastingNotes": [
+          "Tropical fruit sweetness",
+          "Soft vanilla and light spice",
+          "Smooth, easy finish"
+        ],
+        "servingSuggestions": [
+          "With cola and fresh lime",
+          "With pineapple juice over ice",
+          "In a simple rum punch with citrus"
+        ],
         "origin": "Caribbean",
-        "distillery": "Redleg Rum Company"
+        "distillery": "Captain Morgan"
       },
       "promotion": {
-        "headline": "September's Manager's Special",
-        "subheadline": "Golden Caribbean Warmth for Autumn Nights",
-        "offerText": "Enjoy 25% off Redleg Spiced Rum throughout September",
-        "ctaText": "Warm up today for just 3.00",
-        "metaTitle": "September Manager's Special - 25% OFF Redleg Spiced Rum | The Anchor Stanwell Moor",
-        "metaDescription": "Warm up this September with 25% off Redleg Spiced Rum at The Anchor pub. Caribbean golden warmth for British autumn nights. Singles 3.00 (was 4.00). Near Heathrow Airport.",
-        "heroAlt": "Redleg Spiced Rum bottle with golden amber glow and autumn leaves"
+        "headline": "July's Manager's Special",
+        "subheadline": "Tropical Rum, Holiday Vibes",
+        "offerText": "Enjoy 25% off Captain Morgan's Tiki throughout July",
+        "ctaText": "Try it today for just 2.55",
+        "metaTitle": "July Manager's Special - 25% OFF Captain Morgan's Tiki | The Anchor",
+        "metaDescription": "Enjoy 25% off Captain Morgan's Tiki throughout July at The Anchor near Heathrow. Singles 2.55 (was 3.40). A tropical rum perfect with cola, lime and summer mixers."
       }
     },
     {
-      "id": "hennessy-october-2025",
-      "startDate": "2025-10-01",
-      "endDate": "2025-10-31",
-      "imageFolder": "october-2025",
+      "id": "jose-cuervo-silver-august-2026",
+      "startDate": "2026-08-01",
+      "endDate": "2026-08-31",
+      "imageFolder": "august-2026",
       "active": true,
       "spirit": {
-        "name": "Hennessy VS Cognac",
-        "category": "Cognac",
-        "originalPrice": "4.50",
-        "specialPrice": "3.38",
+        "name": "Jose Cuervo Silver Tequila",
+        "category": "Silver Tequila",
+        "originalPrice": "4.20",
+        "specialPrice": "3.15",
         "discount": "25% OFF",
-        "description": "Discover the deep, balanced character of Hennessy VS — bold toasted oak, vanilla sweetness, and a smooth finish ready for autumn evenings.",
-        "longDescription": "Hennessy VS (Very Special) is blended from more than 40 eaux-de-vie aged up to eight years, delivering a rich balance of toasted oak, baked fruit and warming spice. As nights draw in through October, this iconic cognac brings a fireside feel to every glass — whether enjoyed neat, on ice or in an elevated cocktail.",
+        "description": "Crisp, clean tequila with fresh agave flavour — ideal for Margaritas and tequila highballs.",
+        "longDescription": "Jose Cuervo Silver is a bright, clean tequila that mixes beautifully. Go classic with a Margarita, keep it refreshing with tequila, soda and lime, or ask for a simple Paloma-style serve.",
         "tastingNotes": [
-          "Roasted almond and toasted oak",
-          "Vanilla, cinnamon and clove spice",
-          "Golden stone fruits and caramel",
-          "Silky, warming finish"
+          "Fresh agave sweetness",
+          "Citrus lift",
+          "Clean, crisp finish"
         ],
         "servingSuggestions": [
-          "Neat or over a single cube to savour the oak",
-          "Hennessy Ginger: premium ginger ale with an orange twist",
-          "Autumn Sidecar: triple sec, fresh lemon and sugar rim",
-          "VS Old Fashioned with brown sugar and orange bitters"
+          "Margarita with fresh lime",
+          "Tequila soda with lime",
+          "Paloma-style with grapefruit soda"
         ],
-        "abv": "40%",
-        "origin": "Cognac, France",
-        "distillery": "Maison Hennessy"
+        "origin": "Mexico",
+        "distillery": "Jose Cuervo"
       },
       "promotion": {
-        "headline": "October's Manager's Special",
-        "subheadline": "Iconic Cognac For Cosy Autumn Nights",
-        "offerText": "Enjoy 25% off Hennessy VS throughout October",
-        "ctaText": "Savour it now for just 3.38",
-        "metaTitle": "October Manager's Special - 25% OFF Hennessy VS Cognac | The Anchor Stanwell Moor",
-        "metaDescription": "Indulge in Hennessy VS Cognac this October at The Anchor. Save 25% all month long — singles 3.38 (was 4.50). Perfect for autumn evenings near Heathrow.",
-        "heroAlt": "Glass of Hennessy VS cognac alongside the iconic bottle on a polished bar"
+        "headline": "August's Manager's Special",
+        "subheadline": "Crisp Tequila for Sunny Serves",
+        "offerText": "Enjoy 25% off Jose Cuervo Silver Tequila throughout August",
+        "ctaText": "Try it today for just 3.15",
+        "metaTitle": "August Manager's Special - 25% OFF Jose Cuervo Silver Tequila | The Anchor",
+        "metaDescription": "Enjoy 25% off Jose Cuervo Silver Tequila throughout August at The Anchor near Heathrow. Singles 3.15 (was 4.20). Perfect for Margaritas and tequila highballs."
       }
     },
     {
-      "id": "chase-sloe-november-2025",
-      "startDate": "2025-11-01",
-      "endDate": "2025-11-30",
-      "imageFolder": "november-2025",
+      "id": "chase-sloe-september-2026",
+      "startDate": "2026-09-01",
+      "endDate": "2026-09-30",
+      "imageFolder": "september-2026",
       "active": true,
       "spirit": {
         "name": "Chase Sloe Gin",
@@ -212,42 +300,136 @@
         "originalPrice": "3.50",
         "specialPrice": "2.63",
         "discount": "25% OFF",
-        "description": "Chase Sloe Gin brings hedgerow berries, almond sweetness and winter spice to your glass.",
-        "longDescription": "Crafted on the Chase family farm in Herefordshire, this sloe gin starts with their award-winning potato spirit before being macerated with handpicked sloes for up to six months. The result is a luxuriously rich liqueur bursting with damson jam, warming spice and a silky almond finish that makes November evenings feel instantly cosier.",
+        "description": "Rich, fruity and gently warming — a classic sloe gin with berry depth and a soft almond finish.",
+        "longDescription": "Chase Sloe Gin is a beautifully fruit-led pour with a smooth, rounded character. Expect hedgerow berries up front, a touch of sweetness, and a comforting finish that's brilliant neat, over ice, or lengthened with tonic.",
         "tastingNotes": [
-          "Rich damson and blackcurrant jam",
-          "Almond marzipan sweetness",
-          "Juniper backbone with orange zest",
-          "Lingering cinnamon and clove warmth"
+          "Dark berry fruit and jam notes",
+          "Soft almond sweetness",
+          "Gentle, warming finish"
         ],
         "servingSuggestions": [
-          "Classic Sloe Gin Fizz with fresh lemon and a Giorgio & Gianni Prosecco float",
-          "Fever-Tree Elderflower tonic with an orange twist and star anise",
-          "Hot Sloe Toddy with apple juice and cinnamon",
-          "Neat over ice to savour the hedgerow fruit"
+          "Neat over ice",
+          "With tonic and an orange twist",
+          "Top with Prosecco for a sparkling serve"
         ],
-        "botanicals": [
-          "Juniper Berries",
-          "Herefordshire Sloe Berries",
-          "Coriander Seed",
-          "Cardamom",
-          "Liquorice Root",
-          "Bitter Orange Peel",
-          "Angelica Root",
-          "Almond"
-        ],
-        "abv": "29%",
-        "origin": "Herefordshire, England",
+        "origin": "United Kingdom",
         "distillery": "Chase Distillery"
       },
       "promotion": {
+        "headline": "September's Manager's Special",
+        "subheadline": "Hedgerow-Berry Classic with a Premium Finish",
+        "offerText": "Enjoy 25% off Chase Sloe Gin throughout September",
+        "ctaText": "Try it today for just 2.63",
+        "metaTitle": "September Manager's Special - 25% OFF Chase Sloe Gin | The Anchor",
+        "metaDescription": "Enjoy 25% off Chase Sloe Gin throughout September at The Anchor near Heathrow. Singles 2.63 (was 3.50). Rich, fruity and perfect over ice or with tonic."
+      }
+    },
+    {
+      "id": "kraken-october-2026",
+      "startDate": "2026-10-01",
+      "endDate": "2026-10-31",
+      "imageFolder": "october-2026",
+      "active": true,
+      "spirit": {
+        "name": "Kraken Rum",
+        "category": "Black Spiced Rum",
+        "originalPrice": "4.00",
+        "specialPrice": "3.00",
+        "discount": "25% OFF",
+        "description": "Dark, spiced and warming — rich molasses depth with a bold, aromatic finish.",
+        "longDescription": "Kraken Rum is a proper autumn pour: dark, spiced and full of character. Enjoy it with cola and lime, with ginger beer for a stormy-style serve, or simply over ice when you want something rich and warming.",
+        "tastingNotes": [
+          "Rich molasses and dark sugar",
+          "Warming spice and vanilla",
+          "Bold, lingering finish"
+        ],
+        "servingSuggestions": [
+          "With cola and a lime wedge",
+          "With ginger beer and fresh lime",
+          "Neat over ice for a slow sip"
+        ],
+        "origin": "Caribbean",
+        "distillery": "The Kraken"
+      },
+      "promotion": {
+        "headline": "October's Manager's Special",
+        "subheadline": "Dark, Spiced and Perfect as the Nights Draw In",
+        "offerText": "Enjoy 25% off Kraken Rum throughout October",
+        "ctaText": "Try it today for just 3.00",
+        "metaTitle": "October Manager's Special - 25% OFF Kraken Rum | The Anchor",
+        "metaDescription": "Enjoy 25% off Kraken Rum throughout October at The Anchor near Heathrow. Singles 3.00 (was 4.00). Dark spiced rum made for cola, ginger beer and cosy nights."
+      }
+    },
+    {
+      "id": "monkey-shoulder-november-2026",
+      "startDate": "2026-11-01",
+      "endDate": "2026-11-30",
+      "imageFolder": "november-2026",
+      "active": true,
+      "spirit": {
+        "name": "Monkey Shoulder",
+        "category": "Blended Malt Scotch Whisky",
+        "originalPrice": "4.80",
+        "specialPrice": "3.60",
+        "discount": "25% OFF",
+        "description": "A smooth, modern whisky with mellow malt sweetness, soft spice and a rounded finish.",
+        "longDescription": "Monkey Shoulder is a crowd-pleasing blended malt that's brilliant neat, over ice or in cocktails. Expect gentle vanilla sweetness, a touch of orange and spice, and a smooth finish that makes it easy to enjoy.",
+        "tastingNotes": [
+          "Vanilla and honeyed malt",
+          "Soft orange and gentle spice",
+          "Smooth, rounded finish"
+        ],
+        "servingSuggestions": [
+          "Neat or on the rocks",
+          "With ginger ale and orange twist",
+          "In a Whisky Sour"
+        ],
+        "origin": "Scotland",
+        "distillery": "Monkey Shoulder"
+      },
+      "promotion": {
         "headline": "November's Manager's Special",
-        "subheadline": "Hedgerow Warmth for Frosty Nights",
-        "offerText": "Enjoy 25% off Chase Sloe Gin throughout November",
-        "ctaText": "Cosy up for just 2.63",
-        "metaTitle": "November Manager's Special - 25% OFF Chase Sloe Gin | The Anchor Stanwell Moor",
-        "metaDescription": "Sip hedgerow warmth this November with 25% off Chase Sloe Gin at The Anchor. Singles 2.63 (was 3.50), doubles 5.25 (was 7.00). Perfect for frosty nights near Heathrow.",
-        "heroAlt": "Cut-glass tumbler of Chase Sloe Gin with berries and frosted foliage on a winter bar"
+        "subheadline": "Smooth Scotch Whisky, Perfect for a Fireside Sip",
+        "offerText": "Enjoy 25% off Monkey Shoulder throughout November",
+        "ctaText": "Try it today for just 3.60",
+        "metaTitle": "November Manager's Special - 25% OFF Monkey Shoulder Whisky | The Anchor",
+        "metaDescription": "Enjoy 25% off Monkey Shoulder whisky throughout November at The Anchor near Heathrow. Singles 3.60 (was 4.80). Smooth blended malt Scotch for cosy evenings."
+      }
+    },
+    {
+      "id": "disaronno-december-2026",
+      "startDate": "2026-12-01",
+      "endDate": "2026-12-31",
+      "imageFolder": "december-2026",
+      "active": true,
+      "spirit": {
+        "name": "Disaronno",
+        "category": "Amaretto Liqueur",
+        "originalPrice": "4.10",
+        "specialPrice": "3.08",
+        "discount": "25% OFF",
+        "description": "Iconic Italian amaretto — smooth almond sweetness with a hint of cherry and warming spice.",
+        "longDescription": "Disaronno is a classic after-dinner favourite with a rich almond character. Enjoy it over ice, lengthened with cola, or in an Amaretto Sour for a festive cocktail that hits the spot.",
+        "tastingNotes": [
+          "Sweet almond and marzipan",
+          "Hints of cherry and spice",
+          "Smooth, dessert-like finish"
+        ],
+        "servingSuggestions": [
+          "Over ice as a digestif",
+          "With cola and a squeeze of lemon",
+          "In a classic Amaretto Sour"
+        ],
+        "origin": "Italy",
+        "distillery": "Disaronno"
+      },
+      "promotion": {
+        "headline": "December's Manager's Special",
+        "subheadline": "Festive Amaretto for After-Dinner Moments",
+        "offerText": "Enjoy 25% off Disaronno throughout December",
+        "ctaText": "Try it today for just 3.08",
+        "metaTitle": "December Manager's Special - 25% OFF Disaronno Amaretto | The Anchor",
+        "metaDescription": "Enjoy 25% off Disaronno throughout December at The Anchor near Heathrow. Singles 3.08 (was 4.10). Classic Italian amaretto for festive cocktails and after-dinner sips."
       }
     }
   ]

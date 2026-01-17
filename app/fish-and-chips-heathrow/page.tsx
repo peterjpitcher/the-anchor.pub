@@ -10,6 +10,7 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { parseMenuMarkdown } from '@/lib/menu-parser'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
     title: 'Best Fish and Chips Near Heathrow | Fresh Beer Battered Cod',
@@ -25,7 +26,10 @@ export const metadata: Metadata = {
         title: 'Proper British Fish & Chips',
         description: 'Crispy batter, flaky fish, and proper chips. The ultimate pre-flight meal.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
-    })
+    }),
+    alternates: {
+        canonical: '/fish-and-chips-heathrow'
+    }
 }
 
 export default async function FishAndChipsPage() {
@@ -90,7 +94,7 @@ export default async function FishAndChipsPage() {
         <>
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify([productSchema, menuSchema, breadcrumbSchema]) }}
+                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([productSchema, menuSchema, breadcrumbSchema]) }}
             />
 
             <HeroWrapper

@@ -28,7 +28,10 @@ export const metadata: Metadata = {
         title: 'The Anchor - Pub Near Colnbrook & Poyle',
         description: 'Perfect for after-work drinks or a team lunch. Just minutes from Poyle Industrial Estate and Colnbrook.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
-    })
+    }),
+    alternates: {
+        canonical: '/colnbrook-pub'
+    }
 }
 
 export default async function ColnbrookPubPage() {

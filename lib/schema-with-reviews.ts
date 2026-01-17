@@ -1,14 +1,14 @@
 import { unstable_cache } from 'next/cache'
 import { organizationSchema, webSiteSchema } from './schema'
 import { DEFAULT_PAGE_HEADER_IMAGE, DEFAULT_FOOD_IMAGE } from './image-fallbacks'
-import { getAnchorPlacesClient } from './google/places-client'
 import { anchorAPI } from './api'
 import { buildOpeningHoursSchema, DEFAULT_OPENING_HOURS_SCHEMA } from './opening-hours-schema'
+import { DEFAULT_REVIEW_STATS } from './google/review-utils'
 
 const getBusinessStatsCached = unstable_cache(
   async () => {
-    let rating = 4.6
-    let reviewCount = 312
+    let rating = DEFAULT_REVIEW_STATS.rating
+    let reviewCount = DEFAULT_REVIEW_STATS.totalReviews
     let openingHours = DEFAULT_OPENING_HOURS_SCHEMA
 
     try {
@@ -16,20 +16,6 @@ const getBusinessStatsCached = unstable_cache(
       openingHours = buildOpeningHoursSchema(hours?.regularHours)
     } catch (error) {
       console.warn('Failed to fetch opening hours for schema, using defaults:', error)
-    }
-
-    try {
-      const client = getAnchorPlacesClient()
-      if (client) {
-        const ratingInfo = await client.getRatingInfo()
-        if (ratingInfo) {
-          rating = ratingInfo.rating
-          reviewCount = ratingInfo.totalReviews
-        }
-      }
-    } catch (error) {
-      const message = error instanceof Error ? error.message : String(error)
-      console.warn('Failed to fetch rating for schema:', message)
     }
 
     return { rating, reviewCount, openingHours }

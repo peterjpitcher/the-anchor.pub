@@ -15,6 +15,9 @@ export const metadata: Metadata = {
         title: 'Private Hire Venue Near Heathrow | The Anchor',
         description: 'Flexible event spaces for all occasions. Free parking, custom menus, and dedicated planners.',
         images: [DEFAULT_CORPORATE_IMAGE],
+    },
+    alternates: {
+        canonical: '/private-hire'
     }
 }
 

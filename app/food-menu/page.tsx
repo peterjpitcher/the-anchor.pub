@@ -18,6 +18,7 @@ import { formatTime12Hour } from '@/lib/time-utils'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { specialAnnouncementSchema } from '@/lib/schema'
 import { generateMenuItemOffer, generateNutritionInfo, generateSuitableForDiet } from '@/lib/schema-utils'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
@@ -98,8 +99,8 @@ function buildKitchenSchedule(hours: BusinessHours): string {
 }
 
 export const metadata: Metadata = {
-  title: 'Food Menu | Pub Food Menu, Sunday Roast & Pizza | The Anchor',
-  description: "Explore The Anchor food menu and pub food menu in Stanwell Moor near Staines and Heathrow: Sunday roast and Sunday lunch, fish & chips, pizza menu, plus vegetarian and gluten free menu options.",
+  title: 'British Pub Food Menu Near Staines & Heathrow | Sunday Roast, Pizza & Pub Classics',
+  description: "Explore The Anchor food menu in Stanwell Moor near Staines and Heathrow: Sunday roast and Sunday lunch, fish & chips, stone-baked pizza, plus vegetarian and gluten-friendly options.",
   keywords: 'food menu, pub food menu, pub food, sunday roast, sunday lunch, fish & chips menu, pizza menu, vegetarian menu, gluten free menu, the anchor menu',
   openGraph: {
     title: 'Food Menu | Pub Food, Sunday Roast & Pizza',
@@ -276,7 +277,7 @@ export default async function FoodMenuPage() {
                 Looking for a food menu or pub menu in Staines? We sit on Horton Road in Stanwell Moor,
                 just 8 minutes from Staines High Street and 7 minutes from Heathrow Terminal 5. Our pub food menu
                 covers Sunday roast and Sunday lunch, a fish & chips menu, a pizza menu, plus vegetarian menu and
-                gluten free menu options.
+                gluten free menu options. It’s proper British pub food, cooked to order.
               </p>
               <ul className="mt-4 space-y-2 text-gray-700">
                 <li>• Free parking and easy access from Staines, Ashford and Feltham.</li>
@@ -657,7 +658,7 @@ export default async function FoodMenuPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify([
+          __html: jsonLdSafeStringify([
             {
               '@context': 'https://schema.org',
               '@type': 'Menu',

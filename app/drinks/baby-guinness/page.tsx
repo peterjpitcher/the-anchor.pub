@@ -6,6 +6,7 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { DirectionsButton } from '@/components/DirectionsButton'
 import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { DEFAULT_DRINKS_IMAGE } from '@/lib/image-fallbacks'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
   title: 'Baby Guinness Shot GBP 3.50 | The Anchor - Heathrow Pub & Dining | Near Heathrow',
@@ -275,7 +276,7 @@ export default function BabyGuinnessPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
+          __html: jsonLdSafeStringify({
             "@context": "https://schema.org",
             "@type": "Recipe",
             "name": "Baby Guinness Shot",
@@ -326,7 +327,7 @@ export default function BabyGuinnessPage() {
       {/* Breadcrumb Schema */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(breadcrumbSchema) }}
       />
     </>
   )

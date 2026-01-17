@@ -8,6 +8,7 @@ import type { NavigationItem } from '@/lib/types'
 import { useFocusTrap } from '@/hooks/useFocusTrap'
 import { BookTableButton } from '@/components/BookTableButton'
 import { trackNavigationClick } from '@/lib/gtm-events'
+import { nowInLondon, parseLondonDate } from '@/lib/time-london'
 
 
 interface HeaderCtaButton {
@@ -17,6 +18,12 @@ interface HeaderCtaButton {
   external?: boolean
   variant?: 'primary' | 'secondary'
   className?: string
+}
+
+interface ScheduledCtaButton extends HeaderCtaButton {
+  startsOn: string
+  endsOn: string
+  leadDays?: number
 }
 
 interface NavigationProps {
@@ -30,6 +37,7 @@ interface NavigationProps {
   ctaButton?: HeaderCtaButton
   secondaryCtaButton?: HeaderCtaButton | null
   tertiaryCtaButton?: HeaderCtaButton | null
+  promoCtaButtons?: ScheduledCtaButton[]
   theme?: {
     background?: string
     text?: string
@@ -60,14 +68,16 @@ const defaultItems: NavigationItem[] = [
     href: '/whats-on',
     items: [
       { label: 'Upcoming Events', href: '/whats-on#upcoming-events' },
+      { label: "Mother's Day Lunch", href: '/mothers-day' },
+      { label: 'Drag Shows', href: '/whats-on/drag-shows' },
       { label: 'Quiz Night', href: '/quiz-night' },
       { label: 'Cash Bingo', href: '/cash-bingo' },
       { label: 'Karaoke', href: '/karaoke' },
       { label: 'Live Music', href: '/live-music' },
       { label: 'Open Mic', href: '/open-mic' },
       { label: 'Live Sport Pub', href: '/live-sport' },
-      { label: 'Pool & Darts', href: '/pool-darts-pub' },
-      { label: 'Drag Shows', href: '/whats-on/drag-shows' }
+      { label: 'Six Nations 2026', href: '/live-sport/six-nations' },
+      { label: 'World Cup 2026', href: '/live-sport/world-cup' }
     ]
   },
   {
@@ -84,8 +94,7 @@ const defaultItems: NavigationItem[] = [
     href: '/drinks',
     items: [
       { label: 'Drinks Menu', href: '/drinks' },
-      { label: "Manager's Special", href: '/drinks/managers-special' },
-      { label: 'Baby Guinness Shot', href: '/drinks/baby-guinness' }
+      { label: "Manager's Special", href: '/drinks/managers-special' }
     ]
   },
   {
@@ -169,6 +178,7 @@ export function Navigation({
     external: false,
     variant: 'secondary'
   },
+  promoCtaButtons = [],
   theme = defaultTheme,
   sticky = true,
   className,
@@ -179,6 +189,7 @@ export function Navigation({
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [openMobileSections, setOpenMobileSections] = useState<Record<string, boolean>>({})
+  const [activePromoCtaButtons, setActivePromoCtaButtons] = useState<HeaderCtaButton[]>([])
   const focusTrapRef = useFocusTrap(isMobileMenuOpen)
 
 
@@ -202,7 +213,8 @@ export function Navigation({
   const showUtilityRow = Boolean(
     ctaButton ||
     secondaryCtaButton ||
-    tertiaryCtaButton
+    tertiaryCtaButton ||
+    promoCtaButtons.length > 0
   )
 
   useEffect(() => {
@@ -215,6 +227,32 @@ export function Navigation({
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [sticky])
+
+  useEffect(() => {
+    if (promoCtaButtons.length === 0) {
+      setActivePromoCtaButtons([])
+      return
+    }
+
+    const now = nowInLondon()
+    const MS_IN_DAY = 24 * 60 * 60 * 1000
+    const DEFAULT_LEAD_DAYS = 56 // 8 weeks
+
+    const activeButtons = promoCtaButtons
+      .filter((promo) => {
+        const leadDays = promo.leadDays ?? DEFAULT_LEAD_DAYS
+        const start = parseLondonDate(promo.startsOn)
+        const showFrom = new Date(start.getTime() - leadDays * MS_IN_DAY)
+
+        const end = parseLondonDate(promo.endsOn)
+        const endExclusive = new Date(end.getTime() + MS_IN_DAY)
+
+        return now >= showFrom && now < endExclusive
+      })
+      .map(({ startsOn, endsOn, leadDays, ...button }) => button)
+
+    setActivePromoCtaButtons(activeButtons)
+  }, [promoCtaButtons])
 
   // Close mobile menu on Escape key
   useEffect(() => {
@@ -571,173 +609,181 @@ export function Navigation({
     return renderSingleCTA(button, isMobile, `${tertiaryCtaButton.href}-${isMobile ? 'mobile' : 'desktop'}`)
   }
 
+  const renderPromoCTAs = (isMobile = false, extraClass?: string) => {
+    if (activePromoCtaButtons.length === 0) return null
+
+    return activePromoCtaButtons.map((button) => {
+      const mergedButton = extraClass
+        ? { ...button, className: cn(button.className, extraClass) }
+        : button
+
+      return renderSingleCTA(
+        mergedButton,
+        isMobile,
+        `${button.href}-${button.label}-${isMobile ? 'mobile' : 'desktop'}`
+      )
+    })
+  }
+
 
 
   return (
-    <>
-      {/* Skip to main content link for accessibility */}
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-anchor-gold focus:text-white focus:rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-anchor-gold-light"
-      >
-        Skip to main content
-      </a>
-
-      <nav
-        className={cn(
-          'transition-all duration-300 shadow-md',
-          sticky && 'sticky top-0 z-50',
-          mergedTheme.background,
-          className
-        )}
-        role="navigation"
-        aria-label="Main navigation"
-        itemScope
-        itemType="https://schema.org/SiteNavigationElement"
-      >
-        <div className="container mx-auto px-4">
-          {/* Desktop utility row */}
-          {showUtilityRow && (
-            <div
-              className={cn(
-                desktopFlexClass,
-                'flex-wrap items-center justify-between gap-4 border-b border-white/10 py-2 text-sm',
-                mergedTheme.text
-              )}
-            >
-              {renderLogo('sm')}
-              <div className="flex flex-wrap items-center justify-end gap-3">
-                {renderPrimaryCTA(false, 'px-4 py-1 text-sm')}
-                {renderSecondaryCTA(false, 'px-4 py-1 text-sm')}
-                {renderTertiaryCTA(false, 'px-4 py-1 text-sm')}
-              </div>
-            </div>
-          )}
-
-          {/* Desktop primary row */}
+    <nav
+      className={cn(
+        'transition-all duration-300 shadow-md',
+        sticky && 'sticky top-0 z-50',
+        mergedTheme.background,
+        className
+      )}
+      role="navigation"
+      aria-label="Main navigation"
+      itemScope
+      itemType="https://schema.org/SiteNavigationElement"
+    >
+      <div className="container mx-auto px-4">
+        {/* Desktop utility row */}
+        {showUtilityRow && (
           <div
             className={cn(
               desktopFlexClass,
-              'items-center justify-between gap-6 py-4'
+              'flex-wrap items-center justify-between gap-4 border-b border-white/10 py-2 text-sm',
+              mergedTheme.text
             )}
           >
-            <div className="flex items-center gap-4 flex-shrink-0">
-              {!showUtilityRow && renderLogo('lg')}
-              {showStatus && (
-                <div className="max-w-md">
-                  {statusComponent}
-                </div>
-              )}
+            {renderLogo('sm')}
+            <div className="flex flex-wrap items-center justify-end gap-3">
+              {renderPrimaryCTA(false, 'px-4 py-1 text-sm')}
+              {renderSecondaryCTA(false, 'px-4 py-1 text-sm')}
+              {renderPromoCTAs(false, 'px-4 py-1 text-sm')}
+              {renderTertiaryCTA(false, 'px-4 py-1 text-sm')}
             </div>
-
-            <div className="relative z-40 ml-auto flex flex-1 flex-wrap items-center justify-end gap-4 text-right xl:gap-6">
-              {items.map(item => renderLink(item))}
-            </div>
-
-            {(!showUtilityRow && (ctaButton || secondaryCtaButton || tertiaryCtaButton)) && (
-              <div className="flex items-center gap-3 flex-shrink-0">
-                {renderPrimaryCTA()}
-                {renderSecondaryCTA(false)}
-                {renderTertiaryCTA(false)}
-              </div>
-            )}
           </div>
+        )}
 
-          {/* Mobile Layout */}
-          <div className={cn(mobileBlockClass, 'pt-[8px]')}>
-            <div className="relative flex items-center h-12">
-              <Link href="/" className="mx-auto flex-shrink-0">
-                <Image
-                  src={logo.src}
-                  alt={logo.alt}
-                  width={logo.width}
-                  height={logo.height}
-                  className="h-12 w-auto"
-                  priority
-                  sizes="150px"
-                />
-              </Link>
-
-              <button
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className={cn('absolute right-0 top-1/2 -translate-y-1/2 p-2', mergedTheme.text)}
-                aria-expanded={isMobileMenuOpen}
-                aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  {isMobileMenuOpen ? (
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  ) : (
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                  )}
-                </svg>
-              </button>
-            </div>
-
-            {showStatus && (
-              <div className="mt-1 w-full space-y-2 pb-2">
+        {/* Desktop primary row */}
+        <div
+          className={cn(
+            desktopFlexClass,
+            'items-center justify-between gap-6 py-4'
+          )}
+        >
+          <div className="flex items-center gap-4 flex-shrink-0">
+            {!showUtilityRow && renderLogo('lg')}
+            {showStatus && statusComponent && (
+              <div className={cn(!showUtilityRow && "pl-6 border-l border-white/10")}>
                 {statusComponent}
               </div>
             )}
           </div>
+
+          <div className="relative z-40 ml-auto flex flex-1 flex-wrap items-center justify-end gap-4 text-right xl:gap-6">
+            {items.map(item => renderLink(item))}
+          </div>
+
+          {(!showUtilityRow && (ctaButton || secondaryCtaButton || tertiaryCtaButton)) && (
+            <div className="flex items-center gap-3 flex-shrink-0">
+              {renderPrimaryCTA()}
+              {renderSecondaryCTA(false)}
+              {renderPromoCTAs(false)}
+              {renderTertiaryCTA(false)}
+            </div>
+          )}
         </div>
 
-        {/* Mobile Menu */}
-        {isMobileMenuOpen && (
-          <div
-            ref={focusTrapRef}
-            className={cn(
-              mobileHiddenClass,
-              'bg-anchor-green-dark border-t border-anchor-green-light shadow-lg'
-            )}
-            role="dialog"
-            aria-label="Mobile navigation menu"
-            aria-modal="true"
-          >
-            <div className="container mx-auto px-4 py-6 space-y-6">
-              {(ctaButton || secondaryCtaButton || tertiaryCtaButton) && (
-                <div className="space-y-3">
-                  {renderPrimaryCTA(true)}
-                  {renderSecondaryCTA(true)}
-                  {renderTertiaryCTA(true)}
-                </div>
-              )}
-              <div className="rounded-xl border border-white/10 bg-anchor-green/60 p-4">
-                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white/70">
-                  Top tasks
-                </p>
-                <div className="mt-3 grid grid-cols-2 gap-3">
-                  {quickTasks.map((task) => (
-                    <Link
-                      key={task.href}
-                      href={task.href}
-                      className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-white bg-white/10 hover:bg-white/20 transition-colors"
-                      onClick={() => {
-                        trackNavigationClick({
-                          label: task.label,
-                          url: task.href,
-                          level: 'main',
-                          deviceType: 'mobile',
-                          isExternal: false,
-                          location: 'mobile_menu'
-                        })
-                        setIsMobileMenuOpen(false)
-                      }}
-                    >
-                      <span aria-hidden="true">{task.icon}</span>
-                      <span>{task.label}</span>
-                    </Link>
-                  ))}
-                </div>
+        {/* Mobile Layout */}
+        <div className={cn(mobileBlockClass, 'pt-[8px]')}>
+          <div className="relative flex items-center h-12">
+            <Link href="/" className="mx-auto flex-shrink-0">
+              <Image
+                src={logo.src}
+                alt={logo.alt}
+                width={logo.width}
+                height={logo.height}
+                className="h-12 w-auto"
+                priority
+                sizes="150px"
+              />
+            </Link>
+
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className={cn('absolute right-0 top-1/2 -translate-y-1/2 p-2', mergedTheme.text)}
+              aria-expanded={isMobileMenuOpen}
+              aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                {isMobileMenuOpen ? (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                ) : (
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                )}
+              </svg>
+            </button>
+          </div>
+
+          {showStatus && (
+            <div className="mt-1 w-full space-y-2 pb-2">
+              {statusComponent}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div
+          ref={focusTrapRef}
+          className={cn(
+            mobileHiddenClass,
+            'bg-anchor-green-dark border-t border-anchor-green-light shadow-lg'
+          )}
+          role="dialog"
+          aria-label="Mobile navigation menu"
+          aria-modal="true"
+        >
+          <div className="container mx-auto px-4 py-6 space-y-6">
+            {(ctaButton || secondaryCtaButton || tertiaryCtaButton) && (
+              <div className="space-y-3">
+                {renderPrimaryCTA(true)}
+                {renderSecondaryCTA(true)}
+                {renderPromoCTAs(true)}
+                {renderTertiaryCTA(true)}
               </div>
-              <div className="space-y-1">
-                {items.map(item => renderLink(item, true))}
+            )}
+            <div className="rounded-xl border border-white/10 bg-anchor-green/60 p-4">
+              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white/70">
+                Top tasks
+              </p>
+              <div className="mt-3 grid grid-cols-2 gap-3">
+                {quickTasks.map((task) => (
+                  <Link
+                    key={task.href}
+                    href={task.href}
+                    className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-white bg-white/10 hover:bg-white/20 transition-colors"
+                    onClick={() => {
+                      trackNavigationClick({
+                        label: task.label,
+                        url: task.href,
+                        level: 'main',
+                        deviceType: 'mobile',
+                        isExternal: false,
+                        location: 'mobile_menu'
+                      })
+                      setIsMobileMenuOpen(false)
+                    }}
+                  >
+                    <span aria-hidden="true">{task.icon}</span>
+                    <span>{task.label}</span>
+                  </Link>
+                ))}
               </div>
             </div>
+            <div className="space-y-1">
+              {items.map(item => renderLink(item, true))}
+            </div>
           </div>
-        )}
-      </nav>
-
-    </>
+        </div>
+      )}
+    </nav>
   )
 }

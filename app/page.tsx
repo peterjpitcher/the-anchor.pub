@@ -14,7 +14,7 @@ import { PhoneLinksSection, QuickEnquiryLinks } from '@/components/homepage/Phon
 import { PhoneLink } from '@/components/PhoneLink'
 import { BookTableButton } from '@/components/BookTableButton'
 import { DirectionsButton } from '@/components/DirectionsButton'
-import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
+import { DeferredHomepageTrackers } from '@/components/tracking/DeferredHomepageTrackers'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { SpeakableSchema } from '@/components/seo/SpeakableSchema'
 import { SpeakableContent } from '@/components/voice/SpeakableContent'
@@ -22,6 +22,8 @@ import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/Inter
 import { getSeasonalHomepageImage, getSeasonalGreeting, getSeasonalAltText, getSeasonalFocal } from '@/lib/seasonal-utils'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { JsonLd } from '@/components/JsonLd'
+import { getTwitterMetadata } from '@/lib/twitter-metadata'
+import { DEFAULT_OG_IMAGE } from '@/lib/image-fallbacks'
 import {
   Button,
   Card,
@@ -46,8 +48,29 @@ export const metadata: Metadata = {
   description: 'The Anchor pub in Stanwell Moor - we\'re 7 minutes from Heathrow Terminal 5 and 8 minutes from Staines. Free parking, Sunday roasts, stone-baked pizzas, drag shows and quiz nights.',
   keywords: 'the anchor pub, stanwell moor pub, staines pub, heathrow pub with parking, sunday roast near staines, stone-baked pizza',
   alternates: {
-    canonical: './'
-  }
+    canonical: '/'
+  },
+  openGraph: {
+    title: 'The Anchor Pub | Stanwell Moor Near Heathrow & Staines',
+    description: 'The Anchor pub in Stanwell Moor - we\'re 7 minutes from Heathrow Terminal 5 and 8 minutes from Staines. Free parking, Sunday roasts, stone-baked pizzas, drag shows and quiz nights.',
+    url: '/',
+    siteName: 'The Anchor',
+    images: [
+      {
+        url: DEFAULT_OG_IMAGE,
+        width: 1200,
+        height: 630,
+        alt: 'The Anchor pub in Stanwell Moor near Heathrow'
+      }
+    ],
+    locale: 'en_GB',
+    type: 'website'
+  },
+  twitter: getTwitterMetadata({
+    title: 'The Anchor Pub | Stanwell Moor Near Heathrow & Staines',
+    description: 'Free parking, Sunday roasts, stone-baked pizzas, drag shows and quiz nights - 7 minutes from Heathrow Terminal 5.',
+    images: [DEFAULT_OG_IMAGE]
+  })
 }
 
 // Lazy load non-critical components
@@ -82,7 +105,7 @@ export default function HomePage() {
 
   return (
     <>
-      <ScrollDepthTracker />
+      <DeferredHomepageTrackers />
       <SpeakableSchema />
       <JsonLd data={[homepageFAQSchema, parkingFacilitySchema]} />
       {/* Custom Hero Section with Seasonal Image */}
@@ -117,7 +140,6 @@ export default function HomePage() {
               height={320}
               sizes="(max-width: 640px) 192px, (max-width: 768px) 256px, 320px"
               className="mx-auto w-48 sm:w-64 lg:w-80 h-auto drop-shadow-[0_4px_8px_rgba(0,0,0,0.8)]"
-              priority
               quality={85}
               placeholder="blur"
               blurDataURL="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iIzAwNTEzMSIvPjwvc3ZnPg=="
@@ -157,18 +179,23 @@ export default function HomePage() {
           />
         }
         secondaryCta={
-          <Link
-            href="/food-menu"
-            className="w-full"
-          >
-            <Button
-              variant="secondary"
-              size="lg"
-              fullWidth
-            >
-              🍽️ View Menu
-            </Button>
-          </Link>
+          <>
+            <Link href="/food-menu" className="w-full">
+              <Button variant="secondary" size="lg" fullWidth>
+                🍽️ View Menu
+              </Button>
+            </Link>
+            <Link href="#whats-coming-up" className="w-full">
+              <Button variant="secondary" size="lg" fullWidth>
+                🎟️ What&apos;s Coming Up
+              </Button>
+            </Link>
+            <Link href="#heathrow-travellers" className="w-full">
+              <Button variant="secondary" size="lg" fullWidth>
+                ✈️ Heathrow Travellers
+              </Button>
+            </Link>
+          </>
         }
         showStatusBar={false}
         showBreadcrumbs={false}
@@ -189,12 +216,12 @@ export default function HomePage() {
 
           {/* Trust Signals */}
           <div className="flex flex-wrap justify-center gap-4 mt-6 text-sm text-gray-600">
-            <span className="flex items-center gap-1">⭐ Highest-rated non-airport pub near Heathrow (Google 4.6/5, 21 Sept 2025)</span>
-            <span className="flex items-center gap-1">💷 Pub classics GBP 10–20 – fair village prices near Heathrow</span>
+            <span className="flex items-center gap-1">⭐ Top-rated non-airport pub near Heathrow (Google Reviews)</span>
+            <span className="flex items-center gap-1">🚗 Free on-site parking (20 spaces)</span>
+            <span className="flex items-center gap-1">💷 Pub classics £10–£20 – fair village prices near Heathrow</span>
             <span className="flex items-center gap-1">🏡 Independent village pub minutes from Heathrow – no terminal access needed</span>
             <span className="flex items-center gap-1">✈️ Horton Road plane-spotting area – fuel up before or after your flight</span>
-            <span className="flex items-center gap-1">🚗 20 FREE Parking Spaces</span>
-            <span className="flex items-center gap-1">📍 Outside ULEZ Zone - Save GBP 12.50 Daily</span>
+            <span className="flex items-center gap-1">📍 Outside ULEZ Zone - save £12.50 daily</span>
           </div>
 
           <div className="mt-8">
@@ -219,6 +246,31 @@ export default function HomePage() {
                 </div>
               </div>
             </div>
+          </div>
+        </Container>
+      </div>
+
+      {/* What's Coming Up */}
+      <div id="whats-coming-up" className="bg-gray-50 section-spacing-md scroll-mt-24">
+        <Container>
+          <SectionHeader
+            title="What&apos;s Coming Up at The Anchor"
+            subtitle="Live updates from our events calendar"
+          />
+          <Suspense fallback={<NextEventSkeleton />}>
+            <NextEventServer />
+          </Suspense>
+          <div className="mt-8 flex flex-col items-center gap-3">
+            <Link href="/whats-on">
+              <Button variant="primary" size="lg">
+                View All Events
+              </Button>
+            </Link>
+            <Button asChild variant="ghost" size="sm">
+              <a href="/api/calendar/upcoming">
+                Add upcoming events to your calendar (.ics)
+              </a>
+            </Button>
           </div>
         </Container>
       </div>
@@ -334,22 +386,8 @@ export default function HomePage() {
         </Container>
       </div>
 
-      {/* Next Event */}
-      <div className="bg-gray-50 section-spacing-md">
-        <Container>
-          <SectionHeader
-            title="Next Event at The Anchor"
-            subtitle="Don't miss out on what's coming up"
-          />
-          <Suspense fallback={<NextEventSkeleton />}>
-            <NextEventServer />
-          </Suspense>
-        </Container>
-      </div>
-
-
       {/* Heathrow Travelers Section */}
-      <div className="bg-white section-spacing-md">
+      <div id="heathrow-travellers" className="bg-white section-spacing-md scroll-mt-24">
         <Container>
           <div className="max-w-6xl mx-auto">
             <SectionHeader

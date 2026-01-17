@@ -13,7 +13,8 @@ import { ErrorBoundary } from '@/components/ErrorBoundary'
 import CookieBanner from '@/components/CookieBanner'
 import { DynamicSchema } from '@/components/seo/DynamicSchema'
 import { BusinessHoursProvider } from '@/components/providers/BusinessHoursProvider'
-import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
+import { DeferredRender } from '@/components/DeferredRender'
+import { DEFAULT_OG_IMAGE } from '@/lib/image-fallbacks'
 import { Suspense } from 'react'
 
 
@@ -49,9 +50,6 @@ export const metadata: Metadata = {
   authors: [{ name: 'The Anchor' }],
   creator: 'The Anchor',
   publisher: 'The Anchor',
-  alternates: {
-    canonical: './',
-  },
   formatDetection: {
     email: false,
     address: false,
@@ -64,7 +62,7 @@ export const metadata: Metadata = {
     siteName: 'The Anchor',
     images: [
       {
-        url: DEFAULT_PAGE_HEADER_IMAGE,
+        url: DEFAULT_OG_IMAGE,
         width: 1200,
         height: 630,
         alt: 'The Anchor in Stanwell Moor',
@@ -77,7 +75,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'The Anchor - Near Heathrow Airport',
     description: 'Traditional venue with modern entertainment. Drag shows, quiz nights, great food & more.',
-    images: [DEFAULT_PAGE_HEADER_IMAGE],
+    images: [DEFAULT_OG_IMAGE],
   },
   robots: {
     index: true,
@@ -98,6 +96,60 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   const gtmId = process.env.NEXT_PUBLIC_GTM_ID || ''
+  const now = new Date()
+  const promoCtaButtons = [
+    {
+      label: 'Valentine’s Day',
+      href: '/valentines-day',
+      icon: '💘',
+      external: false,
+      variant: 'secondary' as const,
+      startsOn: '2026-02-14',
+      endsOn: '2026-02-14'
+    },
+    {
+      label: "Mother's Day",
+      href: '/mothers-day',
+      icon: '💐',
+      external: false,
+      variant: 'secondary' as const,
+      startsOn: '2026-03-15',
+      endsOn: '2026-03-15'
+    },
+    {
+      label: 'World Cup 2026',
+      href: '/live-sport/world-cup',
+      icon: '🏆',
+      external: false,
+      variant: 'secondary' as const,
+      startsOn: '2026-06-11',
+      endsOn: '2026-07-19'
+    }
+  ]
+
+  const tertiaryCtaButton = (() => {
+    // Six Nations ends March 15th 2026
+    if (now < new Date('2026-03-16')) { // Using 16th to include the full day of 15th
+      return {
+        label: 'Six Nations 2026',
+        href: '/live-sport/six-nations',
+        icon: '🏉',
+        external: false,
+        variant: 'secondary' as const
+      }
+    }
+    // Show Christmas from August 1st 2026
+    if (now >= new Date('2026-08-01')) {
+      return {
+        label: 'Christmas 2026',
+        href: '/christmas-parties',
+        icon: '🎄',
+        external: false,
+        variant: 'secondary' as const
+      }
+    }
+    return null
+  })()
 
   return (
     <html lang="en">
@@ -138,31 +190,9 @@ export default function RootLayout({
                 <header role="banner">
                   <Navigation
                     statusComponent={<HeaderStatusSectionDirect />}
-                    tertiaryCtaButton={(() => {
-                      const now = new Date()
-                      // Six Nations ends March 15th 2026
-                      if (now < new Date('2026-03-16')) { // Using 16th to include the full day of 15th
-                        return {
-                          label: 'Six Nations 2026',
-                          href: '/live-sport/six-nations',
-                          icon: '🏉',
-                          external: false,
-                          variant: 'secondary'
-                        }
-                      }
-                      // Show Christmas from August 1st 2026
-                      if (now >= new Date('2026-08-01')) {
-                        return {
-                          label: 'Christmas 2026',
-                          href: '/christmas-parties',
-                          icon: '🎄',
-                          external: false,
-                          variant: 'secondary'
-                        }
-                      }
-                      return null
-                    })()}
-                  />
+                    promoCtaButtons={promoCtaButtons}
+                    tertiaryCtaButton={tertiaryCtaButton}
+	                  />
                 </header>
               </ErrorBoundary>
               <main id="main-content" role="main">
@@ -178,8 +208,10 @@ export default function RootLayout({
               <FloatingActions />
               <CookieBanner />
               <Suspense fallback={null}>
-                <EventCountdownBanner />
-                <ChristmasLightbox />
+                <DeferredRender>
+                  <EventCountdownBanner />
+                  <ChristmasLightbox />
+                </DeferredRender>
               </Suspense>
             </BusinessHoursProvider>
           </AnalyticsProvider>

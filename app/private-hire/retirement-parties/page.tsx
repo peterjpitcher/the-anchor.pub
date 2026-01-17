@@ -27,7 +27,10 @@ export const metadata: Metadata = {
         title: 'Retirement Parties at The Anchor',
         description: 'A dedicated lifetime of work deserves a dedicated celebration. Book your retirement party or leaving do with us.',
         images: [DEFAULT_CORPORATE_IMAGE]
-    })
+    }),
+    alternates: {
+        canonical: '/private-hire/retirement-parties'
+    }
 }
 
 export default function RetirementPartiesPage() {

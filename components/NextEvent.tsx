@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { formatEventDate, formatEventTime, formatPrice, type Event } from '@/lib/api'
 import { LoadingState } from '@/components/ui/LoadingState'
 import { buildEventSchema } from '@/lib/structured-data/event-schema'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export function NextEvent() {
   const [nextEvent, setNextEvent] = useState<Event | null>(null)
@@ -94,7 +95,7 @@ export function NextEvent() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(schema) }}
       />
       <div className="max-w-3xl mx-auto">
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden">

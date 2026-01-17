@@ -12,6 +12,7 @@ import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BookTableButton } from '@/components/BookTableButton'
 import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 import { anchorAPI, formatPrice } from '@/lib/api'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
   title: 'Sunday Roast Near Staines & Heathrow | The Anchor',
@@ -215,8 +216,7 @@ export default async function SundayLunchPage() {
     url: 'https://www.the-anchor.pub/sunday-lunch#menu'
   }))
 
-  const schemaData = JSON.stringify(
-    [
+  const schemaData = jsonLdSafeStringify([
       {
         '@context': 'https://schema.org',
         '@type': 'Restaurant',
@@ -352,10 +352,7 @@ export default async function SundayLunchPage() {
           }
         ]
       }
-    ],
-    null,
-    2
-  )
+    ])
   return (
     <>
       <MenuPageTracker 

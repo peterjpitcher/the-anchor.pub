@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 interface FAQItem {
   question: string
@@ -46,7 +47,7 @@ export function FAQAccordionWithSchema({
       {renderSchema && faqSchema && (
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+          dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(faqSchema) }}
         />
       )}
       

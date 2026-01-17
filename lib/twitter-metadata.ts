@@ -12,6 +12,17 @@ interface TwitterMetadataOptions {
   card?: 'summary' | 'summary_large_image'
 }
 
+function normalizeTwitterHandle(value?: string): string | undefined {
+  if (!value) return undefined
+  const trimmed = value.trim()
+  if (!trimmed) return undefined
+  return trimmed.startsWith('@') ? trimmed : `@${trimmed}`
+}
+
+const DEFAULT_TWITTER_HANDLE = normalizeTwitterHandle(
+  process.env.NEXT_PUBLIC_TWITTER_HANDLE || process.env.NEXT_PUBLIC_X_HANDLE
+)
+
 /**
  * Generates Twitter card metadata for a page
  * @param options - Twitter metadata options
@@ -25,13 +36,14 @@ export function getTwitterMetadata(options: TwitterMetadataOptions): NonNullable
     card = 'summary_large_image'
   } = options
 
+  const handle = DEFAULT_TWITTER_HANDLE
+
   return {
     card,
     title: title.length > 70 ? `${title.substring(0, 67)}...` : title,
     description: description.length > 200 ? `${description.substring(0, 197)}...` : description,
     images,
-    site: '@TheAnchorStanwell', // Update this with actual Twitter handle
-    creator: '@TheAnchorStanwell'
+    ...(handle ? { site: handle, creator: handle } : {})
   }
 }
 
@@ -43,6 +55,5 @@ export const defaultTwitterMetadata: NonNullable<Metadata['twitter']> = {
   title: 'The Anchor Pub - Near Heathrow Airport',
   description: 'Traditional pub with modern entertainment. Drag shows, quiz nights, great food & more.',
   images: [DEFAULT_PAGE_HEADER_IMAGE],
-  site: '@TheAnchorStanwell',
-  creator: '@TheAnchorStanwell'
+  ...(DEFAULT_TWITTER_HANDLE ? { site: DEFAULT_TWITTER_HANDLE, creator: DEFAULT_TWITTER_HANDLE } : {})
 }

@@ -9,7 +9,6 @@ import { Metadata } from 'next'
 import { drinksMenuSchema, generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { SectionHeader, FeatureGrid, InfoBoxGrid } from '@/components/ui'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
-import { ManagersSpecialHero } from '@/components/ManagersSpecialHero'
 import { MenuPageTracker } from '@/components/tracking/MenuPageTracker'
 import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
@@ -17,24 +16,22 @@ import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/Inter
 import { generateNutritionInfo } from '@/lib/schema-utils'
 import { BookTableButton } from '@/components/BookTableButton'
 import { DEFAULT_DRINKS_IMAGE } from '@/lib/image-fallbacks'
-import { getCurrentPromotion as getCurrentManagersSpecial, getPromotionById } from '@/lib/managers-special'
-import type { ManagersSpecial } from '@/types/managers-special'
-import { getPromotionImage } from '@/lib/managers-special-utils'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
-  title: 'Heathrow & Staines Pub Drinks Menu - Beers, Cocktails & Popular Shots',
-  description: 'Explore The Anchor drinks menu near Heathrow and Staines: Carling, Coors Light, Inch’s Cider, draught Guinness, cocktails, premium spirits, wines and popular shots like Baby Guinness.',
-  keywords: 'heathrow pub drinks menu, drinks menu staines, popular shots near heathrow, cocktails stanwell moor, wine bar near heathrow, affordable pub drinks tw19',
+  title: 'Drinks Menu Near Heathrow T5 & Staines | Beers, Cocktails & Shots',
+  description: 'Explore The Anchor drinks menu in Stanwell Moor near Heathrow Terminal 5 and Staines: draught beers, real ales, cocktails, wines, spirits and classic shots with free parking.',
+  keywords: 'drinks menu near heathrow, heathrow terminal 5 pub drinks, drinks menu staines, cocktails near heathrow, shots menu, real ale near heathrow',
   openGraph: {
-    title: 'Heathrow & Staines Pub Drinks Menu - Real Ale, Cocktails & Shots',
-    description: 'See The Anchor drinks list: cask ales, draught beer, cocktails, wines and popular shots at fair pub prices near Heathrow.',
+    title: 'Drinks Menu Near Heathrow Terminal 5 | The Anchor',
+    description: 'Draught beers, real ales, cocktails, wines, spirits and shots at The Anchor near Heathrow T5 with free parking.',
     images: [DEFAULT_DRINKS_IMAGE],
   },
   twitter: getTwitterMetadata({
-    title: 'Heathrow & Staines Pub Drinks Menu - Beers, Cocktails & Shots',
-    description: 'See The Anchor drinks list: draught beer, cocktails, wines and popular shots at fair pub prices near Heathrow and Staines.',
+    title: 'Drinks Menu Near Heathrow Terminal 5 | The Anchor',
+    description: 'Draught beers, real ales, cocktails, wines, spirits and shots near Heathrow T5 with free parking.',
     images: [DEFAULT_DRINKS_IMAGE]
   }),
   alternates: {
@@ -42,82 +39,14 @@ export const metadata: Metadata = {
   }
 }
 
-type PageSearchParams = {
-  preview?: string | string[]
-  token?: string | string[]
-  date?: string | string[]
-}
-
-function resolveManagersSpecial(searchParams: PageSearchParams = {}): ManagersSpecial | null {
-  const previewId = Array.isArray(searchParams.preview) ? searchParams.preview[0] : searchParams.preview
-  const token = Array.isArray(searchParams.token) ? searchParams.token[0] : searchParams.token
-  const overrideDate = Array.isArray(searchParams.date) ? searchParams.date[0] : searchParams.date
-
-  const expectedToken = process.env.MS_PREVIEW_TOKEN
-  const tokenMatches = expectedToken ? token === expectedToken : process.env.NODE_ENV !== 'production'
-
-  if (previewId && token && tokenMatches) {
-    const previewPromotion = getPromotionById(previewId)
-    if (previewPromotion) {
-      return previewPromotion
-    }
-  }
-
-  if (overrideDate && process.env.NODE_ENV !== 'production') {
-    const parsedDate = new Date(`${overrideDate}T12:00:00Z`)
-    if (!Number.isNaN(parsedDate.valueOf())) {
-      const futurePromotion = getCurrentManagersSpecial(parsedDate)
-      if (futurePromotion) {
-        return futurePromotion
-      }
-    }
-  }
-
-  return getCurrentManagersSpecial()
-}
-
-export default async function DrinksMenuPage({ searchParams }: { searchParams: PageSearchParams }) {
+export default async function DrinksMenuPage() {
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: 'Home', url: '/' },
     { name: 'Drinks Menu', url: '/drinks' }
   ])
 
   const menuData = await parseMenuMarkdown('drinks')
-  const managersSpecial = resolveManagersSpecial(searchParams)
-  const managersSpecialImage = managersSpecial ? getPromotionImage(managersSpecial.imageFolder) : null
 
-  const assuredMenuData = menuData!
-  const menuDataWithManagersSpecial = managersSpecial ? {
-    ...assuredMenuData,
-    categories: assuredMenuData.categories.map(category => {
-      if (category.id !== 'spirits') return category
-      return {
-        ...category,
-        sections: category.sections.map(section => {
-          if (!section.highlight) return section
-
-          const highlightItem = section.items?.[0] ?? {}
-          const priceLine = `Single ${managersSpecial.spirit.specialPrice} (was ${managersSpecial.spirit.originalPrice})`
-
-          return {
-            ...section,
-            title: managersSpecial.promotion.headline,
-            description: managersSpecial.promotion.offerText,
-            items: [
-              {
-                ...highlightItem,
-                name: managersSpecial.spirit.name,
-                price: priceLine,
-                description: managersSpecial.spirit.description || managersSpecial.spirit.longDescription || highlightItem.description,
-                special: true
-              }
-            ]
-          }
-        })
-      }
-    })
-  } : assuredMenuData
-  
   if (!menuData) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -126,13 +55,24 @@ export default async function DrinksMenuPage({ searchParams }: { searchParams: P
     )
   }
 
+  const menuDataWithoutManagersSpecial = {
+    ...menuData,
+    categories: menuData.categories.map(category => {
+      if (category.id !== 'spirits') return category
+      return {
+        ...category,
+        sections: category.sections.filter(section => section.title !== "Manager's Special")
+      }
+    })
+  }
+
   const enhancedDrinksMenuSchema = {
     "@context": "https://schema.org",
     "@type": "Menu",
     "@id": "https://www.the-anchor.pub/drinks#menu",
     "name": "The Anchor Drinks Menu",
     "description": "Full bar service with real ales, draught lagers, wines, spirits and soft drinks at The Anchor in Stanwell Moor, Surrey",
-    "hasMenuSection": menuData.categories.map(category => ({
+    "hasMenuSection": menuDataWithoutManagersSpecial.categories.map(category => ({
       "@type": "MenuSection",
       "name": category.title,
       "description": `${category.title} selection at The Anchor`,
@@ -176,43 +116,6 @@ export default async function DrinksMenuPage({ searchParams }: { searchParams: P
       "@id": "https://www.the-anchor.pub/drinks"
     }
   }
-
-  // Manager's Special Offer Schema
-  const managersSpecialSchema = managersSpecial ? {
-    "@context": "https://schema.org",
-    "@type": "Offer",
-    "name": managersSpecial.promotion.headline,
-    "description": managersSpecial.promotion.offerText,
-    "url": "https://www.the-anchor.pub/drinks#managers-special",
-    "priceCurrency": "GBP",
-    "priceSpecification": {
-      "@type": "PriceSpecification",
-      "price": managersSpecial.spirit.specialPrice.replace(/[\u00A3\s]/g, ''),
-      "priceCurrency": "GBP",
-      "eligibleQuantity": {
-        "@type": "QuantitativeValue",
-        "unitText": "single measure"
-      }
-    },
-    "itemOffered": {
-      "@type": "Product",
-      "name": managersSpecial.spirit.name,
-      "brand": managersSpecial.spirit.distillery
-        ? {
-            "@type": "Brand",
-            "name": managersSpecial.spirit.distillery
-          }
-        : undefined,
-      "description": managersSpecial.spirit.description || managersSpecial.spirit.longDescription,
-      "image": `https://www.the-anchor.pub${managersSpecialImage || DEFAULT_DRINKS_IMAGE}`
-    },
-    "seller": {
-      "@id": "https://www.the-anchor.pub/#business"
-    },
-    "validFrom": `${managersSpecial.startDate}T00:00:00+01:00`,
-    "validThrough": `${managersSpecial.endDate}T23:59:59+01:00`,
-    "availability": "https://schema.org/InStock"
-  } : null
 
   // BarOrPub specific schema
   const barSchema = {
@@ -280,24 +183,18 @@ export default async function DrinksMenuPage({ searchParams }: { searchParams: P
     ]
   }
 
-
-  const trackerOffer = managersSpecial
-    ? `${managersSpecial.promotion.headline} - ${managersSpecial.spirit.name}`
-    : null
-
   return (
     <>
       <MenuPageTracker 
         menuType="drinks"
-        specialOffers={trackerOffer ? [trackerOffer] : []}
+        specialOffers={[]}
       />
       <ScrollDepthTracker />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([
           enhancedDrinksMenuSchema,
           barSchema,
-          ...(managersSpecialSchema ? [managersSpecialSchema] : []),
           breadcrumbSchema
         ]) }}
       />
@@ -360,9 +257,6 @@ export default async function DrinksMenuPage({ searchParams }: { searchParams: P
         }
       />
 
-      {/* Manager's Special */}
-      <ManagersSpecialHero />
-
       {/* Popular Draught & Spirits */}
       <Section background="white" spacing="md" className="bg-anchor-cream/30" id="featured-offers">
         <Container>
@@ -398,7 +292,7 @@ export default async function DrinksMenuPage({ searchParams }: { searchParams: P
                 title: "🍸 Premium Spirits & Chambord",
                 content: (
                   <p className="text-gray-700">
-                    Build cocktails with Chambord, Disaronno, Duppy Share rum and our rotating Manager&apos;s Special spirit offer. Ask for Baby Guinness shots too.
+                    Build cocktails with Chambord, Disaronno, Duppy Share rum and plenty of premium spirits. Ask for Baby Guinness shots too.
                   </p>
                 ),
                 variant: "colored",
@@ -634,7 +528,7 @@ export default async function DrinksMenuPage({ searchParams }: { searchParams: P
 
       {/* Menu Content */}
       <div id="menu">
-        <MenuRenderer menuData={menuDataWithManagersSpecial} accentColor="anchor-green" />
+        <MenuRenderer menuData={menuDataWithoutManagersSpecial} accentColor="anchor-green" />
       </div>
 
       {/* Internal Links for SEO */}

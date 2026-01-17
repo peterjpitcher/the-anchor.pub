@@ -28,7 +28,10 @@ export const metadata: Metadata = {
         title: 'The Anchor - Destination Dining Near Sunbury',
         description: 'Worth the short drive from Sunbury for the best Sunday Roast in the area. Free parking and great value.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
-    })
+    }),
+    alternates: {
+        canonical: '/sunbury-pub'
+    }
 }
 
 export default async function SunburyPubPage() {

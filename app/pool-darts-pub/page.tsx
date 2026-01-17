@@ -26,7 +26,10 @@ export const metadata: Metadata = {
         title: 'Pool, Darts & Pints at The Anchor',
         description: 'Challenge a mate to a frame of pool or a round of darts. Great beer and good competition.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
-    })
+    }),
+    alternates: {
+        canonical: '/pool-darts-pub'
+    }
 }
 
 export default function PoolAndDartsPage() {

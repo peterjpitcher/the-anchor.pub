@@ -26,7 +26,10 @@ export const metadata: Metadata = {
         title: 'The Perfect Venue for Your Office Christmas Party',
         description: 'Festive menus, great drinks packages, and a warm atmosphere. Book your team celebration today.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
-    })
+    }),
+    alternates: {
+        canonical: '/corporate-christmas-parties'
+    }
 }
 
 export default function ChristmasPartiesPage() {

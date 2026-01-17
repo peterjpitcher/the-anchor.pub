@@ -52,8 +52,10 @@ const defaultSections: FooterSection[] = [
     titleClass: 'text-anchor-gold',
     items: [
       { label: "What's On", href: '/whats-on' },
+      { label: 'Valentine’s Day', href: '/valentines-day' },
       { label: 'Food Menu', href: '/food-menu' },
       { label: 'Sunday Roast', href: '/sunday-lunch' },
+      { label: "Mother's Day Lunch", href: '/mothers-day' },
       { label: 'Drinks Menu', href: '/drinks' },
       { label: "Manager's Special", href: '/drinks/managers-special' },
       { label: 'Book an Event', href: '/book-event' },
@@ -92,7 +94,7 @@ const defaultSections: FooterSection[] = [
       { label: 'Burger Menu', href: '/burger-menu' },
       { label: 'Fish & Chips', href: '/fish-and-chips-heathrow' },
       { label: 'Six Nations Rugby', href: '/live-sport/six-nations' },
-
+      { label: 'World Cup 2026', href: '/live-sport/world-cup' },
       { label: 'F1 Racing', href: '/live-sport/f1' },
       { label: 'Boxing Nights', href: '/live-sport/boxing' },
       { label: 'Pool & Darts', href: '/pool-darts-pub' },

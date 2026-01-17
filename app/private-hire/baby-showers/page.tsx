@@ -17,6 +17,9 @@ export const metadata: Metadata = {
         title: 'Baby Shower Venue | The Anchor Stanwell Moor',
         description: 'Afternoon tea, mocktails, and games. The perfect daytime celebration.',
         images: [DEFAULT_CORPORATE_IMAGE],
+    },
+    alternates: {
+        canonical: '/private-hire/baby-showers'
     }
 }
 

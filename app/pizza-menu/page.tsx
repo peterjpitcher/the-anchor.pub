@@ -10,6 +10,7 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { parseMenuMarkdown } from '@/lib/menu-parser'
 import Image from 'next/image'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
     title: 'Barrel & Stone Pizza at The Anchor | Stone Baked & Fresh',
@@ -25,7 +26,10 @@ export const metadata: Metadata = {
         title: 'Fresh Stone Baked Pizza at The Anchor',
         description: 'Prepared and baked fresh on site. The finest Italian ingredients, stone-baked for the perfect crisp finish.',
         images: ['/images/page-headers/pizza-tuesday/pizza-tuesday.jpg']
-    })
+    }),
+    alternates: {
+        canonical: '/pizza-menu'
+    }
 }
 
 export default async function PizzaMenuPage() {
@@ -65,7 +69,7 @@ export default async function PizzaMenuPage() {
         <>
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify([menuSchema, breadcrumbSchema]) }}
+                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([menuSchema, breadcrumbSchema]) }}
             />
 
             <HeroWrapper

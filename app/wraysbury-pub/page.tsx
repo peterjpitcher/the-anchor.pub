@@ -28,7 +28,10 @@ export const metadata: Metadata = {
         title: 'The Anchor - Traditional Pub Near Wraysbury',
         description: 'Looking for a change from the local? We are just 5 minutes from Wraysbury with great food and entertainment.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
-    })
+    }),
+    alternates: {
+        canonical: '/wraysbury-pub'
+    }
 }
 
 export default async function WraysburyPubPage() {

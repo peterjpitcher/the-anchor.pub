@@ -1,6 +1,11 @@
 // Review utility functions
 import { GoogleReview, ReviewsFilter } from './types'
 
+export const DEFAULT_REVIEW_STATS = {
+  rating: 4.6,
+  totalReviews: 312
+} as const
+
 export function filterReviews(reviews: GoogleReview[], filter?: ReviewsFilter): GoogleReview[] {
   if (!filter) return reviews
 

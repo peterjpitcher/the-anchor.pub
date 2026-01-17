@@ -1,6 +1,11 @@
 import { MetadataRoute } from 'next'
 import { getAllBlogPosts } from '@/lib/markdown'
 import { landmarks } from '@/lib/local-seo-data'
+import { getUpcomingEvents } from '@/lib/api'
+import { getEventWebsitePath } from '@/lib/event-url'
+
+export const revalidate = 60 * 60 // 1 hour
+export const dynamic = 'force-dynamic'
 
 function getSafeDate(value?: string): Date {
   if (!value) {
@@ -19,6 +24,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/blog',
     '/blog/tags',
     '/food-menu',
+    '/mothers-day',
+    '/valentines-day',
     '/sunday-lunch',
     '/pizza-menu',
     '/burger-menu',
@@ -39,6 +46,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/live-sport/six-nations',
     '/live-sport/f1',
     '/live-sport/boxing',
+    '/live-sport/world-cup',
     '/pool-darts-pub',
     '/summer-garden-parties',
     '/book-table',
@@ -92,26 +100,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/windsor-pub',
     '/wraysbury-pub',
     '/sitemap-page',
-    '/leave-review',
     '/privacy-policy',
-    '/components',
-    '/demo-header',
-    '/debug-hours',
-    '/gtm-debug',
-    '/test-gtm',
-    '/test-hours',
-    '/test-navigation-tracking',
-    '/test-reviews',
-    '/test-simple',
-    '/test-tracking',
   ]
 
   // Get all blog posts
   const blogPosts = await getAllBlogPosts()
+  const excludedBlogSlugs = new Set([
+    'euro-2024-viewing',
+    'autumn-internationals-2024-full-fixtures-highlight'
+  ])
+  const indexableBlogPosts = blogPosts.filter((post) => !excludedBlogSlugs.has(post.slug))
 
   // Get all unique tags
   const allTags = new Set<string>()
-  blogPosts.forEach(post => {
+  indexableBlogPosts.forEach(post => {
     post.tags.forEach(tag => allTags.add(tag))
   })
 
@@ -124,7 +126,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }))
 
   // Map blog post routes
-  const blogSitemap = blogPosts.map((post) => {
+  const blogSitemap = indexableBlogPosts.map((post) => {
     const lastModified = getSafeDate(post.date)
     return {
       url: `${baseUrl}/blog/${post.slug}`,
@@ -149,5 +151,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }))
 
-  return [...staticSitemap, ...blogSitemap, ...tagSitemap, ...landmarkSitemap]
+  const upcomingEvents = await getUpcomingEvents(50, 180)
+  const eventSitemap = upcomingEvents
+    .filter((event) => event.category?.id !== 'fallback' && event.id !== 'the-anchor-showcase')
+    .map((event) => ({
+      url: `${baseUrl}${getEventWebsitePath(event)}`,
+      lastModified: getSafeDate(event._meta?.lastUpdated ?? event.startDate),
+      changeFrequency: 'daily' as const,
+      priority: 0.85,
+    }))
+
+  return [...staticSitemap, ...blogSitemap, ...tagSitemap, ...landmarkSitemap, ...eventSitemap]
 }

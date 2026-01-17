@@ -26,7 +26,10 @@ export const metadata: Metadata = {
         title: 'Free Luggage Storage Near Heathrow (With Dining)',
         description: 'Checked out early? Flight delayed? Store your bags with us while you enjoy a proper British meal.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
-    })
+    }),
+    alternates: {
+        canonical: '/luggage-storage-heathrow'
+    }
 }
 
 export default function LuggageStoragePage() {

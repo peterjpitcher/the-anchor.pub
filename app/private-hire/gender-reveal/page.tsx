@@ -27,7 +27,10 @@ export const metadata: Metadata = {
         title: 'Gender Reveal Parties at The Anchor',
         description: 'Boy or Girl? Host your big reveal in our spacious beer garden. Perfect for photos, smoke cannons, and family celebrations.',
         images: [DEFAULT_CORPORATE_IMAGE]
-    })
+    }),
+    alternates: {
+        canonical: '/private-hire/gender-reveal'
+    }
 }
 
 export default function GenderRevealPage() {

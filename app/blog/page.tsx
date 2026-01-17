@@ -9,19 +9,20 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { getBlogHeroUrl, BLOG_FALLBACK_IMAGE } from '@/lib/blog-image'
 import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
-  title: 'Heathrow & Staines Pub Blog - News, Events & Guides | The Anchor',
-  description: 'Read The Anchor blog for Heathrow travel tips, pub events, food and drink guides, and community stories from Stanwell Moor and Staines.',
-  keywords: 'heathrow pub blog, staines pub blog, the anchor news, stanwell moor events, pub food updates, travel tips near heathrow',
+  title: 'The Anchor Blog | Heathrow Travel Tips, Pub Events & Local Guides',
+  description: 'Read The Anchor blog for Heathrow Terminal 5 travel tips, pub events, food and drink guides, and community stories from Stanwell Moor and Staines.',
+  keywords: 'heathrow travel tips, heathrow terminal 5 pub, staines pub blog, stanwell moor events, pub food guides, the anchor blog',
   openGraph: {
-    title: 'Heathrow & Staines Pub Blog - The Anchor News & Guides',
-    description: 'Heathrow travel tips, pub events, food and drink guides and local stories from The Anchor.',
+    title: 'The Anchor Blog - News, Events & Guides',
+    description: 'Heathrow travel tips, pub events, food and drink guides and local stories from The Anchor near Heathrow Terminal 5.',
     images: [BLOG_FALLBACK_IMAGE],
   },
   twitter: getTwitterMetadata({
-    title: 'Heathrow & Staines Pub Blog - The Anchor News & Guides',
-    description: 'Heathrow travel tips, pub events, food and drink guides and local stories from The Anchor.',
+    title: 'The Anchor Blog - News, Events & Guides',
+    description: 'Heathrow travel tips, pub events, food and drink guides and local stories from The Anchor near Terminal 5.',
     images: [BLOG_FALLBACK_IMAGE]
   }),
   alternates: {
@@ -79,7 +80,7 @@ export default async function BlogPage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(generateBreadcrumbSchema([
+          __html: jsonLdSafeStringify(generateBreadcrumbSchema([
             { name: 'Home', url: '/' },
             { name: 'Blog', url: '/blog' }
           ]))
