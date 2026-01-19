@@ -85,10 +85,6 @@ Each **Sunday roast** at our **Stanwell Moor pub** includes:
 - Served with roast potatoes, seasonal vegetables, Yorkshire pudding, and gravy
 - Perfect for little appetites
 
-**Add Cauliflower Cheese - GBP 3.99**
-- Creamy, cheesy perfection
-- The ultimate Sunday lunch side
-
 ## The Anchor Sunday Lunch Experience
 
 ### More Than Just a Meal

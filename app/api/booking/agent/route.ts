@@ -91,7 +91,11 @@ export async function POST(request: Request) {
 	        },
 	        message: `Booking confirmed for ${body.partySize} people on ${formatDateForDisplay(bookingDate)} at ${formatTimeForDisplay(body.time)}`,
 	        specialInstructions: isSunday && bookingType === 'sunday_lunch'
-	          ? 'Sunday lunch bookings require a GBP 5 per person deposit. A payment link will be sent via SMS.'
+	          ? (
+	              body.partySize >= 7
+	                ? 'Sunday lunch roasts must be pre-ordered by 1pm Saturday. Bookings of 7+ require a card hold to secure the booking (no charge).'
+	                : 'Sunday lunch roasts must be pre-ordered by 1pm Saturday.'
+	            )
 	          : null
 	      }
 	    })

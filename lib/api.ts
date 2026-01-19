@@ -1021,15 +1021,6 @@ const FALLBACK_SUNDAY_LUNCH_MENU: SundayLunchMenuResponse = {
       dietary_info: [],
       allergens: [],
       included: true
-    },
-    {
-      id: 'fallback-cauliflower-cheese',
-      name: 'Cauliflower Cheese',
-      description: 'Extra side for the table.',
-      price: 3.99,
-      dietary_info: ['vegetarian'],
-      allergens: ['dairy'],
-      included: false
     }
   ],
   cutoff_time: '2024-01-06T13:00:00.000Z'

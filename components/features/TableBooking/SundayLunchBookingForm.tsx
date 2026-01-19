@@ -458,7 +458,7 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
         }
       })
       
-      // Add optional extras (like cauliflower cheese)
+      // Add optional extras
       sideSelections
         .filter(side => side.quantity > 0)
         .forEach(sideSelection => {

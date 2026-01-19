@@ -21,6 +21,7 @@ interface FoodStickyCtaBarProps {
   }
   label?: string
   variant?: 'primary' | 'secondary'
+  bookingUrl?: string
 }
 
 type DeviceType = 'mobile' | 'tablet' | 'desktop' | 'unknown'
@@ -82,7 +83,8 @@ export function FoodStickyCtaBar({
   ctaContext,
   whatsapp,
   label = 'Book a Table',
-  variant = 'primary'
+  variant = 'primary',
+  bookingUrl
 }: FoodStickyCtaBarProps) {
   const [deviceType, setDeviceType] = useState<DeviceType>('unknown')
   const [shouldRender, setShouldRender] = useState(false)
@@ -325,6 +327,7 @@ export function FoodStickyCtaBar({
             variant={variant}
             size="md"
             className="w-full"
+            customHref={bookingUrl}
           >
             {label}
           </BookTableButton>

@@ -47,9 +47,9 @@ Download Set Menu Template
 
 1.  Pick up a copy of our Father's Day set menu order form from the bar, or download one here: [https://bit.ly/43qrfZ5](https://bit.ly/43qrfZ5)
     
-2.  Fill in your details and drop the order form off at the bar with your GBP 5 per person deposit.
+2.  Fill in your details and drop the order form off at the bar. For bookings of 7+ we may require a card hold to secure the booking (no charge).
     
-3.  If you can't make it in person, you can message your order form over to us on email or whatsapp, we'll send you a payment link back to secure your booking.
+3.  If you can't make it in person, you can message your order form over to us on email or WhatsApp — we'll reply with any confirmation or card-hold link needed to secure your booking.
     
 
 *   Email: manager@the-anchor.pub

@@ -477,8 +477,8 @@ export default function Terminal5Page() {
                   </li>
 	                  <li className="flex gap-3">
 	                    <span>💡</span>
-	                    <span>Our Sunday roast is famous among T5 staff - Sunday roasts require a booking with GBP 5 per person deposit by 1pm Saturday!</span>
-	                  </li>
+		                    <span>Our Sunday roast is famous among T5 staff - pre-order by 1pm Saturday (card hold required for 7+ bookings)</span>
+		                  </li>
                 </ul>
               }
             />
@@ -552,8 +552,8 @@ export default function Terminal5Page() {
 	                  </li>
 	                  <li className="flex gap-2">
 	                    <span className="text-anchor-gold">✓</span>
-	                    <span>Sunday roasts that locals queue for - Sunday roasts require a booking with GBP 5 per person deposit by 1pm Saturday</span>
-	                  </li>
+		                    <span>Sunday roasts that locals queue for - pre-order by 1pm Saturday (card hold required for 7+ bookings)</span>
+		                  </li>
                   <li className="flex gap-2">
                     <span className="text-anchor-gold">✓</span>
                     <span>Garden terrace for sunny days</span>

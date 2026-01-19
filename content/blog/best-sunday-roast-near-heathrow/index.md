@@ -58,7 +58,7 @@ Looking for the **best Sunday roast near Heathrow Airport**? Skip the terminal f
 
 1. **Reserve your table** via our [online booking system](/book-table) or call 01753 682707.
 2. **Party of 8 or more?** We’ll follow up so the kitchen knows what to expect and can pace service.
-3. **Deposits:** GBP 5pp refundable on the day—keeps your space secure during peak Sundays.
+3. **Large groups:** Bookings of 7+ require a card hold to secure the booking (no charge).
 4. **Need a fast turnaround?** Let us know your flight time; we’ll pace courses accordingly.
 
 ## Heathrow Traveller Tips

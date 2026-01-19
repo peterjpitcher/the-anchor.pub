@@ -26,31 +26,36 @@ interface BookTableButtonProps extends Omit<ButtonProps, 'href' | 'onClick'> {
    * Custom onClick handler (called after tracking)
    */
   onClickAfterTracking?: (event: MouseEvent<HTMLAnchorElement>) => void
+  /**
+   * Optional custom URL to use instead of the default /book-table
+   */
+  customHref?: string
 }
 
 export const BookTableButton = forwardRef<HTMLButtonElement, BookTableButtonProps>(
-  ({ 
+  ({
     source,
     context = 'regular',
     eventName,
     trackingLabel = 'Book a Table',
     onClickAfterTracking,
+    customHref,
     children = '📅 Book a Table',
     variant = 'primary',
     size = 'md',
     className,
-    ...props 
+    ...props
   }, ref) => {
     const pathname = usePathname()
-    
-    // Use new booking wizard
-    const bookingUrl = '/book-table'
-    const isExternal = false
+
+    // Use custom href if provided, otherwise default to booking wizard
+    const bookingUrl = customHref || '/book-table'
+    const isExternal = !!customHref
 
     const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
       // Detect device type
-      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || 
-                      window.innerWidth < 768
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) ||
+        window.innerWidth < 768
 
       // Get time of day
       const hour = new Date().getHours()

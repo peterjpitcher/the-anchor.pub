@@ -102,18 +102,18 @@ export default function BookTablePage({
               </TabsContent>
 
               <TabsContent value="sunday" className="space-y-6">
-                <div className="text-center mb-8">
-                  <Badge variant="warning" size="lg" className="mb-4">
-                    Pre-Order & Deposit Required
-                  </Badge>
-                  <h3 className="text-xl font-semibold mb-2">Traditional Sunday Roast</h3>
-                  <p className="text-muted-foreground mb-4">
-                    Enjoy our famous Sunday roasts - freshly prepared and served with all the trimmings
-                  </p>
-	                  <p className="text-sm text-muted-foreground">
-	                    Sunday roasts require a booking with GBP 5 per person deposit by 1pm Saturday
+	                <div className="text-center mb-8">
+	                  <Badge variant="warning" size="lg" className="mb-4">
+	                    Pre-Order Required
+	                  </Badge>
+	                  <h3 className="text-xl font-semibold mb-2">Traditional Sunday Roast</h3>
+	                  <p className="text-muted-foreground mb-4">
+	                    Enjoy our famous Sunday roasts - freshly prepared and served with all the trimmings
 	                  </p>
-                </div>
+		                  <p className="text-sm text-muted-foreground">
+		                    Pre-order by 1pm Saturday. Bookings of 7+ require a card hold to secure the booking (no charge).
+		                  </p>
+	                </div>
 
                 <SundayLunchBookingForm />
 

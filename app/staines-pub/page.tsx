@@ -186,7 +186,7 @@ export default async function StainesPubPage() {
 	                {
 	                  icon: "🍽️",
 	                  title: "Famous Sunday Roasts",
-	                  description: "Our renowned roasts\nSunday roasts require a booking with GBP 5 per person deposit by 1pm Saturday\nRegular menu also available",
+	                  description: "Our renowned roasts\nPre-order by 1pm Saturday\nBookings of 7+ require a card hold (no charge)\nRegular menu also available",
 	                  className: "text-center"
 	                },
                 {
@@ -358,7 +358,9 @@ export default async function StainesPubPage() {
                   <h3 className="text-xl font-bold text-anchor-green">Sunday</h3>
                   <span className="bg-anchor-green text-white px-3 py-1 rounded-full text-sm font-semibold">ROASTS</span>
                 </div>
-	                <p className="text-gray-700">Famous Sunday roasts served 12pm-5pm. Sunday roasts require a booking with GBP 5 per person deposit by 1pm Saturday.</p>
+		                <p className="text-gray-700">
+		                  Famous Sunday roasts served 12pm-5pm. Pre-order by 1pm Saturday. Bookings of 7+ require a card hold to secure the booking (no charge).
+		                </p>
               </div>
 
               <div className="border-l-4 border-anchor-gold bg-anchor-cream/50 p-6 rounded-r-lg">

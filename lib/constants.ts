@@ -52,7 +52,7 @@ export const HEATHROW_TIMES = {
 
 export const SUNDAY_ROAST = {
   // Standard messaging for consistency
-  orderRequirement: 'Sunday roasts require pre-order with a 5 per person deposit by 1pm Saturday.',
+  orderRequirement: 'Sunday roasts require pre-order by 1pm Saturday. Bookings of 7+ require a card hold to secure the booking (no charge).',
   regularMenuNote: 'Regular menu also available on Sundays without pre-order.',
-  fullMessage: 'Sunday roasts require pre-order with a 5 per person deposit by 1pm Saturday. Regular menu also available on Sundays without pre-order.'
+  fullMessage: 'Sunday roasts require pre-order by 1pm Saturday. Bookings of 7+ require a card hold to secure the booking (no charge). Regular menu also available on Sundays without pre-order.'
 }

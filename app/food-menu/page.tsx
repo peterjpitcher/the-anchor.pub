@@ -166,7 +166,7 @@ export default async function FoodMenuPage() {
 	    {
 	      question: 'Do you serve Sunday roast at The Anchor?',
 	      answer:
-	        'Yes. Sunday roast and Sunday lunch service runs 12pm-5pm with beef, chicken, lamb, and vegetarian plates. Book by 1pm Saturday with a GBP 5 deposit per guest.'
+	        'Yes. Sunday roast and Sunday lunch service runs 12pm-5pm with beef, chicken, lamb, and vegetarian plates. Pre-order by 1pm Saturday. Bookings of 7+ require a card hold to secure the booking (no charge).'
 	    },
     {
       question: "Is there a children's menu?",
@@ -397,7 +397,8 @@ export default async function FoodMenuPage() {
                 />
 	                <ul className="space-y-3 text-gray-700">
 	                  <li>• Beef, chicken, lamb and vegetarian roasts with lashings of gravy.</li>
-	                  <li>• GBP 5 deposit secures your table — ideal for families and group catch-ups.</li>
+	                  <li>• Pre-order by 1pm Saturday so we can cook everything fresh to order.</li>
+	                  <li>• Bookings of 7+ require a card hold to secure the booking (no charge).</li>
 	                  <li>• Kids portions, high chairs and activity packs on request.</li>
 	                </ul>
                 <div className="mt-6 flex flex-col sm:flex-row gap-3">
@@ -428,9 +429,9 @@ export default async function FoodMenuPage() {
                 <h3 className="text-lg font-semibold text-anchor-green mb-3">Sunday Serving Notes</h3>
 	                <ul className="space-y-2 text-sm text-gray-700">
 	                  <li><strong>Service:</strong> 12pm–5pm every Sunday.</li>
-	                  <li><strong>Deposits:</strong> GBP 5 per guest, deducted from your bill.</li>
+	                  <li><strong>Groups:</strong> 7+ bookings require a card hold (no charge).</li>
 	                  <li><strong>Gluten-aware:</strong> Alternative gravy available — just ask.</li>
-	                  <li><strong>Extras:</strong> Add cauliflower cheese, extra Yorkies, or seasonal puds.</li>
+	                  <li><strong>Extras:</strong> Extra Yorkies or seasonal sides when available.</li>
 	                </ul>
               </CardBody>
             </Card>
