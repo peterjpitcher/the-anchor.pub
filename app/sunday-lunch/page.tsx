@@ -57,24 +57,29 @@ const FALLBACK_MENU: NormalizedMenu = {
   mains: [
     {
       name: 'Roasted Chicken',
-      description: 'Oven-roasted chicken breast with sage & onion stuffing balls, roast potatoes, vegetables, Yorkshire pudding and gravy.',
-      price: 14.99
+      description: 'Oven-roasted chicken breast with sage & onion stuffing balls, herb and garlic-crusted roast potatoes, seasonal vegetables, Yorkshire pudding, and red wine gravy',
+      price: 19.99
     },
     {
       name: 'Slow-Cooked Lamb Shank',
-      description: 'Tender lamb shank in red wine gravy with seasonal vegetables and Yorkshire pudding.',
-      price: 15.49
+      description: 'Tender slow-braised lamb shank in rich red wine gravy, served with herb and garlic-crusted roast potatoes, seasonal vegetables, and a Yorkshire pudding',
+      price: 23.99
     },
     {
       name: 'Crispy Pork Belly',
-      description: 'Slow-roasted pork belly with crackling, apple sauce, roast potatoes, vegetables, Yorkshire pudding and gravy.',
-      price: 15.99
+      description: 'Crispy crackling and tender slow-roasted pork belly with Bramley apple sauce, herb and garlic-crusted roast potatoes, seasonal vegetables, Yorkshire pudding, and red wine gravy',
+      price: 21.99
     },
     {
-      name: 'Beetroot & Butternut Squash Wellington',
-      description: 'Plant-based Wellington with roast potatoes, vegetables and vegetarian gravy.',
-      price: 15.49,
-      dietary_info: ['vegan']
+      name: 'Beetroot & Butternut Squash Wellington (V)',
+      description: 'Golden puff pastry filled with beetroot & butternut squash, served with herb and garlic-crusted roast potatoes, seasonal vegetables, and vegetarian gravy',
+      price: 19.99,
+      dietary_info: ['vegetarian']
+    },
+    {
+      name: 'Kids Roasted Chicken',
+      description: 'A smaller portion of our roasted chicken with herb and garlic-crusted roast potatoes, seasonal vegetables, Yorkshire pudding, and red wine gravy',
+      price: 13.99
     }
   ],
   sides: [
@@ -592,7 +597,7 @@ export default async function SundayLunchPage() {
                       </li>
                     </ul>
                     <p className="text-xs text-green-700 mt-3 italic">
-                      This booking system helps us continue offering Sunday lunches close to Heathrow without raising prices.
+                      This booking system helps us continue offering Sunday lunches close to Heathrow, cooked fresh to order.
                     </p>
                   </div>
                   <div className="bg-white rounded-lg p-4">
@@ -990,7 +995,7 @@ export default async function SundayLunchPage() {
           faqs={[
 	          {
 	            question: "Why do I need to book Sunday roast in advance?",
-	            answer: "We prepare each Sunday roast fresh to order, ensuring the highest quality. Booking by 1pm Saturday with a GBP 5 deposit helps us reduce waste, maintain our affordable prices (GBP 14.99-GBP 15.99), and guarantee we have your chosen joint ready when you arrive. The deposit is deducted from your final bill."
+	            answer: "We prepare each Sunday roast fresh to order, ensuring the highest quality. Booking by 1pm Saturday with a GBP 5 deposit helps us reduce waste, maintain fair prices (GBP 19.99-GBP 23.99), and guarantee we have your chosen roast ready when you arrive. The deposit is deducted from your final bill."
 	          },
           {
             question: "What's included with each Sunday roast?",
@@ -999,10 +1004,10 @@ export default async function SundayLunchPage() {
           {
             question: "Can I get Sunday roast without booking ahead?",
             answer: "Sunday roasts require an advance booking with deposit, but our regular menu is available on Sundays without any pre-booking. This includes burgers, fish & chips, pizzas, and other pub classics."
-          },
+	          },
 	          {
 	            question: "Do you cater for dietary requirements?",
-	            answer: "We offer a vegan Beetroot & Butternut Squash Wellington (GBP 15.49) and vegetarian gravy is available for any roast. However, our small kitchen means we cannot guarantee no cross-contamination for severe allergies."
+	            answer: "We offer a Beetroot & Butternut Squash Wellington (V) (GBP 19.99) and vegetarian gravy is available for any roast. However, our small kitchen means we cannot guarantee no cross-contamination for severe allergies."
 	          },
           {
             question: "What time is Sunday lunch served?",

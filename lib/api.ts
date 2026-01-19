@@ -942,8 +942,8 @@ const FALLBACK_SUNDAY_LUNCH_MENU: SundayLunchMenuResponse = {
     {
       id: 'fallback-roasted-chicken',
       name: 'Roasted Chicken',
-      description: 'Oven-roasted chicken with stuffing, roast potatoes, seasonal vegetables, Yorkshire pudding and gravy.',
-      price: 14.99,
+      description: 'Oven-roasted chicken breast with sage & onion stuffing balls, herb and garlic-crusted roast potatoes, seasonal vegetables, Yorkshire pudding, and red wine gravy',
+      price: 19.99,
       dietary_info: [],
       allergens: [],
       is_available: true
@@ -951,8 +951,8 @@ const FALLBACK_SUNDAY_LUNCH_MENU: SundayLunchMenuResponse = {
     {
       id: 'fallback-lamb-shank',
       name: 'Slow-Cooked Lamb Shank',
-      description: 'Tender lamb shank served with seasonal vegetables, Yorkshire pudding and rich gravy.',
-      price: 15.49,
+      description: 'Tender slow-braised lamb shank in rich red wine gravy, served with herb and garlic-crusted roast potatoes, seasonal vegetables, and a Yorkshire pudding',
+      price: 23.99,
       dietary_info: [],
       allergens: [],
       is_available: true
@@ -960,19 +960,28 @@ const FALLBACK_SUNDAY_LUNCH_MENU: SundayLunchMenuResponse = {
     {
       id: 'fallback-crispy-pork-belly',
       name: 'Crispy Pork Belly',
-      description: 'Slow-roasted pork belly with crackling, apple sauce, roast potatoes, seasonal vegetables, Yorkshire pudding and gravy.',
-      price: 15.99,
+      description: 'Crispy crackling and tender slow-roasted pork belly with Bramley apple sauce, herb and garlic-crusted roast potatoes, seasonal vegetables, Yorkshire pudding, and red wine gravy',
+      price: 21.99,
       dietary_info: [],
       allergens: [],
       is_available: true
     },
     {
-      id: 'fallback-vegan-wellington',
-      name: 'Beetroot & Butternut Squash Wellington',
-      description: 'Plant-based Wellington with roast potatoes, seasonal vegetables and vegetarian gravy.',
-      price: 15.49,
-      dietary_info: ['vegan'],
+      id: 'fallback-wellington-v',
+      name: 'Beetroot & Butternut Squash Wellington (V)',
+      description: 'Golden puff pastry filled with beetroot & butternut squash, served with herb and garlic-crusted roast potatoes, seasonal vegetables, and vegetarian gravy',
+      price: 19.99,
+      dietary_info: ['vegetarian'],
       allergens: ['gluten'],
+      is_available: true
+    },
+    {
+      id: 'fallback-kids-roasted-chicken',
+      name: 'Kids Roasted Chicken',
+      description: 'A smaller portion of our roasted chicken with herb and garlic-crusted roast potatoes, seasonal vegetables, Yorkshire pudding, and red wine gravy',
+      price: 13.99,
+      dietary_info: [],
+      allergens: [],
       is_available: true
     }
   ],
@@ -1007,7 +1016,7 @@ const FALLBACK_SUNDAY_LUNCH_MENU: SundayLunchMenuResponse = {
     {
       id: 'fallback-red-wine-gravy',
       name: 'Red Wine Gravy',
-      description: 'Rich gravy served with your roast.',
+      description: 'Red wine gravy (vegetarian gravy available on request).',
       price: 0,
       dietary_info: [],
       allergens: [],

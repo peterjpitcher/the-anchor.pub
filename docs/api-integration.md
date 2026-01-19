@@ -114,9 +114,9 @@ GET /menu/sunday-lunch
   items: [
     {
       id: "uuid",
-      name: "Roast Beef",
-      description: "...",
-      price: 14.95
+      name: "Roasted Chicken",
+      description: "Oven-roasted chicken breast with sage & onion stuffing balls...",
+      price: 19.99
     }
   ]
 }

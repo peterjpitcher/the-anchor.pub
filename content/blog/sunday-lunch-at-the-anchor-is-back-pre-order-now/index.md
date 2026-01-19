@@ -48,42 +48,42 @@ Unlike chain pubs and airport restaurants, our **traditional roast dinner** phil
 ### Classic Roasts Done Right
 
 Each **Sunday roast** at our **Stanwell Moor pub** includes:
-- Freshly roasted potatoes
+- Herb and garlic-crusted roast potatoes
 - Homemade Yorkshire pudding
 - Seasonal vegetables (steamed fresh)
-- Rich, homemade gravy
+- Red wine gravy (vegetarian gravy available)
 - Traditional accompaniments
 
 #### Choose Your Perfect Roast:
 
-**Roast Chicken - GBP 14.99**
-- Succulent British chicken
-- Crispy skin, tender meat
-- Traditional stuffing
-- Perfect for the classic Sunday lunch lover
+**Roasted Chicken - GBP 19.99**
+- Oven-roasted chicken breast with sage & onion stuffing balls
+- Herb and garlic-crusted roast potatoes
+- Seasonal vegetables and Yorkshire pudding
+- Red wine gravy
 
-**Lamb Shank - GBP 15.49**
-- Slow-cooked to perfection
-- Fall-off-the-bone tender
-- Mint sauce on the side
-- A pub favourite
+**Slow-Cooked Lamb Shank - GBP 23.99**
+- Tender slow-braised lamb shank
+- Rich red wine gravy
+- Herb and garlic-crusted roast potatoes
+- Seasonal vegetables and a Yorkshire pudding
 
-**Pork Belly - GBP 15.99**
-- Crispy crackling
-- Melt-in-your-mouth meat
-- Apple sauce
-- The ultimate indulgence
+**Crispy Pork Belly - GBP 21.99**
+- Crispy crackling and tender slow-roasted pork belly
+- Bramley apple sauce
+- Herb and garlic-crusted roast potatoes
+- Seasonal vegetables, Yorkshire pudding, and red wine gravy
 
-**Beetroot & Butternut Squash Wellington - GBP 15.49**
-- Vegetarian delight
-- Flaky pastry
+**Beetroot & Butternut Squash Wellington (V) - GBP 19.99**
+- Golden puff pastry filled with beetroot & butternut squash
+- Herb and garlic-crusted roast potatoes
 - Seasonal vegetables
-- Rich vegetarian gravy
+- Vegetarian gravy
 
-**Kids' Roast Chicken - GBP 9.99**
-- Smaller portion for little appetites
-- Same quality as adult meals
-- Child-friendly presentation
+**Kids Roasted Chicken - GBP 13.99**
+- Smaller portion of our roasted chicken
+- Served with roast potatoes, seasonal vegetables, Yorkshire pudding, and gravy
+- Perfect for little appetites
 
 **Add Cauliflower Cheese - GBP 3.99**
 - Creamy, cheesy perfection

@@ -279,10 +279,11 @@ export default async function StanwellPubPage() {
                 <h3 className="text-xl font-bold text-amber-800 mb-4">Famous Sunday Roasts</h3>
                 <p className="mb-3">The talk of Stanwell! Our traditional Sunday roasts must be ordered by 1pm Saturday.</p>
 	                <ul className="space-y-2 text-gray-700">
-	                  <li>• Roast Chicken - GBP 14.99</li>
-	                  <li>• Lamb Shank - GBP 15.49</li>
-	                  <li>• Pork Belly - GBP 15.99</li>
-	                  <li>• Veggie Wellington - GBP 15.49</li>
+	                  <li>• Roasted Chicken - GBP 19.99</li>
+	                  <li>• Slow-Cooked Lamb Shank - GBP 23.99</li>
+	                  <li>• Crispy Pork Belly - GBP 21.99</li>
+	                  <li>• Beetroot &amp; Butternut Squash Wellington (V) - GBP 19.99</li>
+	                  <li>• Kids Roasted Chicken - GBP 13.99</li>
 	                </ul>
                 <p className="mt-3 text-sm text-amber-700">Book early - Stanwell locals fill tables fast!</p>
               </div>

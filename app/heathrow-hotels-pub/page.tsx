@@ -376,7 +376,7 @@ export default function HeathrowHotelsPubPage() {
 	                {
 	                  icon: "🥩",
 	                  title: "Sunday Roast",
-	                  description: "Must-try British tradition for Sunday visitors. From GBP 14.99",
+	                  description: "Must-try British tradition for Sunday visitors. From GBP 19.99",
 	                  variant: "default",
 	                  className: "bg-white rounded-lg p-6 shadow-md text-center"
 	                }
