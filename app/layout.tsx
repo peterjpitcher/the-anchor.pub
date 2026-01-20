@@ -114,8 +114,7 @@ export default function RootLayout({
       external: false,
       variant: 'secondary' as const,
       startsOn: '2026-03-15',
-      endsOn: '2026-03-15',
-      leadDays: 42 // Show 6 weeks before
+      endsOn: '2026-03-15'
     },
     {
       label: 'World Cup 2026',
