@@ -16,6 +16,9 @@ import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 
 export const dynamic = 'force-dynamic'
 
+const VALENTINES_DAY_BOOKING_URL =
+  'https://www.opentable.co.uk/booking/experiences-availability?rid=443973&restref=443973&experienceId=632584&utm_source=external&utm_medium=referral&utm_campaign=shared'
+
 type ValentinesEventResult = {
   targetYear: number
   event: Event | null
@@ -307,11 +310,11 @@ export default async function ValentinesDayPage() {
           { label: '💚 Bookings recommended', variant: 'success' }
         ]}
         primaryCta={
-          <Link href="/book-table" className="w-full sm:w-auto">
-            <Button variant="primary" size="lg" fullWidth className="w-full sm:w-auto">
+          <Button asChild variant="primary" size="lg" fullWidth className="w-full sm:w-auto">
+            <a href={VALENTINES_DAY_BOOKING_URL} target="_blank" rel="noopener noreferrer">
               💘 Book Valentine’s Table
-            </Button>
-          </Link>
+            </a>
+          </Button>
         }
         secondaryCta={
           <>
@@ -431,11 +434,17 @@ export default async function ValentinesDayPage() {
 
                   <div className="mt-5 flex flex-col gap-3 sm:flex-row">
                     <div className="w-full sm:w-auto">
-                      <Link href="/book-table" className="w-full sm:w-auto">
-                        <Button variant="primary" size="lg" fullWidth className="w-full sm:w-auto sm:min-w-[220px]">
+                      <Button
+                        asChild
+                        variant="primary"
+                        size="lg"
+                        fullWidth
+                        className="w-full sm:w-auto sm:min-w-[220px]"
+                      >
+                        <a href={VALENTINES_DAY_BOOKING_URL} target="_blank" rel="noopener noreferrer">
                           💘 Book a Table
-                        </Button>
-                      </Link>
+                        </a>
+                      </Button>
                     </div>
                     <Link href={`/events/${event.slug || event.id}`} className="w-full sm:w-auto">
                       <Button variant="secondary" size="lg" fullWidth className="sm:min-w-[200px]">
@@ -532,11 +541,11 @@ export default async function ValentinesDayPage() {
               We take online bookings on our table booking page. Choose your date, time, and party size — and book early to get your preferred slot.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <Link href="/book-table" className="w-full sm:w-auto">
-                <Button variant="primary" size="lg" fullWidth className="w-full sm:w-auto">
+              <Button asChild variant="primary" size="lg" fullWidth className="w-full sm:w-auto">
+                <a href={VALENTINES_DAY_BOOKING_URL} target="_blank" rel="noopener noreferrer">
                   📅 Book a Table Online
-                </Button>
-              </Link>
+                </a>
+              </Button>
               <PhoneButton
                 phone="01753 682707"
                 source="valentines_cta"
@@ -594,7 +603,7 @@ export default async function ValentinesDayPage() {
       <InternalLinkingSection
         title="More to explore at The Anchor"
         links={[
-          { href: '/book-table', title: 'Book a Table', description: 'Reserve online in minutes' },
+          { href: VALENTINES_DAY_BOOKING_URL, title: 'Book a Table', description: 'Reserve online in minutes' },
           ...(event
             ? [{ href: eventPageUrl, title: 'Valentine’s event details', description: 'Full listing and updates' }]
             : [{ href: '/whats-on', title: "What's On", description: 'Upcoming events and entertainment' }]),

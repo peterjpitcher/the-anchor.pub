@@ -19,6 +19,9 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
 export const dynamic = 'force-dynamic'
 
+const MOTHERS_DAY_BOOKING_URL =
+  'https://www.opentable.co.uk/booking/experiences-availability?rid=443973&restref=443973&experienceId=629334&utm_source=external&utm_medium=referral&utm_campaign=shared'
+
 const MOTHERS_DAY_MATCHER = /mother'?s day|mothering sunday/i
 
 function normaliseWhitespace(value: string): string {
@@ -193,6 +196,7 @@ export default async function MothersDayPage() {
               size="lg"
               fullWidth
               className="w-full sm:w-auto"
+              customHref={MOTHERS_DAY_BOOKING_URL}
             >
               📅 Book a Table
             </BookTableButton>
@@ -304,6 +308,7 @@ export default async function MothersDayPage() {
     sittingTimes.length ? `Sittings: ${sittingTimes.join(' • ')}` : null
   ].filter(Boolean) as string[]
   const heroLeadText = heroLeadParts.join(' • ')
+  const eventWithBookingUrl = { ...event, bookingUrl: MOTHERS_DAY_BOOKING_URL }
 
   return (
     <>
@@ -345,14 +350,14 @@ export default async function MothersDayPage() {
             : []),
           { label: '🍽️ Book via OpenTable', variant: 'success' }
         ]}
-        primaryCta={
-          <EventBookingButton
-            event={event}
-            size="xl"
-            className="w-full sm:min-w-[260px]"
-            label="Book Mother's Day Lunch"
-            source="mothers_day_hero"
-          />
+	        primaryCta={
+	          <EventBookingButton
+	            event={eventWithBookingUrl}
+	            size="xl"
+	            className="w-full sm:min-w-[260px]"
+	            label="Book Mother's Day Lunch"
+	            source="mothers_day_hero"
+	          />
         }
         secondaryCta={
           <>
@@ -417,15 +422,15 @@ export default async function MothersDayPage() {
                   </div>
                 ) : null}
 
-                <div className="pt-2">
-                  <EventBookingButton
-                    event={event}
-                    size="lg"
-                    className="w-full"
-                    label="Book Mother's Day Lunch"
-                    source="mothers_day_card"
-                  />
-                </div>
+	                <div className="pt-2">
+	                  <EventBookingButton
+	                    event={eventWithBookingUrl}
+	                    size="lg"
+	                    className="w-full"
+	                    label="Book Mother's Day Lunch"
+	                    source="mothers_day_card"
+	                  />
+	                </div>
               </CardBody>
             </Card>
 
@@ -505,14 +510,14 @@ export default async function MothersDayPage() {
                   </div>
                 )}
 
-                <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-                  <EventBookingButton
-                    event={event}
-                    size="lg"
-                    className="w-full sm:w-auto sm:min-w-[240px]"
-                    label="Book Mother's Day Lunch"
-                    source="mothers_day_body"
-                  />
+	                <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+	                  <EventBookingButton
+	                    event={eventWithBookingUrl}
+	                    size="lg"
+	                    className="w-full sm:w-auto sm:min-w-[240px]"
+	                    label="Book Mother's Day Lunch"
+	                    source="mothers_day_body"
+	                  />
                   <Link href="/find-us" className="w-full sm:w-auto">
                     <Button variant="secondary" size="lg" fullWidth className="w-full sm:w-auto">
                       📍 Find Us
@@ -577,14 +582,14 @@ export default async function MothersDayPage() {
               {sittingTimes.length ? ` Choose from sittings at ${sittingTimes.join(', ')} when you book.` : ''}
               {hasCookedFromScratchHighlight ? ' Expect a cooked-from-scratch Sunday lunch, plus a warm family-friendly atmosphere.' : ''}
             </p>
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
-              <EventBookingButton
-                event={event}
-                size="lg"
-                className="w-full sm:w-auto sm:min-w-[240px]"
-                label="Book Mother's Day Lunch"
-                source="mothers_day_cta"
-              />
+	            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+	              <EventBookingButton
+	                event={eventWithBookingUrl}
+	                size="lg"
+	                className="w-full sm:w-auto sm:min-w-[240px]"
+	                label="Book Mother's Day Lunch"
+	                source="mothers_day_cta"
+	              />
               <PhoneButton
                 phone="01753 682707"
                 source="mothers_day_cta"
@@ -636,15 +641,15 @@ export default async function MothersDayPage() {
 
       <FAQAccordionWithSchema title="Mother’s Day FAQs" faqs={faqs} className="bg-gray-50" />
 
-      <InternalLinkingSection
-        title="More to explore at The Anchor"
-        links={[
-          { href: '/book-table', title: 'Book a Table', description: 'Reserve online in minutes' },
-          { href: eventPageUrl, title: "Mother's Day event details", description: 'Full listing and updates' },
-          ...commonLinkGroups.dining,
-          ...commonLinkGroups.location
-        ]}
-      />
+	      <InternalLinkingSection
+	        title="More to explore at The Anchor"
+	        links={[
+	          { href: MOTHERS_DAY_BOOKING_URL, title: 'Book a Table', description: 'Reserve online in minutes' },
+	          { href: eventPageUrl, title: "Mother's Day event details", description: 'Full listing and updates' },
+	          ...commonLinkGroups.dining,
+	          ...commonLinkGroups.location
+	        ]}
+	      />
     </>
   )
 }
