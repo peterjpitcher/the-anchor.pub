@@ -160,10 +160,10 @@ export function HeroWrapper({
   const seasonalImage = shouldUseSeasonalImage ? getSeasonalHomepageImage() : null
   const focal = seasonalImage ? getSeasonalFocal(seasonalImage.season) : null
 
-  // Avoid leaking optimized/blur data when a custom image replaces the base src.
+  // Avoid leaking blur data when a custom image replaces the base src.
   const imageOverridesBaseSrc = Boolean(image?.src && image.src !== headerImageConfig.src)
   const safeHeaderImageConfig = imageOverridesBaseSrc
-    ? { ...headerImageConfig, optimized: undefined, blurDataURL: undefined }
+    ? { ...headerImageConfig, blurDataURL: undefined }
     : headerImageConfig
 
   const seasonalStyle: CSSProperties | undefined = seasonalImage

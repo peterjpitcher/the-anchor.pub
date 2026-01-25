@@ -6,8 +6,6 @@ import { cn } from '@/lib/utils'
 
 export type HeroSize = 'small' | 'medium' | 'large' | 'hero'
 
-type OptimizedImageFormats = Array<'avif' | 'webp'>
-
 export interface HeroImageConfig {
   src: string
   alt: string
@@ -15,12 +13,6 @@ export interface HeroImageConfig {
   objectPosition?: string
   blurDataURL?: string
   fallbackSrc?: string
-  optimized?: {
-    mobile: string
-    tablet: string
-    desktop: string
-    formats?: OptimizedImageFormats
-  }
 }
 
 interface HeroSectionProps {
@@ -130,12 +122,6 @@ export function HeroSection({
   const [imageError, setImageError] = useState(false)
 
   const objectPosition = image.objectPosition || 'var(--hero-ox, 50%) var(--hero-oy, 50%)'
-  const optimizedFormats: OptimizedImageFormats = image.optimized?.formats || ['avif', 'webp']
-  const shouldUseOptimized = Boolean(image.optimized) && !imageError
-
-  const primarySrc = image.optimized
-    ? `${image.optimized.desktop}.jpg`
-    : image.src
 
   const defaultBlurDataUrl = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAf/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWEREiMxUf/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACETMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=='
 
@@ -155,51 +141,19 @@ export function HeroSection({
       {/* Background Image */}
       <div className="absolute inset-0">
         <div className="relative w-full h-full">
-	          {shouldUseOptimized ? (
-	            <picture className="relative block h-full w-full">
-	              {optimizedFormats.includes('avif') && (
-	                <>
-	                  <source media="(max-width: 640px)" srcSet={`${image.optimized!.mobile}.avif`} type="image/avif" />
-	                  <source media="(max-width: 1024px)" srcSet={`${image.optimized!.tablet}.avif`} type="image/avif" />
-	                  <source srcSet={`${image.optimized!.desktop}.avif`} type="image/avif" />
-	                </>
-	              )}
-              {optimizedFormats.includes('webp') && (
-                <>
-                  <source media="(max-width: 640px)" srcSet={`${image.optimized!.mobile}.webp`} type="image/webp" />
-                  <source media="(max-width: 1024px)" srcSet={`${image.optimized!.tablet}.webp`} type="image/webp" />
-                  <source srcSet={`${image.optimized!.desktop}.webp`} type="image/webp" />
-                </>
-              )}
-              <Image
-                src={primarySrc}
-                alt={image.alt}
-                fill
-                className="object-cover"
-                priority={image.priority !== false}
-                sizes="(max-width: 640px) 640px, (max-width: 1024px) 1024px, 1920px"
-                quality={82}
-                placeholder={blurDataURL ? 'blur' : 'empty'}
-                blurDataURL={blurDataURL}
-                style={{ objectPosition }}
-                onError={() => setImageError(true)}
-              />
-            </picture>
-          ) : (
-            <Image
-              src={fallbackSrc}
-              alt={image.alt}
-              fill
-              className="object-cover"
-              priority={image.priority !== false}
-              sizes="(max-width: 640px) 640px, (max-width: 1024px) 1024px, 1920px"
-              quality={82}
-              placeholder={blurDataURL ? 'blur' : 'empty'}
-              blurDataURL={blurDataURL}
-              style={{ objectPosition }}
-              onError={image.fallbackSrc ? () => setImageError(true) : undefined}
-            />
-          )}
+          <Image
+            src={fallbackSrc}
+            alt={image.alt}
+            fill
+            className="object-cover"
+            priority={image.priority !== false}
+            sizes="(max-width: 640px) 640px, (max-width: 1024px) 1024px, 1920px"
+            quality={82}
+            placeholder={blurDataURL ? 'blur' : 'empty'}
+            blurDataURL={blurDataURL}
+            style={{ objectPosition }}
+            onError={image.fallbackSrc ? () => setImageError(true) : undefined}
+          />
         </div>
         <div className={cn('absolute inset-0', overlayClasses[overlay])} />
       </div>

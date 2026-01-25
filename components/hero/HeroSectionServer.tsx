@@ -23,8 +23,6 @@ interface HeroSectionServerProps {
   id?: string
 }
 
-type OptimizedImageFormats = Array<'avif' | 'webp'>
-
 const heightClasses: Record<HeroSize, string> = {
   small: 'min-h-[40vh] sm:min-h-[45vh] md:min-h-[50vh]',
   medium: 'min-h-[50vh] sm:min-h-[55vh] md:min-h-[60vh]',
@@ -97,14 +95,11 @@ export function HeroSectionServer({
   id
 }: HeroSectionServerProps) {
   const objectPosition = image.objectPosition || 'var(--hero-ox, 50%) var(--hero-oy, 50%)'
-  const optimizedFormats: OptimizedImageFormats = image.optimized?.formats || []
 
   const defaultBlurDataUrl =
     'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAf/xAAhEAACAQMDBQAAAAAAAAAAAAABAgMABAUGIWEREiMxUf/EABUBAQEAAAAAAAAAAAAAAAAAAAMF/8QAGhEAAgIDAAAAAAAAAAAAAAAAAAECEgMRkf/aAAwDAQACETMRAD8AltJagyeH0AthI5xdrLcNM91BF5pX2HaH9bcfaSXWGaRmknyJckliyjqTzSlT54b6bk+h0R//2Q=='
 
   const blurDataURL = image.blurDataURL || defaultBlurDataUrl
-  const shouldUseOptimized = Boolean(image.optimized)
-  const primarySrc = shouldUseOptimized ? `${image.optimized!.desktop}.jpg` : image.src
 
   return (
     <section
@@ -114,49 +109,18 @@ export function HeroSectionServer({
     >
       <div className="absolute inset-0">
         <div className="relative w-full h-full">
-          {shouldUseOptimized ? (
-            <picture className="relative block h-full w-full">
-              {optimizedFormats.includes('avif') && (
-                <>
-                  <source media="(max-width: 640px)" srcSet={`${image.optimized!.mobile}.avif`} type="image/avif" />
-                  <source media="(max-width: 1024px)" srcSet={`${image.optimized!.tablet}.avif`} type="image/avif" />
-                  <source srcSet={`${image.optimized!.desktop}.avif`} type="image/avif" />
-                </>
-              )}
-              {optimizedFormats.includes('webp') && (
-                <>
-                  <source media="(max-width: 640px)" srcSet={`${image.optimized!.mobile}.webp`} type="image/webp" />
-                  <source media="(max-width: 1024px)" srcSet={`${image.optimized!.tablet}.webp`} type="image/webp" />
-                  <source srcSet={`${image.optimized!.desktop}.webp`} type="image/webp" />
-                </>
-              )}
-              <Image
-                src={primarySrc}
-                alt={image.alt}
-                fill
-                className="object-cover"
-                priority={image.priority !== false}
-                sizes="(max-width: 640px) 640px, (max-width: 1024px) 1024px, 1920px"
-                quality={82}
-                placeholder={blurDataURL ? 'blur' : 'empty'}
-                blurDataURL={blurDataURL}
-                style={{ objectPosition }}
-              />
-            </picture>
-          ) : (
-            <Image
-              src={image.src}
-              alt={image.alt}
-              fill
-              className="object-cover"
-              priority={image.priority !== false}
-              sizes="(max-width: 640px) 640px, (max-width: 1024px) 1024px, 1920px"
-              quality={82}
-              placeholder={blurDataURL ? 'blur' : 'empty'}
-              blurDataURL={blurDataURL}
-              style={{ objectPosition }}
-            />
-          )}
+          <Image
+            src={image.src}
+            alt={image.alt}
+            fill
+            className="object-cover"
+            priority={image.priority !== false}
+            sizes="(max-width: 640px) 640px, (max-width: 1024px) 1024px, 1920px"
+            quality={82}
+            placeholder={blurDataURL ? 'blur' : 'empty'}
+            blurDataURL={blurDataURL}
+            style={{ objectPosition }}
+          />
         </div>
         <div className={cn('absolute inset-0', overlayClasses[overlay])} />
       </div>
@@ -199,4 +163,3 @@ export function HeroSectionServer({
     </section>
   )
 }
-

@@ -41,9 +41,6 @@ export * from './feedback/Loading'
 // Accessibility components
 export { LiveRegion, announceToScreenReader, useLiveRegion } from './LiveRegion'
 
-// Image components
-export { MobileOptimizedImage, ResponsivePicture, HeroImage, GalleryImage } from './MobileOptimizedImage'
-
 // Utility components
 export { IconText } from './IconText'
 export { JourneyTime, JourneyTimes } from './JourneyTime'

@@ -6,20 +6,9 @@ export interface HeaderImageConfig {
   alt: string;
   isFallback?: boolean;
   blurDataURL?: string;
-  optimized?: {
-    mobile: string;
-    tablet: string;
-    desktop: string;
-    formats?: Array<'avif' | 'webp'>;
-  };
 }
 
 const IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.webp'];
-const OPTIMIZED_TARGETS = [
-  { key: 'mobile', width: 640 },
-  { key: 'tablet', width: 1024 },
-  { key: 'desktop', width: 1920 }
-] as const;
 
 // Descriptive alt text for each page header
 const PAGE_HEADER_ALT_TEXT: Record<string, string> = {
@@ -53,118 +42,6 @@ const PAGE_HEADER_ALT_TEXT: Record<string, string> = {
   'near-heathrow-terminal-5': 'The Anchor pub exterior with Terminal 5 aircraft passing overhead'
 };
 
-function resolvePublicPath(urlPath: string): string {
-  const normalizedPath = urlPath.startsWith('/') ? urlPath.slice(1) : urlPath;
-  return path.join(process.cwd(), 'public', normalizedPath);
-}
-
-function inferOptimizedFormats(optimized: NonNullable<HeaderImageConfig['optimized']>): Array<'avif' | 'webp'> {
-  const sizeKeys = ['mobile', 'tablet', 'desktop'] as const;
-  const formats: Array<'avif' | 'webp'> = [];
-
-  const hasEverySize = (extension: 'avif' | 'webp') =>
-    sizeKeys.every((key) => fs.existsSync(resolvePublicPath(`${optimized[key]}.${extension}`)));
-
-  if (hasEverySize('avif')) {
-    formats.push('avif');
-  }
-  if (hasEverySize('webp')) {
-    formats.push('webp');
-  }
-
-  return formats;
-}
-
-function normaliseOptimizedConfig(
-  optimized: NonNullable<HeaderImageConfig['optimized']>
-): NonNullable<HeaderImageConfig['optimized']> | null {
-  if (!optimized?.mobile || !optimized?.tablet || !optimized?.desktop) {
-    return null;
-  }
-
-  const desktopJpgPath = resolvePublicPath(`${optimized.desktop}.jpg`);
-  if (!fs.existsSync(desktopJpgPath)) {
-    return null;
-  }
-
-  return {
-    ...optimized,
-    formats: inferOptimizedFormats(optimized)
-  };
-}
-
-function getOptimizedConfig(pageFolderPath: string): Pick<HeaderImageConfig, 'optimized' | 'blurDataURL'> | null {
-  const optimizedDir = path.join(pageFolderPath, 'optimized');
-  if (!fs.existsSync(optimizedDir)) {
-    return null;
-  }
-
-  const heroMetaPath = path.join(optimizedDir, 'hero-metadata.json');
-  if (fs.existsSync(heroMetaPath)) {
-    try {
-      const metadata = JSON.parse(fs.readFileSync(heroMetaPath, 'utf-8'));
-      if (metadata?.optimized?.mobile && metadata?.optimized?.tablet && metadata?.optimized?.desktop) {
-        const normalizedOptimizedConfig = normaliseOptimizedConfig(metadata.optimized);
-        if (!normalizedOptimizedConfig) {
-          return null;
-        }
-        return {
-          optimized: normalizedOptimizedConfig,
-          blurDataURL: metadata.blurDataURL
-        };
-      }
-    } catch (error) {
-      console.warn('Failed to parse hero metadata', error);
-    }
-  }
-
-  const metaFile = fs
-    .readdirSync(optimizedDir)
-    .find((file) => file.endsWith('.meta.json'));
-
-  if (!metaFile) {
-    return null;
-  }
-
-  try {
-    const metadata = JSON.parse(
-      fs.readFileSync(path.join(optimizedDir, metaFile), 'utf-8')
-    );
-    const optimizedImages = Array.isArray(metadata?.optimizedImages) ? metadata.optimizedImages : [];
-
-    const jpgs = optimizedImages
-      .filter((image: any) => image?.format === 'jpg' && typeof image?.width === 'number' && typeof image?.path === 'string')
-      .sort((a: any, b: any) => a.width - b.width);
-
-    if (!jpgs.length) {
-      return null;
-    }
-
-    const optimized = OPTIMIZED_TARGETS.reduce((acc, target) => {
-      const candidate = jpgs.find((image: any) => image.width >= target.width) || jpgs[jpgs.length - 1];
-      if (candidate?.path) {
-        acc[target.key] = candidate.path.replace(/\.jpg$/i, '');
-      }
-      return acc;
-    }, {} as Record<typeof OPTIMIZED_TARGETS[number]['key'], string>);
-
-    if (optimized.mobile && optimized.tablet && optimized.desktop) {
-      const normalizedOptimizedConfig = normaliseOptimizedConfig(optimized);
-      if (!normalizedOptimizedConfig) {
-        return null;
-      }
-      return {
-        optimized: normalizedOptimizedConfig,
-        blurDataURL: metadata?.blurDataURL
-      };
-    }
-  } catch (error) {
-    console.warn('Failed to parse optimized metadata', error);
-  }
-
-  return null;
-}
-
 /**
  * Gets the header image for a given page route
  * @param route - The page route (e.g., '/whats-on', '/food-menu')
@@ -197,14 +74,12 @@ export function getPageHeaderImage(route: string): HeaderImageConfig | null {
         // Get descriptive alt text or fall back to a generated one
         const altText = PAGE_HEADER_ALT_TEXT[folderName] || 
           `The Anchor pub ${route === '/' ? 'homepage' : route.replace(/\//g, ' ').replace(/-/g, ' ').trim()} header image`;
-        const optimizedConfig = getOptimizedConfig(pageFolderPath);
 
         // Return the image configuration
         return {
           src: `/images/page-headers/${folderName}/${imageFile}`,
           alt: altText,
-          isFallback: false,
-          ...(optimizedConfig ?? {})
+          isFallback: false
         };
       }
     }
@@ -244,13 +119,9 @@ export function getPageHeaderImage(route: string): HeaderImageConfig | null {
  * Uses the homepage hero image as the default
  */
 export function getDefaultHeaderImage(): HeaderImageConfig {
-  const homeFolderPath = path.join(process.cwd(), 'public/images/page-headers/home');
-  const optimizedConfig = getOptimizedConfig(homeFolderPath);
-
   return {
     src: '/images/page-headers/home/page-headers-homepage.jpg',
     alt: 'The Anchor pub entrance with warm lighting and traditional British pub signage',
-    isFallback: true,
-    ...(optimizedConfig ?? {})
+    isFallback: true
   };
 }

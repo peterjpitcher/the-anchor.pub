@@ -22,5 +22,5 @@ export const PRIVATE_HIRE_2026_PROMO_PHONE_HREF = 'tel:+441753682707'
 
 // Optional hero image for the popup (stored in /public).
 // Replace this with a dedicated promo image when available.
-export const PRIVATE_HIRE_2026_PROMO_IMAGE_SRC = '/images/page-headers/home/optimized/EventHire2026.jpg'
+export const PRIVATE_HIRE_2026_PROMO_IMAGE_SRC = '/images/page-headers/home/page-headers-homepage.jpg'
 export const PRIVATE_HIRE_2026_PROMO_IMAGE_ALT = 'The Anchor pub in Stanwell Moor'
