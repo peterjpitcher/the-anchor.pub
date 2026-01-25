@@ -212,7 +212,7 @@ export default async function HortonPubPage() {
                                 <h3 className="text-xl font-bold text-amber-800 mb-4">Entertainment Nearby</h3>
                                 <ul className="space-y-2 text-gray-700">
                                     <li>• Monthly Quiz Nights (Short taxi ride home!)</li>
-                                    <li>• Drag Shows & Live Music</li>
+                                    <li>• Music Bingo with Nikki Manfadge & live music (see /whats-on)</li>
                                     <li>• Cash Bingo Nights</li>
                                     <li>• Sky & TNT Sports on big screens</li>
                                 </ul>
@@ -263,7 +263,7 @@ export default async function HortonPubPage() {
                     },
                     {
                         question: "Do you serve Sunday Roast?",
-                        answer: "Yes, our Sunday Roasts are famous in the area. We serve them every Sunday from 12pm. Booking is highly recommended as we often fill up with locals from Stanwell Moor and Horton."
+                        answer: "Yes, our Sunday Roasts are famous in the area. We serve them every Sunday from 1pm. Booking is highly recommended as we often fill up with locals from Stanwell Moor and Horton."
                     },
                     {
                         question: "Is there parking?",

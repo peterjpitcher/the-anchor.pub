@@ -169,7 +169,7 @@ export default async function WraysburyPubPage() {
                                 {
                                     icon: "🎭",
                                     title: "Live Entertainment",
-                                    description: "Drag shows, quiz nights, and bingo - lively events you won't find everywhere",
+                                    description: "Music Bingo with Nikki Manfadge, quiz nights, and bingo - lively events you won't find everywhere (see /whats-on)",
                                     variant: "colored",
                                     color: "bg-anchor-cream",
                                     className: "rounded-xl p-6 text-center"
@@ -210,7 +210,7 @@ export default async function WraysburyPubPage() {
                             <div className="bg-purple-50 rounded-xl p-6">
                                 <h3 className="text-xl font-bold text-purple-800 mb-4">What's On</h3>
                                 <p className="text-gray-700 mb-4">
-                                    Join us for our famous Drag Shows or test your knowledge at our monthly Quiz Night. It's the perfect night out just down the road.
+                                    Join us for Music Bingo hosted by Nikki Manfadge or test your knowledge at our quiz nights. See /whats-on for the latest listings.
                                 </p>
                                 <Link href="/whats-on" className="text-purple-600 font-bold hover:underline">
                                     Check Event Calendar →

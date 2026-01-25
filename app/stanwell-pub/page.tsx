@@ -237,7 +237,7 @@ export default async function StanwellPubPage() {
                   <li className="flex items-start gap-3">
                     <span className="text-anchor-gold text-xl">🎭</span>
                     <div>
-                      <strong>Drag Show Entertainment</strong> - Monthly shows bringing glamour to Stanwell
+                      <strong>Hosted Nights</strong> - Music Bingo with Nikki Manfadge and one-off events (see /whats-on)
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
@@ -297,7 +297,7 @@ export default async function StanwellPubPage() {
                   <li>• Chicken Katsu Curry</li>
                   <li>• Stone-baked Pizzas</li>
                 </ul>
-                <p className="mt-3 text-sm text-blue-700">Kitchen: Tue-Fri 6-9pm, Sat 1-7pm, Sun 12-5pm</p>
+                <p className="mt-3 text-sm text-blue-700">Kitchen: Tue-Fri 6-9pm, Sat 1-7pm, Sun 1-6pm</p>
               </div>
             </div>
 

@@ -131,10 +131,8 @@ const getAvailableSundays = (): { value: string; label: string }[] => {
   return sundays
 }
 
-// Sunday lunch time slots (12pm to 5pm, every 30 minutes)
+// Sunday lunch time slots (1pm to 6pm, every 30 minutes)
 const SUNDAY_TIME_SLOTS = [
-  { value: '12:00', label: '12:00pm' },
-  { value: '12:30', label: '12:30pm' },
   { value: '13:00', label: '1:00pm' },
   { value: '13:30', label: '1:30pm' },
   { value: '14:00', label: '2:00pm' },
@@ -143,7 +141,9 @@ const SUNDAY_TIME_SLOTS = [
   { value: '15:30', label: '3:30pm' },
   { value: '16:00', label: '4:00pm' },
   { value: '16:30', label: '4:30pm' },
-  { value: '17:00', label: '5:00pm' }
+  { value: '17:00', label: '5:00pm' },
+  { value: '17:30', label: '5:30pm' },
+  { value: '18:00', label: '6:00pm' }
 ]
 
 // Party size options
@@ -699,7 +699,7 @@ export default function SundayLunchBooking({
 
               <div className="mt-4 flex items-center gap-2 text-sm text-gray-600">
                 <Icon name="info" className="h-4 w-4" />
-                <span>Sunday lunch is served from 12pm to 5pm</span>
+                <span>Sunday lunch is served from 1pm to 6pm</span>
               </div>
             </form>
           </CardBody>

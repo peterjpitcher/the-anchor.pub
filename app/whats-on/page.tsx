@@ -8,8 +8,6 @@ import { Metadata } from 'next'
 import { Suspense } from 'react'
 import { CTASection, SectionHeader, FeatureGrid, InfoBoxGrid } from '@/components/ui'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
-import { EventSchema } from '@/components/seo/EventSchema'
-import { staticEvents } from '@/lib/static-events'
 import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
 import { SocialLink } from '@/components/SocialLink'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
@@ -17,25 +15,25 @@ import { SpeakableSchema } from '@/components/seo/SpeakableSchema'
 import { SpeakableContent } from '@/components/voice/SpeakableContent'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
 import { BookTableButton } from '@/components/BookTableButton'
-import { quizNightEventSeries, dragShowEventSeries, bingoEventSeries } from '@/lib/schema'
+import { quizNightEventSeries, bingoEventSeries } from '@/lib/schema'
 import { getBusinessHours } from '@/lib/api'
 import { buildOpeningHoursSchema, DEFAULT_OPENING_HOURS_SCHEMA } from '@/lib/opening-hours-schema'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
-  title: "What's On at The Anchor (Near Heathrow T5) | Drag Shows, Quiz & Bingo",
-  description: "See what's on at The Anchor in Stanwell Moor near Heathrow Terminal 5 and Staines: drag shows, quiz nights, cash bingo, live sport, and free pool & darts. Free parking on site.",
-  keywords: "whats on near heathrow terminal 5, pub events near staines, drag show near heathrow, quiz night stanwell moor, bingo near terminal 5, the anchor events",
+  title: "What's On at The Anchor (Near Heathrow T5) | Music Bingo, Quiz & Bingo",
+  description: "See what's on at The Anchor in Stanwell Moor near Heathrow Terminal 5 and Staines: quiz nights, Music Bingo hosted by Nikki Manfadge, cash bingo, live sport, and one-off events. Free parking on site.",
+  keywords: "whats on near heathrow terminal 5, pub events near staines, music bingo near heathrow, quiz night stanwell moor, bingo near terminal 5, the anchor events",
   openGraph: {
     title: "What's On at The Anchor Near Heathrow Terminal 5",
-    description: "Live calendar for drag shows, quiz nights, bingo and sport at The Anchor in Stanwell Moor with free parking.",
-    images: ["/images/events/drag-shows/the-anchor-drag-show-nikki-manfadge-stanwell-moor.jpg"],
+    description: "Live calendar for quiz nights, hosted events, bingo and sport at The Anchor in Stanwell Moor with free parking.",
+    images: ["/images/events/quiz-night/the-anchor-quiz-night-stanwell-moor.jpg"],
   },
   twitter: getTwitterMetadata({
     title: "What's On at The Anchor Near Heathrow Terminal 5",
-    description: "See The Anchor's entertainment diary for drag shows, quiz nights, bingo and live sport close to Heathrow with free parking.",
-    images: ["/images/events/drag-shows/the-anchor-drag-show-nikki-manfadge-stanwell-moor.jpg"]
+    description: "See The Anchor's entertainment diary for quiz nights, hosted events, bingo and live sport close to Heathrow with free parking.",
+    images: ["/images/events/quiz-night/the-anchor-quiz-night-stanwell-moor.jpg"]
   }),
   alternates: {
     canonical: '/whats-on'
@@ -76,14 +74,13 @@ export default async function WhatsOnPage() {
         dangerouslySetInnerHTML={{
           __html: jsonLdSafeStringify([
             quizNightEventSeries,
-            dragShowEventSeries,
             bingoEventSeries,
             {
               "@context": "https://schema.org",
               "@type": "EventVenue",
               "@id": "https://www.the-anchor.pub/#event-venue",
               "name": "The Anchor Event Space",
-              "description": "Versatile event space hosting drag shows, quiz nights, bingo, and live entertainment",
+              "description": "Versatile event space hosting quiz nights, hosted events, bingo, and live entertainment",
               "address": {
                 "@type": "PostalAddress",
                 "streetAddress": "Horton Road",
@@ -128,10 +125,10 @@ export default async function WhatsOnPage() {
       <HeroWrapper
         route="/whats-on"
         title="What's On at The Anchor"
-        description="From drag shows to quiz nights - there's always something happening!"
+        description="From Music Bingo hosted by Nikki Manfadge to quiz nights and one-off events — check the listings for the latest."
         variant="promo"
 	        tags={[
-	          { label: '👑 Drag Shows', variant: 'primary' },
+	          { label: '🎤 Music Bingo (Nikki)', variant: 'primary' },
 	          { label: '🧠 Quiz Night GBP 3', variant: 'warning' },
 	          { label: '🎱 Pool & Darts FREE', variant: 'default' },
 	          { label: '🍺 Great Atmosphere', variant: 'success' }
@@ -218,8 +215,8 @@ export default async function WhatsOnPage() {
                 title: "🎉 Weekly Headliners",
                 content: (
 	                  <ul className="list-disc list-inside text-gray-700 space-y-2 text-left">
-	                    <li>Signature drag shows hosted by Nikki Manfadge</li>
-	                    <li>GBP 3 quiz night every Thursday for teams up to six</li>
+	                    <li>Music Bingo hosted by Nikki Manfadge</li>
+	                    <li>GBP 3 quiz night (see listings for dates)</li>
 	                    <li>Cash bingo, karaoke & live sport rotations</li>
 	                  </ul>
                 ),
@@ -268,7 +265,7 @@ export default async function WhatsOnPage() {
               {
                 icon: "🚗",
                 title: "Ashford & Feltham",
-                description: "Easy A3044 route for groups looking for quiz nights, drag shows and bingo.",
+                description: "Easy A3044 route for groups looking for quiz nights, Music Bingo and bingo.",
                 className: "text-center"
               },
               {
@@ -316,15 +313,15 @@ export default async function WhatsOnPage() {
           />
 
           <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            <Link href="/whats-on/drag-shows" className="group">
+            <Link href="/whats-on" className="group">
               <Card variant="default" className="h-full transition-all hover:shadow-lg hover:scale-105 bg-gradient-to-br from-purple-100 to-pink-100">
                 <CardBody className="text-center p-8">
                   <div className="text-5xl mb-4">👑</div>
                   <h3 className="text-2xl font-bold text-anchor-green mb-3 group-hover:text-purple-700">
-                    Drag Shows with Nikki Manfadge
+                    Music Bingo with Nikki Manfadge
                   </h3>
                   <p className="text-gray-700 mb-4">
-                    Spectacular Saturday entertainment with games, karaoke, and fierce performances.
+                    Hosted nights and one-off events — see /whats-on for the latest details.
                   </p>
                   <p className="text-purple-700 font-semibold">Learn more →</p>
                 </CardBody>
@@ -554,16 +551,16 @@ export default async function WhatsOnPage() {
       <FAQAccordionWithSchema
         faqs={[
           {
-            question: "When are the drag shows at The Anchor?",
-            answer: "Our fabulous drag shows run monthly, alternating between Nikki's Games Night and Nikki's Karaoke Night (both starting at 7pm). While there's no age restriction, please note there may be adult language. Entry is FREE but we recommend arriving early to get a good seat!"
+            question: "What hosted nights do you have at The Anchor?",
+            answer: "We host occasional nights with Nikki Manfadge (including Music Bingo), plus a handful of one-off events throughout the year. See /whats-on for the latest dates and details."
           },
 	          {
 	            question: "What time is quiz night at The Anchor?",
-	            answer: "Quiz night is held monthly (date varies), starting at 7pm. Entry is GBP 3 per person. Prizes include a GBP 25 bar voucher for 1st place, and the 2nd from last team wins a bottle of wine. Check our social media for the next quiz date!"
+	            answer: "Quiz night runs monthly (dates vary). Entry is GBP 3 per person. Prizes include a GBP 25 bar voucher for 1st place, and the 2nd from last team wins a bottle of wine. See /whats-on for the next quiz listing."
 	          },
           {
             question: "Do I need to book for events at The Anchor?",
-            answer: "For most regular events like drag shows and quiz nights, booking isn't required but arriving early is recommended as we do get busy! For special events, private parties, or large groups, please call us on 01753 682707 to reserve your space."
+            answer: "For many nights, booking isn't required but arriving early is recommended as we do get busy. For special events, private parties, or large groups, please call us on 01753 682707 to reserve your space. See /whats-on for the latest event details."
           },
           {
             question: "Can I hire The Anchor for a private party?",
@@ -575,15 +572,15 @@ export default async function WhatsOnPage() {
 	          },
           {
             question: "Are children allowed at The Anchor events?",
-            answer: "Children are always welcome at The Anchor with no time restrictions. Our drag shows have no age restriction, but please be aware there may be adult language. Some special events may be adults-only (18+). Please check when booking if bringing children."
+            answer: "Children are always welcome at The Anchor, but suitability can vary by event. Some special events may be adults-only (18+). Please check /whats-on for the latest guidance when booking or planning a visit."
           },
 	          {
 	            question: "How much are tickets for events at The Anchor?",
-	            answer: "Our monthly drag shows are FREE entry! Quiz night is GBP 3 per person, and bingo is GBP 10 per book. Special ticketed events vary in price - check our social media or call us for specific event pricing."
+	            answer: "Pricing varies by event. Quiz night is GBP 3 per person, and bingo is GBP 10 per book. Some one-off events may be ticketed. See /whats-on for the latest pricing and details."
 	          },
           {
             question: "Is there entertainment every night at The Anchor?",
-            answer: "We have scheduled entertainment throughout the month including monthly quiz nights, drag shows (alternating between Games Night and Karaoke Night), bingo nights, and special events. Check our What's On page or social media for upcoming dates."
+            answer: "We host a mix of quiz nights, bingo, hosted nights and one-off events throughout the month. See /whats-on for upcoming listings."
           },
           {
             question: "What payment methods are accepted for events?",

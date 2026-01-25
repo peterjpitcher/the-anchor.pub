@@ -1,9 +1,9 @@
 ---
 title: Best Sunday Roast Near Heathrow Airport | The Anchor Stanwell Moor
 description: >-
-  Discover the best Sunday roast near Heathrow with The Anchor's hand-carved
-  meats, veggie options, and family-friendly dining just 7 minutes from Terminal
-  5.
+  Discover the best Sunday roast near Heathrow with The Anchor’s cooked-to-order
+  roasts (chicken, lamb shank, pork belly, veg wellington) and family-friendly
+  dining just 7 minutes from Terminal 5.
 date: '2025-10-13'
 author: The Anchor Team
 keywords:
@@ -21,59 +21,64 @@ images: []
 canonical: 'https://www.the-anchor.pub/blog/best-sunday-roast-near-heathrow'
 ---
 
-![Carvery-style Sunday roast near Heathrow](/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg)
+![Sunday lunch roast with Yorkshire pudding at The Anchor](/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg)
 
 Looking for the **best Sunday roast near Heathrow Airport**? Skip the terminal food courts and head to **The Anchor in Stanwell Moor**—a proper village pub just 7 minutes from Terminal 5 and 12 minutes from Terminals 2 & 3. Whether you’re entertaining family flying in, heading home after a weekend away, or simply craving fluffy Yorkshire puddings, we’ve got your roast sorted.
 
 ## Why Travellers & Locals Choose The Anchor for Sunday Lunch
 
-### 1. Hand-Carved Meats with Local Provenance
-- Choose from 28-day aged **Surrey beef**, herb-crusted **pork loin**, rosemary **half chicken**, or our signature **vegetarian wellington**.
-- Each plate is hand carved to order and comes with pillowy Yorkshire puddings, goose-fat roast potatoes, honey carrots, seasonal greens, and rich homemade gravy.
-- We proudly source from nearby suppliers to keep quality sky-high and food miles low.
+### 1. Proper Roasts, Cooked Fresh to Order
+- Choose from roasted chicken, slow-cooked lamb shank, crispy pork belly, or beetroot & butternut squash wellington (V).
+- Every plate comes with herb and garlic-crusted roast potatoes, Yorkshire pudding, seasonal vegetables, and red wine gravy (vegetarian gravy available).
+- Adult roasts are typically **GBP 19.99–23.99**; kids roast chicken is **GBP 13.99**.
 
 ### 2. Perfect for Heathrow Itineraries
-- **Quick pre-flight dining**: Kitchen open 12pm–5pm; average dwell time 75 minutes so you make your flight without stress.
-- **Free customer parking** just outside the pub; no airport fees or queues.
-- **Flying crew and hotel guests** love our table service and reliable timings between airport transfers.
+- **Sunday service:** 1pm–6pm (last orders 5:30pm).
+- **Pre-order deadline:** Saturday 1pm.
+- **Free parking** available for guests.
 
 ### 3. Family-Friendly & Group Ready
-- High chairs, colouring sheets, and a dedicated children’s roast portion.
-- Dogs welcome in the bar area—ideal for families meeting loved ones with pets in tow.
-- Book the snug or dining room for **10–30 guests**; chat with the team about sharing platters to keep service speedy for large parties.
+- High chairs available, plus a selection of games for the table.
+- A big garden for kids to run around (with adult supervision).
+- TVs in the bar area show sport (we don’t show cartoons).
+- Dogs welcome in the bar and garden areas.
+- Book the snug or dining room for **10–30 guests**.
+- Bookings of **7+** require a card hold to secure the booking (no charge).
 
 ## Sunday Roast Menu Highlights
 
+All roasts are served with roast potatoes, Yorkshire pudding, seasonal vegetables, and gravy.
+
 | Option | What’s Included | Perfect For |
 | --- | --- | --- |
-| **The Anchor Beef Roast** | Hand-carved topside, Yorkshire pudding, goose-fat potatoes, horseradish cream | Traditionalists & business travellers |
-| **Slow-Roasted Pork Loin** | Crackling, apple sauce, sticky red cabbage, pork gravy | Families & comfort food fans |
-| **Half Roast Chicken** | Thyme butter baste, sage stuffing, garlic greens | Protein lovers and sharers |
-| **Heritage Veg Wellington (V)** | Roasted squash, spinach, chestnut duxelle, veggie gravy | Vegetarians & flexitarians |
-| **Children’s Roast** | Smaller portion of any roast with veg, gravy & a mini pud | Under 12s |
+| **Roasted Chicken (GBP 19.99)** | Chicken breast, sage & onion stuffing balls, red wine gravy | Classic roast lovers |
+| **Slow-Cooked Lamb Shank (GBP 23.99)** | Tender lamb shank in rich red wine gravy | When you want something special |
+| **Crispy Pork Belly (GBP 21.99)** | Crackling, Bramley apple sauce, red wine gravy | Pork fans |
+| **Beetroot & Butternut Squash Wellington (V) (GBP 19.99)** | Veg wellington (vegetarian gravy available) | Vegetarian option |
+| **Kids Roasted Chicken (GBP 13.99)** | Smaller portion with all the trimmings | Little appetites |
 
 > **Tip:** Want to guarantee your favourite joint? **Book by 1pm Saturday** and we’ll make sure it’s waiting for you.
 
 ## Booking Guide
 
-1. **Reserve your table** via our [online booking system](/book-table) or call 01753 682707.
-2. **Party of 8 or more?** We’ll follow up so the kitchen knows what to expect and can pace service.
-3. **Large groups:** Bookings of 7+ require a card hold to secure the booking (no charge).
-4. **Need a fast turnaround?** Let us know your flight time; we’ll pace courses accordingly.
+1. **Reserve your table** via [Sunday lunch booking](/sunday-lunch) or call 01753 682707.
+2. **Choose your roast(s)** and pre-order by **Saturday 1pm**.
+3. **Large groups:** bookings of **7+** require a card hold to secure the booking (no charge).
+4. **Need a fast turnaround?** Let us know your flight time; we’ll pace service accordingly.
 
 ## Heathrow Traveller Tips
 
-- **Terminals 2 & 3:** 11-minute drive; taxis run GBP 12–18 depending on traffic.
+- **Terminals 2 & 3:** 11-minute drive (traffic depending).
 - **Terminal 4:** 14 minutes via Southern Perimeter Road—allow extra time on rugby weekends.
 - **Terminal 5:** 7 minutes door-to-door; ideal for crew briefings or family send-offs.
 - **Luggage welcome:** We have space for cabin cases and overnight bags at tables.
-- **Parking:** Tap your reg on arrival to enjoy 3 hours free; speak to the team if you need longer.
+- **Parking:** Free parking available for guests.
 - **Short layover?** Use our [Heathrow layover dining guide](/heathrow-layover-dining) to time taxis, ordering, and returns to security.
 
 ## Make a Day of It
 
 - Pair Sunday lunch with a stroll along the **Colne Valley** or plane spotting from our **beer garden**.
-- Bringing kids? The **Stanwell Moor village green** is across the road for pre/post roast energy burning.
+- Bringing kids? Our big garden is perfect for pre/post roast energy burning.
 - Staying overnight? Ask for nearby hotel recommendations that suit your onward travel plans.
 
 ## Frequently Asked Questions
@@ -81,12 +86,12 @@ Looking for the **best Sunday roast near Heathrow Airport**? Skip the terminal f
 ### Do you cater for gluten-free or vegan diners?
 Absolutely. Our gravy is gluten-free by default, and we can adapt sides. Give us 24 hours’ notice for vegan puddings.
 
-### Can I order a Sunday roast for takeaway?
-Yes—collection slots run 12:30pm–4:30pm. Call ahead so we can time your order perfectly.
+### Do you take a deposit?
+No. For bookings of 7 or more, we take a card hold to secure the booking (no charge).
 
 ### Do you show Sunday sports?
 Premier League and F1 are shown in the bar area (sound off during dining service). Let us know your preference when booking.
 
 ---
 
-Ready to enjoy the **top-rated Sunday roast near Heathrow**? [Book your table now](/book-table) or WhatsApp us on **+44 1753 682707** for quick enquiries. Free parking, friendly service, and plates that rival any airport restaurant—see you Sunday!
+Ready to enjoy the **top-rated Sunday roast near Heathrow**? [Book Sunday lunch now](/sunday-lunch) or WhatsApp us on **+44 1753 682707** for quick enquiries. Free parking, friendly service, and plates that rival any airport restaurant—see you Sunday!

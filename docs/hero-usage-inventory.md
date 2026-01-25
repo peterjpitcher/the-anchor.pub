@@ -44,7 +44,7 @@
 | /sitemap-page | feature | — | primary slot, secondary slot |
 | /staines-pub | default | tags=[ { label: "📍 Just 8 Minutes from Staines", variant: "warning" } ] | primary slot, secondary slot |
 | /stanwell-pub | default | — | primary slot, secondary slot |
-| /sunday-lunch | default | tags=[ { label: "Served Sundays 12pm–5pm", variant: "warning" }, { label: "Card hold for 7+ bookings", variant: "default" }, { label: "Free Parking • Family Friendly", variant: "default" } ] | primary slot, secondary slot, info slot |
+| /sunday-lunch | default | tags=[ { label: "Served Sundays 1pm–6pm", variant: "warning" }, { label: "Card hold for 7+ bookings", variant: "default" }, { label: "Free Parking • Family Friendly", variant: "default" } ] | primary slot, secondary slot, info slot |
 | /whats-on/drag-shows | promo | tags=[ { label: '👑 7PM Start', variant: 'default' }, { label: '🎭 Live Performance', variant: 'default' }, { label: '🏳️‍🌈 Everyone Welcome', variant: 'default' }, { label: '🍹 Themed Cocktails', variant: 'default' } ] | primary slot, secondary slot |
 | /whats-on | promo | tags=[ { label: '👑 Drag Shows', variant: 'primary' }, { label: '🧠 Quiz Night GBP 3', variant: 'warning' }, { label: '🎱 Pool & Darts FREE', variant: 'default' }, { label: '🍺 Great Atmosphere', variant: 'success' } ] | primary slot, secondary slot |
 | /windsor-pub | default | — | primary slot, secondary slot |

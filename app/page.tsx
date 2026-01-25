@@ -45,14 +45,14 @@ export const revalidate = 60 * 60 * 24 // 24 hours
 
 export const metadata: Metadata = {
   title: 'The Anchor Pub | Stanwell Moor Near Heathrow & Staines',
-  description: 'The Anchor pub in Stanwell Moor - we\'re 7 minutes from Heathrow Terminal 5 and 8 minutes from Staines. Free parking, Sunday roasts, stone-baked pizzas, drag shows and quiz nights.',
+  description: 'The Anchor pub in Stanwell Moor - we\'re 7 minutes from Heathrow Terminal 5 and 8 minutes from Staines. Free parking, Sunday roasts, stone-baked pizzas, and hosted events like Music Bingo with Nikki Manfadge. See /whats-on for the latest.',
   keywords: 'the anchor pub, stanwell moor pub, staines pub, heathrow pub with parking, sunday roast near staines, stone-baked pizza',
   alternates: {
     canonical: '/'
   },
   openGraph: {
     title: 'The Anchor Pub | Stanwell Moor Near Heathrow & Staines',
-    description: 'The Anchor pub in Stanwell Moor - we\'re 7 minutes from Heathrow Terminal 5 and 8 minutes from Staines. Free parking, Sunday roasts, stone-baked pizzas, drag shows and quiz nights.',
+    description: 'The Anchor pub in Stanwell Moor - we\'re 7 minutes from Heathrow Terminal 5 and 8 minutes from Staines. Free parking, Sunday roasts, stone-baked pizzas, and hosted events like Music Bingo with Nikki Manfadge. See /whats-on for the latest.',
     url: '/',
     siteName: 'The Anchor',
     images: [
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
   },
   twitter: getTwitterMetadata({
     title: 'The Anchor Pub | Stanwell Moor Near Heathrow & Staines',
-    description: 'Free parking, Sunday roasts, stone-baked pizzas, drag shows and quiz nights - 7 minutes from Heathrow Terminal 5.',
+    description: 'Free parking, Sunday roasts, stone-baked pizzas, and hosted events like Music Bingo with Nikki Manfadge. See /whats-on for the latest.',
     images: [DEFAULT_OG_IMAGE]
   })
 }
@@ -242,7 +242,7 @@ export default function HomePage() {
                 </div>
                 <div className="flex items-start gap-2">
                   <span className="font-semibold text-anchor-gold">🎉</span>
-                  <span>Weekly drag shows, quiz nights and live bingo entertainment</span>
+                  <span>Hosted nights like Music Bingo with Nikki Manfadge, plus one-off events (see /whats-on)</span>
                 </div>
               </div>
             </div>
@@ -308,10 +308,10 @@ export default function HomePage() {
                 title: "Events & Entertainment",
                 description: (
                   <>
-                    <Link href="/whats-on/drag-shows" className="text-anchor-gold hover:text-anchor-gold-light underline font-semibold">
-                      Spectacular Saturday drag shows
+                    <Link href="/whats-on" className="text-anchor-gold hover:text-anchor-gold-light underline font-semibold">
+                      Hosted nights like Music Bingo with Nikki Manfadge
                     </Link>{" "}
-                    with Nikki Manfadge, monthly quiz nights, and special events throughout the year.
+                    plus quiz nights and one-off events. See <span className="font-semibold">/whats-on</span> for the latest details.
                   </>
                 ),
                 variant: "colored",
@@ -500,9 +500,9 @@ export default function HomePage() {
 
             {/* Event Photo - Now Second */}
             <GalleryImage
-              src="/images/events/drag-shows/the-anchor-drag-show-nikki-manfadge-stanwell-moor.jpg"
-              alt="Entertainment at The Anchor - everyone welcome"
-              caption="Saturday Night Entertainment"
+              src="/images/events/quiz-night/the-anchor-quiz-night-stanwell-moor.jpg"
+              alt="Quiz night and hosted events at The Anchor"
+              caption="Events & Hosted Nights (see /whats-on)"
               width={600}
               height={600}
               priority={false}
@@ -652,7 +652,7 @@ export default function HomePage() {
           },
           {
             question: 'When is the kitchen open?',
-            answer: 'We serve food Tuesday to Friday 6pm-9pm, Saturday 1pm-7pm and Sunday 12pm-5pm.'
+            answer: 'We serve food Tuesday to Friday 6pm-9pm, Saturday 1pm-7pm and Sunday 1pm-6pm.'
           }
         ]}
       />

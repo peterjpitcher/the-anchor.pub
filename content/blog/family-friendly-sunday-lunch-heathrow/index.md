@@ -2,7 +2,7 @@
 title: Family-Friendly Sunday Lunch Near Heathrow | The Anchor Pub Guide
 description: >-
   Plan a stress-free family Sunday lunch minutes from Heathrow. Kids’ roasts,
-  high chairs, colouring packs, and free parking at The Anchor Stanwell Moor.
+  high chairs, a selection of games, and free parking at The Anchor Stanwell Moor.
 date: '2025-10-13'
 author: The Anchor Team
 keywords:
@@ -32,24 +32,24 @@ Planning a **family Sunday lunch near Heathrow**? Whether you’re welcoming rel
 - Dog-friendly bar area for four-legged family members.
 
 ### Kids Eat Like Grown-Ups
-- Children’s roast portion for **GBP 8.95**—choose any meat or veggie wellington.
-- Simple desserts like brownies or ice cream are ready to share — add them on the day.
+- Kids roasted chicken roast for **GBP 13.99** (a smaller portion of our roast with all the trimmings).
+- Adult roasts are typically **GBP 19.99–23.99** depending on your choice.
+- Desserts and hot drinks are available to add on the day.
 - Juices and soft drinks keep younger guests happy.
 
 ### Entertainment Sorted
-- Colouring sheets, crayons, and table-top games on request.
-- Outdoor tables near the village green so kids can stretch their legs before dessert.
-- Smart TVs in the bar area ready for cartoons or sports as needed.
+- A selection of games is available — just ask the team.
+- Our big garden is perfect for kids to stretch their legs (with adult supervision).
+- We have TVs in the bar area for sport, but we don’t show cartoons.
 
 ## Sample Family Sunday Lunch Timeline
 
 | Time | What Happens | Family Hack |
 | --- | --- | --- |
-| 11:45 | Arrive & park | Register number plate for 3 hours free |
-| 12:00 | Welcome drinks & kids’ packs arrive | Order kids’ starters to keep little ones occupied |
-| 12:15 | Mains served fresh from the pass | Book by 1pm Saturday to guarantee favourites |
-| 13:00 | Puddings & hot drinks | Ask for take-away boxes for leftovers |
-| 13:30 | Walk to village green | Burn off energy before the drive home |
+| 12:45 | Arrive & get settled | Grab a drink while the kitchen gets going |
+| 13:00 | Roasts served fresh to order | Pre-order by **Saturday 1pm** to secure your roast |
+| 14:00 | Puddings & hot drinks | Share desserts to keep things easy |
+| 14:30 | Garden time | Let kids burn off energy before the drive home |
 - Need airport timing? Consult our [Heathrow layover dining guide](/heathrow-layover-dining) for taxi times and boarding buffers.
 
 ## Family-Focused FAQ
@@ -71,9 +71,9 @@ Friendly, well-behaved dogs are welcome in the bar and garden areas. We have wat
 
 ## Make Your Booking Easy
 
-1. [Reserve online](/book-table) or WhatsApp **+44 1753 682707** with your party details.
+1. [Book Sunday lunch](/sunday-lunch) (or call/WhatsApp **+44 1753 682707**) with your party details.
 2. Tell us if you need high chairs, booster seats, or pram space.
-3. For parties of 8+, we’ll check in ahead of time so meals arrive together.
+3. For bookings of **7+**, we take a **card hold** to secure the booking (no charge).
 4. Want a cake or balloons? Drop them off the day before and we’ll set the table.
 
 ---

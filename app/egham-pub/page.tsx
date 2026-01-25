@@ -332,7 +332,7 @@ export default function EghamPubPage() {
                         </li>
                         <li className="flex items-start">
                           <span className="text-blue-500 mr-2">•</span>
-                          Saturday Drag Shows
+                          Hosted nights like Music Bingo with Nikki Manfadge (see /whats-on)
                         </li>
                         <li className="flex items-start">
                           <span className="text-blue-500 mr-2">•</span>

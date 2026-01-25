@@ -67,7 +67,7 @@ But to ensure our vision aligns with your desires, we need your feedback.
 
 Our commitment to excellence has driven us to elevate our offerings:
 - **Revamped menu** with fresh, quality ingredients
-- **Regular events** including quiz nights and drag shows
+- **Regular events** including quiz nights and hosted nights like Music Bingo with Nikki Manfadge (see /whats-on)
 - **Garden renovation** creating a peaceful outdoor space
 - **5-star hygiene rating** maintained consistently
 - **Free parking** for easy access from Heathrow area

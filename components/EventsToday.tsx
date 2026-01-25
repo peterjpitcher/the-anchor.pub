@@ -128,11 +128,11 @@ export function EventsToday() {
       ],
       6: [ // Saturday
         {
-          id: 'drag-show',
-          name: 'Drag Show with Nikki Manfadge',
-          time: '9:00 PM',
-          description: 'Spectacular drag performance and entertainment',
-          link: '/whats-on/drag-shows'
+          id: 'hosted-night',
+          name: 'Hosted Night (Nikki Manfadge)',
+          time: 'See /whats-on',
+          description: 'Music Bingo and one-off hosted events',
+          link: '/whats-on'
         },
         {
           id: 'cash-bingo',

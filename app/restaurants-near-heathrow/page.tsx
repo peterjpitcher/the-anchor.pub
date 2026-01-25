@@ -67,8 +67,8 @@ const restaurantSchema = {
     {
       "@type": "OpeningHoursSpecification",
       "dayOfWeek": "Sunday",
-      "opens": "12:00",
-      "closes": "17:00"
+      "opens": "13:00",
+      "closes": "18:00"
     }
   ],
   "servesCuisine": ["British", "Traditional British", "Pub Food"],
@@ -479,7 +479,7 @@ export default function RestaurantsNearHeathrowPage() {
                     </li>
                     <li className="flex justify-between">
                       <span className="font-medium">Sunday:</span>
-                      <span>12pm - 5pm</span>
+                      <span>1pm - 6pm</span>
                     </li>
                   </ul>
                   <p className="text-sm text-gray-600 mt-4">

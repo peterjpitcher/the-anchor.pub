@@ -243,7 +243,7 @@ export default function WindsorPubPage() {
                   <li className="flex items-start gap-3">
                     <span className="text-anchor-gold text-xl">🎭</span>
                     <div>
-                      <strong>Monthly Drag Shows</strong> - Spectacular entertainment, FREE entry
+                      <strong>Hosted Nights</strong> - Music Bingo with Nikki Manfadge and one-off events (see /whats-on)
                     </div>
                   </li>
 	                  <li className="flex items-start gap-3">

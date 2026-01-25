@@ -132,7 +132,7 @@ export default function BabyGuinnessPage() {
                     <ul className="space-y-1 text-gray-700">
                       <li>• After your Sunday roast</li>
                       <li>• Before our monthly quiz night</li>
-                      <li>• During drag show events</li>
+                      <li>• During hosted event nights (see /whats-on)</li>
                       <li>• Happy endings to any meal</li>
                     </ul>
                   </div>

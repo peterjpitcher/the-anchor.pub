@@ -327,7 +327,7 @@ export default function FunctionRoomHirePage() {
                   <span className="text-3xl">🎭</span>
                 </div>
                 <h3 className="font-bold mb-2">Entertainment</h3>
-                <p className="text-sm text-gray-600">Quiz nights, drag shows, themed events</p>
+                <p className="text-sm text-gray-600">Quiz nights, hosted events, themed nights (see /whats-on)</p>
               </div>
               
               <div className="text-center">

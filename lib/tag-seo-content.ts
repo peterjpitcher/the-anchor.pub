@@ -41,24 +41,24 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
   // Phase 1: High-Priority Tags
   'events': {
     name: 'Events & Entertainment',
-    description: 'Quiz nights, drag shows, seasonal celebrations, and special events',
+    description: 'Quiz nights, hosted nights like Music Bingo with Nikki Manfadge, seasonal celebrations, and one-off events',
     metaTitle: 'Pub Events Stanwell Moor | What\'s On at The Anchor Near Heathrow',
-    metaDescription: 'Discover the best pub events in Stanwell Moor. Quiz nights, drag shows, seasonal celebrations & more at The Anchor - we\'re just 7 minutes from Heathrow Airport.',
-    heroContent: 'Experience the best pub events in Stanwell Moor at The Anchor, your premier entertainment venue just minutes from Heathrow Airport. From monthly quiz nights to spectacular drag shows, we\'re the heart of local entertainment.',
-    introContent: 'The Anchor is Stanwell Moor\'s premier destination for unforgettable events and entertainment. Our packed calendar features something for everyone - test your knowledge at our legendary monthly quiz nights, enjoy fabulous drag performances with Nikki Manfadge, or celebrate at our special events. With our warm atmosphere, excellent food and drinks, and convenient location near Heathrow, we\'re the perfect venue for a memorable night out.',
+    metaDescription: 'Discover the best pub events in Stanwell Moor. Quiz nights, hosted nights, seasonal celebrations & more at The Anchor - we\'re just 7 minutes from Heathrow Airport.',
+    heroContent: 'Experience the best pub events in Stanwell Moor at The Anchor, your premier entertainment venue just minutes from Heathrow Airport. From quiz nights to hosted events like Music Bingo with Nikki Manfadge, we\'re the heart of local entertainment.',
+    introContent: 'The Anchor is Stanwell Moor\'s premier destination for unforgettable events and entertainment. Our calendar includes quiz nights, hosted nights like Music Bingo with Nikki Manfadge, and special one-off events throughout the year. With our warm atmosphere, excellent food and drinks, and convenient location near Heathrow, we\'re the perfect venue for a memorable night out. See /whats-on for the latest details.',
     valueProposition: 'Why settle for an ordinary night when you can experience extraordinary entertainment? Book your table today and discover why locals and visitors alike choose The Anchor for the best events in the area. With free parking, a welcoming atmosphere, and events throughout the week, your perfect night out is waiting.',
     keywords: ['pub events stanwell moor', 'events near heathrow', 'what\'s on stanwell moor', 'entertainment venue surrey', 'live events TW19']
   },
 
   'live-events': {
     name: 'Live Events & Nights Out',
-    description: 'Drag shows, quiz nights, bingo and special entertainment at The Anchor',
-    metaTitle: 'Live Events Near Heathrow | Drag Shows, Quiz & Bingo | The Anchor',
-    metaDescription: 'See The Anchor\'s live events calendar near Heathrow: drag shows with Nikki Manfadge, 3 quiz nights, cash bingo and seasonal entertainment with free parking.',
-    heroContent: 'Plan your next night out with The Anchor\'s live events near Heathrow. From sell-out drag shows to 3 quiz nights and charity bingo, we keep the village buzzing.',
-    introContent: 'Our calendar of live events is the heart of The Anchor. Locals and visitors flock to our drag shows, quiz nights, bingo evenings and themed parties that deliver big-city entertainment just minutes from Heathrow. With free parking and fair drink prices, we are the smart choice for live nights out.',
+    description: 'Hosted nights, quiz nights, bingo and special entertainment at The Anchor',
+    metaTitle: 'Live Events Near Heathrow | Music Bingo, Quiz & Bingo | The Anchor',
+    metaDescription: 'See The Anchor\'s live events calendar near Heathrow: Music Bingo hosted by Nikki Manfadge, quiz nights, cash bingo and seasonal entertainment with free parking.',
+    heroContent: 'Plan your next night out with The Anchor\'s live events near Heathrow. From hosted nights like Music Bingo with Nikki Manfadge to quiz nights and bingo, we keep the village buzzing.',
+    introContent: 'Our calendar of live events is the heart of The Anchor. Locals and visitors love our hosted nights, quiz nights, bingo evenings and themed parties that deliver big-city entertainment just minutes from Heathrow. With free parking and fair drink prices, we are the smart choice for live nights out. See /whats-on for the latest details.',
     valueProposition: 'Book a table before the next headline event sells out. Enjoy great value tickets, friendly staff and a lively crowd without London prices or hassle.',
-    keywords: ['live events near heathrow', 'drag show stanwell moor', 'quiz night near terminal 5', 'bingo night stanwell', 'pub entertainment TW19']
+    keywords: ['live events near heathrow', 'music bingo stanwell moor', 'quiz night near terminal 5', 'bingo night stanwell', 'pub entertainment TW19']
   },
 
   'drinks': {
@@ -152,14 +152,14 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
   },
 
   'drag-shows': {
-    name: 'Drag Shows',
-    description: 'Fabulous drag entertainment with Nikki Manfadge',
-    metaTitle: 'Drag Shows Stanwell Moor | Nikki Manfadge at The Anchor Pub',
-    metaDescription: 'Experience fabulous drag shows at The Anchor Stanwell Moor. Regular performances by Nikki Manfadge. Book your table for an unforgettable night near Heathrow.',
-    heroContent: 'Get ready for glitter, glamour, and gorgeous entertainment! The Anchor proudly presents spectacular drag shows that have become the talk of Stanwell Moor.',
-    introContent: 'Our drag shows, featuring the fabulous Nikki Manfadge and special guests, bring West End-quality entertainment to your local pub. These high-energy performances combine comedy, lip-sync perfection, audience interaction, and enough sequins to light up the night. The atmosphere is electric, inclusive, and absolutely unforgettable.',
-    valueProposition: 'Drag show nights sell out fast - book your table now to secure your spot at Stanwell Moor\'s most fabulous night out. Come as you are and prepare to be entertained like never before!',
-    keywords: ['drag shows stanwell moor', 'drag queen events surrey', 'nikki manfadge shows', 'drag night near heathrow', 'entertainment TW19']
+    name: 'Hosted Nights with Nikki Manfadge',
+    description: 'Hosted events like Music Bingo and one-off specials at The Anchor',
+    metaTitle: 'Hosted Nights Stanwell Moor | Nikki Manfadge at The Anchor Pub',
+    metaDescription: 'Discover hosted nights at The Anchor Stanwell Moor, including Music Bingo hosted by Nikki Manfadge and one-off specials. See /whats-on for the latest details.',
+    heroContent: 'Get ready for a lively night out at The Anchor. Nikki Manfadge hosts special event nights that bring games, laughs and big energy to Stanwell Moor.',
+    introContent: 'We don\'t run regular drag shows, but we do host occasional Nikki Manfadge nights (including Music Bingo) plus a handful of one-off events throughout the year. Check /whats-on for what\'s coming up next.',
+    valueProposition: 'See /whats-on for the latest hosted nights and special events. Book a table and make a night of it.',
+    keywords: ['hosted nights stanwell moor', 'music bingo near heathrow', 'nikki manfadge host', 'pub events TW19', 'entertainment near terminal 5']
   },
 
   'sports': {
@@ -333,9 +333,9 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     name: 'Entertainment',
     description: 'Live entertainment and performances',
     metaTitle: 'Pub Entertainment Stanwell Moor | Live Shows at The Anchor',
-    metaDescription: 'Experience great entertainment at The Anchor Stanwell Moor. Quiz nights, drag shows, themed events & more. Your entertainment venue near Heathrow Airport.',
-    heroContent: 'The Anchor is Stanwell Moor\'s premier entertainment destination. From quiz nights to drag shows, we bring the best entertainment to your local pub.',
-    introContent: 'Entertainment is in our DNA at The Anchor. Our diverse programme ensures there\'s something for everyone - legendary quiz nights, spectacular drag performances with Nikki Manfadge, special themed events throughout the year, and unforgettable holiday celebrations. Our venue provides the perfect intimate setting where you\'re close to the action.',
+    metaDescription: 'Experience great entertainment at The Anchor Stanwell Moor. Quiz nights, hosted nights like Music Bingo with Nikki Manfadge, themed events & more. See /whats-on for the latest.',
+    heroContent: 'The Anchor is Stanwell Moor\'s premier entertainment destination. From quiz nights to hosted events and seasonal specials, we bring the best nights out to your local pub.',
+    introContent: 'Entertainment is in our DNA at The Anchor. Our programme includes quiz nights, hosted nights like Music Bingo with Nikki Manfadge, special themed events throughout the year, and unforgettable holiday celebrations. Our venue provides the perfect intimate setting where you\'re close to the action. See /whats-on for what\'s coming up.',
     valueProposition: 'Check our entertainment calendar and book your table for an unforgettable night out. With shows throughout the week, The Anchor is where Stanwell Moor comes to be entertained.',
     keywords: ['pub entertainment stanwell moor', 'live shows heathrow', 'entertainment venue surrey', 'shows TW19', 'live entertainment']
   },

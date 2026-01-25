@@ -317,7 +317,7 @@ export default function BedfontPubPage() {
                 </div>
                 <div className="bg-anchor-cream p-4 rounded-lg">
                   <p className="font-bold">Saturday</p>
-                  <p className="text-gray-700">Drag Shows</p>
+                  <p className="text-gray-700">Music Bingo with Nikki Manfadge (see /whats-on)</p>
                 </div>
               </div>
             </div>

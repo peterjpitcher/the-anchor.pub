@@ -171,34 +171,6 @@ export const staticEvents = {
     maximumAttendeeCapacity: 200
   }),
 
-  dragShows: createRecurringEvent({
-    id: 'monthly-drag-shows',
-    slug: 'drag-shows',
-    name: 'Monthly Drag Shows with Nikki Manfadge',
-    description: 'Spectacular monthly drag performances at The Anchor with Nikki Manfadge. FREE entry!',
-    longDescription: 'Join us for our fabulous monthly drag shows featuring the incredible Nikki Manfadge and special guests. Experience dazzling performances, hilarious comedy, and unforgettable entertainment in the heart of Stanwell Moor. Our drag nights are inclusive, welcoming events that have become legendary in the local area.',
-    shortDescription: 'FREE monthly drag entertainment with Nikki Manfadge',
-    image: [
-      '/images/events/drag-shows/the-anchor-drag-show-nikki-manfadge-stanwell-moor.jpg'
-    ],
-    price: '0',
-    duration: 'PT4H',
-    category: {
-      id: 'entertainment',
-      name: 'Entertainment',
-      slug: 'entertainment',
-      color: '#ec4899',
-      icon: '👑'
-    },
-    performer: {
-      name: 'Nikki Manfadge',
-      type: 'Person'
-    },
-    startTime: '21:00',
-    endTime: '23:30',
-    maximumAttendeeCapacity: 150
-  }),
-
   quizNight: createRecurringEvent({
     id: 'monthly-quiz-night',
     slug: 'quiz-night',

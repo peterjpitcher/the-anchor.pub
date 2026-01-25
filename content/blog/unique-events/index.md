@@ -2,8 +2,8 @@
 title: Events Near Heathrow | Entertainment at The Anchor Pub
 slug: unique-events
 description: >-
-  Discover weekly events and entertainment at The Anchor pub near Heathrow
-  Airport. Quiz nights, drag shows, beer tastings in Stanwell Moor, just 7
+  Discover events and entertainment at The Anchor pub near Heathrow
+  Airport. Quiz nights, Music Bingo hosted by Nikki Manfadge, beer tastings in Stanwell Moor, just 7
   minutes from Terminal 5. Perfect for Heathrow workers' nights out and Staines
   residents. Free parking, family-friendly events, seasonal celebrations near
   the airport.
@@ -15,7 +15,7 @@ keywords:
   - events near heathrow
   - pub entertainment stanwell moor
   - quiz night near terminal 5
-  - drag shows near airport
+  - music bingo near airport
   - beer tasting heathrow
   - the anchor events
   - family events staines
@@ -32,9 +32,9 @@ hero: hero.png
 images: []
 ---
 
-## Weekly Events and Entertainment Near Heathrow Airport
+## Events and Entertainment Near Heathrow Airport
 
-Looking for entertainment near **Heathrow Terminal 5**? [The Anchor](https://www.the-anchor.pub/whats-on) pub in **Stanwell Moor**, just **7 minutes from the airport**, offers weekly events perfect for **Heathrow workers**, **Staines residents**, and visitors. From drag shows to quiz nights, our traditional pub provides quality entertainment without airport prices or hassle.
+Looking for entertainment near **Heathrow Terminal 5**? [The Anchor](https://www.the-anchor.pub/whats-on) pub in **Stanwell Moor**, just **7 minutes from the airport**, offers regular events perfect for **Heathrow workers**, **Staines residents**, and visitors. From Music Bingo hosted by Nikki Manfadge to quiz nights and one-off specials, our traditional pub provides quality entertainment without airport prices or hassle.
 
   
 
@@ -48,7 +48,7 @@ Some popular events include:
 
   
 
-*   **Special Event Nights Near Heathrow**: Enjoy our monthly entertainment including drag shows and quiz nights. Perfect for **Heathrow staff** unwinding after shifts or **Staines locals** seeking weekend entertainment just **7 minutes from Terminal 5**.
+*   **Special Event Nights Near Heathrow**: Enjoy hosted nights like Music Bingo with Nikki Manfadge, plus quiz nights and one-off events. Perfect for **Heathrow staff** unwinding after shifts or **Staines locals** seeking weekend entertainment just **7 minutes from Terminal 5**. See /whats-on for the latest.
     
 *   **Monthly Quiz Nights**: Test your knowledge at our **pub near the airport**. Popular with **airport workers** and **Stanwell Moor residents**, prizes include drinks vouchers and free meals.
     
@@ -154,7 +154,7 @@ Participating in events at The Anchor is not just about having a good time; it�
 
   
 
-As you plan your next outing, consider checking out what's happening at The Anchor. Whether it's an entertaining evening with our drag shows, a challenging quiz night with friends, or a delightful day filled with family fun, there's always an irresistible event waiting for you. So get out there and immerse yourself in the vibrant experiences that The Anchor has to offer!
+As you plan your next outing, consider checking out what's happening at The Anchor. Whether it's Music Bingo hosted by Nikki Manfadge, a challenging quiz night with friends, or a delightful day filled with family fun, there's always an irresistible event waiting for you. See /whats-on for the latest listings.
 
 ### Visit The Anchor for Events Near Heathrow
 
@@ -162,10 +162,11 @@ As you plan your next outing, consider checking out what's happening at The Anch
 ✈️ **From Heathrow**: Just 7 minutes from all terminals
 🚗 **Parking**: Free on-site parking
 📅 **Regular Events**: 
-- Quiz Night: Wednesdays from 8pm
-- Drag Shows: Selected Fridays from 8pm
-- Family Days: Selected Sundays
-- Beer Tastings: Monthly (check calendar)
+- Quiz nights
+- Music Bingo hosted by Nikki Manfadge
+- Family days
+- Beer tastings
+See /whats-on for dates and details.
 📞 **Bookings**: 01753 682707
 
 ### Why Choose The Anchor for Entertainment Near Terminal 5

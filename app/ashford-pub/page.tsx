@@ -258,7 +258,7 @@ export default async function AshfordPubPage() {
                   <li className="flex items-start gap-3">
                     <span className="text-anchor-gold text-xl">🎯</span>
                     <div>
-                      <strong>Entertainment</strong> - Quiz nights, drag shows, pool & darts
+                      <strong>Entertainment</strong> - Quiz nights, hosted nights like Music Bingo with Nikki Manfadge, pool & darts (see /whats-on)
                     </div>
                   </li>
                 </ul>

@@ -13,7 +13,7 @@ const IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.webp'];
 // Descriptive alt text for each page header
 const PAGE_HEADER_ALT_TEXT: Record<string, string> = {
   'home': 'The Anchor pub entrance with warm lighting and traditional British pub signage',
-  'whats-on': 'Collage of drag shows, quiz nights, and live music posters glowing under stage lights at The Anchor',
+  'whats-on': 'Collage of hosted nights, quiz nights, and live music posters glowing under stage lights at The Anchor',
   'food-menu': 'Signature Anchor dishes including Sunday roast, gourmet burgers, and small plates styled on a wooden table',
   'drinks': 'Backlit bar showcasing cask ales, premium spirits, and wine glasses at The Anchor',
   'sunday-lunch': 'Traditional Sunday roast with Yorkshire puddings, roasted vegetables, and rich gravy at The Anchor',
@@ -26,7 +26,7 @@ const PAGE_HEADER_ALT_TEXT: Record<string, string> = {
   'function-room-hire': 'Versatile function room at The Anchor staged for workshops with AV equipment',
   'corporate-events': 'Professional boardroom style layout in The Anchor function space ready for presentations',
   'christmas-parties': 'Festively decorated dining area with Christmas tree and holiday lights',
-  'drag-shows': 'Drag performer in sequinned gown on stage at The Anchor with cheering audience',
+  'drag-shows': 'Host on stage at The Anchor during a special event night with cheering audience',
   'ashford-pub': 'The Anchor pub showcasing its convenient location for Ashford residents',
   'staines-pub': 'Traditional British pub atmosphere at The Anchor, perfect for Staines locals',
   'm25-junction-14-pub': 'The Anchor pub exterior with easy access from M25 Junction 14',

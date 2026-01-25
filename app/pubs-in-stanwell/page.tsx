@@ -285,7 +285,7 @@ export default function PubsInStanwellPage() {
                 {
                   icon: "🎉",
                   title: "Live Entertainment",
-                  description: "Drag shows, quizzes, and special events",
+                  description: "Music Bingo with Nikki Manfadge, quizzes, and special events (see /whats-on)",
                   className: "text-center"
                 },
                 {
@@ -440,7 +440,7 @@ export default function PubsInStanwellPage() {
                 <div className="text-3xl">🎭</div>
                 <div className="flex-1">
                   <h3 className="font-bold">Saturday - Entertainment Night</h3>
-                  <p className="text-gray-600">Drag shows & events • Kitchen 1pm-7pm</p>
+                  <p className="text-gray-600">Hosted nights & one-off events • See /whats-on for details</p>
                 </div>
               </div>
               
@@ -448,7 +448,7 @@ export default function PubsInStanwellPage() {
                 <div className="text-3xl">🍖</div>
                 <div className="flex-1">
                   <h3 className="font-bold">Sunday - Roast Day</h3>
-                  <p className="text-gray-600">Traditional Sunday lunch • Kitchen 12pm-5pm</p>
+                  <p className="text-gray-600">Traditional Sunday lunch • Kitchen 1pm-6pm</p>
                 </div>
               </div>
             </div>

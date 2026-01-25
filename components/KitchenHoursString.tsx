@@ -11,7 +11,7 @@ export function KitchenHoursString() {
   const { hours } = useBusinessHours()
   
   if (!hours) {
-    return "Tuesday to Friday from 6pm-9pm, Saturday from 1pm-7pm, and Sunday from 12pm-5pm"
+    return "Tuesday to Friday from 6pm-9pm, Saturday from 1pm-7pm, and Sunday from 1pm-6pm"
   }
   
   // Build kitchen hours string from API data

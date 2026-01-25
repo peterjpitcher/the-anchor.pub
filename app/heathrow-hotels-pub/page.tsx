@@ -297,7 +297,7 @@ export default function HeathrowHotelsPubPage() {
                   <li className="flex items-start gap-3">
                     <span className="text-anchor-gold text-xl">✓</span>
                     <div>
-                      <strong>Entertainment</strong> - Quiz nights, drag shows, live atmosphere
+                      <strong>Entertainment</strong> - Quiz nights, hosted nights like Music Bingo with Nikki Manfadge, live atmosphere (see /whats-on)
                     </div>
                   </li>
                 </ul>

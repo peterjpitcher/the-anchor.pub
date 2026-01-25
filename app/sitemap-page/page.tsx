@@ -65,7 +65,7 @@ const sitemapSections: SitemapSection[] = [
       { label: "What's On", href: '/whats-on' },
       { label: 'Valentine’s Day', href: '/valentines-day' },
       { label: "Mother's Day", href: '/mothers-day' },
-      { label: 'Drag Shows', href: '/whats-on/drag-shows' },
+      { label: 'Music Bingo & Hosted Nights', href: '/whats-on' },
       { label: 'Quiz Night', href: '/quiz-night' },
       { label: 'Cash Bingo', href: '/cash-bingo' },
       { label: 'Karaoke', href: '/karaoke' },

@@ -210,7 +210,7 @@ export default function BookTablePage({
                         <li>Monday: CLOSED</li>
                         <li>Tue-Fri: 6pm-9pm</li>
                         <li>Saturday: 1pm-7pm</li>
-                        <li>Sunday: 12pm-5pm</li>
+                        <li>Sunday: 1pm-6pm</li>
                       </ul>
                       <p className="text-sm text-amber-700 mt-3 font-medium">Sunday roasts require pre-order</p>
                     </>

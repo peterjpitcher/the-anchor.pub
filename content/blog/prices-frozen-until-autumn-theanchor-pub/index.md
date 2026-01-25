@@ -112,7 +112,7 @@ Our events aren't just entertainment—they're tradition. They're what make us _
     
 *   [**Cash Bingo**](https://www.the-anchor.pub/whats-on) – _Last Friday monthly at 6pm_, GBP 10 per book
     
-*   [**Live Entertainment**](https://www.the-anchor.pub/whats-on) – _Monthly events_ – including FREE drag cabaret shows
+*   [**Live Entertainment**](https://www.the-anchor.pub/whats-on) – _Hosted nights & one-offs_ – including Music Bingo hosted by Nikki Manfadge (see /whats-on for the latest)
     
 
   

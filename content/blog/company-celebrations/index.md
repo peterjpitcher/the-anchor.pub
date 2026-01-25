@@ -75,7 +75,7 @@ At The Anchor Pub, we're more than just a community pub; we're a cherished venue
     
 *   **Christmas Parties** - Avoid expensive **airport hotel** venues! Our traditional pub offers festive packages perfect for **Terminal 5 teams**, **cargo companies**, and **Staines businesses** at a fraction of airport prices.
     
-*   **Team Building** - Ideal for **Heathrow staff** team events. Quiz nights, drag shows, and entertainment options perfect for shift workers and office teams from nearby business parks.
+*   **Team Building** - Ideal for **Heathrow staff** team events. Quiz nights, hosted nights like Music Bingo with Nikki Manfadge, and one-off events — see /whats-on for the latest.
     
 *   **Business Milestones** - Celebrate company achievements in a venue that's accessible from **Heathrow**, **Staines**, and **Ashford**. Perfect for aviation industry celebrations and local business anniversaries.
     

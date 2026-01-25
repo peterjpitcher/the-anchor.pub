@@ -53,7 +53,7 @@ export function getTwitterMetadata(options: TwitterMetadataOptions): NonNullable
 export const defaultTwitterMetadata: NonNullable<Metadata['twitter']> = {
   card: 'summary_large_image',
   title: 'The Anchor Pub - Near Heathrow Airport',
-  description: 'Traditional pub with modern entertainment. Drag shows, quiz nights, great food & more.',
+  description: 'Traditional pub with modern entertainment. Quiz nights, hosted events, great food & more.',
   images: [DEFAULT_PAGE_HEADER_IMAGE],
   ...(DEFAULT_TWITTER_HANDLE ? { site: DEFAULT_TWITTER_HANDLE, creator: DEFAULT_TWITTER_HANDLE } : {})
 }

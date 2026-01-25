@@ -15,16 +15,16 @@ import { getBusinessStats } from '@/lib/schema-with-reviews'
 
 export const metadata: Metadata = {
   title: 'Staines Pub | Sunday Roasts, Private Rooms & Free Parking',
-  description: 'Visit The Anchor near Staines-upon-Thames for Sunday roasts, stone-baked pizzas, drag shows, quiz nights, and private rooms for celebrations. Free parking and real ales just 8 minutes from town.',
+  description: 'Visit The Anchor near Staines-upon-Thames for Sunday roasts, stone-baked pizzas, hosted nights like Music Bingo with Nikki Manfadge, quiz nights, and private rooms for celebrations. Free parking and real ales just 8 minutes from town. See /whats-on for the latest.',
   keywords: 'staines pub near heathrow, sunday roasts staines, traditional english pubs staines, private rooms staines pub, wedding receptions staines',
   openGraph: {
     title: 'Staines Pub Near Heathrow - The Anchor Stanwell Moor',
-    description: 'Traditional pub 8 minutes from Staines with Sunday roast, stone-baked pizzas, drag shows and free parking.',
+    description: 'Traditional pub 8 minutes from Staines with Sunday roast, stone-baked pizzas, hosted nights and free parking. See /whats-on for the latest.',
     images: [DEFAULT_PAGE_HEADER_IMAGE],
   },
   twitter: getTwitterMetadata({
     title: 'Staines Pub Near Heathrow - The Anchor Stanwell Moor',
-    description: 'Traditional pub 8 minutes from Staines with Sunday roast, stone-baked pizzas, drag shows and free parking.',
+    description: 'Traditional pub 8 minutes from Staines with Sunday roast, stone-baked pizzas, hosted nights and free parking. See /whats-on for the latest.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
   alternates: {
@@ -141,7 +141,7 @@ export default async function StainesPubPage() {
               </div>
               <div className="flex items-start gap-2">
                 <span className="font-semibold text-anchor-gold">🎉</span>
-                <span>Monthly drag shows, quiz nights and charity bingo</span>
+                <span>Hosted nights like Music Bingo with Nikki Manfadge, quiz nights and charity bingo</span>
               </div>
               <div className="flex items-start gap-2">
                 <span className="font-semibold text-anchor-gold">👨‍👩‍👧‍👦</span>
@@ -192,7 +192,7 @@ export default async function StainesPubPage() {
                 {
                   icon: "🎭",
                   title: "Unique Entertainment",
-                  description: "Drag shows monthly\nQuiz nights monthly\nTerrestrial sports coverage",
+                  description: "Hosted nights like Music Bingo with Nikki Manfadge\nQuiz nights and bingo\nSee /whats-on for the latest",
                   className: "text-center"
                 },
                 {
@@ -350,7 +350,7 @@ export default async function StainesPubPage() {
                   <h3 className="text-xl font-bold text-anchor-green">Thursday</h3>
                   <span className="bg-purple-500 text-white px-3 py-1 rounded-full text-sm font-semibold">QUIZ</span>
                 </div>
-                <p className="text-gray-700">Quiz Night from 8pm - Win bar tabs and prizes!</p>
+                <p className="text-gray-700">Quiz Night - Win bar tabs and prizes! See /whats-on for details.</p>
               </div>
 
               <div className="border-l-4 border-anchor-gold bg-anchor-cream/50 p-6 rounded-r-lg">
@@ -359,16 +359,16 @@ export default async function StainesPubPage() {
                   <span className="bg-anchor-green text-white px-3 py-1 rounded-full text-sm font-semibold">ROASTS</span>
                 </div>
 		                <p className="text-gray-700">
-		                  Famous Sunday roasts served 12pm-5pm. Pre-order by 1pm Saturday. Bookings of 7+ require a card hold to secure the booking (no charge).
+		                  Famous Sunday roasts served 1pm-6pm. Pre-order by 1pm Saturday. Bookings of 7+ require a card hold to secure the booking (no charge).
 		                </p>
               </div>
 
               <div className="border-l-4 border-anchor-gold bg-anchor-cream/50 p-6 rounded-r-lg">
                 <div className="flex justify-between items-start mb-2">
                   <h3 className="text-xl font-bold text-anchor-green">Monthly</h3>
-                  <span className="bg-pink-500 text-white px-3 py-1 rounded-full text-sm font-semibold">DRAG</span>
+                  <span className="bg-pink-500 text-white px-3 py-1 rounded-full text-sm font-semibold">HOSTED</span>
                 </div>
-                <p className="text-gray-700">Fabulous drag shows with dinner. Check our events page for dates.</p>
+                <p className="text-gray-700">Hosted nights with Nikki Manfadge (including Music Bingo) and one-off events. See /whats-on for details.</p>
               </div>
             </div>
           </div>
@@ -477,7 +477,7 @@ export default async function StainesPubPage() {
         title="More To Explore Near Staines"
         links={[
           { href: '/food-menu', title: 'Food Menu', description: 'See Sunday roasts, burgers and stone-baked pizzas' },
-          { href: '/whats-on', title: "What's On", description: 'Check drag shows, quiz nights and live sport' },
+          { href: '/whats-on', title: "What's On", description: 'Check Music Bingo, quiz nights and live sport' },
           { href: '/book-event', title: 'Book a Celebration', description: 'Host birthdays, wakes and anniversaries' },
           { href: '/drinks', title: 'Drinks Menu', description: 'Perfect garden cocktail before strolling along the Thames' }
         ]}
@@ -493,7 +493,7 @@ export default async function StainesPubPage() {
           },
           {
             question: "What makes The Anchor different from other Staines pubs?",
-            answer: "We offer unique entertainment including drag shows and quiz nights, famous Sunday roasts, stone-baked pizzas, plus a dog-friendly beer garden with plane spotting views of Heathrow."
+            answer: "We offer unique entertainment including hosted nights like Music Bingo with Nikki Manfadge, quiz nights, famous Sunday roasts, stone-baked pizzas, plus a dog-friendly beer garden with plane spotting views of Heathrow. See /whats-on for the latest events."
           },
           {
             question: "Do you have parking at your Staines area pub?",

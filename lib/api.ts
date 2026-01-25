@@ -862,7 +862,7 @@ const FALLBACK_BUSINESS_HOURS: BusinessHours = {
     sunday: {
       opens: '12:00',
       closes: '22:00',
-      kitchen: { opens: '12:00', closes: '17:00' },
+      kitchen: { opens: '13:00', closes: '18:00' },
       is_closed: false
     }
   },
@@ -883,9 +883,9 @@ const FALLBACK_EVENT_CATEGORIES: EventCategoriesResponse = {
   categories: [
     {
       id: 'drag-shows',
-      name: 'Drag & Cabaret',
+      name: 'Hosted Nights',
       slug: 'drag-shows',
-      description: 'Signature drag shows, bingo, and cabaret nights at The Anchor.',
+      description: 'Hosted nights with special guests (including Nikki Manfadge), plus one-off event evenings. See /whats-on for details.',
       color: '#8b5cf6',
       icon: '🎭',
       is_active: true,
@@ -1998,7 +1998,7 @@ export function getEventShortDescription(event: Event, maxLength: number = 150):
     // Generate a default description based on event type
     const name = event.name.toLowerCase()
     if (name.includes('drag')) {
-      return 'Join us for a spectacular drag performance featuring amazing costumes, comedy, and entertainment.'
+      return 'Join us for a Nikki Manfadge-hosted night and special entertainment. See /whats-on for the latest details.'
     } else if (name.includes('quiz')) {
       return 'Test your knowledge at our popular quiz night. Great prizes to be won!'
     } else if (name.includes('bingo')) {

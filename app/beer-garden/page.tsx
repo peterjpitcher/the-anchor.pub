@@ -150,7 +150,7 @@ export default function BeerGardenPage() {
           <div className="max-w-5xl mx-auto grid gap-6 md:grid-cols-3">
             <Card className="bg-anchor-cream/50 shadow-sm">
               <CardBody>
-                <h3 className="text-lg font-semibold text-anchor-green mb-2">Sunday Roast (Sundays 12–5pm)</h3>
+                <h3 className="text-lg font-semibold text-anchor-green mb-2">Sunday Roast (Sundays 1–6pm)</h3>
                 <p className="text-sm text-gray-700 mb-4">
                   Book by 1pm Saturday and enjoy Yorkshire puddings, crispy potatoes and proper gravy after your plane-spotting session.
                 </p>

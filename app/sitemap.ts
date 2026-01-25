@@ -35,7 +35,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/drinks/managers-special',
     '/drinks/baby-guinness',
     '/whats-on',
-    '/whats-on/drag-shows',
     '/quiz-night',
     '/cash-bingo',
     '/karaoke',

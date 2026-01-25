@@ -10,7 +10,7 @@ export const homepageFAQSchema = {
       "name": "What are The Anchor pub's opening hours?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The Anchor is open Tuesday to Thursday 4pm-11pm, Friday 4pm-12am, Saturday 1pm-12am, and Sunday 12pm-9pm. Kitchen hours: Tuesday-Friday 6pm-9pm, Saturday 1pm-7pm, Sunday 12pm-5pm. We're closed on Mondays."
+        "text": "The Anchor is open Tuesday to Thursday 4pm-11pm, Friday 4pm-12am, Saturday 1pm-12am, and Sunday 12pm-9pm. Kitchen hours: Tuesday-Friday 6pm-9pm, Saturday 1pm-7pm, Sunday 1pm-6pm. We're closed on Mondays."
       }
     },
     {
@@ -42,7 +42,7 @@ export const homepageFAQSchema = {
       "name": "Does The Anchor have any special offers?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes! We have Buy One Get One Free pizza every Tuesday and Wednesday, 50% off fish & chips for over 65s every Friday, and regular events including drag shows on Saturdays and monthly quiz nights."
+        "text": "Yes! We have Buy One Get One Free pizza every Tuesday and Wednesday, 50% off fish & chips for over 65s every Friday, plus hosted nights like Music Bingo with Nikki Manfadge and one-off events. See /whats-on for the latest details."
       }
     }
   ]

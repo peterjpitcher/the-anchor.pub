@@ -54,8 +54,8 @@ export const metadata: Metadata = {
     default: 'Traditional Bar Near Me | The Anchor - Heathrow Pub & Dining | Surrey Bar Near Heathrow',
     template: '%s | The Anchor - Heathrow Pub & Dining'
   },
-  description: 'The Anchor in Stanwell Moor, Surrey\'s best kept secret near Heathrow Airport. Traditional British venue with drag shows, quiz nights & more. Dog-friendly beer garden under the flight path.',
-  keywords: ['bar near me', 'bar near Heathrow', 'Stanwell Moor bar', 'drag shows near me', 'quiz night', 'dog friendly bar', 'beer garden', 'pub garden', 'live music', 'TW19 bar'],
+  description: 'The Anchor in Stanwell Moor, Surrey\'s best kept secret near Heathrow Airport. Traditional British venue with quiz nights, hosted events like Music Bingo with Nikki Manfadge & more. Dog-friendly beer garden under the flight path.',
+  keywords: ['bar near me', 'bar near Heathrow', 'Stanwell Moor bar', 'music bingo near me', 'quiz night', 'dog friendly bar', 'beer garden', 'pub garden', 'live music', 'TW19 bar'],
   authors: [{ name: 'The Anchor' }],
   creator: 'The Anchor',
   publisher: 'The Anchor',
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'The Anchor - Heathrow Pub & Dining\'s Premier Entertainment Venue',
-    description: 'Traditional British venue near Heathrow with drag shows, live entertainment & great food. Dog-friendly beer garden.',
+    description: 'Traditional British venue near Heathrow with hosted events, live entertainment & great food. Dog-friendly beer garden.',
     url: 'https://www.the-anchor.pub',
     siteName: 'The Anchor',
     images: [
@@ -83,7 +83,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'The Anchor - Near Heathrow Airport',
-    description: 'Traditional venue with modern entertainment. Drag shows, quiz nights, great food & more.',
+    description: 'Traditional venue with modern entertainment. Quiz nights, hosted events, great food & more.',
     images: [DEFAULT_OG_IMAGE],
   },
   robots: {

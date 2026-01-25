@@ -2,9 +2,9 @@
 title: Sunday Lunch Near Heathrow | Traditional Roasts at The Anchor
 description: >-
   Book your traditional Sunday lunch near Heathrow Airport at The Anchor pub.
-  Fresh roast dinners with Yorkshire puddings served 12-5pm. Dog-friendly pub in
-  Stanwell Moor offering quality Sunday roasts just 7 minutes from Terminal 5.
-  Advance booking strongly recommended.
+  Fresh roast dinners with Yorkshire puddings served Sundays 1–6pm (last orders
+  5:30pm). Pre-order by Saturday 1pm; bookings of 7+ require a card hold (no
+  charge).
 date: '2025-02-02'
 oldUrl: >-
   https://www.the-anchor.pub/post/sunday-lunch-at-the-anchor-is-back-pre-order-now
@@ -26,7 +26,7 @@ hero: hero.jpg
 images: []
 ---
 
-![Close-up of a Sunday lunch with Yorkshire pudding, roast, and veggies. Text: "The Anchor, serving 12pm-5pm." Bright, inviting setting.](/content/blog/sunday-lunch-at-the-anchor-is-back-pre-order-now/hero.jpg)
+![Close-up of a Sunday lunch with Yorkshire pudding, roast, and veggies. Text: "The Anchor, serving 1pm-6pm." Bright, inviting setting.](/content/blog/sunday-lunch-at-the-anchor-is-back-pre-order-now/hero.jpg)
 
 Looking for the perfect **Sunday lunch near Heathrow**? The Anchor's traditional roast dinners are back! Fresh from February 9th, 2025, enjoy quality Sunday roasts in our cozy **dog-friendly pub** just 7 minutes from Terminal 5. No heat lamps, no shortcuts - just proper British Sunday lunch cooked fresh to order.
 
@@ -41,7 +41,7 @@ Unlike chain pubs and airport restaurants, our **traditional roast dinner** phil
 - **Traditional cooking methods** - Just like Sunday lunch at home
 - **Generous portions** - Proper pub-sized servings
 - **Fair prices** - Better value than airport dining
-- **Advance booking recommended** - Guaranteeing freshness and quality
+- **Pre-order by Saturday 1pm** - So we can cook everything fresh to order
 
 ## Our Traditional Sunday Lunch Menu
 
@@ -128,31 +128,27 @@ Our **book-ahead** policy ensures:
 
 **Booking is simple:**
 
-1. **Visit the bar** any day we're open or call the team
+1. **Book online** via [/sunday-lunch](/sunday-lunch) or call the team
 2. **Let us know your preferred roasts** so the kitchen can plan portions
-3. **Book your time slot** (12pm-5pm Sundays)
+3. **Book your time slot** (1pm-6pm Sundays)
 4. **Mention dietary requirements** when booking
 5. **Deadline: Saturday 1pm** for next day's lunch
-
-**Takeaway Sunday Lunch Available!**
-- Perfect for home dining
-- Collection times 12pm-5pm
-- Same quality, convenient option
-- Let us know your collection time when booking
+6. **Bookings of 7+** require a **card hold** to secure the booking (no charge)
 
 ## Sunday Lunch Service Details
 
 ### When to Visit
 
 **Service Hours:**
-- Sundays only: 12pm - 5pm
-- Advance booking essential
+- Sundays only: 1pm - 6pm
+- Last orders 5:30pm
+- Sunday roasts require pre-order by Saturday 1pm
 - Walk-ins can order from regular menu
 
 **Booking Timeline:**
 - Book any day during the week
 - Saturday 1pm deadline for Sunday
-- Online booking coming soon
+- Book online at [/sunday-lunch](/sunday-lunch)
 - Group bookings welcome
 
 ### Getting to The Anchor for Sunday Lunch
@@ -209,11 +205,14 @@ Let us know when booking. We cater for most dietary needs with advance notice.
 **Can large groups book?**
 Yes! We love family gatherings and group bookings. Book early for best availability.
 
+**Do you take a deposit?**
+No. For bookings of 7 or more, we take a card hold to secure the booking (no charge).
+
 **Is parking available?**
 Free parking for all Sunday lunch guests.
 
 **Do you serve Sunday lunch all year?**
-Yes, every Sunday from 12pm-5pm (except Christmas Day).
+Yes, every Sunday from 1pm-6pm (except Christmas Day).
 
 ## Experience Traditional Sunday Lunch Near Heathrow
 
@@ -228,8 +227,8 @@ Don't miss out - tables fill fast!
 📍 **Visit**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ  
 📞 **Call**: 01753 682707  
 🕐 **Deadline**: Saturday 1pm for Sunday lunch  
-🍽️ **Serving**: Sundays 12pm-5pm  
+🍽️ **Serving**: Sundays 1pm-6pm  
 
 **Remember: Pre-booking essential for Sunday lunch!**
 
-*Follow The Anchor on social media for Sunday lunch updates and special offers. Online booking coming soon!*
+*Follow The Anchor on social media for Sunday lunch updates and special offers.*

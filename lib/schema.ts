@@ -237,7 +237,7 @@ export const webSiteSchema = {
   "@id": "https://www.the-anchor.pub/#website",
   "url": "https://www.the-anchor.pub",
   "name": "The Anchor Stanwell Moor",
-  "description": "Traditional British pub near Heathrow with drag shows, quiz nights, and famous Sunday roasts",
+  "description": "Traditional British pub near Heathrow with quiz nights, hosted events, and famous Sunday roasts",
   "publisher": {
     "@id": "https://www.the-anchor.pub/#organization"
   },
@@ -293,49 +293,6 @@ export const quizNightEventSeries = {
   "performer": {
     "@type": "Organization",
     "name": "Question One Quiz Masters"
-  }
-}
-
-export const dragShowEventSeries = {
-  "@context": "https://schema.org",
-  "@type": "EventSeries",
-  "@id": "https://www.the-anchor.pub/#drag-show-series",
-  "name": "Monthly Drag Shows with Nikki Manfadge",
-  "description": "Spectacular monthly drag performances featuring Nikki Manfadge. FREE entry, alternating between Games Night and Karaoke Night formats.",
-  "startDate": "2024-01-01",
-  "endDate": "2025-12-31",
-  "eventSchedule": {
-    "@type": "Schedule",
-    "repeatFrequency": "P1M",
-    "startTime": "21:00:00",
-    "endTime": "23:30:00",
-    "scheduleTimezone": "Europe/London"
-  },
-  "location": {
-    "@type": "Place",
-    "name": "The Anchor",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Horton Road",
-      "addressLocality": "Stanwell Moor",
-      "addressRegion": "Surrey",
-      "postalCode": "TW19 6AQ",
-      "addressCountry": "GB"
-    }
-  },
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "GBP",
-    "availability": "https://schema.org/InStock"
-  },
-  "organizer": {
-    "@id": "https://www.the-anchor.pub/#organization"
-  },
-  "performer": {
-    "@type": "Person",
-    "name": "Nikki Manfadge",
-    "jobTitle": "Drag Queen"
   }
 }
 

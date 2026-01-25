@@ -230,7 +230,7 @@ export function generateContactPoints() {
 }
 
 // Generate Event schema for recurring events
-export function generateEventSchema(eventType: 'quiz' | 'bingo' | 'drag') {
+export function generateEventSchema(eventType: 'quiz' | 'bingo') {
   const baseLocation = {
     "@type": "Place",
     "name": "The Anchor",
@@ -298,35 +298,6 @@ export function generateEventSchema(eventType: 'quiz' | 'bingo' | 'drag') {
       "duration": "PT2H",
       "startTime": "19:00",
       "endTime": "21:00"
-    },
-    drag: {
-      "@type": "Event",
-      "name": "Monthly Drag Show with Nikki Manfadge",
-      "description": "Spectacular monthly drag performances at The Anchor featuring Nikki Manfadge. FREE entry! Experience dazzling performances, hilarious comedy, and unforgettable entertainment.",
-      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-      "eventStatus": "https://schema.org/EventScheduled",
-      "location": baseLocation,
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "GBP",
-        "availability": "https://schema.org/InStock",
-        "validFrom": new Date().toISOString()
-      },
-      "organizer": {
-        "@type": "Organization",
-        "name": "The Anchor",
-        "url": "https://www.the-anchor.pub"
-      },
-      "performer": {
-        "@type": "Person",
-        "name": "Nikki Manfadge"
-      },
-      "maximumAttendeeCapacity": 150,
-      "typicalAgeRange": "18+",
-      "duration": "PT2H30M",
-      "startTime": "21:00",
-      "endTime": "23:30"
     }
   }
 

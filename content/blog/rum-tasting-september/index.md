@@ -191,4 +191,4 @@ Our June rum tasting night proved why special events at The Anchor create lastin
 
   
 
-**While this particular rum tasting has passed, mark your calendar for November when we'll host another special event. In the meantime, visit us to explore our extensive rum selection, enjoy our regular events like quiz nights and drag shows, or simply experience the warm welcome that made this tasting night so special. Call 01753 682707 to ensure you don't miss November's announcement!**
+**While this particular rum tasting has passed, mark your calendar for November when we'll host another special event. In the meantime, visit us to explore our extensive rum selection, enjoy our regular events like quiz nights and hosted nights like Music Bingo with Nikki Manfadge, or simply experience the warm welcome that made this tasting night so special. See /whats-on for the latest events.**

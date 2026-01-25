@@ -42,7 +42,7 @@ Looking for the best **sports pub near Heathrow**? The Anchor is your premier de
 
 - [Book your table online](https://bit.ly/3VhJzzy) for headline Euro 2024 games
 - [Browse the food menu](/food-menu) for pre-match bites and half-time sharers
-- [Check what else is on](/whats-on) including quiz nights and drag shows around major fixtures
+- [Check what else is on](/whats-on) including quiz nights and hosted events like Music Bingo around major fixtures
 - [Get directions from Heathrow](/near-heathrow/terminal-5) if you are visiting from the airport
 
 ## Your Local Sports Viewing Destination

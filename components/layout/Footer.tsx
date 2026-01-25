@@ -100,7 +100,7 @@ const defaultSections: FooterSection[] = [
       { label: 'Pool & Darts', href: '/pool-darts-pub' },
       { label: 'Dog Friendly Pub', href: '/dog-friendly-pub-heathrow' },
       { label: 'Family Friendly', href: '/family-friendly-pub-heathrow' },
-      { label: 'Drag Shows', href: '/whats-on/drag-shows' },
+      { label: 'Music Bingo & Hosted Nights', href: '/whats-on' },
       { label: 'Free Parking', href: '/free-parking' }
     ]
   },

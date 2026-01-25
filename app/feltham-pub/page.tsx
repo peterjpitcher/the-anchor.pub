@@ -187,7 +187,7 @@ export default function FelthamPubPage() {
 	                </li>
                 <li className="flex items-start">
                   <span className="text-anchor-gold mr-3">✓</span>
-                  <span>Regular entertainment including drag shows and quiz nights</span>
+                  <span>Regular entertainment including Music Bingo hosted by Nikki Manfadge, quiz nights and one-off events (see /whats-on)</span>
                 </li>
                 <li className="flex items-start">
                   <span className="text-anchor-gold mr-3">✓</span>
@@ -302,7 +302,7 @@ export default function FelthamPubPage() {
                       <ul className="space-y-2">
                         <li className="flex items-start">
                           <span className="text-blue-500 mr-2">•</span>
-                          Saturday drag shows
+                          Hosted nights like Music Bingo with Nikki Manfadge (see /whats-on)
                         </li>
 	                        <li className="flex items-start">
 	                          <span className="text-blue-500 mr-2">•</span>

@@ -217,7 +217,7 @@ export default async function PizzaMenuPage() {
                     },
                     {
                         question: "When do you serve pizza?",
-                        answer: "Our kitchen serves pizza Tuesday to Friday 6pm-9pm, Saturday 1pm-7pm, and Sunday 12pm-5pm."
+                        answer: "Our kitchen serves pizza Tuesday to Friday 6pm-9pm, Saturday 1pm-7pm, and Sunday 1pm-6pm."
                     }
                 ]}
                 className="bg-white"

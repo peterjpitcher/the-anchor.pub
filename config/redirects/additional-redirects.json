@@ -57,7 +57,7 @@
   },
   {
     "source": "/events/drag-shows",
-    "destination": "/whats-on/drag-shows",
+    "destination": "/whats-on",
     "permanent": true
   },
   {

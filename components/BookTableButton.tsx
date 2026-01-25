@@ -50,7 +50,7 @@ export const BookTableButton = forwardRef<HTMLButtonElement, BookTableButtonProp
 
     // Use custom href if provided, otherwise default to booking wizard
     const bookingUrl = customHref || '/book-table'
-    const isExternal = !!customHref
+    const isExternal = /^https?:\/\//i.test(bookingUrl)
 
     const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
       // Detect device type
@@ -92,6 +92,11 @@ export const BookTableButton = forwardRef<HTMLButtonElement, BookTableButtonProp
 
       // Navigate to booking page
       if (typeof window !== 'undefined') {
+        if (isExternal) {
+          window.open(bookingUrl, '_blank', 'noopener,noreferrer')
+          return
+        }
+
         window.location.href = bookingUrl
       }
     }

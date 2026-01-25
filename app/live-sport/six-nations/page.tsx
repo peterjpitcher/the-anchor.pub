@@ -226,7 +226,7 @@ export default function SixNationsPage() {
                                     Whether you're after a half-time burger or a celebratory post-match meal, our kitchen is open throughout every Six Nations game.
                                 </p>
                                 <p>
-                                    <strong>Normal Hours:</strong> Tue–Fri 6–9pm, Sat 1–7pm, Sun 12–5pm<br />
+                                    <strong>Normal Hours:</strong> Tue–Fri 6–9pm, Sat 1–7pm, Sun 1–6pm<br />
                                     <strong>Match Day Promise:</strong> Kitchen remains open for all live Six Nations fixtures, even outside standout hours.
                                 </p>
                             </div>

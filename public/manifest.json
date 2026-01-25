@@ -1,7 +1,7 @@
 {
   "name": "The Anchor Stanwell Moor",
   "short_name": "The Anchor",
-  "description": "Traditional British pub near Heathrow with drag shows, quiz nights & great food",
+  "description": "Traditional British pub near Heathrow with quiz nights, hosted events & great food",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#005131",

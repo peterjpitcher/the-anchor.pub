@@ -263,8 +263,8 @@ export default async function SundayLunchPage() {
         {
           '@type': 'OpeningHoursSpecification',
           dayOfWeek: 'Sunday',
-          opens: '12:00',
-          closes: '17:00',
+          opens: '13:00',
+          closes: '18:00',
           description: 'Sunday lunch service hours'
         }
       ],
@@ -321,8 +321,8 @@ export default async function SundayLunchPage() {
         name: 'Sunday Lunch Roast Selection',
         description: 'Choice of roasts served with Yorkshire pudding, roast potatoes, seasonal vegetables and gravy'
       },
-      validFrom: '12:00',
-      validThrough: '17:00',
+      validFrom: '13:00',
+      validThrough: '18:00',
       eligibleDuration: {
         '@type': 'Duration',
         description: 'Available Sundays only'
@@ -371,10 +371,10 @@ export default async function SundayLunchPage() {
       <HeroWrapper
         route="/sunday-lunch"
         title="Sunday Lunch at The Anchor"
-        description="Traditional roasts cooked fresh to order. Served Sundays 12pm–5pm — pre-order by Saturday 1pm. Bookings of 7+ require a card hold (no charge)."
+        description="Traditional roasts cooked fresh to order. Served Sundays 1pm–6pm — pre-order by Saturday 1pm. Bookings of 7+ require a card hold (no charge)."
         variant="default"
         tags={[
-          { label: 'Sundays 12pm–5pm', variant: 'warning' },
+          { label: 'Sundays 1pm–6pm', variant: 'warning' },
           { label: 'Book by Saturday 1pm', variant: 'default' },
           { label: 'Card hold for 7+ bookings', variant: 'default' }
         ]}
@@ -531,7 +531,7 @@ export default async function SundayLunchPage() {
             </div>
 
             <p className="mt-4 text-center text-sm text-gray-600">
-              Served Sundays 12pm–5pm (last orders 4:30pm). Free parking available.
+              Served Sundays 1pm–6pm (last orders 5:30pm). Free parking available.
             </p>
           </div>
         </Container>
@@ -556,7 +556,7 @@ export default async function SundayLunchPage() {
             },
             {
               question: "What time is Sunday lunch served?",
-              answer: "Sunday lunch is served from 12pm to 5pm every Sunday, with last orders at 4:30pm."
+              answer: "Sunday lunch is served from 1pm to 6pm every Sunday, with last orders at 5:30pm."
             },
             {
               question: "Can I visit on Sunday without pre-ordering?",
@@ -602,7 +602,7 @@ export default async function SundayLunchPage() {
               </div>
 
               <p className="text-sm mt-6 text-white/90">
-                Served Sundays 12pm–5pm • Regular menu also available without pre-order
+                Served Sundays 1pm–6pm • Regular menu also available without pre-order
               </p>
             </div>
           </Container>

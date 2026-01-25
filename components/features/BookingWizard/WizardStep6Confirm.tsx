@@ -258,7 +258,7 @@ export function WizardStep6Confirm({
               <li>• We have 20 free parking spaces available</li>
               <li>• Dogs are welcome throughout the pub</li>
               {isSundayLunch ? (
-                <li>• Sunday roasts are served 12pm - 5pm</li>
+                <li>• Sunday roasts are served 1pm - 6pm</li>
               ) : (
                 <li>• Kitchen hours vary - check our website for current times</li>
               )}
