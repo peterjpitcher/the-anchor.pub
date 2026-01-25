@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Metadata } from 'next'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { Container, SectionHeader, FeatureGrid, InfoBoxGrid, Button } from '@/components/ui'
@@ -68,8 +69,13 @@ export default function PrivateHirePage() {
                         <Link href="/private-hire/wakes" className="group block h-full">
                             <div className="bg-gray-50 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all h-full border border-gray-100">
                                 <div className="aspect-video bg-gray-200 relative">
-                                    {/* Placeholder for image - using color block for now */}
-                                    <div className="absolute inset-0 bg-anchor-sand/30 flex items-center justify-center text-4xl">🕊️</div>
+                                    <Image
+                                        src="/images/private-hire/wakes.png"
+                                        alt="Respectful wake gathering"
+                                        fill
+                                        className="object-cover"
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                    />
                                 </div>
                                 <div className="p-6">
                                     <h3 className="text-xl font-bold text-anchor-green mb-2 group-hover:text-anchor-gold transition-colors">Wakes & Memorials</h3>
@@ -85,7 +91,13 @@ export default function PrivateHirePage() {
                         <Link href="/private-hire/christenings" className="group block h-full">
                             <div className="bg-gray-50 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all h-full border border-gray-100">
                                 <div className="aspect-video bg-gray-200 relative">
-                                    <div className="absolute inset-0 bg-blue-50/50 flex items-center justify-center text-4xl">👶</div>
+                                    <Image
+                                        src="/images/private-hire/christenings.png"
+                                        alt="Christening celebration"
+                                        fill
+                                        className="object-cover"
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                    />
                                 </div>
                                 <div className="p-6">
                                     <h3 className="text-xl font-bold text-anchor-green mb-2 group-hover:text-anchor-gold transition-colors">Christenings</h3>
@@ -101,7 +113,13 @@ export default function PrivateHirePage() {
                         <Link href="/private-hire/weddings" className="group block h-full">
                             <div className="bg-gray-50 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all h-full border border-gray-100">
                                 <div className="aspect-video bg-gray-200 relative">
-                                    <div className="absolute inset-0 bg-pink-50/50 flex items-center justify-center text-4xl">💍</div>
+                                    <Image
+                                        src="/images/private-hire/weddings.png"
+                                        alt="Wedding reception toast"
+                                        fill
+                                        className="object-cover"
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                    />
                                 </div>
                                 <div className="p-6">
                                     <h3 className="text-xl font-bold text-anchor-green mb-2 group-hover:text-anchor-gold transition-colors">Weddings & Engagements</h3>
@@ -117,7 +135,13 @@ export default function PrivateHirePage() {
                         <Link href="/private-party-venue" className="group block h-full">
                             <div className="bg-gray-50 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all h-full border border-gray-100">
                                 <div className="aspect-video bg-gray-200 relative">
-                                    <div className="absolute inset-0 bg-purple-50/50 flex items-center justify-center text-4xl">🎉</div>
+                                    <Image
+                                        src="/images/private-hire/parties.png"
+                                        alt="Private party celebration"
+                                        fill
+                                        className="object-cover"
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                    />
                                 </div>
                                 <div className="p-6">
                                     <h3 className="text-xl font-bold text-anchor-green mb-2 group-hover:text-anchor-gold transition-colors">Private Parties</h3>
@@ -133,7 +157,13 @@ export default function PrivateHirePage() {
                         <Link href="/private-hire/baby-showers" className="group block h-full">
                             <div className="bg-gray-50 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all h-full border border-gray-100">
                                 <div className="aspect-video bg-gray-200 relative">
-                                    <div className="absolute inset-0 bg-yellow-50/50 flex items-center justify-center text-4xl">👟</div>
+                                    <Image
+                                        src="/images/private-hire/baby-showers.png"
+                                        alt="Baby shower celebration"
+                                        fill
+                                        className="object-cover"
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                    />
                                 </div>
                                 <div className="p-6">
                                     <h3 className="text-xl font-bold text-anchor-green mb-2 group-hover:text-anchor-gold transition-colors">Baby Showers</h3>
@@ -149,7 +179,13 @@ export default function PrivateHirePage() {
                         <Link href="/corporate-events" className="group block h-full">
                             <div className="bg-gray-50 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all h-full border border-gray-100">
                                 <div className="aspect-video bg-gray-200 relative">
-                                    <div className="absolute inset-0 bg-gray-100 flex items-center justify-center text-4xl">💼</div>
+                                    <Image
+                                        src="/images/private-hire/corporate.png"
+                                        alt="Professional corporate meeting"
+                                        fill
+                                        className="object-cover"
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                    />
                                 </div>
                                 <div className="p-6">
                                     <h3 className="text-xl font-bold text-anchor-green mb-2 group-hover:text-anchor-gold transition-colors">Corporate Events</h3>

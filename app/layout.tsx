@@ -15,6 +15,10 @@ import { DynamicSchema } from '@/components/seo/DynamicSchema'
 import { BusinessHoursProvider } from '@/components/providers/BusinessHoursProvider'
 import { DeferredRender } from '@/components/DeferredRender'
 import { DEFAULT_OG_IMAGE } from '@/lib/image-fallbacks'
+import {
+  PRIVATE_HIRE_2026_PROMO_ENABLED,
+  PRIVATE_HIRE_2026_PROMO_ENDS_AT_MS
+} from '@/lib/promos/privateHire2026'
 import { Suspense } from 'react'
 
 
@@ -25,6 +29,11 @@ const EventCountdownBanner = dynamic(() => import('@/components/EventCountdownBa
 const ChristmasLightbox = dynamic(() => import('@/components/features/christmas/ChristmasLightbox').then(mod => mod.ChristmasLightbox), {
   ssr: false
 })
+
+const PrivateHire2026PromoGate = dynamic(
+  () => import('@/components/promos/PrivateHire2026PromoGate').then(mod => mod.PrivateHire2026PromoGate),
+  { ssr: false }
+)
 
 const outfit = Outfit({
   subsets: ['latin'],
@@ -97,6 +106,8 @@ export default function RootLayout({
 }) {
   const gtmId = process.env.NEXT_PUBLIC_GTM_ID || ''
   const now = new Date()
+  const privateHirePromoActive =
+    PRIVATE_HIRE_2026_PROMO_ENABLED && now.getTime() < PRIVATE_HIRE_2026_PROMO_ENDS_AT_MS
   const promoCtaButtons = [
     {
       label: 'Valentine’s Day',
@@ -212,6 +223,11 @@ export default function RootLayout({
                   <EventCountdownBanner />
                   <ChristmasLightbox />
                 </DeferredRender>
+                {privateHirePromoActive ? (
+                  <DeferredRender timeoutMs={800}>
+                    <PrivateHire2026PromoGate />
+                  </DeferredRender>
+                ) : null}
               </Suspense>
             </BusinessHoursProvider>
           </AnalyticsProvider>
