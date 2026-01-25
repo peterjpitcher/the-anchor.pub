@@ -16,9 +16,8 @@ import { PhoneLink } from '@/components/PhoneLink'
 import { Select } from '@/components/ui/forms/Select'
 import { LoadingState } from '@/components/ui/LoadingState'
 import { Badge } from '@/components/ui/primitives/Badge'
-import { trackTableBookingClick, trackFormComplete, trackError } from '@/lib/gtm-events'
+import { trackTableBookingClick, trackTableBookingSuccess, trackFormComplete, trackError } from '@/lib/gtm-events'
 import { logError } from '@/lib/error-handling'
-import { analytics } from '@/lib/analytics'
 
 interface SundayLunchBookingProps {
   className?: string
@@ -502,15 +501,26 @@ export default function SundayLunchBooking({
       const response = await anchorAPI.createTableBooking(bookingData)
       
       if (response) {
-        setBookingResponse(response)
-        setBookingState(prev => ({ ...prev, step: 'confirmation' }))
-        
-        trackFormComplete('Sunday Lunch Booking')
-        analytics.formSubmit('booking', `Sunday Lunch - ${bookingState.partySize} people`, bookingState.partySize)
-        
-        if (onSuccess) {
-          onSuccess(response)
-        }
+	        setBookingResponse(response)
+	        setBookingState(prev => ({ ...prev, step: 'confirmation' }))
+	        
+	        trackFormComplete('Sunday Lunch Booking')
+	        const bookingDate = response.confirmation_details?.date ?? response.booking_details?.date ?? bookingState.date
+	        const bookingTime = response.confirmation_details?.time ?? response.booking_details?.time ?? bookingState.confirmedTime
+	        if (bookingDate && bookingTime) {
+	          trackTableBookingSuccess({
+	            partySize: bookingState.partySize,
+	            bookingDate,
+	            bookingTime,
+	            bookingReference: response.booking_reference,
+	            source: 'sunday_lunch_booking',
+	            deviceType: window.innerWidth < 768 ? 'mobile' : 'desktop'
+	          })
+	        }
+	        
+	        if (onSuccess) {
+	          onSuccess(response)
+	        }
       }
     } catch (err: any) {
       logError('sunday-lunch-booking-submit', err, bookingData)

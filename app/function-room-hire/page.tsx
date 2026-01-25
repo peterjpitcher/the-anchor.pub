@@ -65,7 +65,7 @@ const functionRoomSchema = {
 export default function FunctionRoomHirePage() {
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: 'Home', url: '/' },
-    { name: 'Private Events', url: '/book-event' },
+    { name: 'Private Hire & Events', url: '/private-hire' },
     { name: 'Function Room Hire', url: '/function-room-hire' }
   ])
 
@@ -598,7 +598,7 @@ export default function FunctionRoomHirePage() {
       <InternalLinkingSection
         title="Next Steps For Your Event"
         links={[
-          { href: '/book-event', title: 'Submit Event Enquiry', description: 'Tell us about your celebration or meeting' },
+          { href: '/private-hire#enquiry', title: 'Submit Event Enquiry', description: 'Tell us about your celebration or meeting' },
           { href: '/corporate-events', title: 'Corporate Event Packages', description: 'See delegate rates and meeting add-ons' },
           { href: '/private-party-venue', title: 'Private Party Venue', description: 'Plan birthdays, wakes and anniversaries' },
           { href: '/food-menu', title: 'Menu Ideas', description: 'Select canapés, buffets or two-course meals' }

@@ -1,12 +1,18 @@
 'use client'
 
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import Image from 'next/image'
 import { Grid, GridItem } from '@/components/ui/layout/Grid'
 import { Card } from '@/components/ui/layout/Card'
 import { Button } from '@/components/ui/primitives/Button'
 import { Badge } from '@/components/ui/primitives/Badge'
 import { cn } from '@/lib/utils'
+import {
+  trackModalClose,
+  trackModalEngage,
+  trackModalOpen,
+  type ModalCloseReason
+} from '@/lib/gtm-events'
 
 export interface GalleryImage {
   src: string
@@ -39,6 +45,10 @@ export function Gallery({
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [lightboxImage, setLightboxImage] = useState<GalleryImage | null>(null)
   const [lightboxIndex, setLightboxIndex] = useState<number>(-1)
+  const modalId = 'gallery_lightbox'
+  const previousOpen = useRef(false)
+  const engaged = useRef(false)
+  const lastCloseReason = useRef<ModalCloseReason | null>(null)
   
   // Get unique categories
   const categories = Array.from(new Set(images.map(img => img.category).filter(Boolean))) as string[]
@@ -62,6 +72,11 @@ export function Gallery({
     setLightboxImage(null)
     setLightboxIndex(-1)
   }, [])
+
+  const requestClose = useCallback((reason: ModalCloseReason) => {
+    lastCloseReason.current = reason
+    handleLightboxClose()
+  }, [handleLightboxClose])
   
   const handleLightboxNavigation = useCallback((direction: 'prev' | 'next') => {
     const currentImages = filteredImages
@@ -73,9 +88,56 @@ export function Gallery({
       newIndex = lightboxIndex < currentImages.length - 1 ? lightboxIndex + 1 : 0
     }
     
+    if (!engaged.current) {
+      engaged.current = true
+      trackModalEngage({
+        id: modalId,
+        title: 'Image lightbox',
+        interaction: 'click',
+        element: direction === 'prev' ? 'prev_button' : 'next_button',
+        extra: {
+          gallery_image_index: lightboxIndex,
+          gallery_total_images: currentImages.length,
+        }
+      })
+    }
+
     setLightboxImage(currentImages[newIndex])
     setLightboxIndex(newIndex)
-  }, [lightboxIndex, filteredImages])
+  }, [filteredImages, lightboxIndex])
+
+  // Lightbox open/close tracking
+  useEffect(() => {
+    const isOpen = Boolean(lightboxImage)
+
+    if (isOpen && !previousOpen.current) {
+      previousOpen.current = true
+      engaged.current = false
+      lastCloseReason.current = null
+
+      trackModalOpen({
+        id: modalId,
+        title: 'Image lightbox',
+        extra: {
+          gallery_image_src: lightboxImage?.src,
+          gallery_image_alt: lightboxImage?.alt,
+          gallery_image_index: lightboxIndex,
+          gallery_image_category: lightboxImage?.category
+        }
+      })
+      return
+    }
+
+    if (!isOpen && previousOpen.current) {
+      previousOpen.current = false
+      trackModalClose({
+        id: modalId,
+        title: 'Image lightbox',
+        reason: lastCloseReason.current ?? 'programmatic'
+      })
+      lastCloseReason.current = null
+    }
+  }, [lightboxImage, lightboxIndex])
   
   // Keyboard navigation for lightbox
   useEffect(() => {
@@ -84,7 +146,7 @@ export function Gallery({
     const handleKeyDown = (e: KeyboardEvent) => {
       switch (e.key) {
         case 'Escape':
-          handleLightboxClose()
+          requestClose('escape_key')
           break
         case 'ArrowLeft':
           handleLightboxNavigation('prev')
@@ -97,7 +159,7 @@ export function Gallery({
     
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [lightboxImage, handleLightboxClose, handleLightboxNavigation])
+  }, [handleLightboxNavigation, lightboxImage, requestClose])
   
   // Prevent body scroll when lightbox is open
   useEffect(() => {
@@ -197,13 +259,16 @@ export function Gallery({
       {lightboxImage && (
         <div 
           className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
-          onClick={handleLightboxClose}
+          onClick={() => requestClose('backdrop_click')}
           role="dialog"
           aria-modal="true"
           aria-label="Image lightbox"
         >
           <button
-            onClick={handleLightboxClose}
+            onClick={(e) => {
+              e.stopPropagation()
+              requestClose('close_button')
+            }}
             className="absolute top-4 right-4 text-white hover:text-gray-600 transition-colours p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
             aria-label="Close lightbox"
           >

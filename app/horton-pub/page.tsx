@@ -286,7 +286,7 @@ export default async function HortonPubPage() {
                     },
                     {
                         text: "🎉 Book an Event",
-                        href: "/book-event",
+                        href: "/private-hire#enquiry",
                         variant: "white"
                     },
                     {

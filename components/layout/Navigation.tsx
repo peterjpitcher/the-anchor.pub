@@ -2,12 +2,12 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useState, useEffect, useMemo, useCallback, ReactNode } from 'react'
+import { useState, useEffect, useMemo, useCallback, useRef, ReactNode } from 'react'
 import { cn } from '@/lib/utils'
 import type { NavigationItem } from '@/lib/types'
 import { useFocusTrap } from '@/hooks/useFocusTrap'
 import { BookTableButton } from '@/components/BookTableButton'
-import { trackNavigationClick } from '@/lib/gtm-events'
+import { trackModalClose, trackModalEngage, trackModalOpen, trackNavigationClick, type ModalCloseReason } from '@/lib/gtm-events'
 import { nowInLondon, parseLondonDate } from '@/lib/time-london'
 
 
@@ -99,10 +99,10 @@ const defaultItems: NavigationItem[] = [
   },
   {
     label: 'Events & Hire',
-    href: '/book-event',
+    href: '/private-hire',
     items: [
-      { label: 'Book an Event', href: '/book-event' },
-      { label: 'Private Hire Overview', href: '/private-hire' },
+      { label: 'Private Hire & Events', href: '/private-hire' },
+      { label: 'Get a Quote / Enquire', href: '/private-hire#enquiry' },
       { label: 'Private Parties', href: '/private-party-venue' },
       { label: 'Milestone Birthdays', href: '/private-hire/milestone-birthdays' },
       { label: 'Engagement Parties', href: '/private-hire/engagement-parties' },
@@ -191,6 +191,10 @@ export function Navigation({
   const [openMobileSections, setOpenMobileSections] = useState<Record<string, boolean>>({})
   const [activePromoCtaButtons, setActivePromoCtaButtons] = useState<HeaderCtaButton[]>([])
   const focusTrapRef = useFocusTrap(isMobileMenuOpen)
+  const mobileMenuPreviouslyOpen = useRef(false)
+  const mobileMenuEngaged = useRef(false)
+  const mobileMenuCloseReason = useRef<ModalCloseReason | null>(null)
+  const mobileMenuId = 'mobile_nav_menu'
 
 
 
@@ -216,6 +220,42 @@ export function Navigation({
     tertiaryCtaButton ||
     promoCtaButtons.length > 0
   )
+
+  const recordMobileMenuEngagement = useCallback((element: string) => {
+    if (mobileMenuEngaged.current) return
+    mobileMenuEngaged.current = true
+    trackModalEngage({
+      id: mobileMenuId,
+      title: 'Mobile navigation menu',
+      interaction: 'click',
+      element
+    })
+  }, [mobileMenuId])
+
+  const closeMobileMenu = useCallback((reason: ModalCloseReason) => {
+    mobileMenuCloseReason.current = reason
+    setIsMobileMenuOpen(false)
+  }, [])
+
+  useEffect(() => {
+    if (isMobileMenuOpen && !mobileMenuPreviouslyOpen.current) {
+      mobileMenuPreviouslyOpen.current = true
+      mobileMenuEngaged.current = false
+      mobileMenuCloseReason.current = null
+      trackModalOpen({ id: mobileMenuId, title: 'Mobile navigation menu' })
+      return
+    }
+
+    if (!isMobileMenuOpen && mobileMenuPreviouslyOpen.current) {
+      mobileMenuPreviouslyOpen.current = false
+      trackModalClose({
+        id: mobileMenuId,
+        title: 'Mobile navigation menu',
+        reason: mobileMenuCloseReason.current ?? 'programmatic'
+      })
+      mobileMenuCloseReason.current = null
+    }
+  }, [isMobileMenuOpen, mobileMenuId])
 
   useEffect(() => {
     if (!sticky) return
@@ -258,13 +298,13 @@ export function Navigation({
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isMobileMenuOpen) {
-        setIsMobileMenuOpen(false)
+        closeMobileMenu('escape_key')
       }
     }
 
     document.addEventListener('keydown', handleEscape)
     return () => document.removeEventListener('keydown', handleEscape)
-  }, [isMobileMenuOpen])
+  }, [closeMobileMenu, isMobileMenuOpen])
 
   // Prevent body scroll when mobile menu is open
   useEffect(() => {
@@ -412,7 +452,8 @@ export function Navigation({
                   isExternal: false,
                   location: 'mobile_menu'
                 })
-                setIsMobileMenuOpen(false)
+                recordMobileMenuEngagement('nav_link')
+                closeMobileMenu('cta')
               }}
             >
               All {item.label}
@@ -431,7 +472,8 @@ export function Navigation({
                     isExternal: false,
                     location: 'mobile_menu'
                   })
-                  setIsMobileMenuOpen(false)
+                  recordMobileMenuEngagement('nav_link')
+                  closeMobileMenu('cta')
                 }}
               >
                 {subItem.label}
@@ -460,7 +502,10 @@ export function Navigation({
               isExternal: true,
               location: isMobile ? 'mobile_menu' : 'header'
             })
-            if (isMobile) setIsMobileMenuOpen(false)
+            if (isMobile) {
+              recordMobileMenuEngagement('nav_link')
+              closeMobileMenu('cta')
+            }
           }}
         >
           {item.label}
@@ -482,7 +527,10 @@ export function Navigation({
             isExternal: false,
             location: isMobile ? 'mobile_menu' : 'header'
           })
-          if (isMobile) setIsMobileMenuOpen(false)
+          if (isMobile) {
+            recordMobileMenuEngagement('nav_link')
+            closeMobileMenu('cta')
+          }
         }}
       >
         {item.label}
@@ -503,7 +551,8 @@ export function Navigation({
           className={cn(isMobile && 'block w-full')}
           onClickAfterTracking={() => {
             if (isMobile) {
-              setIsMobileMenuOpen(false)
+              recordMobileMenuEngagement('book_table')
+              closeMobileMenu('cta')
             }
           }}
         >
@@ -532,20 +581,23 @@ export function Navigation({
           className={ctaClass}
           target="_blank"
           rel="noopener noreferrer"
-          onClick={() => {
-            trackNavigationClick({
-              label: button.label,
-              url: button.href,
-              level: 'main',
-              deviceType: isMobile ? 'mobile' : 'desktop',
-              isExternal: true,
-              location: isMobile ? 'mobile_menu' : 'header'
-            })
-            if (isMobile) setIsMobileMenuOpen(false)
-          }}
-        >
-          <span className="whitespace-nowrap">{button.icon ? `${button.icon} ` : ''}{button.label}</span>
-        </a>
+	          onClick={() => {
+	            trackNavigationClick({
+	              label: button.label,
+	              url: button.href,
+	              level: 'main',
+	              deviceType: isMobile ? 'mobile' : 'desktop',
+	              isExternal: true,
+	              location: isMobile ? 'mobile_menu' : 'header'
+	            })
+	            if (isMobile) {
+	              recordMobileMenuEngagement('header_cta')
+	              closeMobileMenu('cta')
+	            }
+	          }}
+	        >
+	          <span className="whitespace-nowrap">{button.icon ? `${button.icon} ` : ''}{button.label}</span>
+	        </a>
       )
     }
 
@@ -554,20 +606,23 @@ export function Navigation({
         key={key}
         href={button.href}
         className={ctaClass}
-        onClick={() => {
-          trackNavigationClick({
-            label: button.label,
-            url: button.href,
-            level: 'main',
-            deviceType: isMobile ? 'mobile' : 'desktop',
-            isExternal: false,
-            location: isMobile ? 'mobile_menu' : 'header'
-          })
-          if (isMobile) setIsMobileMenuOpen(false)
-        }}
-      >
-        <span className="whitespace-nowrap">{button.icon ? `${button.icon} ` : ''}{button.label}</span>
-      </Link>
+	        onClick={() => {
+	          trackNavigationClick({
+	            label: button.label,
+	            url: button.href,
+	            level: 'main',
+	            deviceType: isMobile ? 'mobile' : 'desktop',
+	            isExternal: false,
+	            location: isMobile ? 'mobile_menu' : 'header'
+	          })
+	          if (isMobile) {
+	            recordMobileMenuEngagement('header_cta')
+	            closeMobileMenu('cta')
+	          }
+	        }}
+	      >
+	        <span className="whitespace-nowrap">{button.icon ? `${button.icon} ` : ''}{button.label}</span>
+	      </Link>
     )
   }
 
@@ -706,7 +761,13 @@ export function Navigation({
             </Link>
 
             <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              onClick={() => {
+                if (isMobileMenuOpen) {
+                  closeMobileMenu('close_button')
+                  return
+                }
+                setIsMobileMenuOpen(true)
+              }}
               className={cn('absolute right-0 top-1/2 -translate-y-1/2 p-2', mergedTheme.text)}
               aria-expanded={isMobileMenuOpen}
               aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
@@ -760,18 +821,19 @@ export function Navigation({
                     key={task.href}
                     href={task.href}
                     className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-white bg-white/10 hover:bg-white/20 transition-colors"
-                    onClick={() => {
-                      trackNavigationClick({
-                        label: task.label,
-                        url: task.href,
-                        level: 'main',
-                        deviceType: 'mobile',
-                        isExternal: false,
-                        location: 'mobile_menu'
-                      })
-                      setIsMobileMenuOpen(false)
-                    }}
-                  >
+	                    onClick={() => {
+	                      trackNavigationClick({
+	                        label: task.label,
+	                        url: task.href,
+	                        level: 'main',
+	                        deviceType: 'mobile',
+	                        isExternal: false,
+	                        location: 'mobile_menu'
+	                      })
+	                      recordMobileMenuEngagement('quick_task')
+	                      closeMobileMenu('cta')
+	                    }}
+	                  >
                     <span aria-hidden="true">{task.icon}</span>
                     <span>{task.label}</span>
                   </Link>

@@ -587,7 +587,7 @@ export default function M25Junction14PubPage() {
           },
           {
             text: "🎉 Book an Event",
-            href: "/book-event",
+            href: "/private-hire#enquiry",
             variant: "white"
           },
           {

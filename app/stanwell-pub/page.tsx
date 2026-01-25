@@ -474,7 +474,7 @@ export default async function StanwellPubPage() {
           },
           {
             text: "🎉 Book an Event",
-            href: "/book-event",
+            href: "/private-hire#enquiry",
             variant: "white"
           },
           {

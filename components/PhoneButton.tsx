@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { Button } from '@/components/ui'
-import { analytics } from '@/lib/analytics'
+import { trackPhoneCallClick } from '@/lib/gtm-events'
 
 interface PhoneButtonProps {
   phone: string
@@ -27,7 +27,7 @@ export function PhoneButton({
   return (
     <Link 
       href={`tel:${formattedPhone}`}
-      onClick={() => analytics.phoneCall(phone, source)}
+      onClick={() => trackPhoneCallClick({ phone, source })}
     >
       <Button 
         variant={variant}

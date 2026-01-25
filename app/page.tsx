@@ -609,7 +609,7 @@ export default function HomePage() {
                       From business meetings to birthday parties,
                       we make your event special.
                     </p>
-                    <Link href="/book-event">
+                    <Link href="/private-hire">
                       <Button
                         variant="primary"
                         size="lg"

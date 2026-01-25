@@ -2,14 +2,13 @@
 
 import { useEffect } from 'react'
 import { usePathname } from 'next/navigation'
-import { analytics } from './analytics'
+import { trackPageView } from '@/lib/gtm-events'
 
 export function useAnalytics() {
   const pathname = usePathname() ?? '/'
 
   useEffect(() => {
-    analytics.pageView(pathname)
+    const title = typeof document !== 'undefined' ? document.title : pathname
+    trackPageView(pathname, title || pathname)
   }, [pathname])
-
-  return analytics
 }

@@ -13,9 +13,8 @@ import { Alert } from '@/components/ui/feedback/Alert'
 import { Button } from '@/components/ui/primitives/Button'
 import { Icon } from '@/components/ui/Icon'
 import { PhoneLink } from '@/components/PhoneLink'
-import { trackTableBookingClick, trackFormComplete, trackError } from '@/lib/gtm-events'
+import { trackTableBookingClick, trackTableBookingSuccess, trackFormComplete, trackError } from '@/lib/gtm-events'
 import { logError } from '@/lib/error-handling'
-import { analytics } from '@/lib/analytics'
 
 export interface TableBookingFormProps {
   className?: string
@@ -162,7 +161,18 @@ export default function TableBookingForm({
         
         // Track successful booking
         trackFormComplete('Table Booking')
-        analytics.formSubmit('booking', `${bookingState.partySize} people`, bookingState.partySize)
+        const bookingDate = response.confirmation_details?.date ?? response.booking_details?.date ?? bookingState.date
+        const bookingTime = response.confirmation_details?.time ?? response.booking_details?.time ?? bookingState.confirmedTime
+        if (bookingDate && bookingTime) {
+          trackTableBookingSuccess({
+            partySize: bookingState.partySize,
+            bookingDate,
+            bookingTime,
+            bookingReference: response.booking_reference,
+            source: 'table_booking_form',
+            deviceType: window.innerWidth < 768 ? 'mobile' : 'desktop'
+          })
+        }
         
         // Call onSuccess callback if provided
         if (onSuccess) {

@@ -1,9 +1,9 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { X } from 'lucide-react'
 import { Button } from '@/components/ui/primitives/Button'
-import { trackFormStart } from '@/lib/gtm-events'
+import { trackFormStart, trackModalClose, trackModalEngage, trackModalOpen, type ModalCloseReason } from '@/lib/gtm-events'
 import Link from 'next/link'
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
@@ -15,6 +15,10 @@ export function SixNationsLightbox() {
     const [isOpen, setIsOpen] = useState(false)
     const [hasINTERACTED, setHasINTERACTED] = useState(false)
     const [isVisible, setIsVisible] = useState(false)
+    const closeReasonRef = useRef<ModalCloseReason | null>(null)
+    const engagedRef = useRef(false)
+    const triggerRef = useRef<'timer' | 'exit_intent' | null>(null)
+    const modalId = 'six_nations_2026_lightbox'
 
     const checkSuppression = useCallback(() => {
         if (typeof window === 'undefined') return true
@@ -25,30 +29,82 @@ export function SixNationsLightbox() {
         return daysSince < SUPPRESSION_DAYS
     }, [])
 
-    const triggerLightbox = useCallback(() => {
-        if (checkSuppression() || hasINTERACTED) return
-        setIsOpen(true)
+	    const triggerLightbox = useCallback((trigger?: 'timer' | 'exit_intent') => {
+	        if (checkSuppression() || hasINTERACTED) return
+	        triggerRef.current = trigger ?? null
+	        setIsOpen(true)
         // Small delay to allow render before transition
         setTimeout(() => setIsVisible(true), 10)
-        setHasINTERACTED(true)
-        localStorage.setItem(SUPPRESSION_KEY, Date.now().toString())
-    }, [checkSuppression, hasINTERACTED])
+	        setHasINTERACTED(true)
+	        localStorage.setItem(SUPPRESSION_KEY, Date.now().toString())
+	    }, [checkSuppression, hasINTERACTED])
 
-    const closeLightbox = () => {
-        setIsVisible(false)
-        setTimeout(() => setIsOpen(false), 300) // Wait for transition
-    }
+	    const closeLightbox = useCallback(() => {
+	        setIsVisible(false)
+	        setTimeout(() => setIsOpen(false), 300) // Wait for transition
+	    }, [])
+
+	    const requestClose = useCallback((reason: ModalCloseReason) => {
+	        closeReasonRef.current = reason
+	        closeLightbox()
+	    }, [closeLightbox])
+
+	    const recordEngagement = useCallback((element: string) => {
+	        if (engagedRef.current) return
+	        engagedRef.current = true
+	        trackModalEngage({
+            id: modalId,
+            title: 'Six Nations 2026 lightbox',
+            interaction: 'click',
+	            element,
+	            extra: { lightbox_trigger: triggerRef.current }
+	        })
+	    }, [modalId])
+
+	    useEffect(() => {
+	        if (!isOpen) return
+	        engagedRef.current = false
+	        closeReasonRef.current = null
+        trackModalOpen({
+            id: modalId,
+	            title: 'Six Nations 2026 lightbox',
+	            extra: { lightbox_trigger: triggerRef.current }
+	        })
+	    }, [isOpen, modalId])
+
+	    useEffect(() => {
+	        if (isOpen) return
+	        if (!hasINTERACTED) return
+        trackModalClose({
+            id: modalId,
+            title: 'Six Nations 2026 lightbox',
+	            reason: closeReasonRef.current ?? 'programmatic',
+	            extra: { lightbox_trigger: triggerRef.current }
+	        })
+	        closeReasonRef.current = null
+	    }, [hasINTERACTED, isOpen, modalId])
+
+	    useEffect(() => {
+	        if (!isOpen) return
+	        const handleKeyDown = (event: KeyboardEvent) => {
+	            if (event.key === 'Escape') {
+	                requestClose('escape_key')
+	            }
+	        }
+	        document.addEventListener('keydown', handleKeyDown)
+	        return () => document.removeEventListener('keydown', handleKeyDown)
+	    }, [isOpen, requestClose])
 
     useEffect(() => {
         // 1. Time delay trigger (Mobile friendly)
         const timer = setTimeout(() => {
-            triggerLightbox()
+            triggerLightbox('timer')
         }, 40000) // 40 seconds
 
         // 2. Exit intent trigger (Desktop)
         const handleMouseLeave = (e: MouseEvent) => {
             if (e.clientY <= 0) {
-                triggerLightbox()
+                triggerLightbox('exit_intent')
             }
         }
 
@@ -69,7 +125,7 @@ export function SixNationsLightbox() {
         )}>
             {/* Backdrop */}
             <div
-                onClick={closeLightbox}
+                onClick={() => requestClose('backdrop_click')}
                 className="absolute inset-0 bg-black/80 backdrop-blur-sm"
             />
 
@@ -82,7 +138,7 @@ export function SixNationsLightbox() {
             >
                 {/* Close Button */}
                 <button
-                    onClick={closeLightbox}
+                    onClick={() => requestClose('close_button')}
                     className="absolute top-4 right-4 z-10 p-2 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors"
                 >
                     <X className="w-6 h-6" />
@@ -115,7 +171,8 @@ export function SixNationsLightbox() {
                     <div className="flex flex-col gap-3">
                         <Link href="/book-table" className="w-full" onClick={() => {
                             trackFormStart({ formName: 'six_nations_lightbox' })
-                            closeLightbox()
+                            recordEngagement('primary_cta')
+                            requestClose('cta')
                         }}>
                             <Button
                                 variant="primary"
@@ -127,7 +184,10 @@ export function SixNationsLightbox() {
                             </Button>
                         </Link>
 
-                        <Link href="/live-sport/six-nations" className="w-full" onClick={closeLightbox}>
+                        <Link href="/live-sport/six-nations" className="w-full" onClick={() => {
+                            recordEngagement('secondary_cta')
+                            requestClose('cta')
+                        }}>
                             <Button
                                 variant="outline"
                                 className="w-full justify-center"

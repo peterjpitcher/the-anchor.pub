@@ -30,7 +30,7 @@ export default function DemoHeaderPage() {
           <li><code className="bg-gray-100 px-2 py-1 rounded">drinks/</code> - Drinks page</li>
           <li><code className="bg-gray-100 px-2 py-1 rounded">sunday-lunch/</code> - Sunday Lunch page</li>
           <li><code className="bg-gray-100 px-2 py-1 rounded">find-us/</code> - Find Us page</li>
-          <li><code className="bg-gray-100 px-2 py-1 rounded">book-event/</code> - Book Event page</li>
+          <li><code className="bg-gray-100 px-2 py-1 rounded">private-hire/</code> - Private Hire page</li>
           <li><code className="bg-gray-100 px-2 py-1 rounded">near-heathrow-terminal-[1-5]/</code> - Terminal pages</li>
           <li><code className="bg-gray-100 px-2 py-1 rounded">hotel-near-heathrow/</code> - Hotels page</li>
           <li><code className="bg-gray-100 px-2 py-1 rounded">taxi-from-heathrow/</code> - Taxi page</li>

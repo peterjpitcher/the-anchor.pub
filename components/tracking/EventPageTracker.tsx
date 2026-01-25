@@ -1,8 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
-import { trackEventView } from '@/lib/gtm-events'
-import { analytics } from '@/lib/analytics'
+import { trackEventView, trackViewItem } from '@/lib/gtm-events'
 
 interface EventPageTrackerProps {
   eventId: string
@@ -29,8 +28,7 @@ export function EventPageTracker({
       eventPrice
     })
     
-    // Also track in analytics
-    analytics.viewItem('event', eventName, eventId)
+    trackViewItem({ category: 'event', name: eventName, id: eventId })
   }, [eventId, eventName, eventDate, eventCategory, eventPrice])
   
   return null

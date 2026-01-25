@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, KeyboardEvent, useCallback, useMemo } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { getEventCategories, type EventCategory } from '@/lib/api'
-import { analytics } from '@/lib/analytics'
+import { trackFilterChange } from '@/lib/gtm-events'
 import { LoadingState } from '@/components/ui/LoadingState'
 
 // Cache key for localStorage
@@ -74,11 +74,21 @@ export function CategoryFilter() {
       params.set('category', categorySlug)
       // Track category filter
       const category = categories.find(cat => cat.slug === categorySlug)
-      analytics.filter('category', category?.name || categorySlug)
+      trackFilterChange({
+        context: 'events',
+        filterType: 'category',
+        value: category?.slug || categorySlug,
+        action: 'apply'
+      })
     } else {
       params.delete('category')
       // Track clearing filter
-      analytics.filter('category', 'all')
+      trackFilterChange({
+        context: 'events',
+        filterType: 'category',
+        value: 'all',
+        action: 'clear'
+      })
     }
     
     router.push(`/whats-on${params.toString() ? `?${params.toString()}` : ''}`)

@@ -15,6 +15,9 @@ jest.mock('next/navigation', () => ({
 
 jest.mock('@/lib/gtm-events', () => ({
   pushToDataLayer: jest.fn(),
+  trackModalOpen: jest.fn(),
+  trackModalClose: jest.fn(),
+  trackModalEngage: jest.fn(),
 }))
 
 describe('PrivateHire2026PromoPopup', () => {
@@ -24,7 +27,7 @@ describe('PrivateHire2026PromoPopup', () => {
   beforeEach(() => {
     jest.clearAllMocks()
     window.localStorage.clear()
-    mockUsePathname.mockReturnValue('/book-event')
+    mockUsePathname.mockReturnValue('/private-hire')
   })
 
   it('renders and tracks a view event when eligible', async () => {

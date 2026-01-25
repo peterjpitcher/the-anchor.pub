@@ -16,7 +16,7 @@ export const PRIVATE_HIRE_2026_PROMO_DISABLED_STORAGE_KEY = 'promo_private_hire_
 export const PRIVATE_HIRE_2026_PROMO_ENABLED =
   process.env.NEXT_PUBLIC_PRIVATE_HIRE_2026_PROMO_ENABLED !== 'false'
 
-export const PRIVATE_HIRE_2026_PROMO_CTA_HREF = '/book-event#enquiry'
+export const PRIVATE_HIRE_2026_PROMO_CTA_HREF = '/private-hire#enquiry'
 export const PRIVATE_HIRE_2026_PROMO_PHONE = '01753 682707'
 export const PRIVATE_HIRE_2026_PROMO_PHONE_HREF = 'tel:+441753682707'
 

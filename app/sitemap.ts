@@ -49,7 +49,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/pool-darts-pub',
     '/summer-garden-parties',
     '/book-table',
-    '/book-event',
     '/private-hire',
     '/private-party-venue',
     '/function-room-hire',

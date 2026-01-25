@@ -2,7 +2,7 @@
  * User-friendly error message mappings and utilities
  */
 
-import { analytics } from '@/lib/analytics'
+import { trackError } from '@/lib/gtm-events'
 
 export interface ErrorContext {
   feature: 'events' | 'booking' | 'flights' | 'hours' | 'business-hours' | 'general'
@@ -136,7 +136,7 @@ export function logError(context: string, error: unknown, additionalInfo?: Recor
     `${context}: ${error.message}` : 
     `${context}: ${JSON.stringify(error)}`
   
-  analytics.error(errorCategory as any, errorLabel)
+  trackError(errorCategory, errorLabel, context)
 
   // In production, this would send to error monitoring service
   console.error(`[${context}] Error:`, errorDetails)

@@ -176,7 +176,7 @@ export default async function WhatsOnPage() {
                 🍖 Sunday Roast Info
               </Button>
             </Link>
-            <Link href="/book-event" className="w-full sm:w-auto">
+            <Link href="/private-hire#enquiry" className="w-full sm:w-auto">
               <Button
                 variant="secondary"
                 size="lg"
@@ -528,7 +528,7 @@ export default async function WhatsOnPage() {
               ]}
               className="mb-8"
             />
-            <Link href="/book-event">
+            <Link href="/private-hire#enquiry">
               <Button variant="primary" size="lg">
                 Enquire About Private Events
               </Button>

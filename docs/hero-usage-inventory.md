@@ -11,7 +11,7 @@
 | /blog | feature | — | info slot |
 | `/blog/tag/${params.tag}` | feature | breadcrumbs=[ { name: 'Blog', href: '/blog' }, { name: displayName } ] | info slot |
 | /blog/tags | feature | breadcrumbs=[ { name: 'Blog', href: '/blog' }, { name: 'All Topics' } ] | secondary slot |
-| /book-event | promo | — | primary slot |
+| /private-hire | promo | — | primary slot, secondary slot |
 | /book-table | default | breadcrumbs=[ { name: 'Home', href: '/' }, { name: 'Booking' } ]<br/>tags=[ { label: 'Easy Online Booking', icon: '📅', size: 'small' }, { label: 'Instant Confirmation', icon: '✅', size: 'small' }, { label: 'Sunday Roasts', icon: '🍽️', size: 'small' } ] | — |
 | /book-table | default | statusBarPosition=above | primary slot, secondary slot |
 | /cash-bingo | promo | tags=[ { label: '💷 GBP 10 cash-only books', variant: 'default' }, { label: '🎯 Snowball grows every month', variant: 'primary' }, { label: '🍽️ Full menu 6 pm–9 pm', variant: 'default' } ] | primary slot, secondary slot |

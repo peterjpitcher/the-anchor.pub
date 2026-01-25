@@ -41,7 +41,7 @@ const sitemapSections: SitemapSection[] = [
       { label: 'Home', href: '/' },
       { label: 'Find Us', href: '/find-us' },
       { label: 'Book a Table', href: '/book-table' },
-      { label: 'Book an Event', href: '/book-event' },
+      { label: 'Private Hire & Events', href: '/private-hire' },
       { label: 'Sitemap', href: '/sitemap-page' },
     ]
   },

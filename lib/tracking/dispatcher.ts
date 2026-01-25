@@ -19,10 +19,6 @@ export interface TrackingDispatchOptions {
    */
   sendToApi?: boolean
   /**
-   * Override the event name sent to gtag (defaults to payload.event).
-   */
-  gtagEventName?: string
-  /**
    * Adds page context (path/location) automatically. Defaults to true.
    */
   includePageContext?: boolean
@@ -99,6 +95,16 @@ function sanitizePayload(payload: Record<string, unknown>): Record<string, unkno
   return cleaned
 }
 
+type DeviceType = 'mobile' | 'tablet' | 'desktop' | 'unknown'
+
+function getDeviceType(): DeviceType {
+  if (typeof window === 'undefined') return 'unknown'
+  const width = window.innerWidth
+  if (width < 768) return 'mobile'
+  if (width < 1024) return 'tablet'
+  return 'desktop'
+}
+
 export function dispatchTrackingEvent(
   eventData: TrackingEventPayload,
   options?: TrackingDispatchOptions
@@ -110,7 +116,6 @@ export function dispatchTrackingEvent(
   const {
     requireConsent = true,
     sendToApi = false,
-    gtagEventName,
     includePageContext = true
   } = options ?? {}
 
@@ -121,6 +126,9 @@ export function dispatchTrackingEvent(
   const timestamp = new Date().toISOString()
   const pagePath = includePageContext ? window.location?.pathname : undefined
   const pageLocation = includePageContext ? window.location?.href : undefined
+  const pageTitle = includePageContext ? document?.title : undefined
+  const referrer = includePageContext ? document?.referrer : undefined
+  const deviceType = getDeviceType()
 
   const payload: Record<string, unknown> = {
     ...eventData,
@@ -134,6 +142,16 @@ export function dispatchTrackingEvent(
     if (payload.page_location === undefined && pageLocation) {
       payload.page_location = pageLocation
     }
+    if (payload.page_title === undefined && pageTitle) {
+      payload.page_title = pageTitle
+    }
+    if (payload.referrer === undefined && referrer) {
+      payload.referrer = referrer
+    }
+  }
+
+  if (payload.device_type === undefined) {
+    payload.device_type = deviceType
   }
 
   const dataLayerPayload = sanitizePayload(payload)
@@ -145,17 +163,10 @@ export function dispatchTrackingEvent(
 
   window.dataLayer.push(dataLayerPayload)
 
-  // Mirror event to gtag if available
-  if ('gtag' in window && typeof (window as any).gtag === 'function') {
-    const { event, ...rest } = dataLayerPayload
-    ;(window as any).gtag('event', gtagEventName ?? (event as string), sanitizePayload(rest))
-  }
-
   if (sendToApi) {
     attachFlushListeners()
     apiQueue.push({
       ...dataLayerPayload,
-      event: gtagEventName ?? dataLayerPayload.event,
       timestamp,
       userAgent: navigator.userAgent
     })

@@ -403,7 +403,7 @@ export default function EghamPubPage() {
           },
           {
             text: "🎉 Book an Event",
-            href: "/book-event",
+            href: "/private-hire#enquiry",
             variant: "white"
           },
           {

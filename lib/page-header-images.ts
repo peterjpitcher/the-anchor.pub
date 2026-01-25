@@ -22,6 +22,7 @@ const PAGE_HEADER_ALT_TEXT: Record<string, string> = {
   'near-heathrow': 'The Anchor pub entrance with a jet overhead highlighting its proximity to Heathrow',
   'blog': 'Cozy interior corner of The Anchor with vintage decor and warm atmosphere',
   'events': 'Packed event night at The Anchor with crowd enjoying live entertainment',
+  'private-hire': 'The Anchor private hire venue dressed for celebrations and group events near Heathrow',
   'private-party-venue': 'Private function room dressed for a celebration with candlelight and balloons',
   'function-room-hire': 'Versatile function room at The Anchor staged for workshops with AV equipment',
   'corporate-events': 'Professional boardroom style layout in The Anchor function space ready for presentations',

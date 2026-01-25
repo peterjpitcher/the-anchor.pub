@@ -315,7 +315,7 @@ export default async function AshfordPubPage() {
               <p className="text-lg text-gray-700 mb-6">
                 Private areas available for Ashford groups - from intimate dinners to parties of 250!
               </p>
-              <Link href="/book-event">
+              <Link href="/private-hire#enquiry">
                 <Button
                   variant="primary"
                   size="lg"
@@ -389,7 +389,7 @@ export default async function AshfordPubPage() {
                 We love being part of the Ashford community.
               </p>
               <div className="flex flex-wrap justify-center gap-4">
-                <Link href="/book-event">
+                <Link href="/private-hire">
                   <Button
                     variant="primary"
                     size="md"
@@ -598,7 +598,7 @@ export default async function AshfordPubPage() {
           },
           {
             text: "🎉 Book an Event",
-            href: "/book-event",
+            href: "/private-hire#enquiry",
             variant: "white"
           },
           {

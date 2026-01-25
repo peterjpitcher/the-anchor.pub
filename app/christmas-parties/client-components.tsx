@@ -12,8 +12,7 @@ import { Card } from '@/components/ui/layout/Card'
 import { Button } from '@/components/ui/primitives/Button'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Alert } from '@/components/ui/feedback/Alert'
-import { trackBannerEvent, trackCtaClick, trackFormComplete, trackFormStart } from '@/lib/gtm-events'
-import { analytics } from '@/lib/analytics'
+import { trackBannerEvent, trackCtaClick, trackEmailClick, trackFormComplete, trackFormStart, trackPhoneCallClick } from '@/lib/gtm-events'
 import { HeroSection } from '@/components/hero/HeroSection'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
@@ -404,7 +403,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
               location: 'christmas_hero',
               destination: 'phone'
             })
-            analytics.phoneCall(CONTACT_PHONE, 'christmas_hero')
+            trackPhoneCallClick({ phone: CONTACT_PHONE, source: 'christmas_hero' })
             window.location.href = CONTACT_PHONE_LINK
           }}
         >
@@ -421,7 +420,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
               location: 'christmas_hero',
               destination: 'email'
             })
-            analytics.emailClick(CONTACT_EMAIL, 'christmas_hero', undefined, '/christmas-parties')
+            trackEmailClick({ email: CONTACT_EMAIL, source: 'christmas_hero' })
             window.location.href = CONTACT_EMAIL_LINK
           }}
         >
@@ -484,13 +483,13 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
       <Section className="bg-white" spacing="md" container>
         <Container>
           <Grid cols={3} gap="md">
-	            <Card className="h-full">
-	              <div className="p-6 space-y-3 text-center">
-	                <Icon name="calendar" className="mx-auto h-8 w-8 text-red-600" />
-	                <h3 className="text-lg font-semibold text-anchor-charcoal">Mid-week value</h3>
-	                <p className="text-sm text-gray-600">Tue-Thu 3 courses for GBP 36.95 per person (groups of 6+).</p>
-	              </div>
-	            </Card>
+            <Card className="h-full">
+              <div className="p-6 space-y-3 text-center">
+                <Icon name="calendar" className="mx-auto h-8 w-8 text-red-600" />
+                <h3 className="text-lg font-semibold text-anchor-charcoal">Mid-week value</h3>
+                <p className="text-sm text-gray-600">Tue-Thu 3 courses for GBP 36.95 per person (groups of 6+).</p>
+              </div>
+            </Card>
             <Card className="h-full">
               <div className="p-6 space-y-3 text-center">
                 <Icon name="utensils" className="mx-auto h-8 w-8 text-red-600" />
@@ -1462,7 +1461,7 @@ function StickyEnquiryBar({ visible, context, onContextChange, onOpenForm }: Sti
                 destination: 'phone',
                 mode: context.mode
               })
-              analytics.phoneCall(CONTACT_PHONE, 'christmas_sticky_bar')
+              trackPhoneCallClick({ phone: CONTACT_PHONE, source: 'christmas_sticky_bar' })
             }}
           >
             <Icon name="phone" className="mr-2 h-4 w-4" /> Call {CONTACT_PHONE}
@@ -1478,7 +1477,7 @@ function StickyEnquiryBar({ visible, context, onContextChange, onOpenForm }: Sti
                 destination: 'email',
                 mode: context.mode
               })
-              analytics.emailClick(CONTACT_EMAIL, 'christmas_sticky_bar', undefined, '/christmas-parties')
+              trackEmailClick({ email: CONTACT_EMAIL, source: 'christmas_sticky_bar' })
             }}
           >
             <Icon name="mail" className="mr-2 h-4 w-4" /> Email us

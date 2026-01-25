@@ -518,7 +518,7 @@ export default function PubsInStanwellPage() {
           },
           {
             text: "🎉 Book an Event",
-            href: "/book-event",
+            href: "/private-hire#enquiry",
             variant: "white"
           },
           {

@@ -10,7 +10,7 @@ This directory contains header images for each page of the website. Each page ha
 - `drinks/` - Drinks page header
 - `sunday-lunch/` - Sunday Lunch page header
 - `find-us/` - Find Us page header
-- `book-event/` - Book Event page header
+- `private-hire/` - Private Hire page header
 - `near-heathrow-terminal-2/` - Terminal 2 page header
 - `near-heathrow-terminal-3/` - Terminal 3 page header
 - `near-heathrow-terminal-4/` - Terminal 4 page header

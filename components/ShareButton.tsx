@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react'
 import { Button, type ButtonProps } from '@/components/ui'
-import { pushToDataLayer } from '@/lib/gtm-events'
+import { trackSocialClick } from '@/lib/gtm-events'
 
 type ShareButtonProps = Omit<ButtonProps, 'onClick' | 'children'> & {
   title: string
@@ -31,13 +31,12 @@ export function ShareButton({
   }
 
   const handleShare = async () => {
-    pushToDataLayer({
-      event: 'social_click',
-      event_category: 'Social Media',
-      event_label: 'share',
-      click_source: source,
-      share_title: title,
-      share_url: url
+    trackSocialClick({
+      platform: 'share',
+      source,
+      url,
+      label: 'share',
+      title
     })
 
     if (typeof navigator !== 'undefined' && 'share' in navigator) {
@@ -76,4 +75,3 @@ export function ShareButton({
     </Button>
   )
 }
-

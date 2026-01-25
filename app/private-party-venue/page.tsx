@@ -37,7 +37,7 @@ export const metadata: Metadata = {
 export default function PrivatePartyVenuePage() {
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: 'Home', url: '/' },
-    { name: 'Private Events', url: '/book-event' },
+    { name: 'Private Hire & Events', url: '/private-hire' },
     { name: 'Private Parties', url: '/private-party-venue' }
   ])
 

@@ -8,6 +8,24 @@ interface GTMEvent {
   [key: string]: any
 }
 
+type DeviceType = 'mobile' | 'tablet' | 'desktop' | 'unknown'
+
+function redactPotentialPII(value: string) {
+  // Basic redaction to avoid accidentally shipping user-entered PII in free-text fields.
+  return value
+    // Emails
+    .replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, '[redacted-email]')
+    // UK-ish phone numbers (very loose)
+    .replace(/(\+?\d[\d\s().-]{7,}\d)/g, '[redacted-phone]')
+}
+
+function safeText(value: unknown) {
+  if (typeof value !== 'string') return undefined
+  const trimmed = value.trim()
+  if (!trimmed) return undefined
+  return redactPotentialPII(trimmed).slice(0, 500)
+}
+
 type FormEventInput =
   | string
   | {
@@ -60,9 +78,10 @@ export function pushToDataLayer(data: GTMEvent, options?: TrackingDispatchOption
 export function trackPageView(url: string, title: string) {
   pushToDataLayer({
     event: 'page_view',
+    event_category: 'Navigation',
+    event_label: url,
     page_path: url,
     page_title: title,
-    page_location: window.location.href
   })
 }
 
@@ -382,12 +401,30 @@ export function trackMenuView(menuType: 'food' | 'drinks' | 'sunday') {
   })
 }
 
-export function trackPhoneCall(context: string) {
+export function trackPhoneCallClick(data: { phone?: string; source: string }) {
   pushToDataLayer({
-    event: 'phone_call',
+    event: 'phone_call_click',
     event_category: 'Contact',
-    event_label: context,
-    contact_method: 'phone'
+    event_label: data.phone ?? data.source,
+    contact_method: 'phone',
+    contact_source: data.source,
+    phone: data.phone
+  })
+}
+
+// Backwards-compatible alias (previously `trackPhoneCall(context)`).
+export function trackPhoneCall(context: string) {
+  trackPhoneCallClick({ source: context })
+}
+
+export function trackEmailClick(data: { email: string; source: string; subject?: string }) {
+  pushToDataLayer({
+    event: 'email_click',
+    event_category: 'Contact',
+    event_label: data.email,
+    contact_method: 'email',
+    contact_source: data.source,
+    email_subject: data.subject
   })
 }
 
@@ -396,17 +433,25 @@ export function trackWhatsAppClick(context: string) {
     event: 'whatsapp_click',
     event_category: 'Contact',
     event_label: context,
-    contact_method: 'whatsapp'
+    contact_method: 'whatsapp',
+    contact_source: context
   })
 }
 
 // Location/directions tracking
-export function trackDirectionsClick(fromLocation: string) {
+export function trackDirectionsClick(
+  source: string,
+  data?: { destination?: string; mapPlatform?: string; fromLocation?: string }
+) {
   pushToDataLayer({
-    event: 'get_directions',
+    event: 'directions_click',
     event_category: 'Navigation',
-    event_label: fromLocation,
-    transport_method: 'driving'
+    event_label: source,
+    transport_method: 'driving',
+    directions_source: source,
+    from_location: data?.fromLocation,
+    destination_address: data?.destination,
+    map_platform: data?.mapPlatform
   })
 }
 
@@ -416,6 +461,57 @@ export function trackReviewClick(platform: string) {
     event: 'review_interaction',
     event_category: 'Social Proof',
     event_label: platform
+  })
+}
+
+export function trackViewItem(data: {
+  category: 'event' | 'menu_item'
+  name: string
+  id?: string | number
+}) {
+  pushToDataLayer({
+    event: 'view_item',
+    event_category: data.category,
+    event_label: data.name,
+    item_category: data.category,
+    item_name: data.name,
+    item_id: data.id,
+    value: typeof data.id === 'number' ? data.id : undefined
+  })
+}
+
+export function trackFilterChange(data: {
+  context: string
+  filterType: string
+  value: string
+  action?: 'apply' | 'clear'
+}) {
+  pushToDataLayer({
+    event: 'filter_change',
+    event_category: 'Filter',
+    event_label: `${data.filterType}:${data.value}`,
+    filter_context: data.context,
+    filter_type: data.filterType,
+    filter_value: data.value,
+    filter_action: data.action ?? 'apply'
+  })
+}
+
+export function trackSocialClick(data: {
+  platform: string
+  source: string
+  url?: string
+  label?: string
+  title?: string
+}) {
+  pushToDataLayer({
+    event: 'social_click',
+    event_category: 'Social',
+    event_label: data.label ?? data.platform,
+    social_platform: data.platform,
+    social_url: data.url,
+    click_source: data.source,
+    share_title: data.title
   })
 }
 
@@ -429,6 +525,8 @@ export function trackAddToCart(item: {
 }) {
   pushToDataLayer({
     event: 'add_to_cart',
+    event_category: 'Ecommerce',
+    event_label: item.itemName,
     ecommerce: {
       currency: 'GBP',
       value: item.price * item.quantity,
@@ -490,8 +588,6 @@ export function trackScrollDepth(milestone: number) {
     event_label: document.title,
     value: milestone,
     scroll_depth: milestone,
-    page_location: window.location.href,
-    page_title: document.title,
   })
 }
 
@@ -501,7 +597,7 @@ export function trackError(errorType: string, errorMessage: string, context?: st
     event: 'error',
     event_category: 'Site Errors',
     event_label: errorType,
-    error_message: errorMessage,
+    error_message: safeText(errorMessage),
     error_context: context
   })
 }
@@ -512,7 +608,7 @@ export function trackFormStart(form: FormEventInput) {
 
   pushToDataLayer({
     event: 'form_start',
-    event_category: 'Form Interaction',
+    event_category: 'Form',
     event_label: name,
     form_name: name,
     ...metadata
@@ -524,7 +620,7 @@ export function trackFormComplete(form: FormEventInput) {
 
   pushToDataLayer({
     event: 'form_complete',
-    event_category: 'Form Interaction',
+    event_category: 'Form',
     event_label: name,
     form_name: name,
     ...metadata
@@ -536,7 +632,7 @@ export function trackFormAbandon(form: FormEventInput, lastField?: string) {
 
   pushToDataLayer({
     event: 'form_abandon',
-    event_category: 'Form Interaction',
+    event_category: 'Form',
     event_label: name,
     form_name: name,
     last_field: lastField,
@@ -605,18 +701,18 @@ export function trackBannerEvent(data: {
 
 export function trackAnchorNavClick(data: {
   section: string
-  deviceType?: 'mobile' | 'tablet' | 'desktop' | 'unknown'
+  deviceType?: DeviceType
   location?: string
 }) {
   if (typeof window === 'undefined') return
 
   pushToDataLayer({
     event: 'anchor_nav_click',
+    event_category: 'Navigation',
+    event_label: data.section,
     section: data.section,
     device_type: data.deviceType,
     location: data.location,
-    page_path: window.location.pathname,
-    page_location: window.location.href
   })
 }
 
@@ -631,31 +727,109 @@ export function trackContextCtaClick(data: {
 
   pushToDataLayer({
     event: 'context_cta_click',
+    event_category: 'CTA',
+    event_label: data.label,
     label: data.label,
     destination: data.destination,
     context: data.context,
     location: data.location,
     mode: data.mode,
-    page_path: window.location.pathname,
-    page_location: window.location.href
   })
 }
 
 export function trackStickyCtaShown(data: {
   secondsVisible: number
   context: string
-  deviceType: 'mobile' | 'tablet' | 'desktop' | 'unknown'
+  deviceType: DeviceType
   location?: string
 }) {
   if (typeof window === 'undefined') return
 
   pushToDataLayer({
     event: 'sticky_cta_shown',
+    event_category: 'CTA',
+    event_label: data.context,
     seconds_visible: data.secondsVisible,
     context: data.context,
     device_type: data.deviceType,
     location: data.location,
-    page_path: window.location.pathname,
-    page_location: window.location.href
+  })
+}
+
+export function trackCookieConsent(data: {
+  action: 'accept_all' | 'reject_all' | 'save_preferences'
+  analytics: boolean
+  marketing: boolean
+  preferences: boolean
+}) {
+  pushToDataLayer({
+    event: 'cookie_consent_update',
+    event_category: 'Consent',
+    event_label: data.action,
+    consent_analytics: data.analytics,
+    consent_marketing: data.marketing,
+    consent_preferences: data.preferences
+  }, { requireConsent: false, sendToApi: true })
+}
+
+export type ModalCloseReason =
+  | 'close_button'
+  | 'escape_key'
+  | 'backdrop_click'
+  | 'cta'
+  | 'programmatic'
+
+export function trackModalOpen(data: {
+  id: string
+  title?: string
+  size?: string
+  backdrop?: string
+  extra?: Record<string, unknown>
+}) {
+  pushToDataLayer({
+    event: 'modal_open',
+    event_category: 'Overlay',
+    event_label: data.id,
+    modal_id: data.id,
+    modal_title: safeText(data.title),
+    modal_size: data.size,
+    modal_backdrop: data.backdrop,
+    ...(data.extra ?? {})
+  })
+}
+
+export function trackModalEngage(data: {
+  id: string
+  title?: string
+  interaction?: 'click' | 'focus' | 'keydown'
+  element?: string
+  extra?: Record<string, unknown>
+}) {
+  pushToDataLayer({
+    event: 'modal_engage',
+    event_category: 'Overlay',
+    event_label: data.id,
+    modal_id: data.id,
+    modal_title: safeText(data.title),
+    engagement_type: data.interaction ?? 'click',
+    engagement_element: data.element,
+    ...(data.extra ?? {})
+  })
+}
+
+export function trackModalClose(data: {
+  id: string
+  title?: string
+  reason?: ModalCloseReason
+  extra?: Record<string, unknown>
+}) {
+  pushToDataLayer({
+    event: 'modal_close',
+    event_category: 'Overlay',
+    event_label: data.id,
+    modal_id: data.id,
+    modal_title: safeText(data.title),
+    modal_reason: data.reason ?? 'programmatic',
+    ...(data.extra ?? {})
   })
 }

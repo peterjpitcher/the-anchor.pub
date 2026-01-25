@@ -75,6 +75,7 @@ export default function SundayLunchBookingSection({
         onClose={handleClose}
         title="Book Your Sunday Roast"
         size="lg"
+        id={`sunday_lunch_booking_${source}`}
       >
         <SundayLunchBooking onSuccess={handleSuccess} />
       </Modal>

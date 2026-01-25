@@ -436,7 +436,7 @@ export default async function StainesPubPage() {
                 We're always willing to discuss your needs and budget.
               </p>
               <div className="flex flex-wrap justify-center gap-4">
-                <Link href="/book-event">
+                <Link href="/private-hire">
                   <Button variant="primary" size="md">
                     View Event Options
                   </Button>
@@ -478,7 +478,7 @@ export default async function StainesPubPage() {
         links={[
           { href: '/food-menu', title: 'Food Menu', description: 'See Sunday roasts, burgers and stone-baked pizzas' },
           { href: '/whats-on', title: "What's On", description: 'Check Music Bingo, quiz nights and live sport' },
-          { href: '/book-event', title: 'Book a Celebration', description: 'Host birthdays, wakes and anniversaries' },
+          { href: '/private-hire', title: 'Book a Celebration', description: 'Host birthdays, wakes and anniversaries' },
           { href: '/drinks', title: 'Drinks Menu', description: 'Perfect garden cocktail before strolling along the Thames' }
         ]}
         className="section-spacing-md"
@@ -525,7 +525,7 @@ export default async function StainesPubPage() {
           },
           {
             text: "🎉 Book an Event",
-            href: "/book-event",
+            href: "/private-hire#enquiry",
             variant: "white"
           },
           {

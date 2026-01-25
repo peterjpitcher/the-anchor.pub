@@ -626,7 +626,7 @@ export default function Terminal5Page() {
         links={[
           { href: '/food-menu', title: 'Food Menu', description: 'Stone-baked pizzas, burgers and Sunday roast pre-orders' },
           { href: '/drinks', title: 'Drinks Menu', description: 'Real ales, cocktails and value pub prices near Heathrow' },
-          { href: '/book-event', title: 'Book an Event', description: 'Reserve private space for crew briefings or celebrations' },
+          { href: '/private-hire#enquiry', title: 'Book an Event', description: 'Reserve private space for crew briefings or celebrations' },
           { href: '/near-heathrow/terminal-3', title: 'Terminal 3 Guide', description: 'Directions and tips for Virgin and Emirates flights' }
         ]}
         className="section-spacing-md"

@@ -2,8 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Metadata } from 'next'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
-import { Container, SectionHeader, FeatureGrid, InfoBoxGrid, Button } from '@/components/ui'
-import { BookTableButton } from '@/components/BookTableButton'
+import { Container, SectionHeader, FeatureGrid, Button } from '@/components/ui'
 import { PhoneButton } from '@/components/PhoneButton'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
@@ -37,14 +36,11 @@ export default function PrivateHirePage() {
                     { label: "🍽️ Private Catering", variant: "success" }
                 ]}
                 primaryCta={
-                    <BookTableButton
-                        source="private_hire_hero"
-                        variant="primary"
-                        size="lg"
-                        context="private_party"
-                    >
-                        Enquire Now
-                    </BookTableButton>
+                    <Link href="/private-hire#enquiry" className="w-full sm:w-auto">
+                        <Button variant="primary" size="lg" className="w-full sm:w-auto">
+                            Enquire Now
+                        </Button>
+                    </Link>
                 }
                 secondaryCta={
                     <PhoneButton

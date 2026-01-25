@@ -10,7 +10,7 @@ import {
   getConsentStatus,
   type CookieConsent 
 } from '@/lib/cookies';
-import { trackEvent } from '@/lib/analytics';
+import { trackCookieConsent } from '@/lib/gtm-events';
 import { Button } from '@/components/ui';
 
 export default function CookieBanner() {
@@ -38,21 +38,13 @@ export default function CookieBanner() {
   const handleAcceptAll = () => {
     acceptAllCookies();
     setShowBanner(false);
-    trackEvent({
-      action: 'click',
-      category: 'cta',
-      label: 'cookie_accept_all'
-    });
+    trackCookieConsent({ action: 'accept_all', analytics: true, marketing: true, preferences: true });
   };
 
   const handleRejectAll = () => {
     rejectAllCookies();
     setShowBanner(false);
-    trackEvent({
-      action: 'click',
-      category: 'cta',
-      label: 'cookie_reject_all'
-    });
+    trackCookieConsent({ action: 'reject_all', analytics: false, marketing: false, preferences: false });
   };
 
   const handleSavePreferences = () => {
@@ -63,10 +55,11 @@ export default function CookieBanner() {
     });
     setShowBanner(false);
     setShowPreferences(false);
-    trackEvent({
-      action: 'click',
-      category: 'cta',
-      label: 'cookie_custom_preferences'
+    trackCookieConsent({
+      action: 'save_preferences',
+      analytics: consent?.analytics || false,
+      marketing: consent?.marketing || false,
+      preferences: consent?.preferences || false
     });
   };
 

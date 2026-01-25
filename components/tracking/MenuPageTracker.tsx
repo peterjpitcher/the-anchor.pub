@@ -1,8 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { pushToDataLayer } from '@/lib/gtm-events'
-import { analytics } from '@/lib/analytics'
+import { pushToDataLayer, trackViewItem } from '@/lib/gtm-events'
 import { usePathname } from 'next/navigation'
 
 interface MenuPageTrackerProps {
@@ -45,8 +44,7 @@ export function MenuPageTracker({ menuType, specialOffers = [] }: MenuPageTracke
       })
     }
     
-    // Also track in analytics
-    analytics.viewItem('menu_item', `${menuType} menu`)
+    trackViewItem({ category: 'menu_item', name: `${menuType} menu`, id: menuType })
 
     // Track time spent on page when user leaves
     const mountTime = mountTimeRef.current

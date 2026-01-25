@@ -3,7 +3,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { Button } from '@/components/ui'
-import { pushToDataLayer } from '@/lib/gtm-events'
+import { trackDirectionsClick } from '@/lib/gtm-events'
 
 interface DirectionsButtonProps {
   href: string
@@ -42,26 +42,8 @@ export function DirectionsButton({
     return 'google_maps' // default
   })()
 
-  // Extract from location from URL if not provided
-  const extractedFromLocation = fromLocation || (() => {
-    const saddrMatch = href.match(/saddr=([^&]+)/)
-    if (saddrMatch) {
-      return decodeURIComponent(saddrMatch[1].replace(/\+/g, ' '))
-    }
-    return 'User Location'
-  })()
-
   const handleClick = () => {
-    // Track the directions click
-    pushToDataLayer({
-      event: 'directions_click',
-      event_category: 'Navigation',
-      event_label: source,
-      source_page: source,
-      destination_address: destination,
-      map_platform: platform,
-      from_location: extractedFromLocation
-    })
+    trackDirectionsClick(source, { destination, mapPlatform: platform, fromLocation })
     if (onClick) {
       onClick()
     }

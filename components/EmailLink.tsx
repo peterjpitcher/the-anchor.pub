@@ -1,6 +1,6 @@
 'use client'
 
-import { analytics } from '@/lib/analytics'
+import { trackEmailClick } from '@/lib/gtm-events'
 
 interface EmailLinkProps {
   email: string
@@ -28,7 +28,7 @@ export function EmailLink({
     : `mailto:${email}`
   
   const handleClick = () => {
-    analytics.emailClick(email, source, subject)
+    trackEmailClick({ email, source, subject })
     if (onClick) {
       onClick()
     }

@@ -6,6 +6,7 @@ import { BookTableButton } from './BookTableButton'
 import { PhoneButton } from './PhoneButton'
 import { DirectionsButton } from './DirectionsButton'
 import { EmailLink } from './EmailLink'
+import { trackCtaClick } from '@/lib/gtm-events'
 
 interface CTAButton {
   text: string
@@ -45,6 +46,15 @@ export function CTASection({
   footer,
   children
 }: CTASectionProps) {
+  const slugify = (value: string) =>
+    value
+      .toLowerCase()
+      .trim()
+      .replace(/['’]/g, '')
+      .replace(/[^a-z0-9]+/g, '_')
+      .replace(/^_+|_+$/g, '')
+
+  const sectionId = slugify(title)
   const bgClasses = {
     green: 'bg-anchor-green text-white',
     red: 'bg-red-600 text-white',
@@ -201,6 +211,16 @@ export function CTASection({
                 target={button.target || (isExternal ? '_blank' : undefined)}
                 rel={button.rel || (isExternal ? 'noopener noreferrer' : undefined)}
                 className="flex-1"
+                onClick={() => {
+                  trackCtaClick({
+                    id: `cta_section_${sectionId}_${index}`,
+                    label: button.text,
+                    location: `cta_section:${sectionId}`,
+                    destination: button.href,
+                    context: isExternal ? 'external' : 'internal',
+                    variant: button.variant
+                  })
+                }}
               >
                 {buttonElement}
               </Link>

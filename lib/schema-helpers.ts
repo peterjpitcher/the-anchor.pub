@@ -226,7 +226,7 @@ export function getServiceSchema(service: {
     "areaServed": service.areaServed || "Stanwell Moor, Surrey",
     "availableChannel": service.availableChannel || {
       "@type": "ServiceChannel",
-      "serviceUrl": "https://www.the-anchor.pub/book-event",
+      "serviceUrl": "https://www.the-anchor.pub/private-hire",
       "name": "Online Booking"
     }
   }

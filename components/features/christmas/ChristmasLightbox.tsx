@@ -1,9 +1,9 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { X } from 'lucide-react'
 import { Button } from '@/components/ui/primitives/Button'
-import { trackFormStart } from '@/lib/gtm-events'
+import { trackFormStart, trackModalClose, trackModalEngage, trackModalOpen, type ModalCloseReason } from '@/lib/gtm-events'
 import Link from 'next/link'
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
@@ -19,6 +19,10 @@ export function ChristmasLightbox() {
     const [isOpen, setIsOpen] = useState(false)
     const [hasINTERACTED, setHasINTERACTED] = useState(false)
     const [isVisible, setIsVisible] = useState(false)
+    const closeReasonRef = useRef<ModalCloseReason | null>(null)
+    const engagedRef = useRef(false)
+    const triggerRef = useRef<'timer' | 'exit_intent' | null>(null)
+    const modalId = 'christmas_2026_lightbox'
 
     const checkSuppression = useCallback(() => {
         if (typeof window === 'undefined') return true
@@ -34,30 +38,82 @@ export function ChristmasLightbox() {
         return true
     }, [])
 
-    const triggerLightbox = useCallback(() => {
-        if (checkSuppression() || hasINTERACTED) return
-        setIsOpen(true)
+	    const triggerLightbox = useCallback((trigger?: 'timer' | 'exit_intent') => {
+	        if (checkSuppression() || hasINTERACTED) return
+	        triggerRef.current = trigger ?? null
+	        setIsOpen(true)
         // Small delay to allow render before transition
         setTimeout(() => setIsVisible(true), 10)
-        setHasINTERACTED(true)
-        localStorage.setItem(SUPPRESSION_KEY, Date.now().toString())
-    }, [checkSuppression, hasINTERACTED])
+	        setHasINTERACTED(true)
+	        localStorage.setItem(SUPPRESSION_KEY, Date.now().toString())
+	    }, [checkSuppression, hasINTERACTED])
 
-    const closeLightbox = () => {
-        setIsVisible(false)
-        setTimeout(() => setIsOpen(false), 300) // Wait for transition
-    }
+	    const closeLightbox = useCallback(() => {
+	        setIsVisible(false)
+	        setTimeout(() => setIsOpen(false), 300) // Wait for transition
+	    }, [])
+
+	    const requestClose = useCallback((reason: ModalCloseReason) => {
+	        closeReasonRef.current = reason
+	        closeLightbox()
+	    }, [closeLightbox])
+
+	    const recordEngagement = useCallback((element: string) => {
+	        if (engagedRef.current) return
+	        engagedRef.current = true
+	        trackModalEngage({
+            id: modalId,
+            title: 'Christmas 2026 lightbox',
+            interaction: 'click',
+	            element,
+	            extra: { lightbox_trigger: triggerRef.current }
+	        })
+	    }, [modalId])
+
+	    useEffect(() => {
+	        if (!isOpen) return
+	        engagedRef.current = false
+	        closeReasonRef.current = null
+        trackModalOpen({
+            id: modalId,
+	            title: 'Christmas 2026 lightbox',
+	            extra: { lightbox_trigger: triggerRef.current }
+	        })
+	    }, [isOpen, modalId])
+
+	    useEffect(() => {
+	        if (isOpen) return
+	        if (!hasINTERACTED) return
+        trackModalClose({
+            id: modalId,
+            title: 'Christmas 2026 lightbox',
+	            reason: closeReasonRef.current ?? 'programmatic',
+	            extra: { lightbox_trigger: triggerRef.current }
+	        })
+	        closeReasonRef.current = null
+	    }, [hasINTERACTED, isOpen, modalId])
+
+	    useEffect(() => {
+	        if (!isOpen) return
+	        const handleKeyDown = (event: KeyboardEvent) => {
+	            if (event.key === 'Escape') {
+	                requestClose('escape_key')
+	            }
+	        }
+	        document.addEventListener('keydown', handleKeyDown)
+	        return () => document.removeEventListener('keydown', handleKeyDown)
+	    }, [isOpen, requestClose])
 
     useEffect(() => {
         // 1. Time delay trigger (Mobile friendly)
         const timer = setTimeout(() => {
-            triggerLightbox()
+            triggerLightbox('timer')
         }, 10000) // 10 seconds (faster than Six Nations)
 
         // 2. Exit intent trigger (Desktop)
         const handleMouseLeave = (e: MouseEvent) => {
             if (e.clientY <= 0) {
-                triggerLightbox()
+                triggerLightbox('exit_intent')
             }
         }
 
@@ -78,7 +134,7 @@ export function ChristmasLightbox() {
         )}>
             {/* Backdrop */}
             <div
-                onClick={closeLightbox}
+                onClick={() => requestClose('backdrop_click')}
                 className="absolute inset-0 bg-black/80 backdrop-blur-sm"
             />
 
@@ -91,7 +147,7 @@ export function ChristmasLightbox() {
             >
                 {/* Close Button */}
                 <button
-                    onClick={closeLightbox}
+                    onClick={() => requestClose('close_button')}
                     className="absolute top-4 right-4 z-10 p-2 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors"
                 >
                     <X className="w-6 h-6" />
@@ -124,7 +180,8 @@ export function ChristmasLightbox() {
                     <div className="flex flex-col gap-3">
                         <Link href="/christmas-parties" className="w-full" onClick={() => {
                             trackFormStart({ formName: 'christmas_lightbox' })
-                            closeLightbox()
+                            recordEngagement('primary_cta')
+                            requestClose('cta')
                         }}>
                             <Button
                                 variant="danger"
@@ -136,7 +193,7 @@ export function ChristmasLightbox() {
                             </Button>
                         </Link>
 
-                        <button onClick={closeLightbox} className="text-sm text-gray-500 hover:text-gray-700 underline">
+                        <button onClick={() => requestClose('close_button')} className="text-sm text-gray-500 hover:text-gray-700 underline">
                             No thanks, I&apos;ll book later
                         </button>
                     </div>

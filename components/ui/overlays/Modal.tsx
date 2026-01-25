@@ -1,9 +1,10 @@
 'use client'
 
-import { forwardRef, useEffect, useRef, useState, Fragment } from 'react'
+import { forwardRef, useCallback, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
+import { trackModalClose, trackModalEngage, trackModalOpen, type ModalCloseReason } from '@/lib/gtm-events'
 import type { BaseComponentProps } from '../types'
 
 const modalVariants = cva(
@@ -58,6 +59,15 @@ export interface ModalProps
   role?: 'dialog' | 'alertdialog'
 }
 
+function slugify(value: string) {
+  return value
+    .toLowerCase()
+    .trim()
+    .replace(/['’]/g, '')
+    .replace(/[^a-z0-9]+/g, '_')
+    .replace(/^_+|_+$/g, '')
+}
+
 export const Modal = forwardRef<HTMLDivElement, ModalProps>(
   ({ 
     className,
@@ -82,13 +92,57 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
     const [mounted, setMounted] = useState(false)
     const modalRef = useRef<HTMLDivElement>(null)
     const previousActiveElement = useRef<HTMLElement | null>(null)
+    const previousOpen = useRef(false)
+    const engaged = useRef(false)
+    const lastCloseReason = useRef<ModalCloseReason | null>(null)
     const titleId = `${id || 'modal'}-title`
     const descriptionId = `${id || 'modal'}-description`
+    const modalId = id || (title ? `modal_${slugify(title)}` : 'modal')
+
+    const recordEngagement = useCallback((interaction: 'click' | 'focus' | 'keydown', element?: string) => {
+      if (!open) return
+      if (engaged.current) return
+      engaged.current = true
+      trackModalEngage({ id: modalId, title, interaction, element })
+    }, [modalId, open, title])
+
+    const requestClose = useCallback((reason: ModalCloseReason) => {
+      lastCloseReason.current = reason
+      onClose()
+    }, [onClose])
 
     // Mount on client only
     useEffect(() => {
       setMounted(true)
     }, [])
+
+    // Track open/close lifecycle
+    useEffect(() => {
+      if (!mounted) return
+
+	      if (open && !previousOpen.current) {
+	        previousOpen.current = true
+	        engaged.current = false
+	        lastCloseReason.current = null
+	        trackModalOpen({
+	          id: modalId,
+	          title,
+	          size: size ?? undefined,
+	          backdrop: backdrop ?? undefined
+	        })
+	        return
+	      }
+
+      if (!open && previousOpen.current) {
+        previousOpen.current = false
+        trackModalClose({
+          id: modalId,
+          title,
+          reason: lastCloseReason.current ?? 'programmatic'
+        })
+        lastCloseReason.current = null
+      }
+    }, [backdrop, modalId, mounted, open, size, title])
 
     // Handle escape key
     useEffect(() => {
@@ -96,13 +150,13 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
 
       const handleEscape = (e: KeyboardEvent) => {
         if (e.key === 'Escape') {
-          onClose()
+          requestClose('escape_key')
         }
       }
 
       document.addEventListener('keydown', handleEscape)
       return () => document.removeEventListener('keydown', handleEscape)
-    }, [open, onClose, closeOnEscape])
+    }, [closeOnEscape, open, requestClose])
 
     // Focus management
     useEffect(() => {
@@ -183,13 +237,24 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
     return createPortal(
       <div
         className={cn(overlayVariants({ backdrop }))}
-        onClick={closeOnBackdropClick ? () => onClose() : undefined}
+        onClick={closeOnBackdropClick ? () => requestClose('backdrop_click') : undefined}
         data-testid={testId}
       >
         <div
           ref={modalRef}
           className={cn(modalVariants({ size }), 'my-8', className)}
           onClick={(e) => e.stopPropagation()}
+          onClickCapture={(event) => {
+            const target = event.target as HTMLElement | null
+            const interactive = target?.closest?.(
+              'button, a, input, select, textarea, [role="button"], [role="link"]'
+            ) as HTMLElement | null
+
+            if (!interactive) return
+            if (interactive.dataset.modalClose === 'true') return
+
+            recordEngagement('click', interactive.tagName.toLowerCase())
+          }}
           role={role}
           aria-modal="true"
           aria-labelledby={title ? titleId : undefined}
@@ -200,8 +265,9 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
             <button
               type="button"
               className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-white transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2"
-              onClick={onClose}
+              onClick={() => requestClose('close_button')}
               aria-label="Close modal"
+              data-modal-close="true"
             >
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

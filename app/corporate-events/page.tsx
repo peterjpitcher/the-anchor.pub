@@ -36,7 +36,7 @@ export const metadata: Metadata = {
 export default function CorporateEventsPage() {
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: 'Home', url: '/' },
-    { name: 'Private Events', url: '/book-event' },
+    { name: 'Private Hire & Events', url: '/private-hire' },
     { name: 'Corporate Events', url: '/corporate-events' }
   ])
 

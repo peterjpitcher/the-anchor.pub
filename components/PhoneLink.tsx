@@ -1,6 +1,6 @@
 'use client'
 
-import { analytics } from '@/lib/analytics'
+import { trackPhoneCallClick } from '@/lib/gtm-events'
 
 interface PhoneLinkProps {
   phone: string
@@ -25,7 +25,7 @@ export function PhoneLink({
   const formattedPhone = phone.replace(/\s/g, '').replace(/^01753/, '+441753')
   
   const handleClick = () => {
-    analytics.phoneCall(phone, source)
+    trackPhoneCallClick({ phone, source })
     if (onClick) {
       onClick()
     }

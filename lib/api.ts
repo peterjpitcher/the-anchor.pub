@@ -1070,7 +1070,7 @@ function createFallbackEvent(eventId: string): Event {
       priceCurrency: 'GBP',
       availability: 'https://schema.org/InStock',
       validFrom: now.toISOString(),
-      url: 'https://www.the-anchor.pub/book-event'
+      url: 'https://www.the-anchor.pub/private-hire'
     },
     image: [DEFAULT_EVENT_IMAGE],
     video: [],
@@ -1113,7 +1113,7 @@ function createFallbackEvent(eventId: string): Event {
       '@type': 'ReserveAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: 'https://www.the-anchor.pub/book-event',
+        urlTemplate: 'https://www.the-anchor.pub/private-hire',
         inLanguage: 'en-GB'
       },
       result: {

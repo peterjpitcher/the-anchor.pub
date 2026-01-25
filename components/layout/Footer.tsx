@@ -58,7 +58,7 @@ const defaultSections: FooterSection[] = [
       { label: "Mother's Day Lunch", href: '/mothers-day' },
       { label: 'Drinks Menu', href: '/drinks' },
       { label: "Manager's Special", href: '/drinks/managers-special' },
-      { label: 'Book an Event', href: '/book-event' },
+      { label: 'Private Hire & Events', href: '/private-hire' },
       { label: 'Sitemap', href: '/sitemap-page' }
     ]
   },
@@ -66,7 +66,7 @@ const defaultSections: FooterSection[] = [
     title: 'Private Events',
     titleClass: 'text-anchor-gold',
     items: [
-      { label: 'Private Hire Overview', href: '/private-hire' },
+      { label: 'Private Hire & Events', href: '/private-hire' },
       { label: 'Christmas Parties', href: '/christmas-parties' },
       { label: 'Corporate Christmas Parties', href: '/corporate-christmas-parties' },
       { label: 'Corporate Events', href: '/corporate-events' },
