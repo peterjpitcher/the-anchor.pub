@@ -45,6 +45,14 @@ interface SixNationsFixturesProps {
     className?: string
 }
 
+const OPEN_TABLE_BASE_URL = 'http://www.opentable.com/restaurant/profile/443973/reserve'
+const OPEN_TABLE_RESTREF = '443973'
+
+function buildOpenTableUrl(bookingTime: DateTime) {
+    const formatted = bookingTime.toFormat("yyyy-MM-dd'T'HH:mm")
+    return `${OPEN_TABLE_BASE_URL}?restref=${OPEN_TABLE_RESTREF}&datetime=${formatted}&covers=2&searchdatetime=${formatted}&partysize=2`
+}
+
 export function SixNationsFixtures({ className }: SixNationsFixturesProps) {
     const [selectedRound, setSelectedRound] = useState<number | 'all'>('all')
     const [selectedTeam, setSelectedTeam] = useState<string | null>(null)
@@ -136,9 +144,12 @@ export function SixNationsFixtures({ className }: SixNationsFixturesProps) {
                         </div>
 
                         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                            {fixturesByRound[round]?.map((fixture, idx) => {
+                            {fixturesByRound[round]?.map((fixture) => {
                                 const isEngland = fixture.home === 'England' || fixture.away === 'England'
                                 const isSuperSaturday = fixture.round === 5
+                                const fixtureDateTime = DateTime.fromISO(`${fixture.date}T${fixture.kickoff}`, { zone: 'Europe/London' })
+                                const bookingDateTime = fixtureDateTime.minus({ minutes: 30 })
+                                const bookingUrl = buildOpenTableUrl(bookingDateTime)
 
                                 return (
                                     <Card
@@ -187,6 +198,7 @@ export function SixNationsFixtures({ className }: SixNationsFixturesProps) {
                                                 variant={(isEngland || isSuperSaturday) ? "primary" : "outline"}
                                                 size="sm"
                                                 className="w-full"
+                                                customHref={bookingUrl}
                                             >
                                                 Book Table
                                             </BookTableButton>
