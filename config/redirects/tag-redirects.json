@@ -1,10 +1,5 @@
 [
   {
-    "source": "/blog/tag/offers",
-    "destination": "/blog/tag/offers",
-    "permanent": true
-  },
-  {
     "source": "/blog/tag/special-offers",
     "destination": "/blog/tag/offers",
     "permanent": true
@@ -31,11 +26,6 @@
   },
   {
     "source": "/blog/tag/dog-friendly",
-    "destination": "/blog/tag/community",
-    "permanent": true
-  },
-  {
-    "source": "/blog/tag/community",
     "destination": "/blog/tag/community",
     "permanent": true
   },
@@ -81,11 +71,6 @@
   },
   {
     "source": "/blog/tag/updates",
-    "destination": "/blog/tag/news",
-    "permanent": true
-  },
-  {
-    "source": "/blog/tag/news",
     "destination": "/blog/tag/news",
     "permanent": true
   },
@@ -245,11 +230,6 @@
     "permanent": true
   },
   {
-    "source": "/blog/tag/events",
-    "destination": "/blog/tag/events",
-    "permanent": true
-  },
-  {
     "source": "/blog/tag/quiz-night",
     "destination": "/blog/tag/events",
     "permanent": true
@@ -271,7 +251,7 @@
   },
   {
     "source": "/blog/tag/live-music",
-    "destination": "/blog/tag/events",
+    "destination": "/live-music",
     "permanent": true
   },
   {
@@ -287,11 +267,6 @@
   {
     "source": "/blog/tag/entertainment",
     "destination": "/blog/tag/events",
-    "permanent": true
-  },
-  {
-    "source": "/blog/tag/sports",
-    "destination": "/blog/tag/sports",
     "permanent": true
   },
   {
@@ -315,6 +290,66 @@
     "permanent": true
   },
   {
+    "source": "/blog/tag/annual-celebrations",
+    "destination": "/blog/tag/seasonal",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/british-history",
+    "destination": "/blog/tag/community",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/cash-prizes",
+    "destination": "/blog/tag/events",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/family",
+    "destination": "/blog/tag/community",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/live-matches",
+    "destination": "/blog/tag/sports",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/local-area",
+    "destination": "/blog/tag/community",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/lunch",
+    "destination": "/blog/tag/food-and-drink",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/mexican-culture",
+    "destination": "/blog/tag/food-and-drink",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/private-dining",
+    "destination": "/blog/tag/events",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/pub-menu",
+    "destination": "/blog/tag/food-and-drink",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/terrestrial-sport",
+    "destination": "/blog/tag/sports",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/traditional",
+    "destination": "/blog/tag/community",
+    "permanent": true
+  },
+  {
     "source": "/blog/tag/euro-2024",
     "destination": "/blog/tag/sports",
     "permanent": true
@@ -332,6 +367,46 @@
   {
     "source": "/blog/tag/live-sports",
     "destination": "/blog/tag/sports",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/business-tips",
+    "destination": "/blog/tag/community",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/dining",
+    "destination": "/blog/tag/food-and-drink",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/italian",
+    "destination": "/blog/tag/food-and-drink",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/mexican",
+    "destination": "/blog/tag/food-and-drink",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/pub-life",
+    "destination": "/blog/tag/community",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/romantic-dining",
+    "destination": "/blog/tag/food-and-drink",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/value",
+    "destination": "/blog/tag/offers",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/variety",
+    "destination": "/blog/tag/food-and-drink",
     "permanent": true
   }
 ]

@@ -36,7 +36,17 @@
     "permanent": true
   },
   {
+    "source": "/free-parking",
+    "destination": "/heathrow-parking",
+    "permanent": true
+  },
+  {
     "source": "/event-",
+    "destination": "/whats-on",
+    "permanent": true
+  },
+  {
+    "source": "/Events/Curry-Club---August-8,-2019",
     "destination": "/whats-on",
     "permanent": true
   },
@@ -81,6 +91,11 @@
     "permanent": true
   },
   {
+    "source": "/events/twisted-fairytale-",
+    "destination": "/whats-on",
+    "permanent": true
+  },
+  {
     "source": "/events/christmas-parties",
     "destination": "/christmas-parties",
     "permanent": true
@@ -92,17 +107,12 @@
   },
   {
     "source": "/blog/hashtags/:tag",
-    "destination": "/blog",
-    "permanent": true
-  },
-  {
-    "source": "/blog/tag/live-music",
-    "destination": "/whats-on",
+    "destination": "/blog/tags",
     "permanent": true
   },
   {
     "source": "/blog/tag/LiveMusic",
-    "destination": "/whats-on",
+    "destination": "/live-music",
     "permanent": true
   },
   {
@@ -207,7 +217,12 @@
   },
   {
     "source": "/subscription-terms-and-conditions",
-    "destination": "/terms",
+    "destination": "/privacy-policy",
+    "permanent": true
+  },
+  {
+    "source": "/copy-of-gin-whiskey-vodka-and-rum",
+    "destination": "/drinks",
     "permanent": true
   },
   {
@@ -282,11 +297,6 @@
   },
   {
     "source": "/blog/search",
-    "destination": "/blog",
-    "permanent": true
-  },
-  {
-    "source": "/blog/tag/update",
     "destination": "/blog",
     "permanent": true
   },
@@ -397,7 +407,7 @@
   },
   {
     "source": "/privacy-and-cookie-policy",
-    "destination": "/terms",
+    "destination": "/privacy-policy",
     "permanent": true
   },
   {
@@ -423,7 +433,7 @@
   },
   {
     "source": "/sport",
-    "destination": "/whats-on",
+    "destination": "/live-sport",
     "permanent": true
   },
   {
@@ -433,7 +443,7 @@
   },
   {
     "source": "/honey-bee-mine-terms-and-conditions",
-    "destination": "/terms",
+    "destination": "/privacy-policy",
     "permanent": true
   },
   {

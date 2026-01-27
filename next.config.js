@@ -8,9 +8,33 @@ const legacyRedirects = require('./config/redirects/legacy-redirects.json')
 const drinksRedirects = require('./config/redirects/drinks-redirects.json')
 const additionalRedirects = require('./config/redirects/additional-redirects.json')
 
+function normaliseRedirect(redirect) {
+  if (!redirect || typeof redirect !== 'object') return redirect
+
+  // Prefer explicit status codes and remove Next/Vercel's `permanent` boolean where both exist.
+  if (typeof redirect.statusCode === 'number') {
+    const { permanent: _permanent, ...rest } = redirect
+    return rest
+  }
+
+  if (redirect.permanent === true) {
+    const { permanent: _permanent, ...rest } = redirect
+    return { ...rest, statusCode: 301 }
+  }
+
+  if (redirect.permanent === false) {
+    const { permanent: _permanent, ...rest } = redirect
+    return { ...rest, statusCode: 302 }
+  }
+
+  return redirect
+}
+
 const nextConfig = {
   async redirects() {
-    return [...wixRedirects, ...blogRedirects, ...tagRedirects, ...legacyRedirects, ...drinksRedirects, ...additionalRedirects]
+    return [...wixRedirects, ...blogRedirects, ...tagRedirects, ...legacyRedirects, ...drinksRedirects, ...additionalRedirects].map(
+      normaliseRedirect
+    )
   },
   async headers() {
     const securityHeaders = [

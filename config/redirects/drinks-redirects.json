@@ -1,10 +1,5 @@
 [
   {
-    "source": "/drinks/baby-guinness",
-    "destination": "/drinks",
-    "permanent": true
-  },
-  {
     "source": "/drinks/el-pico-sauvignon-blanc",
     "destination": "/drinks",
     "permanent": true

@@ -75,7 +75,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/luggage-storage-heathrow',
     '/heathrow-parking',
     '/coach-parking-heathrow',
-    '/free-parking',
     '/restaurants-near-heathrow',
     '/pubs-in-stanwell',
     '/heathrow-hotels-pub',

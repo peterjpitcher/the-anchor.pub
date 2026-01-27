@@ -128,7 +128,7 @@ const sitemapSections: SitemapSection[] = [
       { label: 'Pool & Darts', href: '/pool-darts-pub' },
       { label: 'Dog Friendly Pub', href: '/dog-friendly-pub-heathrow' },
       { label: 'Family Friendly', href: '/family-friendly-pub-heathrow' },
-      { label: 'Free Parking', href: '/free-parking' },
+      { label: 'Free Parking', href: '/heathrow-parking' },
     ]
   },
   {

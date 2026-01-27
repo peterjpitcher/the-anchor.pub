@@ -16,7 +16,7 @@
   },
   {
     "source": "/sport",
-    "destination": "/",
+    "destination": "/live-sport",
     "permanent": true
   },
   {
@@ -36,7 +36,7 @@
   },
   {
     "source": "/honey-bee-mine-terms-and-conditions",
-    "destination": "/",
+    "destination": "/privacy-policy",
     "permanent": true
   },
   {
@@ -46,7 +46,7 @@
   },
   {
     "source": "/celebrating-sport-at-the-anchor",
-    "destination": "/",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
@@ -66,7 +66,7 @@
   },
   {
     "source": "/privacy-and-cookie-policy",
-    "destination": "/",
+    "destination": "/privacy-policy",
     "permanent": true
   },
   {
@@ -166,6 +166,11 @@
   },
   {
     "source": "/post/sunday-lunch-at-the-anchor",
+    "destination": "/sunday-lunch",
+    "permanent": true
+  },
+  {
+    "source": "/post/welcoming-back-sunday-lunches",
     "destination": "/sunday-lunch",
     "permanent": true
   },
@@ -377,6 +382,11 @@
   {
     "source": "/post/book-valentines-day-the-anchor",
     "destination": "/blog/valentines-day-meal-offer-for-two",
+    "permanent": true
+  },
+  {
+    "source": "/post/valentines-day-2023",
+    "destination": "/valentines-day",
     "permanent": true
   },
   {
@@ -761,7 +771,7 @@
   },
   {
     "source": "/_api/:path*",
-    "destination": "/",
+    "destination": "/api/:path*",
     "permanent": true
   },
   {

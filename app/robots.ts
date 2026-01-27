@@ -16,7 +16,18 @@ export default function robots(): MetadataRoute.Robots {
           '/subscribe',
           '/leave-a-review',
           '/subscribe-for-digital-flyers',
-          '/p5-demo'
+          '/p5-demo',
+          // Internal / debug routes (keep out of crawl + index)
+          '/components',
+          '/debug-hours',
+          '/demo-header',
+          '/gtm-debug',
+          '/test-gtm',
+          '/test-hours',
+          '/test-navigation-tracking',
+          '/test-reviews',
+          '/test-simple',
+          '/test-tracking'
         ]
       }
     ],

@@ -1,6 +1,39 @@
 {
   "redirects": [
     {
+      "source": "/drinks/peroni-0%",
+      "has": [
+        {
+          "type": "host",
+          "value": "the-anchor.pub"
+        }
+      ],
+      "destination": "https://www.the-anchor.pub/drinks",
+      "statusCode": 301
+    },
+    {
+      "source": "/drinks/peroni-0%",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.the-anchor.pub"
+        }
+      ],
+      "destination": "/drinks",
+      "statusCode": 301
+    },
+    {
+      "source": "/(.*)/",
+      "has": [
+        {
+          "type": "host",
+          "value": "the-anchor.pub"
+        }
+      ],
+      "destination": "https://www.the-anchor.pub/$1",
+      "statusCode": 301
+    },
+    {
       "source": "/(.*)",
       "has": [
         {
@@ -9,7 +42,18 @@
         }
       ],
       "destination": "https://www.the-anchor.pub/$1",
-      "permanent": true
+      "statusCode": 301
+    },
+    {
+      "source": "/(.*)/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.the-anchor.pub"
+        }
+      ],
+      "destination": "/$1",
+      "statusCode": 301
     }
   ],
   "functions": {

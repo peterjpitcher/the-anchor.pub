@@ -5,25 +5,31 @@ export function middleware(request: NextRequest) {
     // Handle domain redirects (non-www to www) and force HTTPS for production hostname
     const host = request.headers.get('host') || ''
     const url = request.nextUrl.clone()
-    const protocol = request.headers.get('x-forwarded-proto')
+    const protocol = request.headers.get('x-forwarded-proto') ?? url.protocol.replace(':', '')
     const isPrimaryHost = host === 'www.the-anchor.pub'
     const isApexHost = host === 'the-anchor.pub'
-
-    // Force HTTPS on known production domains
-    if ((isPrimaryHost || isApexHost) && protocol === 'http') {
-        url.protocol = 'https'
-        url.host = 'www.the-anchor.pub'
-        return NextResponse.redirect(url, 301)
-    }
-
-    // Redirect apex domain to canonical www version
-    if (isApexHost) {
-        url.host = 'www.the-anchor.pub'
-        url.protocol = 'https'
-        return NextResponse.redirect(url, 301)
-    }
+    const isKnownProdHost = isPrimaryHost || isApexHost
 
     let shouldRedirect = false
+
+    // Force HTTPS + canonical host on known production domains
+    if (isKnownProdHost) {
+        if (protocol === 'http') {
+            url.protocol = 'https'
+            shouldRedirect = true
+        }
+
+        if (isApexHost) {
+            url.host = 'www.the-anchor.pub'
+            shouldRedirect = true
+        }
+    }
+
+    // Normalise trailing slash (except for root)
+    if (url.pathname.length > 1 && url.pathname.endsWith('/')) {
+        url.pathname = url.pathname.slice(0, -1)
+        shouldRedirect = true
+    }
 
     // Normalise blog pagination (?page=1 -> /blog)
     if (url.pathname === '/blog' && url.searchParams.get('page') === '1') {
