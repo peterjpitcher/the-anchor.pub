@@ -1,6 +1,7 @@
 'use client'
 
 import type { Event } from '@/lib/api'
+import { DateTime } from 'luxon'
 import { trackEventBookingStart } from '@/lib/gtm-events'
 import { getEventWebsiteUrl } from '@/lib/event-url'
 import { Button } from '@/components/ui'
@@ -18,6 +19,11 @@ type EventBookingButtonProps = {
   onClick?: () => void
 }
 
+const OPEN_TABLE_BASE_URL = 'http://www.opentable.com/restaurant/profile/443973/reserve'
+const OPEN_TABLE_RESTREF = '443973'
+const EVENT_TIME_ZONE = 'Europe/London'
+const EVENT_BOOKING_OFFSET_MINUTES = 30
+
 function getEventPrice(event: Event): number | undefined {
   const value = event.offers?.price
   if (value === undefined) return undefined
@@ -25,7 +31,37 @@ function getEventPrice(event: Event): number | undefined {
   return Number.isFinite(parsed) ? parsed : undefined
 }
 
+function stripTimeZoneOffset(value: string): string {
+  if (!value) return value
+  if (value.includes('+') || value.includes('Z')) {
+    return value.split('+')[0].split('Z')[0]
+  }
+  if (value.includes('-') && value.lastIndexOf('-') > 10) {
+    return value.substring(0, value.lastIndexOf('-'))
+  }
+  return value
+}
+
+function parseEventDateTime(value?: string | null): DateTime | null {
+  if (!value) return null
+  const cleaned = stripTimeZoneOffset(value.trim())
+  if (!cleaned) return null
+  const parsed = DateTime.fromISO(cleaned, { zone: EVENT_TIME_ZONE })
+  return parsed.isValid ? parsed : null
+}
+
+function buildOpenTableUrl(bookingTime: DateTime): string {
+  const formatted = bookingTime.toFormat("yyyy-MM-dd'T'HH:mm")
+  return `${OPEN_TABLE_BASE_URL}?restref=${OPEN_TABLE_RESTREF}&datetime=${formatted}&covers=2&searchdatetime=${formatted}&partysize=2`
+}
+
 function resolveBookingUrl(event: Event): string | null {
+  const eventDateTime = parseEventDateTime(event.startDate)
+  if (eventDateTime) {
+    const bookingDateTime = eventDateTime.minus({ minutes: EVENT_BOOKING_OFFSET_MINUTES })
+    return buildOpenTableUrl(bookingDateTime)
+  }
+
   const explicitBookingUrl =
     typeof event.bookingUrl === 'string' && event.bookingUrl.trim().length > 0
       ? event.bookingUrl.trim()

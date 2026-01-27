@@ -68,6 +68,7 @@ const sitemapSections: SitemapSection[] = [
       { label: 'Music Bingo & Hosted Nights', href: '/whats-on' },
       { label: 'Quiz Night', href: '/quiz-night' },
       { label: 'Cash Bingo', href: '/cash-bingo' },
+      { label: 'Music Bingo', href: '/music-bingo' },
       { label: 'Karaoke', href: '/karaoke' },
       { label: 'Live Music', href: '/live-music' },
       { label: 'Open Mic', href: '/open-mic' },

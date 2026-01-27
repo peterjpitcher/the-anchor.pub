@@ -62,7 +62,6 @@ export default async function WorldCupPage() {
   } catch (error) {
     console.warn('World Cup fixtures fetch failed', error)
   }
-  const generatedAtIso = new Date().toISOString()
 
   const breadcrumbSchema = generateBreadcrumbSchema([
     { name: 'Home', url: '/' },
@@ -191,12 +190,12 @@ export default async function WorldCupPage() {
               <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200" id="booking-rules">
                 <h2 className="text-lg font-bold text-anchor-green">Booking Rules</h2>
                 <ul className="mt-4 space-y-2 text-sm text-gray-700">
-                  <li>📅 We take bookings 90 days in advance</li>
+                  <li>📅 Book any showing match now</li>
                   <li>✅ No deposits and no minimum spend</li>
                   <li>👥 Large groups: book early for the best tables</li>
                   <li>🪑 Tables are held until kick-off, then released</li>
                 </ul>
-                <p className="mt-4 text-xs text-gray-500">Each match listing shows the exact date bookings open.</p>
+                <p className="mt-4 text-xs text-gray-500">Booking opens in a new tab (OpenTable).</p>
               </div>
 
               <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
@@ -277,7 +276,7 @@ export default async function WorldCupPage() {
                   <strong>1 hour before we open</strong>. <strong>Not showing</strong> = kick-off outside those hours.
                 </p>
                 <p>
-                  Match bookings open <strong>90 days in advance</strong> — each row shows the exact date bookings open. We
+                  Book now buttons are live for matches marked <strong>Showing</strong> or <strong>Opening early</strong>. We
                   don’t show booking buttons for matches marked <strong>Not showing</strong>.
                 </p>
                 <p>
@@ -290,7 +289,7 @@ export default async function WorldCupPage() {
 
           <div className="mx-auto max-w-5xl">
             {matches.length > 0 ? (
-              <WorldCup2026Fixtures matches={matches} generatedAtIso={generatedAtIso} />
+              <WorldCup2026Fixtures matches={matches} />
             ) : (
               <AlertBox
                 variant="warning"
@@ -464,8 +463,7 @@ export default async function WorldCupPage() {
               },
               {
                 question: 'When do bookings open?',
-                answer:
-                  'We take bookings 90 days in advance. Each match row shows the exact date bookings open so you know when to check back.',
+                answer: 'Bookings are open now for all matches we’re showing. Use the Book Table button next to the fixture.',
               },
               {
                 question: 'Do you take deposits or minimum spend?',
@@ -506,7 +504,7 @@ export default async function WorldCupPage() {
 
       <CTASection
         title="Book Your World Cup Table"
-        description="Choose a match we’re showing, then book. Bookings open 90 days in advance."
+        description="Choose a match we’re showing, then book your table now."
         buttons={[
           {
             text: '⚽ Book a Table',

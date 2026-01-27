@@ -55,7 +55,7 @@ export const commonLinkGroups = {
     { href: '/drinks', title: 'Drinks Menu', description: 'Bar and beverage selection' }
   ],
   events: [
-    { href: '/whats-on', title: 'Music Bingo & Hosted Nights', description: 'See /whats-on for details' },
+    { href: '/music-bingo', title: 'Music Bingo & Hosted Nights', description: 'See Music Bingo dates and details' },
     { href: '/blog', title: 'Latest News', description: 'Updates and announcements' },
     { href: '/private-hire', title: 'Private Hire & Events', description: 'Get a quote and check availability' }
   ],

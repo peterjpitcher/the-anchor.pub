@@ -223,6 +223,35 @@ export const staticEvents = {
     maximumAttendeeCapacity: 60
   }),
 
+  musicBingo: createRecurringEvent({
+    id: 'music-bingo-night',
+    slug: 'music-bingo',
+    name: 'Music Bingo Night',
+    description: 'Song snippets replace numbers in this singalong bingo night with prizes.',
+    longDescription: 'Join our Music Bingo nights for a high-energy twist on classic bingo. We play short song clips instead of numbers, you mark the track on your card, and prizes land every round. Expect singalong moments, themed rounds, and a friendly crowd close to Heathrow.',
+    shortDescription: 'Song clips, bingo cards, prizes, and singalong fun.',
+    image: [
+      '/content/blog/music-bingo-nights/hero.png',
+      '/content/blog/music-bingo-nights/image-1.png'
+    ],
+    price: '0',
+    duration: 'PT3H',
+    category: {
+      id: 'games',
+      name: 'Games & Activities',
+      slug: 'games',
+      color: '#3b82f6',
+      icon: '🎵'
+    },
+    performer: {
+      name: 'Nikki Manfadge',
+      type: 'Person'
+    },
+    startTime: '19:30',
+    endTime: '22:00',
+    maximumAttendeeCapacity: 90
+  }),
+
   liveMusic: createRecurringEvent({
     id: 'live-music-events',
     slug: 'live-music',

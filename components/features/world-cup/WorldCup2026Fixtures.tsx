@@ -95,16 +95,11 @@ type FixturesByDate = Array<{
 interface WorldCup2026FixturesProps {
   matches: WorldCup2026Match[]
   className?: string
-  generatedAtIso: string
 }
 
-export function WorldCup2026Fixtures({ matches, className, generatedAtIso }: WorldCup2026FixturesProps) {
+export function WorldCup2026Fixtures({ matches, className }: WorldCup2026FixturesProps) {
   const [selectedStage, setSelectedStage] = useState<WorldCup2026MatchStage | 'all'>('all')
   const [fixtureVisibility, setFixtureVisibility] = useState<'showing' | 'all'>('showing')
-  const todayLondon = useMemo(
-    () => DateTime.fromISO(generatedAtIso, { zone: 'utc' }).setZone('Europe/London').startOf('day'),
-    [generatedAtIso]
-  )
 
   const availableStages = useMemo(() => {
     const stageSet = new Set<WorldCup2026MatchStage>()
@@ -238,10 +233,6 @@ export function WorldCup2026Fixtures({ matches, className, generatedAtIso }: Wor
                   const startsBeforeOpen = status === 'opening_early'
                   const estimatedEnd = londonDateTime.plus({ minutes: 120 })
                   const mayRunPastClose = isShowing && estimatedEnd.toMillis() > closeTime.toMillis()
-                  const bookingOpens = londonDateTime.startOf('day').minus({ days: 90 })
-                  const bookingOpensLabel = bookingOpens.toFormat('EEE d MMM yyyy')
-                  const bookingIsOpen = todayLondon.toMillis() >= bookingOpens.toMillis()
-                  const bookingButtonLabel = bookingIsOpen ? 'Book Table' : `Book from ${bookingOpens.toFormat('d MMM')}`
                   const bookingDateTime = londonDateTime.minus({ minutes: 30 })
                   const bookingUrl = buildOpenTableUrl(bookingDateTime)
 
@@ -306,17 +297,11 @@ export function WorldCup2026Fixtures({ matches, className, generatedAtIso }: Wor
                             eventName={`World Cup ${teamsLabel} (${displayDate} ${timeLabel})`}
                             variant="outline"
                             size="sm"
-                            disabled={!bookingIsOpen}
                             className="w-full sm:w-auto"
                             customHref={bookingUrl}
                           >
-                            {bookingButtonLabel}
+                            Book Table
                           </BookTableButton>
-                          <p className="mt-1 text-center text-xs text-gray-500 sm:text-left">
-                            {bookingIsOpen
-                              ? `Bookings opened ${bookingOpensLabel} (we take bookings 90 days in advance).`
-                              : `Bookings open ${bookingOpensLabel} (we take bookings 90 days in advance).`}
-                          </p>
                         </div>
                       )}
                     </div>

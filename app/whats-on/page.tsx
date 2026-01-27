@@ -313,7 +313,7 @@ export default async function WhatsOnPage() {
           />
 
           <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            <Link href="/whats-on" className="group">
+            <Link href="/music-bingo" className="group">
               <Card variant="default" className="h-full transition-all hover:shadow-lg hover:scale-105 bg-gradient-to-br from-purple-100 to-pink-100">
                 <CardBody className="text-center p-8">
                   <div className="text-5xl mb-4">👑</div>
@@ -321,7 +321,7 @@ export default async function WhatsOnPage() {
                     Music Bingo with Nikki Manfadge
                   </h3>
                   <p className="text-gray-700 mb-4">
-                    Hosted nights and one-off events — see /whats-on for the latest details.
+                    Song clips instead of numbers, singalong rounds, and prizes every game. Book a Music Bingo table.
                   </p>
                   <p className="text-purple-700 font-semibold">Learn more →</p>
                 </CardBody>
