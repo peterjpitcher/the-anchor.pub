@@ -14,6 +14,7 @@
     "optimize:images": "node scripts/optimize-images.js"
   },
   "dependencies": {
+    "@microsoft/clarity": "^1.0.2",
     "@tailwindcss/typography": "^0.5.16",
     "@types/luxon": "^3.7.1",
     "class-variance-authority": "^0.7.1",

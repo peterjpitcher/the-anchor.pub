@@ -83,7 +83,7 @@ export default function PrivacyPolicyPage() {
 
           <h4>Analytics Cookies</h4>
           <p>
-            We use analytics cookies to understand how visitors interact with our website. These cookies help us improve our website's performance and user experience. We use Google Analytics to collect anonymized information about website usage.
+            We use analytics cookies to understand how visitors interact with our website. These cookies help us improve your experience and our website's performance. We use Google Analytics and Microsoft Clarity to collect anonymized information about website usage.
           </p>
 
           <h4>Marketing Cookies</h4>
@@ -107,6 +107,7 @@ export default function PrivacyPolicyPage() {
           </p>
           <ul>
             <li><strong>Google Analytics</strong> - Website analytics</li>
+            <li><strong>Microsoft Clarity</strong> - Session insights and usability analytics</li>
             <li><strong>Google Maps</strong> - Location services</li>
             <li><strong>Social Media Platforms</strong> - When you interact with our social media content</li>
             <li><strong>Booking Systems</strong> - For table reservations</li>
