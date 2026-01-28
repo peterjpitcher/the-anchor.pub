@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect } from 'react'
-import Script from 'next/script'
 import { initializeConsentMode, getConsentStatus } from '@/lib/cookies'
 
 interface GTMProviderProps {
@@ -27,7 +26,7 @@ export function GTMProvider({ gtmId, children }: GTMProviderProps) {
       window.dataLayer!.push(arguments)
     }
     
-    // Initialize Google consent mode before GTM loads
+    // Initialize Google consent mode on the client
     initializeConsentMode()
     
     // Listen for consent updates
@@ -48,24 +47,7 @@ export function GTMProvider({ gtmId, children }: GTMProviderProps) {
 
   if (!gtmId) return <>{children}</>
 
-  return (
-    <>
-      <Script
-        id="gtm-script"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
-            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-            })(window,document,'script','dataLayer','${gtmId}');
-          `,
-        }}
-      />
-      {children}
-    </>
-  )
+  return <>{children}</>
 }
 
 // Separate noscript component for body

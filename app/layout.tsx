@@ -8,7 +8,7 @@ import { Footer } from '@/components/layout/Footer'
 import { HeaderStatusSectionDirect } from '@/components/layout/HeaderStatusSectionDirect'
 import { FloatingActions } from '@/components/layout/FloatingActions'
 import { AnalyticsProvider } from '@/components/tracking/AnalyticsProvider'
-import { GTMProvider, GTMNoscript } from '@/components/tracking/GTMProvider'
+import { GTMProvider } from '@/components/tracking/GTMProvider'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import CookieBanner from '@/components/CookieBanner'
 import { DynamicSchema } from '@/components/seo/DynamicSchema'
@@ -104,7 +104,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const gtmId = process.env.NEXT_PUBLIC_GTM_ID || ''
+  const gtmId = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-WWFQTQS'
   const now = new Date()
   const privateHirePromoActive =
     PRIVATE_HIRE_2026_PROMO_ENABLED && now.getTime() < PRIVATE_HIRE_2026_PROMO_ENDS_AT_MS
@@ -165,6 +165,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Google Tag Manager */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','${gtmId}');`,
+          }}
+        />
+        {/* End Google Tag Manager */}
         {/* Resource hints for performance */}
         <link rel="preconnect" href="https://management.orangejelly.co.uk" />
         <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
@@ -185,7 +196,16 @@ export default function RootLayout({
         <DynamicSchema />
       </head>
       <body className={`font-sans antialiased ${outfit.variable} ${merriweather.variable}`}>
-        <GTMNoscript gtmId={gtmId} />
+        {/* Google Tag Manager (noscript) */}
+        <noscript>
+          <iframe
+            src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
+            height="0"
+            width="0"
+            style={{ display: 'none', visibility: 'hidden' }}
+          />
+        </noscript>
+        {/* End Google Tag Manager (noscript) */}
         <GTMProvider gtmId={gtmId}>
           <AnalyticsProvider>
             <BusinessHoursProvider>
