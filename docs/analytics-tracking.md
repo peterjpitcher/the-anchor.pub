@@ -121,6 +121,14 @@ Prefer the existing booking funnel events (example: `table_booking_*`) and ensur
 - `device_type` present
 - no user-entered free text is emitted
 
+### OpenTable widget
+
+- `opentable_widget_loaded`
+- `opentable_widget_failed`
+- `opentable_widget_submit`
+- `opentable_modal_open`
+- `opentable_modal_close`
+
 ## Adding a new tracked action
 
 1. Add/extend a helper in `lib/gtm-events.ts` (or a submodule under `lib/gtm-events/`).

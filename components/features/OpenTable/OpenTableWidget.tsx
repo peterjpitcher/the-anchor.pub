@@ -1,13 +1,46 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import {
+  trackOpenTableModalClose,
+  trackOpenTableModalOpen,
+  trackOpenTableWidgetLoadFailed,
+  trackOpenTableWidgetLoaded,
+  trackOpenTableWidgetSubmit
+} from '@/lib/gtm-events'
 
 const OPENTABLE_WIDGET_SRC =
   'https://www.opentable.co.uk/widget/reservation/loader?rid=443973&type=standard&theme=tall&color=4&dark=true&iframe=false&domain=couk&lang=en-GB&newtab=false&ot_source=Restaurant%20website&cfe=true'
 
-export function OpenTableWidget() {
+const OPEN_TABLE_MODAL_OPEN_TYPES = new Set([
+  'OT_OPEN_MODAL',
+  '@@restef/APP_READY',
+  'APP_READY',
+  'MODAL_VISIBLE'
+])
+
+const OPEN_TABLE_MODAL_CLOSE_TYPES = new Set([
+  '@@restef/APP_HIDDEN',
+  'APP_HIDDEN',
+  '@@restef/APP_CLOSED',
+  'APP_CLOSED'
+])
+
+const OPEN_TABLE_MESSAGE_TYPES = new Set([
+  ...OPEN_TABLE_MODAL_OPEN_TYPES,
+  ...OPEN_TABLE_MODAL_CLOSE_TYPES
+])
+
+interface OpenTableWidgetProps {
+  source?: string
+}
+
+export function OpenTableWidget({ source = 'book_table_widget' }: OpenTableWidgetProps) {
   const mountRef = useRef<HTMLDivElement | null>(null)
   const [loadState, setLoadState] = useState<'loading' | 'loaded' | 'failed'>('loading')
+  const hasTrackedLoaded = useRef(false)
+  const hasTrackedFailed = useRef(false)
+  const modalOpenRef = useRef(false)
 
   useEffect(() => {
     const mountNode = mountRef.current
@@ -82,6 +115,65 @@ export function OpenTableWidget() {
       window.clearTimeout(timeoutId)
     }
   }, [])
+
+  useEffect(() => {
+    if (loadState === 'loaded' && !hasTrackedLoaded.current) {
+      hasTrackedLoaded.current = true
+      trackOpenTableWidgetLoaded({ source })
+    }
+
+    if (loadState === 'failed' && !hasTrackedFailed.current) {
+      hasTrackedFailed.current = true
+      trackOpenTableWidgetLoadFailed({ source })
+    }
+  }, [loadState, source])
+
+  useEffect(() => {
+    const mountNode = mountRef.current
+    if (!mountNode) return
+
+    const handleSubmit = (event: Event) => {
+      if (!(event.target instanceof HTMLFormElement)) return
+      trackOpenTableWidgetSubmit({ source })
+    }
+
+    mountNode.addEventListener('submit', handleSubmit)
+
+    return () => {
+      mountNode.removeEventListener('submit', handleSubmit)
+    }
+  }, [source])
+
+  useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      if (!event.data || typeof event.data !== 'object') return
+      const messageType = (event.data as { type?: unknown }).type
+      if (typeof messageType !== 'string') return
+      if (!OPEN_TABLE_MESSAGE_TYPES.has(messageType)) return
+
+      const origin = event.origin ?? ''
+      const isOpenTableOrigin = /(^https?:\/\/)?([a-z0-9-]+\.)?opentable\./i.test(origin)
+      const isSameOrigin = origin === window.location.origin
+
+      if (!isOpenTableOrigin && !isSameOrigin && origin !== 'null') return
+
+      if (OPEN_TABLE_MODAL_OPEN_TYPES.has(messageType)) {
+        if (!modalOpenRef.current) {
+          modalOpenRef.current = true
+          trackOpenTableModalOpen({ source, messageType })
+        }
+        return
+      }
+
+      if (OPEN_TABLE_MODAL_CLOSE_TYPES.has(messageType) && modalOpenRef.current) {
+        modalOpenRef.current = false
+        trackOpenTableModalClose({ source, messageType })
+      }
+    }
+
+    window.addEventListener('message', handleMessage)
+    return () => window.removeEventListener('message', handleMessage)
+  }, [source])
 
   return (
     <div className="ot-widget-surface">

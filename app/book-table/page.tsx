@@ -110,7 +110,7 @@ export default function BookPage() {
         <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,2fr),minmax(0,1fr)]">
           <div className="order-1">
             <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-100">
-              <OpenTableWidget />
+              <OpenTableWidget source="book_table_page" />
             </div>
             <p className="mt-4 text-sm text-gray-600">
               If the widget doesn’t load, please call us on{' '}
