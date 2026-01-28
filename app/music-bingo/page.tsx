@@ -102,42 +102,42 @@ const FAQS = [
   {
     question: 'When does Music Bingo start and finish?',
     answer:
-      'Doors are usually from 6:30pm with Music Bingo kicking off around 7:30pm. We wrap up roughly two to two and a half hours later depending on the number of rounds.'
+      'It typically starts at 7pm, but with Nikki hosting the show can run a little late. We play two games, so it finishes after those rounds.'
   },
   {
     question: 'How much is entry?',
     answer:
-      'Music Bingo is typically free entry. Booking is recommended so we can save you a table close to the action.'
+      'Entry is £3 per person.'
   },
   {
     question: 'Do we need to book in advance?',
     answer:
-      'Yes, it is the easiest way to guarantee a seat. If booking is open you will see a Book Now button above. If not, check back closer to the date or call 01753 682707.'
+      'Booking is strongly recommended if you want a great seat, but walk-ins are welcome.'
   },
   {
     question: 'What is the format?',
     answer:
-      'We play short song clips instead of numbers. Match the song on your card, complete the pattern, and shout when you have a line or full house.'
+      'We play two games where you listen to the songs, then guess the song and artist on your card. It is a great excuse to sing along and dance between tracks.'
   },
   {
     question: 'Is Music Bingo suitable for families?',
     answer:
-      'Yes. Families are welcome early in the evening and well-behaved dogs can join you under the table.'
+      'Absolutely. We play music from the 1950s to today, so bring a mix of ages to cover all the songs and artists.'
   },
   {
     question: 'Can we eat and drink during the games?',
     answer:
-      'Absolutely. The full menu runs through the night with sharers, pizzas, burgers, and cocktails delivered to your table.'
+      'Absolutely. Our kitchen is normally open from 4pm to 9pm, so you can order throughout and enjoy it while you play.'
   },
   {
     question: 'Can you run a private Music Bingo night?',
     answer:
-      'Yes. We can tailor rounds for birthdays, corporate socials, or fundraisers. Email manager@the-anchor.pub or call 01753 682707 to plan it.'
+      'Yes, we can host private Music Bingo nights by request.'
   },
   {
     question: 'Where can I see the latest dates?',
     answer:
-      'Check the Upcoming Music Bingo Dates section below or visit the What\'s On page for the most up-to-date schedule.'
+      'All of our dates for all upcoming events are available at https://www.the-anchor.pub/whats-on.'
   }
 ]
 
