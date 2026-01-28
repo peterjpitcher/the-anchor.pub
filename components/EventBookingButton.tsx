@@ -55,35 +55,13 @@ function buildOpenTableUrl(bookingTime: DateTime): string {
   return `${OPEN_TABLE_BASE_URL}?restref=${OPEN_TABLE_RESTREF}&datetime=${formatted}&covers=2&searchdatetime=${formatted}&partysize=2`
 }
 
-function resolveBookingUrl(event: Event): string | null {
-  const eventDateTime = parseEventDateTime(event.startDate)
-  if (eventDateTime) {
-    const bookingDateTime = eventDateTime.minus({ minutes: EVENT_BOOKING_OFFSET_MINUTES })
-    return buildOpenTableUrl(bookingDateTime)
-  }
-
-  const explicitBookingUrl =
-    typeof event.bookingUrl === 'string' && event.bookingUrl.trim().length > 0
-      ? event.bookingUrl.trim()
-      : null
-
-  if (explicitBookingUrl) {
-    return explicitBookingUrl
-  }
-
-  const offerUrl =
-    typeof event.offers?.url === 'string' && event.offers.url.trim().length > 0
-      ? event.offers.url.trim()
-      : null
-
-  if (!offerUrl) {
-    return null
-  }
-
+function normalizeBookingUrl(rawUrl: string | null | undefined, event: Event): string | null {
+  const trimmed = typeof rawUrl === 'string' ? rawUrl.trim() : ''
+  if (!trimmed) return null
   const base = typeof window !== 'undefined' ? window.location.origin : 'https://www.the-anchor.pub'
 
   try {
-    const parsed = new URL(offerUrl, base)
+    const parsed = new URL(trimmed, base)
     if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
       return null
     }
@@ -126,10 +104,30 @@ function resolveBookingUrl(event: Event): string | null {
       }
     }
 
-    return offerUrl
+    return trimmed
   } catch {
     return null
   }
+}
+
+function resolveBookingUrl(event: Event): string | null {
+  const explicitBookingUrl = normalizeBookingUrl(event.bookingUrl, event)
+  if (explicitBookingUrl) {
+    return explicitBookingUrl
+  }
+
+  const offerUrl = normalizeBookingUrl(event.offers?.url, event)
+  if (offerUrl) {
+    return offerUrl
+  }
+
+  const eventDateTime = parseEventDateTime(event.startDate)
+  if (eventDateTime) {
+    const bookingDateTime = eventDateTime.minus({ minutes: EVENT_BOOKING_OFFSET_MINUTES })
+    return buildOpenTableUrl(bookingDateTime)
+  }
+
+  return null
 }
 
 export function EventBookingButton({

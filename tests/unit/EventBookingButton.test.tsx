@@ -52,7 +52,7 @@ describe('EventBookingButton', () => {
     ).toBeDisabled()
   })
 
-  it('renders an OpenTable link with event time and tracks clicks', () => {
+  it('prefers an explicit booking URL and tracks clicks', () => {
     const event = makeEvent({
       bookingUrl: 'https://tickets.example.com/the-anchor/test-event',
       offers: {
@@ -70,7 +70,7 @@ describe('EventBookingButton', () => {
     const link = screen.getByRole('link', { name: 'Book Now for Test Event' })
     expect(link).toHaveAttribute(
       'href',
-      'http://www.opentable.com/restaurant/profile/443973/reserve?restref=443973&datetime=2025-01-01T18:30&covers=2&searchdatetime=2025-01-01T18:30&partysize=2'
+      'https://tickets.example.com/the-anchor/test-event'
     )
     expect(link).toHaveAttribute('target', '_blank')
     expect(link).toHaveAttribute('rel', 'noopener noreferrer')
@@ -83,6 +83,43 @@ describe('EventBookingButton', () => {
       eventName: 'Test Event',
       eventPrice: 10
     })
+  })
+
+  it('falls back to the offer URL when booking URL is missing', () => {
+    const event = makeEvent({
+      bookingUrl: null,
+      offers: {
+        '@type': 'Offer',
+        price: '10',
+        priceCurrency: 'GBP',
+        availability: 'InStock',
+        validFrom: '2024-01-01T00:00:00Z',
+        url: 'https://www.opentable.co.uk/booking/experiences-availability?rid=443973'
+      }
+    })
+
+    render(<EventBookingButton event={event} />)
+
+    const link = screen.getByRole('link', { name: 'Book Now for Test Event' })
+    expect(link).toHaveAttribute(
+      'href',
+      'https://www.opentable.co.uk/booking/experiences-availability?rid=443973'
+    )
+  })
+
+  it('falls back to the OpenTable date-based link when no booking URL is available', () => {
+    const event = makeEvent({
+      bookingUrl: null,
+      offers: undefined
+    })
+
+    render(<EventBookingButton event={event} />)
+
+    const link = screen.getByRole('link', { name: 'Book Now for Test Event' })
+    expect(link).toHaveAttribute(
+      'href',
+      'http://www.opentable.com/restaurant/profile/443973/reserve?restref=443973&datetime=2025-01-01T18:30&covers=2&searchdatetime=2025-01-01T18:30&partysize=2'
+    )
   })
 
   it('treats event page URLs as non-bookable and shows the unavailable state when date is invalid', () => {
