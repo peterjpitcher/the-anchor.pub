@@ -31,9 +31,9 @@ const toBase64 = (str: string) =>
     ? Buffer.from(str).toString('base64')
     : window.btoa(str)
 
-export function GalleryImage({ 
-  src, 
-  alt, 
+export function GalleryImage({
+  src,
+  alt,
   caption,
   width = 400,
   height = 400,
@@ -41,7 +41,7 @@ export function GalleryImage({
   priority = false
 }: GalleryImageProps) {
   return (
-    <div 
+    <div
       className={cn(
         "relative aspect-square rounded-lg overflow-hidden group cursor-pointer card-warm",
         className
@@ -56,7 +56,7 @@ export function GalleryImage({
         height={height}
         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
         className={cn(
-          "object-cover transition-transform duration-300 group-hover:scale-105"
+          "object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
         )}
         loading={priority ? 'eager' : 'lazy'}
         priority={priority}
@@ -64,9 +64,9 @@ export function GalleryImage({
         placeholder="blur"
         blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(width, height))}`}
       />
-      
+
       {caption && (
-        <div 
+        <div
           className={cn(
             "absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 transition-opacity group-hover:opacity-100"
           )}
