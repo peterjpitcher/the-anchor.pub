@@ -33,7 +33,7 @@ describe('PrivateHire2026PromoPopup', () => {
   it('renders and tracks a view event when eligible', async () => {
     render(<PrivateHire2026PromoPopup />)
 
-    expect(await screen.findByText('Book your 2026 party early — bubbles on us 🥂')).toBeInTheDocument()
+    expect(await screen.findByText('Book your 2026 party early')).toBeInTheDocument()
 
     expect(mockPushToDataLayer).toHaveBeenCalledWith(expect.objectContaining({
       event: 'promo_popup_view',
@@ -43,7 +43,7 @@ describe('PrivateHire2026PromoPopup', () => {
   it('persists dismissal for 7 days and tracks close', async () => {
     render(<PrivateHire2026PromoPopup />)
 
-    await screen.findByText('Book your 2026 party early — bubbles on us 🥂')
+    await screen.findByText('Book your 2026 party early')
 
     const before = Date.now()
     fireEvent.click(screen.getByLabelText('Close modal'))
@@ -70,7 +70,7 @@ describe('PrivateHire2026PromoPopup', () => {
     render(<PrivateHire2026PromoPopup />)
 
     await waitFor(() => {
-      expect(screen.queryByText('Book your 2026 party early — bubbles on us 🥂')).not.toBeInTheDocument()
+      expect(screen.queryByText('Book your 2026 party early')).not.toBeInTheDocument()
     })
   })
 
@@ -80,14 +80,14 @@ describe('PrivateHire2026PromoPopup', () => {
     render(<PrivateHire2026PromoPopup />)
 
     await waitFor(() => {
-      expect(screen.queryByText('Book your 2026 party early — bubbles on us 🥂')).not.toBeInTheDocument()
+      expect(screen.queryByText('Book your 2026 party early')).not.toBeInTheDocument()
     })
   })
 
   it('tracks CTA click and closes', async () => {
     render(<PrivateHire2026PromoPopup />)
 
-    await screen.findByText('Book your 2026 party early — bubbles on us 🥂')
+    await screen.findByText('Book your 2026 party early')
     const ctaLink = screen.getByRole('link', { name: 'Check availability / Get a quote' })
     ctaLink.addEventListener('click', (event) => event.preventDefault())
     fireEvent.click(ctaLink)
@@ -101,8 +101,8 @@ describe('PrivateHire2026PromoPopup', () => {
   it('tracks phone click and closes', async () => {
     render(<PrivateHire2026PromoPopup />)
 
-    await screen.findByText('Book your 2026 party early — bubbles on us 🥂')
-    const phoneLink = screen.getByRole('link', { name: 'Call 01753 682707' })
+    await screen.findByText('Book your 2026 party early')
+    const phoneLink = screen.getByRole('link', { name: 'Or call us on 01753 682707' })
     phoneLink.addEventListener('click', (event) => event.preventDefault())
     fireEvent.click(phoneLink)
 

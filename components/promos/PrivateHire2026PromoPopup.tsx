@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { Button, Modal, ModalBody, ModalFooter, ModalHeader, ModalTitle } from '@/components/ui'
+import { Button, Modal, ModalBody } from '@/components/ui'
 import { pushToDataLayer } from '@/lib/gtm-events'
 import { useCountdown, type CountdownState } from '@/hooks/useCountdown'
 import {
@@ -159,93 +159,105 @@ export function PrivateHire2026PromoPopup() {
     <Modal
       open={open}
       onClose={dismiss}
-      size="md"
-      backdrop="blur"
       id="private-hire-2026-promo"
       title="Private hire promo"
       description="Limited-time private hire offer for 2026 bookings."
-      className="flex max-h-[85vh] flex-col overflow-hidden"
+      className="flex max-h-[85vh] flex-col overflow-hidden rounded-3xl border-0 shadow-2xl"
+      showCloseButton={false}
     >
-      <ModalHeader className="border-b border-gray-100">
-        <div className="pr-10">
-          <ModalTitle id="private-hire-2026-promo-title" className="text-xl text-anchor-green">
-            Book your 2026 party early — bubbles on us 🥂
-          </ModalTitle>
-        </div>
-      </ModalHeader>
+      <div className="relative isolate h-64 w-full shrink-0 sm:h-72">
+        <button
+          type="button"
+          onClick={dismiss}
+          className="absolute right-4 top-4 z-50 rounded-full bg-black/20 p-2 text-white/90 backdrop-blur-sm transition-all hover:bg-black/40 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/50"
+          aria-label="Close modal"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5 drop-shadow-sm">
+            <path fillRule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clipRule="evenodd" />
+          </svg>
+        </button>
+        <Image
+          src={PRIVATE_HIRE_2026_PROMO_IMAGE_SRC}
+          alt={PRIVATE_HIRE_2026_PROMO_IMAGE_ALT}
+          fill
+          className="object-cover"
+          sizes="(max-width: 640px) 90vw, 520px"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/40 to-transparent" />
 
-      <ModalBody className="flex-1 space-y-3 overflow-y-auto">
-        <p id="private-hire-2026-promo-description" className="text-sm text-gray-600">
-          Book your 2026 party with us and pay your deposit by{' '}
-          <span className="font-semibold">{PRIVATE_HIRE_2026_PROMO_DEPOSIT_DEADLINE_COPY}</span> to receive{' '}
-          <span className="font-semibold">4 FREE bottles of prosecco</span> to get the party started.
-        </p>
-
-        <div className="relative overflow-hidden rounded-xl bg-gray-100">
-          <div className="relative aspect-[21/9]">
-            <Image
-              src={PRIVATE_HIRE_2026_PROMO_IMAGE_SRC}
-              alt={PRIVATE_HIRE_2026_PROMO_IMAGE_ALT}
-              fill
-              className="object-cover"
-              sizes="(max-width: 640px) 90vw, 520px"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" aria-hidden="true" />
-          </div>
-        </div>
-
-        <div className="rounded-xl bg-anchor-cream/40 px-3 py-2">
-          <p className="text-xs font-semibold uppercase tracking-wide text-gray-700">
-            Offer ends in
+        <div className="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
+          <h2 id="private-hire-2026-promo-title" className="text-2xl font-bold leading-tight text-white drop-shadow-sm sm:text-3xl">
+            Book your 2026 party early
+          </h2>
+          <p className="mt-1 text-lg font-medium text-anchor-gold drop-shadow-sm">
+            — and the bubbles are on us 🥂
           </p>
-          <div className="mt-1 grid grid-cols-2 gap-2 sm:grid-cols-4">
-            {segments.map((segment) => (
-              <div
-                key={segment.label}
-                className="rounded-lg bg-white/80 px-2 py-1.5 text-center"
-              >
-                <div className="font-mono text-base font-bold text-gray-900">
-                  {segment.value}
+        </div>
+      </div>
+
+      <ModalBody className="flex-1 space-y-6 overflow-y-auto bg-white px-6 py-6 sm:px-8">
+        <div className="rounded-2xl bg-anchor-green/5 p-4 ring-1 ring-inset ring-anchor-green/10">
+          <div className="flex items-center justify-between gap-4">
+            <p className="text-xs font-bold uppercase tracking-widest text-anchor-green">
+              Offer ends in
+            </p>
+            <div className="flex gap-2">
+              {segments.map((segment) => (
+                <div
+                  key={segment.label}
+                  className="flex flex-col items-center rounded-lg bg-white px-2.5 py-1.5 text-center shadow-sm ring-1 ring-gray-900/5"
+                >
+                  <span className="font-mono text-lg font-bold leading-none text-anchor-green">
+                    {segment.value}
+                  </span>
+                  <span className="text-[9px] font-bold uppercase tracking-wider text-gray-500">
+                    {segment.label}
+                  </span>
                 </div>
-                <div className="text-[10px] font-semibold uppercase tracking-wide text-gray-600">
-                  {segment.label}
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
 
-        <div className="space-y-1">
-          <h3 className="text-sm font-semibold text-gray-900">Key terms</h3>
-          <ul className="space-y-1 text-sm text-gray-700">
-            <li className="flex gap-2">
-              <span className="mt-0.5 text-anchor-gold" aria-hidden="true">✓</span>
-              <span>Minimum 30 guests</span>
-            </li>
-            <li className="flex gap-2">
-              <span className="mt-0.5 text-anchor-gold" aria-hidden="true">✓</span>
-              <span>New 2026 bookings only</span>
-            </li>
-            <li className="flex gap-2">
-              <span className="mt-0.5 text-anchor-gold" aria-hidden="true">✓</span>
-              <span>Deposit paid by {PRIVATE_HIRE_2026_PROMO_DEPOSIT_DEADLINE_COPY} to qualify</span>
-            </li>
-          </ul>
+        <div className="space-y-4">
+          <p id="private-hire-2026-promo-description" className="text-base leading-relaxed text-gray-600">
+            Secure your 2026 celebration now and pay your deposit by{' '}
+            <strong className="font-semibold text-gray-900">{PRIVATE_HIRE_2026_PROMO_DEPOSIT_DEADLINE_COPY}</strong> to receive{' '}
+            <strong className="font-semibold text-anchor-green">4 FREE bottles of prosecco</strong> to get the party started.
+          </p>
+
+          <div className="rounded-xl bg-gray-50 p-4">
+            <ul className="space-y-2 text-sm font-medium text-gray-600">
+              <li className="flex gap-2.5">
+                <span className="shrink-0 text-anchor-gold">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd" />
+                  </svg>
+                </span>
+                <span>Minimum 30 guests required</span>
+              </li>
+              <li className="flex gap-2.5">
+                <span className="shrink-0 text-anchor-gold">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd" />
+                  </svg>
+                </span>
+                <span>Valid for new 2026 bookings only</span>
+              </li>
+            </ul>
+          </div>
         </div>
 
-        <p className="text-xs text-gray-500">
-          Subject to availability. No cash alternative.
-        </p>
+        <div className="space-y-3 pt-2">
+          <Button asChild variant="primary" size="lg" className="w-full rounded-full shadow-lg shadow-anchor-green/20 hover:shadow-xl hover:shadow-anchor-green/30" onClick={handleCtaClick}>
+            <Link href={PRIVATE_HIRE_2026_PROMO_CTA_HREF}>Check availability / Get a quote</Link>
+          </Button>
+          <Button asChild variant="ghost" size="sm" className="w-full text-gray-500 hover:text-gray-900" onClick={handlePhoneClick}>
+            <a href={PRIVATE_HIRE_2026_PROMO_PHONE_HREF}>Or call us on {PRIVATE_HIRE_2026_PROMO_PHONE}</a>
+          </Button>
+        </div>
       </ModalBody>
-
-      <ModalFooter className="flex flex-col gap-2">
-        <Button asChild variant="primary" size="md" fullWidth onClick={handleCtaClick}>
-          <Link href={PRIVATE_HIRE_2026_PROMO_CTA_HREF}>Check availability / Get a quote</Link>
-        </Button>
-        <Button asChild variant="outline" size="md" fullWidth onClick={handlePhoneClick}>
-          <a href={PRIVATE_HIRE_2026_PROMO_PHONE_HREF}>Call {PRIVATE_HIRE_2026_PROMO_PHONE}</a>
-        </Button>
-      </ModalFooter>
     </Modal>
   )
 }

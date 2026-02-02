@@ -76,6 +76,21 @@
     "permanent": true
   },
   {
+    "source": "/events/quiz-night-pub-pursuit-2025-08-13",
+    "destination": "/quiz-night",
+    "permanent": true
+  },
+  {
+    "source": "/events/quiz-night-pub-pursuit-2025-09-03",
+    "destination": "/quiz-night",
+    "permanent": true
+  },
+  {
+    "source": "/events/music-bingo-2026-02-11",
+    "destination": "/music-bingo",
+    "permanent": false
+  },
+  {
     "source": "/events/bingo-night",
     "destination": "/cash-bingo",
     "permanent": true
@@ -99,6 +114,11 @@
     "source": "/events/christmas-parties",
     "destination": "/christmas-parties",
     "permanent": true
+  },
+  {
+    "source": "/events/:path*/opengraph-image",
+    "destination": "/images/page-headers/whats-on/whats-on.jpg",
+    "permanent": false
   },
   {
     "source": "/favicon.ico",
@@ -356,6 +376,11 @@
     "permanent": true
   },
   {
+    "source": "/leave-a-review",
+    "destination": "https://g.page/r/CQz1W5fqSTqPEAI/review",
+    "permanent": true
+  },
+  {
     "source": "/blog/categories/:category",
     "destination": "/blog",
     "permanent": true
@@ -392,6 +417,11 @@
   },
   {
     "source": "/subscribe",
+    "destination": "/",
+    "permanent": true
+  },
+  {
+    "source": "/subscribe-for-digital-flyers",
     "destination": "/",
     "permanent": true
   },

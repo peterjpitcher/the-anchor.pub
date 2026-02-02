@@ -187,7 +187,7 @@ export function Footer({
   copyright = {
     text: 'The Anchor, Stanwell Moor. All rights reserved.',
     year: new Date().getFullYear(),
-    subtext: 'Proud to be your local independent pub • Part of the community since the 1800s'
+    subtext: 'Proud to be part of the Greene King Tenants network • Part of the community since the 1800s'
   },
   theme = defaultTheme,
   className

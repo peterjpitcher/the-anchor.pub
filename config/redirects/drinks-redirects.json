@@ -368,5 +368,15 @@
     "source": "/drinks/woodford-reserve",
     "destination": "/drinks",
     "permanent": true
+  },
+  {
+    "source": "/drinks/havana-club-3",
+    "destination": "/drinks",
+    "permanent": true
+  },
+  {
+    "source": "/drinks/baby-guinness",
+    "destination": "/drinks",
+    "permanent": true
   }
 ]

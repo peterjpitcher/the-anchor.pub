@@ -65,12 +65,32 @@
     "permanent": true
   },
   {
+    "source": "/blog/tag/teams",
+    "destination": "/blog/tag/community",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/listening",
+    "destination": "/blog/tag/community",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/world-photography-day",
+    "destination": "/blog/world-photography-day-embracing-stanwell-moor-s-ch",
+    "permanent": true
+  },
+  {
     "source": "/blog/tag/update",
     "destination": "/blog/tag/news",
     "permanent": true
   },
   {
     "source": "/blog/tag/updates",
+    "destination": "/blog/tag/news",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/improvement",
     "destination": "/blog/tag/news",
     "permanent": true
   },
@@ -126,6 +146,11 @@
   },
   {
     "source": "/blog/tag/summer",
+    "destination": "/blog/tag/seasonal",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/june",
     "destination": "/blog/tag/seasonal",
     "permanent": true
   },
@@ -231,7 +256,12 @@
   },
   {
     "source": "/blog/tag/quiz-night",
-    "destination": "/blog/tag/events",
+    "destination": "/quiz-night",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/wednesday",
+    "destination": "/whats-on",
     "permanent": true
   },
   {
