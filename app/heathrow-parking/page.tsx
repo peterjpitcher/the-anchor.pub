@@ -171,14 +171,6 @@ function buildParkingFacilitySchema(rateCard: ParkingRateCard | null) {
       latitude: 51.4592,
       longitude: -0.5147
     },
-    openingHoursSpecification: [
-      {
-        '@type': 'OpeningHoursSpecification',
-        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-        opens: '00:00',
-        closes: '23:59'
-      }
-    ],
 	    amenityFeature: [
 	      { '@type': 'LocationFeatureSpecification', name: 'CCTV', value: true },
 	      { '@type': 'LocationFeatureSpecification', name: 'Floodlighting', value: true },

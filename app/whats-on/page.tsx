@@ -17,7 +17,7 @@ import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/Inter
 import { BookTableButton } from '@/components/BookTableButton'
 import { quizNightEventSeries, bingoEventSeries } from '@/lib/schema'
 import { getBusinessHours } from '@/lib/api'
-import { buildOpeningHoursSchema, DEFAULT_OPENING_HOURS_SCHEMA } from '@/lib/opening-hours-schema'
+import { buildOpeningHoursSchema } from '@/lib/opening-hours-schema'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
@@ -50,8 +50,8 @@ async function getOpeningHoursSpecification() {
 
     return buildOpeningHoursSchema(hours?.regularHours)
   } catch (error) {
-    console.warn('Failed to load opening hours for /whats-on schema, using defaults', error)
-    return DEFAULT_OPENING_HOURS_SCHEMA
+    console.warn('Failed to load opening hours for /whats-on schema, omitting hours', error)
+    return []
   }
 }
 

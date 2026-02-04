@@ -13,7 +13,6 @@ export const parkingFacilitySchema = {
     "postalCode": "TW19 6AQ",
     "addressCountry": "GB"
   },
-  "openingHours": "Mo-Su 00:00-24:00",
   "priceCurrency": "GBP",
   "price": "0",
   "freeOfCharge": true,
@@ -22,11 +21,6 @@ export const parkingFacilitySchema = {
     {
       "@type": "LocationFeatureSpecification",
       "name": "Free Parking",
-      "value": true
-    },
-    {
-      "@type": "LocationFeatureSpecification",
-      "name": "24/7 Access",
       "value": true
     },
     {

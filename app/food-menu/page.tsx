@@ -17,7 +17,7 @@ import { getBusinessHours, isKitchenOpen, type BusinessHours } from '@/lib/api'
 import { formatTime12Hour } from '@/lib/time-utils'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { specialAnnouncementSchema } from '@/lib/schema'
-import { generateMenuItemOffer, generateNutritionInfo, generateSuitableForDiet } from '@/lib/schema-utils'
+import { generateKitchenHoursSpecification, generateMenuItemOffer, generateNutritionInfo, generateSuitableForDiet } from '@/lib/schema-utils'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
@@ -58,8 +58,8 @@ const MENU_SECTION_LIST = [
   }
 ]
 
-function buildKitchenSchedule(hours: BusinessHours): string {
-  const schedule: string[] = []
+function buildKitchenHoursMap(hours: BusinessHours): Record<string, string> | null {
+  const schedule: Record<string, string> = {}
 
   const weekdays: Array<keyof BusinessHours['regularHours']> = ['tuesday', 'wednesday', 'thursday', 'friday']
   const weekdayHours = weekdays
@@ -78,24 +78,32 @@ function buildKitchenSchedule(hours: BusinessHours): string {
     weekdayHours.length === weekdays.length &&
     weekdayHours.every(h => h.opens === weekdayHours[0].opens && h.closes === weekdayHours[0].closes)
   ) {
-    schedule.push(`Tuesday to Friday ${weekdayHours[0].opens}-${weekdayHours[0].closes}`)
+    schedule['Tuesday to Friday'] = `${weekdayHours[0].opens}-${weekdayHours[0].closes}`
   } else {
     weekdayHours.forEach(h => {
-      schedule.push(`${h.day.charAt(0).toUpperCase() + h.day.slice(1)} ${h.opens}-${h.closes}`)
+      schedule[h.day.charAt(0).toUpperCase() + h.day.slice(1)] = `${h.opens}-${h.closes}`
     })
   }
 
   const saturdayHours = hours.regularHours.saturday?.kitchen
   if (saturdayHours && isKitchenOpen(saturdayHours)) {
-    schedule.push(`Saturday ${formatTime12Hour(saturdayHours.opens)}-${formatTime12Hour(saturdayHours.closes)}`)
+    schedule.Saturday = `${formatTime12Hour(saturdayHours.opens)}-${formatTime12Hour(saturdayHours.closes)}`
   }
 
   const sundayHours = hours.regularHours.sunday?.kitchen
   if (sundayHours && isKitchenOpen(sundayHours)) {
-    schedule.push(`Sunday ${formatTime12Hour(sundayHours.opens)}-${formatTime12Hour(sundayHours.closes)}`)
+    schedule.Sunday = `${formatTime12Hour(sundayHours.opens)}-${formatTime12Hour(sundayHours.closes)}`
   }
 
-  return schedule.join(', ') || 'Please check our current hours'
+  return Object.keys(schedule).length ? schedule : null
+}
+
+function buildKitchenSchedule(hours: BusinessHours): string {
+  const schedule = buildKitchenHoursMap(hours)
+  if (!schedule) return ''
+  return Object.entries(schedule)
+    .map(([day, time]) => `${day} ${time}`)
+    .join(', ')
 }
 
 export const metadata: Metadata = {
@@ -141,6 +149,7 @@ export default async function FoodMenuPage() {
     parseMenuMarkdown('food'),
     getBusinessHours()
   ])
+  const kitchenHoursSpecification = generateKitchenHoursSpecification(businessHours)
 
   if (!menuData) {
     return (
@@ -150,14 +159,23 @@ export default async function FoodMenuPage() {
     )
   }
 
-  const kitchenSchedule = businessHours
-    ? buildKitchenSchedule(businessHours)
-    : 'Tuesday to Friday 6pm-9pm, Saturday 1pm-7pm, Sunday 1pm-6pm'
+  const kitchenHoursMap = businessHours ? buildKitchenHoursMap(businessHours) : null
+  const kitchenSchedule = businessHours ? buildKitchenSchedule(businessHours) : null
+  const sundayKitchen = businessHours?.regularHours?.sunday?.kitchen
+  const sundayKitchenHours = sundayKitchen && isKitchenOpen(sundayKitchen)
+    ? `${formatTime12Hour(sundayKitchen.opens)}-${formatTime12Hour(sundayKitchen.closes)}`
+    : null
+  const menuDataWithKitchenHours = {
+    ...menuData,
+    ...(kitchenHoursMap ? { kitchenHours: kitchenHoursMap } : {})
+  }
 
   const faqItems = [
     {
       question: 'What time is the kitchen open at The Anchor?',
-      answer: `Our kitchen is open ${kitchenSchedule}. The kitchen is closed on Mondays.`
+      answer: kitchenSchedule
+        ? `Our kitchen is open ${kitchenSchedule}.`
+        : 'Our kitchen hours are updated live on this page.'
     },
     {
       question: 'Where can I view your food menu or pub menu online?',
@@ -165,8 +183,9 @@ export default async function FoodMenuPage() {
     },
 	    {
 	      question: 'Do you serve Sunday roast at The Anchor?',
-	      answer:
-	        'Yes. Sunday roast and Sunday lunch service runs 1pm-6pm with beef, chicken, lamb, and vegetarian plates. Pre-order by 1pm Saturday. Bookings of 7+ require a card hold to secure the booking (no charge).'
+	      answer: sundayKitchenHours
+	        ? `Yes. Sunday roast and Sunday lunch service runs ${sundayKitchenHours} with beef, chicken, lamb, and vegetarian plates. Pre-order by 1pm Saturday. Bookings of 7+ require a card hold to secure the booking (no charge).`
+	        : 'Yes. Sunday roast and Sunday lunch service runs during our Sunday kitchen hours with beef, chicken, lamb, and vegetarian plates. Pre-order by 1pm Saturday. Bookings of 7+ require a card hold to secure the booking (no charge).'
 	    },
     {
       question: "Is there a children's menu?",
@@ -297,7 +316,7 @@ export default async function FoodMenuPage() {
             align="center"
             className="mb-10"
           />
-          <FilteredMenuRenderer menuData={menuData} accentColor="anchor-gold" />
+          <FilteredMenuRenderer menuData={menuDataWithKitchenHours} accentColor="anchor-gold" />
         </Container>
       </div>
 
@@ -428,7 +447,12 @@ export default async function FoodMenuPage() {
               <CardBody>
                 <h3 className="text-lg font-semibold text-anchor-green mb-3">Sunday Serving Notes</h3>
 	                <ul className="space-y-2 text-sm text-gray-700">
-	                  <li><strong>Service:</strong> 1pm–6pm every Sunday.</li>
+	                  <li>
+	                    <strong>Service:</strong>{' '}
+	                    {sundayKitchenHours
+	                      ? `${sundayKitchenHours} every Sunday.`
+	                      : 'Sunday kitchen hours are updated live on this page.'}
+	                  </li>
 	                  <li><strong>Groups:</strong> 7+ bookings require a card hold (no charge).</li>
 	                  <li><strong>Gluten-aware:</strong> Alternative gravy available — just ask.</li>
 	                  <li><strong>Extras:</strong> Extra Yorkies or seasonal sides when available.</li>
@@ -527,7 +551,11 @@ export default async function FoodMenuPage() {
               <CardBody>
                 <h3 className="text-lg font-semibold text-anchor-green mb-3">Kitchen Today</h3>
                 <p className="text-sm text-gray-700">
-                  Kitchen open: {kitchenSchedule}. Call ahead on <a href="tel:+441753682707" className="text-anchor-gold font-semibold hover:text-anchor-green">01753 682707</a> for large parties.
+                  {kitchenSchedule ? (
+                    <>Kitchen open: {kitchenSchedule}. Call ahead on <a href="tel:+441753682707" className="text-anchor-gold font-semibold hover:text-anchor-green">01753 682707</a> for large parties.</>
+                  ) : (
+                    <>Kitchen hours are updated live on this page. Call ahead on <a href="tel:+441753682707" className="text-anchor-gold font-semibold hover:text-anchor-green">01753 682707</a> for large parties.</>
+                  )}
                 </p>
               </CardBody>
             </Card>
@@ -709,31 +737,7 @@ export default async function FoodMenuPage() {
                 latitude: 51.462509,
                 longitude: -0.502067
               },
-              openingHoursSpecification: businessHours
-                ? [
-                  {
-                    '@type': 'OpeningHoursSpecification',
-                    name: 'Kitchen Hours',
-                    dayOfWeek: ['Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-                    opens: '18:00',
-                    closes: '21:00'
-                  },
-                  {
-                    '@type': 'OpeningHoursSpecification',
-                    name: 'Kitchen Hours',
-                    dayOfWeek: 'Saturday',
-                    opens: '13:00',
-                    closes: '19:00'
-                  },
-                  {
-                    '@type': 'OpeningHoursSpecification',
-                    name: 'Kitchen Hours',
-                    dayOfWeek: 'Sunday',
-                    opens: '13:00',
-                    closes: '18:00'
-                  }
-                ]
-                : [],
+              openingHoursSpecification: kitchenHoursSpecification,
 	              telephone: '+441753682707',
 	              url: 'https://www.the-anchor.pub',
 	              priceRange: 'moderate'

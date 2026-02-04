@@ -8,6 +8,8 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { GoogleReviews } from '@/components/reviews'
 import { DEFAULT_PAGE_HEADER_IMAGE, DEFAULT_FOOD_IMAGE } from '@/lib/image-fallbacks'
+import { getBusinessHours } from '@/lib/api'
+import { generateOpeningHoursSpecification } from '@/lib/schema-utils'
 
 export const metadata: Metadata = {
   title: 'Pubs in Stanwell & Stanwell Moor | Traditional Local Pub | The Anchor',
@@ -28,74 +30,50 @@ export const metadata: Metadata = {
   }
 }
 
-const localPubSchema = {
-  "@context": "https://schema.org",
-  "@type": "BarOrPub",
-  "@id": "https://www.the-anchor.pub/pubs-in-stanwell",
-  "name": "The Anchor - Traditional Pub in Stanwell Moor",
-  "description": "Family-friendly local pub serving Stanwell Moor and Stanwell since 1995. Traditional British pub with great food, beer garden, and free parking.",
-  "url": "https://www.the-anchor.pub",
-  "image": [
-    `https://www.the-anchor.pub${DEFAULT_PAGE_HEADER_IMAGE}`,
-    'https://www.the-anchor.pub/images/garden/beer-garden/the-anchor-beer-garden-heathrow-flight-path.jpg',
-    `https://www.the-anchor.pub${DEFAULT_FOOD_IMAGE}`
-  ],
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Horton Road",
-    "addressLocality": "Stanwell Moor",
-    "addressRegion": "Surrey",
-    "postalCode": "TW19 6AQ",
-    "addressCountry": "GB"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 51.4592,
-    "longitude": -0.5147
-  },
-  "telephone": "+441753682707",
-  "priceRange": "moderate",
-  "servesCuisine": ["British", "Pub Food"],
-  "hasMenu": "https://www.the-anchor.pub/food-menu",
-  "acceptsReservations": true,
-  "publicAccess": true,
-  "smokingAllowed": false,
-  "openingHoursSpecification": [
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday"],
-      "opens": "12:00",
-      "closes": "23:00"
+export default async function PubsInStanwellPage() {
+  const businessHours = await getBusinessHours()
+  const openingHoursSpecification = generateOpeningHoursSpecification(businessHours)
+  const localPubSchema = {
+    "@context": "https://schema.org",
+    "@type": "BarOrPub",
+    "@id": "https://www.the-anchor.pub/pubs-in-stanwell",
+    "name": "The Anchor - Traditional Pub in Stanwell Moor",
+    "description": "Family-friendly local pub serving Stanwell Moor and Stanwell since 1995. Traditional British pub with great food, beer garden, and free parking.",
+    "url": "https://www.the-anchor.pub",
+    "image": [
+      `https://www.the-anchor.pub${DEFAULT_PAGE_HEADER_IMAGE}`,
+      'https://www.the-anchor.pub/images/garden/beer-garden/the-anchor-beer-garden-heathrow-flight-path.jpg',
+      `https://www.the-anchor.pub${DEFAULT_FOOD_IMAGE}`
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Horton Road",
+      "addressLocality": "Stanwell Moor",
+      "addressRegion": "Surrey",
+      "postalCode": "TW19 6AQ",
+      "addressCountry": "GB"
     },
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Tuesday", "Wednesday", "Thursday"],
-      "opens": "12:00",
-      "closes": "23:00"
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 51.4592,
+      "longitude": -0.5147
     },
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Friday", "Saturday"],
-      "opens": "12:00",
-      "closes": "00:00"
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Sunday"],
-      "opens": "12:00",
-      "closes": "22:30"
-    }
-  ],
-  "amenityFeature": [
-    { "@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true },
-    { "@type": "LocationFeatureSpecification", "name": "Beer Garden", "value": true },
-    { "@type": "LocationFeatureSpecification", "name": "Wheelchair Accessible", "value": true },
-    { "@type": "LocationFeatureSpecification", "name": "Family Friendly", "value": true },
-    { "@type": "LocationFeatureSpecification", "name": "Dog Friendly (Garden)", "value": true }
-  ]
-}
-
-export default function PubsInStanwellPage() {
+    "telephone": "+441753682707",
+    "priceRange": "moderate",
+    "servesCuisine": ["British", "Pub Food"],
+    "hasMenu": "https://www.the-anchor.pub/food-menu",
+    "acceptsReservations": true,
+    "publicAccess": true,
+    "smokingAllowed": false,
+    ...(openingHoursSpecification.length ? { "openingHoursSpecification": openingHoursSpecification } : {}),
+    "amenityFeature": [
+      { "@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "Beer Garden", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "Wheelchair Accessible", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "Family Friendly", "value": true },
+      { "@type": "LocationFeatureSpecification", "name": "Dog Friendly (Garden)", "value": true }
+    ]
+  }
   return (
     <>
       <script

@@ -10,6 +10,8 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { GoogleReviews } from '@/components/reviews'
 import { HEATHROW_TIMES } from '@/lib/constants'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
+import { getBusinessHours } from '@/lib/api'
+import { generateKitchenHoursSpecification } from '@/lib/schema-utils'
 
 export const metadata: Metadata = {
   title: 'Restaurant Near Heathrow Airport | The Anchor - Better Than Terminal Dining',
@@ -30,97 +32,80 @@ export const metadata: Metadata = {
   }
 }
 
-const restaurantSchema = {
-  "@context": "https://schema.org",
-  "@type": "Restaurant",
-  "@id": "https://www.the-anchor.pub/restaurants-near-heathrow",
-  "name": "The Anchor",
-  "description": "Traditional British restaurant near Heathrow Airport offering better value than terminal dining with free parking",
-  "url": "https://www.the-anchor.pub/restaurants-near-heathrow",
-  "telephone": "+441753682707",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Horton Road",
-    "addressLocality": "Stanwell Moor",
-    "addressRegion": "Surrey",
-    "postalCode": "TW19 6AQ",
-    "addressCountry": "GB"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 51.462509,
-    "longitude": -0.502067
-  },
-  "openingHoursSpecification": [
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday"],
-      "opens": "18:00",
-      "closes": "21:00"
+export default async function RestaurantsNearHeathrowPage() {
+  const businessHours = await getBusinessHours()
+  const kitchenHoursSpecification = generateKitchenHoursSpecification(businessHours)
+
+  const restaurantSchema = {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "@id": "https://www.the-anchor.pub/restaurants-near-heathrow",
+    "name": "The Anchor",
+    "description": "Traditional British restaurant near Heathrow Airport offering better value than terminal dining with free parking",
+    "url": "https://www.the-anchor.pub/restaurants-near-heathrow",
+    "telephone": "+441753682707",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Horton Road",
+      "addressLocality": "Stanwell Moor",
+      "addressRegion": "Surrey",
+      "postalCode": "TW19 6AQ",
+      "addressCountry": "GB"
     },
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": "Saturday",
-      "opens": "13:00",
-      "closes": "19:00"
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 51.462509,
+      "longitude": -0.502067
     },
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": "Sunday",
-      "opens": "13:00",
-      "closes": "18:00"
-    }
-  ],
-  "servesCuisine": ["British", "Traditional British", "Pub Food"],
-  "priceRange": "moderate",
-  "acceptsReservations": true,
-  "menu": "https://www.the-anchor.pub/food-menu",
-  "hasMenu": {
-    "@type": "Menu",
-    "url": "https://www.the-anchor.pub/food-menu",
-    "hasMenuSection": [
+    ...(kitchenHoursSpecification.length ? { "openingHoursSpecification": kitchenHoursSpecification } : {}),
+    "servesCuisine": ["British", "Traditional British", "Pub Food"],
+    "priceRange": "moderate",
+    "acceptsReservations": true,
+    "menu": "https://www.the-anchor.pub/food-menu",
+    "hasMenu": {
+      "@type": "Menu",
+      "url": "https://www.the-anchor.pub/food-menu",
+      "hasMenuSection": [
+        {
+          "@type": "MenuSection",
+          "name": "Sunday Roast",
+          "description": "Traditional British Sunday roasts (pre-order required)"
+        },
+        {
+          "@type": "MenuSection",
+          "name": "Pizza",
+          "description": "Stone-baked pizzas with hand-stretched bases and bold toppings"
+        },
+        {
+          "@type": "MenuSection",
+          "name": "Traditional Mains",
+          "description": "British pub classics including fish & chips"
+        }
+      ]
+    },
+    "amenityFeature": [
       {
-        "@type": "MenuSection",
-        "name": "Sunday Roast",
-        "description": "Traditional British Sunday roasts (pre-order required)"
+        "@type": "LocationFeatureSpecification",
+        "name": "Free Parking",
+        "value": true
       },
       {
-        "@type": "MenuSection",
-        "name": "Pizza",
-        "description": "Stone-baked pizzas with hand-stretched bases and bold toppings"
+        "@type": "LocationFeatureSpecification",
+        "name": "WiFi",
+        "value": true
       },
       {
-        "@type": "MenuSection",
-        "name": "Traditional Mains",
-        "description": "British pub classics including fish & chips"
+        "@type": "LocationFeatureSpecification",
+        "name": "Outdoor Seating",
+        "value": true
+      },
+      {
+        "@type": "LocationFeatureSpecification",
+        "name": "Dog Friendly",
+        "value": true
       }
     ]
-  },
-  "amenityFeature": [
-    {
-      "@type": "LocationFeatureSpecification",
-      "name": "Free Parking",
-      "value": true
-    },
-    {
-      "@type": "LocationFeatureSpecification",
-      "name": "WiFi",
-      "value": true
-    },
-    {
-      "@type": "LocationFeatureSpecification",
-      "name": "Outdoor Seating",
-      "value": true
-    },
-    {
-      "@type": "LocationFeatureSpecification",
-      "name": "Dog Friendly",
-      "value": true
-    }
-  ]
-}
-
-export default function RestaurantsNearHeathrowPage() {
+  }
   return (
     <>
       <script

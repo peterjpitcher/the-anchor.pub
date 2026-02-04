@@ -821,62 +821,6 @@ export interface SundayLunchMenuResponse {
   cutoff_time?: string
 }
 
-const FALLBACK_BUSINESS_HOURS: BusinessHours = {
-  regularHours: {
-    monday: {
-      opens: '16:00',
-      closes: '22:00',
-      kitchen: { is_closed: true },
-      is_closed: true
-    },
-    tuesday: {
-      opens: '16:00',
-      closes: '22:00',
-      kitchen: { opens: '18:00', closes: '21:00' },
-      is_closed: false
-    },
-    wednesday: {
-      opens: '16:00',
-      closes: '22:00',
-      kitchen: { opens: '18:00', closes: '21:00' },
-      is_closed: false
-    },
-    thursday: {
-      opens: '16:00',
-      closes: '22:00',
-      kitchen: { opens: '18:00', closes: '21:00' },
-      is_closed: false
-    },
-    friday: {
-      opens: '16:00',
-      closes: '00:00',
-      kitchen: { opens: '18:00', closes: '21:30' },
-      is_closed: false
-    },
-    saturday: {
-      opens: '12:00',
-      closes: '00:00',
-      kitchen: { opens: '13:00', closes: '19:00' },
-      is_closed: false
-    },
-    sunday: {
-      opens: '12:00',
-      closes: '22:00',
-      kitchen: { opens: '13:00', closes: '18:00' },
-      is_closed: false
-    }
-  },
-  specialHours: [],
-  currentStatus: {
-    isOpen: true,
-    kitchenOpen: true,
-    closesIn: null,
-    opensIn: null
-  },
-  timezone: 'Europe/London',
-  lastUpdated: '2024-01-01T00:00:00.000Z'
-}
-
 const buildPhaseSkipLogged = new Set<string>()
 
 const FALLBACK_EVENT_CATEGORIES: EventCategoriesResponse = {
@@ -1755,10 +1699,6 @@ export class AnchorAPI {
 
     if (endpoint === '/table-bookings/menu/sunday-lunch') {
       return FALLBACK_SUNDAY_LUNCH_MENU
-    }
-
-    if (endpoint === '/business/hours') {
-      return FALLBACK_BUSINESS_HOURS
     }
 
     if (endpoint === '/events' || endpoint === '/events/') {

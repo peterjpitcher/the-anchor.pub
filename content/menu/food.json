@@ -2,11 +2,6 @@
   "title": "Food Menu",
   "description": "Traditional British pub food at The Anchor",
   "lastUpdated": "2025-12-14",
-  "kitchenHours": {
-    "Tuesday to Friday": "6pm-9pm",
-    "Saturday": "1pm-7pm",
-    "Sunday": "1pm-6pm"
-  },
   "categories": [
     {
       "id": "light-bites",

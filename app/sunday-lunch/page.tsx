@@ -9,7 +9,8 @@ import { generateNutritionInfo } from '@/lib/schema-utils'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BookTableButton } from '@/components/BookTableButton'
 import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
-import { anchorAPI, formatPrice } from '@/lib/api'
+import { anchorAPI, formatPrice, getBusinessHours, isKitchenOpen } from '@/lib/api'
+import { formatTime12Hour } from '@/lib/time-utils'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 const SUNDAY_LUNCH_BOOKING_URL = 'https://www.opentable.co.uk/booking/experiences-availability?rid=443973&restref=443973&experienceId=629300&utm_source=external&utm_medium=referral&utm_campaign=shared'
@@ -172,7 +173,27 @@ function formatCutoff(cutoff?: string) {
 }
 
 export default async function SundayLunchPage() {
-  const { menu, fromFallback, error: menuError } = await loadSundayMenu()
+  const [{ menu, fromFallback, error: menuError }, businessHours] = await Promise.all([
+    loadSundayMenu(),
+    getBusinessHours()
+  ])
+  const sundayKitchen = businessHours?.regularHours?.sunday?.kitchen
+  const sundayKitchenHours = sundayKitchen && isKitchenOpen(sundayKitchen)
+    ? `${formatTime12Hour(sundayKitchen.opens)}–${formatTime12Hour(sundayKitchen.closes)}`
+    : null
+  const openingHoursSpecification = sundayKitchen && isKitchenOpen(sundayKitchen)
+    ? [{
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: 'Sunday',
+        opens: sundayKitchen.opens,
+        closes: sundayKitchen.closes,
+        description: 'Sunday lunch service hours'
+      }]
+    : []
+  const sundayServiceLabel = sundayKitchenHours ? `Sundays ${sundayKitchenHours}` : 'Sunday kitchen hours'
+  const sundayServiceSentence = sundayKitchenHours
+    ? `Served Sundays ${sundayKitchenHours}`
+    : 'Served during Sunday kitchen hours'
 
   const menuItemsForSchema = menu.mains.length ? menu.mains : FALLBACK_MENU.mains
   const priceValues = menuItemsForSchema.map(item => item.price).filter((p): p is number => typeof p === 'number')
@@ -259,15 +280,7 @@ export default async function SundayLunchPage() {
         postalCode: 'TW19 6AQ',
         addressCountry: 'GB'
       },
-      openingHoursSpecification: [
-        {
-          '@type': 'OpeningHoursSpecification',
-          dayOfWeek: 'Sunday',
-          opens: '13:00',
-          closes: '18:00',
-          description: 'Sunday lunch service hours'
-        }
-      ],
+      ...(openingHoursSpecification.length ? { openingHoursSpecification } : {}),
       advanceBookingRequirement: {
         '@type': 'QuantitativeValue',
         minValue: 1,
@@ -321,8 +334,9 @@ export default async function SundayLunchPage() {
         name: 'Sunday Lunch Roast Selection',
         description: 'Choice of roasts served with Yorkshire pudding, roast potatoes, seasonal vegetables and gravy'
       },
-      validFrom: '13:00',
-      validThrough: '18:00',
+      ...(sundayKitchen && isKitchenOpen(sundayKitchen)
+        ? { validFrom: sundayKitchen.opens, validThrough: sundayKitchen.closes }
+        : {}),
       eligibleDuration: {
         '@type': 'Duration',
         description: 'Available Sundays only'
@@ -371,10 +385,10 @@ export default async function SundayLunchPage() {
       <HeroWrapper
         route="/sunday-lunch"
         title="Sunday Lunch at The Anchor"
-        description="Traditional roasts cooked fresh to order. Served Sundays 1pm–6pm — pre-order by Saturday 1pm. Bookings of 7+ require a card hold (no charge)."
+        description={`Traditional roasts cooked fresh to order. ${sundayServiceSentence} — pre-order by Saturday 1pm. Bookings of 7+ require a card hold (no charge).`}
         variant="default"
         tags={[
-          { label: 'Sundays 1pm–6pm', variant: 'warning' },
+          { label: sundayServiceLabel, variant: 'warning' },
           { label: 'Book by Saturday 1pm', variant: 'default' },
           { label: 'Card hold for 7+ bookings', variant: 'default' }
         ]}
@@ -531,7 +545,7 @@ export default async function SundayLunchPage() {
             </div>
 
             <p className="mt-4 text-center text-sm text-gray-600">
-              Served Sundays 1pm–6pm (last orders 5:30pm). Free parking available.
+              {sundayServiceSentence}. Free parking available.
             </p>
           </div>
         </Container>
@@ -556,7 +570,9 @@ export default async function SundayLunchPage() {
             },
             {
               question: "What time is Sunday lunch served?",
-              answer: "Sunday lunch is served from 1pm to 6pm every Sunday, with last orders at 5:30pm."
+              answer: sundayKitchenHours
+                ? `Sunday lunch is served ${sundayKitchenHours} every Sunday.`
+                : "Sunday lunch is served during our Sunday kitchen hours."
             },
             {
               question: "Can I visit on Sunday without pre-ordering?",
@@ -602,7 +618,7 @@ export default async function SundayLunchPage() {
               </div>
 
               <p className="text-sm mt-6 text-white/90">
-                Served Sundays 1pm–6pm • Regular menu also available without pre-order
+                {sundayServiceSentence} • Regular menu also available without pre-order
               </p>
             </div>
           </Container>

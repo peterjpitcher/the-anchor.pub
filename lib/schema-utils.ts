@@ -55,13 +55,9 @@ export function generateSpecialOpeningHours(businessHours: BusinessHours | null)
     "@type": "OpeningHoursSpecification",
     "validFrom": special.date,
     "validThrough": special.date,
-    ...(special.is_closed ? {
-      "opens": "00:00",
-      "closes": "00:00"
-    } : {
-      "opens": special.opens,
-      "closes": special.closes
-    }),
+    ...(!special.is_closed && special.opens && special.closes
+      ? { "opens": special.opens, "closes": special.closes }
+      : {}),
     "description": special.reason || special.note || (special.is_closed ? "Closed" : "Modified hours")
   }))
 }

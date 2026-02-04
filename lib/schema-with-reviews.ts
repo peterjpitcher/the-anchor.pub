@@ -2,20 +2,20 @@ import { unstable_cache } from 'next/cache'
 import { organizationSchema, webSiteSchema } from './schema'
 import { DEFAULT_PAGE_HEADER_IMAGE, DEFAULT_FOOD_IMAGE } from './image-fallbacks'
 import { anchorAPI } from './api'
-import { buildOpeningHoursSchema, DEFAULT_OPENING_HOURS_SCHEMA } from './opening-hours-schema'
+import { buildOpeningHoursSchema } from './opening-hours-schema'
 import { DEFAULT_REVIEW_STATS } from './google/review-utils'
 
 const getBusinessStatsCached = unstable_cache(
   async () => {
     let rating = DEFAULT_REVIEW_STATS.rating
     let reviewCount = DEFAULT_REVIEW_STATS.totalReviews
-    let openingHours = DEFAULT_OPENING_HOURS_SCHEMA
+    let openingHours: ReturnType<typeof buildOpeningHoursSchema> = []
 
     try {
       const hours = await anchorAPI.getBusinessHours()
       openingHours = buildOpeningHoursSchema(hours?.regularHours)
     } catch (error) {
-      console.warn('Failed to fetch opening hours for schema, using defaults:', error)
+      console.warn('Failed to fetch opening hours for schema, omitting hours:', error)
     }
 
     return { rating, reviewCount, openingHours }
@@ -70,7 +70,7 @@ const getEnhancedSchemasCached = unstable_cache(
       },
       "priceRange": "moderate",
       "servesCuisine": ["British", "Pizza", "Pub Food", "Sunday Roast"],
-      "openingHoursSpecification": openingHours,
+      ...(openingHours.length ? { "openingHoursSpecification": openingHours } : {}),
       "hasMenu": "https://www.the-anchor.pub/food-menu",
       "acceptsReservations": "true",
       "amenityFeature": [

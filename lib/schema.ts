@@ -57,59 +57,6 @@ export const localBusinessSchema = {
   "telephone": "+441753682707",
   "priceRange": "moderate",
   "servesCuisine": ["British", "Pizza", "Pub Food"],
-  "openingHoursSpecification": [
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": "Monday",
-      "opens": "00:00",
-      "closes": "00:00"
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": "Tuesday",
-      "opens": "16:00",
-      "closes": "23:00"
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": "Wednesday",
-      "opens": "16:00",
-      "closes": "23:00"
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": "Thursday",
-      "opens": "16:00",
-      "closes": "23:00"
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": "Friday",
-      "opens": "16:00",
-      "closes": "00:00"
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": "Saturday",
-      "opens": "13:00",
-      "closes": "00:00"
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": "Sunday",
-      "opens": "12:00",
-      "closes": "21:00"
-    }
-  ],
-  "specialOpeningHoursSpecification": [
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": "Monday",
-      "opens": "00:00",
-      "closes": "00:00",
-      "description": "Closed - Kitchen closed all day"
-    }
-  ],
   "acceptsReservations": "true",
   "menu": "https://www.the-anchor.pub/food-menu",
   "hasMenu": {
@@ -354,32 +301,6 @@ export const parkingFacilitySchema = {
     "latitude": 51.462509,
     "longitude": -0.502067
   },
-  "openingHoursSpecification": [
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Tuesday", "Wednesday", "Thursday"],
-      "opens": "16:00",
-      "closes": "23:30"
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": "Friday",
-      "opens": "16:00",
-      "closes": "00:30"
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": "Saturday",
-      "opens": "13:00",
-      "closes": "00:30"
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": "Sunday",
-      "opens": "12:00",
-      "closes": "21:30"
-    }
-  ],
   "maximumVehicleHeight": {
     "@type": "QuantitativeValue",
     "value": 2.5,

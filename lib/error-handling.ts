@@ -28,13 +28,13 @@ const ERROR_MESSAGES: Record<string, Record<string, string>> = {
     fetch: "We couldn't load the latest flight information. Please try again or check directly with Heathrow Airport."
   },
   hours: {
-    load: "We couldn't load our opening hours. We're typically CLOSED Mon, 4pm-11pm Tue-Thu, 4pm-12am Fri, 1pm-12am Sat, and 12pm-9pm Sun.",
+    load: "We couldn't load our opening hours. Please call us at 01753 682707 for today's opening times.",
     fetch: "Having trouble loading hours. Please call us at 01753 682707 for today's opening times."
   },
   'business-hours': {
-    load: "Unable to load current status. We're typically open 9am-10pm (kitchen hours vary). Call 01753 682707 for today's hours.",
-    fetch: "Having trouble checking if we're open. Please call 01753 682707 or check our regular hours.",
-    process: "Can't determine current status. We're usually open Tue-Sun. Call 01753 682707 to confirm."
+    load: "Unable to load current status. Call 01753 682707 for today's hours.",
+    fetch: "Having trouble checking if we're open. Please call 01753 682707 for today's hours.",
+    process: "Can't determine current status. Please call 01753 682707 to confirm."
   },
   general: {
     load: "Something went wrong. Please refresh the page and try again.",
@@ -52,15 +52,7 @@ export const FALLBACK_CONTENT = {
   },
   hours: {
     title: "Opening Hours",
-    regular: {
-      monday: "CLOSED",
-      tuesday: "4:00 PM - 11:00 PM",
-      wednesday: "4:00 PM - 11:00 PM",
-      thursday: "4:00 PM - 11:00 PM",
-      friday: "4:00 PM - 12:00 AM",
-      saturday: "1:00 PM - 12:00 AM",
-      sunday: "12:00 PM - 9:00 PM"
-    }
+    regular: {}
   },
   flights: {
     message: "For real-time flight information, please visit heathrow.com"

@@ -32,7 +32,7 @@ export function BusinessHours({ variant = 'full', showKitchen = true }: Business
   }
 
   if (error || !hours) {
-    const errorMessage = error?.message || `We couldn't load our opening hours. We're typically open 4pm-10pm Mon, 12pm-10pm Tue-Thu, 12pm-11pm Fri-Sat, and 12pm-9pm Sun. Call us at ${CONTACT_INFO.phone} for today's hours.`
+    const errorMessage = error?.message || `We couldn't load our opening hours. Call us at ${CONTACT_INFO.phone} for today's hours.`
 
     if (variant === 'status') {
       return (
@@ -43,23 +43,14 @@ export function BusinessHours({ variant = 'full', showKitchen = true }: Business
         </span>
       )
     }
-    // Show fallback hours
+    // Show fallback message
     return (
       <div className="bg-red-50 border border-red-200 rounded-lg p-4">
         <p className="text-red-700 text-sm mb-2">{errorMessage}</p>
         <div className="text-sm text-gray-700">
-          <p className="font-semibold mb-1">Regular Hours:</p>
-          <ul className="space-y-1 text-sm">
-            <li>Mon: 4pm-10pm (No kitchen service)</li>
-            <li>Tue-Thu: 12pm-10pm</li>
-            <li>Fri-Sat: 12pm-11pm</li>
-            <li>Sun: 12pm-9pm</li>
-          </ul>
-          <p className="mt-2">
-            <a href={CONTACT_INFO.phoneLink} className="text-anchor-gold hover:text-anchor-gold-light font-semibold underline">
-              Call {CONTACT_INFO.phone}
-            </a> for today's hours
-          </p>
+          <a href={CONTACT_INFO.phoneLink} className="text-anchor-gold hover:text-anchor-gold-light font-semibold underline">
+            Call {CONTACT_INFO.phone}
+          </a> for today's hours
         </div>
       </div>
     )
@@ -476,23 +467,25 @@ export function BusinessHours({ variant = 'full', showKitchen = true }: Business
   return (
     <div className="space-y-4">
       {/* Schema.org OpeningHoursSpecification */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: jsonLdSafeStringify({
-            "@context": "https://schema.org",
-            "@type": "OpeningHoursSpecification",
-            "@id": "https://www.the-anchor.pub/#opening-hours",
-            "dayOfWeek": Object.entries(hours.regularHours)
-              .filter(([_, h]) => !h.is_closed)
-              .map(([day, h]) => day.charAt(0).toUpperCase() + day.slice(1)),
-            "opens": hours.regularHours[todayKey]?.opens || "16:00",
-            "closes": hours.regularHours[todayKey]?.closes || "22:00",
-            "validFrom": new Date().toISOString().split('T')[0],
-            "validThrough": new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
-          })
-        }}
-      />
+      {hours.regularHours[todayKey]?.opens && hours.regularHours[todayKey]?.closes && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: jsonLdSafeStringify({
+              "@context": "https://schema.org",
+              "@type": "OpeningHoursSpecification",
+              "@id": "https://www.the-anchor.pub/#opening-hours",
+              "dayOfWeek": Object.entries(hours.regularHours)
+                .filter(([_, h]) => !h.is_closed)
+                .map(([day]) => day.charAt(0).toUpperCase() + day.slice(1)),
+              "opens": hours.regularHours[todayKey].opens,
+              "closes": hours.regularHours[todayKey].closes,
+              "validFrom": new Date().toISOString().split('T')[0],
+              "validThrough": new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
+            })
+          }}
+        />
+      )}
       {/* Current Status */}
       <div className={`p-4 rounded-lg ${hours.currentStatus.isOpen ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'}`}>
         <div className="flex items-center justify-between">

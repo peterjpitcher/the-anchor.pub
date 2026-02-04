@@ -8,6 +8,8 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { DirectionsButton } from '@/components/DirectionsButton'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
+import { getBusinessHours } from '@/lib/api'
+import { generateOpeningHoursSpecification } from '@/lib/schema-utils'
 
 export const metadata: Metadata = {
   title: 'Heathrow Plane Spotting Pub | Garden Views Every 90 Secs | The Anchor',
@@ -28,58 +30,40 @@ export const metadata: Metadata = {
   }
 }
 
-const planeSpottingSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'TouristAttraction',
-  '@id': 'https://www.the-anchor.pub/plane-spotting-heathrow',
-  name: 'The Anchor - Heathrow Plane Spotting Pub',
-  description: 'Heathrow plane spotting venue with beer garden directly under the flight path, offering food, drinks and shelter year-round.',
-  url: 'https://www.the-anchor.pub/plane-spotting-heathrow',
-  image: DEFAULT_NEAR_HEATHROW_IMAGE,
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: 'Horton Road',
-    addressLocality: 'Stanwell Moor',
-    postalCode: 'TW19 6AQ',
-    addressRegion: 'Surrey',
-    addressCountry: 'GB'
-  },
-  geo: {
-    '@type': 'GeoCoordinates',
-    latitude: 51.462509,
-    longitude: -0.502067
-  },
-  openingHoursSpecification: [
-    {
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-      opens: '16:00',
-      closes: '23:00'
+export default async function PlaneSpottingHeathrowPage() {
+  const businessHours = await getBusinessHours()
+  const openingHoursSpecification = generateOpeningHoursSpecification(businessHours)
+  const planeSpottingSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'TouristAttraction',
+    '@id': 'https://www.the-anchor.pub/plane-spotting-heathrow',
+    name: 'The Anchor - Heathrow Plane Spotting Pub',
+    description: 'Heathrow plane spotting venue with beer garden directly under the flight path, offering food, drinks and shelter year-round.',
+    url: 'https://www.the-anchor.pub/plane-spotting-heathrow',
+    image: DEFAULT_NEAR_HEATHROW_IMAGE,
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Horton Road',
+      addressLocality: 'Stanwell Moor',
+      postalCode: 'TW19 6AQ',
+      addressRegion: 'Surrey',
+      addressCountry: 'GB'
     },
-    {
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: 'Saturday',
-      opens: '13:00',
-      closes: '23:00'
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: 51.462509,
+      longitude: -0.502067
     },
-    {
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: 'Sunday',
-      opens: '12:00',
-      closes: '18:00'
-    }
-  ],
-  amenityFeature: [
-    { '@type': 'LocationFeatureSpecification', name: 'Free Parking', value: true },
-    { '@type': 'LocationFeatureSpecification', name: 'Outdoor Seating', value: true },
-    { '@type': 'LocationFeatureSpecification', name: 'WiFi Access', value: true },
-    { '@type': 'LocationFeatureSpecification', name: 'Food & Drink Service', value: true }
-  ],
-  isAccessibleForFree: true,
-  publicAccess: true
-}
-
-export default function PlaneSpottingHeathrowPage() {
+    ...(openingHoursSpecification.length ? { openingHoursSpecification } : {}),
+    amenityFeature: [
+      { '@type': 'LocationFeatureSpecification', name: 'Free Parking', value: true },
+      { '@type': 'LocationFeatureSpecification', name: 'Outdoor Seating', value: true },
+      { '@type': 'LocationFeatureSpecification', name: 'WiFi Access', value: true },
+      { '@type': 'LocationFeatureSpecification', name: 'Food & Drink Service', value: true }
+    ],
+    isAccessibleForFree: true,
+    publicAccess: true
+  }
   return (
     <>
       <script

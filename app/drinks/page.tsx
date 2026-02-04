@@ -13,10 +13,11 @@ import { MenuPageTracker } from '@/components/tracking/MenuPageTracker'
 import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
-import { generateNutritionInfo } from '@/lib/schema-utils'
+import { generateNutritionInfo, generateOpeningHoursSpecification } from '@/lib/schema-utils'
 import { BookTableButton } from '@/components/BookTableButton'
 import { DEFAULT_DRINKS_IMAGE } from '@/lib/image-fallbacks'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { getBusinessHours } from '@/lib/api'
 
 export const dynamic = 'force-dynamic'
 
@@ -45,7 +46,10 @@ export default async function DrinksMenuPage() {
     { name: 'Drinks Menu', url: '/drinks' }
   ])
 
-  const menuData = await parseMenuMarkdown('drinks')
+  const [menuData, businessHours] = await Promise.all([
+    parseMenuMarkdown('drinks'),
+    getBusinessHours()
+  ])
 
   if (!menuData) {
     return (
@@ -117,6 +121,8 @@ export default async function DrinksMenuPage() {
     }
   }
 
+  const openingHoursSpecification = generateOpeningHoursSpecification(businessHours)
+
   // BarOrPub specific schema
   const barSchema = {
     "@context": "https://schema.org",
@@ -128,32 +134,7 @@ export default async function DrinksMenuPage() {
       "@id": "https://www.the-anchor.pub/drinks#menu"
     },
     "servesCuisine": "British",
-    "openingHoursSpecification": [
-      {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Tuesday", "Wednesday", "Thursday"],
-        "opens": "16:00",
-        "closes": "23:00"
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": "Friday",
-        "opens": "16:00",
-        "closes": "00:00"
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": "Saturday",
-        "opens": "13:00",
-        "closes": "00:00"
-      },
-      {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": "Sunday",
-        "opens": "12:00",
-        "closes": "21:00"
-      }
-    ],
+    ...(openingHoursSpecification.length ? { "openingHoursSpecification": openingHoursSpecification } : {}),
     "amenityFeature": [
       {
         "@type": "LocationFeatureSpecification",

@@ -10,6 +10,8 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { BookTableButton } from '@/components/BookTableButton'
 import { parkingFacilitySchema } from '@/lib/schemas/parking'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
+import { getBusinessHours } from '@/lib/api'
+import { generateOpeningHoursSpecification } from '@/lib/schema-utils'
 
 export const metadata: Metadata = {
   title: 'Beer Garden Under Heathrow Flight Path | Plane Spotting Pub | The Anchor',
@@ -30,50 +32,45 @@ export const metadata: Metadata = {
   }
 }
 
-const planeSpottingSchema = {
-  "@context": "https://schema.org",
-  "@type": "TouristAttraction",
-  "name": "The Anchor Beer Garden - Heathrow Plane Spotting",
-  "description": "Unique beer garden directly under Heathrow flight path offering spectacular plane spotting opportunities",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Horton Road",
-    "addressLocality": "Stanwell Moor",
-    "addressRegion": "Surrey",
-    "postalCode": "TW19 6AQ"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 51.4764,
-    "longitude": -0.4735
-  },
-  "openingHoursSpecification": {
-    "@type": "OpeningHoursSpecification",
-    "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-    "opens": "16:00",
-    "closes": "23:00"
-  },
-  "amenityFeature": [
-    {
-      "@type": "LocationFeatureSpecification",
-      "name": "Outdoor Seating",
-      "value": true
+export default async function BeerGardenPage() {
+  const businessHours = await getBusinessHours()
+  const openingHoursSpecification = generateOpeningHoursSpecification(businessHours)
+  const planeSpottingSchema = {
+    "@context": "https://schema.org",
+    "@type": "TouristAttraction",
+    "name": "The Anchor Beer Garden - Heathrow Plane Spotting",
+    "description": "Unique beer garden directly under Heathrow flight path offering spectacular plane spotting opportunities",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Horton Road",
+      "addressLocality": "Stanwell Moor",
+      "addressRegion": "Surrey",
+      "postalCode": "TW19 6AQ"
     },
-    {
-      "@type": "LocationFeatureSpecification",
-      "name": "Dog Friendly",
-      "value": true
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 51.4764,
+      "longitude": -0.4735
     },
-    {
-      "@type": "LocationFeatureSpecification",
-      "name": "Plane Spotting Views",
-      "value": true
-    }
-  ]
-}
-
-
-export default function BeerGardenPage() {
+    ...(openingHoursSpecification.length ? { "openingHoursSpecification": openingHoursSpecification } : {}),
+    "amenityFeature": [
+      {
+        "@type": "LocationFeatureSpecification",
+        "name": "Outdoor Seating",
+        "value": true
+      },
+      {
+        "@type": "LocationFeatureSpecification",
+        "name": "Dog Friendly",
+        "value": true
+      },
+      {
+        "@type": "LocationFeatureSpecification",
+        "name": "Plane Spotting Views",
+        "value": true
+      }
+    ]
+  }
   return (
     <>
       <BreadcrumbJsonLd

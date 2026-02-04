@@ -10,7 +10,7 @@ export const homepageFAQSchema = {
       "name": "What are The Anchor pub's opening hours?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The Anchor is open Tuesday to Thursday 4pm-11pm, Friday 4pm-12am, Saturday 1pm-12am, and Sunday 12pm-9pm. Kitchen hours: Tuesday-Friday 6pm-9pm, Saturday 1pm-7pm, Sunday 1pm-6pm. We're closed on Mondays."
+        "text": "Our opening hours and kitchen hours are updated live on the website. Please check the Opening Hours section or call 01753 682707 for today's times."
       }
     },
     {
@@ -226,61 +226,6 @@ export const speakableSchema = {
 
 // Note: Review schemas should only be used for specific products/services, not the restaurant itself
 // Use aggregateRating on LocalBusiness schema instead for overall restaurant ratings
-
-// Opening Hours with Special Hours
-export const detailedOpeningHoursSchema = {
-  "openingHoursSpecification": [
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Tuesday", "Wednesday", "Thursday"],
-      "opens": "16:00",
-      "closes": "23:00"
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": "Friday",
-      "opens": "16:00",
-      "closes": "00:00"
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": "Saturday",
-      "opens": "13:00",
-      "closes": "00:00"
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": "Sunday",
-      "opens": "12:00",
-      "closes": "21:00"
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": "Monday",
-      "opens": "00:00",
-      "closes": "00:00",
-      "description": "Closed on Mondays"
-    }
-  ],
-  "specialOpeningHoursSpecification": [
-    {
-      "@type": "OpeningHoursSpecification",
-      "validFrom": "2025-12-24",
-      "validThrough": "2025-12-24",
-      "opens": "12:00",
-      "closes": "18:00",
-      "description": "Christmas Eve - Early closing"
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      "validFrom": "2025-12-25",
-      "validThrough": "2025-12-25",
-      "opens": "00:00",
-      "closes": "00:00",
-      "description": "Christmas Day - Closed"
-    }
-  ]
-}
 
 // HowTo Schema for Directions
 export function generateHowToDirectionsSchema(from: string, to: string = "The Anchor", steps: string[]) {

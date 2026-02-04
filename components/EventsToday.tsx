@@ -82,7 +82,7 @@ export function EventsToday() {
         {
           id: 'sunday-roast',
           name: 'Sunday Roast',
-          time: '12:00 PM - 5:00 PM',
+          time: 'See today\'s kitchen hours',
           description: 'Traditional British roast dinner with all the trimmings',
           link: '/sunday-lunch'
         }
@@ -91,7 +91,7 @@ export function EventsToday() {
         {
           id: 'pub-open',
           name: 'Bar Open',
-          time: '4:00 PM - 10:00 PM',
+          time: 'See today\'s opening hours',
           description: 'Relax with a drink (kitchen closed Mondays)',
           link: '/drinks'
         }
