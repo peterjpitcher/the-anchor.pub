@@ -45,12 +45,15 @@ interface SixNationsFixturesProps {
     className?: string
 }
 
-const OPEN_TABLE_BASE_URL = 'http://www.opentable.com/restaurant/profile/443973/reserve'
-const OPEN_TABLE_RESTREF = '443973'
+function buildTableBookingUrl(bookingTime: DateTime) {
+    const params = new URLSearchParams({
+        date: bookingTime.toFormat('yyyy-MM-dd'),
+        time: bookingTime.toFormat('HH:mm'),
+        party_size: '2',
+        purpose: 'drinks'
+    })
 
-function buildOpenTableUrl(bookingTime: DateTime) {
-    const formatted = bookingTime.toFormat("yyyy-MM-dd'T'HH:mm")
-    return `${OPEN_TABLE_BASE_URL}?restref=${OPEN_TABLE_RESTREF}&datetime=${formatted}&covers=2&searchdatetime=${formatted}&partysize=2`
+    return `/book-table?${params.toString()}`
 }
 
 export function SixNationsFixtures({ className }: SixNationsFixturesProps) {
@@ -149,7 +152,7 @@ export function SixNationsFixtures({ className }: SixNationsFixturesProps) {
                                 const isSuperSaturday = fixture.round === 5
                                 const fixtureDateTime = DateTime.fromISO(`${fixture.date}T${fixture.kickoff}`, { zone: 'Europe/London' })
                                 const bookingDateTime = fixtureDateTime.minus({ minutes: 30 })
-                                const bookingUrl = buildOpenTableUrl(bookingDateTime)
+                                const bookingUrl = buildTableBookingUrl(bookingDateTime)
 
                                 return (
                                     <Card

@@ -108,7 +108,7 @@ const FAQS = [
   {
     question: 'How much is entry and do we need to book?',
     answer:
-      'It’s GBP 3 per player. If booking is open you’ll see a Book Now button above (it opens in a new tab). If not, booking options are available closer to the event — check back nearer the date or call 01753 682707 and we’ll help.'
+      'It’s GBP 3 per player. If booking is open you’ll see a Book Now button above. If not, booking options are available closer to the event — check back nearer the date or call 01753 682707 and we’ll help.'
   },
   {
     question: 'How many players can we bring?',

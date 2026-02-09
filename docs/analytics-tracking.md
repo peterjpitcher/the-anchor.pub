@@ -121,13 +121,10 @@ Prefer the existing booking funnel events (example: `table_booking_*`) and ensur
 - `device_type` present
 - no user-entered free text is emitted
 
-### OpenTable widget
+### Management Booking Platform
 
-- `opentable_widget_loaded`
-- `opentable_widget_failed`
-- `opentable_widget_submit`
-- `opentable_modal_open`
-- `opentable_modal_close`
+- Table booking and event booking actions should use existing booking funnel events (`table_booking_*`, `event_booking_*`).
+- `booking_method` should be `internal_management_platform`.
 
 ## Adding a new tracked action
 

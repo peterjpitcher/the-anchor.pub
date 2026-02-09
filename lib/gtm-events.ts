@@ -216,68 +216,10 @@ export function trackTableBookingClick(data: TableBookingClickInput) {
     event: 'table_booking_click',
     event_category: 'Restaurant',
     event_label: source,
-    booking_method: 'external_opentable',
+    booking_method: 'internal_management_platform',
     booking_source: source,
     ...metadata
   }, { sendToApi: true })
-}
-
-// OpenTable widget tracking
-export function trackOpenTableWidgetLoaded(data: { source: string }) {
-  pushToDataLayer({
-    event: 'opentable_widget_loaded',
-    event_category: 'Table Booking',
-    event_action: 'Widget Loaded',
-    event_label: data.source,
-    booking_method: 'external_opentable',
-    booking_source: data.source
-  })
-}
-
-export function trackOpenTableWidgetLoadFailed(data: { source: string }) {
-  pushToDataLayer({
-    event: 'opentable_widget_failed',
-    event_category: 'Table Booking',
-    event_action: 'Widget Failed',
-    event_label: data.source,
-    booking_method: 'external_opentable',
-    booking_source: data.source
-  })
-}
-
-export function trackOpenTableWidgetSubmit(data: { source: string }) {
-  pushToDataLayer({
-    event: 'opentable_widget_submit',
-    event_category: 'Table Booking',
-    event_action: 'Widget Submit',
-    event_label: data.source,
-    booking_method: 'external_opentable',
-    booking_source: data.source
-  })
-}
-
-export function trackOpenTableModalOpen(data: { source: string; messageType?: string }) {
-  pushToDataLayer({
-    event: 'opentable_modal_open',
-    event_category: 'Table Booking',
-    event_action: 'Modal Open',
-    event_label: data.source,
-    booking_method: 'external_opentable',
-    booking_source: data.source,
-    opentable_message_type: data.messageType
-  })
-}
-
-export function trackOpenTableModalClose(data: { source: string; messageType?: string }) {
-  pushToDataLayer({
-    event: 'opentable_modal_close',
-    event_category: 'Table Booking',
-    event_action: 'Modal Close',
-    event_label: data.source,
-    booking_method: 'external_opentable',
-    booking_source: data.source,
-    opentable_message_type: data.messageType
-  })
 }
 
 // Table booking funnel tracking

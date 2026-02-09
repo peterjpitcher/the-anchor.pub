@@ -195,7 +195,7 @@ export default async function WorldCupPage() {
                   <li>👥 Large groups: book early for the best tables</li>
                   <li>🪑 Tables are held until kick-off, then released</li>
                 </ul>
-                <p className="mt-4 text-xs text-gray-500">Booking opens in a new tab (OpenTable).</p>
+                <p className="mt-4 text-xs text-gray-500">Booking takes you to our in-site table booking form.</p>
               </div>
 
               <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">

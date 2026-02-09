@@ -13,7 +13,7 @@ import { anchorAPI, formatPrice, getBusinessHours, isKitchenOpen } from '@/lib/a
 import { formatTime12Hour } from '@/lib/time-utils'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
-const SUNDAY_LUNCH_BOOKING_URL = 'https://www.opentable.co.uk/booking/experiences-availability?rid=443973&restref=443973&experienceId=629300&utm_source=external&utm_medium=referral&utm_campaign=shared'
+const SUNDAY_LUNCH_BOOKING_URL = '/book-table?sunday_lunch=true&purpose=food'
 
 export const metadata: Metadata = {
   title: 'Sunday Lunch Near Staines & Heathrow | The Anchor',

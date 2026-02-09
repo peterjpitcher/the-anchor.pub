@@ -1,18 +1,148 @@
 import { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { notFound } from 'next/navigation'
-import { Button, Container, Section, Card, CardBody, Badge, Alert, Grid, GridItem } from '@/components/ui'
+import { notFound, permanentRedirect } from 'next/navigation'
+import { Button, Container, Section, Card, CardBody, Badge, Alert } from '@/components/ui'
 import { EventSchema } from '@/components/seo/EventSchema'
 import { EventBookingButton } from '@/components/EventBookingButton'
-import { anchorAPI, formatEventDate, formatEventTime, formatDoorTime, formatEventDuration } from '@/lib/api'
+import { anchorAPI, formatEventDate, formatEventTime, formatDoorTime, formatEventDuration, formatPrice } from '@/lib/api'
 import { EventPageTracker } from '@/components/tracking/EventPageTracker'
 import { PhoneButton } from '@/components/PhoneButton'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { EventSecondaryActions } from '@/components/events/EventSecondaryActions'
+import { ManagementEventBookingForm } from '@/components/features/EventBooking/ManagementEventBookingForm'
+import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
+import {
+  formatClockTime,
+  getEventBookingBlockReason,
+  getEventBookingModeLabel,
+  getEventCanonicalSegment,
+  getEventStatusLabel,
+  isEventInPast,
+  normalizeEventStatus
+} from '@/lib/event-lifecycle'
 
 type Props = {
   params: { id: string }
+}
+
+function getStatusNotice(status: ReturnType<typeof normalizeEventStatus>, pastEvent: boolean): {
+  variant: 'info' | 'warning'
+  title: string
+  message: string
+} | null {
+  if (status === 'cancelled') {
+    return {
+      variant: 'warning',
+      title: 'This event has been cancelled',
+      message: 'Please see our upcoming events below or call us if you need help.'
+    }
+  }
+
+  if (status === 'postponed') {
+    return {
+      variant: 'warning',
+      title: 'This event has been postponed',
+      message: 'Please check the latest details below before making plans.'
+    }
+  }
+
+  if (status === 'rescheduled') {
+    return {
+      variant: 'info',
+      title: 'This event has been rescheduled',
+      message: 'Please review the updated date and time before booking.'
+    }
+  }
+
+  if (status === 'sold_out') {
+    return {
+      variant: 'info',
+      title: 'This event is currently sold out',
+      message: 'Call us to check cancellations or alternative options.'
+    }
+  }
+
+  if (pastEvent) {
+    return {
+      variant: 'info',
+      title: 'This event has ended',
+      message: 'Browse our upcoming events for the latest listings.'
+    }
+  }
+
+  return null
+}
+
+function getBookingDisabledCopy(reason: ReturnType<typeof getEventBookingBlockReason>): {
+  title: string
+  message: string
+} {
+  if (reason === 'cancelled') {
+    return {
+      title: 'Booking unavailable',
+      message: 'This event has been cancelled.'
+    }
+  }
+
+  if (reason === 'sold_out') {
+    return {
+      title: 'Booking unavailable',
+      message: 'This event is sold out right now. Call us to ask about cancellations.'
+    }
+  }
+
+  if (reason === 'past') {
+    return {
+      title: 'Booking unavailable',
+      message: 'This event has already taken place.'
+    }
+  }
+
+  return {
+    title: 'Booking unavailable',
+    message: 'This event is not available to book online.'
+  }
+}
+
+function EventHighlights({
+  highlights,
+  className = '',
+  compact = false
+}: {
+  highlights?: string[] | null
+  className?: string
+  compact?: boolean
+}) {
+  if (!Array.isArray(highlights) || highlights.length === 0) {
+    return null
+  }
+
+  return (
+    <Card
+      variant="default"
+      padding={compact ? 'none' : undefined}
+      className={`border border-gray-200 bg-white ${className}`.trim()}
+    >
+      <CardBody className={compact ? 'p-4' : 'p-4 md:p-6'}>
+        <h3 className={compact ? 'text-xl font-bold text-anchor-green mb-2' : 'text-xl md:text-2xl font-bold text-anchor-green mb-3 md:mb-4'}>
+          Event Highlights
+        </h3>
+        <ul className={compact ? 'space-y-1.5' : 'space-y-2'}>
+          {highlights.map((highlight, index) => (
+            <li key={`${highlight}-${index}`} className="flex items-start gap-3">
+              <svg className="w-5 h-5 text-anchor-gold flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+              </svg>
+              <span className={compact ? 'text-gray-700 text-sm' : 'text-gray-700 text-base'}>
+                {highlight.replace(/(\d+,\d+\+?\s+)/g, (match) => match.replace(/\s+/g, '\u00A0'))}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </CardBody>
+    </Card>
+  )
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -71,8 +201,68 @@ export default async function EventPage({ params }: Props) {
     notFound()
   }
 
+  const canonicalSegment = getEventCanonicalSegment(event)
+  if (canonicalSegment && canonicalSegment !== params.id) {
+    permanentRedirect(`/events/${encodeURIComponent(canonicalSegment)}`)
+  }
+
+  const status = normalizeEventStatus(event)
+  if (status === 'draft') {
+    notFound()
+  }
+
+  const isPastEvent = isEventInPast(event)
+  const bookingBlockReason = getEventBookingBlockReason(event)
+  const bookingDisabledCopy = bookingBlockReason ? getBookingDisabledCopy(bookingBlockReason) : null
+  const statusNotice = getStatusNotice(status, isPastEvent)
+
   const eventDate = formatEventDate(event.startDate)
   const eventTime = formatEventTime(event.startDate)
+  const headerDoorTime = formatDoorTime(event.doorTime)
+  const headerDuration = formatEventDuration(event.duration)
+  const performerName = event.performer?.name || event.performer_name || null
+  const bookingModeLabel = getEventBookingModeLabel(event.booking_mode)
+  const statusLabel = getEventStatusLabel(status)
+  const endTime = formatClockTime(event.end_time)
+  const doorsTime = formatClockTime(event.doors_time)
+  const lastEntryTime = formatClockTime(event.last_entry_time)
+  const durationLabel =
+    formatEventDuration(event.duration) ||
+    (typeof event.duration_minutes === 'number' && event.duration_minutes > 0
+      ? `${event.duration_minutes} minutes`
+      : null)
+  const capacity =
+    typeof event.capacity === 'number'
+      ? event.capacity
+      : typeof event.maximumAttendeeCapacity === 'number'
+        ? event.maximumAttendeeCapacity
+        : null
+  const seatsRemaining =
+    typeof event.seats_remaining === 'number'
+      ? event.seats_remaining
+      : typeof event.remainingAttendeeCapacity === 'number'
+        ? event.remainingAttendeeCapacity
+        : null
+  const priceValue =
+    typeof event.price === 'number'
+      ? event.price
+      : typeof event.price_per_seat === 'number'
+        ? event.price_per_seat
+        : null
+  const priceLabel =
+    event.is_free === true || priceValue === 0
+      ? 'Free'
+      : typeof priceValue === 'number'
+        ? formatPrice(priceValue)
+        : null
+  const locationQuery = [
+    event.location?.name,
+    event.location?.address?.streetAddress,
+    event.location?.address?.addressLocality,
+    event.location?.address?.postalCode
+  ]
+    .filter((value): value is string => typeof value === 'string' && value.trim().length > 0)
+    .join(', ')
   
   return (
     <>
@@ -84,9 +274,21 @@ export default async function EventPage({ params }: Props) {
         eventCategory={event.category?.name}
         eventPrice={event.offers?.price ? parseFloat(event.offers.price) : undefined}
       />
+
+      {statusNotice ? (
+        <Section background="white" spacing="none" className="pt-4">
+          <Container>
+            <div className="mx-auto max-w-6xl">
+              <Alert variant={statusNotice.variant} title={statusNotice.title}>
+                <p>{statusNotice.message}</p>
+              </Alert>
+            </div>
+          </Container>
+        </Section>
+      ) : null}
       
       {/* Event Header Section - Mobile First */}
-      <Section background="white" spacing="none" className="mt-20 pt-6 pb-2">
+      <Section background="white" spacing="none" className="mt-3 pt-3 pb-2 md:mt-20 md:pt-6">
         <Container>
           <div className="max-w-6xl mx-auto">
             {/* Event Title and Basic Info */}
@@ -106,44 +308,43 @@ export default async function EventPage({ params }: Props) {
                 {event.name}
               </h1>
               
-              <div className="flex flex-col sm:flex-row sm:flex-wrap justify-center gap-3 text-gray-700 text-base md:text-lg">
+              <div className="mx-auto flex max-w-lg flex-col items-center gap-2 text-sm text-gray-700 sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center sm:gap-3 sm:text-base md:text-lg">
                 <span className="flex items-center justify-center gap-2">
                   <svg className="w-4 h-4 md:w-5 md:h-5 text-anchor-gold flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                   </svg>
                   <span className="whitespace-nowrap">{eventDate}</span>
                 </span>
-                <span className="flex items-center justify-center gap-2">
+                <span className="flex items-center justify-center gap-2 whitespace-nowrap">
                   <svg className="w-4 h-4 md:w-5 md:h-5 text-anchor-gold flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  <span className="whitespace-nowrap">{eventTime}</span>
+                  <span>{eventTime}</span>
+                  {headerDuration ? <span className="text-gray-500">• {headerDuration}</span> : null}
                 </span>
-                {formatDoorTime(event.doorTime) && (
+                {headerDoorTime && (
                   <span className="flex items-center justify-center gap-2">
                     <svg className="w-4 h-4 md:w-5 md:h-5 text-anchor-gold flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                     </svg>
-                    <span className="whitespace-nowrap">{formatDoorTime(event.doorTime)}</span>
+                    <span className="whitespace-nowrap">{headerDoorTime}</span>
                   </span>
                 )}
-                {formatEventDuration(event.duration) && (
-                  <span className="flex items-center justify-center gap-2">
-                    <svg className="w-4 h-4 md:w-5 md:h-5 text-anchor-gold flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <span className="whitespace-nowrap">{formatEventDuration(event.duration)}</span>
-                  </span>
-                )}
-                {event.performer && (
+                {performerName && (
                   <span className="flex items-center justify-center gap-2">
                     <svg className="w-4 h-4 md:w-5 md:h-5 text-anchor-gold flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
-                    <span className="whitespace-nowrap">{event.performer.name}</span>
+                    <span className="whitespace-nowrap">{performerName}</span>
                   </span>
                 )}
               </div>
+
+              {event.brief ? (
+                <p className="mx-auto mt-4 max-w-3xl px-2 text-base leading-relaxed text-gray-700 md:text-lg">
+                  {event.brief}
+                </p>
+              ) : null}
               
             </div>
           </div>
@@ -151,11 +352,11 @@ export default async function EventPage({ params }: Props) {
       </Section>
 
       {/* Event Details - Mobile First */}
-      <Section background="white" spacing="md" className="py-6 md:py-8">
+      <Section background="white" spacing="md" className="py-4 sm:py-6 md:py-8">
         <Container>
           <div className="max-w-6xl mx-auto">
             {/* Mobile: Image First, Desktop: Grid Layout */}
-            {/* Square Event Image - Mobile: Full Width, Desktop: In Grid */}
+            {/* Event image - mobile */}
             {(event.heroImageUrl || event.image?.[0]) && (
               <div className="lg:hidden mb-6">
                 <div className="relative aspect-square rounded-2xl overflow-hidden shadow-lg max-w-md mx-auto">
@@ -163,52 +364,152 @@ export default async function EventPage({ params }: Props) {
                     src={event.heroImageUrl || event.image![0]}
                     alt={event.name}
                     fill
-                    className="object-contain"
-                    sizes="(max-width: 768px) 100vw, 400px"
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 420px"
                     priority
                   />
                 </div>
               </div>
             )}
             
-            {/* Mobile: Booking First for Better CTA */}
-            <div className="lg:hidden mb-6">
-              <EventBookingButton event={event} size="xl" className="max-w-md mx-auto" source="event_page_mobile" />
-              <EventSecondaryActions event={event} source="event_page_mobile_actions" className="mt-4" size="sm" />
+            {/* Mobile: Booking + highlights (aligned with desktop component set) */}
+            <div className="lg:hidden mb-6 max-w-md mx-auto space-y-4">
+              {bookingBlockReason ? (
+                <Alert variant="info" title={bookingDisabledCopy?.title}>
+                  <p>{bookingDisabledCopy?.message}</p>
+                </Alert>
+              ) : (
+                <ManagementEventBookingForm event={event} title="Book now" compact />
+              )}
+              <EventSecondaryActions event={event} source="event_page_mobile_actions" className="justify-start" size="sm" />
+              <EventHighlights highlights={event.highlights} compact />
             </div>
             
             {/* Main Content Grid */}
-            <div className="grid lg:grid-cols-3 gap-6 lg:gap-12">
+            <div className="grid lg:grid-cols-[minmax(0,420px),minmax(0,1fr)] gap-6 lg:gap-10">
               {/* Left Column - Event Image and Info */}
-              <div className="lg:col-span-1 order-2 lg:order-1">
-                {/* Square Event Image - Desktop Only */}
+              <div className="order-2 lg:order-1">
+                {/* Event image - desktop */}
                 {(event.heroImageUrl || event.image?.[0]) && (
                   <div className="hidden lg:block relative aspect-square rounded-2xl overflow-hidden mb-6 shadow-lg">
                     <Image
                       src={event.heroImageUrl || event.image![0]}
                       alt={event.name}
                       fill
-                      className="object-contain"
-                      sizes="320px"
+                      className="object-cover"
+                      sizes="420px"
                       priority
                     />
                   </div>
                 )}
-                
-              </div>
-              
-              {/* Right Column - Details and Booking */}
-              <div className="lg:col-span-2 order-1 lg:order-2">
-                {/* Desktop Booking Component */}
-                <div className="hidden lg:block">
-                  <EventBookingButton event={event} size="xl" className="mb-8" source="event_page_desktop" />
+
+                <div className="hidden lg:block space-y-4">
+                  {bookingBlockReason ? (
+                    <Alert variant="info" title={bookingDisabledCopy?.title}>
+                      <p>{bookingDisabledCopy?.message}</p>
+                    </Alert>
+                  ) : (
+                    <ManagementEventBookingForm event={event} title="Book now" compact />
+                  )}
+
                   <EventSecondaryActions
                     event={event}
-                    source="event_page_desktop_actions"
-                    className="justify-start mb-8"
+                    source="event_page_desktop_sidebar_actions"
+                    className="justify-start"
                     size="sm"
                   />
                 </div>
+
+                <EventHighlights highlights={event.highlights} className="hidden lg:block mt-6" compact />
+              </div>
+              
+              {/* Right Column - Details and Booking */}
+              <div className="order-1 lg:order-2">
+                <Card variant="default" padding="none" className="mb-6 border border-gray-200 bg-gray-50 lg:mb-8">
+                  <CardBody className="p-4">
+                    <h2 className="text-lg font-bold text-anchor-green md:text-xl">Event information</h2>
+                    <dl className="mt-4 grid gap-x-4 gap-y-3 text-sm text-gray-700 sm:grid-cols-2">
+                      <div>
+                        <dt className="font-semibold text-anchor-green">Date</dt>
+                        <dd>{eventDate}</dd>
+                      </div>
+                      <div>
+                        <dt className="font-semibold text-anchor-green">Start time</dt>
+                        <dd>{eventTime}</dd>
+                      </div>
+                      {endTime ? (
+                        <div>
+                          <dt className="font-semibold text-anchor-green">End time</dt>
+                          <dd>{endTime}</dd>
+                        </div>
+                      ) : null}
+                      {doorsTime ? (
+                        <div>
+                          <dt className="font-semibold text-anchor-green">Doors open</dt>
+                          <dd>{doorsTime}</dd>
+                        </div>
+                      ) : null}
+                      {lastEntryTime ? (
+                        <div>
+                          <dt className="font-semibold text-anchor-green">Last entry</dt>
+                          <dd>{lastEntryTime}</dd>
+                        </div>
+                      ) : null}
+                      {durationLabel ? (
+                        <div>
+                          <dt className="font-semibold text-anchor-green">Duration</dt>
+                          <dd>{durationLabel}</dd>
+                        </div>
+                      ) : null}
+                      <div>
+                        <dt className="font-semibold text-anchor-green">Status</dt>
+                        <dd>{statusLabel}</dd>
+                      </div>
+                      {bookingModeLabel ? (
+                        <div>
+                          <dt className="font-semibold text-anchor-green">Booking type</dt>
+                          <dd>{bookingModeLabel}</dd>
+                        </div>
+                      ) : null}
+                      {event.event_type ? (
+                        <div>
+                          <dt className="font-semibold text-anchor-green">Event type</dt>
+                          <dd>{event.event_type}</dd>
+                        </div>
+                      ) : null}
+                      {event.category?.name ? (
+                        <div>
+                          <dt className="font-semibold text-anchor-green">Category</dt>
+                          <dd>{event.category.name}</dd>
+                        </div>
+                      ) : null}
+                      {(event.performer?.name || event.performer_name) ? (
+                        <div>
+                          <dt className="font-semibold text-anchor-green">Performer</dt>
+                          <dd>{event.performer?.name || event.performer_name}</dd>
+                        </div>
+                      ) : null}
+                      {priceLabel ? (
+                        <div>
+                          <dt className="font-semibold text-anchor-green">Price</dt>
+                          <dd>{priceLabel}</dd>
+                        </div>
+                      ) : null}
+                      {typeof capacity === 'number' ? (
+                        <div>
+                          <dt className="font-semibold text-anchor-green">Capacity</dt>
+                          <dd>{capacity}</dd>
+                        </div>
+                      ) : null}
+                      {typeof seatsRemaining === 'number' ? (
+                        <div>
+                          <dt className="font-semibold text-anchor-green">Seats remaining</dt>
+                          <dd>{Math.max(seatsRemaining, 0)}</dd>
+                        </div>
+                      ) : null}
+                    </dl>
+                  </CardBody>
+                </Card>
                 
                 {/* Description */}
                 {(event.longDescription || event.about || event.description) && (
@@ -217,52 +518,50 @@ export default async function EventPage({ params }: Props) {
                     <p className="text-gray-700 whitespace-pre-wrap text-base md:text-lg leading-relaxed">{event.longDescription || event.about || event.description}</p>
                   </div>
                 )}
-                
-                {/* Highlights */}
-                {event.highlights && event.highlights.length > 0 && (
-                  <div className="mb-6 lg:mb-8">
-                    <h3 className="text-xl md:text-2xl font-bold text-anchor-green mb-3 md:mb-4">Event Highlights</h3>
-                    <ul className="space-y-2">
-                      {event.highlights.map((highlight, index) => (
-                        <li key={index} className="flex items-start gap-3">
-                          <svg className="w-5 h-5 text-anchor-gold flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                          </svg>
-                          <span className="text-gray-700 text-base">
-                            {highlight.replace(/(\d+,\d+\+?\s+)/g, (match) => {
-                              // Replace spaces after numbers with non-breaking spaces
-                              return match.replace(/\s+/g, '\u00A0');
-                            })}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
+
               </div>
             </div>
             
             {/* Full Width Sections */}
-            <div className="mt-8 space-y-6 md:space-y-8">
+            <div className="mt-6 space-y-5 md:mt-8 md:space-y-8">
               {/* Location */}
               <Card variant="elevated" className="bg-gray-50">
-                <CardBody className="p-6 md:p-8">
-                  <h2 className="text-xl md:text-2xl font-bold text-anchor-green mb-3 md:mb-4">Location</h2>
-                  <address className="not-italic text-gray-700 text-base">
-                    <p className="font-semibold">{event.location.name}</p>
-                    <p>{event.location.address.streetAddress}</p>
-                    <p>{event.location.address.addressLocality}, {event.location.address.addressRegion}</p>
-                    <p>{event.location.address.postalCode}</p>
-                  </address>
-                  <Link 
-                    href="/find-us"
-                    className="inline-flex items-center text-anchor-gold hover:text-anchor-gold-light font-semibold mt-3 md:mt-4 text-base"
-                  >
-                    Get directions
-                    <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                    </svg>
-                  </Link>
+                <CardBody className="p-4 md:p-8">
+                  <div className="grid gap-4 md:gap-6 lg:grid-cols-[minmax(0,320px),minmax(0,1fr)] lg:items-start">
+                    <div>
+                      <h2 className="text-xl md:text-2xl font-bold text-anchor-green mb-3 md:mb-4">Location</h2>
+                      <address className="not-italic text-gray-700 text-base">
+                        <p className="font-semibold">{event.location.name}</p>
+                        <p>{event.location.address.streetAddress}</p>
+                        <p>{event.location.address.addressLocality}, {event.location.address.addressRegion}</p>
+                        <p>{event.location.address.postalCode}</p>
+                      </address>
+                      <div className="mt-4 flex flex-wrap gap-3">
+                        <Link
+                          href="/find-us"
+                          className="inline-flex items-center text-anchor-gold hover:text-anchor-gold-light font-semibold text-base"
+                        >
+                          Get directions
+                          <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </Link>
+                        <PhoneButton
+                          phone="01753682707"
+                          source={`event_page_location_${params.id}`}
+                          variant="outline"
+                          size="sm"
+                        >
+                          📞 01753 682707
+                        </PhoneButton>
+                      </div>
+                    </div>
+                    <GoogleMapEmbed
+                      query={locationQuery || 'The Anchor Pub, Stanwell Moor'}
+                      className="rounded-xl shadow-sm"
+                      height={300}
+                    />
+                  </div>
                 </CardBody>
               </Card>
             
@@ -325,15 +624,17 @@ export default async function EventPage({ params }: Props) {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center max-w-md mx-auto sm:max-w-none">
-            <div className="w-full sm:w-auto">
-              <EventBookingButton
-                event={event}
-                className="w-full sm:w-auto"
-                fullWidth={false}
-                size="xl"
-                source={`event_page_cta_${params.id}`}
-              />
-            </div>
+            {bookingBlockReason ? null : (
+              <div className="w-full sm:w-auto">
+                <EventBookingButton
+                  event={event}
+                  className="w-full sm:w-auto"
+                  fullWidth={false}
+                  size="xl"
+                  source={`event_page_cta_${params.id}`}
+                />
+              </div>
+            )}
             <div className="w-full sm:w-auto">
               <PhoneButton 
                 phone="01753682707" 

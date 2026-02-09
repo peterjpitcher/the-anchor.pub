@@ -113,7 +113,7 @@ const FAQS = [
   {
     question: 'Do I need to book in advance?',
     answer:
-      'Yes—tickets sell fast. If booking is open you’ll see a Book Now button above (it opens in a new tab). If not, booking options are available closer to the event — check back nearer the date or call 01753 682707 and we’ll help.'
+      'Yes—tickets sell fast. If booking is open you’ll see a Book Now button above. If not, booking options are available closer to the event — check back nearer the date or call 01753 682707 and we’ll help.'
   },
   {
     question: 'Is there an age limit for bingo night?',

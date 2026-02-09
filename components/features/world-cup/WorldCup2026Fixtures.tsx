@@ -30,12 +30,15 @@ const stageLabel: Record<WorldCup2026MatchStage, string> = {
   'Final': 'Final',
 }
 
-const OPEN_TABLE_BASE_URL = 'http://www.opentable.com/restaurant/profile/443973/reserve'
-const OPEN_TABLE_RESTREF = '443973'
+function buildTableBookingUrl(bookingTime: DateTime) {
+  const params = new URLSearchParams({
+    date: bookingTime.toFormat('yyyy-MM-dd'),
+    time: bookingTime.toFormat('HH:mm'),
+    party_size: '2',
+    purpose: 'drinks'
+  })
 
-function buildOpenTableUrl(bookingTime: DateTime) {
-  const formatted = bookingTime.toFormat("yyyy-MM-dd'T'HH:mm")
-  return `${OPEN_TABLE_BASE_URL}?restref=${OPEN_TABLE_RESTREF}&datetime=${formatted}&covers=2&searchdatetime=${formatted}&partysize=2`
+  return `/book-table?${params.toString()}`
 }
 
 const countryLabel = (countryCode?: WorldCup2026Match['countryCode']) => {
@@ -234,7 +237,7 @@ export function WorldCup2026Fixtures({ matches, className }: WorldCup2026Fixture
                   const estimatedEnd = londonDateTime.plus({ minutes: 120 })
                   const mayRunPastClose = isShowing && estimatedEnd.toMillis() > closeTime.toMillis()
                   const bookingDateTime = londonDateTime.minus({ minutes: 30 })
-                  const bookingUrl = buildOpenTableUrl(bookingDateTime)
+                  const bookingUrl = buildTableBookingUrl(bookingDateTime)
 
                   const statusLabelText = (() => {
                     if (!isShowing) return 'Not showing'

@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server'
+import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 
 // Use internal API routes to avoid CORS issues and keep API key secure if needed
-const API_BASE_URL = process.env.ANCHOR_API_BASE_URL || 'https://management.orangejelly.co.uk/api'
+const API_BASE_URL = getManagementApiBaseUrl()
 
 export async function GET() {
     try {

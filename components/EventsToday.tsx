@@ -102,7 +102,7 @@ export function EventsToday() {
           name: 'Quiz Night',
           time: '8:00 PM',
           description: 'Test your knowledge and win prizes!',
-          link: '/whats-on/quiz-night'
+          link: '/quiz-night'
         }
       ],
       3: [ // Wednesday
@@ -139,7 +139,7 @@ export function EventsToday() {
           name: 'Cash Bingo',
           time: '3:00 PM',
           description: 'Win cash prizes in our monthly bingo',
-          link: '/whats-on/cash-bingo'
+          link: '/cash-bingo'
         }
       ]
     }

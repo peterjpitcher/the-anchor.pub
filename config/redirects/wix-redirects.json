@@ -675,11 +675,6 @@
     "permanent": true
   },
   {
-    "source": "/events/cash-bingo-2025-07-18",
-    "destination": "/whats-on",
-    "permanent": true
-  },
-  {
     "source": "/company-christmas-party-venue",
     "destination": "/christmas-parties",
     "permanent": true

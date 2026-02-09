@@ -17,7 +17,7 @@ import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 export const dynamic = 'force-dynamic'
 
 const VALENTINES_DAY_BOOKING_URL =
-  'https://www.opentable.co.uk/booking/experiences-availability?rid=443973&restref=443973&experienceId=632584&utm_source=external&utm_medium=referral&utm_campaign=shared'
+  '/book-table?purpose=food'
 
 type ValentinesEventResult = {
   targetYear: number
@@ -311,7 +311,7 @@ export default async function ValentinesDayPage() {
         ]}
         primaryCta={
           <Button asChild variant="primary" size="lg" fullWidth className="w-full sm:w-auto">
-            <a href={VALENTINES_DAY_BOOKING_URL} target="_blank" rel="noopener noreferrer">
+            <a href={VALENTINES_DAY_BOOKING_URL}>
               💘 Book Valentine’s Table
             </a>
           </Button>
@@ -441,7 +441,7 @@ export default async function ValentinesDayPage() {
                         fullWidth
                         className="w-full sm:w-auto sm:min-w-[220px]"
                       >
-                        <a href={VALENTINES_DAY_BOOKING_URL} target="_blank" rel="noopener noreferrer">
+                        <a href={VALENTINES_DAY_BOOKING_URL}>
                           💘 Book a Table
                         </a>
                       </Button>
@@ -542,7 +542,7 @@ export default async function ValentinesDayPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Button asChild variant="primary" size="lg" fullWidth className="w-full sm:w-auto">
-                <a href={VALENTINES_DAY_BOOKING_URL} target="_blank" rel="noopener noreferrer">
+                <a href={VALENTINES_DAY_BOOKING_URL}>
                   📅 Book a Table Online
                 </a>
               </Button>

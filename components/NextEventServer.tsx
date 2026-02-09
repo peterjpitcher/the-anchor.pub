@@ -208,7 +208,7 @@ export async function NextEventServer() {
                         Booking
                       </p>
                       <p className="mt-2 text-xl font-bold text-anchor-green">
-                        Book online (opens in a new tab)
+                        Book online in seconds
                       </p>
                     </>
                   )}

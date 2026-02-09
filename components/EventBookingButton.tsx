@@ -1,11 +1,12 @@
 'use client'
 
 import type { Event } from '@/lib/api'
-import { DateTime } from 'luxon'
 import { trackEventBookingStart } from '@/lib/gtm-events'
 import { getEventWebsiteUrl } from '@/lib/event-url'
 import { Button } from '@/components/ui'
 import { cn } from '@/lib/utils'
+
+const PRIMARY_SITE_ORIGINS = new Set(['https://www.the-anchor.pub', 'https://the-anchor.pub'])
 
 type EventBookingButtonProps = {
   event: Event
@@ -19,40 +20,11 @@ type EventBookingButtonProps = {
   onClick?: () => void
 }
 
-const OPEN_TABLE_BASE_URL = 'http://www.opentable.com/restaurant/profile/443973/reserve'
-const OPEN_TABLE_RESTREF = '443973'
-const EVENT_TIME_ZONE = 'Europe/London'
-const EVENT_BOOKING_OFFSET_MINUTES = 30
-
 function getEventPrice(event: Event): number | undefined {
   const value = event.offers?.price
   if (value === undefined) return undefined
   const parsed = typeof value === 'string' ? Number.parseFloat(value) : Number(value)
   return Number.isFinite(parsed) ? parsed : undefined
-}
-
-function stripTimeZoneOffset(value: string): string {
-  if (!value) return value
-  if (value.includes('+') || value.includes('Z')) {
-    return value.split('+')[0].split('Z')[0]
-  }
-  if (value.includes('-') && value.lastIndexOf('-') > 10) {
-    return value.substring(0, value.lastIndexOf('-'))
-  }
-  return value
-}
-
-function parseEventDateTime(value?: string | null): DateTime | null {
-  if (!value) return null
-  const cleaned = stripTimeZoneOffset(value.trim())
-  if (!cleaned) return null
-  const parsed = DateTime.fromISO(cleaned, { zone: EVENT_TIME_ZONE })
-  return parsed.isValid ? parsed : null
-}
-
-function buildOpenTableUrl(bookingTime: DateTime): string {
-  const formatted = bookingTime.toFormat("yyyy-MM-dd'T'HH:mm")
-  return `${OPEN_TABLE_BASE_URL}?restref=${OPEN_TABLE_RESTREF}&datetime=${formatted}&covers=2&searchdatetime=${formatted}&partysize=2`
 }
 
 function normalizeBookingUrl(rawUrl: string | null | undefined, event: Event): string | null {
@@ -67,10 +39,6 @@ function normalizeBookingUrl(rawUrl: string | null | undefined, event: Event): s
     }
 
     const normalisedPath = parsed.pathname.replace(/\/+$/, '')
-
-    if (parsed.hostname.endsWith('the-anchor.pub') && normalisedPath.startsWith('/events')) {
-      return null
-    }
 
     const eventUrl = getEventWebsiteUrl(event, { absolute: true })
     const eventUrlParsed = new URL(eventUrl)
@@ -110,24 +78,44 @@ function normalizeBookingUrl(rawUrl: string | null | undefined, event: Event): s
   }
 }
 
+function isInternalSiteUrl(rawUrl: string): boolean {
+  const base = typeof window !== 'undefined' ? window.location.origin : 'https://www.the-anchor.pub'
+
+  try {
+    const parsed = new URL(rawUrl, base)
+    if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
+      return false
+    }
+    if (PRIMARY_SITE_ORIGINS.has(parsed.origin)) {
+      return true
+    }
+    if (typeof window !== 'undefined' && parsed.origin === window.location.origin) {
+      return true
+    }
+    return false
+  } catch {
+    return false
+  }
+}
+
+function buildInternalEventBookingUrl(event: Event): string | null {
+  const idOrSlug = (event.slug || event.id || '').trim()
+  if (!idOrSlug) return null
+  return `/events/${encodeURIComponent(idOrSlug)}/book`
+}
+
 function resolveBookingUrl(event: Event): string | null {
   const explicitBookingUrl = normalizeBookingUrl(event.bookingUrl, event)
-  if (explicitBookingUrl) {
+  if (explicitBookingUrl && !isInternalSiteUrl(explicitBookingUrl)) {
     return explicitBookingUrl
   }
 
   const offerUrl = normalizeBookingUrl(event.offers?.url, event)
-  if (offerUrl) {
+  if (offerUrl && !isInternalSiteUrl(offerUrl)) {
     return offerUrl
   }
 
-  const eventDateTime = parseEventDateTime(event.startDate)
-  if (eventDateTime) {
-    const bookingDateTime = eventDateTime.minus({ minutes: EVENT_BOOKING_OFFSET_MINUTES })
-    return buildOpenTableUrl(bookingDateTime)
-  }
-
-  return null
+  return buildInternalEventBookingUrl(event)
 }
 
 export function EventBookingButton({
@@ -142,6 +130,7 @@ export function EventBookingButton({
   onClick
 }: EventBookingButtonProps) {
   const bookingUrl = resolveBookingUrl(event)
+  const isExternalBooking = bookingUrl ? /^https?:\/\//i.test(bookingUrl) : false
 
   if (!bookingUrl) {
     return (
@@ -167,8 +156,8 @@ export function EventBookingButton({
     >
       <a
         href={bookingUrl}
-        target="_blank"
-        rel="noopener noreferrer"
+        target={isExternalBooking ? '_blank' : undefined}
+        rel={isExternalBooking ? 'noopener noreferrer' : undefined}
         onClick={(clickEvent) => {
           clickEvent.stopPropagation()
           onClick?.()

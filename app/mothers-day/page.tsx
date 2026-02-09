@@ -28,7 +28,7 @@ export const dynamic = 'force-dynamic'
 const WEBSITE_ORIGIN = 'https://www.the-anchor.pub'
 
 const MOTHERS_DAY_BOOKING_URL =
-  'https://www.opentable.co.uk/booking/experiences-availability?rid=443973&restref=443973&experienceId=629334&utm_source=external&utm_medium=referral&utm_campaign=shared'
+  '/book-table?date=2026-03-15&purpose=food&sunday_lunch=true'
 
 const MOTHERS_DAY_DATE = '2026-03-15'
 const MOTHERS_DAY_SERVICE_START_ISO = `${MOTHERS_DAY_DATE}T13:00:00+00:00`
@@ -188,7 +188,7 @@ export default async function MothersDayPage() {
     },
     {
       question: 'How do I book?',
-      answer: `Use the “Book Mother’s Day Lunch” button on this page to book online via OpenTable (opens in a new tab). Prefer to talk? Call ${CONTACT.phone}.`
+      answer: `Use the “Book Mother’s Day Lunch” button on this page to book online in our booking form. Prefer to talk? Call ${CONTACT.phone}.`
     },
     {
       question: 'What does the card hold mean?',
@@ -253,7 +253,7 @@ export default async function MothersDayPage() {
     },
     offers: {
       '@type': 'AggregateOffer',
-      url: MOTHERS_DAY_BOOKING_URL,
+      url: toAbsoluteUrl(MOTHERS_DAY_BOOKING_URL),
       priceCurrency: 'GBP',
       lowPrice: MOTHERS_DAY_KIDS_ROAST_PRICE.toFixed(2),
       highPrice: MOTHERS_DAY_ADULT_PRICE_HIGH.toFixed(2),
@@ -354,7 +354,7 @@ export default async function MothersDayPage() {
             </PhoneButton>
           </>
         }
-        secondaryInfo="Booking opens in a new tab (OpenTable)."
+        secondaryInfo="Booking stays on our secure in-site form."
       />
 
       <Section background="white" spacing="md">
@@ -556,7 +556,7 @@ export default async function MothersDayPage() {
                   </Link>
                 </div>
                 <p className="mt-4 text-sm text-gray-700">
-                  Booking opens in a new tab (OpenTable).
+                  Booking stays on our secure in-site form.
                 </p>
               </div>
 
@@ -644,7 +644,7 @@ export default async function MothersDayPage() {
                 📞 Call {CONTACT.phone}
               </PhoneButton>
             </div>
-            <p className="text-sm text-gray-600">Booking opens in a new tab (OpenTable).</p>
+            <p className="text-sm text-gray-600">Booking stays on our secure in-site form.</p>
           </div>
         </Container>
       </Section>
@@ -717,7 +717,7 @@ export default async function MothersDayPage() {
       <InternalLinkingSection
         title="More to explore at The Anchor"
         links={[
-          { href: MOTHERS_DAY_BOOKING_URL, title: "Book Mother’s Day lunch", description: 'Reserve online via OpenTable' },
+          { href: MOTHERS_DAY_BOOKING_URL, title: "Book Mother’s Day lunch", description: 'Reserve online in minutes' },
           ...commonLinkGroups.dining,
           ...commonLinkGroups.location
         ]}

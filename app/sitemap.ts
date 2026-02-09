@@ -1,11 +1,16 @@
 import { MetadataRoute } from 'next'
 import { getAllBlogPosts } from '@/lib/markdown'
 import { landmarks } from '@/lib/local-seo-data'
-import { getUpcomingEvents } from '@/lib/api'
+import { anchorAPI, type Event } from '@/lib/api'
 import { getEventWebsitePath } from '@/lib/event-url'
 
 export const revalidate = 60 * 60 // 1 hour
 export const dynamic = 'force-dynamic'
+
+const EVENT_PAGE_SIZE = 100
+const EVENT_MAX_PAGES = 20
+const EVENT_SITEMAP_STATUS_FILTER = 'scheduled,rescheduled,postponed,sold_out,cancelled'
+const EVENT_SITEMAP_FROM_DATE = '2000-01-01'
 
 function getSafeDate(value?: string): Date {
   if (!value) {
@@ -13,6 +18,52 @@ function getSafeDate(value?: string): Date {
   }
   const parsed = new Date(value)
   return Number.isNaN(parsed.getTime()) ? new Date() : parsed
+}
+
+function isDraftEvent(event: Event): boolean {
+  const rawStatus =
+    typeof event.event_status === 'string'
+      ? event.event_status.trim().toLowerCase()
+      : ''
+  if (rawStatus) return rawStatus === 'draft'
+
+  const schemaStatus =
+    typeof event.eventStatus === 'string'
+      ? event.eventStatus.trim().toLowerCase()
+      : ''
+  return schemaStatus.includes('draft')
+}
+
+async function getSitemapEvents(): Promise<Event[]> {
+  const uniqueEvents = new Map<string, Event>()
+
+  try {
+    for (let page = 0; page < EVENT_MAX_PAGES; page += 1) {
+      const offset = page * EVENT_PAGE_SIZE
+      const response = await anchorAPI.getEvents({
+        from_date: EVENT_SITEMAP_FROM_DATE,
+        status: EVENT_SITEMAP_STATUS_FILTER,
+        limit: EVENT_PAGE_SIZE,
+        offset
+      })
+
+      const batch = Array.isArray(response.events) ? response.events : []
+      if (batch.length === 0) break
+
+      for (const event of batch) {
+        if (isDraftEvent(event)) continue
+        const key = `${event.id || event.slug || ''}`.trim()
+        if (!key) continue
+        uniqueEvents.set(key, event)
+      }
+
+      if (batch.length < EVENT_PAGE_SIZE) break
+    }
+  } catch {
+    return []
+  }
+
+  return Array.from(uniqueEvents.values())
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -149,14 +200,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }))
 
-  const upcomingEvents = await getUpcomingEvents(50, 180)
-  const eventSitemap = upcomingEvents
+  const nowMs = Date.now()
+  const sitemapEvents = await getSitemapEvents()
+  const eventSitemap = sitemapEvents
     .filter((event) => event.category?.id !== 'fallback' && event.id !== 'the-anchor-showcase')
     .map((event) => ({
       url: `${baseUrl}${getEventWebsitePath(event)}`,
       lastModified: getSafeDate(event._meta?.lastUpdated ?? event.startDate),
-      changeFrequency: 'daily' as const,
-      priority: 0.85,
+      changeFrequency:
+        Date.parse(event.startDate) > nowMs
+          ? ('daily' as const)
+          : ('monthly' as const),
+      priority:
+        Date.parse(event.startDate) > nowMs
+          ? 0.85
+          : 0.65,
     }))
 
   return [...staticSitemap, ...blogSitemap, ...tagSitemap, ...landmarkSitemap, ...eventSitemap]

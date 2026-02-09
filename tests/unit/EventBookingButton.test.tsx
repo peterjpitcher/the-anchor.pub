@@ -42,14 +42,13 @@ describe('EventBookingButton', () => {
     jest.clearAllMocks()
   })
 
-  it('renders a disabled button when no booking URL is available and the date is invalid', () => {
+  it('falls back to the internal event booking page when date parsing fails', () => {
     const event = makeEvent({ startDate: 'invalid-date', bookingUrl: null, offers: undefined })
 
     render(<EventBookingButton event={event} />)
 
-    expect(
-      screen.getByRole('button', { name: 'Booking options available closer to the event' })
-    ).toBeDisabled()
+    const link = screen.getByRole('link', { name: 'Book Now for Test Event' })
+    expect(link).toHaveAttribute('href', '/events/test-event/book')
   })
 
   it('prefers an explicit booking URL and tracks clicks', () => {
@@ -94,7 +93,7 @@ describe('EventBookingButton', () => {
         priceCurrency: 'GBP',
         availability: 'InStock',
         validFrom: '2024-01-01T00:00:00Z',
-        url: 'https://www.opentable.co.uk/booking/experiences-availability?rid=443973'
+        url: 'https://tickets.example.com/the-anchor/offer-booking'
       }
     })
 
@@ -103,11 +102,11 @@ describe('EventBookingButton', () => {
     const link = screen.getByRole('link', { name: 'Book Now for Test Event' })
     expect(link).toHaveAttribute(
       'href',
-      'https://www.opentable.co.uk/booking/experiences-availability?rid=443973'
+      'https://tickets.example.com/the-anchor/offer-booking'
     )
   })
 
-  it('falls back to the OpenTable date-based link when no booking URL is available', () => {
+  it('falls back to the internal event booking page when no booking URL is available', () => {
     const event = makeEvent({
       bookingUrl: null,
       offers: undefined
@@ -116,13 +115,11 @@ describe('EventBookingButton', () => {
     render(<EventBookingButton event={event} />)
 
     const link = screen.getByRole('link', { name: 'Book Now for Test Event' })
-    expect(link).toHaveAttribute(
-      'href',
-      'http://www.opentable.com/restaurant/profile/443973/reserve?restref=443973&datetime=2025-01-01T18:30&covers=2&searchdatetime=2025-01-01T18:30&partysize=2'
-    )
+    expect(link).toHaveAttribute('href', '/events/test-event/book')
+    expect(link).not.toHaveAttribute('target', '_blank')
   })
 
-  it('treats event page URLs as non-bookable and shows the unavailable state when date is invalid', () => {
+  it('treats event page URLs as non-bookable and falls back to the internal booking page', () => {
     const event = makeEvent({
       startDate: 'invalid-date',
       bookingUrl: null,
@@ -138,8 +135,7 @@ describe('EventBookingButton', () => {
 
     render(<EventBookingButton event={event} />)
 
-    expect(
-      screen.getByRole('button', { name: 'Booking options available closer to the event' })
-    ).toBeDisabled()
+    const link = screen.getByRole('link', { name: 'Book Now for Test Event' })
+    expect(link).toHaveAttribute('href', '/events/test-event/book')
   })
 })

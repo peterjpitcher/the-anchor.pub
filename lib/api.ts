@@ -3,10 +3,11 @@
 
 import { logError } from '@/lib/error-handling'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
+import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 
 // Use internal API routes to avoid CORS issues and keep API key secure
 const API_BASE_URL = typeof window === 'undefined'
-  ? (process.env.ANCHOR_API_BASE_URL || 'https://management.orangejelly.co.uk/api')  // Server-side: use env var or default to prod
+  ? getManagementApiBaseUrl()  // Server-side: normalize env var and ensure /api suffix
   : '/api'  // Client-side: use Next.js API routes
 
 // API Response wrapper types
@@ -65,6 +66,7 @@ export interface PrivateBookingRequest {
   customer_last_name?: string
   contact_phone: string
   contact_email?: string
+  default_country_code?: string
   event_date?: string
   start_time?: string
   end_time?: string
@@ -104,6 +106,8 @@ export interface Event {
   id: string
   slug: string
   name: string
+  brief?: string | null
+  event_type?: string | null
   description: string | null // Short description (same as shortDescription)
   shortDescription?: string | null
   longDescription?: string | null
@@ -116,6 +120,12 @@ export interface Event {
   about?: string | null // New field: extended description
   eventStatus: string
   event_status?: string // Exposed raw status from API
+  date?: string | null
+  time?: string | null
+  end_time?: string | null
+  doors_time?: string | null
+  duration_minutes?: number | null
+  last_entry_time?: string | null
   eventAttendanceMode: string
   location: {
     '@type': 'Place'
@@ -161,9 +171,23 @@ export interface Event {
   isAccessibleForFree?: boolean
   remainingAttendeeCapacity?: number // Available tickets
   maximumAttendeeCapacity?: number // Total capacity
+  capacity?: number | null
+  seats_remaining?: number | null
+  is_full?: boolean
+  waitlist_enabled?: boolean
+  booking_mode?: 'table' | 'general' | 'mixed' | string | null
+  payment_mode?: string | null
+  price?: number | null
+  price_per_seat?: number | null
+  is_free?: boolean | null
   bookingUrl?: string | null // External booking link
+  booking_url?: string | null
   url?: string // New field: event page URL
   identifier?: string // New field: same as id
+  created_at?: string
+  updated_at?: string
+  performer_name?: string | null
+  performer_type?: string | null
   metaTitle?: string | null
   metaDescription?: string | null
   category?: {
