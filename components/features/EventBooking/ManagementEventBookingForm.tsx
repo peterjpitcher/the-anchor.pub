@@ -48,7 +48,7 @@ type WaitlistResult = {
 }
 
 interface ManagementEventBookingFormProps {
-  event: Event
+  event: Pick<Event, 'id' | 'name' | 'startDate' | 'time'>
   title?: string
   compact?: boolean
 }

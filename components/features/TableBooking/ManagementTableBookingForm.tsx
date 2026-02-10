@@ -1,10 +1,11 @@
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Alert } from '@/components/ui/feedback/Alert'
 import { Card, CardBody } from '@/components/ui/layout/Card'
 import { Input, Textarea } from '@/components/ui/primitives/Input'
 import { Button } from '@/components/ui/primitives/Button'
+import { ManagementEventBookingForm } from '@/components/features/EventBooking/ManagementEventBookingForm'
 import { trackTableBookingClick } from '@/lib/gtm-events'
 import { MOTHERS_DAY_DEFAULT_TIME, MOTHERS_DAY_SERVICE_DATE } from '@/lib/mothers-day-booking'
 
@@ -439,12 +440,6 @@ function normalizeSuggestedEvents(payload: any, targetDate: string): SuggestedEv
   })
 }
 
-function getSuggestedEventBookingHref(event: SuggestedEvent): string {
-  const key = (event.slug || event.id || '').trim()
-  if (!key) return '/whats-on'
-  return `/events/${encodeURIComponent(key)}`
-}
-
 export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFormProps) {
   const mothersDayMode = prefill?.mothersDay === true
   const today = useMemo(() => new Date().toISOString().slice(0, 10), [])
@@ -469,6 +464,9 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const [eventErrorsByDate, setEventErrorsByDate] = useState<Record<string, string>>({})
   const [eventsLoadingDate, setEventsLoadingDate] = useState<string | null>(null)
   const [dismissedEventDates, setDismissedEventDates] = useState<string[]>([])
+  const [selectedSuggestedEvent, setSelectedSuggestedEvent] = useState<SuggestedEvent | null>(null)
+  const [eventFetchRefresh, setEventFetchRefresh] = useState(0)
+  const datePickerFocusRef = useRef(false)
 
   const [phone, setPhone] = useState('')
   const [lookupState, setLookupState] = useState<LookupState>('idle')
@@ -500,6 +498,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const detailsUnlocked = lookupState === 'known' || lookupState === 'unknown'
   const isKnownCustomer = lookupState === 'known'
   const selectedDateEvents = eventsByDate[date] || []
+  const selectedDateEventsLoaded = Object.prototype.hasOwnProperty.call(eventsByDate, date)
   const selectedDateEventsLoading = eventsLoadingDate === date
   const selectedDateEventError = eventErrorsByDate[date] || null
   const hideDateEventSuggestions = dismissedEventDates.includes(date)
@@ -603,6 +602,10 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   }, [date, detailsUnlocked, mothersDayMode, selectedDateIsSunday, step, sundayLunch])
 
   useEffect(() => {
+    if (datePickerFocusRef.current) {
+      return
+    }
+
     if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
       return
     }
@@ -674,7 +677,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     return () => {
       cancelled = true
     }
-  }, [date, eventsByDate])
+  }, [date, eventFetchRefresh, eventsByDate])
 
   useEffect(() => {
     if (mothersDayMode) return
@@ -748,6 +751,36 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     }
   }
 
+  async function runAvailabilitySearch(input: {
+    targetDate: string
+    targetTime: string
+    source: string
+    context: string
+  }) {
+    if (!input.targetDate || !input.targetTime) {
+      throw new Error('Please choose a date and time first.')
+    }
+
+    trackTableBookingClick({
+      source: input.source,
+      destination: '/api/table-bookings/availability',
+      context: input.context
+    })
+
+    const availabilityData = await fetchAvailabilityForDate(input.targetDate, input.targetTime)
+    const closestTime = pickClosestSlot(availabilityData.time_slots, input.targetTime, partySize)
+
+    setDate(input.targetDate)
+    setRequestedTime(input.targetTime)
+    setAvailability(availabilityData)
+    setSelectedTime(closestTime || '')
+    setStep('choose')
+
+    if (!closestTime) {
+      void loadNearestAlternatives(input.targetDate, input.targetTime)
+    }
+  }
+
   async function handleFindTable() {
     setAvailabilityError(null)
     setError(null)
@@ -756,26 +789,12 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setAlternativeSlots([])
 
     try {
-      if (!date || !requestedTime) {
-        throw new Error('Please choose a date and time first.')
-      }
-
-      trackTableBookingClick({
+      await runAvailabilitySearch({
+        targetDate: date,
+        targetTime: requestedTime,
         source: 'book_table_find_table',
-        destination: '/api/table-bookings/availability',
         context: 'availability_first'
       })
-
-      const availabilityData = await fetchAvailabilityForDate(date, requestedTime)
-      const closestTime = pickClosestSlot(availabilityData.time_slots, requestedTime, partySize)
-
-      setAvailability(availabilityData)
-      setSelectedTime(closestTime || '')
-      setStep('choose')
-
-      if (!closestTime) {
-        void loadNearestAlternatives(date, requestedTime)
-      }
     } catch (availabilityFailure: any) {
       setAvailability(null)
       setAvailabilityError(
@@ -785,6 +804,23 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     } finally {
       setAvailabilityLoading(false)
     }
+  }
+
+  function handleBookSuggestedEvent(event: SuggestedEvent, context: string) {
+    const eventDate = getLondonIsoDate(event.startDate) || date
+
+    // Keep focus on the selected booking path once an event is chosen.
+    dismissEventSuggestionsFor(eventDate)
+    setSelectedSuggestedEvent(event)
+    setAvailabilityError(null)
+    setError(null)
+    setResult(null)
+
+    trackTableBookingClick({
+      source: 'book_table_event_suggestion',
+      destination: '/api/event-bookings',
+      context
+    })
   }
 
   function handleSlotSelect(slotTime: string) {
@@ -821,6 +857,22 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     })
   }
 
+  function dismissEventSuggestionsFor(targetDate: string) {
+    setDismissedEventDates((previous) => {
+      if (previous.includes(targetDate)) return previous
+      return [...previous, targetDate]
+    })
+  }
+
+  function handleDateInputFocus() {
+    datePickerFocusRef.current = true
+  }
+
+  function handleDateInputBlur() {
+    datePickerFocusRef.current = false
+    setEventFetchRefresh((previous) => previous + 1)
+  }
+
   function renderDateEventSuggestions(options: {
     title: string
     description: string
@@ -840,7 +892,11 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     }
 
     if (selectedDateEvents.length === 0) {
-      return null
+      return (
+        <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 text-sm text-gray-700">
+          No special events are listed on {formatDateForDisplay(date)} right now.
+        </div>
+      )
     }
 
     return (
@@ -855,6 +911,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
           <div>
             <p className="text-sm font-semibold text-anchor-green">{options.title}</p>
             <p className="mt-1 text-sm text-gray-700">{options.description}</p>
+            <p className="mt-1 text-xs text-gray-600">Tap an event below to book it without leaving this page.</p>
           </div>
           <button
             type="button"
@@ -867,7 +924,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
         <div className="mt-3 space-y-2">
           {selectedDateEvents.map((event) => {
-            const eventHref = getSuggestedEventBookingHref(event)
             return (
               <div
                 key={event.id}
@@ -886,32 +942,20 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                     <p className="mt-1 text-xs text-gray-600 line-clamp-2">{event.shortDescription}</p>
                   ) : null}
                 </div>
-                <Button asChild size="sm" variant={options.highlight ? 'primary' : 'outline'}>
-                  <a
-                    href={eventHref}
-                    onClick={() => {
-                      trackTableBookingClick({
-                        source: 'book_table_event_suggestion',
-                        destination: eventHref,
-                        context: options.context
-                      })
-                    }}
-                  >
-                    Book event
-                  </a>
+                <Button
+                  type="button"
+                  size="sm"
+                  variant={options.highlight ? 'primary' : 'outline'}
+                  className="w-full sm:w-auto"
+                  onClick={() => {
+                    handleBookSuggestedEvent(event, options.context)
+                  }}
+                >
+                  Book this event
                 </Button>
               </div>
             )
           })}
-        </div>
-
-        <div className="mt-3 text-xs">
-          <a
-            href="/whats-on"
-            className="font-medium text-anchor-green underline hover:text-anchor-gold"
-          >
-            View all upcoming events
-          </a>
         </div>
       </div>
     )
@@ -1183,6 +1227,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setAlternativeSlots([])
     setAlternativesLoading(false)
     setDismissedEventDates([])
+    setSelectedSuggestedEvent(null)
     setPhone('')
     setLookupState('idle')
     setKnownCustomer(null)
@@ -1199,6 +1244,47 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setError(null)
     setResult(null)
     setCardRedirectInitiated(false)
+  }
+
+  if (selectedSuggestedEvent) {
+    const selectedEventDate = getLondonIsoDate(selectedSuggestedEvent.startDate)
+    const selectedEventDateLabel = selectedEventDate ? formatDateForDisplay(selectedEventDate) : 'Date TBC'
+    const selectedEventTimeLabel = formatEventTimeLabel(selectedSuggestedEvent.startDate)
+
+    return (
+      <div className="space-y-4">
+        <Card variant="elevated">
+          <CardBody className="space-y-3 p-4">
+            <h3 className="text-lg font-semibold text-anchor-green">Event booking</h3>
+            <p className="text-sm text-gray-700">
+              You’re booking <strong>{selectedSuggestedEvent.name}</strong> on{' '}
+              <strong>{selectedEventDateLabel}</strong> at <strong>{selectedEventTimeLabel}</strong>.
+            </p>
+            <p className="text-sm text-gray-700">
+              Complete your event booking below without leaving this page.
+            </p>
+            <Button
+              type="button"
+              variant="outline"
+              className="w-full sm:w-auto"
+              onClick={() => setSelectedSuggestedEvent(null)}
+            >
+              Back to table booking
+            </Button>
+          </CardBody>
+        </Card>
+
+        <ManagementEventBookingForm
+          event={{
+            id: selectedSuggestedEvent.id,
+            name: selectedSuggestedEvent.name,
+            startDate: selectedSuggestedEvent.startDate
+          }}
+          title="Book now"
+          compact
+        />
+      </div>
+    )
   }
 
   if (result?.state === 'confirmed') {
@@ -1322,6 +1408,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 required
                 value={date}
                 onChange={(event) => setDate(event.target.value)}
+                onFocus={handleDateInputFocus}
+                onBlur={handleDateInputBlur}
               />
             )}
 
@@ -1333,7 +1421,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               onChange={(event) => setRequestedTime(event.target.value)}
             />
 
-            {!mothersDayMode && (showDateEventSuggestions || selectedDateEventsLoading) &&
+            {!mothersDayMode && (showDateEventSuggestions || selectedDateEventsLoading || selectedDateEventsLoaded) &&
               renderDateEventSuggestions({
                 title: 'Events on this date',
                 description:
@@ -1400,7 +1488,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               </Alert>
             )}
 
-            {!mothersDayMode && (showDateEventSuggestions || selectedDateEventsLoading) &&
+            {!mothersDayMode && (showDateEventSuggestions || selectedDateEventsLoading || selectedDateEventsLoaded) &&
               renderDateEventSuggestions({
                 title:
                   availableSlots.length === 0
@@ -1465,8 +1553,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               </div>
             ) : null}
 
-            <div className="flex flex-wrap gap-2 pt-2">
-              <Button type="button" variant="outline" onClick={handleBackToFind}>
+            <div className="flex flex-col gap-2 pt-2 sm:flex-row sm:flex-wrap">
+              <Button type="button" variant="outline" className="w-full sm:w-auto" onClick={handleBackToFind}>
                 Back
               </Button>
 
@@ -1474,6 +1562,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 <Button
                   type="button"
                   variant="primary"
+                  className="w-full sm:w-auto"
                   onClick={() => {
                     setStep('details')
                     setError(null)
@@ -1507,13 +1596,25 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 helperText="We only use this for booking confirmation and reminders."
               />
 
-              <div className="mt-3 flex flex-wrap gap-2">
+              <div className="mt-3 flex flex-col gap-2 sm:flex-row sm:flex-wrap">
                 {!detailsUnlocked ? (
-                  <Button type="button" size="sm" loading={lookupState === 'loading'} onClick={handlePhoneLookup}>
+                  <Button
+                    type="button"
+                    size="md"
+                    className="w-full sm:w-auto"
+                    loading={lookupState === 'loading'}
+                    onClick={handlePhoneLookup}
+                  >
                     Continue
                   </Button>
                 ) : (
-                  <Button type="button" size="sm" variant="outline" onClick={resetPhoneLookup}>
+                  <Button
+                    type="button"
+                    size="md"
+                    variant="outline"
+                    className="w-full sm:w-auto"
+                    onClick={resetPhoneLookup}
+                  >
                     Use Different Number
                   </Button>
                 )}
@@ -1729,13 +1830,13 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               </>
             ) : null}
 
-            <div className="flex flex-wrap gap-2 pt-2">
-              <Button type="button" variant="outline" onClick={handleBackToChoose}>
+            <div className="flex flex-col gap-2 pt-2 sm:flex-row sm:flex-wrap">
+              <Button type="button" variant="outline" className="w-full sm:w-auto" onClick={handleBackToChoose}>
                 Back
               </Button>
 
               {detailsUnlocked ? (
-                <Button type="button" variant="primary" onClick={handleContinueToReview}>
+                <Button type="button" variant="primary" className="w-full sm:w-auto" onClick={handleContinueToReview}>
                   Continue to review
                 </Button>
               ) : null}
@@ -1801,11 +1902,17 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               </span>
             </label>
 
-            <div className="flex flex-wrap gap-2 pt-2">
-              <Button type="button" variant="outline" onClick={() => setStep('details')}>
+            <div className="flex flex-col gap-2 pt-2 sm:flex-row sm:flex-wrap">
+              <Button type="button" variant="outline" className="w-full sm:w-auto" onClick={() => setStep('details')}>
                 Back
               </Button>
-              <Button type="button" variant="primary" loading={loading} onClick={handleConfirmBooking}>
+              <Button
+                type="button"
+                variant="primary"
+                className="w-full sm:w-auto"
+                loading={loading}
+                onClick={handleConfirmBooking}
+              >
                 Confirm booking
               </Button>
             </div>

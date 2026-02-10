@@ -36,8 +36,8 @@ export async function BookTableUpcomingEventsPanel() {
   const upcomingEvents = (await getUpcomingEvents(6, 90)).slice(0, 6)
 
   return (
-    <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-100">
-      <h3 className="text-xl font-semibold text-anchor-green">Upcoming events</h3>
+    <div className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-gray-100 sm:p-6">
+      <h3 className="text-lg font-semibold text-anchor-green sm:text-xl">Upcoming events</h3>
       <p className="mt-2 text-sm text-gray-700">
         If your date matches one of these, you can switch to event booking straight away.
       </p>
@@ -46,7 +46,7 @@ export async function BookTableUpcomingEventsPanel() {
         <p className="mt-4 text-sm text-gray-600">No upcoming events are listed right now.</p>
       ) : (
         <div className="mt-4 space-y-3">
-          {upcomingEvents.map((event) => {
+          {upcomingEvents.map((event, index) => {
             const priceLabel = getEventPriceLabel(event)
             const seatsRemaining =
               typeof event.remainingAttendeeCapacity === 'number'
@@ -54,7 +54,12 @@ export async function BookTableUpcomingEventsPanel() {
                 : null
 
             return (
-              <div key={event.id} className="rounded-xl border border-gray-200 bg-gray-50 p-3">
+              <div
+                key={event.id}
+                className={`rounded-xl border border-gray-200 bg-gray-50 p-3 ${
+                  index >= 3 ? 'hidden sm:block' : ''
+                }`}
+              >
                 <p className="text-sm font-semibold text-gray-900">{event.name}</p>
                 <p className="mt-1 text-xs text-gray-700">
                   {formatEventDateShort(event.startDate)} at {formatEventTimeShort(event.startDate)}

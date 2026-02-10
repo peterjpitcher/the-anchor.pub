@@ -140,21 +140,43 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
         ]}
       />
 
-      <Section spacing="md" container containerSize="md" className="text-center">
+      <Section spacing="xs" container containerSize="md" className="text-center">
         <PageTitle className="text-anchor-green" seo={{ structured: true, speakable: true }}>
           Book Online
         </PageTitle>
-        <p className="mt-4 text-lg text-gray-700">Choose your date, time, and party size to reserve your table.</p>
+        <p className="mt-3 text-base text-gray-700 md:text-lg">Choose your date, time, and party size to reserve your table.</p>
       </Section>
 
-      <Section background="gray" spacing="lg" container containerSize="lg">
-        <div className="grid items-start gap-8 lg:grid-cols-[minmax(0,2fr),minmax(0,1fr)]">
+      <Section background="gray" spacing="sm" container containerSize="lg">
+        <div className="grid items-start gap-5 lg:gap-8 lg:grid-cols-[minmax(0,2fr),minmax(0,1fr)]">
           <div className="order-1">
             <ManagementTableBookingForm prefill={prefill} />
           </div>
 
-          <aside className="order-2 space-y-6">
-            <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-100">
+          <aside className="order-2 space-y-4 lg:space-y-6">
+            <div className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-gray-100 lg:hidden">
+              <h2 className="text-lg font-semibold text-anchor-green">Need help with your booking?</h2>
+              <p className="mt-2 text-sm text-gray-700">
+                If you need a larger table, can’t find your preferred time, or want a quick answer, call us directly.
+              </p>
+              <div className="mt-4 space-y-2">
+                <PhoneButton
+                  phone="01753 682707"
+                  source="book_table_mobile_help"
+                  variant="secondary"
+                  className="w-full"
+                >
+                  📞 Call 01753 682707
+                </PhoneButton>
+                <Link href="/whats-on" className="block">
+                  <Button variant="outline" className="w-full">
+                    See upcoming events
+                  </Button>
+                </Link>
+              </div>
+            </div>
+
+            <div className="hidden rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-100 lg:block">
               <h2 className="text-xl font-semibold text-anchor-green">Quick tips</h2>
               <ul className="mt-3 space-y-2 text-left text-sm text-gray-700">
                 <li>• For larger groups, please call us.</li>
@@ -163,7 +185,7 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
               </ul>
             </div>
 
-            <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-100">
+            <div className="hidden rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-100 lg:block">
               <h3 className="text-xl font-semibold text-anchor-green">Prefer to talk?</h3>
               <p className="mt-2 text-sm text-gray-700">
                 Our team can help with tables of 8+, special celebrations, or last-minute changes.
@@ -180,7 +202,7 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
               </div>
             </div>
 
-            <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-100">
+            <div className="hidden rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-100 lg:block">
               <h3 className="text-xl font-semibold text-anchor-green">Useful to know</h3>
               <ul className="mt-3 space-y-2 text-left text-sm text-gray-700">
                 <li>• 20 free parking spaces on site.</li>
@@ -189,7 +211,9 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
               </ul>
             </div>
 
-            <BookTableUpcomingEventsPanel />
+            <div className="hidden lg:block">
+              <BookTableUpcomingEventsPanel />
+            </div>
           </aside>
         </div>
       </Section>
