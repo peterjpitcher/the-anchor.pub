@@ -29,7 +29,7 @@ function formatEventTimeShort(dateValue: string): string {
 function getEventBookingHref(event: Pick<Event, 'id' | 'slug'>): string {
   const key = (event.slug || event.id || '').trim()
   if (!key) return '/whats-on'
-  return `/events/${encodeURIComponent(key)}/book`
+  return `/events/${encodeURIComponent(key)}`
 }
 
 export async function BookTableUpcomingEventsPanel() {

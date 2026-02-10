@@ -21,16 +21,21 @@ import {
   DEFAULT_SUNDAY_LUNCH_IMAGE
 } from '@/lib/image-fallbacks'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import {
+  buildMothersDayBookingUrl,
+  isMothersDayEvent,
+  MOTHERS_DAY_BOOKING_CTA_LABEL,
+  MOTHERS_DAY_SERVICE_DATE
+} from '@/lib/mothers-day-booking'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
 export const dynamic = 'force-dynamic'
 
 const WEBSITE_ORIGIN = 'https://www.the-anchor.pub'
 
-const MOTHERS_DAY_BOOKING_URL =
-  '/book-table?date=2026-03-15&purpose=food&sunday_lunch=true'
+const DEFAULT_MOTHERS_DAY_BOOKING_URL = buildMothersDayBookingUrl()
 
-const MOTHERS_DAY_DATE = '2026-03-15'
+const MOTHERS_DAY_DATE = MOTHERS_DAY_SERVICE_DATE
 const MOTHERS_DAY_SERVICE_START_ISO = `${MOTHERS_DAY_DATE}T13:00:00+00:00`
 const MOTHERS_DAY_SERVICE_END_ISO = `${MOTHERS_DAY_DATE}T18:00:00+00:00`
 const MOTHERS_DAY_SERVICE_WINDOW_LABEL = '1pm–6pm'
@@ -41,6 +46,8 @@ const MOTHERS_DAY_KIDS_ROAST_PRICE = 13.99
 
 const MOTHERS_DAY_CARD_HOLD_NOTE =
   'We take a card hold only to secure your table (nothing is charged in advance). Free cancellation up to 3 days before.'
+const MOTHERS_DAY_BOOKING_FLOW_NOTE =
+  'Card details come first to secure your table, then we send your Sunday lunch pre-order link.'
 
 // TODO: Swap these for Mother’s Day-specific photos when available.
 const MOTHERS_DAY_PHOTOS = [
@@ -61,8 +68,6 @@ const MOTHERS_DAY_PHOTOS = [
   }
 ] as const
 
-const MOTHERS_DAY_MATCHER = /mother'?s day|mothering sunday/i
-
 function toAbsoluteUrl(value: string): string {
   if (!value) return value
   if (value.startsWith('http://') || value.startsWith('https://')) return value
@@ -70,21 +75,27 @@ function toAbsoluteUrl(value: string): string {
   return `${WEBSITE_ORIGIN}/${value}`
 }
 
-function isMothersDayEvent(event: Event) {
-  const haystack = [
-    event.name,
-    event.shortDescription,
-    event.description,
-    event.about,
-    event.slug,
-    event.identifier,
-    event.keywords
-  ]
-    .filter(Boolean)
-    .join(' ')
-    .toLowerCase()
+function parsePartySizePrefill(value?: string): number | undefined {
+  if (!value) return undefined
+  const parsed = Number.parseInt(value, 10)
+  if (!Number.isFinite(parsed)) return undefined
+  const clamped = Math.min(Math.max(parsed, 1), 50)
+  return clamped
+}
 
-  return MOTHERS_DAY_MATCHER.test(haystack)
+function parseTimePrefill(value?: string): string | undefined {
+  if (!value) return undefined
+  const trimmed = value.trim()
+  if (/^\d{2}:\d{2}$/.test(trimmed)) return trimmed
+  if (/^\d{2}:\d{2}:\d{2}$/.test(trimmed)) return trimmed.slice(0, 5)
+  return undefined
+}
+
+type MothersDayPageProps = {
+  searchParams?: {
+    party_size?: string
+    time?: string
+  }
 }
 
 const getNextMothersDayEvent = cache(async (): Promise<Event | null> => {
@@ -155,8 +166,12 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-export default async function MothersDayPage() {
+export default async function MothersDayPage({ searchParams }: MothersDayPageProps) {
   const event = await getNextMothersDayEvent()
+  const mothersDayBookingUrl = buildMothersDayBookingUrl({
+    partySize: parsePartySizePrefill(searchParams?.party_size),
+    time: parseTimePrefill(searchParams?.time)
+  })
 
   const eventDateLabel = formatEventDate(MOTHERS_DAY_SERVICE_START_ISO)
   const eventDateText = eventDateLabel.replace(',', '')
@@ -188,7 +203,9 @@ export default async function MothersDayPage() {
     },
     {
       question: 'How do I book?',
-      answer: `Use the “Book Mother’s Day Lunch” button on this page to book online in our booking form. Prefer to talk? Call ${CONTACT.phone}.`
+      answer:
+        `Use the “${MOTHERS_DAY_BOOKING_CTA_LABEL}” button on this page to book online in our booking form. ` +
+        `${MOTHERS_DAY_BOOKING_FLOW_NOTE} Prefer to talk? Call ${CONTACT.phone}.`
     },
     {
       question: 'What does the card hold mean?',
@@ -253,7 +270,7 @@ export default async function MothersDayPage() {
     },
     offers: {
       '@type': 'AggregateOffer',
-      url: toAbsoluteUrl(MOTHERS_DAY_BOOKING_URL),
+      url: toAbsoluteUrl(DEFAULT_MOTHERS_DAY_BOOKING_URL),
       priceCurrency: 'GBP',
       lowPrice: MOTHERS_DAY_KIDS_ROAST_PRICE.toFixed(2),
       highPrice: MOTHERS_DAY_ADULT_PRICE_HIGH.toFixed(2),
@@ -329,11 +346,11 @@ export default async function MothersDayPage() {
             size="lg"
             fullWidth
             className="w-full sm:w-auto"
-            trackingLabel="Book Mother's Day Lunch"
+            trackingLabel={MOTHERS_DAY_BOOKING_CTA_LABEL}
             eventName="Mother's Day Lunch"
-            customHref={MOTHERS_DAY_BOOKING_URL}
+            customHref={mothersDayBookingUrl}
           >
-            Book Mother&apos;s Day Lunch
+            {MOTHERS_DAY_BOOKING_CTA_LABEL}
           </BookTableButton>
         }
         secondaryCta={
@@ -354,7 +371,7 @@ export default async function MothersDayPage() {
             </PhoneButton>
           </>
         }
-        secondaryInfo="Booking stays on our secure in-site form."
+        secondaryInfo={MOTHERS_DAY_BOOKING_FLOW_NOTE}
       />
 
       <Section background="white" spacing="md">
@@ -415,11 +432,11 @@ export default async function MothersDayPage() {
                     size="lg"
                     fullWidth
                     className="w-full"
-                    trackingLabel="Book Mother's Day Lunch"
+                    trackingLabel={MOTHERS_DAY_BOOKING_CTA_LABEL}
                     eventName="Mother's Day Lunch"
-                    customHref={MOTHERS_DAY_BOOKING_URL}
+                    customHref={mothersDayBookingUrl}
                   >
-                    Book Mother&apos;s Day Lunch
+                    {MOTHERS_DAY_BOOKING_CTA_LABEL}
                   </BookTableButton>
                 </div>
               </CardBody>
@@ -543,11 +560,11 @@ export default async function MothersDayPage() {
                     size="lg"
                     fullWidth
                     className="w-full sm:w-auto sm:min-w-[240px]"
-                    trackingLabel="Book Mother's Day Lunch"
+                    trackingLabel={MOTHERS_DAY_BOOKING_CTA_LABEL}
                     eventName="Mother's Day Lunch"
-                    customHref={MOTHERS_DAY_BOOKING_URL}
+                    customHref={mothersDayBookingUrl}
                   >
-                    Book Mother&apos;s Day Lunch
+                    {MOTHERS_DAY_BOOKING_CTA_LABEL}
                   </BookTableButton>
                   <Link href="/find-us" className="w-full sm:w-auto">
                     <Button variant="secondary" size="lg" fullWidth className="w-full sm:w-auto">
@@ -555,9 +572,7 @@ export default async function MothersDayPage() {
                     </Button>
                   </Link>
                 </div>
-                <p className="mt-4 text-sm text-gray-700">
-                  Booking stays on our secure in-site form.
-                </p>
+                <p className="mt-4 text-sm text-gray-700">{MOTHERS_DAY_BOOKING_FLOW_NOTE}</p>
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2">
@@ -628,11 +643,11 @@ export default async function MothersDayPage() {
                 size="lg"
                 fullWidth
                 className="w-full sm:w-auto sm:min-w-[240px]"
-                trackingLabel="Book Mother's Day Lunch"
+                trackingLabel={MOTHERS_DAY_BOOKING_CTA_LABEL}
                 eventName="Mother's Day Lunch"
-                customHref={MOTHERS_DAY_BOOKING_URL}
+                customHref={mothersDayBookingUrl}
               >
-                Book Mother&apos;s Day Lunch
+                {MOTHERS_DAY_BOOKING_CTA_LABEL}
               </BookTableButton>
               <PhoneButton
                 phone={CONTACT.phone}
@@ -644,7 +659,7 @@ export default async function MothersDayPage() {
                 📞 Call {CONTACT.phone}
               </PhoneButton>
             </div>
-            <p className="text-sm text-gray-600">Booking stays on our secure in-site form.</p>
+            <p className="text-sm text-gray-600">{MOTHERS_DAY_BOOKING_FLOW_NOTE}</p>
           </div>
         </Container>
       </Section>
@@ -717,7 +732,7 @@ export default async function MothersDayPage() {
       <InternalLinkingSection
         title="More to explore at The Anchor"
         links={[
-          { href: MOTHERS_DAY_BOOKING_URL, title: "Book Mother’s Day lunch", description: 'Reserve online in minutes' },
+          { href: mothersDayBookingUrl, title: 'Book Mother’s Day Sunday lunch', description: 'Reserve online in minutes' },
           ...commonLinkGroups.dining,
           ...commonLinkGroups.location
         ]}

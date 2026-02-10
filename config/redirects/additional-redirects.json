@@ -430,5 +430,10 @@
     "source": "/fury-wilder-fight",
     "destination": "/whats-on",
     "permanent": true
+  },
+  {
+    "source": "/events/:id/book",
+    "destination": "/events/:id",
+    "permanent": true
   }
 ]

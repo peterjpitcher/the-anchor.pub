@@ -21,6 +21,11 @@ import {
   isEventInPast,
   normalizeEventStatus
 } from '@/lib/event-lifecycle'
+import {
+  buildMothersDayBookingUrl,
+  isMothersDayEvent,
+  MOTHERS_DAY_BOOKING_CTA_LABEL
+} from '@/lib/mothers-day-booking'
 
 type Props = {
   params: { id: string }
@@ -263,6 +268,13 @@ export default async function EventPage({ params }: Props) {
   ]
     .filter((value): value is string => typeof value === 'string' && value.trim().length > 0)
     .join(', ')
+  const mothersDayBookingFlow =
+    isMothersDayEvent(event) &&
+    status !== 'cancelled' &&
+    !isPastEvent
+  const mothersDayBookingUrl = buildMothersDayBookingUrl()
+  const mothersDayBookingCopy =
+    'Card details step comes first to secure your table, then we send your Sunday lunch pre-order link.'
   
   return (
     <>
@@ -374,7 +386,19 @@ export default async function EventPage({ params }: Props) {
             
             {/* Mobile: Booking + highlights (aligned with desktop component set) */}
             <div className="lg:hidden mb-6 max-w-md mx-auto space-y-4">
-              {bookingBlockReason ? (
+              {mothersDayBookingFlow ? (
+                <Card variant="elevated" padding="none">
+                  <CardBody className="space-y-3 p-4">
+                    <h2 className="text-xl font-bold text-anchor-green">{MOTHERS_DAY_BOOKING_CTA_LABEL}</h2>
+                    <p className="text-sm text-gray-700">{mothersDayBookingCopy}</p>
+                    <Button asChild fullWidth size="lg">
+                      <Link href={mothersDayBookingUrl}>
+                        {MOTHERS_DAY_BOOKING_CTA_LABEL}
+                      </Link>
+                    </Button>
+                  </CardBody>
+                </Card>
+              ) : bookingBlockReason ? (
                 <Alert variant="info" title={bookingDisabledCopy?.title}>
                   <p>{bookingDisabledCopy?.message}</p>
                 </Alert>
@@ -404,7 +428,19 @@ export default async function EventPage({ params }: Props) {
                 )}
 
                 <div className="hidden lg:block space-y-4">
-                  {bookingBlockReason ? (
+                  {mothersDayBookingFlow ? (
+                    <Card variant="elevated" padding="none">
+                      <CardBody className="space-y-3 p-4">
+                        <h2 className="text-xl font-bold text-anchor-green">{MOTHERS_DAY_BOOKING_CTA_LABEL}</h2>
+                        <p className="text-sm text-gray-700">{mothersDayBookingCopy}</p>
+                        <Button asChild fullWidth size="lg">
+                          <Link href={mothersDayBookingUrl}>
+                            {MOTHERS_DAY_BOOKING_CTA_LABEL}
+                          </Link>
+                        </Button>
+                      </CardBody>
+                    </Card>
+                  ) : bookingBlockReason ? (
                     <Alert variant="info" title={bookingDisabledCopy?.title}>
                       <p>{bookingDisabledCopy?.message}</p>
                     </Alert>
@@ -620,11 +656,19 @@ export default async function EventPage({ params }: Props) {
             Reserve Your Spot
           </h2>
           <p className="text-base md:text-lg lg:text-xl mb-6 md:mb-8 max-w-2xl mx-auto px-2">
-            Choose your preferred time and booking option using the button below.
+            {mothersDayBookingFlow
+              ? 'Card details are completed first to secure your table, then your Sunday lunch pre-order link is sent.'
+              : 'Choose your preferred time and booking option using the button below.'}
           </p>
           
           <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center max-w-md mx-auto sm:max-w-none">
-            {bookingBlockReason ? null : (
+            {mothersDayBookingFlow ? (
+              <div className="w-full sm:w-auto">
+                <Button asChild size="xl" className="w-full sm:w-auto">
+                  <Link href={mothersDayBookingUrl}>{MOTHERS_DAY_BOOKING_CTA_LABEL}</Link>
+                </Button>
+              </div>
+            ) : bookingBlockReason ? null : (
               <div className="w-full sm:w-auto">
                 <EventBookingButton
                   event={event}

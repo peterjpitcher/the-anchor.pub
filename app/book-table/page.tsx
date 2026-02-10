@@ -29,6 +29,7 @@ type BookTablePageProps = {
     party_size?: string
     purpose?: string
     sunday_lunch?: string
+    mothers_day?: string
   }
 }
 
@@ -58,7 +59,8 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
     time: searchParams?.time,
     partySize: parsePartySize(searchParams?.party_size),
     purpose: parsePurpose(searchParams?.purpose),
-    sundayLunch: parseBoolean(searchParams?.sunday_lunch)
+    sundayLunch: parseBoolean(searchParams?.sunday_lunch),
+    mothersDay: parseBoolean(searchParams?.mothers_day)
   }
 
   return (

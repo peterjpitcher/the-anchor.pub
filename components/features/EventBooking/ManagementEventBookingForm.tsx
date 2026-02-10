@@ -7,6 +7,10 @@ import { Button } from '@/components/ui/primitives/Button'
 import { Input } from '@/components/ui/primitives/Input'
 import { trackEventBookingStart } from '@/lib/gtm-events'
 import type { Event } from '@/lib/api'
+import {
+  buildMothersDayLandingUrl,
+  getMothersDayEventStartTime
+} from '@/lib/mothers-day-booking'
 
 type LookupState = 'idle' | 'loading' | 'known' | 'unknown'
 type EventBookingState = 'confirmed' | 'pending_payment' | 'full_with_waitlist_option' | 'blocked'
@@ -70,6 +74,21 @@ function parseLookupResponse(payload: any): CustomerLookupResult {
     normalized_phone: data?.normalized_phone,
     customer: data?.customer || null
   }
+}
+
+function hasPolicyViolation(payload: any): boolean {
+  const data = payload?.data || payload
+  const candidates = [
+    payload?.error?.code,
+    payload?.error?.type,
+    payload?.code,
+    payload?.reason,
+    data?.code,
+    data?.error_code,
+    data?.reason
+  ]
+
+  return candidates.some((value) => typeof value === 'string' && value.toUpperCase() === 'POLICY_VIOLATION')
 }
 
 export function ManagementEventBookingForm({ event, title, compact = false }: ManagementEventBookingFormProps) {
@@ -204,6 +223,20 @@ export function ManagementEventBookingForm({ event, title, compact = false }: Ma
       const data = body?.data || body
 
       if (!response.ok || body?.success === false) {
+        if (response.status === 409 && hasPolicyViolation(body)) {
+          if (typeof window !== 'undefined') {
+            const fallbackUrl =
+              typeof body?.redirect_to === 'string' && body.redirect_to.trim().length > 0
+                ? body.redirect_to
+                : buildMothersDayLandingUrl({
+                    partySize: seats,
+                    time: getMothersDayEventStartTime(event)
+                  })
+            window.location.assign(fallbackUrl)
+            return
+          }
+        }
+
         const upstreamError =
           body?.error?.message ||
           body?.error ||

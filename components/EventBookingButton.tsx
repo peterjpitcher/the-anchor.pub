@@ -5,8 +5,11 @@ import { trackEventBookingStart } from '@/lib/gtm-events'
 import { getEventWebsiteUrl } from '@/lib/event-url'
 import { Button } from '@/components/ui'
 import { cn } from '@/lib/utils'
-
-const PRIMARY_SITE_ORIGINS = new Set(['https://www.the-anchor.pub', 'https://the-anchor.pub'])
+import {
+  buildMothersDayBookingUrl,
+  isMothersDayEvent,
+  MOTHERS_DAY_BOOKING_CTA_LABEL
+} from '@/lib/mothers-day-booking'
 
 type EventBookingButtonProps = {
   event: Event
@@ -78,40 +81,24 @@ function normalizeBookingUrl(rawUrl: string | null | undefined, event: Event): s
   }
 }
 
-function isInternalSiteUrl(rawUrl: string): boolean {
-  const base = typeof window !== 'undefined' ? window.location.origin : 'https://www.the-anchor.pub'
-
-  try {
-    const parsed = new URL(rawUrl, base)
-    if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
-      return false
-    }
-    if (PRIMARY_SITE_ORIGINS.has(parsed.origin)) {
-      return true
-    }
-    if (typeof window !== 'undefined' && parsed.origin === window.location.origin) {
-      return true
-    }
-    return false
-  } catch {
-    return false
-  }
-}
-
 function buildInternalEventBookingUrl(event: Event): string | null {
   const idOrSlug = (event.slug || event.id || '').trim()
   if (!idOrSlug) return null
-  return `/events/${encodeURIComponent(idOrSlug)}/book`
+  return `/events/${encodeURIComponent(idOrSlug)}`
 }
 
 function resolveBookingUrl(event: Event): string | null {
+  if (isMothersDayEvent(event)) {
+    return buildMothersDayBookingUrl()
+  }
+
   const explicitBookingUrl = normalizeBookingUrl(event.bookingUrl, event)
-  if (explicitBookingUrl && !isInternalSiteUrl(explicitBookingUrl)) {
+  if (explicitBookingUrl) {
     return explicitBookingUrl
   }
 
   const offerUrl = normalizeBookingUrl(event.offers?.url, event)
-  if (offerUrl && !isInternalSiteUrl(offerUrl)) {
+  if (offerUrl) {
     return offerUrl
   }
 
@@ -124,13 +111,14 @@ export function EventBookingButton({
   fullWidth = true,
   size = 'lg',
   variant = 'primary',
-  label = 'Book Now',
+  label,
   unavailableLabel = 'Booking options available closer to the event',
   source,
   onClick
 }: EventBookingButtonProps) {
   const bookingUrl = resolveBookingUrl(event)
   const isExternalBooking = bookingUrl ? /^https?:\/\//i.test(bookingUrl) : false
+  const resolvedLabel = label || (isMothersDayEvent(event) ? MOTHERS_DAY_BOOKING_CTA_LABEL : 'Book Now')
 
   if (!bookingUrl) {
     return (
@@ -167,9 +155,9 @@ export function EventBookingButton({
             eventPrice: getEventPrice(event)
           })
         }}
-        aria-label={`${label} for ${event.name}${source ? ` (${source})` : ''}`}
+        aria-label={`${resolvedLabel} for ${event.name}${source ? ` (${source})` : ''}`}
       >
-        {label}
+        {resolvedLabel}
       </a>
     </Button>
   )

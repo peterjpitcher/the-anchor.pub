@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createApiErrorResponse, logError } from '@/lib/error-handling'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
+import { buildMothersDayLandingUrl } from '@/lib/mothers-day-booking'
 import { getSafeUpstreamErrorMessage, safeJsonParse } from '@/lib/upstream-json'
 
 const API_BASE_URL = getManagementApiBaseUrl()
@@ -95,6 +96,31 @@ function validatePayload(payload: EventBookingPayload): string | null {
   return null
 }
 
+function hasPolicyViolation(input: unknown): boolean {
+  if (!input || typeof input !== 'object') return false
+  const payload = input as Record<string, unknown>
+  const errorObject =
+    payload.error && typeof payload.error === 'object'
+      ? (payload.error as Record<string, unknown>)
+      : null
+  const dataObject =
+    payload.data && typeof payload.data === 'object'
+      ? (payload.data as Record<string, unknown>)
+      : null
+
+  const codes = [
+    payload.code,
+    payload.reason,
+    payload.error_code,
+    errorObject?.code,
+    errorObject?.type,
+    dataObject?.code,
+    dataObject?.reason
+  ]
+
+  return codes.some((value) => typeof value === 'string' && value.toUpperCase() === 'POLICY_VIOLATION')
+}
+
 export async function POST(request: NextRequest) {
   if (!API_KEY) {
     return createApiErrorResponse('Event booking service unavailable', 503)
@@ -134,10 +160,24 @@ export async function POST(request: NextRequest) {
       error: getSafeUpstreamErrorMessage(rawText, 'Event booking request failed')
     }
 
-    return NextResponse.json(parsed ?? fallbackPayload, {
+    const policyViolation = upstream.status === 409 && hasPolicyViolation(parsed)
+    const fallbackRedirectUrl = policyViolation
+      ? buildMothersDayLandingUrl({ partySize: normalized.payload.seats })
+      : null
+    const responseBody =
+      policyViolation && parsed && typeof parsed === 'object'
+        ? {
+            ...(parsed as Record<string, unknown>),
+            redirect_to: fallbackRedirectUrl,
+            fallback_booking_flow: 'mothers_day_table_booking'
+          }
+        : parsed ?? fallbackPayload
+
+    return NextResponse.json(responseBody, {
       status: upstream.status,
       headers: {
-        'X-Idempotency-Key': idempotencyKey
+        'X-Idempotency-Key': idempotencyKey,
+        ...(fallbackRedirectUrl ? { 'X-Fallback-Redirect': fallbackRedirectUrl } : {})
       }
     })
   } catch (error) {

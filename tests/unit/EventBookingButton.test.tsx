@@ -42,13 +42,13 @@ describe('EventBookingButton', () => {
     jest.clearAllMocks()
   })
 
-  it('falls back to the internal event booking page when date parsing fails', () => {
+  it('falls back to the internal event page when date parsing fails', () => {
     const event = makeEvent({ startDate: 'invalid-date', bookingUrl: null, offers: undefined })
 
     render(<EventBookingButton event={event} />)
 
     const link = screen.getByRole('link', { name: 'Book Now for Test Event' })
-    expect(link).toHaveAttribute('href', '/events/test-event/book')
+    expect(link).toHaveAttribute('href', '/events/test-event')
   })
 
   it('prefers an explicit booking URL and tracks clicks', () => {
@@ -106,7 +106,7 @@ describe('EventBookingButton', () => {
     )
   })
 
-  it('falls back to the internal event booking page when no booking URL is available', () => {
+  it('falls back to the internal event page when no booking URL is available', () => {
     const event = makeEvent({
       bookingUrl: null,
       offers: undefined
@@ -115,11 +115,11 @@ describe('EventBookingButton', () => {
     render(<EventBookingButton event={event} />)
 
     const link = screen.getByRole('link', { name: 'Book Now for Test Event' })
-    expect(link).toHaveAttribute('href', '/events/test-event/book')
+    expect(link).toHaveAttribute('href', '/events/test-event')
     expect(link).not.toHaveAttribute('target', '_blank')
   })
 
-  it('treats event page URLs as non-bookable and falls back to the internal booking page', () => {
+  it('treats event page URLs as non-bookable and falls back to the internal event page', () => {
     const event = makeEvent({
       startDate: 'invalid-date',
       bookingUrl: null,
@@ -136,6 +136,23 @@ describe('EventBookingButton', () => {
     render(<EventBookingButton event={event} />)
 
     const link = screen.getByRole('link', { name: 'Book Now for Test Event' })
-    expect(link).toHaveAttribute('href', '/events/test-event/book')
+    expect(link).toHaveAttribute('href', '/events/test-event')
+  })
+
+  it('forces mothers day events to use the shared table-booking flow', () => {
+    const event = makeEvent({
+      name: "Mother's Day Sunday Lunch",
+      startDate: '2026-03-15T13:00:00+00:00',
+      bookingUrl: 'https://thirdparty.example.com/book/mothers-day'
+    })
+
+    render(<EventBookingButton event={event} />)
+
+    const link = screen.getByRole('link', { name: /Book Mother/i })
+    expect(link.getAttribute('href')).toContain('/book-table?')
+    expect(link.getAttribute('href')).toContain('date=2026-03-15')
+    expect(link.getAttribute('href')).toContain('sunday_lunch=true')
+    expect(link.getAttribute('href')).toContain('mothers_day=true')
+    expect(link).not.toHaveAttribute('target')
   })
 })
