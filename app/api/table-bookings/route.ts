@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createApiErrorResponse, logError } from '@/lib/error-handling'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { getSafeUpstreamErrorMessage, safeJsonParse } from '@/lib/upstream-json'
+import { getSundayLunchCutoffDate, hasSundayLunchCutoffPassed, isSundayIsoDate } from '@/lib/sunday-lunch-cutoff'
 
 const API_BASE_URL = getManagementApiBaseUrl()
 const API_KEY = process.env.ANCHOR_API_KEY
@@ -289,6 +290,23 @@ export async function POST(request: NextRequest) {
     const validationError = validatePayload(normalized.payload)
     if (validationError) {
       return createApiErrorResponse(validationError, 400)
+    }
+
+    // Enforce Sunday lunch pre-order cutoff: 1pm Saturday (London time) before the selected Sunday.
+    if (normalized.payload.sunday_lunch === true) {
+      if (!isSundayIsoDate(normalized.payload.date)) {
+        return createApiErrorResponse('Sunday lunch bookings can only be made for Sundays.', 400)
+      }
+
+      if (hasSundayLunchCutoffPassed(normalized.payload.date, new Date())) {
+        const cutoffDate = getSundayLunchCutoffDate(normalized.payload.date)
+        const cutoffLabel = cutoffDate ? ` (cutoff: 1pm Saturday ${cutoffDate} London time)` : ''
+
+        return createApiErrorResponse(
+          `Sunday lunch pre-orders for ${normalized.payload.date} are now closed. Please book a regular table instead or call 01753 682707.${cutoffLabel}`,
+          400
+        )
+      }
     }
 
     const idempotencyKey =
