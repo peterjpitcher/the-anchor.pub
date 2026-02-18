@@ -3,11 +3,19 @@ import Image from 'next/image'
 import { getAllBlogPosts } from '@/lib/markdown'
 import { Button, Section } from '@/components/ui'
 import { Metadata } from 'next'
-import { notFound } from 'next/navigation'
+import { permanentRedirect } from 'next/navigation'
 import { getTagSEOContent } from '@/lib/tag-seo-content'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { getBlogHeroUrl, BLOG_FALLBACK_IMAGE } from '@/lib/blog-image'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+
+function normalizeTagSlug(tag: string): string {
+  try {
+    return decodeURIComponent(tag).trim().toLowerCase()
+  } catch {
+    return tag.trim().toLowerCase()
+  }
+}
 
 export async function generateStaticParams() {
   const posts = await getAllBlogPosts()
@@ -23,7 +31,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: { params: { tag: string } }): Promise<Metadata> {
-  const tag = params.tag
+  const tag = normalizeTagSlug(params.tag)
   const seoContent = getTagSEOContent(tag)
   
   return {
@@ -42,14 +50,14 @@ export async function generateMetadata({ params }: { params: { tag: string } }):
 }
 
 export default async function TagPage({ params }: { params: { tag: string } }) {
-  const tag = params.tag
+  const tag = normalizeTagSlug(params.tag)
   const allPosts = await getAllBlogPosts()
   const taggedPosts = allPosts.filter(post => 
-    post.tags.map(t => t.toLowerCase()).includes(tag.toLowerCase())
+    post.tags.map(t => normalizeTagSlug(t)).includes(tag)
   )
   
   if (taggedPosts.length === 0) {
-    notFound()
+    permanentRedirect('/blog/tags')
   }
   
   const seoContent = getTagSEOContent(tag)
@@ -66,7 +74,7 @@ export default async function TagPage({ params }: { params: { tag: string } }) {
     <>
       {/* Hero Section */}
       <HeroWrapper
-        route={`/blog/tag/${params.tag}`}
+        route={`/blog/tag/${tag}`}
         title={displayName}
         description={seoContent.heroContent}
         variant="feature"
@@ -113,18 +121,21 @@ export default async function TagPage({ params }: { params: { tag: string } }) {
                 </div>
                 <div className="p-6">
                   <div className="flex flex-wrap gap-2 mb-3">
-                    {post.tags.map(t => (
+                    {post.tags.map((t) => {
+                      const normalizedTag = normalizeTagSlug(t)
+                      return (
                       <span 
                         key={t} 
                         className={`text-sm sm:text-xs px-2 py-1 rounded ${
-                          t === tag 
+                          normalizedTag === tag 
                             ? 'bg-anchor-gold text-white' 
                             : 'bg-gray-100 text-gray-700'
                         }`}
                       >
                         {t}
                       </span>
-                    ))}
+                      )
+                    })}
                   </div>
                   <h3 className="text-lg font-bold text-anchor-green mb-2 line-clamp-2">
                     {post.title}
@@ -151,14 +162,14 @@ export default async function TagPage({ params }: { params: { tag: string } }) {
           {Array.from(allTags).sort().map(t => (
             <Link
               key={t}
-              href={`/blog/tag/${t}`}
+              href={`/blog/tag/${encodeURIComponent(normalizeTagSlug(t))}`}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                t === tag
+                normalizeTagSlug(t) === tag
                   ? 'bg-anchor-green text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-anchor-gold hover:text-white'
               }`}
             >
-              {getTagSEOContent(t).name}
+              {getTagSEOContent(normalizeTagSlug(t)).name}
             </Link>
           ))}
         </div>

@@ -5,6 +5,7 @@ import { Button, Container, Section, FeatureGrid, CTASection } from '@/component
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { ParkingBookingWizard } from '@/components/features/ParkingBookingWizard'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
+import { ReviewSection } from '@/components/reviews'
 import { DEFAULT_PARKING_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { anchorAPI, ParkingRateCard } from '@/lib/api'
@@ -13,24 +14,47 @@ const formatRate = (value: number | null | undefined, fallback: string) =>
   typeof value === 'number' && Number.isFinite(value) ? value.toFixed(2) : fallback
 
 export const metadata: Metadata = {
-  title: 'Heathrow Parking | Secure Long Stay & Short Stay at The Anchor',
-  description: 'Book Heathrow airport parking from GBP 5 per hour or GBP 15 per day. Secure paid parking near Terminals 2-5 with PayPal checkout, CCTV and on-site pub hospitality.',
-  keywords: 'heathrow parking, heathrow car parking, heathrow airport car parking, parking heathrow airport, parking near heathrow, long stay parking heathrow, terminal 5 car parking, parking at terminal 5 heathrow, terminal 3 car parking, terminal 2 car parking, terminal 4 car parking, airport long term parking, cheap heathrow parking, long stay parking near me',
+  title: 'Cheap Heathrow Parking from GBP 15/day | 7 mins to T5 | The Anchor',
+  description: 'Book cheap Heathrow parking from GBP 15 per day or GBP 75 per week in Stanwell Moor. 7 minutes to Terminal 5, keep your keys, CCTV lighting, instant confirmation.',
+  keywords: 'cheap heathrow parking, heathrow parking, heathrow car parking, parking near heathrow, long stay parking heathrow, terminal 5 parking, terminal 3 parking, terminal 2 parking, terminal 4 parking, airport long term parking, keep your keys heathrow parking, off airport parking heathrow',
   openGraph: {
-    title: 'Heathrow Parking – Pre-book & Pay at The Anchor',
-    description: 'Reserve secure Heathrow airport parking 7 minutes from Terminal 5. PayPal checkout, CCTV, flexible long stay and short stay options.',
+    title: 'Cheap Heathrow Parking from GBP 15/day - Book Online',
+    description: 'Secure off-airport Heathrow parking in Stanwell Moor. 7 minutes to T5, 10-12 minutes to T2/T3/T4, keep your keys and book in minutes.',
     images: [DEFAULT_PARKING_IMAGE],
     url: 'https://www.the-anchor.pub/heathrow-parking'
   },
   twitter: getTwitterMetadata({
-    title: 'Heathrow Parking – Pre-book & Pay at The Anchor',
-    description: 'Secure Heathrow airport parking with PayPal checkout. Flexible hourly, daily and long stay options.',
+    title: 'Cheap Heathrow Parking from GBP 15/day',
+    description: 'Book secure Heathrow parking near Terminal 5 with clear pricing, CCTV and fast confirmation.',
     images: [DEFAULT_PARKING_IMAGE]
   }),
   alternates: {
     canonical: '/heathrow-parking'
   }
 }
+
+const terminalLandingPages = [
+  {
+    href: '/heathrow-parking/terminal-2',
+    title: 'Terminal 2 cheap parking guide',
+    description: 'Alternative to expensive T2 long-stay and short-stay options with transfer tips from Stanwell Moor.'
+  },
+  {
+    href: '/heathrow-parking/terminal-3',
+    title: 'Terminal 3 cheap parking guide',
+    description: 'Compare official T3 parking costs versus off-airport rates and plan your fastest transfer.'
+  },
+  {
+    href: '/heathrow-parking/terminal-4',
+    title: 'Terminal 4 cheap parking guide',
+    description: 'Overnight and long-stay parking options for T4 travellers, crew and contractors.'
+  },
+  {
+    href: '/heathrow-parking/terminal-5',
+    title: 'Terminal 5 cheap parking guide',
+    description: '7-minute transfer plan for T5 with key-retention parking from GBP 15 per day.'
+  }
+]
 
 const featureHighlights = [
   {
@@ -473,6 +497,19 @@ export default async function HeathrowParkingPage() {
           <div className="mt-10">
             <FeatureGrid features={terminalGuides} columns={4} />
           </div>
+          <div className="mt-10 grid gap-4 md:grid-cols-2">
+            {terminalLandingPages.map((page) => (
+              <Link
+                key={page.href}
+                href={page.href}
+                className="rounded-xl border border-gray-200 bg-white p-5 text-left transition-colors hover:border-anchor-green"
+              >
+                <h3 className="text-lg font-semibold text-anchor-green">{page.title}</h3>
+                <p className="mt-2 text-sm text-gray-700">{page.description}</p>
+                <p className="mt-3 text-sm font-semibold text-anchor-gold">Open terminal guide</p>
+              </Link>
+            ))}
+          </div>
         </Container>
       </Section>
 
@@ -508,6 +545,14 @@ export default async function HeathrowParkingPage() {
       </Section>
 
       <FAQAccordionWithSchema title="Heathrow parking FAQs" faqs={faqs(rateCard)} />
+
+      <ReviewSection
+        title="Trusted by Heathrow travellers"
+        subtitle="Real customer reviews from guests who park and fly from The Anchor."
+        layout="carousel"
+        filter={{ minRating: 4, limit: 6 }}
+        background="gray"
+      />
 
       <CTASection
         title="Ready to lock in Heathrow airport parking?"

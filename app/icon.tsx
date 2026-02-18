@@ -29,6 +29,9 @@ export default function Icon() {
     ),
     {
       ...size,
+      headers: {
+        'X-Robots-Tag': 'noindex, nofollow, noimageindex',
+      },
     }
   )
 }

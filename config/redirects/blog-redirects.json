@@ -5,16 +5,6 @@
     "permanent": true
   },
   {
-    "source": "/post/:slug",
-    "destination": "/blog/:slug",
-    "permanent": true
-  },
-  {
-    "source": "/post/:slug/:rest*",
-    "destination": "/blog/:slug",
-    "permanent": true
-  },
-  {
     "source": "/blog/a-night-to-remember-the-anchor-s-gameshow-house-pa",
     "destination": "/blog/gameshow-house-party",
     "permanent": true
@@ -980,8 +970,23 @@
     "permanent": true
   },
   {
+    "source": "/post/british-pie-week-march-6th-to-12th-2023",
+    "destination": "/blog/british-pie-week-2024",
+    "permanent": true
+  },
+  {
     "source": "/post/world-salami-day-pizza-dive-into-exclusive-pizza-d",
     "destination": "/blog/salami-day-pizza",
+    "permanent": true
+  },
+  {
+    "source": "/post/:slug",
+    "destination": "/blog",
+    "permanent": true
+  },
+  {
+    "source": "/post/:slug/:rest*",
+    "destination": "/blog",
     "permanent": true
   }
 ]

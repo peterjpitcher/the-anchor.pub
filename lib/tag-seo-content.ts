@@ -105,6 +105,17 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     keywords: ['pub deals stanwell moor', 'pub offers near heathrow', 'pub offers surrey', 'special offers TW19', 'deals stanwell moor']
   },
 
+  'parking': {
+    name: 'Heathrow Parking Guides',
+    description: 'Cheap Heathrow parking comparisons, terminal transfer tips and booking advice',
+    metaTitle: 'Cheap Heathrow Parking Guides | Terminal 2, 3, 4, 5 | The Anchor',
+    metaDescription: 'Explore cheap Heathrow parking guides with real price comparisons, transfer times and terminal-specific tips from The Anchor in Stanwell Moor.',
+    heroContent: 'Compare Heathrow parking options before you book. Our guides cover cheap long-stay alternatives, transfer times and practical tips for Terminals 2, 3, 4 and 5.',
+    introContent: 'Parking costs at Heathrow vary widely by terminal, season and how early you book. Our parking guides break down the main choices in plain English, including official short-stay and long-stay rates, off-airport alternatives, and what to expect for taxi transfer times.',
+    valueProposition: 'If you want to avoid overpaying for airport parking, start here. Use our terminal-specific pages and booking guide to lock in a lower rate from Stanwell Moor and keep your journey simple.',
+    keywords: ['cheap heathrow parking', 'heathrow parking comparison', 'terminal 5 parking alternative', 'terminal 3 parking alternative', 'off airport parking heathrow']
+  },
+
   // Phase 2: Seasonal Tags
   'christmas': {
     name: 'Christmas at The Anchor',

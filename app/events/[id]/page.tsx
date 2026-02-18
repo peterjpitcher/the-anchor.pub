@@ -202,8 +202,8 @@ export default async function EventPage({ params }: Props) {
   
   try {
     event = await anchorAPI.getEvent(params.id)
-  } catch (error) {
-    notFound()
+  } catch {
+    permanentRedirect('/whats-on')
   }
 
   const canonicalSegment = getEventCanonicalSegment(event)

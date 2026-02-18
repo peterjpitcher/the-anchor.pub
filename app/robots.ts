@@ -8,7 +8,10 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
         disallow: [
           '/api/',
-          '/_next/',
+          // Allow static assets so crawlers can render pages correctly.
+          '/_next/data/',
+          '/_next/static/media/',
+          '/*?dpl=*',
           '/_serverless/',
           '/_partials/',
           '/_api/',

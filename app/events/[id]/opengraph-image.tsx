@@ -142,8 +142,10 @@ export default async function OpenGraphImage({ params }: { params: { id: string 
       </div>
     ),
     {
-      ...size
+      ...size,
+      headers: {
+        'X-Robots-Tag': 'noindex, nofollow, noimageindex'
+      }
     }
   )
 }
-

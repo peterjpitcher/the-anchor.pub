@@ -432,6 +432,41 @@
     "permanent": true
   },
   {
+    "source": "/events/drag-shows",
+    "destination": "/whats-on",
+    "permanent": true
+  },
+  {
+    "source": "/events/twisted-fairytale-",
+    "destination": "/whats-on",
+    "permanent": true
+  },
+  {
+    "source": "/events/bingo-night",
+    "destination": "/cash-bingo",
+    "permanent": true
+  },
+  {
+    "source": "/events/bingo-2026-02-18",
+    "destination": "/cash-bingo",
+    "permanent": true
+  },
+  {
+    "source": "/events/quiz-night",
+    "destination": "/quiz-night",
+    "permanent": true
+  },
+  {
+    "source": "/events/quiz-night-pub-pursuit-2025-09-03",
+    "destination": "/quiz-night",
+    "permanent": true
+  },
+  {
+    "source": "/events/karaoke",
+    "destination": "/karaoke",
+    "permanent": true
+  },
+  {
     "source": "/events/:id/book",
     "destination": "/events/:id",
     "permanent": true

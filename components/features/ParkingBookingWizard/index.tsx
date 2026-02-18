@@ -678,7 +678,28 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
 
       <noscript>
         <div className="mt-6 rounded-md border border-yellow-300 bg-yellow-50 p-4 text-sm text-yellow-900">
-          JavaScript is required for the interactive booking experience. Please call us on 01753 682707 and we will secure your parking manually.
+          <p className="font-semibold">Need to book without JavaScript?</p>
+          <p className="mt-1">
+            Call us on 01753 682707, WhatsApp us, or email parking@the-anchor.pub with your arrival time,
+            departure time, registration and phone number.
+          </p>
+          <div className="mt-3 flex flex-wrap gap-3">
+            <a className="font-semibold underline" href="tel:+441753682707">
+              Call 01753 682707
+            </a>
+            <a
+              className="font-semibold underline"
+              href="https://wa.me/441753682707?text=Hi%20Anchor%20Team%2C%20I%20need%20to%20book%20parking%20without%20the%20online%20form."
+            >
+              WhatsApp booking help
+            </a>
+            <a
+              className="font-semibold underline"
+              href="mailto:parking@the-anchor.pub?subject=Parking%20Booking%20Request&body=Arrival%20date%20and%20time%3A%0ADeparture%20date%20and%20time%3A%0AVehicle%20registration%3A%0AMobile%20number%3A"
+            >
+              Email booking request
+            </a>
+          </div>
         </div>
       </noscript>
     </div>
