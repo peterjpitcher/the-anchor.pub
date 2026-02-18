@@ -1,5 +1,6 @@
 import { AvailabilityData, DayAvailability, TimeSlot, SundayLunchOverride } from '@/components/features/BookingWizard/types'
 import { getEffectiveDayHours, isKitchenClosed, isVenueClosed } from '@/lib/hours-utils'
+import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 
 // Cache availability data for 5 minutes
 const CACHE_DURATION = 5 * 60 * 1000
@@ -88,8 +89,12 @@ export async function getAvailabilityForNext30Days(): Promise<AvailabilityData> 
 
   if (!skipExternal) {
     try {
+      const managementApiBaseUrl = getManagementApiBaseUrl()
+      const businessHoursUrl = process.env.ANCHOR_API_KEY
+        ? `${managementApiBaseUrl}/business/hours`
+        : 'http://localhost:3000/api/business/hours'
       const businessHoursResponse = await fetch(
-        `${process.env.ANCHOR_API_KEY ? 'https://management.orangejelly.co.uk/api' : 'http://localhost:3000/api'}/business/hours`,
+        businessHoursUrl,
         {
           headers: {
             'X-API-Key': process.env.ANCHOR_API_KEY || ''

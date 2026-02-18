@@ -31,7 +31,14 @@ export async function GET(
     })
   } catch (error: any) {
     logError('api/table-bookings/[reference]', error, { reference })
-    
+
+    if (error.status === 501 || error.code === 'NOT_SUPPORTED') {
+      return createApiErrorResponse(
+        'Online booking lookup is currently unavailable. Please call us at 01753 682707 and we will help you.',
+        501
+      )
+    }
+
     if (error.status === 404 || error.code === 'NOT_FOUND') {
          return createApiErrorResponse('Booking not found. Please check your reference number.', 404)
     }
@@ -87,7 +94,14 @@ export async function DELETE(
     })
   } catch (error: any) {
     logError('api/table-bookings/[reference]/cancel', error, { reference })
-    
+
+    if (error.status === 501 || error.code === 'NOT_SUPPORTED') {
+      return createApiErrorResponse(
+        'Online cancellation is currently unavailable. Please call us at 01753 682707 and we will cancel it for you.',
+        501
+      )
+    }
+
     if (error.status === 404 || error.code === 'NOT_FOUND') {
         return createApiErrorResponse(
           'Booking not found. It may have already been cancelled.',

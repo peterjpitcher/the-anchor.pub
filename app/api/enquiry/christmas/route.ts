@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 
 const DEFAULT_TO = 'manager@the-anchor.pub'
 const GRAPH_SCOPE = 'https://graph.microsoft.com/.default'
@@ -176,13 +177,13 @@ export async function POST(request: Request) {
     })
 
     // Forward to Management App
-    const managementUrl = 'https://management.orangejelly.co.uk'
+    const managementApiBaseUrl = getManagementApiBaseUrl()
     const managementKey = process.env.ANCHOR_API_KEY
 
     if (managementKey) {
       try {
-        const cleanUrl = managementUrl.replace(/\/$/, '')
-        const mgmtResponse = await fetch(`${cleanUrl}/api/external/create-booking`, {
+        const cleanUrl = managementApiBaseUrl.replace(/\/$/, '')
+        const mgmtResponse = await fetch(`${cleanUrl}/external/create-booking`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

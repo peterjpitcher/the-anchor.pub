@@ -712,6 +712,22 @@ export interface TableBookingResponse {
   booking_reference: string
   status: 'confirmed' | 'pending' | 'cancelled' | 'pending_payment'
   customer_id?: string
+  state?: 'confirmed' | 'pending_card_capture' | 'blocked'
+  table_booking_id?: string | null
+  reason?: string | null
+  blocked_reason?:
+    | 'outside_hours'
+    | 'cut_off'
+    | 'no_table'
+    | 'private_booking_blocked'
+    | 'too_large_party'
+    | 'customer_conflict'
+    | 'in_past'
+    | 'blocked'
+    | null
+  next_step_url?: string | null
+  hold_expires_at?: string | null
+  table_name?: string | null
   // New API format uses confirmation_details instead of booking_details
   confirmation_details?: {
     date: string
@@ -743,6 +759,40 @@ export interface TableBookingResponse {
     expires_at: string
   }
   cancellation_policy?: string
+}
+
+type ManagementTableBookingPayload = {
+  phone: string
+  first_name?: string
+  last_name?: string
+  email?: string
+  date: string
+  time: string
+  party_size: number
+  purpose: 'food' | 'drinks'
+  notes?: string
+  sunday_lunch?: boolean
+  default_country_code?: string
+}
+
+type ManagementTableBookingResult = {
+  state: 'confirmed' | 'pending_card_capture' | 'blocked'
+  table_booking_id: string | null
+  booking_reference: string | null
+  reason: string | null
+  blocked_reason:
+    | 'outside_hours'
+    | 'cut_off'
+    | 'no_table'
+    | 'private_booking_blocked'
+    | 'too_large_party'
+    | 'customer_conflict'
+    | 'in_past'
+    | 'blocked'
+    | null
+  next_step_url: string | null
+  hold_expires_at: string | null
+  table_name: string | null
 }
 
 // Parking Booking Types
@@ -1106,17 +1156,6 @@ function createFallbackEventsResponse(): EventsResponse {
   }
 }
 
-function createFallbackAvailability(eventId: string): EventAvailability {
-  return {
-    available: true,
-    event_id: eventId,
-    capacity: 120,
-    booked: 60,
-    remaining: 60,
-    percentage_full: 50
-  }
-}
-
 export class AnchorAPI {
   private baseURL: string
   private apiKey: string
@@ -1129,6 +1168,593 @@ export class AnchorAPI {
     if (!this.apiKey && typeof window === 'undefined') {
       console.warn('ANCHOR_API_KEY is not set. API calls will fail.')
     }
+  }
+
+  private resolveSiteOrigin(): string | null {
+    if (typeof window !== 'undefined') {
+      return window.location.origin
+    }
+
+    if (process.env.NEXT_PUBLIC_SITE_URL) {
+      return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/+$/, '')
+    }
+
+    if (process.env.VERCEL_URL) {
+      return `https://${process.env.VERCEL_URL}`.replace(/\/+$/, '')
+    }
+
+    if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
+      return 'http://localhost:3000'
+    }
+
+    return null
+  }
+
+  private asTrimmedString(value: unknown): string | undefined {
+    if (typeof value !== 'string') return undefined
+    const trimmed = value.trim()
+    return trimmed.length > 0 ? trimmed : undefined
+  }
+
+  private asPositiveInt(value: unknown): number | undefined {
+    if (typeof value === 'number' && Number.isFinite(value)) {
+      const rounded = Math.floor(value)
+      return rounded > 0 ? rounded : undefined
+    }
+
+    if (typeof value === 'string' && value.trim().length > 0) {
+      const parsed = Number.parseInt(value.trim(), 10)
+      if (Number.isFinite(parsed) && parsed > 0) return parsed
+    }
+
+    return undefined
+  }
+
+  private toStringList(value: unknown): string[] {
+    if (Array.isArray(value)) {
+      return value
+        .map((entry) => this.asTrimmedString(entry))
+        .filter((entry): entry is string => Boolean(entry))
+    }
+
+    const single = this.asTrimmedString(value)
+    return single ? [single] : []
+  }
+
+  private summarizeMenuSelections(menuSelections: TableBookingRequest['menu_selections']): string | undefined {
+    if (!Array.isArray(menuSelections) || menuSelections.length === 0) {
+      return undefined
+    }
+
+    const summary = menuSelections
+      .slice(0, 12)
+      .map((item) => {
+        const guest = this.asTrimmedString(item?.guest_name) || 'Guest'
+        const dish = this.asTrimmedString(item?.custom_item_name) || this.asTrimmedString((item as any)?.item_name)
+        const quantity = this.asPositiveInt(item?.quantity) || 1
+        if (!dish) return null
+        return `${guest}: ${dish} x${quantity}`
+      })
+      .filter((entry): entry is string => Boolean(entry))
+      .join(' | ')
+
+    return summary ? `Sunday lunch pre-order: ${summary}` : undefined
+  }
+
+  private buildLegacyTableBookingNotes(data: TableBookingRequest): string | undefined {
+    const lines: string[] = []
+
+    const specialRequirements = this.asTrimmedString(data.special_requirements)
+    if (specialRequirements) {
+      lines.push(`Special requirements: ${specialRequirements}`)
+    }
+
+    const occasion = this.asTrimmedString(data.celebration_type) || this.asTrimmedString((data as any).occasion)
+    if (occasion) {
+      lines.push(`Occasion: ${occasion}`)
+    }
+
+    const dietaryRequirements = this.toStringList(data.dietary_requirements)
+    if (dietaryRequirements.length > 0) {
+      lines.push(`Dietary requirements: ${dietaryRequirements.join(', ')}`)
+    }
+
+    const allergies = this.toStringList(data.allergies)
+    if (allergies.length > 0) {
+      lines.push(`Allergies: ${allergies.join(', ')}`)
+    }
+
+    const menuSummary = this.summarizeMenuSelections(data.menu_selections)
+    if (menuSummary) {
+      lines.push(menuSummary)
+    }
+
+    if (lines.length === 0) return undefined
+
+    const notes = lines.join('\n')
+    return notes.length <= 500 ? notes : `${notes.slice(0, 497)}...`
+  }
+
+  private toManagementTableBookingPayload(data: TableBookingRequest): ManagementTableBookingPayload {
+    const customer = data.customer || ({} as TableBookingRequest['customer'])
+    const phone = this.asTrimmedString(customer.mobile_number) || this.asTrimmedString((data as any).customer_phone)
+
+    if (!phone) {
+      throw {
+        code: 'VALIDATION_ERROR',
+        message: 'Customer mobile number is required',
+        status: 400
+      }
+    }
+
+    const firstName = this.asTrimmedString(customer.first_name) || this.asTrimmedString((data as any).customer_first_name)
+    const lastName = this.asTrimmedString(customer.last_name) || this.asTrimmedString((data as any).customer_last_name)
+    const email = this.asTrimmedString(customer.email)
+    const purpose = (data as any).purpose === 'drinks' ? 'drinks' : 'food'
+    const notes = this.buildLegacyTableBookingNotes(data)
+    const defaultCountryCode = this.asTrimmedString((data as any).default_country_code)
+
+    return {
+      phone,
+      ...(firstName ? { first_name: firstName } : {}),
+      ...(lastName ? { last_name: lastName } : {}),
+      ...(email ? { email } : {}),
+      date: data.date,
+      time: data.time,
+      party_size: data.party_size,
+      purpose,
+      ...(notes ? { notes } : {}),
+      ...(data.booking_type === 'sunday_lunch' ? { sunday_lunch: true } : {}),
+      ...(defaultCountryCode ? { default_country_code: defaultCountryCode } : {})
+    }
+  }
+
+  private isManagementTableBookingResult(input: unknown): input is ManagementTableBookingResult {
+    if (!input || typeof input !== 'object') return false
+    const source = input as Record<string, unknown>
+    return (
+      typeof source.state === 'string' &&
+      (source.state === 'confirmed' || source.state === 'pending_card_capture' || source.state === 'blocked') &&
+      ('booking_reference' in source || 'table_booking_id' in source)
+    )
+  }
+
+  private mapBlockedTableBookingMessage(result: ManagementTableBookingResult): string {
+    const blockedReason = result.blocked_reason || 'blocked'
+
+    switch (blockedReason) {
+      case 'outside_hours':
+        return 'That time is outside our booking hours. Please choose another time or call us.'
+      case 'cut_off':
+        return 'Online bookings for that slot are now closed. Please call us and we will try to help.'
+      case 'no_table':
+        return 'No table is currently available for that request.'
+      case 'private_booking_blocked':
+        return 'This slot is unavailable due to a private booking.'
+      case 'too_large_party':
+        return 'For larger groups, please call us so we can arrange your booking.'
+      case 'customer_conflict':
+        return 'A nearby booking already exists for this customer. Please call us if you need help.'
+      case 'in_past':
+        return 'That booking time is in the past. Please select a future date and time.'
+      default:
+        return result.reason || 'This booking request is currently unavailable.'
+    }
+  }
+
+  private mapManagementTableBookingResponse(
+    result: ManagementTableBookingResult,
+    originalRequest: TableBookingRequest
+  ): TableBookingResponse {
+    if (result.state === 'blocked') {
+      throw {
+        code: 'BOOKING_BLOCKED',
+        message: this.mapBlockedTableBookingMessage(result),
+        status: 409,
+        details: result
+      }
+    }
+
+    const bookingId = result.table_booking_id || result.booking_reference || `tbl_${Date.now()}`
+    const bookingReference = result.booking_reference || result.table_booking_id || bookingId
+    const pendingCardCapture = result.state === 'pending_card_capture'
+    const duration =
+      typeof originalRequest.duration_minutes === 'number'
+        ? originalRequest.duration_minutes
+        : 120
+
+    return {
+      booking_id: bookingId,
+      booking_reference: bookingReference,
+      status: pendingCardCapture ? 'pending_payment' : 'confirmed',
+      state: result.state,
+      table_booking_id: result.table_booking_id,
+      reason: result.reason,
+      blocked_reason: result.blocked_reason,
+      next_step_url: result.next_step_url,
+      hold_expires_at: result.hold_expires_at,
+      table_name: result.table_name,
+      confirmation_details: {
+        date: originalRequest.date,
+        time: originalRequest.time,
+        party_size: originalRequest.party_size,
+        duration_minutes: duration,
+        special_requirements: originalRequest.special_requirements,
+        occasion: originalRequest.celebration_type || (originalRequest as any).occasion
+      },
+      confirmation_sent: true,
+      payment_required: pendingCardCapture,
+      payment_details: pendingCardCapture && result.next_step_url
+        ? {
+            amount: 0,
+            deposit_amount: 0,
+            total_amount: 0,
+            outstanding_amount: 0,
+            currency: 'GBP',
+            payment_url: result.next_step_url,
+            expires_at: result.hold_expires_at || new Date(Date.now() + 15 * 60 * 1000).toISOString()
+          }
+        : undefined
+    }
+  }
+
+  private unwrapSuccessData<T>(payload: unknown): T | null {
+    if (!payload || typeof payload !== 'object') return null
+    const source = payload as Record<string, unknown>
+
+    if (source.success === true && source.data) {
+      return source.data as T
+    }
+
+    if (source.success === false) {
+      return null
+    }
+
+    return source as T
+  }
+
+  private getLondonIsoDate(): string {
+    try {
+      const formatter = new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'Europe/London',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      })
+
+      const parts = formatter.formatToParts(new Date())
+      const map = Object.fromEntries(parts.map((part) => [part.type, part.value]))
+      if (map.year && map.month && map.day) {
+        return `${map.year}-${map.month}-${map.day}`
+      }
+    } catch {
+      // Fall through to UTC format
+    }
+
+    return new Date().toISOString().slice(0, 10)
+  }
+
+  private mapSundayLunchMenuFromMenu(menu: MenuResponse, menuDate: string): SundayLunchMenuResponse | null {
+    const sections = Array.isArray(menu?.sections) ? menu.sections : []
+    if (sections.length === 0) return null
+
+    const sundaySections = sections.filter((section) =>
+      /sunday|roast/i.test(section.name || '')
+    )
+
+    if (sundaySections.length === 0) return null
+
+    const mapItem = (item: MenuSectionItem): SundayLunchMenuItem => ({
+      id: item.id,
+      name: item.name,
+      description: item.description || undefined,
+      price: Number(item.price || 0),
+      dietary_info: item.dietary_info || [],
+      allergens: item.allergens || [],
+      is_available: item.is_available !== false
+    })
+
+    const toUniqueItems = (items: MenuSectionItem[]) => {
+      const seen = new Set<string>()
+      const mapped: SundayLunchMenuItem[] = []
+
+      for (const item of items) {
+        if (!item || typeof item.id !== 'string') continue
+        if (seen.has(item.id)) continue
+        seen.add(item.id)
+        mapped.push(mapItem(item))
+      }
+
+      return mapped
+    }
+
+    const mainSections = sundaySections.filter((section) => /main|roast/i.test(section.name || ''))
+    const sideSections = sundaySections.filter((section) => /side|extra|add[- ]?on|trimming/i.test(section.name || ''))
+
+    const allSundayItems = sundaySections.flatMap((section) =>
+      Array.isArray(section.items) ? section.items : []
+    )
+    const mainItems =
+      mainSections.length > 0
+        ? toUniqueItems(mainSections.flatMap((section) => section.items || []))
+        : toUniqueItems(allSundayItems)
+
+    if (mainItems.length === 0) {
+      return null
+    }
+
+    const sideItems = toUniqueItems(sideSections.flatMap((section) => section.items || []))
+
+    return {
+      menu_date: menuDate,
+      mains: mainItems,
+      sides: sideItems,
+      cutoff_time: FALLBACK_SUNDAY_LUNCH_MENU.cutoff_time
+    }
+  }
+
+  private buildTableAvailabilityFromBusinessHours(
+    businessHours: BusinessHours,
+    params: {
+      date: string
+      time: string
+      party_size: number
+      booking_type?: 'regular' | 'sunday_lunch'
+    }
+  ): TableAvailabilityResponse {
+    const bookingType = params.booking_type === 'sunday_lunch' ? 'sunday_lunch' : 'regular'
+    const normalizeClock = (value: string): string => {
+      if (/^\d{2}:\d{2}$/.test(value)) return value
+      if (/^\d{2}:\d{2}:\d{2}$/.test(value)) return value.slice(0, 5)
+      return value
+    }
+    const isValidClock = (value: string): boolean => /^([01]\d|2[0-3]):[0-5]\d$/.test(value)
+    const toMinutes = (value: string): number => {
+      const normalized = normalizeClock(value)
+      const [hours, minutes] = normalized.split(':')
+      return (Number.parseInt(hours || '0', 10) * 60) + Number.parseInt(minutes || '0', 10)
+    }
+    const toClock = (totalMinutes: number): string => {
+      const normalized = ((totalMinutes % 1440) + 1440) % 1440
+      const hours = Math.floor(normalized / 60)
+      const minutes = normalized % 60
+      return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`
+    }
+    const londonNowParts = (): { isoDate: string; minutes: number } => {
+      const formatter = new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'Europe/London',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      })
+      const parts = formatter.formatToParts(new Date())
+      const map = Object.fromEntries(parts.map((part) => [part.type, part.value]))
+      return {
+        isoDate: `${map.year}-${map.month}-${map.day}`,
+        minutes: (Number.parseInt(map.hour || '0', 10) * 60) + Number.parseInt(map.minute || '0', 10)
+      }
+    }
+
+    const [yearRaw, monthRaw, dayRaw] = params.date.split('-')
+    const year = Number.parseInt(yearRaw || '', 10)
+    const month = Number.parseInt(monthRaw || '', 10)
+    const day = Number.parseInt(dayRaw || '', 10)
+    const dayKey = Number.isFinite(year) && Number.isFinite(month) && Number.isFinite(day)
+      ? new Date(Date.UTC(year, month - 1, day))
+          .toLocaleDateString('en-GB', { weekday: 'long', timeZone: 'UTC' })
+          .toLowerCase()
+      : 'monday'
+
+    const regularDay = (businessHours.regularHours?.[dayKey] || null) as Record<string, unknown> | null
+    const specialDay = ((businessHours.specialHours || []) as Array<Record<string, unknown>>).find(
+      (entry) => entry?.date === params.date
+    ) || null
+
+    const isClosed =
+      specialDay?.status === 'closed' ||
+      specialDay?.is_closed === true ||
+      (specialDay && specialDay.opens === null && specialDay.closes === null) ||
+      regularDay?.is_closed === true
+
+    if (isClosed) {
+      return {
+        date: params.date,
+        time: normalizeClock(params.time),
+        party_size: params.party_size,
+        available: false,
+        time_slots: [],
+        message: 'We are closed on that date. Please choose another day.'
+      }
+    }
+
+    const parseScheduleConfig = (value: unknown): Array<{ startsAt: string; endsAt: string; bookingType?: string; capacity: number }> => {
+      if (!Array.isArray(value)) return []
+      const entries: Array<{ startsAt: string; endsAt: string; bookingType?: string; capacity: number }> = []
+
+      for (const entry of value) {
+        if (!entry || typeof entry !== 'object') continue
+
+        const source = entry as Record<string, unknown>
+        const startsAt = normalizeClock(String(source.starts_at || ''))
+        const endsAt = normalizeClock(String(source.ends_at || ''))
+        if (!isValidClock(startsAt) || !isValidClock(endsAt) || toMinutes(endsAt) <= toMinutes(startsAt)) {
+          continue
+        }
+
+        const rawCapacity = source.capacity
+        const parsedCapacity =
+          typeof rawCapacity === 'number'
+            ? Math.floor(rawCapacity)
+            : typeof rawCapacity === 'string'
+            ? Number.parseInt(rawCapacity, 10)
+            : 50
+
+        entries.push({
+          startsAt,
+          endsAt,
+          bookingType: this.asTrimmedString(source.booking_type),
+          capacity: Number.isFinite(parsedCapacity) && parsedCapacity > 0 ? parsedCapacity : 50
+        })
+      }
+
+      return entries
+    }
+
+    const scheduleConfig = parseScheduleConfig(
+      (specialDay?.schedule_config as unknown) ?? (regularDay?.schedule_config as unknown)
+    )
+    const typedSchedule = scheduleConfig.filter((entry) => entry.bookingType === bookingType)
+    const fallbackSchedule = bookingType === 'regular' && typedSchedule.length === 0
+      ? scheduleConfig
+      : typedSchedule
+
+    const ranges = fallbackSchedule.map((entry) => ({
+      startsAt: entry.startsAt,
+      endsAt: entry.endsAt,
+      capacity: entry.capacity
+    }))
+
+    if (ranges.length === 0) {
+      const kitchen = ((specialDay?.kitchen as any) || (regularDay?.kitchen as any) || null) as Record<string, unknown> | null
+      const kitchenOpens = typeof kitchen?.opens === 'string' ? normalizeClock(kitchen.opens) : null
+      const kitchenCloses = typeof kitchen?.closes === 'string' ? normalizeClock(kitchen.closes) : null
+
+      if (bookingType === 'sunday_lunch') {
+        if (!kitchenOpens || !kitchenCloses || !isValidClock(kitchenOpens) || !isValidClock(kitchenCloses)) {
+          return {
+            date: params.date,
+            time: normalizeClock(params.time),
+            party_size: params.party_size,
+            available: false,
+            time_slots: [],
+            message: 'Sunday lunch is unavailable for that date. Please choose another date or call us.'
+          }
+        }
+
+        ranges.push({
+          startsAt: kitchenOpens,
+          endsAt: kitchenCloses,
+          capacity: 50
+        })
+      } else {
+        const venueOpens = normalizeClock(String(specialDay?.opens || regularDay?.opens || kitchenOpens || '12:00'))
+        const venueCloses = normalizeClock(String(specialDay?.closes || regularDay?.closes || kitchenCloses || '22:00'))
+        if (!isValidClock(venueOpens) || !isValidClock(venueCloses) || toMinutes(venueCloses) <= toMinutes(venueOpens)) {
+          return {
+            date: params.date,
+            time: normalizeClock(params.time),
+            party_size: params.party_size,
+            available: false,
+            time_slots: [],
+            message: 'We could not determine available times for that date.'
+          }
+        }
+
+        ranges.push({
+          startsAt: venueOpens,
+          endsAt: venueCloses,
+          capacity: 50
+        })
+      }
+    }
+
+    const londonNow = londonNowParts()
+    const minMinutesForToday =
+      londonNow.isoDate === params.date
+        ? Math.ceil((londonNow.minutes + 60) / 30) * 30
+        : undefined
+
+    const slots = new Map<string, TableAvailabilitySlot>()
+    for (const range of ranges) {
+      const start = toMinutes(range.startsAt)
+      const end = toMinutes(range.endsAt)
+      if (!Number.isFinite(start) || !Number.isFinite(end) || end <= start) continue
+
+      for (let cursor = start; cursor < end; cursor += 30) {
+        if (typeof minMinutesForToday === 'number' && cursor < minMinutesForToday) {
+          continue
+        }
+
+        const slotTime = toClock(cursor)
+        const availableCapacity = Math.max(range.capacity, 0)
+        const isAvailable = availableCapacity >= params.party_size
+        const existing = slots.get(slotTime)
+
+        if (!existing) {
+          slots.set(slotTime, {
+            time: slotTime,
+            available: isAvailable,
+            available_capacity: availableCapacity,
+            reason: isAvailable ? undefined : 'party_too_large'
+          })
+          continue
+        }
+
+        const mergedCapacity = Math.max(existing.available_capacity || 0, availableCapacity)
+        const mergedAvailable = mergedCapacity >= params.party_size
+        slots.set(slotTime, {
+          ...existing,
+          available_capacity: mergedCapacity,
+          available: mergedAvailable,
+          reason: mergedAvailable ? undefined : existing.reason || 'party_too_large'
+        })
+      }
+    }
+
+    const timeSlots = Array.from(slots.values()).sort((a, b) => toMinutes(a.time) - toMinutes(b.time))
+    const available = timeSlots.some((slot) => slot.available === true || (slot.available_capacity || 0) >= params.party_size)
+
+    return {
+      date: params.date,
+      time: normalizeClock(params.time),
+      party_size: params.party_size,
+      available,
+      time_slots: timeSlots,
+      message: available
+        ? 'These times are based on current service windows and will be confirmed instantly when you continue.'
+        : 'No online times are currently available for this request. Please choose an alternative or join the waitlist.',
+      special_notes:
+        'If your preferred time is unavailable, choose a nearby slot or call 01753 682707 to join the waitlist.'
+    }
+  }
+
+  private async fetchInternalTableAvailability(query: URLSearchParams): Promise<TableAvailabilityResponse | null> {
+    const origin = this.resolveSiteOrigin()
+    if (!origin) return null
+
+    const response = await fetch(`${origin}/api/table-bookings/availability?${query.toString()}`, {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      cache: 'no-store'
+    })
+
+    const payload = await response.json().catch(() => null)
+    if (!response.ok) {
+      const message =
+        (payload && typeof payload === 'object' && 'error' in payload && typeof payload.error === 'string')
+          ? payload.error
+          : `Failed to check table availability (${response.status})`
+      throw {
+        code: 'TABLE_AVAILABILITY_ERROR',
+        message,
+        status: response.status
+      }
+    }
+
+    const unwrapped = this.unwrapSuccessData<TableAvailabilityResponse>(payload)
+    if (unwrapped && Array.isArray(unwrapped.time_slots)) {
+      return unwrapped
+    }
+
+    if (payload && typeof payload === 'object' && Array.isArray((payload as TableAvailabilityResponse).time_slots)) {
+      return payload as TableAvailabilityResponse
+    }
+
+    return null
   }
 
   private async request<T>(
@@ -1347,26 +1973,6 @@ export class AnchorAPI {
       365      // include events from the past year as a last resort
     ]
 
-    const resolveSiteOrigin = (): string | null => {
-      if (typeof window !== 'undefined') {
-        return window.location.origin
-      }
-
-      if (process.env.NEXT_PUBLIC_SITE_URL) {
-        return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/+$/, '')
-      }
-
-      if (process.env.VERCEL_URL) {
-        return `https://${process.env.VERCEL_URL}`.replace(/\/+$/, '')
-      }
-
-      if (process.env.NODE_ENV === 'development') {
-        return 'http://localhost:3000'
-      }
-
-      return null
-    }
-
     const fetchOptions = (requestHeaders: Record<string, string>) => {
       const options: RequestInit & { next?: { revalidate: number } } = {
         headers: requestHeaders
@@ -1470,7 +2076,7 @@ export class AnchorAPI {
       } catch (primaryError) {
         // If we're on the server, fall back to the public API endpoint
         if (typeof window === 'undefined') {
-          const origin = resolveSiteOrigin()
+          const origin = this.resolveSiteOrigin()
           if (origin) {
             try {
               return await fetchEventsFromBase(
@@ -1544,15 +2150,42 @@ export class AnchorAPI {
 
   // Event availability
   async checkEventAvailability(eventId: string, seats: number = 1): Promise<EventAvailability> {
-    // Use different endpoint for client vs server
-    const endpoint = typeof window === 'undefined'
-      ? `/events/${eventId}/check-availability`  // Server: external API endpoint
-      : `/events/${eventId}/availability`        // Client: internal API route
+    const requestedSeats = Number.isFinite(seats) && seats > 0 ? Math.floor(seats) : 1
 
-    return this.request<EventAvailability>(endpoint, {
-      method: 'POST',
-      body: JSON.stringify({ seats })
-    })
+    if (typeof window !== 'undefined') {
+      return this.request<EventAvailability>(`/events/${eventId}/availability`, {
+        method: 'POST',
+        body: JSON.stringify({ seats: requestedSeats })
+      })
+    }
+
+    const event = await this.getEvent(eventId)
+    const maxCapacity =
+      typeof event.maximumAttendeeCapacity === 'number' && Number.isFinite(event.maximumAttendeeCapacity)
+        ? Math.max(Math.floor(event.maximumAttendeeCapacity), 0)
+        : typeof event.capacity === 'number' && Number.isFinite(event.capacity)
+        ? Math.max(Math.floor(event.capacity), 0)
+        : 0
+    const remainingRaw =
+      typeof event.remainingAttendeeCapacity === 'number' && Number.isFinite(event.remainingAttendeeCapacity)
+        ? event.remainingAttendeeCapacity
+        : typeof event.seats_remaining === 'number' && Number.isFinite(event.seats_remaining)
+        ? event.seats_remaining
+        : event.is_full === true
+        ? 0
+        : maxCapacity
+    const remaining = Math.max(Math.floor(remainingRaw), 0)
+    const capacity = Math.max(maxCapacity, remaining)
+    const booked = Math.max(capacity - remaining, 0)
+
+    return {
+      available: remaining >= requestedSeats,
+      event_id: event.id || eventId,
+      capacity,
+      booked,
+      remaining,
+      percentage_full: capacity > 0 ? Math.round((booked / capacity) * 100) : 0
+    }
   }
 
   // Menu
@@ -1566,7 +2199,7 @@ export class AnchorAPI {
     return this.request('/menu/specials')
   }
 
-  async getDietaryMenu(type: 'vegetarian' | 'vegan' | 'gluten-free' | 'dairy-free' | 'nut-free'): Promise<DietaryMenuResponse> {
+  async getDietaryMenu(type: 'vegetarian' | 'vegan' | 'gluten-free' | 'halal' | 'kosher'): Promise<DietaryMenuResponse> {
     return this.request<DietaryMenuResponse>(`/menu/dietary/${type}`)
   }
 
@@ -1578,23 +2211,49 @@ export class AnchorAPI {
     duration?: number
     booking_type?: 'regular' | 'sunday_lunch'
   }): Promise<TableAvailabilityResponse> {
+    const normalizedTime = /^\d{2}:\d{2}:\d{2}$/.test(params.time)
+      ? params.time.slice(0, 5)
+      : params.time
     const query = new URLSearchParams({
       date: params.date,
-      time: params.time,
+      time: normalizedTime,
       party_size: params.party_size.toString(),
       ...(params.duration && { duration: params.duration.toString() }),
       ...(params.booking_type && { booking_type: params.booking_type })
     })
 
-    return this.request<TableAvailabilityResponse>(`/table-bookings/availability?${query}`, {
-      next: { revalidate: 0 }
-    } as any)
+    if (typeof window !== 'undefined') {
+      return this.request<TableAvailabilityResponse>(`/table-bookings/availability?${query}`, {
+        next: { revalidate: 0 }
+      } as any)
+    }
+
+    try {
+      const internalAvailability = await this.fetchInternalTableAvailability(query)
+      if (internalAvailability) {
+        return internalAvailability
+      }
+    } catch (error) {
+      logError('api-table-availability-internal', error, {
+        date: params.date,
+        time: normalizedTime,
+        partySize: params.party_size,
+        bookingType: params.booking_type || 'regular'
+      })
+    }
+
+    const businessHours = await this.getBusinessHours()
+    return this.buildTableAvailabilityFromBusinessHours(businessHours, {
+      ...params,
+      time: normalizedTime
+    })
   }
 
   async createTableBooking(
     data: TableBookingRequest,
     idempotencyKey?: string
   ): Promise<TableBookingResponse> {
+    const payload = this.toManagementTableBookingPayload(data)
     const endpoint =
       typeof window === 'undefined'
         ? '/table-bookings'
@@ -1610,13 +2269,32 @@ export class AnchorAPI {
       'Idempotency-Key': key
     }
 
-    const response = await this.request<TableBookingResponse>(endpoint, {
+    const rawResponse = await this.request<unknown>(endpoint, {
       method: 'POST',
-      body: JSON.stringify(data),
+      body: JSON.stringify(payload),
       headers,
     })
 
-    return response
+    const unwrapped = this.unwrapSuccessData<unknown>(rawResponse) ?? rawResponse
+    if (this.isManagementTableBookingResult(unwrapped)) {
+      return this.mapManagementTableBookingResponse(unwrapped, data)
+    }
+
+    if (
+      unwrapped &&
+      typeof unwrapped === 'object' &&
+      typeof (unwrapped as TableBookingResponse).booking_reference === 'string' &&
+      typeof (unwrapped as TableBookingResponse).status === 'string'
+    ) {
+      return unwrapped as TableBookingResponse
+    }
+
+    throw {
+      code: 'INVALID_RESPONSE',
+      message: 'Invalid table booking response from API',
+      status: 502,
+      details: unwrapped
+    }
   }
 
   async getTableBooking(
@@ -1627,32 +2305,29 @@ export class AnchorAPI {
       throw new Error('Customer email is required to retrieve booking details')
     }
 
-    let endpoint = `/table-bookings/${encodeURIComponent(reference)}`
-    const headers: Record<string, string> = {}
-
-    if (customerEmail) {
-      headers['X-Customer-Email'] = customerEmail
-      if (typeof window !== 'undefined') {
-        const url = new URLSearchParams({ customer_email: customerEmail })
-        endpoint = `${endpoint}?${url.toString()}`
+    throw {
+      code: 'NOT_SUPPORTED',
+      message: 'Booking lookup by reference is not available in the current management API.',
+      status: 501,
+      details: {
+        reference: reference || null
       }
     }
-
-    return this.request<TableBookingResponse>(endpoint, { headers })
   }
 
   async cancelTableBooking(
     reference: string,
     options?: { reason?: string; customerEmail?: string }
   ): Promise<{ success: boolean; message: string }> {
-    const payload: Record<string, string> = {}
-    if (options?.reason) payload.reason = options.reason
-    if (options?.customerEmail) payload.customer_email = options.customerEmail
-
-    return this.request(`/table-bookings/${reference}/cancel`, {
-      method: 'POST',
-      body: JSON.stringify(payload),
-    })
+    throw {
+      code: 'NOT_SUPPORTED',
+      message: 'Booking cancellation by reference is not available in the current management API.',
+      status: 501,
+      details: {
+        reference: reference || null,
+        hasCustomerEmail: Boolean(options?.customerEmail)
+      }
+    }
   }
 
   // Parking
@@ -1695,8 +2370,43 @@ export class AnchorAPI {
   }
 
   async getSundayLunchMenu(date?: string): Promise<SundayLunchMenuResponse> {
-    const query = date ? `?date=${date}` : ''
-    return this.request<SundayLunchMenuResponse>(`/table-bookings/menu/sunday-lunch${query}`)
+    const menuDate = this.asTrimmedString(date) || this.getLondonIsoDate()
+    const query = date ? `?date=${encodeURIComponent(date)}` : ''
+
+    if (typeof window !== 'undefined') {
+      try {
+        const payload = await this.request<unknown>(`/table-bookings/menu/sunday-lunch${query}`)
+        const candidate = this.unwrapSuccessData<SundayLunchMenuResponse>(payload) || (payload as SundayLunchMenuResponse)
+        if (candidate && Array.isArray(candidate.mains) && Array.isArray(candidate.sides)) {
+          return {
+            ...candidate,
+            menu_date: candidate.menu_date || menuDate
+          }
+        }
+      } catch (error) {
+        logError('api-sunday-lunch-menu-client', error)
+      }
+
+      return {
+        ...FALLBACK_SUNDAY_LUNCH_MENU,
+        menu_date: menuDate
+      }
+    }
+
+    try {
+      const menu = await this.getMenu()
+      const mapped = this.mapSundayLunchMenuFromMenu(menu, menuDate)
+      if (mapped) {
+        return mapped
+      }
+    } catch (error) {
+      logError('api-sunday-lunch-menu-server', error, { menuDate })
+    }
+
+    return {
+      ...FALLBACK_SUNDAY_LUNCH_MENU,
+      menu_date: menuDate
+    }
   }
 
   // Business Information
@@ -1731,14 +2441,6 @@ export class AnchorAPI {
 
     if (endpoint === '/events/today') {
       return createFallbackEventsResponse()
-    }
-
-    if (endpoint.startsWith('/events/') && endpoint.endsWith('/check-availability')) {
-      const eventId = endpoint
-        .replace('/events/', '')
-        .replace('/check-availability', '')
-        .replace(/\/+$/, '') || 'event'
-      return createFallbackAvailability(eventId)
     }
 
     if (endpoint.startsWith('/events/')) {

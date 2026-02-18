@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
+import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 
-const MANAGEMENT_ORIGIN = 'https://management.orangejelly.co.uk'
+const MANAGEMENT_API_BASE_URL = getManagementApiBaseUrl()
 
 const payloadSchema = z.object({
   fullName: z.string().trim().min(1),
@@ -33,7 +34,7 @@ export async function POST(request: Request) {
     const forwardedFor = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || ''
     const userAgent = request.headers.get('user-agent') || ''
 
-    const response = await fetch(`${MANAGEMENT_ORIGIN}/api/external/performer-interest`, {
+    const response = await fetch(`${MANAGEMENT_API_BASE_URL}/external/performer-interest`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

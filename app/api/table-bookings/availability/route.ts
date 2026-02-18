@@ -304,7 +304,6 @@ export async function GET(request: Request) {
   const date = searchParams.get('date')
   const partySizeRaw = searchParams.get('party_size')
   const requestedTime = searchParams.get('time') || '19:00'
-  const duration = searchParams.get('duration')
   const bookingType =
     searchParams.get('booking_type') === 'sunday_lunch' ? 'sunday_lunch' : 'regular'
 
@@ -326,32 +325,7 @@ export async function GET(request: Request) {
 
   const partySize = parsePositiveInt(partySizeRaw, 2)
 
-  // Try live availability first if available in the management API.
-  try {
-    const liveAvailability = await anchorAPI.checkTableAvailability({
-      date,
-      time: normalizedTime,
-      party_size: partySize,
-      duration: duration ? parsePositiveInt(duration, 120) : undefined,
-      booking_type: bookingType
-    } as any)
-
-    if (liveAvailability && Array.isArray(liveAvailability.time_slots)) {
-      return NextResponse.json({
-        success: true,
-        data: liveAvailability
-      })
-    }
-  } catch (liveError) {
-    logError('api/table-bookings/availability-live', liveError, {
-      date,
-      time: normalizedTime,
-      partySize,
-      bookingType
-    })
-  }
-
-  // Fallback to schedule-based availability so the booking journey remains usable.
+  // Management API no longer exposes table availability directly; use schedule-based availability.
   try {
     const businessHours = await anchorAPI.getBusinessHours()
     const fallback = buildFallbackAvailability(businessHours, {
