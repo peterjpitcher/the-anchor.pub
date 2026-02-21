@@ -1,7 +1,22 @@
 import { NextResponse } from 'next/server'
 import { anchorAPI } from '@/lib/api'
-import type { TableBookingRequest } from '@/lib/api'
-import { getEffectiveDayHours, isKitchenClosed, normaliseUKPhone } from '@/lib/hours-utils'
+import { normaliseUKPhone } from '@/lib/hours-utils'
+import {
+  isTimeWithinRanges,
+  normalizeTime,
+  resolveServiceRanges,
+  type BookingPurpose,
+  type BookingType
+} from '@/lib/table-booking-service-windows'
+
+function jsonResponse(payload: unknown, status = 200): Response {
+  return new Response(JSON.stringify(payload), {
+    status,
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+}
 
 /**
  * Booking submission endpoint for the wizard
@@ -23,6 +38,7 @@ export async function POST(request: Request) {
         time: jsonData.time,
         partySize: jsonData.partySize,
         bookingType: jsonData.bookingType || 'regular',
+        purpose: jsonData.purpose,
         firstName: jsonData.firstName,
         lastName: jsonData.lastName,
         phone: jsonData.phone,
@@ -39,6 +55,7 @@ export async function POST(request: Request) {
         time: formData.get('time'),
         partySize: parseInt(formData.get('party_size') as string || '2'),
         bookingType: formData.get('booking_type') || 'regular',
+        purpose: formData.get('purpose'),
         firstName: formData.get('first_name'),
         lastName: formData.get('last_name'),
         phone: formData.get('phone'),
@@ -49,10 +66,10 @@ export async function POST(request: Request) {
         specialRequirements: formData.get('special_requirements')
       }
     } else {
-      return NextResponse.json({
+      return jsonResponse({
         success: false,
         error: 'Invalid content type'
-      }, { status: 400 })
+      }, 400)
     }
     
     // Validate required fields
@@ -65,57 +82,70 @@ export async function POST(request: Request) {
         )
       }
       
-      return NextResponse.json({
+      return jsonResponse({
         success: false,
         error: 'Missing required fields'
-      }, { status: 400 })
+      }, 400)
     }
     
-    // Check kitchen status from API (no hardcoded day logic)
+    const hasSundayLunchSelections =
+      bookingData.bookingType === 'sunday_lunch' &&
+      Array.isArray(bookingData.menuSelections) &&
+      bookingData.menuSelections.length > 0
+    const resolvedBookingType: BookingType = hasSundayLunchSelections ? 'sunday_lunch' : 'regular'
+    const requestedPurpose: BookingPurpose = bookingData.purpose === 'drinks' ? 'drinks' : 'food'
+    const purpose: BookingPurpose = resolvedBookingType === 'sunday_lunch' ? 'food' : requestedPurpose
+    const normalizedBookingTime = normalizeTime(String(bookingData.time))
+
+    // Enforce service windows for legacy wizard path as a defense-in-depth guard.
     try {
       const businessHours = await anchorAPI.getBusinessHours()
-      const effectiveHours = getEffectiveDayHours(
-        bookingData.date,
-        businessHours.regularHours,
-        businessHours.specialHours
-      )
-      
-      if (isKitchenClosed(effectiveHours)) {
-        return NextResponse.json({
+
+      const serviceWindow = resolveServiceRanges(businessHours, String(bookingData.date), {
+        bookingType: resolvedBookingType,
+        purpose
+      })
+
+      const canBookTime =
+        !serviceWindow.closed &&
+        serviceWindow.ranges.length > 0 &&
+        isTimeWithinRanges(normalizedBookingTime, serviceWindow.ranges)
+
+      if (!canBookTime) {
+        const message =
+          serviceWindow.message ||
+          (purpose === 'food'
+            ? 'Food bookings are only available during kitchen service hours. Please choose a different time or call us for drinks-only reservations.'
+            : 'That time is outside our drinks booking window. Please choose another time or call 01753 682707.')
+
+        return jsonResponse({
           success: false,
           error: {
-            code: 'KITCHEN_CLOSED',
-            message: 'Kitchen is closed on this date. Bar service only - please call 01753 682707 for drinks-only reservations.'
+            code: 'OUTSIDE_SERVICE_WINDOW',
+            message
           }
-        }, { status: 400 })
+        }, 400)
       }
     } catch (error) {
-      console.error('Failed to check business hours:', error)
-      // Continue with booking attempt - let API handle validation
+      console.error('Failed to check service windows:', error)
+      return jsonResponse({
+        success: false,
+        error: {
+          code: 'SERVICE_WINDOW_CHECK_FAILED',
+          message: 'We could not verify service hours right now. Please try again or call 01753 682707.'
+        }
+      }, 503)
     }
     
-    // Determine booking type and handle menu selections
-    let bookingType = 'regular'
-    let specialRequirements = bookingData.specialRequirements || ''
-    let menuSelections = undefined
-    
-    // Check if this is a Sunday booking
-    const bookingDate = new Date(bookingData.date + 'T12:00:00')
-    const isSundayBooking = bookingDate.getDay() === 0
-    
-    // Handle Sunday lunch bookings (renamed from sunday_roast)
-    if (bookingData.bookingType === 'sunday_lunch' && bookingData.menuSelections && bookingData.menuSelections.length > 0) {
-      // Use the proper API booking type for Sunday lunch with menu selections
-      bookingType = 'sunday_lunch'
-      menuSelections = bookingData.menuSelections
-    }
+    const menuSelections = hasSundayLunchSelections ? bookingData.menuSelections : undefined
     
     // Create booking request
     const bookingRequest: any = {
-      booking_type: bookingType,
+      booking_type: resolvedBookingType,
       date: bookingData.date,
       time: bookingData.time,
       party_size: bookingData.partySize,
+      purpose,
       customer: {
         first_name: bookingData.firstName,
         last_name: bookingData.lastName,
@@ -124,7 +154,7 @@ export async function POST(request: Request) {
         sms_opt_in: bookingData.marketingOptIn || false
       },
       duration_minutes: 120,
-      special_requirements: specialRequirements,
+      special_requirements: bookingData.specialRequirements || '',
       dietary_requirements: bookingData.dietaryRequirements || [],
       allergies: bookingData.allergies || [],
       celebration_type: bookingData.occasion || undefined,
@@ -145,7 +175,7 @@ export async function POST(request: Request) {
     // Check if payment is required (Sunday lunch bookings should return this from API)
     if (booking.payment_required && booking.payment_details) {
       // Return payment details for redirect
-      return NextResponse.json({
+      return jsonResponse({
         success: true,
         reference: booking.booking_reference || booking.booking_id,
         payment_required: true,
@@ -162,7 +192,7 @@ export async function POST(request: Request) {
     }
     
     // Log warning if Sunday lunch booking didn't require payment
-    if (bookingType === 'sunday_lunch' && !booking.payment_required) {
+    if (resolvedBookingType === 'sunday_lunch' && !booking.payment_required) {
       console.warn('WARNING: Sunday lunch booking did not return payment_required from API')
       console.warn('This suggests the API is not configured correctly for Sunday lunch payments')
     }
@@ -176,7 +206,7 @@ export async function POST(request: Request) {
     }
     
     // JS: Return JSON response (regular booking confirmed)
-    return NextResponse.json({
+    return jsonResponse({
       success: true,
       reference: booking.booking_reference,
       booking: {
@@ -211,11 +241,11 @@ export async function POST(request: Request) {
       console.error('🔍 Error Correlation ID:', correlationId)
     }
     
-    return NextResponse.json({
+    return jsonResponse({
       success: false,
       error: errorMessage,
       correlation_id: correlationId,
       details: errorResponse.details || error.response?.data
-    }, { status: error.response?.status || 500 })
+    }, error.response?.status || 500)
   }
 }

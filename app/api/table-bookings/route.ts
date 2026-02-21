@@ -1,8 +1,14 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextRequest } from 'next/server'
+import { anchorAPI } from '@/lib/api'
 import { createApiErrorResponse, logError } from '@/lib/error-handling'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { getSafeUpstreamErrorMessage, safeJsonParse } from '@/lib/upstream-json'
 import { getSundayLunchCutoffDate, hasSundayLunchCutoffPassed, isSundayIsoDate } from '@/lib/sunday-lunch-cutoff'
+import {
+  isTimeWithinRanges,
+  normalizeTime,
+  resolveServiceRanges
+} from '@/lib/table-booking-service-windows'
 
 const API_BASE_URL = getManagementApiBaseUrl()
 const API_KEY = process.env.ANCHOR_API_KEY
@@ -275,6 +281,18 @@ function validatePayload(payload: ManagementTableBookingPayload): string | null 
   return null
 }
 
+function buildServiceWindowError(payload: ManagementTableBookingPayload): string {
+  if (payload.sunday_lunch === true) {
+    return 'Sunday lunch is only available during the Sunday lunch service window. Please choose a listed Sunday lunch time or call 01753 682707.'
+  }
+
+  if (payload.purpose === 'food') {
+    return 'Food bookings are only available during kitchen hours. For later bookings, switch to drinks-only or call 01753 682707.'
+  }
+
+  return 'That time is outside our drinks booking window. Please choose another time or call 01753 682707.'
+}
+
 export async function POST(request: NextRequest) {
   if (!API_KEY) {
     return createApiErrorResponse('Booking service unavailable', 503)
@@ -292,6 +310,10 @@ export async function POST(request: NextRequest) {
       return createApiErrorResponse(validationError, 400)
     }
 
+    if (normalized.payload.sunday_lunch === true && normalized.payload.purpose !== 'food') {
+      return createApiErrorResponse('Sunday lunch bookings must be made as food bookings.', 400)
+    }
+
     // Enforce Sunday lunch pre-order cutoff: 1pm Saturday (London time) before the selected Sunday.
     if (normalized.payload.sunday_lunch === true) {
       if (!isSundayIsoDate(normalized.payload.date)) {
@@ -307,6 +329,39 @@ export async function POST(request: NextRequest) {
           400
         )
       }
+    }
+
+    const bookingType = normalized.payload.sunday_lunch === true ? 'sunday_lunch' : 'regular'
+    const bookingPurpose = normalized.payload.sunday_lunch === true ? 'food' : normalized.payload.purpose
+    const bookingTime = normalizeTime(normalized.payload.time)
+
+    try {
+      const businessHours = await anchorAPI.getBusinessHours()
+      const serviceWindow = resolveServiceRanges(businessHours, normalized.payload.date, {
+        bookingType,
+        purpose: bookingPurpose
+      })
+
+      const canBookTime =
+        !serviceWindow.closed &&
+        serviceWindow.ranges.length > 0 &&
+        isTimeWithinRanges(bookingTime, serviceWindow.ranges)
+
+      if (!canBookTime) {
+        return createApiErrorResponse(serviceWindow.message || buildServiceWindowError(normalized.payload), 400)
+      }
+    } catch (serviceWindowError) {
+      logError('api/table-bookings/service-window-check', serviceWindowError, {
+        date: normalized.payload.date,
+        time: bookingTime,
+        purpose: bookingPurpose,
+        bookingType
+      })
+
+      return createApiErrorResponse(
+        'We could not verify service hours right now. Please try again shortly or call 01753 682707.',
+        503
+      )
     }
 
     const idempotencyKey =
@@ -330,9 +385,10 @@ export async function POST(request: NextRequest) {
       error: getSafeUpstreamErrorMessage(rawText, 'Booking request failed')
     }
 
-    return NextResponse.json(parsed ?? fallbackPayload, {
+    return new Response(JSON.stringify(parsed ?? fallbackPayload), {
       status: upstream.status,
       headers: {
+        'Content-Type': 'application/json',
         'X-Idempotency-Key': idempotencyKey
       }
     })

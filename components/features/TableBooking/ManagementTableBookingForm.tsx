@@ -711,15 +711,26 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     }
   }, [mothersDayMode, selectedDateIsSunday, sundayLunch, purpose])
 
+  useEffect(() => {
+    if (purpose === 'drinks' && sundayLunch) {
+      setSundayLunch(false)
+    }
+  }, [purpose, sundayLunch])
+
   function getMenuItem(menuItemId: string): SundayLunchMenuItem | null {
     return sundayMenuItems.find((item) => item.id === menuItemId) || null
   }
 
-  async function fetchAvailabilityForDate(targetDate: string, targetTime: string): Promise<AvailabilityData> {
+  async function fetchAvailabilityForDate(
+    targetDate: string,
+    targetTime: string,
+    targetPurpose: BookingPurpose
+  ): Promise<AvailabilityData> {
     const params = new URLSearchParams({
       date: targetDate,
       party_size: String(partySize),
-      time: targetTime
+      time: targetTime,
+      purpose: targetPurpose
     })
 
     const response = await fetch(`/api/table-bookings/availability?${params.toString()}`, {
@@ -739,7 +750,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     return normalizeAvailabilityResponse(body)
   }
 
-  async function loadNearestAlternatives(targetDate: string, targetTime: string) {
+  async function loadNearestAlternatives(targetDate: string, targetTime: string, targetPurpose: BookingPurpose) {
     setAlternativesLoading(true)
     setAlternativeSlots([])
 
@@ -748,7 +759,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       const candidateResponses = await Promise.all(
         dateCandidates.map(async (candidateDate) => {
           try {
-            return await fetchAvailabilityForDate(candidateDate, targetTime)
+            return await fetchAvailabilityForDate(candidateDate, targetTime, targetPurpose)
           } catch {
             return null
           }
@@ -779,6 +790,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   async function runAvailabilitySearch(input: {
     targetDate: string
     targetTime: string
+    targetPurpose: BookingPurpose
     source: string
     context: string
   }) {
@@ -792,7 +804,11 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       context: input.context
     })
 
-    const availabilityData = await fetchAvailabilityForDate(input.targetDate, input.targetTime)
+    const availabilityData = await fetchAvailabilityForDate(
+      input.targetDate,
+      input.targetTime,
+      input.targetPurpose
+    )
     const closestTime = pickClosestSlot(availabilityData.time_slots, input.targetTime, partySize)
 
     setDate(input.targetDate)
@@ -802,7 +818,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setStep('choose')
 
     if (!closestTime) {
-      void loadNearestAlternatives(input.targetDate, input.targetTime)
+      void loadNearestAlternatives(input.targetDate, input.targetTime, input.targetPurpose)
     }
   }
 
@@ -817,8 +833,9 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       await runAvailabilitySearch({
         targetDate: date,
         targetTime: requestedTime,
+        targetPurpose: mothersDayMode ? 'food' : purpose,
         source: 'book_table_find_table',
-        context: 'availability_first'
+        context: `availability_first_${mothersDayMode ? 'food' : purpose}`
       })
     } catch (availabilityFailure: any) {
       setAvailability(null)
@@ -896,6 +913,22 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   function handleDateInputBlur() {
     datePickerFocusRef.current = false
     setEventFetchRefresh((previous) => previous + 1)
+  }
+
+  function handlePurposeSelection(nextPurpose: BookingPurpose) {
+    if (mothersDayMode) return
+    if (nextPurpose === purpose) return
+
+    setPurpose(nextPurpose)
+    if (nextPurpose === 'drinks') {
+      setSundayLunch(false)
+    }
+
+    setSelectedTime('')
+    setAvailability(null)
+    setAvailabilityError(null)
+    setAlternativeSlots([])
+    setError(null)
   }
 
   function renderDateEventSuggestions(options: {
@@ -1420,7 +1453,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               <p className="mt-1 text-sm text-gray-700">
                 {mothersDayMode
                   ? 'Mother’s Day Sunday Lunch is fixed to Sunday, 15 March 2026. Choose party size and preferred time, then continue.'
-                  : 'Start with party size, date, and time. We’ll ask for contact details after you pick a slot.'}
+                  : 'Start with party size, date, booking type, and time. We’ll ask for contact details after you pick a slot.'}
               </p>
             </div>
 
@@ -1459,6 +1492,28 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               onChange={(event) => setRequestedTime(event.target.value)}
             />
 
+            {!mothersDayMode ? (
+              <div>
+                <label htmlFor="table-booking-purpose-find" className="mb-1 block text-sm font-medium text-gray-700">
+                  Booking for
+                </label>
+                <select
+                  id="table-booking-purpose-find"
+                  value={purpose}
+                  onChange={(event) => handlePurposeSelection(event.target.value === 'drinks' ? 'drinks' : 'food')}
+                  className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-gray-900 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-anchor-gold"
+                >
+                  <option value="food">Food (kitchen hours)</option>
+                  <option value="drinks">Drinks (bar hours)</option>
+                </select>
+                <p className="mt-2 text-xs text-gray-600">
+                  {purpose === 'food'
+                    ? 'Food bookings are shown within kitchen service hours.'
+                    : 'Drinks-only bookings can include later bar slots when available.'}
+                </p>
+              </div>
+            ) : null}
+
             {!mothersDayMode && (showDateEventSuggestions || selectedDateEventsLoading || selectedDateEventsLoaded) &&
               renderDateEventSuggestions({
                 title: 'Events on this date',
@@ -1490,6 +1545,11 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               <p className="mt-1 text-sm text-gray-700">
                 {formatDateForDisplay(date)} for {partySize} {partySize === 1 ? 'guest' : 'guests'}.
               </p>
+              {!mothersDayMode ? (
+                <p className="mt-1 text-xs text-gray-600">
+                  Showing {purpose === 'drinks' ? 'drinks-only' : 'food'} slots.
+                </p>
+              ) : null}
             </div>
 
             {availabilityLoading ? (
@@ -1718,20 +1778,13 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                     </p>
                   </div>
                 ) : (
-                  <div>
-                    <label htmlFor="table-booking-purpose" className="mb-1 block text-sm font-medium text-gray-700">
-                      Booking For
-                    </label>
-                    <select
-                      id="table-booking-purpose"
-                      value={purpose}
-                      onChange={(event) => setPurpose(event.target.value === 'drinks' ? 'drinks' : 'food')}
-                      disabled={purposeLockedToFood}
-                      className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-gray-900 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-anchor-gold"
-                    >
-                      <option value="food">Food</option>
-                      <option value="drinks">Drinks</option>
-                    </select>
+                  <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 text-sm text-gray-700">
+                    <p className="font-semibold text-gray-900">
+                      Booking for: {purpose === 'drinks' ? 'Drinks (bar hours)' : 'Food (kitchen hours)'}
+                    </p>
+                    <p className="mt-1 text-xs text-gray-600">
+                      Need to switch between food and drinks? Go back to step 1 and tap Find a table again.
+                    </p>
                     {purposeLockedToFood ? (
                       <p className="mt-2 text-xs text-amber-800">
                         Sunday lunch bookings are served from our Sunday lunch menu.
@@ -1740,7 +1793,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                   </div>
                 )}
 
-                {!mothersDayMode && selectedDateIsSunday ? (
+                {!mothersDayMode && selectedDateIsSunday && purpose !== 'drinks' ? (
                   <div className="space-y-3 rounded-xl border border-amber-200 bg-amber-50 p-4">
                     <p className="text-sm font-semibold text-amber-900">Sunday plans</p>
                     <p className="text-sm text-amber-800">

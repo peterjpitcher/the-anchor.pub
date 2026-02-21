@@ -1,6 +1,21 @@
-import { NextResponse } from 'next/server'
 import { anchorAPI } from '@/lib/api'
 import type { TableBookingRequest } from '@/lib/api'
+import {
+  isTimeWithinRanges,
+  normalizeTime,
+  resolveServiceRanges,
+  type BookingPurpose,
+  type BookingType
+} from '@/lib/table-booking-service-windows'
+
+function jsonResponse(payload: unknown, status = 200): Response {
+  return new Response(JSON.stringify(payload), {
+    status,
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+}
 
 /**
  * AI Agent Booking Endpoint
@@ -14,18 +29,18 @@ export async function POST(request: Request) {
     
     // Validate required fields
     if (!body.date || !body.time || !body.partySize || !body.customer) {
-      return NextResponse.json({
+      return jsonResponse({
         success: false,
         error: 'Missing required fields: date, time, partySize, customer'
-      }, { status: 400 })
+      }, 400)
     }
     
     // Validate customer data
     if (!body.customer.firstName || !body.customer.lastName || !body.customer.phone || !body.customer.email) {
-      return NextResponse.json({
+      return jsonResponse({
         success: false,
         error: 'Missing customer fields: firstName, lastName, phone, email'
-      }, { status: 400 })
+      }, 400)
     }
     
     // Parse natural language date if needed
@@ -34,10 +49,10 @@ export async function POST(request: Request) {
       // Try to parse natural language dates
       bookingDate = parseNaturalDate(body.date)
       if (!bookingDate) {
-        return NextResponse.json({
+        return jsonResponse({
           success: false,
           error: `Unable to parse date: ${body.date}. Please use YYYY-MM-DD format or natural language like "tomorrow" or "next Sunday"`
-        }, { status: 400 })
+        }, 400)
       }
     }
     
@@ -49,7 +64,48 @@ export async function POST(request: Request) {
         ? body.type
         : undefined
 
-    const bookingType = requestedType || (isSunday ? 'sunday_lunch' : 'regular')
+    const bookingType: BookingType = requestedType || (isSunday ? 'sunday_lunch' : 'regular')
+    const requestedPurpose: BookingPurpose = body.purpose === 'drinks' ? 'drinks' : 'food'
+    const purpose: BookingPurpose = bookingType === 'sunday_lunch' ? 'food' : requestedPurpose
+    const normalizedBookingTime = normalizeTime(String(body.time))
+
+    try {
+      const businessHours = await anchorAPI.getBusinessHours()
+      const serviceWindow = resolveServiceRanges(businessHours, bookingDate, {
+        bookingType,
+        purpose
+      })
+
+      const canBookTime =
+        !serviceWindow.closed &&
+        serviceWindow.ranges.length > 0 &&
+        isTimeWithinRanges(normalizedBookingTime, serviceWindow.ranges)
+
+      if (!canBookTime) {
+        const message =
+          serviceWindow.message ||
+          (purpose === 'food'
+            ? 'Food bookings are only available during kitchen service hours. Please choose another time or switch to drinks.'
+            : 'That time is outside our drinks booking window. Please choose another time or call 01753 682707.')
+
+        return jsonResponse({
+          success: false,
+          error: {
+            code: 'OUTSIDE_SERVICE_WINDOW',
+            message
+          }
+        }, 400)
+      }
+    } catch (error) {
+      console.error('AI agent service window check failed:', error)
+      return jsonResponse({
+        success: false,
+        error: {
+          code: 'SERVICE_WINDOW_CHECK_FAILED',
+          message: 'We could not verify service hours right now. Please try again or call 01753 682707.'
+        }
+      }, 503)
+    }
     
     // Create booking request
     const bookingRequest: TableBookingRequest = {
@@ -57,6 +113,7 @@ export async function POST(request: Request) {
       date: bookingDate,
       time: body.time,
       party_size: body.partySize,
+      purpose,
       customer: {
         first_name: body.customer.firstName,
         last_name: body.customer.lastName,
@@ -76,7 +133,7 @@ export async function POST(request: Request) {
     const booking = await anchorAPI.createTableBooking(bookingRequest)
     
     // Return structured response for AI agent
-    return NextResponse.json({
+    return jsonResponse({
       success: true,
       booking: {
         reference: booking.booking_reference,
@@ -85,30 +142,31 @@ export async function POST(request: Request) {
         time: booking.confirmation_details?.time || body.time,
         partySize: booking.confirmation_details?.party_size || body.partySize,
         type: bookingType,
+        purpose,
         customer: {
           name: `${body.customer.firstName} ${body.customer.lastName}`,
           phone: body.customer.phone
-	        },
-	        message: `Booking confirmed for ${body.partySize} people on ${formatDateForDisplay(bookingDate)} at ${formatTimeForDisplay(body.time)}`,
-	        specialInstructions: isSunday && bookingType === 'sunday_lunch'
-	          ? (
-	              body.partySize >= 7
-	                ? 'Sunday lunch roasts must be pre-ordered by 1pm Saturday. Bookings of 7+ require a card hold to secure the booking (no charge).'
-	                : 'Sunday lunch roasts must be pre-ordered by 1pm Saturday.'
-	            )
-	          : null
-	      }
-	    })
+        },
+        message: `Booking confirmed for ${body.partySize} people on ${formatDateForDisplay(bookingDate)} at ${formatTimeForDisplay(body.time)}`,
+        specialInstructions: isSunday && bookingType === 'sunday_lunch'
+          ? (
+              body.partySize >= 7
+                ? 'Sunday lunch roasts must be pre-ordered by 1pm Saturday. Bookings of 7+ require a card hold to secure the booking (no charge).'
+                : 'Sunday lunch roasts must be pre-ordered by 1pm Saturday.'
+            )
+          : null
+      }
+    })
     
   } catch (error: any) {
     console.error('AI agent booking error:', error)
     
     // Return structured error for AI agent
-    return NextResponse.json({
+    return jsonResponse({
       success: false,
       error: error.message || 'Failed to create booking',
       suggestion: 'Please verify all fields are correct or call the restaurant at 01753 682707'
-    }, { status: 500 })
+    }, 500)
   }
 }
 
@@ -120,12 +178,13 @@ export async function GET(request: Request) {
   const date = searchParams.get('date')
   const partySize = searchParams.get('partySize')
   const typeParam = searchParams.get('type')
+  const purposeParam = searchParams.get('purpose')
   
   if (!date) {
-    return NextResponse.json({
+    return jsonResponse({
       success: false,
       error: 'Date parameter required'
-    }, { status: 400 })
+    }, 400)
   }
   
   try {
@@ -134,10 +193,10 @@ export async function GET(request: Request) {
     if (isNaN(Date.parse(checkDate))) {
       const parsedDate = parseNaturalDate(date)
       if (!parsedDate) {
-        return NextResponse.json({
+        return jsonResponse({
           success: false,
           error: `Unable to parse date: ${date}`
-        }, { status: 400 })
+        }, 400)
       }
       checkDate = parsedDate
     }
@@ -148,16 +207,48 @@ export async function GET(request: Request) {
       typeParam === 'sunday_lunch' || typeParam === 'regular'
         ? typeParam
         : undefined
-    const bookingType = requestedType || (isSunday ? 'sunday_lunch' : 'regular')
+    const bookingType: BookingType = requestedType || (isSunday ? 'sunday_lunch' : 'regular')
+    const requestedPurpose: BookingPurpose = purposeParam === 'drinks' ? 'drinks' : 'food'
+    const purpose: BookingPurpose = bookingType === 'sunday_lunch' ? 'food' : requestedPurpose
+    const normalizedPartySize = Number.parseInt(partySize || '2', 10)
 
-    const availability = await anchorAPI.checkTableAvailability({
+    const availabilityParams = new URLSearchParams({
       date: checkDate,
-      time: '12:00', // Check all times
-      party_size: parseInt(partySize || '2', 10),
-      booking_type: bookingType
+      time: '12:00',
+      party_size: Number.isFinite(normalizedPartySize) && normalizedPartySize > 0
+        ? String(normalizedPartySize)
+        : '2',
+      booking_type: bookingType,
+      purpose
     })
+
+    const availabilityUrl = new URL('/api/table-bookings/availability', request.url)
+    availabilityUrl.search = availabilityParams.toString()
+
+    const availabilityResponse = await fetch(availabilityUrl.toString(), {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      cache: 'no-store'
+    })
+    const availabilityBody = await availabilityResponse.json().catch(() => null)
+
+    if (!availabilityResponse.ok || availabilityBody?.success === false) {
+      const errorMessage =
+        availabilityBody?.error?.message ||
+        availabilityBody?.error ||
+        `Failed to check availability (${availabilityResponse.status})`
+
+      return jsonResponse({
+        success: false,
+        error: errorMessage
+      }, availabilityResponse.status || 502)
+    }
+
+    const availability = availabilityBody?.data || availabilityBody
     
-    return NextResponse.json({
+    return jsonResponse({
       success: true,
       date: checkDate,
       available: availability.available,
@@ -174,14 +265,15 @@ export async function GET(request: Request) {
         }) || [],
       isSunday,
       bookingType,
+      purpose,
       message: availability.message || availability.special_notes
     })
     
   } catch (error: any) {
-    return NextResponse.json({
+    return jsonResponse({
       success: false,
       error: error.message || 'Failed to check availability'
-    }, { status: 500 })
+    }, 500)
   }
 }
 

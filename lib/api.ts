@@ -676,6 +676,7 @@ export interface TableBookingRequest {
   date: string
   time: string
   party_size: number
+  purpose?: 'food' | 'drinks'
   customer: {
     first_name: string
     last_name: string
