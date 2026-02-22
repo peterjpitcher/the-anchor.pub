@@ -7,14 +7,80 @@ import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
 import { BlogShareButtons } from '@/components/BlogShareButtons'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
-import { getBlogHeroUrl, BLOG_FALLBACK_IMAGE } from '@/lib/blog-image'
+import { getBlogHeroUrl } from '@/lib/blog-image'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
 export async function generateStaticParams() {
   const posts = await getAllBlogPosts()
   return posts.map((post) => ({
     slug: post.slug,
   }))
+}
+
+function stripMarkdownFormatting(value: string): string {
+  return value
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '$1')
+    .replace(/\*\*([^*]+)\*\*/g, '$1')
+    .replace(/\*([^*]+)\*/g, '$1')
+    .replace(/`([^`]+)`/g, '$1')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
+function extractFaqEntries(markdown: string): Array<{ question: string; answer: string }> {
+  const lines = markdown.split(/\r?\n/)
+  const entries: Array<{ question: string; answer: string }> = []
+
+  let inFaqSection = false
+  let activeQuestion: string | null = null
+  let answerBuffer: string[] = []
+
+  const flushEntry = () => {
+    if (!activeQuestion) return
+    const answer = stripMarkdownFormatting(answerBuffer.join(' ').trim())
+    if (answer) {
+      entries.push({
+        question: stripMarkdownFormatting(activeQuestion),
+        answer
+      })
+    }
+    activeQuestion = null
+    answerBuffer = []
+  }
+
+  for (const rawLine of lines) {
+    const line = rawLine.trim()
+
+    if (!inFaqSection) {
+      if (/^##\s+FAQs\s*$/i.test(line)) {
+        inFaqSection = true
+      }
+      continue
+    }
+
+    if (/^##\s+/.test(line) && !/^##\s+FAQs\s*$/i.test(line)) {
+      flushEntry()
+      break
+    }
+
+    const questionMatch = line.match(/^###\s+(.+)$/)
+    if (questionMatch) {
+      flushEntry()
+      activeQuestion = questionMatch[1]
+      continue
+    }
+
+    if (!activeQuestion || !line || line === '---') {
+      continue
+    }
+
+    answerBuffer.push(line)
+  }
+
+  flushEntry()
+
+  return entries
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
@@ -26,7 +92,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     }
   }
 
-  const heroUrl = getBlogHeroUrl(post.slug, post.hero)
+  const ogImageUrl = getBlogHeroUrl(post.slug, post.ogImage || post.hero)
+  const ogImageAlt = post.ogImageAlt || post.title
 
   return {
     title: `${post.title} | The Anchor Blog`,
@@ -38,11 +105,23 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     openGraph: {
       title: post.title,
       description: post.description,
-      images: [heroUrl],
+      url: `/blog/${params.slug}`,
+      images: [
+        {
+          url: ogImageUrl,
+          alt: ogImageAlt
+        }
+      ],
       type: 'article',
       publishedTime: post.date,
       authors: [post.author],
+      tags: post.tags
     },
+    twitter: getTwitterMetadata({
+      title: post.title,
+      description: post.description,
+      images: [ogImageUrl]
+    }),
   }
 }
 
@@ -61,13 +140,18 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
 
   // Distribute images throughout content only if images array has items
   const contentWithImages = post.images && post.images.length > 0 
-    ? distributeImages(post.htmlContent || '', post.images, post.slug)
+    ? distributeImages(post.htmlContent || '', post.images, post.slug, post.imageAlts)
     : post.htmlContent || ''
 
   const heroUrl = getBlogHeroUrl(post.slug, post.hero)
-  const heroAbsoluteUrl = heroUrl.startsWith('http')
-    ? heroUrl
-    : `https://www.the-anchor.pub${heroUrl}`
+  const heroAlt = post.heroAlt || post.title
+  const ogImageUrl = getBlogHeroUrl(post.slug, post.ogImage || post.hero)
+  const ogImageAlt = post.ogImageAlt || post.title
+  const ogAbsoluteUrl = ogImageUrl.startsWith('http')
+    ? ogImageUrl
+    : `https://www.the-anchor.pub${ogImageUrl}`
+
+  const faqEntries = extractFaqEntries(post.content)
 
   // BlogPosting structured data for better SEO
   const blogPostingSchema = {
@@ -103,7 +187,8 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
     },
     "image": {
       "@type": "ImageObject",
-      "url": heroAbsoluteUrl,
+      "url": ogAbsoluteUrl,
+      "caption": ogImageAlt,
       "width": 1200,
       "height": 630
     },
@@ -125,6 +210,21 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
       "@id": "https://www.the-anchor.pub/#organization"
     }
   }
+
+  const faqSchema = faqEntries.length > 0
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": faqEntries.map((entry) => ({
+          "@type": "Question",
+          "name": entry.question,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": entry.answer
+          }
+        }))
+      }
+    : null
 
   // Blog schema to establish blog context
   const blogSchema = {
@@ -173,7 +273,11 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([blogPostingSchema, blogSchema, breadcrumbSchema]) }}
+        dangerouslySetInnerHTML={{
+          __html: jsonLdSafeStringify(
+            [blogPostingSchema, blogSchema, breadcrumbSchema, faqSchema].filter(Boolean)
+          )
+        }}
       />
       <ScrollDepthTracker />
       {/* Hero Section */}
@@ -195,6 +299,10 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
           </div>
         }
         variant="feature"
+        image={{
+          src: heroUrl,
+          alt: heroAlt
+        }}
         tags={post.tags.map(tag => ({
           label: tag,
           variant: 'default' as const,
@@ -220,7 +328,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
       </Section>
 
       {/* Content */}
-      <Section as="article" spacing="lg" container containerSize="sm" className="bg-white">
+      <Section as="article" spacing="lg" container containerSize="md" className="bg-white">
         <div className="prose prose-lg lg:prose-xl max-w-none
                 prose-headings:font-serif prose-headings:text-anchor-green
                 prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6
@@ -233,8 +341,11 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
                 prose-ul:my-6 prose-ul:list-disc prose-ul:pl-6
                 prose-ol:my-6 prose-ol:list-decimal prose-ol:pl-6
                 prose-li:text-gray-700 prose-li:mb-2
-                prose-img:rounded-lg prose-img:shadow-lg prose-img:my-8 prose-img:w-full
-                prose-figure:my-8
+                prose-img:rounded-xl prose-img:shadow-sm prose-img:ring-1 prose-img:ring-black/5
+                prose-img:my-8 prose-img:w-full prose-img:max-w-full prose-img:mx-auto
+                sm:prose-img:max-w-xl lg:prose-img:max-w-[420px] xl:prose-img:max-w-[460px]
+                prose-figure:my-8 prose-figure:mx-auto prose-figure:max-w-full
+                sm:prose-figure:max-w-xl lg:prose-figure:max-w-[420px] xl:prose-figure:max-w-[460px]
                 prose-blockquote:border-l-4 prose-blockquote:border-anchor-gold prose-blockquote:pl-6
                 prose-blockquote:italic prose-blockquote:text-gray-600 prose-blockquote:my-8
                 prose-code:bg-gray-100 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm
@@ -248,7 +359,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
       </Section>
 
       {/* Share Section */}
-      <Section background="gray" spacing="sm" container containerSize="sm">
+      <Section background="gray" spacing="sm" container containerSize="md">
         <div className="text-center">
           <p className="text-gray-600 mb-4">Enjoyed this article? Share it with your friends!</p>
           <BlogShareButtons postTitle={post.title} postSlug={post.slug} />
