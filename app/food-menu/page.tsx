@@ -184,8 +184,8 @@ export default async function FoodMenuPage() {
 	    {
 	      question: 'Do you serve Sunday roast at The Anchor?',
 	      answer: sundayKitchenHours
-	        ? `Yes. Sunday roast and Sunday lunch service runs ${sundayKitchenHours} with beef, chicken, lamb, and vegetarian plates. Pre-order by 1pm Saturday. Bookings of 7+ require a card hold to secure the booking (no charge).`
-	        : 'Yes. Sunday roast and Sunday lunch service runs during our Sunday kitchen hours with beef, chicken, lamb, and vegetarian plates. Pre-order by 1pm Saturday. Bookings of 7+ require a card hold to secure the booking (no charge).'
+	        ? `Yes. Sunday roast and Sunday lunch service runs ${sundayKitchenHours} with beef, chicken, lamb, and vegetarian plates. Pre-order by 1pm Saturday. A GBP 10 per person deposit is required for all Sunday lunch bookings.`
+	        : 'Yes. Sunday roast and Sunday lunch service runs during our Sunday kitchen hours with beef, chicken, lamb, and vegetarian plates. Pre-order by 1pm Saturday. A GBP 10 per person deposit is required for all Sunday lunch bookings.'
 	    },
     {
       question: "Is there a children's menu?",
@@ -417,7 +417,7 @@ export default async function FoodMenuPage() {
 	                <ul className="space-y-3 text-gray-700">
 	                  <li>• Beef, chicken, lamb and vegetarian roasts with lashings of gravy.</li>
 	                  <li>• Pre-order by 1pm Saturday so we can cook everything fresh to order.</li>
-	                  <li>• Bookings of 7+ require a card hold to secure the booking (no charge).</li>
+	                  <li>• A GBP 10 per person deposit is required for every Sunday lunch booking.</li>
 	                  <li>• Kids portions, high chairs and activity packs on request.</li>
 	                </ul>
                 <div className="mt-6 flex flex-col sm:flex-row gap-3">
@@ -453,7 +453,7 @@ export default async function FoodMenuPage() {
 	                      ? `${sundayKitchenHours} every Sunday.`
 	                      : 'Sunday kitchen hours are updated live on this page.'}
 	                  </li>
-	                  <li><strong>Groups:</strong> 7+ bookings require a card hold (no charge).</li>
+	                  <li><strong>Groups:</strong> GBP 10 per person Sunday lunch deposit required.</li>
 	                  <li><strong>Gluten-aware:</strong> Alternative gravy available — just ask.</li>
 	                  <li><strong>Extras:</strong> Extra Yorkies or seasonal sides when available.</li>
 	                </ul>

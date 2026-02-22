@@ -10,7 +10,7 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
   title: 'Book a Table Online | The Anchor - Heathrow Pub & Dining',
-  description: 'Book your table at The Anchor online with fast confirmation via our management platform.',
+  description: 'Book your table at The Anchor online with fast confirmation via our management platform. Sunday lunch bookings require a GBP 10 per person deposit.',
   keywords: 'book table stanwell moor, restaurant booking, pub reservation, sunday lunch booking',
   openGraph: {
     title: 'Book a Table at The Anchor',
@@ -180,6 +180,7 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
               <h2 className="text-xl font-semibold text-anchor-green">Quick tips</h2>
               <ul className="mt-3 space-y-2 text-left text-sm text-gray-700">
                 <li>• For larger groups, please call us.</li>
+                <li>• Sunday lunch bookings require a GBP 10 per person deposit.</li>
                 <li>• Add access needs or dietary notes in the notes box.</li>
                 <li>• Can’t see the time you want? Give us a ring.</li>
               </ul>

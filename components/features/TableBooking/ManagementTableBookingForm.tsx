@@ -30,7 +30,7 @@ type CustomerLookupResult = {
 }
 
 type ManagementTableBookingResult = {
-  state: 'confirmed' | 'pending_card_capture' | 'blocked'
+  state: 'confirmed' | 'pending_card_capture' | 'pending_payment' | 'blocked'
   table_booking_id: string | null
   booking_reference: string | null
   reason: string | null
@@ -598,7 +598,10 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   }, [date, mothersDayMode])
 
   useEffect(() => {
-    if (result?.state !== 'pending_card_capture' || !result.next_step_url) {
+    if (
+      (result?.state !== 'pending_card_capture' && result?.state !== 'pending_payment') ||
+      !result.next_step_url
+    ) {
       setCardRedirectInitiated(false)
       return
     }
@@ -1420,25 +1423,42 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     )
   }
 
-  if (result?.state === 'pending_card_capture') {
+  if (result?.state === 'pending_card_capture' || result?.state === 'pending_payment') {
+    const requiresPayment = result.state === 'pending_payment'
+
     return (
       <Card variant="elevated">
         <CardBody className="space-y-4">
-          <Alert variant="warning" title="Card details needed to secure this booking">
+          <Alert
+            variant="warning"
+            title={requiresPayment ? 'Deposit payment needed to secure this booking' : 'Card details needed to secure this booking'}
+          >
             <p>
               Booking reference: <strong>{result.booking_reference || 'Pending'}</strong>
             </p>
             {cardRedirectInitiated ? (
-              <p className="mt-1">Redirecting you to the secure card details step…</p>
+              <p className="mt-1">
+                {requiresPayment
+                  ? 'Redirecting you to the secure deposit payment step…'
+                  : 'Redirecting you to the secure card details step…'}
+              </p>
             ) : (
-              <p className="mt-1">Complete card details to secure your table.</p>
+              <p className="mt-1">
+                {requiresPayment
+                  ? 'Complete payment of your GBP 10 per person Sunday lunch deposit to secure your table.'
+                  : 'Complete card details to secure your table.'}
+              </p>
             )}
-            {holdExpiry ? <p className="mt-1">Complete card details by {holdExpiry}.</p> : null}
+            {holdExpiry ? (
+              <p className="mt-1">
+                {requiresPayment ? `Complete payment by ${holdExpiry}.` : `Complete card details by ${holdExpiry}.`}
+              </p>
+            ) : null}
             {result.next_step_url ? (
               <div className="mt-3">
                 <Button asChild variant="primary" size="sm">
                   <a href={result.next_step_url} target="_blank" rel="noopener noreferrer">
-                    Continue to Card Details
+                    {requiresPayment ? 'Continue to Payment' : 'Continue to Card Details'}
                   </a>
                 </Button>
               </div>
@@ -1829,7 +1849,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                       Booking type is fixed to food + Sunday lunch for Sunday, 15 March 2026.
                     </p>
                     <p className="mt-1">
-                      Choose each guest’s Sunday lunch main in this step. After review, complete card details to secure your table.
+                      Choose each guest’s Sunday lunch main in this step. After review, pay a GBP 10 per person deposit to secure your table.
                     </p>
                   </div>
                 ) : (
@@ -1910,7 +1930,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                       </p>
                     ) : sundayLunch ? (
                       <p className="text-xs font-medium text-amber-900">
-                        Great choice. We’ll collect each guest’s main now and secure your booking with card details after confirmation.
+                        Great choice. We’ll collect each guest’s main now and then take your GBP 10 per person deposit payment to secure your booking.
                       </p>
                     ) : (
                       <p className="text-xs text-amber-900">
@@ -1924,7 +1944,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                   <div className="space-y-3 rounded-xl border border-amber-200 bg-amber-50 p-4">
                     <p className="text-sm font-semibold text-amber-900">Sunday lunch pre-order (required)</p>
                     <p className="text-sm text-amber-800">
-                      Choose each guest’s main now. If required for your booking, the card hold step appears immediately after confirmation.
+                      Choose each guest’s main now. We then take a GBP 10 per person deposit payment to secure your Sunday lunch booking.
                     </p>
 
                     {sundayMenuLoading ? <p className="text-sm text-amber-900">Loading Sunday lunch menu...</p> : null}

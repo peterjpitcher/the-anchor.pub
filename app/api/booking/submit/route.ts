@@ -172,14 +172,51 @@ export async function POST(request: Request) {
     // Submit to API
     const booking = await anchorAPI.createTableBooking(bookingRequest, idempotencyKey)
     
+    const bookingState = typeof booking.state === 'string' ? booking.state : null
+    const pendingPaymentFlow =
+      booking.payment_required === true
+      || booking.status === 'pending_payment'
+      || bookingState === 'pending_payment'
+      || bookingState === 'pending_card_capture'
+    const paymentUrl = booking.payment_details?.payment_url || booking.next_step_url || null
+    const expectedSundayDeposit = Number((Math.max(1, Number(bookingData.partySize || 1)) * 10).toFixed(2))
+    const fallbackDepositAmount =
+      bookingState === 'pending_card_capture'
+        ? 0
+        : resolvedBookingType === 'sunday_lunch'
+          ? expectedSundayDeposit
+          : 0
+
     // Check if payment is required (Sunday lunch bookings should return this from API)
-    if (booking.payment_required && booking.payment_details) {
+    if (pendingPaymentFlow && paymentUrl) {
+      const depositAmount = Number(
+        booking.payment_details?.deposit_amount ?? booking.payment_details?.amount ?? fallbackDepositAmount
+      )
+      const normalizedDepositAmount = Number.isFinite(depositAmount) ? depositAmount : fallbackDepositAmount
+      const paymentExpiresAt =
+        booking.payment_details?.expires_at ||
+        booking.hold_expires_at ||
+        new Date(Date.now() + 15 * 60 * 1000).toISOString()
+
       // Return payment details for redirect
       return jsonResponse({
         success: true,
         reference: booking.booking_reference || booking.booking_id,
         payment_required: true,
-        payment_details: booking.payment_details,
+        payment_details: {
+          ...(booking.payment_details || {}),
+          amount: normalizedDepositAmount,
+          deposit_amount: normalizedDepositAmount,
+          total_amount: Number.isFinite(booking.payment_details?.total_amount as number)
+            ? Number(booking.payment_details?.total_amount)
+            : normalizedDepositAmount,
+          outstanding_amount: Number.isFinite(booking.payment_details?.outstanding_amount as number)
+            ? Number(booking.payment_details?.outstanding_amount)
+            : normalizedDepositAmount,
+          currency: booking.payment_details?.currency || 'GBP',
+          payment_url: paymentUrl,
+          expires_at: paymentExpiresAt
+        },
         booking: {
           reference: booking.booking_reference || booking.booking_id,
           status: booking.status || 'pending_payment',
@@ -192,7 +229,7 @@ export async function POST(request: Request) {
     }
     
     // Log warning if Sunday lunch booking didn't require payment
-    if (resolvedBookingType === 'sunday_lunch' && !booking.payment_required) {
+    if (resolvedBookingType === 'sunday_lunch' && !pendingPaymentFlow) {
       console.warn('WARNING: Sunday lunch booking did not return payment_required from API')
       console.warn('This suggests the API is not configured correctly for Sunday lunch payments')
     }

@@ -713,7 +713,7 @@ export interface TableBookingResponse {
   booking_reference: string
   status: 'confirmed' | 'pending' | 'cancelled' | 'pending_payment'
   customer_id?: string
-  state?: 'confirmed' | 'pending_card_capture' | 'blocked'
+  state?: 'confirmed' | 'pending_card_capture' | 'pending_payment' | 'blocked'
   table_booking_id?: string | null
   reason?: string | null
   blocked_reason?:
@@ -777,7 +777,7 @@ type ManagementTableBookingPayload = {
 }
 
 type ManagementTableBookingResult = {
-  state: 'confirmed' | 'pending_card_capture' | 'blocked'
+  state: 'confirmed' | 'pending_card_capture' | 'pending_payment' | 'blocked'
   table_booking_id: string | null
   booking_reference: string | null
   reason: string | null
@@ -1315,7 +1315,12 @@ export class AnchorAPI {
     const source = input as Record<string, unknown>
     return (
       typeof source.state === 'string' &&
-      (source.state === 'confirmed' || source.state === 'pending_card_capture' || source.state === 'blocked') &&
+      (
+        source.state === 'confirmed'
+        || source.state === 'pending_card_capture'
+        || source.state === 'pending_payment'
+        || source.state === 'blocked'
+      ) &&
       ('booking_reference' in source || 'table_booking_id' in source)
     )
   }
@@ -1359,6 +1364,11 @@ export class AnchorAPI {
     const bookingId = result.table_booking_id || result.booking_reference || `tbl_${Date.now()}`
     const bookingReference = result.booking_reference || result.table_booking_id || bookingId
     const pendingCardCapture = result.state === 'pending_card_capture'
+    const pendingPayment = result.state === 'pending_payment'
+    const requiresNextStep = pendingCardCapture || pendingPayment
+    const depositAmount = pendingPayment
+      ? Number((Math.max(1, Number(originalRequest.party_size || 1)) * 10).toFixed(2))
+      : 0
     const duration =
       typeof originalRequest.duration_minutes === 'number'
         ? originalRequest.duration_minutes
@@ -1367,7 +1377,7 @@ export class AnchorAPI {
     return {
       booking_id: bookingId,
       booking_reference: bookingReference,
-      status: pendingCardCapture ? 'pending_payment' : 'confirmed',
+      status: requiresNextStep ? 'pending_payment' : 'confirmed',
       state: result.state,
       table_booking_id: result.table_booking_id,
       reason: result.reason,
@@ -1384,13 +1394,13 @@ export class AnchorAPI {
         occasion: originalRequest.celebration_type || (originalRequest as any).occasion
       },
       confirmation_sent: true,
-      payment_required: pendingCardCapture,
-      payment_details: pendingCardCapture && result.next_step_url
+      payment_required: requiresNextStep,
+      payment_details: requiresNextStep && result.next_step_url
         ? {
-            amount: 0,
-            deposit_amount: 0,
-            total_amount: 0,
-            outstanding_amount: 0,
+            amount: depositAmount,
+            deposit_amount: depositAmount,
+            total_amount: depositAmount,
+            outstanding_amount: depositAmount,
             currency: 'GBP',
             payment_url: result.next_step_url,
             expires_at: result.hold_expires_at || new Date(Date.now() + 15 * 60 * 1000).toISOString()

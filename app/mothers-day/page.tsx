@@ -44,10 +44,10 @@ const MOTHERS_DAY_ADULT_PRICE_LOW = 19.99
 const MOTHERS_DAY_ADULT_PRICE_HIGH = 23.99
 const MOTHERS_DAY_KIDS_ROAST_PRICE = 13.99
 
-const MOTHERS_DAY_CARD_HOLD_NOTE =
-  'We take a card hold only to secure your table (nothing is charged in advance). Free cancellation up to 3 days before.'
+const MOTHERS_DAY_DEPOSIT_NOTE =
+  'A GBP 10 per person deposit is required to secure your Sunday lunch table booking. Free cancellation up to 3 days before.'
 const MOTHERS_DAY_BOOKING_FLOW_NOTE =
-  'Choose each guest’s Sunday lunch main in the booking flow, then complete card details to secure your table.'
+  'Choose each guest’s Sunday lunch main in the booking flow, then complete the GBP 10 per person deposit payment to secure your table.'
 
 // TODO: Swap these for Mother’s Day-specific photos when available.
 const MOTHERS_DAY_PHOTOS = [
@@ -188,7 +188,7 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
   const heroLeadText =
     `Adults £${MOTHERS_DAY_ADULT_PRICE_LOW.toFixed(2)}–£${MOTHERS_DAY_ADULT_PRICE_HIGH.toFixed(2)} • ` +
     `Kids roast £${MOTHERS_DAY_KIDS_ROAST_PRICE.toFixed(2)} • ` +
-    'Card hold only (nothing charged in advance) • Free cancellation up to 3 days before'
+    'GBP 10 per person deposit required • Free cancellation up to 3 days before'
 
   const faqs = [
     {
@@ -208,8 +208,8 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
         `${MOTHERS_DAY_BOOKING_FLOW_NOTE} Prefer to talk? Call ${CONTACT.phone}.`
     },
     {
-      question: 'What does the card hold mean?',
-      answer: MOTHERS_DAY_CARD_HOLD_NOTE
+      question: 'How does the Sunday lunch deposit work?',
+      answer: MOTHERS_DAY_DEPOSIT_NOTE
     },
     {
       question: 'How much is Mother’s Day lunch?',
@@ -239,7 +239,7 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
       `No set sittings — book a time that suits you and enjoy your meal at a comfortable pace. ` +
       `Adults mains £${MOTHERS_DAY_ADULT_PRICE_LOW.toFixed(2)}–£${MOTHERS_DAY_ADULT_PRICE_HIGH.toFixed(2)}; ` +
       `kids roast from £${MOTHERS_DAY_KIDS_ROAST_PRICE.toFixed(2)}. Vegetarian and vegan options available, ` +
-      `served with vegetarian gravy. Booking required. ${MOTHERS_DAY_CARD_HOLD_NOTE}`,
+      `served with vegetarian gravy. Booking required. ${MOTHERS_DAY_DEPOSIT_NOTE}`,
     startDate: MOTHERS_DAY_SERVICE_START_ISO,
     endDate: MOTHERS_DAY_SERVICE_END_ISO,
     eventStatus: 'https://schema.org/EventScheduled',
@@ -420,7 +420,7 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
                 <div className="space-y-2">
                   <p className="text-sm font-semibold uppercase tracking-wide text-gray-600">Booking policy</p>
                   <p className="text-sm text-gray-700">
-                    Mother’s Day always books up quickly, so advance booking is required. {MOTHERS_DAY_CARD_HOLD_NOTE}
+                    Mother’s Day always books up quickly, so advance booking is required. {MOTHERS_DAY_DEPOSIT_NOTE}
                   </p>
                 </div>
 
@@ -539,7 +539,7 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
                     </li>
                     <li className="flex gap-2">
                       <span className="text-anchor-gold">•</span>
-                      <span>{MOTHERS_DAY_CARD_HOLD_NOTE}</span>
+                      <span>{MOTHERS_DAY_DEPOSIT_NOTE}</span>
                     </li>
                     <li className="flex gap-2">
                       <span className="text-anchor-gold">•</span>
@@ -633,7 +633,7 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
               No set sittings — book a time that suits you and enjoy your meal at a comfortable pace. Mother’s Day always books up quickly, so booking is required.
             </p>
             <p className="text-sm text-gray-600">
-              {MOTHERS_DAY_CARD_HOLD_NOTE} Please add dietary requirements when booking.
+              {MOTHERS_DAY_DEPOSIT_NOTE} Please add dietary requirements when booking.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <BookTableButton
