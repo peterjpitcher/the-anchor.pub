@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/primitives/Input'
 import { trackEventBookingStart } from '@/lib/gtm-events'
 import type { Event } from '@/lib/api'
 import {
-  buildMothersDayLandingUrl,
+  buildMothersDayBookingUrl,
   getMothersDayEventStartTime
 } from '@/lib/mothers-day-booking'
 
@@ -228,7 +228,7 @@ export function ManagementEventBookingForm({ event, title, compact = false }: Ma
             const fallbackUrl =
               typeof body?.redirect_to === 'string' && body.redirect_to.trim().length > 0
                 ? body.redirect_to
-                : buildMothersDayLandingUrl({
+                : buildMothersDayBookingUrl({
                     partySize: seats,
                     time: getMothersDayEventStartTime(event)
                   })

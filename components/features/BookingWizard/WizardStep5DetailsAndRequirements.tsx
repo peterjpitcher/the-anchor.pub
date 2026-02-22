@@ -234,7 +234,7 @@ export function WizardStep5DetailsAndRequirements({
             >
               <div className="flex items-center gap-2 mb-2">
                 <Icon name="bookOpen" className="w-5 h-5 text-anchor-green" />
-                <p className="font-semibold text-anchor-charcoal">Book regular menu</p>
+                <p className="font-semibold text-anchor-charcoal">Book weekday menu</p>
               </div>
               <p className="text-sm text-gray-700">
                 Keep your booking and choose from the main menu on the day (no deposit needed).
@@ -269,7 +269,7 @@ export function WizardStep5DetailsAndRequirements({
                 Sunday roast pre-orders close at 1pm on Saturday.
               </p>
               <p className="text-sm text-amber-800">
-                We&apos;ll reserve you a table from the regular menu instead. Call us if you need to check availability.
+                We&apos;ll reserve you a table from the weekday menu instead. Call us if you need to check availability.
               </p>
             </Alert>
           )}

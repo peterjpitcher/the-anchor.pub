@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { getUpcomingEvents, type Event } from '@/lib/api'
+import { isMothersDayEvent } from '@/lib/mothers-day-booking'
 import { getEventPriceLabel } from '@/lib/event-pricing'
 
 function formatEventDateShort(dateValue: string): string {
@@ -33,7 +34,9 @@ function getEventBookingHref(event: Pick<Event, 'id' | 'slug'>): string {
 }
 
 export async function BookTableUpcomingEventsPanel() {
-  const upcomingEvents = (await getUpcomingEvents(6, 90)).slice(0, 6)
+  const upcomingEvents = (await getUpcomingEvents(12, 90))
+    .filter((event) => !isMothersDayEvent(event))
+    .slice(0, 6)
 
   return (
     <div className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-gray-100 sm:p-6">

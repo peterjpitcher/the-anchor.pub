@@ -7,7 +7,7 @@ import { Input, Textarea } from '@/components/ui/primitives/Input'
 import { Button } from '@/components/ui/primitives/Button'
 import { ManagementEventBookingForm } from '@/components/features/EventBooking/ManagementEventBookingForm'
 import { trackTableBookingClick } from '@/lib/gtm-events'
-import { MOTHERS_DAY_DEFAULT_TIME, MOTHERS_DAY_SERVICE_DATE } from '@/lib/mothers-day-booking'
+import { isMothersDayEvent, MOTHERS_DAY_DEFAULT_TIME, MOTHERS_DAY_SERVICE_DATE } from '@/lib/mothers-day-booking'
 import { getSundayLunchCutoffDate, hasSundayLunchCutoffPassed } from '@/lib/sunday-lunch-cutoff'
 
 type BookingPurpose = 'food' | 'drinks'
@@ -292,10 +292,11 @@ function formatDateForDisplay(isoDate: string): string {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(isoDate)) return isoDate
   const [year, month, day] = isoDate.split('-').map((part) => Number.parseInt(part, 10))
   const date = new Date(Date.UTC(year, month - 1, day))
-  return date.toLocaleDateString('en-GB', {
-    weekday: 'short',
+  return date.toLocaleDateString('en-US', {
+    weekday: 'long',
+    month: 'long',
     day: 'numeric',
-    month: 'short',
+    year: 'numeric',
     timeZone: 'UTC'
   })
 }
@@ -397,6 +398,35 @@ function normalizeSuggestedEvents(payload: any, targetDate: string): SuggestedEv
 
     if (status.toLowerCase().includes('cancel')) continue
 
+    const shortDescription =
+      typeof source.shortDescription === 'string'
+        ? source.shortDescription
+        : typeof source.description === 'string'
+        ? source.description
+        : null
+    const time =
+      typeof source.time === 'string'
+        ? source.time
+        : typeof source.start_time === 'string'
+        ? source.start_time
+        : null
+
+    if (
+      isMothersDayEvent({
+        startDate,
+        name,
+        shortDescription,
+        description: typeof source.description === 'string' ? source.description : null,
+        about: typeof source.about === 'string' ? source.about : null,
+        slug: typeof source.slug === 'string' ? source.slug : undefined,
+        identifier: typeof source.identifier === 'string' ? source.identifier : undefined,
+        keywords: typeof source.keywords === 'string' ? source.keywords : undefined,
+        time
+      })
+    ) {
+      continue
+    }
+
     const offers =
       source.offers && typeof source.offers === 'object'
         ? (source.offers as Record<string, unknown>)
@@ -418,12 +448,7 @@ function normalizeSuggestedEvents(payload: any, targetDate: string): SuggestedEv
       slug: typeof source.slug === 'string' && source.slug.trim().length > 0 ? source.slug.trim() : null,
       name,
       startDate,
-      shortDescription:
-        typeof source.shortDescription === 'string'
-          ? source.shortDescription
-          : typeof source.description === 'string'
-          ? source.description
-          : null,
+      shortDescription,
       seatsRemaining: Number.isFinite(remainingAttendeeCapacityRaw)
         ? Number(remainingAttendeeCapacityRaw)
         : null,
@@ -442,7 +467,7 @@ function normalizeSuggestedEvents(payload: any, targetDate: string): SuggestedEv
 }
 
 export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFormProps) {
-  const mothersDayRequested = prefill?.mothersDay === true
+  const mothersDayPrefillRequested = prefill?.mothersDay === true
 
   // Trigger re-renders so time-based cutoffs update without requiring a reload.
   const [now, setNow] = useState(() => new Date())
@@ -452,16 +477,15 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     return () => window.clearInterval(intervalId)
   }, [])
 
-  const mothersDayCutoffPassed =
-    mothersDayRequested && hasSundayLunchCutoffPassed(MOTHERS_DAY_SERVICE_DATE, now)
-
-  const mothersDayMode = mothersDayRequested && !mothersDayCutoffPassed
+  const initialMothersDayCutoffPassed =
+    mothersDayPrefillRequested && hasSundayLunchCutoffPassed(MOTHERS_DAY_SERVICE_DATE, now)
+  const initialMothersDayMode = mothersDayPrefillRequested && !initialMothersDayCutoffPassed
   const mothersDayCutoffDate = useMemo(() => getSundayLunchCutoffDate(MOTHERS_DAY_SERVICE_DATE), [])
   const today = useMemo(() => new Date().toISOString().slice(0, 10), [])
-  const defaultDate = mothersDayRequested ? MOTHERS_DAY_SERVICE_DATE : toIsoDateInputValue(prefill?.date) || today
+  const defaultDate = mothersDayPrefillRequested ? MOTHERS_DAY_SERVICE_DATE : toIsoDateInputValue(prefill?.date) || today
   const defaultRequestedTime =
-    toTimeInputValue(prefill?.time) || (mothersDayRequested ? MOTHERS_DAY_DEFAULT_TIME : getDefaultTimeValue())
-  const defaultPartySize = Math.min(Math.max(prefill?.partySize || (mothersDayRequested ? 4 : 2), 1), 50)
+    toTimeInputValue(prefill?.time) || (mothersDayPrefillRequested ? MOTHERS_DAY_DEFAULT_TIME : getDefaultTimeValue())
+  const defaultPartySize = Math.min(Math.max(prefill?.partySize || (mothersDayPrefillRequested ? 4 : 2), 1), 50)
 
   const [step, setStep] = useState<BookingStep>('find')
 
@@ -482,6 +506,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const [selectedSuggestedEvent, setSelectedSuggestedEvent] = useState<SuggestedEvent | null>(null)
   const [eventFetchRefresh, setEventFetchRefresh] = useState(0)
   const datePickerFocusRef = useRef(false)
+  const previousDateRef = useRef(date)
 
   const [phone, setPhone] = useState('')
   const [lookupState, setLookupState] = useState<LookupState>('idle')
@@ -492,10 +517,11 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
-  const [purpose, setPurpose] = useState<BookingPurpose>(mothersDayRequested ? 'food' : prefill?.purpose || 'food')
+  const [purpose, setPurpose] = useState<BookingPurpose>(mothersDayPrefillRequested ? 'food' : prefill?.purpose || 'food')
   const [notes, setNotes] = useState('')
 
-  const [sundayLunch, setSundayLunch] = useState(mothersDayMode ? true : Boolean(prefill?.sundayLunch))
+  const [sundayLunch, setSundayLunch] = useState(initialMothersDayMode ? true : Boolean(prefill?.sundayLunch))
+  const [sundayPlanManuallySelected, setSundayPlanManuallySelected] = useState(Boolean(prefill?.sundayLunch))
   const [sundayMenuItems, setSundayMenuItems] = useState<SundayLunchMenuItem[]>([])
   const [sundayMenuLoading, setSundayMenuLoading] = useState(false)
   const [sundayMenuError, setSundayMenuError] = useState<string | null>(null)
@@ -508,6 +534,11 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const [result, setResult] = useState<ManagementTableBookingResult | null>(null)
 
   const holdExpiry = formatHoldExpiry(result?.hold_expires_at || null)
+  const mothersDayRequested =
+    mothersDayPrefillRequested || (date === MOTHERS_DAY_SERVICE_DATE && purpose === 'food')
+  const mothersDayCutoffPassed =
+    mothersDayRequested && hasSundayLunchCutoffPassed(MOTHERS_DAY_SERVICE_DATE, now)
+  const mothersDayMode = mothersDayRequested && !mothersDayCutoffPassed
   const selectedDateIsSunday = useMemo(() => isSundayDate(date), [date])
   const sundayLunchCutoffPassed =
     selectedDateIsSunday && hasSundayLunchCutoffPassed(date, now)
@@ -555,6 +586,18 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   }, [date, mothersDayMode, purpose, sundayLunch])
 
   useEffect(() => {
+    if (previousDateRef.current === date) {
+      return
+    }
+
+    previousDateRef.current = date
+
+    if (!mothersDayMode) {
+      setSundayPlanManuallySelected(false)
+    }
+  }, [date, mothersDayMode])
+
+  useEffect(() => {
     if (result?.state !== 'pending_card_capture' || !result.next_step_url) {
       setCardRedirectInitiated(false)
       return
@@ -570,20 +613,34 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       return
     }
 
-    if (!selectedDateIsSunday) {
+    if (!selectedDateIsSunday || purpose === 'drinks') {
       if (sundayLunch) {
         setSundayLunch(false)
       }
       return
     }
 
-    if (sundayLunchCutoffPassed && sundayLunch) {
-      setSundayLunch(false)
+    if (sundayLunchCutoffPassed) {
+      if (sundayLunch) {
+        setSundayLunch(false)
+      }
+      return
     }
-  }, [mothersDayMode, selectedDateIsSunday, sundayLunch, sundayLunchCutoffPassed])
+
+    if (!sundayLunch && !sundayPlanManuallySelected) {
+      setSundayLunch(true)
+    }
+  }, [
+    mothersDayMode,
+    purpose,
+    selectedDateIsSunday,
+    sundayLunch,
+    sundayLunchCutoffPassed,
+    sundayPlanManuallySelected
+  ])
 
   useEffect(() => {
-    if (mothersDayMode || !sundayLunch || !selectedDateIsSunday || !detailsUnlocked || step !== 'details') {
+    if (!sundayLunch || !selectedDateIsSunday || !detailsUnlocked || step !== 'details') {
       return
     }
 
@@ -624,7 +681,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     return () => {
       cancelled = true
     }
-  }, [date, detailsUnlocked, mothersDayMode, selectedDateIsSunday, step, sundayLunch])
+  }, [date, detailsUnlocked, selectedDateIsSunday, step, sundayLunch])
 
   useEffect(() => {
     if (datePickerFocusRef.current) {
@@ -920,6 +977,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     if (nextPurpose === purpose) return
 
     setPurpose(nextPurpose)
+    setSundayPlanManuallySelected(false)
     if (nextPurpose === 'drinks') {
       setSundayLunch(false)
     }
@@ -1092,10 +1150,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     error?: string
   } {
     if (!sundayLunch) {
-      return { ok: true }
-    }
-
-    if (mothersDayMode) {
       return { ok: true }
     }
 
@@ -1296,6 +1350,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setPurpose(mothersDayMode ? 'food' : prefill?.purpose || 'food')
     setNotes('')
     setSundayLunch(mothersDayMode ? true : Boolean(prefill?.sundayLunch))
+    setSundayPlanManuallySelected(Boolean(prefill?.sundayLunch))
     setSundayMenuItems([])
     setSundayMenuError(null)
     setPolicyAccepted(false)
@@ -1437,10 +1492,10 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
           <Alert variant="warning" title="Mother’s Day Sunday lunch pre-orders closed">
             <p>
               Sunday lunch pre-orders for Mother’s Day (Sunday, {MOTHERS_DAY_SERVICE_DATE}) closed at 1pm on{' '}
-              {mothersDayCutoffDate ? `Saturday, ${mothersDayCutoffDate}` : 'the Saturday before'} (London time).
+              {mothersDayCutoffDate ? formatDateForDisplay(mothersDayCutoffDate) : 'the Saturday before'} (London time).
             </p>
             <p className="mt-2">
-              You can still book a regular table for that Sunday, or call{' '}
+              You can still book a weekday menu table for that Sunday, or call{' '}
               <a href="tel:+441753682707" className="font-semibold underline">01753 682707</a>.
             </p>
           </Alert>
@@ -1774,7 +1829,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                       Booking type is fixed to food + Sunday lunch for Sunday, 15 March 2026.
                     </p>
                     <p className="mt-1">
-                      Card details step comes first to secure your table, then we send your Sunday lunch pre-order link.
+                      Choose each guest’s Sunday lunch main in this step. After review, complete card details to secure your table.
                     </p>
                   </div>
                 ) : (
@@ -1806,6 +1861,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                         disabled={sundayLunchCutoffPassed}
                         onClick={() => {
                           if (sundayLunchCutoffPassed) return
+                          setSundayPlanManuallySelected(true)
                           setSundayLunch(true)
                           setPurpose('food')
                         }}
@@ -1826,28 +1882,31 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                       <button
                         type="button"
                         aria-pressed={!sundayLunch}
-                        onClick={() => setSundayLunch(false)}
+                        onClick={() => {
+                          setSundayPlanManuallySelected(true)
+                          setSundayLunch(false)
+                        }}
                         className={`rounded-lg border px-3 py-3 text-left text-sm transition-colors ${
                           !sundayLunch
                             ? 'border-anchor-gold bg-white text-anchor-green'
                             : 'border-amber-200 bg-amber-50 text-amber-900 hover:border-anchor-gold'
                         }`}
                       >
-                        <p className="font-semibold">Regular menu table</p>
+                        <p className="font-semibold">Weekday menu table</p>
                         <p className="mt-1 text-xs">
-                          Keep it flexible and choose from the regular menu on the day.
+                          Keep it flexible and choose from the weekday menu on the day.
                         </p>
                       </button>
                     </div>
 
                     <p className="text-xs text-amber-900">
                       Sunday lunch pre-orders close at 1pm on{' '}
-                      {sundayLunchCutoffDate ? `Saturday, ${sundayLunchCutoffDate}` : 'the Saturday before'} (London time).
+                      {sundayLunchCutoffDate ? formatDateForDisplay(sundayLunchCutoffDate) : 'the Saturday before'} (London time).
                     </p>
 
                     {sundayLunchCutoffPassed ? (
                       <p className="text-xs font-medium text-amber-900">
-                        The deadline has passed for this Sunday, so Sunday lunch pre-order is unavailable. You can still book a regular menu table.
+                        The deadline has passed for this Sunday, so Sunday lunch pre-order is unavailable. You can still book a weekday menu table.
                       </p>
                     ) : sundayLunch ? (
                       <p className="text-xs font-medium text-amber-900">
@@ -1861,7 +1920,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                   </div>
                 ) : null}
 
-                {!mothersDayMode && selectedDateIsSunday && sundayLunch ? (
+                {selectedDateIsSunday && sundayLunch ? (
                   <div className="space-y-3 rounded-xl border border-amber-200 bg-amber-50 p-4">
                     <p className="text-sm font-semibold text-amber-900">Sunday lunch pre-order (required)</p>
                     <p className="text-sm text-amber-800">

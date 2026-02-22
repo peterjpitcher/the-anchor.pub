@@ -325,7 +325,7 @@ export async function POST(request: NextRequest) {
         const cutoffLabel = cutoffDate ? ` (cutoff: 1pm Saturday ${cutoffDate} London time)` : ''
 
         return createApiErrorResponse(
-          `Sunday lunch pre-orders for ${normalized.payload.date} are now closed. Please book a regular table instead or call 01753 682707.${cutoffLabel}`,
+          `Sunday lunch pre-orders for ${normalized.payload.date} are now closed. Please book a weekday menu table instead or call 01753 682707.${cutoffLabel}`,
           400
         )
       }

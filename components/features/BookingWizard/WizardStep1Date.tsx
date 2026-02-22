@@ -131,7 +131,7 @@ export function WizardStep1Date({ value, availabilityData, eventsByDate, onNext 
       setSelectedDate(date)
       setError(
         overrideMessage ||
-          'Sunday lunch bookings are unavailable on this date. We will reserve you a table from our regular menu.'
+          'Sunday lunch bookings are unavailable on this date. We will reserve you a table from our weekday menu.'
       )
       return
     }
@@ -156,7 +156,7 @@ export function WizardStep1Date({ value, availabilityData, eventsByDate, onNext 
     if (selectedDay?.sundayLunchUnavailable) {
       setError(
         selectedDay.overrideMessage ||
-          'Sunday lunch bookings are unavailable on this date. We will reserve you a table from our regular menu.'
+          'Sunday lunch bookings are unavailable on this date. We will reserve you a table from our weekday menu.'
       )
     } else {
       setError('')
@@ -169,10 +169,11 @@ export function WizardStep1Date({ value, availabilityData, eventsByDate, onNext 
   const formatSelectedDate = () => {
     if (!selectedDate) return ''
     const date = new Date(selectedDate + 'T12:00:00')
-    return date.toLocaleDateString('en-GB', { 
+    return date.toLocaleDateString('en-US', {
       weekday: 'long', 
-      day: 'numeric', 
-      month: 'long' 
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric'
     })
   }
   

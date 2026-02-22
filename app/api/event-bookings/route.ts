@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createApiErrorResponse, logError } from '@/lib/error-handling'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
-import { buildMothersDayLandingUrl } from '@/lib/mothers-day-booking'
+import { buildMothersDayBookingUrl } from '@/lib/mothers-day-booking'
 import { getSafeUpstreamErrorMessage, safeJsonParse } from '@/lib/upstream-json'
 
 const API_BASE_URL = getManagementApiBaseUrl()
@@ -162,7 +162,7 @@ export async function POST(request: NextRequest) {
 
     const policyViolation = upstream.status === 409 && hasPolicyViolation(parsed)
     const fallbackRedirectUrl = policyViolation
-      ? buildMothersDayLandingUrl({ partySize: normalized.payload.seats })
+      ? buildMothersDayBookingUrl({ partySize: normalized.payload.seats })
       : null
     const responseBody =
       policyViolation && parsed && typeof parsed === 'object'

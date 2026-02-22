@@ -50,7 +50,7 @@ export function WizardStep2SundayOffer({ onSelect, onBack, selectedDate }: Wizar
               </p>
               <p className="text-amber-700">
                 Unfortunately, the 1pm Saturday deadline for pre-ordering Sunday roasts has passed. 
-                You can still book a table and order from our regular menu on arrival.
+                You can still book a table and order from our weekday menu on arrival.
               </p>
             </div>
           </div>
@@ -100,7 +100,7 @@ export function WizardStep2SundayOffer({ onSelect, onBack, selectedDate }: Wizar
           </div>
         </button>
         
-        {/* Regular Menu Option */}
+        {/* Weekday Menu Option */}
         <button
           type="button"
           onClick={() => onSelect('regular')}
@@ -112,7 +112,7 @@ export function WizardStep2SundayOffer({ onSelect, onBack, selectedDate }: Wizar
             </div>
             <div className="flex-1">
               <h3 className="text-lg font-semibold text-anchor-charcoal mb-2">
-                No Thanks, Regular Menu
+                No Thanks, Weekday Menu
               </h3>
               <p className="text-gray-700 mb-3">
                 Choose from our full menu including burgers, pizzas, salads and more.

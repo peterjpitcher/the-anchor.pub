@@ -47,7 +47,7 @@ const MOTHERS_DAY_KIDS_ROAST_PRICE = 13.99
 const MOTHERS_DAY_CARD_HOLD_NOTE =
   'We take a card hold only to secure your table (nothing is charged in advance). Free cancellation up to 3 days before.'
 const MOTHERS_DAY_BOOKING_FLOW_NOTE =
-  'Card details come first to secure your table, then we send your Sunday lunch pre-order link.'
+  'Choose each guest’s Sunday lunch main in the booking flow, then complete card details to secure your table.'
 
 // TODO: Swap these for Mother’s Day-specific photos when available.
 const MOTHERS_DAY_PHOTOS = [

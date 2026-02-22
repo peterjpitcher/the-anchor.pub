@@ -151,6 +151,7 @@ describe('EventBookingButton', () => {
     const link = screen.getByRole('link', { name: /Book Mother/i })
     expect(link.getAttribute('href')).toContain('/book-table?')
     expect(link.getAttribute('href')).toContain('date=2026-03-15')
+    expect(link.getAttribute('href')).toContain('purpose=food')
     expect(link.getAttribute('href')).toContain('sunday_lunch=true')
     expect(link.getAttribute('href')).toContain('mothers_day=true')
     expect(link).not.toHaveAttribute('target')

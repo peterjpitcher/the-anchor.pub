@@ -25,6 +25,19 @@ interface WizardStepPlanVisitProps extends WizardStepProps {
 const MIN_PARTY = 1
 const MAX_PARTY = 20
 
+function formatGuestDate(isoDate: string): string {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(isoDate)) return isoDate
+  const [year, month, day] = isoDate.split('-').map((part) => Number.parseInt(part, 10))
+  const date = new Date(Date.UTC(year, month - 1, day))
+  return date.toLocaleDateString('en-US', {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+    timeZone: 'UTC'
+  })
+}
+
 export function WizardStepPlanVisit({
   availabilityData,
   eventsByDate,
@@ -450,7 +463,7 @@ export function WizardStepPlanVisit({
                 >
                   <div className="flex items-center gap-2 mb-1">
                     <Icon name="bookOpen" className="w-5 h-5 text-anchor-green" />
-                    <span className="font-semibold text-anchor-charcoal">Regular menu</span>
+                    <span className="font-semibold text-anchor-charcoal">Weekday menu</span>
                   </div>
                   <p className="text-sm text-gray-700">
                     Book a table and order from the main menu on arrival.
@@ -467,15 +480,11 @@ export function WizardStepPlanVisit({
             <div className="flex flex-wrap items-center justify-between mb-4 gap-2">
               <h3 className="font-semibold text-anchor-charcoal">Available times</h3>
             <span className="text-xs text-gray-500">
-              {bookingType === 'sunday_lunch' ? 'Sunday lunch pre-order' : 'Regular dining'}
+              {bookingType === 'sunday_lunch' ? 'Sunday lunch pre-order' : 'Weekday menu dining'}
             </span>
               {selectedDate && (
                 <span className="text-sm text-gray-600">
-                  {new Date(selectedDate + 'T12:00:00').toLocaleDateString('en-GB', {
-                    weekday: 'long',
-                    day: 'numeric',
-                    month: 'long'
-                  })}
+                  {formatGuestDate(selectedDate)}
                 </span>
               )}
             </div>
@@ -541,13 +550,9 @@ export function WizardStepPlanVisit({
         <div className="bg-anchor-cream rounded-lg p-4 text-center">
           <p className="text-sm text-gray-600 mb-1">You selected</p>
           <p className="text-lg font-semibold text-anchor-green">
-            {new Date(selectedDate + 'T12:00:00').toLocaleDateString('en-GB', {
-              weekday: 'long',
-              day: 'numeric',
-              month: 'long'
-            })}{' '}
+            {formatGuestDate(selectedDate)}{' '}
             · {selectedPartySize} {selectedPartySize === 1 ? 'person' : 'people'}{' '}
-            {selectedTime && `· ${selectedTime}`} · {bookingType === 'sunday_lunch' ? 'Sunday lunch' : 'Regular menu'}
+            {selectedTime && `· ${selectedTime}`} · {bookingType === 'sunday_lunch' ? 'Sunday lunch' : 'Weekday menu'}
           </p>
         </div>
       )}
