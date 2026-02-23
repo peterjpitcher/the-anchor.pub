@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/primitives/Button'
 import { ManagementEventBookingForm } from '@/components/features/EventBooking/ManagementEventBookingForm'
 import { trackTableBookingClick } from '@/lib/gtm-events'
 import { isMothersDayEvent, MOTHERS_DAY_DEFAULT_TIME, MOTHERS_DAY_SERVICE_DATE } from '@/lib/mothers-day-booking'
+import { SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP, getSundayLunchDepositAmount } from '@/lib/constants'
 import { getSundayLunchCutoffDate, hasSundayLunchCutoffPassed } from '@/lib/sunday-lunch-cutoff'
 
 type BookingPurpose = 'food' | 'drinks'
@@ -156,6 +157,13 @@ function formatHoldExpiry(value: string | null): string | null {
     hour12: true,
     timeZone: 'Europe/London'
   })
+}
+
+function formatGbpCurrency(value: number): string {
+  return new Intl.NumberFormat('en-GB', {
+    style: 'currency',
+    currency: 'GBP'
+  }).format(value)
 }
 
 function isSundayDate(isoDate: string): boolean {
@@ -544,6 +552,9 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     selectedDateIsSunday && hasSundayLunchCutoffPassed(date, now)
   const sundayLunchCutoffDate = useMemo(() => getSundayLunchCutoffDate(date), [date])
   const purposeLockedToFood = !mothersDayMode && selectedDateIsSunday && sundayLunch
+  const requiresSundayLunchDeposit = mothersDayMode || (selectedDateIsSunday && sundayLunch)
+  const sundayLunchDepositAmount = requiresSundayLunchDeposit ? getSundayLunchDepositAmount(partySize) : 0
+  const sundayLunchDepositPerGuestLabel = `GBP ${SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP} per person`
   const detailsUnlocked = lookupState === 'known' || lookupState === 'unknown'
   const isKnownCustomer = lookupState === 'known'
   const selectedDateEvents = eventsByDate[date] || []
@@ -1423,6 +1434,30 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     )
   }
 
+  if (result?.state === 'pending_payment' && !result.next_step_url) {
+    return (
+      <Card variant="elevated">
+        <CardBody className="space-y-4">
+          <Alert variant="error" title="Deposit payment link unavailable">
+            <p>
+              Booking reference: <strong>{result.booking_reference || 'Pending'}</strong>
+            </p>
+            <p className="mt-1">
+              We could not generate your secure deposit payment link right now, so this booking is not yet confirmed.
+            </p>
+            <p className="mt-1">
+              Please call <a href="tel:+441753682707" className="font-semibold underline">01753 682707</a> and we will secure your table.
+            </p>
+          </Alert>
+
+          <Button type="button" variant="outline" onClick={resetJourney}>
+            Start a new booking
+          </Button>
+        </CardBody>
+      </Card>
+    )
+  }
+
   if (result?.state === 'pending_card_capture' || result?.state === 'pending_payment') {
     const requiresPayment = result.state === 'pending_payment'
 
@@ -1445,7 +1480,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
             ) : (
               <p className="mt-1">
                 {requiresPayment
-                  ? 'Complete payment of your GBP 10 per person Sunday lunch deposit to secure your table.'
+                  ? `Complete payment of your ${sundayLunchDepositPerGuestLabel} Sunday lunch deposit to secure your table. This deposit is deducted from your final bill.`
                   : 'Complete card details to secure your table.'}
               </p>
             )}
@@ -1849,7 +1884,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                       Booking type is fixed to food + Sunday lunch for Sunday, 15 March 2026.
                     </p>
                     <p className="mt-1">
-                      Choose each guest’s Sunday lunch main in this step. After review, pay a GBP 10 per person deposit to secure your table.
+                      Choose each guest’s Sunday lunch main in this step. After review, pay a {sundayLunchDepositPerGuestLabel} deposit to secure your table.
                     </p>
                   </div>
                 ) : (
@@ -1930,7 +1965,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                       </p>
                     ) : sundayLunch ? (
                       <p className="text-xs font-medium text-amber-900">
-                        Great choice. We’ll collect each guest’s main now and then take your GBP 10 per person deposit payment to secure your booking.
+                        Great choice. We’ll collect each guest’s main now and then take your {sundayLunchDepositPerGuestLabel} deposit payment to secure your booking.
                       </p>
                     ) : (
                       <p className="text-xs text-amber-900">
@@ -1944,7 +1979,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                   <div className="space-y-3 rounded-xl border border-amber-200 bg-amber-50 p-4">
                     <p className="text-sm font-semibold text-amber-900">Sunday lunch pre-order (required)</p>
                     <p className="text-sm text-amber-800">
-                      Choose each guest’s main now. We then take a GBP 10 per person deposit payment to secure your Sunday lunch booking.
+                      Choose each guest’s main now. We then take a {sundayLunchDepositPerGuestLabel} deposit payment to secure your Sunday lunch booking.
                     </p>
 
                     {sundayMenuLoading ? <p className="text-sm text-amber-900">Loading Sunday lunch menu...</p> : null}
@@ -2070,7 +2105,18 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                     <dd>Pre-order completed</dd>
                   </div>
                 ) : null}
+                {requiresSundayLunchDeposit ? (
+                  <div className="flex justify-between gap-3">
+                    <dt className="font-medium">Deposit due now</dt>
+                    <dd>{formatGbpCurrency(sundayLunchDepositAmount)}</dd>
+                  </div>
+                ) : null}
               </dl>
+              {requiresSundayLunchDeposit ? (
+                <p className="mt-3 text-xs text-amber-900">
+                  This deposit is deducted from your final bill.
+                </p>
+              ) : null}
             </div>
 
             <label className="flex items-start gap-2 text-sm text-gray-700">

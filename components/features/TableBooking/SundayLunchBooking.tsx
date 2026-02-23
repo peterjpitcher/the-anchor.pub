@@ -18,6 +18,7 @@ import { LoadingState } from '@/components/ui/LoadingState'
 import { Badge } from '@/components/ui/primitives/Badge'
 import { trackTableBookingClick, trackTableBookingSuccess, trackFormComplete, trackError } from '@/lib/gtm-events'
 import { logError } from '@/lib/error-handling'
+import { SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP, getSundayLunchDepositAmount } from '@/lib/constants'
 
 interface SundayLunchBookingProps {
   className?: string
@@ -325,7 +326,7 @@ export default function SundayLunchBooking({
     (sum, side) => sum + side.price_at_booking * (side.quantity || 0),
     0
   )
-  const depositAmount = bookingState.partySize * 5
+  const depositAmount = getSundayLunchDepositAmount(bookingState.partySize)
   const totalAmount = mainCoursesTotal + sidesTotal
 
   const buildMenuPayload = () => {
@@ -499,28 +500,66 @@ export default function SundayLunchBooking({
 
     try {
       const response = await anchorAPI.createTableBooking(bookingData)
-      
       if (response) {
-	        setBookingResponse(response)
-	        setBookingState(prev => ({ ...prev, step: 'confirmation' }))
-	        
-	        trackFormComplete('Sunday Lunch Booking')
-	        const bookingDate = response.confirmation_details?.date ?? response.booking_details?.date ?? bookingState.date
-	        const bookingTime = response.confirmation_details?.time ?? response.booking_details?.time ?? bookingState.confirmedTime
-	        if (bookingDate && bookingTime) {
-	          trackTableBookingSuccess({
-	            partySize: bookingState.partySize,
-	            bookingDate,
-	            bookingTime,
-	            bookingReference: response.booking_reference,
-	            source: 'sunday_lunch_booking',
-	            deviceType: window.innerWidth < 768 ? 'mobile' : 'desktop'
-	          })
-	        }
-	        
-	        if (onSuccess) {
-	          onSuccess(response)
-	        }
+        const bookingStateValue =
+          typeof response.state === 'string'
+            ? response.state
+            : typeof response.status === 'string'
+            ? response.status
+            : null
+        const paymentUrl = response.payment_details?.payment_url || response.next_step_url || null
+        const paymentRequired =
+          response.payment_required === true ||
+          bookingStateValue === 'pending_payment' ||
+          bookingStateValue === 'pending_card_capture'
+
+        if (paymentRequired) {
+          if (!paymentUrl) {
+            throw new Error('Your booking is awaiting payment, but we could not generate a secure payment link. Please call us on 01753 682707.')
+          }
+
+          if (typeof window !== 'undefined') {
+            const bookingDate = response.confirmation_details?.date ?? response.booking_details?.date ?? bookingState.date
+            const bookingTime = response.confirmation_details?.time ?? response.booking_details?.time ?? bookingState.confirmedTime
+            if (bookingDate && bookingTime) {
+              trackTableBookingSuccess({
+                partySize: bookingState.partySize,
+                bookingDate,
+                bookingTime,
+                bookingReference: response.booking_reference,
+                source: 'sunday_lunch_booking',
+                deviceType: window.innerWidth < 768 ? 'mobile' : 'desktop'
+              })
+            }
+            window.location.href = paymentUrl
+          }
+          return
+        }
+
+        if (bookingStateValue && bookingStateValue !== 'confirmed') {
+          throw new Error('Your booking is awaiting payment and is not confirmed yet. Please call us on 01753 682707.')
+        }
+
+        setBookingResponse(response)
+        setBookingState(prev => ({ ...prev, step: 'confirmation' }))
+
+        trackFormComplete('Sunday Lunch Booking')
+        const bookingDate = response.confirmation_details?.date ?? response.booking_details?.date ?? bookingState.date
+        const bookingTime = response.confirmation_details?.time ?? response.booking_details?.time ?? bookingState.confirmedTime
+        if (bookingDate && bookingTime) {
+          trackTableBookingSuccess({
+            partySize: bookingState.partySize,
+            bookingDate,
+            bookingTime,
+            bookingReference: response.booking_reference,
+            source: 'sunday_lunch_booking',
+            deviceType: window.innerWidth < 768 ? 'mobile' : 'desktop'
+          })
+        }
+
+        if (onSuccess) {
+          onSuccess(response)
+        }
       }
     } catch (err: any) {
       logError('sunday-lunch-booking-submit', err, bookingData)
@@ -572,7 +611,7 @@ export default function SundayLunchBooking({
                 Sunday roasts must be pre-ordered and paid for by 1pm on Saturday.
               </p>
               <p className="text-sm">
-                This ensures we can prepare your meal fresh to order - a delicious 'like home' Sunday lunch.
+                This ensures we can prepare your meal fresh to order. A GBP {SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP} per person deposit is deducted from your final bill.
               </p>
               <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 mt-3">
                 <p className="text-sm font-medium text-amber-900">

@@ -237,7 +237,7 @@ export default function WindsorPubPage() {
 	                  <li className="flex items-start gap-3">
 	                    <span className="text-anchor-gold text-xl">🥘</span>
 	                    <div>
-	                      <strong>Famous Sunday Roasts</strong> - Pre-order by 1pm Saturday. Bookings of 7+ require a card hold to secure the booking (no charge)
+	                      <strong>Famous Sunday Roasts</strong> - Pre-order by 1pm Saturday. Sunday lunch bookings require a £10 per person deposit.
 	                    </div>
 	                  </li>
                   <li className="flex items-start gap-3">

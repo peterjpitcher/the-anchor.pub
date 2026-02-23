@@ -252,7 +252,7 @@ export default async function AshfordPubPage() {
 	                  <li className="flex items-start gap-3">
 	                    <span className="text-anchor-gold text-xl">🥘</span>
 	                    <div>
-	                      <strong>Sunday Roasts</strong> - Pre-order by 1pm Saturday. Bookings of 7+ require a card hold to secure the booking (no charge) - Ashford folks fill tables fast!
+	                      <strong>Sunday Roasts</strong> - Pre-order by 1pm Saturday. Sunday lunch bookings require a £10 per person deposit. Ashford folks fill tables fast!
 	                    </div>
 	                  </li>
                   <li className="flex items-start gap-3">

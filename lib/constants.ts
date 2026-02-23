@@ -50,9 +50,20 @@ export const HEATHROW_TIMES = {
   range: '7-12 minutes'
 }
 
+export const SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP = 10
+
+export function getSundayLunchDepositAmount(partySize: number): number {
+  const parsedPartySize = Number.isFinite(partySize) ? Math.floor(partySize) : 1
+  const normalizedPartySize = Math.max(1, parsedPartySize)
+  return Number((normalizedPartySize * SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP).toFixed(2))
+}
+
+export const SUNDAY_LUNCH_DEPOSIT_POLICY_COPY =
+  `A GBP ${SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP} per person deposit is required for every Sunday lunch booking and is deducted from your final bill.`
+
 export const SUNDAY_ROAST = {
   // Standard messaging for consistency
-  orderRequirement: 'Sunday roasts require pre-order by 1pm Saturday. A GBP 10 per person deposit is required for every Sunday lunch booking.',
+  orderRequirement: `Sunday roasts require pre-order by 1pm Saturday. ${SUNDAY_LUNCH_DEPOSIT_POLICY_COPY}`,
   regularMenuNote: 'Regular menu also available on Sundays without pre-order.',
-  fullMessage: 'Sunday roasts require pre-order by 1pm Saturday. A GBP 10 per person deposit is required for every Sunday lunch booking. Regular menu also available on Sundays without pre-order.'
+  fullMessage: `Sunday roasts require pre-order by 1pm Saturday. ${SUNDAY_LUNCH_DEPOSIT_POLICY_COPY} Regular menu also available on Sundays without pre-order.`
 }

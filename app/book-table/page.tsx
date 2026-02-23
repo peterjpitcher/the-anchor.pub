@@ -6,11 +6,12 @@ import { ManagementTableBookingForm } from '@/components/features/TableBooking/M
 import { BookTableUpcomingEventsPanel } from '@/components/features/TableBooking/BookTableUpcomingEventsPanel'
 import { Section, Button } from '@/components/ui'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
+import { SUNDAY_LUNCH_DEPOSIT_POLICY_COPY } from '@/lib/constants'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
   title: 'Book a Table Online | The Anchor - Heathrow Pub & Dining',
-  description: 'Book your table at The Anchor online with fast confirmation via our management platform. Sunday lunch bookings require a GBP 10 per person deposit.',
+  description: `Book your table at The Anchor online with fast confirmation via our management platform. ${SUNDAY_LUNCH_DEPOSIT_POLICY_COPY}`,
   keywords: 'book table stanwell moor, restaurant booking, pub reservation, sunday lunch booking',
   openGraph: {
     title: 'Book a Table at The Anchor',
@@ -180,7 +181,7 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
               <h2 className="text-xl font-semibold text-anchor-green">Quick tips</h2>
               <ul className="mt-3 space-y-2 text-left text-sm text-gray-700">
                 <li>• For larger groups, please call us.</li>
-                <li>• Sunday lunch bookings require a GBP 10 per person deposit.</li>
+                <li>• {SUNDAY_LUNCH_DEPOSIT_POLICY_COPY}</li>
                 <li>• Add access needs or dietary notes in the notes box.</li>
                 <li>• Can’t see the time you want? Give us a ring.</li>
               </ul>

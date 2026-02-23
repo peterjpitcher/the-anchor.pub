@@ -17,7 +17,7 @@ const SUNDAY_LUNCH_BOOKING_URL = '/book-table?sunday_lunch=true&purpose=food'
 
 export const metadata: Metadata = {
   title: 'Sunday Lunch Near Staines & Heathrow | The Anchor',
-  description: 'Traditional Sunday lunch roasts with Yorkshire puddings near Staines and Heathrow. Pre-order by Saturday 1pm. GBP 10 per person deposit required for all Sunday lunch bookings.',
+  description: 'Traditional Sunday lunch roasts with Yorkshire puddings near Staines and Heathrow. Pre-order by Saturday 1pm. Sunday lunch bookings require a £10 per person deposit.',
   keywords: 'sunday lunch near heathrow airport, sunday roast staines, sunday lunch near me, roast dinner near me, book sunday lunch the anchor',
   openGraph: {
     title: 'Sunday Lunch Near Staines & Heathrow',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   },
   twitter: getTwitterMetadata({
     title: 'Sunday Lunch Near Staines & Heathrow',
-    description: 'Traditional Sunday lunch near Staines and Heathrow. GBP 10 per person deposit required for all Sunday lunch bookings.',
+    description: 'Traditional Sunday lunch near Staines and Heathrow. Sunday lunch bookings require a £10 per person deposit.',
     images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg']
   }),
   alternates: {
@@ -289,7 +289,7 @@ export default async function SundayLunchPage() {
       },
       acceptsReservations: 'required',
       reservationPolicy:
-        'Advance booking required by 1pm Saturday. A GBP 10 per person deposit is required for every Sunday lunch booking.',
+        'Advance booking required by 1pm Saturday. Sunday lunch bookings require a £10 per person deposit.',
       hasMenu: {
         '@type': 'Menu',
         name: 'Sunday Lunch Menu',
@@ -310,7 +310,7 @@ export default async function SundayLunchPage() {
       '@type': 'Offer',
       name: 'Sunday Lunch Pre-Order',
       description:
-        'Traditional British Sunday lunch roasts with all the trimmings. Pre-order required by 1pm Saturday. A GBP 10 per person deposit is required for every Sunday lunch booking.',
+        'Traditional British Sunday lunch roasts with all the trimmings. Pre-order required by 1pm Saturday. Sunday lunch bookings require a £10 per person deposit.',
       url: 'https://www.the-anchor.pub/sunday-lunch',
       priceCurrency: 'GBP',
       ...(priceRangeText ? { priceRange: priceRangeText } : {}),
@@ -385,12 +385,12 @@ export default async function SundayLunchPage() {
       <HeroWrapper
         route="/sunday-lunch"
         title="Sunday Lunch at The Anchor"
-        description={`Traditional roasts cooked fresh to order. ${sundayServiceSentence} — pre-order by Saturday 1pm. GBP 10 per person deposit required for every Sunday lunch booking.`}
+        description={`Traditional roasts cooked fresh to order. ${sundayServiceSentence} — pre-order by Saturday 1pm. Sunday lunch bookings require a £10 per person deposit.`}
         variant="default"
         tags={[
           { label: sundayServiceLabel, variant: 'warning' },
           { label: 'Book by Saturday 1pm', variant: 'default' },
-          { label: 'GBP 10pp deposit required', variant: 'default' }
+          { label: '£10pp deposit required', variant: 'default' }
         ]}
         cta={
           <div className="flex flex-col items-center gap-6">
@@ -420,7 +420,7 @@ export default async function SundayLunchPage() {
             <div className="bg-anchor-green/90 backdrop-blur-sm rounded-lg p-4 max-w-2xl mx-auto text-center">
               <p className="text-white font-bold text-lg mb-1">Pre-order required</p>
               <p className="text-white text-sm">
-                <strong>Deadline: {formatCutoff(menu.cutoffTime)}</strong> • <strong>GBP 10 per person deposit</strong> required for Sunday lunch
+                <strong>Deadline: {formatCutoff(menu.cutoffTime)}</strong> • Sunday lunch bookings require a <strong>£10 per person deposit</strong>
               </p>
               <p className="text-white/90 text-sm sm:text-xs mt-2">Regular menu also available on Sundays without pre-order</p>
             </div>
@@ -448,8 +448,8 @@ export default async function SundayLunchPage() {
                 <p className="mt-1 text-sm text-gray-700">We cook to order, so we need numbers in advance.</p>
               </div>
               <div className="rounded-xl border border-anchor-green/10 bg-anchor-cream/40 p-5">
-                <p className="text-sm font-semibold text-anchor-green">GBP 10 per person deposit required</p>
-                <p className="mt-1 text-sm text-gray-700">The deposit secures all Sunday lunch bookings.</p>
+                <p className="text-sm font-semibold text-anchor-green">£10 per person deposit required</p>
+                <p className="mt-1 text-sm text-gray-700">Sunday lunch bookings require a £10 per person deposit.</p>
               </div>
             </div>
 
@@ -566,7 +566,7 @@ export default async function SundayLunchPage() {
             },
             {
               question: "Do you take a deposit?",
-              answer: "Yes. A GBP 10 per person deposit is required for every Sunday lunch booking."
+              answer: "Yes. Sunday lunch bookings require a £10 per person deposit."
             },
             {
               question: "What time is Sunday lunch served?",
@@ -588,7 +588,7 @@ export default async function SundayLunchPage() {
             <div className="text-center max-w-3xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-bold mb-4">Book Sunday Lunch</h2>
               <p className="text-lg mb-8">
-                Book by <strong>{formatCutoff(menu.cutoffTime)}</strong> • <strong>GBP 10 per person deposit</strong> required
+                Book by <strong>{formatCutoff(menu.cutoffTime)}</strong> • Sunday lunch bookings require a <strong>£10 per person deposit</strong>
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center">

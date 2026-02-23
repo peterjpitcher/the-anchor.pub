@@ -223,6 +223,9 @@ describe('ManagementTableBookingForm', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
     await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
+    expect(screen.getByText('Deposit due now')).toBeInTheDocument()
+    expect(screen.getByText('£40.00')).toBeInTheDocument()
+    expect(screen.getByText('This deposit is deducted from your final bill.')).toBeInTheDocument()
 
     fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
     fireEvent.click(screen.getByRole('button', { name: 'Confirm booking' }))
@@ -232,5 +235,143 @@ describe('ManagementTableBookingForm', () => {
     expect(submittedPayload?.purpose).toBe('food')
     expect(Array.isArray(submittedPayload?.menu_selections)).toBe(true)
     expect((submittedPayload?.menu_selections as Array<unknown>).length).toBe(4)
+  })
+
+  it('shows a blocking error when pending payment is returned without a payment link', async () => {
+    ;(global as any).fetch = jest.fn((input: RequestInfo | URL) => {
+      const url = typeof input === 'string' ? input : input.toString()
+
+      if (url.startsWith('/api/events?')) {
+        return Promise.resolve(
+          new Response(JSON.stringify({ success: true, data: { events: [] } }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' }
+          })
+        )
+      }
+
+      if (url.startsWith('/api/table-bookings/availability?')) {
+        return Promise.resolve(
+          new Response(
+            JSON.stringify({
+              success: true,
+              data: {
+                date: '2026-03-15',
+                available: true,
+                time_slots: [
+                  {
+                    time: '13:00',
+                    available: true,
+                    available_capacity: 10
+                  }
+                ]
+              }
+            }),
+            {
+              status: 200,
+              headers: { 'Content-Type': 'application/json' }
+            }
+          )
+        )
+      }
+
+      if (url.startsWith('/api/customers/lookup?')) {
+        return Promise.resolve(
+          new Response(
+            JSON.stringify({
+              success: true,
+              data: {
+                known: false,
+                lookup_degraded: false
+              }
+            }),
+            {
+              status: 200,
+              headers: { 'Content-Type': 'application/json' }
+            }
+          )
+        )
+      }
+
+      if (url.startsWith('/api/table-bookings/menu/sunday-lunch?')) {
+        return Promise.resolve(
+          new Response(
+            JSON.stringify({
+              success: true,
+              data: {
+                mains: [
+                  {
+                    id: 'dish-1',
+                    name: 'Roast Beef',
+                    price: 19.99,
+                    is_available: true
+                  }
+                ]
+              }
+            }),
+            {
+              status: 200,
+              headers: { 'Content-Type': 'application/json' }
+            }
+          )
+        )
+      }
+
+      if (url === '/api/table-bookings') {
+        return Promise.resolve(
+          new Response(
+            JSON.stringify({
+              success: true,
+              data: {
+                state: 'pending_payment',
+                table_booking_id: 'tb-404',
+                booking_reference: 'TB-404',
+                reason: null,
+                blocked_reason: null,
+                next_step_url: null,
+                hold_expires_at: null,
+                table_name: null
+              }
+            }),
+            {
+              status: 201,
+              headers: { 'Content-Type': 'application/json' }
+            }
+          )
+        )
+      }
+
+      return Promise.reject(new Error(`Unexpected fetch call: ${url}`))
+    })
+
+    render(<ManagementTableBookingForm prefill={{ mothersDay: true }} />)
+
+    fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+
+    await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+    fireEvent.click(screen.getByRole('button', { name: '1pm' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+
+    fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+
+    await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+    fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Jane' } })
+    fireEvent.change(screen.getByLabelText('Last Name'), { target: { value: 'Guest' } })
+
+    await waitFor(() => expect(screen.getAllByRole('combobox')).toHaveLength(4))
+    for (const select of screen.getAllByRole('combobox')) {
+      fireEvent.change(select, { target: { value: 'dish-1' } })
+    }
+
+    fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
+    await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
+
+    fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
+    fireEvent.click(screen.getByRole('button', { name: 'Confirm booking' }))
+
+    await waitFor(() => expect(screen.getByText('Deposit payment link unavailable')).toBeInTheDocument())
+    expect(screen.getByText('this booking is not yet confirmed.', { exact: false })).toBeInTheDocument()
+    expect(screen.queryByText('Booking confirmed')).not.toBeInTheDocument()
   })
 })

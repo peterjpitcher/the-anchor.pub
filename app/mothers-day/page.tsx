@@ -45,9 +45,9 @@ const MOTHERS_DAY_ADULT_PRICE_HIGH = 23.99
 const MOTHERS_DAY_KIDS_ROAST_PRICE = 13.99
 
 const MOTHERS_DAY_DEPOSIT_NOTE =
-  'A GBP 10 per person deposit is required to secure your Sunday lunch table booking. Free cancellation up to 3 days before.'
+  'Sunday lunch bookings require a £10 per person deposit.'
 const MOTHERS_DAY_BOOKING_FLOW_NOTE =
-  'Choose each guest’s Sunday lunch main in the booking flow, then complete the GBP 10 per person deposit payment to secure your table.'
+  'Choose each guest’s Sunday lunch main in the booking flow, then complete the £10 per person deposit payment to secure your table.'
 
 // TODO: Swap these for Mother’s Day-specific photos when available.
 const MOTHERS_DAY_PHOTOS = [
@@ -188,7 +188,7 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
   const heroLeadText =
     `Adults £${MOTHERS_DAY_ADULT_PRICE_LOW.toFixed(2)}–£${MOTHERS_DAY_ADULT_PRICE_HIGH.toFixed(2)} • ` +
     `Kids roast £${MOTHERS_DAY_KIDS_ROAST_PRICE.toFixed(2)} • ` +
-    'GBP 10 per person deposit required • Free cancellation up to 3 days before'
+    '£10 per person deposit required'
 
   const faqs = [
     {

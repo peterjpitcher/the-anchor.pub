@@ -13,6 +13,7 @@ import { Button } from '@/components/ui/primitives/Button'
 import { Badge } from '@/components/ui/primitives/Badge'
 import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
 import { InfoBoxGrid } from '@/components/ui'
+import { SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP } from '@/lib/constants'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
@@ -111,9 +112,9 @@ export default function BookTablePage({
 	                    Enjoy our famous Sunday roasts - freshly prepared and served with all the trimmings
 	                  </p>
 		                  <p className="text-sm text-muted-foreground">
-		                    Pre-order by 1pm Saturday. Bookings of 7+ require a card hold to secure the booking (no charge).
+		                    Pre-order by 1pm Saturday. Sunday lunch bookings require a GBP {SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP} per person deposit, deducted from your final bill.
 		                  </p>
-	                </div>
+		                </div>
 
                 <SundayLunchBookingForm />
 

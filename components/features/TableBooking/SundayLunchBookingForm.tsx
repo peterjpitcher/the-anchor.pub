@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect, useRef, useMemo } from 'react'
-import { useRouter } from 'next/navigation'
 import { 
   trackTableBookingView, 
   trackTableBookingStart, 
@@ -18,6 +17,7 @@ import { Icon } from '@/components/ui/Icon'
 import { PhoneLink } from '@/components/PhoneLink'
 import { DateTime } from 'luxon'
 import { formatPrice, type BusinessHours, isKitchenOpen, getKitchenStatus, anchorAPI } from '@/lib/api'
+import { SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP, getSundayLunchDepositAmount } from '@/lib/constants'
 
 interface MenuItem {
   id: string
@@ -59,7 +59,6 @@ interface SundayLunchBookingFormProps {
 }
 
 export default function SundayLunchBookingForm({ className }: SundayLunchBookingFormProps) {
-  const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [menuLoading, setMenuLoading] = useState(true)
   const [menu, setMenu] = useState<MenuData | null>(null)
@@ -336,8 +335,8 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
     setTime('') // Reset time selection when date changes
   }, [date])
   
-  // Calculate deposit amount (GBP 5 per person)
-  const depositAmount = partySize * 5
+  // Calculate deposit amount (GBP 10 per person)
+  const depositAmount = getSundayLunchDepositAmount(partySize)
   const mainCoursesTotal = menuSelections.reduce((sum, selection) => sum + selection.price_at_booking, 0)
   const sidesTotal = sideSelections.reduce((sum, selection) => sum + (selection.price_at_booking * selection.quantity), 0)
   const totalAmount = mainCoursesTotal + sidesTotal
@@ -516,42 +515,71 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
       })
       
       const data = await response.json()
-      
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to create booking')
+      const payload = data?.data || data
+
+      if (!response.ok || data?.success === false) {
+        const errorMessage =
+          data?.error?.message ||
+          data?.error ||
+          payload?.error ||
+          'Failed to create booking'
+        throw new Error(errorMessage)
       }
-      
-      // Check if payment is required
-      if (data.status === 'pending_payment' && data.payment_details?.payment_url) {
+
+      const bookingState =
+        typeof payload?.state === 'string'
+          ? payload.state
+          : typeof payload?.status === 'string'
+          ? payload.status
+          : null
+      const paymentUrl = payload?.payment_details?.payment_url || payload?.next_step_url || null
+      const paymentRequired =
+        payload?.payment_required === true ||
+        bookingState === 'pending_payment' ||
+        bookingState === 'pending_card_capture'
+      const bookingReference =
+        payload?.booking_reference ||
+        payload?.table_booking_id ||
+        payload?.reference
+
+      if (paymentRequired) {
+        if (!paymentUrl) {
+          throw new Error('Your booking is awaiting payment, but we could not generate a secure payment link. Please call us on 01753 682707.')
+        }
+
         // Track success (booking created, payment pending)
         if (typeof window !== 'undefined') {
           trackTableBookingSuccess({
             partySize,
             bookingDate: date,
             bookingTime: time,
-            bookingReference: data.booking_reference,
+            bookingReference,
             source: 'sunday_lunch_form',
             deviceType: window.innerWidth >= 768 ? 'desktop' : 'mobile'
           })
         }
         
         // Redirect to payment URL
-        window.location.href = data.payment_details.payment_url
-      } else {
-        // Booking confirmed without payment (shouldn't happen for Sunday lunch)
-        if (isMountedRef.current) {
-          setSuccess(true)
-        }
-        if (typeof window !== 'undefined') {
-          trackTableBookingSuccess({
-            partySize,
-            bookingDate: date,
-            bookingTime: time,
-            bookingReference: data.booking_reference,
-            source: 'sunday_lunch_form',
-            deviceType: window.innerWidth >= 768 ? 'desktop' : 'mobile'
-          })
-        }
+        window.location.href = paymentUrl
+        return
+      }
+
+      if (bookingState && bookingState !== 'confirmed') {
+        throw new Error('Your booking is awaiting payment and is not confirmed yet. Please call us on 01753 682707.')
+      }
+
+      if (isMountedRef.current) {
+        setSuccess(true)
+      }
+      if (typeof window !== 'undefined') {
+        trackTableBookingSuccess({
+          partySize,
+          bookingDate: date,
+          bookingTime: time,
+          bookingReference,
+          source: 'sunday_lunch_form',
+          deviceType: window.innerWidth >= 768 ? 'desktop' : 'mobile'
+        })
       }
     } catch (err: any) {
       const errorMessage = err.message || 'Failed to create booking. Please try again.'
@@ -757,11 +785,11 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
       <Alert variant="warning" className="mb-4">
         <Icon name="alert" className="h-4 w-4" />
         <div>
-	          <p className="font-medium">Advance Booking Required by 1pm Saturday</p>
-	          <p className="text-sm mt-1">
-	            Sunday roasts require a confirmed booking with {formatPrice(depositAmount)} deposit (GBP 5 per person) by 1pm Saturday.
-	            The remaining balance is due on arrival.
-	          </p>
+		          <p className="font-medium">Advance Booking Required by 1pm Saturday</p>
+		          <p className="text-sm mt-1">
+		            Sunday roasts require a confirmed booking with {formatPrice(depositAmount)} deposit (GBP {SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP} per person) by 1pm Saturday.
+		            This deposit is deducted from your final bill, with the remaining balance due on arrival.
+		          </p>
           {(() => {
             const now = new Date()
             const day = now.getDay()

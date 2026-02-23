@@ -3,8 +3,8 @@ title: Sunday Lunch Near Heathrow | Traditional Roasts at The Anchor
 description: >-
   Book your traditional Sunday lunch near Heathrow Airport at The Anchor pub.
   Fresh roast dinners with Yorkshire puddings served Sundays 1–6pm (last orders
-  5:30pm). Pre-order by Saturday 1pm; bookings of 7+ require a card hold (no
-  charge).
+  5:30pm). Pre-order by Saturday 1pm; Sunday lunch bookings require a £10 per
+  person deposit.
 date: '2025-02-02'
 oldUrl: >-
   https://www.the-anchor.pub/post/sunday-lunch-at-the-anchor-is-back-pre-order-now
@@ -133,7 +133,7 @@ Our **book-ahead** policy ensures:
 3. **Book your time slot** (1pm-6pm Sundays)
 4. **Mention dietary requirements** when booking
 5. **Deadline: Saturday 1pm** for next day's lunch
-6. **Bookings of 7+** require a **card hold** to secure the booking (no charge)
+6. **Sunday lunch bookings** require a **£10 per person deposit**
 
 ## Sunday Lunch Service Details
 
@@ -206,7 +206,7 @@ Let us know when booking. We cater for most dietary needs with advance notice.
 Yes! We love family gatherings and group bookings. Book early for best availability.
 
 **Do you take a deposit?**
-No. For bookings of 7 or more, we take a card hold to secure the booking (no charge).
+Yes. Sunday lunch bookings require a £10 per person deposit.
 
 **Is parking available?**
 Free parking for all Sunday lunch guests.

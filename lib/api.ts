@@ -4,6 +4,7 @@
 import { logError } from '@/lib/error-handling'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
+import { getSundayLunchDepositAmount } from '@/lib/constants'
 
 // Use internal API routes to avoid CORS issues and keep API key secure
 const API_BASE_URL = typeof window === 'undefined'
@@ -1366,9 +1367,7 @@ export class AnchorAPI {
     const pendingCardCapture = result.state === 'pending_card_capture'
     const pendingPayment = result.state === 'pending_payment'
     const requiresNextStep = pendingCardCapture || pendingPayment
-    const depositAmount = pendingPayment
-      ? Number((Math.max(1, Number(originalRequest.party_size || 1)) * 10).toFixed(2))
-      : 0
+    const depositAmount = pendingPayment ? getSundayLunchDepositAmount(Number(originalRequest.party_size || 1)) : 0
     const duration =
       typeof originalRequest.duration_minutes === 'number'
         ? originalRequest.duration_minutes

@@ -274,7 +274,7 @@ export default async function EventPage({ params }: Props) {
     !isPastEvent
   const mothersDayBookingUrl = buildMothersDayBookingUrl()
   const mothersDayBookingCopy =
-    'Choose each guest’s Sunday lunch main in the booking flow, then complete card details to secure your table.'
+    'Choose each guest’s Sunday lunch main in the booking flow, then pay the £10 per person deposit to secure your table.'
   
   return (
     <>
@@ -657,7 +657,7 @@ export default async function EventPage({ params }: Props) {
           </h2>
           <p className="text-base md:text-lg lg:text-xl mb-6 md:mb-8 max-w-2xl mx-auto px-2">
             {mothersDayBookingFlow
-              ? 'Choose each guest’s Sunday lunch main in the booking flow, then complete card details to secure your table.'
+              ? 'Choose each guest’s Sunday lunch main in the booking flow, then pay the £10 per person deposit to secure your table.'
               : 'Choose your preferred time and booking option using the button below.'}
           </p>
           

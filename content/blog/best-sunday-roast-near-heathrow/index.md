@@ -43,7 +43,7 @@ Looking for the **best Sunday roast near Heathrow Airport**? Skip the terminal f
 - TVs in the bar area show sport (we don’t show cartoons).
 - Dogs welcome in the bar and garden areas.
 - Book the snug or dining room for **10–30 guests**.
-- Bookings of **7+** require a card hold to secure the booking (no charge).
+- Sunday lunch bookings require a **£10 per person deposit**.
 
 ## Sunday Roast Menu Highlights
 
@@ -63,7 +63,7 @@ All roasts are served with roast potatoes, Yorkshire pudding, seasonal vegetable
 
 1. **Reserve your table** via [Sunday lunch booking](/sunday-lunch) or call 01753 682707.
 2. **Choose your roast(s)** and pre-order by **Saturday 1pm**.
-3. **Large groups:** bookings of **7+** require a card hold to secure the booking (no charge).
+3. Sunday lunch bookings require a **£10 per person deposit**.
 4. **Need a fast turnaround?** Let us know your flight time; we’ll pace service accordingly.
 
 ## Heathrow Traveller Tips
@@ -87,7 +87,7 @@ All roasts are served with roast potatoes, Yorkshire pudding, seasonal vegetable
 Absolutely. Our gravy is gluten-free by default, and we can adapt sides. Give us 24 hours’ notice for vegan puddings.
 
 ### Do you take a deposit?
-No. For bookings of 7 or more, we take a card hold to secure the booking (no charge).
+Yes. Sunday lunch bookings require a £10 per person deposit.
 
 ### Do you show Sunday sports?
 Premier League and F1 are shown in the bar area (sound off during dining service). Let us know your preference when booking.

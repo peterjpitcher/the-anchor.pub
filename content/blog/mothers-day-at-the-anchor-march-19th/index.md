@@ -50,7 +50,7 @@ Looking for the perfect **Mother's Day lunch near Heathrow Airport**? The Anchor
 - 📞 **Call**: 01753 682707
 - 💬 **Facebook**: [Message us](http://m.me/theanchorpubsm)
 - 📱 **WhatsApp**: [01753 682707](https://api.whatsapp.com/send?phone=4401753682707)
-- **Groups over 6**: Please call directly
+- **Sunday lunch bookings**: A £10 per person deposit is required.
 
 **Important**: Pre-orders typically close the Friday before Mother's Day. Walk-ins subject to availability only.
 

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { anchorAPI } from '@/lib/api'
+import { getSundayLunchDepositAmount } from '@/lib/constants'
 import { normaliseUKPhone } from '@/lib/hours-utils'
 import {
   isTimeWithinRanges,
@@ -179,7 +180,7 @@ export async function POST(request: Request) {
       || bookingState === 'pending_payment'
       || bookingState === 'pending_card_capture'
     const paymentUrl = booking.payment_details?.payment_url || booking.next_step_url || null
-    const expectedSundayDeposit = Number((Math.max(1, Number(bookingData.partySize || 1)) * 10).toFixed(2))
+    const expectedSundayDeposit = getSundayLunchDepositAmount(Number(bookingData.partySize || 1))
     const fallbackDepositAmount =
       bookingState === 'pending_card_capture'
         ? 0
@@ -188,6 +189,16 @@ export async function POST(request: Request) {
           : 0
 
     // Check if payment is required (Sunday lunch bookings should return this from API)
+    if (pendingPaymentFlow && !paymentUrl) {
+      return jsonResponse({
+        success: false,
+        error: {
+          code: 'PAYMENT_LINK_UNAVAILABLE',
+          message: 'Your booking is awaiting payment, but we could not generate the payment link. Please call 01753 682707 so we can secure your table.'
+        }
+      }, 502)
+    }
+
     if (pendingPaymentFlow && paymentUrl) {
       const depositAmount = Number(
         booking.payment_details?.deposit_amount ?? booking.payment_details?.amount ?? fallbackDepositAmount

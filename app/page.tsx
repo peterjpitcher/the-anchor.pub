@@ -379,7 +379,7 @@ export default function HomePage() {
             <div className="mt-8 p-6 bg-white rounded-xl shadow-sm">
               <p className="text-center text-gray-700">
                 <strong className="text-anchor-green">Important:</strong> Sunday roasts require pre-order by 1pm Saturday.
-                A GBP 10 per person deposit is required for all Sunday lunch bookings. Regular menu available on Sundays without pre-order. Free parking for all guests.
+                Sunday lunch bookings require a £10 per person deposit. Regular menu available on Sundays without pre-order. Free parking for all guests.
               </p>
             </div>
           </div>
@@ -493,7 +493,7 @@ export default function HomePage() {
             <GalleryImage
               src="/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg"
               alt="Traditional Sunday roast at The Anchor"
-              caption="Famous Sunday Roasts - pre-order by 1pm Saturday (GBP 10 per person deposit required)"
+              caption="Famous Sunday Roasts - pre-order by 1pm Saturday (Sunday lunch bookings require a £10 per person deposit)"
               width={600}
               height={600}
             />
