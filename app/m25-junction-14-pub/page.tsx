@@ -11,6 +11,7 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
+import { BookTableButton } from '@/components/BookTableButton'
 
 export const metadata: Metadata = {
   title: `M25 Junction 14 Pub (5 Mins) - Free Parking & Food | ${BRAND.name}`,
@@ -105,11 +106,15 @@ export default function M25Junction14PubPage() {
         description="Just 5 minutes from the motorway - real food, real prices"
         variant="default"
         primaryCta={
-          <Link href={CONTACT.phoneHref} className="w-full sm:w-auto">
-            <Button variant="primary" size="lg" className="w-full sm:w-auto">
-              📞 Call Ahead
-            </Button>
-          </Link>
+          <BookTableButton
+            source="m25_j14_hero"
+            variant="primary"
+            size="lg"
+            className="w-full sm:w-auto"
+            context="m25_stopover"
+          >
+            📅 Book a Table
+          </BookTableButton>
         }
         secondaryCta={
           <Link href="/food-menu" className="w-full sm:w-auto">

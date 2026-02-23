@@ -54,15 +54,15 @@ export default function Terminal2Page() {
           { label: "Just 11 minutes away", variant: "warning" }
         ]}
         primaryCta={
-          <PhoneButton
-            phone="01753 682707"
+          <BookTableButton
             source="terminal_2_hero"
             variant="primary"
             size="lg"
             className="w-full sm:w-auto"
+            context="heathrow_terminal_2"
           >
-            📞 Book a Table
-          </PhoneButton>
+            📅 Book a Table Online
+          </BookTableButton>
         }
         secondaryCta={
           <Link href="#directions">

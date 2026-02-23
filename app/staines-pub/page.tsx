@@ -7,6 +7,7 @@ import { Metadata } from 'next'
 import { CONTACT, BRAND, PARKING, HEATHROW_TIMES } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneButton } from '@/components/PhoneButton'
+import { BookTableButton } from '@/components/BookTableButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
@@ -106,15 +107,15 @@ export default async function StainesPubPage() {
           { label: "📍 Just 8 Minutes from Staines", variant: "warning" }
         ]}
         primaryCta={
-          <PhoneButton
-            phone={CONTACT.phone}
+          <BookTableButton
             source="staines_pub_hero"
             variant="primary"
             size="lg"
             className="w-full sm:w-auto"
+            context="staines_local"
           >
-            📞 Call {CONTACT.phone}
-          </PhoneButton>
+            📅 Book a Table
+          </BookTableButton>
         }
         secondaryCta={
           <Link href="/food-menu">

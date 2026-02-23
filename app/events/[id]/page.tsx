@@ -2,9 +2,10 @@ import { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound, permanentRedirect } from 'next/navigation'
-import { Button, Container, Section, Card, CardBody, Badge, Alert } from '@/components/ui'
+import { Button, Container, Section, Card, CardBody, Alert } from '@/components/ui'
 import { EventSchema } from '@/components/seo/EventSchema'
 import { EventBookingButton } from '@/components/EventBookingButton'
+import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { anchorAPI, formatEventDate, formatEventTime, formatDoorTime, formatEventDuration, formatPrice } from '@/lib/api'
 import { EventPageTracker } from '@/components/tracking/EventPageTracker'
 import { PhoneButton } from '@/components/PhoneButton'
@@ -224,8 +225,6 @@ export default async function EventPage({ params }: Props) {
   const eventDate = formatEventDate(event.startDate)
   const eventTime = formatEventTime(event.startDate)
   const headerDoorTime = formatDoorTime(event.doorTime)
-  const headerDuration = formatEventDuration(event.duration)
-  const performerName = event.performer?.name || event.performer_name || null
   const bookingModeLabel = getEventBookingModeLabel(event.booking_mode)
   const statusLabel = getEventStatusLabel(status)
   const endTime = formatClockTime(event.end_time)
@@ -275,6 +274,50 @@ export default async function EventPage({ params }: Props) {
   const mothersDayBookingUrl = buildMothersDayBookingUrl()
   const mothersDayBookingCopy =
     'Choose each guest’s Sunday lunch main in the booking flow, then pay the £10 per person deposit to secure your table.'
+  const heroRoute = `/events/${encodeURIComponent(canonicalSegment || params.id)}`
+  const heroImageSrc = event.heroImageUrl || event.image?.[0] || null
+  const heroTags = [
+    ...(event.category?.name ? [{ label: event.category.name, variant: 'primary' as const }] : []),
+    { label: eventDate, variant: 'default' as const },
+    { label: eventTime, variant: 'default' as const },
+    ...(headerDoorTime ? [{ label: headerDoorTime, variant: 'default' as const }] : []),
+    ...(status !== 'scheduled'
+      ? [{ label: `Status: ${statusLabel}`, variant: 'warning' as const }]
+      : [])
+  ]
+
+  const heroPrimaryCta = mothersDayBookingFlow ? (
+    <Button asChild size="lg" className="w-full sm:w-auto">
+      <Link href={mothersDayBookingUrl}>{MOTHERS_DAY_BOOKING_CTA_LABEL}</Link>
+    </Button>
+  ) : bookingBlockReason ? undefined : (
+    <EventBookingButton
+      event={event}
+      className="w-full sm:w-auto"
+      fullWidth={false}
+      size="lg"
+      source={`event_page_hero_${params.id}`}
+    />
+  )
+
+  const heroSecondaryCta = (
+    <>
+      <PhoneButton
+        phone="01753682707"
+        source={`event_page_hero_${params.id}`}
+        variant="secondary"
+        size="lg"
+        className="w-full sm:w-auto"
+      >
+        📞 Call: 01753 682707
+      </PhoneButton>
+      <Link href="/whats-on" className="w-full sm:w-auto">
+        <Button variant="secondary" size="lg" fullWidth className="sm:w-auto">
+          View All Events
+        </Button>
+      </Link>
+    </>
+  )
   
   return (
     <>
@@ -298,70 +341,29 @@ export default async function EventPage({ params }: Props) {
           </Container>
         </Section>
       ) : null}
-      
-      {/* Event Header Section - Mobile First */}
-      <Section background="white" spacing="none" className="mt-3 pt-3 pb-2 md:mt-20 md:pt-6">
-        <Container>
-          <div className="max-w-6xl mx-auto">
-            {/* Event Title and Basic Info */}
-            <div className="text-center">
-              {event.category && (
-                <Badge 
-                  variant="default"
-                  size="sm"
-                  className="mb-3"
-                  style={{ backgroundColor: event.category.color, color: 'white' }}
-                >
-                  {event.category.name}
-                </Badge>
-              )}
-              
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-anchor-green mb-4 px-2">
-                {event.name}
-              </h1>
-              
-              <div className="mx-auto flex max-w-lg flex-col items-center gap-2 text-sm text-gray-700 sm:max-w-none sm:flex-row sm:flex-wrap sm:justify-center sm:gap-3 sm:text-base md:text-lg">
-                <span className="flex items-center justify-center gap-2">
-                  <svg className="w-4 h-4 md:w-5 md:h-5 text-anchor-gold flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
-                  <span className="whitespace-nowrap">{eventDate}</span>
-                </span>
-                <span className="flex items-center justify-center gap-2 whitespace-nowrap">
-                  <svg className="w-4 h-4 md:w-5 md:h-5 text-anchor-gold flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <span>{eventTime}</span>
-                  {headerDuration ? <span className="text-gray-500">• {headerDuration}</span> : null}
-                </span>
-                {headerDoorTime && (
-                  <span className="flex items-center justify-center gap-2">
-                    <svg className="w-4 h-4 md:w-5 md:h-5 text-anchor-gold flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                    </svg>
-                    <span className="whitespace-nowrap">{headerDoorTime}</span>
-                  </span>
-                )}
-                {performerName && (
-                  <span className="flex items-center justify-center gap-2">
-                    <svg className="w-4 h-4 md:w-5 md:h-5 text-anchor-gold flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                    </svg>
-                    <span className="whitespace-nowrap">{performerName}</span>
-                  </span>
-                )}
-              </div>
-
-              {event.brief ? (
-                <p className="mx-auto mt-4 max-w-3xl px-2 text-base leading-relaxed text-gray-700 md:text-lg">
-                  {event.brief}
-                </p>
-              ) : null}
-              
-            </div>
-          </div>
-        </Container>
-      </Section>
+      <HeroWrapper
+        route={heroRoute}
+        variant="promo"
+        seasonalFallback="never"
+        title={event.name}
+        description={event.brief || event.shortDescription || undefined}
+        breadcrumbs={[
+          { name: "What's On", href: '/whats-on' },
+          { name: event.name }
+        ]}
+        tags={heroTags}
+        image={
+          heroImageSrc
+            ? {
+                src: heroImageSrc,
+                alt: `${event.name} at The Anchor`,
+                priority: true,
+              }
+            : undefined
+        }
+        primaryCta={heroPrimaryCta}
+        secondaryCta={heroSecondaryCta}
+      />
 
       {/* Event Details - Mobile First */}
       <Section background="white" spacing="md" className="py-4 sm:py-6 md:py-8">

@@ -70,7 +70,7 @@ export default function EngagementPartiesPage() {
                 route="/private-hire/engagement-parties"
                 title="Engagement Parties at The Anchor"
                 description="Raise a glass to your future in a warm, traditional setting"
-                variant="default"
+                variant="promo"
                 image={{ src: DEFAULT_CORPORATE_IMAGE, alt: "Engagement party setup" }}
                 primaryCta={
                     <Link href="/private-hire#enquiry">

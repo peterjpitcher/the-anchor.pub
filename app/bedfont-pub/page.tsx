@@ -8,6 +8,7 @@ import { Metadata } from 'next'
 import { CTASection, SectionHeader, FeatureGrid, Container } from '@/components/ui'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneButton } from '@/components/PhoneButton'
+import { BookTableButton } from '@/components/BookTableButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
@@ -94,15 +95,15 @@ export default function BedfontPubPage() {
         description="Just 5 minutes away with free parking"
         variant="default"
         primaryCta={
-          <PhoneButton
-            phone="01753 682707"
+          <BookTableButton
             source="bedfont_pub_hero"
             variant="primary"
             size="lg"
             className="w-full sm:w-auto"
+            context="bedfont_local"
           >
-            📞 Call to Book
-          </PhoneButton>
+            📅 Book a Table
+          </BookTableButton>
         }
         secondaryCta={
           <Link href="/food-menu">

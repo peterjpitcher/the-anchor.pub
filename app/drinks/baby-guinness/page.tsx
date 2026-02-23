@@ -47,9 +47,9 @@ export default function BabyGuinnessPage() {
       <Section background="white" spacing="lg" container containerSize="md">
         <article className="max-w-4xl mx-auto">
             <div className="prose prose-lg max-w-none">
-              <h1 className="text-3xl md:text-4xl font-bold text-anchor-green mb-6">
+              <h2 className="text-3xl md:text-4xl font-bold text-anchor-green mb-6">
                 Baby Guinness Shot at The Anchor - Heathrow Pub & Dining's Favourite Party Starter
-              </h1>
+              </h2>
               
               {/* Price Badge */}
 	              <div className="flex gap-4 mb-8">

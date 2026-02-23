@@ -438,5 +438,240 @@
     "source": "/blog/tag/variety",
     "destination": "/blog/tag/food-and-drink",
     "permanent": true
+  },
+  {
+    "source": "/blog/tag/gin",
+    "destination": "/blog/tag/food-and-drink",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/piano",
+    "destination": "/blog/tag/events",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/comedy",
+    "destination": "/blog/tag/events",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/hiring",
+    "destination": "/blog/tag/news",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/market",
+    "destination": "/blog/tag/events",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/leagues",
+    "destination": "/blog/tag/sports",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/monthly",
+    "destination": "/blog/tag/events",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/parties",
+    "destination": "/blog/tag/events",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/equality",
+    "destination": "/blog/tag/community",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/pub-food",
+    "destination": "/blog/tag/food-and-drink",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/corporate",
+    "destination": "/blog/tag/events",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/volunteer",
+    "destination": "/blog/tag/community",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/race-night",
+    "destination": "/blog/tag/events",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/new-arrival",
+    "destination": "/blog/tag/news",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/drag-cabaret",
+    "destination": "/blog/tag/events",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/opening-hours",
+    "destination": "/blog/tag/news",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/indian-culture",
+    "destination": "/blog/tag/food-and-drink",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/shrove-tuesday",
+    "destination": "/blog/tag/seasonal",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/sustainability",
+    "destination": "/blog/tag/community",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/day-of-the-dead",
+    "destination": "/blog/tag/seasonal",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/family-friendly",
+    "destination": "/blog/tag/community",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/limited-time",
+    "destination": "/blog/tag/offers",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/improvements",
+    "destination": "/blog/tag/news",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/traditional-food",
+    "destination": "/blog/tag/food-and-drink",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/pool",
+    "destination": "/blog/tag/sports",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/games",
+    "destination": "/blog/tag/events",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/march",
+    "destination": "/blog/tag/seasonal",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/careers",
+    "destination": "/blog/tag/news",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/shopping",
+    "destination": "/blog/tag/community",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/caribbean",
+    "destination": "/blog/tag/food-and-drink",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/september",
+    "destination": "/blog/tag/seasonal",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/czech-beer",
+    "destination": "/blog/tag/food-and-drink",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/celebration",
+    "destination": "/blog/tag/seasonal",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/indian-food",
+    "destination": "/blog/tag/food-and-drink",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/family-dining",
+    "destination": "/blog/tag/food-and-drink",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/reviews",
+    "destination": "/blog/tag/community",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/december",
+    "destination": "/blog/tag/seasonal",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/venue-hire",
+    "destination": "/blog/tag/events",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/live-events",
+    "destination": "/blog/tag/events",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/music-bingo",
+    "destination": "/blog/tag/events",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/team-sports",
+    "destination": "/blog/tag/sports",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/celebrations",
+    "destination": "/blog/tag/seasonal",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/weekly-specials",
+    "destination": "/blog/tag/offers",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/jewellery",
+    "destination": "/blog/tag/events",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/curry-night",
+    "destination": "/blog/tag/food-and-drink",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/photography",
+    "destination": "/blog/tag/community",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/manager-picks",
+    "destination": "/drinks/managers-special",
+    "permanent": true
   }
 ]

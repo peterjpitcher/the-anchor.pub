@@ -7,6 +7,7 @@ import { generateBreadcrumbSchema, generateHowToDirectionsSchema } from '@/lib/e
 import { Metadata } from 'next'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneButton } from '@/components/PhoneButton'
+import { BookTableButton } from '@/components/BookTableButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
@@ -90,15 +91,15 @@ export default function EghamPubPage() {
         description="Just 12 minutes away with free parking"
         variant="default"
         primaryCta={
-          <PhoneButton
-            phone="01753 682707"
+          <BookTableButton
             source="egham_pub_hero"
             variant="primary"
             size="lg"
             className="w-full sm:w-auto"
+            context="egham_local"
           >
-            📞 Call to Book
-          </PhoneButton>
+            📅 Book a Table
+          </BookTableButton>
         }
         secondaryCta={
           <Link href="/food-menu">

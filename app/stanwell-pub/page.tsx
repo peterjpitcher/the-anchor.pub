@@ -11,6 +11,7 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { getBusinessStats } from '@/lib/schema-with-reviews'
+import { BookTableButton } from '@/components/BookTableButton'
 
 export const metadata: Metadata = {
   title: `Stanwell Village Pub | Sunday Roasts, Pizza & Free Parking | ${BRAND.name}`,
@@ -108,11 +109,15 @@ export default async function StanwellPubPage() {
         description="The heart of the Stanwell community since generations"
         variant="default"
         primaryCta={
-          <Link href={CONTACT.phoneHref} className="w-full sm:w-auto">
-            <Button variant="primary" size="lg" className="w-full sm:w-auto">
-              📞 Call Us
-            </Button>
-          </Link>
+          <BookTableButton
+            source="stanwell_pub_hero"
+            variant="primary"
+            size="lg"
+            className="w-full sm:w-auto"
+            context="stanwell_local"
+          >
+            📅 Book a Table
+          </BookTableButton>
         }
         secondaryCta={
           <Link href="/food-menu" className="w-full sm:w-auto">

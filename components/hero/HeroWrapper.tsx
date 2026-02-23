@@ -52,6 +52,11 @@ interface HeroWrapperProps {
   style?: CSSProperties
 
   image?: HeroImageConfig
+  /**
+   * Controls when the global seasonal image is allowed to replace route imagery.
+   * `auto` only allows seasonal fallback on the homepage when no route image exists.
+   */
+  seasonalFallback?: 'auto' | 'always' | 'never'
 
   // Features
   breadcrumbs?: BreadcrumbItem[]
@@ -106,6 +111,7 @@ export function HeroWrapper({
   overlay,
   style,
   image,
+  seasonalFallback = 'auto',
   breadcrumbs,
   showBreadcrumbs = true,
   tags,
@@ -146,14 +152,25 @@ export function HeroWrapper({
   }
 
   // Determine imagery
-  const headerImage = getPageHeaderImage(route) || getDefaultHeaderImage()
-  const { isFallback, ...headerImageConfig } = headerImage
-  const shouldUseSeasonalImage = !image && isFallback
+  const headerImage = getPageHeaderImage(route) || getDefaultHeaderImage(route)
+  const { isFallback: _ignoredFallback, ...headerImageConfig } = headerImage
+  const isHomepageRoute = route === '/'
+  const shouldUseSeasonalImage =
+    !image &&
+    (seasonalFallback === 'always' ||
+      (seasonalFallback === 'auto' && isHomepageRoute && headerImage.resolution === 'default'))
 
   if (shouldUseSeasonalImage && process.env.NODE_ENV !== 'production') {
     console.warn(
       `HeroWrapper: using seasonal homepage image for route "${route}". ` +
       'Add a page-specific image under public/images/page-headers or pass the `image` prop to HeroWrapper to suppress this warning.'
+    )
+  }
+
+  if (process.env.NODE_ENV !== 'production' && !shouldUseSeasonalImage && headerImage.resolution === 'default') {
+    console.warn(
+      `HeroWrapper: route "${route}" is using the default header image. ` +
+      'Add a page-specific image, configure an alias in `lib/page-header-images.ts`, or set `seasonalFallback="always"` if this is intentional.'
     )
   }
 

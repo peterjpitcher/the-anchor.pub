@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { ChristmasPartiesPageClient } from './client-components'
+import { ChristmasHeroPrimaryCta, ChristmasHeroSecondaryCta } from './christmas-hero-ctas'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
+import { HeroWrapper } from '@/components/hero/HeroWrapper'
 
 export const metadata: Metadata = {
   title: 'Christmas Parties Near Heathrow & Staines | The Anchor Pub',
@@ -159,6 +161,22 @@ export default function ChristmasPartiesPage() {
           { name: 'Home', url: '/' },
           { name: 'Christmas Parties', url: '/christmas-parties' }
         ]}
+      />
+      <HeroWrapper
+        id="christmas-hero"
+        route="/christmas-parties"
+        variant="promo"
+        title="A proper village-pub Christmas minutes from Heathrow"
+        description="Three-course feasts piled with herb-crusted triple-cooked roast potatoes, pigs in blankets and sage & onion stuffing - with crackers, candles and festive decor waiting at your table."
+        eyebrow={<span className="text-red-100">Christmas 2026</span>}
+        image={{
+          src: '/images/page-headers/christmas-parties/2026/hero-table.png',
+          alt: 'Festive Christmas dinner table setting at The Anchor near Heathrow',
+          priority: true
+        }}
+        ctaContainerClassName="w-full max-w-4xl"
+        primaryCta={<ChristmasHeroPrimaryCta />}
+        secondaryCta={<ChristmasHeroSecondaryCta />}
       />
       <ChristmasPartiesPageClient structuredData={structuredData} />
     </>

@@ -8,6 +8,7 @@ import { Metadata } from 'next'
 import { CONTACT, BRAND, PARKING } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneButton } from '@/components/PhoneButton'
+import { BookTableButton } from '@/components/BookTableButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
@@ -108,15 +109,15 @@ export default function HeathrowHotelsPubPage() {
         description="Traditional British pub just minutes from your hotel"
         variant="default"
         primaryCta={
-          <PhoneButton
-            phone={CONTACT.phone}
+          <BookTableButton
             source="heathrow_hotels_pub_hero"
             variant="primary"
             size="lg"
             className="w-full sm:w-auto"
+            context="heathrow_hotels_local"
           >
-            📞 Book a Table
-          </PhoneButton>
+            📅 Book a Table
+          </BookTableButton>
         }
         secondaryCta={
           <Link href="/food-menu">

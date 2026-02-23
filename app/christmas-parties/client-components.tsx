@@ -13,7 +13,7 @@ import { Button } from '@/components/ui/primitives/Button'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Alert } from '@/components/ui/feedback/Alert'
 import { trackBannerEvent, trackCtaClick, trackEmailClick, trackFormComplete, trackFormStart, trackPhoneCallClick } from '@/lib/gtm-events'
-import { HeroSection } from '@/components/hero/HeroSection'
+import { CHRISTMAS_OPEN_FORM_EVENT } from './christmas-hero-ctas'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 const CONTACT_EMAIL = 'manager@the-anchor.pub'
@@ -57,6 +57,11 @@ interface ChristmasLightboxProps {
   context: EnquiryContext
   onContextChange: (updates: Partial<EnquiryContext>) => void
   onSubmitSuccess: () => void
+}
+
+interface ChristmasOpenFormEventDetail {
+  mode?: EnquiryMode
+  source?: string
 }
 
 const ENQUIRY_STORAGE_KEYS = {
@@ -297,6 +302,22 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
     })
   }, [scrollToForm])
 
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    const handleHeroOpenForm = (event: Event) => {
+      const customEvent = event as CustomEvent<ChristmasOpenFormEventDetail>
+      const mode = customEvent.detail?.mode === 'buffet' ? 'buffet' : 'dinner'
+      const source = customEvent.detail?.source || 'christmas_hero'
+      handleOpenForm(mode, {}, source)
+    }
+
+    window.addEventListener(CHRISTMAS_OPEN_FORM_EVENT, handleHeroOpenForm as EventListener)
+    return () => {
+      window.removeEventListener(CHRISTMAS_OPEN_FORM_EVENT, handleHeroOpenForm as EventListener)
+    }
+  }, [handleOpenForm])
+
   const handleContextChange = useCallback((updates: Partial<EnquiryContext>) => {
     setContext(prev => ({ ...prev, ...updates }))
   }, [])
@@ -353,103 +374,8 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
     }
   }
 
-  const heroActions = (
-    <div className="flex w-full max-w-4xl flex-col items-center gap-4">
-      <div className="flex w-full flex-col gap-3 md:flex-row md:justify-center">
-        <Button
-          variant="danger"
-          size="lg"
-          className="w-full md:w-auto"
-          onClick={() => {
-            trackCtaClick({
-              id: 'christmas_hero_dinner',
-              label: 'Request a Christmas Booking (up to 25)',
-              location: 'christmas_hero',
-              destination: 'enquiry_form',
-              mode: 'dinner'
-            })
-            handleOpenForm('dinner', {}, 'hero_dinner')
-          }}
-        >
-          Request a Christmas Booking (up to 25)
-        </Button>
-        <Button
-          variant="danger"
-          size="lg"
-          className="w-full md:w-auto"
-          onClick={() => {
-            trackCtaClick({
-              id: 'christmas_hero_buffet',
-              label: 'Plan a Buffet Party (26+)',
-              location: 'christmas_hero',
-              destination: 'enquiry_form',
-              mode: 'buffet'
-            })
-            handleOpenForm('buffet', {}, 'hero_buffet')
-          }}
-        >
-          Plan a Buffet Party (26+)
-        </Button>
-      </div>
-      <div className="flex w-full flex-col gap-3 md:flex-row md:justify-center">
-        <Button
-          variant="primary"
-          size="lg"
-          className="w-full md:w-auto"
-          onClick={() => {
-            trackCtaClick({
-              id: 'christmas_hero_call',
-              label: 'Call The Anchor',
-              location: 'christmas_hero',
-              destination: 'phone'
-            })
-            trackPhoneCallClick({ phone: CONTACT_PHONE, source: 'christmas_hero' })
-            window.location.href = CONTACT_PHONE_LINK
-          }}
-        >
-          <Icon name="phone" className="mr-2 h-4 w-4" /> Call {CONTACT_PHONE}
-        </Button>
-        <Button
-          variant="primary"
-          size="lg"
-          className="w-full md:w-auto"
-          onClick={() => {
-            trackCtaClick({
-              id: 'christmas_hero_email',
-              label: 'Email The Anchor',
-              location: 'christmas_hero',
-              destination: 'email'
-            })
-            trackEmailClick({ email: CONTACT_EMAIL, source: 'christmas_hero' })
-            window.location.href = CONTACT_EMAIL_LINK
-          }}
-        >
-          <Icon name="mail" className="mr-2 h-4 w-4" /> Email us
-        </Button>
-      </div>
-    </div>
-  )
-
   return (
     <>
-      <HeroSection
-        id="christmas-hero"
-        size="large"
-        alignment="center"
-        className="bg-anchor-charcoal text-white"
-        contentClassName="max-w-4xl"
-        eyebrow={<span className="text-red-100">Christmas 2026</span>}
-        title="A proper village-pub Christmas minutes from Heathrow"
-        description="Three-course feasts piled with herb-crusted triple-cooked roast potatoes, pigs in blankets and sage & onion stuffing - with crackers, candles and festive decor waiting at your table."
-        overlay="dark"
-        image={{
-          src: '/images/page-headers/christmas-parties/2026/hero-table.png',
-          alt: 'Festive Christmas dinner table setting at The Anchor near Heathrow',
-          priority: true
-        }}
-        cta={heroActions}
-      />
-
       <Section className="py-2 md:py-3 bg-red-700 text-white">
         <Container>
           <div className="flex flex-col items-center justify-center gap-3 text-center md:flex-row md:gap-6">

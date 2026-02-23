@@ -10,6 +10,7 @@ import { CONTACT, BRAND, PARKING } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
+import { BookTableButton } from '@/components/BookTableButton'
 
 export const metadata: Metadata = {
   title: `Windsor Pub Alternative - Free Parking & Sunday Roast | ${BRAND.name}`,
@@ -108,11 +109,15 @@ export default function WindsorPubPage() {
         description="Just 15 minutes from Windsor Castle with free parking"
         variant="default"
         primaryCta={
-          <Link href={CONTACT.phoneHref} className="w-full sm:w-auto">
-            <Button variant="primary" size="lg" className="w-full sm:w-auto">
-              📞 Call to Book
-            </Button>
-          </Link>
+          <BookTableButton
+            source="windsor_pub_hero"
+            variant="primary"
+            size="lg"
+            className="w-full sm:w-auto"
+            context="windsor_local"
+          >
+            📅 Book a Table
+          </BookTableButton>
         }
         secondaryCta={
           <Link href="/food-menu" className="w-full sm:w-auto">

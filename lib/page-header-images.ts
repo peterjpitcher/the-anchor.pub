@@ -1,14 +1,26 @@
 import fs from 'fs';
 import path from 'path';
 
+export type HeaderImageResolutionKind = 'exact' | 'alias' | 'inherited' | 'default';
+
 export interface HeaderImageConfig {
   src: string;
   alt: string;
   isFallback?: boolean;
   blurDataURL?: string;
+  resolution: HeaderImageResolutionKind;
+  requestedRoute: string;
+  resolvedFromRoute: string;
+  resolvedFromFolder: string;
 }
 
 const IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.webp'];
+
+// Maps canonical route-derived folder names to legacy image folders.
+const PAGE_HEADER_FOLDER_ALIASES: Record<string, string> = {
+  'heathrow-parking': 'parking-near-heathrow',
+  'heathrow-hotels-pub': 'hotel-near-heathrow',
+};
 
 // Descriptive alt text for each page header
 const PAGE_HEADER_ALT_TEXT: Record<string, string> = {
@@ -23,6 +35,7 @@ const PAGE_HEADER_ALT_TEXT: Record<string, string> = {
   'blog': 'Cozy interior corner of The Anchor with vintage decor and warm atmosphere',
   'events': 'Packed event night at The Anchor with crowd enjoying live entertainment',
   'private-hire': 'The Anchor private hire venue dressed for celebrations and group events near Heathrow',
+  'heathrow-parking': 'Secure on-site parking at The Anchor near Heathrow with easy terminal access',
   'private-party-venue': 'Private function room dressed for a celebration with candlelight and balloons',
   'function-room-hire': 'Versatile function room at The Anchor staged for workshops with AV equipment',
   'corporate-events': 'Professional boardroom style layout in The Anchor function space ready for presentations',
@@ -43,66 +56,121 @@ const PAGE_HEADER_ALT_TEXT: Record<string, string> = {
   'near-heathrow-terminal-5': 'The Anchor pub exterior with Terminal 5 aircraft passing overhead'
 };
 
+function normaliseRoute(route: string): string {
+  if (!route) return '/';
+  if (route === '/') return '/';
+  return route.startsWith('/') ? route : `/${route}`;
+}
+
+function routeToFolderName(route: string): string {
+  return route === '/'
+    ? 'home'
+    : route.replace(/\//g, '-').replace(/^-/, '');
+}
+
+function getAltTextForFolder(folderName: string, route: string): string {
+  return PAGE_HEADER_ALT_TEXT[folderName] ||
+    `The Anchor pub ${route === '/' ? 'homepage' : route.replace(/\//g, ' ').replace(/-/g, ' ').trim()} header image`;
+}
+
+function findImageInFolder(folderName: string): { folderName: string; src: string } | null {
+  const headerImagesDir = path.join(process.cwd(), 'public/images/page-headers');
+  const pageFolderPath = path.join(headerImagesDir, folderName);
+
+  if (!fs.existsSync(pageFolderPath)) {
+    return null;
+  }
+
+  const files = fs.readdirSync(pageFolderPath);
+  const imageFile = files.find(file =>
+    IMAGE_EXTENSIONS.some(ext => file.toLowerCase().endsWith(ext))
+  );
+
+  if (!imageFile) {
+    return null;
+  }
+
+  return {
+    folderName,
+    src: `/images/page-headers/${folderName}/${imageFile}`,
+  };
+}
+
+function resolveDirectRouteImage(route: string): {
+  src: string;
+  folderName: string;
+  resolution: Extract<HeaderImageResolutionKind, 'exact' | 'alias'>;
+} | null {
+  const folderName = routeToFolderName(route);
+  const exactImage = findImageInFolder(folderName);
+  if (exactImage) {
+    return {
+      src: exactImage.src,
+      folderName: exactImage.folderName,
+      resolution: 'exact',
+    };
+  }
+
+  const aliasedFolder = PAGE_HEADER_FOLDER_ALIASES[folderName];
+  if (!aliasedFolder) {
+    return null;
+  }
+
+  const aliasedImage = findImageInFolder(aliasedFolder);
+  if (!aliasedImage) {
+    return null;
+  }
+
+  return {
+    src: aliasedImage.src,
+    folderName: aliasedImage.folderName,
+    resolution: 'alias',
+  };
+}
+
 /**
  * Gets the header image for a given page route
  * @param route - The page route (e.g., '/whats-on', '/food-menu')
  * @returns Image config or null if no image found
  */
 export function getPageHeaderImage(route: string): HeaderImageConfig | null {
-  // Convert route to folder name
-  // '/' -> 'home'
-  // '/whats-on' -> 'whats-on'
-  // '/near-heathrow/terminal-5' -> 'near-heathrow-terminal-5'
-  const folderName = route === '/' 
-    ? 'home' 
-    : route.replace(/\//g, '-').replace(/^-/, '');
-
-  const headerImagesDir = path.join(process.cwd(), 'public/images/page-headers');
-  const pageFolderPath = path.join(headerImagesDir, folderName);
+  const requestedRoute = normaliseRoute(route);
+  const requestedFolder = routeToFolderName(requestedRoute);
 
   try {
-    // Check if the folder exists
-    if (fs.existsSync(pageFolderPath)) {
-      // Read all files in the folder
-      const files = fs.readdirSync(pageFolderPath);
-      
-      // Find the first image file (any name, supported extension)
-      const imageFile = files.find(file => 
-        IMAGE_EXTENSIONS.some(ext => file.toLowerCase().endsWith(ext))
-      );
-
-      if (imageFile) {
-        // Get descriptive alt text or fall back to a generated one
-        const altText = PAGE_HEADER_ALT_TEXT[folderName] || 
-          `The Anchor pub ${route === '/' ? 'homepage' : route.replace(/\//g, ' ').replace(/-/g, ' ').trim()} header image`;
-
-        // Return the image configuration
-        return {
-          src: `/images/page-headers/${folderName}/${imageFile}`,
-          alt: altText,
-          isFallback: false
-        };
-      }
+    const direct = resolveDirectRouteImage(requestedRoute);
+    if (direct) {
+      return {
+        src: direct.src,
+        alt: getAltTextForFolder(requestedFolder, requestedRoute),
+        isFallback: false,
+        resolution: direct.resolution,
+        requestedRoute,
+        resolvedFromRoute: requestedRoute,
+        resolvedFromFolder: direct.folderName,
+      };
     }
 
-    // If no image found for this route, check if it's a subpage and try to inherit from parent
-    if (route.includes('/') && route !== '/') {
-      const segments = route.split('/').filter(Boolean);
-      
-      // Try parent paths from most specific to least specific
+    // If no direct image exists for this route, inherit from nearest parent.
+    if (requestedRoute.includes('/') && requestedRoute !== '/') {
+      const segments = requestedRoute.split('/').filter(Boolean);
+
       for (let i = segments.length - 1; i > 0; i--) {
         const parentRoute = '/' + segments.slice(0, i).join('/');
         const parentImage = getPageHeaderImage(parentRoute);
-        
+
         if (parentImage) {
-          // Adjust alt text for subpage
-          const subpageAltText = PAGE_HEADER_ALT_TEXT[folderName] || 
-            parentImage.alt.replace(' header image', '') + ` - ${segments[segments.length - 1].replace(/-/g, ' ')}`;
-          
+          const subpageAltText = PAGE_HEADER_ALT_TEXT[requestedFolder] ||
+            `${parentImage.alt.replace(' header image', '')} - ${segments[segments.length - 1].replace(/-/g, ' ')}`;
+
           return {
             src: parentImage.src,
             alt: subpageAltText,
-            isFallback: true
+            isFallback: true,
+            resolution: 'inherited',
+            requestedRoute,
+            resolvedFromRoute: parentImage.resolvedFromRoute,
+            resolvedFromFolder: parentImage.resolvedFromFolder,
           };
         }
       }
@@ -119,10 +187,17 @@ export function getPageHeaderImage(route: string): HeaderImageConfig | null {
  * Gets a default header image if page-specific image is not found
  * Uses the homepage hero image as the default
  */
-export function getDefaultHeaderImage(): HeaderImageConfig {
+export function getDefaultHeaderImage(requestedRoute: string = '/'): HeaderImageConfig {
+  const normalisedRoute = normaliseRoute(requestedRoute);
   return {
     src: '/images/page-headers/home/page-headers-homepage.jpg',
     alt: 'The Anchor pub entrance with warm lighting and traditional British pub signage',
-    isFallback: true
+    isFallback: true,
+    resolution: 'default',
+    requestedRoute: normalisedRoute,
+    resolvedFromRoute: '/',
+    resolvedFromFolder: 'home',
   };
 }
+
+export { PAGE_HEADER_FOLDER_ALIASES };

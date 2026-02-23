@@ -19,7 +19,7 @@ export default function LeaveReviewPage() {
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="text-center">
-        <PageTitle className="text-2xl font-bold mb-4" seo={{ structured: true, speakable: true }}>
+        <PageTitle as="h1" className="text-2xl font-bold mb-4" seo={{ structured: true, speakable: true }}>
           Leave a Review - The Anchor
         </PageTitle>
         <p className="text-gray-600">
