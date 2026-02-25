@@ -6,6 +6,7 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { DirectionsButton } from '@/components/DirectionsButton'
 import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { DEFAULT_DRINKS_IMAGE } from '@/lib/image-fallbacks'
+import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
@@ -18,8 +19,13 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Baby Guinness Shot at The Anchor',
     description: 'The perfect layered shot that looks like a tiny Guinness. GBP 3.50 each or 2 for GBP 6.',
-    images: [DEFAULT_DRINKS_IMAGE],
-  }
+    images: [{ url: DEFAULT_DRINKS_IMAGE, width: 1200, height: 630, alt: 'Drinks menu at The Anchor pub near Heathrow' }],
+  },
+  twitter: getTwitterMetadata({
+    title: 'Baby Guinness Shot at The Anchor',
+    description: 'The perfect layered shot that looks like a tiny Guinness. GBP 3.50 each or 2 for GBP 6.',
+    images: [DEFAULT_DRINKS_IMAGE]
+  })
 }
 
 export default function BabyGuinnessPage() {

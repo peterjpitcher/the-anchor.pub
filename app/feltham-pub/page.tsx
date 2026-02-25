@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Feltham Pub Alternative - The Anchor Stanwell Moor',
     description: '10 minutes from Feltham with free parking, Sunday roasts, stone-baked pizzas and quiz nights.',
-    images: [DEFAULT_PAGE_HEADER_IMAGE],
+    images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
   },
   twitter: getTwitterMetadata({
     title: 'Feltham Pub Alternative - The Anchor Stanwell Moor',

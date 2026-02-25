@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'M25 Junction 14 Pub Stop - The Anchor Stanwell Moor',
     description: '5 minutes from M25 J14 with free parking, British pub food and real ales.',
-    images: [DEFAULT_PAGE_HEADER_IMAGE],
+    images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
     type: 'website',
   },
   twitter: getTwitterMetadata({

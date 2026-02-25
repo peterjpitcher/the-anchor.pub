@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: 'Free Luggage Storage Near Heathrow (With Dining)',
         description: 'Checked out early? Flight delayed? Store your bags with us while you enjoy a proper British meal.',
-        images: [DEFAULT_PAGE_HEADER_IMAGE],
+        images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({

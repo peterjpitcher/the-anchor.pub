@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: 'The Perfect Venue for Your Office Christmas Party',
         description: 'Festive menus, great drinks packages, and a warm atmosphere. Book your team celebration today.',
-        images: [DEFAULT_PAGE_HEADER_IMAGE],
+        images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({

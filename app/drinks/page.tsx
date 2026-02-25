@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Drinks Menu Near Heathrow Terminal 5 | The Anchor',
     description: 'Draught beers, real ales, cocktails, wines, spirits and shots at The Anchor near Heathrow T5 with free parking.',
-    images: [DEFAULT_DRINKS_IMAGE],
+    images: [{ url: DEFAULT_DRINKS_IMAGE, width: 1200, height: 630, alt: 'Drinks menu at The Anchor pub near Heathrow' }],
   },
   twitter: getTwitterMetadata({
     title: 'Drinks Menu Near Heathrow Terminal 5 | The Anchor',

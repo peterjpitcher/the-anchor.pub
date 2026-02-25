@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: 'Watch Six Nations 2026 at The Anchor',
         description: 'Every match live on big screens with sound. 7 mins from Heathrow.',
-        images: [DEFAULT_PAGE_HEADER_IMAGE],
+        images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({

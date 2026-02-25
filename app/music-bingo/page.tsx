@@ -30,6 +30,8 @@ import { getEventWebsiteUrl } from '@/lib/event-url'
 import { staticEvents } from '@/lib/static-events'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
+import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
+import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
 export const metadata: Metadata = {
   title: 'Music Bingo Near Heathrow | Singalong Bingo Night | The Anchor',
@@ -37,6 +39,16 @@ export const metadata: Metadata = {
     'Play Music Bingo near Heathrow at The Anchor. Song snippets replace numbers, prizes land every round, and booking is recommended for this singalong bingo night in Stanwell Moor.',
   keywords:
     'music bingo, music bingo near heathrow, musical bingo, singalong bingo night, pub music bingo, stanwell moor events, staines entertainment, bingo with songs',
+  openGraph: {
+    title: 'Music Bingo Near Heathrow | The Anchor',
+    description: 'Song snippets replace numbers, prizes every round. Book for this singalong bingo night in Stanwell Moor.',
+    images: [{ url: DEFAULT_EVENT_IMAGE, width: 1200, height: 630, alt: 'Events at The Anchor pub near Heathrow' }]
+  },
+  twitter: getTwitterMetadata({
+    title: 'Music Bingo Near Heathrow | The Anchor',
+    description: 'Song snippets replace numbers, prizes every round. Book for this singalong bingo night in Stanwell Moor.',
+    images: [DEFAULT_EVENT_IMAGE]
+  }),
   alternates: {
     canonical: '/music-bingo'
   }

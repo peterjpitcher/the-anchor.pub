@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: 'The Last Proper Meal Before You Fly',
         description: 'Don\'t settle for an expensive airport sandwich. Enjoy authentic British pub food just minutes from your terminal.',
-        images: [DEFAULT_PAGE_HEADER_IMAGE],
+        images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({

@@ -31,6 +31,8 @@ import { staticEvents } from '@/lib/static-events'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { BookTableButton } from '@/components/BookTableButton'
+import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
+import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
 export const metadata: Metadata = {
     title: 'Live Music Pub Near Heathrow | Live Bands & Local Gigs | The Anchor',
@@ -38,6 +40,16 @@ export const metadata: Metadata = {
         'Enjoy live music near Heathrow at The Anchor. Featuring local bands, acoustic sets, and tribute acts in Stanwell Moor. Free entry, great atmosphere, and cold pints.',
     keywords:
         'live music pub, live bands, pub gigs, music production, stanwell moor live music, heathrow live music, pub music staines, acoustic night, pub rock bands',
+    openGraph: {
+        title: 'Live Music Near Heathrow | The Anchor',
+        description: 'Local bands, acoustic sets, and tribute acts. Free entry and a great pub atmosphere in Stanwell Moor.',
+        images: [{ url: DEFAULT_EVENT_IMAGE, width: 1200, height: 630, alt: 'Events at The Anchor pub near Heathrow' }]
+    },
+    twitter: getTwitterMetadata({
+        title: 'Live Music Near Heathrow | The Anchor',
+        description: 'Local bands, acoustic sets, and tribute acts. Free entry and a great pub atmosphere in Stanwell Moor.',
+        images: [DEFAULT_EVENT_IMAGE]
+    }),
     alternates: {
         canonical: '/live-music'
     }

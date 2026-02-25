@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'The Anchor - Heathrow Pub & Dining - Your Local Pub Near Bedfont',
     description: 'Just 5 minutes from Bedfont with free parking and great food.',
-    images: [DEFAULT_PAGE_HEADER_IMAGE],
+    images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
   },
   twitter: getTwitterMetadata({
     title: 'The Anchor - Heathrow Pub & Dining - Your Local Pub Near Bedfont',

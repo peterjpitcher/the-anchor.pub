@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: 'Retirement Parties at The Anchor',
         description: 'A dedicated lifetime of work deserves a dedicated celebration. Book your retirement party or leaving do with us.',
-        images: [DEFAULT_CORPORATE_IMAGE],
+        images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Private hire venue at The Anchor near Heathrow Airport' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({

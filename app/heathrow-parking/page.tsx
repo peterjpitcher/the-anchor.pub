@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Cheap Heathrow Parking from GBP 15/day - Book Online',
     description: 'Secure off-airport Heathrow parking in Stanwell Moor. 7 minutes to T5, 10-12 minutes to T2/T3/T4, keep your keys and book in minutes.',
-    images: [DEFAULT_PARKING_IMAGE],
+    images: [{ url: DEFAULT_PARKING_IMAGE, width: 1200, height: 630, alt: 'Free parking at The Anchor pub near Heathrow Airport' }],
     url: 'https://www.the-anchor.pub/heathrow-parking'
   },
   twitter: getTwitterMetadata({

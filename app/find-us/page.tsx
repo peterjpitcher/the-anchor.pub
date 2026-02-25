@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Directions to The Anchor Pub (TW19 6AQ)',
     description: 'Driving and public transport directions from Heathrow terminals to The Anchor on Horton Road with free parking.',
-    images: [DEFAULT_PAGE_HEADER_IMAGE],
+    images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
   },
   twitter: getTwitterMetadata({
     title: 'Directions to The Anchor Pub (TW19 6AQ)',

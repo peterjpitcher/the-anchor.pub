@@ -80,7 +80,7 @@ export function generateMetadata({ params }: { params: { terminal: string } }): 
     openGraph: {
       title,
       description,
-      images: [DEFAULT_PARKING_IMAGE],
+      images: [{ url: DEFAULT_PARKING_IMAGE, width: 1200, height: 630, alt: 'Free parking at The Anchor pub near Heathrow Airport' }],
       url: `https://www.the-anchor.pub${canonical}`
     },
     twitter: getTwitterMetadata({

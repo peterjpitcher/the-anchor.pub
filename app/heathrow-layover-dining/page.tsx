@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Heathrow Layover Dining in 90 Minutes (Near T5) | The Anchor',
     description: 'Swap airport queues for proper pub food 7 minutes from Heathrow. Booking tips, itineraries, and travel times for stress-free layovers.',
-    images: [DEFAULT_NEAR_HEATHROW_IMAGE],
+    images: [{ url: DEFAULT_NEAR_HEATHROW_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Heathrow Airport' }],
   },
   alternates: {
     canonical: '/heathrow-layover-dining'

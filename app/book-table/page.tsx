@@ -8,6 +8,7 @@ import { Section, Button } from '@/components/ui'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { SUNDAY_LUNCH_DEPOSIT_POLICY_COPY } from '@/lib/constants'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
+import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
 export const metadata: Metadata = {
   title: 'Book a Table Online | The Anchor - Heathrow Pub & Dining',
@@ -16,8 +17,13 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Book a Table at The Anchor',
     description: 'Reserve your table online with fast mobile confirmation.',
-    images: [DEFAULT_PAGE_HEADER_IMAGE]
+    images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }]
   },
+  twitter: getTwitterMetadata({
+    title: 'Book a Table at The Anchor',
+    description: 'Reserve your table online with fast mobile confirmation.',
+    images: [DEFAULT_PAGE_HEADER_IMAGE]
+  }),
   alternates: {
     canonical: '/book-table'
   }

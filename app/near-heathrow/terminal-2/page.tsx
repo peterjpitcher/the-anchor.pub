@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'The Anchor - Local Pub Near Terminal 2 Hotels',
     description: 'Escape hotel dining! Family pub 11 mins from T2. Real atmosphere.',
-    images: [DEFAULT_NEAR_HEATHROW_IMAGE],
+    images: [{ url: DEFAULT_NEAR_HEATHROW_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Heathrow Airport' }],
   },
   twitter: getTwitterMetadata({
     title: 'The Anchor - Local Pub Near Terminal 2 Hotels',

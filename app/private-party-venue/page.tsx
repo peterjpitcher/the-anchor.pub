@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Private Party Venue Near Heathrow - The Anchor Stanwell Moor',
     description: 'Flexible party spaces with free parking, custom menus and dedicated planners near Heathrow.',
-    images: [DEFAULT_CORPORATE_IMAGE],
+    images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Private hire venue at The Anchor near Heathrow Airport' }],
   },
   twitter: getTwitterMetadata({
     title: 'Private Party Venue Near Heathrow - The Anchor Stanwell Moor',

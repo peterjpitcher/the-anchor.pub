@@ -7,6 +7,7 @@ import { permanentRedirect } from 'next/navigation'
 import { getTagSEOContent } from '@/lib/tag-seo-content'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { getBlogHeroUrl, BLOG_FALLBACK_IMAGE } from '@/lib/blog-image'
+import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 function normalizeTagSlug(tag: string): string {
@@ -44,8 +45,13 @@ export async function generateMetadata({ params }: { params: { tag: string } }):
     openGraph: {
       title: seoContent.metaTitle,
       description: seoContent.metaDescription,
-      images: [BLOG_FALLBACK_IMAGE],
+      images: [{ url: BLOG_FALLBACK_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub blog - news and events near Heathrow' }],
     },
+    twitter: getTwitterMetadata({
+      title: seoContent.metaTitle,
+      description: seoContent.metaDescription,
+      images: [BLOG_FALLBACK_IMAGE]
+    }),
   }
 }
 

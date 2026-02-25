@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Stanwell Village Pub - The Anchor Stanwell Moor',
     description: 'Enjoy Sunday roasts, stone-baked pizzas and local events at The Anchor, Stanwell Moor\'s village pub near Heathrow.',
-    images: [DEFAULT_PAGE_HEADER_IMAGE],
+    images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
     type: 'website',
   },
   twitter: getTwitterMetadata({

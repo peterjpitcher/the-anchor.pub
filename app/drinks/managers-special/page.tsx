@@ -100,7 +100,7 @@ export async function generateMetadata({ searchParams }: { searchParams: PageSea
       openGraph: {
         title,
         description,
-        images: [DEFAULT_DRINKS_IMAGE],
+        images: [{ url: DEFAULT_DRINKS_IMAGE, width: 1200, height: 630, alt: 'Drinks menu at The Anchor pub near Heathrow' }],
       },
       twitter: getTwitterMetadata({
         title,

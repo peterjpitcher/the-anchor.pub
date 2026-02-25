@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: 'Live Sport at The Anchor Pub',
         description: 'Every goal, every try, every lap. Watch it live on our big screens with a cold pint in hand.',
-        images: [DEFAULT_PAGE_HEADER_IMAGE],
+        images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({

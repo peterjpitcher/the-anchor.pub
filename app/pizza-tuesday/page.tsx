@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Pizza Tuesday – Buy One Get One Free at The Anchor',
     description: 'Every Tuesday: buy one get one free stone-baked pizzas near Heathrow Terminal 5 with free parking.',
-    images: [DEFAULT_PAGE_HEADER_IMAGE],
+    images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
     type: 'website',
   },
   twitter: getTwitterMetadata({

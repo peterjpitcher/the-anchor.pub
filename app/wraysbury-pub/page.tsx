@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: 'The Anchor - Traditional Pub Near Wraysbury',
         description: 'Looking for a change from the local? We are just 5 minutes from Wraysbury with great food and entertainment.',
-        images: [DEFAULT_PAGE_HEADER_IMAGE],
+        images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({

@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: 'Summer Garden Parties at The Anchor',
         description: 'Sun, Cider, and BBQ. The perfect ingredients for a summer bash.',
-        images: [DEFAULT_PAGE_HEADER_IMAGE],
+        images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({

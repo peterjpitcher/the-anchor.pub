@@ -31,6 +31,8 @@ import { staticEvents } from '@/lib/static-events'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { BookTableButton } from '@/components/BookTableButton'
+import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
+import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
 export const metadata: Metadata = {
   title: 'Cash Bingo Near Heathrow | Bingo Games & Jackpots | The Anchor',
@@ -38,6 +40,16 @@ export const metadata: Metadata = {
     'Play cash bingo and bingo games near Heathrow at The Anchor. GBP 10 bingo tickets, bingo calls, cash prizes, snowball bonus, and jackpot bingo in Stanwell Moor.',
   keywords:
     'cash bingo, bingo night, bingo games, play bingo for cash, bingo hall, bingo tickets, bingo books, jackpot bingo, cash prizes, bingo calls, bingo numbers, bingo number caller, bingo near heathrow',
+  openGraph: {
+    title: 'Cash Bingo Near Heathrow | The Anchor',
+    description: 'GBP 10 bingo tickets, cash prizes, snowball bonus, and jackpot bingo in Stanwell Moor near Heathrow.',
+    images: [{ url: DEFAULT_EVENT_IMAGE, width: 1200, height: 630, alt: 'Events at The Anchor pub near Heathrow' }]
+  },
+  twitter: getTwitterMetadata({
+    title: 'Cash Bingo Near Heathrow | The Anchor',
+    description: 'GBP 10 bingo tickets, cash prizes, snowball bonus, and jackpot bingo in Stanwell Moor near Heathrow.',
+    images: [DEFAULT_EVENT_IMAGE]
+  }),
   alternates: {
     canonical: '/cash-bingo'
   }

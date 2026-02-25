@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Pub Near Heathrow Terminal 4 - Free Parking & British Food',
     description: 'The Anchor is the closest village pub to Heathrow Terminal 4 with free parking, British dishes and real ales.',
-    images: [DEFAULT_NEAR_HEATHROW_IMAGE],
+    images: [{ url: DEFAULT_NEAR_HEATHROW_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Heathrow Airport' }],
   },
   twitter: getTwitterMetadata({
     title: 'Pub Near Heathrow Terminal 4 - Free Parking & British Food',

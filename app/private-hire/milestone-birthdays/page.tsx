@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: 'Milestone Birthday Parties at The Anchor',
         description: 'Planning a big birthday? Discover our party packages perfect for 30ths, 40ths, and 50ths. Great food, music, and atmosphere.',
-        images: [DEFAULT_CORPORATE_IMAGE],
+        images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Private hire venue at The Anchor near Heathrow Airport' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({

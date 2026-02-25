@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { ChristmasPartiesPageClient } from './client-components'
 import { ChristmasHeroPrimaryCta, ChristmasHeroSecondaryCta } from './christmas-hero-ctas'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
@@ -14,8 +15,13 @@ export const metadata: Metadata = {
     title: 'Christmas Parties 2026 Near Heathrow Terminal 5 | Shared Nights & Private Hire',
     description:
       'A proper village-pub Christmas with shared party nights, private hire, generous roasts and buffet options. Free parking minutes from Heathrow Terminal 5 and close to Staines, Ashford and Windsor.',
-    images: ['/images/page-headers/christmas-parties/2026/hero-table.png']
+    images: [{ url: '/images/page-headers/christmas-parties/2026/hero-table.png', width: 1200, height: 630, alt: 'Christmas parties at The Anchor near Heathrow' }]
   },
+  twitter: getTwitterMetadata({
+    title: 'Christmas Parties 2026 Near Heathrow Terminal 5 | Shared Nights & Private Hire',
+    description: 'A proper village-pub Christmas with shared party nights, private hire, generous roasts and buffet options. Free parking minutes from Heathrow Terminal 5.',
+    images: ['/images/page-headers/christmas-parties/2026/hero-table.png']
+  }),
   alternates: {
     canonical: '/christmas-parties'
   }

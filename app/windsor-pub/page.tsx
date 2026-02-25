@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Windsor Pub Alternative - The Anchor Stanwell Moor',
     description: '15 minutes from Windsor with free parking, Sunday roast, stone-baked pizzas and countryside atmosphere.',
-    images: [DEFAULT_PAGE_HEADER_IMAGE],
+    images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
     type: 'website',
   },
   twitter: getTwitterMetadata({

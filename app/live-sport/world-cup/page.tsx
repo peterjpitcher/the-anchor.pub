@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Watch FIFA World Cup 2026 at The Anchor',
     description: 'All match dates in one place. 4 screens, sound on for games we show, and proper pub atmosphere near Heathrow.',
-    images: [DEFAULT_PAGE_HEADER_IMAGE],
+    images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
     type: 'website',
   },
   twitter: getTwitterMetadata({

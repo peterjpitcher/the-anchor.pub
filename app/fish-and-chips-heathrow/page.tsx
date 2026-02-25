@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: 'Proper British Fish & Chips',
         description: 'Crispy batter, flaky fish, and proper chips. The ultimate pre-flight meal.',
-        images: [DEFAULT_PAGE_HEADER_IMAGE],
+        images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({

@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Plane Spotting at Heathrow - The Anchor Beer Garden',
     description: 'Enjoy aircraft overhead every 90 seconds from The Anchor beer garden with free parking, hot food and WiFi – just 7 minutes from Terminal 5.',
-    images: [DEFAULT_NEAR_HEATHROW_IMAGE]
+    images: [{ url: DEFAULT_NEAR_HEATHROW_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Heathrow Airport' }]
   },
   twitter: getTwitterMetadata({
     title: 'Plane Spotting at Heathrow - The Anchor Beer Garden',

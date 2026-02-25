@@ -31,6 +31,8 @@ import { staticEvents } from '@/lib/static-events'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { BookTableButton } from '@/components/BookTableButton'
+import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
+import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
 export const metadata: Metadata = {
     title: 'Karaoke Nights Near Heathrow | Sing Out at The Anchor',
@@ -38,6 +40,16 @@ export const metadata: Metadata = {
         'Join the best karaoke night near Heathrow at The Anchor. Thousands of songs, great atmosphere, and free entry. Sing your heart out in Stanwell Moor!',
     keywords:
         'karaoke near heathrow, karaoke pub, karaoke night, sing karaoke, pub karaoke, stanwell moor karaoke, karaoke bar staines, free karaoke',
+    openGraph: {
+        title: 'Karaoke Nights Near Heathrow | The Anchor',
+        description: 'Thousands of songs, free entry, and a great atmosphere. Sing your heart out in Stanwell Moor.',
+        images: [{ url: DEFAULT_EVENT_IMAGE, width: 1200, height: 630, alt: 'Events at The Anchor pub near Heathrow' }]
+    },
+    twitter: getTwitterMetadata({
+        title: 'Karaoke Nights Near Heathrow | The Anchor',
+        description: 'Thousands of songs, free entry, and a great atmosphere. Sing your heart out in Stanwell Moor.',
+        images: [DEFAULT_EVENT_IMAGE]
+    }),
     alternates: {
         canonical: '/karaoke'
     }

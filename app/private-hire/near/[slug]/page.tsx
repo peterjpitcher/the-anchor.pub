@@ -9,6 +9,7 @@ import { PhoneButton } from '@/components/PhoneButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
+import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 
 // Generate static params for all landmarks at build time
@@ -33,8 +34,13 @@ export async function generateMetadata({ params }: { params: { slug: string } })
         openGraph: {
             title: `${eventType} Venue Near ${landmark.name}`,
             description: `The perfect venue for your gathering after attending ${landmark.name}. Just ${landmark.distance} away.`,
-            images: [DEFAULT_CORPORATE_IMAGE],
-        }
+            images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Private hire venue at The Anchor near Heathrow Airport' }],
+        },
+        twitter: getTwitterMetadata({
+            title: `${eventType} Venue Near ${landmark.name}`,
+            description: `The perfect venue for your gathering after attending ${landmark.name}. Just ${landmark.distance} away.`,
+            images: [DEFAULT_CORPORATE_IMAGE]
+        })
     }
 }
 

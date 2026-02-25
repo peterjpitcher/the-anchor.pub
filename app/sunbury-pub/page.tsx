@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: 'The Anchor - Destination Dining Near Sunbury',
         description: 'Worth the short drive from Sunbury for the best Sunday Roast in the area. Free parking and great value.',
-        images: [DEFAULT_PAGE_HEADER_IMAGE],
+        images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({

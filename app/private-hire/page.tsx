@@ -5,6 +5,7 @@ import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { Container, SectionHeader, FeatureGrid, Button } from '@/components/ui'
 import { PhoneButton } from '@/components/PhoneButton'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
+import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 
@@ -14,8 +15,13 @@ export const metadata: Metadata = {
     openGraph: {
         title: 'Private Hire Venue Near Heathrow | The Anchor',
         description: 'Flexible event spaces for all occasions. Free parking, custom menus, and dedicated planners.',
-        images: [DEFAULT_CORPORATE_IMAGE],
+        images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Private hire venue at The Anchor near Heathrow Airport' }],
     },
+    twitter: getTwitterMetadata({
+        title: 'Private Hire Venue Near Heathrow | The Anchor',
+        description: 'Flexible event spaces for all occasions. Free parking, custom menus, and dedicated planners.',
+        images: [DEFAULT_CORPORATE_IMAGE]
+    }),
     alternates: {
         canonical: '/private-hire'
     }

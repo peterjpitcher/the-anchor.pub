@@ -31,6 +31,8 @@ import {
 } from '@/lib/api'
 import { getEventWebsiteUrl } from '@/lib/event-url'
 import { staticEvents } from '@/lib/static-events'
+import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
+import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
 export const metadata: Metadata = {
   title: 'Quiz Night Pub Near Heathrow | The Anchor Trivia Night',
@@ -38,6 +40,16 @@ export const metadata: Metadata = {
     "Join The Anchor's quiz night pub near Heathrow for a monthly trivia night with a GBP 25 bar tab prize, GBP 3 entry, and a friendly pub trivia crowd in Stanwell Moor.",
   keywords:
     'quiz night pub, quiz night, quiz night quiz, trivia, trivia night, pub trivia, night trivia, pub quiz near heathrow, pub quiz staines, stanwell moor quiz night',
+  openGraph: {
+    title: 'Quiz Night Near Heathrow | The Anchor',
+    description: 'Monthly trivia night with a GBP 25 bar tab prize, GBP 3 entry, and a friendly pub crowd in Stanwell Moor.',
+    images: [{ url: DEFAULT_EVENT_IMAGE, width: 1200, height: 630, alt: 'Events at The Anchor pub near Heathrow' }]
+  },
+  twitter: getTwitterMetadata({
+    title: 'Quiz Night Near Heathrow | The Anchor',
+    description: 'Monthly trivia night with a GBP 25 bar tab prize, GBP 3 entry, and a friendly pub crowd in Stanwell Moor.',
+    images: [DEFAULT_EVENT_IMAGE]
+  }),
   alternates: {
     canonical: '/quiz-night'
   }

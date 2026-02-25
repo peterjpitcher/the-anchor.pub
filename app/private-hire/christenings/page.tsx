@@ -7,6 +7,7 @@ import { PhoneButton } from '@/components/PhoneButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
+import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { landmarks } from '@/lib/local-seo-data'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 
@@ -16,8 +17,13 @@ export const metadata: Metadata = {
     openGraph: {
         title: 'Christening Party Venue | The Anchor Stanwell Moor',
         description: 'Celebrate your little one\'s special day. Family-friendly venue with private rooms.',
-        images: [DEFAULT_CORPORATE_IMAGE],
+        images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Private hire venue at The Anchor near Heathrow Airport' }],
     },
+    twitter: getTwitterMetadata({
+        title: 'Christening Party Venue | The Anchor Stanwell Moor',
+        description: 'Celebrate your little one\'s special day. Family-friendly venue with private rooms.',
+        images: [DEFAULT_CORPORATE_IMAGE]
+    }),
     alternates: {
         canonical: '/private-hire/christenings'
     }

@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Pub Near Heathrow Terminal 3 - Free Parking & British Food',
     description: 'The Anchor offers an authentic pub alternative to Terminal 3 hotels with free parking and traditional British dishes.',
-    images: [DEFAULT_NEAR_HEATHROW_IMAGE],
+    images: [{ url: DEFAULT_NEAR_HEATHROW_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Heathrow Airport' }],
   },
   twitter: getTwitterMetadata({
     title: 'Pub Near Heathrow Terminal 3 - Free Parking & British Food',

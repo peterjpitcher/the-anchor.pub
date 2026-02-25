@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Restaurant Near Heathrow - The Anchor',
     description: 'Skip expensive airport dining. Traditional British food, free parking, 7 minutes from Terminal 5.',
-    images: [DEFAULT_NEAR_HEATHROW_IMAGE],
+    images: [{ url: DEFAULT_NEAR_HEATHROW_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Heathrow Airport' }],
   },
   twitter: getTwitterMetadata({
     title: 'Restaurant Near Heathrow - The Anchor',

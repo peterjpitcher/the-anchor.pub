@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: 'Pool, Darts & Pints at The Anchor',
         description: 'Challenge a mate to a frame of pool or a round of darts. Great beer and good competition.',
-        images: [DEFAULT_PAGE_HEADER_IMAGE],
+        images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({

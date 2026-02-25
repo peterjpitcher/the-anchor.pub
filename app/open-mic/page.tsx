@@ -26,6 +26,8 @@ import {
 import { getEventWebsiteUrl } from '@/lib/event-url'
 import { cn } from '@/lib/utils'
 import { OpenMicPerformerInterestForm } from './OpenMicPerformerInterestForm'
+import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
+import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
 export const metadata: Metadata = {
   title: 'Open Mic Sign-Up | The Anchor, Stanwell Moor',
@@ -33,6 +35,16 @@ export const metadata: Metadata = {
     'Register to perform at The Anchor open mic in Stanwell Moor near Heathrow. Acoustic-friendly to start, with all performer types welcome for future events. See upcoming dates and book a table (walk-ins welcome).',
   keywords:
     'open mic, open mic night, live music, performers, stanwell moor, staines, heathrow, acoustic open mic, comedy, spoken word',
+  openGraph: {
+    title: 'Open Mic Night | The Anchor, Stanwell Moor',
+    description: 'Sign up to perform at The Anchor open mic. Acoustic-friendly, all types welcome. Walk-ins welcome.',
+    images: [{ url: DEFAULT_EVENT_IMAGE, width: 1200, height: 630, alt: 'Events at The Anchor pub near Heathrow' }]
+  },
+  twitter: getTwitterMetadata({
+    title: 'Open Mic Night | The Anchor, Stanwell Moor',
+    description: 'Sign up to perform at The Anchor open mic. Acoustic-friendly, all types welcome. Walk-ins welcome.',
+    images: [DEFAULT_EVENT_IMAGE]
+  }),
   alternates: {
     canonical: '/open-mic'
   }

@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Staines Pub Near Heathrow - The Anchor Stanwell Moor',
     description: 'Traditional pub 8 minutes from Staines with Sunday roast, stone-baked pizzas, hosted nights and free parking. See /whats-on for the latest.',
-    images: [DEFAULT_PAGE_HEADER_IMAGE],
+    images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
   },
   twitter: getTwitterMetadata({
     title: 'Staines Pub Near Heathrow - The Anchor Stanwell Moor',
