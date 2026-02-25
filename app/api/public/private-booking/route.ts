@@ -44,11 +44,7 @@ function asPositiveInt(value: unknown): number | undefined {
 }
 
 function createIdempotencyKey(): string {
-    if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
-        return `prv_${crypto.randomUUID()}`
-    }
-
-    return `prv_${Date.now()}_${Math.random().toString(16).slice(2)}`
+    return `prv_${crypto.randomUUID()}`
 }
 
 function toNotes(payload: LegacyPrivateBookingPayload): string | undefined {

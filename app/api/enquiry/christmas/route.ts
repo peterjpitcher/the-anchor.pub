@@ -20,6 +20,15 @@ interface ChristmasEnquiryPayload {
   notes?: string
 }
 
+function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
+
 function buildEmailContent(body: ChristmasEnquiryPayload) {
   const extras = (body.extras || []).filter(Boolean)
   const perks = (body.perks || []).filter(Boolean)
@@ -53,24 +62,24 @@ function buildEmailContent(body: ChristmasEnquiryPayload) {
 
   const htmlParts = [
     '<h2>New Christmas enquiry</h2>',
-    `<p><strong>Name:</strong> ${body.name}</p>`,
-    `<p><strong>Email:</strong> ${body.email}</p>`,
-    `<p><strong>Phone:</strong> ${body.phone}</p>`,
-    `<p><strong>Party size:</strong> ${body.partySize}</p>`,
-    `<p><strong>Preferred date:</strong> ${preferredDate}</p>`,
-    `<p><strong>Preferred time:</strong> ${body.preferredTime}</p>`,
+    `<p><strong>Name:</strong> ${escapeHtml(body.name)}</p>`,
+    `<p><strong>Email:</strong> ${escapeHtml(body.email)}</p>`,
+    `<p><strong>Phone:</strong> ${escapeHtml(body.phone)}</p>`,
+    `<p><strong>Party size:</strong> ${escapeHtml(body.partySize)}</p>`,
+    `<p><strong>Preferred date:</strong> ${escapeHtml(preferredDate)}</p>`,
+    `<p><strong>Preferred time:</strong> ${escapeHtml(body.preferredTime)}</p>`,
     `<p><strong>Enquiry type:</strong> ${body.mode === 'dinner' ? 'Festive dinner (up to 25)' : 'Buffet (26+)'}</p>`
   ]
 
   if (extras.length > 0) {
-    htmlParts.push(`<p><strong>Extras requested:</strong> ${extras.join(', ')}</p>`)
+    htmlParts.push(`<p><strong>Extras requested:</strong> ${extras.map(escapeHtml).join(', ')}</p>`)
   }
 
   if (perks.length > 0) {
-    htmlParts.push(`<p><strong>Offers mentioned:</strong> ${perks.join(', ')}</p>`)
+    htmlParts.push(`<p><strong>Offers mentioned:</strong> ${perks.map(escapeHtml).join(', ')}</p>`)
   }
 
-  const formattedNotes = body.notes ? body.notes.replace(/\n/g, '<br/>') : 'N/A'
+  const formattedNotes = body.notes ? escapeHtml(body.notes).replace(/\n/g, '<br/>') : 'N/A'
   htmlParts.push(`<p><strong>Notes:</strong><br/>${formattedNotes}</p>`)
 
   const htmlContent = htmlParts.join('\n')

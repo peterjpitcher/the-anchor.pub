@@ -168,7 +168,7 @@ export async function POST(request: Request) {
     }
     
     // Generate idempotency key to prevent duplicate bookings
-    const idempotencyKey = `${bookingData.date}-${bookingData.time}-${normaliseUKPhone(bookingData.phone)}-${Date.now()}`
+    const idempotencyKey = crypto.randomUUID()
     
     // Submit to API
     const booking = await anchorAPI.createTableBooking(bookingRequest, idempotencyKey)
