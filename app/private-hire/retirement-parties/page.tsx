@@ -70,7 +70,7 @@ export default function RetirementPartiesPage() {
                 route="/private-hire/retirement-parties"
                 title="Retirement Parties & Leaving Dos"
                 description="A proper send-off for a lifetime of hard work"
-                variant="promo"
+               
                 image={{ src: DEFAULT_CORPORATE_IMAGE, alt: "Retirement party" }}
                 primaryCta={
                     <Link href="/private-hire#enquiry">

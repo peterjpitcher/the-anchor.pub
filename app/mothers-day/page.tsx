@@ -325,7 +325,7 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
             {heroLeadText}
           </p>
         }
-        variant="promo"
+       
         image={{
           src: DEFAULT_PAGE_HEADER_IMAGE,
           alt: "Mother's Day lunch near Staines at The Anchor in Stanwell Moor"

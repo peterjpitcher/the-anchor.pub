@@ -91,7 +91,7 @@ export default async function PizzaTuesdayPage() {
         route="/pizza-tuesday"
         title="Pizza Tuesday"
         description="Buy one get one free stone-baked pizzas near Heathrow Terminal 5"
-        variant="promo"
+       
         tags={[
           { label: '🍕 Two for Tuesday (2-for-1)', variant: 'success' },
           { label: '✈️ 7 mins from T5', variant: 'default' },

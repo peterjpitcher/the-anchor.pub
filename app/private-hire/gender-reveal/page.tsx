@@ -70,7 +70,7 @@ export default function GenderRevealPage() {
                 route="/private-hire/gender-reveal"
                 title="Gender Reveal Parties"
                 description="The perfect setting to share your exciting news"
-                variant="promo"
+               
                 image={{ src: DEFAULT_CORPORATE_IMAGE, alt: "Gender reveal party" }}
                 primaryCta={
                     <Link href="/private-hire#enquiry">

@@ -196,7 +196,7 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
           route="/drinks/managers-special"
           title="Manager's Special"
           description="25% off a featured spirit each month — our way of giving back, and a great excuse to try something new."
-          variant="promo"
+         
           showStatusBar
           statusBarPosition="below"
           tags={[
@@ -425,7 +425,7 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
         route="/drinks/managers-special"
         title={`${spirit.discount} ${spirit.name}`}
         description={promotion.subheadline || promotion.offerText}
-        variant="promo"
+       
         showStatusBar
         statusBarPosition="below"
         tags={heroTags}

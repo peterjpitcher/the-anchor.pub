@@ -54,7 +54,7 @@ export default function PrivatePartyVenuePage() {
         route="/private-party-venue"
         title="Private Party Venue"
         description="Create unforgettable celebrations at The Anchor"
-        variant="promo"
+       
         tags={[
           { label: "🎉 10-200 Guests", variant: "success" },
           { label: "🎂 All Occasions", variant: "default" },

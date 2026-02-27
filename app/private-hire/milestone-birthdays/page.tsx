@@ -70,7 +70,7 @@ export default function MilestoneBirthdaysPage() {
                 route="/private-hire/milestone-birthdays"
                 title="The Ultimate Birthday Party Venue"
                 description="Celebrate the big numbers in style: 21st, 30th, 40th, 50th & Beyond!"
-                variant="promo"
+               
                 image={{ src: DEFAULT_CORPORATE_IMAGE, alt: "Milestone birthday party" }}
                 primaryCta={
                     <Link href="/private-hire#enquiry">

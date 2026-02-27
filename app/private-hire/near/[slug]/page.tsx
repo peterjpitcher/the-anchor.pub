@@ -72,7 +72,7 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
                 route={`/private-hire/near/${landmark.slug}`}
                 title={`${title} Near ${landmark.name}`}
                 description={`The perfect venue just ${landmark.distance} away`}
-                variant="promo"
+               
                 tags={[
                     { label: `📍 ${landmark.distance}`, variant: "success" },
                     { label: "🚗 Free Parking", variant: "default" },

@@ -252,7 +252,7 @@ export default async function CashBingoPage() {
 	        route="/cash-bingo"
 	        title="Cash Bingo Nights & Bingo Games at The Anchor"
 	        description="Play bingo for cash and classic bingo games near Heathrow with GBP 10 bingo tickets and books, bingo calls and numbers, a snowball bonus and jackpot bingo prizes."
-	        variant="promo"
+	       
 	        tags={[
 	          { label: '🎟️ GBP 10 bingo tickets & books', variant: 'default' },
 	          { label: '🎯 Snowball bingo bonus grows monthly', variant: 'primary' },

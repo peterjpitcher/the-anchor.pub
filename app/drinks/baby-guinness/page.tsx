@@ -41,8 +41,6 @@ export default function BabyGuinnessPage() {
         route="/drinks/baby-guinness"
         title="Baby Guinness Shot"
         description="Stanwell Moor's Favourite Party Starter"
-        overlay="gradient"
-        className="min-h-[40vh]"
         breadcrumbs={[
           { name: 'Drinks', href: '/drinks' },
           { name: 'Baby Guinness' }

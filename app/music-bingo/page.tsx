@@ -274,7 +274,7 @@ export default async function MusicBingoPage() {
         route="/music-bingo"
         title="Music Bingo Nights at The Anchor"
         description="Song snippets replace numbers, prizes land every round, and Nikki Manfadge keeps the singalong energy high."
-        variant="promo"
+       
         tags={[
           { label: '🎵 Songs instead of numbers', variant: 'primary' },
           { label: '🏆 Prizes every round', variant: 'default' },

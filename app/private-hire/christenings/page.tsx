@@ -38,7 +38,7 @@ export default function ChristeningsPage() {
                 route="/private-hire/christenings"
                 title="Christenings & Naming Ceremonies"
                 description="Celebrate with family and friends in a relaxed, child-friendly setting"
-                variant="promo"
+               
                 tags={[
                     { label: "👶 Family Friendly", variant: "success" },
                     { label: "🍽️ Buffet & Roast Options", variant: "default" },

@@ -348,7 +348,7 @@ export default async function EventPage({ params }: Props) {
       ) : null}
       <HeroWrapper
         route={heroRoute}
-        variant="promo"
+       
         seasonalFallback="always"
         title={event.name}
         description={heroDescription}

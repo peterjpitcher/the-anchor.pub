@@ -38,7 +38,7 @@ export default function BabyShowersPage() {
                 route="/private-hire/baby-showers"
                 title="Baby Showers"
                 description="Welcoming new arrivals in style"
-                variant="promo"
+               
                 tags={[
                     { label: "🧁 Afternoon Tea", variant: "success" },
                     { label: "🍹 Mocktails", variant: "default" },

@@ -171,7 +171,7 @@ export default function ChristmasPartiesPage() {
       <HeroWrapper
         id="christmas-hero"
         route="/christmas-parties"
-        variant="promo"
+       
         title="A proper village-pub Christmas minutes from Heathrow"
         description="Three-course feasts piled with herb-crusted triple-cooked roast potatoes, pigs in blankets and sage & onion stuffing - with crackers, candles and festive decor waiting at your table."
         eyebrow={<span className="text-red-100">Christmas 2026</span>}

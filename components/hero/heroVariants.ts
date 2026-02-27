@@ -1,6 +1,6 @@
 import type { HeroSize } from './HeroSection'
 
-export type HeroVariantName = 'default' | 'promo' | 'feature' | 'dark'
+export type HeroVariantName = 'default' | 'feature' | 'dark'
 export type HeroStatusBarThemeKey = 'frosted' | 'darkGlass' | 'brand'
 export type HeroCtaLayoutKey = 'stacked' | 'inline-center' | 'inline-left'
 export type HeroTagAppearanceKey = 'frosted' | 'glass'
@@ -78,19 +78,6 @@ export const HERO_CTA_LAYOUTS: Record<HeroCtaLayoutKey, {
 
 export const HERO_VARIANTS: Record<HeroVariantName, HeroVariantConfig> = {
   default: {
-    size: 'large',
-    alignment: 'center',
-    overlay: 'gradient',
-    showStatusBar: true,
-    statusBarPosition: 'below',
-    statusBarVariant: 'hero',
-    statusBarTheme: 'frosted',
-    ctaLayout: 'inline-center',
-    contentClassName: 'max-w-5xl',
-    tagAppearance: 'frosted',
-    tagSize: 'small'
-  },
-  promo: {
     size: 'large',
     alignment: 'center',
     overlay: 'dark',

@@ -245,7 +245,7 @@ export default async function KaraokePage() {
                 route="/karaoke"
                 title="Karaoke Nights at The Anchor"
                 description="The stage is yours! Join us near Heathrow for the ultimate karaoke night. Thousands of songs, liquid courage on tap, and free entry."
-                variant="promo"
+               
                 tags={[
                     { label: '🎤 Thousands of Songs', variant: 'primary' },
                     { label: '💸 Always Free Entry', variant: 'default' },

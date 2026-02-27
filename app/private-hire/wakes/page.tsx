@@ -38,7 +38,7 @@ export default function WakesPage() {
                 route="/private-hire/wakes"
                 title="Wakes & Funeral Receptions"
                 description="A peaceful, respectful venue for gathering with family and friends"
-                variant="promo"
+               
                 tags={[
                     { label: "📍 Near SW Middlesex Crematorium", variant: "default" },
                     { label: "🤝 Compassionate Team", variant: "success" },

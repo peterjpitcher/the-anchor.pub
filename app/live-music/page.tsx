@@ -265,7 +265,7 @@ export default async function LiveMusicPage() {
                 route="/live-music"
                 title="Live Music at The Anchor"
                 description="Experience the best live music pub near Heathrow. From acoustic sessions to full bands, enjoy great tunes and free entry in Stanwell Moor."
-                variant="promo"
+               
                 tags={[
                     { label: '🎸 Live Local Talent', variant: 'primary' },
                     { label: '💸 Always Free Entry', variant: 'default' },

@@ -53,7 +53,7 @@ export default function CorporateEventsPage() {
         route="/corporate-events"
         title="Corporate Event Venue Near Heathrow"
         description="Professional meeting spaces and business event hosting 7 minutes from Terminal 5"
-        variant="promo"
+       
         tags={[
           { label: "✈️ 7 mins from Heathrow", variant: "success" },
           { label: "🚗 Free Parking", variant: "default" },

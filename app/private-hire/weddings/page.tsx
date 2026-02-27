@@ -38,7 +38,7 @@ export default function WeddingsPage() {
                 route="/private-hire/weddings"
                 title="Weddings & Engagements"
                 description="Relaxed celebrations for the modern couple"
-                variant="promo"
+               
                 tags={[
                     { label: "💍 Engagement Parties", variant: "default" },
                     { label: "🥂 Rehearsal Dinners", variant: "success" },

@@ -208,7 +208,7 @@ export default async function OpenMicPage() {
         route="/open-mic"
         title="Perform at The Anchor — Open Mic Sign-Up"
         description={heroDescription}
-        variant="promo"
+       
         tags={[
           { label: '🎤 Open Mic Nights', variant: 'primary' },
           { label: '🕗 Typically from 8pm', variant: 'default' },

@@ -34,7 +34,7 @@ export default function PrivateHirePage() {
                 route="/private-hire"
                 title="Private Hire & Events"
                 description="The perfect venue for your special occasion near Heathrow"
-                variant="promo"
+               
                 tags={[
                     { label: "📍 7 Mins from Heathrow", variant: "success" },
                     { label: "🚗 Free Parking", variant: "default" },

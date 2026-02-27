@@ -126,7 +126,7 @@ export default async function WhatsOnPage() {
         route="/whats-on"
         title="What's On at The Anchor"
         description="From Music Bingo hosted by Nikki Manfadge to quiz nights and one-off events — check the listings for the latest."
-        variant="promo"
+       
 	        tags={[
 	          { label: '🎤 Music Bingo (Nikki)', variant: 'primary' },
 	          { label: '🧠 Quiz Night GBP 3', variant: 'warning' },

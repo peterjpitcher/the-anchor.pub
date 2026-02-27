@@ -78,7 +78,7 @@ export default function FunctionRoomHirePage() {
         route="/function-room-hire"
         title="Function Room Hire"
         description="Versatile event spaces with flexible pricing"
-        variant="promo"
+       
         tags={[
           { label: "🏢 Multiple Spaces", variant: "default" },
           { label: "💷 Flexible Pricing", variant: "success" },

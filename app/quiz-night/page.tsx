@@ -279,7 +279,7 @@ export default async function QuizNightPage() {
         route="/quiz-night"
         title="Quiz Night Wednesdays at The Anchor"
         description="Proper quiz night pub energy with trivia rounds, seasonal themes and prizes worth bragging about. Your Heathrow pub trivia night HQ."
-        variant="promo"
+       
 	        tags={[
 	          { label: '📍 7 mins from Heathrow', variant: 'default' },
 	          { label: '🧠 Fresh themes monthly', variant: 'primary' },

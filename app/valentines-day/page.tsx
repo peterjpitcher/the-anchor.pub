@@ -298,7 +298,7 @@ export default async function ValentinesDayPage() {
             Free parking • Seven minutes from Heathrow Terminal 5
           </p>
         }
-        variant="promo"
+       
         breadcrumbs={[
           { name: 'Home', href: '/' },
           { name: 'Valentine’s Day' }
