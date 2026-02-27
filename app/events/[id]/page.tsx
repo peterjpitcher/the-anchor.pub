@@ -275,7 +275,12 @@ export default async function EventPage({ params }: Props) {
   const mothersDayBookingCopy =
     'Choose each guest’s Sunday lunch main in the booking flow, then pay the £10 per person deposit to secure your table.'
   const heroRoute = `/events/${encodeURIComponent(canonicalSegment || params.id)}`
-  const heroImageSrc = event.heroImageUrl || event.image?.[0] || null
+  const rawHeroDescription = event.shortDescription || event.brief || null
+  const heroDescription = rawHeroDescription
+    ? rawHeroDescription.length > 160
+      ? rawHeroDescription.substring(0, 157).trimEnd() + '…'
+      : rawHeroDescription
+    : undefined
   const heroTags = [
     ...(event.category?.name ? [{ label: event.category.name, variant: 'primary' as const }] : []),
     { label: eventDate, variant: 'default' as const },
@@ -344,23 +349,14 @@ export default async function EventPage({ params }: Props) {
       <HeroWrapper
         route={heroRoute}
         variant="promo"
-        seasonalFallback="never"
+        seasonalFallback="always"
         title={event.name}
-        description={event.brief || event.shortDescription || undefined}
+        description={heroDescription}
         breadcrumbs={[
           { name: "What's On", href: '/whats-on' },
           { name: event.name }
         ]}
         tags={heroTags}
-        image={
-          heroImageSrc
-            ? {
-                src: heroImageSrc,
-                alt: `${event.name} at The Anchor`,
-                priority: true,
-              }
-            : undefined
-        }
         primaryCta={heroPrimaryCta}
         secondaryCta={heroSecondaryCta}
       />
