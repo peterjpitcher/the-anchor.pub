@@ -198,59 +198,71 @@ export default function HeathrowHotelsPubPage() {
             <SectionHeader
               title="Minutes from Major Heathrow Hotels"
             />
-            
+
             <div className="grid md:grid-cols-2 gap-8">
               <div className="bg-white rounded-xl p-6">
                 <h3 className="text-xl font-bold text-anchor-green mb-4">Terminal 5 Area Hotels</h3>
                 <ul className="space-y-3">
                   <li className="flex justify-between items-center">
-                    <span className="font-medium">Sofitel London Heathrow</span>
+                    <Link href="/pub-near-sofitel-heathrow" className="font-medium hover:text-anchor-gold transition-colors">Sofitel London Heathrow</Link>
                     <span className="text-anchor-gold font-bold">7 mins</span>
                   </li>
                   <li className="flex justify-between items-center">
-                    <span className="font-medium">Premier Inn T5</span>
+                    <Link href="/pub-near-premier-inn-heathrow" className="font-medium hover:text-anchor-gold transition-colors">Premier Inn T5</Link>
                     <span className="text-anchor-gold font-bold">8 mins</span>
                   </li>
                   <li className="flex justify-between items-center">
-                    <span className="font-medium">Hilton Garden Inn</span>
-                    <span className="text-anchor-gold font-bold">9 mins</span>
-                  </li>
-                  <li className="flex justify-between items-center">
-                    <span className="font-medium">Travelodge T5</span>
-                    <span className="text-anchor-gold font-bold">8 mins</span>
-                  </li>
-                </ul>
-	                <p className="mt-4 text-sm text-gray-600">
-	                  GBP 10-12 taxi fare or easy drive with free parking
-	                </p>
-              </div>
-              
-              <div className="bg-white rounded-xl p-6">
-                <h3 className="text-xl font-bold text-anchor-green mb-4">Bath Road & T4 Hotels</h3>
-                <ul className="space-y-3">
-                  <li className="flex justify-between items-center">
-                    <span className="font-medium">Holiday Inn T4</span>
+                    <Link href="/pub-near-travelodge-heathrow" className="font-medium hover:text-anchor-gold transition-colors">Travelodge Heathrow</Link>
                     <span className="text-anchor-gold font-bold">10 mins</span>
                   </li>
                   <li className="flex justify-between items-center">
-                    <span className="font-medium">Radisson RED</span>
+                    <Link href="/pub-near-hilton-heathrow" className="font-medium hover:text-anchor-gold transition-colors">Hilton London Heathrow</Link>
+                    <span className="text-anchor-gold font-bold">10 mins</span>
+                  </li>
+                </ul>
+	                <p className="mt-4 text-sm text-gray-600">
+	                  GBP 10-15 taxi fare or easy drive with free parking
+	                </p>
+              </div>
+
+              <div className="bg-white rounded-xl p-6">
+                <h3 className="text-xl font-bold text-anchor-green mb-4">Bath Road & T4 Area Hotels</h3>
+                <ul className="space-y-3">
+                  <li className="flex justify-between items-center">
+                    <Link href="/pub-near-marriott-heathrow" className="font-medium hover:text-anchor-gold transition-colors">Marriott London Heathrow</Link>
                     <span className="text-anchor-gold font-bold">12 mins</span>
                   </li>
                   <li className="flex justify-between items-center">
-                    <span className="font-medium">Marriott Heathrow</span>
-                    <span className="text-anchor-gold font-bold">11 mins</span>
+                    <Link href="/pub-near-crowne-plaza-heathrow" className="font-medium hover:text-anchor-gold transition-colors">Crowne Plaza Heathrow</Link>
+                    <span className="text-anchor-gold font-bold">12 mins</span>
                   </li>
                   <li className="flex justify-between items-center">
-                    <span className="font-medium">Renaissance Hotel</span>
+                    <Link href="/pub-near-radisson-blu-heathrow" className="font-medium hover:text-anchor-gold transition-colors">Radisson Blu Heathrow</Link>
+                    <span className="text-anchor-gold font-bold">12 mins</span>
+                  </li>
+                  <li className="flex justify-between items-center">
+                    <Link href="/pub-near-holiday-inn-heathrow" className="font-medium hover:text-anchor-gold transition-colors">Holiday Inn Heathrow</Link>
+                    <span className="text-anchor-gold font-bold">12 mins</span>
+                  </li>
+                  <li className="flex justify-between items-center">
+                    <Link href="/pub-near-ibis-heathrow" className="font-medium hover:text-anchor-gold transition-colors">ibis London Heathrow</Link>
+                    <span className="text-anchor-gold font-bold">12 mins</span>
+                  </li>
+                  <li className="flex justify-between items-center">
+                    <Link href="/pub-near-novotel-heathrow" className="font-medium hover:text-anchor-gold transition-colors">Novotel London Heathrow</Link>
+                    <span className="text-anchor-gold font-bold">15 mins</span>
+                  </li>
+                  <li className="flex justify-between items-center">
+                    <Link href="/pub-near-renaissance-heathrow" className="font-medium hover:text-anchor-gold transition-colors">Renaissance London Heathrow</Link>
                     <span className="text-anchor-gold font-bold">12 mins</span>
                   </li>
                 </ul>
 	                <p className="mt-4 text-sm text-gray-600">
-	                  GBP 12-15 taxi fare - worth it for the savings!
+	                  GBP 12-18 taxi fare - worth every penny for the savings!
 	                </p>
               </div>
             </div>
-            
+
             <AlertBox
               variant="info"
               title="Hotel Shuttle Tip"
