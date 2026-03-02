@@ -18,17 +18,17 @@ import { PARKING } from '@/lib/constants'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-  title: 'Pubs Near Heathrow Terminal 2 (11 Mins) | The Anchor',
-  description: 'Looking for pubs near Heathrow Terminal 2? The Anchor is 11 minutes from T2 with free parking, home-cooked food and a beer garden. A relaxed alternative to terminal restaurants.',
-  keywords: 'pubs near heathrow terminal 2, pub near terminal 2, heathrow terminal 2 restaurant alternative, food at terminal 2 heathrow, queens terminal pub',
+  title: 'Pub Near Heathrow Terminal 2 | 11 Mins from T2 | Free Parking | The Anchor',
+  description: "Nearest pub to Heathrow Terminal 2 (Queen's Terminal). 11 minutes by taxi, free parking if driving. Home-cooked British food, dog-friendly beer garden. Book a table today.",
+  keywords: 'pub near heathrow terminal 2, pubs near heathrow terminal 2, heathrow terminal 2 restaurant alternative, food at terminal 2 heathrow, queens terminal pub',
   openGraph: {
-    title: 'The Anchor - Local Pub Near Terminal 2 Hotels',
-    description: 'Escape hotel dining! Family pub 11 mins from T2. Real atmosphere.',
+    title: "Pub Near Heathrow Terminal 2 | 11 Mins Away | Free Parking",
+    description: "11 minutes from T2 (Queen's Terminal). Free parking for 20 cars. Home-cooked British food & dog-friendly beer garden.",
     images: [{ url: DEFAULT_NEAR_HEATHROW_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Heathrow Airport' }],
   },
   twitter: getTwitterMetadata({
-    title: 'The Anchor - Local Pub Near Terminal 2 Hotels',
-    description: 'Escape hotel dining! Family pub 11 mins from T2. Real atmosphere.',
+    title: "Pub Near Heathrow Terminal 2 | 11 Mins Away | Free Parking",
+    description: "11 minutes from T2 (Queen's Terminal). Free parking for 20 cars. Home-cooked British food & dog-friendly beer garden.",
     images: [DEFAULT_NEAR_HEATHROW_IMAGE]
   }),
   alternates: {

@@ -44,15 +44,15 @@ import {
 export const revalidate = 60 * 60 * 24 // 24 hours
 
 export const metadata: Metadata = {
-  title: 'The Anchor Pub | Stanwell Moor Near Heathrow & Staines',
-  description: 'The Anchor pub in Stanwell Moor - we\'re 7 minutes from Heathrow Terminal 5 and 8 minutes from Staines. Free parking, Sunday roasts, stone-baked pizzas, and hosted events like Music Bingo with Nikki Manfadge. See /whats-on for the latest.',
-  keywords: 'the anchor pub, stanwell moor pub, staines pub, heathrow pub with parking, sunday roast near staines, stone-baked pizza',
+  title: 'The Anchor | Pub Near Heathrow Airport | Free Parking & Dog Friendly | Stanwell Moor',
+  description: 'Traditional British pub 7 minutes from Heathrow Terminal 5. Free parking for 20 cars, dog-friendly beer garden, Sunday roasts & stone-baked pizza. Highest-rated non-airport pub near Heathrow. Book a table today.',
+  keywords: 'pub near heathrow, the anchor pub, stanwell moor pub, heathrow pub with free parking, dog friendly pub near heathrow, sunday roast near heathrow, staines pub',
   alternates: {
     canonical: '/'
   },
   openGraph: {
-    title: 'The Anchor Pub | Stanwell Moor Near Heathrow & Staines',
-    description: 'The Anchor pub in Stanwell Moor - we\'re 7 minutes from Heathrow Terminal 5 and 8 minutes from Staines. Free parking, Sunday roasts, stone-baked pizzas, and hosted events like Music Bingo with Nikki Manfadge. See /whats-on for the latest.',
+    title: 'The Anchor | Pub Near Heathrow Airport | Free Parking & Dog Friendly',
+    description: 'Traditional British pub 7 minutes from Heathrow Terminal 5. Free parking for 20 cars, dog-friendly beer garden, Sunday roasts & stone-baked pizza. Highest-rated non-airport pub near Heathrow.',
     url: '/',
     siteName: 'The Anchor',
     images: [
@@ -107,7 +107,7 @@ export default function HomePage() {
     <>
       <DeferredHomepageTrackers />
       <SpeakableSchema />
-      <JsonLd data={[homepageFAQSchema, parkingFacilitySchema]} />
+      <JsonLd data={[parkingFacilitySchema]} />
       {/* Custom Hero Section with Seasonal Image */}
       <HeroWrapper
         route="/"
@@ -641,18 +641,47 @@ export default function HomePage() {
 
       <FAQAccordionWithSchema
         className="bg-gray-50"
+        title="Frequently Asked Questions"
         faqs={[
           {
             question: 'How far is The Anchor from Heathrow Airport?',
-            answer: 'We are seven minutes from Terminal 5 and around eleven minutes from Terminals 2 and 3 by taxi. The 441 and 442 buses also stop a short walk from the pub.'
+            answer: 'The Anchor is 7 minutes from Terminal 5 and approximately 11 minutes from Terminals 2, 3, and 4 by car or taxi. We are the closest traditional British pub to all Heathrow terminals. Our address is Horton Road, Stanwell Moor, Surrey TW19 6AQ.'
           },
           {
-            question: 'Do you offer free parking for guests?',
-            answer: 'Yes. Twenty dedicated spaces are available for pub guests with no time limit while you dine or enjoy a drink.'
+            question: 'Is there free parking at The Anchor?',
+            answer: 'Yes — we have 20 free parking spaces for patrons with no time limit while you are dining or drinking with us. This saves you the high cost of airport parking. For longer-stay parking, we also offer pre-bookable Heathrow parking from £15/day.'
+          },
+          {
+            question: 'Is The Anchor dog friendly?',
+            answer: 'Absolutely. Dogs are welcome throughout The Anchor including our bar area and beer garden. We provide water bowls and your four-legged companions are always welcome.'
+          },
+          {
+            question: 'What food does The Anchor serve?',
+            answer: 'We serve traditional British pub food including stone-baked pizzas, fish & chips, burgers, and Sunday roasts. Sunday lunch must be pre-ordered by 1pm Saturday and requires a £10 per person deposit. Prices range from approximately £10–£20 for mains.'
           },
           {
             question: 'When is the kitchen open?',
-            answer: 'We serve food Tuesday to Friday 6pm-9pm, Saturday 1pm-7pm and Sunday 1pm-6pm.'
+            answer: 'Kitchen hours are updated live on our website. We serve food Tuesday to Friday evenings, Saturday and Sunday lunchtimes. Please check the opening hours section or call 01753 682707 for today\'s kitchen times. Note: the kitchen is closed on Mondays.'
+          },
+          {
+            question: 'Can I watch planes from The Anchor?',
+            answer: 'Yes — our beer garden sits directly under the Heathrow flight path. You can watch aircraft passing overhead every 90 seconds during peak times. It\'s a unique experience for aviation enthusiasts and families alike.'
+          },
+          {
+            question: 'Is The Anchor family friendly?',
+            answer: 'Yes, The Anchor is family friendly with a children\'s menu, spacious beer garden, and a welcoming atmosphere for families with young children. We have space for buggies and a relaxed daytime environment.'
+          },
+          {
+            question: 'Can I book a table at The Anchor?',
+            answer: 'Yes, you can book a table online via our booking system or by calling 01753 682707. Booking is strongly recommended for Sunday lunch (must be pre-ordered by Saturday 1pm) and for groups of 6 or more.'
+          },
+          {
+            question: 'Does The Anchor have any special offers?',
+            answer: 'We have Buy One Get One Free pizza every Tuesday and Wednesday, and 50% off fish & chips for over 65s on Fridays. We also host regular events including Music Bingo, quiz nights, and karaoke. See the What\'s On page for the latest details.'
+          },
+          {
+            question: 'How do I get from Heathrow Terminal 5 to The Anchor?',
+            answer: 'From Terminal 5, take a taxi (approximately £20-25, around 7 minutes) or drive via the A3044 towards Staines/Stanwell Moor and turn onto Horton Road. The 442 bus also runs from Heathrow Central Bus Station to Stanwell Moor.'
           }
         ]}
       />

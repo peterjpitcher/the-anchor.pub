@@ -14,12 +14,12 @@ import { getBusinessHours } from '@/lib/api'
 import { generateOpeningHoursSpecification } from '@/lib/schema-utils'
 
 export const metadata: Metadata = {
-  title: 'Beer Garden Under Heathrow Flight Path | Plane Spotting Pub | The Anchor',
-  description: 'Famous beer garden directly under Heathrow flight path. Watch planes every 90 seconds while enjoying drinks. Perfect for aviation photographers. Dog-friendly, heated, FREE parking.',
-  keywords: 'plane spotting pub, pub near heathrow to watch planes, beer garden heathrow flight path, aviation photography pub, plane spotting stanwell moor, beer garden under flight path, watch planes heathrow, aircraft spotting pub',
+  title: 'Dog-Friendly Beer Garden Near Heathrow | Watch Planes Every 90 Secs | The Anchor',
+  description: '64-seat outdoor beer garden 7 mins from Heathrow Airport. Watch planes land directly overhead every 90 seconds. Dog-friendly, heated areas, full food & drinks service. Free parking.',
+  keywords: 'dog friendly beer garden near heathrow, beer garden near heathrow airport, plane spotting pub heathrow, pub beer garden stanwell moor, outdoor dining near heathrow',
   openGraph: {
-    title: 'Beer Garden Under Heathrow Flight Path | The Anchor',
-    description: 'Watch planes overhead every 90 seconds. Perfect for aviation photographers. FREE parking.',
+    title: 'Dog-Friendly Beer Garden Near Heathrow | Watch Planes Every 90 Secs | The Anchor',
+    description: '64-seat outdoor beer garden 7 mins from Heathrow. Watch planes overhead every 90 seconds. Dog-friendly, heated areas. Free parking.',
     images: ['/images/garden/beer-garden/the-anchor-beer-garden-heathrow-flight-path.jpg'],
   },
   twitter: getTwitterMetadata({

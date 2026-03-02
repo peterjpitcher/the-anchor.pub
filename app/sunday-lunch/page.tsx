@@ -16,12 +16,12 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 const SUNDAY_LUNCH_BOOKING_URL = '/book-table?sunday_lunch=true&purpose=food'
 
 export const metadata: Metadata = {
-  title: 'Sunday Lunch Near Staines & Heathrow | The Anchor',
-  description: 'Traditional Sunday lunch roasts with Yorkshire puddings near Staines and Heathrow. Pre-order by Saturday 1pm. Sunday lunch bookings require a £10 per person deposit.',
-  keywords: 'sunday lunch near heathrow airport, sunday roast staines, sunday lunch near me, roast dinner near me, book sunday lunch the anchor',
+  title: 'Sunday Roast Near Heathrow | From £19.99 | Book by Saturday 1pm | The Anchor',
+  description: 'Traditional British Sunday roast near Heathrow from £19.99. Chicken, lamb, pork belly & vegetarian options. Free parking. 7 mins from Terminal 5. Pre-order by Saturday 1pm.',
+  keywords: 'sunday roast near heathrow, sunday lunch near heathrow airport, sunday roast stanwell moor, sunday lunch near me heathrow, book sunday lunch near heathrow',
   openGraph: {
-    title: 'Sunday Lunch Near Staines & Heathrow',
-    description: 'Reserve The Anchor’s Sunday lunch near Staines and Heathrow: Yorkshire puddings, crispy potatoes and family seating with free parking.',
+    title: 'Sunday Roast Near Heathrow | From £19.99 | The Anchor',
+    description: 'Traditional British Sunday roast from £19.99. Chicken, lamb, pork belly & vegetarian options. Free parking. 7 mins from Heathrow T5. Book by Saturday 1pm.',
     images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg'],
   },
   twitter: getTwitterMetadata({

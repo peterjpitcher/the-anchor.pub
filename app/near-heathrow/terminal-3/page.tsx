@@ -20,17 +20,17 @@ import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 
 export const metadata: Metadata = {
-  title: 'Pubs Near Heathrow Terminal 3 (11 Mins) | The Anchor',
-  description: 'Looking for pubs near Heathrow Terminal 3? The Anchor is 11 minutes away with free parking, family-friendly dining, and quick access for Virgin & Emirates travellers.',
-  keywords: 'pubs heathrow terminal 3, pub near heathrow terminal 3, virgin atlantic crew pub, emirates terminal 3 restaurant alternative, family pub near heathrow hotels',
+  title: 'Pub Near Heathrow Terminal 3 | 11 Mins from T3 | Free Parking | The Anchor',
+  description: 'Nearest independent pub to Heathrow Terminal 3. 11 minutes by taxi, free parking if driving. Family-friendly, Sunday roasts & stone-baked pizza. Popular with Virgin & Emirates travellers.',
+  keywords: 'pub near heathrow terminal 3, pubs heathrow terminal 3, virgin atlantic crew pub, emirates terminal 3 restaurant alternative, family pub near heathrow hotels',
   openGraph: {
-    title: 'Pub Near Heathrow Terminal 3 - Free Parking & British Food',
-    description: 'The Anchor offers an authentic pub alternative to Terminal 3 hotels with free parking and traditional British dishes.',
+    title: 'Pub Near Heathrow Terminal 3 | 11 Mins Away | Free Parking',
+    description: '11 minutes from T3 by taxi. Free parking. Family-friendly dining, Sunday roasts & stone-baked pizza. Popular with Virgin & Emirates travellers.',
     images: [{ url: DEFAULT_NEAR_HEATHROW_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Heathrow Airport' }],
   },
   twitter: getTwitterMetadata({
-    title: 'Pub Near Heathrow Terminal 3 - Free Parking & British Food',
-    description: 'The Anchor offers an authentic pub alternative to Terminal 3 hotels with free parking and traditional British dishes.',
+    title: 'Pub Near Heathrow Terminal 3 | 11 Mins Away | Free Parking',
+    description: '11 minutes from T3 by taxi. Free parking. Family-friendly dining, Sunday roasts & stone-baked pizza. Popular with Virgin & Emirates travellers.',
     images: [DEFAULT_NEAR_HEATHROW_IMAGE]
   }),
   alternates: {

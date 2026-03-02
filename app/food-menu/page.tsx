@@ -107,12 +107,12 @@ function buildKitchenSchedule(hours: BusinessHours): string {
 }
 
 export const metadata: Metadata = {
-  title: 'British Pub Food Menu Near Staines & Heathrow | Sunday Roast, Pizza & Pub Classics',
-  description: "Explore The Anchor food menu in Stanwell Moor near Staines and Heathrow: Sunday roast and Sunday lunch, fish & chips, stone-baked pizza, plus vegetarian and gluten-friendly options.",
-  keywords: 'food menu, pub food menu, pub food, sunday roast, sunday lunch, fish & chips menu, pizza menu, vegetarian menu, gluten free menu, the anchor menu',
+  title: 'Pub Food Menu Near Heathrow | Sunday Roast, Pizza & Fish & Chips | The Anchor',
+  description: 'Full pub food menu: Sunday roasts from £19.99, stone-baked pizzas, fish & chips & burgers. 7 mins from Heathrow, free parking. View menu & book a table online.',
+  keywords: 'pub food menu near heathrow, sunday roast near heathrow, pizza near heathrow, fish and chips near heathrow, the anchor menu, pub food stanwell moor',
   openGraph: {
-    title: 'Food Menu | Pub Food, Sunday Roast & Pizza',
-    description: "See The Anchor food menu near Staines and Heathrow: Sunday roast, fish & chips, pizza menu, vegetarian and gluten free options with free parking.",
+    title: 'Pub Food Menu Near Heathrow | Sunday Roast, Pizza & Fish & Chips | The Anchor',
+    description: 'Full pub food menu: Sunday roasts from £19.99, stone-baked pizzas, fish & chips & burgers. 7 mins from Heathrow, free parking. Book a table online.',
     images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg'],
   },
   twitter: getTwitterMetadata({
@@ -296,7 +296,7 @@ export default async function FoodMenuPage() {
                 Looking for a food menu or pub menu in Staines? We sit on Horton Road in Stanwell Moor,
                 just 8 minutes from Staines High Street and 7 minutes from Heathrow Terminal 5. Our pub food menu
                 covers Sunday roast and Sunday lunch, a fish & chips menu, a pizza menu, plus vegetarian menu and
-                gluten free menu options. It’s proper British pub food, cooked to order.
+                gluten free menu options. It's proper British pub food, cooked to order.
               </p>
               <ul className="mt-4 space-y-2 text-gray-700">
                 <li>• Free parking and easy access from Staines, Ashford and Feltham.</li>

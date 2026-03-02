@@ -19,12 +19,12 @@ import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 
 export const metadata: Metadata = {
-  title: 'Pubs Near Heathrow Terminal 4 (12 Mins) | The Anchor',
-  description: 'Looking for pubs near Heathrow Terminal 4? The Anchor is a 12-minute drive with free parking, British food and real ales. A calm alternative to terminal dining.',
-  keywords: 'pubs near heathrow terminal 4, pub near heathrow terminal 4, food at heathrow terminal 4 alternative, skyteam crew pub, hilton t4 restaurant alternative',
+  title: 'Pub Near Heathrow Terminal 4 | 12 Mins from T4 | Free Parking | The Anchor',
+  description: 'Nearest pub to Heathrow Terminal 4. 12 minutes by taxi, free parking if driving. British pub food, Sunday roasts & real ales. Dog-friendly beer garden. Book a table.',
+  keywords: 'pub near heathrow terminal 4, pubs near heathrow terminal 4, food at heathrow terminal 4 alternative, skyteam crew pub, hilton t4 restaurant alternative',
   openGraph: {
-    title: 'Pub Near Heathrow Terminal 4 - Free Parking & British Food',
-    description: 'The Anchor is the closest village pub to Heathrow Terminal 4 with free parking, British dishes and real ales.',
+    title: 'Pub Near Heathrow Terminal 4 | 12 Mins Away | Free Parking',
+    description: '12 minutes from T4. Free parking for 20 cars. British pub food, Sunday roasts & real ales. Dog-friendly beer garden.',
     images: [{ url: DEFAULT_NEAR_HEATHROW_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Heathrow Airport' }],
   },
   twitter: getTwitterMetadata({

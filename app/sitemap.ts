@@ -3,6 +3,7 @@ import { getAllBlogPosts } from '@/lib/markdown'
 import { landmarks } from '@/lib/local-seo-data'
 import { anchorAPI, type Event } from '@/lib/api'
 import { getEventWebsitePath } from '@/lib/event-url'
+import tagRedirects from '@/config/redirects/tag-redirects.json'
 
 export const revalidate = 60 * 60 // 1 hour
 export const dynamic = 'force-dynamic'
@@ -189,13 +190,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   })
 
-  // Map tag pages
-  const tagSitemap = Array.from(allTags).map((tag) => ({
-    url: `${baseUrl}/blog/tag/${tag}`,
-    lastModified: new Date(),
-    changeFrequency: 'weekly' as const,
-    priority: 0.6,
-  }))
+  // Build set of tag slugs that are redirect sources (to exclude from sitemap)
+  const redirectSourceTags = new Set(
+    tagRedirects
+      .filter((r) => r.source.startsWith('/blog/tag/'))
+      .map((r) => r.source.replace('/blog/tag/', ''))
+  )
+
+  // Map tag pages — exclude any tag that redirects to avoid "page with redirect" in GSC
+  const tagSitemap = Array.from(allTags)
+    .filter((tag) => !redirectSourceTags.has(tag))
+    .map((tag) => ({
+      url: `${baseUrl}/blog/tag/${tag}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.6,
+    }))
 
   const landmarkSitemap = landmarks.map((landmark) => ({
     url: `${baseUrl}/private-hire/near/${landmark.slug}`,
