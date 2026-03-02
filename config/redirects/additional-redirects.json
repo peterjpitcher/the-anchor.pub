@@ -470,5 +470,15 @@
     "source": "/events/:id/book",
     "destination": "/events/:id",
     "permanent": true
+  },
+  {
+    "source": "/events/quiz-night-:date",
+    "destination": "/quiz-night",
+    "permanent": true
+  },
+  {
+    "source": "/drinks/williams-chase-pink-grapefruit-gin",
+    "destination": "/drinks",
+    "permanent": true
   }
 ]

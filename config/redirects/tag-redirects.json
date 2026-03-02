@@ -673,5 +673,25 @@
     "source": "/blog/tag/manager-picks",
     "destination": "/drinks/managers-special",
     "permanent": true
+  },
+  {
+    "source": "/blog/tag/mental-health",
+    "destination": "/blog/tag/community",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/cider",
+    "destination": "/blog/tag/food-and-drink",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/feedback",
+    "destination": "/blog/tag/community",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/children",
+    "destination": "/blog/tag/community",
+    "permanent": true
   }
 ]
