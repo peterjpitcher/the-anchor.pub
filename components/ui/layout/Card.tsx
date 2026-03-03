@@ -102,7 +102,7 @@ export const CardBody = forwardRef<HTMLDivElement, CardBodyProps>(
     return (
       <div
         ref={ref}
-        className={cn('p-6', className)}
+        className={cn('px-6 py-4', className)}
         {...props}
       >
         {children}

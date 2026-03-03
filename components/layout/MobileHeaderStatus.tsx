@@ -14,7 +14,7 @@ export function MobileHeaderStatus({
       {showStatus && (
         <StatusBar 
           variant="navigation" 
-          className="text-xs"
+          className="text-sm md:text-xs"
         />
       )}
     </div>

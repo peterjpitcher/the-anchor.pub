@@ -158,13 +158,13 @@ export async function POST(request: Request) {
       }
     })
     
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('AI agent booking error:', error)
-    
+
     // Return structured error for AI agent
     return jsonResponse({
       success: false,
-      error: error.message || 'Failed to create booking',
+      error: error instanceof Error ? error.message : 'Failed to create booking',
       suggestion: 'Please verify all fields are correct or call the restaurant at 01753 682707'
     }, 500)
   }
@@ -269,10 +269,10 @@ export async function GET(request: Request) {
       message: availability.message || availability.special_notes
     })
     
-  } catch (error: any) {
+  } catch (error: unknown) {
     return jsonResponse({
       success: false,
-      error: error.message || 'Failed to check availability'
+      error: error instanceof Error ? error.message : 'Failed to check availability'
     }, 500)
   }
 }

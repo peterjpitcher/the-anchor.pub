@@ -270,7 +270,8 @@ function validatePayload(payload: ManagementTableBookingPayload): string | null 
     return 'Party size must be between 1 and 50'
   }
 
-  if (!payload.phone || payload.phone.length < 7) {
+  const phoneDigits = payload.phone.replace(/\D/g, '')
+  if (phoneDigits.length < 7) {
     return 'Please enter a valid phone number'
   }
 

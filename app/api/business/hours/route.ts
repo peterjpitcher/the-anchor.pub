@@ -23,47 +23,49 @@ export async function GET() {
         'Expires': '0'
       }
     })
-  } catch (error: any) {
+  } catch (error: unknown) {
     logError('business-hours-api', error)
-    
+
+    const status = (error as { status?: number }).status
+
     // Check if it's an authentication error
-    if (error.status === 401) {
+    if (status === 401) {
       return NextResponse.json(
-        { 
+        {
           success: false,
           error: {
             code: 'UNAUTHORIZED',
             message: 'Invalid API key. Please check ANCHOR_API_KEY environment variable.'
           }
-        }, 
+        },
         { status: 401 }
       )
     }
-    
+
     // Check if it's a rate limit error
-    if (error.status === 429) {
+    if (status === 429) {
       return NextResponse.json(
-        { 
+        {
           success: false,
           error: {
             code: 'RATE_LIMIT_EXCEEDED',
             message: 'Too many requests. Please try again later.'
           }
-        }, 
+        },
         { status: 429 }
       )
     }
-    
+
     // Generic error response
     return NextResponse.json(
-      { 
+      {
         success: false,
         error: {
           code: 'INTERNAL_ERROR',
           message: 'Unable to load business hours'
         }
-      }, 
-      { status: error.status || 500 }
+      },
+      { status: status || 500 }
     )
   }
 }

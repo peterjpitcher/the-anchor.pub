@@ -45,8 +45,7 @@ export async function GET(request: NextRequest) {
     const upstream = await fetch(`${API_BASE_URL}/customers/lookup?${params.toString()}`, {
       method: 'GET',
       headers: {
-        'X-API-Key': API_KEY,
-        Authorization: `Bearer ${API_KEY}`
+        'X-API-Key': API_KEY
       },
       cache: 'no-store'
     })

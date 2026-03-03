@@ -14,12 +14,12 @@ export function WebVitals() {
       navigationType: metric.navigationType,
     })
     
-    // Example: Send to your analytics endpoint
-    // fetch('/api/web-vitals', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body,
-    // })
+    // Send to web vitals analytics endpoint
+    fetch('/api/web-vitals', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body,
+    })
   })
   
   return null

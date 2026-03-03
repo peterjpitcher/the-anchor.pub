@@ -22,6 +22,8 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
+export const revalidate = 3600 // Revalidate every hour
+
 const ANCHOR_LINKS = [
   { id: 'sunday-roast', label: 'Sunday Roast', icon: '🍖' },
   { id: 'pizza', label: 'Pizza Menu', icon: '🍕' },

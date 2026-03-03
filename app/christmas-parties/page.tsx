@@ -6,7 +6,7 @@ import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 
 export const metadata: Metadata = {
-  title: 'Christmas Parties Near Heathrow & Staines | The Anchor Pub',
+  title: 'Christmas Parties Near Heathrow & Staines | The Anchor',
   description:
     'Plan 2026 Christmas parties, shared party nights and private festive hire at The Anchor near Heathrow Terminal 5 and Staines. Three-course menus from GBP 36.95, buffets for 26+, corporate packages, Prosecco upgrades, free parking outside the ULEZ and rapid rides from airport hotels.',
   keywords:

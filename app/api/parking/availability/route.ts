@@ -20,11 +20,12 @@ export async function GET(request: Request) {
       success: true,
       data: availability
     })
-  } catch (error: any) {
+  } catch (error: unknown) {
     logError('api/parking/availability', error, { start, end, granularity })
 
-    const status = error?.status || 500
-    const code = error?.code || 'INTERNAL_ERROR'
+    const err = error as { status?: number; code?: string; details?: unknown }
+    const status = err?.status || 500
+    const code = err?.code || 'INTERNAL_ERROR'
     const message =
       code === 'FORBIDDEN'
         ? 'Parking availability is currently restricted. Please try again shortly.'
@@ -35,7 +36,7 @@ export async function GET(request: Request) {
       error: {
         code,
         message,
-        details: status >= 500 ? undefined : error?.details
+        details: status >= 500 ? undefined : err?.details
       }
     }, { status })
   }

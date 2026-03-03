@@ -210,8 +210,11 @@ export function Gallery({
               <Card 
                 variant="elevated" 
                 padding="none"
-                className="group cursor-pointer overflow-hidden"
+                className="group cursor-pointer overflow-hidden focus-visible:ring-2 focus-visible:ring-anchor-gold focus-visible:outline-none"
                 onClick={() => handleImageClick(image, index)}
+                onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleImageClick(image, index) } }}
+                role="button"
+                tabIndex={0}
               >
                 <div className="relative aspect-square">
                   <Image
@@ -269,7 +272,7 @@ export function Gallery({
               e.stopPropagation()
               requestClose('close_button')
             }}
-            className="absolute top-4 right-4 text-white hover:text-gray-600 transition-colours p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
+            className="absolute top-4 right-4 text-white hover:text-gray-600 transition-colours p-2 min-w-[44px] min-h-[44px] flex items-center justify-center focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none rounded"
             aria-label="Close lightbox"
           >
             <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -282,7 +285,7 @@ export function Gallery({
               e.stopPropagation()
               handleLightboxNavigation('prev')
             }}
-            className="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-600 transition-colours p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
+            className="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-600 transition-colours p-2 min-w-[44px] min-h-[44px] flex items-center justify-center focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none rounded"
             aria-label="Previous image"
           >
             <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -295,7 +298,7 @@ export function Gallery({
               e.stopPropagation()
               handleLightboxNavigation('next')
             }}
-            className="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-600 transition-colors p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
+            className="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:text-gray-600 transition-colors p-2 min-w-[44px] min-h-[44px] flex items-center justify-center focus-visible:ring-2 focus-visible:ring-white focus-visible:outline-none rounded"
             aria-label="Next image"
           >
             <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">

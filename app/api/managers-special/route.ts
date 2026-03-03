@@ -1,5 +1,7 @@
+import { timingSafeEqual } from 'crypto'
 import { NextResponse } from 'next/server'
 import { getCurrentPromotion, getPromotionById, getPromotionImage } from '@/lib/managers-special'
+import { logError } from '@/lib/error-handling'
 import type { ManagersSpecialAPIResponse } from '@/types/managers-special'
 
 export const dynamic = 'force-dynamic'
@@ -13,8 +15,13 @@ export async function GET(req: Request) {
     
     // Preview mode with token validation
     let promotion = null
-    
-    if (preview && token === process.env.MS_PREVIEW_TOKEN) {
+
+    const expectedToken = process.env.MS_PREVIEW_TOKEN || ''
+    const isValidToken = expectedToken.length > 0 &&
+      token?.length === expectedToken.length &&
+      timingSafeEqual(Buffer.from(token), Buffer.from(expectedToken))
+
+    if (preview && isValidToken) {
       promotion = getPromotionById(preview)
     } else if (date && process.env.NODE_ENV === 'development') {
       // Allow date override in development for testing
@@ -60,7 +67,7 @@ export async function GET(req: Request) {
       }
     )
   } catch (error) {
-    console.error('Error in managers-special API:', error)
+    logError('api/managers-special', error instanceof Error ? error : new Error(String(error)))
     return new NextResponse(
       JSON.stringify({ 
         status: 'error',

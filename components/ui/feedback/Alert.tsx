@@ -96,7 +96,7 @@ export const Alert = forwardRef<HTMLDivElement, AlertProps>(
         {onClose && (
           <button
             onClick={onClose}
-            className="flex-shrink-0 ml-auto -mr-1.5 -mt-1.5 inline-flex justify-center items-center w-8 h-8 rounded-lg text-current opacity-50 hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-current"
+            className="flex-shrink-0 ml-auto -mr-1.5 -mt-1.5 inline-flex justify-center items-center w-8 h-8 rounded-lg text-current opacity-50 hover:opacity-100 focus-visible:ring-2 focus-visible:ring-current focus-visible:outline-none rounded"
             aria-label="Close alert"
           >
             <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">

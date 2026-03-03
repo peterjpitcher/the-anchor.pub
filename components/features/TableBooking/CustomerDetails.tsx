@@ -190,6 +190,7 @@ export default function CustomerDetails({
           <div className="grid gap-4 sm:grid-cols-2">
             <Input
               id="customer-first-name"
+              name="given-name"
               label="First Name"
               value={formData.firstName}
               onChange={(e) => handleInputChange('firstName', e.target.value)}
@@ -197,10 +198,12 @@ export default function CustomerDetails({
               error={errors.firstName}
               disabled={loading}
               required
+              autoComplete="given-name"
             />
-            
+
             <Input
               id="customer-last-name"
+              name="family-name"
               label="Last Name"
               value={formData.lastName}
               onChange={(e) => handleInputChange('lastName', e.target.value)}
@@ -208,12 +211,14 @@ export default function CustomerDetails({
               error={errors.lastName}
               disabled={loading}
               required
+              autoComplete="family-name"
             />
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
             <Input
               id="customer-phone"
+              name="tel"
               type="tel"
               label="Phone Number"
               value={formData.phone}
@@ -223,9 +228,11 @@ export default function CustomerDetails({
               helperText={!errors.phone ? "We'll text you a reminder" : undefined}
               disabled={loading}
               required
+              autoComplete="tel"
             />
             <Input
               id="customer-email"
+              name="email"
               type="email"
               label="Email Address"
               value={formData.email}
@@ -234,6 +241,7 @@ export default function CustomerDetails({
               error={errors.email}
               disabled={loading}
               required
+              autoComplete="email"
             />
           </div>
 

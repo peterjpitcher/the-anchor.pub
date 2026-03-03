@@ -15,11 +15,12 @@ export async function POST(
 
     try {
         availability = await anchorAPI.checkEventAvailability(params.id, seats)
-    } catch (error: any) {
+    } catch (error: unknown) {
         // Fallback: if the availability endpoint fails (e.g. 404 or not implemented),
         // try fetching the event details and calculating availability manually.
         // This matches the previous route's resilience logic.
-        if (error.status === 404 || error.status === 405 || error.status === 500) {
+        const err = error as { status?: number }
+        if (err.status === 404 || err.status === 405 || err.status === 500) {
              try {
                  const event = await anchorAPI.getEvent(params.id)
                  if (event) {
@@ -51,10 +52,11 @@ export async function POST(
       success: true,
       data: availability
     })
-  } catch (error: any) {
+  } catch (error: unknown) {
     logError('api/events/[id]/availability', error, { id: params.id })
-    
-    if (error.code === 'UNAUTHORIZED' || error.status === 401) {
+
+    const err = error as { code?: string; status?: number }
+    if (err.code === 'UNAUTHORIZED' || err.status === 401) {
         return createApiErrorResponse('Service temporarily unavailable. Please try again later.', 503)
     }
 

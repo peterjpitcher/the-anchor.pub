@@ -267,10 +267,11 @@ export async function POST(request: Request) {
       }
     })
     
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const err = error as { response?: { data?: { error?: { message?: string; correlation_id?: string; details?: unknown }; [key: string]: unknown }; status?: number }; message?: string }
     console.error('Booking submission error:', error)
-    console.error('Error details:', error.response?.data || error)
-    
+    console.error('Error details:', err.response?.data || error)
+
     // Check if it's a non-JS submission
     const contentType = request.headers.get('content-type')
     if (!contentType?.includes('application/json')) {
@@ -278,22 +279,22 @@ export async function POST(request: Request) {
         new URL(`/book-table?error=submission_failed`, request.url)
       )
     }
-    
+
     // Handle API v2 error format with correlation_id
-    const errorResponse = error.response?.data?.error || error.response?.data || {}
-    const errorMessage = errorResponse.message || error.message || 'Failed to create booking'
-    const correlationId = errorResponse.correlation_id
-    
+    const errorResponse = err.response?.data?.error || err.response?.data || {}
+    const errorMessage = (errorResponse as { message?: string }).message || err.message || 'Failed to create booking'
+    const correlationId = (errorResponse as { correlation_id?: string }).correlation_id
+
     // Log correlation ID for debugging
     if (correlationId) {
-      console.error('🔍 Error Correlation ID:', correlationId)
+      console.error('Error Correlation ID:', correlationId)
     }
-    
+
     return jsonResponse({
       success: false,
       error: errorMessage,
       correlation_id: correlationId,
-      details: errorResponse.details || error.response?.data
-    }, error.response?.status || 500)
+      details: (errorResponse as { details?: unknown }).details || err.response?.data
+    }, err.response?.status || 500)
   }
 }

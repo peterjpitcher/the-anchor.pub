@@ -128,20 +128,21 @@ export async function POST(request: Request) {
       success: true,
       data: booking
     }, { status: 201 })
-  } catch (error: any) {
+  } catch (error: unknown) {
     logError('api/parking/bookings', error, {
       customer: `${bookingRequest.customer.first_name} ${bookingRequest.customer.last_name}`,
       registration: bookingRequest.vehicle.registration
     })
 
-    const status = error?.status || 500
-    const code = error?.code || 'INTERNAL_ERROR'
+    const err = error as { status?: number; code?: string; message?: string; details?: unknown }
+    const status = err?.status || 500
+    const code = err?.code || 'INTERNAL_ERROR'
 
     let message = 'We could not create your parking booking right now. Please try again or call 01753 682707.'
     if (code === 'CAPACITY_UNAVAILABLE') {
       message = 'Those parking dates are fully booked. Pick another time or call us for help.'
     } else if (code === 'VALIDATION_ERROR') {
-      message = error?.message || 'Please double-check the details and try again.'
+      message = err?.message || 'Please double-check the details and try again.'
     } else if (code === 'UNAUTHORIZED' || code === 'FORBIDDEN') {
       message = 'Parking bookings are offline at the moment. Please call 01753 682707 and we will secure your space.'
     }
@@ -151,7 +152,7 @@ export async function POST(request: Request) {
       error: {
         code,
         message,
-        details: status >= 500 ? undefined : error?.details
+        details: status >= 500 ? undefined : err?.details
       }
     }, { status })
   }

@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react'
 import { DateTime } from 'luxon'
-import { Card } from '@/components/ui/Card'
+import { Card } from '@/components/ui/layout/Card'
 import { Button } from '@/components/ui/primitives/Button'
 import { BookTableButton } from '@/components/BookTableButton'
 import { cn } from '@/lib/utils'

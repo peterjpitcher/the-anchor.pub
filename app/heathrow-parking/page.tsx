@@ -177,7 +177,7 @@ function buildParkingFacilitySchema(rateCard: ParkingRateCard | null) {
     '@context': 'https://schema.org',
     '@type': 'ParkingFacility',
     '@id': 'https://www.the-anchor.pub/heathrow-parking#facility',
-    name: 'Heathrow Parking at The Anchor Pub',
+    name: 'Heathrow Parking at The Anchor',
     description: 'Secure long stay and short stay Heathrow airport parking with PayPal checkout, CCTV, lighting and on-site hospitality in Stanwell Moor.',
     image: 'https://www.the-anchor.pub/images/page-headers/parking-near-heathrow/Heathrow.jpg',
     url: 'https://www.the-anchor.pub/heathrow-parking',
@@ -224,7 +224,7 @@ function buildParkingOfferSchema(rateCard: ParkingRateCard | null) {
     description: 'Pre-book secure Heathrow airport parking at The Anchor pub with on-site hospitality and PayPal checkout.',
     brand: {
       '@type': 'Brand',
-      name: 'The Anchor Pub – Stanwell Moor'
+      name: 'The Anchor – Stanwell Moor'
     },
     offers: {
       '@type': 'AggregateOffer',

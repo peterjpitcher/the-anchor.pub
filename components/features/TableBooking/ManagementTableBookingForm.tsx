@@ -114,7 +114,7 @@ const STEP_LABELS: Record<BookingStep, string> = {
 const BLOCKED_REASON_COPY: Record<string, string> = {
   outside_hours: 'That time is outside our booking hours. Please choose another time or call us.',
   cut_off: 'Online bookings for that slot are now closed. Please call us and we will try to help.',
-  no_table: 'We do not have a table available for that time and party size.',
+  no_table: 'No tables available at that time. Try a different time or give us a call on 01753 682707.',
   private_booking_blocked: 'This slot is unavailable because of a private event.',
   too_large_party: 'For larger groups, please call us so we can arrange your booking.',
   customer_conflict: 'You already have a nearby booking. Please call us if you need help changing it.',
@@ -505,6 +505,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const [availability, setAvailability] = useState<AvailabilityData | null>(null)
   const [availabilityLoading, setAvailabilityLoading] = useState(false)
   const [availabilityError, setAvailabilityError] = useState<string | null>(null)
+  const [dateError, setDateError] = useState<string | null>(null)
   const [alternativeSlots, setAlternativeSlots] = useState<AlternativeSlot[]>([])
   const [alternativesLoading, setAlternativesLoading] = useState(false)
   const [eventsByDate, setEventsByDate] = useState<Record<string, SuggestedEvent[]>>({})
@@ -515,6 +516,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const [eventFetchRefresh, setEventFetchRefresh] = useState(0)
   const datePickerFocusRef = useRef(false)
   const previousDateRef = useRef(date)
+  const availabilityControllerRef = useRef<AbortController | null>(null)
 
   const [phone, setPhone] = useState('')
   const [lookupState, setLookupState] = useState<LookupState>('idle')
@@ -795,7 +797,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   async function fetchAvailabilityForDate(
     targetDate: string,
     targetTime: string,
-    targetPurpose: BookingPurpose
+    targetPurpose: BookingPurpose,
+    signal?: AbortSignal
   ): Promise<AvailabilityData> {
     const params = new URLSearchParams({
       date: targetDate,
@@ -805,7 +808,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     })
 
     const response = await fetch(`/api/table-bookings/availability?${params.toString()}`, {
-      cache: 'no-store'
+      cache: 'no-store',
+      signal
     })
 
     const body = await response.json()
@@ -864,6 +868,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     targetPurpose: BookingPurpose
     source: string
     context: string
+    signal?: AbortSignal
   }) {
     if (!input.targetDate || !input.targetTime) {
       throw new Error('Please choose a date and time first.')
@@ -878,7 +883,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     const availabilityData = await fetchAvailabilityForDate(
       input.targetDate,
       input.targetTime,
-      input.targetPurpose
+      input.targetPurpose,
+      input.signal
     )
     const closestTime = pickClosestSlot(availabilityData.time_slots, input.targetTime, partySize)
 
@@ -894,6 +900,22 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   }
 
   async function handleFindTable() {
+    // Reject past dates before hitting the API.
+    if (date && /^\d{4}-\d{2}-\d{2}$/.test(date)) {
+      const todayMidnight = new Date()
+      todayMidnight.setHours(0, 0, 0, 0)
+      const selectedDate = new Date(date + 'T00:00:00')
+      if (selectedDate < todayMidnight) {
+        setDateError('Please select a future date')
+        return
+      }
+    }
+
+    // Cancel any in-flight availability request before starting a new one.
+    availabilityControllerRef.current?.abort()
+    const controller = new AbortController()
+    availabilityControllerRef.current = controller
+
     setAvailabilityError(null)
     setError(null)
     setResult(null)
@@ -906,12 +928,14 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
         targetTime: requestedTime,
         targetPurpose: mothersDayMode ? 'food' : purpose,
         source: 'book_table_find_table',
-        context: `availability_first_${mothersDayMode ? 'food' : purpose}`
+        context: `availability_first_${mothersDayMode ? 'food' : purpose}`,
+        signal: controller.signal
       })
-    } catch (availabilityFailure: any) {
+    } catch (availabilityFailure: unknown) {
+      if (availabilityFailure instanceof Error && availabilityFailure.name === 'AbortError') return
       setAvailability(null)
       setAvailabilityError(
-        availabilityFailure?.message ||
+        (availabilityFailure instanceof Error ? availabilityFailure.message : null) ||
           'We could not check availability right now. Please try again or call us at 01753 682707.'
       )
     } finally {
@@ -975,6 +999,22 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       if (previous.includes(targetDate)) return previous
       return [...previous, targetDate]
     })
+  }
+
+  function handleDateChange(value: string) {
+    setDate(value)
+    if (value && /^\d{4}-\d{2}-\d{2}$/.test(value)) {
+      const todayMidnight = new Date()
+      todayMidnight.setHours(0, 0, 0, 0)
+      const selectedDate = new Date(value + 'T00:00:00')
+      if (selectedDate < todayMidnight) {
+        setDateError('Please select a future date')
+      } else {
+        setDateError(null)
+      }
+    } else {
+      setDateError(null)
+    }
   }
 
   function handleDateInputFocus() {
@@ -1588,9 +1628,10 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 min={today}
                 required
                 value={date}
-                onChange={(event) => setDate(event.target.value)}
+                onChange={(event) => handleDateChange(event.target.value)}
                 onFocus={handleDateInputFocus}
                 onBlur={handleDateInputBlur}
+                error={dateError || undefined}
               />
             )}
 

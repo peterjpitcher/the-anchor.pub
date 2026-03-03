@@ -58,7 +58,7 @@ export function createRecurringEvent(params: {
     },
     location: {
       '@type': 'Place',
-      name: 'The Anchor Pub',
+      name: 'The Anchor',
       address: {
         '@type': 'PostalAddress',
         streetAddress: 'Horton Road',

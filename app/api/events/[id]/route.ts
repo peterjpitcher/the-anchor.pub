@@ -18,14 +18,16 @@ export async function GET(
       success: true,
       data: event
     })
-  } catch (error: any) {
+  } catch (error: unknown) {
     logError('api/events/[id]', error, { id: params.id })
-    
-    if (error.status === 404 || error.message === 'Event not found') {
+
+    const err = error as { status?: number; message?: string }
+
+    if (err.status === 404 || err.message === 'Event not found') {
         return createApiErrorResponse('Event not found', 404)
     }
 
-    if (error.status === 401) {
+    if (err.status === 401) {
         return createApiErrorResponse('Service temporarily unavailable. Please try again later.', 503)
     }
 

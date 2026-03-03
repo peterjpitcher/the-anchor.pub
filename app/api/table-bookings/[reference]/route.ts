@@ -29,20 +29,22 @@ export async function GET(
       success: true,
       data: bookingData
     })
-  } catch (error: any) {
+  } catch (error: unknown) {
     logError('api/table-bookings/[reference]', error, { reference })
 
-    if (error.status === 501 || error.code === 'NOT_SUPPORTED') {
+    const err = error as { status?: number; code?: string; message?: string }
+
+    if (err.status === 501 || err.code === 'NOT_SUPPORTED') {
       return createApiErrorResponse(
         'Online booking lookup is currently unavailable. Please call us at 01753 682707 and we will help you.',
         501
       )
     }
 
-    if (error.status === 404 || error.code === 'NOT_FOUND') {
+    if (err.status === 404 || err.code === 'NOT_FOUND') {
          return createApiErrorResponse('Booking not found. Please check your reference number.', 404)
     }
-    if (error.status === 401 || error.code === 'UNAUTHORIZED') {
+    if (err.status === 401 || err.code === 'UNAUTHORIZED') {
          return createApiErrorResponse('Service temporarily unavailable. Please try again later.', 503)
     }
 
@@ -92,31 +94,33 @@ export async function DELETE(
       success: true,
       data: response
     })
-  } catch (error: any) {
+  } catch (error: unknown) {
     logError('api/table-bookings/[reference]/cancel', error, { reference })
 
-    if (error.status === 501 || error.code === 'NOT_SUPPORTED') {
+    const err = error as { status?: number; code?: string; message?: string }
+
+    if (err.status === 501 || err.code === 'NOT_SUPPORTED') {
       return createApiErrorResponse(
         'Online cancellation is currently unavailable. Please call us at 01753 682707 and we will cancel it for you.',
         501
       )
     }
 
-    if (error.status === 404 || error.code === 'NOT_FOUND') {
+    if (err.status === 404 || err.code === 'NOT_FOUND') {
         return createApiErrorResponse(
           'Booking not found. It may have already been cancelled.',
           404
         )
     }
-    
-    if (error.status === 400 || error.code === 'VALIDATION_ERROR') {
+
+    if (err.status === 400 || err.code === 'VALIDATION_ERROR') {
         return createApiErrorResponse(
-          error.message || 'Cannot cancel this booking. Please call us at 01753 682707 for assistance.',
+          err.message || 'Cannot cancel this booking. Please call us at 01753 682707 for assistance.',
           400
         )
     }
 
-    if (error.status === 401 || error.code === 'UNAUTHORIZED') {
+    if (err.status === 401 || err.code === 'UNAUTHORIZED') {
         return createApiErrorResponse('Service temporarily unavailable. Please try again later.', 503)
     }
 

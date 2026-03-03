@@ -40,16 +40,18 @@ export async function GET(request: Request) {
       success: true,
       data
     })
-  } catch (error: any) {
+  } catch (error: unknown) {
     logError('api/events', error)
-    
-    if (error.status === 401) {
+
+    const err = error as { status?: number; message?: string }
+
+    if (err.status === 401) {
       return createApiErrorResponse('Service temporarily unavailable. Please try again later.', 503)
     }
 
     return createApiErrorResponse(
-      error.message || 'We couldn\'t load the events right now. Please try again in a moment.',
-      error.status || 503
+      err.message || 'We couldn\'t load the events right now. Please try again in a moment.',
+      err.status || 503
     )
   }
 }

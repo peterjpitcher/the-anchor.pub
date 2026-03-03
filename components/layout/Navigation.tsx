@@ -336,7 +336,7 @@ export function Navigation({
       'text-sm xl:text-base', // Responsive text sizing
       mergedTheme.text,
       mergedTheme.hoverText,
-      isMobile && 'block text-lg py-3 min-h-[44px] flex items-center'
+      isMobile && 'block text-lg py-3 min-h-[44px] flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50'
     )
 
     // Handle dropdown items for desktop
@@ -382,7 +382,7 @@ export function Navigation({
             </svg>
           </Link>
           <div className={cn(
-            'absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-anchor-green-dark ring-1 ring-black ring-opacity-5 transition-all duration-200 text-left',
+            'absolute left-0 mt-2 w-[90vw] sm:w-56 max-w-xs rounded-md shadow-lg bg-anchor-green-dark ring-1 ring-black ring-opacity-5 transition-all duration-200 text-left',
             openDropdown === item.label ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
           )} id={dropdownId} role="menu">
             <div className="py-1">
@@ -420,7 +420,7 @@ export function Navigation({
           <button
             type="button"
             className={cn(
-              'flex w-full items-center justify-between rounded-md py-3 text-left text-lg font-medium transition-colors',
+              'flex w-full items-center justify-between rounded-md py-3 text-left text-lg font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50',
               mergedTheme.text,
               mergedTheme.hoverText
             )}
@@ -768,7 +768,7 @@ export function Navigation({
                 }
                 setIsMobileMenuOpen(true)
               }}
-              className={cn('absolute right-0 top-1/2 -translate-y-1/2 p-2', mergedTheme.text)}
+              className={cn('absolute right-0 top-1/2 -translate-y-1/2 p-2 min-w-[44px] min-h-[44px] flex items-center justify-center', mergedTheme.text)}
               aria-expanded={isMobileMenuOpen}
               aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
             >

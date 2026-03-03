@@ -9,11 +9,12 @@ export async function GET() {
       success: true,
       data: rates
     })
-  } catch (error: any) {
+  } catch (error: unknown) {
     logError('api/parking/rates', error)
 
-    const status = error?.status || 500
-    const code = error?.code || 'INTERNAL_ERROR'
+    const err = error as { status?: number; code?: string }
+    const status = err?.status || 500
+    const code = err?.code || 'INTERNAL_ERROR'
     const message =
       code === 'FORBIDDEN'
         ? 'Parking rates are unavailable right now. Please try again later.'

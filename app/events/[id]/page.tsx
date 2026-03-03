@@ -591,7 +591,7 @@ export default async function EventPage({ params }: Props) {
                       </div>
                     </div>
                     <GoogleMapEmbed
-                      query={locationQuery || 'The Anchor Pub, Stanwell Moor'}
+                      query={locationQuery || 'The Anchor, Stanwell Moor'}
                       className="rounded-xl shadow-sm"
                       height={300}
                     />

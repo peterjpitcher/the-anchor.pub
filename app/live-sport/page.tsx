@@ -17,13 +17,13 @@ export const metadata: Metadata = {
     description: `Watch live terrestrial sport, rugby, and F1 at ${BRAND.name}. Multiple HD screens and a great atmosphere. We're just 7 mins from Heathrow T5.`,
     keywords: 'pub showing football heathrow, live sport pub stanwell, rugby pub heathrow',
     openGraph: {
-        title: 'Live Sport at The Anchor Pub',
+        title: 'Live Sport at The Anchor',
         description: 'Every goal, every try, every lap. Watch it live on our big screens with a cold pint in hand.',
         images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({
-        title: 'Live Sport at The Anchor Pub',
+        title: 'Live Sport at The Anchor',
         description: 'Every goal, every try, every lap. Watch it live on our big screens with a cold pint in hand.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),

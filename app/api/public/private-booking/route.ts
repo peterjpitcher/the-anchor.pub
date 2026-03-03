@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
+import { logError } from '@/lib/error-handling'
 
 const API_BASE_URL = getManagementApiBaseUrl()
 const API_KEY = process.env.ANCHOR_API_KEY
@@ -139,11 +140,7 @@ export async function POST(request: Request) {
         const data = await res.json()
 
         if (!res.ok) {
-            console.error('Upstream Private Booking Error:', {
-                status: res.status,
-                statusText: res.statusText,
-                data
-            })
+            logError('api/private-booking', new Error(`Upstream error ${res.status}: ${res.statusText}`))
             return NextResponse.json(data, { status: res.status })
         }
 
@@ -156,7 +153,7 @@ export async function POST(request: Request) {
             state: data.state || 'enquiry_created'
         })
     } catch (error) {
-        console.error('Error proxying private booking creation:', error)
+        logError('api/private-booking', error instanceof Error ? error : new Error(String(error)))
         return NextResponse.json(
             {
                 success: false,

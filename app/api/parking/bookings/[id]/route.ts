@@ -28,11 +28,12 @@ export async function GET(_request: Request, context: RouteContext) {
       success: true,
       data: booking
     })
-  } catch (error: any) {
+  } catch (error: unknown) {
     logError('api/parking/bookings/[id]', error, { bookingId })
 
-    const status = error?.status || 500
-    const code = error?.code || (status === 404 ? 'NOT_FOUND' : 'INTERNAL_ERROR')
+    const err = error as { status?: number; code?: string; details?: unknown }
+    const status = err?.status || 500
+    const code = err?.code || (status === 404 ? 'NOT_FOUND' : 'INTERNAL_ERROR')
 
     const message =
       status === 404
@@ -44,7 +45,7 @@ export async function GET(_request: Request, context: RouteContext) {
       error: {
         code,
         message,
-        details: status >= 500 ? undefined : error?.details
+        details: status >= 500 ? undefined : err?.details
       }
     }, { status })
   }

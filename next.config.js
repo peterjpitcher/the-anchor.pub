@@ -71,6 +71,16 @@ const nextConfig = {
 
     return [
       ...baseHeaders,
+      // CORS headers for API routes
+      {
+        source: '/api/:path*',
+        headers: [
+          { key: 'Access-Control-Allow-Origin', value: 'https://www.the-anchor.pub' },
+          { key: 'Access-Control-Allow-Methods', value: 'GET, POST, PUT, DELETE, OPTIONS' },
+          { key: 'Access-Control-Allow-Headers', value: 'Content-Type, X-API-Key, Idempotency-Key, X-Request-ID' },
+          { key: 'Access-Control-Max-Age', value: '86400' },
+        ],
+      },
       // Add cache headers for static files (production only)
       {
         source: '/favicon.ico',

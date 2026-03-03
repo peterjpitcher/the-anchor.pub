@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     type: 'website'
   },
   twitter: getTwitterMetadata({
-    title: 'The Anchor Pub | Stanwell Moor Near Heathrow & Staines',
+    title: 'The Anchor | Stanwell Moor Near Heathrow & Staines',
     description: 'Free parking, Sunday roasts, stone-baked pizzas, and hosted events like Music Bingo with Nikki Manfadge. See /whats-on for the latest.',
     images: [DEFAULT_OG_IMAGE]
   })
@@ -179,23 +179,11 @@ export default function HomePage() {
           />
         }
         secondaryCta={
-          <>
-            <Link href="/food-menu" className="w-full">
-              <Button variant="secondary" size="lg" fullWidth>
-                🍽️ View Menu
-              </Button>
-            </Link>
-            <Link href="#whats-coming-up" className="w-full">
-              <Button variant="secondary" size="lg" fullWidth>
-                🎟️ What&apos;s Coming Up
-              </Button>
-            </Link>
-            <Link href="#heathrow-travellers" className="w-full">
-              <Button variant="secondary" size="lg" fullWidth>
-                ✈️ Heathrow Travellers
-              </Button>
-            </Link>
-          </>
+          <Link href="/food-menu" className="w-full">
+            <Button variant="secondary" size="lg" fullWidth>
+              🍽️ View Menu
+            </Button>
+          </Link>
         }
         showStatusBar={false}
         showBreadcrumbs={false}

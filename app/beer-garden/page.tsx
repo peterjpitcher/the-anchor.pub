@@ -13,6 +13,8 @@ import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { getBusinessHours } from '@/lib/api'
 import { generateOpeningHoursSpecification } from '@/lib/schema-utils'
 
+export const revalidate = 86400 // Revalidate every 24 hours
+
 export const metadata: Metadata = {
   title: 'Dog-Friendly Beer Garden Near Heathrow | Watch Planes Every 90 Secs | The Anchor',
   description: '64-seat outdoor beer garden 7 mins from Heathrow Airport. Watch planes land directly overhead every 90 seconds. Dog-friendly, heated areas, full food & drinks service. Free parking.',
