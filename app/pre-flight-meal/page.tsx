@@ -137,7 +137,7 @@ export default function PreFlightDiningPage() {
                                 <p className="font-bold">Estimated Taxi Times:</p>
                                 <ul className="mt-2 space-y-1 text-sm text-gray-600">
                                     <li>✈️ Terminal 5: 5-7 mins</li>
-                                    <li>✈️ Terminal 4: 8-10 mins</li>
+                                    <li>✈️ Terminal 4: 10-12 mins</li>
                                     <li>✈️ Terminal 2 & 3: 10-12 mins</li>
                                 </ul>
                             </div>

@@ -166,6 +166,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/wraysbury-pub',
     '/sitemap-page',
     '/privacy-policy',
+    '/accessibility',
+    '/safety-and-respect',
+    '/sustainability',
   ]
 
   // Get all blog posts
@@ -186,8 +189,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticSitemap = staticRoutes.map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
-    changeFrequency: (route === '' ? 'daily' : route === '/blog' ? 'daily' : route === '/book-table' ? 'daily' : 'weekly') as 'daily' | 'weekly',
-    priority: route === '' ? 1.0 : route === '/book-table' ? 0.95 : route.includes('near-heathrow') ? 0.9 : route === '/blog' ? 0.9 : route.includes('-pub') ? 0.85 : 0.8,
+    changeFrequency: (route === '' ? 'daily' : route === '/blog' ? 'daily' : route === '/book-table' ? 'daily' : route === '/safety-and-respect' ? 'yearly' : route === '/accessibility' || route === '/sustainability' ? 'monthly' : 'weekly') as 'daily' | 'weekly' | 'monthly' | 'yearly',
+    priority: route === '' ? 1.0 : route === '/book-table' ? 0.95 : route.includes('near-heathrow') ? 0.9 : route === '/blog' ? 0.9 : route.includes('-pub') ? 0.85 : route === '/accessibility' || route === '/sustainability' ? 0.7 : route === '/safety-and-respect' ? 0.6 : 0.8,
   }))
 
   // Map blog post routes

@@ -15,11 +15,11 @@ import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 
 export const metadata: Metadata = {
   title: 'Closest Pub to Heathrow Airport | 7 Mins from Terminal 5 | Free Parking | The Anchor',
-  description: 'Highest-rated pub near Heathrow Airport. 7 minutes from Terminal 5, 11 mins from T2, T3 & T4. Free parking for 20 cars, dog-friendly beer garden & British pub food. Book a table.',
+  description: 'Highest-rated pub near Heathrow Airport. 7 minutes from Terminal 5, 11 mins from T2 & T3, 12 mins from T4. Free parking for 20 cars, dog-friendly beer garden & British pub food. Book a table.',
   keywords: 'pubs near heathrow airport, closest pub to heathrow, pub near heathrow terminal 5, pubs near heathrow terminal 4, heathrow pub free parking, pub near heathrow airport',
   openGraph: {
     title: 'Closest Pub to Heathrow Airport | 7 Mins from Terminal 5 | Free Parking',
-    description: 'Highest-rated pub near Heathrow. 7 mins from Terminal 5, 11 mins from T2/T3/T4. Free parking, dog-friendly beer garden, British pub food.',
+    description: 'Highest-rated pub near Heathrow. 7 mins from Terminal 5, 11 mins from T2/T3, 12 mins from T4. Free parking, dog-friendly beer garden, British pub food.',
     images: [{ url: DEFAULT_NEAR_HEATHROW_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Heathrow Airport' }],
   },
   twitter: getTwitterMetadata({
@@ -421,8 +421,8 @@ export default function NearHeathrowPage() {
             <div className="bg-anchor-cream rounded-2xl p-8">
               <h3 className="text-2xl font-bold text-anchor-green mb-4">✈️ Pre-Flight Dining</h3>
               <p className="text-gray-700 mb-4">
-                Skip expensive airport food. Enjoy a proper meal with us before your flight.
-                We&apos;re just minutes away with free parking for patrons - much more relaxing than airport restaurants.
+                Enjoy a proper meal with us before your flight.
+                We&apos;re just minutes away with free parking for patrons — a much more relaxing start to your journey.
               </p>
               <ul className="space-y-2 text-gray-700">
                 <li>• Quick lunch options for tight schedules</li>
@@ -639,8 +639,27 @@ export default function NearHeathrowPage() {
           <div className="mt-8 text-center">
             <p className="text-gray-700 max-w-3xl mx-auto">
               Whether you're waiting for a flight, killing time during a layover, or working remotely while travelling,
-              The Anchor provides everything you need at local prices - not airport markups.
+              The Anchor provides everything you need for a comfortable start or end to your Heathrow journey.
             </p>
+          </div>
+        </Container>
+      </section>
+
+      {/* Accessibility */}
+      <section className="section-spacing bg-anchor-cream/40">
+        <Container>
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold text-anchor-green mb-4">Accessibility</h2>
+            <p className="text-gray-700 mb-3">
+              Step-free access to the bar, dining area and beer garden.
+            </p>
+            <p className="text-gray-700 mb-4">
+              We currently don&apos;t have an accessible toilet. If you&apos;d like to visit and want to check what will work best for you, give us a call on{' '}
+              <a href="tel:+441753682707" className="text-anchor-green font-semibold hover:underline">+44 1753 682707</a> and we&apos;ll help.
+            </p>
+            <Link href="/accessibility" className="text-anchor-green font-semibold hover:underline">
+              Full accessibility information &rarr;
+            </Link>
           </div>
         </Container>
       </section>
@@ -697,18 +716,14 @@ export default function NearHeathrowPage() {
                 <h3 className="text-2xl font-bold text-anchor-green mb-4 text-center">
                   Why Smart Travelers Choose The Anchor
                 </h3>
-	                <p className="text-gray-700 mb-4">
-	                  Let's be honest - nobody enjoys airport prices. A sandwich that costs GBP 12 at
-	                  Heathrow costs GBP 6 here. A pint that's GBP 7 in the terminal is GBP 4.50 at our bar.
-	                  But it's not just about the money. It's about the experience. Real ales on tap,
-	                  not just commercial lagers. Food cooked to order, not reheated. Staff who remember
-	                  your name, not just your order number.
-	                </p>
-	                <p className="text-gray-700 mb-4">
-	                  Our free parking for patrons alone can save you GBP 20-30 compared to airport rates. Spend an
-	                  hour with us before your flight and you've effectively paid for your meal in
-	                  parking savings alone. That's what we call Heathrow economics.
-	                </p>
+                <p className="text-gray-700 mb-4">
+                  It&apos;s not just about convenience — it&apos;s about the experience. Real ales on tap,
+                  not just commercial lagers. Food cooked to order, not reheated. Staff who remember
+                  your name, not just your order number.
+                </p>
+                <p className="text-gray-700 mb-4">
+                  Free parking for patrons means one less thing to worry about before your flight.
+                </p>
                 <p className="text-gray-700">
                   From Terminal 5, we're closer than most of the airport hotels. From Terminal 2
                   and 3, we're a straight shot down the A3044. Even Terminal 4, the furthest away,
@@ -743,7 +758,7 @@ export default function NearHeathrowPage() {
               faqs={[
                 {
                   question: "How far is The Anchor from Heathrow Airport?",
-                  answer: "The Anchor is 7 minutes from Heathrow Terminal 5 and approximately 11 minutes from Terminals 2, 3, and 4 by car. Our address is Horton Road, Stanwell Moor, Surrey TW19 6AQ."
+                  answer: "The Anchor is 7 minutes from Heathrow Terminal 5, approximately 11 minutes from Terminals 2 and 3, and 12 minutes from Terminal 4 by car. Our address is Horton Road, Stanwell Moor, Surrey TW19 6AQ."
                 },
                 {
                   question: "Is there free parking at The Anchor near Heathrow?",

@@ -138,7 +138,7 @@ export default function Terminal5Page() {
         <div className="container mx-auto px-4">
           <SectionHeader
             title="Need Food Near Terminal 5?"
-            subtitle="Book ahead so your meal is ready when you arrive — no airport prices, no queues."
+            subtitle="Book ahead so your meal is ready when you arrive — proper pub food, no queues."
           />
           <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             <div className="bg-white rounded-xl shadow-sm p-6">
@@ -387,16 +387,16 @@ export default function Terminal5Page() {
                   icon: "✈️",
                   content: "Terminal 5 is British Airways' exclusive hub. Whether you're flying Club World or Euro Traveller, enjoy a proper British welcome just minutes away."
                 },
-	                {
-	                  title: "Beat the Airport Prices",
-	                  icon: "💰",
-	                  content: "T5 sandwich: GBP 15. Our full meal: GBP 12.95. T5 pint: GBP 8. Our pint: GBP 4.50. Save 50% on dining!"
-	                },
-	                {
-	                  title: "FREE Parking vs T5 Charges",
-	                  icon: "🅿️",
-	                  content: "T5 Short Stay: GBP 7.50/hour. T5 Long Stay: GBP 25/day. The Anchor: FREE! Perfect for picking up/dropping off."
-	                },
+                {
+                  title: "Great Value Pub Food",
+                  icon: "🍽️",
+                  content: "Proper British pub meals — stone-baked pizzas, burgers, fish & chips, and Sunday roasts. Real food, generous portions, in a relaxed village pub setting."
+                },
+                {
+                  title: "Free Parking for Patrons",
+                  icon: "🅿️",
+                  content: "We have 20 free parking spaces for customers. Perfect for meeting arriving passengers or enjoying a meal before your flight — no parking fees while you're with us."
+                },
                 {
                   title: "Pre-Flight Dining",
                   icon: "🍽️",
@@ -641,7 +641,7 @@ export default function Terminal5Page() {
           },
           {
             question: "Is there parking at The Anchor near Terminal 5?",
-            answer: "Yes! We offer free parking for all customers. This is perfect for meeting arriving passengers or enjoying a meal before your flight without paying expensive airport parking fees."
+            answer: "Yes! We offer free parking for all customers with space for 20 cars. No fees, no time limits — free while you're visiting us. Perfect for meeting arriving passengers or enjoying a meal before your flight."
           },
 	          {
 	            question: "Can I get a taxi from Terminal 5 to The Anchor?",

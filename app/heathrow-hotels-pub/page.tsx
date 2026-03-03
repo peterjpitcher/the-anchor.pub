@@ -162,8 +162,8 @@ export default function HeathrowHotelsPubPage() {
               features={[
                 {
                   icon: "💰",
-                  title: "50% Less",
-                  description: "Than hotel restaurant prices for the same quality meal",
+                  title: "Great Value",
+                  description: "Honest pub pricing with mains from £8.99",
                   variant: "colored",
                   color: "bg-red-50",
                   className: "rounded-xl p-6 text-center"
@@ -408,7 +408,7 @@ export default function HeathrowHotelsPubPage() {
                         <p className="font-semibold mb-2">Expense-Friendly</p>
                         <ul className="space-y-1 text-gray-700 text-sm">
                           <li>• Full VAT receipts provided</li>
-                          <li>• 50% less than hotel dining</li>
+                          <li>• Honest pub pricing, mains from £8.99</li>
                           <li>• Proper business atmosphere</li>
                         </ul>
                       </div>
@@ -632,7 +632,7 @@ export default function HeathrowHotelsPubPage() {
 	          },
           {
             question: "Is it worth leaving my hotel to eat at The Anchor?",
-            answer: "Absolutely! Hotel guests consistently tell us they save 50% compared to hotel restaurant prices, plus you get a genuine British pub experience. The short journey is worth it for better food, authentic atmosphere, and significant savings."
+            answer: "Absolutely! Hotel guests consistently tell us they love the genuine British pub experience. The short journey is worth it for better food and an authentic atmosphere you won't find in a hotel restaurant."
           },
           {
             question: "Do you accommodate flight crews and business travelers?",

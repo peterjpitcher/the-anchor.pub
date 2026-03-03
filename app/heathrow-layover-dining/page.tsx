@@ -65,7 +65,7 @@ const faqItems = [
   },
   {
     question: 'How do I reach The Anchor from Heathrow terminals?',
-    answer: 'Taxi or rideshare is the fastest: 7 minutes from T5, 11 minutes from T2/3, and 14 minutes from T4. You can also take the 442 bus towards Staines and hop off in Stanwell Moor, then walk three minutes to the pub.'
+    answer: 'Taxi or rideshare is the fastest: 7 minutes from T5, 11 minutes from T2/3, and 12 minutes from T4. You can also take the 442 bus towards Staines and hop off in Stanwell Moor, then walk three minutes to the pub.'
   }
 ]
 

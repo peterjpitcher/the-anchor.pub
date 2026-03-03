@@ -221,7 +221,7 @@ export default function PubNearIbisHeathrowPage() {
           },
           {
             question: 'Is food at The Anchor near ibis Heathrow good value?',
-            answer: 'Yes — mains start from £8.99 and we have deals running regularly, including buy one get one free pizza on Tuesdays. It\'s typically 40–50% cheaper than airport or hotel restaurant dining, with freshly cooked food.'
+            answer: 'Yes — mains start from £8.99 and we have deals running regularly, including buy one get one free pizza on Tuesdays. Everything is freshly cooked to order.'
           },
           {
             question: 'Can I get a taxi from ibis Heathrow to The Anchor?',

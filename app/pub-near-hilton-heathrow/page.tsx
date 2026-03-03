@@ -198,7 +198,7 @@ export default function PubNearHiltonHeathrowPage() {
                 </div>
                 <div>
                   <p className="font-semibold mb-1">Cost</p>
-                  <p>Typically 40–50% less than Hilton hotel dining</p>
+                  <p>Honest pub pricing with mains from £8.99</p>
                 </div>
                 <div>
                   <p className="font-semibold mb-1">Booking</p>
@@ -251,7 +251,7 @@ export default function PubNearHiltonHeathrowPage() {
           },
           {
             question: 'Do you provide receipts for business expenses?',
-            answer: 'Yes — we provide full itemised VAT receipts for all meals and drinks. Our prices are typically 40–50% lower than Hilton hotel dining, making The Anchor an expense-friendly alternative for business travellers.'
+            answer: 'Yes — we provide full itemised VAT receipts for all meals and drinks. The Anchor is an expense-friendly alternative for business travellers.'
           },
         ]}
         className="bg-gray-50"

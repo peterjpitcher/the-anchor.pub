@@ -228,7 +228,7 @@ export default function PrivateHirePage() {
                             {
                                 icon: "♿",
                                 title: "Accessible",
-                                description: "Step-free access throughout the venue and accessible facilities.",
+                                description: "Step-free access to the bar, dining area and beer garden.",
                                 className: "text-center"
                             },
                             {
@@ -251,6 +251,24 @@ export default function PrivateHirePage() {
                             }
                         ]}
                     />
+                </Container>
+            </section>
+
+            <section className="section-spacing bg-white">
+                <Container>
+                    <div className="max-w-4xl mx-auto">
+                        <h2 className="text-3xl font-bold text-anchor-green mb-4">Accessibility</h2>
+                        <p className="text-gray-700 mb-3">
+                            Step-free access to the bar, dining area and beer garden.
+                        </p>
+                        <p className="text-gray-700 mb-4">
+                            We currently don&apos;t have an accessible toilet. If you&apos;d like to visit and want to check what will work best for you, give us a call on{' '}
+                            <a href="tel:+441753682707" className="text-anchor-green font-semibold hover:underline">+44 1753 682707</a> and we&apos;ll help.
+                        </p>
+                        <Link href="/accessibility" className="text-anchor-green font-semibold hover:underline">
+                            Full accessibility information &rarr;
+                        </Link>
+                    </div>
                 </Container>
             </section>
         </>

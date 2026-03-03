@@ -141,7 +141,7 @@ export default function PubNearMarriottHeathrowPage() {
                     'Quieter dining room for business meals',
                     'Group bookings and private hire available',
                     'Relaxed atmosphere — no dress code',
-                    'Typically 40–50% less than Marriott dining',
+                    'Honest pub pricing with mains from £8.99',
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-3">
                       <span className="text-anchor-gold font-bold">✓</span>
@@ -219,7 +219,7 @@ export default function PubNearMarriottHeathrowPage() {
           },
           {
             question: 'Is there a pub near Marriott Heathrow for business dinners?',
-            answer: 'The Anchor is well suited to business dinners. We provide full VAT receipts, have a quieter dining room away from the main bar, offer free WiFi, and can arrange group bookings. Prices are typically 40–50% lower than Marriott hotel dining.'
+            answer: 'The Anchor is well suited to business dinners. We provide full VAT receipts, have a quieter dining room away from the main bar, offer free WiFi, and can arrange group bookings.'
           },
           {
             question: 'What restaurants are near Marriott Heathrow?',
@@ -231,7 +231,7 @@ export default function PubNearMarriottHeathrowPage() {
           },
           {
             question: 'Do you provide receipts for business expenses near Marriott Heathrow?',
-            answer: 'Yes — we provide full itemised VAT receipts for all meals and drinks. Our prices are typically 40–50% lower than Marriott hotel dining, making The Anchor an excellent choice for expense-friendly business entertaining.'
+            answer: 'Yes — we provide full itemised VAT receipts for all meals and drinks, making The Anchor an excellent choice for expense-friendly business entertaining.'
           },
         ]}
         className="bg-gray-50"

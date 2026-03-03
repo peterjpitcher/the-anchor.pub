@@ -221,11 +221,11 @@ export default function PubNearRadissonBluHeathrowPage() {
           },
           {
             question: 'What restaurants are near Radisson Blu Heathrow?',
-            answer: 'The Anchor serves traditional British pub food including fish & chips, Sunday roasts, burgers, steaks and daily specials. It\'s approximately 12 minutes from Radisson Blu Heathrow, with mains from £8.99 — significantly less than hotel restaurant prices.'
+            answer: 'The Anchor serves traditional British pub food including fish & chips, Sunday roasts, burgers, steaks and daily specials. It\'s approximately 12 minutes from Radisson Blu Heathrow, with mains from £8.99.'
           },
           {
             question: 'Does The Anchor near Radisson Blu cater for business expenses?',
-            answer: 'Yes — full itemised VAT receipts are provided for all purchases. We also have free WiFi and a quieter dining room suitable for business meals. We\'re typically 40–50% cheaper than Radisson hotel dining.'
+            answer: 'Yes — full itemised VAT receipts are provided for all purchases. We also have free WiFi and a quieter dining room suitable for business meals.'
           },
           {
             question: 'Can I get a return taxi from The Anchor to Radisson Blu Heathrow?',

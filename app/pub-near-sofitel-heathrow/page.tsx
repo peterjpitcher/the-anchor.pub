@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   keywords: 'pub near sofitel heathrow, restaurant near sofitel heathrow t5, sofitel heathrow pub, dining near sofitel heathrow terminal 5, heathrow t5 pub',
   openGraph: {
     title: 'Pub Near Sofitel Heathrow T5 | 7 Mins Away | The Anchor',
-    description: 'Just 7 minutes from Sofitel London Heathrow. Real British pub with home-cooked food, real ales & free parking. Half the price of hotel dining.',
+    description: 'Just 7 minutes from Sofitel London Heathrow. Real British pub with home-cooked food, real ales & free parking. Honest pub pricing.',
     images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Sofitel Heathrow Terminal 5' }],
     type: 'website',
   },

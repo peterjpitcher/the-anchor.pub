@@ -377,7 +377,7 @@ export default function Terminal4Page() {
                 {
                   title: "Budget-Friendly Option",
                   icon: "💰",
-                  content: "T4 also serves budget airlines. Why start your holiday overspending at the airport? Our meals cost less than airport fast food with proper portions."
+                  content: "T4 also serves many budget airlines. Enjoy proper British pub food with generous portions in a relaxed atmosphere — just 12 minutes from T4."
                 },
                 {
                   title: "Transit Alternative",
@@ -612,7 +612,7 @@ export default function Terminal4Page() {
           },
           {
             question: "Do you have parking for Terminal 4 travelers?",
-            answer: `Yes! We offer free parking with space for ${PARKING.capacity} cars. Much more affordable than airport parking for short stays.`
+            answer: `Yes! We offer free parking for all customers with space for ${PARKING.capacity} cars. No fees, no time limits — free while you're visiting us.`
           },
           {
             question: "What time should I leave for Terminal 4?",

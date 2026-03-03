@@ -212,7 +212,7 @@ export default function WindsorPubPage() {
                   <li className="flex items-start gap-3">
                     <span className="text-anchor-gold text-xl">✓</span>
                     <div>
-                      <strong>Half the price of Windsor pubs</strong> - Genuine local pricing
+                      <strong>Genuine local pricing</strong> - Honest village pub prices
                     </div>
                   </li>
                   <li className="flex items-start gap-3">

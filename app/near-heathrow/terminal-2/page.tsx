@@ -347,7 +347,7 @@ export default function Terminal2Page() {
 	                {
 	                  title: "Smart Parking Choice",
 	                  icon: "🅿️",
-	                  content: "Terminal 2 short-stay parking costs GBP 6.90 for just 30 minutes! Park free with us while dropping off or collecting passengers."
+                  content: "Heathrow short-stay parking costs add up fast. Park free with us while dropping off or collecting passengers — no fees, no time limits."
 	                },
                 {
                   title: "International Meets Local",
@@ -456,7 +456,7 @@ export default function Terminal2Page() {
             <div className="prose prose-lg max-w-none text-gray-700 mb-12">
               <p className="text-xl text-center mb-8">
                 Whether you're flying with Lufthansa, United Airlines, Air Canada, or any of the 23 airlines 
-                operating from Terminal 2, The Anchor provides the perfect escape from airport prices and crowds.
+                operating from Terminal 2, The Anchor provides the perfect escape from the airport bustle.
               </p>
               
               <div className="grid md:grid-cols-2 gap-8">
@@ -632,7 +632,7 @@ export default function Terminal2Page() {
           },
           {
             question: "Do you have parking for Terminal 2 travelers?",
-            answer: `Yes! We offer free parking with space for ${PARKING.capacity} cars. Much more affordable than airport parking for short stays.`
+            answer: `Yes! We offer free parking for all customers with space for ${PARKING.capacity} cars. No fees, no time limits — free while you're visiting us.`
           },
           {
             question: "What time should I leave for Terminal 2?",
@@ -648,7 +648,7 @@ export default function Terminal2Page() {
 	          },
           {
             question: "Why choose The Anchor over Terminal 2 restaurants?",
-            answer: "Airport restaurants are expensive and crowded. At The Anchor, you'll enjoy authentic British pub atmosphere, meet local residents (not just travelers), pay pub prices (not airport prices), and relax in our peaceful village setting away from the airport hustle."
+            answer: "At The Anchor, you'll enjoy authentic British pub atmosphere, meet local residents (not just travelers), eat proper home-cooked food, and relax in our peaceful village setting away from the airport hustle."
           },
 	          {
 	            question: "Can I get a taxi from Terminal 2 to The Anchor?",

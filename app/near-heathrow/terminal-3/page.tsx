@@ -612,7 +612,7 @@ export default function Terminal3Page() {
           },
           {
             question: "Do you have parking for Terminal 3 travelers?",
-            answer: `Yes! We offer free parking with space for ${PARKING.capacity} cars. Much more affordable than airport parking for short stays.`
+            answer: `Yes! We offer free parking for all customers with space for ${PARKING.capacity} cars. No fees, no time limits — free while you're visiting us.`
           },
           {
             question: "What time should I leave for Terminal 3?",

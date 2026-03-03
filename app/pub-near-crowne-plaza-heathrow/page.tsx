@@ -141,7 +141,7 @@ export default function PubNearCrownePlazaHeathrowPage() {
                     'Free WiFi — work while you eat',
                     'Group bookings taken in advance',
                     'Quieter than the hotel bar',
-                    'Typically half the price of hotel dining',
+                    'Honest pub pricing with mains from £8.99',
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-3">
                       <span className="text-anchor-gold font-bold">✓</span>
@@ -217,7 +217,7 @@ export default function PubNearCrownePlazaHeathrowPage() {
           },
           {
             question: 'Is there a good pub near Crowne Plaza Heathrow for corporate dining?',
-            answer: 'The Anchor is an excellent choice for corporate dining. We offer full VAT receipts, a private dining room, free WiFi, and can handle group bookings. Prices are typically 40–50% less than Crowne Plaza hotel dining.'
+            answer: 'The Anchor is an excellent choice for corporate dining. We offer full VAT receipts, a private dining room, free WiFi, and can handle group bookings.'
           },
           {
             question: 'What is the nearest pub to Crowne Plaza Heathrow?',
@@ -229,7 +229,7 @@ export default function PubNearCrownePlazaHeathrowPage() {
           },
           {
             question: 'Do you provide VAT receipts for business expenses near Crowne Plaza?',
-            answer: 'Yes, we provide full itemised VAT receipts for all food and drink. Our prices are typically 40–50% lower than Crowne Plaza hotel dining, making us the smart choice for business expense management.'
+            answer: 'Yes, we provide full itemised VAT receipts for all food and drink, making us a smart choice for business expense management.'
           },
         ]}
         className="bg-gray-50"

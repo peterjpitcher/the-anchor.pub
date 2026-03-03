@@ -558,7 +558,7 @@ export default function M25Junction14PubPage() {
           },
           {
             question: "Is it worth leaving the M25 for food at The Anchor?",
-            answer: "Absolutely! You'll save 25% compared to service station prices, get freshly cooked food instead of reheated meals, and enjoy a proper break in relaxed surroundings. The 5-minute detour often takes less time than service station queues."
+            answer: "Absolutely! You'll get freshly cooked food instead of reheated meals and enjoy a proper break in relaxed surroundings. The 5-minute detour often takes less time than service station queues."
           },
           {
             question: "Can I park easily if I'm towing or in a large vehicle?",

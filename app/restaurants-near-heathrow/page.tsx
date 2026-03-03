@@ -120,9 +120,9 @@ export default async function RestaurantsNearHeathrowPage() {
         description="Skip the expensive terminal dining - proper British food just 7 minutes away"
         variant="default"
 	        tags={[
-	          { label: "✅ Free Parking Saves GBP 20-40", variant: "success" },
+	          { label: "✅ Free Parking for Guests", variant: "success" },
 	          { label: "⏱️ 7 mins from Terminal 5", variant: "warning" },
-	          { label: "💷 50% Less Than Airport Prices", variant: "primary" },
+	          { label: "💷 Honest Pub Pricing", variant: "primary" },
 	          { label: "🍽️ Cooked Fresh to Order", variant: "default" }
 	        ]}
         primaryCta={
@@ -285,17 +285,17 @@ export default async function RestaurantsNearHeathrowPage() {
                   </div>
                   <div className="text-center">
                     <p className="font-bold text-lg">Terminal 4</p>
-                    <p className="text-2xl font-bold text-blue-600">10 mins</p>
+                    <p className="text-2xl font-bold text-blue-600">12 mins</p>
                     <p className="text-sm text-gray-600">4.2 miles</p>
                   </div>
                   <div className="text-center">
                     <p className="font-bold text-lg">Terminal 2</p>
-                    <p className="text-2xl font-bold text-blue-600">15 mins</p>
+                    <p className="text-2xl font-bold text-blue-600">11 mins</p>
                     <p className="text-sm text-gray-600">5.8 miles</p>
                   </div>
                   <div className="text-center">
                     <p className="font-bold text-lg">Terminal 3</p>
-                    <p className="text-2xl font-bold text-blue-600">15 mins</p>
+                    <p className="text-2xl font-bold text-blue-600">11 mins</p>
                     <p className="text-sm text-gray-600">5.8 miles</p>
                   </div>
                 </div>
@@ -523,7 +523,7 @@ export default async function RestaurantsNearHeathrowPage() {
         faqs={[
           {
             question: "How far is The Anchor restaurant from Heathrow Airport?",
-            answer: "We're just 7 minutes from Terminal 5, 10 minutes from Terminal 4, and 15 minutes from Terminals 2 & 3. Much quicker than navigating airport restaurants!"
+            answer: "We're just 7 minutes from Terminal 5, 12 minutes from Terminal 4, and 11 minutes from Terminals 2 & 3. Much quicker than navigating airport restaurants!"
           },
           {
             question: "Are you a good alternative to restaurants at Heathrow Terminal 5?",
@@ -535,7 +535,7 @@ export default async function RestaurantsNearHeathrowPage() {
           },
 	          {
 	            question: "Is parking really free at your restaurant?",
-	            answer: "Yes! We have 20 free parking spaces for our guests. This saves you GBP 20-40 compared to airport parking, and there's no time limit while you're dining with us."
+	            answer: "Yes! We have 20 free parking spaces for our guests with no time limit while you're dining with us."
 	          },
           {
             question: "What type of food does your restaurant serve?",
@@ -543,7 +543,7 @@ export default async function RestaurantsNearHeathrowPage() {
           },
 	          {
 	            question: "Are you cheaper than airport restaurants?",
-	            answer: "Yes, significantly! Our meals are typically 50% less than airport prices. A burger that costs GBP 18-22 at the airport is under GBP 12 here. Plus, you save GBP 20-40 on parking."
+	            answer: "Yes — we offer honest pub pricing with mains from GBP 8.99 and freshly cooked food. Plus, parking is completely free for guests."
 	          },
           {
             question: "Do you take reservations?",
