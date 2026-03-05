@@ -111,7 +111,17 @@ export function buildEventSchema(event: Event) {
     }),
     url: eventUrl,
     ...(event.mainEntityOfPage && { mainEntityOfPage: event.mainEntityOfPage }),
-    ...(event.potentialAction && { potentialAction: event.potentialAction }),
+    potentialAction: event.potentialAction ?? {
+      '@type': 'ReserveAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: 'https://www.the-anchor.pub/book-table',
+        actionPlatform: [
+          'https://schema.org/DesktopWebPlatform',
+          'https://schema.org/MobileWebPlatform'
+        ]
+      }
+    },
     ...(event.highlights && event.highlights.length > 0 && {
       subjectOf: {
         '@type': 'CreativeWork',
