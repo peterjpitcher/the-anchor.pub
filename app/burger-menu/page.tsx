@@ -59,8 +59,10 @@ export default async function BurgerMenuPage() {
 	    const menuSchema = {
 	        "@context": "https://schema.org",
 	        "@type": "Menu",
+	        "@id": "https://www.the-anchor.pub/burger-menu#menu",
 	        "name": "Burger Menu",
 	        "description": "Gourmet burgers served with chips.",
+	        "provider": { "@id": "https://www.the-anchor.pub/#business" },
 	        "hasMenuSection": [
 	            {
 	                "@type": "MenuSection",
@@ -70,11 +72,31 @@ export default async function BurgerMenuPage() {
         ]
     }
 
+    const restaurantSchema = {
+        "@context": "https://schema.org",
+        "@type": "Restaurant",
+        "@id": "https://www.the-anchor.pub/#business",
+        "name": "The Anchor",
+        "hasMenu": { "@id": "https://www.the-anchor.pub/burger-menu#menu" },
+        "potentialAction": {
+            "@type": "ReserveAction",
+            "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://www.the-anchor.pub/book-table",
+                "actionPlatform": [
+                    "https://schema.org/DesktopWebPlatform",
+                    "https://schema.org/MobileWebPlatform"
+                ]
+            },
+            "result": { "@type": "FoodEstablishmentReservation" }
+        }
+    }
+
     return (
         <>
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([menuSchema, breadcrumbSchema]) }}
+                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([menuSchema, restaurantSchema, breadcrumbSchema]) }}
             />
 
             <HeroWrapper
