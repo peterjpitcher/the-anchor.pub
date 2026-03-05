@@ -694,6 +694,7 @@ export default async function FoodMenuPage() {
               '@context': 'https://schema.org',
               '@type': 'Menu',
               '@id': 'https://www.the-anchor.pub/food-menu#menu',
+              provider: { '@id': 'https://www.the-anchor.pub/#business' },
               name: 'The Anchor Food Menu',
               description: 'Traditional British food menu with allergen information',
               hasMenuSection: menuData.categories.map(category => ({
@@ -742,7 +743,19 @@ export default async function FoodMenuPage() {
               openingHoursSpecification: kitchenHoursSpecification,
 	              telephone: '+441753682707',
 	              url: 'https://www.the-anchor.pub',
-	              priceRange: '££'
+	              priceRange: '££',
+	              potentialAction: {
+	                '@type': 'ReserveAction',
+	                target: {
+	                  '@type': 'EntryPoint',
+	                  urlTemplate: 'https://www.the-anchor.pub/book-table',
+	                  actionPlatform: [
+	                    'https://schema.org/DesktopWebPlatform',
+	                    'https://schema.org/MobileWebPlatform'
+	                  ]
+	                },
+	                result: { '@type': 'FoodEstablishmentReservation' }
+	              }
 	            },
             {
               '@context': 'https://schema.org',
