@@ -87,6 +87,12 @@ export default function LiveSportPage() {
                 }
             />
 
+            <section className="bg-white py-6">
+                <Container>
+                    <p className="text-center text-sm text-gray-600">⭐⭐⭐⭐⭐ <strong>Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
+                </Container>
+            </section>
+
             <section className="py-8 bg-white">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
@@ -215,7 +221,12 @@ export default function LiveSportPage() {
                 description="Don't leave it to chance. Book a table with a view of the screen."
                 buttons={[
                     {
-                        text: "📞 Book Screen View",
+                        text: "📅 Book a Table",
+                        href: "/book-table",
+                        variant: "secondary"
+                    },
+                    {
+                        text: "📞 Call: 01753 682707",
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "sport_cta",

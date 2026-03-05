@@ -253,27 +253,43 @@ export default async function KaraokePage() {
                     { label: '🍻 Liquid Courage Available', variant: 'default' }
                 ]}
                 primaryCta={
-                    <a
-                        href="#karaoke-dates"
-                        className={cn(
-                            'inline-flex items-center justify-center font-semibold text-center transition-all duration-200 rounded-full whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-anchor-gold focus:ring-offset-2 bg-white text-anchor-green border-2 border-anchor-green hover:bg-anchor-green hover:text-white px-8 py-3.5 text-lg min-h-[48px] w-full sm:w-auto'
-                        )}
-                    >
-                        📅 See upcoming dates
-                    </a>
-                }
-                secondaryCta={
-                    <PhoneButton
-                        phone="01753 682707"
+                    <BookTableButton
                         source="karaoke_hero"
-                        variant="secondary"
+                        variant="primary"
                         size="lg"
                         className="w-full sm:w-auto"
                     >
-                        📞 Call to reserve: 01753 682707
-                    </PhoneButton>
+                        📅 Book Your Table
+                    </BookTableButton>
+                }
+                secondaryCta={
+                    <>
+                        <a
+                            href="#karaoke-dates"
+                            className={cn(
+                                'inline-flex items-center justify-center font-semibold text-center transition-all duration-200 rounded-full whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-anchor-gold focus:ring-offset-2 bg-white text-anchor-green border-2 border-anchor-green hover:bg-anchor-green hover:text-white px-8 py-3.5 text-lg min-h-[48px] w-full sm:w-auto'
+                            )}
+                        >
+                            📅 See upcoming dates
+                        </a>
+                        <PhoneButton
+                            phone="01753 682707"
+                            source="karaoke_hero"
+                            variant="secondary"
+                            size="lg"
+                            className="w-full sm:w-auto"
+                        >
+                            📞 Call to reserve: 01753 682707
+                        </PhoneButton>
+                    </>
                 }
             />
+
+            <section className="bg-white py-6">
+                <Container>
+                    <p className="text-center text-sm text-gray-600">⭐⭐⭐⭐⭐ <strong>Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
+                </Container>
+            </section>
 
             <Section spacing="sm" background="white">
                 <Container>
@@ -460,6 +476,36 @@ export default async function KaraokePage() {
                                 query="The Anchor, Stanwell Moor"
                                 className="h-full min-h-[300px] border border-gray-200 rounded-xl overflow-hidden shadow-sm"
                             />
+                        </div>
+                    </div>
+                </Container>
+            </Section>
+
+            <Section spacing="md" background="white">
+                <Container>
+                    <div className="max-w-4xl mx-auto bg-gradient-to-br from-anchor-green to-anchor-green/80 rounded-2xl p-8 text-white text-center shadow-lg">
+                        <h2 className="text-3xl font-bold mb-4 text-white">Ready to take the stage?</h2>
+                        <p className="text-lg mb-6">
+                            Reserve your spot or call the bar team — we'll make sure your table is ready.
+                        </p>
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                            <BookTableButton
+                                source="karaoke_cta_bottom"
+                                variant="secondary"
+                                size="lg"
+                                className="w-full sm:w-auto bg-white text-anchor-green hover:bg-gray-100"
+                            >
+                                📅 Book Your Table
+                            </BookTableButton>
+                            <PhoneButton
+                                phone="01753 682707"
+                                source="karaoke_cta_bottom"
+                                variant="secondary"
+                                size="lg"
+                                className="w-full sm:w-auto bg-white/10 text-white hover:bg-white/20"
+                            >
+                                📞 Call: 01753 682707
+                            </PhoneButton>
                         </div>
                     </div>
                 </Container>

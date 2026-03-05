@@ -193,6 +193,12 @@ export default async function WhatsOnPage() {
 
       <TrustBar variant="events" />
 
+      <section className="bg-white py-6">
+        <Container>
+          <p className="text-center text-sm text-gray-600">⭐⭐⭐⭐⭐ <strong>Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
+        </Container>
+      </section>
+
       {/* Heathrow Positioning */}
       <Section background="white" spacing="md" className="bg-anchor-cream/30">
         <Container>

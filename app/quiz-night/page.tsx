@@ -339,6 +339,12 @@ export default async function QuizNightPage() {
         }
       />
 
+      <section className="bg-white py-6">
+        <Container>
+          <p className="text-center text-sm text-gray-600">⭐⭐⭐⭐⭐ <strong>Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
+        </Container>
+      </section>
+
       <Section spacing="sm" background="white">
         <Container>
           <PageTitle className="text-center text-anchor-green" seo={{ structured: true, speakable: true }}>
