@@ -297,16 +297,16 @@ export default async function KaraokePage() {
                                 <p className="text-gray-700 whitespace-pre-line">
                                     Join us for free-entry karaoke. Thousands of songs, no cover charge, and a crowd that cheers for everyone.
                                 </p>
-                <div className="space-y-3">
-                  {nextEvent && (
-                    <RegretReduction variant="booking" className="mb-4" />
-                  )}
-                  {nextEvent ? (
-                    <EventBookingButton event={nextEvent} className="w-full" source="karaoke_next_event" />
-                  ) : (
-                    <Button
-                      size="lg"
-                      asChild
+                                <div className="space-y-3">
+                                    {nextEvent && (
+                                        <RegretReduction variant="booking" className="mb-4" />
+                                    )}
+                                    {nextEvent ? (
+                                        <EventBookingButton event={nextEvent} className="w-full" source="karaoke_next_event" />
+                                    ) : (
+                                        <Button
+                                            size="lg"
+                                            asChild
                                             className="w-full bg-anchor-green text-white hover:bg-anchor-green-dark"
                                         >
                                             <Link href="tel:+441753682707">📞 Call 01753 682707</Link>
