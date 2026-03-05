@@ -402,7 +402,7 @@ export default async function SundayLunchPage() {
         tags={[
           { label: sundayServiceLabel, variant: 'warning' },
           { label: 'Book by Saturday 1pm', variant: 'default' },
-          { label: '£10pp deposit required', variant: 'default' }
+          { label: '£10pp deposit — secures your table', variant: 'success' }
         ]}
         cta={
           <div className="flex flex-col items-center gap-6">
