@@ -9,6 +9,7 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { SUNDAY_LUNCH_DEPOSIT_POLICY_COPY } from '@/lib/constants'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
+import { RegretReduction, ValueProofStrip } from '@/components/psychology'
 
 export const metadata: Metadata = {
   title: 'Book a Table Online | The Anchor - Heathrow Pub & Dining',
@@ -151,12 +152,17 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
         <PageTitle className="text-anchor-green" seo={{ structured: true, speakable: true }}>
           Book Online
         </PageTitle>
-        <p className="mt-3 text-base text-gray-700 md:text-lg">Choose your date, time, and party size to reserve your table.</p>
+        <p className="mt-3 text-base text-gray-700 md:text-lg">
+          Choose your date, time, and party size to reserve your table. Loved by locals and Heathrow travellers every week.
+        </p>
       </Section>
 
       <Section background="gray" spacing="sm" container containerSize="lg">
         <div className="grid items-start gap-5 lg:gap-8 lg:grid-cols-[minmax(0,2fr),minmax(0,1fr)]">
           <div className="order-1">
+            <div className="mb-4">
+              <RegretReduction variant="booking" />
+            </div>
             <ManagementTableBookingForm prefill={prefill} />
           </div>
 
@@ -181,6 +187,11 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
                   </Button>
                 </Link>
               </div>
+            </div>
+
+            <div className="hidden rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-100 lg:block">
+              <h3 className="text-base font-semibold text-anchor-green mb-3">Why The Anchor?</h3>
+              <ValueProofStrip variant="food" />
             </div>
 
             <div className="hidden rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-100 lg:block">
