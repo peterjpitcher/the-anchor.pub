@@ -47,8 +47,10 @@ export default async function PizzaMenuPage() {
     const menuSchema = {
         "@context": "https://schema.org",
         "@type": "Menu",
+        "@id": "https://www.the-anchor.pub/pizza-menu#menu",
         "name": "Pizza Menu",
         "description": "Stone-baked pizzas available for dine-in or takeaway.",
+        "provider": { "@id": "https://www.the-anchor.pub/#business" },
         "hasMenuSection": pizzaCategory ? pizzaCategory.sections.map(section => ({
             "@type": "MenuSection",
             "name": section.title || "Pizzas",
@@ -65,11 +67,31 @@ export default async function PizzaMenuPage() {
         })) : []
     }
 
+    const restaurantSchema = {
+        "@context": "https://schema.org",
+        "@type": "Restaurant",
+        "@id": "https://www.the-anchor.pub/#business",
+        "name": "The Anchor",
+        "hasMenu": { "@id": "https://www.the-anchor.pub/pizza-menu#menu" },
+        "potentialAction": {
+            "@type": "ReserveAction",
+            "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://www.the-anchor.pub/book-table",
+                "actionPlatform": [
+                    "https://schema.org/DesktopWebPlatform",
+                    "https://schema.org/MobileWebPlatform"
+                ]
+            },
+            "result": { "@type": "FoodEstablishmentReservation" }
+        }
+    }
+
     return (
         <>
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([menuSchema, breadcrumbSchema]) }}
+                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([menuSchema, restaurantSchema, breadcrumbSchema]) }}
             />
 
             <HeroWrapper
