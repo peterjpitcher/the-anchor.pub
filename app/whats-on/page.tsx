@@ -15,6 +15,7 @@ import { SpeakableSchema } from '@/components/seo/SpeakableSchema'
 import { SpeakableContent } from '@/components/voice/SpeakableContent'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
 import { BookTableButton } from '@/components/BookTableButton'
+import { TrustBar } from '@/components/psychology'
 import { quizNightEventSeries, bingoEventSeries } from '@/lib/schema'
 import { getBusinessHours } from '@/lib/api'
 import { buildOpeningHoursSchema } from '@/lib/opening-hours-schema'
@@ -190,6 +191,8 @@ export default async function WhatsOnPage() {
         }
       />
 
+      <TrustBar variant="events" />
+
       {/* Heathrow Positioning */}
       <Section background="white" spacing="md" className="bg-anchor-cream/30">
         <Container>
@@ -251,7 +254,7 @@ export default async function WhatsOnPage() {
         <Container>
           <SectionHeader
             title="Local Nights Out for Staines & Heathrow"
-            subtitle="Regular events for Staines-upon-Thames, Ashford, Feltham and the Heathrow villages."
+            subtitle="Join your neighbours for a proper night out. Regular events for Staines-upon-Thames, Ashford, Feltham and the Heathrow villages."
           />
           <FeatureGrid
             columns={3}
