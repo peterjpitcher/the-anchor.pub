@@ -492,7 +492,7 @@ function BookingProgressBar({ currentStep, totalSteps }: { currentStep: number; 
           style={{ width: `${pct}%` }}
           role="progressbar"
           aria-valuenow={currentStep}
-          aria-valuemin={1}
+          aria-valuemin={0}
           aria-valuemax={totalSteps}
           aria-label={`Booking step ${currentStep} of ${totalSteps}`}
         />
