@@ -50,7 +50,18 @@ export default function MilestoneBirthdaysPage() {
         "telephone": CONTACT.phoneIntl,
         "url": "https://www.the-anchor.pub/private-hire/milestone-birthdays",
         "image": `https://www.the-anchor.pub${DEFAULT_CORPORATE_IMAGE}`,
-        "description": "A lively venue for milestone birthday celebrations including 21st, 30th, 40th, and 50th parties."
+        "description": "A lively venue for milestone birthday celebrations including 21st, 30th, 40th, and 50th parties.",
+        "potentialAction": {
+            "@type": "CommunicateAction",
+            "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://www.the-anchor.pub/private-hire#enquiry",
+                "actionPlatform": [
+                    "https://schema.org/DesktopWebPlatform",
+                    "https://schema.org/MobileWebPlatform"
+                ]
+            }
+        }
     }
 
     const breadcrumbSchema = generateBreadcrumbSchema([

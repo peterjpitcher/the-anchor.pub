@@ -50,7 +50,18 @@ export default function GenderRevealPage() {
         "telephone": CONTACT.phoneIntl,
         "url": "https://www.the-anchor.pub/private-hire/gender-reveal",
         "image": `https://www.the-anchor.pub${DEFAULT_CORPORATE_IMAGE}`,
-        "description": "A spacious venue with outdoor garden perfect for gender reveal parties and baby showers."
+        "description": "A spacious venue with outdoor garden perfect for gender reveal parties and baby showers.",
+        "potentialAction": {
+            "@type": "CommunicateAction",
+            "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://www.the-anchor.pub/private-hire#enquiry",
+                "actionPlatform": [
+                    "https://schema.org/DesktopWebPlatform",
+                    "https://schema.org/MobileWebPlatform"
+                ]
+            }
+        }
     }
 
     const breadcrumbSchema = generateBreadcrumbSchema([

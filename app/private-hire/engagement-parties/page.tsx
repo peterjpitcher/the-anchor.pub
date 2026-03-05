@@ -50,7 +50,18 @@ export default function EngagementPartiesPage() {
         "telephone": CONTACT.phoneIntl,
         "url": "https://www.the-anchor.pub/private-hire/engagement-parties",
         "image": `https://www.the-anchor.pub${DEFAULT_CORPORATE_IMAGE}`,
-        "description": "A romantic and flexible venue for engagement parties, intimate gatherings, and celebrations."
+        "description": "A romantic and flexible venue for engagement parties, intimate gatherings, and celebrations.",
+        "potentialAction": {
+            "@type": "CommunicateAction",
+            "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://www.the-anchor.pub/private-hire#enquiry",
+                "actionPlatform": [
+                    "https://schema.org/DesktopWebPlatform",
+                    "https://schema.org/MobileWebPlatform"
+                ]
+            }
+        }
     }
 
     const breadcrumbSchema = generateBreadcrumbSchema([

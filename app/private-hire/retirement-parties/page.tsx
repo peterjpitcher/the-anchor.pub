@@ -50,7 +50,18 @@ export default function RetirementPartiesPage() {
         "telephone": CONTACT.phoneIntl,
         "url": "https://www.the-anchor.pub/private-hire/retirement-parties",
         "image": `https://www.the-anchor.pub${DEFAULT_CORPORATE_IMAGE}`,
-        "description": "A relaxed and accessible venue suitable for retirement celebrations and leaving parties."
+        "description": "A relaxed and accessible venue suitable for retirement celebrations and leaving parties.",
+        "potentialAction": {
+            "@type": "CommunicateAction",
+            "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://www.the-anchor.pub/private-hire#enquiry",
+                "actionPlatform": [
+                    "https://schema.org/DesktopWebPlatform",
+                    "https://schema.org/MobileWebPlatform"
+                ]
+            }
+        }
     }
 
     const breadcrumbSchema = generateBreadcrumbSchema([
