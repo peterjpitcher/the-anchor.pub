@@ -303,7 +303,19 @@ export default async function SundayLunchPage() {
         reviewCount: '127',
         bestRating: '5',
         worstRating: '1'
-      }
+      },
+      potentialAction: {
+        '@type': 'ReserveAction',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: 'https://www.the-anchor.pub/book-table',
+          actionPlatform: [
+            'https://schema.org/DesktopWebPlatform',
+            'https://schema.org/MobileWebPlatform'
+          ]
+        },
+        result: { '@type': 'FoodEstablishmentReservation' }
+      },
     },
     {
       '@context': 'https://schema.org',
@@ -311,7 +323,7 @@ export default async function SundayLunchPage() {
       name: 'Sunday Lunch Pre-Order',
       description:
         'Traditional British Sunday lunch roasts with all the trimmings. Pre-order required by 1pm Saturday. Sunday lunch bookings require a £10 per person deposit.',
-      url: 'https://www.the-anchor.pub/sunday-lunch',
+      url: 'https://www.the-anchor.pub/book-table',
       priceCurrency: 'GBP',
       ...(priceRangeText ? { priceRange: priceRangeText } : {}),
       eligibleRegion: {
