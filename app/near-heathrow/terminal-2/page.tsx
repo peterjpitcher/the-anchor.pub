@@ -77,6 +77,13 @@ export default function Terminal2Page() {
         }
       />
 
+      {/* Google Rating Strip */}
+      <section className="bg-white py-6">
+        <Container>
+          <p className="text-center text-sm text-gray-600">⭐⭐⭐⭐⭐ <strong>Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
+        </Container>
+      </section>
+
       {/* Page Title */}
       <section className="section-spacing bg-white">
         <Container>
@@ -671,6 +678,14 @@ export default function Terminal2Page() {
           {
             text: "📅 Book a Table",
             href: "/book-table",
+            variant: "white",
+            size: "lg"
+          },
+          {
+            text: "📞 01753 682707",
+            href: "tel:+441753682707",
+            isPhone: true,
+            phoneSource: "terminal_2_cta_section",
             variant: "white",
             size: "lg"
           },
