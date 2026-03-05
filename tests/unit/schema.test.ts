@@ -42,3 +42,11 @@ describe('priceRange', () => {
     expect((schemas.localBusinessSchema as any).priceRange).toBe('££')
   })
 })
+
+describe('acceptsReservations', () => {
+  it('localBusinessSchema acceptsReservations is boolean true', async () => {
+    const schemas = await getEnhancedSchemas()
+    expect((schemas.localBusinessSchema as any).acceptsReservations).toBe(true)
+    expect(typeof (schemas.localBusinessSchema as any).acceptsReservations).toBe('boolean')
+  })
+})

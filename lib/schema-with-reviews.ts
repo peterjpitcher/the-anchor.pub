@@ -72,7 +72,7 @@ const getEnhancedSchemasCached = unstable_cache(
       "servesCuisine": ["British", "Pizza", "Pub Food", "Sunday Roast"],
       ...(openingHours.length ? { "openingHoursSpecification": openingHours } : {}),
       "hasMenu": "https://www.the-anchor.pub/food-menu",
-      "acceptsReservations": "true",
+      "acceptsReservations": true,
       "amenityFeature": [
         { "@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true },
         { "@type": "LocationFeatureSpecification", "name": "Dog Friendly", "value": true },
