@@ -1,14 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef, useMemo } from 'react'
-import { 
-  trackTableBookingView, 
-  trackTableBookingStart, 
-  trackTableBookingDetailsEntered,
-  trackTableBookingSubmit,
-  trackTableBookingSuccess,
-  trackTableBookingError 
-} from '@/lib/gtm-events'
+import { trackTableBookingFunnel } from '@/lib/gtm-events'
 import { Button } from '@/components/ui/primitives/Button'
 import { Badge } from '@/components/ui/primitives/Badge'
 import { Card, CardBody } from '@/components/ui/layout/Card'
@@ -118,7 +111,8 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
   // Track form view
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      trackTableBookingView({
+      trackTableBookingFunnel({
+        step: 'view',
         source: 'sunday_lunch_form',
         deviceType: window.innerWidth >= 768 ? 'desktop' : 'mobile'
       })
@@ -397,7 +391,8 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
     
     // Track booking start
     if (typeof window !== 'undefined') {
-      trackTableBookingStart({
+      trackTableBookingFunnel({
+        step: 'start',
         source: 'sunday_lunch_form',
         deviceType: window.innerWidth >= 768 ? 'desktop' : 'mobile'
       })
@@ -410,7 +405,8 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
     try {
       // Track details entered
       if (typeof window !== 'undefined') {
-        trackTableBookingDetailsEntered({
+        trackTableBookingFunnel({
+          step: 'details_entered',
           partySize,
           bookingDate: date,
           bookingTime: time,
@@ -497,7 +493,8 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
       
       // Track submission
       if (typeof window !== 'undefined') {
-        trackTableBookingSubmit({
+        trackTableBookingFunnel({
+          step: 'submit',
           partySize,
           bookingDate: date,
           bookingTime: time,
@@ -549,7 +546,8 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
 
         // Track success (booking created, payment pending)
         if (typeof window !== 'undefined') {
-          trackTableBookingSuccess({
+          trackTableBookingFunnel({
+            step: 'success',
             partySize,
             bookingDate: date,
             bookingTime: time,
@@ -572,7 +570,8 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
         setSuccess(true)
       }
       if (typeof window !== 'undefined') {
-        trackTableBookingSuccess({
+        trackTableBookingFunnel({
+          step: 'success',
           partySize,
           bookingDate: date,
           bookingTime: time,
@@ -589,7 +588,8 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
       
       // Track error
       if (typeof window !== 'undefined') {
-        trackTableBookingError({
+        trackTableBookingFunnel({
+          step: 'error',
           errorType: 'submission_error',
           errorMessage,
           partySize,
