@@ -582,12 +582,11 @@ export function trackNavigationClick(data: {
 
 // Scroll depth tracking
 export function trackScrollDepth(milestone: number) {
+  if (typeof window === 'undefined') return
   pushToDataLayer({
     event: 'scroll_depth',
-    event_category: 'Engagement',
-    event_label: document.title,
-    value: milestone,
     scroll_depth: milestone,
+    value: milestone,
   })
 }
 

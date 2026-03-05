@@ -2,9 +2,6 @@ import { canUseCookieCategory } from '../cookies'
 
 export interface TrackingEventPayload {
   event: string
-  event_category?: string
-  event_action?: string
-  event_label?: string
   value?: number
   [key: string]: unknown
 }
