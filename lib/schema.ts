@@ -163,7 +163,7 @@ export const specialAnnouncementSchema = {
   "name": "Monday Closure",
   "text": "The Anchor is closed every Monday. Kitchen is also closed on Mondays.",
   "datePosted": "2024-01-01",
-  "expires": "2025-12-31",
+  "expires": "2026-12-31",
   "announcementLocation": {
     "@id": "https://www.the-anchor.pub/#business"
   },
@@ -208,7 +208,7 @@ export const quizNightEventSeries = {
   "name": "Monthly Quiz Night at The Anchor",
   "description": "Test your knowledge at our popular monthly quiz night. 3 entry, teams up to 6, great prizes including a 25 bar voucher for winners.",
   "startDate": "2024-01-01",
-  "endDate": "2025-12-31",
+  "endDate": "2026-12-31",
   "eventSchedule": {
     "@type": "Schedule",
     "repeatFrequency": "P1M",
@@ -250,7 +250,7 @@ export const bingoEventSeries = {
   "name": "Monthly Cash Bingo Night",
   "description": "Monthly bingo night with 10 per book entry. 10 games with various prizes including drinks, chocolate, vouchers, and cash jackpot on the last game.",
   "startDate": "2024-01-01",
-  "endDate": "2025-12-31",
+  "endDate": "2026-12-31",
   "eventSchedule": {
     "@type": "Schedule",
     "repeatFrequency": "P1M",
