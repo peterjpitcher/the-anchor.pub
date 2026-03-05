@@ -6,7 +6,7 @@ import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { CONTACT, BRAND } from '@/lib/constants'
-import { CTASection, SectionHeader, FeatureGrid, InfoBoxGrid, AlertBox, QuickInfoGrid } from '@/components/ui'
+import { CTASection, SectionHeader, FeatureGrid, InfoBoxGrid, AlertBox, QuickInfoGrid, Container } from '@/components/ui'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneButton } from '@/components/PhoneButton'
 import { BookTableButton } from '@/components/BookTableButton'
@@ -89,8 +89,8 @@ export default function FunctionRoomHirePage() {
       <HeroWrapper
         route="/function-room-hire"
         title="Function Room Hire"
-        description="From 10 to 200 guests — flexible spaces, free parking, and no hidden fees near Heathrow"
-       
+        description="Flexible rooms for 10–200 guests with free parking, AV support and custom catering. Tailored pricing for every event."
+
         tags={[
           { label: "🏢 Multiple Spaces", variant: "default" },
           { label: "💷 Flexible Pricing", variant: "success" },
@@ -98,29 +98,29 @@ export default function FunctionRoomHirePage() {
           { label: "📍 Near Heathrow", variant: "success" }
         ]}
         primaryCta={
-          <BookTableButton
+          <PhoneButton
+            phone="01753 682707"
             source="function_room_hero"
             variant="primary"
             size="lg"
-            context="function_room"
             className="w-full sm:w-auto"
           >
-            🏢 Book Function Room
-          </BookTableButton>
+            📞 Call to Check Availability
+          </PhoneButton>
         }
         secondaryCta={
           <>
-            <PhoneButton
-              phone="01753 682707"
-              source="function_room_hero"
-              variant="secondary"
-              size="lg"
-              className="w-full sm:w-auto"
-            >
-              📞 Call: 01753 682707
-            </PhoneButton>
+            <Link href="#enquiry" className="w-full sm:w-auto">
+              <Button
+                variant="secondary"
+                size="lg"
+                className="w-full sm:w-auto"
+              >
+                Enquire Online
+              </Button>
+            </Link>
             <Link href="https://wa.me/441753682707?text=Hi,%20I" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
-              <Button 
+              <Button
                 variant="secondary"
                 size="lg"
                 className="w-full sm:w-auto"
@@ -132,6 +132,13 @@ export default function FunctionRoomHirePage() {
         }
       />
       <TrustBar variant="private-hire" />
+
+      {/* Google Rating */}
+      <section className="bg-white py-6">
+        <Container>
+          <p className="text-center text-sm text-gray-600">⭐⭐⭐⭐⭐ <strong>Rated 4.6/5 on Google</strong> · Trusted for private events near Heathrow</p>
+        </Container>
+      </section>
 
       {/* Quick Summary */}
       <section className="section-spacing bg-white">
