@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { trackPageView, trackPhoneCall } from '@/lib/gtm-events'
+import { trackPhoneCall } from '@/lib/gtm-events'
 import { Section, Button } from '@/components/ui'
 
 export default function TestGTMPage() {
@@ -31,9 +31,6 @@ export default function TestGTMPage() {
 
     // Initial check
     checkGTM()
-
-    // Track page view
-    trackPageView('/test-gtm', 'GTM Test Page')
 
     // Set up interval to monitor dataLayer
     const interval = setInterval(checkGTM, 1000)

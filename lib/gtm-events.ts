@@ -74,15 +74,6 @@ export function pushToDataLayer(data: GTMEvent, options?: TrackingDispatchOption
   dispatchTrackingEvent(data, options)
 }
 
-// Page view tracking (for dynamic routes)
-export function trackPageView(url: string, title: string) {
-  pushToDataLayer({
-    event: 'page_view',
-    page_path: url,
-    page_title: title,
-  })
-}
-
 // Booking Wizard Tracking
 export function trackBookingWizardStep(step: number, stepName: string) {
   pushToDataLayer({
@@ -464,30 +455,6 @@ export function trackSocialClick(data: {
     social_url: data.url,
     click_source: data.source,
     share_title: data.title
-  })
-}
-
-// Enhanced Ecommerce for future online ordering
-export function trackAddToCart(item: {
-  itemId: string
-  itemName: string
-  itemCategory: string
-  price: number
-  quantity: number
-}) {
-  pushToDataLayer({
-    event: 'add_to_cart',
-    ecommerce: {
-      currency: 'GBP',
-      value: item.price * item.quantity,
-      items: [{
-        item_id: item.itemId,
-        item_name: item.itemName,
-        item_category: item.itemCategory,
-        price: item.price,
-        quantity: item.quantity
-      }]
-    }
   })
 }
 
