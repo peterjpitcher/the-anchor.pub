@@ -381,6 +381,7 @@ export function trackScrollDepth(milestone: number) {
 export function trackError(errorType: string, errorMessage: string, context?: string) {
   pushToDataLayer({
     event: 'error',
+    error_type: errorType,
     error_message: safeText(errorMessage),
     error_context: context
   })
@@ -594,12 +595,12 @@ export function trackModalClose(data: {
 
 export function trackFaqItemOpened(data: {
   questionText: string
-  pageLocation: string
+  faqPagePath: string
 }) {
   pushToDataLayer({
     event: 'faq_item_opened',
     question_text: safeText(data.questionText),
-    page_location: data.pageLocation,
+    faq_page_path: data.faqPagePath,
   })
 }
 

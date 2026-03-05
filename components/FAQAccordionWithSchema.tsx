@@ -30,7 +30,7 @@ export function FAQAccordionWithSchema({
     if (isOpening) {
       trackFaqItemOpened({
         questionText: faqs[index].question,
-        pageLocation: typeof window !== 'undefined' ? window.location.pathname : '',
+        faqPagePath: typeof window !== 'undefined' ? window.location.pathname : '',
       })
     }
   }

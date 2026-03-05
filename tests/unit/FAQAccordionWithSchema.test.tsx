@@ -22,7 +22,7 @@ describe('FAQAccordionWithSchema', () => {
     expect(trackFaqItemOpened).toHaveBeenCalledTimes(1)
     expect(trackFaqItemOpened).toHaveBeenCalledWith({
       questionText: 'What time do you open?',
-      pageLocation: expect.any(String),
+      faqPagePath: expect.any(String),
     })
   })
 
@@ -43,7 +43,7 @@ describe('FAQAccordionWithSchema', () => {
     fireEvent.click(screen.getByText('Do you take bookings?'))
     expect(trackFaqItemOpened).toHaveBeenCalledWith({
       questionText: 'Do you take bookings?',
-      pageLocation: expect.any(String),
+      faqPagePath: expect.any(String),
     })
   })
 })
