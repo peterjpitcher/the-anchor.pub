@@ -278,32 +278,25 @@ export default function HomePage() {
             columns={3}
             features={[
               {
-                icon: "🤝",
-                title: "Community Hub",
-                description: "A gathering place for locals and visitors alike. From quiz nights to celebrations, we're where memories are made.",
+                icon: "💰",
+                title: "Eat Well, Spend Less",
+                description: "Airport food costs twice as much. Enjoy a proper British pub meal from £10 — 7 minutes from the terminals, no terminal markup.",
                 variant: "colored",
                 color: "bg-anchor-sand/30",
                 className: "card-warm p-8 text-center"
               },
               {
-                icon: "🍽️",
-                title: "Honest Food",
-                description: "Traditional British pub classics. Famous Sunday roasts (pre-order required), fish & chips, burgers, and proper pub grub.",
+                icon: "✈️",
+                title: "Perfect for Heathrow Trips",
+                description: "Pre-flight meal, meeting arrivals, or killing layover time. Free parking, luggage welcome, and just 7 minutes from Terminal 5.",
                 variant: "colored",
                 color: "bg-anchor-sand/30",
                 className: "card-warm p-8 text-center"
               },
               {
-                icon: "🎉",
-                title: "Events & Entertainment",
-                description: (
-                  <>
-                    <Link href="/whats-on" className="text-anchor-gold hover:text-anchor-gold-light underline font-semibold">
-                      Hosted nights like Music Bingo with Nikki Manfadge
-                    </Link>{" "}
-                    plus quiz nights and one-off events. See <span className="font-semibold">/whats-on</span> for the latest details.
-                  </>
-                ),
+                icon: "🐕",
+                title: "Bring the Whole Family",
+                description: "Dog-friendly beer garden under the Heathrow flight path. Watch planes every 90 seconds. Kids and dogs both welcome.",
                 variant: "colored",
                 color: "bg-anchor-sand/30",
                 className: "card-warm p-8 text-center"
@@ -311,6 +304,13 @@ export default function HomePage() {
             ]}
             className="max-w-6xl mx-auto"
           />
+          <div className="mt-10 text-center">
+            <BookTableButton
+              source="homepage_features_cta"
+              variant="primary"
+              size="lg"
+            />
+          </div>
         </Container>
       </div>
 
@@ -689,7 +689,7 @@ export default function HomePage() {
           <div className="max-w-6xl mx-auto flex flex-col justify-center">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
-                Come Visit Us!
+                Ready for a proper pub near Heathrow?
               </h2>
             </div>
 
