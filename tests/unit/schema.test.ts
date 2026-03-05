@@ -1,4 +1,17 @@
 import { quizNightEventSeries, bingoEventSeries, specialAnnouncementSchema } from '@/lib/schema'
+import { getEnhancedSchemas } from '@/lib/schema-with-reviews'
+
+// Mock next/cache so unstable_cache passes through the function directly in tests
+jest.mock('next/cache', () => ({
+  unstable_cache: (fn: () => unknown) => fn,
+}))
+
+// Mock the API so tests don't make real network calls
+jest.mock('@/lib/api', () => ({
+  anchorAPI: {
+    getBusinessHours: jest.fn().mockResolvedValue(null),
+  },
+}))
 
 describe('schema dates', () => {
   it('quizNightEventSeries endDate is in the future', () => {
@@ -14,5 +27,12 @@ describe('schema dates', () => {
   it('specialAnnouncementSchema expires in the future', () => {
     const expires = new Date(specialAnnouncementSchema.expires as string)
     expect(expires.getTime()).toBeGreaterThan(Date.now() + 90 * 24 * 60 * 60 * 1000)
+  })
+})
+
+describe('priceRange', () => {
+  it('localBusinessSchema uses pound-sign priceRange', async () => {
+    const schemas = await getEnhancedSchemas()
+    expect((schemas.localBusinessSchema as any).priceRange).toBe('££')
   })
 })

@@ -68,7 +68,7 @@ const getEnhancedSchemasCached = unstable_cache(
         "bestRating": "5",
         "worstRating": "1"
       },
-      "priceRange": "moderate",
+      "priceRange": "££",
       "servesCuisine": ["British", "Pizza", "Pub Food", "Sunday Roast"],
       ...(openingHours.length ? { "openingHoursSpecification": openingHours } : {}),
       "hasMenu": "https://www.the-anchor.pub/food-menu",

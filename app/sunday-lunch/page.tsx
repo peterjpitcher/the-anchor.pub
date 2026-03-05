@@ -269,7 +269,7 @@ export default async function SundayLunchPage() {
       '@id': 'https://www.the-anchor.pub/#sunday-lunch',
       name: 'The Anchor - Sunday Lunch',
       servesCuisine: ['British', 'Sunday Lunch'],
-      priceRange: 'moderate',
+      priceRange: '££',
       telephone: '+441753682707',
       url: 'https://www.the-anchor.pub/sunday-lunch',
       address: {

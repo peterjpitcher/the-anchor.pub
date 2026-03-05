@@ -742,7 +742,7 @@ export default async function FoodMenuPage() {
               openingHoursSpecification: kitchenHoursSpecification,
 	              telephone: '+441753682707',
 	              url: 'https://www.the-anchor.pub',
-	              priceRange: 'moderate'
+	              priceRange: '££'
 	            },
             {
               '@context': 'https://schema.org',
