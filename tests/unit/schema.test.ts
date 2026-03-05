@@ -60,3 +60,17 @@ describe('ReserveAction', () => {
     expect(action?.result?.['@type']).toBe('FoodEstablishmentReservation')
   })
 })
+
+describe('event series ReserveAction', () => {
+  it('quizNightEventSeries has potentialAction ReserveAction', () => {
+    const action = (quizNightEventSeries as any).potentialAction
+    expect(action?.['@type']).toBe('ReserveAction')
+    expect(action?.target?.urlTemplate).toBe('https://www.the-anchor.pub/book-table')
+  })
+
+  it('bingoEventSeries has potentialAction ReserveAction', () => {
+    const action = (bingoEventSeries as any).potentialAction
+    expect(action?.['@type']).toBe('ReserveAction')
+    expect(action?.target?.urlTemplate).toBe('https://www.the-anchor.pub/book-table')
+  })
+})

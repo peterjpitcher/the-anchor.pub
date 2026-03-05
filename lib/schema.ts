@@ -232,6 +232,17 @@ export const quizNightEventSeries = {
   "performer": {
     "@type": "Organization",
     "name": "Question One Quiz Masters"
+  },
+  "potentialAction": {
+    "@type": "ReserveAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://www.the-anchor.pub/book-table",
+      "actionPlatform": [
+        "https://schema.org/DesktopWebPlatform",
+        "https://schema.org/MobileWebPlatform"
+      ]
+    }
   }
 }
 
@@ -270,6 +281,17 @@ export const bingoEventSeries = {
   },
   "organizer": {
     "@id": "https://www.the-anchor.pub/#organization"
+  },
+  "potentialAction": {
+    "@type": "ReserveAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://www.the-anchor.pub/book-table",
+      "actionPlatform": [
+        "https://schema.org/DesktopWebPlatform",
+        "https://schema.org/MobileWebPlatform"
+      ]
+    }
   }
 }
 
