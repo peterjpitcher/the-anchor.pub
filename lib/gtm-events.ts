@@ -78,8 +78,6 @@ export function pushToDataLayer(data: GTMEvent, options?: TrackingDispatchOption
 export function trackPageView(url: string, title: string) {
   pushToDataLayer({
     event: 'page_view',
-    event_category: 'Navigation',
-    event_label: url,
     page_path: url,
     page_title: title,
   })
@@ -89,9 +87,6 @@ export function trackPageView(url: string, title: string) {
 export function trackBookingWizardStep(step: number, stepName: string) {
   pushToDataLayer({
     event: 'booking_wizard_step',
-    event_category: 'Booking Wizard',
-    event_action: 'Step Viewed',
-    event_label: stepName,
     step_number: step,
     step_name: stepName
   })
@@ -104,8 +99,6 @@ export function trackBookingWizardComplete(bookingData: {
 }) {
   pushToDataLayer({
     event: 'booking_wizard_complete',
-    event_category: 'Booking Wizard',
-    event_action: 'Booking Completed',
     booking_type: bookingData.booking_type,
     party_size: bookingData.party_size,
     is_sunday_lunch: bookingData.is_sunday
@@ -122,8 +115,6 @@ export function trackEventView(eventData: {
 }) {
   pushToDataLayer({
     event: 'view_event',
-    event_category: 'Event Engagement',
-    event_label: eventData.eventName,
     event_id: eventData.eventId,
     event_date: eventData.eventDate,
     event_type: eventData.eventCategory,
@@ -138,8 +129,6 @@ export function trackEventBookingStart(eventData: {
 }) {
   pushToDataLayer({
     event: 'begin_checkout',
-    event_category: 'Event Booking',
-    event_label: eventData.eventName,
     event_id: eventData.eventId,
     value: eventData.eventPrice,
     currency: 'GBP'
@@ -154,8 +143,6 @@ export function trackEventBookingComplete(eventData: {
 }) {
   pushToDataLayer({
     event: 'purchase',
-    event_category: 'Event Booking',
-    event_label: eventData.eventName,
     event_id: eventData.eventId,
     quantity: eventData.tickets,
     value: eventData.totalValue,
@@ -214,8 +201,6 @@ export function trackTableBookingClick(data: TableBookingClickInput) {
 
   pushToDataLayer({
     event: 'table_booking_click',
-    event_category: 'Restaurant',
-    event_label: source,
     booking_method: 'internal_management_platform',
     booking_source: source,
     ...metadata
@@ -229,8 +214,6 @@ export function trackTableBookingView(data: {
 }) {
   pushToDataLayer({
     event: 'table_booking_view',
-    event_category: 'Table Booking',
-    event_label: 'Form Viewed',
     booking_source: data.source,
     device_type: data.deviceType
   })
@@ -242,8 +225,6 @@ export function trackTableBookingStart(data: {
 }) {
   pushToDataLayer({
     event: 'table_booking_start',
-    event_category: 'Table Booking',
-    event_label: 'Booking Started',
     booking_source: data.source,
     device_type: data.deviceType
   })
@@ -258,8 +239,6 @@ export function trackTableBookingAvailabilityCheck(data: {
 }) {
   pushToDataLayer({
     event: 'table_booking_availability_check',
-    event_category: 'Table Booking',
-    event_label: 'Availability Checked',
     party_size: data.partySize,
     booking_date: data.bookingDate,
     booking_time: data.bookingTime,
@@ -277,8 +256,6 @@ export function trackTableBookingDetailsEntered(data: {
 }) {
   pushToDataLayer({
     event: 'table_booking_details_entered',
-    event_category: 'Table Booking',
-    event_label: 'Details Entered',
     party_size: data.partySize,
     booking_date: data.bookingDate,
     booking_time: data.bookingTime,
@@ -296,8 +273,6 @@ export function trackTableBookingSubmit(data: {
 }) {
   pushToDataLayer({
     event: 'table_booking_submit',
-    event_category: 'Table Booking',
-    event_label: 'Booking Submitted',
     party_size: data.partySize,
     booking_date: data.bookingDate,
     booking_time: data.bookingTime,
@@ -316,8 +291,6 @@ export function trackTableBookingSuccess(data: {
 }) {
   pushToDataLayer({
     event: 'table_booking_success',
-    event_category: 'Table Booking',
-    event_label: 'Booking Confirmed',
     party_size: data.partySize,
     booking_date: data.bookingDate,
     booking_time: data.bookingTime,
@@ -338,8 +311,6 @@ export function trackTableBookingError(data: {
 }) {
   pushToDataLayer({
     event: 'table_booking_error',
-    event_category: 'Table Booking',
-    event_label: 'Booking Error',
     error_type: data.errorType,
     error_message: data.errorMessage,
     party_size: data.partySize,
@@ -374,8 +345,6 @@ export function trackTableBookingFunnel(data: {
 
   const eventData: GTMEvent = {
     event: 'table_booking_funnel',
-    event_category: 'Table Booking Funnel',
-    event_label: stepLabels[data.step],
     funnel_step: data.step,
     booking_source: data.source,
     device_type: data.deviceType
@@ -395,8 +364,6 @@ export function trackTableBookingFunnel(data: {
 export function trackMenuView(menuType: 'food' | 'drinks' | 'sunday') {
   pushToDataLayer({
     event: 'view_menu',
-    event_category: 'Restaurant',
-    event_label: menuType,
     menu_type: menuType
   })
 }
@@ -404,8 +371,6 @@ export function trackMenuView(menuType: 'food' | 'drinks' | 'sunday') {
 export function trackPhoneCallClick(data: { phone?: string; source: string }) {
   pushToDataLayer({
     event: 'phone_call_click',
-    event_category: 'Contact',
-    event_label: data.phone ?? data.source,
     contact_method: 'phone',
     contact_source: data.source,
     phone: data.phone
@@ -420,8 +385,6 @@ export function trackPhoneCall(context: string) {
 export function trackEmailClick(data: { email: string; source: string; subject?: string }) {
   pushToDataLayer({
     event: 'email_click',
-    event_category: 'Contact',
-    event_label: data.email,
     contact_method: 'email',
     contact_source: data.source,
     email_subject: data.subject
@@ -431,8 +394,6 @@ export function trackEmailClick(data: { email: string; source: string; subject?:
 export function trackWhatsAppClick(context: string) {
   pushToDataLayer({
     event: 'whatsapp_click',
-    event_category: 'Contact',
-    event_label: context,
     contact_method: 'whatsapp',
     contact_source: context
   })
@@ -445,8 +406,6 @@ export function trackDirectionsClick(
 ) {
   pushToDataLayer({
     event: 'directions_click',
-    event_category: 'Navigation',
-    event_label: source,
     transport_method: 'driving',
     directions_source: source,
     from_location: data?.fromLocation,
@@ -458,9 +417,7 @@ export function trackDirectionsClick(
 // Social proof tracking
 export function trackReviewClick(platform: string) {
   pushToDataLayer({
-    event: 'review_interaction',
-    event_category: 'Social Proof',
-    event_label: platform
+    event: 'review_interaction'
   })
 }
 
@@ -471,8 +428,6 @@ export function trackViewItem(data: {
 }) {
   pushToDataLayer({
     event: 'view_item',
-    event_category: data.category,
-    event_label: data.name,
     item_category: data.category,
     item_name: data.name,
     item_id: data.id,
@@ -488,8 +443,6 @@ export function trackFilterChange(data: {
 }) {
   pushToDataLayer({
     event: 'filter_change',
-    event_category: 'Filter',
-    event_label: `${data.filterType}:${data.value}`,
     filter_context: data.context,
     filter_type: data.filterType,
     filter_value: data.value,
@@ -506,8 +459,6 @@ export function trackSocialClick(data: {
 }) {
   pushToDataLayer({
     event: 'social_click',
-    event_category: 'Social',
-    event_label: data.label ?? data.platform,
     social_platform: data.platform,
     social_url: data.url,
     click_source: data.source,
@@ -525,8 +476,6 @@ export function trackAddToCart(item: {
 }) {
   pushToDataLayer({
     event: 'add_to_cart',
-    event_category: 'Ecommerce',
-    event_label: item.itemName,
     ecommerce: {
       currency: 'GBP',
       value: item.price * item.quantity,
@@ -544,17 +493,13 @@ export function trackAddToCart(item: {
 // Custom events for business insights
 export function trackOpeningHoursCheck() {
   pushToDataLayer({
-    event: 'check_opening_hours',
-    event_category: 'User Behaviour',
-    event_label: 'Status Bar'
+    event: 'check_opening_hours'
   })
 }
 
 export function trackFlightStatusCheck(terminal: string) {
   pushToDataLayer({
     event: 'flight_status_check',
-    event_category: 'Travel Features',
-    event_label: terminal,
     terminal: terminal
   })
 }
@@ -570,8 +515,6 @@ export function trackNavigationClick(data: {
 }) {
   pushToDataLayer({
     event: 'navigation_click',
-    event_category: 'Navigation',
-    event_label: data.label,
     navigation_url: data.url,
     navigation_level: data.level,
     device_type: data.deviceType,
@@ -594,8 +537,6 @@ export function trackScrollDepth(milestone: number) {
 export function trackError(errorType: string, errorMessage: string, context?: string) {
   pushToDataLayer({
     event: 'error',
-    event_category: 'Site Errors',
-    event_label: errorType,
     error_message: safeText(errorMessage),
     error_context: context
   })
@@ -607,8 +548,6 @@ export function trackFormStart(form: FormEventInput) {
 
   pushToDataLayer({
     event: 'form_start',
-    event_category: 'Form',
-    event_label: name,
     form_name: name,
     ...metadata
   })
@@ -619,8 +558,6 @@ export function trackFormComplete(form: FormEventInput) {
 
   pushToDataLayer({
     event: 'form_complete',
-    event_category: 'Form',
-    event_label: name,
     form_name: name,
     ...metadata
   })
@@ -631,8 +568,6 @@ export function trackFormAbandon(form: FormEventInput, lastField?: string) {
 
   pushToDataLayer({
     event: 'form_abandon',
-    event_category: 'Form',
-    event_label: name,
     form_name: name,
     last_field: lastField,
     ...metadata
@@ -652,8 +587,6 @@ interface CtaEvent {
 export function trackCtaClick(data: CtaEvent) {
   const payload = {
     event: 'cta_click',
-    event_category: 'CTA',
-    event_label: data.label,
     cta_id: data.id,
     cta_label: data.label,
     cta_location: data.location,
@@ -669,8 +602,6 @@ export function trackCtaClick(data: CtaEvent) {
   if (data.context && foodContexts.has(data.context)) {
     pushToDataLayer({
       event: 'food_cta_click',
-      event_category: 'Food CTA',
-      event_label: data.label,
       cta_id: data.id,
       cta_label: data.label,
       cta_location: data.location,
@@ -690,8 +621,6 @@ export function trackBannerEvent(data: {
 }) {
   pushToDataLayer({
     event: 'banner_interaction',
-    event_category: 'Announcement',
-    event_label: data.label ?? data.id,
     banner_id: data.id,
     banner_action: data.action,
     banner_campaign: data.campaign
@@ -707,8 +636,6 @@ export function trackAnchorNavClick(data: {
 
   pushToDataLayer({
     event: 'anchor_nav_click',
-    event_category: 'Navigation',
-    event_label: data.section,
     section: data.section,
     device_type: data.deviceType,
     location: data.location,
@@ -726,8 +653,6 @@ export function trackContextCtaClick(data: {
 
   pushToDataLayer({
     event: 'context_cta_click',
-    event_category: 'CTA',
-    event_label: data.label,
     label: data.label,
     destination: data.destination,
     context: data.context,
@@ -746,8 +671,6 @@ export function trackStickyCtaShown(data: {
 
   pushToDataLayer({
     event: 'sticky_cta_shown',
-    event_category: 'CTA',
-    event_label: data.context,
     seconds_visible: data.secondsVisible,
     context: data.context,
     device_type: data.deviceType,
@@ -763,8 +686,6 @@ export function trackCookieConsent(data: {
 }) {
   pushToDataLayer({
     event: 'cookie_consent_update',
-    event_category: 'Consent',
-    event_label: data.action,
     consent_analytics: data.analytics,
     consent_marketing: data.marketing,
     consent_preferences: data.preferences
@@ -787,8 +708,6 @@ export function trackModalOpen(data: {
 }) {
   pushToDataLayer({
     event: 'modal_open',
-    event_category: 'Overlay',
-    event_label: data.id,
     modal_id: data.id,
     modal_title: safeText(data.title),
     modal_size: data.size,
@@ -806,8 +725,6 @@ export function trackModalEngage(data: {
 }) {
   pushToDataLayer({
     event: 'modal_engage',
-    event_category: 'Overlay',
-    event_label: data.id,
     modal_id: data.id,
     modal_title: safeText(data.title),
     engagement_type: data.interaction ?? 'click',
@@ -824,8 +741,6 @@ export function trackModalClose(data: {
 }) {
   pushToDataLayer({
     event: 'modal_close',
-    event_category: 'Overlay',
-    event_label: data.id,
     modal_id: data.id,
     modal_title: safeText(data.title),
     modal_reason: data.reason ?? 'programmatic',
