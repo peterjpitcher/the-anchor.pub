@@ -299,8 +299,8 @@ export default async function SundayLunchPage() {
       },
       aggregateRating: {
         '@type': 'AggregateRating',
-        ratingValue: '4.8',
-        reviewCount: '127',
+        ratingValue: '4.6',
+        reviewCount: '312',
         bestRating: '5',
         worstRating: '1'
       },

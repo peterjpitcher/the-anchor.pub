@@ -159,7 +159,7 @@ export default function HomePage() {
             </div>
 
             <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-white shadow-sm backdrop-blur-sm">
-              ⭐ 4.8/5 · 127 Google Reviews · Highest-rated non-airport pub near Heathrow
+              ⭐ Rated 4.6/5 on Google · Highest-rated non-airport pub near Heathrow
             </span>
           </div>
         }
