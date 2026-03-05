@@ -210,16 +210,6 @@ export function trackTableBookingFunnel(data: {
   source: string
   deviceType: 'mobile' | 'desktop'
 }) {
-  const stepLabels = {
-    view: 'Form Viewed',
-    start: 'Booking Started',
-    availability_check: 'Availability Checked',
-    details_entered: 'Details Entered',
-    submit: 'Booking Submitted',
-    success: 'Booking Confirmed',
-    error: 'Booking Error'
-  }
-
   const eventData: GTMEvent = {
     event: 'table_booking_funnel',
     funnel_step: data.step,
