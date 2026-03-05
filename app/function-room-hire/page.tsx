@@ -59,6 +59,17 @@ const functionRoomSchema = {
     price: "0",
     priceCurrency: "GBP",
     description: "Flexible venue hire pricing - tailored to your event"
+  },
+  potentialAction: {
+    "@type": "CommunicateAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://www.the-anchor.pub/private-hire#enquiry",
+      "actionPlatform": [
+        "https://schema.org/DesktopWebPlatform",
+        "https://schema.org/MobileWebPlatform"
+      ]
+    }
   }
 }
 
