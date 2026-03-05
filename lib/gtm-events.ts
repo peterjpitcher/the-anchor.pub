@@ -613,3 +613,20 @@ export function trackPrivateHireEnquirySubmitted(data: {
     page_source: data.pageSource,
   }, { sendToApi: true })
 }
+
+export function trackWebVitals(data: {
+  metricName: string
+  metricValue: number
+  metricRating: string
+  metricDelta?: number
+  metricId?: string
+}) {
+  pushToDataLayer({
+    event: 'web_vitals_reported',
+    metric_name: data.metricName,
+    metric_value: Math.round(data.metricName === 'CLS' ? data.metricValue * 1000 : data.metricValue),
+    metric_rating: data.metricRating,
+    metric_delta: data.metricDelta,
+    metric_id: data.metricId,
+  })
+}
