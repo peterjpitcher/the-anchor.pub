@@ -33,7 +33,7 @@ export default function PrivateHirePage() {
             <HeroWrapper
                 route="/private-hire"
                 title="Private Hire & Events"
-                description="The perfect venue for your special occasion near Heathrow"
+                description="Private rooms for 10–200 guests · Free parking for all · Buffet packages available · 7 mins from Heathrow"
                
                 tags={[
                     { label: "📍 7 Mins from Heathrow", variant: "success" },
@@ -42,29 +42,34 @@ export default function PrivateHirePage() {
                     { label: "🍽️ Private Catering", variant: "success" }
                 ]}
                 primaryCta={
-                    <Link href="/private-hire#enquiry" className="w-full sm:w-auto">
-                        <Button variant="primary" size="lg" className="w-full sm:w-auto">
-                            Enquire Now
-                        </Button>
-                    </Link>
-                }
-                secondaryCta={
                     <PhoneButton
                         phone="01753 682707"
-                        source="private_hire_hero"
-                        variant="secondary"
+                        source="private_hire_hero_primary"
+                        variant="primary"
                         size="lg"
+                        className="w-full sm:w-auto"
                     >
-                        Call 01753 682707
+                        📞 Call to Discuss Your Event
                     </PhoneButton>
+                }
+                secondaryCta={
+                    <Link href="/private-hire#enquiry" className="w-full sm:w-auto">
+                        <Button variant="secondary" size="lg" className="w-full sm:w-auto">
+                            Enquire Online
+                        </Button>
+                    </Link>
                 }
             />
 
             <section className="py-12 bg-white">
                 <Container>
                     <PageTitle className="text-center mb-8" seo={{ structured: true, speakable: true }}>
-                        Hosting Life's Important Moments
+                        Your Event, Your Space — Private Hire at The Anchor
                     </PageTitle>
+
+                    <div className="flex justify-center mb-10">
+                        <p className="text-sm text-gray-600">⭐⭐⭐⭐⭐ <strong>Rated 4.6/5 on Google</strong> · Trusted for private events near Heathrow</p>
+                    </div>
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
                         {/* Wakes */}
