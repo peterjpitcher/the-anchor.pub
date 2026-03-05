@@ -105,7 +105,6 @@ export function generateSuitableForDiet(item: { vegetarian?: boolean, allergens?
   return diets.length > 0 ? diets : undefined
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function generateNutritionInfo(_itemName: string, _category: string): undefined {
   // NutritionInformation requires single numeric values, not ranges.
   // Return undefined until actual measured values are available.
