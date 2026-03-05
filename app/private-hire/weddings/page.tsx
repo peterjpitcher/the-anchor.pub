@@ -36,6 +36,7 @@ export default function WeddingsPage() {
         <>
             <HeroWrapper
                 route="/private-hire/weddings"
+                variant="feature"
                 title="Weddings & Engagements"
                 description="Relaxed celebrations for the modern couple"
                

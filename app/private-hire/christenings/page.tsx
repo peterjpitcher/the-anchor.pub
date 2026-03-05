@@ -36,6 +36,7 @@ export default function ChristeningsPage() {
         <>
             <HeroWrapper
                 route="/private-hire/christenings"
+                variant="feature"
                 title="Christenings & Naming Ceremonies"
                 description="Celebrate with family and friends in a relaxed, child-friendly setting"
                

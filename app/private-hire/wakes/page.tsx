@@ -36,6 +36,7 @@ export default function WakesPage() {
         <>
             <HeroWrapper
                 route="/private-hire/wakes"
+                variant="feature"
                 title="Wakes & Funeral Receptions"
                 description="A peaceful, respectful venue for gathering with family and friends"
                

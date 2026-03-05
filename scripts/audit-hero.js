@@ -28,6 +28,7 @@ const EXEMPT_PAGES = new Set([
 ])
 
 const DEFAULT_HEADER_IMAGE_ALLOWED_ROUTES = new Set([
+  '/accessibility',
   '/blog',
   '/blog/tags',
   '/burger-menu',
@@ -60,11 +61,24 @@ const DEFAULT_HEADER_IMAGE_ALLOWED_ROUTES = new Set([
   '/privacy-policy',
   '/private-party-venue',
   '/pub-garden-heathrow',
+  '/pub-near-crowne-plaza-heathrow',
+  '/pub-near-hilton-heathrow',
+  '/pub-near-holiday-inn-heathrow',
+  '/pub-near-ibis-heathrow',
+  '/pub-near-marriott-heathrow',
+  '/pub-near-novotel-heathrow',
+  '/pub-near-premier-inn-heathrow',
+  '/pub-near-radisson-blu-heathrow',
+  '/pub-near-renaissance-heathrow',
+  '/pub-near-sofitel-heathrow',
+  '/pub-near-travelodge-heathrow',
   '/pubs-in-stanwell',
   '/quiz-night',
   '/restaurants-near-heathrow',
+  '/safety-and-respect',
   '/sitemap-page',
   '/summer-garden-parties',
+  '/sustainability',
   '/valentines-day',
   '/wraysbury-pub',
 ])
@@ -276,12 +290,12 @@ function audit() {
       }
 
       if (PRIVATE_HIRE_CHILD_ROUTES.has(hero.routeLiteral)) {
-        if (hero.variantLiteral !== 'promo') {
+        if (hero.variantLiteral !== 'feature') {
           pushIssue(
             issues,
             pageFile,
             hero.line,
-            `Private-hire child route "${hero.routeLiteral}" must use variant="promo".`
+            `Private-hire child route "${hero.routeLiteral}" must use variant="feature".`
           )
         }
       }

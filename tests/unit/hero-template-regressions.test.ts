@@ -19,16 +19,16 @@ describe('hero template regressions', () => {
     expect(source).toMatch(/<HeroWrapper/)
   })
 
-  it('keeps private-hire child pages on promo hero variant', () => {
+  it('keeps private-hire child pages on feature hero variant', () => {
     const engagement = read('app/private-hire/engagement-parties/page.tsx')
     const milestone = read('app/private-hire/milestone-birthdays/page.tsx')
     const genderReveal = read('app/private-hire/gender-reveal/page.tsx')
     const retirement = read('app/private-hire/retirement-parties/page.tsx')
 
-    expect(engagement).toMatch(/route="\/private-hire\/engagement-parties"[\s\S]*?variant="promo"/)
-    expect(milestone).toMatch(/route="\/private-hire\/milestone-birthdays"[\s\S]*?variant="promo"/)
-    expect(genderReveal).toMatch(/route="\/private-hire\/gender-reveal"[\s\S]*?variant="promo"/)
-    expect(retirement).toMatch(/route="\/private-hire\/retirement-parties"[\s\S]*?variant="promo"/)
+    expect(engagement).toMatch(/route="\/private-hire\/engagement-parties"[\s\S]*?variant="feature"/)
+    expect(milestone).toMatch(/route="\/private-hire\/milestone-birthdays"[\s\S]*?variant="feature"/)
+    expect(genderReveal).toMatch(/route="\/private-hire\/gender-reveal"[\s\S]*?variant="feature"/)
+    expect(retirement).toMatch(/route="\/private-hire\/retirement-parties"[\s\S]*?variant="feature"/)
   })
 
   it('uses booking-intent primary CTAs on terminal hero templates', () => {

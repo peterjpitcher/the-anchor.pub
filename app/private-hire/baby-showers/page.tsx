@@ -36,6 +36,7 @@ export default function BabyShowersPage() {
         <>
             <HeroWrapper
                 route="/private-hire/baby-showers"
+                variant="feature"
                 title="Baby Showers"
                 description="Welcoming new arrivals in style"
                
