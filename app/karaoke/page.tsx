@@ -31,6 +31,7 @@ import { staticEvents } from '@/lib/static-events'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { BookTableButton } from '@/components/BookTableButton'
+import { RegretReduction } from '@/components/psychology'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
@@ -297,6 +298,9 @@ export default async function KaraokePage() {
                                     Join us for free-entry karaoke. Thousands of songs, no cover charge, and a crowd that cheers for everyone.
                                 </p>
                 <div className="space-y-3">
+                  {nextEvent && (
+                    <RegretReduction variant="booking" className="mb-4" />
+                  )}
                   {nextEvent ? (
                     <EventBookingButton event={nextEvent} className="w-full" source="karaoke_next_event" />
                   ) : (

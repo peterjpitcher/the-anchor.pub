@@ -31,6 +31,7 @@ import { staticEvents } from '@/lib/static-events'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { BookTableButton } from '@/components/BookTableButton'
+import { RegretReduction, PsychBadge } from '@/components/psychology'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
@@ -289,6 +290,9 @@ export default async function CashBingoPage() {
           <p className="text-lg text-gray-700 text-center max-w-3xl mx-auto">
             Searching for cash bingo games near Heathrow? Every few weeks we turn The Anchor into a buzzing bingo hall and bingo room with bingo games for money, cash prizes, hot food from the kitchen and a friendly crowd of locals, cabin crew and Stanwell Moor neighbours. {heroDescription}
           </p>
+          <div className="flex justify-center mt-4">
+            <PsychBadge variant="prize" label="Cash prizes every game" />
+          </div>
         </Container>
       </Section>
 
@@ -304,6 +308,9 @@ export default async function CashBingoPage() {
 	                  GBP 10 cash book includes all ten bingo games, two breaks and eligibility for instant cash prizes, the rolling snowball bingo bonus (we add GBP 20 and two extra calls every time it rolls over) and the jackpot bingo pot.
 	                </p>
                 <div className="space-y-3">
+                  {nextEvent && (
+                    <RegretReduction variant="booking" className="mb-4" />
+                  )}
                   {nextEvent ? (
                     <EventBookingButton event={nextEvent} className="w-full" source="cash_bingo_next_event" />
                   ) : (

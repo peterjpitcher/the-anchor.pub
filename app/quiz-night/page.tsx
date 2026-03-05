@@ -20,6 +20,7 @@ import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { EventSchema } from '@/components/seo/EventSchema'
 import { EventBookingButton } from '@/components/EventBookingButton'
 import { BookTableButton } from '@/components/BookTableButton'
+import { RegretReduction } from '@/components/psychology'
 import {
   getEventCategories,
   getUpcomingEventsByCategory,
@@ -362,6 +363,9 @@ export default async function QuizNightPage() {
                   <p className="text-gray-700 whitespace-pre-line">{nextEvent.longDescription}</p>
                 )}
                 <div className="space-y-3">
+                  {nextEvent && (
+                    <RegretReduction variant="booking" className="mb-4" />
+                  )}
                   {nextEvent ? (
                     <EventBookingButton event={nextEvent} className="w-full" source="quiz_night_next_event" />
                   ) : (
