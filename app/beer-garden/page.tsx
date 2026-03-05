@@ -90,7 +90,7 @@ export default async function BeerGardenPage() {
       <HeroWrapper
         route="/beer-garden"
         title="Beer Garden & Plane Spotting"
-        description="Watch aircraft every 90 seconds while enjoying a pint"
+        description="Watch aircraft every 90 seconds while enjoying a pint — food from £10, dogs welcome"
         variant="default"
         tags={[
           { label: '🛬 Every 90 Seconds', variant: 'success' },
@@ -124,15 +124,6 @@ export default async function BeerGardenPage() {
                 className="w-full sm:w-auto"
               >
                 🍺 View Drinks Menu
-              </Button>
-            </Link>
-            <Link href="/find-us">
-              <Button
-                variant="secondary"
-                size="lg"
-                className="w-full sm:w-auto"
-              >
-                📍 Get Directions
               </Button>
             </Link>
           </>
@@ -211,6 +202,13 @@ export default async function BeerGardenPage() {
           </div>
         </Container>
       </Section>
+
+      {/* Google Rating */}
+      <section className="bg-white py-6">
+        <Container>
+          <p className="text-center text-sm text-gray-600">⭐⭐⭐⭐⭐ <strong>Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
+        </Container>
+      </section>
 
       {/* Page Title for SEO */}
       <section className="bg-white py-8">
@@ -342,12 +340,6 @@ export default async function BeerGardenPage() {
                   description: "Safe enclosed space, children welcome until 8pm",
                   className: "text-center"
                 },
-                {
-                  icon: "🚬",
-                  title: "Smoking Area",
-                  description: "Designated zones with ashtrays provided",
-                  className: "text-center"
-                }
               ]}
             />
           </div>
