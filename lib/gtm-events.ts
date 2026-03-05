@@ -417,7 +417,8 @@ export function trackDirectionsClick(
 // Social proof tracking
 export function trackReviewClick(platform: string) {
   pushToDataLayer({
-    event: 'review_interaction'
+    event: 'review_interaction',
+    review_platform: platform,
   })
 }
 
