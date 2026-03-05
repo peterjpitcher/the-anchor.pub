@@ -1,5 +1,10 @@
 [
   {
+    "source": "/pizza-tuesday",
+    "destination": "/food-menu",
+    "permanent": true
+  },
+  {
     "source": "/live-sport/premier-league",
     "destination": "/live-sport",
     "permanent": true

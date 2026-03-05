@@ -53,7 +53,6 @@ const sitemapSections: SitemapSection[] = [
       { label: 'Pizza Menu', href: '/pizza-menu' },
       { label: 'Burger Menu', href: '/burger-menu' },
       { label: 'Fish & Chips', href: '/fish-and-chips-heathrow' },
-      { label: 'Pizza Tuesday', href: '/pizza-tuesday' },
       { label: 'Drinks Menu', href: '/drinks' },
       { label: "Manager's Special", href: '/drinks/managers-special' },
       { label: 'Baby Guinness', href: '/drinks/baby-guinness' },

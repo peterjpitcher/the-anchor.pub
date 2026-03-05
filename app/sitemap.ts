@@ -82,7 +82,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/pizza-menu',
     '/burger-menu',
     '/fish-and-chips-heathrow',
-    '/pizza-tuesday',
     '/drinks',
     '/drinks/managers-special',
     '/drinks/baby-guinness',
