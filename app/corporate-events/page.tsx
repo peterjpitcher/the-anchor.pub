@@ -12,6 +12,7 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
+import { TrustBar, ValueProofStrip, RegretReduction } from '@/components/psychology'
 
 export const metadata: Metadata = {
   title: 'Heathrow Corporate Event Venue - Meeting Rooms with Parking | The Anchor',
@@ -52,7 +53,7 @@ export default function CorporateEventsPage() {
       <HeroWrapper
         route="/corporate-events"
         title="Corporate Event Venue Near Heathrow"
-        description="Professional meeting spaces and business event hosting 7 minutes from Terminal 5"
+        description="Host up to 200 guests — or keep it small from 10 — 7 minutes from Terminal 5 with free parking"
        
         tags={[
           { label: "✈️ 7 mins from Heathrow", variant: "success" },
@@ -87,6 +88,7 @@ export default function CorporateEventsPage() {
           </>
         }
       />
+      <TrustBar variant="private-hire" />
 
       {/* Page Title */}
       <section className="py-8 bg-white">
@@ -573,6 +575,19 @@ export default function CorporateEventsPage() {
           </div>
         </Container>
       </section>
+
+      <div className="section-spacing bg-white">
+        <Container>
+          <div className="max-w-3xl mx-auto">
+            <div className="mb-6">
+              <ValueProofStrip variant="private-hire" />
+            </div>
+            <div className="mb-4">
+              <RegretReduction variant="enquiry" />
+            </div>
+          </div>
+        </Container>
+      </div>
 
       <PrivateBookingSection eventType="Corporate Event" />
 

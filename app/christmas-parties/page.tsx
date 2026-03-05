@@ -4,6 +4,7 @@ import { ChristmasPartiesPageClient } from './client-components'
 import { ChristmasHeroPrimaryCta, ChristmasHeroSecondaryCta } from './christmas-hero-ctas'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { TrustBar } from '@/components/psychology'
 
 export const metadata: Metadata = {
   title: 'Christmas Parties Near Heathrow & Staines | The Anchor',
@@ -184,6 +185,7 @@ export default function ChristmasPartiesPage() {
         primaryCta={<ChristmasHeroPrimaryCta />}
         secondaryCta={<ChristmasHeroSecondaryCta />}
       />
+      <TrustBar variant="private-hire" />
       <ChristmasPartiesPageClient structuredData={structuredData} />
     </>
   )

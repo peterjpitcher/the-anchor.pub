@@ -15,6 +15,7 @@ import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 import { JsonLd } from '@/components/JsonLd'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
+import { TrustBar, ValueProofStrip, RegretReduction } from '@/components/psychology'
 
 export const metadata: Metadata = {
   title: 'Function Room Hire Near Heathrow & Staines | The Anchor',
@@ -88,7 +89,7 @@ export default function FunctionRoomHirePage() {
       <HeroWrapper
         route="/function-room-hire"
         title="Function Room Hire"
-        description="Versatile event spaces with flexible pricing"
+        description="From 10 to 200 guests — flexible spaces, free parking, and no hidden fees near Heathrow"
        
         tags={[
           { label: "🏢 Multiple Spaces", variant: "default" },
@@ -130,6 +131,7 @@ export default function FunctionRoomHirePage() {
           </>
         }
       />
+      <TrustBar variant="private-hire" />
 
       {/* Quick Summary */}
       <section className="section-spacing bg-white">
@@ -600,6 +602,26 @@ export default function FunctionRoomHirePage() {
               ]}
               columns={4}
             />
+          </div>
+        </div>
+      </section>
+
+      <section className="section-spacing bg-white">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto">
+            <div className="rounded-xl bg-anchor-green/5 border border-anchor-green/10 p-5 mb-6">
+              <h3 className="font-semibold text-anchor-green mb-3">Which space suits your event?</h3>
+              <ul className="space-y-2 text-sm text-gray-700">
+                <li>• <strong>10–50 guests</strong> — our private dining room, ideal for dinners and celebrations</li>
+                <li>• <strong>50–200 guests</strong> — full venue hire, perfect for large parties and corporate events</li>
+              </ul>
+            </div>
+            <div className="mb-6">
+              <ValueProofStrip variant="private-hire" />
+            </div>
+            <div className="mb-4">
+              <RegretReduction variant="enquiry" />
+            </div>
           </div>
         </div>
       </section>

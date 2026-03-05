@@ -15,6 +15,7 @@ import { Alert } from '@/components/ui/feedback/Alert'
 import { trackBannerEvent, trackCtaClick, trackEmailClick, trackFormComplete, trackFormStart, trackPhoneCallClick } from '@/lib/gtm-events'
 import { CHRISTMAS_OPEN_FORM_EVENT } from './christmas-hero-ctas'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { ValueProofStrip, RegretReduction } from '@/components/psychology'
 
 const CONTACT_EMAIL = 'manager@the-anchor.pub'
 const CONTACT_PHONE = '01753 682707'
@@ -1058,6 +1059,14 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
 
       <Section className="py-16 bg-white">
         <Container>
+          <div className="max-w-3xl mx-auto mb-6">
+            <div className="mb-6">
+              <ValueProofStrip variant="private-hire" />
+            </div>
+            <div className="mb-4">
+              <RegretReduction variant="enquiry" />
+            </div>
+          </div>
           <div ref={enquiryRef} id="christmas-enquiry" className="max-w-3xl mx-auto scroll-mt-32">
             <ChristmasEnquiryForm
               context={context}
