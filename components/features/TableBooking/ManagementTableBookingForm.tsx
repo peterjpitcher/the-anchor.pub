@@ -474,6 +474,33 @@ function normalizeSuggestedEvents(payload: any, targetDate: string): SuggestedEv
   })
 }
 
+function BookingProgressBar({ currentStep, totalSteps }: { currentStep: number; totalSteps: number }) {
+  const pct = Math.round((currentStep / totalSteps) * 100)
+  const isAlmostDone = currentStep >= totalSteps - 1
+
+  return (
+    <div className="mb-4" aria-live="polite">
+      <div className="flex justify-between text-xs text-gray-500 mb-1">
+        <span>Step {currentStep} of {totalSteps}</span>
+        {isAlmostDone && (
+          <span className="text-anchor-green font-medium">Almost there!</span>
+        )}
+      </div>
+      <div className="h-1.5 w-full rounded-full bg-gray-100">
+        <div
+          className="h-1.5 rounded-full bg-anchor-green transition-all duration-300"
+          style={{ width: `${pct}%` }}
+          role="progressbar"
+          aria-valuenow={currentStep}
+          aria-valuemin={1}
+          aria-valuemax={totalSteps}
+          aria-label={`Booking step ${currentStep} of ${totalSteps}`}
+        />
+      </div>
+    </div>
+  )
+}
+
 export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFormProps) {
   const mothersDayPrefillRequested = prefill?.mothersDay === true
 
@@ -1458,13 +1485,20 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     return (
       <Card variant="elevated">
         <CardBody className="space-y-4">
-          <Alert variant="success" title="Booking confirmed">
+          <Alert variant="success" title={"You're all booked in — see you soon!"}>
             <p>
               Reference: <strong>{result.booking_reference || 'Provided by SMS shortly'}</strong>
             </p>
             {result.table_name ? <p className="mt-1">Allocated table: {result.table_name}</p> : null}
-            <p className="mt-2">We’ve sent confirmation details by SMS.</p>
+            <p className="mt-2">We&apos;ve sent confirmation details by SMS.</p>
           </Alert>
+
+          <div className="mt-4 rounded-xl bg-anchor-green/5 border border-anchor-green/10 p-4 text-sm text-gray-700 space-y-1">
+            <p className="font-semibold text-anchor-green">When you arrive:</p>
+            <p>&#x2022; Free parking right outside &mdash; no ticket needed</p>
+            <p>&#x2022; No need to check in &mdash; just head to the bar and we&apos;ll find your table</p>
+            <p>&#x2022; If anything changes, give us a ring on 01753 682707</p>
+          </div>
 
           <Button type="button" variant="outline" onClick={resetJourney}>
             Book another table
@@ -1551,6 +1585,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   return (
     <Card variant="elevated">
       <CardBody className="space-y-6">
+        <BookingProgressBar currentStep={currentStepIndex + 1} totalSteps={STEP_ORDER.length} />
         <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
           {STEP_ORDER.map((stepKey, index) => {
             const isComplete = index < currentStepIndex
