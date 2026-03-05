@@ -5,7 +5,7 @@ describe('TrustBar', () => {
   it('renders all three default trust signals', () => {
     render(<TrustBar />)
     expect(screen.getByText(/BII Sustainability Champion/i)).toBeInTheDocument()
-    expect(screen.getByText(/Free parking/i)).toBeInTheDocument()
+    expect(screen.getByText(/Free parking for 20 cars/i)).toBeInTheDocument()
     expect(screen.getByText(/7 min from Heathrow/i)).toBeInTheDocument()
   })
 
