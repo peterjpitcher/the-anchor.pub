@@ -73,7 +73,7 @@ export default async function SunburyPubPage() {
             "bestRating": "5",
             "worstRating": "1"
         },
-        "priceRange": "moderate",
+        "priceRange": "££",
         "servesCuisine": ["British", "Traditional English", "Sunday Roast", "Pizza"],
         "telephone": CONTACT.phoneIntl,
         "url": "https://www.the-anchor.pub/sunbury-pub"

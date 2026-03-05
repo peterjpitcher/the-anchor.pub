@@ -59,7 +59,7 @@ export default async function PubsInStanwellPage() {
       "longitude": -0.5147
     },
     "telephone": "+441753682707",
-    "priceRange": "moderate",
+    "priceRange": "££",
     "servesCuisine": ["British", "Pub Food"],
     "hasMenu": "https://www.the-anchor.pub/food-menu",
     "acceptsReservations": true,

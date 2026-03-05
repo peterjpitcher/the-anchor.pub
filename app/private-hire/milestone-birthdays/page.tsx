@@ -68,6 +68,7 @@ export default function MilestoneBirthdaysPage() {
 
             <HeroWrapper
                 route="/private-hire/milestone-birthdays"
+                variant="promo"
                 title="The Ultimate Birthday Party Venue"
                 description="Celebrate the big numbers in style: 21st, 30th, 40th, 50th & Beyond!"
                

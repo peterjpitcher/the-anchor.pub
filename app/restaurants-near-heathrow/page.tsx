@@ -59,7 +59,7 @@ export default async function RestaurantsNearHeathrowPage() {
     },
     ...(kitchenHoursSpecification.length ? { "openingHoursSpecification": kitchenHoursSpecification } : {}),
     "servesCuisine": ["British", "Traditional British", "Pub Food"],
-    "priceRange": "moderate",
+    "priceRange": "££",
     "acceptsReservations": true,
     "menu": "https://www.the-anchor.pub/food-menu",
     "hasMenu": {

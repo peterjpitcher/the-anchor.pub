@@ -708,7 +708,7 @@ export default function Terminal4Page() {
               },
               "url": "https://www.the-anchor.pub/near-heathrow/terminal-4",
               "telephone": "+441753682707",
-	              "priceRange": "moderate",
+	              "priceRange": "££",
               "servesCuisine": ["British", "Pub Food"],
               "nearbyLocation": {
                 "@type": "Airport",

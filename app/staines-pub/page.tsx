@@ -77,7 +77,7 @@ export default async function StainesPubPage() {
       "bestRating": "5",
       "worstRating": "1"
     },
-	    "priceRange": "moderate",
+	    "priceRange": "££",
     "servesCuisine": ["British", "Pizza", "Sunday Roast"],
     "hasMenu": "https://www.the-anchor.pub/food-menu",
     "telephone": CONTACT.phoneIntl,

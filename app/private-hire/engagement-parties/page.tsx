@@ -68,6 +68,7 @@ export default function EngagementPartiesPage() {
 
             <HeroWrapper
                 route="/private-hire/engagement-parties"
+                variant="promo"
                 title="Engagement Parties at The Anchor"
                 description="Raise a glass to your future in a warm, traditional setting"
                

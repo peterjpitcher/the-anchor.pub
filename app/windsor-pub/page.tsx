@@ -69,7 +69,7 @@ const localBusinessSchema = {
       "name": "Eton"
     }
   ],
-  "priceRange": "moderate",
+  "priceRange": "££",
   "servesCuisine": ["British", "Traditional English", "Sunday Roast"],
   "telephone": CONTACT.phoneIntl,
   "url": "https://www.the-anchor.pub/windsor-pub"

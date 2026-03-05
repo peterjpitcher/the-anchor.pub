@@ -72,7 +72,7 @@ export default async function StanwellPubPage() {
       "bestRating": "5",
       "worstRating": "1"
     },
-	    "priceRange": "moderate",
+	    "priceRange": "££",
     "servesCuisine": ["British", "Traditional English", "Sunday Roast"],
     "telephone": CONTACT.phoneIntl,
     "url": "https://www.the-anchor.pub/stanwell-pub"

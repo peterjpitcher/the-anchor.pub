@@ -73,7 +73,7 @@ export default async function HortonPubPage() {
             "bestRating": "5",
             "worstRating": "1"
         },
-        "priceRange": "moderate",
+        "priceRange": "££",
         "servesCuisine": ["British", "Traditional English", "Sunday Roast"],
         "telephone": CONTACT.phoneIntl,
         "url": "https://www.the-anchor.pub/horton-pub"

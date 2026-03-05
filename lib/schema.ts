@@ -55,7 +55,7 @@ export const localBusinessSchema = {
   },
   "url": "https://www.the-anchor.pub",
   "telephone": "+441753682707",
-  "priceRange": "moderate",
+  "priceRange": "££",
   "servesCuisine": ["British", "Pizza", "Pub Food"],
   "acceptsReservations": "true",
   "menu": "https://www.the-anchor.pub/food-menu",

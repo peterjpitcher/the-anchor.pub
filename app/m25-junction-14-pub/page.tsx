@@ -66,7 +66,7 @@ const localBusinessSchema = {
       "name": "A3113"
     }
   ],
-  "priceRange": "moderate",
+  "priceRange": "££",
   "servesCuisine": ["British", "Traditional English", "Motorway Food Alternative"],
   "telephone": CONTACT.phoneIntl,
   "url": "https://www.the-anchor.pub/m25-junction-14-pub"

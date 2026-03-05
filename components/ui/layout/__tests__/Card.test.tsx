@@ -155,7 +155,7 @@ describe('CardBody', () => {
     render(<CardBody>Body</CardBody>)
     
     const body = screen.getByText('Body')
-    expect(body).toHaveClass('p-6')
+    expect(body).toHaveClass('px-6', 'py-4')
   })
 
 })

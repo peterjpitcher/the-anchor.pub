@@ -110,7 +110,7 @@ export default async function DrinksMenuPage() {
         "postalCode": "TW19 6AQ",
         "addressCountry": "GB"
       },
-      "priceRange": "moderate",
+      "priceRange": "££",
       "servesCuisine": ["British"],
       "telephone": "+441753682707",
       "url": "https://www.the-anchor.pub"

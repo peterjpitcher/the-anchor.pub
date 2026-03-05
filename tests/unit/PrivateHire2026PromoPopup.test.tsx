@@ -26,8 +26,14 @@ describe('PrivateHire2026PromoPopup', () => {
 
   beforeEach(() => {
     jest.clearAllMocks()
+    // Freeze Date.now() to Feb 15, 2026 — before the promo end date of Mar 1, 2026
+    jest.spyOn(Date, 'now').mockReturnValue(Date.UTC(2026, 1, 15))
     window.localStorage.clear()
     mockUsePathname.mockReturnValue('/private-hire')
+  })
+
+  afterEach(() => {
+    jest.restoreAllMocks()
   })
 
   it('renders and tracks a view event when eligible', async () => {
