@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { trackFaqItemOpened } from '@/lib/gtm-events'
 
 interface FAQItem {
   question: string
@@ -24,7 +25,14 @@ export function FAQAccordionWithSchema({
   const [openIndex, setOpenIndex] = useState<number | null>(null)
 
   const toggleQuestion = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index)
+    const isOpening = openIndex !== index
+    setOpenIndex(isOpening ? index : null)
+    if (isOpening) {
+      trackFaqItemOpened({
+        questionText: faqs[index].question,
+        pageLocation: typeof window !== 'undefined' ? window.location.pathname : '',
+      })
+    }
   }
 
   // Generate FAQ schema

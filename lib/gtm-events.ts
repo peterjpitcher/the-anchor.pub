@@ -591,3 +591,14 @@ export function trackModalClose(data: {
     ...(data.extra ?? {})
   })
 }
+
+export function trackFaqItemOpened(data: {
+  questionText: string
+  pageLocation: string
+}) {
+  pushToDataLayer({
+    event: 'faq_item_opened',
+    question_text: safeText(data.questionText),
+    page_location: data.pageLocation,
+  })
+}
