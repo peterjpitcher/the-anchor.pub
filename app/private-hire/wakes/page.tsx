@@ -2,7 +2,6 @@ import Link from 'next/link'
 import { Metadata } from 'next'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { Container, SectionHeader, FeatureGrid, InfoBoxGrid, Button, AlertBox } from '@/components/ui'
-import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
@@ -47,24 +46,22 @@ export default function WakesPage() {
                     { label: "🚗 Free Parking", variant: "success" }
                 ]}
                 primaryCta={
-                    <BookTableButton
-                        source="wakes_hero"
-                        variant="primary"
-                        size="lg"
-                        context="wakes"
-                    >
-                        Check Availability
-                    </BookTableButton>
-                }
-                secondaryCta={
                     <PhoneButton
                         phone="01753 682707"
-                        source="wakes_hero"
-                        variant="secondary"
+                        source="wakes_hero_primary"
+                        variant="primary"
                         size="lg"
+                        className="w-full sm:w-auto"
                     >
-                        Call 01753 682707
+                        📞 Call to Discuss Arrangements
                     </PhoneButton>
+                }
+                secondaryCta={
+                    <Link href="/private-hire#enquiry" className="w-full sm:w-auto">
+                        <Button variant="secondary" size="lg" className="w-full sm:w-auto">
+                            Enquire Online
+                        </Button>
+                    </Link>
                 }
             />
 
