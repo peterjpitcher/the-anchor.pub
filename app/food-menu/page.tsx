@@ -328,9 +328,10 @@ export default async function FoodMenuPage() {
       <TrustBar variant="food" />
 
       {kitchenStatusData && (
-        <div className="mx-auto max-w-5xl px-4 py-3">
-          <UrgencyKitchenStatus status={kitchenStatusData} />
-        </div>
+        <UrgencyKitchenStatus
+          status={kitchenStatusData}
+          className="mx-auto max-w-5xl px-4 py-3"
+        />
       )}
 
       <Section background="white" spacing="sm">
