@@ -86,7 +86,21 @@ const getEnhancedSchemasCached = unstable_cache(
       "paymentAccepted": ["Cash", "Credit Card", "Debit Card", "Contactless"],
       "currenciesAccepted": "GBP",
       "menu": "https://www.the-anchor.pub/food-menu",
-      "smokingAllowed": false
+      "smokingAllowed": false,
+      "potentialAction": {
+        "@type": "ReserveAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://www.the-anchor.pub/book-table",
+          "actionPlatform": [
+            "https://schema.org/DesktopWebPlatform",
+            "https://schema.org/MobileWebPlatform"
+          ]
+        },
+        "result": {
+          "@type": "FoodEstablishmentReservation"
+        }
+      }
     }
 
     return {

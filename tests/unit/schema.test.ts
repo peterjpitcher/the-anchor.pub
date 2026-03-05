@@ -50,3 +50,13 @@ describe('acceptsReservations', () => {
     expect(typeof (schemas.localBusinessSchema as any).acceptsReservations).toBe('boolean')
   })
 })
+
+describe('ReserveAction', () => {
+  it('localBusinessSchema has potentialAction ReserveAction targeting /book-table', async () => {
+    const schemas = await getEnhancedSchemas()
+    const action = (schemas.localBusinessSchema as any).potentialAction
+    expect(action?.['@type']).toBe('ReserveAction')
+    expect(action?.target?.urlTemplate).toBe('https://www.the-anchor.pub/book-table')
+    expect(action?.result?.['@type']).toBe('FoodEstablishmentReservation')
+  })
+})
