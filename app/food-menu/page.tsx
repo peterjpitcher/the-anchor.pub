@@ -21,6 +21,8 @@ import { generateKitchenHoursSpecification, generateMenuItemOffer, generateNutri
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
+import { TrustBar, UrgencyKitchenStatus, ValueProofStrip } from '@/components/psychology'
+import type { KitchenStatusData } from '@/components/psychology'
 
 export const revalidate = 3600 // Revalidate every hour
 
@@ -108,6 +110,48 @@ function buildKitchenSchedule(hours: BusinessHours): string {
     .join(', ')
 }
 
+function deriveKitchenStatusData(hours: BusinessHours | null): KitchenStatusData {
+  if (!hours) return null
+
+  const londonNow = new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/London' }))
+  const day = londonNow.getDay() // 0=Sun, 1=Mon, 2=Tue...6=Sat
+
+  // Monday - kitchen always closed
+  if (day === 1) return { type: 'closed-today' }
+
+  const dayKeys = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'] as const
+  const dayKey = dayKeys[day] as keyof typeof hours.regularHours
+
+  const dayHours = hours.regularHours[dayKey]
+  if (!dayHours || (dayHours as any).is_closed) return { type: 'closed-today' }
+
+  const kitchen = (dayHours as any).kitchen
+  if (!kitchen || (kitchen as any).is_closed) return { type: 'closed-today' }
+
+  if (!kitchen.opens || !kitchen.closes) return null
+
+  const nowMinutes = londonNow.getHours() * 60 + londonNow.getMinutes()
+  const [openH, openM] = kitchen.opens.split(':').map(Number)
+  const [closeH, closeM] = kitchen.closes.split(':').map(Number)
+  const openMinutes = openH * 60 + openM
+  const closeMinutes = closeH * 60 + closeM
+
+  const closesAtFormatted = formatTime12Hour(kitchen.closes)
+  const opensAtFormatted = formatTime12Hour(kitchen.opens)
+
+  if (nowMinutes < openMinutes) {
+    return { type: 'opens-later', opensAt: opensAtFormatted }
+  }
+  if (nowMinutes >= closeMinutes) {
+    return { type: 'closed-today' }
+  }
+  // Within 2 hours of closing
+  if (closeMinutes - nowMinutes <= 120) {
+    return { type: 'closing-soon', closesAt: closesAtFormatted }
+  }
+  return { type: 'open', closesAt: closesAtFormatted }
+}
+
 export const metadata: Metadata = {
   title: 'Pub Food Menu Near Heathrow | Sunday Roast, Pizza & Fish & Chips | The Anchor',
   description: 'Full pub food menu: Sunday roasts from £19.99, stone-baked pizzas, fish & chips & burgers. 7 mins from Heathrow, free parking. View menu & book a table online.',
@@ -163,6 +207,7 @@ export default async function FoodMenuPage() {
 
   const kitchenHoursMap = businessHours ? buildKitchenHoursMap(businessHours) : null
   const kitchenSchedule = businessHours ? buildKitchenSchedule(businessHours) : null
+  const kitchenStatusData = deriveKitchenStatusData(businessHours)
   const sundayKitchen = businessHours?.regularHours?.sunday?.kitchen
   const sundayKitchenHours = sundayKitchen && isKitchenOpen(sundayKitchen)
     ? `${formatTime12Hour(sundayKitchen.opens)}-${formatTime12Hour(sundayKitchen.closes)}`
@@ -259,7 +304,7 @@ export default async function FoodMenuPage() {
             className="sm:w-auto"
             trackingLabel="Hero Book a Table"
           >
-            Book a Table
+            Reserve Your Table
           </BookTableButton>
         }
         secondaryCta={
@@ -275,16 +320,28 @@ export default async function FoodMenuPage() {
         }
         secondaryInfo={
           <p className="text-sm sm:text-base text-white/80 max-w-2xl mx-auto">
-            Working nearby or passing through Heathrow? Pop in for proper pub food, quick service, and free parking.
+            Proper pub food a stone&apos;s throw from Heathrow. Free parking, free WiFi, and kitchen open every evening.
           </p>
         }
       />
+
+      <TrustBar variant="food" />
+
+      {kitchenStatusData && (
+        <div className="mx-auto max-w-5xl px-4 py-3">
+          <UrgencyKitchenStatus status={kitchenStatusData} />
+        </div>
+      )}
 
       <Section background="white" spacing="sm">
         <Container>
           <MenuAnchorNav links={ANCHOR_LINKS} />
         </Container>
       </Section>
+
+      <div className="mx-auto max-w-5xl px-4 pb-2">
+        <ValueProofStrip variant="food" />
+      </div>
 
       <Section background="white" spacing="sm">
         <Container>
