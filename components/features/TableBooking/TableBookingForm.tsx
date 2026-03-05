@@ -13,7 +13,7 @@ import { Alert } from '@/components/ui/feedback/Alert'
 import { Button } from '@/components/ui/primitives/Button'
 import { Icon } from '@/components/ui/Icon'
 import { PhoneLink } from '@/components/PhoneLink'
-import { trackTableBookingClick, trackTableBookingSuccess, trackFormComplete, trackError } from '@/lib/gtm-events'
+import { trackTableBookingClick, trackTableBookingFunnel, trackFormComplete, trackError } from '@/lib/gtm-events'
 import { logError } from '@/lib/error-handling'
 
 export interface TableBookingFormProps {
@@ -164,7 +164,8 @@ export default function TableBookingForm({
         const bookingDate = response.confirmation_details?.date ?? response.booking_details?.date ?? bookingState.date
         const bookingTime = response.confirmation_details?.time ?? response.booking_details?.time ?? bookingState.confirmedTime
         if (bookingDate && bookingTime) {
-          trackTableBookingSuccess({
+          trackTableBookingFunnel({
+            step: 'success',
             partySize: bookingState.partySize,
             bookingDate,
             bookingTime,

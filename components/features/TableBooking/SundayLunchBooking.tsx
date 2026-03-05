@@ -16,7 +16,7 @@ import { PhoneLink } from '@/components/PhoneLink'
 import { Select } from '@/components/ui/forms/Select'
 import { LoadingState } from '@/components/ui/LoadingState'
 import { Badge } from '@/components/ui/primitives/Badge'
-import { trackTableBookingClick, trackTableBookingSuccess, trackFormComplete, trackError } from '@/lib/gtm-events'
+import { trackTableBookingClick, trackTableBookingFunnel, trackFormComplete, trackError } from '@/lib/gtm-events'
 import { logError } from '@/lib/error-handling'
 import { SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP, getSundayLunchDepositAmount } from '@/lib/constants'
 
@@ -522,7 +522,8 @@ export default function SundayLunchBooking({
             const bookingDate = response.confirmation_details?.date ?? response.booking_details?.date ?? bookingState.date
             const bookingTime = response.confirmation_details?.time ?? response.booking_details?.time ?? bookingState.confirmedTime
             if (bookingDate && bookingTime) {
-              trackTableBookingSuccess({
+              trackTableBookingFunnel({
+                step: 'success',
                 partySize: bookingState.partySize,
                 bookingDate,
                 bookingTime,
@@ -547,7 +548,8 @@ export default function SundayLunchBooking({
         const bookingDate = response.confirmation_details?.date ?? response.booking_details?.date ?? bookingState.date
         const bookingTime = response.confirmation_details?.time ?? response.booking_details?.time ?? bookingState.confirmedTime
         if (bookingDate && bookingTime) {
-          trackTableBookingSuccess({
+          trackTableBookingFunnel({
+            step: 'success',
             partySize: bookingState.partySize,
             bookingDate,
             bookingTime,
