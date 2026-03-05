@@ -284,7 +284,7 @@ export default async function FoodMenuPage() {
       <HeroWrapper
         route="/food-menu"
         title="Book Pub Food Minutes from Heathrow"
-        description="Sunday roasts, stone-baked pizzas and proper pub classics with free parking and rapid service."
+        description="Sunday roasts from £19.99, stone-baked pizzas and proper pub classics. Free parking, 7 mins from Heathrow — no airport prices."
         variant="default"
         breadcrumbs={[{ name: 'Food & Drink' }]}
         tags={[
