@@ -138,6 +138,12 @@ export default async function AshfordPubPage() {
         }
       />
 
+      <section className="bg-white py-6">
+        <Container>
+          <p className="text-center text-sm text-gray-600">⭐⭐⭐⭐⭐ <strong>Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
+        </Container>
+      </section>
+
       {/* Page Title */}
       <section className="py-8 bg-white">
         <Container>
@@ -590,20 +596,20 @@ export default async function AshfordPubPage() {
         description="Join your Ashford neighbours who've discovered their new favourite pub"
         buttons={[
           {
-            text: "📞 Book a Table",
+            text: "📅 Book a Table",
+            href: "/book-table",
+            variant: "secondary"
+          },
+          {
+            text: "📞 Call Us",
             href: `${CONTACT.phoneHref}`,
             isPhone: true,
             phoneSource: "ashford_pub_cta_section",
-            variant: "secondary"
+            variant: "white"
           },
           {
             text: "🎉 Book an Event",
             href: "/private-hire#enquiry",
-            variant: "white"
-          },
-          {
-            text: "🎉 View Offers",
-            href: "/special-offers",
             variant: "white"
           }
         ]}

@@ -128,6 +128,12 @@ export default async function StanwellPubPage() {
         }
       />
 
+      <section className="bg-white py-6">
+        <Container>
+          <p className="text-center text-sm text-gray-600">⭐⭐⭐⭐⭐ <strong>Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
+        </Container>
+      </section>
+
       {/* Page Title */}
       <section className="py-8 bg-white">
         <Container>
@@ -473,9 +479,16 @@ export default async function StanwellPubPage() {
         description="Join your neighbours at The Anchor - where Stanwell comes together"
         buttons={[
           {
+            text: "📅 Book a Table",
+            href: "/book-table",
+            variant: "secondary"
+          },
+          {
             text: "📞 Call Us",
             href: `${CONTACT.phoneHref}`,
-            variant: "secondary"
+            isPhone: true,
+            phoneSource: "stanwell_pub_cta",
+            variant: "white"
           },
           {
             text: "🎉 Book an Event",

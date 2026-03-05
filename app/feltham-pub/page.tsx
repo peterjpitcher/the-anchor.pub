@@ -112,6 +112,12 @@ export default function FelthamPubPage() {
         }
       />
 
+      <section className="bg-white py-6">
+        <Container>
+          <p className="text-center text-sm text-gray-600">⭐⭐⭐⭐⭐ <strong>Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
+        </Container>
+      </section>
+
       {/* Page Title */}
       <section className="py-8 bg-white">
         <Container>
@@ -452,6 +458,11 @@ export default function FelthamPubPage() {
         title="Experience the Difference"
         description="See why so many Feltham residents make the short journey to The Anchor"
         buttons={[
+          {
+            text: "📅 Book a Table",
+            href: "/book-table",
+            variant: "secondary"
+          },
           {
             text: "📞 Call: 01753 682707",
             href: "tel:+441753682707",

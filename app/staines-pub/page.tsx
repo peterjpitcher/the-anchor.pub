@@ -126,6 +126,12 @@ export default async function StainesPubPage() {
         }
       />
 
+      <section className="bg-white py-6">
+        <Container>
+          <p className="text-center text-sm text-gray-600">⭐⭐⭐⭐⭐ <strong>Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
+        </Container>
+      </section>
+
       {/* Quick Summary */}
       <section className="section-spacing bg-white">
         <Container>
@@ -518,11 +524,16 @@ export default async function StainesPubPage() {
         description="Just 8 minutes from Staines town centre with free parking"
         buttons={[
           {
-            text: "📞 Book Your Table",
+            text: "📅 Book a Table",
+            href: "/book-table",
+            variant: "secondary"
+          },
+          {
+            text: "📞 Call Us",
             href: CONTACT.phoneHref,
             isPhone: true,
             phoneSource: "staines_pub_cta",
-            variant: "secondary"
+            variant: "white"
           },
           {
             text: "🎉 Book an Event",
