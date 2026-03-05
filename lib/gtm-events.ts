@@ -602,3 +602,14 @@ export function trackFaqItemOpened(data: {
     page_location: data.pageLocation,
   })
 }
+
+export function trackPrivateHireEnquirySubmitted(data: {
+  enquiryType?: string
+  pageSource: string
+}) {
+  pushToDataLayer({
+    event: 'private_hire_enquiry_submitted',
+    enquiry_type: data.enquiryType,
+    page_source: data.pageSource,
+  }, { sendToApi: true })
+}

@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { PrivateBookingRequest, createPrivateBooking } from '@/lib/api'
+import { trackPrivateHireEnquirySubmitted } from '@/lib/gtm-events'
 
 type LookupState = 'idle' | 'loading' | 'known' | 'unknown'
 
@@ -157,6 +158,10 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
 
             if (response.success) {
                 setSuccess(true)
+                trackPrivateHireEnquirySubmitted({
+                    enquiryType: formData.event_type,
+                    pageSource: typeof window !== 'undefined' ? window.location.pathname : '',
+                })
             } else {
                 setError(response.error.message || 'Something went wrong. Please try again.')
             }
