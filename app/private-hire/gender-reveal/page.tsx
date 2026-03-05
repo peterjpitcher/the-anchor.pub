@@ -79,7 +79,7 @@ export default function GenderRevealPage() {
 
             <HeroWrapper
                 route="/private-hire/gender-reveal"
-                variant="promo"
+                variant="feature"
                 title="Gender Reveal Parties"
                 description="The perfect setting to share your exciting news"
                

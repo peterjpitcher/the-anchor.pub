@@ -79,7 +79,7 @@ export default function RetirementPartiesPage() {
 
             <HeroWrapper
                 route="/private-hire/retirement-parties"
-                variant="promo"
+                variant="feature"
                 title="Retirement Parties & Leaving Dos"
                 description="A proper send-off for a lifetime of hard work"
                
