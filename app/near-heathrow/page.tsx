@@ -12,6 +12,8 @@ import { parkingFacilitySchema } from '@/lib/schemas/parking'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
+import { PhoneButton } from '@/components/PhoneButton'
+import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 
 export const metadata: Metadata = {
   title: 'Closest Pub to Heathrow Airport | 7 Mins from Terminal 5 | Free Parking | The Anchor',
@@ -35,6 +37,10 @@ export const metadata: Metadata = {
 export default function NearHeathrowPage() {
   return (
     <>
+      <FoodStickyCtaBar
+        ctaContext="heathrow_layover"
+        label="Book a Table"
+      />
       <SpeakableSchema />
       {/* Hero Section */}
       <HeroWrapper
@@ -59,21 +65,30 @@ export default function NearHeathrowPage() {
             variant="primary"
             size="lg"
             className="w-full sm:w-auto"
-          >
-            📞 Book a Table: 01753 682707
-          </BookTableButton>
+          />
         }
         secondaryCta={
-          <Link href="#terminals" className="w-full sm:w-auto">
-            <Button
+          <>
+            <Link href="#terminals" className="w-full sm:w-auto">
+              <Button
+                variant="secondary"
+                size="lg"
+                fullWidth
+                className="sm:w-auto"
+              >
+                📍 View Terminal Directions
+              </Button>
+            </Link>
+            <PhoneButton
+              phone="01753 682707"
+              source="near_heathrow_hero"
               variant="secondary"
               size="lg"
-              fullWidth
-              className="sm:w-auto"
+              className="w-full sm:w-auto"
             >
-              📍 Get Directions
-            </Button>
-          </Link>
+              📞 Call Us
+            </PhoneButton>
+          </>
         }
       />
 
@@ -236,6 +251,15 @@ export default function NearHeathrowPage() {
                 Dietary requirements catered for. Everyone&apos;s local.
               </p>
             </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* Google Rating Badge */}
+      <section className="py-8 bg-anchor-cream/30">
+        <Container>
+          <div className="text-center">
+            <p className="text-sm text-gray-600">⭐⭐⭐⭐⭐ <strong>Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
           </div>
         </Container>
       </section>
@@ -807,6 +831,11 @@ export default function NearHeathrowPage() {
         title="Visit The Anchor - Heathrow's Local"
         description="Just minutes from all terminals. Free parking. Great food. Genuine British pub experience."
         buttons={[
+          {
+            text: "Book a Table",
+            href: "/book-table",
+            variant: "white"
+          },
           {
             text: "📞 Call: 01753 682707",
             href: "tel:+441753682707",
