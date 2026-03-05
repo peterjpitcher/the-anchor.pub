@@ -147,6 +147,9 @@ export default function HomePage() {
             <p className="text-2xl sm:text-3xl text-white font-serif drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
               Where Everyone&apos;s Welcome
             </p>
+            <p className="text-base sm:text-lg text-white/90 font-medium drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)] max-w-xl mx-auto text-center px-4">
+              The closest traditional British pub to Heathrow — 7 mins from T5, free parking, proper food
+            </p>
 
             <div className="flex justify-center px-2 sm:px-0 w-full">
               <StatusBar
@@ -156,7 +159,7 @@ export default function HomePage() {
             </div>
 
             <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-white shadow-sm backdrop-blur-sm">
-              ⭐ Highest-rated non-airport pub in the Heathrow area
+              ⭐ 4.8/5 · 127 Google Reviews · Highest-rated non-airport pub near Heathrow
             </span>
           </div>
         }
