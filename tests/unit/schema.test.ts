@@ -1,4 +1,4 @@
-import { quizNightEventSeries, bingoEventSeries, specialAnnouncementSchema } from '@/lib/schema'
+import { quizNightEventSeries, bingoEventSeries, specialAnnouncementSchema, webSiteSchema } from '@/lib/schema'
 import { getEnhancedSchemas } from '@/lib/schema-with-reviews'
 
 // Mock next/cache so unstable_cache passes through the function directly in tests
@@ -27,6 +27,12 @@ describe('schema dates', () => {
   it('specialAnnouncementSchema expires in the future', () => {
     const expires = new Date(specialAnnouncementSchema.expires as string)
     expect(expires.getTime()).toBeGreaterThan(Date.now() + 90 * 24 * 60 * 60 * 1000)
+  })
+})
+
+describe('webSiteSchema', () => {
+  it('does not include a potentialAction SearchAction', () => {
+    expect(webSiteSchema).not.toHaveProperty('potentialAction')
   })
 })
 

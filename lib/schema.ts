@@ -187,14 +187,6 @@ export const webSiteSchema = {
   "description": "Traditional British pub near Heathrow with quiz nights, hosted events, and famous Sunday roasts",
   "publisher": {
     "@id": "https://www.the-anchor.pub/#organization"
-  },
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": {
-      "@type": "EntryPoint",
-      "urlTemplate": "https://www.the-anchor.pub/search?q={search_term_string}"
-    },
-    "query-input": "required name=search_term_string"
   }
 }
 
