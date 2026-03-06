@@ -118,25 +118,25 @@ export async function NextEventServer() {
     const eventImage = nextEvent.image?.[0] || nextEvent.heroImageUrl || DEFAULT_EVENT_IMAGE
     
     return (
-      <div className="max-w-5xl mx-auto space-y-8">
+      <div className="max-w-5xl mx-auto space-y-4">
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
           <EventSchema event={nextEvent} />
-          
-          <div className="grid gap-0 lg:grid-cols-[minmax(0,320px)_minmax(0,1fr)]">
-            <div className="relative flex items-center justify-center bg-gradient-to-br from-anchor-green/10 via-white to-anchor-green/5 p-8 lg:p-10">
-              <div className="relative w-full max-w-xs sm:max-w-sm aspect-[3/4]">
+
+          <div className="grid gap-0 lg:grid-cols-[minmax(0,260px)_minmax(0,1fr)]">
+            <div className="relative flex items-center justify-center bg-gradient-to-br from-anchor-green/10 via-white to-anchor-green/5 p-5 lg:p-6">
+              <div className="relative w-full max-w-[200px] sm:max-w-[220px] lg:max-w-full aspect-[3/4]">
                 <Image
                   src={eventImage}
                   alt={`${nextEvent.name} event promotional poster - ${nextEvent.category?.name || 'upcoming event'} at The Anchor`}
                   fill
                   className="object-contain drop-shadow-xl"
-                  sizes="(max-width: 1024px) 70vw, 360px"
+                  sizes="(max-width: 1024px) 60vw, 280px"
                 />
               </div>
             </div>
 
-            <div className="flex flex-col gap-6 p-8 lg:p-10">
-              <div className="flex flex-wrap items-center gap-3 text-xs font-semibold uppercase tracking-wide text-anchor-green">
+            <div className="flex flex-col gap-4 p-5 lg:p-6">
+              <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-wide text-anchor-green">
                 <span className="inline-flex items-center gap-2 rounded-full bg-anchor-green/10 px-3 py-1 text-anchor-green">
                   {relativeLabel}
                 </span>
@@ -159,64 +159,41 @@ export async function NextEventServer() {
                 )}
               </div>
 
-              <div className="space-y-3">
-                <h2 className="text-3xl lg:text-4xl font-bold text-anchor-green leading-tight">
+              <div className="space-y-1">
+                <h2 className="text-2xl lg:text-3xl font-bold text-anchor-green leading-tight">
                   {nextEvent.name}
                 </h2>
-                <p className="text-lg text-anchor-gold font-semibold">
+                <p className="text-base text-anchor-gold font-semibold">
                   {nextEvent.shortDescription || 'Special Event'}
                 </p>
               </div>
 
               {urgency && (
-                <div className={`rounded-3xl p-4 text-sm leading-relaxed shadow-sm ${urgency.panelClassName}`}>
+                <div className={`rounded-xl p-3 text-sm leading-relaxed ${urgency.panelClassName}`}>
                   <p className="font-semibold uppercase tracking-wide">
                     {urgency.label}
                   </p>
-                  <p className="mt-2">
+                  <p className="mt-1">
                     {urgency.message}
                   </p>
                 </div>
               )}
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="rounded-2xl border border-anchor-green/20 bg-white/80 p-5 shadow-sm backdrop-blur">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-anchor-green/70">
-                    Date & Time
-                  </p>
-                  <p className="mt-2 text-xl font-bold text-anchor-green">
-                    {longDateLabel}
-                  </p>
-                  <p className="text-lg font-semibold text-anchor-green">
-                    {timeLabel}
-                  </p>
+              <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm">
+                <div>
+                  <span className="text-xs font-semibold uppercase tracking-wide text-anchor-green/60">Date & Time</span>
+                  <p className="font-bold text-anchor-green">{longDateLabel} · {timeLabel}</p>
                 </div>
-
-                <div className="rounded-2xl border border-anchor-green/20 bg-white/80 p-5 shadow-sm backdrop-blur">
-                  {priceLabel ? (
-                    <>
-                      <p className="text-xs font-semibold uppercase tracking-wide text-anchor-green/70">
-                        Price
-                      </p>
-                      <p className="mt-2 text-xl font-bold text-anchor-green">
-                        {priceLabel}
-                      </p>
-                    </>
-                  ) : (
-                    <>
-                      <p className="text-xs font-semibold uppercase tracking-wide text-anchor-green/70">
-                        Booking
-                      </p>
-                      <p className="mt-2 text-xl font-bold text-anchor-green">
-                        Book online in seconds
-                      </p>
-                    </>
-                  )}
-                </div>
+                {priceLabel && (
+                  <div>
+                    <span className="text-xs font-semibold uppercase tracking-wide text-anchor-green/60">Price</span>
+                    <p className="font-bold text-anchor-green">{priceLabel}</p>
+                  </div>
+                )}
               </div>
 
               {nextEvent.description && (
-                <p className="text-gray-700 leading-relaxed">
+                <p className="text-sm text-gray-700 leading-relaxed">
                   {nextEvent.description}
                 </p>
               )}
@@ -226,12 +203,12 @@ export async function NextEventServer() {
                   <EventBookingButton
                     event={nextEvent}
                     size="lg"
-                    className="sm:min-w-[220px]"
+                    className="sm:min-w-[200px]"
                     source="homepage_next_event"
                   />
                 </div>
                 <Link href={`/events/${nextEvent.slug || nextEvent.id}`} className="w-full sm:w-auto">
-                  <Button variant="secondary" size="lg" fullWidth className="sm:min-w-[200px]">
+                  <Button variant="secondary" size="lg" fullWidth className="sm:min-w-[160px]">
                     View Details
                   </Button>
                 </Link>
@@ -248,7 +225,7 @@ export async function NextEventServer() {
         </div>
 
         {otherEvents.length > 0 && (
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid gap-3 md:grid-cols-2">
             {otherEvents.map((event) => {
               const previewStart = getEventDateRangeUtc(event).start
               const previewDateLabel = previewStart.toLocaleDateString('en-GB', {
@@ -261,43 +238,43 @@ export async function NextEventServer() {
               const previewImage = event.image?.[0] || event.heroImageUrl || DEFAULT_EVENT_IMAGE
 
               return (
-                <div key={event.id} className="bg-white rounded-2xl shadow-lg overflow-hidden">
+                <div key={event.id} className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
                   <EventSchema event={event} />
-                  <div className="grid grid-cols-[96px_1fr] gap-4 p-5">
-                    <div className="relative w-24 h-32 rounded-xl overflow-hidden bg-gray-50">
+                  <div className="grid grid-cols-[80px_1fr] gap-3 p-4">
+                    <div className="relative w-20 h-28 rounded-lg overflow-hidden bg-gray-50 flex-shrink-0">
                       <Image
                         src={previewImage}
                         alt={`${event.name} event promotional poster`}
                         fill
                         className="object-contain"
-                        sizes="96px"
+                        sizes="80px"
                       />
                     </div>
 
                     <div className="min-w-0">
-                      <p className="text-xs font-semibold uppercase tracking-wide text-anchor-green/70">
-                        {previewDateLabel} • {previewTimeLabel}
+                      <p className="text-xs font-semibold uppercase tracking-wide text-anchor-green/60">
+                        {previewDateLabel} · {previewTimeLabel}
                       </p>
                       <Link href={`/events/${event.slug || event.id}`}>
-                        <h3 className="mt-1 text-lg font-bold text-anchor-green hover:text-anchor-gold transition-colors">
+                        <h3 className="mt-0.5 text-base font-bold text-anchor-green hover:text-anchor-gold transition-colors leading-snug">
                           {event.name}
                         </h3>
                       </Link>
-                      <p className="mt-2 text-sm text-gray-700 line-clamp-2">
+                      <p className="mt-1 text-sm text-gray-600 line-clamp-2">
                         {event.shortDescription || event.description || 'Special Event'}
                       </p>
-                      <div className="mt-4 flex flex-wrap gap-3">
+                      <div className="mt-3 flex flex-wrap gap-2">
                         <div className="w-full sm:w-auto">
                           <EventBookingButton
                             event={event}
-                            size="md"
-                            className="sm:min-w-[140px]"
+                            size="sm"
+                            className="sm:min-w-[120px]"
                             source="homepage_next_event_list"
                             label="Book"
                           />
                         </div>
                         <Link href={`/events/${event.slug || event.id}`} className="w-full sm:w-auto">
-                          <Button variant="secondary" size="md" fullWidth className="sm:min-w-[140px]">
+                          <Button variant="secondary" size="sm" fullWidth className="sm:min-w-[100px]">
                             Details
                           </Button>
                         </Link>
@@ -306,7 +283,7 @@ export async function NextEventServer() {
                       <EventSecondaryActions
                         event={event}
                         source="homepage_next_event_list_actions"
-                        className="mt-3 justify-start"
+                        className="mt-2 justify-start"
                         size="xs"
                       />
                     </div>

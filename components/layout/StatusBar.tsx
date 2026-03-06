@@ -75,15 +75,17 @@ function resolveTodaySchedule(hours: any) {
 function getBarStatus(hours: any): string {
   const { currentStatus } = hours
   const todayHours = resolveTodaySchedule(hours)
-  
+
   // Trust currentStatus.isOpen from API
   if (currentStatus.isOpen) {
-    // Bar is open - get today's hours to show closing time
-    const closingTime = todayHours?.closes
-    if (closingTime) {
-      return `Bar: Open until ${formatTime12Hour(closingTime)}`
+    const opens = todayHours?.opens
+    const closes = todayHours?.closes
+    if (opens && closes) {
+      return `Bar: Opens ${formatTime12Hour(opens)} closes ${formatTime12Hour(closes)}`
     }
-    // Fallback if no closing time (shouldn't happen)
+    if (closes) {
+      return `Bar: Open · closes ${formatTime12Hour(closes)}`
+    }
     return 'Bar: Open'
   }
 
@@ -93,19 +95,24 @@ function getBarStatus(hours: any): string {
     const [openHour, openMin] = todayHours.opens.split(':').map(Number)
     const openingTime = new Date()
     openingTime.setHours(openHour, openMin, 0, 0)
-    
+
     if (openingTime > now) {
-      // Opens later today - use the API time directly
+      if (todayHours.closes) {
+        return `Bar: Opens ${formatTime12Hour(todayHours.opens)} closes ${formatTime12Hour(todayHours.closes)}`
+      }
       return `Bar: Opens at ${formatTime12Hour(todayHours.opens)}`
     }
   }
-  
+
   // Opens tomorrow - get tomorrow's data
   const tomorrowHours = getTomorrowHours(hours)
   if (tomorrowHours?.opens && !tomorrowHours.is_closed) {
+    if (tomorrowHours.closes) {
+      return `Bar: Tomorrow ${formatTime12Hour(tomorrowHours.opens)}-${formatTime12Hour(tomorrowHours.closes)}`
+    }
     return `Bar: Opens tomorrow at ${formatTime12Hour(tomorrowHours.opens)}`
   }
-  
+
   // Closed with no known opening
   return 'Bar: Closed'
 }
@@ -176,9 +183,8 @@ function getKitchenStatus(hours: any): {
   if (isKitchenOpen(kitchenHours)) {
     // Use currentStatus.kitchenOpen from API (source of truth)
     if (currentStatus.kitchenOpen) {
-      // Kitchen is open - show closing time if available
       return {
-        status: `Kitchen: Open until ${formatTime12Hour(kitchenHours.closes)}`,
+        status: `Kitchen: Opens ${formatTime12Hour(kitchenHours.opens)} closes ${formatTime12Hour(kitchenHours.closes)}`,
         indicator: 'open'
       }
     } else {
@@ -187,15 +193,15 @@ function getKitchenStatus(hours: any): {
       const [openHour, openMin] = kitchenHours.opens.split(':').map(Number)
       const openingTime = new Date()
       openingTime.setHours(openHour, openMin, 0, 0)
-      
+
       if (openingTime > now) {
-        // Opens later today
+        // Opens later today - show full schedule
         return {
-          status: `Kitchen: Opens at ${formatTime12Hour(kitchenHours.opens)}`,
+          status: `Kitchen: Opens ${formatTime12Hour(kitchenHours.opens)} closes ${formatTime12Hour(kitchenHours.closes)}`,
           indicator: currentStatus.isOpen ? 'warning' : 'closed'
         }
       }
-      
+
       // Kitchen won't open again today, find next available service
       return futureOpeningMessage(
         'Kitchen: Closed',
@@ -256,24 +262,24 @@ export function StatusBar({
 
   // Variant-specific styling
   const containerClasses = {
-    default: 'flex w-full flex-col gap-1.5 rounded-full px-4 sm:inline-flex sm:w-auto sm:flex-row sm:gap-0 sm:px-6 py-2 sm:py-3 shadow-md min-h-[40px] sm:min-h-[44px] items-start sm:items-center',
-    compact: 'flex w-full flex-col gap-1.5 rounded-full px-3 sm:inline-flex sm:w-auto sm:flex-row sm:gap-0 sm:px-4 py-1.5 sm:py-2 shadow-md items-start sm:items-center',
+    default: 'flex w-full flex-col items-center justify-center gap-1 rounded-full px-4 sm:px-6 py-2.5 shadow-md',
+    compact: 'flex w-full flex-col items-center justify-center gap-1 rounded-full px-3 sm:px-4 py-1.5 sm:py-2 shadow-md',
     navigation: 'flex flex-col sm:flex-row items-start sm:items-center gap-1 sm:gap-2',
     hero: 'inline-flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-3 rounded-full px-5 sm:px-7 py-2.5 shadow-lg w-auto max-w-full'
   }
-  
+
   const textClasses = {
-    default: 'flex w-full flex-col sm:flex-row items-start sm:items-center gap-1 sm:gap-3 text-sm sm:text-base font-medium',
-    compact: 'flex w-full flex-col sm:flex-row items-start sm:items-center gap-1 sm:gap-2 text-xs sm:text-sm font-medium',
+    default: 'flex flex-col items-center gap-0.5 text-sm sm:text-base font-medium w-full text-center',
+    compact: 'flex flex-col items-center gap-0.5 text-xs sm:text-sm font-medium w-full text-center',
     navigation: 'flex flex-col items-start gap-1 text-[13px] sm:text-[15px] font-semibold',
     hero: 'flex flex-col sm:flex-row items-start sm:items-center gap-1.5 text-base sm:text-xl font-semibold'
   }
 
-  let statusTextClass = 'text-left leading-tight sm:leading-normal sm:whitespace-nowrap'
+  let statusTextClass = 'leading-tight uppercase tracking-wider'
   if (variant === 'navigation') {
-    statusTextClass = 'whitespace-normal break-words text-left leading-snug'
+    statusTextClass = 'whitespace-normal break-words text-left leading-snug uppercase tracking-wider'
   } else if (variant === 'hero') {
-    statusTextClass = 'text-left leading-tight text-base sm:text-xl font-semibold'
+    statusTextClass = 'text-left leading-tight text-base sm:text-xl font-semibold uppercase tracking-wider'
   }
   
   const indicatorSize = variant === 'navigation' || variant === 'compact' ? 'sm' : 'md'
@@ -304,24 +310,21 @@ export function StatusBar({
             )}
           </>
         ) : (
-          // Default/compact variants: show on one line with separator
+          // Default/compact variants: stacked vertically, centred
           <>
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center justify-center gap-1.5">
               <StatusIndicator status={isOpen ? 'open' : 'closed'} size={indicatorSize} />
               <span className={statusTextClass}>{barStatus}</span>
             </div>
-            
+
             {showKitchen && kitchenInfo && (
-              <>
-                <span className={cn(mergedTheme.accentText, 'hidden sm:inline')}>•</span>
-                <div className="flex items-center gap-1.5">
-                  <StatusIndicator 
-                    status={kitchenInfo.indicator} 
-                    size={indicatorSize}
-                  />
-                  <span className={statusTextClass}>{kitchenInfo.status}</span>
-                </div>
-              </>
+              <div className="flex items-center justify-center gap-1.5">
+                <StatusIndicator
+                  status={kitchenInfo.indicator}
+                  size={indicatorSize}
+                />
+                <span className={statusTextClass}>{kitchenInfo.status}</span>
+              </div>
             )}
           </>
         )}

@@ -145,10 +145,10 @@ const defaultLogo = {
 }
 
 const quickTasks = [
-  { label: 'Book a Table', href: '/book-table', icon: '📅' },
-  { label: 'Food Menu', href: '/food-menu', icon: '🍽️' },
-  { label: "What's On", href: '/whats-on', icon: '🎭' },
-  { label: 'Find Us', href: '/find-us', icon: '📍' }
+  { label: 'Book a Table', href: '/book-table', icon: '' },
+  { label: 'Food Menu', href: '/food-menu', icon: '' },
+  { label: "What's On", href: '/whats-on', icon: '' },
+  { label: 'Find Us', href: '/find-us', icon: '' }
 ]
 
 const toMenuId = (label: string) =>
@@ -160,21 +160,18 @@ export function Navigation({
   ctaButton = {
     label: 'Book a Table',
     href: '/book-table',
-    icon: '📅',
     external: false,
     variant: 'primary'
   },
   secondaryCtaButton = {
     label: 'Book Parking',
     href: '/heathrow-parking',
-    icon: '🚙',
     external: false,
     variant: 'secondary'
   },
   tertiaryCtaButton = {
     label: 'Christmas 2026',
     href: '/christmas-parties',
-    icon: '🎄',
     external: false,
     variant: 'secondary'
   },
@@ -333,10 +330,11 @@ export function Navigation({
   const renderLink = (item: NavigationItem, isMobile = false) => {
     const linkClass = cn(
       'font-medium transition-colours',
-      'text-sm xl:text-base', // Responsive text sizing
       mergedTheme.text,
       mergedTheme.hoverText,
-      isMobile && 'block text-lg py-3 min-h-[44px] flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50'
+      isMobile
+        ? 'block text-lg py-3 min-h-[44px] flex items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50'
+        : 'text-xs xl:text-sm uppercase tracking-wide'
     )
 
     // Handle dropdown items for desktop
@@ -719,7 +717,7 @@ export function Navigation({
         <div
           className={cn(
             desktopFlexClass,
-            'items-center justify-between gap-6 py-4'
+            'items-center justify-between gap-6 py-2'
           )}
         >
           <div className="flex items-center gap-4 flex-shrink-0">

@@ -110,9 +110,8 @@ export default function RootLayout({
     PRIVATE_HIRE_2026_PROMO_ENABLED && now.getTime() < PRIVATE_HIRE_2026_PROMO_ENDS_AT_MS
   const promoCtaButtons = [
     {
-      label: 'Valentine’s Day',
+      label: "Valentine's Day",
       href: '/valentines-day',
-      icon: '💘',
       external: false,
       variant: 'secondary' as const,
       startsOn: '2026-02-14',
@@ -121,7 +120,6 @@ export default function RootLayout({
     {
       label: "Mother's Day",
       href: '/mothers-day',
-      icon: '💐',
       external: false,
       variant: 'secondary' as const,
       startsOn: '2026-03-15',
@@ -130,7 +128,6 @@ export default function RootLayout({
     {
       label: 'World Cup 2026',
       href: '/live-sport/world-cup',
-      icon: '🏆',
       external: false,
       variant: 'secondary' as const,
       startsOn: '2026-06-11',
@@ -144,7 +141,6 @@ export default function RootLayout({
       return {
         label: 'Six Nations 2026',
         href: '/live-sport/six-nations',
-        icon: '🏉',
         external: false,
         variant: 'secondary' as const
       }
@@ -154,7 +150,6 @@ export default function RootLayout({
       return {
         label: 'Christmas 2026',
         href: '/christmas-parties',
-        icon: '🎄',
         external: false,
         variant: 'secondary' as const
       }
