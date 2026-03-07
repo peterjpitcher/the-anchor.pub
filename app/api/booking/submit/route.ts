@@ -178,15 +178,11 @@ export async function POST(request: Request) {
       booking.payment_required === true
       || booking.status === 'pending_payment'
       || bookingState === 'pending_payment'
-      || bookingState === 'pending_card_capture'
     const paymentUrl = booking.payment_details?.payment_url || booking.next_step_url || null
-    const expectedSundayDeposit = getSundayLunchDepositAmount(Number(bookingData.partySize || 1))
-    const fallbackDepositAmount =
-      bookingState === 'pending_card_capture'
-        ? 0
-        : resolvedBookingType === 'sunday_lunch'
-          ? expectedSundayDeposit
-          : 0
+    const partySize = Number(bookingData.partySize || 1)
+    // Deposit is £10/person for Sunday lunch and groups of 7+ — same rate for both
+    const requiresDeposit = resolvedBookingType === 'sunday_lunch' || partySize >= 7
+    const fallbackDepositAmount = requiresDeposit ? getSundayLunchDepositAmount(partySize) : 0
 
     // Check if payment is required (Sunday lunch bookings should return this from API)
     if (pendingPaymentFlow && !paymentUrl) {

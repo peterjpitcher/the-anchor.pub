@@ -510,8 +510,7 @@ export default function SundayLunchBooking({
         const paymentUrl = response.payment_details?.payment_url || response.next_step_url || null
         const paymentRequired =
           response.payment_required === true ||
-          bookingStateValue === 'pending_payment' ||
-          bookingStateValue === 'pending_card_capture'
+          bookingStateValue === 'pending_payment'
 
         if (paymentRequired) {
           if (!paymentUrl) {

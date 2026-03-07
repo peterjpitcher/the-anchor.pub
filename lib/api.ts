@@ -714,7 +714,7 @@ export interface TableBookingResponse {
   booking_reference: string
   status: 'confirmed' | 'pending' | 'cancelled' | 'pending_payment'
   customer_id?: string
-  state?: 'confirmed' | 'pending_card_capture' | 'pending_payment' | 'blocked'
+  state?: 'confirmed' | 'pending_payment' | 'blocked'
   table_booking_id?: string | null
   reason?: string | null
   blocked_reason?:
@@ -778,7 +778,7 @@ type ManagementTableBookingPayload = {
 }
 
 type ManagementTableBookingResult = {
-  state: 'confirmed' | 'pending_card_capture' | 'pending_payment' | 'blocked'
+  state: 'confirmed' | 'pending_payment' | 'blocked'
   table_booking_id: string | null
   booking_reference: string | null
   reason: string | null
@@ -1318,7 +1318,6 @@ export class AnchorAPI {
       typeof source.state === 'string' &&
       (
         source.state === 'confirmed'
-        || source.state === 'pending_card_capture'
         || source.state === 'pending_payment'
         || source.state === 'blocked'
       ) &&
@@ -1364,9 +1363,9 @@ export class AnchorAPI {
 
     const bookingId = result.table_booking_id || result.booking_reference || `tbl_${Date.now()}`
     const bookingReference = result.booking_reference || result.table_booking_id || bookingId
-    const pendingCardCapture = result.state === 'pending_card_capture'
     const pendingPayment = result.state === 'pending_payment'
-    const requiresNextStep = pendingCardCapture || pendingPayment
+    const requiresNextStep = pendingPayment
+    // Deposit is £10/person for both Sunday lunch and groups of 7+
     const depositAmount = pendingPayment ? getSundayLunchDepositAmount(Number(originalRequest.party_size || 1)) : 0
     const duration =
       typeof originalRequest.duration_minutes === 'number'

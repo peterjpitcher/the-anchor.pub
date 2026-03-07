@@ -532,8 +532,7 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
       const paymentUrl = payload?.payment_details?.payment_url || payload?.next_step_url || null
       const paymentRequired =
         payload?.payment_required === true ||
-        bookingState === 'pending_payment' ||
-        bookingState === 'pending_card_capture'
+        bookingState === 'pending_payment'
       const bookingReference =
         payload?.booking_reference ||
         payload?.table_booking_id ||

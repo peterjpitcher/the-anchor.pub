@@ -31,7 +31,7 @@ type CustomerLookupResult = {
 }
 
 type ManagementTableBookingResult = {
-  state: 'confirmed' | 'pending_card_capture' | 'pending_payment' | 'blocked'
+  state: 'confirmed' | 'pending_payment' | 'blocked'
   table_booking_id: string | null
   booking_reference: string | null
   reason: string | null
@@ -582,7 +582,9 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const sundayLunchCutoffDate = useMemo(() => getSundayLunchCutoffDate(date), [date])
   const purposeLockedToFood = !mothersDayMode && selectedDateIsSunday && sundayLunch
   const requiresSundayLunchDeposit = mothersDayMode || (selectedDateIsSunday && sundayLunch)
+  const requiresGroupDeposit = !requiresSundayLunchDeposit && partySize >= 7
   const sundayLunchDepositAmount = requiresSundayLunchDeposit ? getSundayLunchDepositAmount(partySize) : 0
+  const groupDepositAmount = requiresGroupDeposit ? partySize * SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP : 0
   const sundayLunchDepositPerGuestLabel = `GBP ${SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP} per person`
   const detailsUnlocked = lookupState === 'known' || lookupState === 'unknown'
   const isKnownCustomer = lookupState === 'known'
@@ -638,10 +640,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   }, [date, mothersDayMode])
 
   useEffect(() => {
-    if (
-      (result?.state !== 'pending_card_capture' && result?.state !== 'pending_payment') ||
-      !result.next_step_url
-    ) {
+    if (result?.state !== 'pending_payment' || !result.next_step_url) {
       setCardRedirectInitiated(false)
       return
     }
@@ -1532,42 +1531,34 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     )
   }
 
-  if (result?.state === 'pending_card_capture' || result?.state === 'pending_payment') {
-    const requiresPayment = result.state === 'pending_payment'
+  if (result?.state === 'pending_payment') {
+    const depositDescription = requiresSundayLunchDeposit
+      ? `Complete payment of your ${sundayLunchDepositPerGuestLabel} Sunday lunch deposit to secure your table. This deposit is deducted from your final bill.`
+      : `A deposit of ${sundayLunchDepositPerGuestLabel} is required for groups of 7 or more. This deposit is deducted from your final bill.`
 
     return (
       <Card variant="elevated">
         <CardBody className="space-y-4">
           <Alert
             variant="warning"
-            title={requiresPayment ? 'Deposit payment needed to secure this booking' : 'Card details needed to secure this booking'}
+            title="Deposit payment needed to secure this booking"
           >
             <p>
               Booking reference: <strong>{result.booking_reference || 'Pending'}</strong>
             </p>
             {cardRedirectInitiated ? (
-              <p className="mt-1">
-                {requiresPayment
-                  ? 'Redirecting you to the secure deposit payment step…'
-                  : 'Redirecting you to the secure card details step…'}
-              </p>
+              <p className="mt-1">Redirecting you to the secure deposit payment step…</p>
             ) : (
-              <p className="mt-1">
-                {requiresPayment
-                  ? `Complete payment of your ${sundayLunchDepositPerGuestLabel} Sunday lunch deposit to secure your table. This deposit is deducted from your final bill.`
-                  : 'Complete card details to secure your table.'}
-              </p>
+              <p className="mt-1">{depositDescription}</p>
             )}
             {holdExpiry ? (
-              <p className="mt-1">
-                {requiresPayment ? `Complete payment by ${holdExpiry}.` : `Complete card details by ${holdExpiry}.`}
-              </p>
+              <p className="mt-1">Complete payment by {holdExpiry}.</p>
             ) : null}
             {result.next_step_url ? (
               <div className="mt-3">
                 <Button asChild variant="primary" size="sm">
                   <a href={result.next_step_url} target="_blank" rel="noopener noreferrer">
-                    {requiresPayment ? 'Continue to Payment' : 'Continue to Card Details'}
+                    Continue to Payment
                   </a>
                 </Button>
               </div>
@@ -2187,10 +2178,21 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                     <dd>{formatGbpCurrency(sundayLunchDepositAmount)}</dd>
                   </div>
                 ) : null}
+                {requiresGroupDeposit ? (
+                  <div className="flex justify-between gap-3">
+                    <dt className="font-medium">Deposit due now</dt>
+                    <dd>{formatGbpCurrency(groupDepositAmount)}</dd>
+                  </div>
+                ) : null}
               </dl>
               {requiresSundayLunchDeposit ? (
                 <p className="mt-3 text-xs text-amber-900">
                   This deposit is deducted from your final bill.
+                </p>
+              ) : null}
+              {requiresGroupDeposit ? (
+                <p className="mt-3 text-xs text-amber-900">
+                  A £{SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP} per person deposit is required for groups of 7 or more. This is deducted from your final bill.
                 </p>
               ) : null}
             </div>

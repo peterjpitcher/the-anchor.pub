@@ -198,6 +198,7 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
               <h2 className="text-xl font-semibold text-anchor-green">Quick tips</h2>
               <ul className="mt-3 space-y-2 text-left text-sm text-gray-700">
                 <li>• For larger groups, please call us.</li>
+                <li>• A £10 per person deposit is required for groups of 7 or more. This is deducted from your final bill.</li>
                 <li>• {SUNDAY_LUNCH_DEPOSIT_POLICY_COPY}</li>
                 <li>• Add access needs or dietary notes in the notes box.</li>
                 <li>• Can’t see the time you want? Give us a ring.</li>
