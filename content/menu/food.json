@@ -6,9 +6,11 @@
     {
       "id": "light-bites",
       "title": "Light Bites",
+      "description": "Perfect when you want something satisfying without committing to a full main. Our light bites are served quickly and priced fairly — great for a solo visit, a snack between pints, or a quick bite before heading to the terminal.",
       "sections": [
         {
           "title": "Wraps with Chips",
+          "description": "Soft flour tortillas packed with generous fillings and served with a full portion of chips. Ready quickly and easy to eat — a solid choice for a satisfying lunch without the full sit-down commitment.",
           "style": "grid",
           "items": [
             {
@@ -29,6 +31,7 @@
         },
         {
           "title": "Sides & Extras",
+          "description": "The essential additions that complete any plate. From skin-on chips to golden cheesy fries and beer-battered onion rings — all cooked to order and perfect for sharing across the table.",
           "style": "list",
           "items": [
             {
@@ -107,9 +110,11 @@
     {
       "id": "mains",
       "title": "Mains",
+      "description": "The backbone of The Anchor menu. Proper British pub food cooked fresh to order — from golden fish and chips to warming curries and hearty pies. Most plates arrive within fifteen minutes, with no airport price tag attached.",
       "sections": [
         {
           "title": "Traditional Favourites",
+          "description": "The dishes that define a proper pub lunch or dinner. From golden chicken katsu to deep-filled pies and warming house curries, every plate is cooked to order and served with your choice of sides.",
           "style": "grid",
           "items": [
             {
@@ -173,7 +178,7 @@
         },
         {
           "title": "Classic Chip Shop Favourites",
-          "description": "All served with mushy peas, tartar sauce, and fresh lemon",
+          "description": "Golden and crispy, battered fresh to order. Our chip shop classics come with mushy peas, tartar sauce and a wedge of lemon. The fish and chips alone is worth the trip — no freezer shortcuts here.",
           "style": "grid",
           "items": [
             {
@@ -205,68 +210,6 @@
               "vegetarian": false
             }
           ]
-        },
-        {
-          "title": "Sauces & Condiments",
-          "style": "list",
-          "items": [
-            {
-              "name": "Bisto Gravy",
-              "price": "",
-              "description": "Proper gravy to soak your roast or chips.",
-              "allergens": [],
-              "vegetarian": true
-            },
-            {
-              "name": "Mayonnaise",
-              "price": "",
-              "description": "Classic creamy mayo for dipping.",
-              "allergens": ["eggs", "milk"],
-              "vegetarian": true
-            },
-            {
-              "name": "Garlic Mayonnaise",
-              "price": "",
-              "description": "House garlic mayo with a gentle warmth.",
-              "allergens": ["eggs", "milk"],
-              "vegetarian": true
-            },
-            {
-              "name": "Ketchup",
-              "price": "",
-              "description": "Tomato ketchup, a chip shop staple.",
-              "allergens": [],
-              "vegetarian": true
-            },
-            {
-              "name": "English Mustard",
-              "price": "",
-              "description": "Sharp English mustard for a proper kick.",
-              "allergens": ["gluten"],
-              "vegetarian": true
-            },
-            {
-              "name": "Tartar Sauce",
-              "price": "",
-              "description": "Tangy tartar sauce with capers and herbs.",
-              "allergens": ["eggs", "milk"],
-              "vegetarian": true
-            },
-            {
-              "name": "Mint Sauce",
-              "price": "",
-              "description": "Cool mint sauce to cut through rich roasts.",
-              "allergens": [],
-              "vegetarian": true
-            },
-            {
-              "name": "Cranberry Sauce",
-              "price": "",
-              "description": "Sweet cranberry relish for turkey and cheese.",
-              "allergens": [],
-              "vegetarian": true
-            }
-          ]
         }
       ]
     },
@@ -277,6 +220,7 @@
       "sections": [
         {
           "title": "Classic Burgers",
+          "description": "Hand-pressed patties stacked high and served with salad, chips and your choice of sauce. Our classic burgers are straightforward and satisfying — no gimmicks, just good ingredients cooked properly.",
           "style": "grid",
           "items": [
             {
@@ -311,7 +255,7 @@
         },
         {
           "title": "Burger Specials",
-          "description": "All of our special burgers are served with chips as standard.",
+          "description": "Our chef's signature builds, each with its own twist. From smoky BBQ stacks to crispy chicken towers, the specials come fully loaded with chips as standard. Worth the upgrade.",
           "style": "grid",
           "items": [
             {
@@ -350,43 +294,17 @@
               "vegetarian": true
             }
           ]
-        },
-        {
-          "title": "Burger Sauces & Extras",
-          "style": "list",
-          "items": [
-            {
-              "name": "BBQ Sauce",
-              "price": "",
-              "description": "Smoky barbecue glaze made for goujons and burgers.",
-              "allergens": ["gluten", "peanuts"],
-              "vegetarian": true
-            },
-            {
-              "name": "Burger Sauce",
-              "price": "",
-              "description": "Creamy burger sauce with a tangy edge.",
-              "allergens": ["eggs", "milk"],
-              "vegetarian": true
-            },
-            {
-              "name": "Sweet Chilli Dipping Sauce",
-              "price": "",
-              "description": "Sweet chilli sauce with a gentle heat.",
-              "allergens": [],
-              "vegetarian": true
-            }
-          ]
         }
       ]
     },
     {
       "id": "pizza",
       "title": "Stone Baked Pizza",
-      "description": "Enjoy the comforting taste of our stone-baked pizzas, crafted to order with authentic Italian ingredients. All pizzas can be made with 12\" gluten-free bases at no extra charge - just ask when ordering! Small pizzas perfect for children.",
+      "description": "Enjoy the comforting taste of our stone-baked pizzas, crafted to order with authentic Italian ingredients. All pizzas are 12 inches and can be made with a gluten-free base at no extra charge — just ask when ordering.",
       "sections": [
         {
           "title": "Pizza Selection",
+          "description": "Stone-baked to order on hand-stretched bases with San Marzano tomato sauce. All 12-inch pizzas are available with a gluten-free base at no extra charge — just ask your server when ordering.",
           "style": "grid",
           "items": [
             {
@@ -465,6 +383,7 @@
         },
         {
           "title": "Garlic Bread",
+          "description": "Baked in the same stone oven as our pizzas — golden and crisp on the outside with a soft, garlicky centre. Add mozzarella to make it a shareable starter worth lingering over.",
           "style": "grid",
           "items": [
             {
@@ -488,9 +407,11 @@
     {
       "id": "desserts",
       "title": "Desserts",
+      "description": "Round off your meal with something sweet and satisfying. Our desserts are warm, generous and classic — the kind of puds that go perfectly after a Sunday roast or a plate of fish and chips.",
       "sections": [
         {
           "title": "",
+          "description": "A proper finish to a proper meal. Our desserts are warm, classic pub puds — generous portions and all the trimmings. Best enjoyed slowly with a coffee or a digestif from the bar.",
           "style": "grid",
           "items": [
             {
@@ -522,49 +443,17 @@
               "vegetarian": true
             }
           ]
-        },
-        {
-          "title": "Dessert Sauces",
-          "style": "list",
-          "items": [
-            {
-              "name": "Chocolate Sauce",
-              "price": "",
-              "description": "Silky chocolate sauce for drizzling or dipping.",
-              "allergens": [],
-              "vegetarian": true
-            },
-            {
-              "name": "Strawberry Sauce",
-              "price": "",
-              "description": "Sweet strawberry drizzle for ice cream.",
-              "allergens": [],
-              "vegetarian": true
-            },
-            {
-              "name": "Toffee Sauce",
-              "price": "",
-              "description": "Rich toffee sauce with brown sugar sweetness.",
-              "allergens": ["milk"],
-              "vegetarian": true
-            },
-            {
-              "name": "Balsamic Dressing",
-              "price": "",
-              "description": "Classic balsamic dressing to brighten salads.",
-              "allergens": ["sulphites"],
-              "vegetarian": true
-            }
-          ]
         }
       ]
     },
     {
       "id": "hot-drinks",
       "title": "Hot Drinks",
+      "description": "A proper cup to finish your visit. Freshly pulled espressos, classic teas and indulgent hot chocolates — made properly and served without the airport price tag.",
       "sections": [
         {
           "title": "",
+          "description": "Freshly made to order. Whether you're rounding off a meal or sitting out a layover, our hot drinks are served properly and without the airport price tag.",
           "style": "list",
           "items": [
             {
