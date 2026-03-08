@@ -366,28 +366,16 @@ const MenuItemRow = memo(function MenuItemRow({ item, itemId, isFocused, onFocus
 
 // Helper component to display allergen information
 const AllergenInfo = memo(function AllergenInfo({ item }: { item: MenuItem }) {
-  if (!item.allergens || item.allergens.length === 0) {
-    return null
-  }
+  if (!item.allergens || item.allergens.length === 0) return null
+
+  const labels = item.allergens.map(allergen => {
+    const info = ALLERGEN_TYPES[allergen as keyof typeof ALLERGEN_TYPES]
+    return info ? `${info.icon} ${info.label}` : allergen
+  })
 
   return (
-    <div className="mt-2 text-sm text-anchor-cream-text/55">
-      <span className="font-medium">Contains: </span>
-      {item.allergens.map((allergen, index) => {
-        const allergenInfo = ALLERGEN_TYPES[allergen as keyof typeof ALLERGEN_TYPES]
-        return (
-          <span key={allergen}>
-            {index > 0 && ', '}
-            {allergenInfo ? (
-              <span className="inline-flex items-center">
-                {allergenInfo.icon} {allergenInfo.label}
-              </span>
-            ) : (
-              allergen
-            )}
-          </span>
-        )
-      })}
-    </div>
+    <p className="text-[11px] text-anchor-cream-text/40 mt-0.5 leading-snug">
+      Contains: {labels.join(', ')}
+    </p>
   )
 })
