@@ -312,14 +312,13 @@ export default async function HeathrowParkingPage() {
             </Button>
           </Link>
         }
-	        secondaryInfo={
-	          <div className="mt-6 max-w-3xl mx-auto rounded-xl bg-white/90 p-4 text-center text-anchor-cream-text backdrop-blur-sm">
-	            <p className="font-semibold">
-	              Swap GBP 39 Heathrow short stay for GBP 15 per day with us. Ideal for Terminal 3 long stay passengers, Terminal 5 flyers, cabin crew and airport staff.
-	            </p>
-            <p className="mt-3 text-sm text-anchor-cream-text/70">
-              We are not inside the airport. Park at The Anchor in Stanwell Moor, then take a taxi or the daytime 442 bus from outside the pub. Vehicles stay at the owner&apos;s risk and drivers keep their keys.
-            </p>
+        secondaryInfo={
+          <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm text-white/80 mt-1">
+            <span className="flex items-center gap-1.5">Free parking · 20 spaces</span>
+            <span className="flex items-center gap-1.5">7 min from Heathrow T5</span>
+            <span className="flex items-center gap-1.5">Dog & family friendly</span>
+            <span className="flex items-center gap-1.5">Super-fast fibre broadband</span>
+            <span className="flex items-center gap-1.5">Rated 4.6/5 on Google</span>
           </div>
         }
       />

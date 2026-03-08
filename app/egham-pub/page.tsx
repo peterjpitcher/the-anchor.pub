@@ -103,7 +103,7 @@ export default function EghamPubPage() {
         }
         secondaryCta={
           <Link href="/food-menu">
-            <Button 
+            <Button
               variant="secondary"
               size="lg"
               className="w-full sm:w-auto"
@@ -111,6 +111,15 @@ export default function EghamPubPage() {
                View Menu
             </Button>
           </Link>
+        }
+        secondaryInfo={
+          <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm text-white/80 mt-1">
+            <span className="flex items-center gap-1.5">Free parking · 20 spaces</span>
+            <span className="flex items-center gap-1.5">7 min from Heathrow T5</span>
+            <span className="flex items-center gap-1.5">Dog & family friendly</span>
+            <span className="flex items-center gap-1.5">Super-fast fibre broadband</span>
+            <span className="flex items-center gap-1.5">Rated 4.6/5 on Google</span>
+          </div>
         }
       />
 

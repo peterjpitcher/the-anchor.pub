@@ -100,6 +100,15 @@ export default function FindUsPage() {
             Call Us
           </PhoneButton>
         }
+        secondaryInfo={
+          <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm text-white/80 mt-1">
+            <span className="flex items-center gap-1.5">Free parking · 20 spaces</span>
+            <span className="flex items-center gap-1.5">7 min from Heathrow T5</span>
+            <span className="flex items-center gap-1.5">Dog & family friendly</span>
+            <span className="flex items-center gap-1.5">Super-fast fibre broadband</span>
+            <span className="flex items-center gap-1.5">Rated 4.6/5 on Google</span>
+          </div>
+        }
       />
 
       {/* Page Title for SEO */}
@@ -117,21 +126,11 @@ export default function FindUsPage() {
       {/* Quick Info */}
       <Section background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-6xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
             <div className="bg-anchor-bg-card p-4 rounded-none border border-anchor-gold/15 text-center">
               <div className="text-3xl mb-2"></div>
               <p className="font-bold text-anchor-cream-text">Stanwell Moor</p>
               <p className="text-sm text-anchor-cream-text/70">Surrey TW19 6AQ</p>
-            </div>
-            <div className="bg-anchor-bg-card p-4 rounded-none border border-anchor-gold/30 text-center">
-              <div className="text-3xl mb-2"></div>
-              <p className="font-bold text-anchor-gold-vivid">FREE PARKING</p>
-              <p className="text-sm text-anchor-gold font-semibold">For patrons • 20 spaces</p>
-            </div>
-            <div className="bg-anchor-bg-card p-4 rounded-none border border-anchor-gold/15 text-center">
-              <div className="text-3xl mb-2"></div>
-              <p className="font-bold text-anchor-cream-text">Near Heathrow</p>
-              <p className="text-sm text-anchor-cream-text/70">7-12 minutes</p>
             </div>
             <div className="bg-anchor-bg-card p-4 rounded-none border border-anchor-gold/15 text-center">
               <div className="text-3xl mb-2"></div>
@@ -140,18 +139,8 @@ export default function FindUsPage() {
             </div>
             <div className="bg-anchor-bg-card p-4 rounded-none border border-anchor-gold/15 text-center">
               <div className="text-3xl mb-2"></div>
-              <p className="font-bold text-anchor-cream-text">Free WiFi</p>
-              <p className="text-sm text-anchor-cream-text/70">Throughout the pub</p>
-            </div>
-            <div className="bg-anchor-bg-card p-4 rounded-none border border-anchor-gold/15 text-center">
-              <div className="text-3xl mb-2"></div>
               <p className="font-bold text-anchor-cream-text">Pool & Darts</p>
               <p className="text-sm text-anchor-cream-text/70">Games available</p>
-            </div>
-            <div className="bg-anchor-bg-card p-4 rounded-none border border-anchor-gold/15 text-center">
-              <div className="text-3xl mb-2"></div>
-              <p className="font-bold text-anchor-cream-text">Work Friendly</p>
-              <p className="text-sm text-anchor-cream-text/70">Tables with plugs</p>
             </div>
             <div className="bg-anchor-bg-card p-4 rounded-none border border-anchor-gold/15 text-center">
               <div className="text-3xl mb-2"></div>

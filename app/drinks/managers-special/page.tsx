@@ -226,6 +226,15 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
               </Button>
             </Link>
           )}
+          secondaryInfo={
+            <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm text-white/80 mt-1">
+              <span className="flex items-center gap-1.5">Free parking · 20 spaces</span>
+              <span className="flex items-center gap-1.5">7 min from Heathrow T5</span>
+              <span className="flex items-center gap-1.5">Dog & family friendly</span>
+              <span className="flex items-center gap-1.5">Super-fast fibre broadband</span>
+              <span className="flex items-center gap-1.5">Rated 4.6/5 on Google</span>
+            </div>
+          }
         />
         <Section spacing="md" container className="bg-anchor-bg border-b border-anchor-gold/15">
           <div className="mx-auto flex max-w-3xl flex-col items-center gap-6 text-center">
@@ -445,7 +454,7 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
         secondaryCta={
           <>
             <Link href="#why">
-              <Button 
+              <Button
                 variant="secondary"
                 size="lg"
                 className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm w-full sm:w-auto"
@@ -461,6 +470,15 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
               source="managers_special_hero"
             />
           </>
+        }
+        secondaryInfo={
+          <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm text-white/80 mt-1">
+            <span className="flex items-center gap-1.5">Free parking · 20 spaces</span>
+            <span className="flex items-center gap-1.5">7 min from Heathrow T5</span>
+            <span className="flex items-center gap-1.5">Dog & family friendly</span>
+            <span className="flex items-center gap-1.5">Super-fast fibre broadband</span>
+            <span className="flex items-center gap-1.5">Rated 4.6/5 on Google</span>
+          </div>
         }
       />
 
