@@ -324,6 +324,11 @@ const MenuItemRow = memo(function MenuItemRow({ item, itemId, isFocused, onFocus
         {isHighlighted && (
           <HeroBadge text="NEW" variant="new" position="inline" />
         )}
+        {item.featured && (
+          <span className="text-[11px] font-semibold text-amber-400 bg-amber-400/10 px-1.5 py-0.5 rounded leading-none ml-1.5">
+            Guest favourite
+          </span>
+        )}
         {item.vegetarian && (
           <span className="text-[11px] font-bold text-emerald-400 bg-emerald-400/10 px-1.5 py-0.5 rounded leading-none ml-1.5">V</span>
         )}

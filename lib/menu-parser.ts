@@ -8,6 +8,7 @@ export interface MenuItem {
   description: string
   vegetarian?: boolean
   special?: boolean
+  featured?: boolean
   allergens?: string[]
 }
 
