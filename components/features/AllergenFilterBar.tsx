@@ -164,7 +164,6 @@ export function AllergenFilterBar({
                         : 'bg-anchor-bg-raised text-anchor-cream-text/70 hover:bg-anchor-bg-card hover:text-anchor-cream-text'
                     )}
                   >
-                    <span aria-hidden="true" className="text-base">{config.icon}</span>
                     <span>No {config.label}</span>
                   </button>
                 )

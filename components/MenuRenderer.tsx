@@ -360,7 +360,7 @@ const AllergenInfo = memo(function AllergenInfo({ item }: { item: MenuItem }) {
 
   const labels = item.allergens.map(allergen => {
     const info = ALLERGEN_TYPES[allergen as keyof typeof ALLERGEN_TYPES]
-    return info ? `${info.icon} ${info.label}` : allergen
+    return info ? info.label : allergen
   })
 
   return (
