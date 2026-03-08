@@ -4,7 +4,6 @@ import { Container, Section, Card, CardBody, Alert } from '@/components/ui'
 import { CTASection, SectionHeader, FeatureGrid } from '@/components/ui'
 import { BookTableButton } from '@/components/BookTableButton'
 import { HeroWrapper } from '@/components/hero'
-import { MenuAnchorNav } from '@/components/food/MenuAnchorNav'
 import { MenuSectionCta } from '@/components/food/MenuSectionCta'
 import { FilteredMenuRenderer } from '@/components/FilteredMenuRenderer'
 import { MenuPageTracker } from '@/components/tracking/MenuPageTracker'
@@ -24,14 +23,6 @@ import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import type { KitchenStatusData } from '@/components/psychology'
 
 export const revalidate = 3600 // Revalidate every hour
-
-const ANCHOR_LINKS = [
-  { id: 'sunday-roast', label: 'Sunday Roast' },
-  { id: 'pizza', label: 'Pizza Menu' },
-  { id: 'pub-classics', label: 'Pub Classics' },
-  { id: 'dietary', label: 'Veggie & Gluten-Friendly' },
-  { id: 'near-heathrow', label: 'Near Heathrow' }
-]
 
 const MENU_SECTION_LIST = [
   {
@@ -342,12 +333,6 @@ export default async function FoodMenuPage() {
           </div>
         }
       />
-
-      <Section background="white" spacing="sm" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
-        <Container>
-          <MenuAnchorNav links={ANCHOR_LINKS} />
-        </Container>
-      </Section>
 
       <Section background="white" spacing="sm" className="bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
