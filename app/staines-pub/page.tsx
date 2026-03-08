@@ -126,18 +126,18 @@ export default async function StainesPubPage() {
         }
       />
 
-      <section className="bg-white py-6">
+      <section className="bg-anchor-bg-card py-6 border-b border-anchor-gold/15">
         <Container>
-          <p className="text-center text-sm text-gray-600">⭐⭐⭐⭐⭐ <strong>Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
+          <p className="text-center text-sm text-anchor-cream-text/70">⭐⭐⭐⭐⭐ <strong className="text-anchor-cream-text">Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
         </Container>
       </section>
 
       {/* Quick Summary */}
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
-          <div className="max-w-5xl mx-auto bg-anchor-cream/40 border border-anchor-cream rounded-2xl p-6">
-            <h2 className="text-2xl font-bold text-anchor-green mb-3">Staines Locals Love Us For</h2>
-            <div className="grid gap-3 md:grid-cols-2 text-gray-700">
+          <div className="max-w-5xl mx-auto bg-anchor-bg-raised border border-anchor-gold/15 rounded-none p-6">
+            <h2 className="text-2xl font-bold text-anchor-gold-vivid mb-3">Staines Locals Love Us For</h2>
+            <div className="grid gap-3 md:grid-cols-2 text-anchor-cream-text/70">
               <div className="flex items-start gap-2">
                 <span className="font-semibold text-anchor-gold">🚗</span>
                 <span>8 minute drive from Staines High Street with free parking</span>
@@ -160,10 +160,10 @@ export default async function StainesPubPage() {
       </section>
 
       {/* Page Title for SEO */}
-      <section className="bg-white py-8">
+      <section className="bg-anchor-bg py-8 border-b border-anchor-gold/15">
         <Container>
           <PageTitle
-            className="text-center text-anchor-green"
+            className="text-center text-anchor-cream-text"
             seo={{ structured: true, speakable: true }}
           >
             Surrey Pub Near Staines - The Anchor - Heathrow Pub & Dining
@@ -172,7 +172,7 @@ export default async function StainesPubPage() {
       </section>
 
       {/* Why Choose The Anchor */}
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-6xl mx-auto">
             <SectionHeader
@@ -226,7 +226,7 @@ export default async function StainesPubPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <SectionHeader
             title="Private Rooms & Wedding Receptions Near Staines"
@@ -239,33 +239,33 @@ export default async function StainesPubPage() {
                 title: "Private rooms near Staines",
                 content: (
                   <>
-                    <p className="mb-4">
+                    <p className="mb-4 text-anchor-cream-text/70">
                       Planning a birthday, wake or team night? Our private dining room is a popular option for
                       groups searching for pubs with private rooms in Staines, with free parking and tailored menus.
                     </p>
-                    <Link href="/function-room-hire" className="text-anchor-gold font-semibold hover:text-anchor-green transition">
+                    <Link href="/function-room-hire" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition">
                       Explore function room hire →
                     </Link>
                   </>
                 ),
                 variant: "colored",
-                color: "bg-amber-50"
+                color: "bg-anchor-bg-card"
               },
               {
                 title: "Wedding receptions in the Staines area",
                 content: (
                   <>
-                    <p className="mb-4">
+                    <p className="mb-4 text-anchor-cream-text/70">
                       We host wedding receptions near Staines with flexible layouts, buffet or three-course menus,
                       and dedicated support for speeches and playlists.
                     </p>
-                    <Link href="/private-party-venue" className="text-anchor-gold font-semibold hover:text-anchor-green transition">
+                    <Link href="/private-party-venue" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition">
                       View private party options →
                     </Link>
                   </>
                 ),
                 variant: "colored",
-                color: "bg-rose-50"
+                color: "bg-anchor-bg-card"
               }
             ]}
           />
@@ -273,7 +273,7 @@ export default async function StainesPubPage() {
       </section>
 
       {/* Journey from Staines */}
-      <section className="section-spacing bg-anchor-sand/20">
+      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -287,7 +287,7 @@ export default async function StainesPubPage() {
                 {
                   title: "🚗 By Car (8 minutes)",
                   content: (
-                    <ol className="space-y-2 list-decimal list-inside">
+                    <ol className="space-y-2 list-decimal list-inside text-anchor-cream-text/70">
                       <li>Head west on the A30 from Staines town centre</li>
                       <li>Continue through Stanwell village</li>
                       <li>Turn left onto Horton Road</li>
@@ -295,32 +295,32 @@ export default async function StainesPubPage() {
                     </ol>
                   ),
                   variant: "colored",
-                  color: "bg-amber-50"
+                  color: "bg-anchor-bg-card"
                 },
                 {
                   title: "🚌 By Public Transport",
                   content: (
-                    <ul className="space-y-2">
+                    <ul className="space-y-2 text-anchor-cream-text/70">
                       <li className="flex items-start">
-                        <span className="text-blue-500 mr-2">•</span>
+                        <span className="text-anchor-gold mr-2">•</span>
                         Bus routes from Staines Bus Station
                       </li>
                       <li className="flex items-start">
-                        <span className="text-blue-500 mr-2">•</span>
+                        <span className="text-anchor-gold mr-2">•</span>
                         Regular services throughout the day
                       </li>
                       <li className="flex items-start">
-                        <span className="text-blue-500 mr-2">•</span>
+                        <span className="text-anchor-gold mr-2">•</span>
                         Stop: Horton Road/The Anchor
                       </li>
                       <li className="flex items-start">
-                        <span className="text-blue-500 mr-2">•</span>
+                        <span className="text-anchor-gold mr-2">•</span>
                         Journey time: 15-20 minutes
                       </li>
                     </ul>
                   ),
                   variant: "colored",
-                  color: "bg-blue-50"
+                  color: "bg-anchor-bg-card"
                 }
               ]}
             />
@@ -330,7 +330,7 @@ export default async function StainesPubPage() {
               title="Also conveniently located near:"
               className="mt-8 text-center"
               content={
-                <div className="flex flex-wrap justify-center gap-4">
+                <div className="flex flex-wrap justify-center gap-4 text-anchor-cream-text/70">
                   <span>• Heathrow T5: {HEATHROW_TIMES.terminal5} mins</span>
                   <span>• Ashford: 10 mins</span>
                   <span>• Sunbury: 15 mins</span>
@@ -343,7 +343,7 @@ export default async function StainesPubPage() {
       </section>
 
       {/* What's On This Week */}
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -352,30 +352,30 @@ export default async function StainesPubPage() {
             />
 
             <div className="space-y-6">
-              <div className="border-l-4 border-anchor-gold bg-anchor-cream/50 p-6 rounded-r-lg">
+              <div className="border-l-4 border-anchor-gold bg-anchor-bg-raised p-6">
                 <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-xl font-bold text-anchor-green">Thursday</h3>
+                  <h3 className="text-xl font-bold text-anchor-cream-text">Thursday</h3>
                   <span className="bg-purple-500 text-white px-3 py-1 rounded-full text-sm font-semibold">QUIZ</span>
                 </div>
-                <p className="text-gray-700">Quiz Night - Win bar tabs and prizes! See /whats-on for details.</p>
+                <p className="text-anchor-cream-text/70">Quiz Night - Win bar tabs and prizes! See /whats-on for details.</p>
               </div>
 
-              <div className="border-l-4 border-anchor-gold bg-anchor-cream/50 p-6 rounded-r-lg">
+              <div className="border-l-4 border-anchor-gold bg-anchor-bg-raised p-6">
                 <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-xl font-bold text-anchor-green">Sunday</h3>
-                  <span className="bg-anchor-green text-white px-3 py-1 rounded-full text-sm font-semibold">ROASTS</span>
+                  <h3 className="text-xl font-bold text-anchor-cream-text">Sunday</h3>
+                  <span className="bg-anchor-gold text-anchor-bg px-3 py-1 rounded-full text-sm font-semibold">ROASTS</span>
                 </div>
-		                <p className="text-gray-700">
+		                <p className="text-anchor-cream-text/70">
 		                  Famous Sunday roasts served 1pm-6pm. Pre-order by 1pm Saturday. Sunday lunch bookings require a £10 per person deposit.
 		                </p>
               </div>
 
-              <div className="border-l-4 border-anchor-gold bg-anchor-cream/50 p-6 rounded-r-lg">
+              <div className="border-l-4 border-anchor-gold bg-anchor-bg-raised p-6">
                 <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-xl font-bold text-anchor-green">Monthly</h3>
+                  <h3 className="text-xl font-bold text-anchor-cream-text">Monthly</h3>
                   <span className="bg-pink-500 text-white px-3 py-1 rounded-full text-sm font-semibold">HOSTED</span>
                 </div>
-                <p className="text-gray-700">Hosted nights with Nikki Manfadge (including Music Bingo) and one-off events. See /whats-on for details.</p>
+                <p className="text-anchor-cream-text/70">Hosted nights with Nikki Manfadge (including Music Bingo) and one-off events. See /whats-on for details.</p>
               </div>
             </div>
           </div>
@@ -383,7 +383,7 @@ export default async function StainesPubPage() {
       </section>
 
       {/* Event Venue Section */}
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeader
@@ -392,53 +392,53 @@ export default async function StainesPubPage() {
             />
 
             <div className="grid md:grid-cols-2 gap-8 mb-8">
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-xl font-bold text-anchor-green mb-4">Perfect for Staines Residents</h3>
+              <div className="card-dark rounded-none p-6">
+                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Perfect for Staines Residents</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <span className="text-green-600">✓</span>
-                    <span><strong>Quick journey</strong> - Just 8 minutes from Staines town centre</span>
+                    <span className="text-anchor-gold-vivid">✓</span>
+                    <span className="text-anchor-cream-text/70"><strong className="text-anchor-cream-text">Quick journey</strong> - Just 8 minutes from Staines town centre</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-green-600">✓</span>
-                    <span><strong>Free parking</strong> - No expensive town centre rates</span>
+                    <span className="text-anchor-gold-vivid">✓</span>
+                    <span className="text-anchor-cream-text/70"><strong className="text-anchor-cream-text">Free parking</strong> - No expensive town centre rates</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-green-600">✓</span>
-                    <span><strong>Competitive prices</strong> - Better value than Staines venues</span>
+                    <span className="text-anchor-gold-vivid">✓</span>
+                    <span className="text-anchor-cream-text/70"><strong className="text-anchor-cream-text">Competitive prices</strong> - Better value than Staines venues</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-green-600">✓</span>
-                    <span><strong>Flexible spaces</strong> - From intimate gatherings to large parties</span>
+                    <span className="text-anchor-gold-vivid">✓</span>
+                    <span className="text-anchor-cream-text/70"><strong className="text-anchor-cream-text">Flexible spaces</strong> - From intimate gatherings to large parties</span>
                   </li>
                 </ul>
               </div>
 
-              <div className="bg-anchor-cream rounded-xl p-6">
-                <h3 className="text-xl font-bold text-anchor-green mb-4">Popular Events from Staines</h3>
+              <div className="card-dark rounded-none p-6">
+                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Popular Events from Staines</h3>
                 <div className="space-y-4">
                   <div>
                     <h4 className="font-semibold text-anchor-gold mb-1">🎉 Birthday Parties</h4>
-                    <p className="text-sm text-gray-700">Celebrate milestones with custom packages</p>
+                    <p className="text-sm text-anchor-cream-text/70">Celebrate milestones with custom packages</p>
                   </div>
                   <div>
                     <h4 className="font-semibold text-anchor-gold mb-1">💼 Corporate Events</h4>
-                    <p className="text-sm text-gray-700">Team meetings and Christmas parties</p>
+                    <p className="text-sm text-anchor-cream-text/70">Team meetings and Christmas parties</p>
                   </div>
                   <div>
                     <h4 className="font-semibold text-anchor-gold mb-1">💑 Wedding Receptions</h4>
-                    <p className="text-sm text-gray-700">Beautiful venue for your special day</p>
+                    <p className="text-sm text-anchor-cream-text/70">Beautiful venue for your special day</p>
                   </div>
                   <div>
                     <h4 className="font-semibold text-anchor-gold mb-1">🕊️ Memorial Services</h4>
-                    <p className="text-sm text-gray-700">Respectful space for celebrations of life</p>
+                    <p className="text-sm text-anchor-cream-text/70">Respectful space for celebrations of life</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="bg-blue-50 rounded-xl p-6 text-center">
-              <p className="text-lg text-gray-800 mb-4">
+            <div className="card-dark rounded-none p-6 text-center">
+              <p className="text-lg text-anchor-cream-text mb-4">
                 <strong>Flexible venue hire pricing!</strong> Tailored to your event.
                 We're always willing to discuss your needs and budget.
               </p>
@@ -468,7 +468,7 @@ export default async function StainesPubPage() {
       </section>
 
       {/* Opening Hours */}
-      <section className="section-spacing bg-anchor-sand/20">
+      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-2xl mx-auto">
             <SectionHeader
@@ -515,7 +515,7 @@ export default async function StainesPubPage() {
             answer: "We host wedding receptions near Staines with buffet or seated menu options, a dedicated event team, and free on-site parking. Contact us to check dates."
           }
         ]}
-        className="bg-gray-50"
+        className="bg-anchor-bg-raised"
       />
 
       {/* CTA Section */}

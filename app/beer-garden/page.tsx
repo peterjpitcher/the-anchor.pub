@@ -129,19 +129,19 @@ export default async function BeerGardenPage() {
           </>
         }
       >
-        <div className="bg-white/90 backdrop-blur-sm text-anchor-green font-bold text-lg md:text-xl px-6 py-3 rounded-full inline-block mt-4">
+        <div className="bg-anchor-bg-card/90 backdrop-blur-sm text-anchor-gold-vivid font-bold text-lg md:text-xl px-6 py-3 rounded-full inline-block mt-4 border border-anchor-gold/30">
           ✈️ DIRECTLY UNDER THE FLIGHT PATH ✈️
         </div>
       </HeroWrapper>
 
       {/* Grab Food & Deals */}
-      <Section background="white" spacing="sm">
+      <Section background="white" spacing="sm" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-5xl mx-auto grid gap-6 md:grid-cols-3">
-            <Card className="bg-anchor-cream/50 shadow-sm">
+            <Card className="card-dark rounded-none">
               <CardBody>
-                <h3 className="text-lg font-semibold text-anchor-green mb-2">Sunday Roast (Sundays 1–6pm)</h3>
-                <p className="text-sm text-gray-700 mb-4">
+                <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-2">Sunday Roast (Sundays 1–6pm)</h3>
+                <p className="text-sm text-anchor-cream-text/70 mb-4">
                   Book by 1pm Saturday and enjoy Yorkshire puddings, crispy potatoes and proper gravy after your plane-spotting session.
                 </p>
                 <div className="flex flex-col gap-2">
@@ -158,10 +158,10 @@ export default async function BeerGardenPage() {
                 </div>
               </CardBody>
             </Card>
-            <Card className="bg-white shadow-sm">
+            <Card className="card-dark rounded-none">
               <CardBody>
-                <h3 className="text-lg font-semibold text-anchor-green mb-2">Stone-Baked Pizzas</h3>
-                <p className="text-sm text-gray-700 mb-4">
+                <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-2">Stone-Baked Pizzas</h3>
+                <p className="text-sm text-anchor-cream-text/70 mb-4">
                   Hand-stretched pizzas with bold toppings, ideal for aviation meet-ups or crew nights.
                 </p>
                 <div className="flex flex-col gap-2">
@@ -179,10 +179,10 @@ export default async function BeerGardenPage() {
                 </div>
               </CardBody>
             </Card>
-            <Card className="bg-anchor-cream/50 shadow-sm">
+            <Card className="card-dark rounded-none">
               <CardBody>
-                <h3 className="text-lg font-semibold text-anchor-green mb-2">All-Day Food & Drinks</h3>
-                <p className="text-sm text-gray-700 mb-4">
+                <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-2">All-Day Food & Drinks</h3>
+                <p className="text-sm text-anchor-cream-text/70 mb-4">
                   Burgers, fish & chips, sharers and a full drinks list served directly to the beer garden during kitchen hours.
                 </p>
                 <div className="flex flex-col gap-2">
@@ -204,17 +204,17 @@ export default async function BeerGardenPage() {
       </Section>
 
       {/* Google Rating */}
-      <section className="bg-white py-6">
+      <section className="bg-anchor-bg py-6 border-b border-anchor-gold/15">
         <Container>
-          <p className="text-center text-sm text-gray-600">⭐⭐⭐⭐⭐ <strong>Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
+          <p className="text-center text-sm text-anchor-cream-text/55">⭐⭐⭐⭐⭐ <strong className="text-anchor-cream-text">Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
         </Container>
       </section>
 
       {/* Page Title for SEO */}
-      <section className="bg-white py-8">
+      <section className="bg-anchor-bg-raised py-8 border-b border-anchor-gold/15">
         <Container>
           <PageTitle
-            className="text-center text-anchor-green"
+            className="text-center text-anchor-cream-text"
             seo={{ structured: true, speakable: true }}
           >
             Beer Garden - Outdoor Dining & Plane Spotting
@@ -223,7 +223,7 @@ export default async function BeerGardenPage() {
       </section>
 
       {/* Plane Spotting Paradise */}
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg">
         <Container>
           <div className="max-w-6xl mx-auto">
             <SectionHeader
@@ -248,7 +248,7 @@ export default async function BeerGardenPage() {
                     />
                   ),
                   variant: "colored",
-                  color: "bg-sky-50 rounded-2xl p-8"
+                  color: "bg-anchor-bg-card rounded-none p-8 border border-anchor-gold/15"
                 },
                 {
                   title: "What You'll See",
@@ -256,7 +256,7 @@ export default async function BeerGardenPage() {
                     <>
                       <div className="space-y-2 mb-6">
                         <p className="font-semibold">Common Aircraft Types:</p>
-                        <ul className="list-disc list-inside text-gray-700 space-y-1">
+                        <ul className="list-disc list-inside text-anchor-cream-text/70 space-y-1">
                           <li>Airbus A380 "Superjumbo"</li>
                           <li>Boeing 777 & 787 Dreamliner</li>
                           <li>Airbus A350 & A330</li>
@@ -264,8 +264,8 @@ export default async function BeerGardenPage() {
                           <li>Various narrow-body aircraft</li>
                         </ul>
                       </div>
-                      <div className="bg-white rounded-lg p-4">
-                        <p className="text-sm text-gray-600">
+                      <div className="bg-anchor-bg rounded-lg p-4 border border-anchor-gold/15">
+                        <p className="text-sm text-anchor-cream-text/55">
                           <strong>Peak Times:</strong> 6am-9am & 4pm-8pm<br />
                           <strong>Frequency:</strong> Every 90 seconds (peak)<br />
                           <strong>Wind Direction:</strong> Westerly operations (70% of year)
@@ -274,7 +274,7 @@ export default async function BeerGardenPage() {
                     </>
                   ),
                   variant: "colored",
-                  color: "bg-amber-50 rounded-2xl p-8"
+                  color: "bg-anchor-bg-raised rounded-none p-8 border border-anchor-gold/15"
                 }
               ]}
               className="mb-12"
@@ -285,10 +285,10 @@ export default async function BeerGardenPage() {
       </section>
 
       {/* Customer Reviews */}
-      <section className="section-spacing bg-anchor-sand/10">
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-anchor-green text-center mb-8">
+            <h2 className="text-3xl font-bold text-anchor-cream-text text-center mb-8">
               What Visitors Say About Our Beer Garden
             </h2>
             <GoogleReviews
@@ -300,7 +300,7 @@ export default async function BeerGardenPage() {
       </section>
 
       {/* Beer Garden Features */}
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-6xl mx-auto">
             <SectionHeader
@@ -347,18 +347,18 @@ export default async function BeerGardenPage() {
       </section>
 
       {/* Accessibility */}
-      <section className="section-spacing bg-anchor-cream/40">
+      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-anchor-green mb-4">Accessibility</h2>
-            <p className="text-gray-700 mb-3">
+            <h2 className="text-3xl font-bold text-anchor-cream-text mb-4">Accessibility</h2>
+            <p className="text-anchor-cream-text/70 mb-3">
               Step-free access to the bar, dining area and beer garden.
             </p>
-            <p className="text-gray-700 mb-4">
+            <p className="text-anchor-cream-text/70 mb-4">
               We currently don&apos;t have an accessible toilet. If you&apos;d like to visit and want to check what will work best for you, give us a call on{' '}
-              <a href="tel:+441753682707" className="text-anchor-green font-semibold hover:underline">+44 1753 682707</a> and we&apos;ll help.
+              <a href="tel:+441753682707" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid">+44 1753 682707</a> and we&apos;ll help.
             </p>
-            <Link href="/accessibility" className="text-anchor-green font-semibold hover:underline">
+            <Link href="/accessibility" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid hover:underline">
               Full accessibility information &rarr;
             </Link>
           </div>
@@ -366,7 +366,7 @@ export default async function BeerGardenPage() {
       </section>
 
       {/* Plane Spotting Tips */}
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -379,19 +379,19 @@ export default async function BeerGardenPage() {
                 {
                   title: "📱 Essential Apps",
                   content: (
-                    <ul className="space-y-2 text-gray-700">
+                    <ul className="space-y-2 text-anchor-cream-text/70">
                       <li>• <strong>Flightradar24:</strong> Track incoming flights in real-time</li>
                       <li>• <strong>Plane Finder:</strong> Identify aircraft types and airlines</li>
                       <li>• <strong>LiveATC:</strong> Listen to air traffic control (bring headphones!)</li>
                     </ul>
                   ),
                   variant: "colored",
-                  color: "bg-sky-50 rounded-xl p-6"
+                  color: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15"
                 },
                 {
                   title: "📸 Photography Tips",
                   content: (
-                    <ul className="space-y-2 text-gray-700">
+                    <ul className="space-y-2 text-anchor-cream-text/70">
                       <li>• Best light: Golden hour (1 hour before sunset)</li>
                       <li>• Recommended lens: 70-300mm for close-ups</li>
                       <li>• Fast shutter speed: 1/500s or faster</li>
@@ -399,12 +399,12 @@ export default async function BeerGardenPage() {
                     </ul>
                   ),
                   variant: "colored",
-                  color: "bg-amber-50 rounded-xl p-6"
+                  color: "bg-anchor-bg-raised rounded-none p-6 border border-anchor-gold/15"
                 },
                 {
                   title: "🍺 Make a Day of It",
                   content: (
-                    <ul className="space-y-2 text-gray-700">
+                    <ul className="space-y-2 text-anchor-cream-text/70">
                       <li>• Arrive early to secure the best spotting tables</li>
                       <li>• Try our aviation-themed cocktails</li>
                       <li>• Join other enthusiasts - great community feel</li>
@@ -412,7 +412,7 @@ export default async function BeerGardenPage() {
                     </ul>
                   ),
                   variant: "colored",
-                  color: "bg-green-50 rounded-xl p-6"
+                  color: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15"
                 }
               ]}
             />
@@ -423,6 +423,7 @@ export default async function BeerGardenPage() {
 
       {/* FAQ Section */}
       <FAQAccordionWithSchema
+        className="bg-anchor-bg"
         faqs={[
           {
             question: "What planes can I see from The Anchor beer garden?",
@@ -441,7 +442,6 @@ export default async function BeerGardenPage() {
             answer: "Absolutely! Our beer garden is a popular spot for aviation photographers. The planes pass low overhead providing excellent photo opportunities."
           }
         ]}
-        className="bg-gray-50"
       />
 
       {/* CTA Section */}

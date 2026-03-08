@@ -47,11 +47,11 @@ export function ManagersSpecialSchedule({
 }: ManagersSpecialScheduleProps) {
   if (!promotions || promotions.length === 0) {
     return (
-      <Section className={`bg-white ${className}`}>
+      <Section className={`bg-anchor-bg ${className}`}>
         <Container>
           <div className="mx-auto max-w-3xl text-center">
-            <h2 className="text-3xl font-bold text-gray-900">Upcoming Manager&apos;s Specials</h2>
-            <p className="mt-4 text-lg text-gray-700">Our monthly 25% off featured spirit schedule will be published here soon.</p>
+            <h2 className="text-3xl font-bold text-anchor-cream-text">Upcoming Manager&apos;s Specials</h2>
+            <p className="mt-4 text-lg text-anchor-cream-text/70">Our monthly 25% off featured spirit schedule will be published here soon.</p>
           </div>
         </Container>
       </Section>
@@ -62,11 +62,11 @@ export function ManagersSpecialSchedule({
   const nextCountdownLabel = formatDaysUntil(daysUntilNext)
 
   return (
-    <Section className={`bg-white ${className}`}>
+    <Section className={`bg-anchor-bg ${className}`}>
       <Container>
         <div className="mx-auto max-w-4xl text-center">
-          <h2 className="text-3xl font-bold text-gray-900">Upcoming Manager&apos;s Specials</h2>
-          <p className="mt-4 text-lg text-gray-700">
+          <h2 className="text-3xl font-bold text-anchor-cream-text">Upcoming Manager&apos;s Specials</h2>
+          <p className="mt-4 text-lg text-anchor-cream-text/70">
             Each month we take 25% off a featured premium spirit. Here&apos;s what&apos;s coming up - with this month&apos;s special highlighted and the next offer counting down.
           </p>
         </div>
@@ -92,7 +92,7 @@ export function ManagersSpecialSchedule({
                 <Link href="#upcoming-schedule" className="w-full sm:w-auto">
                   <Button
                     size="lg"
-                    className="w-full bg-white text-anchor-green hover:bg-white/90 sm:w-auto"
+                    className="w-full bg-anchor-gold text-anchor-charcoal hover:bg-anchor-gold-light sm:w-auto"
                   >
                     View the Schedule
                   </Button>
@@ -112,22 +112,22 @@ export function ManagersSpecialSchedule({
 
             if (isCurrent) {
               return (
-                <div key={promo.id} className="rounded-2xl border border-purple-200 bg-gradient-to-br from-purple-50 to-white p-6 shadow-sm md:p-8">
+                <div key={promo.id} className="card-dark rounded-none border border-anchor-gold/30 p-6 md:p-8">
                   <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
                     <div>
-                      <div className="inline-flex items-center gap-2 rounded-full bg-purple-100 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-purple-900">
+                      <div className="inline-flex items-center gap-2 rounded-full bg-anchor-gold/20 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-anchor-gold-vivid">
                         <span className="text-base" aria-hidden="true">⭐</span>
                         Current Offer
                       </div>
-                      <p className="mt-4 text-sm font-semibold uppercase tracking-[0.3em] text-purple-700">{monthLabel}</p>
-                      <h3 className="mt-2 text-2xl font-bold text-gray-900 md:text-3xl">{promo.spirit.name}</h3>
-                      <p className="mt-3 text-gray-700">
+                      <p className="mt-4 text-sm font-semibold uppercase tracking-[0.3em] text-anchor-gold">{monthLabel}</p>
+                      <h3 className="mt-2 text-2xl font-bold text-anchor-cream-text md:text-3xl">{promo.spirit.name}</h3>
+                      <p className="mt-3 text-anchor-cream-text/70">
                         {promo.promotion.offerText}
                       </p>
-                      <div className="mt-5 flex flex-wrap items-center gap-3 text-sm text-gray-700">
-                        <span className="rounded-full bg-amber-100 px-3 py-1 font-semibold text-amber-900">{promo.spirit.discount}</span>
-                        <span className="font-semibold">{priceLabel}</span>
-                        <span className="text-gray-500">• 25ml single</span>
+                      <div className="mt-5 flex flex-wrap items-center gap-3 text-sm text-anchor-cream-text/70">
+                        <span className="rounded-full bg-anchor-gold/20 px-3 py-1 font-semibold text-anchor-gold-vivid">{promo.spirit.discount}</span>
+                        <span className="font-semibold text-anchor-cream-text">{priceLabel}</span>
+                        <span className="text-anchor-cream-text/55">• 25ml single</span>
                       </div>
                       <div className="mt-6 flex flex-col gap-3 sm:flex-row">
                         <BookTableButton
@@ -145,7 +145,7 @@ export function ManagersSpecialSchedule({
 
                     {imagePath && (
                       <div className="mx-auto w-full max-w-xs md:mx-0 md:max-w-[220px]">
-                        <div className="rounded-2xl bg-white p-3 shadow-md">
+                        <div className="rounded-none bg-anchor-bg-raised p-3">
                           <Image
                             src={imagePath}
                             alt={promo.promotion.heroAlt || `${promo.spirit.name} - ${promo.promotion.headline}`}
@@ -165,45 +165,45 @@ export function ManagersSpecialSchedule({
             return (
               <details
                 key={promo.id}
-                className="group rounded-2xl border border-gray-200 bg-gray-50 shadow-sm transition-shadow open:bg-white open:shadow-md"
+                className="group card-dark rounded-none border border-anchor-gold/15 transition-shadow open:border-anchor-gold/30"
               >
                 <summary className="flex cursor-pointer list-none flex-col gap-4 p-6 md:flex-row md:items-center md:justify-between md:gap-8 md:p-8">
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-2">
-                      <p className="text-sm font-semibold uppercase tracking-[0.3em] text-gray-600">{monthLabel}</p>
+                      <p className="text-sm font-semibold uppercase tracking-[0.3em] text-anchor-cream-text/55">{monthLabel}</p>
                       {isNext && (
-                        <span className="rounded-full bg-anchor-green px-3 py-1 text-xs font-semibold uppercase tracking-wide text-white">
+                        <span className="rounded-full bg-anchor-gold text-anchor-charcoal px-3 py-1 text-xs font-semibold uppercase tracking-wide">
                           Next
                         </span>
                       )}
                     </div>
-                    <h3 className="mt-2 text-xl font-bold text-gray-900 md:text-2xl">
+                    <h3 className="mt-2 text-xl font-bold text-anchor-cream-text md:text-2xl">
                       {promo.spirit.name}
                     </h3>
-                    <p className="mt-2 text-gray-700">
+                    <p className="mt-2 text-anchor-cream-text/70">
                       {promo.promotion.subheadline || promo.promotion.offerText}
                     </p>
-                    <p className="mt-3 text-sm text-gray-600">
+                    <p className="mt-3 text-sm text-anchor-cream-text/55">
                       {isNext && nextCountdownLabel ? `${nextCountdownLabel}. ` : ''}Runs {formatDateLong(promo.startDate)} – {formatDateLong(promo.endDate)}.
                     </p>
                   </div>
 
                   <div className="flex items-center gap-3 md:justify-end">
                     <div className="text-right">
-                      <p className="text-xs font-semibold uppercase tracking-[0.3em] text-gray-500">Preview</p>
-                      <p className="mt-2 text-lg font-bold text-anchor-green">{promo.spirit.discount}</p>
-                      <p className="mt-1 text-sm text-gray-600">Tap for price &amp; tasting notes</p>
+                      <p className="text-xs font-semibold uppercase tracking-[0.3em] text-anchor-cream-text/55">Preview</p>
+                      <p className="mt-2 text-lg font-bold text-anchor-gold-vivid">{promo.spirit.discount}</p>
+                      <p className="mt-1 text-sm text-anchor-cream-text/55">Tap for price &amp; tasting notes</p>
                     </div>
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-gray-700 shadow-sm transition-transform group-open:rotate-180">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-anchor-bg-raised text-anchor-cream-text/70 transition-transform group-open:rotate-180">
                       <span aria-hidden="true">⌄</span>
                     </div>
                   </div>
                 </summary>
 
-                <div className="border-t border-gray-200 px-6 pb-8 pt-6 md:px-8">
+                <div className="border-t border-anchor-gold/15 px-6 pb-8 pt-6 md:px-8">
                   <div className="grid gap-8 md:grid-cols-12 md:items-start">
                     <div className="md:col-span-4">
-                      <div className="rounded-2xl bg-white p-3 shadow-sm">
+                      <div className="rounded-none bg-anchor-bg-raised p-3">
                         <Image
                           src={imagePath || DEFAULT_DRINKS_IMAGE}
                           alt={promo.promotion.heroAlt || `${promo.spirit.name} - ${promo.promotion.headline}`}
@@ -217,39 +217,39 @@ export function ManagersSpecialSchedule({
 
                     <div className="md:col-span-8">
                       <div className="flex flex-wrap items-center gap-3">
-                        <span className="rounded-full bg-amber-100 px-3 py-1 text-sm font-semibold text-amber-900">{promo.spirit.discount}</span>
-                        <span className="text-sm font-semibold text-gray-900">{priceLabel}</span>
-                        <span className="text-sm text-gray-600">• 25ml single</span>
+                        <span className="rounded-full bg-anchor-gold/20 px-3 py-1 text-sm font-semibold text-anchor-gold-vivid">{promo.spirit.discount}</span>
+                        <span className="text-sm font-semibold text-anchor-cream-text">{priceLabel}</span>
+                        <span className="text-sm text-anchor-cream-text/55">• 25ml single</span>
                       </div>
 
-                      <p className="mt-4 text-gray-700">
+                      <p className="mt-4 text-anchor-cream-text/70">
                         {promo.spirit.longDescription || promo.spirit.description || promo.promotion.offerText}
                       </p>
 
                       <div className="mt-8 grid gap-6 md:grid-cols-2">
                         <div>
-                          <h4 className="text-lg font-bold text-gray-900">Tasting notes</h4>
+                          <h4 className="text-lg font-bold text-anchor-cream-text">Tasting notes</h4>
                           {promo.spirit.tastingNotes && promo.spirit.tastingNotes.length > 0 ? (
-                            <ul className="mt-4 list-disc space-y-2 pl-5 text-gray-700">
+                            <ul className="mt-4 list-disc space-y-2 pl-5 text-anchor-cream-text/70">
                               {promo.spirit.tastingNotes.map((note, index) => (
                                 <li key={index}>{note}</li>
                               ))}
                             </ul>
                           ) : (
-                            <p className="mt-3 text-gray-600">Tasting notes will be added soon.</p>
+                            <p className="mt-3 text-anchor-cream-text/55">Tasting notes will be added soon.</p>
                           )}
                         </div>
 
                         <div>
-                          <h4 className="text-lg font-bold text-gray-900">Perfect serves</h4>
+                          <h4 className="text-lg font-bold text-anchor-cream-text">Perfect serves</h4>
                           {promo.spirit.servingSuggestions && promo.spirit.servingSuggestions.length > 0 ? (
-                            <ul className="mt-4 list-disc space-y-2 pl-5 text-gray-700">
+                            <ul className="mt-4 list-disc space-y-2 pl-5 text-anchor-cream-text/70">
                               {promo.spirit.servingSuggestions.map((suggestion, index) => (
                                 <li key={index}>{suggestion}</li>
                               ))}
                             </ul>
                           ) : (
-                            <p className="mt-3 text-gray-600">Serving suggestions will be added soon.</p>
+                            <p className="mt-3 text-anchor-cream-text/55">Serving suggestions will be added soon.</p>
                           )}
                         </div>
                       </div>
@@ -265,8 +265,8 @@ export function ManagersSpecialSchedule({
                         </div>
                       )}
 
-                      <div className="mt-10 rounded-2xl bg-gray-50 p-5">
-                        <p className="text-sm text-gray-700">
+                      <div className="mt-10 rounded-none bg-anchor-bg-raised p-5">
+                        <p className="text-sm text-anchor-cream-text/70">
                           Offer runs for the month shown (subject to availability, 18+ only, Challenge 25 applies). Ask at the bar for the current serve and full terms.
                         </p>
                       </div>

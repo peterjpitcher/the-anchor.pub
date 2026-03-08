@@ -22,9 +22,9 @@ export function PricingCard({
   return (
     <div className={`
       relative overflow-hidden rounded-2xl p-8 text-center
-      ${featured 
-        ? 'bg-gradient-to-br from-amber-50 to-amber-100 border-2 border-amber-400 shadow-xl' 
-        : 'bg-white border-2 border-gray-200 shadow-lg hover:shadow-xl'
+      ${featured
+        ? 'bg-anchor-gold/10 border-2 border-anchor-gold/50 shadow-xl'
+        : 'card-dark rounded-none border-2 border-anchor-gold/15 hover:border-anchor-gold/30'
       }
       transition-all duration-300 hover:scale-105
       ${className}
@@ -35,18 +35,18 @@ export function PricingCard({
         </div>
       )}
       
-      <h3 className="text-2xl font-bold mb-2 text-gray-900">{title}</h3>
+      <h3 className="text-2xl font-bold mb-2 text-anchor-cream-text">{title}</h3>
       {volume && (
-        <p className="text-sm text-gray-600 mb-4">{volume}</p>
+        <p className="text-sm text-anchor-cream-text/55 mb-4">{volume}</p>
       )}
-      
+
       <div className="mb-4">
-        <div className="text-4xl font-bold text-anchor-green mb-1">{currentPrice}</div>
-        <div className="text-lg text-gray-500 line-through">{originalPrice}</div>
+        <div className="text-4xl font-bold text-anchor-gold-vivid mb-1">{currentPrice}</div>
+        <div className="text-lg text-anchor-cream-text/55 line-through">{originalPrice}</div>
       </div>
-      
+
       {savings && (
-        <div className="inline-block bg-green-100 text-green-800 text-sm font-semibold px-3 py-1 rounded-full">
+        <div className="inline-block bg-anchor-gold/20 text-anchor-gold-vivid text-sm font-semibold px-3 py-1 rounded-full">
           Save {savings}
         </div>
       )}

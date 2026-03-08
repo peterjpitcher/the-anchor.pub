@@ -96,7 +96,7 @@ export function MenuAnchorNav({ links, className }: MenuAnchorNavProps) {
       <div
         role="tablist"
         aria-label="Food menu sections"
-        className="flex gap-3 overflow-x-auto whitespace-nowrap rounded-full bg-white/90 px-2 py-3 shadow-md ring-1 ring-anchor-green/10 backdrop-blur supports-[backdrop-filter]:backdrop-blur"
+        className="flex gap-3 overflow-x-auto whitespace-nowrap rounded-full bg-anchor-bg-card/90 px-2 py-3 shadow-md ring-1 ring-anchor-gold/20 backdrop-blur supports-[backdrop-filter]:backdrop-blur"
       >
         {links.map(link => {
           const isActive = activeId === link.id
@@ -111,7 +111,7 @@ export function MenuAnchorNav({ links, className }: MenuAnchorNavProps) {
                 'inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-anchor-gold',
                 isActive
                   ? 'bg-anchor-green text-white shadow-lg'
-                  : 'bg-anchor-cream/60 text-anchor-green hover:bg-anchor-green/10'
+                  : 'bg-anchor-bg-raised text-anchor-cream-text/70 hover:bg-anchor-green/10 hover:text-anchor-gold-vivid'
               )}
             >
               {link.icon && <span aria-hidden="true" className="text-base">{link.icon}</span>}

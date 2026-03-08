@@ -199,8 +199,8 @@ export default async function FoodMenuPage() {
 
   if (!menuData) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p className="text-xl text-gray-600">Menu temporarily unavailable. Please call us on 01753 682707.</p>
+      <div className="min-h-screen flex items-center justify-center bg-anchor-bg">
+        <p className="text-xl text-anchor-cream-text/70">Menu temporarily unavailable. Please call us on 01753 682707.</p>
       </div>
     )
   }
@@ -334,7 +334,7 @@ export default async function FoodMenuPage() {
         />
       )}
 
-      <Section background="white" spacing="sm">
+      <Section background="white" spacing="sm" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <MenuAnchorNav links={ANCHOR_LINKS} />
         </Container>
@@ -344,21 +344,21 @@ export default async function FoodMenuPage() {
         <ValueProofStrip variant="food" />
       </div>
 
-      <Section background="white" spacing="sm">
+      <Section background="white" spacing="sm" className="bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
-          <Card className="bg-anchor-cream/40">
+          <Card className="card-dark rounded-none">
             <CardBody>
               <SectionHeader
                 title="Food Menu & Pub Food Menu for Staines & Heathrow"
                 subtitle="Traditional favourites, quick service and free parking just outside the terminals."
               />
-              <p className="text-gray-700">
+              <p className="text-anchor-cream-text/70">
                 Looking for a food menu or pub menu in Staines? We sit on Horton Road in Stanwell Moor,
                 just 8 minutes from Staines High Street and 7 minutes from Heathrow Terminal 5. Our pub food menu
                 covers Sunday roast and Sunday lunch, a fish & chips menu, a pizza menu, plus vegetarian menu and
                 gluten free menu options. It's proper British pub food, cooked to order.
               </p>
-              <ul className="mt-4 space-y-2 text-gray-700">
+              <ul className="mt-4 space-y-2 text-anchor-cream-text/70">
                 <li>• Free parking and easy access from Staines, Ashford and Feltham.</li>
                 <li>• Sunday roasts and family-friendly seating every weekend.</li>
                 <li>• Stone-baked pizzas and pub classics served during kitchen hours.</li>
@@ -368,7 +368,7 @@ export default async function FoodMenuPage() {
         </Container>
       </Section>
 
-      <div id="menu" className="section-spacing bg-white">
+      <div id="menu" className="section-spacing bg-anchor-bg">
         <Container>
           <SectionHeader
             title="Full Food Menu & Pub Menu"
@@ -380,7 +380,7 @@ export default async function FoodMenuPage() {
         </Container>
       </div>
 
-      <Section background="white" spacing="md">
+      <Section background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <SectionHeader
             title="What Guests Book Us For"
@@ -398,13 +398,13 @@ export default async function FoodMenuPage() {
                       Book by 1pm Saturday to lock in roasts with Yorkshires, crispy spuds, and rich gravy.
                       <Link
                         href="/sunday-lunch"
-                        className="mt-2 block text-anchor-gold font-semibold hover:text-anchor-green transition"
+                        className="mt-2 block text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition"
                       >
                         View roast options →
                       </Link>
                     </>
                   ),
-                  className: 'text-left bg-anchor-cream/60 rounded-2xl p-6 shadow-sm'
+                  className: 'text-left bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15'
                 },
                 {
                   icon: '🍕',
@@ -414,25 +414,25 @@ export default async function FoodMenuPage() {
                       Hand-stretched dough, stone-baked, and topped to order during kitchen hours.
                       <Link
                         href="/food-menu#pizza"
-                        className="mt-2 block text-anchor-gold font-semibold hover:text-anchor-green transition"
+                        className="mt-2 block text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition"
                       >
                         See pizza picks →
                       </Link>
                     </>
                   ),
-                  className: 'text-left bg-white rounded-2xl p-6 shadow-sm'
+                  className: 'text-left bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15'
                 },
                 {
                   icon: '🍔',
                   title: 'Pub Classics, Fast',
                   description: 'Order at the bar or from your table — mains land within 15 minutes.',
-                  className: 'text-left bg-white rounded-2xl p-6 shadow-sm'
+                  className: 'text-left bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15'
                 },
                 {
                   icon: '🌱',
                   title: 'Veggie & Gluten-Friendly',
                   description: 'Vegetarian menu and gluten free menu options, plus gluten-aware bases. Ask us about allergens anytime.',
-                  className: 'text-left bg-white rounded-2xl p-6 shadow-sm'
+                  className: 'text-left bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15'
                 }
               ]}
             />
@@ -440,33 +440,33 @@ export default async function FoodMenuPage() {
         </Container>
       </Section>
 
-      <Section background="white" spacing="sm">
+      <Section background="white" spacing="sm" className="bg-anchor-bg border-b border-anchor-gold/15">
         <Container>
           <div className="grid gap-6 md:grid-cols-2">
-            <Card className="bg-anchor-cream/60">
+            <Card className="card-dark rounded-none">
               <CardBody>
-                <blockquote className="text-lg font-semibold text-anchor-green">
-                  “Sunday lunch was faultless — Yorkshire puddings like clouds, quick service, and the team could not do enough for us.”
+                <blockquote className="text-lg font-semibold text-anchor-cream-text">
+                  "Sunday lunch was faultless — Yorkshire puddings like clouds, quick service, and the team could not do enough for us."
                 </blockquote>
-                <p className="mt-4 text-sm text-gray-600">Google review · August 2025</p>
+                <p className="mt-4 text-sm text-anchor-cream-text/55">Google review · August 2025</p>
               </CardBody>
             </Card>
-            <Card className="bg-white">
+            <Card className="card-dark rounded-none">
               <CardBody>
-                <blockquote className="text-lg font-semibold text-anchor-green">
-                  “We stopped on the way past Heathrow. Proper food, fair prices, and parking was a breeze — booked again for next month.”
+                <blockquote className="text-lg font-semibold text-anchor-cream-text">
+                  "We stopped on the way past Heathrow. Proper food, fair prices, and parking was a breeze — booked again for next month."
                 </blockquote>
-                <p className="mt-4 text-sm text-gray-600">Tripadvisor review · July 2025</p>
+                <p className="mt-4 text-sm text-anchor-cream-text/55">Tripadvisor review · July 2025</p>
               </CardBody>
             </Card>
           </div>
         </Container>
       </Section>
 
-      <Section background="white" spacing="md" id="sunday-roast">
+      <Section background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15" id="sunday-roast">
         <Container>
           <div className="grid gap-6 lg:grid-cols-[1.5fr_1fr] items-start">
-            <Card className="bg-white shadow-md">
+            <Card className="card-dark rounded-none">
               <CardBody>
                 <SectionHeader
                   title="Sunday Roast and Sunday Lunch Near Heathrow"
@@ -474,7 +474,7 @@ export default async function FoodMenuPage() {
                   align="left"
                   className="mb-6"
                 />
-	                <ul className="space-y-3 text-gray-700">
+	                <ul className="space-y-3 text-anchor-cream-text/70">
 	                  <li>• Beef, chicken, lamb and vegetarian roasts with lashings of gravy.</li>
 	                  <li>• Pre-order by 1pm Saturday so we can cook everything fresh to order.</li>
 	                  <li>• Sunday lunch bookings require a £10 per person deposit.</li>
@@ -503,10 +503,10 @@ export default async function FoodMenuPage() {
                 </div>
               </CardBody>
             </Card>
-            <Card className="bg-anchor-cream/40 shadow-md">
+            <Card className="card-dark rounded-none">
               <CardBody>
-                <h3 className="text-lg font-semibold text-anchor-green mb-3">Sunday Serving Notes</h3>
-	                <ul className="space-y-2 text-sm text-gray-700">
+                <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-3">Sunday Serving Notes</h3>
+	                <ul className="space-y-2 text-sm text-anchor-cream-text/70">
 	                  <li>
 	                    <strong>Service:</strong>{' '}
 	                    {sundayKitchenHours
@@ -523,10 +523,10 @@ export default async function FoodMenuPage() {
         </Container>
       </Section>
 
-      <Section background="white" spacing="md" id="pizza">
+      <Section background="white" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15" id="pizza">
         <Container>
           <div className="grid gap-6 lg:grid-cols-[1fr_1.2fr] items-start">
-            <Card className="bg-anchor-cream/40 shadow-md">
+            <Card className="card-dark rounded-none">
               <CardBody>
                 <SectionHeader
                   title="Stone-Baked Pizzas"
@@ -534,7 +534,7 @@ export default async function FoodMenuPage() {
                   align="left"
                   className="mb-6"
                 />
-                <ul className="space-y-3 text-gray-700">
+                <ul className="space-y-3 text-anchor-cream-text/70">
                   <li>• Stone-baked pizzas served during kitchen hours.</li>
                   <li>• Mix and match toppings — dine in or takeaway with free parking.</li>
                   <li>• Gluten-aware bases available when you pre-book.</li>
@@ -562,10 +562,10 @@ export default async function FoodMenuPage() {
                 </div>
               </CardBody>
             </Card>
-            <Card className="bg-white shadow-md">
+            <Card className="card-dark rounded-none">
               <CardBody>
-                <h3 className="text-lg font-semibold text-anchor-green mb-3">Pizza Highlights</h3>
-                <ul className="space-y-2 text-sm text-gray-700">
+                <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-3">Pizza Highlights</h3>
+                <ul className="space-y-2 text-sm text-anchor-cream-text/70">
                   <li><strong>Rustic Classic:</strong> Rich tomato sauce and mozzarella on a crisp stone-baked base.</li>
                   <li><strong>Fully Loaded:</strong> Napoli salami, speck ham, fennel salami and mozzarella.</li>
                   <li><strong>Nice &amp; Spicy:</strong> Nduja, Ventricina and roquito peppers for those who like heat.</li>
@@ -577,10 +577,10 @@ export default async function FoodMenuPage() {
         </Container>
       </Section>
 
-      <Section background="white" spacing="md" id="pub-classics">
+      <Section background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15" id="pub-classics">
         <Container>
           <div className="grid gap-6 lg:grid-cols-[1.2fr_1fr] items-start">
-            <Card className="bg-white shadow-md">
+            <Card className="card-dark rounded-none">
               <CardBody>
                 <SectionHeader
                   title="Pub Classics Done Properly"
@@ -588,7 +588,7 @@ export default async function FoodMenuPage() {
                   align="left"
                   className="mb-6"
                 />
-                <ul className="space-y-3 text-gray-700">
+                <ul className="space-y-3 text-anchor-cream-text/70">
                   <li>• Beer-battered fish &amp; chips with minted peas and tartar sauce.</li>
                   <li>• Double-stacked burgers with thick-cut chips and optional upgrades.</li>
                   <li>• Chicken katsu, pies, curries and hearty pub favourites served hot.</li>
@@ -607,14 +607,14 @@ export default async function FoodMenuPage() {
                 </div>
               </CardBody>
             </Card>
-            <Card className="bg-anchor-cream/30 shadow-md">
+            <Card className="card-dark rounded-none">
               <CardBody>
-                <h3 className="text-lg font-semibold text-anchor-green mb-3">Kitchen Today</h3>
-                <p className="text-sm text-gray-700">
+                <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-3">Kitchen Today</h3>
+                <p className="text-sm text-anchor-cream-text/70">
                   {kitchenSchedule ? (
-                    <>Kitchen open: {kitchenSchedule}. Call ahead on <a href="tel:+441753682707" className="text-anchor-gold font-semibold hover:text-anchor-green">01753 682707</a> for large parties.</>
+                    <>Kitchen open: {kitchenSchedule}. Call ahead on <a href="tel:+441753682707" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid">01753 682707</a> for large parties.</>
                   ) : (
-                    <>Kitchen hours are updated live on this page. Call ahead on <a href="tel:+441753682707" className="text-anchor-gold font-semibold hover:text-anchor-green">01753 682707</a> for large parties.</>
+                    <>Kitchen hours are updated live on this page. Call ahead on <a href="tel:+441753682707" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid">01753 682707</a> for large parties.</>
                   )}
                 </p>
               </CardBody>
@@ -623,9 +623,9 @@ export default async function FoodMenuPage() {
         </Container>
       </Section>
 
-      <Section background="white" spacing="md" id="dietary">
+      <Section background="white" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15" id="dietary">
         <Container>
-          <Card className="bg-white shadow-md">
+          <Card className="card-dark rounded-none">
             <CardBody>
               <SectionHeader
                 title="Vegetarian & Gluten-Friendly Picks"
@@ -635,14 +635,14 @@ export default async function FoodMenuPage() {
               />
               <div className="grid gap-6 md:grid-cols-2">
                 <div>
-                  <ul className="space-y-3 text-gray-700">
+                  <ul className="space-y-3 text-anchor-cream-text/70">
                     <li>• Vegetable burger served with chips and house salad.</li>
                     <li>• Garden Club pizza with grilled courgette, peppers, and balsamic glaze.</li>
                     <li>• Spinach & Ricotta Cannelloni baked with tomato sauce and garlic bread.</li>
                   </ul>
                 </div>
                 <div>
-                  <ul className="space-y-3 text-gray-700">
+                  <ul className="space-y-3 text-anchor-cream-text/70">
                     <li>• Gluten-aware pizza bases available when pre-booked.</li>
                     <li>• Allergen matrix on hand — just ask the team.</li>
                     <li>• Vegetarian roast available every Sunday.</li>
@@ -665,9 +665,9 @@ export default async function FoodMenuPage() {
         </Container>
       </Section>
 
-      <Section background="white" spacing="md" id="near-heathrow">
+      <Section background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15" id="near-heathrow">
         <Container>
-          <Card className="bg-anchor-cream/60 shadow-md">
+          <Card className="card-dark rounded-none">
             <CardBody>
               <SectionHeader
                 title="Near Heathrow"
@@ -675,7 +675,7 @@ export default async function FoodMenuPage() {
                 align="left"
                 className="mb-6"
               />
-              <ul className="space-y-3 text-gray-700">
+              <ul className="space-y-3 text-anchor-cream-text/70">
                 <li>• 7 minutes to Terminal 5 by taxi.</li>
                 <li>• 11 minutes to Terminals 2 &amp; 3 avoiding car-park queues.</li>
                 <li>• Free on-site parking with downloadable receipts.</li>
@@ -697,14 +697,14 @@ export default async function FoodMenuPage() {
         </Container>
       </Section>
 
-      <Section background="gray" spacing="md">
+      <Section background="gray" spacing="md" className="bg-anchor-bg">
         <Container>
           <Alert
             variant="warning"
             title="Allergen Information"
             className="max-w-4xl mx-auto"
           >
-            <p className="text-gray-700">
+            <p className="text-anchor-cream-text/70">
               Gluten-aware bases and vegetarian mains are available. All dishes are prepared in a single kitchen where allergens are present — speak to us about your needs before ordering.
             </p>
           </Alert>
@@ -713,7 +713,7 @@ export default async function FoodMenuPage() {
 
       <FAQAccordionWithSchema
         faqs={faqItems}
-        className="bg-white"
+        className="bg-anchor-bg-card"
         renderSchema={false}
       />
 

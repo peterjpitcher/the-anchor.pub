@@ -96,13 +96,13 @@ export default async function TagPage({ params }: { params: { tag: string } }) {
       />
 
       {/* SEO Content Section */}
-      <Section spacing="md" container containerSize="md">
+      <Section spacing="md" container containerSize="md" className="bg-anchor-bg border-b border-anchor-gold/15">
         <div className="prose prose-lg max-w-none">
-          <p className="text-lg text-gray-700 leading-relaxed mb-6">
+          <p className="text-lg text-anchor-cream-text/70 leading-relaxed mb-6">
             {seoContent.introContent}
           </p>
-          <div className="bg-anchor-green-light/10 rounded-lg p-6 my-8">
-            <p className="text-gray-800 font-medium">
+          <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-6 my-8">
+            <p className="text-anchor-cream-text font-medium">
               {seoContent.valueProposition}
             </p>
           </div>
@@ -110,10 +110,10 @@ export default async function TagPage({ params }: { params: { tag: string } }) {
       </Section>
 
       {/* Posts Grid */}
-      <Section background="gray" spacing="md" container containerSize="lg">
+      <Section background="gray" spacing="md" container containerSize="lg" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
           {taggedPosts.map(post => (
-            <article key={post.slug} className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+            <article key={post.slug} className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 overflow-hidden hover:border-anchor-gold/40 transition-shadow">
               <Link href={`/blog/${post.slug}`}>
                 <div className="relative h-48">
                   <Image
@@ -130,12 +130,12 @@ export default async function TagPage({ params }: { params: { tag: string } }) {
                     {post.tags.map((t) => {
                       const normalizedTag = normalizeTagSlug(t)
                       return (
-                      <span 
-                        key={t} 
+                      <span
+                        key={t}
                         className={`text-sm sm:text-xs px-2 py-1 rounded ${
-                          normalizedTag === tag 
-                            ? 'bg-anchor-gold text-white' 
-                            : 'bg-gray-100 text-gray-700'
+                          normalizedTag === tag
+                            ? 'bg-anchor-gold text-white'
+                            : 'bg-anchor-bg text-anchor-cream-text/55'
                         }`}
                       >
                         {t}
@@ -143,13 +143,13 @@ export default async function TagPage({ params }: { params: { tag: string } }) {
                       )
                     })}
                   </div>
-                  <h3 className="text-lg font-bold text-anchor-green mb-2 line-clamp-2">
+                  <h3 className="text-lg font-bold text-anchor-gold-vivid mb-2 line-clamp-2">
                     {post.title}
                   </h3>
-                  <p className="text-gray-700 text-sm mb-4 line-clamp-2">
+                  <p className="text-anchor-cream-text/70 text-sm mb-4 line-clamp-2">
                     {post.description}
                   </p>
-                  <div className="text-sm text-gray-600">
+                  <div className="text-sm text-anchor-cream-text/55">
                     <time>{new Date(post.date).toLocaleDateString('en-GB')}</time>
                   </div>
                 </div>
@@ -160,8 +160,8 @@ export default async function TagPage({ params }: { params: { tag: string } }) {
       </Section>
 
       {/* Tag Cloud */}
-      <Section spacing="md" container containerSize="md" className="text-center">
-        <h2 className="text-2xl md:text-3xl font-bold text-anchor-green mb-8">
+      <Section spacing="md" container containerSize="md" className="text-center bg-anchor-bg border-b border-anchor-gold/15">
+        <h2 className="text-2xl md:text-3xl font-bold text-anchor-gold-vivid mb-8">
           Explore More Topics
         </h2>
         <div className="flex flex-wrap gap-3 justify-center">
@@ -169,10 +169,10 @@ export default async function TagPage({ params }: { params: { tag: string } }) {
             <Link
               key={t}
               href={`/blog/tag/${encodeURIComponent(normalizeTagSlug(t))}`}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
+              className={`px-4 py-2 rounded-none border text-sm font-medium transition-all ${
                 normalizeTagSlug(t) === tag
-                  ? 'bg-anchor-green text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-anchor-gold hover:text-white'
+                  ? 'bg-anchor-gold border-anchor-gold text-white'
+                  : 'bg-anchor-bg-card border-anchor-gold/15 text-anchor-cream-text/70 hover:bg-anchor-gold hover:border-anchor-gold hover:text-white'
               }`}
             >
               {getTagSEOContent(normalizeTagSlug(t)).name}

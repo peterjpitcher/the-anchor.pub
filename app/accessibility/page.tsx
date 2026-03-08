@@ -55,7 +55,7 @@ export default function AccessibilityPage() {
       <Section background="white" spacing="lg">
         <Container>
           <div className="max-w-3xl mx-auto">
-            <p className="text-lg text-gray-700 leading-relaxed">
+            <p className="text-lg text-anchor-cream-text/70 leading-relaxed">
               We want everyone to enjoy visiting The Anchor. This page gives you honest, practical
               information about our facilities so you can plan your visit with confidence. If you
               have questions not covered here, call us — we&apos;re happy to help.
@@ -65,7 +65,7 @@ export default function AccessibilityPage() {
       </Section>
 
       {/* What's Step-Free */}
-      <Section background="cream" spacing="lg">
+      <Section background="white" spacing="lg">
         <Container>
           <div className="max-w-3xl mx-auto">
             <SectionHeader title="What's step-free" />
@@ -78,13 +78,13 @@ export default function AccessibilityPage() {
               ].map(({ area, icon, note }) => (
                 <div
                   key={area}
-                  className="flex items-start gap-4 rounded-xl border border-anchor-green/10 bg-white p-5"
+                  className="flex items-start gap-4 rounded-xl border border-anchor-gold/15 bg-anchor-bg-card p-5"
                 >
                   <span className="text-2xl" aria-hidden="true">{icon}</span>
                   <div>
-                    <p className="font-semibold text-anchor-green">{area}</p>
-                    <p className="text-sm text-green-700 font-medium">Step-free</p>
-                    {note && <p className="text-sm text-gray-600 mt-1">{note}</p>}
+                    <p className="font-semibold text-anchor-gold-vivid">{area}</p>
+                    <p className="text-sm text-anchor-gold-vivid font-medium">Step-free</p>
+                    {note && <p className="text-sm text-anchor-cream-text/55 mt-1">{note}</p>}
                   </div>
                 </div>
               ))}
@@ -98,11 +98,11 @@ export default function AccessibilityPage() {
         <Container>
           <div className="max-w-3xl mx-auto">
             <SectionHeader title="Accessible toilet" />
-            <div className="rounded-xl border border-amber-200 bg-amber-50/50 p-6">
-              <p className="text-gray-700 leading-relaxed">
+            <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-raised p-6">
+              <p className="text-anchor-cream-text/70 leading-relaxed">
                 We currently don&apos;t have an accessible toilet. If you&apos;d like to visit and want to
                 check what will work best for you, give us a call on{' '}
-                <Link href="tel:+441753682707" className="font-semibold text-anchor-green hover:underline">
+                <Link href="tel:+441753682707" className="font-semibold text-anchor-gold hover:underline">
                   +44 1753 682707
                 </Link>{' '}
                 and we&apos;ll help you plan your visit.
@@ -113,13 +113,13 @@ export default function AccessibilityPage() {
       </Section>
 
       {/* Getting Here */}
-      <Section background="cream" spacing="lg">
+      <Section background="white" spacing="lg">
         <Container>
           <div className="max-w-3xl mx-auto">
             <SectionHeader title="Getting here" />
             <div className="space-y-4">
-              <div className="rounded-xl border border-anchor-green/10 bg-white p-6">
-                <ul className="space-y-3 text-gray-700">
+              <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-card p-6">
+                <ul className="space-y-3 text-anchor-cream-text/70">
                   <li className="flex items-start gap-3">
                     <span className="text-xl" aria-hidden="true">🅿️</span>
                     <span>Free on-site parking for approximately 20 cars — level surface</span>
@@ -148,7 +148,7 @@ export default function AccessibilityPage() {
         <Container>
           <div className="max-w-3xl mx-auto">
             <SectionHeader title="Call ahead" />
-            <p className="text-gray-700 leading-relaxed mb-6">
+            <p className="text-anchor-cream-text/70 leading-relaxed mb-6">
               If you&apos;d like to talk through your visit before you come — what to expect, where
               to park, what might work best for you — give us a call. We&apos;re happy to have
               that conversation.
@@ -167,7 +167,7 @@ export default function AccessibilityPage() {
       {/* FAQ */}
       <FAQAccordionWithSchema
         title="Accessibility FAQ"
-        className="bg-gray-50"
+        className="bg-anchor-bg"
         faqs={[
           {
             question: 'Is The Anchor wheelchair accessible?',
@@ -212,7 +212,7 @@ export default function AccessibilityPage() {
                 source="accessibility_cta"
                 size="lg"
                 variant="secondary"
-                className="bg-white text-anchor-green hover:bg-gray-100"
+                className="bg-anchor-bg-card text-anchor-gold-vivid hover:bg-anchor-bg-raised"
               />
               <Link href="/near-heathrow">
                 <Button size="lg" variant="secondary" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm w-full sm:w-auto">

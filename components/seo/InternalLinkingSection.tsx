@@ -21,20 +21,20 @@ export function InternalLinkingSection({
   if (!links || links.length === 0) return null
 
   return (
-    <Section className={`bg-gray-50 ${className}`}>
+    <Section className={`bg-anchor-bg-raised border-b border-anchor-gold/15 ${className}`}>
       <Container>
-        <h2 className="text-2xl font-bold text-anchor-green mb-6">{title}</h2>
+        <h2 className="text-2xl font-bold text-anchor-cream-text mb-6">{title}</h2>
         <Grid cols={links.length > 2 ? 3 : 2} gap="md">
           {links.map((link, index) => (
             <GridItem key={index}>
               <Link href={link.href} className="block h-full">
-                <Card className="h-full hover:shadow-lg transition-shadow">
+                <Card className="h-full hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)] transition-shadow hover:-translate-y-0.5">
                   <CardBody>
-                    <h3 className="font-semibold text-anchor-green mb-2">
+                    <h3 className="font-semibold text-anchor-gold-vivid mb-2">
                       {link.title}
                     </h3>
                     {link.description && (
-                      <p className="text-sm text-gray-600">{link.description}</p>
+                      <p className="text-sm text-anchor-cream-text/70">{link.description}</p>
                     )}
                   </CardBody>
                 </Card>

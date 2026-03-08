@@ -64,20 +64,20 @@ export default function CoachParkingPage() {
                 }
             />
 
-            <section className="py-8 bg-white">
+            <section className="py-8 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-green mb-4">
+                        <PageTitle className="text-anchor-cream-text mb-4">
                             The Perfect Stop for Tour Groups
                         </PageTitle>
-                        <p className="text-lg text-gray-700">
+                        <p className="text-lg text-anchor-cream-text/70">
                             Finding a pub near Heathrow that can handle a 50-seater coach is rare. finding one with great food is even rarer! The Anchor has a large, accessible car park and the capacity to feed hungry tour groups quickly and deliciously.
                         </p>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-gray-50">
+            <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
                 <Container>
                     <div className="grid md:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
                         <div className="order-2 md:order-1">
@@ -108,7 +108,7 @@ export default function CoachParkingPage() {
                                     title="Large Car Park"
                                     description="No tight squeezes. Our open lot allows for easy entry and exit for large vehicles."
                                     variant="colored"
-                                    color="bg-white"
+                                    color="bg-anchor-bg-raised"
                                     className="rounded-xl p-4"
                                 />
                                 <FeatureCard
@@ -116,7 +116,7 @@ export default function CoachParkingPage() {
                                     title="Quick Turnaround"
                                     description="Pre-order available for groups to ensure you stay on schedule."
                                     variant="colored"
-                                    color="bg-white"
+                                    color="bg-anchor-bg-raised"
                                     className="rounded-xl p-4"
                                 />
                             </div>
@@ -125,26 +125,26 @@ export default function CoachParkingPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-white">
+            <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader title="Group Dining Options" />
-                        <p className="text-gray-700 mb-8">
+                        <p className="text-anchor-cream-text/70 mb-8">
                             We can tailor a menu to suit your budget and time constraints.
                         </p>
 
                         <div className="grid md:grid-cols-3 gap-6">
                             <div className="border p-6 rounded-xl">
                                 <h4 className="font-bold text-lg mb-2">Quick & Easy</h4>
-                                <p className="text-gray-600 text-sm">Fish & Chips or Burger & Drink deals. Served fast.</p>
+                                <p className="text-anchor-cream-text/55 text-sm">Fish & Chips or Burger & Drink deals. Served fast.</p>
                             </div>
                             <div className="border p-6 rounded-xl">
                                 <h4 className="font-bold text-lg mb-2">Buffet Spread</h4>
-                                <p className="text-gray-600 text-sm">Self-service hot and cold buffet for casual dining.</p>
+                                <p className="text-anchor-cream-text/55 text-sm">Self-service hot and cold buffet for casual dining.</p>
                             </div>
                             <div className="border p-6 rounded-xl">
                                 <h4 className="font-bold text-lg mb-2">Cream Tea</h4>
-                                <p className="text-gray-600 text-sm">Scones, tea, and sandwiches for afternoon stops.</p>
+                                <p className="text-anchor-cream-text/55 text-sm">Scones, tea, and sandwiches for afternoon stops.</p>
                             </div>
                         </div>
                     </div>

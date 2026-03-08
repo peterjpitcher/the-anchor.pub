@@ -148,16 +148,16 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
         ]}
       />
 
-      <Section spacing="xs" container containerSize="md" className="text-center">
-        <PageTitle className="text-anchor-green" seo={{ structured: true, speakable: true }}>
+      <Section spacing="xs" container containerSize="md" className="text-center bg-anchor-bg border-b border-anchor-gold/15">
+        <PageTitle className="text-anchor-cream-text" seo={{ structured: true, speakable: true }}>
           Book Online
         </PageTitle>
-        <p className="mt-3 text-base text-gray-700 md:text-lg">
+        <p className="mt-3 text-base text-anchor-cream-text/70 md:text-lg">
           Choose your date, time, and party size to reserve your table. Loved by locals and Heathrow travellers every week.
         </p>
       </Section>
 
-      <Section background="gray" spacing="sm" container containerSize="lg">
+      <Section background="gray" spacing="sm" container containerSize="lg" className="bg-anchor-bg-raised">
         <div className="grid items-start gap-5 lg:gap-8 lg:grid-cols-[minmax(0,2fr),minmax(0,1fr)]">
           <div className="order-1">
             <div className="mb-4">
@@ -167,10 +167,10 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
           </div>
 
           <aside className="order-2 space-y-4 lg:space-y-6">
-            <div className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-gray-100 lg:hidden">
-              <h2 className="text-lg font-semibold text-anchor-green">Need help with your booking?</h2>
-              <p className="mt-2 text-sm text-gray-700">
-                If you need a larger table, can’t find your preferred time, or want a quick answer, call us directly.
+            <div className="rounded-none bg-anchor-bg-card p-4 border border-anchor-gold/15 lg:hidden">
+              <h2 className="text-lg font-semibold text-anchor-gold-vivid">Need help with your booking?</h2>
+              <p className="mt-2 text-sm text-anchor-cream-text/70">
+                If you need a larger table, can't find your preferred time, or want a quick answer, call us directly.
               </p>
               <div className="mt-4 space-y-2">
                 <PhoneButton
@@ -189,25 +189,25 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
               </div>
             </div>
 
-            <div className="hidden rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-100 lg:block">
-              <h3 className="text-base font-semibold text-anchor-green mb-3">Why The Anchor?</h3>
+            <div className="hidden rounded-none bg-anchor-bg-card p-5 border border-anchor-gold/15 lg:block">
+              <h3 className="text-base font-semibold text-anchor-gold-vivid mb-3">Why The Anchor?</h3>
               <ValueProofStrip variant="food" />
             </div>
 
-            <div className="hidden rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-100 lg:block">
-              <h2 className="text-xl font-semibold text-anchor-green">Quick tips</h2>
-              <ul className="mt-3 space-y-2 text-left text-sm text-gray-700">
+            <div className="hidden rounded-none bg-anchor-bg-card p-6 border border-anchor-gold/15 lg:block">
+              <h2 className="text-xl font-semibold text-anchor-gold-vivid">Quick tips</h2>
+              <ul className="mt-3 space-y-2 text-left text-sm text-anchor-cream-text/70">
                 <li>• For larger groups, please call us.</li>
                 <li>• A £10 per person deposit is required for groups of 7 or more. This is deducted from your final bill.</li>
                 <li>• {SUNDAY_LUNCH_DEPOSIT_POLICY_COPY}</li>
                 <li>• Add access needs or dietary notes in the notes box.</li>
-                <li>• Can’t see the time you want? Give us a ring.</li>
+                <li>• Can't see the time you want? Give us a ring.</li>
               </ul>
             </div>
 
-            <div className="hidden rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-100 lg:block">
-              <h3 className="text-xl font-semibold text-anchor-green">Prefer to talk?</h3>
-              <p className="mt-2 text-sm text-gray-700">
+            <div className="hidden rounded-none bg-anchor-bg-card p-6 border border-anchor-gold/15 lg:block">
+              <h3 className="text-xl font-semibold text-anchor-gold-vivid">Prefer to talk?</h3>
+              <p className="mt-2 text-sm text-anchor-cream-text/70">
                 Our team can help with tables of 8+, special celebrations, or last-minute changes.
               </p>
               <div className="mt-4">
@@ -222,9 +222,9 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
               </div>
             </div>
 
-            <div className="hidden rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-100 lg:block">
-              <h3 className="text-xl font-semibold text-anchor-green">Useful to know</h3>
-              <ul className="mt-3 space-y-2 text-left text-sm text-gray-700">
+            <div className="hidden rounded-none bg-anchor-bg-card p-6 border border-anchor-gold/15 lg:block">
+              <h3 className="text-xl font-semibold text-anchor-gold-vivid">Useful to know</h3>
+              <ul className="mt-3 space-y-2 text-left text-sm text-anchor-cream-text/70">
                 <li>• 20 free parking spaces on site.</li>
                 <li>• Dog friendly inside and out.</li>
                 <li>• Step-free access from the car park.</li>
@@ -238,16 +238,16 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
         </div>
       </Section>
 
-      <Section background="white" spacing="sm" container containerSize="md">
-        <h2 className="text-2xl font-bold text-anchor-green mb-4">Accessibility</h2>
-        <p className="text-gray-700 mb-3">
+      <Section background="white" spacing="sm" container containerSize="md" className="bg-anchor-bg border-b border-anchor-gold/15">
+        <h2 className="text-2xl font-bold text-anchor-gold-vivid mb-4">Accessibility</h2>
+        <p className="text-anchor-cream-text/70 mb-3">
           Step-free access to the bar, dining area and beer garden.
         </p>
-        <p className="text-gray-700 mb-4">
+        <p className="text-anchor-cream-text/70 mb-4">
           We currently don&apos;t have an accessible toilet. If you&apos;d like to visit and want to check what will work best for you, give us a call on{' '}
-          <a href="tel:+441753682707" className="text-anchor-green font-semibold hover:underline">+44 1753 682707</a> and we&apos;ll help.
+          <a href="tel:+441753682707" className="text-anchor-gold-vivid font-semibold hover:underline">+44 1753 682707</a> and we&apos;ll help.
         </p>
-        <Link href="/accessibility" className="text-anchor-green font-semibold hover:underline">
+        <Link href="/accessibility" className="text-anchor-gold-vivid font-semibold hover:underline">
           Full accessibility information &rarr;
         </Link>
       </Section>

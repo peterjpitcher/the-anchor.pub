@@ -4,13 +4,13 @@ import { cn } from '@/lib/utils'
 import type { BaseComponentProps, WithChildren } from '../types'
 
 const cardVariants = cva(
-  'bg-white rounded-lg overflow-hidden',
+  'bg-anchor-bg-card rounded-none overflow-hidden border border-anchor-gold/20',
   {
     variants: {
       variant: {
-        default: 'border border-gray-200',
-        outlined: 'border-2 border-gray-300',
-        elevated: 'shadow-lg border-0'
+        default: '',
+        outlined: 'border-2 border-anchor-gold/40',
+        elevated: 'shadow-[0_16px_40px_rgba(0,0,0,0.4)] border-0'
       },
       padding: {
         none: '',

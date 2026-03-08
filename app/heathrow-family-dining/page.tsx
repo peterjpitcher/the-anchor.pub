@@ -70,20 +70,20 @@ export default function FamilyDiningPage() {
                 }
             />
 
-            <section className="py-8 bg-white">
+            <section className="py-8 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-green mb-4">
+                        <PageTitle className="text-anchor-cream-text mb-4">
                             Stress-Free Stopovers for Parents
                         </PageTitle>
-                        <p className="text-lg text-gray-700">
+                        <p className="text-lg text-anchor-cream-text/70">
                             Traveling with children can be exhausting. The Anchor offers an oasis of calm (and space!) just minutes from the airport. Escape the crowded terminal and let the little ones stretch their legs in our secure environment.
                         </p>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-gray-50">
+            <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -125,7 +125,7 @@ export default function FamilyDiningPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-white">
+            <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
                 <Container>
                     <div className="bg-blue-50 p-8 rounded-xl max-w-3xl mx-auto">
                         <h3 className="text-2xl font-bold text-center text-blue-900 mb-6">Facilities for Little Ones</h3>
@@ -134,28 +134,28 @@ export default function FamilyDiningPage() {
                                 <span className="text-2xl">🪑</span>
                                 <div>
                                     <p className="font-bold">High Chairs</p>
-                                    <p className="text-sm text-gray-600">Plenty available, just ask when booking.</p>
+                                    <p className="text-sm text-anchor-cream-text/55">Plenty available, just ask when booking.</p>
                                 </div>
                             </div>
                             <div className="flex items-start gap-3">
                                 <span className="text-2xl">👶</span>
                                 <div>
                                     <p className="font-bold">Changing Facilities</p>
-                                    <p className="text-sm text-gray-600">Clean baby changing area available.</p>
+                                    <p className="text-sm text-anchor-cream-text/55">Clean baby changing area available.</p>
                                 </div>
                             </div>
                             <div className="flex items-start gap-3">
                                 <span className="text-2xl">🥤</span>
                                 <div>
                                     <p className="font-bold">Kid-Friendly Drinks</p>
-                                    <p className="text-sm text-gray-600">Fruit shoots, juices, and milk available.</p>
+                                    <p className="text-sm text-anchor-cream-text/55">Fruit shoots, juices, and milk available.</p>
                                 </div>
                             </div>
                             <div className="flex items-start gap-3">
                                 <span className="text-2xl">🖍️</span>
                                 <div>
                                     <p className="font-bold">Activity Possible</p>
-                                    <p className="text-sm text-gray-600">Feel free (and encouraged!) to bring colouring pads.</p>
+                                    <p className="text-sm text-anchor-cream-text/55">Feel free (and encouraged!) to bring colouring pads.</p>
                                 </div>
                             </div>
                         </div>

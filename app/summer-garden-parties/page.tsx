@@ -66,20 +66,20 @@ export default function SummerGardenPartiesPage() {
                 }
             />
 
-            <section className="py-8 bg-white">
+            <section className="py-8 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-green mb-4">
+                        <PageTitle className="text-anchor-cream-text mb-4">
                             The Best Beer Garden Around
                         </PageTitle>
-                        <p className="text-lg text-gray-700">
+                        <p className="text-lg text-anchor-cream-text/70">
                             When the British summer finally arrives, there's no better place to be than The Anchor's garden. With a large grassy area, plenty of picnic benches, and dedicated space for private events, it's the ultimate spot for soaking up the sun.
                         </p>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-gray-50">
+            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -95,7 +95,7 @@ export default function SummerGardenPartiesPage() {
                                     title: "Chef's BBQ",
                                     description: "We man the grill so you don't have to. Gourmet burgers, marinated chicken, and fresh salads.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -103,7 +103,7 @@ export default function SummerGardenPartiesPage() {
                                     title: "Outdoor Service",
                                     description: "For large events, we can set up an outdoor bottle bar so drinks are never far away.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -111,7 +111,7 @@ export default function SummerGardenPartiesPage() {
                                     title: "Live Music",
                                     description: "Subject to license conditions, acoustic music can be the perfect backdrop to your afternoon.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"
                                 }
                             ]}
@@ -128,24 +128,24 @@ export default function SummerGardenPartiesPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-white">
+            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader title="Perfect for..." />
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            <div className="p-4 border rounded-xl">
+                            <div className="p-4 border border-anchor-gold/15 rounded-xl bg-anchor-bg-raised">
                                 <span className="text-3xl block mb-2">🎂</span>
                                 <span className="font-bold">Birthdays</span>
                             </div>
-                            <div className="p-4 border rounded-xl">
+                            <div className="p-4 border border-anchor-gold/15 rounded-xl bg-anchor-bg-raised">
                                 <span className="text-3xl block mb-2">🏢</span>
                                 <span className="font-bold">Team Socials</span>
                             </div>
-                            <div className="p-4 border rounded-xl">
+                            <div className="p-4 border border-anchor-gold/15 rounded-xl bg-anchor-bg-raised">
                                 <span className="text-3xl block mb-2">👶</span>
                                 <span className="font-bold">Christenings</span>
                             </div>
-                            <div className="p-4 border rounded-xl">
+                            <div className="p-4 border border-anchor-gold/15 rounded-xl bg-anchor-bg-raised">
                                 <span className="text-3xl block mb-2">💍</span>
                                 <span className="font-bold">Receptions</span>
                             </div>
@@ -169,7 +169,7 @@ export default function SummerGardenPartiesPage() {
                         answer: "Yes! Our garden is completely dog friendly. We have water bowls and treats available."
                     }
                 ]}
-                className="bg-white"
+                className="bg-anchor-bg-card"
             />
 
             <CTASection

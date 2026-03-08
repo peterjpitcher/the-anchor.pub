@@ -53,8 +53,8 @@ export default async function DrinksMenuPage() {
 
   if (!menuData) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p className="text-xl text-gray-700">Menu temporarily unavailable. Please call us on 01753 682707.</p>
+      <div className="min-h-screen flex items-center justify-center bg-anchor-bg">
+        <p className="text-xl text-anchor-cream-text/70">Menu temporarily unavailable. Please call us on 01753 682707.</p>
       </div>
     )
   }
@@ -239,7 +239,7 @@ export default async function DrinksMenuPage() {
       />
 
       {/* Popular Draught & Spirits */}
-      <Section background="white" spacing="md" className="bg-anchor-cream/30" id="featured-offers">
+      <Section background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15" id="featured-offers">
         <Container>
           <SectionHeader
             title="Your Favourite Drinks on Tap Near Heathrow"
@@ -252,32 +252,32 @@ export default async function DrinksMenuPage() {
               {
                 title: "🍺 Carling & Coors Light",
                 content: (
-                  <p className="text-gray-700">
+                  <p className="text-anchor-cream-text/70">
                     Ice-cold Carling and Coors Light served properly every day. Popular with airport crew looking for a familiar pint before or after shifts.
                   </p>
                 ),
                 variant: "colored",
-                color: "bg-white rounded-2xl p-6 shadow-sm"
+                color: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15"
               },
               {
                 title: "🍻 Guinness & Inch’s Cider",
                 content: (
-                  <p className="text-gray-700">
+                  <p className="text-anchor-cream-text/70">
                     Pour-perfect Guinness plus Inch&apos;s Medium Apple Cider for those sunny beer garden sessions under the Heathrow flight path.
                   </p>
                 ),
                 variant: "colored",
-                color: "bg-white rounded-2xl p-6 shadow-sm"
+                color: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15"
               },
               {
                 title: "🍸 Premium Spirits & Chambord",
                 content: (
-                  <p className="text-gray-700">
+                  <p className="text-anchor-cream-text/70">
                     Build cocktails with Chambord, Disaronno, Duppy Share rum and plenty of premium spirits. Ask for Baby Guinness shots too.
                   </p>
                 ),
                 variant: "colored",
-                color: "bg-white rounded-2xl p-6 shadow-sm"
+                color: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15"
               }
             ]}
           />
@@ -285,7 +285,7 @@ export default async function DrinksMenuPage() {
       </Section>
 
       {/* Page Title */}
-      <Section className="py-8 bg-white">
+      <Section className="py-8 bg-anchor-bg border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <PageTitle
@@ -293,11 +293,11 @@ export default async function DrinksMenuPage() {
                 structured: true,
                 speakable: true
               }}
-              className="text-anchor-green mb-4"
+              className="text-anchor-cream-text mb-4"
             >
               Drinks Menu - Beers, Wines & Spirits
             </PageTitle>
-            <p className="text-lg text-gray-700">
+            <p className="text-lg text-anchor-cream-text/70">
               Explore our extensive selection of real ales, draught lagers, premium spirits, wines, and cocktails
             </p>
           </div>
@@ -311,21 +311,21 @@ export default async function DrinksMenuPage() {
             {menuData.categories.map((category) => (
               <Link 
                 key={category.id}
-                href={`#${category.id}`} 
-                className="rounded-lg bg-white px-6 py-3 shadow transition-shadow hover:shadow-md"
+                href={`#${category.id}`}
+                className="rounded-none bg-anchor-bg-card px-6 py-3 border border-anchor-gold/15 transition-colors hover:border-anchor-gold/30 text-anchor-cream-text"
               >
                 {category.title} {category.emoji}
               </Link>
             ))}
-            <Link 
-              href="/food-menu#pizza" 
-              className="rounded-lg bg-white px-6 py-3 shadow transition-shadow hover:shadow-md"
+            <Link
+              href="/food-menu#pizza"
+              className="rounded-none bg-anchor-bg-card px-6 py-3 border border-anchor-gold/15 transition-colors hover:border-anchor-gold/30 text-anchor-cream-text"
             >
               🍕 Pizza Menu
             </Link>
-            <Link 
-              href="/sunday-lunch" 
-              className="rounded-lg bg-white px-6 py-3 shadow transition-shadow hover:shadow-md"
+            <Link
+              href="/sunday-lunch"
+              className="rounded-none bg-anchor-bg-card px-6 py-3 border border-anchor-gold/15 transition-colors hover:border-anchor-gold/30 text-anchor-cream-text"
             >
               🍖 Sunday Roast Booking
             </Link>
@@ -334,7 +334,7 @@ export default async function DrinksMenuPage() {
       </Section>
 
       {/* Your Local After Landing */}
-      <Section background="white" spacing="md">
+      <Section background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -368,7 +368,7 @@ export default async function DrinksMenuPage() {
       </Section>
 
       {/* Why The Anchor for Drinks */}
-      <Section background="gray" spacing="md">
+      <Section background="gray" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -381,45 +381,45 @@ export default async function DrinksMenuPage() {
                   title: "🍺 The Beer Garden Experience",
                   content: (
                     <>
-                      <p className="text-gray-700 mb-4">Stanwell Moor's largest beer garden. Watch planes overhead while enjoying perfectly poured pints in the sunshine. Heated areas and covered sections mean the garden's open year-round.</p>
-                      <p className="text-sm text-gray-700">Dog-friendly outdoor areas - bring your four-legged friends!</p>
+                      <p className="text-anchor-cream-text/70 mb-4">Stanwell Moor's largest beer garden. Watch planes overhead while enjoying perfectly poured pints in the sunshine. Heated areas and covered sections mean the garden's open year-round.</p>
+                      <p className="text-sm text-anchor-cream-text/70">Dog-friendly outdoor areas - bring your four-legged friends!</p>
                     </>
                   ),
                   variant: "default",
-                  className: "bg-white rounded-lg p-8 shadow-md"
+                  className: "bg-anchor-bg-card rounded-none p-8 border border-anchor-gold/15"
                 },
                 {
                   title: "📺 Sports & Atmosphere",
                   content: (
                     <>
-                      <p className="text-gray-700 mb-4">Multiple screens showing major sporting events on BBC and ITV. Catch the Six Nations, World Cup, Euros, and other big tournaments with great views from every seat.</p>
-                      <p className="text-sm text-gray-700">Big matches get busy - arrive early for the best seats!</p>
+                      <p className="text-anchor-cream-text/70 mb-4">Multiple screens showing major sporting events on BBC and ITV. Catch the Six Nations, World Cup, Euros, and other big tournaments with great views from every seat.</p>
+                      <p className="text-sm text-anchor-cream-text/70">Big matches get busy - arrive early for the best seats!</p>
                     </>
                   ),
                   variant: "default",
-                  className: "bg-white rounded-lg p-8 shadow-md"
+                  className: "bg-anchor-bg-card rounded-none p-8 border border-anchor-gold/15"
                 },
                 {
                   title: "🎯 Local Institution",
                   content: (
                     <>
-                      <p className="text-gray-700 mb-4">Serving Stanwell Moor and Staines for generations. Where locals meet, airport workers unwind, and visitors become regulars. Your neighbourhood bar with a global touch.</p>
-                      <p className="text-sm text-gray-700">Ask about our locals' card for exclusive offers!</p>
+                      <p className="text-anchor-cream-text/70 mb-4">Serving Stanwell Moor and Staines for generations. Where locals meet, airport workers unwind, and visitors become regulars. Your neighbourhood bar with a global touch.</p>
+                      <p className="text-sm text-anchor-cream-text/70">Ask about our locals' card for exclusive offers!</p>
                     </>
                   ),
                   variant: "default",
-                  className: "bg-white rounded-lg p-8 shadow-md"
+                  className: "bg-anchor-bg-card rounded-none p-8 border border-anchor-gold/15"
                 },
                 {
                   title: "🌟 Quality & Choice",
                   content: (
                     <>
-                      <p className="text-gray-700 mb-4">From real ales to handcrafted cocktails, we take drinks seriously. Expert bar staff, proper glassware, and drinks served exactly how they should be. No shortcuts.</p>
-                      <p className="text-sm text-gray-700">Can't see your favourite? Just ask - we might have it!</p>
+                      <p className="text-anchor-cream-text/70 mb-4">From real ales to handcrafted cocktails, we take drinks seriously. Expert bar staff, proper glassware, and drinks served exactly how they should be. No shortcuts.</p>
+                      <p className="text-sm text-anchor-cream-text/70">Can't see your favourite? Just ask - we might have it!</p>
                     </>
                   ),
                   variant: "default",
-                  className: "bg-white rounded-lg p-8 shadow-md"
+                  className: "bg-anchor-bg-card rounded-none p-8 border border-anchor-gold/15"
                 }
               ]}
             />
@@ -429,7 +429,7 @@ export default async function DrinksMenuPage() {
       </Section>
 
       {/* Seasonal Highlights */}
-      <Section background="white" className="bg-anchor-gold/10" spacing="md">
+      <Section background="white" className="bg-anchor-bg-raised border-b border-anchor-gold/15" spacing="md">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <SectionHeader
@@ -443,28 +443,28 @@ export default async function DrinksMenuPage() {
                   title: "Summer",
                   description: "Pimm's jugs, ice-cold lagers, and frozen cocktails in the sun-drenched beer garden",
                   variant: "default",
-                  className: "bg-white rounded-lg p-6 shadow-md text-center"
+                  className: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15 text-center"
                 },
                 {
                   icon: "🍂",
                   title: "Autumn",
                   description: "Warming ales, harvest ciders, and our famous hot toddy as the evenings draw in",
                   variant: "default",
-                  className: "bg-white rounded-lg p-6 shadow-md text-center"
+                  className: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15 text-center"
                 },
                 {
                   icon: "❄️",
                   title: "Winter",
                   description: "Mulled wine, Bailey's hot chocolate, and hearty stouts by the cosy fire",
                   variant: "default",
-                  className: "bg-white rounded-lg p-6 shadow-md text-center"
+                  className: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15 text-center"
                 },
                 {
                   icon: "🌸",
                   title: "Spring",
                   description: "Fresh G&Ts, crisp rosé, and the return of beer garden season",
                   variant: "default",
-                  className: "bg-white rounded-lg p-6 shadow-md text-center"
+                  className: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15 text-center"
                 }
               ]}
             />
@@ -472,32 +472,32 @@ export default async function DrinksMenuPage() {
         </Container>
       </Section>
 
-      <Section background="white" spacing="md">
+      <Section background="white" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15">
         <Container>
           <SectionHeader
             title="Popular Shots & Cocktails Near Heathrow"
             subtitle="Ask the bar team for favourites alongside the full drinks menu."
           />
           <div className="grid gap-6 md:grid-cols-2">
-            <Card className="bg-anchor-cream/40 shadow-sm">
+            <Card className="card-dark rounded-none shadow-none">
               <CardBody>
-                <h3 className="text-lg font-semibold text-anchor-green mb-2">Popular shots at the bar</h3>
-                <p className="text-sm text-gray-700 mb-3">
+                <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-2">Popular shots at the bar</h3>
+                <p className="text-sm text-anchor-cream-text/70 mb-3">
                   Guests regularly order popular shots like Baby Guinness at our Heathrow bar, alongside creamy
                   liqueurs and seasonal specials. Tell us what you like and we will recommend a pour.
                 </p>
                 <Link
                   href="/drinks/baby-guinness"
-                  className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition"
+                  className="text-sm text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition"
                 >
                   Baby Guinness guide →
                 </Link>
               </CardBody>
             </Card>
-            <Card className="bg-white shadow-sm">
+            <Card className="card-dark rounded-none shadow-none">
               <CardBody>
-                <h3 className="text-lg font-semibold text-anchor-green mb-2">Cocktails, mixers and long drinks</h3>
-                <p className="text-sm text-gray-700">
+                <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-2">Cocktails, mixers and long drinks</h3>
+                <p className="text-sm text-anchor-cream-text/70">
                   Espresso martinis, mojitos and classic G&Ts share the menu with premium spirits and
                   alcohol-free options, perfect for pre-flight meetups or Staines nights out near Heathrow.
                 </p>
@@ -554,7 +554,7 @@ export default async function DrinksMenuPage() {
             answer: "We accept cash and all major credit and debit cards, including American Express. Whether you're settling a tab, buying rounds, or paying for events, we make it easy with multiple payment options."
           }
         ]}
-        className="bg-gray-50"
+        className="bg-anchor-bg"
       />
 
       {/* CTA Section */}

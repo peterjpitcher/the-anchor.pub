@@ -6,11 +6,11 @@ import { cn } from '@/lib/utils'
 import type { BaseComponentProps } from '../types'
 
 const datePickerVariants = cva(
-  'w-full rounded-lg border bg-white px-4 py-2 text-gray-900 transition-colors focus:outline-none focus:ring-2 focus:ring-anchor-gold focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed',
+  'w-full rounded-lg border bg-anchor-bg-card px-4 py-2 text-anchor-cream-text placeholder:text-anchor-cream-text/40 transition-colors focus:outline-none focus:ring-2 focus:ring-anchor-gold focus:border-anchor-gold focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed',
   {
     variants: {
       variant: {
-        default: 'border-gray-300 hover:border-gray-400',
+        default: 'border-anchor-gold/30 hover:border-anchor-gold/50',
         error: 'border-red-500 hover:border-red-600',
         success: 'border-green-500 hover:border-green-600'
       },
@@ -97,7 +97,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
         {label && (
           <label 
             htmlFor={datePickerId}
-            className="block text-sm font-medium text-gray-700 mb-1"
+            className="block text-sm font-medium text-anchor-cream-text/70 mb-1"
           >
             {label}
           </label>
@@ -137,7 +137,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
         )}
         
         {helperText && !error && (
-          <p id={`${datePickerId}-helper`} className="mt-1 text-sm text-gray-700">
+          <p id={`${datePickerId}-helper`} className="mt-1 text-sm text-anchor-cream-text/70">
             {helperText}
           </p>
         )}
@@ -212,7 +212,7 @@ export const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>(
     return (
       <div ref={ref} className="space-y-4" data-testid={testId} {...props}>
         {label && (
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-sm font-medium text-anchor-cream-text/70">
             {label}
           </label>
         )}
@@ -248,7 +248,7 @@ export const DateRangePicker = forwardRef<HTMLDivElement, DateRangePickerProps>(
         )}
         
         {helperText && !error && (
-          <p className="text-sm text-gray-700">
+          <p className="text-sm text-anchor-cream-text/70">
             {helperText}
           </p>
         )}
@@ -295,7 +295,7 @@ export const TimePicker = forwardRef<HTMLInputElement, TimePickerProps>(
         {label && (
           <label 
             htmlFor={timePickerId}
-            className="block text-sm font-medium text-gray-700 mb-1"
+            className="block text-sm font-medium text-anchor-cream-text/70 mb-1"
           >
             {label}
           </label>
@@ -320,7 +320,7 @@ export const TimePicker = forwardRef<HTMLInputElement, TimePickerProps>(
           />
           
           {/* Clock icon */}
-          <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-gray-700">
+          <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-anchor-cream-text/70">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
@@ -334,7 +334,7 @@ export const TimePicker = forwardRef<HTMLInputElement, TimePickerProps>(
         )}
         
         {helperText && !error && (
-          <p id={`${timePickerId}-helper`} className="mt-1 text-sm text-gray-700">
+          <p id={`${timePickerId}-helper`} className="mt-1 text-sm text-anchor-cream-text/70">
             {helperText}
           </p>
         )}

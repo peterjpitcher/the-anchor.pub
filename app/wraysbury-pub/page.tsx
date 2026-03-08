@@ -128,7 +128,7 @@ export default async function WraysburyPubPage() {
                 }
             />
 
-            <section className="py-8 bg-white">
+            <section className="py-8 bg-anchor-bg">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle
@@ -136,18 +136,18 @@ export default async function WraysburyPubPage() {
                                 structured: true,
                                 speakable: true
                             }}
-                            className="text-anchor-green mb-4"
+                            className="text-anchor-cream-text mb-4"
                         >
                             Wraysbury Pub & Dining - Worth the Short Drive
                         </PageTitle>
-                        <p className="text-lg text-gray-700">
+                        <p className="text-lg text-anchor-cream-text/70">
                             Love Wraysbury living but fancy a change of scenery? The Anchor offers a vibrant atmosphere, unique entertainment, and fantastic food just minutes away.
                         </p>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-gray-50">
+            <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -163,7 +163,7 @@ export default async function WraysburyPubPage() {
                                     title: "Stone-Baked Pizza",
                                     description: "Authentic pizzas served Tuesday-Saturday (and BOGOF on Tuesdays!)",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-card",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -171,7 +171,7 @@ export default async function WraysburyPubPage() {
                                     title: "Live Entertainment",
                                     description: "Music Bingo with Nikki Manfadge, quiz nights, and bingo - lively events you won't find everywhere (see /whats-on)",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-card",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -179,7 +179,7 @@ export default async function WraysburyPubPage() {
                                     title: "Sunday Roast",
                                     description: "A proper home-cooked roast with all the trimmings",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-card",
                                     className: "rounded-xl p-6 text-center"
                                 }
                             ]}
@@ -189,7 +189,7 @@ export default async function WraysburyPubPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-white">
+            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeader
@@ -197,9 +197,9 @@ export default async function WraysburyPubPage() {
                         />
 
                         <div className="grid md:grid-cols-2 gap-8 mb-8">
-                            <div className="bg-blue-50 rounded-xl p-6">
+                            <div className="card-dark rounded-none p-6">
                                 <h3 className="text-xl font-bold text-blue-800 mb-4">Celebrations</h3>
-                                <p className="text-gray-700 mb-4">
+                                <p className="text-anchor-cream-text/70 mb-4">
                                     Planning a party? We frequently host birthdays and celebrations for Wraysbury residents. Our private hire options are flexible and affordable.
                                 </p>
                                 <Link href="/private-hire" className="text-blue-600 font-bold hover:underline">
@@ -207,9 +207,9 @@ export default async function WraysburyPubPage() {
                                 </Link>
                             </div>
 
-                            <div className="bg-purple-50 rounded-xl p-6">
+                            <div className="card-dark rounded-none p-6">
                                 <h3 className="text-xl font-bold text-purple-800 mb-4">What's On</h3>
-                                <p className="text-gray-700 mb-4">
+                                <p className="text-anchor-cream-text/70 mb-4">
                                     Join us for Music Bingo hosted by Nikki Manfadge or test your knowledge at our quiz nights. See /whats-on for the latest listings.
                                 </p>
                                 <Link href="/whats-on" className="text-purple-600 font-bold hover:underline">
@@ -233,7 +233,7 @@ export default async function WraysburyPubPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-gray-50">
+            <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-2xl mx-auto text-center">
                         <SectionHeader
@@ -263,7 +263,7 @@ export default async function WraysburyPubPage() {
                         answer: "Our kitchen times vary slightly by day (generally open for dinner Tue-Fri and all day Sat-Sun). Please check our opening hours section for the latest service times."
                     }
                 ]}
-                className="bg-white"
+                className="bg-anchor-bg-card"
             />
 
             <CTASection

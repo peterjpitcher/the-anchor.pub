@@ -6,11 +6,11 @@ import { cn } from '@/lib/utils'
 import type { BaseComponentProps } from '../types'
 
 const inputVariants = cva(
-  'w-full rounded-lg border bg-white px-4 py-2 text-gray-900 transition-colours focus:outline-none focus:ring-2 focus:ring-anchor-gold focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed',
+  'w-full rounded-lg border bg-anchor-bg-card px-4 py-2 text-anchor-cream-text placeholder:text-anchor-cream-text/40 transition-colours focus:outline-none focus:ring-2 focus:ring-anchor-gold focus:border-anchor-gold focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed',
   {
     variants: {
       variant: {
-        default: 'border-gray-300 hover:border-gray-400',
+        default: 'border-anchor-gold/30 hover:border-anchor-gold/50',
         error: 'border-red-500 hover:border-red-600',
         success: 'border-green-500 hover:border-green-600'
       },
@@ -60,15 +60,15 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label 
             htmlFor={inputId}
-            className="block text-sm font-medium text-gray-700 mb-1"
+            className="block text-sm font-medium text-anchor-cream-text/70 mb-1"
           >
             {label}
           </label>
         )}
-        
+
         <div className="relative">
           {leftIcon && (
-            <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-700">
+            <div className="absolute left-3 top-1/2 -translate-y-1/2 text-anchor-cream-text/70">
               {leftIcon}
             </div>
           )}
@@ -89,7 +89,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           />
           
           {rightIcon && (
-            <div className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-700">
+            <div className="absolute right-3 top-1/2 -translate-y-1/2 text-anchor-cream-text/70">
               {rightIcon}
             </div>
           )}
@@ -102,7 +102,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         )}
         
         {helperText && !error && (
-          <p id={`${inputId}-helper`} className="mt-1 text-sm text-gray-700">
+          <p id={`${inputId}-helper`} className="mt-1 text-sm text-anchor-cream-text/70">
             {helperText}
           </p>
         )}
@@ -144,7 +144,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         {label && (
           <label 
             htmlFor={textareaId}
-            className="block text-sm font-medium text-gray-700 mb-1"
+            className="block text-sm font-medium text-anchor-cream-text/70 mb-1"
           >
             {label}
           </label>
@@ -172,7 +172,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
         )}
         
         {helperText && !error && (
-          <p id={`${textareaId}-helper`} className="mt-1 text-sm text-gray-700">
+          <p id={`${textareaId}-helper`} className="mt-1 text-sm text-anchor-cream-text/70">
             {helperText}
           </p>
         )}

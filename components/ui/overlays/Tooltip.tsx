@@ -11,11 +11,11 @@ const tooltipVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-gray-900 text-white',
-        light: 'bg-white text-gray-900 border border-gray-200',
+        default: 'bg-anchor-bg text-anchor-cream-text',
+        light: 'bg-anchor-bg-card text-anchor-cream-text border border-anchor-gold/15',
         error: 'bg-red-600 text-white',
         warning: 'bg-yellow-600 text-white',
-        success: 'bg-green-600 text-white'
+        success: 'bg-anchor-gold-vivid/20 text-anchor-gold-vivid'
       }
     },
     defaultVariants: {

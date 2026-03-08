@@ -162,11 +162,11 @@ const FAQS = [
 
 function PrizeCard({ title, reward, copy }: { title: string; reward: string; copy: string }) {
   return (
-    <Card className="h-full bg-white/90 border border-amber-100 shadow-sm">
+    <Card className="h-full card-dark rounded-none border border-anchor-gold/15">
       <CardBody>
-        <h3 className="text-lg font-semibold text-anchor-charcoal mb-2">{title}</h3>
+        <h3 className="text-lg font-semibold text-anchor-cream-text mb-2">{title}</h3>
         <p className="text-2xl font-bold text-anchor-gold mb-3">{reward}</p>
-        <p className="text-sm text-gray-700">{copy}</p>
+        <p className="text-sm text-anchor-cream-text/70">{copy}</p>
       </CardBody>
     </Card>
   )
@@ -175,9 +175,9 @@ function PrizeCard({ title, reward, copy }: { title: string; reward: string; cop
 function QuizNightEvents({ events }: { events: Event[] }) {
   if (!events.length) {
     return (
-      <div className="bg-white border border-gray-200 rounded-xl p-6 text-center">
-        <p className="text-lg font-semibold text-anchor-green mb-2">New quiz dates are loading soon</p>
-        <p className="text-gray-600">
+      <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-xl p-6 text-center">
+        <p className="text-lg font-semibold text-anchor-gold-vivid mb-2">New quiz dates are loading soon</p>
+        <p className="text-anchor-cream-text/55">
           Our next quiz night is being finalised right now. Call 01753 682707 and we’ll let you know as soon as booking opens.
         </p>
       </div>
@@ -237,17 +237,17 @@ function QuizNightEvents({ events }: { events: Event[] }) {
 
               <div className="flex-1 space-y-4">
                 {event.description && (
-                  <p className="text-gray-700 leading-relaxed">{event.description}</p>
+                  <p className="text-anchor-cream-text/70 leading-relaxed">{event.description}</p>
                 )}
 	                <div className="flex flex-wrap items-center gap-3 text-sm">
-	                  <span className="inline-flex items-center px-3 py-1 rounded-full bg-anchor-sand/40 text-anchor-green font-semibold">
+	                  <span className="inline-flex items-center px-3 py-1 rounded-full bg-anchor-bg-raised text-anchor-gold-vivid font-semibold">
 	                    🏅 GBP 25 bar tab for winners
 	                  </span>
                   <span className="inline-flex items-center px-3 py-1 rounded-full bg-amber-100 text-amber-700 font-semibold">
                     🍷 Bottle of wine for second-from-last
                   </span>
                 </div>
-	                <p className="text-sm text-gray-600">
+	                <p className="text-sm text-anchor-cream-text/55">
 	                  GBP 3 per player · Teams up to six · Solo players welcome (we’ll match you on arrival)
 	                </p>
               </div>
@@ -339,18 +339,18 @@ export default async function QuizNightPage() {
         }
       />
 
-      <section className="bg-white py-6">
+      <section className="bg-anchor-bg py-6">
         <Container>
-          <p className="text-center text-sm text-gray-600">⭐⭐⭐⭐⭐ <strong>Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
+          <p className="text-center text-sm text-anchor-cream-text/55">⭐⭐⭐⭐⭐ <strong>Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
         </Container>
       </section>
 
       <Section spacing="sm" background="white">
         <Container>
-          <PageTitle className="text-center text-anchor-green" seo={{ structured: true, speakable: true }}>
+          <PageTitle className="text-center text-anchor-gold-vivid" seo={{ structured: true, speakable: true }}>
             Heathrow Quiz Night Pub & Trivia Night - Stanwell Moor, Staines & Surrey
           </PageTitle>
-          <p className="text-lg text-gray-700 text-center max-w-3xl mx-auto">
+          <p className="text-lg text-anchor-cream-text/70 text-center max-w-3xl mx-auto">
             Looking for a quiz night pub near Heathrow that still feels like your local? Every first Wednesday we turn The Anchor into
             a trivia night HQ and night trivia spot for Stanwell Moor, Staines, Ashford, Bedfont and stopover crews chasing smart fun. {heroDescription}
           </p>
@@ -360,13 +360,13 @@ export default async function QuizNightPage() {
       <Section spacing="md" background="gray">
         <Container>
           <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-stretch">
-            <Card className="bg-white shadow-lg border border-anchor-sand">
+            <Card className="card-dark rounded-none border border-anchor-gold/15">
               <CardBody className="space-y-4">
                 <p className="text-sm uppercase tracking-wide text-anchor-gold font-semibold">Next quiz night</p>
-                <h2 className="text-3xl font-bold text-anchor-charcoal">{nextEvent ? nextEvent.name : 'Next quiz night announced soon'}</h2>
-                <p className="text-anchor-green font-semibold">{nextEvent ? `${nextEventDate} · ${nextEventTime}` : 'Check back for the next date'}</p>
+                <h2 className="text-3xl font-bold text-anchor-cream-text">{nextEvent ? nextEvent.name : 'Next quiz night announced soon'}</h2>
+                <p className="text-anchor-gold-vivid font-semibold">{nextEvent ? `${nextEventDate} · ${nextEventTime}` : 'Check back for the next date'}</p>
                 {nextEvent?.longDescription && (
-                  <p className="text-gray-700 whitespace-pre-line">{nextEvent.longDescription}</p>
+                  <p className="text-anchor-cream-text/70 whitespace-pre-line">{nextEvent.longDescription}</p>
                 )}
                 <div className="space-y-3">
                   {nextEvent && (
@@ -386,17 +386,17 @@ export default async function QuizNightPage() {
                 </div>
               </CardBody>
             </Card>
-            <Card className="bg-anchor-cream border border-amber-100 shadow-sm">
+            <Card className="card-dark rounded-none border border-anchor-gold/15">
               <CardBody className="space-y-4">
-                <h3 className="text-2xl font-bold text-anchor-charcoal">How the night runs</h3>
-                <ul className="space-y-3 text-gray-700">
+                <h3 className="text-2xl font-bold text-anchor-cream-text">How the night runs</h3>
+                <ul className="space-y-3 text-anchor-cream-text/70">
                   <li><strong>6:30 pm</strong> · Doors open, soundtrack on, grab sharers & themed cocktails.</li>
                   <li><strong>7:00 pm</strong> · Quiz night quiz kicks off. Four rounds × 10 questions with occasional bonus trivia prompts.</li>
                   <li><strong>8:15 pm</strong> · Interactive quick-fire round to get everyone on their feet.</li>
                   <li><strong>8:30 pm</strong> · Comfort break & last call for kitchen orders.</li>
                   <li><strong>9:45 pm</strong> · Final scores, prize ladder and best team name shout-outs.</li>
                 </ul>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-anchor-cream-text/55">
                   Teams up to six. House rule: phones away during rounds or it’s a cheeky –5 points. We keep things welcoming, witty and PG-13.
                 </p>
               </CardBody>
@@ -408,8 +408,8 @@ export default async function QuizNightPage() {
       <Section spacing="md" background="white" id="quiz-dates">
         <Container>
           <div className="max-w-5xl mx-auto">
-            <h2 className="text-3xl font-bold text-anchor-charcoal text-center mb-6">Upcoming quiz night dates</h2>
-            <p className="text-gray-700 text-center mb-8">
+            <h2 className="text-3xl font-bold text-anchor-cream-text text-center mb-6">Upcoming quiz night dates</h2>
+            <p className="text-anchor-cream-text/70 text-center mb-8">
               We list confirmed quiz night dates below. For the very latest schedule—including bonus weekend quizzes—check our <Link href="/whats-on" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">What’s On page</Link> or call 01753 682707 and we’ll give you the next available date.
             </p>
             <QuizNightEvents events={events} />
@@ -420,10 +420,10 @@ export default async function QuizNightPage() {
       <Section spacing="sm" background="white">
         <Container>
           <div className="max-w-5xl mx-auto grid gap-6 md:grid-cols-3">
-            <Card className="bg-anchor-cream/50 shadow-sm">
+            <Card className="card-dark rounded-none border border-anchor-gold/15">
               <CardBody>
-                <h3 className="text-xl font-semibold text-anchor-green mb-2">Sunday Roast Quiz Warm-Up</h3>
-                <p className="text-sm text-gray-700 mb-4">
+                <h3 className="text-xl font-semibold text-anchor-gold-vivid mb-2">Sunday Roast Quiz Warm-Up</h3>
+                <p className="text-sm text-anchor-cream-text/70 mb-4">
                   Book Sunday roast by 1pm Saturday and bring the team for a proper pub lunch before quizzing.
                 </p>
                 <div className="flex flex-col gap-2">
@@ -441,10 +441,10 @@ export default async function QuizNightPage() {
                 </div>
               </CardBody>
             </Card>
-            <Card className="bg-white shadow-sm">
+            <Card className="card-dark rounded-none border border-anchor-gold/15">
               <CardBody>
-                <h3 className="text-xl font-semibold text-anchor-green mb-2">Stone-Baked Pizza Teams</h3>
-                <p className="text-sm text-gray-700 mb-4">
+                <h3 className="text-xl font-semibold text-anchor-gold-vivid mb-2">Stone-Baked Pizza Teams</h3>
+                <p className="text-sm text-anchor-cream-text/70 mb-4">
                   Arrive early and fuel up on stone-baked pizzas before trivia kicks off.
                 </p>
                 <div className="flex flex-col gap-2">
@@ -463,10 +463,10 @@ export default async function QuizNightPage() {
                 </div>
               </CardBody>
             </Card>
-            <Card className="bg-anchor-cream/50 shadow-sm">
+            <Card className="card-dark rounded-none border border-anchor-gold/15">
               <CardBody>
-                <h3 className="text-xl font-semibold text-anchor-green mb-2">All-Day Menu & Cocktails</h3>
-                <p className="text-sm text-gray-700 mb-4">
+                <h3 className="text-xl font-semibold text-anchor-gold-vivid mb-2">All-Day Menu & Cocktails</h3>
+                <p className="text-sm text-anchor-cream-text/70 mb-4">
                   Order sharers, burgers or themed cocktails delivered to your table during breaks.
                 </p>
                 <div className="flex flex-col gap-2">
@@ -491,17 +491,17 @@ export default async function QuizNightPage() {
       <Section spacing="md" background="white">
         <Container>
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-anchor-charcoal mb-8 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-anchor-cream-text mb-8 text-center">
               Why everyone loves The Anchor quiz night
             </h2>
             <Grid cols={WHY_LOVE_IT.length > 3 ? 3 : 2} gap="md">
               {WHY_LOVE_IT.map(feature => (
                 <GridItem key={feature.title}>
-                  <Card className="h-full bg-white border border-gray-100 shadow-sm hover:shadow-md transition">
+                  <Card className="h-full card-dark rounded-none border border-anchor-gold/15">
                     <CardBody className="space-y-3">
                       <div className="text-4xl">{feature.icon}</div>
-                      <h3 className="text-xl font-semibold text-anchor-charcoal">{feature.title}</h3>
-                      <p className="text-gray-700 text-sm leading-relaxed">{feature.body}</p>
+                      <h3 className="text-xl font-semibold text-anchor-cream-text">{feature.title}</h3>
+                      <p className="text-anchor-cream-text/70 text-sm leading-relaxed">{feature.body}</p>
                     </CardBody>
                   </Card>
                 </GridItem>
@@ -514,7 +514,7 @@ export default async function QuizNightPage() {
       <Section spacing="md" background="gray">
         <Container>
           <div className="max-w-5xl mx-auto">
-	            <h2 className="text-3xl font-bold text-anchor-charcoal text-center mb-6">Prizes & bragging rights</h2>
+	            <h2 className="text-3xl font-bold text-anchor-cream-text text-center mb-6">Prizes & bragging rights</h2>
 	            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
 	              <PrizeCard title="Champions" reward="GBP 25 Bar Tab" copy="Spend it on celebratory pints, cocktails or post-quiz snacks." />
 	              <PrizeCard title="Second from Last" reward="Bottle of Wine" copy="A cheeky consolation prize that keeps everyone in the game." />
@@ -527,10 +527,10 @@ export default async function QuizNightPage() {
       <Section spacing="md" background="gray">
         <Container>
           <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-start">
-            <Card className="bg-white border border-gray-200 shadow-sm">
+            <Card className="card-dark rounded-none border border-anchor-gold/15">
               <CardBody className="space-y-4">
-                <h3 className="text-2xl font-bold text-anchor-charcoal">Make a night of it</h3>
-                <ul className="space-y-3 text-gray-700">
+                <h3 className="text-2xl font-bold text-anchor-cream-text">Make a night of it</h3>
+                <ul className="space-y-3 text-anchor-cream-text/70">
                   <li><strong>Food served until 8:30 pm:</strong> pizzas, nacho mountains, burger stacks and seasonal specials.</li>
                   <li><strong>Drinks menu:</strong> cask ales, craft lagers, zero-proof spritzes and themed cocktails like the Black Shuck Spritz.</li>
                   <li><strong>Stay comfy:</strong> heated areas, step-free access and plenty of parking right outside.</li>
@@ -556,39 +556,39 @@ export default async function QuizNightPage() {
       <Section spacing="md" background="white">
         <Container>
           <div className="max-w-5xl mx-auto">
-            <h2 className="text-3xl font-bold text-anchor-charcoal text-center mb-6">Quiz team tips for the win</h2>
-	            <p className="text-gray-700 text-center max-w-3xl mx-auto mb-6">
+            <h2 className="text-3xl font-bold text-anchor-cream-text text-center mb-6">Quiz team tips for the win</h2>
+	            <p className="text-anchor-cream-text/70 text-center max-w-3xl mx-auto mb-6">
 	              Whether you're searching for "pub quiz near me", "trivia night near me", a quiz night pub or a night trivia fix, these quick tips help you build a pub trivia team that can take the GBP 25 bar tab every month.
 	            </p>
             <div className="grid md:grid-cols-2 gap-4">
-              <Card className="h-full bg-white border border-gray-100 shadow-sm">
+              <Card className="h-full card-dark rounded-none border border-anchor-gold/15">
                 <CardBody className="space-y-3">
-                  <h3 className="text-xl font-semibold text-anchor-charcoal">Balance your brain power</h3>
-                  <p className="text-gray-700 text-sm leading-relaxed">
+                  <h3 className="text-xl font-semibold text-anchor-cream-text">Balance your brain power</h3>
+                  <p className="text-anchor-cream-text/70 text-sm leading-relaxed">
                     Mix general knowledge legends with niche specialists—think music, sport, film buffs and a wildcard who reads the news. Diverse teams smash the picture and music rounds every time.
                   </p>
                 </CardBody>
               </Card>
-              <Card className="h-full bg-white border border-gray-100 shadow-sm">
+              <Card className="h-full card-dark rounded-none border border-anchor-gold/15">
                 <CardBody className="space-y-3">
-                  <h3 className="text-xl font-semibold text-anchor-charcoal">Pick a memorable team name</h3>
-                  <p className="text-gray-700 text-sm leading-relaxed">
+                  <h3 className="text-xl font-semibold text-anchor-cream-text">Pick a memorable team name</h3>
+                  <p className="text-anchor-cream-text/70 text-sm leading-relaxed">
                     Punny trivia team names earn bonus applause (and we award a seasonal prop for the best one). Keep a shortlist ready so you can rotate it for every monthly quiz night.
                   </p>
                 </CardBody>
               </Card>
-              <Card className="h-full bg-white border border-gray-100 shadow-sm">
+              <Card className="h-full card-dark rounded-none border border-anchor-gold/15">
                 <CardBody className="space-y-3">
-                  <h3 className="text-xl font-semibold text-anchor-charcoal">Nominate a scribe & rules coach</h3>
-                  <p className="text-gray-700 text-sm leading-relaxed">
+                  <h3 className="text-xl font-semibold text-anchor-cream-text">Nominate a scribe & rules coach</h3>
+                  <p className="text-anchor-cream-text/70 text-sm leading-relaxed">
                     Agree who writes the answers and who double-checks spelling before you hand the sheet in. It keeps debates quick and protects those half-point bonuses.
                   </p>
                 </CardBody>
               </Card>
-              <Card className="h-full bg-white border border-gray-100 shadow-sm">
+              <Card className="h-full card-dark rounded-none border border-anchor-gold/15">
                 <CardBody className="space-y-3">
-                  <h3 className="text-xl font-semibold text-anchor-charcoal">Arrive early, fuel up</h3>
-                  <p className="text-gray-700 text-sm leading-relaxed">
+                  <h3 className="text-xl font-semibold text-anchor-cream-text">Arrive early, fuel up</h3>
+                  <p className="text-anchor-cream-text/70 text-sm leading-relaxed">
                     We open the doors at 6:30 pm—grab sharers, settle the team and review recent headlines before the 7:00 pm kickoff. A fed team is a focused team.
                   </p>
                 </CardBody>
@@ -652,11 +652,11 @@ export default async function QuizNightPage() {
         <Container>
           <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-start">
             <div>
-              <h2 className="text-2xl font-bold text-anchor-charcoal mb-3">Find us</h2>
-              <p className="text-gray-700 mb-4">
+              <h2 className="text-2xl font-bold text-anchor-cream-text mb-3">Find us</h2>
+              <p className="text-anchor-cream-text/70 mb-4">
                 The Anchor · Horton Road, Stanwell Moor, TW19 6AQ · Free on-site parking · 7 minutes from Heathrow T5 · 8 minutes from Staines.
               </p>
-              <ul className="space-y-3 text-gray-700 text-sm">
+              <ul className="space-y-3 text-anchor-cream-text/70 text-sm">
                 <li><strong>Driving:</strong> Use postcode TW19 6AQ. Plenty of free parking right outside.</li>
                 <li><strong>Public transport:</strong> 441 & 555 buses stop on Horton Road. Uber and Bolt know us well.</li>
                 <li><strong>Accessibility:</strong> Step-free entrance, accessible loos and flexible seating for teams.</li>
@@ -676,10 +676,10 @@ export default async function QuizNightPage() {
                 </Link>
               </div>
             </div>
-            <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+            <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-xl overflow-hidden shadow-sm">
               <GoogleMapEmbed
                 query="The Anchor, Stanwell Moor"
-                className="h-full min-h-[300px] border border-gray-200 rounded-xl overflow-hidden shadow-sm"
+                className="h-full min-h-[300px] border border-anchor-gold/15 rounded-xl overflow-hidden shadow-sm"
               />
             </div>
           </div>

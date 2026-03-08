@@ -29,12 +29,12 @@ export async function NextEventServer() {
     if (!nextEvent) {
       return (
         <div className="max-w-3xl mx-auto">
-          <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-            <div className="bg-gradient-to-r from-anchor-green to-anchor-green-dark p-6">
-              <h2 className="text-2xl font-bold text-white text-center">Coming Soon</h2>
+          <div className="card-dark">
+            <div className="border-b border-anchor-gold/25 p-6">
+              <h2 className="text-2xl font-bold text-anchor-cream-text text-center">Coming Soon</h2>
             </div>
             <div className="p-8 text-center">
-              <p className="text-gray-700">Check back soon for our next exciting event!</p>
+              <p className="text-anchor-cream-text/70">Check back soon for our next exciting event!</p>
               <Link href="/whats-on" className="inline-block mt-4">
                 <Button variant="primary">
                   View All Events
@@ -83,33 +83,33 @@ export async function NextEventServer() {
 
     if (diffMs > 0 && totalDaysUntil <= MAX_URGENCY_DAYS) {
       if (hoursUntil <= 24) {
-	        urgency = {
-	          label: hoursUntil <= 12 ? 'Starts tonight' : 'Starts tomorrow',
-	          message: `We kick off at ${eventStart.toLocaleTimeString('en-GB', {
-	            hour: '2-digit',
-	            minute: '2-digit',
-	            timeZone: LONDON_TIME_ZONE
-	          })}. Book early to get your preferred time.`,
-	          badgeClassName: 'bg-red-600 text-white',
-	          panelClassName: 'bg-red-50 border border-red-200 text-red-700'
-	        }
+        urgency = {
+          label: hoursUntil <= 12 ? 'Starts tonight' : 'Starts tomorrow',
+          message: `We kick off at ${eventStart.toLocaleTimeString('en-GB', {
+            hour: '2-digit',
+            minute: '2-digit',
+            timeZone: LONDON_TIME_ZONE
+          })}. Book early to get your preferred time.`,
+          badgeClassName: 'bg-red-600 text-white',
+          panelClassName: 'bg-red-900/30 border border-red-500/40 text-red-300'
+        }
       } else if (daysUntil <= 2) {
-	        urgency = {
-	          label: 'Almost here',
-	          message: `Join us this ${eventStart.toLocaleDateString('en-GB', {
-	            weekday: 'long',
-	            timeZone: LONDON_TIME_ZONE
-	          })}. Book early to get your preferred time.`,
-	          badgeClassName: 'bg-anchor-gold text-anchor-charcoal',
-	          panelClassName: 'bg-anchor-gold/20 border border-anchor-gold/40 text-anchor-charcoal'
-	        }
+        urgency = {
+          label: 'Almost here',
+          message: `Join us this ${eventStart.toLocaleDateString('en-GB', {
+            weekday: 'long',
+            timeZone: LONDON_TIME_ZONE
+          })}. Book early to get your preferred time.`,
+          badgeClassName: 'bg-anchor-gold-vivid text-anchor-bg',
+          panelClassName: 'bg-anchor-gold-vivid/15 border border-anchor-gold/40 text-anchor-cream-text'
+        }
       } else if (daysUntil <= MAX_URGENCY_DAYS) {
         const urgencyDayCount = Math.max(1, Math.round(totalDaysUntil))
         urgency = {
           label: `Only ${urgencyDayCount} day${urgencyDayCount === 1 ? '' : 's'} to go`,
           message: 'Book early to get your preferred time.',
-          badgeClassName: 'bg-anchor-green text-white',
-          panelClassName: 'bg-anchor-green/10 border border-anchor-green/30 text-anchor-green'
+          badgeClassName: 'bg-anchor-bg-raised border border-anchor-gold/40 text-anchor-gold-vivid',
+          panelClassName: 'bg-anchor-bg-raised border border-anchor-gold/25 text-anchor-cream-text'
         }
       }
     }
@@ -119,11 +119,11 @@ export async function NextEventServer() {
     
     return (
       <div className="max-w-5xl mx-auto space-y-4">
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+        <div className="card-dark">
           <EventSchema event={nextEvent} />
 
           <div className="grid gap-0 lg:grid-cols-[minmax(0,260px)_minmax(0,1fr)]">
-            <div className="relative flex items-center justify-center bg-gradient-to-br from-anchor-green/10 via-white to-anchor-green/5 p-5 lg:p-6">
+            <div className="relative flex items-center justify-center bg-anchor-bg border-r border-anchor-gold/15 p-5 lg:p-6">
               <div className="relative w-full max-w-[200px] sm:max-w-[220px] lg:max-w-full aspect-[3/4]">
                 <Image
                   src={eventImage}
@@ -136,15 +136,15 @@ export async function NextEventServer() {
             </div>
 
             <div className="flex flex-col gap-4 p-5 lg:p-6">
-              <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-wide text-anchor-green">
-                <span className="inline-flex items-center gap-2 rounded-full bg-anchor-green/10 px-3 py-1 text-anchor-green">
+              <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-wide">
+                <span className="inline-flex items-center gap-2 rounded-full bg-anchor-gold-vivid/15 border border-anchor-gold/30 px-3 py-1 text-anchor-gold-vivid">
                   {relativeLabel}
                 </span>
                 {nextEvent.category && (
                   <span
                     className="inline-flex items-center gap-2 rounded-full px-3 py-1"
                     style={{
-                      backgroundColor: `${nextEvent.category.color}15`,
+                      backgroundColor: `${nextEvent.category.color}20`,
                       color: nextEvent.category.color
                     }}
                   >
@@ -160,16 +160,16 @@ export async function NextEventServer() {
               </div>
 
               <div className="space-y-1">
-                <h2 className="text-2xl lg:text-3xl font-bold text-anchor-green leading-tight">
+                <h2 className="text-2xl lg:text-3xl font-bold text-anchor-cream-text leading-tight">
                   {nextEvent.name}
                 </h2>
-                <p className="text-base text-anchor-gold font-semibold">
+                <p className="text-base text-anchor-gold-vivid font-semibold">
                   {nextEvent.shortDescription || 'Special Event'}
                 </p>
               </div>
 
               {urgency && (
-                <div className={`rounded-xl p-3 text-sm leading-relaxed ${urgency.panelClassName}`}>
+                <div className={`p-3 text-sm leading-relaxed ${urgency.panelClassName}`}>
                   <p className="font-semibold uppercase tracking-wide">
                     {urgency.label}
                   </p>
@@ -179,21 +179,21 @@ export async function NextEventServer() {
                 </div>
               )}
 
-              <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm">
+              <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm border-t border-anchor-gold/15 pt-4">
                 <div>
-                  <span className="text-xs font-semibold uppercase tracking-wide text-anchor-green/60">Date & Time</span>
-                  <p className="font-bold text-anchor-green">{longDateLabel} · {timeLabel}</p>
+                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-anchor-cream-text/50">Date &amp; Time</span>
+                  <p className="font-bold text-anchor-cream-text">{longDateLabel} · {timeLabel}</p>
                 </div>
                 {priceLabel && (
                   <div>
-                    <span className="text-xs font-semibold uppercase tracking-wide text-anchor-green/60">Price</span>
-                    <p className="font-bold text-anchor-green">{priceLabel}</p>
+                    <span className="text-xs font-semibold uppercase tracking-[0.18em] text-anchor-cream-text/50">Price</span>
+                    <p className="font-bold text-anchor-gold-vivid">{priceLabel}</p>
                   </div>
                 )}
               </div>
 
               {nextEvent.description && (
-                <p className="text-sm text-gray-700 leading-relaxed">
+                <p className="text-sm text-anchor-cream-text/70 leading-relaxed">
                   {nextEvent.description}
                 </p>
               )}
@@ -238,10 +238,10 @@ export async function NextEventServer() {
               const previewImage = event.image?.[0] || event.heroImageUrl || DEFAULT_EVENT_IMAGE
 
               return (
-                <div key={event.id} className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+                <div key={event.id} className="card-dark">
                   <EventSchema event={event} />
                   <div className="grid grid-cols-[80px_1fr] gap-3 p-4">
-                    <div className="relative w-20 h-28 rounded-lg overflow-hidden bg-gray-50 flex-shrink-0">
+                    <div className="relative w-20 h-28 overflow-hidden bg-anchor-bg flex-shrink-0 border border-anchor-gold/15">
                       <Image
                         src={previewImage}
                         alt={`${event.name} event promotional poster`}
@@ -252,15 +252,15 @@ export async function NextEventServer() {
                     </div>
 
                     <div className="min-w-0">
-                      <p className="text-xs font-semibold uppercase tracking-wide text-anchor-green/60">
+                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-anchor-cream-text/50">
                         {previewDateLabel} · {previewTimeLabel}
                       </p>
                       <Link href={`/events/${event.slug || event.id}`}>
-                        <h3 className="mt-0.5 text-base font-bold text-anchor-green hover:text-anchor-gold transition-colors leading-snug">
+                        <h3 className="mt-0.5 text-base font-bold text-anchor-cream-text hover:text-anchor-gold-vivid transition-colors leading-snug">
                           {event.name}
                         </h3>
                       </Link>
-                      <p className="mt-1 text-sm text-gray-600 line-clamp-2">
+                      <p className="mt-1 text-sm text-anchor-cream-text/70 line-clamp-2">
                         {event.shortDescription || event.description || 'Special Event'}
                       </p>
                       <div className="mt-3 flex flex-wrap gap-2">

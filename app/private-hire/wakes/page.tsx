@@ -65,12 +65,12 @@ export default function WakesPage() {
                 }
             />
 
-            <section className="py-12 bg-white">
+            <section className="py-12 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container size="md">
                     <PageTitle className="text-center mb-6" seo={{ structured: true, speakable: true }}>
                         Compassionate & Professional Service
                     </PageTitle>
-                    <p className="text-lg text-gray-700 text-center mb-8">
+                    <p className="text-lg text-anchor-cream-text/70 text-center mb-8">
                         We understand that organising a wake can be a difficult time. Our experienced team is here to handle the arrangements with sensitivity and care, ensuring a peaceful environment for you to remember your loved one.
                     </p>
 
@@ -82,7 +82,7 @@ export default function WakesPage() {
                                 {nearbyCrematoriums.map(l => (
                                     <li key={l.slug} className="flex items-center gap-2">
                                         <span className="text-anchor-gold">📍</span>
-                                        <Link href={`/private-hire/near/${l.slug}`} className="hover:underline text-anchor-green font-medium">
+                                        <Link href={`/private-hire/near/${l.slug}`} className="hover:underline text-anchor-gold font-medium">
                                             {l.name} ({l.distance})
                                         </Link>
                                     </li>
@@ -97,7 +97,7 @@ export default function WakesPage() {
 
 
 
-            <section className="section-spacing bg-white">
+            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <SectionHeader
                         title="Private Spaces"
@@ -138,10 +138,10 @@ export default function WakesPage() {
                 ]}
             />
 
-            <section className="bg-gray-100 py-12">
+            <section className="bg-anchor-bg-raised py-12 border-t border-anchor-gold/15">
                 <Container size="sm" className="text-center">
-                    <h2 className="text-2xl font-bold text-anchor-green mb-4">Contact Our Team</h2>
-                    <p className="mb-8 text-gray-600">We are here to help make this day as stress-free as possible.</p>
+                    <h2 className="text-2xl font-bold text-anchor-gold-vivid mb-4">Contact Our Team</h2>
+                    <p className="mb-8 text-anchor-cream-text/70">We are here to help make this day as stress-free as possible.</p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <PhoneButton phone="01753 682707" size="lg" variant="primary" source="wakes_cta_bottom">Call 01753 682707</PhoneButton>
                         <Link href="mailto:manager@the-anchor.pub?subject=Wake Enquiry" className="inline-block">

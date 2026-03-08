@@ -149,19 +149,19 @@ export async function generateMetadata(): Promise<Metadata> {
   const title = event?.metaTitle
     ? event.metaTitle
     : event?.name
-    ? `${event.name} | Valentine’s Day at The Anchor`
-    : 'Valentine’s Day at The Anchor | Dinner Near Heathrow'
+    ? `${event.name} | Valentine's Day at The Anchor`
+    : "Valentine's Day at The Anchor | Dinner Near Heathrow"
 
   const description = event?.metaDescription
     ? event.metaDescription
     : event
     ? [
-        `Celebrate Valentine’s Day near Heathrow at The Anchor in Stanwell Moor (TW19).`,
+        `Celebrate Valentine's Day near Heathrow at The Anchor in Stanwell Moor (TW19).`,
         performerName ? `Live music from ${performerName}.` : 'Live music, great food and a brilliant atmosphere.',
         proseccoOffer ? `${proseccoOffer}.` : 'Book early to secure your preferred time.',
         `Date: ${eventDateLabel}.`
       ].join(' ')
-    : `Celebrate Valentine’s Day near Heathrow at The Anchor in Stanwell Moor (TW19). Romantic dining, great atmosphere, and online table bookings for ${eventDateLabel}.`
+    : `Celebrate Valentine's Day near Heathrow at The Anchor in Stanwell Moor (TW19). Romantic dining, great atmosphere, and online table bookings for ${eventDateLabel}.`
 
   const keywords = event?.keywords
     ? event.keywords
@@ -233,7 +233,7 @@ export default async function ValentinesDayPage() {
   const faqs = event
     ? [
         {
-          question: 'When is Valentine’s Day at The Anchor?',
+          question: "When is Valentine's Day at The Anchor?",
           answer: `${event.name} is on ${eventDate}. The event starts at around ${eventTime}.`
         },
         {
@@ -257,22 +257,22 @@ export default async function ValentinesDayPage() {
         {
           question: 'How do I book?',
           answer:
-            'Book online via our table booking page, or call 01753 682707 if you’re booking for 8+ guests or need help with a special request.'
+            "Book online via our table booking page, or call 01753 682707 if you're booking for 8+ guests or need help with a special request."
         },
         {
           question: 'Where is The Anchor?',
-          answer: `You’ll find us at ${addressLine}. We’re seven minutes from Heathrow Terminal 5 with free on-site parking.`
+          answer: `You'll find us at ${addressLine}. We're seven minutes from Heathrow Terminal 5 with free on-site parking.`
         }
       ]
     : [
         {
-          question: 'When is Valentine’s Day at The Anchor?',
-          answer: `Valentine’s Day is 14 February ${targetYear}. We’ll publish this year’s details here as soon as they’re confirmed.`
+          question: "When is Valentine's Day at The Anchor?",
+          answer: `Valentine's Day is 14 February ${targetYear}. We'll publish this year's details here as soon as they're confirmed.`
         },
         {
           question: 'How do I book?',
           answer:
-            'Book online via our table booking page, or call 01753 682707 if you’re booking for 8+ guests or need help with a special request.'
+            "Book online via our table booking page, or call 01753 682707 if you're booking for 8+ guests or need help with a special request."
         }
       ]
 
@@ -281,7 +281,7 @@ export default async function ValentinesDayPage() {
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', url: '/' },
-          { name: 'Valentine’s Day', url: '/valentines-day' }
+          { name: "Valentine's Day", url: '/valentines-day' }
         ]}
       />
 
@@ -289,8 +289,8 @@ export default async function ValentinesDayPage() {
 
       <HeroWrapper
         route="/valentines-day"
-        title="Valentine’s Day at The Anchor"
-        description={event?.description || 'Book early for Valentine’s Day near Heathrow at The Anchor in Stanwell Moor (TW19).'}
+        title="Valentine's Day at The Anchor"
+        description={event?.description || "Book early for Valentine's Day near Heathrow at The Anchor in Stanwell Moor (TW19)."}
         eyebrow={eventDate}
         lead={
           <p className="text-white/90 text-base sm:text-lg">
@@ -301,7 +301,7 @@ export default async function ValentinesDayPage() {
        
         breadcrumbs={[
           { name: 'Home', href: '/' },
-          { name: 'Valentine’s Day' }
+          { name: "Valentine's Day" }
         ]}
         tags={[
           { label: `⏰ ${eventTime}`, variant: 'default' },
@@ -312,7 +312,7 @@ export default async function ValentinesDayPage() {
         primaryCta={
           <Button asChild variant="primary" size="lg" fullWidth className="w-full sm:w-auto">
             <a href={VALENTINES_DAY_BOOKING_URL}>
-              💘 Book Valentine’s Table
+              💘 Book Valentine's Table
             </a>
           </Button>
         }
@@ -320,7 +320,7 @@ export default async function ValentinesDayPage() {
           <>
             <Link href={eventPageUrl} className="w-full sm:w-auto">
               <Button variant="secondary" size="lg" fullWidth className="w-full sm:w-auto">
-                {event ? 'View full event details' : "See what’s on"}
+                {event ? 'View full event details' : "See what's on"}
               </Button>
             </Link>
             <PhoneButton
@@ -343,10 +343,10 @@ export default async function ValentinesDayPage() {
         <Container size="lg">
           <div className="mx-auto grid max-w-6xl items-start gap-8 lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)]">
             <Card variant="elevated" className="overflow-hidden">
-              <div className="relative aspect-[3/4] bg-gradient-to-br from-anchor-green/10 via-white to-anchor-green/5">
+              <div className="relative aspect-[3/4] bg-anchor-bg-raised">
                 <Image
                   src={heroImage}
-                  alt={event ? `${event.name} promotional poster` : 'Valentine’s Day event poster'}
+                  alt={event ? `${event.name} promotional poster` : "Valentine's Day event poster"}
                   fill
                   className="object-contain p-6"
                   sizes="(max-width: 1024px) 80vw, 360px"
@@ -355,17 +355,17 @@ export default async function ValentinesDayPage() {
               </div>
               <CardBody className="space-y-4 p-6">
                 <div className="space-y-2">
-                  <p className="text-sm font-semibold uppercase tracking-wide text-gray-600">Date</p>
-                  <p className="text-lg font-bold text-anchor-green">{eventDate}</p>
+                  <p className="text-sm font-semibold uppercase tracking-wide text-anchor-cream-text/70">Date</p>
+                  <p className="text-lg font-bold text-anchor-gold-vivid">{eventDate}</p>
                 </div>
                 <div className="space-y-2">
-                  <p className="text-sm font-semibold uppercase tracking-wide text-gray-600">Time</p>
-                  <p className="text-lg font-bold text-anchor-green">{eventTime}</p>
+                  <p className="text-sm font-semibold uppercase tracking-wide text-anchor-cream-text/70">Time</p>
+                  <p className="text-lg font-bold text-anchor-gold-vivid">{eventTime}</p>
                 </div>
                 {event?.highlights?.length ? (
                   <div className="space-y-2">
-                    <p className="text-sm font-semibold uppercase tracking-wide text-gray-600">Highlights</p>
-                    <ul className="space-y-2 text-sm text-gray-700">
+                    <p className="text-sm font-semibold uppercase tracking-wide text-anchor-cream-text/70">Highlights</p>
+                    <ul className="space-y-2 text-sm text-anchor-cream-text/70">
                       {event.highlights.map((highlight) => (
                         <li key={highlight} className="flex gap-2">
                           <span className="text-anchor-gold">•</span>
@@ -380,27 +380,27 @@ export default async function ValentinesDayPage() {
 
             <div className="space-y-6">
               <div>
-                <h2 className="text-2xl md:text-3xl font-bold text-anchor-green">
-                  Valentine’s Day dinner near Heathrow
+                <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">
+                  Valentine's Day dinner near Heathrow
                 </h2>
-                <p className="mt-4 text-gray-700 text-lg leading-relaxed">
-                  Celebrate Valentine’s Day in Stanwell Moor at The Anchor — a cosy village pub with free parking,
+                <p className="mt-4 text-anchor-cream-text/70 text-lg leading-relaxed">
+                  Celebrate Valentine's Day in Stanwell Moor at The Anchor — a cosy village pub with free parking,
                   seven minutes from{' '}
-                  <Link href="/near-heathrow/terminal-5" className="font-semibold text-anchor-green hover:text-anchor-green-dark underline decoration-dotted">
+                  <Link href="/near-heathrow/terminal-5" className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted">
                     Heathrow Terminal 5
                   </Link>
                   .
                 </p>
-                <p className="mt-3 text-gray-700 leading-relaxed">
+                <p className="mt-3 text-anchor-cream-text/70 leading-relaxed">
                   {event
-                    ? `This year’s Valentine’s event is ${event.name} on ${eventDate}. ${isFreeEntry ? 'Entry is free — book your table for dinner and enjoy the night.' : 'Book early to secure your place.'}`
-                    : 'We’ll publish this year’s Valentine’s details here as soon as they’re confirmed. In the meantime, you can still book a regular table below.'}
+                    ? `This year's Valentine's event is ${event.name} on ${eventDate}. ${isFreeEntry ? 'Entry is free — book your table for dinner and enjoy the night.' : 'Book early to secure your place.'}`
+                    : "We'll publish this year's Valentine's details here as soon as they're confirmed. In the meantime, you can still book a regular table below."}
                 </p>
 
                 {event?.about && (
-                  <div className="mt-6 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-100">
-                    <h3 className="text-lg font-semibold text-anchor-green">What to expect</h3>
-                    <p className="mt-3 text-sm text-gray-700 leading-relaxed">
+                  <div className="mt-6 rounded-2xl bg-anchor-bg-raised p-6 border border-anchor-gold/15">
+                    <h3 className="text-lg font-semibold text-anchor-gold-vivid">What to expect</h3>
+                    <p className="mt-3 text-sm text-anchor-cream-text/70 leading-relaxed">
                       {getTextExcerpt(event.about, 520)}
                     </p>
                     <Link
@@ -414,7 +414,7 @@ export default async function ValentinesDayPage() {
               </div>
 
               {event ? (
-                <div className="rounded-2xl border border-anchor-green/20 bg-anchor-green/5 p-6">
+                <div className="rounded-2xl border border-anchor-gold/15 bg-anchor-bg-raised p-6">
                   <div className="flex flex-wrap items-center gap-3">
                     <Badge variant="success" size="sm">
                       {isFreeEntry ? 'Free entry' : 'Booking recommended'}
@@ -454,32 +454,32 @@ export default async function ValentinesDayPage() {
                   </div>
 
                   {(dinnerRange || musicRange || lateMenuRange || partyUntilMidnight) && (
-                    <div className="mt-6 rounded-2xl bg-white/70 p-5 ring-1 ring-white/60">
-                      <h3 className="text-sm font-semibold uppercase tracking-wide text-anchor-green">
+                    <div className="mt-6 rounded-2xl bg-anchor-bg-card p-5 border border-anchor-gold/15">
+                      <h3 className="text-sm font-semibold uppercase tracking-wide text-anchor-gold-vivid">
                         Timings at a glance
                       </h3>
-                      <dl className="mt-3 space-y-2 text-sm text-gray-700">
+                      <dl className="mt-3 space-y-2 text-sm text-anchor-cream-text/70">
                         {dinnerRange && (
                           <div className="flex items-start justify-between gap-6">
-                            <dt className="font-semibold text-anchor-green">Full menu</dt>
+                            <dt className="font-semibold text-anchor-gold-vivid">Full menu</dt>
                             <dd className="text-right">{formatTimeRange(dinnerRange)}</dd>
                           </div>
                         )}
                         {musicRange && (
                           <div className="flex items-start justify-between gap-6">
-                            <dt className="font-semibold text-anchor-green">Live music</dt>
+                            <dt className="font-semibold text-anchor-gold-vivid">Live music</dt>
                             <dd className="text-right">{formatTimeRange(musicRange)}</dd>
                           </div>
                         )}
                         {lateMenuRange && (
                           <div className="flex items-start justify-between gap-6">
-                            <dt className="font-semibold text-anchor-green">Late menu</dt>
+                            <dt className="font-semibold text-anchor-gold-vivid">Late menu</dt>
                             <dd className="text-right">{formatTimeRange(lateMenuRange)}</dd>
                           </div>
                         )}
                         {partyUntilMidnight && (
                           <div className="flex items-start justify-between gap-6">
-                            <dt className="font-semibold text-anchor-green">Party tunes</dt>
+                            <dt className="font-semibold text-anchor-gold-vivid">Party tunes</dt>
                             <dd className="text-right">until midnight</dd>
                           </div>
                         )}
@@ -488,8 +488,8 @@ export default async function ValentinesDayPage() {
                   )}
                 </div>
               ) : (
-                <div className="rounded-2xl border border-amber-200 bg-amber-50 p-6 text-amber-900">
-                  <p className="font-semibold">We’re updating our Valentine’s listings.</p>
+                <div className="rounded-2xl border border-anchor-gold/15 bg-anchor-bg-raised p-6 text-anchor-cream-text/70">
+                  <p className="font-semibold text-anchor-cream-text">We're updating our Valentine's listings.</p>
                   <p className="mt-2 text-sm">
                     In the meantime, book online via our table booking page or call us to reserve your table.
                   </p>
@@ -497,10 +497,10 @@ export default async function ValentinesDayPage() {
               )}
 
               <div className="grid gap-4 sm:grid-cols-2">
-                <Card variant="default" className="bg-white">
+                <Card variant="default">
                   <CardBody className="space-y-2 p-6">
-                    <h2 className="text-lg font-semibold text-anchor-green">Getting here</h2>
-                    <p className="text-sm text-gray-700">
+                    <h2 className="text-lg font-semibold text-anchor-gold-vivid">Getting here</h2>
+                    <p className="text-sm text-anchor-cream-text/70">
                       {addressLine}. Free parking on site, seven minutes from Heathrow Terminal 5, and outside the ULEZ.
                     </p>
                     <Link href="/find-us" className="inline-flex items-center text-sm font-semibold text-anchor-gold hover:text-anchor-gold-light">
@@ -510,11 +510,11 @@ export default async function ValentinesDayPage() {
                   </CardBody>
                 </Card>
 
-                <Card variant="default" className="bg-white">
+                <Card variant="default">
                   <CardBody className="space-y-2 p-6">
-                    <h2 className="text-lg font-semibold text-anchor-green">Prefer to talk?</h2>
-                    <p className="text-sm text-gray-700">
-                      Booking for 8+ or need a special request? Give us a call and we’ll sort it.
+                    <h2 className="text-lg font-semibold text-anchor-gold-vivid">Prefer to talk?</h2>
+                    <p className="text-sm text-anchor-cream-text/70">
+                      Booking for 8+ or need a special request? Give us a call and we'll sort it.
                     </p>
                     <PhoneButton
                       phone="01753 682707"
@@ -536,8 +536,8 @@ export default async function ValentinesDayPage() {
       <Section background="gray" spacing="lg">
         <Container size="lg">
           <div className="mx-auto max-w-4xl text-center space-y-6">
-            <h2 className="text-2xl md:text-3xl font-bold text-anchor-green">Book your Valentine’s table</h2>
-            <p className="text-gray-700 text-lg">
+            <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">Book your Valentine's table</h2>
+            <p className="text-anchor-cream-text/70 text-lg">
               We take online bookings on our table booking page. Choose your date, time, and party size — and book early to get your preferred slot.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -556,7 +556,7 @@ export default async function ValentinesDayPage() {
                 📞 Call 01753 682707
               </PhoneButton>
             </div>
-            <p className="text-sm text-gray-600">Tables for 8+ guests — please call.</p>
+            <p className="text-sm text-anchor-cream-text/70">Tables for 8+ guests — please call.</p>
           </div>
         </Container>
       </Section>
@@ -566,14 +566,14 @@ export default async function ValentinesDayPage() {
           <div className="mx-auto max-w-6xl space-y-8">
             <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
               <div className="space-y-4">
-                <h2 className="text-2xl md:text-3xl font-bold text-anchor-green">Where we are</h2>
-                <p className="text-gray-700 leading-relaxed">
+                <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">Where we are</h2>
+                <p className="text-anchor-cream-text/70 leading-relaxed">
                   The Anchor is in Stanwell Moor, Surrey (TW19 6AQ) — a quick drive from Heathrow and easy to reach
-                  from Staines-upon-Thames, Ashford and Windsor. If you’re searching for a Valentine’s Day restaurant
+                  from Staines-upon-Thames, Ashford and Windsor. If you're searching for a Valentine's Day restaurant
                   near Heathrow, this is the easy, stress-free option with free parking.
                 </p>
-                <p className="text-gray-700">
-                  Address: <span className="font-semibold text-anchor-green">{addressLine}</span>
+                <p className="text-anchor-cream-text/70">
+                  Address: <span className="font-semibold text-anchor-gold-vivid">{addressLine}</span>
                 </p>
                 <div className="flex flex-col gap-3 sm:flex-row">
                   <Link href="/find-us" className="w-full sm:w-auto">
@@ -598,14 +598,14 @@ export default async function ValentinesDayPage() {
         </Container>
       </Section>
 
-      <FAQAccordionWithSchema title="Valentine’s Day FAQs" faqs={faqs} className="bg-gray-50" />
+      <FAQAccordionWithSchema title="Valentine's Day FAQs" faqs={faqs} className="bg-anchor-bg" />
 
       <InternalLinkingSection
         title="More to explore at The Anchor"
         links={[
           { href: VALENTINES_DAY_BOOKING_URL, title: 'Book a Table', description: 'Reserve online in minutes' },
           ...(event
-            ? [{ href: eventPageUrl, title: 'Valentine’s event details', description: 'Full listing and updates' }]
+            ? [{ href: eventPageUrl, title: "Valentine's event details", description: 'Full listing and updates' }]
             : [{ href: '/whats-on', title: "What's On", description: 'Upcoming events and entertainment' }]),
           ...commonLinkGroups.dining,
           ...commonLinkGroups.location

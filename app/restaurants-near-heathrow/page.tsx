@@ -145,7 +145,7 @@ export default async function RestaurantsNearHeathrowPage() {
       />
 
       {/* Page Title for SEO */}
-      <section className="bg-white py-8">
+      <section className="bg-anchor-bg-card py-8 border-b border-anchor-gold/15">
         <Container>
           <PageTitle 
             className="text-center text-anchor-green"
@@ -156,7 +156,7 @@ export default async function RestaurantsNearHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
         <Container>
           <SectionHeader
             title="Restaurants at Heathrow Terminal 2, 3, 4 & 5 - Try a Local Alternative"
@@ -174,7 +174,7 @@ export default async function RestaurantsNearHeathrowPage() {
                   </p>
                 ),
                 variant: "colored",
-                color: "bg-white"
+                color: "bg-anchor-bg-raised"
               },
               {
                 title: "Terminal 3 food alternative",
@@ -185,7 +185,7 @@ export default async function RestaurantsNearHeathrowPage() {
                   </p>
                 ),
                 variant: "colored",
-                color: "bg-white"
+                color: "bg-anchor-bg-raised"
               },
               {
                 title: "Terminal 2 dining alternative",
@@ -196,7 +196,7 @@ export default async function RestaurantsNearHeathrowPage() {
                   </p>
                 ),
                 variant: "colored",
-                color: "bg-white"
+                color: "bg-anchor-bg-raised"
               },
               {
                 title: "Terminal 4 dining alternative",
@@ -207,7 +207,7 @@ export default async function RestaurantsNearHeathrowPage() {
                   </p>
                 ),
                 variant: "colored",
-                color: "bg-white"
+                color: "bg-anchor-bg-raised"
               }
             ]}
           />
@@ -215,7 +215,7 @@ export default async function RestaurantsNearHeathrowPage() {
       </section>
 
       {/* Why Choose Us Over Airport Dining */}
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
         <Container>
           <div className="max-w-6xl mx-auto">
             <SectionHeader
@@ -231,15 +231,15 @@ export default async function RestaurantsNearHeathrowPage() {
                   content: (
                     <div className="space-y-3">
                       <div className="bg-white rounded-lg p-4">
-	                        <h4 className="font-bold text-anchor-green mb-2">Price Comparison:</h4>
-	                        <ul className="space-y-2 text-gray-700">
+	                        <h4 className="font-bold text-anchor-gold-vivid mb-2">Price Comparison:</h4>
+	                        <ul className="space-y-2 text-anchor-cream-text/70">
 	                          <li>✈️ <strong>Airport Burger & Chips:</strong> GBP 18-22</li>
 	                          <li>🍺 <strong>Our Burger & Chips:</strong> Under GBP 12</li>
 	                          <li className="text-green-600 font-bold">You Save: GBP 6-10 per meal</li>
 	                        </ul>
 	                      </div>
 	                      <div className="bg-green-50 rounded-lg p-3">
-	                        <p className="text-sm font-semibold text-green-800">
+	                        <p className="text-sm font-semibold text-anchor-gold-vivid">
 	                          Plus: FREE parking saves another GBP 20-40!
 	                        </p>
 	                      </div>
@@ -253,12 +253,12 @@ export default async function RestaurantsNearHeathrowPage() {
 	                  content: (
 	                    <div className="space-y-3">
 	                      <p className="font-semibold text-gray-800">Airport Parking Costs:</p>
-	                      <ul className="space-y-1 text-gray-700">
+	                      <ul className="space-y-1 text-anchor-cream-text/70">
 	                        <li>• Terminal 5: GBP 39/day</li>
 	                        <li>• Terminals 2/3: GBP 42/day</li>
 	                        <li>• Short stay: GBP 8.50/hour</li>
 	                      </ul>
-                      <div className="bg-green-100 rounded-lg p-4 mt-4">
+                      <div className="bg-anchor-bg-raised rounded-lg p-4 mt-4 border border-anchor-gold/15">
                         <p className="font-bold text-green-900">The Anchor: Always FREE</p>
                         <p className="text-sm text-green-700 mt-1">20 spaces for our guests</p>
                       </div>
@@ -280,23 +280,23 @@ export default async function RestaurantsNearHeathrowPage() {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
                   <div className="text-center">
                     <p className="font-bold text-lg">Terminal 5</p>
-                    <p className="text-2xl font-bold text-blue-600">7 mins</p>
-                    <p className="text-sm text-gray-600">2.8 miles</p>
+                    <p className="text-2xl font-bold text-anchor-gold-vivid">7 mins</p>
+                    <p className="text-sm text-anchor-cream-text/55">2.8 miles</p>
                   </div>
                   <div className="text-center">
                     <p className="font-bold text-lg">Terminal 4</p>
-                    <p className="text-2xl font-bold text-blue-600">12 mins</p>
-                    <p className="text-sm text-gray-600">4.2 miles</p>
+                    <p className="text-2xl font-bold text-anchor-gold-vivid">12 mins</p>
+                    <p className="text-sm text-anchor-cream-text/55">4.2 miles</p>
                   </div>
                   <div className="text-center">
                     <p className="font-bold text-lg">Terminal 2</p>
-                    <p className="text-2xl font-bold text-blue-600">11 mins</p>
-                    <p className="text-sm text-gray-600">5.8 miles</p>
+                    <p className="text-2xl font-bold text-anchor-gold-vivid">11 mins</p>
+                    <p className="text-sm text-anchor-cream-text/55">5.8 miles</p>
                   </div>
                   <div className="text-center">
                     <p className="font-bold text-lg">Terminal 3</p>
-                    <p className="text-2xl font-bold text-blue-600">11 mins</p>
-                    <p className="text-sm text-gray-600">5.8 miles</p>
+                    <p className="text-2xl font-bold text-anchor-gold-vivid">11 mins</p>
+                    <p className="text-sm text-anchor-cream-text/55">5.8 miles</p>
                   </div>
                 </div>
               }
@@ -306,7 +306,7 @@ export default async function RestaurantsNearHeathrowPage() {
       </section>
 
       {/* Menu Highlights */}
-      <section className="section-spacing bg-anchor-cream">
+      <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
         <Container>
           <div className="max-w-6xl mx-auto">
             <SectionHeader
@@ -368,7 +368,7 @@ export default async function RestaurantsNearHeathrowPage() {
       </section>
 
       {/* Perfect For Section */}
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
         <Container>
           <div className="max-w-6xl mx-auto">
             <SectionHeader
@@ -381,7 +381,7 @@ export default async function RestaurantsNearHeathrowPage() {
                 {
                   title: "✈️ Pre-Flight Dining",
                   content: (
-                    <ul className="space-y-2 text-gray-700">
+                    <ul className="space-y-2 text-anchor-cream-text/70">
                       <li>• Eat proper food before your flight</li>
                       <li>• Park free while you dine</li>
                       <li>• Quick 7-minute drive to Terminal 5</li>
@@ -394,7 +394,7 @@ export default async function RestaurantsNearHeathrowPage() {
                 {
                   title: "🛬 Post-Flight Recovery",
                   content: (
-                    <ul className="space-y-2 text-gray-700">
+                    <ul className="space-y-2 text-anchor-cream-text/70">
                       <li>• Traditional British welcome home</li>
                       <li>• Proper meal after airline food</li>
                       <li>• Relax before the drive home</li>
@@ -407,7 +407,7 @@ export default async function RestaurantsNearHeathrowPage() {
                 {
                   title: "💼 Business Meetings",
                   content: (
-                    <ul className="space-y-2 text-gray-700">
+                    <ul className="space-y-2 text-anchor-cream-text/70">
                       <li>• Quiet environment for discussions</li>
                       <li>• Free parking for all attendees</li>
                       <li>• Private dining room available</li>
@@ -420,7 +420,7 @@ export default async function RestaurantsNearHeathrowPage() {
                 {
                   title: "👨‍✈️ Crew & Airport Workers",
                   content: (
-                    <ul className="space-y-2 text-gray-700">
+                    <ul className="space-y-2 text-anchor-cream-text/70">
                       <li>• Regular stop for flight crews</li>
                       <li>• Popular with Heathrow workers</li>
                       <li>• Quick service for tight schedules</li>
@@ -437,7 +437,7 @@ export default async function RestaurantsNearHeathrowPage() {
       </section>
 
       {/* Opening Hours */}
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -445,10 +445,10 @@ export default async function RestaurantsNearHeathrowPage() {
               subtitle="Kitchen hours for fresh-cooked meals"
             />
             
-            <div className="bg-white rounded-xl shadow-lg p-8">
+            <div className="card-dark rounded-none p-8">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <h3 className="font-bold text-lg mb-4 text-anchor-green">Kitchen Hours</h3>
+                  <h3 className="font-bold text-lg mb-4 text-anchor-cream-text">Kitchen Hours</h3>
                   <ul className="space-y-2">
                     <li className="flex justify-between">
                       <span className="font-medium">Monday:</span>
@@ -467,13 +467,13 @@ export default async function RestaurantsNearHeathrowPage() {
                       <span>1pm - 6pm</span>
                     </li>
                   </ul>
-                  <p className="text-sm text-gray-600 mt-4">
+                  <p className="text-sm text-anchor-cream-text/55 mt-4">
                     Sunday: Regular menu available without pre-order
                   </p>
                 </div>
                 
                 <div>
-                  <h3 className="font-bold text-lg mb-4 text-anchor-green">Bar Hours</h3>
+                  <h3 className="font-bold text-lg mb-4 text-anchor-cream-text">Bar Hours</h3>
                   <ul className="space-y-2">
                     <li className="flex justify-between">
                       <span className="font-medium">Mon-Thu:</span>
@@ -492,7 +492,7 @@ export default async function RestaurantsNearHeathrowPage() {
                       <span>12pm - 10pm</span>
                     </li>
                   </ul>
-                  <p className="text-sm text-gray-600 mt-4">
+                  <p className="text-sm text-anchor-cream-text/55 mt-4">
                     Full bar service during all opening hours
                   </p>
                 </div>
@@ -503,7 +503,7 @@ export default async function RestaurantsNearHeathrowPage() {
       </section>
 
       {/* Customer Reviews */}
-      <section className="section-spacing bg-anchor-sand/10">
+      <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeader

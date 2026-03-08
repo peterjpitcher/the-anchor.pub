@@ -70,20 +70,20 @@ export default function PoolAndDartsPage() {
                 }
             />
 
-            <section className="py-8 bg-white">
+            <section className="py-8 bg-anchor-bg">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-green mb-4">
+                        <PageTitle className="text-anchor-gold-vivid mb-4">
                             Game On
                         </PageTitle>
-                        <p className="text-lg text-gray-700">
+                        <p className="text-lg text-anchor-cream-text/70">
                             There's nothing quite like a traditional pub game. Whether you're settling a score with a colleague, practicing your aim, or just killing time with a pint, our games area is the perfect spot.
                         </p>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-gray-50">
+            <section className="section-spacing bg-anchor-bg-raised">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -92,26 +92,26 @@ export default function PoolAndDartsPage() {
                         />
 
                         <div className="grid md:grid-cols-2 gap-8 mb-8">
-                            <div className="bg-white p-6 rounded-xl shadow-sm">
+                            <div className="bg-anchor-bg-card p-6 rounded-xl shadow-sm border border-anchor-gold/15">
                                 <div className="text-4xl mb-4">🎱</div>
-                                <h3 className="text-2xl font-bold text-gray-900 mb-2">Pool Table</h3>
-                                <p className="text-gray-600 mb-4">
+                                <h3 className="text-2xl font-bold text-anchor-cream-text mb-2">Pool Table</h3>
+                                <p className="text-anchor-cream-text/70 mb-4">
                                     A supreme winner pool table, kept level and re-covered regularly.
                                 </p>
-                                <ul className="text-left space-y-2 text-sm bg-gray-50 p-4 rounded-lg">
+                                <ul className="text-left space-y-2 text-sm bg-anchor-bg-raised p-4 rounded-lg">
                                     <li className="flex items-center">✅ Full set of Spots & Stripes</li>
                                     <li className="flex items-center">✅ Quality cues provided</li>
 	                                    <li className="flex items-center">✅ GBP 1 per game</li>
                                 </ul>
                             </div>
 
-                            <div className="bg-white p-6 rounded-xl shadow-sm">
+                            <div className="bg-anchor-bg-card p-6 rounded-xl shadow-sm border border-anchor-gold/15">
                                 <div className="text-4xl mb-4">🎯</div>
-                                <h3 className="text-2xl font-bold text-gray-900 mb-2">Darts</h3>
-                                <p className="text-gray-600 mb-4">
+                                <h3 className="text-2xl font-bold text-anchor-cream-text mb-2">Darts</h3>
+                                <p className="text-anchor-cream-text/70 mb-4">
                                     Professional standard dartboard with raised oche and electronic scorer.
                                 </p>
-                                <ul className="text-left space-y-2 text-sm bg-gray-50 p-4 rounded-lg">
+                                <ul className="text-left space-y-2 text-sm bg-anchor-bg-raised p-4 rounded-lg">
                                     <li className="flex items-center">✅ Unicorn Eclipse Board</li>
                                     <li className="flex items-center">✅ Good lighting</li>
                                     <li className="flex items-center">✅ Free to play</li>

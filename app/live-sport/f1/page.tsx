@@ -69,20 +69,20 @@ export default function F1Page() {
                 }
             />
 
-            <section className="py-8 bg-white">
+            <section className="py-8 bg-anchor-bg">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-green mb-4">
+                        <PageTitle className="text-anchor-gold-vivid mb-4">
                             The Fast Lane
                         </PageTitle>
-                        <p className="text-lg text-gray-700">
+                        <p className="text-lg text-anchor-cream-text/70">
                             Formula 1 is better with a crowd. Feel the tension of the start, cheer every overtake, and debate the strategy with fellow fans. We're the closest pub to Heathrow for a pre-flight race watch!
                         </p>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-gray-50">
+            <section className="section-spacing bg-anchor-bg-raised">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -98,7 +98,7 @@ export default function F1Page() {
                                     title: "Commentary On",
                                     description: "For the race itself, we turn the music off and the commentary up so you don't miss a beat.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -106,7 +106,7 @@ export default function F1Page() {
                                     title: "Sky Sports F1",
                                     description: "We have the dedicated F1 channel, so we show the build-up, the race, and the podium analysis.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -114,7 +114,7 @@ export default function F1Page() {
                                     title: "Sunday Roast",
                                     description: "Most races happen on Sundays. Combine the Grand Prix with our legendary Sunday Roast.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"
                                 }
                             ]}

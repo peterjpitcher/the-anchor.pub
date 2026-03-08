@@ -118,7 +118,7 @@ export default function HeathrowLayoverDiningPage() {
         }
       />
 
-      <Section background="white" spacing="md">
+      <Section background="dark" spacing="md">
         <Container>
           <PageTitle
             className="text-center text-anchor-green"
@@ -126,13 +126,13 @@ export default function HeathrowLayoverDiningPage() {
           >
             Heathrow Layover Dining at The Anchor
           </PageTitle>
-          <SpeakableContent className="mt-6 text-lg text-gray-700 text-center max-w-3xl mx-auto">
+          <SpeakableContent className="mt-6 text-lg text-anchor-cream-text/70 text-center max-w-3xl mx-auto">
             Plan a stress-free Heathrow layover meal. The Anchor serves Sunday roasts, stone-baked pizzas, and pub classics with free parking, fast service, and reliable travel times back to your terminal.
           </SpeakableContent>
         </Container>
       </Section>
 
-      <Section background="white" spacing="md">
+      <Section background="dark" spacing="md">
         <Container>
           <SectionHeader
             title="Terminal Food Alternatives for Layovers"
@@ -151,7 +151,7 @@ export default function HeathrowLayoverDiningPage() {
                   </p>
                 ),
                 variant: "colored",
-                color: "bg-white"
+                color: "bg-anchor-bg-raised"
               },
               {
                 title: "Food in Terminal 3 Heathrow - leave the airport",
@@ -162,7 +162,7 @@ export default function HeathrowLayoverDiningPage() {
                   </p>
                 ),
                 variant: "colored",
-                color: "bg-white"
+                color: "bg-anchor-bg-raised"
               },
               {
                 title: "Terminal 2 & 4 layovers",
@@ -173,7 +173,7 @@ export default function HeathrowLayoverDiningPage() {
                   </p>
                 ),
                 variant: "colored",
-                color: "bg-white"
+                color: "bg-anchor-bg-raised"
               },
               {
                 title: "Book ahead for express service",
@@ -184,14 +184,14 @@ export default function HeathrowLayoverDiningPage() {
                   </p>
                 ),
                 variant: "colored",
-                color: "bg-white"
+                color: "bg-anchor-bg-raised"
               }
             ]}
           />
         </Container>
       </Section>
 
-      <Section background="white" spacing="lg" className="bg-white">
+      <Section background="dark" spacing="lg" className="bg-white">
         <Container>
           <SectionHeader
             title="Why Layover Guests Choose The Anchor"
@@ -236,7 +236,7 @@ export default function HeathrowLayoverDiningPage() {
         </Container>
       </Section>
 
-      <Section id="itineraries" background="white" spacing="lg">
+      <Section id="itineraries" background="dark" spacing="lg">
         <Container>
           <SectionHeader
             title="Layover Itineraries That Work"
@@ -283,13 +283,13 @@ export default function HeathrowLayoverDiningPage() {
         </Container>
       </Section>
 
-      <Section background="cream" spacing="lg">
+      <Section background="dark" spacing="lg">
         <Container>
           <SectionHeader
             title="Travel Times & Costs"
             subtitle="Budget your layover with realistic timings and typical fares."
           />
-          <div className="overflow-x-auto rounded-xl shadow-md bg-white">
+          <div className="overflow-x-auto rounded-xl border border-anchor-gold/15 bg-anchor-bg-card">
             <table className="min-w-full divide-y divide-gray-200">
               <thead className="bg-anchor-green text-white">
                 <tr>
@@ -299,21 +299,21 @@ export default function HeathrowLayoverDiningPage() {
                   <th className="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">Best For</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-200 text-sm text-gray-700">
+              <tbody className="divide-y divide-gray-200 text-sm text-anchor-cream-text/70">
 	                <tr>
-	                  <td className="px-6 py-4 font-semibold text-anchor-green">Terminal 5</td>
+	                  <td className="px-6 py-4 font-semibold text-anchor-cream-text">Terminal 5</td>
 	                  <td className="px-6 py-4">7 minutes • GBP 12–18</td>
 	                  <td className="px-6 py-4">Bus 442 • 20 minutes + 3 minute walk</td>
 	                  <td className="px-6 py-4">Fast crew dinners & short layovers</td>
 	                </tr>
 	                <tr>
-	                  <td className="px-6 py-4 font-semibold text-anchor-green">Terminals 2 & 3</td>
+	                  <td className="px-6 py-4 font-semibold text-anchor-cream-text">Terminals 2 & 3</td>
 	                  <td className="px-6 py-4">11 minutes • GBP 16–22</td>
 	                  <td className="px-6 py-4">Elizabeth Line + bus transfer • 30 minutes</td>
 	                  <td className="px-6 py-4">Families meeting arrivals</td>
 	                </tr>
 	                <tr>
-	                  <td className="px-6 py-4 font-semibold text-anchor-green">Terminal 4</td>
+	                  <td className="px-6 py-4 font-semibold text-anchor-cream-text">Terminal 4</td>
 	                  <td className="px-6 py-4">14 minutes • GBP 18–24</td>
 	                  <td className="px-6 py-4">Shuttle to T5 + bus • 35 minutes</td>
 	                  <td className="px-6 py-4">Overnight guests staying nearby</td>
@@ -324,7 +324,7 @@ export default function HeathrowLayoverDiningPage() {
         </Container>
       </Section>
 
-      <Section background="white" spacing="lg">
+      <Section background="dark" spacing="lg">
         <Container>
           <SectionHeader
             title="Make the Most of Your Layover"
@@ -372,11 +372,11 @@ export default function HeathrowLayoverDiningPage() {
         className="bg-anchor-cream/40"
       />
 
-      <Section background="white" spacing="lg">
+      <Section background="dark" spacing="lg">
         <Container>
-          <div className="max-w-4xl mx-auto text-center bg-anchor-sand/40 rounded-3xl p-10 shadow-sm">
-            <h2 className="text-3xl font-bold text-anchor-green mb-4">Ready to Book Your Layover Meal?</h2>
-            <p className="text-lg text-gray-700 mb-6">
+          <div className="max-w-4xl mx-auto text-center bg-anchor-bg-raised rounded-3xl p-10 border border-anchor-gold/15">
+            <h2 className="text-3xl font-bold text-anchor-cream-text mb-4">Ready to Book Your Layover Meal?</h2>
+            <p className="text-lg text-anchor-cream-text/70 mb-6">
               Tell us your flight number, party size, and arrival time. We’ll confirm the best itinerary, reserve parking, and keep a taxi on standby so you return to Heathrow relaxed.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">

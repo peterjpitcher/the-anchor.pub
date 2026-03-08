@@ -132,7 +132,7 @@ export function SixNationsLightbox() {
             {/* Modal */}
             <div
                 className={cn(
-                    "relative w-full max-w-lg bg-white rounded-2xl shadow-2xl overflow-hidden transform transition-all duration-300",
+                    "relative w-full max-w-lg card-dark rounded-none shadow-2xl overflow-hidden transform transition-all duration-300",
                     isVisible ? "scale-100 translate-y-0" : "scale-95 translate-y-4"
                 )}
             >
@@ -162,8 +162,8 @@ export function SixNationsLightbox() {
                 {/* Content */}
                 <div className="p-6 sm:p-8 text-center space-y-6">
                     <div className="space-y-2">
-                        <h3 className="text-2xl font-bold text-gray-900">Don't Miss Kick Off!</h3>
-                        <p className="text-gray-600">
+                        <h3 className="text-2xl font-bold text-anchor-cream-text">Don't Miss Kick Off!</h3>
+                        <p className="text-anchor-cream-text/70">
                             Book your table now for the best seats in the house. Every match live with sound on, 4 screens, and proper pub food.
                         </p>
                     </div>
@@ -197,7 +197,7 @@ export function SixNationsLightbox() {
                         </Link>
                     </div>
 
-                    <p className="text-xs text-center text-gray-400">
+                    <p className="text-xs text-center text-anchor-cream-text/55">
                         Near Heathrow • Free Parking • Kitchen Open
                     </p>
                 </div>

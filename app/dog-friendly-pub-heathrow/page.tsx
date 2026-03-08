@@ -68,20 +68,20 @@ export default function DogFriendlyPage() {
                 }
             />
 
-            <section className="py-8 bg-white">
+            <section className="py-8 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-green mb-4">
+                        <PageTitle className="text-anchor-cream-text mb-4">
                             Four-Legged Friends Welcome
                         </PageTitle>
-                        <p className="text-lg text-gray-700">
+                        <p className="text-lg text-anchor-cream-text/70">
                             A pub isn't a proper pub without a dog sleeping by the fire. We welcome well-behaved dogs in our bar area and our large beer garden. Whether you've just been for a walk or you're stopping off on a journey, your dog is as welcome as you are.
                         </p>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-gray-50">
+            <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader

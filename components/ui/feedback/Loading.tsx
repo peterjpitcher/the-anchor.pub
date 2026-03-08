@@ -17,7 +17,7 @@ const spinnerVariants = cva(
       },
       color: {
         primary: 'text-anchor-gold',
-        secondary: 'text-anchor-green',
+        secondary: 'text-anchor-cream-text',
         white: 'text-white',
         current: 'text-current'
       }
@@ -76,7 +76,7 @@ Spinner.displayName = 'Spinner'
 
 // Skeleton Component
 const skeletonVariants = cva(
-  'animate-pulse bg-gray-200 rounded',
+  'animate-pulse bg-anchor-bg-raised rounded',
   {
     variants: {
       variant: {
@@ -186,7 +186,7 @@ export const LoadingOverlay = forwardRef<HTMLDivElement, LoadingOverlayProps>(
       <div
         ref={ref}
         className={cn(
-          'flex items-center justify-center bg-white/80',
+          'flex items-center justify-center bg-anchor-bg/80',
           blur && 'backdrop-blur-sm',
           fullScreen ? 'fixed inset-0 z-50' : 'absolute inset-0 z-10',
           className
@@ -199,7 +199,7 @@ export const LoadingOverlay = forwardRef<HTMLDivElement, LoadingOverlayProps>(
         <div className="flex flex-col items-center gap-4">
           <Spinner size="lg" />
           {message && (
-            <p className="text-sm font-medium text-gray-700">{message}</p>
+            <p className="text-sm font-medium text-anchor-cream-text/70">{message}</p>
           )}
         </div>
       </div>
@@ -215,7 +215,7 @@ export const SkeletonText: React.FC<{ lines?: number }> = ({ lines = 3 }) => (
 )
 
 export const SkeletonCard: React.FC = () => (
-  <div className="rounded-lg border border-gray-200 p-4 space-y-3">
+  <div className="rounded-none border border-anchor-gold/15 p-4 space-y-3 bg-anchor-bg-card">
     <Skeleton variant="rectangular" width="md" height="sm" />
     <Skeleton variant="text" count={2} />
     <div className="flex gap-2">

@@ -104,7 +104,7 @@ export function FlightStatus({
 
   if (loading) {
     return (
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+      <div className="card-dark rounded-none p-6">
         <LoadingState variant="skeleton" className="h-32 w-full" />
       </div>
     )
@@ -112,7 +112,7 @@ export function FlightStatus({
 
   if (error) {
     return (
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+      <div className="card-dark rounded-none p-6">
         <FlightErrorDisplay onRetry={retry} />
       </div>
     )
@@ -136,7 +136,7 @@ export function FlightStatus({
     const gate = isDeparture ? flight.departure.gate : flight.arrival.gate
 
     return (
-      <div className="py-3 border-b border-gray-100 last:border-0">
+      <div className="py-3 border-b border-anchor-gold/15 last:border-0">
         <div className="flex items-center justify-between">
           <div className="flex-1">
             <div className="flex items-center gap-2">
@@ -152,7 +152,7 @@ export function FlightStatus({
                 </span>
               )}
             </div>
-            <div className="text-sm text-gray-600 mt-1">
+            <div className="text-sm text-anchor-cream-text/55 mt-1">
               {isDeparture ? 'To' : 'From'} {destination}
               {gate && <span className="ml-2">• Gate {gate}</span>}
             </div>
@@ -178,7 +178,7 @@ export function FlightStatus({
       </div>
 
       {(type === 'departures' || type === 'both') && departures.length > 0 && (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+        <div className="card-dark rounded-none overflow-hidden">
           <div className="bg-anchor-green text-white px-6 py-4">
             <h3 className="text-lg font-semibold flex items-center gap-2">
               ✈️ Departures from Terminal {terminal}
@@ -198,7 +198,7 @@ export function FlightStatus({
       )}
 
       {(type === 'arrivals' || type === 'both') && arrivals.length > 0 && (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+        <div className="card-dark rounded-none overflow-hidden">
           <div className="bg-anchor-gold text-white px-6 py-4">
             <h3 className="text-lg font-semibold flex items-center gap-2">
               🛬 Arrivals to Terminal {terminal}
@@ -218,11 +218,11 @@ export function FlightStatus({
       )}
 
       {departures.length === 0 && arrivals.length === 0 && (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-          <p className="text-gray-700 text-center">
+        <div className="card-dark rounded-none p-6">
+          <p className="text-anchor-cream-text/70 text-center">
             No flight information available for Terminal {terminal} at this time.
           </p>
-          <p className="text-sm sm:text-xs text-gray-600 text-center mt-2">
+          <p className="text-sm sm:text-xs text-anchor-cream-text/55 text-center mt-2">
             Flight data may be limited. Check the Heathrow Airport website for live updates.
           </p>
         </div>
@@ -290,19 +290,19 @@ export const FlightDelayWidget = memo(function FlightDelayWidget({ terminal }: {
     : 0
 
   return (
-    <div className="bg-amber-50 border border-amber-200 rounded-lg p-4" role="status" aria-live="polite">
+    <div className="bg-anchor-gold/10 border border-anchor-gold/30 rounded-none p-4" role="status" aria-live="polite">
       <div className="flex items-center gap-3">
         <div className="text-3xl">✈️</div>
         <div className="flex-1">
-          <h4 className="font-semibold text-amber-900">
+          <h4 className="font-semibold text-anchor-gold-vivid">
             Terminal {terminal} Flight Status
           </h4>
           {delayInfo.delayedFlights > 0 ? (
-            <p className="text-sm text-amber-700 mt-1">
+            <p className="text-sm text-amber-400 mt-1">
               {delayPercentage}% of flights delayed • Average delay: {delayInfo.avgDelay} minutes
             </p>
           ) : (
-            <p className="text-sm text-green-700 mt-1">
+            <p className="text-sm text-green-400 mt-1">
               All flights running on schedule
             </p>
           )}

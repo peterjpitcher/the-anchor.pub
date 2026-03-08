@@ -30,7 +30,7 @@ export function AllergenFilterBar({
   return (
     <div
       className={cn(
-        'sticky top-0 z-40 bg-white/95 backdrop-blur supports-[backdrop-filter]:backdrop-blur border-b border-gray-200 shadow-sm',
+        'sticky top-0 z-40 bg-anchor-bg-card/95 backdrop-blur supports-[backdrop-filter]:backdrop-blur border-b border-anchor-gold/15 shadow-sm',
         className
       )}
       role="region"
@@ -63,19 +63,19 @@ export function AllergenFilterBar({
         >
           {/* Active filters summary */}
           {activeFilterCount > 0 && (
-            <div className="py-2 md:py-3 border-b border-gray-100">
+            <div className="py-2 md:py-3 border-b border-anchor-gold/15">
               <div className="flex items-center justify-between flex-wrap gap-2">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-sm font-medium text-gray-700">Active filters:</span>
+                  <span className="text-sm font-medium text-anchor-cream-text/70">Active filters:</span>
                   {showVegetarianOnly && (
-                    <span className="inline-flex items-center gap-1 bg-green-100 text-green-800 px-2 py-1 rounded-full text-sm">
+                    <span className="inline-flex items-center gap-1 bg-anchor-green/20 text-anchor-gold-vivid px-2 py-1 rounded-full text-sm">
                       🌱 Vegetarian only
                     </span>
                   )}
                   {Array.from(selectedAllergens).map(allergen => (
                     <span
                       key={allergen}
-                      className="inline-flex items-center gap-1 bg-amber-100 text-amber-800 px-2 py-1 rounded-full text-sm"
+                      className="inline-flex items-center gap-1 bg-anchor-gold/20 text-anchor-gold-vivid px-2 py-1 rounded-full text-sm"
                     >
                       {ALLERGEN_TYPES[allergen].icon} No {ALLERGEN_TYPES[allergen].label}
                     </span>
@@ -86,7 +86,7 @@ export function AllergenFilterBar({
                     trackClearAllFilters(activeFilterCount)
                     onClearAll()
                   }}
-                  className="text-sm text-red-600 hover:text-red-700 font-medium flex items-center gap-1"
+                  className="text-sm text-red-400 hover:text-red-300 font-medium flex items-center gap-1"
                   aria-label="Clear all filters"
                 >
                   <X size={16} aria-hidden="true" />
@@ -117,7 +117,7 @@ export function AllergenFilterBar({
                     'inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-anchor-gold',
                     showVegetarianOnly
                       ? 'bg-emerald-600 text-white shadow'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      : 'bg-anchor-bg-raised text-anchor-cream-text/70 hover:bg-anchor-bg-card'
                   )}
                 >
                   <span aria-hidden="true">🌱</span>
@@ -126,12 +126,12 @@ export function AllergenFilterBar({
               </div>
 
               {/* Separator */}
-              <div className="hidden md:block h-6 w-px bg-gray-300" />
+              <div className="hidden md:block h-6 w-px bg-anchor-gold/30" />
 
               {/* Allergen filters */}
               <div className="flex-1">
                 <div className="flex flex-col gap-3 md:flex-row md:items-center md:gap-4">
-                  <span className="text-sm font-medium text-gray-700">
+                  <span className="text-sm font-medium text-anchor-cream-text/70">
                     Hide items with:
                   </span>
                   <div className="flex flex-wrap gap-2">
@@ -155,7 +155,7 @@ export function AllergenFilterBar({
                             'flex items-center gap-2 rounded-full px-3 py-1.5 text-sm transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-anchor-gold',
                             selectedAllergens.has(key)
                               ? 'bg-amber-500 text-white shadow'
-                              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                              : 'bg-anchor-bg-raised text-anchor-cream-text/70 hover:bg-anchor-bg-card'
                           )}
                         >
                           <span aria-hidden="true">{config.icon}</span>
@@ -169,7 +169,7 @@ export function AllergenFilterBar({
             </div>
 
             {/* Info text */}
-            <div className="mt-3 text-xs text-gray-600">
+            <div className="mt-3 text-xs text-anchor-cream-text/55">
               <p>
                 ⚠️ All dishes are prepared in a kitchen where allergens are present. 
                 Please speak to staff about your dietary requirements.

@@ -98,20 +98,20 @@ export default function RetirementPartiesPage() {
                 }
             />
 
-            <section className="py-8 bg-white">
+            <section className="py-8 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-green mb-4">
+                        <PageTitle className="text-anchor-cream-text mb-4">
                             Celebrate the Next Chapter
                         </PageTitle>
-                        <p className="text-lg text-gray-700">
+                        <p className="text-lg text-anchor-cream-text/70">
                             Whether it's a quiet lunch with the immediate team or a big evening bash with the whole company, The Anchor provides a warm, respectful, and relaxed setting to say "Thank You" and "Good Luck".
                         </p>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-gray-50">
+            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -152,7 +152,7 @@ export default function RetirementPartiesPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-white">
+            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeader
@@ -160,15 +160,15 @@ export default function RetirementPartiesPage() {
                         />
 
                         <div className="grid md:grid-cols-2 gap-8 mb-8">
-                            <div className="bg-orange-50 p-6 rounded-xl">
-                                <h3 className="text-2xl font-bold text-orange-900 mb-2">The Long Lunch</h3>
-                                <p className="text-gray-700">
+                            <div className="bg-anchor-bg-raised p-6 rounded-xl border border-anchor-gold/15">
+                                <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-2">The Long Lunch</h3>
+                                <p className="text-anchor-cream-text/70">
                                     Popular for office leaving dos. Book a long table for Friday lunch, enjoy our classics (Fish & Chips, Pies), and let the afternoon drift by. We offer tab facilities for corporate cards.
                                 </p>
                             </div>
-                            <div className="bg-blue-50 p-6 rounded-xl">
-                                <h3 className="text-2xl font-bold text-blue-900 mb-2">The Evening Do</h3>
-                                <p className="text-gray-700">
+                            <div className="bg-anchor-bg-raised p-6 rounded-xl border border-anchor-gold/15">
+                                <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-2">The Evening Do</h3>
+                                <p className="text-anchor-cream-text/70">
                                     Invite partners and spouses for a proper celebration. Use our function area, enjoy a buffet, and perhaps a bit of music to see the retiree off in style.
                                 </p>
                             </div>
@@ -194,7 +194,7 @@ export default function RetirementPartiesPage() {
                         answer: "We can comfortably host up to 100 people for a buffet/drinks reception, or up to ~50 for a sit-down meal."
                     }
                 ]}
-                className="bg-white"
+                className="bg-anchor-bg-card"
             />
 
             <CTASection

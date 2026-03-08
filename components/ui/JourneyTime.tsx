@@ -43,13 +43,13 @@ export const JourneyTime = forwardRef<HTMLDivElement, JourneyTimeProps>(
           ref={ref}
           className={cn(
             'flex justify-between items-center p-3 rounded-lg',
-            highlight ? 'bg-amber-50 border border-amber-200' : 'bg-gray-50',
+            highlight ? 'bg-amber-50 border border-amber-200' : 'bg-anchor-bg-raised',
             className
           )}
           data-testid={testId}
           {...props}
         >
-          <span className="font-semibold text-gray-900">{to}</span>
+          <span className="font-semibold text-anchor-cream-text">{to}</span>
           <span className={cn(
             'font-bold',
             highlight ? 'text-amber-600' : 'text-anchor-gold'
@@ -66,7 +66,7 @@ export const JourneyTime = forwardRef<HTMLDivElement, JourneyTimeProps>(
           ref={ref}
           className={cn(
             'p-4 rounded-lg',
-            highlight ? 'bg-amber-50 border border-amber-200' : 'bg-gray-50',
+            highlight ? 'bg-amber-50 border border-amber-200' : 'bg-anchor-bg-raised',
             className
           )}
           data-testid={testId}
@@ -75,14 +75,14 @@ export const JourneyTime = forwardRef<HTMLDivElement, JourneyTimeProps>(
           <div className="flex items-start gap-3">
             {showIcon && (
               <div className="mt-1">
-                <CarIcon className="h-5 w-5 text-gray-600" />
+                <CarIcon className="h-5 w-5 text-anchor-cream-text/70" />
               </div>
             )}
             <div className="flex-1">
               <div className="flex items-center justify-between mb-2">
                 <div>
-                  <p className="text-sm text-gray-600">From: {from}</p>
-                  <p className="font-semibold text-gray-900">To: {to}</p>
+                  <p className="text-sm text-anchor-cream-text/70">From: {from}</p>
+                  <p className="font-semibold text-anchor-cream-text">To: {to}</p>
                 </div>
                 <div className="text-right">
                   <p className={cn(
@@ -92,7 +92,7 @@ export const JourneyTime = forwardRef<HTMLDivElement, JourneyTimeProps>(
                     {formatDuration(duration)}
                   </p>
                   {distance && (
-                    <p className="text-sm text-gray-600">{distance} miles</p>
+                    <p className="text-sm text-anchor-cream-text/70">{distance} miles</p>
                   )}
                 </div>
               </div>
@@ -113,8 +113,8 @@ export const JourneyTime = forwardRef<HTMLDivElement, JourneyTimeProps>(
         data-testid={testId}
         {...props}
       >
-        {showIcon && <CarIcon className="h-4 w-4 text-gray-600" />}
-        <span className="text-gray-700">{to}:</span>
+        {showIcon && <CarIcon className="h-4 w-4 text-anchor-cream-text/70" />}
+        <span className="text-anchor-cream-text/70">{to}:</span>
         <span className={cn(
           'font-semibold',
           highlight ? 'text-amber-600' : 'text-anchor-gold'
@@ -122,7 +122,7 @@ export const JourneyTime = forwardRef<HTMLDivElement, JourneyTimeProps>(
           {formatDuration(duration)}
         </span>
         {distance && (
-          <span className="text-sm text-gray-600">({distance} miles)</span>
+          <span className="text-sm text-anchor-cream-text/55">({distance} miles)</span>
         )}
       </div>
     )
@@ -163,7 +163,7 @@ export const JourneyTimes = forwardRef<HTMLDivElement, JourneyTimesProps>(
         {...props}
       >
         {title && (
-          <h3 className="text-lg font-semibold text-gray-900 mb-3">{title}</h3>
+          <h3 className="text-lg font-semibold text-anchor-cream-text mb-3">{title}</h3>
         )}
         {destinations.map((dest, index) => (
           <JourneyTime

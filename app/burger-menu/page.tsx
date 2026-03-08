@@ -124,20 +124,20 @@ export default async function BurgerMenuPage() {
                 }
             />
 
-            <section className="py-8 bg-white">
+            <section className="py-8 bg-anchor-bg border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-green mb-4">
+                        <PageTitle className="text-anchor-cream-text mb-4">
                             Serious About Burgers
                         </PageTitle>
-                        <p className="text-lg text-gray-700">
+                        <p className="text-lg text-anchor-cream-text/70">
                             A pub burger should be a main event, not an afterthought. We use quality chuck steak mince for our patties, smash them on the grill for that caramelised crust, and serve them pink-free but juicy.
                         </p>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-gray-50">
+            <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -151,28 +151,28 @@ export default async function BurgerMenuPage() {
                                 {burgerCategory.sections.map((section, idx) => (
                                     <div key={idx} className="text-left max-w-3xl mx-auto">
                                         {section.title && (
-                                            <h3 className="text-2xl font-bold text-anchor-green mb-6 text-center">{section.title}</h3>
+                                            <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-6 text-center">{section.title}</h3>
                                         )}
                                         {section.description && (
-                                            <p className="text-gray-600 mb-6 text-center -mt-4">{section.description}</p>
+                                            <p className="text-anchor-cream-text/70 mb-6 text-center -mt-4">{section.description}</p>
                                         )}
 
                                         <div className="grid md:grid-cols-2 gap-6">
                                             {section.items.map((item, itemIdx) => (
-                                                <div key={itemIdx} className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                                                <div key={itemIdx} className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-6 hover:border-anchor-gold/40 transition-shadow">
                                                     <div className="flex justify-between items-start mb-2">
-                                                        <h4 className="font-bold text-xl text-anchor-green">{item.name}</h4>
-                                                        {item.price && <span className="font-bold text-anchor-gold bg-anchor-cream/50 px-2 py-1 rounded text-sm">{item.price}</span>}
+                                                        <h4 className="font-bold text-xl text-anchor-gold-vivid">{item.name}</h4>
+                                                        {item.price && <span className="font-bold text-anchor-gold bg-anchor-bg px-2 py-1 rounded text-sm">{item.price}</span>}
                                                     </div>
-                                                    <p className="text-gray-600 text-sm mb-3">{item.description}</p>
+                                                    <p className="text-anchor-cream-text/70 text-sm mb-3">{item.description}</p>
 
                                                     {/* Tags */}
                                                     <div className="flex flex-wrap gap-2">
                                                         {item.vegetarian && (
-                                                            <span className="text-xs font-semibold px-2 py-1 bg-green-100 text-green-700 rounded-full">Vegetarian</span>
+                                                            <span className="text-xs font-semibold px-2 py-1 bg-green-900/30 text-anchor-gold-vivid rounded-full">Vegetarian</span>
                                                         )}
                                                         {item.allergens && item.allergens.length > 0 && (
-                                                            <span className="text-xs text-gray-500 border border-gray-200 px-2 py-1 rounded-full">
+                                                            <span className="text-xs text-anchor-cream-text/55 border border-anchor-gold/15 px-2 py-1 rounded-full">
                                                                 Contains: {item.allergens.join(', ')}
                                                             </span>
                                                         )}
@@ -200,24 +200,24 @@ export default async function BurgerMenuPage() {
                                     title: "100% Beef",
                                     description: "British beef, seasoned simply with salt and pepper to let the meat speak.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
-                                    className: "rounded-xl p-6 text-center"
+                                    color: "bg-anchor-bg-card",
+                                    className: "rounded-none border border-anchor-gold/15 p-6 text-center"
                                 },
                                 {
                                     icon: "🍟",
                                     title: "Chips Included",
                                     description: "Every burger comes with chips as standard.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
-                                    className: "rounded-xl p-6 text-center"
+                                    color: "bg-anchor-bg-card",
+                                    className: "rounded-none border border-anchor-gold/15 p-6 text-center"
                                 },
                                 {
                                     icon: "🥬",
                                     title: "Fresh Toppings",
                                     description: "Crisp lettuce, ripe tomatoes, and tangy pickles in every toasted bun.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
-                                    className: "rounded-xl p-6 text-center"
+                                    color: "bg-anchor-bg-card",
+                                    className: "rounded-none border border-anchor-gold/15 p-6 text-center"
                                 }
                             ]}
                             className="mb-8"
@@ -241,7 +241,7 @@ export default async function BurgerMenuPage() {
                         answer: "Yes — try our Vegetable Burger or Veggie Stack."
                     }
                 ]}
-                className="bg-white"
+                className="bg-anchor-bg"
             />
 
             <CTASection

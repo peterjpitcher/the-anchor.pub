@@ -112,14 +112,14 @@ export default function FelthamPubPage() {
         }
       />
 
-      <section className="bg-white py-6">
+      <section className="bg-anchor-bg py-6">
         <Container>
-          <p className="text-center text-sm text-gray-600">⭐⭐⭐⭐⭐ <strong>Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
+          <p className="text-center text-sm text-anchor-cream-text/70">⭐⭐⭐⭐⭐ <strong>Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
         </Container>
       </section>
 
       {/* Page Title */}
-      <section className="py-8 bg-white">
+      <section className="py-8 bg-anchor-bg">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <PageTitle
@@ -127,11 +127,11 @@ export default function FelthamPubPage() {
                 structured: true,
                 speakable: true
               }}
-              className="text-anchor-green mb-4"
+              className="text-anchor-cream-text mb-4"
             >
               Feltham Pub - Traditional British Pub Near Feltham
             </PageTitle>
-            <p className="text-lg text-gray-700">
+            <p className="text-lg text-anchor-cream-text/70">
               Your local traditional pub just 10 minutes from Feltham with free parking
             </p>
           </div>
@@ -139,7 +139,7 @@ export default function FelthamPubPage() {
       </section>
 
       {/* Distance & Benefits */}
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -175,8 +175,8 @@ export default function FelthamPubPage() {
             />
 
             {/* Why Choose Us */}
-            <div className="bg-anchor-cream rounded-2xl p-8">
-              <h3 className="text-2xl font-bold text-anchor-green mb-6">
+            <div className="card-dark rounded-none p-8">
+              <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-6">
                 Why Feltham Residents Choose The Anchor
               </h3>
               <ul className="space-y-4">
@@ -207,7 +207,7 @@ export default function FelthamPubPage() {
       </section>
 
       {/* Directions */}
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -249,16 +249,16 @@ export default function FelthamPubPage() {
                 <h3 className="font-bold text-xl mb-4">Local Landmarks</h3>
                 <div className="space-y-4">
                   <div>
-                    <p className="font-semibold text-anchor-green">From Feltham Station:</p>
-                    <p className="text-gray-700">10-minute drive via Bedfont Lane, or take the 117 bus towards Staines.</p>
+                    <p className="font-semibold text-anchor-cream-text">From Feltham Station:</p>
+                    <p className="text-anchor-cream-text/70">10-minute drive via Bedfont Lane, or take the 117 bus towards Staines.</p>
                   </div>
                   <div>
-                    <p className="font-semibold text-anchor-green">Near Bedfont Lakes:</p>
-                    <p className="text-gray-700">We're just 5 minutes from Bedfont Lakes Business Park - perfect for after-work drinks.</p>
+                    <p className="font-semibold text-anchor-cream-text">Near Bedfont Lakes:</p>
+                    <p className="text-anchor-cream-text/70">We're just 5 minutes from Bedfont Lakes Business Park - perfect for after-work drinks.</p>
                   </div>
                   <div>
-                    <p className="font-semibold text-anchor-green">From The Centre Feltham:</p>
-                    <p className="text-gray-700">Head south on Bedfont Lane, follow signs for Staines/Stanwell.</p>
+                    <p className="font-semibold text-anchor-cream-text">From The Centre Feltham:</p>
+                    <p className="text-anchor-cream-text/70">Head south on Bedfont Lane, follow signs for Staines/Stanwell.</p>
                   </div>
                 </div>
               </div>
@@ -268,7 +268,7 @@ export default function FelthamPubPage() {
       </section>
 
       {/* Special Offers for Feltham */}
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -284,22 +284,22 @@ export default function FelthamPubPage() {
                       <p className="mb-3">Popular with teams from Feltham's business parks. Private areas available for corporate events.</p>
                       <ul className="space-y-2">
 	                        <li className="flex items-start">
-	                          <span className="text-amber-500 mr-2">•</span>
+	                          <span className="text-anchor-gold mr-2">•</span>
 	                          Buffet menus from GBP 12pp
 	                        </li>
                         <li className="flex items-start">
-                          <span className="text-amber-500 mr-2">•</span>
+                          <span className="text-anchor-gold mr-2">•</span>
                           Reserved areas available
                         </li>
                         <li className="flex items-start">
-                          <span className="text-amber-500 mr-2">•</span>
+                          <span className="text-anchor-gold mr-2">•</span>
                           Free parking for all guests
                         </li>
                       </ul>
                     </>
                   ),
                   variant: "colored",
-                  color: "bg-amber-50"
+                  color: "bg-anchor-bg-card"
                 },
                 {
                   title: "Weekend Escapes",
@@ -308,22 +308,22 @@ export default function FelthamPubPage() {
                       <p className="mb-3">Join Feltham locals who make The Anchor their weekend destination.</p>
                       <ul className="space-y-2">
                         <li className="flex items-start">
-                          <span className="text-blue-500 mr-2">•</span>
+                          <span className="text-anchor-gold mr-2">•</span>
                           Hosted nights like Music Bingo with Nikki Manfadge (see /whats-on)
                         </li>
 	                        <li className="flex items-start">
-	                          <span className="text-blue-500 mr-2">•</span>
+	                          <span className="text-anchor-gold mr-2">•</span>
 	                          Sunday roasts - pre-order by 1pm Saturday. Sunday lunch bookings require a £10 per person deposit.
 	                        </li>
                         <li className="flex items-start">
-                          <span className="text-blue-500 mr-2">•</span>
+                          <span className="text-anchor-gold mr-2">•</span>
                           Quiz nights & bingo
                         </li>
                       </ul>
                     </>
                   ),
                   variant: "colored",
-                  color: "bg-blue-50"
+                  color: "bg-anchor-bg-card"
                 }
               ]}
             />
@@ -332,7 +332,7 @@ export default function FelthamPubPage() {
       </section>
 
       {/* Event Venue for Feltham */}
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeader
@@ -341,52 +341,52 @@ export default function FelthamPubPage() {
             />
             
             <div className="grid md:grid-cols-2 gap-8 mb-8">
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-xl font-bold text-anchor-green mb-4">Why Feltham Chooses Us</h3>
+              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
+                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Why Feltham Chooses Us</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <span className="text-green-600">✓</span>
+                    <span className="text-anchor-gold-vivid">✓</span>
                     <span><strong>Quick 10-minute drive</strong> - Closer than central London venues</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-green-600">✓</span>
+                    <span className="text-anchor-gold-vivid">✓</span>
                     <span><strong>Free parking for all guests</strong> - Save on town centre fees</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-green-600">✓</span>
+                    <span className="text-anchor-gold-vivid">✓</span>
                     <span><strong>Affordable pricing</strong> - Better value than Feltham High Street</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-green-600">✓</span>
+                    <span className="text-anchor-gold-vivid">✓</span>
                     <span><strong>Trusted by locals</strong> - Regular venue for Feltham groups</span>
                   </li>
                 </ul>
               </div>
               
-              <div className="bg-blue-50 rounded-xl p-6">
-                <h3 className="text-xl font-bold text-anchor-green mb-4">Popular Feltham Events</h3>
+              <div className="card-dark rounded-none p-6">
+                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Popular Feltham Events</h3>
                 <div className="space-y-4">
                   <div>
                     <h4 className="font-semibold text-blue-700 mb-1">🎉 Birthday Parties</h4>
-                    <p className="text-sm text-gray-700">From kids parties to 50th celebrations</p>
+                    <p className="text-sm text-anchor-cream-text/70">From kids parties to 50th celebrations</p>
                   </div>
                   <div>
                     <h4 className="font-semibold text-blue-700 mb-1">👶 Baby Showers</h4>
-                    <p className="text-sm text-gray-700">Perfect space for afternoon celebrations</p>
+                    <p className="text-sm text-anchor-cream-text/70">Perfect space for afternoon celebrations</p>
                   </div>
                   <div>
                     <h4 className="font-semibold text-blue-700 mb-1">🎆 Community Events</h4>
-                    <p className="text-sm text-gray-700">Club meetings, fundraisers, social groups</p>
+                    <p className="text-sm text-anchor-cream-text/70">Club meetings, fundraisers, social groups</p>
                   </div>
                   <div>
                     <h4 className="font-semibold text-blue-700 mb-1">🕊️ Wakes & Memorials</h4>
-                    <p className="text-sm text-gray-700">Respectful venue for celebrations of life</p>
+                    <p className="text-sm text-anchor-cream-text/70">Respectful venue for celebrations of life</p>
                   </div>
                 </div>
               </div>
             </div>
             
-            <div className="bg-anchor-cream rounded-xl p-6 text-center">
+            <div className="card-dark rounded-none p-6 text-center">
               <p className="text-lg text-gray-800 mb-4">
                 <strong>Feltham groups love our flexibility!</strong> 
                 Competitive rates - let's discuss your needs. Spaces for 10-200 guests.
@@ -423,7 +423,7 @@ export default function FelthamPubPage() {
       </section>
 
       {/* Opening Hours */}
-      <section className="section-spacing bg-anchor-cream">
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -450,7 +450,7 @@ export default function FelthamPubPage() {
             answer: "We offer takeaway service for all our food menu items - just call ahead on 01753 682707 to place your order for collection. We don't currently offer delivery, but you're welcome to collect your order from our Stanwell Moor location."
           }
         ]}
-        className="bg-gray-50"
+        className="bg-anchor-bg"
       />
 
       {/* CTA Section */}

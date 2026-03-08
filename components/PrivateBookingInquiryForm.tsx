@@ -174,20 +174,20 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
 
     if (success) {
         return (
-            <div className="bg-white rounded-xl shadow-sm border border-green-100 p-8 text-center animate-in fade-in zoom-in duration-300">
-                <div className="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="card-dark rounded-none p-8 text-center animate-in fade-in zoom-in duration-300 border border-anchor-gold/20">
+                <div className="w-16 h-16 bg-anchor-green/20 text-anchor-gold-vivid rounded-full flex items-center justify-center mx-auto mb-4">
                     <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-2">Inquiry Received!</h3>
-                <p className="text-slate-600 mb-6">
+                <h3 className="text-2xl font-bold text-anchor-cream-text mb-2">Inquiry Received!</h3>
+                <p className="text-anchor-cream-text/70 mb-6">
                     We have received your details. Since this is a private booking, we need to confirm availability manually.
                     Expect a text message or call from us shortly!
                 </p>
                 <button
                     onClick={() => window.location.href = '/'}
-                    className="text-indigo-600 font-medium hover:text-indigo-800"
+                    className="text-anchor-gold-vivid font-medium hover:text-anchor-gold"
                 >
                     Return to Home
                 </button>
@@ -196,11 +196,11 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
     }
 
     return (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-            <div className="p-6 border-b border-slate-200 flex justify-between items-center">
-                <h3 className="text-xl font-semibold text-slate-900">Complete Your Inquiry</h3>
+        <div className="card-dark rounded-none overflow-hidden">
+            <div className="p-6 border-b border-anchor-gold/15 flex justify-between items-center bg-anchor-bg-raised">
+                <h3 className="text-xl font-semibold text-anchor-cream-text">Complete Your Inquiry</h3>
                 {onCancel && (
-                    <button onClick={onCancel} className="text-slate-400 hover:text-slate-600">
+                    <button onClick={onCancel} className="text-anchor-cream-text/55 hover:text-anchor-cream-text">
                         Cancel
                     </button>
                 )}
@@ -208,23 +208,23 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
 
             <form onSubmit={handleSubmit} className="p-6 space-y-6">
                 {error && (
-                    <div className="p-4 bg-red-50 text-red-700 rounded-lg text-sm border border-red-100">
+                    <div className="p-4 bg-red-900/20 text-red-400 rounded-lg text-sm border border-red-500/30">
                         {error}
                     </div>
                 )}
 
                 <div className="space-y-4">
-                    <h4 className="font-medium text-slate-900 border-b pb-2">Contact Details</h4>
+                    <h4 className="font-medium text-anchor-cream-text border-b border-anchor-gold/15 pb-2">Contact Details</h4>
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-1">Mobile Number *</label>
-                        <p className="text-xs text-slate-500 mb-1">Enter your number first so we can check if you’re already in our system.</p>
+                        <label className="block text-sm font-medium text-anchor-cream-text/70 mb-1">Mobile Number *</label>
+                        <p className="text-xs text-anchor-cream-text/55 mb-1">Enter your number first so we can check if you’re already in our system.</p>
                         <input
                             required
                             type="tel"
                             value={phone}
                             disabled={detailsUnlocked}
                             onChange={e => setPhone(e.target.value)}
-                            className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 disabled:bg-slate-100"
+                            className="w-full px-4 py-2 bg-anchor-bg-card border border-anchor-gold/30 text-anchor-cream-text rounded-lg focus:ring-2 focus:ring-anchor-gold focus:border-anchor-gold disabled:opacity-60"
                         />
                     </div>
 
@@ -234,7 +234,7 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
                                 type="button"
                                 onClick={handlePhoneLookup}
                                 disabled={lookupState === 'loading'}
-                                className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50"
+                                className="px-4 py-2 bg-anchor-gold hover:bg-anchor-gold-vivid text-anchor-charcoal font-semibold rounded-lg disabled:opacity-50"
                             >
                                 {lookupState === 'loading' ? 'Checking...' : 'Continue'}
                             </button>
@@ -242,7 +242,7 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
                             <button
                                 type="button"
                                 onClick={resetPhoneLookup}
-                                className="px-4 py-2 border border-slate-300 rounded-lg text-slate-700 hover:bg-slate-100"
+                                className="px-4 py-2 border border-anchor-gold/30 rounded-lg text-anchor-cream-text/70 hover:bg-anchor-bg-raised"
                             >
                                 Use Different Number
                             </button>
@@ -250,19 +250,19 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
                     </div>
 
                     {lookupError && (
-                        <div className="p-3 bg-red-50 text-red-700 rounded-lg text-sm border border-red-100">
+                        <div className="p-3 bg-red-900/20 text-red-400 rounded-lg text-sm border border-red-500/30">
                             {lookupError}
                         </div>
                     )}
 
                     {isKnownCustomer && (
-                        <div className="p-3 bg-green-50 text-green-800 rounded-lg text-sm border border-green-100">
+                        <div className="p-3 bg-anchor-green/10 text-anchor-gold-vivid rounded-lg text-sm border border-anchor-green/30">
                             Recognized customer{knownCustomer?.full_name ? `: ${knownCustomer.full_name}` : ''}. You can continue with event details.
                         </div>
                     )}
 
                     {lookupState === 'unknown' && (
-                        <div className="p-3 bg-amber-50 text-amber-800 rounded-lg text-sm border border-amber-100">
+                        <div className="p-3 bg-anchor-gold/10 text-anchor-gold rounded-lg text-sm border border-anchor-gold/30">
                             {lookupDegraded
                                 ? 'We could not verify this number right now. Please continue by entering your details below.'
                                 : 'New customer detected. Please enter your personal details below.'}
@@ -274,82 +274,82 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         {!isKnownCustomer && (
                             <div className="space-y-4">
-                                <h4 className="font-medium text-slate-900 border-b pb-2">Personal Details</h4>
+                                <h4 className="font-medium text-anchor-cream-text border-b border-anchor-gold/15 pb-2">Personal Details</h4>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-slate-700 mb-1">First Name *</label>
+                                    <label className="block text-sm font-medium text-anchor-cream-text/70 mb-1">First Name *</label>
                                     <input
                                         required
                                         type="text"
                                         value={formData.customer_first_name}
                                         onChange={e => setFormData({ ...formData, customer_first_name: e.target.value })}
-                                        className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                                        className="w-full px-4 py-2 bg-anchor-bg-card border border-anchor-gold/30 text-anchor-cream-text rounded-lg focus:ring-2 focus:ring-anchor-gold focus:border-anchor-gold"
                                     />
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-slate-700 mb-1">Last Name *</label>
+                                    <label className="block text-sm font-medium text-anchor-cream-text/70 mb-1">Last Name *</label>
                                     <input
                                         required
                                         type="text"
                                         value={formData.customer_last_name || ''}
                                         onChange={e => setFormData({ ...formData, customer_last_name: e.target.value })}
-                                        className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                                        className="w-full px-4 py-2 bg-anchor-bg-card border border-anchor-gold/30 text-anchor-cream-text rounded-lg focus:ring-2 focus:ring-anchor-gold focus:border-anchor-gold"
                                     />
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-slate-700 mb-1">Email (Optional)</label>
+                                    <label className="block text-sm font-medium text-anchor-cream-text/70 mb-1">Email (Optional)</label>
                                     <input
                                         type="email"
                                         value={formData.contact_email || ''}
                                         onChange={e => setFormData({ ...formData, contact_email: e.target.value })}
-                                        className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                                        className="w-full px-4 py-2 bg-anchor-bg-card border border-anchor-gold/30 text-anchor-cream-text rounded-lg focus:ring-2 focus:ring-anchor-gold focus:border-anchor-gold"
                                     />
                                 </div>
                             </div>
                         )}
 
                         <div className="space-y-4">
-                            <h4 className="font-medium text-slate-900 border-b pb-2">Event Details</h4>
+                            <h4 className="font-medium text-anchor-cream-text border-b border-anchor-gold/15 pb-2">Event Details</h4>
 
                             <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-1">Preferred Date</label>
+                                <label className="block text-sm font-medium text-anchor-cream-text/70 mb-1">Preferred Date</label>
                                 <input
                                     type="date"
                                     value={formData.event_date || ''}
                                     onChange={e => setFormData({ ...formData, event_date: e.target.value })}
-                                    className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                                    className="w-full px-4 py-2 bg-anchor-bg-card border border-anchor-gold/30 text-anchor-cream-text rounded-lg focus:ring-2 focus:ring-anchor-gold focus:border-anchor-gold"
                                 />
                             </div>
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-sm font-medium text-slate-700 mb-1">Start Time</label>
+                                    <label className="block text-sm font-medium text-anchor-cream-text/70 mb-1">Start Time</label>
                                     <input
                                         type="time"
                                         value={formData.start_time || ''}
                                         onChange={e => setFormData({ ...formData, start_time: e.target.value })}
-                                        className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                                        className="w-full px-4 py-2 bg-anchor-bg-card border border-anchor-gold/30 text-anchor-cream-text rounded-lg focus:ring-2 focus:ring-anchor-gold focus:border-anchor-gold"
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-slate-700 mb-1">Approx Guests</label>
+                                    <label className="block text-sm font-medium text-anchor-cream-text/70 mb-1">Approx Guests</label>
                                     <input
                                         type="number"
                                         value={formData.guest_count || 0}
                                         onChange={e => setFormData({ ...formData, guest_count: Number(e.target.value) })}
-                                        className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                                        className="w-full px-4 py-2 bg-anchor-bg-card border border-anchor-gold/30 text-anchor-cream-text rounded-lg focus:ring-2 focus:ring-anchor-gold focus:border-anchor-gold"
                                     />
                                 </div>
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-1">Event Type</label>
+                                <label className="block text-sm font-medium text-anchor-cream-text/70 mb-1">Event Type</label>
                                 <select
                                     value={formData.event_type}
                                     onChange={e => setFormData({ ...formData, event_type: e.target.value })}
-                                    className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                                    className="w-full px-4 py-2 bg-anchor-bg-card border border-anchor-gold/30 text-anchor-cream-text rounded-lg focus:ring-2 focus:ring-anchor-gold focus:border-anchor-gold"
                                 >
                                     <option>Birthday Party</option>
                                     <option>Wedding Reception</option>
@@ -361,12 +361,12 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-slate-700 mb-1">Notes / Special Requests</label>
+                                <label className="block text-sm font-medium text-anchor-cream-text/70 mb-1">Notes / Special Requests</label>
                                 <textarea
                                     rows={3}
                                     value={formData.internal_notes || ''}
                                     onChange={e => setFormData({ ...formData, internal_notes: e.target.value })}
-                                    className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500"
+                                    className="w-full px-4 py-2 bg-anchor-bg-card border border-anchor-gold/30 text-anchor-cream-text rounded-lg focus:ring-2 focus:ring-anchor-gold focus:border-anchor-gold"
                                     placeholder="Any dietary requirements or special requests?"
                                 />
                             </div>
@@ -375,11 +375,11 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
                 )}
 
                 {detailsUnlocked && (
-                    <div className="pt-4 border-t border-slate-200">
+                    <div className="pt-4 border-t border-anchor-gold/15">
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full md:w-auto px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-lg shadow-sm disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                            className="w-full md:w-auto px-8 py-3 bg-anchor-gold hover:bg-anchor-gold-vivid text-anchor-charcoal font-semibold rounded-lg shadow-sm disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                         >
                             {loading ? 'Submitting...' : 'Send Inquiry'}
                         </button>

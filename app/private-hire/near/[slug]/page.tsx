@@ -101,13 +101,13 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
                 }
             />
 
-            <section className="py-12 bg-white">
+            <section className="py-12 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <h2 className="text-3xl font-bold text-anchor-green mb-6">
+                        <h2 className="text-3xl font-bold text-anchor-gold-vivid mb-6">
                             Why Choose The Anchor?
                         </h2>
-                        <p className="text-lg text-gray-700 mb-8">
+                        <p className="text-lg text-anchor-cream-text/70 mb-8">
                             {landmark.description} We are located just a short drive from <strong>{landmark.name}</strong>, offering a convenient and welcoming space for your guests to gather.
                         </p>
 
@@ -131,7 +131,7 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
             </section>
 
             {/* Map Section */}
-            <section className="section-spacing bg-gray-50">
+            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
                 <Container>
                     <SectionHeader
                         title={`Technically Just ${landmark.distance} Away`}
@@ -150,7 +150,7 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
                 </Container>
             </section>
 
-            <section className="section-spacing bg-white">
+            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <SectionHeader
                         title="Complete Packages"
@@ -183,17 +183,17 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
 
             <PrivateBookingSection eventType={eventType} />
 
-            <section className="bg-anchor-green py-16 text-white text-center">
+            <section className="bg-anchor-bg-raised py-16 text-center border-t border-anchor-gold/15">
                 <Container>
-                    <h2 className="text-3xl font-bold mb-4">Book Your Event</h2>
-                    <p className="text-xl mb-8 opacity-90">Secure the date for your gathering near {landmark.name}</p>
+                    <h2 className="text-3xl font-bold mb-4 text-anchor-gold-vivid">Book Your Event</h2>
+                    <p className="text-xl mb-8 text-anchor-cream-text/70">Secure the date for your gathering near {landmark.name}</p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                         <BookTableButton
                             source={`near_${landmark.slug}_cta`}
                             variant="primary"
                             size="lg"
                             context={context}
-                            className="bg-white text-anchor-green hover:bg-gray-100"
+                            className="bg-anchor-gold text-anchor-bg hover:bg-anchor-gold-vivid"
                         >
                             Enquire Now
                         </BookTableButton>

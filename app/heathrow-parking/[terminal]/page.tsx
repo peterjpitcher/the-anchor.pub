@@ -175,41 +175,41 @@ export default function TerminalParkingPage({ params }: { params: { terminal: st
         }
       />
 
-      <Section background="white" spacing="lg">
+      <Section background="dark" spacing="lg">
         <Container>
           <div className="mx-auto max-w-5xl">
-            <h2 className="text-center text-3xl font-bold text-anchor-green">
+            <h2 className="text-center text-3xl font-bold text-anchor-cream-text">
               Terminal {terminalNumber} parking quick facts
             </h2>
-            <p className="mt-4 text-center text-lg text-gray-700">
+            <p className="mt-4 text-center text-lg text-anchor-cream-text/70">
               Travellers searching for {terminal.airportIntent} often see high on-airport prices.
               The Anchor gives you a lower-cost alternative while keeping transfer times predictable.
             </p>
             <div className="mt-8 grid gap-4 md:grid-cols-3">
               <div className="rounded-xl border border-gray-200 bg-gray-50 p-5">
-                <h3 className="text-lg font-semibold text-anchor-charcoal">Typical transfer</h3>
-                <p className="mt-2 text-sm text-gray-700">{terminal.transferTime} by taxi or rideshare.</p>
+                <h3 className="text-lg font-semibold text-anchor-cream-text">Typical transfer</h3>
+                <p className="mt-2 text-sm text-anchor-cream-text/70">{terminal.transferTime} by taxi or rideshare.</p>
               </div>
               <div className="rounded-xl border border-gray-200 bg-gray-50 p-5">
-                <h3 className="text-lg font-semibold text-anchor-charcoal">Typical taxi fare</h3>
-                <p className="mt-2 text-sm text-gray-700">{terminal.taxiRange} depending on traffic and time of day.</p>
+                <h3 className="text-lg font-semibold text-anchor-cream-text">Typical taxi fare</h3>
+                <p className="mt-2 text-sm text-anchor-cream-text/70">{terminal.taxiRange} depending on traffic and time of day.</p>
               </div>
               <div className="rounded-xl border border-gray-200 bg-gray-50 p-5">
-                <h3 className="text-lg font-semibold text-anchor-charcoal">Anchor postcode</h3>
-                <p className="mt-2 text-sm text-gray-700">TW19 6AQ (Stanwell Moor, Horton Road).</p>
+                <h3 className="text-lg font-semibold text-anchor-cream-text">Anchor postcode</h3>
+                <p className="mt-2 text-sm text-anchor-cream-text/70">TW19 6AQ (Stanwell Moor, Horton Road).</p>
               </div>
             </div>
           </div>
         </Container>
       </Section>
 
-      <Section background="gray" spacing="lg">
+      <Section background="dark" spacing="lg">
         <Container>
           <div className="mx-auto max-w-5xl rounded-2xl border border-gray-200 bg-white p-6 md:p-8">
-            <h2 className="text-2xl font-bold text-anchor-green">
+            <h2 className="text-2xl font-bold text-anchor-cream-text">
               Looking for Heathrow Terminal {terminalNumber} parking postcode details?
             </h2>
-            <p className="mt-3 text-gray-700">
+            <p className="mt-3 text-anchor-cream-text/70">
               If you are comparing official Heathrow short-stay and long-stay options, always use Heathrow Airport&apos;s
               live parking pages for the latest official postcodes and routing. If you want a cheaper off-airport option,
               The Anchor postcode is <strong>TW19 6AQ</strong> with online booking from <strong>GBP 15/day</strong>.
@@ -230,10 +230,10 @@ export default function TerminalParkingPage({ params }: { params: { terminal: st
         </Container>
       </Section>
 
-      <Section background="white" spacing="lg">
+      <Section background="dark" spacing="lg">
         <Container>
           <div className="mx-auto max-w-5xl">
-            <h2 className="text-center text-3xl font-bold text-anchor-green">
+            <h2 className="text-center text-3xl font-bold text-anchor-cream-text">
               Compare other Heathrow terminal parking guides
             </h2>
             <div className="mt-8 grid gap-4 md:grid-cols-3">
@@ -243,10 +243,10 @@ export default function TerminalParkingPage({ params }: { params: { terminal: st
                   href={`/heathrow-parking/${slug}`}
                   className="rounded-xl border border-gray-200 bg-gray-50 p-5 transition-colors hover:border-anchor-green"
                 >
-                  <h3 className="text-lg font-semibold text-anchor-charcoal">
+                  <h3 className="text-lg font-semibold text-anchor-cream-text">
                     Terminal {item.number} parking guide
                   </h3>
-                  <p className="mt-2 text-sm text-gray-700">
+                  <p className="mt-2 text-sm text-anchor-cream-text/70">
                     Transfer {item.transferTime} from The Anchor parking site.
                   </p>
                 </Link>

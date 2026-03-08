@@ -8,8 +8,8 @@ export async function EventCategories() {
     if (!categories || categories.length === 0) {
       return (
         <div className="text-center py-12">
-          <p className="text-gray-600 text-lg">No event categories available at the moment.</p>
-          <p className="text-gray-700 text-sm mt-2">Please check back later or view all our events.</p>
+          <p className="text-anchor-cream-text/55 text-lg">No event categories available at the moment.</p>
+          <p className="text-anchor-cream-text/70 text-sm mt-2">Please check back later or view all our events.</p>
         </div>
       )
     }
@@ -41,7 +41,7 @@ export async function EventCategories() {
                 {category.name}
               </h3>
               {category.event_count > 0 && (
-                <p className="text-sm text-gray-600 font-medium">
+                <p className="text-sm text-anchor-cream-text/55 font-medium">
                   {category.event_count} event{category.event_count !== 1 ? 's' : ''}
                 </p>
               )}

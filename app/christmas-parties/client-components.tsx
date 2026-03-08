@@ -407,28 +407,28 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
         onOpenForm={(mode, source) => handleOpenForm(mode, {}, source)}
       />
 
-      <Section className="bg-white" spacing="md" container>
+      <Section background="white" spacing="md" container>
         <Container>
           <Grid cols={3} gap="md">
             <Card className="h-full">
               <div className="p-6 space-y-3 text-center">
                 <Icon name="calendar" className="mx-auto h-8 w-8 text-red-600" />
-                <h3 className="text-lg font-semibold text-anchor-charcoal">Mid-week value</h3>
-                <p className="text-sm text-gray-600">Tue-Thu 3 courses for GBP 36.95 per person (groups of 6+).</p>
+                <h3 className="text-lg font-semibold text-anchor-cream-text">Mid-week value</h3>
+                <p className="text-sm text-anchor-cream-text/70">Tue-Thu 3 courses for GBP 36.95 per person (groups of 6+).</p>
               </div>
             </Card>
             <Card className="h-full">
               <div className="p-6 space-y-3 text-center">
                 <Icon name="utensils" className="mx-auto h-8 w-8 text-red-600" />
-                <h3 className="text-lg font-semibold text-anchor-charcoal">Yorkies & pigs in blankets</h3>
-                <p className="text-sm text-gray-600">Every roast comes with the favourites, plus herb-crusted triple-cooked roast potatoes, seasonal vegetables and our signature gravy.</p>
+                <h3 className="text-lg font-semibold text-anchor-cream-text">Yorkies & pigs in blankets</h3>
+                <p className="text-sm text-anchor-cream-text/70">Every roast comes with the favourites, plus herb-crusted triple-cooked roast potatoes, seasonal vegetables and our signature gravy.</p>
               </div>
             </Card>
             <Card className="h-full">
               <div className="p-6 space-y-3 text-center">
                 <Icon name="gift" className="mx-auto h-8 w-8 text-red-600" />
-                <h3 className="text-lg font-semibold text-anchor-charcoal">Crackers & festive decor</h3>
-                <p className="text-sm text-gray-600">Tables arrive dressed with crackers, candles and a proper Christmas glow.</p>
+                <h3 className="text-lg font-semibold text-anchor-cream-text">Crackers & festive decor</h3>
+                <p className="text-sm text-anchor-cream-text/70">Tables arrive dressed with crackers, candles and a proper Christmas glow.</p>
               </div>
             </Card>
           </Grid>
@@ -438,14 +438,14 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
       <Section background="gray" spacing="md">
         <Container>
           <div className="mx-auto max-w-5xl space-y-4 text-center">
-            <h2 className="text-3xl font-bold text-anchor-charcoal">2026 festive packages &amp; pricing</h2>
-            <p className="text-base text-gray-700">
+            <h2 className="text-3xl font-bold text-anchor-cream-text">2026 festive packages &amp; pricing</h2>
+            <p className="text-base text-anchor-cream-text/70">
               Book shared party nights, private dining and Sunday lunches with transparent per-person pricing. Pick the option that fits your Heathrow Christmas party or Surrey celebration, then submit your enquiry to lock in dates.
             </p>
           </div>
-          <div className="mt-8 overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
-            <table className="w-full text-left text-sm text-gray-700">
-              <thead className="bg-anchor-charcoal text-white text-xs uppercase tracking-wide">
+          <div className="mt-8 overflow-hidden rounded-2xl border border-anchor-gold/15 bg-anchor-bg-card">
+            <table className="w-full text-left text-sm text-anchor-cream-text/70">
+              <thead className="bg-anchor-bg-raised text-anchor-cream-text text-xs uppercase tracking-wide">
                 <tr>
                   <th className="px-4 py-3">Package</th>
                   <th className="px-4 py-3">Pricing</th>
@@ -454,9 +454,9 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
               </thead>
               <tbody>
                 {FESTIVE_PRICING.map(row => (
-                  <tr key={row.tier} className="border-t border-gray-100">
-                    <td className="px-4 py-4 font-semibold text-anchor-charcoal">{row.tier}</td>
-                    <td className="px-4 py-4 text-red-700 font-semibold">{row.price}</td>
+                  <tr key={row.tier} className="border-t border-anchor-gold/15">
+                    <td className="px-4 py-4 font-semibold text-anchor-cream-text">{row.tier}</td>
+                    <td className="px-4 py-4 text-anchor-gold-vivid font-semibold">{row.price}</td>
                     <td className="px-4 py-4">{row.includes}</td>
                   </tr>
                 ))}
@@ -505,11 +505,11 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
       <Section background="white" spacing="sm">
         <Container>
           <div className="mx-auto max-w-4xl space-y-4 text-center">
-            <h2 className="text-2xl font-bold text-anchor-charcoal">Christmas party venue minutes from Heathrow &amp; Staines</h2>
-            <p className="text-base text-gray-700">
+            <h2 className="text-2xl font-bold text-anchor-cream-text">Christmas party venue minutes from Heathrow &amp; Staines</h2>
+            <p className="text-base text-anchor-cream-text/70">
               The Anchor is a favourite choice for Christmas party venues near Heathrow, Staines-upon-Thames and Ashford. We're seven minutes from Terminal 5, fifteen from the Terminal 2 landside entrance and just over the river from Windsor - so airport teams, local businesses and Surrey neighbours can celebrate without the stress of city travel. As a relaxed Christmas party venue Surrey organisers rely on, we host Christmas parties Heathrow crews and remain one of the Christmas party venues Heathrow teams book year after year.
             </p>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-anchor-cream-text/70">
               Looking for great value or even cheap Christmas parties around Heathrow? Weeknight dining is priced from GBP 36.95 for full three-course feasts with all the trimmings, making us one of the best-priced Christmas party pubs in Surrey without compromising on hospitality. It's a welcoming Christmas party pub Staines teams can walk to, the Christmas party pub Terminal 2 landside crews recommend, and a handy base for a Christmas party in Staines, Ashford or Windsor.
             </p>
           </div>
@@ -519,8 +519,8 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
       <Section background="white" spacing="sm">
         <Container>
           <div className="mx-auto max-w-4xl text-center space-y-5">
-            <h3 className="text-xl font-semibold text-anchor-charcoal">Planning from nearby towns?</h3>
-            <p className="text-sm text-gray-600">
+            <h3 className="text-xl font-semibold text-anchor-cream-text">Planning from nearby towns?</h3>
+            <p className="text-sm text-anchor-cream-text/70">
               We regularly welcome festive groups from across Surrey and West London. Explore our local guides below and then send your enquiry when you're ready to reserve a date.
             </p>
             <div className="flex flex-wrap justify-center gap-3">
@@ -533,7 +533,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="rounded-full border border-red-200 px-4 py-2 text-sm font-semibold text-anchor-charcoal transition hover:border-red-400 hover:text-red-700"
+                  className="rounded-full border border-anchor-gold/15 px-4 py-2 text-sm font-semibold text-anchor-cream-text/70 transition hover:border-anchor-gold hover:text-anchor-gold"
                 >
                   {link.label}
                 </Link>
@@ -546,25 +546,25 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
       <Section background="gray" spacing="md">
         <Container>
           <div className="max-w-4xl mx-auto text-center space-y-8">
-            <h2 className="text-3xl font-bold text-anchor-charcoal">Christmas pricing at a glance</h2>
-            <div className="overflow-hidden rounded-2xl border border-gray-200 shadow-sm bg-white">
-              <table className="w-full text-left text-sm md:text-base">
+            <h2 className="text-3xl font-bold text-anchor-cream-text">Christmas pricing at a glance</h2>
+            <div className="overflow-hidden rounded-2xl border border-anchor-gold/15 bg-anchor-bg-card">
+              <table className="w-full text-left text-sm md:text-base text-anchor-cream-text/70">
                 <tbody>
-                  <tr className="border-b border-gray-200 bg-red-50">
-                    <th className="px-4 py-4 font-semibold text-anchor-charcoal">Tue-Thu</th>
-                    <td className="px-4 py-4 font-bold text-red-700">GBP 36.95 per person</td>
+                  <tr className="border-b border-anchor-gold/15 bg-anchor-bg-raised">
+                    <th className="px-4 py-4 font-semibold text-anchor-cream-text">Tue-Thu</th>
+                    <td className="px-4 py-4 font-bold text-anchor-gold-vivid">GBP 36.95 per person</td>
                   </tr>
-                  <tr className="border-b border-gray-200">
-                    <th className="px-4 py-4 font-semibold text-anchor-charcoal">Fri-Sat</th>
-                    <td className="px-4 py-4 font-bold text-anchor-charcoal">GBP 39.95 per person</td>
+                  <tr className="border-b border-anchor-gold/15">
+                    <th className="px-4 py-4 font-semibold text-anchor-cream-text">Fri-Sat</th>
+                    <td className="px-4 py-4 font-bold text-anchor-gold-vivid">GBP 39.95 per person</td>
                   </tr>
                   <tr>
-                    <th className="px-4 py-4 font-semibold text-anchor-charcoal">Children (under 12)</th>
+                    <th className="px-4 py-4 font-semibold text-anchor-cream-text">Children (under 12)</th>
                     <td className="px-4 py-4">2 courses GBP 12.95 · 3 courses GBP 15.95</td>
                   </tr>
                 </tbody>
               </table>
-              <p className="px-4 py-4 text-sm text-gray-600 border-t border-gray-200">
+              <p className="px-4 py-4 text-sm text-anchor-cream-text/70 border-t border-anchor-gold/15">
                 Children under 12 dine for GBP 12.95 (2 courses) or GBP 15.95 (3 courses). Christmas bookings are for parties of six or more. A GBP 10 per person deposit secures your festive reservation and is non-refundable. Full pre-orders for every guest are due seven days in advance; we&apos;ll do our utmost with late changes but can&apos;t guarantee them. Please flag dietary requirements when you order so we can arrange suitable alternatives – some substitutions may carry a small surcharge. Tables are reserved for two hours as standard.
               </p>
             </div>
@@ -606,83 +606,83 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
         </Container>
       </Section>
 
-      <Section background="white" spacing="md" className="bg-gradient-to-br from-red-50 via-white to-red-50">
+      <Section background="white" spacing="md" className="bg-anchor-bg-card">
         <Container>
           <div className="grid items-start gap-8 lg:grid-cols-2">
             <div className="space-y-6">
               <Badge className="bg-red-100 text-red-700 w-fit">Festive 3-course set menu</Badge>
-              <h2 className="text-3xl font-bold text-anchor-charcoal">Christmas menu snapshot</h2>
-              <p className="text-sm italic text-gray-500 mb-2">Sample menu - 2026 selection to be confirmed in October</p>
-              <p className="text-base sm:text-lg text-gray-700">
+              <h2 className="text-3xl font-bold text-anchor-cream-text">Christmas menu snapshot</h2>
+              <p className="text-sm italic text-anchor-cream-text/70 mb-2">Sample menu - 2026 selection to be confirmed in October</p>
+              <p className="text-base sm:text-lg text-anchor-cream-text/70">
                 Three generous courses that feel like Christmas at home - just with more room for everyone. Whether you're after a Christmas dinner near Heathrow, typing "Christmas dinner near me" from Terminal 5, eyeing a Christmas lunch near Staines or planning a festive pub feast for Surrey colleagues, every main arrives with herb-crusted triple-cooked roast potatoes, seasonal vegetables, Yorkshire puddings, pigs in blankets, sage &amp; onion stuffing and our signature gravy to share.
               </p>
-              <p className="text-sm text-red-700 font-semibold">Available for festive parties of six or more guests.</p>
+              <p className="text-sm text-anchor-gold font-semibold">Available for festive parties of six or more guests.</p>
               <div className="space-y-5 text-left">
-                <div className="rounded-2xl border border-red-100 bg-white/90 p-5 shadow-sm space-y-3">
-                  <h3 className="text-lg font-semibold text-anchor-charcoal">Starter</h3>
-                  <ul className="space-y-3 text-sm text-gray-700">
+                <div className="rounded-2xl border border-anchor-gold/15 bg-anchor-bg-raised p-5 space-y-3">
+                  <h3 className="text-lg font-semibold text-anchor-cream-text">Starter</h3>
+                  <ul className="space-y-3 text-sm text-anchor-cream-text/70">
                     <li>
-                      <p className="font-semibold text-anchor-charcoal">Classic prawn cocktail</p>
-                      <p className="text-gray-600">North Atlantic prawns layered with crisp gem lettuce, tangy Marie Rose sauce and freshly baked rolls.</p>
+                      <p className="font-semibold text-anchor-cream-text">Classic prawn cocktail</p>
+                      <p className="text-anchor-cream-text/70">North Atlantic prawns layered with crisp gem lettuce, tangy Marie Rose sauce and freshly baked rolls.</p>
                     </li>
                     <li>
-                      <p className="font-semibold text-anchor-charcoal">Chicken liver pâté</p>
-                      <p className="text-gray-600">Silky chicken liver pâté with caramelised onion chutney and freshly baked rolls for spreading.</p>
+                      <p className="font-semibold text-anchor-cream-text">Chicken liver pâté</p>
+                      <p className="text-anchor-cream-text/70">Silky chicken liver pâté with caramelised onion chutney and freshly baked rolls for spreading.</p>
                     </li>
                     <li>
-                      <p className="font-semibold text-anchor-charcoal">Leek, potato &amp; West Country Cheddar soup (v)</p>
-                      <p className="text-gray-600">Silky leek and potato soup enriched with tangy West Country Cheddar, soft potato pieces, a splash of cream and freshly baked rolls on the side.</p>
+                      <p className="font-semibold text-anchor-cream-text">Leek, potato &amp; West Country Cheddar soup (v)</p>
+                      <p className="text-anchor-cream-text/70">Silky leek and potato soup enriched with tangy West Country Cheddar, soft potato pieces, a splash of cream and freshly baked rolls on the side.</p>
                     </li>
                   </ul>
                 </div>
-                <div className="rounded-2xl border border-red-100 bg-white/90 p-5 shadow-sm space-y-3">
-                  <h3 className="text-lg font-semibold text-anchor-charcoal">Main</h3>
-                  <p className="text-sm text-gray-600">All served with Christmas trimmings.</p>
-                  <ul className="space-y-3 text-sm text-gray-700">
+                <div className="rounded-2xl border border-anchor-gold/15 bg-anchor-bg-raised p-5 space-y-3">
+                  <h3 className="text-lg font-semibold text-anchor-cream-text">Main</h3>
+                  <p className="text-sm text-anchor-cream-text/70">All served with Christmas trimmings.</p>
+                  <ul className="space-y-3 text-sm text-anchor-cream-text/70">
                     <li>
-                      <p className="font-semibold text-anchor-charcoal">Festive roast turkey &amp; Christmas trimmings</p>
-                      <p className="text-gray-600">Hand-carved British turkey breast with sage &amp; onion stuffing, pigs in blankets and a homemade Yorkshire pudding, served with herb-crusted triple-cooked roast potatoes, seasonal vegetables and plenty of our signature gravy.</p>
+                      <p className="font-semibold text-anchor-cream-text">Festive roast turkey &amp; Christmas trimmings</p>
+                      <p className="text-anchor-cream-text/70">Hand-carved British turkey breast with sage &amp; onion stuffing, pigs in blankets and a homemade Yorkshire pudding, served with herb-crusted triple-cooked roast potatoes, seasonal vegetables and plenty of our signature gravy.</p>
                     </li>
                     <li>
-                      <p className="font-semibold text-anchor-charcoal">Crispy pork belly &amp; Christmas trimmings</p>
-                      <p className="text-gray-600">Slow-roasted pork belly finished with crisp crackling, Bramley apple sauce, sage &amp; onion stuffing, pigs in blankets and a homemade Yorkshire pudding, served with herb-crusted triple-cooked roast potatoes, seasonal vegetables and our signature gravy.</p>
+                      <p className="font-semibold text-anchor-cream-text">Crispy pork belly &amp; Christmas trimmings</p>
+                      <p className="text-anchor-cream-text/70">Slow-roasted pork belly finished with crisp crackling, Bramley apple sauce, sage &amp; onion stuffing, pigs in blankets and a homemade Yorkshire pudding, served with herb-crusted triple-cooked roast potatoes, seasonal vegetables and our signature gravy.</p>
                     </li>
                     <li>
-                      <p className="font-semibold text-anchor-charcoal">Slow-cooked lamb shank &amp; Christmas trimmings</p>
-                      <p className="text-gray-600">Tender slow-braised lamb shank in rich red wine gravy, served with herb-crusted triple-cooked roast potatoes, seasonal vegetables, sage &amp; onion stuffing, pigs in blankets, a Yorkshire pudding and our signature gravy.</p>
+                      <p className="font-semibold text-anchor-cream-text">Slow-cooked lamb shank &amp; Christmas trimmings</p>
+                      <p className="text-anchor-cream-text/70">Tender slow-braised lamb shank in rich red wine gravy, served with herb-crusted triple-cooked roast potatoes, seasonal vegetables, sage &amp; onion stuffing, pigs in blankets, a Yorkshire pudding and our signature gravy.</p>
                     </li>
                     <li>
-                      <p className="font-semibold text-anchor-charcoal">Beetroot &amp; butternut squash Wellington &amp; Christmas trimmings (VG)</p>
-                      <p className="text-gray-600">Golden puff pastry filled with beetroot and butternut squash, baked with caramelised onions and rosemary, served with herb-crusted triple-cooked roast potatoes, seasonal vegetables, sage &amp; onion stuffing, Yorkshire pudding and our signature gravy.</p>
-                      <p className="text-xs text-gray-500">Vegan option served without Yorkshire pudding.</p>
+                      <p className="font-semibold text-anchor-cream-text">Beetroot &amp; butternut squash Wellington &amp; Christmas trimmings (VG)</p>
+                      <p className="text-anchor-cream-text/70">Golden puff pastry filled with beetroot and butternut squash, baked with caramelised onions and rosemary, served with herb-crusted triple-cooked roast potatoes, seasonal vegetables, sage &amp; onion stuffing, Yorkshire pudding and our signature gravy.</p>
+                      <p className="text-xs text-anchor-cream-text/55">Vegan option served without Yorkshire pudding.</p>
                     </li>
                   </ul>
-                  <p className="mt-3 text-xs text-gray-500">Vegetarian gravy available on request for every main course.</p>
+                  <p className="mt-3 text-xs text-anchor-cream-text/55">Vegetarian gravy available on request for every main course.</p>
                 </div>
-                <div className="rounded-2xl border border-red-100 bg-white/90 p-5 shadow-sm space-y-3">
-                  <h3 className="text-lg font-semibold text-anchor-charcoal">Dessert</h3>
-                  <ul className="space-y-3 text-sm text-gray-700">
+                <div className="rounded-2xl border border-anchor-gold/15 bg-anchor-bg-raised p-5 space-y-3">
+                  <h3 className="text-lg font-semibold text-anchor-cream-text">Dessert</h3>
+                  <ul className="space-y-3 text-sm text-anchor-cream-text/70">
                     <li>
-                      <p className="font-semibold text-anchor-charcoal">Steamed Christmas pudding</p>
-                      <p className="text-gray-600">Traditional fruit pudding steamed until glossy, served warm with pouring cream and a sparkle of festive redcurrants.</p>
+                      <p className="font-semibold text-anchor-cream-text">Steamed Christmas pudding</p>
+                      <p className="text-anchor-cream-text/70">Traditional fruit pudding steamed until glossy, served warm with pouring cream and a sparkle of festive redcurrants.</p>
                     </li>
                     <li>
-                      <p className="font-semibold text-anchor-charcoal">Winter berry cheesecake</p>
-                      <p className="text-gray-600">Silky vanilla cheesecake on a buttery biscuit base, finished with a jewel-bright berry compote and pillows of whipped cream.</p>
+                      <p className="font-semibold text-anchor-cream-text">Winter berry cheesecake</p>
+                      <p className="text-anchor-cream-text/70">Silky vanilla cheesecake on a buttery biscuit base, finished with a jewel-bright berry compote and pillows of whipped cream.</p>
                     </li>
                     <li>
-                      <p className="font-semibold text-anchor-charcoal">Indulgent chocolate fudge cake</p>
-                      <p className="text-gray-600">Moist chocolate sponge layered with silky fudge icing, served warm with pouring cream or custard for pure comfort. Vegetarian friendly.</p>
+                      <p className="font-semibold text-anchor-cream-text">Indulgent chocolate fudge cake</p>
+                      <p className="text-anchor-cream-text/70">Moist chocolate sponge layered with silky fudge icing, served warm with pouring cream or custard for pure comfort. Vegetarian friendly.</p>
                     </li>
                   </ul>
-                  <p className="text-xs text-gray-600">Prefer cheese? Swap dessert for our farmhouse cheeseboard (+GBP 3) or add it as a fourth course for GBP 7.95.</p>
+                  <p className="text-xs text-anchor-cream-text/70">Prefer cheese? Swap dessert for our farmhouse cheeseboard (+GBP 3) or add it as a fourth course for GBP 7.95.</p>
                 </div>
               </div>
-              <div className="inline-flex items-center gap-2 rounded-full bg-red-50 px-4 py-2 text-sm font-semibold text-red-700">
+              <div className="inline-flex items-center gap-2 rounded-full bg-anchor-bg-raised px-4 py-2 text-sm font-semibold text-anchor-gold-vivid">
                 <Icon name="star" className="h-4 w-4" /> All mains arrive family-style with Yorkshire puddings, pigs in blankets, herb-crusted triple-cooked roast potatoes, seasonal vegetables, sage &amp; onion stuffing and plenty of our signature gravy.
               </div>
             </div>
-            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-gray-200 shadow-sm">
+            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-anchor-gold/15">
               <Image
                 src="/images/page-headers/christmas-parties/2026/trimmings-board.png"
                 alt="Christmas trimmings board at The Anchor pub near Staines with Yorkshire puddings and pigs in blankets"
@@ -699,8 +699,8 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
       <Section background="gray" spacing="md" container>
         <Container>
           <div className="max-w-4xl mx-auto space-y-6 text-center">
-            <h2 className="text-3xl font-bold text-anchor-charcoal">Build the feast your way</h2>
-            <p className="text-gray-700">
+            <h2 className="text-3xl font-bold text-anchor-cream-text">Build the feast your way</h2>
+            <p className="text-anchor-cream-text/70">
               Add sharers and drinks bundles so everything arrives just how your guests like it. Let us know and we'll have them waiting on the table.
             </p>
           </div>
@@ -708,11 +708,11 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
           <Grid cols={2} gap="lg" className="mt-10 items-start">
             <Card>
               <div className="p-6 space-y-4">
-                <h3 className="text-xl font-semibold text-anchor-charcoal flex items-center gap-2">
+                <h3 className="text-xl font-semibold text-anchor-cream-text flex items-center gap-2">
                   <Icon name="gift" className="h-6 w-6 text-red-600" />
                   Trimmings & extras
                 </h3>
-                <ul className="space-y-2 text-sm text-gray-700">
+                <ul className="space-y-2 text-sm text-anchor-cream-text/70">
                   <li>All the Trimmings Board (serves 4) - GBP 11.95</li>
                   <li>XL Trimmings Board (serves 8) - GBP 21.95</li>
                   <li>Pigs in blankets (3) - GBP 3.95pp</li>
@@ -725,11 +725,11 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
             </Card>
             <Card>
               <div className="p-6 space-y-4">
-                <h3 className="text-xl font-semibold text-anchor-charcoal flex items-center gap-2">
+                <h3 className="text-xl font-semibold text-anchor-cream-text flex items-center gap-2">
                   <Icon name="wine" className="h-6 w-6 text-red-600" />
                   Drinks & finale
                 </h3>
-                <ul className="space-y-2 text-sm text-gray-700">
+                <ul className="space-y-2 text-sm text-anchor-cream-text/70">
                   <li>Bundle A: Prosecco arrival + coffee & mince pie - GBP 9.95pp (counts towards the GBP 45-GBP 52 spend target)</li>
                   <li>Wine bundle: 2 bottles of house wine - GBP 39.00</li>
                   <li>Beer bucket (6 × 330ml) - GBP 27.00</li>
@@ -742,7 +742,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
 
           <div className="mt-12 flex flex-col md:flex-row items-center justify-center gap-4">
             <Button variant="primary" size="md" onClick={handleAddFeastExtras}>Add to my enquiry</Button>
-            <p className="text-sm text-gray-600">Tell us what you fancy and we'll have it ready when you arrive.</p>
+            <p className="text-sm text-anchor-cream-text/70">Tell us what you fancy and we'll have it ready when you arrive.</p>
           </div>
 
           {extrasNotice && (
@@ -756,8 +756,8 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
       <Section background="white" spacing="md">
         <Container>
           <div className="max-w-4xl mx-auto text-center space-y-6">
-            <h2 className="text-3xl font-bold text-anchor-charcoal">Seasonal offers</h2>
-            <p className="text-gray-700">
+            <h2 className="text-3xl font-bold text-anchor-cream-text">Seasonal offers</h2>
+            <p className="text-anchor-cream-text/70">
               Pick the perks that suit your celebration and include them in your enquiry.
             </p>
           </div>
@@ -767,8 +767,8 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
               <Card key={option.id} className="h-full">
                 <div className="p-6 space-y-3">
                   <Badge className="bg-red-600 text-white w-fit">Festive offer</Badge>
-                  <h3 className="text-lg font-semibold text-anchor-charcoal">{option.label.split(':')[0]}</h3>
-                  <p className="text-sm text-gray-600">{option.label.split(':')[1]?.trim() || ''}</p>
+                  <h3 className="text-lg font-semibold text-anchor-cream-text">{option.label.split(':')[0]}</h3>
+                  <p className="text-sm text-anchor-cream-text/70">{option.label.split(':')[1]?.trim() || ''}</p>
                   {option.id === 'early-bird' && (
                     <EarlyBirdCountdown className="text-red-600" />
                   )}
@@ -792,8 +792,8 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
       <Section background="gray" spacing="md" container>
         <Container>
           <div className="max-w-4xl mx-auto text-center space-y-6">
-            <h2 className="text-3xl font-bold text-anchor-charcoal">Festive buffets for 26 or more guests</h2>
-            <p className="text-gray-700">
+            <h2 className="text-3xl font-bold text-anchor-cream-text">Festive buffets for 26 or more guests</h2>
+            <p className="text-anchor-cream-text/70">
               Ideal for standing receptions, quiz nights and team gatherings. Buffets are laid out for 90 minutes with hot dishes refreshed for the first hour, giving you a flexible option for a Christmas party in Heathrow or a late-night celebration in Staines.
             </p>
           </div>
@@ -819,8 +819,8 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
               <Card key={tier.title} className="h-full">
                 <div className="p-6 space-y-3">
                   <Badge className="bg-red-100 text-red-700 w-fit">{tier.price}</Badge>
-                  <h3 className="text-lg font-semibold text-anchor-charcoal">{tier.title}</h3>
-                  <p className="text-sm text-gray-600">{tier.description}</p>
+                  <h3 className="text-lg font-semibold text-anchor-cream-text">{tier.title}</h3>
+                  <p className="text-sm text-anchor-cream-text/70">{tier.description}</p>
                 </div>
               </Card>
             ))}
@@ -829,11 +829,11 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
           <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
             <Card>
               <div className="p-6 space-y-3">
-                <h3 className="text-lg font-semibold text-anchor-charcoal flex items-center gap-2">
+                <h3 className="text-lg font-semibold text-anchor-cream-text flex items-center gap-2">
                   <Icon name="gift" className="h-5 w-5 text-red-600" />
                   Add-on platters
                 </h3>
-                <ul className="space-y-2 text-sm text-gray-700">
+                <ul className="space-y-2 text-sm text-anchor-cream-text/70">
                   <li>Pigs in blankets (tray of 50) - GBP 39</li>
                   <li>Stuffing balls (tray of 40) - GBP 28</li>
                   <li>Cauliflower cheese (serves ~12) - GBP 24</li>
@@ -844,11 +844,11 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
             </Card>
             <Card>
               <div className="p-6 space-y-3">
-                <h3 className="text-lg font-semibold text-anchor-charcoal flex items-center gap-2">
+                <h3 className="text-lg font-semibold text-anchor-cream-text flex items-center gap-2">
                   <Icon name="coffee" className="h-5 w-5 text-red-600" />
                   Dessert & drinks stations
                 </h3>
-                <ul className="space-y-2 text-sm text-gray-700">
+                <ul className="space-y-2 text-sm text-anchor-cream-text/70">
                   <li>Festive dessert bites - Small GBP 24 (serves ~12) · Large GBP 45 (serves ~24)</li>
                   <li>Coffee & mince pie station - GBP 3.50 per person</li>
                   <li>Unlimited tea & coffee - GBP 4.49 per person</li>
@@ -860,11 +860,11 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
             </Card>
             <Card>
               <div className="p-6 space-y-3">
-                <h3 className="text-lg font-semibold text-anchor-charcoal flex items-center gap-2">
+                <h3 className="text-lg font-semibold text-anchor-cream-text flex items-center gap-2">
                   <Icon name="clock" className="h-5 w-5 text-red-600" />
                   Service notes
                 </h3>
-                <ul className="space-y-2 text-sm text-gray-700">
+                <ul className="space-y-2 text-sm text-anchor-cream-text/70">
                   <li>Designed for groups of 26+ with 90-minute buffet window.</li>
                   <li>Hot options topped up for the first 60 minutes.</li>
                   <li>Deposit GBP 10pp, pre-order 7 days ahead, final numbers 72 hours prior.</li>
@@ -876,7 +876,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
           </div>
 
           <div className="mt-12 flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="relative aspect-[4/3] w-full md:w-1/2 overflow-hidden rounded-2xl border border-gray-200 shadow-sm">
+            <div className="relative aspect-[4/3] w-full md:w-1/2 overflow-hidden rounded-2xl border border-anchor-gold/15">
               <Image
                 src="/images/events/christmas/christmas-buffet-table.jpg"
                 alt="Festive buffet spread for Heathrow Christmas parties at The Anchor"
@@ -886,8 +886,8 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
               />
             </div>
             <div className="md:w-1/2 space-y-4 text-left">
-              <h3 className="text-2xl font-bold text-anchor-charcoal">Ready to feed a crowd?</h3>
-              <p className="text-sm text-gray-700">We'll dress the buffet tables with signage, festive decor and all condiments. Tell us your guest count and we'll suggest the right tier and add-ons.</p>
+              <h3 className="text-2xl font-bold text-anchor-cream-text">Ready to feed a crowd?</h3>
+              <p className="text-sm text-anchor-cream-text/70">We'll dress the buffet tables with signage, festive decor and all condiments. Tell us your guest count and we'll suggest the right tier and add-ons.</p>
               <Button
                 variant="primary"
                 size="md"
@@ -914,30 +914,30 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
           <Grid cols={3} gap="md">
             <Card className="h-full">
               <div className="p-6 space-y-3">
-                <h3 className="text-lg font-semibold text-anchor-charcoal">Private Dining Room</h3>
-                <p className="text-sm text-gray-600">Seat up to 25 guests per sitting with cosy decor and direct service. Ideal for Heathrow airport teams, Staines offices and family gatherings wanting a Christmas party pub atmosphere.</p>
+                <h3 className="text-lg font-semibold text-anchor-cream-text">Private Dining Room</h3>
+                <p className="text-sm text-anchor-cream-text/70">Seat up to 25 guests per sitting with cosy decor and direct service. Ideal for Heathrow airport teams, Staines offices and family gatherings wanting a Christmas party pub atmosphere.</p>
               </div>
             </Card>
             <Card className="h-full">
               <div className="p-6 space-y-3">
-                <h3 className="text-lg font-semibold text-anchor-charcoal">Main Bar & Dining</h3>
-                <p className="text-sm text-gray-600">Flexible layouts for larger celebrations or buffet-style evenings. We'll shape the room around plans for Heathrow Christmas parties, Terminal 2 landside crews and Surrey community nights.</p>
+                <h3 className="text-lg font-semibold text-anchor-cream-text">Main Bar & Dining</h3>
+                <p className="text-sm text-anchor-cream-text/70">Flexible layouts for larger celebrations or buffet-style evenings. We'll shape the room around plans for Heathrow Christmas parties, Terminal 2 landside crews and Surrey community nights.</p>
               </div>
             </Card>
             <Card className="h-full">
               <div className="p-6 space-y-3">
-                <h3 className="text-lg font-semibold text-anchor-charcoal">Light-filled conservatory</h3>
-                <p className="text-sm text-gray-600">Bright, semi-private space with festive decor perfect for welcome drinks, dessert stations or kids tables for Christmas parties in Ashford, Staines and the Heathrow villages.</p>
+                <h3 className="text-lg font-semibold text-anchor-cream-text">Light-filled conservatory</h3>
+                <p className="text-sm text-anchor-cream-text/70">Bright, semi-private space with festive decor perfect for welcome drinks, dessert stations or kids tables for Christmas parties in Ashford, Staines and the Heathrow villages.</p>
               </div>
             </Card>
           </Grid>
-          <div className="mt-10 text-sm text-gray-600 text-center space-y-2">
+          <div className="mt-10 text-sm text-anchor-cream-text/70 text-center space-y-2">
             <p>Free on-site parking for around 20 cars • Five minutes from Heathrow Terminal 5 • Ten minutes to Staines-upon-Thames • Outside the ULEZ • Also a handy Windsor Christmas party venue • Sheltered smoking area available</p>
             <p>
               Driving from farther afield?{' '}
-              <Link href="/blog/cheap-heathrow-parking-alternatives" className="underline decoration-dotted hover:text-anchor-green transition-colors">Read our cheap Heathrow parking guide</Link>{' '}
+              <Link href="/blog/cheap-heathrow-parking-alternatives" className="underline decoration-dotted hover:text-anchor-gold transition-colors">Read our cheap Heathrow parking guide</Link>{' '}
               or{' '}
-              <Link href="/heathrow-parking" className="underline decoration-dotted hover:text-anchor-green transition-colors">pre-book parking at The Anchor</Link>{' '}
+              <Link href="/heathrow-parking" className="underline decoration-dotted hover:text-anchor-gold transition-colors">pre-book parking at The Anchor</Link>{' '}
               so your guests arrive without stress.
             </p>
           </div>
@@ -947,19 +947,19 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
       <Section background="gray" spacing="md" container>
         <Container>
           <div className="max-w-3xl mx-auto space-y-6 text-center">
-            <h2 className="text-3xl font-bold text-anchor-charcoal">Booking essentials</h2>
+            <h2 className="text-3xl font-bold text-anchor-cream-text">Booking essentials</h2>
           </div>
           <div className="max-w-3xl mx-auto mt-8">
-            <ul className="space-y-3 text-sm text-gray-700">
-              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-green-600" />Deposit GBP 10 per person to secure your festive booking – deposits are non-refundable.</li>
-              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-green-600" />Full pre-orders for every guest are required at least seven days before your meal.</li>
-              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-green-600" />We&apos;ll always try to help with last-minute changes, but we can&apos;t guarantee them once your order is confirmed.</li>
-              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-green-600" />Standard table time is two hours, with longer sittings available for larger parties.</li>
-              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-green-600" />An optional 10% service charge applies to tables of six or more.</li>
-              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-green-600" />Include any dietary requirements or allergies with your pre-order so we can provide suitable alternatives; some substitutions may carry a small surcharge.</li>
+            <ul className="space-y-3 text-sm text-anchor-cream-text/70">
+              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid" />Deposit GBP 10 per person to secure your festive booking – deposits are non-refundable.</li>
+              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid" />Full pre-orders for every guest are required at least seven days before your meal.</li>
+              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid" />We&apos;ll always try to help with last-minute changes, but we can&apos;t guarantee them once your order is confirmed.</li>
+              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid" />Standard table time is two hours, with longer sittings available for larger parties.</li>
+              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid" />An optional 10% service charge applies to tables of six or more.</li>
+              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid" />Include any dietary requirements or allergies with your pre-order so we can provide suitable alternatives; some substitutions may carry a small surcharge.</li>
               <li className="flex items-start gap-3">
-                <Icon name="check" className="mt-0.5 h-5 w-5 text-green-600" />
-                <span>Need guest parking? Share our <Link href="/blog/cheap-heathrow-parking-alternatives" className="underline decoration-dotted hover:text-anchor-green transition-colors">cheap Heathrow parking tips</Link> or direct drivers to <Link href="/heathrow-parking" className="underline decoration-dotted hover:text-anchor-green transition-colors">pre-booked spaces at The Anchor</Link>.</span>
+                <Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid" />
+                <span>Need guest parking? Share our <Link href="/blog/cheap-heathrow-parking-alternatives" className="underline decoration-dotted hover:text-anchor-gold transition-colors">cheap Heathrow parking tips</Link> or direct drivers to <Link href="/heathrow-parking" className="underline decoration-dotted hover:text-anchor-gold transition-colors">pre-booked spaces at The Anchor</Link>.</span>
               </li>
             </ul>
           </div>
@@ -971,16 +971,16 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
           <FAQAccordionWithSchema
             title="Christmas Party FAQs"
             faqs={FAQ_ITEMS}
-            className="bg-gray-50"
+            className="bg-anchor-bg"
           />
         </Container>
       </Section>
 
-      <Section className="py-20 bg-gradient-to-b from-red-600 to-red-700 text-white">
+      <Section className="py-20 bg-anchor-bg-raised border-t border-anchor-gold/15">
         <Container>
           <div className="text-center space-y-8">
-            <h2 className="text-4xl font-bold">Ready to plan your Christmas at The Anchor?</h2>
-            <p className="text-lg text-red-100 max-w-2xl mx-auto">
+            <h2 className="text-4xl font-bold text-anchor-gold-vivid">Ready to plan your Christmas at The Anchor?</h2>
+            <p className="text-lg text-anchor-cream-text/70 max-w-2xl mx-auto">
               Send your enquiry and we'll come back within one working day. Need a quicker answer? Call the team and we'll help right away.
             </p>
             <div className="flex flex-col md:flex-row justify-center gap-4">
@@ -1057,7 +1057,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
         </Container>
       </Section>
 
-      <Section className="py-16 bg-white">
+      <Section background="white" className="py-16">
         <Container>
           <div className="max-w-3xl mx-auto mb-6">
             <div className="mb-6">
@@ -1190,10 +1190,10 @@ function ChristmasEnquiryForm({ context, onContextChange, onSuccess }: Christmas
   }
 
   return (
-    <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-      <h3 className="text-2xl font-bold text-anchor-charcoal mb-2">Send your Christmas enquiry</h3>
-      <p className="text-sm text-gray-600">We reply within one working day (often sooner).</p>
-      <p className="text-sm text-gray-600 mb-6">Prefer email?{' '}<a href={CONTACT_EMAIL_LINK} className="underline decoration-dotted">{CONTACT_EMAIL}</a></p>
+    <div className="rounded-2xl border border-anchor-gold/15 bg-anchor-bg-card p-6">
+      <h3 className="text-2xl font-bold text-anchor-cream-text mb-2">Send your Christmas enquiry</h3>
+      <p className="text-sm text-anchor-cream-text/70">We reply within one working day (often sooner).</p>
+      <p className="text-sm text-anchor-cream-text/70 mb-6">Prefer email?{' '}<a href={CONTACT_EMAIL_LINK} className="underline decoration-dotted text-anchor-gold">{CONTACT_EMAIL}</a></p>
 
       {status === 'success' && (
         <Alert variant="success" className="mb-6" title="Enquiry sent">
@@ -1227,31 +1227,31 @@ function ChristmasEnquiryForm({ context, onContextChange, onSuccess }: Christmas
 
         <div className="grid md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Full name *</label>
+            <label className="block text-sm font-medium text-anchor-cream-text/70">Full name *</label>
             <input
               type="text"
               value={name}
               onChange={event => setName(event.target.value)}
               autoComplete="name"
               placeholder="Your full name"
-              className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
+              className="mt-1 w-full rounded-lg border border-anchor-gold/30 bg-anchor-bg px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
               required
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Email *</label>
+            <label className="block text-sm font-medium text-anchor-cream-text/70">Email *</label>
             <input
               type="email"
               value={email}
               onChange={event => setEmail(event.target.value)}
               autoComplete="email"
               placeholder="you@example.com"
-              className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
+              className="mt-1 w-full rounded-lg border border-anchor-gold/30 bg-anchor-bg px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
               required
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Mobile *</label>
+            <label className="block text-sm font-medium text-anchor-cream-text/70">Mobile *</label>
             <input
               type="tel"
               value={phone}
@@ -1259,19 +1259,19 @@ function ChristmasEnquiryForm({ context, onContextChange, onSuccess }: Christmas
               autoComplete="tel"
               inputMode="tel"
               placeholder="Best number for a quick call"
-              className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
+              className="mt-1 w-full rounded-lg border border-anchor-gold/30 bg-anchor-bg px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
               required
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Party size *</label>
+            <label className="block text-sm font-medium text-anchor-cream-text/70">Party size *</label>
             <input
               type="number"
               min={context.mode === 'buffet' ? 26 : 6}
               value={partySize}
               onChange={event => setPartySize(event.target.value)}
               placeholder="e.g. 18"
-              className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
+              className="mt-1 w-full rounded-lg border border-anchor-gold/30 bg-anchor-bg px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
               required
             />
           </div>
@@ -1279,21 +1279,21 @@ function ChristmasEnquiryForm({ context, onContextChange, onSuccess }: Christmas
 
         <div className="grid md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Preferred date *</label>
+            <label className="block text-sm font-medium text-anchor-cream-text/70">Preferred date *</label>
             <input
               type="date"
               value={preferredDate}
               onChange={event => setPreferredDate(event.target.value)}
-              className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
+              className="mt-1 w-full rounded-lg border border-anchor-gold/30 bg-anchor-bg px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
               required
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700">Preferred time *</label>
+            <label className="block text-sm font-medium text-anchor-cream-text/70">Preferred time *</label>
             <select
               value={preferredTime}
               onChange={event => setPreferredTime(event.target.value)}
-              className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
+              className="mt-1 w-full rounded-lg border border-anchor-gold/30 bg-anchor-bg px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
             >
               {TIME_OPTIONS.map(option => (
                 <option key={option} value={option}>{option}</option>
@@ -1303,24 +1303,24 @@ function ChristmasEnquiryForm({ context, onContextChange, onSuccess }: Christmas
         </div>
 
         {(context.extras.length > 0 || context.perks.length > 0) && (
-          <div className="rounded-lg border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-700">
+          <div className="rounded-lg border border-anchor-gold/15 bg-anchor-bg-raised px-4 py-3 text-sm text-anchor-cream-text/70">
             <Icon name="gift" className="mr-2 inline h-4 w-4" />
             We've noted your selected extras and offers for our reply.
           </div>
         )}
 
         <div>
-          <label className="block text-sm font-medium text-gray-700">Notes / dietary requests</label>
+          <label className="block text-sm font-medium text-anchor-cream-text/70">Notes / dietary requests</label>
           <textarea
             rows={4}
             value={notes}
             onChange={event => setNotes(event.target.value)}
-            className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
+            className="mt-1 w-full rounded-lg border border-anchor-gold/30 bg-anchor-bg px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
             placeholder="Share dietary notes, entertainment ideas or anything else we should prepare for."
           />
         </div>
 
-        <label className="flex items-start gap-2 text-sm text-gray-700">
+        <label className="flex items-start gap-2 text-sm text-anchor-cream-text/70">
           <input type="checkbox" checked={consent} onChange={event => setConsent(event.target.checked)} className="mt-1" required />
           <span>I'm happy for The Anchor to contact me about this enquiry.</span>
         </label>
@@ -1331,7 +1331,7 @@ function ChristmasEnquiryForm({ context, onContextChange, onSuccess }: Christmas
           </Button>
           <a
             href={CONTACT_PHONE_LINK}
-            className="flex items-center gap-2 text-sm text-gray-600 underline decoration-dotted"
+            className="flex items-center gap-2 text-sm text-anchor-cream-text/70 underline decoration-dotted"
           >
             Prefer to chat? Call {CONTACT_PHONE}
           </a>
@@ -1352,17 +1352,17 @@ function StickyEnquiryBar({ visible, context, onContextChange, onOpenForm }: Sti
   if (!visible) return null
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 bg-white/95 shadow-lg backdrop-blur">
+    <div className="fixed bottom-0 left-0 right-0 z-40 bg-anchor-bg-card/95 shadow-lg backdrop-blur border-t border-anchor-gold/15">
       <div className="mx-auto flex max-w-5xl flex-col gap-4 px-4 py-3 md:flex-row md:items-center md:justify-between">
-        <div className="flex items-center gap-3 text-sm font-semibold text-anchor-charcoal">
+        <div className="flex items-center gap-3 text-sm font-semibold text-anchor-cream-text">
           <span className="hidden md:inline">Plan your Christmas:</span>
-          <div className="flex gap-2 bg-gray-100 rounded-full p-1">
+          <div className="flex gap-2 bg-anchor-bg-raised rounded-full p-1">
             {(['dinner', 'buffet'] as EnquiryMode[]).map(mode => (
               <button
                 key={mode}
                 type="button"
                 onClick={() => onContextChange({ mode })}
-                className={`rounded-full px-3 py-1 text-xs font-semibold transition ${context.mode === mode ? 'bg-red-600 text-white shadow-sm' : 'text-anchor-charcoal hover:bg-white'}`}
+                className={`rounded-full px-3 py-1 text-xs font-semibold transition ${context.mode === mode ? 'bg-red-600 text-white shadow-sm' : 'text-anchor-cream-text/70 hover:bg-anchor-bg-card'}`}
               >
                 {mode === 'dinner' ? 'Dinner (≤25)' : 'Buffet (26+)'}
               </button>
@@ -1553,19 +1553,19 @@ function ChristmasLightbox({ suppressed, context, onContextChange, onSubmitSucce
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4">
-      <div className="w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl relative">
+      <div className="w-full max-w-lg rounded-2xl bg-anchor-bg-card p-6 shadow-xl relative border border-anchor-gold/15">
         <button
           type="button"
           onClick={closeLightbox}
-          className="absolute right-4 top-4 text-gray-400 hover:text-gray-600"
+          className="absolute right-4 top-4 text-anchor-cream-text/50 hover:text-anchor-cream-text"
           aria-label="Close"
         >
           <Icon name="close" className="h-5 w-5" />
         </button>
         <div className="space-y-4">
           <Badge className="bg-red-100 text-red-700 w-fit">Early-Bird reminder</Badge>
-          <h3 className="text-2xl font-bold text-anchor-charcoal">Early-Bird ends 31 Oct - shall we save you a spot?</h3>
-          <p className="text-sm text-gray-600">Share a few details and we'll hold the free glass of Prosecco offer for you. We typically reply within one working day.</p>
+          <h3 className="text-2xl font-bold text-anchor-cream-text">Early-Bird ends 31 Oct - shall we save you a spot?</h3>
+          <p className="text-sm text-anchor-cream-text/70">Share a few details and we'll hold the free glass of Prosecco offer for you. We typically reply within one working day.</p>
 
           {error && (
             <Alert variant="error" title="Almost there" className="text-sm">
@@ -1580,7 +1580,7 @@ function ChristmasLightbox({ suppressed, context, onContextChange, onSubmitSucce
               value={name}
               onChange={event => setName(event.target.value)}
               autoComplete="name"
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
+              className="w-full rounded-lg border border-anchor-gold/30 bg-anchor-bg px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
             />
             <input
               type="email"
@@ -1588,7 +1588,7 @@ function ChristmasLightbox({ suppressed, context, onContextChange, onSubmitSucce
               value={email}
               onChange={event => setEmail(event.target.value)}
               autoComplete="email"
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
+              className="w-full rounded-lg border border-anchor-gold/30 bg-anchor-bg px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
             />
             <input
               type="tel"
@@ -1597,7 +1597,7 @@ function ChristmasLightbox({ suppressed, context, onContextChange, onSubmitSucce
               onChange={event => setPhone(event.target.value)}
               autoComplete="tel"
               inputMode="tel"
-              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
+              className="w-full rounded-lg border border-anchor-gold/30 bg-anchor-bg px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
             />
             <div className="grid grid-cols-2 gap-3">
               <input
@@ -1606,13 +1606,13 @@ function ChristmasLightbox({ suppressed, context, onContextChange, onSubmitSucce
                 placeholder="Party size"
                 value={partySize}
                 onChange={event => setPartySize(event.target.value)}
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
+                className="w-full rounded-lg border border-anchor-gold/30 bg-anchor-bg px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
               />
               <input
                 type="date"
                 value={preferredDate}
                 onChange={event => setPreferredDate(event.target.value)}
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
+                className="w-full rounded-lg border border-anchor-gold/30 bg-anchor-bg px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
               />
             </div>
             <div className="flex gap-2">
@@ -1621,7 +1621,7 @@ function ChristmasLightbox({ suppressed, context, onContextChange, onSubmitSucce
                   key={mode}
                   type="button"
                   onClick={() => onContextChange({ mode })}
-                  className={`flex-1 rounded-lg border px-3 py-2 text-sm font-semibold ${context.mode === mode ? 'bg-red-600 text-white border-red-600' : 'bg-white text-anchor-charcoal border-gray-300'}`}
+                  className={`flex-1 rounded-lg border px-3 py-2 text-sm font-semibold ${context.mode === mode ? 'bg-red-600 text-white border-red-600' : 'bg-anchor-bg-raised text-anchor-cream-text border-anchor-gold/30'}`}
                 >
                   {mode === 'dinner' ? 'Dinner (≤25)' : 'Buffet (26+)'}
                 </button>

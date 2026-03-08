@@ -126,14 +126,14 @@ export default function M25Junction14PubPage() {
       />
 
       {/* Quick Summary */}
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto bg-anchor-cream/40 border border-anchor-cream rounded-2xl p-6">
-            <h2 className="text-2xl font-bold text-anchor-green mb-3">Why Stop Off At The Anchor</h2>
-            <p className="text-gray-700 mb-4">
+            <h2 className="text-2xl font-bold text-anchor-cream-text mb-3">Why Stop Off At The Anchor</h2>
+            <p className="text-anchor-cream-text/70 mb-4">
               Swap service-station sandwiches for hearty pub food, real ales and a breather before rejoining the M25 from Junction 14.
             </p>
-            <div className="grid gap-3 md:grid-cols-2 text-gray-700">
+            <div className="grid gap-3 md:grid-cols-2 text-anchor-cream-text/70">
               <div className="flex items-start gap-2">
                 <span className="font-semibold text-anchor-gold">⛽</span>
                 <span>5 minute diversion from Junction 14 via A3113 and Horton Road</span>
@@ -156,7 +156,7 @@ export default function M25Junction14PubPage() {
       </section>
 
       {/* Page Title */}
-      <section className="py-8 bg-white">
+      <section className="py-8 bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <PageTitle
@@ -168,7 +168,7 @@ export default function M25Junction14PubPage() {
             >
               Junction 14 M25 Pub - Traditional British Pub Near M25
             </PageTitle>
-            <p className="text-lg text-gray-700">
+            <p className="text-lg text-anchor-cream-text/70">
               The smart alternative to motorway services - just 5 minutes from Junction 14
             </p>
           </div>
@@ -176,7 +176,7 @@ export default function M25Junction14PubPage() {
       </section>
 
       {/* Welcome Section */}
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <SectionHeader
@@ -219,7 +219,7 @@ export default function M25Junction14PubPage() {
       </section>
 
       {/* Why Choose Us Over Services */}
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeader
@@ -227,8 +227,8 @@ export default function M25Junction14PubPage() {
             />
             
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-white rounded-xl p-6">
-                <h3 className="text-2xl font-bold text-anchor-green mb-4">Beat Service Station Blues</h3>
+              <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
+                <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">Beat Service Station Blues</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
                     <span className="text-red-500 text-xl">❌</span>
@@ -269,8 +269,8 @@ export default function M25Junction14PubPage() {
                 </ul>
               </div>
               
-              <div className="bg-white rounded-xl p-6">
-                <h3 className="text-2xl font-bold text-anchor-green mb-4">Perfect Journey Break</h3>
+              <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
+                <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">Perfect Journey Break</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
                     <span className="text-anchor-gold text-xl">🍺</span>
@@ -321,7 +321,7 @@ export default function M25Junction14PubPage() {
       </section>
 
       {/* Quick Stops Menu */}
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -329,9 +329,9 @@ export default function M25Junction14PubPage() {
             />
             
             <div className="grid md:grid-cols-2 gap-8 mb-8">
-              <div className="bg-amber-50 rounded-xl p-6">
+              <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
                 <h3 className="text-xl font-bold text-amber-800 mb-4">20-Minute Lunch Stops</h3>
-                <ul className="space-y-2 text-gray-700">
+                <ul className="space-y-2 text-anchor-cream-text/70">
                   <li>• Chicken Goujon Wrap with Chips - 9.99</li>
                   <li>• Beef Burger - 9.99</li>
                   <li>• Fish & Chips - 14.99</li>
@@ -341,9 +341,9 @@ export default function M25Junction14PubPage() {
                 <p className="mt-3 text-sm text-amber-700">All served quickly for motorway travelers</p>
               </div>
               
-              <div className="bg-blue-50 rounded-xl p-6">
+              <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
                 <h3 className="text-xl font-bold text-blue-800 mb-4">Take a Proper Break</h3>
-                <ul className="space-y-2 text-gray-700">
+                <ul className="space-y-2 text-anchor-cream-text/70">
                   <li>• Beef & Ale Pie - 14.99</li>
                   <li>• Chicken Katsu Curry - 13.99</li>
                   <li>• Stone-baked pizzas</li>
@@ -354,7 +354,7 @@ export default function M25Junction14PubPage() {
             </div>
             
             <div className="text-center">
-              <p className="text-lg text-gray-700 mb-4">
+              <p className="text-lg text-anchor-cream-text/70 mb-4">
                 Kitchen serves quick meals perfect for motorway breaks
               </p>
               <Link href="/food-menu">
@@ -368,7 +368,7 @@ export default function M25Junction14PubPage() {
       </section>
 
       {/* Journey Planner */}
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeader
@@ -376,7 +376,7 @@ export default function M25Junction14PubPage() {
             />
             
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-white rounded-xl p-6">
+              <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
                 <h3 className="text-xl font-bold mb-4">📍 From M25 Clockwise</h3>
                 <ol className="space-y-3">
                   <li className="flex gap-3">
@@ -396,21 +396,21 @@ export default function M25Junction14PubPage() {
                     <span>The Anchor is 0.5 miles on your left</span>
                   </li>
                 </ol>
-                <p className="mt-4 text-sm text-gray-600">
+                <p className="mt-4 text-sm text-anchor-cream-text/55">
                   <strong>Total time:</strong> 5 minutes from motorway
                 </p>
               </div>
               
-              <div className="bg-white rounded-xl p-6">
+              <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
                 <h3 className="text-xl font-bold mb-4">🔄 Rejoining M25</h3>
                 <div className="space-y-4">
                   <div>
                     <p className="font-semibold mb-2">Back to M25 (any direction)</p>
-                    <p className="text-gray-700">Simply reverse the route - well signed back to Junction 14</p>
+                    <p className="text-anchor-cream-text/70">Simply reverse the route - well signed back to Junction 14</p>
                   </div>
                   <div>
                     <p className="font-semibold mb-2">Alternative Routes</p>
-                    <ul className="space-y-1 text-gray-700 text-sm">
+                    <ul className="space-y-1 text-anchor-cream-text/70 text-sm">
                       <li>• To Heathrow: Continue on local roads</li>
                       <li>• To M4: Via Stanwell and M25 J15</li>
                       <li>• To A30: Direct from Stanwell Moor</li>
@@ -418,7 +418,7 @@ export default function M25Junction14PubPage() {
                   </div>
                   <div className="pt-4 border-t">
                     <p className="text-green-700 font-semibold">⚡ Time Saver</p>
-                    <p className="text-sm text-gray-700">Often quicker than service station queues!</p>
+                    <p className="text-sm text-anchor-cream-text/70">Often quicker than service station queues!</p>
                   </div>
                 </div>
               </div>
@@ -440,7 +440,7 @@ export default function M25Junction14PubPage() {
       </section>
 
       {/* Regular M25 Users */}
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <SectionHeader
@@ -448,9 +448,9 @@ export default function M25Junction14PubPage() {
             />
             
             <div className="grid md:grid-cols-3 gap-6 mb-8">
-              <div className="bg-gray-50 rounded-xl p-6">
+              <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
                 <h3 className="font-bold text-lg mb-3">Business Drivers</h3>
-                <ul className="space-y-2 text-gray-700 text-sm">
+                <ul className="space-y-2 text-anchor-cream-text/70 text-sm">
                   <li>• Quieter than services</li>
                   <li>• Proper meals</li>
                   <li>• VAT receipts</li>
@@ -458,9 +458,9 @@ export default function M25Junction14PubPage() {
                 </ul>
               </div>
               
-              <div className="bg-gray-50 rounded-xl p-6">
+              <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
                 <h3 className="font-bold text-lg mb-3">Long Distance</h3>
-                <ul className="space-y-2 text-gray-700 text-sm">
+                <ul className="space-y-2 text-anchor-cream-text/70 text-sm">
                   <li>• Halfway point M25</li>
                   <li>• Dog walking area</li>
                   <li>• Proper break spot</li>
@@ -468,9 +468,9 @@ export default function M25Junction14PubPage() {
                 </ul>
               </div>
               
-              <div className="bg-gray-50 rounded-xl p-6">
+              <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
                 <h3 className="font-bold text-lg mb-3">Local Traffic</h3>
-                <ul className="space-y-2 text-gray-700 text-sm">
+                <ul className="space-y-2 text-anchor-cream-text/70 text-sm">
                   <li>• Known by locals</li>
                   <li>• Traffic updates</li>
                   <li>• Alternative routes</li>
@@ -479,7 +479,7 @@ export default function M25Junction14PubPage() {
               </div>
             </div>
             
-            <p className="text-lg text-gray-700">
+            <p className="text-lg text-anchor-cream-text/70">
               Join the smart M25 drivers who've discovered the better alternative to services!
             </p>
           </div>
@@ -487,7 +487,7 @@ export default function M25Junction14PubPage() {
       </section>
 
       {/* Additional Benefits */}
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -497,8 +497,8 @@ export default function M25Junction14PubPage() {
             <div className="bg-white rounded-xl p-8">
               <div className="grid md:grid-cols-2 gap-8">
                 <div>
-                  <h3 className="text-xl font-bold text-anchor-green mb-4">Perfect For</h3>
-                  <ul className="space-y-2 text-gray-700">
+                  <h3 className="text-xl font-bold text-anchor-cream-text mb-4">Perfect For</h3>
+                  <ul className="space-y-2 text-anchor-cream-text/70">
                     <li>✓ Meeting point from different M25 directions</li>
                     <li>✓ Break before Heathrow drop-offs</li>
                     <li>✓ Avoiding accident delays with local knowledge</li>
@@ -508,8 +508,8 @@ export default function M25Junction14PubPage() {
                 </div>
                 
                 <div>
-                  <h3 className="text-xl font-bold text-anchor-green mb-4">Remember</h3>
-                  <ul className="space-y-2 text-gray-700">
+                  <h3 className="text-xl font-bold text-anchor-cream-text mb-4">Remember</h3>
+                  <ul className="space-y-2 text-anchor-cream-text/70">
                     <li>📍 Postcode: TW19 6AQ</li>
                     <li>🚗 Free parking for all</li>
                     <li>⏰ Quick service available</li>
@@ -524,14 +524,14 @@ export default function M25Junction14PubPage() {
       </section>
 
       {/* Opening Hours */}
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
             <SectionHeader
               title="Opening Hours for M25 Travelers"
             />
             <BusinessHours />
-            <p className="mt-4 text-gray-600">
+            <p className="mt-4 text-anchor-cream-text/55">
               Kitchen times perfect for lunch and dinner breaks
             </p>
           </div>

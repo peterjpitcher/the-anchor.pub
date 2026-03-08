@@ -205,8 +205,8 @@ export default function SitemapPage() {
       />
 
       {/* Page Title */}
-      <Section spacing="md" container className="bg-white">
-        <PageTitle className="text-center text-anchor-green mb-8" seo={{ structured: true, speakable: true }}>
+      <Section spacing="md" container className="bg-anchor-bg">
+        <PageTitle className="text-center text-anchor-gold-vivid mb-8" seo={{ structured: true, speakable: true }}>
           Sitemap - The Anchor
         </PageTitle>
       </Section>
@@ -215,15 +215,15 @@ export default function SitemapPage() {
       <Section background="gray" spacing="lg" container containerSize="lg">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {sitemapSections.map((section) => (
-            <div key={section.title} className="bg-gray-50 rounded-xl p-6">
-              <h2 className="text-xl font-bold text-anchor-green mb-4">
+            <div key={section.title} className="bg-anchor-bg-card rounded-xl p-6 border border-anchor-gold/15">
+              <h2 className="text-xl font-bold text-anchor-gold-vivid mb-4">
                 {section.title}
               </h2>
               <ul className="space-y-2">
                 {section.links.map((link) => (
                   <li key={link.href}>
                     {link.note ? (
-                      <span className="text-gray-700">
+                      <span className="text-anchor-cream-text/70">
                         {link.label} <span className="text-sm">({link.note})</span>
                       </span>
                     ) : (
@@ -242,11 +242,11 @@ export default function SitemapPage() {
         </div>
 
         {/* Contact Information */}
-        <div className="mt-12 bg-anchor-sand/30 rounded-xl p-8 text-center">
-          <h2 className="text-2xl font-bold text-anchor-green mb-4">
+        <div className="mt-12 bg-anchor-bg-raised rounded-xl p-8 text-center">
+          <h2 className="text-2xl font-bold text-anchor-gold-vivid mb-4">
             Can't Find What You're Looking For?
           </h2>
-          <p className="text-gray-700 mb-6">
+          <p className="text-anchor-cream-text/70 mb-6">
             Give us a call and we'll be happy to help
           </p>
           <div className="flex flex-wrap justify-center gap-6">
@@ -258,7 +258,7 @@ export default function SitemapPage() {
             >
               📞 01753 682707
             </PhoneLink>
-            <span className="text-gray-600">|</span>
+            <span className="text-anchor-cream-text/55">|</span>
             <EmailLink
               email="manager@the-anchor.pub"
               source="sitemap_contact"

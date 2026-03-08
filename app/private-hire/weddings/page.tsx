@@ -68,23 +68,23 @@ export default function WeddingsPage() {
                 }
             />
 
-            <section className="py-12 bg-white">
+            <section className="py-12 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <PageTitle className="text-center mb-6" seo={{ structured: true, speakable: true }}>
                         Not Just Another Wedding Venue
                     </PageTitle>
                     <div className="max-w-3xl mx-auto text-center">
-                        <p className="text-lg text-gray-700 mb-8">
+                        <p className="text-lg text-anchor-cream-text/70 mb-8">
                             We specialise in the celebrations <strong>around</strong> the big day. Whether it's a lively engagement party, a relaxed dinner after a registry office ceremony, or a 'day-after' brunch to say goodbye to out-of-town guests.
                         </p>
 
-                        <div className="bg-pink-50 p-6 rounded-xl inline-block text-left w-full border border-pink-100">
-                            <h3 className="font-bold text-anchor-green mb-3 text-center">Perfectly Located Near</h3>
+                        <div className="bg-anchor-bg-raised p-6 rounded-xl inline-block text-left w-full border border-anchor-gold/15">
+                            <h3 className="font-bold text-anchor-gold-vivid mb-3 text-center">Perfectly Located Near</h3>
                             <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-2">
                                 {nearbyWeddingVenues.map(l => (
                                     <li key={l.slug} className="flex items-center gap-2">
                                         <span className="text-anchor-gold">🏛️</span>
-                                        <Link href={`/private-hire/near/${l.slug}`} className="hover:underline text-gray-700 font-medium">
+                                        <Link href={`/private-hire/near/${l.slug}`} className="hover:underline text-anchor-cream-text/70 font-medium">
                                             {l.name} ({l.distance})
                                         </Link>
                                     </li>
@@ -95,7 +95,7 @@ export default function WeddingsPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-gray-50">
+            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
                 <Container>
                     <SectionHeader
                         title="Celebration Options"
@@ -132,7 +132,7 @@ export default function WeddingsPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-white">
+            <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
                 <Container>
                     <SectionHeader
                         title="Make It Yours"

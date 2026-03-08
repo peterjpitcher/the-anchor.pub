@@ -94,29 +94,29 @@ export default function PubNearIbisHeathrowPage() {
         }
       />
 
-      <section className="py-8 bg-white">
+      <section className="py-8 bg-anchor-bg">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
-            <PageTitle seo={{ structured: true, speakable: true }} className="text-anchor-green mb-4">
+            <PageTitle seo={{ structured: true, speakable: true }} className="text-anchor-cream-text mb-4">
               Pub Near ibis London Heathrow
             </PageTitle>
-            <p className="text-lg text-gray-700">
+            <p className="text-lg text-anchor-cream-text/70">
               Smart travellers stay at the ibis to save on accommodation — then spend the difference on a proper evening at The Anchor. Just 12 minutes away: real ales, home-cooked British food, and free parking.
             </p>
           </div>
         </Container>
       </section>
 
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <FeatureGrid
               columns={4}
               features={[
-                { icon: '🕐', title: '12 Minutes', description: 'By taxi from ibis Heathrow', variant: 'colored', color: 'bg-green-50', className: 'rounded-xl p-6 text-center' },
-                { icon: '🚖', title: '~£15', description: 'Typical taxi fare each way', variant: 'colored', color: 'bg-blue-50', className: 'rounded-xl p-6 text-center' },
-                { icon: '🅿️', title: 'Free Parking', description: '20 spaces — drive and park free', variant: 'colored', color: 'bg-amber-50', className: 'rounded-xl p-6 text-center' },
-                { icon: '💰', title: 'Great Value', description: 'Mains from £8.99 — pub prices', variant: 'colored', color: 'bg-red-50', className: 'rounded-xl p-6 text-center' },
+                { icon: '🕐', title: '12 Minutes', description: 'By taxi from ibis Heathrow', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '🚖', title: '~£15', description: 'Typical taxi fare each way', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '🅿️', title: 'Free Parking', description: '20 spaces — drive and park free', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '💰', title: 'Great Value', description: 'Mains from £8.99 — pub prices', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
               ]}
               className="mb-8"
             />
@@ -124,7 +124,7 @@ export default function PubNearIbisHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -132,8 +132,8 @@ export default function PubNearIbisHeathrowPage() {
               subtitle="You saved on your hotel — now treat yourself to a proper night out. The Anchor is the independent local that ibis guests discover and keep coming back to."
             />
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-xl font-bold text-anchor-green mb-4">What Smart Travellers Love</h3>
+              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
+                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">What Smart Travellers Love</h3>
                 <ul className="space-y-3">
                   {[
                     'Home-cooked food — not microwave hotel meals',
@@ -150,9 +150,9 @@ export default function PubNearIbisHeathrowPage() {
                   ))}
                 </ul>
               </div>
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-xl font-bold text-anchor-green mb-4">Getting Here from ibis Heathrow</h3>
-                <div className="space-y-3 text-gray-700">
+              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
+                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Getting Here from ibis Heathrow</h3>
+                <div className="space-y-3 text-anchor-cream-text/70">
                   <div>
                     <p className="font-semibold">By Taxi or Uber</p>
                     <p className="text-sm">Ask for The Anchor, Stanwell Moor (TW19 6AQ). Journey approximately 12 minutes, around £15 each way.</p>
@@ -163,7 +163,7 @@ export default function PubNearIbisHeathrowPage() {
                   </div>
                   <div className="pt-2 border-t border-gray-200">
                     <p className="text-sm font-medium">Postcode: <strong>TW19 6AQ</strong></p>
-                    <p className="text-sm text-gray-600">Uber works well from all ibis Heathrow locations</p>
+                    <p className="text-sm text-anchor-cream-text/70">Uber works well from all ibis Heathrow locations</p>
                   </div>
                 </div>
               </div>
@@ -172,16 +172,16 @@ export default function PubNearIbisHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeader title="Best Value Picks" />
             <FeatureGrid
               columns={3}
               features={[
-                { icon: '🐟', title: 'Fish & Chips', description: 'British classic — fresh battered cod, chips and mushy peas. Proper pub grub.', variant: 'default', className: 'bg-white rounded-lg p-6 shadow-sm text-center' },
-                { icon: '🍕', title: 'BOGOF Pizza Tuesday', description: 'Buy one get one free on all stone-baked pizzas every Tuesday — brilliant value.', variant: 'default', className: 'bg-white rounded-lg p-6 shadow-sm text-center' },
-                { icon: '🍺', title: 'Real Ales from £4.80', description: 'Rotating guest ales — proper British beer at proper pub prices.', variant: 'default', className: 'bg-white rounded-lg p-6 shadow-sm text-center' },
+                { icon: '🐟', title: 'Fish & Chips', description: 'British classic — fresh battered cod, chips and mushy peas. Proper pub grub.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '🍕', title: 'BOGOF Pizza Tuesday', description: 'Buy one get one free on all stone-baked pizzas every Tuesday — brilliant value.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '🍺', title: 'Real Ales from £4.80', description: 'Rotating guest ales — proper British beer at proper pub prices.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
               ]}
               className="mb-6"
             />
@@ -194,7 +194,7 @@ export default function PubNearIbisHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
             <SectionHeader title="Opening Hours" />
@@ -232,7 +232,7 @@ export default function PubNearIbisHeathrowPage() {
             answer: 'Yes — we open at 4pm Tuesday to Friday and from noon on Saturdays and Sundays. Kitchen serves until 9pm Tuesday–Friday, 7pm Saturday, and 5pm Sunday. Perfect for an evening meal during your stay.'
           },
         ]}
-        className="bg-gray-50"
+        className="bg-anchor-bg"
       />
 
       <CTASection

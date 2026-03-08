@@ -71,14 +71,14 @@ function getEventTimingInfo(event: DisplayEvent): EventTimingInfo | null {
           label: hoursUntil <= 12 ? 'Starts tonight' : 'Starts tomorrow',
           message: `We kick off at ${formatEventTime(event.startDate)}.`,
           badgeClassName: 'bg-red-600 text-white',
-          panelClassName: 'bg-red-50 border border-red-200 text-red-700'
+          panelClassName: 'bg-red-900/20 border border-red-500/30 text-red-400'
         }
       } else if (daysUntil <= 2) {
         urgency = {
           label: 'Almost here',
           message: `Join us this ${eventStart.toLocaleDateString('en-GB', { weekday: 'long', timeZone: LONDON_TIME_ZONE })}.`,
           badgeClassName: 'bg-anchor-gold text-anchor-charcoal',
-          panelClassName: 'bg-anchor-gold/20 border border-anchor-gold/40 text-anchor-charcoal'
+          panelClassName: 'bg-anchor-gold/20 border border-anchor-gold/40 text-anchor-gold-vivid'
         }
       } else {
         const urgencyDayCount = Math.max(1, Math.round(totalDaysUntil))
@@ -86,7 +86,7 @@ function getEventTimingInfo(event: DisplayEvent): EventTimingInfo | null {
           label: `Only ${urgencyDayCount} day${urgencyDayCount === 1 ? '' : 's'} to go`,
           message: 'Book early to get your preferred time.',
           badgeClassName: 'bg-anchor-green text-white',
-          panelClassName: 'bg-anchor-green/10 border border-anchor-green/30 text-anchor-green'
+          panelClassName: 'bg-anchor-green/10 border border-anchor-green/30 text-anchor-gold-vivid'
         }
       }
     }
@@ -188,31 +188,31 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
 
   if (isTimeChange) {
     return (
-      <div ref={ref} className="bg-white rounded-lg p-4 shadow-sm border border-gray-100">
+      <div ref={ref} className="card-dark rounded-none p-4">
         {inView ? (
           <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6">
              <div className="flex items-center gap-3 sm:min-w-[160px]">
                <span className="text-xl">⏰</span>
-               <span className="font-bold text-gray-900">{eventDate}</span>
+               <span className="font-bold text-anchor-cream-text">{eventDate}</span>
              </div>
-             
-             <div className="flex-1 text-gray-700">
+
+             <div className="flex-1 text-anchor-cream-text/70">
                 {timeChangeMessage}
              </div>
-             
-             <div className="text-sm font-semibold text-anchor-green whitespace-nowrap bg-anchor-green/5 px-3 py-1 rounded-full">
+
+             <div className="text-sm font-semibold text-anchor-gold-vivid whitespace-nowrap bg-anchor-gold/10 px-3 py-1 rounded-full">
                 {timeChangeSchedule}
              </div>
           </div>
         ) : (
-           <div className="h-12 bg-gray-50 animate-pulse rounded"></div>
+           <div className="h-12 bg-anchor-bg-raised animate-pulse rounded"></div>
         )}
       </div>
     )
   }
 
   return (
-    <div ref={ref} className="bg-white rounded-2xl shadow-lg overflow-hidden">
+    <div ref={ref} className="card-dark rounded-none overflow-hidden">
       {inView ? (
         <>
           {/* Event Header with Name and Time */}
@@ -281,7 +281,7 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
                     )}
                   </div>
                 )}
-                <p className="text-sm text-gray-700 line-clamp-2 mb-2">
+                <p className="text-sm text-anchor-cream-text/70 line-clamp-2 mb-2">
                   {isTimeChange ? timeChangeMessage : getEventShortDescription(event)}
                 </p>
                 
@@ -372,7 +372,7 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
                     )}
                   </div>
                 )}
-                <p className="text-gray-700 mb-3">
+                <p className="text-anchor-cream-text/70 mb-3">
                   {isTimeChange ? timeChangeMessage : getEventShortDescription(event)}
                 </p>
                 
@@ -380,7 +380,7 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
                 {!isTimeChange && event.highlights && event.highlights.length > 0 && (
                   <div className="flex flex-wrap gap-2 mb-3">
                     {event.highlights.slice(0, 3).map((highlight, idx) => (
-                      <span key={idx} className="text-sm sm:text-xs bg-gray-100 px-2 py-1 rounded-full text-gray-700 whitespace-nowrap">
+                      <span key={idx} className="text-sm sm:text-xs bg-anchor-bg-raised px-2 py-1 rounded-full text-anchor-cream-text/70 whitespace-nowrap">
                         {highlight}
                       </span>
                     ))}
@@ -392,13 +392,13 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
                     <span className="text-anchor-gold font-semibold">{priceLabel}</span>
                   )}
                   {!isTimeChange && event.performer && (
-                    <span className="text-gray-700">
+                    <span className="text-anchor-cream-text/70">
                       Featuring: {event.performer.name}
                     </span>
                   )}
                   
                   {!isTimeChange && event.duration && (
-                    <span className="text-gray-700 text-sm sm:text-xs">
+                    <span className="text-anchor-cream-text/70 text-sm sm:text-xs">
                       Duration: {event.duration.replace('PT', '').replace('H', 'h ').replace('M', 'm')}
                     </span>
                   )}
@@ -424,7 +424,7 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
                     )}
                     
                     {!isTimeChange && event.video && event.video.length > 0 && (
-                      <span className="text-sm sm:text-xs text-gray-700">
+                      <span className="text-sm sm:text-xs text-anchor-cream-text/70">
                         📹 Video available
                       </span>
                     )}
@@ -467,14 +467,14 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
       ) : (
         // Loading skeleton
         <div className="animate-pulse">
-          <div className="bg-gray-300 h-20 sm:h-24"></div>
+          <div className="bg-anchor-bg-raised h-20 sm:h-24"></div>
           <div className="p-4 sm:p-6">
             <div className="flex items-start gap-3 sm:gap-4">
-              <div className="w-20 h-20 sm:w-32 sm:h-32 bg-gray-300 rounded-lg"></div>
+              <div className="w-20 h-20 sm:w-32 sm:h-32 bg-anchor-bg-raised rounded-lg"></div>
               <div className="flex-1 space-y-3">
-                <div className="h-4 bg-gray-300 rounded w-3/4"></div>
-                <div className="h-4 bg-gray-300 rounded w-1/2"></div>
-                <div className="h-4 bg-gray-300 rounded w-1/4"></div>
+                <div className="h-4 bg-anchor-bg-raised rounded w-3/4"></div>
+                <div className="h-4 bg-anchor-bg-raised rounded w-1/2"></div>
+                <div className="h-4 bg-anchor-bg-raised rounded w-1/4"></div>
               </div>
             </div>
           </div>
@@ -565,11 +565,11 @@ export function FilteredUpcomingEventsClient({ events }: FilteredUpcomingEventsC
 
   if (events.length === 0) {
     return (
-      <div className="text-center py-12 bg-gray-50 rounded-2xl">
-        <p className="text-gray-700 text-lg">
+      <div className="text-center py-12 bg-anchor-bg-raised rounded-none">
+        <p className="text-anchor-cream-text/70 text-lg">
           No upcoming events scheduled at the moment.
         </p>
-        <p className="text-gray-700 mt-2">Check back soon or follow us on social media for updates!</p>
+        <p className="text-anchor-cream-text/70 mt-2">Check back soon or follow us on social media for updates!</p>
       </div>
     )
   }

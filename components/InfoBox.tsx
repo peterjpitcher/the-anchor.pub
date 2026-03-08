@@ -17,34 +17,24 @@ export function InfoBox({
   icon,
   className = ''
 }: InfoBoxProps) {
-  const baseClasses = 'rounded-xl p-6'
-  
+  const baseClasses = 'card-dark rounded-none p-6'
+
   const variantClasses = {
-    default: 'bg-white shadow-sm',
-    colored: color || 'bg-gray-50'
+    default: '',
+    colored: color ? color : ''
   }
 
   return (
     <div className={`${baseClasses} ${variantClasses[variant]} overflow-hidden ${className}`}>
-      <h3 className={`text-xl font-bold mb-4 ${
-        variant === 'colored' && color?.includes('amber') ? 'text-amber-800' :
-        variant === 'colored' && color?.includes('blue') ? 'text-blue-800' :
-        variant === 'colored' && color?.includes('red') ? 'text-red-800' :
-        'text-anchor-green'
-      }`}>
+      <h3 className="text-xl font-bold mb-4 text-anchor-cream-text">
         {icon && <span className="mr-2">{icon}</span>}
         {title}
       </h3>
-      <div className="text-gray-700">
+      <div className="text-anchor-cream-text/70">
         {content}
       </div>
       {footnote && (
-        <p className={`mt-3 text-sm ${
-          variant === 'colored' && color?.includes('amber') ? 'text-amber-700' :
-          variant === 'colored' && color?.includes('blue') ? 'text-blue-700' :
-          variant === 'colored' && color?.includes('red') ? 'text-red-700' :
-          'text-gray-700'
-        }`}>
+        <p className="mt-3 text-sm text-anchor-cream-text/55">
           {footnote}
         </p>
       )}

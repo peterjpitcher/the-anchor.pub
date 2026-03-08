@@ -94,13 +94,13 @@ export default function PubNearPremierInnHeathrowPage() {
         }
       />
 
-      <section className="py-8 bg-white">
+      <section className="py-8 bg-anchor-bg">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
-            <PageTitle seo={{ structured: true, speakable: true }} className="text-anchor-green mb-4">
+            <PageTitle seo={{ structured: true, speakable: true }} className="text-anchor-cream-text mb-4">
               Pub Near Premier Inn Heathrow Terminal 5
             </PageTitle>
-            <p className="text-lg text-gray-700">
+            <p className="text-lg text-anchor-cream-text/70">
               Staying at Premier Inn Heathrow? Skip the Brewers Fayre and discover The Anchor — an independent British pub just 8 minutes away with better food, real ales, and free parking.
             </p>
           </div>
@@ -108,16 +108,16 @@ export default function PubNearPremierInnHeathrowPage() {
       </section>
 
       {/* Key facts */}
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <FeatureGrid
               columns={4}
               features={[
-                { icon: '🕐', title: '8 Minutes', description: 'By taxi from Premier Inn Heathrow T5', variant: 'colored', color: 'bg-green-50', className: 'rounded-xl p-6 text-center' },
-                { icon: '🚖', title: '~£10–12', description: 'Short taxi fare each way', variant: 'colored', color: 'bg-blue-50', className: 'rounded-xl p-6 text-center' },
-                { icon: '🅿️', title: 'Free Parking', description: '20 spaces — no hourly charges', variant: 'colored', color: 'bg-amber-50', className: 'rounded-xl p-6 text-center' },
-                { icon: '🍺', title: 'Real Ales', description: 'Proper draught beer, not just lager', variant: 'colored', color: 'bg-red-50', className: 'rounded-xl p-6 text-center' },
+                { icon: '🕐', title: '8 Minutes', description: 'By taxi from Premier Inn Heathrow T5', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '🚖', title: '~£10–12', description: 'Short taxi fare each way', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '🅿️', title: 'Free Parking', description: '20 spaces — no hourly charges', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '🍺', title: 'Real Ales', description: 'Proper draught beer, not just lager', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
               ]}
               className="mb-8"
             />
@@ -126,7 +126,7 @@ export default function PubNearPremierInnHeathrowPage() {
       </section>
 
       {/* Why choose The Anchor */}
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -134,8 +134,8 @@ export default function PubNearPremierInnHeathrowPage() {
               subtitle="Premier Inn is great value accommodation — but for your evening out, The Anchor offers something the hotel bar simply can't: a genuine British local pub experience."
             />
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-xl font-bold text-anchor-green mb-4">Why Guests Choose Us</h3>
+              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
+                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Why Guests Choose Us</h3>
                 <ul className="space-y-3">
                   {[
                     'Independent pub — not a chain or franchise',
@@ -152,9 +152,9 @@ export default function PubNearPremierInnHeathrowPage() {
                   ))}
                 </ul>
               </div>
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-xl font-bold text-anchor-green mb-4">Getting Here from Premier Inn</h3>
-                <div className="space-y-3 text-gray-700">
+              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
+                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Getting Here from Premier Inn</h3>
+                <div className="space-y-3 text-anchor-cream-text/70">
                   <div>
                     <p className="font-semibold">From Premier Inn T5 (Northern Perimeter Rd)</p>
                     <p className="text-sm">Head south on A3044, left on Stanwell Rd, right on Horton Rd. 8 mins.</p>
@@ -165,7 +165,7 @@ export default function PubNearPremierInnHeathrowPage() {
                   </div>
                   <div className="pt-2 border-t border-gray-200">
                     <p className="text-sm font-medium">Postcode for sat-nav or taxi: <strong>TW19 6AQ</strong></p>
-                    <p className="text-sm text-gray-600">Uber and local taxis work well from all Premier Inn locations</p>
+                    <p className="text-sm text-anchor-cream-text/70">Uber and local taxis work well from all Premier Inn locations</p>
                   </div>
                 </div>
               </div>
@@ -175,24 +175,24 @@ export default function PubNearPremierInnHeathrowPage() {
       </section>
 
       {/* Tuesday deal */}
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader title="Deals Worth Knowing About" />
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-red-50 rounded-xl p-6 text-center">
+              <div className="card-dark rounded-none p-6 text-center">
                 <p className="text-4xl mb-2">🍕</p>
                 <h3 className="text-xl font-bold text-red-800 mb-2">Tuesday Pizza Deal</h3>
                 <p className="text-3xl font-bold text-red-600 mb-2">Buy 1 Get 1 Free</p>
-                <p className="text-gray-700">All stone-baked pizzas, all day Tuesday</p>
-                <p className="text-sm text-gray-500 mt-2">Perfect if your stay includes a Tuesday</p>
+                <p className="text-anchor-cream-text/70">All stone-baked pizzas, all day Tuesday</p>
+                <p className="text-sm text-anchor-cream-text/55 mt-2">Perfect if your stay includes a Tuesday</p>
               </div>
-              <div className="bg-amber-50 rounded-xl p-6 text-center">
+              <div className="card-dark rounded-none p-6 text-center">
                 <p className="text-4xl mb-2">🍖</p>
                 <h3 className="text-xl font-bold text-amber-800 mb-2">Sunday Roast</h3>
                 <p className="text-3xl font-bold text-amber-600 mb-2">From £19.99</p>
-                <p className="text-gray-700">Traditional British roast with all the trimmings</p>
-                <p className="text-sm text-gray-500 mt-2">Pre-booking recommended for Sundays</p>
+                <p className="text-anchor-cream-text/70">Traditional British roast with all the trimmings</p>
+                <p className="text-sm text-anchor-cream-text/55 mt-2">Pre-booking recommended for Sundays</p>
               </div>
             </div>
             <div className="mt-6 text-center">
@@ -205,7 +205,7 @@ export default function PubNearPremierInnHeathrowPage() {
       </section>
 
       {/* Opening hours */}
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
             <SectionHeader title="Opening Hours" />
@@ -243,7 +243,7 @@ export default function PubNearPremierInnHeathrowPage() {
             answer: 'The walking route between most Premier Inn Heathrow locations and The Anchor is not pedestrian-friendly due to road layouts. A taxi (8–12 mins, £10–15) is the recommended option. If you\'re driving, free parking is available at the pub.'
           },
         ]}
-        className="bg-gray-50"
+        className="bg-anchor-bg"
       />
 
       <CTASection

@@ -80,14 +80,14 @@ export default function Terminal4Page() {
       />
 
       {/* Quick Summary */}
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto bg-anchor-cream/40 border border-anchor-cream rounded-2xl p-6">
-            <h2 className="text-2xl font-bold text-anchor-green mb-3">Snapshot For Terminal 4 Guests</h2>
-            <p className="text-gray-700 mb-4">
+            <h2 className="text-2xl font-bold text-anchor-cream-text mb-3">Snapshot For Terminal 4 Guests</h2>
+            <p className="text-anchor-cream-text/70 mb-4">
               Staying around T4 or flying SkyTeam? The Anchor brings warm Surrey village hospitality within a 12 minute taxi ride.
             </p>
-            <div className="grid gap-3 md:grid-cols-2 text-gray-700">
+            <div className="grid gap-3 md:grid-cols-2 text-anchor-cream-text/70">
 	              <div className="flex items-start gap-2">
 	                <span className="font-semibold text-anchor-gold">⏱️</span>
 	                <span>12 minute taxi or Uber (GBP 22-27) from Terminal 4 departures</span>
@@ -109,7 +109,7 @@ export default function Terminal4Page() {
         </div>
       </section>
 
-      <section className="py-8 bg-white">
+      <section className="py-8 bg-anchor-bg-card border-b border-anchor-gold/15">
         <div className="container mx-auto px-4">
           <CTASection
             title="Overnight at Terminal 4?"
@@ -133,7 +133,7 @@ export default function Terminal4Page() {
       </section>
 
       {/* Food & Drink Highlights */}
-      <section className="section-spacing bg-anchor-cream/50">
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
             <SectionHeader
@@ -141,9 +141,9 @@ export default function Terminal4Page() {
               subtitle="Reserve a table so your food and drinks are waiting when you arrive."
             />
             <div className="grid md:grid-cols-3 gap-6">
-              <div className="bg-white rounded-xl shadow-sm p-6">
-                <h3 className="text-xl font-semibold text-anchor-green mb-2">Sunday Roast</h3>
-                <p className="text-sm text-gray-700 mb-4">
+              <div className="card-dark rounded-none p-6">
+                <h3 className="text-xl font-semibold text-anchor-gold-vivid mb-2">Sunday Roast</h3>
+                <p className="text-sm text-anchor-cream-text/70 mb-4">
                   Book by 1pm Saturday and enjoy Yorkshire puddings, crispy potatoes and gravy before catching evening departures.
                 </p>
                 <div className="flex flex-col gap-2">
@@ -160,9 +160,9 @@ export default function Terminal4Page() {
                   </Link>
                 </div>
               </div>
-              <div className="bg-white rounded-xl shadow-sm p-6">
-                <h3 className="text-xl font-semibold text-anchor-green mb-2">Stone-Baked Pizzas</h3>
-                <p className="text-sm text-gray-700 mb-4">
+              <div className="card-dark rounded-none p-6">
+                <h3 className="text-xl font-semibold text-anchor-gold-vivid mb-2">Stone-Baked Pizzas</h3>
+                <p className="text-sm text-anchor-cream-text/70 mb-4">
                   Hand-stretched pizzas with bold toppings — ideal for crew nights or family send-offs.
                 </p>
                 <div className="flex flex-col gap-2">
@@ -180,9 +180,9 @@ export default function Terminal4Page() {
                   </Link>
                 </div>
               </div>
-              <div className="bg-white rounded-xl shadow-sm p-6">
-                <h3 className="text-xl font-semibold text-anchor-green mb-2">All-Day Menu & Drinks</h3>
-                <p className="text-sm text-gray-700 mb-4">
+              <div className="card-dark rounded-none p-6">
+                <h3 className="text-xl font-semibold text-anchor-gold-vivid mb-2">All-Day Menu & Drinks</h3>
+                <p className="text-sm text-anchor-cream-text/70 mb-4">
                   Burgers, fish & chips, cocktails and real ales serve fast with free parking — a better alternative to hotel bars.
                 </p>
                 <div className="flex flex-col gap-2">
@@ -205,23 +205,23 @@ export default function Terminal4Page() {
       </section>
 
       {/* Google Rating Strip */}
-      <section className="bg-white py-6">
+      <section className="bg-anchor-bg-raised py-6 border-b border-anchor-gold/15">
         <Container>
-          <p className="text-center text-sm text-gray-600">⭐⭐⭐⭐⭐ <strong>Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
+          <p className="text-center text-sm text-anchor-cream-text/55">⭐⭐⭐⭐⭐ <strong>Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
         </Container>
       </section>
 
       {/* Page Title */}
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
         <Container>
-          <PageTitle className="text-center text-anchor-green" seo={{ structured: true, speakable: true }}>
+          <PageTitle className="text-center text-anchor-cream-text" seo={{ structured: true, speakable: true }}>
             Pub Near Heathrow Terminal 4 - The Anchor
           </PageTitle>
         </Container>
       </section>
 
       {/* Quick Info Cards */}
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
         <div className="container mx-auto px-4">
           <FeatureGrid
             columns={4}
@@ -253,7 +253,7 @@ export default function Terminal4Page() {
       </section>
 
       {/* Detailed Directions */}
-      <section id="directions" className="section-spacing bg-white">
+      <section id="directions" className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -263,9 +263,9 @@ export default function Terminal4Page() {
             
             <div className="grid md:grid-cols-3 gap-8 mb-12">
               {/* By Car */}
-              <div className="bg-anchor-cream rounded-2xl p-8">
-                <h3 className="text-2xl font-bold text-anchor-green mb-4">🚗 By Car (12 minutes)</h3>
-                <ol className="space-y-3 text-gray-700">
+              <div className="bg-anchor-bg-raised rounded-2xl p-8 border border-anchor-gold/15">
+                <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">🚗 By Car (12 minutes)</h3>
+                <ol className="space-y-3 text-anchor-cream-text/70">
                   <li className="flex gap-3">
                     <span className="font-bold text-anchor-gold">1.</span>
                     Exit Terminal 4 following signs for M25/A30
@@ -287,16 +287,16 @@ export default function Terminal4Page() {
                     After 1 mile, turn right onto Horton Road
                   </li>
                 </ol>
-                <div className="mt-6 p-4 bg-white rounded-lg">
-                  <p className="font-semibold text-anchor-green">Sat Nav:</p>
+                <div className="mt-6 p-4 bg-anchor-bg-card rounded-lg border border-anchor-gold/15">
+                  <p className="font-semibold text-anchor-gold-vivid">Sat Nav:</p>
                   <p className="text-lg">TW19 6AQ</p>
                 </div>
               </div>
 
               {/* By Taxi */}
-              <div className="bg-anchor-cream rounded-2xl p-8">
-                <h3 className="text-2xl font-bold text-anchor-green mb-4">🚕 By Taxi</h3>
-                <div className="space-y-4 text-gray-700">
+              <div className="bg-anchor-bg-raised rounded-2xl p-8 border border-anchor-gold/15">
+                <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">🚕 By Taxi</h3>
+                <div className="space-y-4 text-anchor-cream-text/70">
 	                  <div>
 	                    <p className="font-semibold mb-2">Cost: GBP 20-25</p>
 	                    <p className="text-sm mb-2">Journey time: 12 minutes</p>
@@ -312,16 +312,16 @@ export default function Terminal4Page() {
                     </ul>
                   </div>
                   <div className="p-4 bg-white rounded-lg">
-                    <p className="font-semibold text-anchor-green mb-2">Budget Tip:</p>
+                    <p className="font-semibold text-anchor-gold-vivid mb-2">Budget Tip:</p>
                     <p className="text-sm">Share a taxi with other travelers - ask at the rank!</p>
                   </div>
                 </div>
               </div>
 
               {/* By Bus */}
-              <div className="bg-anchor-cream rounded-2xl p-8">
-                <h3 className="text-2xl font-bold text-anchor-green mb-4">🚌 By Bus</h3>
-                <div className="space-y-4 text-gray-700">
+              <div className="bg-anchor-bg-raised rounded-2xl p-8 border border-anchor-gold/15">
+                <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">🚌 By Bus</h3>
+                <div className="space-y-4 text-anchor-cream-text/70">
                   <div>
                     <p className="font-semibold mb-2">Route 442</p>
                     <p className="text-sm mb-2">Journey time: 15-20 minutes</p>
@@ -337,7 +337,7 @@ export default function Terminal4Page() {
                     </ul>
                   </div>
                   <div className="p-4 bg-white rounded-lg">
-                    <p className="font-semibold text-anchor-green mb-2">Your Stop:</p>
+                    <p className="font-semibold text-anchor-gold-vivid mb-2">Your Stop:</p>
                     <p className="text-sm">Get off at Horton Road - The Anchor is right there!</p>
                   </div>
                 </div>
@@ -345,9 +345,9 @@ export default function Terminal4Page() {
             </div>
 
             {/* Map Section */}
-            <div className="bg-gray-100 rounded-2xl p-8 text-center">
-              <h3 className="text-2xl font-bold text-anchor-green mb-4">Interactive Map</h3>
-              <p className="text-gray-700 mb-6">
+            <div className="bg-anchor-bg-raised rounded-2xl p-8 text-center border border-anchor-gold/15">
+              <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">Interactive Map</h3>
+              <p className="text-anchor-cream-text/70 mb-6">
                 Click below for turn-by-turn directions from Terminal 4
               </p>
               <DirectionsButton
@@ -365,7 +365,7 @@ export default function Terminal4Page() {
       </section>
 
       {/* Why Visit */}
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -403,7 +403,7 @@ export default function Terminal4Page() {
       </section>
 
       {/* Live Flight Information */}
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -417,7 +417,7 @@ export default function Terminal4Page() {
       </section>
 
       {/* Terminal 4 Specific Info */}
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -429,12 +429,12 @@ export default function Terminal4Page() {
               <FlightDelayWidget terminal="4" />
             </div>
             
-            <div className="bg-anchor-sand/30 rounded-2xl p-8 mb-8">
-              <h3 className="text-2xl font-bold text-anchor-green mb-4">Airlines & Destinations</h3>
+            <div className="bg-anchor-bg-raised rounded-2xl p-8 mb-8 border border-anchor-gold/15">
+              <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">Airlines & Destinations</h3>
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <p className="font-semibold mb-2">Major Airlines:</p>
-                  <ul className="space-y-1 text-gray-700 text-sm">
+                  <ul className="space-y-1 text-anchor-cream-text/70 text-sm">
                     <li>• Air France - Paris CDG</li>
                     <li>• KLM - Amsterdam</li>
                     <li>• Etihad - Abu Dhabi</li>
@@ -445,7 +445,7 @@ export default function Terminal4Page() {
                 </div>
                 <div>
                   <p className="font-semibold mb-2">Terminal Features:</p>
-                  <ul className="space-y-1 text-gray-700 text-sm">
+                  <ul className="space-y-1 text-anchor-cream-text/70 text-sm">
                     <li>• Separate from T2/T3 complex</li>
                     <li>• Free terminal train to T2/T3</li>
                     <li>• Generally quieter than other terminals</li>
@@ -485,7 +485,7 @@ export default function Terminal4Page() {
       </section>
 
       {/* Hotel Guest Section */}
-      <section className="section-spacing bg-anchor-cream">
+      <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -495,7 +495,7 @@ export default function Terminal4Page() {
             />
             
             <div className="mb-12">
-              <p className="text-center text-lg text-gray-700 max-w-3xl mx-auto">
+              <p className="text-center text-lg text-anchor-cream-text/70 max-w-3xl mx-auto">
                 If you're staying at one of the Terminal 4 hotels, The Anchor offers 
                 the perfect escape from hotel dining. Experience a real British family 
                 pub where locals gather - a refreshing change from the international 
@@ -503,14 +503,14 @@ export default function Terminal4Page() {
               </p>
             </div>
 
-            <div className="bg-white rounded-2xl p-8 shadow-sm mb-8">
+            <div className="card-dark rounded-none p-8 mb-8">
               <h3 className="text-2xl font-bold text-anchor-green mb-6 text-center">
                 Why Hotel Guests Choose The Anchor
               </h3>
               <div className="grid md:grid-cols-2 gap-8">
                 <div>
                   <h4 className="font-semibold text-lg mb-3">🏠 A Real Local Experience</h4>
-                  <ul className="space-y-2 text-gray-700">
+                  <ul className="space-y-2 text-anchor-cream-text/70">
                     <li className="flex gap-2">
                       <span className="text-anchor-gold">✓</span>
                       <span>Traditional British pub atmosphere</span>
@@ -531,7 +531,7 @@ export default function Terminal4Page() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-lg mb-3">💰 Better Value Than Hotels</h4>
-                  <ul className="space-y-2 text-gray-700">
+                  <ul className="space-y-2 text-anchor-cream-text/70">
                     <li className="flex gap-2">
                       <span className="text-anchor-gold">✓</span>
                       <span>Pub prices, not hotel prices</span>
@@ -553,7 +553,7 @@ export default function Terminal4Page() {
               </div>
             </div>
 
-            <div className="bg-white rounded-2xl p-8 shadow-sm mb-8">
+            <div className="card-dark rounded-none p-8 mb-8">
               <h3 className="text-2xl font-bold text-anchor-green mb-4 text-center">
                 🚕 Getting Here from Terminal 4 Hotels
               </h3>
@@ -561,25 +561,25 @@ export default function Terminal4Page() {
 	                <div>
 	                  <p className="font-semibold mb-2">By Taxi</p>
 	                  <p className="text-3xl font-bold text-anchor-gold mb-2">GBP 15-18</p>
-	                  <p className="text-sm text-gray-600">12 minutes</p>
+	                  <p className="text-sm text-anchor-cream-text/55">12 minutes</p>
 	                </div>
 	                <div>
 	                  <p className="font-semibold mb-2">By Uber</p>
 	                  <p className="text-3xl font-bold text-anchor-gold mb-2">GBP 12-15</p>
-	                  <p className="text-sm text-gray-600">12 minutes</p>
+	                  <p className="text-sm text-anchor-cream-text/55">12 minutes</p>
 	                </div>
 	                <div>
 	                  <p className="font-semibold mb-2">By Bus</p>
 	                  <p className="text-3xl font-bold text-anchor-gold mb-2">GBP 2.50</p>
-	                  <p className="text-sm text-gray-600">Take 442 bus</p>
+	                  <p className="text-sm text-anchor-cream-text/55">Take 442 bus</p>
 	                </div>
 	              </div>
-              <p className="text-center text-sm text-gray-600 mt-4">
+              <p className="text-center text-sm text-anchor-cream-text/55 mt-4">
                 Tell your driver: "The Anchor, Horton Road, Stanwell Moor"
               </p>
             </div>
 
-            <div className="bg-anchor-green text-white rounded-2xl p-8 text-center">
+            <div className="bg-anchor-bg-raised border border-anchor-gold/30 rounded-2xl p-8 text-center">
               <p className="text-lg mb-4 max-w-2xl mx-auto">
                 Take a break from the hustle and bustle of airport life. 
                 The Anchor offers a peaceful village pub atmosphere where you can 

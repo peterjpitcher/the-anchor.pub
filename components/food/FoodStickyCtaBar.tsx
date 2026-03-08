@@ -296,26 +296,26 @@ export function FoodStickyCtaBar({
   }
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-[60] border-t border-gray-200 bg-white/95 shadow-xl backdrop-blur supports-[backdrop-filter]:backdrop-blur" data-testid="food-sticky-cta-bar">
+    <div className="fixed inset-x-0 bottom-0 z-[60] border-t border-anchor-gold/15 bg-anchor-bg-card/95 shadow-xl backdrop-blur supports-[backdrop-filter]:backdrop-blur" data-testid="food-sticky-cta-bar">
       <div className="mx-auto max-w-5xl px-4 py-3 pb-[calc(0.75rem+env(safe-area-inset-bottom,0px))]">
         <div className="flex flex-col gap-3">
           <div className="text-left">
-            <span className="block text-sm font-semibold text-anchor-green">
+            <span className="block text-sm font-semibold text-anchor-cream-text">
               Ready to book?
             </span>
-            <span className="block text-xs text-gray-500">
+            <span className="block text-xs text-anchor-cream-text/55">
               Reserve your table in under 60 seconds.
             </span>
           </div>
 
           {showKitchenStatusCard && kitchenStatusInfo && (
-            <div className="flex items-center gap-2 rounded-lg border border-anchor-green/20 bg-anchor-green/5 px-3 py-2">
+            <div className="flex items-center gap-2 rounded-lg border border-anchor-gold/20 bg-anchor-bg-raised px-3 py-2">
               <StatusIndicator
                 status={kitchenStatusInfo.indicator}
                 size="sm"
                 showPulse={kitchenStatusInfo.pulse}
               />
-              <span className="text-sm font-medium text-anchor-green">
+              <span className="text-sm font-medium text-anchor-gold-vivid">
                 {kitchenStatusInfo.message}
               </span>
             </div>

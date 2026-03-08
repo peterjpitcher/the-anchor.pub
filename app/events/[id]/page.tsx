@@ -128,10 +128,10 @@ function EventHighlights({
     <Card
       variant="default"
       padding={compact ? 'none' : undefined}
-      className={`border border-gray-200 bg-white ${className}`.trim()}
+      className={`border border-anchor-gold/15 bg-anchor-bg-card rounded-none ${className}`.trim()}
     >
       <CardBody className={compact ? 'p-4' : 'p-4 md:p-6'}>
-        <h3 className={compact ? 'text-xl font-bold text-anchor-green mb-2' : 'text-xl md:text-2xl font-bold text-anchor-green mb-3 md:mb-4'}>
+        <h3 className={compact ? 'text-xl font-bold text-anchor-gold-vivid mb-2' : 'text-xl md:text-2xl font-bold text-anchor-gold-vivid mb-3 md:mb-4'}>
           Event Highlights
         </h3>
         <ul className={compact ? 'space-y-1.5' : 'space-y-2'}>
@@ -140,7 +140,7 @@ function EventHighlights({
               <svg className="w-5 h-5 text-anchor-gold flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
-              <span className={compact ? 'text-gray-700 text-sm' : 'text-gray-700 text-base'}>
+              <span className={compact ? 'text-anchor-cream-text/70 text-sm' : 'text-anchor-cream-text/70 text-base'}>
                 {highlight.replace(/(\d+,\d+\+?\s+)/g, (match) => match.replace(/\s+/g, '\u00A0'))}
               </span>
             </li>
@@ -336,7 +336,7 @@ export default async function EventPage({ params }: Props) {
       />
 
       {statusNotice ? (
-        <Section background="white" spacing="none" className="pt-4">
+        <Section background="white" spacing="none" className="pt-4 bg-anchor-bg">
           <Container>
             <div className="mx-auto max-w-6xl">
               <Alert variant={statusNotice.variant} title={statusNotice.title}>
@@ -362,7 +362,7 @@ export default async function EventPage({ params }: Props) {
       />
 
       {/* Event Details - Mobile First */}
-      <Section background="white" spacing="md" className="py-4 sm:py-6 md:py-8">
+      <Section background="white" spacing="md" className="py-4 sm:py-6 md:py-8 bg-anchor-bg">
         <Container>
           <div className="max-w-6xl mx-auto">
             {/* Mobile: Image First, Desktop: Grid Layout */}
@@ -385,10 +385,10 @@ export default async function EventPage({ params }: Props) {
             {/* Mobile: Booking + highlights (aligned with desktop component set) */}
             <div className="lg:hidden mb-6 max-w-md mx-auto space-y-4">
               {mothersDayBookingFlow ? (
-                <Card variant="elevated" padding="none">
+                <Card variant="elevated" padding="none" className="bg-anchor-bg-card rounded-none border border-anchor-gold/15">
                   <CardBody className="space-y-3 p-4">
-                    <h2 className="text-xl font-bold text-anchor-green">{MOTHERS_DAY_BOOKING_CTA_LABEL}</h2>
-                    <p className="text-sm text-gray-700">{mothersDayBookingCopy}</p>
+                    <h2 className="text-xl font-bold text-anchor-gold-vivid">{MOTHERS_DAY_BOOKING_CTA_LABEL}</h2>
+                    <p className="text-sm text-anchor-cream-text/70">{mothersDayBookingCopy}</p>
                     <Button asChild fullWidth size="lg">
                       <Link href={mothersDayBookingUrl}>
                         {MOTHERS_DAY_BOOKING_CTA_LABEL}
@@ -427,10 +427,10 @@ export default async function EventPage({ params }: Props) {
 
                 <div className="hidden lg:block space-y-4">
                   {mothersDayBookingFlow ? (
-                    <Card variant="elevated" padding="none">
+                    <Card variant="elevated" padding="none" className="bg-anchor-bg-card rounded-none border border-anchor-gold/15">
                       <CardBody className="space-y-3 p-4">
-                        <h2 className="text-xl font-bold text-anchor-green">{MOTHERS_DAY_BOOKING_CTA_LABEL}</h2>
-                        <p className="text-sm text-gray-700">{mothersDayBookingCopy}</p>
+                        <h2 className="text-xl font-bold text-anchor-gold-vivid">{MOTHERS_DAY_BOOKING_CTA_LABEL}</h2>
+                        <p className="text-sm text-anchor-cream-text/70">{mothersDayBookingCopy}</p>
                         <Button asChild fullWidth size="lg">
                           <Link href={mothersDayBookingUrl}>
                             {MOTHERS_DAY_BOOKING_CTA_LABEL}
@@ -459,97 +459,97 @@ export default async function EventPage({ params }: Props) {
               
               {/* Right Column - Details and Booking */}
               <div className="order-1 lg:order-2">
-                <Card variant="default" padding="none" className="mb-6 border border-gray-200 bg-gray-50 lg:mb-8">
+                <Card variant="default" padding="none" className="mb-6 border border-anchor-gold/15 bg-anchor-bg-card rounded-none lg:mb-8">
                   <CardBody className="p-4">
-                    <h2 className="text-lg font-bold text-anchor-green md:text-xl">Event information</h2>
-                    <dl className="mt-4 grid gap-x-4 gap-y-3 text-sm text-gray-700 sm:grid-cols-2">
+                    <h2 className="text-lg font-bold text-anchor-gold-vivid md:text-xl">Event information</h2>
+                    <dl className="mt-4 grid gap-x-4 gap-y-3 text-sm text-anchor-cream-text/70 sm:grid-cols-2">
                       <div>
-                        <dt className="font-semibold text-anchor-green">Date</dt>
+                        <dt className="font-semibold text-anchor-gold-vivid">Date</dt>
                         <dd>{eventDate}</dd>
                       </div>
                       <div>
-                        <dt className="font-semibold text-anchor-green">Start time</dt>
+                        <dt className="font-semibold text-anchor-gold-vivid">Start time</dt>
                         <dd>{eventTime}</dd>
                       </div>
                       {endTime ? (
                         <div>
-                          <dt className="font-semibold text-anchor-green">End time</dt>
+                          <dt className="font-semibold text-anchor-gold-vivid">End time</dt>
                           <dd>{endTime}</dd>
                         </div>
                       ) : null}
                       {doorsTime ? (
                         <div>
-                          <dt className="font-semibold text-anchor-green">Doors open</dt>
+                          <dt className="font-semibold text-anchor-gold-vivid">Doors open</dt>
                           <dd>{doorsTime}</dd>
                         </div>
                       ) : null}
                       {lastEntryTime ? (
                         <div>
-                          <dt className="font-semibold text-anchor-green">Last entry</dt>
+                          <dt className="font-semibold text-anchor-gold-vivid">Last entry</dt>
                           <dd>{lastEntryTime}</dd>
                         </div>
                       ) : null}
                       {durationLabel ? (
                         <div>
-                          <dt className="font-semibold text-anchor-green">Duration</dt>
+                          <dt className="font-semibold text-anchor-gold-vivid">Duration</dt>
                           <dd>{durationLabel}</dd>
                         </div>
                       ) : null}
                       <div>
-                        <dt className="font-semibold text-anchor-green">Status</dt>
+                        <dt className="font-semibold text-anchor-gold-vivid">Status</dt>
                         <dd>{statusLabel}</dd>
                       </div>
                       {bookingModeLabel ? (
                         <div>
-                          <dt className="font-semibold text-anchor-green">Booking type</dt>
+                          <dt className="font-semibold text-anchor-gold-vivid">Booking type</dt>
                           <dd>{bookingModeLabel}</dd>
                         </div>
                       ) : null}
                       {event.event_type ? (
                         <div>
-                          <dt className="font-semibold text-anchor-green">Event type</dt>
+                          <dt className="font-semibold text-anchor-gold-vivid">Event type</dt>
                           <dd>{event.event_type}</dd>
                         </div>
                       ) : null}
                       {event.category?.name ? (
                         <div>
-                          <dt className="font-semibold text-anchor-green">Category</dt>
+                          <dt className="font-semibold text-anchor-gold-vivid">Category</dt>
                           <dd>{event.category.name}</dd>
                         </div>
                       ) : null}
                       {(event.performer?.name || event.performer_name) ? (
                         <div>
-                          <dt className="font-semibold text-anchor-green">Performer</dt>
+                          <dt className="font-semibold text-anchor-gold-vivid">Performer</dt>
                           <dd>{event.performer?.name || event.performer_name}</dd>
                         </div>
                       ) : null}
                       {priceLabel ? (
                         <div>
-                          <dt className="font-semibold text-anchor-green">Price</dt>
+                          <dt className="font-semibold text-anchor-gold-vivid">Price</dt>
                           <dd>{priceLabel}</dd>
                         </div>
                       ) : null}
                       {typeof capacity === 'number' ? (
                         <div>
-                          <dt className="font-semibold text-anchor-green">Capacity</dt>
+                          <dt className="font-semibold text-anchor-gold-vivid">Capacity</dt>
                           <dd>{capacity}</dd>
                         </div>
                       ) : null}
                       {typeof seatsRemaining === 'number' ? (
                         <div>
-                          <dt className="font-semibold text-anchor-green">Seats remaining</dt>
+                          <dt className="font-semibold text-anchor-gold-vivid">Seats remaining</dt>
                           <dd>{Math.max(seatsRemaining, 0)}</dd>
                         </div>
                       ) : null}
                     </dl>
                   </CardBody>
                 </Card>
-                
+
                 {/* Description */}
                 {(event.longDescription || event.about || event.description) && (
                   <div className="mb-6 lg:mb-8">
-                    <h2 className="text-xl md:text-2xl font-bold text-anchor-green mb-3 md:mb-4">About This Event</h2>
-                    <p className="text-gray-700 whitespace-pre-wrap text-base md:text-lg leading-relaxed">{event.longDescription || event.about || event.description}</p>
+                    <h2 className="text-xl md:text-2xl font-bold text-anchor-gold-vivid mb-3 md:mb-4">About This Event</h2>
+                    <p className="text-anchor-cream-text/70 whitespace-pre-wrap text-base md:text-lg leading-relaxed">{event.longDescription || event.about || event.description}</p>
                   </div>
                 )}
 
@@ -559,12 +559,12 @@ export default async function EventPage({ params }: Props) {
             {/* Full Width Sections */}
             <div className="mt-6 space-y-5 md:mt-8 md:space-y-8">
               {/* Location */}
-              <Card variant="elevated" className="bg-gray-50">
+              <Card variant="elevated" className="bg-anchor-bg-card rounded-none border border-anchor-gold/15">
                 <CardBody className="p-4 md:p-8">
                   <div className="grid gap-4 md:gap-6 lg:grid-cols-[minmax(0,320px),minmax(0,1fr)] lg:items-start">
                     <div>
-                      <h2 className="text-xl md:text-2xl font-bold text-anchor-green mb-3 md:mb-4">Location</h2>
-                      <address className="not-italic text-gray-700 text-base">
+                      <h2 className="text-xl md:text-2xl font-bold text-anchor-gold-vivid mb-3 md:mb-4">Location</h2>
+                      <address className="not-italic text-anchor-cream-text/70 text-base">
                         <p className="font-semibold">{event.location.name}</p>
                         <p>{event.location.address.streetAddress}</p>
                         <p>{event.location.address.addressLocality}, {event.location.address.addressRegion}</p>
@@ -602,13 +602,13 @@ export default async function EventPage({ params }: Props) {
               {/* FAQs */}
               {((event.faq && event.faq.length > 0) || (event.faqPage && event.faqPage.mainEntity.length > 0)) && (
                 <div>
-                  <h2 className="text-xl md:text-2xl font-bold text-anchor-green mb-4 md:mb-6">Frequently Asked Questions</h2>
+                  <h2 className="text-xl md:text-2xl font-bold text-anchor-gold-vivid mb-4 md:mb-6">Frequently Asked Questions</h2>
                   <div className="space-y-3 md:space-y-4">
                     {(event.faq || event.faqPage?.mainEntity || []).map((faq, index) => (
-                      <Card key={index} variant="default" className="bg-gray-50">
+                      <Card key={index} variant="default" className="bg-anchor-bg-card rounded-none border border-anchor-gold/15">
                         <CardBody className="p-4 md:p-6">
-                          <h3 className="font-semibold text-base md:text-lg text-anchor-green mb-2">{faq.name}</h3>
-                          <p className="text-gray-700 text-sm md:text-base">{faq.acceptedAnswer.text}</p>
+                          <h3 className="font-semibold text-base md:text-lg text-anchor-gold-vivid mb-2">{faq.name}</h3>
+                          <p className="text-anchor-cream-text/70 text-sm md:text-base">{faq.acceptedAnswer.text}</p>
                         </CardBody>
                       </Card>
                     ))}
@@ -619,10 +619,10 @@ export default async function EventPage({ params }: Props) {
               {/* Videos */}
               {event.video && event.video.length > 0 && (
                 <div>
-                  <h2 className="text-xl md:text-2xl font-bold text-anchor-green mb-4 md:mb-6">Event Videos</h2>
+                  <h2 className="text-xl md:text-2xl font-bold text-anchor-gold-vivid mb-4 md:mb-6">Event Videos</h2>
                   <div className="grid gap-4">
                     {event.video.map((videoUrl, index) => (
-                      <div key={index} className="relative aspect-video rounded-xl overflow-hidden bg-gray-100">
+                      <div key={index} className="relative aspect-video rounded-none overflow-hidden bg-anchor-bg-raised">
                         {videoUrl.includes('youtube.com') || videoUrl.includes('youtu.be') ? (
                           <iframe
                             src={videoUrl.replace('watch?v=', 'embed/').replace('youtu.be/', 'youtube.com/embed/')}

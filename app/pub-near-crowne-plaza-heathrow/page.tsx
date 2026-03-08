@@ -94,29 +94,29 @@ export default function PubNearCrownePlazaHeathrowPage() {
         }
       />
 
-      <section className="py-8 bg-white">
+      <section className="py-8 bg-anchor-bg">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
-            <PageTitle seo={{ structured: true, speakable: true }} className="text-anchor-green mb-4">
+            <PageTitle seo={{ structured: true, speakable: true }} className="text-anchor-cream-text mb-4">
               Pub Near Crowne Plaza London Heathrow
             </PageTitle>
-            <p className="text-lg text-gray-700">
+            <p className="text-lg text-anchor-cream-text/70">
               Staying at the Crowne Plaza Heathrow? The Anchor is just 12 minutes away — a traditional British pub with home-cooked food, real ales, and free parking. Popular with corporate guests looking for a genuine local experience.
             </p>
           </div>
         </Container>
       </section>
 
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <FeatureGrid
               columns={4}
               features={[
-                { icon: '🕐', title: '12 Minutes', description: 'By taxi from Crowne Plaza Heathrow', variant: 'colored', color: 'bg-green-50', className: 'rounded-xl p-6 text-center' },
-                { icon: '🚖', title: '~£15–18', description: 'Typical taxi fare each way', variant: 'colored', color: 'bg-blue-50', className: 'rounded-xl p-6 text-center' },
-                { icon: '🅿️', title: 'Free Parking', description: '20 spaces — no charges', variant: 'colored', color: 'bg-amber-50', className: 'rounded-xl p-6 text-center' },
-                { icon: '🍽️', title: 'Group Bookings', description: 'Private dining for teams of any size', variant: 'colored', color: 'bg-red-50', className: 'rounded-xl p-6 text-center' },
+                { icon: '🕐', title: '12 Minutes', description: 'By taxi from Crowne Plaza Heathrow', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '🚖', title: '~£15–18', description: 'Typical taxi fare each way', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '🅿️', title: 'Free Parking', description: '20 spaces — no charges', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '🍽️', title: 'Group Bookings', description: 'Private dining for teams of any size', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
               ]}
               className="mb-8"
             />
@@ -124,7 +124,7 @@ export default function PubNearCrownePlazaHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -132,8 +132,8 @@ export default function PubNearCrownePlazaHeathrowPage() {
               subtitle="The Crowne Plaza is a favourite for international business travellers. When you need a proper dinner that isn't a hotel restaurant, The Anchor offers the perfect alternative — relaxed, professional, and genuinely British."
             />
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-xl font-bold text-anchor-green mb-4">Why Corporate Guests Choose Us</h3>
+              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
+                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Why Corporate Guests Choose Us</h3>
                 <ul className="space-y-3">
                   {[
                     'Full VAT receipts for all purchases',
@@ -150,9 +150,9 @@ export default function PubNearCrownePlazaHeathrowPage() {
                   ))}
                 </ul>
               </div>
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-xl font-bold text-anchor-green mb-4">Getting Here from Crowne Plaza</h3>
-                <div className="space-y-3 text-gray-700">
+              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
+                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Getting Here from Crowne Plaza</h3>
+                <div className="space-y-3 text-anchor-cream-text/70">
                   <div>
                     <p className="font-semibold">By Taxi or Uber</p>
                     <p className="text-sm">Ask for The Anchor, Stanwell Moor (TW19 6AQ). Journey takes approximately 12 minutes, £15–18 each way.</p>
@@ -163,7 +163,7 @@ export default function PubNearCrownePlazaHeathrowPage() {
                   </div>
                   <div className="pt-2 border-t border-gray-200">
                     <p className="text-sm font-medium">Sat-nav postcode: <strong>TW19 6AQ</strong></p>
-                    <p className="text-sm text-gray-600">Free parking for all pub guests</p>
+                    <p className="text-sm text-anchor-cream-text/70">Free parking for all pub guests</p>
                   </div>
                 </div>
               </div>
@@ -172,16 +172,16 @@ export default function PubNearCrownePlazaHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeader title="Menu Highlights" />
             <FeatureGrid
               columns={3}
               features={[
-                { icon: '🥩', title: 'British Classics', description: 'Steaks, fish & chips, burgers and daily specials — all cooked fresh from £8.99', variant: 'default', className: 'bg-white rounded-lg p-6 shadow-sm text-center' },
-                { icon: '🍺', title: 'Real Ales', description: 'Rotating cask ales and craft beers — proper pub drinking from £4.80 a pint', variant: 'default', className: 'bg-white rounded-lg p-6 shadow-sm text-center' },
-                { icon: '🥗', title: 'Sunday Roast', description: 'Traditional British roast from £19.99 — pre-booking recommended for weekends', variant: 'default', className: 'bg-white rounded-lg p-6 shadow-sm text-center' },
+                { icon: '🥩', title: 'British Classics', description: 'Steaks, fish & chips, burgers and daily specials — all cooked fresh from £8.99', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '🍺', title: 'Real Ales', description: 'Rotating cask ales and craft beers — proper pub drinking from £4.80 a pint', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '🥗', title: 'Sunday Roast', description: 'Traditional British roast from £19.99 — pre-booking recommended for weekends', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
               ]}
               className="mb-6"
             />
@@ -194,7 +194,7 @@ export default function PubNearCrownePlazaHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
             <SectionHeader title="Opening Hours" />
@@ -232,7 +232,7 @@ export default function PubNearCrownePlazaHeathrowPage() {
             answer: 'Yes, we provide full itemised VAT receipts for all food and drink, making us a smart choice for business expense management.'
           },
         ]}
-        className="bg-gray-50"
+        className="bg-anchor-bg"
       />
 
       <CTASection

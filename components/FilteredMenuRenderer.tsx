@@ -82,7 +82,7 @@ export function FilteredMenuRenderer({ menuData, accentColor }: FilteredMenuRend
       {filteredMenuData.categories.length === 0 ? (
         <div className="container mx-auto px-4 py-16 text-center">
           <div className="max-w-md mx-auto">
-            <p className="text-xl text-gray-600 mb-4">
+            <p className="text-xl text-anchor-cream-text/55 mb-4">
               No menu items match your current filters.
             </p>
             <button

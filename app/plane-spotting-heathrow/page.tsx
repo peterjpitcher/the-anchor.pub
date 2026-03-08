@@ -104,13 +104,13 @@ export default async function PlaneSpottingHeathrowPage() {
         }
       />
 
-      <Section background="white" spacing="sm">
+      <Section background="dark" spacing="sm">
         <Container>
           <div className="max-w-5xl mx-auto grid gap-6 md:grid-cols-3">
-            <Card className="bg-anchor-cream/50 shadow-sm">
+            <Card className="card-dark">
               <CardBody>
-                <h3 className="text-lg font-semibold text-anchor-green mb-2">Sunday Roast Before/After Spotting</h3>
-                <p className="text-sm text-gray-700 mb-4">
+                <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-2">Sunday Roast Before/After Spotting</h3>
+                <p className="text-sm text-anchor-cream-text/70 mb-4">
                   Book by 1pm Saturday and sit down to Yorkshire puddings, crispy potatoes and real gravy after a morning watching arrivals.
                 </p>
                 <div className="flex flex-col gap-2">
@@ -127,10 +127,10 @@ export default async function PlaneSpottingHeathrowPage() {
                 </div>
               </CardBody>
             </Card>
-            <Card className="bg-white shadow-sm">
+            <Card className="card-dark">
               <CardBody>
-                <h3 className="text-lg font-semibold text-anchor-green mb-2">Stone-Baked Pizzas</h3>
-                <p className="text-sm text-gray-700 mb-4">
+                <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-2">Stone-Baked Pizzas</h3>
+                <p className="text-sm text-anchor-cream-text/70 mb-4">
                   Hand-stretched pizzas with bold toppings — a favourite with aviation meet-ups and crew nights.
                 </p>
                 <div className="flex flex-col gap-2">
@@ -148,10 +148,10 @@ export default async function PlaneSpottingHeathrowPage() {
                 </div>
               </CardBody>
             </Card>
-            <Card className="bg-anchor-cream/50 shadow-sm">
+            <Card className="card-dark">
               <CardBody>
-                <h3 className="text-lg font-semibold text-anchor-green mb-2">Hot Food & Drinks All Day</h3>
-                <p className="text-sm text-gray-700 mb-4">
+                <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-2">Hot Food & Drinks All Day</h3>
+                <p className="text-sm text-anchor-cream-text/70 mb-4">
                   Burgers, fish & chips, sharers and a full bar served to the beer garden. Free parking and WiFi keep you comfortable between arrivals.
                 </p>
                 <div className="flex flex-col gap-2">
@@ -172,15 +172,15 @@ export default async function PlaneSpottingHeathrowPage() {
         </Container>
       </Section>
 
-      <Section background="white" spacing="sm">
+      <Section background="dark" spacing="sm">
         <Container>
-          <PageTitle className="text-center text-anchor-green" seo={{ structured: true, speakable: true }}>
+          <PageTitle className="text-center text-anchor-cream-text" seo={{ structured: true, speakable: true }}>
             Heathrow Plane Spotting Pub – The Anchor Beer Garden
           </PageTitle>
         </Container>
       </Section>
 
-      <Section background="white" spacing="md">
+      <Section background="dark" spacing="md">
         <Container>
           <SectionHeader
             title="Why Plane Spotters Choose The Anchor"
@@ -215,7 +215,7 @@ export default async function PlaneSpottingHeathrowPage() {
         </Container>
       </Section>
 
-      <Section background="white" spacing="md" className="bg-anchor-cream/40">
+      <Section background="dark" spacing="md" className="bg-anchor-cream/40">
         <Container>
           <SectionHeader
             title="Plan Your Heathrow Plane Spotting Trip"
@@ -228,7 +228,7 @@ export default async function PlaneSpottingHeathrowPage() {
               {
                 title: '📅 Best Times to Visit',
                 content: (
-                  <ul className="list-disc list-inside text-gray-700 space-y-2 text-left">
+                  <ul className="list-disc list-inside text-anchor-cream-text/70 space-y-2 text-left">
                     <li>06:00-09:00 for sunrise arrivals and cargo</li>
                     <li>16:00-20:00 evening long-haul waves</li>
                     <li>Check METAR: westerly winds bring aircraft overhead</li>
@@ -240,7 +240,7 @@ export default async function PlaneSpottingHeathrowPage() {
               {
                 title: '🚗 Getting Here',
                 content: (
-                  <ul className="list-disc list-inside text-gray-700 space-y-2 text-left">
+                  <ul className="list-disc list-inside text-anchor-cream-text/70 space-y-2 text-left">
                     <li>7 minutes from Heathrow Terminal 5 via A3044</li>
                     <li>Free on-site parking for patrons</li>
                     <li>442 bus stops outside – perfect for spotters without a car</li>
@@ -252,7 +252,7 @@ export default async function PlaneSpottingHeathrowPage() {
               {
                 title: '🎒 What to Bring',
                 content: (
-                  <ul className="list-disc list-inside text-gray-700 space-y-2 text-left">
+                  <ul className="list-disc list-inside text-anchor-cream-text/70 space-y-2 text-left">
                     <li>Camera with 70-200mm lens covers most arrivals</li>
                     <li>Radio scanner or FR24 app (free WiFi provided)</li>
                     <li>Layers – the beer garden is sheltered but breezy</li>
@@ -266,7 +266,7 @@ export default async function PlaneSpottingHeathrowPage() {
         </Container>
       </Section>
 
-      <Section background="white" spacing="md">
+      <Section background="dark" spacing="md">
         <Container>
           <SectionHeader
             title="Other Heathrow Plane Spotting Locations"

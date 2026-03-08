@@ -68,20 +68,20 @@ export default function FamilyFriendlyPage() {
                 }
             />
 
-            <section className="py-8 bg-white">
+            <section className="py-8 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-green mb-4">
+                        <PageTitle className="text-anchor-cream-text mb-4">
                             Relax, You're Welcome Here
                         </PageTitle>
-                        <p className="text-lg text-gray-700">
+                        <p className="text-lg text-anchor-cream-text/70">
                             We know eating out with kids can sometimes be stressful. At The Anchor, we aim to make it easy. We have plenty of space, staff who are great with little ones, and a menu that keeps everyone happy.
                         </p>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-gray-50">
+            <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -124,16 +124,16 @@ export default function FamilyFriendlyPage() {
                             <h3 className="text-xl font-bold text-anchor-green mb-4 text-center">Baby Facilities</h3>
                             <ul className="grid sm:grid-cols-2 gap-4">
                                 <li className="flex items-center gap-2">
-                                    <span className="text-green-500">✓</span> Baby changing facilities
+                                    <span className="text-anchor-gold-vivid">✓</span> Baby changing facilities
                                 </li>
                                 <li className="flex items-center gap-2">
-                                    <span className="text-green-500">✓</span> Bottle warming on request
+                                    <span className="text-anchor-gold-vivid">✓</span> Bottle warming on request
                                 </li>
                                 <li className="flex items-center gap-2">
-                                    <span className="text-green-500">✓</span> Space for buggies
+                                    <span className="text-anchor-gold-vivid">✓</span> Space for buggies
                                 </li>
                                 <li className="flex items-center gap-2">
-                                    <span className="text-green-500">✓</span> Breastfeeding welcome
+                                    <span className="text-anchor-gold-vivid">✓</span> Breastfeeding welcome
                                 </li>
                             </ul>
                         </div>

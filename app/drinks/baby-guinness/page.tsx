@@ -48,10 +48,10 @@ export default function BabyGuinnessPage() {
       />
 
       {/* Main Content */}
-      <Section background="white" spacing="lg" container containerSize="md">
+      <Section background="white" spacing="lg" container containerSize="md" className="bg-anchor-bg">
         <article className="max-w-4xl mx-auto">
             <div className="prose prose-lg max-w-none">
-              <h2 className="text-3xl md:text-4xl font-bold text-anchor-green mb-6">
+              <h2 className="text-3xl md:text-4xl font-bold text-anchor-gold-vivid mb-6">
                 Baby Guinness Shot at The Anchor - Heathrow Pub & Dining's Favourite Party Starter
               </h2>
               
@@ -67,25 +67,25 @@ export default function BabyGuinnessPage() {
 
               {/* What is a Baby Guinness */}
               <section className="mb-12">
-                <h2 className="text-2xl font-bold text-anchor-green mb-4">What is a Baby Guinness?</h2>
-                <p className="text-gray-700 leading-relaxed mb-4">
-                  The Baby Guinness is our most popular layered shot that looks exactly like a tiny pint 
-                  of Guinness - complete with the distinctive dark body and creamy white head. Despite its 
-                  name, it contains no actual Guinness! Instead, it's made with coffee liqueur (usually Kahlúa) 
+                <h2 className="text-2xl font-bold text-anchor-gold-vivid mb-4">What is a Baby Guinness?</h2>
+                <p className="text-anchor-cream-text/70 leading-relaxed mb-4">
+                  The Baby Guinness is our most popular layered shot that looks exactly like a tiny pint
+                  of Guinness - complete with the distinctive dark body and creamy white head. Despite its
+                  name, it contains no actual Guinness! Instead, it's made with coffee liqueur (usually Kahlúa)
                   as the base and Irish cream liqueur (typically Bailey's) floated on top.
                 </p>
-                <p className="text-gray-700 leading-relaxed">
-                  This clever visual trick makes it one of the most Instagram-worthy shots you can order, 
-                  and at The Anchor, we've perfected the art of pouring them. Located just 7 minutes from 
-                  Heathrow Terminal 5, we're the perfect spot for pre-flight celebrations or welcoming 
+                <p className="text-anchor-cream-text/70 leading-relaxed">
+                  This clever visual trick makes it one of the most Instagram-worthy shots you can order,
+                  and at The Anchor, we've perfected the art of pouring them. Located just 7 minutes from
+                  Heathrow Terminal 5, we're the perfect spot for pre-flight celebrations or welcoming
                   friends back from their travels.
                 </p>
               </section>
 
               {/* Recipe Card */}
-              <Card className="bg-anchor-sand/20 mb-12">
+              <Card className="card-dark rounded-none mb-12">
                 <CardBody>
-                  <h3 className="text-xl font-bold text-anchor-green mb-4">How We Make Our Baby Guinness</h3>
+                  <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">How We Make Our Baby Guinness</h3>
                   <div className="grid md:grid-cols-2 gap-6">
                     <div>
                       <h4 className="font-semibold mb-2">Ingredients:</h4>
@@ -120,20 +120,20 @@ export default function BabyGuinnessPage() {
 
               {/* Perfect For Section */}
               <section className="mb-12">
-                <h2 className="text-2xl font-bold text-anchor-green mb-4">Perfect for Celebrations at The Anchor</h2>
+                <h2 className="text-2xl font-bold text-anchor-gold-vivid mb-4">Perfect for Celebrations at The Anchor</h2>
                 <div className="grid md:grid-cols-2 gap-4">
-                  <div className="bg-gray-50 rounded-lg p-4">
-                    <h3 className="font-semibold mb-2">🎉 Party Occasions</h3>
-                    <ul className="space-y-1 text-gray-700">
+                  <div className="bg-anchor-bg-card rounded-none p-4 border border-anchor-gold/15">
+                    <h3 className="font-semibold mb-2 text-anchor-cream-text">🎉 Party Occasions</h3>
+                    <ul className="space-y-1 text-anchor-cream-text/70">
                       <li>• Hen parties and stag dos</li>
                       <li>• Birthday celebrations</li>
                       <li>• Work leaving parties</li>
                       <li>• Pre-flight send-offs</li>
                     </ul>
                   </div>
-                  <div className="bg-gray-50 rounded-lg p-4">
-                    <h3 className="font-semibold mb-2">🍽️ Perfect Timing</h3>
-                    <ul className="space-y-1 text-gray-700">
+                  <div className="bg-anchor-bg-card rounded-none p-4 border border-anchor-gold/15">
+                    <h3 className="font-semibold mb-2 text-anchor-cream-text">🍽️ Perfect Timing</h3>
+                    <ul className="space-y-1 text-anchor-cream-text/70">
                       <li>• After your Sunday roast</li>
                       <li>• Before our monthly quiz night</li>
                       <li>• During hosted event nights (see /whats-on)</li>
@@ -145,54 +145,54 @@ export default function BabyGuinnessPage() {
 
               {/* History Section */}
               <section className="mb-12">
-                <h2 className="text-2xl font-bold text-anchor-green mb-4">The History of the Baby Guinness</h2>
-                <p className="text-gray-700 leading-relaxed mb-4">
-                  The Baby Guinness shot was invented in the 1980s and has become a staple of British and Irish 
-                  pub culture. The genius behind this shot was its visual appeal - creating something that looked 
+                <h2 className="text-2xl font-bold text-anchor-gold-vivid mb-4">The History of the Baby Guinness</h2>
+                <p className="text-anchor-cream-text/70 leading-relaxed mb-4">
+                  The Baby Guinness shot was invented in the 1980s and has become a staple of British and Irish
+                  pub culture. The genius behind this shot was its visual appeal - creating something that looked
                   exactly like a miniature pint of Ireland's most famous stout, but tasted completely different.
                 </p>
-                <p className="text-gray-700 leading-relaxed">
-                  The combination of coffee and cream flavours makes it surprisingly smooth and easy to drink, 
-                  which is why it's become one of the most ordered shots in pubs across the UK. At The Anchor, 
-                  we've been serving Baby Guinness shots for years, and they remain one of our top sellers - 
+                <p className="text-anchor-cream-text/70 leading-relaxed">
+                  The combination of coffee and cream flavours makes it surprisingly smooth and easy to drink,
+                  which is why it's become one of the most ordered shots in pubs across the UK. At The Anchor,
+                  we've been serving Baby Guinness shots for years, and they remain one of our top sellers -
                   especially on Tuesday pizza nights and during our weekend events.
                 </p>
               </section>
 
               {/* Variations */}
               <section className="mb-12">
-                <h2 className="text-2xl font-bold text-anchor-green mb-4">Variations We Also Serve</h2>
+                <h2 className="text-2xl font-bold text-anchor-gold-vivid mb-4">Variations We Also Serve</h2>
                 <div className="grid md:grid-cols-3 gap-4">
-	                  <Card>
-	                    <CardBody className="text-center">
-	                      <h3 className="font-semibold mb-2">Classic Baby Guinness</h3>
-	                      <p className="text-sm text-gray-600">Kahlúa & Bailey's</p>
-	                      <p className="text-anchor-gold font-bold">GBP 3.50</p>
-	                    </CardBody>
-	                  </Card>
-	                  <Card>
-	                    <CardBody className="text-center">
-	                      <h3 className="font-semibold mb-2">Slippery Nipple</h3>
-	                      <p className="text-sm text-gray-600">Vodka, Bailey's & Grenadine</p>
-	                      <p className="text-anchor-gold font-bold">GBP 4.00</p>
-	                    </CardBody>
-	                  </Card>
-	                  <Card>
-	                    <CardBody className="text-center">
-	                      <h3 className="font-semibold mb-2">B52</h3>
-	                      <p className="text-sm text-gray-600">Kahlúa, Bailey's & Grand Marnier</p>
-	                      <p className="text-anchor-gold font-bold">GBP 4.50</p>
-	                    </CardBody>
-	                  </Card>
+                  <Card className="card-dark rounded-none">
+                    <CardBody className="text-center">
+                      <h3 className="font-semibold mb-2 text-anchor-cream-text">Classic Baby Guinness</h3>
+                      <p className="text-sm text-anchor-cream-text/55">Kahlúa & Bailey's</p>
+                      <p className="text-anchor-gold font-bold">GBP 3.50</p>
+                    </CardBody>
+                  </Card>
+                  <Card className="card-dark rounded-none">
+                    <CardBody className="text-center">
+                      <h3 className="font-semibold mb-2 text-anchor-cream-text">Slippery Nipple</h3>
+                      <p className="text-sm text-anchor-cream-text/55">Vodka, Bailey's & Grenadine</p>
+                      <p className="text-anchor-gold font-bold">GBP 4.00</p>
+                    </CardBody>
+                  </Card>
+                  <Card className="card-dark rounded-none">
+                    <CardBody className="text-center">
+                      <h3 className="font-semibold mb-2 text-anchor-cream-text">B52</h3>
+                      <p className="text-sm text-anchor-cream-text/55">Kahlúa, Bailey's & Grand Marnier</p>
+                      <p className="text-anchor-gold font-bold">GBP 4.50</p>
+                    </CardBody>
+                  </Card>
                 </div>
               </section>
 
               {/* Why Choose The Anchor */}
               <section className="mb-12">
-                <h2 className="text-2xl font-bold text-anchor-green mb-4">
+                <h2 className="text-2xl font-bold text-anchor-gold-vivid mb-4">
                   Why Order Baby Guinness at The Anchor?
                 </h2>
-                <div className="bg-anchor-green/10 rounded-lg p-6">
+                <div className="bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15">
                   <ul className="space-y-3">
 	                    <li className="flex items-start">
 	                      <span className="text-anchor-gold mr-3">✓</span>
@@ -220,28 +220,28 @@ export default function BabyGuinnessPage() {
 
               {/* FAQs */}
               <section className="mb-12">
-                <h2 className="text-2xl font-bold text-anchor-green mb-4">Frequently Asked Questions</h2>
+                <h2 className="text-2xl font-bold text-anchor-gold-vivid mb-4">Frequently Asked Questions</h2>
                 <div className="space-y-4">
                   <div>
-                    <h3 className="font-semibold mb-2">Does a Baby Guinness contain actual Guinness?</h3>
-                    <p className="text-gray-700">No, despite the name, there's no Guinness in a Baby Guinness. 
+                    <h3 className="font-semibold mb-2 text-anchor-cream-text">Does a Baby Guinness contain actual Guinness?</h3>
+                    <p className="text-anchor-cream-text/70">No, despite the name, there's no Guinness in a Baby Guinness.
                     It's called that because it looks like a tiny pint of Guinness when properly layered.</p>
                   </div>
                   <div>
-                    <h3 className="font-semibold mb-2">How strong is a Baby Guinness?</h3>
-                    <p className="text-gray-700">It's relatively mild at around 17% ABV when mixed. The Kahlúa 
+                    <h3 className="font-semibold mb-2 text-anchor-cream-text">How strong is a Baby Guinness?</h3>
+                    <p className="text-anchor-cream-text/70">It's relatively mild at around 17% ABV when mixed. The Kahlúa
                     is 20% ABV and Bailey's is 17% ABV, making it lighter than most straight spirits.</p>
                   </div>
                   <div>
-                    <h3 className="font-semibold mb-2">Can I order Baby Guinness for a large group?</h3>
-                    <p className="text-gray-700">Absolutely! They're perfect for celebrations. For groups of 
+                    <h3 className="font-semibold mb-2 text-anchor-cream-text">Can I order Baby Guinness for a large group?</h3>
+                    <p className="text-anchor-cream-text/70">Absolutely! They're perfect for celebrations. For groups of
                     10 or more, give us a heads up and we'll have them ready when you arrive.</p>
                   </div>
-	                  <div>
-	                    <h3 className="font-semibold mb-2">Do you offer any deals on Baby Guinness shots?</h3>
-	                    <p className="text-gray-700">Yes! Get 2 for GBP 6 - perfect for sharing with a friend or 
-	                    for when one just isn't enough!</p>
-	                  </div>
+                  <div>
+                    <h3 className="font-semibold mb-2 text-anchor-cream-text">Do you offer any deals on Baby Guinness shots?</h3>
+                    <p className="text-anchor-cream-text/70">Yes! Get 2 for GBP 6 - perfect for sharing with a friend or
+                    for when one just isn't enough!</p>
+                  </div>
                 </div>
               </section>
             </div>

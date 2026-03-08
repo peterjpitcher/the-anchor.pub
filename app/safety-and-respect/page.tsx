@@ -31,10 +31,10 @@ export default function SafetyAndRespectPage() {
       />
 
       {/* Intro */}
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg">
         <Container>
           <div className="max-w-3xl mx-auto">
-            <p className="text-lg text-gray-700 leading-relaxed">
+            <p className="text-lg text-anchor-cream-text/70 leading-relaxed">
               We're the kind of pub where you can walk in on your own or with a group, whatever your background, and feel at ease. That's not accidental — it's how we run things.
             </p>
           </div>
@@ -42,11 +42,11 @@ export default function SafetyAndRespectPage() {
       </section>
 
       {/* Everyone's welcome */}
-      <section className="section-spacing bg-anchor-cream/30">
+      <section className="section-spacing bg-anchor-bg-raised">
         <Container>
           <div className="max-w-3xl mx-auto">
             <SectionHeader title="Everyone's welcome" />
-            <div className="space-y-4 text-gray-700 leading-relaxed">
+            <div className="space-y-4 text-anchor-cream-text/70 leading-relaxed">
               <p>
                 The Anchor is a proper local, but you don't need to be local to feel welcome here. We get solo visitors who just want a quiet pint, families out for Sunday lunch, groups celebrating birthdays, regulars who've been coming for years, and people who've never set foot in the place before. They all get the same thing: a decent drink, good food if they want it, and staff who actually pay attention.
               </p>
@@ -62,11 +62,11 @@ export default function SafetyAndRespectPage() {
       </section>
 
       {/* Our standards */}
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg">
         <Container>
           <div className="max-w-3xl mx-auto">
             <SectionHeader title="Our standards" />
-            <div className="space-y-4 text-gray-700 leading-relaxed">
+            <div className="space-y-4 text-anchor-cream-text/70 leading-relaxed">
               <p>
                 We have zero tolerance for harassment, discrimination, or behaviour that makes anyone feel unwelcome. That applies to guests and to staff — no exceptions.
               </p>
@@ -82,11 +82,11 @@ export default function SafetyAndRespectPage() {
       </section>
 
       {/* If something doesn't feel right */}
-      <section className="section-spacing bg-anchor-cream/30">
+      <section className="section-spacing bg-anchor-bg-raised">
         <Container>
           <div className="max-w-3xl mx-auto">
             <SectionHeader title="If something doesn't feel right" />
-            <div className="space-y-4 text-gray-700 leading-relaxed">
+            <div className="space-y-4 text-anchor-cream-text/70 leading-relaxed">
               <p>
                 Tell any member of our team. You don't need a reason or an explanation. We'll deal with it.
               </p>
@@ -99,16 +99,16 @@ export default function SafetyAndRespectPage() {
       </section>
 
       {/* Our events */}
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg">
         <Container>
           <div className="max-w-3xl mx-auto">
             <SectionHeader title="Our events" />
-            <div className="space-y-4 text-gray-700 leading-relaxed">
+            <div className="space-y-4 text-anchor-cream-text/70 leading-relaxed">
               <p>
                 We run a full events programme — quiz nights, cash bingo, music bingo, drag cabaret shows and gameshow house parties, many hosted by the brilliant Nikki Manfadge. Our events are designed to be fun, a little ridiculous, and welcoming for everyone. The atmosphere is warm, the crowd is mixed, and nobody takes themselves too seriously.
               </p>
               <p>
-                Check our <Link href="/whats-on" className="text-anchor-gold font-semibold hover:text-anchor-green transition">what's on page</Link> for upcoming events.
+                Check our <Link href="/whats-on" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition">what's on page</Link> for upcoming events.
               </p>
             </div>
           </div>
@@ -117,7 +117,7 @@ export default function SafetyAndRespectPage() {
 
       {/* FAQ */}
       <FAQAccordionWithSchema
-        className="bg-anchor-cream/30"
+        className="bg-anchor-bg"
         title="Frequently Asked Questions"
         faqs={[
           {
@@ -155,7 +155,7 @@ export default function SafetyAndRespectPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="tel:+441753682707">
-                <Button size="lg" variant="secondary" className="bg-white text-anchor-green hover:bg-gray-100">
+                <Button size="lg" variant="secondary" className="bg-anchor-bg-card text-anchor-gold-vivid hover:bg-anchor-bg-raised">
                   Call 01753 682707
                 </Button>
               </Link>

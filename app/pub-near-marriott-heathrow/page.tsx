@@ -94,29 +94,29 @@ export default function PubNearMarriottHeathrowPage() {
         }
       />
 
-      <section className="py-8 bg-white">
+      <section className="py-8 bg-anchor-bg">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
-            <PageTitle seo={{ structured: true, speakable: true }} className="text-anchor-green mb-4">
+            <PageTitle seo={{ structured: true, speakable: true }} className="text-anchor-cream-text mb-4">
               Pub Near Marriott London Heathrow
             </PageTitle>
-            <p className="text-lg text-gray-700">
+            <p className="text-lg text-anchor-cream-text/70">
               Staying at the Marriott Heathrow? The Anchor is just 12 minutes away — a proper British pub with home-cooked food, real ales, and free parking. A genuine escape from hotel restaurant prices.
             </p>
           </div>
         </Container>
       </section>
 
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <FeatureGrid
               columns={4}
               features={[
-                { icon: '🕐', title: '12 Minutes', description: 'By taxi from Marriott Heathrow', variant: 'colored', color: 'bg-green-50', className: 'rounded-xl p-6 text-center' },
-                { icon: '🚖', title: '~£15–18', description: 'Typical taxi fare each way', variant: 'colored', color: 'bg-blue-50', className: 'rounded-xl p-6 text-center' },
-                { icon: '🅿️', title: 'Free Parking', description: '20 spaces — no hotel charges', variant: 'colored', color: 'bg-amber-50', className: 'rounded-xl p-6 text-center' },
-                { icon: '🧾', title: 'VAT Receipts', description: 'Full receipts for expenses', variant: 'colored', color: 'bg-purple-50', className: 'rounded-xl p-6 text-center' },
+                { icon: '🕐', title: '12 Minutes', description: 'By taxi from Marriott Heathrow', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '🚖', title: '~£15–18', description: 'Typical taxi fare each way', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '🅿️', title: 'Free Parking', description: '20 spaces — no hotel charges', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '🧾', title: 'VAT Receipts', description: 'Full receipts for expenses', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
               ]}
               className="mb-8"
             />
@@ -124,7 +124,7 @@ export default function PubNearMarriottHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -132,8 +132,8 @@ export default function PubNearMarriottHeathrowPage() {
               subtitle="Marriott guests are often here on business. The Anchor offers the perfect setting for client dinners, team meals, or simply unwinding after a long day — at a fraction of hotel restaurant prices."
             />
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-xl font-bold text-anchor-green mb-4">Business-Friendly Features</h3>
+              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
+                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Business-Friendly Features</h3>
                 <ul className="space-y-3">
                   {[
                     'Full VAT receipts for all purchases',
@@ -150,9 +150,9 @@ export default function PubNearMarriottHeathrowPage() {
                   ))}
                 </ul>
               </div>
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-xl font-bold text-anchor-green mb-4">Getting Here from Marriott Heathrow</h3>
-                <div className="space-y-3 text-gray-700">
+              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
+                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Getting Here from Marriott Heathrow</h3>
+                <div className="space-y-3 text-anchor-cream-text/70">
                   <div>
                     <p className="font-semibold">By Taxi or Uber</p>
                     <p className="text-sm">Ask for The Anchor, Stanwell Moor (TW19 6AQ). The journey takes approximately 12 minutes and costs around £15–18 each way.</p>
@@ -163,7 +163,7 @@ export default function PubNearMarriottHeathrowPage() {
                   </div>
                   <div className="pt-2 border-t border-gray-200">
                     <p className="text-sm font-medium">Postcode: <strong>TW19 6AQ</strong></p>
-                    <p className="text-sm text-gray-600">20 free parking spaces on arrival</p>
+                    <p className="text-sm text-anchor-cream-text/70">20 free parking spaces on arrival</p>
                   </div>
                 </div>
               </div>
@@ -172,22 +172,22 @@ export default function PubNearMarriottHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeader title="Food & Drink at The Anchor" />
             <FeatureGrid
               columns={3}
               features={[
-                { icon: '🥩', title: 'Classic Mains', description: 'From £8.99 — steaks, fish & chips, burgers and British classics cooked fresh daily', variant: 'default', className: 'bg-white rounded-lg p-6 shadow-sm text-center' },
-                { icon: '🍺', title: 'Real Ales', description: 'Rotating guest ales and craft beers — a proper British pint from £4.80', variant: 'default', className: 'bg-white rounded-lg p-6 shadow-sm text-center' },
-                { icon: '🍕', title: 'Pizza Tuesday', description: 'Buy one get one free on all stone-baked pizzas every Tuesday — great for groups', variant: 'default', className: 'bg-white rounded-lg p-6 shadow-sm text-center' },
+                { icon: '🥩', title: 'Classic Mains', description: 'From £8.99 — steaks, fish & chips, burgers and British classics cooked fresh daily', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '🍺', title: 'Real Ales', description: 'Rotating guest ales and craft beers — a proper British pint from £4.80', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '🍕', title: 'Pizza Tuesday', description: 'Buy one get one free on all stone-baked pizzas every Tuesday — great for groups', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
               ]}
               className="mb-8"
             />
-            <div className="bg-white rounded-xl p-6 shadow-sm text-center">
-              <h3 className="text-xl font-bold text-anchor-green mb-3">Client Dinner? We&apos;ve Got You Covered</h3>
-              <p className="text-gray-700 mb-4">Relaxed but professional atmosphere ideal for building relationships over a proper meal. Book in advance for groups of 6 or more.</p>
+            <div className="card-dark rounded-none p-6 text-center">
+              <h3 className="text-xl font-bold text-anchor-gold-vivid mb-3">Client Dinner? We&apos;ve Got You Covered</h3>
+              <p className="text-anchor-cream-text/70 mb-4">Relaxed but professional atmosphere ideal for building relationships over a proper meal. Book in advance for groups of 6 or more.</p>
               <Link href="/food-menu">
                 <Button variant="secondary" size="lg">View Full Menu</Button>
               </Link>
@@ -196,7 +196,7 @@ export default function PubNearMarriottHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
             <SectionHeader title="Opening Hours" />
@@ -234,7 +234,7 @@ export default function PubNearMarriottHeathrowPage() {
             answer: 'Yes — we provide full itemised VAT receipts for all meals and drinks, making The Anchor an excellent choice for expense-friendly business entertaining.'
           },
         ]}
-        className="bg-gray-50"
+        className="bg-anchor-bg"
       />
 
       <CTASection

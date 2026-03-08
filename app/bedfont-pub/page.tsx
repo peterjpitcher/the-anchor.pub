@@ -119,7 +119,7 @@ export default function BedfontPubPage() {
       />
 
       {/* Page Title */}
-      <section className="py-8 bg-white">
+      <section className="py-8 bg-anchor-bg">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <PageTitle
@@ -127,11 +127,11 @@ export default function BedfontPubPage() {
                 structured: true,
                 speakable: true
               }}
-              className="text-anchor-green mb-4"
+              className="text-anchor-cream-text mb-4"
             >
               Bedfont Pub - Traditional British Pub Near Bedfont
             </PageTitle>
-            <p className="text-lg text-gray-700">
+            <p className="text-lg text-anchor-cream-text/70">
               Your local traditional pub just 5 minutes from Bedfont with free parking
             </p>
           </div>
@@ -139,7 +139,7 @@ export default function BedfontPubPage() {
       </section>
 
       {/* Distance & Benefits */}
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -175,8 +175,8 @@ export default function BedfontPubPage() {
             />
 
             {/* Why Choose Us */}
-            <div className="bg-anchor-cream rounded-2xl p-8">
-              <h3 className="text-2xl font-bold text-anchor-green mb-6">
+            <div className="card-dark rounded-none p-8">
+              <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-6">
                 Why Bedfont Residents Love The Anchor
               </h3>
               <ul className="space-y-4">
@@ -207,7 +207,7 @@ export default function BedfontPubPage() {
       </section>
 
       {/* Directions */}
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -260,9 +260,9 @@ export default function BedfontPubPage() {
               </div>
             </div>
 
-            <div className="mt-8 p-6 bg-blue-50 rounded-xl">
-              <h3 className="font-bold text-xl text-anchor-green mb-3">From Bedfont Lakes Business Park</h3>
-              <p className="text-gray-700">
+            <div className="mt-8 p-6 card-dark rounded-none">
+              <h3 className="font-bold text-xl text-anchor-gold-vivid mb-3">From Bedfont Lakes Business Park</h3>
+              <p className="text-anchor-cream-text/70">
                 Just 7 minutes via Bedfont Road and Staines Road. Perfect for lunch meetings, after-work drinks, 
                 or team celebrations. We offer reserved areas for corporate groups.
               </p>
@@ -272,31 +272,31 @@ export default function BedfontPubPage() {
       </section>
 
       {/* Local Features */}
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
               title="Perfect for Bedfont Locals"
             />
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-gray-50 p-8 rounded-xl">
-                <h3 className="font-bold text-xl text-anchor-green mb-4">Family Gatherings</h3>
-                <p className="text-gray-700 mb-4">
+              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-8">
+                <h3 className="font-bold text-xl text-anchor-gold-vivid mb-4">Family Gatherings</h3>
+                <p className="text-anchor-cream-text/70 mb-4">
                   The go-to venue for Bedfont family celebrations
                 </p>
-                <ul className="space-y-2 text-gray-700">
+                <ul className="space-y-2 text-anchor-cream-text/70">
                   <li>• Children's menu available</li>
                   <li>• High chairs provided</li>
                   <li>• Family-friendly - children always welcome</li>
                   <li>• Birthday party packages</li>
                 </ul>
               </div>
-              <div className="bg-gray-50 p-8 rounded-xl">
-                <h3 className="font-bold text-xl text-anchor-green mb-4">Local Groups Welcome</h3>
-                <p className="text-gray-700 mb-4">
+              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-8">
+                <h3 className="font-bold text-xl text-anchor-gold-vivid mb-4">Local Groups Welcome</h3>
+                <p className="text-anchor-cream-text/70 mb-4">
                   Home to many Bedfont clubs and societies
                 </p>
-                <ul className="space-y-2 text-gray-700">
+                <ul className="space-y-2 text-anchor-cream-text/70">
                   <li>• Monthly quiz nights with local teams</li>
                   <li>• Darts league participants</li>
                   <li>• Book clubs meet here</li>
@@ -306,19 +306,19 @@ export default function BedfontPubPage() {
             </div>
 
             <div className="mt-8 text-center">
-              <h3 className="font-bold text-xl text-anchor-green mb-4">Weekly Highlights for Bedfont</h3>
+              <h3 className="font-bold text-xl text-anchor-gold-vivid mb-4">Weekly Highlights for Bedfont</h3>
               <div className="grid md:grid-cols-3 gap-4">
-                <div className="bg-anchor-cream p-4 rounded-lg">
+                <div className="card-dark rounded-none p-4">
                   <p className="font-bold">Tuesday</p>
-                  <p className="text-gray-700">Stone-Baked Pizza Night</p>
+                  <p className="text-anchor-cream-text/70">Stone-Baked Pizza Night</p>
                 </div>
-                <div className="bg-anchor-cream p-4 rounded-lg">
+                <div className="card-dark rounded-none p-4">
                   <p className="font-bold">Wednesday</p>
-                  <p className="text-gray-700">Quiz Night</p>
+                  <p className="text-anchor-cream-text/70">Quiz Night</p>
                 </div>
-                <div className="bg-anchor-cream p-4 rounded-lg">
+                <div className="card-dark rounded-none p-4">
                   <p className="font-bold">Saturday</p>
-                  <p className="text-gray-700">Music Bingo with Nikki Manfadge (see /whats-on)</p>
+                  <p className="text-anchor-cream-text/70">Music Bingo with Nikki Manfadge (see /whats-on)</p>
                 </div>
               </div>
             </div>
@@ -327,7 +327,7 @@ export default function BedfontPubPage() {
       </section>
 
       {/* Opening Hours */}
-      <section className="section-spacing bg-anchor-cream">
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -354,7 +354,7 @@ export default function BedfontPubPage() {
             answer: "Yes! We're very popular with workers from Bedfont Lakes Business Park. We offer versatile venue spaces for corporate events, team meetings, and celebrations. With comprehensive catering options and our preferred vendor network, we're perfect for business functions. Just 7 minutes away with free parking."
           }
         ]}
-        className="bg-gray-50"
+        className="bg-anchor-bg"
       />
 
       {/* CTA Section */}

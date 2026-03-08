@@ -317,63 +317,63 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
       />
 
       {/* Breadcrumb */}
-      <Section background="gray" spacing="xs" container>
-        <nav className="flex flex-wrap items-center gap-2 text-sm text-gray-600">
-          <Link href="/" className="hover:text-anchor-green">Home</Link>
+      <Section background="gray" spacing="xs" container className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+        <nav className="flex flex-wrap items-center gap-2 text-sm text-anchor-cream-text/55">
+          <Link href="/" className="hover:text-anchor-gold">Home</Link>
           <span>/</span>
-          <Link href="/blog" className="hover:text-anchor-green">Blog</Link>
+          <Link href="/blog" className="hover:text-anchor-gold">Blog</Link>
           <span>/</span>
-          <span className="text-anchor-green font-semibold">{post.title}</span>
+          <span className="text-anchor-cream-text font-semibold">{post.title}</span>
         </nav>
       </Section>
 
       {/* Content */}
-      <Section as="article" spacing="lg" container containerSize="md" className="bg-white">
+      <Section as="article" spacing="lg" container containerSize="md" className="bg-anchor-bg">
         <div className="prose prose-lg lg:prose-xl max-w-none
-                prose-headings:font-serif prose-headings:text-anchor-green
+                prose-headings:font-serif prose-headings:text-anchor-gold-vivid
                 prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6
                 prose-h3:text-2xl prose-h3:mt-10 prose-h3:mb-4
                 prose-h4:text-xl prose-h4:mt-8 prose-h4:mb-3
-                prose-p:text-gray-700 prose-p:leading-relaxed prose-p:mb-6
+                prose-p:text-anchor-cream-text/70 prose-p:leading-relaxed prose-p:mb-6
                 prose-a:text-anchor-gold prose-a:font-semibold prose-a:no-underline
                 hover:prose-a:underline prose-a:transition-colours hover:prose-a:text-anchor-gold-light
-                prose-strong:text-anchor-green prose-strong:font-bold
+                prose-strong:text-anchor-cream-text prose-strong:font-bold
                 prose-ul:my-6 prose-ul:list-disc prose-ul:pl-6
                 prose-ol:my-6 prose-ol:list-decimal prose-ol:pl-6
-                prose-li:text-gray-700 prose-li:mb-2
-                prose-img:rounded-xl prose-img:shadow-sm prose-img:ring-1 prose-img:ring-black/5
+                prose-li:text-anchor-cream-text/70 prose-li:mb-2
+                prose-img:rounded-none prose-img:shadow-sm prose-img:ring-1 prose-img:ring-anchor-gold/15
                 prose-img:my-8 prose-img:w-full prose-img:max-w-full prose-img:mx-auto
                 sm:prose-img:max-w-xl lg:prose-img:max-w-[420px] xl:prose-img:max-w-[460px]
                 prose-figure:my-8 prose-figure:mx-auto prose-figure:max-w-full
                 sm:prose-figure:max-w-xl lg:prose-figure:max-w-[420px] xl:prose-figure:max-w-[460px]
                 prose-blockquote:border-l-4 prose-blockquote:border-anchor-gold prose-blockquote:pl-6
-                prose-blockquote:italic prose-blockquote:text-gray-600 prose-blockquote:my-8
-                prose-code:bg-gray-100 prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm
-                prose-pre:bg-gray-900 prose-pre:text-gray-100
-                prose-table:my-8 prose-th:bg-anchor-green prose-th:text-white
+                prose-blockquote:italic prose-blockquote:text-anchor-cream-text/55 prose-blockquote:my-8
+                prose-code:bg-anchor-bg-raised prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm
+                prose-pre:bg-anchor-bg-card prose-pre:text-anchor-cream-text
+                prose-table:my-8 prose-th:bg-anchor-bg-card prose-th:text-anchor-gold-vivid
                 prose-th:font-semibold prose-th:px-6 prose-th:py-3
-                prose-td:border prose-td:border-gray-300 prose-td:px-6 prose-td:py-3
-                prose-hr:border-gray-300 prose-hr:my-12">
+                prose-td:border prose-td:border-anchor-gold/15 prose-td:px-6 prose-td:py-3
+                prose-hr:border-anchor-gold/15 prose-hr:my-12">
           <div dangerouslySetInnerHTML={{ __html: contentWithImages }} />
         </div>
       </Section>
 
       {/* Share Section */}
-      <Section background="gray" spacing="sm" container containerSize="md">
+      <Section background="gray" spacing="sm" container containerSize="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
         <div className="text-center">
-          <p className="text-gray-600 mb-4">Enjoyed this article? Share it with your friends!</p>
+          <p className="text-anchor-cream-text/70 mb-4">Enjoyed this article? Share it with your friends!</p>
           <BlogShareButtons postTitle={post.title} postSlug={post.slug} />
         </div>
       </Section>
 
       {/* Navigation */}
-      <Section spacing="md" container containerSize="lg">
+      <Section spacing="md" container containerSize="lg" className="bg-anchor-bg border-b border-anchor-gold/15">
         <div className="grid md:grid-cols-2 gap-6">
           {prevPost && (
             <Link href={`/blog/${prevPost.slug}`} className="group">
-              <div className="bg-gray-50 rounded-xl p-6 hover:shadow-md transition-shadow">
-                <p className="text-sm text-gray-600 mb-2">← Previous Post</p>
-                <h3 className="text-lg font-bold text-anchor-green group-hover:text-anchor-gold transition-colours">
+              <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-6 hover:border-anchor-gold/40 transition-shadow">
+                <p className="text-sm text-anchor-cream-text/55 mb-2">← Previous Post</p>
+                <h3 className="text-lg font-bold text-anchor-gold-vivid group-hover:text-anchor-gold transition-colours">
                   {prevPost.title}
                 </h3>
               </div>
@@ -381,9 +381,9 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
           )}
           {nextPost && (
             <Link href={`/blog/${nextPost.slug}`} className="group md:text-right">
-              <div className="bg-gray-50 rounded-xl p-6 hover:shadow-md transition-shadow">
-                <p className="text-sm text-gray-600 mb-2">Next Post →</p>
-                <h3 className="text-lg font-bold text-anchor-green group-hover:text-anchor-gold transition-colours">
+              <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-6 hover:border-anchor-gold/40 transition-shadow">
+                <p className="text-sm text-anchor-cream-text/55 mb-2">Next Post →</p>
+                <h3 className="text-lg font-bold text-anchor-gold-vivid group-hover:text-anchor-gold transition-colours">
                   {nextPost.title}
                 </h3>
               </div>

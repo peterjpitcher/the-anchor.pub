@@ -62,28 +62,28 @@ export function FAQAccordionWithSchema({
       <section className={`section-spacing ${className}`}>
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-anchor-green mb-8 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-anchor-cream-text mb-8 text-center">
               {title}
             </h2>
-            
+
             {/* Removed microdata markup to prevent duplicate schemas */}
-            <div className="space-y-4">
+            <div className="space-y-3">
               {faqs.map((faq, index) => (
-                <div 
+                <div
                   key={index}
-                  className="bg-white rounded-xl shadow-md overflow-hidden"
+                  className="card-dark overflow-hidden"
                 >
                   <button
                     onClick={() => toggleQuestion(index)}
-                    className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors focus:outline-none focus:bg-gray-50 focus:ring-2 focus:ring-anchor-gold focus:ring-inset"
+                    className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-anchor-bg-raised transition-colors focus:outline-none focus:bg-anchor-bg-raised focus:ring-2 focus:ring-anchor-gold focus:ring-inset"
                     aria-expanded={openIndex === index}
                     aria-controls={`faq-answer-${index}`}
                   >
-                    <h3 className="font-bold text-lg text-anchor-green pr-4">
+                    <h3 className="font-bold text-lg text-anchor-cream-text pr-4">
                       {faq.question}
                     </h3>
                     <svg 
-                      className={`w-5 h-5 text-anchor-gold flex-shrink-0 transition-transform duration-200 ${
+                      className={`w-5 h-5 text-anchor-gold-vivid flex-shrink-0 transition-transform duration-200 ${
                         openIndex === index ? 'transform rotate-180' : ''
                       }`}
                       fill="none"
@@ -110,7 +110,7 @@ export function FAQAccordionWithSchema({
                       maxHeight: openIndex === index ? '500px' : '0',
                     }}
                   >
-                    <p className="text-gray-700">
+                    <p className="text-anchor-cream-text/70">
                       {faq.answer}
                     </p>
                   </div>

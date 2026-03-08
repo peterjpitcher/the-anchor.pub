@@ -126,20 +126,20 @@ export default async function FishAndChipsPage() {
                 }
             />
 
-            <section className="py-8 bg-white">
+            <section className="py-8 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-green mb-4">
+                        <PageTitle className="text-anchor-cream-text mb-4">
                             A British Institution
                         </PageTitle>
-                        <p className="text-lg text-gray-700">
+                        <p className="text-lg text-anchor-cream-text/70">
                             Whether you're a local resident or a traveller passing through Heathrow, sometimes only Fish and Chips will do. We don't mess around with the recipe. We use fresh fish, a secret-recipe beer batter, and we cook it to order so it hits your table crispy and hot.
                         </p>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-gray-50">
+            <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -181,15 +181,15 @@ export default async function FishAndChipsPage() {
                         {/* Dynamic Menu Items */}
                         {fishSection && (
                             <div className="mt-12 mb-12">
-                                <h3 className="text-2xl font-bold text-anchor-green mb-6">Our Fish Bar Menu</h3>
+                                <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-6">Our Fish Bar Menu</h3>
                                 <div className="grid md:grid-cols-2 gap-6 text-left max-w-3xl mx-auto">
                                     {fishSection.items.map((item, idx) => (
                                         <div key={idx} className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
                                             <div className="flex justify-between items-start mb-2">
-                                                <h4 className="font-bold text-xl text-anchor-green">{item.name}</h4>
+                                                <h4 className="font-bold text-xl text-anchor-cream-text">{item.name}</h4>
                                                 {item.price && <span className="font-bold text-anchor-gold bg-anchor-cream/50 px-2 py-1 rounded text-sm">{item.price}</span>}
                                             </div>
-                                            <p className="text-gray-600 text-sm mb-3">{item.description}</p>
+                                            <p className="text-anchor-cream-text/55 text-sm mb-3">{item.description}</p>
 
                                             {/* Tags */}
                                             <div className="flex flex-wrap gap-2">

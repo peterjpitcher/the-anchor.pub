@@ -68,20 +68,20 @@ export default function BabyShowersPage() {
                 }
             />
 
-            <section className="py-12 bg-white">
+            <section className="py-12 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <PageTitle className="text-center mb-6" seo={{ structured: true, speakable: true }}>
                         The Perfect Daytime Celebration
                     </PageTitle>
                     <div className="max-w-3xl mx-auto text-center">
-                        <p className="text-lg text-gray-700 mb-8">
+                        <p className="text-lg text-anchor-cream-text/70 mb-8">
                             Treat the mum-to-be to a relaxing afternoon of good food and laughter. Our bright and airy spaces are perfect for afternoon tea, games, and opening gifts.
                         </p>
                         {nearbyHospitals.length > 0 && (
-                            <div className="bg-yellow-50 p-4 rounded-xl inline-block text-center border border-yellow-100">
-                                <span className="font-bold text-anchor-green mr-2">📍 Ideally located near:</span>
+                            <div className="bg-anchor-bg-raised p-4 rounded-xl inline-block text-center border border-anchor-gold/15">
+                                <span className="font-bold text-anchor-gold-vivid mr-2">📍 Ideally located near:</span>
                                 {nearbyHospitals.map(l => (
-                                    <Link key={l.slug} href={`/private-hire/near/${l.slug}`} className="hover:underline text-gray-700 font-medium">
+                                    <Link key={l.slug} href={`/private-hire/near/${l.slug}`} className="hover:underline text-anchor-cream-text/70 font-medium">
                                         {l.name} ({l.distance})
                                     </Link>
                                 ))}
@@ -91,33 +91,33 @@ export default function BabyShowersPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-gray-50">
+            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
                 <Container>
                     <SectionHeader
                         title="Shower Packages"
                     />
                     <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-                        <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 text-center">
+                        <div className="card-dark rounded-none p-8 text-center">
                             <span className="text-4xl mb-4 block">🧁</span>
-                            <h3 className="text-xl font-bold text-anchor-green mb-2">Afternoon Tea</h3>
-                            <p className="text-gray-600 mb-4 italic">Catering packages available upon request</p>
-                            <p className="text-gray-600 mb-4">Classic finger sandwiches, homemade scones with clotted cream, and a selection of delicate cakes.</p>
-                            <ul className="text-sm text-gray-500 space-y-1">
+                            <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2">Afternoon Tea</h3>
+                            <p className="text-anchor-cream-text/55 mb-4 italic">Catering packages available upon request</p>
+                            <p className="text-anchor-cream-text/70 mb-4">Classic finger sandwiches, homemade scones with clotted cream, and a selection of delicate cakes.</p>
+                            <ul className="text-sm text-anchor-cream-text/55 space-y-1">
                                 <li>+ Add Prosecco on arrival</li>
                             </ul>
                         </div>
 
-                        <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-100 text-center">
+                        <div className="card-dark rounded-none p-8 text-center">
                             <span className="text-4xl mb-4 block">🥙</span>
-                            <h3 className="text-xl font-bold text-anchor-green mb-2">Light Lunch Buffet</h3>
-                            <p className="text-gray-600 mb-4 italic">Catering packages available upon request</p>
-                            <p className="text-gray-600 mb-4">A spread of wraps, quiches, fresh salads, and fruit platters. A healthier option for a daytime treat.</p>
+                            <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2">Light Lunch Buffet</h3>
+                            <p className="text-anchor-cream-text/55 mb-4 italic">Catering packages available upon request</p>
+                            <p className="text-anchor-cream-text/70 mb-4">A spread of wraps, quiches, fresh salads, and fruit platters. A healthier option for a daytime treat.</p>
                         </div>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-white">
+            <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
                 <Container>
                     <SectionHeader
                         title="All The Little Extras"

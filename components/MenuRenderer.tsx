@@ -136,7 +136,7 @@ export function MenuRenderer({ menuData, accentColor = 'anchor-gold' }: MenuRend
                 </span>
               ))}
             </p>
-            <p className="text-gray-700 mt-2">
+            <p className="text-anchor-cream-text/70 mt-2">
               Please order at the bar when you're ready
             </p>
           </Container>
@@ -154,16 +154,16 @@ export function MenuRenderer({ menuData, accentColor = 'anchor-gold' }: MenuRend
         aria-label="Restaurant menu"
       >
         {menuData.categories.map((category, categoryIndex) => (
-          <section key={category.id} id={category.id} className={`section-spacing ${categoryIndex % 2 === 0 ? 'bg-gray-50' : 'bg-white'}`} itemScope itemType="https://schema.org/MenuSection">
+          <section key={category.id} id={category.id} className={`section-spacing ${categoryIndex % 2 === 0 ? 'bg-anchor-bg-raised' : 'bg-anchor-bg'}`} itemScope itemType="https://schema.org/MenuSection">
           <Container>
             <div className="max-w-6xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold text-anchor-green mb-8 text-center" itemProp="name">
+              <h2 className="text-3xl md:text-4xl font-bold text-anchor-cream-text mb-8 text-center" itemProp="name">
                 {category.emoji && <span className="mr-2">{category.emoji}</span>}
                 {category.title}
               </h2>
-              
+
               {category.description && (
-                <p className="text-center text-lg text-gray-700 mb-8" itemProp="description">
+                <p className="text-center text-lg text-anchor-cream-text/70 mb-8" itemProp="description">
                   {category.description}
                 </p>
               )}
@@ -177,7 +177,7 @@ export function MenuRenderer({ menuData, accentColor = 'anchor-gold' }: MenuRend
                   className={cn(
                     'mb-8',
                     section.highlight && 'relative rounded-3xl px-6 py-12 shadow-lg overflow-visible',
-                    section.highlight && category.id === 'cocktails' && 'border border-amber-200 bg-amber-50/90',
+                    section.highlight && category.id === 'cocktails' && 'border border-amber-500/30 bg-amber-900/10',
                     section.highlight && category.id === 'spirits' && 'border-4 border-anchor-green bg-gradient-to-br from-anchor-green to-anchor-green-dark shadow-xl'
                   )}
                 >
@@ -199,7 +199,7 @@ export function MenuRenderer({ menuData, accentColor = 'anchor-gold' }: MenuRend
                   )}
                   
                   {section.description && (
-                    <p className={`text-center mb-6 ${section.highlight && category.id === 'spirits' ? 'text-lg text-white font-medium' : section.highlight && category.id === 'cocktails' ? 'text-lg text-gray-800 font-medium' : 'text-gray-700'}`}>
+                    <p className={`text-center mb-6 ${section.highlight && category.id === 'spirits' ? 'text-lg text-white font-medium' : section.highlight && category.id === 'cocktails' ? 'text-lg text-amber-300 font-medium' : 'text-anchor-cream-text/70'}`}>
                       {section.description}
                     </p>
                   )}
@@ -222,7 +222,7 @@ export function MenuRenderer({ menuData, accentColor = 'anchor-gold' }: MenuRend
 
                   {/* List Style */}
                   {section.style === 'list' && (
-                    <div className="bg-white rounded-2xl p-8 shadow-md">
+                    <div className="card-dark rounded-none p-8">
                       <div className="grid md:grid-cols-2 gap-4 max-w-2xl mx-auto" role="list">
                         {section.items.map((item, itemIndex) => (
                           <MenuItemList 
@@ -246,13 +246,13 @@ export function MenuRenderer({ menuData, accentColor = 'anchor-gold' }: MenuRend
 
       {/* Responsible Drinking Message */}
       {menuData.responsibleDrinking && (
-        <section className="section-spacing bg-amber-50">
+        <section className="section-spacing bg-anchor-bg-raised">
           <Container>
             <div className="max-w-4xl mx-auto text-center">
-              <h3 className="text-2xl font-bold text-anchor-green mb-4">
+              <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">
                 {menuData.responsibleDrinking.title}
               </h3>
-              <p className="text-gray-700">
+              <p className="text-anchor-cream-text/70">
                 {menuData.responsibleDrinking.message}
               </p>
             </div>
@@ -294,10 +294,10 @@ const MenuItemCard = memo(function MenuItemCard({ item, itemId, isFocused, onFoc
     <div 
       className={`rounded-2xl shadow-md transition-all ${isFocused ? 'ring-2 ring-anchor-gold' : ''} ${
         isManagersSpecial
-          ? 'bg-gradient-to-br from-green-50 to-emerald-100 border-2 border-green-500 p-6 hover:shadow-xl hover:scale-105'
-          : isHighlighted 
-          ? 'bg-gradient-to-br from-amber-50 to-amber-100 border-2 border-amber-300 p-6 hover:shadow-xl hover:scale-105' 
-          : 'bg-white p-8'
+          ? 'card-dark rounded-none border-2 border-anchor-green/40 p-6 hover:shadow-xl hover:scale-105'
+          : isHighlighted
+          ? 'bg-amber-900/10 border-2 border-amber-500/30 p-6 hover:shadow-xl hover:scale-105'
+          : 'card-dark rounded-none p-8'
       }`}
       itemScope 
       itemType="https://schema.org/MenuItem"
@@ -308,13 +308,13 @@ const MenuItemCard = memo(function MenuItemCard({ item, itemId, isFocused, onFoc
       aria-label={`${item.name}${priceLabel}${item.vegetarian ? ', vegetarian' : ''}`}
     >
       <div className="flex justify-between items-start mb-4">
-        <h3 className={`font-bold ${isHighlighted ? 'text-lg' : 'text-xl'} text-anchor-green flex items-center flex-wrap`} itemProp="name">
+        <h3 className={`font-bold ${isHighlighted ? 'text-lg' : 'text-xl'} text-anchor-gold-vivid flex items-center flex-wrap`} itemProp="name">
           <span>{item.name}</span>
           {isHighlighted && (
             <HeroBadge text="NEW" variant="new" position="inline" />
           )}
           {item.vegetarian && (
-            <span className="text-anchor-gold text-sm font-bold bg-green-100 px-2 py-1 rounded ml-2">(V)</span>
+            <span className="text-anchor-gold text-sm font-bold bg-anchor-green/20 px-2 py-1 rounded ml-2">(V)</span>
           )}
         </h3>
         {displayPrice && (
@@ -325,7 +325,7 @@ const MenuItemCard = memo(function MenuItemCard({ item, itemId, isFocused, onFoc
         )}
       </div>
       {item.description && (
-        <p className={`${isHighlighted ? 'text-gray-800 text-sm leading-relaxed' : 'text-gray-700'}`} itemProp="description">{item.description}</p>
+        <p className={`${isHighlighted ? 'text-amber-200 text-sm leading-relaxed' : 'text-anchor-cream-text/70'}`} itemProp="description">{item.description}</p>
       )}
       {gfAvailable && (
         <div className="mt-3">
@@ -357,7 +357,7 @@ const MenuItemCard = memo(function MenuItemCard({ item, itemId, isFocused, onFoc
         <HeroBadge text="25% OFF" variant="special" position="absolute" />
         <div 
           className={`rounded-2xl shadow-md transition-all ${isFocused ? 'ring-2 ring-anchor-gold' : ''} ${
-            'bg-gradient-to-br from-green-50 to-emerald-100 border-2 border-green-500 p-6 group-hover:shadow-xl group-hover:scale-105 cursor-pointer'
+            'bg-anchor-green/10 border-2 border-anchor-green/40 p-6 group-hover:shadow-xl group-hover:scale-105 cursor-pointer'
           }`}
           itemScope 
           itemType="https://schema.org/MenuItem"
@@ -370,7 +370,7 @@ const MenuItemCard = memo(function MenuItemCard({ item, itemId, isFocused, onFoc
             {/* Left side - Image (25% width on desktop) */}
             {specialImagePath && (
               <div className="md:col-span-3">
-                <div className="bg-white rounded-lg p-2 shadow-md">
+                <div className="bg-anchor-bg-raised rounded-lg p-2">
                   <Image 
                     src={specialImagePath} 
                     alt={item.name}
@@ -394,12 +394,12 @@ const MenuItemCard = memo(function MenuItemCard({ item, itemId, isFocused, onFoc
             {/* Right side - Content (75% width on desktop) */}
             <div className={specialImagePath ? "md:col-span-9" : "md:col-span-12"}>
               <div className="flex justify-between items-start mb-4">
-                <h3 className="font-bold text-xl text-anchor-green" itemProp="name">
+                <h3 className="font-bold text-xl text-anchor-gold-vivid" itemProp="name">
                   {item.name}
                 </h3>
               </div>
               {displayPrice && (
-                <div className="font-bold text-lg text-green-700 mb-3" itemProp="offers" itemScope itemType="https://schema.org/Offer">
+                <div className="font-bold text-lg text-anchor-gold mb-3" itemProp="offers" itemScope itemType="https://schema.org/Offer">
                   <span itemProp="price" content={schemaPrice}>{displayPrice}</span>
                   <meta itemProp="priceCurrency" content="GBP" />
                 </div>
@@ -412,10 +412,10 @@ const MenuItemCard = memo(function MenuItemCard({ item, itemId, isFocused, onFoc
                 </div>
               )}
               {item.description && (
-                <p className="text-gray-700 mb-4" itemProp="description">{item.description}</p>
+                <p className="text-anchor-cream-text/70 mb-4" itemProp="description">{item.description}</p>
               )}
               <AllergenInfo item={item} />
-              <div className="text-sm font-semibold text-green-700 group-hover:text-green-800 flex items-center mt-3">
+              <div className="text-sm font-semibold text-anchor-gold group-hover:text-anchor-gold-light flex items-center mt-3">
                 View Full Details & Tasting Notes
                 <svg className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -438,7 +438,7 @@ const AllergenInfo = memo(function AllergenInfo({ item }: { item: MenuItem }) {
   }
 
   return (
-    <div className="mt-2 text-sm text-gray-600">
+    <div className="mt-2 text-sm text-anchor-cream-text/55">
       <span className="font-medium">Contains: </span>
       {item.allergens.map((allergen, index) => {
         const allergenInfo = ALLERGEN_TYPES[allergen as keyof typeof ALLERGEN_TYPES]
@@ -465,7 +465,7 @@ const MenuItemList = memo(function MenuItemList({ item, itemId, isFocused, onFoc
 
   return (
     <div 
-      className={`flex justify-between p-2 rounded transition-all ${isFocused ? 'bg-amber-50' : ''}`}
+      className={`flex justify-between p-2 rounded transition-all ${isFocused ? 'bg-anchor-gold/10' : ''}`}
       itemScope 
       itemType="https://schema.org/MenuItem"
       role="listitem"
@@ -478,7 +478,7 @@ const MenuItemList = memo(function MenuItemList({ item, itemId, isFocused, onFoc
         <div className="flex flex-wrap items-center justify-between gap-2">
           <span itemProp="name">
             {item.name}
-            {item.vegetarian && <span className="text-sm text-green-600 ml-1">(V)</span>}
+            {item.vegetarian && <span className="text-sm text-anchor-gold-vivid ml-1">(V)</span>}
           </span>
           {displayPrice && (
             <span className="text-anchor-gold font-semibold ml-4" itemProp="offers" itemScope itemType="https://schema.org/Offer">
@@ -495,7 +495,7 @@ const MenuItemList = memo(function MenuItemList({ item, itemId, isFocused, onFoc
           </div>
         )}
         {item.allergens && item.allergens.length > 0 && (
-          <div className="text-xs text-gray-500 mt-1">
+          <div className="text-xs text-anchor-cream-text/55 mt-1">
             <span>Contains: {item.allergens.join(', ')}</span>
           </div>
         )}

@@ -127,7 +127,7 @@ export default async function ColnbrookPubPage() {
                 }
             />
 
-            <section className="py-8 bg-white">
+            <section className="py-8 bg-anchor-bg">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle
@@ -135,18 +135,18 @@ export default async function ColnbrookPubPage() {
                                 structured: true,
                                 speakable: true
                             }}
-                            className="text-anchor-green mb-4"
+                            className="text-anchor-cream-text mb-4"
                         >
                             Minutes from Poyle Industrial Estate & Colnbrook
                         </PageTitle>
-                        <p className="text-lg text-gray-700">
+                        <p className="text-lg text-anchor-cream-text/70">
                             Finish your shift and relax. We are the go-to pub for businesses in Poyle and residents of Colnbrook looking for quality food and a great atmosphere.
                         </p>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-gray-50">
+            <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -162,7 +162,7 @@ export default async function ColnbrookPubPage() {
                                     title: "After Work",
                                     description: "Cold biers, real ales, and a great wine list for the end of the day",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-card",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -170,7 +170,7 @@ export default async function ColnbrookPubPage() {
                                     title: "Great Food",
                                     description: "Hearty meals, burgers, and stone-baked pizzas to fuel your team",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-card",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -178,7 +178,7 @@ export default async function ColnbrookPubPage() {
                                     title: "Easy Parking",
                                     description: "Large free car park for vans and cars - no hassle",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-card",
                                     className: "rounded-xl p-6 text-center"
                                 }
                             ]}
@@ -188,16 +188,16 @@ export default async function ColnbrookPubPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-white">
+            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeader
                             title="Corporate & Team Events"
                         />
 
-                        <div className="bg-blue-50 rounded-xl p-8 mb-8 text-center">
+                        <div className="card-dark rounded-none p-8 mb-8 text-center">
                             <h3 className="text-2xl font-bold text-blue-800 mb-4">Poyle Business Specials</h3>
-                            <p className="text-gray-700 mb-6">
+                            <p className="text-anchor-cream-text/70 mb-6">
                                 We regularly host team meetings, leaving dos, and Christmas parties for companies based in the Poyle Industrial Estate. We can offer buffet packages and private areas.
                             </p>
                             <div className="flex flex-wrap justify-center gap-4">
@@ -223,7 +223,7 @@ export default async function ColnbrookPubPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-gray-50">
+            <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-2xl mx-auto text-center">
                         <SectionHeader
@@ -253,7 +253,7 @@ export default async function ColnbrookPubPage() {
                         answer: "We don't currently offer delivery, but you are welcome to order food to eat in or call ahead for collection if time is tight."
                     }
                 ]}
-                className="bg-white"
+                className="bg-anchor-bg-card"
             />
 
             <CTASection

@@ -78,14 +78,14 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
               <label 
                 htmlFor={checkboxId}
                 className={cn(
-                  'text-sm font-medium text-gray-700 cursor-pointer',
+                  'text-sm font-medium text-anchor-cream-text/70 cursor-pointer',
                   disabled && 'cursor-not-allowed opacity-50'
                 )}
               >
                 {label}
               </label>
               {helperText && !error && (
-                <p id={`${checkboxId}-helper`} className="text-sm text-gray-700">
+                <p id={`${checkboxId}-helper`} className="text-sm text-anchor-cream-text/70">
                   {helperText}
                 </p>
               )}
@@ -162,14 +162,14 @@ export const CheckboxGroup = forwardRef<HTMLFieldSetElement, CheckboxGroupProps>
         {...props}
       >
         {label && (
-          <legend className="text-sm font-medium text-gray-700 mb-2">
+          <legend className="text-sm font-medium text-anchor-cream-text/70 mb-2">
             {label}
             {required && <span className="text-red-500 ml-1">*</span>}
           </legend>
         )}
         
         {helperText && !error && (
-          <p id={`${testId}-helper`} className="text-sm text-gray-700 mb-2">
+          <p id={`${testId}-helper`} className="text-sm text-anchor-cream-text/70 mb-2">
             {helperText}
           </p>
         )}

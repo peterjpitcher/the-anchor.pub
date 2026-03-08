@@ -167,8 +167,8 @@ export function EventsToday() {
     return (
       <>
         <div className="text-center py-8">
-          <div className="bg-anchor-sand/30 rounded-2xl p-8 max-w-md mx-auto">
-            <p className="text-gray-700 text-lg mb-4">No special events today, but we&apos;re open as usual!</p>
+          <div className="bg-anchor-bg-raised rounded-none p-8 max-w-md mx-auto">
+            <p className="text-anchor-cream-text/70 text-lg mb-4">No special events today, but we&apos;re open as usual!</p>
             <Link href="/whats-on" className="text-anchor-gold hover:text-anchor-gold-light font-semibold inline-flex items-center gap-2">
               View all upcoming events
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -188,10 +188,10 @@ export function EventsToday() {
     <>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
         {events.map((event) => (
-        <div key={event.id} className="card-warm bg-white border-2 border-anchor-sand p-6 group">
+        <div key={event.id} className="card-dark rounded-none p-6 group">
           <div className="mb-4">
             {event.category && (
-              <span 
+              <span
                 className="inline-block px-3 py-1 text-sm sm:text-xs font-semibold rounded-full mb-2"
                 style={{
                   backgroundColor: `${event.category.color}20`,
@@ -201,17 +201,17 @@ export function EventsToday() {
                 {event.category.name}
               </span>
             )}
-            <h3 className="font-bold text-2xl text-anchor-green mb-2">{event.name}</h3>
+            <h3 className="font-bold text-2xl text-anchor-gold-vivid mb-2">{event.name}</h3>
             <div className="space-y-1">
               <p className="text-anchor-gold font-medium text-sm">{event.time}</p>
               {event.doorTime && (
-                <p className="text-gray-700 text-sm">{event.doorTime}</p>
+                <p className="text-anchor-cream-text/70 text-sm">{event.doorTime}</p>
               )}
               {event.performer && (
-                <p className="text-gray-700 text-sm">Featuring: {event.performer}</p>
+                <p className="text-anchor-cream-text/70 text-sm">Featuring: {event.performer}</p>
               )}
               {event.price && (
-                <p className={`text-sm mt-1 ${event.price === "0" ? "text-green-600 font-semibold" : "text-gray-700"}`}>
+                <p className={`text-sm mt-1 ${event.price === "0" ? "text-green-400 font-semibold" : "text-anchor-cream-text/70"}`}>
                   {event.price === "0"
                     ? "FREE TICKETS - Book while they\'re available"
                     : `From ${formatPrice(event.price, event.priceCurrency || 'GBP')}`}
@@ -219,16 +219,16 @@ export function EventsToday() {
               )}
             </div>
           </div>
-          <p className="text-gray-700 mb-6 leading-relaxed">{event.description}</p>
+          <p className="text-anchor-cream-text/70 mb-6 leading-relaxed">{event.description}</p>
           <div className="space-y-2">
             {event.soldOut && (
-              <p className="text-sm text-red-600 font-semibold">SOLD OUT</p>
+              <p className="text-sm text-red-400 font-semibold">SOLD OUT</p>
             )}
             {event.limitedAvailability && !event.soldOut && (
-              <p className="text-sm text-amber-600 font-semibold animate-pulse">LIMITED AVAILABILITY</p>
+              <p className="text-sm text-amber-400 font-semibold animate-pulse">LIMITED AVAILABILITY</p>
             )}
             {event.remainingTickets && event.remainingTickets > 0 && !event.limitedAvailability && (
-              <p className="text-sm text-gray-700">Tickets available</p>
+              <p className="text-sm text-anchor-cream-text/70">Tickets available</p>
             )}
           </div>
           <Link 

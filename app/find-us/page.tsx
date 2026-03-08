@@ -103,10 +103,10 @@ export default function FindUsPage() {
       />
 
       {/* Page Title for SEO */}
-      <Section background="white" spacing="sm">
+      <Section background="white" spacing="sm" className="bg-anchor-bg border-b border-anchor-gold/15">
         <Container>
           <PageTitle
-            className="text-center text-anchor-green"
+            className="text-center text-anchor-cream-text"
             seo={{ structured: true, speakable: true }}
           >
             Find The Anchor - FREE Parking & Easy Directions from Heathrow
@@ -115,60 +115,60 @@ export default function FindUsPage() {
       </Section>
 
       {/* Quick Info */}
-      <Section background="white" spacing="md" className="bg-anchor-cream">
+      <Section background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-6xl mx-auto">
-            <div className="bg-white p-4 rounded-lg text-center">
+            <div className="bg-anchor-bg-card p-4 rounded-none border border-anchor-gold/15 text-center">
               <div className="text-3xl mb-2">📍</div>
-              <p className="font-bold text-anchor-green">Stanwell Moor</p>
-              <p className="text-sm text-gray-700">Surrey TW19 6AQ</p>
+              <p className="font-bold text-anchor-cream-text">Stanwell Moor</p>
+              <p className="text-sm text-anchor-cream-text/70">Surrey TW19 6AQ</p>
             </div>
-            <div className="bg-green-50 p-4 rounded-lg text-center border-2 border-green-200">
+            <div className="bg-anchor-bg-card p-4 rounded-none border border-anchor-gold/30 text-center">
               <div className="text-3xl mb-2">🆓</div>
-              <p className="font-bold text-green-700">FREE PARKING</p>
-              <p className="text-sm text-green-600 font-semibold">For patrons • 20 spaces</p>
+              <p className="font-bold text-anchor-gold-vivid">FREE PARKING</p>
+              <p className="text-sm text-anchor-gold font-semibold">For patrons • 20 spaces</p>
             </div>
-            <div className="bg-white p-4 rounded-lg text-center">
+            <div className="bg-anchor-bg-card p-4 rounded-none border border-anchor-gold/15 text-center">
               <div className="text-3xl mb-2">✈️</div>
-              <p className="font-bold text-anchor-green">Near Heathrow</p>
-              <p className="text-sm text-gray-700">7-12 minutes</p>
+              <p className="font-bold text-anchor-cream-text">Near Heathrow</p>
+              <p className="text-sm text-anchor-cream-text/70">7-12 minutes</p>
             </div>
-            <div className="bg-white p-4 rounded-lg text-center">
+            <div className="bg-anchor-bg-card p-4 rounded-none border border-anchor-gold/15 text-center">
               <div className="text-3xl mb-2">🚌</div>
-              <p className="font-bold text-anchor-green">Bus Routes</p>
-              <p className="text-sm text-gray-700">442</p>
+              <p className="font-bold text-anchor-cream-text">Bus Routes</p>
+              <p className="text-sm text-anchor-cream-text/70">442</p>
             </div>
-            <div className="bg-white p-4 rounded-lg text-center">
+            <div className="bg-anchor-bg-card p-4 rounded-none border border-anchor-gold/15 text-center">
               <div className="text-3xl mb-2">📶</div>
-              <p className="font-bold text-anchor-green">Free WiFi</p>
-              <p className="text-sm text-gray-700">Throughout the pub</p>
+              <p className="font-bold text-anchor-cream-text">Free WiFi</p>
+              <p className="text-sm text-anchor-cream-text/70">Throughout the pub</p>
             </div>
-            <div className="bg-white p-4 rounded-lg text-center">
+            <div className="bg-anchor-bg-card p-4 rounded-none border border-anchor-gold/15 text-center">
               <div className="text-3xl mb-2">🎱</div>
-              <p className="font-bold text-anchor-green">Pool & Darts</p>
-              <p className="text-sm text-gray-700">Games available</p>
+              <p className="font-bold text-anchor-cream-text">Pool & Darts</p>
+              <p className="text-sm text-anchor-cream-text/70">Games available</p>
             </div>
-            <div className="bg-white p-4 rounded-lg text-center">
+            <div className="bg-anchor-bg-card p-4 rounded-none border border-anchor-gold/15 text-center">
               <div className="text-3xl mb-2">💻</div>
-              <p className="font-bold text-anchor-green">Work Friendly</p>
-              <p className="text-sm text-gray-700">Tables with plugs</p>
+              <p className="font-bold text-anchor-cream-text">Work Friendly</p>
+              <p className="text-sm text-anchor-cream-text/70">Tables with plugs</p>
             </div>
-            <div className="bg-white p-4 rounded-lg text-center">
+            <div className="bg-anchor-bg-card p-4 rounded-none border border-anchor-gold/15 text-center">
               <div className="text-3xl mb-2">🎵</div>
-              <p className="font-bold text-anchor-green">Entertainment</p>
-              <p className="text-sm text-gray-700">Jukebox & more</p>
+              <p className="font-bold text-anchor-cream-text">Entertainment</p>
+              <p className="text-sm text-anchor-cream-text/70">Jukebox & more</p>
             </div>
-            <div className="bg-white p-4 rounded-lg text-center">
+            <div className="bg-anchor-bg-card p-4 rounded-none border border-anchor-gold/15 text-center">
               <div className="text-3xl mb-2">💳</div>
-              <p className="font-bold text-anchor-green">Payment</p>
-              <p className="text-sm text-gray-700">Cash & all cards inc. Amex</p>
+              <p className="font-bold text-anchor-cream-text">Payment</p>
+              <p className="text-sm text-anchor-cream-text/70">Cash & all cards inc. Amex</p>
             </div>
           </div>
         </Container>
       </Section>
 
       {/* Heathrow Terminal Directions */}
-      <Section background="white" spacing="md">
+      <Section background="white" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeader
@@ -182,53 +182,53 @@ export default function FindUsPage() {
                   icon: "✈️",
                   title: "Terminal 5 → The Anchor (7 mins)",
                   description: (
-                    <ul className="list-disc list-inside text-gray-700 space-y-2 text-left">
-	                      <li>Follow signs to exit via A3044 (Stanwell Moor Road)</li>
-	                      <li>Turn left onto Horton Road; pub is 200 yards on right</li>
-	                      <li>Taxi fare ~GBP 18, free parking on arrival saves GBP 20+</li>
-	                    </ul>
-	                  ),
+                    <ul className="list-disc list-inside text-anchor-cream-text/70 space-y-2 text-left">
+                      <li>Follow signs to exit via A3044 (Stanwell Moor Road)</li>
+                      <li>Turn left onto Horton Road; pub is 200 yards on right</li>
+                      <li>Taxi fare ~GBP 18, free parking on arrival saves GBP 20+</li>
+                    </ul>
+                  ),
                   variant: "default",
-                  className: "bg-white rounded-2xl p-6 shadow-sm"
+                  className: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15"
                 },
                 {
                   icon: "🧳",
                   title: "Terminals 2 & 3 (11 mins)",
                   description: (
-                    <ul className="list-disc list-inside text-gray-700 space-y-2 text-left">
+                    <ul className="list-disc list-inside text-anchor-cream-text/70 space-y-2 text-left">
                       <li>Head north on Tunnel Road W → M4 Spur → A4 → A3044</li>
                       <li>Avoid multi-storey car parks; follow sat nav to TW19 6AQ</li>
                       <li>Ideal for pre-flight meals before security queues</li>
                     </ul>
                   ),
                   variant: "default",
-                  className: "bg-white rounded-2xl p-6 shadow-sm"
+                  className: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15"
                 },
                 {
                   icon: "🚖",
                   title: "Terminal 4 (12 mins)",
                   description: (
-	                    <ul className="list-disc list-inside text-gray-700 space-y-2 text-left">
-	                      <li>Take Southern Perimeter Rd → Stanwell Moor Rd</li>
-	                      <li>Taxis and rideshares average GBP 22 each way</li>
-	                      <li>Plenty of time for a meal before evening departures</li>
-	                    </ul>
-	                  ),
+                    <ul className="list-disc list-inside text-anchor-cream-text/70 space-y-2 text-left">
+                      <li>Take Southern Perimeter Rd → Stanwell Moor Rd</li>
+                      <li>Taxis and rideshares average GBP 22 each way</li>
+                      <li>Plenty of time for a meal before evening departures</li>
+                    </ul>
+                  ),
                   variant: "default",
-                  className: "bg-white rounded-2xl p-6 shadow-sm"
+                  className: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15"
                 },
                 {
                   icon: "🚌",
                   title: "442 Bus & Hotel Shuttles",
                   description: (
-                    <ul className="list-disc list-inside text-gray-700 space-y-2 text-left">
+                    <ul className="list-disc list-inside text-anchor-cream-text/70 space-y-2 text-left">
                       <li>442 stops outside the pub connecting Staines ↔ Heathrow</li>
                       <li>Premier Inn T5 guests can walk in 15 minutes or take local taxi</li>
                       <li>Ask your driver for The Anchor, Horton Road, Stanwell Moor</li>
                     </ul>
                   ),
                   variant: "default",
-                  className: "bg-white rounded-2xl p-6 shadow-sm"
+                  className: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15"
                 }
               ]}
             />
@@ -237,7 +237,7 @@ export default function FindUsPage() {
       </Section>
 
       {/* Address & Contact */}
-      <Section background="white" spacing="md">
+      <Section background="white" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <div className="grid md:grid-cols-2 gap-12">
@@ -245,22 +245,22 @@ export default function FindUsPage() {
                 <SectionHeader
                   title="Our Address"
                 />
-                <div className="bg-anchor-cream rounded-2xl p-8">
+                <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-8">
                   <SpeakableContent selector="contact-info" priority="high">
                     <div className="mb-8">
                       <GoogleMapEmbed query="The Anchor, Stanwell Moor" height="250px" className="mb-6 rounded-xl" />
 
-                      <address className="not-italic text-lg space-y-2">
-                        <p className="font-bold text-xl text-anchor-green">The Anchor</p>
+                      <address className="not-italic text-lg space-y-2 text-anchor-cream-text/70">
+                        <p className="font-bold text-xl text-anchor-cream-text">The Anchor</p>
                         <p>Horton Road</p>
                         <p>Stanwell Moor</p>
                         <p>Surrey</p>
-                        <p className="font-bold">TW19 6AQ</p>
+                        <p className="font-bold text-anchor-cream-text">TW19 6AQ</p>
                       </address>
                     </div>
 
-                    <div className="mt-6 pt-6 border-t border-gray-300">
-                      <p className="font-bold text-anchor-green mb-3">Contact</p>
+                    <div className="mt-6 pt-6 border-t border-anchor-gold/15">
+                      <p className="font-bold text-anchor-gold-vivid mb-3">Contact</p>
                       <p className="mb-2">
                         <PhoneLink
                           phone="01753682707"
@@ -295,11 +295,11 @@ export default function FindUsPage() {
                 <SectionHeader
                   title="Landmarks"
                 />
-                <div className="bg-anchor-sand/30 rounded-2xl p-8">
-                  <p className="text-lg font-semibold text-anchor-green mb-4">
+                <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-8">
+                  <p className="text-lg font-semibold text-anchor-gold-vivid mb-4">
                     Look out for these landmarks:
                   </p>
-                  <ul className="space-y-3">
+                  <ul className="space-y-3 text-anchor-cream-text/70">
                     <li className="flex gap-3">
                       <span className="text-anchor-gold">🏘️</span>
                       <span>Centre of Stanwell Moor village</span>
@@ -318,8 +318,8 @@ export default function FindUsPage() {
                     </li>
                   </ul>
 
-                  <div className="mt-6 p-4 bg-white rounded-lg">
-                    <p className="text-sm text-gray-700 italic">
+                  <div className="mt-6 p-4 bg-anchor-bg rounded-none border border-anchor-gold/15">
+                    <p className="text-sm text-anchor-cream-text/55 italic">
                       "If you can hear the planes, you're close!"
                     </p>
                   </div>
@@ -343,7 +343,7 @@ export default function FindUsPage() {
       </Section>
 
       {/* Directions */}
-      <Section background="gray" spacing="md">
+      <Section background="gray" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <SectionHeader
             title="Directions from Popular Locations"
@@ -351,61 +351,61 @@ export default function FindUsPage() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {/* From M25 */}
-            <div className="bg-white rounded-xl p-6 shadow-md">
-              <h3 className="font-bold text-xl text-anchor-green mb-4">From M25</h3>
-              <ol className="space-y-2 text-gray-700 list-decimal list-inside">
+            <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-6">
+              <h3 className="font-bold text-xl text-anchor-gold-vivid mb-4">From M25</h3>
+              <ol className="space-y-2 text-anchor-cream-text/70 list-decimal list-inside">
                 <li>Exit Junction 14</li>
                 <li>Take A3113 towards Stanwell Moor</li>
                 <li>At roundabout, continue straight</li>
                 <li>Turn left at Horton Road</li>
                 <li>The Anchor is on your right</li>
               </ol>
-              <p className="mt-4 text-sm text-gray-700">Journey time: 5 minutes from M25</p>
+              <p className="mt-4 text-sm text-anchor-cream-text/55">Journey time: 5 minutes from M25</p>
             </div>
 
             {/* From Staines */}
-            <div className="bg-white rounded-xl p-6 shadow-md">
-              <h3 className="font-bold text-xl text-anchor-green mb-4">From Staines</h3>
-              <ol className="space-y-2 text-gray-700 list-decimal list-inside">
+            <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-6">
+              <h3 className="font-bold text-xl text-anchor-gold-vivid mb-4">From Staines</h3>
+              <ol className="space-y-2 text-anchor-cream-text/70 list-decimal list-inside">
                 <li>Head south on A30</li>
                 <li>Turn right onto A3044</li>
                 <li>Continue to Stanwell Moor</li>
                 <li>Turn right onto Horton Road</li>
                 <li>The Anchor is on your right</li>
               </ol>
-              <p className="mt-4 text-sm text-gray-700">Journey time: 10 minutes</p>
+              <p className="mt-4 text-sm text-anchor-cream-text/55">Journey time: 10 minutes</p>
             </div>
 
             {/* From Windsor */}
-            <div className="bg-white rounded-xl p-6 shadow-md">
-              <h3 className="font-bold text-xl text-anchor-green mb-4">From Windsor</h3>
-              <ol className="space-y-2 text-gray-700 list-decimal list-inside">
+            <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-6">
+              <h3 className="font-bold text-xl text-anchor-gold-vivid mb-4">From Windsor</h3>
+              <ol className="space-y-2 text-anchor-cream-text/70 list-decimal list-inside">
                 <li>Take A308 towards Staines</li>
                 <li>Join M25 at Junction 13</li>
                 <li>Exit at Junction 14</li>
                 <li>Follow signs to Stanwell Moor</li>
                 <li>Turn left at Horton Road</li>
               </ol>
-              <p className="mt-4 text-sm text-gray-700">Journey time: 20 minutes</p>
+              <p className="mt-4 text-sm text-anchor-cream-text/55">Journey time: 20 minutes</p>
             </div>
 
             {/* From Ashford */}
-            <div className="bg-white rounded-xl p-6 shadow-md">
-              <h3 className="font-bold text-xl text-anchor-green mb-4">From Ashford</h3>
-              <ol className="space-y-2 text-gray-700 list-decimal list-inside">
+            <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-6">
+              <h3 className="font-bold text-xl text-anchor-gold-vivid mb-4">From Ashford</h3>
+              <ol className="space-y-2 text-anchor-cream-text/70 list-decimal list-inside">
                 <li>Head north on A30</li>
                 <li>Turn left onto A3044</li>
                 <li>Continue through Stanwell</li>
                 <li>Turn left onto Horton Road</li>
                 <li>The Anchor is on your right</li>
               </ol>
-              <p className="mt-4 text-sm text-gray-700">Journey time: 10 minutes</p>
+              <p className="mt-4 text-sm text-anchor-cream-text/55">Journey time: 10 minutes</p>
             </div>
 
             {/* From Heathrow */}
-            <div className="bg-white rounded-xl p-6 shadow-md">
-              <h3 className="font-bold text-xl text-anchor-green mb-4">From Heathrow</h3>
-              <p className="text-gray-700 mb-3">See our detailed terminal guides:</p>
+            <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-6">
+              <h3 className="font-bold text-xl text-anchor-gold-vivid mb-4">From Heathrow</h3>
+              <p className="text-anchor-cream-text/70 mb-3">See our detailed terminal guides:</p>
               <ul className="space-y-2">
                 <li><Link href="/near-heathrow/terminal-2" className="text-anchor-gold hover:text-anchor-gold-light">→ From Terminal 2</Link></li>
                 <li><Link href="/near-heathrow/terminal-3" className="text-anchor-gold hover:text-anchor-gold-light">→ From Terminal 3</Link></li>
@@ -415,53 +415,53 @@ export default function FindUsPage() {
             </div>
 
             {/* By Public Transport */}
-            <div className="bg-white rounded-xl p-6 shadow-md">
-              <h3 className="font-bold text-xl text-anchor-green mb-4">By Bus</h3>
-              <div className="space-y-3 text-gray-700">
-                <p><strong>Route 442:</strong> Staines - Stanwell Moor - Heathrow</p>
+            <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-6">
+              <h3 className="font-bold text-xl text-anchor-gold-vivid mb-4">By Bus</h3>
+              <div className="space-y-3 text-anchor-cream-text/70">
+                <p><strong className="text-anchor-cream-text">Route 442:</strong> Staines - Stanwell Moor - Heathrow</p>
                 <p className="text-sm">Ask driver for The Anchor stop</p>
-                <p className="text-sm text-green-600 font-semibold">✓ ULEZ Free Route</p>
+                <p className="text-sm text-anchor-gold-vivid font-semibold">✓ ULEZ Free Route</p>
               </div>
-              <p className="mt-4 text-sm text-gray-700">Regular service throughout the day</p>
+              <p className="mt-4 text-sm text-anchor-cream-text/55">Regular service throughout the day</p>
             </div>
           </div>
         </Container>
       </Section>
 
       {/* Parking Information */}
-      <Section background="white" spacing="md">
+      <Section background="white" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <SectionHeader
               title="🆓 FREE Parking for Patrons - 20 Spaces Available!"
               subtitle="Complimentary parking while you're enjoying our food and drinks"
             />
-            <div className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-2xl p-8 border-2 border-green-200">
+            <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/30 p-8">
               <div className="grid md:grid-cols-3 gap-6">
                 <div>
-	                  <div className="text-4xl mb-3">🆓</div>
-	                  <h3 className="font-bold text-green-700 mb-2">ALWAYS FREE</h3>
-	                  <p className="text-gray-700">Unlike Heathrow (GBP 7.50/hour!)</p>
-	                </div>
+                  <div className="text-4xl mb-3">🆓</div>
+                  <h3 className="font-bold text-anchor-gold-vivid mb-2">ALWAYS FREE</h3>
+                  <p className="text-anchor-cream-text/70">Unlike Heathrow (GBP 7.50/hour!)</p>
+                </div>
                 <div>
                   <div className="text-4xl mb-3">⏰</div>
-                  <h3 className="font-bold text-green-700 mb-2">NO TIME LIMITS</h3>
-                  <p className="text-gray-700">Stay as long as you like!</p>
+                  <h3 className="font-bold text-anchor-gold-vivid mb-2">NO TIME LIMITS</h3>
+                  <p className="text-anchor-cream-text/70">Stay as long as you like!</p>
                 </div>
                 <div>
                   <div className="text-4xl mb-3">🚗</div>
-                  <h3 className="font-bold text-green-700 mb-2">20 SPACES</h3>
-                  <p className="text-gray-700">Well-lit with CCTV coverage</p>
+                  <h3 className="font-bold text-anchor-gold-vivid mb-2">20 SPACES</h3>
+                  <p className="text-anchor-cream-text/70">Well-lit with CCTV coverage</p>
                 </div>
               </div>
-	              <div className="mt-6 bg-white rounded-lg p-4">
-	                <p className="text-green-700 font-bold text-lg">
-	                  💰 Compare: Heathrow T5 Short Stay = GBP 7.50/hour | The Anchor = FREE!
-	                </p>
-	                <p className="text-sm text-gray-600 mt-2">
-	                  Perfect for picking up/dropping off at Heathrow without the parking fees!
-	                </p>
-	              </div>
+              <div className="mt-6 bg-anchor-bg rounded-none border border-anchor-gold/15 p-4">
+                <p className="text-anchor-gold-vivid font-bold text-lg">
+                  💰 Compare: Heathrow T5 Short Stay = GBP 7.50/hour | The Anchor = FREE!
+                </p>
+                <p className="text-sm text-anchor-cream-text/55 mt-2">
+                  Perfect for picking up/dropping off at Heathrow without the parking fees!
+                </p>
+              </div>
             </div>
           </div>
         </Container>
@@ -537,96 +537,96 @@ export default function FindUsPage() {
       </Section>
 
       {/* Facilities */}
-      <Section background="white" spacing="md" className="bg-anchor-sand/20">
+      <Section background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeader
               title="Our Facilities"
             />
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-white rounded-2xl p-8 shadow-sm">
-                <h3 className="text-2xl font-bold text-anchor-green mb-6">Entertainment & Games</h3>
-                <ul className="space-y-3">
+              <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-8">
+                <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-6">Entertainment & Games</h3>
+                <ul className="space-y-3 text-anchor-cream-text/70">
                   <li className="flex gap-3">
                     <span className="text-anchor-gold">🎱</span>
-                    <span><strong>Pool Table</strong> - Challenge your friends</span>
+                    <span><strong className="text-anchor-cream-text">Pool Table</strong> - Challenge your friends</span>
                   </li>
                   <li className="flex gap-3">
                     <span className="text-anchor-gold">🎯</span>
-                    <span><strong>Darts Board</strong> - Professional setup with oche</span>
+                    <span><strong className="text-anchor-cream-text">Darts Board</strong> - Professional setup with oche</span>
                   </li>
                   <li className="flex gap-3">
                     <span className="text-anchor-gold">🎵</span>
-                    <span><strong>Jukebox</strong> - Wide selection of music</span>
+                    <span><strong className="text-anchor-cream-text">Jukebox</strong> - Wide selection of music</span>
                   </li>
                   <li className="flex gap-3">
                     <span className="text-anchor-gold">🎰</span>
-                    <span><strong>Fruit Machine</strong> - Try your luck (18+)</span>
+                    <span><strong className="text-anchor-cream-text">Fruit Machine</strong> - Try your luck (18+)</span>
                   </li>
                   <li className="flex gap-3">
                     <span className="text-anchor-gold">📺</span>
-                    <span><strong>4 TVs</strong> - Terrestrial channels for sports & news</span>
+                    <span><strong className="text-anchor-cream-text">4 TVs</strong> - Terrestrial channels for sports & news</span>
                   </li>
                 </ul>
               </div>
 
-              <div className="bg-white rounded-2xl p-8 shadow-sm">
-                <h3 className="text-2xl font-bold text-anchor-green mb-6">Work & Connectivity</h3>
-                <ul className="space-y-3">
+              <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-8">
+                <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-6">Work & Connectivity</h3>
+                <ul className="space-y-3 text-anchor-cream-text/70">
                   <li className="flex gap-3">
                     <span className="text-anchor-gold">📶</span>
-                    <span><strong>Free WiFi</strong> - Fast, reliable, no time limits</span>
+                    <span><strong className="text-anchor-cream-text">Free WiFi</strong> - Fast, reliable, no time limits</span>
                   </li>
                   <li className="flex gap-3">
                     <span className="text-anchor-gold">🔌</span>
-                    <span><strong>Power Points</strong> - Tables with plugs in dining room</span>
+                    <span><strong className="text-anchor-cream-text">Power Points</strong> - Tables with plugs in dining room</span>
                   </li>
                   <li className="flex gap-3">
                     <span className="text-anchor-gold">☕</span>
-                    <span><strong>Quiet Weekdays</strong> - Perfect for remote work</span>
+                    <span><strong className="text-anchor-cream-text">Quiet Weekdays</strong> - Perfect for remote work</span>
                   </li>
                   <li className="flex gap-3">
                     <span className="text-anchor-gold">🚗</span>
-                    <span><strong>Free Parking for Patrons</strong> - While you visit</span>
+                    <span><strong className="text-anchor-cream-text">Free Parking for Patrons</strong> - While you visit</span>
                   </li>
                   <li className="flex gap-3">
                     <span className="text-anchor-gold">🧳</span>
-                    <span><strong>Luggage Storage</strong> - Safe storage for travelers</span>
+                    <span><strong className="text-anchor-cream-text">Luggage Storage</strong> - Safe storage for travelers</span>
                   </li>
                 </ul>
               </div>
             </div>
 
-            <div className="mt-8 bg-white rounded-2xl p-8 shadow-sm">
-              <h3 className="text-2xl font-bold text-anchor-green mb-6 text-center">Guest Services</h3>
-              <div className="grid md:grid-cols-3 gap-6">
+            <div className="mt-8 bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-8">
+              <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-6 text-center">Guest Services</h3>
+              <div className="grid md:grid-cols-3 gap-6 text-anchor-cream-text/70">
                 <div className="flex items-start gap-3">
                   <span className="text-anchor-gold text-xl mt-1">🐕</span>
                   <div>
-                    <strong>Dog Friendly</strong>
-                    <p className="text-sm text-gray-700">Water bowls available</p>
+                    <strong className="text-anchor-cream-text">Dog Friendly</strong>
+                    <p className="text-sm">Water bowls available</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <span className="text-anchor-gold text-xl mt-1">♿</span>
                   <div>
-                    <strong>Accessible Entry</strong>
-                    <p className="text-sm text-gray-700">Ramp available at back door</p>
+                    <strong className="text-anchor-cream-text">Accessible Entry</strong>
+                    <p className="text-sm">Ramp available at back door</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <span className="text-anchor-gold text-xl mt-1">💳</span>
                   <div>
-                    <strong>All Cards Accepted</strong>
-                    <p className="text-sm text-gray-700">Including American Express</p>
+                    <strong className="text-anchor-cream-text">All Cards Accepted</strong>
+                    <p className="text-sm">Including American Express</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="mt-8 text-center bg-white rounded-xl p-6 shadow-sm">
-              <p className="text-gray-700">
-                <strong className="text-anchor-green">Digital Nomad Friendly:</strong> Our dining room is equipped with tables
+            <div className="mt-8 text-center bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-6">
+              <p className="text-anchor-cream-text/70">
+                <strong className="text-anchor-gold-vivid">Digital Nomad Friendly:</strong> Our dining room is equipped with tables
                 featuring power points, making it perfect for remote workers and digital nomads. Combined with free WiFi
                 and a quiet weekday atmosphere, it's an ideal workspace near Heathrow.
               </p>
@@ -671,7 +671,7 @@ export default function FindUsPage() {
             answer: "We accept cash and all major credit and debit cards, including American Express. Whether you're enjoying a meal, drinks, or booking an event, we make payment convenient with multiple options available."
           }
         ]}
-        className="bg-gray-50"
+        className="bg-anchor-bg"
       />
 
       {/* Map CTA */}

@@ -37,6 +37,13 @@ const config: Config = {
         'anchor-green-light': '#006b45',  // Lighter but still accessible green
         'anchor-text-on-green': '#ffffff',  // Ensure white text on green bg
         'anchor-text-on-gold': '#1a1a1a',  // Dark text on gold backgrounds
+        // Dark theme surface tokens (Barons-inspired)
+        'anchor-bg': '#0c1d11',
+        'anchor-bg-raised': '#132318',
+        'anchor-bg-card': '#172d1e',
+        'anchor-cream-text': '#f0e6c6',
+        'anchor-gold-vivid': '#c9a020',
+        'anchor-gold-bright': '#e0b830',
       },
       fontFamily: {
         sans: ['var(--font-outfit)', 'sans-serif'],

@@ -127,11 +127,11 @@ export function OpenMicPerformerInterestForm() {
   )
 
   return (
-    <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-      <h2 className="text-2xl font-bold text-anchor-charcoal mb-2" id="register-interest">
+    <div className="rounded-2xl border border-anchor-gold/15 bg-anchor-bg-card p-6 shadow-sm">
+      <h2 className="text-2xl font-bold text-anchor-cream-text mb-2" id="register-interest">
         Register your interest
       </h2>
-      <p className="text-sm text-gray-700 mb-6">
+      <p className="text-sm text-anchor-cream-text/70 mb-6">
         Leave your details and we’ll be in touch when we’re booking upcoming open mic nights.
       </p>
 
@@ -185,8 +185,8 @@ export function OpenMicPerformerInterestForm() {
           rows={6}
         />
 
-        <div className="rounded-xl border border-gray-200 p-4 space-y-4">
-          <h3 className="text-lg font-semibold text-anchor-charcoal">Consent</h3>
+        <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-raised p-4 space-y-4">
+          <h3 className="text-lg font-semibold text-anchor-cream-text">Consent</h3>
 
           <Checkbox
             label="I’m happy for The Anchor to store my details to contact me about performing. *"
@@ -196,7 +196,7 @@ export function OpenMicPerformerInterestForm() {
             helperText="You can ask us to update or delete your details at any time."
           />
 
-          <p className="text-xs text-gray-600">
+          <p className="text-xs text-anchor-cream-text/55">
             By submitting this form you agree to our{' '}
             <Link href="/privacy-policy" className="underline decoration-dotted">
               privacy policy
@@ -222,7 +222,7 @@ export function OpenMicPerformerInterestForm() {
           <Button type="submit" size="lg" disabled={submitting} className="w-full sm:w-auto">
             {submitting ? 'Sending…' : 'Submit interest'}
           </Button>
-          <p className="text-xs text-gray-600">
+          <p className="text-xs text-anchor-cream-text/55">
             Prefer to speak to the team? Call{' '}
             <a className="underline decoration-dotted" href="tel:+441753682707">
               01753 682707

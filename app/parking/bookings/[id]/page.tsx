@@ -19,7 +19,7 @@ function getStatusBadge(booking: ParkingBookingDetails) {
   const status = booking.status
   if (status === 'confirmed' || status === 'completed') {
     return (
-      <span className="inline-flex items-center gap-2 rounded-full bg-green-100 px-3 py-1 text-sm font-semibold text-green-800">
+      <span className="inline-flex items-center gap-2 rounded-full bg-anchor-gold/15 px-3 py-1 text-sm font-semibold text-anchor-gold-vivid">
         <Icon name="check" className="h-4 w-4" />
         Payment confirmed
       </span>
@@ -28,7 +28,7 @@ function getStatusBadge(booking: ParkingBookingDetails) {
 
   if (status === 'pending_payment') {
     return (
-      <span className="inline-flex items-center gap-2 rounded-full bg-amber-100 px-3 py-1 text-sm font-semibold text-amber-800">
+      <span className="inline-flex items-center gap-2 rounded-full bg-anchor-bg-raised px-3 py-1 text-sm font-semibold text-anchor-gold">
         <Icon name="clock" className="h-4 w-4" />
         Payment pending
       </span>
@@ -37,7 +37,7 @@ function getStatusBadge(booking: ParkingBookingDetails) {
 
   if (status === 'cancelled') {
     return (
-      <span className="inline-flex items-center gap-2 rounded-full bg-red-100 px-3 py-1 text-sm font-semibold text-red-800">
+      <span className="inline-flex items-center gap-2 rounded-full bg-anchor-bg-raised px-3 py-1 text-sm font-semibold text-anchor-cream-text/55">
         <Icon name="close" className="h-4 w-4" />
         Booking cancelled
       </span>
@@ -45,7 +45,7 @@ function getStatusBadge(booking: ParkingBookingDetails) {
   }
 
   return (
-    <span className="inline-flex items-center gap-2 rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-gray-800">
+    <span className="inline-flex items-center gap-2 rounded-full bg-anchor-bg-raised px-3 py-1 text-sm font-semibold text-anchor-cream-text">
       {status.replace(/_/g, ' ')}
     </span>
   )
@@ -81,13 +81,13 @@ export default async function ParkingBookingStatusPage({ params, searchParams }:
       : null
 
   return (
-    <Section className="min-h-screen bg-gray-50 py-16">
+    <Section className="min-h-screen bg-anchor-bg py-16">
       <Container>
-        <div className="mx-auto max-w-3xl rounded-3xl bg-white p-8 shadow-lg">
+        <div className="mx-auto max-w-3xl rounded-3xl bg-anchor-bg-card p-8 shadow-lg border border-anchor-gold/15">
           <div className="flex flex-col gap-4">
             <div>
-              <p className="text-sm uppercase tracking-wide text-anchor-green">Parking booking reference</p>
-              <h1 className="mt-1 text-3xl font-bold text-anchor-charcoal">{booking.reference}</h1>
+              <p className="text-sm uppercase tracking-wide text-anchor-gold-vivid">Parking booking reference</p>
+              <h1 className="mt-1 text-3xl font-bold text-anchor-cream-text">{booking.reference}</h1>
               <div className="mt-3">{getStatusBadge(booking)}</div>
             </div>
 
@@ -97,10 +97,10 @@ export default async function ParkingBookingStatusPage({ params, searchParams }:
               </div>
             )}
 
-            <div className="grid gap-6 rounded-2xl border border-gray-200 bg-gray-50 p-6 md:grid-cols-2">
+            <div className="grid gap-6 rounded-2xl border border-anchor-gold/15 bg-anchor-bg-raised p-6 md:grid-cols-2">
               <div>
-                <h2 className="text-lg font-semibold text-anchor-charcoal">Stay details</h2>
-                <ul className="mt-3 space-y-2 text-sm text-gray-700">
+                <h2 className="text-lg font-semibold text-anchor-cream-text">Stay details</h2>
+                <ul className="mt-3 space-y-2 text-sm text-anchor-cream-text/70">
                   <li><strong>Arrival:</strong> {formatter.format(new Date(booking.start_at))}</li>
                   <li><strong>Departure:</strong> {formatter.format(new Date(booking.end_at))}</li>
                   <li><strong>Parking duration:</strong> {Math.round((new Date(booking.end_at).getTime() - new Date(booking.start_at).getTime()) / (1000 * 60 * 60))} hours</li>
@@ -108,8 +108,8 @@ export default async function ParkingBookingStatusPage({ params, searchParams }:
                 </ul>
               </div>
               <div>
-                <h2 className="text-lg font-semibold text-anchor-charcoal">Contact</h2>
-	                <ul className="mt-3 space-y-2 text-sm text-gray-700">
+                <h2 className="text-lg font-semibold text-anchor-cream-text">Contact</h2>
+	                <ul className="mt-3 space-y-2 text-sm text-anchor-cream-text/70">
 	                  <li><strong>Name:</strong> {booking.customer_first_name} {booking.customer_last_name}</li>
 	                  <li><strong>Mobile:</strong> {booking.customer_mobile}</li>
 	                  {booking.customer_email && <li><strong>Email:</strong> {booking.customer_email}</li>}
@@ -119,9 +119,9 @@ export default async function ParkingBookingStatusPage({ params, searchParams }:
 	              </div>
             </div>
 
-            <div className="rounded-2xl bg-anchor-cream px-6 py-4 text-sm text-gray-700">
+            <div className="rounded-2xl bg-anchor-bg-raised px-6 py-4 text-sm text-anchor-cream-text/70">
               <p>
-                Need to adjust flight dates or extend your Heathrow parking stay? Email <a href="mailto:parking@the-anchor.pub" className="font-semibold text-anchor-green">parking@the-anchor.pub</a> or call <a href="tel:+441753682707" className="font-semibold text-anchor-green">01753 682707</a> with your reference {booking.reference}.
+                Need to adjust flight dates or extend your Heathrow parking stay? Email <a href="mailto:parking@the-anchor.pub" className="font-semibold text-anchor-gold-vivid">parking@the-anchor.pub</a> or call <a href="tel:+441753682707" className="font-semibold text-anchor-gold-vivid">01753 682707</a> with your reference {booking.reference}.
               </p>
             </div>
 

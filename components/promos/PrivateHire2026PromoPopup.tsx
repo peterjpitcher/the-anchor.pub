@@ -196,22 +196,22 @@ export function PrivateHire2026PromoPopup() {
         </div>
       </div>
 
-      <ModalBody className="flex-1 space-y-6 overflow-y-auto bg-white px-6 py-6 sm:px-8">
-        <div className="rounded-2xl bg-anchor-green/5 p-4 ring-1 ring-inset ring-anchor-green/10">
+      <ModalBody className="flex-1 space-y-6 overflow-y-auto bg-anchor-bg-card px-6 py-6 sm:px-8">
+        <div className="rounded-2xl bg-anchor-green/10 p-4 ring-1 ring-inset ring-anchor-green/20">
           <div className="flex items-center justify-between gap-4">
-            <p className="text-xs font-bold uppercase tracking-widest text-anchor-green">
+            <p className="text-xs font-bold uppercase tracking-widest text-anchor-gold-vivid">
               Offer ends in
             </p>
             <div className="flex gap-2">
               {segments.map((segment) => (
                 <div
                   key={segment.label}
-                  className="flex flex-col items-center rounded-lg bg-white px-2.5 py-1.5 text-center shadow-sm ring-1 ring-gray-900/5"
+                  className="flex flex-col items-center rounded-lg bg-anchor-bg-raised px-2.5 py-1.5 text-center shadow-sm ring-1 ring-anchor-gold/15"
                 >
-                  <span className="font-mono text-lg font-bold leading-none text-anchor-green">
+                  <span className="font-mono text-lg font-bold leading-none text-anchor-cream-text">
                     {segment.value}
                   </span>
-                  <span className="text-[9px] font-bold uppercase tracking-wider text-gray-500">
+                  <span className="text-[9px] font-bold uppercase tracking-wider text-anchor-cream-text/55">
                     {segment.label}
                   </span>
                 </div>
@@ -221,14 +221,14 @@ export function PrivateHire2026PromoPopup() {
         </div>
 
         <div className="space-y-4">
-          <p id="private-hire-2026-promo-description" className="text-base leading-relaxed text-gray-600">
+          <p id="private-hire-2026-promo-description" className="text-base leading-relaxed text-anchor-cream-text/70">
             Secure your 2026 celebration now and pay your deposit by{' '}
-            <strong className="font-semibold text-gray-900">{PRIVATE_HIRE_2026_PROMO_DEPOSIT_DEADLINE_COPY}</strong> to receive{' '}
-            <strong className="font-semibold text-anchor-green">4 FREE bottles of prosecco</strong> to get the party started.
+            <strong className="font-semibold text-anchor-cream-text">{PRIVATE_HIRE_2026_PROMO_DEPOSIT_DEADLINE_COPY}</strong> to receive{' '}
+            <strong className="font-semibold text-anchor-gold-vivid">4 FREE bottles of prosecco</strong> to get the party started.
           </p>
 
-          <div className="rounded-xl bg-gray-50 p-4">
-            <ul className="space-y-2 text-sm font-medium text-gray-600">
+          <div className="rounded-xl bg-anchor-bg-raised p-4">
+            <ul className="space-y-2 text-sm font-medium text-anchor-cream-text/70">
               <li className="flex gap-2.5">
                 <span className="shrink-0 text-anchor-gold">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5">
@@ -253,7 +253,7 @@ export function PrivateHire2026PromoPopup() {
           <Button asChild variant="primary" size="lg" className="w-full rounded-full shadow-lg shadow-anchor-green/20 hover:shadow-xl hover:shadow-anchor-green/30" onClick={handleCtaClick}>
             <Link href={PRIVATE_HIRE_2026_PROMO_CTA_HREF}>Check availability / Get a quote</Link>
           </Button>
-          <Button asChild variant="ghost" size="sm" className="w-full text-gray-500 hover:text-gray-900" onClick={handlePhoneClick}>
+          <Button asChild variant="ghost" size="sm" className="w-full text-anchor-cream-text/55 hover:text-anchor-cream-text" onClick={handlePhoneClick}>
             <a href={PRIVATE_HIRE_2026_PROMO_PHONE_HREF}>Or call us on {PRIVATE_HIRE_2026_PROMO_PHONE}</a>
           </Button>
         </div>

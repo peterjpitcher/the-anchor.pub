@@ -114,9 +114,9 @@ const FAQS = [
 function OpenMicEventCards({ events }: { events: Event[] }) {
   if (!events.length) {
     return (
-      <div className="bg-white border border-gray-200 rounded-xl p-6 text-center">
-        <p className="text-lg font-semibold text-anchor-green mb-2">New open mic dates announced soon</p>
-        <p className="text-gray-600">
+      <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-xl p-6 text-center">
+        <p className="text-lg font-semibold text-anchor-gold-vivid mb-2">New open mic dates announced soon</p>
+        <p className="text-anchor-cream-text/70">
           We’re finalising the next dates right now. Check back soon or call 01753 682707 and we’ll let you know what’s coming up.
         </p>
       </div>
@@ -166,9 +166,9 @@ function OpenMicEventCards({ events }: { events: Event[] }) {
 
               <div className="flex-1 space-y-4">
                 {event.description && (
-                  <p className="text-gray-700 leading-relaxed">{event.description}</p>
+                  <p className="text-anchor-cream-text/70 leading-relaxed">{event.description}</p>
                 )}
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-anchor-cream-text/55">
                   Acoustic-friendly to start, with all performer types welcome for future events. Want to perform? Register your interest above.
                 </p>
               </div>
@@ -180,7 +180,7 @@ function OpenMicEventCards({ events }: { events: Event[] }) {
                   label="Book a table"
                   source="open_mic_event_card"
                 />
-                <p className="text-xs text-gray-600 text-center">
+                <p className="text-xs text-anchor-cream-text/55 text-center">
                   Booking optional — walk-ins welcome.
                 </p>
               </div>
@@ -239,10 +239,10 @@ export default async function OpenMicPage() {
 
       <Section spacing="sm" background="white">
         <Container>
-          <PageTitle className="text-center text-anchor-green" seo={{ structured: true, speakable: true }}>
+          <PageTitle className="text-center text-anchor-gold-vivid" seo={{ structured: true, speakable: true }}>
             Open Mic at The Anchor (Stanwell Moor)
           </PageTitle>
-          <p className="text-lg text-gray-700 text-center max-w-3xl mx-auto">
+          <p className="text-lg text-anchor-cream-text/70 text-center max-w-3xl mx-auto">
             Whether you’ve been gigging for years or you’re trying your first set, we’d love to hear from you. Fill in the form below and we’ll keep your details on file so we can invite you when we’re booking upcoming nights.
           </p>
         </Container>
@@ -253,16 +253,16 @@ export default async function OpenMicPage() {
           <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
             <div className="lg:col-span-7">
               <div className="space-y-4 mb-6">
-                <h2 className="text-2xl font-bold text-anchor-charcoal">How the night works</h2>
-                <ul className="space-y-2 text-gray-700">
+                <h2 className="text-2xl font-bold text-anchor-cream-text">How the night works</h2>
+                <ul className="space-y-2 text-anchor-cream-text/70">
                   <li>Arrive from ~7:30pm if you can (sign-in / quick chat)</li>
                   <li>First act around 8pm</li>
                   <li>Depending on turnout, we may have to resort to slotted times (often 10–15 minutes)</li>
                   <li>Respectful, community-led atmosphere</li>
                 </ul>
-                <div className="rounded-xl bg-white border border-gray-200 p-4">
-                  <h3 className="font-semibold text-anchor-charcoal mb-2">House rules (friendly but clear)</h3>
-                  <ul className="space-y-1 text-sm text-gray-700">
+                <div className="rounded-xl bg-anchor-bg-card border border-anchor-gold/15 p-4">
+                  <h3 className="font-semibold text-anchor-cream-text mb-2">House rules (friendly but clear)</h3>
+                  <ul className="space-y-1 text-sm text-anchor-cream-text/70">
                     <li>Respectful behaviour only (no hate speech or harassment)</li>
                     <li>We may refuse performances that risk safety or licensing compliance</li>
                     <li>Volume expectations: acoustic-friendly to start</li>
@@ -275,12 +275,12 @@ export default async function OpenMicPage() {
             </div>
 
             <div className="lg:col-span-5 space-y-6">
-              <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-                <h3 className="text-xl font-bold text-anchor-charcoal mb-2">Getting here</h3>
-                <p className="text-gray-700 mb-3">
+              <div className="rounded-2xl border border-anchor-gold/15 bg-anchor-bg-card p-6 shadow-sm">
+                <h3 className="text-xl font-bold text-anchor-cream-text mb-2">Getting here</h3>
+                <p className="text-anchor-cream-text/70 mb-3">
                   The Anchor, Horton Road, Stanwell Moor, Surrey, TW19 6AQ
                 </p>
-                <ul className="text-sm text-gray-700 space-y-1">
+                <ul className="text-sm text-anchor-cream-text/70 space-y-1">
                   <li>🚗 Free parking – around 20 spaces for patrons</li>
                   <li>🚌 442 bus stops outside (Staines ↔ Heathrow)</li>
                 </ul>
@@ -300,16 +300,16 @@ export default async function OpenMicPage() {
                 </div>
               </div>
 
-              <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-xl overflow-hidden shadow-sm">
                 <GoogleMapEmbed
                   query="The Anchor, Stanwell Moor"
-                  className="h-full min-h-[300px] border border-gray-200 rounded-xl overflow-hidden shadow-sm"
+                  className="h-full min-h-[300px] border border-anchor-gold/15 rounded-xl overflow-hidden shadow-sm"
                 />
               </div>
 
-              <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
-                <h3 className="text-xl font-bold text-anchor-charcoal mb-2">Contact</h3>
-                <p className="text-sm text-gray-700">
+              <div className="rounded-2xl border border-anchor-gold/15 bg-anchor-bg-card p-6 shadow-sm">
+                <h3 className="text-xl font-bold text-anchor-cream-text mb-2">Contact</h3>
+                <p className="text-sm text-anchor-cream-text/70">
                   01753 682707 (also WhatsApp) ·{' '}
                   <a className="underline decoration-dotted" href="mailto:manager@the-anchor.pub">
                     manager@the-anchor.pub
@@ -325,8 +325,8 @@ export default async function OpenMicPage() {
         <Container>
           <div className="space-y-6" id="open-mic-events">
             <div className="text-center">
-              <h2 className="text-3xl font-bold text-anchor-green mb-2">Upcoming open mic nights</h2>
-              <p className="text-gray-700">
+              <h2 className="text-3xl font-bold text-anchor-gold-vivid mb-2">Upcoming open mic nights</h2>
+              <p className="text-anchor-cream-text/70">
                 Booking is optional — walk-ins are welcome. If there’s no booking link yet, it’ll appear closer to the date.
               </p>
             </div>
@@ -339,13 +339,13 @@ export default async function OpenMicPage() {
         <Container>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-12">
             <div className="md:col-span-7">
-              <h2 className="text-2xl font-bold text-anchor-charcoal mb-4">FAQs</h2>
+              <h2 className="text-2xl font-bold text-anchor-cream-text mb-4">FAQs</h2>
               <FAQAccordionWithSchema faqs={FAQS as any} />
             </div>
             <div className="md:col-span-5">
-              <div className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
-                <h3 className="text-xl font-bold text-anchor-charcoal mb-2">Want to perform?</h3>
-                <p className="text-gray-700 mb-4">
+              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-2xl p-6 shadow-sm">
+                <h3 className="text-xl font-bold text-anchor-cream-text mb-2">Want to perform?</h3>
+                <p className="text-anchor-cream-text/70 mb-4">
                   Register your interest and we’ll reach out when we’re booking. Links really help, but first-timers are welcome too.
                 </p>
                 <a
@@ -354,7 +354,7 @@ export default async function OpenMicPage() {
                 >
                   Register your interest
                 </a>
-                <p className="text-xs text-gray-600 mt-3">
+                <p className="text-xs text-anchor-cream-text/55 mt-3">
                   Privacy: we only store your details with your consent. Read our{' '}
                   <Link href="/privacy-policy" className="underline decoration-dotted">
                     privacy policy

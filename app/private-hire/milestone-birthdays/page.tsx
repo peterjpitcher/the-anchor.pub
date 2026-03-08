@@ -98,20 +98,20 @@ export default function MilestoneBirthdaysPage() {
                 }
             />
 
-            <section className="py-8 bg-white">
+            <section className="py-8 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-green mb-4">
+                        <PageTitle className="text-anchor-cream-text mb-4">
                             Your Big Night Out
                         </PageTitle>
-                        <p className="text-lg text-gray-700">
+                        <p className="text-lg text-anchor-cream-text/70">
                             You only turn 30 (or 40, or 50...) once! Make it a night to remember at The Anchor. We specialize in hosting lively milestone parties where the atmosphere is buzzing, the drinks are flowing, and the food keeps everyone going.
                         </p>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-gray-50">
+            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -152,42 +152,42 @@ export default function MilestoneBirthdaysPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-white">
+            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-5xl mx-auto">
-                        <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">Choose Your Party Style</h2>
+                        <h2 className="text-3xl font-bold text-center mb-12 text-anchor-cream-text">Choose Your Party Style</h2>
 
                         <div className="grid md:grid-cols-3 gap-6">
-                            <div className="border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-shadow">
+                            <div className="border border-anchor-gold/15 rounded-xl p-6 hover:shadow-lg transition-shadow bg-anchor-bg-raised">
                                 <div className="text-3xl mb-4">🔥</div>
-                                <h3 className="text-xl font-bold mb-2">The Garden Party</h3>
-                                <p className="text-gray-600 mb-4">Perfect for summer birthdays. Reserve an area of our beer garden, order a BBQ buffet, and enjoy the sunshine.</p>
-                                <span className="text-sm font-semibold text-green-600">Great for 21sts & 30ths</span>
+                                <h3 className="text-xl font-bold mb-2 text-anchor-cream-text">The Garden Party</h3>
+                                <p className="text-anchor-cream-text/70 mb-4">Perfect for summer birthdays. Reserve an area of our beer garden, order a BBQ buffet, and enjoy the sunshine.</p>
+                                <span className="text-sm font-semibold text-anchor-gold-vivid">Great for 21sts & 30ths</span>
                             </div>
 
-                            <div className="border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-shadow bg-green-50">
+                            <div className="border border-anchor-gold/15 rounded-xl p-6 hover:shadow-lg transition-shadow bg-anchor-bg-raised">
                                 <div className="text-3xl mb-4">🕺</div>
-                                <h3 className="text-xl font-bold mb-2">The Big Bash</h3>
-                                <p className="text-gray-600 mb-4">Hire our main function area. Clear the tables for a dance floor, set up a DJ, and party until late(ish).</p>
-                                <span className="text-sm font-semibold text-green-600">Best for 40ths & 50ths</span>
+                                <h3 className="text-xl font-bold mb-2 text-anchor-cream-text">The Big Bash</h3>
+                                <p className="text-anchor-cream-text/70 mb-4">Hire our main function area. Clear the tables for a dance floor, set up a DJ, and party until late(ish).</p>
+                                <span className="text-sm font-semibold text-anchor-gold-vivid">Best for 40ths & 50ths</span>
                             </div>
 
-                            <div className="border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-shadow">
+                            <div className="border border-anchor-gold/15 rounded-xl p-6 hover:shadow-lg transition-shadow bg-anchor-bg-raised">
                                 <div className="text-3xl mb-4">🍽️</div>
-                                <h3 className="text-xl font-bold mb-2">The Dinner Party</h3>
-                                <p className="text-gray-600 mb-4">Sit-down meal with 10-20 of your closest friends. Pre-order from our main menu or set menus available.</p>
-                                <span className="text-sm font-semibold text-green-600">Perfect for 60ths+</span>
+                                <h3 className="text-xl font-bold mb-2 text-anchor-cream-text">The Dinner Party</h3>
+                                <p className="text-anchor-cream-text/70 mb-4">Sit-down meal with 10-20 of your closest friends. Pre-order from our main menu or set menus available.</p>
+                                <span className="text-sm font-semibold text-anchor-gold-vivid">Perfect for 60ths+</span>
                             </div>
                         </div>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-gray-50">
+            <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
                 <Container>
-                    <div className="bg-white rounded-xl shadow-sm p-8 max-w-3xl mx-auto text-center border border-gray-100">
-                        <h3 className="text-2xl font-bold mb-4">Planning a Surprise Party?</h3>
-                        <p className="text-gray-700 mb-6">
+                    <div className="card-dark rounded-none p-8 max-w-3xl mx-auto text-center">
+                        <h3 className="text-2xl font-bold mb-4 text-anchor-cream-text">Planning a Surprise Party?</h3>
+                        <p className="text-anchor-cream-text/70 mb-6">
                             We love being in on the secret! Let us know when you book, and we can help coordinate the arrival, hiding spots, and the big "SURPRISE!" moment.
                         </p>
                         <PhoneButton phone={CONTACT.phone} source="birthday_surprise" variant="primary">shhh! Call to Plan</PhoneButton>
@@ -212,7 +212,7 @@ export default function MilestoneBirthdaysPage() {
                         answer: "Yes, you are usually welcome to arrive 30-60 minutes before your guests to set up balloons, cakes, and decorations."
                     }
                 ]}
-                className="bg-white"
+                className="bg-anchor-bg-card"
             />
         </>
     )

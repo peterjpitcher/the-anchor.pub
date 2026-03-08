@@ -129,7 +129,7 @@ export default function HeathrowHotelsPubPage() {
       />
 
       {/* Page Title */}
-      <section className="py-8 bg-white">
+      <section className="py-8 bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <PageTitle
@@ -141,7 +141,7 @@ export default function HeathrowHotelsPubPage() {
             >
               Heathrow Hotels Pub - Traditional Pub Near Heathrow Hotels
             </PageTitle>
-            <p className="text-lg text-gray-700">
+            <p className="text-lg text-anchor-cream-text/70">
               Escape hotel prices and enjoy authentic British pub dining just minutes away
             </p>
           </div>
@@ -149,7 +149,7 @@ export default function HeathrowHotelsPubPage() {
       </section>
 
       {/* Welcome Section */}
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <SectionHeader
@@ -192,7 +192,7 @@ export default function HeathrowHotelsPubPage() {
       </section>
 
       {/* Hotel Distances */}
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeader
@@ -200,8 +200,8 @@ export default function HeathrowHotelsPubPage() {
             />
 
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-white rounded-xl p-6">
-                <h3 className="text-xl font-bold text-anchor-green mb-4">Terminal 5 Area Hotels</h3>
+              <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
+                <h3 className="text-xl font-bold text-anchor-cream-text mb-4">Terminal 5 Area Hotels</h3>
                 <ul className="space-y-3">
                   <li className="flex justify-between items-center">
                     <Link href="/pub-near-sofitel-heathrow" className="font-medium hover:text-anchor-gold transition-colors">Sofitel London Heathrow</Link>
@@ -220,13 +220,13 @@ export default function HeathrowHotelsPubPage() {
                     <span className="text-anchor-gold font-bold">10 mins</span>
                   </li>
                 </ul>
-	                <p className="mt-4 text-sm text-gray-600">
+	                <p className="mt-4 text-sm text-anchor-cream-text/55">
 	                  GBP 10-15 taxi fare or easy drive with free parking
 	                </p>
               </div>
 
-              <div className="bg-white rounded-xl p-6">
-                <h3 className="text-xl font-bold text-anchor-green mb-4">Bath Road & T4 Area Hotels</h3>
+              <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
+                <h3 className="text-xl font-bold text-anchor-cream-text mb-4">Bath Road & T4 Area Hotels</h3>
                 <ul className="space-y-3">
                   <li className="flex justify-between items-center">
                     <Link href="/pub-near-marriott-heathrow" className="font-medium hover:text-anchor-gold transition-colors">Marriott London Heathrow</Link>
@@ -257,7 +257,7 @@ export default function HeathrowHotelsPubPage() {
                     <span className="text-anchor-gold font-bold">12 mins</span>
                   </li>
                 </ul>
-	                <p className="mt-4 text-sm text-gray-600">
+	                <p className="mt-4 text-sm text-anchor-cream-text/55">
 	                  GBP 12-18 taxi fare - worth every penny for the savings!
 	                </p>
               </div>
@@ -278,7 +278,7 @@ export default function HeathrowHotelsPubPage() {
       </section>
 
       {/* Why Hotel Guests Choose Us */}
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -287,7 +287,7 @@ export default function HeathrowHotelsPubPage() {
             
             <div className="grid md:grid-cols-2 gap-8 mb-8">
               <div>
-                <h3 className="text-2xl font-bold text-anchor-green mb-4">Escape Hotel Life</h3>
+                <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">Escape Hotel Life</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
                     <span className="text-anchor-gold text-xl">✓</span>
@@ -317,7 +317,7 @@ export default function HeathrowHotelsPubPage() {
               </div>
               
               <div>
-                <h3 className="text-2xl font-bold text-anchor-green mb-4">Perfect for Travelers</h3>
+                <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">Perfect for Travelers</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
                     <span className="text-anchor-gold text-xl">🕐</span>
@@ -362,7 +362,7 @@ export default function HeathrowHotelsPubPage() {
       </section>
 
       {/* Hotel Guest Favourites */}
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeader
@@ -406,7 +406,7 @@ export default function HeathrowHotelsPubPage() {
                     <div className="grid md:grid-cols-2 gap-6">
                       <div>
                         <p className="font-semibold mb-2">Expense-Friendly</p>
-                        <ul className="space-y-1 text-gray-700 text-sm">
+                        <ul className="space-y-1 text-anchor-cream-text/70 text-sm">
                           <li>• Full VAT receipts provided</li>
                           <li>• Honest pub pricing, mains from £8.99</li>
                           <li>• Proper business atmosphere</li>
@@ -414,7 +414,7 @@ export default function HeathrowHotelsPubPage() {
                       </div>
                       <div>
                         <p className="font-semibold mb-2">Work-Friendly</p>
-                        <ul className="space-y-1 text-gray-700 text-sm">
+                        <ul className="space-y-1 text-anchor-cream-text/70 text-sm">
                           <li>• Free WiFi throughout</li>
                           <li>• Quiet corners available</li>
                           <li>• Power outlets in dining room</li>
@@ -432,7 +432,7 @@ export default function HeathrowHotelsPubPage() {
       </section>
 
       {/* Transport Options */}
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -440,9 +440,9 @@ export default function HeathrowHotelsPubPage() {
             />
             
             <div className="grid md:grid-cols-3 gap-6">
-	              <div className="bg-gray-50 rounded-xl p-6">
+	              <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
 	                <h3 className="text-xl font-bold mb-3">🚕 By Taxi</h3>
-	                <ul className="space-y-2 text-gray-700">
+	                <ul className="space-y-2 text-anchor-cream-text/70">
 	                  <li>• GBP 10-15 from most hotels</li>
 	                  <li>• 7-12 minute journey</li>
 	                  <li>• Ask for "The Anchor - Heathrow Pub & Dining"</li>
@@ -450,9 +450,9 @@ export default function HeathrowHotelsPubPage() {
 	                </ul>
 	              </div>
               
-              <div className="bg-gray-50 rounded-xl p-6">
+              <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
                 <h3 className="text-xl font-bold mb-3">🚗 Rental Car</h3>
-                <ul className="space-y-2 text-gray-700">
+                <ul className="space-y-2 text-anchor-cream-text/70">
                   <li>• Free parking at pub</li>
                   <li>• Easy route from all hotels</li>
                   <li>• Postcode: TW19 6AQ</li>
@@ -460,9 +460,9 @@ export default function HeathrowHotelsPubPage() {
                 </ul>
               </div>
               
-              <div className="bg-gray-50 rounded-xl p-6">
+              <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
                 <h3 className="text-xl font-bold mb-3">🚌 Public Transport</h3>
-                <ul className="space-y-2 text-gray-700">
+                <ul className="space-y-2 text-anchor-cream-text/70">
                   <li>• Bus 442 from some hotels</li>
                   <li>• Ask hotel concierge</li>
                   <li>• Or combine with short taxi</li>
@@ -472,7 +472,7 @@ export default function HeathrowHotelsPubPage() {
             </div>
             
             <div className="mt-8 text-center">
-              <p className="text-lg text-gray-700 mb-4">
+              <p className="text-lg text-anchor-cream-text/70 mb-4">
                 Most hotel guests say the short journey is absolutely worth it for the authentic 
                 experience and massive savings compared to hotel dining!
               </p>
@@ -487,7 +487,7 @@ export default function HeathrowHotelsPubPage() {
       </section>
 
       {/* Special Times */}
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <SectionHeader
@@ -495,22 +495,22 @@ export default function HeathrowHotelsPubPage() {
             />
             
             <div className="grid md:grid-cols-2 gap-8 mb-8">
-              <div className="bg-red-50 rounded-xl p-6">
+              <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
                 <h3 className="text-xl font-bold text-red-800 mb-3">Tuesday Pizza Deal</h3>
                 <p className="text-4xl font-bold text-red-600 mb-2">BUY 1 GET 1 FREE</p>
-                <p className="text-gray-700">All pizzas, all day Tuesday</p>
+                <p className="text-anchor-cream-text/70">All pizzas, all day Tuesday</p>
                 <p className="text-sm mt-2">Perfect for sharing with travel companions!</p>
               </div>
               
-              <div className="bg-blue-50 rounded-xl p-6">
+              <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
                 <h3 className="text-xl font-bold text-blue-800 mb-3">Early Evening Dining</h3>
                 <p className="text-2xl font-bold text-blue-600 mb-2">Kitchen from 6pm</p>
-                <p className="text-gray-700">Beat the hotel dinner rush</p>
+                <p className="text-anchor-cream-text/70">Beat the hotel dinner rush</p>
                 <p className="text-sm mt-2">Quieter atmosphere for jet-lagged guests</p>
               </div>
             </div>
             
-            <p className="text-lg text-gray-700">
+            <p className="text-lg text-anchor-cream-text/70">
               Kitchen closes at 9pm Tuesday-Friday, 7pm Saturday, 5pm Sunday
             </p>
           </div>
@@ -518,7 +518,7 @@ export default function HeathrowHotelsPubPage() {
       </section>
 
       {/* Corporate Events for Airport Hotels */}
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeader
@@ -527,46 +527,46 @@ export default function HeathrowHotelsPubPage() {
             />
             
             <div className="grid md:grid-cols-2 gap-8 mb-8">
-              <div className="bg-blue-50 rounded-xl p-6">
-                <h3 className="text-xl font-bold text-anchor-green mb-4">Ideal for Airport Companies</h3>
+              <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
+                <h3 className="text-xl font-bold text-anchor-cream-text mb-4">Ideal for Airport Companies</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <span className="text-green-600">✓</span>
+                    <span className="text-anchor-gold-vivid">✓</span>
                     <span><strong>7 minutes from terminals</strong> - Quick access for international teams</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-green-600">✓</span>
+                    <span className="text-anchor-gold-vivid">✓</span>
                     <span><strong>Airline crew events</strong> - Regular venue for BA, Virgin, Emirates teams</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-green-600">✓</span>
+                    <span className="text-anchor-gold-vivid">✓</span>
                     <span><strong>No hotel markups</strong> - Corporate rates, not inflated airport prices</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-green-600">✓</span>
+                    <span className="text-anchor-gold-vivid">✓</span>
                     <span><strong>Free parking</strong> - Essential for staff without hotel shuttles</span>
                   </li>
                 </ul>
               </div>
               
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-xl font-bold text-anchor-green mb-4">Popular Airport Events</h3>
+              <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
+                <h3 className="text-xl font-bold text-anchor-cream-text mb-4">Popular Airport Events</h3>
                 <div className="space-y-4">
                   <div>
                     <h4 className="font-semibold text-anchor-gold mb-1">✈️ Crew Celebrations</h4>
-                    <p className="text-sm text-gray-700">End of season parties, retirement send-offs</p>
+                    <p className="text-sm text-anchor-cream-text/70">End of season parties, retirement send-offs</p>
                   </div>
                   <div>
                     <h4 className="font-semibold text-anchor-gold mb-1">🏢 Airport Staff Events</h4>
-                    <p className="text-sm text-gray-700">Team meetings, training days, Christmas parties</p>
+                    <p className="text-sm text-anchor-cream-text/70">Team meetings, training days, Christmas parties</p>
                   </div>
                   <div>
                     <h4 className="font-semibold text-anchor-gold mb-1">🌍 International Teams</h4>
-                    <p className="text-sm text-gray-700">Perfect when colleagues fly in for meetings</p>
+                    <p className="text-sm text-anchor-cream-text/70">Perfect when colleagues fly in for meetings</p>
                   </div>
                   <div>
                     <h4 className="font-semibold text-anchor-gold mb-1">🏨 Hotel Overflow</h4>
-                    <p className="text-sm text-gray-700">When hotel venues are fully booked</p>
+                    <p className="text-sm text-anchor-cream-text/70">When hotel venues are fully booked</p>
                   </div>
                 </div>
               </div>
@@ -609,14 +609,14 @@ export default function HeathrowHotelsPubPage() {
       </section>
 
       {/* Opening Hours */}
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
             <SectionHeader
               title="Opening Hours"
             />
             <BusinessHours />
-            <p className="mt-4 text-gray-600">
+            <p className="mt-4 text-anchor-cream-text/55">
               Perfect for evening meals after hotel check-in
             </p>
           </div>

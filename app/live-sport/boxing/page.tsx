@@ -69,20 +69,20 @@ export default function BoxingPage() {
                 }
             />
 
-            <section className="py-8 bg-white">
+            <section className="py-8 bg-anchor-bg">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-green mb-4">
+                        <PageTitle className="text-anchor-gold-vivid mb-4">
                             Ringside Seats
                         </PageTitle>
-                        <p className="text-lg text-gray-700">
+                        <p className="text-lg text-anchor-cream-text/70">
                             Boxing needs an atmosphere. Sitting at home doesn't cut it. Join us for the build-up, the undercard, and the main event on our HD screens with full commentary.
                         </p>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-gray-50">
+            <section className="section-spacing bg-anchor-bg-raised">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -98,7 +98,7 @@ export default function BoxingPage() {
                                     title: "PPV Events",
                                     description: "We pay the Box Office fees so you don't have to. Watch the big Sky Sports and TNT Sports Box Office fights here.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -106,7 +106,7 @@ export default function BoxingPage() {
                                     title: "Loud & Live",
                                     description: "Experience the ring walks and the knockouts with full venue sound.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -114,7 +114,7 @@ export default function BoxingPage() {
                                     title: "No Dry Nights",
                                     description: "Our bar stays well-stocked with draught beers, spirits, and mixers all night.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"
                                 }
                             ]}

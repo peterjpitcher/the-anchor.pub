@@ -125,19 +125,19 @@ export function MenuDisplay({ menuData, accentColor = 'anchor-gold' }: MenuDispl
           <Section 
             key={category.id} 
             id={category.id} 
-            className={categoryIndex % 2 === 0 ? 'bg-gray-50' : 'bg-white'}
+            className={categoryIndex % 2 === 0 ? 'bg-anchor-bg-raised' : 'bg-anchor-bg'}
             itemScope 
             itemType="https://schema.org/MenuSection"
           >
             <Container size="lg">
               <div className="text-center mb-8">
-                <h2 className="text-3xl md:text-4xl font-bold text-anchor-green mb-4" itemProp="name">
+                <h2 className="text-3xl md:text-4xl font-bold text-anchor-cream-text mb-4" itemProp="name">
                   {category.emoji && <span className="mr-2">{category.emoji}</span>}
                   {category.title}
                 </h2>
                 
                 {category.description && (
-                  <p className="text-lg text-gray-700" itemProp="description">
+                  <p className="text-lg text-anchor-cream-text/70" itemProp="description">
                     {category.description}
                   </p>
                 )}
@@ -149,13 +149,13 @@ export function MenuDisplay({ menuData, accentColor = 'anchor-gold' }: MenuDispl
               {category.sections.map((section, sectionIndex) => (
                 <div key={sectionIndex} className="mb-12 last:mb-0">
                   {section.title && (
-                    <h3 className="text-2xl font-bold text-anchor-green mb-6 text-center">
+                    <h3 className="text-2xl font-bold text-anchor-cream-text mb-6 text-center">
                       {section.title}
                     </h3>
                   )}
                   
                   {section.description && (
-                    <p className="text-center text-gray-700 mb-6">
+                    <p className="text-center text-anchor-cream-text/70 mb-6">
                       {section.description}
                     </p>
                   )}
@@ -204,7 +204,7 @@ export function MenuDisplay({ menuData, accentColor = 'anchor-gold' }: MenuDispl
 
       {/* Responsible Drinking Message */}
       {menuData.responsibleDrinking && (
-        <Section className="bg-amber-50">
+        <Section className="bg-anchor-bg-raised">
           <Container size="md">
             <Alert variant="warning" className="text-center">
               <h3 className="text-xl font-bold mb-2">
@@ -241,7 +241,7 @@ const MenuItemCard = memo(function MenuItemCard({ item, itemId, isFocused, onFoc
     >
       <CardBody>
         <div className="flex justify-between items-start mb-2">
-          <h3 className="font-bold text-xl text-anchor-green flex items-center gap-2" itemProp="name">
+          <h3 className="font-bold text-xl text-anchor-gold-vivid flex items-center gap-2" itemProp="name">
             {item.name}
             {item.vegetarian && (
               <Badge variant="success" size="sm">(V)</Badge>
@@ -255,7 +255,7 @@ const MenuItemCard = memo(function MenuItemCard({ item, itemId, isFocused, onFoc
 	          </span>
         </div>
         {item.description && (
-          <p className="text-gray-700" itemProp="description">{item.description}</p>
+          <p className="text-anchor-cream-text/70" itemProp="description">{item.description}</p>
         )}
         {item.vegetarian && (
           <meta itemProp="suitableForDiet" content="https://schema.org/VegetarianDiet" />

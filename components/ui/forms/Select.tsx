@@ -5,11 +5,11 @@ import type { BaseComponentProps, WithChildren } from '../types'
 import { ChevronDownIcon } from '../Icon'
 
 const selectVariants = cva(
-  'flex w-full appearance-none rounded-md border border-input bg-background px-3 py-2 pr-10 text-base ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-colors',
+  'flex w-full appearance-none rounded-md border bg-anchor-bg-card px-3 py-2 pr-10 text-base text-anchor-cream-text ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-anchor-gold focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 transition-colors',
   {
     variants: {
       variant: {
-        default: 'border-gray-300 focus:border-anchor-gold',
+        default: 'border-anchor-gold/30 focus:border-anchor-gold',
         error: 'border-red-500 focus:border-red-500 focus-visible:ring-red-500',
         success: 'border-green-500 focus:border-green-500 focus-visible:ring-green-500'
       },
@@ -51,7 +51,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
           {children}
         </select>
         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-          <ChevronDownIcon className="h-4 w-4 text-gray-400" aria-hidden="true" />
+          <ChevronDownIcon className="h-4 w-4 text-anchor-cream-text/55" aria-hidden="true" />
         </div>
       </div>
     )

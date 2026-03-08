@@ -61,20 +61,20 @@ export default function PrivateHirePage() {
                 }
             />
 
-            <section className="py-12 bg-white">
+            <section className="py-12 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <PageTitle className="text-center mb-8" seo={{ structured: true, speakable: true }}>
                         Your Event, Your Space — Private Hire at The Anchor
                     </PageTitle>
 
                     <div className="flex justify-center mb-10">
-                        <p className="text-sm text-gray-600">⭐⭐⭐⭐⭐ <strong>Rated 4.6/5 on Google</strong> · Trusted for private events near Heathrow</p>
+                        <p className="text-sm text-anchor-cream-text/70">⭐⭐⭐⭐⭐ <strong>Rated 4.6/5 on Google</strong> · Trusted for private events near Heathrow</p>
                     </div>
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
                         {/* Wakes */}
                         <Link href="/private-hire/wakes" className="group block h-full">
-                            <div className="bg-gray-50 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all h-full border border-gray-100">
+                            <div className="card-dark rounded-none overflow-hidden hover:shadow-md transition-all h-full">
                                 <div className="aspect-video bg-gray-200 relative">
                                     <Image
                                         src="/images/private-hire/wakes.png"
@@ -85,9 +85,9 @@ export default function PrivateHirePage() {
                                     />
                                 </div>
                                 <div className="p-6">
-                                    <h3 className="text-xl font-bold text-anchor-green mb-2 group-hover:text-anchor-gold transition-colors">Wakes & Memorials</h3>
-                                    <p className="text-gray-600 mb-4">Respectful, private reception spaces near local crematoriums. Fully catered with compassionate service.</p>
-                                    <span className="text-anchor-green font-semibold text-sm flex items-center gap-1">
+                                    <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2 group-hover:text-anchor-gold transition-colors">Wakes & Memorials</h3>
+                                    <p className="text-anchor-cream-text/70 mb-4">Respectful, private reception spaces near local crematoriums. Fully catered with compassionate service.</p>
+                                    <span className="text-anchor-gold font-semibold text-sm flex items-center gap-1">
                                         View Wake Packages <span className="group-hover:translate-x-1 transition-transform">→</span>
                                     </span>
                                 </div>
@@ -96,7 +96,7 @@ export default function PrivateHirePage() {
 
                         {/* Christenings */}
                         <Link href="/private-hire/christenings" className="group block h-full">
-                            <div className="bg-gray-50 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all h-full border border-gray-100">
+                            <div className="card-dark rounded-none overflow-hidden hover:shadow-md transition-all h-full">
                                 <div className="aspect-video bg-gray-200 relative">
                                     <Image
                                         src="/images/private-hire/christenings.png"
@@ -107,9 +107,9 @@ export default function PrivateHirePage() {
                                     />
                                 </div>
                                 <div className="p-6">
-                                    <h3 className="text-xl font-bold text-anchor-green mb-2 group-hover:text-anchor-gold transition-colors">Christenings</h3>
-                                    <p className="text-gray-600 mb-4">Celebrate your little one's special day with family. Relaxed buffet options and space for the kids.</p>
-                                    <span className="text-anchor-green font-semibold text-sm flex items-center gap-1">
+                                    <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2 group-hover:text-anchor-gold transition-colors">Christenings</h3>
+                                    <p className="text-anchor-cream-text/70 mb-4">Celebrate your little one's special day with family. Relaxed buffet options and space for the kids.</p>
+                                    <span className="text-anchor-gold font-semibold text-sm flex items-center gap-1">
                                         View Christening Details <span className="group-hover:translate-x-1 transition-transform">→</span>
                                     </span>
                                 </div>
@@ -118,7 +118,7 @@ export default function PrivateHirePage() {
 
                         {/* Weddings */}
                         <Link href="/private-hire/weddings" className="group block h-full">
-                            <div className="bg-gray-50 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all h-full border border-gray-100">
+                            <div className="card-dark rounded-none overflow-hidden hover:shadow-md transition-all h-full">
                                 <div className="aspect-video bg-gray-200 relative">
                                     <Image
                                         src="/images/private-hire/weddings.png"
@@ -129,9 +129,9 @@ export default function PrivateHirePage() {
                                     />
                                 </div>
                                 <div className="p-6">
-                                    <h3 className="text-xl font-bold text-anchor-green mb-2 group-hover:text-anchor-gold transition-colors">Weddings & Engagements</h3>
-                                    <p className="text-gray-600 mb-4">From engagement parties to day-after brunches. The perfect spot for pre and post-wedding gatherings.</p>
-                                    <span className="text-anchor-green font-semibold text-sm flex items-center gap-1">
+                                    <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2 group-hover:text-anchor-gold transition-colors">Weddings & Engagements</h3>
+                                    <p className="text-anchor-cream-text/70 mb-4">From engagement parties to day-after brunches. The perfect spot for pre and post-wedding gatherings.</p>
+                                    <span className="text-anchor-gold font-semibold text-sm flex items-center gap-1">
                                         View Wedding Events <span className="group-hover:translate-x-1 transition-transform">→</span>
                                     </span>
                                 </div>
@@ -140,7 +140,7 @@ export default function PrivateHirePage() {
 
                         {/* Parties */}
                         <Link href="/private-party-venue" className="group block h-full">
-                            <div className="bg-gray-50 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all h-full border border-gray-100">
+                            <div className="card-dark rounded-none overflow-hidden hover:shadow-md transition-all h-full">
                                 <div className="aspect-video bg-gray-200 relative">
                                     <Image
                                         src="/images/private-hire/parties.png"
@@ -151,9 +151,9 @@ export default function PrivateHirePage() {
                                     />
                                 </div>
                                 <div className="p-6">
-                                    <h3 className="text-xl font-bold text-anchor-green mb-2 group-hover:text-anchor-gold transition-colors">Private Parties</h3>
-                                    <p className="text-gray-600 mb-4">Milestone birthdays, anniversaries, and family reunions. Dance floors, DJs, and great food.</p>
-                                    <span className="text-anchor-green font-semibold text-sm flex items-center gap-1">
+                                    <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2 group-hover:text-anchor-gold transition-colors">Private Parties</h3>
+                                    <p className="text-anchor-cream-text/70 mb-4">Milestone birthdays, anniversaries, and family reunions. Dance floors, DJs, and great food.</p>
+                                    <span className="text-anchor-gold font-semibold text-sm flex items-center gap-1">
                                         View Party Venue <span className="group-hover:translate-x-1 transition-transform">→</span>
                                     </span>
                                 </div>
@@ -162,7 +162,7 @@ export default function PrivateHirePage() {
 
                         {/* Baby Showers */}
                         <Link href="/private-hire/baby-showers" className="group block h-full">
-                            <div className="bg-gray-50 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all h-full border border-gray-100">
+                            <div className="card-dark rounded-none overflow-hidden hover:shadow-md transition-all h-full">
                                 <div className="aspect-video bg-gray-200 relative">
                                     <Image
                                         src="/images/private-hire/baby-showers.png"
@@ -173,9 +173,9 @@ export default function PrivateHirePage() {
                                     />
                                 </div>
                                 <div className="p-6">
-                                    <h3 className="text-xl font-bold text-anchor-green mb-2 group-hover:text-anchor-gold transition-colors">Baby Showers</h3>
-                                    <p className="text-gray-600 mb-4">Afternoon tea, mocktails, and plenty of space for games. The perfect daytime celebration.</p>
-                                    <span className="text-anchor-green font-semibold text-sm flex items-center gap-1">
+                                    <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2 group-hover:text-anchor-gold transition-colors">Baby Showers</h3>
+                                    <p className="text-anchor-cream-text/70 mb-4">Afternoon tea, mocktails, and plenty of space for games. The perfect daytime celebration.</p>
+                                    <span className="text-anchor-gold font-semibold text-sm flex items-center gap-1">
                                         View Baby Showers <span className="group-hover:translate-x-1 transition-transform">→</span>
                                     </span>
                                 </div>
@@ -184,7 +184,7 @@ export default function PrivateHirePage() {
 
                         {/* Corporate (Linking to existing) */}
                         <Link href="/corporate-events" className="group block h-full">
-                            <div className="bg-gray-50 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all h-full border border-gray-100">
+                            <div className="card-dark rounded-none overflow-hidden hover:shadow-md transition-all h-full">
                                 <div className="aspect-video bg-gray-200 relative">
                                     <Image
                                         src="/images/private-hire/corporate.png"
@@ -195,9 +195,9 @@ export default function PrivateHirePage() {
                                     />
                                 </div>
                                 <div className="p-6">
-                                    <h3 className="text-xl font-bold text-anchor-green mb-2 group-hover:text-anchor-gold transition-colors">Corporate Events</h3>
-                                    <p className="text-gray-600 mb-4">Meetings, training days, and team lunches. AV equipment and fast WiFi included.</p>
-                                    <span className="text-anchor-green font-semibold text-sm flex items-center gap-1">
+                                    <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2 group-hover:text-anchor-gold transition-colors">Corporate Events</h3>
+                                    <p className="text-anchor-cream-text/70 mb-4">Meetings, training days, and team lunches. AV equipment and fast WiFi included.</p>
+                                    <span className="text-anchor-gold font-semibold text-sm flex items-center gap-1">
                                         View Corporate <span className="group-hover:translate-x-1 transition-transform">→</span>
                                     </span>
                                 </div>
@@ -209,7 +209,7 @@ export default function PrivateHirePage() {
 
             <PrivateBookingSection id="enquiry" eventType="Other" />
 
-            <section className="section-spacing bg-gray-50">
+            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
                 <Container>
                     <SectionHeader
                         title="Why Choose The Anchor?"
@@ -259,18 +259,18 @@ export default function PrivateHirePage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-white">
+            <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
-                        <h2 className="text-3xl font-bold text-anchor-green mb-4">Accessibility</h2>
-                        <p className="text-gray-700 mb-3">
+                        <h2 className="text-3xl font-bold text-anchor-gold-vivid mb-4">Accessibility</h2>
+                        <p className="text-anchor-cream-text/70 mb-3">
                             Step-free access to the bar, dining area and beer garden.
                         </p>
-                        <p className="text-gray-700 mb-4">
+                        <p className="text-anchor-cream-text/70 mb-4">
                             We currently don&apos;t have an accessible toilet. If you&apos;d like to visit and want to check what will work best for you, give us a call on{' '}
-                            <a href="tel:+441753682707" className="text-anchor-green font-semibold hover:underline">+44 1753 682707</a> and we&apos;ll help.
+                            <a href="tel:+441753682707" className="text-anchor-gold font-semibold hover:underline">+44 1753 682707</a> and we&apos;ll help.
                         </p>
-                        <Link href="/accessibility" className="text-anchor-green font-semibold hover:underline">
+                        <Link href="/accessibility" className="text-anchor-gold font-semibold hover:underline">
                             Full accessibility information &rarr;
                         </Link>
                     </div>

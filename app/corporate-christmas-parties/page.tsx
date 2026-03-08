@@ -66,20 +66,20 @@ export default function ChristmasPartiesPage() {
                 }
             />
 
-            <section className="py-8 bg-white">
+            <section className="py-8 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-green mb-4">
+                        <PageTitle className="text-anchor-cream-text mb-4">
                             Celebrate the Season
                         </PageTitle>
-                        <p className="text-lg text-gray-700">
+                        <p className="text-lg text-anchor-cream-text/70">
                             It's the one time of year the whole team gets together. Don't risk it on a soulless hotel conference room. Come to The Anchor for a proper Christmas celebration with roaring fires, traditional turkey dinners, and enough cheer to last until January.
                         </p>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-gray-50">
+            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -95,7 +95,7 @@ export default function ChristmasPartiesPage() {
                                     title: "Festive Menu",
                                     description: "2 or 3 course set menus featuring all the classics (and some modern twists).",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -103,7 +103,7 @@ export default function ChristmasPartiesPage() {
                                     title: "Drinks Packages",
                                     description: "Pre-order wine and buckets of beer for the table to avoid the bar queue.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -111,7 +111,7 @@ export default function ChristmasPartiesPage() {
                                     title: "Private Areas",
                                     description: "We can section off areas for larger groups so you have your own space.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"
                                 }
                             ]}
@@ -128,7 +128,7 @@ export default function ChristmasPartiesPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-white">
+            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <div className="grid md:grid-cols-2 gap-12 items-center max-w-5xl mx-auto">
                         <div>
@@ -137,34 +137,34 @@ export default function ChristmasPartiesPage() {
                                 subtitle="We make your job easy."
                                 className="text-left"
                             />
-                            <p className="text-gray-700 mb-4">
+                            <p className="text-anchor-cream-text/70 mb-4">
                                 We know organising the office party is a thankless task. We're here to help you look like a hero.
                             </p>
                             <ul className="space-y-4">
                                 <li className="flex items-start">
-                                    <span className="text-green-600 mr-2 text-xl">✓</span>
+                                    <span className="text-anchor-gold-vivid mr-2 text-xl">✓</span>
                                     <div>
-                                        <strong className="block text-gray-900">Easy Pre-order System</strong>
-                                        <span className="text-gray-600 text-sm">No more spreadsheets. We provide a simple form for your team.</span>
+                                        <strong className="block text-anchor-cream-text">Easy Pre-order System</strong>
+                                        <span className="text-anchor-cream-text/70 text-sm">No more spreadsheets. We provide a simple form for your team.</span>
                                     </div>
                                 </li>
                                 <li className="flex items-start">
-                                    <span className="text-green-600 mr-2 text-xl">✓</span>
+                                    <span className="text-anchor-gold-vivid mr-2 text-xl">✓</span>
                                     <div>
-                                        <strong className="block text-gray-900">VAT Invoices</strong>
-                                        <span className="text-gray-600 text-sm">Proper VAT receipts provided for the accounts department.</span>
+                                        <strong className="block text-anchor-cream-text">VAT Invoices</strong>
+                                        <span className="text-anchor-cream-text/70 text-sm">Proper VAT receipts provided for the accounts department.</span>
                                     </div>
                                 </li>
                                 <li className="flex items-start">
-                                    <span className="text-green-600 mr-2 text-xl">✓</span>
+                                    <span className="text-anchor-gold-vivid mr-2 text-xl">✓</span>
                                     <div>
-                                        <strong className="block text-gray-900">The Organiser Perk</strong>
-                                        <span className="text-gray-600 text-sm">Book a group of 20+ and receive a GBP 40 voucher for yourself in January.</span>
+                                        <strong className="block text-anchor-cream-text">The Organiser Perk</strong>
+                                        <span className="text-anchor-cream-text/70 text-sm">Book a group of 20+ and receive a GBP 40 voucher for yourself in January.</span>
                                     </div>
                                 </li>
                             </ul>
                         </div>
-                        <div className="bg-anchor-green text-white p-8 rounded-xl text-center">
+                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 p-8 rounded-xl text-center">
                             <h3 className="text-2xl font-bold mb-4">Early Bird Offer</h3>
                             <p className="mb-6">
                                 Confirm your booking with a deposit before <strong>October 31st</strong> and receive a complimentary glass of Prosecco for every guest on arrival.
@@ -194,7 +194,7 @@ export default function ChristmasPartiesPage() {
                         answer: "For groups of 10 or more, a discretionary 10% service charge is added to the bill, which goes directly to the staff served you."
                     }
                 ]}
-                className="bg-white"
+                className="bg-anchor-bg-card"
             />
 
             <CTASection

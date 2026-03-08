@@ -129,7 +129,7 @@ export default function WindsorPubPage() {
       />
 
       {/* Page Title */}
-      <section className="py-8 bg-white">
+      <section className="py-8 bg-anchor-bg">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <PageTitle
@@ -137,11 +137,11 @@ export default function WindsorPubPage() {
                 structured: true,
                 speakable: true
               }}
-              className="text-anchor-green mb-4"
+              className="text-anchor-cream-text mb-4"
             >
               Windsor Pub - Traditional British Pub Near Windsor
             </PageTitle>
-            <p className="text-lg text-gray-700">
+            <p className="text-lg text-anchor-cream-text/70">
               Your local traditional pub just 15 minutes from Windsor Castle with free parking
             </p>
           </div>
@@ -149,7 +149,7 @@ export default function WindsorPubPage() {
       </section>
 
       {/* Welcome Section */}
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <SectionHeader
@@ -165,7 +165,7 @@ export default function WindsorPubPage() {
                   title: "Near Windsor",
                   description: "15 minutes from Windsor Castle via M4 or B376",
                   variant: "colored",
-                  color: "bg-anchor-cream",
+                  color: "bg-anchor-bg-card",
                   className: "rounded-xl p-6 text-center"
                 },
                 {
@@ -173,7 +173,7 @@ export default function WindsorPubPage() {
                   title: "Better Value",
                   description: "Avoid Windsor tourist prices - proper pub rates",
                   variant: "colored",
-                  color: "bg-anchor-cream",
+                  color: "bg-anchor-bg-card",
                   className: "rounded-xl p-6 text-center"
                 },
                 {
@@ -181,7 +181,7 @@ export default function WindsorPubPage() {
 	                  title: "ULEZ Free",
 	                  description: "Save GBP 12.50 - we're outside the zone!",
 	                  variant: "colored",
-	                  color: "bg-anchor-cream",
+	                  color: "bg-anchor-bg-card",
 	                  className: "rounded-xl p-6 text-center"
 	                }
               ]}
@@ -192,7 +192,7 @@ export default function WindsorPubPage() {
       </section>
 
       {/* Why Windsor Residents Choose Us */}
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeader
@@ -201,7 +201,7 @@ export default function WindsorPubPage() {
             
             <div className="grid md:grid-cols-2 gap-8">
               <div>
-                <h3 className="text-2xl font-bold text-anchor-green mb-4">Worth the Journey</h3>
+                <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-4">Worth the Journey</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
                     <span className="text-anchor-gold text-xl">✓</span>
@@ -231,7 +231,7 @@ export default function WindsorPubPage() {
               </div>
               
               <div>
-                <h3 className="text-2xl font-bold text-anchor-green mb-4">Special Events & Offers</h3>
+                <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-4">Special Events & Offers</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
                     <span className="text-anchor-gold text-xl">🍕</span>
@@ -276,7 +276,7 @@ export default function WindsorPubPage() {
       </section>
 
       {/* Popular with Windsor Groups */}
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -284,9 +284,9 @@ export default function WindsorPubPage() {
             />
             
             <div className="grid md:grid-cols-2 gap-8 mb-8">
-              <div className="bg-amber-50 rounded-xl p-6">
+              <div className="card-dark rounded-none p-6">
                 <h3 className="text-xl font-bold text-amber-800 mb-4">Regular Visitors</h3>
-                <ul className="space-y-2 text-gray-700">
+                <ul className="space-y-2 text-anchor-cream-text/70">
                   <li>• Windsor Rugby Club socials</li>
                   <li>• Eton College staff gatherings</li>
                   <li>• Windsor & Eton FC supporters</li>
@@ -295,9 +295,9 @@ export default function WindsorPubPage() {
                 </ul>
               </div>
               
-              <div className="bg-blue-50 rounded-xl p-6">
+              <div className="card-dark rounded-none p-6">
                 <h3 className="text-xl font-bold text-blue-800 mb-4">Perfect For</h3>
-                <ul className="space-y-2 text-gray-700">
+                <ul className="space-y-2 text-anchor-cream-text/70">
                   <li>• Pre-race meals (Windsor Racecourse)</li>
                   <li>• Post-castle visit dinners</li>
                   <li>• Birthday celebrations</li>
@@ -308,7 +308,7 @@ export default function WindsorPubPage() {
             </div>
             
             <div className="text-center">
-              <p className="text-lg text-gray-700 mb-6">
+              <p className="text-lg text-anchor-cream-text/70 mb-6">
                 Private function room available for Windsor groups - from 20 to 250 guests
               </p>
               <Link href="/private-hire#enquiry">
@@ -322,7 +322,7 @@ export default function WindsorPubPage() {
       </section>
 
       {/* Getting Here from Windsor */}
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeader
@@ -330,12 +330,12 @@ export default function WindsorPubPage() {
             />
             
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-white rounded-xl p-6">
+              <div className="card-dark rounded-none p-6">
                 <h3 className="text-xl font-bold mb-4">🚗 Driving Routes</h3>
                 <div className="space-y-4">
                   <div>
                     <p className="font-semibold mb-2">Via M4 (Fastest)</p>
-                    <ul className="space-y-1 text-gray-700 text-sm">
+                    <ul className="space-y-1 text-anchor-cream-text/70 text-sm">
                       <li>• M4 westbound to Junction 5</li>
                       <li>• A4 towards Slough</li>
                       <li>• Follow signs to Stanwell Moor</li>
@@ -344,7 +344,7 @@ export default function WindsorPubPage() {
                   </div>
                   <div className="pt-4 border-t">
                     <p className="font-semibold mb-2">Via B376 (Scenic)</p>
-                    <ul className="space-y-1 text-gray-700 text-sm">
+                    <ul className="space-y-1 text-anchor-cream-text/70 text-sm">
                       <li>• Through Datchet and Wraysbury</li>
                       <li>• Beautiful countryside route</li>
                       <li>• 20 minutes, avoiding motorway</li>
@@ -353,24 +353,24 @@ export default function WindsorPubPage() {
                 </div>
               </div>
               
-              <div className="bg-white rounded-xl p-6">
+              <div className="card-dark rounded-none p-6">
                 <h3 className="text-xl font-bold mb-4">📍 Local Landmarks</h3>
                 <div className="space-y-3">
-                  <p className="text-gray-700">
+                  <p className="text-anchor-cream-text/70">
                     <strong>From Windsor Castle:</strong> 6.5 miles (15 mins)
                   </p>
-                  <p className="text-gray-700">
+                  <p className="text-anchor-cream-text/70">
                     <strong>From Windsor Racecourse:</strong> 5.5 miles (12 mins)
                   </p>
-                  <p className="text-gray-700">
+                  <p className="text-anchor-cream-text/70">
                     <strong>From Legoland:</strong> 7 miles (16 mins)
                   </p>
-                  <p className="text-gray-700">
+                  <p className="text-anchor-cream-text/70">
                     <strong>Near M25 Junction 14:</strong> Perfect stopover
                   </p>
                   <div className="pt-4 border-t">
                     <p className="font-semibold text-green-700">💚 Parking</p>
-                    <p className="text-gray-700">20 free spaces - no time limits!</p>
+                    <p className="text-anchor-cream-text/70">20 free spaces - no time limits!</p>
                   </div>
                 </div>
               </div>
@@ -392,7 +392,7 @@ export default function WindsorPubPage() {
       </section>
 
       {/* Windsor Connection */}
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <SectionHeader
@@ -400,9 +400,9 @@ export default function WindsorPubPage() {
             />
             
             <div className="grid md:grid-cols-3 gap-6 mb-8">
-              <div className="bg-gray-50 rounded-xl p-6">
+              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
                 <h3 className="font-bold text-lg mb-3">Better Than Tourist Pubs</h3>
-                <ul className="space-y-2 text-gray-700 text-sm">
+                <ul className="space-y-2 text-anchor-cream-text/70 text-sm">
                   <li>• Authentic atmosphere</li>
                   <li>• Local prices</li>
                   <li>• Real community feel</li>
@@ -410,9 +410,9 @@ export default function WindsorPubPage() {
                 </ul>
               </div>
               
-              <div className="bg-gray-50 rounded-xl p-6">
+              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
                 <h3 className="font-bold text-lg mb-3">Easy Access</h3>
-                <ul className="space-y-2 text-gray-700 text-sm">
+                <ul className="space-y-2 text-anchor-cream-text/70 text-sm">
                   <li>• 15 mins from Windsor</li>
                   <li>• Free parking</li>
                   <li>• Near M4 & M25</li>
@@ -420,9 +420,9 @@ export default function WindsorPubPage() {
                 </ul>
               </div>
               
-              <div className="bg-gray-50 rounded-xl p-6">
+              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
                 <h3 className="font-bold text-lg mb-3">Unique Features</h3>
-                <ul className="space-y-2 text-gray-700 text-sm">
+                <ul className="space-y-2 text-anchor-cream-text/70 text-sm">
                   <li>• Plane spotting garden</li>
                   <li>• Monthly entertainment</li>
                   <li>• Dog friendly throughout</li>
@@ -431,7 +431,7 @@ export default function WindsorPubPage() {
               </div>
             </div>
             
-            <p className="text-lg text-gray-700">
+            <p className="text-lg text-anchor-cream-text/70">
               Join the many Windsor residents who've discovered their new favourite pub - 
               where you're treated like a local, not a tourist!
             </p>
@@ -440,14 +440,14 @@ export default function WindsorPubPage() {
       </section>
 
       {/* Opening Hours */}
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
             <SectionHeader
               title="Opening Hours"
             />
             <BusinessHours />
-            <p className="mt-4 text-gray-600">
+            <p className="mt-4 text-anchor-cream-text/70">
               Kitchen closes earlier - check times for food service
             </p>
           </div>
@@ -482,7 +482,7 @@ export default function WindsorPubPage() {
             answer: "Yes! We regularly host groups from Windsor for birthdays, work events, and celebrations. We can accommodate groups from 20 to 250 people. Many prefer us to Windsor venues for better value and a more relaxed atmosphere."
           }
         ]}
-        className="bg-white"
+        className="bg-anchor-bg-card"
       />
 
       {/* CTA Section */}

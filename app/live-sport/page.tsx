@@ -87,26 +87,26 @@ export default function LiveSportPage() {
                 }
             />
 
-            <section className="bg-white py-6">
+            <section className="bg-anchor-bg py-6">
                 <Container>
-                    <p className="text-center text-sm text-gray-600">⭐⭐⭐⭐⭐ <strong>Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
+                    <p className="text-center text-sm text-anchor-cream-text/55">⭐⭐⭐⭐⭐ <strong>Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
                 </Container>
             </section>
 
-            <section className="py-8 bg-white">
+            <section className="py-8 bg-anchor-bg">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-green mb-4">
+                        <PageTitle className="text-anchor-gold-vivid mb-4">
                             Never Miss a Moment
                         </PageTitle>
-                        <p className="text-lg text-gray-700">
+                        <p className="text-lg text-anchor-cream-text/70">
                             Whether it's the Six Nations crunch match, the F1 season finale, or major tournaments, we show it all. With multiple HD screens positioned throughout the pub, you won't have to crane your neck to see the action.
                         </p>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-gray-50">
+            <section className="section-spacing bg-anchor-bg-raised">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -122,7 +122,7 @@ export default function LiveSportPage() {
                                     title: "Terrestrial Sport Only",
                                     description: "We show major events on free-to-air channels (BBC, ITV, Channel 4). Please note we NOT do have Sky Sports or TNT Sports.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -130,7 +130,7 @@ export default function LiveSportPage() {
                                     title: "Full Match Audio",
                                     description: "For big games, we turn the commentary up so you get the full stadium atmosphere.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -138,7 +138,7 @@ export default function LiveSportPage() {
                                     title: "Great Atmosphere",
                                     description: "Enjoy a cold pint and great food in a proper pub atmosphere. No booking required, just turn up and enjoy.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"
                                 }
                             ]}
@@ -148,21 +148,21 @@ export default function LiveSportPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-white" id="schedule">
+            <section className="section-spacing bg-anchor-bg" id="schedule">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeader title="What We Show" />
                         <div className="grid md:grid-cols-2 gap-8">
-                            <div className="border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow">
-                                <h3 className="text-xl font-bold text-anchor-green mb-4 border-b pb-2">⚽ Football</h3>
+                            <div className="border border-anchor-gold/15 rounded-xl p-6 hover:shadow-md transition-shadow bg-anchor-bg-card">
+                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4 border-b pb-2 border-anchor-gold/15">⚽ Football</h3>
                                 <ul className="space-y-2">
                                     <li>• International Tournaments (Euros / World Cup)</li>
                                     <li>• FA Cup (Select Games)</li>
                                     <li>• Women's Super League (BBC games)</li>
                                 </ul>
                             </div>
-                            <div className="border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow">
-                                <h3 className="text-xl font-bold text-anchor-green mb-4 border-b pb-2">🏉 Rugby</h3>
+                            <div className="border border-anchor-gold/15 rounded-xl p-6 hover:shadow-md transition-shadow bg-anchor-bg-card">
+                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4 border-b pb-2 border-anchor-gold/15">🏉 Rugby</h3>
                                 <ul className="space-y-2">
                                     <li>• Six Nations</li>
                                     <li>• Autumn Internationals</li>
@@ -170,15 +170,15 @@ export default function LiveSportPage() {
                                     <li>• World Cups</li>
                                 </ul>
                             </div>
-                            <div className="border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow">
-                                <h3 className="text-xl font-bold text-anchor-green mb-4 border-b pb-2">🏎️ Formula 1</h3>
+                            <div className="border border-anchor-gold/15 rounded-xl p-6 hover:shadow-md transition-shadow bg-anchor-bg-card">
+                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4 border-b pb-2 border-anchor-gold/15">🏎️ Formula 1</h3>
                                 <ul className="space-y-2">
                                     <li>• Live Race Weekends</li>
                                     <li>• Qualifying Sessions</li>
                                 </ul>
                             </div>
-                            <div className="border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow">
-                                <h3 className="text-xl font-bold text-anchor-green mb-4 border-b pb-2">🏇 Other Sport</h3>
+                            <div className="border border-anchor-gold/15 rounded-xl p-6 hover:shadow-md transition-shadow bg-anchor-bg-card">
+                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4 border-b pb-2 border-anchor-gold/15">🏇 Other Sport</h3>
                                 <ul className="space-y-2">
                                     <li>• Cricket (Terrestrial Only)</li>
                                     <li>• Golf Majors (Highlights/BBC)</li>

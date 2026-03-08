@@ -31,18 +31,18 @@ export function QuickInfoGrid({
   return (
     <div className={`grid ${gridCols[columns]} gap-4 ${className}`}>
       {items.map((item, index) => (
-        <div 
-          key={index} 
-          className={`bg-white rounded-xl text-center shadow-sm ${sizeClasses[variant]}`}
+        <div
+          key={index}
+          className={`card-dark rounded-none text-center ${sizeClasses[variant]}`}
         >
           <div className={`${variant === 'compact' ? 'text-2xl mb-2' : 'text-3xl mb-3'}`}>
             {item.icon}
           </div>
-          <h3 className={`font-bold text-anchor-green ${variant === 'compact' ? 'text-sm' : ''}`}>
+          <h3 className={`font-bold text-anchor-gold-vivid ${variant === 'compact' ? 'text-sm' : ''}`}>
             {item.title}
           </h3>
           {item.subtitle && (
-            <div className={`text-gray-700 ${variant === 'compact' ? 'text-sm sm:text-xs mt-1' : 'text-base sm:text-sm mt-2'}`}>
+            <div className={`text-anchor-cream-text/70 ${variant === 'compact' ? 'text-sm sm:text-xs mt-1' : 'text-base sm:text-sm mt-2'}`}>
               {item.subtitle}
             </div>
           )}

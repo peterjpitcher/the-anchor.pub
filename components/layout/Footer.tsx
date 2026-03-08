@@ -172,11 +172,11 @@ const defaultFeatures = [
 ]
 
 const defaultTheme = {
-  background: 'bg-anchor-charcoal',
-  text: 'text-gray-200',
-  headingText: 'text-anchor-gold-light',  // Use lighter gold for dark backgrounds
-  linkHover: 'hover:text-white',
-  borderColor: 'border-gray-700'
+  background: 'bg-anchor-bg',
+  text: 'text-anchor-cream-text/70',
+  headingText: 'text-anchor-gold-vivid',
+  linkHover: 'hover:text-anchor-cream-text',
+  borderColor: 'border-anchor-gold/20'
 }
 
 export function Footer({

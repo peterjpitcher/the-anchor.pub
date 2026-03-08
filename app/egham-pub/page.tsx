@@ -115,7 +115,7 @@ export default function EghamPubPage() {
       />
 
       {/* Page Title */}
-      <section className="py-8 bg-white">
+      <section className="py-8 bg-anchor-bg">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <PageTitle
@@ -123,11 +123,11 @@ export default function EghamPubPage() {
                 structured: true,
                 speakable: true
               }}
-              className="text-anchor-green mb-4"
+              className="text-anchor-cream-text mb-4"
             >
               Egham Pub - Traditional British Pub Near Egham
             </PageTitle>
-            <p className="text-lg text-gray-700">
+            <p className="text-lg text-anchor-cream-text/70">
               Your local traditional pub just 12 minutes from Egham with free parking
             </p>
           </div>
@@ -135,7 +135,7 @@ export default function EghamPubPage() {
       </section>
 
       {/* Distance & Benefits */}
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -171,8 +171,8 @@ export default function EghamPubPage() {
             />
 
             {/* Why Choose Us */}
-            <div className="bg-anchor-cream rounded-2xl p-8">
-              <h3 className="text-2xl font-bold text-anchor-green mb-6">
+            <div className="card-dark rounded-none p-8">
+              <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-6">
                 Why Egham Residents & Students Choose The Anchor
               </h3>
               <ul className="space-y-4">
@@ -203,7 +203,7 @@ export default function EghamPubPage() {
       </section>
 
       {/* Directions */}
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -280,7 +280,7 @@ export default function EghamPubPage() {
       </section>
 
       {/* Student & Local Offers */}
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -296,26 +296,26 @@ export default function EghamPubPage() {
                       <p className="mb-3">Popular with Royal Holloway students and staff</p>
                       <ul className="space-y-2">
                         <li className="flex items-start">
-                          <span className="text-amber-500 mr-2">•</span>
+                          <span className="text-anchor-gold mr-2">•</span>
                           Perfect for society meetups
                         </li>
                         <li className="flex items-start">
-                          <span className="text-amber-500 mr-2">•</span>
+                          <span className="text-anchor-gold mr-2">•</span>
                           End-of-term celebrations
                         </li>
                         <li className="flex items-start">
-                          <span className="text-amber-500 mr-2">•</span>
+                          <span className="text-anchor-gold mr-2">•</span>
                           Sports team dinners
                         </li>
                         <li className="flex items-start">
-                          <span className="text-amber-500 mr-2">•</span>
+                          <span className="text-anchor-gold mr-2">•</span>
                           Quiz team headquarters
                         </li>
                       </ul>
                     </>
                   ),
                   variant: "colored",
-                  color: "bg-amber-50"
+                  color: "bg-anchor-bg-card"
                 },
                 {
                   title: "Egham Favourites",
@@ -324,35 +324,35 @@ export default function EghamPubPage() {
                       <p className="mb-3">Join other Egham locals who make the journey</p>
                       <ul className="space-y-2">
                         <li className="flex items-start">
-                          <span className="text-blue-500 mr-2">•</span>
+                          <span className="text-anchor-gold mr-2">•</span>
                           Stone-Baked Pizzas
                         </li>
                         <li className="flex items-start">
-                          <span className="text-blue-500 mr-2">•</span>
+                          <span className="text-anchor-gold mr-2">•</span>
                           Wednesday Quiz Nights
                         </li>
                         <li className="flex items-start">
-                          <span className="text-blue-500 mr-2">•</span>
+                          <span className="text-anchor-gold mr-2">•</span>
                           Hosted nights like Music Bingo with Nikki Manfadge (see /whats-on)
                         </li>
                         <li className="flex items-start">
-                          <span className="text-blue-500 mr-2">•</span>
+                          <span className="text-anchor-gold mr-2">•</span>
                           Sunday Roast (book early)
                         </li>
                       </ul>
                     </>
                   ),
                   variant: "colored",
-                  color: "bg-blue-50"
+                  color: "bg-anchor-bg-card"
                 }
               ]}
             />
 
-            <div className="mt-8 text-center bg-anchor-cream p-8 rounded-xl">
-              <h3 className="font-bold text-xl text-anchor-green mb-4">Transport Options</h3>
+            <div className="mt-8 text-center card-dark rounded-none p-8">
+              <h3 className="font-bold text-xl text-anchor-gold-vivid mb-4">Transport Options</h3>
               <div className="text-center">
                 <p className="font-semibold mb-2">Taxi Services</p>
-                <p className="text-gray-700">We can arrange taxis back to Egham/Royal Holloway</p>
+                <p className="text-anchor-cream-text/70">We can arrange taxis back to Egham/Royal Holloway</p>
               </div>
             </div>
           </div>
@@ -360,7 +360,7 @@ export default function EghamPubPage() {
       </section>
 
       {/* Opening Hours */}
-      <section className="section-spacing bg-anchor-cream">
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -387,7 +387,7 @@ export default function EghamPubPage() {
             answer: "Absolutely! We regularly host Royal Holloway society events, sports team celebrations, and end-of-term parties. We can reserve areas for your society and help make your event special."
           }
         ]}
-        className="bg-gray-50"
+        className="bg-anchor-bg"
       />
 
       {/* CTA Section */}

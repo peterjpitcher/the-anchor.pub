@@ -94,29 +94,29 @@ export default function PubNearHolidayInnHeathrowPage() {
         }
       />
 
-      <section className="py-8 bg-white">
+      <section className="py-8 bg-anchor-bg">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
-            <PageTitle seo={{ structured: true, speakable: true }} className="text-anchor-green mb-4">
+            <PageTitle seo={{ structured: true, speakable: true }} className="text-anchor-cream-text mb-4">
               Pub Near Holiday Inn Heathrow
             </PageTitle>
-            <p className="text-lg text-gray-700">
+            <p className="text-lg text-anchor-cream-text/70">
               Staying at a Holiday Inn near Heathrow? The Anchor is just 12 minutes away — a family-friendly British pub with home-cooked food, real ales, a beer garden and free parking. Much more fun than hotel dining.
             </p>
           </div>
         </Container>
       </section>
 
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <FeatureGrid
               columns={4}
               features={[
-                { icon: '🕐', title: '12 Minutes', description: 'By taxi from Holiday Inn Heathrow', variant: 'colored', color: 'bg-green-50', className: 'rounded-xl p-6 text-center' },
-                { icon: '🚖', title: '~£15–18', description: 'Typical taxi fare each way', variant: 'colored', color: 'bg-blue-50', className: 'rounded-xl p-6 text-center' },
-                { icon: '🅿️', title: 'Free Parking', description: '20 spaces — no charges', variant: 'colored', color: 'bg-amber-50', className: 'rounded-xl p-6 text-center' },
-                { icon: '👨‍👩‍👧', title: 'Family Friendly', description: 'Beer garden, high chairs & dog welcome', variant: 'colored', color: 'bg-purple-50', className: 'rounded-xl p-6 text-center' },
+                { icon: '🕐', title: '12 Minutes', description: 'By taxi from Holiday Inn Heathrow', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '🚖', title: '~£15–18', description: 'Typical taxi fare each way', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '🅿️', title: 'Free Parking', description: '20 spaces — no charges', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '👨‍👩‍👧', title: 'Family Friendly', description: 'Beer garden, high chairs & dog welcome', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
               ]}
               className="mb-8"
             />
@@ -124,7 +124,7 @@ export default function PubNearHolidayInnHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -132,8 +132,8 @@ export default function PubNearHolidayInnHeathrowPage() {
               subtitle="Whether you're travelling with children or looking for a relaxed group dinner, The Anchor is the family-friendly local that Holiday Inn guests return to time and time again."
             />
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-xl font-bold text-anchor-green mb-4">Family-Friendly Features</h3>
+              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
+                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Family-Friendly Features</h3>
                 <ul className="space-y-3">
                   {[
                     'Large beer garden — great for kids to run around',
@@ -150,9 +150,9 @@ export default function PubNearHolidayInnHeathrowPage() {
                   ))}
                 </ul>
               </div>
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-xl font-bold text-anchor-green mb-4">Getting Here from Holiday Inn</h3>
-                <div className="space-y-3 text-gray-700">
+              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
+                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Getting Here from Holiday Inn</h3>
+                <div className="space-y-3 text-anchor-cream-text/70">
                   <div>
                     <p className="font-semibold">By Taxi or Uber</p>
                     <p className="text-sm">Ask for The Anchor, Stanwell Moor (TW19 6AQ). Journey approximately 12 minutes, £15–18 each way.</p>
@@ -163,7 +163,7 @@ export default function PubNearHolidayInnHeathrowPage() {
                   </div>
                   <div className="pt-2 border-t border-gray-200">
                     <p className="text-sm font-medium">Postcode: <strong>TW19 6AQ</strong></p>
-                    <p className="text-sm text-gray-600">Taxis easily arranged from Holiday Inn reception</p>
+                    <p className="text-sm text-anchor-cream-text/70">Taxis easily arranged from Holiday Inn reception</p>
                   </div>
                 </div>
               </div>
@@ -172,31 +172,31 @@ export default function PubNearHolidayInnHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader title="Deals for Holiday Inn Guests" />
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-red-50 rounded-xl p-6 text-center">
+              <div className="card-dark rounded-none p-6 text-center">
                 <p className="text-4xl mb-2">🍕</p>
                 <h3 className="text-xl font-bold text-red-800 mb-2">Tuesday Pizza Deal</h3>
                 <p className="text-3xl font-bold text-red-600 mb-2">Buy 1 Get 1 Free</p>
-                <p className="text-gray-700">All stone-baked pizzas, all day Tuesday</p>
-                <p className="text-sm text-gray-500 mt-2">Kids love it — great for families</p>
+                <p className="text-anchor-cream-text/70">All stone-baked pizzas, all day Tuesday</p>
+                <p className="text-sm text-anchor-cream-text/55 mt-2">Kids love it — great for families</p>
               </div>
-              <div className="bg-amber-50 rounded-xl p-6 text-center">
+              <div className="card-dark rounded-none p-6 text-center">
                 <p className="text-4xl mb-2">🍖</p>
                 <h3 className="text-xl font-bold text-amber-800 mb-2">Sunday Roast</h3>
                 <p className="text-3xl font-bold text-amber-600 mb-2">From £19.99</p>
-                <p className="text-gray-700">Traditional British roast with all the trimmings</p>
-                <p className="text-sm text-gray-500 mt-2">Pre-booking recommended for Sundays</p>
+                <p className="text-anchor-cream-text/70">Traditional British roast with all the trimmings</p>
+                <p className="text-sm text-anchor-cream-text/55 mt-2">Pre-booking recommended for Sundays</p>
               </div>
             </div>
           </div>
         </Container>
       </section>
 
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
             <SectionHeader title="Opening Hours" />
@@ -234,7 +234,7 @@ export default function PubNearHolidayInnHeathrowPage() {
             answer: 'The walking route between most Holiday Inn Heathrow locations and The Anchor is not pedestrian-friendly due to road layouts. A taxi (12 mins, £15–18) is the recommended option. Free parking is available if you prefer to drive.'
           },
         ]}
-        className="bg-gray-50"
+        className="bg-anchor-bg"
       />
 
       <CTASection

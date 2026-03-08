@@ -68,14 +68,14 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
               <label 
                 htmlFor={radioId}
                 className={cn(
-                  'text-sm font-medium text-gray-700 cursor-pointer',
+                  'text-sm font-medium text-anchor-cream-text/70 cursor-pointer',
                   disabled && 'cursor-not-allowed opacity-50'
                 )}
               >
                 {label}
               </label>
               {helperText && !error && (
-                <p id={`${radioId}-helper`} className="text-sm text-gray-700">
+                <p id={`${radioId}-helper`} className="text-sm text-anchor-cream-text/70">
                   {helperText}
                 </p>
               )}
@@ -154,14 +154,14 @@ export const RadioGroup = forwardRef<HTMLFieldSetElement, RadioGroupProps>(
         {...props}
       >
         {label && (
-          <legend className="text-sm font-medium text-gray-700 mb-2">
+          <legend className="text-sm font-medium text-anchor-cream-text/70 mb-2">
             {label}
             {required && <span className="text-red-500 ml-1">*</span>}
           </legend>
         )}
         
         {helperText && !error && (
-          <p id={`${name}-helper`} className="text-sm text-gray-700 mb-2">
+          <p id={`${name}-helper`} className="text-sm text-anchor-cream-text/70 mb-2">
             {helperText}
           </p>
         )}
@@ -226,8 +226,8 @@ export const CardRadio = forwardRef<HTMLInputElement, CardRadioProps>(
         htmlFor={radioId}
         className={cn(
           'relative flex cursor-pointer rounded-lg border p-4 transition-all',
-          checked ? 'border-anchor-gold bg-anchor-gold/5' : 'border-gray-300',
-          !disabled && 'hover:border-gray-400',
+          checked ? 'border-anchor-gold bg-anchor-gold/10' : 'border-anchor-gold/15',
+          !disabled && 'hover:border-anchor-gold/40',
           disabled && 'cursor-not-allowed opacity-50'
         )}
       >
@@ -254,7 +254,7 @@ export const CardRadio = forwardRef<HTMLInputElement, CardRadioProps>(
             <div className="flex items-center">
               <h3 className={cn(
                 'text-sm font-medium',
-                checked ? 'text-anchor-gold' : 'text-gray-900'
+                checked ? 'text-anchor-gold' : 'text-anchor-cream-text'
               )}>
                 {label}
               </h3>
@@ -270,13 +270,13 @@ export const CardRadio = forwardRef<HTMLInputElement, CardRadioProps>(
             </div>
             
             {description && (
-              <p className="mt-1 text-sm text-gray-600">
+              <p className="mt-1 text-sm text-anchor-cream-text/70">
                 {description}
               </p>
             )}
             
             {helperText && (
-              <p className="mt-1 text-sm sm:text-xs text-gray-700">
+              <p className="mt-1 text-sm sm:text-xs text-anchor-cream-text/70">
                 {helperText}
               </p>
             )}

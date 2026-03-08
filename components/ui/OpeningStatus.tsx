@@ -31,7 +31,7 @@ export function OpeningStatus({
 }: OpeningStatusProps) {
   const statusIcon = isOpen ? '🟢' : '🔴'
   const statusText = isOpen ? 'Open' : 'Closed'
-  const statusColor = isOpen ? 'text-green-600' : 'text-red-600'
+  const statusColor = isOpen ? 'text-anchor-gold-vivid' : 'text-red-500'
 
   if (variant === 'simple') {
     return (
@@ -71,12 +71,12 @@ export function OpeningStatus({
           {statusText}
         </p>
         {isOpen && closesAt && (
-          <p className={cn('text-gray-600', size === 'lg' ? 'text-sm' : 'text-xs')}>
+          <p className={cn('text-anchor-cream-text/70', size === 'lg' ? 'text-sm' : 'text-xs')}>
             Closes at {closesAt}
           </p>
         )}
         {!isOpen && opensAt && (
-          <p className={cn('text-gray-600', size === 'lg' ? 'text-sm' : 'text-xs')}>
+          <p className={cn('text-anchor-cream-text/70', size === 'lg' ? 'text-sm' : 'text-xs')}>
             Opens at {opensAt}
           </p>
         )}

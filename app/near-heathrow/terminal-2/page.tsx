@@ -78,22 +78,22 @@ export default function Terminal2Page() {
       />
 
       {/* Google Rating Strip */}
-      <section className="bg-white py-6">
+      <section className="bg-anchor-bg-raised py-6 border-b border-anchor-gold/15">
         <Container>
-          <p className="text-center text-sm text-gray-600">⭐⭐⭐⭐⭐ <strong>Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
+          <p className="text-center text-sm text-anchor-cream-text/70">⭐⭐⭐⭐⭐ <strong className="text-anchor-cream-text">Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
         </Container>
       </section>
 
       {/* Page Title */}
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card">
         <Container>
-          <PageTitle className="text-center text-anchor-green" seo={{ structured: true, speakable: true }}>
+          <PageTitle className="text-center text-anchor-cream-text" seo={{ structured: true, speakable: true }}>
             Pub Near Heathrow Terminal 2 - The Anchor
           </PageTitle>
         </Container>
       </section>
 
-      <section className="py-8 bg-white">
+      <section className="py-8 bg-anchor-bg-card border-b border-anchor-gold/15">
         <div className="container mx-auto px-4">
           <CTASection
             title="Got a Layover at Terminal 2?"
@@ -117,7 +117,7 @@ export default function Terminal2Page() {
       </section>
 
       {/* Food & Drink Highlights */}
-      <section className="section-spacing bg-anchor-cream/50">
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeader
@@ -125,9 +125,9 @@ export default function Terminal2Page() {
               subtitle="Pre-book so your table, roast or pizza order is ready when you arrive."
             />
             <div className="grid md:grid-cols-3 gap-6">
-              <div className="bg-white rounded-xl shadow-sm p-6">
-                <h3 className="text-xl font-semibold text-anchor-green mb-2">Sunday Roast</h3>
-                <p className="text-sm text-gray-700 mb-4">
+              <div className="card-dark rounded-none p-6">
+                <h3 className="text-xl font-semibold text-anchor-gold-vivid mb-2">Sunday Roast</h3>
+                <p className="text-sm text-anchor-cream-text/70 mb-4">
                   Book by 1pm Saturday and sit down to Yorkshire puddings, crispy potatoes and gravy before Star Alliance departures.
                 </p>
                 <div className="flex flex-col gap-2">
@@ -144,9 +144,9 @@ export default function Terminal2Page() {
                   </Link>
                 </div>
               </div>
-              <div className="bg-white rounded-xl shadow-sm p-6">
-                <h3 className="text-xl font-semibold text-anchor-green mb-2">Stone-Baked Pizzas</h3>
-                <p className="text-sm text-gray-700 mb-4">
+              <div className="card-dark rounded-none p-6">
+                <h3 className="text-xl font-semibold text-anchor-gold-vivid mb-2">Stone-Baked Pizzas</h3>
+                <p className="text-sm text-anchor-cream-text/70 mb-4">
                   Hand-stretched pizzas with bold toppings — ideal for crew meetups or family send-offs.
                 </p>
                 <div className="flex flex-col gap-2">
@@ -164,9 +164,9 @@ export default function Terminal2Page() {
                   </Link>
                 </div>
               </div>
-              <div className="bg-white rounded-xl shadow-sm p-6">
-                <h3 className="text-xl font-semibold text-anchor-green mb-2">All-Day Menu & Drinks</h3>
-                <p className="text-sm text-gray-700 mb-4">
+              <div className="card-dark rounded-none p-6">
+                <h3 className="text-xl font-semibold text-anchor-gold-vivid mb-2">All-Day Menu & Drinks</h3>
+                <p className="text-sm text-anchor-cream-text/70 mb-4">
                   Burgers, fish & chips, cocktails and real ales served fast. Free parking and WiFi while you track arrivals.
                 </p>
                 <div className="flex flex-col gap-2">
@@ -189,7 +189,7 @@ export default function Terminal2Page() {
       </section>
 
       {/* Quick Info Cards */}
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg">
         <Container>
           <FeatureGrid
             columns={4}
@@ -221,18 +221,18 @@ export default function Terminal2Page() {
       </section>
 
       {/* Detailed Directions */}
-      <section id="directions" className="section-spacing bg-white">
+      <section id="directions" className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
         <Container size="md">
             <SectionHeader
               title="How to Get Here from Terminal 2"
               align="center"
             />
-            
+
             <div className="grid md:grid-cols-3 gap-8 mb-12">
               {/* By Car */}
-              <div className="bg-anchor-cream rounded-2xl p-8">
-                <h3 className="text-2xl font-bold text-anchor-green mb-4">🚗 By Car (11 minutes)</h3>
-                <ol className="space-y-3 text-gray-700">
+              <div className="bg-anchor-bg-raised rounded-2xl p-8 border border-anchor-gold/15">
+                <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">🚗 By Car (11 minutes)</h3>
+                <ol className="space-y-3 text-anchor-cream-text/70">
                   <li className="flex gap-3">
                     <span className="font-bold text-anchor-gold">1.</span>
                     Exit Terminal 2 following signs for A4/M4
@@ -254,16 +254,16 @@ export default function Terminal2Page() {
                     Turn left onto Horton Road - The Anchor is on your right
                   </li>
                 </ol>
-                <div className="mt-6 p-4 bg-white rounded-lg">
-                  <p className="font-semibold text-anchor-green">Sat Nav:</p>
-                  <p className="text-lg">TW19 6AQ</p>
+                <div className="mt-6 p-4 bg-anchor-bg-card rounded-lg border border-anchor-gold/15">
+                  <p className="font-semibold text-anchor-gold-vivid">Sat Nav:</p>
+                  <p className="text-lg text-anchor-cream-text">TW19 6AQ</p>
                 </div>
               </div>
 
               {/* By Taxi */}
-              <div className="bg-anchor-cream rounded-2xl p-8">
-                <h3 className="text-2xl font-bold text-anchor-green mb-4">🚕 By Taxi</h3>
-                <div className="space-y-4 text-gray-700">
+              <div className="bg-anchor-bg-raised rounded-2xl p-8 border border-anchor-gold/15">
+                <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">🚕 By Taxi</h3>
+                <div className="space-y-4 text-anchor-cream-text/70">
 	                  <div>
 	                    <p className="font-semibold mb-2">Cost: GBP 20-25</p>
 	                    <p className="text-sm mb-2">Journey time: 11 minutes</p>
@@ -278,17 +278,17 @@ export default function Terminal2Page() {
                       <li>Central Bus Station (between T2 & T3)</li>
                     </ul>
                   </div>
-                  <div className="p-4 bg-white rounded-lg">
-                    <p className="font-semibold text-anchor-green mb-2">Pre-book Return:</p>
-                    <p className="text-sm">We can arrange your return taxi - just ask at the bar!</p>
+                  <div className="p-4 bg-anchor-bg-card rounded-lg border border-anchor-gold/15">
+                    <p className="font-semibold text-anchor-gold-vivid mb-2">Pre-book Return:</p>
+                    <p className="text-sm text-anchor-cream-text/70">We can arrange your return taxi - just ask at the bar!</p>
                   </div>
                 </div>
               </div>
 
               {/* By Bus */}
-              <div className="bg-anchor-cream rounded-2xl p-8">
-                <h3 className="text-2xl font-bold text-anchor-green mb-4">🚌 By Bus</h3>
-                <div className="space-y-4 text-gray-700">
+              <div className="bg-anchor-bg-raised rounded-2xl p-8 border border-anchor-gold/15">
+                <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">🚌 By Bus</h3>
+                <div className="space-y-4 text-anchor-cream-text/70">
                   <div>
                     <p className="font-semibold mb-2">Route 442</p>
                     <p className="text-sm mb-2">Journey time: 20-25 minutes</p>
@@ -303,18 +303,18 @@ export default function Terminal2Page() {
                       <li>Follow signs from arrivals</li>
                     </ul>
                   </div>
-                  <div className="p-4 bg-white rounded-lg">
-                    <p className="font-semibold text-anchor-green mb-2">Your Stop:</p>
-                    <p className="text-sm">Get off at Horton Road - The Anchor is right there!</p>
+                  <div className="p-4 bg-anchor-bg-card rounded-lg border border-anchor-gold/15">
+                    <p className="font-semibold text-anchor-gold-vivid mb-2">Your Stop:</p>
+                    <p className="text-sm text-anchor-cream-text/70">Get off at Horton Road - The Anchor is right there!</p>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Map Section */}
-            <div className="bg-gray-100 rounded-2xl p-8 text-center">
-              <h3 className="text-2xl font-bold text-anchor-green mb-4">Interactive Map</h3>
-              <p className="text-gray-700 mb-6">
+            <div className="bg-anchor-bg-raised rounded-2xl p-8 text-center border border-anchor-gold/15">
+              <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">Interactive Map</h3>
+              <p className="text-anchor-cream-text/70 mb-6">
                 Click below for turn-by-turn directions from Terminal 2
               </p>
               <DirectionsButton
@@ -331,7 +331,7 @@ export default function Terminal2Page() {
       </section>
 
       {/* Why Visit */}
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
         <Container size="md">
             <SectionHeader
               title="Why Terminal 2 Travelers Choose The Anchor"
@@ -377,7 +377,7 @@ export default function Terminal2Page() {
       </section>
 
       {/* Live Flight Information */}
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
         <Container size="md">
             <SectionHeader
               title="Live Terminal 2 Flight Information"
@@ -389,23 +389,23 @@ export default function Terminal2Page() {
       </section>
 
       {/* Terminal 2 Specific Info */}
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
         <Container size="md">
             <SectionHeader
               title="Terminal 2 Travel Tips"
               align="center"
             />
-            
+
             <div className="mb-8">
               <FlightDelayWidget terminal="2" />
             </div>
-            
-            <div className="bg-anchor-sand/30 rounded-2xl p-8 mb-8">
-              <h3 className="text-2xl font-bold text-anchor-green mb-4">Airlines & Destinations</h3>
+
+            <div className="bg-anchor-bg-raised rounded-2xl p-8 mb-8 border border-anchor-gold/15">
+              <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">Airlines & Destinations</h3>
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <p className="font-semibold mb-2">Major Airlines:</p>
-                  <ul className="space-y-1 text-gray-700 text-sm">
+                  <p className="font-semibold text-anchor-cream-text mb-2">Major Airlines:</p>
+                  <ul className="space-y-1 text-anchor-cream-text/70 text-sm">
                     <li>• Lufthansa - Frankfurt, Munich</li>
                     <li>• United Airlines - US destinations</li>
                     <li>• Air Canada - Toronto, Vancouver</li>
@@ -414,8 +414,8 @@ export default function Terminal2Page() {
                   </ul>
                 </div>
                 <div>
-                  <p className="font-semibold mb-2">Check-in Advice:</p>
-                  <ul className="space-y-1 text-gray-700 text-sm">
+                  <p className="font-semibold text-anchor-cream-text mb-2">Check-in Advice:</p>
+                  <ul className="space-y-1 text-anchor-cream-text/70 text-sm">
                     <li>• European flights: 2 hours before</li>
                     <li>• International: 3 hours before</li>
                     <li>• US flights: 3.5 hours (extra security)</li>
@@ -453,64 +453,64 @@ export default function Terminal2Page() {
       </section>
 
       {/* Perfect for Terminal 2 Travelers */}
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
         <Container size="md">
             <SectionHeader
               title="Your Perfect Stop Near Terminal 2"
               align="center"
             />
-            
-            <div className="prose prose-lg max-w-none text-gray-700 mb-12">
-              <p className="text-xl text-center mb-8">
+
+            <div className="prose prose-lg max-w-none text-anchor-cream-text/70 mb-12">
+              <p className="text-xl text-center mb-8 text-anchor-cream-text/70">
                 Whether you're flying with Lufthansa, United Airlines, Air Canada, or any of the 23 airlines 
                 operating from Terminal 2, The Anchor provides the perfect escape from the airport bustle.
               </p>
               
               <div className="grid md:grid-cols-2 gap-8">
                 <div>
-                  <h3 className="text-2xl font-bold text-anchor-green mb-4">Before Your Flight</h3>
-                  <p className="mb-4">
+                  <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-4">Before Your Flight</h3>
+                  <p className="mb-4 text-anchor-cream-text/70">
                     Instead of paying premium prices for average food at the terminal, enjoy a proper meal 
                     at The Anchor. Our traditional British menu offers everything from classic pub favourites 
                     to fish and chips, all at local pub prices during kitchen hours. With Terminal 2's 
                     recommendation to arrive 3 hours early for international flights, you'll have plenty 
                     of time to relax in our beer garden or cozy interior before heading to the gate.
                   </p>
-                  <p>
-                    Many of our regulars are business travelers who've discovered that a calm meal at 
-                    The Anchor beats the stress of airport dining. Park free with us, enjoy your meal, 
+                  <p className="text-anchor-cream-text/70">
+                    Many of our regulars are business travelers who've discovered that a calm meal at
+                    The Anchor beats the stress of airport dining. Park free with us, enjoy your meal,
                     then take a quick 10-minute drive to T2's drop-off zone.
                   </p>
                 </div>
-                
+
                 <div>
-                  <h3 className="text-2xl font-bold text-anchor-green mb-4">Meeting Arrivals</h3>
-	                  <p className="mb-4">
+                  <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-4">Meeting Arrivals</h3>
+	                  <p className="mb-4 text-anchor-cream-text/70">
 	                    Terminal 2's short-stay car park charges GBP 6.90 for just 30 minutes - that's more 
 	                    than a pint costs at The Anchor! When collecting passengers, wait comfortably with 
 	                    us instead. Use our free WiFi to track their flight, enjoy a drink or meal, and 
 	                    only head to the terminal when they've cleared customs.
 	                  </p>
-                  <p>
-                    We're particularly popular with families meeting international arrivals. Kids can 
-                    play in our garden while adults relax, making those flight delays much more bearable 
+                  <p className="text-anchor-cream-text/70">
+                    We're particularly popular with families meeting international arrivals. Kids can
+                    play in our garden while adults relax, making those flight delays much more bearable
                     than sitting in expensive terminal cafes.
                   </p>
                 </div>
               </div>
             </div>
-            
-            <div className="bg-anchor-cream rounded-2xl p-8">
-              <h3 className="text-2xl font-bold text-anchor-green mb-4 text-center">Local Knowledge</h3>
-              <p className="text-gray-700 mb-4">
+
+            <div className="bg-anchor-bg-raised rounded-2xl p-8 border border-anchor-gold/15">
+              <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-4 text-center">Local Knowledge</h3>
+              <p className="text-anchor-cream-text/70 mb-4">
                 As Stanwell Moor's village pub, we've been serving Terminal 2 travelers since the 
                 Queen opened it in 2014. Our staff know the flight patterns, the best times to 
                 travel to avoid traffic, and can even recommend the quickest security lanes based 
                 on the time of day. We're not just a pub - we're part of your journey.
               </p>
-              <p className="text-gray-700">
-                Regular Terminal 2 flight crews choose The Anchor as their local when staying at 
-                nearby hotels. If it's good enough for the professionals who fly every day, you 
+              <p className="text-anchor-cream-text/70">
+                Regular Terminal 2 flight crews choose The Anchor as their local when staying at
+                nearby hotels. If it's good enough for the professionals who fly every day, you
                 know you're in good hands.
               </p>
             </div>
@@ -518,16 +518,16 @@ export default function Terminal2Page() {
       </section>
 
       {/* Hotel Guest Section */}
-      <section className="section-spacing bg-anchor-cream">
+      <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
         <Container size="md">
             <SectionHeader
               title="Staying Near Terminal 2?"
               subtitle="Escape your hotel for a genuine British pub experience"
               align="center"
             />
-            
+
             <div className="mb-12">
-              <p className="text-center text-lg text-gray-700 max-w-3xl mx-auto">
+              <p className="text-center text-lg text-anchor-cream-text/70 max-w-3xl mx-auto">
                 If you're staying at one of the Terminal 2 hotels, The Anchor offers 
                 the perfect escape from hotel dining. Experience a real British family 
                 pub where locals gather - a refreshing change from the international 
@@ -535,14 +535,14 @@ export default function Terminal2Page() {
               </p>
             </div>
 
-            <div className="bg-white rounded-2xl p-8 shadow-sm mb-8">
-              <h3 className="text-2xl font-bold text-anchor-green mb-6 text-center">
+            <div className="card-dark rounded-none p-8 mb-8">
+              <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-6 text-center">
                 Why Hotel Guests Choose The Anchor
               </h3>
               <div className="grid md:grid-cols-2 gap-8">
                 <div>
-                  <h4 className="font-semibold text-lg mb-3">🏠 A Real Local Experience</h4>
-                  <ul className="space-y-2 text-gray-700">
+                  <h4 className="font-semibold text-lg mb-3 text-anchor-cream-text">🏠 A Real Local Experience</h4>
+                  <ul className="space-y-2 text-anchor-cream-text/70">
                     <li className="flex gap-2">
                       <span className="text-anchor-gold">✓</span>
                       <span>Traditional British pub atmosphere</span>
@@ -562,8 +562,8 @@ export default function Terminal2Page() {
                   </ul>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-lg mb-3">💰 Better Value Than Hotels</h4>
-                  <ul className="space-y-2 text-gray-700">
+                  <h4 className="font-semibold text-lg mb-3 text-anchor-cream-text">💰 Better Value Than Hotels</h4>
+                  <ul className="space-y-2 text-anchor-cream-text/70">
                     <li className="flex gap-2">
                       <span className="text-anchor-gold">✓</span>
                       <span>Pub prices, not hotel prices</span>
@@ -585,36 +585,36 @@ export default function Terminal2Page() {
               </div>
             </div>
 
-            <div className="bg-white rounded-2xl p-8 shadow-sm mb-8">
-              <h3 className="text-2xl font-bold text-anchor-green mb-4 text-center">
+            <div className="card-dark rounded-none p-8 mb-8">
+              <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-4 text-center">
                 🚕 Getting Here from Terminal 2 Hotels
               </h3>
 	              <div className="grid md:grid-cols-3 gap-6 text-center">
 	                <div>
-	                  <p className="font-semibold mb-2">By Taxi</p>
+	                  <p className="font-semibold mb-2 text-anchor-cream-text">By Taxi</p>
 	                  <p className="text-3xl font-bold text-anchor-gold mb-2">GBP 18-22</p>
-	                  <p className="text-sm text-gray-600">11 minutes</p>
+	                  <p className="text-sm text-anchor-cream-text/55">11 minutes</p>
 	                </div>
 	                <div>
-	                  <p className="font-semibold mb-2">By Uber</p>
+	                  <p className="font-semibold mb-2 text-anchor-cream-text">By Uber</p>
 	                  <p className="text-3xl font-bold text-anchor-gold mb-2">GBP 15-18</p>
-	                  <p className="text-sm text-gray-600">11 minutes</p>
+	                  <p className="text-sm text-anchor-cream-text/55">11 minutes</p>
 	                </div>
 	                <div>
-	                  <p className="font-semibold mb-2">By Bus</p>
+	                  <p className="font-semibold mb-2 text-anchor-cream-text">By Bus</p>
 	                  <p className="text-3xl font-bold text-anchor-gold mb-2">GBP 2.50</p>
-	                  <p className="text-sm text-gray-600">Take 442 bus</p>
+	                  <p className="text-sm text-anchor-cream-text/55">Take 442 bus</p>
 	                </div>
 	              </div>
-              <p className="text-center text-sm text-gray-600 mt-4">
+              <p className="text-center text-sm text-anchor-cream-text/55 mt-4">
                 Tell your driver: "The Anchor, Horton Road, Stanwell Moor"
               </p>
             </div>
 
-            <div className="bg-anchor-green text-white rounded-2xl p-8 text-center">
-              <p className="text-lg mb-4 max-w-2xl mx-auto">
-                Take a break from the hustle and bustle of airport life. 
-                The Anchor offers a peaceful village pub atmosphere where you can 
+            <div className="bg-anchor-bg-raised border border-anchor-gold/30 rounded-2xl p-8 text-center">
+              <p className="text-lg mb-4 max-w-2xl mx-auto text-anchor-cream-text/70">
+                Take a break from the hustle and bustle of airport life.
+                The Anchor offers a peaceful village pub atmosphere where you can
                 relax, enjoy great food, and experience genuine British hospitality.
               </p>
               <BookTableButton

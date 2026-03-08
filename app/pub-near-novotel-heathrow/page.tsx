@@ -94,29 +94,29 @@ export default function PubNearNovotelHeathrowPage() {
         }
       />
 
-      <section className="py-8 bg-white">
+      <section className="py-8 bg-anchor-bg">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
-            <PageTitle seo={{ structured: true, speakable: true }} className="text-anchor-green mb-4">
+            <PageTitle seo={{ structured: true, speakable: true }} className="text-anchor-cream-text mb-4">
               Pub Near Novotel London Heathrow
             </PageTitle>
-            <p className="text-lg text-gray-700">
+            <p className="text-lg text-anchor-cream-text/70">
               Staying at the Novotel Heathrow? The Anchor is just 15 minutes away — an independent British pub with home-cooked food from scratch, real ales, and free parking. A proper local experience away from hotel prices.
             </p>
           </div>
         </Container>
       </section>
 
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <FeatureGrid
               columns={4}
               features={[
-                { icon: '🕐', title: '15 Minutes', description: 'By taxi from Novotel Heathrow', variant: 'colored', color: 'bg-green-50', className: 'rounded-xl p-6 text-center' },
-                { icon: '🚖', title: '~£15–20', description: 'Typical taxi fare each way', variant: 'colored', color: 'bg-blue-50', className: 'rounded-xl p-6 text-center' },
-                { icon: '🅿️', title: 'Free Parking', description: '20 spaces — arrive by car and park free', variant: 'colored', color: 'bg-amber-50', className: 'rounded-xl p-6 text-center' },
-                { icon: '🇬🇧', title: 'Genuinely Local', description: 'Independent pub, not a chain', variant: 'colored', color: 'bg-red-50', className: 'rounded-xl p-6 text-center' },
+                { icon: '🕐', title: '15 Minutes', description: 'By taxi from Novotel Heathrow', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '🚖', title: '~£15–20', description: 'Typical taxi fare each way', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '🅿️', title: 'Free Parking', description: '20 spaces — arrive by car and park free', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '🇬🇧', title: 'Genuinely Local', description: 'Independent pub, not a chain', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
               ]}
               className="mb-8"
             />
@@ -124,7 +124,7 @@ export default function PubNearNovotelHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -132,8 +132,8 @@ export default function PubNearNovotelHeathrowPage() {
               subtitle="The Novotel is great for a comfortable stay near Heathrow — but for your evening meal, The Anchor offers something different: a genuine British community pub with food made from scratch every day."
             />
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-xl font-bold text-anchor-green mb-4">What Makes The Anchor Different</h3>
+              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
+                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">What Makes The Anchor Different</h3>
                 <ul className="space-y-3">
                   {[
                     'Independent pub — not a chain or hotel brand',
@@ -150,9 +150,9 @@ export default function PubNearNovotelHeathrowPage() {
                   ))}
                 </ul>
               </div>
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-xl font-bold text-anchor-green mb-4">Getting Here from Novotel Heathrow</h3>
-                <div className="space-y-3 text-gray-700">
+              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
+                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Getting Here from Novotel Heathrow</h3>
+                <div className="space-y-3 text-anchor-cream-text/70">
                   <div>
                     <p className="font-semibold">By Taxi or Uber</p>
                     <p className="text-sm">Ask for The Anchor, Stanwell Moor (TW19 6AQ). Journey is approximately 15 minutes, costing around £15–20 each way.</p>
@@ -163,7 +163,7 @@ export default function PubNearNovotelHeathrowPage() {
                   </div>
                   <div className="pt-2 border-t border-gray-200">
                     <p className="text-sm font-medium">Postcode: <strong>TW19 6AQ</strong></p>
-                    <p className="text-sm text-gray-600">Free parking — 20 spaces available</p>
+                    <p className="text-sm text-anchor-cream-text/70">Free parking — 20 spaces available</p>
                   </div>
                 </div>
               </div>
@@ -172,22 +172,22 @@ export default function PubNearNovotelHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader title="Great Value Deals Worth Knowing" />
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-red-50 rounded-xl p-6 text-center">
+              <div className="card-dark rounded-none p-6 text-center">
                 <p className="text-4xl mb-2">🍕</p>
                 <h3 className="text-xl font-bold text-red-800 mb-2">Tuesday Pizza Deal</h3>
                 <p className="text-3xl font-bold text-red-600 mb-2">Buy 1 Get 1 Free</p>
-                <p className="text-gray-700">All stone-baked pizzas every Tuesday</p>
+                <p className="text-anchor-cream-text/70">All stone-baked pizzas every Tuesday</p>
               </div>
-              <div className="bg-amber-50 rounded-xl p-6 text-center">
+              <div className="card-dark rounded-none p-6 text-center">
                 <p className="text-4xl mb-2">🍖</p>
                 <h3 className="text-xl font-bold text-amber-800 mb-2">Sunday Roast</h3>
                 <p className="text-3xl font-bold text-amber-600 mb-2">From £19.99</p>
-                <p className="text-gray-700">Traditional British roast — pre-booking recommended</p>
+                <p className="text-anchor-cream-text/70">Traditional British roast — pre-booking recommended</p>
               </div>
             </div>
             <div className="mt-6 text-center">
@@ -199,7 +199,7 @@ export default function PubNearNovotelHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
             <SectionHeader title="Opening Hours" />
@@ -237,7 +237,7 @@ export default function PubNearNovotelHeathrowPage() {
             answer: 'Yes — use Uber or ask the Novotel reception to arrange a taxi. Tell the driver "The Anchor pub, Stanwell Moor, TW19 6AQ". The journey is approximately 15 minutes and costs around £15–20.'
           },
         ]}
-        className="bg-gray-50"
+        className="bg-anchor-bg"
       />
 
       <CTASection

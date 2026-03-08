@@ -32,9 +32,9 @@ export async function FilteredUpcomingEvents() {
     // Error: Failed to load upcoming events
 
     return (
-      <div className="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
-        <p className="text-red-700 mb-2">Unable to load upcoming events at the moment.</p>
-        <p className="text-gray-600">Please try again later or contact us at 01753 682707.</p>
+      <div className="bg-red-900/20 border border-red-500/30 rounded-lg p-6 text-center">
+        <p className="text-red-400 mb-2">Unable to load upcoming events at the moment.</p>
+        <p className="text-anchor-cream-text/55">Please try again later or contact us at 01753 682707.</p>
       </div>
     )
   }

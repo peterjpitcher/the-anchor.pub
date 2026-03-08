@@ -51,7 +51,7 @@ export function NextEvent() {
   if (loading) {
     return (
       <div className="max-w-3xl mx-auto">
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+        <div className="card-dark rounded-none overflow-hidden">
           <LoadingState variant="skeleton" className="h-64 w-full" />
         </div>
         {/* Screen reader announcement */}
@@ -65,8 +65,8 @@ export function NextEvent() {
   if (error || !nextEvent) {
     return (
       <div className="text-center py-8">
-        <div className="bg-anchor-sand/30 rounded-2xl p-8 max-w-md mx-auto">
-          <p className="text-gray-700 text-lg mb-4">
+        <div className="bg-anchor-bg-raised rounded-none p-8 max-w-md mx-auto">
+          <p className="text-anchor-cream-text/70 text-lg mb-4">
             {error || 'No upcoming events at the moment'}
           </p>
           <Link href="/whats-on" className="text-anchor-gold hover:text-anchor-gold-light font-semibold inline-flex items-center gap-2">
@@ -98,7 +98,7 @@ export function NextEvent() {
         dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(schema) }}
       />
       <div className="max-w-3xl mx-auto">
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
+        <div className="card-dark rounded-none overflow-hidden">
         <div className="bg-anchor-green text-white p-6">
           <p className="text-lg font-semibold">
             {isToday ? 'TODAY' : isTomorrow ? 'TOMORROW' : eventDate}
@@ -107,25 +107,25 @@ export function NextEvent() {
         <div className="p-8">
           <div className="flex items-start justify-between mb-4">
             <div>
-              <h3 className="text-3xl font-bold text-anchor-green mb-2">{nextEvent.name}</h3>
+              <h3 className="text-3xl font-bold text-anchor-gold-vivid mb-2">{nextEvent.name}</h3>
               <p className="text-xl text-anchor-gold font-medium">{eventTime}</p>
             </div>
             {nextEvent.offers && (
               <div className="text-right">
-	                <p className={`text-xl font-bold ${nextEvent.offers.price === "0" ? "text-green-600" : "text-anchor-gold"}`}>
+	                <p className={`text-xl font-bold ${nextEvent.offers.price === "0" ? "text-anchor-gold-vivid" : "text-anchor-gold"}`}>
 	                  {nextEvent.offers.price === "0"
 	                    ? "FREE TICKETS - Book while they're available"
 	                    : formatPrice(nextEvent.offers.price, nextEvent.offers.priceCurrency)}
 	                </p>
                 {nextEvent.remainingAttendeeCapacity === 0 && (
-                  <p className="text-red-600 font-semibold text-sm mt-1">SOLD OUT</p>
+                  <p className="text-red-400 font-semibold text-sm mt-1">SOLD OUT</p>
                 )}
               </div>
             )}
           </div>
           
           {nextEvent.description && (
-            <p className="text-gray-700 text-lg mb-6">{nextEvent.description}</p>
+            <p className="text-anchor-cream-text/70 text-lg mb-6">{nextEvent.description}</p>
           )}
           
           <div className="flex flex-col sm:flex-row gap-4">
@@ -141,7 +141,7 @@ export function NextEvent() {
             
             <Link 
               href="/whats-on"
-              className="inline-flex items-center justify-center px-6 py-3 bg-white text-anchor-green font-semibold rounded-full border-2 border-anchor-green hover:bg-anchor-green hover:text-white transition-colours"
+              className="inline-flex items-center justify-center px-6 py-3 bg-transparent text-anchor-gold font-semibold rounded-full border-2 border-anchor-gold hover:bg-anchor-gold hover:text-anchor-charcoal transition-colors"
             >
               View All Events
             </Link>

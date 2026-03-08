@@ -51,7 +51,7 @@ export const FormLabel = forwardRef<HTMLLabelElement, FormLabelProps>(
       <label
         ref={ref}
         className={cn(
-          'block text-sm font-medium text-gray-700',
+          'block text-sm font-medium text-anchor-cream-text/70',
           className
         )}
         data-testid={testId}
@@ -75,7 +75,7 @@ export const FormHelpText = forwardRef<HTMLParagraphElement, FormHelpTextProps>(
     return (
       <p
         ref={ref}
-        className={cn('text-sm text-gray-500', className)}
+        className={cn('text-sm text-anchor-cream-text/55', className)}
         data-testid={testId}
         {...props}
       >
@@ -127,12 +127,12 @@ export const FormSection = forwardRef<HTMLFieldSetElement, FormSectionProps>(
         {(title || description) && (
           <div>
             {title && (
-              <legend className="text-lg font-medium text-gray-900">
+              <legend className="text-lg font-medium text-anchor-cream-text">
                 {title}
               </legend>
             )}
             {description && (
-              <p className="mt-1 text-sm text-gray-500">{description}</p>
+              <p className="mt-1 text-sm text-anchor-cream-text/55">{description}</p>
             )}
           </div>
         )}

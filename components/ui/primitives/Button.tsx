@@ -24,8 +24,8 @@ const buttonVariants = cva(
     variants: {
       variant: {
         primary: 'bg-anchor-gold text-white hover:bg-anchor-gold-light',
-        secondary: 'bg-white text-anchor-green border-2 border-anchor-green hover:bg-anchor-green hover:text-white',
-        ghost: 'text-anchor-green hover:bg-anchor-green/10',
+        secondary: 'bg-anchor-bg-card text-anchor-cream-text border-2 border-anchor-gold/30 hover:bg-anchor-bg-raised hover:text-anchor-gold-vivid',
+        ghost: 'text-anchor-cream-text hover:bg-anchor-bg-raised',
         outline: 'border-2 border-anchor-gold text-anchor-gold hover:bg-anchor-gold hover:text-white',
         danger: 'bg-red-600 text-white hover:bg-red-700',
         warning: 'bg-yellow-500 text-white hover:bg-yellow-600'

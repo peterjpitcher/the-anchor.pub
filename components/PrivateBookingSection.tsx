@@ -15,7 +15,7 @@ export function PrivateBookingSection({
   eventType
 }: PrivateBookingSectionProps) {
   return (
-    <section id={id} className="border-y py-12 bg-gray-50 border-gray-200">
+    <section id={id} className="border-y py-12 bg-anchor-bg-raised border-anchor-gold/15">
       <Container size="md">
         <SectionHeader title={title} subtitle={subtitle} />
         <div className="max-w-3xl mx-auto">

@@ -45,9 +45,9 @@ export function BusinessHours({ variant = 'full', showKitchen = true }: Business
     }
     // Show fallback message
     return (
-      <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-        <p className="text-red-700 text-sm mb-2">{errorMessage}</p>
-        <div className="text-sm text-gray-700">
+      <div className="bg-red-900/20 border border-red-500/30 rounded-lg p-4">
+        <p className="text-red-400 text-sm mb-2">{errorMessage}</p>
+        <div className="text-sm text-anchor-cream-text/70">
           <a href={CONTACT_INFO.phoneLink} className="text-anchor-gold hover:text-anchor-gold-light font-semibold underline">
             Call {CONTACT_INFO.phone}
           </a> for today's hours
@@ -191,13 +191,13 @@ export function BusinessHours({ variant = 'full', showKitchen = true }: Business
             {hours.currentStatus.isOpen ? 'Open' : 'Closed'}
           </span>
           {todayHours && !todayHours.is_closed && (
-            <span className="text-gray-700">
+            <span className="text-anchor-cream-text/70">
               {formatTime(todayHours.opens)} - {formatTime(todayHours.closes)}
             </span>
           )}
         </div>
         {hours.currentStatus.isOpen && hours.currentStatus.closesIn && (
-          <p className="text-sm sm:text-xs text-gray-700 mt-1">Closes in {parseApiDuration(hours.currentStatus.closesIn) || hours.currentStatus.closesIn}</p>
+          <p className="text-sm sm:text-xs text-anchor-cream-text/70 mt-1">Closes in {parseApiDuration(hours.currentStatus.closesIn) || hours.currentStatus.closesIn}</p>
         )}
       </div>
     )
@@ -217,14 +217,14 @@ export function BusinessHours({ variant = 'full', showKitchen = true }: Business
               </span>
             </div>
             {hours.currentStatus.isOpen && hours.currentStatus.closesIn && (
-              <span className="text-sm text-gray-600">Closes in {parseApiDuration(hours.currentStatus.closesIn) || hours.currentStatus.closesIn}</span>
+              <span className="text-sm text-anchor-cream-text/55">Closes in {parseApiDuration(hours.currentStatus.closesIn) || hours.currentStatus.closesIn}</span>
             )}
             {!hours.currentStatus.isOpen && hours.currentStatus.opensIn && (
-              <span className="text-sm text-gray-600">Opens in {parseApiDuration(hours.currentStatus.opensIn) || hours.currentStatus.opensIn}</span>
+              <span className="text-sm text-anchor-cream-text/55">Opens in {parseApiDuration(hours.currentStatus.opensIn) || hours.currentStatus.opensIn}</span>
             )}
           </div>
           {showKitchen && (
-            <p className="text-sm mt-2 text-gray-600">
+            <p className="text-sm mt-2 text-anchor-cream-text/55">
               Kitchen: {hours.currentStatus.kitchenOpen ?
                 <span className="text-green-400 font-medium">Open for food orders</span> :
                 <span className="text-red-400 font-medium">Closed</span>
@@ -487,7 +487,7 @@ export function BusinessHours({ variant = 'full', showKitchen = true }: Business
         />
       )}
       {/* Current Status */}
-      <div className={`p-4 rounded-lg ${hours.currentStatus.isOpen ? 'bg-green-50 border border-green-200' : 'bg-red-50 border border-red-200'}`}>
+      <div className={`p-4 rounded-lg ${hours.currentStatus.isOpen ? 'bg-green-500/10 border border-green-500/30' : 'bg-red-900/20 border border-red-500/30'}`}>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <span className={`inline-block w-3 h-3 rounded-full ${hours.currentStatus.isOpen ? 'bg-green-500' : 'bg-red-500'}`} />
@@ -496,17 +496,17 @@ export function BusinessHours({ variant = 'full', showKitchen = true }: Business
             </span>
           </div>
           {hours.currentStatus.isOpen && hours.currentStatus.closesIn && (
-            <span className="text-sm text-gray-700">Closes in {parseApiDuration(hours.currentStatus.closesIn) || hours.currentStatus.closesIn}</span>
+            <span className="text-sm text-anchor-cream-text/70">Closes in {parseApiDuration(hours.currentStatus.closesIn) || hours.currentStatus.closesIn}</span>
           )}
           {!hours.currentStatus.isOpen && hours.currentStatus.opensIn && (
-            <span className="text-sm text-gray-700">Opens in {parseApiDuration(hours.currentStatus.opensIn) || hours.currentStatus.opensIn}</span>
+            <span className="text-sm text-anchor-cream-text/70">Opens in {parseApiDuration(hours.currentStatus.opensIn) || hours.currentStatus.opensIn}</span>
           )}
         </div>
         {showKitchen && (
-          <p className="text-sm mt-2 text-gray-700">
+          <p className="text-sm mt-2 text-anchor-cream-text/70">
             Kitchen: {hours.currentStatus.kitchenOpen ?
-              <span className="text-green-700 font-medium">Open for food orders</span> :
-              <span className="text-red-700 font-medium">Closed</span>
+              <span className="text-green-400 font-medium">Open for food orders</span> :
+              <span className="text-red-400 font-medium">Closed</span>
             }
           </p>
         )}
@@ -532,43 +532,43 @@ export function BusinessHours({ variant = 'full', showKitchen = true }: Business
             return (
               <div
                 key={day}
-                className={`flex justify-between items-start py-2 px-3 rounded ${isToday ? 'bg-anchor-cream' : ''
+                className={`flex justify-between items-start py-2 px-3 rounded ${isToday ? 'bg-anchor-gold/10' : ''
                   } ${hasSpecialHours ? 'ring-2 ring-yellow-400' : ''}`}
               >
-                <span className={`font-medium capitalize ${isToday ? 'text-anchor-green' : ''}`} itemProp="dayOfWeek">
+                <span className={`font-medium capitalize ${isToday ? 'text-anchor-gold-vivid' : 'text-anchor-cream-text'}`} itemProp="dayOfWeek">
                   {day}
-                  {isToday && <span className="text-sm sm:text-xs ml-2 text-white">(Today)</span>}
-                  {hasSpecialHours && <span className="text-sm sm:text-xs ml-2 text-yellow-600">({specialHours?.note || specialHours?.reason || 'Special hours'})</span>}
+                  {isToday && <span className="text-sm sm:text-xs ml-2 text-anchor-cream-text/70">(Today)</span>}
+                  {hasSpecialHours && <span className="text-sm sm:text-xs ml-2 text-yellow-400">({specialHours?.note || specialHours?.reason || 'Special hours'})</span>}
                 </span>
                 <div className="text-right space-y-1">
                   {displayHours.is_closed ? (
-                    <span className={hasSpecialHours ? 'text-yellow-600 font-medium' : 'text-gray-700'}>Closed</span>
+                    <span className={hasSpecialHours ? 'text-yellow-400 font-medium' : 'text-anchor-cream-text/70'}>Closed</span>
                   ) : (
                     <>
                       <div>
-                        <span className="text-sm text-gray-500 mr-2">Bar:</span>
-                        <span className={hasSpecialHours ? 'text-yellow-600 font-medium' : ''}>
+                        <span className="text-sm text-anchor-cream-text/55 mr-2">Bar:</span>
+                        <span className={hasSpecialHours ? 'text-yellow-400 font-medium' : 'text-anchor-cream-text'}>
                           <time itemProp="opens" content={displayHours.opens}>{formatTime(displayHours.opens)}</time> - <time itemProp="closes" content={displayHours.closes}>{formatTime(displayHours.closes)}</time>
                         </span>
                       </div>
 
                       {showKitchen && (
                         <div className="text-sm">
-                          <span className="text-gray-500 mr-2">Kitchen:</span>
+                          <span className="text-anchor-cream-text/55 mr-2">Kitchen:</span>
                           {(() => {
                             if (kitchenClosed) {
-                              return <span className={hasSpecialHours ? 'text-yellow-600 font-medium' : 'text-amber-600 font-medium'}>Closed</span>
+                              return <span className={hasSpecialHours ? 'text-yellow-400 font-medium' : 'text-amber-400 font-medium'}>Closed</span>
                             }
                             if (!kitchen || kitchen === null) {
-                              return <span className="text-gray-500">No service</span>
+                              return <span className="text-anchor-cream-text/55">No service</span>
                             } else if ('opens' in kitchen && 'closes' in kitchen) {
                               return (
-                                <span className={hasSpecialHours ? 'text-yellow-600 font-medium' : ''}>
+                                <span className={hasSpecialHours ? 'text-yellow-400 font-medium' : 'text-anchor-cream-text'}>
                                   {formatTime(kitchen.opens)} - {formatTime(kitchen.closes)}
                                 </span>
                               )
                             }
-                            return <span className="text-gray-500">No service</span>
+                            return <span className="text-anchor-cream-text/55">No service</span>
                           })()}
                         </div>
                       )}

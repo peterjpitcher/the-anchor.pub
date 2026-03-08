@@ -28,9 +28,9 @@ const sizeClasses = {
 }
 
 const variantClasses = {
-  default: 'text-gray-900',
-  sale: 'text-red-600 font-semibold',
-  crossed: 'text-gray-500 line-through'
+  default: 'text-anchor-cream-text',
+  sale: 'text-red-400 font-semibold',
+  crossed: 'text-anchor-cream-text/55 line-through'
 }
 
 export const Price = forwardRef<HTMLSpanElement, PriceProps>(
@@ -88,7 +88,7 @@ export const PriceRange = forwardRef<HTMLSpanElement, PriceRangeProps>(
     return (
       <span ref={ref} className="inline-flex items-baseline gap-1">
         <Price amount={from} {...props} />
-        <span className="text-gray-500">-</span>
+        <span className="text-anchor-cream-text/55">-</span>
         <Price amount={to} {...props} />
       </span>
     )

@@ -129,7 +129,7 @@ export default async function HortonPubPage() {
                 }
             />
 
-            <section className="py-8 bg-white">
+            <section className="py-8 bg-anchor-bg">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle
@@ -137,18 +137,18 @@ export default async function HortonPubPage() {
                                 structured: true,
                                 speakable: true
                             }}
-                            className="text-anchor-green mb-4"
+                            className="text-anchor-cream-text mb-4"
                         >
                             Horton Pub - Traditional British Pub Just 1 Mile Away
                         </PageTitle>
-                        <p className="text-lg text-gray-700">
+                        <p className="text-lg text-anchor-cream-text/70">
                             The Anchor in Stanwell Moor is practically in Horton! We are your closest traditional pub with food, offering a warm welcome to our neighbours.
                         </p>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-gray-50">
+            <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -164,7 +164,7 @@ export default async function HortonPubPage() {
                                     title: "Walking Distance",
                                     description: "A pleasant 20-minute walk or 2-minute drive from Horton village",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-card",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -172,7 +172,7 @@ export default async function HortonPubPage() {
                                     title: "Sunday Roasts",
                                     description: "The best roast in the area - worth the short hop over the motorway",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-card",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -180,7 +180,7 @@ export default async function HortonPubPage() {
                                     title: "Real Ales",
                                     description: "Properly kept ales and a great wine selection",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-card",
                                     className: "rounded-xl p-6 text-center"
                                 }
                             ]}
@@ -190,7 +190,7 @@ export default async function HortonPubPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-white">
+            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeader
@@ -198,9 +198,9 @@ export default async function HortonPubPage() {
                         />
 
                         <div className="grid md:grid-cols-2 gap-8 mb-8">
-                            <div className="bg-green-50 rounded-xl p-6">
+                            <div className="card-dark rounded-none p-6">
                                 <h3 className="text-xl font-bold text-green-800 mb-4">Community Connections</h3>
-                                <ul className="space-y-2 text-gray-700">
+                                <ul className="space-y-2 text-anchor-cream-text/70">
                                     <li>• Many Horton residents are already regulars</li>
                                     <li>• We support local events and charities</li>
                                     <li>• A true village atmosphere, just like home</li>
@@ -208,9 +208,9 @@ export default async function HortonPubPage() {
                                 </ul>
                             </div>
 
-                            <div className="bg-amber-50 rounded-xl p-6">
+                            <div className="card-dark rounded-none p-6">
                                 <h3 className="text-xl font-bold text-amber-800 mb-4">Entertainment Nearby</h3>
-                                <ul className="space-y-2 text-gray-700">
+                                <ul className="space-y-2 text-anchor-cream-text/70">
                                     <li>• Monthly Quiz Nights (Short taxi ride home!)</li>
                                     <li>• Music Bingo with Nikki Manfadge & live music (see /whats-on)</li>
                                     <li>• Cash Bingo Nights</li>
@@ -220,7 +220,7 @@ export default async function HortonPubPage() {
                         </div>
 
                         <div className="text-center">
-                            <p className="text-lg text-gray-700 mb-6">
+                            <p className="text-lg text-anchor-cream-text/70 mb-6">
                                 Looking for a change of scenery without the travel? We're right on your doorstep.
                             </p>
                             <DirectionsButton
@@ -237,14 +237,14 @@ export default async function HortonPubPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-gray-50">
+            <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-2xl mx-auto text-center">
                         <SectionHeader
                             title="Opening Hours"
                         />
                         <BusinessHours />
-                        <p className="mt-4 text-gray-700">
+                        <p className="mt-4 text-anchor-cream-text/70">
                             Kitchen closes earlier - check times for food service
                         </p>
                     </div>
@@ -270,7 +270,7 @@ export default async function HortonPubPage() {
                         answer: "Yes, we have a large free car park with 20 spaces, making it very easy to pop over from Horton for dinner without worrying about parking."
                     }
                 ]}
-                className="bg-white"
+                className="bg-anchor-bg-card"
             />
 
             <CTASection

@@ -128,7 +128,7 @@ export default async function LongfordPubPage() {
                 }
             />
 
-            <section className="py-8 bg-white">
+            <section className="py-8 bg-anchor-bg">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle
@@ -136,18 +136,18 @@ export default async function LongfordPubPage() {
                                 structured: true,
                                 speakable: true
                             }}
-                            className="text-anchor-green mb-4"
+                            className="text-anchor-cream-text mb-4"
                         >
                             Minutes from Longford Hotels & Bath Road
                         </PageTitle>
-                        <p className="text-lg text-gray-700">
+                        <p className="text-lg text-anchor-cream-text/70">
                             Don't settle for overpriced hotel food. The Anchor is your nearest traditional village pub, offering a genuine British experience just a stone's throw from Longford.
                         </p>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-gray-50">
+            <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -163,7 +163,7 @@ export default async function LongfordPubPage() {
                                     title: "Better Value",
                                     description: "Significantly cheaper than hotel restaurants for better quality food",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-card",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -171,7 +171,7 @@ export default async function LongfordPubPage() {
                                     title: "Real Atmosphere",
                                     description: "Experience a proper British pub with locals, not a sterile hotel bar",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-card",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -179,7 +179,7 @@ export default async function LongfordPubPage() {
                                     title: "Beer Garden",
                                     description: "Relax outside with a drink - perfect for summer evenings",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-card",
                                     className: "rounded-xl p-6 text-center"
                                 }
                             ]}
@@ -189,7 +189,7 @@ export default async function LongfordPubPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-white">
+            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeader
@@ -197,15 +197,15 @@ export default async function LongfordPubPage() {
                         />
 
                         <div className="grid md:grid-cols-2 gap-8 mb-8">
-                            <div className="bg-gray-100 rounded-xl p-6">
+                            <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
                                 <h3 className="text-xl font-bold mb-4">🚶 Walking</h3>
-                                <p className="text-gray-700">
+                                <p className="text-anchor-cream-text/70">
                                     For energetic travellers, it's a walk from some parts of Longford. However, we recommend a taxi if you are unsure of the route or it's dark.
                                 </p>
                             </div>
-                            <div className="bg-gray-100 rounded-xl p-6">
+                            <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
                                 <h3 className="text-xl font-bold mb-4">🚕 Taxi / Uber</h3>
-                                <p className="text-gray-700">
+                                <p className="text-anchor-cream-text/70">
                                     A very short and cheap ride. Ask your hotel reception to book one for "The Anchor in Stanwell Moor" (Postcode TW19 6AQ).
                                 </p>
                             </div>
@@ -226,14 +226,14 @@ export default async function LongfordPubPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-gray-50">
+            <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-2xl mx-auto text-center">
                         <SectionHeader
                             title="Opening Hours"
                         />
                         <BusinessHours />
-                        <p className="mt-4 text-gray-700">
+                        <p className="mt-4 text-anchor-cream-text/70">
                             Kitchen closes earlier - check times for food service
                         </p>
                     </div>
@@ -259,7 +259,7 @@ export default async function LongfordPubPage() {
                         answer: "Yes, if you're stopping by on your way to/from the airport, we can find a safe spot for your bags while you eat."
                     }
                 ]}
-                className="bg-white"
+                className="bg-anchor-bg-card"
             />
 
             <CTASection

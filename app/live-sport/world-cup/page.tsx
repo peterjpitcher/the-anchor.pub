@@ -149,58 +149,58 @@ export default async function WorldCupPage() {
         }
       />
 
-      <section className="bg-white py-8">
+      <section className="bg-anchor-bg py-8">
         <Container>
           <div className="mx-auto max-w-5xl text-center">
-            <PageTitle className="mb-4 text-anchor-green">Your World Cup Base Near Heathrow</PageTitle>
-            <p className="text-lg text-gray-700">
+            <PageTitle className="mb-4 text-anchor-gold-vivid">Your World Cup Base Near Heathrow</PageTitle>
+            <p className="text-lg text-anchor-cream-text/70">
               The FIFA World Cup 2026 runs from <strong>11 June to 19 July 2026</strong>. If you’re looking for a proper pub
               atmosphere near Heathrow ({HEATHROW_TIMES.terminal5} minutes from Terminal 5), you’re in the right place.
             </p>
-            <p className="mt-4 text-lg text-gray-700">
+            <p className="mt-4 text-lg text-anchor-cream-text/70">
               Use the fixtures list below to pick a match we’re showing, then book a table so you’ve got a screen view.
             </p>
           </div>
         </Container>
       </section>
 
-      <section className="bg-gray-50 py-10">
+      <section className="bg-anchor-bg-raised py-10">
         <Container>
           <div className="mx-auto max-w-6xl">
             <div className="grid gap-6 md:grid-cols-3">
-              <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
-                <h2 className="text-lg font-bold text-anchor-green">What We’re Showing</h2>
-                <ul className="mt-4 space-y-2 text-sm text-gray-700">
+              <div className="rounded-2xl bg-anchor-bg-card p-6 shadow-sm ring-1 ring-anchor-gold/15">
+                <h2 className="text-lg font-bold text-anchor-gold-vivid">What We’re Showing</h2>
+                <ul className="mt-4 space-y-2 text-sm text-anchor-cream-text/70">
                   <li>✅ Matches that kick off during opening hours</li>
                   <li>✅ Or up to 1 hour before we open</li>
                   <li>❌ Matches outside those hours aren’t shown</li>
                   <li>⏰ If it’s busy at close, we’ll stay open while it’s on</li>
                   <li>🚪 If we’re empty at close, we’ll close as normal</li>
                 </ul>
-                <p className="mt-4 text-xs text-gray-600">
+                <p className="mt-4 text-xs text-anchor-cream-text/55">
                   Core hours: Mon–Thu 4pm–10pm • Fri 4pm–midnight • Sat 12pm–midnight • Sun 12pm–10pm.
                 </p>
                 <div className="mt-4">
-                  <Link href="#fixtures" className="font-semibold text-anchor-green hover:underline">
+                  <Link href="#fixtures" className="font-semibold text-anchor-gold hover:underline">
                     See fixtures we’re showing →
                   </Link>
                 </div>
               </div>
 
-              <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200" id="booking-rules">
-                <h2 className="text-lg font-bold text-anchor-green">Booking Rules</h2>
-                <ul className="mt-4 space-y-2 text-sm text-gray-700">
+              <div className="rounded-2xl bg-anchor-bg-card p-6 shadow-sm ring-1 ring-anchor-gold/15" id="booking-rules">
+                <h2 className="text-lg font-bold text-anchor-gold-vivid">Booking Rules</h2>
+                <ul className="mt-4 space-y-2 text-sm text-anchor-cream-text/70">
                   <li>📅 Book any showing match now</li>
                   <li>✅ No deposits and no minimum spend</li>
                   <li>👥 Large groups: book early for the best tables</li>
                   <li>🪑 Tables are held until kick-off, then released</li>
                 </ul>
-                <p className="mt-4 text-xs text-gray-500">Booking takes you to our in-site table booking form.</p>
+                <p className="mt-4 text-xs text-anchor-cream-text/55">Booking takes you to our in-site table booking form.</p>
               </div>
 
-              <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-200">
-                <h2 className="text-lg font-bold text-anchor-green">Matchday Setup</h2>
-                <ul className="mt-4 space-y-2 text-sm text-gray-700">
+              <div className="rounded-2xl bg-anchor-bg-card p-6 shadow-sm ring-1 ring-anchor-gold/15">
+                <h2 className="text-lg font-bold text-anchor-gold-vivid">Matchday Setup</h2>
+                <ul className="mt-4 space-y-2 text-sm text-anchor-cream-text/70">
                   <li>📺 4 screens (no projector)</li>
                   <li>🔊 Sound on for all games we show (reviewed if another event clashes)</li>
                   <li>🍔 Kitchen open during our opening hours</li>
@@ -257,7 +257,7 @@ export default async function WorldCupPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-white" id="fixtures">
+      <section className="section-spacing bg-anchor-bg" id="fixtures">
         <Container>
           <SectionHeader title="FIFA World Cup 2026 Match Dates" subtitle="All times UK (BST). Fixtures subject to change." />
 
@@ -311,7 +311,7 @@ export default async function WorldCupPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg-raised">
         <Container>
           <div className="mx-auto max-w-4xl text-center">
             <SectionHeader title="Matchday Essentials" subtitle="Everything you need for a proper World Cup watch." />
@@ -324,28 +324,28 @@ export default async function WorldCupPage() {
                   title: 'Sound On',
                   description: 'Sound on for all games we show (reviewed if another event clashes).',
                   variant: 'default',
-                  className: 'border border-gray-200 text-center',
+                  className: 'border border-anchor-gold/15 text-center',
                 },
                 {
                   icon: '📺',
                   title: '4 Screens',
                   description: '4 screens across the bar and dining areas (no projector).',
                   variant: 'default',
-                  className: 'border border-gray-200 text-center',
+                  className: 'border border-anchor-gold/15 text-center',
                 },
                 {
                   icon: '🍔',
                   title: 'Kitchen Open',
                   description: 'Food served during our opening hours.',
                   variant: 'default',
-                  className: 'border border-gray-200 text-center',
+                  className: 'border border-anchor-gold/15 text-center',
                 },
                 {
                   icon: '🅿️',
                   title: 'Free Parking',
                   description: `Free on-site parking (${PARKING.capacity} spaces).`,
                   variant: 'default',
-                  className: 'border border-gray-200 text-center',
+                  className: 'border border-anchor-gold/15 text-center',
                 },
               ]}
               className="mt-10"
@@ -361,12 +361,12 @@ export default async function WorldCupPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg-raised">
         <Container>
           <div className="grid gap-10 md:grid-cols-2 md:items-start">
             <div>
               <SectionHeader title="Food & Drink" subtitle="Settle in and make a day of it." className="mb-6 text-left" />
-              <div className="prose text-gray-600">
+              <div className="prose text-anchor-cream-text/70">
                 <p>
                   Proper pub classics, cold pints, and a friendly crowd — ideal for afternoon kick-offs or big evening games.
                 </p>
@@ -382,9 +382,9 @@ export default async function WorldCupPage() {
               </div>
             </div>
 
-            <div className="rounded-2xl bg-white p-8 shadow-sm ring-1 ring-gray-200">
-              <h3 className="mb-4 text-xl font-bold text-anchor-green">Getting Here</h3>
-              <ul className="mb-6 space-y-3 text-sm text-gray-700">
+            <div className="rounded-2xl bg-anchor-bg-card p-8 shadow-sm ring-1 ring-anchor-gold/15">
+              <h3 className="mb-4 text-xl font-bold text-anchor-gold-vivid">Getting Here</h3>
+              <ul className="mb-6 space-y-3 text-sm text-anchor-cream-text/70">
                 <li className="flex gap-2">
                   <span>📍</span>
                   <span>
@@ -408,10 +408,10 @@ export default async function WorldCupPage() {
                 </li>
               </ul>
               <div className="flex flex-wrap gap-4">
-                <Link href="/find-us" className="font-bold text-anchor-green hover:underline">
+                <Link href="/find-us" className="font-bold text-anchor-gold hover:underline">
                   Directions & travel info →
                 </Link>
-                <Link href="/near-heathrow/terminal-5" className="font-bold text-anchor-green hover:underline">
+                <Link href="/near-heathrow/terminal-5" className="font-bold text-anchor-gold hover:underline">
                   Terminal 5 guide →
                 </Link>
               </div>
@@ -420,14 +420,14 @@ export default async function WorldCupPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg">
         <Container>
           <SectionHeader
             title="A World Cup Pub Near You"
             subtitle="Stanwell Moor, Staines, Ashford, Feltham, Egham and around Heathrow."
           />
-          <div className="mx-auto max-w-5xl rounded-2xl bg-gray-50 p-8 ring-1 ring-gray-200">
-            <p className="text-center text-sm text-gray-700">
+          <div className="mx-auto max-w-5xl rounded-2xl bg-anchor-bg-raised p-8 ring-1 ring-anchor-gold/15">
+            <p className="text-center text-sm text-anchor-cream-text/70">
               Searching for “World Cup pub near me”? The Anchor is an easy drive from Heathrow hotels and nearby towns — with
               free parking on-site.
             </p>
@@ -436,7 +436,7 @@ export default async function WorldCupPage() {
                 <Link
                   key={area.href}
                   href={area.href}
-                  className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-anchor-green ring-1 ring-gray-200 hover:bg-gray-50"
+                  className="rounded-full bg-anchor-bg-card px-4 py-2 text-sm font-semibold text-anchor-gold ring-1 ring-anchor-gold/15 hover:bg-anchor-bg-raised"
                 >
                   {area.label}
                 </Link>
@@ -446,7 +446,7 @@ export default async function WorldCupPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg">
         <Container>
           <SectionHeader title="Frequently Asked Questions" />
           <FAQAccordionWithSchema
@@ -497,7 +497,7 @@ export default async function WorldCupPage() {
                 answer: `Yes — free on-site parking for guests (${PARKING.capacity} spaces). We’re ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5, and the 442 bus from Staines ↔ Heathrow stops outside.`,
               },
             ]}
-            className="mx-auto max-w-3xl bg-gray-50"
+            className="mx-auto max-w-3xl bg-anchor-bg-raised"
           />
         </Container>
       </section>

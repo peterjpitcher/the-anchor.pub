@@ -128,7 +128,7 @@ export default async function SunburyPubPage() {
                 }
             />
 
-            <section className="py-8 bg-white">
+            <section className="py-8 bg-anchor-bg">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle
@@ -136,18 +136,18 @@ export default async function SunburyPubPage() {
                                 structured: true,
                                 speakable: true
                             }}
-                            className="text-anchor-green mb-4"
+                            className="text-anchor-cream-text mb-4"
                         >
                             The Best Sunday Roast Near Sunbury
                         </PageTitle>
-                        <p className="text-lg text-gray-700">
+                        <p className="text-lg text-anchor-cream-text/70">
                             Many Sunbury residents make the short drive to The Anchor for our famous Sunday lunches. We offer the perfect mix of quality food, better value, and easy parking that's hard to find in Sunbury itself.
                         </p>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-gray-50">
+            <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -163,7 +163,7 @@ export default async function SunburyPubPage() {
                                     title: "Famous Roasts",
                                     description: "Generous portions of high-quality meat and fresh veg - booking essential!",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-card",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -171,7 +171,7 @@ export default async function SunburyPubPage() {
                                     title: "Stress-Free Parking",
                                     description: "Park right outside for free - no fighting for spaces",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-card",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -179,7 +179,7 @@ export default async function SunburyPubPage() {
                                     title: "Family Friendly",
                                     description: "Relaxed atmosphere where kids are welcome",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-card",
                                     className: "rounded-xl p-6 text-center"
                                 }
                             ]}
@@ -189,16 +189,16 @@ export default async function SunburyPubPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-white">
+            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeader
                             title="A Great Venue for Sunbury Celebrations"
                         />
 
-                        <div className="bg-amber-50 rounded-xl p-8 mb-8 text-center">
+                        <div className="card-dark rounded-none p-8 mb-8 text-center">
                             <h3 className="text-2xl font-bold text-amber-800 mb-4">Milestone Birthdays & Events</h3>
-                            <p className="text-gray-700 mb-6">
+                            <p className="text-anchor-cream-text/70 mb-6">
                                 Struggling to find a venue in Sunbury that ticks all the boxes? We offer private rooms, flexible catering, and plenty of parking for your guests coming from all over.
                             </p>
                             <div className="flex flex-wrap justify-center gap-4">
@@ -224,7 +224,7 @@ export default async function SunburyPubPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-gray-50">
+            <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-2xl mx-auto text-center">
                         <SectionHeader
@@ -250,7 +250,7 @@ export default async function SunburyPubPage() {
                         answer: "Yes, Sunday is our busiest day and we are often fully booked with regulars from Sunbury and surrounding areas. We recommend booking by Wednesday/Thursday for the coming Sunday."
                     }
                 ]}
-                className="bg-white"
+                className="bg-anchor-bg-card"
             />
 
             <CTASection

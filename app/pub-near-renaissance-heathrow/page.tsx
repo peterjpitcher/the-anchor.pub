@@ -94,29 +94,29 @@ export default function PubNearRenaissanceHeathrowPage() {
         }
       />
 
-      <section className="py-8 bg-white">
+      <section className="py-8 bg-anchor-bg">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
-            <PageTitle seo={{ structured: true, speakable: true }} className="text-anchor-green mb-4">
+            <PageTitle seo={{ structured: true, speakable: true }} className="text-anchor-cream-text mb-4">
               Pub Near Renaissance London Heathrow Hotel
             </PageTitle>
-            <p className="text-lg text-gray-700">
+            <p className="text-lg text-anchor-cream-text/70">
               Staying at the Renaissance Heathrow? The Anchor is just 12 minutes away — a proper British village pub offering a genuine local experience that no hotel bar can replicate. Real ales, home-cooked food, and warm hospitality.
             </p>
           </div>
         </Container>
       </section>
 
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <FeatureGrid
               columns={4}
               features={[
-                { icon: '🕐', title: '12 Minutes', description: 'By taxi from Renaissance Heathrow', variant: 'colored', color: 'bg-green-50', className: 'rounded-xl p-6 text-center' },
-                { icon: '🚖', title: '~£15–18', description: 'Typical taxi fare each way', variant: 'colored', color: 'bg-blue-50', className: 'rounded-xl p-6 text-center' },
-                { icon: '🅿️', title: 'Free Parking', description: '20 spaces — no charges', variant: 'colored', color: 'bg-amber-50', className: 'rounded-xl p-6 text-center' },
-                { icon: '🏡', title: 'Village Pub', description: 'A genuine British local community pub', variant: 'colored', color: 'bg-purple-50', className: 'rounded-xl p-6 text-center' },
+                { icon: '🕐', title: '12 Minutes', description: 'By taxi from Renaissance Heathrow', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '🚖', title: '~£15–18', description: 'Typical taxi fare each way', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '🅿️', title: 'Free Parking', description: '20 spaces — no charges', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '🏡', title: 'Village Pub', description: 'A genuine British local community pub', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
               ]}
               className="mb-8"
             />
@@ -124,7 +124,7 @@ export default function PubNearRenaissanceHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -132,8 +132,8 @@ export default function PubNearRenaissanceHeathrowPage() {
               subtitle="The Renaissance is renowned for its design and character. For guests who appreciate authenticity, The Anchor offers something the hotel simply can't — a real British community pub with history, warmth, and genuine local life."
             />
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-xl font-bold text-anchor-green mb-4">The Anchor Experience</h3>
+              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
+                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">The Anchor Experience</h3>
                 <ul className="space-y-3">
                   {[
                     'Home-cooked British food — from £8.99',
@@ -150,9 +150,9 @@ export default function PubNearRenaissanceHeathrowPage() {
                   ))}
                 </ul>
               </div>
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-xl font-bold text-anchor-green mb-4">Directions from Renaissance Heathrow</h3>
-                <div className="space-y-3 text-gray-700">
+              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
+                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Directions from Renaissance Heathrow</h3>
+                <div className="space-y-3 text-anchor-cream-text/70">
                   <div>
                     <p className="font-semibold">By Taxi or Uber</p>
                     <p className="text-sm">Ask for The Anchor, Stanwell Moor (TW19 6AQ). Journey approximately 12 minutes, £15–18 each way. The hotel concierge can arrange.</p>
@@ -163,7 +163,7 @@ export default function PubNearRenaissanceHeathrowPage() {
                   </div>
                   <div className="pt-2 border-t border-gray-200">
                     <p className="text-sm font-medium">Postcode: <strong>TW19 6AQ</strong></p>
-                    <p className="text-sm text-gray-600">Tell the driver: &quot;The Anchor pub, Stanwell Moor&quot;</p>
+                    <p className="text-sm text-anchor-cream-text/70">Tell the driver: &quot;The Anchor pub, Stanwell Moor&quot;</p>
                   </div>
                 </div>
               </div>
@@ -172,16 +172,16 @@ export default function PubNearRenaissanceHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeader title="What Renaissance Guests Enjoy Most" />
             <FeatureGrid
               columns={3}
               features={[
-                { icon: '🥩', title: 'Sunday Roast', description: 'Traditional British roast from £19.99 — the definitive Sunday lunch experience.', variant: 'default', className: 'bg-white rounded-lg p-6 shadow-sm text-center' },
-                { icon: '🍺', title: 'Real Ales', description: 'Rotating cask ales — ask what\'s on tap. A very British ritual worth experiencing.', variant: 'default', className: 'bg-white rounded-lg p-6 shadow-sm text-center' },
-                { icon: '🐟', title: 'Fish & Chips', description: 'Fresh battered cod with chips — the British classic every visitor should try.', variant: 'default', className: 'bg-white rounded-lg p-6 shadow-sm text-center' },
+                { icon: '🥩', title: 'Sunday Roast', description: 'Traditional British roast from £19.99 — the definitive Sunday lunch experience.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '🍺', title: 'Real Ales', description: 'Rotating cask ales — ask what\'s on tap. A very British ritual worth experiencing.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '🐟', title: 'Fish & Chips', description: 'Fresh battered cod with chips — the British classic every visitor should try.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
               ]}
               className="mb-6"
             />
@@ -194,7 +194,7 @@ export default function PubNearRenaissanceHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
             <SectionHeader title="Opening Hours" />
@@ -232,7 +232,7 @@ export default function PubNearRenaissanceHeathrowPage() {
             answer: 'Yes — ask the Renaissance concierge to arrange a taxi, or use Uber. Tell the driver "The Anchor pub, Stanwell Moor, TW19 6AQ". The journey is approximately 12 minutes and costs around £15–18.'
           },
         ]}
-        className="bg-gray-50"
+        className="bg-anchor-bg"
       />
 
       <CTASection

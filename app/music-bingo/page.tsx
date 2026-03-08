@@ -176,9 +176,9 @@ function getEntryLabel(event: Event) {
 function MusicBingoEventCards({ events }: { events: Event[] }) {
   if (!events.length) {
     return (
-      <div className="rounded-xl border border-gray-200 bg-white p-6 text-center">
-        <p className="mb-2 text-lg font-semibold text-anchor-green">New Music Bingo dates are loading soon</p>
-        <p className="text-gray-600">
+      <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-card p-6 text-center">
+        <p className="mb-2 text-lg font-semibold text-anchor-gold-vivid">New Music Bingo dates are loading soon</p>
+        <p className="text-anchor-cream-text/70">
           We are lining up the next singalong sessions. Call 01753 682707 and we will share the next date as soon as booking opens.
         </p>
       </div>
@@ -238,9 +238,9 @@ function MusicBingoEventCards({ events }: { events: Event[] }) {
 
               <div className="flex-1 space-y-4">
                 {event.description && (
-                  <p className="text-gray-700 leading-relaxed">{event.description}</p>
+                  <p className="text-anchor-cream-text/70 leading-relaxed">{event.description}</p>
                 )}
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-anchor-cream-text/55">
                   Five rounds of song snippets, singalong prompts, and shout-outs. Grab your card, spot the track, and
                   celebrate every line win.
                 </p>
@@ -316,10 +316,10 @@ export default async function MusicBingoPage() {
 
       <Section spacing="sm" background="white">
         <Container>
-          <PageTitle className="text-center text-anchor-green" seo={{ structured: true, speakable: true }}>
+          <PageTitle className="text-center text-anchor-gold-vivid" seo={{ structured: true, speakable: true }}>
             Music Bingo Near Heathrow - Stanwell Moor, Staines and Surrey
           </PageTitle>
-          <p className="mx-auto max-w-3xl text-center text-lg text-gray-700">
+          <p className="mx-auto max-w-3xl text-center text-lg text-anchor-cream-text/70">
             Looking for a music bingo night near Heathrow that feels like a proper local? We swap bingo numbers for
             song clips, hand out prizes every round, and keep the atmosphere warm and welcoming. {heroDescription}
           </p>
@@ -329,19 +329,19 @@ export default async function MusicBingoPage() {
       <Section spacing="md" background="gray">
         <Container>
           <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-2 md:items-stretch">
-            <Card className="border border-anchor-sand bg-white shadow-lg">
+            <Card className="card-dark rounded-none border border-anchor-gold/15">
               <CardBody className="space-y-4">
                 <p className="text-sm font-semibold uppercase tracking-wide text-anchor-gold">Next Music Bingo</p>
-                <h2 className="text-3xl font-bold text-anchor-charcoal">
+                <h2 className="text-3xl font-bold text-anchor-cream-text">
                   {nextEvent ? nextEvent.name : 'Next Music Bingo announced soon'}
                 </h2>
-                <p className="font-semibold text-anchor-green">
+                <p className="font-semibold text-anchor-gold-vivid">
                   {nextEvent ? `${nextEventDate} - ${nextEventTime}` : 'Check back for the next date'}
                 </p>
                 {nextEvent?.longDescription && (
-                  <p className="whitespace-pre-line text-gray-700">{nextEvent.longDescription}</p>
+                  <p className="whitespace-pre-line text-anchor-cream-text/70">{nextEvent.longDescription}</p>
                 )}
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-anchor-cream-text/55">
                   Hosted by Nikki Manfadge with singalong prompts, themed rounds, and prizes for quick ears and bold
                   voices.
                 </p>
@@ -359,17 +359,17 @@ export default async function MusicBingoPage() {
                 </div>
               </CardBody>
             </Card>
-            <Card className="border border-amber-100 bg-anchor-cream shadow-sm">
+            <Card className="card-dark rounded-none border border-anchor-gold/15">
               <CardBody className="space-y-4">
-                <h3 className="text-2xl font-bold text-anchor-charcoal">How Music Bingo runs</h3>
-                <ul className="space-y-3 text-gray-700">
+                <h3 className="text-2xl font-bold text-anchor-cream-text">How Music Bingo runs</h3>
+                <ul className="space-y-3 text-anchor-cream-text/70">
                   <li><strong>Doors {doorTime}</strong> - arrive early, grab drinks, and collect your bingo card.</li>
                   <li><strong>{nextEventTime}</strong> - warm-up round begins with chart favourites and classics.</li>
                   <li><strong>Five rounds</strong> - quick-fire clips, theme rounds, and bonus singalong moments.</li>
                   <li><strong>Breaks between rounds</strong> - order food, top up drinks, and compare answers.</li>
                   <li><strong>Finale</strong> - last card of the night with the headline prize.</li>
                 </ul>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-anchor-cream-text/55">
                   Song clips are short, so keep ears open and phones away during the rounds.
                 </p>
               </CardBody>
@@ -381,8 +381,8 @@ export default async function MusicBingoPage() {
       <Section spacing="md" background="white" id="music-bingo-dates">
         <Container>
           <div className="mx-auto max-w-5xl">
-            <h2 className="mb-6 text-center text-3xl font-bold text-anchor-charcoal">Upcoming Music Bingo dates</h2>
-            <p className="mb-8 text-center text-gray-700">
+            <h2 className="mb-6 text-center text-3xl font-bold text-anchor-cream-text">Upcoming Music Bingo dates</h2>
+            <p className="mb-8 text-center text-anchor-cream-text/70">
               We list confirmed Music Bingo dates below. For the very latest schedule, check the{' '}
               <Link href="/whats-on" className="font-semibold text-anchor-gold hover:text-anchor-gold-light">
                 What's On page
@@ -397,10 +397,10 @@ export default async function MusicBingoPage() {
       <Section spacing="sm" background="white">
         <Container>
           <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-3">
-            <Card className="bg-anchor-cream/50 shadow-sm">
+            <Card className="card-dark rounded-none border border-anchor-gold/15">
               <CardBody>
-                <h3 className="mb-2 text-xl font-semibold text-anchor-green">Sunday Roast Music Bingo Warm-Up</h3>
-                <p className="mb-4 text-sm text-gray-700">
+                <h3 className="mb-2 text-xl font-semibold text-anchor-gold-vivid">Sunday Roast Music Bingo Warm-Up</h3>
+                <p className="mb-4 text-sm text-anchor-cream-text/70">
                   Book Sunday roast by 1pm Saturday and bring the crew for a proper pub lunch before Music Bingo.
                 </p>
                 <div className="flex flex-col gap-2">
@@ -418,10 +418,10 @@ export default async function MusicBingoPage() {
                 </div>
               </CardBody>
             </Card>
-            <Card className="bg-white shadow-sm">
+            <Card className="card-dark rounded-none border border-anchor-gold/15">
               <CardBody>
-                <h3 className="mb-2 text-xl font-semibold text-anchor-green">Stone-Baked Pizza Warm-Up</h3>
-                <p className="mb-4 text-sm text-gray-700">
+                <h3 className="mb-2 text-xl font-semibold text-anchor-gold-vivid">Stone-Baked Pizza Warm-Up</h3>
+                <p className="mb-4 text-sm text-anchor-cream-text/70">
                   Hand-stretched pizzas and sharers keep your table fuelled between rounds.
                 </p>
                 <div className="flex flex-col gap-2">
@@ -440,10 +440,10 @@ export default async function MusicBingoPage() {
                 </div>
               </CardBody>
             </Card>
-            <Card className="bg-anchor-cream/50 shadow-sm">
+            <Card className="card-dark rounded-none border border-anchor-gold/15">
               <CardBody>
-                <h3 className="mb-2 text-xl font-semibold text-anchor-green">All-Day Menu and Cocktails</h3>
-                <p className="mb-4 text-sm text-gray-700">
+                <h3 className="mb-2 text-xl font-semibold text-anchor-gold-vivid">All-Day Menu and Cocktails</h3>
+                <p className="mb-4 text-sm text-anchor-cream-text/70">
                   Burgers, sharers, and themed cocktails delivered to your table all night.
                 </p>
                 <div className="flex flex-col gap-2">
@@ -468,17 +468,17 @@ export default async function MusicBingoPage() {
       <Section spacing="md" background="white">
         <Container>
           <div className="mx-auto max-w-6xl">
-            <h2 className="mb-8 text-center text-3xl font-bold text-anchor-charcoal md:text-4xl">
+            <h2 className="mb-8 text-center text-3xl font-bold text-anchor-cream-text md:text-4xl">
               Why everyone loves Music Bingo at The Anchor
             </h2>
             <Grid cols={WHY_LOVE_IT.length > 3 ? 3 : 2} gap="md">
               {WHY_LOVE_IT.map(feature => (
                 <GridItem key={feature.title}>
-                  <Card className="h-full border border-gray-100 bg-white shadow-sm transition hover:shadow-md">
+                  <Card className="h-full card-dark rounded-none border border-anchor-gold/15">
                     <CardBody className="space-y-3">
                       <div className="text-4xl">{feature.icon}</div>
-                      <h3 className="text-xl font-semibold text-anchor-charcoal">{feature.title}</h3>
-                      <p className="text-sm leading-relaxed text-gray-700">{feature.body}</p>
+                      <h3 className="text-xl font-semibold text-anchor-cream-text">{feature.title}</h3>
+                      <p className="text-sm leading-relaxed text-anchor-cream-text/70">{feature.body}</p>
                     </CardBody>
                   </Card>
                 </GridItem>
@@ -491,10 +491,10 @@ export default async function MusicBingoPage() {
       <Section spacing="md" background="gray">
         <Container>
           <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-2 md:items-start">
-            <Card className="border border-gray-200 bg-white shadow-sm">
+            <Card className="card-dark rounded-none border border-anchor-gold/15">
               <CardBody className="space-y-4">
-                <h3 className="text-2xl font-bold text-anchor-charcoal">How to play Music Bingo</h3>
-                <ol className="space-y-3 text-gray-700">
+                <h3 className="text-2xl font-bold text-anchor-cream-text">How to play Music Bingo</h3>
+                <ol className="space-y-3 text-anchor-cream-text/70">
                   <li>1. Grab your card and listen for the song clip.</li>
                   <li>2. Mark the track on your card as soon as you spot it.</li>
                   <li>3. Shout when you hit the pattern for that round.</li>
@@ -520,39 +520,39 @@ export default async function MusicBingoPage() {
       <Section spacing="md" background="white">
         <Container>
           <div className="mx-auto max-w-5xl">
-            <h2 className="mb-6 text-center text-3xl font-bold text-anchor-charcoal">Tips for a winning card</h2>
-            <p className="mx-auto mb-6 max-w-3xl text-center text-gray-700">
+            <h2 className="mb-6 text-center text-3xl font-bold text-anchor-cream-text">Tips for a winning card</h2>
+            <p className="mx-auto mb-6 max-w-3xl text-center text-anchor-cream-text/70">
               Whether you are new to music bingo or a seasoned singalong legend, these tips keep your ears sharp.
             </p>
             <div className="grid gap-4 md:grid-cols-2">
-              <Card className="h-full border border-gray-100 bg-white shadow-sm">
+              <Card className="h-full card-dark rounded-none border border-anchor-gold/15">
                 <CardBody className="space-y-3">
-                  <h3 className="text-xl font-semibold text-anchor-charcoal">Bring a mixed crew</h3>
-                  <p className="text-sm leading-relaxed text-gray-700">
+                  <h3 className="text-xl font-semibold text-anchor-cream-text">Bring a mixed crew</h3>
+                  <p className="text-sm leading-relaxed text-anchor-cream-text/70">
                     Team up with friends who love different eras of music so you can nail the classics, throwbacks, and current hits.
                   </p>
                 </CardBody>
               </Card>
-              <Card className="h-full border border-gray-100 bg-white shadow-sm">
+              <Card className="h-full card-dark rounded-none border border-anchor-gold/15">
                 <CardBody className="space-y-3">
-                  <h3 className="text-xl font-semibold text-anchor-charcoal">Arrive early</h3>
-                  <p className="text-sm leading-relaxed text-gray-700">
+                  <h3 className="text-xl font-semibold text-anchor-cream-text">Arrive early</h3>
+                  <p className="text-sm leading-relaxed text-anchor-cream-text/70">
                     Doors open at {doorTime}. Grab your drinks, settle the table, and you will not miss the opening clips.
                   </p>
                 </CardBody>
               </Card>
-              <Card className="h-full border border-gray-100 bg-white shadow-sm">
+              <Card className="h-full card-dark rounded-none border border-anchor-gold/15">
                 <CardBody className="space-y-3">
-                  <h3 className="text-xl font-semibold text-anchor-charcoal">Keep your card visible</h3>
-                  <p className="text-sm leading-relaxed text-gray-700">
+                  <h3 className="text-xl font-semibold text-anchor-cream-text">Keep your card visible</h3>
+                  <p className="text-sm leading-relaxed text-anchor-cream-text/70">
                     Clear the table and keep your card in sight so you can mark the track before the next clip drops.
                   </p>
                 </CardBody>
               </Card>
-              <Card className="h-full border border-gray-100 bg-white shadow-sm">
+              <Card className="h-full card-dark rounded-none border border-anchor-gold/15">
                 <CardBody className="space-y-3">
-                  <h3 className="text-xl font-semibold text-anchor-charcoal">Stay for the finale</h3>
-                  <p className="text-sm leading-relaxed text-gray-700">
+                  <h3 className="text-xl font-semibold text-anchor-cream-text">Stay for the finale</h3>
+                  <p className="text-sm leading-relaxed text-anchor-cream-text/70">
                     The last round brings the biggest prize, so stick around and keep the energy high.
                   </p>
                 </CardBody>
@@ -562,7 +562,7 @@ export default async function MusicBingoPage() {
         </Container>
       </Section>
 
-      <FAQAccordionWithSchema faqs={FAQS} className="bg-white" />
+      <FAQAccordionWithSchema faqs={FAQS} className="bg-anchor-bg" />
 
       <Section spacing="md" background="white">
         <Container>
@@ -596,11 +596,11 @@ export default async function MusicBingoPage() {
         <Container>
           <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-2 md:items-start">
             <div>
-              <h2 className="mb-3 text-2xl font-bold text-anchor-charcoal">Find us</h2>
-              <p className="mb-4 text-gray-700">
+              <h2 className="mb-3 text-2xl font-bold text-anchor-cream-text">Find us</h2>
+              <p className="mb-4 text-anchor-cream-text/70">
                 The Anchor - Horton Road, Stanwell Moor, TW19 6AQ - Free on-site parking - 7 minutes from Heathrow T5 - 8 minutes from Staines.
               </p>
-              <ul className="space-y-3 text-sm text-gray-700">
+              <ul className="space-y-3 text-sm text-anchor-cream-text/70">
                 <li><strong>Driving:</strong> Use postcode TW19 6AQ. Plenty of free parking right outside.</li>
                 <li><strong>Public transport:</strong> 441 and 555 buses stop on Horton Road. Uber and Bolt know us well.</li>
                 <li><strong>Accessibility:</strong> Step-free entrance, accessible loos, and flexible seating.</li>
@@ -620,10 +620,10 @@ export default async function MusicBingoPage() {
                 </Link>
               </div>
             </div>
-            <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+            <div className="overflow-hidden rounded-xl border border-anchor-gold/15 bg-anchor-bg-card shadow-sm">
               <GoogleMapEmbed
                 query="The Anchor, Stanwell Moor"
-                className="h-full min-h-[300px] overflow-hidden rounded-xl border border-gray-200 shadow-sm"
+                className="h-full min-h-[300px] overflow-hidden rounded-xl border border-anchor-gold/15 shadow-sm"
               />
             </div>
           </div>

@@ -229,7 +229,7 @@ export function Gallery({
                   
                   {/* Hover Overlay */}
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="bg-white/90 backdrop-blur-sm rounded-full p-3">
+                    <div className="bg-anchor-charcoal/90 backdrop-blur-sm rounded-full p-3">
                       <svg className="w-6 h-6 text-anchor-green" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
                       </svg>
@@ -248,8 +248,8 @@ export function Gallery({
                 
                 {/* Caption */}
                 {showCaptions && image.caption && (
-                  <div className="p-4 bg-white">
-                    <p className="text-sm text-gray-700">{image.caption}</p>
+                  <div className="p-4 bg-anchor-bg-raised">
+                    <p className="text-sm text-anchor-cream-text/70">{image.caption}</p>
                   </div>
                 )}
               </Card>

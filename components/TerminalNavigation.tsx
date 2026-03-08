@@ -16,7 +16,7 @@ const terminals = [
 export function TerminalNavigation({ currentTerminal, className }: TerminalNavigationProps) {
   return (
     <div className={cn("flex flex-wrap justify-center gap-3", className)}>
-      <span className="text-sm text-gray-600">Other terminals:</span>
+      <span className="text-sm text-anchor-cream-text/55">Other terminals:</span>
       {terminals.map((terminal) => (
         terminal.number !== currentTerminal && (
           <Link
@@ -30,7 +30,7 @@ export function TerminalNavigation({ currentTerminal, className }: TerminalNavig
       ))}
       <Link
         href="/near-heathrow"
-        className="text-anchor-green hover:text-anchor-gold font-semibold transition-colours"
+        className="text-anchor-gold-vivid hover:text-anchor-gold font-semibold transition-colours"
       >
         All Terminals
       </Link>

@@ -92,20 +92,20 @@ export default function LuggageStoragePage() {
                 }
             />
 
-            <section className="py-8 bg-white">
+            <section className="py-8 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-green mb-4">
+                        <PageTitle className="text-anchor-cream-text mb-4">
                             Hours to Kill Before Your Flight?
                         </PageTitle>
-                        <p className="text-lg text-gray-700">
+                        <p className="text-lg text-anchor-cream-text/70">
                             Checking out of your hotel at 11am but your flight isn't until 8pm? Don't spend 9 hours sitting on a hard plastic chair at Terminal 5. Come to The Anchor, store your bags safely, and enjoy a few hours of proper British hospitality.
                         </p>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-gray-50">
+            <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -154,7 +154,7 @@ export default function LuggageStoragePage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-white">
+            <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeader
@@ -162,7 +162,7 @@ export default function LuggageStoragePage() {
                         />
 
                         <div className="grid md:grid-cols-2 gap-8 mb-8">
-                            <div className="bg-green-50 p-6 rounded-xl">
+                            <div className="bg-anchor-bg-raised p-6 rounded-xl border border-anchor-gold/15">
                                 <h3 className="text-xl font-bold text-green-800 mb-2">The Anchor</h3>
                                 <ul className="space-y-3">
                                     <li className="flex items-center">✅ Free storage for diners</li>

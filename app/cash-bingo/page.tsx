@@ -158,9 +158,9 @@ const FAQS = [
 function BingoEventCards({ events }: { events: Event[] }) {
   if (!events.length) {
     return (
-      <div className="bg-white border border-gray-200 rounded-xl p-6 text-center">
-        <p className="text-lg font-semibold text-anchor-green mb-2">New cash bingo dates are loading soon</p>
-        <p className="text-gray-600">
+      <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-xl p-6 text-center">
+        <p className="text-lg font-semibold text-anchor-gold-vivid mb-2">New cash bingo dates are loading soon</p>
+        <p className="text-anchor-cream-text/70">
           We’re finalising the next jackpot night. Call 01753 682707 and we’ll text you as soon as books go on sale.
         </p>
       </div>
@@ -218,9 +218,9 @@ function BingoEventCards({ events }: { events: Event[] }) {
 
               <div className="flex-1 space-y-4">
                 {event.description && (
-                  <p className="text-gray-700 leading-relaxed">{event.description}</p>
+                  <p className="text-anchor-cream-text/70 leading-relaxed">{event.description}</p>
                 )}
-	                <p className="text-sm text-gray-600">
+	                <p className="text-sm text-anchor-cream-text/55">
 	                  GBP 10 cash-only books cover all ten games. The jackpot pot grows with every ticket sold, and the snowball bonus increases by GBP 20—and two extra calls—each time it rolls over. Stay loyal, sign the Snowball Register and the prize gets easier to win.
 	                </p>
               </div>
@@ -284,10 +284,10 @@ export default async function CashBingoPage() {
 
       <Section spacing="sm" background="white">
         <Container>
-          <PageTitle className="text-center text-anchor-green" seo={{ structured: true, speakable: true }}>
+          <PageTitle className="text-center text-anchor-gold-vivid" seo={{ structured: true, speakable: true }}>
             Cash Bingo Night & Bingo Games – Stanwell Moor & Heathrow
           </PageTitle>
-          <p className="text-lg text-gray-700 text-center max-w-3xl mx-auto">
+          <p className="text-lg text-anchor-cream-text/70 text-center max-w-3xl mx-auto">
             Searching for cash bingo games near Heathrow? Every few weeks we turn The Anchor into a buzzing bingo hall and bingo room with bingo games for money, cash prizes, hot food from the kitchen and a friendly crowd of locals, cabin crew and Stanwell Moor neighbours. {heroDescription}
           </p>
           <div className="flex justify-center mt-4">
@@ -299,12 +299,12 @@ export default async function CashBingoPage() {
       <Section spacing="md" background="gray">
         <Container>
           <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-stretch">
-            <Card className="bg-white shadow-lg border border-anchor-sand">
+            <Card className="card-dark rounded-none border border-anchor-gold/15">
               <CardBody className="space-y-4">
                 <p className="text-sm uppercase tracking-wide text-anchor-gold font-semibold">Next cash bingo night</p>
-                <h2 className="text-3xl font-bold text-anchor-charcoal">{nextEvent ? nextEvent.name : 'Next cash bingo announced soon'}</h2>
-                <p className="text-anchor-green font-semibold">{nextEvent ? `${nextEventDate} · ${nextEventTime}` : 'Check back for the next date'}</p>
-	                <p className="text-gray-700 whitespace-pre-line">
+                <h2 className="text-3xl font-bold text-anchor-cream-text">{nextEvent ? nextEvent.name : 'Next cash bingo announced soon'}</h2>
+                <p className="text-anchor-gold-vivid font-semibold">{nextEvent ? `${nextEventDate} · ${nextEventTime}` : 'Check back for the next date'}</p>
+	                <p className="text-anchor-cream-text/70 whitespace-pre-line">
 	                  GBP 10 cash book includes all ten bingo games, two breaks and eligibility for instant cash prizes, the rolling snowball bingo bonus (we add GBP 20 and two extra calls every time it rolls over) and the jackpot bingo pot.
 	                </p>
                 <div className="space-y-3">
@@ -325,16 +325,16 @@ export default async function CashBingoPage() {
                 </div>
               </CardBody>
             </Card>
-            <Card className="bg-anchor-cream border border-amber-100 shadow-sm">
+            <Card className="card-dark rounded-none border border-anchor-gold/15">
               <CardBody className="space-y-4">
-                <h3 className="text-2xl font-bold text-anchor-charcoal">How the night feels</h3>
-                <p className="text-gray-700">
+                <h3 className="text-2xl font-bold text-anchor-cream-text">How the night feels</h3>
+                <p className="text-anchor-cream-text/70">
                   We keep things punchy in the bingo room: ten quick-fire games with two planned pauses so you can top up drinks, grab fresh cards and order from the kitchen without missing a call.
                 </p>
-                <p className="text-gray-700">
+                <p className="text-anchor-cream-text/70">
                   Expect classic bingo banter, cheeky spot prizes and a snowball countdown that gets louder as the numbers close in. When you shout bingo, our host will check the board and make sure the pot lands in the right hands.
                 </p>
-                <p className="text-sm text-gray-600">
+                <p className="text-sm text-anchor-cream-text/55">
                   Caller’s decision is final, mobiles stay on silent and tied games split the winnings evenly.
                 </p>
               </CardBody>
@@ -346,8 +346,8 @@ export default async function CashBingoPage() {
       <Section spacing="md" background="white" id="bingo-dates">
         <Container>
           <div className="max-w-5xl mx-auto">
-            <h2 className="text-3xl font-bold text-anchor-charcoal text-center mb-6">Upcoming cash bingo dates</h2>
-            <p className="text-gray-700 text-center mb-8">
+            <h2 className="text-3xl font-bold text-anchor-cream-text text-center mb-6">Upcoming cash bingo dates</h2>
+            <p className="text-anchor-cream-text/70 text-center mb-8">
               We’ve listed confirmed bingo nights below. For the very latest schedule—including bonus specials—visit our <Link href="/whats-on" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">What’s On page</Link> or call 01753 682707.
             </p>
             <BingoEventCards events={events} />
@@ -358,10 +358,10 @@ export default async function CashBingoPage() {
       <Section spacing="sm" background="white">
         <Container>
           <div className="max-w-5xl mx-auto grid gap-6 md:grid-cols-3">
-            <Card className="bg-anchor-cream/50 shadow-sm">
+            <Card className="card-dark rounded-none border border-anchor-gold/15">
               <CardBody>
-                <h3 className="text-xl font-semibold text-anchor-green mb-2">Sunday Roast Bingo Weekends</h3>
-                <p className="text-sm text-gray-700 mb-4">
+                <h3 className="text-xl font-semibold text-anchor-gold-vivid mb-2">Sunday Roast Bingo Weekends</h3>
+                <p className="text-sm text-anchor-cream-text/70 mb-4">
                   Book Sunday roast by 1pm Saturday and tuck in before doors open at 6 pm. Perfect for family bingo nights.
                 </p>
                 <div className="flex flex-col gap-2">
@@ -379,10 +379,10 @@ export default async function CashBingoPage() {
                 </div>
               </CardBody>
             </Card>
-            <Card className="bg-white shadow-sm">
+            <Card className="card-dark rounded-none border border-anchor-gold/15">
               <CardBody>
-                <h3 className="text-xl font-semibold text-anchor-green mb-2">Stone-Baked Pizza Warm-Up</h3>
-                <p className="text-sm text-gray-700 mb-4">
+                <h3 className="text-xl font-semibold text-anchor-gold-vivid mb-2">Stone-Baked Pizza Warm-Up</h3>
+                <p className="text-sm text-anchor-cream-text/70 mb-4">
                   Hand-stretched pizzas with bold toppings. Share slices between games without leaving your table.
                 </p>
                 <div className="flex flex-col gap-2">
@@ -401,10 +401,10 @@ export default async function CashBingoPage() {
                 </div>
               </CardBody>
             </Card>
-            <Card className="bg-anchor-cream/50 shadow-sm">
+            <Card className="card-dark rounded-none border border-anchor-gold/15">
               <CardBody>
-                <h3 className="text-xl font-semibold text-anchor-green mb-2">All-Day Menu & Cocktails</h3>
-                <p className="text-sm text-gray-700 mb-4">
+                <h3 className="text-xl font-semibold text-anchor-gold-vivid mb-2">All-Day Menu & Cocktails</h3>
+                <p className="text-sm text-anchor-cream-text/70 mb-4">
                   Burgers, pizzas, puddings and themed cocktails delivered direct to your bingo table throughout the night.
                 </p>
                 <div className="flex flex-col gap-2">
@@ -429,17 +429,17 @@ export default async function CashBingoPage() {
       <Section spacing="md" background="white">
         <Container>
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-anchor-charcoal mb-8 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-anchor-cream-text mb-8 text-center">
               Why everyone loves cash bingo at The Anchor
             </h2>
             <Grid cols={WHY_LOVE_IT.length > 3 ? 3 : 2} gap="md">
               {WHY_LOVE_IT.map(feature => (
                 <GridItem key={feature.title}>
-                  <Card className="h-full bg-white border border-gray-100 shadow-sm hover:shadow-md transition">
+                  <Card className="h-full card-dark rounded-none border border-anchor-gold/15">
                     <CardBody className="space-y-3">
                       <div className="text-4xl">{feature.icon}</div>
-                      <h3 className="text-xl font-semibold text-anchor-charcoal">{feature.title}</h3>
-                      <p className="text-gray-700 text-sm leading-relaxed">{feature.body}</p>
+                      <h3 className="text-xl font-semibold text-anchor-cream-text">{feature.title}</h3>
+                      <p className="text-anchor-cream-text/70 text-sm leading-relaxed">{feature.body}</p>
                     </CardBody>
                   </Card>
                 </GridItem>
@@ -451,8 +451,8 @@ export default async function CashBingoPage() {
 
       <Section spacing="md" background="gray">
         <Container>
-          <div className="max-w-4xl mx-auto text-gray-700 space-y-4">
-            <h2 className="text-3xl font-bold text-anchor-charcoal text-center">What’s up for grabs?</h2>
+          <div className="max-w-4xl mx-auto text-anchor-cream-text/70 space-y-4">
+            <h2 className="text-3xl font-bold text-anchor-cream-text text-center">What’s up for grabs?</h2>
 	            <p>
 	              We keep prizes fresh so every cash bingo night feels different. Expect a lively mix of bingo prizes and cash prizes: free drinks, chocolate bars, quiz night tickets, food vouchers, GBP 10 cash boosts, cheeky spot prizes and a jackpot bingo pot that grows with every GBP 10 book sold. The snowball bonus carries over an extra GBP 20—and two additional calls—each month it survives, so loyal dabbers see the prize get juicier and easier to win.
 	            </p>
@@ -463,39 +463,39 @@ export default async function CashBingoPage() {
       <Section spacing="md" background="white">
         <Container>
           <div className="max-w-5xl mx-auto">
-            <h2 className="text-3xl font-bold text-anchor-charcoal text-center mb-6">Tips for playing bingo for cash</h2>
-            <p className="text-gray-700 text-center max-w-3xl mx-auto mb-6">
+            <h2 className="text-3xl font-bold text-anchor-cream-text text-center mb-6">Tips for playing bingo for cash</h2>
+            <p className="text-anchor-cream-text/70 text-center max-w-3xl mx-auto mb-6">
               Looking to “play bingo for cash” like a pro? These quick-fire tips from our regulars help you stay sharp and give the snowball your best shot.
             </p>
             <div className="grid md:grid-cols-2 gap-4">
-              <Card className="h-full bg-white border border-gray-100 shadow-sm">
+              <Card className="h-full card-dark rounded-none border border-anchor-gold/15">
                 <CardBody className="space-y-3">
-	                  <h3 className="text-xl font-semibold text-anchor-charcoal">Bring the right kit</h3>
-	                  <p className="text-gray-700 text-sm leading-relaxed">
+	                  <h3 className="text-xl font-semibold text-anchor-cream-text">Bring the right kit</h3>
+	                  <p className="text-anchor-cream-text/70 text-sm leading-relaxed">
 	                    Cash-only entry, so bring notes and coins for bingo tickets, GBP 10 bingo books and GBP 1 daubers. Pack spare daubers or lucky charms—confidence helps when the jackpot numbers fall.
 	                  </p>
                 </CardBody>
               </Card>
-              <Card className="h-full bg-white border border-gray-100 shadow-sm">
+              <Card className="h-full card-dark rounded-none border border-anchor-gold/15">
                 <CardBody className="space-y-3">
-                  <h3 className="text-xl font-semibold text-anchor-charcoal">Arrive early for the best spots</h3>
-                  <p className="text-gray-700 text-sm leading-relaxed">
+                  <h3 className="text-xl font-semibold text-anchor-cream-text">Arrive early for the best spots</h3>
+                  <p className="text-anchor-cream-text/70 text-sm leading-relaxed">
                     Doors open at 6 pm. Bingo start time is 7 pm. Turn up early, claim a clear sightline to the caller, order dinner and review the snowball rules before Game 1.
                   </p>
                 </CardBody>
               </Card>
-              <Card className="h-full bg-white border border-gray-100 shadow-sm">
+              <Card className="h-full card-dark rounded-none border border-anchor-gold/15">
                 <CardBody className="space-y-3">
-                  <h3 className="text-xl font-semibold text-anchor-charcoal">Keep your focus between calls</h3>
-                  <p className="text-gray-700 text-sm leading-relaxed">
+                  <h3 className="text-xl font-semibold text-anchor-cream-text">Keep your focus between calls</h3>
+                  <p className="text-anchor-cream-text/70 text-sm leading-relaxed">
                     Use the breaks to stretch, order drinks and catch up. During games keep conversations low, phones away and eyes on the card so you never miss the bingo calls or numbers.
                   </p>
                 </CardBody>
               </Card>
-              <Card className="h-full bg-white border border-gray-100 shadow-sm">
+              <Card className="h-full card-dark rounded-none border border-anchor-gold/15">
                 <CardBody className="space-y-3">
-                  <h3 className="text-xl font-semibold text-anchor-charcoal">Build your snowball streak</h3>
-                  <p className="text-gray-700 text-sm leading-relaxed">
+                  <h3 className="text-xl font-semibold text-anchor-cream-text">Build your snowball streak</h3>
+                  <p className="text-anchor-cream-text/70 text-sm leading-relaxed">
                     Attend each cash bingo night and we tick you off on the Snowball Register. Every consecutive month boosts your eligibility when the snowball finally lands.
                   </p>
                 </CardBody>
@@ -539,11 +539,11 @@ export default async function CashBingoPage() {
         <Container>
           <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-start">
             <div>
-              <h2 className="text-2xl font-bold text-anchor-charcoal mb-3">Find us</h2>
-              <p className="text-gray-700 mb-4">
+              <h2 className="text-2xl font-bold text-anchor-cream-text mb-3">Find us</h2>
+              <p className="text-anchor-cream-text/70 mb-4">
                 The Anchor · Horton Road, Stanwell Moor, TW19 6AQ · Free on-site parking · 7 minutes from Heathrow T5 · 8 minutes from Staines.
               </p>
-              <ul className="space-y-3 text-gray-700 text-sm">
+              <ul className="space-y-3 text-anchor-cream-text/70 text-sm">
                 <li><strong>Driving:</strong> Use postcode TW19 6AQ. Plenty of free parking right outside.</li>
                 <li><strong>Public transport:</strong> 441 & 555 buses stop on Horton Road. Uber and Bolt know us well.</li>
                 <li><strong>Accessibility:</strong> Step-free entrance, accessible loos and flexible seating for players.</li>
@@ -563,10 +563,10 @@ export default async function CashBingoPage() {
                 </Link>
               </div>
             </div>
-            <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+            <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-xl overflow-hidden shadow-sm">
               <GoogleMapEmbed
                 query="The Anchor, Stanwell Moor"
-                className="h-full min-h-[300px] border border-gray-200 rounded-xl overflow-hidden shadow-sm"
+                className="h-full min-h-[300px] border border-anchor-gold/15 rounded-xl overflow-hidden shadow-sm"
               />
             </div>
           </div>

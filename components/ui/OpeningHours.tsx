@@ -46,7 +46,7 @@ export const OpeningHours = forwardRef<HTMLDivElement, OpeningHoursProps>(
               key={hour.day}
               className={cn(
                 'flex justify-between items-center py-1',
-                hour.isToday && 'font-semibold text-anchor-green'
+                hour.isToday && 'font-semibold text-anchor-gold-vivid'
               )}
             >
               <span className="text-sm">{hour.day}</span>
@@ -67,14 +67,14 @@ export const OpeningHours = forwardRef<HTMLDivElement, OpeningHoursProps>(
       return (
         <div
           ref={ref}
-          className={cn('bg-gray-50 rounded-lg p-6', className)}
+          className={cn('bg-anchor-bg-raised rounded-none p-6', className)}
           data-testid={testId}
           {...props}
         >
           {title && (
             <div className="flex items-center gap-2 mb-4">
-              {showIcon && <ClockIcon className="h-5 w-5 text-gray-600" />}
-              <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
+              {showIcon && <ClockIcon className="h-5 w-5 text-anchor-cream-text/70" />}
+              <h3 className="text-lg font-semibold text-anchor-cream-text">{title}</h3>
             </div>
           )}
           <div className="space-y-3">
@@ -100,7 +100,7 @@ export const OpeningHours = forwardRef<HTMLDivElement, OpeningHoursProps>(
                     )}
                   </p>
                   {showKitchen && hour.kitchen && !hour.isClosed && (
-                    <p className="text-sm text-gray-600 mt-1">
+                    <p className="text-sm text-anchor-cream-text/70 mt-1">
                       Kitchen: {hour.kitchen}
                     </p>
                   )}
@@ -140,8 +140,8 @@ export const OpeningHours = forwardRef<HTMLDivElement, OpeningHoursProps>(
       >
         {title && (
           <div className="flex items-center gap-2 mb-3">
-            {showIcon && <ClockIcon className="h-4 w-4 text-gray-600" />}
-            <h3 className="font-semibold text-gray-900">{title}</h3>
+            {showIcon && <ClockIcon className="h-4 w-4 text-anchor-cream-text/70" />}
+            <h3 className="font-semibold text-anchor-cream-text">{title}</h3>
           </div>
         )}
         <div className="space-y-2">
@@ -150,7 +150,7 @@ export const OpeningHours = forwardRef<HTMLDivElement, OpeningHoursProps>(
               key={hour.day}
               className={cn(
                 'flex justify-between items-center',
-                hour.isToday && 'font-semibold text-anchor-green'
+                hour.isToday && 'font-semibold text-anchor-gold-vivid'
               )}
             >
               <span>{hour.day}</span>
@@ -161,7 +161,7 @@ export const OpeningHours = forwardRef<HTMLDivElement, OpeningHoursProps>(
                   <>
                     {hour.hours}
                     {showKitchen && hour.kitchen && (
-                      <span className="text-sm text-gray-600 ml-2">
+                      <span className="text-sm text-anchor-cream-text/70 ml-2">
                         (Kitchen: {hour.kitchen})
                       </span>
                     )}
@@ -208,7 +208,7 @@ export const OpenStatus = forwardRef<HTMLDivElement, OpenStatusProps>(
         ref={ref}
         className={cn(
           'inline-flex items-center gap-2 rounded-full font-medium',
-          isOpen ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800',
+          isOpen ? 'bg-anchor-gold-vivid/15 text-anchor-gold-vivid' : 'bg-red-900/20 text-red-400',
           sizeClasses[size],
           className
         )}
@@ -217,7 +217,7 @@ export const OpenStatus = forwardRef<HTMLDivElement, OpenStatusProps>(
       >
         <div className={cn(
           'h-2 w-2 rounded-full',
-          isOpen ? 'bg-green-600' : 'bg-red-600'
+          isOpen ? 'bg-anchor-gold-vivid' : 'bg-red-500'
         )} />
         <span>
           {isOpen ? 'Open' : 'Closed'}

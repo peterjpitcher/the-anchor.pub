@@ -378,7 +378,7 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
         <Container size="lg">
           <div className="mx-auto grid max-w-6xl items-start gap-8 lg:grid-cols-[minmax(0,360px)_minmax(0,1fr)]">
             <Card variant="elevated" className="overflow-hidden">
-              <div className="relative aspect-[3/4] bg-gradient-to-br from-anchor-green/10 via-white to-anchor-green/5">
+              <div className="relative aspect-[3/4] bg-anchor-bg-raised">
                 <Image
                   src={eventImage}
                   alt="Mother’s Day lunch at The Anchor near Staines (promotional image)"
@@ -390,20 +390,20 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
               </div>
               <CardBody className="space-y-4 p-6">
                 <div className="space-y-2">
-                  <p className="text-sm font-semibold uppercase tracking-wide text-gray-600">Date</p>
-                  <p className="text-lg font-bold text-anchor-green">{eventDateText}</p>
+                  <p className="text-sm font-semibold uppercase tracking-wide text-anchor-cream-text/70">Date</p>
+                  <p className="text-lg font-bold text-anchor-gold-vivid">{eventDateText}</p>
                 </div>
                 <div className="space-y-2">
-                  <p className="text-sm font-semibold uppercase tracking-wide text-gray-600">Serving times</p>
-                  <p className="text-lg font-bold text-anchor-green">{MOTHERS_DAY_SERVICE_WINDOW_LABEL}</p>
-                  <p className="text-sm text-gray-700">
+                  <p className="text-sm font-semibold uppercase tracking-wide text-anchor-cream-text/70">Serving times</p>
+                  <p className="text-lg font-bold text-anchor-gold-vivid">{MOTHERS_DAY_SERVICE_WINDOW_LABEL}</p>
+                  <p className="text-sm text-anchor-cream-text/70">
                     Last table booking: {MOTHERS_DAY_LAST_BOOKING_LABEL}. No set sittings — book the time that suits you.
                   </p>
                 </div>
 
                 <div className="space-y-2">
-                  <p className="text-sm font-semibold uppercase tracking-wide text-gray-600">Prices</p>
-                  <ul className="space-y-2 text-sm text-gray-700">
+                  <p className="text-sm font-semibold uppercase tracking-wide text-anchor-cream-text/70">Prices</p>
+                  <ul className="space-y-2 text-sm text-anchor-cream-text/70">
                     <li className="flex gap-2">
                       <span className="text-anchor-gold">•</span>
                       <span>
@@ -418,8 +418,8 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
                 </div>
 
                 <div className="space-y-2">
-                  <p className="text-sm font-semibold uppercase tracking-wide text-gray-600">Booking policy</p>
-                  <p className="text-sm text-gray-700">
+                  <p className="text-sm font-semibold uppercase tracking-wide text-anchor-cream-text/70">Booking policy</p>
+                  <p className="text-sm text-anchor-cream-text/70">
                     Mother’s Day always books up quickly, so advance booking is required. {MOTHERS_DAY_DEPOSIT_NOTE}
                   </p>
                 </div>
@@ -444,66 +444,66 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
 
             <div className="space-y-6">
               <div>
-                <h2 className="text-2xl md:text-3xl font-bold text-anchor-green">
+                <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">
                   What to expect
                 </h2>
-                <p className="mt-4 text-gray-700 text-lg leading-relaxed">
+                <p className="mt-4 text-anchor-cream-text/70 text-lg leading-relaxed">
                   Make Mother&apos;s Day easy. Join us at The Anchor in Stanwell Moor (TW19) for a relaxed, cooked-from-scratch Sunday lunch
                   where Mum can properly switch off and enjoy being looked after — near{' '}
                   <Link
                     href="/staines-pub"
-                    className="font-semibold text-anchor-green hover:text-anchor-green-dark underline decoration-dotted"
+                    className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted"
                   >
                     Staines-upon-Thames
                   </Link>
                   , with free parking and easy access from{' '}
                   <Link
                     href="/near-heathrow/terminal-5"
-                    className="font-semibold text-anchor-green hover:text-anchor-green-dark underline decoration-dotted"
+                    className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted"
                   >
                     Heathrow Terminal 5
                   </Link>
                   .
                 </p>
-                <p className="mt-4 text-gray-700 leading-relaxed">
+                <p className="mt-4 text-anchor-cream-text/70 leading-relaxed">
                   Expect a proper Mother&apos;s Day roast, cooked from scratch and served fresh to order, with everything you&apos;d want from a
                   traditional Sunday lunch: golden roast potatoes, seasonal vegetables, a generous Yorkshire pudding, and our signature gravy.
                 </p>
-                <p className="mt-3 text-gray-700 leading-relaxed">
+                <p className="mt-3 text-anchor-cream-text/70 leading-relaxed">
                   We also offer vegetarian and vegan options, including a dedicated vegan main. Vegetarian and vegan dishes are served with
                   vegetarian gravy.
                 </p>
-                <p className="mt-3 text-gray-700 leading-relaxed">
+                <p className="mt-3 text-anchor-cream-text/70 leading-relaxed">
                   We&apos;re serving from <span className="font-semibold">1pm</span> to <span className="font-semibold">6pm</span>, with the{' '}
                   <span className="font-semibold">last table booking at {MOTHERS_DAY_LAST_BOOKING_LABEL}</span>. Adults mains are{' '}
                   <span className="font-semibold">£{MOTHERS_DAY_ADULT_PRICE_LOW.toFixed(2)}–£{MOTHERS_DAY_ADULT_PRICE_HIGH.toFixed(2)}</span>,
                   and kids roast is available from <span className="font-semibold">£{MOTHERS_DAY_KIDS_ROAST_PRICE.toFixed(2)}</span>.
                 </p>
-                <p className="mt-3 text-gray-700 leading-relaxed">
+                <p className="mt-3 text-anchor-cream-text/70 leading-relaxed">
                   There are no set sittings. Book a time that suits you within the service window and enjoy your meal at a comfortable pace.
                 </p>
 
-                <div className="mt-6 rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-100">
-                  <h3 className="text-lg font-semibold text-anchor-green">Browse menus</h3>
-                  <p className="mt-3 text-sm text-gray-700 leading-relaxed">
+                <div className="mt-6 rounded-2xl bg-anchor-bg-raised p-6 border border-anchor-gold/15">
+                  <h3 className="text-lg font-semibold text-anchor-gold-vivid">Browse menus</h3>
+                  <p className="mt-3 text-sm text-anchor-cream-text/70 leading-relaxed">
                     Planning your visit? Take a look at our{' '}
                     <Link
                       href="/sunday-lunch"
-                      className="font-semibold text-anchor-green hover:text-anchor-green-dark underline decoration-dotted"
+                      className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted"
                     >
                       Sunday lunch menu
                     </Link>
                     ,{' '}
                     <Link
                       href="/pizza-menu"
-                      className="font-semibold text-anchor-green hover:text-anchor-green-dark underline decoration-dotted"
+                      className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted"
                     >
                       pizza menu
                     </Link>{' '}
                     and{' '}
                     <Link
                       href="/drinks"
-                      className="font-semibold text-anchor-green hover:text-anchor-green-dark underline decoration-dotted"
+                      className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted"
                     >
                       drinks menu
                     </Link>
@@ -512,7 +512,7 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
                 </div>
               </div>
 
-              <div className="rounded-2xl border border-anchor-green/20 bg-anchor-green/5 p-6">
+              <div className="rounded-2xl border border-anchor-gold/15 bg-anchor-bg-raised p-6">
                 <div className="flex flex-wrap items-center gap-3">
                   <Badge variant="success" size="sm">
                     Advance booking required
@@ -528,11 +528,11 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
                   </Badge>
                 </div>
 
-                <div className="mt-5 rounded-2xl bg-white/70 p-5 ring-1 ring-white/60">
-                  <h3 className="text-sm font-semibold uppercase tracking-wide text-anchor-green">
+                <div className="mt-5 rounded-2xl bg-anchor-bg-card p-5 border border-anchor-gold/15">
+                  <h3 className="text-sm font-semibold uppercase tracking-wide text-anchor-gold-vivid">
                     Booking notes
                   </h3>
-                  <ul className="mt-3 space-y-2 text-sm text-gray-700">
+                  <ul className="mt-3 space-y-2 text-sm text-anchor-cream-text/70">
                     <li className="flex gap-2">
                       <span className="text-anchor-gold">•</span>
                       <span>Serving {MOTHERS_DAY_SERVICE_WINDOW_LABEL} (last table booking {MOTHERS_DAY_LAST_BOOKING_LABEL}).</span>
@@ -572,20 +572,20 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
                     </Button>
                   </Link>
                 </div>
-                <p className="mt-4 text-sm text-gray-700">{MOTHERS_DAY_BOOKING_FLOW_NOTE}</p>
+                <p className="mt-4 text-sm text-anchor-cream-text/70">{MOTHERS_DAY_BOOKING_FLOW_NOTE}</p>
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2">
-                <Card variant="default" className="bg-white">
+                <Card variant="default">
                   <CardBody className="space-y-2 p-6">
-                    <h3 className="text-lg font-semibold text-anchor-green">Getting here</h3>
-                    <p className="text-sm text-gray-700">
+                    <h3 className="text-lg font-semibold text-anchor-gold-vivid">Getting here</h3>
+                    <p className="text-sm text-anchor-cream-text/70">
                       {addressLine}. Free parking available, near Staines-upon-Thames and around {HEATHROW_TIMES.terminal5} minutes from
                       Heathrow Terminal 5 by car.
                     </p>
                     <Link
                       href="/near-heathrow/terminal-5"
-                      className="inline-flex items-center text-sm font-semibold text-anchor-green hover:text-anchor-green-dark underline decoration-dotted"
+                      className="inline-flex items-center text-sm font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted"
                     >
                       Near Heathrow Terminal 5
                       <span className="ml-1">→</span>
@@ -600,10 +600,10 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
                   </CardBody>
                 </Card>
 
-                <Card variant="default" className="bg-white">
+                <Card variant="default">
                   <CardBody className="space-y-2 p-6">
-                    <h3 className="text-lg font-semibold text-anchor-green">Prefer to talk?</h3>
-                    <p className="text-sm text-gray-700">
+                    <h3 className="text-lg font-semibold text-anchor-gold-vivid">Prefer to talk?</h3>
+                    <p className="text-sm text-anchor-cream-text/70">
                       Questions about your booking or special requests? Give us a call and we’ll help.
                     </p>
                     <PhoneButton
@@ -626,13 +626,13 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
       <Section background="gray" spacing="lg">
         <Container size="lg">
           <div className="mx-auto max-w-4xl text-center space-y-6">
-            <h2 className="text-2xl md:text-3xl font-bold text-anchor-green">Book your Mother’s Day lunch</h2>
-            <p className="text-gray-700 text-lg leading-relaxed">
+            <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">Book your Mother’s Day lunch</h2>
+            <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
               Mother’s Day Lunch is on <span className="font-semibold">{eventDateText}</span> at The Anchor in Stanwell Moor (TW19), near Staines-upon-Thames.
               Serving <span className="font-semibold">{MOTHERS_DAY_SERVICE_WINDOW_LABEL}</span> (last table booking <span className="font-semibold">{MOTHERS_DAY_LAST_BOOKING_LABEL}</span>).
               No set sittings — book a time that suits you and enjoy your meal at a comfortable pace. Mother’s Day always books up quickly, so booking is required.
             </p>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-anchor-cream-text/70">
               {MOTHERS_DAY_DEPOSIT_NOTE} Please add dietary requirements when booking.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -659,7 +659,7 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
                 📞 Call {CONTACT.phone}
               </PhoneButton>
             </div>
-            <p className="text-sm text-gray-600">{MOTHERS_DAY_BOOKING_FLOW_NOTE}</p>
+            <p className="text-sm text-anchor-cream-text/70">{MOTHERS_DAY_BOOKING_FLOW_NOTE}</p>
           </div>
         </Container>
       </Section>
@@ -668,14 +668,14 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
         <Container size="lg">
           <div className="mx-auto max-w-6xl space-y-8">
             <div className="text-center space-y-3">
-              <h2 className="text-2xl md:text-3xl font-bold text-anchor-green">Photos</h2>
-              <p className="text-gray-700">
+              <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">Photos</h2>
+              <p className="text-anchor-cream-text/70">
                 A few highlights from the kitchen and bar at The Anchor.
               </p>
             </div>
             <div className="grid gap-6 md:grid-cols-3">
               {MOTHERS_DAY_PHOTOS.map((photo) => (
-                <figure key={photo.src} className="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-gray-100">
+                <figure key={photo.src} className="overflow-hidden rounded-2xl bg-anchor-bg-raised border border-anchor-gold/15">
                   <div className="relative aspect-[4/3]">
                     <Image
                       src={photo.src}
@@ -685,7 +685,7 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
                       sizes="(max-width: 768px) 100vw, 33vw"
                     />
                   </div>
-                  <figcaption className="p-4 text-sm text-gray-700">{photo.caption}</figcaption>
+                  <figcaption className="p-4 text-sm text-anchor-cream-text/70">{photo.caption}</figcaption>
                 </figure>
               ))}
             </div>
@@ -697,13 +697,13 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
         <Container size="lg">
           <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-start">
             <div className="space-y-4">
-              <h2 className="text-2xl md:text-3xl font-bold text-anchor-green">Where we are</h2>
-              <p className="text-gray-700 leading-relaxed">
+              <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">Where we are</h2>
+              <p className="text-anchor-cream-text/70 leading-relaxed">
                 The Anchor is in Stanwell Moor, Surrey (TW19 6AQ) — close to Heathrow and easy to reach from Staines-upon-Thames,
                 with free parking available on site. If you’re searching for a Mother&apos;s Day lunch near Staines, this is the easy option.
               </p>
-              <p className="text-gray-700">
-                Address: <span className="font-semibold text-anchor-green">{addressLine}</span>
+              <p className="text-anchor-cream-text/70">
+                Address: <span className="font-semibold text-anchor-gold-vivid">{addressLine}</span>
               </p>
               <div className="flex flex-col gap-3 sm:flex-row">
                 <Link href="/find-us" className="w-full sm:w-auto">
@@ -727,7 +727,7 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
         </Container>
       </Section>
 
-      <FAQAccordionWithSchema title="Mother’s Day FAQs" faqs={faqs} className="bg-gray-50" />
+      <FAQAccordionWithSchema title="Mother’s Day FAQs" faqs={faqs} className="bg-anchor-bg" />
 
       <InternalLinkingSection
         title="More to explore at The Anchor"

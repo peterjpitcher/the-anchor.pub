@@ -29,7 +29,7 @@ export default function PrivacyPolicyPage() {
       
       <Section spacing="lg" container containerSize="md">
         <div className="max-w-4xl mx-auto">
-          <PageTitle className="text-center text-anchor-green mb-8" seo={{ structured: true, speakable: true }}>
+          <PageTitle className="text-center text-anchor-gold-vivid mb-8" seo={{ structured: true, speakable: true }}>
             Privacy Policy - The Anchor
           </PageTitle>
           <div className="prose prose-lg">

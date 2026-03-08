@@ -94,29 +94,29 @@ export default function PubNearTravelodgeHeathrowPage() {
         }
       />
 
-      <section className="py-8 bg-white">
+      <section className="py-8 bg-anchor-bg">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
-            <PageTitle seo={{ structured: true, speakable: true }} className="text-anchor-green mb-4">
+            <PageTitle seo={{ structured: true, speakable: true }} className="text-anchor-cream-text mb-4">
               Pub Near Travelodge London Heathrow
             </PageTitle>
-            <p className="text-lg text-gray-700">
+            <p className="text-lg text-anchor-cream-text/70">
               Staying at a Travelodge near Heathrow? You&apos;ve made a smart choice saving on your room — now reward yourself with a proper evening at The Anchor, just 10 minutes away. Real food, real ales, real pub.
             </p>
           </div>
         </Container>
       </section>
 
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <FeatureGrid
               columns={4}
               features={[
-                { icon: '🕐', title: '10 Mins', description: 'By taxi from Travelodge Heathrow Central', variant: 'colored', color: 'bg-green-50', className: 'rounded-xl p-6 text-center' },
-                { icon: '🚖', title: '~£12–15', description: 'Short taxi fare each way', variant: 'colored', color: 'bg-blue-50', className: 'rounded-xl p-6 text-center' },
-                { icon: '🅿️', title: 'Free Parking', description: '20 spaces — drive and park for free', variant: 'colored', color: 'bg-amber-50', className: 'rounded-xl p-6 text-center' },
-                { icon: '💷', title: 'From £8.99', description: 'Mains at proper pub prices', variant: 'colored', color: 'bg-red-50', className: 'rounded-xl p-6 text-center' },
+                { icon: '🕐', title: '10 Mins', description: 'By taxi from Travelodge Heathrow Central', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '🚖', title: '~£12–15', description: 'Short taxi fare each way', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '🅿️', title: 'Free Parking', description: '20 spaces — drive and park for free', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '💷', title: 'From £8.99', description: 'Mains at proper pub prices', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
               ]}
               className="mb-8"
             />
@@ -124,7 +124,7 @@ export default function PubNearTravelodgeHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -132,8 +132,8 @@ export default function PubNearTravelodgeHeathrowPage() {
               subtitle="You saved on accommodation — The Anchor lets you eat brilliantly without blowing the budget. Independent, home-cooked, and genuinely welcoming."
             />
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-xl font-bold text-anchor-green mb-4">What You Get</h3>
+              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
+                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">What You Get</h3>
                 <ul className="space-y-3">
                   {[
                     'Home-cooked food from £8.99 a main',
@@ -150,9 +150,9 @@ export default function PubNearTravelodgeHeathrowPage() {
                   ))}
                 </ul>
               </div>
-              <div className="bg-gray-50 rounded-xl p-6">
-                <h3 className="text-xl font-bold text-anchor-green mb-4">Getting Here from Travelodge</h3>
-                <div className="space-y-3 text-gray-700">
+              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
+                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Getting Here from Travelodge</h3>
+                <div className="space-y-3 text-anchor-cream-text/70">
                   <div>
                     <p className="font-semibold">From Travelodge Heathrow Central</p>
                     <p className="text-sm">Approximately 10 minutes by taxi. Ask for The Anchor, Stanwell Moor (TW19 6AQ). Fare around £12–15.</p>
@@ -163,7 +163,7 @@ export default function PubNearTravelodgeHeathrowPage() {
                   </div>
                   <div className="pt-2 border-t border-gray-200">
                     <p className="text-sm font-medium">Postcode: <strong>TW19 6AQ</strong></p>
-                    <p className="text-sm text-gray-600">Free parking if you&apos;re driving a rental car</p>
+                    <p className="text-sm text-anchor-cream-text/70">Free parking if you&apos;re driving a rental car</p>
                   </div>
                 </div>
               </div>
@@ -172,31 +172,31 @@ export default function PubNearTravelodgeHeathrowPage() {
         </Container>
       </section>
 
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader title="Best Nights to Visit" />
             <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-red-50 rounded-xl p-6 text-center">
+              <div className="card-dark rounded-none p-6 text-center">
                 <p className="text-4xl mb-2">🍕</p>
                 <h3 className="text-xl font-bold text-red-800 mb-2">Tuesday: Pizza Night</h3>
                 <p className="text-2xl font-bold text-red-600 mb-2">Buy 1 Get 1 Free</p>
-                <p className="text-gray-700">All stone-baked pizzas, all day Tuesday</p>
-                <p className="text-sm text-gray-500 mt-2">Best deal near Heathrow on a Tuesday</p>
+                <p className="text-anchor-cream-text/70">All stone-baked pizzas, all day Tuesday</p>
+                <p className="text-sm text-anchor-cream-text/55 mt-2">Best deal near Heathrow on a Tuesday</p>
               </div>
-              <div className="bg-blue-50 rounded-xl p-6 text-center">
+              <div className="card-dark rounded-none p-6 text-center">
                 <p className="text-4xl mb-2">🎯</p>
                 <h3 className="text-xl font-bold text-blue-800 mb-2">Quiz Night</h3>
                 <p className="text-2xl font-bold text-blue-600 mb-2">Monthly</p>
-                <p className="text-gray-700">Join in with the locals for our pub quiz</p>
-                <p className="text-sm text-gray-500 mt-2">Check <Link href="/whats-on" className="underline">what&apos;s on</Link> for dates</p>
+                <p className="text-anchor-cream-text/70">Join in with the locals for our pub quiz</p>
+                <p className="text-sm text-anchor-cream-text/55 mt-2">Check <Link href="/whats-on" className="underline">what&apos;s on</Link> for dates</p>
               </div>
             </div>
           </div>
         </Container>
       </section>
 
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
             <SectionHeader title="Opening Hours" />
@@ -234,7 +234,7 @@ export default function PubNearTravelodgeHeathrowPage() {
             answer: 'Yes — The Anchor runs buy one get one free on all stone-baked pizzas every Tuesday, all day. We also have a Sunday roast from £19.99 at weekends. Check our menu for other specials and seasonal deals.'
           },
         ]}
-        className="bg-gray-50"
+        className="bg-anchor-bg"
       />
 
       <CTASection

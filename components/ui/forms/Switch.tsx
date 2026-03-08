@@ -134,7 +134,7 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
             <span
               className={cn(
                 switchVariants({ size }),
-                isChecked ? 'bg-anchor-gold' : 'bg-gray-300',
+                isChecked ? 'bg-anchor-gold' : 'bg-anchor-bg-raised',
                 className
               )}
             >
@@ -150,7 +150,7 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
             {(onLabel || offLabel) && (
               <span className={cn(
                 'ml-3 text-sm font-medium',
-                disabled ? 'text-gray-600' : 'text-gray-700'
+                disabled ? 'text-anchor-cream-text/40' : 'text-anchor-cream-text/70'
               )}>
                 {isChecked ? (onLabel || 'On') : (offLabel || 'Off')}
               </span>
@@ -161,7 +161,7 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
           {label && !onLabel && !offLabel && (
             <span className={cn(
               'text-sm font-medium',
-              disabled ? 'text-gray-600' : 'text-gray-700',
+              disabled ? 'text-anchor-cream-text/40' : 'text-anchor-cream-text/70',
               labelPosition === 'left' ? 'mr-3' : 'ml-3'
             )}>
               {label}
@@ -171,7 +171,7 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
         
         {/* Helper text */}
         {helperText && !error && (
-          <p id={`${switchId}-helper`} className="mt-1 text-sm text-gray-700 ml-11">
+          <p id={`${switchId}-helper`} className="mt-1 text-sm text-anchor-cream-text/70 ml-11">
             {helperText}
           </p>
         )}
@@ -241,13 +241,13 @@ export const SwitchGroup = forwardRef<HTMLFieldSetElement, SwitchGroupProps>(
         {...props}
       >
         {label && (
-          <legend className="text-sm font-medium text-gray-700 mb-2">
+          <legend className="text-sm font-medium text-anchor-cream-text/70 mb-2">
             {label}
           </legend>
         )}
         
         {helperText && !error && (
-          <p id={`${testId}-helper`} className="text-sm text-gray-700 mb-2">
+          <p id={`${testId}-helper`} className="text-sm text-anchor-cream-text/70 mb-2">
             {helperText}
           </p>
         )}

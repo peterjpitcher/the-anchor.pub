@@ -65,7 +65,7 @@ export function ErrorDisplay({
           )}
           
           {showContactInfo && (
-            <p className="text-gray-700 text-sm">
+            <p className="text-anchor-cream-text/70 text-sm">
               Still having issues?{' '}
               <a
                 href={CONTACT_INFO.phoneLink}
@@ -81,7 +81,7 @@ export function ErrorDisplay({
           <div className="mt-4 border-t border-red-200 pt-4">
             <button
               onClick={() => setDetailsExpanded(!detailsExpanded)}
-              className="text-sm text-gray-600 hover:text-gray-800 underline focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-anchor-gold rounded"
+              className="text-sm text-anchor-cream-text/70 hover:text-anchor-cream-text underline focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-anchor-gold rounded"
               aria-expanded={detailsExpanded}
               aria-controls="error-details"
             >
@@ -91,7 +91,7 @@ export function ErrorDisplay({
             {detailsExpanded && (
               <pre
                 id="error-details"
-                className="mt-2 text-xs text-left bg-white p-3 rounded border border-gray-200 overflow-x-auto"
+                className="mt-2 text-xs text-left bg-anchor-bg-card p-3 rounded border border-anchor-gold/15 overflow-x-auto text-anchor-cream-text/70"
               >
                 {technicalDetails}
               </pre>

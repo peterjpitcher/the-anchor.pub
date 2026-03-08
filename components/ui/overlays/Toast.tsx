@@ -11,11 +11,11 @@ const toastVariants = cva(
   {
     variants: {
       variant: {
-        default: 'bg-white text-gray-900',
-        success: 'bg-green-50 text-green-900',
-        error: 'bg-red-50 text-red-900',
-        warning: 'bg-yellow-50 text-yellow-900',
-        info: 'bg-blue-50 text-blue-900'
+        default: 'bg-anchor-bg-card text-anchor-cream-text border border-anchor-gold/15',
+        success: 'bg-anchor-bg-card text-anchor-gold-vivid border border-anchor-gold/15',
+        error: 'bg-anchor-bg-card text-red-400 border border-red-500/20',
+        warning: 'bg-anchor-bg-card text-yellow-300 border border-yellow-500/20',
+        info: 'bg-anchor-bg-card text-anchor-cream-text border border-anchor-gold/15'
       }
     },
     defaultVariants: {
@@ -139,7 +139,7 @@ export const Toast = forwardRef<HTMLDivElement, ToastProps>(
           <div className="ml-4 flex flex-shrink-0">
             <button
               type="button"
-              className="inline-flex rounded-md text-gray-600 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2"
+              className="inline-flex rounded-md text-anchor-cream-text/55 hover:text-anchor-cream-text focus:outline-none focus:ring-2 focus:ring-anchor-gold focus:ring-offset-2"
               onClick={handleClose}
               aria-label="Close notification"
             >
@@ -242,7 +242,7 @@ export const createToastHelpers = (toastFn: (props: Omit<ToastItem, 'id'>) => vo
       title,
       description,
       icon: (
-        <svg className="h-5 w-5 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg className="h-5 w-5 text-anchor-gold-vivid" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
       )

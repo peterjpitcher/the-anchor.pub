@@ -120,10 +120,10 @@ export default async function PubsInStanwellPage() {
       />
 
       {/* Page Title for SEO */}
-      <section className="bg-white py-8">
+      <section className="bg-anchor-bg py-8">
         <Container>
           <PageTitle 
-            className="text-center text-anchor-green"
+            className="text-center text-anchor-cream-text"
             seo={{ structured: true, speakable: true }}
           >
             Pubs in Stanwell & Stanwell Moor - The Anchor Traditional British Pub
@@ -132,7 +132,7 @@ export default async function PubsInStanwellPage() {
       </section>
 
       {/* Why We're Stanwell's Favourite Local */}
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-6xl mx-auto">
             <SectionHeader
@@ -148,12 +148,12 @@ export default async function PubsInStanwellPage() {
                     title: "🏘️ A True Village Pub",
                     content: (
                       <div className="space-y-3">
-                        <p className="text-gray-700">
+                        <p className="text-anchor-cream-text/70">
                           Located on Horton Road in the heart of Stanwell Moor, we've been 
                           the village's gathering place for nearly 30 years. Unlike chain pubs, 
                           we're independently run with genuine local character.
                         </p>
-                        <ul className="space-y-2 text-gray-700">
+                        <ul className="space-y-2 text-anchor-cream-text/70">
                           <li>✓ Family-owned and operated</li>
                           <li>✓ Know our regulars by name</li>
                           <li>✓ Support local events and causes</li>
@@ -163,7 +163,7 @@ export default async function PubsInStanwellPage() {
                       </div>
                     ),
                     variant: "colored",
-                    color: "bg-green-50 rounded-xl p-6"
+                    color: "card-dark rounded-none p-6"
                   }
                 ]}
               />
@@ -175,12 +175,12 @@ export default async function PubsInStanwellPage() {
                     title: "🍺 What Makes Us Special",
                     content: (
                       <div className="space-y-3">
-                        <p className="text-gray-700">
+                        <p className="text-anchor-cream-text/70">
                           We're not just another pub - we're your local. From our famous 
                           Sunday roasts to stone-baked pizzas, we offer something for everyone 
                           in a warm, welcoming environment.
                         </p>
-                        <ul className="space-y-2 text-gray-700">
+                        <ul className="space-y-2 text-anchor-cream-text/70">
                           <li>✓ Home-cooked British food</li>
                           <li>✓ Real ales and chilled lagers</li>
                           <li>✓ Large beer garden</li>
@@ -190,7 +190,7 @@ export default async function PubsInStanwellPage() {
                       </div>
                     ),
                     variant: "colored",
-                    color: "bg-amber-50 rounded-xl p-6"
+                    color: "card-dark rounded-none p-6"
                   }
                 ]}
               />
@@ -203,7 +203,7 @@ export default async function PubsInStanwellPage() {
               className="max-w-4xl mx-auto"
               content={
                 <div className="mt-2">
-                  <p className="text-gray-700 mb-3">
+                  <p className="text-anchor-cream-text/70 mb-3">
                     Easily accessible from all surrounding areas:
                   </p>
                   <div className="grid md:grid-cols-3 gap-4">
@@ -231,7 +231,7 @@ export default async function PubsInStanwellPage() {
       </section>
 
       {/* What We Offer */}
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-6xl mx-auto">
             <SectionHeader
@@ -297,7 +297,7 @@ export default async function PubsInStanwellPage() {
       </section>
 
       {/* Compare to Other Pubs */}
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-5xl mx-auto">
             <SectionHeader
@@ -305,10 +305,10 @@ export default async function PubsInStanwellPage() {
               subtitle="Why locals choose The Anchor"
             />
             
-            <div className="bg-gray-50 rounded-xl p-8">
+            <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-8">
               <div className="grid md:grid-cols-2 gap-8">
                 <div>
-                  <h3 className="text-xl font-bold text-anchor-green mb-4">The Anchor Advantages</h3>
+                  <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">The Anchor Advantages</h3>
                   <ul className="space-y-3">
                     <li className="flex items-start gap-2">
                       <span className="text-green-600 mt-1">✓</span>
@@ -344,8 +344,8 @@ export default async function PubsInStanwellPage() {
                 </div>
                 
                 <div>
-                  <h3 className="text-xl font-bold text-gray-700 mb-4">Nearby Alternatives</h3>
-                  <div className="space-y-4 text-gray-600">
+                  <h3 className="text-xl font-bold text-anchor-cream-text/70 mb-4">Nearby Alternatives</h3>
+                  <div className="space-y-4 text-anchor-cream-text/70">
                     <div>
                       <p className="font-semibold">The George (Stanwell)</p>
                       <p className="text-sm">Good pub but limited parking</p>
@@ -358,8 +358,8 @@ export default async function PubsInStanwellPage() {
                       <p className="font-semibold">Airport Pubs</p>
                       <p className="text-sm">Convenient but 3x the price</p>
                     </div>
-                    <div className="pt-3 border-t">
-                      <p className="font-bold text-anchor-green">
+                    <div className="pt-3 border-t border-anchor-gold/15">
+                      <p className="font-bold text-anchor-cream-text">
                         The Anchor offers the best combination of location, 
                         parking, food, and atmosphere
                       </p>
@@ -373,7 +373,7 @@ export default async function PubsInStanwellPage() {
       </section>
 
       {/* Weekly Schedule */}
-      <section className="section-spacing bg-gray-50">
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -382,51 +382,51 @@ export default async function PubsInStanwellPage() {
             />
             
             <div className="grid gap-4">
-              <div className="bg-white rounded-lg p-4 flex items-center gap-4">
+              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-4 flex items-center gap-4">
                 <div className="text-3xl">📅</div>
                 <div className="flex-1">
                   <h3 className="font-bold">Monday</h3>
-                  <p className="text-gray-600">Bar open all day • Kitchen closed • Perfect for drinks</p>
+                  <p className="text-anchor-cream-text/70">Bar open all day • Kitchen closed • Perfect for drinks</p>
                 </div>
               </div>
               
-              <div className="bg-amber-50 rounded-lg p-4 flex items-center gap-4">
+              <div className="card-dark rounded-none p-4 flex items-center gap-4">
                 <div className="text-3xl">🍕</div>
                 <div className="flex-1">
                   <h3 className="font-bold">Tuesday - Pizza Night</h3>
-                  <p className="text-gray-600">Stone-baked pizzas • Kitchen 6pm-9pm</p>
+                  <p className="text-anchor-cream-text/70">Stone-baked pizzas • Kitchen 6pm-9pm</p>
                 </div>
               </div>
               
-              <div className="bg-white rounded-lg p-4 flex items-center gap-4">
+              <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-4 flex items-center gap-4">
                 <div className="text-3xl">🍽️</div>
                 <div className="flex-1">
                   <h3 className="font-bold">Wednesday-Thursday</h3>
-                  <p className="text-gray-600">Full menu available • Kitchen 6pm-9pm</p>
+                  <p className="text-anchor-cream-text/70">Full menu available • Kitchen 6pm-9pm</p>
                 </div>
               </div>
               
-              <div className="bg-blue-50 rounded-lg p-4 flex items-center gap-4">
+              <div className="card-dark rounded-none p-4 flex items-center gap-4">
                 <div className="text-3xl">🐟</div>
                 <div className="flex-1">
                   <h3 className="font-bold">Friday - Fish & Chips</h3>
-                  <p className="text-gray-600">Fish & chips served • Kitchen 6pm-9pm</p>
+                  <p className="text-anchor-cream-text/70">Fish & chips served • Kitchen 6pm-9pm</p>
                 </div>
               </div>
               
-              <div className="bg-purple-50 rounded-lg p-4 flex items-center gap-4">
+              <div className="card-dark rounded-none p-4 flex items-center gap-4">
                 <div className="text-3xl">🎭</div>
                 <div className="flex-1">
                   <h3 className="font-bold">Saturday - Entertainment Night</h3>
-                  <p className="text-gray-600">Hosted nights & one-off events • See /whats-on for details</p>
+                  <p className="text-anchor-cream-text/70">Hosted nights & one-off events • See /whats-on for details</p>
                 </div>
               </div>
               
-              <div className="bg-green-50 rounded-lg p-4 flex items-center gap-4">
+              <div className="card-dark rounded-none p-4 flex items-center gap-4">
                 <div className="text-3xl">🍖</div>
                 <div className="flex-1">
                   <h3 className="font-bold">Sunday - Roast Day</h3>
-                  <p className="text-gray-600">Traditional Sunday lunch • Kitchen 1pm-6pm</p>
+                  <p className="text-anchor-cream-text/70">Traditional Sunday lunch • Kitchen 1pm-6pm</p>
                 </div>
               </div>
             </div>
@@ -435,7 +435,7 @@ export default async function PubsInStanwellPage() {
       </section>
 
       {/* Customer Reviews */}
-      <section className="section-spacing bg-white">
+      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -481,7 +481,7 @@ export default async function PubsInStanwellPage() {
             answer: "Yes! We offer flexible function room hire for parties, celebrations, wakes, and corporate events. We can accommodate groups from 10-200 people with various catering options. Contact us on 01753 682707 to discuss your requirements."
           }
         ]}
-        className="bg-gray-50"
+        className="bg-anchor-bg"
       />
 
       {/* CTA Section */}

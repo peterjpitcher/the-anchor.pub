@@ -98,20 +98,20 @@ export default function GenderRevealPage() {
                 }
             />
 
-            <section className="py-8 bg-white">
+            <section className="py-8 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-green mb-4">
+                        <PageTitle className="text-anchor-cream-text mb-4">
                             Boy or Girl? The Big Moment Awaits.
                         </PageTitle>
-                        <p className="text-lg text-gray-700">
+                        <p className="text-lg text-anchor-cream-text/70">
                             Gender reveals are all about the moment—and the photos! The Anchor offers extensive outdoor space ideal for smoke cannons, balloon pops, or confetti showers, followed by a relaxed celebration with your loved ones.
                         </p>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-gray-50">
+            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -152,22 +152,22 @@ export default function GenderRevealPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-white">
+            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 items-center">
                         <div>
-                            <h3 className="text-2xl font-bold mb-4 text-pink-600">The "It's a Girl" Package</h3>
-                            <p className="mb-4 text-gray-700">Thinking pink? We can help you set up the area with pink napkins, allow space for pink balloon arches, and assist with the coordination of the reveal.</p>
+                            <h3 className="text-2xl font-bold mb-4 text-pink-400">The "It's a Girl" Package</h3>
+                            <p className="mb-4 text-anchor-cream-text/70">Thinking pink? We can help you set up the area with pink napkins, allow space for pink balloon arches, and assist with the coordination of the reveal.</p>
                         </div>
                         <div>
-                            <h3 className="text-2xl font-bold mb-4 text-blue-600">The "It's a Boy" Package</h3>
-                            <p className="mb-4 text-gray-700">Team Blue? We offer the same flexibility. Our staff are experts at keeping secrets if you want to hand us the envelope beforehand!</p>
+                            <h3 className="text-2xl font-bold mb-4 text-blue-400">The "It's a Boy" Package</h3>
+                            <p className="mb-4 text-anchor-cream-text/70">Team Blue? We offer the same flexibility. Our staff are experts at keeping secrets if you want to hand us the envelope beforehand!</p>
                         </div>
                     </div>
 
-                    <div className="mt-12 text-center bg-gray-50 p-8 rounded-xl border border-dashed border-gray-300">
-                        <h4 className="text-xl font-bold mb-2">Need a "Keeper of the Gender"?</h4>
-                        <p className="text-gray-600">
+                    <div className="mt-12 text-center bg-anchor-bg-raised p-8 rounded-xl border border-dashed border-anchor-gold/30">
+                        <h4 className="text-xl font-bold mb-2 text-anchor-cream-text">Need a "Keeper of the Gender"?</h4>
+                        <p className="text-anchor-cream-text/70">
                             If you want to be surprised too, you can give the sealed results to our manager, and we will arrange the correct coloured looking cannons or cake cutting for you!
                         </p>
                     </div>
@@ -191,7 +191,7 @@ export default function GenderRevealPage() {
                         answer: "We generally don't charge a venue hire fee if you are ordering food/buffet for a minimum number of guests. Contact us for specifics."
                     }
                 ]}
-                className="bg-white"
+                className="bg-anchor-bg-card"
             />
 
             <CTASection

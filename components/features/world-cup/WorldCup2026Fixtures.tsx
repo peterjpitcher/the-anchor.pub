@@ -205,11 +205,11 @@ export function WorldCup2026Fixtures({ matches, className }: WorldCup2026Fixture
               ? []
               : matches.filter(({ status }) => status === 'not_showing')
           return (
-            <Card key={dateKey} className="overflow-hidden border border-gray-200">
-              <div className="flex flex-col gap-3 bg-gray-50 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
+            <Card key={dateKey} className="overflow-hidden border border-anchor-gold/15">
+              <div className="flex flex-col gap-3 bg-anchor-bg-raised px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <p className="text-sm font-semibold text-anchor-green">{displayDate}</p>
-                  <p className="text-xs text-gray-600">
+                  <p className="text-sm font-semibold text-anchor-cream-text">{displayDate}</p>
+                  <p className="text-xs text-anchor-cream-text/70">
                     {matches.length} match{matches.length === 1 ? '' : 'es'}
                     {' • '}
                     {showingCount} showing
@@ -223,7 +223,7 @@ export function WorldCup2026Fixtures({ matches, className }: WorldCup2026Fixture
                 </div>
               </div>
 
-              <div className="divide-y divide-gray-100">
+              <div className="divide-y divide-anchor-gold/15">
                 {visibleMatches.map(({ match, londonDateTime, status, closeTime }) => {
                   const timeLabel = londonDateTime.toFormat('HH:mm')
                   const stageText = stageLabel[match.stage]
@@ -246,9 +246,9 @@ export function WorldCup2026Fixtures({ matches, className }: WorldCup2026Fixture
                   })()
 
                   const statusPillClassName = (() => {
-                    if (!isShowing) return 'bg-gray-200/70 text-gray-700'
-                    if (startsBeforeOpen) return 'bg-amber-200/70 text-amber-900'
-                    return 'bg-green-200/70 text-green-900'
+                    if (!isShowing) return 'bg-anchor-bg-raised text-anchor-cream-text/55'
+                    if (startsBeforeOpen) return 'bg-amber-500/20 text-amber-400'
+                    return 'bg-anchor-green/20 text-anchor-gold-vivid'
                   })()
 
                   return (
@@ -257,36 +257,36 @@ export function WorldCup2026Fixtures({ matches, className }: WorldCup2026Fixture
                       id={`match-${match.matchNumber}`}
                       className={cn(
                         'flex flex-col gap-3 px-5 py-4 sm:flex-row sm:items-center sm:justify-between',
-                        !isShowing && 'bg-gray-50'
+                        !isShowing && 'bg-anchor-bg-raised'
                       )}
                     >
                       <div className="min-w-0">
                         <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                          <span className="inline-flex rounded-full bg-anchor-green/10 px-2.5 py-1 text-xs font-bold text-anchor-green">
+                          <span className="inline-flex rounded-full bg-anchor-green/20 px-2.5 py-1 text-xs font-bold text-anchor-gold-vivid">
                             {timeLabel}
                           </span>
                           <span className={cn('inline-flex rounded-full px-2.5 py-1 text-xs font-semibold', statusPillClassName)}>
                             {statusLabelText}
                           </span>
                           {isEnglandMatch && (
-                            <span className="inline-flex rounded-full bg-anchor-gold/20 px-2.5 py-1 text-xs font-semibold text-anchor-green">
+                            <span className="inline-flex rounded-full bg-anchor-gold/20 px-2.5 py-1 text-xs font-semibold text-anchor-gold-vivid">
                               England
                             </span>
                           )}
-                          <p className="text-sm font-semibold text-gray-900">{teamsLabel}</p>
-                          <span className="text-xs text-gray-500">Match {match.matchNumber}</span>
+                          <p className="text-sm font-semibold text-anchor-cream-text">{teamsLabel}</p>
+                          <span className="text-xs text-anchor-cream-text/55">Match {match.matchNumber}</span>
                         </div>
-                        <div className="mt-1 flex flex-wrap gap-x-3 gap-y-1 text-xs text-gray-600">
+                        <div className="mt-1 flex flex-wrap gap-x-3 gap-y-1 text-xs text-anchor-cream-text/70">
                           {secondaryBits.length > 0 && <span>{secondaryBits.join(' • ')}</span>}
                           {locationParts && <span>{locationParts}</span>}
                           {mayRunPastClose && (
-                            <span className="text-amber-700">
+                            <span className="text-amber-400">
                               May run past closing
                             </span>
                           )}
                         </div>
                         {!isShowing && (
-                          <p className="mt-2 text-xs text-gray-600">
+                          <p className="mt-2 text-xs text-anchor-cream-text/70">
                             Kick-off is outside our opening hours.
                           </p>
                         )}
@@ -313,11 +313,11 @@ export function WorldCup2026Fixtures({ matches, className }: WorldCup2026Fixture
               </div>
 
               {fixtureVisibility === 'showing' && hiddenMatches.length > 0 && (
-                <details className="border-t border-gray-100 bg-white">
-                  <summary className="cursor-pointer px-5 py-4 text-sm font-semibold text-gray-700 hover:bg-gray-50">
+                <details className="border-t border-anchor-gold/15 bg-anchor-bg-card">
+                  <summary className="cursor-pointer px-5 py-4 text-sm font-semibold text-anchor-cream-text/70 hover:bg-anchor-bg-raised">
                     {hiddenMatches.length} match{hiddenMatches.length === 1 ? '' : 'es'} not showing (outside opening hours)
                   </summary>
-                  <div className="divide-y divide-gray-100">
+                  <div className="divide-y divide-anchor-gold/15">
                     {hiddenMatches.map(({ match, londonDateTime, status, closeTime }) => {
                       const timeLabel = londonDateTime.toFormat('HH:mm')
                       const stageText = stageLabel[match.stage]
@@ -336,30 +336,30 @@ export function WorldCup2026Fixtures({ matches, className }: WorldCup2026Fixture
                         <div
                           key={match.matchNumber}
                           id={`match-${match.matchNumber}`}
-                          className="flex flex-col gap-3 bg-gray-50 px-5 py-4 sm:flex-row sm:items-center sm:justify-between"
+                          className="flex flex-col gap-3 bg-anchor-bg-raised px-5 py-4 sm:flex-row sm:items-center sm:justify-between"
                         >
                           <div className="min-w-0">
                             <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                              <span className="inline-flex rounded-full bg-anchor-green/10 px-2.5 py-1 text-xs font-bold text-anchor-green">
+                              <span className="inline-flex rounded-full bg-anchor-green/20 px-2.5 py-1 text-xs font-bold text-anchor-gold-vivid">
                                 {timeLabel}
                               </span>
-                              <span className="inline-flex rounded-full bg-gray-200/70 px-2.5 py-1 text-xs font-semibold text-gray-700">
+                              <span className="inline-flex rounded-full bg-anchor-bg-card px-2.5 py-1 text-xs font-semibold text-anchor-cream-text/55">
                                 Not showing
                               </span>
                               {isEnglandMatch && (
-                                <span className="inline-flex rounded-full bg-anchor-gold/20 px-2.5 py-1 text-xs font-semibold text-anchor-green">
+                                <span className="inline-flex rounded-full bg-anchor-gold/20 px-2.5 py-1 text-xs font-semibold text-anchor-gold-vivid">
                                   England
                                 </span>
                               )}
-                              <p className="text-sm font-semibold text-gray-900">{teamsLabel}</p>
-                              <span className="text-xs text-gray-500">Match {match.matchNumber}</span>
+                              <p className="text-sm font-semibold text-anchor-cream-text">{teamsLabel}</p>
+                              <span className="text-xs text-anchor-cream-text/55">Match {match.matchNumber}</span>
                             </div>
-                            <div className="mt-1 flex flex-wrap gap-x-3 gap-y-1 text-xs text-gray-600">
+                            <div className="mt-1 flex flex-wrap gap-x-3 gap-y-1 text-xs text-anchor-cream-text/70">
                               {secondaryBits.length > 0 && <span>{secondaryBits.join(' • ')}</span>}
                               {locationParts && <span>{locationParts}</span>}
-                              {mayRunPastClose && <span className="text-amber-700">May run past closing</span>}
+                              {mayRunPastClose && <span className="text-amber-400">May run past closing</span>}
                             </div>
-                            <p className="mt-2 text-xs text-gray-600">Kick-off is outside our opening hours.</p>
+                            <p className="mt-2 text-xs text-anchor-cream-text/70">Kick-off is outside our opening hours.</p>
                           </div>
                         </div>
                       )
@@ -372,11 +372,11 @@ export function WorldCup2026Fixtures({ matches, className }: WorldCup2026Fixture
         })}
 
         {fixturesByDate.length === 0 && (
-          <div className="py-12 text-center text-gray-500">No matches found for your selection.</div>
+          <div className="py-12 text-center text-anchor-cream-text/55">No matches found for your selection.</div>
         )}
       </div>
 
-      <div className="text-center text-xs text-gray-500 italic">
+      <div className="text-center text-xs text-anchor-cream-text/55 italic">
         * Times shown in UK time (BST). Fixtures subject to change.
       </div>
     </div>

@@ -127,13 +127,13 @@ export default function SixNationsPage() {
                 }
             />
 
-            <section className="py-12 bg-white">
+            <section className="py-12 bg-anchor-bg">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center mb-12">
-                        <PageTitle className="text-anchor-green mb-4">
+                        <PageTitle className="text-anchor-gold-vivid mb-4">
                             The Home of Rugby in Stanwell Moor
                         </PageTitle>
-                        <p className="text-lg text-gray-700">
+                        <p className="text-lg text-anchor-cream-text/70">
                             We're just 7 minutes from Heathrow Terminal 5 and miles away from the generic sports bar vibe.
                             Settle in for a proper pub atmosphere with fresh Guinness, hearty food, and every tackle on our 4 HD screens.
                         </p>
@@ -159,28 +159,28 @@ export default function SixNationsPage() {
                                 title: "Sound On",
                                 description: "Commentary on for every match.",
                                 variant: "default",
-                                className: "text-center border border-gray-200"
+                                className: "text-center border border-anchor-gold/15"
                             },
                             {
                                 icon: "📺",
                                 title: "4 Screens",
                                 description: "Visible from the bar and dining areas.",
                                 variant: "default",
-                                className: "text-center border border-gray-200"
+                                className: "text-center border border-anchor-gold/15"
                             },
                             {
                                 icon: "🍔",
                                 title: "Kitchen Open",
                                 description: "Food served during all games.",
                                 variant: "default",
-                                className: "text-center border border-gray-200"
+                                className: "text-center border border-anchor-gold/15"
                             },
                             {
                                 icon: "🅿️",
                                 title: "Free Parking",
                                 description: "20 spaces + easy M25 access.",
                                 variant: "default",
-                                className: "text-center border border-gray-200"
+                                className: "text-center border border-anchor-gold/15"
                             }
                         ]}
                         className="mb-8"
@@ -188,7 +188,7 @@ export default function SixNationsPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-gray-50" id="fixtures">
+            <section className="section-spacing bg-anchor-bg-raised" id="fixtures">
                 <Container>
                     <SectionHeader
                         title="Six Nations 2026 Fixtures"
@@ -212,7 +212,7 @@ export default function SixNationsPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-white">
+            <section className="section-spacing bg-anchor-bg">
                 <Container>
                     <div className="grid md:grid-cols-2 gap-12 items-center">
                         <div>
@@ -221,7 +221,7 @@ export default function SixNationsPage() {
                                 subtitle="Fuel for the match"
                                 className="text-left mb-6"
                             />
-                            <div className="prose text-gray-600 mb-6">
+                            <div className="prose text-anchor-cream-text/70 mb-6">
                                 <p>
                                     Whether you're after a half-time burger or a celebratory post-match meal, our kitchen is open throughout every Six Nations game.
                                 </p>
@@ -235,15 +235,15 @@ export default function SixNationsPage() {
                                 <Link href="/drinks"><Button variant="outline">Drinks List</Button></Link>
                             </div>
                         </div>
-                        <div className="bg-anchor-cream rounded-2xl p-8">
-                            <h3 className="text-xl font-bold text-anchor-green mb-4">Find Us Near Heathrow</h3>
-                            <ul className="space-y-3 text-sm text-gray-700 mb-6">
+                        <div className="bg-anchor-bg-raised rounded-2xl p-8">
+                            <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Find Us Near Heathrow</h3>
+                            <ul className="space-y-3 text-sm text-anchor-cream-text/70 mb-6">
                                 <li className="flex gap-2"><span>📍</span> <span>{CONTACT.address.street}, {CONTACT.address.town}, {CONTACT.address.postcode}</span></li>
                                 <li className="flex gap-2"><span>🚗</span> <span>7 mins from Terminal 5</span></li>
                                 <li className="flex gap-2"><span>🅿️</span> <span>Free parking ({PARKING.capacity} spaces)</span></li>
                                 <li className="flex gap-2"><span>🚌</span> <span>Bus routes from Staines & Heathrow</span></li>
                             </ul>
-                            <Link href="/find-us" className="text-anchor-green font-bold hover:underline">
+                            <Link href="/find-us" className="text-anchor-gold font-bold hover:underline">
                                 Get Directions →
                             </Link>
                         </div>
@@ -251,7 +251,7 @@ export default function SixNationsPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-gray-50">
+            <section className="section-spacing bg-anchor-bg-raised">
                 <Container>
                     <SectionHeader title="Frequently Asked Questions" />
                     <FAQAccordionWithSchema

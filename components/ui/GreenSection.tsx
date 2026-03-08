@@ -11,11 +11,11 @@ export function GreenSection({
   className = '',
   variant = 'solid'
 }: GreenSectionProps) {
-  const baseClasses = 'text-white' // Force white text on green backgrounds
-  
+  const baseClasses = 'text-anchor-cream-text' // Force cream text on dark backgrounds
+
   const variants = {
-    solid: 'bg-anchor-green',
-    gradient: 'bg-gradient-to-br from-anchor-green to-anchor-green-dark'
+    solid: 'bg-anchor-bg-card',
+    gradient: 'bg-gradient-to-br from-anchor-bg-card to-anchor-bg'
   }
   
   return (
@@ -35,13 +35,13 @@ interface GreenHeadingProps {
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
 }
 
-export function GreenHeading({ 
-  children, 
+export function GreenHeading({
+  children,
   className = '',
   as: Component = 'h2'
 }: GreenHeadingProps) {
   return (
-    <Component className={cn('text-white', className)}>
+    <Component className={cn('text-anchor-gold-vivid', className)}>
       {children}
     </Component>
   )

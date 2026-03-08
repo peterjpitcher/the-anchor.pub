@@ -440,7 +440,7 @@ export default async function SundayLunchPage() {
         }
       />
 
-      <section id="preorder" className="section-spacing bg-white">
+      <section id="preorder" className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -449,19 +449,19 @@ export default async function SundayLunchPage() {
             />
 
             <div className="grid gap-4 sm:grid-cols-3">
-              <div className="rounded-xl border border-anchor-green/10 bg-anchor-cream/40 p-5">
-                <p className="text-sm font-semibold text-anchor-green">Choose your roast</p>
-                <p className="mt-1 text-sm text-gray-700">
+              <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg-card p-5">
+                <p className="text-sm font-semibold text-anchor-gold-vivid">Choose your roast</p>
+                <p className="mt-1 text-sm text-anchor-cream-text/70">
                   Roasted chicken, lamb shank, pork belly, Wellington (V), or kids roasted chicken.
                 </p>
               </div>
-              <div className="rounded-xl border border-anchor-green/10 bg-anchor-cream/40 p-5">
-                <p className="text-sm font-semibold text-anchor-green">Book by {formatCutoff(menu.cutoffTime)}</p>
-                <p className="mt-1 text-sm text-gray-700">We cook to order, so we need numbers in advance.</p>
+              <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg-card p-5">
+                <p className="text-sm font-semibold text-anchor-gold-vivid">Book by {formatCutoff(menu.cutoffTime)}</p>
+                <p className="mt-1 text-sm text-anchor-cream-text/70">We cook to order, so we need numbers in advance.</p>
               </div>
-              <div className="rounded-xl border border-anchor-green/10 bg-anchor-cream/40 p-5">
-                <p className="text-sm font-semibold text-anchor-green">£10 per person deposit required</p>
-                <p className="mt-1 text-sm text-gray-700">Sunday lunch bookings require a £10 per person deposit.</p>
+              <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg-card p-5">
+                <p className="text-sm font-semibold text-anchor-gold-vivid">£10 per person deposit required</p>
+                <p className="mt-1 text-sm text-anchor-cream-text/70">Sunday lunch bookings require a £10 per person deposit.</p>
               </div>
             </div>
 
@@ -477,7 +477,7 @@ export default async function SundayLunchPage() {
         </Container>
       </section>
 
-      <section id="menu" className="section-spacing bg-anchor-cream">
+      <section id="menu" className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
@@ -485,22 +485,22 @@ export default async function SundayLunchPage() {
               subtitle="All dishes served with herb and garlic-crusted roast potatoes, seasonal vegetables, Yorkshire pudding, and red wine gravy."
             />
 
-            <p className="text-center text-sm text-gray-600 italic mb-10">
+            <p className="text-center text-sm text-anchor-cream-text/55 italic mb-10">
               {menuDateDisplay ? `Menu for ${menuDateDisplay}. ` : ''}Vegetarian gravy available on request.
             </p>
 
             <div className="space-y-6">
               {menu.mains.map(item => (
-                <div key={item.id || item.name} className="bg-white rounded-2xl p-8 shadow-md">
+                <div key={item.id || item.name} className="card-dark rounded-none p-8">
                   <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-3">
                     <div>
-                      <h3 className="text-2xl font-bold text-anchor-green">{item.name}</h3>
+                      <h3 className="text-2xl font-bold text-anchor-cream-text">{item.name}</h3>
                       {item.dietary_info?.length ? (
                         <div className="flex flex-wrap gap-2 mt-2">
                           {item.dietary_info.map(tag => (
                             <span
                               key={`${item.name}-${tag}`}
-                              className="text-xs font-semibold text-anchor-gold bg-amber-50 px-2 py-1 rounded"
+                              className="text-xs font-semibold text-anchor-gold bg-anchor-bg px-2 py-1 rounded"
                             >
                               {tag}
                             </span>
@@ -513,18 +513,18 @@ export default async function SundayLunchPage() {
                     )}
                   </div>
 
-                  {item.description && <p className="text-gray-700 mb-3">{item.description}</p>}
+                  {item.description && <p className="text-anchor-cream-text/70 mb-3">{item.description}</p>}
                   {item.allergens?.length ? (
-                    <p className="text-xs text-gray-500">Allergens: {item.allergens.join(', ')}</p>
+                    <p className="text-xs text-anchor-cream-text/55">Allergens: {item.allergens.join(', ')}</p>
                   ) : null}
                   {item.is_available === false && (
-                    <p className="text-sm text-red-600 font-semibold mt-2">Currently unavailable</p>
+                    <p className="text-sm text-red-400 font-semibold mt-2">Currently unavailable</p>
                   )}
                 </div>
               ))}
 
               {!menu.mains.length && (
-                <div className="bg-white rounded-2xl p-8 shadow-md text-center text-gray-700">
+                <div className="card-dark rounded-none p-8 text-center text-anchor-cream-text/70">
                   Live menu unavailable right now. Please call us on 01753 682707 for today&apos;s roast choices.
                 </div>
               )}
@@ -548,7 +548,7 @@ export default async function SundayLunchPage() {
                   variant="outline"
                   size="lg"
                   fullWidth
-                  className="sm:w-auto border-anchor-green text-anchor-green hover:bg-anchor-green hover:text-white"
+                  className="sm:w-auto border-anchor-gold/30 text-anchor-cream-text hover:bg-anchor-bg-raised"
                 >
                   <Icon name="phone" className="mr-2 flex-shrink-0" />
                   Call: 01753 682707
@@ -556,7 +556,7 @@ export default async function SundayLunchPage() {
               </Link>
             </div>
 
-            <p className="mt-4 text-center text-sm text-gray-600">
+            <p className="mt-4 text-center text-sm text-anchor-cream-text/55">
               {sundayServiceSentence}. Free parking available.
             </p>
           </div>
@@ -565,7 +565,7 @@ export default async function SundayLunchPage() {
 
       <section id="faq">
         <FAQAccordionWithSchema
-          className="bg-white"
+          className="bg-anchor-bg"
           title="Sunday Lunch FAQ"
           faqs={[
             {

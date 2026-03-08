@@ -88,13 +88,13 @@ export default async function AllTagsPage() {
       />
 
       {/* Tags by Category */}
-      <Section spacing="lg" container containerSize="lg">
+      <Section spacing="lg" container containerSize="lg" className="bg-anchor-bg">
         {Object.entries(categorizedTags).map(([category, tags]) => {
           if (tags.length === 0) return null
 
           return (
             <div key={category} className="mb-12 last:mb-0">
-              <h2 className="text-2xl font-bold text-anchor-green mb-6">
+              <h2 className="text-2xl font-bold text-anchor-gold-vivid mb-6">
                 {category === 'Core' ? 'Browse by Topic' : category}
               </h2>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -108,15 +108,15 @@ export default async function AllTagsPage() {
                     <Link
                       key={tag}
                       href={`/blog/tag/${tag}`}
-                      className="group bg-gray-50 rounded-lg p-4 hover:shadow-md transition-all hover:scale-105"
+                      className="group bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-4 hover:border-anchor-gold/40 transition-all"
                     >
-                      <h3 className="font-semibold text-anchor-green group-hover:text-anchor-gold transition-colours mb-1">
+                      <h3 className="font-semibold text-anchor-gold-vivid group-hover:text-anchor-gold transition-colours mb-1">
                         {info.name}
                       </h3>
-                      <p className="text-sm text-gray-600 mb-2 line-clamp-2">
+                      <p className="text-sm text-anchor-cream-text/70 mb-2 line-clamp-2">
                         {info.description}
                       </p>
-                      <span className="text-sm sm:text-xs bg-white px-2 py-1 rounded-full text-gray-700">
+                      <span className="text-sm sm:text-xs bg-anchor-bg px-2 py-1 rounded-full text-anchor-cream-text/55">
                         {count} {count === 1 ? 'post' : 'posts'}
                       </span>
                     </Link>

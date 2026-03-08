@@ -24,23 +24,23 @@ export function FAQAccordion({ title = "Frequently Asked Questions", faqs, class
     <section className={`section-spacing ${className}`}>
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-anchor-green mb-8 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-anchor-cream-text mb-8 text-center">
             {title}
           </h2>
-          
+
           <div className="space-y-4">
             {faqs.map((faq, index) => (
-              <div 
+              <div
                 key={index}
-                className="bg-white rounded-xl shadow-md overflow-hidden"
+                className="card-dark rounded-none overflow-hidden"
               >
                 <button
                   onClick={() => toggleQuestion(index)}
-                  className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-50 transition-colors"
+                  className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-anchor-bg-raised transition-colors"
                   aria-expanded={openIndex === index}
                   aria-controls={`faq-answer-${index}`}
                 >
-                  <h3 className="font-bold text-lg text-anchor-green pr-4">
+                  <h3 className="font-bold text-lg text-anchor-gold-vivid pr-4">
                     {faq.question}
                   </h3>
                   <svg 
@@ -71,7 +71,7 @@ export function FAQAccordion({ title = "Frequently Asked Questions", faqs, class
                     maxHeight: openIndex === index ? '500px' : '0',
                   }}
                 >
-                  <p className="text-gray-700">
+                  <p className="text-anchor-cream-text/70">
                     {faq.answer}
                   </p>
                 </div>

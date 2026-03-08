@@ -160,9 +160,9 @@ const FAQS = [
 function MusicEventCards({ events }: { events: Event[] }) {
     if (!events.length) {
         return (
-            <div className="bg-white border border-gray-200 rounded-xl p-6 text-center">
-                <p className="text-lg font-semibold text-anchor-green mb-2">New gigs announced soon</p>
-                <p className="text-gray-600">
+            <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-xl p-6 text-center">
+                <p className="text-lg font-semibold text-anchor-gold-vivid mb-2">New gigs announced soon</p>
+                <p className="text-anchor-cream-text/70">
                     We’re booking our next acts right now. Call 01753 682707 or check back soon for the latest lineup.
                 </p>
             </div>
@@ -224,9 +224,9 @@ function MusicEventCards({ events }: { events: Event[] }) {
 
                             <div className="flex-1 space-y-4">
                                 {event.description && (
-                                    <p className="text-gray-700 leading-relaxed">{event.description}</p>
+                                    <p className="text-anchor-cream-text/70 leading-relaxed">{event.description}</p>
                                 )}
-                                <p className="text-sm text-gray-600">
+                                <p className="text-sm text-anchor-cream-text/55">
                                     {openMic
                                         ? 'Acoustic-friendly to start, with all performer types welcome for future events. Walk-ins are welcome, and you can book a table if you’d like a guaranteed seat.'
                                         : 'Join us for a fantastic night of live music. Great beer, great atmosphere, and no cover charge.'}
@@ -296,10 +296,10 @@ export default async function LiveMusicPage() {
 
             <Section spacing="sm" background="white">
                 <Container>
-                    <PageTitle className="text-center text-anchor-green" seo={{ structured: true, speakable: true }}>
+                    <PageTitle className="text-center text-anchor-gold-vivid" seo={{ structured: true, speakable: true }}>
                         Live Music Pub Near Heathrow – Bands, Gigs & Good Times
                     </PageTitle>
-                    <p className="text-lg text-gray-700 text-center max-w-3xl mx-auto">
+                    <p className="text-lg text-anchor-cream-text/70 text-center max-w-3xl mx-auto">
                         Looking for live music near Heathrow? The Anchor brings you the best local talent, from foot-tapping acoustic sets to high-energy party bands. Located in Stanwell Moor, just minutes from the airport, we’re the perfect spot for music lovers to unwind with a pint and a gig. {heroDescription}
                     </p>
                 </Container>
@@ -308,12 +308,12 @@ export default async function LiveMusicPage() {
             <Section spacing="md" background="gray">
                 <Container>
                     <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-stretch">
-                        <Card className="bg-white shadow-lg border border-anchor-sand">
+                        <Card className="card-dark rounded-none border border-anchor-gold/15">
                             <CardBody className="space-y-4">
                                 <p className="text-sm uppercase tracking-wide text-anchor-gold font-semibold">Next live gig</p>
-                                <h2 className="text-3xl font-bold text-anchor-charcoal">{nextEvent ? nextEvent.name : 'Next gig announced soon'}</h2>
-                                <p className="text-anchor-green font-semibold">{nextEvent ? `${nextEventDate} · ${nextEventTime}` : 'Check back for the next date'}</p>
-                                <p className="text-gray-700 whitespace-pre-line">
+                                <h2 className="text-3xl font-bold text-anchor-cream-text">{nextEvent ? nextEvent.name : 'Next gig announced soon'}</h2>
+                                <p className="text-anchor-gold-vivid font-semibold">{nextEvent ? `${nextEventDate} · ${nextEventTime}` : 'Check back for the next date'}</p>
+                                <p className="text-anchor-cream-text/70 whitespace-pre-line">
                                     {nextEvent?.description || 'From acoustic sessions to full rock bands, our live music nights are always free entry and full of energy.'}
                                 </p>
                 <div className="space-y-3">
@@ -331,16 +331,16 @@ export default async function LiveMusicPage() {
                                 </div>
                             </CardBody>
                         </Card>
-                        <Card className="bg-anchor-cream border border-amber-100 shadow-sm">
+                        <Card className="card-dark rounded-none border border-anchor-gold/15">
                             <CardBody className="space-y-4">
-                                <h3 className="text-2xl font-bold text-anchor-charcoal">Gig Guide</h3>
-                                <ul className="space-y-3 text-gray-700">
+                                <h3 className="text-2xl font-bold text-anchor-cream-text">Gig Guide</h3>
+                                <ul className="space-y-3 text-anchor-cream-text/70">
                                     <li><strong>Start time:</strong> Bands usually kick off around 8:30 pm.</li>
                                     <li><strong>Cost:</strong> Always free entry. Support local music by buying a pint!</li>
                                     <li><strong>Food:</strong> Kitchen open until 9 pm for gig fuel.</li>
                                     <li><strong>Atmosphere:</strong> Up-close, personal and friendly. Standing room at the bar, tables available to book.</li>
                                 </ul>
-                                <p className="text-sm text-gray-600">
+                                <p className="text-sm text-anchor-cream-text/55">
                                     Families welcome until 9pm. After that, it's an 18+ venue.
                                 </p>
                             </CardBody>
@@ -352,8 +352,8 @@ export default async function LiveMusicPage() {
             <Section spacing="md" background="white" id="music-dates">
                 <Container>
                     <div className="max-w-5xl mx-auto">
-                        <h2 className="text-3xl font-bold text-anchor-charcoal text-center mb-6">Upcoming Gigs</h2>
-                        <p className="text-gray-700 text-center mb-8">
+                        <h2 className="text-3xl font-bold text-anchor-cream-text text-center mb-6">Upcoming Gigs</h2>
+                        <p className="text-anchor-cream-text/70 text-center mb-8">
                             Here’s who’s playing next. For the most up-to-date info, keep an eye on our <Link href="https://facebook.com/theanchorstanwellmoor" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">Facebook page</Link>.
                         </p>
                         <MusicEventCards events={events} />
@@ -364,10 +364,10 @@ export default async function LiveMusicPage() {
             <Section spacing="sm" background="white">
                 <Container>
                     <div className="max-w-5xl mx-auto grid gap-6 md:grid-cols-3">
-                        <Card className="bg-anchor-cream/50 shadow-sm">
+                        <Card className="card-dark rounded-none border border-anchor-gold/15">
                             <CardBody>
-                                <h3 className="text-xl font-semibold text-anchor-green mb-2">Pre-Gig Dinner</h3>
-                                <p className="text-sm text-gray-700 mb-4">
+                                <h3 className="text-xl font-semibold text-anchor-gold-vivid mb-2">Pre-Gig Dinner</h3>
+                                <p className="text-sm text-anchor-cream-text/70 mb-4">
                                     Kitchen open until 9pm. Grab a burger or pizza before the music starts.
                                 </p>
                                 <div className="flex flex-col gap-2">
@@ -385,10 +385,10 @@ export default async function LiveMusicPage() {
                                 </div>
                             </CardBody>
                         </Card>
-                        <Card className="bg-white shadow-sm">
+                        <Card className="card-dark rounded-none border border-anchor-gold/15">
                             <CardBody>
-                                <h3 className="text-xl font-semibold text-anchor-green mb-2">Sunday Sessions</h3>
-                                <p className="text-sm text-gray-700 mb-4">
+                                <h3 className="text-xl font-semibold text-anchor-gold-vivid mb-2">Sunday Sessions</h3>
+                                <p className="text-sm text-anchor-cream-text/70 mb-4">
                                     Relaxed acoustic vibes to go with your Sunday Roast. The perfect end to the week.
                                 </p>
                                 <div className="flex flex-col gap-2">
@@ -406,10 +406,10 @@ export default async function LiveMusicPage() {
                                 </div>
                             </CardBody>
                         </Card>
-                        <Card className="bg-anchor-cream/50 shadow-sm">
+                        <Card className="card-dark rounded-none border border-anchor-gold/15">
                             <CardBody>
-                                <h3 className="text-xl font-semibold text-anchor-green mb-2">Drinks & Cocktails</h3>
-                                <p className="text-sm text-gray-700 mb-4">
+                                <h3 className="text-xl font-semibold text-anchor-gold-vivid mb-2">Drinks & Cocktails</h3>
+                                <p className="text-sm text-anchor-cream-text/70 mb-4">
                                     Full bar service with craft beers, ales, wines and cocktails to enjoy while you listen.
                                 </p>
                                 <div className="flex flex-col gap-2">
@@ -426,17 +426,17 @@ export default async function LiveMusicPage() {
             <Section spacing="md" background="gray">
                 <Container>
                     <div className="max-w-6xl mx-auto">
-                        <h2 className="text-3xl md:text-4xl font-bold text-anchor-charcoal mb-8 text-center">
+                        <h2 className="text-3xl md:text-4xl font-bold text-anchor-cream-text mb-8 text-center">
                             Why catch a gig at The Anchor?
                         </h2>
                         <Grid cols={WHY_LOVE_IT.length > 3 ? 4 : 3} gap="md">
                             {WHY_LOVE_IT.map(feature => (
                                 <GridItem key={feature.title}>
-                                    <Card className="h-full bg-white border border-gray-100 shadow-sm hover:shadow-md transition">
+                                    <Card className="h-full card-dark rounded-none border border-anchor-gold/15">
                                         <CardBody className="space-y-3">
                                             <div className="text-4xl">{feature.icon}</div>
-                                            <h3 className="text-xl font-semibold text-anchor-charcoal">{feature.title}</h3>
-                                            <p className="text-gray-700 text-sm leading-relaxed">{feature.body}</p>
+                                            <h3 className="text-xl font-semibold text-anchor-cream-text">{feature.title}</h3>
+                                            <p className="text-anchor-cream-text/70 text-sm leading-relaxed">{feature.body}</p>
                                         </CardBody>
                                     </Card>
                                 </GridItem>
@@ -452,8 +452,8 @@ export default async function LiveMusicPage() {
                 <Container>
                     <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-start">
                         <div>
-                            <h2 className="text-2xl font-bold text-anchor-charcoal mb-3">Find us</h2>
-                            <p className="text-gray-700 mb-4">
+                            <h2 className="text-2xl font-bold text-anchor-cream-text mb-3">Find us</h2>
+                            <p className="text-anchor-cream-text/70 mb-4">
                                 The Anchor · Horton Road, Stanwell Moor, TW19 6AQ · Free on-site parking · 7 minutes from Heathrow T5 · 8 minutes from Staines.
                             </p>
                             <div className="flex flex-col sm:flex-row gap-3 mt-4">
@@ -474,7 +474,7 @@ export default async function LiveMusicPage() {
                         <div className="h-full">
                             <GoogleMapEmbed
                                 query="The Anchor, Stanwell Moor"
-                                className="h-full min-h-[300px] border border-gray-200 rounded-xl overflow-hidden shadow-sm"
+                                className="h-full min-h-[300px] border border-anchor-gold/15 rounded-xl overflow-hidden shadow-sm"
                             />
                         </div>
                     </div>

@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils'
 import type { BaseComponentProps } from '../types'
 
 const popoverVariants = cva(
-  'absolute z-50 rounded-lg bg-white shadow-lg border border-gray-200 outline-none',
+  'absolute z-50 rounded-none bg-anchor-bg-card shadow-lg border border-anchor-gold/15 outline-none',
   {
     variants: {
       size: {
@@ -291,28 +291,28 @@ export const Popover = forwardRef<HTMLDivElement, PopoverProps>(
         case 'top-start':
         case 'top-end':
           return {
-            className: `${baseStyles} border-t-8 border-x-4 border-b-0 border-t-white border-x-transparent`,
+            className: `${baseStyles} border-t-8 border-x-4 border-b-0 border-t-anchor-bg-card border-x-transparent`,
             style: { bottom: -arrowSize, left: '50%', transform: 'translateX(-50%)' }
           }
         case 'bottom':
         case 'bottom-start':
         case 'bottom-end':
           return {
-            className: `${baseStyles} border-b-8 border-x-4 border-t-0 border-b-white border-x-transparent`,
+            className: `${baseStyles} border-b-8 border-x-4 border-t-0 border-b-anchor-bg-card border-x-transparent`,
             style: { top: -arrowSize, left: '50%', transform: 'translateX(-50%)' }
           }
         case 'left':
         case 'left-start':
         case 'left-end':
           return {
-            className: `${baseStyles} border-l-8 border-y-4 border-r-0 border-l-white border-y-transparent`,
+            className: `${baseStyles} border-l-8 border-y-4 border-r-0 border-l-anchor-bg-card border-y-transparent`,
             style: { right: -arrowSize, top: '50%', transform: 'translateY(-50%)' }
           }
         case 'right':
         case 'right-start':
         case 'right-end':
           return {
-            className: `${baseStyles} border-r-8 border-y-4 border-l-0 border-r-white border-y-transparent`,
+            className: `${baseStyles} border-r-8 border-y-4 border-l-0 border-r-anchor-bg-card border-y-transparent`,
             style: { left: -arrowSize, top: '50%', transform: 'translateY(-50%)' }
           }
         default:
@@ -367,7 +367,7 @@ export const PopoverHeader = forwardRef<HTMLDivElement, PopoverHeaderProps>(
   ({ className, children, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn('px-4 py-3 border-b border-gray-200', className)}
+      className={cn('px-4 py-3 border-b border-anchor-gold/15', className)}
       {...props}
     >
       {children}
@@ -403,7 +403,7 @@ export const PopoverFooter = forwardRef<HTMLDivElement, PopoverFooterProps>(
   ({ className, children, ...props }, ref) => (
     <div
       ref={ref}
-      className={cn('px-4 py-3 border-t border-gray-200', className)}
+      className={cn('px-4 py-3 border-t border-anchor-gold/15', className)}
       {...props}
     >
       {children}

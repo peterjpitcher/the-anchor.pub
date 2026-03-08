@@ -70,20 +70,20 @@ export default function PreFlightDiningPage() {
                 }
             />
 
-            <section className="py-8 bg-white">
+            <section className="py-8 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-green mb-4">
+                        <PageTitle className="text-anchor-cream-text mb-4">
                             Plane Food Can Wait
                         </PageTitle>
-                        <p className="text-lg text-gray-700">
+                        <p className="text-lg text-anchor-cream-text/70">
                             You're about to spend hours on a plane. Why start that journey hungry or disappointed by an overpriced terminal sandwich? Stop at The Anchor for a hearty, cooked-to-order meal that will keep you satisfied halfway across the Atlantic.
                         </p>
                     </div>
                 </Container>
             </section>
 
-            <section className="section-spacing bg-gray-50">
+            <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
@@ -125,17 +125,17 @@ export default function PreFlightDiningPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-white">
+            <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 items-center">
                         <div>
                             <h3 className="text-3xl font-bold mb-4 text-gray-900">Timing is Everything</h3>
-                            <p className="mb-4 text-gray-700">
+                            <p className="mb-4 text-anchor-cream-text/70">
                                 We know you have a flight to catch. Our service is friendly but efficient. Let us know your timeline when you arrive, and we'll make sure you're fed and watered with plenty of time to get to the gate.
                             </p>
                             <div className="bg-gray-100 p-4 rounded-lg">
                                 <p className="font-bold">Estimated Taxi Times:</p>
-                                <ul className="mt-2 space-y-1 text-sm text-gray-600">
+                                <ul className="mt-2 space-y-1 text-sm text-anchor-cream-text/55">
                                     <li>✈️ Terminal 5: 5-7 mins</li>
                                     <li>✈️ Terminal 4: 10-12 mins</li>
                                     <li>✈️ Terminal 2 & 3: 10-12 mins</li>

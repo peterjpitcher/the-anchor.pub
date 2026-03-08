@@ -26,22 +26,22 @@ export function BotanicalsGrid({
   return (
     <div className={className}>
       {title && (
-        <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 text-center">
+        <h3 className="text-2xl md:text-3xl font-bold text-anchor-cream-text mb-4 text-center">
           {title}
         </h3>
       )}
       {description && (
-        <p className="text-center text-gray-700 mb-8 max-w-2xl mx-auto">
+        <p className="text-center text-anchor-cream-text/70 mb-8 max-w-2xl mx-auto">
           {description}
         </p>
       )}
       <div className={`grid ${gridCols[columns]} gap-3`}>
         {botanicals.map((botanical, index) => (
-          <div 
-            key={index} 
-            className="bg-green-50 hover:bg-green-100 transition-colors rounded-lg p-4 text-center border border-green-200"
+          <div
+            key={index}
+            className="bg-anchor-bg-raised hover:bg-anchor-bg-card transition-colors rounded-none p-4 text-center border border-anchor-gold/15"
           >
-            <span className="text-sm text-gray-700 font-medium">{botanical}</span>
+            <span className="text-sm text-anchor-cream-text/70 font-medium">{botanical}</span>
           </div>
         ))}
       </div>
