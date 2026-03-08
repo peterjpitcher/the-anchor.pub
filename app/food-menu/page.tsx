@@ -21,7 +21,6 @@ import { generateKitchenHoursSpecification, generateMenuItemOffer, generateNutri
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
-import { TrustBar, UrgencyKitchenStatus, ValueProofStrip } from '@/components/psychology'
 import type { KitchenStatusData } from '@/components/psychology'
 
 export const revalidate = 3600 // Revalidate every hour
@@ -319,30 +318,36 @@ export default async function FoodMenuPage() {
           />
         }
         secondaryInfo={
-          <p className="text-sm sm:text-base text-white/80 max-w-2xl mx-auto">
-            Proper pub food a stone&apos;s throw from Heathrow. Free parking, free WiFi, and kitchen open every evening.
-          </p>
+          <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm text-white/80 mt-1">
+            <span className="flex items-center gap-1.5"><span aria-hidden="true">✈️</span>7 min from Heathrow T5</span>
+            <span className="flex items-center gap-1.5"><span aria-hidden="true">🅿️</span>Free parking — 20 spaces</span>
+            <span className="flex items-center gap-1.5"><span aria-hidden="true">💷</span>Outside ULEZ — saves £12.50</span>
+            <span className="flex items-center gap-1.5"><span aria-hidden="true">📶</span>Free WiFi</span>
+            <span className="flex items-center gap-1.5"><span aria-hidden="true">🏆</span>BII Sustainability Champion</span>
+            {kitchenStatusData && kitchenStatusData.type === 'closing-soon' && (
+              <span className="flex items-center gap-1.5 text-amber-300 font-medium">
+                <span aria-hidden="true">⏰</span>Kitchen closes at {kitchenStatusData.closesAt} — book now
+              </span>
+            )}
+            {kitchenStatusData && kitchenStatusData.type === 'opens-later' && (
+              <span className="flex items-center gap-1.5 text-anchor-gold-vivid">
+                <span aria-hidden="true">🍽️</span>Kitchen opens at {kitchenStatusData.opensAt}
+              </span>
+            )}
+            {kitchenStatusData && kitchenStatusData.type === 'open' && (
+              <span className="flex items-center gap-1.5 text-green-300">
+                <span aria-hidden="true">✅</span>Kitchen open until {kitchenStatusData.closesAt}
+              </span>
+            )}
+          </div>
         }
       />
-
-      <TrustBar variant="food" />
-
-      {kitchenStatusData && (
-        <UrgencyKitchenStatus
-          status={kitchenStatusData}
-          className="mx-auto max-w-5xl px-4 py-3"
-        />
-      )}
 
       <Section background="white" spacing="sm" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <MenuAnchorNav links={ANCHOR_LINKS} />
         </Container>
       </Section>
-
-      <div className="mx-auto max-w-5xl px-4 pb-2">
-        <ValueProofStrip variant="food" />
-      </div>
 
       <Section background="white" spacing="sm" className="bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
