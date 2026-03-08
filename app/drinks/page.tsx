@@ -509,7 +509,7 @@ export default async function DrinksMenuPage() {
 
       {/* Menu Content */}
       <div id="menu">
-        <MenuRenderer menuData={menuDataWithoutManagersSpecial} accentColor="anchor-green" />
+        <MenuRenderer menuData={menuDataWithoutManagersSpecial} />
       </div>
 
       {/* Internal Links for SEO */}

@@ -376,7 +376,7 @@ export default async function FoodMenuPage() {
             align="center"
             className="mb-10"
           />
-          <FilteredMenuRenderer menuData={menuDataWithKitchenHours} accentColor="anchor-gold" />
+          <FilteredMenuRenderer menuData={menuDataWithKitchenHours} />
         </Container>
       </div>
 

@@ -9,10 +9,9 @@ import { trackFilterResults } from '@/lib/gtm-events/menu-events'
 
 interface FilteredMenuRendererProps {
   menuData: MenuData
-  accentColor?: string
 }
 
-export function FilteredMenuRenderer({ menuData, accentColor }: FilteredMenuRendererProps) {
+export function FilteredMenuRenderer({ menuData }: FilteredMenuRendererProps) {
   const {
     selectedAllergens,
     showVegetarianOnly,
@@ -94,7 +93,7 @@ export function FilteredMenuRenderer({ menuData, accentColor }: FilteredMenuRend
           </div>
         </div>
       ) : (
-        <MenuRenderer menuData={filteredMenuData} accentColor={accentColor} />
+        <MenuRenderer menuData={filteredMenuData} />
       )}
     </>
   )

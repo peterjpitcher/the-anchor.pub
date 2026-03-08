@@ -44,10 +44,9 @@ function normalizePrice(price?: string): {
 
 interface MenuRendererProps {
   menuData: MenuData
-  accentColor?: string
 }
 
-export function MenuRenderer({ menuData, accentColor = 'anchor-gold' }: MenuRendererProps) {
+export function MenuRenderer({ menuData }: MenuRendererProps) {
   const [focusedItem, setFocusedItem] = useState<string | null>(null)
   const menuRef = useRef<HTMLDivElement>(null)
 
@@ -155,7 +154,7 @@ export function MenuRenderer({ menuData, accentColor = 'anchor-gold' }: MenuRend
           <section
             key={category.id}
             id={category.id}
-            className={`py-8 ${categoryIndex % 2 === 0 ? 'bg-anchor-bg-raised' : 'bg-anchor-bg'}`}
+            className={cn('py-8', categoryIndex % 2 === 0 ? 'bg-anchor-bg-raised' : 'bg-anchor-bg')}
             itemScope
             itemType="https://schema.org/MenuSection"
           >
@@ -177,7 +176,7 @@ export function MenuRenderer({ menuData, accentColor = 'anchor-gold' }: MenuRend
 
               {category.sections.map((section, sectionIndex) => (
                 <div
-                  key={sectionIndex}
+                  key={section.title ?? sectionIndex}
                   className={cn(
                     'mb-8',
                     section.highlight && 'relative rounded-3xl px-6 py-12 shadow-lg overflow-visible',
@@ -217,7 +216,7 @@ export function MenuRenderer({ menuData, accentColor = 'anchor-gold' }: MenuRend
                       if (item.special) {
                         const { displayPrice, schemaPrice } = normalizePrice(item.price)
                         return (
-                          <Link key={itemIndex} href="/drinks/managers-special" className="relative block group mb-2">
+                          <Link key={item.name} href="/drinks/managers-special" className="relative block group mb-2">
                             <HeroBadge text="25% OFF" variant="special" position="absolute" />
                             <div
                               className="bg-anchor-green/10 border-2 border-anchor-green/40 rounded-2xl p-5 group-hover:shadow-xl group-hover:scale-[1.01] transition-all cursor-pointer"
@@ -257,12 +256,12 @@ export function MenuRenderer({ menuData, accentColor = 'anchor-gold' }: MenuRend
 
                       return (
                         <MenuItemRow
-                          key={itemIndex}
+                          key={item.name}
                           item={item}
                           itemId={itemId}
                           isFocused={focusedItem === itemId}
                           onFocus={setFocusedItem}
-                          isHighlighted={section.highlight && category.id === 'cocktails'}
+                          isHighlighted={!!(section.highlight && category.id === 'cocktails')}
                         />
                       )
                     })}
