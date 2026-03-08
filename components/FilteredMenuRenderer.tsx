@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useEffect } from 'react'
+import { useMemo, useEffect, useState, useCallback } from 'react'
 import { MenuData } from '@/lib/menu-parser'
 import { MenuRenderer } from './MenuRenderer'
 import { AllergenFilterBar } from './features/AllergenFilterBar'
@@ -12,6 +12,8 @@ interface FilteredMenuRendererProps {
 }
 
 export function FilteredMenuRenderer({ menuData }: FilteredMenuRendererProps) {
+  const [isFilterOpen, setIsFilterOpen] = useState(false)
+
   const {
     selectedAllergens,
     showVegetarianOnly,
@@ -22,46 +24,32 @@ export function FilteredMenuRenderer({ menuData }: FilteredMenuRendererProps) {
     activeFilterCount
   } = useAllergenFilter()
 
-  // Filter the menu data based on active filters
-  const filteredMenuData = useMemo(() => {
-    if (activeFilterCount === 0) {
-      return menuData
-    }
+  const handleOpen = useCallback(() => setIsFilterOpen(true), [])
+  const handleClose = useCallback(() => setIsFilterOpen(false), [])
 
-    // Deep clone and filter the menu data
-    const filtered: MenuData = {
+  const filteredMenuData = useMemo(() => {
+    if (activeFilterCount === 0) return menuData
+    return {
       ...menuData,
       categories: menuData.categories.map(category => ({
         ...category,
         sections: category.sections.map(section => ({
           ...section,
           items: section.items.filter(isItemVisible)
-        })).filter(section => section.items.length > 0) // Remove empty sections
-      })).filter(category => 
-        category.sections.length > 0 // Remove empty categories
-      )
+        })).filter(section => section.items.length > 0)
+      })).filter(category => category.sections.length > 0)
     }
-
-    return filtered
   }, [menuData, activeFilterCount, isItemVisible])
 
-  // Track filter results when filters change
   useEffect(() => {
     if (activeFilterCount > 0) {
-      // Count total and visible items
-      const totalItems = menuData.categories.reduce((total, category) => 
-        total + category.sections.reduce((sectionTotal, section) => 
-          sectionTotal + section.items.length, 0), 0)
-      
-      const visibleItems = filteredMenuData.categories.reduce((total, category) => 
-        total + category.sections.reduce((sectionTotal, section) => 
-          sectionTotal + section.items.length, 0), 0)
-      
-      // Build list of active filters
+      const totalItems = menuData.categories.reduce((total, category) =>
+        total + category.sections.reduce((s, section) => s + section.items.length, 0), 0)
+      const visibleItems = filteredMenuData.categories.reduce((total, category) =>
+        total + category.sections.reduce((s, section) => s + section.items.length, 0), 0)
       const activeFilters: string[] = []
       if (showVegetarianOnly) activeFilters.push('vegetarian')
       selectedAllergens.forEach(allergen => activeFilters.push(allergen))
-      
       trackFilterResults(totalItems, visibleItems, activeFilters, 'food')
     }
   }, [activeFilterCount, filteredMenuData, menuData, selectedAllergens, showVegetarianOnly])
@@ -75,9 +63,11 @@ export function FilteredMenuRenderer({ menuData }: FilteredMenuRendererProps) {
         onToggleVegetarian={toggleVegetarian}
         onClearAll={clearAllFilters}
         activeFilterCount={activeFilterCount}
+        isOpen={isFilterOpen}
+        onOpen={handleOpen}
+        onClose={handleClose}
       />
-      
-      {/* Show message if all items are filtered out */}
+
       {filteredMenuData.categories.length === 0 ? (
         <div className="container mx-auto px-4 py-16 text-center">
           <div className="max-w-md mx-auto">
