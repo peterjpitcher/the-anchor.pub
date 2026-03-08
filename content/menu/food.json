@@ -6,7 +6,6 @@
     {
       "id": "light-bites",
       "title": "Light Bites",
-      "emoji": "🥪",
       "sections": [
         {
           "title": "Wraps with Chips",
@@ -74,7 +73,6 @@
     {
       "id": "snack-pots",
       "title": "Snack Pots",
-      "emoji": "🍟",
       "description": "Enjoy our snack pots with chips and your choice of dip. Perfect for a cosy snack, quick bite, or smaller appetites including children.",
       "sections": [
         {
@@ -109,7 +107,6 @@
     {
       "id": "mains",
       "title": "Mains",
-      "emoji": "🍽️",
       "sections": [
         {
           "title": "Traditional Favourites",
@@ -276,7 +273,6 @@
     {
       "id": "burgers",
       "title": "Burgers",
-      "emoji": "🍔",
       "description": "Our burgers are all served with salad, chips and the sauce of your choice.",
       "sections": [
         {
@@ -387,7 +383,6 @@
     {
       "id": "pizza",
       "title": "Stone Baked Pizza",
-      "emoji": "🍕",
       "description": "Enjoy the comforting taste of our stone-baked pizzas, crafted to order with authentic Italian ingredients. All pizzas can be made with 12\" gluten-free bases at no extra charge - just ask when ordering! Small pizzas perfect for children.",
       "sections": [
         {
@@ -493,7 +488,6 @@
     {
       "id": "desserts",
       "title": "Desserts",
-      "emoji": "🍰",
       "sections": [
         {
           "title": "",
@@ -568,7 +562,6 @@
     {
       "id": "hot-drinks",
       "title": "Hot Drinks",
-      "emoji": "☕",
       "sections": [
         {
           "title": "",

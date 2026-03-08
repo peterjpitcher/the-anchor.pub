@@ -161,7 +161,6 @@ export function MenuRenderer({ menuData }: MenuRendererProps) {
           <Container>
             <div className="max-w-6xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-bold text-anchor-cream-text mb-8 text-center" itemProp="name">
-                {category.emoji && <span className="mr-2">{category.emoji}</span>}
                 {category.title}
               </h2>
 

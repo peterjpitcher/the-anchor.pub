@@ -27,11 +27,11 @@ import type { KitchenStatusData } from '@/components/psychology'
 export const revalidate = 3600 // Revalidate every hour
 
 const ANCHOR_LINKS = [
-  { id: 'sunday-roast', label: 'Sunday Roast', icon: '🍖' },
-  { id: 'pizza', label: 'Pizza Menu', icon: '🍕' },
-  { id: 'pub-classics', label: 'Pub Classics', icon: '🍔' },
-  { id: 'dietary', label: 'Veggie & Gluten-Friendly', icon: '🌱' },
-  { id: 'near-heathrow', label: 'Near Heathrow', icon: '✈️' }
+  { id: 'sunday-roast', label: 'Sunday Roast' },
+  { id: 'pizza', label: 'Pizza Menu' },
+  { id: 'pub-classics', label: 'Pub Classics' },
+  { id: 'dietary', label: 'Veggie & Gluten-Friendly' },
+  { id: 'near-heathrow', label: 'Near Heathrow' }
 ]
 
 const MENU_SECTION_LIST = [
@@ -288,10 +288,10 @@ export default async function FoodMenuPage() {
         variant="default"
         breadcrumbs={[{ name: 'Food & Drink' }]}
         tags={[
-          { label: '🍖 Roast pre-orders', variant: 'default' },
-          { label: '🍕 Stone-baked pizzas', variant: 'default' },
-          { label: '🍺 Pub classics', variant: 'default' },
-          { label: '🌱 Veggie friendly', variant: 'default' }
+          { label: 'Roast pre-orders', variant: 'default' },
+          { label: 'Stone-baked pizzas', variant: 'default' },
+          { label: 'Pub classics', variant: 'default' },
+          { label: 'Veggie friendly', variant: 'default' }
         ]}
         ctaContainerClassName="gap-4 sm:items-center"
         ctaContainerProps={{ 'data-sticky-cta-guard': 'true' }}
@@ -391,7 +391,6 @@ export default async function FoodMenuPage() {
               columns={4}
               features={[
                 {
-                  icon: '🍖',
                   title: 'Signature Sunday Roast',
                   description: (
                     <>
@@ -407,7 +406,6 @@ export default async function FoodMenuPage() {
                   className: 'text-left bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15'
                 },
                 {
-                  icon: '🍕',
                   title: 'Stone-Baked Pizzas',
                   description: (
                     <>
@@ -423,13 +421,11 @@ export default async function FoodMenuPage() {
                   className: 'text-left bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15'
                 },
                 {
-                  icon: '🍔',
                   title: 'Pub Classics, Fast',
                   description: 'Order at the bar or from your table — mains land within 15 minutes.',
                   className: 'text-left bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15'
                 },
                 {
-                  icon: '🌱',
                   title: 'Veggie & Gluten-Friendly',
                   description: 'Vegetarian menu and gluten free menu options, plus gluten-aware bases. Ask us about allergens anytime.',
                   className: 'text-left bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15'
@@ -723,14 +719,14 @@ export default async function FoodMenuPage() {
           description="Weekends and roast services fill quickly. Book today and we will have your table ready."
           buttons={[
             {
-              text: '📞 Call: 01753 682707',
+              text: 'Call: 01753 682707',
               href: 'tel:+441753682707',
               variant: 'white',
               isPhone: true,
               phoneSource: 'food_menu_footer'
             },
             {
-              text: '🍺 View Drinks Menu',
+              text: 'View Drinks Menu',
               href: '/drinks',
               variant: 'white'
             }
