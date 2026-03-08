@@ -126,11 +126,21 @@
               "featured": true
             },
             {
-              "name": "Chicken Katsu Curry",
-              "price": "13.99",
-              "description": "Crispy breaded chicken served on fluffy rice, smothered in aromatic katsu curry sauce. A fusion of British and Japanese flavours.",
-              "allergens": ["gluten", "milk", "sulphites"],
-              "vegetarian": false
+              "name": "Classic British Fish & Chips",
+              "price": "14.99",
+              "description": "Beer-battered fish, crispy golden chips, mushy peas, tartar sauce, and a fresh lemon wedge for a classic taste. A half portion is also available for £11.99.",
+              "allergens": ["gluten", "fish"],
+              "vegetarian": false,
+              "featured": true
+            },
+            {
+              "name": "Lamb Shank",
+              "price": "22.99",
+              "description": "Slow-cooked lamb shank, served with smooth mash (contains dairy) or chunky chips (dairy-free option) and seasonal veg. Finished with a rich mint-infused gravy.",
+              "allergens": [],
+              "vegetarian": false,
+              "notes": "Ask for chunky chips instead of mash for dairy-free option",
+              "featured": true
             },
             {
               "name": "Chicken & Wild Mushroom Pie",
@@ -147,22 +157,6 @@
               "vegetarian": false
             },
             {
-              "name": "Lamb Shank",
-              "price": "22.99",
-              "description": "Slow-cooked lamb shank, served with smooth mash (contains dairy) or chunky chips (dairy-free option) and seasonal veg. Finished with a rich mint-infused gravy.",
-              "allergens": [],
-              "vegetarian": false,
-              "notes": "Ask for chunky chips instead of mash for dairy-free option",
-              "featured": true
-            },
-            {
-              "name": "Spinach & Ricotta Cannelloni",
-              "price": "13.99",
-              "description": "Pasta tubes filled with creamy ricotta and spinach, baked in rich tomato sauce. Served with garlic bread and crisp mixed salad.",
-              "allergens": ["gluten", "eggs", "milk"],
-              "vegetarian": true
-            },
-            {
               "name": "Lasagne",
               "price": "14.99",
               "description": "Layers of pasta, rich meat sauce, and creamy béchamel, baked until golden. Served with crisp salad and warm garlic bread.",
@@ -170,22 +164,7 @@
               "vegetarian": false
             },
             {
-              "name": "Mac 'N Cheese",
-              "price": "13.99",
-              "description": "Creamy macaroni in a rich cheese sauce, topped with crispy onions. Served with garlic bread and fresh salad for extra indulgence.",
-              "allergens": ["gluten", "milk", "mustard"],
-              "vegetarian": true
-            },
-            {
-              "name": "Fish & Chips",
-              "price": "14.99",
-              "description": "Beer-battered fish, crispy golden chips, mushy peas, tartar sauce, and a fresh lemon wedge for a classic taste.",
-              "allergens": ["gluten", "fish"],
-              "vegetarian": false,
-              "featured": true
-            },
-            {
-              "name": "Half Fish & Chips",
+              "name": "Half Classic British Fish & Chips",
               "price": "11.99",
               "description": "Half-sized battered fish with chunky chips, mushy peas, tartar sauce, and a fresh lemon wedge—light but satisfying.",
               "allergens": ["gluten", "fish"],
@@ -197,6 +176,27 @@
               "description": "Golden, crispy scampi served with chunky chips, mushy peas, tartar sauce, and a fresh lemon wedge for balance.",
               "allergens": ["gluten", "crustaceans", "eggs"],
               "vegetarian": false
+            },
+            {
+              "name": "Chicken Katsu Curry",
+              "price": "13.99",
+              "description": "Crispy breaded chicken served on fluffy rice, smothered in aromatic katsu curry sauce. A fusion of British and Japanese flavours.",
+              "allergens": ["gluten", "milk", "sulphites"],
+              "vegetarian": false
+            },
+            {
+              "name": "Spinach & Ricotta Cannelloni",
+              "price": "13.99",
+              "description": "Pasta tubes filled with creamy ricotta and spinach, baked in rich tomato sauce. Served with garlic bread and crisp mixed salad.",
+              "allergens": ["gluten", "eggs", "milk"],
+              "vegetarian": true
+            },
+            {
+              "name": "Mac 'N Cheese",
+              "price": "13.99",
+              "description": "Creamy macaroni in a rich cheese sauce, topped with crispy onions. Served with garlic bread and fresh salad for extra indulgence.",
+              "allergens": ["gluten", "milk", "mustard"],
+              "vegetarian": true
             },
             {
               "name": "Jumbo Sausage & Chips",
