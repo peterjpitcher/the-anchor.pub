@@ -1071,52 +1071,6 @@
  ]
  },
  {
- "title": "Fever-Tree Premium Mixers",
- "style": "grid",
- "items": [
- { 
- "name": "Fever-Tree Mexican Lime", 
- "price": "",
- "description": "Tahitian lime with Mexican lime oils. The perfect partner for premium vodka."
- },
- { 
- "name": "Fever-Tree Rhubarb & Raspberry", 
- "price": "",
- "description": "Tart rhubarb meets sweet raspberry. Artisan mixer for discerning gin lovers."
- },
- {
- "name": "Fever-Tree Ginger Beer",
- "price": "",
- "description": "Fiery ginger with natural sweetness. Essential for Moscow Mules and Dark & Stormys."
- },
- {
- "name": "Fever-Tree Ginger Ale",
- "price": "",
- "description": "Subtle ginger with refreshing sparkle. Perfect for whisky highballs."
- },
- {
- "name": "Fever-Tree Madagascan Cola",
- "price": "",
- "description": "Premium cola with real kola nut. Elevates any rum serve."
- },
- {
- "name": "Fever-Tree White Grape & Apricot",
- "price": "",
- "description": "Delicate fruit flavours create a sophisticated soda. Perfect with vodka or gin."
- },
- {
- "name": "Fever-Tree Soda Water",
- "price": "",
- "description": "Soft spring water with gentle carbonation. The purest mixer for premium spirits."
- },
- {
- "name": "Fever-Tree Elderflower",
- "price": "",
- "description": "Delicate elderflower with subtle sweetness. Quintessentially English mixer."
- }
- ]
- },
- {
  "title": "Energy & Hydration",
  "style": "grid",
  "items": [
