@@ -1,12 +1,10 @@
 'use client'
 
-import { useMemo, memo, useRef, useEffect, useState } from 'react'
-import Image from 'next/image'
+import { useMemo, memo, useRef, useState } from 'react'
 import { MenuData, MenuCategory, MenuSection, MenuItem } from '@/lib/menu-parser'
 import { SpecialOfferNotifications } from './SpecialOfferNotifications'
 import { HeroBadge } from './HeroBadge'
 import Link from 'next/link'
-import { logError } from '@/lib/error-handling'
 import { ALLERGEN_TYPES } from '@/hooks/useAllergenFilter'
 import { cn } from '@/lib/utils'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
@@ -52,7 +50,7 @@ interface MenuRendererProps {
 export function MenuRenderer({ menuData, accentColor = 'anchor-gold' }: MenuRendererProps) {
   const [focusedItem, setFocusedItem] = useState<string | null>(null)
   const menuRef = useRef<HTMLDivElement>(null)
-  
+
   // Memoize schema generation to prevent re-creation on every render
   const menuSchema = useMemo(() => ({
     "@context": "https://schema.org",
@@ -64,7 +62,7 @@ export function MenuRenderer({ menuData, accentColor = 'anchor-gold' }: MenuRend
       "@type": "MenuSection",
       "name": category.title,
       "description": category.description,
-      "hasMenuItem": category.sections.flatMap(section => 
+      "hasMenuItem": category.sections.flatMap(section =>
         section.items.map(item => ({
           "@type": "MenuItem",
           "name": item.name,
@@ -84,13 +82,13 @@ export function MenuRenderer({ menuData, accentColor = 'anchor-gold' }: MenuRend
   const handleKeyboardNavigation = (e: React.KeyboardEvent) => {
     const menuItems = menuRef.current?.querySelectorAll('[data-menu-item]')
     if (!menuItems || menuItems.length === 0) return
-    
+
     const currentIndex = Array.from(menuItems).findIndex(
       item => item.getAttribute('data-item-id') === focusedItem
     )
-    
+
     let nextIndex = currentIndex
-    
+
     switch (e.key) {
       case 'ArrowDown':
         e.preventDefault()
@@ -111,7 +109,7 @@ export function MenuRenderer({ menuData, accentColor = 'anchor-gold' }: MenuRend
       default:
         return
     }
-    
+
     const nextItem = menuItems[nextIndex] as HTMLElement
     nextItem.focus()
     setFocusedItem(nextItem.getAttribute('data-item-id'))
@@ -137,7 +135,7 @@ export function MenuRenderer({ menuData, accentColor = 'anchor-gold' }: MenuRend
               ))}
             </p>
             <p className="text-anchor-cream-text/70 mt-2">
-              Please order at the bar when you're ready
+              Please order at the bar when you&apos;re ready
             </p>
           </Container>
         </section>
@@ -145,16 +143,22 @@ export function MenuRenderer({ menuData, accentColor = 'anchor-gold' }: MenuRend
 
 
       {/* Menu Categories */}
-      <div 
+      <div
         ref={menuRef}
-        itemScope 
+        itemScope
         itemType="https://schema.org/Menu"
         onKeyDown={handleKeyboardNavigation}
         role="region"
         aria-label="Restaurant menu"
       >
         {menuData.categories.map((category, categoryIndex) => (
-          <section key={category.id} id={category.id} className={`section-spacing ${categoryIndex % 2 === 0 ? 'bg-anchor-bg-raised' : 'bg-anchor-bg'}`} itemScope itemType="https://schema.org/MenuSection">
+          <section
+            key={category.id}
+            id={category.id}
+            className={`py-8 ${categoryIndex % 2 === 0 ? 'bg-anchor-bg-raised' : 'bg-anchor-bg'}`}
+            itemScope
+            itemType="https://schema.org/MenuSection"
+          >
           <Container>
             <div className="max-w-6xl mx-auto">
               <h2 className="text-3xl md:text-4xl font-bold text-anchor-cream-text mb-8 text-center" itemProp="name">
@@ -189,53 +193,80 @@ export function MenuRenderer({ menuData, accentColor = 'anchor-gold' }: MenuRend
 
                   {section.highlight && category.id === 'spirits' && (
                     <div className="pointer-events-none absolute -top-4 left-1/2 z-10 -translate-x-1/2 rounded-full border-2 border-white bg-gradient-to-r from-anchor-green to-anchor-green-dark px-6 py-2 text-xs font-semibold uppercase tracking-wider text-white shadow-lg">
-                      🎯 Manager's Special
+                      🎯 Manager&apos;s Special
                     </div>
                   )}
+
                   {section.title && (
-                    <h3 className={`text-2xl font-bold mb-6 text-center ${section.highlight && category.id === 'spirits' ? 'text-white' : section.highlight && category.id === 'cocktails' ? 'text-anchor-gold' : 'text-anchor-green'}`}>
+                    <h3 className="text-xs font-semibold uppercase tracking-widest text-anchor-gold/60 mt-6 mb-1 first:mt-0">
                       {section.title}
                     </h3>
                   )}
-                  
+
                   {section.description && (
-                    <p className={`text-center mb-6 ${section.highlight && category.id === 'spirits' ? 'text-lg text-white font-medium' : section.highlight && category.id === 'cocktails' ? 'text-lg text-amber-300 font-medium' : 'text-anchor-cream-text/70'}`}>
+                    <p className="text-sm text-anchor-cream-text/55 mb-2">
                       {section.description}
                     </p>
                   )}
 
-                  {/* Grid Style */}
-                  {section.style === 'grid' && (
-                    <div className={`grid gap-6 ${section.highlight && category.id === 'cocktails' ? 'md:grid-cols-2 lg:grid-cols-4' : 'md:grid-cols-2'}`} role="list">
-                      {section.items.map((item, itemIndex) => (
-                        <MenuItemCard 
-                          key={itemIndex} 
+                  {/* Unified row list */}
+                  <div role="list">
+                    {section.items.map((item, itemIndex) => {
+                      const itemId = `${category.id}-${sectionIndex}-${itemIndex}`
+
+                      if (item.special) {
+                        const { displayPrice, schemaPrice } = normalizePrice(item.price)
+                        return (
+                          <Link key={itemIndex} href="/drinks/managers-special" className="relative block group mb-2">
+                            <HeroBadge text="25% OFF" variant="special" position="absolute" />
+                            <div
+                              className="bg-anchor-green/10 border-2 border-anchor-green/40 rounded-2xl p-5 group-hover:shadow-xl group-hover:scale-[1.01] transition-all cursor-pointer"
+                              itemScope
+                              itemType="https://schema.org/MenuItem"
+                              role="listitem"
+                              data-menu-item
+                              data-item-id={itemId}
+                              aria-label={item.name}
+                            >
+                              <div className="flex items-start justify-between gap-4">
+                                <div className="flex-1">
+                                  <span className="font-bold text-anchor-gold-vivid" itemProp="name">{item.name}</span>
+                                  {item.description && (
+                                    <p className="text-sm text-anchor-cream-text/70 mt-1" itemProp="description">{item.description}</p>
+                                  )}
+                                  <span className="mt-2 inline-flex text-sm font-semibold text-anchor-gold group-hover:text-anchor-gold-light items-center gap-1">
+                                    View details →
+                                  </span>
+                                </div>
+                                {displayPrice && (
+                                  <span
+                                    className="font-bold text-anchor-gold text-sm whitespace-nowrap"
+                                    itemProp="offers"
+                                    itemScope
+                                    itemType="https://schema.org/Offer"
+                                  >
+                                    <span itemProp="price" content={schemaPrice}>£{displayPrice}</span>
+                                    <meta itemProp="priceCurrency" content="GBP" />
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+                          </Link>
+                        )
+                      }
+
+                      return (
+                        <MenuItemRow
+                          key={itemIndex}
                           item={item}
-                          itemId={`${category.id}-${sectionIndex}-${itemIndex}`}
-                          isFocused={focusedItem === `${category.id}-${sectionIndex}-${itemIndex}`}
+                          itemId={itemId}
+                          isFocused={focusedItem === itemId}
                           onFocus={setFocusedItem}
                           isHighlighted={section.highlight && category.id === 'cocktails'}
                         />
-                      ))}
-                    </div>
-                  )}
-
-                  {/* List Style */}
-                  {section.style === 'list' && (
-                    <div className="card-dark rounded-none p-8">
-                      <div className="grid md:grid-cols-2 gap-4 max-w-2xl mx-auto" role="list">
-                        {section.items.map((item, itemIndex) => (
-                          <MenuItemList 
-                            key={itemIndex} 
-                            item={item}
-                            itemId={`${category.id}-${sectionIndex}-${itemIndex}`}
-                            isFocused={focusedItem === `${category.id}-${sectionIndex}-${itemIndex}`}
-                            onFocus={setFocusedItem}
-                          />
-                        ))}
-                      </div>
-                    </div>
-                  )}
+                      )
+                    })}
+                  </div>
                 </div>
               ))}
             </div>
@@ -271,164 +302,67 @@ interface MenuItemProps {
   isHighlighted?: boolean
 }
 
-const MenuItemCard = memo(function MenuItemCard({ item, itemId, isFocused, onFocus, isHighlighted }: MenuItemProps) {
-  const isManagersSpecial = item.special === true
-  const [specialImagePath, setSpecialImagePath] = useState<string | null>(null)
+const MenuItemRow = memo(function MenuItemRow({ item, itemId, isFocused, onFocus, isHighlighted }: MenuItemProps) {
   const { displayPrice, schemaPrice, gfAvailable } = normalizePrice(item.price)
-  const priceLabel = displayPrice ? `, ${displayPrice}` : ''
-  
-  useEffect(() => {
-    if (isManagersSpecial) {
-      fetch('/api/managers-special-image')
-        .then(res => res.json())
-        .then(data => {
-          if (data.found && data.image) {
-            setSpecialImagePath(data.image)
-          }
-        })
-        .catch(err => console.error('Failed to fetch manager\'s special image:', err))
-    }
-  }, [isManagersSpecial])
-  
-  const cardContent = (
-    <div 
-      className={`rounded-2xl shadow-md transition-all ${isFocused ? 'ring-2 ring-anchor-gold' : ''} ${
-        isManagersSpecial
-          ? 'card-dark rounded-none border-2 border-anchor-green/40 p-6 hover:shadow-xl hover:scale-105'
-          : isHighlighted
-          ? 'bg-amber-900/10 border-2 border-amber-500/30 p-6 hover:shadow-xl hover:scale-105'
-          : 'card-dark rounded-none p-8'
-      }`}
-      itemScope 
+  const priceLabel = displayPrice ? `, £${displayPrice}` : ''
+
+  return (
+    <div
+      className={cn(
+        'flex items-start justify-between gap-4 py-3 border-b border-anchor-gold/10 last:border-0',
+        isFocused && 'bg-anchor-gold/5'
+      )}
+      itemScope
       itemType="https://schema.org/MenuItem"
       role="listitem"
-      // Removed tabIndex to improve keyboard navigation
       data-menu-item
       data-item-id={itemId}
       aria-label={`${item.name}${priceLabel}${item.vegetarian ? ', vegetarian' : ''}`}
+      tabIndex={0}
+      onFocus={() => onFocus(itemId)}
     >
-      <div className="flex justify-between items-start mb-4">
-        <h3 className={`font-bold ${isHighlighted ? 'text-lg' : 'text-xl'} text-anchor-gold-vivid flex items-center flex-wrap`} itemProp="name">
-          <span>{item.name}</span>
+      <div className="flex-1 min-w-0">
+        <div className="flex items-baseline flex-wrap gap-x-2 gap-y-0.5">
+          <span className="font-semibold text-anchor-cream-text leading-snug" itemProp="name">
+            {item.name}
+          </span>
           {isHighlighted && (
             <HeroBadge text="NEW" variant="new" position="inline" />
           )}
           {item.vegetarian && (
-            <span className="text-anchor-gold text-sm font-bold bg-anchor-green/20 px-2 py-1 rounded ml-2">(V)</span>
+            <span className="text-[11px] font-bold text-emerald-400 bg-emerald-400/10 px-1.5 py-0.5 rounded leading-none">
+              V
+            </span>
           )}
-        </h3>
-        {displayPrice && (
-          <span className={`font-bold whitespace-nowrap ml-4 ${isHighlighted ? 'text-2xl text-amber-600' : 'text-xl text-anchor-gold'}`} itemProp="offers" itemScope itemType="https://schema.org/Offer">
-            <span itemProp="price" content={schemaPrice}>{displayPrice}</span>
-            <meta itemProp="priceCurrency" content="GBP" />
-          </span>
+          {gfAvailable && (
+            <span className="text-[11px] font-semibold text-anchor-green/80 bg-anchor-green/10 px-1.5 py-0.5 rounded leading-none">
+              GF opt
+            </span>
+          )}
+        </div>
+        {item.description && (
+          <p className="text-sm text-anchor-cream-text/55 mt-0.5 leading-snug" itemProp="description">
+            {item.description}
+          </p>
+        )}
+        <AllergenInfo item={item} />
+        {item.vegetarian && (
+          <meta itemProp="suitableForDiet" content="https://schema.org/VegetarianDiet" />
         )}
       </div>
-      {item.description && (
-        <p className={`${isHighlighted ? 'text-amber-200 text-sm leading-relaxed' : 'text-anchor-cream-text/70'}`} itemProp="description">{item.description}</p>
-      )}
-      {gfAvailable && (
-        <div className="mt-3">
-          <span className="inline-flex items-center rounded-full bg-anchor-green/10 px-2 py-1 text-xs font-semibold text-anchor-green">
-            GF option available
-          </span>
-        </div>
-      )}
-      <AllergenInfo item={item} />
-      {item.vegetarian && (
-        <meta itemProp="suitableForDiet" content="https://schema.org/VegetarianDiet" />
+      {displayPrice && (
+        <span
+          className="font-bold text-anchor-gold whitespace-nowrap flex-shrink-0 ml-2 pt-0.5 text-sm"
+          itemProp="offers"
+          itemScope
+          itemType="https://schema.org/Offer"
+        >
+          <span itemProp="price" content={schemaPrice}>£{displayPrice}</span>
+          <meta itemProp="priceCurrency" content="GBP" />
+        </span>
       )}
     </div>
   )
-
-  // Wrap in container with absolute badge for desktop
-  if (isHighlighted) {
-    return (
-      <div className="relative">
-        <HeroBadge text="NEW" variant="new" position="absolute" />
-        {cardContent}
-      </div>
-    )
-  }
-  
-  if (isManagersSpecial) {
-    return (
-      <Link href="/drinks/managers-special" className="relative md:col-span-2 block group">
-        <HeroBadge text="25% OFF" variant="special" position="absolute" />
-        <div 
-          className={`rounded-2xl shadow-md transition-all ${isFocused ? 'ring-2 ring-anchor-gold' : ''} ${
-            'bg-anchor-green/10 border-2 border-anchor-green/40 p-6 group-hover:shadow-xl group-hover:scale-105 cursor-pointer'
-          }`}
-          itemScope 
-          itemType="https://schema.org/MenuItem"
-          role="listitem"
-          data-menu-item
-          data-item-id={itemId}
-          aria-label={`${item.name}${priceLabel}${item.vegetarian ? ', vegetarian' : ''}`}
-        >
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
-            {/* Left side - Image (25% width on desktop) */}
-            {specialImagePath && (
-              <div className="md:col-span-3">
-                <div className="bg-anchor-bg-raised rounded-lg p-2">
-                  <Image 
-                    src={specialImagePath} 
-                    alt={item.name}
-                    width={200}
-                    height={200}
-                    className="w-full h-auto rounded"
-                    unoptimized
-                    onError={(e) => {
-                      logError('menu-image-load', new Error('Failed to load menu image'), {
-                        src: e.currentTarget.src,
-                        itemName: item.name
-                      })
-                      // Hide the image container on error
-                      e.currentTarget.parentElement?.parentElement?.remove()
-                    }}
-                  />
-                </div>
-              </div>
-            )}
-            
-            {/* Right side - Content (75% width on desktop) */}
-            <div className={specialImagePath ? "md:col-span-9" : "md:col-span-12"}>
-              <div className="flex justify-between items-start mb-4">
-                <h3 className="font-bold text-xl text-anchor-gold-vivid" itemProp="name">
-                  {item.name}
-                </h3>
-              </div>
-              {displayPrice && (
-                <div className="font-bold text-lg text-anchor-gold mb-3" itemProp="offers" itemScope itemType="https://schema.org/Offer">
-                  <span itemProp="price" content={schemaPrice}>{displayPrice}</span>
-                  <meta itemProp="priceCurrency" content="GBP" />
-                </div>
-              )}
-              {gfAvailable && (
-                <div className="mb-3">
-                  <span className="inline-flex items-center rounded-full bg-anchor-green/10 px-2 py-1 text-xs font-semibold text-anchor-green">
-                    GF option available
-                  </span>
-                </div>
-              )}
-              {item.description && (
-                <p className="text-anchor-cream-text/70 mb-4" itemProp="description">{item.description}</p>
-              )}
-              <AllergenInfo item={item} />
-              <div className="text-sm font-semibold text-anchor-gold group-hover:text-anchor-gold-light flex items-center mt-3">
-                View Full Details & Tasting Notes
-                <svg className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Link>
-    )
-  }
-
-  return cardContent
 })
 
 // Helper component to display allergen information
@@ -455,54 +389,6 @@ const AllergenInfo = memo(function AllergenInfo({ item }: { item: MenuItem }) {
           </span>
         )
       })}
-    </div>
-  )
-})
-
-const MenuItemList = memo(function MenuItemList({ item, itemId, isFocused, onFocus }: MenuItemProps) {
-  const { displayPrice, schemaPrice, gfAvailable } = normalizePrice(item.price)
-  const priceLabel = displayPrice ? `, ${displayPrice}` : ''
-
-  return (
-    <div 
-      className={`flex justify-between p-2 rounded transition-all ${isFocused ? 'bg-anchor-gold/10' : ''}`}
-      itemScope 
-      itemType="https://schema.org/MenuItem"
-      role="listitem"
-      // Removed tabIndex to improve keyboard navigation
-      data-menu-item
-      data-item-id={itemId}
-      aria-label={`${item.name}${priceLabel}${item.vegetarian ? ', vegetarian' : ''}`}
-    >
-      <div className="flex-1">
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <span itemProp="name">
-            {item.name}
-            {item.vegetarian && <span className="text-sm text-anchor-gold-vivid ml-1">(V)</span>}
-          </span>
-          {displayPrice && (
-            <span className="text-anchor-gold font-semibold ml-4" itemProp="offers" itemScope itemType="https://schema.org/Offer">
-              <span itemProp="price" content={schemaPrice}>{displayPrice}</span>
-              <meta itemProp="priceCurrency" content="GBP" />
-            </span>
-          )}
-        </div>
-        {gfAvailable && (
-          <div className="mt-1">
-            <span className="inline-flex items-center rounded-full bg-anchor-green/10 px-2 py-0.5 text-[11px] font-semibold text-anchor-green">
-              GF option available
-            </span>
-          </div>
-        )}
-        {item.allergens && item.allergens.length > 0 && (
-          <div className="text-xs text-anchor-cream-text/55 mt-1">
-            <span>Contains: {item.allergens.join(', ')}</span>
-          </div>
-        )}
-      </div>
-      {item.vegetarian && (
-        <meta itemProp="suitableForDiet" content="https://schema.org/VegetarianDiet" />
-      )}
     </div>
   )
 })
