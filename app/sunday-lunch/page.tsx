@@ -404,6 +404,15 @@ export default async function SundayLunchPage() {
           { label: 'Book by Saturday 1pm', variant: 'default' },
           { label: '£10pp deposit — secures your table', variant: 'success' }
         ]}
+        secondaryInfo={
+          <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm text-white/80 mt-1">
+            <span className="flex items-center gap-1.5"><span aria-hidden="true">✈️</span>7 min from Heathrow T5</span>
+            <span className="flex items-center gap-1.5"><span aria-hidden="true">🅿️</span>Free parking — 20 spaces</span>
+            <span className="flex items-center gap-1.5"><span aria-hidden="true">💷</span>Outside ULEZ — saves £12.50</span>
+            <span className="flex items-center gap-1.5"><span aria-hidden="true">📶</span>Free WiFi</span>
+            <span className="flex items-center gap-1.5"><span aria-hidden="true">🏆</span>BII Sustainability Champion</span>
+          </div>
+        }
         cta={
           <div className="flex flex-col items-center gap-6">
             <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center">
@@ -489,42 +498,38 @@ export default async function SundayLunchPage() {
               {menuDateDisplay ? `Menu for ${menuDateDisplay}. ` : ''}Vegetarian gravy available on request.
             </p>
 
-            <div className="space-y-6">
+            <div role="list" className="divide-y divide-anchor-gold/10">
               {menu.mains.map(item => (
-                <div key={item.id || item.name} className="card-dark rounded-none p-8">
-                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-3">
-                    <div>
-                      <h3 className="text-2xl font-bold text-anchor-cream-text">{item.name}</h3>
-                      {item.dietary_info?.length ? (
-                        <div className="flex flex-wrap gap-2 mt-2">
-                          {item.dietary_info.map(tag => (
-                            <span
-                              key={`${item.name}-${tag}`}
-                              className="text-xs font-semibold text-anchor-gold bg-anchor-bg px-2 py-1 rounded"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      ) : null}
-                    </div>
-                    {typeof item.price === 'number' && (
-                      <span className="text-2xl font-bold text-anchor-gold whitespace-nowrap">{formatPrice(item.price)}</span>
+                <div key={item.id || item.name} className="py-3 last:border-0" role="listitem">
+                  <p className="text-anchor-cream-text leading-snug">
+                    <span className="font-semibold">{item.name}</span>
+                    {item.dietary_info?.map(tag => (
+                      <span
+                        key={`${item.name}-${tag}`}
+                        className="text-[11px] font-bold text-emerald-400 bg-emerald-400/10 px-1.5 py-0.5 rounded leading-none ml-1.5"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                    {item.description && (
+                      <span className="text-anchor-cream-text/60 font-normal"> — {item.description}</span>
                     )}
-                  </div>
-
-                  {item.description && <p className="text-anchor-cream-text/70 mb-3">{item.description}</p>}
+                    {typeof item.price === 'number' && item.price > 0 && (
+                      <span className="text-anchor-cream-text/50 font-normal ml-1"> · £{item.price.toFixed(2)}</span>
+                    )}
+                  </p>
                   {item.allergens?.length ? (
-                    <p className="text-xs text-anchor-cream-text/55">Allergens: {item.allergens.join(', ')}</p>
+                    <p className="text-[11px] text-anchor-cream-text/40 mt-0.5 leading-snug">
+                      Contains: {item.allergens.join(', ')}
+                    </p>
                   ) : null}
                   {item.is_available === false && (
-                    <p className="text-sm text-red-400 font-semibold mt-2">Currently unavailable</p>
+                    <p className="text-sm text-red-400 font-semibold mt-1">Currently unavailable</p>
                   )}
                 </div>
               ))}
-
               {!menu.mains.length && (
-                <div className="card-dark rounded-none p-8 text-center text-anchor-cream-text/70">
+                <div className="py-4 text-anchor-cream-text/70">
                   Live menu unavailable right now. Please call us on 01753 682707 for today&apos;s roast choices.
                 </div>
               )}
