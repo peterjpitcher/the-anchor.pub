@@ -117,13 +117,13 @@ export default async function HortonPubPage() {
                         size="lg"
                         className="w-full sm:w-auto"
                     >
-                        📞 Book a Table
+                        Book a Table
                     </BookTableButton>
                 }
                 secondaryCta={
                     <Link href="/food-menu">
                         <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-                            🍽️ View Menu
+                            View Menu
                         </Button>
                     </Link>
                 }
@@ -160,7 +160,7 @@ export default async function HortonPubPage() {
                             columns={3}
                             features={[
                                 {
-                                    icon: "🚶",
+                                    icon: "",
                                     title: "Walking Distance",
                                     description: "A pleasant 20-minute walk or 2-minute drive from Horton village",
                                     variant: "colored",
@@ -168,7 +168,7 @@ export default async function HortonPubPage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "🥘",
+                                    icon: "",
                                     title: "Sunday Roasts",
                                     description: "The best roast in the area - worth the short hop over the motorway",
                                     variant: "colored",
@@ -176,7 +176,7 @@ export default async function HortonPubPage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "🍻",
+                                    icon: "",
                                     title: "Real Ales",
                                     description: "Properly kept ales and a great wine selection",
                                     variant: "colored",
@@ -230,7 +230,7 @@ export default async function HortonPubPage() {
                                 size="lg"
                                 fromLocation="Horton"
                             >
-                                📍 Get Directions from Horton (2 mins)
+                                Get Directions from Horton (2 mins)
                             </DirectionsButton>
                         </div>
                     </div>
@@ -278,19 +278,19 @@ export default async function HortonPubPage() {
                 description="Great food, cold drinks, and good company - just 1 mile away."
                 buttons={[
                     {
-                        text: "📞 Book a Table",
+                        text: "Book a Table",
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "horton_pub_cta",
                         variant: "secondary"
                     },
                     {
-                        text: "🎉 Book an Event",
+                        text: "Book an Event",
                         href: "/private-hire#enquiry",
                         variant: "white"
                     },
                     {
-                        text: "🍽️ View Menu",
+                        text: "View Menu",
                         href: "/food-menu",
                         variant: "white"
                     }

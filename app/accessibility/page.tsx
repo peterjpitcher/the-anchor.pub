@@ -71,10 +71,10 @@ export default function AccessibilityPage() {
             <SectionHeader title="What's step-free" />
             <div className="grid gap-4 sm:grid-cols-2">
               {[
-                { area: 'Bar area', icon: '🍺' },
-                { area: 'Dining area', icon: '🍽️' },
-                { area: 'Beer garden', icon: '🌳' },
-                { area: 'Car park', icon: '🅿️', note: 'Level surface, close to the entrance' },
+                { area: 'Bar area', icon: '' },
+                { area: 'Dining area', icon: '' },
+                { area: 'Beer garden', icon: '' },
+                { area: 'Car park', icon: '', note: 'Level surface, close to the entrance' },
               ].map(({ area, icon, note }) => (
                 <div
                   key={area}
@@ -121,19 +121,19 @@ export default function AccessibilityPage() {
               <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-card p-6">
                 <ul className="space-y-3 text-anchor-cream-text/70">
                   <li className="flex items-start gap-3">
-                    <span className="text-xl" aria-hidden="true">🅿️</span>
+                    <span className="text-xl" aria-hidden="true"></span>
                     <span>Free on-site parking for approximately 20 cars — level surface</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-xl" aria-hidden="true">🚶</span>
+                    <span className="text-xl" aria-hidden="true"></span>
                     <span>Close to the entrance — no significant distances to navigate</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-xl" aria-hidden="true">📍</span>
+                    <span className="text-xl" aria-hidden="true"></span>
                     <span>Horton Road, Stanwell Moor, Surrey TW19 6AQ</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-xl" aria-hidden="true">✈️</span>
+                    <span className="text-xl" aria-hidden="true"></span>
                     <span>7 minutes from Heathrow Terminal 5 / 11 minutes from Terminals 2 &amp; 3</span>
                   </li>
                 </ul>

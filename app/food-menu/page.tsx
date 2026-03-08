@@ -310,24 +310,24 @@ export default async function FoodMenuPage() {
         }
         secondaryInfo={
           <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm text-white/80 mt-1">
-            <span className="flex items-center gap-1.5"><span aria-hidden="true">✈️</span>7 min from Heathrow T5</span>
-            <span className="flex items-center gap-1.5"><span aria-hidden="true">🅿️</span>Free parking — 20 spaces</span>
-            <span className="flex items-center gap-1.5"><span aria-hidden="true">💷</span>Outside ULEZ — saves £12.50</span>
-            <span className="flex items-center gap-1.5"><span aria-hidden="true">📶</span>Free WiFi</span>
-            <span className="flex items-center gap-1.5"><span aria-hidden="true">🏆</span>BII Sustainability Champion</span>
+            <span className="flex items-center gap-1.5">7 min from Heathrow T5</span>
+            <span className="flex items-center gap-1.5">Free parking — 20 spaces</span>
+            <span className="flex items-center gap-1.5">Outside ULEZ — saves £12.50</span>
+            <span className="flex items-center gap-1.5">Free WiFi</span>
+            <span className="flex items-center gap-1.5">BII Sustainability Champion</span>
             {kitchenStatusData && kitchenStatusData.type === 'closing-soon' && (
               <span className="flex items-center gap-1.5 text-amber-300 font-medium">
-                <span aria-hidden="true">⏰</span>Kitchen closes at {kitchenStatusData.closesAt} — book now
+                Kitchen closes at {kitchenStatusData.closesAt} — book now
               </span>
             )}
             {kitchenStatusData && kitchenStatusData.type === 'opens-later' && (
               <span className="flex items-center gap-1.5 text-anchor-gold-vivid">
-                <span aria-hidden="true">🍽️</span>Kitchen opens at {kitchenStatusData.opensAt}
+                Kitchen opens at {kitchenStatusData.opensAt}
               </span>
             )}
             {kitchenStatusData && kitchenStatusData.type === 'open' && (
               <span className="flex items-center gap-1.5 text-green-300">
-                <span aria-hidden="true">✅</span>Kitchen open until {kitchenStatusData.closesAt}
+                Kitchen open until {kitchenStatusData.closesAt}
               </span>
             )}
           </div>

@@ -61,7 +61,7 @@ export default function Terminal2Page() {
             className="w-full sm:w-auto"
             context="heathrow_terminal_2"
           >
-            📅 Book a Table Online
+            Book a Table Online
           </BookTableButton>
         }
         secondaryCta={
@@ -71,7 +71,7 @@ export default function Terminal2Page() {
               size="lg"
               className="bg-white text-anchor-green hover:bg-gray-100 w-full sm:w-auto"
             >
-              📍 Get Directions
+              Get Directions
             </Button>
           </Link>
         }
@@ -80,7 +80,7 @@ export default function Terminal2Page() {
       {/* Google Rating Strip */}
       <section className="bg-anchor-bg-raised py-6 border-b border-anchor-gold/15">
         <Container>
-          <p className="text-center text-sm text-anchor-cream-text/70">⭐⭐⭐⭐⭐ <strong className="text-anchor-cream-text">Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
+          <p className="text-center text-sm text-anchor-cream-text/70"><strong className="text-anchor-cream-text">Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
         </Container>
       </section>
 
@@ -195,22 +195,22 @@ export default function Terminal2Page() {
             columns={4}
             features={[
               {
-                icon: "🚗",
+                icon: "",
                 title: "15 mins",
                 description: "by car"
               },
               {
-                icon: "🅿️",
+                icon: "",
                 title: "Free",
                 description: "parking"
               },
               {
-                icon: "🍺",
+                icon: "",
                 title: "Real",
                 description: "British pub"
               },
               {
-                icon: "⭐",
+                icon: "",
                 title: "Star Alliance",
                 description: "Terminal 2"
               }
@@ -231,7 +231,7 @@ export default function Terminal2Page() {
             <div className="grid md:grid-cols-3 gap-8 mb-12">
               {/* By Car */}
               <div className="bg-anchor-bg-raised rounded-2xl p-8 border border-anchor-gold/15">
-                <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">🚗 By Car (11 minutes)</h3>
+                <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">By Car (11 minutes)</h3>
                 <ol className="space-y-3 text-anchor-cream-text/70">
                   <li className="flex gap-3">
                     <span className="font-bold text-anchor-gold">1.</span>
@@ -262,7 +262,7 @@ export default function Terminal2Page() {
 
               {/* By Taxi */}
               <div className="bg-anchor-bg-raised rounded-2xl p-8 border border-anchor-gold/15">
-                <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">🚕 By Taxi</h3>
+                <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">By Taxi</h3>
                 <div className="space-y-4 text-anchor-cream-text/70">
 	                  <div>
 	                    <p className="font-semibold mb-2">Cost: GBP 20-25</p>
@@ -287,7 +287,7 @@ export default function Terminal2Page() {
 
               {/* By Bus */}
               <div className="bg-anchor-bg-raised rounded-2xl p-8 border border-anchor-gold/15">
-                <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">🚌 By Bus</h3>
+                <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">By Bus</h3>
                 <div className="space-y-4 text-anchor-cream-text/70">
                   <div>
                     <p className="font-semibold mb-2">Route 442</p>
@@ -343,32 +343,32 @@ export default function Terminal2Page() {
               boxes={[
                 {
                   title: "Star Alliance Hub",
-                  icon: "⭐",
+                  icon: "",
                   content: "Terminal 2 hosts Star Alliance carriers including Lufthansa, United, Air Canada, and Singapore Airlines. Enjoy authentic British hospitality before your international journey."
                 },
                 {
                   title: "The Queen's Terminal",
-                  icon: "👑",
+                  icon: "",
                   content: "Opened by Her Majesty in 2014, T2 is Heathrow's newest terminal. Experience a piece of traditional Britain at The Anchor before entering this modern gateway."
                 },
 	                {
 	                  title: "Smart Parking Choice",
-	                  icon: "🅿️",
+	                  icon: "",
                   content: "Heathrow short-stay parking costs add up fast. Park free with us while dropping off or collecting passengers — no fees, no time limits."
 	                },
                 {
                   title: "International Meets Local",
-                  icon: "🍽️",
+                  icon: "",
                   content: "Flying to Munich, Toronto, or Singapore? Start with fish & chips or a Sunday roast. Our international guests love experiencing authentic British pub culture."
                 },
 	                {
 	                  title: "Outside ULEZ Zone",
-	                  icon: "🚫",
+	                  icon: "",
 	                  content: "Save GBP 12.50 daily! We're outside London's ULEZ zone, perfect for travelers avoiding the charge. Direct access from M25 without entering the zone."
 	                },
                 {
                   title: "Direct Bus Route",
-                  icon: "🚌",
+                  icon: "",
                   content: "The 442 bus stops directly outside, connecting Terminal 2 to our pub. Much cheaper than a taxi and runs regularly throughout the day."
                 }
               ]}
@@ -431,19 +431,19 @@ export default function Terminal2Page() {
               content={
                 <ul className="space-y-3">
                   <li className="flex gap-3">
-                    <span>💡</span>
+                    <span></span>
                     <span>T2 is connected to T3 via pedestrian walkway - great for airline connections</span>
                   </li>
                   <li className="flex gap-3">
-                    <span>💡</span>
+                    <span></span>
                     <span>The Anchor hosts many Lufthansa and United crews - we know the flight patterns!</span>
                   </li>
                   <li className="flex gap-3">
-                    <span>💡</span>
+                    <span></span>
                     <span>T2 security is busiest 6-9am for European departures</span>
                   </li>
                   <li className="flex gap-3">
-                    <span>💡</span>
+                    <span></span>
                     <span>Our German beers are popular with Lufthansa passengers!</span>
                   </li>
                 </ul>
@@ -541,43 +541,43 @@ export default function Terminal2Page() {
               </h3>
               <div className="grid md:grid-cols-2 gap-8">
                 <div>
-                  <h4 className="font-semibold text-lg mb-3 text-anchor-cream-text">🏠 A Real Local Experience</h4>
+                  <h4 className="font-semibold text-lg mb-3 text-anchor-cream-text">A Real Local Experience</h4>
                   <ul className="space-y-2 text-anchor-cream-text/70">
                     <li className="flex gap-2">
-                      <span className="text-anchor-gold">✓</span>
+                      <span className="text-anchor-gold"></span>
                       <span>Traditional British pub atmosphere</span>
                     </li>
                     <li className="flex gap-2">
-                      <span className="text-anchor-gold">✓</span>
+                      <span className="text-anchor-gold"></span>
                       <span>Meet local residents, not just travelers</span>
                     </li>
                     <li className="flex gap-2">
-                      <span className="text-anchor-gold">✓</span>
+                      <span className="text-anchor-gold"></span>
                       <span>Authentic ales and home-cooked meals</span>
                     </li>
                     <li className="flex gap-2">
-                      <span className="text-anchor-gold">✓</span>
+                      <span className="text-anchor-gold"></span>
                       <span>Peaceful setting away from airport hustle</span>
                     </li>
                   </ul>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-lg mb-3 text-anchor-cream-text">💰 Better Value Than Hotels</h4>
+                  <h4 className="font-semibold text-lg mb-3 text-anchor-cream-text">Better Value Than Hotels</h4>
                   <ul className="space-y-2 text-anchor-cream-text/70">
                     <li className="flex gap-2">
-                      <span className="text-anchor-gold">✓</span>
+                      <span className="text-anchor-gold"></span>
                       <span>Pub prices, not hotel prices</span>
                     </li>
                     <li className="flex gap-2">
-                      <span className="text-anchor-gold">✓</span>
+                      <span className="text-anchor-gold"></span>
                       <span>Hearty portions of British classics</span>
                     </li>
                     <li className="flex gap-2">
-                      <span className="text-anchor-gold">✓</span>
+                      <span className="text-anchor-gold"></span>
                       <span>Free parking saves on hotel charges</span>
                     </li>
                     <li className="flex gap-2">
-                      <span className="text-anchor-gold">✓</span>
+                      <span className="text-anchor-gold"></span>
                       <span>Relaxed atmosphere with no time limits</span>
                     </li>
                   </ul>
@@ -587,7 +587,7 @@ export default function Terminal2Page() {
 
             <div className="card-dark rounded-none p-8 mb-8">
               <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-4 text-center">
-                🚕 Getting Here from Terminal 2 Hotels
+                Getting Here from Terminal 2 Hotels
               </h3>
 	              <div className="grid md:grid-cols-3 gap-6 text-center">
 	                <div>
@@ -624,7 +624,7 @@ export default function Terminal2Page() {
                 size="lg"
                 className="bg-white text-anchor-green hover:bg-gray-100"
               >
-                📅 Book Your Table Online
+                Book Your Table Online
               </BookTableButton>
             </div>
         </Container>
@@ -676,13 +676,13 @@ export default function Terminal2Page() {
         variant="green"
         buttons={[
           {
-            text: "📅 Book a Table",
+            text: "Book a Table",
             href: "/book-table",
             variant: "white",
             size: "lg"
           },
           {
-            text: "📞 01753 682707",
+            text: "01753 682707",
             href: "tel:+441753682707",
             isPhone: true,
             phoneSource: "terminal_2_cta_section",
@@ -690,13 +690,13 @@ export default function Terminal2Page() {
             size: "lg"
           },
           {
-            text: "🍕 Pizza Menu",
+            text: "Pizza Menu",
             href: "/food-menu#pizza",
             variant: "white",
             size: "lg"
           },
           {
-            text: "🍖 Sunday Roast Info",
+            text: "Sunday Roast Info",
             href: "/sunday-lunch",
             variant: "white",
             size: "lg"

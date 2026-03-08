@@ -132,7 +132,6 @@ export function AllergenFilterBar({
                   : 'bg-anchor-bg-raised text-anchor-cream-text/70 hover:bg-anchor-bg-card hover:text-anchor-cream-text'
               )}
             >
-              <span aria-hidden="true" className="text-base">🌱</span>
               <span>Vegetarian only</span>
             </button>
           </div>
@@ -173,7 +172,7 @@ export function AllergenFilterBar({
 
           {/* Allergen disclaimer */}
           <p className="text-xs text-anchor-cream-text/40 leading-relaxed">
-            ⚠️ All dishes are prepared in a kitchen where allergens are present. Please speak to staff about your dietary requirements.
+            All dishes are prepared in a kitchen where allergens are present. Please speak to staff about your dietary requirements.
           </p>
         </div>
 

@@ -87,7 +87,7 @@ export function createRecurringEvent(params: {
       name: 'Events',
       slug: 'events',
       color: '#D4AF37',
-      icon: '🎉'
+      icon: ''
     }
   } as Event
 }
@@ -112,7 +112,7 @@ export const staticEvents = {
       name: 'Corporate',
       slug: 'corporate',
       color: '#1e3a8a',
-      icon: '💼'
+      icon: ''
     },
     performer: {
       name: 'The Anchor Events Team',
@@ -138,7 +138,7 @@ export const staticEvents = {
       name: 'Seasonal Events',
       slug: 'seasonal',
       color: '#dc2626',
-      icon: '🎄'
+      icon: ''
     },
     performer: {
       name: 'The Anchor Entertainment',
@@ -166,7 +166,7 @@ export const staticEvents = {
       name: 'Private Events',
       slug: 'private-events',
       color: '#7c3aed',
-      icon: '🎉'
+      icon: ''
     },
     maximumAttendeeCapacity: 200
   }),
@@ -188,7 +188,7 @@ export const staticEvents = {
       name: 'Games & Activities',
       slug: 'games',
       color: '#3b82f6',
-      icon: '🧠'
+      icon: ''
     },
     performer: {
       name: 'Question One Quiz Masters',
@@ -216,7 +216,7 @@ export const staticEvents = {
       name: 'Games & Activities',
       slug: 'games',
       color: '#3b82f6',
-      icon: '🎱'
+      icon: ''
     },
     startTime: '19:00',
     endTime: '21:00',
@@ -241,7 +241,7 @@ export const staticEvents = {
       name: 'Games & Activities',
       slug: 'games',
       color: '#3b82f6',
-      icon: '🎵'
+      icon: ''
     },
     performer: {
       name: 'Nikki Manfadge',
@@ -269,7 +269,7 @@ export const staticEvents = {
       name: 'Live Music',
       slug: 'live-music',
       color: '#22c55e',
-      icon: '🎶'
+      icon: ''
     },
     performer: {
       name: 'Various Artists',
@@ -297,7 +297,7 @@ export const staticEvents = {
       name: 'Entertainment',
       slug: 'entertainment',
       color: '#ec4899',
-      icon: '🎤'
+      icon: ''
     },
     startTime: '20:00',
     endTime: '23:59',

@@ -58,13 +58,13 @@ export default function PreFlightDiningPage() {
                         size="lg"
                         className="w-full sm:w-auto"
                     >
-                        📞 Book Your Table
+                        Book Your Table
                     </BookTableButton>
                 }
                 secondaryCta={
                     <Link href="/food-menu">
                         <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-                            🍽️ View Menu
+                            View Menu
                         </Button>
                     </Link>
                 }
@@ -95,7 +95,7 @@ export default function PreFlightDiningPage() {
                             columns={3}
                             features={[
                                 {
-                                    icon: "🐟",
+                                    icon: "",
                                     title: "Fish & Chips",
                                     description: "Freshly battered cod, chunky chips, and mushy peas. The ultimate British goodbye.",
                                     variant: "colored",
@@ -103,7 +103,7 @@ export default function PreFlightDiningPage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "🍔",
+                                    icon: "",
                                     title: "Gourmet Burgers",
                                     description: "Stacked high and served with chips. Perfect comfort food for travel.",
                                     variant: "colored",
@@ -111,7 +111,7 @@ export default function PreFlightDiningPage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "🥩",
+                                    icon: "",
                                     title: "Beef & Ale Pie",
                                     description: "Proper pastry, tender meat, and rich gravy. It beats a foil tray meal any day.",
                                     variant: "colored",
@@ -136,9 +136,9 @@ export default function PreFlightDiningPage() {
                             <div className="bg-gray-100 p-4 rounded-lg">
                                 <p className="font-bold">Estimated Taxi Times:</p>
                                 <ul className="mt-2 space-y-1 text-sm text-anchor-cream-text/55">
-                                    <li>✈️ Terminal 5: 5-7 mins</li>
-                                    <li>✈️ Terminal 4: 10-12 mins</li>
-                                    <li>✈️ Terminal 2 & 3: 10-12 mins</li>
+                                    <li>Terminal 5: 5-7 mins</li>
+                                    <li>Terminal 4: 10-12 mins</li>
+                                    <li>Terminal 2 & 3: 10-12 mins</li>
                                 </ul>
                             </div>
                         </div>
@@ -178,14 +178,14 @@ export default function PreFlightDiningPage() {
                 description="Book a table and start your holiday early."
                 buttons={[
                     {
-                        text: "📞 Book Now",
+                        text: "Book Now",
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "preflight_cta",
                         variant: "primary"
                     },
                     {
-                        text: "🍽️ See the Menu",
+                        text: "See the Menu",
                         href: "/food-menu",
                         variant: "secondary"
                     }

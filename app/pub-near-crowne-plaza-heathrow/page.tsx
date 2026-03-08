@@ -113,10 +113,10 @@ export default function PubNearCrownePlazaHeathrowPage() {
             <FeatureGrid
               columns={4}
               features={[
-                { icon: '🕐', title: '12 Minutes', description: 'By taxi from Crowne Plaza Heathrow', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '🚖', title: '~£15–18', description: 'Typical taxi fare each way', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '🅿️', title: 'Free Parking', description: '20 spaces — no charges', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '🍽️', title: 'Group Bookings', description: 'Private dining for teams of any size', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: '12 Minutes', description: 'By taxi from Crowne Plaza Heathrow', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: '~£15–18', description: 'Typical taxi fare each way', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: 'Free Parking', description: '20 spaces — no charges', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: 'Group Bookings', description: 'Private dining for teams of any size', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
               ]}
               className="mb-8"
             />
@@ -144,7 +144,7 @@ export default function PubNearCrownePlazaHeathrowPage() {
                     'Honest pub pricing with mains from £8.99',
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-3">
-                      <span className="text-anchor-gold font-bold">✓</span>
+                      <span className="text-anchor-gold font-bold"></span>
                       <span>{item}</span>
                     </li>
                   ))}
@@ -179,9 +179,9 @@ export default function PubNearCrownePlazaHeathrowPage() {
             <FeatureGrid
               columns={3}
               features={[
-                { icon: '🥩', title: 'British Classics', description: 'Steaks, fish & chips, burgers and daily specials — all cooked fresh from £8.99', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '🍺', title: 'Real Ales', description: 'Rotating cask ales and craft beers — proper pub drinking from £4.80 a pint', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '🥗', title: 'Sunday Roast', description: 'Traditional British roast from £19.99 — pre-booking recommended for weekends', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'British Classics', description: 'Steaks, fish & chips, burgers and daily specials — all cooked fresh from £8.99', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Real Ales', description: 'Rotating cask ales and craft beers — proper pub drinking from £4.80 a pint', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Sunday Roast', description: 'Traditional British roast from £19.99 — pre-booking recommended for weekends', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
               ]}
               className="mb-6"
             />

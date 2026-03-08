@@ -111,13 +111,13 @@ export default async function PizzaMenuPage() {
                         size="lg"
                         className="w-full sm:w-auto"
                     >
-                        🍕 Book Table
+                        Book Table
                     </BookTableButton>
                 }
                 secondaryCta={
                     <Link href="/contact">
                         <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-                            🥡 Order Takeaway
+                            Order Takeaway
                         </Button>
                     </Link>
                 }
@@ -153,21 +153,21 @@ export default async function PizzaMenuPage() {
                             <h2 className="text-3xl font-bold text-anchor-gold-vivid">Why Our Pizzas Are Different</h2>
                             <ul className="space-y-4">
                                 <li className="flex items-start gap-3">
-                                    <span className="text-2xl">🔥</span>
+                                    <span className="text-2xl"></span>
                                     <div>
                                         <h3 className="font-bold text-anchor-cream-text">High-Heat Stone Baking</h3>
                                         <p className="text-anchor-cream-text/70">Cooked on traditional stones for that authentic, thin, and crispy crust you can’t get from a standard oven.</p>
                                     </div>
                                 </li>
                                 <li className="flex items-start gap-3">
-                                    <span className="text-2xl">🍅</span>
+                                    <span className="text-2xl"></span>
                                     <div>
                                         <h3 className="font-bold text-anchor-cream-text">Finest Italian Ingredients</h3>
                                         <p className="text-anchor-cream-text/70">We use premium ingredients sourced for their quality and flavour, paying homage to original Napoli traditions.</p>
                                     </div>
                                 </li>
                                 <li className="flex items-start gap-3">
-                                    <span className="text-2xl">👨‍🍳</span>
+                                    <span className="text-2xl"></span>
                                     <div>
                                         <h3 className="font-bold text-anchor-cream-text">Made Fresh Here</h3>
                                         <p className="text-anchor-cream-text/70">Prepared and baked right here on the premises. No "heating up" elsewhere — just fresh, hot pizza.</p>
@@ -250,14 +250,14 @@ export default async function PizzaMenuPage() {
                 description="Book a table for the fresh experience or order to go."
                 buttons={[
                     {
-                        text: "🍕 Book Table",
+                        text: "Book Table",
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "pizza_cta",
                         variant: "primary"
                     },
                     {
-                        text: "🥡 Order Takeaway",
+                        text: "Order Takeaway",
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "pizza_takeaway_cta",

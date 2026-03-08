@@ -113,10 +113,10 @@ export default function PubNearIbisHeathrowPage() {
             <FeatureGrid
               columns={4}
               features={[
-                { icon: '🕐', title: '12 Minutes', description: 'By taxi from ibis Heathrow', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '🚖', title: '~£15', description: 'Typical taxi fare each way', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '🅿️', title: 'Free Parking', description: '20 spaces — drive and park free', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '💰', title: 'Great Value', description: 'Mains from £8.99 — pub prices', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: '12 Minutes', description: 'By taxi from ibis Heathrow', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: '~£15', description: 'Typical taxi fare each way', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: 'Free Parking', description: '20 spaces — drive and park free', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: 'Great Value', description: 'Mains from £8.99 — pub prices', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
               ]}
               className="mb-8"
             />
@@ -144,7 +144,7 @@ export default function PubNearIbisHeathrowPage() {
                     'Cash, card, contactless — all accepted',
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-3">
-                      <span className="text-anchor-gold font-bold">✓</span>
+                      <span className="text-anchor-gold font-bold"></span>
                       <span>{item}</span>
                     </li>
                   ))}
@@ -179,9 +179,9 @@ export default function PubNearIbisHeathrowPage() {
             <FeatureGrid
               columns={3}
               features={[
-                { icon: '🐟', title: 'Fish & Chips', description: 'British classic — fresh battered cod, chips and mushy peas. Proper pub grub.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '🍕', title: 'BOGOF Pizza Tuesday', description: 'Buy one get one free on all stone-baked pizzas every Tuesday — brilliant value.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '🍺', title: 'Real Ales from £4.80', description: 'Rotating guest ales — proper British beer at proper pub prices.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Fish & Chips', description: 'British classic — fresh battered cod, chips and mushy peas. Proper pub grub.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'BOGOF Pizza Tuesday', description: 'Buy one get one free on all stone-baked pizzas every Tuesday — brilliant value.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Real Ales from £4.80', description: 'Rotating guest ales — proper British beer at proper pub prices.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
               ]}
               className="mb-6"
             />

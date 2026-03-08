@@ -796,7 +796,7 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
             if (day === 6 && hour >= 13) {
               return (
                 <p className="text-sm mt-1 font-medium">
-                  ⚠️ Bookings for tomorrow's Sunday lunch are now closed. Please select a later date.
+                  Bookings for tomorrow's Sunday lunch are now closed. Please select a later date.
                 </p>
               )
             }

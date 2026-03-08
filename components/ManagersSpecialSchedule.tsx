@@ -116,7 +116,6 @@ export function ManagersSpecialSchedule({
                   <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
                     <div>
                       <div className="inline-flex items-center gap-2 rounded-full bg-anchor-gold/20 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-anchor-gold-vivid">
-                        <span className="text-base" aria-hidden="true">⭐</span>
                         Current Offer
                       </div>
                       <p className="mt-4 text-sm font-semibold uppercase tracking-[0.3em] text-anchor-gold">{monthLabel}</p>

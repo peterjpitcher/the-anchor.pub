@@ -1,0 +1,974 @@
+{
+  "graph": {
+    "id": "the-anchor-knowledge-graph",
+    "version": "1.1.0",
+    "name": "The Anchor (Stanwell Moor) Knowledge Graph",
+    "language": "en-GB",
+    "source": {
+      "type": "document",
+      "title": "The Anchor – Brand Overview and Verified Claims",
+      "citation": "turn0file0"
+    },
+    "schema": {
+      "node": {
+        "id": "string",
+        "type": "string",
+        "name": "string",
+        "aliases": [
+          "string"
+        ],
+        "description": "string",
+        "properties": {}
+      },
+      "edge": {
+        "id": "string",
+        "type": "string",
+        "from": "string",
+        "to": "string",
+        "label": "string",
+        "properties": {}
+      }
+    },
+    "nodes": [
+      {
+        "id": "org:the-anchor",
+        "type": "Organisation",
+        "name": "The Anchor",
+        "aliases": [
+          "The Anchor Pub",
+          "The Anchor Stanwell Moor"
+        ],
+        "description": "Independent British village pub and restaurant located on Horton Road, Stanwell Moor, Surrey. It is the closest traditional pub to Heathrow Airport (about seven minutes from Terminal 5 and 11 minutes from Terminals 2 & 3)【819931593353551†L64-L83】. The pub offers free on‑site parking for around 20 cars【819931593353551†L64-L73】, sits outside London’s ULEZ zone【819931593353551†L64-L73】 and features a plane‑spotting beer garden directly under the Heathrow flight path【882664815234677†L50-L113】. The Anchor markets itself as an inclusive community hub that welcomes families, women, dog owners, local residents and travellers alike and regularly hosts quiz nights, cash bingo, drag cabaret and other events. ",
+        "properties": {
+          "motto": "Eat, Drink, Enjoy",
+          "website": "https://www.the-anchor.pub",
+          "positioning": [
+            "Inclusive",
+            "Family‑friendly",
+            "Women‑friendly",
+            "Dog‑friendly",
+            "Community hub",
+            "Traveller‑friendly (near Heathrow)",
+            "Plane‑spotting destination"
+          ],
+          "keywords_seo_focus": [
+            "Cosy village pubs",
+            "Family‑friendly pub near me",
+            "Dog‑friendly pubs",
+            "Traditional pub food",
+            "Local pubs with gardens",
+            "Airport pubs near Heathrow",
+            "Best pub stop‑off points",
+            "Pubs with ample parking",
+            "Pubs for family gatherings",
+            "Heathrow airport pub spots"
+          ],
+          "amenities": {
+            "free_parking_spaces": 20,
+            "free_wifi": true,
+            "outside_ulez_zone": true,
+            "step_free_access": true
+          },
+          "pricing_claims": {
+            "save_vs_airport_food": "Airport terminal food typically costs twice as much; meals at The Anchor are about 50 % less【751426279571604†L93-L103】.",
+            "save_vs_service_stations": "Stopping at The Anchor saves around 25 % compared with motorway service station prices【502324215340900†L260-L266】.",
+            "save_vs_hotel_restaurants": "Meals at The Anchor are roughly 50 % less than hotel restaurant prices【523821075335557†L68-L72】.",
+            "parking_savings": "Free pub parking saves guests about £20–40 per day versus airport car‑park charges【751426279571604†L101-L113】."
+          },
+          "sustainability_awards": [
+            "BII Sustainability Champion"
+          ],
+          "sustainability_technologies": [
+            "FlowMaster",
+            "SmartCellar",
+            "SmartRemote"
+          ],
+          "brand_guidelines": {
+            "colours": {
+              "primary": {
+                "name": "Deep Green",
+                "hex": "#005131"
+              },
+              "secondary": [
+                {
+                  "name": "Warm Gold",
+                  "hex": "#a57626"
+                },
+                {
+                  "name": "Cream",
+                  "hex": "#f5e6d3"
+                },
+                {
+                  "name": "Navy",
+                  "hex": "#2c3e50"
+                }
+              ],
+              "neutrals": [
+                {
+                  "name": "Off‑White",
+                  "hex": "#f9f7f3"
+                },
+                {
+                  "name": "Charcoal Grey",
+                  "hex": "#3a3a3a"
+                }
+              ]
+            },
+            "typography": {
+              "primary": "Century Gothic",
+              "secondary": "The Absolute"
+            }
+          }
+        }
+      },
+      {
+        "id": "place:staines",
+        "type": "Place",
+        "name": "Staines",
+        "aliases": [
+          "Staines‑upon‑Thames (area reference)"
+        ],
+        "description": "Nearby town referenced as part of The Anchor’s location context.",
+        "properties": {}
+      },
+      {
+        "id": "place:heathrow-airport",
+        "type": "Place",
+        "name": "Heathrow Airport",
+        "aliases": [
+          "London Heathrow",
+          "LHR"
+        ],
+        "description": "Major nearby travel hub; supports The Anchor’s positioning as a convenient stop for travellers.",
+        "properties": {}
+      },
+      {
+        "id": "concept:inclusivity",
+        "type": "Value",
+        "name": "Inclusivity",
+        "aliases": [
+          "Inclusive environment"
+        ],
+        "description": "Commitment to welcoming all community members, including adapting language and experiences for diverse audiences.",
+        "properties": {
+          "notes": [
+            "Emphasis on inclusive marketing language",
+            "Responds to local demographic change (larger Indian community)"
+          ]
+        }
+      },
+      {
+        "id": "concept:family-friendly",
+        "type": "Value",
+        "name": "Family‑friendly",
+        "aliases": [
+          "Family‑friendly atmosphere"
+        ],
+        "description": "Welcomes families and supports multi‑generational gatherings.",
+        "properties": {}
+      },
+      {
+        "id": "concept:women-friendly",
+        "type": "Value",
+        "name": "Women‑friendly",
+        "aliases": [
+          "Safe and welcoming for women"
+        ],
+        "description": "Focus on creating a safe, comfortable environment for women, including women visiting alone.",
+        "properties": {}
+      },
+      {
+        "id": "concept:dog-friendly",
+        "type": "Value",
+        "name": "Dog‑friendly",
+        "aliases": [
+          "Dogs welcome"
+        ],
+        "description": "Welcomes dogs, appealing to pet owners and reinforcing a relaxed venue feel.",
+        "properties": {}
+      },
+      {
+        "id": "concept:community-hub",
+        "type": "Value",
+        "name": "Community hub",
+        "aliases": [
+          "Local hub"
+        ],
+        "description": "Role as a gathering place for locals and community initiatives.",
+        "properties": {}
+      },
+      {
+        "id": "concept:marketing-tone",
+        "type": "Guideline",
+        "name": "Marketing tone and language",
+        "aliases": [
+          "Brand voice"
+        ],
+        "description": "Friendly and cheeky tone; inclusive language; refer to the pub as ‘we’; British English in all content.",
+        "properties": {
+          "tone": [
+            "Friendly",
+            "Cheeky",
+            "Inclusive"
+          ],
+          "voice_notes": [
+            "Use 'we' language",
+            "British English"
+          ]
+        }
+      },
+      {
+        "id": "concept:competitive-landscape",
+        "type": "MarketContext",
+        "name": "Competitive landscape (3‑mile radius)",
+        "aliases": [
+          "Local competition overview"
+        ],
+        "description": "Local market count of licensed premises and competitor breakdown within 3 miles.",
+        "properties": {
+          "licensed_premises_total": 164,
+          "gk_managed_pubs": 5,
+          "gk_tenanted_pubs": 4,
+          "non_gk_competition_sites": 155,
+          "non_gk_breakdown": {
+            "bar_restaurants": 17,
+            "pubs": 42,
+            "food_establishments": 36,
+            "venues": 64
+          }
+        }
+      },
+      {
+        "id": "audience:local-residents",
+        "type": "Audience",
+        "name": "Local residents",
+        "aliases": [
+          "Stanwell Moor locals",
+          "Surrounding areas"
+        ],
+        "description": "Residents of Stanwell Moor Village and nearby areas; includes a growing Indian community.",
+        "properties": {
+          "acorn_segments": [
+            "Settled Suburbia",
+            "Family Renters",
+            "Stable Seniors"
+          ]
+        }
+      },
+      {
+        "id": "audience:travellers",
+        "type": "Audience",
+        "name": "Travellers",
+        "aliases": [
+          "Heathrow travellers"
+        ],
+        "description": "People travelling to or from Heathrow; domestic and international visitors.",
+        "properties": {}
+      },
+      {
+        "id": "audience:families",
+        "type": "Audience",
+        "name": "Families",
+        "aliases": [
+          "Parents and children",
+          "Multi‑generational groups"
+        ],
+        "description": "Families seeking a welcoming pub and dining experience.",
+        "properties": {}
+      },
+      {
+        "id": "audience:women",
+        "type": "Audience",
+        "name": "Women",
+        "aliases": [
+          "Women visiting alone",
+          "Women’s groups"
+        ],
+        "description": "Audience supported through safety and welcome‑led positioning.",
+        "properties": {}
+      },
+      {
+        "id": "audience:dog-owners",
+        "type": "Audience",
+        "name": "Dog owners",
+        "aliases": [
+          "Pet owners"
+        ],
+        "description": "People looking for dog‑welcoming venues.",
+        "properties": {}
+      },
+      {
+        "id": "audience:business-professionals",
+        "type": "Audience",
+        "name": "Business professionals",
+        "aliases": [
+          "After‑work crowd",
+          "Meeting hosts"
+        ],
+        "description": "People seeking venues for meetings, networking, and after‑work gatherings.",
+        "properties": {}
+      },
+      {
+        "id": "audience:event-planners",
+        "type": "Audience",
+        "name": "Event planners",
+        "aliases": [
+          "Private hire seekers"
+        ],
+        "description": "Individuals or organisations looking to host private events, parties, workshops, dinners, or company meetings.",
+        "properties": {}
+      },
+      {
+        "id": "audience:food-and-drink-enthusiasts",
+        "type": "Audience",
+        "name": "Food and drink enthusiasts",
+        "aliases": [
+          "Foodies",
+          "Drink explorers"
+        ],
+        "description": "People interested in quality pub food and a broad drinks selection.",
+        "properties": {}
+      },
+      {
+        "id": "usp:prime-location",
+        "type": "USP",
+        "name": "Prime location",
+        "aliases": [
+          "Near Heathrow",
+          "Village setting"
+        ],
+        "description": "Located in Stanwell Moor village and only 7 minutes from Heathrow Terminal 5 and about 11 minutes from Terminals 2 & 3【819931593353551†L64-L83】.",
+        "properties": {}
+      },
+      {
+        "id": "usp:ample-parking",
+        "type": "USP",
+        "name": "Free parking",
+        "aliases": [
+          "Ample parking",
+          "Convenient parking"
+        ],
+        "description": "Free on‑site parking for about 20 vehicles【819931593353551†L64-L73】; guests avoid costly airport car‑park charges and can save approximately £20–40 per day【751426279571604†L101-L113】.",
+        "properties": {}
+      },
+      {
+        "id": "usp:versatile-spaces",
+        "type": "USP",
+        "name": "Versatile spaces",
+        "aliases": [
+          "Garden",
+          "Private dining room",
+          "Event hosting"
+        ],
+        "description": "Multiple spaces: a beer garden under the Heathrow flight path【882664815234677†L50-L113】, a dining room for private events, and flexible areas suitable for 10‑200 guests【819931593353551†L250-L266】.",
+        "properties": {
+          "spaces": [
+            "Garden area",
+            "Dining room"
+          ]
+        }
+      },
+      {
+        "id": "usp:traditional-charm-modern-amenities",
+        "type": "USP",
+        "name": "Traditional charm with modern amenities",
+        "aliases": [
+          "Classic pub feel, modern comfort"
+        ],
+        "description": "Maintains traditional British pub character while adapting to modern needs (e.g., free WiFi, Step‑Free access, SmartCellar technology)【882664815234677†L139-L166】.",
+        "properties": {}
+      },
+      {
+        "id": "usp:outside-ulez",
+        "type": "USP",
+        "name": "Outside ULEZ zone",
+        "aliases": [],
+        "description": "Located outside London’s Ultra Low Emission Zone, saving visitors the £12.50 daily charge【819931593353551†L64-L73】.",
+        "properties": {}
+      },
+      {
+        "id": "usp:step-free-access",
+        "type": "USP",
+        "name": "Step‑free access",
+        "aliases": [],
+        "description": "Step‑free access to most areas of the pub makes it accessible for people with mobility needs【819931593353551†L316-L320】.",
+        "properties": {}
+      },
+      {
+        "id": "usp:free-wifi",
+        "type": "USP",
+        "name": "Free WiFi",
+        "aliases": [
+          "Free Wi‑Fi"
+        ],
+        "description": "High‑speed WiFi available throughout the pub and beer garden, enabling guests to work or track flights【882664815234677†L99-L104】.",
+        "properties": {}
+      },
+      {
+        "id": "usp:plane-spotting",
+        "type": "USP",
+        "name": "Plane spotting",
+        "aliases": [
+          "Beer garden under flight path"
+        ],
+        "description": "The beer garden sits directly under the Heathrow flight path; aircraft pass overhead roughly every 90 seconds, giving unobstructed views for aviation enthusiasts【882664815234677†L87-L115】.",
+        "properties": {}
+      },
+      {
+        "id": "product:drinks",
+        "type": "ProductCategory",
+        "name": "Drinks",
+        "aliases": [
+          "Beverages"
+        ],
+        "description": "Extensive drinks offering including draught beers/ciders, bottled options, wines, spirits and soft drinks.",
+        "properties": {}
+      },
+      {
+        "id": "ops:food-service-hours",
+      "type": "Operations",
+      "name": "Food service hours",
+      "aliases": [
+        "Kitchen hours"
+      ],
+      "description": "Typical weekly food service times.",
+      "properties": {
+        "mon": "Closed",
+        "tue_fri": "16:00-21:00",
+        "sat": "12:00-19:00",
+        "sun": "13:00-18:00"
+      }
+    },
+    {
+      "id": "initiative:sustainability-efforts",
+      "type": "Initiative",
+      "name": "Sustainability efforts",
+      "aliases": [
+        "Carbon footprint reduction"
+      ],
+      "description": "Efforts to reduce environmental impact through energy‑efficient technologies and community engagement.",
+      "properties": {
+        "technologies": [
+          "FlowMaster",
+          "SmartCellar",
+          "SmartRemote"
+        ],
+        "awards": [
+          "BII Sustainability Champion"
+        ],
+        "notes": [
+          "Reduced beer line cleaning with FlowMaster, saving water and energy【138592011356372†L100-L107】",
+          "SmartCellar reduces cellar cooling energy by ~35 %【138592011356372†L100-L110】",
+          "SmartRemote cuts remote cooler energy usage by ~33 %【138592011356372†L100-L110】"
+        ]
+      }
+    },
+    {
+      "id": "event:quiz-night",
+      "type": "Event",
+      "name": "Quiz Night",
+      "aliases": [
+        "Pub quiz"
+      ],
+      "description": "Monthly quiz night held on the first Wednesday. Teams of up to six compete in four rounds of trivia; entry costs £3 per player and doors open at 6:30 pm with the quiz starting at 7 pm【801293558174008†L62-L69】. Winners receive a £25 bar tab and the team finishing second‑from‑last gets a bottle of wine【801293558174008†L110-L116】.",
+      "properties": {
+        "entry_fee": "3.00 GBP",
+        "schedule": "First Wednesday of each month",
+        "time": "19:00",
+        "team_size_max": 6,
+        "prizes": {
+          "first": "£25 bar tab",
+          "second_from_last": "Bottle of wine"
+        }
+      }
+    },
+    {
+      "id": "event:cash-bingo",
+      "type": "Event",
+      "name": "Cash Bingo",
+      "aliases": [
+        "Cash bingo night"
+      ],
+      "description": "Bingo night held every few weeks (typically monthly) with ten quick‑fire games. A £10 cash‑only bingo book covers all games, with instant cash prizes and a rolling snowball bonus that increases by £20 each month【785515419968104†L51-L80】. Doors open at 6 pm and eyes‑down is at 7 pm【785515419968104†L64-L79】.",
+      "properties": {
+        "entry_fee": "10.00 GBP (per book)",
+        "number_of_games": 10,
+        "schedule": "Monthly (see listings)",
+        "time": "19:00",
+        "snowball_bonus": "£20 added when it rolls over"
+      }
+    },
+    {
+      "id": "event:music-bingo",
+      "type": "Event",
+      "name": "Music Bingo",
+      "aliases": [
+        "Music bingo night"
+      ],
+      "description": "Free music bingo night where song clips replace numbers. Hosted by Nikki Manfadge; doors open at 6:30 pm and the game starts at 7:30 pm. Five rounds with prizes every round【503740645961857†L50-L86】.",
+      "properties": {
+        "entry_fee": "Free",
+        "schedule": "Occasional (see listings)",
+        "time": "19:30",
+        "rounds": 5
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "e1",
+      "type": "LOCATED_IN",
+      "from": "org:the-anchor",
+      "to": "place:stanwell-moor-village",
+      "label": "located in",
+      "properties": {}
+    },
+    {
+      "id": "e2",
+      "type": "NEAR",
+      "from": "org:the-anchor",
+      "to": "place:staines",
+      "label": "near",
+      "properties": {}
+    },
+    {
+      "id": "e3",
+      "type": "NEAR",
+      "from": "org:the-anchor",
+      "to": "place:heathrow-airport",
+      "label": "near",
+      "properties": {
+        "supports_positioning": "traveller-friendly"
+      }
+    },
+    {
+      "id": "e4",
+      "type": "HAS_VALUE",
+      "from": "org:the-anchor",
+      "to": "concept:inclusivity",
+      "label": "has value",
+      "properties": {}
+    },
+    {
+      "id": "e5",
+      "type": "HAS_VALUE",
+      "from": "org:the-anchor",
+      "to": "concept:family-friendly",
+      "label": "has value",
+      "properties": {}
+    },
+    {
+      "id": "e6",
+      "type": "HAS_VALUE",
+      "from": "org:the-anchor",
+      "to": "concept:women-friendly",
+      "label": "has value",
+      "properties": {}
+    },
+    {
+      "id": "e7",
+      "type": "HAS_VALUE",
+      "from": "org:the-anchor",
+      "to": "concept:dog-friendly",
+      "label": "has value",
+      "properties": {}
+    },
+    {
+      "id": "e8",
+      "type": "HAS_VALUE",
+      "from": "org:the-anchor",
+      "to": "concept:community-hub",
+      "label": "has value",
+      "properties": {}
+    },
+    {
+      "id": "e9",
+      "type": "SERVES_AUDIENCE",
+      "from": "org:the-anchor",
+      "to": "audience:local-residents",
+      "label": "serves audience",
+      "properties": {}
+    },
+    {
+      "id": "e10",
+      "type": "SERVES_AUDIENCE",
+      "from": "org:the-anchor",
+      "to": "audience:travellers",
+      "label": "serves audience",
+      "properties": {}
+    },
+    {
+      "id": "e11",
+      "type": "SERVES_AUDIENCE",
+      "from": "org:the-anchor",
+      "to": "audience:families",
+      "label": "serves audience",
+      "properties": {}
+    },
+    {
+      "id": "e12",
+      "type": "SERVES_AUDIENCE",
+      "from": "org:the-anchor",
+      "to": "audience:women",
+      "label": "serves audience",
+      "properties": {}
+    },
+    {
+      "id": "e13",
+      "type": "SERVES_AUDIENCE",
+      "from": "org:the-anchor",
+      "to": "audience:dog-owners",
+      "label": "serves audience",
+      "properties": {}
+    },
+    {
+      "id": "e14",
+      "type": "SERVES_AUDIENCE",
+      "from": "org:the-anchor",
+      "to": "audience:business-professionals",
+      "label": "serves audience",
+      "properties": {}
+    },
+    {
+      "id": "e15",
+      "type": "SERVES_AUDIENCE",
+      "from": "org:the-anchor",
+      "to": "audience:event-planners",
+      "label": "serves audience",
+      "properties": {}
+    },
+    {
+      "id": "e16",
+      "type": "SERVES_AUDIENCE",
+      "from": "org:the-anchor",
+      "to": "audience:food-and-drink-enthusiasts",
+      "label": "serves audience",
+      "properties": {}
+    },
+    {
+      "id": "e17",
+      "type": "HAS_AUDIENCE_SEGMENT",
+      "from": "audience:local-residents",
+      "to": "audience:psychographic-social-explorers",
+      "label": "includes segment",
+      "properties": {
+        "source": "Yonder"
+      }
+    },
+    {
+      "id": "e18",
+      "type": "HAS_AUDIENCE_SEGMENT",
+      "from": "audience:local-residents",
+      "to": "audience:psychographic-trusty-traditionalists",
+      "label": "includes segment",
+      "properties": {
+        "source": "Yonder"
+      }
+    },
+    {
+      "id": "e19",
+      "type": "HAS_AUDIENCE_SEGMENT",
+      "from": "audience:local-residents",
+      "to": "audience:psychographic-ethical-enthusiasts",
+      "label": "includes segment",
+      "properties": {
+        "source": "Yonder"
+      }
+    },
+    {
+      "id": "e20",
+      "type": "HAS_AUDIENCE_SEGMENT",
+      "from": "audience:local-residents",
+      "to": "audience:psychographic-down-to-earth-deal-seekers",
+      "label": "includes segment",
+      "properties": {
+        "source": "Yonder"
+      }
+    },
+    {
+      "id": "e21",
+      "type": "HAS_AUDIENCE_SEGMENT",
+      "from": "audience:local-residents",
+      "to": "audience:psychographic-cautious-homebodies",
+      "label": "includes segment",
+      "properties": {
+        "source": "Yonder"
+      }
+    },
+    {
+      "id": "e22",
+      "type": "HAS_USP",
+      "from": "org:the-anchor",
+      "to": "usp:prime-location",
+      "label": "has USP",
+      "properties": {}
+    },
+    {
+      "id": "e23",
+      "type": "HAS_USP",
+      "from": "org:the-anchor",
+      "to": "usp:free-wifi",
+      "label": "has USP",
+      "properties": {}
+    },
+    {
+      "id": "e24",
+      "type": "HAS_USP",
+      "from": "org:the-anchor",
+      "to": "usp:versatile-spaces",
+      "label": "has USP",
+      "properties": {}
+    },
+    {
+      "id": "e25",
+      "type": "HAS_USP",
+      "from": "org:the-anchor",
+      "to": "usp:traditional-charm-modern-amenities",
+      "label": "has USP",
+      "properties": {}
+    },
+    {
+      "id": "e26",
+      "type": "HAS_USP",
+      "from": "org:the-anchor",
+      "to": "usp:outside-ulez",
+      "label": "has USP",
+      "properties": {}
+    },
+    {
+      "id": "e27",
+      "type": "HAS_USP",
+      "from": "org:the-anchor",
+      "to": "usp:step-free-access",
+      "label": "has USP",
+      "properties": {}
+    },
+    {
+      "id": "e28",
+      "type": "HAS_USP",
+      "from": "org:the-anchor",
+      "to": "usp:plane-spotting",
+      "label": "has USP",
+      "properties": {}
+    },
+    {
+      "id": "e29",
+      "type": "HAS_USP",
+      "from": "org:the-anchor",
+      "to": "usp:prime-location",
+      "label": "has USP",
+      "properties": {}
+    },
+    {
+      "id": "e30",
+      "type": "OFFERS",
+      "from": "org:the-anchor",
+      "to": "product:drinks",
+      "label": "offers",
+      "properties": {}
+    },
+    {
+      "id": "e31",
+      "type": "FEATURES_PRODUCT",
+      "from": "product:drinks",
+      "to": "product:stanwell-moor-brew",
+      "label": "features product",
+      "properties": {}
+    },
+    {
+      "id": "e32",
+      "type": "HAS_OPERATION",
+      "from": "org:the-anchor",
+      "to": "ops:food-service-hours",
+      "label": "has operation",
+      "properties": {}
+    },
+    {
+      "id": "e33",
+      "type": "RUNS_INITIATIVE",
+      "from": "org:the-anchor",
+      "to": "initiative:honey-bee-mine",
+      "label": "runs initiative",
+      "properties": {}
+    },
+    {
+      "id": "e34",
+      "type": "RUNS_INITIATIVE",
+      "from": "org:the-anchor",
+      "to": "initiative:earth-day-clean-ups",
+      "label": "runs initiative",
+      "properties": {}
+    },
+    {
+      "id": "e35",
+      "type": "RUNS_INITIATIVE",
+      "from": "org:the-anchor",
+      "to": "initiative:sustainability-efforts",
+      "label": "runs initiative",
+      "properties": {}
+    },
+    {
+      "id": "e36",
+      "type": "PARTNERS_WITH",
+      "from": "initiative:earth-day-clean-ups",
+      "to": "org:stanwell-moor-residents-association",
+      "label": "partners with",
+      "properties": {}
+    },
+    {
+      "id": "e37",
+      "type": "HAS_GUIDELINE",
+      "from": "org:the-anchor",
+      "to": "concept:marketing-tone",
+      "label": "has guideline",
+      "properties": {}
+    },
+    {
+      "id": "e38",
+      "type": "USES_CHANNEL",
+      "from": "org:the-anchor",
+      "to": "channel:facebook",
+      "label": "uses channel",
+      "properties": {}
+    },
+    {
+      "id": "e39",
+      "type": "USES_CHANNEL",
+      "from": "org:the-anchor",
+      "to": "channel:instagram",
+      "label": "uses channel",
+      "properties": {}
+    },
+    {
+      "id": "e40",
+      "type": "USES_CHANNEL",
+      "from": "org:the-anchor",
+      "to": "channel:x",
+      "label": "uses channel",
+      "properties": {}
+    },
+    {
+      "id": "e41",
+      "type": "USES_CHANNEL",
+      "from": "org:the-anchor",
+      "to": "channel:linkedin",
+      "label": "uses channel",
+      "properties": {}
+    },
+    {
+      "id": "e42",
+      "type": "USES_CHANNEL",
+      "from": "org:the-anchor",
+      "to": "channel:google-my-business",
+      "label": "uses channel",
+      "properties": {}
+    },
+    {
+      "id": "e43",
+      "type": "HAS_MARKET_CONTEXT",
+      "from": "org:the-anchor",
+      "to": "concept:competitive-landscape",
+      "label": "has market context",
+      "properties": {
+        "radius": "3 miles"
+      }
+    },
+    {
+      "id": "e44",
+      "type": "HOSTS_EVENT",
+      "from": "org:the-anchor",
+      "to": "event:gameshow-house-party",
+      "label": "hosts event",
+      "properties": {}
+    },
+    {
+      "id": "e45",
+      "type": "HOSTS_EVENT",
+      "from": "org:the-anchor",
+      "to": "event:quiz-night",
+      "label": "hosts event",
+      "properties": {}
+    },
+    {
+      "id": "e46",
+      "type": "HOSTS_EVENT",
+      "from": "org:the-anchor",
+      "to": "event:cash-bingo",
+      "label": "hosts event",
+      "properties": {}
+    },
+    {
+      "id": "e47",
+      "type": "HOSTS_EVENT",
+      "from": "org:the-anchor",
+      "to": "event:music-bingo",
+      "label": "hosts event",
+      "properties": {}
+    },
+    {
+      "id": "e48",
+      "type": "HOSTS_EVENT",
+      "from": "org:the-anchor",
+      "to": "event:drag-cabaret",
+      "label": "hosts event",
+      "properties": {}
+    },
+    {
+      "id": "e49",
+      "type": "FEATURES_PERSON",
+      "from": "event:gameshow-house-party",
+      "to": "person:nikki-manfadge",
+      "label": "features",
+      "properties": {
+        "role": "Host"
+      }
+    },
+    {
+      "id": "e50",
+      "type": "FEATURES_PERSON",
+      "from": "event:music-bingo",
+      "to": "person:nikki-manfadge",
+      "label": "features",
+      "properties": {
+        "role": "Host"
+      }
+    },
+    {
+      "id": "e51",
+      "type": "FEATURES_PERSON",
+      "from": "event:drag-cabaret",
+      "to": "person:nikki-manfadge",
+      "label": "features",
+      "properties": {
+        "role": "Host"
+      }
+    },
+    {
+      "id": "e52",
+      "type": "FEATURES_PERSON",
+      "from": "event:quiz-night",
+      "to": "person:nikki-manfadge",
+      "label": "features",
+      "properties": {
+        "role": "Occasional host"
+      }
+    },
+    {
+      "id": "e53",
+      "type": "HAS_USP",
+      "from": "org:the-anchor",
+      "to": "usp:free-wifi",
+      "label": "has USP",
+      "properties": {}
+    },
+    {
+      "id": "e54",
+      "type": "HAS_USP",
+      "from": "org:the-anchor",
+      "to": "usp:free-parking",
+      "label": "has USP",
+      "properties": {}
+    }
+  ]
+}
+}

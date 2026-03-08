@@ -1,1152 +1,1152 @@
 {
-  "title": "Drinks Menu",
-  "description": "Real ales, premium spirits, and extensive drinks selection at The Anchor",
-  "lastUpdated": "2024-01-15",
-  "categories": [
-    {
-      "id": "draught",
-      "title": "On Tap",
-      "emoji": "🍺",
-      "sections": [
-        {
-          "title": "Lagers & Beers",
-          "style": "grid",
-          "items": [
-            {
-              "name": "Birra Moretti",
-              "price": "",
-              "description": "4.6% ABV - Italy's premium lager since 1859. A perfectly balanced beer with a delicate hop aroma and smooth, refreshing finish. Pairs beautifully with our stone-baked pizzas."
-            },
-            {
-              "name": "Carling",
-              "price": "",
-              "description": "4.0% ABV - Britain's favourite session lager. Light, crisp and refreshing with a clean finish. The perfect pint for watching the match or catching up with friends."
-            },
-            {
-              "name": "Stella Artois",
-              "price": "",
-              "description": "4.6% ABV - Belgium's finest export lager. Reassuringly expensive taste with distinctive hoppy bitterness and citrus notes. Brewed to perfection since 1366."
-            },
-            {
-              "name": "Fosters",
-              "price": "",
-              "description": "3.7% ABV - Australia's gift to British pubs. Easy-drinking lager with a light malt character and subtle sweetness. Ideal for long summer afternoons in our beer garden."
-            },
-            {
-              "name": "Pravha",
-              "price": "",
-              "description": "4.0% ABV - Czech-style pilsner brewed with Saaz hops. Golden colour with a delicate floral aroma and crisp, clean taste. A sophisticated choice for lager lovers."
-            },
-            {
-              "name": "Carlsberg",
-              "price": "",
-              "description": "3.8% ABV - Probably the best beer in the world? Danish pilsner with a light, refreshing taste and smooth hoppy notes. A classic that never goes out of style."
-            }
-          ]
-        },
-        {
-          "title": "Stouts & Ciders",
-          "style": "grid",
-          "items": [
-            {
-              "name": "Guinness",
-              "price": "",
-              "description": "4.1% ABV - Ireland's iconic stout. Rich, creamy head with deep roasted barley flavours, hints of coffee and chocolate. Good things come to those who wait for the perfect pour."
-            },
-            {
-              "name": "Aspall",
-              "price": "",
-              "description": "5.5% ABV - Suffolk's finest cider since 1728. Medium dry with a crisp apple finish. Made from a secret blend of culinary and cider apples from their own orchards."
-            },
-            {
-              "name": "Inch's Medium Apple Cider",
-              "price": "",
-              "description": "4.5% ABV - Traditional West Country cider with a perfect balance of sweetness and sharp apple flavours. Refreshingly smooth with a clean, fruity finish."
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "bottles",
-      "title": "Bottled Drinks",
-      "emoji": "🍾",
-      "sections": [
-        {
-          "title": "Bottled Ales",
-          "style": "grid",
-          "items": [
-            {
-              "name": "Abbot Ale",
-              "price": "",
-              "description": "5.0% ABV - Premium English ale from Greene King. Full-bodied with a distinctive fruity aroma and malty richness. Brewed in Bury St Edmunds since 1086."
-            },
-            {
-              "name": "Greene King IPA",
-              "price": "",
-              "description": "3.6% ABV - A perfectly balanced India Pale Ale with fresh hop flavours and citrus notes. Light amber colour with a clean, refreshing bitter finish."
-            },
-            {
-              "name": "Old Speckled Hen",
-              "price": "",
-              "description": "5.0% ABV - Distinctive tawny coloured ale with a superb malty taste. Smooth, creamy and full-flavoured with a refreshing bitterness. A true British classic."
-            },
-            {
-              "name": "Newcastle Brown Ale",
-              "price": "",
-              "description": "4.7% ABV - The one and only Newkie Brown. Sweet caramel notes balanced with moderate bitterness. An icon of the North East since 1927."
-            }
-          ]
-        },
-        {
-          "title": "Bottled Beers",
-          "style": "grid",
-          "items": [
-            {
-              "name": "Budweiser",
-              "price": "",
-              "description": "5.0% ABV - The King of Beers. American lager aged on beechwood chips for smoothness. Crisp, clean and refreshing with subtle hop aroma."
-            },
-            {
-              "name": "Corona Extra",
-              "price": "",
-              "description": "4.5% ABV - Mexico's favourite beer. Light, refreshing pilsner-style lager best served with a wedge of lime. Transport yourself to a beach in Cancun."
-            },
-            {
-              "name": "Desperados",
-              "price": "",
-              "description": "5.9% ABV - Tequila-flavoured beer that breaks all the rules. A unique blend of lager with a hint of tequila for those who like to live on the edge."
-            },
-            {
-              "name": "Peroni Nastro Azzurro",
-              "price": "",
-              "description": "5.1% ABV - Italy's number one premium lager. Crisp and refreshing with a delicate balance of bitterness and citrus aromatic notes. La dolce vita in a bottle."
-            },
-            {
-              "name": "Peroni 0%",
-              "price": "",
-              "description": "0.0% ABV - All the Italian style without the alcohol. Same crisp, refreshing taste of Peroni with citrus notes. A refreshing alcohol-free option."
-            }
-          ]
-        },
-        {
-          "title": "Bottled Ciders",
-          "style": "grid",
-          "items": [
-            {
-              "name": "Magners Original",
-              "price": "",
-              "description": "4.5% ABV - Ireland's original premium cider. Made from 17 varieties of apples for a unique crisp taste. Best served over ice for ultimate refreshment."
-            },
-            {
-              "name": "Old Mout Berries & Cherries",
-              "price": "",
-              "description": "4.0% ABV - New Zealand fruit cider bursting with strawberry and raspberry flavours, finished with sweet cherries. A fruity adventure in every bottle."
-            },
-            {
-              "name": "Old Mout Kiwi & Lime",
-              "price": "",
-              "description": "4.0% ABV - Tropical fusion of tangy kiwi and zesty lime. Light, refreshing and packed with exotic fruit flavours from the land of the long white cloud."
-            },
-            {
-              "name": "Old Mout Strawberry & Apple",
-              "price": "",
-              "description": "4.0% ABV - Sweet strawberries blended with crisp apples. A summery cider that's like drinking sunshine. Perfect for our beer garden."
-            },
-            {
-              "name": "Aspall Premier Cru",
-              "price": "",
-              "description": "7.0% ABV - Champagne of ciders. Elegant, sparkling cider with fine bubbles and complex apple flavours. A sophisticated choice for special occasions."
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "cocktails",
-      "title": "Cocktails",
-      "emoji": "🍹",
-      "sections": [
-        {
-          "title": "Featured Cocktails",
-          "style": "grid",
-          "description": "NEW! Our mixologist's special creations using premium mixers. Limited time only!",
-          "highlight": true,
-          "items": [
-            {
-              "name": "Pink Paloma",
-              "price": "6.50",
-              "description": "A vibrant twist on the Mexican classic. Vodka meets zesty pink grapefruit for a refreshingly bitter-sweet sensation. Perfect for those who like their cocktails with attitude."
-            },
-            {
-              "name": "English Garden",
-              "price": "7.00",
-              "description": "Quintessentially British elegance in a glass. Premium gin infused with delicate elderflower creates a sophisticated summer sipper. Beautifully balanced and utterly refreshing."
-            },
-            {
-              "name": "Tropical Punch",
-              "price": "6.50",
-              "description": "Caribbean vibes meet tropical paradise. Spiced rum dancing with exotic fruit flavours. One sip and you'll be planning your next beach holiday."
-            },
-            {
-              "name": "Apricot Fizz",
-              "price": "6.75",
-              "description": "Effervescent elegance with a fruity twist. Vodka mingles with apricot and grape notes, topped with sparkle. Light, bright and dangerously easy to drink."
-            },
-            {
-              "name": "Moscow Mule",
-              "price": "6.75",
-              "description": "The copper mug classic reimagined. Premium vodka kicks it with fiery ginger beer. Bold, spicy and refreshingly different."
-            },
-            {
-              "name": "Dark & Stormy",
-              "price": "7.00",
-              "description": "Bermuda's gift to stormy nights. Dark spiced rum battles premium ginger beer in this tempestuous classic. Not for the faint-hearted."
-            },
-            {
-              "name": "Whiskey Ginger",
-              "price": "6.75",
-              "description": "Smooth Irish whiskey meets sophisticated ginger ale. A refined twist on the highball that's both warming and refreshing."
-            },
-            {
-              "name": "Cuba Libre",
-              "price": "6.75",
-              "description": "The rebel's rum and coke. Spiced rum elevated with artisan cola creates a premium take on the Cuban classic. Viva la revolución!"
-            }
-          ]
-        },
-        {
-          "title": "Classic Cocktails",
-          "style": "grid",
-          "items": [
-            {
-              "name": "Espresso Martini",
-              "price": "",
-              "description": "The ultimate pick-me-up. Rich coffee meets smooth spirits in this sophisticated cocktail that's perfect for starting or ending your night. Guaranteed to get you buzzing."
-            },
-            {
-              "name": "Passion Fruit Martini",
-              "price": "",
-              "description": "Tropical paradise in a glass. Sweet, tangy and utterly irresistible, served with a cheeky shot of fizz on the side. Our most Instagrammable cocktail."
-            },
-            {
-              "name": "Classic Margarita",
-              "price": "",
-              "description": "Mexico's gift to the world. Perfectly balanced sweet and sour with a salt-rimmed glass. One sip and you'll be planning your next holiday."
-            },
-            {
-              "name": "Vodka Margarita",
-              "price": "",
-              "description": "Our rebellious twist on the classic. All the lime-kissed goodness with a different kind of kick. For those who like to break the rules."
-            },
-            {
-              "name": "Aperol Spritz",
-              "price": "",
-              "description": "Sunset in Venice captured in a glass. Bittersweet, bubbly and refreshing. The perfect aperitif for those long summer evenings."
-            },
-            {
-              "name": "Mojito",
-              "price": "",
-              "description": "Cuba's refreshing gift to the world. Fresh mint, lime and rum muddled to perfection. Summer in a glass."
-            }
-          ]
-        },
-        {
-          "title": "Signature Cocktails",
-          "style": "grid",
-          "items": [
-            {
-              "name": "Peach Blush",
-              "price": "",
-              "description": "Holiday romance in liquid form. Fruity, fun and flirty with sunset colours that'll transport you to tropical shores. No SPF required."
-            },
-            {
-              "name": "Woo Woo",
-              "price": "",
-              "description": "The cheeky cousin of the Cosmo. Pretty in pink with a perfect balance of sweet and tart. Guaranteed to get the party started."
-            },
-            {
-              "name": "Pimm's",
-              "price": "Glass/Jug",
-              "description": "Summer in the English countryside. Refreshing blend with fresh fruit, cucumber and mint. Perfect for sharing in our sunny beer garden."
-            },
-            {
-              "name": "Apple & Blackberry Pie",
-              "price": "",
-              "description": "Autumn comfort in cocktail form. Like your nan's best dessert but with a naughty twist. Warming spices meet orchard fruits."
-            },
-            {
-              "name": "Captain's Colada",
-              "price": "",
-              "description": "Christmas meets the Caribbean. Our festive take on the tropical classic. Santa's favourite way to unwind after a long night."
-            },
-            {
-              "name": "Hot Toddy",
-              "price": "",
-              "description": "The ultimate winter warmer. Soothing blend of warming spices and citrus. Like a hug in a mug for cold evenings."
-            }
-          ]
-        },
-        {
-          "title": "Shots & Bombs",
-          "style": "grid",
-          "items": [
-            {
-              "name": "Baby Guinness",
-              "price": "",
-              "description": "Looks like the real thing but sweeter. A layered shot that's almost too pretty to drink. Almost."
-            },
-            {
-              "name": "Jager Bomb",
-              "price": "",
-              "description": "The party starter. Drop it, down it, feel the energy surge. Not for the faint-hearted."
-            },
-            {
-              "name": "Kick Bomb",
-              "price": "",
-              "description": "Our secret weapon for late-night stamina. When you need that extra boost to keep the good times rolling."
-            },
-            {
-              "name": "Skittle Bomb",
-              "price": "",
-              "description": "Taste the rainbow! Sweet and fruity shot that's like liquid candy. A colorful explosion of flavor."
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "spirits",
-      "title": "Spirits",
-      "emoji": "🥃",
-      "description": "Our extensive collection of premium spirits, carefully curated for every taste",
-      "sections": [
-    {
-      "title": "Manager's Special",
-      "style": "grid",
-      "highlight": true,
-      "description": "Discover this month's featured spirit at 25% off.",
-      "items": [
-        {
-          "name": "Monthly Feature",
-          "price": "",
-          "description": "Ask at the bar for this month's Manager's Special pricing and tasting notes.",
-          "special": true
-        }
-      ]
-    },
-        {
-          "title": "Gin Collection",
-          "style": "grid",
-          "items": [
-            {
-              "name": "Bombay Sapphire",
-              "price": "",
-              "description": "The world's number one premium gin. Ten exotic botanicals create a perfectly balanced, bright and fresh taste."
-            },
-            {
-              "name": "Hendrick's",
-              "price": "",
-              "description": "Delightfully peculiar gin infused with cucumber and rose. Refreshingly unusual and perfect with cucumber garnish."
-            },
-            {
-              "name": "Hendrick's Flora Adora",
-              "price": "",
-              "description": "A floral symphony from Hendrick's. Blooming with herbal and floral notes for a garden party in a glass."
-            },
-            {
-              "name": "Tanqueray London Dry",
-              "price": "",
-              "description": "Four botanicals perfected over 180 years. The bartender's choice for the perfect G&T."
-            },
-            {
-              "name": "Tanqueray Flor de Sevilla",
-              "price": "",
-              "description": "Seville orange meets classic Tanqueray. Zesty, bittersweet and perfect with tonic."
-            },
-            {
-              "name": "Tanqueray 10",
-              "price": "",
-              "description": "Ultra-premium gin with fresh citrus fruits. The pinnacle of Tanqueray craftsmanship."
-            },
-            {
-              "name": "Tanqueray Blackcurrant Royale",
-              "price": "",
-              "description": "French blackcurrants meet British gin. Rich, fruity and luxuriously smooth."
-            },
-            {
-              "name": "Gordon's",
-              "price": "",
-              "description": "The world's best-selling London Dry Gin. Triple-distilled with juniper berries and secret botanicals."
-            },
-            {
-              "name": "Gordon's Pink",
-              "price": "",
-              "description": "The original pink gin. Sweet strawberry and raspberry notes balanced with Gordon's classic juniper."
-            },
-            {
-              "name": "Gordon's White Peach",
-              "price": "",
-              "description": "Juicy white peach meets classic Gordon's. Summer sophistication in every sip."
-            },
-            {
-              "name": "Gordon's Lemon",
-              "price": "",
-              "description": "Zesty Sicilian lemons enhance Gordon's gin. Bright, citrusy and refreshing."
-            },
-            {
-              "name": "Gordon's Tropical Passionfruit",
-              "price": "",
-              "description": "Exotic passionfruit brings tropical vibes. Sweet, tangy and perfect for summer."
-            },
-            {
-              "name": "Gordon's Sloe Gin",
-              "price": "",
-              "description": "Traditional sloe berries steeped in Gordon's gin. Sweet, fruity and warming."
-            },
-            {
-              "name": "Whitley Neill Rhubarb & Ginger",
-              "price": "",
-              "description": "Yorkshire rhubarb meets warming ginger. A taste of the English countryside with a spicy twist."
-            },
-            {
-              "name": "Kopparberg Strawberry & Lime Gin",
-              "price": "",
-              "description": "Swedish innovation meets British tradition. Fresh strawberries and zesty lime create summer magic."
-            },
-            {
-              "name": "Chase Sloe Gin",
-              "price": "",
-              "description": "Herefordshire sloes meet Chase's potato vodka base. Premium, smooth and deliciously different."
-            },
-            {
-              "name": "Williams Chase Pink Grapefruit Gin",
-              "price": "",
-              "description": "Zesty pink grapefruit from Chase. Crisp, citrusy and wonderfully refreshing."
-            },
-            {
-              "name": "Warner's Elderflower Gin",
-              "price": "",
-              "description": "Farm-grown elderflowers create floral magic. Delicate, aromatic and quintessentially English."
-            },
-            {
-              "name": "Warner's Honeybee Gin",
-              "price": "",
-              "description": "Local honey adds golden sweetness. Smooth, mellow and bee-autifully balanced."
-            },
-            {
-              "name": "The Botanist",
-              "price": "",
-              "description": "22 hand-foraged botanicals from Islay. Complex, refined and utterly unique."
-            },
-            {
-              "name": "Pimm's No. 1",
-              "price": "",
-              "description": "The original summer cup. Gin-based liqueur with herbs and citrus. Essential for British summers."
-            }
-          ]
-        },
-        {
-          "title": "Whisky Cabinet",
-          "style": "grid",
-          "items": [
-            {
-              "name": "Jameson",
-              "price": "",
-              "description": "Triple-distilled Irish smoothness. The world's best-selling Irish whiskey with notes of vanilla and toasted wood."
-            },
-            {
-              "name": "Jack Daniel's",
-              "price": "",
-              "description": "Tennessee's finest. Charcoal mellowed drop by drop for exceptional smoothness. Old No. 7 never goes out of style."
-            },
-            {
-              "name": "Jack Daniel's Honey",
-              "price": "",
-              "description": "Tennessee whiskey meets golden honey. Sweet, smooth and dangerously drinkable."
-            },
-            {
-              "name": "Jack Daniel's Fire",
-              "price": "",
-              "description": "Cinnamon heat meets Jack Daniel's smoothness. Fiery finish with a warm embrace."
-            },
-            {
-              "name": "Jack Daniel's Apple",
-              "price": "",
-              "description": "Crisp green apple meets Tennessee whiskey. Fresh, fruity and surprisingly smooth."
-            },
-            {
-              "name": "Glenfiddich 12",
-              "price": "",
-              "description": "The world's most awarded single malt. Fresh pear and subtle oak flavours from Scotland's valley of the deer."
-            },
-            {
-              "name": "Glenmorangie",
-              "price": "",
-              "description": "Highland single malt aged in bourbon casks. Creamy, fruity and delicately complex."
-            },
-            {
-              "name": "Monkey Shoulder",
-              "price": "",
-              "description": "Triple malt for mixing or sipping. Smooth, rich and mellow with vanilla and spice notes."
-            },
-            {
-              "name": "Maker's Mark",
-              "price": "",
-              "description": "Kentucky bourbon sealed with red wax. Sweet with caramel and vanilla notes. Handcrafted in small batches."
-            },
-            {
-              "name": "Talisker 10",
-              "price": "",
-              "description": "From the Isle of Skye. Powerful peat smoke with sea-salt and sweet notes. A taste of the Scottish coast."
-            },
-            {
-              "name": "Johnnie Walker Black Label",
-              "price": "",
-              "description": "12-year-old blended Scotch. Deep, complex flavour with smoky notes. The icon walks on."
-            },
-            {
-              "name": "Famous Grouse",
-              "price": "",
-              "description": "Scotland's favourite blended whisky. Smooth, balanced and perfect for mixing."
-            },
-            {
-              "name": "Bell's",
-              "price": "",
-              "description": "Classic blended Scotch since 1825. Smoky, nutty and distinctively smooth."
-            },
-            {
-              "name": "Bushmills",
-              "price": "",
-              "description": "Ireland's oldest whiskey from 1608. Light, fruity and exceptionally smooth."
-            },
-            {
-              "name": "Southern Comfort",
-              "price": "",
-              "description": "New Orleans original since 1874. Whiskey liqueur with fruit and spice notes."
-            },
-            {
-              "name": "Shanky's Whip",
-              "price": "",
-              "description": "Irish whiskey meets vanilla liqueur. Smooth, creamy and dangerously moreish."
-            },
-            {
-              "name": "Bailey's Irish Cream",
-              "price": "",
-              "description": "The original Irish cream liqueur. Luxuriously creamy with chocolate and vanilla notes. Perfect over ice or in coffee."
-            }
-          ]
-        },
-        {
-          "title": "Vodka Selection",
-          "style": "grid",
-          "items": [
-            {
-              "name": "Grey Goose",
-              "price": "",
-              "description": "French luxury vodka. Exceptionally smooth with subtle notes of almond. The world's best tasting vodka."
-            },
-            {
-              "name": "Grey Goose Strawberry & Lemongrass",
-              "price": "",
-              "description": "Premium vodka meets exotic flavours. Fresh strawberries enhanced with aromatic lemongrass."
-            },
-            {
-              "name": "Smirnoff Red",
-              "price": "",
-              "description": "Triple distilled and ten times filtered. The world's number one vodka. Pure, clean and versatile."
-            },
-            {
-              "name": "Smirnoff Raspberry Crush",
-              "price": "",
-              "description": "Summer berries meet premium vodka. Sweet and fruity without being sickly. Perfect with lemonade."
-            },
-            {
-              "name": "Smirnoff Miami Peach",
-              "price": "",
-              "description": "Sun-kissed peaches bring Miami vibes. Sweet, smooth and perfect for summer cocktails."
-            },
-            {
-              "name": "Smirnoff Mango & Passionfruit",
-              "price": "",
-              "description": "Tropical explosion in a bottle. Exotic fruits create vacation vibes year-round."
-            },
-            {
-              "name": "Lustre Caffe Latte Cream with Vodka",
-              "price": "",
-              "description": "Coffee cream liqueur meets vodka. Indulgent, smooth and perfect for dessert drinks."
-            }
-          ]
-        },
-        {
-          "title": "Rum & Tequila Bar",
-          "style": "grid",
-          "items": [
-            {
-              "name": "Kraken Black Spiced",
-              "price": "",
-              "description": "The beast from the deep. Rich, dark and mysterious with notes of cinnamon and vanilla. As smooth as the seven seas."
-            },
-            {
-              "name": "Captain Morgan Spiced",
-              "price": "",
-              "description": "The Captain's legendary blend. Caribbean rum with warming spices. Perfect with cola and a squeeze of lime."
-            },
-            {
-              "name": "Captain Morgan's Dark",
-              "price": "",
-              "description": "Rich, full-bodied dark rum. Molasses and caramel notes create depth and character."
-            },
-            {
-              "name": "Captain Morgan's Sliced Apple",
-              "price": "",
-              "description": "Crisp apple meets spiced rum. Fresh, fruity and perfect for autumn nights."
-            },
-            {
-              "name": "Captain Morgan's Tiki",
-              "price": "",
-              "description": "Tropical pineapple and mango flavours. Paradise in a bottle from the Captain."
-            },
-            {
-              "name": "Havana Club 3",
-              "price": "",
-              "description": "Cuban tradition in every drop. Light, fresh and perfect for mojitos."
-            },
-            {
-              "name": "Havana Club Especial",
-              "price": "",
-              "description": "Golden Cuban rum aged to perfection. Smooth, mellow and authentically Cuban."
-            },
-            {
-              "name": "Havana Club 7",
-              "price": "",
-              "description": "Premium aged Cuban rum. Complex, sophisticated and perfect neat or on the rocks."
-            },
-            {
-              "name": "Bacardi",
-              "price": "",
-              "description": "The world's most awarded rum. Light, crisp and the essential cocktail base."
-            },
-            {
-              "name": "Bacardi Carta Negra",
-              "price": "",
-              "description": "Dark rum aged in charred oak. Rich, smooth with notes of tropical fruit."
-            },
-            {
-              "name": "Bacardi Coconut",
-              "price": "",
-              "description": "Caribbean coconut meets Bacardi. Sweet, tropical and perfect for piña coladas."
-            },
-            {
-              "name": "Malibu",
-              "price": "",
-              "description": "Caribbean rum with coconut. Sweet, smooth and sunshine in a bottle."
-            },
-            {
-              "name": "Bambu Rum",
-              "price": "",
-              "description": "Premium spiced rum with exotic flavours. Smooth, complex and distinctively different."
-            },
-            {
-              "name": "Redleg Spiced",
-              "price": "",
-              "description": "Caribbean spiced rum with vanilla and ginger. Smooth, warming and perfectly balanced."
-            },
-            {
-              "name": "Redleg Pineapple",
-              "price": "",
-              "description": "Tropical pineapple meets spiced rum. Sweet, juicy and irresistibly refreshing."
-            },
-            {
-              "name": "Redleg Banana",
-              "price": "",
-              "description": "Ripe banana flavours enhance spiced rum. Creamy, sweet and tropically smooth."
-            },
-            {
-              "name": "Redleg Tropical",
-              "price": "",
-              "description": "Exotic fruit medley meets Caribbean rum. Your tropical escape in a glass."
-            },
-            {
-              "name": "Trash & Treasure Banana",
-              "price": "",
-              "description": "Artisan banana rum with authentic flavour. Smooth, rich and beautifully crafted."
-            },
-            {
-              "name": "Jose Cuervo Gold",
-              "price": "",
-              "description": "The world's number one tequila. Smooth and sweet with notes of vanilla and caramel. Essential for margaritas."
-            },
-            {
-              "name": "Jose Cuervo Silver",
-              "price": "",
-              "description": "Pure, unaged tequila. Crisp, clean with fresh agave flavours. Perfect for cocktails."
-            },
-            {
-              "name": "Patron Silver",
-              "price": "",
-              "description": "Ultra-premium tequila. Crystal clear with fresh agave and citrus notes. Simply perfection."
-            },
-            {
-              "name": "Olmeca Altos Plata",
-              "price": "",
-              "description": "100% blue agave tequila. Herbal and citrus notes with a smooth finish."
-            },
-            {
-              "name": "Olmeca Reposado",
-              "price": "",
-              "description": "Aged tequila with honey and vanilla notes. Smooth, mellow and perfect for sipping."
-            },
-            {
-              "name": "Cazcabel Coffee Tequila",
-              "price": "",
-              "description": "Coffee meets tequila in perfect harmony. Rich, smooth with chocolate notes."
-            },
-            {
-              "name": "Vida Mezcal",
-              "price": "",
-              "description": "Artisanal mezcal with smoky character. Complex, traditional and authentically Mexican."
-            },
-            {
-              "name": "Lustre Strawberry Cream with Tequila",
-              "price": "",
-              "description": "Strawberries and cream meet tequila. Sweet, indulgent and surprisingly smooth."
-            },
-            {
-              "name": "Lustre Pineapple Cream with Rum",
-              "price": "",
-              "description": "Tropical pineapple cream liqueur. Creamy, fruity and perfect for dessert cocktails."
-            }
-          ]
-        },
-        {
-          "title": "Liqueurs & Digestifs",
-          "style": "grid",
-          "items": [
-            {
-              "name": "Disaronno",
-              "price": "",
-              "description": "Italian amaretto since 1525. Sweet almond flavours with a hint of cherry. Sophisticated and smooth."
-            },
-            {
-              "name": "Cointreau",
-              "price": "",
-              "description": "Premium orange liqueur from France. Essential for cocktails or enjoyed neat over ice."
-            },
-            {
-              "name": "Chambord",
-              "price": "",
-              "description": "Black raspberry liqueur fit for royalty. Rich, luxurious and presented in an orb-shaped bottle."
-            },
-            {
-              "name": "Kahlua",
-              "price": "",
-              "description": "Mexican coffee liqueur. Rich arabica coffee with vanilla and caramel notes."
-            },
-            {
-              "name": "Tia Maria",
-              "price": "",
-              "description": "Jamaican coffee liqueur with rum. Smooth, sweet with a coffee kick."
-            },
-            {
-              "name": "Drambuie",
-              "price": "",
-              "description": "Scottish liqueur with whisky, honey and herbs. The Prince's dram since 1745."
-            },
-            {
-              "name": "Archers",
-              "price": "",
-              "description": "Peach schnapps liqueur. Sweet, fruity and perfect for cocktails."
-            },
-            {
-              "name": "Midori",
-              "price": "",
-              "description": "Japanese melon liqueur. Bright green, sweet and refreshingly different."
-            },
-            {
-              "name": "Aperol",
-              "price": "",
-              "description": "Italian aperitif since 1919. Bittersweet orange with herbs. Essential for spritzes."
-            },
-            {
-              "name": "Pernod",
-              "price": "",
-              "description": "French anise spirit. Complex herbs create the classic pastis flavour."
-            }
-          ]
-        },
-        {
-          "title": "Brandy & Port",
-          "style": "grid",
-          "items": [
-            { 
-              "name": "Courvoisier VS", 
-              "price": "", 
-              "description": "French cognac with notes of fresh oak and spring flowers. Smooth and elegant."
-            },
-            { 
-              "name": "Taylor's Fine Ruby Port", 
-              "price": "", 
-              "description": "Full-bodied ruby port with rich berry flavours. Perfect after dinner."
-            },
-            { 
-              "name": "Harvey's Bristol Cream Sherry", 
-              "price": "", 
-              "description": "Classic cream sherry. Sweet, smooth with notes of caramel and dried fruit."
-            }
-          ]
-        },
-        {
-          "title": "Vermouth",
-          "style": "grid",
-          "items": [
-            { 
-              "name": "Martini Rosso", 
-              "price": "", 
-              "description": "Sweet Italian vermouth with herbs and spices. Essential for Negronis and Manhattans."
-            },
-            { 
-              "name": "Martini Extra Dry", 
-              "price": "", 
-              "description": "Crisp, dry vermouth with floral notes. The classic martini ingredient."
-            }
-          ]
-        },
-        {
-          "title": "Shooters",
-          "style": "grid",
-          "items": [
-            { 
-              "name": "Jägermeister", 
-              "price": "", 
-              "description": "German herbal liqueur with 56 botanicals. Best served ice-cold."
-            },
-            { 
-              "name": "Sambuca Classic", 
-              "price": "", 
-              "description": "Italian anise-flavoured liqueur. Sweet and smooth, traditionally served with coffee beans."
-            },
-            { 
-              "name": "Sambuca Raspberry", 
-              "price": "", 
-              "description": "Fruity twist on the classic. Sweet raspberry meets traditional anise."
-            },
-            { 
-              "name": "Sambuca Liquorice", 
-              "price": "", 
-              "description": "Black sambuca with intense liquorice flavour. Bold and distinctive."
-            },
-            { 
-              "name": "Sambuca Chilli", 
-              "price": "", 
-              "description": "Fiery sambuca with a spicy kick. Not for the faint-hearted!"
-            },
-            { 
-              "name": "Sourz Apple", 
-              "price": "", 
-              "description": "Bright green apple shooter. Sweet, sour and seriously fun."
-            },
-            { 
-              "name": "Sourz Cherry", 
-              "price": "", 
-              "description": "Bold cherry flavour shot. Sweet and tangy party favourite."
-            },
-            { 
-              "name": "Sourz Strawberry", 
-              "price": "", 
-              "description": "Summer strawberry sweetness. Fruity shot that goes down easy."
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "wine",
-      "title": "Wine Selection",
-      "emoji": "🍷",
-      "sections": [
-        {
-          "title": "Red Wine",
-          "style": "grid",
-          "items": [
-            {
-              "name": "Counterpoint Shiraz",
-              "price": "Bottle",
-              "description": "Australia - Full-bodied with rich plum and blackberry flavours, hints of black pepper and smooth tannins. Perfect with our pies and burgers."
-            },
-            {
-              "name": "El Pico Cabernet Sauvignon",
-              "price": "Bottle",
-              "description": "Chile - Classic Cabernet with blackcurrant and cedar notes. Medium-bodied with soft tannins. Excellent with our Sunday roasts."
-            },
-            {
-              "name": "I Heart Merlot",
-              "price": "187ml/750ml",
-              "description": "Italy - Soft and approachable with ripe cherry and plum flavours. Velvety smooth finish. Great with pasta and pizza."
-            },
-            {
-              "name": "I Heart Shiraz",
-              "price": "187ml/750ml",
-              "description": "Australia - Bold and spicy with dark fruit flavours. Peppery finish and medium tannins."
-            },
-            {
-              "name": "Rocosa Malbec",
-              "price": "Bottle",
-              "description": "Argentina - Bold and fruity with dark berry flavours, violet notes and a hint of spice. Pairs beautifully with our beef dishes."
-            },
-            {
-              "name": "Gentlemen's Collection",
-              "price": "Bottle",
-              "description": "France - Premium blend showcasing the best of French winemaking. Complex, elegant and perfect for special occasions."
-            }
-          ]
-        },
-        {
-          "title": "White Wine",
-          "style": "grid",
-          "items": [
-            {
-              "name": "Counterpoint Chardonnay",
-              "price": "Bottle",
-              "description": "Australia - Tropical fruit flavours with subtle oak and creamy texture. Rich and full-bodied. Lovely with fish and chicken dishes."
-            },
-            {
-              "name": "El Pico Sauvignon Blanc",
-              "price": "Bottle",
-              "description": "Chile - Zesty and refreshing with citrus and green apple notes. Crisp acidity makes it perfect with seafood."
-            },
-            {
-              "name": "Giotto Pinot Grigio",
-              "price": "Bottle",
-              "description": "Italy - Light and crisp with delicate pear and citrus flavours. Easy-drinking and food-friendly."
-            },
-            {
-              "name": "I Heart Sauvignon Blanc",
-              "price": "187ml/750ml",
-              "description": "New Zealand - Vibrant tropical fruits and herbaceous notes. Refreshingly crisp with a zingy finish."
-            },
-            {
-              "name": "I Heart Pinot Grigio",
-              "price": "187ml/750ml",
-              "description": "Italy - Fresh and zesty with green apple and citrus notes. Light and refreshing."
-            },
-            {
-              "name": "I Heart Chardonnay",
-              "price": "187ml/750ml",
-              "description": "Australia - Ripe peach and melon flavours with a touch of vanilla. Smooth and well-balanced."
-            },
-            {
-              "name": "Piesporter Michelsberg",
-              "price": "Bottle",
-              "description": "Germany - Delicate Riesling with floral aromas and hints of peach. Off-dry style perfect as an aperitif."
-            },
-            {
-              "name": "Montford Estate Sauvignon Blanc",
-              "price": "Large bottle",
-              "description": "New Zealand - Premium estate wine with intense citrus and passion fruit. Crisp, elegant and refreshing."
-            }
-          ]
-        },
-        {
-          "title": "Rosé Wine",
-          "style": "grid",
-          "items": [
-            {
-              "name": "Gris des Seigneurs",
-              "price": "Bottle",
-              "description": "France - Provence-style rosé. Pale pink with delicate strawberry and citrus notes. Dry and refreshing."
-            },
-            {
-              "name": "I Heart Rosé",
-              "price": "187ml/750ml",
-              "description": "Italy - Bright and fruity with summer berry flavours. Perfect for sunny afternoons in our beer garden."
-            },
-            {
-              "name": "Three Pebbles Bay",
-              "price": "Bottle",
-              "description": "South Africa - Coral pink with red fruit aromas. Well-balanced with a crisp, dry finish."
-            },
-            {
-              "name": "Ara Pinot Gris",
-              "price": "Bottle",
-              "description": "New Zealand - Copper-tinged rosé style Pinot Gris. Aromatic with stone fruit flavours."
-            },
-            {
-              "name": "Ara Marlborough Sauvignon Rosé",
-              "price": "Bottle",
-              "description": "New Zealand - Elegant rosé with wild strawberry and rose petal notes. Beautifully balanced."
-            }
-          ]
-        },
-        {
-          "title": "Sparkling Wine",
-          "style": "grid",
-          "items": [
-            {
-              "name": "Giorgio & Gianni Prosecco",
-              "price": "200ml/750ml",
-              "description": "Italy - Fine bubbles with apple and pear flavours. Light, fresh and perfect for celebrations or Sunday brunch."
-            }
-          ]
-        },
-        {
-          "title": "Seasonal Special",
-          "style": "grid",
-          "items": [
-            {
-              "name": "Mulled Wine",
-              "price": "175ml",
-              "description": "Our secret recipe of red wine gently warmed with cinnamon, cloves and orange. Christmas in a glass."
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "soft",
-      "title": "Soft Drinks & Mixers",
-      "emoji": "🥤",
-      "description": "Refreshing non-alcoholic options and premium mixers for every occasion",
-      "sections": [
-        {
-          "title": "Classic Soft Drinks",
-          "style": "grid",
-          "items": [
-            { 
-              "name": "Coca-Cola Range", 
-              "price": "Various sizes",
-              "description": "The classics you love - Original, Diet Coke, and Coke Zero. Served ice-cold in glass bottles or on draught."
-            },
-            { 
-              "name": "Lemonade & 7-Up Free", 
-              "price": "Various sizes",
-              "description": "Crisp, refreshing lemon-lime sodas. Perfect on their own or as mixers for your favourite spirits."
-            },
-            { 
-              "name": "J2O Fruit Fusions", 
-              "price": "",
-              "description": "Premium fruit blends: Orange & Passionfruit, Apple & Mango, Apple & Raspberry. The sophisticated soft drink choice."
-            },
-            { 
-              "name": "Fanta Orange", 
-              "price": "",
-              "description": "Vibrant orange flavour served chilled. Fruity refreshment in every sip."
-            },
-            {
-              "name": "Appletiser",
-              "price": "",
-              "description": "Sparkling apple juice. Sophisticated and refreshing alternative to alcoholic drinks."
-            }
-          ]
-        },
-        {
-          "title": "Fresh Juices & Mixers",
-          "style": "grid",
-          "items": [
-            { 
-              "name": "Fresh Fruit Juices", 
-              "price": "",
-              "description": "Orange, Apple, Pineapple, and Cranberry juices. Perfect for mocktails or enjoyed on their own over ice."
-            },
-            { 
-              "name": "Classic Mixers", 
-              "price": "",
-              "description": "Tonic, Slimline Tonic, Ginger Ale, and Soda Water. Essential companions for our premium spirits."
-            },
-            { 
-              "name": "Schweppes Premium Sodas", 
-              "price": "",
-              "description": "Pink Grapefruit and Tropical sodas. Exotic flavours for adventurous mixologists."
-            },
-            {
-              "name": "Russchian Pink Soda",
-              "price": "",
-              "description": "Unique pink soda with a twist. Perfect mixer for creative cocktails."
-            },
-            {
-              "name": "Cordials",
-              "price": "",
-              "description": "Lime and Blackcurrant cordials. Classic mixers for a splash of flavour."
-            }
-          ]
-        },
-        {
-          "title": "Fever-Tree Premium Mixers",
-          "style": "grid",
-          "items": [
-            { 
-              "name": "Fever-Tree Mexican Lime", 
-              "price": "",
-              "description": "Tahitian lime with Mexican lime oils. The perfect partner for premium vodka."
-            },
-            { 
-              "name": "Fever-Tree Rhubarb & Raspberry", 
-              "price": "",
-              "description": "Tart rhubarb meets sweet raspberry. Artisan mixer for discerning gin lovers."
-            },
-            {
-              "name": "Fever-Tree Ginger Beer",
-              "price": "",
-              "description": "Fiery ginger with natural sweetness. Essential for Moscow Mules and Dark & Stormys."
-            },
-            {
-              "name": "Fever-Tree Ginger Ale",
-              "price": "",
-              "description": "Subtle ginger with refreshing sparkle. Perfect for whisky highballs."
-            },
-            {
-              "name": "Fever-Tree Madagascan Cola",
-              "price": "",
-              "description": "Premium cola with real kola nut. Elevates any rum serve."
-            },
-            {
-              "name": "Fever-Tree White Grape & Apricot",
-              "price": "",
-              "description": "Delicate fruit flavours create a sophisticated soda. Perfect with vodka or gin."
-            },
-            {
-              "name": "Fever-Tree Soda Water",
-              "price": "",
-              "description": "Soft spring water with gentle carbonation. The purest mixer for premium spirits."
-            },
-            {
-              "name": "Fever-Tree Elderflower",
-              "price": "",
-              "description": "Delicate elderflower with subtle sweetness. Quintessentially English mixer."
-            }
-          ]
-        },
-        {
-          "title": "Energy & Hydration",
-          "style": "grid",
-          "items": [
-            { 
-              "name": "Red Bull", 
-              "price": "",
-              "description": "The original energy drink. Perfect pick-me-up for long nights or early airport runs."
-            },
-            { 
-              "name": "Kick Energy", 
-              "price": "",
-              "description": "British-made energy boost with a refreshing citrus kick. Great value alternative."
-            },
-            { 
-              "name": "Harrogate Spring Water", 
-              "price": "",
-              "description": "Still or Sparkling. Yorkshire's finest mineral water, naturally pure and refreshing."
-            },
-            { 
-              "name": "Kids' Favourites", 
-              "price": "",
-              "description": "Fruit Shoot in Orange and Blackcurrant. Perfect size for little hands, no spills guaranteed!"
-            }
-          ]
-        }
-      ]
-    }
-  ],
-  "responsibleDrinking": {
-    "title": "Please Drink Responsibly",
-    "message": "We want all our guests to enjoy their visit safely. Our trained staff are here to help ensure everyone has a great time. Please ask about our selection of low and no-alcohol alternatives."
-  }
+ "title": "Drinks Menu",
+ "description": "Real ales, premium spirits, and extensive drinks selection at The Anchor",
+ "lastUpdated": "2024-01-15",
+ "categories": [
+ {
+ "id": "draught",
+ "title": "On Tap",
+ "emoji": "",
+ "sections": [
+ {
+ "title": "Lagers & Beers",
+ "style": "grid",
+ "items": [
+ {
+ "name": "Birra Moretti",
+ "price": "",
+ "description": "4.6% ABV - Italy's premium lager since 1859. A perfectly balanced beer with a delicate hop aroma and smooth, refreshing finish. Pairs beautifully with our stone-baked pizzas."
+ },
+ {
+ "name": "Carling",
+ "price": "",
+ "description": "4.0% ABV - Britain's favourite session lager. Light, crisp and refreshing with a clean finish. The perfect pint for watching the match or catching up with friends."
+ },
+ {
+ "name": "Stella Artois",
+ "price": "",
+ "description": "4.6% ABV - Belgium's finest export lager. Reassuringly expensive taste with distinctive hoppy bitterness and citrus notes. Brewed to perfection since 1366."
+ },
+ {
+ "name": "Fosters",
+ "price": "",
+ "description": "3.7% ABV - Australia's gift to British pubs. Easy-drinking lager with a light malt character and subtle sweetness. Ideal for long summer afternoons in our beer garden."
+ },
+ {
+ "name": "Pravha",
+ "price": "",
+ "description": "4.0% ABV - Czech-style pilsner brewed with Saaz hops. Golden colour with a delicate floral aroma and crisp, clean taste. A sophisticated choice for lager lovers."
+ },
+ {
+ "name": "Carlsberg",
+ "price": "",
+ "description": "3.8% ABV - Probably the best beer in the world? Danish pilsner with a light, refreshing taste and smooth hoppy notes. A classic that never goes out of style."
+ }
+ ]
+ },
+ {
+ "title": "Stouts & Ciders",
+ "style": "grid",
+ "items": [
+ {
+ "name": "Guinness",
+ "price": "",
+ "description": "4.1% ABV - Ireland's iconic stout. Rich, creamy head with deep roasted barley flavours, hints of coffee and chocolate. Good things come to those who wait for the perfect pour."
+ },
+ {
+ "name": "Aspall",
+ "price": "",
+ "description": "5.5% ABV - Suffolk's finest cider since 1728. Medium dry with a crisp apple finish. Made from a secret blend of culinary and cider apples from their own orchards."
+ },
+ {
+ "name": "Inch's Medium Apple Cider",
+ "price": "",
+ "description": "4.5% ABV - Traditional West Country cider with a perfect balance of sweetness and sharp apple flavours. Refreshingly smooth with a clean, fruity finish."
+ }
+ ]
+ }
+ ]
+ },
+ {
+ "id": "bottles",
+ "title": "Bottled Drinks",
+ "emoji": "",
+ "sections": [
+ {
+ "title": "Bottled Ales",
+ "style": "grid",
+ "items": [
+ {
+ "name": "Abbot Ale",
+ "price": "",
+ "description": "5.0% ABV - Premium English ale from Greene King. Full-bodied with a distinctive fruity aroma and malty richness. Brewed in Bury St Edmunds since 1086."
+ },
+ {
+ "name": "Greene King IPA",
+ "price": "",
+ "description": "3.6% ABV - A perfectly balanced India Pale Ale with fresh hop flavours and citrus notes. Light amber colour with a clean, refreshing bitter finish."
+ },
+ {
+ "name": "Old Speckled Hen",
+ "price": "",
+ "description": "5.0% ABV - Distinctive tawny coloured ale with a superb malty taste. Smooth, creamy and full-flavoured with a refreshing bitterness. A true British classic."
+ },
+ {
+ "name": "Newcastle Brown Ale",
+ "price": "",
+ "description": "4.7% ABV - The one and only Newkie Brown. Sweet caramel notes balanced with moderate bitterness. An icon of the North East since 1927."
+ }
+ ]
+ },
+ {
+ "title": "Bottled Beers",
+ "style": "grid",
+ "items": [
+ {
+ "name": "Budweiser",
+ "price": "",
+ "description": "5.0% ABV - The King of Beers. American lager aged on beechwood chips for smoothness. Crisp, clean and refreshing with subtle hop aroma."
+ },
+ {
+ "name": "Corona Extra",
+ "price": "",
+ "description": "4.5% ABV - Mexico's favourite beer. Light, refreshing pilsner-style lager best served with a wedge of lime. Transport yourself to a beach in Cancun."
+ },
+ {
+ "name": "Desperados",
+ "price": "",
+ "description": "5.9% ABV - Tequila-flavoured beer that breaks all the rules. A unique blend of lager with a hint of tequila for those who like to live on the edge."
+ },
+ {
+ "name": "Peroni Nastro Azzurro",
+ "price": "",
+ "description": "5.1% ABV - Italy's number one premium lager. Crisp and refreshing with a delicate balance of bitterness and citrus aromatic notes. La dolce vita in a bottle."
+ },
+ {
+ "name": "Peroni 0%",
+ "price": "",
+ "description": "0.0% ABV - All the Italian style without the alcohol. Same crisp, refreshing taste of Peroni with citrus notes. A refreshing alcohol-free option."
+ }
+ ]
+ },
+ {
+ "title": "Bottled Ciders",
+ "style": "grid",
+ "items": [
+ {
+ "name": "Magners Original",
+ "price": "",
+ "description": "4.5% ABV - Ireland's original premium cider. Made from 17 varieties of apples for a unique crisp taste. Best served over ice for ultimate refreshment."
+ },
+ {
+ "name": "Old Mout Berries & Cherries",
+ "price": "",
+ "description": "4.0% ABV - New Zealand fruit cider bursting with strawberry and raspberry flavours, finished with sweet cherries. A fruity adventure in every bottle."
+ },
+ {
+ "name": "Old Mout Kiwi & Lime",
+ "price": "",
+ "description": "4.0% ABV - Tropical fusion of tangy kiwi and zesty lime. Light, refreshing and packed with exotic fruit flavours from the land of the long white cloud."
+ },
+ {
+ "name": "Old Mout Strawberry & Apple",
+ "price": "",
+ "description": "4.0% ABV - Sweet strawberries blended with crisp apples. A summery cider that's like drinking sunshine. Perfect for our beer garden."
+ },
+ {
+ "name": "Aspall Premier Cru",
+ "price": "",
+ "description": "7.0% ABV - Champagne of ciders. Elegant, sparkling cider with fine bubbles and complex apple flavours. A sophisticated choice for special occasions."
+ }
+ ]
+ }
+ ]
+ },
+ {
+ "id": "cocktails",
+ "title": "Cocktails",
+ "emoji": "",
+ "sections": [
+ {
+ "title": "Featured Cocktails",
+ "style": "grid",
+ "description": "NEW! Our mixologist's special creations using premium mixers. Limited time only!",
+ "highlight": true,
+ "items": [
+ {
+ "name": "Pink Paloma",
+ "price": "6.50",
+ "description": "A vibrant twist on the Mexican classic. Vodka meets zesty pink grapefruit for a refreshingly bitter-sweet sensation. Perfect for those who like their cocktails with attitude."
+ },
+ {
+ "name": "English Garden",
+ "price": "7.00",
+ "description": "Quintessentially British elegance in a glass. Premium gin infused with delicate elderflower creates a sophisticated summer sipper. Beautifully balanced and utterly refreshing."
+ },
+ {
+ "name": "Tropical Punch",
+ "price": "6.50",
+ "description": "Caribbean vibes meet tropical paradise. Spiced rum dancing with exotic fruit flavours. One sip and you'll be planning your next beach holiday."
+ },
+ {
+ "name": "Apricot Fizz",
+ "price": "6.75",
+ "description": "Effervescent elegance with a fruity twist. Vodka mingles with apricot and grape notes, topped with sparkle. Light, bright and dangerously easy to drink."
+ },
+ {
+ "name": "Moscow Mule",
+ "price": "6.75",
+ "description": "The copper mug classic reimagined. Premium vodka kicks it with fiery ginger beer. Bold, spicy and refreshingly different."
+ },
+ {
+ "name": "Dark & Stormy",
+ "price": "7.00",
+ "description": "Bermuda's gift to stormy nights. Dark spiced rum battles premium ginger beer in this tempestuous classic. Not for the faint-hearted."
+ },
+ {
+ "name": "Whiskey Ginger",
+ "price": "6.75",
+ "description": "Smooth Irish whiskey meets sophisticated ginger ale. A refined twist on the highball that's both warming and refreshing."
+ },
+ {
+ "name": "Cuba Libre",
+ "price": "6.75",
+ "description": "The rebel's rum and coke. Spiced rum elevated with artisan cola creates a premium take on the Cuban classic. Viva la revolución!"
+ }
+ ]
+ },
+ {
+ "title": "Classic Cocktails",
+ "style": "grid",
+ "items": [
+ {
+ "name": "Espresso Martini",
+ "price": "",
+ "description": "The ultimate pick-me-up. Rich coffee meets smooth spirits in this sophisticated cocktail that's perfect for starting or ending your night. Guaranteed to get you buzzing."
+ },
+ {
+ "name": "Passion Fruit Martini",
+ "price": "",
+ "description": "Tropical paradise in a glass. Sweet, tangy and utterly irresistible, served with a cheeky shot of fizz on the side. Our most Instagrammable cocktail."
+ },
+ {
+ "name": "Classic Margarita",
+ "price": "",
+ "description": "Mexico's gift to the world. Perfectly balanced sweet and sour with a salt-rimmed glass. One sip and you'll be planning your next holiday."
+ },
+ {
+ "name": "Vodka Margarita",
+ "price": "",
+ "description": "Our rebellious twist on the classic. All the lime-kissed goodness with a different kind of kick. For those who like to break the rules."
+ },
+ {
+ "name": "Aperol Spritz",
+ "price": "",
+ "description": "Sunset in Venice captured in a glass. Bittersweet, bubbly and refreshing. The perfect aperitif for those long summer evenings."
+ },
+ {
+ "name": "Mojito",
+ "price": "",
+ "description": "Cuba's refreshing gift to the world. Fresh mint, lime and rum muddled to perfection. Summer in a glass."
+ }
+ ]
+ },
+ {
+ "title": "Signature Cocktails",
+ "style": "grid",
+ "items": [
+ {
+ "name": "Peach Blush",
+ "price": "",
+ "description": "Holiday romance in liquid form. Fruity, fun and flirty with sunset colours that'll transport you to tropical shores. No SPF required."
+ },
+ {
+ "name": "Woo Woo",
+ "price": "",
+ "description": "The cheeky cousin of the Cosmo. Pretty in pink with a perfect balance of sweet and tart. Guaranteed to get the party started."
+ },
+ {
+ "name": "Pimm's",
+ "price": "Glass/Jug",
+ "description": "Summer in the English countryside. Refreshing blend with fresh fruit, cucumber and mint. Perfect for sharing in our sunny beer garden."
+ },
+ {
+ "name": "Apple & Blackberry Pie",
+ "price": "",
+ "description": "Autumn comfort in cocktail form. Like your nan's best dessert but with a naughty twist. Warming spices meet orchard fruits."
+ },
+ {
+ "name": "Captain's Colada",
+ "price": "",
+ "description": "Christmas meets the Caribbean. Our festive take on the tropical classic. Santa's favourite way to unwind after a long night."
+ },
+ {
+ "name": "Hot Toddy",
+ "price": "",
+ "description": "The ultimate winter warmer. Soothing blend of warming spices and citrus. Like a hug in a mug for cold evenings."
+ }
+ ]
+ },
+ {
+ "title": "Shots & Bombs",
+ "style": "grid",
+ "items": [
+ {
+ "name": "Baby Guinness",
+ "price": "",
+ "description": "Looks like the real thing but sweeter. A layered shot that's almost too pretty to drink. Almost."
+ },
+ {
+ "name": "Jager Bomb",
+ "price": "",
+ "description": "The party starter. Drop it, down it, feel the energy surge. Not for the faint-hearted."
+ },
+ {
+ "name": "Kick Bomb",
+ "price": "",
+ "description": "Our secret weapon for late-night stamina. When you need that extra boost to keep the good times rolling."
+ },
+ {
+ "name": "Skittle Bomb",
+ "price": "",
+ "description": "Taste the rainbow! Sweet and fruity shot that's like liquid candy. A colorful explosion of flavor."
+ }
+ ]
+ }
+ ]
+ },
+ {
+ "id": "spirits",
+ "title": "Spirits",
+ "emoji": "",
+ "description": "Our extensive collection of premium spirits, carefully curated for every taste",
+ "sections": [
+ {
+ "title": "Manager's Special",
+ "style": "grid",
+ "highlight": true,
+ "description": "Discover this month's featured spirit at 25% off.",
+ "items": [
+ {
+ "name": "Monthly Feature",
+ "price": "",
+ "description": "Ask at the bar for this month's Manager's Special pricing and tasting notes.",
+ "special": true
+ }
+ ]
+ },
+ {
+ "title": "Gin Collection",
+ "style": "grid",
+ "items": [
+ {
+ "name": "Bombay Sapphire",
+ "price": "",
+ "description": "The world's number one premium gin. Ten exotic botanicals create a perfectly balanced, bright and fresh taste."
+ },
+ {
+ "name": "Hendrick's",
+ "price": "",
+ "description": "Delightfully peculiar gin infused with cucumber and rose. Refreshingly unusual and perfect with cucumber garnish."
+ },
+ {
+ "name": "Hendrick's Flora Adora",
+ "price": "",
+ "description": "A floral symphony from Hendrick's. Blooming with herbal and floral notes for a garden party in a glass."
+ },
+ {
+ "name": "Tanqueray London Dry",
+ "price": "",
+ "description": "Four botanicals perfected over 180 years. The bartender's choice for the perfect G&T."
+ },
+ {
+ "name": "Tanqueray Flor de Sevilla",
+ "price": "",
+ "description": "Seville orange meets classic Tanqueray. Zesty, bittersweet and perfect with tonic."
+ },
+ {
+ "name": "Tanqueray 10",
+ "price": "",
+ "description": "Ultra-premium gin with fresh citrus fruits. The pinnacle of Tanqueray craftsmanship."
+ },
+ {
+ "name": "Tanqueray Blackcurrant Royale",
+ "price": "",
+ "description": "French blackcurrants meet British gin. Rich, fruity and luxuriously smooth."
+ },
+ {
+ "name": "Gordon's",
+ "price": "",
+ "description": "The world's best-selling London Dry Gin. Triple-distilled with juniper berries and secret botanicals."
+ },
+ {
+ "name": "Gordon's Pink",
+ "price": "",
+ "description": "The original pink gin. Sweet strawberry and raspberry notes balanced with Gordon's classic juniper."
+ },
+ {
+ "name": "Gordon's White Peach",
+ "price": "",
+ "description": "Juicy white peach meets classic Gordon's. Summer sophistication in every sip."
+ },
+ {
+ "name": "Gordon's Lemon",
+ "price": "",
+ "description": "Zesty Sicilian lemons enhance Gordon's gin. Bright, citrusy and refreshing."
+ },
+ {
+ "name": "Gordon's Tropical Passionfruit",
+ "price": "",
+ "description": "Exotic passionfruit brings tropical vibes. Sweet, tangy and perfect for summer."
+ },
+ {
+ "name": "Gordon's Sloe Gin",
+ "price": "",
+ "description": "Traditional sloe berries steeped in Gordon's gin. Sweet, fruity and warming."
+ },
+ {
+ "name": "Whitley Neill Rhubarb & Ginger",
+ "price": "",
+ "description": "Yorkshire rhubarb meets warming ginger. A taste of the English countryside with a spicy twist."
+ },
+ {
+ "name": "Kopparberg Strawberry & Lime Gin",
+ "price": "",
+ "description": "Swedish innovation meets British tradition. Fresh strawberries and zesty lime create summer magic."
+ },
+ {
+ "name": "Chase Sloe Gin",
+ "price": "",
+ "description": "Herefordshire sloes meet Chase's potato vodka base. Premium, smooth and deliciously different."
+ },
+ {
+ "name": "Williams Chase Pink Grapefruit Gin",
+ "price": "",
+ "description": "Zesty pink grapefruit from Chase. Crisp, citrusy and wonderfully refreshing."
+ },
+ {
+ "name": "Warner's Elderflower Gin",
+ "price": "",
+ "description": "Farm-grown elderflowers create floral magic. Delicate, aromatic and quintessentially English."
+ },
+ {
+ "name": "Warner's Honeybee Gin",
+ "price": "",
+ "description": "Local honey adds golden sweetness. Smooth, mellow and bee-autifully balanced."
+ },
+ {
+ "name": "The Botanist",
+ "price": "",
+ "description": "22 hand-foraged botanicals from Islay. Complex, refined and utterly unique."
+ },
+ {
+ "name": "Pimm's No. 1",
+ "price": "",
+ "description": "The original summer cup. Gin-based liqueur with herbs and citrus. Essential for British summers."
+ }
+ ]
+ },
+ {
+ "title": "Whisky Cabinet",
+ "style": "grid",
+ "items": [
+ {
+ "name": "Jameson",
+ "price": "",
+ "description": "Triple-distilled Irish smoothness. The world's best-selling Irish whiskey with notes of vanilla and toasted wood."
+ },
+ {
+ "name": "Jack Daniel's",
+ "price": "",
+ "description": "Tennessee's finest. Charcoal mellowed drop by drop for exceptional smoothness. Old No. 7 never goes out of style."
+ },
+ {
+ "name": "Jack Daniel's Honey",
+ "price": "",
+ "description": "Tennessee whiskey meets golden honey. Sweet, smooth and dangerously drinkable."
+ },
+ {
+ "name": "Jack Daniel's Fire",
+ "price": "",
+ "description": "Cinnamon heat meets Jack Daniel's smoothness. Fiery finish with a warm embrace."
+ },
+ {
+ "name": "Jack Daniel's Apple",
+ "price": "",
+ "description": "Crisp green apple meets Tennessee whiskey. Fresh, fruity and surprisingly smooth."
+ },
+ {
+ "name": "Glenfiddich 12",
+ "price": "",
+ "description": "The world's most awarded single malt. Fresh pear and subtle oak flavours from Scotland's valley of the deer."
+ },
+ {
+ "name": "Glenmorangie",
+ "price": "",
+ "description": "Highland single malt aged in bourbon casks. Creamy, fruity and delicately complex."
+ },
+ {
+ "name": "Monkey Shoulder",
+ "price": "",
+ "description": "Triple malt for mixing or sipping. Smooth, rich and mellow with vanilla and spice notes."
+ },
+ {
+ "name": "Maker's Mark",
+ "price": "",
+ "description": "Kentucky bourbon sealed with red wax. Sweet with caramel and vanilla notes. Handcrafted in small batches."
+ },
+ {
+ "name": "Talisker 10",
+ "price": "",
+ "description": "From the Isle of Skye. Powerful peat smoke with sea-salt and sweet notes. A taste of the Scottish coast."
+ },
+ {
+ "name": "Johnnie Walker Black Label",
+ "price": "",
+ "description": "12-year-old blended Scotch. Deep, complex flavour with smoky notes. The icon walks on."
+ },
+ {
+ "name": "Famous Grouse",
+ "price": "",
+ "description": "Scotland's favourite blended whisky. Smooth, balanced and perfect for mixing."
+ },
+ {
+ "name": "Bell's",
+ "price": "",
+ "description": "Classic blended Scotch since 1825. Smoky, nutty and distinctively smooth."
+ },
+ {
+ "name": "Bushmills",
+ "price": "",
+ "description": "Ireland's oldest whiskey from 1608. Light, fruity and exceptionally smooth."
+ },
+ {
+ "name": "Southern Comfort",
+ "price": "",
+ "description": "New Orleans original since 1874. Whiskey liqueur with fruit and spice notes."
+ },
+ {
+ "name": "Shanky's Whip",
+ "price": "",
+ "description": "Irish whiskey meets vanilla liqueur. Smooth, creamy and dangerously moreish."
+ },
+ {
+ "name": "Bailey's Irish Cream",
+ "price": "",
+ "description": "The original Irish cream liqueur. Luxuriously creamy with chocolate and vanilla notes. Perfect over ice or in coffee."
+ }
+ ]
+ },
+ {
+ "title": "Vodka Selection",
+ "style": "grid",
+ "items": [
+ {
+ "name": "Grey Goose",
+ "price": "",
+ "description": "French luxury vodka. Exceptionally smooth with subtle notes of almond. The world's best tasting vodka."
+ },
+ {
+ "name": "Grey Goose Strawberry & Lemongrass",
+ "price": "",
+ "description": "Premium vodka meets exotic flavours. Fresh strawberries enhanced with aromatic lemongrass."
+ },
+ {
+ "name": "Smirnoff Red",
+ "price": "",
+ "description": "Triple distilled and ten times filtered. The world's number one vodka. Pure, clean and versatile."
+ },
+ {
+ "name": "Smirnoff Raspberry Crush",
+ "price": "",
+ "description": "Summer berries meet premium vodka. Sweet and fruity without being sickly. Perfect with lemonade."
+ },
+ {
+ "name": "Smirnoff Miami Peach",
+ "price": "",
+ "description": "Sun-kissed peaches bring Miami vibes. Sweet, smooth and perfect for summer cocktails."
+ },
+ {
+ "name": "Smirnoff Mango & Passionfruit",
+ "price": "",
+ "description": "Tropical explosion in a bottle. Exotic fruits create vacation vibes year-round."
+ },
+ {
+ "name": "Lustre Caffe Latte Cream with Vodka",
+ "price": "",
+ "description": "Coffee cream liqueur meets vodka. Indulgent, smooth and perfect for dessert drinks."
+ }
+ ]
+ },
+ {
+ "title": "Rum & Tequila Bar",
+ "style": "grid",
+ "items": [
+ {
+ "name": "Kraken Black Spiced",
+ "price": "",
+ "description": "The beast from the deep. Rich, dark and mysterious with notes of cinnamon and vanilla. As smooth as the seven seas."
+ },
+ {
+ "name": "Captain Morgan Spiced",
+ "price": "",
+ "description": "The Captain's legendary blend. Caribbean rum with warming spices. Perfect with cola and a squeeze of lime."
+ },
+ {
+ "name": "Captain Morgan's Dark",
+ "price": "",
+ "description": "Rich, full-bodied dark rum. Molasses and caramel notes create depth and character."
+ },
+ {
+ "name": "Captain Morgan's Sliced Apple",
+ "price": "",
+ "description": "Crisp apple meets spiced rum. Fresh, fruity and perfect for autumn nights."
+ },
+ {
+ "name": "Captain Morgan's Tiki",
+ "price": "",
+ "description": "Tropical pineapple and mango flavours. Paradise in a bottle from the Captain."
+ },
+ {
+ "name": "Havana Club 3",
+ "price": "",
+ "description": "Cuban tradition in every drop. Light, fresh and perfect for mojitos."
+ },
+ {
+ "name": "Havana Club Especial",
+ "price": "",
+ "description": "Golden Cuban rum aged to perfection. Smooth, mellow and authentically Cuban."
+ },
+ {
+ "name": "Havana Club 7",
+ "price": "",
+ "description": "Premium aged Cuban rum. Complex, sophisticated and perfect neat or on the rocks."
+ },
+ {
+ "name": "Bacardi",
+ "price": "",
+ "description": "The world's most awarded rum. Light, crisp and the essential cocktail base."
+ },
+ {
+ "name": "Bacardi Carta Negra",
+ "price": "",
+ "description": "Dark rum aged in charred oak. Rich, smooth with notes of tropical fruit."
+ },
+ {
+ "name": "Bacardi Coconut",
+ "price": "",
+ "description": "Caribbean coconut meets Bacardi. Sweet, tropical and perfect for piña coladas."
+ },
+ {
+ "name": "Malibu",
+ "price": "",
+ "description": "Caribbean rum with coconut. Sweet, smooth and sunshine in a bottle."
+ },
+ {
+ "name": "Bambu Rum",
+ "price": "",
+ "description": "Premium spiced rum with exotic flavours. Smooth, complex and distinctively different."
+ },
+ {
+ "name": "Redleg Spiced",
+ "price": "",
+ "description": "Caribbean spiced rum with vanilla and ginger. Smooth, warming and perfectly balanced."
+ },
+ {
+ "name": "Redleg Pineapple",
+ "price": "",
+ "description": "Tropical pineapple meets spiced rum. Sweet, juicy and irresistibly refreshing."
+ },
+ {
+ "name": "Redleg Banana",
+ "price": "",
+ "description": "Ripe banana flavours enhance spiced rum. Creamy, sweet and tropically smooth."
+ },
+ {
+ "name": "Redleg Tropical",
+ "price": "",
+ "description": "Exotic fruit medley meets Caribbean rum. Your tropical escape in a glass."
+ },
+ {
+ "name": "Trash & Treasure Banana",
+ "price": "",
+ "description": "Artisan banana rum with authentic flavour. Smooth, rich and beautifully crafted."
+ },
+ {
+ "name": "Jose Cuervo Gold",
+ "price": "",
+ "description": "The world's number one tequila. Smooth and sweet with notes of vanilla and caramel. Essential for margaritas."
+ },
+ {
+ "name": "Jose Cuervo Silver",
+ "price": "",
+ "description": "Pure, unaged tequila. Crisp, clean with fresh agave flavours. Perfect for cocktails."
+ },
+ {
+ "name": "Patron Silver",
+ "price": "",
+ "description": "Ultra-premium tequila. Crystal clear with fresh agave and citrus notes. Simply perfection."
+ },
+ {
+ "name": "Olmeca Altos Plata",
+ "price": "",
+ "description": "100% blue agave tequila. Herbal and citrus notes with a smooth finish."
+ },
+ {
+ "name": "Olmeca Reposado",
+ "price": "",
+ "description": "Aged tequila with honey and vanilla notes. Smooth, mellow and perfect for sipping."
+ },
+ {
+ "name": "Cazcabel Coffee Tequila",
+ "price": "",
+ "description": "Coffee meets tequila in perfect harmony. Rich, smooth with chocolate notes."
+ },
+ {
+ "name": "Vida Mezcal",
+ "price": "",
+ "description": "Artisanal mezcal with smoky character. Complex, traditional and authentically Mexican."
+ },
+ {
+ "name": "Lustre Strawberry Cream with Tequila",
+ "price": "",
+ "description": "Strawberries and cream meet tequila. Sweet, indulgent and surprisingly smooth."
+ },
+ {
+ "name": "Lustre Pineapple Cream with Rum",
+ "price": "",
+ "description": "Tropical pineapple cream liqueur. Creamy, fruity and perfect for dessert cocktails."
+ }
+ ]
+ },
+ {
+ "title": "Liqueurs & Digestifs",
+ "style": "grid",
+ "items": [
+ {
+ "name": "Disaronno",
+ "price": "",
+ "description": "Italian amaretto since 1525. Sweet almond flavours with a hint of cherry. Sophisticated and smooth."
+ },
+ {
+ "name": "Cointreau",
+ "price": "",
+ "description": "Premium orange liqueur from France. Essential for cocktails or enjoyed neat over ice."
+ },
+ {
+ "name": "Chambord",
+ "price": "",
+ "description": "Black raspberry liqueur fit for royalty. Rich, luxurious and presented in an orb-shaped bottle."
+ },
+ {
+ "name": "Kahlua",
+ "price": "",
+ "description": "Mexican coffee liqueur. Rich arabica coffee with vanilla and caramel notes."
+ },
+ {
+ "name": "Tia Maria",
+ "price": "",
+ "description": "Jamaican coffee liqueur with rum. Smooth, sweet with a coffee kick."
+ },
+ {
+ "name": "Drambuie",
+ "price": "",
+ "description": "Scottish liqueur with whisky, honey and herbs. The Prince's dram since 1745."
+ },
+ {
+ "name": "Archers",
+ "price": "",
+ "description": "Peach schnapps liqueur. Sweet, fruity and perfect for cocktails."
+ },
+ {
+ "name": "Midori",
+ "price": "",
+ "description": "Japanese melon liqueur. Bright green, sweet and refreshingly different."
+ },
+ {
+ "name": "Aperol",
+ "price": "",
+ "description": "Italian aperitif since 1919. Bittersweet orange with herbs. Essential for spritzes."
+ },
+ {
+ "name": "Pernod",
+ "price": "",
+ "description": "French anise spirit. Complex herbs create the classic pastis flavour."
+ }
+ ]
+ },
+ {
+ "title": "Brandy & Port",
+ "style": "grid",
+ "items": [
+ { 
+ "name": "Courvoisier VS", 
+ "price": "", 
+ "description": "French cognac with notes of fresh oak and spring flowers. Smooth and elegant."
+ },
+ { 
+ "name": "Taylor's Fine Ruby Port", 
+ "price": "", 
+ "description": "Full-bodied ruby port with rich berry flavours. Perfect after dinner."
+ },
+ { 
+ "name": "Harvey's Bristol Cream Sherry", 
+ "price": "", 
+ "description": "Classic cream sherry. Sweet, smooth with notes of caramel and dried fruit."
+ }
+ ]
+ },
+ {
+ "title": "Vermouth",
+ "style": "grid",
+ "items": [
+ { 
+ "name": "Martini Rosso", 
+ "price": "", 
+ "description": "Sweet Italian vermouth with herbs and spices. Essential for Negronis and Manhattans."
+ },
+ { 
+ "name": "Martini Extra Dry", 
+ "price": "", 
+ "description": "Crisp, dry vermouth with floral notes. The classic martini ingredient."
+ }
+ ]
+ },
+ {
+ "title": "Shooters",
+ "style": "grid",
+ "items": [
+ { 
+ "name": "Jägermeister", 
+ "price": "", 
+ "description": "German herbal liqueur with 56 botanicals. Best served ice-cold."
+ },
+ { 
+ "name": "Sambuca Classic", 
+ "price": "", 
+ "description": "Italian anise-flavoured liqueur. Sweet and smooth, traditionally served with coffee beans."
+ },
+ { 
+ "name": "Sambuca Raspberry", 
+ "price": "", 
+ "description": "Fruity twist on the classic. Sweet raspberry meets traditional anise."
+ },
+ { 
+ "name": "Sambuca Liquorice", 
+ "price": "", 
+ "description": "Black sambuca with intense liquorice flavour. Bold and distinctive."
+ },
+ { 
+ "name": "Sambuca Chilli", 
+ "price": "", 
+ "description": "Fiery sambuca with a spicy kick. Not for the faint-hearted!"
+ },
+ { 
+ "name": "Sourz Apple", 
+ "price": "", 
+ "description": "Bright green apple shooter. Sweet, sour and seriously fun."
+ },
+ { 
+ "name": "Sourz Cherry", 
+ "price": "", 
+ "description": "Bold cherry flavour shot. Sweet and tangy party favourite."
+ },
+ { 
+ "name": "Sourz Strawberry", 
+ "price": "", 
+ "description": "Summer strawberry sweetness. Fruity shot that goes down easy."
+ }
+ ]
+ }
+ ]
+ },
+ {
+ "id": "wine",
+ "title": "Wine Selection",
+ "emoji": "",
+ "sections": [
+ {
+ "title": "Red Wine",
+ "style": "grid",
+ "items": [
+ {
+ "name": "Counterpoint Shiraz",
+ "price": "Bottle",
+ "description": "Australia - Full-bodied with rich plum and blackberry flavours, hints of black pepper and smooth tannins. Perfect with our pies and burgers."
+ },
+ {
+ "name": "El Pico Cabernet Sauvignon",
+ "price": "Bottle",
+ "description": "Chile - Classic Cabernet with blackcurrant and cedar notes. Medium-bodied with soft tannins. Excellent with our Sunday roasts."
+ },
+ {
+ "name": "I Heart Merlot",
+ "price": "187ml/750ml",
+ "description": "Italy - Soft and approachable with ripe cherry and plum flavours. Velvety smooth finish. Great with pasta and pizza."
+ },
+ {
+ "name": "I Heart Shiraz",
+ "price": "187ml/750ml",
+ "description": "Australia - Bold and spicy with dark fruit flavours. Peppery finish and medium tannins."
+ },
+ {
+ "name": "Rocosa Malbec",
+ "price": "Bottle",
+ "description": "Argentina - Bold and fruity with dark berry flavours, violet notes and a hint of spice. Pairs beautifully with our beef dishes."
+ },
+ {
+ "name": "Gentlemen's Collection",
+ "price": "Bottle",
+ "description": "France - Premium blend showcasing the best of French winemaking. Complex, elegant and perfect for special occasions."
+ }
+ ]
+ },
+ {
+ "title": "White Wine",
+ "style": "grid",
+ "items": [
+ {
+ "name": "Counterpoint Chardonnay",
+ "price": "Bottle",
+ "description": "Australia - Tropical fruit flavours with subtle oak and creamy texture. Rich and full-bodied. Lovely with fish and chicken dishes."
+ },
+ {
+ "name": "El Pico Sauvignon Blanc",
+ "price": "Bottle",
+ "description": "Chile - Zesty and refreshing with citrus and green apple notes. Crisp acidity makes it perfect with seafood."
+ },
+ {
+ "name": "Giotto Pinot Grigio",
+ "price": "Bottle",
+ "description": "Italy - Light and crisp with delicate pear and citrus flavours. Easy-drinking and food-friendly."
+ },
+ {
+ "name": "I Heart Sauvignon Blanc",
+ "price": "187ml/750ml",
+ "description": "New Zealand - Vibrant tropical fruits and herbaceous notes. Refreshingly crisp with a zingy finish."
+ },
+ {
+ "name": "I Heart Pinot Grigio",
+ "price": "187ml/750ml",
+ "description": "Italy - Fresh and zesty with green apple and citrus notes. Light and refreshing."
+ },
+ {
+ "name": "I Heart Chardonnay",
+ "price": "187ml/750ml",
+ "description": "Australia - Ripe peach and melon flavours with a touch of vanilla. Smooth and well-balanced."
+ },
+ {
+ "name": "Piesporter Michelsberg",
+ "price": "Bottle",
+ "description": "Germany - Delicate Riesling with floral aromas and hints of peach. Off-dry style perfect as an aperitif."
+ },
+ {
+ "name": "Montford Estate Sauvignon Blanc",
+ "price": "Large bottle",
+ "description": "New Zealand - Premium estate wine with intense citrus and passion fruit. Crisp, elegant and refreshing."
+ }
+ ]
+ },
+ {
+ "title": "Rosé Wine",
+ "style": "grid",
+ "items": [
+ {
+ "name": "Gris des Seigneurs",
+ "price": "Bottle",
+ "description": "France - Provence-style rosé. Pale pink with delicate strawberry and citrus notes. Dry and refreshing."
+ },
+ {
+ "name": "I Heart Rosé",
+ "price": "187ml/750ml",
+ "description": "Italy - Bright and fruity with summer berry flavours. Perfect for sunny afternoons in our beer garden."
+ },
+ {
+ "name": "Three Pebbles Bay",
+ "price": "Bottle",
+ "description": "South Africa - Coral pink with red fruit aromas. Well-balanced with a crisp, dry finish."
+ },
+ {
+ "name": "Ara Pinot Gris",
+ "price": "Bottle",
+ "description": "New Zealand - Copper-tinged rosé style Pinot Gris. Aromatic with stone fruit flavours."
+ },
+ {
+ "name": "Ara Marlborough Sauvignon Rosé",
+ "price": "Bottle",
+ "description": "New Zealand - Elegant rosé with wild strawberry and rose petal notes. Beautifully balanced."
+ }
+ ]
+ },
+ {
+ "title": "Sparkling Wine",
+ "style": "grid",
+ "items": [
+ {
+ "name": "Giorgio & Gianni Prosecco",
+ "price": "200ml/750ml",
+ "description": "Italy - Fine bubbles with apple and pear flavours. Light, fresh and perfect for celebrations or Sunday brunch."
+ }
+ ]
+ },
+ {
+ "title": "Seasonal Special",
+ "style": "grid",
+ "items": [
+ {
+ "name": "Mulled Wine",
+ "price": "175ml",
+ "description": "Our secret recipe of red wine gently warmed with cinnamon, cloves and orange. Christmas in a glass."
+ }
+ ]
+ }
+ ]
+ },
+ {
+ "id": "soft",
+ "title": "Soft Drinks & Mixers",
+ "emoji": "",
+ "description": "Refreshing non-alcoholic options and premium mixers for every occasion",
+ "sections": [
+ {
+ "title": "Classic Soft Drinks",
+ "style": "grid",
+ "items": [
+ { 
+ "name": "Coca-Cola Range", 
+ "price": "Various sizes",
+ "description": "The classics you love - Original, Diet Coke, and Coke Zero. Served ice-cold in glass bottles or on draught."
+ },
+ { 
+ "name": "Lemonade & 7-Up Free", 
+ "price": "Various sizes",
+ "description": "Crisp, refreshing lemon-lime sodas. Perfect on their own or as mixers for your favourite spirits."
+ },
+ { 
+ "name": "J2O Fruit Fusions", 
+ "price": "",
+ "description": "Premium fruit blends: Orange & Passionfruit, Apple & Mango, Apple & Raspberry. The sophisticated soft drink choice."
+ },
+ { 
+ "name": "Fanta Orange", 
+ "price": "",
+ "description": "Vibrant orange flavour served chilled. Fruity refreshment in every sip."
+ },
+ {
+ "name": "Appletiser",
+ "price": "",
+ "description": "Sparkling apple juice. Sophisticated and refreshing alternative to alcoholic drinks."
+ }
+ ]
+ },
+ {
+ "title": "Fresh Juices & Mixers",
+ "style": "grid",
+ "items": [
+ { 
+ "name": "Fresh Fruit Juices", 
+ "price": "",
+ "description": "Orange, Apple, Pineapple, and Cranberry juices. Perfect for mocktails or enjoyed on their own over ice."
+ },
+ { 
+ "name": "Classic Mixers", 
+ "price": "",
+ "description": "Tonic, Slimline Tonic, Ginger Ale, and Soda Water. Essential companions for our premium spirits."
+ },
+ { 
+ "name": "Schweppes Premium Sodas", 
+ "price": "",
+ "description": "Pink Grapefruit and Tropical sodas. Exotic flavours for adventurous mixologists."
+ },
+ {
+ "name": "Russchian Pink Soda",
+ "price": "",
+ "description": "Unique pink soda with a twist. Perfect mixer for creative cocktails."
+ },
+ {
+ "name": "Cordials",
+ "price": "",
+ "description": "Lime and Blackcurrant cordials. Classic mixers for a splash of flavour."
+ }
+ ]
+ },
+ {
+ "title": "Fever-Tree Premium Mixers",
+ "style": "grid",
+ "items": [
+ { 
+ "name": "Fever-Tree Mexican Lime", 
+ "price": "",
+ "description": "Tahitian lime with Mexican lime oils. The perfect partner for premium vodka."
+ },
+ { 
+ "name": "Fever-Tree Rhubarb & Raspberry", 
+ "price": "",
+ "description": "Tart rhubarb meets sweet raspberry. Artisan mixer for discerning gin lovers."
+ },
+ {
+ "name": "Fever-Tree Ginger Beer",
+ "price": "",
+ "description": "Fiery ginger with natural sweetness. Essential for Moscow Mules and Dark & Stormys."
+ },
+ {
+ "name": "Fever-Tree Ginger Ale",
+ "price": "",
+ "description": "Subtle ginger with refreshing sparkle. Perfect for whisky highballs."
+ },
+ {
+ "name": "Fever-Tree Madagascan Cola",
+ "price": "",
+ "description": "Premium cola with real kola nut. Elevates any rum serve."
+ },
+ {
+ "name": "Fever-Tree White Grape & Apricot",
+ "price": "",
+ "description": "Delicate fruit flavours create a sophisticated soda. Perfect with vodka or gin."
+ },
+ {
+ "name": "Fever-Tree Soda Water",
+ "price": "",
+ "description": "Soft spring water with gentle carbonation. The purest mixer for premium spirits."
+ },
+ {
+ "name": "Fever-Tree Elderflower",
+ "price": "",
+ "description": "Delicate elderflower with subtle sweetness. Quintessentially English mixer."
+ }
+ ]
+ },
+ {
+ "title": "Energy & Hydration",
+ "style": "grid",
+ "items": [
+ { 
+ "name": "Red Bull", 
+ "price": "",
+ "description": "The original energy drink. Perfect pick-me-up for long nights or early airport runs."
+ },
+ { 
+ "name": "Kick Energy", 
+ "price": "",
+ "description": "British-made energy boost with a refreshing citrus kick. Great value alternative."
+ },
+ { 
+ "name": "Harrogate Spring Water", 
+ "price": "",
+ "description": "Still or Sparkling. Yorkshire's finest mineral water, naturally pure and refreshing."
+ },
+ { 
+ "name": "Kids' Favourites", 
+ "price": "",
+ "description": "Fruit Shoot in Orange and Blackcurrant. Perfect size for little hands, no spills guaranteed!"
+ }
+ ]
+ }
+ ]
+ }
+ ],
+ "responsibleDrinking": {
+ "title": "Please Drink Responsibly",
+ "message": "We want all our guests to enjoy their visit safely. Our trained staff are here to help ensure everyone has a great time. Please ask about our selection of low and no-alcohol alternatives."
+ }
 }

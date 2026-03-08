@@ -164,11 +164,11 @@ const defaultContact: ContactInfo & { social?: SocialLink[] } = {
 }
 
 const defaultFeatures = [
-  '♿ Step-Free Access',
-  '🐕 Dog Friendly',
-  '👨‍👩‍👧‍👦 Family Welcome',
-  '🏳️‍🌈 LGBTQ+ Friendly',
-  '🚗 Free Parking'
+  'Step-Free Access',
+  'Dog Friendly',
+  'Family Welcome',
+  'LGBTQ+ Friendly',
+  'Free Parking'
 ]
 
 const defaultTheme = {
@@ -313,7 +313,7 @@ export function Footer({
                   )}
                   {contact.address && (
                     <li itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
-                      📍 <DirectionsLink
+                      <DirectionsLink
                         href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ"
                         source="footer_address"
                         className={mergedTheme.linkHover}
@@ -430,7 +430,7 @@ export function Footer({
                 )}
                 {contact.address && (
                   <li itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
-                    📍 <DirectionsLink
+                    <DirectionsLink
                       href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ"
                       source="footer_address"
                       className={mergedTheme.linkHover}

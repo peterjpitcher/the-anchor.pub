@@ -33,7 +33,7 @@ export function WizardStep2SundayOffer({ onSelect, onBack, selectedDate }: Wizar
       {/* Header */}
       <div className="text-center">
         <h2 className="text-2xl md:text-3xl font-bold text-anchor-charcoal mb-2">
-          Great choice! Sunday is roast day 🍖
+          Great choice! Sunday is roast day
         </h2>
         <p className="text-gray-600">
           Would you like to book our famous Sunday roast?

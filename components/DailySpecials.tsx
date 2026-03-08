@@ -51,7 +51,7 @@ export function DailySpecials({ isOpen }: DailySpecialsProps) {
         {showPizzaOffer && (
           <div className="max-w-4xl mx-auto text-center">
             <div className="bg-yellow-400 text-red-900 font-bold text-lg md:text-xl px-6 py-3 rounded-full inline-block mb-4">
-              🍕 TODAY'S SPECIAL 🍕
+              TODAY'S SPECIAL
             </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
               Buy One Get One FREE
@@ -77,7 +77,7 @@ export function DailySpecials({ isOpen }: DailySpecialsProps) {
         {showSundayBooking && (
           <div className="max-w-4xl mx-auto text-center">
             <div className="bg-yellow-400 text-red-900 font-bold text-lg md:text-xl px-6 py-3 rounded-full inline-block mb-4">
-              🥘 BOOK YOUR SUNDAY ROAST 🥘
+              BOOK YOUR SUNDAY ROAST
             </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
               Last Chance to Book Tomorrow's Roast!
@@ -95,7 +95,7 @@ export function DailySpecials({ isOpen }: DailySpecialsProps) {
                 variant="primary"
                 size="lg"
               >
-                📞 Call Now to Book
+                Call Now to Book
               </PhoneButton>
               <Link href="/sunday-lunch">
                 <Button variant="outline" size="lg" className="!text-white !border-white hover:!bg-white hover:!text-anchor-green">

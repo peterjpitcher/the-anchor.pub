@@ -161,7 +161,7 @@ export function mapSpecialHoursToEvents(businessHours: BusinessHours | null): Di
           name: 'Opening Hours Update',
           slug: 'time-changes',
           color: '#f97316',
-          icon: '⏰'
+          icon: ''
         },
         booking_rules: undefined,
         custom_messages: undefined,

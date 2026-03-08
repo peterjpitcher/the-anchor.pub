@@ -185,13 +185,13 @@ export function MenuRenderer({ menuData }: MenuRendererProps) {
                 >
                   {section.highlight && category.id === 'cocktails' && (
                     <div className="pointer-events-none absolute -top-4 left-1/2 z-10 -translate-x-1/2 rounded-full bg-gradient-to-r from-amber-500 to-amber-300 px-5 py-2 text-xs font-semibold uppercase tracking-wider text-white shadow-lg">
-                      🍹 Limited Time Offer
+                      Limited Time Offer
                     </div>
                   )}
 
                   {section.highlight && category.id === 'spirits' && (
                     <div className="pointer-events-none absolute -top-4 left-1/2 z-10 -translate-x-1/2 rounded-full border-2 border-white bg-gradient-to-r from-anchor-green to-anchor-green-dark px-6 py-2 text-xs font-semibold uppercase tracking-wider text-white shadow-lg">
-                      🎯 Manager&apos;s Special
+                      Manager&apos;s Special
                     </div>
                   )}
 

@@ -129,10 +129,10 @@ export default async function WhatsOnPage() {
         description="From Music Bingo hosted by Nikki Manfadge to quiz nights and one-off events — check the listings for the latest."
        
 	        tags={[
-	          { label: '🎤 Music Bingo (Nikki)', variant: 'primary' },
-	          { label: '🧠 Quiz Night GBP 3', variant: 'warning' },
-	          { label: '🎱 Pool & Darts FREE', variant: 'default' },
-	          { label: '🍺 Great Atmosphere', variant: 'success' }
+	          { label: 'Music Bingo (Nikki)', variant: 'primary' },
+	          { label: 'Quiz Night GBP 3', variant: 'warning' },
+	          { label: 'Pool & Darts FREE', variant: 'default' },
+	          { label: 'Great Atmosphere', variant: 'success' }
 	        ]}
         primaryCta={
           <BookTableButton
@@ -142,7 +142,7 @@ export default async function WhatsOnPage() {
             fullWidth
             className="w-full sm:w-auto"
           >
-            📅 Reserve a Table
+            Reserve a Table
           </BookTableButton>
         }
         secondaryCta={
@@ -154,7 +154,7 @@ export default async function WhatsOnPage() {
                 fullWidth
                 className="sm:w-auto"
               >
-                📅 View All Events
+                View All Events
               </Button>
             </Link>
             <Link href="/food-menu#pizza" className="w-full sm:w-auto">
@@ -164,7 +164,7 @@ export default async function WhatsOnPage() {
                 fullWidth
                 className="sm:w-auto"
               >
-                🍕 Pizza Menu
+                Pizza Menu
               </Button>
             </Link>
             <Link href="/sunday-lunch" className="w-full sm:w-auto">
@@ -174,7 +174,7 @@ export default async function WhatsOnPage() {
                 fullWidth
                 className="sm:w-auto"
               >
-                🍖 Sunday Roast Info
+                Sunday Roast Info
               </Button>
             </Link>
             <Link href="/private-hire#enquiry" className="w-full sm:w-auto">
@@ -184,7 +184,7 @@ export default async function WhatsOnPage() {
                 fullWidth
                 className="sm:w-auto"
               >
-                🎉 Book Private Event
+                Book Private Event
               </Button>
             </Link>
           </>
@@ -195,7 +195,7 @@ export default async function WhatsOnPage() {
 
       <section className="bg-anchor-bg-raised border-b border-anchor-gold/15 py-6">
         <Container>
-          <p className="text-center text-sm text-anchor-cream-text/70">⭐⭐⭐⭐⭐ <strong className="text-anchor-cream-text">Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
+          <p className="text-center text-sm text-anchor-cream-text/70"><strong className="text-anchor-cream-text">Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
         </Container>
       </section>
 
@@ -211,7 +211,7 @@ export default async function WhatsOnPage() {
             className="max-w-5xl mx-auto"
             boxes={[
               {
-                title: "✈️ Airport-Friendly Timings",
+                title: "Airport-Friendly Timings",
                 content: (
                   <p className="text-anchor-cream-text/70">
                     Evening events start after major flight banks. Free parking and late-night snacks make us the go-to Heathrow pub before red-eye departures.
@@ -221,7 +221,7 @@ export default async function WhatsOnPage() {
                 color: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15"
               },
               {
-                title: "🎉 Weekly Headliners",
+                title: "Weekly Headliners",
                 content: (
                   <ul className="list-disc list-inside text-anchor-cream-text/70 space-y-2 text-left">
                     <li>Music Bingo hosted by Nikki Manfadge</li>
@@ -233,7 +233,7 @@ export default async function WhatsOnPage() {
                 color: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15"
               },
               {
-                title: "🚕 Easy Transfers",
+                title: "Easy Transfers",
                 content: (
                   <p className="text-anchor-cream-text/70">
                     GBP 18 taxi from Terminal 5 or 15-minute walk from Premier Inn T5. We&apos;re the closest village pub to Heathrow with a proper stage and dancefloor.
@@ -266,19 +266,19 @@ export default async function WhatsOnPage() {
             columns={3}
             features={[
               {
-                icon: "📍",
+                icon: "",
                 title: "Staines-Upon-Thames",
                 description: "Ten minutes from Staines High Street with free parking and late-night taxi options.",
                 className: "text-center"
               },
               {
-                icon: "🚗",
+                icon: "",
                 title: "Ashford & Feltham",
                 description: "Easy A3044 route for groups looking for quiz nights, Music Bingo and bingo.",
                 className: "text-center"
               },
               {
-                icon: "✈️",
+                icon: "",
                 title: "Heathrow Crew Hangouts",
                 description: "Events timed around flight banks for crews and airport teams after shifts.",
                 className: "text-center"
@@ -325,7 +325,7 @@ export default async function WhatsOnPage() {
             <Link href="/music-bingo" className="group">
               <Card variant="default" className="h-full transition-all hover:border-anchor-gold/40 card-dark rounded-none">
                 <CardBody className="text-center p-8">
-                  <div className="text-5xl mb-4">👑</div>
+                  <div className="text-5xl mb-4"></div>
                   <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-3">
                     Music Bingo with Nikki Manfadge
                   </h3>
@@ -340,7 +340,7 @@ export default async function WhatsOnPage() {
             <Link href="/quiz-night" className="group">
               <Card variant="default" className="h-full transition-all hover:border-anchor-gold/40 card-dark rounded-none">
                 <CardBody className="text-center p-8">
-                  <div className="text-5xl mb-4">🧠</div>
+                  <div className="text-5xl mb-4"></div>
                   <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-3">
                     Quiz Night - Just GBP 3 Entry!
                   </h3>
@@ -355,7 +355,7 @@ export default async function WhatsOnPage() {
             <Link href="/cash-bingo" className="group">
               <Card variant="default" className="h-full transition-all hover:border-anchor-gold/40 card-dark rounded-none">
                 <CardBody className="text-center p-8">
-                  <div className="text-5xl mb-4">🎱</div>
+                  <div className="text-5xl mb-4"></div>
                   <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-3">
                     Cash Prize Bingo
                   </h3>
@@ -382,28 +382,28 @@ export default async function WhatsOnPage() {
             columns={4}
             features={[
               {
-                icon: "🎱",
+                icon: "",
                 title: "Pool Table - FREE",
                 description: "FREE to play all day! No coins needed. Cues and chalk provided.",
                 variant: "default",
                 className: "bg-anchor-bg-card rounded-none p-6 text-center border border-anchor-gold/15"
               },
               {
-                icon: "🎯",
+                icon: "",
                 title: "Darts - FREE",
                 description: "FREE to play! Professional board with oche. Darts available at the bar.",
                 variant: "default",
                 className: "bg-anchor-bg-card rounded-none p-6 text-center border border-anchor-gold/15"
               },
               {
-                icon: "🎵",
+                icon: "",
                 title: "Jukebox",
                 description: "Choose your favourite tunes. Wide selection of music genres.",
                 variant: "default",
                 className: "bg-anchor-bg-card rounded-none p-6 text-center border border-anchor-gold/15"
               },
               {
-                icon: "🎰",
+                icon: "",
                 title: "Fruit Machine",
                 description: "Try your luck on our gaming machine. 18+ only.",
                 variant: "default",
@@ -416,7 +416,7 @@ export default async function WhatsOnPage() {
           <Card variant="default" className="mt-12 max-w-3xl mx-auto card-dark rounded-none">
             <CardBody className="text-center">
               <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-4">
-                <span className="text-3xl">📶</span> Free WiFi Throughout
+                <span className="text-3xl"></span> Free WiFi Throughout
               </h3>
               <p className="text-anchor-cream-text/70">
                 Stay connected with our free, high-speed WiFi. Perfect for checking emails, social media, or even getting some work done.
@@ -441,19 +441,19 @@ export default async function WhatsOnPage() {
               columns={3}
               features={[
                 {
-                  icon: "🎄",
+                  icon: "",
                   title: "Christmas Parties",
                   description: "Festive menu, decorations, and party atmosphere. Book your Christmas do with us!",
                   className: "text-center"
                 },
                 {
-                  icon: "🎃",
+                  icon: "",
                   title: "Halloween Spectacular",
                   description: "Costume contests, spooky decorations, themed drinks, and DJ entertainment. Best dressed wins prizes!",
                   className: "text-center"
                 },
                 {
-                  icon: "🎉",
+                  icon: "",
                   title: "New Year's Eve",
                   description: "Ring in the new year with DJ entertainment, champagne, and midnight celebrations.",
                   className: "text-center"
@@ -475,19 +475,19 @@ export default async function WhatsOnPage() {
                     </p>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
 	                      <div>
-	                        <div className="text-3xl mb-2">⚽</div>
+	                        <div className="text-3xl mb-2"></div>
 	                        <p className="font-semibold">World Cup</p>
 	                      </div>
                       <div>
-                        <div className="text-3xl mb-2">🏆</div>
+                        <div className="text-3xl mb-2"></div>
                         <p className="font-semibold">Euros</p>
                       </div>
                       <div>
-                        <div className="text-3xl mb-2">🎾</div>
+                        <div className="text-3xl mb-2"></div>
                         <p className="font-semibold">Wimbledon</p>
                       </div>
                       <div>
-                        <div className="text-3xl mb-2">🏉</div>
+                        <div className="text-3xl mb-2"></div>
                         <p className="font-semibold">Six Nations</p>
                       </div>
                     </div>
@@ -514,21 +514,21 @@ export default async function WhatsOnPage() {
               columns={3}
               features={[
                 {
-                  icon: "🎂",
+                  icon: "",
                   title: "Birthday Parties",
                   description: "Celebrate in style with custom menus",
                   variant: "default",
                   className: "bg-anchor-bg-card rounded-none p-6 text-center border border-anchor-gold/15"
                 },
                 {
-                  icon: "💼",
+                  icon: "",
                   title: "Corporate Events",
                   description: "Team building, meetings, or celebrations",
                   variant: "default",
                   className: "bg-anchor-bg-card rounded-none p-6 text-center border border-anchor-gold/15"
                 },
                 {
-                  icon: "🎊",
+                  icon: "",
                   title: "Special Occasions",
                   description: "Engagements, anniversaries, and more",
                   variant: "default",
@@ -637,9 +637,9 @@ export default async function WhatsOnPage() {
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 max-w-md mx-auto">
               <p className="font-semibold mb-2 text-white">Event Enquiries</p>
-              <p className="text-white">📞 01753 682707</p>
-              <p className="text-white">📱 WhatsApp: 01753 682707</p>
-              <p className="text-white">✉️ manager@the-anchor.pub</p>
+              <p className="text-white">01753 682707</p>
+              <p className="text-white">WhatsApp: 01753 682707</p>
+              <p className="text-white">manager@the-anchor.pub</p>
             </div>
           </div>
         </Container>

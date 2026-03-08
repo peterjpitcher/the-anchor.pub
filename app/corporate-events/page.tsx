@@ -55,10 +55,10 @@ export default function CorporateEventsPage() {
         title="Corporate Event Venue Near Heathrow"
         description="Host up to 200 guests — or keep it small from 10 — 7 minutes from Terminal 5 with free parking"
         tags={[
-          { label: "✈️ 7 mins from Heathrow", variant: "success" },
-          { label: "🚗 Free Parking", variant: "default" },
-          { label: "📊 AV Equipment", variant: "default" },
-          { label: "🚫 Outside ULEZ", variant: "success" }
+          { label: "7 mins from Heathrow", variant: "success" },
+          { label: "Free Parking", variant: "default" },
+          { label: "AV Equipment", variant: "default" },
+          { label: "Outside ULEZ", variant: "success" }
         ]}
         primaryCta={
           <BookTableButton
@@ -69,19 +69,19 @@ export default function CorporateEventsPage() {
             fullWidth
             className="w-full sm:w-auto"
           >
-            📅 Book Your Event
+            Book Your Event
           </BookTableButton>
         }
         secondaryCta={
           <>
             <Link href={CONTACT.phoneHref} className="w-full sm:w-auto">
               <Button variant="secondary" size="lg" fullWidth className="sm:w-auto">
-                📞 Discuss Your Event
+                Discuss Your Event
               </Button>
             </Link>
             <Link href="#solutions" className="w-full sm:w-auto">
               <Button variant="secondary" size="lg" fullWidth className="sm:w-auto">
-                💼 Explore Our Solutions
+                Explore Our Solutions
               </Button>
             </Link>
           </>
@@ -116,10 +116,10 @@ export default function CorporateEventsPage() {
           <FeatureGrid
             columns={4}
             features={[
-              { icon: "✈️", title: "Heathrow Proximity", description: "7 minutes from T5 - perfect for international teams & clients", className: "text-center" },
-	              { icon: "🚗", title: "Free Parking", description: "20 spaces on-site - saves significantly compared to city venues", className: "text-center" },
-              { icon: "💷", title: "Flexible Pricing", description: "Competitive venue hire rates tailored to your needs", className: "text-center" },
-              { icon: "🏢", title: "Flexible Spaces", description: "Configure for 10-200 guests - meetings to conferences", className: "text-center" }
+              { icon: "", title: "Heathrow Proximity", description: "7 minutes from T5 - perfect for international teams & clients", className: "text-center" },
+	              { icon: "", title: "Free Parking", description: "20 spaces on-site - saves significantly compared to city venues", className: "text-center" },
+              { icon: "", title: "Flexible Pricing", description: "Competitive venue hire rates tailored to your needs", className: "text-center" },
+              { icon: "", title: "Flexible Spaces", description: "Configure for 10-200 guests - meetings to conferences", className: "text-center" }
             ]}
             className="mb-12"
           />
@@ -132,10 +132,10 @@ export default function CorporateEventsPage() {
                   <>
                     <p className="mb-4">Strategic advantages for your corporate events:</p>
                     <ul className="space-y-2">
-                      <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid">✓</span><span><strong>Outside ULEZ zone</strong> - no charges for attendees</span></li>
-                      <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid">✓</span><span><strong>M25 Junction 14</strong> - 3 minutes away</span></li>
-                      <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid">✓</span><span><strong>Heathrow hotels</strong> - 5-10 minutes for overnight guests</span></li>
-                      <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid">✓</span><span><strong>Central location</strong> - accessible from London &amp; Surrey</span></li>
+                      <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Outside ULEZ zone</strong> - no charges for attendees</span></li>
+                      <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>M25 Junction 14</strong> - 3 minutes away</span></li>
+                      <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Heathrow hotels</strong> - 5-10 minutes for overnight guests</span></li>
+                      <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Central location</strong> - accessible from London &amp; Surrey</span></li>
                     </ul>
                   </>
                 ),
@@ -148,10 +148,10 @@ export default function CorporateEventsPage() {
                   <>
                     <p className="mb-4">Everything you need for successful business events:</p>
                     <ul className="space-y-2">
-                      <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid">✓</span><span><strong>Dedicated event coordinator</strong> for seamless planning</span></li>
-                      <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid">✓</span><span><strong>Professional catering</strong> from working breakfasts to formal dinners</span></li>
-                      <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid">✓</span><span><strong>Tech support</strong> for presentations and video calls</span></li>
-                      <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid">✓</span><span><strong>Flexible timings</strong> - early starts and late finishes available</span></li>
+                      <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Dedicated event coordinator</strong> for seamless planning</span></li>
+                      <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Professional catering</strong> from working breakfasts to formal dinners</span></li>
+                      <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Tech support</strong> for presentations and video calls</span></li>
+                      <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Flexible timings</strong> - early starts and late finishes available</span></li>
                     </ul>
                   </>
                 ),
@@ -169,7 +169,7 @@ export default function CorporateEventsPage() {
           <SectionHeader title="Corporate Event Solutions" subtitle="From board meetings to company celebrations" />
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             <div className="card-dark rounded-none p-6">
-              <div className="text-4xl mb-4">🤝</div>
+              <div className="text-4xl mb-4"></div>
               <h3 className="text-xl font-bold text-anchor-gold-vivid mb-3">Business Meetings</h3>
               <p className="text-anchor-cream-text/70 mb-4">
                 Private space for confidential discussions, client meetings, and presentations.
@@ -183,7 +183,7 @@ export default function CorporateEventsPage() {
               </ul>
             </div>
             <div className="card-dark rounded-none p-6">
-              <div className="text-4xl mb-4">🎯</div>
+              <div className="text-4xl mb-4"></div>
               <h3 className="text-xl font-bold text-anchor-gold-vivid mb-3">Team Building</h3>
               <p className="text-anchor-cream-text/70 mb-4">
                 Bring your team together for workshops, training sessions, and team building
@@ -197,7 +197,7 @@ export default function CorporateEventsPage() {
               </ul>
             </div>
             <div className="card-dark rounded-none p-6">
-              <div className="text-4xl mb-4">🎉</div>
+              <div className="text-4xl mb-4"></div>
               <h3 className="text-xl font-bold text-anchor-gold-vivid mb-3">Corporate Hospitality</h3>
               <p className="text-anchor-cream-text/70 mb-4">
                 Impress clients and reward staff with corporate entertainment, celebrations,
@@ -253,11 +253,11 @@ export default function CorporateEventsPage() {
                     <>
                       <p className="mb-4">Every corporate event is unique. We provide:</p>
                       <ul className="space-y-3">
-                        <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid">✓</span><span><strong>Flexible timing</strong> - Half day, full day, or evening sessions</span></li>
-                        <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid">✓</span><span><strong>Scalable spaces</strong> - Configure for 10-200 attendees</span></li>
-                        <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid">✓</span><span><strong>Custom catering</strong> - From coffee breaks to formal dinners</span></li>
-                        <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid">✓</span><span><strong>Professional support</strong> - AV equipment and dedicated coordinator</span></li>
-                        <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid">✓</span><span><strong>Transparent pricing</strong> - Clear quotes with no hidden fees</span></li>
+                        <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Flexible timing</strong> - Half day, full day, or evening sessions</span></li>
+                        <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Scalable spaces</strong> - Configure for 10-200 attendees</span></li>
+                        <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Custom catering</strong> - From coffee breaks to formal dinners</span></li>
+                        <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Professional support</strong> - AV equipment and dedicated coordinator</span></li>
+                        <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Transparent pricing</strong> - Clear quotes with no hidden fees</span></li>
                       </ul>
                     </>
                   ),
@@ -293,7 +293,7 @@ export default function CorporateEventsPage() {
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Link href={CONTACT.phoneHref} className="w-full sm:w-auto">
                       <Button variant="primary" size="lg" fullWidth className="sm:w-auto">
-                        📞 Call to Discuss
+                        Call to Discuss
                       </Button>
                     </Link>
                     <Link
@@ -303,7 +303,7 @@ export default function CorporateEventsPage() {
                       className="w-full sm:w-auto"
                     >
                       <Button variant="secondary" size="lg" fullWidth className="sm:w-auto">
-                        💬 WhatsApp Us
+                        WhatsApp Us
                       </Button>
                     </Link>
                   </div>
@@ -334,19 +334,19 @@ export default function CorporateEventsPage() {
                 <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Technology &amp; Equipment</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">📡</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div><strong>High-speed WiFi</strong><p className="text-sm text-anchor-cream-text/70">Reliable connection for video calls and presentations</p></div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">🖥️</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div><strong>Presentation Equipment</strong><p className="text-sm text-anchor-cream-text/70">Projector/screen available, laptop connections</p></div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">🔌</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div><strong>Power Access</strong><p className="text-sm text-anchor-cream-text/70">Multiple power points for devices</p></div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">🎤</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div><strong>Audio System</strong><p className="text-sm text-anchor-cream-text/70">Microphone and speakers for larger groups</p></div>
                   </li>
                 </ul>
@@ -355,19 +355,19 @@ export default function CorporateEventsPage() {
                 <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Comfort &amp; Convenience</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">🌡️</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div><strong>Climate Control</strong><p className="text-sm text-anchor-cream-text/70">Air conditioning and heating for year-round comfort</p></div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">💡</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div><strong>Natural Light</strong><p className="text-sm text-anchor-cream-text/70">Bright spaces with blackout options available</p></div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">♿</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div><strong>Full Accessibility</strong><p className="text-sm text-anchor-cream-text/70">Wheelchair access and accessible facilities</p></div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">🚻</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div><strong>Private Facilities</strong><p className="text-sm text-anchor-cream-text/70">Dedicated restrooms for your event</p></div>
                   </li>
                 </ul>
@@ -377,17 +377,17 @@ export default function CorporateEventsPage() {
               <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4 text-center">Additional Services</h3>
               <div className="grid md:grid-cols-3 gap-6">
                 <div className="text-center">
-                  <div className="text-3xl mb-2">📋</div>
+                  <div className="text-3xl mb-2"></div>
                   <h4 className="font-semibold mb-1">Event Planning</h4>
                   <p className="text-sm text-anchor-cream-text/70">Dedicated coordinator to manage every detail</p>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl mb-2">🍽️</div>
+                  <div className="text-3xl mb-2"></div>
                   <h4 className="font-semibold mb-1">Bespoke Catering</h4>
                   <p className="text-sm text-anchor-cream-text/70">Menus tailored to your requirements</p>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl mb-2">🎪</div>
+                  <div className="text-3xl mb-2"></div>
                   <h4 className="font-semibold mb-1">Outdoor Options</h4>
                   <p className="text-sm text-anchor-cream-text/70">Garden space for breaks or evening BBQs</p>
                 </div>
@@ -407,23 +407,23 @@ export default function CorporateEventsPage() {
               <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
                 <h3 className="font-bold text-lg mb-4">Quick Access From</h3>
                 <ul className="space-y-2 text-anchor-cream-text/70">
-                  <li>🏢 <strong>Heathrow Business Parks:</strong> 5-10 mins</li>
-                  <li>🏨 <strong>Heathrow Hotels:</strong> 5-10 mins</li>
-                  <li>🌆 <strong>Central London:</strong> 45 mins</li>
-                  <li>🏛️ <strong>Staines:</strong> 8 mins</li>
-                  <li>🏰 <strong>Windsor:</strong> 15 mins</li>
-                  <li>🌳 <strong>Woking:</strong> 20 mins</li>
+                  <li><strong>Heathrow Business Parks:</strong> 5-10 mins</li>
+                  <li><strong>Heathrow Hotels:</strong> 5-10 mins</li>
+                  <li><strong>Central London:</strong> 45 mins</li>
+                  <li><strong>Staines:</strong> 8 mins</li>
+                  <li><strong>Windsor:</strong> 15 mins</li>
+                  <li><strong>Woking:</strong> 20 mins</li>
                 </ul>
               </div>
               <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
                 <h3 className="font-bold text-lg mb-4">Transport Links</h3>
                 <ul className="space-y-2 text-anchor-cream-text/70">
-                  <li>🚗 <strong>M25 Junction 14:</strong> 3 mins</li>
-                  <li>✈️ <strong>Heathrow T5:</strong> 7 mins</li>
-                  <li>🚂 <strong>Staines Station:</strong> 10 mins</li>
-                  <li>🚌 <strong>Local Bus Routes:</strong> Regular service</li>
-                  <li>🚕 <strong>Taxi/Uber:</strong> Readily available</li>
-                  <li>🚗 <strong>Free Parking:</strong> 20 spaces</li>
+                  <li><strong>M25 Junction 14:</strong> 3 mins</li>
+                  <li><strong>Heathrow T5:</strong> 7 mins</li>
+                  <li><strong>Staines Station:</strong> 10 mins</li>
+                  <li><strong>Local Bus Routes:</strong> Regular service</li>
+                  <li><strong>Taxi/Uber:</strong> Readily available</li>
+                  <li><strong>Free Parking:</strong> 20 spaces</li>
                 </ul>
               </div>
             </div>
@@ -524,11 +524,11 @@ export default function CorporateEventsPage() {
                 fullWidth
                 className="w-full sm:w-auto"
               >
-                📅 Book Your Event
+                Book Your Event
               </BookTableButton>
               <Link href="tel:+441753682707" className="w-full sm:w-auto">
                 <Button size="lg" variant="secondary" fullWidth className="sm:w-auto bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
-                  📞 Call: 01753 682707
+                  Call: 01753 682707
                 </Button>
               </Link>
               <Link
@@ -538,12 +538,12 @@ export default function CorporateEventsPage() {
                 className="w-full sm:w-auto"
               >
                 <Button size="lg" variant="secondary" fullWidth className="sm:w-auto bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
-                  💬 WhatsApp Us
+                  WhatsApp Us
                 </Button>
               </Link>
               <Link href="mailto:manager@the-anchor.pub?subject=Corporate Event Enquiry" className="w-full sm:w-auto">
                 <Button size="lg" variant="secondary" fullWidth className="sm:w-auto bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm border border-white/20">
-                  📧 Email Enquiry
+                  Email Enquiry
                 </Button>
               </Link>
             </div>

@@ -41,7 +41,7 @@ export function EmailLink({
       onClick={handleClick}
       role={role}
     >
-      {showIcon && '✉️ '}
+      {showIcon && ''}
       {children || email}
     </a>
   )

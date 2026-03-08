@@ -115,10 +115,10 @@ export default function PubNearHiltonHeathrowPage() {
             <FeatureGrid
               columns={4}
               features={[
-                { icon: '🕐', title: '10 Minutes', description: 'By taxi from Hilton Heathrow', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '🚖', title: '~£12–15', description: 'Taxi fare each way', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '🅿️', title: 'Free Parking', description: '20 spaces — no charges', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '🧾', title: 'VAT Receipts', description: 'Full receipts for expenses', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: '10 Minutes', description: 'By taxi from Hilton Heathrow', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: '~£12–15', description: 'Taxi fare each way', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: 'Free Parking', description: '20 spaces — no charges', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: 'VAT Receipts', description: 'Full receipts for expenses', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
               ]}
               className="mb-8"
             />
@@ -147,7 +147,7 @@ export default function PubNearHiltonHeathrowPage() {
                     'Flexible timing for early or late dining',
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-3">
-                      <span className="text-anchor-gold font-bold">✓</span>
+                      <span className="text-anchor-gold font-bold"></span>
                       <span>{item}</span>
                     </li>
                   ))}
@@ -183,9 +183,9 @@ export default function PubNearHiltonHeathrowPage() {
             <FeatureGrid
               columns={3}
               features={[
-                { icon: '🥩', title: 'Classic Mains', description: 'From £8.99 — steaks, fish & chips, burgers and British classics cooked fresh daily', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '🍺', title: 'Real Ales', description: 'Rotating guest ales and craft beers — a proper British pint from £4.80', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '🥂', title: 'Wine & Spirits', description: 'Quality wines, premium spirits and cocktails — all at pub prices', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Classic Mains', description: 'From £8.99 — steaks, fish & chips, burgers and British classics cooked fresh daily', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Real Ales', description: 'Rotating guest ales and craft beers — a proper British pint from £4.80', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Wine & Spirits', description: 'Quality wines, premium spirits and cocktails — all at pub prices', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
               ]}
               className="mb-8"
             />

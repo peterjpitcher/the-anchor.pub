@@ -53,8 +53,8 @@ export default function Terminal5Page() {
         description="Perfect for British Airways travelers • Free parking • Traditional British pub"
         variant="default"
         tags={[
-          { label: '✈️ Just 7 minutes away', variant: 'success' },
-          { label: '🇬🇧 British Airways Terminal', variant: 'primary' }
+          { label: 'Just 7 minutes away', variant: 'success' },
+          { label: 'British Airways Terminal', variant: 'primary' }
         ]}
         primaryCta={
           <BookTableButton
@@ -64,7 +64,7 @@ export default function Terminal5Page() {
             size="lg"
             className="w-full sm:w-auto"
           >
-            📅 Book a Table Online
+            Book a Table Online
           </BookTableButton>
         }
         secondaryCta={
@@ -74,7 +74,7 @@ export default function Terminal5Page() {
               size="lg"
               className="w-full sm:w-auto"
             >
-              📍 Get Directions
+              Get Directions
             </Button>
           </Link>
         }
@@ -90,19 +90,19 @@ export default function Terminal5Page() {
             </p>
             <div className="grid gap-3 md:grid-cols-2 text-anchor-cream-text/70">
 	              <div className="flex items-start gap-2">
-	                <span className="font-semibold text-anchor-gold">⏱️</span>
+	                <span className="font-semibold text-anchor-gold"></span>
 	                <span>7 minute taxi or Uber (GBP 20-25 fixed fare) from BA arrivals</span>
 	              </div>
               <div className="flex items-start gap-2">
-                <span className="font-semibold text-anchor-gold">🅿️</span>
+                <span className="font-semibold text-anchor-gold"></span>
                 <span>Free on-site parking for pick-ups, drop-offs and diners</span>
               </div>
               <div className="flex items-start gap-2">
-                <span className="font-semibold text-anchor-gold">🍽️</span>
+                <span className="font-semibold text-anchor-gold"></span>
                 <span>Kitchen open Tue-Sun with pizza, burgers and Sunday roasts</span>
               </div>
               <div className="flex items-start gap-2">
-                <span className="font-semibold text-anchor-gold">📞</span>
+                <span className="font-semibold text-anchor-gold"></span>
                 <span>Call 01753 682707 or book online to secure tables for peak flights</span>
               </div>
             </div>
@@ -203,7 +203,7 @@ export default function Terminal5Page() {
       {/* Google Rating Strip */}
       <section className="bg-anchor-bg-raised py-6 border-b border-anchor-gold/15">
         <Container>
-          <p className="text-center text-sm text-anchor-cream-text/55">⭐⭐⭐⭐⭐ <strong>Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
+          <p className="text-center text-sm text-anchor-cream-text/55"><strong>Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
         </Container>
       </section>
 
@@ -223,22 +223,22 @@ export default function Terminal5Page() {
             columns={4}
             features={[
               {
-                icon: "🚗",
+                icon: "",
                 title: "7 mins",
                 description: "by car"
               },
               {
-                icon: "🅿️",
+                icon: "",
                 title: "Free",
                 description: "parking"
               },
               {
-                icon: "🍺",
+                icon: "",
                 title: "Real",
                 description: "British pub"
               },
               {
-                icon: "✈️",
+                icon: "",
                 title: "BA Hub",
                 description: "Terminal 5"
               }
@@ -267,7 +267,7 @@ export default function Terminal5Page() {
             <div className="grid md:grid-cols-3 gap-6 mb-12">
               {/* By Car */}
               <div className="bg-anchor-bg-raised rounded-2xl p-8 border border-anchor-gold/15">
-                <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">🚗 By Car (7 minutes)</h3>
+                <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">By Car (7 minutes)</h3>
                 <ol className="space-y-3 text-anchor-cream-text/70">
                   <li className="flex gap-3">
                     <span className="font-bold text-anchor-gold">1.</span>
@@ -298,7 +298,7 @@ export default function Terminal5Page() {
 
               {/* By Taxi */}
               <div className="bg-anchor-bg-raised rounded-2xl p-8 border border-anchor-gold/15">
-                <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">🚕 By Taxi/Uber</h3>
+                <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">By Taxi/Uber</h3>
                 <div className="space-y-4 text-anchor-cream-text/70">
 	                  <div className="bg-anchor-bg-card p-4 rounded-lg border border-anchor-gold/15">
 	                    <p className="font-bold text-lg text-green-700 mb-1">GBP 20-25 fixed fare</p>
@@ -317,7 +317,7 @@ export default function Terminal5Page() {
                     </ul>
                   </div>
                   <div className="p-4 bg-green-50 rounded-lg border border-green-200">
-                    <p className="font-semibold text-green-800 mb-1">💡 Return Taxi Service</p>
+                    <p className="font-semibold text-green-800 mb-1">Return Taxi Service</p>
                     <p className="text-sm">We'll call you a cab back to T5 - just ask!</p>
                   </div>
                 </div>
@@ -325,7 +325,7 @@ export default function Terminal5Page() {
 
               {/* By Bus */}
               <div className="bg-anchor-bg-raised rounded-2xl p-8 border border-anchor-gold/15">
-                <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">🚌 By Bus (Budget Option)</h3>
+                <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">By Bus (Budget Option)</h3>
                 <div className="space-y-4 text-anchor-cream-text/70">
 	                  <div className="bg-anchor-bg-card p-4 rounded-lg border border-anchor-gold/15">
 	                    <p className="font-bold text-lg text-green-700 mb-1">GBP 2.50 single fare</p>
@@ -348,7 +348,7 @@ export default function Terminal5Page() {
                     <p className="text-sm">Follow signs from Arrivals</p>
                   </div>
                   <div className="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
-                    <p className="font-semibold text-yellow-800 mb-1">⚠️ Important</p>
+                    <p className="font-semibold text-yellow-800 mb-1">Important</p>
                     <p className="text-sm">Tell driver: "The Anchor pub stop"</p>
                     <p className="text-sm">Last bus: 11:30pm Mon-Sat, 10:30pm Sun</p>
                   </div>
@@ -391,22 +391,22 @@ export default function Terminal5Page() {
               boxes={[
                 {
                   title: "Perfect for BA Travelers",
-                  icon: "✈️",
+                  icon: "",
                   content: "Terminal 5 is British Airways' exclusive hub. Whether you're flying Club World or Euro Traveller, enjoy a proper British welcome just minutes away."
                 },
                 {
                   title: "Great Value Pub Food",
-                  icon: "🍽️",
+                  icon: "",
                   content: "Proper British pub meals — stone-baked pizzas, burgers, fish & chips, and Sunday roasts. Real food, generous portions, in a relaxed village pub setting."
                 },
                 {
                   title: "Free Parking for Patrons",
-                  icon: "🅿️",
+                  icon: "",
                   content: "We have 20 free parking spaces for customers. Perfect for meeting arriving passengers or enjoying a meal before your flight — no parking fees while you're with us."
                 },
                 {
                   title: "Pre-Flight Dining",
-                  icon: "🍽️",
+                  icon: "",
                   content: "Start your holiday right. Relax in our beer garden, enjoy a proper meal, then head to T5 refreshed and ready - not rushed and hungry."
                 }
               ]}
@@ -443,7 +443,7 @@ export default function Terminal5Page() {
             </div>
 
             <div className="bg-anchor-bg-raised rounded-2xl p-8 mb-8 border border-anchor-gold/30">
-              <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">📍 Terminal 5 Insider Tips</h3>
+              <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">Terminal 5 Insider Tips</h3>
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <p className="font-semibold mb-2">Check-in Times:</p>
@@ -471,19 +471,19 @@ export default function Terminal5Page() {
               content={
                 <ul className="space-y-3">
                   <li className="flex gap-3">
-                    <span>💡</span>
+                    <span></span>
                     <span>T5 security is typically quieter before 6am and after 8pm</span>
                   </li>
                   <li className="flex gap-3">
-                    <span>💡</span>
+                    <span></span>
                     <span>The Anchor is popular with BA cabin crew - we know the flight schedules!</span>
                   </li>
                   <li className="flex gap-3">
-                    <span>💡</span>
+                    <span></span>
                     <span>We can store luggage for short periods if you&apos;re between flights</span>
                   </li>
 	                  <li className="flex gap-3">
-	                    <span>💡</span>
+	                    <span></span>
 		                    <span>Our Sunday roast is famous among T5 staff - pre-order by 1pm Saturday (Sunday lunch bookings require a £10 per person deposit)</span>
 		                  </li>
                 </ul>
@@ -514,7 +514,7 @@ export default function Terminal5Page() {
             <div className="grid md:grid-cols-2 gap-8 mb-12">
               <div className="card-dark rounded-none p-8">
                 <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">
-                  🏨 Sofitel Terminal 5 Guests
+                  Sofitel Terminal 5 Guests
                 </h3>
                 <p className="text-anchor-cream-text/70 mb-4">
                   Just 8 minutes from your luxury hotel, The Anchor offers a genuine
@@ -522,19 +522,19 @@ export default function Terminal5Page() {
                 </p>
                 <ul className="space-y-2 text-anchor-cream-text/70 mb-6">
                   <li className="flex gap-2">
-                    <span className="text-anchor-gold">✓</span>
+                    <span className="text-anchor-gold"></span>
                     <span>Half the price of hotel dining</span>
                   </li>
                   <li className="flex gap-2">
-                    <span className="text-anchor-gold">✓</span>
+                    <span className="text-anchor-gold"></span>
                     <span>Authentic British atmosphere</span>
                   </li>
                   <li className="flex gap-2">
-                    <span className="text-anchor-gold">✓</span>
+                    <span className="text-anchor-gold"></span>
                     <span>Meet real locals, not just travelers</span>
                   </li>
                   <li className="flex gap-2">
-                    <span className="text-anchor-gold">✓</span>
+                    <span className="text-anchor-gold"></span>
                     <span>Traditional ales & home-cooked food</span>
                   </li>
                 </ul>
@@ -542,7 +542,7 @@ export default function Terminal5Page() {
 
               <div className="card-dark rounded-none p-8">
                 <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">
-                  🏨 Hilton T5 Guests
+                  Hilton T5 Guests
                 </h3>
                 <p className="text-anchor-cream-text/70 mb-4">
                   Why settle for another chain restaurant meal? Your Hilton is just 
@@ -550,19 +550,19 @@ export default function Terminal5Page() {
                 </p>
                 <ul className="space-y-2 text-anchor-cream-text/70 mb-6">
                   <li className="flex gap-2">
-                    <span className="text-anchor-gold">✓</span>
+                    <span className="text-anchor-gold"></span>
                     <span>Real cask ales, not just lagers</span>
                   </li>
 	                  <li className="flex gap-2">
-	                    <span className="text-anchor-gold">✓</span>
+	                    <span className="text-anchor-gold"></span>
 	                    <span>Stone-baked pizzas from GBP 12</span>
 	                  </li>
 	                  <li className="flex gap-2">
-	                    <span className="text-anchor-gold">✓</span>
+	                    <span className="text-anchor-gold"></span>
 		                    <span>Sunday roasts that locals queue for - pre-order by 1pm Saturday (Sunday lunch bookings require a £10 per person deposit)</span>
 		                  </li>
                   <li className="flex gap-2">
-                    <span className="text-anchor-gold">✓</span>
+                    <span className="text-anchor-gold"></span>
                     <span>Garden terrace for sunny days</span>
                   </li>
                 </ul>
@@ -574,7 +574,7 @@ export default function Terminal5Page() {
 
             <div className="card-dark rounded-none p-8 mb-8">
               <h3 className="text-2xl font-bold text-anchor-green mb-4 text-center">
-                🚕 Getting Here from Your Hotel
+                Getting Here from Your Hotel
               </h3>
               <div className="grid md:grid-cols-3 gap-6">
 	                <div className="text-center">
@@ -621,7 +621,7 @@ export default function Terminal5Page() {
                 variant="primary"
                 size="lg"
               >
-                📅 Reserve Your Table Online
+                Reserve Your Table Online
               </BookTableButton>
             </div>
           </div>
@@ -689,13 +689,13 @@ export default function Terminal5Page() {
         variant="green"
         buttons={[
           {
-            text: "📅 Book a Table",
+            text: "Book a Table",
             href: "/book-table",
             variant: "white",
             size: "lg"
           },
           {
-            text: "📞 01753 682707",
+            text: "01753 682707",
             href: "tel:+441753682707",
             isPhone: true,
             phoneSource: "terminal_5_cta_section",

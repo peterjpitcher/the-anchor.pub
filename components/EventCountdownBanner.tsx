@@ -294,7 +294,7 @@ export function EventCountdownBanner() {
             {imageSrc ? (
               <Image src={imageSrc} alt={`${event.name} poster`} fill className="object-cover" sizes="40px" />
             ) : (
-              <div className="flex h-full w-full items-center justify-center bg-white/10 text-lg">🎉</div>
+              <div className="flex h-full w-full items-center justify-center bg-white/10 text-lg"></div>
             )}
           </div>
           <div className="min-w-0">

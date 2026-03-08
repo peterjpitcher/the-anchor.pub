@@ -192,7 +192,6 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
         {inView ? (
           <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6">
              <div className="flex items-center gap-3 sm:min-w-[160px]">
-               <span className="text-xl">⏰</span>
                <span className="font-bold text-anchor-cream-text">{eventDate}</span>
              </div>
 
@@ -404,7 +403,7 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
                   )}
                   {isTimeChange && (
                     <span className="inline-flex items-center gap-2 text-sm font-semibold text-anchor-green">
-                      ⏰ {timeChangeSchedule}
+                      {timeChangeSchedule}
                     </span>
                   )}
                 </div>
@@ -425,7 +424,7 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
                     
                     {!isTimeChange && event.video && event.video.length > 0 && (
                       <span className="text-sm sm:text-xs text-anchor-cream-text/70">
-                        📹 Video available
+                        Video available
                       </span>
                     )}
                   </div>

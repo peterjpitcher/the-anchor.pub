@@ -71,7 +71,6 @@ export function FloatingActions() {
               role="menuitem"
             >
               <span className="flex items-center gap-3 whitespace-nowrap">
-                <span className="text-2xl" aria-hidden="true">📅</span>
                 <span className="font-medium">Book a Table</span>
               </span>
             </a>
@@ -84,7 +83,6 @@ export function FloatingActions() {
               onClick={() => setIsOpen(false)}
               role="menuitem"
             >
-              <span className="text-2xl" aria-hidden="true">📞</span>
               <span className="font-medium">Call Us</span>
             </PhoneLink>
 
@@ -96,7 +94,6 @@ export function FloatingActions() {
               onClick={() => setIsOpen(false)}
               role="menuitem"
             >
-              <span className="text-2xl" aria-hidden="true">💬</span>
               <span className="font-medium">WhatsApp</span>
             </WhatsAppLink>
             <DirectionsLink
@@ -106,7 +103,6 @@ export function FloatingActions() {
               onClick={() => setIsOpen(false)}
               role="menuitem"
             >
-              <span className="text-2xl" aria-hidden="true">📍</span>
               <span className="font-medium">Get Directions</span>
             </DirectionsLink>
             
@@ -116,7 +112,6 @@ export function FloatingActions() {
               onClick={() => setIsOpen(false)}
               role="menuitem"
             >
-              <span className="text-2xl" aria-hidden="true">🍽️</span>
               <span className="font-medium">View Menu</span>
             </a>
           </div>

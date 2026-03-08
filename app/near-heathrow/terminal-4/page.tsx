@@ -63,7 +63,7 @@ export default function Terminal4Page() {
             size="lg"
             className="w-full sm:w-auto"
           >
-            📅 Book a Table Online
+            Book a Table Online
           </BookTableButton>
         }
         secondaryCta={
@@ -73,7 +73,7 @@ export default function Terminal4Page() {
               size="lg"
               className="bg-white text-anchor-green hover:bg-gray-100 w-full sm:w-auto"
             >
-              📍 Get Directions
+              Get Directions
             </Button>
           </Link>
         }
@@ -89,19 +89,19 @@ export default function Terminal4Page() {
             </p>
             <div className="grid gap-3 md:grid-cols-2 text-anchor-cream-text/70">
 	              <div className="flex items-start gap-2">
-	                <span className="font-semibold text-anchor-gold">⏱️</span>
+	                <span className="font-semibold text-anchor-gold"></span>
 	                <span>12 minute taxi or Uber (GBP 22-27) from Terminal 4 departures</span>
 	              </div>
               <div className="flex items-start gap-2">
-                <span className="font-semibold text-anchor-gold">🅿️</span>
+                <span className="font-semibold text-anchor-gold"></span>
                 <span>Free customer parking, outside the ULEZ zone</span>
               </div>
               <div className="flex items-start gap-2">
-                <span className="font-semibold text-anchor-gold">🍹</span>
+                <span className="font-semibold text-anchor-gold"></span>
                 <span>Cocktails, cask ales and Aperol spritz for relaxed evenings</span>
               </div>
               <div className="flex items-start gap-2">
-                <span className="font-semibold text-anchor-gold">📞</span>
+                <span className="font-semibold text-anchor-gold"></span>
                 <span>Reserve on 01753 682707 for large crews or family gatherings</span>
               </div>
             </div>
@@ -207,7 +207,7 @@ export default function Terminal4Page() {
       {/* Google Rating Strip */}
       <section className="bg-anchor-bg-raised py-6 border-b border-anchor-gold/15">
         <Container>
-          <p className="text-center text-sm text-anchor-cream-text/55">⭐⭐⭐⭐⭐ <strong>Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
+          <p className="text-center text-sm text-anchor-cream-text/55"><strong>Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
         </Container>
       </section>
 
@@ -227,22 +227,22 @@ export default function Terminal4Page() {
             columns={4}
             features={[
               {
-                icon: "🚗",
+                icon: "",
                 title: "10 mins",
                 description: "by car"
               },
               {
-                icon: "🅿️",
+                icon: "",
                 title: "Free",
                 description: "parking"
               },
               {
-                icon: "💷",
+                icon: "",
                 title: "Value",
                 description: "prices"
               },
               {
-                icon: "🌐",
+                icon: "",
                 title: "SkyTeam",
                 description: "Terminal 4"
               }
@@ -264,7 +264,7 @@ export default function Terminal4Page() {
             <div className="grid md:grid-cols-3 gap-8 mb-12">
               {/* By Car */}
               <div className="bg-anchor-bg-raised rounded-2xl p-8 border border-anchor-gold/15">
-                <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">🚗 By Car (12 minutes)</h3>
+                <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">By Car (12 minutes)</h3>
                 <ol className="space-y-3 text-anchor-cream-text/70">
                   <li className="flex gap-3">
                     <span className="font-bold text-anchor-gold">1.</span>
@@ -295,7 +295,7 @@ export default function Terminal4Page() {
 
               {/* By Taxi */}
               <div className="bg-anchor-bg-raised rounded-2xl p-8 border border-anchor-gold/15">
-                <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">🚕 By Taxi</h3>
+                <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">By Taxi</h3>
                 <div className="space-y-4 text-anchor-cream-text/70">
 	                  <div>
 	                    <p className="font-semibold mb-2">Cost: GBP 20-25</p>
@@ -320,7 +320,7 @@ export default function Terminal4Page() {
 
               {/* By Bus */}
               <div className="bg-anchor-bg-raised rounded-2xl p-8 border border-anchor-gold/15">
-                <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">🚌 By Bus</h3>
+                <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">By Bus</h3>
                 <div className="space-y-4 text-anchor-cream-text/70">
                   <div>
                     <p className="font-semibold mb-2">Route 442</p>
@@ -378,22 +378,22 @@ export default function Terminal4Page() {
               boxes={[
                 {
                   title: "SkyTeam Alliance Hub",
-                  icon: "🌐",
+                  icon: "",
                   content: "Terminal 4 hosts Air France, KLM, and other SkyTeam partners, plus many Middle Eastern and Asian carriers. Experience British culture before your journey."
                 },
                 {
                   title: "Budget-Friendly Option",
-                  icon: "💰",
+                  icon: "",
                   content: "T4 also serves many budget airlines. Enjoy proper British pub food with generous portions in a relaxed atmosphere — just 12 minutes from T4."
                 },
                 {
                   title: "Transit Alternative",
-                  icon: "🚊",
+                  icon: "",
                   content: "T4 is furthest from central terminals. If you have a long connection, escape to The Anchor instead of waiting in crowded lounges."
                 },
                 {
                   title: "24-Hour Terminal Benefits",
-                  icon: "🌙",
+                  icon: "",
                   content: "T4 handles many overnight flights. Join us for a late afternoon meal or evening drink - much more comfortable than terminal seating!"
                 }
               ]}
@@ -462,19 +462,19 @@ export default function Terminal4Page() {
               content={
                 <ul className="space-y-3">
                   <li className="flex gap-3">
-                    <span>💡</span>
+                    <span></span>
                     <span>T4 to T5 connections need 90+ minutes - consider a quick meal with us instead!</span>
                   </li>
                   <li className="flex gap-3">
-                    <span>💡</span>
+                    <span></span>
                     <span>Air France morning flights are busy - T4 security peaks 5:30-7:30am</span>
                   </li>
                   <li className="flex gap-3">
-                    <span>💡</span>
+                    <span></span>
                     <span>Many Gulf carrier flights depart late evening - perfect for an early dinner</span>
                   </li>
                   <li className="flex gap-3">
-                    <span>💡</span>
+                    <span></span>
                     <span>T4 parking is cheapest at Heathrow - but free is better at The Anchor!</span>
                   </li>
                 </ul>
@@ -509,43 +509,43 @@ export default function Terminal4Page() {
               </h3>
               <div className="grid md:grid-cols-2 gap-8">
                 <div>
-                  <h4 className="font-semibold text-lg mb-3">🏠 A Real Local Experience</h4>
+                  <h4 className="font-semibold text-lg mb-3">A Real Local Experience</h4>
                   <ul className="space-y-2 text-anchor-cream-text/70">
                     <li className="flex gap-2">
-                      <span className="text-anchor-gold">✓</span>
+                      <span className="text-anchor-gold"></span>
                       <span>Traditional British pub atmosphere</span>
                     </li>
                     <li className="flex gap-2">
-                      <span className="text-anchor-gold">✓</span>
+                      <span className="text-anchor-gold"></span>
                       <span>Meet local residents, not just travelers</span>
                     </li>
                     <li className="flex gap-2">
-                      <span className="text-anchor-gold">✓</span>
+                      <span className="text-anchor-gold"></span>
                       <span>Authentic ales and home-cooked meals</span>
                     </li>
                     <li className="flex gap-2">
-                      <span className="text-anchor-gold">✓</span>
+                      <span className="text-anchor-gold"></span>
                       <span>Peaceful setting away from airport hustle</span>
                     </li>
                   </ul>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-lg mb-3">💰 Better Value Than Hotels</h4>
+                  <h4 className="font-semibold text-lg mb-3">Better Value Than Hotels</h4>
                   <ul className="space-y-2 text-anchor-cream-text/70">
                     <li className="flex gap-2">
-                      <span className="text-anchor-gold">✓</span>
+                      <span className="text-anchor-gold"></span>
                       <span>Pub prices, not hotel prices</span>
                     </li>
                     <li className="flex gap-2">
-                      <span className="text-anchor-gold">✓</span>
+                      <span className="text-anchor-gold"></span>
                       <span>Hearty portions of British classics</span>
                     </li>
                     <li className="flex gap-2">
-                      <span className="text-anchor-gold">✓</span>
+                      <span className="text-anchor-gold"></span>
                       <span>Free parking saves on hotel charges</span>
                     </li>
                     <li className="flex gap-2">
-                      <span className="text-anchor-gold">✓</span>
+                      <span className="text-anchor-gold"></span>
                       <span>Relaxed atmosphere with no time limits</span>
                     </li>
                   </ul>
@@ -555,7 +555,7 @@ export default function Terminal4Page() {
 
             <div className="card-dark rounded-none p-8 mb-8">
               <h3 className="text-2xl font-bold text-anchor-green mb-4 text-center">
-                🚕 Getting Here from Terminal 4 Hotels
+                Getting Here from Terminal 4 Hotels
               </h3>
 	              <div className="grid md:grid-cols-3 gap-6 text-center">
 	                <div>
@@ -592,7 +592,7 @@ export default function Terminal4Page() {
                 size="lg"
                 className="bg-white text-anchor-green hover:bg-gray-100"
               >
-                📅 Book Your Table Online
+                Book Your Table Online
               </BookTableButton>
             </div>
           </div>
@@ -656,13 +656,13 @@ export default function Terminal4Page() {
         variant="green"
         buttons={[
           {
-            text: "📅 Book a Table",
+            text: "Book a Table",
             href: "/book-table",
             variant: "white",
             size: "lg"
           },
           {
-            text: "📞 01753 682707",
+            text: "01753 682707",
             href: "tel:+441753682707",
             isPhone: true,
             phoneSource: "terminal_4_cta_section",
@@ -670,13 +670,13 @@ export default function Terminal4Page() {
             size: "lg"
           },
           {
-            text: "🍕 Pizza Menu",
+            text: "Pizza Menu",
             href: "/food-menu#pizza",
             variant: "white",
             size: "lg"
           },
           {
-            text: "🍖 Sunday Roast Info",
+            text: "Sunday Roast Info",
             href: "/sunday-lunch",
             variant: "white",
             size: "lg"

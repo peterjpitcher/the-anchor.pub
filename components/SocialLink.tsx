@@ -18,12 +18,12 @@ interface SocialLinkProps {
 }
 
 const platformIcons: Record<SocialPlatform, string> = {
-  facebook: '📘',
-  instagram: '📷',
-  twitter: '🐦',
-  linkedin: '💼',
-  youtube: '📺',
-  google: '⭐'
+  facebook: '',
+  instagram: '',
+  twitter: '',
+  linkedin: '',
+  youtube: '',
+  google: ''
 }
 
 export function SocialLink({

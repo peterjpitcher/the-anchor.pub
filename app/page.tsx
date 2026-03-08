@@ -160,16 +160,16 @@ export default function HomePage() {
             </div>
 
             <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-white shadow-sm backdrop-blur-sm">
-              ⭐ Rated 4.6/5 on Google · Highest-rated non-airport pub near Heathrow
+              Rated 4.6/5 on Google · Highest-rated non-airport pub near Heathrow
             </span>
           </div>
         }
         tags={[
-          { label: 'Free Parking', icon: '🚗', size: 'small', className: 'bg-white/15 text-white backdrop-blur-sm border border-white/10' },
-          { label: 'Dog Friendly', icon: '🐕', size: 'small', className: 'bg-white/15 text-white backdrop-blur-sm border border-white/10' },
-          { label: 'Family Welcome', icon: '👨‍👩‍👧‍👦', size: 'small', className: 'bg-white/15 text-white backdrop-blur-sm border border-white/10' },
-          { label: 'Step-Free Access', icon: '♿', size: 'small', className: 'bg-white/15 text-white backdrop-blur-sm border border-white/10' },
-          { label: '7 mins from Heathrow', icon: '✈️', size: 'small', className: 'bg-white/15 text-white backdrop-blur-sm border border-white/10' }
+          { label: 'Free Parking', icon: '', size: 'small', className: 'bg-white/15 text-white backdrop-blur-sm border border-white/10' },
+          { label: 'Dog Friendly', icon: '', size: 'small', className: 'bg-white/15 text-white backdrop-blur-sm border border-white/10' },
+          { label: 'Family Welcome', icon: '', size: 'small', className: 'bg-white/15 text-white backdrop-blur-sm border border-white/10' },
+          { label: 'Step-Free Access', icon: '', size: 'small', className: 'bg-white/15 text-white backdrop-blur-sm border border-white/10' },
+          { label: '7 mins from Heathrow', icon: '', size: 'small', className: 'bg-white/15 text-white backdrop-blur-sm border border-white/10' }
         ]}
         ctaContainerClassName="px-2 sm:px-0 max-w-md mx-auto"
         primaryCta={
@@ -184,7 +184,7 @@ export default function HomePage() {
         secondaryCta={
           <Link href="/food-menu" className="w-full">
             <Button variant="secondary" size="lg" fullWidth>
-              🍽️ View Menu
+              View Menu
             </Button>
           </Link>
         }
@@ -207,12 +207,12 @@ export default function HomePage() {
 
           {/* Trust Signals */}
           <div className="flex flex-wrap justify-center gap-4 mt-6 text-sm text-anchor-cream-text/55">
-            <span className="flex items-center gap-1">⭐ Top-rated non-airport pub near Heathrow (Google Reviews)</span>
-            <span className="flex items-center gap-1">🚗 Free on-site parking (20 spaces)</span>
-            <span className="flex items-center gap-1">💷 Pub classics £10–£20 – fair village prices near Heathrow</span>
-            <span className="flex items-center gap-1">🏡 Independent village pub minutes from Heathrow – no terminal access needed</span>
-            <span className="flex items-center gap-1">✈️ Horton Road plane-spotting area – fuel up before or after your flight</span>
-            <span className="flex items-center gap-1">📍 Outside ULEZ Zone - save £12.50 daily</span>
+            <span className="flex items-center gap-1">Top-rated non-airport pub near Heathrow (Google Reviews)</span>
+            <span className="flex items-center gap-1">Free on-site parking (20 spaces)</span>
+            <span className="flex items-center gap-1">Pub classics £10–£20 – fair village prices near Heathrow</span>
+            <span className="flex items-center gap-1">Independent village pub minutes from Heathrow – no terminal access needed</span>
+            <span className="flex items-center gap-1">Horton Road plane-spotting area – fuel up before or after your flight</span>
+            <span className="flex items-center gap-1">Outside ULEZ Zone - save £12.50 daily</span>
           </div>
 
           <div className="mt-8">
@@ -220,19 +220,19 @@ export default function HomePage() {
               <h2 className="text-2xl font-bold text-anchor-cream-text mb-3 text-center">Quick Reasons Guests Visit The Anchor</h2>
               <div className="grid gap-3 md:grid-cols-2 text-anchor-cream-text/70">
                 <div className="flex items-start gap-2">
-                  <span className="font-semibold text-anchor-gold-vivid">⏱️</span>
+                  <span className="font-semibold text-anchor-gold-vivid"></span>
                   <span>7 minutes from Terminal 5, 11 minutes from Terminals 2 &amp; 3</span>
                 </div>
                 <div className="flex items-start gap-2">
-                  <span className="font-semibold text-anchor-gold-vivid">🅿️</span>
+                  <span className="font-semibold text-anchor-gold-vivid"></span>
                   <span>Free parking and easy taxi pick-up points for travellers</span>
                 </div>
                 <div className="flex items-start gap-2">
-                  <span className="font-semibold text-anchor-gold-vivid">🍽️</span>
+                  <span className="font-semibold text-anchor-gold-vivid"></span>
                   <span>Stone-baked pizzas, Sunday roasts and daily pub classics</span>
                 </div>
                 <div className="flex items-start gap-2">
-                  <span className="font-semibold text-anchor-gold-vivid">🎉</span>
+                  <span className="font-semibold text-anchor-gold-vivid"></span>
                   <span>Hosted nights like Music Bingo with Nikki Manfadge, plus one-off events (see /whats-on)</span>
                 </div>
               </div>
@@ -279,7 +279,7 @@ export default function HomePage() {
             columns={3}
             features={[
               {
-                icon: "💰",
+                icon: "",
                 title: "Eat Well, Spend Less",
                 description: "Airport food costs twice as much. Enjoy a proper British pub meal from £10 — 7 minutes from the terminals, no terminal markup.",
                 variant: "colored",
@@ -287,7 +287,7 @@ export default function HomePage() {
                 className: "card-warm p-8 text-center"
               },
               {
-                icon: "✈️",
+                icon: "",
                 title: "Perfect for Heathrow Trips",
                 description: "Pre-flight meal, meeting arrivals, or killing layover time. Free parking, luggage welcome, and just 7 minutes from Terminal 5.",
                 variant: "colored",
@@ -295,7 +295,7 @@ export default function HomePage() {
                 className: "card-warm p-8 text-center"
               },
               {
-                icon: "🐕",
+                icon: "",
                 title: "Bring the Whole Family",
                 description: "Dog-friendly beer garden under the Heathrow flight path. Watch planes every 90 seconds. Kids and dogs both welcome.",
                 variant: "colored",
@@ -327,7 +327,7 @@ export default function HomePage() {
               columns={4}
               items={[
                 {
-                  icon: "📍",
+                  icon: "",
                   title: "Location",
                   subtitle: (
                     <SpeakableContent selector="contact-info" priority="high">
@@ -338,7 +338,7 @@ export default function HomePage() {
                   )
                 },
                 {
-                  icon: "🕐",
+                  icon: "",
                   title: "Opening Hours",
                   subtitle: (
                     <SpeakableContent selector="opening-hours" priority="high">
@@ -349,12 +349,12 @@ export default function HomePage() {
                   )
                 },
                 {
-                  icon: "📞",
+                  icon: "",
                   title: "Get in Touch",
                   subtitle: <PhoneLinksSection source="homepage_quickinfo" />
                 },
                 {
-                  icon: "⭐",
+                  icon: "",
                   title: "Key Features",
                   subtitle: (
                     <>
@@ -382,7 +382,7 @@ export default function HomePage() {
         <Container>
           <div className="max-w-6xl mx-auto">
             <SectionHeader
-              title="✈️ Perfect for Heathrow Travelers"
+              title="Perfect for Heathrow Travelers"
               subtitle="Just 7-12 minutes from all terminals • Free parking • Real British experience"
             />
 
@@ -394,13 +394,13 @@ export default function HomePage() {
                   content: (
                     <ul className="space-y-4">
                       <li className="flex gap-3">
-                        <span className="text-2xl">💰</span>
+                        <span className="text-2xl"></span>
                         <div>
                           <strong>Save Money:</strong> Airport food costs 2x more. Enjoy a proper meal for less.
                         </div>
                       </li>
                       <li className="flex gap-3">
-                        <span className="text-2xl">🚗</span>
+                        <span className="text-2xl"></span>
                         <div>
                           <strong>Free Parking:</strong> No hourly charges, no stress. Stay as long as you like. Need longer term parking?{' '}
                           <Link href="/heathrow-parking" className="text-anchor-gold hover:text-anchor-gold-light underline">
@@ -414,19 +414,19 @@ export default function HomePage() {
                         </div>
                       </li>
                       <li className="flex gap-3">
-                        <span className="text-2xl">🇬🇧</span>
+                        <span className="text-2xl"></span>
                         <div>
                           <strong>Real Experience:</strong> Authentic British pub, not an airport chain.
                         </div>
                       </li>
                       <li className="flex gap-3">
-                        <span className="text-2xl">⏰</span>
+                        <span className="text-2xl"></span>
                         <div>
                           <strong>Kill Time Comfortably:</strong> Much nicer than terminal seating.
                         </div>
                       </li>
                       <li className="flex gap-3">
-                        <span className="text-2xl">✈️</span>
+                        <span className="text-2xl"></span>
                         <div>
                           <strong>Plane Spotting:</strong> <Link href="/beer-garden" className="text-anchor-gold hover:text-anchor-gold-light underline">Beer garden</Link> with aircraft every 90 seconds.
                         </div>
@@ -527,7 +527,7 @@ export default function HomePage() {
               <Link href="/corporate-events" className="group">
                 <Card variant="default" className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
                   <CardBody className="text-center">
-                    <div className="text-4xl mb-4">💼</div>
+                    <div className="text-4xl mb-4"></div>
                     <h2 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-vivid">Corporate Events</h2>
                     <p className="text-anchor-cream-text/70 mb-4">
                       Professional venue for meetings, team building, and conferences.
@@ -541,7 +541,7 @@ export default function HomePage() {
               <Link href="/christmas-parties" className="group">
                 <Card variant="default" className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
                   <CardBody className="text-center">
-                    <div className="text-4xl mb-4">🎄</div>
+                    <div className="text-4xl mb-4"></div>
                     <h2 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-vivid">Christmas Parties</h2>
                     <p className="text-anchor-cream-text/70 mb-4">
                       Book your festive celebration now! Traditional menus,
@@ -555,7 +555,7 @@ export default function HomePage() {
               <Link href="/private-party-venue" className="group">
                 <Card variant="default" className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
                   <CardBody className="text-center">
-                    <div className="text-4xl mb-4">🎉</div>
+                    <div className="text-4xl mb-4"></div>
                     <h2 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-vivid">Private Parties</h2>
                     <p className="text-anchor-cream-text/70 mb-4">
                       Birthdays, anniversaries, and celebrations.
@@ -574,23 +574,23 @@ export default function HomePage() {
                     <h2 className="text-2xl font-bold text-anchor-cream-text mb-4">Why Choose The Anchor?</h2>
                     <ul className="space-y-3">
                       <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-vivid">✓</span>
+                        <span className="text-anchor-gold-vivid"></span>
                         <span className="text-anchor-cream-text/70"><strong className="text-anchor-cream-text">Flexible venue hire pricing</strong> - tailored to your event</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-vivid">✓</span>
+                        <span className="text-anchor-gold-vivid"></span>
                         <span className="text-anchor-cream-text/70"><strong className="text-anchor-cream-text">Free parking</strong> for all your guests</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-vivid">✓</span>
+                        <span className="text-anchor-gold-vivid"></span>
                         <span className="text-anchor-cream-text/70"><strong className="text-anchor-cream-text">Flexible spaces</strong> for 10-200 guests</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-vivid">✓</span>
+                        <span className="text-anchor-gold-vivid"></span>
                         <span className="text-anchor-cream-text/70"><strong className="text-anchor-cream-text">Custom catering</strong> to suit all budgets</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-vivid">✓</span>
+                        <span className="text-anchor-gold-vivid"></span>
                         <span className="text-anchor-cream-text/70"><strong className="text-anchor-cream-text">Experienced team</strong> to handle every detail</span>
                       </li>
                     </ul>
@@ -694,7 +694,7 @@ export default function HomePage() {
             <Grid cols={2} gap="lg" align="center">
               <div>
                 <div className="card-dark p-5 mb-4">
-                  <h3 className="text-xl font-bold mb-3 text-anchor-gold-vivid">📍 Find Us Here</h3>
+                  <h3 className="text-xl font-bold mb-3 text-anchor-gold-vivid">Find Us Here</h3>
                   <address className="not-italic text-base leading-relaxed text-anchor-cream-text/70">
                     The Anchor<br />
                     Horton Road<br />
@@ -704,12 +704,12 @@ export default function HomePage() {
                 </div>
 
                 <div className="card-dark p-5 mb-5">
-                  <h3 className="text-xl font-bold mb-3 text-anchor-gold-vivid">🚗 Getting Here</h3>
+                  <h3 className="text-xl font-bold mb-3 text-anchor-gold-vivid">Getting Here</h3>
                   <ul className="space-y-1.5 text-base text-anchor-cream-text/70">
-                    <li>✈️ Just 7 minutes from Heathrow Terminal 5</li>
-                    <li>🚌 Bus routes 441 &amp; 442 stop nearby</li>
-                    <li>🚗 Free parking for all guests</li>
-                    <li>♿ Step-free access to most areas</li>
+                    <li>Just 7 minutes from Heathrow Terminal 5</li>
+                    <li>Bus routes 441 &amp; 442 stop nearby</li>
+                    <li>Free parking for all guests</li>
+                    <li>Step-free access to most areas</li>
                   </ul>
                 </div>
 
@@ -725,7 +725,7 @@ export default function HomePage() {
               </div>
 
               <div className="card-dark p-4">
-                <h3 className="text-lg font-bold mb-3 text-anchor-gold-vivid">🕐 Opening Hours</h3>
+                <h3 className="text-lg font-bold mb-3 text-anchor-gold-vivid">Opening Hours</h3>
                 <BusinessHours variant="condensed" showKitchen={true} />
               </div>
             </Grid>

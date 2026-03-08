@@ -186,10 +186,10 @@ export default async function DrinksMenuPage() {
         description="From real ales to premium spirits - something for everyone"
         variant="default"
         tags={[
-          { label: '🍺 Real Ales', variant: 'default' },
-          { label: '🥃 Premium Spirits', variant: 'default' },
-          { label: '🍷 Wine Selection', variant: 'default' },
-          { label: '🍹 Cocktails', variant: 'primary' }
+          { label: 'Real Ales', variant: 'default' },
+          { label: 'Premium Spirits', variant: 'default' },
+          { label: 'Wine Selection', variant: 'default' },
+          { label: 'Cocktails', variant: 'primary' }
         ]}
         primaryCta={
           <BookTableButton
@@ -211,7 +211,7 @@ export default async function DrinksMenuPage() {
                 fullWidth
                 className="sm:w-auto bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm"
               >
-                📖 Jump to Menu
+                Jump to Menu
               </Button>
             </Link>
             <Link href="/food-menu#pizza" className="w-full sm:w-auto">
@@ -221,17 +221,17 @@ export default async function DrinksMenuPage() {
                 fullWidth
                 className="sm:w-auto"
               >
-                🍕 Pizza Menu
+                Pizza Menu
               </Button>
             </Link>
             <Link href="/sunday-lunch" className="w-full sm:w-auto">
-              <Button 
+              <Button
                 variant="secondary"
                 size="lg"
                 fullWidth
                 className="sm:w-auto"
               >
-                🍖 Sunday Roast Info
+                Sunday Roast Info
               </Button>
             </Link>
           </>
@@ -250,7 +250,7 @@ export default async function DrinksMenuPage() {
             className="max-w-5xl mx-auto"
             boxes={[
               {
-                title: "🍺 Carling & Coors Light",
+                title: "Carling & Coors Light",
                 content: (
                   <p className="text-anchor-cream-text/70">
                     Ice-cold Carling and Coors Light served properly every day. Popular with airport crew looking for a familiar pint before or after shifts.
@@ -260,7 +260,7 @@ export default async function DrinksMenuPage() {
                 color: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15"
               },
               {
-                title: "🍻 Guinness & Inch’s Cider",
+                title: "Guinness & Inch’s Cider",
                 content: (
                   <p className="text-anchor-cream-text/70">
                     Pour-perfect Guinness plus Inch&apos;s Medium Apple Cider for those sunny beer garden sessions under the Heathrow flight path.
@@ -270,7 +270,7 @@ export default async function DrinksMenuPage() {
                 color: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15"
               },
               {
-                title: "🍸 Premium Spirits & Chambord",
+                title: "Premium Spirits & Chambord",
                 content: (
                   <p className="text-anchor-cream-text/70">
                     Build cocktails with Chambord, Disaronno, Duppy Share rum and plenty of premium spirits. Ask for Baby Guinness shots too.
@@ -309,25 +309,25 @@ export default async function DrinksMenuPage() {
         <Container>
           <div className="flex flex-wrap justify-center gap-4">
             {menuData.categories.map((category) => (
-              <Link 
+              <Link
                 key={category.id}
                 href={`#${category.id}`}
                 className="rounded-none bg-anchor-bg-card px-6 py-3 border border-anchor-gold/15 transition-colors hover:border-anchor-gold/30 text-anchor-cream-text"
               >
-                {category.title} {category.emoji}
+                {category.title}
               </Link>
             ))}
             <Link
               href="/food-menu#pizza"
               className="rounded-none bg-anchor-bg-card px-6 py-3 border border-anchor-gold/15 transition-colors hover:border-anchor-gold/30 text-anchor-cream-text"
             >
-              🍕 Pizza Menu
+              Pizza Menu
             </Link>
             <Link
               href="/sunday-lunch"
               className="rounded-none bg-anchor-bg-card px-6 py-3 border border-anchor-gold/15 transition-colors hover:border-anchor-gold/30 text-anchor-cream-text"
             >
-              🍖 Sunday Roast Booking
+              Sunday Roast Booking
             </Link>
           </div>
         </Container>
@@ -344,19 +344,19 @@ export default async function DrinksMenuPage() {
               columns={3}
               features={[
                 {
-                  icon: "✈️",
+                  icon: "",
                   title: "Airport Staff Haven",
                   description: "Perfect spot for crews and airport workers to unwind after long shifts. Join your colleagues for a well-deserved pint.",
                   className: "text-center"
                 },
                 {
-                  icon: "🚖",
+                  icon: "",
                   title: "Meeting Point",
                   description: "Picking someone up? Skip expensive airport parking. Meet here for a relaxed drink while they clear customs.",
                   className: "text-center"
                 },
                 {
-                  icon: "🌍",
+                  icon: "",
                   title: "Traveller's Rest",
                   description: "Just landed or about to fly? We're your local. Quick taxi from all terminals, open late, proper British welcome.",
                   className: "text-center"
@@ -378,7 +378,7 @@ export default async function DrinksMenuPage() {
               columns={2}
               boxes={[
                 {
-                  title: "🍺 The Beer Garden Experience",
+                  title: "The Beer Garden Experience",
                   content: (
                     <>
                       <p className="text-anchor-cream-text/70 mb-4">Stanwell Moor's largest beer garden. Watch planes overhead while enjoying perfectly poured pints in the sunshine. Heated areas and covered sections mean the garden's open year-round.</p>
@@ -389,7 +389,7 @@ export default async function DrinksMenuPage() {
                   className: "bg-anchor-bg-card rounded-none p-8 border border-anchor-gold/15"
                 },
                 {
-                  title: "📺 Sports & Atmosphere",
+                  title: "Sports & Atmosphere",
                   content: (
                     <>
                       <p className="text-anchor-cream-text/70 mb-4">Multiple screens showing major sporting events on BBC and ITV. Catch the Six Nations, World Cup, Euros, and other big tournaments with great views from every seat.</p>
@@ -400,7 +400,7 @@ export default async function DrinksMenuPage() {
                   className: "bg-anchor-bg-card rounded-none p-8 border border-anchor-gold/15"
                 },
                 {
-                  title: "🎯 Local Institution",
+                  title: "Local Institution",
                   content: (
                     <>
                       <p className="text-anchor-cream-text/70 mb-4">Serving Stanwell Moor and Staines for generations. Where locals meet, airport workers unwind, and visitors become regulars. Your neighbourhood bar with a global touch.</p>
@@ -411,7 +411,7 @@ export default async function DrinksMenuPage() {
                   className: "bg-anchor-bg-card rounded-none p-8 border border-anchor-gold/15"
                 },
                 {
-                  title: "🌟 Quality & Choice",
+                  title: "Quality & Choice",
                   content: (
                     <>
                       <p className="text-anchor-cream-text/70 mb-4">From real ales to handcrafted cocktails, we take drinks seriously. Expert bar staff, proper glassware, and drinks served exactly how they should be. No shortcuts.</p>
@@ -439,28 +439,28 @@ export default async function DrinksMenuPage() {
               columns={4}
               features={[
                 {
-                  icon: "☀️",
+                  icon: "",
                   title: "Summer",
                   description: "Pimm's jugs, ice-cold lagers, and frozen cocktails in the sun-drenched beer garden",
                   variant: "default",
                   className: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15 text-center"
                 },
                 {
-                  icon: "🍂",
+                  icon: "",
                   title: "Autumn",
                   description: "Warming ales, harvest ciders, and our famous hot toddy as the evenings draw in",
                   variant: "default",
                   className: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15 text-center"
                 },
                 {
-                  icon: "❄️",
+                  icon: "",
                   title: "Winter",
                   description: "Mulled wine, Bailey's hot chocolate, and hearty stouts by the cosy fire",
                   variant: "default",
                   className: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15 text-center"
                 },
                 {
-                  icon: "🌸",
+                  icon: "",
                   title: "Spring",
                   description: "Fresh G&Ts, crisp rosé, and the return of beer garden season",
                   variant: "default",
@@ -579,17 +579,17 @@ export default async function DrinksMenuPage() {
               </BookTableButton>
               <Link href="tel:+441753682707" className="w-full sm:w-auto">
                 <Button size="lg" variant="secondary" fullWidth className="sm:w-auto bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
-                  📞 Call Us
+                  Call Us
                 </Button>
               </Link>
               <Link href="/food-menu#pizza" className="w-full sm:w-auto">
                 <Button size="lg" variant="secondary" fullWidth className="sm:w-auto bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
-                  🍕 Pizza Menu
+                  Pizza Menu
                 </Button>
               </Link>
               <Link href="/sunday-lunch" className="w-full sm:w-auto">
                 <Button size="lg" variant="secondary" fullWidth className="sm:w-auto bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
-                  🍖 Sunday Roast Info
+                  Sunday Roast Info
                 </Button>
               </Link>
             </div>

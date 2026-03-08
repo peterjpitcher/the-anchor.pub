@@ -108,22 +108,22 @@ async function getLiveMusicEvents() {
 
 const WHY_LOVE_IT = [
     {
-        icon: '🎸',
+        icon: '',
         title: 'Top Local Talent',
         body: 'From high-energy party bands to soulful acoustic soloists, we hand-pick the best local performers to get the pub jumping.'
     },
     {
-        icon: '💸',
+        icon: '',
         title: 'Always Free Entry',
         body: 'No tickets, no cover charge. Just turn up, grab a pint, and enjoy the show. We believe live music should be accessible to everyone.'
     },
     {
-        icon: '🍻',
+        icon: '',
         title: 'Proper Pub Atmosphere',
         body: 'Great acoustics, friendly crowds, and plenty of space to dance or chill. It’s exactly how a pub gig should feel.'
     },
     {
-        icon: '🍔',
+        icon: '',
         title: 'Fuel for the Show',
         body: 'Kitchen open until 9pm for burgers, pizzas and sharers. Perfect for lining the stomach before the band starts.'
     }
@@ -267,9 +267,9 @@ export default async function LiveMusicPage() {
                 description="Experience the best live music pub near Heathrow. From acoustic sessions to full bands, enjoy great tunes and free entry in Stanwell Moor."
                
                 tags={[
-                    { label: '🎸 Live Local Talent', variant: 'primary' },
-                    { label: '💸 Always Free Entry', variant: 'default' },
-                    { label: '🍻 Cold Pints & Hot Food', variant: 'default' }
+                    { label: 'Live Local Talent', variant: 'primary' },
+                    { label: 'Always Free Entry', variant: 'default' },
+                    { label: 'Cold Pints & Hot Food', variant: 'default' }
                 ]}
                 primaryCta={
                     <a
@@ -278,7 +278,7 @@ export default async function LiveMusicPage() {
                             'inline-flex items-center justify-center font-semibold text-center transition-all duration-200 rounded-full whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-anchor-gold focus:ring-offset-2 bg-white text-anchor-green border-2 border-anchor-green hover:bg-anchor-green hover:text-white px-8 py-3.5 text-lg min-h-[48px] w-full sm:w-auto'
                         )}
                     >
-                        📅 See upcoming gigs
+                        See upcoming gigs
                     </a>
                 }
                 secondaryCta={
@@ -289,7 +289,7 @@ export default async function LiveMusicPage() {
                         size="lg"
                         className="w-full sm:w-auto"
                     >
-                        📞 Call to reserve: 01753 682707
+                        Call to reserve: 01753 682707
                     </PhoneButton>
                 }
             />
@@ -325,7 +325,7 @@ export default async function LiveMusicPage() {
                       asChild
                                             className="w-full bg-anchor-green text-white hover:bg-anchor-green-dark"
                                         >
-                                            <Link href="tel:+441753682707">📞 Call 01753 682707</Link>
+                                            <Link href="tel:+441753682707">Call 01753 682707</Link>
                                         </Button>
                                     )}
                                 </div>
@@ -461,13 +461,13 @@ export default async function LiveMusicPage() {
                                     href="https://maps.app.goo.gl/YNbjTDF9g7uCcbYF6"
                                     className="inline-flex items-center justify-center gap-2 rounded-lg border border-anchor-green px-4 py-2 text-anchor-green font-semibold hover:bg-anchor-green hover:text-white transition"
                                 >
-                                    📍 Get directions
+                                    Get directions
                                 </Link>
                                 <Link
                                     href="https://wa.me/441753682707"
                                     className="inline-flex items-center justify-center gap-2 rounded-lg border border-anchor-gold px-4 py-2 text-anchor-gold font-semibold hover:bg-anchor-gold hover:text-anchor-green transition"
                                 >
-                                    💬 WhatsApp us
+                                    WhatsApp us
                                 </Link>
                             </div>
                         </div>

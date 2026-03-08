@@ -210,9 +210,9 @@ export default async function OpenMicPage() {
         description={heroDescription}
        
         tags={[
-          { label: '🎤 Open Mic Nights', variant: 'primary' },
-          { label: '🕗 Typically from 8pm', variant: 'default' },
-          { label: '🚗 Free parking + 442 bus', variant: 'default' }
+          { label: 'Open Mic Nights', variant: 'primary' },
+          { label: 'Typically from 8pm', variant: 'default' },
+          { label: 'Free parking + 442 bus', variant: 'default' }
         ]}
         primaryCta={
           <a
@@ -281,21 +281,21 @@ export default async function OpenMicPage() {
                   The Anchor, Horton Road, Stanwell Moor, Surrey, TW19 6AQ
                 </p>
                 <ul className="text-sm text-anchor-cream-text/70 space-y-1">
-                  <li>🚗 Free parking – around 20 spaces for patrons</li>
-                  <li>🚌 442 bus stops outside (Staines ↔ Heathrow)</li>
+                  <li>Free parking – around 20 spaces for patrons</li>
+                  <li>442 bus stops outside (Staines ↔ Heathrow)</li>
                 </ul>
                 <div className="mt-4 flex flex-wrap gap-3">
                   <Link
                     href="https://maps.app.goo.gl/YNbjTDF9g7uCcbYF6"
                     className="inline-flex items-center justify-center gap-2 rounded-lg border border-anchor-green px-4 py-2 text-anchor-green font-semibold hover:bg-anchor-green hover:text-white transition"
                   >
-                    📍 Get directions
+                    Get directions
                   </Link>
                   <Link
                     href="https://wa.me/441753682707"
                     className="inline-flex items-center justify-center gap-2 rounded-lg border border-anchor-gold px-4 py-2 text-anchor-gold font-semibold hover:bg-anchor-gold hover:text-anchor-green transition"
                   >
-                    💬 WhatsApp the team
+                    WhatsApp the team
                   </Link>
                 </div>
               </div>

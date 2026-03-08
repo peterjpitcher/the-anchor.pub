@@ -65,7 +65,7 @@ export default function Terminal3Page() {
             className="w-full sm:w-auto"
             context="heathrow_terminal_3"
           >
-            📅 Book a Table Online
+            Book a Table Online
           </BookTableButton>
         }
         secondaryCta={
@@ -75,7 +75,7 @@ export default function Terminal3Page() {
               size="lg"
               className="bg-white text-anchor-green hover:bg-gray-100 w-full sm:w-auto"
             >
-              📍 Get Directions
+              Get Directions
             </Button>
           </Link>
         }
@@ -91,19 +91,19 @@ export default function Terminal3Page() {
             </p>
             <div className="grid gap-3 md:grid-cols-2 text-anchor-cream-text/70">
 	              <div className="flex items-start gap-2">
-	                <span className="font-semibold text-anchor-gold">⏱️</span>
+	                <span className="font-semibold text-anchor-gold"></span>
 	                <span>11 minute taxi or Uber (GBP 20-25) via Tunnel Road</span>
 	              </div>
               <div className="flex items-start gap-2">
-                <span className="font-semibold text-anchor-gold">🅿️</span>
+                <span className="font-semibold text-anchor-gold"></span>
                 <span>Free parking for meet-ups, luggage swaps and family meals</span>
               </div>
               <div className="flex items-start gap-2">
-                <span className="font-semibold text-anchor-gold">👨‍👩‍👧‍👦</span>
+                <span className="font-semibold text-anchor-gold"></span>
                 <span>Family-friendly seating with children\'s menu and high chairs</span>
               </div>
               <div className="flex items-start gap-2">
-                <span className="font-semibold text-anchor-gold">📞</span>
+                <span className="font-semibold text-anchor-gold"></span>
                 <span>Phone 01753 682707 to reserve ahead of peak travel times</span>
               </div>
             </div>
@@ -137,7 +137,7 @@ export default function Terminal3Page() {
       {/* Google Rating Strip */}
       <section className="bg-anchor-bg-raised py-6 border-b border-anchor-gold/15">
         <Container>
-          <p className="text-center text-sm text-anchor-cream-text/70">⭐⭐⭐⭐⭐ <strong className="text-anchor-cream-text">Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
+          <p className="text-center text-sm text-anchor-cream-text/70"><strong className="text-anchor-cream-text">Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
         </Container>
       </section>
 
@@ -229,22 +229,22 @@ export default function Terminal3Page() {
             columns={4}
             features={[
               {
-                icon: "🚗",
+                icon: "",
                 title: "15 mins",
                 description: "by car"
               },
               {
-                icon: "🅿️",
+                icon: "",
                 title: "Free",
                 description: "parking"
               },
               {
-                icon: "👨‍👩‍👧‍👦",
+                icon: "",
                 title: "Family",
                 description: "friendly"
               },
               {
-                icon: "✈️",
+                icon: "",
                 title: "Virgin & Emirates",
                 description: "Terminal 3"
               }
@@ -266,7 +266,7 @@ export default function Terminal3Page() {
             <div className="grid md:grid-cols-3 gap-8 mb-12">
               {/* By Car */}
               <div className="bg-anchor-cream rounded-2xl p-8">
-                <h3 className="text-2xl font-bold text-anchor-green mb-4">🚗 By Car (11 minutes)</h3>
+                <h3 className="text-2xl font-bold text-anchor-green mb-4">By Car (11 minutes)</h3>
                 <ol className="space-y-3 text-anchor-cream-text/70">
                   <li className="flex gap-3">
                     <span className="font-bold text-anchor-gold">1.</span>
@@ -297,7 +297,7 @@ export default function Terminal3Page() {
 
               {/* By Taxi */}
               <div className="bg-anchor-cream rounded-2xl p-8">
-                <h3 className="text-2xl font-bold text-anchor-green mb-4">🚕 By Taxi</h3>
+                <h3 className="text-2xl font-bold text-anchor-green mb-4">By Taxi</h3>
                 <div className="space-y-4 text-anchor-cream-text/70">
 	                  <div>
 	                    <p className="font-semibold mb-2">Cost: GBP 20-25</p>
@@ -322,7 +322,7 @@ export default function Terminal3Page() {
 
               {/* By Bus */}
               <div className="bg-anchor-cream rounded-2xl p-8">
-                <h3 className="text-2xl font-bold text-anchor-green mb-4">🚌 By Bus</h3>
+                <h3 className="text-2xl font-bold text-anchor-green mb-4">By Bus</h3>
                 <div className="space-y-4 text-anchor-cream-text/70">
                   <div>
                     <p className="font-semibold mb-2">Route 442</p>
@@ -380,22 +380,22 @@ export default function Terminal3Page() {
               boxes={[
                 {
                   title: "Global Airlines Hub",
-                  icon: "🌍",
+                  icon: "",
                   content: "Terminal 3 hosts Virgin Atlantic, Emirates, Delta, and many Asian carriers. Whether flying to New York, Dubai, or Tokyo, start with a taste of Britain."
                 },
                 {
                   title: "Family-Friendly Space",
-                  icon: "👨‍👩‍👧‍👦",
+                  icon: "",
                   content: "Traveling with children? We offer a dedicated kids menu, high chairs, and a relaxed atmosphere. Much better than busy airport restaurants!"
                 },
 	                {
 	                  title: "Value for Money",
-	                  icon: "💷",
+	                  icon: "",
 	                  content: "A family meal at T3 can cost over GBP 60. Enjoy the same at The Anchor for half the price, with generous portions and free parking too!"
 	                },
                 {
                   title: "Perfect for Arrivals",
-                  icon: "🛬",
+                  icon: "",
                   content: "Meeting someone from a long-haul flight? Wait comfortably with us instead of the crowded arrivals hall. Track flights on our free WiFi."
                 }
               ]}
@@ -462,19 +462,19 @@ export default function Terminal3Page() {
               content={
                 <ul className="space-y-3">
                   <li className="flex gap-3">
-                    <span>💡</span>
+                    <span></span>
                     <span>Virgin Atlantic Premium check-in is worth it for families - much shorter queues</span>
                   </li>
                   <li className="flex gap-3">
-                    <span>💡</span>
+                    <span></span>
                     <span>Emirates A380 flights board 45 mins early - don&apos;t cut it close!</span>
                   </li>
                   <li className="flex gap-3">
-                    <span>💡</span>
+                    <span></span>
                     <span>T3 has the best shopping at Heathrow - arrive early if you want to browse</span>
                   </li>
                   <li className="flex gap-3">
-                    <span>💡</span>
+                    <span></span>
                     <span>We&apos;re popular with Virgin cabin crew - great stories over Sunday lunch!</span>
                   </li>
                 </ul>
@@ -509,43 +509,43 @@ export default function Terminal3Page() {
               </h3>
               <div className="grid md:grid-cols-2 gap-8">
                 <div>
-                  <h4 className="font-semibold text-lg mb-3">🏠 A Real Local Experience</h4>
+                  <h4 className="font-semibold text-lg mb-3">A Real Local Experience</h4>
                   <ul className="space-y-2 text-anchor-cream-text/70">
                     <li className="flex gap-2">
-                      <span className="text-anchor-gold">✓</span>
+                      <span className="text-anchor-gold"></span>
                       <span>Traditional British pub atmosphere</span>
                     </li>
                     <li className="flex gap-2">
-                      <span className="text-anchor-gold">✓</span>
+                      <span className="text-anchor-gold"></span>
                       <span>Meet local residents, not just travelers</span>
                     </li>
                     <li className="flex gap-2">
-                      <span className="text-anchor-gold">✓</span>
+                      <span className="text-anchor-gold"></span>
                       <span>Authentic ales and home-cooked meals</span>
                     </li>
                     <li className="flex gap-2">
-                      <span className="text-anchor-gold">✓</span>
+                      <span className="text-anchor-gold"></span>
                       <span>Peaceful setting away from airport hustle</span>
                     </li>
                   </ul>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-lg mb-3">💰 Better Value Than Hotels</h4>
+                  <h4 className="font-semibold text-lg mb-3">Better Value Than Hotels</h4>
                   <ul className="space-y-2 text-anchor-cream-text/70">
                     <li className="flex gap-2">
-                      <span className="text-anchor-gold">✓</span>
+                      <span className="text-anchor-gold"></span>
                       <span>Pub prices, not hotel prices</span>
                     </li>
                     <li className="flex gap-2">
-                      <span className="text-anchor-gold">✓</span>
+                      <span className="text-anchor-gold"></span>
                       <span>Hearty portions of British classics</span>
                     </li>
                     <li className="flex gap-2">
-                      <span className="text-anchor-gold">✓</span>
+                      <span className="text-anchor-gold"></span>
                       <span>Free parking saves on hotel charges</span>
                     </li>
                     <li className="flex gap-2">
-                      <span className="text-anchor-gold">✓</span>
+                      <span className="text-anchor-gold"></span>
                       <span>Relaxed atmosphere with no time limits</span>
                     </li>
                   </ul>
@@ -555,7 +555,7 @@ export default function Terminal3Page() {
 
             <div className="card-dark rounded-none p-8 mb-8">
               <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-4 text-center">
-                🚕 Getting Here from Terminal 3 Hotels
+                Getting Here from Terminal 3 Hotels
               </h3>
 	              <div className="grid md:grid-cols-3 gap-6 text-center">
 	                <div>
@@ -592,7 +592,7 @@ export default function Terminal3Page() {
                 size="lg"
                 className="bg-white text-anchor-green hover:bg-gray-100"
               >
-                📅 Book Your Table Online
+                Book Your Table Online
               </BookTableButton>
             </div>
           </div>
@@ -656,13 +656,13 @@ export default function Terminal3Page() {
         variant="green"
         buttons={[
           {
-            text: "📅 Book a Table",
+            text: "Book a Table",
             href: "/book-table",
             variant: "white",
             size: "lg"
           },
           {
-            text: "📞 01753 682707",
+            text: "01753 682707",
             href: "tel:+441753682707",
             isPhone: true,
             phoneSource: "terminal_3_cta_section",
@@ -670,13 +670,13 @@ export default function Terminal3Page() {
             size: "lg"
           },
           {
-            text: "🍕 Pizza Menu",
+            text: "Pizza Menu",
             href: "/food-menu#pizza",
             variant: "white",
             size: "lg"
           },
           {
-            text: "🍖 Sunday Roast Info",
+            text: "Sunday Roast Info",
             href: "/sunday-lunch",
             variant: "white",
             size: "lg"

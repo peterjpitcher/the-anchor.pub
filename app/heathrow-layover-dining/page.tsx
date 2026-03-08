@@ -88,10 +88,10 @@ export default function HeathrowLayoverDiningPage() {
           { name: 'Layover Dining' }
         ]}
         tags={[
-          { label: '✈️ 7 mins from T5', variant: 'success' },
-          { label: '⏱️ 90-min itineraries', variant: 'default' },
-          { label: '🍽️ Full menu served fast', variant: 'default' },
-          { label: '🚗 Free parking', variant: 'default' }
+          { label: '7 mins from T5', variant: 'success' },
+          { label: '90-min itineraries', variant: 'default' },
+          { label: 'Full menu served fast', variant: 'default' },
+          { label: 'Free parking', variant: 'default' }
         ]}
         primaryCta={
           <BookTableButton
@@ -202,32 +202,32 @@ export default function HeathrowLayoverDiningPage() {
             columns={3}
             features={[
               {
-                icon: '⏱️',
+                icon: '',
                 title: 'In & Out in 90 Minutes',
                 description: 'Let us know your flight time when you book and we’ll pace courses so you can dine without clock-watching.'
               },
               {
-                icon: '🍽️',
+                icon: '',
                 title: 'Full Menu, All Day',
                 description: 'From Sunday roasts to stone-baked pizzas, vegetarian plates, and speedy sharers, every layover party finds something spot on.'
               },
               {
-                icon: '🚗',
+                icon: '',
                 title: 'Free Parking & Easy Transfers',
                 description: 'Register your car for three hours free. Need a cab back? We’ll organise one with our trusted local partners.'
               },
               {
-                icon: '🧳',
+                icon: '',
                 title: 'Luggage-Friendly Seating',
                 description: 'Plenty of space at tables for hand luggage and suitcases — we’ll help you keep everything nearby and secure.'
               },
               {
-                icon: '📶',
+                icon: '',
                 title: 'Work-Friendly Amenities',
                 description: 'Free WiFi, plug sockets, and quiet corners when you need to catch up on email or plan the onward journey.'
               },
               {
-                icon: '🥂',
+                icon: '',
                 title: 'Perfect for Crew & Families',
                 description: 'Airline staff, business travelers, and families rate us for group menus, kids’ portions, and celebratory welcome-back drinks.'
               }

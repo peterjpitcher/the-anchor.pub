@@ -5,20 +5,20 @@ import { MenuItem } from '@/lib/menu-parser'
 
 // Define allergen types
 export const ALLERGEN_TYPES = {
-  celery: { label: 'Celery', icon: '🥬' },
-  gluten: { label: 'Gluten', icon: '🌾' },
-  crustaceans: { label: 'Crustaceans', icon: '🦐' },
-  eggs: { label: 'Eggs', icon: '🥚' },
-  fish: { label: 'Fish', icon: '🐟' },
-  lupin: { label: 'Lupin', icon: '🌱' },
-  milk: { label: 'Milk', icon: '🥛' },
-  molluscs: { label: 'Molluscs', icon: '🦪' },
-  mustard: { label: 'Mustard', icon: '🌭' },
-  nuts: { label: 'Nuts', icon: '🥜' },
-  peanuts: { label: 'Peanuts', icon: '🥜' },
-  sesame: { label: 'Sesame', icon: '🌰' },
-  soya: { label: 'Soya', icon: '🫘' },
-  sulphites: { label: 'Sulphites', icon: '🍷' }
+  celery: { label: 'Celery', icon: '' },
+  gluten: { label: 'Gluten', icon: '' },
+  crustaceans: { label: 'Crustaceans', icon: '' },
+  eggs: { label: 'Eggs', icon: '' },
+  fish: { label: 'Fish', icon: '' },
+  lupin: { label: 'Lupin', icon: '' },
+  milk: { label: 'Milk', icon: '' },
+  molluscs: { label: 'Molluscs', icon: '' },
+  mustard: { label: 'Mustard', icon: '' },
+  nuts: { label: 'Nuts', icon: '' },
+  peanuts: { label: 'Peanuts', icon: '' },
+  sesame: { label: 'Sesame', icon: '' },
+  soya: { label: 'Soya', icon: '' },
+  sulphites: { label: 'Sulphites', icon: '' }
 } as const
 
 export type AllergenType = keyof typeof ALLERGEN_TYPES

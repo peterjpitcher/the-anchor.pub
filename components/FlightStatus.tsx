@@ -181,7 +181,7 @@ export function FlightStatus({
         <div className="card-dark rounded-none overflow-hidden">
           <div className="bg-anchor-green text-white px-6 py-4">
             <h3 className="text-lg font-semibold flex items-center gap-2">
-              ✈️ Departures from Terminal {terminal}
+              Departures from Terminal {terminal}
               {!isVisible && pauseWhenHidden && (
                 <span className="text-sm sm:text-xs font-normal ml-auto">(Updates paused)</span>
               )}
@@ -201,7 +201,7 @@ export function FlightStatus({
         <div className="card-dark rounded-none overflow-hidden">
           <div className="bg-anchor-gold text-white px-6 py-4">
             <h3 className="text-lg font-semibold flex items-center gap-2">
-              🛬 Arrivals to Terminal {terminal}
+              Arrivals to Terminal {terminal}
               {!isVisible && pauseWhenHidden && (
                 <span className="text-sm sm:text-xs font-normal ml-auto">(Updates paused)</span>
               )}
@@ -292,7 +292,7 @@ export const FlightDelayWidget = memo(function FlightDelayWidget({ terminal }: {
   return (
     <div className="bg-anchor-gold/10 border border-anchor-gold/30 rounded-none p-4" role="status" aria-live="polite">
       <div className="flex items-center gap-3">
-        <div className="text-3xl">✈️</div>
+        <div></div>
         <div className="flex-1">
           <h4 className="font-semibold text-anchor-gold-vivid">
             Terminal {terminal} Flight Status

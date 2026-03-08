@@ -610,7 +610,7 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
               />
               <Link href="/find-us">
                 <Button size="lg" variant="secondary" className="bg-purple-700 text-white hover:bg-purple-600">
-                  📍 Get Directions
+                  Get Directions
                 </Button>
               </Link>
               <PhoneButton

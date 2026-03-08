@@ -113,10 +113,10 @@ export default function PubNearRadissonBluHeathrowPage() {
             <FeatureGrid
               columns={4}
               features={[
-                { icon: '🕐', title: '12 Minutes', description: 'By taxi from Radisson Blu Heathrow', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '🚖', title: '~£15–18', description: 'Typical taxi fare each way', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '🅿️', title: 'Free Parking', description: '20 spaces — no charges at all', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '🇬🇧', title: 'Authentically Local', description: 'A real community pub since the 1800s', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: '12 Minutes', description: 'By taxi from Radisson Blu Heathrow', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: '~£15–18', description: 'Typical taxi fare each way', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: 'Free Parking', description: '20 spaces — no charges at all', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: 'Authentically Local', description: 'A real community pub since the 1800s', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
               ]}
               className="mb-8"
             />
@@ -144,7 +144,7 @@ export default function PubNearRadissonBluHeathrowPage() {
                     'Regular events — quiz, music bingo, karaoke',
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-3">
-                      <span className="text-anchor-gold font-bold">✓</span>
+                      <span className="text-anchor-gold font-bold"></span>
                       <span>{item}</span>
                     </li>
                   ))}
@@ -179,9 +179,9 @@ export default function PubNearRadissonBluHeathrowPage() {
             <FeatureGrid
               columns={3}
               features={[
-                { icon: '🐟', title: 'Fish & Chips', description: 'The quintessential British dish — fresh battered cod with chips and mushy peas.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '🥩', title: 'Sunday Roast', description: 'Traditional roast from £19.99 — pre-booking recommended for weekends.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '🍺', title: 'Real Ale Selection', description: 'Rotating cask ales — ask what\'s on. Proper British beer culture.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Fish & Chips', description: 'The quintessential British dish — fresh battered cod with chips and mushy peas.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Sunday Roast', description: 'Traditional roast from £19.99 — pre-booking recommended for weekends.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Real Ale Selection', description: 'Rotating cask ales — ask what\'s on. Proper British beer culture.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
               ]}
               className="mb-6"
             />

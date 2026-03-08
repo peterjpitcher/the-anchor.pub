@@ -42,7 +42,7 @@ export function getCurrentPromotion(now: Date = nowInLondon()): ManagersSpecial 
     if (!active && process.env.NODE_ENV === 'development') {
       const day = now.getDate()
       if (day >= 1 && day <= 3) {
-        console.warn(`⚠️ No active Manager's Special for current date: ${now.toISOString()}`)
+        console.warn(`No active Manager's Special for current date: ${now.toISOString()}`)
       }
     }
     
