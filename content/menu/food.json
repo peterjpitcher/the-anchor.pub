@@ -474,14 +474,14 @@
           "items": [
             {
               "name": "Garlic Bread",
-              "price": "7.49 / 9.49",
+              "price": "9.49",
               "description": "Stone-baked bread brushed with garlic butter, warm and crispy every time.",
               "allergens": ["gluten", "milk", "soya"],
               "vegetarian": true
             },
             {
               "name": "Garlic Bread with Mozzarella",
-              "price": "9.49 / 11.49",
+              "price": "11.49",
               "description": "Warm garlic bread crowned with melted mozzarella for pure indulgence.",
               "allergens": ["gluten", "milk", "soya"],
               "vegetarian": true
