@@ -303,12 +303,12 @@ interface MenuItemProps {
 
 const MenuItemRow = memo(function MenuItemRow({ item, itemId, isFocused, onFocus, isHighlighted }: MenuItemProps) {
   const { displayPrice, schemaPrice, gfAvailable } = normalizePrice(item.price)
-  const priceLabel = displayPrice ? `, £${displayPrice}` : ''
+  const priceLabel = displayPrice ? `, ${displayPrice}` : ''
 
   return (
     <div
       className={cn(
-        'flex items-start justify-between gap-4 py-3 border-b border-anchor-gold/10 last:border-0',
+        'py-3 border-b border-anchor-gold/10 last:border-0',
         isFocused && 'bg-anchor-gold/5'
       )}
       itemScope
@@ -320,45 +320,36 @@ const MenuItemRow = memo(function MenuItemRow({ item, itemId, isFocused, onFocus
       tabIndex={0}
       onFocus={() => onFocus(itemId)}
     >
-      <div className="flex-1 min-w-0">
-        <div className="flex items-baseline flex-wrap gap-x-2 gap-y-0.5">
-          <span className="font-semibold text-anchor-cream-text leading-snug" itemProp="name">
-            {item.name}
-          </span>
-          {isHighlighted && (
-            <HeroBadge text="NEW" variant="new" position="inline" />
-          )}
-          {item.vegetarian && (
-            <span className="text-[11px] font-bold text-emerald-400 bg-emerald-400/10 px-1.5 py-0.5 rounded leading-none">
-              V
-            </span>
-          )}
-          {gfAvailable && (
-            <span className="text-[11px] font-semibold text-anchor-green/80 bg-anchor-green/10 px-1.5 py-0.5 rounded leading-none">
-              GF opt
-            </span>
-          )}
-        </div>
-        {item.description && (
-          <p className="text-sm text-anchor-cream-text/55 mt-0.5 leading-snug" itemProp="description">
-            {item.description}
-          </p>
+      <p className="text-anchor-cream-text leading-snug">
+        <span className="font-semibold" itemProp="name">{item.name}</span>
+        {isHighlighted && (
+          <HeroBadge text="NEW" variant="new" position="inline" />
         )}
-        <AllergenInfo item={item} />
         {item.vegetarian && (
-          <meta itemProp="suitableForDiet" content="https://schema.org/VegetarianDiet" />
+          <span className="text-[11px] font-bold text-emerald-400 bg-emerald-400/10 px-1.5 py-0.5 rounded leading-none ml-1.5">V</span>
         )}
-      </div>
-      {displayPrice && (
-        <span
-          className="font-bold text-anchor-gold whitespace-nowrap flex-shrink-0 ml-2 pt-0.5 text-sm"
-          itemProp="offers"
-          itemScope
-          itemType="https://schema.org/Offer"
-        >
-          <span itemProp="price" content={schemaPrice}>£{displayPrice}</span>
-          <meta itemProp="priceCurrency" content="GBP" />
-        </span>
+        {gfAvailable && (
+          <span className="text-[11px] font-semibold text-anchor-green/80 bg-anchor-green/10 px-1.5 py-0.5 rounded leading-none ml-1.5">GF opt</span>
+        )}
+        {item.description && (
+          <span className="text-anchor-cream-text/60 font-normal" itemProp="description"> — {item.description}</span>
+        )}
+        {displayPrice && (
+          <span
+            className="text-anchor-cream-text/50 font-normal ml-1"
+            itemProp="offers"
+            itemScope
+            itemType="https://schema.org/Offer"
+          >
+            {' · '}
+            <span itemProp="price" content={schemaPrice}>{displayPrice}</span>
+            <meta itemProp="priceCurrency" content="GBP" />
+          </span>
+        )}
+      </p>
+      <AllergenInfo item={item} />
+      {item.vegetarian && (
+        <meta itemProp="suitableForDiet" content="https://schema.org/VegetarianDiet" />
       )}
     </div>
   )
