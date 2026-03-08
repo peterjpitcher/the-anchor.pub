@@ -114,7 +114,7 @@
       "sections": [
         {
           "title": "Traditional Favourites",
-          "description": "The dishes that define a proper pub lunch or dinner. From golden chicken katsu to deep-filled pies and warming house curries, every plate is cooked to order and served with your choice of sides.",
+          "description": "From golden fish and chips and deep-filled pies to warming curries — this is proper British pub food, all cooked fresh to order. Most mains land at your table within fifteen minutes.",
           "style": "grid",
           "items": [
             {
@@ -122,7 +122,8 @@
               "price": "14.99",
               "description": "Tender slow-cooked beef in a hearty ale gravy, wrapped in golden pastry. Served with buttery mash and seasonal vegetables.",
               "allergens": ["celery", "gluten", "eggs", "milk"],
-              "vegetarian": false
+              "vegetarian": false,
+              "featured": true
             },
             {
               "name": "Chicken Katsu Curry",
@@ -151,7 +152,8 @@
               "description": "Slow-cooked lamb shank, served with smooth mash (contains dairy) or chunky chips (dairy-free option) and seasonal veg. Finished with a rich mint-infused gravy.",
               "allergens": [],
               "vegetarian": false,
-              "notes": "Ask for chunky chips instead of mash for dairy-free option"
+              "notes": "Ask for chunky chips instead of mash for dairy-free option",
+              "featured": true
             },
             {
               "name": "Spinach & Ricotta Cannelloni",
@@ -173,20 +175,14 @@
               "description": "Creamy macaroni in a rich cheese sauce, topped with crispy onions. Served with garlic bread and fresh salad for extra indulgence.",
               "allergens": ["gluten", "milk", "mustard"],
               "vegetarian": true
-            }
-          ]
-        },
-        {
-          "title": "Classic Chip Shop Favourites",
-          "description": "Golden and crispy, battered fresh to order. Our chip shop classics come with mushy peas, tartar sauce and a wedge of lemon. The fish and chips alone is worth the trip — no freezer shortcuts here.",
-          "style": "grid",
-          "items": [
+            },
             {
               "name": "Fish & Chips",
               "price": "14.99",
               "description": "Beer-battered fish, crispy golden chips, mushy peas, tartar sauce, and a fresh lemon wedge for a classic taste.",
               "allergens": ["gluten", "fish"],
-              "vegetarian": false
+              "vegetarian": false,
+              "featured": true
             },
             {
               "name": "Half Fish & Chips",
