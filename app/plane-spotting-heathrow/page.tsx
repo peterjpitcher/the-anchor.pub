@@ -77,10 +77,10 @@ export default async function PlaneSpottingHeathrowPage() {
         description="Watch widebodies roar overhead every 90 seconds from our beer garden"
         variant="default"
         tags={[
-          { label: '✈️ A380 & Dreamliner Views', variant: 'primary' },
-          { label: '🍺 Full Bar Service', variant: 'default' },
-          { label: '🆓 Free Parking', variant: 'success' },
-          { label: '📶 Free WiFi', variant: 'default' }
+          { label: 'A380 & Dreamliner Views', variant: 'primary' },
+          { label: 'Full Bar Service', variant: 'default' },
+          { label: 'Free Parking', variant: 'success' },
+          { label: 'Free WiFi', variant: 'default' }
         ]}
         primaryCta={
           <BookTableButton
@@ -89,7 +89,7 @@ export default async function PlaneSpottingHeathrowPage() {
             source="plane_spotting_hero"
             className="w-full sm:w-auto"
           >
-            📅 Reserve a Table
+            Reserve a Table
           </BookTableButton>
         }
         secondaryCta={
@@ -99,7 +99,7 @@ export default async function PlaneSpottingHeathrowPage() {
             href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ"
             className="w-full sm:w-auto"
           >
-            📍 Get Directions
+            Get Directions
           </DirectionsButton>
         }
       />
@@ -190,21 +190,21 @@ export default async function PlaneSpottingHeathrowPage() {
             columns={3}
             features={[
               {
-                icon: '🛬',
+                icon: '',
                 title: 'Under the Flight Path',
                 description: 'On westerly operations you are aligned with the landing path. Expect A380s, 787s, A350s and narrow bodies at 500-800 ft.',
                 variant: 'default',
                 className: 'bg-white rounded-2xl p-6 shadow-sm text-left'
               },
               {
-                icon: '📸',
+                icon: '',
                 title: 'Photo-Friendly Garden',
                 description: 'Low perimeter fencing, open sky and WiFi for FlightRadar24. Tripods welcome and heaters keep winter sessions comfortable.',
                 variant: 'default',
                 className: 'bg-white rounded-2xl p-6 shadow-sm text-left'
               },
               {
-                icon: '🥧',
+                icon: '',
                 title: 'Proper Refreshments',
                 description: 'Stone-baked pizzas, Sunday roasts and full drinks menu available. Toilets, power sockets and indoor seating if the rain hits.',
                 variant: 'default',
@@ -226,7 +226,7 @@ export default async function PlaneSpottingHeathrowPage() {
             className="max-w-5xl mx-auto"
             boxes={[
               {
-                title: '📅 Best Times to Visit',
+                title: 'Best Times to Visit',
                 content: (
                   <ul className="list-disc list-inside text-anchor-cream-text/70 space-y-2 text-left">
                     <li>06:00-09:00 for sunrise arrivals and cargo</li>
@@ -238,7 +238,7 @@ export default async function PlaneSpottingHeathrowPage() {
                 color: 'bg-white rounded-2xl p-6 shadow-sm'
               },
               {
-                title: '🚗 Getting Here',
+                title: 'Getting Here',
                 content: (
                   <ul className="list-disc list-inside text-anchor-cream-text/70 space-y-2 text-left">
                     <li>7 minutes from Heathrow Terminal 5 via A3044</li>
@@ -250,7 +250,7 @@ export default async function PlaneSpottingHeathrowPage() {
                 color: 'bg-white rounded-2xl p-6 shadow-sm'
               },
               {
-                title: '🎒 What to Bring',
+                title: 'What to Bring',
                 content: (
                   <ul className="list-disc list-inside text-anchor-cream-text/70 space-y-2 text-left">
                     <li>Camera with 70-200mm lens covers most arrivals</li>
@@ -276,14 +276,14 @@ export default async function PlaneSpottingHeathrowPage() {
             columns={2}
             features={[
               {
-                icon: '🌳',
+                icon: '',
                 title: 'Myrtle Avenue',
                 description: 'Legendary runway 27L arrivals spot in Hatton Cross. Pair with The Anchor for food, drinks and runway 27R coverage.',
                 variant: 'default',
                 className: 'bg-white rounded-2xl p-6 shadow-sm text-left'
               },
               {
-                icon: '🪟',
+                icon: '',
                 title: 'Visitors Centre / Renaissance Hotel',
                 description: 'Great for departures on easterly operations. Wrap up the day with a pint at The Anchor before heading home.',
                 variant: 'default',
@@ -325,17 +325,17 @@ export default async function PlaneSpottingHeathrowPage() {
         description="Book a table, grab stone-baked pizzas or Sunday roasts, and plan your route to our beer garden."
         buttons={[
           {
-            text: "📅 Book a Table",
+            text: "Book a Table",
             href: "/book-table",
             variant: "white"
           },
           {
-            text: "🍕 Pizza Menu",
+            text: "Pizza Menu",
             href: "/food-menu#pizza",
             variant: "white"
           },
           {
-            text: "📖 View Food & Drinks",
+            text: "View Food & Drinks",
             href: "/food-menu",
             variant: "white"
           }

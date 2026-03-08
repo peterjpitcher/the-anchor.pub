@@ -38,7 +38,7 @@ export function PhoneLink({
       onClick={handleClick}
       role={role}
     >
-      {showIcon && '📞 '}
+      {showIcon && ''}
       {children || phone}
     </a>
   )

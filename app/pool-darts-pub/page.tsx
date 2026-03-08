@@ -58,13 +58,13 @@ export default function PoolAndDartsPage() {
                         size="lg"
                         className="w-full sm:w-auto"
                     >
-                        📞 Book a Table Nearby
+                        Book a Table Nearby
                     </BookTableButton>
                 }
                 secondaryCta={
                     <Link href="/food-menu">
                         <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-                            🍔 View Bar Menu
+                            View Bar Menu
                         </Button>
                     </Link>
                 }
@@ -93,28 +93,26 @@ export default function PoolAndDartsPage() {
 
                         <div className="grid md:grid-cols-2 gap-8 mb-8">
                             <div className="bg-anchor-bg-card p-6 rounded-xl shadow-sm border border-anchor-gold/15">
-                                <div className="text-4xl mb-4">🎱</div>
                                 <h3 className="text-2xl font-bold text-anchor-cream-text mb-2">Pool Table</h3>
                                 <p className="text-anchor-cream-text/70 mb-4">
                                     A supreme winner pool table, kept level and re-covered regularly.
                                 </p>
                                 <ul className="text-left space-y-2 text-sm bg-anchor-bg-raised p-4 rounded-lg">
-                                    <li className="flex items-center">✅ Full set of Spots & Stripes</li>
-                                    <li className="flex items-center">✅ Quality cues provided</li>
-	                                    <li className="flex items-center">✅ GBP 1 per game</li>
+                                    <li className="flex items-center">Full set of Spots & Stripes</li>
+                                    <li className="flex items-center">Quality cues provided</li>
+	                                    <li className="flex items-center">GBP 1 per game</li>
                                 </ul>
                             </div>
 
                             <div className="bg-anchor-bg-card p-6 rounded-xl shadow-sm border border-anchor-gold/15">
-                                <div className="text-4xl mb-4">🎯</div>
                                 <h3 className="text-2xl font-bold text-anchor-cream-text mb-2">Darts</h3>
                                 <p className="text-anchor-cream-text/70 mb-4">
                                     Professional standard dartboard with raised oche and electronic scorer.
                                 </p>
                                 <ul className="text-left space-y-2 text-sm bg-anchor-bg-raised p-4 rounded-lg">
-                                    <li className="flex items-center">✅ Unicorn Eclipse Board</li>
-                                    <li className="flex items-center">✅ Good lighting</li>
-                                    <li className="flex items-center">✅ Free to play</li>
+                                    <li className="flex items-center">Unicorn Eclipse Board</li>
+                                    <li className="flex items-center">Good lighting</li>
+                                    <li className="flex items-center">Free to play</li>
                                 </ul>
                             </div>
                         </div>
@@ -153,14 +151,14 @@ export default function PoolAndDartsPage() {
                 description="Come down for a frame and a pint."
                 buttons={[
                     {
-                        text: "📞 Call Us",
+                        text: "Call Us",
                         href: `${CONTACT.phoneHref}`, // Using phone as generic call
                         isPhone: true,
                         phoneSource: "pool_cta",
                         variant: "primary"
                     },
                     {
-                        text: "📍 Get Directions",
+                        text: "Get Directions",
                         href: "https://maps.google.com/maps?daddr=The+Anchor+Stanwell+Moor+TW19+6AQ",
                         variant: "white"
                     }

@@ -180,7 +180,7 @@ export function SixNationsLightbox() {
                                 className="w-full justify-center"
                                 asChild={false} // Default
                             >
-                                📅 Book a Table Now
+                                Book a Table Now
                             </Button>
                         </Link>
 

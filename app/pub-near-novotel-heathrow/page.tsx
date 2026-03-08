@@ -113,10 +113,10 @@ export default function PubNearNovotelHeathrowPage() {
             <FeatureGrid
               columns={4}
               features={[
-                { icon: '🕐', title: '15 Minutes', description: 'By taxi from Novotel Heathrow', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '🚖', title: '~£15–20', description: 'Typical taxi fare each way', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '🅿️', title: 'Free Parking', description: '20 spaces — arrive by car and park free', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '🇬🇧', title: 'Genuinely Local', description: 'Independent pub, not a chain', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: '15 Minutes', description: 'By taxi from Novotel Heathrow', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: '~£15–20', description: 'Typical taxi fare each way', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: 'Free Parking', description: '20 spaces — arrive by car and park free', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: 'Genuinely Local', description: 'Independent pub, not a chain', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
               ]}
               className="mb-8"
             />
@@ -144,7 +144,7 @@ export default function PubNearNovotelHeathrowPage() {
                     'Real community atmosphere',
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-3">
-                      <span className="text-anchor-gold font-bold">✓</span>
+                      <span className="text-anchor-gold font-bold"></span>
                       <span>{item}</span>
                     </li>
                   ))}
@@ -178,13 +178,13 @@ export default function PubNearNovotelHeathrowPage() {
             <SectionHeader title="Great Value Deals Worth Knowing" />
             <div className="grid md:grid-cols-2 gap-8">
               <div className="card-dark rounded-none p-6 text-center">
-                <p className="text-4xl mb-2">🍕</p>
+                <p className="text-4xl mb-2"></p>
                 <h3 className="text-xl font-bold text-red-800 mb-2">Tuesday Pizza Deal</h3>
                 <p className="text-3xl font-bold text-red-600 mb-2">Buy 1 Get 1 Free</p>
                 <p className="text-anchor-cream-text/70">All stone-baked pizzas every Tuesday</p>
               </div>
               <div className="card-dark rounded-none p-6 text-center">
-                <p className="text-4xl mb-2">🍖</p>
+                <p className="text-4xl mb-2"></p>
                 <h3 className="text-xl font-bold text-amber-800 mb-2">Sunday Roast</h3>
                 <p className="text-3xl font-bold text-amber-600 mb-2">From £19.99</p>
                 <p className="text-anchor-cream-text/70">Traditional British roast — pre-booking recommended</p>

@@ -116,13 +116,13 @@ export default async function SunburyPubPage() {
                         size="lg"
                         className="w-full sm:w-auto"
                     >
-                        📞 Book a Table
+                        Book a Table
                     </BookTableButton>
                 }
                 secondaryCta={
                     <Link href="/food-menu">
                         <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-                            🍽️ View Menu
+                            View Menu
                         </Button>
                     </Link>
                 }
@@ -159,7 +159,7 @@ export default async function SunburyPubPage() {
                             columns={3}
                             features={[
                                 {
-                                    icon: "🍖",
+                                    icon: "",
                                     title: "Famous Roasts",
                                     description: "Generous portions of high-quality meat and fresh veg - booking essential!",
                                     variant: "colored",
@@ -167,7 +167,7 @@ export default async function SunburyPubPage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "🚗",
+                                    icon: "",
                                     title: "Stress-Free Parking",
                                     description: "Park right outside for free - no fighting for spaces",
                                     variant: "colored",
@@ -175,7 +175,7 @@ export default async function SunburyPubPage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "👨‍👩‍👧‍👦",
+                                    icon: "‍‍‍",
                                     title: "Family Friendly",
                                     description: "Relaxed atmosphere where kids are welcome",
                                     variant: "colored",
@@ -217,7 +217,7 @@ export default async function SunburyPubPage() {
                                 size="lg"
                                 fromLocation="Sunbury"
                             >
-                                📍 Get Directions from Sunbury (15 mins)
+                                Get Directions from Sunbury (15 mins)
                             </DirectionsButton>
                         </div>
                     </div>
@@ -258,19 +258,19 @@ export default async function SunburyPubPage() {
                 description="Just a short drive for great food and hospitality."
                 buttons={[
                     {
-                        text: "📞 Book a Table",
+                        text: "Book a Table",
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "sunbury_pub_cta",
                         variant: "secondary"
                     },
                     {
-                        text: "🎉 Book an Event",
+                        text: "Book an Event",
                         href: "/private-hire#enquiry",
                         variant: "white"
                     },
                     {
-                        text: "📍 Get Directions",
+                        text: "Get Directions",
                         href: "https://maps.google.com/maps?saddr=Sunbury-on-Thames&daddr=The+Anchor+Stanwell+Moor+TW19+6AQ",
                         variant: "white"
                     }

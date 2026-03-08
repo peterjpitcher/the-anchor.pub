@@ -56,13 +56,13 @@ export default function PubGardenPage() {
                         size="lg"
                         className="w-full sm:w-auto"
                     >
-                        ☀️ Book Outdoor Table
+                        Book Outdoor Table
                     </BookTableButton>
                 }
                 secondaryCta={
                     <Link href="/summer-garden-parties">
                         <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-                            🎉 Plan a Party
+                            Plan a Party
                         </Button>
                     </Link>
                 }
@@ -93,7 +93,7 @@ export default function PubGardenPage() {
                             columns={3}
                             features={[
                                 {
-                                    icon: "🌳",
+                                    icon: "",
                                     title: "Real Grass",
                                     description: "A proper lawn, perfect for kids to play on or for sprawling out on a picnic blanket.",
                                     variant: "colored",
@@ -101,7 +101,7 @@ export default function PubGardenPage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "🍽️",
+                                    icon: "",
                                     title: "Outdoor Dining",
                                     description: "We serve our full menu outside. Just grab a table number and order at the bar.",
                                     variant: "colored",
@@ -109,7 +109,7 @@ export default function PubGardenPage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "🚬",
+                                    icon: "",
                                     title: "Smoking Area",
                                     description: "Designated sheltered smoking areas for when the British weather does its thing.",
                                     variant: "colored",
@@ -153,14 +153,14 @@ export default function PubGardenPage() {
                 description="Book a spot in the sun."
                 buttons={[
                     {
-                        text: "☀️ Book Table",
+                        text: "Book Table",
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "garden_cta",
                         variant: "primary"
                     },
                     {
-                        text: "📍 Find Us",
+                        text: "Find Us",
                         href: "/find-us",
                         variant: "secondary"
                     }

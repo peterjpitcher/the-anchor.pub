@@ -189,7 +189,7 @@ export function ChristmasLightbox() {
                                 className="w-full justify-center"
                                 asChild={false}
                             >
-                                🎄 View Festive Packages
+                                View Festive Packages
                             </Button>
                         </Link>
 

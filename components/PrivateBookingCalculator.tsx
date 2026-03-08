@@ -217,7 +217,7 @@ export function PrivateBookingCalculator({ eventType }: PrivateBookingCalculator
                             <div className="relative z-10 flex flex-col md:flex-row md:items-center gap-4">
                                 <div className="flex-1">
                                     <p className="text-sm font-bold text-anchor-gold-vivid flex items-center gap-2 mb-1">
-                                        <span className="text-lg">✨</span>
+                                        <span className="text-lg"></span>
                                         <span className="uppercase tracking-wider text-xs">Limited Time Offer</span>
                                     </p>
                                     <p className="text-anchor-cream-text/70 text-sm leading-relaxed">

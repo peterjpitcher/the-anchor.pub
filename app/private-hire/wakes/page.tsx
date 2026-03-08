@@ -40,10 +40,10 @@ export default function WakesPage() {
                 description="A peaceful, respectful venue for gathering with family and friends"
                
                 tags={[
-                    { label: "📍 Near SW Middlesex Crematorium", variant: "default" },
-                    { label: "🤝 Compassionate Team", variant: "success" },
-                    { label: "☕ Buffet & Tea Packages", variant: "default" },
-                    { label: "🚗 Free Parking", variant: "success" }
+                    { label: "Near SW Middlesex Crematorium", variant: "default" },
+                    { label: "Compassionate Team", variant: "success" },
+                    { label: "Buffet & Tea Packages", variant: "default" },
+                    { label: "Free Parking", variant: "success" }
                 ]}
                 primaryCta={
                     <PhoneButton
@@ -53,7 +53,7 @@ export default function WakesPage() {
                         size="lg"
                         className="w-full sm:w-auto"
                     >
-                        📞 Call to Discuss Arrangements
+                        Call to Discuss Arrangements
                     </PhoneButton>
                 }
                 secondaryCta={
@@ -81,7 +81,7 @@ export default function WakesPage() {
                             <ul className="grid sm:grid-cols-2 gap-2 mt-2">
                                 {nearbyCrematoriums.map(l => (
                                     <li key={l.slug} className="flex items-center gap-2">
-                                        <span className="text-anchor-gold">📍</span>
+                                        <span className="text-anchor-gold"></span>
                                         <Link href={`/private-hire/near/${l.slug}`} className="hover:underline text-anchor-gold font-medium">
                                             {l.name} ({l.distance})
                                         </Link>
@@ -107,7 +107,7 @@ export default function WakesPage() {
                         columns={1}
                         features={[
                             {
-                                icon: "🏠",
+                                icon: "",
                                 title: "The Dining Room",
                                 description: "A private, enclosed space suitable for 20-60 guests. Quiet and self-contained with direct access to facilities.",
                                 className: "text-center"

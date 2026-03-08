@@ -191,14 +191,14 @@ export default function SitemapPage() {
         primaryCta={
           <Link href="/">
             <Button variant="primary" size="lg" className="w-full sm:w-auto">
-              🏠 Back to Home
+              Back to Home
             </Button>
           </Link>
         }
         secondaryCta={
           <Link href="/find-us">
             <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-              📍 Find Us
+              Find Us
             </Button>
           </Link>
         }
@@ -256,7 +256,7 @@ export default function SitemapPage() {
               className="text-lg font-semibold text-anchor-gold hover:text-anchor-gold-light"
               showIcon={false}
             >
-              📞 01753 682707
+              01753 682707
             </PhoneLink>
             <span className="text-anchor-cream-text/55">|</span>
             <EmailLink

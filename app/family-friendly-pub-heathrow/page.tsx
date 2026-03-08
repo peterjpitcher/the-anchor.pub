@@ -56,13 +56,13 @@ export default function FamilyFriendlyPage() {
                         size="lg"
                         className="w-full sm:w-auto"
                     >
-                        👨‍👩‍👧‍👦 Book Family Table
+                        ‍‍‍ Book Family Table
                     </BookTableButton>
                 }
                 secondaryCta={
                     <Link href="/food-menu">
                         <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-                            🍔 View Menu
+                             View Menu
                         </Button>
                     </Link>
                 }
@@ -93,7 +93,7 @@ export default function FamilyFriendlyPage() {
                             columns={3}
                             features={[
                                 {
-                                    icon: "🍟",
+                                    icon: "",
                                     title: "Kids Menu",
                                     description: "Proper food in smaller portions. Fish fingers, chicken goujons, and mini roasts on Sundays.",
                                     variant: "colored",
@@ -101,7 +101,7 @@ export default function FamilyFriendlyPage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "🖍️",
+                                    icon: "",
                                     title: "Activity Packs",
                                     description: "Colouring sheets and crayons available to keep boredom at bay while you wait for food.",
                                     variant: "colored",
@@ -109,7 +109,7 @@ export default function FamilyFriendlyPage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "🪑",
+                                    icon: "",
                                     title: "High Chairs",
                                     description: "Sturdy high chairs available for our smallest guests. Just request one when booking.",
                                     variant: "colored",
@@ -124,16 +124,16 @@ export default function FamilyFriendlyPage() {
                             <h3 className="text-xl font-bold text-anchor-green mb-4 text-center">Baby Facilities</h3>
                             <ul className="grid sm:grid-cols-2 gap-4">
                                 <li className="flex items-center gap-2">
-                                    <span className="text-anchor-gold-vivid">✓</span> Baby changing facilities
+                                    <span className="text-anchor-gold-vivid"></span> Baby changing facilities
                                 </li>
                                 <li className="flex items-center gap-2">
-                                    <span className="text-anchor-gold-vivid">✓</span> Bottle warming on request
+                                    <span className="text-anchor-gold-vivid"></span> Bottle warming on request
                                 </li>
                                 <li className="flex items-center gap-2">
-                                    <span className="text-anchor-gold-vivid">✓</span> Space for buggies
+                                    <span className="text-anchor-gold-vivid"></span> Space for buggies
                                 </li>
                                 <li className="flex items-center gap-2">
-                                    <span className="text-anchor-gold-vivid">✓</span> Breastfeeding welcome
+                                    <span className="text-anchor-gold-vivid"></span> Breastfeeding welcome
                                 </li>
                             </ul>
                         </div>
@@ -164,14 +164,14 @@ export default function FamilyFriendlyPage() {
                 description="Book a family sized table today."
                 buttons={[
                     {
-                        text: "👨‍👩‍👧‍👦 Book Table",
+                        text: "‍‍‍ Book Table",
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "family_cta",
                         variant: "primary"
                     },
                     {
-                        text: "📞 Call Us",
+                        text: " Call Us",
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "family_call_cta",

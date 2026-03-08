@@ -52,7 +52,7 @@ export function QuickEnquiryLinks() {
         className="text-anchor-gold hover:text-anchor-gold-light font-semibold"
         showIcon={false}
       >
-        📧 Email Us
+        Email Us
       </EmailLink>
     </div>
   )

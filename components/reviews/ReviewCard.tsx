@@ -19,11 +19,10 @@ export function ReviewCard({
     return (
       <div className="flex gap-0.5">
         {[...Array(5)].map((_, i) => (
-          <span 
-            key={i} 
+          <span
+            key={i}
             className={i < rating ? "text-yellow-400" : "text-gray-300"}
           >
-            ★
           </span>
         ))}
       </div>

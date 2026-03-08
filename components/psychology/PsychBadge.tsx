@@ -12,22 +12,22 @@ const DEFAULTS: Record<PsychBadgeVariant, { label: string; className: string; ic
   free: {
     label: 'Free entry',
     className: 'bg-green-100 text-green-800 border-green-200',
-    icon: '🎟️',
+    icon: '',
   },
   authority: {
     label: 'Award winning',
     className: 'bg-anchor-gold/10 text-anchor-gold border-anchor-gold/30',
-    icon: '🏆',
+    icon: '',
   },
   price: {
     label: 'Great value',
     className: 'bg-blue-50 text-blue-700 border-blue-200',
-    icon: '💷',
+    icon: '',
   },
   prize: {
     label: 'Prizes every round',
     className: 'bg-purple-50 text-purple-700 border-purple-200',
-    icon: '🎉',
+    icon: '',
   },
 }
 

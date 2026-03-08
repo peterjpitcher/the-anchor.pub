@@ -57,13 +57,13 @@ export default function BoxingPage() {
                         size="lg"
                         className="w-full sm:w-auto"
                     >
-                        🥊 Book Ringside
+                        Book Ringside
                     </BookTableButton>
                 }
                 secondaryCta={
                     <Link href="/drinks">
                         <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-                            🍺 Drinks Menu
+                            Drinks Menu
                         </Button>
                     </Link>
                 }
@@ -94,7 +94,7 @@ export default function BoxingPage() {
                             columns={3}
                             features={[
                                 {
-                                    icon: "📺",
+                                    icon: "",
                                     title: "PPV Events",
                                     description: "We pay the Box Office fees so you don't have to. Watch the big Sky Sports and TNT Sports Box Office fights here.",
                                     variant: "colored",
@@ -102,7 +102,7 @@ export default function BoxingPage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "🔉",
+                                    icon: "",
                                     title: "Loud & Live",
                                     description: "Experience the ring walks and the knockouts with full venue sound.",
                                     variant: "colored",
@@ -110,7 +110,7 @@ export default function BoxingPage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "🍻",
+                                    icon: "",
                                     title: "No Dry Nights",
                                     description: "Our bar stays well-stocked with draught beers, spirits, and mixers all night.",
                                     variant: "colored",
@@ -154,14 +154,14 @@ export default function BoxingPage() {
                 description="These nights are popular. Booking guarantees entry."
                 buttons={[
                     {
-                        text: "🥊 Book Now",
+                        text: "Book Now",
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "boxing_cta",
                         variant: "primary"
                     },
                     {
-                        text: "📍 Find Us",
+                        text: "Find Us",
                         href: "/find-us",
                         variant: "secondary"
                     }

@@ -53,7 +53,7 @@ export default function CoachParkingPage() {
                 primaryCta={
                     <Link href="/contact">
                         <Button variant="primary" size="lg" className="w-full sm:w-auto">
-                            🚌 Enquire for Group
+                             Enquire for Group
                         </Button>
                     </Link>
                 }
@@ -87,12 +87,12 @@ export default function CoachParkingPage() {
                                 className="text-left"
                             />
                             <div className="bg-anchor-green text-white p-6 rounded-xl shadow-lg">
-                                <h3 className="text-2xl font-bold mb-2">🚌 The Driver Deal</h3>
+                                <h3 className="text-2xl font-bold mb-2"> The Driver Deal</h3>
                                 <p className="mb-4">Bring a group of 15+ passengers for a main meal, and the driver gets:</p>
                                 <ul className="space-y-2 font-medium">
-                                    <li>✅ A Free Main Meal</li>
-                                    <li>✅ Free Soft Drinks / Coffee</li>
-                                    <li>✅ A quiet spot to rest if needed</li>
+                                    <li> A Free Main Meal</li>
+                                    <li> Free Soft Drinks / Coffee</li>
+                                    <li> A quiet spot to rest if needed</li>
                                 </ul>
                             </div>
                         </div>
@@ -104,7 +104,7 @@ export default function CoachParkingPage() {
                             />
                             <div className="flex flex-col gap-4">
                                 <FeatureCard
-                                    icon="🅿️"
+                                    icon=""
                                     title="Large Car Park"
                                     description="No tight squeezes. Our open lot allows for easy entry and exit for large vehicles."
                                     variant="colored"
@@ -112,7 +112,7 @@ export default function CoachParkingPage() {
                                     className="rounded-xl p-4"
                                 />
                                 <FeatureCard
-                                    icon="⏱️"
+                                    icon=""
                                     title="Quick Turnaround"
                                     description="Pre-order available for groups to ensure you stay on schedule."
                                     variant="colored"
@@ -174,14 +174,14 @@ export default function CoachParkingPage() {
                 description="Call us today to book your coach parking and table."
                 buttons={[
                     {
-                        text: "📞 Call Us",
+                        text: " Call Us",
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "coach_cta",
                         variant: "secondary"
                     },
                     {
-                        text: "📧 Email Us",
+                        text: " Email Us",
                         href: "mailto:info@the-anchor.pub",
                         variant: "white"
                     }

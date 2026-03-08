@@ -85,27 +85,27 @@ async function getMusicBingoEvents() {
 
 const WHY_LOVE_IT = [
   {
-    icon: '🎵',
+    icon: '',
     title: 'Songs replace numbers',
     body: 'We play short clips from chart hits, throwbacks, and guilty pleasures. Mark the track on your card and you are closer to a line.'
   },
   {
-    icon: '🎤',
+    icon: '',
     title: 'Hosted by Nikki Manfadge',
     body: 'Expect big singalong energy, cheeky shout-outs, and bonus moments that keep the room buzzing between rounds.'
   },
   {
-    icon: '🏆',
+    icon: '',
     title: 'Prizes every round',
     body: 'Line wins, full house prizes, and surprise treats mean there is always something to play for.'
   },
   {
-    icon: '🍕',
+    icon: '',
     title: 'Food and cocktails ready',
     body: 'Order from the full menu before the first round or during breaks. The kitchen keeps your table fuelled.'
   },
   {
-    icon: '🫶',
+    icon: '',
     title: 'Friendly, all-ages vibe',
     body: 'Bring mates, family, or coworkers. We keep it welcoming, inclusive, and easy for first timers.'
   }
@@ -277,9 +277,9 @@ export default async function MusicBingoPage() {
         description="Song snippets replace numbers, prizes land every round, and Nikki Manfadge keeps the singalong energy high."
        
         tags={[
-          { label: '🎵 Songs instead of numbers', variant: 'primary' },
-          { label: '🏆 Prizes every round', variant: 'default' },
-          { label: '🍕 Full menu from 6pm', variant: 'default' }
+          { label: 'Songs instead of numbers', variant: 'primary' },
+          { label: 'Prizes every round', variant: 'default' },
+          { label: 'Full menu from 6pm', variant: 'default' }
         ]}
         primaryCta={
           <BookTableButton
@@ -288,7 +288,7 @@ export default async function MusicBingoPage() {
             size="lg"
             className="w-full sm:w-auto"
           >
-            📅 Book a Music Bingo Table
+            Book a Music Bingo Table
           </BookTableButton>
         }
         secondaryCta={
@@ -299,7 +299,7 @@ export default async function MusicBingoPage() {
                 'inline-flex items-center justify-center rounded-full border-2 border-anchor-green px-8 py-3.5 text-center text-lg font-semibold text-anchor-green transition-all duration-200 min-h-[48px] w-full whitespace-nowrap hover:bg-anchor-green hover:text-white focus:outline-none focus:ring-2 focus:ring-anchor-gold focus:ring-offset-2 sm:w-auto'
               )}
             >
-              📅 See upcoming Music Bingo dates
+              See upcoming Music Bingo dates
             </Link>
             <PhoneButton
               phone="01753 682707"
@@ -308,7 +308,7 @@ export default async function MusicBingoPage() {
               size="lg"
               className="w-full sm:w-auto"
             >
-              📞 Call to reserve: 01753 682707
+              Call to reserve: 01753 682707
             </PhoneButton>
           </>
         }
@@ -353,7 +353,7 @@ export default async function MusicBingoPage() {
                     <EventBookingButton event={nextEvent} className="w-full" source="music_bingo_next_event" />
                   ) : (
                     <Button size="lg" asChild className="w-full bg-anchor-green text-white hover:bg-anchor-green-dark">
-                      <Link href="tel:+441753682707">📞 Call 01753 682707</Link>
+                      <Link href="tel:+441753682707">Call 01753 682707</Link>
                     </Button>
                   )}
                 </div>
@@ -506,10 +506,10 @@ export default async function MusicBingoPage() {
               <CardBody className="space-y-4">
                 <h3 className="text-2xl font-bold">Music Bingo house rules</h3>
                 <ul className="space-y-3 text-sm text-white/90">
-                  <li>📵 Phones away during rounds so everyone gets a fair listen.</li>
-                  <li>🎤 Singing along is encouraged, but keep shouting to a cheer.</li>
-                  <li>🏆 Caller's decision is final on line and full house wins.</li>
-                  <li>🐕 Dogs are welcome and water bowls are ready at the bar.</li>
+                  <li>Phones away during rounds so everyone gets a fair listen.</li>
+                  <li>Singing along is encouraged, but keep shouting to a cheer.</li>
+                  <li>Caller's decision is final on line and full house wins.</li>
+                  <li>Dogs are welcome and water bowls are ready at the bar.</li>
                 </ul>
               </CardBody>
             </Card>
@@ -578,14 +578,14 @@ export default async function MusicBingoPage() {
                 size="lg"
                 className="w-full bg-white text-anchor-green hover:bg-gray-100 sm:w-auto"
               >
-                📅 Book Music Bingo
+                Book Music Bingo
               </BookTableButton>
               <Button
                 size="lg"
                 asChild
                 className="w-full bg-white/10 text-white hover:bg-white/20 sm:w-auto"
               >
-                <Link href="#music-bingo-dates">📅 Upcoming dates</Link>
+                <Link href="#music-bingo-dates">Upcoming dates</Link>
               </Button>
             </div>
           </div>
@@ -610,13 +610,13 @@ export default async function MusicBingoPage() {
                   href="https://maps.app.goo.gl/YNbjTDF9g7uCcbYF6"
                   className="inline-flex items-center justify-center gap-2 rounded-lg border border-anchor-green px-4 py-2 font-semibold text-anchor-green transition hover:bg-anchor-green hover:text-white"
                 >
-                  📍 Get directions
+                  Get directions
                 </Link>
                 <Link
                   href="https://wa.me/441753682707"
                   className="inline-flex items-center justify-center gap-2 rounded-lg border border-anchor-gold px-4 py-2 font-semibold text-anchor-gold transition hover:bg-anchor-gold hover:text-anchor-green"
                 >
-                  💬 WhatsApp the team
+                  WhatsApp the team
                 </Link>
               </div>
             </div>

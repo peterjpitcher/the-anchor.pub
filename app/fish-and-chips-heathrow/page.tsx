@@ -110,7 +110,7 @@ export default async function FishAndChipsPage() {
                         size="lg"
                         className="w-full sm:w-auto"
                     >
-                        🍽️ Book Table
+                         Book Table
                     </BookTableButton>
                 }
                 secondaryCta={
@@ -121,7 +121,7 @@ export default async function FishAndChipsPage() {
                         size="lg"
                         className="w-full sm:w-auto"
                     >
-                        🛍️ Order Takeaway
+                         Order Takeaway
                     </BookTableButton>
                 }
             />
@@ -151,7 +151,7 @@ export default async function FishAndChipsPage() {
                             columns={3}
                             features={[
                                 {
-                                    icon: "🍺",
+                                    icon: "",
                                     title: "Beer Batter",
                                     description: "We make our batter fresh daily using real ale for that perfect golden crunch.",
                                     variant: "colored",
@@ -159,7 +159,7 @@ export default async function FishAndChipsPage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "🥔",
+                                    icon: "",
                                     title: "Proper Chips",
                                     description: "Big, chunky, fluffy on the inside. None of those frozen french fries here.",
                                     variant: "colored",
@@ -167,7 +167,7 @@ export default async function FishAndChipsPage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "🧂",
+                                    icon: "",
                                     title: "The Trimmings",
                                     description: "Served with traditional mushy peas, tartare sauce, and a wedge of lemon.",
                                     variant: "colored",
@@ -238,14 +238,14 @@ export default async function FishAndChipsPage() {
                 description="Book a table or order for collection."
                 buttons={[
                     {
-                        text: "🍽️ Book Table",
+                        text: " Book Table",
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "fish_cta",
                         variant: "primary"
                     },
                     {
-                        text: "🛍️ Order Takeaway",
+                        text: " Order Takeaway",
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "fish_takeaway_cta",

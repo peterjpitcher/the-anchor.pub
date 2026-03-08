@@ -91,15 +91,15 @@ export default function BabyGuinnessPage() {
                       <h4 className="font-semibold mb-2">Ingredients:</h4>
                       <ul className="space-y-2">
                         <li className="flex items-start">
-                          <span className="mr-2">☕</span>
+                          <span className="mr-2"></span>
                           <span>2/3 shot Kahlúa coffee liqueur (bottom layer)</span>
                         </li>
                         <li className="flex items-start">
-                          <span className="mr-2">🥛</span>
+                          <span className="mr-2"></span>
                           <span>1/3 shot Bailey's Irish Cream (floated on top)</span>
                         </li>
                         <li className="flex items-start">
-                          <span className="mr-2">🥃</span>
+                          <span className="mr-2"></span>
                           <span>Served in a shot glass</span>
                         </li>
                       </ul>
@@ -123,7 +123,7 @@ export default function BabyGuinnessPage() {
                 <h2 className="text-2xl font-bold text-anchor-gold-vivid mb-4">Perfect for Celebrations at The Anchor</h2>
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="bg-anchor-bg-card rounded-none p-4 border border-anchor-gold/15">
-                    <h3 className="font-semibold mb-2 text-anchor-cream-text">🎉 Party Occasions</h3>
+                    <h3 className="font-semibold mb-2 text-anchor-cream-text"> Party Occasions</h3>
                     <ul className="space-y-1 text-anchor-cream-text/70">
                       <li>• Hen parties and stag dos</li>
                       <li>• Birthday celebrations</li>
@@ -132,7 +132,7 @@ export default function BabyGuinnessPage() {
                     </ul>
                   </div>
                   <div className="bg-anchor-bg-card rounded-none p-4 border border-anchor-gold/15">
-                    <h3 className="font-semibold mb-2 text-anchor-cream-text">🍽️ Perfect Timing</h3>
+                    <h3 className="font-semibold mb-2 text-anchor-cream-text"> Perfect Timing</h3>
                     <ul className="space-y-1 text-anchor-cream-text/70">
                       <li>• After your Sunday roast</li>
                       <li>• Before our monthly quiz night</li>
@@ -195,23 +195,23 @@ export default function BabyGuinnessPage() {
                 <div className="bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15">
                   <ul className="space-y-3">
 	                    <li className="flex items-start">
-	                      <span className="text-anchor-gold mr-3">✓</span>
+	                      <span className="text-anchor-gold mr-3"></span>
 	                      <span><strong>Better Value:</strong> GBP 3.50 vs GBP 8+ at Heathrow Airport bars</span>
 	                    </li>
                     <li className="flex items-start">
-                      <span className="text-anchor-gold mr-3">✓</span>
+                      <span className="text-anchor-gold mr-3"></span>
                       <span><strong>Perfect Location:</strong> Just 7 minutes from Terminal 5</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-anchor-gold mr-3">✓</span>
+                      <span className="text-anchor-gold mr-3"></span>
                       <span><strong>Experienced Staff:</strong> We make hundreds every month</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-anchor-gold mr-3">✓</span>
+                      <span className="text-anchor-gold mr-3"></span>
                       <span><strong>Great Atmosphere:</strong> Friendly local pub, not a chain</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-anchor-gold mr-3">✓</span>
+                      <span className="text-anchor-gold mr-3"></span>
                       <span><strong>FREE Parking:</strong> No airport parking fees here!</span>
                     </li>
                   </ul>
@@ -269,9 +269,9 @@ export default function BabyGuinnessPage() {
             </div>
             
             <div className="text-white/90">
-              <p className="mb-2">📍 Just 7 minutes from Heathrow Terminal 5</p>
-              <p className="mb-2">🚗 FREE parking available</p>
-              <p>📞 Call: 01753 682707</p>
+              <p className="mb-2"> Just 7 minutes from Heathrow Terminal 5</p>
+              <p className="mb-2"> FREE parking available</p>
+              <p> Call: 01753 682707</p>
             </div>
           </div>
       </Section>

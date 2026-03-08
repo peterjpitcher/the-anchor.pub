@@ -118,10 +118,10 @@ export default function PubNearSofitelHeathrowPage() {
             <FeatureGrid
               columns={4}
               features={[
-                { icon: '🕐', title: '7 Minutes', description: 'By taxi from Sofitel Heathrow T5', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '🚖', title: '~£12–15', description: 'Taxi fare each way', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '🅿️', title: 'Free Parking', description: '20 spaces if you\'re driving', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '💰', title: 'Half Price', description: 'vs Sofitel restaurant mains', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: '7 Minutes', description: 'By taxi from Sofitel Heathrow T5', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: '~£12–15', description: 'Taxi fare each way', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: 'Free Parking', description: '20 spaces if you\'re driving', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: 'Half Price', description: 'vs Sofitel restaurant mains', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
               ]}
               className="mb-8"
             />
@@ -150,7 +150,7 @@ export default function PubNearSofitelHeathrowPage() {
                     'Full VAT receipts for business expenses',
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-3">
-                      <span className="text-anchor-gold font-bold">✓</span>
+                      <span className="text-anchor-gold font-bold"></span>
                       <span>{item}</span>
                     </li>
                   ))}
@@ -180,9 +180,9 @@ export default function PubNearSofitelHeathrowPage() {
             <FeatureGrid
               columns={3}
               features={[
-                { icon: '🐟', title: 'Fish & Chips', description: 'Classic British dish — fresh battered cod with chips and mushy peas', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '🥩', title: 'Sunday Roast', description: 'Traditional roast from £19.99 — a British institution worth experiencing', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '🍕', title: 'Stone-Baked Pizza', description: 'Buy one get one free every Tuesday — great for sharing', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Fish & Chips', description: 'Classic British dish — fresh battered cod with chips and mushy peas', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Sunday Roast', description: 'Traditional roast from £19.99 — a British institution worth experiencing', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Stone-Baked Pizza', description: 'Buy one get one free every Tuesday — great for sharing', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
               ]}
               className="mb-8"
             />

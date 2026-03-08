@@ -126,13 +126,13 @@ export default async function AshfordPubPage() {
             size="lg"
             className="w-full sm:w-auto"
           >
-            📞 Call to Book
+             Call to Book
           </BookTableButton>
         }
         secondaryCta={
           <Link href="/food-menu">
             <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-              🍽️ View Menu
+               View Menu
             </Button>
           </Link>
         }
@@ -140,7 +140,7 @@ export default async function AshfordPubPage() {
 
       <section className="bg-anchor-bg-card py-6 border-b border-anchor-gold/15">
         <Container>
-          <p className="text-center text-sm text-anchor-cream-text/70">⭐⭐⭐⭐⭐ <strong className="text-anchor-cream-text">Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
+          <p className="text-center text-sm text-anchor-cream-text/70"> <strong className="text-anchor-cream-text">Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
         </Container>
       </section>
 
@@ -177,7 +177,7 @@ export default async function AshfordPubPage() {
               columns={3}
               features={[
                 {
-                  icon: "🚗",
+                  icon: "",
                   title: "Easy Access",
                   description: "10 minutes via A30 with 20 free parking spaces",
                   variant: "colored",
@@ -185,7 +185,7 @@ export default async function AshfordPubPage() {
                   className: "rounded-none p-6 text-center border border-anchor-gold/15"
                 },
                 {
-                  icon: "🍺",
+                  icon: "",
                   title: "Real Pub Feel",
                   description: "Traditional atmosphere Ashford chain pubs can't match",
                   variant: "colored",
@@ -193,7 +193,7 @@ export default async function AshfordPubPage() {
                   className: "rounded-none p-6 text-center border border-anchor-gold/15"
                 },
 	                {
-	                  icon: "💚",
+	                  icon: "",
 	                  title: "ULEZ Free",
 	                  description: "Save GBP 12.50 - we're outside the zone!",
 	                  variant: "colored",
@@ -220,25 +220,25 @@ export default async function AshfordPubPage() {
                 <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-4">Worth the Short Journey</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">✓</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div>
                       <strong>Escape Ashford's busy high street</strong> - Peaceful village setting with countryside views
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">✓</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div>
                       <strong>Better value than Ashford pubs</strong> - Proper portions at village pub prices
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">✓</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div>
                       <strong>Free parking always available</strong> - No metres, no stress, no charges
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">✓</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div>
                       <strong>Dog-friendly throughout</strong> - Perfect after Ashford Common walks
                     </div>
@@ -250,19 +250,19 @@ export default async function AshfordPubPage() {
                 <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-4">Special Events & Offers</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">🍕</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div>
                       <strong>Stone-baked pizzas</strong> - Worth the trip from Ashford for hand-stretched pies
                     </div>
                   </li>
 	                  <li className="flex items-start gap-3">
-	                    <span className="text-anchor-gold text-xl">🥘</span>
+	                    <span className="text-anchor-gold text-xl"></span>
 	                    <div>
 	                      <strong>Sunday Roasts</strong> - Pre-order by 1pm Saturday. Sunday lunch bookings require a £10 per person deposit. Ashford folks fill tables fast!
 	                    </div>
 	                  </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">🎯</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div>
                       <strong>Entertainment</strong> - Quiz nights, hosted nights like Music Bingo with Nikki Manfadge, pool & darts (see /whats-on)
                     </div>
@@ -348,19 +348,19 @@ export default async function AshfordPubPage() {
                 <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Why Ashford Chooses The Anchor</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-vivid">✓</span>
+                    <span className="text-anchor-gold-vivid"></span>
                     <span><strong>Avoid town traffic</strong> - Easy access, ample parking</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-vivid">✓</span>
+                    <span className="text-anchor-gold-vivid"></span>
                     <span><strong>Better value</strong> - No inflated town centre prices</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-vivid">✓</span>
+                    <span className="text-anchor-gold-vivid"></span>
                     <span><strong>Flexible spaces</strong> - Intimate gatherings to 200 guests</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-vivid">✓</span>
+                    <span className="text-anchor-gold-vivid"></span>
                     <span><strong>Tailored pricing for every event</strong> - Let's discuss your needs</span>
                   </li>
                 </ul>
@@ -370,19 +370,19 @@ export default async function AshfordPubPage() {
                 <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Popular Ashford Events</h3>
                 <div className="space-y-4">
                   <div>
-                    <h4 className="font-semibold text-anchor-gold mb-1">🎂 Milestone Birthdays</h4>
+                    <h4 className="font-semibold text-anchor-gold mb-1"> Milestone Birthdays</h4>
                     <p className="text-sm text-anchor-cream-text/70">18th, 21st, 40th, 50th celebrations</p>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-anchor-gold mb-1">💑 Wedding Receptions</h4>
+                    <h4 className="font-semibold text-anchor-gold mb-1"> Wedding Receptions</h4>
                     <p className="text-sm text-anchor-cream-text/70">Beautiful venue, competitive pricing</p>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-anchor-gold mb-1">🏆 Sports Club Events</h4>
+                    <h4 className="font-semibold text-anchor-gold mb-1"> Sports Club Events</h4>
                     <p className="text-sm text-anchor-cream-text/70">End of season parties, presentations</p>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-anchor-gold mb-1">🎄 Christmas Parties</h4>
+                    <h4 className="font-semibold text-anchor-gold mb-1"> Christmas Parties</h4>
                     <p className="text-sm text-anchor-cream-text/70">Festive celebrations for Ashford groups</p>
                   </div>
                 </div>
@@ -409,14 +409,14 @@ export default async function AshfordPubPage() {
                   variant="secondary"
                   size="md"
                 >
-                  📞 Call: 01753 682707
+                   Call: 01753 682707
                 </PhoneButton>
                 <Link href="https://wa.me/441753682707?text=Hi,%20I" target="_blank" rel="noopener noreferrer">
                   <Button
                     variant="secondary"
                     size="md"
                   >
-                    💬 WhatsApp Us
+                     WhatsApp Us
                   </Button>
                 </Link>
               </div>
@@ -435,7 +435,7 @@ export default async function AshfordPubPage() {
 
             <div className="grid md:grid-cols-2 gap-8">
               <div className="card-dark rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-cream-text mb-4">🚗 Driving Directions</h3>
+                <h3 className="text-xl font-bold text-anchor-cream-text mb-4"> Driving Directions</h3>
                 <ol className="space-y-3">
                   <li className="flex gap-3">
                     <span className="font-bold text-anchor-gold">1.</span>
@@ -464,7 +464,7 @@ export default async function AshfordPubPage() {
               </div>
 
               <div className="card-dark rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-cream-text mb-4">🚌 Alternative Routes</h3>
+                <h3 className="text-xl font-bold text-anchor-cream-text mb-4"> Alternative Routes</h3>
                 <div className="space-y-4">
                   <div>
                     <p className="font-semibold text-anchor-cream-text mb-2">Via Ashford Common</p>
@@ -475,7 +475,7 @@ export default async function AshfordPubPage() {
                     <p className="text-anchor-cream-text/70">A308 to Staines, then A30 to Stanwell Moor</p>
                   </div>
                   <div className="pt-4 border-t border-anchor-gold/15">
-                    <p className="font-semibold text-anchor-gold">⚡ Quick Tip</p>
+                    <p className="font-semibold text-anchor-gold"> Quick Tip</p>
                     <p className="text-anchor-cream-text/70">Avoid Heathrow traffic - use Stanwell Moor Road via Bedfont</p>
                   </div>
                 </div>
@@ -490,7 +490,7 @@ export default async function AshfordPubPage() {
                 size="md"
                 fromLocation="Ashford Surrey"
               >
-                📍 Get Directions from Ashford
+                 Get Directions from Ashford
               </DirectionsButton>
             </div>
           </div>
@@ -596,19 +596,19 @@ export default async function AshfordPubPage() {
         description="Join your Ashford neighbours who've discovered their new favourite pub"
         buttons={[
           {
-            text: "📅 Book a Table",
+            text: " Book a Table",
             href: "/book-table",
             variant: "secondary"
           },
           {
-            text: "📞 Call Us",
+            text: " Call Us",
             href: `${CONTACT.phoneHref}`,
             isPhone: true,
             phoneSource: "ashford_pub_cta_section",
             variant: "white"
           },
           {
-            text: "🎉 Book an Event",
+            text: " Book an Event",
             href: "/private-hire#enquiry",
             variant: "white"
           }

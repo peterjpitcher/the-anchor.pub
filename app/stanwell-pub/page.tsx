@@ -116,13 +116,13 @@ export default async function StanwellPubPage() {
             className="w-full sm:w-auto"
             context="stanwell_local"
           >
-            📅 Book a Table
+            Book a Table
           </BookTableButton>
         }
         secondaryCta={
           <Link href="/food-menu" className="w-full sm:w-auto">
             <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-              🍽️ View Menu
+              View Menu
             </Button>
           </Link>
         }
@@ -167,7 +167,7 @@ export default async function StanwellPubPage() {
               columns={3}
               features={[
                 {
-                  icon: "🏘️",
+                  icon: "",
                   title: "Village Heart",
                   description: "The social hub of Stanwell Moor, where locals gather daily",
                   variant: "colored",
@@ -175,7 +175,7 @@ export default async function StanwellPubPage() {
                   className: "rounded-none p-6 text-center border border-anchor-gold/15"
                 },
                 {
-                  icon: "🍺",
+                  icon: "",
                   title: "Traditional Values",
                   description: "Proper British pub with real ales and honest food",
                   variant: "colored",
@@ -183,7 +183,7 @@ export default async function StanwellPubPage() {
                   className: "rounded-none p-6 text-center border border-anchor-gold/15"
                 },
                 {
-                  icon: "👨‍👩‍👧‍👦",
+                  icon: "‍‍‍",
                   title: "Family Friendly",
                   description: "Children and dogs always welcome in our community pub",
                   variant: "colored",
@@ -210,25 +210,25 @@ export default async function StanwellPubPage() {
                 <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-4">Your Nearest Traditional Pub</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">✓</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div className="text-anchor-cream-text/70">
                       <strong className="text-anchor-cream-text">Walking distance from Stanwell Village</strong> - Just a pleasant stroll through Stanwell Moor
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">✓</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div className="text-anchor-cream-text/70">
                       <strong className="text-anchor-cream-text">Free parking for 20 cars</strong> - Never worry about parking charges
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">✓</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div className="text-anchor-cream-text/70">
                       <strong className="text-anchor-cream-text">Dog-friendly throughout</strong> - Bring your four-legged friends
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">✓</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div className="text-anchor-cream-text/70">
                       <strong className="text-anchor-cream-text">Large beer garden</strong> - Perfect for Stanwell's sunny days
                     </div>
@@ -240,25 +240,25 @@ export default async function StanwellPubPage() {
                 <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-4">Community Events & Activities</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">📅</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div className="text-anchor-cream-text/70">
                       <strong className="text-anchor-cream-text">Monthly Quiz Nights</strong> - Test your knowledge with fellow Stanwell residents
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">🎭</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div className="text-anchor-cream-text/70">
                       <strong className="text-anchor-cream-text">Hosted Nights</strong> - Music Bingo with Nikki Manfadge and one-off events (see /whats-on)
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">🎱</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div className="text-anchor-cream-text/70">
                       <strong className="text-anchor-cream-text">Pool & Darts</strong> - Join our local leagues or play casually
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">🍕</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div className="text-anchor-cream-text/70">
                       <strong className="text-anchor-cream-text">Stone-baked pizzas</strong> - Stanwell's favourite midweek treat
                     </div>
@@ -333,7 +333,7 @@ export default async function StanwellPubPage() {
 
             <div className="grid md:grid-cols-2 gap-8">
               <div className="card-dark rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-cream-text mb-4">📍 From Stanwell Village</h3>
+                <h3 className="text-xl font-bold text-anchor-cream-text mb-4">From Stanwell Village</h3>
                 <ol className="space-y-3">
                   <li className="flex gap-3">
                     <span className="font-bold text-anchor-gold">1.</span>
@@ -362,7 +362,7 @@ export default async function StanwellPubPage() {
               </div>
 
               <div className="card-dark rounded-none p-6">
-                <h3 className="text-xl font-bold text-anchor-cream-text mb-4">🚌 Public Transport</h3>
+                <h3 className="text-xl font-bold text-anchor-cream-text mb-4">Public Transport</h3>
                 <div className="space-y-4">
                   <div>
                     <p className="font-semibold text-anchor-cream-text mb-2">Bus Route 442</p>
@@ -373,7 +373,7 @@ export default async function StanwellPubPage() {
                     <p className="text-anchor-cream-text/70">Pleasant 20-minute walk through residential areas. Popular route for dog walkers!</p>
                   </div>
                   <div className="pt-4 border-t border-anchor-gold/15">
-                    <p className="font-semibold text-anchor-gold-vivid">💚 Eco-Friendly Route</p>
+                    <p className="font-semibold text-anchor-gold-vivid">Eco-Friendly Route</p>
                     <p className="text-anchor-cream-text/70">Outside ULEZ zone - no charges for any vehicles</p>
                   </div>
                 </div>
@@ -387,7 +387,7 @@ export default async function StanwellPubPage() {
                 variant="secondary"
                 size="md"
               >
-                📍 Get Directions
+                Get Directions
               </DirectionsButton>
             </div>
           </div>
@@ -479,24 +479,24 @@ export default async function StanwellPubPage() {
         description="Join your neighbours at The Anchor - where Stanwell comes together"
         buttons={[
           {
-            text: "📅 Book a Table",
+            text: "Book a Table",
             href: "/book-table",
             variant: "secondary"
           },
           {
-            text: "📞 Call Us",
+            text: "Call Us",
             href: `${CONTACT.phoneHref}`,
             isPhone: true,
             phoneSource: "stanwell_pub_cta",
             variant: "white"
           },
           {
-            text: "🎉 Book an Event",
+            text: "Book an Event",
             href: "/private-hire#enquiry",
             variant: "white"
           },
           {
-            text: "📅 What's On",
+            text: "What's On",
             href: "/whats-on",
             variant: "white"
           }

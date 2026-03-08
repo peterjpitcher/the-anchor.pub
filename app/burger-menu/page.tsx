@@ -112,13 +112,13 @@ export default async function BurgerMenuPage() {
                         size="lg"
                         className="w-full sm:w-auto"
                     >
-                        🍔 Book Table
+                         Book Table
                     </BookTableButton>
                 }
                 secondaryCta={
                     <Link href="/food-menu">
                         <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-                            📄 Full Menu
+                             Full Menu
                         </Button>
                     </Link>
                 }
@@ -196,7 +196,7 @@ export default async function BurgerMenuPage() {
                             columns={3}
                             features={[
                                 {
-                                    icon: "🥩",
+                                    icon: "",
                                     title: "100% Beef",
                                     description: "British beef, seasoned simply with salt and pepper to let the meat speak.",
                                     variant: "colored",
@@ -204,7 +204,7 @@ export default async function BurgerMenuPage() {
                                     className: "rounded-none border border-anchor-gold/15 p-6 text-center"
                                 },
                                 {
-                                    icon: "🍟",
+                                    icon: "",
                                     title: "Chips Included",
                                     description: "Every burger comes with chips as standard.",
                                     variant: "colored",
@@ -212,7 +212,7 @@ export default async function BurgerMenuPage() {
                                     className: "rounded-none border border-anchor-gold/15 p-6 text-center"
                                 },
                                 {
-                                    icon: "🥬",
+                                    icon: "",
                                     title: "Fresh Toppings",
                                     description: "Crisp lettuce, ripe tomatoes, and tangy pickles in every toasted bun.",
                                     variant: "colored",
@@ -249,14 +249,14 @@ export default async function BurgerMenuPage() {
                 description="Come and tackle one of our stacks."
                 buttons={[
                     {
-                        text: "🍔 Book Table",
+                        text: " Book Table",
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "burger_cta",
                         variant: "primary"
                     },
                     {
-                        text: "📞 Call Us",
+                        text: " Call Us",
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "burger_call_cta",

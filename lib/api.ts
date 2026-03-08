@@ -907,7 +907,7 @@ const FALLBACK_EVENT_CATEGORIES: EventCategoriesResponse = {
       slug: 'drag-shows',
       description: 'Hosted nights with special guests (including Nikki Manfadge), plus one-off event evenings. See /whats-on for details.',
       color: '#8b5cf6',
-      icon: '🎭',
+      icon: '',
       is_active: true,
       default_start_time: '20:00',
       default_capacity: 120,
@@ -919,7 +919,7 @@ const FALLBACK_EVENT_CATEGORIES: EventCategoriesResponse = {
       slug: 'quiz-nights',
       description: 'Weekly quiz nights with rolling jackpots and prizes.',
       color: '#0ea5e9',
-      icon: '🧠',
+      icon: '',
       is_active: true,
       default_start_time: '19:30',
       default_capacity: 80,
@@ -931,7 +931,7 @@ const FALLBACK_EVENT_CATEGORIES: EventCategoriesResponse = {
       slug: 'live-music',
       description: 'Acoustic sets, tribute nights, and live bands.',
       color: '#22c55e',
-      icon: '🎶',
+      icon: '',
       is_active: true,
       default_start_time: '20:00',
       default_capacity: 100,
@@ -1116,7 +1116,7 @@ function createFallbackEvent(eventId: string): Event {
       name: 'Venue Event',
       slug: 'venue-event',
       color: '#005131',
-      icon: '🎉'
+      icon: ''
     },
     booking_rules: {
       max_seats_per_booking: 6,

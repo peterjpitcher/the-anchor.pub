@@ -40,7 +40,7 @@ export const BookTableButton = forwardRef<HTMLButtonElement, BookTableButtonProp
     trackingLabel = 'Book a Table',
     onClickAfterTracking,
     customHref,
-    children = '📅 Book a Table',
+    children = 'Book a Table',
     variant = 'primary',
     size = 'md',
     className,

@@ -29,7 +29,7 @@ export function OpeningStatus({
   size = 'md',
   variant = 'simple'
 }: OpeningStatusProps) {
-  const statusIcon = isOpen ? '🟢' : '🔴'
+  const statusIcon = isOpen ? '' : ''
   const statusText = isOpen ? 'Open' : 'Closed'
   const statusColor = isOpen ? 'text-anchor-gold-vivid' : 'text-red-500'
 

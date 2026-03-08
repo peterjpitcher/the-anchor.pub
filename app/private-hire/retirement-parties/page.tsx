@@ -87,7 +87,7 @@ export default function RetirementPartiesPage() {
                 primaryCta={
                     <Link href="/private-hire#enquiry">
                         <Button variant="primary" size="lg" className="w-full sm:w-auto">
-                            🕰️ Enquire Now
+                            Enquire Now
                         </Button>
                     </Link>
                 }
@@ -122,7 +122,7 @@ export default function RetirementPartiesPage() {
                             columns={3}
                             features={[
                                 {
-                                    icon: "🗣️",
+                                    icon: "",
                                     title: "Speech Friendly",
                                     description: "Quiet areas available for speeches and presentations without shouting over music.",
                                     variant: "colored",
@@ -130,7 +130,7 @@ export default function RetirementPartiesPage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "♿",
+                                    icon: "",
                                     title: "Accessible",
                                     description: "Ground floor access and easy parking make it suitable for guests of all ages.",
                                     variant: "colored",
@@ -138,7 +138,7 @@ export default function RetirementPartiesPage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "🍱",
+                                    icon: "",
                                     title: "Catering Options",
                                     description: "Classic buffet spread, tea & coffee stations, or full 3-course meals.",
                                     variant: "colored",
@@ -202,12 +202,12 @@ export default function RetirementPartiesPage() {
                 description="Contact us to check availability for your date."
                 buttons={[
                     {
-                        text: "🕰️ Enquire Now",
+                        text: "Enquire Now",
                         href: "/private-hire#enquiry",
                         variant: "primary"
                     },
                     {
-                        text: "📞 Call Us",
+                        text: "Call Us",
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "retirement_cta",

@@ -12,7 +12,7 @@ export function DirectionsCard({
   steps, 
   time,
   distance,
-  icon = '📍',
+  icon = '',
   className = '' 
 }: DirectionsCardProps) {
   return (

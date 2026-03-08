@@ -53,9 +53,9 @@ export default function BookTablePage({
           { name: 'Booking' }
         ]}
         tags={[
-          { label: 'Easy Online Booking', icon: '📅', size: 'small' },
-          { label: 'Instant Confirmation', icon: '✅', size: 'small' },
-          { label: 'Sunday Roasts', icon: '🍽️', size: 'small' }
+          { label: 'Easy Online Booking', icon: '', size: 'small' },
+          { label: 'Instant Confirmation', icon: '', size: 'small' },
+          { label: 'Sunday Roasts', icon: '', size: 'small' }
         ]}
       />
 
@@ -186,7 +186,7 @@ export default function BookTablePage({
               columns={3}
               boxes={[
                 {
-                  title: "🕐 Opening Hours",
+                  title: "Opening Hours",
                   content: (
                     <>
                       <p className="font-medium mb-2">Bar Opening Times:</p>
@@ -203,7 +203,7 @@ export default function BookTablePage({
                   color: "bg-gray-50"
                 },
                 {
-                  title: "🍴 Kitchen Hours",
+                  title: "Kitchen Hours",
                   content: (
                     <>
                       <p className="font-medium mb-2">Food Service:</p>
@@ -220,7 +220,7 @@ export default function BookTablePage({
                   color: "bg-gray-50"
                 },
                 {
-                  title: "❓ Need Help?",
+                  title: "Need Help?",
                   content: (
                     <>
                       <p className="text-sm text-gray-700 mb-3">Can't find what you're looking for? We're here to help!</p>
@@ -231,12 +231,12 @@ export default function BookTablePage({
                             source="booking_help_card"
                             className="text-primary hover:text-primary-dark font-medium"
                           >
-                            📞 Call: 01753 682707
+                            Call: 01753 682707
                           </PhoneLink>
                         </div>
                         <div>
                           <a href="mailto:info@theanchorpub.co.uk" className="text-primary hover:text-primary-dark font-medium">
-                            ✉️ Email us
+                            Email us
                           </a>
                         </div>
                       </div>

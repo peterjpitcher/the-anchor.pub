@@ -87,7 +87,7 @@ export default function EngagementPartiesPage() {
                 primaryCta={
                     <Link href="/private-hire#enquiry">
                         <Button variant="primary" size="lg" className="w-full sm:w-auto">
-                            🥂 Enquire Now
+                            Enquire Now
                         </Button>
                     </Link>
                 }
@@ -123,7 +123,7 @@ export default function EngagementPartiesPage() {
                             columns={3}
                             features={[
                                 {
-                                    icon: "🍾",
+                                    icon: "",
                                     title: "Prosecco Packages",
                                     description: "Pre-order welcome drinks for your guests to start the night right.",
                                     variant: "colored",
@@ -131,7 +131,7 @@ export default function EngagementPartiesPage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "🥨",
+                                    icon: "",
                                     title: "Flexible Buffets",
                                     description: "From finger food to hearty spreads, we cater to all budgets.",
                                     variant: "colored",
@@ -139,7 +139,7 @@ export default function EngagementPartiesPage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "🎵",
+                                    icon: "",
                                     title: "Music & Atmosphere",
                                     description: "Bring your own playlist or book our function area with space for a DJ.",
                                     variant: "colored",

@@ -41,10 +41,10 @@ export default function WeddingsPage() {
                 description="Relaxed celebrations for the modern couple"
                
                 tags={[
-                    { label: "💍 Engagement Parties", variant: "default" },
-                    { label: "🥂 Rehearsal Dinners", variant: "success" },
-                    { label: "📍 Near Registry Office", variant: "default" },
-                    { label: "🎉 Day-After Brunch", variant: "success" }
+                    { label: "Engagement Parties", variant: "default" },
+                    { label: "Rehearsal Dinners", variant: "success" },
+                    { label: "Near Registry Office", variant: "default" },
+                    { label: "Day-After Brunch", variant: "success" }
                 ]}
                 primaryCta={
                     <BookTableButton
@@ -83,7 +83,7 @@ export default function WeddingsPage() {
                             <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-2">
                                 {nearbyWeddingVenues.map(l => (
                                     <li key={l.slug} className="flex items-center gap-2">
-                                        <span className="text-anchor-gold">🏛️</span>
+                                        <span className="text-anchor-gold"></span>
                                         <Link href={`/private-hire/near/${l.slug}`} className="hover:underline text-anchor-cream-text/70 font-medium">
                                             {l.name} ({l.distance})
                                         </Link>
@@ -104,25 +104,25 @@ export default function WeddingsPage() {
                         columns={2}
                         features={[
                             {
-                                icon: "💍",
+                                icon: "",
                                 title: "Engagement Parties",
                                 description: "Kick off your journey with a bang. DJ, dancing, buffet, and a private bar for up to 80 guests.",
                                 className: "text-center"
                             },
                             {
-                                icon: "🍽️",
+                                icon: "",
                                 title: "Rehearsal Dinners",
                                 description: "Get the families together before the big day. A relaxed 3-course meal to break the ice.",
                                 className: "text-center"
                             },
                             {
-                                icon: "🥂",
+                                icon: "",
                                 title: "Post-Registry Lunch",
                                 description: "After the 'I dos' at Staines Registry Office, head over for a celebratory lunch without the formality of a reception.",
                                 className: "text-center"
                             },
                             {
-                                icon: "🍳",
+                                icon: "",
                                 title: "Day-After Brunch",
                                 description: "The perfect debrief. Bloody Marys, full English breakfasts, and swapping stories from the night before.",
                                 className: "text-center"

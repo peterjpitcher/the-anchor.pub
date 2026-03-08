@@ -74,10 +74,10 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
                 description={`The perfect venue just ${landmark.distance} away`}
                
                 tags={[
-                    { label: `📍 ${landmark.distance}`, variant: "success" },
-                    { label: "🚗 Free Parking", variant: "default" },
-                    { label: "🍽️ Private Catering", variant: "default" },
-                    { label: "🤝 Experienced Team", variant: "success" }
+                    { label: landmark.distance, variant: "success" },
+                    { label: "Free Parking", variant: "default" },
+                    { label: "Private Catering", variant: "default" },
+                    { label: "Experienced Team", variant: "success" }
                 ]}
                 primaryCta={
                     <BookTableButton
@@ -143,7 +143,7 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
                     <div className="text-center mt-6">
                         <Link href={`https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(landmark.address)}&destination=The+Anchor+Stanwell+Moor+TW19+6AQ`} target="_blank" rel="noopener noreferrer">
                             <Button variant="outline">
-                                📍 Get Directions from {landmark.name}
+                                Get Directions from {landmark.name}
                             </Button>
                         </Link>
                     </div>
@@ -159,19 +159,19 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
                         columns={3}
                         features={[
                             {
-                                icon: "🍽️",
+                                icon: "",
                                 title: "Catering",
                                 description: "Buffets, afternoon teas, or sit-down meals tailored to your requirements.",
                                 className: "text-center"
                             },
                             {
-                                icon: "☕",
+                                icon: "",
                                 title: "Refreshments",
                                 description: "Unlimited tea & coffee stations, plus a full bar service.",
                                 className: "text-center"
                             },
                             {
-                                icon: "📋",
+                                icon: "",
                                 title: "Planning",
                                 description: "Our team will handle the setup and coordination so you don't have to.",
                                 className: "text-center"

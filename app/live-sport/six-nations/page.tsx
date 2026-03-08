@@ -115,13 +115,13 @@ export default function SixNationsPage() {
                         size="lg"
                         className="w-full sm:w-auto"
                     >
-                        🏉 Book Best Seat
+                        Book Best Seat
                     </BookTableButton>
                 }
                 secondaryCta={
                     <Link href="/food-menu">
                         <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-                            🍔 View Menu
+                            View Menu
                         </Button>
                     </Link>
                 }
@@ -155,28 +155,28 @@ export default function SixNationsPage() {
                         columns={4}
                         features={[
                             {
-                                icon: "🔊",
+                                icon: "",
                                 title: "Sound On",
                                 description: "Commentary on for every match.",
                                 variant: "default",
                                 className: "text-center border border-anchor-gold/15"
                             },
                             {
-                                icon: "📺",
+                                icon: "",
                                 title: "4 Screens",
                                 description: "Visible from the bar and dining areas.",
                                 variant: "default",
                                 className: "text-center border border-anchor-gold/15"
                             },
                             {
-                                icon: "🍔",
+                                icon: "",
                                 title: "Kitchen Open",
                                 description: "Food served during all games.",
                                 variant: "default",
                                 className: "text-center border border-anchor-gold/15"
                             },
                             {
-                                icon: "🅿️",
+                                icon: "",
                                 title: "Free Parking",
                                 description: "20 spaces + easy M25 access.",
                                 variant: "default",
@@ -238,10 +238,10 @@ export default function SixNationsPage() {
                         <div className="bg-anchor-bg-raised rounded-2xl p-8">
                             <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Find Us Near Heathrow</h3>
                             <ul className="space-y-3 text-sm text-anchor-cream-text/70 mb-6">
-                                <li className="flex gap-2"><span>📍</span> <span>{CONTACT.address.street}, {CONTACT.address.town}, {CONTACT.address.postcode}</span></li>
-                                <li className="flex gap-2"><span>🚗</span> <span>7 mins from Terminal 5</span></li>
-                                <li className="flex gap-2"><span>🅿️</span> <span>Free parking ({PARKING.capacity} spaces)</span></li>
-                                <li className="flex gap-2"><span>🚌</span> <span>Bus routes from Staines & Heathrow</span></li>
+                                <li className="flex gap-2"><span>{CONTACT.address.street}, {CONTACT.address.town}, {CONTACT.address.postcode}</span></li>
+                                <li className="flex gap-2"><span>7 mins from Terminal 5</span></li>
+                                <li className="flex gap-2"><span>Free parking ({PARKING.capacity} spaces)</span></li>
+                                <li className="flex gap-2"><span>Bus routes from Staines & Heathrow</span></li>
                             </ul>
                             <Link href="/find-us" className="text-anchor-gold font-bold hover:underline">
                                 Get Directions →
@@ -295,12 +295,12 @@ export default function SixNationsPage() {
                 description="Tables fill up fast for the big games. Don't leave it to chance."
                 buttons={[
                     {
-                        text: "🏉 Book a Table",
+                        text: "Book a Table",
                         href: "/book-table",
                         variant: "primary"
                     },
                     {
-                        text: "📍 Get Directions",
+                        text: "Get Directions",
                         href: "/find-us",
                         variant: "secondary"
                     }

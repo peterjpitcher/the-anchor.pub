@@ -59,7 +59,7 @@ export default function TestTrackingPage() {
       const result = originalPush(...args)
 
       if (debugEnabled) {
-        console.debug('🎯 GTM Event', args[0])
+        console.debug('GTM Event', args[0])
       }
 
       setEvents(prev => [...prev, { ...args[0], timestamp: new Date().toISOString() }])
@@ -94,22 +94,22 @@ export default function TestTrackingPage() {
   }
 
   const testPhoneCall = (context: string) => {
-    logDebug(`📞 Testing phone call from: ${context}`)
+    logDebug(`Testing phone call from: ${context}`)
     trackPhoneCall(context)
   }
 
   const testTableBooking = (source: string) => {
-    logDebug(`🍽️ Testing table booking from: ${source}`)
+    logDebug(`Testing table booking from: ${source}`)
     trackTableBookingClick(source)
   }
 
   const testWhatsApp = (context: string) => {
-    logDebug(`💬 Testing WhatsApp click from: ${context}`)
+    logDebug(`Testing WhatsApp click from: ${context}`)
     trackWhatsAppClick(context)
   }
 
   const testNavigation = (label: string, url: string, level: 'main' | 'dropdown' = 'main') => {
-    logDebug(`🧭 Testing navigation click: ${label}`)
+    logDebug(`Testing navigation click: ${label}`)
     trackNavigationClick({
       label,
       url,
@@ -121,22 +121,22 @@ export default function TestTrackingPage() {
   }
 
   const testDirections = (from: string) => {
-    logDebug(`🗺️ Testing directions click from: ${from}`)
+    logDebug(`Testing directions click from: ${from}`)
     trackDirectionsClick(from)
   }
 
   const testMenuView = (type: 'food' | 'drinks' | 'sunday') => {
-    logDebug(`📋 Testing menu view: ${type}`)
+    logDebug(`Testing menu view: ${type}`)
     trackMenuView(type)
   }
 
   const testScrollDepthMilestone = (milestone: number) => {
-    logDebug(`📜 Testing scroll depth: ${milestone}%`)
+    logDebug(`Testing scroll depth: ${milestone}%`)
     trackScrollDepth(milestone)
   }
 
   const testEventTracking = () => {
-    logDebug('🎉 Testing event tracking')
+    logDebug('Testing event tracking')
     trackEventView({
       eventId: 'test-event-123',
       eventName: 'Test Music Night',
@@ -147,7 +147,7 @@ export default function TestTrackingPage() {
   }
 
   const testEventBooking = () => {
-    logDebug('🎫 Testing event booking')
+    logDebug('Testing event booking')
     trackEventBookingStart({
       eventId: 'test-event-123',
       eventName: 'Test Music Night',
@@ -156,20 +156,20 @@ export default function TestTrackingPage() {
   }
 
   const testReview = (platform: string) => {
-    logDebug(`⭐ Testing review click: ${platform}`)
+    logDebug(`Testing review click: ${platform}`)
     trackReviewClick(platform)
   }
 
   const testBusinessFeatures = () => {
-    logDebug('🕐 Testing opening hours check')
+    logDebug('Testing opening hours check')
     trackOpeningHoursCheck()
-    
-    logDebug('✈️ Testing flight status check')
+
+    logDebug('Testing flight status check')
     trackFlightStatusCheck('Terminal 5')
   }
 
   const testFormTracking = () => {
-    logDebug('📝 Testing form tracking')
+    logDebug('Testing form tracking')
     trackFormStart('test-contact-form')
     setTimeout(() => {
       trackFormComplete('test-contact-form')
@@ -177,7 +177,7 @@ export default function TestTrackingPage() {
   }
 
   const testCustomEvent = () => {
-    logDebug('🔧 Testing custom event')
+    logDebug('Testing custom event')
     pushToDataLayer({
       event: 'custom_test_event',
       event_category: 'Test',
@@ -258,7 +258,7 @@ export default function TestTrackingPage() {
                   <p className="text-sm font-medium">Email:</p>
                   <a 
                     href="mailto:manager@the-anchor.pub" 
-                    onClick={() => logDebug('📧 Email link clicked')}
+                    onClick={() => logDebug('Email link clicked')}
                     className="text-sm text-blue-600 hover:underline"
                   >
                     manager@the-anchor.pub
@@ -477,7 +477,7 @@ export default function TestTrackingPage() {
                     href="https://facebook.com/theanchorpub" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    onClick={() => logDebug('📘 Facebook clicked')}
+                    onClick={() => logDebug('Facebook clicked')}
                     className="text-sm text-blue-600 hover:underline"
                   >
                     Facebook
@@ -486,7 +486,7 @@ export default function TestTrackingPage() {
                     href="https://instagram.com/theanchorpub" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    onClick={() => logDebug('📷 Instagram clicked')}
+                    onClick={() => logDebug('Instagram clicked')}
                     className="text-sm text-pink-600 hover:underline"
                   >
                     Instagram
@@ -495,7 +495,7 @@ export default function TestTrackingPage() {
                     href="https://twitter.com/theanchorpub" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    onClick={() => logDebug('🐦 Twitter clicked')}
+                    onClick={() => logDebug('Twitter clicked')}
                     className="text-sm text-blue-400 hover:underline"
                   >
                     Twitter

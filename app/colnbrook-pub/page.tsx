@@ -115,13 +115,13 @@ export default async function ColnbrookPubPage() {
                         size="lg"
                         className="w-full sm:w-auto"
                     >
-                        📞 Book a Table
+                         Book a Table
                     </BookTableButton>
                 }
                 secondaryCta={
                     <Link href="/food-menu">
                         <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-                            🍽️ View Menu
+                             View Menu
                         </Button>
                     </Link>
                 }
@@ -158,7 +158,7 @@ export default async function ColnbrookPubPage() {
                             columns={3}
                             features={[
                                 {
-                                    icon: "🍺",
+                                    icon: "",
                                     title: "After Work",
                                     description: "Cold biers, real ales, and a great wine list for the end of the day",
                                     variant: "colored",
@@ -166,7 +166,7 @@ export default async function ColnbrookPubPage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "🍔",
+                                    icon: "",
                                     title: "Great Food",
                                     description: "Hearty meals, burgers, and stone-baked pizzas to fuel your team",
                                     variant: "colored",
@@ -174,7 +174,7 @@ export default async function ColnbrookPubPage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "🅿️",
+                                    icon: "",
                                     title: "Easy Parking",
                                     description: "Large free car park for vans and cars - no hassle",
                                     variant: "colored",
@@ -216,7 +216,7 @@ export default async function ColnbrookPubPage() {
                                 size="lg"
                                 fromLocation="Colnbrook"
                             >
-                                📍 Get Directions from Colnbrook (5 mins)
+                                 Get Directions from Colnbrook (5 mins)
                             </DirectionsButton>
                         </div>
                     </div>
@@ -261,19 +261,19 @@ export default async function ColnbrookPubPage() {
                 description="Great food and drink just minutes from the office."
                 buttons={[
                     {
-                        text: "📞 Book a Table",
+                        text: " Book a Table",
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "colnbrook_pub_cta",
                         variant: "secondary"
                     },
                     {
-                        text: "🎉 Book an Event",
+                        text: " Book an Event",
                         href: "/private-hire#enquiry",
                         variant: "white"
                     },
                     {
-                        text: "📍 Get Directions",
+                        text: " Get Directions",
                         href: "https://maps.google.com/maps?saddr=Colnbrook&daddr=The+Anchor+Stanwell+Moor+TW19+6AQ",
                         variant: "white"
                     }

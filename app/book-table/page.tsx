@@ -118,7 +118,7 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
             size="lg"
             className="w-full sm:w-auto"
           >
-            📞 Prefer to call? 01753 682707
+            Prefer to call? 01753 682707
           </PhoneButton>
         }
         secondaryCta={
@@ -128,7 +128,7 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
               size="lg"
               className="w-full sm:w-auto !bg-white/10 !text-white !border-white/30 hover:!bg-white/20"
             >
-              📍 Find Us
+              Find Us
             </Button>
           </Link>
         }
@@ -142,9 +142,9 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
           { name: 'Book a Table' }
         ]}
         tags={[
-          { label: 'Direct booking', icon: '🗓️', size: 'small' },
-          { label: 'Fast confirmation', icon: '⚡', size: 'small' },
-          { label: 'Need help? Call us', icon: '📞', size: 'small' }
+          { label: 'Direct booking', icon: '', size: 'small' },
+          { label: 'Fast confirmation', icon: '', size: 'small' },
+          { label: 'Need help? Call us', icon: '', size: 'small' }
         ]}
       />
 
@@ -179,7 +179,7 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
                   variant="secondary"
                   className="w-full"
                 >
-                  📞 Call 01753 682707
+                  Call 01753 682707
                 </PhoneButton>
                 <Link href="/whats-on" className="block">
                   <Button variant="outline" className="w-full">
@@ -217,7 +217,7 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
                   variant="secondary"
                   className="w-full"
                 >
-                  📞 Call 01753 682707
+                  Call 01753 682707
                 </PhoneButton>
               </div>
             </div>

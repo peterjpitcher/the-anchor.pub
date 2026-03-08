@@ -88,10 +88,10 @@ export default async function PubsInStanwellPage() {
         description="Traditional British pub serving our community since 1995"
         variant="default"
         tags={[
-          { label: "🍺 Traditional Local", variant: "success" },
-          { label: "👨‍👩‍👧‍👦 Family Friendly", variant: "default" },
-          { label: "🌳 Beer Garden", variant: "primary" },
-          { label: "🚗 Free Parking", variant: "warning" }
+          { label: "Traditional Local", variant: "success" },
+          { label: "‍‍‍Family Friendly", variant: "default" },
+          { label: "Beer Garden", variant: "primary" },
+          { label: "Free Parking", variant: "warning" }
         ]}
         primaryCta={
           <BookTableButton
@@ -100,13 +100,13 @@ export default async function PubsInStanwellPage() {
             source="stanwell_pubs_hero"
             className="w-full sm:w-auto"
           >
-            📅 Book a Table
+            Book a Table
           </BookTableButton>
         }
         secondaryCta={
           <Link href="/food-menu">
             <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-              🍽️ View Menu
+              View Menu
             </Button>
           </Link>
         }
@@ -145,7 +145,7 @@ export default async function PubsInStanwellPage() {
                 columns={1}
                 boxes={[
                   {
-                    title: "🏘️ A True Village Pub",
+                    title: "A True Village Pub",
                     content: (
                       <div className="space-y-3">
                         <p className="text-anchor-cream-text/70">
@@ -154,11 +154,11 @@ export default async function PubsInStanwellPage() {
                           we're independently run with genuine local character.
                         </p>
                         <ul className="space-y-2 text-anchor-cream-text/70">
-                          <li>✓ Family-owned and operated</li>
-                          <li>✓ Know our regulars by name</li>
-                          <li>✓ Support local events and causes</li>
-                          <li>✓ Traditional pub atmosphere</li>
-                          <li>✓ Community hub since 1995</li>
+                          <li>Family-owned and operated</li>
+                          <li>Know our regulars by name</li>
+                          <li>Support local events and causes</li>
+                          <li>Traditional pub atmosphere</li>
+                          <li>Community hub since 1995</li>
                         </ul>
                       </div>
                     ),
@@ -172,7 +172,7 @@ export default async function PubsInStanwellPage() {
                 columns={1}
                 boxes={[
                   {
-                    title: "🍺 What Makes Us Special",
+                    title: "What Makes Us Special",
                     content: (
                       <div className="space-y-3">
                         <p className="text-anchor-cream-text/70">
@@ -181,11 +181,11 @@ export default async function PubsInStanwellPage() {
                           in a warm, welcoming environment.
                         </p>
                         <ul className="space-y-2 text-anchor-cream-text/70">
-                          <li>✓ Home-cooked British food</li>
-                          <li>✓ Real ales and chilled lagers</li>
-                          <li>✓ Large beer garden</li>
-                          <li>✓ Live entertainment</li>
-                          <li>✓ Free parking always</li>
+                          <li>Home-cooked British food</li>
+                          <li>Real ales and chilled lagers</li>
+                          <li>Large beer garden</li>
+                          <li>Live entertainment</li>
+                          <li>Free parking always</li>
                         </ul>
                       </div>
                     ),
@@ -199,7 +199,7 @@ export default async function PubsInStanwellPage() {
             {/* Location Benefits */}
             <AlertBox
               variant="info"
-              title="📍 Perfectly Located in Stanwell Moor"
+              title="Perfectly Located in Stanwell Moor"
               className="max-w-4xl mx-auto"
               content={
                 <div className="mt-2">
@@ -243,49 +243,49 @@ export default async function PubsInStanwellPage() {
               columns={4}
               features={[
                 {
-                  icon: "🍺",
+                  icon: "",
                   title: "Great Drinks Selection",
                   description: "Cask ales, lagers, wines, spirits and soft drinks",
                   className: "text-center"
                 },
                 {
-                  icon: "🍽️",
+                  icon: "",
                   title: "Home-Cooked Food",
                   description: "Traditional British pub food cooked fresh daily",
                   className: "text-center"
                 },
                 {
-                  icon: "🌳",
+                  icon: "",
                   title: "Beautiful Beer Garden",
                   description: "Spacious outdoor area perfect for sunny days",
                   className: "text-center"
                 },
                 {
-                  icon: "🎉",
+                  icon: "",
                   title: "Live Entertainment",
                   description: "Music Bingo with Nikki Manfadge, quizzes, and special events (see /whats-on)",
                   className: "text-center"
                 },
                 {
-                  icon: "👨‍👩‍👧‍👦",
+                  icon: "‍‍‍",
                   title: "Family Friendly",
                   description: "Children welcome with kids menu available",
                   className: "text-center"
                 },
                 {
-                  icon: "🏆",
+                  icon: "",
                   title: "Sports Coverage",
                   description: "Major sporting events on our screens",
                   className: "text-center"
                 },
                 {
-                  icon: "🎂",
+                  icon: "",
                   title: "Private Functions",
                   description: "Host your special occasions with us",
                   className: "text-center"
                 },
                 {
-                  icon: "🚗",
+                  icon: "",
                   title: "Free Parking",
                   description: "20 spaces - no parking stress",
                   className: "text-center"
@@ -311,31 +311,31 @@ export default async function PubsInStanwellPage() {
                   <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">The Anchor Advantages</h3>
                   <ul className="space-y-3">
                     <li className="flex items-start gap-2">
-                      <span className="text-green-600 mt-1">✓</span>
+                      <span className="text-green-600 mt-1"></span>
                       <div>
                         <strong>Free Parking:</strong> 20 spaces always available
                       </div>
                     </li>
                     <li className="flex items-start gap-2">
-                      <span className="text-green-600 mt-1">✓</span>
+                      <span className="text-green-600 mt-1"></span>
                       <div>
                         <strong>Kitchen Hours:</strong> Food served lunch & dinner most days
                       </div>
                     </li>
                     <li className="flex items-start gap-2">
-                      <span className="text-green-600 mt-1">✓</span>
+                      <span className="text-green-600 mt-1"></span>
                       <div>
                         <strong>Outdoor Space:</strong> Large beer garden with covered area
                       </div>
                     </li>
                     <li className="flex items-start gap-2">
-                      <span className="text-green-600 mt-1">✓</span>
+                      <span className="text-green-600 mt-1"></span>
                       <div>
                         <strong>Value:</strong> Proper pub prices, not tourist rates
                       </div>
                     </li>
                     <li className="flex items-start gap-2">
-                      <span className="text-green-600 mt-1">✓</span>
+                      <span className="text-green-600 mt-1"></span>
                       <div>
                         <strong>Entertainment:</strong> Regular events and live shows
                       </div>
@@ -383,7 +383,7 @@ export default async function PubsInStanwellPage() {
             
             <div className="grid gap-4">
               <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-4 flex items-center gap-4">
-                <div className="text-3xl">📅</div>
+                <div className="text-3xl"></div>
                 <div className="flex-1">
                   <h3 className="font-bold">Monday</h3>
                   <p className="text-anchor-cream-text/70">Bar open all day • Kitchen closed • Perfect for drinks</p>
@@ -391,7 +391,7 @@ export default async function PubsInStanwellPage() {
               </div>
               
               <div className="card-dark rounded-none p-4 flex items-center gap-4">
-                <div className="text-3xl">🍕</div>
+                <div className="text-3xl"></div>
                 <div className="flex-1">
                   <h3 className="font-bold">Tuesday - Pizza Night</h3>
                   <p className="text-anchor-cream-text/70">Stone-baked pizzas • Kitchen 6pm-9pm</p>
@@ -399,7 +399,7 @@ export default async function PubsInStanwellPage() {
               </div>
               
               <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-4 flex items-center gap-4">
-                <div className="text-3xl">🍽️</div>
+                <div className="text-3xl"></div>
                 <div className="flex-1">
                   <h3 className="font-bold">Wednesday-Thursday</h3>
                   <p className="text-anchor-cream-text/70">Full menu available • Kitchen 6pm-9pm</p>
@@ -407,7 +407,7 @@ export default async function PubsInStanwellPage() {
               </div>
               
               <div className="card-dark rounded-none p-4 flex items-center gap-4">
-                <div className="text-3xl">🐟</div>
+                <div className="text-3xl"></div>
                 <div className="flex-1">
                   <h3 className="font-bold">Friday - Fish & Chips</h3>
                   <p className="text-anchor-cream-text/70">Fish & chips served • Kitchen 6pm-9pm</p>
@@ -415,7 +415,7 @@ export default async function PubsInStanwellPage() {
               </div>
               
               <div className="card-dark rounded-none p-4 flex items-center gap-4">
-                <div className="text-3xl">🎭</div>
+                <div className="text-3xl"></div>
                 <div className="flex-1">
                   <h3 className="font-bold">Saturday - Entertainment Night</h3>
                   <p className="text-anchor-cream-text/70">Hosted nights & one-off events • See /whats-on for details</p>
@@ -423,7 +423,7 @@ export default async function PubsInStanwellPage() {
               </div>
               
               <div className="card-dark rounded-none p-4 flex items-center gap-4">
-                <div className="text-3xl">🍖</div>
+                <div className="text-3xl"></div>
                 <div className="flex-1">
                   <h3 className="font-bold">Sunday - Roast Day</h3>
                   <p className="text-anchor-cream-text/70">Traditional Sunday lunch • Kitchen 1pm-6pm</p>
@@ -490,17 +490,17 @@ export default async function PubsInStanwellPage() {
         description="Great food, free parking, and a warm welcome await"
         buttons={[
           {
-            text: "📅 Book a Table",
+            text: "Book a Table",
             href: "/book-table",
             variant: "primary"
           },
           {
-            text: "🎉 Book an Event",
+            text: "Book an Event",
             href: "/private-hire#enquiry",
             variant: "white"
           },
           {
-            text: "📍 Get Directions",
+            text: "Get Directions",
             href: "https://maps.google.com/?q=The+Anchor+Stanwell+Moor",
             variant: "secondary"
           }

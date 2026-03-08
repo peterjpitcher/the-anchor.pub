@@ -180,7 +180,7 @@ export default function FindUsPage() {
               features={[
                 {
                   icon: "",
-                  title: "Terminal 5 → The Anchor (7 mins)",
+                  title: "Terminal 5  The Anchor (7 mins)",
                   description: (
                     <ul className="list-disc list-inside text-anchor-cream-text/70 space-y-2 text-left">
                       <li>Follow signs to exit via A3044 (Stanwell Moor Road)</li>
@@ -196,7 +196,7 @@ export default function FindUsPage() {
                   title: "Terminals 2 & 3 (11 mins)",
                   description: (
                     <ul className="list-disc list-inside text-anchor-cream-text/70 space-y-2 text-left">
-                      <li>Head north on Tunnel Road W → M4 Spur → A4 → A3044</li>
+                      <li>Head north on Tunnel Road W  M4 Spur  A4  A3044</li>
                       <li>Avoid multi-storey car parks; follow sat nav to TW19 6AQ</li>
                       <li>Ideal for pre-flight meals before security queues</li>
                     </ul>
@@ -209,7 +209,7 @@ export default function FindUsPage() {
                   title: "Terminal 4 (12 mins)",
                   description: (
                     <ul className="list-disc list-inside text-anchor-cream-text/70 space-y-2 text-left">
-                      <li>Take Southern Perimeter Rd → Stanwell Moor Rd</li>
+                      <li>Take Southern Perimeter Rd  Stanwell Moor Rd</li>
                       <li>Taxis and rideshares average GBP 22 each way</li>
                       <li>Plenty of time for a meal before evening departures</li>
                     </ul>
@@ -222,7 +222,7 @@ export default function FindUsPage() {
                   title: "442 Bus & Hotel Shuttles",
                   description: (
                     <ul className="list-disc list-inside text-anchor-cream-text/70 space-y-2 text-left">
-                      <li>442 stops outside the pub connecting Staines ↔ Heathrow</li>
+                      <li>442 stops outside the pub connecting Staines  Heathrow</li>
                       <li>Premier Inn T5 guests can walk in 15 minutes or take local taxi</li>
                       <li>Ask your driver for The Anchor, Horton Road, Stanwell Moor</li>
                     </ul>
@@ -407,10 +407,10 @@ export default function FindUsPage() {
               <h3 className="font-bold text-xl text-anchor-gold-vivid mb-4">From Heathrow</h3>
               <p className="text-anchor-cream-text/70 mb-3">See our detailed terminal guides:</p>
               <ul className="space-y-2">
-                <li><Link href="/near-heathrow/terminal-2" className="text-anchor-gold hover:text-anchor-gold-light">→ From Terminal 2</Link></li>
-                <li><Link href="/near-heathrow/terminal-3" className="text-anchor-gold hover:text-anchor-gold-light">→ From Terminal 3</Link></li>
-                <li><Link href="/near-heathrow/terminal-4" className="text-anchor-gold hover:text-anchor-gold-light">→ From Terminal 4</Link></li>
-                <li><Link href="/near-heathrow/terminal-5" className="text-anchor-gold hover:text-anchor-gold-light">→ From Terminal 5</Link></li>
+                <li><Link href="/near-heathrow/terminal-2" className="text-anchor-gold hover:text-anchor-gold-light"> From Terminal 2</Link></li>
+                <li><Link href="/near-heathrow/terminal-3" className="text-anchor-gold hover:text-anchor-gold-light"> From Terminal 3</Link></li>
+                <li><Link href="/near-heathrow/terminal-4" className="text-anchor-gold hover:text-anchor-gold-light"> From Terminal 4</Link></li>
+                <li><Link href="/near-heathrow/terminal-5" className="text-anchor-gold hover:text-anchor-gold-light"> From Terminal 5</Link></li>
               </ul>
             </div>
 

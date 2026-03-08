@@ -54,8 +54,8 @@ export default function TestSimplePage() {
 
       <div className="space-y-1">
         <h2 className="text-xl font-bold">Current Status</h2>
-        <p>Bar is: {currentStatus.isOpen ? '✅ OPEN' : '❌ CLOSED'}</p>
-        <p>Kitchen is: {currentStatus.kitchenOpen ? '✅ OPEN' : '❌ CLOSED'}</p>
+        <p>Bar is: {currentStatus.isOpen ? 'OPEN' : 'CLOSED'}</p>
+        <p>Kitchen is: {currentStatus.kitchenOpen ? 'OPEN' : 'CLOSED'}</p>
         {currentStatus.closesIn && <p>Closes in: {currentStatus.closesIn}</p>}
         {currentStatus.opensIn && <p>Opens in: {currentStatus.opensIn}</p>}
       </div>

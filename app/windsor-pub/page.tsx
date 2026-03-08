@@ -116,13 +116,13 @@ export default function WindsorPubPage() {
             className="w-full sm:w-auto"
             context="windsor_local"
           >
-            📅 Book a Table
+            Book a Table
           </BookTableButton>
         }
         secondaryCta={
           <Link href="/food-menu" className="w-full sm:w-auto">
             <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-              🍽️ View Menu
+              View Menu
             </Button>
           </Link>
         }
@@ -161,7 +161,7 @@ export default function WindsorPubPage() {
               columns={3}
               features={[
                 {
-                  icon: "🏰",
+                  icon: "",
                   title: "Near Windsor",
                   description: "15 minutes from Windsor Castle via M4 or B376",
                   variant: "colored",
@@ -169,7 +169,7 @@ export default function WindsorPubPage() {
                   className: "rounded-xl p-6 text-center"
                 },
                 {
-                  icon: "💷",
+                  icon: "",
                   title: "Better Value",
                   description: "Avoid Windsor tourist prices - proper pub rates",
                   variant: "colored",
@@ -177,7 +177,7 @@ export default function WindsorPubPage() {
                   className: "rounded-xl p-6 text-center"
                 },
                 {
-	                  icon: "🚫",
+	                  icon: "",
 	                  title: "ULEZ Free",
 	                  description: "Save GBP 12.50 - we're outside the zone!",
 	                  variant: "colored",
@@ -204,25 +204,25 @@ export default function WindsorPubPage() {
                 <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-4">Worth the Journey</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">✓</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div>
                       <strong>Escape Windsor's tourist crowds</strong> - Peaceful village pub atmosphere
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">✓</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div>
                       <strong>Genuine local pricing</strong> - Honest village pub prices
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">✓</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div>
                       <strong>Free parking always available</strong> - No expensive Windsor parking fees
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">✓</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div>
                       <strong>Real locals pub</strong> - Where Windsor residents go for a proper pint
                     </div>
@@ -234,25 +234,25 @@ export default function WindsorPubPage() {
                 <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-4">Special Events & Offers</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">🍕</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div>
                       <strong>Stone-baked pizzas</strong> - Hand-stretched bases with generous toppings
                     </div>
                   </li>
 	                  <li className="flex items-start gap-3">
-	                    <span className="text-anchor-gold text-xl">🥘</span>
+	                    <span className="text-anchor-gold text-xl"></span>
 	                    <div>
 	                      <strong>Famous Sunday Roasts</strong> - Pre-order by 1pm Saturday. Sunday lunch bookings require a £10 per person deposit.
 	                    </div>
 	                  </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">🎭</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div>
                       <strong>Hosted Nights</strong> - Music Bingo with Nikki Manfadge and one-off events (see /whats-on)
                     </div>
                   </li>
 	                  <li className="flex items-start gap-3">
-	                    <span className="text-anchor-gold text-xl">🧠</span>
+	                    <span className="text-anchor-gold text-xl"></span>
 	                    <div>
 	                      <strong>Quiz Nights</strong> - GBP 3 entry, great prizes, monthly events
 	                    </div>
@@ -331,7 +331,7 @@ export default function WindsorPubPage() {
             
             <div className="grid md:grid-cols-2 gap-8">
               <div className="card-dark rounded-none p-6">
-                <h3 className="text-xl font-bold mb-4">🚗 Driving Routes</h3>
+                <h3 className="text-xl font-bold mb-4">Driving Routes</h3>
                 <div className="space-y-4">
                   <div>
                     <p className="font-semibold mb-2">Via M4 (Fastest)</p>
@@ -354,7 +354,7 @@ export default function WindsorPubPage() {
               </div>
               
               <div className="card-dark rounded-none p-6">
-                <h3 className="text-xl font-bold mb-4">📍 Local Landmarks</h3>
+                <h3 className="text-xl font-bold mb-4">Local Landmarks</h3>
                 <div className="space-y-3">
                   <p className="text-anchor-cream-text/70">
                     <strong>From Windsor Castle:</strong> 6.5 miles (15 mins)
@@ -369,7 +369,7 @@ export default function WindsorPubPage() {
                     <strong>Near M25 Junction 14:</strong> Perfect stopover
                   </p>
                   <div className="pt-4 border-t">
-                    <p className="font-semibold text-green-700">💚 Parking</p>
+                    <p className="font-semibold text-green-700">Parking</p>
                     <p className="text-anchor-cream-text/70">20 free spaces - no time limits!</p>
                   </div>
                 </div>
@@ -384,7 +384,7 @@ export default function WindsorPubPage() {
                 size="md"
                 fromLocation="Windsor Castle"
               >
-                📍 Get Directions from Windsor
+                Get Directions from Windsor
               </DirectionsButton>
             </div>
           </div>
@@ -491,17 +491,17 @@ export default function WindsorPubPage() {
         description="Just 15 minutes from the castle - where Windsor locals escape the tourists"
         buttons={[
           {
-            text: "📞 Book a Table",
+            text: "Book a Table",
             href: `${CONTACT.phoneHref}`,
             variant: "secondary"
           },
           {
-            text: "🎉 Book an Event",
+            text: "Book an Event",
             href: "/private-hire#enquiry",
             variant: "white"
           },
           {
-            text: "🎉 View Offers",
+            text: "View Offers",
             href: "/special-offers",
             variant: "white"
           }

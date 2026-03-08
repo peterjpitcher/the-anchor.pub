@@ -56,13 +56,13 @@ export default function DogFriendlyPage() {
                         size="lg"
                         className="w-full sm:w-auto"
                     >
-                        🐾 Book Table
+                         Book Table
                     </BookTableButton>
                 }
                 secondaryCta={
                     <Link href="/find-us">
                         <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-                            📍 Find Us
+                             Find Us
                         </Button>
                     </Link>
                 }
@@ -93,7 +93,7 @@ export default function DogFriendlyPage() {
                             columns={3}
                             features={[
                                 {
-                                    icon: "💧",
+                                    icon: "",
                                     title: "Water Bowls",
                                     description: "Fresh water always available. Just ask at the bar if you can't see a bowl.",
                                     variant: "colored",
@@ -101,7 +101,7 @@ export default function DogFriendlyPage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "🦴",
+                                    icon: "",
                                     title: "Treats on Bar",
                                     description: "We keep a jar of biscuits on the bar for our favourite customers.",
                                     variant: "colored",
@@ -109,7 +109,7 @@ export default function DogFriendlyPage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "🌳",
+                                    icon: "",
                                     title: "Large Garden",
                                     description: "Plenty of grassy space outside for a sniff and a stretch of the legs.",
                                     variant: "colored",
@@ -153,14 +153,14 @@ export default function DogFriendlyPage() {
                 description="Dogs included."
                 buttons={[
                     {
-                        text: "🐾 Book A Table",
+                        text: " Book A Table",
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "dog_cta",
                         variant: "primary"
                     },
                     {
-                        text: "📞 Call Us",
+                        text: " Call Us",
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "dog_call_cta",

@@ -36,7 +36,7 @@ export function EventMetadata({
 
   if (showDate && event.startDate) {
     metadata.push({
-      icon: '📅',
+      icon: '',
       label: 'Date',
       value: formatEventDate(event.startDate)
     })
@@ -44,7 +44,7 @@ export function EventMetadata({
 
   if (showTime && event.startDate) {
     metadata.push({
-      icon: '🕐',
+      icon: '',
       label: 'Time',
       value: formatEventTime(event.startDate)
     })
@@ -54,7 +54,7 @@ export function EventMetadata({
     const doorTimeText = formatDoorTime(event.doorTime)
     if (doorTimeText) {
       metadata.push({
-        icon: '🚪',
+        icon: '',
         label: 'Doors',
         value: doorTimeText
       })
@@ -63,7 +63,7 @@ export function EventMetadata({
 
   if (showPrice && event.offers) {
     metadata.push({
-      icon: '💷',
+      icon: '',
       label: 'Price',
       value: event.offers.price === "0" 
         ? "FREE" 
@@ -74,7 +74,7 @@ export function EventMetadata({
 
   if (showVenue && event.location?.name) {
     metadata.push({
-      icon: '📍',
+      icon: '',
       label: 'Venue',
       value: event.location.name
     })
@@ -83,14 +83,14 @@ export function EventMetadata({
   if (showCapacity && event.remainingAttendeeCapacity !== undefined) {
     if (event.remainingAttendeeCapacity === 0) {
       metadata.push({
-        icon: '❌',
+        icon: '',
         label: 'Availability',
         value: 'SOLD OUT',
         className: 'text-red-600 font-semibold'
       })
     } else if (event.remainingAttendeeCapacity > 0 && event.remainingAttendeeCapacity <= 10) {
       metadata.push({
-        icon: '⚠️',
+        icon: '',
         label: 'Availability',
         value: `${event.remainingAttendeeCapacity} tickets left`,
         className: 'text-amber-600 font-semibold'
@@ -100,7 +100,7 @@ export function EventMetadata({
 
   if (showPerformer && event.performer?.name) {
     metadata.push({
-      icon: '🎤',
+      icon: '',
       label: 'Featuring',
       value: event.performer.name
     })

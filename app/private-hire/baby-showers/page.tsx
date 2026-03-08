@@ -41,10 +41,10 @@ export default function BabyShowersPage() {
                 description="Welcoming new arrivals in style"
                
                 tags={[
-                    { label: "🧁 Afternoon Tea", variant: "success" },
-                    { label: "🍹 Mocktails", variant: "default" },
-                    { label: "🎲 Space for Games", variant: "default" },
-                    { label: "🅿️ Easy Parking", variant: "success" }
+                    { label: "Afternoon Tea", variant: "success" },
+                    { label: "Mocktails", variant: "default" },
+                    { label: "Space for Games", variant: "default" },
+                    { label: "Easy Parking", variant: "success" }
                 ]}
                 primaryCta={
                     <BookTableButton
@@ -79,7 +79,7 @@ export default function BabyShowersPage() {
                         </p>
                         {nearbyHospitals.length > 0 && (
                             <div className="bg-anchor-bg-raised p-4 rounded-xl inline-block text-center border border-anchor-gold/15">
-                                <span className="font-bold text-anchor-gold-vivid mr-2">📍 Ideally located near:</span>
+                                <span className="font-bold text-anchor-gold-vivid mr-2">Ideally located near:</span>
                                 {nearbyHospitals.map(l => (
                                     <Link key={l.slug} href={`/private-hire/near/${l.slug}`} className="hover:underline text-anchor-cream-text/70 font-medium">
                                         {l.name} ({l.distance})
@@ -98,7 +98,6 @@ export default function BabyShowersPage() {
                     />
                     <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
                         <div className="card-dark rounded-none p-8 text-center">
-                            <span className="text-4xl mb-4 block">🧁</span>
                             <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2">Afternoon Tea</h3>
                             <p className="text-anchor-cream-text/55 mb-4 italic">Catering packages available upon request</p>
                             <p className="text-anchor-cream-text/70 mb-4">Classic finger sandwiches, homemade scones with clotted cream, and a selection of delicate cakes.</p>
@@ -108,7 +107,6 @@ export default function BabyShowersPage() {
                         </div>
 
                         <div className="card-dark rounded-none p-8 text-center">
-                            <span className="text-4xl mb-4 block">🥙</span>
                             <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2">Light Lunch Buffet</h3>
                             <p className="text-anchor-cream-text/55 mb-4 italic">Catering packages available upon request</p>
                             <p className="text-anchor-cream-text/70 mb-4">A spread of wraps, quiches, fresh salads, and fruit platters. A healthier option for a daytime treat.</p>
@@ -126,13 +124,13 @@ export default function BabyShowersPage() {
                         columns={3}
                         features={[
                             {
-                                icon: "🍹",
+                                icon: "",
                                 title: "Mocktail Menu",
                                 description: "Delicious alcohol-free cocktails so the mum-to-be doesn't feel left out.",
                                 className: "text-center"
                             },
                             {
-                                icon: "🎁",
+                                icon: "",
                                 title: "Gift Area",
                                 description: "We'll set up a dedicated table for gifts and party favours.",
                                 className: "text-center"

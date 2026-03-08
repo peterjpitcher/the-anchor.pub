@@ -34,7 +34,7 @@ export function PhoneButton({
         size={size}
         className={className}
       >
-        {children || `📞 Call ${phone}`}
+        {children || `Call ${phone}`}
       </Button>
     </Link>
   )

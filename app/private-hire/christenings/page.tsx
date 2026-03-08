@@ -41,10 +41,10 @@ export default function ChristeningsPage() {
                 description="Celebrate with family and friends in a relaxed, child-friendly setting"
                
                 tags={[
-                    { label: "👶 Family Friendly", variant: "success" },
-                    { label: "🍽️ Buffet & Roast Options", variant: "default" },
-                    { label: "📍 Near Local Churches", variant: "success" },
-                    { label: "🅿️ Easy Parking", variant: "default" }
+                    { label: "Family Friendly", variant: "success" },
+                    { label: "Buffet & Roast Options", variant: "default" },
+                    { label: "Near Local Churches", variant: "success" },
+                    { label: "Easy Parking", variant: "default" }
                 ]}
                 primaryCta={
                     <BookTableButton
@@ -82,7 +82,6 @@ export default function ChristeningsPage() {
                             <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-2">
                                 {nearbyChurches.map(l => (
                                     <li key={l.slug} className="flex items-center gap-2">
-                                        <span className="text-anchor-gold">⛪</span>
                                         <Link href={`/private-hire/near/${l.slug}`} className="hover:underline text-anchor-cream-text/70 font-medium">
                                             {l.name} ({l.distance})
                                         </Link>
@@ -127,19 +126,19 @@ export default function ChristeningsPage() {
                         columns={3}
                         features={[
                             {
-                                icon: "🧸",
+                                icon: "",
                                 title: "Child Friendly",
                                 description: "We welcome children of all ages. High chairs available.",
                                 className: "text-center"
                             },
                             {
-                                icon: "🍰",
+                                icon: "",
                                 title: "Bring Your Cake",
                                 description: "You are welcome to bring a celebration cake. We'll provide the knife and napkins.",
                                 className: "text-center"
                             },
                             {
-                                icon: "📸",
+                                icon: "",
                                 title: "Photo Opportunities",
                                 description: "Our garden area provides a lovely backdrop for family photos (weather permitting!).",
                                 className: "text-center"

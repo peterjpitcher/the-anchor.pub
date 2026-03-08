@@ -75,13 +75,13 @@ export default function LiveSportPage() {
                         size="lg"
                         className="w-full sm:w-auto"
                     >
-                        📞 Book Best Seat
+                        Book Best Seat
                     </BookTableButton>
                 }
                 secondaryCta={
                     <Link href="#schedule">
                         <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-                            📺 See What's On
+                            See What's On
                         </Button>
                     </Link>
                 }
@@ -89,7 +89,7 @@ export default function LiveSportPage() {
 
             <section className="bg-anchor-bg py-6">
                 <Container>
-                    <p className="text-center text-sm text-anchor-cream-text/55">⭐⭐⭐⭐⭐ <strong>Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
+                    <p className="text-center text-sm text-anchor-cream-text/55"><strong>Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
                 </Container>
             </section>
 
@@ -118,7 +118,7 @@ export default function LiveSportPage() {
                             columns={3}
                             features={[
                                 {
-                                    icon: "📺",
+                                    icon: "",
                                     title: "Terrestrial Sport Only",
                                     description: "We show major events on free-to-air channels (BBC, ITV, Channel 4). Please note we NOT do have Sky Sports or TNT Sports.",
                                     variant: "colored",
@@ -126,7 +126,7 @@ export default function LiveSportPage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "🔉",
+                                    icon: "",
                                     title: "Full Match Audio",
                                     description: "For big games, we turn the commentary up so you get the full stadium atmosphere.",
                                     variant: "colored",
@@ -134,7 +134,7 @@ export default function LiveSportPage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "🍺",
+                                    icon: "",
                                     title: "Great Atmosphere",
                                     description: "Enjoy a cold pint and great food in a proper pub atmosphere. No booking required, just turn up and enjoy.",
                                     variant: "colored",
@@ -154,7 +154,7 @@ export default function LiveSportPage() {
                         <SectionHeader title="What We Show" />
                         <div className="grid md:grid-cols-2 gap-8">
                             <div className="border border-anchor-gold/15 rounded-xl p-6 hover:shadow-md transition-shadow bg-anchor-bg-card">
-                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4 border-b pb-2 border-anchor-gold/15">⚽ Football</h3>
+                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4 border-b pb-2 border-anchor-gold/15">Football</h3>
                                 <ul className="space-y-2">
                                     <li>• International Tournaments (Euros / World Cup)</li>
                                     <li>• FA Cup (Select Games)</li>
@@ -162,7 +162,7 @@ export default function LiveSportPage() {
                                 </ul>
                             </div>
                             <div className="border border-anchor-gold/15 rounded-xl p-6 hover:shadow-md transition-shadow bg-anchor-bg-card">
-                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4 border-b pb-2 border-anchor-gold/15">🏉 Rugby</h3>
+                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4 border-b pb-2 border-anchor-gold/15">Rugby</h3>
                                 <ul className="space-y-2">
                                     <li>• Six Nations</li>
                                     <li>• Autumn Internationals</li>
@@ -171,14 +171,14 @@ export default function LiveSportPage() {
                                 </ul>
                             </div>
                             <div className="border border-anchor-gold/15 rounded-xl p-6 hover:shadow-md transition-shadow bg-anchor-bg-card">
-                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4 border-b pb-2 border-anchor-gold/15">🏎️ Formula 1</h3>
+                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4 border-b pb-2 border-anchor-gold/15">Formula 1</h3>
                                 <ul className="space-y-2">
                                     <li>• Live Race Weekends</li>
                                     <li>• Qualifying Sessions</li>
                                 </ul>
                             </div>
                             <div className="border border-anchor-gold/15 rounded-xl p-6 hover:shadow-md transition-shadow bg-anchor-bg-card">
-                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4 border-b pb-2 border-anchor-gold/15">🏇 Other Sport</h3>
+                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4 border-b pb-2 border-anchor-gold/15">Other Sport</h3>
                                 <ul className="space-y-2">
                                     <li>• Cricket (Terrestrial Only)</li>
                                     <li>• Golf Majors (Highlights/BBC)</li>
@@ -221,19 +221,19 @@ export default function LiveSportPage() {
                 description="Don't leave it to chance. Book a table with a view of the screen."
                 buttons={[
                     {
-                        text: "📅 Book a Table",
+                        text: "Book a Table",
                         href: "/book-table",
                         variant: "secondary"
                     },
                     {
-                        text: "📞 Call: 01753 682707",
+                        text: "Call: 01753 682707",
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "sport_cta",
                         variant: "primary"
                     },
                     {
-                        text: "📍 Get Directions",
+                        text: "Get Directions",
                         href: "https://maps.google.com/maps?daddr=The+Anchor+Stanwell+Moor+TW19+6AQ",
                         variant: "white"
                     }

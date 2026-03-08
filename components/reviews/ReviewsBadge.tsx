@@ -31,11 +31,10 @@ export function ReviewsBadge({
         </div>
         <div className={`flex gap-0.5 ${starSize[size]}`}>
           {[...Array(5)].map((_, i) => (
-            <span 
-              key={i} 
+            <span
+              key={i}
               className={i < Math.round(rating) ? "text-yellow-400" : "text-gray-300"}
             >
-              ★
             </span>
           ))}
         </div>

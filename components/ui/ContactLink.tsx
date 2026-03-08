@@ -15,9 +15,9 @@ interface ContactLinkProps {
 }
 
 const icons = {
-  phone: '📞',
-  email: '✉️',
-  address: '📍'
+  phone: '',
+  email: '',
+  address: ''
 }
 
 /**

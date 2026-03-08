@@ -102,7 +102,7 @@ export default function BedfontPubPage() {
             className="w-full sm:w-auto"
             context="bedfont_local"
           >
-            📅 Book a Table
+             Book a Table
           </BookTableButton>
         }
         secondaryCta={
@@ -112,7 +112,7 @@ export default function BedfontPubPage() {
               size="lg"
               className="w-full sm:w-auto"
             >
-              🍽️ View Menu
+               View Menu
             </Button>
           </Link>
         }
@@ -159,13 +159,13 @@ export default function BedfontPubPage() {
                   className: "text-center"
                 },
                 {
-                  icon: "🏢",
+                  icon: "",
                   title: "Business Friendly",
                   description: "Popular with Bedfont Lakes Business Park workers",
                   className: "text-center"
                 },
                 {
-                  icon: "🏘️",
+                  icon: "",
                   title: "Community Hub",
                   description: "Where East and West Bedfont residents meet",
                   className: "text-center"
@@ -181,23 +181,23 @@ export default function BedfontPubPage() {
               </h3>
               <ul className="space-y-4">
                 <li className="flex items-start">
-                  <span className="text-anchor-gold mr-3">✓</span>
+                  <span className="text-anchor-gold mr-3"></span>
                   <span>Your nearest traditional pub - no need to travel to Feltham or Staines</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-anchor-gold mr-3">✓</span>
+                  <span className="text-anchor-gold mr-3"></span>
                   <span>Perfect meeting point for East and West Bedfont friends</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-anchor-gold mr-3">✓</span>
+                  <span className="text-anchor-gold mr-3"></span>
                   <span>Free parking for all - essential for family gatherings</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-anchor-gold mr-3">✓</span>
+                  <span className="text-anchor-gold mr-3"></span>
                   <span>Dog-friendly throughout - perfect for Bedfont dog walkers</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-anchor-gold mr-3">✓</span>
+                  <span className="text-anchor-gold mr-3"></span>
                   <span>Regular quiz nights popular with Bedfont teams</span>
                 </li>
               </ul>
@@ -363,19 +363,19 @@ export default function BedfontPubPage() {
         description="Join your Bedfont neighbours at The Anchor - where everyone knows your name"
         buttons={[
           {
-            text: "📞 Call: 01753 682707",
+            text: " Call: 01753 682707",
             href: "tel:+441753682707",
             isPhone: true,
             phoneSource: "bedfont_pub_cta",
             variant: "white"
           },
           {
-            text: "🎉 Book an Event",
+            text: " Book an Event",
             href: "/private-hire#enquiry",
             variant: "white"
           },
           {
-            text: "📍 Get Directions",
+            text: " Get Directions",
             href: "/find-us",
             variant: "white"
           }

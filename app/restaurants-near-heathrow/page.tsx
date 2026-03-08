@@ -120,10 +120,10 @@ export default async function RestaurantsNearHeathrowPage() {
         description="Skip the expensive terminal dining - proper British food just 7 minutes away"
         variant="default"
 	        tags={[
-	          { label: "✅ Free Parking for Guests", variant: "success" },
-	          { label: "⏱️ 7 mins from Terminal 5", variant: "warning" },
-	          { label: "💷 Honest Pub Pricing", variant: "primary" },
-	          { label: "🍽️ Cooked Fresh to Order", variant: "default" }
+	          { label: "Free Parking for Guests", variant: "success" },
+	          { label: "⏱7 mins from Terminal 5", variant: "warning" },
+	          { label: "Honest Pub Pricing", variant: "primary" },
+	          { label: "Cooked Fresh to Order", variant: "default" }
 	        ]}
         primaryCta={
           <BookTableButton
@@ -132,13 +132,13 @@ export default async function RestaurantsNearHeathrowPage() {
             source="restaurants_near_heathrow_hero"
             className="w-full sm:w-auto"
           >
-            📅 Book a Table
+            Book a Table
           </BookTableButton>
         }
         secondaryCta={
           <Link href="/food-menu">
             <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-              🍽️ View Full Menu
+              View Full Menu
             </Button>
           </Link>
         }
@@ -227,14 +227,14 @@ export default async function RestaurantsNearHeathrowPage() {
               columns={2}
               boxes={[
                 {
-                  title: "💰 Save Money on Every Meal",
+                  title: "Save Money on Every Meal",
                   content: (
                     <div className="space-y-3">
                       <div className="bg-white rounded-lg p-4">
 	                        <h4 className="font-bold text-anchor-gold-vivid mb-2">Price Comparison:</h4>
 	                        <ul className="space-y-2 text-anchor-cream-text/70">
-	                          <li>✈️ <strong>Airport Burger & Chips:</strong> GBP 18-22</li>
-	                          <li>🍺 <strong>Our Burger & Chips:</strong> Under GBP 12</li>
+	                          <li><strong>Airport Burger & Chips:</strong> GBP 18-22</li>
+	                          <li><strong>Our Burger & Chips:</strong> Under GBP 12</li>
 	                          <li className="text-green-600 font-bold">You Save: GBP 6-10 per meal</li>
 	                        </ul>
 	                      </div>
@@ -249,7 +249,7 @@ export default async function RestaurantsNearHeathrowPage() {
                   color: "bg-amber-50 rounded-2xl p-8"
                 },
                 {
-	                  title: "🚗 Free Parking Worth GBP 20-40",
+	                  title: "Free Parking Worth GBP 20-40",
 	                  content: (
 	                    <div className="space-y-3">
 	                      <p className="font-semibold text-gray-800">Airport Parking Costs:</p>
@@ -274,7 +274,7 @@ export default async function RestaurantsNearHeathrowPage() {
             {/* Distance to Terminals */}
             <AlertBox
               variant="info"
-              title="📍 Quick Drive from All Terminals"
+              title="Quick Drive from All Terminals"
               className="max-w-4xl mx-auto"
               content={
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
@@ -318,37 +318,37 @@ export default async function RestaurantsNearHeathrowPage() {
               columns={3}
               features={[
 	                {
-	                  icon: "🥘",
+	                  icon: "",
 	                  title: "Famous Sunday Roasts",
 	                  description: "Traditional roast dinners with Yorkshire puddings, roast potatoes & homemade gravy. GBP 19.99-GBP 23.99 (pre-order required)",
 	                  className: "text-center"
 	                },
                 {
-                  icon: "🐟",
+                  icon: "",
                   title: "Fish & Chips",
                   description: "Beer-battered cod with triple-cooked chips, mushy peas & tartare sauce.",
                   className: "text-center"
                 },
                 {
-                  icon: "🍕",
+                  icon: "",
                   title: "Stone-Baked Pizzas",
                   description: "Hand-stretched bases, rich tomato sauce and generous toppings made to order.",
                   className: "text-center"
                 },
                 {
-                  icon: "🍔",
+                  icon: "",
                   title: "Burgers & Classics",
                   description: "Proper pub burgers, pies, and British classics. All cooked fresh within 15 minutes.",
                   className: "text-center"
                 },
                 {
-                  icon: "🌱",
+                  icon: "",
                   title: "Dietary Options",
                   description: "Vegetarian options available. Small kitchen means we can't guarantee no cross-contamination.",
                   className: "text-center"
                 },
                 {
-                  icon: "🍺",
+                  icon: "",
                   title: "Full Bar Service",
                   description: "9 draught beers, premium spirits, wines, and cocktails. A pint costs what a pint should cost!",
                   className: "text-center"
@@ -379,7 +379,7 @@ export default async function RestaurantsNearHeathrowPage() {
               columns={2}
               boxes={[
                 {
-                  title: "✈️ Pre-Flight Dining",
+                  title: "Pre-Flight Dining",
                   content: (
                     <ul className="space-y-2 text-anchor-cream-text/70">
                       <li>• Eat proper food before your flight</li>
@@ -392,7 +392,7 @@ export default async function RestaurantsNearHeathrowPage() {
                   variant: "default"
                 },
                 {
-                  title: "🛬 Post-Flight Recovery",
+                  title: "Post-Flight Recovery",
                   content: (
                     <ul className="space-y-2 text-anchor-cream-text/70">
                       <li>• Traditional British welcome home</li>
@@ -405,7 +405,7 @@ export default async function RestaurantsNearHeathrowPage() {
                   variant: "default"
                 },
                 {
-                  title: "💼 Business Meetings",
+                  title: "Business Meetings",
                   content: (
                     <ul className="space-y-2 text-anchor-cream-text/70">
                       <li>• Quiet environment for discussions</li>
@@ -418,7 +418,7 @@ export default async function RestaurantsNearHeathrowPage() {
                   variant: "default"
                 },
                 {
-                  title: "👨‍✈️ Crew & Airport Workers",
+                  title: "‍Crew & Airport Workers",
                   content: (
                     <ul className="space-y-2 text-anchor-cream-text/70">
                       <li>• Regular stop for flight crews</li>
@@ -563,12 +563,12 @@ export default async function RestaurantsNearHeathrowPage() {
         description="Better food, better prices, free parking - just minutes from all terminals"
         buttons={[
           {
-            text: "📅 Book a Table",
+            text: "Book a Table",
             href: "/book-table",
             variant: "primary"
           },
           {
-            text: "📞 Call: 01753 682707",
+            text: "Call: 01753 682707",
             href: "tel:+441753682707",
             variant: "secondary"
           }

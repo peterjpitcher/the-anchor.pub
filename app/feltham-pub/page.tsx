@@ -96,7 +96,7 @@ export default function FelthamPubPage() {
             className="w-full sm:w-auto"
             context="feltham_local"
           >
-            📅 Book a Table
+             Book a Table
           </BookTableButton>
         }
         secondaryCta={
@@ -106,7 +106,7 @@ export default function FelthamPubPage() {
               size="lg"
               className="w-full sm:w-auto"
             >
-              🍽️ View Menu
+               View Menu
             </Button>
           </Link>
         }
@@ -114,7 +114,7 @@ export default function FelthamPubPage() {
 
       <section className="bg-anchor-bg py-6">
         <Container>
-          <p className="text-center text-sm text-anchor-cream-text/70">⭐⭐⭐⭐⭐ <strong>Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
+          <p className="text-center text-sm text-anchor-cream-text/70"> <strong>Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
         </Container>
       </section>
 
@@ -159,13 +159,13 @@ export default function FelthamPubPage() {
                   className: "text-center"
                 },
                 {
-                  icon: "🌳",
+                  icon: "",
                   title: "Peaceful Setting",
                   description: "Village atmosphere away from busy Feltham traffic",
                   className: "text-center"
                 },
                 {
-                  icon: "✈️",
+                  icon: "",
                   title: "Plane Spotting",
                   description: "Unique beer garden under the Heathrow flight path",
                   className: "text-center"
@@ -181,23 +181,23 @@ export default function FelthamPubPage() {
               </h3>
               <ul className="space-y-4">
                 <li className="flex items-start">
-                  <span className="text-anchor-gold mr-3">✓</span>
+                  <span className="text-anchor-gold mr-3"></span>
                   <span>Free parking - no time limits or charges</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-anchor-gold mr-3">✓</span>
+                  <span className="text-anchor-gold mr-3"></span>
                   <span>Traditional pub atmosphere you won't find in chain venues</span>
                 </li>
 	                <li className="flex items-start">
-	                  <span className="text-anchor-gold mr-3">✓</span>
+	                  <span className="text-anchor-gold mr-3"></span>
 	                  <span>Our celebrated Sunday roasts - pre-order by 1pm Saturday. Sunday lunch bookings require a £10 per person deposit.</span>
 	                </li>
                 <li className="flex items-start">
-                  <span className="text-anchor-gold mr-3">✓</span>
+                  <span className="text-anchor-gold mr-3"></span>
                   <span>Regular entertainment including Music Bingo hosted by Nikki Manfadge, quiz nights and one-off events (see /whats-on)</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-anchor-gold mr-3">✓</span>
+                  <span className="text-anchor-gold mr-3"></span>
                   <span>Perfect for Feltham work colleagues' gatherings</span>
                 </li>
               </ul>
@@ -345,19 +345,19 @@ export default function FelthamPubPage() {
                 <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Why Feltham Chooses Us</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-vivid">✓</span>
+                    <span className="text-anchor-gold-vivid"></span>
                     <span><strong>Quick 10-minute drive</strong> - Closer than central London venues</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-vivid">✓</span>
+                    <span className="text-anchor-gold-vivid"></span>
                     <span><strong>Free parking for all guests</strong> - Save on town centre fees</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-vivid">✓</span>
+                    <span className="text-anchor-gold-vivid"></span>
                     <span><strong>Affordable pricing</strong> - Better value than Feltham High Street</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-vivid">✓</span>
+                    <span className="text-anchor-gold-vivid"></span>
                     <span><strong>Trusted by locals</strong> - Regular venue for Feltham groups</span>
                   </li>
                 </ul>
@@ -367,19 +367,19 @@ export default function FelthamPubPage() {
                 <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Popular Feltham Events</h3>
                 <div className="space-y-4">
                   <div>
-                    <h4 className="font-semibold text-blue-700 mb-1">🎉 Birthday Parties</h4>
+                    <h4 className="font-semibold text-blue-700 mb-1"> Birthday Parties</h4>
                     <p className="text-sm text-anchor-cream-text/70">From kids parties to 50th celebrations</p>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-blue-700 mb-1">👶 Baby Showers</h4>
+                    <h4 className="font-semibold text-blue-700 mb-1"> Baby Showers</h4>
                     <p className="text-sm text-anchor-cream-text/70">Perfect space for afternoon celebrations</p>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-blue-700 mb-1">🎆 Community Events</h4>
+                    <h4 className="font-semibold text-blue-700 mb-1"> Community Events</h4>
                     <p className="text-sm text-anchor-cream-text/70">Club meetings, fundraisers, social groups</p>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-blue-700 mb-1">🕊️ Wakes & Memorials</h4>
+                    <h4 className="font-semibold text-blue-700 mb-1"> Wakes & Memorials</h4>
                     <p className="text-sm text-anchor-cream-text/70">Respectful venue for celebrations of life</p>
                   </div>
                 </div>
@@ -406,14 +406,14 @@ export default function FelthamPubPage() {
                   variant="secondary"
                   size="md"
                 >
-                  📞 Quick Quote
+                   Quick Quote
                 </PhoneButton>
                 <Link href="https://wa.me/441753682707?text=Hi,%20I" target="_blank" rel="noopener noreferrer">
                   <Button 
                     variant="secondary"
                     size="md"
                   >
-                    💬 WhatsApp
+                     WhatsApp
                   </Button>
                 </Link>
               </div>
@@ -459,24 +459,24 @@ export default function FelthamPubPage() {
         description="See why so many Feltham residents make the short journey to The Anchor"
         buttons={[
           {
-            text: "📅 Book a Table",
+            text: " Book a Table",
             href: "/book-table",
             variant: "secondary"
           },
           {
-            text: "📞 Call: 01753 682707",
+            text: " Call: 01753 682707",
             href: "tel:+441753682707",
             isPhone: true,
             phoneSource: "feltham_pub_cta",
             variant: "white"
           },
           {
-            text: "🎉 Book an Event",
+            text: " Book an Event",
             href: "/private-hire#enquiry",
             variant: "white"
           },
           {
-            text: "📍 Get Directions",
+            text: " Get Directions",
             href: "/find-us",
             variant: "white"
           }

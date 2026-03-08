@@ -86,27 +86,27 @@ async function getBingoEvents() {
 
 const WHY_LOVE_IT = [
   {
-    icon: '💷',
+    icon: '',
     title: 'Cash-first bingo night',
     body: 'Ten lively bingo games for money with GBP 10 bingo books (tickets), instant cash prizes, a snowball bingo bonus that climbs by GBP 20 each month and a jackpot bingo pot that rolls to GBP 300+ when the room sells out.'
   },
   {
-    icon: '🎙️',
+    icon: '',
     title: 'Classic calls with Anchor humour',
     body: 'Traditional bingo calls and bingo numbers delivered by our bingo number caller, mixed with Anchor in-jokes – Two Little Ducks gets a crowd quack, 59 earns a toast. Friendly hosts keep the pace spot on.'
   },
   {
-    icon: '🍽️',
+    icon: '',
     title: 'Freshly-cooked fuel',
     body: 'Our full, delicious menu is served 6 pm–9 pm on bingo nights, so you can order burgers, sharers and puddings straight to your table between games.'
   },
   {
-    icon: '📣',
+    icon: '',
     title: 'Perfect night out',
     body: 'Doors & book sales from 6 pm, eyes down at 7 pm, finale by 9:30 pm. Ideal for Heathrow crews, locals, work mates and birthday nights.'
   },
   {
-    icon: '🔁',
+    icon: '',
     title: 'Snowball loyalty perks',
     body: 'Attend three in a row to unlock the rolling snowball on Game 9. We track regulars on the Snowball Register so loyalty really does pay.'
   }
@@ -255,9 +255,9 @@ export default async function CashBingoPage() {
 	        description="Play bingo for cash and classic bingo games near Heathrow with GBP 10 bingo tickets and books, bingo calls and numbers, a snowball bonus and jackpot bingo prizes."
 	       
 	        tags={[
-	          { label: '🎟️ GBP 10 bingo tickets & books', variant: 'default' },
-	          { label: '🎯 Snowball bingo bonus grows monthly', variant: 'primary' },
-	          { label: '🍽️ Full menu 6 pm–9 pm', variant: 'default' }
+	          { label: ' GBP 10 bingo tickets & books', variant: 'default' },
+	          { label: ' Snowball bingo bonus grows monthly', variant: 'primary' },
+	          { label: ' Full menu 6 pm–9 pm', variant: 'default' }
 	        ]}
         primaryCta={
           <a
@@ -266,7 +266,7 @@ export default async function CashBingoPage() {
               'inline-flex items-center justify-center font-semibold text-center transition-all duration-200 rounded-full whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-anchor-gold focus:ring-offset-2 bg-white text-anchor-green border-2 border-anchor-green hover:bg-anchor-green hover:text-white px-8 py-3.5 text-lg min-h-[48px] w-full sm:w-auto'
             )}
           >
-            📅 See upcoming bingo dates
+             See upcoming bingo dates
           </a>
         }
         secondaryCta={
@@ -277,7 +277,7 @@ export default async function CashBingoPage() {
             size="lg"
             className="w-full sm:w-auto"
           >
-            📞 Call to reserve: 01753 682707
+             Call to reserve: 01753 682707
           </PhoneButton>
         }
       />
@@ -319,7 +319,7 @@ export default async function CashBingoPage() {
                       asChild
                       className="w-full bg-anchor-green text-white hover:bg-anchor-green-dark"
                     >
-                      <Link href="tel:+441753682707">📞 Call 01753 682707</Link>
+                      <Link href="tel:+441753682707"> Call 01753 682707</Link>
                     </Button>
                   )}
                 </div>
@@ -374,7 +374,7 @@ export default async function CashBingoPage() {
                     Book Sunday Roast
                   </BookTableButton>
                   <Link href="/sunday-lunch" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
-                    Sunday roast menu →
+                    Sunday roast menu 
                   </Link>
                 </div>
               </CardBody>
@@ -396,7 +396,7 @@ export default async function CashBingoPage() {
                     Book a Table
                   </BookTableButton>
                   <Link href="/food-menu#pizza" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
-                    View pizza menu →
+                    View pizza menu 
                   </Link>
                 </div>
               </CardBody>
@@ -417,7 +417,7 @@ export default async function CashBingoPage() {
                     Book a Table
                   </BookTableButton>
                   <Link href="/food-menu" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
-                    Browse food & drinks →
+                    Browse food & drinks 
                   </Link>
                 </div>
               </CardBody>
@@ -521,14 +521,14 @@ export default async function CashBingoPage() {
                 size="lg"
                 className="w-full sm:w-auto bg-white text-anchor-green hover:bg-gray-100"
               >
-                📞 Call us on 01753 682707
+                 Call us on 01753 682707
               </PhoneButton>
               <Button
                 size="lg"
                 asChild
                 className="w-full sm:w-auto bg-white/10 text-white hover:bg-white/20"
               >
-                <Link href="#bingo-dates">📅 Upcoming bingo dates</Link>
+                <Link href="#bingo-dates"> Upcoming bingo dates</Link>
               </Button>
             </div>
           </div>
@@ -553,13 +553,13 @@ export default async function CashBingoPage() {
                   href="https://maps.app.goo.gl/YNbjTDF9g7uCcbYF6"
                   className="inline-flex items-center justify-center gap-2 rounded-lg border border-anchor-green px-4 py-2 text-anchor-green font-semibold hover:bg-anchor-green hover:text-white transition"
                 >
-                  📍 Get directions
+                   Get directions
                 </Link>
                 <Link
                   href="https://wa.me/441753682707"
                   className="inline-flex items-center justify-center gap-2 rounded-lg border border-anchor-gold px-4 py-2 text-anchor-gold font-semibold hover:bg-anchor-gold hover:text-anchor-green transition"
                 >
-                  💬 WhatsApp the team
+                   WhatsApp the team
                 </Link>
               </div>
             </div>

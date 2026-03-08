@@ -107,7 +107,7 @@ const FAQS = [
   {
     question: 'How do I get there / is there parking?',
     answer:
-      'Yes — free on-site parking (around 20 spaces). We’re also on the 442 bus route (Staines ↔ Heathrow), with a stop right outside.'
+      'Yes — free on-site parking (around 20 spaces). We’re also on the 442 bus route (Staines Heathrow), with a stop right outside.'
   }
 ] as const
 
@@ -282,7 +282,7 @@ export default async function OpenMicPage() {
                 </p>
                 <ul className="text-sm text-anchor-cream-text/70 space-y-1">
                   <li>Free parking – around 20 spaces for patrons</li>
-                  <li>442 bus stops outside (Staines ↔ Heathrow)</li>
+                  <li>442 bus stops outside (Staines Heathrow)</li>
                 </ul>
                 <div className="mt-4 flex flex-wrap gap-3">
                   <Link

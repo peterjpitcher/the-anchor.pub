@@ -137,13 +137,13 @@ export default async function WorldCupPage() {
             size="lg"
             className="w-full sm:w-auto"
           >
-            ⚽ Book Best Seat
+            Book Best Seat
           </BookTableButton>
         }
         secondaryCta={
           <Link href="/food-menu">
             <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-              🍔 View Menu
+              View Menu
             </Button>
           </Link>
         }
@@ -171,11 +171,11 @@ export default async function WorldCupPage() {
               <div className="rounded-2xl bg-anchor-bg-card p-6 shadow-sm ring-1 ring-anchor-gold/15">
                 <h2 className="text-lg font-bold text-anchor-gold-vivid">What We’re Showing</h2>
                 <ul className="mt-4 space-y-2 text-sm text-anchor-cream-text/70">
-                  <li>✅ Matches that kick off during opening hours</li>
-                  <li>✅ Or up to 1 hour before we open</li>
-                  <li>❌ Matches outside those hours aren’t shown</li>
-                  <li>⏰ If it’s busy at close, we’ll stay open while it’s on</li>
-                  <li>🚪 If we’re empty at close, we’ll close as normal</li>
+                  <li>Matches that kick off during opening hours</li>
+                  <li>Or up to 1 hour before we open</li>
+                  <li>Matches outside those hours aren’t shown</li>
+                  <li>If it’s busy at close, we’ll stay open while it’s on</li>
+                  <li>If we’re empty at close, we’ll close as normal</li>
                 </ul>
                 <p className="mt-4 text-xs text-anchor-cream-text/55">
                   Core hours: Mon–Thu 4pm–10pm • Fri 4pm–midnight • Sat 12pm–midnight • Sun 12pm–10pm.
@@ -190,10 +190,10 @@ export default async function WorldCupPage() {
               <div className="rounded-2xl bg-anchor-bg-card p-6 shadow-sm ring-1 ring-anchor-gold/15" id="booking-rules">
                 <h2 className="text-lg font-bold text-anchor-gold-vivid">Booking Rules</h2>
                 <ul className="mt-4 space-y-2 text-sm text-anchor-cream-text/70">
-                  <li>📅 Book any showing match now</li>
-                  <li>✅ No deposits and no minimum spend</li>
-                  <li>👥 Large groups: book early for the best tables</li>
-                  <li>🪑 Tables are held until kick-off, then released</li>
+                  <li>Book any showing match now</li>
+                  <li>No deposits and no minimum spend</li>
+                  <li>Large groups: book early for the best tables</li>
+                  <li>Tables are held until kick-off, then released</li>
                 </ul>
                 <p className="mt-4 text-xs text-anchor-cream-text/55">Booking takes you to our in-site table booking form.</p>
               </div>
@@ -201,10 +201,10 @@ export default async function WorldCupPage() {
               <div className="rounded-2xl bg-anchor-bg-card p-6 shadow-sm ring-1 ring-anchor-gold/15">
                 <h2 className="text-lg font-bold text-anchor-gold-vivid">Matchday Setup</h2>
                 <ul className="mt-4 space-y-2 text-sm text-anchor-cream-text/70">
-                  <li>📺 4 screens (no projector)</li>
-                  <li>🔊 Sound on for all games we show (reviewed if another event clashes)</li>
-                  <li>🍔 Kitchen open during our opening hours</li>
-                  <li>🅿️ Free parking ({PARKING.capacity} spaces)</li>
+                  <li>4 screens (no projector)</li>
+                  <li>Sound on for all games we show (reviewed if another event clashes)</li>
+                  <li>Kitchen open during our opening hours</li>
+                  <li>Free parking ({PARKING.capacity} spaces)</li>
                 </ul>
               </div>
             </div>
@@ -217,11 +217,11 @@ export default async function WorldCupPage() {
                 size="lg"
                 className="w-full sm:w-auto"
               >
-                📅 Book a Table
+                Book a Table
               </BookTableButton>
               <Link href="#fixtures" className="w-full sm:w-auto">
                 <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-                  📋 See Fixtures
+                  See Fixtures
                 </Button>
               </Link>
               <PhoneButton
@@ -231,7 +231,7 @@ export default async function WorldCupPage() {
                 size="lg"
                 className="w-full sm:w-auto"
               >
-                📞 Call
+                Call
               </PhoneButton>
               <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
                 <WhatsAppLink
@@ -240,7 +240,7 @@ export default async function WorldCupPage() {
                   message="Hi! I’d like to book a table for a World Cup match."
                   showIcon={false}
                 >
-                  💬 WhatsApp
+                  WhatsApp
                 </WhatsAppLink>
               </Button>
               <DirectionsButton
@@ -250,7 +250,7 @@ export default async function WorldCupPage() {
                 size="lg"
                 className="w-full sm:w-auto"
               >
-                📍 Directions
+                Directions
               </DirectionsButton>
             </div>
           </div>
@@ -320,28 +320,28 @@ export default async function WorldCupPage() {
               columns={4}
               features={[
                 {
-                  icon: '🔊',
+                  icon: '',
                   title: 'Sound On',
                   description: 'Sound on for all games we show (reviewed if another event clashes).',
                   variant: 'default',
                   className: 'border border-anchor-gold/15 text-center',
                 },
                 {
-                  icon: '📺',
+                  icon: '',
                   title: '4 Screens',
                   description: '4 screens across the bar and dining areas (no projector).',
                   variant: 'default',
                   className: 'border border-anchor-gold/15 text-center',
                 },
                 {
-                  icon: '🍔',
+                  icon: '',
                   title: 'Kitchen Open',
                   description: 'Food served during our opening hours.',
                   variant: 'default',
                   className: 'border border-anchor-gold/15 text-center',
                 },
                 {
-                  icon: '🅿️',
+                  icon: '',
                   title: 'Free Parking',
                   description: `Free on-site parking (${PARKING.capacity} spaces).`,
                   variant: 'default',
@@ -386,25 +386,21 @@ export default async function WorldCupPage() {
               <h3 className="mb-4 text-xl font-bold text-anchor-gold-vivid">Getting Here</h3>
               <ul className="mb-6 space-y-3 text-sm text-anchor-cream-text/70">
                 <li className="flex gap-2">
-                  <span>📍</span>
                   <span>
                     {CONTACT.address.street}, {CONTACT.address.town}, {CONTACT.address.postcode}
                   </span>
                 </li>
                 <li className="flex gap-2">
-                  <span>✈️</span>
                   <span>
                     {HEATHROW_TIMES.terminal5} mins from Heathrow Terminal 5 (T2/3 ~{HEATHROW_TIMES.terminal2} mins, T4 ~
                     {HEATHROW_TIMES.terminal4} mins)
                   </span>
                 </li>
                 <li className="flex gap-2">
-                  <span>🅿️</span>
                   <span>Free parking ({PARKING.capacity} spaces)</span>
                 </li>
                 <li className="flex gap-2">
-                  <span>🚌</span>
-                  <span>Bus 442 (Staines ↔ Heathrow) stops outside — ask for The Anchor, Horton Road</span>
+                  <span>Bus 442 (Staines Heathrow) stops outside — ask for The Anchor, Horton Road</span>
                 </li>
               </ul>
               <div className="flex flex-wrap gap-4">
@@ -494,7 +490,7 @@ export default async function WorldCupPage() {
               },
               {
                 question: 'Do you have parking and how do I get there?',
-                answer: `Yes — free on-site parking for guests (${PARKING.capacity} spaces). We’re ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5, and the 442 bus from Staines ↔ Heathrow stops outside.`,
+                answer: `Yes — free on-site parking for guests (${PARKING.capacity} spaces). We’re ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5, and the 442 bus from Staines Heathrow stops outside.`,
               },
             ]}
             className="mx-auto max-w-3xl bg-anchor-bg-raised"
@@ -507,12 +503,12 @@ export default async function WorldCupPage() {
         description="Choose a match we’re showing, then book your table now."
         buttons={[
           {
-            text: '⚽ Book a Table',
+            text: 'Book a Table',
             href: '/book-table',
             variant: 'primary',
           },
           {
-            text: '📍 Get Directions',
+            text: 'Get Directions',
             href: '/find-us',
             variant: 'secondary',
           },

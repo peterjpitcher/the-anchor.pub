@@ -314,7 +314,7 @@ export default async function EventPage({ params }: Props) {
         size="lg"
         className="w-full sm:w-auto"
       >
-        📞 Call: 01753 682707
+         Call: 01753 682707
       </PhoneButton>
       <Link href="/whats-on" className="w-full sm:w-auto">
         <Button variant="secondary" size="lg" fullWidth className="sm:w-auto">
@@ -586,7 +586,7 @@ export default async function EventPage({ params }: Props) {
                           variant="outline"
                           size="sm"
                         >
-                          📞 01753 682707
+                           01753 682707
                         </PhoneButton>
                       </div>
                     </div>
@@ -685,7 +685,7 @@ export default async function EventPage({ params }: Props) {
                 size="lg"
                 className="bg-white text-anchor-green hover:bg-gray-100 w-full sm:w-auto"
               >
-                📞 Call: 01753 682707
+                 Call: 01753 682707
               </PhoneButton>
             </div>
             

@@ -98,7 +98,7 @@ export default function EghamPubPage() {
             className="w-full sm:w-auto"
             context="egham_local"
           >
-            📅 Book a Table
+             Book a Table
           </BookTableButton>
         }
         secondaryCta={
@@ -108,7 +108,7 @@ export default function EghamPubPage() {
               size="lg"
               className="w-full sm:w-auto"
             >
-              🍽️ View Menu
+               View Menu
             </Button>
           </Link>
         }
@@ -155,13 +155,13 @@ export default function EghamPubPage() {
                   className: "text-center"
                 },
                 {
-                  icon: "🎓",
+                  icon: "",
                   title: "Student Friendly",
                   description: "Popular with Royal Holloway students & staff",
                   className: "text-center"
                 },
                 {
-                  icon: "💰",
+                  icon: "",
                   title: "Great Value",
                   description: "Competitive prices compared to Egham venues",
                   className: "text-center"
@@ -177,23 +177,23 @@ export default function EghamPubPage() {
               </h3>
               <ul className="space-y-4">
                 <li className="flex items-start">
-                  <span className="text-anchor-gold mr-3">✓</span>
+                  <span className="text-anchor-gold mr-3"></span>
                   <span>Free parking - no expensive Egham parking charges</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-anchor-gold mr-3">✓</span>
+                  <span className="text-anchor-gold mr-3"></span>
                   <span>Traditional pub atmosphere away from chain venues</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-anchor-gold mr-3">✓</span>
+                  <span className="text-anchor-gold mr-3"></span>
                   <span>Perfect for Royal Holloway society meetups</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-anchor-gold mr-3">✓</span>
+                  <span className="text-anchor-gold mr-3"></span>
                   <span>Regular quiz nights - build your own team</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-anchor-gold mr-3">✓</span>
+                  <span className="text-anchor-gold mr-3"></span>
                   <span>Our celebrated Sunday roasts worth the journey</span>
                 </li>
               </ul>
@@ -396,19 +396,19 @@ export default function EghamPubPage() {
         description="Discover why so many Egham residents and Royal Holloway students make The Anchor their regular"
         buttons={[
           {
-            text: "📞 Call: 01753 682707",
+            text: " Call: 01753 682707",
             href: "tel:+441753682707",
             isPhone: true,
             phoneSource: "egham_pub_cta",
             variant: "white"
           },
           {
-            text: "🎉 Book an Event",
+            text: " Book an Event",
             href: "/private-hire#enquiry",
             variant: "white"
           },
           {
-            text: "📍 Get Directions",
+            text: " Get Directions",
             href: "/find-us",
             variant: "white"
           }

@@ -116,13 +116,13 @@ export default async function LongfordPubPage() {
                         size="lg"
                         className="w-full sm:w-auto"
                     >
-                        📞 Book a Table
+                        Book a Table
                     </BookTableButton>
                 }
                 secondaryCta={
                     <Link href="/food-menu">
                         <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-                            🍽️ View Menu
+                            View Menu
                         </Button>
                     </Link>
                 }
@@ -159,7 +159,7 @@ export default async function LongfordPubPage() {
                             columns={3}
                             features={[
                                 {
-                                    icon: "💷",
+                                    icon: "",
                                     title: "Better Value",
                                     description: "Significantly cheaper than hotel restaurants for better quality food",
                                     variant: "colored",
@@ -167,7 +167,7 @@ export default async function LongfordPubPage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "🍺",
+                                    icon: "",
                                     title: "Real Atmosphere",
                                     description: "Experience a proper British pub with locals, not a sterile hotel bar",
                                     variant: "colored",
@@ -175,7 +175,7 @@ export default async function LongfordPubPage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "🌳",
+                                    icon: "",
                                     title: "Beer Garden",
                                     description: "Relax outside with a drink - perfect for summer evenings",
                                     variant: "colored",
@@ -198,13 +198,13 @@ export default async function LongfordPubPage() {
 
                         <div className="grid md:grid-cols-2 gap-8 mb-8">
                             <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
-                                <h3 className="text-xl font-bold mb-4">🚶 Walking</h3>
+                                <h3 className="text-xl font-bold mb-4">Walking</h3>
                                 <p className="text-anchor-cream-text/70">
                                     For energetic travellers, it's a walk from some parts of Longford. However, we recommend a taxi if you are unsure of the route or it's dark.
                                 </p>
                             </div>
                             <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
-                                <h3 className="text-xl font-bold mb-4">🚕 Taxi / Uber</h3>
+                                <h3 className="text-xl font-bold mb-4">Taxi / Uber</h3>
                                 <p className="text-anchor-cream-text/70">
                                     A very short and cheap ride. Ask your hotel reception to book one for "The Anchor in Stanwell Moor" (Postcode TW19 6AQ).
                                 </p>
@@ -219,7 +219,7 @@ export default async function LongfordPubPage() {
                                 size="lg"
                                 fromLocation="Longford"
                             >
-                                📍 Get Directions from Longford
+                                Get Directions from Longford
                             </DirectionsButton>
                         </div>
                     </div>
@@ -267,19 +267,19 @@ export default async function LongfordPubPage() {
                 description="Real food, real ale, right next door."
                 buttons={[
                     {
-                        text: "📞 Book a Table",
+                        text: "Book a Table",
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "longford_pub_cta",
                         variant: "secondary"
                     },
                     {
-                        text: "🎉 Book an Event",
+                        text: "Book an Event",
                         href: "/private-hire#enquiry",
                         variant: "white"
                     },
                     {
-                        text: "🍽️ View Menu",
+                        text: "View Menu",
                         href: "/food-menu",
                         variant: "white"
                     }

@@ -58,22 +58,22 @@ const terminalLandingPages = [
 
 const featureHighlights = [
   {
-    icon: '✈️',
+    icon: '',
     title: '7 minutes to Heathrow Terminal 5',
     description: 'Skip multi-storey queues. We sit on Horton Road in Stanwell Moor, less than four miles from T5 and under 12 minutes from Terminals 2, 3 and 4.'
   },
   {
-    icon: '💸',
+    icon: '',
     title: 'Airport-long stay rates without airport stress',
     description: 'Hourly, daily, weekly and monthly pricing that undercuts Heathrow long stay car parks and private meet-and-greet operators.'
   },
   {
-    icon: '🛡️',
+    icon: '',
     title: 'Secure CCTV & lighting all night',
     description: 'Our car park is floodlit, covered by cameras and overseen by the pub team late into the evening for peace of mind.'
   },
   {
-    icon: '🍽️',
+    icon: '',
     title: 'Stay for a meal or coffee pre-flight',
     description: 'Grab breakfast, a Sunday roast or a quiet working lunch before you head to the terminal – parking customers are welcome in the pub.'
   }
@@ -293,22 +293,22 @@ export default async function HeathrowParkingPage() {
 	        description="Secure long stay and short stay Heathrow parking from GBP 5 per hour. Drop your car with us in Stanwell Moor, then grab a taxi or the 442 bus to Heathrow in minutes."
 	        variant="default"
         tags={[
-          { label: '💳 PayPal checkout', variant: 'primary' },
-          { label: '🕗 24/7 access', variant: 'success' },
-          { label: '🚘 CCTV monitored', variant: 'default' },
-          { label: '📍 Stanwell Moor', variant: 'warning' }
+          { label: ' PayPal checkout', variant: 'primary' },
+          { label: ' 24/7 access', variant: 'success' },
+          { label: ' CCTV monitored', variant: 'default' },
+          { label: ' Stanwell Moor', variant: 'warning' }
         ]}
         primaryCta={
           <Link href="#book-parking" className="w-full sm:w-auto">
             <Button size="lg" variant="primary" fullWidth className="sm:w-auto">
-              🚗 Book Heathrow parking now
+               Book Heathrow parking now
             </Button>
           </Link>
         }
         secondaryCta={
           <Link href="tel:+441753682707" className="w-full sm:w-auto">
             <Button size="lg" variant="secondary" fullWidth className="sm:w-auto">
-              ☎️ Speak to the team 01753 682707
+               Speak to the team 01753 682707
             </Button>
           </Link>
         }
@@ -356,12 +356,12 @@ export default async function HeathrowParkingPage() {
             <div className="mt-8 flex flex-col items-center gap-4 md:flex-row md:justify-center">
               <Link href="#price-comparison">
                 <Button variant="secondary" size="lg">
-                  📉 View the Heathrow price comparison
+                   View the Heathrow price comparison
                 </Button>
               </Link>
               <Link href="#book-parking">
                 <Button variant="primary" size="lg">
-                  🚗 Book the cheapest Heathrow parking
+                   Book the cheapest Heathrow parking
                 </Button>
               </Link>
             </div>

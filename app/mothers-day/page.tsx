@@ -331,12 +331,12 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
           alt: "Mother's Day lunch near Staines at The Anchor in Stanwell Moor"
         }}
         tags={[
-          { label: `⏰ Serving ${MOTHERS_DAY_SERVICE_WINDOW_LABEL}`, variant: 'warning' },
-          { label: `🕒 Last booking ${MOTHERS_DAY_LAST_BOOKING_LABEL}`, variant: 'default' },
-          { label: `£ Adults £${MOTHERS_DAY_ADULT_PRICE_LOW.toFixed(2)}–£${MOTHERS_DAY_ADULT_PRICE_HIGH.toFixed(2)}`, variant: 'default' },
-          { label: `👧 Kids roast from £${MOTHERS_DAY_KIDS_ROAST_PRICE.toFixed(2)}`, variant: 'default' },
-          { label: '🥕 Vegan & vegetarian options', variant: 'success' },
-          { label: '✅ Booking required', variant: 'success' }
+          { label: `Serving ${MOTHERS_DAY_SERVICE_WINDOW_LABEL}`, variant: 'warning' },
+          { label: `Last booking ${MOTHERS_DAY_LAST_BOOKING_LABEL}`, variant: 'default' },
+          { label: `Adults £${MOTHERS_DAY_ADULT_PRICE_LOW.toFixed(2)}–£${MOTHERS_DAY_ADULT_PRICE_HIGH.toFixed(2)}`, variant: 'default' },
+          { label: `Kids roast from £${MOTHERS_DAY_KIDS_ROAST_PRICE.toFixed(2)}`, variant: 'default' },
+          { label: 'Vegan & vegetarian options', variant: 'success' },
+          { label: 'Booking required', variant: 'success' }
         ]}
         primaryCta={
           <BookTableButton
@@ -357,7 +357,7 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
           <>
             <Link href="/find-us" className="w-full sm:w-auto">
               <Button variant="secondary" size="lg" fullWidth className="w-full sm:w-auto">
-                📍 Directions & parking
+                Directions & parking
               </Button>
             </Link>
             <PhoneButton
@@ -367,7 +367,7 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
               size="lg"
               className="w-full sm:w-auto"
             >
-              📞 Call to Book
+              Call to Book
             </PhoneButton>
           </>
         }
@@ -568,7 +568,7 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
                   </BookTableButton>
                   <Link href="/find-us" className="w-full sm:w-auto">
                     <Button variant="secondary" size="lg" fullWidth className="w-full sm:w-auto">
-                      📍 Find Us
+                      Find Us
                     </Button>
                   </Link>
                 </div>
@@ -613,7 +613,7 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
                       size="md"
                       className="w-full"
                     >
-                      📞 Call {CONTACT.phone}
+                      Call {CONTACT.phone}
                     </PhoneButton>
                   </CardBody>
                 </Card>
@@ -656,7 +656,7 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
                 size="lg"
                 className="w-full sm:w-auto"
               >
-                📞 Call {CONTACT.phone}
+                Call {CONTACT.phone}
               </PhoneButton>
             </div>
             <p className="text-sm text-anchor-cream-text/70">{MOTHERS_DAY_BOOKING_FLOW_NOTE}</p>
@@ -708,7 +708,7 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
               <div className="flex flex-col gap-3 sm:flex-row">
                 <Link href="/find-us" className="w-full sm:w-auto">
                   <Button variant="secondary" size="lg" fullWidth className="w-full sm:w-auto">
-                    📍 Directions & parking
+                    Directions & parking
                   </Button>
                 </Link>
                 <PhoneButton
@@ -718,7 +718,7 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
                   size="lg"
                   className="w-full sm:w-auto"
                 >
-                  📞 Call {CONTACT.phone}
+                  Call {CONTACT.phone}
                 </PhoneButton>
               </div>
             </div>

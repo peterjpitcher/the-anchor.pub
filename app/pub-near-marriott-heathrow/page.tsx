@@ -113,10 +113,10 @@ export default function PubNearMarriottHeathrowPage() {
             <FeatureGrid
               columns={4}
               features={[
-                { icon: '🕐', title: '12 Minutes', description: 'By taxi from Marriott Heathrow', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '🚖', title: '~£15–18', description: 'Typical taxi fare each way', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '🅿️', title: 'Free Parking', description: '20 spaces — no hotel charges', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '🧾', title: 'VAT Receipts', description: 'Full receipts for expenses', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: '12 Minutes', description: 'By taxi from Marriott Heathrow', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: '~£15–18', description: 'Typical taxi fare each way', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: 'Free Parking', description: '20 spaces — no hotel charges', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: 'VAT Receipts', description: 'Full receipts for expenses', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
               ]}
               className="mb-8"
             />
@@ -144,7 +144,7 @@ export default function PubNearMarriottHeathrowPage() {
                     'Honest pub pricing with mains from £8.99',
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-3">
-                      <span className="text-anchor-gold font-bold">✓</span>
+                      <span className="text-anchor-gold font-bold"></span>
                       <span>{item}</span>
                     </li>
                   ))}
@@ -179,9 +179,9 @@ export default function PubNearMarriottHeathrowPage() {
             <FeatureGrid
               columns={3}
               features={[
-                { icon: '🥩', title: 'Classic Mains', description: 'From £8.99 — steaks, fish & chips, burgers and British classics cooked fresh daily', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '🍺', title: 'Real Ales', description: 'Rotating guest ales and craft beers — a proper British pint from £4.80', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '🍕', title: 'Pizza Tuesday', description: 'Buy one get one free on all stone-baked pizzas every Tuesday — great for groups', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Classic Mains', description: 'From £8.99 — steaks, fish & chips, burgers and British classics cooked fresh daily', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Real Ales', description: 'Rotating guest ales and craft beers — a proper British pint from £4.80', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Pizza Tuesday', description: 'Buy one get one free on all stone-baked pizzas every Tuesday — great for groups', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
               ]}
               className="mb-8"
             />

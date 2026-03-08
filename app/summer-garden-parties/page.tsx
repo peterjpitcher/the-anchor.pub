@@ -53,14 +53,14 @@ export default function SummerGardenPartiesPage() {
                 primaryCta={
                     <Link href="/contact">
                         <Button variant="primary" size="lg" className="w-full sm:w-auto">
-                            ☀️ Enquire for Summer
+                            Enquire for Summer
                         </Button>
                     </Link>
                 }
                 secondaryCta={
                     <Link href="/food-menu">
                         <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-                            🍔 See BBQ Menu
+                            See BBQ Menu
                         </Button>
                     </Link>
                 }
@@ -91,7 +91,7 @@ export default function SummerGardenPartiesPage() {
                             columns={3}
                             features={[
                                 {
-                                    icon: "🔥",
+                                    icon: "",
                                     title: "Chef's BBQ",
                                     description: "We man the grill so you don't have to. Gourmet burgers, marinated chicken, and fresh salads.",
                                     variant: "colored",
@@ -99,7 +99,7 @@ export default function SummerGardenPartiesPage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "🍺",
+                                    icon: "",
                                     title: "Outdoor Service",
                                     description: "For large events, we can set up an outdoor bottle bar so drinks are never far away.",
                                     variant: "colored",
@@ -107,7 +107,7 @@ export default function SummerGardenPartiesPage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "🎸",
+                                    icon: "",
                                     title: "Live Music",
                                     description: "Subject to license conditions, acoustic music can be the perfect backdrop to your afternoon.",
                                     variant: "colored",
@@ -134,19 +134,19 @@ export default function SummerGardenPartiesPage() {
                         <SectionHeader title="Perfect for..." />
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                             <div className="p-4 border border-anchor-gold/15 rounded-xl bg-anchor-bg-raised">
-                                <span className="text-3xl block mb-2">🎂</span>
+                                <span className="text-3xl block mb-2"></span>
                                 <span className="font-bold">Birthdays</span>
                             </div>
                             <div className="p-4 border border-anchor-gold/15 rounded-xl bg-anchor-bg-raised">
-                                <span className="text-3xl block mb-2">🏢</span>
+                                <span className="text-3xl block mb-2"></span>
                                 <span className="font-bold">Team Socials</span>
                             </div>
                             <div className="p-4 border border-anchor-gold/15 rounded-xl bg-anchor-bg-raised">
-                                <span className="text-3xl block mb-2">👶</span>
+                                <span className="text-3xl block mb-2"></span>
                                 <span className="font-bold">Christenings</span>
                             </div>
                             <div className="p-4 border border-anchor-gold/15 rounded-xl bg-anchor-bg-raised">
-                                <span className="text-3xl block mb-2">💍</span>
+                                <span className="text-3xl block mb-2"></span>
                                 <span className="font-bold">Receptions</span>
                             </div>
                         </div>
@@ -177,12 +177,12 @@ export default function SummerGardenPartiesPage() {
                 description="Dates fill up fast when the forecast is good."
                 buttons={[
                     {
-                        text: "☀️ Enquire Now",
+                        text: "Enquire Now",
                         href: "mailto:info@the-anchor.pub?subject=Summer%20Party%20Enquiry",
                         variant: "primary"
                     },
                     {
-                        text: "📞 Call Us",
+                        text: "Call Us",
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "summer_cta",

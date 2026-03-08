@@ -36,10 +36,10 @@ export default function PrivateHirePage() {
                 description="Private rooms for 10–200 guests · Free parking for all · Buffet packages available · 7 mins from Heathrow"
                
                 tags={[
-                    { label: "📍 7 Mins from Heathrow", variant: "success" },
-                    { label: "🚗 Free Parking", variant: "default" },
-                    { label: "👥 10-200 Guests", variant: "default" },
-                    { label: "🍽️ Private Catering", variant: "success" }
+                    { label: "7 Mins from Heathrow", variant: "success" },
+                    { label: "Free Parking", variant: "default" },
+                    { label: "10-200 Guests", variant: "default" },
+                    { label: "Private Catering", variant: "success" }
                 ]}
                 primaryCta={
                     <PhoneButton
@@ -49,7 +49,7 @@ export default function PrivateHirePage() {
                         size="lg"
                         className="w-full sm:w-auto"
                     >
-                        📞 Call to Discuss Your Event
+                        Call to Discuss Your Event
                     </PhoneButton>
                 }
                 secondaryCta={
@@ -219,37 +219,37 @@ export default function PrivateHirePage() {
                         columns={3}
                         features={[
                             {
-                                icon: "📍",
+                                icon: "",
                                 title: "Prime Location",
                                 description: "Just minutes from the M25 and Heathrow, making it easy for all your guests to reach us.",
                                 className: "text-center"
                             },
                             {
-                                icon: "🅿️",
+                                icon: "",
                                 title: "Free Parking",
                                 description: "Large on-site car park (20 spaces) completely free for your guests.",
                                 className: "text-center"
                             },
                             {
-                                icon: "♿",
+                                icon: "",
                                 title: "Accessible",
                                 description: "Step-free access to the bar, dining area and beer garden.",
                                 className: "text-center"
                             },
                             {
-                                icon: "🍽️",
+                                icon: "",
                                 title: "Flexible Catering",
                                 description: "From finger buffets to 3-course sit-down meals, tailored to your budget.",
                                 className: "text-center"
                             },
                             {
-                                icon: "🍺",
+                                icon: "",
                                 title: "Private Bar",
                                 description: "Exclusive bar options available for private function room hire.",
                                 className: "text-center"
                             },
                             {
-                                icon: "🤝",
+                                icon: "",
                                 title: "Dedicated Team",
                                 description: "Our event coordinators will handle every detail from start to finish.",
                                 className: "text-center"

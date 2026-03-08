@@ -44,7 +44,7 @@ export function WhatsAppLink({
     }
   }
 
-  const icon = showIcon ? '💬' : null
+  const icon = showIcon ? '' : null
 
   return (
     <a

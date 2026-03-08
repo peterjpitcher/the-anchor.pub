@@ -53,14 +53,14 @@ export default function ChristmasPartiesPage() {
                 primaryCta={
                     <Link href="/contact">
                         <Button variant="primary" size="lg" className="w-full sm:w-auto">
-                            🎄 Enquire Now
+                             Enquire Now
                         </Button>
                     </Link>
                 }
                 secondaryCta={
                     <Link href="/food-menu">
                         <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-                            📄 View Sample Menu
+                             View Sample Menu
                         </Button>
                     </Link>
                 }
@@ -91,7 +91,7 @@ export default function ChristmasPartiesPage() {
                             columns={3}
                             features={[
                                 {
-                                    icon: "🦃",
+                                    icon: "",
                                     title: "Festive Menu",
                                     description: "2 or 3 course set menus featuring all the classics (and some modern twists).",
                                     variant: "colored",
@@ -99,7 +99,7 @@ export default function ChristmasPartiesPage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "🥂",
+                                    icon: "",
                                     title: "Drinks Packages",
                                     description: "Pre-order wine and buckets of beer for the table to avoid the bar queue.",
                                     variant: "colored",
@@ -107,7 +107,7 @@ export default function ChristmasPartiesPage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "🎩",
+                                    icon: "",
                                     title: "Private Areas",
                                     description: "We can section off areas for larger groups so you have your own space.",
                                     variant: "colored",
@@ -142,21 +142,21 @@ export default function ChristmasPartiesPage() {
                             </p>
                             <ul className="space-y-4">
                                 <li className="flex items-start">
-                                    <span className="text-anchor-gold-vivid mr-2 text-xl">✓</span>
+                                    <span className="text-anchor-gold-vivid mr-2 text-xl"></span>
                                     <div>
                                         <strong className="block text-anchor-cream-text">Easy Pre-order System</strong>
                                         <span className="text-anchor-cream-text/70 text-sm">No more spreadsheets. We provide a simple form for your team.</span>
                                     </div>
                                 </li>
                                 <li className="flex items-start">
-                                    <span className="text-anchor-gold-vivid mr-2 text-xl">✓</span>
+                                    <span className="text-anchor-gold-vivid mr-2 text-xl"></span>
                                     <div>
                                         <strong className="block text-anchor-cream-text">VAT Invoices</strong>
                                         <span className="text-anchor-cream-text/70 text-sm">Proper VAT receipts provided for the accounts department.</span>
                                     </div>
                                 </li>
                                 <li className="flex items-start">
-                                    <span className="text-anchor-gold-vivid mr-2 text-xl">✓</span>
+                                    <span className="text-anchor-gold-vivid mr-2 text-xl"></span>
                                     <div>
                                         <strong className="block text-anchor-cream-text">The Organiser Perk</strong>
                                         <span className="text-anchor-cream-text/70 text-sm">Book a group of 20+ and receive a GBP 40 voucher for yourself in January.</span>
@@ -202,12 +202,12 @@ export default function ChristmasPartiesPage() {
                 description="Secure your date before it's gone."
                 buttons={[
                     {
-                        text: "📧 Enquire Now",
+                        text: " Enquire Now",
                         href: "mailto:info@the-anchor.pub?subject=Christmas%20Party%20Enquiry",
                         variant: "primary"
                     },
                     {
-                        text: "📞 Call Us",
+                        text: " Call Us",
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "christmas_cta",

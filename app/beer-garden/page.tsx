@@ -93,10 +93,10 @@ export default async function BeerGardenPage() {
         description="Watch aircraft every 90 seconds while enjoying a pint — food from £10, dogs welcome"
         variant="default"
         tags={[
-          { label: '🛬 Every 90 Seconds', variant: 'success' },
-          { label: '📸 Photo Opportunities', variant: 'primary' },
-          { label: '🐕 Dog Friendly', variant: 'default' },
-          { label: '🍺 Full Bar Service', variant: 'default' }
+          { label: ' Every 90 Seconds', variant: 'success' },
+          { label: ' Photo Opportunities', variant: 'primary' },
+          { label: ' Dog Friendly', variant: 'default' },
+          { label: ' Full Bar Service', variant: 'default' }
         ]}
         primaryCta={
           <BookTableButton
@@ -114,7 +114,7 @@ export default async function BeerGardenPage() {
                 size="lg"
                 className="w-full sm:w-auto"
               >
-                ✈️ Plane Spotting Guide
+                 Plane Spotting Guide
               </Button>
             </Link>
             <Link href="/drinks">
@@ -123,14 +123,14 @@ export default async function BeerGardenPage() {
                 size="lg"
                 className="w-full sm:w-auto"
               >
-                🍺 View Drinks Menu
+                 View Drinks Menu
               </Button>
             </Link>
           </>
         }
       >
         <div className="bg-anchor-bg-card/90 backdrop-blur-sm text-anchor-gold-vivid font-bold text-lg md:text-xl px-6 py-3 rounded-full inline-block mt-4 border border-anchor-gold/30">
-          ✈️ DIRECTLY UNDER THE FLIGHT PATH ✈️
+           DIRECTLY UNDER THE FLIGHT PATH 
         </div>
       </HeroWrapper>
 
@@ -153,7 +153,7 @@ export default async function BeerGardenPage() {
                     Book Sunday Roast
                   </BookTableButton>
                   <Link href="/sunday-lunch" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
-                    View roast menu →
+                    View roast menu 
                   </Link>
                 </div>
               </CardBody>
@@ -174,7 +174,7 @@ export default async function BeerGardenPage() {
                     Book a Table
                   </BookTableButton>
                   <Link href="/food-menu#pizza" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
-                    View pizza menu →
+                    View pizza menu 
                   </Link>
                 </div>
               </CardBody>
@@ -194,7 +194,7 @@ export default async function BeerGardenPage() {
                     Book a Table
                   </BookTableButton>
                   <Link href="/food-menu" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
-                    Browse full menu →
+                    Browse full menu 
                   </Link>
                 </div>
               </CardBody>
@@ -206,7 +206,7 @@ export default async function BeerGardenPage() {
       {/* Google Rating */}
       <section className="bg-anchor-bg py-6 border-b border-anchor-gold/15">
         <Container>
-          <p className="text-center text-sm text-anchor-cream-text/55">⭐⭐⭐⭐⭐ <strong className="text-anchor-cream-text">Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
+          <p className="text-center text-sm text-anchor-cream-text/55"> <strong className="text-anchor-cream-text">Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
         </Container>
       </section>
 
@@ -238,11 +238,11 @@ export default async function BeerGardenPage() {
                   content: (
                     <AmenityList
                       items={[
-                        { icon: "✈️", title: "Perfect Position", description: "Directly under the Heathrow approach path" },
-                        { icon: "👀", title: "Low & Loud", description: "Aircraft pass at approximately 500-800 feet" },
-                        { icon: "📸", title: "Photo Friendly", description: "Unobstructed views perfect for photography" },
-                        { icon: "🍺", title: "Refreshments", description: "Full bar service delivered to your table" },
-                        { icon: "📱", title: "FlightRadar24", description: "Free WiFi to track incoming flights" }
+                        { icon: "", title: "Perfect Position", description: "Directly under the Heathrow approach path" },
+                        { icon: "", title: "Low & Loud", description: "Aircraft pass at approximately 500-800 feet" },
+                        { icon: "", title: "Photo Friendly", description: "Unobstructed views perfect for photography" },
+                        { icon: "", title: "Refreshments", description: "Full bar service delivered to your table" },
+                        { icon: "", title: "FlightRadar24", description: "Free WiFi to track incoming flights" }
                       ]}
                       iconColor="text-2xl"
                     />
@@ -311,31 +311,31 @@ export default async function BeerGardenPage() {
               columns={3}
               features={[
                 {
-                  icon: "🪑",
+                  icon: "",
                   title: "Spacious Seating",
                   description: "Multiple tables with umbrellas for sunny days",
                   className: "text-center"
                 },
                 {
-                  icon: "🐕",
+                  icon: "",
                   title: "Dog Friendly",
                   description: "Water bowls provided, treats available at the bar",
                   className: "text-center"
                 },
                 {
-                  icon: "🍔",
+                  icon: "",
                   title: "Food Service",
                   description: "Full menu available in the garden during kitchen hours",
                   className: "text-center"
                 },
                 {
-                  icon: "🌡️",
+                  icon: "",
                   title: "Heated Areas",
                   description: "Covered sections with heaters for cooler evenings",
                   className: "text-center"
                 },
                 {
-                  icon: "👨‍👩‍👧‍👦",
+                  icon: "‍‍‍",
                   title: "Family Friendly",
                   description: "Safe enclosed space, children welcome until 8pm",
                   className: "text-center"
@@ -377,7 +377,7 @@ export default async function BeerGardenPage() {
               columns={1}
               boxes={[
                 {
-                  title: "📱 Essential Apps",
+                  title: " Essential Apps",
                   content: (
                     <ul className="space-y-2 text-anchor-cream-text/70">
                       <li>• <strong>Flightradar24:</strong> Track incoming flights in real-time</li>
@@ -389,7 +389,7 @@ export default async function BeerGardenPage() {
                   color: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15"
                 },
                 {
-                  title: "📸 Photography Tips",
+                  title: " Photography Tips",
                   content: (
                     <ul className="space-y-2 text-anchor-cream-text/70">
                       <li>• Best light: Golden hour (1 hour before sunset)</li>
@@ -402,7 +402,7 @@ export default async function BeerGardenPage() {
                   color: "bg-anchor-bg-raised rounded-none p-6 border border-anchor-gold/15"
                 },
                 {
-                  title: "🍺 Make a Day of It",
+                  title: " Make a Day of It",
                   content: (
                     <ul className="space-y-2 text-anchor-cream-text/70">
                       <li>• Arrive early to secure the best spotting tables</li>
@@ -463,12 +463,12 @@ export default async function BeerGardenPage() {
               />
               <Link href="tel:+441753682707">
                 <Button size="lg" variant="secondary" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
-                  📞 Call 01753 682707
+                   Call 01753 682707
                 </Button>
               </Link>
               <Link href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor" target="_blank" rel="noopener noreferrer">
                 <Button size="lg" variant="secondary" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
-                  📍 Get Directions
+                   Get Directions
                 </Button>
               </Link>
             </div>

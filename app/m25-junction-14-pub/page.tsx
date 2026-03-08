@@ -113,13 +113,13 @@ export default function M25Junction14PubPage() {
             className="w-full sm:w-auto"
             context="m25_stopover"
           >
-            📅 Book a Table
+            Book a Table
           </BookTableButton>
         }
         secondaryCta={
           <Link href="/food-menu" className="w-full sm:w-auto">
             <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-              🍽️ View Menu
+              View Menu
             </Button>
           </Link>
         }
@@ -135,19 +135,15 @@ export default function M25Junction14PubPage() {
             </p>
             <div className="grid gap-3 md:grid-cols-2 text-anchor-cream-text/70">
               <div className="flex items-start gap-2">
-                <span className="font-semibold text-anchor-gold">⛽</span>
                 <span>5 minute diversion from Junction 14 via A3113 and Horton Road</span>
               </div>
               <div className="flex items-start gap-2">
-                <span className="font-semibold text-anchor-gold">🅿️</span>
                 <span>Free parking for cars, vans and minibuses while you dine</span>
               </div>
               <div className="flex items-start gap-2">
-                <span className="font-semibold text-anchor-gold">🍔</span>
                 <span>Burgers, pizzas and pub classics served Tuesday to Sunday</span>
               </div>
               <div className="flex items-start gap-2">
-                <span className="font-semibold text-anchor-gold">🐾</span>
                 <span>Dog friendly bar area and beer garden for four-legged passengers</span>
               </div>
             </div>
@@ -188,7 +184,7 @@ export default function M25Junction14PubPage() {
               columns={3}
               features={[
                 {
-                  icon: "⏱️",
+                  icon: "",
                   title: "5 Minutes",
                   description: "Quick detour from M25 Junction 14",
                   variant: "colored",
@@ -196,7 +192,7 @@ export default function M25Junction14PubPage() {
                   className: "rounded-xl p-6 text-center"
                 },
                 {
-                  icon: "💷",
+                  icon: "",
                   title: "Half Price",
                   description: "Compared to motorway services",
                   variant: "colored",
@@ -204,7 +200,7 @@ export default function M25Junction14PubPage() {
                   className: "rounded-xl p-6 text-center"
                 },
                 {
-                  icon: "🚗",
+                  icon: "",
                   title: "Free Parking",
                   description: "20 spaces, easy access",
                   variant: "colored",
@@ -231,37 +227,37 @@ export default function M25Junction14PubPage() {
                 <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">Beat Service Station Blues</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <span className="text-red-500 text-xl">❌</span>
+                    <span className="text-red-500 text-xl"></span>
                     <div>
                       <strong>Service stations:</strong> 15+ for a basic sandwich meal
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-green-500 text-xl">✓</span>
+                    <span className="text-green-500 text-xl"></span>
                     <div>
                       <strong>The Anchor:</strong> Full meals from 9.99
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-red-500 text-xl">❌</span>
+                    <span className="text-red-500 text-xl"></span>
                     <div>
                       <strong>Service stations:</strong> Packaged, reheated food
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-green-500 text-xl">✓</span>
+                    <span className="text-green-500 text-xl"></span>
                     <div>
                       <strong>The Anchor:</strong> Freshly cooked to order
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-red-500 text-xl">❌</span>
+                    <span className="text-red-500 text-xl"></span>
                     <div>
                       <strong>Service stations:</strong> Crowded, noisy, stressful
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-green-500 text-xl">✓</span>
+                    <span className="text-green-500 text-xl"></span>
                     <div>
                       <strong>The Anchor:</strong> Relaxed pub atmosphere
                     </div>
@@ -273,31 +269,31 @@ export default function M25Junction14PubPage() {
                 <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">Perfect Journey Break</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">🍺</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div>
                       <strong>Proper refreshment</strong> - Real ales, wines, soft drinks
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">🌳</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div>
                       <strong>Beer garden break</strong> - Stretch legs in fresh air
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">🐕</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div>
                       <strong>Dog friendly</strong> - Perfect for traveling with pets
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">🚻</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div>
                       <strong>Clean facilities</strong> - Better than service stations
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">📶</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div>
                       <strong>Free WiFi</strong> - Check routes, emails, or relax
                     </div>
@@ -377,7 +373,7 @@ export default function M25Junction14PubPage() {
             
             <div className="grid md:grid-cols-2 gap-8">
               <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
-                <h3 className="text-xl font-bold mb-4">📍 From M25 Clockwise</h3>
+                <h3 className="text-xl font-bold mb-4">From M25 Clockwise</h3>
                 <ol className="space-y-3">
                   <li className="flex gap-3">
                     <span className="font-bold text-anchor-gold">1.</span>
@@ -402,7 +398,7 @@ export default function M25Junction14PubPage() {
               </div>
               
               <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
-                <h3 className="text-xl font-bold mb-4">🔄 Rejoining M25</h3>
+                <h3 className="text-xl font-bold mb-4">Rejoining M25</h3>
                 <div className="space-y-4">
                   <div>
                     <p className="font-semibold mb-2">Back to M25 (any direction)</p>
@@ -417,7 +413,7 @@ export default function M25Junction14PubPage() {
                     </ul>
                   </div>
                   <div className="pt-4 border-t">
-                    <p className="text-green-700 font-semibold">⚡ Time Saver</p>
+                    <p className="text-green-700 font-semibold">Time Saver</p>
                     <p className="text-sm text-anchor-cream-text/70">Often quicker than service station queues!</p>
                   </div>
                 </div>
@@ -432,7 +428,7 @@ export default function M25Junction14PubPage() {
                 size="md"
                 fromLocation="M25 Junction 14"
               >
-                📍 Get Sat Nav Directions
+                Get Sat Nav Directions
               </DirectionsButton>
             </div>
           </div>
@@ -499,22 +495,22 @@ export default function M25Junction14PubPage() {
                 <div>
                   <h3 className="text-xl font-bold text-anchor-cream-text mb-4">Perfect For</h3>
                   <ul className="space-y-2 text-anchor-cream-text/70">
-                    <li>✓ Meeting point from different M25 directions</li>
-                    <li>✓ Break before Heathrow drop-offs</li>
-                    <li>✓ Avoiding accident delays with local knowledge</li>
-                    <li>✓ Weekend leisure trips around M25</li>
-                    <li>✓ Commercial drivers' regular stop</li>
+                    <li>Meeting point from different M25 directions</li>
+                    <li>Break before Heathrow drop-offs</li>
+                    <li>Avoiding accident delays with local knowledge</li>
+                    <li>Weekend leisure trips around M25</li>
+                    <li>Commercial drivers' regular stop</li>
                   </ul>
                 </div>
                 
                 <div>
                   <h3 className="text-xl font-bold text-anchor-cream-text mb-4">Remember</h3>
                   <ul className="space-y-2 text-anchor-cream-text/70">
-                    <li>📍 Postcode: TW19 6AQ</li>
-                    <li>🚗 Free parking for all</li>
-                    <li>⏰ Quick service available</li>
-                    <li>💳 All cards accepted</li>
-                    <li>🚫 Outside ULEZ zone</li>
+                    <li>Postcode: TW19 6AQ</li>
+                    <li>Free parking for all</li>
+                    <li>Quick service available</li>
+                    <li>All cards accepted</li>
+                    <li>Outside ULEZ zone</li>
                   </ul>
                 </div>
               </div>
@@ -586,17 +582,17 @@ export default function M25Junction14PubPage() {
         description="Real food, real prices, real break - just 5 minutes from Junction 14"
         buttons={[
           {
-            text: "📞 Call Ahead",
+            text: "Call Ahead",
             href: `${CONTACT.phoneHref}`,
             variant: "secondary"
           },
           {
-            text: "🎉 Book an Event",
+            text: "Book an Event",
             href: "/private-hire#enquiry",
             variant: "white"
           },
           {
-            text: "📍 Get Directions",
+            text: "Get Directions",
             href: "/find-us",
             variant: "white"
           }

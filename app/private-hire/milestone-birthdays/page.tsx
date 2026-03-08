@@ -87,7 +87,7 @@ export default function MilestoneBirthdaysPage() {
                 primaryCta={
                     <Link href="/private-hire#enquiry">
                         <Button variant="primary" size="lg" className="w-full sm:w-auto">
-                            🎂 Plan My Party
+                            Plan My Party
                         </Button>
                     </Link>
                 }
@@ -122,7 +122,7 @@ export default function MilestoneBirthdaysPage() {
                             columns={3}
                             features={[
                                 {
-                                    icon: "🎧",
+                                    icon: "",
                                     title: "Entertainment Ready",
                                     description: "Space for DJs or live singers to get the party started.",
                                     variant: "colored",
@@ -130,7 +130,7 @@ export default function MilestoneBirthdaysPage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "🍖",
+                                    icon: "",
                                     title: "Hearty Buffets",
                                     description: "Keep your guests fuelled with finger food, sliders, or pizza buffets.",
                                     variant: "colored",
@@ -138,7 +138,7 @@ export default function MilestoneBirthdaysPage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "🚕",
+                                    icon: "",
                                     title: "Easy Access",
                                     description: "Free parking for drivers and tons of Uber availability for the drinkers.",
                                     variant: "colored",
@@ -159,21 +159,18 @@ export default function MilestoneBirthdaysPage() {
 
                         <div className="grid md:grid-cols-3 gap-6">
                             <div className="border border-anchor-gold/15 rounded-xl p-6 hover:shadow-lg transition-shadow bg-anchor-bg-raised">
-                                <div className="text-3xl mb-4">🔥</div>
                                 <h3 className="text-xl font-bold mb-2 text-anchor-cream-text">The Garden Party</h3>
                                 <p className="text-anchor-cream-text/70 mb-4">Perfect for summer birthdays. Reserve an area of our beer garden, order a BBQ buffet, and enjoy the sunshine.</p>
                                 <span className="text-sm font-semibold text-anchor-gold-vivid">Great for 21sts & 30ths</span>
                             </div>
 
                             <div className="border border-anchor-gold/15 rounded-xl p-6 hover:shadow-lg transition-shadow bg-anchor-bg-raised">
-                                <div className="text-3xl mb-4">🕺</div>
                                 <h3 className="text-xl font-bold mb-2 text-anchor-cream-text">The Big Bash</h3>
                                 <p className="text-anchor-cream-text/70 mb-4">Hire our main function area. Clear the tables for a dance floor, set up a DJ, and party until late(ish).</p>
                                 <span className="text-sm font-semibold text-anchor-gold-vivid">Best for 40ths & 50ths</span>
                             </div>
 
                             <div className="border border-anchor-gold/15 rounded-xl p-6 hover:shadow-lg transition-shadow bg-anchor-bg-raised">
-                                <div className="text-3xl mb-4">🍽️</div>
                                 <h3 className="text-xl font-bold mb-2 text-anchor-cream-text">The Dinner Party</h3>
                                 <p className="text-anchor-cream-text/70 mb-4">Sit-down meal with 10-20 of your closest friends. Pre-order from our main menu or set menus available.</p>
                                 <span className="text-sm font-semibold text-anchor-gold-vivid">Perfect for 60ths+</span>

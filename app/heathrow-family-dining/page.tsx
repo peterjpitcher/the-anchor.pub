@@ -58,13 +58,13 @@ export default function FamilyDiningPage() {
                         size="lg"
                         className="w-full sm:w-auto"
                     >
-                        📞 Book Family Table
+                         Book Family Table
                     </BookTableButton>
                 }
                 secondaryCta={
                     <Link href="/food-menu">
                         <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-                            🍽️ View Kids Menu
+                             View Kids Menu
                         </Button>
                     </Link>
                 }
@@ -95,7 +95,7 @@ export default function FamilyDiningPage() {
                             columns={3}
                             features={[
                                 {
-                                    icon: "🌳",
+                                    icon: "",
                                     title: "Large Beer Garden",
                                     description: "A safe, enclosed grassy area where kids can play freely while you watch from your table.",
                                     variant: "colored",
@@ -103,7 +103,7 @@ export default function FamilyDiningPage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "🍟",
+                                    icon: "",
                                     title: "Kids Menu",
                                     description: "Proper portions of favourites like fish fingers and sausages - nothing too fancy!",
                                     variant: "colored",
@@ -111,7 +111,7 @@ export default function FamilyDiningPage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "✈️",
+                                    icon: "",
                                     title: "Plane Spotting",
                                     description: "We are under the flight path! Kids love watching the giant planes land nearby.",
                                     variant: "colored",
@@ -131,28 +131,28 @@ export default function FamilyDiningPage() {
                         <h3 className="text-2xl font-bold text-center text-blue-900 mb-6">Facilities for Little Ones</h3>
                         <div className="grid md:grid-cols-2 gap-4">
                             <div className="flex items-start gap-3">
-                                <span className="text-2xl">🪑</span>
+                                <span className="text-2xl"></span>
                                 <div>
                                     <p className="font-bold">High Chairs</p>
                                     <p className="text-sm text-anchor-cream-text/55">Plenty available, just ask when booking.</p>
                                 </div>
                             </div>
                             <div className="flex items-start gap-3">
-                                <span className="text-2xl">👶</span>
+                                <span className="text-2xl"></span>
                                 <div>
                                     <p className="font-bold">Changing Facilities</p>
                                     <p className="text-sm text-anchor-cream-text/55">Clean baby changing area available.</p>
                                 </div>
                             </div>
                             <div className="flex items-start gap-3">
-                                <span className="text-2xl">🥤</span>
+                                <span className="text-2xl"></span>
                                 <div>
                                     <p className="font-bold">Kid-Friendly Drinks</p>
                                     <p className="text-sm text-anchor-cream-text/55">Fruit shoots, juices, and milk available.</p>
                                 </div>
                             </div>
                             <div className="flex items-start gap-3">
-                                <span className="text-2xl">🖍️</span>
+                                <span className="text-2xl"></span>
                                 <div>
                                     <p className="font-bold">Activity Possible</p>
                                     <p className="text-sm text-anchor-cream-text/55">Feel free (and encouraged!) to bring colouring pads.</p>
@@ -186,14 +186,14 @@ export default function FamilyDiningPage() {
                 description="A warm welcome awaits you and your little travelers."
                 buttons={[
                     {
-                        text: "📞 Book a Table",
+                        text: " Book a Table",
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "family_cta",
                         variant: "primary"
                     },
                     {
-                        text: "📍 Get Directions",
+                        text: " Get Directions",
                         href: "https://maps.google.com/maps?daddr=The+Anchor+Stanwell+Moor+TW19+6AQ",
                         variant: "white"
                     }

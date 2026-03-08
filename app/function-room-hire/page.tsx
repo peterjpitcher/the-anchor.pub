@@ -92,10 +92,10 @@ export default function FunctionRoomHirePage() {
         description="Flexible rooms for 10–200 guests with free parking, AV support and custom catering. Tailored pricing for every event."
 
         tags={[
-          { label: "🏢 Multiple Spaces", variant: "default" },
-          { label: "💷 Flexible Pricing", variant: "success" },
-          { label: "🚗 Free Parking", variant: "default" },
-          { label: "📍 Near Heathrow", variant: "success" }
+          { label: " Multiple Spaces", variant: "default" },
+          { label: " Flexible Pricing", variant: "success" },
+          { label: " Free Parking", variant: "default" },
+          { label: " Near Heathrow", variant: "success" }
         ]}
         primaryCta={
           <PhoneButton
@@ -105,7 +105,7 @@ export default function FunctionRoomHirePage() {
             size="lg"
             className="w-full sm:w-auto"
           >
-            📞 Call to Check Availability
+             Call to Check Availability
           </PhoneButton>
         }
         secondaryCta={
@@ -125,7 +125,7 @@ export default function FunctionRoomHirePage() {
                 size="lg"
                 className="w-full sm:w-auto"
               >
-                💬 WhatsApp Enquiry
+                 WhatsApp Enquiry
               </Button>
             </Link>
           </>
@@ -136,7 +136,7 @@ export default function FunctionRoomHirePage() {
       {/* Google Rating */}
       <section className="bg-anchor-bg-card py-6 border-b border-anchor-gold/15">
         <Container>
-          <p className="text-center text-sm text-anchor-cream-text/70">⭐⭐⭐⭐⭐ <strong>Rated 4.6/5 on Google</strong> · Trusted for private events near Heathrow</p>
+          <p className="text-center text-sm text-anchor-cream-text/70"> <strong>Rated 4.6/5 on Google</strong> · Trusted for private events near Heathrow</p>
         </Container>
       </section>
 
@@ -147,19 +147,19 @@ export default function FunctionRoomHirePage() {
             <h2 className="text-2xl font-bold text-anchor-gold-vivid mb-3">What Makes Our Function Rooms Work</h2>
             <div className="grid gap-3 md:grid-cols-2 text-anchor-cream-text/70">
               <div className="flex items-start gap-2">
-                <span className="font-semibold text-anchor-gold">👥</span>
+                <span className="font-semibold text-anchor-gold"></span>
                 <span>Flexible spaces for 10-200 guests with breakout areas</span>
               </div>
               <div className="flex items-start gap-2">
-                <span className="font-semibold text-anchor-gold">🅿️</span>
+                <span className="font-semibold text-anchor-gold"></span>
                 <span>Free parking outside the ULEZ zone, ideal for corporate events</span>
               </div>
               <div className="flex items-start gap-2">
-                <span className="font-semibold text-anchor-gold">🍽️</span>
+                <span className="font-semibold text-anchor-gold"></span>
                 <span>In-house catering: buffets, two-course dinners or canapés</span>
               </div>
               <div className="flex items-start gap-2">
-                <span className="font-semibold text-anchor-gold">🎤</span>
+                <span className="font-semibold text-anchor-gold"></span>
                 <span>AV support, microphones and hybrid meeting options available</span>
               </div>
             </div>
@@ -197,10 +197,10 @@ export default function FunctionRoomHirePage() {
                 presentations, parties, or meetings. Can be configured to your exact requirements.
               </p>
               <ul className="space-y-2 text-anchor-cream-text/70">
-                <li>✓ Natural daylight with dimming options</li>
-                <li>✓ Climate controlled</li>
-                <li>✓ Direct access to facilities</li>
-                <li>✓ AV equipment available</li>
+                <li> Natural daylight with dimming options</li>
+                <li> Climate controlled</li>
+                <li> Direct access to facilities</li>
+                <li> AV equipment available</li>
               </ul>
             </div>
 
@@ -216,10 +216,10 @@ export default function FunctionRoomHirePage() {
                 bar area, and outdoor terrace (weather permitting). Perfect for big celebrations.
               </p>
               <ul className="space-y-2 text-anchor-cream-text/70">
-                <li>✓ Complete privacy</li>
-                <li>✓ Multiple spaces to utilize</li>
-                <li>✓ Full bar service</li>
-                <li>✓ Dedicated event team</li>
+                <li> Complete privacy</li>
+                <li> Multiple spaces to utilize</li>
+                <li> Full bar service</li>
+                <li> Dedicated event team</li>
               </ul>
             </div>
           </div>
@@ -248,42 +248,42 @@ export default function FunctionRoomHirePage() {
 
           <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             <div className="card-dark rounded-none text-center p-6">
-              <div className="text-4xl mb-4">🪑</div>
+              <div className="text-4xl mb-4"></div>
               <h3 className="font-bold text-lg mb-2">Banquet Style</h3>
               <p className="text-3xl font-bold text-anchor-gold mb-2">80</p>
               <p className="text-anchor-cream-text/70">Round tables of 8-10 for dining and socializing</p>
             </div>
 
             <div className="card-dark rounded-none text-center p-6">
-              <div className="text-4xl mb-4">🎭</div>
+              <div className="text-4xl mb-4"></div>
               <h3 className="font-bold text-lg mb-2">Theatre Style</h3>
               <p className="text-3xl font-bold text-anchor-gold mb-2">40</p>
               <p className="text-anchor-cream-text/70">Rows of chairs facing front for presentations</p>
             </div>
 
             <div className="card-dark rounded-none text-center p-6">
-              <div className="text-4xl mb-4">🥂</div>
+              <div className="text-4xl mb-4"></div>
               <h3 className="font-bold text-lg mb-2">Cocktail Reception</h3>
               <p className="text-3xl font-bold text-anchor-gold mb-2">150</p>
               <p className="text-anchor-cream-text/70">Standing reception with high tables</p>
             </div>
 
             <div className="card-dark rounded-none text-center p-6">
-              <div className="text-4xl mb-4">🏫</div>
+              <div className="text-4xl mb-4"></div>
               <h3 className="font-bold text-lg mb-2">Classroom Style</h3>
               <p className="text-3xl font-bold text-anchor-gold mb-2">60</p>
               <p className="text-anchor-cream-text/70">Tables and chairs for training/workshops</p>
             </div>
 
             <div className="card-dark rounded-none text-center p-6">
-              <div className="text-4xl mb-4">⬜</div>
+              <div className="text-4xl mb-4"></div>
               <h3 className="font-bold text-lg mb-2">Boardroom Style</h3>
               <p className="text-3xl font-bold text-anchor-gold mb-2">30</p>
               <p className="text-anchor-cream-text/70">Single large table for meetings</p>
             </div>
 
             <div className="card-dark rounded-none text-center p-6">
-              <div className="text-4xl mb-4">🎪</div>
+              <div className="text-4xl mb-4"></div>
               <h3 className="font-bold text-lg mb-2">Cabaret Style</h3>
               <p className="text-3xl font-bold text-anchor-gold mb-2">70</p>
               <p className="text-anchor-cream-text/70">Round tables with stage/presentation area</p>
@@ -304,7 +304,7 @@ export default function FunctionRoomHirePage() {
             <div className="grid md:grid-cols-4 gap-6">
               <div className="text-center">
                 <div className="bg-anchor-bg-raised w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-3xl">💼</span>
+                  <span className="text-3xl"></span>
                 </div>
                 <h3 className="font-bold mb-2">Business Events</h3>
                 <p className="text-sm text-anchor-cream-text/70">Meetings, training, conferences, AGMs</p>
@@ -312,7 +312,7 @@ export default function FunctionRoomHirePage() {
 
               <div className="text-center">
                 <div className="bg-anchor-bg-raised w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-3xl">🎉</span>
+                  <span className="text-3xl"></span>
                 </div>
                 <h3 className="font-bold mb-2">Celebrations</h3>
                 <p className="text-sm text-anchor-cream-text/70">Birthdays, anniversaries, achievements</p>
@@ -320,7 +320,7 @@ export default function FunctionRoomHirePage() {
 
               <div className="text-center">
                 <div className="bg-anchor-bg-raised w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-3xl">💑</span>
+                  <span className="text-3xl"></span>
                 </div>
                 <h3 className="font-bold mb-2">Weddings</h3>
                 <p className="text-sm text-anchor-cream-text/70">Receptions, ceremonies, engagement parties</p>
@@ -328,7 +328,7 @@ export default function FunctionRoomHirePage() {
 
               <div className="text-center">
                 <div className="bg-anchor-bg-raised w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-3xl">🕊️</span>
+                  <span className="text-3xl"></span>
                 </div>
                 <h3 className="font-bold mb-2">Memorial Services</h3>
                 <p className="text-sm text-anchor-cream-text/70">Wakes, celebrations of life, gatherings</p>
@@ -336,7 +336,7 @@ export default function FunctionRoomHirePage() {
 
               <div className="text-center">
                 <div className="bg-anchor-bg-raised w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-3xl">🎄</span>
+                  <span className="text-3xl"></span>
                 </div>
                 <h3 className="font-bold mb-2">Seasonal Events</h3>
                 <p className="text-sm text-anchor-cream-text/70">Christmas parties, New Year celebrations</p>
@@ -344,7 +344,7 @@ export default function FunctionRoomHirePage() {
 
               <div className="text-center">
                 <div className="bg-anchor-bg-raised w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-3xl">🎭</span>
+                  <span className="text-3xl"></span>
                 </div>
                 <h3 className="font-bold mb-2">Entertainment</h3>
                 <p className="text-sm text-anchor-cream-text/70">Quiz nights, hosted events, themed nights (see /whats-on)</p>
@@ -352,7 +352,7 @@ export default function FunctionRoomHirePage() {
 
               <div className="text-center">
                 <div className="bg-anchor-bg-raised w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-3xl">👨‍👩‍👧‍👦</span>
+                  <span className="text-3xl">‍‍‍</span>
                 </div>
                 <h3 className="font-bold mb-2">Community Events</h3>
                 <p className="text-sm text-anchor-cream-text/70">Club meetings, fundraisers, social gatherings</p>
@@ -360,7 +360,7 @@ export default function FunctionRoomHirePage() {
 
               <div className="text-center">
                 <div className="bg-anchor-bg-raised w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-3xl">🎓</span>
+                  <span className="text-3xl"></span>
                 </div>
                 <h3 className="font-bold mb-2">Educational</h3>
                 <p className="text-sm text-anchor-cream-text/70">Workshops, seminars, training days</p>
@@ -381,37 +381,37 @@ export default function FunctionRoomHirePage() {
             columns={3}
             features={[
               {
-                icon: "💷",
+                icon: "",
                 title: "No Hidden Costs",
                 description: "Flexible pricing, no hidden charges, great value. Let's discuss your needs.",
                 className: "text-center"
               },
               {
-                icon: "🚗",
+                icon: "",
                 title: "Free Parking",
                 description: "20 spaces on-site saves your guests money and hassle",
                 className: "text-center"
               },
               {
-                icon: "📍",
+                icon: "",
                 title: "Prime Location",
                 description: "7 mins from Heathrow, 3 mins from M25, outside ULEZ zone",
                 className: "text-center"
               },
               {
-                icon: "🍽️",
+                icon: "",
                 title: "Flexible Catering",
                 description: "From tea & biscuits to five-course dinners - your choice",
                 className: "text-center"
               },
               {
-                icon: "🛠️",
+                icon: "",
                 title: "Full Support",
                 description: "Experienced team handles setup, service, and cleanup",
                 className: "text-center"
               },
               {
-                icon: "♿",
+                icon: "",
                 title: "Fully Accessible",
                 description: "Ground floor venue with wheelchair access throughout",
                 className: "text-center"
@@ -438,31 +438,31 @@ export default function FunctionRoomHirePage() {
                   content: (
                     <ul className="space-y-3">
                       <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-vivid">✓</span>
+                        <span className="text-anchor-gold-vivid"></span>
                         <span>Tables and chairs in your chosen layout</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-vivid">✓</span>
+                        <span className="text-anchor-gold-vivid"></span>
                         <span>White table linens and napkins</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-vivid">✓</span>
+                        <span className="text-anchor-gold-vivid"></span>
                         <span>Background music system</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-vivid">✓</span>
+                        <span className="text-anchor-gold-vivid"></span>
                         <span>Microphone for speeches</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-vivid">✓</span>
+                        <span className="text-anchor-gold-vivid"></span>
                         <span>Basic lighting control</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-vivid">✓</span>
+                        <span className="text-anchor-gold-vivid"></span>
                         <span>Heating and air conditioning</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-vivid">✓</span>
+                        <span className="text-anchor-gold-vivid"></span>
                         <span>Cloakroom facilities</span>
                       </li>
                     </ul>
@@ -474,31 +474,31 @@ export default function FunctionRoomHirePage() {
                   content: (
                     <ul className="space-y-3">
                       <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-vivid">✓</span>
+                        <span className="text-anchor-gold-vivid"></span>
                         <span>Pre-event planning consultation</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-vivid">✓</span>
+                        <span className="text-anchor-gold-vivid"></span>
                         <span>Dedicated event coordinator</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-vivid">✓</span>
+                        <span className="text-anchor-gold-vivid"></span>
                         <span>Professional service team</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-vivid">✓</span>
+                        <span className="text-anchor-gold-vivid"></span>
                         <span>Setup and breakdown included</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-vivid">✓</span>
+                        <span className="text-anchor-gold-vivid"></span>
                         <span>Flexible access times</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-vivid">✓</span>
+                        <span className="text-anchor-gold-vivid"></span>
                         <span>Supplier coordination</span>
                       </li>
                       <li className="flex items-start gap-3">
-                        <span className="text-anchor-gold-vivid">✓</span>
+                        <span className="text-anchor-gold-vivid"></span>
                         <span>Post-event cleanup</span>
                       </li>
                     </ul>
@@ -579,33 +579,33 @@ export default function FunctionRoomHirePage() {
               <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
                 <h3 className="font-bold text-lg mb-4">By Car</h3>
                 <ul className="space-y-2 text-anchor-cream-text/70 text-left">
-                  <li>📍 M25 Junction 14: 3 minutes</li>
-                  <li>📍 Heathrow T5: 7 minutes</li>
-                  <li>📍 Staines: 8 minutes</li>
-                  <li>📍 Windsor: 15 minutes</li>
-                  <li>📍 Central London: 45 minutes</li>
-                  <li className="pt-2 font-semibold">🚗 20 free parking spaces</li>
+                  <li> M25 Junction 14: 3 minutes</li>
+                  <li> Heathrow T5: 7 minutes</li>
+                  <li> Staines: 8 minutes</li>
+                  <li> Windsor: 15 minutes</li>
+                  <li> Central London: 45 minutes</li>
+                  <li className="pt-2 font-semibold"> 20 free parking spaces</li>
                 </ul>
               </div>
 
               <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
                 <h3 className="font-bold text-lg mb-4">Public Transport</h3>
                 <ul className="space-y-2 text-anchor-cream-text/70 text-left">
-                  <li>🚌 Local bus routes from Staines</li>
-                  <li>🚂 Staines station: 10 mins by taxi</li>
-                  <li>✈️ Heathrow shuttle options</li>
-                  <li>🚕 Uber/taxi readily available</li>
-                  <li className="pt-2 font-semibold">📱 We can help arrange transport</li>
+                  <li> Local bus routes from Staines</li>
+                  <li> Staines station: 10 mins by taxi</li>
+                  <li> Heathrow shuttle options</li>
+                  <li> Uber/taxi readily available</li>
+                  <li className="pt-2 font-semibold"> We can help arrange transport</li>
                 </ul>
               </div>
             </div>
 
             <QuickInfoGrid
               items={[
-                { icon: "✅", title: "Outside ULEZ zone - no charges" },
-                { icon: "✅", title: "Well-lit car park" },
-                { icon: "✅", title: "Level access from parking" },
-                { icon: "✅", title: "Safe residential area" }
+                { icon: "", title: "Outside ULEZ zone - no charges" },
+                { icon: "", title: "Well-lit car park" },
+                { icon: "", title: "Level access from parking" },
+                { icon: "", title: "Safe residential area" }
               ]}
               columns={4}
             />
@@ -702,21 +702,21 @@ export default function FunctionRoomHirePage() {
                 variant="primary"
                 context="function_room"
               >
-                🏢 Book Function Room
+                 Book Function Room
               </BookTableButton>
               <Link href="tel:+441753682707">
                 <Button size="lg" variant="secondary">
-                  📞 Call: 01753 682707
+                   Call: 01753 682707
                 </Button>
               </Link>
               <Link href="https://wa.me/441753682707?text=Hi,%20I'd%20like%20to%20enquire%20about%20function%20room%20hire" target="_blank" rel="noopener noreferrer">
                 <Button size="lg" variant="secondary">
-                  💬 WhatsApp Us
+                   WhatsApp Us
                 </Button>
               </Link>
               <Link href="mailto:manager@the-anchor.pub?subject=Function Room Hire Enquiry">
                 <Button size="lg" variant="secondary">
-                  📧 Email Enquiry
+                   Email Enquiry
                 </Button>
               </Link>
             </div>

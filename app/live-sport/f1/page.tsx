@@ -57,13 +57,13 @@ export default function F1Page() {
                         size="lg"
                         className="w-full sm:w-auto"
                     >
-                        🏎️ Book Pit Stop
+                        Book Pit Stop
                     </BookTableButton>
                 }
                 secondaryCta={
                     <Link href="/food-menu">
                         <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-                            🍔 Refuel
+                            Refuel
                         </Button>
                     </Link>
                 }
@@ -94,7 +94,7 @@ export default function F1Page() {
                             columns={3}
                             features={[
                                 {
-                                    icon: "🔊",
+                                    icon: "",
                                     title: "Commentary On",
                                     description: "For the race itself, we turn the music off and the commentary up so you don't miss a beat.",
                                     variant: "colored",
@@ -102,7 +102,7 @@ export default function F1Page() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "📺",
+                                    icon: "",
                                     title: "Sky Sports F1",
                                     description: "We have the dedicated F1 channel, so we show the build-up, the race, and the podium analysis.",
                                     variant: "colored",
@@ -110,7 +110,7 @@ export default function F1Page() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "🍔",
+                                    icon: "",
                                     title: "Sunday Roast",
                                     description: "Most races happen on Sundays. Combine the Grand Prix with our legendary Sunday Roast.",
                                     variant: "colored",
@@ -154,14 +154,14 @@ export default function F1Page() {
                 description="Reserve a table with a screen view."
                 buttons={[
                     {
-                        text: "🏎️ Book Now",
+                        text: "Book Now",
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "f1_cta",
                         variant: "primary"
                     },
                     {
-                        text: "📍 Directions",
+                        text: "Directions",
                         href: "/find-us",
                         variant: "secondary"
                     }

@@ -86,27 +86,27 @@ async function getQuizEvents() {
 
 const WHY_LOVE_IT = [
   {
-    icon: '🧠',
+    icon: '',
     title: 'Four Curated Rounds',
     body: 'Every quiz night quiz features four curated rounds mixing legends, cult film clues, riddles and general trivia. Expect 50% easy wins, 35% brain-teasers and a tasty 15% "ooh, good one".'
   },
   {
-    icon: '📝',
+    icon: '',
     title: 'Phone-Free, Pen & Paper Fun',
     body: 'Proper pub quiz energy with PG-13 questions so crews, families and Heathrow stopovers feel right at home. Solo players get paired on arrival.'
   },
   {
-    icon: '🏆',
+    icon: '',
     title: 'Prizes & Bragging Rights',
     body: 'GBP 25 bar tab for the champions, bottle of house wine for the second-from-last team, and seasonal props for the best team name. Bonus trivia prompts scoop extra bragging points.'
   },
   {
-    icon: '🎶',
+    icon: '',
     title: 'Atmosphere from 6:30 pm',
     body: 'Tables set from 6:30pm with themed playlists, seasonal décor and limited-edition cocktails behind the bar. Order dinner before the first round lands.'
   },
   {
-    icon: '❤️',
+    icon: '',
     title: 'Community Night Out',
     body: 'Friendly quizmasters, a welcoming Stanwell Moor crowd and plenty of laughs whether you’re local or flying in from Heathrow.'
   }
@@ -241,10 +241,10 @@ function QuizNightEvents({ events }: { events: Event[] }) {
                 )}
 	                <div className="flex flex-wrap items-center gap-3 text-sm">
 	                  <span className="inline-flex items-center px-3 py-1 rounded-full bg-anchor-bg-raised text-anchor-gold-vivid font-semibold">
-	                    🏅 GBP 25 bar tab for winners
+	                    GBP 25 bar tab for winners
 	                  </span>
                   <span className="inline-flex items-center px-3 py-1 rounded-full bg-amber-100 text-amber-700 font-semibold">
-                    🍷 Bottle of wine for second-from-last
+                    Bottle of wine for second-from-last
                   </span>
                 </div>
 	                <p className="text-sm text-anchor-cream-text/55">
@@ -282,9 +282,9 @@ export default async function QuizNightPage() {
         description="Proper quiz night pub energy with trivia rounds, seasonal themes and prizes worth bragging about. Your Heathrow pub trivia night HQ."
        
 	        tags={[
-	          { label: '📍 7 mins from Heathrow', variant: 'default' },
-	          { label: '🧠 Fresh themes monthly', variant: 'primary' },
-	          { label: '💷 GBP 3 per player · teams up to 6', variant: 'default' }
+	          { label: '7 mins from Heathrow', variant: 'default' },
+	          { label: 'Fresh themes monthly', variant: 'primary' },
+	          { label: 'GBP 3 per player · teams up to 6', variant: 'default' }
 	        ]}
         primaryCta={
           <BookTableButton
@@ -293,7 +293,7 @@ export default async function QuizNightPage() {
             size="lg"
             className="w-full sm:w-auto"
           >
-            📅 Book Your Quiz Table
+            Book Your Quiz Table
           </BookTableButton>
         }
         secondaryCta={
@@ -304,7 +304,7 @@ export default async function QuizNightPage() {
                 'inline-flex items-center justify-center font-semibold text-center transition-all duration-200 rounded-full whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-anchor-gold focus:ring-offset-2 bg-white text-anchor-green border-2 border-anchor-green hover:bg-anchor-green hover:text-white px-8 py-3.5 text-lg min-h-[48px] w-full sm:w-auto'
               )}
             >
-              📅 See upcoming quiz dates
+              See upcoming quiz dates
             </Link>
             <Link href="/food-menu#pizza" className="w-full sm:w-auto">
               <Button
@@ -313,7 +313,7 @@ export default async function QuizNightPage() {
                 fullWidth
                 className="sm:w-auto"
               >
-                🍕 Pizza Menu
+                Pizza Menu
               </Button>
             </Link>
             <Link href="/sunday-lunch" className="w-full sm:w-auto">
@@ -323,7 +323,7 @@ export default async function QuizNightPage() {
                 fullWidth
                 className="sm:w-auto"
               >
-                🍖 Sunday Roast Info
+                Sunday Roast Info
               </Button>
             </Link>
             <PhoneButton
@@ -333,7 +333,7 @@ export default async function QuizNightPage() {
               size="lg"
               className="w-full sm:w-auto"
             >
-              📞 Call to reserve: 01753 682707
+              Call to reserve: 01753 682707
             </PhoneButton>
           </>
         }
@@ -380,7 +380,7 @@ export default async function QuizNightPage() {
                       asChild
                       className="w-full bg-anchor-green text-white hover:bg-anchor-green-dark"
                     >
-                      <Link href="tel:+441753682707">📞 Call 01753 682707</Link>
+                      <Link href="tel:+441753682707">Call 01753 682707</Link>
                     </Button>
                   )}
                 </div>
@@ -542,10 +542,10 @@ export default async function QuizNightPage() {
               <CardBody className="space-y-4">
                 <h3 className="text-2xl font-bold">Quiz Night House Rules</h3>
                 <ul className="space-y-3 text-white/90 text-sm">
-                  <li>📵 Phones away during questions (–5 points if we catch a scroll).</li>
-                  <li>👶 Families welcome until 9 pm. Kids score bonus applause when they nail a question.</li>
-                  <li>🐕 Dogs welcome—water bowls and treats ready behind the bar.</li>
-                  <li>❤️ Charity pot when available supports local causes. We’ll shout about the beneficiary each month.</li>
+                  <li>Phones away during questions (–5 points if we catch a scroll).</li>
+                  <li>Families welcome until 9 pm. Kids score bonus applause when they nail a question.</li>
+                  <li>Dogs welcome—water bowls and treats ready behind the bar.</li>
+                  <li>Charity pot when available supports local causes. We’ll shout about the beneficiary each month.</li>
                 </ul>
               </CardBody>
             </Card>
@@ -614,7 +614,7 @@ export default async function QuizNightPage() {
                 size="lg"
                 className="w-full sm:w-auto bg-white text-anchor-green hover:bg-gray-100"
               >
-                📅 Book Your Team Table
+                Book Your Team Table
               </BookTableButton>
               <Link href="/food-menu#pizza" className="w-full sm:w-auto">
                 <Button
@@ -623,7 +623,7 @@ export default async function QuizNightPage() {
                   fullWidth
                   className="sm:w-auto bg-white/10 text-white hover:bg-white/20"
                 >
-                  🍕 Pizza Menu
+                  Pizza Menu
                 </Button>
               </Link>
               <Link href="/sunday-lunch" className="w-full sm:w-auto">
@@ -633,7 +633,7 @@ export default async function QuizNightPage() {
                   fullWidth
                   className="sm:w-auto bg-white/10 text-white hover:bg-white/20"
                 >
-                  🍖 Sunday Roast Info
+                  Sunday Roast Info
                 </Button>
               </Link>
               <Button
@@ -641,7 +641,7 @@ export default async function QuizNightPage() {
                 asChild
                 className="w-full sm:w-auto bg-white/10 text-white hover:bg-white/20"
               >
-                <Link href="#quiz-dates">📅 Upcoming quiz dates</Link>
+                <Link href="#quiz-dates">Upcoming quiz dates</Link>
               </Button>
             </div>
           </div>
@@ -666,13 +666,13 @@ export default async function QuizNightPage() {
                   href="https://maps.app.goo.gl/YNbjTDF9g7uCcbYF6"
                   className="inline-flex items-center justify-center gap-2 rounded-lg border border-anchor-green px-4 py-2 text-anchor-green font-semibold hover:bg-anchor-green hover:text-white transition"
                 >
-                  📍 Get directions
+                  Get directions
                 </Link>
                 <Link
                   href="https://wa.me/441753682707"
                   className="inline-flex items-center justify-center gap-2 rounded-lg border border-anchor-gold px-4 py-2 text-anchor-gold font-semibold hover:bg-anchor-gold hover:text-anchor-green transition"
                 >
-                  💬 WhatsApp the team
+                  WhatsApp the team
                 </Link>
               </div>
             </div>

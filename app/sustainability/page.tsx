@@ -180,13 +180,13 @@ export default function SustainabilityPage() {
               columns={2}
               features={[
                 {
-                  icon: '🌍',
+                  icon: '',
                   title: 'Earth Day Clean-ups',
                   description: 'We take part in Earth Day community clean-ups with the Stanwell Moor Residents Association, helping keep the local area tidy.',
                   className: 'text-center'
                 },
                 {
-                  icon: '🐝',
+                  icon: '',
                   title: 'Honey Bee Mine',
                   description: 'A bee-friendly initiative supporting pollinators in the local area, as part of our wider commitment to the community and environment.',
                   className: 'text-center'
@@ -227,13 +227,13 @@ export default function SustainabilityPage() {
               columns={2}
               features={[
                 {
-                  icon: '🍺',
+                  icon: '',
                   title: 'Consistently Good Draught Beer',
                   description: 'Cleaner, more efficient systems make for better-kept beer. You can taste the difference.',
                   className: 'text-center'
                 },
                 {
-                  icon: '🌱',
+                  icon: '',
                   title: 'A Pub That Thinks Long-Term',
                   description: 'We think about more than just today. The choices we make now are about building something that lasts.',
                   className: 'text-center'

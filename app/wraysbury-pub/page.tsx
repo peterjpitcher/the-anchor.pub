@@ -116,13 +116,13 @@ export default async function WraysburyPubPage() {
                         size="lg"
                         className="w-full sm:w-auto"
                     >
-                        📞 Book a Table
+                        Book a Table
                     </BookTableButton>
                 }
                 secondaryCta={
                     <Link href="/food-menu">
                         <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-                            🍽️ View Menu
+                            View Menu
                         </Button>
                     </Link>
                 }
@@ -159,7 +159,7 @@ export default async function WraysburyPubPage() {
                             columns={3}
                             features={[
                                 {
-                                    icon: "🍕",
+                                    icon: "",
                                     title: "Stone-Baked Pizza",
                                     description: "Authentic pizzas served Tuesday-Saturday (and BOGOF on Tuesdays!)",
                                     variant: "colored",
@@ -167,7 +167,7 @@ export default async function WraysburyPubPage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "🎭",
+                                    icon: "",
                                     title: "Live Entertainment",
                                     description: "Music Bingo with Nikki Manfadge, quiz nights, and bingo - lively events you won't find everywhere (see /whats-on)",
                                     variant: "colored",
@@ -175,7 +175,7 @@ export default async function WraysburyPubPage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "🥩",
+                                    icon: "",
                                     title: "Sunday Roast",
                                     description: "A proper home-cooked roast with all the trimmings",
                                     variant: "colored",
@@ -226,7 +226,7 @@ export default async function WraysburyPubPage() {
                                 size="lg"
                                 fromLocation="Wraysbury"
                             >
-                                📍 Get Directions from Wraysbury (5 mins)
+                                Get Directions from Wraysbury (5 mins)
                             </DirectionsButton>
                         </div>
                     </div>
@@ -271,19 +271,19 @@ export default async function WraysburyPubPage() {
                 description="Experience the best hospitality in the area at The Anchor."
                 buttons={[
                     {
-                        text: "📞 Book a Table",
+                        text: "Book a Table",
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "wraysbury_pub_cta",
                         variant: "secondary"
                     },
                     {
-                        text: "🎉 Book an Event",
+                        text: "Book an Event",
                         href: "/private-hire#enquiry",
                         variant: "white"
                     },
                     {
-                        text: "📍 Get Directions",
+                        text: "Get Directions",
                         href: "https://maps.google.com/maps?saddr=Wraysbury&daddr=The+Anchor+Stanwell+Moor+TW19+6AQ",
                         variant: "white"
                     }

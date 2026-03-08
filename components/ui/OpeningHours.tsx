@@ -108,8 +108,6 @@ export const OpeningHours = forwardRef<HTMLDivElement, OpeningHoursProps>(
                 <div className="text-right">
                   {hour.isClosed ? (
                     <div className="flex items-center gap-1 text-red-600">
-                      {/* XCircle icon removed */}
-                      <span className="text-red-600">✕</span>
                       <span className="font-medium">Closed</span>
                     </div>
                   ) : (

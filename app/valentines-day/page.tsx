@@ -305,14 +305,14 @@ export default async function ValentinesDayPage() {
         ]}
         tags={[
           { label: `⏰ ${eventTime}`, variant: 'default' },
-          ...(isFreeEntry ? [{ label: '🎟️ Free entry', variant: 'success' as const }] : []),
-          ...(proseccoOffer ? [{ label: '🥂 Prosecco offer', variant: 'primary' as const }] : []),
-          { label: '💚 Bookings recommended', variant: 'success' }
+          ...(isFreeEntry ? [{ label: 'Free entry', variant: 'success' as const }] : []),
+          ...(proseccoOffer ? [{ label: 'Prosecco offer', variant: 'primary' as const }] : []),
+          { label: 'Bookings recommended', variant: 'success' }
         ]}
         primaryCta={
           <Button asChild variant="primary" size="lg" fullWidth className="w-full sm:w-auto">
             <a href={VALENTINES_DAY_BOOKING_URL}>
-              💘 Book Valentine's Table
+              Book Valentine's Table
             </a>
           </Button>
         }
@@ -330,7 +330,7 @@ export default async function ValentinesDayPage() {
               size="lg"
               className="w-full sm:w-auto"
             >
-              📞 Call: 01753 682707
+              Call: 01753 682707
             </PhoneButton>
           </>
         }
@@ -442,7 +442,7 @@ export default async function ValentinesDayPage() {
                         className="w-full sm:w-auto sm:min-w-[220px]"
                       >
                         <a href={VALENTINES_DAY_BOOKING_URL}>
-                          💘 Book a Table
+                          Book a Table
                         </a>
                       </Button>
                     </div>
@@ -523,7 +523,7 @@ export default async function ValentinesDayPage() {
                       size="md"
                       className="w-full"
                     >
-                      📞 Call 01753 682707
+                      Call 01753 682707
                     </PhoneButton>
                   </CardBody>
                 </Card>
@@ -543,7 +543,7 @@ export default async function ValentinesDayPage() {
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Button asChild variant="primary" size="lg" fullWidth className="w-full sm:w-auto">
                 <a href={VALENTINES_DAY_BOOKING_URL}>
-                  📅 Book a Table Online
+                  Book a Table Online
                 </a>
               </Button>
               <PhoneButton
@@ -553,7 +553,7 @@ export default async function ValentinesDayPage() {
                 size="lg"
                 className="w-full sm:w-auto"
               >
-                📞 Call 01753 682707
+                Call 01753 682707
               </PhoneButton>
             </div>
             <p className="text-sm text-anchor-cream-text/70">Tables for 8+ guests — please call.</p>
@@ -578,7 +578,7 @@ export default async function ValentinesDayPage() {
                 <div className="flex flex-col gap-3 sm:flex-row">
                   <Link href="/find-us" className="w-full sm:w-auto">
                     <Button variant="secondary" size="lg" fullWidth className="w-full sm:w-auto">
-                      📍 Directions & parking
+                      Directions & parking
                     </Button>
                   </Link>
                   <PhoneButton
@@ -588,7 +588,7 @@ export default async function ValentinesDayPage() {
                     size="lg"
                     className="w-full sm:w-auto"
                   >
-                    📞 Call 01753 682707
+                    Call 01753 682707
                   </PhoneButton>
                 </div>
               </div>

@@ -101,22 +101,22 @@ async function getKaraokeEvents() {
 
 const WHY_LOVE_IT = [
     {
-        icon: '🎤',
+        icon: '',
         title: 'Thousands of Songs',
         body: 'From 80s power ballads to today’s chart-toppers, we’ve got a massive library to choose from. If you can hum it, you can probably sing it.'
     },
     {
-        icon: '💸',
+        icon: '',
         title: 'Free to Sing',
         body: 'No entry fee, no cost to sing. Just grab a drink, pick your track, and claim the spotlight. It’s all about having fun.'
     },
     {
-        icon: '🍻',
+        icon: '',
         title: 'Liquid Courage',
         body: 'Need a confidence boost? Our bar is fully stocked with craft beers, cocktails, and shots to help you hit those high notes.'
     },
     {
-        icon: '🎉',
+        icon: '',
         title: 'Supportive Crowd',
         body: 'Whether you’re a pro vocalist or just having a laugh, the Stanwell Moor crowd is always behind you. Good vibes only!'
     }
@@ -248,9 +248,9 @@ export default async function KaraokePage() {
                 description="The stage is yours! Join us near Heathrow for the ultimate karaoke night. Thousands of songs, liquid courage on tap, and free entry."
                
                 tags={[
-                    { label: '🎤 Thousands of Songs', variant: 'primary' },
-                    { label: '💸 Always Free Entry', variant: 'default' },
-                    { label: '🍻 Liquid Courage Available', variant: 'default' }
+                    { label: 'Thousands of Songs', variant: 'primary' },
+                    { label: 'Always Free Entry', variant: 'default' },
+                    { label: 'Liquid Courage Available', variant: 'default' }
                 ]}
                 primaryCta={
                     <BookTableButton
@@ -259,7 +259,7 @@ export default async function KaraokePage() {
                         size="lg"
                         className="w-full sm:w-auto"
                     >
-                        📅 Book Your Table
+                        Book Your Table
                     </BookTableButton>
                 }
                 secondaryCta={
@@ -270,7 +270,7 @@ export default async function KaraokePage() {
                                 'inline-flex items-center justify-center font-semibold text-center transition-all duration-200 rounded-full whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-anchor-gold focus:ring-offset-2 bg-white text-anchor-green border-2 border-anchor-green hover:bg-anchor-green hover:text-white px-8 py-3.5 text-lg min-h-[48px] w-full sm:w-auto'
                             )}
                         >
-                            📅 See upcoming dates
+                            See upcoming dates
                         </a>
                         <PhoneButton
                             phone="01753 682707"
@@ -279,7 +279,7 @@ export default async function KaraokePage() {
                             size="lg"
                             className="w-full sm:w-auto"
                         >
-                            📞 Call to reserve: 01753 682707
+                            Call to reserve: 01753 682707
                         </PhoneButton>
                     </>
                 }
@@ -287,7 +287,7 @@ export default async function KaraokePage() {
 
             <section className="bg-anchor-bg py-6">
                 <Container>
-                    <p className="text-center text-sm text-anchor-cream-text/55">⭐⭐⭐⭐⭐ <strong>Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
+                    <p className="text-center text-sm text-anchor-cream-text/55"><strong>Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
                 </Container>
             </section>
 
@@ -325,7 +325,7 @@ export default async function KaraokePage() {
                                             asChild
                                             className="w-full bg-anchor-green text-white hover:bg-anchor-green-dark"
                                         >
-                                            <Link href="tel:+441753682707">📞 Call 01753 682707</Link>
+                                            <Link href="tel:+441753682707">Call 01753 682707</Link>
                                         </Button>
                                     )}
                                 </div>
@@ -461,13 +461,13 @@ export default async function KaraokePage() {
                                     href="https://maps.app.goo.gl/YNbjTDF9g7uCcbYF6"
                                     className="inline-flex items-center justify-center gap-2 rounded-lg border border-anchor-green px-4 py-2 text-anchor-green font-semibold hover:bg-anchor-green hover:text-white transition"
                                 >
-                                    📍 Get directions
+                                    Get directions
                                 </Link>
                                 <Link
                                     href="https://wa.me/441753682707"
                                     className="inline-flex items-center justify-center gap-2 rounded-lg border border-anchor-gold px-4 py-2 text-anchor-gold font-semibold hover:bg-anchor-gold hover:text-anchor-green transition"
                                 >
-                                    💬 WhatsApp us
+                                    WhatsApp us
                                 </Link>
                             </div>
                         </div>
@@ -495,7 +495,7 @@ export default async function KaraokePage() {
                                 size="lg"
                                 className="w-full sm:w-auto bg-white text-anchor-green hover:bg-gray-100"
                             >
-                                📅 Book Your Table
+                                Book Your Table
                             </BookTableButton>
                             <PhoneButton
                                 phone="01753 682707"
@@ -504,7 +504,7 @@ export default async function KaraokePage() {
                                 size="lg"
                                 className="w-full sm:w-auto bg-white/10 text-white hover:bg-white/20"
                             >
-                                📞 Call: 01753 682707
+                                Call: 01753 682707
                             </PhoneButton>
                         </div>
                     </div>

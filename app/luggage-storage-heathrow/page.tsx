@@ -82,7 +82,7 @@ export default function LuggageStoragePage() {
                         size="lg"
                         className="w-full sm:w-auto"
                     >
-                        📞 Book & Store
+                        Book & Store
                     </BookTableButton>
                 }
                 secondaryCta={
@@ -117,7 +117,7 @@ export default function LuggageStoragePage() {
                             columns={3}
                             features={[
                                 {
-                                    icon: "📅",
+                                    icon: "",
                                     title: "1. Book Your Spot",
                                     description: "Book a table for a meal and add 'Luggage' to the notes so we know you're coming.",
                                     variant: "colored",
@@ -125,7 +125,7 @@ export default function LuggageStoragePage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "🔒",
+                                    icon: "",
                                     title: "2. Safe & Secure",
                                     description: "We store your bags in a non-public area behind the bar or in our function room.",
                                     variant: "colored",
@@ -133,7 +133,7 @@ export default function LuggageStoragePage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "🍔",
+                                    icon: "",
                                     title: "3. Eat & Relax",
                                     description: "Enjoy a Sunday Roast, Fish & Chips, or a cold pint in the garden.",
                                     variant: "colored",
@@ -165,19 +165,19 @@ export default function LuggageStoragePage() {
                             <div className="bg-anchor-bg-raised p-6 rounded-xl border border-anchor-gold/15">
                                 <h3 className="text-xl font-bold text-green-800 mb-2">The Anchor</h3>
                                 <ul className="space-y-3">
-                                    <li className="flex items-center">✅ Free storage for diners</li>
-                                    <li className="flex items-center">✅ Comfortable seating & WiFi</li>
-                                    <li className="flex items-center">✅ Great food & beer</li>
-                                    <li className="flex items-center">✅ Fresh air in the garden</li>
+                                    <li className="flex items-center">Free storage for diners</li>
+                                    <li className="flex items-center">Comfortable seating & WiFi</li>
+                                    <li className="flex items-center">Great food & beer</li>
+                                    <li className="flex items-center">Fresh air in the garden</li>
                                 </ul>
                             </div>
                             <div className="bg-red-50 p-6 rounded-xl">
                                 <h3 className="text-xl font-bold text-red-800 mb-2">Airport Left Luggage</h3>
                                 <ul className="space-y-3">
-                                    <li className="flex items-center">❌ Expensive per item fees</li>
-                                    <li className="flex items-center">❌ Busy queues</li>
-                                    <li className="flex items-center">❌ Nowhere to sit</li>
-                                    <li className="flex items-center">❌ Only fast food nearby</li>
+                                    <li className="flex items-center">Expensive per item fees</li>
+                                    <li className="flex items-center">Busy queues</li>
+                                    <li className="flex items-center">Nowhere to sit</li>
+                                    <li className="flex items-center">Only fast food nearby</li>
                                 </ul>
                             </div>
                         </div>
@@ -208,14 +208,14 @@ export default function LuggageStoragePage() {
                 description="Book your table now and travel stress-free."
                 buttons={[
                     {
-                        text: "📞 Book & Store",
+                        text: "Book & Store",
                         href: `${CONTACT.phoneHref}`, // Using phone as booking link for now or the book widget
                         isPhone: true,
                         phoneSource: "luggage_cta",
                         variant: "primary"
                     },
                     {
-                        text: "📍 Get Directions",
+                        text: "Get Directions",
                         href: "https://maps.google.com/maps?daddr=The+Anchor+Stanwell+Moor+TW19+6AQ",
                         variant: "white"
                     }

@@ -87,7 +87,7 @@ export default function GenderRevealPage() {
                 primaryCta={
                     <Link href="/private-hire#enquiry">
                         <Button variant="primary" size="lg" className="w-full sm:w-auto">
-                            👶 Enquire Now
+                            Enquire Now
                         </Button>
                     </Link>
                 }
@@ -122,7 +122,7 @@ export default function GenderRevealPage() {
                             columns={3}
                             features={[
                                 {
-                                    icon: "🌳",
+                                    icon: "",
                                     title: "Garden Space",
                                     description: "Our large beer garden is the safest and best place for smoke cannons and outdoor reveals.",
                                     variant: "colored",
@@ -130,7 +130,7 @@ export default function GenderRevealPage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "🍰",
+                                    icon: "",
                                     title: "Afternoon Tea",
                                     description: "Ask about our buffet or afternoon tea style packages for a classy touch.",
                                     variant: "colored",
@@ -138,7 +138,7 @@ export default function GenderRevealPage() {
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
-                                    icon: "👨‍👩‍👧‍👦",
+                                    icon: "",
                                     title: "Family Friendly",
                                     description: "Plenty of space for kids to run around while the adults celebrate.",
                                     variant: "colored",
@@ -199,12 +199,12 @@ export default function GenderRevealPage() {
                 description="(The gender question, that is!) Book your reveal today."
                 buttons={[
                     {
-                        text: "👶 Enquire Now",
+                        text: "Enquire Now",
                         href: "/private-hire#enquiry",
                         variant: "primary"
                     },
                     {
-                        text: "📞 Call Us",
+                        text: "Call Us",
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "reveal_cta",

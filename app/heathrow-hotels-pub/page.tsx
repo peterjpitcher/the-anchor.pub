@@ -116,13 +116,13 @@ export default function HeathrowHotelsPubPage() {
             className="w-full sm:w-auto"
             context="heathrow_hotels_local"
           >
-            📅 Book a Table
+             Book a Table
           </BookTableButton>
         }
         secondaryCta={
           <Link href="/food-menu">
             <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-              🍽️ View Menu
+               View Menu
             </Button>
           </Link>
         }
@@ -161,7 +161,7 @@ export default function HeathrowHotelsPubPage() {
               columns={3}
               features={[
                 {
-                  icon: "💰",
+                  icon: "",
                   title: "Great Value",
                   description: "Honest pub pricing with mains from £8.99",
                   variant: "colored",
@@ -169,7 +169,7 @@ export default function HeathrowHotelsPubPage() {
                   className: "rounded-xl p-6 text-center"
                 },
                 {
-                  icon: "🚗",
+                  icon: "",
                   title: "Free Parking",
                   description: "20 spaces - no hourly charges like hotel car parks",
                   variant: "colored",
@@ -177,7 +177,7 @@ export default function HeathrowHotelsPubPage() {
                   className: "rounded-xl p-6 text-center"
                 },
                 {
-                  icon: "🇬🇧",
+                  icon: "",
                   title: "Real Experience",
                   description: "Authentic British pub, not a chain hotel restaurant",
                   variant: "colored",
@@ -290,25 +290,25 @@ export default function HeathrowHotelsPubPage() {
                 <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">Escape Hotel Life</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">✓</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div>
                       <strong>Real pub atmosphere</strong> - Not another sterile hotel bar
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">✓</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div>
                       <strong>Meet locals</strong> - Experience genuine British hospitality
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">✓</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div>
                       <strong>Proper portions</strong> - Not tiny hotel plates at huge prices
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">✓</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div>
                       <strong>Entertainment</strong> - Quiz nights, hosted nights like Music Bingo with Nikki Manfadge, live atmosphere (see /whats-on)
                     </div>
@@ -320,25 +320,25 @@ export default function HeathrowHotelsPubPage() {
                 <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">Perfect for Travelers</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">🕐</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div>
                       <strong>Layover dining</strong> - Better than airport or hotel food
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">✈️</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div>
                       <strong>Pre-flight meals</strong> - Proper dinner before early flights
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">🧳</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div>
                       <strong>Luggage storage</strong> - We'll keep bags safe while you eat
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold text-xl">🌍</span>
+                    <span className="text-anchor-gold text-xl"></span>
                     <div>
                       <strong>All currencies</strong> - Cards welcome, including Amex
                     </div>
@@ -373,21 +373,21 @@ export default function HeathrowHotelsPubPage() {
 	              columns={3}
 	              features={[
 	                {
-	                  icon: "🍺",
+	                  icon: "",
 	                  title: "Real Ales",
 	                  description: "Try proper British beer - not just hotel lagers. From GBP 4.80/pint",
 	                  variant: "default",
 	                  className: "bg-white rounded-lg p-6 shadow-md text-center"
 	                },
 	                {
-	                  icon: "🐟",
+	                  icon: "",
 	                  title: "Fish & Chips",
 	                  description: "Classic British meal hotel guests always request. GBP 12.99 (half hotel price)",
 	                  variant: "default",
 	                  className: "bg-white rounded-lg p-6 shadow-md text-center"
 	                },
 	                {
-	                  icon: "🥩",
+	                  icon: "",
 	                  title: "Sunday Roast",
 	                  description: "Must-try British tradition for Sunday visitors. From GBP 19.99",
 	                  variant: "default",
@@ -441,7 +441,7 @@ export default function HeathrowHotelsPubPage() {
             
             <div className="grid md:grid-cols-3 gap-6">
 	              <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
-	                <h3 className="text-xl font-bold mb-3">🚕 By Taxi</h3>
+	                <h3 className="text-xl font-bold mb-3"> By Taxi</h3>
 	                <ul className="space-y-2 text-anchor-cream-text/70">
 	                  <li>• GBP 10-15 from most hotels</li>
 	                  <li>• 7-12 minute journey</li>
@@ -451,7 +451,7 @@ export default function HeathrowHotelsPubPage() {
 	              </div>
               
               <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
-                <h3 className="text-xl font-bold mb-3">🚗 Rental Car</h3>
+                <h3 className="text-xl font-bold mb-3"> Rental Car</h3>
                 <ul className="space-y-2 text-anchor-cream-text/70">
                   <li>• Free parking at pub</li>
                   <li>• Easy route from all hotels</li>
@@ -461,7 +461,7 @@ export default function HeathrowHotelsPubPage() {
               </div>
               
               <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
-                <h3 className="text-xl font-bold mb-3">🚌 Public Transport</h3>
+                <h3 className="text-xl font-bold mb-3"> Public Transport</h3>
                 <ul className="space-y-2 text-anchor-cream-text/70">
                   <li>• Bus 442 from some hotels</li>
                   <li>• Ask hotel concierge</li>
@@ -531,19 +531,19 @@ export default function HeathrowHotelsPubPage() {
                 <h3 className="text-xl font-bold text-anchor-cream-text mb-4">Ideal for Airport Companies</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-vivid">✓</span>
+                    <span className="text-anchor-gold-vivid"></span>
                     <span><strong>7 minutes from terminals</strong> - Quick access for international teams</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-vivid">✓</span>
+                    <span className="text-anchor-gold-vivid"></span>
                     <span><strong>Airline crew events</strong> - Regular venue for BA, Virgin, Emirates teams</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-vivid">✓</span>
+                    <span className="text-anchor-gold-vivid"></span>
                     <span><strong>No hotel markups</strong> - Corporate rates, not inflated airport prices</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span className="text-anchor-gold-vivid">✓</span>
+                    <span className="text-anchor-gold-vivid"></span>
                     <span><strong>Free parking</strong> - Essential for staff without hotel shuttles</span>
                   </li>
                 </ul>
@@ -553,19 +553,19 @@ export default function HeathrowHotelsPubPage() {
                 <h3 className="text-xl font-bold text-anchor-cream-text mb-4">Popular Airport Events</h3>
                 <div className="space-y-4">
                   <div>
-                    <h4 className="font-semibold text-anchor-gold mb-1">✈️ Crew Celebrations</h4>
+                    <h4 className="font-semibold text-anchor-gold mb-1"> Crew Celebrations</h4>
                     <p className="text-sm text-anchor-cream-text/70">End of season parties, retirement send-offs</p>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-anchor-gold mb-1">🏢 Airport Staff Events</h4>
+                    <h4 className="font-semibold text-anchor-gold mb-1"> Airport Staff Events</h4>
                     <p className="text-sm text-anchor-cream-text/70">Team meetings, training days, Christmas parties</p>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-anchor-gold mb-1">🌍 International Teams</h4>
+                    <h4 className="font-semibold text-anchor-gold mb-1"> International Teams</h4>
                     <p className="text-sm text-anchor-cream-text/70">Perfect when colleagues fly in for meetings</p>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-anchor-gold mb-1">🏨 Hotel Overflow</h4>
+                    <h4 className="font-semibold text-anchor-gold mb-1"> Hotel Overflow</h4>
                     <p className="text-sm text-anchor-cream-text/70">When hotel venues are fully booked</p>
                   </div>
                 </div>
@@ -593,11 +593,11 @@ export default function HeathrowHotelsPubPage() {
                       variant="secondary"
                       size="md"
                     >
-                      📞 Quick Quote
+                       Quick Quote
                     </PhoneButton>
                     <Link href="https://wa.me/441753682707?text=Hi,%20we" target="_blank" rel="noopener noreferrer">
                       <Button variant="secondary" size="md">
-                        💬 WhatsApp
+                         WhatsApp
                       </Button>
                     </Link>
                   </div>
@@ -660,19 +660,19 @@ export default function HeathrowHotelsPubPage() {
         description="Real food, real prices, real British pub - just minutes from your hotel"
         buttons={[
           {
-            text: "📞 Book a Table",
+            text: " Book a Table",
             href: `${CONTACT.phoneHref}`,
             isPhone: true,
             phoneSource: "heathrow_hotels_pub_cta",
             variant: "secondary"
           },
           {
-            text: "🎉 Book an Event",
+            text: " Book an Event",
             href: "/private-hire#enquiry",
             variant: "white"
           },
           {
-            text: "🍽️ View Menu",
+            text: " View Menu",
             href: "/food-menu",
             variant: "white"
           }
