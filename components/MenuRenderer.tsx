@@ -196,7 +196,7 @@ export function MenuRenderer({ menuData }: MenuRendererProps) {
                   )}
 
                   {section.title && (
-                    <h3 className="text-xs font-semibold uppercase tracking-widest text-anchor-gold/60 mt-6 mb-1 first:mt-0">
+                    <h3 className="text-base font-semibold uppercase tracking-widest text-anchor-gold/60 mt-6 mb-1 first:mt-0">
                       {section.title}
                     </h3>
                   )}
