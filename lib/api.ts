@@ -859,6 +859,31 @@ export interface ParkingBookingDetails {
   updated_at: string
 }
 
+export interface ParkingCreateOrderRequest {
+  customer: ParkingCustomerDetails
+  vehicle: ParkingVehicleDetails
+  start_at: string
+  end_at: string
+  notes?: string
+}
+
+// Management tools returns this from /parking/bookings when source:'website'.
+// request<T>() automatically unwraps { success: true, data: {...} } → data.
+export interface ParkingCreateOrderResponse {
+  paypal_order_id: string
+  booking_id: string
+  reference: string
+  amount: number
+  currency: string
+  pricing_breakdown?: ParkingPricingBreakdownItem[]  // needed for wizard step 4 price display
+}
+
+export interface ParkingCaptureResponse {
+  booking_id: string
+  reference: string
+  status: string
+}
+
 export interface ParkingAvailabilitySlot {
   start_at: string
   end_at: string
@@ -2376,6 +2401,27 @@ export class AnchorAPI {
 
   async getParkingBooking(id: string): Promise<ParkingBookingDetails> {
     return this.request<ParkingBookingDetails>(`/parking/bookings/${id}`)
+  }
+
+  async createParkingPaymentOrder(
+    data: ParkingCreateOrderRequest,
+    idempotencyKey?: string
+  ): Promise<ParkingCreateOrderResponse> {
+    const headers: Record<string, string> = {}
+    if (idempotencyKey) headers['Idempotency-Key'] = idempotencyKey
+
+    return this.request<ParkingCreateOrderResponse>('/parking/bookings', {
+      method: 'POST',
+      body: JSON.stringify({ ...data, source: 'website' }),
+      headers,
+    })
+  }
+
+  async captureParkingPayment(orderID: string, bookingId: string): Promise<ParkingCaptureResponse> {
+    return this.request<ParkingCaptureResponse>('/parking/payment/capture', {
+      method: 'POST',
+      body: JSON.stringify({ order_id: orderID, booking_id: bookingId }),
+    })
   }
 
   async getSundayLunchMenu(date?: string): Promise<SundayLunchMenuResponse> {
