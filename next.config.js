@@ -63,6 +63,7 @@ const nextConfig = {
           "frame-src https://www.paypal.com https://*.paypal.com",
           "connect-src 'self' https://www.paypal.com https://*.paypal.com",
           "img-src 'self' data: blob: https://*.paypal.com https://*.paypalobjects.com",
+          "font-src 'self'",
         ].join('; '),
       },
     ]
