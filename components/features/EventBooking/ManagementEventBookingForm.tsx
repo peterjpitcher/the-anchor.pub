@@ -312,13 +312,13 @@ export function ManagementEventBookingForm({ event, title, compact = false }: Ma
     <Card variant="elevated" padding={compact ? 'none' : undefined}>
       <CardBody className={compact ? 'space-y-4 p-4' : 'space-y-6'}>
         {title ? (
-          <h2 className={compact ? 'text-xl font-bold text-anchor-green' : 'text-2xl font-bold text-anchor-green'}>
+          <h2 className={compact ? 'text-xl font-bold text-anchor-gold-vivid' : 'text-2xl font-bold text-anchor-gold-vivid'}>
             {title}
           </h2>
         ) : null}
 
         <form onSubmit={handleSubmit} className={compact ? 'space-y-3' : 'space-y-4'}>
-          <div className={compact ? 'rounded-xl border border-gray-200 bg-gray-50 p-3' : 'rounded-xl border border-gray-200 bg-gray-50 p-4'}>
+          <div className={compact ? 'border border-anchor-gold/15 bg-anchor-bg-raised p-3' : 'border border-anchor-gold/15 bg-anchor-bg-raised p-4'}>
             <Input
               label="Mobile Number"
               type="tel"
@@ -342,14 +342,14 @@ export function ManagementEventBookingForm({ event, title, compact = false }: Ma
               )}
             </div>
 
-            {lookupError && <p className="mt-3 text-sm text-red-700">{lookupError}</p>}
+            {lookupError && <p className="mt-3 text-sm text-red-400">{lookupError}</p>}
             {isKnownCustomer && (
-              <p className="mt-3 text-sm font-medium text-green-800">
+              <p className="mt-3 text-sm font-medium text-green-400">
                 Recognized customer{knownCustomer?.full_name ? `: ${knownCustomer.full_name}` : ''}. You can continue with booking details.
               </p>
             )}
             {lookupState === 'unknown' && (
-              <p className="mt-3 text-sm font-medium text-amber-800">
+              <p className="mt-3 text-sm font-medium text-amber-400">
                 {lookupDegraded
                   ? 'We could not verify this number right now. Please continue by entering your details below.'
                   : 'New customer detected. Please enter your personal details below.'}
@@ -454,7 +454,7 @@ export function ManagementEventBookingForm({ event, title, compact = false }: Ma
               </Button>
             </div>
             {waitlistResult?.state === 'queued' && (
-              <p className="mt-3 font-semibold text-green-800">You’re on the waitlist. We’ll text you if seats open up.</p>
+              <p className="mt-3 font-semibold text-green-400">You’re on the waitlist. We’ll text you if seats open up.</p>
             )}
             {waitlistResult && waitlistResult.state !== 'queued' && (
               <p className="mt-3">{waitlistResult.reason || 'We could not join the waitlist for this event.'}</p>
