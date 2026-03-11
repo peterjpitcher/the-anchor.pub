@@ -54,18 +54,11 @@ const nextConfig = {
         key: 'X-DNS-Prefetch-Control',
         value: 'on',
       },
-      {
-        key: 'Content-Security-Policy',
-        value: [
-          "default-src 'self'",
-          "script-src 'self' https://www.paypal.com https://*.paypal.com",
-          "style-src 'self' 'unsafe-inline'",
-          "frame-src https://www.paypal.com https://*.paypal.com",
-          "connect-src 'self' https://www.paypal.com https://*.paypal.com",
-          "img-src 'self' data: blob: https://*.paypal.com https://*.paypalobjects.com",
-          "font-src 'self'",
-        ].join('; '),
-      },
+      // NOTE: No Content-Security-Policy header is set here.
+      // A restrictive CSP blocks Next.js App Router inline hydration scripts,
+      // GTM, and other required third-party resources, breaking the entire site.
+      // PayPal Smart Buttons do not require a CSP to function — iframes and
+      // external scripts are permitted by default when no CSP is present.
     ]
 
     const baseHeaders = [
