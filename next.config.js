@@ -54,6 +54,17 @@ const nextConfig = {
         key: 'X-DNS-Prefetch-Control',
         value: 'on',
       },
+      {
+        key: 'Content-Security-Policy',
+        value: [
+          "default-src 'self'",
+          "script-src 'self' https://www.paypal.com https://*.paypal.com",
+          "style-src 'self' 'unsafe-inline'",
+          "frame-src https://www.paypal.com https://*.paypal.com",
+          "connect-src 'self' https://www.paypal.com https://*.paypal.com",
+          "img-src 'self' data: blob: https://*.paypal.com https://*.paypalobjects.com",
+        ].join('; '),
+      },
     ]
 
     const baseHeaders = [
