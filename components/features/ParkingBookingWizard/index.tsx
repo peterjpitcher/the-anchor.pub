@@ -1,11 +1,21 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import Script from 'next/script'
 import { Button } from '@/components/ui/primitives/Button'
 import { Input, Textarea } from '@/components/ui/primitives/Input'
 import { Icon } from '@/components/ui/Icon'
 import type { ParkingRateCard, ParkingPricingBreakdownItem } from '@/lib/api'
 import { formatPrice } from '@/lib/utils'
+
+declare global {
+  interface Window {
+    paypal?: {
+      Buttons: (config: Record<string, unknown>) => { render: (el: HTMLElement) => void }
+    }
+  }
+}
 
 interface AvailabilityResult {
   timestamp: string
@@ -211,9 +221,15 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
 
   const [notes, setNotes] = useState('')
 
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submissionError, setSubmissionError] = useState<string | null>(null)
-  const [submissionSuccess, setSubmissionSuccess] = useState<string | null>(null)
+  const router = useRouter()
+  const paypalContainerRef = useRef<HTMLDivElement>(null)
+  const [paypalLoaded, setPaypalLoaded] = useState(false)
+  const [paypalRendered, setPaypalRendered] = useState(false)
+  const [captureState, setCaptureState] = useState<'idle' | 'capturing' | 'error' | 'cancelled'>('idle')
+  // Stores the booking_id returned by createOrder so onApprove can pass it to capture
+  const pendingBookingIdRef = useRef<string | null>(null)
+  // Sync ref keeps createOrder callbacks from closing over stale state
+  const bookingDataRef = useRef({ customer, vehicle, start, end, notes })
 
   const estimate = useMemo(
     () => calculateEstimate(rates, start, end),
@@ -324,6 +340,18 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
     }
   }, [start, end])
 
+  // Keep bookingDataRef current so createOrder always reads the latest state values
+  useEffect(() => {
+    bookingDataRef.current = { customer, vehicle, start, end, notes }
+  }, [customer, vehicle, start, end, notes])
+
+  useEffect(() => {
+    if (currentStep === 4 && paypalLoaded && !paypalRendered) {
+      renderPayPalButtons()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentStep, paypalLoaded, paypalRendered])
+
   const canProceedFromStep1 = availabilityState.status === 'available'
   const canProceedFromStep2 = customer.firstName && customer.lastName && customer.phone
   const canProceedFromStep3 = vehicle.registration.length >= 5
@@ -333,80 +361,89 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
     setCurrentStep(step)
   }
 
-  const handleSubmit = useCallback(async () => {
-    setSubmissionError(null)
-    setSubmissionSuccess(null)
-    setIsSubmitting(true)
+  function renderPayPalButtons() {
+    if (!window.paypal || !paypalContainerRef.current || paypalRendered) return
 
-    try {
-      const payload = {
-        start_at: iso(start),
-        end_at: iso(end),
-        customer: {
-          first_name: customer.firstName,
-          last_name: customer.lastName,
-          email: customer.email,
-          mobile_number: customer.phone
-        },
-        vehicle: {
-          registration: vehicle.registration,
-          make: vehicle.make,
-          model: vehicle.model,
-          colour: vehicle.colour
-        },
-        notes: notes || undefined
-      }
+    // Clear any previously rendered PayPal iframe before re-rendering
+    paypalContainerRef.current.innerHTML = ''
+    setPaypalRendered(true)
 
-      const response = await fetch('/api/parking/bookings', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
-      })
+    window.paypal.Buttons({
+      style: { layout: 'vertical', color: 'gold', shape: 'rect', label: 'pay', height: 48 },
 
-      const payloadResponse = await parseJsonResponse<{
-        success?: boolean
-        data?: {
-          paypal_approval_url?: string
-          reference?: string
+      createOrder: async () => {
+        setCaptureState('idle')
+        const res = await fetch('/api/parking/payment/create-order', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            customer: {
+              first_name: bookingDataRef.current.customer.firstName,
+              last_name: bookingDataRef.current.customer.lastName,
+              email: bookingDataRef.current.customer.email || undefined,
+              mobile_number: bookingDataRef.current.customer.phone,
+            },
+            vehicle: {
+              registration: bookingDataRef.current.vehicle.registration.replace(/\s+/g, '').toUpperCase(),
+              make: bookingDataRef.current.vehicle.make || undefined,
+              model: bookingDataRef.current.vehicle.model || undefined,
+              colour: bookingDataRef.current.vehicle.colour || undefined,
+            },
+            start_at: iso(bookingDataRef.current.start),
+            end_at: iso(bookingDataRef.current.end),
+            notes: bookingDataRef.current.notes || undefined,
+          }),
+        })
+
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}))
+          // Throwing here causes PayPal SDK to show its own error screen — intentional.
+          throw new Error(err?.error || 'Could not create order')
         }
-        error?: { message?: string }
-      }>(
-        response,
-        'create-booking',
-        'We could not complete your booking online right now. Please call 01753 682707 and we will secure your space.'
-      )
 
-      if (!response.ok || payloadResponse?.success === false) {
-        throw new Error(payloadResponse?.error?.message || 'We could not complete your booking. Please try again.')
-      }
+        const data = await res.json()
+        pendingBookingIdRef.current = data.booking_id
+        return data.paypal_order_id
+      },
 
-      if (!payloadResponse?.data) {
-        throw new Error('We created your booking but did not receive the confirmation details. Please call 01753 682707 so we can confirm everything for you.')
-      }
+      onApprove: async (data: { orderID: string }) => {
+        setCaptureState('capturing')
+        const res = await fetch('/api/parking/payment/capture', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            orderID: data.orderID,
+            bookingId: pendingBookingIdRef.current,
+          }),
+        })
 
-      const approvalUrl = payloadResponse.data.paypal_approval_url
-      const reference = payloadResponse.data.reference
+        if (!res.ok) {
+          setCaptureState('error')
+          return
+        }
 
-      if (approvalUrl) {
-        setSubmissionSuccess('Redirecting you to PayPal to finish payment...')
-        setTimeout(() => {
-          window.location.href = approvalUrl
-        }, 1000)
-      } else {
-        setSubmissionSuccess(
-          reference
-            ? `Parking booking created. Reference: ${reference}. Please contact us to complete payment.`
-            : 'Parking booking created. Please contact us to complete payment.'
-        )
-      }
-    } catch (error: any) {
-      setSubmissionError(error?.message || 'We could not complete your booking. Please try again.')
-    } finally {
-      setIsSubmitting(false)
-    }
-  }, [start, end, customer, vehicle, notes])
+        const result = await res.json()
+        if (!result.booking_id) {
+          setCaptureState('error')
+          return
+        }
+        router.push(`/heathrow-parking/confirmation/${result.booking_id}`)
+      },
+
+      onCancel: () => {
+        setCaptureState('cancelled')
+        // Reset so buttons can be re-rendered on retry
+        setPaypalRendered(false)
+        pendingBookingIdRef.current = null
+      },
+
+      onError: () => {
+        setCaptureState('error')
+        setPaypalRendered(false)
+        pendingBookingIdRef.current = null
+      },
+    } as Record<string, unknown>).render(paypalContainerRef.current!)
+  }
 
   const renderStepContent = () => {
     switch (currentStep) {
@@ -522,7 +559,7 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
               />
             </div>
             <p className="text-sm text-anchor-cream-text/70">
-              We use your mobile number to send the PayPal link and booking updates. Your details are never shared.
+              We use your mobile number to send booking confirmation and updates. Your details are never shared.
             </p>
           </div>
         )
@@ -566,59 +603,91 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
         )
       case 4:
         return (
-          <div className="space-y-6">
-            <div className="rounded-lg border border-anchor-gold/15 bg-anchor-bg-card p-4">
-              <h4 className="text-lg font-semibold text-anchor-cream-text">Booking summary</h4>
-              <ul className="mt-3 space-y-2 text-sm text-anchor-cream-text/80">
-                <li><strong>Arrival:</strong> {new Date(start).toLocaleString()}</li>
-                <li><strong>Departure:</strong> {new Date(end).toLocaleString()}</li>
-                <li><strong>Guest:</strong> {customer.firstName} {customer.lastName}</li>
-                <li><strong>Mobile:</strong> {customer.phone}</li>
-                {customer.email && <li><strong>Email:</strong> {customer.email}</li>}
-                <li><strong>Vehicle:</strong> {vehicle.registration.toUpperCase()} {vehicle.make && `· ${vehicle.make}`} {vehicle.model && `· ${vehicle.model}`}</li>
-                {notes && <li><strong>Notes:</strong> {notes}</li>}
-              </ul>
-              <p className="mt-4 text-xs text-anchor-cream-text/60">
-                Vehicles stay in The Anchor car park at the owner&apos;s risk. Please keep your keys with you and arrange your own transfer (taxi or 442 bus) to the Heathrow terminals.
-              </p>
-	              {estimate && (
-	                <div className="mt-4 rounded-md border border-anchor-gold/15 bg-anchor-bg-raised p-3 text-sm text-anchor-cream-text">
-	                  <p>
-	                    Estimated cost: <strong className="text-anchor-gold-vivid">{formatPrice(estimate.amount, 'GBP')}</strong>
-	                  </p>
-	                  <ul className="mt-2 space-y-1 text-anchor-cream-text/80">
-	                    {estimate.breakdown.map(item => (
-	                      <li key={`${item.unit}-${item.quantity}`}>
-	                        {item.quantity} × {item.unit} @ {formatPrice(item.rate, 'GBP')} = {formatPrice(item.subtotal, 'GBP')}
-	                      </li>
-	                    ))}
-	                  </ul>
-                  <p className="mt-2 text-xs text-anchor-cream-text/60">Exact pricing confirmed when PayPal opens.</p>
+          <>
+            {/* PayPal JS SDK — loaded lazily when customer reaches step 4 */}
+            <Script
+              src={`https://www.paypal.com/sdk/js?client-id=${process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID}&currency=GBP&intent=capture`}
+              strategy="afterInteractive"
+              onLoad={() => setPaypalLoaded(true)}
+            />
+
+            <div className="space-y-6">
+              {/* Booking summary */}
+              <div className="rounded-xl border border-anchor-gold/20 bg-anchor-bg-card p-5 space-y-3 text-sm">
+                <h3 className="font-semibold text-anchor-cream-text text-base">Booking summary</h3>
+                <div className="grid grid-cols-2 gap-y-2 text-anchor-cream-text">
+                  <span className="text-anchor-sage">Arrival</span>
+                  <span className="font-medium">{new Date(start).toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' })}</span>
+                  <span className="text-anchor-sage">Departure</span>
+                  <span className="font-medium">{new Date(end).toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' })}</span>
+                  <span className="text-anchor-sage">Name</span>
+                  <span className="font-medium">{customer.firstName} {customer.lastName}</span>
+                  <span className="text-anchor-sage">Mobile</span>
+                  <span className="font-medium">{customer.phone}</span>
+                  <span className="text-anchor-sage">Vehicle</span>
+                  <span className="font-medium">{vehicle.registration.toUpperCase()}{vehicle.make ? ` · ${vehicle.make}` : ''}</span>
                 </div>
+
+                {/* Pricing */}
+                {estimate && (
+                  <div className="border-t border-anchor-gold/20 pt-3 space-y-1">
+                    {estimate.breakdown.map((item, i) => (
+                      <div key={i} className="flex justify-between text-anchor-sage text-xs">
+                        <span>{item.quantity} {item.unit}{item.quantity !== 1 ? 's' : ''} @ £{item.rate}</span>
+                        <span>£{item.subtotal.toFixed(2)}</span>
+                      </div>
+                    ))}
+                    <div className="flex justify-between font-bold text-anchor-cream-text pt-1">
+                      <span>Total</span>
+                      <span className="text-anchor-gold">{formatPrice(estimate.amount, 'GBP')}</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* State messages */}
+              {captureState === 'cancelled' && (
+                <p className="text-sm text-anchor-gold bg-anchor-bg-raised rounded-lg px-4 py-3">
+                  Payment cancelled — you can try again below.
+                </p>
               )}
-            </div>
+              {captureState === 'error' && (
+                <p className="text-sm text-red-400 bg-anchor-bg-raised rounded-lg px-4 py-3">
+                  Payment could not be completed. Please try again or call us on <a href="tel:01753682707" className="font-semibold underline">01753 682707</a>.
+                </p>
+              )}
+              {captureState === 'capturing' && (
+                <p className="text-sm text-anchor-cream-text bg-anchor-bg-raised rounded-lg px-4 py-3">
+                  Confirming your booking…
+                </p>
+              )}
 
-            {submissionError && (
-              <div className="rounded-md border border-red-500/30 bg-red-900/20 p-3 text-sm text-red-400">{submissionError}</div>
-            )}
-            {submissionSuccess && (
-              <div className="rounded-md border border-green-500/30 bg-green-900/20 p-3 text-sm text-green-400">{submissionSuccess}</div>
-            )}
+              {/* PayPal button container */}
+              {/* Skeleton shown while SDK loads — sibling to the container, not inside it */}
+              {!paypalLoaded && captureState !== 'capturing' && (
+                <div className="h-12 rounded-lg bg-anchor-bg-raised animate-pulse" />
+              )}
+              {/* Container stays mounted so the SDK iframe is never destroyed */}
+              <div
+                ref={paypalContainerRef}
+                id="paypal-button-container"
+                className={`min-h-[50px] ${captureState === 'capturing' ? 'hidden' : ''}`}
+              />
 
-            <div className="flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-center">
-              <Button variant="secondary" onClick={() => goToStep(3)} disabled={isSubmitting}>
-                Back to vehicle details
-              </Button>
-              <Button
-                variant="primary"
-                size="lg"
-                onClick={handleSubmit}
-                disabled={isSubmitting}
+              <p className="text-xs text-anchor-sage text-center">
+                Vehicles parked at owner&apos;s risk. By paying you agree to our parking terms.
+              </p>
+
+              {/* Back button */}
+              <button
+                type="button"
+                onClick={() => { setCurrentStep(3); setPaypalRendered(false); setCaptureState('idle') }}
+                className="w-full text-sm text-anchor-sage hover:text-anchor-cream-text underline"
               >
-                {isSubmitting ? 'Securing your space…' : 'Confirm & pay via PayPal'}
-              </Button>
+                ← Back to vehicle details
+              </button>
             </div>
-          </div>
+          </>
         )
       default:
         return null
