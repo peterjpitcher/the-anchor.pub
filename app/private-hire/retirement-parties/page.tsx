@@ -135,7 +135,7 @@ export default function RetirementPartiesPage() {
                                     title: "Speech Friendly",
                                     description: "Quiet areas available for speeches and presentations without shouting over music.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -143,7 +143,7 @@ export default function RetirementPartiesPage() {
                                     title: "Accessible",
                                     description: "Ground floor access and easy parking make it suitable for guests of all ages.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -151,7 +151,7 @@ export default function RetirementPartiesPage() {
                                     title: "Catering Options",
                                     description: "Classic buffet spread, tea & coffee stations, or full 3-course meals.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"
                                 }
                             ]}

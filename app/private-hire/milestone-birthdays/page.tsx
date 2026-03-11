@@ -135,7 +135,7 @@ export default function MilestoneBirthdaysPage() {
                                     title: "Entertainment Ready",
                                     description: "Space for DJs or live singers to get the party started.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -143,7 +143,7 @@ export default function MilestoneBirthdaysPage() {
                                     title: "Hearty Buffets",
                                     description: "Keep your guests fuelled with finger food, sliders, or pizza buffets.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -151,7 +151,7 @@ export default function MilestoneBirthdaysPage() {
                                     title: "Easy Access",
                                     description: "Free parking for drivers and tons of Uber availability for the drinkers.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"
                                 }
                             ]}

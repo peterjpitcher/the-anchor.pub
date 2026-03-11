@@ -130,7 +130,7 @@ export default function LuggageStoragePage() {
                                     title: "1. Book Your Spot",
                                     description: "Book a table for a meal and add 'Luggage' to the notes so we know you're coming.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-card",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -138,7 +138,7 @@ export default function LuggageStoragePage() {
                                     title: "2. Safe & Secure",
                                     description: "We store your bags in a non-public area behind the bar or in our function room.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-card",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -146,7 +146,7 @@ export default function LuggageStoragePage() {
                                     title: "3. Eat & Relax",
                                     description: "Enjoy a Sunday Roast, Fish & Chips, or a cold pint in the garden.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-card",
                                     className: "rounded-xl p-6 text-center"
                                 }
                             ]}
@@ -172,7 +172,7 @@ export default function LuggageStoragePage() {
 
                         <div className="grid md:grid-cols-2 gap-8 mb-8">
                             <div className="bg-anchor-bg-raised p-6 rounded-xl border border-anchor-gold/15">
-                                <h3 className="text-xl font-bold text-green-800 mb-2">The Anchor</h3>
+                                <h3 className="text-xl font-bold text-anchor-cream-text mb-2">The Anchor</h3>
                                 <ul className="space-y-3">
                                     <li className="flex items-center">Free storage for diners</li>
                                     <li className="flex items-center">Comfortable seating & WiFi</li>
@@ -180,8 +180,8 @@ export default function LuggageStoragePage() {
                                     <li className="flex items-center">Fresh air in the garden</li>
                                 </ul>
                             </div>
-                            <div className="bg-red-50 p-6 rounded-xl">
-                                <h3 className="text-xl font-bold text-red-800 mb-2">Airport Left Luggage</h3>
+                            <div className="bg-red-900/20 border border-red-500/30 p-6 rounded-xl">
+                                <h3 className="text-xl font-bold text-red-400 mb-2">Airport Left Luggage</h3>
                                 <ul className="space-y-3">
                                     <li className="flex items-center">Expensive per item fees</li>
                                     <li className="flex items-center">Busy queues</li>
@@ -209,7 +209,7 @@ export default function LuggageStoragePage() {
                         answer: "We are about 5-7 minutes drive. It is a very quick taxi ride to the drop-off point."
                     }
                 ]}
-                className="bg-white"
+                className="bg-anchor-bg-card"
             />
 
             <CTASection

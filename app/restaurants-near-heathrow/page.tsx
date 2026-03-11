@@ -157,7 +157,7 @@ export default async function RestaurantsNearHeathrowPage() {
       <section className="bg-anchor-bg-card py-8 border-b border-anchor-gold/15">
         <Container>
           <PageTitle 
-            className="text-center text-anchor-green"
+            className="text-center text-anchor-cream-text"
             seo={{ structured: true, speakable: true }}
           >
             Restaurant Near Heathrow - Traditional British Dining Alternative to Airport Food
@@ -239,42 +239,42 @@ export default async function RestaurantsNearHeathrowPage() {
                   title: "Save Money on Every Meal",
                   content: (
                     <div className="space-y-3">
-                      <div className="bg-white rounded-lg p-4">
+                      <div className="bg-anchor-bg-raised rounded-lg border border-anchor-gold/15 p-4">
 	                        <h4 className="font-bold text-anchor-gold-vivid mb-2">Price Comparison:</h4>
 	                        <ul className="space-y-2 text-anchor-cream-text/70">
 	                          <li><strong>Airport Burger & Chips:</strong> GBP 18-22</li>
 	                          <li><strong>Our Burger & Chips:</strong> Under GBP 12</li>
-	                          <li className="text-green-600 font-bold">You Save: GBP 6-10 per meal</li>
+	                          <li className="text-green-400 font-bold">You Save: GBP 6-10 per meal</li>
 	                        </ul>
 	                      </div>
-	                      <div className="bg-green-50 rounded-lg p-3">
-	                        <p className="text-sm font-semibold text-anchor-gold-vivid">
+	                      <div className="bg-green-900/20 rounded-lg border border-green-500/30 p-3">
+	                        <p className="text-sm font-semibold text-green-400">
 	                          Plus: FREE parking saves another GBP 20-40!
 	                        </p>
 	                      </div>
                     </div>
                   ),
                   variant: "colored",
-                  color: "bg-amber-50 rounded-2xl p-8"
+                  color: "bg-anchor-bg-raised rounded-2xl p-8 border border-anchor-gold/15"
                 },
                 {
 	                  title: "Free Parking Worth GBP 20-40",
 	                  content: (
 	                    <div className="space-y-3">
-	                      <p className="font-semibold text-gray-800">Airport Parking Costs:</p>
+	                      <p className="font-semibold text-anchor-cream-text">Airport Parking Costs:</p>
 	                      <ul className="space-y-1 text-anchor-cream-text/70">
 	                        <li>• Terminal 5: GBP 39/day</li>
 	                        <li>• Terminals 2/3: GBP 42/day</li>
 	                        <li>• Short stay: GBP 8.50/hour</li>
 	                      </ul>
                       <div className="bg-anchor-bg-raised rounded-lg p-4 mt-4 border border-anchor-gold/15">
-                        <p className="font-bold text-green-900">The Anchor: Always FREE</p>
-                        <p className="text-sm text-green-700 mt-1">20 spaces for our guests</p>
+                        <p className="font-bold text-green-400">The Anchor: Always FREE</p>
+                        <p className="text-sm text-green-400 mt-1">20 spaces for our guests</p>
                       </div>
                     </div>
                   ),
                   variant: "colored",
-                  color: "bg-sky-50 rounded-2xl p-8"
+                  color: "bg-anchor-bg-raised rounded-2xl p-8 border border-anchor-gold/15"
                 }
               ]}
               className="mb-12"
@@ -563,7 +563,7 @@ export default async function RestaurantsNearHeathrowPage() {
             answer: "Yes! All menu items are available for takeaway with a 20-25 minute wait time. Perfect if you want to eat proper food on your journey instead of expensive airport snacks."
           }
         ]}
-        className="bg-gray-50"
+        className="bg-anchor-bg"
       />
 
       {/* CTA Section */}

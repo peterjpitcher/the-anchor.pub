@@ -172,7 +172,7 @@ export default function PubNearPremierInnHeathrowPage() {
                     <p className="font-semibold">From Premier Inn Bath Road</p>
                     <p className="text-sm">Take A4 east, then south on Stanwell Moor Road. 10–12 mins.</p>
                   </div>
-                  <div className="pt-2 border-t border-gray-200">
+                  <div className="pt-2 border-t border-anchor-gold/15">
                     <p className="text-sm font-medium">Postcode for sat-nav or taxi: <strong>TW19 6AQ</strong></p>
                     <p className="text-sm text-anchor-cream-text/70">Uber and local taxis work well from all Premier Inn locations</p>
                   </div>
@@ -191,15 +191,15 @@ export default function PubNearPremierInnHeathrowPage() {
             <div className="grid md:grid-cols-2 gap-8">
               <div className="card-dark rounded-none p-6 text-center">
                 <p className="text-4xl mb-2"></p>
-                <h3 className="text-xl font-bold text-red-800 mb-2">Tuesday Pizza Deal</h3>
-                <p className="text-3xl font-bold text-red-600 mb-2">Buy 1 Get 1 Free</p>
+                <h3 className="text-xl font-bold text-anchor-cream-text mb-2">Tuesday Pizza Deal</h3>
+                <p className="text-3xl font-bold text-red-400 mb-2">Buy 1 Get 1 Free</p>
                 <p className="text-anchor-cream-text/70">All stone-baked pizzas, all day Tuesday</p>
                 <p className="text-sm text-anchor-cream-text/55 mt-2">Perfect if your stay includes a Tuesday</p>
               </div>
               <div className="card-dark rounded-none p-6 text-center">
                 <p className="text-4xl mb-2"></p>
-                <h3 className="text-xl font-bold text-amber-800 mb-2">Sunday Roast</h3>
-                <p className="text-3xl font-bold text-amber-600 mb-2">From £19.99</p>
+                <h3 className="text-xl font-bold text-anchor-cream-text mb-2">Sunday Roast</h3>
+                <p className="text-3xl font-bold text-amber-300 mb-2">From £19.99</p>
                 <p className="text-anchor-cream-text/70">Traditional British roast with all the trimmings</p>
                 <p className="text-sm text-anchor-cream-text/55 mt-2">Pre-booking recommended for Sundays</p>
               </div>

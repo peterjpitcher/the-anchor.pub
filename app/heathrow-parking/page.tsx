@@ -381,7 +381,7 @@ export default async function HeathrowParkingPage() {
 
       <Section background="dark" spacing="md">
         <Container>
-          <div className="mx-auto max-w-5xl rounded-2xl p-6 bg-anchor-cream/40 shadow-sm">
+          <div className="mx-auto max-w-5xl rounded-2xl p-6 bg-anchor-bg-raised border border-anchor-gold/15">
             <h2 className="text-2xl font-bold text-anchor-cream-text text-center">
               Heathrow Airport Car Parking for Every Terminal
             </h2>
@@ -409,7 +409,7 @@ export default async function HeathrowParkingPage() {
 
       <Section background="dark" spacing="lg">
         <Container>
-          <div className="mx-auto max-w-4xl rounded-2xl border border-gray-200 bg-gray-50 p-6">
+          <div className="mx-auto max-w-4xl rounded-2xl border border-anchor-gold/15 bg-anchor-bg-raised p-6">
             <h2 className="text-2xl font-bold text-anchor-cream-text text-center">How you get from The Anchor to Heathrow</h2>
             <div className="mt-4 grid gap-6 md:grid-cols-2">
               <div>
@@ -501,7 +501,7 @@ export default async function HeathrowParkingPage() {
               <Link
                 key={page.href}
                 href={page.href}
-                className="rounded-xl border border-gray-200 bg-white p-5 text-left transition-colors hover:border-anchor-green"
+                className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-raised p-5 text-left transition-colors hover:border-anchor-gold"
               >
                 <h3 className="text-lg font-semibold text-anchor-cream-text">{page.title}</h3>
                 <p className="mt-2 text-sm text-anchor-cream-text/70">{page.description}</p>
@@ -527,7 +527,7 @@ export default async function HeathrowParkingPage() {
                 <li>• Optional overnight pub stays for early flights</li>
               </ul>
             </div>
-            <div className="rounded-2xl bg-anchor-cream p-6 shadow-sm">
+            <div className="rounded-2xl bg-anchor-bg-raised border border-anchor-gold/15 p-6">
               <h3 className="text-2xl font-semibold text-anchor-cream-text">Quick Heathrow parking checklist</h3>
               <ol className="mt-4 space-y-3 text-anchor-cream-text/70">
                 <li><strong>1.</strong> Book online and pay with PayPal or card.</li>
@@ -550,7 +550,7 @@ export default async function HeathrowParkingPage() {
         subtitle="Real customer reviews from guests who park and fly from The Anchor."
         layout="carousel"
         filter={{ minRating: 4, limit: 6 }}
-        background="gray"
+        background="dark"
       />
 
       <CTASection

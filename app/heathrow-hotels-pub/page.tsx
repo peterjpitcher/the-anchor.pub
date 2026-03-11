@@ -146,7 +146,7 @@ export default function HeathrowHotelsPubPage() {
                 structured: true,
                 speakable: true
               }}
-              className="text-anchor-green mb-4"
+              className="text-anchor-cream-text mb-4"
             >
               Heathrow Hotels Pub - Traditional Pub Near Heathrow Hotels
             </PageTitle>
@@ -174,7 +174,7 @@ export default function HeathrowHotelsPubPage() {
                   title: "Great Value",
                   description: "Honest pub pricing with mains from £8.99",
                   variant: "colored",
-                  color: "bg-red-50",
+                  color: "bg-anchor-bg-raised border border-anchor-gold/15",
                   className: "rounded-xl p-6 text-center"
                 },
                 {
@@ -182,7 +182,7 @@ export default function HeathrowHotelsPubPage() {
                   title: "Free Parking",
                   description: "20 spaces - no hourly charges like hotel car parks",
                   variant: "colored",
-                  color: "bg-green-50",
+                  color: "bg-anchor-bg-raised border border-anchor-gold/15",
                   className: "rounded-xl p-6 text-center"
                 },
                 {
@@ -190,7 +190,7 @@ export default function HeathrowHotelsPubPage() {
                   title: "Real Experience",
                   description: "Authentic British pub, not a chain hotel restaurant",
                   variant: "colored",
-                  color: "bg-blue-50",
+                  color: "bg-anchor-bg-raised border border-anchor-gold/15",
                   className: "rounded-xl p-6 text-center"
                 }
               ]}
@@ -386,21 +386,21 @@ export default function HeathrowHotelsPubPage() {
 	                  title: "Real Ales",
 	                  description: "Try proper British beer - not just hotel lagers. From GBP 4.80/pint",
 	                  variant: "default",
-	                  className: "bg-white rounded-lg p-6 shadow-md text-center"
+	                  className: "bg-anchor-bg-raised rounded-lg p-6 border border-anchor-gold/15 text-center"
 	                },
 	                {
 	                  icon: "",
 	                  title: "Fish & Chips",
 	                  description: "Classic British meal hotel guests always request. GBP 12.99 (half hotel price)",
 	                  variant: "default",
-	                  className: "bg-white rounded-lg p-6 shadow-md text-center"
+	                  className: "bg-anchor-bg-raised rounded-lg p-6 border border-anchor-gold/15 text-center"
 	                },
 	                {
 	                  icon: "",
 	                  title: "Sunday Roast",
 	                  description: "Must-try British tradition for Sunday visitors. From GBP 19.99",
 	                  variant: "default",
-	                  className: "bg-white rounded-lg p-6 shadow-md text-center"
+	                  className: "bg-anchor-bg-raised rounded-lg p-6 border border-anchor-gold/15 text-center"
 	                }
 	              ]}
 	              className="mb-8"
@@ -432,7 +432,7 @@ export default function HeathrowHotelsPubPage() {
                     </div>
                   ),
                   variant: "colored",
-                  color: "bg-amber-50 rounded-xl p-8"
+                  color: "bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-8"
                 }
               ]}
             />
@@ -505,15 +505,15 @@ export default function HeathrowHotelsPubPage() {
             
             <div className="grid md:grid-cols-2 gap-8 mb-8">
               <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
-                <h3 className="text-xl font-bold text-red-800 mb-3">Tuesday Pizza Deal</h3>
-                <p className="text-4xl font-bold text-red-600 mb-2">BUY 1 GET 1 FREE</p>
+                <h3 className="text-xl font-bold text-anchor-cream-text mb-3">Tuesday Pizza Deal</h3>
+                <p className="text-4xl font-bold text-anchor-gold-vivid mb-2">BUY 1 GET 1 FREE</p>
                 <p className="text-anchor-cream-text/70">All pizzas, all day Tuesday</p>
                 <p className="text-sm mt-2">Perfect for sharing with travel companions!</p>
               </div>
               
               <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
-                <h3 className="text-xl font-bold text-blue-800 mb-3">Early Evening Dining</h3>
-                <p className="text-2xl font-bold text-blue-600 mb-2">Kitchen from 6pm</p>
+                <h3 className="text-xl font-bold text-anchor-cream-text mb-3">Early Evening Dining</h3>
+                <p className="text-2xl font-bold text-anchor-gold-vivid mb-2">Kitchen from 6pm</p>
                 <p className="text-anchor-cream-text/70">Beat the hotel dinner rush</p>
                 <p className="text-sm mt-2">Quieter atmosphere for jet-lagged guests</p>
               </div>
@@ -660,7 +660,7 @@ export default function HeathrowHotelsPubPage() {
             answer: "We open at 4pm Tuesday-Friday, noon on weekends. While we're not open for breakfast, we're perfect for lunch (weekends), dinner, or evening drinks. Many guests visit us the night before early flights or after afternoon hotel check-in."
           }
         ]}
-        className="bg-gray-50"
+        className="bg-anchor-bg"
       />
 
       {/* CTA Section */}

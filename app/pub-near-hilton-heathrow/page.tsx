@@ -173,7 +173,7 @@ export default function PubNearHiltonHeathrowPage() {
                     <p className="font-semibold">From Hilton Garden Inn T2/T3</p>
                     <p className="text-sm">Head west on Bath Road, right onto Stanwell Moor Road. 12–14 mins.</p>
                   </div>
-                  <div className="pt-2 border-t border-gray-200">
+                  <div className="pt-2 border-t border-anchor-gold/15">
                     <p className="text-sm font-medium">Postcode: <strong>TW19 6AQ</strong></p>
                     <p className="text-sm text-anchor-cream-text/70">Uber and local taxis readily available from Hilton reception</p>
                   </div>

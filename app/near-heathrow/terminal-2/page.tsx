@@ -675,7 +675,7 @@ export default function Terminal2Page() {
             answer: "Yes! The 442 bus runs from Terminal 2 to Stanwell Moor, stopping right outside The Anchor. It runs every 30 minutes and costs about what a pint should cost. The bus stop is at the Central Bus Station between Terminals 2 & 3 - just follow signs from arrivals."
           }
         ]}
-        className="bg-gray-50"
+        className="bg-anchor-bg"
       />
 
       {/* CTA Section */}

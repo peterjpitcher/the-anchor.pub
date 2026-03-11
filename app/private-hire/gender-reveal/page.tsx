@@ -135,7 +135,7 @@ export default function GenderRevealPage() {
                                     title: "Garden Space",
                                     description: "Our large beer garden is the safest and best place for smoke cannons and outdoor reveals.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -143,7 +143,7 @@ export default function GenderRevealPage() {
                                     title: "Afternoon Tea",
                                     description: "Ask about our buffet or afternoon tea style packages for a classy touch.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -151,7 +151,7 @@ export default function GenderRevealPage() {
                                     title: "Family Friendly",
                                     description: "Plenty of space for kids to run around while the adults celebrate.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"
                                 }
                             ]}

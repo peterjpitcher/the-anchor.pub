@@ -170,7 +170,7 @@ export default function PubNearMarriottHeathrowPage() {
                     <p className="font-semibold">By Car (Rental)</p>
                     <p className="text-sm">Head south from Bath Road via the A3044. Follow signs for Stanwell/Stanwell Moor. Turn right onto Horton Road — the pub is on your left.</p>
                   </div>
-                  <div className="pt-2 border-t border-gray-200">
+                  <div className="pt-2 border-t border-anchor-gold/15">
                     <p className="text-sm font-medium">Postcode: <strong>TW19 6AQ</strong></p>
                     <p className="text-sm text-anchor-cream-text/70">20 free parking spaces on arrival</p>
                   </div>

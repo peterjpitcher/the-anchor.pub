@@ -206,7 +206,7 @@ export default async function SunburyPubPage() {
                         />
 
                         <div className="card-dark rounded-none p-8 mb-8 text-center">
-                            <h3 className="text-2xl font-bold text-amber-800 mb-4">Milestone Birthdays & Events</h3>
+                            <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">Milestone Birthdays & Events</h3>
                             <p className="text-anchor-cream-text/70 mb-6">
                                 Struggling to find a venue in Sunbury that ticks all the boxes? We offer private rooms, flexible catering, and plenty of parking for your guests coming from all over.
                             </p>

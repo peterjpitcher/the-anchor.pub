@@ -91,7 +91,7 @@ export default function Terminal4Page() {
       {/* Quick Summary */}
       <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto bg-anchor-cream/40 border border-anchor-cream rounded-2xl p-6">
+          <div className="max-w-4xl mx-auto bg-anchor-bg-raised border border-anchor-gold/15 rounded-2xl p-6">
             <h2 className="text-2xl font-bold text-anchor-cream-text mb-3">Snapshot For Terminal 4 Guests</h2>
             <p className="text-anchor-cream-text/70 mb-4">
               Staying around T4 or flying SkyTeam? The Anchor brings warm Surrey village hospitality within a 12 minute taxi ride.
@@ -320,9 +320,9 @@ export default function Terminal4Page() {
                       <li>Short stay car park entrance</li>
                     </ul>
                   </div>
-                  <div className="p-4 bg-white rounded-lg">
+                  <div className="p-4 bg-anchor-bg-card rounded-lg border border-anchor-gold/15">
                     <p className="font-semibold text-anchor-gold-vivid mb-2">Budget Tip:</p>
-                    <p className="text-sm">Share a taxi with other travelers - ask at the rank!</p>
+                    <p className="text-sm text-anchor-cream-text/70">Share a taxi with other travelers - ask at the rank!</p>
                   </div>
                 </div>
               </div>
@@ -345,9 +345,9 @@ export default function Terminal4Page() {
                       <li>Look for route 442 signs</li>
                     </ul>
                   </div>
-                  <div className="p-4 bg-white rounded-lg">
+                  <div className="p-4 bg-anchor-bg-card rounded-lg border border-anchor-gold/15">
                     <p className="font-semibold text-anchor-gold-vivid mb-2">Your Stop:</p>
-                    <p className="text-sm">Get off at Horton Road - The Anchor is right there!</p>
+                    <p className="text-sm text-anchor-cream-text/70">Get off at Horton Road - The Anchor is right there!</p>
                   </div>
                 </div>
               </div>
@@ -513,7 +513,7 @@ export default function Terminal4Page() {
             </div>
 
             <div className="card-dark rounded-none p-8 mb-8">
-              <h3 className="text-2xl font-bold text-anchor-green mb-6 text-center">
+              <h3 className="text-2xl font-bold text-anchor-cream-text mb-6 text-center">
                 Why Hotel Guests Choose The Anchor
               </h3>
               <div className="grid md:grid-cols-2 gap-8">
@@ -563,7 +563,7 @@ export default function Terminal4Page() {
             </div>
 
             <div className="card-dark rounded-none p-8 mb-8">
-              <h3 className="text-2xl font-bold text-anchor-green mb-4 text-center">
+              <h3 className="text-2xl font-bold text-anchor-cream-text mb-4 text-center">
                 Getting Here from Terminal 4 Hotels
               </h3>
 	              <div className="grid md:grid-cols-3 gap-6 text-center">
@@ -599,7 +599,7 @@ export default function Terminal4Page() {
                 context="heathrow_terminal_4_hotels"
                 variant="secondary"
                 size="lg"
-                className="bg-white text-anchor-green hover:bg-gray-100"
+                className=""
               >
                 Book Your Table Online
               </BookTableButton>
@@ -655,7 +655,7 @@ export default function Terminal4Page() {
             answer: "Yes, Terminal 4 is separate from the Central Terminal Area (T2/T3). If you have connections, consider having a meal with us instead of rushing between terminals. We're centrally located for all terminals."
           }
         ]}
-        className="bg-gray-50"
+        className="bg-anchor-bg"
       />
 
       {/* CTA Section */}

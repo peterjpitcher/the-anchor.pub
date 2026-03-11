@@ -376,19 +376,19 @@ export default function FelthamPubPage() {
                 <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Popular Feltham Events</h3>
                 <div className="space-y-4">
                   <div>
-                    <h4 className="font-semibold text-blue-700 mb-1"> Birthday Parties</h4>
+                    <h4 className="font-semibold text-anchor-gold-vivid mb-1"> Birthday Parties</h4>
                     <p className="text-sm text-anchor-cream-text/70">From kids parties to 50th celebrations</p>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-blue-700 mb-1"> Baby Showers</h4>
+                    <h4 className="font-semibold text-anchor-gold-vivid mb-1"> Baby Showers</h4>
                     <p className="text-sm text-anchor-cream-text/70">Perfect space for afternoon celebrations</p>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-blue-700 mb-1"> Community Events</h4>
+                    <h4 className="font-semibold text-anchor-gold-vivid mb-1"> Community Events</h4>
                     <p className="text-sm text-anchor-cream-text/70">Club meetings, fundraisers, social groups</p>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-blue-700 mb-1"> Wakes & Memorials</h4>
+                    <h4 className="font-semibold text-anchor-gold-vivid mb-1"> Wakes & Memorials</h4>
                     <p className="text-sm text-anchor-cream-text/70">Respectful venue for celebrations of life</p>
                   </div>
                 </div>
@@ -396,7 +396,7 @@ export default function FelthamPubPage() {
             </div>
             
             <div className="card-dark rounded-none p-6 text-center">
-              <p className="text-lg text-gray-800 mb-4">
+              <p className="text-lg text-anchor-cream-text mb-4">
                 <strong>Feltham groups love our flexibility!</strong> 
                 Competitive rates - let's discuss your needs. Spaces for 10-200 guests.
               </p>

@@ -106,7 +106,7 @@ export default function PubGardenPage() {
                                     title: "Real Grass",
                                     description: "A proper lawn, perfect for kids to play on or for sprawling out on a picnic blanket.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-card",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -114,7 +114,7 @@ export default function PubGardenPage() {
                                     title: "Outdoor Dining",
                                     description: "We serve our full menu outside. Just grab a table number and order at the bar.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-card",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -122,7 +122,7 @@ export default function PubGardenPage() {
                                     title: "Smoking Area",
                                     description: "Designated sheltered smoking areas for when the British weather does its thing.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-card",
                                     className: "rounded-xl p-6 text-center"
                                 }
                             ]}
@@ -154,7 +154,7 @@ export default function PubGardenPage() {
                         answer: "Yes, the garden is beautifully lit with festoon lighting in the evenings."
                     }
                 ]}
-                className="bg-white"
+                className="bg-anchor-bg-card"
             />
 
             <CTASection

@@ -144,7 +144,7 @@ export default async function BeerGardenPage() {
       </HeroWrapper>
 
       {/* Grab Food & Deals */}
-      <Section background="white" spacing="sm" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <Section background="dark" spacing="sm" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-5xl mx-auto grid gap-6 md:grid-cols-3">
             <Card className="card-dark rounded-none">
@@ -468,7 +468,7 @@ export default async function BeerGardenPage() {
                 source="beer_garden_cta"
                 size="lg"
                 variant="secondary"
-                className="bg-white text-anchor-green hover:bg-gray-100"
+                className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm"
               />
               <Link href="tel:+441753682707">
                 <Button size="lg" variant="secondary" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">

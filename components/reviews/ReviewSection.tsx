@@ -9,7 +9,7 @@ interface ReviewSectionProps {
     keywords?: string[]
     limit?: number
   }
-  background?: "white" | "gray" | "cream"
+  background?: "white" | "gray" | "cream" | "dark"
   className?: string
 }
 
@@ -24,7 +24,22 @@ export function ReviewSection({
   const bgClasses = {
     white: "bg-white",
     gray: "bg-gray-50",
-    cream: "bg-anchor-cream"
+    cream: "bg-anchor-cream",
+    dark: "bg-anchor-bg"
+  }
+
+  const titleClasses = {
+    white: "text-anchor-green",
+    gray: "text-anchor-green",
+    cream: "text-anchor-green",
+    dark: "text-anchor-cream-text"
+  }
+
+  const subtitleClasses = {
+    white: "text-gray-600",
+    gray: "text-gray-600",
+    cream: "text-gray-600",
+    dark: "text-anchor-cream-text/70"
   }
 
   return (
@@ -34,12 +49,12 @@ export function ReviewSection({
           {(title || subtitle) && (
             <div className="text-center mb-12">
               {title && (
-                <h2 className="text-3xl md:text-4xl font-bold text-anchor-green mb-4">
+                <h2 className={`text-3xl md:text-4xl font-bold mb-4 ${titleClasses[background]}`}>
                   {title}
                 </h2>
               )}
               {subtitle && (
-                <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+                <p className={`text-lg max-w-3xl mx-auto ${subtitleClasses[background]}`}>
                   {subtitle}
                 </p>
               )}

@@ -106,7 +106,7 @@ export default function DogFriendlyPage() {
                                     title: "Water Bowls",
                                     description: "Fresh water always available. Just ask at the bar if you can't see a bowl.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-card",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -114,7 +114,7 @@ export default function DogFriendlyPage() {
                                     title: "Treats on Bar",
                                     description: "We keep a jar of biscuits on the bar for our favourite customers.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-card",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -122,7 +122,7 @@ export default function DogFriendlyPage() {
                                     title: "Large Garden",
                                     description: "Plenty of grassy space outside for a sniff and a stretch of the legs.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-card",
                                     className: "rounded-xl p-6 text-center"
                                 }
                             ]}
@@ -154,7 +154,7 @@ export default function DogFriendlyPage() {
                         answer: "Yes, there are some nice walking routes around Stanwell Moor and the reservoirs nearby."
                     }
                 ]}
-                className="bg-white"
+                className="bg-anchor-bg-card"
             />
 
             <CTASection

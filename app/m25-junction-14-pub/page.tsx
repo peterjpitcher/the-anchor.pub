@@ -137,7 +137,7 @@ export default function M25Junction14PubPage() {
       {/* Quick Summary */}
       <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto bg-anchor-cream/40 border border-anchor-cream rounded-2xl p-6">
+          <div className="max-w-4xl mx-auto bg-anchor-bg-raised border border-anchor-gold/15 rounded-2xl p-6">
             <h2 className="text-2xl font-bold text-anchor-cream-text mb-3">Why Stop Off At The Anchor</h2>
             <p className="text-anchor-cream-text/70 mb-4">
               Swap service-station sandwiches for hearty pub food, real ales and a breather before rejoining the M25 from Junction 14.
@@ -169,7 +169,7 @@ export default function M25Junction14PubPage() {
                 structured: true,
                 speakable: true
               }}
-              className="text-anchor-green mb-4"
+              className="text-anchor-cream-text mb-4"
             >
               Junction 14 M25 Pub - Traditional British Pub Near M25
             </PageTitle>
@@ -197,7 +197,7 @@ export default function M25Junction14PubPage() {
                   title: "5 Minutes",
                   description: "Quick detour from M25 Junction 14",
                   variant: "colored",
-                  color: "bg-green-50",
+                  color: "bg-anchor-bg-raised",
                   className: "rounded-xl p-6 text-center"
                 },
                 {
@@ -205,7 +205,7 @@ export default function M25Junction14PubPage() {
                   title: "Half Price",
                   description: "Compared to motorway services",
                   variant: "colored",
-                  color: "bg-red-50",
+                  color: "bg-anchor-bg-raised",
                   className: "rounded-xl p-6 text-center"
                 },
                 {
@@ -213,7 +213,7 @@ export default function M25Junction14PubPage() {
                   title: "Free Parking",
                   description: "20 spaces, easy access",
                   variant: "colored",
-                  color: "bg-blue-50",
+                  color: "bg-anchor-bg-raised",
                   className: "rounded-xl p-6 text-center"
                 }
               ]}
@@ -335,7 +335,7 @@ export default function M25Junction14PubPage() {
             
             <div className="grid md:grid-cols-2 gap-8 mb-8">
               <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
-                <h3 className="text-xl font-bold text-amber-800 mb-4">20-Minute Lunch Stops</h3>
+                <h3 className="text-xl font-bold text-anchor-cream-text mb-4">20-Minute Lunch Stops</h3>
                 <ul className="space-y-2 text-anchor-cream-text/70">
                   <li>• Chicken Goujon Wrap with Chips - 9.99</li>
                   <li>• Beef Burger - 9.99</li>
@@ -343,18 +343,18 @@ export default function M25Junction14PubPage() {
                   <li>• Jumbo Sausage & Chips - 12.99</li>
                   <li>• Beef & Ale Pie - 14.99</li>
                 </ul>
-                <p className="mt-3 text-sm text-amber-700">All served quickly for motorway travelers</p>
+                <p className="mt-3 text-sm text-anchor-cream-text/70">All served quickly for motorway travelers</p>
               </div>
               
               <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
-                <h3 className="text-xl font-bold text-blue-800 mb-4">Take a Proper Break</h3>
+                <h3 className="text-xl font-bold text-anchor-cream-text mb-4">Take a Proper Break</h3>
                 <ul className="space-y-2 text-anchor-cream-text/70">
                   <li>• Beef & Ale Pie - 14.99</li>
                   <li>• Chicken Katsu Curry - 13.99</li>
                   <li>• Stone-baked pizzas</li>
                   <li>• Daily Specials Board</li>
                 </ul>
-                <p className="mt-3 text-sm text-blue-700">Relax and enjoy - you deserve it!</p>
+                <p className="mt-3 text-sm text-anchor-cream-text/70">Relax and enjoy - you deserve it!</p>
               </div>
             </div>
             
@@ -421,8 +421,8 @@ export default function M25Junction14PubPage() {
                       <li>• To A30: Direct from Stanwell Moor</li>
                     </ul>
                   </div>
-                  <div className="pt-4 border-t">
-                    <p className="text-green-700 font-semibold">Time Saver</p>
+                  <div className="pt-4 border-t border-anchor-gold/15">
+                    <p className="text-green-400 font-semibold">Time Saver</p>
                     <p className="text-sm text-anchor-cream-text/70">Often quicker than service station queues!</p>
                   </div>
                 </div>
@@ -499,7 +499,7 @@ export default function M25Junction14PubPage() {
               title="More Than Just a Motorway Stop"
             />
             
-            <div className="bg-white rounded-xl p-8">
+            <div className="bg-anchor-bg-raised rounded-xl border border-anchor-gold/15 p-8">
               <div className="grid md:grid-cols-2 gap-8">
                 <div>
                   <h3 className="text-xl font-bold text-anchor-cream-text mb-4">Perfect For</h3>
@@ -582,7 +582,7 @@ export default function M25Junction14PubPage() {
             answer: "Yes! Our locals often share real-time traffic updates, and we have WiFi if you need to check routes. When there are major delays, we see lots of M25 drivers taking a break with us until traffic clears."
           }
         ]}
-        className="bg-gray-50"
+        className="bg-anchor-bg"
       />
 
       {/* CTA Section */}

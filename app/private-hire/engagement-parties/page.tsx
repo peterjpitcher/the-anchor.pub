@@ -136,7 +136,7 @@ export default function EngagementPartiesPage() {
                                     title: "Prosecco Packages",
                                     description: "Pre-order welcome drinks for your guests to start the night right.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -144,7 +144,7 @@ export default function EngagementPartiesPage() {
                                     title: "Flexible Buffets",
                                     description: "From finger food to hearty spreads, we cater to all budgets.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -152,7 +152,7 @@ export default function EngagementPartiesPage() {
                                     title: "Music & Atmosphere",
                                     description: "Bring your own playlist or book our function area with space for a DJ.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"
                                 }
                             ]}

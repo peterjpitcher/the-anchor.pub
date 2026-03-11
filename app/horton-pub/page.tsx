@@ -208,7 +208,7 @@ export default async function HortonPubPage() {
 
                         <div className="grid md:grid-cols-2 gap-8 mb-8">
                             <div className="card-dark rounded-none p-6">
-                                <h3 className="text-xl font-bold text-green-800 mb-4">Community Connections</h3>
+                                <h3 className="text-xl font-bold text-anchor-cream-text mb-4">Community Connections</h3>
                                 <ul className="space-y-2 text-anchor-cream-text/70">
                                     <li>• Many Horton residents are already regulars</li>
                                     <li>• We support local events and charities</li>
@@ -218,7 +218,7 @@ export default async function HortonPubPage() {
                             </div>
 
                             <div className="card-dark rounded-none p-6">
-                                <h3 className="text-xl font-bold text-amber-800 mb-4">Entertainment Nearby</h3>
+                                <h3 className="text-xl font-bold text-anchor-cream-text mb-4">Entertainment Nearby</h3>
                                 <ul className="space-y-2 text-anchor-cream-text/70">
                                     <li>• Monthly Quiz Nights (Short taxi ride home!)</li>
                                     <li>• Music Bingo with Nikki Manfadge & live music (see /whats-on)</li>

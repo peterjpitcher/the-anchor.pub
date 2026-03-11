@@ -170,7 +170,7 @@ export default function PubNearTravelodgeHeathrowPage() {
                     <p className="font-semibold">From other Travelodge locations</p>
                     <p className="text-sm">Most Heathrow Travelodge properties are within 12–15 minutes. Use Uber or ask reception for a local taxi.</p>
                   </div>
-                  <div className="pt-2 border-t border-gray-200">
+                  <div className="pt-2 border-t border-anchor-gold/15">
                     <p className="text-sm font-medium">Postcode: <strong>TW19 6AQ</strong></p>
                     <p className="text-sm text-anchor-cream-text/70">Free parking if you&apos;re driving a rental car</p>
                   </div>
@@ -188,15 +188,15 @@ export default function PubNearTravelodgeHeathrowPage() {
             <div className="grid md:grid-cols-2 gap-8">
               <div className="card-dark rounded-none p-6 text-center">
                 <p className="text-4xl mb-2"></p>
-                <h3 className="text-xl font-bold text-red-800 mb-2">Tuesday: Pizza Night</h3>
-                <p className="text-2xl font-bold text-red-600 mb-2">Buy 1 Get 1 Free</p>
+                <h3 className="text-xl font-bold text-anchor-cream-text mb-2">Tuesday: Pizza Night</h3>
+                <p className="text-2xl font-bold text-red-400 mb-2">Buy 1 Get 1 Free</p>
                 <p className="text-anchor-cream-text/70">All stone-baked pizzas, all day Tuesday</p>
                 <p className="text-sm text-anchor-cream-text/55 mt-2">Best deal near Heathrow on a Tuesday</p>
               </div>
               <div className="card-dark rounded-none p-6 text-center">
                 <p className="text-4xl mb-2"></p>
-                <h3 className="text-xl font-bold text-blue-800 mb-2">Quiz Night</h3>
-                <p className="text-2xl font-bold text-blue-600 mb-2">Monthly</p>
+                <h3 className="text-xl font-bold text-anchor-cream-text mb-2">Quiz Night</h3>
+                <p className="text-2xl font-bold text-anchor-cream-text/70 mb-2">Monthly</p>
                 <p className="text-anchor-cream-text/70">Join in with the locals for our pub quiz</p>
                 <p className="text-sm text-anchor-cream-text/55 mt-2">Check <Link href="/whats-on" className="underline">what&apos;s on</Link> for dates</p>
               </div>

@@ -170,7 +170,7 @@ export default function PubNearCrownePlazaHeathrowPage() {
                     <p className="font-semibold">By Car</p>
                     <p className="text-sm">Join the A3044 heading south toward Stanwell. Continue through Stanwell village, turn right onto Horton Road. The Anchor is on your left.</p>
                   </div>
-                  <div className="pt-2 border-t border-gray-200">
+                  <div className="pt-2 border-t border-anchor-gold/15">
                     <p className="text-sm font-medium">Sat-nav postcode: <strong>TW19 6AQ</strong></p>
                     <p className="text-sm text-anchor-cream-text/70">Free parking for all pub guests</p>
                   </div>

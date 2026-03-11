@@ -92,7 +92,7 @@ export default function Terminal5Page() {
       {/* Quick Summary */}
       <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto bg-anchor-cream/40 border border-anchor-cream rounded-2xl p-6">
+          <div className="max-w-4xl mx-auto bg-anchor-bg-raised border border-anchor-gold/15 rounded-2xl p-6">
             <h2 className="text-2xl font-bold text-anchor-cream-text mb-3">Essential Details at a Glance</h2>
             <p className="text-anchor-cream-text/70 mb-4">
               The Anchor is the closest independent pub to Terminal 5. Swap hotel bars for real British hospitality, fair pint prices and free parking.
@@ -310,7 +310,7 @@ export default function Terminal5Page() {
                 <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">By Taxi/Uber</h3>
                 <div className="space-y-4 text-anchor-cream-text/70">
 	                  <div className="bg-anchor-bg-card p-4 rounded-lg border border-anchor-gold/15">
-	                    <p className="font-bold text-lg text-green-700 mb-1">GBP 20-25 fixed fare</p>
+	                    <p className="font-bold text-lg text-green-400 mb-1">GBP 20-25 fixed fare</p>
 	                    <p className="text-sm text-anchor-cream-text/55">7 minutes • 2.8 miles</p>
 	                  </div>
                   <div>
@@ -325,9 +325,9 @@ export default function Terminal5Page() {
                       <li>• <strong>Uber:</strong> Short Stay Car Park Level 4</li>
                     </ul>
                   </div>
-                  <div className="p-4 bg-green-50 rounded-lg border border-green-200">
-                    <p className="font-semibold text-green-800 mb-1">Return Taxi Service</p>
-                    <p className="text-sm">We'll call you a cab back to T5 - just ask!</p>
+                  <div className="p-4 bg-green-900/20 rounded-lg border border-green-500/30">
+                    <p className="font-semibold text-green-400 mb-1">Return Taxi Service</p>
+                    <p className="text-sm text-anchor-cream-text/70">We&apos;ll call you a cab back to T5 - just ask!</p>
                   </div>
                 </div>
               </div>
@@ -337,7 +337,7 @@ export default function Terminal5Page() {
                 <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">By Bus (Budget Option)</h3>
                 <div className="space-y-4 text-anchor-cream-text/70">
 	                  <div className="bg-anchor-bg-card p-4 rounded-lg border border-anchor-gold/15">
-	                    <p className="font-bold text-lg text-green-700 mb-1">GBP 2.50 single fare</p>
+	                    <p className="font-bold text-lg text-green-400 mb-1">GBP 2.50 single fare</p>
 	                    <p className="text-sm text-anchor-cream-text/55">15-20 minutes journey</p>
 	                  </div>
                   <div>
@@ -356,10 +356,10 @@ export default function Terminal5Page() {
                     <p className="text-sm">Central Bus Station (Ground Floor)</p>
                     <p className="text-sm">Follow signs from Arrivals</p>
                   </div>
-                  <div className="p-4 bg-yellow-50 rounded-lg border border-yellow-200">
-                    <p className="font-semibold text-yellow-800 mb-1">Important</p>
-                    <p className="text-sm">Tell driver: "The Anchor pub stop"</p>
-                    <p className="text-sm">Last bus: 11:30pm Mon-Sat, 10:30pm Sun</p>
+                  <div className="p-4 bg-amber-900/20 rounded-lg border border-amber-500/30">
+                    <p className="font-semibold text-amber-300 mb-1">Important</p>
+                    <p className="text-sm text-anchor-cream-text/70">Tell driver: &quot;The Anchor pub stop&quot;</p>
+                    <p className="text-sm text-anchor-cream-text/70">Last bus: 11:30pm Mon-Sat, 10:30pm Sun</p>
                   </div>
                 </div>
               </div>
@@ -582,7 +582,7 @@ export default function Terminal5Page() {
             </div>
 
             <div className="card-dark rounded-none p-8 mb-8">
-              <h3 className="text-2xl font-bold text-anchor-green mb-4 text-center">
+              <h3 className="text-2xl font-bold text-anchor-cream-text mb-4 text-center">
                 Getting Here from Your Hotel
               </h3>
               <div className="grid md:grid-cols-3 gap-6">
@@ -688,7 +688,7 @@ export default function Terminal5Page() {
             answer: "Hotel restaurants serve the same international menu worldwide. At The Anchor, you'll experience genuine British hospitality, meet locals, enjoy traditional ales, and pay half what you'd spend at your hotel. This is the authentic Britain you came to see!"
           }
         ]}
-        className="bg-gray-50"
+        className="bg-anchor-bg"
       />
 
       {/* CTA Section */}

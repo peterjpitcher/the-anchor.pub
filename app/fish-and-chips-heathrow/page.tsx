@@ -164,7 +164,7 @@ export default async function FishAndChipsPage() {
                                     title: "Beer Batter",
                                     description: "We make our batter fresh daily using real ale for that perfect golden crunch.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -172,7 +172,7 @@ export default async function FishAndChipsPage() {
                                     title: "Proper Chips",
                                     description: "Big, chunky, fluffy on the inside. None of those frozen french fries here.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -180,7 +180,7 @@ export default async function FishAndChipsPage() {
                                     title: "The Trimmings",
                                     description: "Served with traditional mushy peas, tartare sauce, and a wedge of lemon.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"
                                 }
                             ]}
@@ -193,17 +193,17 @@ export default async function FishAndChipsPage() {
                                 <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-6">Our Fish Bar Menu</h3>
                                 <div className="grid md:grid-cols-2 gap-6 text-left max-w-3xl mx-auto">
                                     {fishSection.items.map((item, idx) => (
-                                        <div key={idx} className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+                                        <div key={idx} className="bg-anchor-bg-raised p-6 rounded-xl border border-anchor-gold/15 hover:border-anchor-gold transition-colors">
                                             <div className="flex justify-between items-start mb-2">
                                                 <h4 className="font-bold text-xl text-anchor-cream-text">{item.name}</h4>
-                                                {item.price && <span className="font-bold text-anchor-gold bg-anchor-cream/50 px-2 py-1 rounded text-sm">{item.price}</span>}
+                                                {item.price && <span className="font-bold text-anchor-gold bg-anchor-bg-card px-2 py-1 rounded text-sm">{item.price}</span>}
                                             </div>
                                             <p className="text-anchor-cream-text/55 text-sm mb-3">{item.description}</p>
 
                                             {/* Tags */}
                                             <div className="flex flex-wrap gap-2">
                                                 {item.allergens && item.allergens.length > 0 && (
-                                                    <span className="text-xs text-gray-500 border border-gray-200 px-2 py-1 rounded-full">
+                                                    <span className="text-xs text-anchor-cream-text/60 border border-anchor-gold/15 px-2 py-1 rounded-full">
                                                         Contains: {item.allergens.join(', ')}
                                                     </span>
                                                 )}

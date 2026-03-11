@@ -106,7 +106,7 @@ export default function FamilyFriendlyPage() {
                                     title: "Kids Menu",
                                     description: "Proper food in smaller portions. Fish fingers, chicken goujons, and mini roasts on Sundays.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -114,7 +114,7 @@ export default function FamilyFriendlyPage() {
                                     title: "Activity Packs",
                                     description: "Colouring sheets and crayons available to keep boredom at bay while you wait for food.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -122,15 +122,15 @@ export default function FamilyFriendlyPage() {
                                     title: "High Chairs",
                                     description: "Sturdy high chairs available for our smallest guests. Just request one when booking.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"
                                 }
                             ]}
                             className="mb-8"
                         />
 
-                        <div className="bg-white p-6 rounded-xl shadow-sm max-w-2xl mx-auto text-left">
-                            <h3 className="text-xl font-bold text-anchor-green mb-4 text-center">Baby Facilities</h3>
+                        <div className="bg-anchor-bg-raised p-6 rounded-xl border border-anchor-gold/15 max-w-2xl mx-auto text-left">
+                            <h3 className="text-xl font-bold text-anchor-cream-text mb-4 text-center">Baby Facilities</h3>
                             <ul className="grid sm:grid-cols-2 gap-4">
                                 <li className="flex items-center gap-2">
                                     <span className="text-anchor-gold-vivid"></span> Baby changing facilities

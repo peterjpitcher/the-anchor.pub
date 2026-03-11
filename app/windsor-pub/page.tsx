@@ -294,7 +294,7 @@ export default function WindsorPubPage() {
             
             <div className="grid md:grid-cols-2 gap-8 mb-8">
               <div className="card-dark rounded-none p-6">
-                <h3 className="text-xl font-bold text-amber-800 mb-4">Regular Visitors</h3>
+                <h3 className="text-xl font-bold text-anchor-cream-text mb-4">Regular Visitors</h3>
                 <ul className="space-y-2 text-anchor-cream-text/70">
                   <li>• Windsor Rugby Club socials</li>
                   <li>• Eton College staff gatherings</li>
@@ -305,7 +305,7 @@ export default function WindsorPubPage() {
               </div>
               
               <div className="card-dark rounded-none p-6">
-                <h3 className="text-xl font-bold text-blue-800 mb-4">Perfect For</h3>
+                <h3 className="text-xl font-bold text-anchor-cream-text mb-4">Perfect For</h3>
                 <ul className="space-y-2 text-anchor-cream-text/70">
                   <li>• Pre-race meals (Windsor Racecourse)</li>
                   <li>• Post-castle visit dinners</li>
@@ -351,7 +351,7 @@ export default function WindsorPubPage() {
                       <li>• 15 minutes in normal traffic</li>
                     </ul>
                   </div>
-                  <div className="pt-4 border-t">
+                  <div className="pt-4 border-t border-anchor-gold/15">
                     <p className="font-semibold mb-2">Via B376 (Scenic)</p>
                     <ul className="space-y-1 text-anchor-cream-text/70 text-sm">
                       <li>• Through Datchet and Wraysbury</li>
@@ -377,8 +377,8 @@ export default function WindsorPubPage() {
                   <p className="text-anchor-cream-text/70">
                     <strong>Near M25 Junction 14:</strong> Perfect stopover
                   </p>
-                  <div className="pt-4 border-t">
-                    <p className="font-semibold text-green-700">Parking</p>
+                  <div className="pt-4 border-t border-anchor-gold/15">
+                    <p className="font-semibold text-green-400">Parking</p>
                     <p className="text-anchor-cream-text/70">20 free spaces - no time limits!</p>
                   </div>
                 </div>

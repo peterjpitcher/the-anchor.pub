@@ -170,7 +170,7 @@ export default function PubNearRenaissanceHeathrowPage() {
                     <p className="font-semibold">By Car</p>
                     <p className="text-sm">Head south on the A3044 from the Heathrow area, continuing through Stanwell village. Turn right onto Horton Road. Free parking on arrival.</p>
                   </div>
-                  <div className="pt-2 border-t border-gray-200">
+                  <div className="pt-2 border-t border-anchor-gold/15">
                     <p className="text-sm font-medium">Postcode: <strong>TW19 6AQ</strong></p>
                     <p className="text-sm text-anchor-cream-text/70">Tell the driver: &quot;The Anchor pub, Stanwell Moor&quot;</p>
                   </div>

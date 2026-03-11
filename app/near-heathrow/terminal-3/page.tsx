@@ -120,7 +120,7 @@ export default function Terminal3Page() {
         </div>
       </section>
 
-      <section className="py-8 bg-white">
+      <section className="py-8 bg-anchor-bg-card border-b border-anchor-gold/15">
         <div className="container mx-auto px-4">
           <CTASection
             title="Turn Your Terminal 3 Layover into a Meal"
@@ -274,8 +274,8 @@ export default function Terminal3Page() {
             
             <div className="grid md:grid-cols-3 gap-8 mb-12">
               {/* By Car */}
-              <div className="bg-anchor-cream rounded-2xl p-8">
-                <h3 className="text-2xl font-bold text-anchor-green mb-4">By Car (11 minutes)</h3>
+              <div className="bg-anchor-bg-raised rounded-2xl p-8 border border-anchor-gold/15">
+                <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">By Car (11 minutes)</h3>
                 <ol className="space-y-3 text-anchor-cream-text/70">
                   <li className="flex gap-3">
                     <span className="font-bold text-anchor-gold">1.</span>
@@ -305,8 +305,8 @@ export default function Terminal3Page() {
               </div>
 
               {/* By Taxi */}
-              <div className="bg-anchor-cream rounded-2xl p-8">
-                <h3 className="text-2xl font-bold text-anchor-green mb-4">By Taxi</h3>
+              <div className="bg-anchor-bg-raised rounded-2xl p-8 border border-anchor-gold/15">
+                <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">By Taxi</h3>
                 <div className="space-y-4 text-anchor-cream-text/70">
 	                  <div>
 	                    <p className="font-semibold mb-2">Cost: GBP 20-25</p>
@@ -330,8 +330,8 @@ export default function Terminal3Page() {
               </div>
 
               {/* By Bus */}
-              <div className="bg-anchor-cream rounded-2xl p-8">
-                <h3 className="text-2xl font-bold text-anchor-green mb-4">By Bus</h3>
+              <div className="bg-anchor-bg-raised rounded-2xl p-8 border border-anchor-gold/15">
+                <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">By Bus</h3>
                 <div className="space-y-4 text-anchor-cream-text/70">
                   <div>
                     <p className="font-semibold mb-2">Route 442</p>
@@ -512,13 +512,13 @@ export default function Terminal3Page() {
               </p>
             </div>
 
-            <div className="bg-white rounded-2xl p-8 shadow-sm mb-8">
-              <h3 className="text-2xl font-bold text-anchor-green mb-6 text-center">
+            <div className="bg-anchor-bg-raised rounded-2xl p-8 mb-8 border border-anchor-gold/15">
+              <h3 className="text-2xl font-bold text-anchor-cream-text mb-6 text-center">
                 Why Hotel Guests Choose The Anchor
               </h3>
               <div className="grid md:grid-cols-2 gap-8">
                 <div>
-                  <h4 className="font-semibold text-lg mb-3">A Real Local Experience</h4>
+                  <h4 className="font-semibold text-lg mb-3 text-anchor-cream-text">A Real Local Experience</h4>
                   <ul className="space-y-2 text-anchor-cream-text/70">
                     <li className="flex gap-2">
                       <span className="text-anchor-gold"></span>
@@ -539,7 +539,7 @@ export default function Terminal3Page() {
                   </ul>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-lg mb-3">Better Value Than Hotels</h4>
+                  <h4 className="font-semibold text-lg mb-3 text-anchor-cream-text">Better Value Than Hotels</h4>
                   <ul className="space-y-2 text-anchor-cream-text/70">
                     <li className="flex gap-2">
                       <span className="text-anchor-gold"></span>
@@ -655,7 +655,7 @@ export default function Terminal3Page() {
             answer: "Yes! We're very family-friendly with a dedicated children's menu, high chairs, and a relaxed atmosphere. Much better than busy airport restaurants for families with children. Our garden area is perfect for kids to stretch their legs before a long flight."
           }
         ]}
-        className="bg-gray-50"
+        className="bg-anchor-bg-card"
       />
 
       {/* CTA Section */}

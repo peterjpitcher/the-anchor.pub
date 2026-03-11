@@ -1211,14 +1211,14 @@ function ChristmasEnquiryForm({ context, onContextChange, onSuccess }: Christmas
         <div className="flex flex-wrap gap-3">
           <button
             type="button"
-            className={`rounded-full px-4 py-2 text-sm font-semibold border transition ${context.mode === 'dinner' ? 'bg-red-600 text-white border-red-600' : 'bg-white text-anchor-charcoal border-gray-300 hover:bg-gray-100'}`}
+            className={`rounded-full px-4 py-2 text-sm font-semibold border transition ${context.mode === 'dinner' ? 'bg-red-600 text-white border-red-600' : 'bg-anchor-bg-raised text-anchor-cream-text border-anchor-gold/15 hover:border-anchor-gold'}`}
             onClick={() => onContextChange({ mode: 'dinner' })}
           >
             Dinner (up to 25)
           </button>
           <button
             type="button"
-            className={`rounded-full px-4 py-2 text-sm font-semibold border transition ${context.mode === 'buffet' ? 'bg-red-600 text-white border-red-600' : 'bg-white text-anchor-charcoal border-gray-300 hover:bg-gray-100'}`}
+            className={`rounded-full px-4 py-2 text-sm font-semibold border transition ${context.mode === 'buffet' ? 'bg-red-600 text-white border-red-600' : 'bg-anchor-bg-raised text-anchor-cream-text border-anchor-gold/15 hover:border-anchor-gold'}`}
             onClick={() => onContextChange({ mode: 'buffet' })}
           >
             Buffet (26+)

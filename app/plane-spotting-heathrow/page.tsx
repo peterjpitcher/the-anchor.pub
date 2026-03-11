@@ -203,28 +203,28 @@ export default async function PlaneSpottingHeathrowPage() {
                 title: 'Under the Flight Path',
                 description: 'On westerly operations you are aligned with the landing path. Expect A380s, 787s, A350s and narrow bodies at 500-800 ft.',
                 variant: 'default',
-                className: 'bg-white rounded-2xl p-6 shadow-sm text-left'
+                className: 'bg-anchor-bg-raised rounded-2xl p-6 border border-anchor-gold/15 text-left'
               },
               {
                 icon: '',
                 title: 'Photo-Friendly Garden',
                 description: 'Low perimeter fencing, open sky and WiFi for FlightRadar24. Tripods welcome and heaters keep winter sessions comfortable.',
                 variant: 'default',
-                className: 'bg-white rounded-2xl p-6 shadow-sm text-left'
+                className: 'bg-anchor-bg-raised rounded-2xl p-6 border border-anchor-gold/15 text-left'
               },
               {
                 icon: '',
                 title: 'Proper Refreshments',
                 description: 'Stone-baked pizzas, Sunday roasts and full drinks menu available. Toilets, power sockets and indoor seating if the rain hits.',
                 variant: 'default',
-                className: 'bg-white rounded-2xl p-6 shadow-sm text-left'
+                className: 'bg-anchor-bg-raised rounded-2xl p-6 border border-anchor-gold/15 text-left'
               }
             ]}
           />
         </Container>
       </Section>
 
-      <Section background="dark" spacing="md" className="bg-anchor-cream/40">
+      <Section background="dark" spacing="md" className="bg-anchor-bg-raised border-y border-anchor-gold/15">
         <Container>
           <SectionHeader
             title="Plan Your Heathrow Plane Spotting Trip"
@@ -244,7 +244,7 @@ export default async function PlaneSpottingHeathrowPage() {
                   </ul>
                 ),
                 variant: 'colored',
-                color: 'bg-white rounded-2xl p-6 shadow-sm'
+                color: 'bg-anchor-bg-raised rounded-2xl p-6 border border-anchor-gold/15'
               },
               {
                 title: 'Getting Here',
@@ -256,7 +256,7 @@ export default async function PlaneSpottingHeathrowPage() {
                   </ul>
                 ),
                 variant: 'colored',
-                color: 'bg-white rounded-2xl p-6 shadow-sm'
+                color: 'bg-anchor-bg-raised rounded-2xl p-6 border border-anchor-gold/15'
               },
               {
                 title: 'What to Bring',
@@ -268,7 +268,7 @@ export default async function PlaneSpottingHeathrowPage() {
                   </ul>
                 ),
                 variant: 'colored',
-                color: 'bg-white rounded-2xl p-6 shadow-sm'
+                color: 'bg-anchor-bg-raised rounded-2xl p-6 border border-anchor-gold/15'
               }
             ]}
           />
@@ -289,14 +289,14 @@ export default async function PlaneSpottingHeathrowPage() {
                 title: 'Myrtle Avenue',
                 description: 'Legendary runway 27L arrivals spot in Hatton Cross. Pair with The Anchor for food, drinks and runway 27R coverage.',
                 variant: 'default',
-                className: 'bg-white rounded-2xl p-6 shadow-sm text-left'
+                className: 'bg-anchor-bg-raised rounded-2xl p-6 border border-anchor-gold/15 text-left'
               },
               {
                 icon: '',
                 title: 'Visitors Centre / Renaissance Hotel',
                 description: 'Great for departures on easterly operations. Wrap up the day with a pint at The Anchor before heading home.',
                 variant: 'default',
-                className: 'bg-white rounded-2xl p-6 shadow-sm text-left'
+                className: 'bg-anchor-bg-raised rounded-2xl p-6 border border-anchor-gold/15 text-left'
               }
             ]}
           />
@@ -304,7 +304,7 @@ export default async function PlaneSpottingHeathrowPage() {
       </Section>
 
       <FAQAccordionWithSchema
-        className="bg-gray-50"
+        className="bg-anchor-bg-raised"
         faqs={[
           {
             question: 'Do I need to book a table for plane spotting?',

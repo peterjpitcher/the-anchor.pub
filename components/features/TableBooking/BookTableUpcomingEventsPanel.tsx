@@ -39,14 +39,14 @@ export async function BookTableUpcomingEventsPanel() {
     .slice(0, 6)
 
   return (
-    <div className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-gray-100 sm:p-6">
-      <h3 className="text-lg font-semibold text-anchor-green sm:text-xl">Upcoming events</h3>
-      <p className="mt-2 text-sm text-gray-700">
+    <div className="rounded-2xl bg-anchor-bg-raised p-4 border border-anchor-gold/15 sm:p-6">
+      <h3 className="text-lg font-semibold text-anchor-cream-text sm:text-xl">Upcoming events</h3>
+      <p className="mt-2 text-sm text-anchor-cream-text/70">
         If your date matches one of these, you can switch to event booking straight away.
       </p>
 
       {upcomingEvents.length === 0 ? (
-        <p className="mt-4 text-sm text-gray-600">No upcoming events are listed right now.</p>
+        <p className="mt-4 text-sm text-anchor-cream-text/60">No upcoming events are listed right now.</p>
       ) : (
         <div className="mt-4 space-y-3">
           {upcomingEvents.map((event, index) => {
@@ -59,12 +59,12 @@ export async function BookTableUpcomingEventsPanel() {
             return (
               <div
                 key={event.id}
-                className={`rounded-xl border border-gray-200 bg-gray-50 p-3 ${
+                className={`rounded-xl border border-anchor-gold/15 bg-anchor-bg-card p-3 ${
                   index >= 3 ? 'hidden sm:block' : ''
                 }`}
               >
-                <p className="text-sm font-semibold text-gray-900">{event.name}</p>
-                <p className="mt-1 text-xs text-gray-700">
+                <p className="text-sm font-semibold text-anchor-cream-text">{event.name}</p>
+                <p className="mt-1 text-xs text-anchor-cream-text/70">
                   {formatEventDateShort(event.startDate)} at {formatEventTimeShort(event.startDate)}
                   {priceLabel ? ` • ${priceLabel}` : ' • Free entry'}
                   {typeof seatsRemaining === 'number'
@@ -75,7 +75,7 @@ export async function BookTableUpcomingEventsPanel() {
                 <div className="mt-2">
                   <Link
                     href={getEventBookingHref(event)}
-                    className="text-sm font-medium text-anchor-green underline hover:text-anchor-gold"
+                    className="text-sm font-medium text-anchor-gold underline hover:text-anchor-gold-vivid"
                   >
                     Book event
                   </Link>
@@ -87,7 +87,7 @@ export async function BookTableUpcomingEventsPanel() {
       )}
 
       <div className="mt-4">
-        <Link href="/whats-on" className="text-sm font-medium text-anchor-green underline hover:text-anchor-gold">
+        <Link href="/whats-on" className="text-sm font-medium text-anchor-gold underline hover:text-anchor-gold-vivid">
           View all events
         </Link>
       </div>

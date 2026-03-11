@@ -130,7 +130,7 @@ export default function HeathrowLayoverDiningPage() {
       <Section background="dark" spacing="md">
         <Container>
           <PageTitle
-            className="text-center text-anchor-green"
+            className="text-center text-anchor-cream-text"
             seo={{ structured: true, speakable: true }}
           >
             Heathrow Layover Dining at The Anchor
@@ -200,7 +200,7 @@ export default function HeathrowLayoverDiningPage() {
         </Container>
       </Section>
 
-      <Section background="dark" spacing="lg" className="bg-white">
+      <Section background="dark" spacing="lg">
         <Container>
           <SectionHeader
             title="Why Layover Guests Choose The Anchor"
@@ -299,7 +299,7 @@ export default function HeathrowLayoverDiningPage() {
             subtitle="Budget your layover with realistic timings and typical fares."
           />
           <div className="overflow-x-auto rounded-xl border border-anchor-gold/15 bg-anchor-bg-card">
-            <table className="min-w-full divide-y divide-gray-200">
+            <table className="min-w-full divide-y divide-anchor-gold/15">
               <thead className="bg-anchor-green text-white">
                 <tr>
                   <th className="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">Terminal</th>
@@ -308,7 +308,7 @@ export default function HeathrowLayoverDiningPage() {
                   <th className="px-6 py-3 text-left text-sm font-semibold uppercase tracking-wider">Best For</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-200 text-sm text-anchor-cream-text/70">
+              <tbody className="divide-y divide-anchor-gold/15 text-sm text-anchor-cream-text/70">
 	                <tr>
 	                  <td className="px-6 py-4 font-semibold text-anchor-cream-text">Terminal 5</td>
 	                  <td className="px-6 py-4">7 minutes • GBP 12–18</td>
@@ -378,7 +378,7 @@ export default function HeathrowLayoverDiningPage() {
       <FAQAccordionWithSchema
         title="Heathrow Layover Dining FAQs"
         faqs={faqItems}
-        className="bg-anchor-cream/40"
+        className="bg-anchor-bg-raised border border-anchor-gold/15"
       />
 
       <Section background="dark" spacing="lg">

@@ -170,7 +170,7 @@ export default function PubNearIbisHeathrowPage() {
                     <p className="font-semibold">By Car (Rental)</p>
                     <p className="text-sm">Head south on the A3044 from the Heathrow area. Continue through Stanwell village and turn right onto Horton Road. Free parking on arrival.</p>
                   </div>
-                  <div className="pt-2 border-t border-gray-200">
+                  <div className="pt-2 border-t border-anchor-gold/15">
                     <p className="text-sm font-medium">Postcode: <strong>TW19 6AQ</strong></p>
                     <p className="text-sm text-anchor-cream-text/70">Uber works well from all ibis Heathrow locations</p>
                   </div>

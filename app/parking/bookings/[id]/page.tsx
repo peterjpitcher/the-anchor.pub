@@ -92,7 +92,7 @@ export default async function ParkingBookingStatusPage({ params, searchParams }:
             </div>
 
             {paymentMessage && (
-              <div className={`rounded-xl border p-4 text-sm ${searchParams.payment === 'success' ? 'border-green-200 bg-green-50 text-green-800' : 'border-red-200 bg-red-50 text-red-700'}`}>
+              <div className={`rounded-xl border p-4 text-sm ${searchParams.payment === 'success' ? 'bg-green-900/20 border-green-500/30 text-green-400' : 'bg-red-900/20 border-red-500/30 text-red-400'}`}>
                 {paymentMessage}
               </div>
             )}

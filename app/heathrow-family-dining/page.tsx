@@ -108,7 +108,7 @@ export default function FamilyDiningPage() {
                                     title: "Large Beer Garden",
                                     description: "A safe, enclosed grassy area where kids can play freely while you watch from your table.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-card",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -116,7 +116,7 @@ export default function FamilyDiningPage() {
                                     title: "Kids Menu",
                                     description: "Proper portions of favourites like fish fingers and sausages - nothing too fancy!",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-card",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
@@ -124,7 +124,7 @@ export default function FamilyDiningPage() {
                                     title: "Plane Spotting",
                                     description: "We are under the flight path! Kids love watching the giant planes land nearby.",
                                     variant: "colored",
-                                    color: "bg-anchor-cream",
+                                    color: "bg-anchor-bg-card",
                                     className: "rounded-xl p-6 text-center"
                                 }
                             ]}
@@ -136,8 +136,8 @@ export default function FamilyDiningPage() {
 
             <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
                 <Container>
-                    <div className="bg-blue-50 p-8 rounded-xl max-w-3xl mx-auto">
-                        <h3 className="text-2xl font-bold text-center text-blue-900 mb-6">Facilities for Little Ones</h3>
+                    <div className="bg-anchor-bg-raised border border-anchor-gold/15 p-8 rounded-xl max-w-3xl mx-auto">
+                        <h3 className="text-2xl font-bold text-center text-anchor-cream-text mb-6">Facilities for Little Ones</h3>
                         <div className="grid md:grid-cols-2 gap-4">
                             <div className="flex items-start gap-3">
                                 <span className="text-2xl"></span>
@@ -187,7 +187,7 @@ export default function FamilyDiningPage() {
                         answer: "We cook to order, but if you are in a rush for a flight, let us know! Kids meals are usually very quick to prepare."
                     }
                 ]}
-                className="bg-white"
+                className="bg-anchor-bg-card"
             />
 
             <CTASection
