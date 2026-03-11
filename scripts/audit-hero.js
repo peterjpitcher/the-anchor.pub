@@ -17,6 +17,7 @@ const EXEMPT_PAGES = new Set([
   'app/free-parking/page.tsx',
   'app/gtm-debug/page.tsx',
   'app/leave-review/page.tsx',
+  'app/heathrow-parking/confirmation/[bookingId]/page.tsx',
   'app/parking/bookings/[id]/page.tsx',
   'app/test-gtm/page.tsx',
   'app/test-hours/page.tsx',
