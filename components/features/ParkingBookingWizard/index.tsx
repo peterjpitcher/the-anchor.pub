@@ -225,6 +225,7 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
   const paypalContainerRef = useRef<HTMLDivElement>(null)
   const [paypalLoaded, setPaypalLoaded] = useState(false)
   const [paypalRendered, setPaypalRendered] = useState(false)
+  const [paypalLoadError, setPaypalLoadError] = useState(false)
   const [captureState, setCaptureState] = useState<'idle' | 'capturing' | 'error' | 'cancelled'>('idle')
   // Stores the booking_id returned by createOrder so onApprove can pass it to capture
   const pendingBookingIdRef = useRef<string | null>(null)
@@ -368,6 +369,7 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
     paypalContainerRef.current.innerHTML = ''
     setPaypalRendered(true)
 
+    try {
     window.paypal.Buttons({
       style: { layout: 'vertical', color: 'gold', shape: 'rect', label: 'pay', height: 48 },
 
@@ -443,6 +445,10 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
         pendingBookingIdRef.current = null
       },
     } as Record<string, unknown>).render(paypalContainerRef.current!)
+    } catch {
+      setPaypalLoadError(true)
+      setPaypalRendered(false)
+    }
   }
 
   const renderStepContent = () => {
@@ -605,11 +611,14 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
         return (
           <>
             {/* PayPal JS SDK — loaded lazily when customer reaches step 4 */}
-            <Script
-              src={`https://www.paypal.com/sdk/js?client-id=${process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID}&currency=GBP&intent=capture`}
-              strategy="afterInteractive"
-              onLoad={() => setPaypalLoaded(true)}
-            />
+            {process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID && (
+              <Script
+                src={`https://www.paypal.com/sdk/js?client-id=${process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID}&currency=GBP&intent=capture`}
+                strategy="afterInteractive"
+                onLoad={() => setPaypalLoaded(true)}
+                onError={() => setPaypalLoadError(true)}
+              />
+            )}
 
             <div className="space-y-6">
               {/* Booking summary */}
@@ -663,8 +672,14 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
               )}
 
               {/* PayPal button container */}
+              {/* Error state — shown if SDK fails to load or client ID is missing */}
+              {(paypalLoadError || !process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID) && (
+                <p className="text-sm text-red-400 bg-anchor-bg-raised rounded-lg px-4 py-3">
+                  Payment could not be loaded. Please call us on <a href="tel:01753682707" className="font-semibold underline">01753 682707</a> to complete your booking.
+                </p>
+              )}
               {/* Skeleton shown while SDK loads — sibling to the container, not inside it */}
-              {!paypalLoaded && captureState !== 'capturing' && (
+              {!paypalLoaded && !paypalLoadError && process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID && captureState !== 'capturing' && (
                 <div className="h-12 rounded-lg bg-anchor-bg-raised animate-pulse" />
               )}
               {/* Container stays mounted so the SDK iframe is never destroyed */}
