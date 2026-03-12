@@ -39,7 +39,7 @@ export async function BookTableUpcomingEventsPanel() {
     .slice(0, 6)
 
   return (
-    <div className="rounded-2xl bg-anchor-bg-raised p-4 border border-anchor-gold/15 sm:p-6">
+    <div className="card-dark p-4 sm:p-6">
       <h3 className="text-lg font-semibold text-anchor-cream-text sm:text-xl">Upcoming events</h3>
       <p className="mt-2 text-sm text-anchor-cream-text/70">
         If your date matches one of these, you can switch to event booking straight away.
@@ -59,7 +59,7 @@ export async function BookTableUpcomingEventsPanel() {
             return (
               <div
                 key={event.id}
-                className={`rounded-xl border border-anchor-gold/15 bg-anchor-bg-card p-3 ${
+                className={`card-dark p-3 ${
                   index >= 3 ? 'hidden sm:block' : ''
                 }`}
               >

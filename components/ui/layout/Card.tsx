@@ -59,7 +59,7 @@ export const CardHeader = forwardRef<HTMLDivElement, CardHeaderProps>(
     return (
       <div
         ref={ref}
-        className={cn('px-6 py-4 border-b border-gray-200', className)}
+        className={cn('px-6 py-4 border-b border-anchor-gold/15', className)}
         {...props}
       >
         {children}
@@ -81,7 +81,7 @@ export const CardTitle = forwardRef<HTMLHeadingElement, CardTitleProps>(
     return (
       <Component
         ref={ref}
-        className={cn('text-lg font-semibold text-gray-900', className)}
+        className={cn('text-lg font-semibold text-anchor-cream-text', className)}
         {...props}
       >
         {children}
@@ -123,7 +123,7 @@ export const CardFooter = forwardRef<HTMLDivElement, CardFooterProps>(
     return (
       <div
         ref={ref}
-        className={cn('px-6 py-4 border-t border-gray-200 bg-gray-50', className)}
+        className={cn('px-6 py-4 border-t border-anchor-gold/15 bg-anchor-bg-raised', className)}
         {...props}
       >
         {children}

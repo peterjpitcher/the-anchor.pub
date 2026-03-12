@@ -480,13 +480,13 @@ function BookingProgressBar({ currentStep, totalSteps }: { currentStep: number; 
 
   return (
     <div className="mb-4" aria-live="polite">
-      <div className="flex justify-between text-xs text-gray-500 mb-1">
+      <div className="flex justify-between text-xs text-anchor-cream-text/50 mb-1">
         <span>Step {currentStep} of {totalSteps}</span>
         {isAlmostDone && (
-          <span className="text-anchor-green font-medium">Almost there!</span>
+          <span className="text-anchor-gold-vivid font-medium">Almost there!</span>
         )}
       </div>
-      <div className="h-1.5 w-full rounded-full bg-gray-100">
+      <div className="h-1.5 w-full rounded-full bg-anchor-bg-raised">
         <div
           className="h-1.5 rounded-full bg-anchor-green transition-all duration-300"
           style={{ width: `${pct}%` }}
@@ -1081,7 +1081,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
     if (selectedDateEventsLoading) {
       return (
-        <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 text-sm text-gray-700">
+        <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-raised p-4 text-sm text-anchor-cream-text/70">
           Checking events on {formatDateForDisplay(date)}...
         </div>
       )
@@ -1089,7 +1089,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
     if (selectedDateEvents.length === 0) {
       return (
-        <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 text-sm text-gray-700">
+        <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-raised p-4 text-sm text-anchor-cream-text/70">
           No special events are listed on {formatDateForDisplay(date)} right now.
         </div>
       )
@@ -1099,20 +1099,20 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       <div
         className={`rounded-xl border p-4 ${
           options.highlight
-            ? 'border-amber-200 bg-amber-50'
-            : 'border-gray-200 bg-gray-50'
+            ? 'border-anchor-gold/30 bg-anchor-gold/10'
+            : 'border-anchor-gold/15 bg-anchor-bg-raised'
         }`}
       >
         <div className="flex flex-wrap items-start justify-between gap-2">
           <div>
-            <p className="text-sm font-semibold text-anchor-green">{options.title}</p>
-            <p className="mt-1 text-sm text-gray-700">{options.description}</p>
-            <p className="mt-1 text-xs text-gray-600">Tap an event below to book it without leaving this page.</p>
+            <p className="text-sm font-semibold text-anchor-gold-vivid">{options.title}</p>
+            <p className="mt-1 text-sm text-anchor-cream-text/70">{options.description}</p>
+            <p className="mt-1 text-xs text-anchor-cream-text/60">Tap an event below to book it without leaving this page.</p>
           </div>
           <button
             type="button"
             onClick={dismissEventSuggestionsForDate}
-            className="text-xs font-medium text-gray-600 underline hover:text-gray-800"
+            className="text-xs font-medium text-anchor-cream-text/60 underline hover:text-anchor-cream-text/80"
           >
             Hide
           </button>
@@ -1123,11 +1123,11 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
             return (
               <div
                 key={event.id}
-                className="flex flex-wrap items-start justify-between gap-3 rounded-lg border border-gray-200 bg-white px-3 py-3"
+                className="flex flex-wrap items-start justify-between gap-3 rounded-lg border border-anchor-gold/15 bg-anchor-bg-card px-3 py-3"
               >
                 <div className="min-w-0 flex-1">
-                  <p className="text-sm font-semibold text-gray-900">{event.name}</p>
-                  <p className="mt-1 text-xs text-gray-700">
+                  <p className="text-sm font-semibold text-anchor-cream-text">{event.name}</p>
+                  <p className="mt-1 text-xs text-anchor-cream-text/70">
                     {formatEventTimeLabel(event.startDate)}
                     {event.priceLabel ? ` • ${event.priceLabel}` : ' • Free entry'}
                     {typeof event.seatsRemaining === 'number'
@@ -1135,7 +1135,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                       : ''}
                   </p>
                   {event.shortDescription ? (
-                    <p className="mt-1 text-xs text-gray-600 line-clamp-2">{event.shortDescription}</p>
+                    <p className="mt-1 text-xs text-anchor-cream-text/60 line-clamp-2">{event.shortDescription}</p>
                   ) : null}
                 </div>
                 <Button
@@ -1448,12 +1448,12 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       <div className="space-y-4">
         <Card variant="elevated">
           <CardBody className="space-y-3 p-4">
-            <h3 className="text-lg font-semibold text-anchor-green">Event booking</h3>
-            <p className="text-sm text-gray-700">
-              You’re booking <strong>{selectedSuggestedEvent.name}</strong> on{' '}
+            <h3 className="text-lg font-semibold text-anchor-gold-vivid">Event booking</h3>
+            <p className="text-sm text-anchor-cream-text/70">
+              You're booking <strong>{selectedSuggestedEvent.name}</strong> on{' '}
               <strong>{selectedEventDateLabel}</strong> at <strong>{selectedEventTimeLabel}</strong>.
             </p>
-            <p className="text-sm text-gray-700">
+            <p className="text-sm text-anchor-cream-text/70">
               Complete your event booking below without leaving this page.
             </p>
             <Button
@@ -1492,8 +1492,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
             <p className="mt-2">We&apos;ve sent confirmation details by SMS.</p>
           </Alert>
 
-          <div className="mt-4 rounded-xl bg-anchor-green/5 border border-anchor-green/10 p-4 text-sm text-gray-700 space-y-1">
-            <p className="font-semibold text-anchor-green">When you arrive:</p>
+          <div className="mt-4 rounded-xl bg-anchor-bg-raised border border-anchor-gold/15 p-4 text-sm text-anchor-cream-text/70 space-y-1">
+            <p className="font-semibold text-anchor-gold-vivid">When you arrive:</p>
             <p>&#x2022; Free parking right outside &mdash; no ticket needed</p>
             <p>&#x2022; No need to check in &mdash; just head to the bar and we&apos;ll find your table</p>
             <p>&#x2022; If anything changes, give us a ring on 01753 682707</p>
@@ -1587,10 +1587,10 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 key={stepKey}
                 className={`rounded-xl border px-3 py-2 text-center text-sm ${
                   isCurrent
-                    ? 'border-anchor-gold bg-amber-50 font-semibold text-anchor-green'
+                    ? 'border-anchor-gold bg-anchor-gold/15 font-semibold text-anchor-gold-vivid'
                     : isComplete
-                    ? 'border-green-200 bg-green-50 text-green-800'
-                    : 'border-gray-200 bg-gray-50 text-gray-600'
+                    ? 'border-anchor-green/40 bg-anchor-green/10 text-anchor-cream-text'
+                    : 'border-anchor-gold/15 bg-anchor-bg-raised text-anchor-cream-text/50'
                 }`}
               >
                 <div className="text-xs uppercase tracking-wide">Step {index + 1}</div>
@@ -1610,9 +1610,9 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
         )}
 
         {mothersDayRequested && mothersDayCutoffPassed ? (
-          <Alert variant="warning" title="Mother’s Day Sunday lunch pre-orders closed">
+          <Alert variant="warning" title="Mother's Day Sunday lunch pre-orders closed">
             <p>
-              Sunday lunch pre-orders for Mother’s Day (Sunday, {MOTHERS_DAY_SERVICE_DATE}) closed at 1pm on{' '}
+              Sunday lunch pre-orders for Mother's Day (Sunday, {MOTHERS_DAY_SERVICE_DATE}) closed at 1pm on{' '}
               {mothersDayCutoffDate ? formatDateForDisplay(mothersDayCutoffDate) : 'the Saturday before'} (London time).
             </p>
             <p className="mt-2">
@@ -1625,11 +1625,11 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
         {step === 'find' && (
           <div className="space-y-4">
             <div>
-              <h3 className="text-lg font-semibold text-anchor-green">Find a table</h3>
-              <p className="mt-1 text-sm text-gray-700">
+              <h3 className="text-lg font-semibold text-anchor-gold-vivid">Find a table</h3>
+              <p className="mt-1 text-sm text-anchor-cream-text/70">
                 {mothersDayMode
-                  ? 'Mother’s Day Sunday Lunch is fixed to Sunday, 15 March 2026. Choose party size and preferred time, then continue.'
-                  : 'Start with party size, date, booking type, and time. We’ll ask for contact details after you pick a slot.'}
+                  ? `Mother's Day Sunday Lunch is fixed to Sunday, 15 March 2026. Choose party size and preferred time, then continue.`
+                  : `Start with party size, date, booking type, and time. We'll ask for contact details after you pick a slot.`}
               </p>
             </div>
 
@@ -1644,7 +1644,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
             />
 
             {mothersDayMode ? (
-              <div className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+              <div className="rounded-xl border border-anchor-gold/25 bg-anchor-gold/10 px-4 py-3 text-sm text-anchor-cream-text">
                 Date: <strong>Sunday, 15 March 2026</strong>
               </div>
             ) : (
@@ -1671,19 +1671,19 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
             {!mothersDayMode ? (
               <div>
-                <label htmlFor="table-booking-purpose-find" className="mb-1 block text-sm font-medium text-gray-700">
+                <label htmlFor="table-booking-purpose-find" className="mb-1 block text-sm font-medium text-anchor-cream-text/70">
                   Booking for
                 </label>
                 <select
                   id="table-booking-purpose-find"
                   value={purpose}
                   onChange={(event) => handlePurposeSelection(event.target.value === 'drinks' ? 'drinks' : 'food')}
-                  className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-gray-900 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-anchor-gold"
+                  className="w-full rounded-lg border border-anchor-gold/30 bg-anchor-bg-card px-4 py-2 text-anchor-cream-text focus:border-transparent focus:outline-none focus:ring-2 focus:ring-anchor-gold"
                 >
                   <option value="food">Food (kitchen hours)</option>
                   <option value="drinks">Drinks (bar hours)</option>
                 </select>
-                <p className="mt-2 text-xs text-gray-600">
+                <p className="mt-2 text-xs text-anchor-cream-text/60">
                   {purpose === 'food'
                     ? 'Food bookings are shown within kitchen service hours.'
                     : 'Drinks-only bookings can include later bar slots when available.'}
@@ -1700,7 +1700,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               })}
 
             {!mothersDayMode && selectedDateEventError && !showDateEventSuggestions && !selectedDateEventsLoading ? (
-              <p className="text-xs text-gray-500">{selectedDateEventError}</p>
+              <p className="text-xs text-anchor-cream-text/50">{selectedDateEventError}</p>
             ) : null}
 
             {availabilityError && (
@@ -1718,19 +1718,19 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
         {step === 'choose' && (
           <div className="space-y-4">
             <div>
-              <h3 className="text-lg font-semibold text-anchor-green">Choose your time</h3>
-              <p className="mt-1 text-sm text-gray-700">
+              <h3 className="text-lg font-semibold text-anchor-gold-vivid">Choose your time</h3>
+              <p className="mt-1 text-sm text-anchor-cream-text/70">
                 {formatDateForDisplay(date)} for {partySize} {partySize === 1 ? 'guest' : 'guests'}.
               </p>
               {!mothersDayMode ? (
-                <p className="mt-1 text-xs text-gray-600">
+                <p className="mt-1 text-xs text-anchor-cream-text/60">
                   Showing {purpose === 'drinks' ? 'drinks-only' : 'food'} slots.
                 </p>
               ) : null}
             </div>
 
             {availabilityLoading ? (
-              <p className="text-sm text-gray-700">Checking available times...</p>
+              <p className="text-sm text-anchor-cream-text/70">Checking available times...</p>
             ) : null}
 
             {availableSlots.length > 0 ? (
@@ -1744,8 +1744,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                       onClick={() => handleSlotSelect(slot.time)}
                       className={`rounded-xl border px-3 py-3 text-sm font-semibold transition-colors ${
                         isSelected
-                          ? 'border-anchor-gold bg-amber-50 text-anchor-green'
-                          : 'border-gray-300 bg-white text-gray-800 hover:border-anchor-gold'
+                          ? 'border-anchor-gold bg-anchor-gold/15 text-anchor-gold-vivid'
+                          : 'border-anchor-gold/25 bg-anchor-bg-card text-anchor-cream-text hover:border-anchor-gold'
                       }`}
                     >
                       {formatTimeForDisplay(slot.time)}
@@ -1757,7 +1757,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               <Alert variant="warning" title="No online times available">
                 <p>
                   {availability?.message ||
-                    'We couldn’t find an online slot for that request. Try one of the nearest alternatives below, or join the waitlist.'}
+                    `We couldn't find an online slot for that request. Try one of the nearest alternatives below, or join the waitlist.`}
                 </p>
                 {availability?.special_notes ? <p className="mt-2">{availability.special_notes}</p> : null}
               </Alert>
@@ -1779,11 +1779,11 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               })}
 
             {availableSlots.length === 0 && !mothersDayMode && (
-              <div className="space-y-3 rounded-xl border border-gray-200 bg-gray-50 p-4">
-                <p className="text-sm font-semibold text-gray-800">Nearest alternatives</p>
+              <div className="space-y-3 rounded-xl border border-anchor-gold/15 bg-anchor-bg-raised p-4">
+                <p className="text-sm font-semibold text-anchor-cream-text/80">Nearest alternatives</p>
 
                 {alternativesLoading ? (
-                  <p className="text-sm text-gray-700">Finding nearby options...</p>
+                  <p className="text-sm text-anchor-cream-text/70">Finding nearby options...</p>
                 ) : alternativeSlots.length > 0 ? (
                   <div className="space-y-2">
                     {alternativeSlots.map((option) => (
@@ -1791,20 +1791,20 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                         key={`${option.date}-${option.time}`}
                         type="button"
                         onClick={() => handleChooseAlternative(option)}
-                        className="flex w-full items-center justify-between rounded-lg border border-gray-300 bg-white px-3 py-2 text-left text-sm hover:border-anchor-gold"
+                        className="flex w-full items-center justify-between rounded-lg border border-anchor-gold/25 bg-anchor-bg-card px-3 py-2 text-left text-sm hover:border-anchor-gold"
                       >
-                        <span className="font-medium text-gray-800">{formatDateForDisplay(option.date)}</span>
-                        <span className="text-anchor-green font-semibold">{formatTimeForDisplay(option.time)}</span>
+                        <span className="font-medium text-anchor-cream-text/80">{formatDateForDisplay(option.date)}</span>
+                        <span className="text-anchor-gold-vivid font-semibold">{formatTimeForDisplay(option.time)}</span>
                       </button>
                     ))}
                   </div>
                 ) : (
-                  <p className="text-sm text-gray-700">No nearby online alternatives were found.</p>
+                  <p className="text-sm text-anchor-cream-text/70">No nearby online alternatives were found.</p>
                 )}
 
-                <div className="rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">
+                <div className="rounded-lg border border-anchor-gold/25 bg-anchor-gold/10 p-3 text-sm text-anchor-cream-text">
                   <p className="font-semibold">Join waitlist</p>
-                  <p className="mt-1">Call us and we’ll add you to the waitlist for cancellations.</p>
+                  <p className="mt-1">Call us and we'll add you to the waitlist for cancellations.</p>
                   <div className="mt-2">
                     <Button asChild size="sm" variant="secondary">
                       <a href="tel:+441753682707">Join waitlist by phone</a>
@@ -1815,10 +1815,10 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
             )}
 
             {availableSlots.length === 0 && mothersDayMode ? (
-              <div className="rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">
-                <p className="font-semibold">Mother’s Day Sunday Lunch</p>
+              <div className="rounded-lg border border-anchor-gold/25 bg-anchor-gold/10 p-3 text-sm text-anchor-cream-text">
+                <p className="font-semibold">Mother's Day Sunday Lunch</p>
                 <p className="mt-1">
-                  Online slots may be limited. Call us and we’ll check the latest availability for Sunday 15 March.
+                  Online slots may be limited. Call us and we'll check the latest availability for Sunday 15 March.
                 </p>
                 <div className="mt-2">
                   <Button asChild size="sm" variant="secondary">
@@ -1852,14 +1852,14 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
         {step === 'details' && (
           <div className="space-y-4">
-            <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 text-sm text-gray-700">
+            <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-raised p-4 text-sm text-anchor-cream-text/70">
               <p>
                 <strong>{partySize}</strong> guests on <strong>{formatDateForDisplay(date)}</strong> at{' '}
                 <strong>{formatTimeForDisplay(selectedTime || requestedTime)}</strong>
               </p>
             </div>
 
-            <div className="rounded-xl border border-gray-200 bg-gray-50 p-4">
+            <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-raised p-4">
               <Input
                 label="Mobile Number"
                 type="tel"
@@ -1895,16 +1895,16 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 )}
               </div>
 
-              {lookupError ? <p className="mt-3 text-sm text-red-700">{lookupError}</p> : null}
+              {lookupError ? <p className="mt-3 text-sm text-red-400">{lookupError}</p> : null}
 
               {isKnownCustomer ? (
-                <p className="mt-3 text-sm font-medium text-green-800">
-                  Welcome back{knownCustomer?.full_name ? `, ${knownCustomer.full_name}` : ''}. We’ve skipped your personal details.
+                <p className="mt-3 text-sm font-medium text-anchor-gold-vivid">
+                  Welcome back{knownCustomer?.full_name ? `, ${knownCustomer.full_name}` : ''}. We've skipped your personal details.
                 </p>
               ) : null}
 
               {lookupState === 'unknown' ? (
-                <p className="mt-3 text-sm font-medium text-amber-800">
+                <p className="mt-3 text-sm font-medium text-anchor-cream-text/80">
                   {lookupDegraded
                     ? 'We could not verify this number right now. Please continue by entering your details below.'
                     : 'New customer detected. Please complete your details below.'}
@@ -1945,25 +1945,25 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
             {detailsUnlocked ? (
               <>
                 {mothersDayMode ? (
-                  <div className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
-                    <p className="font-semibold">Mother’s Day Sunday Lunch booking</p>
+                  <div className="rounded-xl border border-anchor-gold/25 bg-anchor-gold/10 p-4 text-sm text-anchor-cream-text">
+                    <p className="font-semibold">Mother's Day Sunday Lunch booking</p>
                     <p className="mt-1">
                       Booking type is fixed to food + Sunday lunch for Sunday, 15 March 2026.
                     </p>
                     <p className="mt-1">
-                      Choose each guest’s Sunday lunch main in this step. After review, pay a {sundayLunchDepositPerGuestLabel} deposit to secure your table.
+                      Choose each guest's Sunday lunch main in this step. After review, pay a {sundayLunchDepositPerGuestLabel} deposit to secure your table.
                     </p>
                   </div>
                 ) : (
-                  <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 text-sm text-gray-700">
-                    <p className="font-semibold text-gray-900">
+                  <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-raised p-4 text-sm text-anchor-cream-text/70">
+                    <p className="font-semibold text-anchor-cream-text">
                       Booking for: {purpose === 'drinks' ? 'Drinks (bar hours)' : 'Food (kitchen hours)'}
                     </p>
-                    <p className="mt-1 text-xs text-gray-600">
+                    <p className="mt-1 text-xs text-anchor-cream-text/60">
                       Need to switch between food and drinks? Go back to step 1 and tap Find a table again.
                     </p>
                     {purposeLockedToFood ? (
-                      <p className="mt-2 text-xs text-amber-800">
+                      <p className="mt-2 text-xs text-anchor-cream-text/70">
                         Sunday lunch bookings are served from our Sunday lunch menu.
                       </p>
                     ) : null}
@@ -1971,9 +1971,9 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 )}
 
                 {!mothersDayMode && selectedDateIsSunday && purpose !== 'drinks' ? (
-                  <div className="space-y-3 rounded-xl border border-amber-200 bg-amber-50 p-4">
-                    <p className="text-sm font-semibold text-amber-900">Sunday plans</p>
-                    <p className="text-sm text-amber-800">
+                  <div className="space-y-3 rounded-xl border border-anchor-gold/25 bg-anchor-gold/10 p-4">
+                    <p className="text-sm font-semibold text-anchor-cream-text">Sunday plans</p>
+                    <p className="text-sm text-anchor-cream-text/80">
                       Choose your dining style for Sunday:
                     </p>
                     <div className="grid gap-3 sm:grid-cols-2">
@@ -1989,10 +1989,10 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                         }}
                         className={`rounded-lg border px-3 py-3 text-left text-sm transition-colors ${
                           sundayLunchCutoffPassed
-                            ? 'cursor-not-allowed border-gray-200 bg-gray-100 text-gray-500'
+                            ? 'cursor-not-allowed border-anchor-gold/10 bg-anchor-bg-raised text-anchor-cream-text/30'
                             : sundayLunch
-                            ? 'border-anchor-gold bg-white text-anchor-green'
-                            : 'border-amber-200 bg-amber-50 text-amber-900 hover:border-anchor-gold'
+                            ? 'border-anchor-gold bg-anchor-gold/15 text-anchor-gold-vivid'
+                            : 'border-anchor-gold/20 bg-anchor-gold/8 text-anchor-cream-text hover:border-anchor-gold'
                         }`}
                       >
                         <p className="font-semibold">Sunday lunch experience</p>
@@ -2010,8 +2010,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                         }}
                         className={`rounded-lg border px-3 py-3 text-left text-sm transition-colors ${
                           !sundayLunch
-                            ? 'border-anchor-gold bg-white text-anchor-green'
-                            : 'border-amber-200 bg-amber-50 text-amber-900 hover:border-anchor-gold'
+                            ? 'border-anchor-gold bg-anchor-gold/15 text-anchor-gold-vivid'
+                            : 'border-anchor-gold/20 bg-anchor-gold/8 text-anchor-cream-text hover:border-anchor-gold'
                         }`}
                       >
                         <p className="font-semibold">Weekday menu table</p>
@@ -2021,21 +2021,21 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                       </button>
                     </div>
 
-                    <p className="text-xs text-amber-900">
+                    <p className="text-xs text-anchor-cream-text/80">
                       Sunday lunch pre-orders close at 1pm on{' '}
                       {sundayLunchCutoffDate ? formatDateForDisplay(sundayLunchCutoffDate) : 'the Saturday before'} (London time).
                     </p>
 
                     {sundayLunchCutoffPassed ? (
-                      <p className="text-xs font-medium text-amber-900">
+                      <p className="text-xs font-medium text-anchor-cream-text/80">
                         The deadline has passed for this Sunday, so Sunday lunch pre-order is unavailable. You can still book a weekday menu table.
                       </p>
                     ) : sundayLunch ? (
-                      <p className="text-xs font-medium text-amber-900">
-                        Great choice. We’ll collect each guest’s main now and then take your {sundayLunchDepositPerGuestLabel} deposit payment to secure your booking.
+                      <p className="text-xs font-medium text-anchor-cream-text/80">
+                        Great choice. We'll collect each guest's main now and then take your {sundayLunchDepositPerGuestLabel} deposit payment to secure your booking.
                       </p>
                     ) : (
-                      <p className="text-xs text-amber-900">
+                      <p className="text-xs text-anchor-cream-text/70">
                         Prefer Sunday lunch instead? Switch any time before you confirm.
                       </p>
                     )}
@@ -2043,13 +2043,13 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 ) : null}
 
                 {selectedDateIsSunday && sundayLunch ? (
-                  <div className="space-y-3 rounded-xl border border-amber-200 bg-amber-50 p-4">
-                    <p className="text-sm font-semibold text-amber-900">Sunday lunch pre-order (required)</p>
-                    <p className="text-sm text-amber-800">
-                      Choose each guest’s main now. We then take a {sundayLunchDepositPerGuestLabel} deposit payment to secure your Sunday lunch booking.
+                  <div className="space-y-3 rounded-xl border border-anchor-gold/25 bg-anchor-gold/10 p-4">
+                    <p className="text-sm font-semibold text-anchor-cream-text">Sunday lunch pre-order (required)</p>
+                    <p className="text-sm text-anchor-cream-text/80">
+                      Choose each guest's main now. We then take a {sundayLunchDepositPerGuestLabel} deposit payment to secure your Sunday lunch booking.
                     </p>
 
-                    {sundayMenuLoading ? <p className="text-sm text-amber-900">Loading Sunday lunch menu...</p> : null}
+                    {sundayMenuLoading ? <p className="text-sm text-anchor-cream-text/80">Loading Sunday lunch menu...</p> : null}
 
                     {sundayMenuError ? (
                       <Alert variant="warning">
@@ -2077,7 +2077,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                           />
 
                           <div>
-                            <label className="mb-1 block text-sm font-medium text-gray-700">Main Choice</label>
+                            <label className="mb-1 block text-sm font-medium text-anchor-cream-text/70">Main Choice</label>
                             <select
                               required
                               value={order.menuItemId}
@@ -2089,7 +2089,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                                   )
                                 )
                               }}
-                              className="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-gray-900 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-anchor-gold"
+                              className="w-full rounded-lg border border-anchor-gold/30 bg-anchor-bg-card px-4 py-2 text-anchor-cream-text focus:border-transparent focus:outline-none focus:ring-2 focus:ring-anchor-gold"
                             >
                               <option value="">Select a main</option>
                               {sundayMenuItems.map((item) => (
@@ -2132,12 +2132,12 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
         {step === 'review' && (
           <div className="space-y-4">
             <div>
-              <h3 className="text-lg font-semibold text-anchor-green">Review your booking</h3>
-              <p className="mt-1 text-sm text-gray-700">Check details, then confirm your booking.</p>
+              <h3 className="text-lg font-semibold text-anchor-gold-vivid">Review your booking</h3>
+              <p className="mt-1 text-sm text-anchor-cream-text/70">Check details, then confirm your booking.</p>
             </div>
 
-            <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 text-sm">
-              <dl className="space-y-2 text-gray-800">
+            <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-raised p-4 text-sm">
+              <dl className="space-y-2 text-anchor-cream-text/80">
                 <div className="flex justify-between gap-3">
                   <dt className="font-medium">Party size</dt>
                   <dd>{partySize}</dd>
@@ -2152,7 +2152,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 </div>
                 <div className="flex justify-between gap-3">
                   <dt className="font-medium">Booking for</dt>
-                  <dd>{mothersDayMode ? 'Food (Mother’s Day Sunday Lunch)' : purpose === 'drinks' ? 'Drinks' : 'Food'}</dd>
+                  <dd>{mothersDayMode ? `Food (Mother's Day Sunday Lunch)` : purpose === 'drinks' ? 'Drinks' : 'Food'}</dd>
                 </div>
                 <div className="flex justify-between gap-3">
                   <dt className="font-medium">Mobile</dt>
@@ -2186,18 +2186,18 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 ) : null}
               </dl>
               {requiresSundayLunchDeposit ? (
-                <p className="mt-3 text-xs text-amber-900">
+                <p className="mt-3 text-xs text-anchor-cream-text/70">
                   This deposit is deducted from your final bill.
                 </p>
               ) : null}
               {requiresGroupDeposit ? (
-                <p className="mt-3 text-xs text-amber-900">
+                <p className="mt-3 text-xs text-anchor-cream-text/70">
                   A £{SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP} per person deposit is required for groups of 7 or more. This is deducted from your final bill.
                 </p>
               ) : null}
             </div>
 
-            <label className="flex items-start gap-2 text-sm text-gray-700">
+            <label className="flex items-start gap-2 text-sm text-anchor-cream-text/70">
               <input
                 type="checkbox"
                 checked={policyAccepted}
@@ -2205,7 +2205,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 className="mt-1"
               />
               <span>
-                I understand The Anchor’s booking and no-show policy, and I agree to continue.
+                I understand The Anchor's booking and no-show policy, and I agree to continue.
               </span>
             </label>
 

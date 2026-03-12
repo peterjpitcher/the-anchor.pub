@@ -176,7 +176,7 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
           </div>
 
           <aside className="order-2 space-y-4 lg:space-y-6">
-            <div className="rounded-none bg-anchor-bg-card p-4 border border-anchor-gold/15 lg:hidden">
+            <div className="card-dark p-4 lg:hidden">
               <h2 className="text-lg font-semibold text-anchor-gold-vivid">Need help with your booking?</h2>
               <p className="mt-2 text-sm text-anchor-cream-text/70">
                 If you need a larger table, can't find your preferred time, or want a quick answer, call us directly.
@@ -198,12 +198,12 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
               </div>
             </div>
 
-            <div className="hidden rounded-none bg-anchor-bg-card p-5 border border-anchor-gold/15 lg:block">
+            <div className="hidden card-dark p-5 lg:block">
               <h3 className="text-base font-semibold text-anchor-gold-vivid mb-3">Why The Anchor?</h3>
               <ValueProofStrip variant="food" />
             </div>
 
-            <div className="hidden rounded-none bg-anchor-bg-card p-6 border border-anchor-gold/15 lg:block">
+            <div className="hidden card-dark p-6 lg:block">
               <h2 className="text-xl font-semibold text-anchor-gold-vivid">Quick tips</h2>
               <ul className="mt-3 space-y-2 text-left text-sm text-anchor-cream-text/70">
                 <li>• For larger groups, please call us.</li>
@@ -214,7 +214,7 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
               </ul>
             </div>
 
-            <div className="hidden rounded-none bg-anchor-bg-card p-6 border border-anchor-gold/15 lg:block">
+            <div className="hidden card-dark p-6 lg:block">
               <h3 className="text-xl font-semibold text-anchor-gold-vivid">Prefer to talk?</h3>
               <p className="mt-2 text-sm text-anchor-cream-text/70">
                 Our team can help with tables of 8+, special celebrations, or last-minute changes.
@@ -231,7 +231,7 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
               </div>
             </div>
 
-            <div className="hidden rounded-none bg-anchor-bg-card p-6 border border-anchor-gold/15 lg:block">
+            <div className="hidden card-dark p-6 lg:block">
               <h3 className="text-xl font-semibold text-anchor-gold-vivid">Useful to know</h3>
               <ul className="mt-3 space-y-2 text-left text-sm text-anchor-cream-text/70">
                 <li>• 20 free parking spaces on site.</li>
