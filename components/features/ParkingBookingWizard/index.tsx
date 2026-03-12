@@ -686,7 +686,7 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
               <div
                 ref={paypalContainerRef}
                 id="paypal-button-container"
-                className={`min-h-[50px] ${captureState === 'capturing' ? 'hidden' : ''}`}
+                className={`min-h-[50px] max-w-sm mx-auto ${captureState === 'capturing' ? 'hidden' : ''}`}
               />
 
               <p className="text-xs text-anchor-sage text-center">
