@@ -690,7 +690,10 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
               />
 
               <p className="text-xs text-anchor-sage text-center">
-                Vehicles parked at owner&apos;s risk. By paying you agree to our parking terms.
+                Vehicles parked at owner&apos;s risk. By paying you agree to our{' '}
+                <a href="/heathrow-parking#parking-terms" className="underline hover:text-anchor-cream-text">
+                  parking terms
+                </a>.
               </p>
 
               {/* Back button */}

@@ -545,6 +545,59 @@ export default async function HeathrowParkingPage() {
 
       <FAQAccordionWithSchema title="Heathrow parking FAQs" faqs={faqs(rateCard)} />
 
+      <Section background="dark" spacing="lg" id="parking-terms">
+        <Container>
+          <div className="mx-auto max-w-3xl">
+            <h2 className="text-2xl font-bold text-anchor-cream-text text-center">Parking Terms &amp; Conditions</h2>
+            <p className="mt-2 text-sm text-anchor-cream-text/55 text-center">Last updated March 2026</p>
+            <div className="mt-8 space-y-6 text-sm text-anchor-cream-text/70">
+
+              <div>
+                <h3 className="font-semibold text-anchor-cream-text">1. Owner&apos;s risk</h3>
+                <p className="mt-1">All vehicles are parked entirely at the owner&apos;s risk. The Anchor accepts no liability for loss of or damage to any vehicle or its contents whilst on the premises, except where such loss or damage results from our proven negligence.</p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-anchor-cream-text">2. Booking required</h3>
+                <p className="mt-1">The car park is reserved exclusively for customers who hold a confirmed, paid booking. Vehicles parked without a valid booking may be removed at the owner&apos;s expense.</p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-anchor-cream-text">3. Arrival, access &amp; departure</h3>
+                <p className="mt-1">You must arrive and depart within the times stated in your booking. If your plans change, please contact us as soon as possible on <a href="tel:01753682707" className="underline">01753 682707</a> or at <a href="mailto:manager@the-anchor.pub" className="underline">manager@the-anchor.pub</a>. Overstaying your booked period may incur additional charges at the prevailing hourly rate.</p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-anchor-cream-text">4. Vehicle condition</h3>
+                <p className="mt-1">We reserve the right to refuse entry to any vehicle that is leaking fluids or is in a condition likely to cause damage to the car park or other vehicles. All vehicles must comply with current road-legal requirements.</p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-anchor-cream-text">5. Refunds &amp; cancellations</h3>
+                <p className="mt-1">You may cancel or amend your booking up to 24 hours before your booked arrival time. Cancellations made with at least 24 hours&apos; notice will receive a full refund of the amount paid, minus any card processing fees charged by PayPal or our payment provider at the time of your original transaction.</p>
+                <p className="mt-2">Cancellations made within 24 hours of your booked arrival time are non-refundable, except at our discretion in cases of documented emergency. To request a refund, email <a href="mailto:manager@the-anchor.pub" className="underline">manager@the-anchor.pub</a> with your booking reference.</p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-anchor-cream-text">6. CCTV &amp; data protection</h3>
+                <p className="mt-1">The car park is monitored by closed-circuit television (CCTV) for security purposes. CCTV footage is stored securely and is not routinely monitored or shared. In accordance with the UK GDPR, footage will only be made available to the police upon receipt of a formal written request as part of a lawful investigation. We do not provide footage to individuals or private parties.</p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-anchor-cream-text">7. Compliance</h3>
+                <p className="mt-1">By using our car park you agree to follow any reasonable instructions given by The Anchor team, to park considerately and not to obstruct other vehicles or emergency access routes.</p>
+              </div>
+
+              <div>
+                <h3 className="font-semibold text-anchor-cream-text">8. Contact</h3>
+                <p className="mt-1">For any queries relating to your booking or these terms, please contact us at <a href="mailto:manager@the-anchor.pub" className="underline">manager@the-anchor.pub</a> or call <a href="tel:01753682707" className="underline">01753 682707</a>.</p>
+              </div>
+
+            </div>
+          </div>
+        </Container>
+      </Section>
+
       <ReviewSection
         title="Trusted by Heathrow travellers"
         subtitle="Real customer reviews from guests who park and fly from The Anchor."
