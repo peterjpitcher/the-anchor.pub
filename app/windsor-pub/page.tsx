@@ -188,7 +188,7 @@ export default function WindsorPubPage() {
                 {
 	                  icon: "",
 	                  title: "ULEZ Free",
-	                  description: "Save GBP 12.50 - we're outside the zone!",
+	                  description: "Save £12.50 - we're outside the zone!",
 	                  variant: "colored",
 	                  color: "bg-anchor-bg-card",
 	                  className: "rounded-xl p-6 text-center"
@@ -263,7 +263,7 @@ export default function WindsorPubPage() {
 	                  <li className="flex items-start gap-3">
 	                    <span className="text-anchor-gold text-xl"></span>
 	                    <div>
-	                      <strong>Quiz Nights</strong> - GBP 3 entry, great prizes, monthly events
+	                      <strong>Quiz Nights</strong> - £3 entry, great prizes, monthly events
 	                    </div>
 	                  </li>
                 </ul>
@@ -476,7 +476,7 @@ export default function WindsorPubPage() {
           },
 	          {
 	            question: "Is there parking at The Anchor for Windsor visitors?",
-	            answer: "Yes! We have 20 free parking spaces with no time restrictions. This is a huge advantage over Windsor where parking can cost GBP 3-4 per hour. You can relax and enjoy your visit without watching the clock."
+	            answer: "Yes! We have 20 free parking spaces with no time restrictions. This is a huge advantage over Windsor where parking can cost £3-4 per hour. You can relax and enjoy your visit without watching the clock."
 	          },
           {
             question: "What's the best route from Windsor to avoid traffic?",

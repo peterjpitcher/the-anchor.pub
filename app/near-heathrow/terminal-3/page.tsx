@@ -101,7 +101,7 @@ export default function Terminal3Page() {
             <div className="grid gap-3 md:grid-cols-2 text-anchor-cream-text/70">
 	              <div className="flex items-start gap-2">
 	                <span className="font-semibold text-anchor-gold"></span>
-	                <span>11 minute taxi or Uber (GBP 20-25) via Tunnel Road</span>
+	                <span>11 minute taxi or Uber (£20-25) via Tunnel Road</span>
 	              </div>
               <div className="flex items-start gap-2">
                 <span className="font-semibold text-anchor-gold"></span>
@@ -309,7 +309,7 @@ export default function Terminal3Page() {
                 <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">By Taxi</h3>
                 <div className="space-y-4 text-anchor-cream-text/70">
 	                  <div>
-	                    <p className="font-semibold mb-2">Cost: GBP 20-25</p>
+	                    <p className="font-semibold mb-2">Cost: £20-25</p>
 	                    <p className="text-sm mb-2">Journey time: 11 minutes</p>
 	                    <p className="text-sm mb-2">Distance: 4.5 miles</p>
 	                    <p>Tell your driver: &quot;The Anchor, Horton Road, Stanwell Moor&quot;</p>
@@ -400,7 +400,7 @@ export default function Terminal3Page() {
 	                {
 	                  title: "Value for Money",
 	                  icon: "",
-	                  content: "A family meal at T3 can cost over GBP 60. Enjoy the same at The Anchor for half the price, with generous portions and free parking too!"
+	                  content: "A family meal at T3 can cost over £60. Enjoy the same at The Anchor for half the price, with generous portions and free parking too!"
 	                },
                 {
                   title: "Perfect for Arrivals",
@@ -569,17 +569,17 @@ export default function Terminal3Page() {
 	              <div className="grid md:grid-cols-3 gap-6 text-center">
 	                <div>
 	                  <p className="font-semibold mb-2 text-anchor-cream-text">By Taxi</p>
-	                  <p className="text-3xl font-bold text-anchor-gold mb-2">GBP 20-25</p>
+	                  <p className="text-3xl font-bold text-anchor-gold mb-2">£20-25</p>
 	                  <p className="text-sm text-anchor-cream-text/55">11 minutes</p>
 	                </div>
 	                <div>
 	                  <p className="font-semibold mb-2 text-anchor-cream-text">By Uber</p>
-	                  <p className="text-3xl font-bold text-anchor-gold mb-2">GBP 16-20</p>
+	                  <p className="text-3xl font-bold text-anchor-gold mb-2">£16-20</p>
 	                  <p className="text-sm text-anchor-cream-text/55">11 minutes</p>
 	                </div>
 	                <div>
 	                  <p className="font-semibold mb-2 text-anchor-cream-text">By Bus</p>
-	                  <p className="text-3xl font-bold text-anchor-gold mb-2">GBP 2.50</p>
+	                  <p className="text-3xl font-bold text-anchor-gold mb-2">£2.50</p>
 	                  <p className="text-sm text-anchor-cream-text/55">Take 442 bus</p>
 	                </div>
 	              </div>
@@ -640,11 +640,11 @@ export default function Terminal3Page() {
           },
 	          {
 	            question: "How do I get to The Anchor from my Terminal 3 hotel?",
-	            answer: "It's about GBP 20-25 by taxi (11 minutes) or GBP 16-20 by Uber. The 442 bus also stops near us for just GBP 2.50. Tell your driver 'The Anchor, Horton Road, Stanwell Moor' or use postcode TW19 6AQ."
+	            answer: "It's about £20-25 by taxi (11 minutes) or £16-20 by Uber. The 442 bus also stops near us for just £2.50. Tell your driver 'The Anchor, Horton Road, Stanwell Moor' or use postcode TW19 6AQ."
 	          },
 	          {
 	            question: "Can I get a taxi from Terminal 3 to The Anchor?",
-	            answer: "Yes, taxis are readily available from Terminal 3. The journey costs GBP 20-25 and takes about 11 minutes (4.5 miles). Taxi ranks are located at Terminal 3 Arrivals (Ground floor), Terminal 3 Departures drop-off, and the Central Bus Station shared with T2. Tell your driver 'The Anchor, Horton Road, Stanwell Moor'."
+	            answer: "Yes, taxis are readily available from Terminal 3. The journey costs £20-25 and takes about 11 minutes (4.5 miles). Taxi ranks are located at Terminal 3 Arrivals (Ground floor), Terminal 3 Departures drop-off, and the Central Bus Station shared with T2. Tell your driver 'The Anchor, Horton Road, Stanwell Moor'."
 	          },
           {
             question: "Is there a bus from Terminal 3 to The Anchor?",

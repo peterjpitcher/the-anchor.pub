@@ -38,17 +38,17 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 export const metadata: Metadata = {
   title: 'Cash Bingo Near Heathrow | Bingo Games & Jackpots | The Anchor',
   description:
-    'Play cash bingo and bingo games near Heathrow at The Anchor. GBP 10 bingo tickets, bingo calls, cash prizes, snowball bonus, and jackpot bingo in Stanwell Moor.',
+    'Play cash bingo and bingo games near Heathrow at The Anchor. £10 bingo tickets, bingo calls, cash prizes, snowball bonus, and jackpot bingo in Stanwell Moor.',
   keywords:
     'cash bingo, bingo night, bingo games, play bingo for cash, bingo hall, bingo tickets, bingo books, jackpot bingo, cash prizes, bingo calls, bingo numbers, bingo number caller, bingo near heathrow',
   openGraph: {
     title: 'Cash Bingo Near Heathrow | The Anchor',
-    description: 'GBP 10 bingo tickets, cash prizes, snowball bonus, and jackpot bingo in Stanwell Moor near Heathrow.',
+    description: '£10 bingo tickets, cash prizes, snowball bonus, and jackpot bingo in Stanwell Moor near Heathrow.',
     images: [{ url: DEFAULT_EVENT_IMAGE, width: 1200, height: 630, alt: 'Events at The Anchor pub near Heathrow' }]
   },
   twitter: getTwitterMetadata({
     title: 'Cash Bingo Near Heathrow | The Anchor',
-    description: 'GBP 10 bingo tickets, cash prizes, snowball bonus, and jackpot bingo in Stanwell Moor near Heathrow.',
+    description: '£10 bingo tickets, cash prizes, snowball bonus, and jackpot bingo in Stanwell Moor near Heathrow.',
     images: [DEFAULT_EVENT_IMAGE]
   }),
   alternates: {
@@ -88,7 +88,7 @@ const WHY_LOVE_IT = [
   {
     icon: '',
     title: 'Cash-first bingo night',
-    body: 'Ten lively bingo games for money with GBP 10 bingo books (tickets), instant cash prizes, a snowball bingo bonus that climbs by GBP 20 each month and a jackpot bingo pot that rolls to GBP 300+ when the room sells out.'
+    body: 'Ten lively bingo games for money with £10 bingo books (tickets), instant cash prizes, a snowball bingo bonus that climbs by £20 each month and a jackpot bingo pot that rolls to £300+ when the room sells out.'
   },
   {
     icon: '',
@@ -121,7 +121,7 @@ const FAQS = [
   {
     question: 'How much is it to play and how do I pay?',
     answer:
-      'Each bingo book (your bingo tickets for the night) is GBP 10 and payment is cash-only (same for GBP 1 daubers). Prizes are paid out in cash on the night, so bring notes or hit the ATM before you arrive.'
+      'Each bingo book (your bingo tickets for the night) is £10 and payment is cash-only (same for £1 daubers). Prizes are paid out in cash on the night, so bring notes or hit the ATM before you arrive.'
   },
   {
     question: 'Do I need to book in advance?',
@@ -136,7 +136,7 @@ const FAQS = [
   {
     question: 'What are the prizes and how does the snowball work?',
     answer:
-      'Expect a lively combination of free drinks, chocolate, quiz tickets, food vouchers, GBP 10 cash boosts, a snowball bonus and a jackpot pot that grows with every GBP 10 book sold. The snowball headline increases by GBP 20 each month it rolls over, and we add two extra calls every time to make it easier to win.'
+      'Expect a lively combination of free drinks, chocolate, quiz tickets, food vouchers, £10 cash boosts, a snowball bonus and a jackpot pot that grows with every £10 book sold. The snowball headline increases by £20 each month it rolls over, and we add two extra calls every time to make it easier to win.'
   },
   {
     question: 'Do you serve food and drinks?',
@@ -197,7 +197,7 @@ function BingoEventCards({ events }: { events: Event[] }) {
               </div>
 	              <div className="text-right">
 	                <p className="text-lg font-semibold text-white">{startTime}</p>
-	                <p className="text-xs text-white/70">Doors {doorTime ?? '6:00pm'} • GBP 10 cash book</p>
+	                <p className="text-xs text-white/70">Doors {doorTime ?? '6:00pm'} • £10 cash book</p>
 	              </div>
             </div>
             <CardBody className="flex flex-col gap-6 lg:flex-row lg:items-stretch lg:gap-8">
@@ -221,7 +221,7 @@ function BingoEventCards({ events }: { events: Event[] }) {
                   <p className="text-anchor-cream-text/70 leading-relaxed">{event.description}</p>
                 )}
 	                <p className="text-sm text-anchor-cream-text/55">
-	                  GBP 10 cash-only books cover all ten games. The jackpot pot grows with every ticket sold, and the snowball bonus increases by GBP 20—and two extra calls—each time it rolls over. Stay loyal, sign the Snowball Register and the prize gets easier to win.
+	                  £10 cash-only books cover all ten games. The jackpot pot grows with every ticket sold, and the snowball bonus increases by £20—and two extra calls—each time it rolls over. Stay loyal, sign the Snowball Register and the prize gets easier to win.
 	                </p>
               </div>
 
@@ -244,18 +244,18 @@ export default async function CashBingoPage() {
   const doorTime = nextEvent ? formatDoorTime(nextEvent.doorTime) ?? '6:00 pm' : '6:00 pm'
 
 	  const heroDescription = nextEvent
-	    ? `Doors ${doorTime}. Bingo starts at ${nextEventTime} with GBP 10 cash-only bingo tickets (books). Reserve online or call 01753 682707 to lock in your table.`
-	    : 'Doors 6:00 pm. Bingo starts at 7:00 pm with GBP 10 cash-only bingo tickets (books). Reserve online or call 01753 682707 to lock in your table.'
+	    ? `Doors ${doorTime}. Bingo starts at ${nextEventTime} with £10 cash-only bingo tickets (books). Reserve online or call 01753 682707 to lock in your table.`
+	    : 'Doors 6:00 pm. Bingo starts at 7:00 pm with £10 cash-only bingo tickets (books). Reserve online or call 01753 682707 to lock in your table.'
 
   return (
     <>
 	      <HeroWrapper
 	        route="/cash-bingo"
 	        title="Cash Bingo Nights & Bingo Games at The Anchor"
-	        description="Play bingo for cash and classic bingo games near Heathrow with GBP 10 bingo tickets and books, bingo calls and numbers, a snowball bonus and jackpot bingo prizes."
+	        description="Play bingo for cash and classic bingo games near Heathrow with £10 bingo tickets and books, bingo calls and numbers, a snowball bonus and jackpot bingo prizes."
 	       
 	        tags={[
-	          { label: ' GBP 10 bingo tickets & books', variant: 'default' },
+	          { label: ' £10 bingo tickets & books', variant: 'default' },
 	          { label: ' Snowball bingo bonus grows monthly', variant: 'primary' },
 	          { label: ' Full menu 6 pm–9 pm', variant: 'default' }
 	        ]}
@@ -314,7 +314,7 @@ export default async function CashBingoPage() {
                 <h2 className="text-3xl font-bold text-anchor-cream-text">{nextEvent ? nextEvent.name : 'Next cash bingo announced soon'}</h2>
                 <p className="text-anchor-gold-vivid font-semibold">{nextEvent ? `${nextEventDate} · ${nextEventTime}` : 'Check back for the next date'}</p>
 	                <p className="text-anchor-cream-text/70 whitespace-pre-line">
-	                  GBP 10 cash book includes all ten bingo games, two breaks and eligibility for instant cash prizes, the rolling snowball bingo bonus (we add GBP 20 and two extra calls every time it rolls over) and the jackpot bingo pot.
+	                  £10 cash book includes all ten bingo games, two breaks and eligibility for instant cash prizes, the rolling snowball bingo bonus (we add £20 and two extra calls every time it rolls over) and the jackpot bingo pot.
 	                </p>
                 <div className="space-y-3">
                   {nextEvent && (
@@ -463,7 +463,7 @@ export default async function CashBingoPage() {
           <div className="max-w-4xl mx-auto text-anchor-cream-text/70 space-y-4">
             <h2 className="text-3xl font-bold text-anchor-cream-text text-center">What’s up for grabs?</h2>
 	            <p>
-	              We keep prizes fresh so every cash bingo night feels different. Expect a lively mix of bingo prizes and cash prizes: free drinks, chocolate bars, quiz night tickets, food vouchers, GBP 10 cash boosts, cheeky spot prizes and a jackpot bingo pot that grows with every GBP 10 book sold. The snowball bonus carries over an extra GBP 20—and two additional calls—each month it survives, so loyal dabbers see the prize get juicier and easier to win.
+	              We keep prizes fresh so every cash bingo night feels different. Expect a lively mix of bingo prizes and cash prizes: free drinks, chocolate bars, quiz night tickets, food vouchers, £10 cash boosts, cheeky spot prizes and a jackpot bingo pot that grows with every £10 book sold. The snowball bonus carries over an extra £20—and two additional calls—each month it survives, so loyal dabbers see the prize get juicier and easier to win.
 	            </p>
           </div>
         </Container>
@@ -481,7 +481,7 @@ export default async function CashBingoPage() {
                 <CardBody className="space-y-3">
 	                  <h3 className="text-xl font-semibold text-anchor-cream-text">Bring the right kit</h3>
 	                  <p className="text-anchor-cream-text/70 text-sm leading-relaxed">
-	                    Cash-only entry, so bring notes and coins for bingo tickets, GBP 10 bingo books and GBP 1 daubers. Pack spare daubers or lucky charms—confidence helps when the jackpot numbers fall.
+	                    Cash-only entry, so bring notes and coins for bingo tickets, £10 bingo books and £1 daubers. Pack spare daubers or lucky charms—confidence helps when the jackpot numbers fall.
 	                  </p>
                 </CardBody>
               </Card>
@@ -521,7 +521,7 @@ export default async function CashBingoPage() {
           <div className="max-w-4xl mx-auto bg-gradient-to-br from-anchor-green to-anchor-green/80 rounded-2xl p-8 text-white text-center shadow-lg">
 	            <h2 className="text-3xl font-bold mb-4 text-white">Ready to shout “Bingo”?</h2>
 	            <p className="text-lg mb-6">
-	              Book your GBP 10 cash book today or call the bar team and we’ll hold tickets for your crew.
+	              Book your £10 cash book today or call the bar team and we’ll hold tickets for your crew.
 	            </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <PhoneButton

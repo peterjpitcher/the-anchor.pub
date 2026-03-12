@@ -120,7 +120,7 @@ The story of pizza is one of evolution, transformation, and perfection. From the
 ✈️ **From Heathrow**: Just 7 minutes from all terminals
 🚗 **Parking**: Free on-site parking
 🍕 **Pizza Menu**: 10 varieties including vegetarian options
-💷 **Regular Prices**: From GBP 10-14 (watch for 50% off deals!)
+💷 **Regular Prices**: From £10-14 (watch for 50% off deals!)
 📱 **Collection**: Order online for quick pickup
 📞 **Bookings**: 01753 682707
 

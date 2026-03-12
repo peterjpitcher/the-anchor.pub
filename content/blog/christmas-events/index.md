@@ -81,7 +81,7 @@ Our annual **Christmas market** transforms our garden into a festive shopping pa
 **Wednesday evenings in December | 7pm-10pm**
 
 Test your Christmas knowledge at our popular quiz nights:
-- GBP 3 per person entry
+- £3 per person entry
 - Teams up to 6 people
 - Festive prizes and surprises
 - Full food menu available

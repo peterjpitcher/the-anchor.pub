@@ -174,7 +174,7 @@ export default function FindUsPage() {
                     <ul className="list-disc list-inside text-anchor-cream-text/70 space-y-2 text-left">
                       <li>Follow signs to exit via A3044 (Stanwell Moor Road)</li>
                       <li>Turn left onto Horton Road; pub is 200 yards on right</li>
-                      <li>Taxi fare ~GBP 18, free parking on arrival saves GBP 20+</li>
+                      <li>Taxi fare ~£18, free parking on arrival saves £20+</li>
                     </ul>
                   ),
                   variant: "default",
@@ -199,7 +199,7 @@ export default function FindUsPage() {
                   description: (
                     <ul className="list-disc list-inside text-anchor-cream-text/70 space-y-2 text-left">
                       <li>Take Southern Perimeter Rd  Stanwell Moor Rd</li>
-                      <li>Taxis and rideshares average GBP 22 each way</li>
+                      <li>Taxis and rideshares average £22 each way</li>
                       <li>Plenty of time for a meal before evening departures</li>
                     </ul>
                   ),
@@ -430,7 +430,7 @@ export default function FindUsPage() {
                 <div>
                   <div className="text-4xl mb-3"></div>
                   <h3 className="font-bold text-anchor-gold-vivid mb-2">ALWAYS FREE</h3>
-                  <p className="text-anchor-cream-text/70">Unlike Heathrow (GBP 7.50/hour!)</p>
+                  <p className="text-anchor-cream-text/70">Unlike Heathrow (£7.50/hour!)</p>
                 </div>
                 <div>
                   <div className="text-4xl mb-3"></div>
@@ -445,7 +445,7 @@ export default function FindUsPage() {
               </div>
               <div className="mt-6 bg-anchor-bg rounded-none border border-anchor-gold/15 p-4">
                 <p className="text-anchor-gold-vivid font-bold text-lg">
-                  Compare: Heathrow T5 Short Stay = GBP 7.50/hour | The Anchor = FREE!
+                  Compare: Heathrow T5 Short Stay = £7.50/hour | The Anchor = FREE!
                 </p>
                 <p className="text-sm text-anchor-cream-text/55 mt-2">
                   Perfect for picking up/dropping off at Heathrow without the parking fees!
@@ -645,7 +645,7 @@ export default function FindUsPage() {
           },
 	          {
 	            question: "Can I walk to The Anchor from nearby hotels?",
-	            answer: "If you're staying at the Premier Inn Heathrow Terminal 5, we're about a 15-minute walk. From other Heathrow hotels, we recommend a taxi (around GBP 25) or take the 442 bus which stops directly outside the pub."
+	            answer: "If you're staying at the Premier Inn Heathrow Terminal 5, we're about a 15-minute walk. From other Heathrow hotels, we recommend a taxi (around £25) or take the 442 bus which stops directly outside the pub."
 	          },
           {
             question: "What's the best way to find The Anchor?",

@@ -474,7 +474,7 @@ export function SundayMenuSelection({
           <span>{formatPrice(totals.total, 'GBP')}</span>
         </div>
         <div className="flex justify-between text-sm text-amber-800">
-          <span>Deposit due now (GBP {SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP} per guest)</span>
+          <span>Deposit due now (£{SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP} per guest)</span>
           <span>{formatPrice(totals.deposit, 'GBP')}</span>
         </div>
         {menuComputation.summary.extras.length > 0 && (

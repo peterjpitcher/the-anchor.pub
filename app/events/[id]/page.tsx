@@ -27,6 +27,7 @@ import {
   isMothersDayEvent,
   MOTHERS_DAY_BOOKING_CTA_LABEL
 } from '@/lib/mothers-day-booking'
+import { getEventPriceLabel } from '@/lib/event-pricing'
 
 type Props = {
   params: { id: string }
@@ -247,18 +248,7 @@ export default async function EventPage({ params }: Props) {
       : typeof event.remainingAttendeeCapacity === 'number'
         ? event.remainingAttendeeCapacity
         : null
-  const priceValue =
-    typeof event.price === 'number'
-      ? event.price
-      : typeof event.price_per_seat === 'number'
-        ? event.price_per_seat
-        : null
-  const priceLabel =
-    event.is_free === true || priceValue === 0
-      ? 'Free'
-      : typeof priceValue === 'number'
-        ? formatPrice(priceValue)
-        : null
+  const priceLabel = getEventPriceLabel(event)
   const locationQuery = [
     event.location?.name,
     event.location?.address?.streetAddress,

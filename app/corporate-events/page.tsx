@@ -443,11 +443,11 @@ export default function CorporateEventsPage() {
                 <div className="grid md:grid-cols-3 gap-4 mt-4">
 	                  <div>
 	                    <strong>No ULEZ Charges</strong>
-	                    <p className="text-sm">Save GBP 12.50 per attendee</p>
+	                    <p className="text-sm">Save £12.50 per attendee</p>
 	                  </div>
 	                  <div>
 	                    <strong>Free Parking</strong>
-	                    <p className="text-sm">Save GBP 20-40 per day</p>
+	                    <p className="text-sm">Save £20-40 per day</p>
 	                  </div>
                   <div>
                     <strong>Flexible Venue Pricing</strong>

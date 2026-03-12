@@ -394,7 +394,7 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
     },
     {
       question: "What’s this month’s offer?",
-      answer: `${spirit.discount} off ${spirit.name} all ${promotionMonthName}. Singles are GBP ${spirit.specialPrice} (was GBP ${spirit.originalPrice}).`
+      answer: `${spirit.discount} off ${spirit.name} all ${promotionMonthName}. Singles are £${spirit.specialPrice} (was £${spirit.originalPrice}).`
     },
     {
       question: "Do I need to book to get the offer?",

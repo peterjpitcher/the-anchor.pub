@@ -130,7 +130,7 @@ export default async function WhatsOnPage() {
        
 	        tags={[
 	          { label: 'Music Bingo (Nikki)', variant: 'primary' },
-	          { label: 'Quiz Night GBP 3', variant: 'warning' },
+	          { label: 'Quiz Night £3', variant: 'warning' },
 	          { label: 'Pool & Darts FREE', variant: 'default' },
 	          { label: 'Great Atmosphere', variant: 'success' }
 	        ]}
@@ -234,7 +234,7 @@ export default async function WhatsOnPage() {
                 content: (
                   <ul className="list-disc list-inside text-anchor-cream-text/70 space-y-2 text-left">
                     <li>Music Bingo hosted by Nikki Manfadge</li>
-                    <li>GBP 3 quiz night (see listings for dates)</li>
+                    <li>£3 quiz night (see listings for dates)</li>
                     <li>Cash bingo, karaoke & live sport rotations</li>
                   </ul>
                 ),
@@ -245,7 +245,7 @@ export default async function WhatsOnPage() {
                 title: "Easy Transfers",
                 content: (
                   <p className="text-anchor-cream-text/70">
-                    GBP 18 taxi from Terminal 5 or 15-minute walk from Premier Inn T5. We&apos;re the closest village pub to Heathrow with a proper stage and dancefloor.
+                    £18 taxi from Terminal 5 or 15-minute walk from Premier Inn T5. We&apos;re the closest village pub to Heathrow with a proper stage and dancefloor.
                   </p>
                 ),
                 variant: "colored",
@@ -351,10 +351,10 @@ export default async function WhatsOnPage() {
                 <CardBody className="text-center p-8">
                   <div className="text-5xl mb-4"></div>
                   <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-3">
-                    Quiz Night - Just GBP 3 Entry!
+                    Quiz Night - Just £3 Entry!
                   </h3>
                   <p className="text-anchor-cream-text/70 mb-4">
-                    Test your knowledge monthly. Only GBP 3 entry with cash prizes for winners!
+                    Test your knowledge monthly. Only £3 entry with cash prizes for winners!
                   </p>
                   <p className="text-sm font-bold text-anchor-gold-vivid">Learn more →</p>
                 </CardBody>
@@ -369,7 +369,7 @@ export default async function WhatsOnPage() {
                     Cash Prize Bingo
                   </h3>
                   <p className="text-anchor-cream-text/70 mb-4">
-                    GBP 10 cash-only books, GBP 160 snowball and jackpots that roll to GBP 300+. Reserve your tickets early!
+                    £10 cash-only books, £160 snowball and jackpots that roll to £300+. Reserve your tickets early!
                   </p>
                   <p className="text-sm font-bold text-anchor-gold-vivid">Play bingo for cash →</p>
                 </CardBody>
@@ -574,7 +574,7 @@ export default async function WhatsOnPage() {
           },
 	          {
 	            question: "What time is quiz night at The Anchor?",
-	            answer: "Quiz night runs monthly (dates vary). Entry is GBP 3 per person. Prizes include a GBP 25 bar voucher for 1st place, and the 2nd from last team wins a bottle of wine. See /whats-on for the next quiz listing."
+	            answer: "Quiz night runs monthly (dates vary). Entry is £3 per person. Prizes include a £25 bar voucher for 1st place, and the 2nd from last team wins a bottle of wine. See /whats-on for the next quiz listing."
 	          },
           {
             question: "Do I need to book for events at The Anchor?",
@@ -586,7 +586,7 @@ export default async function WhatsOnPage() {
           },
 	          {
 	            question: "Is there bingo at The Anchor?",
-	            answer: "Yes, we host cash prize bingo monthly. GBP 10 per book with various prizes throughout the night, including a cash jackpot on the last game. Check our events calendar or follow us on social media for the next bingo night!"
+	            answer: "Yes, we host cash prize bingo monthly. £10 per book with various prizes throughout the night, including a cash jackpot on the last game. Check our events calendar or follow us on social media for the next bingo night!"
 	          },
           {
             question: "Are children allowed at The Anchor events?",
@@ -594,7 +594,7 @@ export default async function WhatsOnPage() {
           },
 	          {
 	            question: "How much are tickets for events at The Anchor?",
-	            answer: "Pricing varies by event. Quiz night is GBP 3 per person, and bingo is GBP 10 per book. Some one-off events may be ticketed. See /whats-on for the latest pricing and details."
+	            answer: "Pricing varies by event. Quiz night is £3 per person, and bingo is £10 per book. Some one-off events may be ticketed. See /whats-on for the latest pricing and details."
 	          },
           {
             question: "Is there entertainment every night at The Anchor?",

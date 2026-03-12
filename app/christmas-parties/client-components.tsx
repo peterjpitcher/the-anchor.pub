@@ -132,17 +132,17 @@ const PERK_OPTIONS = [
 const FESTIVE_PRICING = [
   {
     tier: 'Shared party nights (Tue–Thu)',
-    price: 'GBP 36.95 per person',
+    price: '£36.95 per person',
     includes: 'Three-course menu, festive decor, crackers, background playlist and optional Prosecco upgrade'
   },
   {
     tier: 'Weekend private hire dinners (Fri–Sat)',
-    price: 'GBP 39.95 per person',
+    price: '£39.95 per person',
     includes: 'Private dining room or main bar layout, late bar option until midnight and support for DJs or entertainment'
   },
   {
     tier: 'Festive buffets (26+ guests)',
-    price: 'From GBP 10.95 per person',
+    price: 'From £10.95 per person',
     includes: 'Three buffet tiers with hot finger food, salads and grazing boards refreshed for the first hour'
   }
 ]
@@ -171,7 +171,7 @@ const EarlyBirdCountdown = ({ className = '' }: { className?: string }) => {
 const FAQ_ITEMS = [
   {
     question: "Is there a minimum spend for shared party nights or private hire?",
-    answer: "Weeknight shared party nights start at GBP 36.95 per guest with no additional room hire. Weekend private dinners run from GBP 39.95 per guest and we agree a minimum guest count, not a bar spend, so you keep control of the budget."
+    answer: "Weeknight shared party nights start at £36.95 per guest with no additional room hire. Weekend private dinners run from £39.95 per guest and we agree a minimum guest count, not a bar spend, so you keep control of the budget."
   },
   {
     question: "Is there a hire fee for Christmas parties?",
@@ -195,7 +195,7 @@ const FAQ_ITEMS = [
   },
   {
     question: "How do guests travel from Heathrow hotels or terminals?",
-    answer: "Taxi and rideshare journeys from Heathrow Terminal 5 take around seven minutes and typically cost GBP 18-22. We are fifteen minutes from the Terminal 2 landside entrance and have space for mini-coaches."
+    answer: "Taxi and rideshare journeys from Heathrow Terminal 5 take around seven minutes and typically cost £18-22. We are fifteen minutes from the Terminal 2 landside entrance and have space for mini-coaches."
   },
   {
     question: "What entertainment can we have?",
@@ -414,7 +414,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
               <div className="p-6 space-y-3 text-center">
                 <Icon name="calendar" className="mx-auto h-8 w-8 text-red-600" />
                 <h3 className="text-lg font-semibold text-anchor-cream-text">Mid-week value</h3>
-                <p className="text-sm text-anchor-cream-text/70">Tue-Thu 3 courses for GBP 36.95 per person (groups of 6+).</p>
+                <p className="text-sm text-anchor-cream-text/70">Tue-Thu 3 courses for £36.95 per person (groups of 6+).</p>
               </div>
             </Card>
             <Card className="h-full">
@@ -510,7 +510,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
               The Anchor is a favourite choice for Christmas party venues near Heathrow, Staines-upon-Thames and Ashford. We're seven minutes from Terminal 5, fifteen from the Terminal 2 landside entrance and just over the river from Windsor - so airport teams, local businesses and Surrey neighbours can celebrate without the stress of city travel. As a relaxed Christmas party venue Surrey organisers rely on, we host Christmas parties Heathrow crews and remain one of the Christmas party venues Heathrow teams book year after year.
             </p>
             <p className="text-sm text-anchor-cream-text/70">
-              Looking for great value or even cheap Christmas parties around Heathrow? Weeknight dining is priced from GBP 36.95 for full three-course feasts with all the trimmings, making us one of the best-priced Christmas party pubs in Surrey without compromising on hospitality. It's a welcoming Christmas party pub Staines teams can walk to, the Christmas party pub Terminal 2 landside crews recommend, and a handy base for a Christmas party in Staines, Ashford or Windsor.
+              Looking for great value or even cheap Christmas parties around Heathrow? Weeknight dining is priced from £36.95 for full three-course feasts with all the trimmings, making us one of the best-priced Christmas party pubs in Surrey without compromising on hospitality. It's a welcoming Christmas party pub Staines teams can walk to, the Christmas party pub Terminal 2 landside crews recommend, and a handy base for a Christmas party in Staines, Ashford or Windsor.
             </p>
           </div>
         </Container>
@@ -552,20 +552,20 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                 <tbody>
                   <tr className="border-b border-anchor-gold/15 bg-anchor-bg-raised">
                     <th className="px-4 py-4 font-semibold text-anchor-cream-text">Tue-Thu</th>
-                    <td className="px-4 py-4 font-bold text-anchor-gold-vivid">GBP 36.95 per person</td>
+                    <td className="px-4 py-4 font-bold text-anchor-gold-vivid">£36.95 per person</td>
                   </tr>
                   <tr className="border-b border-anchor-gold/15">
                     <th className="px-4 py-4 font-semibold text-anchor-cream-text">Fri-Sat</th>
-                    <td className="px-4 py-4 font-bold text-anchor-gold-vivid">GBP 39.95 per person</td>
+                    <td className="px-4 py-4 font-bold text-anchor-gold-vivid">£39.95 per person</td>
                   </tr>
                   <tr>
                     <th className="px-4 py-4 font-semibold text-anchor-cream-text">Children (under 12)</th>
-                    <td className="px-4 py-4">2 courses GBP 12.95 · 3 courses GBP 15.95</td>
+                    <td className="px-4 py-4">2 courses £12.95 · 3 courses £15.95</td>
                   </tr>
                 </tbody>
               </table>
               <p className="px-4 py-4 text-sm text-anchor-cream-text/70 border-t border-anchor-gold/15">
-                Children under 12 dine for GBP 12.95 (2 courses) or GBP 15.95 (3 courses). Christmas bookings are for parties of six or more. A GBP 10 per person deposit secures your festive reservation and is non-refundable. Full pre-orders for every guest are due seven days in advance; we&apos;ll do our utmost with late changes but can&apos;t guarantee them. Please flag dietary requirements when you order so we can arrange suitable alternatives – some substitutions may carry a small surcharge. Tables are reserved for two hours as standard.
+                Children under 12 dine for £12.95 (2 courses) or £15.95 (3 courses). Christmas bookings are for parties of six or more. A £10 per person deposit secures your festive reservation and is non-refundable. Full pre-orders for every guest are due seven days in advance; we&apos;ll do our utmost with late changes but can&apos;t guarantee them. Please flag dietary requirements when you order so we can arrange suitable alternatives – some substitutions may carry a small surcharge. Tables are reserved for two hours as standard.
               </p>
             </div>
             <div className="flex flex-col md:flex-row justify-center gap-4">
@@ -675,7 +675,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                       <p className="text-anchor-cream-text/70">Moist chocolate sponge layered with silky fudge icing, served warm with pouring cream or custard for pure comfort. Vegetarian friendly.</p>
                     </li>
                   </ul>
-                  <p className="text-xs text-anchor-cream-text/70">Prefer cheese? Swap dessert for our farmhouse cheeseboard (+GBP 3) or add it as a fourth course for GBP 7.95.</p>
+                  <p className="text-xs text-anchor-cream-text/70">Prefer cheese? Swap dessert for our farmhouse cheeseboard (+£3) or add it as a fourth course for £7.95.</p>
                 </div>
               </div>
               <div className="inline-flex items-center gap-2 rounded-full bg-anchor-bg-raised px-4 py-2 text-sm font-semibold text-anchor-gold-vivid">
@@ -713,13 +713,13 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                   Trimmings & extras
                 </h3>
                 <ul className="space-y-2 text-sm text-anchor-cream-text/70">
-                  <li>All the Trimmings Board (serves 4) - GBP 11.95</li>
-                  <li>XL Trimmings Board (serves 8) - GBP 21.95</li>
-                  <li>Pigs in blankets (3) - GBP 3.95pp</li>
-                  <li>Stuffing balls (2) - GBP 2.95pp</li>
-                  <li>Cauli cheese pot - GBP 3.95pp</li>
-                  <li>Extra herb-crusted triple-cooked roast potatoes & gravy - GBP 2.95pp</li>
-                  <li>Extra Yorkshire puddings (2) - GBP 2.50pp</li>
+                  <li>All the Trimmings Board (serves 4) - £11.95</li>
+                  <li>XL Trimmings Board (serves 8) - £21.95</li>
+                  <li>Pigs in blankets (3) - £3.95pp</li>
+                  <li>Stuffing balls (2) - £2.95pp</li>
+                  <li>Cauli cheese pot - £3.95pp</li>
+                  <li>Extra herb-crusted triple-cooked roast potatoes & gravy - £2.95pp</li>
+                  <li>Extra Yorkshire puddings (2) - £2.50pp</li>
                 </ul>
               </div>
             </Card>
@@ -730,9 +730,9 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                   Drinks & finale
                 </h3>
                 <ul className="space-y-2 text-sm text-anchor-cream-text/70">
-                  <li>Bundle A: Prosecco arrival + coffee & mince pie - GBP 9.95pp (counts towards the GBP 45-GBP 52 spend target)</li>
-                  <li>Wine bundle: 2 bottles of house wine - GBP 39.00</li>
-                  <li>Beer bucket (6 × 330ml) - GBP 27.00</li>
+                  <li>Bundle A: Prosecco arrival + coffee & mince pie - £9.95pp (counts towards the £45-£52 spend target)</li>
+                  <li>Wine bundle: 2 bottles of house wine - £39.00</li>
+                  <li>Beer bucket (6 × 330ml) - £27.00</li>
                   <li>Pre-set bar tab with running updates</li>
                   <li>Invoicing available for corporate groups</li>
                 </ul>
@@ -802,17 +802,17 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
             {[
               {
                 title: 'Festive Sandwich & Salad',
-                price: 'GBP 10.95 per person',
+                price: '£10.95 per person',
                 description: 'Seasonal sandwich platter with turkey, stuffing & cranberry alongside house favourites, mixed leaf salad, crisps, crudités and dips.'
               },
               {
                 title: 'Festive Hot Finger',
-                price: 'GBP 13.95 per person',
+                price: '£13.95 per person',
                 description: 'Sandwich selection plus chicken goujons, pigs in blankets, sausage rolls, mini pizzas, spring rolls and plenty of dipping sauces.'
               },
               {
                 title: 'Festive Premium Grazing',
-                price: 'GBP 16.95 per person',
+                price: '£16.95 per person',
                 description: 'Cured meats and cheese boards with freshly baked rolls, salads, and hot bites including pigs in blankets, mini quiches, sausage rolls and spring rolls.'
               }
             ].map(tier => (
@@ -834,11 +834,11 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                   Add-on platters
                 </h3>
                 <ul className="space-y-2 text-sm text-anchor-cream-text/70">
-                  <li>Pigs in blankets (tray of 50) - GBP 39</li>
-                  <li>Stuffing balls (tray of 40) - GBP 28</li>
-                  <li>Cauliflower cheese (serves ~12) - GBP 24</li>
-                  <li>Roast potatoes & gravy (serves ~12) - GBP 19</li>
-                  <li>Mini Yorkshire puddings with gravy (24) - GBP 22</li>
+                  <li>Pigs in blankets (tray of 50) - £39</li>
+                  <li>Stuffing balls (tray of 40) - £28</li>
+                  <li>Cauliflower cheese (serves ~12) - £24</li>
+                  <li>Roast potatoes & gravy (serves ~12) - £19</li>
+                  <li>Mini Yorkshire puddings with gravy (24) - £22</li>
                 </ul>
               </div>
             </Card>
@@ -849,11 +849,11 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                   Dessert & drinks stations
                 </h3>
                 <ul className="space-y-2 text-sm text-anchor-cream-text/70">
-                  <li>Festive dessert bites - Small GBP 24 (serves ~12) · Large GBP 45 (serves ~24)</li>
-                  <li>Coffee & mince pie station - GBP 3.50 per person</li>
-                  <li>Unlimited tea & coffee - GBP 4.49 per person</li>
-                  <li>Welcome drink (Prosecco or orange juice) - GBP 6.99 per person</li>
-                  <li>Unlimited kids' squash - GBP 2.50 per child</li>
+                  <li>Festive dessert bites - Small £24 (serves ~12) · Large £45 (serves ~24)</li>
+                  <li>Coffee & mince pie station - £3.50 per person</li>
+                  <li>Unlimited tea & coffee - £4.49 per person</li>
+                  <li>Welcome drink (Prosecco or orange juice) - £6.99 per person</li>
+                  <li>Unlimited kids' squash - £2.50 per child</li>
                   <li>Pre-paid bar tab available with agreed limit</li>
                 </ul>
               </div>
@@ -867,7 +867,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                 <ul className="space-y-2 text-sm text-anchor-cream-text/70">
                   <li>Designed for groups of 26+ with 90-minute buffet window.</li>
                   <li>Hot options topped up for the first 60 minutes.</li>
-                  <li>Deposit GBP 10pp, pre-order 7 days ahead, final numbers 72 hours prior.</li>
+                  <li>Deposit £10pp, pre-order 7 days ahead, final numbers 72 hours prior.</li>
                   <li>Optional 10% service charge for parties of 6+.</li>
                   <li>Vegetarian, vegan and gluten-free swaps available.</li>
                 </ul>
@@ -951,7 +951,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
           </div>
           <div className="max-w-3xl mx-auto mt-8">
             <ul className="space-y-3 text-sm text-anchor-cream-text/70">
-              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid" />Deposit GBP 10 per person to secure your festive booking – deposits are non-refundable.</li>
+              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid" />Deposit £10 per person to secure your festive booking – deposits are non-refundable.</li>
               <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid" />Full pre-orders for every guest are required at least seven days before your meal.</li>
               <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid" />We&apos;ll always try to help with last-minute changes, but we can&apos;t guarantee them once your order is confirmed.</li>
               <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid" />Standard table time is two hours, with longer sittings available for larger parties.</li>

@@ -404,7 +404,7 @@ export default function PrivatePartyVenuePage() {
           },
 	          {
 	            question: "Is there a minimum spend for private parties?",
-	            answer: "Yes, minimum spends vary depending on the day and time. Typically from GBP 200 for weekday daytime parties to GBP 500 for Saturday evenings. We'll discuss this when you enquire."
+	            answer: "Yes, minimum spends vary depending on the day and time. Typically from £200 for weekday daytime parties to £500 for Saturday evenings. We'll discuss this when you enquire."
 	          },
           {
             question: "Can we have music and dancing?",

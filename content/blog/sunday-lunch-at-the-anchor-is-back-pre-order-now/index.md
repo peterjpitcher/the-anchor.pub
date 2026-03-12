@@ -56,31 +56,31 @@ Each **Sunday roast** at our **Stanwell Moor pub** includes:
 
 #### Choose Your Perfect Roast:
 
-**Roasted Chicken - GBP 19.99**
+**Roasted Chicken - £19.99**
 - Oven-roasted chicken breast with sage & onion stuffing balls
 - Herb and garlic-crusted roast potatoes
 - Seasonal vegetables and Yorkshire pudding
 - Red wine gravy
 
-**Slow-Cooked Lamb Shank - GBP 23.99**
+**Slow-Cooked Lamb Shank - £23.99**
 - Tender slow-braised lamb shank
 - Rich red wine gravy
 - Herb and garlic-crusted roast potatoes
 - Seasonal vegetables and a Yorkshire pudding
 
-**Crispy Pork Belly - GBP 21.99**
+**Crispy Pork Belly - £21.99**
 - Crispy crackling and tender slow-roasted pork belly
 - Bramley apple sauce
 - Herb and garlic-crusted roast potatoes
 - Seasonal vegetables, Yorkshire pudding, and red wine gravy
 
-**Beetroot & Butternut Squash Wellington (V) - GBP 19.99**
+**Beetroot & Butternut Squash Wellington (V) - £19.99**
 - Golden puff pastry filled with beetroot & butternut squash
 - Herb and garlic-crusted roast potatoes
 - Seasonal vegetables
 - Vegetarian gravy
 
-**Kids Roasted Chicken - GBP 13.99**
+**Kids Roasted Chicken - £13.99**
 - Smaller portion of our roasted chicken
 - Served with roast potatoes, seasonal vegetables, Yorkshire pudding, and gravy
 - Perfect for little appetites

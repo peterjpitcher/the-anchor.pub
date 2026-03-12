@@ -41,26 +41,26 @@ Need to plan a **Christmas get-together near Heathrow** without spending a fortu
 
 ## 1. Pick the best-value dates
 
-- **Tuesday to Thursday** three-course dinners are just **GBP 36.95 per person** and include Yorkshire puddings, pigs in blankets, herb-crusted triple-cooked roast potatoes, seasonal vegetables and signature gravy.
+- **Tuesday to Thursday** three-course dinners are just **£36.95 per person** and include Yorkshire puddings, pigs in blankets, herb-crusted triple-cooked roast potatoes, seasonal vegetables and signature gravy.
 - Mid-week bookings also unlock the **complimentary coffee & mince pie perk**, so everyone gets a sweet finale without extra cost.
 - Lock in the **Early-Bird free glass of Prosecco** by booking before 31 October – it adds welcome sparkle for no extra spend.
 
 ## 2. Share platters, not extra starters
 
-Our **All the Trimmings sharing boards** feed four guests for **GBP 11.95** and keep tables buzzing without ordering individual extras. An **XL board** covers eight guests for **GBP 21.95** – perfect for hungry teams.
+Our **All the Trimmings sharing boards** feed four guests for **£11.95** and keep tables buzzing without ordering individual extras. An **XL board** covers eight guests for **£21.95** – perfect for hungry teams.
 
 For relaxed evenings, switch to a buffet:
 
-- **Festive Sandwich & Salad Buffet** from **GBP 10.95pp** suits training days and lighter lunches.
-- **Festive Premium Grazing Buffet** at **GBP 16.95pp** layers cured meats, cheeses and hot bites so no one misses the trimmings.
+- **Festive Sandwich & Salad Buffet** from **£10.95pp** suits training days and lighter lunches.
+- **Festive Premium Grazing Buffet** at **£16.95pp** layers cured meats, cheeses and hot bites so no one misses the trimmings.
 
 ![Guests raising a toast during a mid-week Christmas party near Heathrow](/images/events/christmas/christmas-buffet-table.jpg)
 
 ## 3. Pre-book smart drinks bundles
 
-- **Bundle A** combines arrival Prosecco with coffee & mince pie for **GBP 9.95pp**, counting toward the GBP 45–52 spend goal.
-- **Wine bundle (2 bottles GBP 39)** and **beer buckets (GBP 27 for six)** keep pouring costs predictable.
-- Hosting a mixed-age crowd? Add **unlimited kids' squash (GBP 2.50 per child)** and invite grown-ups to pre-pay a bar tab with a sensible cap.
+- **Bundle A** combines arrival Prosecco with coffee & mince pie for **£9.95pp**, counting toward the £45–52 spend goal.
+- **Wine bundle (2 bottles £39)** and **beer buckets (£27 for six)** keep pouring costs predictable.
+- Hosting a mixed-age crowd? Add **unlimited kids' squash (£2.50 per child)** and invite grown-ups to pre-pay a bar tab with a sensible cap.
 
 ## 4. Make travel easy for the team
 
@@ -70,7 +70,7 @@ For relaxed evenings, switch to a buffet:
 
 ## 5. Confirm early for the best slots
 
-Popular Thursdays and Fridays fill quickly. Secure your preferred date with a **GBP 10pp deposit for groups of six or more** and share your pre-order seven days out so the kitchen can prep.
+Popular Thursdays and Fridays fill quickly. Secure your preferred date with a **£10pp deposit for groups of six or more** and share your pre-order seven days out so the kitchen can prep.
 
 ---
 

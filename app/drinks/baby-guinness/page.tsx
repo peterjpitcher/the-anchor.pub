@@ -10,20 +10,20 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
-  title: 'Baby Guinness Shot GBP 3.50 | The Anchor - Heathrow Pub & Dining | Near Heathrow',
-  description: 'Perfect Baby Guinness shots at The Anchor, just 7 minutes from Heathrow. GBP 3.50 each or 2 for GBP 6. Popular for hen parties and celebrations. Much cheaper than airport bars.',
+  title: 'Baby Guinness Shot £3.50 | The Anchor - Heathrow Pub & Dining | Near Heathrow',
+  description: 'Perfect Baby Guinness shots at The Anchor, just 7 minutes from Heathrow. £3.50 each or 2 for £6. Popular for hen parties and celebrations. Much cheaper than airport bars.',
   keywords: 'baby guinness, baby guinness shot, layered shot, kahlua baileys, pub shots, The Anchor - Heathrow Pub & Dining',
   alternates: {
     canonical: '/drinks/baby-guinness'
   },
   openGraph: {
     title: 'Baby Guinness Shot at The Anchor',
-    description: 'The perfect layered shot that looks like a tiny Guinness. GBP 3.50 each or 2 for GBP 6.',
+    description: 'The perfect layered shot that looks like a tiny Guinness. £3.50 each or 2 for £6.',
     images: [{ url: DEFAULT_DRINKS_IMAGE, width: 1200, height: 630, alt: 'Drinks menu at The Anchor pub near Heathrow' }],
   },
   twitter: getTwitterMetadata({
     title: 'Baby Guinness Shot at The Anchor',
-    description: 'The perfect layered shot that looks like a tiny Guinness. GBP 3.50 each or 2 for GBP 6.',
+    description: 'The perfect layered shot that looks like a tiny Guinness. £3.50 each or 2 for £6.',
     images: [DEFAULT_DRINKS_IMAGE]
   })
 }
@@ -67,10 +67,10 @@ export default function BabyGuinnessPage() {
               {/* Price Badge */}
 	              <div className="flex gap-4 mb-8">
 	                <Badge variant="primary" className="text-lg px-4 py-2">
-	                  GBP 3.50 each
+	                  £3.50 each
 	                </Badge>
 	                <Badge variant="success" className="text-lg px-4 py-2">
-	                  2 for GBP 6
+	                  2 for £6
 	                </Badge>
 	              </div>
 
@@ -176,21 +176,21 @@ export default function BabyGuinnessPage() {
                     <CardBody className="text-center">
                       <h3 className="font-semibold mb-2 text-anchor-cream-text">Classic Baby Guinness</h3>
                       <p className="text-sm text-anchor-cream-text/55">Kahlúa & Bailey's</p>
-                      <p className="text-anchor-gold font-bold">GBP 3.50</p>
+                      <p className="text-anchor-gold font-bold">£3.50</p>
                     </CardBody>
                   </Card>
                   <Card className="card-dark rounded-none">
                     <CardBody className="text-center">
                       <h3 className="font-semibold mb-2 text-anchor-cream-text">Slippery Nipple</h3>
                       <p className="text-sm text-anchor-cream-text/55">Vodka, Bailey's & Grenadine</p>
-                      <p className="text-anchor-gold font-bold">GBP 4.00</p>
+                      <p className="text-anchor-gold font-bold">£4.00</p>
                     </CardBody>
                   </Card>
                   <Card className="card-dark rounded-none">
                     <CardBody className="text-center">
                       <h3 className="font-semibold mb-2 text-anchor-cream-text">B52</h3>
                       <p className="text-sm text-anchor-cream-text/55">Kahlúa, Bailey's & Grand Marnier</p>
-                      <p className="text-anchor-gold font-bold">GBP 4.50</p>
+                      <p className="text-anchor-gold font-bold">£4.50</p>
                     </CardBody>
                   </Card>
                 </div>
@@ -205,7 +205,7 @@ export default function BabyGuinnessPage() {
                   <ul className="space-y-3">
 	                    <li className="flex items-start">
 	                      <span className="text-anchor-gold mr-3"></span>
-	                      <span><strong>Better Value:</strong> GBP 3.50 vs GBP 8+ at Heathrow Airport bars</span>
+	                      <span><strong>Better Value:</strong> £3.50 vs £8+ at Heathrow Airport bars</span>
 	                    </li>
                     <li className="flex items-start">
                       <span className="text-anchor-gold mr-3"></span>
@@ -248,7 +248,7 @@ export default function BabyGuinnessPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold mb-2 text-anchor-cream-text">Do you offer any deals on Baby Guinness shots?</h3>
-                    <p className="text-anchor-cream-text/70">Yes! Get 2 for GBP 6 - perfect for sharing with a friend or
+                    <p className="text-anchor-cream-text/70">Yes! Get 2 for £6 - perfect for sharing with a friend or
                     for when one just isn't enough!</p>
                   </div>
                 </div>

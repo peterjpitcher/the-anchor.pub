@@ -279,7 +279,7 @@ export default async function StanwellPubPage() {
 	            <div className="mt-8 bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center">
 	              <p className="text-lg text-anchor-cream-text/70">
 	                <span className="font-bold text-anchor-cream-text">Outside ULEZ Zone</span> - Perfect for visitors from
-	                London without the GBP 12.50 daily charge
+	                London without the £12.50 daily charge
 	              </p>
 	            </div>
           </div>
@@ -299,11 +299,11 @@ export default async function StanwellPubPage() {
                 <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Famous Sunday Roasts</h3>
                 <p className="text-anchor-cream-text/70 mb-3">The talk of Stanwell! Our traditional Sunday roasts must be ordered by 1pm Saturday.</p>
 	                <ul className="space-y-2 text-anchor-cream-text/70">
-	                  <li>• Roasted Chicken - GBP 19.99</li>
-	                  <li>• Slow-Cooked Lamb Shank - GBP 23.99</li>
-	                  <li>• Crispy Pork Belly - GBP 21.99</li>
-	                  <li>• Beetroot &amp; Butternut Squash Wellington (V) - GBP 19.99</li>
-	                  <li>• Kids Roasted Chicken - GBP 13.99</li>
+	                  <li>• Roasted Chicken - £19.99</li>
+	                  <li>• Slow-Cooked Lamb Shank - £23.99</li>
+	                  <li>• Crispy Pork Belly - £21.99</li>
+	                  <li>• Beetroot &amp; Butternut Squash Wellington (V) - £19.99</li>
+	                  <li>• Kids Roasted Chicken - £13.99</li>
 	                </ul>
                 <p className="mt-3 text-sm text-anchor-gold">Book early - Stanwell locals fill tables fast!</p>
               </div>

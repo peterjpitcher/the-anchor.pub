@@ -2,7 +2,7 @@
 title: Heathrow Pub Price Freeze | The Anchor Keeps Pints Affordable
 description: >-
   The Anchor near Heathrow is freezing pint prices until autumn 2025. Keep
-  enjoying GBP 4.75 Carlsberg, fair spirits and free parking just seven minutes
+  enjoying £4.75 Carlsberg, fair spirits and free parking just seven minutes
   from Terminal 5.
 date: '2025-03-31'
 oldUrl: 'https://www.the-anchor.pub/post/prices-frozen-until-autumn-theanchor-pub'
@@ -58,11 +58,11 @@ Thanks to our strong relationship with [Greene King](https://www.greeneking.co.u
 
 ## New Additions That Support Prices Frozen Until Autumn
 
-![Promotional image introducing Carlsberg Pilsner at The Anchor for just GBP 4.75 a pint.](/content/blog/prices-frozen-until-autumn-theanchor-pub/image-1.jpg)
+![Promotional image introducing Carlsberg Pilsner at The Anchor for just £4.75 a pint.](/content/blog/prices-frozen-until-autumn-theanchor-pub/image-1.jpg)
 
-### Carlsberg Pilsner – GBP 4.75 a Pint
+### Carlsberg Pilsner – £4.75 a Pint
 
-We're excited to bring Carlsberg Pilsner to the bar at just **GBP 4.75 a pint**. It's smooth, refreshing, and at a price that proves quality doesn't have to cost the earth. Compare that to **GBP 7+ at Heathrow Airport bars** and you'll see why locals choose The Anchor!
+We're excited to bring Carlsberg Pilsner to the bar at just **£4.75 a pint**. It's smooth, refreshing, and at a price that proves quality doesn't have to cost the earth. Compare that to **£7+ at Heathrow Airport bars** and you'll see why locals choose The Anchor!
 
   
 
@@ -72,9 +72,9 @@ Sunshine meets cider with [Aspall](https://www.aspall.co.uk/)—our latest addit
 
   
 
-### Double Up for GBP 2 – Every Day
+### Double Up for £2 – Every Day
 
-Love a proper spirit? You can **double up any of our optic spirits for just GBP 2 extra**, any time, any day. No time limits, no catch—just straight-up value. That's a full double measure for less than a single costs at the airport!
+Love a proper spirit? You can **double up any of our optic spirits for just £2 extra**, any time, any day. No time limits, no catch—just straight-up value. That's a full double measure for less than a single costs at the airport!
 
   
 
@@ -108,9 +108,9 @@ Each month we feature a **premium spirit at 25% off**. Past favourites include B
 
 Our events aren't just entertainment—they're tradition. They're what make us _the living room of the village_.
 
-*   [**Pub Quiz**](https://www.the-anchor.pub/whats-on) – _Monthly quiz nights_, GBP 3 entry
+*   [**Pub Quiz**](https://www.the-anchor.pub/whats-on) – _Monthly quiz nights_, £3 entry
     
-*   [**Cash Bingo**](https://www.the-anchor.pub/whats-on) – _Last Friday monthly at 6pm_, GBP 10 per book
+*   [**Cash Bingo**](https://www.the-anchor.pub/whats-on) – _Last Friday monthly at 6pm_, £10 per book
     
 *   [**Live Entertainment**](https://www.the-anchor.pub/whats-on) – _Hosted nights & one-offs_ – including Music Bingo hosted by Nikki Manfadge (see /whats-on for the latest)
     
@@ -161,8 +161,8 @@ Because **holding prices steady doesn't mean lowering our standards**—it means
 📍 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
 ✈️ **From Heathrow**: Just 7 minutes from all terminals
 🚗 **Parking**: Free on-site parking
-💷 **Carlsberg**: GBP 4.75 a pint (frozen price!)
-🍺 **Double spirits**: Just GBP 2 extra
+💷 **Carlsberg**: £4.75 a pint (frozen price!)
+🍺 **Double spirits**: Just £2 extra
 🍕 **Pizza Tuesdays**: Buy one get one free
 ⏰ **Open**: 7 days a week
 📞 **Information**: 01753 682707

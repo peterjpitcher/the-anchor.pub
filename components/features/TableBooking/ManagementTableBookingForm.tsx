@@ -585,7 +585,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const requiresGroupDeposit = !requiresSundayLunchDeposit && partySize >= 7
   const sundayLunchDepositAmount = requiresSundayLunchDeposit ? getSundayLunchDepositAmount(partySize) : 0
   const groupDepositAmount = requiresGroupDeposit ? partySize * SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP : 0
-  const sundayLunchDepositPerGuestLabel = `GBP ${SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP} per person`
+  const sundayLunchDepositPerGuestLabel = `£${SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP} per person`
   const detailsUnlocked = lookupState === 'known' || lookupState === 'unknown'
   const isKnownCustomer = lookupState === 'known'
   const selectedDateEvents = eventsByDate[date] || []

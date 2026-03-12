@@ -32,8 +32,8 @@ Planning a **family Sunday lunch near Heathrow**? Whether you’re welcoming rel
 - Dog-friendly bar area for four-legged family members.
 
 ### Kids Eat Like Grown-Ups
-- Kids roasted chicken roast for **GBP 13.99** (a smaller portion of our roast with all the trimmings).
-- Adult roasts are typically **GBP 19.99–23.99** depending on your choice.
+- Kids roasted chicken roast for **£13.99** (a smaller portion of our roast with all the trimmings).
+- Adult roasts are typically **£19.99–23.99** depending on your choice.
 - Desserts and hot drinks are available to add on the day.
 - Juices and soft drinks keep younger guests happy.
 

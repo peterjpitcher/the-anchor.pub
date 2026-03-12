@@ -71,7 +71,7 @@ Kick off the festivities with our **Halloween-themed quiz**:
 **Event Details:**
 - 📅 Wednesday, October 9th, 2024
 - ⏰ 7:00 PM - 10:00 PM
-- 💷 GBP 3 per person entry
+- 💷 £3 per person entry
 - 🏆 Prizes for winning teams
 - 🎭 Costumes encouraged!
 

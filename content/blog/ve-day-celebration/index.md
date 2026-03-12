@@ -68,13 +68,13 @@ For one week only, enjoy 25% off these warming favourites:
 
 | Dish | Regular Price | Discounted Price |
 |------|---------------|------------------|
-| Chicken & Wild Mushroom Pie | GBP 14.99 | **GBP 11.24** |
-| Beef & Ale Pie | GBP 14.99 | **GBP 11.24** |
-| Fish & Chips | GBP 14.99 | **GBP 11.24** |
-| Jumbo Sausage & Chips | GBP 12.99 | **GBP 9.74** |
-| Sausage & Mash | GBP 13.99 | **GBP 10.49** |
-| Lamb Shank | GBP 14.99 | **GBP 11.24** |
-| Apple Crumble | GBP 5.99 | **GBP 4.49** |
+| Chicken & Wild Mushroom Pie | £14.99 | **£11.24** |
+| Beef & Ale Pie | £14.99 | **£11.24** |
+| Fish & Chips | £14.99 | **£11.24** |
+| Jumbo Sausage & Chips | £12.99 | **£9.74** |
+| Sausage & Mash | £13.99 | **£10.49** |
+| Lamb Shank | £14.99 | **£11.24** |
+| Apple Crumble | £5.99 | **£4.49** |
 
 Our menu is built on comfort and nostalgia – recipes that feel like Sunday afternoons and remind you of nan's kitchen. It's food that brings people together, perfect for Heathrow workers seeking authentic British cuisine.
 
@@ -90,10 +90,10 @@ We're shining a spotlight on a British staple behind every great bar: **Gordon's
 
 | Gordon's Gin Flavour | Regular Price | Discounted Price |
 |---------------------|---------------|------------------|
-| Lemon | GBP 3.30 | **GBP 2.48** |
-| White Peach | GBP 3.30 | **GBP 2.48** |
-| Sloe | GBP 3.50 | **GBP 2.63** |
-| Tropical Passionfruit | GBP 3.30 | **GBP 2.48** |
+| Lemon | £3.30 | **£2.48** |
+| White Peach | £3.30 | **£2.48** |
+| Sloe | £3.50 | **£2.63** |
+| Tropical Passionfruit | £3.30 | **£2.48** |
 
 Served with your choice of mixer, each is a refreshing nod to classic British craft. A perfect companion to hearty food and cheerful music.
 

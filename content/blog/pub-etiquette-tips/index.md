@@ -62,7 +62,7 @@ In British pubs, tipping is less formal than in other dining establishments, but
 
   
 
-*   **“Have One for Yourself”:** If your bartender provided excellent service, this classic phrase allows them to add the cost of a small drink (around GBP 1–2) to your bill. It’s a simple yet effective way to show gratitude.
+*   **“Have One for Yourself”:** If your bartender provided excellent service, this classic phrase allows them to add the cost of a small drink (around £1–2) to your bill. It’s a simple yet effective way to show gratitude.
     
 *   **Table Service Tips:** When table service is provided (a feature occasionally available at The Anchor during busy periods), tipping 10–15% of your total bill is appropriate.
     

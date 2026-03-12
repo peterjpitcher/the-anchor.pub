@@ -109,7 +109,7 @@ export default function PoolAndDartsPage() {
                                 <ul className="text-left space-y-2 text-sm bg-anchor-bg-raised p-4 rounded-lg">
                                     <li className="flex items-center">Full set of Spots & Stripes</li>
                                     <li className="flex items-center">Quality cues provided</li>
-	                                    <li className="flex items-center">GBP 1 per game</li>
+	                                    <li className="flex items-center">£1 per game</li>
                                 </ul>
                             </div>
 
@@ -145,7 +145,7 @@ export default function PoolAndDartsPage() {
                     },
                     {
                         question: "Is it cash only for the pool table?",
-	                        answer: "The table is coin-operated (GBP 1), but we can provide change at the bar if you only have a card."
+	                        answer: "The table is coin-operated (£1), but we can provide change at the bar if you only have a card."
                     },
                     {
                         question: "Can children play?",

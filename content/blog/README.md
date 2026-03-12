@@ -181,7 +181,7 @@ Our unique location near Heathrow means you can enjoy your drink while watching 
 ## Summer Specials
 
 Throughout June, we're offering:
-- Pimm's jugs for GBP 15
+- Pimm's jugs for £15
 - BBQ menu every weekend
 - Live acoustic music on Sunday afternoons
 

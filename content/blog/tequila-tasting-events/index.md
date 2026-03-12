@@ -169,7 +169,7 @@ Following our tequila success, join us for:
   - Warming Whiskies
   - Spiced Rums
 - **Includes**: Seasonal food pairings
-- **Price**: GBP 35 per person
+- **Price**: £35 per person
 
 **Future Events:**
 - Rum Journey (Spring 2025)
@@ -184,7 +184,7 @@ Our **tequila tasting near Heathrow** events sell out quickly:
 
 **Booking Information:**
 - **Capacity**: Maximum 25 guests
-- **Price**: GBP 35 per person
+- **Price**: £35 per person
 - **Duration**: 3.5 hours
 - **Includes**: All tastings, food, and materials
 - **Location**: The Anchor, Stanwell Moor
@@ -200,7 +200,7 @@ Our **tequila tasting near Heathrow** events sell out quickly:
 
 ![Selection of premium tequilas](/content/blog/tequila-tasting-events/image-5.png)
 
-**Your GBP 35 Ticket Includes:**
+**Your £35 Ticket Includes:**
 - Welcome drink on arrival
 - 6 premium spirit tastings
 - Professional guidance throughout

@@ -329,7 +329,7 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
     setTime('') // Reset time selection when date changes
   }, [date])
   
-  // Calculate deposit amount (GBP 10 per person)
+  // Calculate deposit amount (£10 per person)
   const depositAmount = getSundayLunchDepositAmount(partySize)
   const mainCoursesTotal = menuSelections.reduce((sum, selection) => sum + selection.price_at_booking, 0)
   const sidesTotal = sideSelections.reduce((sum, selection) => sum + (selection.price_at_booking * selection.quantity), 0)
@@ -786,7 +786,7 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
         <div>
 		          <p className="font-medium">Advance Booking Required by 1pm Saturday</p>
 		          <p className="text-sm mt-1">
-		            Sunday roasts require a confirmed booking with {formatPrice(depositAmount)} deposit (GBP {SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP} per person) by 1pm Saturday.
+		            Sunday roasts require a confirmed booking with {formatPrice(depositAmount)} deposit (£{SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP} per person) by 1pm Saturday.
 		            This deposit is deducted from your final bill, with the remaining balance due on arrival.
 		          </p>
           {(() => {

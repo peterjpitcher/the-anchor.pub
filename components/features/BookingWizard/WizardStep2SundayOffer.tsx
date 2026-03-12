@@ -86,11 +86,11 @@ export function WizardStep2SundayOffer({ onSelect, onBack, selectedDate }: Wizar
               <div className="space-y-2 text-sm">
                 <div className="flex items-center gap-2 text-amber-700">
                   <Icon name="check" className="w-4 h-4" />
-                  <span>Adults: GBP 19.99-GBP 23.99</span>
+                  <span>Adults: £19.99-£23.99</span>
                 </div>
                 <div className="flex items-center gap-2 text-amber-700">
                   <Icon name="info" className="w-4 h-4" />
-                  <span>GBP {SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP} per person deposit required (comes off your bill)</span>
+                  <span>£{SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP} per person deposit required (comes off your bill)</span>
                 </div>
                 <div className="flex items-center gap-2 text-amber-700">
                   <Icon name="clock" className="w-4 h-4" />
@@ -145,7 +145,7 @@ export function WizardStep2SundayOffer({ onSelect, onBack, selectedDate }: Wizar
           <div className="text-sm text-blue-800">
             <p className="font-medium mb-1">Why do we require a deposit for Sunday roasts?</p>
             <p>
-              The GBP {SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP} per person deposit ensures we prepare fresh ingredients specifically for your table,
+              The £{SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP} per person deposit ensures we prepare fresh ingredients specifically for your table,
               reducing waste and keeping our prices fair. The deposit comes straight off your final bill.
             </p>
           </div>

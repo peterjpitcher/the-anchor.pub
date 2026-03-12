@@ -163,7 +163,7 @@ function getEntryLabel(event: Event) {
   }
 
   if (Number.isFinite(parsedPrice)) {
-    return `GBP ${parsedPrice} entry`
+    return `£${parsedPrice} entry`
   }
 
   if (typeof rawPrice === 'string' && rawPrice.trim().length > 0) {

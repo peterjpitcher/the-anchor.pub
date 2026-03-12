@@ -460,7 +460,7 @@ export default async function PubsInStanwellPage() {
           },
 	          {
 	            question: "Do you have parking at the pub?",
-	            answer: "Yes! We have 20 free parking spaces, which is rare for pubs in this area. You'll never have to worry about parking meters or finding a space. This is especially valuable compared to Staines town center pubs where parking can cost GBP 3-5."
+	            answer: "Yes! We have 20 free parking spaces, which is rare for pubs in this area. You'll never have to worry about parking meters or finding a space. This is especially valuable compared to Staines town center pubs where parking can cost £3-5."
 	          },
           {
             question: "Are families welcome at The Anchor?",

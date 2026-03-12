@@ -2,7 +2,7 @@
 title: Bar Tab Policy Near Heathrow | The Anchor Pub Stanwell Moor
 description: >-
   Learn about bar tab policies at The Anchor pub near Heathrow Airport.
-  Convenient tab system for regular customers, 7-day validity, GBP 50 limit.
+  Convenient tab system for regular customers, 7-day validity, £50 limit.
   Perfect for airport staff and locals in Stanwell Moor. Clear terms for
   hassle-free drinking just 7 minutes from Terminal 5.
 date: '2019-08-20'
@@ -39,7 +39,7 @@ At The Anchor pub in **Stanwell Moor**, just **7 minutes from Heathrow Airport**
 
 **Tab Conditions:**
 1. **7-day validity** - Tabs must be settled within a week
-2. **GBP 50 maximum** - Keeps things manageable for everyone
+2. **£50 maximum** - Keeps things manageable for everyone
 3. **Regular customers only** - Building trust with our community
 
 **Why We Offer Tabs:**
@@ -51,10 +51,10 @@ At The Anchor pub in **Stanwell Moor**, just **7 minutes from Heathrow Airport**
 ### Frequently Asked Questions About Tabs
 
 **How do I start a tab at our pub near Heathrow?**
-Regular customers can ask any bar staff to open a tab. You'll have 7 days or GBP 50 (whichever comes first) to settle. Perfect for **Heathrow staff** who visit regularly!
+Regular customers can ask any bar staff to open a tab. You'll have 7 days or £50 (whichever comes first) to settle. Perfect for **Heathrow staff** who visit regularly!
 
 **Do I need to clear my tab before ordering more?**
-Yes - once you reach either limit (7 days or GBP 50), you'll need to settle before continuing. This keeps our system fair for all customers near **Terminal 5** and beyond.
+Yes - once you reach either limit (7 days or £50), you'll need to settle before continuing. This keeps our system fair for all customers near **Terminal 5** and beyond.
 
 **Can I get a larger tab for events?**
 Absolutely! For parties, corporate events, or special occasions at our **venue near Heathrow**, we can arrange custom tab agreements. Just speak to management.

@@ -112,7 +112,7 @@ export default function BookTablePage({
 	                    Enjoy our famous Sunday roasts - freshly prepared and served with all the trimmings
 	                  </p>
 		                  <p className="text-sm text-muted-foreground">
-		                    Pre-order by 1pm Saturday. Sunday lunch bookings require a GBP {SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP} per person deposit, deducted from your final bill.
+		                    Pre-order by 1pm Saturday. Sunday lunch bookings require a £{SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP} per person deposit, deducted from your final bill.
 		                  </p>
 		                </div>
 
@@ -159,7 +159,7 @@ export default function BookTablePage({
 	                  <ul className="space-y-2 text-sm text-muted-foreground">
 	                    <li>• Private hire: minimum 30 people</li>
 	                    <li>• Corporate functions: minimum 15 people</li>
-	                    <li>• GBP 250 deposit required</li>
+	                    <li>• £250 deposit required</li>
 	                    <li>• Buffets, sit-down meals & canapés</li>
 	                    <li>• Contact us for pricing</li>
 	                  </ul>

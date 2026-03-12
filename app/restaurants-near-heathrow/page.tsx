@@ -15,7 +15,7 @@ import { generateKitchenHoursSpecification } from '@/lib/schema-utils'
 
 export const metadata: Metadata = {
   title: 'Restaurant Near Heathrow Airport | The Anchor - Better Than Terminal Dining',
-  description: 'Traditional British restaurant 7 minutes from Heathrow Terminal 5 and 10-15 minutes from Terminals 2, 3 and 4. Free parking saves GBP 20-40. Proper meals at pub prices, not airport prices.',
+  description: 'Traditional British restaurant 7 minutes from Heathrow Terminal 5 and 10-15 minutes from Terminals 2, 3 and 4. Free parking saves £20-40. Proper meals at pub prices, not airport prices.',
   keywords: 'restaurants near heathrow, places to eat near heathrow airport, dining near heathrow, restaurants at heathrow terminal 5, restaurants at heathrow terminal 3, restaurants at heathrow terminal 4, restaurants at heathrow terminal 2, food at heathrow airport, restaurant near terminal 5',
   openGraph: {
     title: 'Restaurant Near Heathrow - The Anchor',
@@ -242,14 +242,14 @@ export default async function RestaurantsNearHeathrowPage() {
                       <div className="bg-anchor-bg-raised rounded-lg border border-anchor-gold/15 p-4">
 	                        <h4 className="font-bold text-anchor-gold-vivid mb-2">Price Comparison:</h4>
 	                        <ul className="space-y-2 text-anchor-cream-text/70">
-	                          <li><strong>Airport Burger & Chips:</strong> GBP 18-22</li>
-	                          <li><strong>Our Burger & Chips:</strong> Under GBP 12</li>
-	                          <li className="text-green-400 font-bold">You Save: GBP 6-10 per meal</li>
+	                          <li><strong>Airport Burger & Chips:</strong> £18-22</li>
+	                          <li><strong>Our Burger & Chips:</strong> Under £12</li>
+	                          <li className="text-green-400 font-bold">You Save: £6-10 per meal</li>
 	                        </ul>
 	                      </div>
 	                      <div className="bg-green-900/20 rounded-lg border border-green-500/30 p-3">
 	                        <p className="text-sm font-semibold text-green-400">
-	                          Plus: FREE parking saves another GBP 20-40!
+	                          Plus: FREE parking saves another £20-40!
 	                        </p>
 	                      </div>
                     </div>
@@ -258,14 +258,14 @@ export default async function RestaurantsNearHeathrowPage() {
                   color: "bg-anchor-bg-raised rounded-2xl p-8 border border-anchor-gold/15"
                 },
                 {
-	                  title: "Free Parking Worth GBP 20-40",
+	                  title: "Free Parking Worth £20-40",
 	                  content: (
 	                    <div className="space-y-3">
 	                      <p className="font-semibold text-anchor-cream-text">Airport Parking Costs:</p>
 	                      <ul className="space-y-1 text-anchor-cream-text/70">
-	                        <li>• Terminal 5: GBP 39/day</li>
-	                        <li>• Terminals 2/3: GBP 42/day</li>
-	                        <li>• Short stay: GBP 8.50/hour</li>
+	                        <li>• Terminal 5: £39/day</li>
+	                        <li>• Terminals 2/3: £42/day</li>
+	                        <li>• Short stay: £8.50/hour</li>
 	                      </ul>
                       <div className="bg-anchor-bg-raised rounded-lg p-4 mt-4 border border-anchor-gold/15">
                         <p className="font-bold text-green-400">The Anchor: Always FREE</p>
@@ -329,7 +329,7 @@ export default async function RestaurantsNearHeathrowPage() {
 	                {
 	                  icon: "",
 	                  title: "Famous Sunday Roasts",
-	                  description: "Traditional roast dinners with Yorkshire puddings, roast potatoes & homemade gravy. GBP 19.99-GBP 23.99 (pre-order required)",
+	                  description: "Traditional roast dinners with Yorkshire puddings, roast potatoes & homemade gravy. £19.99-£23.99 (pre-order required)",
 	                  className: "text-center"
 	                },
                 {
@@ -552,7 +552,7 @@ export default async function RestaurantsNearHeathrowPage() {
           },
 	          {
 	            question: "Are you cheaper than airport restaurants?",
-	            answer: "Yes — we offer honest pub pricing with mains from GBP 8.99 and freshly cooked food. Plus, parking is completely free for guests."
+	            answer: "Yes — we offer honest pub pricing with mains from £8.99 and freshly cooked food. Plus, parking is completely free for guests."
 	          },
           {
             question: "Do you take reservations?",

@@ -311,19 +311,19 @@ export default function HeathrowLayoverDiningPage() {
               <tbody className="divide-y divide-anchor-gold/15 text-sm text-anchor-cream-text/70">
 	                <tr>
 	                  <td className="px-6 py-4 font-semibold text-anchor-cream-text">Terminal 5</td>
-	                  <td className="px-6 py-4">7 minutes • GBP 12–18</td>
+	                  <td className="px-6 py-4">7 minutes • £12–18</td>
 	                  <td className="px-6 py-4">Bus 442 • 20 minutes + 3 minute walk</td>
 	                  <td className="px-6 py-4">Fast crew dinners & short layovers</td>
 	                </tr>
 	                <tr>
 	                  <td className="px-6 py-4 font-semibold text-anchor-cream-text">Terminals 2 & 3</td>
-	                  <td className="px-6 py-4">11 minutes • GBP 16–22</td>
+	                  <td className="px-6 py-4">11 minutes • £16–22</td>
 	                  <td className="px-6 py-4">Elizabeth Line + bus transfer • 30 minutes</td>
 	                  <td className="px-6 py-4">Families meeting arrivals</td>
 	                </tr>
 	                <tr>
 	                  <td className="px-6 py-4 font-semibold text-anchor-cream-text">Terminal 4</td>
-	                  <td className="px-6 py-4">14 minutes • GBP 18–24</td>
+	                  <td className="px-6 py-4">14 minutes • £18–24</td>
 	                  <td className="px-6 py-4">Shuttle to T5 + bus • 35 minutes</td>
 	                  <td className="px-6 py-4">Overnight guests staying nearby</td>
 	                </tr>

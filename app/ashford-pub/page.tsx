@@ -204,7 +204,7 @@ export default async function AshfordPubPage() {
 	                {
 	                  icon: "",
 	                  title: "ULEZ Free",
-	                  description: "Save GBP 12.50 - we're outside the zone!",
+	                  description: "Save £12.50 - we're outside the zone!",
 	                  variant: "colored",
 	                  color: "bg-anchor-bg-card",
 	                  className: "rounded-none p-6 text-center border border-anchor-gold/15"
@@ -581,7 +581,7 @@ export default async function AshfordPubPage() {
           },
 	          {
 	            question: "What makes The Anchor different from pubs in Ashford?",
-	            answer: "The Anchor offers a genuine traditional village pub experience with better value, free parking, a large beer garden, and unique features like plane spotting. Plus, we're outside the ULEZ zone, saving you GBP 12.50 if coming from London."
+	            answer: "The Anchor offers a genuine traditional village pub experience with better value, free parking, a large beer garden, and unique features like plane spotting. Plus, we're outside the ULEZ zone, saving you £12.50 if coming from London."
 	          },
           {
             question: "Do you get many customers from Ashford?",

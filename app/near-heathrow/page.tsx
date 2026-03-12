@@ -285,7 +285,7 @@ export default function NearHeathrowPage() {
               {
                 href: '/heathrow-parking',
                 title: 'Cheapest Heathrow parking',
-                description: 'Reserve secure parking from GBP 15 per day, seven minutes from Terminal 5.'
+                description: 'Reserve secure parking from £15 per day, seven minutes from Terminal 5.'
               },
               {
                 href: '/heathrow-layover-dining',
@@ -414,7 +414,7 @@ export default function NearHeathrowPage() {
               <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-6">
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-2xl font-bold text-anchor-gold-vivid">By Taxi</h2>
-                  <span className="text-anchor-gold font-semibold">GBP 25</span>
+                  <span className="text-anchor-gold font-semibold">£25</span>
                 </div>
                 <p className="text-anchor-cream-text/70 mb-4">All terminals</p>
                 <p className="text-anchor-cream-text/70 text-sm mb-4">

@@ -172,7 +172,7 @@ export function WizardStep7Confirm({
 	                Deposit Required: {formatPrice(depositAmount, 'GBP')}
 	              </p>
 	              <p className="text-sm text-amber-700">
-	                GBP {SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP} per person deposit for Sunday roasts. This amount will be deducted from your final bill.
+	                £{SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP} per person deposit for Sunday roasts. This amount will be deducted from your final bill.
 	                The deposit ensures we prepare fresh ingredients specifically for your table.
 	              </p>
 	            </div>

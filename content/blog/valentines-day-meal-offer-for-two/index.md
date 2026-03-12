@@ -42,11 +42,11 @@ Create unforgettable memories at our **romantic restaurant** without breaking th
 
 For Valentine's weekend, enjoy our exclusive couples offer:
 
-**Complete Meal for Two - Just GBP 19.99**
+**Complete Meal for Two - Just £19.99**
 - Any freshly stone-baked pizza to share
 - Garlic bread starter
 - Bottle of quality wine
-- Upgrade to Prosecco for just GBP 2 extra
+- Upgrade to Prosecco for just £2 extra
 
 **Available**: Valentine's weekend (Thursday-Saturday)
 
@@ -95,7 +95,7 @@ Toast your love with:
 - **Pinot Grigio** - Light and refreshing
 - **Cabernet Sauvignon** - Rich and romantic
 - **Zinfandel Rosé** - Pretty in pink
-- **Prosecco upgrade** - Add sparkle for GBP 2
+- **Prosecco upgrade** - Add sparkle for £2
 
 ## Perfect for Different Couples
 

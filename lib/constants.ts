@@ -60,7 +60,7 @@ export function getSundayLunchDepositAmount(partySize: number): number {
 }
 
 export const SUNDAY_LUNCH_DEPOSIT_POLICY_COPY =
-  `A GBP ${SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP} per person deposit is required for every Sunday lunch booking and is deducted from your final bill.`
+  `A £${SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP} per person deposit is required for every Sunday lunch booking and is deducted from your final bill.`
 
 export const SUNDAY_ROAST = {
   // Standard messaging for consistency

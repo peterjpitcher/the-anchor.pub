@@ -612,7 +612,7 @@ export default function SundayLunchBooking({
                 Sunday roasts must be pre-ordered and paid for by 1pm on Saturday.
               </p>
               <p className="text-sm">
-                This ensures we can prepare your meal fresh to order. A GBP {SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP} per person deposit is deducted from your final bill.
+                This ensures we can prepare your meal fresh to order. A £{SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP} per person deposit is deducted from your final bill.
               </p>
               <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 mt-3">
                 <p className="text-sm font-medium text-amber-900">

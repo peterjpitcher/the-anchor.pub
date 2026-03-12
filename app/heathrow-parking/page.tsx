@@ -14,17 +14,17 @@ const formatRate = (value: number | null | undefined, fallback: string) =>
   typeof value === 'number' && Number.isFinite(value) ? value.toFixed(2) : fallback
 
 export const metadata: Metadata = {
-  title: 'Cheap Heathrow Parking from GBP 15/day | 7 mins to T5 | The Anchor',
-  description: 'Book cheap Heathrow parking from GBP 15 per day or GBP 75 per week in Stanwell Moor. 7 minutes to Terminal 5, keep your keys, CCTV lighting, instant confirmation.',
+  title: 'Cheap Heathrow Parking from £15/day | 7 mins to T5 | The Anchor',
+  description: 'Book cheap Heathrow parking from £15 per day or £75 per week in Stanwell Moor. 7 minutes to Terminal 5, keep your keys, CCTV lighting, instant confirmation.',
   keywords: 'cheap heathrow parking, heathrow parking, heathrow car parking, parking near heathrow, long stay parking heathrow, terminal 5 parking, terminal 3 parking, terminal 2 parking, terminal 4 parking, airport long term parking, keep your keys heathrow parking, off airport parking heathrow',
   openGraph: {
-    title: 'Cheap Heathrow Parking from GBP 15/day - Book Online',
+    title: 'Cheap Heathrow Parking from £15/day - Book Online',
     description: 'Secure off-airport Heathrow parking in Stanwell Moor. 7 minutes to T5, 10-12 minutes to T2/T3/T4, keep your keys and book in minutes.',
     images: [{ url: DEFAULT_PARKING_IMAGE, width: 1200, height: 630, alt: 'Free parking at The Anchor pub near Heathrow Airport' }],
     url: 'https://www.the-anchor.pub/heathrow-parking'
   },
   twitter: getTwitterMetadata({
-    title: 'Cheap Heathrow Parking from GBP 15/day',
+    title: 'Cheap Heathrow Parking from £15/day',
     description: 'Book secure Heathrow parking near Terminal 5 with clear pricing, CCTV and fast confirmation.',
     images: [DEFAULT_PARKING_IMAGE]
   }),
@@ -52,7 +52,7 @@ const terminalLandingPages = [
   {
     href: '/heathrow-parking/terminal-5',
     title: 'Terminal 5 cheap parking guide',
-    description: '7-minute transfer plan for T5 with key-retention parking from GBP 15 per day.'
+    description: '7-minute transfer plan for T5 with key-retention parking from £15 per day.'
   }
 ]
 
@@ -105,18 +105,18 @@ const terminalGuides = [
 const comparisonRows = [
   {
     label: 'Price for 24 hours',
-    anchor: 'GBP 15 with us (daily rate)',
-    heathrow: 'GBP 39 at Heathrow short stay'
+    anchor: '£15 with us (daily rate)',
+    heathrow: '£39 at Heathrow short stay'
   },
   {
     label: 'Price for 1 week',
-    anchor: 'GBP 75 with us (weekly rate)',
-    heathrow: 'GBP 118-GBP 140 Heathrow long stay'
+    anchor: '£75 with us (weekly rate)',
+    heathrow: '£118-£140 Heathrow long stay'
   },
   {
     label: 'Price for 2 weeks',
-    anchor: 'GBP 140 with us (weekly x2 minus loyalty credit)',
-    heathrow: 'GBP 216-GBP 260 Heathrow official car parks'
+    anchor: '£140 with us (weekly x2 minus loyalty credit)',
+    heathrow: '£216-£260 Heathrow official car parks'
   },
   {
     label: 'Distance to terminals',
@@ -139,7 +139,7 @@ const faqs = (rateCard: ParkingRateCard | null) => {
 	  return [
 	  {
 	    question: 'Is The Anchor cheaper than Heathrow long stay parking?',
-	    answer: `Yes – our daily rate is GBP ${daily} compared to Heathrow short stay at GBP 39 and long stay often GBP 118+ per week. The price comparison table shows real-world savings for 24 hours, one week and two weeks of parking.`
+	    answer: `Yes – our daily rate is £${daily} compared to Heathrow short stay at £39 and long stay often £118+ per week. The price comparison table shows real-world savings for 24 hours, one week and two weeks of parking.`
 	  },
   {
     question: 'Is this Heathrow airport car parking or parking near Heathrow airport?',
@@ -147,11 +147,11 @@ const faqs = (rateCard: ParkingRateCard | null) => {
   },
 	  {
 	    question: 'Where can I find cheap parking near Heathrow Terminal 5?',
-	    answer: 'Park at The Anchor in Stanwell Moor and take a 7-minute taxi to Terminal 5. You pay from GBP 15 per day, keep your keys and avoid airport surcharges. Taxi and rideshare drivers know our postcode TW19 6AQ, making transfers easy even on red-eye flights.'
+	    answer: 'Park at The Anchor in Stanwell Moor and take a 7-minute taxi to Terminal 5. You pay from £15 per day, keep your keys and avoid airport surcharges. Taxi and rideshare drivers know our postcode TW19 6AQ, making transfers easy even on red-eye flights.'
 	  },
 	  {
 	    question: 'How much does Heathrow parking cost at The Anchor?',
-	    answer: `Our current rate card is GBP ${hourly} per hour, GBP ${daily} per day, GBP ${weekly} per week and GBP ${monthly} per month. The booking wizard locks in the best mix automatically before you pay via PayPal.`
+	    answer: `Our current rate card is £${hourly} per hour, £${daily} per day, £${weekly} per week and £${monthly} per month. The booking wizard locks in the best mix automatically before you pay via PayPal.`
 	  },
   {
     question: 'Is this long stay parking near Heathrow Terminals 2, 3, 4 and 5?',
@@ -202,8 +202,8 @@ function buildParkingFacilitySchema(rateCard: ParkingRateCard | null) {
 	      { '@type': 'LocationFeatureSpecification', name: 'Electric Vehicle Friendly', value: true }
 	    ],
 	    priceRange: rateCard
-	      ? `GBP ${formatRate(rateCard.hourly_rate, '5.00')}-GBP ${formatRate(rateCard.daily_rate, '39.00')} per day`
-	      : 'GBP 5-GBP 39 per day',
+	      ? `£${formatRate(rateCard.hourly_rate, '5.00')}-£${formatRate(rateCard.daily_rate, '39.00')} per day`
+	      : '£5-£39 per day',
 	    paymentAccepted: ['PayPal', 'CreditCard', 'ContactlessPayment'],
 	    offers: {
       '@type': 'Offer',
@@ -290,7 +290,7 @@ export default async function HeathrowParkingPage() {
 	      <HeroWrapper
 	        route="/heathrow-parking"
 	        title="Heathrow Parking – Book, Pay & Park in Stanwell Moor"
-	        description="Secure long stay and short stay Heathrow parking from GBP 5 per hour. Drop your car with us in Stanwell Moor, then grab a taxi or the 442 bus to Heathrow in minutes."
+	        description="Secure long stay and short stay Heathrow parking from £5 per hour. Drop your car with us in Stanwell Moor, then grab a taxi or the 442 bus to Heathrow in minutes."
 	        variant="default"
         tags={[
           { label: ' PayPal checkout', variant: 'primary' },
@@ -336,7 +336,7 @@ export default async function HeathrowParkingPage() {
               <div className="rounded-2xl bg-anchor-bg-raised p-6 border border-anchor-gold/15">
 	                <h3 className="text-lg font-semibold text-anchor-cream-text">Daily price promise</h3>
 	                <p className="mt-2 text-sm text-anchor-cream-text/70">
-	                  Lock in from GBP 15 per day or GBP 75 per week – no surge pricing, no pre-authorisation. Pay in advance with PayPal and download instant receipts.
+	                  Lock in from £15 per day or £75 per week – no surge pricing, no pre-authorisation. Pay in advance with PayPal and download instant receipts.
 	                </p>
               </div>
               <div className="rounded-2xl bg-anchor-bg-raised p-6 border border-anchor-gold/15">
@@ -465,18 +465,26 @@ export default async function HeathrowParkingPage() {
       <Section background="dark" spacing="lg" id="price-comparison">
         <Container>
           <div className="overflow-hidden rounded-2xl border border-anchor-gold/15">
-            <div className="bg-anchor-bg-raised border-b border-anchor-gold/30 px-6 py-4 text-anchor-gold-vivid text-xl font-semibold">
-              Heathrow Parking Price Comparison
+            {/* Title + column headers */}
+            <div className="bg-anchor-bg-raised border-b border-anchor-gold/30 px-6 py-4">
+              <p className="text-anchor-gold-vivid text-xl font-semibold">Heathrow Parking Price Comparison</p>
+              <div className="mt-3 hidden md:grid md:grid-cols-3 gap-4 text-xs font-semibold uppercase tracking-wider text-anchor-cream-text/50">
+                <span></span>
+                <span>The Anchor</span>
+                <span>Official Heathrow</span>
+              </div>
             </div>
             <div className="divide-y divide-anchor-gold/15 bg-anchor-bg-card">
               {comparisonRows.map(row => (
-                <div key={row.label} className="grid gap-4 px-6 py-4 md:grid-cols-[2fr,1fr,1fr] items-center">
+                <div key={row.label} className="grid gap-2 px-6 py-4 md:grid-cols-3 md:gap-4 md:items-center">
                   <div className="font-semibold text-anchor-cream-text">{row.label}</div>
-                  <div className="text-sm text-anchor-gold-vivid">
-                    <strong>The Anchor Heathrow parking:</strong> {row.anchor}
+                  <div className="text-sm text-anchor-cream-text/80">
+                    <span className="md:hidden text-anchor-gold-vivid font-semibold">The Anchor: </span>
+                    {row.anchor}
                   </div>
-                  <div className="text-sm text-anchor-gold-vivid">
-                    <strong>Official Heathrow:</strong> {row.heathrow}
+                  <div className="text-sm text-anchor-cream-text/80">
+                    <span className="md:hidden text-anchor-gold-vivid font-semibold">Official Heathrow: </span>
+                    {row.heathrow}
                   </div>
                 </div>
               ))}

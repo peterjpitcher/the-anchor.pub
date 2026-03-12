@@ -168,7 +168,7 @@ export default function ChristmasPartiesPage() {
                                     <span className="text-anchor-gold-vivid mr-2 text-xl"></span>
                                     <div>
                                         <strong className="block text-anchor-cream-text">The Organiser Perk</strong>
-                                        <span className="text-anchor-cream-text/70 text-sm">Book a group of 20+ and receive a GBP 40 voucher for yourself in January.</span>
+                                        <span className="text-anchor-cream-text/70 text-sm">Book a group of 20+ and receive a £40 voucher for yourself in January.</span>
                                     </div>
                                 </li>
                             </ul>
@@ -192,7 +192,7 @@ export default function ChristmasPartiesPage() {
                 faqs={[
 	                    {
 	                        question: "Do you require a deposit?",
-	                        answer: "Yes, we require a GBP 10 per person deposit to secure the booking. This is deducted from the final bill."
+	                        answer: "Yes, we require a £10 per person deposit to secure the booking. This is deducted from the final bill."
 	                    },
                     {
                         question: "Can you cater for dietary requirements?",

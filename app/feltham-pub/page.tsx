@@ -294,7 +294,7 @@ export default function FelthamPubPage() {
                       <ul className="space-y-2">
 	                        <li className="flex items-start">
 	                          <span className="text-anchor-gold mr-2">•</span>
-	                          Buffet menus from GBP 12pp
+	                          Buffet menus from £12pp
 	                        </li>
                         <li className="flex items-start">
                           <span className="text-anchor-gold mr-2">•</span>

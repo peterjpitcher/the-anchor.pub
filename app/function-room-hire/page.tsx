@@ -535,17 +535,17 @@ export default function FunctionRoomHirePage() {
                 <div>
 	                  <h4 className="font-bold mb-4">Weekdays (Mon-Thu)</h4>
 	                  <ul className="space-y-2 text-anchor-cream-text/70">
-	                    <li>• Morning/Afternoon: From GBP 150</li>
-	                    <li>• Evening: From GBP 300</li>
-	                    <li>• All Day: From GBP 400</li>
+	                    <li>• Morning/Afternoon: From £150</li>
+	                    <li>• Evening: From £300</li>
+	                    <li>• All Day: From £400</li>
 	                  </ul>
 	                </div>
 	                <div>
 	                  <h4 className="font-bold mb-4">Weekends (Fri-Sun)</h4>
 	                  <ul className="space-y-2 text-anchor-cream-text/70">
-	                    <li>• Morning/Afternoon: From GBP 250</li>
-	                    <li>• Evening: From GBP 500</li>
-	                    <li>• All Day: From GBP 600</li>
+	                    <li>• Morning/Afternoon: From £250</li>
+	                    <li>• Evening: From £500</li>
+	                    <li>• All Day: From £600</li>
 	                  </ul>
 	                </div>
               </div>
@@ -565,8 +565,8 @@ export default function FunctionRoomHirePage() {
                     exceed minimums once you add catering and beverages for your guests.
                   </p>
 	                  <p className="font-semibold">
-	                    Example: 50-person evening event with buffet and drinks typically totals GBP 750-1000,
-	                    easily exceeding the GBP 500 weekend minimum.
+	                    Example: 50-person evening event with buffet and drinks typically totals £750-1000,
+	                    easily exceeding the £500 weekend minimum.
 	                  </p>
                 </div>
               }

@@ -230,7 +230,7 @@ export default function HeathrowHotelsPubPage() {
                   </li>
                 </ul>
 	                <p className="mt-4 text-sm text-anchor-cream-text/55">
-	                  GBP 10-15 taxi fare or easy drive with free parking
+	                  £10-15 taxi fare or easy drive with free parking
 	                </p>
               </div>
 
@@ -267,7 +267,7 @@ export default function HeathrowHotelsPubPage() {
                   </li>
                 </ul>
 	                <p className="mt-4 text-sm text-anchor-cream-text/55">
-	                  GBP 12-18 taxi fare - worth every penny for the savings!
+	                  £12-18 taxi fare - worth every penny for the savings!
 	                </p>
               </div>
             </div>
@@ -384,21 +384,21 @@ export default function HeathrowHotelsPubPage() {
 	                {
 	                  icon: "",
 	                  title: "Real Ales",
-	                  description: "Try proper British beer - not just hotel lagers. From GBP 4.80/pint",
+	                  description: "Try proper British beer - not just hotel lagers. From £4.80/pint",
 	                  variant: "default",
 	                  className: "bg-anchor-bg-raised rounded-lg p-6 border border-anchor-gold/15 text-center"
 	                },
 	                {
 	                  icon: "",
 	                  title: "Fish & Chips",
-	                  description: "Classic British meal hotel guests always request. GBP 12.99 (half hotel price)",
+	                  description: "Classic British meal hotel guests always request. £12.99 (half hotel price)",
 	                  variant: "default",
 	                  className: "bg-anchor-bg-raised rounded-lg p-6 border border-anchor-gold/15 text-center"
 	                },
 	                {
 	                  icon: "",
 	                  title: "Sunday Roast",
-	                  description: "Must-try British tradition for Sunday visitors. From GBP 19.99",
+	                  description: "Must-try British tradition for Sunday visitors. From £19.99",
 	                  variant: "default",
 	                  className: "bg-anchor-bg-raised rounded-lg p-6 border border-anchor-gold/15 text-center"
 	                }
@@ -452,7 +452,7 @@ export default function HeathrowHotelsPubPage() {
 	              <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
 	                <h3 className="text-xl font-bold mb-3"> By Taxi</h3>
 	                <ul className="space-y-2 text-anchor-cream-text/70">
-	                  <li>• GBP 10-15 from most hotels</li>
+	                  <li>• £10-15 from most hotels</li>
 	                  <li>• 7-12 minute journey</li>
 	                  <li>• Ask for "The Anchor - Heathrow Pub & Dining"</li>
 	                  <li>• Return taxi easily arranged</li>
@@ -637,7 +637,7 @@ export default function HeathrowHotelsPubPage() {
         faqs={[
 	          {
 	            question: "How far is The Anchor from Heathrow hotels?",
-	            answer: "We're just 7-12 minutes by car from most Heathrow hotels. Terminal 5 hotels like Premier Inn and Sofitel are closest (7-8 mins), while Bath Road hotels take about 10-12 minutes. A taxi costs GBP 10-15 each way."
+	            answer: "We're just 7-12 minutes by car from most Heathrow hotels. Terminal 5 hotels like Premier Inn and Sofitel are closest (7-8 mins), while Bath Road hotels take about 10-12 minutes. A taxi costs £10-15 each way."
 	          },
           {
             question: "Is it worth leaving my hotel to eat at The Anchor?",
@@ -653,7 +653,7 @@ export default function HeathrowHotelsPubPage() {
           },
 	          {
 	            question: "What's the best way to get to The Anchor from my hotel?",
-	            answer: "Most guests take a taxi (GBP 10-15, 7-12 minutes). If you have a rental car, we have free parking. Some hotels are on the 442 bus route which stops near us. The hotel concierge can arrange transport - just ask for 'The Anchor in Stanwell Moor, TW19 6AQ'."
+	            answer: "Most guests take a taxi (£10-15, 7-12 minutes). If you have a rental car, we have free parking. Some hotels are on the 442 bus route which stops near us. The hotel concierge can arrange transport - just ask for 'The Anchor in Stanwell Moor, TW19 6AQ'."
 	          },
           {
             question: "Are you open early/late for travelers?",

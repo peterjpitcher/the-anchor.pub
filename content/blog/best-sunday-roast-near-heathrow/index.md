@@ -30,7 +30,7 @@ Looking for the **best Sunday roast near Heathrow Airport**? Skip the terminal f
 ### 1. Proper Roasts, Cooked Fresh to Order
 - Choose from roasted chicken, slow-cooked lamb shank, crispy pork belly, or beetroot & butternut squash wellington (V).
 - Every plate comes with herb and garlic-crusted roast potatoes, Yorkshire pudding, seasonal vegetables, and red wine gravy (vegetarian gravy available).
-- Adult roasts are typically **GBP 19.99–23.99**; kids roast chicken is **GBP 13.99**.
+- Adult roasts are typically **£19.99–23.99**; kids roast chicken is **£13.99**.
 
 ### 2. Perfect for Heathrow Itineraries
 - **Sunday service:** 1pm–6pm (last orders 5:30pm).
@@ -51,11 +51,11 @@ All roasts are served with roast potatoes, Yorkshire pudding, seasonal vegetable
 
 | Option | What’s Included | Perfect For |
 | --- | --- | --- |
-| **Roasted Chicken (GBP 19.99)** | Chicken breast, sage & onion stuffing balls, red wine gravy | Classic roast lovers |
-| **Slow-Cooked Lamb Shank (GBP 23.99)** | Tender lamb shank in rich red wine gravy | When you want something special |
-| **Crispy Pork Belly (GBP 21.99)** | Crackling, Bramley apple sauce, red wine gravy | Pork fans |
-| **Beetroot & Butternut Squash Wellington (V) (GBP 19.99)** | Veg wellington (vegetarian gravy available) | Vegetarian option |
-| **Kids Roasted Chicken (GBP 13.99)** | Smaller portion with all the trimmings | Little appetites |
+| **Roasted Chicken (£19.99)** | Chicken breast, sage & onion stuffing balls, red wine gravy | Classic roast lovers |
+| **Slow-Cooked Lamb Shank (£23.99)** | Tender lamb shank in rich red wine gravy | When you want something special |
+| **Crispy Pork Belly (£21.99)** | Crackling, Bramley apple sauce, red wine gravy | Pork fans |
+| **Beetroot & Butternut Squash Wellington (V) (£19.99)** | Veg wellington (vegetarian gravy available) | Vegetarian option |
+| **Kids Roasted Chicken (£13.99)** | Smaller portion with all the trimmings | Little appetites |
 
 > **Tip:** Want to guarantee your favourite joint? **Book by 1pm Saturday** and we’ll make sure it’s waiting for you.
 

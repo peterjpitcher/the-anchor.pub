@@ -326,7 +326,7 @@ export function formatCurrency(amount: number): string {
   return new Intl.NumberFormat('en-GB', {
     style: 'currency',
     currency: 'GBP',
-    currencyDisplay: 'code'
+    currencyDisplay: 'symbol'
   }).format(amount).replace(/\u00A0/g, ' ')
 }
 
@@ -2690,7 +2690,7 @@ export function formatPrice(price: string | number, currency: string = 'GBP'): s
   const formatter = new Intl.NumberFormat('en-GB', {
     style: 'currency',
     currency: currency,
-    currencyDisplay: 'code'
+    currencyDisplay: 'symbol'
   })
   return formatter
     .format(typeof price === 'string' ? parseFloat(price) : price)

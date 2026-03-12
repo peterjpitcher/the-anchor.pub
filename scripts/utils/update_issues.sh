@@ -30,7 +30,7 @@ gh issue close 31 --comment "✅ RESOLVED: Quiz Night page already exists at \`/
 The page includes:
 - Complete metadata and SEO optimization
 - Hero section with CTAs
-- Pricing information (GBP 3 entry)
+- Pricing information (£3 entry)
 - Weekly schedule (Wednesdays 8pm)
 - FAQ section
 - Booking links
