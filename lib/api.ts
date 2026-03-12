@@ -27,7 +27,11 @@ export interface PrivateBookingConfig {
   packages: {
     id: string
     name: string
-    description?: string
+    summary?: string
+    includes?: string
+    served?: string
+    good_to_know?: string
+    guest_description?: string
     package_type?: string
     category?: 'food' | 'drink' | 'addon'
     cost_per_head: number

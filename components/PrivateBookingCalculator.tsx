@@ -457,7 +457,7 @@ export function PrivateBookingCalculator({ eventType }: PrivateBookingCalculator
                                                             >
                                                                 <div className="relative z-10 pr-4">
                                                                     <div className="font-serif font-bold text-lg text-anchor-cream-text group-hover:text-anchor-gold-vivid">{pkg.name}</div>
-                                                                    {pkg.description && <div className="text-sm text-anchor-cream-text/55 mt-1 leading-relaxed max-w-md">{pkg.description}</div>}
+                                                                    {pkg.guest_description && <div className="text-sm text-anchor-cream-text/55 mt-1 leading-relaxed max-w-md">{pkg.guest_description}</div>}
                                                                 </div>
                                                                 <div className="relative z-10 flex flex-col items-end">
                                                                     <div className="text-anchor-gold-vivid font-bold text-lg whitespace-nowrap bg-anchor-bg-raised px-3 py-1 group-hover:bg-anchor-bg-card transition-colors">
@@ -487,7 +487,7 @@ export function PrivateBookingCalculator({ eventType }: PrivateBookingCalculator
                                                             >
                                                                 <div className="pr-4">
                                                                     <div className="font-serif font-bold text-anchor-cream-text group-hover:text-anchor-gold-vivid">{pkg.name}</div>
-                                                                    {pkg.description && <div className="text-sm text-anchor-cream-text/55 mt-1">{pkg.description}</div>}
+                                                                    {pkg.guest_description && <div className="text-sm text-anchor-cream-text/55 mt-1">{pkg.guest_description}</div>}
                                                                 </div>
                                                                 <div className="text-anchor-gold-vivid font-bold text-lg whitespace-nowrap bg-anchor-bg-raised px-3 py-1">
                                                                     {formatPrice(pkg.cost_per_head)}
@@ -512,7 +512,7 @@ export function PrivateBookingCalculator({ eventType }: PrivateBookingCalculator
                                                             >
                                                                 <div className="pr-4">
                                                                     <div className="font-serif font-bold text-anchor-cream-text group-hover:text-anchor-gold-vivid">{pkg.name}</div>
-                                                                    {pkg.description && <div className="text-sm text-anchor-cream-text/55 mt-1">{pkg.description}</div>}
+                                                                    {pkg.guest_description && <div className="text-sm text-anchor-cream-text/55 mt-1">{pkg.guest_description}</div>}
                                                                 </div>
                                                                 <div className="text-anchor-gold-vivid font-bold text-lg whitespace-nowrap bg-anchor-bg-raised px-3 py-1">
                                                                     {formatPrice(pkg.cost_per_head)}
