@@ -47,11 +47,11 @@ export function PayPalDepositSection({
   return (
     <PayPalScriptProvider options={{ clientId: process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID! }}>
       <div className="space-y-4">
-        <div className="bg-gray-50 rounded-lg p-4 text-sm space-y-1">
-          <p className="font-medium">{bookingSummary}</p>
-          <p>
-            Deposit: <span className="font-semibold">£{depositAmount}</span>{' '}
-            <span className="text-gray-500">(£10 per person)</span>
+        <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-raised p-4 text-sm space-y-1">
+          <p className="font-medium text-anchor-cream-text">{bookingSummary}</p>
+          <p className="text-anchor-cream-text/70">
+            Deposit: <span className="font-semibold text-anchor-cream-text">£{depositAmount}</span>{' '}
+            <span className="text-anchor-cream-text/50">(£10 per person)</span>
           </p>
         </div>
 
@@ -65,7 +65,7 @@ export function PayPalDepositSection({
           }}
         />
 
-        <p className="text-xs text-gray-500 text-center">
+        <p className="text-xs text-anchor-cream-text/50 text-center">
           Your card details are never shared with us. Powered by PayPal.
         </p>
       </div>
