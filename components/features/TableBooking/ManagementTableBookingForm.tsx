@@ -1568,6 +1568,10 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
             <Alert variant="success" title="Deposit paid — booking confirmed!">
               <p>Your deposit has been received. Your table is now secured.</p>
             </Alert>
+          ) : paymentState === 'error' && !paypalOrderId ? (
+            <Alert variant="error" title="Unable to set up payment">
+              <p>{paymentError ?? 'Please try again or call us to complete your booking.'}</p>
+            </Alert>
           ) : paypalOrderId && bookingIdForPayment ? (
             <>
               {paymentState === 'error' && paymentError && (

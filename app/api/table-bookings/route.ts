@@ -376,7 +376,9 @@ export async function POST(request: NextRequest) {
         'Idempotency-Key': idempotencyKey
       },
       cache: 'no-store',
-      body: JSON.stringify(normalized.payload)
+      // skip_customer_sms: website bookings show PayPal buttons inline, so customer
+      // doesn't need a separate SMS payment link
+      body: JSON.stringify({ ...normalized.payload, skip_customer_sms: true })
     })
 
     const rawText = await upstream.text()
