@@ -2186,7 +2186,11 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                       bookingId={bookingIdForPayment}
                       orderId={paypalOrderId}
                       depositAmount={depositAmountForPayment}
-                      bookingSummary={[date, selectedTime, partySize ? `${partySize} guests` : null].filter(Boolean).join(' · ')}
+                      bookingSummary={[
+                        date ? new Date(`${date}T12:00:00`).toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' }) : null,
+                        selectedTime ? (() => { const [h, m] = selectedTime.split(':').map(Number); const ampm = h >= 12 ? 'pm' : 'am'; const hour = h % 12 || 12; return `${hour}:${String(m).padStart(2, '0')}${ampm}`; })() : null,
+                        partySize ? `${partySize} guests` : null
+                      ].filter(Boolean).join(' · ')}
                       onSuccess={() => setPaymentState('confirmed')}
                       onError={(msg) => {
                         setPaymentError(msg)
