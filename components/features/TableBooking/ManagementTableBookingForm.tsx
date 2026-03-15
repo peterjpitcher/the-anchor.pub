@@ -1537,71 +1537,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     )
   }
 
-  if (result?.state === 'pending_payment') {
-    const depositDescription = requiresSundayLunchDeposit
-      ? `Complete payment of your ${sundayLunchDepositPerGuestLabel} Sunday lunch deposit to secure your table. This deposit is deducted from your final bill.`
-      : `A deposit of ${sundayLunchDepositPerGuestLabel} is required for groups of 7 or more. This deposit is deducted from your final bill.`
-
-    const bookingSummary = [
-      date,
-      selectedTime,
-      partySize ? `${partySize} guests` : null,
-    ].filter(Boolean).join(' · ')
-
-    return (
-      <Card variant="elevated">
-        <CardBody className="space-y-4">
-          <Alert
-            variant="warning"
-            title="Deposit payment needed to secure this booking"
-          >
-            <p>
-              Booking reference: <strong>{result.booking_reference || 'Pending'}</strong>
-            </p>
-            <p className="mt-1">{depositDescription}</p>
-            {holdExpiry ? (
-              <p className="mt-1">Complete payment by {holdExpiry}.</p>
-            ) : null}
-          </Alert>
-
-          {paymentState === 'confirmed' ? (
-            <Alert variant="success" title="Deposit paid — booking confirmed!">
-              <p>Your deposit has been received. Your table is now secured.</p>
-            </Alert>
-          ) : paymentState === 'error' && !paypalOrderId ? (
-            <Alert variant="error" title="Unable to set up payment">
-              <p>{paymentError ?? 'Please try again or call us to complete your booking.'}</p>
-            </Alert>
-          ) : paypalOrderId && bookingIdForPayment ? (
-            <>
-              {paymentState === 'error' && paymentError && (
-                <Alert variant="error" title="Payment error">
-                  <p>{paymentError}</p>
-                </Alert>
-              )}
-              <PayPalDepositSection
-                bookingId={bookingIdForPayment}
-                orderId={paypalOrderId}
-                depositAmount={depositAmountForPayment}
-                bookingSummary={bookingSummary}
-                onSuccess={() => setPaymentState('confirmed')}
-                onError={(msg) => {
-                  setPaymentError(msg)
-                  setPaymentState('error')
-                }}
-              />
-            </>
-          ) : (
-            <p className="text-sm text-gray-500">Loading payment…</p>
-          )}
-
-          <Button type="button" variant="outline" onClick={resetJourney}>
-            Start a new booking
-          </Button>
-        </CardBody>
-      </Card>
-    )
-  }
 
   return (
     <Card variant="elevated">
@@ -2227,32 +2162,78 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               ) : null}
             </div>
 
-            <label className="flex items-start gap-2 text-sm text-anchor-cream-text/70">
-              <input
-                type="checkbox"
-                checked={policyAccepted}
-                onChange={(event) => setPolicyAccepted(event.target.checked)}
-                className="mt-1"
-              />
-              <span>
-                I understand The Anchor's booking and no-show policy, and I agree to continue.
-              </span>
-            </label>
+            {result?.state === 'pending_payment' ? (
+              <>
+                {paymentState === 'confirmed' ? (
+                  <Alert variant="success" title="Deposit paid — booking confirmed!">
+                    <p>Your deposit has been received. Your table is now secured.</p>
+                    {result.booking_reference ? (
+                      <p className="mt-1">Booking reference: <strong>{result.booking_reference}</strong></p>
+                    ) : null}
+                  </Alert>
+                ) : paymentState === 'error' && !paypalOrderId ? (
+                  <Alert variant="error" title="Unable to set up payment">
+                    <p>{paymentError ?? 'Please try again or call us to complete your booking.'}</p>
+                  </Alert>
+                ) : paypalOrderId && bookingIdForPayment ? (
+                  <>
+                    {paymentState === 'error' && paymentError && (
+                      <Alert variant="error" title="Payment error">
+                        <p>{paymentError}</p>
+                      </Alert>
+                    )}
+                    <PayPalDepositSection
+                      bookingId={bookingIdForPayment}
+                      orderId={paypalOrderId}
+                      depositAmount={depositAmountForPayment}
+                      bookingSummary={[date, selectedTime, partySize ? `${partySize} guests` : null].filter(Boolean).join(' · ')}
+                      onSuccess={() => setPaymentState('confirmed')}
+                      onError={(msg) => {
+                        setPaymentError(msg)
+                        setPaymentState('error')
+                      }}
+                    />
+                  </>
+                ) : (
+                  <p className="text-sm text-anchor-cream-text/50">Setting up payment…</p>
+                )}
 
-            <div className="flex flex-col gap-2 pt-2 sm:flex-row sm:flex-wrap">
-              <Button type="button" variant="outline" className="w-full sm:w-auto" onClick={() => setStep('details')}>
-                Back
-              </Button>
-              <Button
-                type="button"
-                variant="primary"
-                className="w-full sm:w-auto"
-                loading={loading}
-                onClick={handleConfirmBooking}
-              >
-                Confirm booking
-              </Button>
-            </div>
+                {paymentState !== 'confirmed' && (
+                  <Button type="button" variant="outline" className="w-full sm:w-auto" onClick={resetJourney}>
+                    Start a new booking
+                  </Button>
+                )}
+              </>
+            ) : (
+              <>
+                <label className="flex items-start gap-2 text-sm text-anchor-cream-text/70">
+                  <input
+                    type="checkbox"
+                    checked={policyAccepted}
+                    onChange={(event) => setPolicyAccepted(event.target.checked)}
+                    className="mt-1"
+                  />
+                  <span>
+                    I understand The Anchor's booking and no-show policy, and I agree to continue.
+                  </span>
+                </label>
+
+                <div className="flex flex-col gap-2 pt-2 sm:flex-row sm:flex-wrap">
+                  <Button type="button" variant="outline" className="w-full sm:w-auto" onClick={() => setStep('details')}>
+                    Back
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="primary"
+                    className="w-full sm:w-auto"
+                    loading={loading}
+                    onClick={handleConfirmBooking}
+                  >
+                    {requiresSundayLunchDeposit || requiresGroupDeposit ? 'Confirm and pay deposit' : 'Confirm booking'}
+                  </Button>
+                </div>
+              </>
+            )}
           </div>
         )}
       </CardBody>

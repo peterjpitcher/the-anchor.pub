@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
+import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 
 const BodySchema = z.object({
   bookingId: z.string().uuid(),
@@ -13,7 +14,7 @@ export async function POST(request: NextRequest): Promise<Response> {
   }
   const { bookingId } = parsed.data
 
-  const upstream = `${process.env.ANCHOR_API_BASE_URL}/api/external/table-bookings/${bookingId}/paypal/create-order`
+  const upstream = `${getManagementApiBaseUrl()}/external/table-bookings/${bookingId}/paypal/create-order`
 
   try {
     const response = await fetch(upstream, {
