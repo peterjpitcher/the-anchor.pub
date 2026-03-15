@@ -663,10 +663,16 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     })
       .then(r => r.json())
       .then(data => {
-        if (data.orderId) setPaypalOrderId(data.orderId)
+        if (data.orderId) {
+          setPaypalOrderId(data.orderId)
+        } else {
+          setPaymentError(data.error ?? 'Unable to set up payment. Please try again or call us.')
+          setPaymentState('error')
+        }
       })
-      .catch(err => {
-        console.error('[PayPal create-order]', err)
+      .catch(() => {
+        setPaymentError('Unable to set up payment. Please try again or call us.')
+        setPaymentState('error')
       })
   }, [result?.state, result?.booking_id, result?.deposit_amount])
 
