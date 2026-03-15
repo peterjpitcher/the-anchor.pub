@@ -1,12 +1,22 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+// Polyfill Response.json (static method) missing from the node-fetch polyfill used in jest.setup.js
+if (typeof Response !== 'undefined' && !('json' in Response)) {
+  Object.assign(Response, {
+    json: (data: unknown, init?: ResponseInit) =>
+      new Response(JSON.stringify(data), {
+        ...init,
+        headers: { 'Content-Type': 'application/json', ...(init?.headers ?? {}) },
+      }),
+  })
+}
+
 import { POST } from '../route'
 import { NextRequest } from 'next/server'
 
-const mockFetch = vi.fn()
-global.fetch = mockFetch
+const mockFetch = jest.fn()
+global.fetch = mockFetch as typeof fetch
 
 describe('POST /api/table-bookings/paypal/capture-order', () => {
-  beforeEach(() => vi.clearAllMocks())
+  beforeEach(() => jest.clearAllMocks())
 
   it('proxies valid request and returns success', async () => {
     mockFetch.mockResolvedValueOnce({
