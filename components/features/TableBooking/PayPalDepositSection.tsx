@@ -60,8 +60,7 @@ export function PayPalDepositSection({
           disabled={isPaying}
           createOrder={() => Promise.resolve(orderId)}
           onApprove={handleApprove}
-          onError={(err) => {
-            console.error('[PayPal]', err)
+          onError={() => {
             onError('Payment could not be processed. Please try again or call us.')
           }}
         />
