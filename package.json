@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@microsoft/clarity": "^1.0.2",
+    "@paypal/react-paypal-js": "^9.0.1",
     "@tailwindcss/typography": "^0.5.16",
     "@types/luxon": "^3.7.1",
     "class-variance-authority": "^0.7.1",
