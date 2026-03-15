@@ -9,13 +9,6 @@ import { Icon } from '@/components/ui/Icon'
 import type { ParkingRateCard, ParkingPricingBreakdownItem } from '@/lib/api'
 import { formatPrice } from '@/lib/utils'
 
-declare global {
-  interface Window {
-    paypal?: {
-      Buttons: (config: Record<string, unknown>) => { render: (el: HTMLElement) => void }
-    }
-  }
-}
 
 interface AvailabilityResult {
   timestamp: string
@@ -370,7 +363,10 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
     setPaypalRendered(true)
 
     try {
-    window.paypal.Buttons({
+    type LegacyPayPalSDK = { Buttons: (config: Record<string, unknown>) => { render: (el: HTMLElement) => void } }
+    const paypalSDK = (window as unknown as { paypal?: LegacyPayPalSDK }).paypal
+    if (!paypalSDK) return
+    paypalSDK.Buttons({
       style: { layout: 'vertical', color: 'gold', shape: 'rect', label: 'pay', height: 48 },
 
       createOrder: async () => {

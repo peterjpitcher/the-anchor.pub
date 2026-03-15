@@ -10,6 +10,7 @@ import { trackTableBookingClick } from '@/lib/gtm-events'
 import { isMothersDayEvent, MOTHERS_DAY_DEFAULT_TIME, MOTHERS_DAY_SERVICE_DATE } from '@/lib/mothers-day-booking'
 import { SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP, getSundayLunchDepositAmount } from '@/lib/constants'
 import { getSundayLunchCutoffDate, hasSundayLunchCutoffPassed } from '@/lib/sunday-lunch-cutoff'
+import { PayPalDepositSection } from './PayPalDepositSection'
 
 type BookingPurpose = 'food' | 'drinks'
 type LookupState = 'idle' | 'loading' | 'known' | 'unknown'
@@ -48,6 +49,8 @@ type ManagementTableBookingResult = {
   next_step_url: string | null
   hold_expires_at: string | null
   table_name: string | null
+  booking_id?: string
+  deposit_amount?: number
 }
 
 type SundayLunchMenuItem = {
@@ -563,7 +566,12 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const [sundayMenuLoading, setSundayMenuLoading] = useState(false)
   const [sundayMenuError, setSundayMenuError] = useState<string | null>(null)
   const [guestOrders, setGuestOrders] = useState<GuestOrder[]>([])
-  const [cardRedirectInitiated, setCardRedirectInitiated] = useState(false)
+
+  const [paypalOrderId, setPaypalOrderId] = useState<string | null>(null)
+  const [bookingIdForPayment, setBookingIdForPayment] = useState<string | null>(null)
+  const [depositAmountForPayment, setDepositAmountForPayment] = useState<number>(0)
+  const [paymentState, setPaymentState] = useState<'idle' | 'confirmed' | 'error'>('idle')
+  const [paymentError, setPaymentError] = useState<string | null>(null)
 
   const [policyAccepted, setPolicyAccepted] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -640,15 +648,27 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   }, [date, mothersDayMode])
 
   useEffect(() => {
-    if (result?.state !== 'pending_payment' || !result.next_step_url) {
-      setCardRedirectInitiated(false)
-      return
-    }
+    if (result?.state !== 'pending_payment' || !result.booking_id) return
 
-    if (typeof window === 'undefined') return
-    setCardRedirectInitiated(true)
-    window.location.assign(result.next_step_url)
-  }, [result?.next_step_url, result?.state])
+    setBookingIdForPayment(result.booking_id)
+    setDepositAmountForPayment(result.deposit_amount ?? 0)
+    setPaypalOrderId(null)
+    setPaymentState('idle')
+    setPaymentError(null)
+
+    fetch('/api/table-bookings/paypal/create-order', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ bookingId: result.booking_id }),
+    })
+      .then(r => r.json())
+      .then(data => {
+        if (data.orderId) setPaypalOrderId(data.orderId)
+      })
+      .catch(err => {
+        console.error('[PayPal create-order]', err)
+      })
+  }, [result?.state, result?.booking_id, result?.deposit_amount])
 
   useEffect(() => {
     if (mothersDayMode) {
@@ -1436,7 +1456,11 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setPolicyAccepted(false)
     setError(null)
     setResult(null)
-    setCardRedirectInitiated(false)
+    setPaypalOrderId(null)
+    setBookingIdForPayment(null)
+    setDepositAmountForPayment(0)
+    setPaymentState('idle')
+    setPaymentError(null)
   }
 
   if (selectedSuggestedEvent) {
@@ -1507,34 +1531,16 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     )
   }
 
-  if (result?.state === 'pending_payment' && !result.next_step_url) {
-    return (
-      <Card variant="elevated">
-        <CardBody className="space-y-4">
-          <Alert variant="error" title="Deposit payment link unavailable">
-            <p>
-              Booking reference: <strong>{result.booking_reference || 'Pending'}</strong>
-            </p>
-            <p className="mt-1">
-              We could not generate your secure deposit payment link right now, so this booking is not yet confirmed.
-            </p>
-            <p className="mt-1">
-              Please call <a href="tel:+441753682707" className="font-semibold underline">01753 682707</a> and we will secure your table.
-            </p>
-          </Alert>
-
-          <Button type="button" variant="outline" onClick={resetJourney}>
-            Start a new booking
-          </Button>
-        </CardBody>
-      </Card>
-    )
-  }
-
   if (result?.state === 'pending_payment') {
     const depositDescription = requiresSundayLunchDeposit
       ? `Complete payment of your ${sundayLunchDepositPerGuestLabel} Sunday lunch deposit to secure your table. This deposit is deducted from your final bill.`
       : `A deposit of ${sundayLunchDepositPerGuestLabel} is required for groups of 7 or more. This deposit is deducted from your final bill.`
+
+    const bookingSummary = [
+      date,
+      selectedTime,
+      partySize ? `${partySize} guests` : null,
+    ].filter(Boolean).join(' · ')
 
     return (
       <Card variant="elevated">
@@ -1546,24 +1552,38 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
             <p>
               Booking reference: <strong>{result.booking_reference || 'Pending'}</strong>
             </p>
-            {cardRedirectInitiated ? (
-              <p className="mt-1">Redirecting you to the secure deposit payment step…</p>
-            ) : (
-              <p className="mt-1">{depositDescription}</p>
-            )}
+            <p className="mt-1">{depositDescription}</p>
             {holdExpiry ? (
               <p className="mt-1">Complete payment by {holdExpiry}.</p>
             ) : null}
-            {result.next_step_url ? (
-              <div className="mt-3">
-                <Button asChild variant="primary" size="sm">
-                  <a href={result.next_step_url} target="_blank" rel="noopener noreferrer">
-                    Continue to Payment
-                  </a>
-                </Button>
-              </div>
-            ) : null}
           </Alert>
+
+          {paymentState === 'confirmed' ? (
+            <Alert variant="success" title="Deposit paid — booking confirmed!">
+              <p>Your deposit has been received. Your table is now secured.</p>
+            </Alert>
+          ) : paypalOrderId && bookingIdForPayment ? (
+            <>
+              {paymentState === 'error' && paymentError && (
+                <Alert variant="error" title="Payment error">
+                  <p>{paymentError}</p>
+                </Alert>
+              )}
+              <PayPalDepositSection
+                bookingId={bookingIdForPayment}
+                orderId={paypalOrderId}
+                depositAmount={depositAmountForPayment}
+                bookingSummary={bookingSummary}
+                onSuccess={() => setPaymentState('confirmed')}
+                onError={(msg) => {
+                  setPaymentError(msg)
+                  setPaymentState('error')
+                }}
+              />
+            </>
+          ) : (
+            <p className="text-sm text-gray-500">Loading payment…</p>
+          )}
 
           <Button type="button" variant="outline" onClick={resetJourney}>
             Start a new booking
