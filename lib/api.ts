@@ -501,6 +501,14 @@ export interface BusinessHours {
     reason?: string
     note?: string
     kitchen?: KitchenStatus
+    is_kitchen_closed?: boolean
+    schedule_config?: Array<{
+      name?: string
+      starts_at: string
+      ends_at: string
+      capacity: number
+      booking_type: string
+    }>
   }>
   serviceStatus?: Record<
     string,
@@ -1656,7 +1664,9 @@ export class AnchorAPI {
     }))
 
     if (ranges.length === 0) {
-      const kitchen = ((specialDay?.kitchen as any) || (regularDay?.kitchen as any) || null) as Record<string, unknown> | null
+      const kitchen = (specialDay !== null
+        ? (specialDay?.kitchen as any ?? null)
+        : (regularDay?.kitchen as any ?? null)) as Record<string, unknown> | null
       const kitchenOpens = typeof kitchen?.opens === 'string' ? normalizeClock(kitchen.opens) : null
       const kitchenCloses = typeof kitchen?.closes === 'string' ? normalizeClock(kitchen.closes) : null
 

@@ -30,7 +30,7 @@ type SpecialDay = {
   note?: string;
   reason?: string;
   is_closed?: boolean;
-  // May not include explicit is_kitchen_closed; treat kitchen: null as closed
+  is_kitchen_closed?: boolean;
 };
 
 /**

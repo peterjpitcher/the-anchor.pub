@@ -223,7 +223,9 @@ export function resolveServiceRanges(
     }
   }
 
-  const scheduleConfig = extractScheduleConfig(specialDay?.schedule_config || regularDay?.schedule_config)
+  const scheduleConfig = extractScheduleConfig(specialDay !== undefined
+    ? (specialDay.schedule_config ?? [])
+    : (regularDay?.schedule_config ?? []))
   const normalizedSchedule = scheduleConfig.map((entry) => ({
     ...entry,
     booking_type: (entry.booking_type || '').trim().toLowerCase()
@@ -232,7 +234,9 @@ export function resolveServiceRanges(
   const byBookingType = (bookingType: string): ScheduleConfigEntry[] =>
     normalizedSchedule.filter((entry) => entry.booking_type === bookingType)
 
-  const kitchenData = (specialDay?.kitchen || regularDay?.kitchen || null) as Record<string, unknown> | null
+  const kitchenData = (specialDay !== undefined
+    ? (specialDay.kitchen ?? null)
+    : (regularDay?.kitchen ?? null)) as Record<string, unknown> | null
   const kitchenClosed =
     specialDay?.is_kitchen_closed === true ||
     regularDay?.is_kitchen_closed === true ||
