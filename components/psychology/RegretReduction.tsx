@@ -15,7 +15,7 @@ const LABELS: Record<RegretVariant, string> = {
 const SIGNALS: Record<RegretVariant, Array<{ text: string }>> = {
   booking: [
     { text: 'Free to cancel' },
-    { text: 'No card required' },
+    { text: 'Card only required for Sunday lunch' },
     { text: 'Confirmation in seconds' },
   ],
   enquiry: [
