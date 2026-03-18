@@ -217,7 +217,27 @@ export async function getAvailabilityForNext30Days(): Promise<AvailabilityData> 
             if (!effectiveSundayLunchEnabled) {
               specialNote = override?.message || sundayLunchMessage || 'Sunday lunch bookings are currently unavailable.'
             } else if (!isClosed && !kitchenClosed) {
-              sundayRoastDates.push(dateStr)
+              // If a special hours record exists for this date, check that it includes
+              // a sunday_lunch entry in schedule_config. An empty schedule_config means
+              // the management app's "Sunday Lunch Closed" toggle is ON.
+              const specialHoursRecord = (businessHours.specialHours || []).find(
+                (sh: Record<string, unknown>) => sh.date === dateStr
+              )
+              const hasSpecialRecord = specialHoursRecord !== undefined
+              const specialConfig = hasSpecialRecord && Array.isArray(specialHoursRecord.schedule_config)
+                ? (specialHoursRecord.schedule_config as Array<Record<string, unknown>>)
+                : null
+              const hasSundayLunchEntry = specialConfig !== null
+                ? specialConfig.some(
+                    (entry) =>
+                      typeof entry.booking_type === 'string' &&
+                      entry.booking_type.trim().toLowerCase() === 'sunday_lunch'
+                  )
+                : true // No special record → fall back to regular hours (which may have sunday_lunch)
+
+              if (hasSundayLunchEntry) {
+                sundayRoastDates.push(dateStr)
+              }
             }
           }
           
