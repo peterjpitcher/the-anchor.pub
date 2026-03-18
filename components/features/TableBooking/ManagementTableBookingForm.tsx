@@ -2177,7 +2177,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                   </Alert>
                 ) : paypalOrderId && bookingIdForPayment ? (
                   <>
-                    {holdExpiry && paymentState !== 'confirmed' && (
+                    {holdExpiry && (
                       <p className="text-sm text-amber-700 font-medium">
                         Your table is held until {holdExpiry}. Complete payment to confirm your booking.
                       </p>
