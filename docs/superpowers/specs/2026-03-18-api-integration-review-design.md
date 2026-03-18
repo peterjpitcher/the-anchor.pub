@@ -25,10 +25,10 @@ This review was triggered by a live bug: Sunday lunch could be booked on 22 Marc
 - **Effect:** Bookings with party_size 21–50 pass website validation, get forwarded, and return a raw unhandled 400 from the management API. Customers see a generic error with no useful message.
 - **Fix:** Align website validation to 1–20 in the proxy route.
 
-#### C2 — `currentStatus.services` type mismatch (Sunday lunch data silently dropped)
+#### C2 — `currentStatus.services` type mismatch (type correction only)
 There are **two distinct `services` locations** in the website's `BusinessHours` type (`lib/api.ts`):
 
-**Location 1 — `currentStatus.services` (lines 541–554) — this is the broken one:**
+**Location 1 — `currentStatus.services` (lines 541–554) — wrong shape:**
 ```typescript
 // CURRENT (wrong)
 services?: {
@@ -54,20 +54,42 @@ services?: {
 }
 ```
 
-**Location 2 — top-level `services` (lines 589–619) — this one has `sundayLunch`** but with a different shape (slots array, lastOrderTime etc.) and is not the field consumed by availability logic.
+**Location 2 — top-level `services` (lines 589–619) — already has `sundayLunch`** but with a different shape (slots array, lastOrderTime) and is not consumed by availability logic.
 
-The fix targets **Location 1** (`currentStatus.services`): remove the phantom `bookings` field, add `sundayLunch` with the correct shape from the management API. This is the field consumed by `resolveServiceRanges()` to determine whether Sunday lunch is available.
+**Important:** `currentStatus.services.sundayLunch.enabled` is a **real-time snapshot** of the current moment — it does not reflect a future date's kitchen state. It must **not** be used to gate future-date availability in `resolveServiceRanges()`. The actual availability fix for C5 is in `resolveServiceRanges()` itself (see C5 below).
 
-- **Effect:** Sunday lunch service window data is silently ignored. The website falls back to local hours computation which does not account for per-date kitchen closures.
-- **Fix:** Correct `currentStatus.services` type in `lib/api.ts`. Update `resolveServiceRanges()` in `lib/table-booking-service-windows.ts` to gate Sunday lunch on `sundayLunch.enabled` from the API response.
+- **Effect of the type mismatch:** TypeScript provides no compile-time safety for consumers of `currentStatus.services`, and the phantom `bookings` field misleads maintainers.
+- **Fix:** Correct the `currentStatus.services` type in `lib/api.ts` (Location 1) to match the actual API shape. This is a type-only change — no runtime behaviour change.
 
 #### C5 — Sunday lunch bookable on kitchen-closed dates (live bug)
 - **Symptom:** Sunday 22 March 2026 has `is_kitchen_closed: true` in the management app. The book-table wizard still offered Sunday lunch slots.
-- **Root cause:** C2. Because `currentStatus.services.sundayLunch` is not typed or consumed, `resolveServiceRanges()` ignores the management API's per-date kitchen closure signal and falls back to regular Sunday hours, which show kitchen as open.
-- **Secondary cause (C6-b):** `BookingDatePicker` fetches business hours once on component mount (`useEffect` → `getBusinessHours()`, stored in `useState`). If a kitchen closure is entered after the page loads, the component never re-fetches and continues showing Sunday lunch slots for the stale hours data.
-- **Fix (two parts):**
-  1. Fix C2 — correct the type and consume `sundayLunch.enabled` in availability logic
-  2. Fix `BookingDatePicker` to re-fetch hours when the selected date changes (not only on mount), so per-date special hours are always fresh
+- **Root cause — `resolveServiceRanges()` does not treat `kitchen: null` on a special day as closed:**
+
+  In `lib/table-booking-service-windows.ts` lines 240–243:
+  ```typescript
+  const kitchenClosed =
+    specialDay?.is_kitchen_closed === true ||
+    regularDay?.is_kitchen_closed === true ||
+    kitchenData?.is_closed === true
+  // ← MISSING: (specialDay !== undefined && kitchenData === null)
+  ```
+  When a special hours record has `kitchen: null` (the deliberate closure signal), `kitchenData` is `null` and `kitchenData?.is_closed` is `undefined`, so `kitchenClosed` is `false`. If that same special day has a `schedule_config` with a `sunday_lunch` entry, lines 256–259 return those ranges without ever checking whether the kitchen is closed — the closure is bypassed entirely.
+
+- **Secondary cause (C6-b):** `BookingDatePicker` fetches business hours once on mount and holds them in `useState`. A kitchen closure entered after page load won't be seen until the page is hard-refreshed.
+
+- **Fix — two changes:**
+
+  **Fix 1 — `lib/table-booking-service-windows.ts`:** Add the missing `kitchen: null` check to `kitchenClosed`:
+  ```typescript
+  const kitchenClosed =
+    specialDay?.is_kitchen_closed === true ||
+    regularDay?.is_kitchen_closed === true ||
+    kitchenData?.is_closed === true ||
+    (specialDay !== undefined && kitchenData === null)  // ← ADD: null = deliberate closure
+  ```
+  This ensures that any special hours record with `kitchen: null` always results in `kitchenClosed = true`, regardless of what `schedule_config` contains.
+
+  **Fix 2 — `BookingDatePicker.tsx`:** Add `selectedDate` as a dependency to the hours-fetch `useEffect` so hours are re-fetched each time the user picks a different date. `getBusinessHours()` calls `anchorAPI.getBusinessHours()` which uses `next: { revalidate: 0 }` — no fetch cache — and the management API's `/business/hours` endpoint is public (no API key required), so client-side re-fetching per date is safe and correct. The management API itself applies a 60-second `max-age` cache at the CDN level, meaning the practical freshness window is ≤60 seconds — acceptable for this use case.
 
 #### C6 — Business hours caching: two concrete offenders in the booking path
 The proxy route is correctly `force-dynamic` with `Cache-Control: no-store`. However, two callers in the website introduce stale windows:
@@ -164,24 +186,27 @@ The proxy pattern is correct and well-suited to this use case. The management AP
 
 ## Success Criteria
 
-- Sunday lunch cannot be booked on any date where `is_kitchen_closed: true` or `kitchen: null` in the management app
+- Sunday lunch cannot be booked on any date where `is_kitchen_closed: true` or `kitchen: null` in the management app — verified by unit tests for `resolveServiceRanges()` covering all three cases:
+  - `specialDay.is_kitchen_closed: true` → returns empty sunday_lunch ranges
+  - `specialDay.kitchen: null` → returns empty sunday_lunch ranges (the `schedule_config` bypass bug)
+  - `specialDay.kitchen: null` with a `schedule_config` containing a `sunday_lunch` entry → still returns empty ranges
 - `BookingDatePicker` re-fetches business hours when the selected date changes, not only on mount
+- `currentStatus.services` type in `lib/api.ts` matches the management API shape (no phantom `bookings` field; `sundayLunch` present with correct fields)
 - Party sizes above 20 produce a clear, user-facing validation message before the request reaches the management API
-- No booking-path component holds business hours in stale React state across date changes
 - `lib/api.ts` split into domain modules with no broken imports
 - A single `types/management-api.ts` contract replaces all ad-hoc inline interfaces for management API shapes
 - `hold_expires_at` countdown is visible to customers during the payment step
 - POLICY_VIOLATION (409) on event bookings surfaces the API error message inline instead of redirecting
-- M1 decision documented: either migration complete or divergence accepted and recorded
+- M1 decision documented: either migration to management API availability endpoint complete, or divergence accepted and recorded
 
 ---
 
 ## Key Constraints
 
 - `kitchen: null` is a deliberate closure signal — always use `??` not `||` (see March 2026 bug history in CLAUDE.md)
-- `is_kitchen_closed: true` is the primary closure flag; `kitchen: null` is defence-in-depth — check both
-- Sunday lunch requires kitchen open AND `sundayLunch.enabled === true` from `currentStatus.services`
+- `is_kitchen_closed: true` is the primary closure flag; `kitchen: null` is defence-in-depth — **both must be checked** in `kitchenClosed`, and the `kitchen: null` check requires `specialDay !== undefined` to distinguish "special day, kitchen explicitly null" from "no special day, regular hours"
+- `currentStatus.services.sundayLunch.enabled` is a real-time snapshot — it must **not** be used to gate future-date slot availability; availability logic must derive closure state from `specialDay`/`regularDay` fields directly
 - The `currentStatus.services` type fix targets **Location 1** (inside `currentStatus`, lines 541–554 of `lib/api.ts`) — not the top-level `services` field at lines 589–619
-- The booking wizard must always read fresh business hours — no revalidation window on booking-critical paths
+- `getBusinessHours()` when called from client components hits the management API directly (public endpoint, `next: { revalidate: 0 }`) — client-side re-fetching per date is safe
 - Client components in the booking flow must not hold business hours in React state across date selection changes; re-fetch per date
 - `ANCHOR_API_KEY` must never be exposed to client components
