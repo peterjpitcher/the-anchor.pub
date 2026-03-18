@@ -21,7 +21,7 @@ const getBusinessStatsCached = unstable_cache(
     return { rating, reviewCount, openingHours }
   },
   ['business-stats'],
-  { revalidate: 3600 }
+  { revalidate: 300 }
 )
 
 export async function getBusinessStats() {
@@ -110,7 +110,7 @@ const getEnhancedSchemasCached = unstable_cache(
     }
   },
   ['enhanced-schemas'],
-  { revalidate: 3600 }
+  { revalidate: 300 }
 )
 
 export async function getEnhancedSchemas() {
