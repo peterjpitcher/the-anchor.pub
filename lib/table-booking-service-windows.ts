@@ -240,7 +240,8 @@ export function resolveServiceRanges(
   const kitchenClosed =
     specialDay?.is_kitchen_closed === true ||
     regularDay?.is_kitchen_closed === true ||
-    kitchenData?.is_closed === true
+    kitchenData?.is_closed === true ||
+    (specialDay !== undefined && kitchenData === null) // kitchen: null on a special day = deliberate closure
 
   const kitchenOpens = typeof kitchenData?.opens === 'string' ? normalizeTime(kitchenData.opens) : null
   const kitchenCloses = typeof kitchenData?.closes === 'string' ? normalizeTime(kitchenData.closes) : null
@@ -253,21 +254,23 @@ export function resolveServiceRanges(
     toMinutes(kitchenCloses) > toMinutes(kitchenOpens)
 
   if (options.bookingType === 'sunday_lunch') {
-    const sundayLunchRanges = toServiceRanges(byBookingType('sunday_lunch'))
-    if (sundayLunchRanges.length > 0) {
-      return { ranges: sundayLunchRanges, closed: false }
-    }
+    if (!kitchenClosed) {
+      const sundayLunchRanges = toServiceRanges(byBookingType('sunday_lunch'))
+      if (sundayLunchRanges.length > 0) {
+        return { ranges: sundayLunchRanges, closed: false }
+      }
 
-    if (hasKitchenWindow && kitchenOpens && kitchenCloses) {
-      return {
-        ranges: [
-          {
-            startsAt: kitchenOpens,
-            endsAt: kitchenCloses,
-            capacity: 50
-          }
-        ],
-        closed: false
+      if (hasKitchenWindow && kitchenOpens && kitchenCloses) {
+        return {
+          ranges: [
+            {
+              startsAt: kitchenOpens,
+              endsAt: kitchenCloses,
+              capacity: 50
+            }
+          ],
+          closed: false
+        }
       }
     }
 
