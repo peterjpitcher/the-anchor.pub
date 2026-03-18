@@ -698,10 +698,19 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       return
     }
 
+    // If the API has confirmed sunday lunch is unavailable for this date, keep it off
+    if (availability?.sunday_lunch_available === false) {
+      if (sundayLunch) {
+        setSundayLunch(false)
+      }
+      return
+    }
+
     if (!sundayLunch && !sundayPlanManuallySelected) {
       setSundayLunch(true)
     }
   }, [
+    availability,
     mothersDayMode,
     purpose,
     selectedDateIsSunday,
@@ -2010,7 +2019,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                   </div>
                 ) : null}
 
-                {selectedDateIsSunday && sundayLunch ? (
+                {selectedDateIsSunday && sundayLunch && availability?.sunday_lunch_available !== false ? (
                   <div className="space-y-3 rounded-xl border border-anchor-gold/25 bg-anchor-gold/10 p-4">
                     <p className="text-sm font-semibold text-anchor-cream-text">Sunday lunch pre-order (required)</p>
                     <p className="text-sm text-anchor-cream-text/80">

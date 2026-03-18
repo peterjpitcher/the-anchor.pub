@@ -161,13 +161,13 @@ export default function CookieBanner() {
 
       {/* Preferences Modal */}
       {showPreferences && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-end sm:items-center justify-center sm:p-4">
-          <div className="bg-white rounded-t-lg sm:rounded-lg max-w-2xl w-full max-h-[90vh] sm:max-h-[85vh] overflow-y-auto animate-slide-up sm:animate-none">
-            <div className="sticky top-0 bg-white border-b border-gray-200 p-4 sm:p-6 flex items-center justify-between">
-              <h2 className="text-lg sm:text-2xl font-bold">Cookie Preferences</h2>
+        <div className="fixed inset-0 bg-black/70 z-50 flex items-end sm:items-center justify-center sm:p-4">
+          <div className="bg-anchor-bg-card border border-anchor-gold/30 rounded-t-lg sm:rounded-lg max-w-2xl w-full max-h-[90vh] sm:max-h-[85vh] overflow-y-auto animate-slide-up sm:animate-none">
+            <div className="sticky top-0 bg-anchor-bg-card border-b border-anchor-gold/20 p-4 sm:p-6 flex items-center justify-between">
+              <h2 className="text-lg sm:text-2xl font-bold text-anchor-cream-text">Cookie Preferences</h2>
               <button
                 onClick={() => setShowPreferences(false)}
-                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                className="p-2 text-anchor-cream-text/60 hover:text-anchor-cream-text hover:bg-anchor-bg-raised rounded-lg transition-colors"
                 aria-label="Close preferences"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -178,39 +178,39 @@ export default function CookieBanner() {
             <div className="p-4 sm:p-6">
               <div className="space-y-4 sm:space-y-6">
                 {/* Necessary Cookies - Always enabled */}
-                <div className="border-b pb-4">
+                <div className="border-b border-anchor-gold/20 pb-4">
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-semibold">Necessary Cookies</h3>
-                    <span className="text-sm text-gray-500">Always Enabled</span>
+                    <h3 className="font-semibold text-anchor-gold-vivid">Necessary Cookies</h3>
+                    <span className="text-sm text-anchor-cream-text/50">Always Enabled</span>
                   </div>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-anchor-cream-text/70">
                     These cookies are essential for the website to function properly. They enable basic functions like page navigation and access to secure areas.
                   </p>
                 </div>
 
                 {/* Analytics Cookies */}
-                <div className="border-b pb-4">
+                <div className="border-b border-anchor-gold/20 pb-4">
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-semibold">Analytics Cookies</h3>
-                    <label className="relative inline-flex items-center cursor-pointer p-2 -m-2">
+                    <h3 className="font-semibold text-anchor-gold-vivid">Analytics Cookies</h3>
+                    <label className="relative inline-flex items-center cursor-pointer">
                       <input
                         type="checkbox"
                         checked={consent?.analytics || false}
                         onChange={(e) => setConsent(prev => ({ ...prev!, analytics: e.target.checked }))}
                         className="sr-only peer"
                       />
-                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-anchor-gold rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
+                      <div className="w-11 h-6 bg-anchor-bg-raised peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-anchor-gold rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-white/30 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-anchor-gold-vivid"></div>
                     </label>
                   </div>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-anchor-cream-text/70">
                     These cookies help us understand how visitors interact with our website by collecting and reporting information anonymously.
                   </p>
                 </div>
 
                 {/* Marketing Cookies */}
-                <div className="border-b pb-4">
+                <div className="border-b border-anchor-gold/20 pb-4">
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-semibold">Marketing Cookies</h3>
+                    <h3 className="font-semibold text-anchor-gold-vivid">Marketing Cookies</h3>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
                         type="checkbox"
@@ -218,10 +218,10 @@ export default function CookieBanner() {
                         onChange={(e) => setConsent(prev => ({ ...prev!, marketing: e.target.checked }))}
                         className="sr-only peer"
                       />
-                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-anchor-gold rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
+                      <div className="w-11 h-6 bg-anchor-bg-raised peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-anchor-gold rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-white/30 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-anchor-gold-vivid"></div>
                     </label>
                   </div>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-anchor-cream-text/70">
                     These cookies are used to deliver advertisements more relevant to you and your interests. They remember that you have visited a website and this information is shared with advertisers.
                   </p>
                 </div>
@@ -229,7 +229,7 @@ export default function CookieBanner() {
                 {/* Preference Cookies */}
                 <div className="pb-4">
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-semibold">Preference Cookies</h3>
+                    <h3 className="font-semibold text-anchor-gold-vivid">Preference Cookies</h3>
                     <label className="relative inline-flex items-center cursor-pointer">
                       <input
                         type="checkbox"
@@ -237,10 +237,10 @@ export default function CookieBanner() {
                         onChange={(e) => setConsent(prev => ({ ...prev!, preferences: e.target.checked }))}
                         className="sr-only peer"
                       />
-                      <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-anchor-gold rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
+                      <div className="w-11 h-6 bg-anchor-bg-raised peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-anchor-gold rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-white/30 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-anchor-gold-vivid"></div>
                     </label>
                   </div>
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-anchor-cream-text/70">
                     These cookies enable the website to remember choices you make (such as your language preference) and provide enhanced, more personal features.
                   </p>
                 </div>
