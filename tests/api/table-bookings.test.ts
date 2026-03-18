@@ -59,6 +59,44 @@ describe('Table Booking API Routes', () => {
   })
 })
 
+describe('Table Booking Route - Party Size Validation', () => {
+  let createTableBooking: (request: any) => Promise<Response>
+
+  beforeEach(async () => {
+    process.env.ANCHOR_API_KEY = 'test-api-key'
+    ;(global as any).fetch = jest.fn()
+
+    jest.resetModules()
+    ;({ POST: createTableBooking } = await import('@/app/api/table-bookings/route'))
+  })
+
+  afterEach(() => {
+    delete process.env.ANCHOR_API_KEY
+    jest.clearAllMocks()
+  })
+
+  it('rejects party size above 20 with a clear error message', async () => {
+    const request = {
+      json: async () => ({
+        phone: '07700900000',
+        date: '2026-03-22',
+        time: '19:00',
+        party_size: 21,
+        purpose: 'food'
+      }),
+      headers: new Headers()
+    } as any
+
+    const response = await createTableBooking(request)
+
+    expect(response.status).toBe(400)
+    const data = await response.json()
+    expect(String(data.error)).toMatch(/party size|between 1 and 20/i)
+    // Must not reach the management API
+    expect((global.fetch as jest.Mock)).not.toHaveBeenCalled()
+  })
+})
+
 // Type checks for API integration
 import { anchorAPI } from '@/lib/api'
 import type { 

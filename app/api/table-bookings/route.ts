@@ -266,8 +266,8 @@ function validatePayload(payload: ManagementTableBookingPayload): string | null 
     return 'Time must use HH:mm or HH:mm:ss format'
   }
 
-  if (payload.party_size < 1 || payload.party_size > 50) {
-    return 'Party size must be between 1 and 50'
+  if (payload.party_size < 1 || payload.party_size > 20) {
+    return 'Party size must be between 1 and 20'
   }
 
   const phoneDigits = payload.phone.replace(/\D/g, '')
