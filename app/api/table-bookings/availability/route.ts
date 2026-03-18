@@ -18,6 +18,11 @@ function parsePositiveInt(value: string | null, fallback: number): number {
   return parsed
 }
 
+function isSundayIso(isoDate: string): boolean {
+  const [year, month, day] = isoDate.split('-').map((p) => Number.parseInt(p, 10))
+  return new Date(Date.UTC(year, month - 1, day)).getUTCDay() === 0
+}
+
 function buildFallbackAvailability(
   businessHours: BusinessHours,
   options: {
@@ -27,7 +32,7 @@ function buildFallbackAvailability(
     bookingType: BookingType
     purpose: BookingPurpose
   }
-): TableAvailabilityResponse {
+): TableAvailabilityResponse & { sunday_lunch_available?: boolean } {
   const { ranges, message } = resolveServiceRanges(businessHours, options.date, {
     bookingType: options.bookingType,
     purpose: options.purpose
@@ -105,6 +110,19 @@ export async function GET(request: Request) {
       bookingType,
       purpose
     })
+
+    // When this is a food request on a Sunday, also resolve sunday_lunch ranges so
+    // the client knows whether to show the "Sunday plans" toggle. The management app
+    // signals "Sunday Lunch Closed" via schedule_config: [] — resolveServiceRanges
+    // already handles this and returns empty ranges in that case.
+    if (bookingType !== 'sunday_lunch' && purpose === 'food' && isSundayIso(date)) {
+      const sundayLunchResolution = resolveServiceRanges(businessHours, date, {
+        bookingType: 'sunday_lunch',
+        purpose: 'food'
+      })
+      ;(fallback as { sunday_lunch_available?: boolean }).sunday_lunch_available =
+        sundayLunchResolution.ranges.length > 0
+    }
 
     return new Response(
       JSON.stringify({

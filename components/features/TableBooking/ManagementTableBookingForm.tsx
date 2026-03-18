@@ -77,6 +77,7 @@ type AvailabilityData = {
   time_slots: AvailabilitySlot[]
   message?: string
   special_notes?: string
+  sunday_lunch_available?: boolean
 }
 
 type AlternativeSlot = {
@@ -263,7 +264,9 @@ function normalizeAvailabilityResponse(payload: any): AvailabilityData {
     available: Boolean(data?.available) || timeSlots.some((slot) => slot.available === true),
     time_slots: timeSlots,
     message: typeof data?.message === 'string' ? data.message : undefined,
-    special_notes: typeof data?.special_notes === 'string' ? data.special_notes : undefined
+    special_notes: typeof data?.special_notes === 'string' ? data.special_notes : undefined,
+    sunday_lunch_available:
+      typeof data?.sunday_lunch_available === 'boolean' ? data.sunday_lunch_available : undefined
   }
 }
 
@@ -1935,7 +1938,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                   </div>
                 )}
 
-                {!mothersDayMode && selectedDateIsSunday && purpose !== 'drinks' ? (
+                {!mothersDayMode && selectedDateIsSunday && purpose !== 'drinks' && availability?.sunday_lunch_available !== false ? (
                   <div className="space-y-3 rounded-xl border border-anchor-gold/25 bg-anchor-gold/10 p-4">
                     <p className="text-sm font-semibold text-anchor-cream-text">Sunday plans</p>
                     <p className="text-sm text-anchor-cream-text/80">
