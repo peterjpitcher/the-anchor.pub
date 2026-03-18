@@ -7,10 +7,6 @@ import { Button } from '@/components/ui/primitives/Button'
 import { Input } from '@/components/ui/primitives/Input'
 import { trackEventBookingStart } from '@/lib/gtm-events'
 import type { Event } from '@/lib/api'
-import {
-  buildMothersDayBookingUrl,
-  getMothersDayEventStartTime
-} from '@/lib/mothers-day-booking'
 
 type LookupState = 'idle' | 'loading' | 'known' | 'unknown'
 type EventBookingState = 'confirmed' | 'pending_payment' | 'full_with_waitlist_option' | 'blocked'
@@ -224,17 +220,11 @@ export function ManagementEventBookingForm({ event, title, compact = false }: Ma
 
       if (!response.ok || body?.success === false) {
         if (response.status === 409 && hasPolicyViolation(body)) {
-          if (typeof window !== 'undefined') {
-            const fallbackUrl =
-              typeof body?.redirect_to === 'string' && body.redirect_to.trim().length > 0
-                ? body.redirect_to
-                : buildMothersDayBookingUrl({
-                    partySize: seats,
-                    time: getMothersDayEventStartTime(event)
-                  })
-            window.location.assign(fallbackUrl)
-            return
-          }
+          const policyMessage =
+            body?.error?.message ||
+            'This booking cannot be completed. Please contact us for assistance.'
+          setError(String(policyMessage))
+          return
         }
 
         const upstreamError =

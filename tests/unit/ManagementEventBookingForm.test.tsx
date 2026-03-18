@@ -1,16 +1,8 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { ManagementEventBookingForm } from '@/components/features/EventBooking/ManagementEventBookingForm'
 
-const mockBuildMothersDayBookingUrl = jest.fn(() => '/book-table?mothers-day-fallback')
-const mockGetMothersDayEventStartTime = jest.fn(() => '13:00')
-
 jest.mock('@/lib/gtm-events', () => ({
   trackEventBookingStart: jest.fn()
-}))
-
-jest.mock('@/lib/mothers-day-booking', () => ({
-  buildMothersDayBookingUrl: (...args: unknown[]) => mockBuildMothersDayBookingUrl(...args),
-  getMothersDayEventStartTime: (...args: unknown[]) => mockGetMothersDayEventStartTime(...args)
 }))
 
 describe('ManagementEventBookingForm', () => {
@@ -60,7 +52,7 @@ describe('ManagementEventBookingForm', () => {
     })
   })
 
-  it('falls back to buildMothersDayBookingUrl when policy violation has no redirect_to', async () => {
+  it('displays an inline error message on POLICY_VIOLATION instead of redirecting', async () => {
     render(
       <ManagementEventBookingForm
         event={{
@@ -81,12 +73,7 @@ describe('ManagementEventBookingForm', () => {
     fireEvent.change(screen.getByLabelText('Last Name'), { target: { value: 'Guest' } })
     fireEvent.click(screen.getByRole('button', { name: 'Book Event' }))
 
-    await waitFor(() =>
-      expect(mockBuildMothersDayBookingUrl).toHaveBeenCalledWith({
-        partySize: 2,
-        time: '13:00'
-      })
-    )
-    expect(mockGetMothersDayEventStartTime).toHaveBeenCalled()
+    // Error message from the API should appear inline in the form
+    await waitFor(() => expect(screen.getByText('Sunday lunch only')).toBeInTheDocument())
   })
 })

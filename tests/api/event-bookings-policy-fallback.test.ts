@@ -1,4 +1,4 @@
-describe('Event Bookings API - Mother’s Day policy fallback', () => {
+describe('Event Bookings API - policy violation handling', () => {
   let createEventBooking: (request: any) => Promise<Response>
 
   beforeEach(async () => {
@@ -24,7 +24,7 @@ describe('Event Bookings API - Mother’s Day policy fallback', () => {
     jest.clearAllMocks()
   })
 
-  it('returns a direct /book-table Mother’s Day redirect on POLICY_VIOLATION', async () => {
+  it('returns 409 with inline error message on POLICY_VIOLATION — no redirect URL', async () => {
     ;(global.fetch as jest.Mock).mockResolvedValue(
       new Response(
         JSON.stringify({
@@ -57,13 +57,46 @@ describe('Event Bookings API - Mother’s Day policy fallback', () => {
     expect(response.status).toBe(409)
     const payload = await response.json()
 
-    expect(payload.fallback_booking_flow).toBe('mothers_day_table_booking')
-    expect(String(payload.redirect_to)).toContain('/book-table?')
-    expect(String(payload.redirect_to)).toContain('date=2026-03-15')
-    expect(String(payload.redirect_to)).toContain('purpose=food')
-    expect(String(payload.redirect_to)).toContain('sunday_lunch=true')
-    expect(String(payload.redirect_to)).toContain('mothers_day=true')
-    expect(String(payload.redirect_to)).toContain('party_size=4')
-    expect(response.headers.get('X-Fallback-Redirect')).toBe(payload.redirect_to)
+    expect(payload.success).toBe(false)
+    expect(payload.error?.code).toBe('POLICY_VIOLATION')
+    expect(typeof payload.error?.message).toBe('string')
+    expect(payload.error?.message.length).toBeGreaterThan(0)
+
+    // Must NOT include any redirect or fallback booking fields
+    expect(payload.redirect_to).toBeUndefined()
+    expect(payload.fallback_booking_flow).toBeUndefined()
+    expect(response.headers.get('X-Fallback-Redirect')).toBeNull()
+  })
+
+  it('returns a fallback message when the upstream 409 body has no message', async () => {
+    ;(global.fetch as jest.Mock).mockResolvedValue(
+      new Response(
+        JSON.stringify({ success: false, code: 'POLICY_VIOLATION' }),
+        {
+          status: 409,
+          headers: { 'Content-Type': 'application/json' }
+        }
+      )
+    )
+
+    const request = {
+      json: async () => ({
+        event_id: '550e8400-e29b-41d4-a716-446655440000',
+        phone: '07700900000',
+        seats: 2
+      }),
+      headers: new Headers()
+    } as any
+
+    const response = await createEventBooking(request)
+
+    expect(response.status).toBe(409)
+    const payload = await response.json()
+
+    expect(payload.success).toBe(false)
+    expect(payload.error?.code).toBe('POLICY_VIOLATION')
+    expect(typeof payload.error?.message).toBe('string')
+    expect(payload.error?.message.length).toBeGreaterThan(0)
+    expect(payload.redirect_to).toBeUndefined()
   })
 })

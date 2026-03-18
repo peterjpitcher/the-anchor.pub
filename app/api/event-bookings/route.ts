@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createApiErrorResponse, logError } from '@/lib/error-handling'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
-import { buildMothersDayBookingUrl } from '@/lib/mothers-day-booking'
 import { getSafeUpstreamErrorMessage, safeJsonParse } from '@/lib/upstream-json'
 
 const API_BASE_URL = getManagementApiBaseUrl()
@@ -157,24 +156,26 @@ export async function POST(request: NextRequest) {
     }
 
     const policyViolation = upstream.status === 409 && hasPolicyViolation(parsed)
-    const fallbackRedirectUrl = policyViolation
-      ? buildMothersDayBookingUrl({ partySize: normalized.payload.seats })
-      : null
-    const responseBody =
-      policyViolation && parsed && typeof parsed === 'object'
-        ? {
-            ...(parsed as Record<string, unknown>),
-            redirect_to: fallbackRedirectUrl,
-            fallback_booking_flow: 'mothers_day_table_booking'
-          }
-        : parsed ?? fallbackPayload
+    if (policyViolation) {
+      const message =
+        (parsed && typeof parsed === 'object'
+          ? (parsed as Record<string, unknown>)?.error &&
+            typeof (parsed as Record<string, unknown>).error === 'object'
+            ? ((parsed as Record<string, unknown>).error as Record<string, unknown>)?.message
+            : (parsed as Record<string, unknown>)?.message
+          : null) ||
+        'This booking cannot be completed. Please contact us for assistance.'
+      return NextResponse.json(
+        { success: false, error: { code: 'POLICY_VIOLATION', message: String(message) } },
+        { status: 409, headers: { 'X-Idempotency-Key': idempotencyKey } }
+      )
+    }
+
+    const responseBody = parsed ?? fallbackPayload
 
     return NextResponse.json(responseBody, {
       status: upstream.status,
-      headers: {
-        'X-Idempotency-Key': idempotencyKey,
-        ...(fallbackRedirectUrl ? { 'X-Fallback-Redirect': fallbackRedirectUrl } : {})
-      }
+      headers: { 'X-Idempotency-Key': idempotencyKey }
     })
   } catch (error) {
     logError('api/event-bookings', error)
