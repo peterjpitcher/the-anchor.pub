@@ -547,9 +547,12 @@ export interface BusinessHours {
         open: boolean
         closesIn: string | null
       }
-      bookings: {
-        accepting: boolean
-        availableSlots: string[]
+      sundayLunch?: {
+        enabled: boolean
+        startsAt: string | null
+        endsAt: string | null
+        capacity: number | null
+        message: string | null
       }
     }
     capacity?: {
