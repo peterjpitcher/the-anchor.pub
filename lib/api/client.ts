@@ -540,22 +540,14 @@ export class AnchorAPI {
       const kitchenCloses = typeof kitchen?.closes === 'string' ? normalizeClock(kitchen.closes) : null
 
       if (bookingType === 'sunday_lunch') {
-        if (!kitchenOpens || !kitchenCloses || !isValidClock(kitchenOpens) || !isValidClock(kitchenCloses)) {
-          return {
-            date: params.date,
-            time: normalizeClock(params.time),
-            party_size: params.party_size,
-            available: false,
-            time_slots: [],
-            message: 'Sunday lunch is unavailable for that date. Please choose another date or call us.'
-          }
+        return {
+          date: params.date,
+          time: normalizeClock(params.time),
+          party_size: params.party_size,
+          available: false,
+          time_slots: [],
+          message: 'Sunday lunch is unavailable for that date. Please choose another date or call us.'
         }
-
-        ranges.push({
-          startsAt: kitchenOpens,
-          endsAt: kitchenCloses,
-          capacity: 50
-        })
       } else {
         const venueOpens = normalizeClock(String(specialDay?.opens || regularDay?.opens || kitchenOpens || '12:00'))
         const venueCloses = normalizeClock(String(specialDay?.closes || regularDay?.closes || kitchenCloses || '22:00'))

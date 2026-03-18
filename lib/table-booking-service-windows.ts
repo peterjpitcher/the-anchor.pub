@@ -260,18 +260,6 @@ export function resolveServiceRanges(
         return { ranges: sundayLunchRanges, closed: false }
       }
 
-      if (hasKitchenWindow && kitchenOpens && kitchenCloses) {
-        return {
-          ranges: [
-            {
-              startsAt: kitchenOpens,
-              endsAt: kitchenCloses,
-              capacity: 50
-            }
-          ],
-          closed: false
-        }
-      }
     }
 
     return {
