@@ -50,8 +50,11 @@ export default function BookingDatePicker({
   const [availableTimeSlots, setAvailableTimeSlots] = useState<{ value: string; label: string }[]>([])
   const [kitchenMessage, setKitchenMessage] = useState<string | null>(null)
 
-  // Fetch business hours
+  // Fetch business hours — re-fetch whenever the selected date changes so
+  // per-date kitchen closures entered in the management app are always fresh.
   useEffect(() => {
+    if (!selectedDate) return
+    setLoadingHours(true)
     async function fetchHours() {
       try {
         const hours = await getBusinessHours()
@@ -64,7 +67,7 @@ export default function BookingDatePicker({
       }
     }
     fetchHours()
-  }, [])
+  }, [selectedDate])
 
   // Get kitchen hours message for selected date
   const getKitchenMessage = useCallback((dateStr: string): string | null => {
