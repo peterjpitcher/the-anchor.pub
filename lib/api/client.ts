@@ -1,0 +1,1394 @@
+// AnchorAPI class and anchorAPI singleton
+
+import { logError } from '@/lib/error-handling'
+import { getManagementApiBaseUrl } from '@/lib/management-api-base'
+import { getSundayLunchDepositAmount } from '@/lib/constants'
+
+import type { EventsResponse, EventCategoriesResponse, EventAvailability, Event } from './events'
+import { FALLBACK_EVENT_CATEGORIES, createFallbackEvent, createFallbackEventsResponse } from './events'
+import type { MenuResponse, DietaryMenuResponse, SundayLunchMenuResponse, MenuSectionItem } from './menu'
+import { FALLBACK_SUNDAY_LUNCH_MENU } from './menu'
+import type { BusinessHours, AmenitiesResponse } from './hours'
+import type { TableAvailabilitySlot, TableAvailabilityResponse, TableBookingRequest, TableBookingResponse } from './bookings'
+import type {
+  ParkingRateCard,
+  ParkingAvailabilitySlot,
+  ParkingBookingRequest,
+  ParkingBookingResponse,
+  ParkingBookingDetails,
+  ParkingCreateOrderRequest,
+  ParkingCreateOrderResponse,
+  ParkingCaptureResponse
+} from './parking'
+import { FALLBACK_PARKING_RATES } from './parking'
+import type { MenuItem } from './menu'
+
+// Use internal API routes to avoid CORS issues and keep API key secure
+const API_BASE_URL = typeof window === 'undefined'
+  ? getManagementApiBaseUrl()  // Server-side: normalize env var and ensure /api suffix
+  : '/api'  // Client-side: use Next.js API routes
+
+const buildPhaseSkipLogged = new Set<string>()
+
+type ManagementTableBookingPayload = {
+  phone: string
+  first_name?: string
+  last_name?: string
+  email?: string
+  date: string
+  time: string
+  party_size: number
+  purpose: 'food' | 'drinks'
+  notes?: string
+  sunday_lunch?: boolean
+  default_country_code?: string
+}
+
+type ManagementTableBookingResult = {
+  state: 'confirmed' | 'pending_payment' | 'blocked'
+  table_booking_id: string | null
+  booking_reference: string | null
+  reason: string | null
+  blocked_reason:
+    | 'outside_hours'
+    | 'cut_off'
+    | 'no_table'
+    | 'private_booking_blocked'
+    | 'too_large_party'
+    | 'customer_conflict'
+    | 'in_past'
+    | 'blocked'
+    | null
+  next_step_url: string | null
+  hold_expires_at: string | null
+  table_name: string | null
+}
+
+export class AnchorAPI {
+  private baseURL: string
+  private apiKey: string
+
+  constructor(apiKey?: string) {
+    this.baseURL = API_BASE_URL
+    this.apiKey = apiKey || process.env.ANCHOR_API_KEY || ''
+
+    // Only warn on server-side where API key is expected
+    if (!this.apiKey && typeof window === 'undefined') {
+      console.warn('ANCHOR_API_KEY is not set. API calls will fail.')
+    }
+  }
+
+  private resolveSiteOrigin(): string | null {
+    if (typeof window !== 'undefined') {
+      return window.location.origin
+    }
+
+    if (process.env.NEXT_PUBLIC_SITE_URL) {
+      return process.env.NEXT_PUBLIC_SITE_URL.replace(/\/+$/, '')
+    }
+
+    if (process.env.VERCEL_URL) {
+      return `https://${process.env.VERCEL_URL}`.replace(/\/+$/, '')
+    }
+
+    if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
+      return 'http://localhost:3000'
+    }
+
+    return null
+  }
+
+  private asTrimmedString(value: unknown): string | undefined {
+    if (typeof value !== 'string') return undefined
+    const trimmed = value.trim()
+    return trimmed.length > 0 ? trimmed : undefined
+  }
+
+  private asPositiveInt(value: unknown): number | undefined {
+    if (typeof value === 'number' && Number.isFinite(value)) {
+      const rounded = Math.floor(value)
+      return rounded > 0 ? rounded : undefined
+    }
+
+    if (typeof value === 'string' && value.trim().length > 0) {
+      const parsed = Number.parseInt(value.trim(), 10)
+      if (Number.isFinite(parsed) && parsed > 0) return parsed
+    }
+
+    return undefined
+  }
+
+  private toStringList(value: unknown): string[] {
+    if (Array.isArray(value)) {
+      return value
+        .map((entry) => this.asTrimmedString(entry))
+        .filter((entry): entry is string => Boolean(entry))
+    }
+
+    const single = this.asTrimmedString(value)
+    return single ? [single] : []
+  }
+
+  private summarizeMenuSelections(menuSelections: TableBookingRequest['menu_selections']): string | undefined {
+    if (!Array.isArray(menuSelections) || menuSelections.length === 0) {
+      return undefined
+    }
+
+    const summary = menuSelections
+      .slice(0, 12)
+      .map((item) => {
+        const guest = this.asTrimmedString(item?.guest_name) || 'Guest'
+        const dish = this.asTrimmedString(item?.custom_item_name) || this.asTrimmedString((item as any)?.item_name)
+        const quantity = this.asPositiveInt(item?.quantity) || 1
+        if (!dish) return null
+        return `${guest}: ${dish} x${quantity}`
+      })
+      .filter((entry): entry is string => Boolean(entry))
+      .join(' | ')
+
+    return summary ? `Sunday lunch pre-order: ${summary}` : undefined
+  }
+
+  private buildLegacyTableBookingNotes(data: TableBookingRequest): string | undefined {
+    const lines: string[] = []
+
+    const specialRequirements = this.asTrimmedString(data.special_requirements)
+    if (specialRequirements) {
+      lines.push(`Special requirements: ${specialRequirements}`)
+    }
+
+    const occasion = this.asTrimmedString(data.celebration_type) || this.asTrimmedString((data as any).occasion)
+    if (occasion) {
+      lines.push(`Occasion: ${occasion}`)
+    }
+
+    const dietaryRequirements = this.toStringList(data.dietary_requirements)
+    if (dietaryRequirements.length > 0) {
+      lines.push(`Dietary requirements: ${dietaryRequirements.join(', ')}`)
+    }
+
+    const allergies = this.toStringList(data.allergies)
+    if (allergies.length > 0) {
+      lines.push(`Allergies: ${allergies.join(', ')}`)
+    }
+
+    const menuSummary = this.summarizeMenuSelections(data.menu_selections)
+    if (menuSummary) {
+      lines.push(menuSummary)
+    }
+
+    if (lines.length === 0) return undefined
+
+    const notes = lines.join('\n')
+    return notes.length <= 500 ? notes : `${notes.slice(0, 497)}...`
+  }
+
+  private toManagementTableBookingPayload(data: TableBookingRequest): ManagementTableBookingPayload {
+    const customer = data.customer || ({} as TableBookingRequest['customer'])
+    const phone = this.asTrimmedString(customer.mobile_number) || this.asTrimmedString((data as any).customer_phone)
+
+    if (!phone) {
+      throw {
+        code: 'VALIDATION_ERROR',
+        message: 'Customer mobile number is required',
+        status: 400
+      }
+    }
+
+    const firstName = this.asTrimmedString(customer.first_name) || this.asTrimmedString((data as any).customer_first_name)
+    const lastName = this.asTrimmedString(customer.last_name) || this.asTrimmedString((data as any).customer_last_name)
+    const email = this.asTrimmedString(customer.email)
+    const purpose = (data as any).purpose === 'drinks' ? 'drinks' : 'food'
+    const notes = this.buildLegacyTableBookingNotes(data)
+    const defaultCountryCode = this.asTrimmedString((data as any).default_country_code)
+
+    return {
+      phone,
+      ...(firstName ? { first_name: firstName } : {}),
+      ...(lastName ? { last_name: lastName } : {}),
+      ...(email ? { email } : {}),
+      date: data.date,
+      time: data.time,
+      party_size: data.party_size,
+      purpose,
+      ...(notes ? { notes } : {}),
+      ...(data.booking_type === 'sunday_lunch' ? { sunday_lunch: true } : {}),
+      ...(defaultCountryCode ? { default_country_code: defaultCountryCode } : {})
+    }
+  }
+
+  private isManagementTableBookingResult(input: unknown): input is ManagementTableBookingResult {
+    if (!input || typeof input !== 'object') return false
+    const source = input as Record<string, unknown>
+    return (
+      typeof source.state === 'string' &&
+      (
+        source.state === 'confirmed'
+        || source.state === 'pending_payment'
+        || source.state === 'blocked'
+      ) &&
+      ('booking_reference' in source || 'table_booking_id' in source)
+    )
+  }
+
+  private mapBlockedTableBookingMessage(result: ManagementTableBookingResult): string {
+    const blockedReason = result.blocked_reason || 'blocked'
+
+    switch (blockedReason) {
+      case 'outside_hours':
+        return 'That time is outside our booking hours. Please choose another time or call us.'
+      case 'cut_off':
+        return 'Online bookings for that slot are now closed. Please call us and we will try to help.'
+      case 'no_table':
+        return 'No table is currently available for that request.'
+      case 'private_booking_blocked':
+        return 'This slot is unavailable due to a private booking.'
+      case 'too_large_party':
+        return 'For larger groups, please call us so we can arrange your booking.'
+      case 'customer_conflict':
+        return 'A nearby booking already exists for this customer. Please call us if you need help.'
+      case 'in_past':
+        return 'That booking time is in the past. Please select a future date and time.'
+      default:
+        return result.reason || 'This booking request is currently unavailable.'
+    }
+  }
+
+  private mapManagementTableBookingResponse(
+    result: ManagementTableBookingResult,
+    originalRequest: TableBookingRequest
+  ): TableBookingResponse {
+    if (result.state === 'blocked') {
+      throw {
+        code: 'BOOKING_BLOCKED',
+        message: this.mapBlockedTableBookingMessage(result),
+        status: 409,
+        details: result
+      }
+    }
+
+    const bookingId = result.table_booking_id || result.booking_reference || `tbl_${Date.now()}`
+    const bookingReference = result.booking_reference || result.table_booking_id || bookingId
+    const pendingPayment = result.state === 'pending_payment'
+    const requiresNextStep = pendingPayment
+    // Deposit is £10/person for both Sunday lunch and groups of 7+
+    const depositAmount = pendingPayment ? getSundayLunchDepositAmount(Number(originalRequest.party_size || 1)) : 0
+    const duration =
+      typeof originalRequest.duration_minutes === 'number'
+        ? originalRequest.duration_minutes
+        : 120
+
+    return {
+      booking_id: bookingId,
+      booking_reference: bookingReference,
+      status: requiresNextStep ? 'pending_payment' : 'confirmed',
+      state: result.state,
+      table_booking_id: result.table_booking_id,
+      reason: result.reason,
+      blocked_reason: result.blocked_reason,
+      next_step_url: result.next_step_url,
+      hold_expires_at: result.hold_expires_at,
+      table_name: result.table_name,
+      confirmation_details: {
+        date: originalRequest.date,
+        time: originalRequest.time,
+        party_size: originalRequest.party_size,
+        duration_minutes: duration,
+        special_requirements: originalRequest.special_requirements,
+        occasion: originalRequest.celebration_type || (originalRequest as any).occasion
+      },
+      confirmation_sent: true,
+      payment_required: requiresNextStep,
+      payment_details: requiresNextStep && result.next_step_url
+        ? {
+            amount: depositAmount,
+            deposit_amount: depositAmount,
+            total_amount: depositAmount,
+            outstanding_amount: depositAmount,
+            currency: 'GBP',
+            payment_url: result.next_step_url,
+            expires_at: result.hold_expires_at || new Date(Date.now() + 15 * 60 * 1000).toISOString()
+          }
+        : undefined
+    }
+  }
+
+  private unwrapSuccessData<T>(payload: unknown): T | null {
+    if (!payload || typeof payload !== 'object') return null
+    const source = payload as Record<string, unknown>
+
+    if (source.success === true && source.data) {
+      return source.data as T
+    }
+
+    if (source.success === false) {
+      return null
+    }
+
+    return source as T
+  }
+
+  private getLondonIsoDate(): string {
+    try {
+      const formatter = new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'Europe/London',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      })
+
+      const parts = formatter.formatToParts(new Date())
+      const map = Object.fromEntries(parts.map((part) => [part.type, part.value]))
+      if (map.year && map.month && map.day) {
+        return `${map.year}-${map.month}-${map.day}`
+      }
+    } catch {
+      // Fall through to UTC format
+    }
+
+    return new Date().toISOString().slice(0, 10)
+  }
+
+  private mapSundayLunchMenuFromMenu(menu: MenuResponse, menuDate: string): SundayLunchMenuResponse | null {
+    const sections = Array.isArray(menu?.sections) ? menu.sections : []
+    if (sections.length === 0) return null
+
+    const sundaySections = sections.filter((section) =>
+      /sunday|roast/i.test(section.name || '')
+    )
+
+    if (sundaySections.length === 0) return null
+
+    const mapItem = (item: MenuSectionItem) => ({
+      id: item.id,
+      name: item.name,
+      description: item.description || undefined,
+      price: Number(item.price || 0),
+      dietary_info: item.dietary_info || [],
+      allergens: item.allergens || [],
+      is_available: item.is_available !== false
+    })
+
+    const toUniqueItems = (items: MenuSectionItem[]) => {
+      const seen = new Set<string>()
+      const mapped: ReturnType<typeof mapItem>[] = []
+
+      for (const item of items) {
+        if (!item || typeof item.id !== 'string') continue
+        if (seen.has(item.id)) continue
+        seen.add(item.id)
+        mapped.push(mapItem(item))
+      }
+
+      return mapped
+    }
+
+    const mainSections = sundaySections.filter((section) => /main|roast/i.test(section.name || ''))
+    const sideSections = sundaySections.filter((section) => /side|extra|add[- ]?on|trimming/i.test(section.name || ''))
+
+    const allSundayItems = sundaySections.flatMap((section) =>
+      Array.isArray(section.items) ? section.items : []
+    )
+    const mainItems =
+      mainSections.length > 0
+        ? toUniqueItems(mainSections.flatMap((section) => section.items || []))
+        : toUniqueItems(allSundayItems)
+
+    if (mainItems.length === 0) {
+      return null
+    }
+
+    const sideItems = toUniqueItems(sideSections.flatMap((section) => section.items || []))
+
+    return {
+      menu_date: menuDate,
+      mains: mainItems,
+      sides: sideItems,
+      cutoff_time: FALLBACK_SUNDAY_LUNCH_MENU.cutoff_time
+    }
+  }
+
+  private buildTableAvailabilityFromBusinessHours(
+    businessHours: BusinessHours,
+    params: {
+      date: string
+      time: string
+      party_size: number
+      booking_type?: 'regular' | 'sunday_lunch'
+    }
+  ): TableAvailabilityResponse {
+    const bookingType = params.booking_type === 'sunday_lunch' ? 'sunday_lunch' : 'regular'
+    const normalizeClock = (value: string): string => {
+      if (/^\d{2}:\d{2}$/.test(value)) return value
+      if (/^\d{2}:\d{2}:\d{2}$/.test(value)) return value.slice(0, 5)
+      return value
+    }
+    const isValidClock = (value: string): boolean => /^([01]\d|2[0-3]):[0-5]\d$/.test(value)
+    const toMinutes = (value: string): number => {
+      const normalized = normalizeClock(value)
+      const [hours, minutes] = normalized.split(':')
+      return (Number.parseInt(hours || '0', 10) * 60) + Number.parseInt(minutes || '0', 10)
+    }
+    const toClock = (totalMinutes: number): string => {
+      const normalized = ((totalMinutes % 1440) + 1440) % 1440
+      const hours = Math.floor(normalized / 60)
+      const minutes = normalized % 60
+      return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`
+    }
+    const londonNowParts = (): { isoDate: string; minutes: number } => {
+      const formatter = new Intl.DateTimeFormat('en-CA', {
+        timeZone: 'Europe/London',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      })
+      const parts = formatter.formatToParts(new Date())
+      const map = Object.fromEntries(parts.map((part) => [part.type, part.value]))
+      return {
+        isoDate: `${map.year}-${map.month}-${map.day}`,
+        minutes: (Number.parseInt(map.hour || '0', 10) * 60) + Number.parseInt(map.minute || '0', 10)
+      }
+    }
+
+    const [yearRaw, monthRaw, dayRaw] = params.date.split('-')
+    const year = Number.parseInt(yearRaw || '', 10)
+    const month = Number.parseInt(monthRaw || '', 10)
+    const day = Number.parseInt(dayRaw || '', 10)
+    const dayKey = Number.isFinite(year) && Number.isFinite(month) && Number.isFinite(day)
+      ? new Date(Date.UTC(year, month - 1, day))
+          .toLocaleDateString('en-GB', { weekday: 'long', timeZone: 'UTC' })
+          .toLowerCase()
+      : 'monday'
+
+    const regularDay = (businessHours.regularHours?.[dayKey] || null) as Record<string, unknown> | null
+    const specialDay = ((businessHours.specialHours || []) as Array<Record<string, unknown>>).find(
+      (entry) => entry?.date === params.date
+    ) || null
+
+    const isClosed =
+      specialDay?.status === 'closed' ||
+      specialDay?.is_closed === true ||
+      (specialDay && specialDay.opens === null && specialDay.closes === null) ||
+      regularDay?.is_closed === true
+
+    if (isClosed) {
+      return {
+        date: params.date,
+        time: normalizeClock(params.time),
+        party_size: params.party_size,
+        available: false,
+        time_slots: [],
+        message: 'We are closed on that date. Please choose another day.'
+      }
+    }
+
+    const parseScheduleConfig = (value: unknown): Array<{ startsAt: string; endsAt: string; bookingType?: string; capacity: number }> => {
+      if (!Array.isArray(value)) return []
+      const entries: Array<{ startsAt: string; endsAt: string; bookingType?: string; capacity: number }> = []
+
+      for (const entry of value) {
+        if (!entry || typeof entry !== 'object') continue
+
+        const source = entry as Record<string, unknown>
+        const startsAt = normalizeClock(String(source.starts_at || ''))
+        const endsAt = normalizeClock(String(source.ends_at || ''))
+        if (!isValidClock(startsAt) || !isValidClock(endsAt) || toMinutes(endsAt) <= toMinutes(startsAt)) {
+          continue
+        }
+
+        const rawCapacity = source.capacity
+        const parsedCapacity =
+          typeof rawCapacity === 'number'
+            ? Math.floor(rawCapacity)
+            : typeof rawCapacity === 'string'
+            ? Number.parseInt(rawCapacity, 10)
+            : 50
+
+        entries.push({
+          startsAt,
+          endsAt,
+          bookingType: this.asTrimmedString(source.booking_type),
+          capacity: Number.isFinite(parsedCapacity) && parsedCapacity > 0 ? parsedCapacity : 50
+        })
+      }
+
+      return entries
+    }
+
+    const scheduleConfig = parseScheduleConfig(
+      (specialDay?.schedule_config as unknown) ?? (regularDay?.schedule_config as unknown)
+    )
+    const typedSchedule = scheduleConfig.filter((entry) => entry.bookingType === bookingType)
+    const fallbackSchedule = bookingType === 'regular' && typedSchedule.length === 0
+      ? scheduleConfig
+      : typedSchedule
+
+    const ranges = fallbackSchedule.map((entry) => ({
+      startsAt: entry.startsAt,
+      endsAt: entry.endsAt,
+      capacity: entry.capacity
+    }))
+
+    if (ranges.length === 0) {
+      const kitchen = (specialDay !== null
+        ? (specialDay?.kitchen as any ?? null)
+        : (regularDay?.kitchen as any ?? null)) as Record<string, unknown> | null
+      const kitchenOpens = typeof kitchen?.opens === 'string' ? normalizeClock(kitchen.opens) : null
+      const kitchenCloses = typeof kitchen?.closes === 'string' ? normalizeClock(kitchen.closes) : null
+
+      if (bookingType === 'sunday_lunch') {
+        if (!kitchenOpens || !kitchenCloses || !isValidClock(kitchenOpens) || !isValidClock(kitchenCloses)) {
+          return {
+            date: params.date,
+            time: normalizeClock(params.time),
+            party_size: params.party_size,
+            available: false,
+            time_slots: [],
+            message: 'Sunday lunch is unavailable for that date. Please choose another date or call us.'
+          }
+        }
+
+        ranges.push({
+          startsAt: kitchenOpens,
+          endsAt: kitchenCloses,
+          capacity: 50
+        })
+      } else {
+        const venueOpens = normalizeClock(String(specialDay?.opens || regularDay?.opens || kitchenOpens || '12:00'))
+        const venueCloses = normalizeClock(String(specialDay?.closes || regularDay?.closes || kitchenCloses || '22:00'))
+        if (!isValidClock(venueOpens) || !isValidClock(venueCloses) || toMinutes(venueCloses) <= toMinutes(venueOpens)) {
+          return {
+            date: params.date,
+            time: normalizeClock(params.time),
+            party_size: params.party_size,
+            available: false,
+            time_slots: [],
+            message: 'We could not determine available times for that date.'
+          }
+        }
+
+        ranges.push({
+          startsAt: venueOpens,
+          endsAt: venueCloses,
+          capacity: 50
+        })
+      }
+    }
+
+    const londonNow = londonNowParts()
+    const minMinutesForToday =
+      londonNow.isoDate === params.date
+        ? Math.ceil((londonNow.minutes + 60) / 30) * 30
+        : undefined
+
+    const slots = new Map<string, TableAvailabilitySlot>()
+    for (const range of ranges) {
+      const start = toMinutes(range.startsAt)
+      const end = toMinutes(range.endsAt)
+      if (!Number.isFinite(start) || !Number.isFinite(end) || end <= start) continue
+
+      for (let cursor = start; cursor < end; cursor += 30) {
+        if (typeof minMinutesForToday === 'number' && cursor < minMinutesForToday) {
+          continue
+        }
+
+        const slotTime = toClock(cursor)
+        const availableCapacity = Math.max(range.capacity, 0)
+        const isAvailable = availableCapacity >= params.party_size
+        const existing = slots.get(slotTime)
+
+        if (!existing) {
+          slots.set(slotTime, {
+            time: slotTime,
+            available: isAvailable,
+            available_capacity: availableCapacity,
+            reason: isAvailable ? undefined : 'party_too_large'
+          })
+          continue
+        }
+
+        const mergedCapacity = Math.max(existing.available_capacity || 0, availableCapacity)
+        const mergedAvailable = mergedCapacity >= params.party_size
+        slots.set(slotTime, {
+          ...existing,
+          available_capacity: mergedCapacity,
+          available: mergedAvailable,
+          reason: mergedAvailable ? undefined : existing.reason || 'party_too_large'
+        })
+      }
+    }
+
+    const timeSlots = Array.from(slots.values()).sort((a, b) => toMinutes(a.time) - toMinutes(b.time))
+    const available = timeSlots.some((slot) => slot.available === true || (slot.available_capacity || 0) >= params.party_size)
+
+    return {
+      date: params.date,
+      time: normalizeClock(params.time),
+      party_size: params.party_size,
+      available,
+      time_slots: timeSlots,
+      message: available
+        ? 'These times are based on current service windows and will be confirmed instantly when you continue.'
+        : 'No online times are currently available for this request. Please choose an alternative or join the waitlist.',
+      special_notes:
+        'If your preferred time is unavailable, choose a nearby slot or call 01753 682707 to join the waitlist.'
+    }
+  }
+
+  private async fetchInternalTableAvailability(query: URLSearchParams): Promise<TableAvailabilityResponse | null> {
+    const origin = this.resolveSiteOrigin()
+    if (!origin) return null
+
+    const response = await fetch(`${origin}/api/table-bookings/availability?${query.toString()}`, {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      cache: 'no-store'
+    })
+
+    const payload = await response.json().catch(() => null)
+    if (!response.ok) {
+      const message =
+        (payload && typeof payload === 'object' && 'error' in payload && typeof payload.error === 'string')
+          ? payload.error
+          : `Failed to check table availability (${response.status})`
+      throw {
+        code: 'TABLE_AVAILABILITY_ERROR',
+        message,
+        status: response.status
+      }
+    }
+
+    const unwrapped = this.unwrapSuccessData<TableAvailabilityResponse>(payload)
+    if (unwrapped && Array.isArray(unwrapped.time_slots)) {
+      return unwrapped
+    }
+
+    if (payload && typeof payload === 'object' && Array.isArray((payload as TableAvailabilityResponse).time_slots)) {
+      return payload as TableAvailabilityResponse
+    }
+
+    return null
+  }
+
+  private async request<T>(
+    endpoint: string,
+    options: RequestInit = {}
+  ): Promise<T> {
+    const url = `${this.baseURL}${endpoint}`
+    const baseEndpoint = endpoint.split('?')[0]
+    const isBuildPhase =
+      typeof window === 'undefined' &&
+      process.env.NEXT_PHASE === 'phase-production-build' &&
+      process.env.ENABLE_BUILD_TIME_EXTERNAL_API !== 'true'
+
+    if (isBuildPhase) {
+      const buildFallback = this.getFallbackResponse(baseEndpoint)
+      if (buildFallback) {
+        if (!buildPhaseSkipLogged.has(baseEndpoint)) {
+          console.warn(`[api-request] Skipping external fetch for ${baseEndpoint} during build`)
+          buildPhaseSkipLogged.add(baseEndpoint)
+        }
+        return buildFallback as T
+      }
+    }
+
+    try {
+      // Try both authentication methods as documented
+      const headers: Record<string, string> = {
+        'Content-Type': 'application/json',
+      }
+
+      // Add authentication header (using X-API-Key as recommended)
+      if (this.apiKey) {
+        headers['X-API-Key'] = this.apiKey
+      }
+
+      // Merge with any provided headers
+      if (options.headers) {
+        Object.assign(headers, options.headers)
+      }
+
+      const { next: providedNext, ...requestInit } = options as RequestInit & {
+        next?: { revalidate?: number | false }
+      }
+
+      const fetchOptions: RequestInit & { next?: { revalidate: number } } = {
+        ...requestInit,
+        headers,
+      }
+
+      if (typeof window === 'undefined') {
+        const revalidate =
+          typeof providedNext?.revalidate === 'number'
+            ? providedNext.revalidate
+            : 300
+        fetchOptions.next = {
+          revalidate,
+        }
+      }
+
+      const response = await fetch(url, fetchOptions)
+
+      if (!response.ok) {
+        let errorCode = 'UNKNOWN_ERROR'
+        let errorMessage = `API request failed: ${response.status}`
+        let errorDetails: any = {}
+
+        try {
+          const errorData = await response.json()
+
+          // Handle API error wrapper format
+          if (errorData.success === false && errorData.error) {
+            errorCode = errorData.error.code || errorCode
+            errorMessage = errorData.error.message || errorMessage
+            errorDetails = errorData.error.details || {}
+          } else if (errorData.error) {
+            errorMessage = errorData.error
+          } else if (errorData.message) {
+            errorMessage = errorData.message
+          }
+        } catch {
+          // If JSON parsing fails, use status text
+          errorMessage = `${response.status} ${response.statusText}`
+        }
+
+        // Map HTTP status to error codes
+        if (response.status === 401) {
+          errorCode = 'UNAUTHORIZED'
+          console.error('Authentication failed. Check ANCHOR_API_KEY environment variable.')
+        } else if (response.status === 403) {
+          errorCode = 'FORBIDDEN'
+        } else if (response.status === 404) {
+          errorCode = 'NOT_FOUND'
+        } else if (response.status === 429) {
+          errorCode = 'RATE_LIMIT_EXCEEDED'
+          console.error('Rate limit exceeded. Please try again later.')
+        } else if (response.status >= 500) {
+          errorCode = 'INTERNAL_ERROR'
+        }
+
+        throw {
+          code: errorCode,
+          message: errorMessage,
+          status: response.status,
+          details: errorDetails
+        }
+      }
+
+      const data = await response.json()
+
+      // Handle API success wrapper format
+      if (data.success === false && data.error) {
+        throw {
+          code: data.error.code || 'API_ERROR',
+          message: data.error.message || 'API request failed',
+          status: response.status,
+          details: data.error.details || {}
+        }
+      }
+
+      // Extract data from wrapper if present
+      if (data.success === true && data.data) {
+        return data.data
+      }
+
+      // Some endpoints return data directly without wrapper (legacy format)
+      // Check if this looks like valid data (not an error)
+      if (!data.error && !data.success) {
+        return data
+      }
+
+      // If no wrapper format and no direct data, this is likely an error
+      throw {
+        code: 'INVALID_RESPONSE',
+        message: 'Invalid API response format',
+        status: response.status,
+        details: { response: data }
+      }
+    } catch (error: any) {
+      const isNetworkError =
+        !error?.status ||
+        error?.code === 'ENOTFOUND' ||
+        error?.code === 'EAI_AGAIN' ||
+        error?.code === 'NETWORK_ERROR' ||
+        (typeof error?.message === 'string' && /fetch failed|network/i.test(error.message))
+
+      const fallback = this.getFallbackResponse(baseEndpoint)
+
+      // Never serve stale business hours at runtime – a network error shouldn't show wrong times
+      const shouldSkipFallback = baseEndpoint === '/business/hours'
+
+      if (fallback && !shouldSkipFallback) {
+        console.warn(`[api-request] Using fallback data for ${baseEndpoint}`, {
+          reason: isNetworkError ? 'network-unavailable' : error?.code || 'unknown'
+        })
+        return fallback as T
+      }
+
+      const structuredError = {
+        code: error?.code || (isNetworkError ? 'NETWORK_ERROR' : 'API_ERROR'),
+        message: error?.message || 'Request failed',
+        status: error?.status || 0,
+        details: error?.details || {}
+      }
+
+      if (isNetworkError) {
+        console.warn(`[api-request] ${structuredError.message}`, {
+          endpoint: baseEndpoint,
+          status: structuredError.status
+        })
+      } else {
+        logError('api-request', structuredError, {
+          endpoint,
+          url,
+          method: options.method || 'GET'
+        })
+      }
+
+      throw structuredError
+    }
+  }
+
+  // Events
+  async getEvents(params: {
+    from_date?: string
+    to_date?: string
+    category_id?: string
+    available_only?: boolean
+    limit?: number
+    offset?: number
+    status?: string
+  } = {}): Promise<EventsResponse> {
+    const query = new URLSearchParams()
+    Object.entries(params).forEach(([key, value]) => {
+      if (value !== undefined) {
+        query.append(key, value.toString())
+      }
+    })
+
+    return this.request<EventsResponse>(`/events?${query.toString()}`)
+  }
+
+  async getEvent(idOrSlug: string): Promise<Event> {
+    const lookupValue = idOrSlug.trim()
+    const encodedLookup = encodeURIComponent(lookupValue)
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json'
+    }
+
+    if (this.apiKey) {
+      headers['X-API-Key'] = this.apiKey
+    }
+
+    const searchWindows = [
+      0,       // today onwards (future events)
+      90,      // include events from the past 3 months
+      365      // include events from the past year as a last resort
+    ]
+
+    const fetchOptions = (requestHeaders: Record<string, string>) => {
+      const options: RequestInit & { next?: { revalidate: number } } = {
+        headers: requestHeaders
+      }
+
+      if (typeof window === 'undefined') {
+        options.next = { revalidate: 300 }
+      }
+
+      return options
+    }
+
+    const fetchEventsFromBase = async (
+      baseUrl: string,
+      requestHeaders: Record<string, string>,
+      daysAgo: number
+    ): Promise<Event[]> => {
+      const fromDate = new Date()
+      if (daysAgo > 0) {
+        fromDate.setDate(fromDate.getDate() - daysAgo)
+      }
+
+      const query = new URLSearchParams({
+        limit: '200',
+        from_date: fromDate.toISOString().split('T')[0]
+      })
+
+      const endpoint = `/events?${query.toString()}`
+      const url = `${baseUrl}${endpoint}`
+
+      const response = await fetch(url, fetchOptions(requestHeaders))
+
+      if (!response.ok) {
+        const payload = await response.text()
+        throw {
+          code: 'API_EVENTS_ERROR',
+          status: response.status,
+          message: `Failed to load events list (${response.status})`,
+          details: payload
+        }
+      }
+
+      const data = await response.json()
+      if (data.success === false && data.error) {
+        throw {
+          code: data.error.code || 'API_EVENTS_ERROR',
+          status: 400,
+          message: data.error.message || 'Unable to load events list',
+          details: data.error.details || {}
+        }
+      }
+
+      const responseData = data.data || data
+      return responseData.events || responseData
+    }
+
+    const fetchDirectEvent = async (): Promise<Event | null> => {
+      const endpoint = `/events/${encodedLookup}`
+      const url = `${this.baseURL}${endpoint}`
+
+      const response = await fetch(url, fetchOptions(headers))
+
+      if (response.status === 404) {
+        return null
+      }
+
+      if (!response.ok) {
+        const errorPayload = await response.text()
+        throw {
+          code: 'API_EVENT_ERROR',
+          status: response.status,
+          message: `Failed to load event: ${response.statusText}`,
+          details: errorPayload
+        }
+      }
+
+      const data = await response.json()
+      if (data.success === false && data.error) {
+        if ((data.error.code === 'NOT_FOUND' || data.error.message === 'Event not found')) {
+          return null
+        }
+
+        throw {
+          code: data.error.code || 'API_EVENT_ERROR',
+          status: 400,
+          message: data.error.message || 'Unable to retrieve event',
+          details: data.error.details || {}
+        }
+      }
+
+      const resolved = data.data || data
+      if (resolved && typeof resolved === 'object' && 'event' in resolved) {
+        return (resolved as { event: Event }).event
+      }
+      return resolved
+    }
+
+    const fetchEventsFromWindow = async (daysAgo: number): Promise<Event[]> => {
+      try {
+        return await fetchEventsFromBase(this.baseURL, headers, daysAgo)
+      } catch (primaryError) {
+        // If we're on the server, fall back to the public API endpoint
+        if (typeof window === 'undefined') {
+          const origin = this.resolveSiteOrigin()
+          if (origin) {
+            try {
+              return await fetchEventsFromBase(
+                `${origin}/api`,
+                { 'Content-Type': 'application/json' },
+                daysAgo
+              )
+            } catch (internalError) {
+              logError('api-get-event-fallback-internal', internalError, {
+                idOrSlug: lookupValue,
+                daysAgo,
+                origin
+              })
+            }
+          }
+        }
+
+        throw primaryError
+      }
+    }
+
+    try {
+      const directEvent = await fetchDirectEvent()
+      if (directEvent) {
+        return directEvent
+      }
+    } catch (error) {
+      logError('api-get-event-direct', error, {
+        idOrSlug: lookupValue
+      })
+    }
+
+    console.log('Fetching event from events list for capacity data')
+
+    for (const daysAgo of searchWindows) {
+      try {
+        const events = await fetchEventsFromWindow(daysAgo)
+        const matchedEvent = events.find(event => {
+          const candidates = [
+            event.id,
+            event.slug,
+            event.identifier
+          ].filter(Boolean).map(value => `${value}`.trim())
+
+          return candidates.some(candidate => candidate === lookupValue)
+        })
+
+        if (matchedEvent) {
+          return matchedEvent
+        }
+      } catch (error) {
+        logError('api-get-event-fallback', error, {
+          idOrSlug: lookupValue,
+          daysAgo
+        })
+      }
+    }
+
+    throw { message: 'Event not found', status: 404 }
+  }
+
+  async getTodaysEvents(status: string = 'scheduled'): Promise<EventsResponse> {
+    const query = new URLSearchParams()
+    if (status) query.append('status', status)
+    return this.request<EventsResponse>(`/events/today?${query.toString()}`)
+  }
+
+  async getEventCategories(): Promise<EventCategoriesResponse> {
+    return this.request<EventCategoriesResponse>('/event-categories')
+  }
+
+  // Event availability
+  async checkEventAvailability(eventId: string, seats: number = 1): Promise<EventAvailability> {
+    const requestedSeats = Number.isFinite(seats) && seats > 0 ? Math.floor(seats) : 1
+
+    if (typeof window !== 'undefined') {
+      return this.request<EventAvailability>(`/events/${eventId}/availability`, {
+        method: 'POST',
+        body: JSON.stringify({ seats: requestedSeats })
+      })
+    }
+
+    const event = await this.getEvent(eventId)
+    const maxCapacity =
+      typeof event.maximumAttendeeCapacity === 'number' && Number.isFinite(event.maximumAttendeeCapacity)
+        ? Math.max(Math.floor(event.maximumAttendeeCapacity), 0)
+        : typeof event.capacity === 'number' && Number.isFinite(event.capacity)
+        ? Math.max(Math.floor(event.capacity), 0)
+        : 0
+    const remainingRaw =
+      typeof event.remainingAttendeeCapacity === 'number' && Number.isFinite(event.remainingAttendeeCapacity)
+        ? event.remainingAttendeeCapacity
+        : typeof event.seats_remaining === 'number' && Number.isFinite(event.seats_remaining)
+        ? event.seats_remaining
+        : event.is_full === true
+        ? 0
+        : maxCapacity
+    const remaining = Math.max(Math.floor(remainingRaw), 0)
+    const capacity = Math.max(maxCapacity, remaining)
+    const booked = Math.max(capacity - remaining, 0)
+
+    return {
+      available: remaining >= requestedSeats,
+      event_id: event.id || eventId,
+      capacity,
+      booked,
+      remaining,
+      percentage_full: capacity > 0 ? Math.round((booked / capacity) * 100) : 0
+    }
+  }
+
+  // Menu
+  async getMenu(): Promise<MenuResponse> {
+    return this.request<MenuResponse>('/menu')
+  }
+
+  async getMenuSpecials(): Promise<{
+    specials: MenuItem[]
+  }> {
+    return this.request('/menu/specials')
+  }
+
+  async getDietaryMenu(type: 'vegetarian' | 'vegan' | 'gluten-free' | 'halal' | 'kosher'): Promise<DietaryMenuResponse> {
+    return this.request<DietaryMenuResponse>(`/menu/dietary/${type}`)
+  }
+
+  // Table Bookings
+  async checkTableAvailability(params: {
+    date: string
+    time: string
+    party_size: number
+    duration?: number
+    booking_type?: 'regular' | 'sunday_lunch'
+  }): Promise<TableAvailabilityResponse> {
+    const normalizedTime = /^\d{2}:\d{2}:\d{2}$/.test(params.time)
+      ? params.time.slice(0, 5)
+      : params.time
+    const query = new URLSearchParams({
+      date: params.date,
+      time: normalizedTime,
+      party_size: params.party_size.toString(),
+      ...(params.duration && { duration: params.duration.toString() }),
+      ...(params.booking_type && { booking_type: params.booking_type })
+    })
+
+    if (typeof window !== 'undefined') {
+      return this.request<TableAvailabilityResponse>(`/table-bookings/availability?${query}`, {
+        next: { revalidate: 0 }
+      } as any)
+    }
+
+    try {
+      const internalAvailability = await this.fetchInternalTableAvailability(query)
+      if (internalAvailability) {
+        return internalAvailability
+      }
+    } catch (error) {
+      logError('api-table-availability-internal', error, {
+        date: params.date,
+        time: normalizedTime,
+        partySize: params.party_size,
+        bookingType: params.booking_type || 'regular'
+      })
+    }
+
+    const businessHours = await this.getBusinessHours()
+    return this.buildTableAvailabilityFromBusinessHours(businessHours, {
+      ...params,
+      time: normalizedTime
+    })
+  }
+
+  async createTableBooking(
+    data: TableBookingRequest,
+    idempotencyKey?: string
+  ): Promise<TableBookingResponse> {
+    const payload = this.toManagementTableBookingPayload(data)
+    const endpoint =
+      typeof window === 'undefined'
+        ? '/table-bookings'
+        : '/table-bookings/create'
+
+    const key =
+      idempotencyKey ||
+      (typeof crypto !== 'undefined' && 'randomUUID' in crypto
+        ? crypto.randomUUID()
+        : `tbl_${Date.now()}_${Math.random().toString(16).slice(2)}`)
+
+    const headers: Record<string, string> = {
+      'Idempotency-Key': key
+    }
+
+    const rawResponse = await this.request<unknown>(endpoint, {
+      method: 'POST',
+      body: JSON.stringify(payload),
+      headers,
+    })
+
+    const unwrapped = this.unwrapSuccessData<unknown>(rawResponse) ?? rawResponse
+    if (this.isManagementTableBookingResult(unwrapped)) {
+      return this.mapManagementTableBookingResponse(unwrapped, data)
+    }
+
+    if (
+      unwrapped &&
+      typeof unwrapped === 'object' &&
+      typeof (unwrapped as TableBookingResponse).booking_reference === 'string' &&
+      typeof (unwrapped as TableBookingResponse).status === 'string'
+    ) {
+      return unwrapped as TableBookingResponse
+    }
+
+    throw {
+      code: 'INVALID_RESPONSE',
+      message: 'Invalid table booking response from API',
+      status: 502,
+      details: unwrapped
+    }
+  }
+
+  async getTableBooking(
+    reference: string,
+    customerEmail: string
+  ): Promise<TableBookingResponse> {
+    if (!customerEmail) {
+      throw new Error('Customer email is required to retrieve booking details')
+    }
+
+    throw {
+      code: 'NOT_SUPPORTED',
+      message: 'Booking lookup by reference is not available in the current management API.',
+      status: 501,
+      details: {
+        reference: reference || null
+      }
+    }
+  }
+
+  async cancelTableBooking(
+    reference: string,
+    options?: { reason?: string; customerEmail?: string }
+  ): Promise<{ success: boolean; message: string }> {
+    throw {
+      code: 'NOT_SUPPORTED',
+      message: 'Booking cancellation by reference is not available in the current management API.',
+      status: 501,
+      details: {
+        reference: reference || null,
+        hasCustomerEmail: Boolean(options?.customerEmail)
+      }
+    }
+  }
+
+  // Parking
+  async getParkingRates(): Promise<ParkingRateCard> {
+    return this.request<ParkingRateCard>('/parking/rates')
+  }
+
+  async getParkingAvailability(params: {
+    start?: string
+    end?: string
+    granularity?: 'day' | 'hour'
+  } = {}): Promise<ParkingAvailabilitySlot[]> {
+    const query = new URLSearchParams()
+    if (params.start) query.append('start', params.start)
+    if (params.end) query.append('end', params.end)
+    if (params.granularity) query.append('granularity', params.granularity)
+
+    const endpoint = query.size > 0
+      ? `/parking/availability?${query.toString()}`
+      : '/parking/availability'
+
+    return this.request<ParkingAvailabilitySlot[]>(endpoint)
+  }
+
+  async createParkingBooking(data: ParkingBookingRequest, idempotencyKey?: string): Promise<ParkingBookingResponse> {
+    const headers: Record<string, string> = {}
+    if (idempotencyKey) {
+      headers['Idempotency-Key'] = idempotencyKey
+    }
+
+    return this.request<ParkingBookingResponse>('/parking/bookings', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers
+    })
+  }
+
+  async getParkingBooking(id: string): Promise<ParkingBookingDetails> {
+    return this.request<ParkingBookingDetails>(`/parking/bookings/${id}`)
+  }
+
+  async createParkingPaymentOrder(
+    data: ParkingCreateOrderRequest,
+    idempotencyKey?: string
+  ): Promise<ParkingCreateOrderResponse> {
+    const headers: Record<string, string> = {}
+    if (idempotencyKey) headers['Idempotency-Key'] = idempotencyKey
+
+    return this.request<ParkingCreateOrderResponse>('/parking/bookings', {
+      method: 'POST',
+      body: JSON.stringify({ ...data, source: 'website' }),
+      headers,
+    })
+  }
+
+  async captureParkingPayment(orderID: string, bookingId: string): Promise<ParkingCaptureResponse> {
+    return this.request<ParkingCaptureResponse>('/parking/payment/capture', {
+      method: 'POST',
+      body: JSON.stringify({ order_id: orderID, booking_id: bookingId }),
+    })
+  }
+
+  async getSundayLunchMenu(date?: string): Promise<SundayLunchMenuResponse> {
+    const menuDate = this.asTrimmedString(date) || this.getLondonIsoDate()
+    const query = date ? `?date=${encodeURIComponent(date)}` : ''
+
+    if (typeof window !== 'undefined') {
+      try {
+        const payload = await this.request<unknown>(`/table-bookings/menu/sunday-lunch${query}`)
+        const candidate = this.unwrapSuccessData<SundayLunchMenuResponse>(payload) || (payload as SundayLunchMenuResponse)
+        if (candidate && Array.isArray(candidate.mains) && Array.isArray(candidate.sides)) {
+          return {
+            ...candidate,
+            menu_date: candidate.menu_date || menuDate
+          }
+        }
+      } catch (error) {
+        logError('api-sunday-lunch-menu-client', error)
+      }
+
+      return {
+        ...FALLBACK_SUNDAY_LUNCH_MENU,
+        menu_date: menuDate
+      }
+    }
+
+    try {
+      const menu = await this.getMenu()
+      const mapped = this.mapSundayLunchMenuFromMenu(menu, menuDate)
+      if (mapped) {
+        return mapped
+      }
+    } catch (error) {
+      logError('api-sunday-lunch-menu-server', error, { menuDate })
+    }
+
+    return {
+      ...FALLBACK_SUNDAY_LUNCH_MENU,
+      menu_date: menuDate
+    }
+  }
+
+  // Business Information
+  async getBusinessHours(): Promise<BusinessHours> {
+    const data = await this.request<BusinessHours>('/business/hours', {
+      // Never cache business hours: currentStatus/closesIn/opensIn are time-sensitive.
+      next: { revalidate: 0 }
+    })
+    return data
+  }
+
+  async getAmenities(): Promise<AmenitiesResponse> {
+    return this.request('/business/amenities')
+  }
+
+  private getFallbackResponse(endpoint: string): any | null {
+    if (endpoint === '/event-categories') {
+      return FALLBACK_EVENT_CATEGORIES
+    }
+
+    if (endpoint === '/parking/rates') {
+      return FALLBACK_PARKING_RATES
+    }
+
+    if (endpoint === '/table-bookings/menu/sunday-lunch') {
+      return FALLBACK_SUNDAY_LUNCH_MENU
+    }
+
+    if (endpoint === '/events' || endpoint === '/events/') {
+      return createFallbackEventsResponse()
+    }
+
+    if (endpoint === '/events/today') {
+      return createFallbackEventsResponse()
+    }
+
+    if (endpoint.startsWith('/events/')) {
+      const eventId = endpoint.replace('/events/', '').replace(/\/+$/, '') || 'event'
+      return createFallbackEvent(eventId)
+    }
+
+    return null
+  }
+}
+
+// Export singleton instance with API key from environment
+export const anchorAPI = new AnchorAPI(process.env.ANCHOR_API_KEY)
