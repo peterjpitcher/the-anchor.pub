@@ -1,37 +1,384 @@
 {
   "title": "Food Menu",
-  "description": "Traditional British pub food at The Anchor",
-  "lastUpdated": "2025-12-14",
+  "description": "Proper British pub food at The Anchor — cooked fresh to order and served with a warm welcome.",
+  "lastUpdated": "2026-03-19",
   "categories": [
     {
-      "id": "light-bites",
-      "title": "Light Bites",
-      "description": "Perfect when you want something satisfying without committing to a full main. Our light bites are served quickly and priced fairly — great for a solo visit, a snack between pints, or a quick bite before heading to the terminal.",
+      "id": "pub-classics",
+      "title": "British Pub Classics",
+      "description": "Proper British pub favourites, full of comfort and flavour.",
       "sections": [
         {
-          "title": "Wraps with Chips",
-          "description": "Soft flour tortillas packed with generous fillings and served with a full portion of chips. Ready quickly and easy to eat — a solid choice for a satisfying lunch without the full sit-down commitment.",
+          "title": "",
           "style": "grid",
           "items": [
             {
-              "name": "Chicken Goujon Wrap with Chips",
+              "name": "Fish & Chips",
+              "price": "14.99",
+              "description": "Golden beer-battered fish with chunky chips, mushy peas, tartare sauce and a wedge of lemon — a proper British classic.",
+              "allergens": ["gluten", "fish"],
+              "vegetarian": false
+            },
+            {
+              "name": "Half Fish & Chips",
+              "price": "11.99",
+              "description": "All the flavour of our fish supper in a lighter portion — chunky chips, mushy peas, tartare sauce and lemon.",
+              "allergens": ["gluten", "fish"],
+              "vegetarian": false
+            },
+            {
+              "name": "Scampi & Chips",
+              "price": "12.99",
+              "description": "Crispy golden scampi with chunky chips, mushy peas, tartare sauce and lemon — simple, satisfying and full of flavour.",
+              "allergens": ["gluten", "crustaceans", "eggs"],
+              "vegetarian": false
+            },
+            {
+              "name": "Jumbo Sausage & Chips",
+              "price": "12.99",
+              "description": "A proper jumbo sausage with chunky chips, mushy peas and your choice of sauce — honest pub grub at its best.",
+              "allergens": ["gluten", "soya", "sulphites"],
+              "vegetarian": false
+            },
+            {
+              "name": "Bangers & Mash",
+              "price": "13.99",
+              "description": "Three sausages on creamy mash with crispy onions and rich onion gravy — a timeless pub classic.",
+              "allergens": ["gluten", "milk", "sulphites"],
+              "vegetarian": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pies",
+      "title": "Traditional British Pies",
+      "description": "Golden pastry, rich fillings and proper pub comfort. All pies are served with creamy mash and seasonal veg — swap your mash for chips if you prefer.",
+      "sections": [
+        {
+          "title": "",
+          "style": "grid",
+          "items": [
+            {
+              "name": "Beef & Ale Pie",
+              "price": "15.99",
+              "description": "Slow-cooked beef in a rich ale gravy, sealed in golden pastry — proper pub comfort on a plate.",
+              "allergens": ["celery", "gluten", "eggs", "milk"],
+              "vegetarian": false
+            },
+            {
+              "name": "Chicken & Wild Mushroom Pie",
+              "price": "14.99",
+              "description": "Tender chicken and earthy wild mushrooms in a creamy sauce, baked in flaky pastry until golden.",
+              "allergens": ["gluten", "eggs", "milk", "nuts"],
+              "vegetarian": false
+            },
+            {
+              "name": "Chicken, Ham Hock & Leek Pie",
+              "price": "14.99",
+              "description": "Chicken, slow-cooked ham hock and tender leeks in a rich creamy sauce, wrapped in crisp golden pastry.",
+              "allergens": ["gluten", "eggs", "milk", "celery"],
+              "vegetarian": false
+            },
+            {
+              "name": "Butternut Squash, Mixed Bean & Mature Cheddar Pie",
+              "price": "14.99",
+              "description": "Butternut squash, mixed beans and mature cheddar in a gently spiced tomato sauce, baked in crisp pastry.",
+              "allergens": ["gluten", "eggs", "milk"],
+              "vegetarian": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "burgers",
+      "title": "House Burgers",
+      "description": "Straightforward burgers, proper portions and easy extras. All burgers are served with chips, salad and your choice of sauce.",
+      "sections": [
+        {
+          "title": "",
+          "style": "grid",
+          "items": [
+            {
+              "name": "Classic Beef Burger",
               "price": "9.99",
-              "description": "Crispy chicken goujons in a wrap with salad & chips.",
+              "description": "A proper beef burger, simply done and easy to love — served with chips, salad and your choice of sauce.",
               "allergens": ["gluten"],
               "vegetarian": false
             },
             {
-              "name": "Fish Finger Wrap with Chips",
+              "name": "Chicken Burger",
               "price": "9.99",
-              "description": "Golden fish fingers in a soft wrap with salad & chips.",
+              "description": "Breaded chicken fillet with salad and your choice of sauce — a crowd-pleaser done properly.",
+              "allergens": ["gluten", "milk"],
+              "vegetarian": false
+            },
+            {
+              "name": "Spicy Chicken Burger",
+              "price": "9.99",
+              "description": "Crispy spicy chicken with salad and your choice of sauce — for those who like a bit of fire.",
+              "allergens": ["gluten"],
+              "vegetarian": false
+            },
+            {
+              "name": "Katsu Chicken Burger",
+              "price": "12.99",
+              "description": "Breaded chicken fillet topped with fragrant katsu curry sauce and fresh cucumber — a proper crowd favourite.",
+              "allergens": ["gluten", "milk"],
+              "vegetarian": false
+            },
+            {
+              "name": "Garden Veg Burger",
+              "price": "9.99",
+              "description": "A hearty veggie patty with salad and your choice of sauce — satisfying and full of flavour.",
+              "allergens": ["gluten", "soya"],
+              "vegetarian": true
+            }
+          ]
+        },
+        {
+          "title": "Burger Add-Ons",
+          "description": "Customise your burger.",
+          "style": "list",
+          "items": [
+            {
+              "name": "Add mature cheddar",
+              "price": "1.50",
+              "description": "",
+              "allergens": ["milk"],
+              "vegetarian": true
+            },
+            {
+              "name": "Add bacon",
+              "price": "1.50",
+              "description": "",
+              "allergens": [],
+              "vegetarian": false
+            },
+            {
+              "name": "Add hash brown",
+              "price": "1.00",
+              "description": "",
+              "allergens": ["gluten"],
+              "vegetarian": true
+            },
+            {
+              "name": "Add onion ring",
+              "price": "1.00",
+              "description": "",
+              "allergens": ["gluten"],
+              "vegetarian": true
+            },
+            {
+              "name": "Upgrade to cheesy chips",
+              "price": "1.50",
+              "description": "",
+              "allergens": ["milk"],
+              "vegetarian": true
+            },
+            {
+              "name": "Swap to sweet potato fries",
+              "price": "1.00",
+              "description": "",
+              "allergens": [],
+              "vegetarian": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "comfort-favourites",
+      "title": "Comfort Favourites",
+      "description": "Warm, satisfying dishes for when you want something hearty.",
+      "sections": [
+        {
+          "title": "",
+          "style": "grid",
+          "items": [
+            {
+              "name": "Lasagne",
+              "price": "14.99",
+              "description": "Rich beef lasagne baked until golden, served with salad and garlic bread — the kind of dish that feels like home.",
+              "allergens": ["gluten", "eggs", "milk"],
+              "vegetarian": false
+            },
+            {
+              "name": "Mac & Cheese",
+              "price": "13.99",
+              "description": "Creamy macaroni cheese topped with crispy onions, served with salad and garlic bread — pure comfort in a bowl.",
+              "allergens": ["gluten", "milk", "mustard"],
+              "vegetarian": true
+            },
+            {
+              "name": "Spinach & Ricotta Cannelloni",
+              "price": "13.99",
+              "description": "Spinach and ricotta cannelloni baked in tomato sauce, served with salad and garlic bread — warm, satisfying and homely.",
+              "allergens": ["gluten", "eggs", "milk"],
+              "vegetarian": true
+            },
+            {
+              "name": "Chicken Katsu Curry",
+              "price": "13.99",
+              "description": "Crispy breaded chicken on fluffy rice with aromatic katsu curry sauce — a pub favourite with a twist.",
+              "allergens": ["gluten", "milk", "sulphites"],
+              "vegetarian": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pizza",
+      "title": "Stone-Baked Pizza",
+      "description": "Stone-baked to order with crisp bases and generous toppings. 12-inch gluten-free bases available on request.",
+      "sections": [
+        {
+          "title": "Pizza Selection",
+          "description": "Stone-baked to order on hand-stretched bases. All 12-inch pizzas are available with a gluten-free base on request — just ask when ordering.",
+          "style": "grid",
+          "items": [
+            {
+              "name": "Rustic Classic",
+              "price": "10.49 (GF available)",
+              "description": "Rich tomato sauce, creamy mozzarella, crisp stone-baked crust — a timeless favourite. Available with gluten-free base.",
+              "allergens": ["gluten", "milk", "soya"],
+              "vegetarian": true,
+              "glutenFreeAvailable": true
+            },
+            {
+              "name": "Simply Salami",
+              "price": "12.99 (GF available)",
+              "description": "Napoli salami, tangy tomato sauce and mozzarella, stone-baked to crispy perfection. Available with gluten-free base.",
+              "allergens": ["gluten", "milk", "soya"],
+              "vegetarian": false,
+              "glutenFreeAvailable": true
+            },
+            {
+              "name": "Fully Loaded",
+              "price": "13.99 (GF available)",
+              "description": "Napoli salami, speck ham, fennel salami and mozzarella on a bold stone-baked base. Available with gluten-free base.",
+              "allergens": ["gluten", "milk", "soya"],
+              "vegetarian": false,
+              "glutenFreeAvailable": true
+            },
+            {
+              "name": "Nice & Spicy",
+              "price": "13.49 (GF available)",
+              "description": "'Nduja, Ventricina, roquito peppers and mozzarella — fiery flavours on a crisp crust. Available with gluten-free base.",
+              "allergens": ["gluten", "milk", "soya"],
+              "vegetarian": false,
+              "glutenFreeAvailable": true
+            },
+            {
+              "name": "The Garden Club",
+              "price": "12.99 (GF available)",
+              "description": "Roasted courgettes, caramelised onions, rocket and mozzarella on a rich tomato base. Available with gluten-free base.",
+              "allergens": ["gluten", "milk", "soya", "sulphites"],
+              "vegetarian": true,
+              "glutenFreeAvailable": true
+            },
+            {
+              "name": "Smoked Chilli Chicken",
+              "price": "13.49 (GF available)",
+              "description": "Smoky paprika base with chicken, mozzarella and roquito peppers for a spicy-savoury bite. Available with gluten-free base.",
+              "allergens": ["gluten", "milk", "soya"],
+              "vegetarian": false,
+              "glutenFreeAvailable": true
+            },
+            {
+              "name": "Chicken & Pesto",
+              "price": "13.49 (GF available)",
+              "description": "Tender chicken, basil pesto and melted mozzarella on a crisp stone-baked crust. Available with gluten-free base.",
+              "allergens": ["gluten", "milk", "soya"],
+              "vegetarian": false,
+              "glutenFreeAvailable": true
+            },
+            {
+              "name": "Barbecue Chicken",
+              "price": "13.99 (GF available)",
+              "description": "Sweet and smoky BBQ sauce, chicken, speck ham and mozzarella on a crunchy crust. Available with gluten-free base.",
+              "allergens": ["gluten", "milk", "soya", "sulphites"],
+              "vegetarian": false,
+              "glutenFreeAvailable": true
+            }
+          ]
+        },
+        {
+          "title": "Garlic Bread",
+          "description": "Baked in the same stone oven as our pizzas — golden and crisp on the outside with a soft, garlicky centre.",
+          "style": "grid",
+          "items": [
+            {
+              "name": "Stone-Baked Garlic Bread",
+              "price": "9.49",
+              "description": "Stone-baked bread brushed with garlic butter, warm and crispy every time.",
+              "allergens": ["gluten", "milk", "soya"],
+              "vegetarian": true
+            },
+            {
+              "name": "Garlic Bread with Mozzarella",
+              "price": "11.49",
+              "description": "Warm garlic bread crowned with melted mozzarella — a proper shareable.",
+              "allergens": ["gluten", "milk", "soya"],
+              "vegetarian": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wraps-sides",
+      "title": "Wraps, Smaller Plates & Sides",
+      "description": "Easy choices for lighter appetites, casual orders and the table.",
+      "sections": [
+        {
+          "title": "Wraps & Smaller Plates",
+          "description": "Quick, satisfying and easy to eat — great for a lighter bite or a snack alongside a drink.",
+          "style": "grid",
+          "items": [
+            {
+              "name": "Chicken Goujon Wrap",
+              "price": "9.99",
+              "description": "Crispy chicken goujons in a soft wrap with salad and chips — a proper handheld lunch.",
+              "allergens": ["gluten"],
+              "vegetarian": false
+            },
+            {
+              "name": "Fish Finger Wrap",
+              "price": "9.99",
+              "description": "Golden fish fingers in a soft wrap with salad and chips — a pub classic in a new form.",
+              "allergens": ["gluten", "fish"],
+              "vegetarian": false
+            },
+            {
+              "name": "4 Chicken Goujons & Chips",
+              "price": "8.49",
+              "description": "Crispy chicken goujons with chips and your choice of dip — great for sharing or keeping all to yourself.",
+              "allergens": ["gluten"],
+              "vegetarian": false
+            },
+            {
+              "name": "5 Salt & Chilli Squid & Chips",
+              "price": "8.49",
+              "description": "Salt and chilli squid with chips and your choice of dip — light, crispy and full of flavour.",
+              "allergens": ["gluten", "molluscs"],
+              "vegetarian": false
+            },
+            {
+              "name": "3 Fish Fingers & Chips",
+              "price": "8.49",
+              "description": "Golden fish fingers with chips and your choice of dip — a proper British favourite.",
               "allergens": ["gluten", "fish"],
               "vegetarian": false
             }
           ]
         },
         {
-          "title": "Sides & Extras",
-          "description": "The essential additions that complete any plate. From skin-on chips to golden cheesy fries and beer-battered onion rings — all cooked to order and perfect for sharing across the table.",
+          "title": "Sides",
+          "description": "The essentials — perfect for sharing or adding to any plate.",
           "style": "list",
           "items": [
             {
@@ -58,342 +405,15 @@
             {
               "name": "Sweet Potato Fries",
               "price": "4.49",
-              "description": "Lightly spiced sweet potato fries, perfect for sharing.",
+              "description": "Lightly spiced sweet potato fries — perfect alongside anything on the menu.",
               "allergens": [],
               "vegetarian": true
             },
             {
               "name": "6 Onion Rings",
               "price": "3.49",
-              "description": "Beer-battered onion rings with a satisfying crunch.",
+              "description": "Beer-battered onion rings, golden and crisp — a proper table sharer.",
               "allergens": ["gluten"],
-              "vegetarian": true
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "snack-pots",
-      "title": "Snack Pots",
-      "description": "Enjoy our snack pots with chips and your choice of dip. Perfect for a cosy snack, quick bite, or smaller appetites including children.",
-      "sections": [
-        {
-          "title": "",
-          "style": "grid",
-          "items": [
-            {
-              "name": "4 Chicken Goujons with Chips",
-              "price": "8.49",
-              "description": "Crispy chicken strips with chips and your choice of dip.",
-              "allergens": ["gluten"],
-              "vegetarian": false
-            },
-            {
-              "name": "5 Salt & Chilli Squid with Chips",
-              "price": "8.49",
-              "description": "Lightly spiced squid bites with chips and a zingy dip.",
-              "allergens": ["gluten", "molluscs"],
-              "vegetarian": false
-            },
-            {
-              "name": "3 Fish Fingers with Chips",
-              "price": "8.49",
-              "description": "Hand-cut fish fingers in breadcrumbs served with chips and lemon.",
-              "allergens": ["gluten", "fish"],
-              "vegetarian": false
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "mains",
-      "title": "Mains",
-      "description": "The backbone of The Anchor menu. Proper British pub food cooked fresh to order — from golden fish and chips to warming curries and hearty pies. Most plates arrive within fifteen minutes, with no airport price tag attached.",
-      "sections": [
-        {
-          "title": "Traditional Favourites",
-          "description": "From golden fish and chips and deep-filled pies to warming curries — this is proper British pub food, all cooked fresh to order. Most mains land at your table within fifteen minutes.",
-          "style": "grid",
-          "items": [
-            {
-              "name": "Beef & Ale Pie",
-              "price": "14.99",
-              "description": "Tender slow-cooked beef in a hearty ale gravy, wrapped in golden pastry. Served with buttery mash and seasonal vegetables.",
-              "allergens": ["celery", "gluten", "eggs", "milk"],
-              "vegetarian": false,
-              "featured": true
-            },
-            {
-              "name": "Classic British Fish & Chips",
-              "price": "14.99",
-              "description": "Beer-battered fish, crispy golden chips, mushy peas, tartar sauce, and a fresh lemon wedge for a classic taste. A half portion is also available for £11.99.",
-              "allergens": ["gluten", "fish"],
-              "vegetarian": false,
-              "featured": true
-            },
-            {
-              "name": "Lamb Shank",
-              "price": "22.99",
-              "description": "Slow-cooked lamb shank, served with smooth mash (contains dairy) or chunky chips (dairy-free option) and seasonal veg. Finished with a rich mint-infused gravy.",
-              "allergens": [],
-              "vegetarian": false,
-              "notes": "Ask for chunky chips instead of mash for dairy-free option",
-              "featured": true
-            },
-            {
-              "name": "Chicken & Wild Mushroom Pie",
-              "price": "14.99",
-              "description": "Succulent chicken and wild mushrooms in a creamy sauce, encased in flaky pastry. Served with smooth mash and fresh seasonal veg.",
-              "allergens": ["gluten", "eggs", "milk", "nuts"],
-              "vegetarian": false
-            },
-            {
-              "name": "Sausage & Mash",
-              "price": "13.99",
-              "description": "Three juicy sausages on creamy mash, topped with crispy onions and rich gravy. A comforting British classic, full of flavour.",
-              "allergens": ["gluten", "milk", "sulphites"],
-              "vegetarian": false
-            },
-            {
-              "name": "Lasagne",
-              "price": "14.99",
-              "description": "Layers of pasta, rich meat sauce, and creamy béchamel, baked until golden. Served with crisp salad and warm garlic bread.",
-              "allergens": ["gluten", "eggs", "milk"],
-              "vegetarian": false
-            },
-            {
-              "name": "Half Classic British Fish & Chips",
-              "price": "11.99",
-              "description": "Half-sized battered fish with chunky chips, mushy peas, tartar sauce, and a fresh lemon wedge—light but satisfying.",
-              "allergens": ["gluten", "fish"],
-              "vegetarian": false
-            },
-            {
-              "name": "Scampi & Chips",
-              "price": "12.99",
-              "description": "Golden, crispy scampi served with chunky chips, mushy peas, tartar sauce, and a fresh lemon wedge for balance.",
-              "allergens": ["gluten", "crustaceans", "eggs"],
-              "vegetarian": false
-            },
-            {
-              "name": "Chicken Katsu Curry",
-              "price": "13.99",
-              "description": "Crispy breaded chicken served on fluffy rice, smothered in aromatic katsu curry sauce. A fusion of British and Japanese flavours.",
-              "allergens": ["gluten", "milk", "sulphites"],
-              "vegetarian": false
-            },
-            {
-              "name": "Spinach & Ricotta Cannelloni",
-              "price": "13.99",
-              "description": "Pasta tubes filled with creamy ricotta and spinach, baked in rich tomato sauce. Served with garlic bread and crisp mixed salad.",
-              "allergens": ["gluten", "eggs", "milk"],
-              "vegetarian": true
-            },
-            {
-              "name": "Mac 'N Cheese",
-              "price": "13.99",
-              "description": "Creamy macaroni in a rich cheese sauce, topped with crispy onions. Served with garlic bread and fresh salad for extra indulgence.",
-              "allergens": ["gluten", "milk", "mustard"],
-              "vegetarian": true
-            },
-            {
-              "name": "Jumbo Sausage & Chips",
-              "price": "12.99",
-              "description": "Jumbo sausage with chunky chips, mushy peas, and your choice of sauce—perfect for a hearty, no-fuss meal.",
-              "allergens": ["gluten", "soya", "sulphites"],
-              "vegetarian": false
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "burgers",
-      "title": "Burgers",
-      "description": "Our burgers are all served with salad, chips and the sauce of your choice.",
-      "sections": [
-        {
-          "title": "Classic Burgers",
-          "description": "Hand-pressed patties stacked high and served with salad, chips and your choice of sauce. Our classic burgers are straightforward and satisfying — no gimmicks, just good ingredients cooked properly.",
-          "style": "grid",
-          "items": [
-            {
-              "name": "Beef Burger",
-              "price": "9.99",
-              "description": "Classic beef patty with all the trimmings",
-              "allergens": ["gluten", "peanuts"],
-              "vegetarian": false
-            },
-            {
-              "name": "Spicy Chicken Burger",
-              "price": "9.99",
-              "description": "Crispy coated chicken with a spicy kick",
-              "allergens": ["gluten"],
-              "vegetarian": false
-            },
-            {
-              "name": "Chicken Burger",
-              "price": "9.99",
-              "description": "Juicy grilled chicken breast",
-              "allergens": ["gluten", "milk"],
-              "vegetarian": false
-            },
-            {
-              "name": "Vegetable Burger",
-              "price": "9.99",
-              "description": "Plant-based patty packed with flavour",
-              "allergens": ["gluten", "soya"],
-              "vegetarian": true
-            }
-          ]
-        },
-        {
-          "title": "Burger Specials",
-          "description": "Our chef's signature builds, each with its own twist. From smoky BBQ stacks to crispy chicken towers, the specials come fully loaded with chips as standard. Worth the upgrade.",
-          "style": "grid",
-          "items": [
-            {
-              "name": "Katsu Chicken Burger",
-              "price": "12.99",
-              "description": "Crispy chicken fillet topped with rich katsu curry sauce, fresh cucumber, and golden chips. A bold twist!",
-              "allergens": ["gluten", "milk"],
-              "vegetarian": false
-            },
-            {
-              "name": "Beef Stack",
-              "price": "12.99",
-              "description": "Double beef patties, fresh salad, crispy onion ring, and golden chips. Customise with cheese or bacon!",
-              "allergens": ["gluten", "peanuts"],
-              "vegetarian": false
-            },
-            {
-              "name": "Spicy Chicken Stack",
-              "price": "12.99",
-              "description": "Crispy, spicy chicken with fresh salad, a crunchy hash brown, and golden chips. Add your favourite sauce!",
-              "allergens": ["gluten"],
-              "vegetarian": false
-            },
-            {
-              "name": "Chicken Stack",
-              "price": "12.99",
-              "description": "Breaded chicken fillet, crisp salad, hash brown, and golden chips. A hearty choice—perfect with sauce!",
-              "allergens": ["gluten", "milk"],
-              "vegetarian": false
-            },
-            {
-              "name": "Veggie Stack",
-              "price": "12.99",
-              "description": "A tasty veggie patty with fresh salad, a crispy onion ring, and golden chips. A satisfying meat-free treat!",
-              "allergens": ["gluten", "soya", "sulphites"],
-              "vegetarian": true
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "pizza",
-      "title": "Stone Baked Pizza",
-      "description": "Enjoy the comforting taste of our stone-baked pizzas, crafted to order with authentic Italian ingredients. All pizzas are 12 inches and can be made with a gluten-free base at no extra charge — just ask when ordering.",
-      "sections": [
-        {
-          "title": "Pizza Selection",
-          "description": "Stone-baked to order on hand-stretched bases with San Marzano tomato sauce. All 12-inch pizzas are available with a gluten-free base at no extra charge — just ask your server when ordering.",
-          "style": "grid",
-          "items": [
-            {
-              "name": "Rustic Classic",
-              "price": "10.49 (GF available)",
-              "description": "Rich tomato sauce, creamy mozzarella, crisp stone-baked crust—a timeless favourite. Available with gluten-free base.",
-              "allergens": ["gluten", "milk", "soya"],
-              "vegetarian": true,
-              "glutenFreeAvailable": true
-            },
-            {
-              "name": "Simply Salami",
-              "price": "12.99 (GF available)",
-              "description": "Napoli salami, tangy tomato sauce, mozzarella, stone-baked to crispy perfection. Available with gluten-free base.",
-              "allergens": ["gluten", "milk", "soya"],
-              "vegetarian": false,
-              "glutenFreeAvailable": true
-            },
-            {
-              "name": "Fully Loaded",
-              "price": "13.99 (GF available)",
-              "description": "Napoli salami, speck ham, fennel salami, mozzarella on a bold stone-baked base. Available with gluten-free base.",
-              "allergens": ["gluten", "milk", "soya"],
-              "vegetarian": false,
-              "glutenFreeAvailable": true
-            },
-            {
-              "name": "Nice & Spicy",
-              "price": "13.49 (GF available)",
-              "description": "'Nduja, Ventricina, roquito peppers, mozzarella—fiery flavours on a crisp crust. Available with gluten-free base.",
-              "allergens": ["gluten", "milk", "soya"],
-              "vegetarian": false,
-              "glutenFreeAvailable": true
-            },
-            {
-              "name": "The Garden Club",
-              "price": "12.99 (GF available)",
-              "description": "Roasted courgettes, caramelised onions, rocket, and mozzarella on a rich tomato base. Available with gluten-free base.",
-              "allergens": ["gluten", "milk", "soya", "sulphites"],
-              "vegetarian": true,
-              "glutenFreeAvailable": true
-            },
-            {
-              "name": "Smoked Chilli Chicken",
-              "price": "13.49 (GF available)",
-              "description": "Smoky paprika base with chicken, mozzarella, and roquito peppers for a spicy-savoury bite. Available with gluten-free base.",
-              "allergens": ["gluten", "milk", "soya"],
-              "vegetarian": false,
-              "glutenFreeAvailable": true
-            },
-            {
-              "name": "Chicken & Pesto",
-              "price": "13.49 (GF available)",
-              "description": "Tender chicken, basil pesto, and melted mozzarella on a crisp, stone-baked crust. Available with gluten-free base.",
-              "allergens": ["gluten", "milk", "soya"],
-              "vegetarian": false,
-              "glutenFreeAvailable": true
-            },
-            {
-              "name": "Barbecue Chicken",
-              "price": "13.99 (GF available)",
-              "description": "Sweet and smoky BBQ sauce, succulent chicken, speck ham, and mozzarella on a crunchy crust. Available with gluten-free base.",
-              "allergens": ["gluten", "milk", "soya", "sulphites"],
-              "vegetarian": false,
-              "glutenFreeAvailable": true
-            },
-            {
-              "name": "Speck Ham & Parmesan",
-              "price": "13.99 (GF available)",
-              "description": "Thinly sliced speck ham, shaved parmesan, and mozzarella on rich tomato sauce. Available with gluten-free base.",
-              "allergens": ["gluten", "crustaceans", "milk", "soya"],
-              "vegetarian": false,
-              "glutenFreeAvailable": true
-            }
-          ]
-        },
-        {
-          "title": "Garlic Bread",
-          "description": "Baked in the same stone oven as our pizzas — golden and crisp on the outside with a soft, garlicky centre. Add mozzarella to make it a shareable starter worth lingering over.",
-          "style": "grid",
-          "items": [
-            {
-              "name": "Garlic Bread",
-              "price": "9.49",
-              "description": "Stone-baked bread brushed with garlic butter, warm and crispy every time.",
-              "allergens": ["gluten", "milk", "soya"],
-              "vegetarian": true
-            },
-            {
-              "name": "Garlic Bread with Mozzarella",
-              "price": "11.49",
-              "description": "Warm garlic bread crowned with melted mozzarella for pure indulgence.",
-              "allergens": ["gluten", "milk", "soya"],
               "vegetarian": true
             }
           ]
@@ -402,39 +422,45 @@
     },
     {
       "id": "desserts",
-      "title": "Desserts",
-      "description": "Round off your meal with something sweet and satisfying. Our desserts are warm, generous and classic — the kind of puds that go perfectly after a Sunday roast or a plate of fish and chips.",
+      "title": "Proper Puddings",
+      "description": "Warm pub puddings and sweet favourites to finish.",
       "sections": [
         {
           "title": "",
-          "description": "A proper finish to a proper meal. Our desserts are warm, classic pub puds — generous portions and all the trimmings. Best enjoyed slowly with a coffee or a digestif from the bar.",
           "style": "grid",
           "items": [
             {
+              "name": "Sticky Toffee Pudding",
+              "price": "5.99",
+              "description": "Rich sponge in toffee sauce, served warm with custard — the pudding that earns its place every time.",
+              "allergens": ["eggs"],
+              "vegetarian": true
+            },
+            {
               "name": "Apple Crumble",
               "price": "5.99",
-              "description": "Spiced apple crumble served warm with custard or ice cream.",
+              "description": "Warm apple crumble served with custard or ice cream — a proper British pud.",
               "allergens": ["gluten"],
               "vegetarian": true
             },
             {
               "name": "Chocolate Fudge Brownie",
               "price": "5.99",
-              "description": "Gooey chocolate brownie, ideal with custard or ice cream.",
+              "description": "Warm chocolate brownie with custard or ice cream — gooey, rich and completely worth it.",
               "allergens": ["eggs", "milk", "soya"],
               "vegetarian": true
             },
             {
-              "name": "Sticky Toffee Pudding",
+              "name": "Chocolate Fudge Cake",
               "price": "5.99",
-              "description": "Rich sponge pudding in toffee sauce, perfect with custard.",
-              "allergens": ["eggs"],
+              "description": "Hot chocolate fudge cake with cream or custard — the indulgent finish your meal deserves.",
+              "allergens": ["gluten", "eggs", "milk"],
               "vegetarian": true
             },
             {
               "name": "Ice Cream Sundae",
               "price": "4.99",
-              "description": "Three scoops of ice cream with chocolate or strawberry sauce.",
+              "description": "Three scoops of ice cream with chocolate or strawberry sauce — a simple pleasure done right.",
               "allergens": ["milk"],
               "vegetarian": true
             }
@@ -445,11 +471,11 @@
     {
       "id": "hot-drinks",
       "title": "Hot Drinks",
-      "description": "A proper cup to finish your visit. Freshly pulled espressos, classic teas and indulgent hot chocolates — made properly and served without the airport price tag.",
+      "description": "A proper cup to finish your visit — made properly and served without the airport price tag.",
       "sections": [
         {
           "title": "",
-          "description": "Freshly made to order. Whether you're rounding off a meal or sitting out a layover, our hot drinks are served properly and without the airport price tag.",
+          "description": "Freshly made to order.",
           "style": "list",
           "items": [
             {
@@ -483,7 +509,7 @@
             {
               "name": "Individual Pot of Tea",
               "price": "2.20",
-              "description": "Tetley Tea, Decaffeinated, Earl gray, Green Tea, Green Tea with Lemon, Mint Fusion, Raspberry Pomegranate",
+              "description": "Tetley Tea, Decaffeinated, Earl Grey, Green Tea, Green Tea with Lemon, Mint Fusion, Raspberry & Pomegranate.",
               "allergens": [],
               "vegetarian": true
             }
