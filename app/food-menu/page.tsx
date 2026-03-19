@@ -343,7 +343,7 @@ export default async function FoodMenuPage() {
                 subtitle="Honest food, a warm welcome and a menu that brings people back week after week."
               />
               <p className="text-anchor-cream-text/70">
-                The Anchor is the kind of pub where you&apos;re welcome whether you&apos;re a regular or it&apos;s
+                The Anchor is the kind of pub where you're welcome whether you're a regular or it's
                 your first visit. Our menu is built around the classics — golden pies, beer-battered fish &amp; chips,
                 stone-baked pizzas and hearty pub favourites, all cooked fresh to order. Come in, find a seat and
                 stay a while.
@@ -419,7 +419,7 @@ export default async function FoodMenuPage() {
                 },
                 {
                   title: 'Veggie & Gluten-Friendly',
-                  description: 'Vegetarian mains, a garden veg burger, gluten-aware pizza bases and a team ready to help with any allergen question. Everyone\'s welcome at The Anchor.',
+                  description: "Vegetarian mains, a garden veg burger, gluten-aware pizza bases and a team ready to help with any allergen question. Everyone's welcome at The Anchor.",
                   className: 'text-left bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15'
                 }
               ]}
