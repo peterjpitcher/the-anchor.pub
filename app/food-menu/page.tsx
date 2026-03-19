@@ -27,23 +27,23 @@ export const revalidate = 3600 // Revalidate every hour
 const MENU_SECTION_LIST = [
   {
     position: 1,
-    name: 'Sunday Roasts',
-    url: 'https://www.the-anchor.pub/food-menu#sunday-roast'
-  },
-  {
-    position: 2,
-    name: 'Pizza Menu',
-    url: 'https://www.the-anchor.pub/food-menu#pizza'
-  },
-  {
-    position: 3,
-    name: 'Pub Classics',
+    name: 'British Pub Classics',
     url: 'https://www.the-anchor.pub/food-menu#pub-classics'
   },
   {
+    position: 2,
+    name: 'Traditional British Pies',
+    url: 'https://www.the-anchor.pub/food-menu#pies'
+  },
+  {
+    position: 3,
+    name: 'Stone-Baked Pizza',
+    url: 'https://www.the-anchor.pub/food-menu#pizza'
+  },
+  {
     position: 4,
-    name: 'Vegetarian & Gluten-Friendly',
-    url: 'https://www.the-anchor.pub/food-menu#dietary'
+    name: 'Comfort Favourites',
+    url: 'https://www.the-anchor.pub/food-menu#comfort-favourites'
   },
   {
     position: 5,
@@ -274,7 +274,7 @@ export default async function FoodMenuPage() {
       <HeroWrapper
         route="/food-menu"
         title="Book Pub Food Minutes from Heathrow"
-        description="Sunday roasts from £19.99, stone-baked pizzas and proper pub classics. Free parking, 7 mins from Heathrow — no airport prices."
+        description="Proper British pub food, cooked to order. Pies, fish & chips, stone-baked pizzas and Sunday roasts — pull up a chair and make yourself at home."
         variant="default"
         breadcrumbs={[{ name: 'Food & Drink' }]}
         tags={[
@@ -339,19 +339,19 @@ export default async function FoodMenuPage() {
           <Card className="card-dark rounded-none">
             <CardBody>
               <SectionHeader
-                title="Food Menu & Pub Food Menu for Staines & Heathrow"
-                subtitle="Traditional favourites, quick service and free parking just outside the terminals."
+                title="Proper British Pub Food at The Anchor"
+                subtitle="Honest food, a warm welcome and a menu that brings people back week after week."
               />
               <p className="text-anchor-cream-text/70">
-                Looking for a food menu or pub menu in Staines? We sit on Horton Road in Stanwell Moor,
-                just 8 minutes from Staines High Street and 7 minutes from Heathrow Terminal 5. Our pub food menu
-                covers Sunday roast and Sunday lunch, a fish & chips menu, a pizza menu, plus vegetarian menu and
-                gluten free menu options. It's proper British pub food, cooked to order.
+                The Anchor is the kind of pub where you&apos;re welcome whether you&apos;re a regular or it&apos;s
+                your first visit. Our menu is built around the classics — golden pies, beer-battered fish &amp; chips,
+                stone-baked pizzas and hearty pub favourites, all cooked fresh to order. Come in, find a seat and
+                stay a while.
               </p>
               <ul className="mt-4 space-y-2 text-anchor-cream-text/70">
-                <li>• Free parking and easy access from Staines, Ashford and Feltham.</li>
-                <li>• Sunday roasts and family-friendly seating every weekend.</li>
-                <li>• Stone-baked pizzas and pub classics served during kitchen hours.</li>
+                <li>• Proper British pub classics, cooked fresh to order every day.</li>
+                <li>• Something for everyone — meat, veggie and gluten-friendly options throughout.</li>
+                <li>• Easy to reach with free parking, a short drive from Staines and Heathrow.</li>
               </ul>
             </CardBody>
           </Card>
@@ -384,7 +384,8 @@ export default async function FoodMenuPage() {
                   title: 'Signature Sunday Roast',
                   description: (
                     <>
-                      Book by 1pm Saturday to lock in roasts with Yorkshires, crispy spuds, and rich gravy.
+                      Roasts with all the trimmings — Yorkshires, crispy spuds, rich gravy and a proper welcome.
+                      Book by 1pm Saturday to guarantee yours.
                       <Link
                         href="/sunday-lunch"
                         className="mt-2 block text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition"
@@ -399,7 +400,8 @@ export default async function FoodMenuPage() {
                   title: 'Stone-Baked Pizzas',
                   description: (
                     <>
-                      Hand-stretched dough, stone-baked, and topped to order during kitchen hours.
+                      Hand-stretched bases, stone-baked and loaded with generous toppings. Our pizzas are a firm
+                      favourite — and for good reason.
                       <Link
                         href="/food-menu#pizza"
                         className="mt-2 block text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition"
@@ -412,12 +414,12 @@ export default async function FoodMenuPage() {
                 },
                 {
                   title: 'Pub Classics, Fast',
-                  description: 'Order at the bar or from your table — mains land within 15 minutes.',
+                  description: 'From beer-battered fish & chips to golden pies and hearty burgers — proper British pub food, cooked to order and on your table in minutes.',
                   className: 'text-left bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15'
                 },
                 {
                   title: 'Veggie & Gluten-Friendly',
-                  description: 'Vegetarian menu and gluten free menu options, plus gluten-aware bases. Ask us about allergens anytime.',
+                  description: 'Vegetarian mains, a garden veg burger, gluten-aware pizza bases and a team ready to help with any allergen question. Everyone\'s welcome at The Anchor.',
                   className: 'text-left bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15'
                 }
               ]}
@@ -570,14 +572,14 @@ export default async function FoodMenuPage() {
               <CardBody>
                 <SectionHeader
                   title="Pub Classics Done Properly"
-                  subtitle="Order at the bar or from your table — mains usually land within 15 minutes."
+                  subtitle="Honest British pub food, cooked fresh to order — usually on your table within 15 minutes."
                   align="left"
                   className="mb-6"
                 />
                 <ul className="space-y-3 text-anchor-cream-text/70">
-                  <li>• Beer-battered fish &amp; chips with minted peas and tartar sauce.</li>
-                  <li>• Double-stacked burgers with thick-cut chips and optional upgrades.</li>
-                  <li>• Chicken katsu, pies, curries and hearty pub favourites served hot.</li>
+                  <li>• Beer-battered fish &amp; chips with mushy peas and tartare sauce.</li>
+                  <li>• Golden pies with rich fillings, baked in crisp pastry and served with mash.</li>
+                  <li>• Chicken katsu, lasagne, mac &amp; cheese and hearty pub favourites cooked fresh.</li>
                   <li>• Quick enough for lunch breaks or pre-flight dinners.</li>
                 </ul>
                 <div className="mt-6 max-w-xs">
@@ -615,15 +617,15 @@ export default async function FoodMenuPage() {
             <CardBody>
               <SectionHeader
                 title="Vegetarian & Gluten-Friendly Picks"
-                subtitle="Dedicated veggie mains, pizzas with gluten-aware bases, and staff ready to help with any allergen query."
+                subtitle="Dedicated veggie mains, gluten-aware pizza bases and a team always happy to help with allergen queries."
                 align="left"
                 className="mb-6"
               />
               <div className="grid gap-6 md:grid-cols-2">
                 <div>
                   <ul className="space-y-3 text-anchor-cream-text/70">
-                    <li>• Vegetable burger served with chips and house salad.</li>
-                    <li>• Garden Club pizza with grilled courgette, peppers, and balsamic glaze.</li>
+                    <li>• Garden Veg Burger served with chips and salad — a proper veggie option.</li>
+                    <li>• Garden Club pizza with roasted courgettes, caramelised onions and rocket.</li>
                     <li>• Spinach & Ricotta Cannelloni baked with tomato sauce and garlic bread.</li>
                   </ul>
                 </div>
