@@ -134,8 +134,7 @@
               "price": "11",
               "description": "Veggie stack with onion ring, salad and chips.",
               "allergens": ["gluten", "soya"],
-              "vegetarian": true,
-              "vegan": true
+              "vegetarian": true
             }
           ]
         },
@@ -170,8 +169,7 @@
               "price": "14",
               "description": "2 veggie patties, onion ring, salad and chips.",
               "allergens": ["gluten", "soya"],
-              "vegetarian": true,
-              "vegan": true
+              "vegetarian": true
             }
           ]
         },

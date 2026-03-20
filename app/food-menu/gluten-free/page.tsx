@@ -41,10 +41,12 @@ interface DietaryMenuItem {
 
 function extractGlutenFreeItems(categories: MenuCategory[]): {
   naturallyGf: DietaryMenuItem[]
-  gfAvailable: DietaryMenuItem[]
+  gfoPizzas: DietaryMenuItem[]
+  gfoOther: DietaryMenuItem[]
 } {
   const naturallyGf: DietaryMenuItem[] = []
-  const gfAvailable: DietaryMenuItem[] = []
+  const gfoPizzas: DietaryMenuItem[] = []
+  const gfoOther: DietaryMenuItem[] = []
   const seenGf = new Set<string>()
 
   for (const category of categories) {
@@ -72,19 +74,24 @@ function extractGlutenFreeItems(categories: MenuCategory[]): {
           const note = isPizza
             ? 'Available on a gluten-free base — ask at the bar'
             : 'Gluten-free option available — ask at the bar'
-          gfAvailable.push({
+          const entry: DietaryMenuItem = {
             name: item.name,
             price: item.price,
             description: item.description,
             category: category.title,
             note,
-          })
+          }
+          if (isPizza) {
+            gfoPizzas.push(entry)
+          } else {
+            gfoOther.push(entry)
+          }
         }
       }
     }
   }
 
-  return { naturallyGf, gfAvailable }
+  return { naturallyGf, gfoPizzas, gfoOther }
 }
 
 function MenuItemCard({ item, badge }: { item: DietaryMenuItem; badge: string }) {
@@ -123,16 +130,20 @@ export default async function GlutenFreeMenuPage() {
     )
   }
 
-  const { naturallyGf, gfAvailable } = extractGlutenFreeItems(menuData.categories)
+  const { naturallyGf, gfoPizzas, gfoOther } = extractGlutenFreeItems(menuData.categories)
 
   const faqItems = [
     {
       question: 'Does The Anchor have gluten-free options?',
-      answer: 'Yes, several dishes are naturally gluten-free and all our stone-baked pizzas can be made on a gluten-free base. Our sticky toffee pudding and chocolate fudge brownie are also naturally gluten-free.',
+      answer: 'Yes, several dishes are naturally gluten-free and all our stone-baked pizzas can be made on a gluten-free base. Our sticky toffee pudding and chocolate fudge brownie are also naturally gluten-free. Both garlic bread options are available on a GF base too.',
     },
     {
       question: 'Is there a gluten-free pizza base?',
       answer: 'Yes, all our stone-baked pizzas are available on a 12-inch gluten-free base at no extra charge. Just ask at the bar when ordering.',
+    },
+    {
+      question: 'Is the garlic bread available gluten-free?',
+      answer: 'Yes, both our Garlic Bread and Garlic Bread with Mozzarella are available on a gluten-free base at no extra charge. Just ask at the bar when ordering.',
     },
     {
       question: 'Are the puddings gluten-free?',
@@ -144,7 +155,7 @@ export default async function GlutenFreeMenuPage() {
     },
     {
       question: 'Do you charge extra for gluten-free?',
-      answer: 'No, gluten-free pizza bases are the same price as our standard bases. There is no surcharge for any gluten-free option.',
+      answer: 'No, gluten-free pizza bases and garlic bread bases are the same price as our standard bases. There is no surcharge for any gluten-free option.',
     },
   ]
 
@@ -198,25 +209,12 @@ export default async function GlutenFreeMenuPage() {
                 subtitle="Proper options, not afterthoughts."
               />
               <p className="text-anchor-cream-text/70">
-                The Anchor offers several naturally gluten-free dishes plus gluten-free options available on request.
-                Our stone-baked pizzas can all be made on a gluten-free base, and two of our puddings &mdash; sticky
-                toffee pudding and chocolate fudge brownie &mdash; are naturally gluten-free. Just ask at the bar
-                when ordering.
-              </p>
-            </CardBody>
-          </Card>
-        </Container>
-      </Section>
-
-      {/* Editorial content */}
-      <Section background="white" spacing="sm" className="bg-anchor-bg border-b border-anchor-gold/15">
-        <Container>
-          <Card className="card-dark rounded-none">
-            <CardBody>
-              <p className="text-anchor-cream-text/70">
-                Eating out with coeliac disease or gluten sensitivity near Heathrow can be frustrating. Most pubs
-                can offer you a jacket potato and not much else. We&rsquo;ve made sure there are proper options
-                here &mdash; from full-size stone-baked pizzas on gluten-free bases to naturally GF puddings.
+                Eating out with coeliac disease or gluten sensitivity near Heathrow can be a challenge &mdash; most
+                pubs can offer you a jacket potato and not much else. At The Anchor, we&rsquo;ve made sure there are
+                proper options. All our stone-baked pizzas can be made on a gluten-free base at no extra charge, our
+                garlic bread comes in a GF version, and two of our puddings are naturally gluten-free. It&rsquo;s not
+                a separate menu bolted on as an afterthought &mdash; these are dishes from our main menu that happen
+                to work for GF diners.
               </p>
             </CardBody>
           </Card>
@@ -242,19 +240,34 @@ export default async function GlutenFreeMenuPage() {
         </Container>
       </Section>
 
-      {/* Gluten-Free Option Available items */}
-      {gfAvailable.length > 0 && (
-        <Section background="white" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15">
+      {/* Editorial after GF items */}
+      <Section background="white" spacing="sm" className="bg-anchor-bg border-b border-anchor-gold/15">
+        <Container>
+          <Card className="card-dark rounded-none max-w-3xl mx-auto">
+            <CardBody>
+              <p className="text-anchor-cream-text/70">
+                Our sticky toffee pudding and chocolate fudge brownie are both naturally gluten-free &mdash; not
+                GF substitutes, but the actual puddings from our main menu. The sweet potato fries are another
+                safe bet, and they go well alongside pretty much anything.
+              </p>
+            </CardBody>
+          </Card>
+        </Container>
+      </Section>
+
+      {/* GFO Pizza items */}
+      {gfoPizzas.length > 0 && (
+        <Section background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
           <Container>
             <SectionHeader
-              title="Gluten-Free Option Available (GFO)"
-              subtitle="These dishes can be made gluten-free on request — just ask at the bar."
+              title="Pizzas on Gluten-Free Bases (GFO)"
+              subtitle="All our stone-baked pizzas can be made on a GF base — just ask at the bar."
               align="center"
               className="mb-8"
             />
             <Card className="card-dark rounded-none max-w-3xl mx-auto">
               <CardBody>
-                {gfAvailable.map((item, index) => (
+                {gfoPizzas.map((item, index) => (
                   <MenuItemCard key={index} item={item} badge="GFO" />
                 ))}
               </CardBody>
@@ -263,10 +276,10 @@ export default async function GlutenFreeMenuPage() {
         </Section>
       )}
 
-      {/* GF pizza bases editorial */}
-      <Section background="white" spacing="sm" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+      {/* Editorial after GFO pizza section */}
+      <Section background="white" spacing="sm" className="bg-anchor-bg border-b border-anchor-gold/15">
         <Container>
-          <Card className="card-dark rounded-none">
+          <Card className="card-dark rounded-none max-w-3xl mx-auto">
             <CardBody>
               <SectionHeader
                 title="About Our Gluten-Free Bases"
@@ -275,14 +288,91 @@ export default async function GlutenFreeMenuPage() {
                 className="mb-4"
               />
               <p className="text-anchor-cream-text/70">
-                All our stone-baked pizzas can be made on a 12-inch gluten-free base at no extra charge. The
-                toppings and sauces remain the same &mdash; just the base changes. Our gluten-free pizza bases are
-                proper 12-inch stone-baked bases, not the sad little pre-made ones you get elsewhere. Same size,
-                same oven, same toppings &mdash; just a different base.
+                Our gluten-free pizza bases are proper 12-inch stone-baked bases, not the sad little pre-made
+                rounds you get at most places. Same size as our regular bases, same oven, same toppings &mdash;
+                just a different base. All eight of our pizzas and both garlic bread options are available on
+                GF bases at no extra charge.
               </p>
-              <p className="text-anchor-cream-text/70 mt-3">
-                Please note that our pizzas are prepared in the same kitchen, so we cannot guarantee zero
-                cross-contamination.
+            </CardBody>
+          </Card>
+        </Container>
+      </Section>
+
+      {/* GFO Other items */}
+      {gfoOther.length > 0 && (
+        <Section background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+          <Container>
+            <SectionHeader
+              title="Other Gluten-Free Options (GFO)"
+              subtitle="These dishes can be made gluten-free on request — just ask at the bar."
+              align="center"
+              className="mb-8"
+            />
+            <Card className="card-dark rounded-none max-w-3xl mx-auto">
+              <CardBody>
+                {gfoOther.map((item, index) => (
+                  <MenuItemCard key={index} item={item} badge="GFO" />
+                ))}
+              </CardBody>
+            </Card>
+          </Container>
+        </Section>
+      )}
+
+      {/* Editorial after GFO other items */}
+      <Section background="white" spacing="sm" className="bg-anchor-bg border-b border-anchor-gold/15">
+        <Container>
+          <Card className="card-dark rounded-none max-w-3xl mx-auto">
+            <CardBody>
+              <p className="text-anchor-cream-text/70">
+                The Ice Cream Sundae is a good GF dessert option too &mdash; three scoops with chocolate or
+                strawberry sauce. Just let us know about any allergies when you order.
+              </p>
+            </CardBody>
+          </Card>
+        </Container>
+      </Section>
+
+      {/* What to tell us when ordering */}
+      <Section background="white" spacing="sm" className="bg-anchor-bg-card border-b border-anchor-gold/15">
+        <Container>
+          <Card className="card-dark rounded-none max-w-3xl mx-auto">
+            <CardBody>
+              <SectionHeader
+                title="What to Tell Us When Ordering"
+                subtitle="A quick word at the bar is all it takes."
+                align="left"
+                className="mb-4"
+              />
+              <p className="text-anchor-cream-text/70">
+                When you arrive, let the bar staff know you need gluten-free options. They&rsquo;ll talk you
+                through what&rsquo;s available and flag your order to the kitchen. Our dishes are prepared in
+                one kitchen, so we can&rsquo;t guarantee zero cross-contamination &mdash; but we take allergies
+                seriously and will do our best to accommodate you.
+              </p>
+            </CardBody>
+          </Card>
+        </Container>
+      </Section>
+
+      {/* Beyond the menu */}
+      <Section background="white" spacing="sm" className="bg-anchor-bg border-b border-anchor-gold/15">
+        <Container>
+          <Card className="card-dark rounded-none max-w-3xl mx-auto">
+            <CardBody>
+              <SectionHeader
+                title="Beyond the Menu"
+                subtitle="Call ahead if you'd like to check what's available."
+                align="left"
+                className="mb-4"
+              />
+              <p className="text-anchor-cream-text/70">
+                If you&rsquo;re visiting with a group and worried about options, give us a ring on{' '}
+                <a href="tel:+441753682707" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition">
+                  01753 682707
+                </a>{' '}
+                before you come. We can talk through the menu and let you know what&rsquo;s available that day.
+                We&rsquo;d rather you called ahead and had a great meal than turned up and felt limited.
               </p>
             </CardBody>
           </Card>
@@ -353,6 +443,13 @@ export default async function GlutenFreeMenuPage() {
               className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition"
             >
               Vegan Menu
+            </Link>
+            <span className="text-anchor-cream-text/30">|</span>
+            <Link
+              href="/book-table"
+              className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition"
+            >
+              Book a Table
             </Link>
           </div>
         </Container>

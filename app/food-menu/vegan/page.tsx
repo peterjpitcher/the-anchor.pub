@@ -15,15 +15,15 @@ export const revalidate = 3600
 
 export const metadata: Metadata = {
   title: 'Vegan Menu | Pub Food Near Heathrow',
-  description: 'Vegan pub food near Heathrow Airport. Stone-baked pizzas, veggie burgers, sides and puddings — all vegan or made vegan on request. Free parking, 7 mins from T5.',
+  description: 'Vegan pub food near Heathrow Airport. Stone-baked garlic bread, chips, sweet potato fries, onion rings and pizzas that can be made vegan. Free parking, 7 mins from T5.',
   openGraph: {
     title: 'Vegan Menu | Pub Food Near Heathrow',
-    description: 'Vegan pub food near Heathrow Airport. Stone-baked pizzas, veggie burgers, sides and puddings — all vegan or made vegan on request.',
+    description: 'Vegan pub food near Heathrow Airport. Stone-baked garlic bread, chips, sweet potato fries, onion rings and pizzas that can be made vegan on request.',
     images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg'],
   },
   twitter: getTwitterMetadata({
     title: 'Vegan Menu | Pub Food Near Heathrow',
-    description: 'Vegan pub food near Heathrow. Garden Veg Burger, stone-baked pizzas, chips, sweet potato fries and more — all vegan or made vegan on request.',
+    description: 'Vegan pub food near Heathrow. Stone-baked garlic bread, chips, sweet potato fries, onion rings and pizzas that can be made vegan on request.',
     images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg'],
   }),
   alternates: {
@@ -127,7 +127,7 @@ export default async function VeganMenuPage() {
   const faqItems = [
     {
       question: 'Does The Anchor have vegan food?',
-      answer: 'Yes, several dishes are fully vegan and more can be made vegan on request. Our Garden Veg Burger, Garden Stack, garlic bread, chips, sweet potato fries and onion rings are all vegan.',
+      answer: 'Yes. Our garlic bread, chips, chunky chips, sweet potato fries and onion rings are all fully vegan. Two of our stone-baked pizzas can also be made vegan by removing the mozzarella.',
     },
     {
       question: 'Can pizzas be made vegan?',
@@ -139,11 +139,15 @@ export default async function VeganMenuPage() {
     },
     {
       question: 'Is the garlic bread vegan?',
-      answer: "Yes, our stone-baked garlic bread is vegan — we don\u2019t use butter.",
+      answer: "Yes, our stone-baked garlic bread is vegan \u2014 we don\u2019t use butter. It\u2019s been accidentally vegan since day one.",
     },
     {
       question: 'Is there a vegan Sunday roast?',
       answer: 'Currently our Sunday roast options include a vegetarian butternut squash wellington but it contains dairy. Ask about seasonal vegan options when you visit.',
+    },
+    {
+      question: 'Are the burgers vegan?',
+      answer: 'No. Our Garden Veg Burger and Garden Stack are vegetarian but not vegan. If you\u2019re looking for a vegan main, the stone-baked pizzas without mozzarella are your best option.',
     },
   ]
 
@@ -160,16 +164,16 @@ export default async function VeganMenuPage() {
       <HeroWrapper
         route="/food-menu/vegan"
         title="Vegan Menu"
-        description="Proper vegan pub food near Heathrow — from stone-baked pizzas and veggie burgers to chips, sweet potato fries and more."
+        description="Genuine vegan options at a traditional pub near Heathrow — garlic bread, chips, sides and stone-baked pizzas made vegan on request."
         variant="default"
         breadcrumbs={[
           { name: 'Food & Drink', href: '/food-menu' },
           { name: 'Vegan' },
         ]}
         tags={[
-          { label: 'Vegan burgers', variant: 'default' },
-          { label: 'Stone-baked pizzas', variant: 'default' },
+          { label: 'Stone-baked garlic bread', variant: 'default' },
           { label: 'Vegan sides', variant: 'default' },
+          { label: 'Pizzas (VEO)', variant: 'default' },
         ]}
         ctaContainerClassName="gap-4 sm:items-center"
         ctaContainerProps={{ 'data-sticky-cta-guard': 'true' }}
@@ -187,36 +191,21 @@ export default async function VeganMenuPage() {
         }
       />
 
-      {/* Definitive answer paragraph */}
+      {/* Honest opening paragraph */}
       <Section background="white" spacing="sm" className="bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <Card className="card-dark rounded-none">
             <CardBody>
               <SectionHeader
                 title="Vegan Pub Food at The Anchor"
-                subtitle="More than you might expect from a traditional British pub."
+                subtitle="Honest about what we offer."
               />
               <p className="text-anchor-cream-text/70">
-                The Anchor offers a growing selection of vegan dishes and vegan-friendly options across our menu.
-                From our Garden Veg Burger and stone-baked garlic bread to chips, sweet potato fries and onion rings,
-                there&rsquo;s more here than you might expect from a traditional British pub. Several more dishes can
-                be made vegan on request &mdash; just ask at the bar.
-              </p>
-            </CardBody>
-          </Card>
-        </Container>
-      </Section>
-
-      {/* Editorial content */}
-      <Section background="white" spacing="sm" className="bg-anchor-bg border-b border-anchor-gold/15">
-        <Container>
-          <Card className="card-dark rounded-none">
-            <CardBody>
-              <p className="text-anchor-cream-text/70">
-                Finding decent vegan pub food near Heathrow isn&rsquo;t easy. Most airport-area pubs offer a token
-                veggie burger and not much else. We&rsquo;ve made a proper effort &mdash; our Garden Veg Burger and
-                Garden Stack are both fully vegan, and we&rsquo;ve kept our garlic bread dairy-free so everyone can
-                enjoy it.
+                We&rsquo;ll be straight with you &mdash; we&rsquo;re a traditional British pub, not a vegan restaurant.
+                But we do have proper vegan options, and more dishes that can be made vegan on request. Our stone-baked
+                garlic bread is naturally vegan (no butter), our chips and sweet potato fries are vegan, and two of our
+                pizzas can be made vegan by removing the mozzarella. It&rsquo;s not a huge list, but everything on it
+                is genuinely good.
               </p>
             </CardBody>
           </Card>
@@ -242,9 +231,24 @@ export default async function VeganMenuPage() {
         </Container>
       </Section>
 
+      {/* Garlic bread editorial */}
+      <Section background="white" spacing="sm" className="bg-anchor-bg border-b border-anchor-gold/15">
+        <Container>
+          <Card className="card-dark rounded-none">
+            <CardBody>
+              <p className="text-anchor-cream-text/70">
+                Our garlic bread deserves a special mention &mdash; it&rsquo;s stone-baked without butter, which means
+                it&rsquo;s been accidentally vegan since day one. At &pound;10, it&rsquo;s a proper starter or side
+                that everyone at the table can share.
+              </p>
+            </CardBody>
+          </Card>
+        </Container>
+      </Section>
+
       {/* Can Be Made Vegan items */}
       {veganOption.length > 0 && (
-        <Section background="white" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15">
+        <Section background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
           <Container>
             <SectionHeader
               title="Can Be Made Vegan (VEO)"
@@ -264,7 +268,7 @@ export default async function VeganMenuPage() {
       )}
 
       {/* Pizza editorial */}
-      <Section background="white" spacing="sm" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <Section background="white" spacing="sm" className="bg-anchor-bg border-b border-anchor-gold/15">
         <Container>
           <Card className="card-dark rounded-none">
             <CardBody>
@@ -275,9 +279,29 @@ export default async function VeganMenuPage() {
                 className="mb-4"
               />
               <p className="text-anchor-cream-text/70">
-                Our stone-baked pizzas are a great vegan option. The bases are made fresh without dairy, and the
-                tomato sauce is naturally vegan. Just ask for no mozzarella and you&rsquo;ve got a proper pizza,
-                not a sad substitute.
+                The Rustic Classic and Garden Club pizzas both work brilliantly without mozzarella. The stone-baked
+                bases are naturally vegan, and the tomato sauce is made without dairy. Just ask for no mozzarella
+                when you order &mdash; the kitchen knows what to do.
+              </p>
+            </CardBody>
+          </Card>
+        </Container>
+      </Section>
+
+      {/* Sides editorial */}
+      <Section background="white" spacing="sm" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+        <Container>
+          <Card className="card-dark rounded-none">
+            <CardBody>
+              <SectionHeader
+                title="Build a Vegan Meal from Sides"
+                align="left"
+                className="mb-4"
+              />
+              <p className="text-anchor-cream-text/70">
+                Our chips, chunky chips, sweet potato fries and onion rings are all vegan. So even if you&rsquo;re not
+                ordering a main, you can put together a solid vegan meal from the sides &mdash; a garlic bread, some
+                chips and onion rings makes a proper pub snack.
               </p>
             </CardBody>
           </Card>
@@ -297,6 +321,26 @@ export default async function VeganMenuPage() {
               <p className="text-anchor-cream-text/70">
                 To make a VEO item vegan, simply ask at the bar when ordering. For pizzas, we remove the mozzarella.
                 All our stone-baked bases, tomato sauce and vegetable toppings are already vegan.
+              </p>
+            </CardBody>
+          </Card>
+        </Container>
+      </Section>
+
+      {/* We're working on it */}
+      <Section background="white" spacing="sm" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+        <Container>
+          <Card className="card-dark rounded-none">
+            <CardBody>
+              <SectionHeader
+                title="We&rsquo;re Working on It"
+                align="left"
+                className="mb-4"
+              />
+              <p className="text-anchor-cream-text/70">
+                We know our vegan selection isn&rsquo;t huge yet. We&rsquo;re a village pub that&rsquo;s been around
+                since 1751, and we&rsquo;re gradually expanding our plant-based options. If you&rsquo;d like to see
+                something specific on the menu, tell us &mdash; we listen to what our customers want.
               </p>
             </CardBody>
           </Card>
@@ -367,6 +411,13 @@ export default async function VeganMenuPage() {
               className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition"
             >
               Gluten-Free Menu
+            </Link>
+            <span className="text-anchor-cream-text/30">|</span>
+            <Link
+              href="/book-table"
+              className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition"
+            >
+              Book a Table
             </Link>
           </div>
         </Container>

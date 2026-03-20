@@ -55,9 +55,11 @@ function filterVegetarianMenu(menuData: MenuData): MenuData {
 
 /** Editorial copy to insert between specific menu categories */
 const EDITORIAL_COPY: Record<string, string> = {
-  pies: 'Our butternut squash, mixed bean and mature cheddar pie is the vegetarian star of the classics section \u2014 the same golden pastry and rich filling as our meat pies.',
-  pizza: 'Every pizza on our menu can be ordered vegetarian. The Rustic Classic and Garden Club are vegetarian as standard, and both can be made vegan by removing the mozzarella.',
-  desserts: 'Four of our five puddings are vegetarian, including our sticky toffee pudding and chocolate fudge brownie \u2014 both gluten-free too.',
+  pies: 'Our butternut squash, mixed bean and mature cheddar pie is the vegetarian star of the classics \u2014 same golden pastry and rich filling as our meat pies, just without the meat. It\u2019s the dish vegetarian regulars keep coming back for.',
+  burgers: 'The Garden Veg Burger is a proper burger, not a token afterthought. Served with onion ring, salad and chips for \u00A311 \u2014 or go for the Garden Stack at \u00A314 if you\u2019re properly hungry. Upgrade to sweet potato fries or cheesy chips for a couple of quid more.',
+  'comfort-favourites': 'Mac and cheese with crispy onions and garlic bread is the kind of comfort food that makes you forget you\u2019re eating vegetarian. Our spinach and ricotta cannelloni is another favourite \u2014 baked in tomato sauce and served with salad.',
+  pizza: 'Every pizza on our menu can be ordered vegetarian. The Rustic Classic and Garden Club are vegetarian as standard \u2014 and both can be made vegan by removing the mozzarella. Gluten-free bases available on all pizzas too.',
+  desserts: 'Four of our five puddings are vegetarian, and two \u2014 sticky toffee pudding and chocolate fudge brownie \u2014 are naturally gluten-free as well. Save room.',
 }
 
 export default async function VegetarianMenuPage() {
@@ -232,14 +234,16 @@ export default async function VegetarianMenuPage() {
                 subtitle="Meat-free dishes we are genuinely proud of."
               />
               <p className="text-anchor-cream-text/70">
+                Whether you&rsquo;re a committed vegetarian or just fancy a meat-free meal,
                 The Anchor serves over {totalVegetarianItems} vegetarian dishes across our full menu &mdash;
-                from butternut squash and mature cheddar pie to stone-baked pizzas, mac &amp; cheese,
-                and proper puddings. These aren&rsquo;t afterthoughts bolted onto a meat menu;
-                they&rsquo;re dishes we&rsquo;re genuinely proud of.
+                from a proper butternut squash pie to stone-baked pizzas, creamy mac and cheese,
+                and indulgent puddings. We&rsquo;re just 7 minutes from Heathrow Terminal 5
+                with 20 free parking spaces, so there&rsquo;s no excuse not to pop in.
               </p>
               <ul className="mt-4 space-y-2 text-anchor-cream-text/70">
                 <li>&bull; Vegetarian pies, burgers, pasta and pizzas &mdash; all cooked fresh to order.</li>
-                <li>&bull; Vegan options available, including the Garden Veg Burger and Garden Stack.</li>
+                <li>&bull; Garden Veg Burger and Garden Stack &mdash; proper vegetarian burgers, not token afterthoughts.</li>
+                <li>&bull; Stone-baked pizzas with gluten-free bases available.</li>
                 <li>&bull; Free parking, 7 minutes from Heathrow, dog and family friendly.</li>
               </ul>
             </CardBody>
@@ -380,6 +384,45 @@ export default async function VegetarianMenuPage() {
         </Container>
       </Section>
 
+      {/* Why choose The Anchor */}
+      <Section background="white" spacing="md" className="bg-anchor-bg-card border-b border-anchor-gold/15">
+        <Container>
+          <Card className="card-dark rounded-none">
+            <CardBody>
+              <SectionHeader
+                title="Why Choose The Anchor for Vegetarian Food?"
+                subtitle="More than a token veggie option."
+                align="left"
+                className="mb-6"
+              />
+              <ul className="space-y-3 text-anchor-cream-text/70">
+                <li>&bull; Over {totalVegetarianItems} vegetarian dishes &mdash; not just one token option on a meat menu.</li>
+                <li>&bull; Proper portions at pub prices, with mains from &pound;11.</li>
+                <li>&bull; Stone-baked pizzas can be made vegan on request &mdash; just ask for no mozzarella.</li>
+                <li>&bull; Gluten-free pizza bases available on every pizza.</li>
+                <li>&bull; 7 minutes from Heathrow Terminal 5, with 20 free parking spaces.</li>
+                <li>&bull; Dog-friendly &mdash; bring the dog, eat veggie, enjoy your afternoon.</li>
+              </ul>
+              <p className="mt-6">
+                <Link
+                  href="/book-table"
+                  className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition"
+                >
+                  Book a table
+                </Link>
+                {' '}or call us on{' '}
+                <a
+                  href="tel:+441753682707"
+                  className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition"
+                >
+                  01753 682707
+                </a>.
+              </p>
+            </CardBody>
+          </Card>
+        </Container>
+      </Section>
+
       {/* FAQ Section */}
       <FAQAccordionWithSchema faqs={faqItems} className="bg-anchor-bg-card" />
 
@@ -412,6 +455,12 @@ export default async function VegetarianMenuPage() {
                 className="inline-flex items-center px-4 py-2 rounded-full border border-anchor-gold/30 text-anchor-cream-text/80 hover:bg-anchor-gold/10 hover:text-anchor-cream-text transition text-sm font-medium"
               >
                 Sunday Lunch
+              </Link>
+              <Link
+                href="/book-table"
+                className="inline-flex items-center px-4 py-2 rounded-full border border-anchor-gold/30 text-anchor-cream-text/80 hover:bg-anchor-gold/10 hover:text-anchor-cream-text transition text-sm font-medium"
+              >
+                Book a Table
               </Link>
             </div>
           </div>
