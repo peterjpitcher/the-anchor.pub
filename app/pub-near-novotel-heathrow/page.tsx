@@ -26,10 +26,6 @@ export const metadata: Metadata = {
     description: '15 minutes from Novotel London Heathrow. British pub with home-cooked food, real ales & free parking.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
-  robots: {
-    index: false,
-    follow: true,
-  },
   alternates: {
     canonical: '/pub-near-novotel-heathrow'
   }
@@ -223,6 +219,31 @@ export default function PubNearNovotelHeathrowPage() {
               className="mt-6"
               content={<p>Come for dinner the evening before. We open from 4pm on weekdays and noon at weekends.</p>}
             />
+          </div>
+        </Container>
+      </section>
+
+      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+        <Container>
+          <div className="max-w-4xl mx-auto">
+            <SectionHeader
+              title="A Proper Family Night Out Near Heathrow"
+              subtitle="Novotel is one of the most popular family hotels near Heathrow, and we completely understand why. But when the kids are bored of the hotel and everyone&rsquo;s hungry, The Anchor is exactly where you want to be."
+            />
+            <div className="prose prose-invert max-w-none space-y-4 text-anchor-cream-text/70">
+              <p>
+                Getting here from Novotel on Cherry Lane is easy. A taxi takes about 12 minutes and costs approximately &pound;12&ndash;15. Pop the postcode TW19 6AQ into Uber or Bolt and you&rsquo;ll be door-to-door with no fuss.
+              </p>
+              <p>
+                Novotel is popular with families, and so are we. There&rsquo;s a children&rsquo;s menu available, high chairs for the little ones, and our beer garden has plenty of space for kids to run around while you finish your drink. Dogs are welcome too &mdash; if you&rsquo;ve brought your pet along for the trip, they&rsquo;re part of the family as far as we&rsquo;re concerned.
+              </p>
+              <p>
+                On the value side: Novotel restaurant mains typically cost &pound;14&ndash;20. The Anchor&rsquo;s mains run &pound;10&ndash;17, and our stone-baked pizzas start from &pound;11. Here&rsquo;s the real win for families &mdash; on Tuesdays and Wednesdays we run a buy-one-get-one-free deal on all pizzas. That means a family of four can eat for under &pound;30. Try getting that at any hotel restaurant near Heathrow.
+              </p>
+              <p>
+                What Novotel guests discover when they visit is that we&rsquo;re nothing like the generic airport pub they were expecting. The Anchor is a genuine village local that happens to sit under the Heathrow flight path. The beer garden with planes passing overhead every 90 seconds is the highlight &mdash; especially with kids, who find it endlessly entertaining. Adults tend to enjoy it too, pint in hand, watching the evening departures while the sun goes down. It&rsquo;s one of those unexpectedly brilliant experiences you only find by leaving the hotel.
+              </p>
+            </div>
           </div>
         </Container>
       </section>

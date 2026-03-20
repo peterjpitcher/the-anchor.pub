@@ -29,10 +29,6 @@ export const metadata: Metadata = {
         description: 'Looking for a change from the local? We are just 5 minutes from Wraysbury with great food and entertainment.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
-    robots: {
-        index: false,
-        follow: true,
-    },
     alternates: {
         canonical: '/wraysbury-pub'
     }
@@ -241,6 +237,31 @@ export default async function WraysburyPubPage() {
                             >
                                 Get Directions from Wraysbury (5 mins)
                             </DirectionsButton>
+                        </div>
+                    </div>
+                </Container>
+            </section>
+
+            {/* Local Knowledge Section */}
+            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+                <Container>
+                    <div className="max-w-4xl mx-auto">
+                        <SectionHeader
+                            title="Your Local Beyond the Village"
+                        />
+                        <div className="prose prose-invert max-w-none space-y-4 text-anchor-cream-text/80">
+                            <p>
+                                Wraysbury is a lovely village, but let&rsquo;s be honest &mdash; the pub options are limited. When you fancy a change of scene without a major expedition, The Anchor is right there. Head along the B376 through Hythe End, past the sailing club, and keep going on Horton Road. You&rsquo;ll cross the M25 bridge and we&rsquo;re immediately on your left. Five minutes, tops. If you&rsquo;re coming from the other end of the village near the station, you can also cut across via the M25 at Junction 13 &mdash; it&rsquo;s just as quick.
+                            </p>
+                            <p>
+                                We think of ourselves as Wraysbury&rsquo;s second local. Plenty of your neighbours are already regulars here &mdash; some walk over on sunny evenings along Horton Road, others drive across after a day at the reservoir. If you&rsquo;re into the Wraysbury reservoir walks or you&rsquo;ve been birdwatching around the gravel pits, we&rsquo;re the natural finishing point: a cold pint, a stone-baked pizza, and a seat in the garden watching the planes come in low overhead.
+                            </p>
+                            <p>
+                                The Wraysbury Dive Centre crowd know us well too. After a few hours in cold water, there&rsquo;s nothing better than warming up with a proper meal in a proper pub. We&rsquo;re dog-friendly throughout, so if the Labrador came along for the reservoir walk, bring them in &mdash; water bowls are always out.
+                            </p>
+                            <p>
+                                Non-drivers aren&rsquo;t left out either. Wraysbury station is on the Windsor &amp; Eton line, and a taxi from there to us is barely five pounds. A few of our regulars do exactly that on quiz nights &mdash; taxi over, have a couple of drinks, taxi home. Easy.
+                            </p>
                         </div>
                     </div>
                 </Container>

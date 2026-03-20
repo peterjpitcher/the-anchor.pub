@@ -26,10 +26,6 @@ export const metadata: Metadata = {
     description: '12 minutes from Holiday Inn Heathrow. Family-friendly British pub with home-cooked food, real ales & free parking.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
-  robots: {
-    index: false,
-    follow: true,
-  },
   alternates: {
     canonical: '/pub-near-holiday-inn-heathrow'
   }
@@ -220,6 +216,31 @@ export default function PubNearHolidayInnHeathrowPage() {
               className="mt-6"
               content={<p>Our beer garden is perfect for families. Weekends from noon, weekdays from 4pm. Book ahead for Sunday roast.</p>}
             />
+          </div>
+        </Container>
+      </section>
+
+      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+        <Container>
+          <div className="max-w-4xl mx-auto">
+            <SectionHeader
+              title="Why Holiday Inn Guests Keep Coming Back"
+              subtitle="Holiday Inn sits on Bath Road, right in the thick of the Heathrow hotel strip. It&rsquo;s convenient for catching a flight &mdash; but when it comes to dinner, you deserve better than room service."
+            />
+            <div className="prose prose-invert max-w-none space-y-4 text-anchor-cream-text/70">
+              <p>
+                Getting here is straightforward. A taxi from Holiday Inn on Bath Road takes around 12&ndash;15 minutes and costs approximately &pound;12&ndash;15. The 423 bus runs along Bath Road but it&rsquo;s not practical for an evening out &mdash; Uber or Bolt are the easiest option. Just type in &ldquo;The Anchor, Stanwell Moor, TW19 6AQ&rdquo; and you&rsquo;re on your way.
+              </p>
+              <p>
+                Here&rsquo;s the bit that matters: Holiday Inn restaurant mains typically run &pound;16&ndash;22, plus a 12.5% service charge on top. At The Anchor, mains are &pound;10&ndash;17 with no service charge. For a couple dining out, that&rsquo;s roughly &pound;15&ndash;20 saved &mdash; enough to cover your taxi one way. Add a couple of pints of proper cask ale instead of hotel-price lager and the difference is even starker.
+              </p>
+              <p>
+                What Holiday Inn guests tell us they love most is how different it feels. No laminated menus, no reheated food, no identikit hotel bar atmosphere. Just a proper village pub with real ale on the hand pumps, food cooked from scratch, and a beer garden that comes alive in summer. It&rsquo;s the kind of place you&rsquo;d actually choose to spend an evening, not just default to because you&rsquo;re tired from travelling.
+              </p>
+              <p>
+                <strong>A practical tip:</strong> if you&rsquo;re visiting on a Friday or Saturday evening, book a table &mdash; we get busy. Tuesday and Wednesday evenings are quieter, and you&rsquo;ll get our BOGOF deal on stone-baked pizzas. Two pizzas from &pound;11 total is hard to argue with after a long day of travel.
+              </p>
+            </div>
           </div>
         </Container>
       </section>

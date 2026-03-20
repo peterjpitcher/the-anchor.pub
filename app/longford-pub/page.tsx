@@ -29,10 +29,6 @@ export const metadata: Metadata = {
         description: 'Escape the hotel prices! Authentic British pub food and drinks just minutes from Longford.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
-    robots: {
-        index: false,
-        follow: true,
-    },
     alternates: {
         canonical: '/longford-pub'
     }
@@ -234,6 +230,31 @@ export default async function LongfordPubPage() {
                             >
                                 Get Directions from Longford
                             </DirectionsButton>
+                        </div>
+                    </div>
+                </Container>
+            </section>
+
+            {/* Local Knowledge Section */}
+            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+                <Container>
+                    <div className="max-w-4xl mx-auto">
+                        <SectionHeader
+                            title="Longford Neighbours &mdash; You Know the Planes, Now Enjoy Them with a Pint"
+                        />
+                        <div className="prose prose-invert max-w-none space-y-4 text-anchor-cream-text/80">
+                            <p>
+                                If you live in Longford, you don&rsquo;t need anyone to explain the Heathrow flight path to you &mdash; it&rsquo;s the soundtrack to your life. We&rsquo;re on the same flight path over here in Stanwell Moor, so we understand completely. The difference is, we&rsquo;ve turned it into a feature. Our beer garden is one of the best plane-spotting spots in the area, and there&rsquo;s something oddly relaxing about watching an A380 glide overhead while you nurse a cold pint.
+                            </p>
+                            <p>
+                                Getting here from Longford takes about five minutes. The simplest route is along the Colnbrook bypass &mdash; pick up the A3044 heading south and turn onto Horton Road into Stanwell Moor. If you&rsquo;re coming from the Bath Road end near the hotels, it&rsquo;s barely any further. You can also walk along the Longford River path if you fancy stretching your legs &mdash; it&rsquo;s a pleasant stroll through proper countryside, and you end up practically on our doorstep.
+                            </p>
+                            <p>
+                                Longford&rsquo;s lost a lot of its village character over the years with all the hotel development along Bath Road, and Colnbrook High Street isn&rsquo;t what it was either. That&rsquo;s why a few Longford and Colnbrook residents have adopted The Anchor as their regular. We&rsquo;re a proper village pub with real character &mdash; not a hotel bar, not a chain, just an honest local where you can get a decent meal, a well-kept pint, and a genuine welcome.
+                            </p>
+                            <p>
+                                Whether you&rsquo;re a Longford resident looking for a local with some life to it, a hotel worker finishing a shift, or a traveller who&rsquo;s had enough of overpriced airport grub, we&rsquo;re right next door. Come and see what a real pub looks like.
+                            </p>
                         </div>
                     </div>
                 </Container>

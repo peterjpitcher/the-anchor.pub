@@ -26,10 +26,6 @@ export const metadata: Metadata = {
     description: '12 minutes from Radisson Blu Heathrow. British pub with home-cooked food, real ales & free parking.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
-  robots: {
-    index: false,
-    follow: true,
-  },
   alternates: {
     canonical: '/pub-near-radisson-blu-heathrow'
   }
@@ -218,6 +214,31 @@ export default function PubNearRadissonBluHeathrowPage() {
               className="mt-6"
               content={<p>Book a table in advance for weekend visits, especially for Sunday roast. We open from 4pm weekdays and noon at weekends.</p>}
             />
+          </div>
+        </Container>
+      </section>
+
+      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+        <Container>
+          <div className="max-w-4xl mx-auto">
+            <SectionHeader
+              title="The Business Traveller&rsquo;s Local"
+              subtitle="The Radisson Blu sits near Terminal 4, which puts you closer to us than most Heathrow hotels. A short taxi ride and you&rsquo;re in a completely different world."
+            />
+            <div className="prose prose-invert max-w-none space-y-4 text-anchor-cream-text/70">
+              <p>
+                From the Radisson Blu, a taxi takes about 15 minutes via the Southern Perimeter Road and costs approximately &pound;15&ndash;18. If you prefer public transport, the 490 bus runs toward Staines and you can get off on Stanwell Moor Road &mdash; it&rsquo;s a short walk from there. But honestly, for an evening out, Uber is the simplest option.
+              </p>
+              <p>
+                We know business travellers need speed and efficiency. Our kitchen opens at 6pm on weekdays &mdash; you can be sitting down with a pint by 6:10, eating by 6:15, and back at the hotel by 8pm if you need to be. We provide full itemised VAT receipts for expenses, and there&rsquo;s free WiFi throughout if you need to catch up on emails between courses.
+              </p>
+              <p>
+                Let&rsquo;s talk money. Radisson Blu restaurant mains typically run &pound;20&ndash;30. At The Anchor, the same quality British classics &mdash; fish and chips, steaks, pies, burgers &mdash; cost &pound;10&ndash;17. The money you save comfortably pays for your taxi both ways. Order a proper cask ale instead of a hotel-price pint and you&rsquo;re ahead on every line of the receipt.
+              </p>
+              <p>
+                What Radisson guests consistently tell us is that the contrast is what makes it worthwhile. You leave a polished, corporate hotel and walk into a 270-year-old village pub with low ceilings, proper beer, and locals at the bar. No background music playlist curated by a brand agency &mdash; just conversation, good food, and the occasional plane overhead. It&rsquo;s exactly the kind of evening you can&rsquo;t get from a hotel restaurant, no matter how good the hotel is.
+              </p>
+            </div>
           </div>
         </Container>
       </section>

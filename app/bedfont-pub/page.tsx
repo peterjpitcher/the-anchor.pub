@@ -26,10 +26,6 @@ export const metadata: Metadata = {
     description: 'Just 5 minutes from Bedfont with free parking and great food.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
-  robots: {
-    index: false,
-    follow: true,
-  },
   alternates: {
     canonical: '/bedfont-pub'
   }
@@ -334,6 +330,31 @@ export default function BedfontPubPage() {
                   <p className="text-anchor-cream-text/70">Music Bingo with Nikki Manfadge (see /whats-on)</p>
                 </div>
               </div>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* Local Knowledge Section */}
+      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+        <Container>
+          <div className="max-w-4xl mx-auto">
+            <SectionHeader
+              title="Bedfont&rsquo;s Proper Local &mdash; Just Round the Corner"
+            />
+            <div className="prose prose-invert max-w-none space-y-4 text-anchor-cream-text/80">
+              <p>
+                If you live in Bedfont, you already know the area&rsquo;s a bit short on proper pubs. The choices are mostly chains in Feltham or a trek into Staines. The Anchor changes that equation completely &mdash; we&rsquo;re about eight minutes away, and the drive couldn&rsquo;t be simpler. From Bedfont Lane, head down the A30 or cut through on Staines Road, turn onto Horton Road, and you&rsquo;re here. Close enough for a weekday evening pint without it feeling like a mission.
+              </p>
+              <p>
+                Bedfont Lakes Country Park is one of the area&rsquo;s hidden gems, and we&rsquo;ve become the unofficial post-walk pub for plenty of dog walkers and families who spend their mornings around the lakes. The routine is perfect: a couple of hours exploring the trails and the lakes, then a short drive over to The Anchor for lunch in the beer garden. Dogs are welcome throughout, and we always have water bowls ready.
+              </p>
+              <p>
+                The industrial estate and business park workers along the Bedfont and Feltham corridor have cottoned on to us as well. If you work at Bedfont Lakes Business Park, DHL, or any of the units along Bedfont Road, we&rsquo;re your closest proper pub for a Friday evening wind-down or a team celebration. Seven minutes from the business park, free parking, and prices that won&rsquo;t eat into your weekend budget.
+              </p>
+              <p>
+                We&rsquo;re genuinely close enough to be your regular. Tuesday pizza nights, the monthly quiz, Music Bingo with Nikki Manfadge &mdash; plenty of Bedfont residents are already part of the furniture. You might as well join them.
+              </p>
             </div>
           </div>
         </Container>

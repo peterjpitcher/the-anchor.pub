@@ -25,10 +25,6 @@ export const metadata: Metadata = {
     description: 'Traditional village pub 12 minutes from Egham with free parking, Sunday roast and stone-baked pizzas.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
-  robots: {
-    index: false,
-    follow: true,
-  },
   alternates: {
     canonical: '/egham-pub'
   }
@@ -367,6 +363,31 @@ export default function EghamPubPage() {
                 <p className="font-semibold mb-2">Taxi Services</p>
                 <p className="text-anchor-cream-text/70">We can arrange taxis back to Egham/Royal Holloway</p>
               </div>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* Local Knowledge Section */}
+      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+        <Container>
+          <div className="max-w-4xl mx-auto">
+            <SectionHeader
+              title="From Egham to The Anchor &mdash; Worth Every Mile"
+            />
+            <div className="prose prose-invert max-w-none space-y-4 text-anchor-cream-text/80">
+              <p>
+                Egham&rsquo;s got a few decent pubs on the High Street, but anyone who&rsquo;s lived there long enough knows they can get a bit samey. The Anchor offers something different: a genuine village pub with character, about 15 minutes down the A30 through Staines. Take the A30 east from Egham, follow it through the Causeway past the Two Rivers retail park, then pick up the A308 Staines bypass. From there it&rsquo;s a quick turn onto the A3044 and then Horton Road &mdash; straight to our car park. If you prefer the motorway, the M25 from Junction 13 works just as well.
+              </p>
+              <p>
+                Royal Holloway students have been finding their way to us for years. When you&rsquo;ve had enough of the campus bar or the Egham high street circuit, a short taxi ride gets you to a proper pub with real character. We&rsquo;re popular for society socials, end-of-term celebrations, and those post-graduation family lunches where you actually want somewhere that isn&rsquo;t rammed. Parents seem to love the free parking and the beer garden &mdash; especially if graduation falls on a sunny day.
+              </p>
+              <p>
+                Then there&rsquo;s the Runnymede crowd. If you&rsquo;ve spent the afternoon at the JFK Memorial or walking the meadows, you&rsquo;re barely ten minutes from us. The Air Forces Memorial on Cooper&rsquo;s Hill is another popular starting point &mdash; visitors often tell us they stumbled across The Anchor while looking for somewhere to eat afterwards, and now it&rsquo;s become part of the routine. A reflective walk followed by a quiet pint in the garden feels about right.
+              </p>
+              <p>
+                We&rsquo;re dog-friendly throughout, we&rsquo;ve got 20 free parking spaces, and the stone-baked pizzas are a genuine draw for Egham residents who are tired of the usual takeaway options. Give us a try on a Tuesday for BOGOF pizzas &mdash; you won&rsquo;t look back.
+              </p>
             </div>
           </div>
         </Container>
