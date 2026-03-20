@@ -18,6 +18,7 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { generateKitchenHoursSpecification, generateNutritionInfo, generateSuitableForDiet } from '@/lib/schema-utils'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
+import { DietaryMenuNav } from '@/components/food/DietaryMenuNav'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import type { KitchenStatusData } from '@/components/psychology'
 
@@ -365,25 +366,7 @@ export default async function FoodMenuPage() {
             align="center"
             className="mb-10"
           />
-          <div className="flex flex-wrap justify-center gap-3 mb-6">
-            <Link href="/food-menu/vegetarian" className="inline-flex items-center gap-1.5 px-4 py-2 bg-emerald-400/10 border border-emerald-400/30 rounded-lg text-emerald-400 hover:bg-emerald-400/20 transition-colors text-sm font-medium">
-              <span className="text-xs font-bold">V</span> Vegetarian Menu
-            </Link>
-            <Link href="/food-menu/vegan" className="inline-flex items-center gap-1.5 px-4 py-2 bg-emerald-400/10 border border-emerald-400/30 rounded-lg text-emerald-400 hover:bg-emerald-400/20 transition-colors text-sm font-medium">
-              <span className="text-xs font-bold">VE</span> Vegan Menu
-            </Link>
-            <Link href="/food-menu/gluten-free" className="inline-flex items-center gap-1.5 px-4 py-2 bg-anchor-green/10 border border-anchor-green/30 rounded-lg text-anchor-green hover:bg-anchor-green/20 transition-colors text-sm font-medium">
-              <span className="text-xs font-bold">GF</span> Gluten-Free Menu
-            </Link>
-            <a
-              href="/downloads/the-anchor-menu-march-2026.pdf"
-              download
-              className="inline-flex items-center gap-2 px-4 py-2 bg-anchor-gold/10 border border-anchor-gold/30 rounded-lg text-anchor-gold hover:bg-anchor-gold/20 transition-colors text-sm font-medium"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Download Menu (PDF)
-            </a>
-          </div>
+          <DietaryMenuNav />
           <FilteredMenuRenderer menuData={menuDataWithKitchenHours} />
         </Container>
       </div>

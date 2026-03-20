@@ -10,6 +10,7 @@ import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { parseMenuMarkdown, type MenuCategory } from '@/lib/menu-parser'
+import { DietaryMenuNav } from '@/components/food/DietaryMenuNav'
 
 export const revalidate = 3600
 
@@ -218,6 +219,13 @@ export default async function GlutenFreeMenuPage() {
               </p>
             </CardBody>
           </Card>
+        </Container>
+      </Section>
+
+      {/* Dietary menu navigation */}
+      <Section background="white" spacing="sm" className="bg-anchor-bg">
+        <Container>
+          <DietaryMenuNav />
         </Container>
       </Section>
 

@@ -13,6 +13,7 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { MenuRenderer } from '@/components/MenuRenderer'
+import { DietaryMenuNav } from '@/components/food/DietaryMenuNav'
 
 export const revalidate = 3600
 
@@ -248,6 +249,13 @@ export default async function VegetarianMenuPage() {
               </ul>
             </CardBody>
           </Card>
+        </Container>
+      </Section>
+
+      {/* Dietary menu navigation */}
+      <Section background="white" spacing="sm" className="bg-anchor-bg">
+        <Container>
+          <DietaryMenuNav />
         </Container>
       </Section>
 
