@@ -26,6 +26,10 @@ export const metadata: Metadata = {
     description: '12 minutes from Radisson Blu Heathrow. British pub with home-cooked food, real ales & free parking.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
+  robots: {
+    index: false,
+    follow: true,
+  },
   alternates: {
     canonical: '/pub-near-radisson-blu-heathrow'
   }

@@ -25,6 +25,10 @@ export const metadata: Metadata = {
     description: 'Traditional village pub 12 minutes from Egham with free parking, Sunday roast and stone-baked pizzas.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
+  robots: {
+    index: false,
+    follow: true,
+  },
   alternates: {
     canonical: '/egham-pub'
   }

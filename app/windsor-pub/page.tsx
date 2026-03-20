@@ -27,6 +27,10 @@ export const metadata: Metadata = {
     description: '15 minutes from Windsor with free parking, Sunday roast, stone-baked pizzas and countryside atmosphere.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
+  robots: {
+    index: false,
+    follow: true,
+  },
   alternates: {
     canonical: '/windsor-pub'
   }

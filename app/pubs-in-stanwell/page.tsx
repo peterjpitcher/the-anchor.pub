@@ -25,6 +25,10 @@ export const metadata: Metadata = {
     description: 'Traditional village pub serving Stanwell Moor since 1995. Great food, beer garden, free parking.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
+  robots: {
+    index: false,
+    follow: true,
+  },
   alternates: {
     canonical: '/pubs-in-stanwell'
   }

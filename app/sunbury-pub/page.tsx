@@ -29,6 +29,10 @@ export const metadata: Metadata = {
         description: 'Worth the short drive from Sunbury for the best Sunday Roast in the area. Free parking and great value.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
+    robots: {
+        index: false,
+        follow: true,
+    },
     alternates: {
         canonical: '/sunbury-pub'
     }

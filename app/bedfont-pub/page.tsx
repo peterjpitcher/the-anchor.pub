@@ -26,6 +26,10 @@ export const metadata: Metadata = {
     description: 'Just 5 minutes from Bedfont with free parking and great food.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
+  robots: {
+    index: false,
+    follow: true,
+  },
   alternates: {
     canonical: '/bedfont-pub'
   }

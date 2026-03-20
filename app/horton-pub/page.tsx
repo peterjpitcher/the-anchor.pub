@@ -29,6 +29,10 @@ export const metadata: Metadata = {
         description: 'Your local village pub, just a 2-minute drive from Horton. Authentic British food, real ales, and a warm welcome.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
+    robots: {
+        index: false,
+        follow: true,
+    },
     alternates: {
         canonical: '/horton-pub'
     }

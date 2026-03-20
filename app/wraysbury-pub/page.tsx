@@ -29,6 +29,10 @@ export const metadata: Metadata = {
         description: 'Looking for a change from the local? We are just 5 minutes from Wraysbury with great food and entertainment.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
+    robots: {
+        index: false,
+        follow: true,
+    },
     alternates: {
         canonical: '/wraysbury-pub'
     }

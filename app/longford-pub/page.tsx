@@ -29,6 +29,10 @@ export const metadata: Metadata = {
         description: 'Escape the hotel prices! Authentic British pub food and drinks just minutes from Longford.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
+    robots: {
+        index: false,
+        follow: true,
+    },
     alternates: {
         canonical: '/longford-pub'
     }

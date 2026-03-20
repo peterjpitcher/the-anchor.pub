@@ -26,6 +26,10 @@ export const metadata: Metadata = {
     description: '12 minutes from Holiday Inn Heathrow. Family-friendly British pub with home-cooked food, real ales & free parking.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
+  robots: {
+    index: false,
+    follow: true,
+  },
   alternates: {
     canonical: '/pub-near-holiday-inn-heathrow'
   }

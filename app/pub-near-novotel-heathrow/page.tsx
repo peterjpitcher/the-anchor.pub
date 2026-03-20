@@ -26,6 +26,10 @@ export const metadata: Metadata = {
     description: '15 minutes from Novotel London Heathrow. British pub with home-cooked food, real ales & free parking.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
+  robots: {
+    index: false,
+    follow: true,
+  },
   alternates: {
     canonical: '/pub-near-novotel-heathrow'
   }
