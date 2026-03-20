@@ -15,7 +15,6 @@ import { parseMenuMarkdown } from '@/lib/menu-parser'
 import { getBusinessHours, isKitchenOpen, type BusinessHours } from '@/lib/api'
 import { formatTime12Hour } from '@/lib/time-utils'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
-import { specialAnnouncementSchema } from '@/lib/schema'
 import { generateKitchenHoursSpecification, generateNutritionInfo, generateSuitableForDiet } from '@/lib/schema-utils'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
@@ -794,7 +793,6 @@ export default async function FoodMenuPage() {
                 url: section.url
               }))
             },
-            specialAnnouncementSchema,
             fridayFishOfferSchema
           ])
         }}

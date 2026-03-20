@@ -15,7 +15,8 @@ export const organizationSchema = {
   "logo": "https://www.the-anchor.pub/images/the-anchor-pub-logo-black-transparent.png",
   "sameAs": [
     "https://www.facebook.com/theanchorpubsm/",
-    "https://www.instagram.com/theanchor.pub/"
+    "https://www.instagram.com/theanchor.pub/",
+    "https://whatpub.com/pubs/SRY/14044/anchor-stanwell-moor"
   ],
   "address": {
     "@type": "PostalAddress",
@@ -152,29 +153,6 @@ export const localBusinessSchema = {
       "longitude": -0.502067
     },
     "geoRadius": "16000"
-  }
-}
-
-// Special Announcement for Monday Closure
-export const specialAnnouncementSchema = {
-  "@context": "https://schema.org",
-  "@type": "SpecialAnnouncement",
-  "@id": "https://www.the-anchor.pub/#monday-closure",
-  "name": "Monday Closure",
-  "text": "The Anchor is closed every Monday. Kitchen is also closed on Mondays.",
-  "datePosted": "2024-01-01",
-  "expires": "2026-12-31",
-  "announcementLocation": {
-    "@id": "https://www.the-anchor.pub/#business"
-  },
-  "spatialCoverage": {
-    "@type": "Place",
-    "name": "The Anchor",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Stanwell Moor",
-      "addressRegion": "Surrey"
-    }
   }
 }
 

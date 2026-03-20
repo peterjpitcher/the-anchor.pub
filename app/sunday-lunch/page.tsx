@@ -449,6 +449,14 @@ export default async function SundayLunchPage() {
         }
       />
 
+      <section className="bg-anchor-bg-raised border-b border-anchor-gold/15 py-8">
+        <Container>
+          <p className="text-center text-lg text-anchor-cream-text/70 max-w-4xl mx-auto">
+            Sunday roast at The Anchor costs from &pound;19.99 per person and must be pre-ordered by 1pm on Saturday, with a &pound;10 per person deposit required. Choose from chicken, lamb shank, pork belly or butternut squash wellington, all served with Yorkshire pudding and seasonal vegetables.
+          </p>
+        </Container>
+      </section>
+
       <section id="preorder" className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">

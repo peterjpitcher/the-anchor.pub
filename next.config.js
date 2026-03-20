@@ -54,6 +54,10 @@ const nextConfig = {
         key: 'X-DNS-Prefetch-Control',
         value: 'on',
       },
+      {
+        key: 'Strict-Transport-Security',
+        value: 'max-age=63072000; includeSubDomains; preload',
+      },
       // NOTE: No Content-Security-Policy header is set here.
       // A restrictive CSP blocks Next.js App Router inline hydration scripts,
       // GTM, and other required third-party resources, breaking the entire site.
@@ -118,7 +122,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
+            value: 'public, max-age=86400',
           },
         ],
       },
@@ -233,7 +237,7 @@ const nextConfig = {
   productionBrowserSourceMaps: false,
   swcMinify: true,
   compiler: {
-    // removeConsole: process.env.NODE_ENV === 'production', // Temporarily disabled for debugging
+    removeConsole: process.env.NODE_ENV === 'production' ? { exclude: ['error', 'warn'] } : false,
     // Remove unnecessary React properties
     reactRemoveProperties: process.env.NODE_ENV === 'production',
   },

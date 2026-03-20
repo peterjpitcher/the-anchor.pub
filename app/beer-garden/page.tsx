@@ -228,6 +228,9 @@ export default async function BeerGardenPage() {
           >
             Beer Garden - Outdoor Dining & Plane Spotting
           </PageTitle>
+          <p className="text-center text-lg text-anchor-cream-text/70 mt-4 max-w-4xl mx-auto">
+            The Anchor&apos;s beer garden sits directly under Heathrow&apos;s southern runway flight path, with aircraft passing overhead approximately every 90 seconds during peak hours. The 64-seat garden features heated areas, covered seating, and is fully dog-friendly with water bowls provided.
+          </p>
         </Container>
       </section>
 

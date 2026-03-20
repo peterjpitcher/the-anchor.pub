@@ -87,6 +87,18 @@ const getEnhancedSchemasCached = unstable_cache(
       "currenciesAccepted": "GBP",
       "menu": "https://www.the-anchor.pub/food-menu",
       "smokingAllowed": false,
+      "containedInPlace": {
+        "@type": "AdministrativeArea",
+        "name": "Stanwell Moor",
+        "containedInPlace": {
+          "@type": "AdministrativeArea",
+          "name": "Surrey",
+          "containedInPlace": {
+            "@type": "Country",
+            "name": "United Kingdom"
+          }
+        }
+      },
       "potentialAction": {
         "@type": "ReserveAction",
         "target": {

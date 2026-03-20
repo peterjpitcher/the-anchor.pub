@@ -110,9 +110,8 @@ export default function NearHeathrowPage() {
           >
             The Anchor - Pub Near Heathrow Airport
           </PageTitle>
-          <p className="mt-4 text-center text-anchor-cream-text/70">
-            Searching for a Heathrow pub or Heathrow bar? The Anchor is the closest village pub to Terminal 5,
-            serving proper British food, drinks, and a beer garden just minutes from the airport.
+          <p className="mt-4 text-center text-lg text-anchor-cream-text/70 max-w-4xl mx-auto">
+            The Anchor is the closest traditional pub to Heathrow Airport &mdash; just 7 minutes by car from Terminal 5, 11 minutes from Terminals 2 and 3, and 12 minutes from Terminal 4. Free parking for 20 cars is available with no time limit while dining.
           </p>
         </Container>
       </section>
