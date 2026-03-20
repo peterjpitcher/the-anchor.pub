@@ -451,63 +451,26 @@ export default async function FoodMenuPage() {
         </Container>
       </Section>
 
+      {/* Sunday Lunch — brief summary card linking to dedicated /sunday-lunch page */}
       <Section background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15" id="sunday-roast">
         <Container>
-          <div className="grid gap-6 lg:grid-cols-[1.5fr_1fr] items-start">
-            <Card className="card-dark rounded-none">
-              <CardBody>
-                <SectionHeader
-                  title="Sunday Roast and Sunday Lunch Near Heathrow"
-                  subtitle="Book by 1pm Saturday to secure your favourite roast and all the trimmings."
-                  align="left"
-                  className="mb-6"
-                />
-	                <ul className="space-y-3 text-anchor-cream-text/70">
-	                  <li>• Beef, chicken, lamb and vegetarian roasts with lashings of gravy.</li>
-	                  <li>• Pre-order by 1pm Saturday so we can cook everything fresh to order.</li>
-	                  <li>• Sunday lunch bookings require a £10 per person deposit.</li>
-	                  <li>• Kids portions, high chairs and activity packs on request.</li>
-	                </ul>
-                <div className="mt-6 flex flex-col sm:flex-row gap-3">
-                  <BookTableButton
-                    source='food_menu_roast_preorder'
-                    context='sunday_roast'
-                    variant='primary'
-                    size='lg'
-                    className='sm:w-auto'
-                    trackingLabel='Pre-Order Roast'
-                  >
-                    Pre-Order Roast
-                  </BookTableButton>
-                  <MenuSectionCta
-                    label="View Roast Menu"
-                    href="/sunday-lunch"
-                    analyticsLabel="view_roast_menu"
-                    location="food_menu_roast_section"
-                    variant="outline"
-                    fullWidth
-                    className="sm:w-auto sm:min-w-0"
-                  />
-                </div>
-              </CardBody>
-            </Card>
-            <Card className="card-dark rounded-none">
-              <CardBody>
-                <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-3">Sunday Serving Notes</h3>
-	                <ul className="space-y-2 text-sm text-anchor-cream-text/70">
-	                  <li>
-	                    <strong>Service:</strong>{' '}
-	                    {sundayKitchenHours
-	                      ? `${sundayKitchenHours} every Sunday.`
-	                      : 'Sunday kitchen hours are updated live on this page.'}
-	                  </li>
-	                  <li><strong>Sunday lunch:</strong> bookings require a £10 per person deposit.</li>
-	                  <li><strong>Gluten-aware:</strong> Alternative gravy available — just ask.</li>
-	                  <li><strong>Extras:</strong> Extra Yorkies or seasonal sides when available.</li>
-	                </ul>
-              </CardBody>
-            </Card>
-          </div>
+          <Card className="card-dark rounded-none border border-anchor-gold/20">
+            <CardBody className="text-center py-8">
+              <h2 className="text-2xl font-bold text-anchor-cream-text mb-3">Sunday Roast</h2>
+              <p className="text-anchor-cream-text/70 mb-4 max-w-lg mx-auto">
+                Traditional Sunday roast from &pound;19.99 &mdash; chicken, lamb, pork belly or vegetarian.
+                Pre-order by Saturday 1pm.
+              </p>
+              <MenuSectionCta
+                label="View Sunday Lunch Menu & Book"
+                href="/sunday-lunch"
+                analyticsLabel="view_roast_menu"
+                location="food_menu_roast_summary"
+                variant="primary"
+                className="sm:w-auto sm:min-w-0 inline-flex"
+              />
+            </CardBody>
+          </Card>
         </Container>
       </Section>
 

@@ -12,6 +12,7 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
+import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 import { TrustBar, ValueProofStrip, RegretReduction } from '@/components/psychology'
 
 export const metadata: Metadata = {
@@ -474,6 +475,15 @@ export default function CorporateEventsPage() {
       </div>
 
       <PrivateBookingSection eventType="Corporate Event" />
+
+      <InternalLinkingSection
+        title="Also Explore"
+        links={[
+          { href: '/private-hire', title: 'Private Hire & Events', description: 'Wakes, christenings, weddings, parties and more' },
+          { href: '/function-room-hire', title: 'Function Room Hire', description: 'Flexible spaces with layout options for any occasion' },
+        ]}
+        className="section-spacing-md"
+      />
 
       {/* FAQ Section */}
       <FAQAccordionWithSchema

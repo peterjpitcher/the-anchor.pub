@@ -9,6 +9,7 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
+import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 
 export const metadata: Metadata = {
     title: 'Private Hire Venue Near Heathrow | The Anchor Stanwell Moor',
@@ -274,6 +275,15 @@ export default function PrivateHirePage() {
                     />
                 </Container>
             </section>
+
+            <InternalLinkingSection
+                title="Also Explore"
+                links={[
+                    { href: '/function-room-hire', title: 'Function Room Hire', description: 'Flexible spaces for 10-200 guests with AV support' },
+                    { href: '/corporate-events', title: 'Corporate Events', description: 'Professional meeting rooms and business event packages' },
+                ]}
+                className="section-spacing-md"
+            />
 
             <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
                 <Container>
