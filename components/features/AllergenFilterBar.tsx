@@ -9,8 +9,12 @@ import { trackAllergenFilterToggle, trackClearAllFilters } from '@/lib/gtm-event
 interface AllergenFilterBarProps {
   selectedAllergens: Set<AllergenType>
   showVegetarianOnly: boolean
+  showVeganOnly: boolean
+  showGlutenFreeOnly: boolean
   onToggleAllergen: (allergen: AllergenType) => void
   onToggleVegetarian: () => void
+  onToggleVegan: () => void
+  onToggleGlutenFree: () => void
   onClearAll: () => void
   activeFilterCount: number
   isOpen: boolean
@@ -22,8 +26,12 @@ interface AllergenFilterBarProps {
 export function AllergenFilterBar({
   selectedAllergens,
   showVegetarianOnly,
+  showVeganOnly,
+  showGlutenFreeOnly,
   onToggleAllergen,
   onToggleVegetarian,
+  onToggleVegan,
+  onToggleGlutenFree,
   onClearAll,
   activeFilterCount,
   isOpen,
@@ -110,30 +118,77 @@ export function AllergenFilterBar({
 
         {/* Panel body */}
         <div className="flex-1 overflow-y-auto px-5 py-5 space-y-6">
-          {/* Vegetarian toggle */}
+          {/* Dietary toggles */}
           <div>
             <p className="text-xs font-semibold uppercase tracking-widest text-anchor-gold/60 mb-3">Diet</p>
-            <button
-              type="button"
-              aria-pressed={showVegetarianOnly}
-              onClick={() => {
-                trackAllergenFilterToggle(
-                  'vegetarian',
-                  'vegetarian_only',
-                  !showVegetarianOnly,
-                  showVegetarianOnly ? activeFilterCount - 1 : activeFilterCount + 1
-                )
-                onToggleVegetarian()
-              }}
-              className={cn(
-                'w-full flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-anchor-gold',
-                showVegetarianOnly
-                  ? 'bg-emerald-600 text-white shadow'
-                  : 'bg-anchor-bg-raised text-anchor-cream-text/70 hover:bg-anchor-bg-card hover:text-anchor-cream-text'
-              )}
-            >
-              <span>Vegetarian only</span>
-            </button>
+            <div className="space-y-2">
+              <button
+                type="button"
+                aria-pressed={showVegetarianOnly}
+                onClick={() => {
+                  trackAllergenFilterToggle(
+                    'vegetarian',
+                    'vegetarian_only',
+                    !showVegetarianOnly,
+                    showVegetarianOnly ? activeFilterCount - 1 : activeFilterCount + 1
+                  )
+                  onToggleVegetarian()
+                }}
+                className={cn(
+                  'w-full flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-anchor-gold',
+                  showVegetarianOnly
+                    ? 'bg-emerald-600 text-white shadow'
+                    : 'bg-anchor-bg-raised text-anchor-cream-text/70 hover:bg-anchor-bg-card hover:text-anchor-cream-text'
+                )}
+              >
+                <span>Vegetarian</span>
+                <span className="ml-auto text-xs opacity-70">(V)</span>
+              </button>
+              <button
+                type="button"
+                aria-pressed={showVeganOnly}
+                onClick={() => {
+                  trackAllergenFilterToggle(
+                    'vegan',
+                    'vegan_only',
+                    !showVeganOnly,
+                    showVeganOnly ? activeFilterCount - 1 : activeFilterCount + 1
+                  )
+                  onToggleVegan()
+                }}
+                className={cn(
+                  'w-full flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-anchor-gold',
+                  showVeganOnly
+                    ? 'bg-emerald-600 text-white shadow'
+                    : 'bg-anchor-bg-raised text-anchor-cream-text/70 hover:bg-anchor-bg-card hover:text-anchor-cream-text'
+                )}
+              >
+                <span>Vegan</span>
+                <span className="ml-auto text-xs opacity-70">(VE)</span>
+              </button>
+              <button
+                type="button"
+                aria-pressed={showGlutenFreeOnly}
+                onClick={() => {
+                  trackAllergenFilterToggle(
+                    'gluten_free',
+                    'gluten_free_only',
+                    !showGlutenFreeOnly,
+                    showGlutenFreeOnly ? activeFilterCount - 1 : activeFilterCount + 1
+                  )
+                  onToggleGlutenFree()
+                }}
+                className={cn(
+                  'w-full flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-anchor-gold',
+                  showGlutenFreeOnly
+                    ? 'bg-emerald-600 text-white shadow'
+                    : 'bg-anchor-bg-raised text-anchor-cream-text/70 hover:bg-anchor-bg-card hover:text-anchor-cream-text'
+                )}
+              >
+                <span>Gluten-Free</span>
+                <span className="ml-auto text-xs opacity-70">(GF)</span>
+              </button>
+            </div>
           </div>
 
           {/* Allergen hide buttons */}

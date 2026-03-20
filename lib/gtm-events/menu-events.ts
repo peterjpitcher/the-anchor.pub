@@ -6,7 +6,7 @@ interface AllergenFilterEvent {
   event: 'allergen_filter_toggled'
   event_category: 'Menu'
   event_label: string
-  filter_type: 'allergen' | 'vegetarian'
+  filter_type: 'allergen' | 'vegetarian' | 'vegan' | 'gluten_free'
   filter_name: string
   filter_action: 'enabled' | 'disabled'
   active_filter_count: number
@@ -33,7 +33,7 @@ interface FilterResultEvent {
 }
 
 export function trackAllergenFilterToggle(
-  filterType: 'allergen' | 'vegetarian',
+  filterType: 'allergen' | 'vegetarian' | 'vegan' | 'gluten_free',
   filterName: string,
   enabled: boolean,
   activeFilterCount: number,

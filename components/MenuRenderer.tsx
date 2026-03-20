@@ -315,7 +315,7 @@ const MenuItemRow = memo(function MenuItemRow({ item, itemId, isFocused, onFocus
       role="listitem"
       data-menu-item
       data-item-id={itemId}
-      aria-label={`${item.name}${priceLabel}${item.vegetarian ? ', vegetarian' : ''}`}
+      aria-label={`${item.name}${priceLabel}${item.vegan ? ', vegan' : item.vegetarian ? ', vegetarian' : ''}${item.glutenFree ? ', gluten-free' : ''}`}
       tabIndex={0}
       onFocus={() => onFocus(itemId)}
     >
@@ -329,10 +329,19 @@ const MenuItemRow = memo(function MenuItemRow({ item, itemId, isFocused, onFocus
             Guest favourite
           </span>
         )}
-        {item.vegetarian && (
+        {item.vegan && (
+          <span className="text-[11px] font-bold text-emerald-400 bg-emerald-400/10 px-1.5 py-0.5 rounded leading-none ml-1.5">VE</span>
+        )}
+        {item.vegetarian && !item.vegan && (
           <span className="text-[11px] font-bold text-emerald-400 bg-emerald-400/10 px-1.5 py-0.5 rounded leading-none ml-1.5">V</span>
         )}
-        {gfAvailable && (
+        {item.veganOptionAvailable && (
+          <span className="text-[11px] font-semibold text-emerald-400/80 bg-emerald-400/10 px-1.5 py-0.5 rounded leading-none ml-1.5">VEO</span>
+        )}
+        {item.glutenFree && (
+          <span className="text-[11px] font-semibold text-anchor-green/80 bg-anchor-green/10 px-1.5 py-0.5 rounded leading-none ml-1.5">GF</span>
+        )}
+        {(gfAvailable || item.glutenFreeAvailable) && !item.glutenFree && (
           <span className="text-[11px] font-semibold text-anchor-green/80 bg-anchor-green/10 px-1.5 py-0.5 rounded leading-none ml-1.5">GF opt</span>
         )}
         {item.description && (
@@ -352,8 +361,14 @@ const MenuItemRow = memo(function MenuItemRow({ item, itemId, isFocused, onFocus
         )}
       </p>
       <AllergenInfo item={item} />
+      {item.vegan && (
+        <meta itemProp="suitableForDiet" content="https://schema.org/VeganDiet" />
+      )}
       {item.vegetarian && (
         <meta itemProp="suitableForDiet" content="https://schema.org/VegetarianDiet" />
+      )}
+      {item.glutenFree && (
+        <meta itemProp="suitableForDiet" content="https://schema.org/GlutenFreeDiet" />
       )}
     </div>
   )

@@ -7,6 +7,10 @@ export interface MenuItem {
   price: string
   description: string
   vegetarian?: boolean
+  vegan?: boolean
+  glutenFree?: boolean
+  veganOptionAvailable?: boolean
+  glutenFreeAvailable?: boolean
   special?: boolean
   featured?: boolean
   allergens?: string[]

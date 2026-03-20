@@ -17,8 +17,12 @@ export function FilteredMenuRenderer({ menuData }: FilteredMenuRendererProps) {
   const {
     selectedAllergens,
     showVegetarianOnly,
+    showVeganOnly,
+    showGlutenFreeOnly,
     toggleAllergen,
     toggleVegetarian,
+    toggleVegan,
+    toggleGlutenFree,
     clearAllFilters,
     isItemVisible,
     activeFilterCount
@@ -49,18 +53,24 @@ export function FilteredMenuRenderer({ menuData }: FilteredMenuRendererProps) {
         total + category.sections.reduce((s, section) => s + section.items.length, 0), 0)
       const activeFilters: string[] = []
       if (showVegetarianOnly) activeFilters.push('vegetarian')
+      if (showVeganOnly) activeFilters.push('vegan')
+      if (showGlutenFreeOnly) activeFilters.push('gluten-free')
       selectedAllergens.forEach(allergen => activeFilters.push(allergen))
       trackFilterResults(totalItems, visibleItems, activeFilters, 'food')
     }
-  }, [activeFilterCount, filteredMenuData, menuData, selectedAllergens, showVegetarianOnly])
+  }, [activeFilterCount, filteredMenuData, menuData, selectedAllergens, showVegetarianOnly, showVeganOnly, showGlutenFreeOnly])
 
   return (
     <>
       <AllergenFilterBar
         selectedAllergens={selectedAllergens}
         showVegetarianOnly={showVegetarianOnly}
+        showVeganOnly={showVeganOnly}
+        showGlutenFreeOnly={showGlutenFreeOnly}
         onToggleAllergen={toggleAllergen}
         onToggleVegetarian={toggleVegetarian}
+        onToggleVegan={toggleVegan}
+        onToggleGlutenFree={toggleGlutenFree}
         onClearAll={clearAllFilters}
         activeFilterCount={activeFilterCount}
         isOpen={isFilterOpen}

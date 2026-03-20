@@ -74,14 +74,21 @@ describe('food.json structure', () => {
       c.sections.flatMap(s => s.items.map(i => i.name))
     )
     expect(allNames).not.toContain('Lamb Shank')
-    expect(allNames).not.toContain('Beef Stack')
-    expect(allNames).not.toContain('Spicy Chicken Stack')
-    expect(allNames).not.toContain('Chicken Stack')
     expect(allNames).not.toContain('Veggie Stack')
     expect(allNames).not.toContain('Speck Ham & Parmesan')
     expect(allNames).not.toContain('Beef Burger')
     expect(allNames).not.toContain('Vegetable Burger')
     expect(allNames).not.toContain('Sausage & Mash')
+  })
+
+  it('contains new stack burger items', () => {
+    const allNames = menu.categories.flatMap((c: { sections: { items: { name: string }[] }[] }) =>
+      c.sections.flatMap(s => s.items.map(i => i.name))
+    )
+    expect(allNames).toContain('Beef Stack')
+    expect(allNames).toContain('Chicken Stack')
+    expect(allNames).toContain('Spicy Chicken Stack')
+    expect(allNames).toContain('Garden Stack')
   })
 
   it('burgers category has an add-ons section', () => {

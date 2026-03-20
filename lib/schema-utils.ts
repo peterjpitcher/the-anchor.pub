@@ -85,11 +85,19 @@ export function mapAllergenToRestrictedDiet(allergen: AllergenType): string | nu
 }
 
 // Generate suitableForDiet array for menu items
-export function generateSuitableForDiet(item: { vegetarian?: boolean, allergens?: string[] }) {
+export function generateSuitableForDiet(item: { vegetarian?: boolean, vegan?: boolean, glutenFree?: boolean, allergens?: string[] }) {
   const diets: string[] = []
-  
+
+  if (item.vegan) {
+    diets.push("https://schema.org/VeganDiet")
+  }
+
   if (item.vegetarian) {
     diets.push("https://schema.org/VegetarianDiet")
+  }
+
+  if (item.glutenFree) {
+    diets.push("https://schema.org/GlutenFreeDiet")
   }
   
   // Add gluten-free if no gluten allergen
