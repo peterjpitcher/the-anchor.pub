@@ -16,7 +16,7 @@ import { getBusinessHours, isKitchenOpen, type BusinessHours } from '@/lib/api'
 import { formatTime12Hour } from '@/lib/time-utils'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { specialAnnouncementSchema } from '@/lib/schema'
-import { generateKitchenHoursSpecification, generateMenuItemOffer, generateNutritionInfo, generateSuitableForDiet } from '@/lib/schema-utils'
+import { generateKitchenHoursSpecification, generateNutritionInfo, generateSuitableForDiet } from '@/lib/schema-utils'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
@@ -740,26 +740,31 @@ export default async function FoodMenuPage() {
               '@context': 'https://schema.org',
               '@type': 'Menu',
               '@id': 'https://www.the-anchor.pub/food-menu#menu',
+              url: 'https://www.the-anchor.pub/food-menu',
               provider: { '@id': 'https://www.the-anchor.pub/#business' },
               name: 'The Anchor Food Menu',
-              description: 'Traditional British food menu with allergen information',
+              description: 'Traditional British pub food near Heathrow Airport — classics, pies, stone-baked pizzas, burgers and Sunday roasts.',
               hasMenuSection: menuData.categories.map(category => ({
                 '@type': 'MenuSection',
                 name: category.title,
                 description: category.description,
                 hasMenuItem: category.sections.flatMap(section =>
-                  section.items.map(item => ({
-                    '@type': 'MenuItem',
-                    name: item.name,
-                    description: item.description,
-	                    offers: generateMenuItemOffer(item, new Date().toLocaleString('en-GB', { weekday: 'long' }))?.[0] ?? {
-	                      '@type': 'Offer',
-	                      price: item.price ? item.price.replace(/\u00A3/g, '').trim() : undefined,
-	                      priceCurrency: 'GBP'
-	                    },
-                    suitableForDiet: generateSuitableForDiet(item),
-                    nutrition: generateNutritionInfo(item.name, category.id)
-                  }))
+                  section.items.map(item => {
+                    const numericPrice = item.price ? item.price.replace(/[^0-9.]/g, ' ').trim().split(/\s+/)[0] : undefined
+                    return {
+                      '@type': 'MenuItem',
+                      name: item.name,
+                      description: item.description,
+                      offers: {
+                        '@type': 'Offer',
+                        price: numericPrice,
+                        priceCurrency: 'GBP',
+                        availability: 'https://schema.org/InStock'
+                      },
+                      suitableForDiet: generateSuitableForDiet(item),
+                      nutrition: generateNutritionInfo(item.name, category.id)
+                    }
+                  })
                 )
               }))
             },

@@ -34,6 +34,9 @@ import { getEventWebsiteUrl } from '@/lib/event-url'
 import { staticEvents } from '@/lib/static-events'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
+import { JsonLd } from '@/components/JsonLd'
+import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
+import { quizNightEventSeries } from '@/lib/schema'
 
 export const metadata: Metadata = {
   title: 'Quiz Night Wednesdays | Cash Prizes | Pub Near Heathrow',
@@ -276,6 +279,13 @@ export default async function QuizNightPage() {
 
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: "What's On", url: '/whats-on' },
+          { name: 'Quiz Night', url: '/quiz-night' }
+        ]}
+      />
       <HeroWrapper
         route="/quiz-night"
         title="Quiz Night Wednesdays at The Anchor"
@@ -695,6 +705,7 @@ export default async function QuizNightPage() {
         </Container>
       </Section>
 
+      <JsonLd data={quizNightEventSeries} />
       <EventSchema event={staticEvents.quizNight} />
       {events.map(event => (
         <EventSchema key={`event-schema-${event.id}`} event={event} />

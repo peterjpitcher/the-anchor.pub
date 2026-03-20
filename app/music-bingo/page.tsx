@@ -33,6 +33,9 @@ import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
+import { JsonLd } from '@/components/JsonLd'
+import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
+import { bingoEventSeries } from '@/lib/schema'
 
 export const metadata: Metadata = {
   title: 'Music Bingo Near Heathrow | Singalong Bingo Night | The Anchor',
@@ -271,6 +274,13 @@ export default async function MusicBingoPage() {
 
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: "What's On", url: '/whats-on' },
+          { name: 'Music Bingo', url: '/music-bingo' }
+        ]}
+      />
       <HeroWrapper
         route="/music-bingo"
         title="Music Bingo Nights at The Anchor"
@@ -639,6 +649,7 @@ export default async function MusicBingoPage() {
         </Container>
       </Section>
 
+      <JsonLd data={bingoEventSeries} />
       <EventSchema event={staticEvents.musicBingo} />
       {events.map(event => (
         <EventSchema key={`event-schema-${event.id}`} event={event} />

@@ -8,6 +8,7 @@ import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
+import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 export const metadata: Metadata = {
     title: 'Private Hire Venue Near Heathrow | The Anchor Stanwell Moor',
@@ -30,6 +31,12 @@ export const metadata: Metadata = {
 export default function PrivateHirePage() {
     return (
         <>
+            <BreadcrumbJsonLd
+                items={[
+                    { name: 'Home', url: '/' },
+                    { name: 'Private Hire', url: '/private-hire' }
+                ]}
+            />
             <HeroWrapper
                 route="/private-hire"
                 title="Private Hire & Events"
