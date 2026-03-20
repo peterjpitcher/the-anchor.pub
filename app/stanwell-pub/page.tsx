@@ -443,6 +443,42 @@ export default async function StanwellPubPage() {
         </Container>
       </section>
 
+      {/* Stanwell Heritage & Walking */}
+      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+        <Container>
+          <div className="max-w-4xl mx-auto">
+            <SectionHeader
+              title="Stanwell Heritage & the Village Local"
+              className="text-center mb-8"
+            />
+            <div className="prose prose-invert max-w-none text-anchor-cream-text/70 space-y-4">
+              <p>
+                Stanwell village and Stanwell Moor are neighbouring communities separated by a few fields and a
+                pleasant stretch of Stanwell Moor Road. The Anchor sits on the Moor side, at the end of Horton Road,
+                where the village meets open countryside and the reservoirs. It is a fifteen-to-twenty-minute walk
+                from Stanwell village centre — a route many of our regulars take on summer evenings, often with
+                a dog or two in tow.
+              </p>
+              <p>
+                The area has deep roots. St Mary the Virgin in Stanwell dates back to the twelfth century, and
+                the village has been a settled community since before the Domesday Book. The Anchor, established in
+                1751, is part of that heritage — a proper local that has served generations of Stanwell families.
+                We have hosted christenings, wakes, birthday parties, and retirement dos for people who grew up
+                on these streets, and their children after them.
+              </p>
+              <p>
+                For those who enjoy a walk before their pint, the Staines Reservoirs and the King George VI
+                Reservoir are right on our doorstep. Birdwatchers, joggers, and weekend walkers regularly finish
+                their circuit at The Anchor for a well-earned Sunday roast or a midweek pizza. The beer garden
+                catches the afternoon sun and offers uninterrupted views of the Heathrow flight path — it is the
+                natural pit-stop after a lap of the reservoir, and far more rewarding than heading back to the car
+                park empty-handed.
+              </p>
+            </div>
+          </div>
+        </Container>
+      </section>
+
       {/* Opening Hours */}
       <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>

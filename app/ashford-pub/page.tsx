@@ -553,6 +553,41 @@ export default async function AshfordPubPage() {
         </Container>
       </section>
 
+      {/* Ashford Local Knowledge */}
+      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+        <Container>
+          <div className="max-w-4xl mx-auto">
+            <SectionHeader
+              title="Just Beyond the Dual Carriageway"
+              className="text-center mb-8"
+            />
+            <div className="prose prose-invert max-w-none text-anchor-cream-text/70 space-y-4">
+              <p>
+                Ashford is closer to The Anchor than most people realise. Head west on the A30 past Clockhouse
+                Roundabout, follow it for a couple of miles, and turn right onto Horton Road — eight to ten minutes
+                door to door. You cross the dual carriageway and suddenly you are in a proper village setting with
+                fields, a church, and a pub that has been pouring pints since 1751. It feels like a different world
+                from suburban Ashford, but it is barely three miles away.
+              </p>
+              <p>
+                We see a lot of Ashford Hospital staff, especially those finishing late shifts and looking for
+                somewhere with a warm kitchen and a decent pint. Our kitchen opens at 6pm on weekdays, which suits
+                nurses and support staff who clock off in the afternoon and want a proper meal rather than a
+                supermarket sandwich. The hospital is only about eight minutes away, and the free parking means no
+                scrambling for change after a long day on your feet.
+              </p>
+              <p>
+                Golfers from Ashford Manor Golf Club have been known to make the short detour for a post-round meal
+                and a celebratory (or consolation) pint. The club is barely ten minutes from our door, and a
+                stone-baked pizza after eighteen holes is hard to beat. On weekends, families from the Ashford Common
+                area bring the kids and the dog, settle into the beer garden, and watch the planes come over while
+                the little ones run around. It is exactly the kind of afternoon you cannot get in a town-centre pub.
+              </p>
+            </div>
+          </div>
+        </Container>
+      </section>
+
       {/* Opening Hours */}
       <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>

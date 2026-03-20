@@ -431,6 +431,41 @@ export default function FelthamPubPage() {
         </Container>
       </section>
 
+      {/* Feltham Workers & Weekend Escape */}
+      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+        <Container>
+          <div className="max-w-4xl mx-auto">
+            <SectionHeader
+              title="The Feltham Workers' Local"
+              className="text-center mb-8"
+            />
+            <div className="prose prose-invert max-w-none text-anchor-cream-text/70 space-y-4">
+              <p>
+                Feltham's commercial corridor stretches from Bedfont Lakes Business Park through to the trading estates
+                along Feltham Hill Road — thousands of people finishing shifts every evening with limited options for a
+                proper sit-down meal nearby. Most end up in chain restaurants or grabbing a takeaway. The Anchor is just
+                ten minutes down Feltham Hill Road and the A30, with free parking and a kitchen serving hearty pub food
+                from 6pm on weeknights. It is the kind of place where you can unwind with a pint of real ale and a
+                stone-baked pizza without fighting for a table.
+              </p>
+              <p>
+                Coming from Feltham station? A taxi takes about fifteen minutes and costs less than a tenner. For those
+                heading home after an England match at Twickenham, skip the crush around the rugby ground pubs — The
+                Anchor is roughly twenty minutes via the A316 and M3, even on a busy match day, with guaranteed free
+                parking at the other end. It is a much more relaxed way to keep the evening going.
+              </p>
+              <p>
+                Feltham's own pub scene is fairly thin on the ground these days — mostly chains, a handful of
+                takeaways, and the odd sports bar. If you want a traditional pub with character, a proper beer garden
+                under the Heathrow flight path, and events like Music Bingo and Thursday quiz nights, it is well worth
+                the short drive. Plenty of Feltham regulars have made The Anchor their go-to midweek escape, and once
+                you have tried a lazy Sunday roast here you will wonder why you ever queued on Feltham High Street.
+              </p>
+            </div>
+          </div>
+        </Container>
+      </section>
+
       {/* Opening Hours */}
       <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>

@@ -489,6 +489,41 @@ export default async function StainesPubPage() {
         </Container>
       </section>
 
+      {/* Why Staines Residents Choose The Anchor Over the High Street */}
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+        <Container>
+          <div className="max-w-4xl mx-auto">
+            <SectionHeader
+              title="A Different Night Out from Staines High Street"
+              className="text-center mb-8"
+            />
+            <div className="prose prose-invert max-w-none text-anchor-cream-text/70 space-y-4">
+              <p>
+                Staines High Street has no shortage of pubs — The Swan, The Bells, the Wetherspoons on the corner — but
+                anyone who has tried to get a table on a Friday night knows the drill. Packed bars, queues at the door,
+                and nowhere to park without feeding a meter. The Anchor offers something genuinely different: a proper
+                village pub with free parking, a spacious beer garden, and none of the weekend crush.
+              </p>
+              <p>
+                The drive is straightforward. Cross Staines Bridge, pick up the A30 heading toward Heathrow, and take
+                a left onto Stanwell Moor Road. In ten to twelve minutes you are pulling into our car park — no circling
+                side streets, no pay-and-display. On a Saturday afternoon, when Staines High Street is heaving with
+                shoppers and the Two Rivers car parks are rammed, The Anchor is a quieter alternative where you can
+                actually hear yourself talk.
+              </p>
+              <p>
+                Most locals still call it Staines rather than Staines-upon-Thames, whatever the council decided back
+                in 2012. Either way, we are just outside the town boundary but close enough for an easy weeknight meal
+                or a lazy Sunday roast without battling for a space on the one-way system. Many of our regulars
+                discovered us exactly that way — looking for somewhere with decent food, real ales, and room to breathe.
+                Once they tried the stone-baked pizzas and caught a sunset in the beer garden with the planes coming
+                over, they stopped bothering with the High Street altogether.
+              </p>
+            </div>
+          </div>
+        </Container>
+      </section>
+
       <InternalLinkingSection
         title="More To Explore Near Staines"
         links={[

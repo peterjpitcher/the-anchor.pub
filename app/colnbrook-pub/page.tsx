@@ -232,6 +232,45 @@ export default async function ColnbrookPubPage() {
                 </Container>
             </section>
 
+            {/* Colnbrook & Poyle Local Knowledge */}
+            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+                <Container>
+                    <div className="max-w-4xl mx-auto">
+                        <SectionHeader
+                            title="The Closest Proper Pub to Poyle & Colnbrook"
+                            className="text-center mb-8"
+                        />
+                        <div className="prose prose-invert max-w-none text-anchor-cream-text/70 space-y-4">
+                            <p>
+                                The Poyle and Colnbrook industrial estates employ thousands of people in logistics, air
+                                cargo, and aviation services — from DHL and FedEx warehouses to smaller freight
+                                forwarders lining the Colnbrook bypass. When the shift ends, options are slim. A few
+                                takeaways on Colnbrook High Street, the odd cafe that closes at four, and not much else.
+                                The Anchor is straight down the bypass and along Horton Road — five to seven minutes,
+                                no motorway required — and it is the closest proper pub with a full kitchen and real
+                                ales on tap.
+                            </p>
+                            <p>
+                                Colnbrook itself has a proud history. The Ostrich Inn on the High Street claims to be
+                                one of the oldest pubs in England, and it is a lovely spot for a quiet pint. But if you
+                                are looking for a bigger beer garden, free parking for the whole team, regular events
+                                like quiz nights and Music Bingo, and a kitchen turning out stone-baked pizzas and
+                                Sunday roasts, The Anchor fills a different niche. We are two village pubs serving the
+                                same community in our own ways.
+                            </p>
+                            <p>
+                                We also welcome families visiting the Colnbrook area who need somewhere warm and
+                                friendly to sit down for a proper meal. Our pub is dog-friendly, child-friendly, and
+                                has the kind of relaxed atmosphere where people linger over a second coffee or an extra
+                                round. Whether you are a warehouse supervisor winding down after a twelve-hour shift or
+                                a family looking for a Sunday lunch spot away from the airport chaos, you will find a
+                                genuine welcome at The Anchor.
+                            </p>
+                        </div>
+                    </div>
+                </Container>
+            </section>
+
             <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-2xl mx-auto text-center">
