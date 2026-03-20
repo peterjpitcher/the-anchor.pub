@@ -78,6 +78,22 @@ export function FilteredMenuRenderer({ menuData }: FilteredMenuRendererProps) {
         onClose={handleClose}
       />
 
+      {/* Info notes when VEO or GFO filters are active */}
+      {(showVeganOnly || showGlutenFreeOnly) && filteredMenuData.categories.length > 0 && (
+        <div className="container mx-auto px-4 pt-6 space-y-2">
+          {showVeganOnly && (
+            <p className="text-sm text-emerald-400/80 bg-emerald-400/10 rounded-lg px-4 py-2.5">
+              Items marked <span className="font-bold">VEO</span> can be made vegan on request — ask at the bar to remove mozzarella.
+            </p>
+          )}
+          {showGlutenFreeOnly && (
+            <p className="text-sm text-anchor-green/80 bg-anchor-green/10 rounded-lg px-4 py-2.5">
+              Items marked <span className="font-bold">GFO</span> can be made gluten-free on request — ask at the bar for a gluten-free pizza base.
+            </p>
+          )}
+        </div>
+      )}
+
       {filteredMenuData.categories.length === 0 ? (
         <div className="container mx-auto px-4 py-16 text-center">
           <div className="max-w-md mx-auto">

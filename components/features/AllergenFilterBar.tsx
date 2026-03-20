@@ -163,8 +163,8 @@ export function AllergenFilterBar({
                     : 'bg-anchor-bg-raised text-anchor-cream-text/70 hover:bg-anchor-bg-card hover:text-anchor-cream-text'
                 )}
               >
-                <span>Vegan</span>
-                <span className="ml-auto text-xs opacity-70">(VE)</span>
+                <span>Vegan Options</span>
+                <span className="ml-auto text-xs opacity-70">(VEO)</span>
               </button>
               <button
                 type="button"
@@ -185,8 +185,8 @@ export function AllergenFilterBar({
                     : 'bg-anchor-bg-raised text-anchor-cream-text/70 hover:bg-anchor-bg-card hover:text-anchor-cream-text'
                 )}
               >
-                <span>Gluten-Free</span>
-                <span className="ml-auto text-xs opacity-70">(GF)</span>
+                <span>Gluten-Free Options</span>
+                <span className="ml-auto text-xs opacity-70">(GFO)</span>
               </button>
             </div>
           </div>

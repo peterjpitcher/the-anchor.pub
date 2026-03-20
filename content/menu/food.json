@@ -358,7 +358,7 @@
               "description": "Stone-baked bread brushed with garlic butter, warm and crispy every time.",
               "allergens": ["gluten", "milk", "soya"],
               "vegetarian": true,
-              "veganOptionAvailable": true,
+              "vegan": true,
               "glutenFreeAvailable": true
             },
             {
