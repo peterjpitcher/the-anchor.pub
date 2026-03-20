@@ -135,6 +135,7 @@ const defaultItems: NavigationItem[] = [
       { label: 'Plane Spotting Guide', href: '/plane-spotting-heathrow' }
     ]
   },
+  { label: 'Our Story', href: '/about' },
   { label: 'Blog', href: '/blog' }
 ]
 
