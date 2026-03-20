@@ -29,6 +29,7 @@ tags:
 featured: true
 hero: hero.png
 images: []
+noindex: true
 ---
 
 ![Charity Walk for Holly - Supporting Momentum Children's Charity](/content/blog/charity-walk-holly/hero.png)

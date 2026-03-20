@@ -67,6 +67,8 @@ async function getSitemapEvents(): Promise<Event[]> {
   return Array.from(uniqueEvents.values())
 }
 
+const STATIC_LAST_MODIFIED = new Date('2026-03-20')
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://www.the-anchor.pub'
 
@@ -176,7 +178,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     'euro-2024-viewing',
     'autumn-internationals-2024-full-fixtures-highlight'
   ])
-  const indexableBlogPosts = blogPosts.filter((post) => !excludedBlogSlugs.has(post.slug))
+  const indexableBlogPosts = blogPosts.filter((post) => !excludedBlogSlugs.has(post.slug) && !post.noindex)
 
   // Get all unique tags
   const allTags = new Set<string>()
@@ -187,7 +189,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Map static routes
   const staticSitemap = staticRoutes.map((route) => ({
     url: `${baseUrl}${route}`,
-    lastModified: new Date(),
+    lastModified: STATIC_LAST_MODIFIED,
     changeFrequency: (route === '' ? 'daily' : route === '/blog' ? 'daily' : route === '/book-table' ? 'daily' : route === '/safety-and-respect' ? 'yearly' : route === '/accessibility' || route === '/sustainability' ? 'monthly' : 'weekly') as 'daily' | 'weekly' | 'monthly' | 'yearly',
     priority: route === '' ? 1.0 : route === '/book-table' ? 0.95 : route.includes('near-heathrow') ? 0.9 : route === '/blog' ? 0.9 : route.includes('-pub') ? 0.85 : route === '/accessibility' || route === '/sustainability' ? 0.7 : route === '/safety-and-respect' ? 0.6 : 0.8,
   }))
@@ -215,14 +217,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     .filter((tag) => !redirectSourceTags.has(tag))
     .map((tag) => ({
       url: `${baseUrl}/blog/tag/${tag}`,
-      lastModified: new Date(),
+      lastModified: STATIC_LAST_MODIFIED,
       changeFrequency: 'weekly' as const,
       priority: 0.6,
     }))
 
   const landmarkSitemap = landmarks.map((landmark) => ({
     url: `${baseUrl}/private-hire/near/${landmark.slug}`,
-    lastModified: new Date(),
+    lastModified: STATIC_LAST_MODIFIED,
     changeFrequency: 'monthly' as const,
     priority: 0.7,
   }))

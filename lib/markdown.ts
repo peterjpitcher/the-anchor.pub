@@ -41,6 +41,7 @@ export interface BlogPost {
   heroAlt?: string
   ogImage?: string
   ogImageAlt?: string
+  noindex?: boolean
   images: string[]
   imageAlts: string[]
   content: string
@@ -115,6 +116,7 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
       keywords: toStringArray(data.keywords),
       tags: toStringArray(data.tags),
       featured: data.featured || false,
+      noindex: data.noindex === true,
       hero: data.hero || '',
       heroAlt: toOptionalTrimmedString(data.heroAlt),
       ogImage: toOptionalTrimmedString(data.ogImage),

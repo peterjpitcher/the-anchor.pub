@@ -13,6 +13,7 @@ tags:
   - add 2-4 relevant tags
   - keep them consistent
 featured: false
+noindex: false
 hero: "hero.jpg"
 images:
   - "image1.jpg"

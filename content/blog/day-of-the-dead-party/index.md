@@ -26,6 +26,7 @@ tags:
 featured: false
 hero: hero.png
 images: []
+noindex: true
 ---
 
 Experience authentic **Day of the Dead celebrations near Heathrow** at The Anchor! This October, we're transforming our traditional British pub into a vibrant Mexican fiesta. From tequila tastings to fancy dress parties, join us for Día de los Muertos festivities that honour tradition while creating unforgettable memories. Just 10 minutes from the airport, discover Surrey's most colourful cultural celebration.

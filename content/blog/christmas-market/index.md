@@ -27,6 +27,7 @@ tags:
 featured: false
 hero: hero.jpg
 images: []
+noindex: true
 ---
 
 ![experience the magic at the anchor s christmas mar image](/content/blog/christmas-market/hero.jpg)

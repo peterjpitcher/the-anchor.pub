@@ -117,6 +117,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       authors: [post.author],
       tags: post.tags
     },
+    ...(post.noindex ? { robots: { index: false, follow: true } } : {}),
     twitter: getTwitterMetadata({
       title: post.title,
       description: post.description,

@@ -31,6 +31,7 @@ tags:
 featured: true
 hero: hero.jpg
 images: []
+noindex: true
 ---
 
   

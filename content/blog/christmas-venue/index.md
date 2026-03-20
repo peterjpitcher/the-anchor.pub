@@ -26,6 +26,7 @@ tags:
 featured: false
 hero: hero.jpg
 images: []
+noindex: true
 ---
 
 ![The Anchor Small Business Christmas Party Season 2023](/content/blog/christmas-venue/hero.jpg)

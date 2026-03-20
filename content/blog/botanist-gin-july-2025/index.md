@@ -29,6 +29,7 @@ tags:
 featured: false
 hero: hero.jpg
 images: []
+noindex: true
 ---
 
 ![July 2025 Manager's Special promo for "The Botanist" gin. Bottle surrounded by colourful flowers. Text: "Indulge in the botanicals."](/content/blog/botanist-gin-july-2025/hero.jpg)

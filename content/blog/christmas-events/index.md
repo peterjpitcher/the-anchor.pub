@@ -26,6 +26,7 @@ tags:
 featured: true
 hero: hero.png
 images: []
+noindex: true
 ---
 
 ![Christmas event schedule at The Anchor pub featuring key dates for karaoke, market, quiz, bingo, and parties with festive decorations.](/content/blog/christmas-events/hero.png)

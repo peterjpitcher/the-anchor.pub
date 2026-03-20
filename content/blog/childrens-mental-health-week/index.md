@@ -23,6 +23,7 @@ tags:
 featured: false
 hero: hero.jpg
 images: []
+noindex: true
 ---
 
 ![Group of smiling children looking down at the camera with bright sunlight filtering through green trees, promoting Children's Mental Health Awareness Week at The Anchor from February 4th to February 9th, 2025.](/content/blog/childrens-mental-health-week/hero.jpg)

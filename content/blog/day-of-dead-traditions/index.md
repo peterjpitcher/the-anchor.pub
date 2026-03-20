@@ -28,6 +28,7 @@ tags:
 featured: false
 hero: hero.png
 images: []
+noindex: true
 ---
 
 ![A vibrant sugar skull illustration next to the text 'Celebrating Life and Spirits: The Day of the Dead Traditions in Mexico.' The logo for 'The Anchor, Stanwell Moor Village' appears at the top. The background is black, and the font is bold and modern, with playful, handwritten-style lettering below.](/content/blog/day-of-dead-traditions/hero.png)

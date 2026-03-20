@@ -29,6 +29,7 @@ tags:
 featured: false
 hero: hero.png
 images: null
+noindex: true
 ---
 
 ![Colourful Day of the Dead themed poster for The Anchor’s Annual Halloween Party on Saturday, November 2nd 2024, featuring a man with sugar skull face paint and details about the event.](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/hero.png)

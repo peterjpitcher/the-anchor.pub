@@ -27,6 +27,7 @@ tags:
 featured: false
 hero: hero.png
 images: []
+noindex: true
 ---
 
 ## Celebrate St Patrick's Day at The Anchor - Your Irish Pub Near Heathrow

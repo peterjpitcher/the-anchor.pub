@@ -32,6 +32,7 @@ tags:
 featured: true
 hero: hero.png
 images: []
+noindex: true
 ---
 
 December was nothing short of magical at The Anchor, your **community pub near Heathrow Airport**. As Christmas approached, we became the backdrop to countless moments of joy, connection, and celebration in **Stanwell Moor**. Whether it was the packed house on Christmas Eve and Christmas Day or the laughter-filled evenings at our themed events, December proved why we're the premier **Christmas pub near Heathrow Terminal 5**.
