@@ -36,18 +36,18 @@ import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
 export const metadata: Metadata = {
-  title: 'Quiz Night Pub Near Heathrow | The Anchor Trivia Night',
+  title: 'Quiz Night Wednesdays | Cash Prizes | Pub Near Heathrow',
   description:
     "Join The Anchor's quiz night pub near Heathrow for a monthly trivia night with a £25 bar tab prize, £3 entry, and a friendly pub trivia crowd in Stanwell Moor.",
   keywords:
     'quiz night pub, quiz night, quiz night quiz, trivia, trivia night, pub trivia, night trivia, pub quiz near heathrow, pub quiz staines, stanwell moor quiz night',
   openGraph: {
-    title: 'Quiz Night Near Heathrow | The Anchor',
+    title: 'Quiz Night Wednesdays | Cash Prizes | Pub Near Heathrow',
     description: 'Monthly trivia night with a £25 bar tab prize, £3 entry, and a friendly pub crowd in Stanwell Moor.',
     images: [{ url: DEFAULT_EVENT_IMAGE, width: 1200, height: 630, alt: 'Events at The Anchor pub near Heathrow' }]
   },
   twitter: getTwitterMetadata({
-    title: 'Quiz Night Near Heathrow | The Anchor',
+    title: 'Quiz Night Wednesdays | Cash Prizes | Pub Near Heathrow',
     description: 'Monthly trivia night with a £25 bar tab prize, £3 entry, and a friendly pub crowd in Stanwell Moor.',
     images: [DEFAULT_EVENT_IMAGE]
   }),
@@ -357,7 +357,7 @@ export default async function QuizNightPage() {
       <Section spacing="sm" background="white">
         <Container>
           <PageTitle className="text-center text-anchor-gold-vivid" seo={{ structured: true, speakable: true }}>
-            Heathrow Quiz Night Pub & Trivia Night - Stanwell Moor, Staines & Surrey
+            Quiz Night at The Anchor
           </PageTitle>
           <p className="text-lg text-anchor-cream-text/70 text-center max-w-3xl mx-auto">
             Looking for a quiz night pub near Heathrow that still feels like your local? Every first Wednesday we turn The Anchor into

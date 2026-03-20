@@ -143,16 +143,16 @@ function deriveKitchenStatusData(hours: BusinessHours | null): KitchenStatusData
 }
 
 export const metadata: Metadata = {
-  title: 'Pub Food Menu Near Heathrow | Sunday Roast, Pizza & Fish & Chips | The Anchor',
+  title: 'Food Menu | Pub Near Heathrow from £10',
   description: 'Full pub food menu: Sunday roasts from £19.99, stone-baked pizzas, fish & chips & burgers. 7 mins from Heathrow, free parking. View menu & book a table online.',
   keywords: 'pub food menu near heathrow, sunday roast near heathrow, pizza near heathrow, fish and chips near heathrow, the anchor menu, pub food stanwell moor',
   openGraph: {
-    title: 'Pub Food Menu Near Heathrow | Sunday Roast, Pizza & Fish & Chips | The Anchor',
+    title: 'Food Menu | Pub Near Heathrow from £10',
     description: 'Full pub food menu: Sunday roasts from £19.99, stone-baked pizzas, fish & chips & burgers. 7 mins from Heathrow, free parking. Book a table online.',
     images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg'],
   },
   twitter: getTwitterMetadata({
-    title: 'Food Menu | Pub Food, Sunday Roast & Pizza',
+    title: 'Food Menu | Pub Near Heathrow from £10',
     description: "Explore The Anchor food menu near Staines and Heathrow: Sunday roast, pizza menu, pub classics and vegetarian options with free parking.",
     images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg']
   }),

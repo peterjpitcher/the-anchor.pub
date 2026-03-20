@@ -10,9 +10,11 @@ type UnmatchedPageProps = {
 }
 
 export default function UnmatchedPage({ params, searchParams }: UnmatchedPageProps) {
-  if (params.unmatched[0] === 'api') {
-    notFound()
+  // Vercel preview deploy URLs use ?dpl= parameter — redirect these to homepage
+  if (searchParams?.dpl) {
+    redirect(buildFallbackHomeRedirect(searchParams))
   }
 
-  redirect(buildFallbackHomeRedirect(searchParams))
+  // All other unmatched routes should return a proper 404
+  notFound()
 }

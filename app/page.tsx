@@ -43,14 +43,14 @@ import {
 export const revalidate = 60 * 60 * 24 // 24 hours
 
 export const metadata: Metadata = {
-  title: 'The Anchor | Pub Near Heathrow Airport | Free Parking & Dog Friendly | Stanwell Moor',
+  title: 'The Anchor Stanwell Moor | Pub Near Heathrow | Free Parking',
   description: 'Traditional British pub 7 minutes from Heathrow Terminal 5. Free parking for 20 cars, dog-friendly beer garden, Sunday roasts & stone-baked pizza. Highest-rated non-airport pub near Heathrow. Book a table today.',
   keywords: 'pub near heathrow, the anchor pub, stanwell moor pub, heathrow pub with free parking, dog friendly pub near heathrow, sunday roast near heathrow, staines pub',
   alternates: {
     canonical: '/'
   },
   openGraph: {
-    title: 'The Anchor | Pub Near Heathrow Airport | Free Parking & Dog Friendly',
+    title: 'The Anchor Stanwell Moor | Pub Near Heathrow | Free Parking',
     description: 'Traditional British pub 7 minutes from Heathrow Terminal 5. Free parking for 20 cars, dog-friendly beer garden, Sunday roasts & stone-baked pizza. Highest-rated non-airport pub near Heathrow.',
     url: '/',
     siteName: 'The Anchor',
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     type: 'website'
   },
   twitter: getTwitterMetadata({
-    title: 'The Anchor | Stanwell Moor Near Heathrow & Staines',
+    title: 'The Anchor Stanwell Moor | Pub Near Heathrow | Free Parking',
     description: 'Free parking, Sunday roasts, stone-baked pizzas, and hosted events like Music Bingo with Nikki Manfadge. See /whats-on for the latest.',
     images: [DEFAULT_OG_IMAGE]
   })
@@ -262,6 +262,22 @@ export default function HomePage() {
                 Add upcoming events to your calendar (.ics)
               </a>
             </Button>
+          </div>
+
+          {/* Regular Events */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-10">
+            <Link href="/quiz-night" className="block p-4 bg-anchor-bg-raised rounded-lg text-center hover:bg-anchor-bg-raised/80 transition-colors">
+              <span className="block text-lg font-bold text-anchor-cream-text">Quiz Night</span>
+              <span className="text-sm text-anchor-body-text">Monthly &middot; Cash prizes</span>
+            </Link>
+            <Link href="/music-bingo" className="block p-4 bg-anchor-bg-raised rounded-lg text-center hover:bg-anchor-bg-raised/80 transition-colors">
+              <span className="block text-lg font-bold text-anchor-cream-text">Music Bingo</span>
+              <span className="text-sm text-anchor-body-text">Monthly &middot; With Nikki</span>
+            </Link>
+            <Link href="/karaoke" className="block p-4 bg-anchor-bg-raised rounded-lg text-center hover:bg-anchor-bg-raised/80 transition-colors">
+              <span className="block text-lg font-bold text-anchor-cream-text">Karaoke</span>
+              <span className="text-sm text-anchor-body-text">Monthly &middot; Free entry</span>
+            </Link>
           </div>
         </Container>
       </div>
@@ -509,6 +525,18 @@ export default function HomePage() {
                 height={600}
                 priority={false}
               />
+            </Link>
+          </div>
+
+          {/* Food & Drink CTAs */}
+          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link href="/sunday-lunch">
+              <Button variant="secondary" size="lg">
+                Book Sunday Lunch — from £19.99
+              </Button>
+            </Link>
+            <Link href="/drinks" className="text-anchor-gold hover:text-anchor-gold/80 font-medium underline underline-offset-4">
+              View Drinks Menu
             </Link>
           </div>
         </Container>

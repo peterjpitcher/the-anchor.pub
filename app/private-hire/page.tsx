@@ -87,7 +87,7 @@ export default function PrivateHirePage() {
                                 <div className="aspect-video bg-gray-200 relative">
                                     <Image
                                         src="/images/private-hire/wakes.png"
-                                        alt="Respectful wake gathering"
+                                        alt="Wake venue at The Anchor near Heathrow"
                                         fill
                                         className="object-cover"
                                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -109,7 +109,7 @@ export default function PrivateHirePage() {
                                 <div className="aspect-video bg-gray-200 relative">
                                     <Image
                                         src="/images/private-hire/christenings.png"
-                                        alt="Christening celebration"
+                                        alt="Christening venue at The Anchor near Heathrow"
                                         fill
                                         className="object-cover"
                                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -131,7 +131,7 @@ export default function PrivateHirePage() {
                                 <div className="aspect-video bg-gray-200 relative">
                                     <Image
                                         src="/images/private-hire/weddings.png"
-                                        alt="Wedding reception toast"
+                                        alt="Wedding reception venue at The Anchor near Heathrow"
                                         fill
                                         className="object-cover"
                                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -153,7 +153,7 @@ export default function PrivateHirePage() {
                                 <div className="aspect-video bg-gray-200 relative">
                                     <Image
                                         src="/images/private-hire/parties.png"
-                                        alt="Private party celebration"
+                                        alt="Private party venue at The Anchor near Heathrow"
                                         fill
                                         className="object-cover"
                                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -175,7 +175,7 @@ export default function PrivateHirePage() {
                                 <div className="aspect-video bg-gray-200 relative">
                                     <Image
                                         src="/images/private-hire/baby-showers.png"
-                                        alt="Baby shower celebration"
+                                        alt="Baby shower venue at The Anchor near Heathrow"
                                         fill
                                         className="object-cover"
                                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -197,7 +197,7 @@ export default function PrivateHirePage() {
                                 <div className="aspect-video bg-gray-200 relative">
                                     <Image
                                         src="/images/private-hire/corporate.png"
-                                        alt="Professional corporate meeting"
+                                        alt="Corporate event venue at The Anchor near Heathrow"
                                         fill
                                         className="object-cover"
                                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

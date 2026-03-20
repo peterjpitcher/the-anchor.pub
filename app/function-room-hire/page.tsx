@@ -18,16 +18,16 @@ import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 import { TrustBar, ValueProofStrip, RegretReduction } from '@/components/psychology'
 
 export const metadata: Metadata = {
-  title: 'Function Room Hire Near Heathrow & Staines | The Anchor',
+  title: 'Function Room Hire Near Heathrow | 10-200 Guests | Free Parking',
   description: 'Hire flexible function rooms near Heathrow and Staines for 10-200 guests. The Anchor offers free parking, tailored catering and AV support for meetings, parties and celebrations.',
   keywords: 'function room hire staines, private room hire staines, heathrow function room hire, venue hire near terminal 5, event space with parking, flexible venue near m25',
   openGraph: {
-    title: 'Heathrow Function Room Hire - The Anchor Stanwell Moor',
+    title: 'Function Room Hire Near Heathrow | 10-200 Guests | Free Parking',
     description: 'Flexible venue with free parking, catering and AV support for meetings and celebrations near Heathrow.',
     images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Private hire venue at The Anchor near Heathrow Airport' }],
   },
   twitter: getTwitterMetadata({
-    title: 'Heathrow Function Room Hire - The Anchor Stanwell Moor',
+    title: 'Function Room Hire Near Heathrow | 10-200 Guests | Free Parking',
     description: 'Flexible venue with free parking, catering and AV support for meetings and celebrations near Heathrow.',
     images: [DEFAULT_CORPORATE_IMAGE]
   }),

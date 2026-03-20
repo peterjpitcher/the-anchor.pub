@@ -14,16 +14,16 @@ import { getBusinessHours } from '@/lib/api'
 import { generateKitchenHoursSpecification } from '@/lib/schema-utils'
 
 export const metadata: Metadata = {
-  title: 'Restaurant Near Heathrow Airport | The Anchor - Better Than Terminal Dining',
+  title: 'Restaurant Near Heathrow | Skip Airport Prices | 7 Mins from T5',
   description: 'Traditional British restaurant 7 minutes from Heathrow Terminal 5 and 10-15 minutes from Terminals 2, 3 and 4. Free parking saves £20-40. Proper meals at pub prices, not airport prices.',
   keywords: 'restaurants near heathrow, places to eat near heathrow airport, dining near heathrow, restaurants at heathrow terminal 5, restaurants at heathrow terminal 3, restaurants at heathrow terminal 4, restaurants at heathrow terminal 2, food at heathrow airport, restaurant near terminal 5',
   openGraph: {
-    title: 'Restaurant Near Heathrow - The Anchor',
+    title: 'Restaurant Near Heathrow | Skip Airport Prices | 7 Mins from T5',
     description: 'Skip expensive airport dining. Traditional British food, free parking, 7 minutes from Terminal 5.',
     images: [{ url: DEFAULT_NEAR_HEATHROW_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Heathrow Airport' }],
   },
   twitter: getTwitterMetadata({
-    title: 'Restaurant Near Heathrow - The Anchor',
+    title: 'Restaurant Near Heathrow | Skip Airport Prices | 7 Mins from T5',
     description: 'Skip expensive airport dining. Traditional British food, free parking, 7 minutes from Terminal 5.',
     images: [DEFAULT_NEAR_HEATHROW_IMAGE]
   }),

@@ -51,10 +51,10 @@ const merriweather = Merriweather({
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.the-anchor.pub'),
   title: {
-    default: 'Traditional Bar Near Me | The Anchor - Heathrow Pub & Dining | Surrey Bar Near Heathrow',
-    template: '%s | The Anchor - Heathrow Pub & Dining'
+    default: 'The Anchor | Pub Near Heathrow | Stanwell Moor',
+    template: '%s | The Anchor Stanwell Moor'
   },
-  description: 'The Anchor in Stanwell Moor, Surrey\'s best kept secret near Heathrow Airport. Traditional British venue with quiz nights, hosted events like Music Bingo with Nikki Manfadge & more. Dog-friendly beer garden under the flight path.',
+  description: 'The Anchor in Stanwell Moor — traditional pub near Heathrow Airport. Sunday roasts, quiz nights, Music Bingo, dog-friendly beer garden under the flight path. Free parking, 7 mins from T5.',
   keywords: ['bar near me', 'bar near Heathrow', 'Stanwell Moor bar', 'music bingo near me', 'quiz night', 'dog friendly bar', 'beer garden', 'pub garden', 'live music', 'TW19 bar'],
   authors: [{ name: 'The Anchor' }],
   creator: 'The Anchor',
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     telephone: false,
   },
   openGraph: {
-    title: 'The Anchor - Heathrow Pub & Dining\'s Premier Entertainment Venue',
+    title: 'The Anchor | Pub Near Heathrow Airport | Stanwell Moor',
     description: 'Traditional British venue near Heathrow with hosted events, live entertainment & great food. Dog-friendly beer garden.',
     url: 'https://www.the-anchor.pub',
     siteName: 'The Anchor',

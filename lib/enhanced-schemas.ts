@@ -266,8 +266,8 @@ export const over65sOfferSchema = {
     "priceCurrency": "GBP",
     "valueAddedTaxIncluded": true
   },
-  "validFrom": "2025-01-01",
-  "validThrough": "2025-12-31",
+  "validFrom": "2026-01-01",
+  "validThrough": "2026-12-31",
   "availabilityStarts": "12:00",
   "availabilityEnds": "21:00",
   "availableDay": "Friday"

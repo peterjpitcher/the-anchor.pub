@@ -131,6 +131,7 @@ const defaultItems: NavigationItem[] = [
       { label: 'Terminal 5', href: '/near-heathrow/terminal-5' },
       { label: 'Heathrow Hotels', href: '/heathrow-hotels-pub' },
       { label: 'M25 Junction 14', href: '/m25-junction-14-pub' },
+      { label: 'Restaurants Near Heathrow', href: '/restaurants-near-heathrow' },
       { label: 'Plane Spotting Guide', href: '/plane-spotting-heathrow' }
     ]
   },

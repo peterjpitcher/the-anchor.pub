@@ -1,12 +1,19 @@
-# The Anchor Pub - Stanwell Moor, Surrey
+# The Anchor
 
-Traditional British pub near Heathrow Airport serving great food and drinks with regular entertainment.
+> Traditional British pub in Stanwell Moor, Surrey — 7 minutes from Heathrow Terminal 5. Dog-friendly beer garden under the flight path, traditional Sunday roasts, stone-baked pizza, free parking. Rated 4.6/5 on Google.
 
-## Key Information
-- Location: Horton Road, Stanwell Moor, Surrey, TW19 6AQ
-- Phone: 01753 682707
-- Email: manager@the-anchor.pub
-- Website: https://www.the-anchor.pub
+## Key Facts
+- **Address:** Horton Road, Stanwell Moor, Surrey TW19 6AQ
+- **Phone:** 01753 682707
+- **Email:** manager@the-anchor.pub
+- **Website:** https://www.the-anchor.pub
+- **Established:** 1751
+- **Type:** Traditional British pub and restaurant
+- **Price Range:** Mains £10-£24
+- **Parking:** 20 free spaces, no time limit while dining
+- **Capacity:** Up to 200 for private events
+- **Rating:** 4.6/5 on Google (300+ reviews)
+- **Food Hygiene:** 5-star rating
 
 ## Opening Hours
 - Monday: CLOSED
@@ -16,64 +23,59 @@ Traditional British pub near Heathrow Airport serving great food and drinks with
 - Sunday: 12pm-9pm
 
 ## Kitchen Hours
+- Monday: CLOSED
 - Tuesday-Friday: 6pm-9pm
 - Saturday: 1pm-7pm
-- Sunday: 1pm-6pm (Sunday roast pre-order required by 1pm Saturday)
+- Sunday: 1pm-6pm
 
-## What We Offer
-- Traditional British pub food including famous Sunday roasts
-- Wood-fired pizzas
-- Wide selection of beers, wines, spirits, and cocktails
-- Monthly Manager's Special on premium spirits
-- Dog-friendly pub with heated beer garden
-- Free customer parking
-- Free WiFi throughout
-- Pool table and darts
-- Live sports on multiple screens
-- Outside ULEZ zone
+## Distance from Heathrow
+- Terminal 5: 7 minutes by car
+- Terminals 2 & 3: 11 minutes by car
+- Terminal 4: 12 minutes by car
+- Bus: 441 & 442 from Heathrow Central Bus Station
 
-## Regular Events
-- Monthly Quiz Night (£3 entry, teams up to 6, cash prizes)
-- Monthly Cash Bingo Night (£10 per book)
-- Hosted nights like Music Bingo with Nikki Manfadge (see /whats-on for latest details)
-- Live entertainment and themed nights
+## Food
+- Traditional British pub classics (fish & chips, pies, burgers): £10-£17
+- Stone-baked pizzas: from £11
+- Sunday roast (chicken, lamb, pork belly, vegetarian): £19.99-£23.99
+- Sunday lunch requires pre-order by 1pm Saturday, £10/person deposit
+- BOGOF pizza Tuesday & Wednesday
+- 50% off fish & chips for over-65s on Fridays
 
-## Private Events & Functions
-- Function room for up to 150 guests
-- Corporate events and Christmas parties
-- Birthday celebrations and special occasions
-- Full catering and bar service available
-- Email: manager@the-anchor.pub for bookings
+## Events
+- Monthly Quiz Night: £3 entry, teams up to 6, cash prizes
+- Monthly Cash Bingo: £10 per book, cash jackpot
+- Music Bingo with Nikki Manfadge
+- Karaoke nights
+- Live music and themed events
+- See https://www.the-anchor.pub/whats-on for dates
 
-## Location Benefits
-- 7 minutes from Heathrow Terminal 5
-- 11 minutes from Terminals 2 & 3
-- 12 minutes from Terminal 4
-- Near M25 Junction 14
-- Serves Stanwell Moor, Staines, Ashford, Feltham, and surrounding areas
-- Perfect stopover for Heathrow travelers
+## Private Hire
+- Function room for 10-200 guests
+- Corporate events, Christmas parties, birthdays
+- Wakes and celebrations of life
+- Christenings, baby showers, weddings
+- Custom catering, AV support, free parking
+- Contact: manager@the-anchor.pub
 
-## Important Pages
-- Full Menu: https://www.the-anchor.pub/food-menu
-- Drinks Menu: https://www.the-anchor.pub/drinks
-- What's On: https://www.the-anchor.pub/whats-on
-- Book a Table: https://www.the-anchor.pub/book-table
-- Find Us: https://www.the-anchor.pub/find-us
-- Near Heathrow: https://www.the-anchor.pub/near-heathrow
+## Unique Features
+- Beer garden directly under Heathrow flight path (plane spotting)
+- Aircraft overhead every 90 seconds during peak times
+- Outside ULEZ zone (saves £12.50/day)
+- Dog-friendly throughout (water bowls provided)
+- Free WiFi, pool table, darts
 
-## Awards & Recognition
-- 5-Star Food Hygiene Rating
-- Google Rating: 4.6/5 from 300+ reviews
-- TripAdvisor Certificate of Excellence
-
-## Special Offers
-- Sunday Roast: Traditional British roast dinner
-- Manager's Special: Different premium spirit offer each month
-
-## Getting Here
-- By Car: Free parking available, outside ULEZ zone
-- By Public Transport: Buses from Heathrow and Staines
-- By Foot: Walking distance from Stanwell Moor village
-
-## About Us
-The Anchor has been at the heart of the Stanwell Moor community since 1751. We're a traditional British pub with a modern twist, offering great food, fantastic entertainment, and a warm welcome to locals and visitors alike. Whether you're looking for a family meal, a night out with friends, or a venue for your special event, The Anchor is the perfect choice.
+## Pages
+- [Home](https://www.the-anchor.pub/)
+- [Food Menu](https://www.the-anchor.pub/food-menu)
+- [Sunday Lunch](https://www.the-anchor.pub/sunday-lunch)
+- [Drinks](https://www.the-anchor.pub/drinks)
+- [Book a Table](https://www.the-anchor.pub/book-table)
+- [What's On](https://www.the-anchor.pub/whats-on)
+- [Beer Garden & Plane Spotting](https://www.the-anchor.pub/beer-garden)
+- [Private Hire](https://www.the-anchor.pub/private-hire)
+- [Function Room Hire](https://www.the-anchor.pub/function-room-hire)
+- [Near Heathrow](https://www.the-anchor.pub/near-heathrow)
+- [Dog Friendly](https://www.the-anchor.pub/dog-friendly-pub-heathrow)
+- [Find Us](https://www.the-anchor.pub/find-us)
+- [Quiz Night](https://www.the-anchor.pub/quiz-night)
