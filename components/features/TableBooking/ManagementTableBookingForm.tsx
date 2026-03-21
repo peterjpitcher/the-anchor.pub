@@ -526,11 +526,12 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const defaultDate = mothersDayPrefillRequested ? MOTHERS_DAY_SERVICE_DATE : toIsoDateInputValue(prefill?.date) || today
   const defaultRequestedTime =
     toTimeInputValue(prefill?.time) || (mothersDayPrefillRequested ? MOTHERS_DAY_DEFAULT_TIME : getDefaultTimeValue())
-  const defaultPartySize = Math.min(Math.max(prefill?.partySize || (mothersDayPrefillRequested ? 4 : 2), 1), 50)
+  const defaultPartySize = Math.min(Math.max(prefill?.partySize || (mothersDayPrefillRequested ? 4 : 2), 1), 20)
 
   const [step, setStep] = useState<BookingStep>('find')
 
   const [partySize, setPartySize] = useState(defaultPartySize)
+  const [partySizeDisplay, setPartySizeDisplay] = useState(String(defaultPartySize))
   const [date, setDate] = useState(defaultDate)
   const [requestedTime, setRequestedTime] = useState(defaultRequestedTime)
   const [selectedTime, setSelectedTime] = useState<string>('')
@@ -987,6 +988,12 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   }
 
   async function handleFindTable() {
+    // Sync partySizeDisplay → partySize on submit in case blur hasn't fired
+    const parsedSize = Number.parseInt(partySizeDisplay, 10)
+    const clampedSize = (!Number.isFinite(parsedSize) || parsedSize < 1) ? 1 : Math.min(parsedSize, 20)
+    setPartySize(clampedSize)
+    setPartySizeDisplay(String(clampedSize))
+
     // Reject past dates before hitting the API.
     if (date && /^\d{4}-\d{2}-\d{2}$/.test(date)) {
       const todayMidnight = new Date()
@@ -1091,6 +1098,9 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
   function handleDateChange(value: string) {
     setDate(value)
+    setAvailability(null)
+    setAlternativeSlots([])
+    setSelectedTime('')
     setDrinksAlternative(null)
     if (value && /^\d{4}-\d{2}-\d{2}$/.test(value)) {
       const todayMidnight = new Date()
@@ -1475,6 +1485,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   function resetJourney() {
     setStep('find')
     setPartySize(defaultPartySize)
+    setPartySizeDisplay(String(defaultPartySize))
     setDate(defaultDate)
     setRequestedTime(defaultRequestedTime)
     setSelectedTime('')
@@ -1641,16 +1652,24 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               label="Party Size"
               type="number"
               min={1}
-              max={50}
+              max={20}
               required
-              value={partySize}
+              value={partySizeDisplay}
               onChange={(event) => {
                 const raw = event.target.value
+                setPartySizeDisplay(raw)
                 if (raw === '') return
                 const parsed = Number.parseInt(raw, 10)
                 if (Number.isNaN(parsed)) return
-                setPartySize(Math.min(Math.max(parsed, 1), 50))
+                const clamped = Math.min(Math.max(parsed, 1), 20)
+                setPartySize(clamped)
                 setDrinksAlternative(null)
+              }}
+              onBlur={() => {
+                const parsed = Number.parseInt(partySizeDisplay, 10)
+                const clamped = (!Number.isFinite(parsed) || parsed < 1) ? 1 : Math.min(parsed, 20)
+                setPartySize(clamped)
+                setPartySizeDisplay(String(clamped))
               }}
             />
 

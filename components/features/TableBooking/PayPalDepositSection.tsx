@@ -53,6 +53,7 @@ export function PayPalDepositSection({
             Deposit: <span className="font-semibold text-anchor-cream-text">£{depositAmount}</span>{' '}
             <span className="text-anchor-cream-text/50">(£10 per person)</span>
           </p>
+          <p className="text-anchor-cream-text/50 text-xs">This deposit is deducted from your final bill.</p>
         </div>
 
         <PayPalButtons

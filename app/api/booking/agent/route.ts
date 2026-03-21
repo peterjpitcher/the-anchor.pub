@@ -36,10 +36,10 @@ export async function POST(request: Request) {
     }
     
     // Validate customer data
-    if (!body.customer.firstName || !body.customer.lastName || !body.customer.phone || !body.customer.email) {
+    if (!body.customer.firstName || !body.customer.lastName || !body.customer.phone) {
       return jsonResponse({
         success: false,
-        error: 'Missing customer fields: firstName, lastName, phone, email'
+        error: 'Missing customer fields: firstName, lastName, phone'
       }, 400)
     }
     
@@ -119,7 +119,7 @@ export async function POST(request: Request) {
         last_name: body.customer.lastName,
         email: body.customer.email,
         mobile_number: body.customer.phone,
-        sms_opt_in: true
+        sms_opt_in: body.customer.smsOptIn ?? false
       },
       duration_minutes: body.duration || 120,
       special_requirements: body.specialRequirements,
@@ -151,8 +151,8 @@ export async function POST(request: Request) {
         specialInstructions: isSunday && bookingType === 'sunday_lunch'
           ? (
               body.partySize >= 7
-                ? 'Sunday lunch roasts must be pre-ordered by 1pm Saturday. Bookings of 7+ require a card hold to secure the booking (no charge).'
-                : 'Sunday lunch roasts must be pre-ordered by 1pm Saturday.'
+                ? 'Sunday lunch roasts must be pre-ordered by 1pm Saturday. Bookings of 7+ require a £10 per person deposit to secure the booking. This is deducted from your final bill.'
+                : 'Sunday lunch roasts must be pre-ordered by 1pm Saturday. A £10 per person deposit is required and is deducted from your final bill.'
             )
           : null
       }

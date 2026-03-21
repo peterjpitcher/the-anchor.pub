@@ -45,7 +45,7 @@ function parsePartySize(value?: string): number | undefined {
   if (!value) return undefined
   const parsed = Number.parseInt(value, 10)
   if (!Number.isFinite(parsed)) return undefined
-  return Math.min(Math.max(parsed, 1), 50)
+  return Math.min(Math.max(parsed, 1), 20)
 }
 
 function parsePurpose(value?: string): 'food' | 'drinks' | undefined {
@@ -206,7 +206,7 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
             <div className="hidden card-dark p-6 lg:block">
               <h2 className="text-xl font-semibold text-anchor-gold-vivid">Quick tips</h2>
               <ul className="mt-3 space-y-2 text-left text-sm text-anchor-cream-text/70">
-                <li>• For larger groups, please call us.</li>
+                <li>• For groups of 20+, please call us.</li>
                 <li>• A £10 per person deposit is required for groups of 7 or more. This is deducted from your final bill.</li>
                 <li>• {SUNDAY_LUNCH_DEPOSIT_POLICY_COPY}</li>
                 <li>• Add access needs or dietary notes in the notes box.</li>
@@ -217,7 +217,7 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
             <div className="hidden card-dark p-6 lg:block">
               <h3 className="text-xl font-semibold text-anchor-gold-vivid">Prefer to talk?</h3>
               <p className="mt-2 text-sm text-anchor-cream-text/70">
-                Our team can help with tables of 8+, special celebrations, or last-minute changes.
+                Our team can help with tables of 20+, special celebrations, or last-minute changes.
               </p>
               <div className="mt-4">
                 <PhoneButton

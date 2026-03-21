@@ -168,7 +168,7 @@ export async function POST(request: Request) {
     }
     
     // Generate idempotency key to prevent duplicate bookings
-    const idempotencyKey = crypto.randomUUID()
+    const idempotencyKey = request.headers.get('Idempotency-Key') || crypto.randomUUID()
     
     // Submit to API
     const booking = await anchorAPI.createTableBooking(bookingRequest, idempotencyKey)
