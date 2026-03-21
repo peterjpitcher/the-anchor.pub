@@ -97,6 +97,7 @@ export function ManagementEventBookingForm({ event, title, compact = false }: Ma
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [seats, setSeats] = useState(2)
+  const [seatsDisplay, setSeatsDisplay] = useState('2')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [result, setResult] = useState<EventBookingResult | null>(null)
@@ -170,6 +171,13 @@ export function ManagementEventBookingForm({ event, title, compact = false }: Ma
     setError(null)
     setResult(null)
     setWaitlistResult(null)
+
+    // Sync seatsDisplay → seats in case blur hasn't fired
+    const parsedSeats = Number.parseInt(seatsDisplay, 10)
+    const clampedSeats = (!Number.isFinite(parsedSeats) || parsedSeats < 1) ? 1 : Math.min(parsedSeats, 20)
+    setSeats(clampedSeats)
+    setSeatsDisplay(String(clampedSeats))
+
     setLoading(true)
 
     if (!phone.trim()) {
@@ -211,7 +219,7 @@ export function ManagementEventBookingForm({ event, title, compact = false }: Ma
           ...(resolvedFirstName ? { first_name: resolvedFirstName } : {}),
           ...(resolvedLastName ? { last_name: resolvedLastName } : {}),
           ...(knownCustomer?.email ? { email: knownCustomer.email } : {}),
-          seats
+          seats: clampedSeats
         })
       })
 
@@ -372,17 +380,26 @@ export function ManagementEventBookingForm({ event, title, compact = false }: Ma
             <>
               <Input
                 label="Number of Seats"
-                type="number"
-                min={1}
-                max={20}
+                type="text"
+                inputMode="numeric"
+                pattern="[0-9]*"
                 required
-                value={seats}
+                value={seatsDisplay}
                 onChange={(event) => {
                   const raw = event.target.value
+                  // Allow empty (user is clearing to retype) and digits only
+                  if (raw !== '' && !/^\d+$/.test(raw)) return
+                  setSeatsDisplay(raw)
                   if (raw === '') return
                   const parsed = Number.parseInt(raw, 10)
                   if (Number.isNaN(parsed)) return
                   setSeats(Math.min(Math.max(parsed, 1), 20))
+                }}
+                onBlur={() => {
+                  const parsed = Number.parseInt(seatsDisplay, 10)
+                  const clamped = (!Number.isFinite(parsed) || parsed < 1) ? 1 : Math.min(parsed, 20)
+                  setSeats(clamped)
+                  setSeatsDisplay(String(clamped))
                 }}
               />
 
