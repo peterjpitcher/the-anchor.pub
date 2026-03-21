@@ -377,7 +377,13 @@ export function ManagementEventBookingForm({ event, title, compact = false }: Ma
                 max={20}
                 required
                 value={seats}
-                onChange={(event) => setSeats(Math.min(Math.max(Number(event.target.value) || 1, 1), 20))}
+                onChange={(event) => {
+                  const raw = event.target.value
+                  if (raw === '') return
+                  const parsed = Number.parseInt(raw, 10)
+                  if (Number.isNaN(parsed)) return
+                  setSeats(Math.min(Math.max(parsed, 1), 20))
+                }}
               />
 
               <Button type="submit" fullWidth size="lg" loading={loading}>

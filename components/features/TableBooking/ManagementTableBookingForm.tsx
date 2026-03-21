@@ -541,6 +541,10 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const [dateError, setDateError] = useState<string | null>(null)
   const [alternativeSlots, setAlternativeSlots] = useState<AlternativeSlot[]>([])
   const [alternativesLoading, setAlternativesLoading] = useState(false)
+  const [drinksAlternative, setDrinksAlternative] = useState<{
+    available: boolean
+    slotCount: number
+  } | null>(null)
   const [eventsByDate, setEventsByDate] = useState<Record<string, SuggestedEvent[]>>({})
   const [eventErrorsByDate, setEventErrorsByDate] = useState<Record<string, string>>({})
   const [eventsLoadingDate, setEventsLoadingDate] = useState<string | null>(null)
@@ -960,6 +964,25 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
     if (!closestTime) {
       void loadNearestAlternatives(input.targetDate, input.targetTime, input.targetPurpose)
+
+      // Auto-check drinks availability when food returns no slots
+      if (input.targetPurpose === 'food') {
+        try {
+          const drinksData = await fetchAvailabilityForDate(
+            input.targetDate,
+            input.targetTime,
+            'drinks',
+            input.signal
+          )
+          const drinksSlots = (drinksData.time_slots || []).filter((s) => isSlotAvailable(s, partySize))
+          setDrinksAlternative({
+            available: drinksSlots.length > 0,
+            slotCount: drinksSlots.length
+          })
+        } catch {
+          setDrinksAlternative(null)
+        }
+      }
     }
   }
 
@@ -985,6 +1008,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setResult(null)
     setAvailabilityLoading(true)
     setAlternativeSlots([])
+    setDrinksAlternative(null)
 
     try {
       await runAvailabilitySearch({
@@ -1067,6 +1091,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
   function handleDateChange(value: string) {
     setDate(value)
+    setDrinksAlternative(null)
     if (value && /^\d{4}-\d{2}-\d{2}$/.test(value)) {
       const todayMidnight = new Date()
       todayMidnight.setHours(0, 0, 0, 0)
@@ -1096,6 +1121,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
     setPurpose(nextPurpose)
     setSundayPlanManuallySelected(false)
+    setDrinksAlternative(null)
     if (nextPurpose === 'drinks') {
       setSundayLunch(false)
     }
@@ -1456,6 +1482,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setAvailabilityError(null)
     setAlternativeSlots([])
     setAlternativesLoading(false)
+    setDrinksAlternative(null)
     setDismissedEventDates([])
     setSelectedSuggestedEvent(null)
     setPhone('')
@@ -1617,7 +1644,14 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               max={50}
               required
               value={partySize}
-              onChange={(event) => setPartySize(Math.min(Math.max(Number(event.target.value) || 1, 1), 50))}
+              onChange={(event) => {
+                const raw = event.target.value
+                if (raw === '') return
+                const parsed = Number.parseInt(raw, 10)
+                if (Number.isNaN(parsed)) return
+                setPartySize(Math.min(Math.max(parsed, 1), 50))
+                setDrinksAlternative(null)
+              }}
             />
 
             {mothersDayMode ? (
@@ -1738,6 +1772,27 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 </p>
                 {availability?.special_notes ? <p className="mt-2">{availability.special_notes}</p> : null}
               </Alert>
+            )}
+
+            {drinksAlternative?.available && purpose === 'food' && availableSlots.length === 0 && (
+              <div className="rounded-xl border border-anchor-gold/30 bg-anchor-gold/10 p-4 text-center">
+                <p className="text-sm font-semibold text-anchor-gold-vivid mb-2">
+                  Our kitchen is closed, but the bar is open
+                </p>
+                <p className="text-sm text-anchor-cream-text/80 mb-3">
+                  {drinksAlternative.slotCount} drinks-only {drinksAlternative.slotCount === 1 ? 'time' : 'times'} available
+                </p>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setDrinksAlternative(null)
+                    handlePurposeSelection('drinks')
+                  }}
+                  className="rounded-xl border border-anchor-gold bg-anchor-gold/20 px-4 py-2 text-sm font-semibold text-anchor-gold-vivid hover:bg-anchor-gold/30 transition-colors"
+                >
+                  Check drinks availability
+                </button>
+              </div>
             )}
 
             {!mothersDayMode && (showDateEventSuggestions || selectedDateEventsLoading || selectedDateEventsLoaded) &&
