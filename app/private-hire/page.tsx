@@ -41,12 +41,12 @@ export default function PrivateHirePage() {
             <HeroWrapper
                 route="/private-hire"
                 title="Private Hire & Events"
-                description="Private rooms for 10–200 guests · Free parking for all · Buffet packages from £9.95pp · 7 mins from Heathrow"
+                description="Private rooms for 10–50 guests · Free parking for all · Buffet packages from £9.95pp · 7 mins from Heathrow"
 
                 tags={[
                     { label: "7 Mins from Heathrow", variant: "success" },
                     { label: "Free Parking", variant: "default" },
-                    { label: "10-200 Guests", variant: "default" },
+                    { label: "10-50 Guests", variant: "default" },
                     { label: "From £9.95pp", variant: "success" }
                 ]}
                 primaryCta={
@@ -73,7 +73,7 @@ export default function PrivateHirePage() {
                         <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
                         <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog &amp; family friendly</span>
                         <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">10–200 guests</span>
+                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">10–50 guests</span>
                     </div>
                 }
             />
@@ -85,7 +85,7 @@ export default function PrivateHirePage() {
                     </PageTitle>
 
                     <p className="text-center text-lg text-anchor-cream-text/70 mb-8 max-w-4xl mx-auto">
-                        The Anchor is an independent private hire venue in Stanwell Moor, 7 minutes from Heathrow Terminal 5. We host everything from intimate parties of 10 to celebrations of 200, with buffet packages from &pound;9.95 per person, free parking for all guests, and a personal touch you won&apos;t get from a hotel.
+                        The Anchor is an independent private hire venue in Stanwell Moor, 7 minutes from Heathrow Terminal 5. We host everything from intimate parties of 10 to celebrations of 50, with buffet packages from &pound;9.95 per person, free parking for all guests, and a personal touch you won&apos;t get from a hotel.
                     </p>
 
                     <div className="flex justify-center mb-10">
@@ -306,7 +306,7 @@ export default function PrivateHirePage() {
                     <div className="max-w-4xl mx-auto">
                         <SectionHeader
                             title="Our Private Dining Spaces"
-                            subtitle="Flexible rooms for 10 to 200 guests"
+                            subtitle="Flexible rooms for 10 to 50 guests"
                         />
                         <div className="grid md:grid-cols-2 gap-6">
                             <div className="relative aspect-[4/3] overflow-hidden rounded-none">
@@ -406,7 +406,7 @@ export default function PrivateHirePage() {
                         />
 
                         <p className="text-lg text-anchor-cream-text/70 mb-8 max-w-3xl mx-auto">
-                            Most hotel venues require 50 or more guests before they&apos;ll even take your call. At The Anchor, we welcome groups from just 10. Whether it&apos;s an intimate birthday dinner, a retirement lunch, a christening tea, or a small work gathering — we&apos;ll give your event the same care and attention as a party of 200.
+                            Most hotel venues require 50 or more guests before they&apos;ll even take your call. At The Anchor, we welcome groups from just 10. Whether it&apos;s an intimate birthday dinner, a retirement lunch, a christening tea, or a small work gathering — we&apos;ll give your event the same care and attention as a larger celebration.
                         </p>
 
                         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -568,7 +568,7 @@ export default function PrivateHirePage() {
             <InternalLinkingSection
                 title="Also Explore"
                 links={[
-                    { href: '/function-room-hire', title: 'Function Room Hire', description: 'Flexible spaces for 10-200 guests with AV support' },
+                    { href: '/function-room-hire', title: 'Function Room Hire', description: 'Flexible spaces for 10-50 guests with AV support' },
                     { href: '/corporate-events', title: 'Corporate Events', description: 'Professional meeting rooms and business event packages' },
                 ]}
                 className="section-spacing-md"
