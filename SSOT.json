@@ -202,7 +202,8 @@
   "venue": {
     "capacity": {
       "maximum": 250,
-      "private_hire": "10-200 guests",
+      "private_hire": "10-50 guests",
+      "dining_room_seated": 26,
       "christmas_seated": 60,
       "christmas_standing": 200,
       "beer_garden_seats": 64
@@ -758,7 +759,9 @@
     }
   },
   "private_hire": {
-    "capacity": "10-200 guests",
+    "capacity": "10-50 guests",
+    "dining_room_seated": 26,
+    "dining_room_note": "26 seated with standing room for more. French doors open onto beer garden.",
     "spaces": [
       "Beer garden",
       "Dining room (private hire)"
