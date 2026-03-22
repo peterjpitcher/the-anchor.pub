@@ -300,8 +300,43 @@ export default function PrivateHirePage() {
                 </Container>
             </section>
 
-            {/* How We Compare */}
+            {/* Our Spaces */}
             <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+                <Container>
+                    <div className="max-w-4xl mx-auto">
+                        <SectionHeader
+                            title="Our Private Dining Spaces"
+                            subtitle="Flexible rooms for 10 to 200 guests"
+                        />
+                        <div className="grid md:grid-cols-2 gap-6">
+                            <div className="relative aspect-[4/3] overflow-hidden rounded-none">
+                                <Image
+                                    src="/images/dining-room/conservatory.jpg"
+                                    alt="The Anchor conservatory dining room set up for a private event with views over the beer garden"
+                                    fill
+                                    className="object-cover"
+                                    sizes="(max-width: 768px) 100vw, 50vw"
+                                />
+                            </div>
+                            <div className="relative aspect-[4/3] overflow-hidden rounded-none">
+                                <Image
+                                    src="/images/dining-room/dining-room.jpg"
+                                    alt="The Anchor main dining room with wooden tables and comfortable seating for private hire"
+                                    fill
+                                    className="object-cover"
+                                    sizes="(max-width: 768px) 100vw, 50vw"
+                                />
+                            </div>
+                        </div>
+                        <p className="text-center text-sm text-anchor-cream-text/50 mt-4">
+                            Our conservatory dining room (left) and main dining area (right) — both available for private hire
+                        </p>
+                    </div>
+                </Container>
+            </section>
+
+            {/* How We Compare */}
+            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeader
