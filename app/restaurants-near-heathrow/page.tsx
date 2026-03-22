@@ -155,12 +155,172 @@ export default async function RestaurantsNearHeathrowPage() {
       {/* Page Title for SEO */}
       <section className="bg-anchor-bg-card py-8 border-b border-anchor-gold/15">
         <Container>
-          <PageTitle 
+          <PageTitle
             className="text-center text-anchor-cream-text"
             seo={{ structured: true, speakable: true }}
           >
             Restaurant Near Heathrow - Traditional British Dining Alternative to Airport Food
           </PageTitle>
+        </Container>
+      </section>
+
+      {/* Definitive Answer Paragraph */}
+      <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
+        <Container>
+          <div className="max-w-4xl mx-auto">
+            <p className="text-lg leading-relaxed text-anchor-cream-text/80">
+              The best restaurants near Heathrow Airport outside the terminal include traditional pubs, hotel restaurants, and family dining spots within 15 minutes&apos; drive. For the best value, local pubs like The Anchor in Stanwell Moor offer freshly prepared food from &pound;10, free parking, and a genuine atmosphere &mdash; all just 7 minutes from Terminal 5.
+            </p>
+          </div>
+        </Container>
+      </section>
+
+      {/* Price Comparison Table */}
+      <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
+        <Container>
+          <div className="max-w-6xl mx-auto">
+            <SectionHeader
+              title="How Dining Options Near Heathrow Compare"
+              subtitle="Typical prices, parking costs and travel times at a glance"
+            />
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="border-b border-anchor-gold/30">
+                    <th className="py-3 px-4 text-anchor-gold-vivid font-bold text-sm">Option</th>
+                    <th className="py-3 px-4 text-anchor-gold-vivid font-bold text-sm">Typical Main Course</th>
+                    <th className="py-3 px-4 text-anchor-gold-vivid font-bold text-sm">Parking</th>
+                    <th className="py-3 px-4 text-anchor-gold-vivid font-bold text-sm">Distance from T5</th>
+                    <th className="py-3 px-4 text-anchor-gold-vivid font-bold text-sm">Atmosphere</th>
+                  </tr>
+                </thead>
+                <tbody className="text-anchor-cream-text/80">
+                  <tr className="border-b border-anchor-gold/10">
+                    <td className="py-3 px-4 font-medium">Heathrow Terminal Restaurants</td>
+                    <td className="py-3 px-4">&pound;15&ndash;30</td>
+                    <td className="py-3 px-4">N/A (airside)</td>
+                    <td className="py-3 px-4">Inside terminal</td>
+                    <td className="py-3 px-4">Airport</td>
+                  </tr>
+                  <tr className="border-b border-anchor-gold/10">
+                    <td className="py-3 px-4 font-medium">Hotel Restaurants (Sofitel, Hilton)</td>
+                    <td className="py-3 px-4">&pound;18&ndash;30 + service</td>
+                    <td className="py-3 px-4">&pound;15&ndash;25/day</td>
+                    <td className="py-3 px-4">5&ndash;15 mins</td>
+                    <td className="py-3 px-4">Corporate</td>
+                  </tr>
+                  <tr className="border-b border-anchor-gold/10 bg-anchor-gold/5">
+                    <td className="py-3 px-4 font-bold text-anchor-gold-vivid">The Anchor</td>
+                    <td className="py-3 px-4 font-bold text-anchor-gold-vivid">&pound;10&ndash;20</td>
+                    <td className="py-3 px-4 font-bold text-green-400">Free</td>
+                    <td className="py-3 px-4 font-bold text-anchor-gold-vivid">7 mins</td>
+                    <td className="py-3 px-4 font-bold text-anchor-gold-vivid">Traditional pub</td>
+                  </tr>
+                  <tr className="border-b border-anchor-gold/10">
+                    <td className="py-3 px-4 font-medium">Toby Carvery</td>
+                    <td className="py-3 px-4">&pound;10&ndash;14</td>
+                    <td className="py-3 px-4">Free</td>
+                    <td className="py-3 px-4">10 mins</td>
+                    <td className="py-3 px-4">Family carvery</td>
+                  </tr>
+                  <tr className="border-b border-anchor-gold/10">
+                    <td className="py-3 px-4 font-medium">The Three Magpies</td>
+                    <td className="py-3 px-4">&pound;10&ndash;18</td>
+                    <td className="py-3 px-4">Free</td>
+                    <td className="py-3 px-4">5 mins</td>
+                    <td className="py-3 px-4">Chain pub</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p className="text-sm text-anchor-cream-text/55 mt-4 text-center">
+              Prices are approximate and based on publicly available menus. Last updated March 2026.
+            </p>
+          </div>
+        </Container>
+      </section>
+
+      {/* Outside vs Inside the Airport */}
+      <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
+        <Container>
+          <div className="max-w-6xl mx-auto">
+            <SectionHeader
+              title="Should You Stay Inside the Airport or Leave?"
+              subtitle="A quick guide to help you decide"
+            />
+            <InfoBoxGrid
+              columns={2}
+              boxes={[
+                {
+                  title: "Stay inside the airport if\u2026",
+                  content: (
+                    <ul className="space-y-2 text-anchor-cream-text/70">
+                      <li>• You have under 2 hours before your flight</li>
+                      <li>• You are already through security</li>
+                      <li>• You are on expenses and price is not a concern</li>
+                    </ul>
+                  ),
+                  variant: "default"
+                },
+                {
+                  title: "Leave the airport if\u2026",
+                  content: (
+                    <ul className="space-y-2 text-anchor-cream-text/70">
+                      <li>• You have 3 or more hours to spare</li>
+                      <li>• You want real food at real prices</li>
+                      <li>• You are meeting someone local</li>
+                      <li>• You want free parking while you eat</li>
+                      <li>• You have a dog with you</li>
+                    </ul>
+                  ),
+                  variant: "default"
+                }
+              ]}
+            />
+          </div>
+        </Container>
+      </section>
+
+      {/* Transport from Each Terminal */}
+      <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
+        <Container>
+          <div className="max-w-6xl mx-auto">
+            <SectionHeader
+              title="How to Get to The Anchor from Each Terminal"
+              subtitle="Quick directions and estimated taxi fares"
+            />
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="card-dark rounded-none p-6">
+                <h3 className="font-bold text-lg text-anchor-gold-vivid mb-3">From Terminal 5</h3>
+                <ul className="space-y-2 text-anchor-cream-text/70">
+                  <li><strong>Drive:</strong> 7 minutes via A3044</li>
+                  <li><strong>Taxi:</strong> approx. &pound;10&ndash;12</li>
+                  <li><strong>Route:</strong> Head south on the A3044 towards Stanwell Moor &mdash; we are on Horton Road</li>
+                </ul>
+              </div>
+              <div className="card-dark rounded-none p-6">
+                <h3 className="font-bold text-lg text-anchor-gold-vivid mb-3">From Terminals 2 &amp; 3</h3>
+                <ul className="space-y-2 text-anchor-cream-text/70">
+                  <li><strong>Drive:</strong> 10&ndash;12 minutes via A30</li>
+                  <li><strong>Taxi:</strong> approx. &pound;12&ndash;15</li>
+                  <li><strong>Route:</strong> Take the A30 south then follow signs for Stanwell Moor village</li>
+                </ul>
+              </div>
+              <div className="card-dark rounded-none p-6">
+                <h3 className="font-bold text-lg text-anchor-gold-vivid mb-3">From Terminal 4</h3>
+                <ul className="space-y-2 text-anchor-cream-text/70">
+                  <li><strong>Drive:</strong> 8 minutes via A30</li>
+                  <li><strong>Taxi:</strong> approx. &pound;10&ndash;12</li>
+                  <li><strong>Route:</strong> Head west on the A30 towards Staines, turn off at Stanwell Moor</li>
+                </ul>
+              </div>
+            </div>
+            <div className="text-center mt-6">
+              <p className="text-sm text-anchor-cream-text/55">
+                All taxi fares are estimates based on standard metered rates. Uber and Bolt are also available from all terminals.
+              </p>
+            </div>
+          </div>
         </Container>
       </section>
 

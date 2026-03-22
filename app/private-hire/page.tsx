@@ -41,13 +41,13 @@ export default function PrivateHirePage() {
             <HeroWrapper
                 route="/private-hire"
                 title="Private Hire & Events"
-                description="Private rooms for 10–200 guests · Free parking for all · Buffet packages available · 7 mins from Heathrow"
-               
+                description="Private rooms for 10–200 guests · Free parking for all · Buffet packages from £9.95pp · 7 mins from Heathrow"
+
                 tags={[
                     { label: "7 Mins from Heathrow", variant: "success" },
                     { label: "Free Parking", variant: "default" },
                     { label: "10-200 Guests", variant: "default" },
-                    { label: "Private Catering", variant: "success" }
+                    { label: "From £9.95pp", variant: "success" }
                 ]}
                 primaryCta={
                     <PhoneButton
@@ -85,7 +85,7 @@ export default function PrivateHirePage() {
                     </PageTitle>
 
                     <p className="text-center text-lg text-anchor-cream-text/70 mb-8 max-w-4xl mx-auto">
-                        The Anchor offers function room hire for 10 to 200 guests near Heathrow Airport, with free parking for all attendees and custom catering packages starting from &pound;9.95 per person. The venue is 7 minutes from Terminal 5 and ideal for corporate events, celebrations, and wakes.
+                        The Anchor is an independent private hire venue in Stanwell Moor, 7 minutes from Heathrow Terminal 5. We host everything from intimate parties of 10 to celebrations of 200, with buffet packages from &pound;9.95 per person, free parking for all guests, and a personal touch you won&apos;t get from a hotel.
                     </p>
 
                     <div className="flex justify-center mb-10">
@@ -224,6 +224,249 @@ export default function PrivateHirePage() {
                                 </div>
                             </div>
                         </Link>
+                    </div>
+                </Container>
+            </section>
+
+            {/* Pricing Bands */}
+            <section id="pricing" className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+                <Container>
+                    <div className="max-w-4xl mx-auto">
+                        <SectionHeader
+                            title="Indicative Pricing"
+                            subtitle="Packages to suit every occasion and budget"
+                        />
+
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-left border-collapse">
+                                <thead>
+                                    <tr className="border-b border-anchor-gold/30">
+                                        <th scope="col" className="py-3 pr-4 text-sm font-semibold text-anchor-gold-vivid">Package</th>
+                                        <th scope="col" className="py-3 pr-4 text-sm font-semibold text-anchor-gold-vivid">From (per person)</th>
+                                        <th scope="col" className="py-3 text-sm font-semibold text-anchor-gold-vivid">Includes</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-anchor-gold/10">
+                                    <tr>
+                                        <td className="py-3 pr-4 text-anchor-cream-text font-medium">Drinks Reception</td>
+                                        <td className="py-3 pr-4 text-anchor-cream-text">Free (min bar spend applies)</td>
+                                        <td className="py-3 text-anchor-cream-text/70">Private area, dedicated bar staff</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="py-3 pr-4 text-anchor-cream-text font-medium">Finger Buffet</td>
+                                        <td className="py-3 pr-4 text-anchor-cream-text">&pound;9.95</td>
+                                        <td className="py-3 text-anchor-cream-text/70">Selection of hot and cold bites</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="py-3 pr-4 text-anchor-cream-text font-medium">Hot Buffet</td>
+                                        <td className="py-3 pr-4 text-anchor-cream-text">&pound;14.95</td>
+                                        <td className="py-3 text-anchor-cream-text/70">Choice of mains, sides, dessert</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="py-3 pr-4 text-anchor-cream-text font-medium">Sit-Down Meal</td>
+                                        <td className="py-3 pr-4 text-anchor-cream-text">&pound;24.95</td>
+                                        <td className="py-3 text-anchor-cream-text/70">2 or 3 courses, table service</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="py-3 pr-4 text-anchor-cream-text font-medium">Sunday Lunch Party</td>
+                                        <td className="py-3 pr-4 text-anchor-cream-text">&pound;19.99</td>
+                                        <td className="py-3 text-anchor-cream-text/70">Traditional roast, booking deposit</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p className="mt-6 text-sm text-anchor-cream-text/60 italic">
+                            All prices are per person. Bespoke packages available — get in touch to discuss your requirements.
+                        </p>
+
+                        <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+                            <Link href="/private-hire#enquiry" className="w-full sm:w-auto">
+                                <Button variant="primary" size="lg" className="w-full sm:w-auto">
+                                    Get a Personalised Quote
+                                </Button>
+                            </Link>
+                            <PhoneButton
+                                phone="01753 682707"
+                                source="private_hire_pricing_cta"
+                                variant="outline"
+                                size="lg"
+                                className="w-full sm:w-auto border-anchor-gold/30 text-anchor-cream-text hover:bg-anchor-bg-raised"
+                            >
+                                Call: 01753 682707
+                            </PhoneButton>
+                        </div>
+                    </div>
+                </Container>
+            </section>
+
+            {/* How We Compare */}
+            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+                <Container>
+                    <div className="max-w-4xl mx-auto">
+                        <SectionHeader
+                            title="How We Compare"
+                            subtitle="The Anchor vs a typical hotel venue"
+                        />
+
+                        <div className="overflow-x-auto">
+                            <table className="w-full text-left border-collapse">
+                                <thead>
+                                    <tr className="border-b border-anchor-gold/30">
+                                        <th scope="col" className="py-3 pr-4 text-sm font-semibold text-anchor-gold-vivid">Feature</th>
+                                        <th scope="col" className="py-3 pr-4 text-sm font-semibold text-anchor-gold-vivid">The Anchor</th>
+                                        <th scope="col" className="py-3 text-sm font-semibold text-anchor-cream-text/50">Hotel Venue (typical)</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-anchor-gold/10">
+                                    <tr>
+                                        <td className="py-3 pr-4 text-anchor-cream-text font-medium">Room hire</td>
+                                        <td className="py-3 pr-4 text-anchor-cream-text">From free (with catering)</td>
+                                        <td className="py-3 text-anchor-cream-text/50">&pound;500–&pound;2,000</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="py-3 pr-4 text-anchor-cream-text font-medium">Catering per head</td>
+                                        <td className="py-3 pr-4 text-anchor-cream-text">From &pound;9.95</td>
+                                        <td className="py-3 text-anchor-cream-text/50">From &pound;35–&pound;55</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="py-3 pr-4 text-anchor-cream-text font-medium">Parking</td>
+                                        <td className="py-3 pr-4 text-anchor-cream-text">Free (20+ spaces)</td>
+                                        <td className="py-3 text-anchor-cream-text/50">&pound;15–&pound;25/car</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="py-3 pr-4 text-anchor-cream-text font-medium">Minimum guests</td>
+                                        <td className="py-3 pr-4 text-anchor-cream-text">10</td>
+                                        <td className="py-3 text-anchor-cream-text/50">50–80</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="py-3 pr-4 text-anchor-cream-text font-medium">Late bar</td>
+                                        <td className="py-3 pr-4 text-anchor-cream-text">Available</td>
+                                        <td className="py-3 text-anchor-cream-text/50">Usually 11pm cutoff</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="py-3 pr-4 text-anchor-cream-text font-medium">Bring your own decorations</td>
+                                        <td className="py-3 pr-4 text-anchor-cream-text">Yes</td>
+                                        <td className="py-3 text-anchor-cream-text/50">Restrictions apply</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="py-3 pr-4 text-anchor-cream-text font-medium">Personalised service</td>
+                                        <td className="py-3 pr-4 text-anchor-cream-text">Direct with manager</td>
+                                        <td className="py-3 text-anchor-cream-text/50">Via events team</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </Container>
+            </section>
+
+            {/* Small Parties Welcome */}
+            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+                <Container>
+                    <div className="max-w-4xl mx-auto text-center">
+                        <SectionHeader
+                            title="Small Parties Welcome"
+                            subtitle="No minimum of 50 guests here — we love intimate gatherings"
+                        />
+
+                        <p className="text-lg text-anchor-cream-text/70 mb-8 max-w-3xl mx-auto">
+                            Most hotel venues require 50 or more guests before they&apos;ll even take your call. At The Anchor, we welcome groups from just 10. Whether it&apos;s an intimate birthday dinner, a retirement lunch, a christening tea, or a small work gathering — we&apos;ll give your event the same care and attention as a party of 200.
+                        </p>
+
+                        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                            <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg-card p-5 text-center">
+                                <p className="text-2xl font-bold text-anchor-gold-vivid mb-1">10+</p>
+                                <p className="text-sm text-anchor-cream-text/70">Birthday dinners</p>
+                            </div>
+                            <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg-card p-5 text-center">
+                                <p className="text-2xl font-bold text-anchor-gold-vivid mb-1">15+</p>
+                                <p className="text-sm text-anchor-cream-text/70">Retirement lunches</p>
+                            </div>
+                            <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg-card p-5 text-center">
+                                <p className="text-2xl font-bold text-anchor-gold-vivid mb-1">20+</p>
+                                <p className="text-sm text-anchor-cream-text/70">Christening teas</p>
+                            </div>
+                            <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg-card p-5 text-center">
+                                <p className="text-2xl font-bold text-anchor-gold-vivid mb-1">10+</p>
+                                <p className="text-sm text-anchor-cream-text/70">Work gatherings</p>
+                            </div>
+                        </div>
+                    </div>
+                </Container>
+            </section>
+
+            {/* Testimonials */}
+            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+                <Container>
+                    <div className="max-w-4xl mx-auto">
+                        <SectionHeader
+                            title="What Our Guests Say"
+                            subtitle="From Google Reviews"
+                        />
+
+                        <div className="grid md:grid-cols-3 gap-6">
+                            <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg p-6">
+                                <p className="text-sm text-anchor-cream-text/55 mb-3">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+                                <p className="text-anchor-cream-text/80 italic mb-4">
+                                    &ldquo;We held our daughter&apos;s christening at The Anchor and couldn&apos;t have asked for more. The buffet was brilliant and the staff were so helpful.&rdquo;
+                                </p>
+                                <p className="text-sm text-anchor-cream-text/50">— Google Review</p>
+                            </div>
+                            <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg p-6">
+                                <p className="text-sm text-anchor-cream-text/55 mb-3">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+                                <p className="text-anchor-cream-text/80 italic mb-4">
+                                    &ldquo;Booked the private area for my retirement party. 30 guests, hot buffet, and a fantastic evening. Half the price of the hotel quote we got.&rdquo;
+                                </p>
+                                <p className="text-sm text-anchor-cream-text/50">— Google Review</p>
+                            </div>
+                            <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg p-6">
+                                <p className="text-sm text-anchor-cream-text/55 mb-3">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+                                <p className="text-anchor-cream-text/80 italic mb-4">
+                                    &ldquo;Used The Anchor for our team Christmas lunch. Free parking was a huge bonus with 15 of us driving. Will definitely book again.&rdquo;
+                                </p>
+                                <p className="text-sm text-anchor-cream-text/50">— Google Review</p>
+                            </div>
+                        </div>
+                    </div>
+                </Container>
+            </section>
+
+            {/* WhatsApp & Contact CTA */}
+            <section className="section-spacing bg-anchor-green text-white border-b border-anchor-gold/15">
+                <Container>
+                    <div className="text-center max-w-3xl mx-auto">
+                        <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Plan Your Event?</h2>
+                        <p className="text-lg mb-8">
+                            Get in touch to discuss your requirements. We&apos;ll put together a bespoke package that works for you.
+                        </p>
+
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                            <Link
+                                href="https://wa.me/441753682707?text=Hi,%20I'd%20like%20to%20enquire%20about%20private%20hire%20at%20The%20Anchor"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-full sm:w-auto"
+                            >
+                                <Button variant="secondary" size="lg" className="w-full sm:w-auto bg-white text-anchor-green hover:bg-gray-100 border-white">
+                                    WhatsApp Us
+                                </Button>
+                            </Link>
+                            <Link href="/private-hire#enquiry" className="w-full sm:w-auto">
+                                <Button variant="outline" size="lg" className="w-full sm:w-auto border-white text-white hover:bg-white hover:text-anchor-green">
+                                    Enquire Online
+                                </Button>
+                            </Link>
+                            <PhoneButton
+                                phone="01753 682707"
+                                source="private_hire_green_cta"
+                                variant="outline"
+                                size="lg"
+                                className="w-full sm:w-auto border-white text-white hover:bg-white hover:text-anchor-green"
+                            >
+                                Call: 01753 682707
+                            </PhoneButton>
+                        </div>
                     </div>
                 </Container>
             </section>
