@@ -38,7 +38,6 @@ export async function generateMetadata({ params }: { params: { tag: string } }):
   return {
     title: seoContent.metaTitle,
     description: seoContent.metaDescription,
-    keywords: seoContent.keywords.join(', '),
     alternates: {
       canonical: `/blog/tag/${tag}`,
     },

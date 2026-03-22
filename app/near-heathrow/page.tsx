@@ -17,11 +17,10 @@ import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 
 export const metadata: Metadata = {
   title: 'Closest Pub to Heathrow | 7 Mins from T5 | Free Parking',
-  description: 'Highest-rated pub near Heathrow Airport. 7 minutes from Terminal 5, 11 mins from T2 & T3, 12 mins from T4. Free parking for 20 cars, dog-friendly beer garden & British pub food. Book a table.',
-  keywords: 'pubs near heathrow airport, closest pub to heathrow, pub near heathrow terminal 5, pubs near heathrow terminal 4, heathrow pub free parking, pub near heathrow airport',
+  description: 'Highest-rated pub near Heathrow Airport. 7 mins from T5, 11 mins from T2/T3, 12 mins from T4. Free parking, dog-friendly beer garden, British pub food. Book a table.',
   openGraph: {
     title: 'Closest Pub to Heathrow | 7 Mins from T5 | Free Parking',
-    description: 'Highest-rated pub near Heathrow. 7 mins from Terminal 5, 11 mins from T2/T3, 12 mins from T4. Free parking, dog-friendly beer garden, British pub food.',
+    description: 'Highest-rated pub near Heathrow Airport. 7 mins from T5, 11 mins from T2/T3, 12 mins from T4. Free parking, dog-friendly beer garden, British pub food. Book a table.',
     images: [{ url: DEFAULT_NEAR_HEATHROW_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Heathrow Airport' }],
   },
   twitter: getTwitterMetadata({
@@ -100,6 +99,15 @@ export default function NearHeathrowPage() {
           </div>
         }
       />
+
+      {/* Definitive answer for featured snippets */}
+      <section className="bg-anchor-bg-raised border-b border-anchor-gold/15 py-6">
+        <Container>
+          <p className="text-center text-lg md:text-xl text-anchor-cream-text/80 max-w-4xl mx-auto leading-relaxed">
+            The Anchor is the closest independent pub to Heathrow Airport, located in Stanwell Moor just 7 minutes from Terminal 5. We offer freshly prepared food, a dog-friendly beer garden under the flight path, and free parking for all guests.
+          </p>
+        </Container>
+      </section>
 
       {/* Page Title for SEO */}
       <section className="bg-anchor-bg border-b border-anchor-gold/15 py-8">
@@ -192,7 +200,7 @@ export default function NearHeathrowPage() {
       <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
         <Container>
           <SectionHeader
-            title="Why Travelers Love The Anchor"
+            title="Why Travellers Love The Anchor"
             subtitle="Whether you're killing time before a flight, meeting arriving passengers, or just landed and need a proper British welcome"
           />
 
@@ -440,12 +448,12 @@ export default function NearHeathrowPage() {
         </Container>
       </section>
 
-      {/* Popular with Travelers */}
+      {/* Popular with Travellers */}
       <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
         <Container>
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-anchor-gold-vivid mb-4">
-              Popular with Heathrow Travelers
+              Popular with Heathrow Travellers
             </h2>
           </div>
 
@@ -541,11 +549,11 @@ export default function NearHeathrowPage() {
         </Container>
       </section>
 
-      {/* Facilities for Travelers */}
+      {/* Facilities for Travellers */}
       <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
         <Container>
           <SectionHeader
-            title="Everything Travelers Need"
+            title="Everything Travellers Need"
             subtitle="From entertainment to remote work facilities - we've got you covered"
           />
 
@@ -746,7 +754,7 @@ export default function NearHeathrowPage() {
 
               <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-8 mb-12">
                 <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-4 text-center">
-                  Why Smart Travelers Choose The Anchor
+                  Why Smart Travellers Choose The Anchor
                 </h3>
                 <p className="text-anchor-cream-text/70 mb-4">
                   It&apos;s not just about convenience — it&apos;s about the experience. Real ales on tap,

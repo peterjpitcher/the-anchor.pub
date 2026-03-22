@@ -40,7 +40,10 @@ export async function generateMetadata({ params }: { params: { slug: string } })
             title: `${eventType} Venue Near ${landmark.name}`,
             description: `The perfect venue for your gathering after attending ${landmark.name}. Just ${landmark.distance} away.`,
             images: [DEFAULT_CORPORATE_IMAGE]
-        })
+        }),
+        alternates: {
+            canonical: './'
+        }
     }
 }
 

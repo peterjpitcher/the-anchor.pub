@@ -11,7 +11,6 @@ import {
   SectionHeader
 } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
-import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { PhoneButton } from '@/components/PhoneButton'
 import { cn } from '@/lib/utils'
@@ -39,19 +38,17 @@ import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { quizNightEventSeries } from '@/lib/schema'
 
 export const metadata: Metadata = {
-  title: 'Quiz Night Wednesdays | Cash Prizes | Pub Near Heathrow',
+  title: 'Pub Quiz Night Near Heathrow | Cash Prizes | The Anchor',
   description:
-    "Join The Anchor's quiz night pub near Heathrow for a monthly trivia night with a £25 bar tab prize, £3 entry, and a friendly pub trivia crowd in Stanwell Moor.",
-  keywords:
-    'quiz night pub, quiz night, quiz night quiz, trivia, trivia night, pub trivia, night trivia, pub quiz near heathrow, pub quiz staines, stanwell moor quiz night',
+    "Monthly pub quiz at The Anchor near Heathrow. £3 entry, £25 bar tab prize for the winners. Teams of up to 6 welcome. Free parking, real ales. Check dates below.",
   openGraph: {
-    title: 'Quiz Night Wednesdays | Cash Prizes | Pub Near Heathrow',
-    description: 'Monthly trivia night with a £25 bar tab prize, £3 entry, and a friendly pub crowd in Stanwell Moor.',
+    title: 'Pub Quiz Night Near Heathrow | Cash Prizes | The Anchor',
+    description: 'Monthly pub quiz at The Anchor near Heathrow. £3 entry, £25 bar tab prize for the winners. Teams of up to 6 welcome. Free parking, real ales. Check dates below.',
     images: [{ url: DEFAULT_EVENT_IMAGE, width: 1200, height: 630, alt: 'Events at The Anchor pub near Heathrow' }]
   },
   twitter: getTwitterMetadata({
-    title: 'Quiz Night Wednesdays | Cash Prizes | Pub Near Heathrow',
-    description: 'Monthly trivia night with a £25 bar tab prize, £3 entry, and a friendly pub crowd in Stanwell Moor.',
+    title: 'Pub Quiz Night Near Heathrow | Cash Prizes | The Anchor',
+    description: 'Monthly pub quiz at The Anchor near Heathrow. £3 entry, £25 bar tab prize for the winners. Teams of up to 6 welcome. Free parking, real ales. Check dates below.',
     images: [DEFAULT_EVENT_IMAGE]
   }),
   alternates: {
@@ -288,7 +285,7 @@ export default async function QuizNightPage() {
       />
       <HeroWrapper
         route="/quiz-night"
-        title="Quiz Night Wednesdays at The Anchor"
+        title="Pub Quiz Night at The Anchor Near Heathrow"
         description="Proper quiz night pub energy with trivia rounds, seasonal themes and prizes worth bragging about. Your Heathrow pub trivia night HQ."
        
 	        tags={[
@@ -307,45 +304,14 @@ export default async function QuizNightPage() {
           </BookTableButton>
         }
         secondaryCta={
-          <>
-            <Link
-              href="#quiz-dates"
-              className={cn(
-                'inline-flex items-center justify-center font-semibold text-center transition-all duration-200 rounded-full whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-anchor-gold focus:ring-offset-2 bg-white text-anchor-green border-2 border-anchor-green hover:bg-anchor-green hover:text-white px-8 py-3.5 text-lg min-h-[48px] w-full sm:w-auto'
-              )}
-            >
-              See upcoming quiz dates
-            </Link>
-            <Link href="/food-menu#pizza" className="w-full sm:w-auto">
-              <Button
-                variant="secondary"
-                size="lg"
-                fullWidth
-                className="sm:w-auto"
-              >
-                Pizza Menu
-              </Button>
-            </Link>
-            <Link href="/sunday-lunch" className="w-full sm:w-auto">
-              <Button
-                variant="secondary"
-                size="lg"
-                fullWidth
-                className="sm:w-auto"
-              >
-                Sunday Roast Info
-              </Button>
-            </Link>
-            <PhoneButton
-              phone="01753 682707"
-              source="quiz_night_hero"
-              variant="secondary"
-              size="lg"
-              className="w-full sm:w-auto"
-            >
-              Call to reserve: 01753 682707
-            </PhoneButton>
-          </>
+          <Link
+            href="#quiz-dates"
+            className={cn(
+              'inline-flex items-center justify-center font-semibold text-center transition-all duration-200 rounded-full whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-anchor-gold focus:ring-offset-2 bg-white text-anchor-green border-2 border-anchor-green hover:bg-anchor-green hover:text-white px-8 py-3.5 text-lg min-h-[48px] w-full sm:w-auto'
+            )}
+          >
+            See upcoming quiz dates
+          </Link>
         }
         secondaryInfo={
           <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
@@ -358,23 +324,14 @@ export default async function QuizNightPage() {
         }
       />
 
-      <section className="bg-anchor-bg py-6">
+      {/* Definitive answer for featured snippets */}
+      <section className="bg-anchor-bg-raised border-b border-anchor-gold/15 py-6">
         <Container>
-          <p className="text-center text-sm text-anchor-cream-text/55">⭐⭐⭐⭐⭐ <strong>Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
-        </Container>
-      </section>
-
-      <Section spacing="sm" background="white">
-        <Container>
-          <PageTitle className="text-center text-anchor-gold-vivid" seo={{ structured: true, speakable: true }}>
-            Quiz Night at The Anchor
-          </PageTitle>
-          <p className="text-lg text-anchor-cream-text/70 text-center max-w-3xl mx-auto">
-            Looking for a quiz night pub near Heathrow that still feels like your local? Every first Wednesday we turn The Anchor into
-            a trivia night HQ and night trivia spot for Stanwell Moor, Staines, Ashford, Bedfont and stopover crews chasing smart fun. {heroDescription}
+          <p className="text-center text-lg md:text-xl text-anchor-cream-text/80 max-w-4xl mx-auto leading-relaxed">
+            The Anchor hosts a popular monthly pub quiz in Stanwell Moor with a &pound;25 bar tab prize, team-based rounds, and a lively atmosphere. Entry is &pound;3 per player with teams of up to six.
           </p>
         </Container>
-      </Section>
+      </section>
 
       <Section spacing="md" background="gray">
         <Container>
@@ -421,6 +378,17 @@ export default async function QuizNightPage() {
               </CardBody>
             </Card>
           </div>
+        </Container>
+      </Section>
+
+      <Section spacing="sm" background="white">
+        <Container>
+          <PageTitle className="text-center text-anchor-gold-vivid" seo={{ structured: true, speakable: true }}>
+            Pub Quiz Night at The Anchor Near Heathrow
+          </PageTitle>
+          <p className="text-lg text-anchor-cream-text/70 text-center max-w-3xl mx-auto">
+            Every first Wednesday we turn The Anchor into a trivia night HQ for Stanwell Moor, Staines, Ashford, Bedfont and stopover crews. {heroDescription}
+          </p>
         </Container>
       </Section>
 
@@ -635,71 +603,15 @@ export default async function QuizNightPage() {
               >
                 Book Your Team Table
               </BookTableButton>
-              <Link href="/food-menu#pizza" className="w-full sm:w-auto">
-                <Button
-                  size="lg"
-                  variant="secondary"
-                  fullWidth
-                  className="sm:w-auto bg-white/10 text-white hover:bg-white/20"
-                >
-                  Pizza Menu
-                </Button>
-              </Link>
-              <Link href="/sunday-lunch" className="w-full sm:w-auto">
-                <Button
-                  size="lg"
-                  variant="secondary"
-                  fullWidth
-                  className="sm:w-auto bg-white/10 text-white hover:bg-white/20"
-                >
-                  Sunday Roast Info
-                </Button>
-              </Link>
-              <Button
+              <PhoneButton
+                phone="01753 682707"
+                source="quiz_night_cta_bottom"
+                variant="secondary"
                 size="lg"
-                asChild
                 className="w-full sm:w-auto bg-white/10 text-white hover:bg-white/20"
               >
-                <Link href="#quiz-dates">Upcoming quiz dates</Link>
-              </Button>
-            </div>
-          </div>
-        </Container>
-      </Section>
-
-      <Section spacing="md" background="gray">
-        <Container>
-          <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6 items-start">
-            <div>
-              <h2 className="text-2xl font-bold text-anchor-cream-text mb-3">Find us</h2>
-              <p className="text-anchor-cream-text/70 mb-4">
-                The Anchor · Horton Road, Stanwell Moor, TW19 6AQ · Free on-site parking · 7 minutes from Heathrow T5 · 8 minutes from Staines.
-              </p>
-              <ul className="space-y-3 text-anchor-cream-text/70 text-sm">
-                <li><strong>Driving:</strong> Use postcode TW19 6AQ. Plenty of free parking right outside.</li>
-                <li><strong>Public transport:</strong> 441 & 555 buses stop on Horton Road. Uber and Bolt know us well.</li>
-                <li><strong>Accessibility:</strong> Step-free entrance, accessible loos and flexible seating for teams.</li>
-              </ul>
-              <div className="flex flex-col sm:flex-row gap-3 mt-4">
-                <Link
-                  href="https://maps.app.goo.gl/YNbjTDF9g7uCcbYF6"
-                  className="inline-flex items-center justify-center gap-2 rounded-lg border border-anchor-green px-4 py-2 text-anchor-green font-semibold hover:bg-anchor-green hover:text-white transition"
-                >
-                  Get directions
-                </Link>
-                <Link
-                  href="https://wa.me/441753682707"
-                  className="inline-flex items-center justify-center gap-2 rounded-lg border border-anchor-gold px-4 py-2 text-anchor-gold font-semibold hover:bg-anchor-gold hover:text-anchor-green transition"
-                >
-                  WhatsApp the team
-                </Link>
-              </div>
-            </div>
-            <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-xl overflow-hidden shadow-sm">
-              <GoogleMapEmbed
-                query="The Anchor, Stanwell Moor"
-                className="h-full min-h-[300px] border border-anchor-gold/15 rounded-xl overflow-hidden shadow-sm"
-              />
+                Call to reserve: 01753 682707
+              </PhoneButton>
             </div>
           </div>
         </Container>

@@ -41,8 +41,6 @@ export const metadata: Metadata = {
   title: 'Music Bingo Near Heathrow | Singalong Bingo Night | The Anchor',
   description:
     'Play Music Bingo near Heathrow at The Anchor. Song snippets replace numbers, prizes land every round, and booking is recommended for this singalong bingo night in Stanwell Moor.',
-  keywords:
-    'music bingo, music bingo near heathrow, musical bingo, singalong bingo night, pub music bingo, stanwell moor events, staines entertainment, bingo with songs',
   openGraph: {
     title: 'Music Bingo Near Heathrow | The Anchor',
     description: 'Song snippets replace numbers, prizes every round. Book for this singalong bingo night in Stanwell Moor.',

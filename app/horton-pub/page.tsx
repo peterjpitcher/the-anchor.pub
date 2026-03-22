@@ -17,7 +17,6 @@ import { getBusinessStats } from '@/lib/schema-with-reviews'
 export const metadata: Metadata = {
     title: 'Horton Pub & Dining | The Anchor - Your Local Village Pub',
     description: `${BRAND.name} in Stanwell Moor is your closest traditional village pub. Just 2 mins from Horton. Free parking, Sunday roasts, and real ales.`,
-    keywords: 'horton pub, pub near horton, horton village pub, pubs in horton berkshire, the anchor stanwell moor',
     openGraph: {
         title: 'The Anchor - Traditional Pub Near Horton',
         description: 'Your local village pub, just a 2-minute drive from Horton. Authentic British food, real ales, and a warm welcome.',

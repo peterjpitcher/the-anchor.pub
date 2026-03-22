@@ -14,7 +14,6 @@ import { generateOpeningHoursSpecification } from '@/lib/schema-utils'
 export const metadata: Metadata = {
   title: 'Heathrow Plane Spotting Pub | Garden Views Every 90 Secs | The Anchor',
   description: 'The ultimate Heathrow plane spotting pub. Watch A380s & Dreamliners from our beer garden under the flight path. Free parking, WiFi & food. 7 mins from T5.',
-  keywords: 'plane spotting heathrow, heathrow plane spotting pub, watch planes heathrow, aircraft spotting terminal 5, plane spotting bar near heathrow',
   openGraph: {
     title: 'Plane Spotting at Heathrow - The Anchor Beer Garden',
     description: 'Enjoy aircraft overhead every 90 seconds from The Anchor beer garden with free parking, hot food and WiFi – just 7 minutes from Terminal 5.',

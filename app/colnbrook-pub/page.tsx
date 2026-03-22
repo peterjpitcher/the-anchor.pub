@@ -17,7 +17,6 @@ import { getBusinessStats } from '@/lib/schema-with-reviews'
 export const metadata: Metadata = {
     title: 'Colnbrook & Poyle Pub | The Anchor - Food & Drinks',
     description: `${BRAND.name} is the perfect spot for Poyle Industrial Estate workers and Colnbrook residents. Great food, cold pints, and free parking just 2 miles away.`,
-    keywords: 'pubs in colnbrook, pub near poyle industrial estate, lunch near colnbrook, after work drinks poyle, the anchor stanwell moor',
     openGraph: {
         title: 'The Anchor - Pub Near Colnbrook & Poyle',
         description: 'Perfect for after-work drinks or a team lunch. Just minutes from Poyle Industrial Estate and Colnbrook.',
@@ -298,7 +297,7 @@ export default async function ColnbrookPubPage() {
                     },
                     {
                         question: "Do you offer takeaway?",
-                        answer: "We don't currently offer delivery, but you are welcome to order food to eat in or call ahead for collection if time is tight."
+                        answer: "We don't offer delivery, but you are welcome to order food to eat in or call ahead for collection if time is tight."
                     }
                 ]}
                 className="bg-anchor-bg-card"

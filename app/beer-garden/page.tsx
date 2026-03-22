@@ -16,12 +16,11 @@ import { generateOpeningHoursSpecification } from '@/lib/schema-utils'
 export const revalidate = 86400 // Revalidate every 24 hours
 
 export const metadata: Metadata = {
-  title: 'Dog-Friendly Beer Garden Near Heathrow | Watch Planes Every 90 Secs | The Anchor',
-  description: '64-seat outdoor beer garden 7 mins from Heathrow Airport. Watch planes land directly overhead every 90 seconds. Dog-friendly, heated areas, full food & drinks service. Free parking.',
-  keywords: 'dog friendly beer garden near heathrow, beer garden near heathrow airport, plane spotting pub heathrow, pub beer garden stanwell moor, outdoor dining near heathrow',
+  title: 'Beer Garden Near Heathrow | Planes Every 90 Secs | Dog-Friendly',
+  description: '64-seat beer garden 7 mins from Heathrow, directly under the flight path. Planes land overhead every 90 seconds. Dog-friendly, heated areas, full food menu. Free parking.',
   openGraph: {
-    title: 'Dog-Friendly Beer Garden Near Heathrow | Watch Planes Every 90 Secs | The Anchor',
-    description: '64-seat outdoor beer garden 7 mins from Heathrow. Watch planes overhead every 90 seconds. Dog-friendly, heated areas. Free parking.',
+    title: 'Beer Garden Near Heathrow | Planes Every 90 Secs | Dog-Friendly',
+    description: '64-seat beer garden 7 mins from Heathrow, directly under the flight path. Planes land overhead every 90 seconds. Dog-friendly, heated areas, full food menu. Free parking.',
     images: ['/images/garden/beer-garden/the-anchor-beer-garden-heathrow-flight-path.jpg'],
   },
   twitter: getTwitterMetadata({
@@ -143,6 +142,15 @@ export default async function BeerGardenPage() {
         </div>
       </HeroWrapper>
 
+      {/* Definitive answer for featured snippets */}
+      <section className="bg-anchor-bg-raised border-b border-anchor-gold/15 py-6">
+        <Container>
+          <p className="text-center text-lg md:text-xl text-anchor-cream-text/80 max-w-4xl mx-auto leading-relaxed">
+            The Anchor&apos;s beer garden in Stanwell Moor sits directly under the Heathrow flight path, offering a unique plane spotting experience with your pint. Dog-friendly with outdoor seating and free parking.
+          </p>
+        </Container>
+      </section>
+
       {/* Grab Food & Deals */}
       <Section background="dark" spacing="sm" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
@@ -226,7 +234,7 @@ export default async function BeerGardenPage() {
             className="text-center text-anchor-cream-text"
             seo={{ structured: true, speakable: true }}
           >
-            Beer Garden - Outdoor Dining & Plane Spotting
+            Beer Garden at The Anchor -- Under the Heathrow Flight Path
           </PageTitle>
           <p className="text-center text-lg text-anchor-cream-text/70 mt-4 max-w-4xl mx-auto">
             The Anchor&apos;s beer garden sits directly under Heathrow&apos;s southern runway flight path, with aircraft passing overhead approximately every 90 seconds during peak hours. The 64-seat garden features heated areas and is fully dog-friendly with water bowls provided.

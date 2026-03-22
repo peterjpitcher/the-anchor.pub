@@ -14,7 +14,6 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 export const metadata: Metadata = {
   title: 'Pub Near Marriott Heathrow | 12 Mins | Free Parking | The Anchor',
   description: 'Traditional British pub 12 minutes from Marriott London Heathrow. Real ales, home-cooked food & free parking. Perfect for business dinners and team meals.',
-  keywords: 'pub near marriott heathrow, restaurant near marriott heathrow airport, marriott heathrow pub, dining near marriott heathrow, heathrow marriott bar',
   openGraph: {
     title: 'Pub Near Marriott Heathrow | 12 Mins | Free Parking | The Anchor',
     description: '12 minutes from Marriott London Heathrow. Traditional British pub with home-cooked food, real ales & free parking. Ideal for business dinners.',
@@ -189,7 +188,7 @@ export default function PubNearMarriottHeathrowPage() {
               columns={3}
               features={[
                 { icon: '', title: 'Classic Mains', description: 'From £8.99 — steaks, fish & chips, burgers and British classics cooked fresh daily', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Real Ales', description: 'Rotating guest ales and craft beers — a proper British pint from £4.80', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Real Ales', description: 'Wide selection of beers, wines and spirits — a proper British pint from £4.80', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
                 { icon: '', title: 'Stone-Baked Pizza', description: 'Authentic stone-baked pizzas from £12 — great for groups and families', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
               ]}
               className="mb-8"

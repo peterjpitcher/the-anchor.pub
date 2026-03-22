@@ -15,7 +15,6 @@ import { BookTableButton } from '@/components/BookTableButton'
 export const metadata: Metadata = {
   title: `Windsor Pub Alternative - Free Parking & Sunday Roast | ${BRAND.name}`,
   description: `${BRAND.name} is 15 minutes from Windsor Castle with free parking, Sunday roasts, stone-baked pizzas and countryside atmosphere outside the ULEZ zone.`,
-  keywords: 'windsor pub alternative, sunday roast near windsor, free parking pub windsor, pub near windsor castle with parking, surrey village pub near windsor',
   openGraph: {
     title: 'Windsor Pub Alternative - The Anchor Stanwell Moor',
     description: '15 minutes from Windsor with free parking, Sunday roast, stone-baked pizzas and countryside atmosphere.',

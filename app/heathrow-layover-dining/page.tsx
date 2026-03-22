@@ -16,7 +16,6 @@ import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 export const metadata: Metadata = {
   title: 'Heathrow Layover Dining (Near T5) | Eat in 90 Minutes | The Anchor',
   description: 'Make the most of a Heathrow layover with The Anchor’s fast pub dining, free parking, and book-ahead tips. Perfect for 2–3 hour stopovers near Terminal 5.',
-  keywords: 'heathrow layover dining, layover restaurant near heathrow, layover itinerary terminal 5, eat near heathrow airport, quick restaurant near heathrow, food at terminal 5 heathrow, food in terminal 3 heathrow',
   openGraph: {
     title: 'Heathrow Layover Dining in 90 Minutes (Near T5) | The Anchor',
     description: 'Swap airport queues for proper pub food 7 minutes from Heathrow. Booking tips, itineraries, and travel times for stress-free layovers.',
@@ -284,7 +283,7 @@ export default function HeathrowLayoverDiningPage() {
                   <li>Dinner at The Anchor followed by nightcap in the bar</li>
                   <li>Ask for nearby hotel recommendations that suit your schedule</li>
                   <li>Overnight parking arrangements available</li>
-                  <li>Breakfast recommendations before you fly</li>
+                  <li>Meal recommendations before you fly</li>
                 </ul>
               }
             />

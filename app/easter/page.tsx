@@ -32,8 +32,6 @@ export const metadata: Metadata = {
   title: 'Easter at The Anchor | Sunday Lunch & Beer Garden',
   description:
     'Celebrate Easter 2026 at The Anchor near Heathrow. Easter Sunday roast from \u00a319.99, dog-friendly beer garden, free parking. Book by Saturday 1pm.',
-  keywords:
-    'easter sunday lunch near heathrow, easter pub stanwell moor, easter sunday roast staines, easter beer garden heathrow, easter family lunch surrey',
   alternates: { canonical: '/easter' },
   openGraph: {
     title: 'Easter at The Anchor | Sunday Lunch & Beer Garden',

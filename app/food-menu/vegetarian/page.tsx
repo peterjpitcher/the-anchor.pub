@@ -20,7 +20,6 @@ export const revalidate = 3600
 export const metadata: Metadata = {
   title: 'Vegetarian Menu | Pub Food Near Heathrow',
   description: 'Vegetarian pub food near Heathrow Airport. From butternut squash pie to stone-baked pizzas and mac & cheese. Proper meat-free meals, not afterthoughts. Free parking.',
-  keywords: 'vegetarian menu near heathrow, vegetarian pub food, veggie pub menu stanwell moor, vegetarian pizza near heathrow, vegetarian sunday roast near heathrow',
   openGraph: {
     title: 'Vegetarian Menu | Pub Food Near Heathrow',
     description: 'Vegetarian pub food near Heathrow Airport. From butternut squash pie to stone-baked pizzas and mac & cheese. Proper meat-free meals, not afterthoughts.',

@@ -39,18 +39,18 @@ export function FloatingActions() {
     <>
       {/* Backdrop */}
       {isOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/20 z-40 md:hidden"
           onClick={() => setIsOpen(false)}
           role="presentation"
           aria-hidden="true"
         />
       )}
-      
-      {/* Floating Action Button */}
-      <div className="fixed bottom-6 right-6 z-50">
+
+      {/* Floating Action Button — z-[70] to sit above FoodStickyCtaBar (z-[60]) */}
+      <div className="fixed bottom-6 right-6 z-[70]">
         {/* Action Menu */}
-        <div 
+        <div
           className={`absolute bottom-16 right-0 transition-all duration-300 ${
             isOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible translate-y-4'
           }`}
@@ -74,7 +74,7 @@ export function FloatingActions() {
                 <span className="font-medium">Book a Table</span>
               </span>
             </a>
-            
+
             <PhoneLink
               phone="01753682707"
               source="floating_actions"
@@ -105,7 +105,7 @@ export function FloatingActions() {
             >
               <span className="font-medium">Get Directions</span>
             </DirectionsLink>
-            
+
             <a
               href="/food-menu"
               className="flex items-center gap-3 p-3 hover:bg-anchor-bg-raised rounded-lg transition-colours"
@@ -116,37 +116,49 @@ export function FloatingActions() {
             </a>
           </div>
         </div>
-        
+
         {/* Main FAB Button */}
         <button
           id="floating-action-button"
           onClick={() => setIsOpen(!isOpen)}
-          className={`
-            bg-anchor-gold hover:bg-anchor-gold-light text-white 
-            w-14 h-14 rounded-full shadow-lg hover:shadow-xl 
-            transition-all duration-300 flex items-center justify-center
-            ${isOpen ? 'rotate-45' : ''}
-          `}
-          aria-label="Quick actions menu"
+          className="bg-anchor-gold hover:bg-anchor-gold-light text-white w-14 h-14 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center"
+          aria-label={isOpen ? 'Close contact options' : 'Contact options'}
           aria-expanded={isOpen}
           aria-haspopup="menu"
           aria-controls={menuId}
           ref={buttonRef}
         >
-          <svg 
-            className="w-6 h-6" 
-            fill="none" 
-            stroke="currentColor" 
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-          >
-            <path 
-              strokeLinecap="round" 
-              strokeLinejoin="round" 
-              strokeWidth={2} 
-              d="M12 4v16m8-8H4" 
-            />
-          </svg>
+          {isOpen ? (
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          ) : (
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
+              />
+            </svg>
+          )}
         </button>
       </div>
 

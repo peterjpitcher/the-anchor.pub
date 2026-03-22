@@ -15,7 +15,6 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 export const metadata: Metadata = {
     title: 'Gourmet Burger Menu Near Heathrow | Best Pub Burgers',
     description: `Craving a proper burger? Try our double-stacked gourmet burgers at ${BRAND.name}. 100% beef, brioche buns, and chips. Just minutes from Heathrow.`,
-    keywords: 'burger menu heathrow, best burgers staines, pub burgers near me, gourmet burgers stanwell',
     openGraph: {
         title: 'Proper Pub Burgers',
         description: 'Double stacked, juicy, and packed with flavour.',

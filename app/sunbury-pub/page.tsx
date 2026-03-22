@@ -17,7 +17,6 @@ import { getBusinessStats } from '@/lib/schema-with-reviews'
 export const metadata: Metadata = {
     title: 'Pub Near Sunbury-on-Thames | The Anchor - Sunday Roasts',
     description: `${BRAND.name} is a favourite destination for Sunbury residents. Known for exceptional Sunday Roasts, stone-baked pizzas, and a family-friendly atmosphere. Easy parking.`,
-    keywords: 'pub near sunbury on thames, sunbury pubs, sunday lunch sunbury, best roast near sunbury, the anchor stanwell moor',
     openGraph: {
         title: 'The Anchor - Destination Dining Near Sunbury',
         description: 'Worth the short drive from Sunbury for the best Sunday Roast in the area. Free parking and great value.',

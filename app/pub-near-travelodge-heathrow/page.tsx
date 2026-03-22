@@ -14,7 +14,6 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 export const metadata: Metadata = {
   title: 'Pub Near Travelodge Heathrow | 10 Mins | Free Parking | The Anchor',
   description: 'Great pub just 10 minutes from Travelodge London Heathrow. Real British food, proper ales & free parking. The smart traveller\'s dinner upgrade near Heathrow.',
-  keywords: 'pub near travelodge heathrow, bar near travelodge heathrow, travelodge heathrow pub, restaurant near travelodge heathrow, heathrow travelodge food',
   openGraph: {
     title: 'Pub Near Travelodge Heathrow | 10 Mins | Free Parking | The Anchor',
     description: '10 minutes from Travelodge London Heathrow. Real British pub with home-cooked food, real ales & free parking.',

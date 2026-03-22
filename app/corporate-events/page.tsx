@@ -18,7 +18,6 @@ import { TrustBar, ValueProofStrip, RegretReduction } from '@/components/psychol
 export const metadata: Metadata = {
   title: 'Corporate Event Venue Near Heathrow | Free Parking | 10-200 Guests',
   description: 'Host corporate events minutes from Heathrow. The Anchor offers private meeting rooms, breakout space, AV support and free parking 7 minutes from Terminal 5.',
-  keywords: 'heathrow corporate event venue, meeting rooms near terminal 5, business event space stanwell moor, corporate hospitality near heathrow, venue with parking for meetings',
   openGraph: {
     title: 'Corporate Event Venue Near Heathrow | Free Parking | 10-200 Guests',
     description: 'Private meeting rooms, AV support and free parking 7 minutes from Heathrow Terminal 5.',
@@ -159,7 +158,7 @@ export default function CorporateEventsPage() {
                     <p className="mb-4">Everything you need for successful business events:</p>
                     <ul className="space-y-2">
                       <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Dedicated event coordinator</strong> for seamless planning</span></li>
-                      <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Professional catering</strong> from working breakfasts to formal dinners</span></li>
+                      <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Professional catering</strong> from coffee mornings to formal dinners</span></li>
                       <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Tech support</strong> for presentations and video calls</span></li>
                       <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Flexible timings</strong> - early starts and late finishes available</span></li>
                     </ul>
@@ -502,7 +501,7 @@ export default function CorporateEventsPage() {
           },
           {
             question: "What are your corporate catering options?",
-            answer: "We offer everything from working breakfasts and coffee breaks to buffet lunches and formal dinners. All menus can be customised to your requirements and dietary needs. We also provide drinks packages and bar tabs."
+            answer: "We offer everything from coffee mornings and light bites to buffet lunches and formal dinners. All menus can be customised to your requirements and dietary needs. We also provide drinks packages and bar tabs."
           },
           {
             question: "How does venue hire pricing work for corporate events?",

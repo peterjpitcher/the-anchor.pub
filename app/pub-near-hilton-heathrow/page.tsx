@@ -15,7 +15,6 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 export const metadata: Metadata = {
   title: 'Pub Near Hilton Heathrow | 10 Mins | Free Parking | The Anchor',
   description: 'Traditional British pub 10 minutes from Hilton London Heathrow Airport. Real ales, home-cooked food & free parking. Ideal for business travellers. Book a table.',
-  keywords: 'pub near hilton heathrow, restaurant near hilton heathrow airport, hilton heathrow pub, dining near hilton heathrow terminal 4, where to eat near hilton heathrow',
   openGraph: {
     title: 'Pub Near Hilton Heathrow | 10 Mins | Free Parking | The Anchor',
     description: '10 minutes from Hilton London Heathrow. Traditional British pub with home-cooked food, real ales & free parking. Perfect for business travellers.',
@@ -193,7 +192,7 @@ export default function PubNearHiltonHeathrowPage() {
               columns={3}
               features={[
                 { icon: '', title: 'Classic Mains', description: 'From £8.99 — steaks, fish & chips, burgers and British classics cooked fresh daily', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Real Ales', description: 'Rotating guest ales and craft beers — a proper British pint from £4.80', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Real Ales', description: 'Wide selection of beers, wines and spirits — a proper British pint from £4.80', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
                 { icon: '', title: 'Wine & Spirits', description: 'Quality wines, premium spirits and cocktails — all at pub prices', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
               ]}
               className="mb-8"

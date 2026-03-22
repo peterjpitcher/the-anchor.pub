@@ -16,7 +16,6 @@ import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 export const metadata: Metadata = {
     title: 'Milestone Birthday Party Venue | 30th, 40th, 50th Parties',
     description: `Celebrate your 21st, 30th, 40th or 50th birthday at ${BRAND.name}. The best party venue near Heathrow with DJ space, buffets, and late license options.`,
-    keywords: '30th birthday venue heathrow, 40th birthday party staines, 50th birthday venue surrey, party venue hire',
     openGraph: {
         title: 'Milestone Birthday Parties at The Anchor',
         description: 'Planning a big birthday? Discover our party packages perfect for 30ths, 40ths, and 50ths. Great food, music, and atmosphere.',

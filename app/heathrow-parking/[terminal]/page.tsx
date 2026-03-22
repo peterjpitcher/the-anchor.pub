@@ -67,13 +67,6 @@ export function generateMetadata({ params }: { params: { terminal: string } }): 
   return {
     title,
     description,
-    keywords: [
-      `cheap parking heathrow terminal ${terminal.number}`,
-      `heathrow terminal ${terminal.number} parking`,
-      `heathrow terminal ${terminal.number} long stay`,
-      `heathrow terminal ${terminal.number} short stay postcode`,
-      'cheap heathrow parking'
-    ],
     alternates: {
       canonical
     },

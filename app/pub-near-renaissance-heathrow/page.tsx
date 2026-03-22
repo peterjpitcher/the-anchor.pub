@@ -14,7 +14,6 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 export const metadata: Metadata = {
   title: 'Pub Near Renaissance Heathrow | 12 Mins | The Anchor',
   description: 'Authentic British pub 12 minutes from Renaissance London Heathrow Hotel. Real ales, home-cooked food & free parking. A genuine local experience for Marriott guests.',
-  keywords: 'pub near renaissance heathrow, restaurant near renaissance heathrow hotel, renaissance heathrow pub, dining near renaissance hotel heathrow, marriott renaissance heathrow bar',
   openGraph: {
     title: 'Pub Near Renaissance Heathrow | 12 Mins | The Anchor',
     description: '12 minutes from Renaissance London Heathrow. Authentic British pub with home-cooked food, real ales & free parking.',

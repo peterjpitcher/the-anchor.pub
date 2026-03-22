@@ -14,7 +14,6 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 export const metadata: Metadata = {
   title: 'Pub Near Radisson Blu Heathrow | 12 Mins | The Anchor',
   description: 'Authentic British pub 12 minutes from Radisson Blu Edwardian Heathrow. Real ales, home-cooked food & free parking. A genuine local alternative to hotel dining.',
-  keywords: 'pub near radisson blu heathrow, restaurant near radisson blu heathrow, radisson blu heathrow pub, dining near radisson edwardian heathrow, heathrow radisson bar',
   openGraph: {
     title: 'Pub Near Radisson Blu Heathrow | 12 Mins | The Anchor',
     description: '12 minutes from Radisson Blu Edwardian Heathrow. Authentic British pub with home-cooked food, real ales & free parking.',

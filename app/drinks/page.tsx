@@ -22,17 +22,16 @@ import { getBusinessHours } from '@/lib/api'
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
-  title: 'Drinks Menu | Craft Beer, Cocktails & Wine',
-  description: 'Explore The Anchor drinks menu in Stanwell Moor near Heathrow Terminal 5 and Staines: draught beers, real ales, cocktails, wines, spirits and classic shots with free parking.',
-  keywords: 'drinks menu near heathrow, heathrow terminal 5 pub drinks, drinks menu staines, cocktails near heathrow, shots menu, real ale near heathrow',
+  title: 'Drinks Menu Near Heathrow | Real Ales, Cocktails & Wine',
+  description: 'Draught beers, real ales, cocktails, wines & spirits at The Anchor near Heathrow. Pints from £4.50, cocktails from £8. Free parking, 7 mins from T5. View menu.',
   openGraph: {
-    title: 'Drinks Menu | Craft Beer, Cocktails & Wine',
-    description: 'Draught beers, real ales, cocktails, wines, spirits and shots at The Anchor near Heathrow T5 with free parking.',
+    title: 'Drinks Menu Near Heathrow | Real Ales, Cocktails & Wine',
+    description: 'Draught beers, real ales, cocktails, wines & spirits at The Anchor near Heathrow. Pints from £4.50, cocktails from £8. Free parking, 7 mins from T5. View menu.',
     images: [{ url: DEFAULT_DRINKS_IMAGE, width: 1200, height: 630, alt: 'Drinks menu at The Anchor pub near Heathrow' }],
   },
   twitter: getTwitterMetadata({
-    title: 'Drinks Menu | Craft Beer, Cocktails & Wine',
-    description: 'Draught beers, real ales, cocktails, wines, spirits and shots near Heathrow T5 with free parking.',
+    title: 'Drinks Menu Near Heathrow | Real Ales, Cocktails & Wine',
+    description: 'Draught beers, real ales, cocktails, wines & spirits at The Anchor near Heathrow. Pints from £4.50, cocktails from £8. Free parking, 7 mins from T5. View menu.',
     images: [DEFAULT_DRINKS_IMAGE]
   }),
   alternates: {

@@ -117,7 +117,6 @@ export async function generateMetadata({ searchParams }: { searchParams: PageSea
   return {
     title: promotion.metaTitle || `Manager's Special - ${currentPromotion.spirit.name}`,
     description,
-    keywords: `${currentPromotion.spirit.name.toLowerCase()} offer, monthly drinks specials near heathrow, premium spirit deals stanwell moor, pub offers staines`,
     alternates: {
       canonical
     },

@@ -11,9 +11,8 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-    title: 'Watch F1 In Staines & Heathrow | Pub with Sky Sports F1',
-    description: `Watch every Formula 1 race live at ${BRAND.name}. Sky Sports F1 on HD screens with commentary. The perfect pit stop near Heathrow.`,
-    keywords: 'f1 pub heathrow, watch f1 staines, formula 1 pub, sky sports f1 pub',
+    title: 'Watch F1 In Staines & Heathrow | Live Grand Prix Pub',
+    description: `Watch Formula 1 races live at ${BRAND.name}. Channel 4 F1 coverage on HD screens with commentary. The perfect pit stop near Heathrow.`,
     openGraph: {
         title: 'Watch F1 Live at The Anchor',
         description: 'Lights out and away we go! Watch every Grand Prix with us.',
@@ -112,8 +111,8 @@ export default function F1Page() {
                                 },
                                 {
                                     icon: "",
-                                    title: "Sky Sports F1",
-                                    description: "We have the dedicated F1 channel, so we show the build-up, the race, and the podium analysis.",
+                                    title: "Live F1 Coverage",
+                                    description: "We show F1 on free-to-air channels (Channel 4), including build-up, race highlights, and podium analysis.",
                                     variant: "colored",
                                     color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"

@@ -10,8 +10,6 @@ export const metadata: Metadata = {
   title: 'Christmas Parties Near Heathrow & Staines | The Anchor',
   description:
     'Plan 2026 Christmas parties, shared party nights and private festive hire at The Anchor near Heathrow Terminal 5 and Staines. Three-course menus from £36.95, buffets for 26+, corporate packages, Prosecco upgrades, free parking outside the ULEZ and rapid rides from airport hotels.',
-  keywords:
-    'christmas party venue near heathrow, christmas party pub staines, shared christmas party heathrow, corporate christmas party heathrow, christmas dinner staines, christmas party pub surrey, christmas party packages heathrow, cheap christmas parties heathrow, christmas buffet near heathrow, private christmas dining surrey',
   openGraph: {
     title: 'Christmas Parties 2026 Near Heathrow Terminal 5 | Shared Nights & Private Hire',
     description:

@@ -13,7 +13,6 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 export const metadata: Metadata = {
     title: 'Beer Garden Near Heathrow | Outdoor Dining & Drinks | The Anchor',
     description: `Enjoy a pint in the sun at ${BRAND.name}. Large grassy beer garden, outdoor dining tables, and plenty of space. Just minutes from Heathrow Airport.`,
-    keywords: 'pub garden heathrow, beer garden staines, outdoor drinking heathrow, pub with garden near me',
     openGraph: {
         title: 'The Anchor Beer Garden',
         description: 'Sun, cider, and space to relax. The best garden in Stanwell Moor.',

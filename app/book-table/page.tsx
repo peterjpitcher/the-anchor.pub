@@ -12,17 +12,16 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { RegretReduction, ValueProofStrip } from '@/components/psychology'
 
 export const metadata: Metadata = {
-  title: 'Book a Table | Instant Confirmation',
-  description: 'Book your table at The Anchor near Heathrow. Instant confirmation, free parking for all diners. Food served Tuesday to Sunday.',
-  keywords: 'book table stanwell moor, restaurant booking, pub reservation, sunday lunch booking',
+  title: 'Book a Table at The Anchor | Near Heathrow | Free Parking',
+  description: 'Reserve your table at The Anchor near Heathrow with instant confirmation. Sunday roasts, pub classics & pizza. Free parking, dog-friendly. 7 mins from T5.',
   openGraph: {
-    title: 'Book a Table | Instant Confirmation',
-    description: 'Book your table at The Anchor near Heathrow. Instant confirmation, free parking for all diners. Food served Tuesday to Sunday.',
+    title: 'Book a Table at The Anchor | Near Heathrow | Free Parking',
+    description: 'Reserve your table at The Anchor near Heathrow with instant confirmation. Sunday roasts, pub classics & pizza. Free parking, dog-friendly. 7 mins from T5.',
     images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }]
   },
   twitter: getTwitterMetadata({
-    title: 'Book a Table | Instant Confirmation',
-    description: 'Book your table at The Anchor near Heathrow. Instant confirmation, free parking for all diners. Food served Tuesday to Sunday.',
+    title: 'Book a Table at The Anchor | Near Heathrow | Free Parking',
+    description: 'Reserve your table at The Anchor near Heathrow with instant confirmation. Sunday roasts, pub classics & pizza. Free parking, dog-friendly. 7 mins from T5.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
   alternates: {
@@ -159,7 +158,7 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
 
       <Section spacing="xs" container containerSize="md" className="text-center bg-anchor-bg border-b border-anchor-gold/15">
         <PageTitle className="text-anchor-cream-text" seo={{ structured: true, speakable: true }}>
-          Book Online
+          Reserve Your Table Online
         </PageTitle>
         <p className="mt-3 text-base text-anchor-cream-text/70 md:text-lg">
           Choose your date, time, and party size to reserve your table. Loved by locals and Heathrow travellers every week.

@@ -13,7 +13,6 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 export const metadata: Metadata = {
     title: 'Family Friendly Pub Near Heathrow | Kids Menu | The Anchor',
     description: `A welcoming family pub near Heathrow. Kids menu, high chairs, and a large garden. Relaxed dining for the whole family at ${BRAND.name}.`,
-    keywords: 'family friendly pub heathrow, pubs with kids menu staines, child friendly restaurants heathrow, family pub lunch',
     openGraph: {
         title: 'Family Dining at The Anchor',
         description: 'Relaxed atmosphere, great food for little ones, and space to unwind.',

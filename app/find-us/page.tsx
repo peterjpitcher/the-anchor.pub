@@ -24,7 +24,6 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 export const metadata: Metadata = {
   title: 'Directions to The Anchor (TW19 6AQ) | Free Parking | Near Heathrow T5',
   description: 'Get directions to The Anchor on Horton Road, Stanwell Moor TW19 6AQ. Seven minutes from Heathrow Terminal 5 with free parking and easy access from M25 Junction 14 and Staines.',
-  keywords: 'directions to the anchor, the anchor tw19 6aq, horton road stanwell moor, heathrow terminal 5 to pub, m25 junction 14 pub directions, free parking pub near heathrow',
   openGraph: {
     title: 'Directions to The Anchor (TW19 6AQ)',
     description: 'Driving and public transport directions from Heathrow terminals to The Anchor on Horton Road with free parking.',

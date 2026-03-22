@@ -13,7 +13,6 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 export const metadata: Metadata = {
     title: 'Watch Boxing Near Heathrow & Staines | Live Fight Nights',
     description: `Watch the biggest boxing matches live at ${BRAND.name}. Anthony Joshua, Tyson Fury, and title fights on big screens. Great atmosphere near Heathrow.`,
-    keywords: 'boxing pub heathrow, watch boxing staines, fury fight pub, joshua fight pub, boxing pay per view pub',
     openGraph: {
         title: 'Fight Night at The Anchor',
         description: 'Big screens, big atmosphere. Watch the heavyweights comfortably.',
@@ -105,7 +104,7 @@ export default function BoxingPage() {
                                 {
                                     icon: "",
                                     title: "PPV Events",
-                                    description: "We pay the Box Office fees so you don't have to. Watch the big Sky Sports and TNT Sports Box Office fights here.",
+                                    description: "We pay the Box Office fees so you don't have to. Watch the big Pay-Per-View fights here on the big screen.",
                                     variant: "colored",
                                     color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"

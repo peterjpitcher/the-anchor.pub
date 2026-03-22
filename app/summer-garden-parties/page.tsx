@@ -15,7 +15,6 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 export const metadata: Metadata = {
     title: 'Pub Garden Parties & BBQ Hire Heathrow | The Anchor',
     description: `Host your summer event in our large pub garden. BBQ packages, outdoor bar options, and plenty of sunshine. Perfect for birthdays and team socials near Heathrow.`,
-    keywords: 'pub garden hire heathrow, bbq party venue staines, outdoor party venue, pub with large garden',
     openGraph: {
         title: 'Summer Garden Parties at The Anchor',
         description: 'Sun, Cider, and BBQ. The perfect ingredients for a summer bash.',

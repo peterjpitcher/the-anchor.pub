@@ -15,7 +15,6 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 export const metadata: Metadata = {
     title: 'Pub With Pool Table & Darts Near Heathrow | The Anchor',
     description: `Looking for a game of pool or darts near Heathrow? ${BRAND.name} features a tournament-quality pool table and dart board area. Perfect for a relaxed evening.`,
-    keywords: 'pub with pool table staines, darts pub heathrow, pool bar stanwell, pub games heathrow',
     openGraph: {
         title: 'Pool, Darts & Pints at The Anchor',
         description: 'Challenge a mate to a frame of pool or a round of darts. Great beer and good competition.',

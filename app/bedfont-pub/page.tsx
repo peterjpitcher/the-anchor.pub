@@ -15,7 +15,6 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 export const metadata: Metadata = {
   title: 'Bedfont Pub | The Anchor - 5 Minutes Away | Surrey',
   description: 'The Anchor - 5 mins from Bedfont. Traditional British pub with free parking, great food & regular events. Perfect local for Bedfont residents.',
-  keywords: 'bedfont pub, pub near bedfont, bedfont surrey pub, east bedfont pub, west bedfont pub, bedfont lakes pub',
   openGraph: {
     title: 'The Anchor - Heathrow Pub & Dining - Your Local Pub Near Bedfont',
     description: 'Just 5 minutes from Bedfont with free parking and great food.',

@@ -21,7 +21,6 @@ import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 export const metadata: Metadata = {
   title: 'Pub Near Heathrow Terminal 4 | 12 Mins from T4 | Free Parking | The Anchor',
   description: 'Nearest pub to Heathrow Terminal 4. 12 minutes by taxi, free parking if driving. British pub food, Sunday roasts & real ales. Dog-friendly beer garden. Book a table.',
-  keywords: 'pub near heathrow terminal 4, pubs near heathrow terminal 4, food at heathrow terminal 4 alternative, skyteam crew pub, hilton t4 restaurant alternative',
   openGraph: {
     title: 'Pub Near Heathrow Terminal 4 | 12 Mins Away | Free Parking',
     description: '12 minutes from T4. Free parking for 20 cars. British pub food, Sunday roasts & real ales. Dog-friendly beer garden.',
@@ -378,7 +377,7 @@ export default function Terminal4Page() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <SectionHeader
-              title="Why Terminal 4 Travelers Choose The Anchor"
+              title="Why Terminal 4 Travellers Choose The Anchor"
               align="center"
             />
             

@@ -21,7 +21,6 @@ const SixNationsLightbox = dynamic(
 export const metadata: Metadata = {
     title: 'Watch Six Nations 2026 Near Heathrow | The Anchor Stanwell Moor',
     description: `Watch every Six Nations 2026 match live with sound at The Anchor, Stanwell Moor near Heathrow. 4 screens, kitchen open for every game. Book now.`,
-    keywords: 'six nations 2026, watch rugby heathrow, six nations pub staines, rugby near terminal 5, six nations fixtures',
     openGraph: {
         title: 'Watch Six Nations 2026 at The Anchor',
         description: 'Every match live on big screens with sound. 7 mins from Heathrow.',

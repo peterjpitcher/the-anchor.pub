@@ -14,7 +14,6 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 export const metadata: Metadata = {
   title: 'Pub Near Crowne Plaza Heathrow | 12 Mins | Free Parking | The Anchor',
   description: 'Traditional British pub 12 minutes from Crowne Plaza London Heathrow. Real ales, home-cooked food & free parking. The ideal local for corporate guests.',
-  keywords: 'pub near crowne plaza heathrow, restaurant near crowne plaza heathrow, crowne plaza heathrow pub, dining near crowne plaza heathrow t4, heathrow crowne plaza bar',
   openGraph: {
     title: 'Pub Near Crowne Plaza Heathrow | 12 Mins | Free Parking',
     description: '12 minutes from Crowne Plaza London Heathrow. Traditional British pub with home-cooked food, real ales & free parking. Great for corporate dining.',

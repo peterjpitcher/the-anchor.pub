@@ -12,7 +12,6 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 export const metadata: Metadata = {
   title: 'Baby Guinness Shot £3.50 | The Anchor - Heathrow Pub & Dining | Near Heathrow',
   description: 'Perfect Baby Guinness shots at The Anchor, just 7 minutes from Heathrow. £3.50 each or 2 for £6. Popular for hen parties and celebrations. Much cheaper than airport bars.',
-  keywords: 'baby guinness, baby guinness shot, layered shot, kahlua baileys, pub shots, The Anchor - Heathrow Pub & Dining',
   alternates: {
     canonical: '/drinks/baby-guinness'
   },

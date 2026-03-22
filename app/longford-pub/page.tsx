@@ -17,7 +17,6 @@ import { getBusinessStats } from '@/lib/schema-with-reviews'
 export const metadata: Metadata = {
     title: 'Pub Near Longford & Heathrow Hotels | The Anchor',
     description: `Staying in Longford or Bath Road hotels? Escape to ${BRAND.name} for authentic British food and better prices. Just a short walk or taxi ride away.`,
-    keywords: 'pub in longford heathrow, restaurants longford village, pub near thistle heathrow, pub near premier inn bath road, the anchor stanwell moor',
     openGraph: {
         title: 'The Anchor - Traditional Pub Near Longford Hotels',
         description: 'Escape the hotel prices! Authentic British pub food and drinks just minutes from Longford.',

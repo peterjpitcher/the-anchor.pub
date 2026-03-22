@@ -10,7 +10,6 @@ import { BookTableButton } from '@/components/BookTableButton'
 export const metadata: Metadata = {
   title: 'Sustainability | The Anchor - BII Sustainability Champion',
   description: 'Award-winning sustainability practices at The Anchor, Stanwell Moor. BII Sustainability Champion. What we do, why it matters, and what we\'re still working on.',
-  keywords: 'sustainable pub near heathrow, bii sustainability champion, eco friendly pub stanwell moor, green pub surrey, sustainable hospitality',
   openGraph: {
     title: 'Sustainability | The Anchor - BII Sustainability Champion',
     description: 'Award-winning sustainability practices at The Anchor, Stanwell Moor. BII Sustainability Champion. What we do, why it matters, and what we\'re still working on.',

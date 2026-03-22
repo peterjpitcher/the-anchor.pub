@@ -21,7 +21,6 @@ import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 export const metadata: Metadata = {
   title: 'Pub Near Heathrow Terminal 5 | 7 Mins from T5 | Free Parking | The Anchor',
   description: 'Closest pub to Heathrow Terminal 5. Just 7 minutes by taxi (£20-25) or drive & park free. British pub food, dog-friendly beer garden. Popular with BA crew. Book a table.',
-  keywords: 'pub near heathrow terminal 5, pubs near heathrow terminal 5, closest pub to t5, hilton terminal 5 restaurant alternative, sofitel t5 pub, british airways crew pub',
   openGraph: {
     title: 'Pub Near Heathrow Terminal 5 | 7 Mins Away | Free Parking',
     description: '7 minutes from T5 by taxi. Free parking for 20 cars. British pub food, dog-friendly beer garden & real ales. Popular with BA crew.',
@@ -390,7 +389,7 @@ export default function Terminal5Page() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <SectionHeader
-              title="Why Terminal 5 Travelers Choose The Anchor"
+              title="Why Terminal 5 Travellers Choose The Anchor"
               subtitle="British Airways crews and Sofitel/Hilton guests love our authentic pub"
               align="center"
             />
@@ -399,7 +398,7 @@ export default function Terminal5Page() {
               columns={2}
               boxes={[
                 {
-                  title: "Perfect for BA Travelers",
+                  title: "Perfect for BA Travellers",
                   icon: "",
                   content: "Terminal 5 is British Airways' exclusive hub. Whether you're flying Club World or Euro Traveller, enjoy a proper British welcome just minutes away."
                 },

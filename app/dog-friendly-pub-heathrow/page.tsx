@@ -13,7 +13,6 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 export const metadata: Metadata = {
     title: 'Dog Friendly Pub Near Heathrow | Pets Welcome | The Anchor',
     description: `Looking for a dog friendly pub near Heathrow? We welcome four-legged friends with water bowls, treats, and a large garden. The perfect pit stop for a walk.`,
-    keywords: 'dog friendly pub heathrow, dog friendly pub staines, pub allowing dogs, pet friendly restaurants near heathrow',
     openGraph: {
         title: 'Dogs Welcome at The Anchor',
         description: 'Water bowls, treats, and plenty of fuss for your four-legged friends.',
@@ -76,6 +75,15 @@ export default function DogFriendlyPage() {
                   </div>
                 }
             />
+
+            {/* Definitive answer for featured snippets */}
+            <section className="bg-anchor-bg-raised border-b border-anchor-gold/15 py-6">
+                <Container>
+                    <p className="text-center text-lg md:text-xl text-anchor-cream-text/80 max-w-4xl mx-auto leading-relaxed">
+                        The Anchor is a dog-friendly pub near Heathrow Airport in Stanwell Moor, welcoming dogs in both our bar area and beer garden. We provide water bowls and dog treats for four-legged visitors.
+                    </p>
+                </Container>
+            </section>
 
             <section className="py-8 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>

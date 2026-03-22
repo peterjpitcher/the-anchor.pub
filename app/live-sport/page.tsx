@@ -15,7 +15,6 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 export const metadata: Metadata = {
     title: 'Live Sport on Big Screens | Rugby, F1 & Football | Near Heathrow',
     description: `Watch live terrestrial sport, rugby, and F1 at ${BRAND.name}. Multiple HD screens and a great atmosphere. We're just 7 mins from Heathrow T5.`,
-    keywords: 'pub showing football heathrow, live sport pub stanwell, rugby pub heathrow',
     openGraph: {
         title: 'Live Sport on Big Screens | Rugby, F1 & Football | Near Heathrow',
         description: 'Every goal, every try, every lap. Watch it live on our big screens with a cold pint in hand.',

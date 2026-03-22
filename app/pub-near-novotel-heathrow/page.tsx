@@ -14,7 +14,6 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 export const metadata: Metadata = {
   title: 'Pub Near Novotel Heathrow | 15 Mins | Free Parking | The Anchor',
   description: 'Traditional British pub 15 minutes from Novotel London Heathrow. Home-cooked food, real ales & free parking. An independent alternative to hotel dining near Heathrow.',
-  keywords: 'pub near novotel heathrow, restaurant near novotel heathrow airport, novotel heathrow pub, dining near novotel heathrow west drayton, heathrow novotel bar',
   openGraph: {
     title: 'Pub Near Novotel Heathrow | 15 Mins | Free Parking | The Anchor',
     description: '15 minutes from Novotel London Heathrow. Traditional British pub with home-cooked food, real ales & free parking.',

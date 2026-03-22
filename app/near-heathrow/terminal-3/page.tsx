@@ -22,7 +22,6 @@ import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 export const metadata: Metadata = {
   title: 'Pub Near Heathrow Terminal 3 | 11 Mins from T3 | Free Parking | The Anchor',
   description: 'Nearest independent pub to Heathrow Terminal 3. 11 minutes by taxi, free parking if driving. Family-friendly, Sunday roasts & stone-baked pizza. Popular with Virgin & Emirates travellers.',
-  keywords: 'pub near heathrow terminal 3, pubs heathrow terminal 3, virgin atlantic crew pub, emirates terminal 3 restaurant alternative, family pub near heathrow hotels',
   openGraph: {
     title: 'Pub Near Heathrow Terminal 3 | 11 Mins Away | Free Parking',
     description: '11 minutes from T3 by taxi. Free parking. Family-friendly dining, Sunday roasts & stone-baked pizza. Popular with Virgin & Emirates travellers.',
@@ -380,7 +379,7 @@ export default function Terminal3Page() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <SectionHeader
-              title="Why Terminal 3 Travelers Choose The Anchor"
+              title="Why Terminal 3 Travellers Choose The Anchor"
               align="center"
             />
             

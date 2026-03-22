@@ -25,7 +25,6 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 export const metadata: Metadata = {
   title: "What's On at The Anchor (Near Heathrow T5) | Music Bingo, Quiz & Bingo",
   description: "See what's on at The Anchor in Stanwell Moor near Heathrow Terminal 5 and Staines: quiz nights, Music Bingo hosted by Nikki Manfadge, cash bingo, live sport, and one-off events. Free parking on site.",
-  keywords: "whats on near heathrow terminal 5, pub events near staines, music bingo near heathrow, quiz night stanwell moor, bingo near terminal 5, the anchor events",
   openGraph: {
     title: "What's On at The Anchor Near Heathrow Terminal 5",
     description: "Live calendar for quiz nights, hosted events, bingo and sport at The Anchor in Stanwell Moor with free parking.",

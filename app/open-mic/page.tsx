@@ -33,8 +33,6 @@ export const metadata: Metadata = {
   title: 'Open Mic Sign-Up | The Anchor, Stanwell Moor',
   description:
     'Register to perform at The Anchor open mic in Stanwell Moor near Heathrow. Acoustic-friendly to start, with all performer types welcome for future events. See upcoming dates and book a table (walk-ins welcome).',
-  keywords:
-    'open mic, open mic night, live music, performers, stanwell moor, staines, heathrow, acoustic open mic, comedy, spoken word',
   openGraph: {
     title: 'Open Mic Night | The Anchor, Stanwell Moor',
     description: 'Sign up to perform at The Anchor open mic. Acoustic-friendly, all types welcome. Walk-ins welcome.',

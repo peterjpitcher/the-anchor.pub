@@ -18,7 +18,6 @@ const SUNDAY_LUNCH_BOOKING_URL = '/book-table?sunday_lunch=true&purpose=food'
 export const metadata: Metadata = {
   title: 'Sunday Roast Near Heathrow from £19.99 | Book by Sat 1pm',
   description: 'Traditional British Sunday roast near Heathrow from £19.99. Chicken, lamb, pork belly & vegetarian options. Free parking. 7 mins from Terminal 5. Pre-order by Saturday 1pm.',
-  keywords: 'sunday roast near heathrow, sunday lunch near heathrow airport, sunday roast stanwell moor, sunday lunch near me heathrow, book sunday lunch near heathrow',
   openGraph: {
     title: 'Sunday Roast Near Heathrow from £19.99 | Book by Sat 1pm',
     description: 'Traditional British Sunday roast from £19.99. Chicken, lamb, pork belly & vegetarian options. Free parking. 7 mins from Heathrow T5. Book by Saturday 1pm.',

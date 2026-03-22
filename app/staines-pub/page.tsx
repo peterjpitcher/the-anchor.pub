@@ -17,7 +17,6 @@ import { getBusinessStats } from '@/lib/schema-with-reviews'
 export const metadata: Metadata = {
   title: 'Staines Pub | Sunday Roasts, Private Rooms & Free Parking',
   description: 'Traditional pub 8 minutes from Staines-upon-Thames. Sunday roasts, stone-baked pizza, quiz nights & private rooms for celebrations. Free parking & real ales.',
-  keywords: 'staines pub near heathrow, sunday roasts staines, traditional english pubs staines, private rooms staines pub, wedding receptions staines',
   openGraph: {
     title: 'Staines Pub Near Heathrow - The Anchor Stanwell Moor',
     description: 'Traditional pub 8 minutes from Staines with Sunday roast, stone-baked pizzas, hosted nights and free parking. See /whats-on for the latest.',

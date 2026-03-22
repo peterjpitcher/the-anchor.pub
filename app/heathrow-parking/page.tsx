@@ -14,18 +14,17 @@ const formatRate = (value: number | null | undefined, fallback: string) =>
   typeof value === 'number' && Number.isFinite(value) ? value.toFixed(2) : fallback
 
 export const metadata: Metadata = {
-  title: 'Cheap Heathrow Parking from £15/day | 7 mins to T5 | The Anchor',
-  description: 'Book cheap Heathrow parking from £15 per day or £75 per week in Stanwell Moor. 7 minutes to Terminal 5, keep your keys, CCTV lighting, instant confirmation.',
-  keywords: 'cheap heathrow parking, heathrow parking, heathrow car parking, parking near heathrow, long stay parking heathrow, terminal 5 parking, terminal 3 parking, terminal 2 parking, terminal 4 parking, airport long term parking, keep your keys heathrow parking, off airport parking heathrow',
+  title: 'Heathrow Parking from £15/day | 7 Mins to T5 | Park & Eat',
+  description: 'Heathrow parking from £15/day or £75/week at The Anchor, Stanwell Moor. Keep your keys, CCTV, 7 mins to T5. Have a meal before your flight -- free parking when you dine.',
   openGraph: {
-    title: 'Cheap Heathrow Parking from £15/day - Book Online',
-    description: 'Secure off-airport Heathrow parking in Stanwell Moor. 7 minutes to T5, 10-12 minutes to T2/T3/T4, keep your keys and book in minutes.',
+    title: 'Heathrow Parking from £15/day | 7 Mins to T5 | Park & Eat',
+    description: 'Heathrow parking from £15/day or £75/week at The Anchor, Stanwell Moor. Keep your keys, CCTV, 7 mins to T5. Have a meal before your flight -- free parking when you dine.',
     images: [{ url: DEFAULT_PARKING_IMAGE, width: 1200, height: 630, alt: 'Free parking at The Anchor pub near Heathrow Airport' }],
     url: 'https://www.the-anchor.pub/heathrow-parking'
   },
   twitter: getTwitterMetadata({
-    title: 'Cheap Heathrow Parking from £15/day',
-    description: 'Book secure Heathrow parking near Terminal 5 with clear pricing, CCTV and fast confirmation.',
+    title: 'Heathrow Parking from £15/day | 7 Mins to T5 | Park & Eat',
+    description: 'Heathrow parking from £15/day or £75/week at The Anchor, Stanwell Moor. Keep your keys, CCTV, 7 mins to T5. Have a meal before your flight -- free parking when you dine.',
     images: [DEFAULT_PARKING_IMAGE]
   }),
   alternates: {
@@ -75,7 +74,7 @@ const featureHighlights = [
   {
     icon: '',
     title: 'Stay for a meal or coffee pre-flight',
-    description: 'Grab breakfast, a Sunday roast or a quiet working lunch before you head to the terminal – parking customers are welcome in the pub.'
+    description: 'Grab a Sunday roast, a coffee or a quiet working lunch before you head to the terminal – parking customers are welcome in the pub.'
   }
 ]
 

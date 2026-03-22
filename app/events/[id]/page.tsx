@@ -166,9 +166,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return {
       title: event.metaTitle || `${event.name} | The Anchor - Heathrow Pub & Dining`,
       description,
-      keywords: Array.isArray(event.keywords) ? event.keywords.join(', ') : event.keywords,
       alternates: {
-        canonical
+        canonical,
       },
       openGraph: {
         title: event.name,

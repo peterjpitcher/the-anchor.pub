@@ -36,7 +36,6 @@ const AREA_LINKS = [
 export const metadata: Metadata = {
   title: 'Watch FIFA World Cup 2026 Near Heathrow | The Anchor Stanwell Moor',
   description: `See every FIFA World Cup 2026 kick-off time in UK time (BST) and book tables for matches we're showing at ${BRAND.name}, Stanwell Moor near Heathrow Terminal 5. 4 screens, sound on for games we show, free parking.`,
-  keywords: 'fifa world cup 2026, world cup 2026 fixtures, watch world cup near heathrow, world cup pub staines, football pub stanwell moor',
   openGraph: {
     title: 'Watch FIFA World Cup 2026 at The Anchor',
     description: 'All match dates in one place. 4 screens, sound on for games we show, and proper pub atmosphere near Heathrow.',

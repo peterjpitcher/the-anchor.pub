@@ -15,7 +15,6 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 export const metadata: Metadata = {
     title: 'Corporate Christmas Party Venue Near Heathrow | The Anchor',
     description: `Book your office Christmas party at ${BRAND.name}. Festive menus, private areas, and easy access for Poyle, Colnbrook, and Heathrow businesses. Enquire now.`,
-    keywords: 'christmas party venue heathrow, corporate christmas party staines, office party venue poyle, christmas lunch heathrow',
     openGraph: {
         title: 'The Perfect Venue for Your Office Christmas Party',
         description: 'Festive menus, great drinks packages, and a warm atmosphere. Book your team celebration today.',

@@ -15,7 +15,6 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 export const metadata: Metadata = {
     title: 'Barrel & Stone Pizza at The Anchor | Stone Baked & Fresh',
     description: `Experience authentic Barrel & Stone pizza at ${BRAND.name} near Heathrow. Freshly prepared, stone-baked on site using finest Italian ingredients. Crisp, thin, and delicious.`,
-    keywords: 'stone-baked pizza, fresh pizza near heathrow, Barrel & Stone pizza, Italian ingredients pizza, artisan pizza pub, pizza in Stanwell Moor, thin and crispy pizza',
     openGraph: {
         title: 'Fresh Stone Baked Pizza at The Anchor',
         description: 'Prepared and baked fresh on site. The finest Italian ingredients, stone-baked for the perfect crisp finish.',

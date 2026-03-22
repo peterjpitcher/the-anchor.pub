@@ -20,7 +20,6 @@ import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
 export const metadata: Metadata = {
   title: 'Pub Near Heathrow Terminal 2 | 11 Mins from T2 | Free Parking | The Anchor',
   description: "Nearest pub to Heathrow Terminal 2 (Queen's Terminal). 11 minutes by taxi, free parking if driving. Home-cooked British food, dog-friendly beer garden. Book a table today.",
-  keywords: 'pub near heathrow terminal 2, pubs near heathrow terminal 2, heathrow terminal 2 restaurant alternative, food at terminal 2 heathrow, queens terminal pub',
   openGraph: {
     title: "Pub Near Heathrow Terminal 2 | 11 Mins Away | Free Parking",
     description: "11 minutes from T2 (Queen's Terminal). Free parking for 20 cars. Home-cooked British food & dog-friendly beer garden.",
@@ -343,7 +342,7 @@ export default function Terminal2Page() {
       <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
         <Container size="md">
             <SectionHeader
-              title="Why Terminal 2 Travelers Choose The Anchor"
+              title="Why Terminal 2 Travellers Choose The Anchor"
               align="center"
             />
             
@@ -461,7 +460,7 @@ export default function Terminal2Page() {
         </Container>
       </section>
 
-      {/* Perfect for Terminal 2 Travelers */}
+      {/* Perfect for Terminal 2 Travellers */}
       <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
         <Container size="md">
             <SectionHeader

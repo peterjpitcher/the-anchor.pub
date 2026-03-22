@@ -14,7 +14,6 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 export const metadata: Metadata = {
   title: 'Pub Near Holiday Inn Heathrow | 12 Mins | Free Parking | The Anchor',
   description: 'Great pub 12 minutes from Holiday Inn Heathrow. Family-friendly British pub with home-cooked food, real ales & free parking. A proper alternative to hotel dining.',
-  keywords: 'pub near holiday inn heathrow, restaurant near holiday inn heathrow, holiday inn heathrow pub, dining near holiday inn heathrow, heathrow holiday inn bar',
   openGraph: {
     title: 'Pub Near Holiday Inn Heathrow | 12 Mins | Free Parking',
     description: '12 minutes from Holiday Inn Heathrow. Family-friendly British pub with home-cooked food, real ales & free parking.',

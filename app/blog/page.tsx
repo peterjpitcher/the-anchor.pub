@@ -14,7 +14,6 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 export const metadata: Metadata = {
   title: 'The Anchor Blog | Heathrow Travel Tips, Pub Events & Local Guides',
   description: 'Read The Anchor blog for Heathrow Terminal 5 travel tips, pub events, food and drink guides, and community stories from Stanwell Moor and Staines.',
-  keywords: 'heathrow travel tips, heathrow terminal 5 pub, staines pub blog, stanwell moor events, pub food guides, the anchor blog',
   openGraph: {
     title: 'The Anchor Blog - News, Events & Guides',
     description: 'Heathrow travel tips, pub events, food and drink guides and local stories from The Anchor near Heathrow Terminal 5.',

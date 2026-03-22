@@ -44,14 +44,13 @@ export const revalidate = 60 * 60 * 24 // 24 hours
 
 export const metadata: Metadata = {
   title: 'The Anchor Stanwell Moor | Pub Near Heathrow | Free Parking',
-  description: 'Traditional British pub 7 minutes from Heathrow Terminal 5. Free parking for 20 cars, dog-friendly beer garden, Sunday roasts & stone-baked pizza. Highest-rated non-airport pub near Heathrow. Book a table today.',
-  keywords: 'pub near heathrow, the anchor pub, stanwell moor pub, heathrow pub with free parking, dog friendly pub near heathrow, sunday roast near heathrow, staines pub',
+  description: 'Highest-rated independent pub near Heathrow Airport. 7 minutes from T5, free parking, dog-friendly beer garden. Sunday roasts, stone-baked pizza & quiz nights. Book a table.',
   alternates: {
     canonical: '/'
   },
   openGraph: {
     title: 'The Anchor Stanwell Moor | Pub Near Heathrow | Free Parking',
-    description: 'Traditional British pub 7 minutes from Heathrow Terminal 5. Free parking for 20 cars, dog-friendly beer garden, Sunday roasts & stone-baked pizza. Highest-rated non-airport pub near Heathrow.',
+    description: 'Highest-rated independent pub near Heathrow Airport. 7 minutes from T5, free parking, dog-friendly beer garden. Sunday roasts, stone-baked pizza & quiz nights. Book a table.',
     url: '/',
     siteName: 'The Anchor',
     images: [
@@ -199,7 +198,7 @@ export default function HomePage() {
             className="text-center text-anchor-cream-text"
             seo={{ structured: true, speakable: true }}
           >
-            The Anchor - Stanwell Moor's Favourite Local Pub
+            The Anchor -- Your Local Pub Near Heathrow in Stanwell Moor
           </PageTitle>
           <p className="text-center text-lg text-anchor-cream-text/70 mt-4">
             The Anchor is the closest traditional British pub to Heathrow Airport, located 7 minutes from Terminal 5 at Horton Road, Stanwell Moor, Surrey TW19 6AQ. With 20 free parking spaces, a dog-friendly beer garden under the flight path, and food served Tuesday to Sunday, it is the highest-rated independent pub near Heathrow.
@@ -265,7 +264,7 @@ export default function HomePage() {
           </div>
 
           {/* Regular Events */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-10">
             <Link href="/quiz-night" className="block p-4 bg-anchor-bg-raised rounded-lg text-center hover:bg-anchor-bg-raised/80 transition-colors">
               <span className="block text-lg font-bold text-anchor-cream-text">Quiz Night</span>
               <span className="text-sm text-anchor-body-text">Monthly &middot; Cash prizes</span>
@@ -277,6 +276,10 @@ export default function HomePage() {
             <Link href="/karaoke" className="block p-4 bg-anchor-bg-raised rounded-lg text-center hover:bg-anchor-bg-raised/80 transition-colors">
               <span className="block text-lg font-bold text-anchor-cream-text">Karaoke</span>
               <span className="text-sm text-anchor-body-text">Monthly &middot; Free entry</span>
+            </Link>
+            <Link href="/sunday-lunch" className="block p-4 bg-anchor-green rounded-lg text-center hover:bg-anchor-green/90 transition-colors">
+              <span className="block text-lg font-bold text-white">Sunday Lunch</span>
+              <span className="text-sm text-white/80">From &pound;19.99 &middot; Book by Saturday 1pm</span>
             </Link>
           </div>
         </Container>
@@ -393,12 +396,37 @@ export default function HomePage() {
         </Container>
       </div>
 
-      {/* Heathrow Travelers Section */}
+      {/* Mid-page booking CTA */}
+      <div className="bg-anchor-green py-8 text-center border-b border-anchor-green-dark">
+        <Container>
+          <div className="max-w-2xl mx-auto">
+            <p className="text-white text-lg font-semibold mb-2">Ready to visit?</p>
+            <p className="text-white/80 text-sm mb-5">Book your table online or call us — walk-ins welcome but booking guarantees your spot.</p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <BookTableButton
+                source="homepage_mid_cta"
+                variant="secondary"
+                size="lg"
+                className="bg-white text-anchor-green hover:bg-gray-100"
+              >
+                Book a Table
+              </BookTableButton>
+              <Link href="/sunday-lunch">
+                <Button variant="secondary" size="lg" className="w-full sm:w-auto bg-white/10 text-white hover:bg-white/20 border border-white/25">
+                  Sunday Lunch &mdash; from &pound;19.99
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </Container>
+      </div>
+
+      {/* Heathrow Travellers Section */}
       <div id="heathrow-travellers" className="bg-anchor-bg-raised section-spacing-md scroll-mt-24 border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-6xl mx-auto">
             <SectionHeader
-              title="Perfect for Heathrow Travelers"
+              title="Perfect for Heathrow Travellers"
               subtitle="Just 7-12 minutes from all terminals • Free parking • Real British experience"
             />
 

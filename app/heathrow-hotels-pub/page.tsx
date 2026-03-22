@@ -15,7 +15,6 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 export const metadata: Metadata = {
   title: `Heathrow Hotels Pub Near Me | ${BRAND.name} - Surrey Pub Escape`,
   description: `Traditional Surrey pub minutes from Heathrow hotels. Free parking in Surrey countryside, authentic British food, real ale. Escape airport hotel prices.`,
-  keywords: 'heathrow hotels pub surrey, pub near heathrow hotels, surrey pub near premier inn heathrow, pub near holiday inn heathrow, surrey countryside escape',
   openGraph: {
     title: 'The Anchor - Traditional Pub Near Heathrow Hotels',
     description: 'Escape expensive hotel restaurants! Authentic British pub with free parking, just minutes from all Heathrow hotels.',
@@ -326,7 +325,7 @@ export default function HeathrowHotelsPubPage() {
               </div>
               
               <div>
-                <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">Perfect for Travelers</h3>
+                <h3 className="text-2xl font-bold text-anchor-cream-text mb-4">Perfect for Travellers</h3>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
                     <span className="text-anchor-gold text-xl"></span>
@@ -410,7 +409,7 @@ export default function HeathrowHotelsPubPage() {
               columns={1}
               boxes={[
                 {
-                  title: "Business Travelers Love Us",
+                  title: "Business Travellers Love Us",
                   content: (
                     <div className="grid md:grid-cols-2 gap-6">
                       <div>

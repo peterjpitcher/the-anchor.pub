@@ -19,7 +19,6 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 export const metadata: Metadata = {
   title: 'Book a Table | The Anchor - Heathrow Pub & Dining',
   description: 'Book your table at The Anchor - Heathrow Pub & Dining. Reserve your spot for our delicious food, Sunday roasts, or special events. Easy online booking with instant confirmation.',
-  keywords: 'book table stanwell moor, restaurant booking, pub reservation, sunday lunch booking, the anchor booking',
   openGraph: {
     title: 'Book a Table at The Anchor',
     description: 'Reserve your table for great food and drinks at The Anchor - Heathrow Pub & Dining. Online booking available.',

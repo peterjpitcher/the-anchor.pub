@@ -14,7 +14,6 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 export const metadata: Metadata = {
   title: 'Pub Near Premier Inn Heathrow | 8 Mins | Free Parking | The Anchor',
   description: 'Great pub just 8 minutes from Premier Inn Heathrow. Independent British pub with home-cooked food, real ales & free parking. A real alternative to hotel dining.',
-  keywords: 'pub near premier inn heathrow, bars near premier inn heathrow, restaurant near premier inn heathrow terminal 5, heathrow premier inn pub, pub near premier inn bath road heathrow',
   openGraph: {
     title: 'Pub Near Premier Inn Heathrow | 8 Mins | Free Parking',
     description: '8 minutes from Premier Inn Heathrow. Independent British pub with home-cooked food, real ales & 20 free parking spaces.',

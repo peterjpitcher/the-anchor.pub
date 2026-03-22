@@ -55,7 +55,6 @@ export const metadata: Metadata = {
     template: '%s | The Anchor Stanwell Moor'
   },
   description: 'The Anchor in Stanwell Moor — traditional pub near Heathrow Airport. Sunday roasts, quiz nights, Music Bingo, dog-friendly beer garden under the flight path. Free parking, 7 mins from T5.',
-  keywords: ['bar near me', 'bar near Heathrow', 'Stanwell Moor bar', 'music bingo near me', 'quiz night', 'dog friendly bar', 'beer garden', 'pub garden', 'live music', 'TW19 bar'],
   authors: [{ name: 'The Anchor' }],
   creator: 'The Anchor',
   publisher: 'The Anchor',

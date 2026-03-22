@@ -16,7 +16,6 @@ import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 export const metadata: Metadata = {
     title: 'Engagement Party Venue Near Heathrow | The Anchor',
     description: `Celebrate your engagement at ${BRAND.name}. Romantic atmosphere, flexible buffet options, and private areas. The perfect venue near Staines and Heathrow.`,
-    keywords: 'engagement party venue staines, engagement party heathrow, engagement drinks venue, party venue stanwell moor',
     openGraph: {
         title: 'Celebrate Your Engagement at The Anchor',
         description: 'She said yes! Now let\'s celebrate. Discover our engagement party packages with prosecco, buffets, and private areas.',

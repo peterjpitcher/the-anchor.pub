@@ -98,7 +98,6 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   return {
     title: `${post.title} | The Anchor Blog`,
     description: post.description,
-    keywords: post.keywords.join(', '),
     alternates: {
       canonical: `/blog/${params.slug}`
     },

@@ -20,7 +20,6 @@ import { getBusinessStats } from '@/lib/schema-with-reviews'
 export const metadata: Metadata = {
   title: 'Traditional Ashford Pub | The Anchor - Heathrow Pub & Dining',
   description: `${BRAND.name} - traditional British pub 10 mins from Ashford. Free parking, Sunday roasts, quiz nights & family-friendly. Easy A30 access.`,
-  keywords: 'ashford pub, pub near ashford, ashford surrey pub, pubs close to ashford, british pub ashford, traditional pub near ashford',
   openGraph: {
     title: 'The Anchor - Traditional Pub Near Ashford',
     description: 'Just 10 minutes from Ashford with free parking. Sunday roasts, British classics, and regular events.',

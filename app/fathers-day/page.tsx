@@ -27,8 +27,6 @@ export const metadata: Metadata = {
   title: "Father's Day at The Anchor | Pub Lunch Near Heathrow",
   description:
     "Treat Dad to Father's Day 2026 at The Anchor near Heathrow. Sunday roast from \u00a319.99, craft beer, beer garden plane spotting. Free parking. Book now.",
-  keywords:
-    "fathers day lunch near heathrow, fathers day pub stanwell moor, fathers day sunday roast staines, fathers day beer garden surrey, fathers day family lunch heathrow",
   alternates: { canonical: '/fathers-day' },
   openGraph: {
     title: "Father's Day at The Anchor | Pub Lunch Near Heathrow",

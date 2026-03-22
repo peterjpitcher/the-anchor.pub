@@ -14,7 +14,6 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 export const metadata: Metadata = {
   title: 'Pub Near ibis Heathrow | 12 Mins | Free Parking | The Anchor',
   description: 'Independent pub 12 minutes from ibis London Heathrow. Real British food, real ales & free parking. Spend less on your hotel, spend more on your evening out.',
-  keywords: 'pub near ibis heathrow, bar near ibis heathrow, ibis heathrow pub, restaurant near ibis heathrow bath road, ibis heathrow dining',
   openGraph: {
     title: 'Pub Near ibis Heathrow | 12 Mins | Free Parking | The Anchor',
     description: '12 minutes from ibis London Heathrow. Real British pub with home-cooked food, real ales & free parking. A proper evening out.',
@@ -190,7 +189,7 @@ export default function PubNearIbisHeathrowPage() {
               features={[
                 { icon: '', title: 'Fish & Chips', description: 'British classic — fresh battered cod, chips and mushy peas. Proper pub grub.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
                 { icon: '', title: 'Stone-Baked Pizza', description: 'Authentic stone-baked pizzas from £12 — proper pub grub cooked fresh to order.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Real Ales from £4.80', description: 'Rotating guest ales — proper British beer at proper pub prices.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Real Ales from £4.80', description: 'Wide selection of beers, wines and spirits — proper British drinks at proper pub prices.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
               ]}
               className="mb-6"
             />

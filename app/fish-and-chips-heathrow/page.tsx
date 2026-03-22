@@ -15,7 +15,6 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 export const metadata: Metadata = {
     title: 'Best Fish and Chips Near Heathrow | Fresh Beer Battered Cod',
     description: `Looking for proper British Fish and Chips near Heathrow? Freshly battered cod, chunky chips, and mushy peas at ${BRAND.name}. Just 7 mins from T5.`,
-    keywords: 'fish and chips heathrow, best fish and chips staines, british pub food heathrow, fish and chips near me',
     openGraph: {
         title: 'Proper British Fish & Chips',
         description: 'Crispy batter, flaky fish, and proper chips. The ultimate pre-flight meal.',

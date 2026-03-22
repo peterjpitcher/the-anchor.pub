@@ -125,6 +125,8 @@ const defaultItems: NavigationItem[] = [
     href: '/find-us',
     items: [
       { label: 'Find Us', href: '/find-us' },
+      { label: 'Beer Garden', href: '/beer-garden' },
+      { label: 'Dog-Friendly Pub', href: '/dog-friendly-pub-heathrow' },
       { label: 'Near Heathrow Overview', href: '/near-heathrow' },
       { label: 'Layover Dining', href: '/heathrow-layover-dining' },
       { label: 'Terminal 2', href: '/near-heathrow/terminal-2' },

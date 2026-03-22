@@ -39,8 +39,6 @@ export const metadata: Metadata = {
     title: 'Karaoke Nights Near Heathrow | Sing Out at The Anchor',
     description:
         'Join karaoke night near Heathrow at The Anchor. 50,000+ songs, hosted by Nikki Manfadge, Fridays 8-11pm. Free entry. Sing your heart out in Stanwell Moor!',
-    keywords:
-        'karaoke near heathrow, karaoke pub, karaoke night, sing karaoke, pub karaoke, stanwell moor karaoke, karaoke bar staines, free karaoke',
     openGraph: {
         title: 'Karaoke Nights Near Heathrow | The Anchor',
         description: '50,000+ songs, hosted by Nikki Manfadge, Fridays 8-11pm. Free entry. Sing your heart out in Stanwell Moor.',

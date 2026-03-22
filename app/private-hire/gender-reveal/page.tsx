@@ -16,7 +16,6 @@ import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 export const metadata: Metadata = {
     title: 'Gender Reveal Party Venue | The Anchor',
     description: `Hosting a gender reveal? The Anchor offers the perfect garden space for smoke cannons and confetti. Celebrate your baby news with family and friends.`,
-    keywords: 'gender reveal venue, gender reveal party heathrow, baby shower venue, private garden hire',
     openGraph: {
         title: 'Gender Reveal Parties at The Anchor',
         description: 'Boy or Girl? Host your big reveal in our spacious beer garden. Perfect for photos, smoke cannons, and family celebrations.',

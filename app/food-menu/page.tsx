@@ -143,17 +143,16 @@ function deriveKitchenStatusData(hours: BusinessHours | null): KitchenStatusData
 }
 
 export const metadata: Metadata = {
-  title: 'Food Menu | Pub Near Heathrow from £10',
-  description: 'Full pub food menu: Sunday roasts from £19.99, stone-baked pizzas, fish & chips & burgers. 7 mins from Heathrow, free parking. View menu & book a table online.',
-  keywords: 'pub food menu near heathrow, sunday roast near heathrow, pizza near heathrow, fish and chips near heathrow, the anchor menu, pub food stanwell moor',
+  title: 'Pub Food Menu Near Heathrow | Pizza, Pies & Sunday Roasts',
+  description: 'Pub classics, stone-baked pizza, pies & fish and chips at The Anchor near Heathrow. Kitchen open Tuesday-Sunday. Free parking, 7 mins from T5. View menu online.',
   openGraph: {
-    title: 'Food Menu | Pub Near Heathrow from £10',
-    description: 'Full pub food menu: Sunday roasts from £19.99, stone-baked pizzas, fish & chips & burgers. 7 mins from Heathrow, free parking. Book a table online.',
+    title: 'Pub Food Menu Near Heathrow | Pizza, Pies & Sunday Roasts',
+    description: 'Pub classics, stone-baked pizza, pies & fish and chips at The Anchor near Heathrow. Kitchen open Tuesday-Sunday. Free parking, 7 mins from T5. View menu online.',
     images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg'],
   },
   twitter: getTwitterMetadata({
-    title: 'Food Menu | Pub Near Heathrow from £10',
-    description: "Explore The Anchor food menu near Staines and Heathrow: Sunday roast, pizza menu, pub classics and vegetarian options with free parking.",
+    title: 'Pub Food Menu Near Heathrow | Pizza, Pies & Sunday Roasts',
+    description: 'Pub classics, stone-baked pizza, pies & fish and chips at The Anchor near Heathrow. Kitchen open Tuesday-Sunday. Free parking, 7 mins from T5. View menu online.',
     images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg']
   }),
   alternates: {
@@ -253,7 +252,7 @@ export default async function FoodMenuPage() {
 
       <HeroWrapper
         route="/food-menu"
-        title="Book Pub Food Minutes from Heathrow"
+        title="Food Menu at The Anchor Near Heathrow"
         description="Proper British pub food, cooked to order. Pies, fish & chips, stone-baked pizzas and Sunday roasts — pull up a chair and make yourself at home."
         variant="default"
         breadcrumbs={[{ name: 'Food & Drink' }]}

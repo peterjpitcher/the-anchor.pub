@@ -17,7 +17,6 @@ import { getBusinessStats } from '@/lib/schema-with-reviews'
 export const metadata: Metadata = {
     title: 'Pub Near Wraysbury | The Anchor - Dining & Entertainment',
     description: `${BRAND.name} is a top-rated pub just 5 mins from Wraysbury. Famous Sunday Roasts, stone-baked pizzas, and live entertainment. Free parking & family friendly.`,
-    keywords: 'pub near wraysbury, wraysbury pubs, sunday roast wraysbury, restaurants near wraysbury, the anchor stanwell moor',
     openGraph: {
         title: 'The Anchor - Traditional Pub Near Wraysbury',
         description: 'Looking for a change from the local? We are just 5 minutes from Wraysbury with great food and entertainment.',

@@ -13,8 +13,7 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
   title: 'Feltham Pub Alternative - Free Parking & Sunday Roast | The Anchor',
-  description: 'Head 10 minutes from Feltham to The Anchor for free parking, Sunday roasts, stone-baked pizzas and quiz nights in a relaxed Surrey village setting.',
-  keywords: 'feltham pub alternative, sunday roast near feltham, pub with parking feltham, quiz night near feltham, stone-baked pizza feltham area',
+  description: 'Head 10 minutes from Feltham to The Anchor for free parking, Sunday roasts, stone-baked pizzas and quiz nights in a relaxed village setting.',
   openGraph: {
     title: 'Feltham Pub Alternative - The Anchor Stanwell Moor',
     description: '10 minutes from Feltham with free parking, Sunday roasts, stone-baked pizzas and quiz nights.',
@@ -67,7 +66,7 @@ export default function FelthamPubPage() {
       "name": "Feltham",
       "containedInPlace": {
         "@type": "AdministrativeArea",
-        "name": "Surrey"
+        "name": "London Borough of Hounslow"
       }
     },
     "telephone": "+441753682707",
@@ -152,7 +151,7 @@ export default function FelthamPubPage() {
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
-              title="Feltham's Favourite Surrey Escape"
+              title="Feltham's Favourite Village Escape"
               subtitle="Escape the hustle of Feltham High Street for a proper traditional pub experience"
               className="text-center mb-12"
             />
@@ -491,7 +490,7 @@ export default function FelthamPubPage() {
           },
           {
             question: "Do you deliver to Feltham?",
-            answer: "We offer takeaway service for all our food menu items - just call ahead on 01753 682707 to place your order for collection. We don't currently offer delivery, but you're welcome to collect your order from our Stanwell Moor location."
+            answer: "We offer takeaway service for all our food menu items - just call ahead on 01753 682707 to place your order for collection. We don't offer delivery, but you're welcome to collect your order from our Stanwell Moor location."
           }
         ]}
         className="bg-anchor-bg"

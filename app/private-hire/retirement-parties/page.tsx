@@ -16,7 +16,6 @@ import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 export const metadata: Metadata = {
     title: 'Retirement Party Venue Near Heathrow | The Anchor',
     description: `Give them a proper send-off. The Anchor is the ideal venue for retirement parties. Relaxed atmosphere, buffet options, and easy access for all colleagues.`,
-    keywords: 'retirement party venue, leaving do venue heathrow, retirement celebration, private hire stanes',
     openGraph: {
         title: 'Retirement Parties at The Anchor',
         description: 'A dedicated lifetime of work deserves a dedicated celebration. Book your retirement party or leaving do with us.',

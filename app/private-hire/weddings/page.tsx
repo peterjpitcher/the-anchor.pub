@@ -133,7 +133,7 @@ export default function WeddingsPage() {
                             {
                                 icon: "",
                                 title: "Day-After Brunch",
-                                description: "The perfect debrief. Bloody Marys, full English breakfasts, and swapping stories from the night before.",
+                                description: "The perfect debrief. Bloody Marys, a relaxed lunch, and swapping stories from the night before.",
                                 className: "text-center"
                             }
                         ]}

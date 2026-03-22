@@ -15,7 +15,6 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 export const metadata: Metadata = {
     title: 'Family Friendly Pub Near Heathrow | Kids Menu & Garden',
     description: `${BRAND.name} is the perfect family stop near Heathrow. Kids menu, large beer garden for running around, and high chairs available. Stress-free dining for parents.`,
-    keywords: 'family friendly pub heathrow, kids menu heathrow, pub with garden heathrow, family restaurants near terminal 5',
     openGraph: {
         title: 'Family Friendly Dining Near Heathrow',
         description: 'Let the kids burn off some energy in our garden before the flight. Great food for them, cold drinks for you.',

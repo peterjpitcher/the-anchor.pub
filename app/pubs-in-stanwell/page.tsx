@@ -14,7 +14,6 @@ import { generateOpeningHoursSpecification } from '@/lib/schema-utils'
 export const metadata: Metadata = {
   title: 'Pubs in Stanwell & Stanwell Moor | Traditional Local Pub | The Anchor',
   description: 'The Anchor is Stanwell Moor\'s traditional local pub. Family-friendly village pub with beer garden, free parking, and great food. Your perfect local near Heathrow.',
-  keywords: 'pubs in stanwell, pubs in stanwell moor, local pub stanwell, traditional pub near heathrow, village pub surrey, family pub stanwell moor, beer garden pub stanwell',
   openGraph: {
     title: 'The Anchor - Heathrow Pub & Dining - Your Local Pub in Stanwell Moor',
     description: 'Traditional village pub serving Stanwell Moor since 1995. Great food, beer garden, free parking.',
