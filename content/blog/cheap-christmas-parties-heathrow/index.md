@@ -31,9 +31,7 @@ keywords:
   - best budget christmas parties heathrow
 featured: false
 hero: "christmas-party-lights.jpg"
-images:
-  []
-noindex: true
+images: []
 ---
 
 ![Festive pub table set for a company Christmas party near Heathrow](/images/events/christmas/christmas-trimmings-board.jpg)

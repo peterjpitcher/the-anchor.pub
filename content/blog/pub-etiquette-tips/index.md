@@ -27,6 +27,7 @@ tags:
 featured: false
 hero: hero.jpg
 images: []
+noindex: true
 ---
 
 Walking into a historic British pub like The Anchor in Stanwell Moor Village is more than a casual outing—it’s a step into a cultural institution that bridges tradition and community spirit. Combining its 19th-century charm with a modern, inclusive approach, The Anchor creates a versatile and welcoming environment, catering to locals, travellers, and families alike. To make the most of your visit, understanding the unspoken rules of pub etiquette will help you enjoy your night out while respecting the cherished customs of British pub culture.

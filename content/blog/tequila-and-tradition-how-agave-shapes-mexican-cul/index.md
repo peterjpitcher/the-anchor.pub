@@ -25,6 +25,7 @@ tags:
 featured: false
 hero: hero.png
 images: []
+noindex: true
 ---
 
 ![A scenic image of an agave field under a bright blue sky with mountains in the background. The text reads 'Tequila and Tradition: The Role of Agave in Mexican Culture.' The Anchor logo is positioned at the top, with a bold, green font for the headline. The image reflects the connection between tequila production and Mexican tradition.](/content/blog/tequila-and-tradition-how-agave-shapes-mexican-cul/hero.png)

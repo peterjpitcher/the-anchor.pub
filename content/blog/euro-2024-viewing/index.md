@@ -25,6 +25,7 @@ tags:
 featured: false
 hero: hero.png
 images: []
+noindex: true
 ---
 
 ![Euro 2024 promotional image for The Anchor](/content/blog/euro-2024-viewing/hero.png)

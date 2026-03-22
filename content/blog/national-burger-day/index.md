@@ -25,6 +25,7 @@ tags:
 featured: false
 hero: hero.png
 images: []
+noindex: true
 ---
 
 ![celebrating national burger day a half price burge image](/content/blog/national-burger-day/hero.png)

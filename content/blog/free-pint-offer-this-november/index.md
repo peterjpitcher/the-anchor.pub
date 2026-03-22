@@ -27,6 +27,7 @@ tags:
 featured: false
 hero: hero.png
 images: []
+noindex: true
 ---
 
 ![A promotional graphic for The Anchor pub, highlighting a free pint offer of Stanwell Moor Brew for Stanwell Moor residents during November 2024. The design includes the brew’s logo and key offer details in a bold, engaging layout.](/content/blog/free-pint-offer-this-november/hero.png)

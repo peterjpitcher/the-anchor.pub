@@ -30,6 +30,7 @@ tags:
 featured: false
 hero: hero.png
 images: []
+noindex: true
 ---
 
 ![A promotional graphic for The Anchor's Double Up Offer, highlighting "Double Up for 2 Quid!" with a £2 upgrade on spirits and a call to visit the-anchor.pub for terms and conditions.](/content/blog/double-up-offer/hero.png)

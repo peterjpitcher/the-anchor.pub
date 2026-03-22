@@ -23,6 +23,7 @@ tags:
 featured: false
 hero: hero.png
 images: []
+noindex: true
 ---
 
 ![quiz night at the anchor image](/content/blog/quiz-night-at-the-anchor/hero.png)

@@ -25,6 +25,7 @@ tags:
 featured: false
 hero: hero.png
 images: []
+noindex: true
 ---
 
 Exciting news for our community **near Heathrow Airport**! The Anchor in Stanwell Moor has undergone stunning renovations, creating an even more welcoming space for locals, families, and Heathrow workers. Our traditional British pub, just 7 minutes from Terminal 5, now features a fresh new look that combines classic charm with modern comfort.

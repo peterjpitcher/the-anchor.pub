@@ -30,6 +30,7 @@ tags:
 featured: false
 hero: hero.jpg
 images: []
+noindex: true
 ---
 
 ![A vibrant collage showcasing events, community gatherings, and memorable moments at The Anchor pub in Stanwell Moor Village, celebrating 2025 with fresh flavours, exciting events, and a warm welcome.](/content/blog/events-offers-2025/hero.jpg)

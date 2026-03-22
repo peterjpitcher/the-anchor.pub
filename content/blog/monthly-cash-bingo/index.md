@@ -25,6 +25,7 @@ tags:
 featured: false
 hero: hero.jpg
 images: []
+noindex: true
 ---
 
 ![A vibrant promotional graphic for The Anchor's Monthly Cash Bingo, featuring colourful bingo balls, bold 3D text, and the pub's logo on a dark green background.](/content/blog/monthly-cash-bingo/hero.jpg)

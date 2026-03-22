@@ -26,6 +26,7 @@ tags:
 featured: true
 hero: hero.png
 images: []
+noindex: true
 ---
 
 ![Nikki Manfadge's Drag Cabaret at The Anchor](/content/blog/drag-cabaret-nikki/hero.png)

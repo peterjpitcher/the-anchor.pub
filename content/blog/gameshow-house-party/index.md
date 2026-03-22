@@ -29,6 +29,7 @@ tags:
 featured: false
 hero: hero.png
 images: []
+noindex: true
 ---
 
 ## Monthly Gameshow Nights at The Anchor Near Heathrow Airport

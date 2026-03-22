@@ -26,6 +26,7 @@ tags:
 featured: false
 hero: hero.jpeg
 images: []
+noindex: true
 ---
 
   

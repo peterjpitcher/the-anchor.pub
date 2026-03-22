@@ -27,6 +27,7 @@ tags:
 featured: false
 hero: hero.png
 images: []
+noindex: true
 ---
 
 ![A small, fluffy puppy with a blue harness sitting on green grass. The text reads "The Anchor, Stanwell Moor Village, starting a pet-friendly business while welcoming a new pet" by guest blogger Cindy Aldridge.](/content/blog/pet-friendly-business-tips/hero.png)

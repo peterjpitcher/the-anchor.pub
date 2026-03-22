@@ -29,6 +29,7 @@ tags:
 featured: false
 hero: hero.png
 images: []
+noindex: true
 ---
 
 On 13th June, The Anchor hosted a spectacular rum tasting night that achieved perfect 5-star reviews. Fifteen fortunate guests discovered the incredible diversity of premium rum right here in Stanwell Moor. With guest ratings of 5.6 out of 5 (yes, someone actually gave us 6/5!), this special event proved why unique experiences like this become the most talked-about nights at our pub.

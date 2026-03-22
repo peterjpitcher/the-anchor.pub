@@ -27,6 +27,7 @@ tags:
 featured: false
 hero: hero.png
 images: []
+noindex: true
 ---
 
 ![A tan and white dog with floppy ears is lying on a wooden deck, resting in the sunlight. The dog appears relaxed, with its head resting on the floor near a black wall with a power socket. Glass doors and outdoor furniture are visible in the background.](/content/blog/pet-ownership-benefits/hero.png)

@@ -27,6 +27,7 @@ tags:
 featured: false
 hero: hero.png
 images: []
+noindex: true
 ---
 
 ![An image of people celebrating with beer with the caption "2024 at The Anchor, Bringing families, friends and neighbours together for another year".](/content/blog/new-year-celebration/hero.png)

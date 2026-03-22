@@ -26,6 +26,7 @@ tags:
 featured: false
 hero: hero.jpg
 images: []
+noindex: true
 ---
 
 ## Price Freeze Near Heathrow Airport - No Increases Until Autumn 2025

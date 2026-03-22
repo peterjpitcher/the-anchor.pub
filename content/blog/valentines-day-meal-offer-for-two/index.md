@@ -24,6 +24,7 @@ tags:
 featured: false
 hero: hero.png
 images: []
+noindex: true
 ---
 
 Looking for the perfect **Valentine's dinner near Heathrow**? Skip overpriced airport restaurants and discover The Anchor's romantic meal deals in Stanwell Moor. Our cozy pub atmosphere, special Valentine's menu, and unbeatable prices make us the ideal spot for couples celebrating love, just 7 minutes from Terminal 5.

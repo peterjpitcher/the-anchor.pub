@@ -28,6 +28,7 @@ tags:
 featured: false
 hero: hero.png
 images: []
+noindex: true
 ---
 
   

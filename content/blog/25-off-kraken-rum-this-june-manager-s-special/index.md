@@ -29,6 +29,7 @@ tags:
 featured: true
 hero: hero.jpg
 images: []
+noindex: true
 ---
 
 Looking for the **best rum deals near Heathrow Airport**? The Anchor in **Stanwell Moor** features exclusive monthly manager's specials on premium spirits, including amazing discounts on Kraken Rum - the Caribbean spiced rum that's taking the UK by storm. Located just **7 minutes from Heathrow Terminal 5**, we're the perfect spot for airport staff celebrations, pre-flight drinks, or a quality night out near **Staines**.

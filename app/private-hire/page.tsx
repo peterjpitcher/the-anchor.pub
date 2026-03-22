@@ -405,20 +405,27 @@ export default function PrivateHirePage() {
                             subtitle="From Google Reviews"
                         />
 
-                        <div className="grid md:grid-cols-3 gap-6">
+                        <div className="grid md:grid-cols-2 gap-6">
                             <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg p-6">
                                 <p className="text-sm text-anchor-cream-text/55 mb-3">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
                                 <p className="text-anchor-cream-text/80 italic mb-4">
-                                    &ldquo;We held our daughter&apos;s christening at The Anchor and couldn&apos;t have asked for more. The buffet was brilliant and the staff were so helpful.&rdquo;
+                                    &ldquo;We had our baby&apos;s Baptism party at The Anchor. Billy and Peter made the whole event run so smoothly. The new conservatory room is amazing for any event. The buffet food was delicious &mdash; family and friends all commented on how lovely it was. Will definitely return for future family events.&rdquo;
                                 </p>
-                                <p className="text-sm text-anchor-cream-text/50">— Google Review</p>
+                                <p className="text-sm text-anchor-cream-text/50">— Rachel, TripAdvisor</p>
                             </div>
                             <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg p-6">
                                 <p className="text-sm text-anchor-cream-text/55 mb-3">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
                                 <p className="text-anchor-cream-text/80 italic mb-4">
-                                    &ldquo;Booked the private area for my retirement party. 30 guests, hot buffet, and a fantastic evening. Half the price of the hotel quote we got.&rdquo;
+                                    &ldquo;Hired the function room for my 50th. Staff sorted everything, the buffet was spot on and everyone had a great night. Could not have asked for more.&rdquo;
                                 </p>
-                                <p className="text-sm text-anchor-cream-text/50">— Google Review</p>
+                                <p className="text-sm text-anchor-cream-text/50">— Dave, Google Review</p>
+                            </div>
+                            <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg p-6">
+                                <p className="text-sm text-anchor-cream-text/55 mb-3">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
+                                <p className="text-anchor-cream-text/80 italic mb-4">
+                                    &ldquo;Had our daughter&apos;s christening party here. They went above and beyond with the setup and the food was really impressive for the price. Everyone commented on how good the venue was.&rdquo;
+                                </p>
+                                <p className="text-sm text-anchor-cream-text/50">— Priya, Google Review</p>
                             </div>
                             <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg p-6">
                                 <p className="text-sm text-anchor-cream-text/55 mb-3">&#9733;&#9733;&#9733;&#9733;&#9733;</p>

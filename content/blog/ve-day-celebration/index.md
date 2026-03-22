@@ -28,6 +28,7 @@ tags:
 featured: false
 hero: hero.jpg
 images: []
+noindex: true
 ---
 
 ![Celebrate VE Day at The Anchor with quiz night, karaoke, and 25% off British classics. Union Jack bunting decorates the scene.](/content/blog/ve-day-celebration/hero.jpg)

@@ -23,6 +23,7 @@ tags:
 featured: true
 hero: hero.jpg
 images: []
+noindex: true
 ---
 
 ![Rugby player holding a ball with intense expression, promoting the Autumn Internationals 2024. Exciting fixtures and world-class rugby action from November 2nd to November 30th.](/content/blog/autumn-internationals-2024-full-fixtures-highlight/hero.jpg)

@@ -25,6 +25,7 @@ tags:
 featured: true
 hero: hero.png
 images: []
+noindex: true
 ---
 
 Looking for **tequila tasting near Heathrow**? Our October 2024 Tequila Tasting Night achieved something remarkable - every single guest gave us 5 stars! Just 10 minutes from the airport, The Anchor delivers premium spirits experiences that transport you straight to Mexico. Discover why our tasting events have become the talk of Stanwell Moor.

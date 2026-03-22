@@ -25,6 +25,7 @@ tags:
 featured: false
 hero: hero.png
 images: []
+noindex: true
 ---
 
 Experience **music bingo near Heathrow** with a melodic twist! Every last Wednesday, The Anchor hosts the area's most entertaining bingo night where songs replace numbers. Test your music knowledge, win prizes, and enjoy great food just 7 minutes from Terminal 5. Join Stanwell Moor's favourite musical game night!

@@ -29,6 +29,7 @@ tags:
 featured: false
 hero: hero.png
 images: []
+noindex: true
 ---
 
 **Update: Pravha is no longer available on tap at The Anchor.** Our draught selection changes from time to time — visit us or call 01753 682707 to find out what is currently on tap.
