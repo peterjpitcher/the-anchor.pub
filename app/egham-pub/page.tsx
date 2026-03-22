@@ -386,7 +386,7 @@ export default function EghamPubPage() {
                 Then there&rsquo;s the Runnymede crowd. If you&rsquo;ve spent the afternoon at the JFK Memorial or walking the meadows, you&rsquo;re barely ten minutes from us. The Air Forces Memorial on Cooper&rsquo;s Hill is another popular starting point &mdash; visitors often tell us they stumbled across The Anchor while looking for somewhere to eat afterwards, and now it&rsquo;s become part of the routine. A reflective walk followed by a quiet pint in the garden feels about right.
               </p>
               <p>
-                We&rsquo;re dog-friendly throughout, we&rsquo;ve got 20 free parking spaces, and the stone-baked pizzas are a genuine draw for Egham residents who are tired of the usual takeaway options. Give us a try on a Tuesday for BOGOF pizzas &mdash; you won&rsquo;t look back.
+                We&rsquo;re dog-friendly throughout, we&rsquo;ve got 20 free parking spaces, and the stone-baked pizzas from &pound;12 are a genuine draw for Egham residents who are tired of the usual takeaway options.
               </p>
             </div>
           </div>

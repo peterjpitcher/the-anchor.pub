@@ -234,7 +234,7 @@ export const staticEvents = {
       '/content/blog/music-bingo-nights/hero.png',
       '/content/blog/music-bingo-nights/image-1.png'
     ],
-    price: '0',
+    price: '3',
     duration: 'PT3H',
     category: {
       id: 'games',

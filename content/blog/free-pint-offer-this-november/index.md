@@ -31,6 +31,10 @@ images: []
 
 ![A promotional graphic for The Anchor pub, highlighting a free pint offer of Stanwell Moor Brew for Stanwell Moor residents during November 2024. The design includes the brew’s logo and key offer details in a bold, engaging layout.](/content/blog/free-pint-offer-this-november/hero.png)
 
+**Update: This offer has ended, and Stanwell Moor Brew is no longer available at The Anchor.** Our draught selection changes from time to time — visit us or call 01753 682707 to find out what is currently on tap.
+
+---
+
 ## Free Pint for Stanwell Moor Residents Near Heathrow 🍻
 
 This November, The Anchor pub, just **7 minutes from Heathrow Terminal 5**, is raising a glass to our incredible Stanwell Moor neighbours. To show appreciation to our local community - including many **Heathrow workers** who call Stanwell Moor home - we're offering residents a chance to enjoy a **free pint of Stanwell Moor Brew**, our signature ale crafted to perfection.

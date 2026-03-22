@@ -122,4 +122,4 @@ Yes — 20 free spaces on site, no charges, no time limits. This is one of the b
 
 If you're comparing venues for a corporate away day near Heathrow, we're happy to put together a quote. Tell us the date, group size, and what you need — we'll come back with honest pricing, no filler.
 
-**Get in touch:** [info@theanchorpub.co.uk](mailto:info@theanchorpub.co.uk) | [01753 682707](tel:01753682707)
+**Get in touch:** [manager@the-anchor.pub](mailto:manager@the-anchor.pub) | [01753 682707](tel:01753682707)

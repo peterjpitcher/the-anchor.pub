@@ -178,11 +178,7 @@ What makes The Anchor truly cosy:
 - Terminal 2&3: 15 minutes
 - Free parking available
 
-**Opening Hours:**
-- Monday-Thursday: 4pm-11pm
-- Friday: 4pm-12am
-- Saturday: 12pm-12am
-- Sunday: 12pm-10pm
+**Opening Hours:** Check our website for current opening hours, as they may vary by season and for special events.
 
 ## Why Choose The Anchor?
 

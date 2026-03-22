@@ -27,9 +27,13 @@ hero: hero.png
 images: []
 ---
 
+**Update: The buy-one-get-one-free pizza deal described below is no longer available.** We still serve our delicious stone-baked pizzas every week — [check our current menu](/food-menu) for the latest prices and offers.
+
+---
+
 ![Delicious stone-baked pizza at The Anchor pub](/content/blog/buy-one-get-one-free-on-all-pizza-every-tuesday/image-1.jpg)
 
-Looking for the best **pizza deals near Heathrow**? Every Tuesday at The Anchor, enjoy our famous buy one get one free offer on all stone-baked pizzas! Just 7 minutes from Terminal 5, discover authentic Italian pizzas at unbeatable prices in our traditional Stanwell Moor pub.
+Looking for great **pizza near Heathrow**? At The Anchor, we serve authentic stone-baked pizzas just 7 minutes from Terminal 5. Discover Italian-quality pizzas at pub prices in our traditional Stanwell Moor pub.
 
 ## Pizza Tuesday: 2-for-1 All Day, Every Tuesday
 
@@ -61,7 +65,7 @@ Skip the **airport food** and discover real Italian pizza just minutes away:
 
 ## Our Pizza Menu
 
-### Classic Italian Pizzas with BOGOF Tuesday
+### Classic Italian Pizzas
 
 Choose from our delicious selection (all included in the 2-for-1 deal):
 

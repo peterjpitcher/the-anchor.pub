@@ -35,7 +35,7 @@ images: []
 
 ## Introduction
 
-Nestled in the heart of Stanwell Moor Village, The Anchor has been a cornerstone of our community since 1866. For generations, we have served as a welcoming space where locals and travellers alike can enjoy good food, great company, and a warm atmosphere. But as much as we value our rich history, we are also committed to the future—especially when it comes to sustainability. Recognised as a [BII Sustainability Champion](https://www.bii.org/BII/Events-Awards/Sustainability-Champion-Articles/The-Anchor.aspx), The Anchor is proud to lead the way in sustainable practices, blending tradition with innovation to create a lasting positive impact on both our community and the environment.
+Nestled in the heart of Stanwell Moor Village, The Anchor has been a cornerstone of our community since 1751. For generations, we have served as a welcoming space where locals and travellers alike can enjoy good food, great company, and a warm atmosphere. But as much as we value our rich history, we are also committed to the future—especially when it comes to sustainability. Recognised as a [BII Sustainability Champion](https://www.bii.org/BII/Events-Awards/Sustainability-Champion-Articles/The-Anchor.aspx), The Anchor is proud to lead the way in sustainable practices, blending tradition with innovation to create a lasting positive impact on both our community and the environment.
 
   
 

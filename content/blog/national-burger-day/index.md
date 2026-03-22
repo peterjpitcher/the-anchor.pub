@@ -134,10 +134,7 @@ Our **quality burgers** come with options for everyone:
 
 ### Burger Service Hours
 
-**Kitchen Hours**:
-- Tuesday to Friday: 6pm-9pm
-- Saturday: 1pm-7pm
-- Sunday: 1pm-6pm
+**Kitchen Hours**: Check our website for current kitchen hours, as they may vary by season.
 
 **Order Options**:
 - Dine in our traditional pub

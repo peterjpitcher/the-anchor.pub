@@ -86,7 +86,7 @@ If `is_kitchen_closed` or `kitchen === null` for a date, food/sunday_lunch slots
 ## Critical Business Rules
 
 - **Brand:** Always "The Anchor" (not "The Anchor Pub") in customer-facing copy
-- **Contact:** info@theanchorpub.co.uk | 01753 682707
+- **Contact:** manager@the-anchor.pub | 01753 682707
 - **Location:** Stanwell Moor, near Heathrow Airport
 - **Monday kitchen:** Always closed unless a special hours record explicitly opens it
 - **Sunday lunch:** Requires advance booking and prepayment; blocked if kitchen is closed for that date

@@ -31,6 +31,10 @@ hero: hero.png
 images: []
 ---
 
+**Update: Pravha is no longer available on tap at The Anchor.** Our draught selection changes from time to time — visit us or call 01753 682707 to find out what is currently on tap.
+
+---
+
 ![Promotional graphic for Pravha, highlighting its crisp, light taste and Prague's brewing tradition. The image shows a close-up of golden beer with bubbles, the Pravha logo, and The Anchor pub logo in the corner.](/content/blog/pravha-beer/hero.png)
 
   
@@ -120,7 +124,7 @@ So why wait? Come visit us at The Anchor today and try Pravha for yourself – w
 
 ### Visit The Anchor for Czech Beer Near Heathrow
 
-🍺 **On Tap**: Pravha Czech Pilsner
+🍺 **Previously On Tap**: Pravha Czech Pilsner (no longer available — ask about our current draught selection)
 📍 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
 ✈️ **From Heathrow**: Just 7 minutes from all terminals
 🚗 **Parking**: Free on-site parking

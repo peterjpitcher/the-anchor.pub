@@ -42,7 +42,7 @@ interface FooterProps {
 
 const defaultBusinessInfo: BusinessInfo = {
   name: 'The Anchor',
-  description: 'Your local pub in Stanwell Moor, serving the community with great food, drinks, and entertainment since the 19th century.',
+  description: 'Your local pub in Stanwell Moor, serving the community with great food, drinks, and entertainment since 1751.',
   logo: '/images/branding/the-anchor-pub-logo-white-transparent.png'
 }
 
@@ -187,7 +187,7 @@ export function Footer({
   copyright = {
     text: 'The Anchor, Stanwell Moor. All rights reserved.',
     year: new Date().getFullYear(),
-    subtext: 'Proud to be part of the Greene King Tenants network • Part of the community since the 1800s'
+    subtext: 'Proud to be part of the Greene King Tenants network • A village pub since 1751'
   },
   theme = defaultTheme,
   className

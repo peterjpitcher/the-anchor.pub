@@ -12,7 +12,7 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
     title: 'Family Friendly Pub Near Heathrow | Kids Menu | The Anchor',
-    description: `A welcoming family pub near Heathrow. Kids menu, high chairs, baby changing, and a large garden. Relaxed dining for the whole family at ${BRAND.name}.`,
+    description: `A welcoming family pub near Heathrow. Kids menu, high chairs, and a large garden. Relaxed dining for the whole family at ${BRAND.name}.`,
     keywords: 'family friendly pub heathrow, pubs with kids menu staines, child friendly restaurants heathrow, family pub lunch',
     openGraph: {
         title: 'Family Dining at The Anchor',
@@ -111,8 +111,8 @@ export default function FamilyFriendlyPage() {
                                 },
                                 {
                                     icon: "",
-                                    title: "Activity Packs",
-                                    description: "Colouring sheets and crayons available to keep boredom at bay while you wait for food.",
+                                    title: "Colouring Books & Crayons",
+                                    description: "Communal colouring books and crayons available to keep boredom at bay while you wait for food.",
                                     variant: "colored",
                                     color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"
@@ -132,9 +132,6 @@ export default function FamilyFriendlyPage() {
                         <div className="bg-anchor-bg-raised p-6 rounded-xl border border-anchor-gold/15 max-w-2xl mx-auto text-left">
                             <h3 className="text-xl font-bold text-anchor-cream-text mb-4 text-center">Baby Facilities</h3>
                             <ul className="grid sm:grid-cols-2 gap-4">
-                                <li className="flex items-center gap-2">
-                                    <span className="text-anchor-gold-vivid"></span> Baby changing facilities
-                                </li>
                                 <li className="flex items-center gap-2">
                                     <span className="text-anchor-gold-vivid"></span> Bottle warming on request
                                 </li>
@@ -158,7 +155,7 @@ export default function FamilyFriendlyPage() {
                     },
                     {
                         question: "Are children allowed in the evening?",
-                        answer: "Children are welcome in the pub until 8pm. In the summer, families often enjoy the garden until sunset."
+                        answer: "Children are always welcome at The Anchor — there's no age cut-off or time restriction. In the summer, families often enjoy the garden until sunset."
                     },
                     {
                         question: "Do you do kids Sunday roasts?",

@@ -43,7 +43,7 @@ The Anchor in Stanwell Moor — about seven minutes from Heathrow Terminal 5 —
 
 - **Gluten-free options** are available on several dishes. If you are coeliac or have a serious intolerance, let the team know when booking and they will talk you through what works.
 - **The kitchen can adapt most dishes** if you ask. They are genuinely happy to accommodate rather than just pointing you at the one vegetarian option on the menu.
-- **BOGOF pizza on Tuesdays and Wednesdays** applies to vegetarian and vegan pizzas too — two for the price of one, from £11. Best meat-free deal near Heathrow by a long stretch.
+- **Stone-baked pizzas** are available in vegetarian and vegan options from £11. (**Update:** The BOGOF pizza deal is no longer available — check our website for current offers.)
 - **Sunday roast** with the butternut squash wellington must be **pre-ordered and booked in advance**. You can [book online](/book-table) or call 01753 682707.
 - **Free parking** and **dog-friendly** throughout the pub. The beer garden is a bonus in warmer months, with planes overhead for a bit of Heathrow theatre.
 
@@ -86,9 +86,9 @@ There are no dedicated vegetarian restaurants in the immediate Heathrow area. Yo
 
 Yes. The Anchor offers a butternut squash wellington as part of their Sunday roast menu at £19.99, served with all the trimmings. It must be pre-ordered when you book your table. Some chain carveries also offer plant-based options, though the quality is inconsistent.
 
-### Is The Anchor's BOGOF pizza deal available on vegetarian pizzas?
+### Does The Anchor offer vegetarian pizzas?
 
-Yes — the buy one get one free deal on Tuesdays and Wednesdays covers all pizzas on the menu, including Margherita and vegetable options. Two vegetarian stone-baked pizzas from £11 total.
+Yes — our stone-baked pizza menu includes vegetarian and vegan options such as Margherita and vegetable pizzas. Prices start from £11. (**Update:** The BOGOF pizza deal previously offered on Tuesdays and Wednesdays is no longer available. Check our website for current offers.)
 
 ### Does The Anchor cater for gluten-free diets as well?
 

@@ -8,7 +8,7 @@ import { BookTableButton } from '@/components/BookTableButton'
 
 export const metadata: Metadata = {
   title: 'Accessibility at The Anchor | Stanwell Moor Pub',
-  description: 'Step-free access to the bar, dining area and beer garden. Everything you need to know to plan your visit to The Anchor, Stanwell Moor.',
+  description: 'Step-free access to the bar and dining area, with a ramp available for the beer garden. Everything you need to know to plan your visit to The Anchor, Stanwell Moor.',
   alternates: {
     canonical: './'
   }
@@ -82,7 +82,7 @@ export default function AccessibilityPage() {
               {[
                 { area: 'Bar area', icon: '' },
                 { area: 'Dining area', icon: '' },
-                { area: 'Beer garden', icon: '' },
+                { area: 'Beer garden', icon: '', note: 'There are steps from the bar to the garden, but a ramp is available on request' },
                 { area: 'Car park', icon: '', note: 'Level surface, close to the entrance' },
               ].map(({ area, icon, note }) => (
                 <div
@@ -92,7 +92,7 @@ export default function AccessibilityPage() {
                   <span className="text-2xl" aria-hidden="true">{icon}</span>
                   <div>
                     <p className="font-semibold text-anchor-gold-vivid">{area}</p>
-                    <p className="text-sm text-anchor-gold-vivid font-medium">Step-free</p>
+                    {area !== 'Beer garden' && <p className="text-sm text-anchor-gold-vivid font-medium">Step-free</p>}
                     {note && <p className="text-sm text-anchor-cream-text/55 mt-1">{note}</p>}
                   </div>
                 </div>
@@ -180,11 +180,11 @@ export default function AccessibilityPage() {
         faqs={[
           {
             question: 'Is The Anchor wheelchair accessible?',
-            answer: 'The bar, dining area and beer garden are all step-free and accessible. Our car park has a level surface close to the entrance. We currently don\'t have an accessible toilet — please call ahead if you\'d like to talk through your visit.'
+            answer: 'The bar and dining area are step-free. The beer garden has steps but a ramp is available on request. Our car park has a level surface close to the entrance. We currently don\'t have an accessible toilet — please call ahead if you\'d like to talk through your visit.'
           },
           {
             question: 'Is the beer garden step-free?',
-            answer: 'Yes. The beer garden is step-free and accessible. It\'s a great spot for watching aircraft overhead with a drink or a meal.'
+            answer: 'There are steps from the bar to the beer garden, but a ramp is available on request. It\'s a great spot for watching aircraft overhead with a drink or a meal.'
           },
           {
             question: 'Do you have an accessible toilet?',
@@ -196,7 +196,7 @@ export default function AccessibilityPage() {
           },
           {
             question: 'Can I bring a wheelchair or mobility aid?',
-            answer: 'Yes. The bar, dining area and beer garden are all step-free. If you\'d like to check specific details in advance, please call us.'
+            answer: 'Yes. The bar and dining area are step-free. The beer garden has steps but a ramp is available on request. If you\'d like to check specific details in advance, please call us.'
           },
           {
             question: 'Are assistance dogs welcome?',

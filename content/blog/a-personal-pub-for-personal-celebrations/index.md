@@ -88,6 +88,6 @@ Ask for Billy to discuss your requirements - we'll provide a no-obligation quote
 - **Free parking** for all guests
 - **Private dining options** available
 - Just **7 minutes from Heathrow Terminal 5**
-- Trusted by airport staff and locals since 1869
+- Trusted by airport staff and locals since 1751
 - Full event planning service
 - **Dog-friendly** for complete family celebrations

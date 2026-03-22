@@ -113,7 +113,7 @@ Yes, we ask for a deposit to secure your date — typically £100–200 dependin
 
 ---
 
-**Ready to book your Christmas party?** Call us on 01753 682707 or email info@theanchorpub.co.uk. The sooner you get in touch, the more dates we'll have available.
+**Ready to book your Christmas party?** Call us on 01753 682707 or email manager@the-anchor.pub. The sooner you get in touch, the more dates we'll have available.
 
 **The Anchor**
 Horton Road, Stanwell Moor, Surrey TW19 6AQ

@@ -65,7 +65,7 @@ export default function LiveSportPage() {
             <HeroWrapper
                 route="/live-sport"
                 title="Live Sport at The Anchor"
-                description="Terrestrial Channels Only (BBC/ITV). Multiple Screens. Great Food. The best atmosphere outside the stadium."
+                description="Terrestrial Channels Only (BBC/ITV/Channel 4). Multiple Screens. Great Food. The best atmosphere outside the stadium."
                 variant="default"
                 primaryCta={
                     <BookTableButton
@@ -129,7 +129,7 @@ export default function LiveSportPage() {
                                 {
                                     icon: "",
                                     title: "Terrestrial Sport Only",
-                                    description: "We show major events on free-to-air channels (BBC, ITV, Channel 4). Please note we NOT do have Sky Sports or TNT Sports.",
+                                    description: "We show major events on free-to-air channels (BBC, ITV, Channel 4). Please note we do NOT have Sky Sports or TNT Sports.",
                                     variant: "colored",
                                     color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"

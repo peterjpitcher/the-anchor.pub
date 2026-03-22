@@ -170,7 +170,7 @@ export default async function WraysburyPubPage() {
                                 {
                                     icon: "",
                                     title: "Stone-Baked Pizza",
-                                    description: "Authentic pizzas served Tuesday-Saturday (and BOGOF on Tuesdays!)",
+                                    description: "Authentic stone-baked pizzas served Tuesday-Saturday from £12",
                                     variant: "colored",
                                     color: "bg-anchor-bg-card",
                                     className: "rounded-xl p-6 text-center"

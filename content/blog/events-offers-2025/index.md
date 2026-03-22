@@ -50,7 +50,7 @@ At **The Anchor** pub in **Stanwell Moor**, just **7 minutes from Heathrow Termi
     
       
     
-*   **Chip Shop Fridays – 50% Off for Over-65s** Every Friday, we’re offering an exclusive 50% discount on our entire Chip Shop menu for guests aged 65 and over. It’s a great chance to enjoy some proper British comfort food at an unbeatable price. See full details here: [https://bit.ly/4hGfm80](https://bit.ly/4hGfm80) _Terms apply, visit_ [_the-anchor.pub_](https://www.the-anchor.pub) _for details._
+*   **Chip Shop Fridays (Update: This offer is no longer available.)** The Chip Shop Fridays 50% off for over-65s deal has been discontinued. Check our website for current offers.
     
 
   

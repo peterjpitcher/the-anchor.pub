@@ -550,9 +550,44 @@
               "vegetarian": true
             },
             {
-              "name": "Individual Pot of Tea",
+              "name": "Individual Pot of Tea (Tetley)",
               "price": "3",
-              "description": "Tetley, Decaffeinated, Peppermint, Lemon & Ginger, Red Berries, Green Tea & Lemon.",
+              "description": "A proper brew — classic Tetley in your own pot.",
+              "allergens": [],
+              "vegetarian": true
+            },
+            {
+              "name": "Decaffeinated Tea",
+              "price": "3",
+              "description": "Decaf tea served in your own pot.",
+              "allergens": [],
+              "vegetarian": true
+            },
+            {
+              "name": "Green Tea with Lemon",
+              "price": "3",
+              "description": "Light and refreshing green tea with a hint of lemon.",
+              "allergens": [],
+              "vegetarian": true
+            },
+            {
+              "name": "Lemon & Ginger Tea",
+              "price": "3",
+              "description": "Warming lemon and ginger herbal tea.",
+              "allergens": [],
+              "vegetarian": true
+            },
+            {
+              "name": "Peppermint Tea",
+              "price": "3",
+              "description": "Cool and soothing peppermint herbal tea.",
+              "allergens": [],
+              "vegetarian": true
+            },
+            {
+              "name": "Red Berries Tea",
+              "price": "3",
+              "description": "Fruity red berries herbal tea.",
               "allergens": [],
               "vegetarian": true
             }

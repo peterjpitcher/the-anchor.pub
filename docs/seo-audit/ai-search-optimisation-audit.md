@@ -117,7 +117,7 @@ The file exists at `/public/llms.txt` (79 lines) and contains:
 ## Key Facts
 - **Address:** Horton Road, Stanwell Moor, Surrey TW19 6AQ
 - **Phone:** 01753 682707
-- **Email:** info@theanchorpub.co.uk
+- **Email:** manager@the-anchor.pub
 - **Website:** https://www.the-anchor.pub
 - **Established:** 1751
 - **Type:** Traditional British pub and restaurant
@@ -151,8 +151,8 @@ The file exists at `/public/llms.txt` (79 lines) and contains:
 - Stone-baked pizzas: from £11
 - Sunday roast (chicken, lamb, pork belly, vegetarian): £19.99-£23.99
 - Sunday lunch requires pre-order by Saturday 1pm, £10/person deposit
-- BOGOF pizza Tuesday & Wednesday
-- 50% off fish & chips for over-65s on Fridays
+- ~~BOGOF pizza~~ (discontinued)
+- ~~50% off fish & chips for over-65s on Fridays~~ (discontinued)
 
 ## Events
 - Monthly Quiz Night: £3 entry, teams up to 6, cash prizes

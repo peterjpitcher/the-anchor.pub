@@ -235,7 +235,7 @@ export default function BookTablePage({
                           </PhoneLink>
                         </div>
                         <div>
-                          <a href="mailto:info@theanchorpub.co.uk" className="text-primary hover:text-primary-dark font-medium">
+                          <a href="mailto:manager@the-anchor.pub" className="text-primary hover:text-primary-dark font-medium">
                             Email us
                           </a>
                         </div>

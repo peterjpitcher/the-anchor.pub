@@ -191,7 +191,7 @@ export default function PubNearSofitelHeathrowPage() {
               features={[
                 { icon: '', title: 'Fish & Chips', description: 'Classic British dish — fresh battered cod with chips and mushy peas', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
                 { icon: '', title: 'Sunday Roast', description: 'Traditional roast from £19.99 — a British institution worth experiencing', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Stone-Baked Pizza', description: 'Buy one get one free every Tuesday — great for sharing', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Stone-Baked Pizza', description: 'Authentic stone-baked pizzas from £12 — great for sharing', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
               ]}
               className="mb-8"
             />

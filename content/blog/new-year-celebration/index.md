@@ -217,16 +217,7 @@ Many visitors become regulars when in the area!
 
 ### Open All Year Round
 
-**Regular Hours:**
-- Monday-Thursday: 4pm-11pm
-- Friday: 4pm-midnight
-- Saturday: 12pm-midnight
-- Sunday: 12pm-10pm
-
-**Seasonal Adjustments:**
-- Extended summer hours
-- Special holiday schedules
-- Check social media for updates
+**Opening Hours:** Check our website for current opening hours, as they may vary by season and for special events.
 
 **Location:** The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
 

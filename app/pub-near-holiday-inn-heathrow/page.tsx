@@ -238,7 +238,7 @@ export default function PubNearHolidayInnHeathrowPage() {
                 What Holiday Inn guests tell us they love most is how different it feels. No laminated menus, no reheated food, no identikit hotel bar atmosphere. Just a proper village pub with real ale on the hand pumps, food cooked from scratch, and a beer garden that comes alive in summer. It&rsquo;s the kind of place you&rsquo;d actually choose to spend an evening, not just default to because you&rsquo;re tired from travelling.
               </p>
               <p>
-                <strong>A practical tip:</strong> if you&rsquo;re visiting on a Friday or Saturday evening, book a table &mdash; we get busy. Tuesday and Wednesday evenings are quieter, and you&rsquo;ll get our BOGOF deal on stone-baked pizzas. Two pizzas from &pound;11 total is hard to argue with after a long day of travel.
+                <strong>A practical tip:</strong> if you&rsquo;re visiting on a Friday or Saturday evening, book a table &mdash; we get busy. Tuesday and Wednesday evenings are quieter and a great time to enjoy our stone-baked pizzas from &pound;12.
               </p>
             </div>
           </div>
@@ -260,8 +260,8 @@ export default function PubNearHolidayInnHeathrowPage() {
             answer: 'The Anchor in Stanwell Moor is the closest independent pub-restaurant to the Holiday Inn Heathrow hotels, approximately 12 minutes away. We serve traditional British food including fish & chips, pizza, burgers, and Sunday roasts.'
           },
           {
-            question: 'Is there a Tuesday pizza deal near Holiday Inn Heathrow?',
-            answer: 'Yes! The Anchor runs a buy one get one free pizza deal every Tuesday, all day. All stone-baked pizzas are included. It\'s perfect for families or groups who want great value dining near Heathrow.'
+            question: 'Does The Anchor near Holiday Inn Heathrow serve pizza?',
+            answer: 'Yes! The Anchor serves stone-baked pizzas from £12, available Tuesday to Saturday. It\'s perfect for families or groups who want great value dining near Heathrow.'
           },
           {
             question: 'Can I walk from Holiday Inn to The Anchor?',

@@ -242,7 +242,7 @@ export function generateAggregateRating(reviews?: Array<{ rating: number }>) {
     return {
       "@type": "AggregateRating",
       "ratingValue": "4.6",
-      "reviewCount": "312",
+      "reviewCount": "238",
       "bestRating": "5",
       "worstRating": "1"
     }

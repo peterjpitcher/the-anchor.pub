@@ -266,11 +266,11 @@ export default async function MusicBingoPage() {
   const nextEventDate = nextEvent ? formatEventDate(nextEvent.startDate) : 'Next date announced soon'
   const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '7:30pm'
   const doorTime = nextEvent ? formatDoorTime(nextEvent.doorTime) ?? '6:30pm' : '6:30pm'
-  const entryLabel = nextEvent ? getEntryLabel(nextEvent) : 'Free entry'
+  const entryLabel = nextEvent ? getEntryLabel(nextEvent) : '£3 entry'
 
   const heroDescription = nextEvent
     ? `Doors ${doorTime}. Music Bingo starts at ${nextEventTime}. ${entryLabel}. Booking is recommended.`
-    : 'Doors 6:30pm. Music Bingo starts at 7:30pm. Free entry. Booking is recommended.'
+    : 'Doors 6:30pm. Music Bingo starts at 7:30pm. £3 entry. Booking is recommended.'
 
   return (
     <>
@@ -328,7 +328,7 @@ export default async function MusicBingoPage() {
             <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
             <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog &amp; family friendly</span>
             <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free entry</span>
+            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">£3 per person</span>
           </div>
         }
       />

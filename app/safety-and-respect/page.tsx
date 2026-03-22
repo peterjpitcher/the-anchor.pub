@@ -126,7 +126,7 @@ export default function SafetyAndRespectPage() {
           },
           {
             question: 'Is The Anchor family-friendly?',
-            answer: 'Yes — families are welcome. Children are welcome until 9pm in the bar and throughout the beer garden during food service hours.'
+            answer: 'Yes — families are welcome. Children are always welcome — we\'re completely family friendly.'
           },
           {
             question: 'What should I do if I feel uncomfortable?',

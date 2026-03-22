@@ -77,7 +77,7 @@ In the late 18th and early 19th centuries, this bustling Italian city saw its st
     
 *   **Chicken & pesto**: Our fresh take on this classic combo is accentuated with tender chicken and fresh basil pesto. Greene King IPA is our recommended ale for this dish.
     
-*   **Barbecue chicken**: A beautiful blend of juicy chicken, smoky barbecue sauce, speck ham, and a medley of melted cheeses. Complement its rich flavours with a Coors Light.
+*   **Barbecue chicken**: A beautiful blend of juicy chicken, smoky barbecue sauce, speck ham, and a medley of melted cheeses. Complement its rich flavours with a cold Birra Moretti.
     
 *   **Speck ham & parmesan**: A harmonious blend of salty speck ham, nutty parmesan cheese, and fresh rocket. Sip on a glass of Counterpoint Chardonnay for a full flavour experience.
     

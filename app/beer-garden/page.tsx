@@ -51,8 +51,8 @@ export default async function BeerGardenPage() {
     },
     "geo": {
       "@type": "GeoCoordinates",
-      "latitude": 51.4764,
-      "longitude": -0.4735
+      "latitude": 51.462509,
+      "longitude": -0.502067
     },
     ...(openingHoursSpecification.length ? { "openingHoursSpecification": openingHoursSpecification } : {}),
     "amenityFeature": [
@@ -229,7 +229,7 @@ export default async function BeerGardenPage() {
             Beer Garden - Outdoor Dining & Plane Spotting
           </PageTitle>
           <p className="text-center text-lg text-anchor-cream-text/70 mt-4 max-w-4xl mx-auto">
-            The Anchor&apos;s beer garden sits directly under Heathrow&apos;s southern runway flight path, with aircraft passing overhead approximately every 90 seconds during peak hours. The 64-seat garden features heated areas, covered seating, and is fully dog-friendly with water bowls provided.
+            The Anchor&apos;s beer garden sits directly under Heathrow&apos;s southern runway flight path, with aircraft passing overhead approximately every 90 seconds during peak hours. The 64-seat garden features heated areas and is fully dog-friendly with water bowls provided.
           </p>
         </Container>
       </section>
@@ -254,7 +254,7 @@ export default async function BeerGardenPage() {
                         { icon: "", title: "Low & Loud", description: "Aircraft pass at approximately 500-800 feet" },
                         { icon: "", title: "Photo Friendly", description: "Unobstructed views perfect for photography" },
                         { icon: "", title: "Refreshments", description: "Full bar service delivered to your table" },
-                        { icon: "", title: "FlightRadar24", description: "Free WiFi to track incoming flights" }
+                        { icon: "", title: "Free WiFi", description: "Free high-speed guest WiFi throughout the venue" }
                       ]}
                       iconColor="text-2xl"
                     />
@@ -278,9 +278,9 @@ export default async function BeerGardenPage() {
                       </div>
                       <div className="bg-anchor-bg rounded-lg p-4 border border-anchor-gold/15">
                         <p className="text-sm text-anchor-cream-text/55">
-                          <strong>Peak Times:</strong> 6am-9am & 4pm-8pm<br />
+                          <strong>Schedule:</strong> Planes operate on a rotating weekly schedule — one week landings are overhead until 3pm, the next week from 3pm<br />
                           <strong>Frequency:</strong> Every 90 seconds (peak)<br />
-                          <strong>Wind Direction:</strong> Westerly operations (70% of year)
+                          <strong>Overhead Operations:</strong> ~50% of the year (alternating weekly schedule)
                         </p>
                       </div>
                     </>
@@ -343,13 +343,13 @@ export default async function BeerGardenPage() {
                 {
                   icon: "",
                   title: "Heated Areas",
-                  description: "Covered sections with heaters for cooler evenings",
+                  description: "Heaters for cooler evenings",
                   className: "text-center"
                 },
                 {
                   icon: "‍‍‍",
                   title: "Family Friendly",
-                  description: "Safe enclosed space, children welcome until 8pm",
+                  description: "Safe enclosed space, children always welcome",
                   className: "text-center"
                 },
               ]}
@@ -364,7 +364,7 @@ export default async function BeerGardenPage() {
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold text-anchor-cream-text mb-4">Accessibility</h2>
             <p className="text-anchor-cream-text/70 mb-3">
-              Step-free access to the bar, dining area and beer garden.
+              Step-free access to the bar and dining area. The beer garden has steps, but a ramp is available on request.
             </p>
             <p className="text-anchor-cream-text/70 mb-4">
               We currently don&apos;t have an accessible toilet. If you&apos;d like to visit and want to check what will work best for you, give us a call on{' '}
@@ -443,7 +443,7 @@ export default async function BeerGardenPage() {
           },
           {
             question: "When is the best time for plane spotting at The Anchor?",
-            answer: "Early morning (6am-9am) and late afternoon (4pm-8pm) offer the most frequent flights. Summer evenings are particularly popular as you can enjoy drinks while watching the constant stream of aircraft."
+            answer: "Planes operate on a rotating weekly schedule — one week landings are overhead until 3pm, the next week from 3pm. The schedule alternates weekly, so there's always a good chance of seeing planes during your visit."
           },
           {
             question: "Is the beer garden dog friendly?",

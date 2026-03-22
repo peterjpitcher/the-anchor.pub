@@ -191,10 +191,7 @@ Our commitment to being a **dog friendly pub** goes beyond just allowing dogs:
 - **Accessibility**: Level access for older or disabled dogs
 
 ### Opening Hours for Dogs
-Dogs are welcome during all opening hours:
-- Monday-Saturday: 11am-11pm
-- Sunday: 12pm-10:30pm
-- Garden terrace: Open year-round (heated in winter)
+Dogs are welcome during all opening hours. Check our website for current opening hours, as they may vary by season. The garden terrace is open year-round (heated in winter).
 
 ## Book Your Dog-Friendly Visit
 

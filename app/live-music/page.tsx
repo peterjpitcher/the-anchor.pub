@@ -125,7 +125,7 @@ const WHY_LOVE_IT = [
     {
         icon: '',
         title: 'Fuel for the Show',
-        body: 'Kitchen open until 9pm for burgers, pizzas and sharers. Perfect for lining the stomach before the band starts.'
+        body: 'Kitchen open until midnight for burgers, pizzas and sharers. Perfect for lining the stomach before the band starts.'
     }
 ]
 
@@ -346,7 +346,7 @@ export default async function LiveMusicPage() {
                                 <ul className="space-y-3 text-anchor-cream-text/70">
                                     <li><strong>Start time:</strong> Bands usually kick off around 8:30 pm.</li>
                                     <li><strong>Cost:</strong> Always free entry. Support local music by buying a pint!</li>
-                                    <li><strong>Food:</strong> Kitchen open until 9 pm for gig fuel.</li>
+                                    <li><strong>Food:</strong> Kitchen open until midnight for gig fuel.</li>
                                     <li><strong>Atmosphere:</strong> Up-close, personal and friendly. Standing room at the bar, tables available to book.</li>
                                 </ul>
                                 <p className="text-sm text-anchor-cream-text/55">
@@ -377,7 +377,7 @@ export default async function LiveMusicPage() {
                             <CardBody>
                                 <h3 className="text-xl font-semibold text-anchor-gold-vivid mb-2">Pre-Gig Dinner</h3>
                                 <p className="text-sm text-anchor-cream-text/70 mb-4">
-                                    Kitchen open until 9pm. Grab a burger or pizza before the music starts.
+                                    Kitchen open until midnight. Grab a burger or pizza before the music starts.
                                 </p>
                                 <div className="flex flex-col gap-2">
                                     <BookTableButton

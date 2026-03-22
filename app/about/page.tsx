@@ -66,7 +66,7 @@ const aboutPageSchema = {
       '@type': 'AggregateRating',
       ratingValue: '4.6',
       bestRating: '5',
-      ratingCount: '300',
+      ratingCount: '238',
     },
     amenityFeature: [
       { '@type': 'LocationFeatureSpecification', name: 'Free Parking', value: true },
@@ -210,7 +210,7 @@ export default function AboutPage() {
                 icon: '',
                 title: '4.6/5 on Google',
                 description:
-                  'Over 300 reviews and counting. The highest-rated independent, non-airport pub near Heathrow.',
+                  'Over 238 reviews and counting. The highest-rated independent, non-airport pub near Heathrow.',
                 className: 'text-center',
               },
               {
@@ -351,7 +351,7 @@ export default function AboutPage() {
                   4.6 / 5 on Google
                 </h3>
                 <p className="text-anchor-cream-text/70">
-                  Over 300 verified reviews. Consistently rated the top independent pub
+                  Over 238 verified reviews. Consistently rated the top independent pub
                   near Heathrow.
                 </p>
               </div>

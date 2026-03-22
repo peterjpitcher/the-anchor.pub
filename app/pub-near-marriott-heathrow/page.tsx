@@ -190,7 +190,7 @@ export default function PubNearMarriottHeathrowPage() {
               features={[
                 { icon: '', title: 'Classic Mains', description: 'From £8.99 — steaks, fish & chips, burgers and British classics cooked fresh daily', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
                 { icon: '', title: 'Real Ales', description: 'Rotating guest ales and craft beers — a proper British pint from £4.80', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Pizza Tuesday', description: 'Buy one get one free on all stone-baked pizzas every Tuesday — great for groups', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Stone-Baked Pizza', description: 'Authentic stone-baked pizzas from £12 — great for groups and families', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
               ]}
               className="mb-8"
             />

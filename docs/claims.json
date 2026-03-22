@@ -120,9 +120,7 @@
             }
           },
           "founding_year": {
-            "value": 1866,
-            "evidence_required": true,
-            "evidence_note": "DO NOT use 1866 in any copy or content until this has been verified from a primary source such as a licensing record, historic listing, brewery or estate record, or local history document. Publishing an unverified founding year risks credibility damage."
+            "value": 1751
           },
           "phone_e164": "+441753682707",
           "phone_display": "+44 1753 682707"

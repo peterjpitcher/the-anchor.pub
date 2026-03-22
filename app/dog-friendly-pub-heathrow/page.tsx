@@ -84,7 +84,7 @@ export default function DogFriendlyPage() {
                             Four-Legged Friends Welcome
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">
-                            A pub isn't a proper pub without a dog sleeping by the fire. We welcome well-behaved dogs in our bar area and our large beer garden. Whether you've just been for a walk or you're stopping off on a journey, your dog is as welcome as you are.
+                            A pub isn't a proper pub without a dog sleeping by the fire. We welcome well-behaved dogs throughout the entire venue — bar, dining area, and beer garden. Whether you've just been for a walk or you're stopping off on a journey, your dog is as welcome as you are.
                         </p>
                     </div>
                 </Container>
@@ -111,8 +111,8 @@ export default function DogFriendlyPage() {
                                 },
                                 {
                                     icon: "",
-                                    title: "Treats on Bar",
-                                    description: "We keep a jar of biscuits on the bar for our favourite customers.",
+                                    title: "Treats Available",
+                                    description: "Dog biscuits in a jar near the door for our favourite customers.",
                                     variant: "colored",
                                     color: "bg-anchor-bg-card",
                                     className: "rounded-xl p-6 text-center"
@@ -143,7 +143,7 @@ export default function DogFriendlyPage() {
                 faqs={[
                     {
                         question: "Are dogs allowed in the restaurant?",
-                        answer: "Dogs are welcome in the bar area and the garden. If you're dining, we can set you up a table in the bar area so your dog can stay with you."
+                        answer: "Dogs are welcome throughout the entire venue — bar, dining area, and beer garden. Your dog can stay with you wherever you choose to sit."
                     },
                     {
                         question: "Is there a limit on dog size?",

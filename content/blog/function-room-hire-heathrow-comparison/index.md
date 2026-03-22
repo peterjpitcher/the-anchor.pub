@@ -154,4 +154,4 @@ Rarely at hotels. Airport hotels charge £15–25 per car, and even local hotels
 
 If you're weighing up options for an event near Heathrow, we're happy to put together a quote so you can compare like-for-like. No pressure, no hard sell — just honest pricing so you can make the right decision for your event.
 
-**Get in touch:** [info@theanchorpub.co.uk](mailto:info@theanchorpub.co.uk) | [01753 682707](tel:01753682707)
+**Get in touch:** [manager@the-anchor.pub](mailto:manager@the-anchor.pub) | [01753 682707](tel:01753682707)

@@ -1,0 +1,1123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$comment": "Single Source of Truth for The Anchor brand. Generated 2026-03-22 from full codebase crawl of OJ-The-Anchor.pub. All AI agents, copywriters, and developers should reference this file for verified brand facts.",
+  "meta": {
+    "version": "1.0.0",
+    "generated": "2026-03-22",
+    "sources": [
+      "lib/constants.ts",
+      "lib/schema.ts",
+      "lib/enhanced-schemas.ts",
+      "lib/schema-utils.ts",
+      "lib/schema-with-reviews.ts",
+      "lib/static-events.ts",
+      "lib/booking-config.ts",
+      "lib/local-seo-data.ts",
+      "lib/promos/privateHire2026.ts",
+      "docs/claims.json",
+      "docs/superpowers/specs/2026-03-19-food-menu-content-refresh.md",
+      "components/layout/Footer.tsx",
+      "components/psychology/TrustBar.tsx",
+      "components/psychology/ValueProofStrip.tsx",
+      "app/layout.tsx",
+      "app/*/page.tsx (all pages)",
+      "public/manifest.json",
+      "CLAUDE.md",
+      "content/blog/*/index.md (all blog posts)"
+    ]
+  },
+  "identity": {
+    "name": "The Anchor",
+    "name_with_location": "The Anchor, Stanwell Moor",
+    "naming_rule": "Use 'The Anchor Pub' when describing what the business is (SEO value), but use 'The Anchor' for general mentions (e.g. 'we at The Anchor love serving our community').",
+    "motto": "Eat, Drink, Enjoy",
+    "tagline": "Where Everyone's Welcome",
+    "type": "Independent British village pub and restaurant",
+    "pub_group": "Greene King Tenants network",
+    "heritage_statement": "Part of the community since the 1800s",
+    "detailed_heritage": "A village pub since 1751 — nearly 275 years old. Stood before Heathrow existed; Heathrow grew from a grass airstrip in the 1940s.",
+    "founding_year": 1751,
+    "founding_year_note": "RESOLVED 2026-03-22: Canonical year is 1751. Claims.json (1866), blog posts (1869), and footer ('since the 1800s') are all incorrect and should be updated.",
+    "descriptions": {
+      "default_seo": "Traditional British pub near Heathrow Airport",
+      "schema_org": "Traditional British pub near Heathrow with quiz nights, hosted events, and famous Sunday roasts",
+      "marketing": "The closest traditional British pub to Heathrow Airport. Famous Sunday roasts, beer garden under the flight path, and FREE parking for all guests.",
+      "footer": "Your local pub in Stanwell Moor, serving the community with great food, drinks, and entertainment since the 19th century.",
+      "pwa": "Traditional British pub near Heathrow with quiz nights, hosted events & great food"
+    }
+  },
+  "contact": {
+    "phone": {
+      "display": "01753 682707",
+      "international": "+44 1753 682707",
+      "e164": "+441753682707",
+      "href": "tel:+441753682707"
+    },
+    "email": {
+      "primary": "manager@the-anchor.pub",
+      "RESOLVED": "Confirmed 2026-03-22: manager@the-anchor.pub is canonical. info@theanchorpub.co.uk is legacy and should be removed from CLAUDE.md and any blog posts."
+    },
+    "whatsapp": {
+      "number": "441753682707",
+      "url": "https://wa.me/441753682707"
+    }
+  },
+  "location": {
+    "address": {
+      "street": "Horton Road",
+      "town": "Stanwell Moor",
+      "county": "Surrey",
+      "postcode": "TW19 6AQ",
+      "country": "GB"
+    },
+    "coordinates": {
+      "latitude": 51.462509,
+      "longitude": -0.502067,
+      "RESOLVED": "Confirmed 2026-03-22: 51.462509, -0.502067 is the only correct coordinate. Beer garden page schema (51.4764, -0.4735) must be fixed."
+    },
+    "google_maps_url": "https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ",
+    "access": {
+      "near_m25": "2 minutes from M25 Junction 14",
+      "bus_routes": [
+        "441",
+        "442",
+        "555"
+      ],
+      "bus_station": "Heathrow Central Bus Station",
+      "outside_ulez": true,
+      "ulez_saving": "£12.50/day"
+    }
+  },
+  "heathrow_proximity": {
+    "positioning_claim": "Closest traditional British pub to Heathrow Airport",
+    "terminal_times": {
+      "terminal_2": {
+        "minutes": 11,
+        "note": "traffic dependent"
+      },
+      "terminal_3": {
+        "minutes": 11,
+        "note": "traffic dependent"
+      },
+      "terminal_4": {
+        "minutes": 12,
+        "note": "traffic dependent"
+      },
+      "terminal_5": {
+        "minutes": 7,
+        "note": "traffic dependent"
+      }
+    },
+    "general_range": "7-12 minutes",
+    "distances": {
+      "terminal_5": "3.8 miles",
+      "terminal_3": "5.3 miles"
+    },
+    "nearby_from": "8 minutes from Staines"
+  },
+  "digital": {
+    "domain": {
+      "canonical": "https://www.the-anchor.pub",
+      "note": "Always with www — Cloudflare + Vercel",
+      "tls": "Full or Full (strict) — never Flexible"
+    },
+    "seo": {
+      "default_title": "The Anchor | Pub Near Heathrow | Stanwell Moor",
+      "title_template": "%s | The Anchor Stanwell Moor",
+      "locale": "en_GB",
+      "canonical_pattern": "Set alternates.canonical: './' on individual pages. NEVER hardcode canonical in root layout."
+    },
+    "social_media": {
+      "facebook": "https://www.facebook.com/theanchorpubsm/",
+      "instagram": "https://www.instagram.com/theanchor.pub/",
+      "whatpub": "https://whatpub.com/pubs/SRY/14044/anchor-stanwell-moor",
+      "twitter": "https://twitter.com/TheAnchor_Pub",
+      "linkedin": "https://linkedin.com/company/102814641"
+    },
+    "schema_org": {
+      "types": [
+        "Restaurant",
+        "BarOrPub"
+      ],
+      "organization_id": "https://www.the-anchor.pub/#organization",
+      "business_id": "https://www.the-anchor.pub/#business"
+    },
+    "logos": {
+      "white_transparent": "/images/branding/the-anchor-pub-logo-white-transparent.png",
+      "black_transparent": "/images/the-anchor-pub-logo-black-transparent.png"
+    },
+    "analytics": {
+      "gtm_id": "GTM-WWFQTQS",
+      "microsoft_clarity": true
+    }
+  },
+  "brand_guidelines": {
+    "colours": {
+      "primary": {
+        "name": "Deep Green",
+        "hex": "#005131"
+      },
+      "secondary": [
+        {
+          "name": "Warm Gold",
+          "hex": "#a57626"
+        },
+        {
+          "name": "Cream",
+          "hex": "#f5e6d3"
+        },
+        {
+          "name": "Navy",
+          "hex": "#2c3e50"
+        }
+      ],
+      "neutrals": [
+        {
+          "name": "Off-White",
+          "hex": "#f9f7f3"
+        },
+        {
+          "name": "Charcoal Grey",
+          "hex": "#3a3a3a"
+        }
+      ]
+    },
+    "typography": {
+      "brand_primary": "Century Gothic",
+      "brand_secondary": "The Absolute",
+      "web_primary": "Outfit (--font-outfit)",
+      "web_serif": "Merriweather (--font-merriweather, weights: 300/400/700/900)"
+    },
+    "voice": {
+      "tone": [
+        "Friendly",
+        "Cheeky",
+        "Inclusive"
+      ],
+      "perspective": "Use 'we' language",
+      "language": "British English",
+      "notes": "Responds to local demographic change including growing Indian community"
+    }
+  },
+  "venue": {
+    "capacity": {
+      "maximum": 250,
+      "private_hire": "10-200 guests",
+      "christmas_seated": 60,
+      "christmas_standing": 200,
+      "beer_garden_seats": 64
+    },
+    "parking": {
+      "free_spaces": 20,
+      "RESOLVED": "Confirmed 2026-03-22: 20 is correct. lib/schema.ts ParkingFacility (50) must be updated.",
+      "description": "Free on-site parking for pub guests. No fees, no time limit while visiting. Level surface, close to entrance. CCTV and floodlit.",
+      "extended": "Additional parking available nearby"
+    },
+    "amenities": [
+      "Free parking (~20 spaces)",
+      "Free WiFi (throughout pub and beer garden)",
+      "Beer garden (under Heathrow flight path)",
+      "Pool table",
+      "Darts",
+      "Jukebox",
+      "Live sports on TV (terrestrial only: BBC/ITV/Channel 4)",
+      "Luggage storage",
+      "Private event space / function room",
+      "Dog friendly (water bowls and treats provided)",
+      "Board games",
+      "Community notice board"
+    ],
+    "does_NOT_have": [
+      "Sky Sports",
+      "TNT Sports",
+      "Breakfast service",
+      "Delivery service",
+      "Guest ales",
+      "Accessible toilet",
+      "EV charging"
+    ],
+    "accessibility": {
+      "step_free_bar": true,
+      "step_free_dining_area": true,
+      "step_free_beer_garden": false,
+      "step_free_car_park": true,
+      "accessible_toilet": false,
+      "assistance_dogs": "Always welcome",
+      "note": "Guests are encouraged to call ahead if they would like to plan their visit.",
+      "beer_garden_access_note": "There are steps from the bar to the garden, but a ramp is available on request."
+    },
+    "family_facilities": {
+      "high_chairs": true,
+      "baby_changing": false,
+      "bottle_warming": "On request",
+      "buggy_space": true,
+      "breastfeeding": "Welcome",
+      "activity_packs": "Communal colouring books and crayons",
+      "children_welcome_until": "Always welcome — completely family friendly including dogs. No age cut-off."
+    },
+    "dog_policy": {
+      "welcome_areas": "Throughout the entire venue",
+      "water_bowls": true,
+      "treats": "Dog biscuits in a jar near the door",
+      "on_lead": "Must be kept on a lead at all times",
+      "no_furniture": "Dogs not allowed on furniture",
+      "size_limit": "None",
+      "nearby_walks": "Stanwell Moor reservoirs"
+    },
+    "smoking": "Outside only",
+    "payment_accepted": [
+      "Cash",
+      "Credit Card",
+      "Debit Card",
+      "American Express",
+      "Contactless"
+    ],
+    "currency": "GBP",
+    "price_range": "££"
+  },
+  "beer_garden": {
+    "seats": 64,
+    "flight_path": "Directly under Heathrow's southern runway approach path",
+    "aircraft_frequency": "Every 90 seconds during peak times",
+    "aircraft_altitude": "500-800 feet overhead",
+    "common_aircraft": [
+      "A380",
+      "Boeing 777",
+      "787 Dreamliner",
+      "A350",
+      "A330",
+      "Boeing 747"
+    ],
+    "peak_spotting_times": "Planes operate on a rotating weekly schedule — one week landings are overhead until 3pm, the next week from 3pm. The schedule alternates weekly.",
+    "westerly_operations": "~50% of the year (alternating weekly schedule)",
+    "features": [
+      "Heated areas",
+      "Dog friendly",
+      "Full food and drink service during kitchen hours",
+      "Free high-speed guest WiFi throughout the venue"
+    ]
+  },
+  "food": {
+    "cuisines": [
+      "British",
+      "Pizza",
+      "Pub Food",
+      "Sunday Roast"
+    ],
+    "kitchen_hours": {
+      "monday": "CLOSED (always, unless special hours record explicitly opens it)",
+      "tuesday_to_friday": "16:00-21:00",
+      "saturday": "12:00-19:00",
+      "sunday": "13:00-18:00",
+      "live_music_nights": "Open until midnight on live music nights",
+      "quiz_nights": "Until 9pm when the kitchen closes"
+    },
+    "menu_url": "https://www.the-anchor.pub/food-menu",
+    "menu_categories": [
+      {
+        "name": "British Pub Classics",
+        "items": [
+          {
+            "name": "Fish & Chips",
+            "price": 15.0
+          },
+          {
+            "name": "Half Fish & Chips",
+            "price": 12.0
+          },
+          {
+            "name": "Scampi & Chips",
+            "price": 13.0
+          },
+          {
+            "name": "Jumbo Sausage & Chips",
+            "price": 13.0
+          },
+          {
+            "name": "Bangers & Mash",
+            "price": 14.0,
+            "description": "Three sausages, creamy mash, crispy onions, rich onion gravy"
+          }
+        ]
+      },
+      {
+        "name": "Traditional British Pies",
+        "note": "Served with creamy mash and seasonal veg, or chips",
+        "items": [
+          {
+            "name": "Beef & Ale Pie",
+            "price": 16.0
+          },
+          {
+            "name": "Chicken & Wild Mushroom Pie",
+            "price": 15.0
+          },
+          {
+            "name": "Chicken, Ham Hock & Leek Pie",
+            "price": 15.0,
+            "new": true
+          },
+          {
+            "name": "Butternut Squash, Mixed Bean & Mature Cheddar Pie",
+            "price": 15.0,
+            "new": true,
+            "vegetarian": true
+          }
+        ]
+      },
+      {
+        "name": "House Burgers",
+        "note": "Served with chips, salad, choice of sauce",
+        "items": [
+          {
+            "name": "Classic Beef Burger",
+            "price": 11.0
+          },
+          {
+            "name": "Chicken Burger",
+            "price": 11.0
+          },
+          {
+            "name": "Spicy Chicken Burger",
+            "price": 11.0
+          },
+          {
+            "name": "Katsu Chicken Burger",
+            "price": 14.0
+          },
+          {
+            "name": "Garden Veg Burger",
+            "price": 11.0,
+            "vegetarian": true
+          },
+          { "name": "Beef Stack", "price": 14 },
+          { "name": "Chicken Stack", "price": 14 },
+          { "name": "Garden Stack", "price": 14, "vegetarian": true },
+          { "name": "Spicy Chicken Stack", "price": 14 }
+        ],
+        "extras": [
+          {
+            "name": "Mature cheddar",
+            "price": 1.0
+          },
+          {
+            "name": "Bacon",
+            "price": 2.0
+          },
+          {
+            "name": "Hash brown",
+            "price": 2.0
+          },
+          {
+            "name": "Onion ring",
+            "price": 1.0
+          },
+          {
+            "name": "Upgrade to cheesy chips",
+            "price": 2.0
+          },
+          {
+            "name": "Swap to sweet potato fries",
+            "price": 2.0
+          }
+        ]
+      },
+      {
+        "name": "Comfort Favourites",
+        "items": [
+          {
+            "name": "Lasagne",
+            "price": 15.0
+          },
+          {
+            "name": "Mac & Cheese",
+            "price": 14.0,
+            "vegetarian": true
+          },
+          {
+            "name": "Spinach & Ricotta Cannelloni",
+            "price": 14.0,
+            "vegetarian": true
+          },
+          {
+            "name": "Chicken Katsu Curry",
+            "price": 14.0
+          }
+        ]
+      },
+      {
+        "name": "Stone-Baked Pizza",
+        "note": "12-inch, hand-stretched. Gluten-free bases available on request.",
+        "items": [
+          { "name": "Rustic Classic", "price": 12 },
+          { "name": "Simply Salami", "price": 13 },
+          { "name": "Fully Loaded", "price": 14 },
+          { "name": "Nice & Spicy", "price": 14 },
+          { "name": "The Garden Club", "price": 13 },
+          { "name": "Smoked Chilli Chicken", "price": 14 },
+          { "name": "Chicken & Pesto", "price": 14 },
+          { "name": "Barbecue Chicken", "price": 14 }
+        ],
+        "sides": [
+          {
+            "name": "Garlic Bread",
+            "price": 10.0
+          },
+          {
+            "name": "Garlic Bread with Mozzarella",
+            "price": 12.0
+          }
+        ]
+      },
+      {
+        "name": "Wraps, Smaller Plates & Sides",
+        "items": [
+          {
+            "name": "Chicken Goujon Wrap",
+            "price": 10.0
+          },
+          {
+            "name": "Fish Finger Wrap",
+            "price": 10.0
+          },
+          {
+            "name": "4 Chicken Goujons & Chips",
+            "price": 9.0
+          },
+          {
+            "name": "5 Salt & Chilli Squid & Chips",
+            "price": 9.0
+          },
+          {
+            "name": "3 Fish Fingers & Chips",
+            "price": 9.0
+          },
+          {
+            "name": "Chips",
+            "price": 4.0
+          },
+          {
+            "name": "Chunky Chips",
+            "price": 5.0
+          },
+          {
+            "name": "Cheesy Chips",
+            "price": 6.0
+          },
+          {
+            "name": "Sweet Potato Fries",
+            "price": 5.0
+          },
+          {
+            "name": "6 Onion Rings",
+            "price": 4.0
+          }
+        ]
+      },
+      {
+        "name": "Proper Puddings",
+        "items": [
+          {
+            "name": "Sticky Toffee Pudding",
+            "price": 6.0,
+            "gluten_free": true
+          },
+          {
+            "name": "Apple Crumble",
+            "price": 6.0
+          },
+          {
+            "name": "Chocolate Fudge Brownie",
+            "price": 6.0
+          },
+          {
+            "name": "Chocolate Fudge Cake",
+            "price": 6.0,
+            "new": true
+          },
+          {
+            "name": "Ice Cream Sundae",
+            "price": 5.0
+          }
+        ]
+      },
+      {
+        "name": "Hot Drinks",
+        "items": [
+          {
+            "name": "Americano",
+            "price": 3.0
+          },
+          {
+            "name": "Latte",
+            "price": 3.0
+          },
+          {
+            "name": "Cappuccino",
+            "price": 3.0
+          },
+          {
+            "name": "Hot Chocolate",
+            "price": 3.0
+          },
+          { "name": "Individual Pot of Tea (Tetley)", "price": 3.0 },
+          { "name": "Decaffeinated Tea", "price": 3.0 },
+          { "name": "Green Tea with Lemon", "price": 3.0 },
+          { "name": "Lemon & Ginger Tea", "price": 3.0 },
+          { "name": "Peppermint Tea", "price": 3.0 },
+          { "name": "Red Berries Tea", "price": 3.0 }
+        ]
+      }
+    ],
+    "removed_items": [
+      "Lamb Shank (main menu — still available as Sunday roast)",
+      "Speck Ham & Parmesan pizza"
+    ],
+    "CORRECTION_2026_03_22": "Stacks (Beef, Chicken, Garden, Spicy Chicken) are back on the menu at £14 each — they were previously listed as removed. Updated in House Burgers section.",
+    "copy_corrections": {
+      "mushy_peas_not_minted": "Always 'mushy peas', never 'minted peas'",
+      "garden_veg_burger": "Always 'Garden Veg Burger', never 'Vegetable Burger'",
+      "garden_club_pizza": "Contains roasted courgettes, caramelised onions, rocket — NOT grilled courgette, peppers, balsamic glaze"
+    },
+    "kids_menu": [
+      "Sausage and mash",
+      "Fish fingers",
+      "Tomato pasta",
+      "Chicken goujons",
+      "Mini roasts (Sundays)"
+    ]
+  },
+  "sunday_roast": {
+    "price_from": 19.99,
+    "currency": "GBP",
+    "options": [
+      {
+        "name": "Roasted Chicken",
+        "price": 19.99
+      },
+      {
+        "name": "Slow-Cooked Lamb Shank",
+        "price": 23.99
+      },
+      {
+        "name": "Crispy Pork Belly",
+        "price": 21.99
+      },
+      {
+        "name": "Beetroot & Butternut Squash Wellington",
+        "price": 19.99,
+        "vegetarian": true
+      },
+      {
+        "name": "Kids Roasted Chicken",
+        "price": 13.99
+      }
+    ],
+    "add_ons": [
+      { "name": "Cauliflower Cheese", "price": 3.99 }
+    ],
+    "INCORRECT_OPTIONS": "Some older pages reference 'beef, pork, chicken, or vegetarian'. The actual current options are listed above. Do NOT use 'beef' as a roast option.",
+    "accompaniments": "Herb & garlic-crusted roast potatoes, seasonal vegetables, Yorkshire pudding, red wine gravy. Vegetarian gravy available on request.",
+    "booking_policy": {
+      "pre_order_deadline": "Saturday 1pm",
+      "deposit_per_person_gbp": 10,
+      "deposit_deducted": true,
+      "advance_booking_required": true,
+      "regular_menu_also_available": "Yes, without pre-order",
+      "max_online_party_size": 20,
+      "larger_groups": "Must call",
+      "kitchen_dependency": "Blocked if kitchen is closed for that date"
+    }
+  },
+  "drinks": {
+    "_source": "product-list-export-2026-03-22. Complete inventory from POS system.",
+    "draught": ["Birra Moretti", "Guinness", "Stella Artois", "Aspall Cider", "Inch's Apple Cider", "Fosters", "Carlsberg", "1664 Biere"],
+    "draught_note": "Shandies available for all draught lagers.",
+    "bottled_ales": ["Abbot Ale", "Greene King IPA", "Old Speckled Hen", "Newcastle Brown Ale"],
+    "bottled_beers": ["Budweiser", "Corona Extra", "Desperados", "Peroni", "Peroni 0%"],
+    "bottled_ciders": ["Magners", "Old Mout Berries & Cherries", "Old Mout Kiwi & Lime", "Aspall"],
+    "cocktails": ["Aperol Spritz", "Espresso Martini", "Passion Fruit Martini", "Mojito", "Classic Margarita", "Vodka Margarita", "Woo Woo", "Moscow Mule", "Dark & Stormy", "Whiskey Ginger", "Cuba Libre", "Pink Paloma", "English Garden", "Tropical Punch", "Apricot Fizz", "Captain's Colada", "Peach Blush", "Apple and Blackberry Pie", "Hot Toddy", "Glass Pimms", "Jug Pimms", "Baby Guinness", "Kick Bomb", "Skittle Bomb"],
+    "spirits_optics": ["Bacardi", "Captain Morgan Gold Spiced Rum", "Bell's", "Famous Grouse", "Gordon's", "Gordon's Pink", "Jack Daniel's", "Jameson", "Smirnoff Red"],
+    "spirits_gin": ["Bombay Sapphire", "Gordon's Lemon", "Gordon's White Peach", "Gordon's Tropical Passionfruit", "Gordon's Sloe Gin", "Hendrick's", "Hendrick's Flora Adora", "Tanqueray", "Tanqueray 10", "Tanqueray Flor de Sevilla", "Tanqueray Blackcurrant Royale", "Whitley Neill Rhubarb", "Williams Chase Pink Grapefruit", "Botanist", "Warner's Elderflower", "Warner's Honeybee", "Chase Sloe Gin", "Monkey Sloe Gin 47"],
+    "spirits_rum": ["Captain Morgan Original Dark", "Captain Morgan Gold Spiced", "Captain Morgan Sliced Apple", "Captain Morgan Tiki", "Havana Club 3", "Havana Club 7", "Havana Club Especial", "Kraken", "Bambu Rum", "Bumbu Cream", "Redleg Spiced", "Redleg Pineapple", "Redleg Banana", "Redleg Tropical", "Bacardi Coconut", "Trash & Treasure Banana"],
+    "spirits_vodka": ["Smirnoff Red", "Smirnoff Raspberry Crush", "Smirnoff Mango & Passionfruit", "Smirnoff Miami Peach", "Ketel One", "Grey Goose"],
+    "spirits_whisky": ["Bell's", "Famous Grouse", "Jack Daniel's", "Jack Daniel's Fire", "Jack Daniel's Honey", "Jack Daniel's Apple", "Jameson", "Bushmills", "Johnnie Walker Black Label", "Monkey Shoulder", "Maker's Mark", "Glenfiddich", "Glenmorangie", "Talisker", "Bowmore 12yr", "Bulleit", "Shanky's Whip"],
+    "spirits_tequila": ["Jose Cuervo Gold", "Jose Cuervo Silver", "Patron Silver", "Olmeca Altos Plata", "Olmeca Reposado", "Cazcabel Coffee"],
+    "spirits_brandy": ["Courvoisier", "Hennessy VS", "Martell VS"],
+    "spirits_liqueurs": ["Aperol", "Archers", "Baileys", "Cointreau", "Disaronno", "Drambuie", "Kahlua", "Malibu", "Midori", "Pernod", "Southern Comfort", "Chambord", "Tia Maria", "Lustre Strawberry Cream", "Lustre Pineapple Cream", "Lustre Caffe Latte Cream"],
+    "spirits_shooters": ["Jagermeister", "Sambuca Classic", "Sambuca Raspberry", "Sambuca Liquorice", "Sambuca Chilli", "Sourz Cherry", "Sourz Apple", "Sourz Strawberry"],
+    "wines_red": ["Counterpoint Shiraz", "El Pico Cabernet Sauvignon", "Gentlemens Collection", "I Heart Merlot", "I Heart Shiraz", "Rocosa Malbec"],
+    "wines_white": ["Counterpoint Chardonnay", "Giotto Pinot Grigio", "I Heart Chardonnay", "I Heart Pinot Grigio", "I Heart Sauvignon Blanc", "Piesporter Michelsberg", "Montford Estate Sauvignon Blanc"],
+    "wines_rose": ["Gris des Signeurs", "I Heart Rose", "Three Pebbles Bay", "Ara Marl Sauvignon Rose", "Ara Pinot Gris"],
+    "wines_sparkling": ["G&G Prosecco (750ml)", "G&G Prosecco (200ml)"],
+    "wines_note": "Most wines available in 187ml single-serve and 750ml bottles.",
+    "port_sherry_vermouth": ["Taylors Fine Ruby Port", "Harvey's Bristol Cream", "Martini Rosso", "Martini Extra Dry"],
+    "soft_drinks": ["Harrogate Still Water", "Harrogate Sparkling Water", "Can of Coke", "Can of Diet Coke", "Can of Fanta", "J2O Orange & Passionfruit", "J2O Apple & Mango", "J2O Apple & Raspberry", "Apple Juice", "Fruit Shoot Orange", "Fruit Shoot Blackcurrant", "Appletiser"],
+    "mixers": ["Coca Cola", "Diet Coke", "Coke Zero", "Lemonade", "7-Up Free", "Soda", "Tonic", "Slimline Tonic", "Ginger Ale", "Slimline Elderflower", "Russchian Pink Soda", "Schweppes Pink Grapefruit Soda", "Schweppes Tropical Soda", "Kick Energy Drink", "Fever Tree Soda Water", "Fever Tree Madagascan Cola", "Fever Tree Ginger Beer", "Fever Tree White Grape & Apricot Soda", "Fever Tree Ginger Ale", "Lime Cordial", "Blackcurrant Cordial", "Orange Juice", "Cranberry Juice", "Pineapple Juice"],
+    "bar_snacks": ["Tayto Crisps (5 flavours)", "Quavers", "Pork Scratchings", "Maltesers", "Nuts (Salted, Dry Roasted, Honey Roasted, Chilli, Cashews)"],
+    "discontinued_draught": [
+      { "name": "Stanwell Moor Brew", "status": "DISCONTINUED as of 2026-03-22." },
+      { "name": "Pravha", "status": "DISCONTINUED. Confirmed by owner 2026-03-22. Remove from all pages and blog posts." }
+    ],
+    "promotions": ["Double-up on optics for £2", "Monthly Manager's Special — discounted featured premium spirit"],
+    "bar_tab_policy": { "eligibility": "Regular customers only", "validity": "7 days", "maximum_gbp": 50 },
+    "equipment": "T-Bar beer pumps (shorter lines, colder/fresher pints), upgraded glass washer",
+    "live_sport_note": "Terrestrial channels only (BBC/ITV/Channel 4). Does NOT have Sky Sports or TNT Sports."
+  },
+  "offers": [],
+  "discontinued_offers": [
+    {
+      "name": "BOGOF Pizza",
+      "description": "Buy One Get One Free pizza — formerly ran on Tuesdays",
+      "status": "DISCONTINUED as of 2026-03-22. Remove from all pages, schemas, and blog posts."
+    },
+    {
+      "name": "Over-65s Fish & Chips",
+      "description": "50% off fish & chips for over-65s",
+      "day": "Friday",
+      "discounted_price_gbp": 7.5,
+      "status": "DISCONTINUED as of 2026-03-22"
+    }
+  ],
+  "events": {
+    "_source_note": "Event details cross-referenced with anchor-management-tools database 2026-03-22. Actual event dates, prices, and times are managed per-event in the management app — the values below are defaults.",
+    "quiz_night": {
+      "schedule": "First Wednesday of each month",
+      "doors": "6:30pm",
+      "start": "7:00pm",
+      "end": "~9:45pm",
+      "duration": "3 hours",
+      "entry_fee_gbp": 3.00,
+      "team_size_max": 6,
+      "rounds": "4 rounds x 10 questions + interactive quick-fire round + comfort break",
+      "capacity": 80,
+      "prizes": {
+        "first": "£25 bar tab",
+        "second_from_last": "Bottle of house wine"
+      },
+      "rules": "Phone-free. -5 points for phone use.",
+      "host": "Question One Quiz Masters (Nikki Manfadge occasional)"
+    },
+    "cash_bingo": {
+      "schedule": "Monthly (dates vary — see listings)",
+      "doors": "6:00pm (book sales from 6pm)",
+      "start": "7:00pm (eyes-down, confirmed 2026-03-22)",
+      "end": "~9:30pm",
+      "entry_fee_gbp": 10.00,
+      "entry_note": "Per book, cash only. £1 daubers also cash only.",
+      "games": 10,
+      "capacity": 60,
+      "prizes": "Drinks, chocolate, vouchers, £10 cash boosts. Snowball bonus: +£20 each month it rolls over. Jackpot pot grows to £300+ when room sells out."
+    },
+    "music_bingo": {
+      "schedule": "Dates vary (see listings)",
+      "doors": "6:30pm",
+      "start": "~7:00pm",
+      "entry_fee_gbp": 3.00,
+      "RESOLVED": "Website FAQ says £3 per person. static-events.ts incorrectly shows free. £3 is correct per the FAQ page.",
+      "format": "Two games; song clips replace bingo numbers",
+      "capacity": 90,
+      "host": "Nikki Manfadge",
+      "private_nights": "Available on request"
+    },
+    "live_music": {
+      "description": "Local bands, acoustic sets, tribute acts",
+      "entry": "Always free",
+      "typical_start": "8:30pm",
+      "end": "~11:30pm",
+      "age_restriction": "18+ after 9pm",
+      "capacity": 150,
+      "kitchen": "Open until midnight on live music nights"
+    },
+    "karaoke": {
+      "schedule": "Fridays 8-11pm",
+      "entry": "Free",
+      "capacity": 50,
+      "catalogue": "50,000+ songs",
+      "features": ["Two microphones", "Duets with Nikki", "Lip sync battle hour", "Props and costumes provided", "Group singalongs"],
+      "host": "Nikki Manfadge (Nikki's Karaoke Night)"
+    },
+    "nikkis_games_night": {
+      "schedule": "Wednesdays 7-10pm",
+      "host": "Nikki Manfadge",
+      "format": "Classic TV gameshow formats with a drag twist — Blankety Blank, Name That Tune, Play Your Cards Right, etc.",
+      "note": "Formerly 'Drag Cabaret with Nikki Manfadge' — renamed July 2025"
+    },
+    "open_mic": {
+      "description": "Acoustic-friendly to start, walk-ins welcome, performer sign-up available"
+    },
+    "curry_club": {
+      "schedule": "Monthly",
+      "description": "Rotating curry night specials",
+      "note": "Chef described as having decades of authentic Indian cooking experience"
+    },
+    "tasting_nights": {
+      "schedule": "Occasional (not fixed frequency)",
+      "categories": ["Whisky", "Gin", "Rum", "Wine", "Beer"],
+      "format": "Expert-led sessions"
+    }
+  },
+  "private_hire": {
+    "capacity": "10-200 guests",
+    "spaces": [
+      "Beer garden",
+      "Dining room (private hire)"
+    ],
+    "room_hire_charge": "None — minimum spend model applies",
+    "minimum_spend_range_gbp": "500-1500 depending on day/size",
+    "catering_buffet_from_gbp": 12.0,
+    "catering_sitdown_from_gbp": 18.0,
+    "christmas_menus_from_gbp": 36.95,
+    "christmas_menus_weekday_gbp": 36.95,
+    "christmas_menus_weekend_gbp": 39.95,
+    "christmas_buffets": "Available for 26+ guests",
+    "private_booking_deposit_gbp": 250,
+    "catering_packages": {
+      "source": "anchor-management-tools database (2026-03-22)",
+      "buffet": [
+        { "name": "Sandwich Buffet", "price_per_head_gbp": 9.95, "min_guests": 30 },
+        { "name": "Finger Buffet", "price_per_head_gbp": 10.50, "min_guests": 30 },
+        { "name": "Burger Buffet", "price_per_head_gbp": 10.95, "min_guests": 30 },
+        { "name": "Premium Buffet", "price_per_head_gbp": 13.95, "min_guests": 30 },
+        { "name": "Pizza Buffet", "price_per_head_gbp": "menu priced", "min_guests": 30 },
+        { "name": "Indoor BBQ", "price_per_head_gbp": 17.99, "min_guests": 30 },
+        { "name": "Chicken Goujon Sharing Tray", "price_gbp": 35.00, "serves": "~10", "min_guests": 25 }
+      ],
+      "christmas": [
+        { "name": "Festive Menu (weekday)", "price_per_head_gbp": 36.95, "min_guests": 6, "style": "sit-down" },
+        { "name": "Festive Menu (weekend)", "price_per_head_gbp": 39.95, "min_guests": 6, "style": "sit-down" },
+        { "name": "Festive Sandwich & Salad", "price_per_head_gbp": 10.95, "min_guests": 30 },
+        { "name": "Festive Hot Finger", "price_per_head_gbp": 13.95, "min_guests": 30 },
+        { "name": "Festive Premium Grazing", "price_per_head_gbp": 16.95, "min_guests": 30 }
+      ],
+      "kids": [
+        { "name": "Kids Burger & Chips", "price_per_head_gbp": 8.00 },
+        { "name": "Kids Chicken Nuggets & Chips", "price_per_head_gbp": 8.00 },
+        { "name": "Kids Mini Pizza & Chips", "price_per_head_gbp": 8.00 }
+      ],
+      "drinks": [
+        { "name": "Welcome Drinks", "price_per_head_gbp": 6.99, "min_guests": 10 },
+        { "name": "Welcome Prosecco/Orange Juice", "price_per_head_gbp": 7.99, "min_guests": 10 },
+        { "name": "Unlimited Tea & Coffee", "price_per_head_gbp": 4.49, "min_guests": 10 },
+        { "name": "Kids Unlimited Squash", "price_per_head_gbp": 3.50, "min_guests": 10 },
+        { "name": "Pimm's Jar", "price_gbp": 5.99, "min_guests": 30 },
+        { "name": "Bar Tab", "price": "variable" },
+        { "name": "Bring Your Own Food", "price": "free" }
+      ]
+    },
+    "av_equipment": "Projector, screen, sound system",
+    "dedicated_events_coordinator": true,
+    "free_wifi": true,
+    "free_parking": "For all attendees",
+    "wakes_speciality": "Private entrance area, no room hire charge, short notice accepted",
+    "event_types": [
+      "Wakes / memorials",
+      "Christenings",
+      "Weddings / engagements",
+      "Baby showers",
+      "Gender reveals",
+      "Retirement parties",
+      "Milestone birthdays",
+      "Summer garden parties",
+      "Corporate events",
+      "Christmas parties",
+      "Private parties"
+    ],
+    "nearby_venues_for_wakes": [
+      {
+        "name": "South West Middlesex Crematorium",
+        "drive_time": "10 minutes"
+      },
+      {
+        "name": "Staines Cemetery",
+        "drive_time": "8 minutes"
+      },
+      {
+        "name": "Slough Crematorium",
+        "drive_time": "15 minutes"
+      }
+    ]
+  },
+  "heathrow_parking": {
+    "route": "/heathrow-parking",
+    "rates": {
+      "daily_from_gbp": 15,
+      "weekly_from_gbp": 75,
+      "monthly_approx_gbp": 265
+    },
+    "features": [
+      "CCTV",
+      "Floodlit",
+      "Level surface"
+    ],
+    "payment_methods": [
+      "PayPal",
+      "Apple Pay",
+      "Google Pay",
+      "Cards"
+    ],
+    "cancellation": "Full refund if cancelled/amended 24+ hours before arrival",
+    "booking_expiry": "30-minute payment window for website bookings"
+  },
+  "sustainability": {
+    "award": "BII Sustainability Champion (British Institute of Innkeeping)",
+    "food_hygiene": "5-Star Food Hygiene Rating (Food Standards Agency)",
+    "technologies": [
+      {
+        "name": "FlowMaster",
+        "benefit": "Reduces beer line cleaning frequency, saving water and energy"
+      },
+      {
+        "name": "SmartCellar",
+        "benefit": "~35% reduction in cellar cooling energy use"
+      },
+      {
+        "name": "SmartRemote",
+        "benefit": "~33% reduction in remote cooler energy use"
+      }
+    ],
+    "community_initiatives": [
+      {
+        "name": "Earth Day clean-ups",
+        "partner": "Stanwell Moor Residents Association"
+      },
+      {
+        "name": "Honey Bee Mine",
+        "description": "Bee-friendly initiative supporting local pollinators"
+      }
+    ]
+  },
+  "ratings": {
+    "google": {
+      "rating": 4.6,
+      "review_count": 238,
+      "RESOLVED": "Confirmed 2026-03-22: 238 reviews, 4.6 stars. All hardcoded values (300, 312, 127) across the codebase must be updated to 238.",
+      "claim": "Highest-rated independent pub near Heathrow"
+    },
+    "tripadvisor_rank": "#22 of 95 restaurants in Staines"
+  },
+  "target_audiences": [
+    {
+      "id": "local-residents",
+      "name": "Local residents",
+      "description": "Stanwell Moor village and surrounding areas including growing Indian community",
+      "acorn_segments": [
+        "Settled Suburbia",
+        "Family Renters",
+        "Stable Seniors"
+      ]
+    },
+    {
+      "id": "travellers",
+      "name": "Heathrow travellers",
+      "description": "People travelling to/from Heathrow, domestic and international"
+    },
+    {
+      "id": "families",
+      "name": "Families",
+      "description": "Multi-generational groups seeking a welcoming pub and dining experience"
+    },
+    {
+      "id": "women",
+      "name": "Women",
+      "description": "Including women visiting alone — safety and welcome-led positioning"
+    },
+    {
+      "id": "dog-owners",
+      "name": "Dog owners",
+      "description": "People looking for dog-welcoming venues"
+    },
+    {
+      "id": "business-professionals",
+      "name": "Business professionals",
+      "description": "After-work crowd, meeting hosts, networking"
+    },
+    {
+      "id": "event-planners",
+      "name": "Event planners / private hire seekers",
+      "description": "Individuals or organisations hosting private events"
+    },
+    {
+      "id": "food-enthusiasts",
+      "name": "Food and drink enthusiasts",
+      "description": "People interested in quality pub food and broad drinks selection"
+    }
+  ],
+  "psychographic_segments": [
+    {
+      "name": "Social Explorers",
+      "source": "Yonder"
+    },
+    {
+      "name": "Trusty Traditionalists",
+      "source": "Yonder"
+    },
+    {
+      "name": "Ethical Enthusiasts",
+      "source": "Yonder"
+    },
+    {
+      "name": "Down-to-Earth Deal Seekers",
+      "source": "Yonder"
+    },
+    {
+      "name": "Cautious Homebodies",
+      "source": "Yonder"
+    }
+  ],
+  "competitive_landscape": {
+    "radius": "3-5 miles",
+    "note": "Excludes all venues inside Heathrow terminals — they are not direct competitors. Researched 2026-03-22.",
+    "total_licensed_premises": 164,
+    "named_competitors": [
+      { "name": "Rising Sun", "type": "Independent (Star Pubs & Bars)", "location": "Stanwell village", "distance": "0.7 miles", "overlap": "Nearest pub, Sunday roast, garden, live music" },
+      { "name": "Sir John Gibson", "type": "Craft Union (Stonegate)", "location": "Stanwell village", "distance": "0.8 miles", "overlap": "Village local, sport (Sky/BT), pool" },
+      { "name": "The Green Man", "type": "Greene King", "location": "East Bedfont", "distance": "2 miles", "overlap": "Beer garden, free parking, Sunday roast, live music" },
+      { "name": "Three Magpies", "type": "Greene King managed", "location": "Bath Road (airport perimeter)", "distance": "2.5 miles", "overlap": "Closest pub on airport perimeter road" },
+      { "name": "Bell on the Green", "type": "Independent", "location": "East Bedfont", "distance": "2.5 miles", "overlap": "Beer garden, parking, function room, Indian-British food" },
+      { "name": "The Swan Hotel", "type": "Fuller's", "location": "Staines (riverside)", "distance": "2.5 miles", "overlap": "Premium Sunday roast, private hire, hotel" },
+      { "name": "The Bells", "type": "Independent", "location": "Staines town centre", "distance": "2.5 miles", "overlap": "Sunday roast, function room (The Stables)" },
+      { "name": "The George", "type": "JD Wetherspoon", "location": "Staines High Street", "distance": "2.5 miles", "overlap": "Budget food/drink, all-day service" },
+      { "name": "Five Bells", "type": "Independent (family-owned)", "location": "Horton, Berkshire", "distance": "3 miles", "overlap": "Food-led village pub near Heathrow, beer garden" },
+      { "name": "The Ostrich Inn", "type": "Independent (freehold)", "location": "Colnbrook", "distance": "3.5 miles", "overlap": "Grade II* heritage, restaurant, private dining, accommodation" }
+    ],
+    "removed_competitors": [
+      { "name": "Queen's Arms", "reason": "Inside Heathrow Terminal 2 — not a direct competitor" },
+      { "name": "Gordon Ramsay Plane Food", "reason": "Inside Heathrow Terminal 5 — not a direct competitor" },
+      { "name": "The Pheasant, Stanwell", "reason": "No current listing found — likely closed or changed name" }
+    ]
+  },
+  "seo_keywords": [
+    "Cosy village pubs",
+    "Family-friendly pub near me",
+    "Dog-friendly pubs",
+    "Traditional pub food",
+    "Local pubs with gardens",
+    "Airport pubs near Heathrow",
+    "Best pub stop-off points",
+    "Pubs with ample parking",
+    "Pubs for family gatherings",
+    "Heathrow airport pub spots",
+    "pub near heathrow",
+    "stanwell moor",
+    "dog friendly",
+    "beer garden",
+    "free parking",
+    "sunday roast"
+  ],
+  "areas_served": {
+    "primary": ["Stanwell Moor", "Stanwell", "Staines-upon-Thames"],
+    "secondary": ["Ashford", "Feltham", "Sunbury", "Egham", "Windsor", "Colnbrook"],
+    "note": "Area landing pages exist for all secondary areas (/ashford-pub, /feltham-pub, etc.) but have been deprioritised and are NOT in the sitemap. Owner has confirmed some should be reviewed."
+  },
+  "community_context": {
+    "only_pub_in_stanwell_moor": true,
+    "local_council": "Spelthorne",
+    "positioning_note": "Not trying to be a destination gastropub — aims to be a community pub",
+    "local_businesses": [
+      "T5 Stores (shopping)",
+      "Laundrette",
+      "Polash Tandoori (takeaway)"
+    ],
+    "nearby_nature": [
+      { "name": "Staines Moor Nature Reserve", "distance": "5-minute walk", "description": "Ancient SSSI grassland — never ploughed in 1,000+ years — with over 200 bird species." },
+      { "name": "River Colne Footpath", "distance": "5-minute walk (village edge)", "description": "Bankside path south through open wetland countryside towards Staines Moor." },
+      { "name": "King George VI Reservoir Path", "distance": "15-minute walk", "description": "Fenced embankment causeway between two vast reservoirs; outstanding winter wildfowl." },
+      { "name": "Staines Reservoir Causeway Path", "distance": "20-minute walk", "description": "High-level path across twin Staines Reservoirs (built 1902); superb birdwatching." },
+      { "name": "Lammas Recreation Ground & Church Lammas Lakes", "distance": "25-min walk or 5-min drive", "description": "Restored gravel-pit lakes in Staines with wheelchair-accessible paths, cafe, and toilets." },
+      { "name": "Colne Valley Trail / Colne Valley Way", "distance": "Starts adjacent to village", "description": "Long-distance greenway from Thames at Staines to Rickmansworth; passes through Stanwell Moor." },
+      { "name": "Stanwell Village Walk (Surrey County Council)", "distance": "5-minute drive", "description": "Official easy walk with 1.4-mile and 2.7-mile options; longer route reaches Staines Reservoir." },
+      { "name": "Stanwell and Staines Moor Circular", "distance": "Starts from village (6.1-mile loop)", "description": "Signposted moderate circular walk (~2.5 hrs) past reservoirs, Staines Moor, and River Colne." },
+      { "name": "Bedfont Lakes Country Park", "distance": "10-minute drive (~3 miles east)", "description": "73-hectare Local Nature Reserve with four lakes, wildflower meadows, woodland trails, and dog exercise area." },
+      { "name": "Wraysbury Reservoir & Lakes", "distance": "10-minute drive or 2-mile footpath", "description": "Internationally important SSSI wetland; superb wildfowl including smew, goldeneye, and kingfisher." },
+      { "name": "Wraysbury and Hythe End Gravel Pits", "distance": "10-minute drive (~4 miles SW)", "description": "117-hectare SSSI of former gravel workings with open water, fen, wet woodland, and scrub." },
+      { "name": "Runnymede & Ankerwycke (National Trust)", "distance": "10-minute drive (~5 miles SW)", "description": "Historic Thames-side meadows where Magna Carta was sealed; ancient Ankerwycke Yew; free access." }
+    ],
+    "dining_room_history": "Original conservatory built in 1995 for George and Alex Best's wedding reception. Replaced with new dining room extension, renovation started April 2024, ready for Euro 2024 (14 June). Features French doors to garden.",
+    "greene_king_partnership": "Renovation funding supported by Greene King. Stanwell Moor Brew developed in partnership."
+  },
+  "food_hygiene": {
+    "rating": "5-star",
+    "authority": "Spelthorne Council Food Hygiene team (Food Standards Agency)",
+    "maintained_since": "7 years (since taking over the pub in 2019)",
+    "staff_qualification": "All staff hold Level 2 Food Hygiene qualification"
+  },
+  "nearby_hotels": [
+    "Sofitel",
+    "Travelodge",
+    "Hilton",
+    "Marriott",
+    "Renaissance",
+    "Crowne Plaza",
+    "Premier Inn",
+    "ibis"
+  ],
+  "do_not_use": {
+    "founding_year_1866": "INCORRECT. Canonical year is 1751. Remove 1866 from claims.json.",
+    "founding_year_1869": "INCORRECT. Canonical year is 1751. Remove 1869 from blog posts.",
+    "founding_year_1800s": "INCORRECT/VAGUE. Canonical year is 1751. Update footer.",
+    "best_or_premier_claims": "Any claim about 'best' or 'premier' without substantiation",
+    "dog_secure_fencing": "Must be verified before publishing",
+    "dog_special_dinners": "'Special doggy Sunday dinners available' must be verified before publishing",
+    "old_sunday_roast_options": "Do NOT use 'beef' as a roast option — current menu has chicken, lamb, pork belly, and vegetarian wellington",
+    "old_menu_items": "Lamb Shank (main), Beef/Chicken/Veggie Stacks, Speck Ham & Parmesan pizza — all REMOVED",
+    "info_email": "info@theanchorpub.co.uk is legacy — use manager@the-anchor.pub",
+    "bogof_pizza": "DISCONTINUED. Remove all BOGOF pizza references from pages, schemas, and blog posts.",
+    "stanwell_moor_brew": "DISCONTINUED. Remove all Stanwell Moor Brew references from pages, schemas, and blog posts.",
+    "champions_league_claim": "INCORRECT. The pub does not have Sky/TNT Sports and cannot show Champions League. Fix pizza Tuesday blog post.",
+    "pravha": "DISCONTINUED. No longer stocked. Remove from all pages and blog posts.",
+    "ev_charging_coming_soon": "EV charging is NOT coming soon. Remove any 'coming soon' references."
+  },
+  "resolved_inconsistencies": [
+    {
+      "issue": "Founding year",
+      "resolution": "1751 is canonical. Update claims.json (1866), blog posts (1869), and Footer ('since the 1800s').",
+      "resolved_date": "2026-03-22"
+    },
+    {
+      "issue": "Email address",
+      "resolution": "manager@the-anchor.pub is canonical. Remove info@theanchorpub.co.uk from CLAUDE.md and blog posts.",
+      "resolved_date": "2026-03-22"
+    },
+    {
+      "issue": "Parking capacity",
+      "resolution": "20 spaces is correct. Update lib/schema.ts ParkingFacility from 50 to 20.",
+      "resolved_date": "2026-03-22"
+    },
+    {
+      "issue": "Beer garden coordinates",
+      "resolution": "51.462509, -0.502067 is correct. Fix app/beer-garden/page.tsx schema (51.4764, -0.4735).",
+      "resolved_date": "2026-03-22"
+    },
+    {
+      "issue": "Google review count",
+      "resolution": "238 reviews, 4.6 stars. Update all hardcoded values (300, 312, 127) across the codebase.",
+      "resolved_date": "2026-03-22"
+    },
+    {
+      "issue": "BOGOF pizza",
+      "resolution": "DISCONTINUED. Was formerly Tuesdays only. Remove all BOGOF references from pages, schemas, enhanced-schemas.ts, and blog posts.",
+      "resolved_date": "2026-03-22"
+    },
+    {
+      "issue": "Cash bingo start time",
+      "resolution": "7pm (eyes-down) is correct. Update blog post that says 8pm.",
+      "resolved_date": "2026-03-22"
+    },
+    {
+      "issue": "Champions League screening",
+      "resolution": "The pub does NOT show Champions League (no Sky/TNT Sports). Terrestrial channels only. Update pizza Tuesday blog post.",
+      "resolved_date": "2026-03-22"
+    },
+    {
+      "issue": "Opening hours in blog content",
+      "resolution": "Remove all hardcoded opening hours from blog posts. Hours come from the management API only.",
+      "resolved_date": "2026-03-22"
+    },
+    {
+      "issue": "Stanwell Moor Brew",
+      "resolution": "DISCONTINUED. Remove all references from pages, schemas, and blog posts.",
+      "resolved_date": "2026-03-22"
+    }
+  ]
+}

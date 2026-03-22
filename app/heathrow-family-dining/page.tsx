@@ -150,7 +150,7 @@ export default function FamilyDiningPage() {
                                 <span className="text-2xl"></span>
                                 <div>
                                     <p className="font-bold">Changing Facilities</p>
-                                    <p className="text-sm text-anchor-cream-text/55">Clean baby changing area available.</p>
+                                    <p className="text-sm text-anchor-cream-text/55">Please ask staff for assistance.</p>
                                 </div>
                             </div>
                             <div className="flex items-start gap-3">

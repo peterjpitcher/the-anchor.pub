@@ -688,7 +688,7 @@ export default function HomePage() {
           },
           {
             question: 'Does The Anchor have any special offers?',
-            answer: 'We have Buy One Get One Free pizza every Tuesday and Wednesday, and 50% off fish & chips for over 65s on Fridays. We also host regular events including Music Bingo, quiz nights, and karaoke. See the What\'s On page for the latest details.'
+            answer: 'We host regular events including Music Bingo, quiz nights, and karaoke. We also serve stone-baked pizzas, classic pub dishes, and Sunday roasts. See the What\'s On page for the latest details.'
           },
           {
             question: 'How do I get from Heathrow Terminal 5 to The Anchor?',

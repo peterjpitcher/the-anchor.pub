@@ -128,4 +128,4 @@ Never. Whether you're popping in for a pint or hosting a 40-person party in our 
 
 ---
 
-**The Anchor** is at Horton Road, Stanwell Moor, Surrey TW19 6AQ — seven minutes from Heathrow Terminal 5 with 20 free parking spaces. Call 01753 682707 or email info@theanchorpub.co.uk.
+**The Anchor** is at Horton Road, Stanwell Moor, Surrey TW19 6AQ — seven minutes from Heathrow Terminal 5 with 20 free parking spaces. Call 01753 682707 or email manager@the-anchor.pub.

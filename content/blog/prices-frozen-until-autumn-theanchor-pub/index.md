@@ -84,15 +84,15 @@ Love a proper spirit? You can **double up any of our optic spirits for just £2 
 
 ## Deals That Make a Difference
 
-### 🍕 Pizza Tuesdays – Buy One, Get One Free
+### 🍕 ~~Pizza Tuesdays – Buy One, Get One Free~~ *(no longer available)*
 
-Every Tuesday, enjoy **two stone-baked pizzas for the price of one**. It's the kind of local deal that makes midweek special—and affordable. Perfect for **Heathrow shift workers** grabbing dinner!
+**Update:** This offer has been discontinued.
 
-  
 
-### 🐟 Fridays for the Over 65s – 50% Off Chip Shop Classics
 
-We're taking care of our seasoned locals with **half-price Chip Shop meals every Friday**. Great food, great company, and real appreciation.
+### 🐟 ~~Fridays for the Over 65s – 50% Off Chip Shop Classics~~ *(no longer available)*
+
+**Update:** This offer has been discontinued.
 
   
 
@@ -163,7 +163,7 @@ Because **holding prices steady doesn't mean lowering our standards**—it means
 🚗 **Parking**: Free on-site parking
 💷 **Carlsberg**: £4.75 a pint (frozen price!)
 🍺 **Double spirits**: Just £2 extra
-🍕 **Pizza Tuesdays**: Buy one get one free
+🍕 ~~**Pizza Tuesdays**: Buy one get one free~~ *(no longer available)*
 ⏰ **Open**: 7 days a week
 📞 **Information**: 01753 682707
 

@@ -139,7 +139,7 @@ const FAQS = [
   {
     question: 'What food and drink is available?',
     answer:
-      'Order from the full food menu before the quiz starts or during the break. Sharing platters, pizzas and seasonal specials run until 8:30 pm, with themed cocktails, mocktails and local ales on tap all night.'
+      'Order from the full food menu before the quiz starts or during the break. Sharing platters, pizzas and seasonal specials run until 9pm, with themed cocktails, mocktails and local ales on tap all night.'
   },
   {
     question: 'What if we want to celebrate a win or host a private quiz?',
@@ -412,7 +412,7 @@ export default async function QuizNightPage() {
                   <li><strong>6:30 pm</strong> · Doors open, soundtrack on, grab sharers & themed cocktails.</li>
                   <li><strong>7:00 pm</strong> · Quiz night quiz kicks off. Four rounds × 10 questions with occasional bonus trivia prompts.</li>
                   <li><strong>8:15 pm</strong> · Interactive quick-fire round to get everyone on their feet.</li>
-                  <li><strong>8:30 pm</strong> · Comfort break & last call for kitchen orders.</li>
+                  <li><strong>8:30 pm</strong> · Comfort break & last call for kitchen orders (kitchen closes 9pm).</li>
                   <li><strong>9:45 pm</strong> · Final scores, prize ladder and best team name shout-outs.</li>
                 </ul>
                 <p className="text-sm text-anchor-cream-text/55">
@@ -550,7 +550,7 @@ export default async function QuizNightPage() {
               <CardBody className="space-y-4">
                 <h3 className="text-2xl font-bold text-anchor-cream-text">Make a night of it</h3>
                 <ul className="space-y-3 text-anchor-cream-text/70">
-                  <li><strong>Food served until 8:30 pm:</strong> pizzas, nacho mountains, burger stacks and seasonal specials.</li>
+                  <li><strong>Food served until 9pm:</strong> pizzas, nacho mountains, burger stacks and seasonal specials.</li>
                   <li><strong>Drinks menu:</strong> cask ales, craft lagers, zero-proof spritzes and themed cocktails like the Black Shuck Spritz.</li>
                   <li><strong>Stay comfy:</strong> heated areas, step-free access and plenty of parking right outside.</li>
                   <li><strong>Travelling?</strong> We’re 7 minutes from Heathrow Terminal 5 and on the 441/555 bus routes.</li>

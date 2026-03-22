@@ -302,7 +302,7 @@ export const parkingFacilitySchema = {
   "isAccessibleForFree": true,
   "numberOfSpaces": {
     "@type": "QuantitativeValue",
-    "value": 50
+    "value": 20
   },
   "amenityFeature": [
     {

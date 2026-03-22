@@ -15,7 +15,7 @@ import { DEFAULT_REVIEW_STATS } from '@/lib/google/review-utils'
 export const metadata: Metadata = {
   title: 'Reviews | What Our Guests Say',
   description:
-    'Read what guests say about The Anchor near Heathrow. Rated 4.6/5 on Google with 300+ reviews. Real feedback about our food, beer garden, events and private hire.',
+    'Read what guests say about The Anchor near Heathrow. Rated 4.6/5 on Google with 238 reviews. Real feedback about our food, beer garden, events and private hire.',
   alternates: { canonical: '/reviews' },
 }
 

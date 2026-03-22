@@ -148,7 +148,7 @@ export default function PubNearTravelodgeHeathrowPage() {
                     'Home-cooked food from £8.99 a main',
                     'Real draught ales from £4.80 a pint',
                     'Large beer garden for warm evenings',
-                    'Tuesday BOGOF stone-baked pizza deal',
+                    'Stone-baked pizzas from £12',
                     'Dog-friendly throughout',
                     'No booking required for small groups',
                   ].map((item) => (
@@ -188,10 +188,10 @@ export default function PubNearTravelodgeHeathrowPage() {
             <div className="grid md:grid-cols-2 gap-8">
               <div className="card-dark rounded-none p-6 text-center">
                 <p className="text-4xl mb-2"></p>
-                <h3 className="text-xl font-bold text-anchor-cream-text mb-2">Tuesday: Pizza Night</h3>
-                <p className="text-2xl font-bold text-red-400 mb-2">Buy 1 Get 1 Free</p>
-                <p className="text-anchor-cream-text/70">All stone-baked pizzas, all day Tuesday</p>
-                <p className="text-sm text-anchor-cream-text/55 mt-2">Best deal near Heathrow on a Tuesday</p>
+                <h3 className="text-xl font-bold text-anchor-cream-text mb-2">Stone-Baked Pizzas</h3>
+                <p className="text-2xl font-bold text-anchor-gold mb-2">From £12</p>
+                <p className="text-anchor-cream-text/70">Authentic stone-baked pizzas, available Tuesday to Saturday</p>
+                <p className="text-sm text-anchor-cream-text/55 mt-2">Great value dining near Heathrow</p>
               </div>
               <div className="card-dark rounded-none p-6 text-center">
                 <p className="text-4xl mb-2"></p>
@@ -232,7 +232,7 @@ export default function PubNearTravelodgeHeathrowPage() {
           },
           {
             question: 'Is food near Travelodge Heathrow affordable?',
-            answer: 'Yes — The Anchor serves home-cooked British pub food with mains from £8.99. We also run a buy one get one free pizza deal every Tuesday. It\'s significantly cheaper than hotel or airport dining.'
+            answer: 'Yes — The Anchor serves home-cooked British pub food with mains from £8.99. Stone-baked pizzas from £12 and classic pub dishes are available throughout the week. It\'s significantly cheaper than hotel or airport dining.'
           },
           {
             question: 'Can I walk from Travelodge Heathrow to The Anchor?',
@@ -240,7 +240,7 @@ export default function PubNearTravelodgeHeathrowPage() {
           },
           {
             question: 'Are there any food deals near Travelodge Heathrow?',
-            answer: 'Yes — The Anchor runs buy one get one free on all stone-baked pizzas every Tuesday, all day. We also have a Sunday roast from £19.99 at weekends. Check our menu for other specials and seasonal deals.'
+            answer: 'Yes — The Anchor serves stone-baked pizzas from £12 and classic British pub food with mains from £8.99. We also have a Sunday roast from £19.99 at weekends. Check our menu for other specials and seasonal deals.'
           },
         ]}
         className="bg-anchor-bg"

@@ -85,7 +85,7 @@ export default function PrivateHirePage() {
                     </PageTitle>
 
                     <p className="text-center text-lg text-anchor-cream-text/70 mb-8 max-w-4xl mx-auto">
-                        The Anchor offers function room hire for 10 to 200 guests near Heathrow Airport, with free parking for all attendees and custom catering packages starting from &pound;12 per person. The venue is 7 minutes from Terminal 5 and ideal for corporate events, celebrations, and wakes.
+                        The Anchor offers function room hire for 10 to 200 guests near Heathrow Airport, with free parking for all attendees and custom catering packages starting from &pound;9.95 per person. The venue is 7 minutes from Terminal 5 and ideal for corporate events, celebrations, and wakes.
                     </p>
 
                     <div className="flex justify-center mb-10">

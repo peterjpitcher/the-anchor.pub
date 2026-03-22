@@ -161,24 +161,6 @@ export const metadata: Metadata = {
   }
 }
 
-const fridayFishOfferSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Offer',
-  name: '50% Off Fish & Chips for Over 65s - Every Friday',
-  description: 'Half price fish and chips for senior citizens every Friday at The Anchor.',
-  url: 'https://www.the-anchor.pub/food-menu#pub-classics',
-  priceCurrency: 'GBP',
-  eligibleRegion: {
-    '@type': 'Place',
-    name: 'Stanwell Moor and surrounding areas'
-  },
-  eligibleCustomerType: 'Senior Citizens (65+)',
-  dayOfWeek: 'https://schema.org/Friday',
-  seller: {
-    '@type': 'LocalBusiness',
-    name: 'The Anchor'
-  }
-}
 
 export default async function FoodMenuPage() {
   const [menuData, businessHours] = await Promise.all([
@@ -265,9 +247,7 @@ export default async function FoodMenuPage() {
       <SpeakableSchema />
       <MenuPageTracker
         menuType="food"
-        specialOffers={[
-          '50% Off Fish & Chips for Over 65s - Every Friday'
-        ]}
+        specialOffers={[]}
       />
       <ScrollDepthTracker />
 
@@ -794,8 +774,7 @@ export default async function FoodMenuPage() {
                 name: section.name,
                 url: section.url
               }))
-            },
-            fridayFishOfferSchema
+            }
           ])
         }}
       />

@@ -58,7 +58,7 @@ Whether you're cooling down after work, catching up with friends, or just enjoyi
 
 ## **Why The Anchor is Your Botanist Destination**
 
-We've been serving the good people of Stanwell Moor since 1866, and we know a thing or two about what makes a great G&T. Our bartenders pour with a generous hand (none of those stingy measures here!), and our comfortable spaces – from the lively bar to the peaceful beer garden – give you the perfect backdrop for your botanical adventure.
+We've been serving the good people of Stanwell Moor since 1751, and we know a thing or two about what makes a great G&T. Our bartenders pour with a generous hand (none of those stingy measures here!), and our comfortable spaces – from the lively bar to the peaceful beer garden – give you the perfect backdrop for your botanical adventure.
 
   
 

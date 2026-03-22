@@ -220,7 +220,7 @@ export default async function StainesPubPage() {
                 {
                   icon: "",
                   title: "Beer Garden Paradise",
-                  description: "Dog-friendly outdoor space\nHeathrow plane spotting\nCovered seating available",
+                  description: "Dog-friendly outdoor space\nHeathrow plane spotting",
                   className: "text-center"
                 },
                 {

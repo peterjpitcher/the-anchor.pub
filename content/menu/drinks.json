@@ -1,7 +1,7 @@
 {
  "title": "Drinks Menu",
  "description": "Real ales, premium spirits, and extensive drinks selection at The Anchor",
- "lastUpdated": "2024-01-15",
+ "lastUpdated": "2026-03-22",
  "categories": [
  {
  "id": "draught",
@@ -18,11 +18,6 @@
  "description": "4.6% ABV - Italy's premium lager since 1859. A perfectly balanced beer with a delicate hop aroma and smooth, refreshing finish. Pairs beautifully with our stone-baked pizzas."
  },
  {
- "name": "Carling",
- "price": "",
- "description": "4.0% ABV - Britain's favourite session lager. Light, crisp and refreshing with a clean finish. The perfect pint for watching the match or catching up with friends."
- },
- {
  "name": "Stella Artois",
  "price": "",
  "description": "4.6% ABV - Belgium's finest export lager. Reassuringly expensive taste with distinctive hoppy bitterness and citrus notes. Brewed to perfection since 1366."
@@ -33,14 +28,14 @@
  "description": "3.7% ABV - Australia's gift to British pubs. Easy-drinking lager with a light malt character and subtle sweetness. Ideal for long summer afternoons in our beer garden."
  },
  {
- "name": "Pravha",
- "price": "",
- "description": "4.0% ABV - Czech-style pilsner brewed with Saaz hops. Golden colour with a delicate floral aroma and crisp, clean taste. A sophisticated choice for lager lovers."
- },
- {
  "name": "Carlsberg",
  "price": "",
  "description": "3.8% ABV - Probably the best beer in the world? Danish pilsner with a light, refreshing taste and smooth hoppy notes. A classic that never goes out of style."
+ },
+ {
+ "name": "1664 Biere",
+ "price": "",
+ "description": "5.0% ABV - French lager with a touch of Continental flair. Smooth, golden and subtly aromatic. Brings a bit of Parisian sophistication to your local."
  }
  ]
  },
@@ -149,14 +144,9 @@
  "description": "4.0% ABV - Tropical fusion of tangy kiwi and zesty lime. Light, refreshing and packed with exotic fruit flavours from the land of the long white cloud."
  },
  {
- "name": "Old Mout Strawberry & Apple",
+ "name": "Aspall",
  "price": "",
- "description": "4.0% ABV - Sweet strawberries blended with crisp apples. A summery cider that's like drinking sunshine. Perfect for our beer garden."
- },
- {
- "name": "Aspall Premier Cru",
- "price": "",
- "description": "7.0% ABV - Champagne of ciders. Elegant, sparkling cider with fine bubbles and complex apple flavours. A sophisticated choice for special occasions."
+ "description": "5.5% ABV - Suffolk's finest cider since 1728. Crisp, dry and refreshingly tart. A proper English cider for those who like a bit of bite."
  }
  ]
  }
@@ -297,11 +287,6 @@
  "description": "Looks like the real thing but sweeter. A layered shot that's almost too pretty to drink. Almost."
  },
  {
- "name": "Jager Bomb",
- "price": "",
- "description": "The party starter. Drop it, down it, feel the energy surge. Not for the faint-hearted."
- },
- {
  "name": "Kick Bomb",
  "price": "",
  "description": "Our secret weapon for late-night stamina. When you need that extra boost to keep the good times rolling."
@@ -405,14 +390,9 @@
  "description": "Traditional sloe berries steeped in Gordon's gin. Sweet, fruity and warming."
  },
  {
- "name": "Whitley Neill Rhubarb & Ginger",
+ "name": "Whitley Neill Rhubarb Gin",
  "price": "",
- "description": "Yorkshire rhubarb meets warming ginger. A taste of the English countryside with a spicy twist."
- },
- {
- "name": "Kopparberg Strawberry & Lime Gin",
- "price": "",
- "description": "Swedish innovation meets British tradition. Fresh strawberries and zesty lime create summer magic."
+ "description": "Yorkshire rhubarb gives this gin a tart, fruity edge. A taste of the English countryside in every sip."
  },
  {
  "name": "Chase Sloe Gin",
@@ -440,9 +420,9 @@
  "description": "22 hand-foraged botanicals from Islay. Complex, refined and utterly unique."
  },
  {
- "name": "Pimm's No. 1",
+ "name": "Monkey Sloe Gin 47",
  "price": "",
- "description": "The original summer cup. Gin-based liqueur with herbs and citrus. Essential for British summers."
+ "description": "Bold sloe gin with a proper kick at 47%. Rich berry sweetness balanced by Monkey 47's botanical complexity."
  }
  ]
  },
@@ -521,19 +501,19 @@
  "description": "Ireland's oldest whiskey from 1608. Light, fruity and exceptionally smooth."
  },
  {
- "name": "Southern Comfort",
- "price": "",
- "description": "New Orleans original since 1874. Whiskey liqueur with fruit and spice notes."
- },
- {
  "name": "Shanky's Whip",
  "price": "",
  "description": "Irish whiskey meets vanilla liqueur. Smooth, creamy and dangerously moreish."
  },
  {
- "name": "Bailey's Irish Cream",
+ "name": "Bowmore 12yr",
  "price": "",
- "description": "The original Irish cream liqueur. Luxuriously creamy with chocolate and vanilla notes. Perfect over ice or in coffee."
+ "description": "Islay single malt with warm citrus and honey balanced by gentle peat smoke. Twelve years of island character."
+ },
+ {
+ "name": "Bulleit Bourbon",
+ "price": "",
+ "description": "Kentucky frontier whiskey with bold rye spice. High rye content gives it a distinctively crisp, clean finish."
  }
  ]
  },
@@ -547,9 +527,9 @@
  "description": "French luxury vodka. Exceptionally smooth with subtle notes of almond. The world's best tasting vodka."
  },
  {
- "name": "Grey Goose Strawberry & Lemongrass",
+ "name": "Ketel One",
  "price": "",
- "description": "Premium vodka meets exotic flavours. Fresh strawberries enhanced with aromatic lemongrass."
+ "description": "Dutch craft vodka distilled in copper pot stills. Crisp, silky smooth and wonderfully refined."
  },
  {
  "name": "Smirnoff Red",
@@ -648,6 +628,11 @@
  "description": "Premium spiced rum with exotic flavours. Smooth, complex and distinctively different."
  },
  {
+ "name": "Bumbu Cream",
+ "price": "",
+ "description": "Velvety Caribbean cream rum with banana and toffee notes. Dangerously drinkable over ice."
+ },
+ {
  "name": "Redleg Spiced",
  "price": "",
  "description": "Caribbean spiced rum with vanilla and ginger. Smooth, warming and perfectly balanced."
@@ -701,11 +686,6 @@
  "name": "Cazcabel Coffee Tequila",
  "price": "",
  "description": "Coffee meets tequila in perfect harmony. Rich, smooth with chocolate notes."
- },
- {
- "name": "Vida Mezcal",
- "price": "",
- "description": "Artisanal mezcal with smoky character. Complex, traditional and authentically Mexican."
  },
  {
  "name": "Lustre Strawberry Cream with Tequila",
@@ -772,26 +752,51 @@
  "name": "Pernod",
  "price": "",
  "description": "French anise spirit. Complex herbs create the classic pastis flavour."
+ },
+ {
+ "name": "Pimm's No. 1",
+ "price": "",
+ "description": "The original summer cup. Gin-based liqueur with herbs and citrus. Essential for British summers."
+ },
+ {
+ "name": "Southern Comfort",
+ "price": "",
+ "description": "New Orleans original since 1874. Fruit and spice liqueur with a whiskey heart. Sweet, smooth and warming."
+ },
+ {
+ "name": "Bailey's Irish Cream",
+ "price": "",
+ "description": "The original Irish cream liqueur. Luxuriously creamy with chocolate and vanilla notes. Perfect over ice or in coffee."
  }
  ]
  },
  {
- "title": "Brandy & Port",
+ "title": "Brandy, Port & Sherry",
  "style": "grid",
  "items": [
- { 
- "name": "Courvoisier VS", 
- "price": "", 
+ {
+ "name": "Courvoisier VS",
+ "price": "",
  "description": "French cognac with notes of fresh oak and spring flowers. Smooth and elegant."
  },
- { 
- "name": "Taylor's Fine Ruby Port", 
- "price": "", 
+ {
+ "name": "Hennessy VS",
+ "price": "",
+ "description": "The world's best-selling cognac. Rich, robust with notes of toasted almond and vine fruits. A proper after-dinner classic."
+ },
+ {
+ "name": "Martell VS",
+ "price": "",
+ "description": "The oldest of the great cognac houses. Smooth, round and fruity with a mellow warmth. Refined sipping."
+ },
+ {
+ "name": "Taylor's Fine Ruby Port",
+ "price": "",
  "description": "Full-bodied ruby port with rich berry flavours. Perfect after dinner."
  },
- { 
- "name": "Harvey's Bristol Cream Sherry", 
- "price": "", 
+ {
+ "name": "Harvey's Bristol Cream Sherry",
+ "price": "",
  "description": "Classic cream sherry. Sweet, smooth with notes of caramel and dried fruit."
  }
  ]

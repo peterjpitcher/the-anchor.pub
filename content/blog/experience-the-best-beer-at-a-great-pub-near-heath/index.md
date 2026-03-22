@@ -124,7 +124,7 @@ We've also installed a new carpet with thicker underlay to ensure that The Ancho
 
 ### **A Sustainable Future for Our Heathrow Local**
 
-All these changes are part of our commitment to ensuring that The Anchor remains a trusted beer destination near Heathrow Airport. Established in 1869, we combine heritage with innovation — our new T-Bar technology and sustainable practices help us serve great pints for generations to come.
+All these changes are part of our commitment to ensuring that The Anchor remains a trusted beer destination near Heathrow Airport. Established in 1751, we combine heritage with innovation — our new T-Bar technology and sustainable practices help us serve great pints for generations to come.
 
 ## Find The Best Beer Pub Near Heathrow Airport
 

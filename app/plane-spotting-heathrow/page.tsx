@@ -316,7 +316,7 @@ export default async function PlaneSpottingHeathrowPage() {
           },
           {
             question: 'What aircraft will I see from The Anchor?',
-            answer: 'Expect British Airways, Virgin Atlantic, Emirates A380, Qatar Airways, American Airlines, plus cargo airlines. We sit on the approach to runway 27R which operates 70% of the year.'
+            answer: 'Expect British Airways, Virgin Atlantic, Emirates A380, Qatar Airways, American Airlines, plus cargo airlines. We sit on the approach to runway 27R which operates ~50% of the year on an alternating weekly schedule.'
           },
           {
             question: 'Can I charge batteries or use WiFi?',

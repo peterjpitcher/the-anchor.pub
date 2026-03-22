@@ -1,6 +1,6 @@
 ---
 title: "Pizza Near Heathrow: Where to Get the Best Slice (2026)"
-description: "Looking for pizza near Heathrow? Compare Domino's, Pizza Hut, local restaurants, and pub stone-baked pizzas. Honest prices, BOGOF deals, and free parking options."
+description: "Looking for pizza near Heathrow? Compare Domino's, Pizza Hut, local restaurants, and pub stone-baked pizzas. Honest prices, deals, and free parking options."
 date: "2026-03-20"
 author: "Billy"
 keywords:
@@ -26,7 +26,7 @@ We have pulled together an honest comparison of the main pizza options within st
 
 | Where | Style | Price Range | Delivery? | Eat In? | Parking |
 |-------|-------|-------------|-----------|---------|---------|
-| **The Anchor** (Stanwell Moor) | Stone-baked, pub | From £11 (BOGOF Tue/Wed) | No | Yes | Free |
+| **The Anchor** (Stanwell Moor) | Stone-baked, pub | From £11 | No | Yes | Free |
 | **Domino's** (Staines/Feltham) | Chain delivery | £12–18 | Yes | Takeaway | N/A |
 | **Pizza Hut** (Staines) | Chain | £14–20 | Yes | Yes | Retail park |
 | **Pizza Express** (Staines) | Restaurant chain | £13–18 | Via Deliveroo | Yes | Paid |
@@ -38,15 +38,15 @@ There is no single best answer for everyone. It depends whether you want deliver
 
 The Anchor is a proper village pub in Stanwell Moor, about seven minutes from Heathrow Terminal 5. The pizzas are stone-baked to order — thin base, proper crust, fresh toppings. Nothing fancy, nothing pretentious. Just a good pizza done well.
 
-Prices start from **£11**, which already undercuts most of the chains. But the real headline is the **BOGOF deal on Tuesdays and Wednesdays** — buy one get one free on all pizzas. Two stone-baked pizzas for the price of one. That is comfortably the best pizza deal near Heathrow, and it is not particularly close.
+Prices start from **£11**, which already undercuts most of the chains. The pizzas are good value for what you get — proper stone-baked quality at pub prices rather than chain prices.
 
 The menu covers the classics — Margherita, pepperoni, BBQ chicken, meat feast — plus a few specials that rotate. Vegetarian and vegan options are available too.
 
 You can eat inside in the bar or dining room, or head out to the **beer garden** where you get a front-row seat to planes landing at Heathrow. Free parking on site, dog-friendly, and they have a full bar with cask ales, craft beers, wines and spirits. It is a proper evening out rather than just a pizza.
 
-The catch? No delivery. You have to get yourself there. But if you are within ten minutes of Heathrow, it is worth the trip — especially on a Tuesday or Wednesday when you are getting two pizzas for the price of one.
+The catch? No delivery. You have to get yourself there. But if you are within ten minutes of Heathrow, it is worth the trip for proper stone-baked pizza at pub prices.
 
-**Prices:** From £11 | **BOGOF:** Tuesdays and Wednesdays | **Parking:** Free | [View the full menu](/food-menu)
+**Prices:** From £11 | **Parking:** Free | [View the full menu](/food-menu)
 
 ## Domino's — Staines and Feltham
 
@@ -85,7 +85,7 @@ Different situations call for different pizza. Here is a rough guide:
 - **Delivery to a hotel room:** Domino's or an independent via Just Eat. Fastest, easiest, no travel required.
 - **Family dinner out:** Pizza Hut if the kids want the salad bar experience. The Anchor if you want somewhere less corporate with a beer garden.
 - **Date night:** Pizza Express for a polished chain feel, or The Anchor for something with more character and a better price.
-- **Best value:** The Anchor on a Tuesday or Wednesday. Two stone-baked pizzas for the price of one beats anything the chains offer.
+- **Best value:** The Anchor — stone-baked pizzas from £11 at pub prices, with free parking. Check the website for any current offers.
 - **Quick solo meal:** Domino's collection deal or an independent takeaway.
 - **Before or after a flight:** The Anchor is seven minutes from Terminal 5 with free parking. Grab a pizza and a pint before you fly.
 
@@ -93,7 +93,7 @@ Different situations call for different pizza. Here is a rough guide:
 
 ### Where can I get the cheapest pizza near Heathrow?
 
-The Anchor's BOGOF deal on Tuesdays and Wednesdays is the best value around — two stone-baked pizzas from £11 total. Outside of deal days, independent takeaways tend to be cheapest at around £10–12.
+The Anchor's stone-baked pizzas start from £11, which undercuts most chains. Independent takeaways tend to be around £10–12. Check The Anchor's website for any current offers.
 
 ### Is there anywhere near Heathrow that does stone-baked pizza?
 
@@ -109,4 +109,4 @@ Absolutely. Children are welcome, there is a beer garden for warmer weather, and
 
 ### Do I need to book at The Anchor for pizza?
 
-You do not need to book for pizza on most evenings, but it is worth reserving a table if you are visiting on a Tuesday or Wednesday when the BOGOF deal makes it busier than usual. You can [book online](/book-table) or call on 01753 682707.
+You do not need to book for pizza on most evenings, but it is worth reserving a table on busier nights. You can [book online](/book-table) or call on 01753 682707.

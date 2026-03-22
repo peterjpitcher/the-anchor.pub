@@ -21,59 +21,14 @@ export function DailySpecials({ isOpen }: DailySpecialsProps) {
   // Don't show specials if closed
   if (!isOpen) return null
 
-  // Tuesday = 2, Saturday = 6
-  const showPizzaOffer = currentDay === 2 // Tuesday only
-  const showSundayBooking = currentDay === 6 // Saturday
+  // Saturday = 6 — remind customers to book Sunday roast
+  const showSundayBooking = currentDay === 6
 
-  if (!showPizzaOffer && !showSundayBooking) return null
-
-  const handlePizzaClick = () => {
-    // If we're already on the food-menu page, just scroll to the pizza section
-    if (pathname === '/food-menu') {
-      const pizzaSection = document.getElementById('pizza')
-      if (pizzaSection) {
-        const headerOffset = 80 // Height of fixed header
-        const elementPosition = pizzaSection.getBoundingClientRect().top
-        const offsetPosition = elementPosition + window.pageYOffset - headerOffset
-        
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth'
-        })
-      }
-    }
-    // Otherwise, let the default navigation happen to /food-menu#pizza
-  }
+  if (!showSundayBooking) return null
 
   return (
     <section className="section-spacing bg-red-600 text-white">
       <div className="container mx-auto px-4">
-        {showPizzaOffer && (
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="bg-yellow-400 text-red-900 font-bold text-lg md:text-xl px-6 py-3 rounded-full inline-block mb-4">
-              TODAY'S SPECIAL
-            </div>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-              Buy One Get One FREE
-            </h2>
-            <p className="text-xl mb-6 text-white/90">
-              On ALL Stone-Baked Pizzas
-            </p>
-            <p className="text-lg mb-8">
-              Every Tuesday - Dine in & takeaway
-            </p>
-            <Link href="/food-menu#pizza">
-              <Button 
-                variant="warning" 
-                size="lg"
-                onClick={handlePizzaClick}
-              >
-                View Pizza Menu
-              </Button>
-            </Link>
-          </div>
-        )}
-
         {showSundayBooking && (
           <div className="max-w-4xl mx-auto text-center">
             <div className="bg-yellow-400 text-red-900 font-bold text-lg md:text-xl px-6 py-3 rounded-full inline-block mb-4">

@@ -65,7 +65,7 @@ Searching for the **best Tuesday pizza deals near Heathrow**? Every Tuesday from
 ## FAQs About Our Pizza Deal
 
 ### Can I take leftovers home?
-Yes! We provide takeaway boxes—just ask your server. The BOGOF deal still stands.
+Yes! We provide takeaway boxes—just ask your server. **Update:** The BOGOF deal is no longer available. Please check our current menu and offers at the pub or on our website.
 
 ### Do you cater for gluten-free?
 We offer gluten-friendly bases; mention when booking to guarantee availability.
@@ -74,11 +74,11 @@ We offer gluten-friendly bases; mention when booking to guarantee availability.
 The best value is always in-pub or direct takeaway orders.
 
 ### Do you show sports on Tuesdays?
-Yes, we screen Champions League and major fixtures in the bar. Let us know your preference when booking.
+We show free-to-air terrestrial sports such as BBC and ITV coverage. We do not have Sky Sports, BT Sport, or TNT Sports. Check with us on what is being shown on your visit.
 
 ### Can we book the beer garden?
 Absolutely. The heaters and fairy lights make it perfect for crew nights and families.
 
 ---
 
-Ready to lock in your **Pizza Tuesday near Heathrow**? [Reserve your table now](/pizza-tuesday) or call 01753 682707. From buy-one-get-one-free value to artisan ingredients, Tuesdays at The Anchor are made for sharing.
+**Update:** The buy-one-get-one-free pizza deal is no longer available. We still serve our delicious stone-baked pizzas -- [check our current menu](/food-menu) for the latest prices and offers, or call 01753 682707.

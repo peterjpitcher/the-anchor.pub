@@ -118,7 +118,7 @@ Our **premium spirit selection** includes:
 
 ## The Anchor's Commitment to Value
 
-### Supporting Our Community Since 1866
+### Supporting Our Community Since 1751
 
 As a **historic pub near Heathrow**, we understand the importance of:
 

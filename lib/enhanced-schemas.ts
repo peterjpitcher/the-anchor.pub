@@ -42,7 +42,7 @@ export const homepageFAQSchema = {
       "name": "Does The Anchor have any special offers?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes! We have Buy One Get One Free pizza every Tuesday and Wednesday, 50% off fish & chips for over 65s every Friday, plus hosted nights like Music Bingo with Nikki Manfadge and one-off events. See /whats-on for the latest details."
+        "text": "Yes! We have hosted nights like Music Bingo with Nikki Manfadge and one-off events. See /whats-on for the latest details."
       }
     }
   ]
@@ -248,27 +248,3 @@ export function generateHowToDirectionsSchema(from: string, to: string = "The An
   }
 }
 
-// Special Offer Schema for Over 65s
-export const over65sOfferSchema = {
-  "@context": "https://schema.org",
-  "@type": "Offer",
-  "name": "50% Off Fish & Chips for Over 65s",
-  "description": "Every Friday, customers aged 65 and over receive 50% off our traditional fish & chips",
-  "eligibleCustomerType": "Seniors (65+)",
-  "itemOffered": {
-    "@type": "MenuItem",
-    "name": "Fish & Chips",
-    "description": "Beer-battered fish with chunky chips, mushy peas, tartar sauce, and lemon"
-  },
-  "priceSpecification": {
-    "@type": "PriceSpecification",
-    "price": "7.50",
-    "priceCurrency": "GBP",
-    "valueAddedTaxIncluded": true
-  },
-  "validFrom": "2026-01-01",
-  "validThrough": "2026-12-31",
-  "availabilityStarts": "12:00",
-  "availabilityEnds": "21:00",
-  "availableDay": "Friday"
-}

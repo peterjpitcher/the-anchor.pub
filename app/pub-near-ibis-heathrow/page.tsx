@@ -189,7 +189,7 @@ export default function PubNearIbisHeathrowPage() {
               columns={3}
               features={[
                 { icon: '', title: 'Fish & Chips', description: 'British classic — fresh battered cod, chips and mushy peas. Proper pub grub.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'BOGOF Pizza Tuesday', description: 'Buy one get one free on all stone-baked pizzas every Tuesday — brilliant value.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Stone-Baked Pizza', description: 'Authentic stone-baked pizzas from £12 — proper pub grub cooked fresh to order.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
                 { icon: '', title: 'Real Ales from £4.80', description: 'Rotating guest ales — proper British beer at proper pub prices.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
               ]}
               className="mb-6"
@@ -230,7 +230,7 @@ export default function PubNearIbisHeathrowPage() {
           },
           {
             question: 'Is food at The Anchor near ibis Heathrow good value?',
-            answer: 'Yes — mains start from £8.99 and we have deals running regularly, including buy one get one free pizza on Tuesdays. Everything is freshly cooked to order.'
+            answer: 'Yes — mains start from £8.99 and everything is freshly cooked to order. Stone-baked pizzas from £12, classic fish & chips, and a full menu of British pub favourites.'
           },
           {
             question: 'Can I get a taxi from ibis Heathrow to The Anchor?',

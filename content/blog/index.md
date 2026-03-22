@@ -41,7 +41,7 @@ From quiz nights to Music Bingo hosted by Nikki Manfadge to charity fundraisers 
 Discover our latest culinary offerings, from traditional British pub classics to international cuisines, well-kept draught beers, and premium spirits.
 
 ### 💰 Special Offers
-Keep up with our regular deals including Tuesday pizza BOGOF, Friday senior discounts, and monthly manager's specials.
+Keep up with our regular deals including monthly manager's specials and seasonal offers.
 
 ### 🏘️ Community Stories
 Read about local happenings, charity events, and the people who make Stanwell Moor special.

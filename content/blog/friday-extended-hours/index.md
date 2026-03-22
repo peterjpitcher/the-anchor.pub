@@ -50,10 +50,9 @@ Looking for a **Friday lunch spot near Heathrow Airport**? The Anchor pub in **S
 - **Remote workers** - End the week productively
 - **Travelers** - Better than airport dining
 
-**Opening Hours Every Friday:**
-- **Doors open**: 12:00 noon
-- **Full lunch menu**: 12:00 PM - 3:00 PM
-- **Bar stays open**: Until late evening
+**Every Friday:**
+- Check our website for current opening hours at [the-anchor.pub](https://www.the-anchor.pub)
+- **Bar open**: Until late evening
 - **Garden available**: Weather permitting
 
   

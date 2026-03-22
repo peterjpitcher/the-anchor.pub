@@ -96,7 +96,7 @@ Join the excitement and win real money at Surrey's friendliest bingo night!
 
 ### Fish & Chips Before Bingo
 
-Make it a proper night out with our **Chip Shop Friday** menu:
+Make it a proper night out with our food menu:
 
 **Menu Highlights:**
 - 🐟 Classic fish & chips
@@ -106,9 +106,8 @@ Make it a proper night out with our **Chip Shop Friday** menu:
 - 🥧 Beef & ale pie
 - 🧅 Onion rings
 
-**Special Offer:**
-- **50% OFF for over 65s**
-- Served 6:00 PM - 9:00 PM
+**Pre-Bingo Dinner:**
+- Full food menu available before bingo
 - Perfect pre-bingo meal
 - Book a table for dinner & bingo
 

@@ -135,7 +135,7 @@ export default function FindUsPage() {
             <div className="bg-anchor-bg-card p-4 rounded-none border border-anchor-gold/15 text-center">
               <div className="text-3xl mb-2"></div>
               <p className="font-bold text-anchor-cream-text">Bus Routes</p>
-              <p className="text-sm text-anchor-cream-text/70">442</p>
+              <p className="text-sm text-anchor-cream-text/70">441, 442, 555</p>
             </div>
             <div className="bg-anchor-bg-card p-4 rounded-none border border-anchor-gold/15 text-center">
               <div className="text-3xl mb-2"></div>
@@ -507,7 +507,7 @@ export default function FindUsPage() {
                   </div>
                   <div className="flex items-start gap-3">
                     <span className="text-anchor-gold"></span>
-                    <p className="text-white/90 text-sm">Children welcome until 9pm</p>
+                    <p className="text-white/90 text-sm">Children always welcome</p>
                   </div>
                   <div className="flex items-start gap-3">
                     <span className="text-anchor-gold"></span>

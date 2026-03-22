@@ -68,7 +68,7 @@ The Anchor sits in Stanwell Moor, about seven minutes from Terminal 5 by car. It
 
 **What you get that you won't find at the airport:** A log fire in winter. A beer garden in summer. Dogs welcome. Cask ales alongside the usual lagers. A kitchen that makes its own food rather than reheating pre-prepped dishes. And no one hovering to turn your table.
 
-**Practical details:** Free car park, open seven days a week (kitchen closed Mondays), about seven minutes from Terminal 5 via the A3044. We're at 01753 682707 or info@theanchorpub.co.uk if you want to check availability.
+**Practical details:** Free car park, open seven days a week (kitchen closed Mondays), about seven minutes from Terminal 5 via the A3044. We're at 01753 682707 or manager@the-anchor.pub if you want to check availability.
 
 ### The Three Magpies, Bath Road
 

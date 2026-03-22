@@ -215,10 +215,10 @@ export default async function FishAndChipsPage() {
                         )}
 
                         <AlertBox
-                            variant="success"
-                            title="Senior Citizens Offer"
+                            variant="info"
+                            title="Full Food Menu Available"
                             className="max-w-2xl mx-auto mt-8"
-                            content="Every Friday, senior citizens (65+) can enjoy our Fish and Chips for 50% off. It's our way of looking after the locals."
+                            content="Our fish and chips is part of a full menu of British pub classics, stone-baked pizzas, and Sunday roasts. View the full menu or book a table."
                         />
                     </div>
                 </Container>

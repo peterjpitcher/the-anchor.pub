@@ -252,17 +252,17 @@ export default async function DrinksMenuPage() {
         <Container>
           <SectionHeader
             title="Your Favourite Drinks on Tap Near Heathrow"
-            subtitle="From Carling and Coors Light to Guinness and premium spirits, we pour what travellers and locals ask for most."
+            subtitle="From Birra Moretti and Stella Artois to Guinness and premium spirits, we pour what travellers and locals ask for most."
           />
           <InfoBoxGrid
             columns={3}
             className="max-w-5xl mx-auto"
             boxes={[
               {
-                title: "Carling & Coors Light",
+                title: "Birra Moretti & Stella Artois",
                 content: (
                   <p className="text-anchor-cream-text/70">
-                    Ice-cold Carling and Coors Light served properly every day. Popular with airport crew looking for a familiar pint before or after shifts.
+                    Ice-cold Birra Moretti and Stella Artois served properly every day. Popular with airport crew looking for a familiar pint before or after shifts.
                   </p>
                 ),
                 variant: "colored",
@@ -536,7 +536,7 @@ export default async function DrinksMenuPage() {
         faqs={[
           {
             question: "What beers are on tap at The Anchor?",
-            answer: "We have a fantastic selection of draught beers including Aspall, Carlsberg, Birra Moretti, Carling, Fosters, Guinness, Inches, Pravha, and Stella Artois. Our draught selection offers something for every taste, from crisp lagers to rich stouts."
+            answer: "We have a fantastic selection of draught beers including Birra Moretti, Guinness, Stella Artois, Aspall Cider, Inch's Apple Cider, Fosters, Carlsberg, and 1664 Biere. Our draught selection offers something for every taste, from crisp lagers to rich stouts."
           },
           {
             question: "Do you serve cocktails at The Anchor?",

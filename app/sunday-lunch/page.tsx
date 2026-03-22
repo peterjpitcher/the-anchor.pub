@@ -107,6 +107,12 @@ const FALLBACK_MENU: NormalizedMenu = {
       description: 'Red wine gravy (vegetarian gravy available on request).',
       price: 0,
       included: true
+    },
+    {
+      name: 'Cauliflower Cheese',
+      description: 'Creamy cauliflower cheese — the perfect add-on to your roast.',
+      price: 3.99,
+      included: false
     }
   ],
   menuDate: undefined,
@@ -300,7 +306,7 @@ export default async function SundayLunchPage() {
       aggregateRating: {
         '@type': 'AggregateRating',
         ratingValue: '4.6',
-        reviewCount: '312',
+        reviewCount: '238',
         bestRating: '5',
         worstRating: '1'
       },
@@ -541,6 +547,15 @@ export default async function SundayLunchPage() {
                   Live menu unavailable right now. Please call us on 01753 682707 for today&apos;s roast choices.
                 </div>
               )}
+            </div>
+
+            <div className="mt-6 rounded-none border border-anchor-gold/15 bg-anchor-bg-card p-5">
+              <p className="text-sm font-semibold text-anchor-gold-vivid">Add-ons</p>
+              <p className="mt-1 text-anchor-cream-text">
+                <span className="font-semibold">Cauliflower Cheese</span>
+                <span className="text-anchor-cream-text/60 font-normal"> — creamy cauliflower cheese, the perfect add-on to your roast.</span>
+                <span className="text-anchor-cream-text/50 font-normal ml-1"> · £3.99</span>
+              </p>
             </div>
 
             <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">

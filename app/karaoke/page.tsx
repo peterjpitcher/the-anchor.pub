@@ -38,17 +38,17 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 export const metadata: Metadata = {
     title: 'Karaoke Nights Near Heathrow | Sing Out at The Anchor',
     description:
-        'Join the best karaoke night near Heathrow at The Anchor. Thousands of songs, great atmosphere, and free entry. Sing your heart out in Stanwell Moor!',
+        'Join karaoke night near Heathrow at The Anchor. 50,000+ songs, hosted by Nikki Manfadge, Fridays 8-11pm. Free entry. Sing your heart out in Stanwell Moor!',
     keywords:
         'karaoke near heathrow, karaoke pub, karaoke night, sing karaoke, pub karaoke, stanwell moor karaoke, karaoke bar staines, free karaoke',
     openGraph: {
         title: 'Karaoke Nights Near Heathrow | The Anchor',
-        description: 'Thousands of songs, free entry, and a great atmosphere. Sing your heart out in Stanwell Moor.',
+        description: '50,000+ songs, hosted by Nikki Manfadge, Fridays 8-11pm. Free entry. Sing your heart out in Stanwell Moor.',
         images: [{ url: DEFAULT_EVENT_IMAGE, width: 1200, height: 630, alt: 'Events at The Anchor pub near Heathrow' }]
     },
     twitter: getTwitterMetadata({
         title: 'Karaoke Nights Near Heathrow | The Anchor',
-        description: 'Thousands of songs, free entry, and a great atmosphere. Sing your heart out in Stanwell Moor.',
+        description: '50,000+ songs, hosted by Nikki Manfadge, Fridays 8-11pm. Free entry. Sing your heart out in Stanwell Moor.',
         images: [DEFAULT_EVENT_IMAGE]
     }),
     alternates: {
@@ -102,13 +102,13 @@ async function getKaraokeEvents() {
 const WHY_LOVE_IT = [
     {
         icon: '',
-        title: 'Thousands of Songs',
-        body: 'From 80s power ballads to today’s chart-toppers, we’ve got a massive library to choose from. If you can hum it, you can probably sing it.'
+        title: '50,000+ Songs',
+        body: 'From 80s power ballads to today\'s chart-toppers, our library of over 50,000 tracks means if you can hum it, you can probably sing it.'
     },
     {
         icon: '',
         title: 'Free to Sing',
-        body: 'No entry fee, no cost to sing. Just grab a drink, pick your track, and claim the spotlight. It’s all about having fun.'
+        body: 'No entry fee, no cost to sing. Just grab a drink, pick your track, and claim the spotlight. It\'s all about having fun.'
     },
     {
         icon: '',
@@ -117,8 +117,13 @@ const WHY_LOVE_IT = [
     },
     {
         icon: '',
+        title: 'Hosted by Nikki Manfadge',
+        body: 'Nikki keeps the energy high, the queue moving, and the crowd singing along. Duets with Nikki, lip sync battles, props and costumes provided.'
+    },
+    {
+        icon: '',
         title: 'Supportive Crowd',
-        body: 'Whether you’re a pro vocalist or just having a laugh, the Stanwell Moor crowd is always behind you. Good vibes only!'
+        body: 'Whether you\'re a pro vocalist or just having a laugh, the Stanwell Moor crowd is always behind you. Good vibes only!'
     }
 ]
 
@@ -126,7 +131,7 @@ const FAQS = [
     {
         question: 'When is karaoke night?',
         answer:
-            'Karaoke nights are regular features on our calendar. Check the upcoming dates below or our What’s On page to see when the next session is.'
+            'Karaoke is on Fridays from 8pm to 11pm, hosted by Nikki Manfadge. Check the upcoming dates below or our What\'s On page to confirm the next session.'
     },
     {
         question: 'Do I have to pay to sing?',
@@ -136,17 +141,17 @@ const FAQS = [
     {
         question: 'Do I need to book a table?',
         answer:
-            'It’s first come, first served for tables, but there’s plenty of room. If you’re bringing a big group, give us a call on 01753 682707 and we’ll try to save you a spot.'
+            'It\'s first come, first served for tables, but there\'s plenty of room. If you\'re bringing a big group, give us a call on 01753 682707 and we\'ll try to save you a spot.'
     },
     {
         question: 'Can I request a specific song?',
         answer:
-            'Absolutely! Our karaoke host has a huge digital library. Just ask them on the night and they’ll get you queued up.'
+            'Absolutely! Our karaoke host has a huge digital library. Just ask them on the night and they\'ll get you queued up.'
     },
     {
         question: 'Is it suitable for children?',
         answer:
-            'Karaoke is great fun for families in the early evening. However, after 9pm, it’s strictly 18+ as the pub gets busier.'
+            'Karaoke is great fun for families in the early evening. However, after 9pm, it\'s strictly 18+ as the pub gets busier.'
     }
 ]
 
@@ -156,7 +161,7 @@ function KaraokeEventCards({ events }: { events: Event[] }) {
             <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-xl p-6 text-center">
                 <p className="text-lg font-semibold text-anchor-gold-vivid mb-2">Next karaoke dates coming soon</p>
                 <p className="text-anchor-cream-text/70">
-                    We’re tuning the mics and scheduling the next night. Call 01753 682707 or check back shortly.
+                    We're tuning the mics and scheduling the next night. Call 01753 682707 or check back shortly.
                 </p>
             </div>
         )
@@ -215,7 +220,7 @@ function KaraokeEventCards({ events }: { events: Event[] }) {
                                     <p className="text-anchor-cream-text/70 leading-relaxed">{event.description}</p>
                                 )}
                                 <p className="text-sm text-anchor-cream-text/55">
-                                    Grab the mic and show us what you’ve got! Thousands of songs, supportive crowd, and free entry all night.
+                                    Grab the mic and show us what you've got! 50,000+ songs, hosted by Nikki Manfadge, and free entry all night.
                                 </p>
                             </div>
 
@@ -245,10 +250,10 @@ export default async function KaraokePage() {
             <HeroWrapper
                 route="/karaoke"
                 title="Karaoke Nights at The Anchor"
-                description="The stage is yours! Join us near Heathrow for the ultimate karaoke night. Thousands of songs, liquid courage on tap, and free entry."
+                description="The stage is yours! Join us near Heathrow for the ultimate karaoke night. 50,000+ songs, hosted by Nikki Manfadge, Fridays 8-11pm. Free entry."
                
                 tags={[
-                    { label: 'Thousands of Songs', variant: 'primary' },
+                    { label: '50,000+ Songs', variant: 'primary' },
                     { label: 'Always Free Entry', variant: 'default' },
                     { label: 'Liquid Courage Available', variant: 'default' }
                 ]}
@@ -306,7 +311,7 @@ export default async function KaraokePage() {
                         Karaoke Pub Near Heathrow – Sing Your Way to Stardom
                     </PageTitle>
                     <p className="text-lg text-anchor-cream-text/70 text-center max-w-3xl mx-auto">
-                        Ready to unleash your inner rock star? The Anchor’s karaoke nights are legendary in Stanwell Moor. Whether you’re belting out ballads or rapping 90s classics, we provide the stage, the mic, and the enthusiastic crowd. Just minutes from Heathrow, it’s the perfect place to let loose. {heroDescription}
+                        Ready to unleash your inner rock star? The Anchor's karaoke nights are legendary in Stanwell Moor. Whether you're belting out ballads or rapping 90s classics, we provide the stage, the mic, and the enthusiastic crowd. Just minutes from Heathrow, it's the perfect place to let loose. {heroDescription}
                     </p>
                 </Container>
             </Section>
@@ -344,13 +349,13 @@ export default async function KaraokePage() {
                             <CardBody className="space-y-4">
                                 <h3 className="text-2xl font-bold text-anchor-cream-text">How it works</h3>
                                 <ul className="space-y-3 text-anchor-cream-text/70">
-                                    <li><strong>Start time:</strong> Music kicks off around 8:00 pm (check listing).</li>
-                                    <li><strong>Choose your track:</strong> Browse our digital library or ask the host. We have everything from Abba to ZZ Top.</li>
+                                    <li><strong>Every Friday, 8-11pm:</strong> Hosted by Nikki Manfadge with 50,000+ songs to choose from.</li>
+                                    <li><strong>Choose your track:</strong> Browse the digital library or ask Nikki. Everything from Abba to ZZ Top.</li>
                                     <li><strong>Eat & Drink:</strong> Kitchen open until 9 pm for pre-show burgers. Bar open late.</li>
                                     <li><strong>Free Entry:</strong> Always free entry, always good vibes.</li>
                                 </ul>
                                 <p className="text-sm text-anchor-cream-text/55">
-                                    Solo singers, duets and group ensembles all welcome. We’ll even provide backing vocals if you need a hand!
+                                    Solo singers, duets and group ensembles all welcome. We'll even provide backing vocals if you need a hand!
                                 </p>
                             </CardBody>
                         </Card>
@@ -363,7 +368,7 @@ export default async function KaraokePage() {
                     <div className="max-w-5xl mx-auto">
                         <h2 className="text-3xl font-bold text-anchor-cream-text text-center mb-6">Upcoming Karaoke Nights</h2>
                         <p className="text-anchor-cream-text/70 text-center mb-8">
-                            Mic check, one two! Here’s when you can next take the stage. For updates, check our <Link href="https://facebook.com/theanchorstanwellmoor" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">Facebook page</Link>.
+                            Mic check, one two! Here's when you can next take the stage. For updates, check our <Link href="https://facebook.com/theanchorstanwellmoor" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">Facebook page</Link>.
                         </p>
                         <KaraokeEventCards events={events} />
                     </div>
