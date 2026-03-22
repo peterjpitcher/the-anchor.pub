@@ -2,6 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 import { remark } from 'remark'
+import remarkGfm from 'remark-gfm'
 import html from 'remark-html'
 import { getExistingBlogImageNames } from './blog-image'
 
@@ -91,6 +92,7 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
     
     // Process markdown to HTML
     const processedContent = await remark()
+      .use(remarkGfm)
       .use(html)
       .process(content)
     
@@ -146,6 +148,7 @@ export async function getMenuContent(menuType: 'food' | 'drinks'): Promise<MenuI
     
     // Process markdown to HTML
     const processedContent = await remark()
+      .use(remarkGfm)
       .use(html)
       .process(content)
     

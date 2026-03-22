@@ -30,6 +30,7 @@
     "react-dom": "^18",
     "react-intersection-observer": "^9.16.0",
     "remark": "^15.0.1",
+    "remark-gfm": "^4.0.1",
     "remark-html": "^16.0.1",
     "sharp": "^0.34.3",
     "tailwind-merge": "^3.3.1",
