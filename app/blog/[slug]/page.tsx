@@ -352,7 +352,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
                 prose-pre:bg-anchor-bg-card prose-pre:text-anchor-cream-text
                 prose-table:my-8 prose-th:bg-anchor-bg-card prose-th:text-anchor-gold-vivid
                 prose-th:font-semibold prose-th:px-6 prose-th:py-3
-                prose-td:border prose-td:border-anchor-gold/15 prose-td:px-6 prose-td:py-3
+                prose-td:border prose-td:border-anchor-gold/15 prose-td:px-6 prose-td:py-3 prose-td:text-anchor-cream-text
                 prose-hr:border-anchor-gold/15 prose-hr:my-12">
           <div dangerouslySetInnerHTML={{ __html: contentWithImages }} />
         </div>
