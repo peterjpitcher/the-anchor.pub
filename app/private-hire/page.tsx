@@ -321,7 +321,7 @@ export default function PrivateHirePage() {
                             <div className="relative aspect-[4/3] overflow-hidden rounded-none">
                                 <Image
                                     src="/images/dining-room/dining-room.jpg"
-                                    alt="The Anchor main dining room with wooden tables and comfortable seating for private hire"
+                                    alt="The Anchor private dining room from the bar end, showing the full space set for a function"
                                     fill
                                     className="object-cover"
                                     sizes="(max-width: 768px) 100vw, 50vw"
@@ -329,7 +329,7 @@ export default function PrivateHirePage() {
                             </div>
                         </div>
                         <p className="text-center text-sm text-anchor-cream-text/50 mt-4">
-                            Our conservatory dining room (left) and main dining area (right) — both available for private hire
+                            Our private dining room — seating up to 80 guests with views over the beer garden
                         </p>
                     </div>
                 </Container>
