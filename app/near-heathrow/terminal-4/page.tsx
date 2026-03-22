@@ -106,7 +106,7 @@ export default function Terminal4Page() {
               </div>
               <div className="flex items-start gap-2">
                 <span className="font-semibold text-anchor-gold"></span>
-                <span>Cocktails, cask ales and Aperol spritz for relaxed evenings</span>
+                <span>Cocktails, draught lagers and Aperol spritz for relaxed evenings</span>
               </div>
               <div className="flex items-start gap-2">
                 <span className="font-semibold text-anchor-gold"></span>

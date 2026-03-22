@@ -67,7 +67,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     metaTitle: 'Pub Drinks Menu Stanwell Moor | Draught Beer & Cocktails Near Heathrow',
     metaDescription: 'Explore our exceptional drinks selection at The Anchor Stanwell Moor. Real ales, draught lagers, premium spirits, wines & cocktails. We\'re 7 minutes from Heathrow.',
     heroContent: 'Discover our exceptional drinks selection at The Anchor, where quality meets tradition in the heart of Stanwell Moor village. From well-kept draught beers to premium spirits, we\'ve curated a bar menu that satisfies every taste.',
-    introContent: 'At The Anchor, we take pride in our carefully curated drinks menu. Our bar features an impressive selection of real ales, familiar draught lagers, premium spirits from around the world, and a wine list chosen to complement our food menu perfectly. Whether you\'re a cask ale enthusiast, cocktail connoisseur, or wine lover, our knowledgeable staff are here to help you find your perfect drink.',
+    introContent: 'At The Anchor, we take pride in our carefully curated drinks menu. Our bar features an impressive selection of real ales, familiar draught lagers, premium spirits from around the world, and a wine list chosen to complement our food menu perfectly. Whether you\'re a real ale fan, cocktail connoisseur, or wine lover, our knowledgeable staff are here to help you find your perfect drink.',
     valueProposition: 'Discover why The Anchor is Stanwell Moor\'s favourite drinking destination. With regular tasting events, seasonal specials, and the warmest welcome near Heathrow, your perfect pint is always waiting.',
     keywords: ['pub drinks menu stanwell moor', 'draught beer near heathrow', 'cocktails stanwell moor', 'wine bar surrey', 'drinks TW19']
   },
@@ -266,9 +266,9 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     name: 'Beer Selection',
     description: 'Real ales and draught favourites',
     metaTitle: 'Beer Selection Stanwell Moor | Real Ales at The Anchor',
-    metaDescription: 'Discover well-kept real ales & draught lagers at The Anchor Stanwell Moor. Local favourites, rotating cask beers, welcoming beer garden near Heathrow.',
+    metaDescription: 'Discover well-kept real ales & draught lagers at The Anchor Stanwell Moor. Local favourites, bottled real ales, welcoming beer garden near Heathrow.',
     heroContent: 'Beer lovers rejoice! The Anchor offers Stanwell Moor\'s finest selection of real ales, draught lagers, and international favourites.',
-    introContent: 'Our passion for great beer shows in every pint we pour. The Anchor\'s bar features carefully selected cask ales from trusted breweries and all your favourite lagers perfectly chilled. Seasonal guest lines keep things interesting, while beer enthusiasts appreciate our knowledgeable staff who can recommend the perfect pint.',
+    introContent: 'Our passion for great beer shows in every pint we pour. The Anchor\'s bar features bottled real ales from trusted breweries and all your favourite draught lagers perfectly chilled. Seasonal guest lines keep things interesting, while beer enthusiasts appreciate our knowledgeable staff who can recommend the perfect pint.',
     valueProposition: 'Join us for a journey through Britain\'s best-loved beers. Whether you prefer a traditional bitter or a crisp continental lager, we have the perfect pint waiting for you at The Anchor.',
     keywords: ['draught beer stanwell moor', 'real ale pub heathrow', 'beer garden surrey', 'best beer TW19', 'local brewery stanwell moor']
   },
@@ -498,11 +498,11 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     name: 'Draught Beer Highlights',
     description: 'Featured real ales and seasonal draught selections',
     metaTitle: 'Draught Beer Stanwell Moor | Featured Ales at The Anchor',
-    metaDescription: 'Discover featured draught beers at The Anchor Stanwell Moor. Rotating cask ales, seasonal lagers, and our house favourites near Heathrow.',
-    heroContent: 'Explore the best of our draught lineup at The Anchor, where well-kept cask ales and seasonal pours take centre stage in Stanwell Moor.',
-    introContent: 'Our draught board changes with the seasons, showcasing the beers our guests love most. Expect impeccably kept cask ales, crisp lagers, and occasional limited editions from trusted breweries. Our team is always happy to talk through what\'s pouring and suggest the right pint for your visit.',
+    metaDescription: 'Discover featured draught beers at The Anchor Stanwell Moor. Bottled real ales, seasonal lagers, and our house favourites near Heathrow.',
+    heroContent: 'Explore the best of our draught lineup at The Anchor, where bottled real ales and draught favourites take centre stage in Stanwell Moor.',
+    introContent: 'Our draught board changes with the seasons, showcasing the beers our guests love most. Expect bottled real ales, crisp draught lagers, and occasional limited editions from trusted breweries. Our team is always happy to talk through what\'s pouring and suggest the right pint for your visit.',
     valueProposition: 'Follow our draught updates for news on seasonal arrivals and special features. With careful cellar management and experienced bartenders, every pint is poured just the way it should be.',
-    keywords: ['draught beer stanwell moor', 'real ale bar heathrow', 'seasonal beer surrey', 'cask ale TW19', 'beer selection stanwell moor']
+    keywords: ['draught beer stanwell moor', 'real ale bar heathrow', 'seasonal beer surrey', 'real ale TW19', 'beer selection stanwell moor']
   },
 
   'pet-friendly': {

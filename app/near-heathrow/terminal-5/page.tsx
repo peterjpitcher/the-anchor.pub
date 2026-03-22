@@ -559,7 +559,7 @@ export default function Terminal5Page() {
                 <ul className="space-y-2 text-anchor-cream-text/70 mb-6">
                   <li className="flex gap-2">
                     <span className="text-anchor-gold"></span>
-                    <span>Real cask ales, not just lagers</span>
+                    <span>Bottled real ales alongside draught lagers and ciders</span>
                   </li>
 	                  <li className="flex gap-2">
 	                    <span className="text-anchor-gold"></span>

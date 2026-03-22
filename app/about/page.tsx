@@ -324,7 +324,7 @@ export default function AboutPage() {
                       Drinks
                     </h3>
                     <p className="text-anchor-cream-text/70 mb-4">
-                      Cask ales, lagers, wines, spirits, and cocktails. Something for every
+                      Draught lagers, bottled ales, wines, spirits, and cocktails. Something for every
                       taste, served with a smile.
                     </p>
                     <p className="text-anchor-gold-vivid font-semibold">View drinks &rarr;</p>

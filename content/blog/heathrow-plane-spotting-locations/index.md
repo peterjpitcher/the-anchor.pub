@@ -45,11 +45,11 @@ Now let's look at each in detail.
 
 The Anchor's 64-seat [beer garden](/beer-garden) in Stanwell Moor sits beneath the approach path for runway 27R. When westerly operations are in effect -- which covers roughly half the year, alternating on a weekly schedule -- aircraft pass directly overhead at around 500 to 800 feet. You do not need a telephoto lens to identify the airline. You can read the registration numbers with your eyes.
 
-What makes this different from every other location on this list: you are sitting at a pub table with a pint of cask ale and a plate of stone-baked pizza while a Qatar Airways A350 thunders above you. No thermos, no camping chair, no standing on a pavement.
+What makes this different from every other location on this list: you are sitting at a pub table with a pint of Moretti and a plate of stone-baked pizza while a Qatar Airways A350 thunders above you. No thermos, no camping chair, no standing on a pavement.
 
 **Facilities:**
 - Full kitchen serving burgers, fish and chips, pizzas, sharers, and a proper [Sunday roast](/sunday-lunch) (booking required, from £19.99)
-- Cask ales, craft beers, wines, spirits, and soft drinks
+- Draught lagers, bottled ales, wines, spirits, and soft drinks
 - Free WiFi for Flightradar24 tracking
 - Heated covered areas for year-round spotting
 - Indoor seating when the weather turns

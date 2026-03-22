@@ -145,7 +145,7 @@ export default function PubNearRadissonBluHeathrowPage() {
                 <ul className="space-y-3">
                   {[
                     'Home-cooked British food — from £8.99',
-                    'Rotating cask ales and craft beers',
+                    'Draught lagers, bottled ales and craft beers',
                     'Warm, unpretentious community atmosphere',
                     'Dog-friendly beer garden',
                     'Full VAT receipts for business expenses',
@@ -189,7 +189,7 @@ export default function PubNearRadissonBluHeathrowPage() {
               features={[
                 { icon: '', title: 'Fish & Chips', description: 'The quintessential British dish — fresh battered cod with chips and mushy peas.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
                 { icon: '', title: 'Sunday Roast', description: 'Traditional roast from £19.99 — pre-booking recommended for weekends.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Real Ale Selection', description: 'Rotating cask ales — ask what\'s on. Proper British beer culture.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Great Drinks Selection', description: 'Bottled real ales and draught lagers. Proper British beer culture.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
               ]}
               className="mb-6"
             />
@@ -232,7 +232,7 @@ export default function PubNearRadissonBluHeathrowPage() {
                 We know business travellers need speed and efficiency. Our kitchen opens at 6pm on weekdays &mdash; you can be sitting down with a pint by 6:10, eating by 6:15, and back at the hotel by 8pm if you need to be. We provide full itemised VAT receipts for expenses, and there&rsquo;s free WiFi throughout if you need to catch up on emails between courses.
               </p>
               <p>
-                Let&rsquo;s talk money. Radisson Blu restaurant mains typically run &pound;20&ndash;30. At The Anchor, the same quality British classics &mdash; fish and chips, steaks, pies, burgers &mdash; cost &pound;10&ndash;17. The money you save comfortably pays for your taxi both ways. Order a proper cask ale instead of a hotel-price pint and you&rsquo;re ahead on every line of the receipt.
+                Let&rsquo;s talk money. Radisson Blu restaurant mains typically run &pound;20&ndash;30. At The Anchor, the same quality British classics &mdash; fish and chips, steaks, pies, burgers &mdash; cost &pound;10&ndash;17. The money you save comfortably pays for your taxi both ways. Order a proper ale or a pint of Moretti instead of a hotel-price drink and you&rsquo;re ahead on every line of the receipt.
               </p>
               <p>
                 What Radisson guests consistently tell us is that the contrast is what makes it worthwhile. You leave a polished, corporate hotel and walk into a 270-year-old village pub with low ceilings, proper beer, and locals at the bar. No background music playlist curated by a brand agency &mdash; just conversation, good food, and the occasional plane overhead. It&rsquo;s exactly the kind of evening you can&rsquo;t get from a hotel restaurant, no matter how good the hotel is.

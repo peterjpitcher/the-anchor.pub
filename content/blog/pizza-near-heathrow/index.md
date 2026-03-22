@@ -42,7 +42,7 @@ Prices start from **£11**, which already undercuts most of the chains. The pizz
 
 The menu covers the classics — Margherita, pepperoni, BBQ chicken, meat feast — plus a few specials that rotate. Vegetarian and vegan options are available too.
 
-You can eat inside in the bar or dining room, or head out to the **beer garden** where you get a front-row seat to planes landing at Heathrow. Free parking on site, dog-friendly, and they have a full bar with cask ales, craft beers, wines and spirits. It is a proper evening out rather than just a pizza.
+You can eat inside in the bar or dining room, or head out to the **beer garden** where you get a front-row seat to planes landing at Heathrow. Free parking on site, dog-friendly, and they have a full bar with draught lagers, bottled ales, wines and spirits. It is a proper evening out rather than just a pizza.
 
 The catch? No delivery. You have to get yourself there. But if you are within ten minutes of Heathrow, it is worth the trip for proper stone-baked pizza at pub prices.
 

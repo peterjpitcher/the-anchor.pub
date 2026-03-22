@@ -85,7 +85,7 @@ Whether you're supporting England at Twickenham or following the away matches, T
 ### Match Day Specials at Our Sports Pub Near Heathrow:
 - **Burger and pint deals** during all Six Nations matches
 - **Traditional British pub food** perfect for match day
-- Wide selection of familiar draught lagers, ciders, and cask ales
+- Wide selection of familiar draught lagers, ciders, and bottled ales
 - Pre-match and half-time food service
 - **Dog-friendly** atmosphere - bring your four-legged rugby fans!
 

@@ -27,7 +27,7 @@ const PAGE_HEADER_ALT_TEXT: Record<string, string> = {
   'home': 'The Anchor pub entrance with warm lighting and traditional British pub signage',
   'whats-on': 'Collage of hosted nights, quiz nights, and live music posters glowing under stage lights at The Anchor',
   'food-menu': 'Signature Anchor dishes including Sunday roast, gourmet burgers, and small plates styled on a wooden table',
-  'drinks': 'Backlit bar showcasing cask ales, premium spirits, and wine glasses at The Anchor',
+  'drinks': 'Backlit bar showcasing draught lagers, bottled ales, premium spirits, and wine glasses at The Anchor',
   'sunday-lunch': 'Traditional Sunday roast with Yorkshire puddings, roasted vegetables, and rich gravy at The Anchor',
   'beer-garden': 'Spacious beer garden with wooden tables, festoon lighting, and aircraft overhead near Heathrow',
   'find-us': 'The Anchor pub exterior on Horton Road, Stanwell Moor with clear signage',

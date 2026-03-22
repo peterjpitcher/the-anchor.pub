@@ -519,7 +519,7 @@ export default async function QuizNightPage() {
                 <h3 className="text-2xl font-bold text-anchor-cream-text">Make a night of it</h3>
                 <ul className="space-y-3 text-anchor-cream-text/70">
                   <li><strong>Food served until 9pm:</strong> pizzas, nacho mountains, burger stacks and seasonal specials.</li>
-                  <li><strong>Drinks menu:</strong> cask ales, craft lagers, zero-proof spritzes and themed cocktails like the Black Shuck Spritz.</li>
+                  <li><strong>Drinks menu:</strong> draught lagers, bottled ales, zero-proof spritzes and themed cocktails like the Black Shuck Spritz.</li>
                   <li><strong>Stay comfy:</strong> heated areas, step-free access and plenty of parking right outside.</li>
                   <li><strong>Travelling?</strong> We’re 7 minutes from Heathrow Terminal 5 and on the 441/555 bus routes.</li>
                 </ul>

@@ -47,7 +47,7 @@ For food, you may be given a table number and asked to order at the bar, or a st
 
 This is where international visitors often need the most guidance.
 
-**Real ale (cask ale):** The defining feature of a proper British pub. Served at cellar temperature (not cold), from a hand pump (the tall tap you pull). Flavours range from malty and gentle to hoppy and bitter. Always worth trying at least one pint.
+**Real ale:** A cornerstone of British pub culture. At The Anchor, we serve bottled real ales — Abbot Ale, Greene King IPA, Old Speckled Hen, and Newcastle Brown Ale — alongside our draught lagers and ciders. Ask the bar staff for a recommendation.
 
 **Craft beer on tap:** Modern kegged beers, served colder, often from smaller breweries. Good range available at most pubs.
 

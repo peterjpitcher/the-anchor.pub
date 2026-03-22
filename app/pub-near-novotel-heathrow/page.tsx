@@ -146,7 +146,7 @@ export default function PubNearNovotelHeathrowPage() {
                   {[
                     'Independent pub — not a chain or hotel brand',
                     'Food cooked from scratch daily',
-                    'Rotating cask ales and seasonal specials',
+                    'Draught lagers, bottled ales and seasonal specials',
                     'Dog-friendly beer garden',
                     'Quiz nights, music bingo & live events',
                     'Real community atmosphere',

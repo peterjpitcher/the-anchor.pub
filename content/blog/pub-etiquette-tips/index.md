@@ -50,7 +50,7 @@ British pubs often operate on a counter-service system, where patrons order dire
 
 *   **Wait Your Turn Politely:** There may not be an obvious queue, but bartenders will serve customers in the order they arrive. Avoid calling out to the staff—simply stand at the bar and make eye contact when ready to order.
     
-*   **Know What You Want:** Browse the drinks menu in advance to avoid holding up the line. For a true local experience, try one of our cask ales like Abbot Ale.
+*   **Know What You Want:** Browse the drinks menu in advance to avoid holding up the line. For a true local experience, try one of our bottled ales like Abbot Ale.
     
 *   **Step Aside After Ordering:** Once you’ve placed your order, move away from the bar area to allow others to do the same. This keeps the space flowing smoothly.
     

@@ -188,7 +188,7 @@ export default function PubNearRenaissanceHeathrowPage() {
               columns={3}
               features={[
                 { icon: '', title: 'Sunday Roast', description: 'Traditional British roast from £19.99 — the definitive Sunday lunch experience.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Real Ales', description: 'Rotating cask ales — ask what\'s on tap. A very British ritual worth experiencing.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Great Drinks', description: 'Bottled real ales and familiar draught lagers. A very British ritual worth experiencing.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
                 { icon: '', title: 'Fish & Chips', description: 'Fresh battered cod with chips — the British classic every visitor should try.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
               ]}
               className="mb-6"

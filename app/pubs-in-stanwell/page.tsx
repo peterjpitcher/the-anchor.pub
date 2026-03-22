@@ -246,7 +246,7 @@ export default async function PubsInStanwellPage() {
                 {
                   icon: "",
                   title: "Great Drinks Selection",
-                  description: "Cask ales, lagers, wines, spirits and soft drinks",
+                  description: "Draught lagers, bottled ales, wines, spirits and soft drinks",
                   className: "text-center"
                 },
                 {
