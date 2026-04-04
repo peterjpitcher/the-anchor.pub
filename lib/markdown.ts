@@ -59,25 +59,75 @@ export interface MenuItem {
 }
 
 // Blog functions
-export async function getAllBlogPosts(): Promise<BlogPost[]> {
+
+/**
+ * Lightweight metadata-only fetch — reads frontmatter without running the
+ * remark markdown-to-HTML pipeline. Use this for listings, tag pages,
+ * sitemap, and navigation where htmlContent is not needed.
+ */
+export function getBlogPostMeta(slug: string): BlogPost | null {
+  try {
+    const postPath = path.join(contentDirectory, 'blog', slug, 'index.md')
+
+    if (!fs.existsSync(postPath)) {
+      return null
+    }
+
+    const fileContents = fs.readFileSync(postPath, 'utf8')
+    const { data, content } = matter(fileContents)
+
+    const rawImages = toStringArray(data.images)
+    const rawImageAlts = toStringArray(data.imageAlts)
+    const existingImages = getExistingBlogImageNames(slug, rawImages)
+    const imageAltLookup = new Map<string, string>(
+      rawImages.map((imageName, index) => [imageName, rawImageAlts[index] || ''])
+    )
+    const imageAlts = existingImages.map((imageName) => {
+      const alt = imageAltLookup.get(imageName) || ''
+      return alt || `Photo from The Anchor in Stanwell Moor`
+    })
+
+    return {
+      slug,
+      title: data.title || '',
+      description: data.description || '',
+      date: data.date || '',
+      publishDate: toOptionalTrimmedString(data.publishDate),
+      author: data.author || '',
+      keywords: toStringArray(data.keywords),
+      tags: toStringArray(data.tags),
+      featured: data.featured || false,
+      noindex: data.noindex === true,
+      hero: data.hero || '',
+      heroAlt: toOptionalTrimmedString(data.heroAlt),
+      ogImage: toOptionalTrimmedString(data.ogImage),
+      ogImageAlt: toOptionalTrimmedString(data.ogImageAlt),
+      images: existingImages,
+      imageAlts,
+      content,
+      htmlContent: undefined  // Not computed — use getBlogPost() for full HTML
+    }
+  } catch (error) {
+    console.error(`Error reading blog post meta ${slug}:`, error)
+    return null
+  }
+}
+
+export function getAllBlogPosts(): BlogPost[] {
   const blogDir = path.join(contentDirectory, 'blog')
-  
+
   if (!fs.existsSync(blogDir)) {
     return []
   }
 
   const folders = fs.readdirSync(blogDir)
-  
-  const posts = await Promise.all(
-    folders.map(async (folder) => {
-      const post = await getBlogPost(folder)
-      return post
-    })
-  )
-  
+
+  const posts = folders
+    .map((folder) => getBlogPostMeta(folder))
+    .filter((post): post is BlogPost => post !== null)
+
   const now = new Date()
   return posts
-    .filter((post): post is BlogPost => post !== null)
     .filter(post => {
       if (post.publishDate) {
         return new Date(post.publishDate) <= now
@@ -227,15 +277,15 @@ export function distributeImages(
 }
 
 // Get featured blog posts
-export async function getFeaturedPosts(limit: number = 3): Promise<BlogPost[]> {
-  const allPosts = await getAllBlogPosts()
+export function getFeaturedPosts(limit: number = 3): BlogPost[] {
+  const allPosts = getAllBlogPosts()
   return allPosts
     .filter(post => post.featured)
     .slice(0, limit)
 }
 
 // Get posts by tag
-export async function getPostsByTag(tag: string): Promise<BlogPost[]> {
-  const allPosts = await getAllBlogPosts()
+export function getPostsByTag(tag: string): BlogPost[] {
+  const allPosts = getAllBlogPosts()
   return allPosts.filter(post => post.tags.includes(tag))
 }
