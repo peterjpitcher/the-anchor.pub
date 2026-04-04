@@ -4,24 +4,25 @@ import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { PhoneButton } from '@/components/PhoneButton'
 import { ManagementTableBookingForm } from '@/components/features/TableBooking/ManagementTableBookingForm'
 import { BookTableUpcomingEventsPanel } from '@/components/features/TableBooking/BookTableUpcomingEventsPanel'
-import { Section, Button } from '@/components/ui'
+import { Section, Button, Grid, Card, CardBody, SectionHeader } from '@/components/ui'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { SUNDAY_LUNCH_DEPOSIT_POLICY_COPY } from '@/lib/constants'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { RegretReduction, ValueProofStrip } from '@/components/psychology'
+import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 
 export const metadata: Metadata = {
   title: 'Book a Table at The Anchor | Near Heathrow | Free Parking',
-  description: 'Reserve your table at The Anchor near Heathrow with instant confirmation. Sunday roasts, pub classics & pizza. Free parking, dog-friendly. 7 mins from T5.',
+  description: 'Book a table at The Anchor near Heathrow with instant confirmation. Pub classics from £8.95, Sunday roasts from £19.99. Free parking, dog-friendly, 7 mins from T5. Walk-ins welcome.',
   openGraph: {
     title: 'Book a Table at The Anchor | Near Heathrow | Free Parking',
-    description: 'Reserve your table at The Anchor near Heathrow with instant confirmation. Sunday roasts, pub classics & pizza. Free parking, dog-friendly. 7 mins from T5.',
+    description: 'Book a table at The Anchor near Heathrow with instant confirmation. Pub classics from £8.95, Sunday roasts from £19.99. Free parking, dog-friendly, 7 mins from T5. Walk-ins welcome.',
     images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }]
   },
   twitter: getTwitterMetadata({
     title: 'Book a Table at The Anchor | Near Heathrow | Free Parking',
-    description: 'Reserve your table at The Anchor near Heathrow with instant confirmation. Sunday roasts, pub classics & pizza. Free parking, dog-friendly. 7 mins from T5.',
+    description: 'Book a table at The Anchor near Heathrow with instant confirmation. Pub classics from £8.95, Sunday roasts from £19.99. Free parking, dog-friendly, 7 mins from T5. Walk-ins welcome.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
   alternates: {
@@ -259,6 +260,91 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
           Full accessibility information &rarr;
         </Link>
       </Section>
+
+      {/* What to Expect section */}
+      <Section spacing="lg" container containerSize="lg" className="bg-anchor-bg-raised">
+        <SectionHeader
+          title="What to Expect When You Dine With Us"
+          subtitle="Good food, a warm welcome, and no fuss."
+          align="center"
+        />
+        <Grid cols={3} gap="md">
+          <Card>
+            <CardBody>
+              <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-2">Pub Classics &amp; Pizza</h3>
+              <p className="text-anchor-cream-text/70 text-sm mb-4">
+                From stone-baked pizzas and proper fish &amp; chips to hearty burgers and home-made pies — there&apos;s something for everyone on our kitchen menu, with mains from £8.95.
+              </p>
+              <Link href="/food-menu" className="text-anchor-gold-vivid font-semibold text-sm hover:underline">
+                View food menu &rarr;
+              </Link>
+            </CardBody>
+          </Card>
+
+          <Card>
+            <CardBody>
+              <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-2">Sunday Roast</h3>
+              <p className="text-anchor-cream-text/70 text-sm mb-4">
+                Our Sunday roasts are legendary locally — choose from beef, chicken, pork, or a vegetarian option. Roasts are served from noon, priced from £19.99, and must be pre-ordered when booking.
+              </p>
+              <Link href="/sunday-lunch" className="text-anchor-gold-vivid font-semibold text-sm hover:underline">
+                About Sunday roast &rarr;
+              </Link>
+            </CardBody>
+          </Card>
+
+          <Card>
+            <CardBody>
+              <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-2">Free Parking &amp; Easy Access</h3>
+              <p className="text-anchor-cream-text/70 text-sm mb-4">
+                We have 20 free on-site parking spaces and are just 7 minutes from Heathrow Terminal 5. Step-free access from the car park. Dogs welcome inside and out.
+              </p>
+              <Link href="/find-us" className="text-anchor-gold-vivid font-semibold text-sm hover:underline">
+                Get directions &rarr;
+              </Link>
+            </CardBody>
+          </Card>
+        </Grid>
+      </Section>
+
+      {/* FAQ section */}
+      <FAQAccordionWithSchema
+        title="Booking FAQs"
+        faqs={[
+          {
+            question: 'Do I need to book in advance?',
+            answer: 'Walk-ins are always welcome, but we recommend booking ahead — especially for Sunday roasts, larger groups (7+), and busy weekend evenings. Booking takes under a minute online and guarantees your table.'
+          },
+          {
+            question: 'Is there a deposit required?',
+            answer: 'A £10 per person deposit is required for groups of 7 or more. This is fully deductible from your final bill on the day. Sunday roast bookings also require a pre-payment to confirm your order.'
+          },
+          {
+            question: 'Can I book for a special occasion?',
+            answer: 'Yes — we love hosting birthdays, anniversaries, and celebrations. Use the notes field when booking to let us know, or call us on 01753 682707 to discuss any special arrangements.'
+          },
+          {
+            question: 'Do you cater for dietary requirements?',
+            answer: 'Yes. We offer vegetarian and vegan options and can accommodate most common allergies. Please add a note when booking, and our team will make sure your visit goes smoothly.'
+          },
+          {
+            question: 'How far are you from Heathrow Airport?',
+            answer: 'The Anchor is in Stanwell Moor, just 7 minutes from Heathrow Terminal 5 by car. We\'re a popular choice for pre-flight meals, layover dining, and airport hotel guests looking for a proper pub nearby.'
+          },
+          {
+            question: 'What are your kitchen hours?',
+            answer: 'Our kitchen is open Tuesday to Saturday from noon until 9pm, and Sunday from noon until 5pm. The kitchen is closed on Mondays. Check our food menu page for the latest hours, as they can vary on bank holidays.'
+          },
+          {
+            question: 'Is The Anchor dog-friendly?',
+            answer: 'Yes — dogs are welcome both inside the pub and in the beer garden. We have water bowls available and our team love a visit from a four-legged friend. Just mention it when you book if you\'re bringing a dog.'
+          },
+          {
+            question: 'Can I book for a Heathrow layover meal?',
+            answer: 'Absolutely. Many of our guests book a table during a long Heathrow layover. We\'re 7 minutes from T5, offer free parking, and our kitchen can turn around a full meal in good time. Call us if you have a tight window and we\'ll do our best.'
+          }
+        ]}
+      />
     </>
   )
 }
