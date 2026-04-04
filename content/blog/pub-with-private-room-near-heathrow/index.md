@@ -14,7 +14,7 @@ tags:
   - private-hire
   - guide
 featured: false
-hero: ""
+hero: "hero.jpg"
 images: []
 ---
 

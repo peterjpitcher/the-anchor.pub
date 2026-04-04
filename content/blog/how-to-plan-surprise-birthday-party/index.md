@@ -14,7 +14,7 @@ tags:
   - birthdays
   - guide
 featured: false
-hero: ""
+hero: "hero.jpg"
 images: []
 ---
 

@@ -2,6 +2,7 @@
 title: "Live Music Pubs Near Heathrow: Where to Find Live Gigs (2026)"
 description: "Looking for live music near Heathrow? From pub gigs to open mic nights, here's where to find live music within 15 minutes of the airport."
 date: "2026-04-07"
+hero: "hero.jpg"
 author: "Billy"
 keywords:
   - live music pubs heathrow

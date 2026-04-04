@@ -14,7 +14,7 @@ tags:
   - work-events
   - guide
 featured: false
-hero: ""
+hero: "hero.jpg"
 images: []
 ---
 
