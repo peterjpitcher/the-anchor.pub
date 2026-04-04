@@ -9,6 +9,7 @@ import {
     CardBody,
     Grid,
     GridItem,
+    SectionHeader,
 } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
@@ -35,17 +36,17 @@ import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
 export const metadata: Metadata = {
-    title: 'Live Music Pub Near Heathrow | Live Bands & Local Gigs | The Anchor',
+    title: 'Live Music Near Heathrow | Live at The Anchor | Bands & Open Mic',
     description:
-        'Enjoy live music near Heathrow at The Anchor. Featuring local bands, acoustic sets, and tribute acts in Stanwell Moor. Free entry, great atmosphere, and cold pints.',
+        'Live at The Anchor — new bands, acoustic sessions & open mic nights monthly in Stanwell Moor near Heathrow. Free entry, free parking, 7 mins from T5. See upcoming gigs.',
     openGraph: {
-        title: 'Live Music Near Heathrow | The Anchor',
-        description: 'Local bands, acoustic sets, and tribute acts. Free entry and a great pub atmosphere in Stanwell Moor.',
+        title: 'Live Music Near Heathrow | Live at The Anchor | Bands & Open Mic',
+        description: 'Live at The Anchor — new bands, acoustic sessions & open mic nights monthly in Stanwell Moor near Heathrow. Free entry, free parking, 7 mins from T5. See upcoming gigs.',
         images: [{ url: DEFAULT_EVENT_IMAGE, width: 1200, height: 630, alt: 'Events at The Anchor pub near Heathrow' }]
     },
     twitter: getTwitterMetadata({
-        title: 'Live Music Near Heathrow | The Anchor',
-        description: 'Local bands, acoustic sets, and tribute acts. Free entry and a great pub atmosphere in Stanwell Moor.',
+        title: 'Live Music Near Heathrow | Live at The Anchor | Bands & Open Mic',
+        description: 'Live at The Anchor — new bands, acoustic sessions & open mic nights monthly in Stanwell Moor near Heathrow. Free entry, free parking, 7 mins from T5. See upcoming gigs.',
         images: [DEFAULT_EVENT_IMAGE]
     }),
     alternates: {
@@ -118,7 +119,7 @@ const WHY_LOVE_IT = [
     {
         icon: '',
         title: 'Proper Pub Atmosphere',
-        body: 'Great acoustics, friendly crowds, and plenty of space to dance or chill. It’s exactly how a pub gig should feel.'
+        body: "Great acoustics, friendly crowds, and plenty of space to dance or chill. It's exactly how a pub gig should feel."
     },
     {
         icon: '',
@@ -131,7 +132,7 @@ const FAQS = [
     {
         question: 'When is live music on?',
         answer:
-            'We host live music regularly, typically on weekends or special events. Check our upcoming dates list below or the What’s On page for the latest schedule.'
+            "We host live music regularly, typically on weekends or special events. Check our upcoming dates list below or the What's On page for the latest schedule."
     },
     {
         question: 'Is there an entry fee?',
@@ -141,17 +142,32 @@ const FAQS = [
     {
         question: 'What kind of music do you have?',
         answer:
-            'We offer a mix of genres, from classic rock and pop covers to acoustic sessions and tribute acts. There’s something for everyone.'
+            "We offer a mix of genres, from classic rock and pop covers to acoustic sessions and tribute acts. There's something for everyone."
     },
     {
         question: 'Do I need to book a table?',
         answer:
-            'Booking is recommended if you want to guarantee a seat, especially for popular bands. However, there’s usually plenty of standing room at the bar.'
+            "Booking is recommended if you want to guarantee a seat, especially for popular bands. However, there's usually plenty of standing room at the bar."
     },
     {
         question: 'Can kids come to live music?',
         answer:
-            'Yes, until 9pm. After that, due to licensing, it’s 18+ only.'
+            "Yes, until 9pm. After that, due to licensing, it's 18+ only."
+    },
+    {
+        question: 'Is there live music near Heathrow Airport?',
+        answer:
+            'Yes — Live at The Anchor hosts bands and open mic nights monthly, just 7 minutes from Heathrow Terminal 5. Free entry, free parking.'
+    },
+    {
+        question: 'How can I perform at The Anchor?',
+        answer:
+            'Sign up for our open mic nights or contact us about performing as part of the Live at The Anchor programme. See our open mic page for details.'
+    },
+    {
+        question: 'Do you charge for live music events?',
+        answer:
+            'No — all Live at The Anchor gigs are free entry. Just turn up, grab a drink, and enjoy the music.'
     }
 ]
 
@@ -226,7 +242,7 @@ function MusicEventCards({ events }: { events: Event[] }) {
                                 )}
                                 <p className="text-sm text-anchor-cream-text/55">
                                     {openMic
-                                        ? 'Acoustic-friendly to start, with all performer types welcome for future events. Walk-ins are welcome, and you can book a table if you’d like a guaranteed seat.'
+                                        ? "Acoustic-friendly to start, with all performer types welcome for future events. Walk-ins are welcome, and you can book a table if you'd like a guaranteed seat."
                                         : 'Join us for a fantastic night of live music. Great beer, great atmosphere, and no cover charge.'}
                                 </p>
                             </div>
@@ -303,12 +319,22 @@ export default async function LiveMusicPage() {
 
             <Section spacing="sm" background="white">
                 <Container>
-                    <PageTitle className="text-center text-anchor-gold-vivid" seo={{ structured: true, speakable: true }}>
-                        Live Music Pub Near Heathrow – Bands, Gigs & Good Times
+                    <PageTitle as="h1" className="text-center mb-6" seo={{ structured: true, speakable: true }}>
+                        Live at The Anchor — Live Music Near Heathrow
                     </PageTitle>
                     <p className="text-lg text-anchor-cream-text/70 text-center max-w-3xl mx-auto">
                         Looking for live music near Heathrow? The Anchor brings you the best local talent, from foot-tapping acoustic sets to high-energy party bands. Located in Stanwell Moor, just minutes from the airport, we’re the perfect spot for music lovers to unwind with a pint and a gig. {heroDescription}
                     </p>
+                </Container>
+            </Section>
+
+            <Section spacing="md" background="gray">
+                <Container>
+                    <SectionHeader title="Live at The Anchor" subtitle="New bands, singer-songwriters & open mic nights — every month" />
+                    <div className="prose prose-invert max-w-3xl mx-auto">
+                        <p><strong>Live at The Anchor</strong> is our monthly live music programme showcasing local and touring musicians in an intimate pub setting. From acoustic singer-songwriters to full bands, every gig is free entry with a brilliant atmosphere.</p>
+                        <p>We also host regular open mic nights where anyone can sign up to perform — whether you are a seasoned musician or trying the stage for the first time.</p>
+                    </div>
                 </Container>
             </Section>
 
