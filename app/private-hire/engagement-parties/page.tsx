@@ -109,8 +109,8 @@ export default function EngagementPartiesPage() {
             <section className="py-8 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-cream-text mb-4">
-                            She Said Yes! Now Let's Party.
+                        <PageTitle className="text-anchor-cream-text mb-4" as="h1" seo={{ structured: true, speakable: true }}>
+                            Engagement Party Venue Near Heathrow & Staines
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">
                             Congratulations on your engagement! Whether you want a quiet family dinner to share the news or a big bash with all your friends, The Anchor provides the perfect backdrop for your first celebration as a fiancé(e).

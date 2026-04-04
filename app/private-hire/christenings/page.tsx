@@ -79,8 +79,8 @@ export default function ChristeningsPage() {
 
             <section className="py-12 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
-                    <PageTitle className="text-center mb-6" seo={{ structured: true, speakable: true }}>
-                        The Perfect Post-Church Celebration
+                    <PageTitle className="text-center mb-6" as="h1" seo={{ structured: true, speakable: true }}>
+                        Christening & Naming Ceremony Venue Near Heathrow
                     </PageTitle>
                     <div className="max-w-3xl mx-auto text-center">
                         <p className="text-lg text-anchor-cream-text/70 mb-8">

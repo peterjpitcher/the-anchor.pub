@@ -109,8 +109,8 @@ export default function MilestoneBirthdaysPage() {
             <section className="py-8 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-cream-text mb-4">
-                            Your Big Night Out
+                        <PageTitle className="text-anchor-cream-text mb-4" as="h1" seo={{ structured: true, speakable: true }}>
+                            Milestone Birthday Party Venue — 21st, 30th, 40th, 50th
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">
                             You only turn 30 (or 40, or 50...) once! Make it a night to remember at The Anchor. We specialize in hosting lively milestone parties where the atmosphere is buzzing, the drinks are flowing, and the food keeps everyone going.

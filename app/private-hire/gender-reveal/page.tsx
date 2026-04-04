@@ -109,8 +109,8 @@ export default function GenderRevealPage() {
             <section className="py-8 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-cream-text mb-4">
-                            Boy or Girl? The Big Moment Awaits.
+                        <PageTitle className="text-anchor-cream-text mb-4" as="h1" seo={{ structured: true, speakable: true }}>
+                            Gender Reveal Party Venue Near Heathrow
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">
                             Gender reveals are all about the moment—and the photos! The Anchor offers extensive outdoor space ideal for smoke cannons, balloon pops, or confetti showers, followed by a relaxed celebration with your loved ones.

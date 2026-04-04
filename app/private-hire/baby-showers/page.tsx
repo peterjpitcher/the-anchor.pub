@@ -79,8 +79,8 @@ export default function BabyShowersPage() {
 
             <section className="py-12 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
-                    <PageTitle className="text-center mb-6" seo={{ structured: true, speakable: true }}>
-                        The Perfect Daytime Celebration
+                    <PageTitle className="text-center mb-6" as="h1" seo={{ structured: true, speakable: true }}>
+                        Baby Shower Venue Near Ashford Hospital & Heathrow
                     </PageTitle>
                     <div className="max-w-3xl mx-auto text-center">
                         <p className="text-lg text-anchor-cream-text/70 mb-8">

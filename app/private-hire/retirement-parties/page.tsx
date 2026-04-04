@@ -109,8 +109,8 @@ export default function RetirementPartiesPage() {
             <section className="py-8 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-cream-text mb-4">
-                            Celebrate the Next Chapter
+                        <PageTitle className="text-anchor-cream-text mb-4" as="h1" seo={{ structured: true, speakable: true }}>
+                            Retirement Party & Leaving Do Venue Near Heathrow
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">
                             Whether it's a quiet lunch with the immediate team or a big evening bash with the whole company, The Anchor provides a warm, respectful, and relaxed setting to say "Thank You" and "Good Luck".

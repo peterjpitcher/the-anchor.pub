@@ -76,8 +76,8 @@ export default function WakesPage() {
 
             <section className="py-12 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container size="md">
-                    <PageTitle className="text-center mb-6" seo={{ structured: true, speakable: true }}>
-                        Compassionate & Professional Service
+                    <PageTitle className="text-center mb-6" as="h1" seo={{ structured: true, speakable: true }}>
+                        Wake Venue & Funeral Receptions Near Heathrow
                     </PageTitle>
                     <p className="text-lg text-anchor-cream-text/70 text-center mb-8">
                         We understand that organising a wake can be a difficult time. Our experienced team is here to handle the arrangements with sensitivity and care, ensuring a peaceful environment for you to remember your loved one.
