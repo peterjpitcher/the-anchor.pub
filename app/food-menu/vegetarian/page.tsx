@@ -14,6 +14,7 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { MenuRenderer } from '@/components/MenuRenderer'
 import { DietaryMenuNav } from '@/components/food/DietaryMenuNav'
+import { PageTitle } from '@/components/ui/typography/PageTitle'
 
 export const revalidate = 3600
 
@@ -171,6 +172,22 @@ export default async function VegetarianMenuPage() {
       question: 'Can I book a table for a vegetarian meal near Heathrow?',
       answer: 'Absolutely. Reserve online or call 01753 682707 \u2014 we\u2019re 7 minutes from Heathrow with free parking.',
     },
+    {
+      question: 'What vegetarian mains do you serve?',
+      answer: 'Our vegetarian mains include butternut squash, mixed bean and mature cheddar pie; Garden Veg Burger; Garden Stack; spinach and ricotta cannelloni; mac and cheese; and stone-baked pizzas. All are cooked fresh to order.',
+    },
+    {
+      question: 'Is the mac and cheese vegetarian?',
+      answer: 'Yes, our mac and cheese with crispy onions and garlic bread is fully vegetarian. It is one of our most popular comfort dishes.',
+    },
+    {
+      question: 'Are your vegetarian options suitable for Heathrow travellers?',
+      answer: 'Yes. We are just 7 minutes from Heathrow Terminal 5 with free parking. Many vegetarian travellers stop in before or after a flight for a proper sit-down meal rather than airport food.',
+    },
+    {
+      question: 'Can vegetarian dishes be made gluten-free?',
+      answer: 'Several of our vegetarian dishes are naturally gluten-free or can be adapted. Our stone-baked pizzas are available with a gluten-free base. Ask at the bar for full allergen and gluten-free information.',
+    },
   ]
 
   return (
@@ -229,16 +246,21 @@ export default async function VegetarianMenuPage() {
         <Container>
           <Card className="card-dark rounded-none">
             <CardBody>
-              <SectionHeader
-                title="Vegetarian Pub Food at The Anchor"
-                subtitle="Meat-free dishes we are genuinely proud of."
-              />
+              <PageTitle as="h1" className="text-anchor-cream-text mb-2">
+                Vegetarian Pub Food Near Heathrow
+              </PageTitle>
+              <p className="text-anchor-cream-text/55 mb-4">Meat-free dishes we are genuinely proud of.</p>
               <p className="text-anchor-cream-text/70">
                 Whether you&rsquo;re a committed vegetarian or just fancy a meat-free meal,
                 The Anchor serves over {totalVegetarianItems} vegetarian dishes across our full menu &mdash;
                 from a proper butternut squash pie to stone-baked pizzas, creamy mac and cheese,
                 and indulgent puddings. We&rsquo;re just 7 minutes from Heathrow Terminal 5
                 with 20 free parking spaces, so there&rsquo;s no excuse not to pop in.
+              </p>
+              <p className="text-anchor-cream-text/70 mt-3">
+                Our kitchen handles vegetarian orders with care. Every dish on this page is cooked fresh to order,
+                and we clearly label vegetarian and vegan items on our menu. For Sunday lunch, our butternut squash
+                wellington is a genuine centrepiece &mdash; pre-order by Saturday 1pm to guarantee yours.
               </p>
               <ul className="mt-4 space-y-2 text-anchor-cream-text/70">
                 <li>&bull; Vegetarian pies, burgers, pasta and pizzas &mdash; all cooked fresh to order.</li>

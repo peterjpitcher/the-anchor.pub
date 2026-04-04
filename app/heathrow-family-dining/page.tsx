@@ -11,6 +11,7 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
     title: 'Family Friendly Pub Near Heathrow | Kids Menu & Garden',
@@ -42,6 +43,48 @@ export default function FamilyDiningPage() {
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify([breadcrumbSchema]) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify({
+                    "@context": "https://schema.org",
+                    "@type": "Restaurant",
+                    "name": "The Anchor — Family Dining Near Heathrow",
+                    "description": "Family-friendly pub restaurant near Heathrow Airport with kids menu, high chairs, large beer garden, and free parking.",
+                    "url": "https://www.the-anchor.pub/heathrow-family-dining",
+                    "telephone": "+441753682707",
+                    "address": {
+                        "@type": "PostalAddress",
+                        "streetAddress": "The Anchor, Horton Road",
+                        "addressLocality": "Stanwell Moor",
+                        "addressRegion": "Surrey",
+                        "postalCode": "TW19 6AQ",
+                        "addressCountry": "GB"
+                    },
+                    "geo": {
+                        "@type": "GeoCoordinates",
+                        "latitude": 51.462509,
+                        "longitude": -0.502067
+                    },
+                    "aggregateRating": {
+                        "@type": "AggregateRating",
+                        "ratingValue": "4.6",
+                        "bestRating": "5",
+                        "reviewCount": "238"
+                    },
+                    "amenityFeature": [
+                        { "@type": "LocationFeatureSpecification", "name": "High Chairs", "value": true },
+                        { "@type": "LocationFeatureSpecification", "name": "Children's Menu", "value": true },
+                        { "@type": "LocationFeatureSpecification", "name": "Baby Changing Facilities", "value": true },
+                        { "@type": "LocationFeatureSpecification", "name": "Beer Garden", "value": true },
+                        { "@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true },
+                        { "@type": "LocationFeatureSpecification", "name": "Dog Friendly", "value": true },
+                        { "@type": "LocationFeatureSpecification", "name": "Wheelchair Accessible", "value": true }
+                    ],
+                    "servesCuisine": ["British", "Pub Food", "Pizza"],
+                    "acceptsReservations": true,
+                    "priceRange": "££"
+                }) }}
             />
 
             <HeroWrapper
@@ -81,8 +124,8 @@ export default function FamilyDiningPage() {
             <section className="py-8 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-cream-text mb-4">
-                            Stress-Free Stopovers for Parents
+                        <PageTitle as="h1" className="text-anchor-cream-text mb-4">
+                            Family-Friendly Pub &amp; Restaurant Near Heathrow Airport
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">
                             Traveling with children can be exhausting. The Anchor offers an oasis of calm (and space!) just minutes from the airport. Escape the crowded terminal and let the little ones stretch their legs in our secure environment.

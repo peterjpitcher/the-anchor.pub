@@ -234,6 +234,31 @@ export default async function BurgerMenuPage() {
                 </Container>
             </section>
 
+            <section className="section-spacing bg-anchor-bg border-t border-anchor-gold/15">
+                <Container>
+                    <div className="max-w-3xl mx-auto">
+                        <SectionHeader
+                            title="How We Make Our Burgers"
+                            subtitle="The smash burger method — and why it matters."
+                        />
+                        <div className="prose prose-invert max-w-none text-anchor-cream-text/70 space-y-4">
+                            <p>
+                                We use the smash burger technique because it produces a better burger — full stop. Each patty starts as a ball of 100% British chuck steak mince, hand-formed to order. When it hits the hot griddle, we press it flat with a heavy press, creating maximum contact between the meat and the cast iron surface.
+                            </p>
+                            <p>
+                                That contact is everything. The intense heat triggers the Maillard reaction across the entire face of the patty, forming a thin, crispy, deeply caramelised crust that a thick pub burger simply cannot achieve. The result is a patty that is simultaneously crispy on the outside and juicy in the centre — no pink, but plenty of flavour.
+                            </p>
+                            <p>
+                                We toast our brioche buns on the same griddle so they soak up that flavour and hold their structure. Every burger comes with chips included — proper, seasoned chips, not an afterthought. We keep it simple: quality chuck steak, salt, pepper, and a very hot griddle.
+                            </p>
+                            <p>
+                                Not a meat eater? Our Garden Veg Burger and Garden Stack are proper vegetarian options — not token additions. We also accommodate vegan requests where possible. Just ask at the bar.
+                            </p>
+                        </div>
+                    </div>
+                </Container>
+            </section>
+
             <FAQAccordionWithSchema
                 faqs={[
                     {
@@ -247,6 +272,18 @@ export default async function BurgerMenuPage() {
                     {
                         question: "Are there vegetarian options?",
                         answer: "Yes — try our Vegetable Burger or Veggie Stack."
+                    },
+                    {
+                        question: "Are your burgers good for Heathrow travellers?",
+                        answer: "Absolutely. We're just 7 minutes from Terminal 5 with free parking. Many guests stop in for a burger before or after a flight — much better than airport food."
+                    },
+                    {
+                        question: "Can I get a burger as takeaway?",
+                        answer: "Yes, call us on 01753 682707 to place a takeaway order. Collection from the bar."
+                    },
+                    {
+                        question: "What makes a smash burger different?",
+                        answer: "A smash burger is pressed flat on a very hot griddle, creating a thin, crispy, caramelised patty. It's juicier and more flavourful than a thick pub burger because of the increased surface area in contact with the heat."
                     }
                 ]}
                 className="bg-anchor-bg"
