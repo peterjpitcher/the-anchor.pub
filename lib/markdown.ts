@@ -34,6 +34,7 @@ export interface BlogPost {
   title: string
   description: string
   date: string
+  publishDate?: string
   author: string
   keywords: string[]
   tags: string[]
@@ -76,6 +77,12 @@ export async function getAllBlogPosts(): Promise<BlogPost[]> {
   
   return posts
     .filter((post): post is BlogPost => post !== null)
+    .filter(post => {
+      if (post.publishDate) {
+        return new Date(post.publishDate) <= new Date()
+      }
+      return true
+    })
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 }
 
@@ -114,6 +121,7 @@ export async function getBlogPost(slug: string): Promise<BlogPost | null> {
       title: data.title || '',
       description: data.description || '',
       date: data.date || '',
+      publishDate: toOptionalTrimmedString(data.publishDate),
       author: data.author || '',
       keywords: toStringArray(data.keywords),
       tags: toStringArray(data.tags),

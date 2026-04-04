@@ -29,6 +29,8 @@ export const metadata: Metadata = {
   }
 }
 
+export const revalidate = 3600
+
 // Configuration
 const POSTS_PER_PAGE = 12
 

@@ -10,6 +10,8 @@ import { getBlogHeroUrl, BLOG_FALLBACK_IMAGE } from '@/lib/blog-image'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
+export const revalidate = 3600
+
 function normalizeTagSlug(tag: string): string {
   try {
     return decodeURIComponent(tag).trim().toLowerCase()
