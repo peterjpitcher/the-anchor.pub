@@ -18,16 +18,16 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { getBusinessStats } from '@/lib/schema-with-reviews'
 
 export const metadata: Metadata = {
-  title: 'Traditional Ashford Pub | The Anchor - Heathrow Pub & Dining',
+  title: 'Pubs in Ashford Middlesex | Traditional Pub & Free Parking | The Anchor',
   description: `${BRAND.name} - traditional British pub 10 mins from Ashford. Free parking, Sunday roasts, quiz nights & family-friendly. Easy A30 access.`,
   openGraph: {
-    title: 'The Anchor - Traditional Pub Near Ashford',
+    title: 'Pubs in Ashford Middlesex | Traditional Pub & Free Parking | The Anchor',
     description: 'Just 10 minutes from Ashford with free parking. Sunday roasts, British classics, and regular events.',
     images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
     type: 'website',
   },
   twitter: getTwitterMetadata({
-    title: 'The Anchor - Traditional Pub Near Ashford',
+    title: 'Pubs in Ashford Middlesex | Traditional Pub & Free Parking | The Anchor',
     description: 'Just 10 minutes from Ashford with free parking. Sunday roasts, British classics, and regular events.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
@@ -562,11 +562,11 @@ export default async function AshfordPubPage() {
             />
             <div className="prose prose-invert max-w-none text-anchor-cream-text/70 space-y-4">
               <p>
-                Ashford is closer to The Anchor than most people realise. Head west on the A30 past Clockhouse
+                Ashford Middlesex is closer to The Anchor than most people realise. Head west on the A30 past Clockhouse
                 Roundabout, follow it for a couple of miles, and turn right onto Horton Road — eight to ten minutes
                 door to door. You cross the dual carriageway and suddenly you are in a proper village setting with
-                fields, a church, and a pub that has been pouring pints since 1751. It feels like a different world
-                from suburban Ashford, but it is barely three miles away.
+                fields, a church, and a pub that has been pouring pints since 1751. If you are searching for pubs in Ashford
+                that offer something beyond the usual high-street chains, the short drive is well worth it.
               </p>
               <p>
                 We see a lot of Ashford Hospital staff, especially those finishing late shifts and looking for

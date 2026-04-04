@@ -80,7 +80,7 @@ export default function FamilyFriendlyPage() {
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle className="text-anchor-cream-text mb-4">
-                            Relax, You're Welcome Here
+                            Family-Friendly Pub Near Heathrow
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">
                             We know eating out with kids can sometimes be stressful. At The Anchor, we aim to make it easy. We have plenty of space, staff who are great with little ones, and a menu that keeps everyone happy.

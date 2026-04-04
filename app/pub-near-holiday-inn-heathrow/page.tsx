@@ -109,7 +109,7 @@ export default function PubNearHolidayInnHeathrowPage() {
               Pub Near Holiday Inn Heathrow
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
-              Staying at a Holiday Inn near Heathrow? The Anchor is just 12 minutes away — a family-friendly British pub with home-cooked food, real ales, a beer garden and free parking. Much more fun than hotel dining.
+              Staying at a Holiday Inn near Heathrow? The Anchor is just 12 minutes away — a family-friendly British pub with home-cooked food, real ales, a beer garden and free parking. If you&apos;re looking for places to eat near Heathrow that aren&apos;t a hotel chain, we&apos;re one of the best pubs near Heathrow Airport for families.
             </p>
           </div>
         </Container>

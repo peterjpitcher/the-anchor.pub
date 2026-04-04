@@ -15,16 +15,16 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { getBusinessStats } from '@/lib/schema-with-reviews'
 
 export const metadata: Metadata = {
-    title: 'Colnbrook & Poyle Pub | The Anchor - Food & Drinks',
+    title: 'Pubs in Colnbrook & Poyle | Food, Drinks & Free Parking | The Anchor',
     description: `${BRAND.name} is the perfect spot for Poyle Industrial Estate workers and Colnbrook residents. Great food, cold pints, and free parking just 2 miles away.`,
     openGraph: {
-        title: 'The Anchor - Pub Near Colnbrook & Poyle',
+        title: 'Pubs in Colnbrook & Poyle | Food, Drinks & Free Parking | The Anchor',
         description: 'Perfect for after-work drinks or a team lunch. Just minutes from Poyle Industrial Estate and Colnbrook.',
         images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({
-        title: 'The Anchor - Pub Near Colnbrook & Poyle',
+        title: 'Pubs in Colnbrook & Poyle | Food, Drinks & Free Parking | The Anchor',
         description: 'Perfect for after-work drinks or a team lunch. Just minutes from Poyle Industrial Estate and Colnbrook.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
@@ -148,7 +148,7 @@ export default async function ColnbrookPubPage() {
                             Minutes from Poyle Industrial Estate & Colnbrook
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">
-                            Finish your shift and relax. We are the go-to pub for businesses in Poyle and residents of Colnbrook looking for quality food and a great atmosphere.
+                            Finish your shift and relax. If you are looking for pubs in Colnbrook, we are the go-to spot for businesses in Poyle and residents alike — quality food and a great atmosphere guaranteed.
                         </p>
                     </div>
                 </Container>

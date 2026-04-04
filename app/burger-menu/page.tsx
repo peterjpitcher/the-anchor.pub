@@ -139,7 +139,7 @@ export default async function BurgerMenuPage() {
                             Serious About Burgers
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">
-                            A pub burger should be a main event, not an afterthought. We use quality chuck steak mince for our patties, smash them on the grill for that caramelised crust, and serve them pink-free but juicy.
+                            A pub burger should be a main event, not an afterthought. If you're wondering where to eat near Heathrow, our smash burgers are a great place to start. We use quality chuck steak mince for our patties, smash them on the grill for that caramelised crust, and serve them pink-free but juicy.
                         </p>
                     </div>
                 </Container>

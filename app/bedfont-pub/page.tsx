@@ -13,15 +13,15 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-  title: 'Bedfont Pub | The Anchor - 5 Minutes Away | Surrey',
+  title: 'Pub Near Bedfont | 5 Minutes Away | Free Parking | The Anchor',
   description: 'The Anchor - 5 mins from Bedfont. Traditional British pub with free parking, great food & regular events. Perfect local for Bedfont residents.',
   openGraph: {
-    title: 'The Anchor - Heathrow Pub & Dining - Your Local Pub Near Bedfont',
+    title: 'Pub Near Bedfont | 5 Minutes Away | Free Parking | The Anchor',
     description: 'Just 5 minutes from Bedfont with free parking and great food.',
     images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
   },
   twitter: getTwitterMetadata({
-    title: 'The Anchor - Heathrow Pub & Dining - Your Local Pub Near Bedfont',
+    title: 'Pub Near Bedfont | 5 Minutes Away | Free Parking | The Anchor',
     description: 'Just 5 minutes from Bedfont with free parking and great food.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),

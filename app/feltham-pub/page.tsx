@@ -12,16 +12,16 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-  title: 'Feltham Pub Alternative - Free Parking & Sunday Roast | The Anchor',
-  description: 'Head 10 minutes from Feltham to The Anchor for free parking, Sunday roasts, stone-baked pizzas and quiz nights in a relaxed village setting.',
+  title: 'Pub Near Feltham | Free Parking & Sunday Roasts | The Anchor',
+  description: 'Looking for pubs near Feltham? The Anchor is just 10 minutes away with free parking, Sunday roasts from £19.99, stone-baked pizzas and quiz nights in a relaxed village pub.',
   openGraph: {
-    title: 'Feltham Pub Alternative - The Anchor Stanwell Moor',
-    description: '10 minutes from Feltham with free parking, Sunday roasts, stone-baked pizzas and quiz nights.',
+    title: 'Pub Near Feltham | Free Parking & Sunday Roasts | The Anchor',
+    description: 'Pubs near Feltham — just 10 minutes away with free parking, Sunday roasts, stone-baked pizzas and quiz nights.',
     images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
   },
   twitter: getTwitterMetadata({
-    title: 'Feltham Pub Alternative - The Anchor Stanwell Moor',
-    description: '10 minutes from Feltham with free parking, Sunday roasts, stone-baked pizzas and quiz nights.',
+    title: 'Pub Near Feltham | Free Parking & Sunday Roasts | The Anchor',
+    description: 'Pubs near Feltham — just 10 minutes away with free parking, Sunday roasts, stone-baked pizzas and quiz nights.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
   alternates: {
@@ -137,7 +137,7 @@ export default function FelthamPubPage() {
               }}
               className="text-anchor-cream-text mb-4"
             >
-              Feltham Pub - Traditional British Pub Near Feltham
+              Pub Near Feltham — Traditional British Pub with Free Parking
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
               Your local traditional pub just 10 minutes from Feltham with free parking
@@ -454,11 +454,12 @@ export default function FelthamPubPage() {
                 parking at the other end. It is a much more relaxed way to keep the evening going.
               </p>
               <p>
-                Feltham's own pub scene is fairly thin on the ground these days — mostly chains, a handful of
-                takeaways, and the odd sports bar. If you want a traditional pub with character, a proper beer garden
-                under the Heathrow flight path, and events like Music Bingo and Thursday quiz nights, it is well worth
-                the short drive. Plenty of Feltham regulars have made The Anchor their go-to midweek escape, and once
-                you have tried a lazy Sunday roast here you will wonder why you ever queued on Feltham High Street.
+                If you have been searching for pubs in Feltham, you will know the options are fairly thin on the ground
+                these days — mostly chains, a handful of takeaways, and the odd sports bar. For those after pubs near Feltham
+                with real character, a proper beer garden under the Heathrow flight path, and events like Music Bingo and
+                Thursday quiz nights, The Anchor is well worth the short drive. Plenty of Feltham regulars have made us their
+                go-to midweek escape, and once you have tried a lazy Sunday roast here you will wonder why you ever queued
+                on Feltham High Street.
               </p>
             </div>
           </div>

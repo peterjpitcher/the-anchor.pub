@@ -157,7 +157,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/pub-near-renaissance-heathrow',
     '/m25-junction-14-pub',
     '/beer-garden',
-    '/pub-garden-heathrow',
     '/plane-spotting-heathrow',
     '/dog-friendly-pub-heathrow',
     '/family-friendly-pub-heathrow',

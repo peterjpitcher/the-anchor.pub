@@ -18,15 +18,15 @@ import { PARKING } from '@/lib/constants'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-  title: 'Pub Near Heathrow Terminal 2 | 11 Mins from T2 | Free Parking | The Anchor',
+  title: 'Pubs Near Heathrow Terminal 2 | 11 Mins from T2 | Free Parking | The Anchor',
   description: "Nearest pub to Heathrow Terminal 2 (Queen's Terminal). 11 minutes by taxi, free parking if driving. Home-cooked British food, dog-friendly beer garden. Book a table today.",
   openGraph: {
-    title: "Pub Near Heathrow Terminal 2 | 11 Mins Away | Free Parking",
+    title: "Pubs Near Heathrow Terminal 2 | 11 Mins Away | Free Parking",
     description: "11 minutes from T2 (Queen's Terminal). Free parking for 20 cars. Home-cooked British food & dog-friendly beer garden.",
     images: [{ url: DEFAULT_NEAR_HEATHROW_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Heathrow Airport' }],
   },
   twitter: getTwitterMetadata({
-    title: "Pub Near Heathrow Terminal 2 | 11 Mins Away | Free Parking",
+    title: "Pubs Near Heathrow Terminal 2 | 11 Mins Away | Free Parking",
     description: "11 minutes from T2 (Queen's Terminal). Free parking for 20 cars. Home-cooked British food & dog-friendly beer garden.",
     images: [DEFAULT_NEAR_HEATHROW_IMAGE]
   }),
@@ -42,7 +42,7 @@ export default function Terminal2Page() {
       {/* Hero Section */}
       <HeroWrapper
         route="/near-heathrow/terminal-2"
-        title="Your Local Pub Near Heathrow Terminal 2"
+        title="Pubs Near Heathrow Terminal 2 — The Anchor"
         description="Perfect for Star Alliance travelers • Free parking • Traditional British hospitality"
         variant="default"
         breadcrumbs={[
@@ -96,7 +96,7 @@ export default function Terminal2Page() {
       <section className="section-spacing bg-anchor-bg-card">
         <Container>
           <PageTitle className="text-center text-anchor-cream-text" seo={{ structured: true, speakable: true }}>
-            Pub Near Heathrow Terminal 2 - The Anchor
+            Pubs Near Heathrow Terminal 2 - The Anchor
           </PageTitle>
         </Container>
       </section>
@@ -470,8 +470,8 @@ export default function Terminal2Page() {
 
             <div className="prose prose-lg max-w-none text-anchor-cream-text/70 mb-12">
               <p className="text-xl text-center mb-8 text-anchor-cream-text/70">
-                Whether you're flying with Lufthansa, United Airlines, Air Canada, or any of the 23 airlines 
-                operating from Terminal 2, The Anchor provides the perfect escape from the airport bustle.
+                Looking for pubs near Heathrow Terminal 2? Whether you're flying with Lufthansa, United Airlines, Air Canada, or any of the 23 airlines
+                operating from T2, The Anchor provides the perfect escape from the airport bustle.
               </p>
               
               <div className="grid md:grid-cols-2 gap-8">

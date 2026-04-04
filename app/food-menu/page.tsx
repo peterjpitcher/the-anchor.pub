@@ -143,16 +143,16 @@ function deriveKitchenStatusData(hours: BusinessHours | null): KitchenStatusData
 }
 
 export const metadata: Metadata = {
-  title: 'Pub Food Menu Near Heathrow | Pizza, Pies & Sunday Roasts',
-  description: 'Pub food from £8.95 at The Anchor near Heathrow. Stone-baked pizza, beer-battered fish & chips, gourmet burgers & pies. Kitchen open Tue-Sun. Free parking, 7 mins from T5. Book a table online.',
+  title: 'Where to Eat Near Heathrow Airport | Pub Food Menu | The Anchor',
+  description: 'Where to eat near Heathrow Airport? The Anchor serves fish & chips from £15, stone-baked pizza from £12, burgers from £11 and Sunday roasts from £19.99. Free parking, 7 mins from T5. Book a table.',
   openGraph: {
-    title: 'Pub Food Menu Near Heathrow | Pizza, Pies & Sunday Roasts',
-    description: 'Pub classics, stone-baked pizza, pies & fish and chips at The Anchor near Heathrow. Kitchen open Tuesday-Sunday. Free parking, 7 mins from T5. View menu online.',
+    title: 'Where to Eat Near Heathrow Airport | Pub Food Menu | The Anchor',
+    description: 'Looking for restaurants near Heathrow? The Anchor serves proper pub food — fish & chips, pizza, pies and Sunday roasts. Free parking, 7 mins from T5. View our menu.',
     images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg'],
   },
   twitter: getTwitterMetadata({
-    title: 'Pub Food Menu Near Heathrow | Pizza, Pies & Sunday Roasts',
-    description: 'Pub classics, stone-baked pizza, pies & fish and chips at The Anchor near Heathrow. Kitchen open Tuesday-Sunday. Free parking, 7 mins from T5. View menu online.',
+    title: 'Where to Eat Near Heathrow Airport | Pub Food Menu | The Anchor',
+    description: 'Looking for restaurants near Heathrow? The Anchor serves proper pub food — fish & chips, pizza, pies and Sunday roasts. Free parking, 7 mins from T5. View our menu.',
     images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg']
   }),
   alternates: {
@@ -252,8 +252,8 @@ export default async function FoodMenuPage() {
 
       <HeroWrapper
         route="/food-menu"
-        title="Food Menu at The Anchor Near Heathrow"
-        description="Proper British pub food, cooked to order. Pies, fish & chips, stone-baked pizzas and Sunday roasts — pull up a chair and make yourself at home."
+        title="Where to Eat Near Heathrow Airport — Our Menu"
+        description="Looking for pub food near Heathrow Airport? Our fish & chips, stone-baked pizzas, hearty pies and Sunday roasts are all cooked fresh to order — pull up a chair and make yourself at home."
         variant="default"
         breadcrumbs={[{ name: 'Food & Drink' }]}
         tags={[
@@ -322,10 +322,11 @@ export default async function FoodMenuPage() {
                 subtitle="Honest food, a warm welcome and a menu that brings people back week after week."
               />
               <p className="text-anchor-cream-text/70">
-                The Anchor is the kind of pub where you're welcome whether you're a regular or it's
-                your first visit. Our menu is built around the classics — golden pies, beer-battered fish &amp; chips,
-                stone-baked pizzas and hearty pub favourites, all cooked fresh to order. Come in, find a seat and
-                stay a while.
+                Looking for restaurants near Heathrow Airport? The Anchor is the kind of pub where you&apos;re welcome
+                whether you&apos;re a regular or it&apos;s your first visit. Our menu is built around the classics — golden pies,
+                beer-battered fish &amp; chips from &pound;15, stone-baked pizzas from &pound;12, burgers from &pound;11 and hearty
+                pub favourites, all cooked fresh to order. Whether you need food near Heathrow Airport before a flight
+                or a relaxed lunch near Heathrow on a day out, come in, find a seat and stay a while.
               </p>
               <ul className="mt-4 space-y-2 text-anchor-cream-text/70">
                 <li>• Proper British pub classics, cooked fresh to order every day.</li>

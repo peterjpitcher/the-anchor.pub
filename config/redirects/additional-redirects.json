@@ -485,5 +485,10 @@
     "source": "/drinks/williams-chase-pink-grapefruit-gin",
     "destination": "/drinks",
     "permanent": true
+  },
+  {
+    "source": "/pub-garden-heathrow",
+    "destination": "/beer-garden",
+    "permanent": true
   }
 ]

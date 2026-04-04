@@ -387,7 +387,7 @@ export default async function QuizNightPage() {
             Pub Quiz Night at The Anchor Near Heathrow
           </PageTitle>
           <p className="text-lg text-anchor-cream-text/70 text-center max-w-3xl mx-auto">
-            Once a month we turn The Anchor into a trivia night HQ for Stanwell Moor, Staines, Ashford, Bedfont and stopover crews. {heroDescription}
+            Looking for things to do near Heathrow? Once a month we turn The Anchor into a trivia night HQ for Stanwell Moor, Staines, Ashford, Bedfont and stopover crews. {heroDescription}
           </p>
         </Container>
       </Section>

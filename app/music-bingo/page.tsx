@@ -337,7 +337,7 @@ export default async function MusicBingoPage() {
             Music Bingo Near Heathrow - Stanwell Moor, Staines and Surrey
           </PageTitle>
           <p className="mx-auto max-w-3xl text-center text-lg text-anchor-cream-text/70">
-            Looking for a music bingo night near Heathrow that feels like a proper local? We swap bingo numbers for
+            Looking for a music bingo night near Heathrow that feels like a proper local? It's one of the best things to do near Heathrow for a fun evening out. We swap bingo numbers for
             song clips, hand out prizes every round, and keep the atmosphere warm and welcoming. {heroDescription}
           </p>
         </Container>

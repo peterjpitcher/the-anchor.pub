@@ -305,7 +305,7 @@ export default async function CashBingoPage() {
             Cash Bingo Night & Bingo Games – Stanwell Moor & Heathrow
           </PageTitle>
           <p className="text-lg text-anchor-cream-text/70 text-center max-w-3xl mx-auto">
-            Searching for cash bingo games near Heathrow? Every few weeks we turn The Anchor into a buzzing bingo hall and bingo room with bingo games for money, cash prizes, hot food from the kitchen and a friendly crowd of locals, cabin crew and Stanwell Moor neighbours. {heroDescription}
+            Searching for cash bingo games near Heathrow? If you're after things to do near Heathrow, our bingo nights are a local favourite. Every few weeks we turn The Anchor into a buzzing bingo hall and bingo room with bingo games for money, cash prizes, hot food from the kitchen and a friendly crowd of locals, cabin crew and Stanwell Moor neighbours. {heroDescription}
           </p>
           <div className="flex justify-center mt-4">
             <PsychBadge variant="prize" label="Cash prizes every game" />

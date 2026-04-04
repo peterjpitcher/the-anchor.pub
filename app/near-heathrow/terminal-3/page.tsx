@@ -20,15 +20,15 @@ import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 
 export const metadata: Metadata = {
-  title: 'Pub Near Heathrow Terminal 3 | 11 Mins from T3 | Free Parking | The Anchor',
+  title: 'Pubs Near Heathrow Terminal 3 | 11 Mins from T3 | Free Parking | The Anchor',
   description: 'Nearest independent pub to Heathrow Terminal 3. 11 minutes by taxi, free parking if driving. Family-friendly, Sunday roasts & stone-baked pizza. Popular with Virgin & Emirates travellers.',
   openGraph: {
-    title: 'Pub Near Heathrow Terminal 3 | 11 Mins Away | Free Parking',
+    title: 'Pubs Near Heathrow Terminal 3 | 11 Mins Away | Free Parking',
     description: '11 minutes from T3 by taxi. Free parking. Family-friendly dining, Sunday roasts & stone-baked pizza. Popular with Virgin & Emirates travellers.',
     images: [{ url: DEFAULT_NEAR_HEATHROW_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Heathrow Airport' }],
   },
   twitter: getTwitterMetadata({
-    title: 'Pub Near Heathrow Terminal 3 | 11 Mins Away | Free Parking',
+    title: 'Pubs Near Heathrow Terminal 3 | 11 Mins Away | Free Parking',
     description: '11 minutes from T3 by taxi. Free parking. Family-friendly dining, Sunday roasts & stone-baked pizza. Popular with Virgin & Emirates travellers.',
     images: [DEFAULT_NEAR_HEATHROW_IMAGE]
   }),
@@ -50,7 +50,7 @@ export default function Terminal3Page() {
       {/* Hero Section */}
       <HeroWrapper
         route="/near-heathrow/terminal-3"
-        title="Your Family Pub Near Heathrow Terminal 3"
+        title="Pubs Near Heathrow Terminal 3 — The Anchor"
         description="Perfect for Virgin Atlantic & Emirates travelers • Free parking • British hospitality"
         variant="default"
         tags={[
@@ -95,7 +95,7 @@ export default function Terminal3Page() {
           <div className="max-w-4xl mx-auto bg-anchor-bg-raised border border-anchor-gold/15 rounded-2xl p-6">
             <h2 className="text-2xl font-bold text-anchor-gold-vivid mb-3">Key Info For Terminal 3 Travellers</h2>
             <p className="text-anchor-cream-text/70 mb-4">
-              Swap Terminal 3 hotel dining for a proper village pub. Friendly staff, fair prices and space for luggage make The Anchor ideal for Virgin Atlantic and Emirates passengers.
+              One of the best pubs near Heathrow Terminal 3, we offer a proper village pub alternative to hotel dining. Friendly staff, fair prices and space for luggage make The Anchor ideal for Virgin Atlantic and Emirates passengers.
             </p>
             <div className="grid gap-3 md:grid-cols-2 text-anchor-cream-text/70">
 	              <div className="flex items-start gap-2">
@@ -153,7 +153,7 @@ export default function Terminal3Page() {
       <section className="section-spacing bg-anchor-bg-card">
         <Container>
           <PageTitle className="text-center text-anchor-cream-text" seo={{ structured: true, speakable: true }}>
-            Pub Near Heathrow Terminal 3 - The Anchor
+            Pubs Near Heathrow Terminal 3 - The Anchor
           </PageTitle>
         </Container>
       </section>

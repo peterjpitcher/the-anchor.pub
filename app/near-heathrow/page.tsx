@@ -16,16 +16,16 @@ import { PhoneButton } from '@/components/PhoneButton'
 import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 
 export const metadata: Metadata = {
-  title: 'Closest Pub to Heathrow | 7 Mins from T5 | Free Parking',
-  description: 'Highest-rated pub near Heathrow Airport. 7 mins from T5, 11 mins from T2/T3, 12 mins from T4. Free parking, dog-friendly beer garden, British pub food. Book a table.',
+  title: 'Pubs Near Heathrow Airport | 7 Mins from T5 | Free Parking | The Anchor',
+  description: 'Looking for pubs near Heathrow Airport? The Anchor is 7 mins from T5 with free parking, a dog-friendly beer garden and proper pub food. One of the best restaurants near Heathrow for pre-flight dining.',
   openGraph: {
-    title: 'Closest Pub to Heathrow | 7 Mins from T5 | Free Parking',
-    description: 'Highest-rated pub near Heathrow Airport. 7 mins from T5, 11 mins from T2/T3, 12 mins from T4. Free parking, dog-friendly beer garden, British pub food. Book a table.',
+    title: 'Pubs Near Heathrow Airport | 7 Mins from T5 | Free Parking | The Anchor',
+    description: 'Looking for pubs near Heathrow Airport? The Anchor is 7 mins from T5 with free parking, a dog-friendly beer garden and proper pub food. One of the best restaurants near Heathrow for pre-flight dining.',
     images: [{ url: DEFAULT_NEAR_HEATHROW_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Heathrow Airport' }],
   },
   twitter: getTwitterMetadata({
-    title: 'Closest Pub to Heathrow | 7 Mins from T5 | Free Parking',
-    description: '7 minutes from Heathrow Terminal 5 with free parking, British pub food and real ales.',
+    title: 'Pubs Near Heathrow Airport | 7 Mins from T5 | Free Parking | The Anchor',
+    description: 'Looking for pubs near Heathrow? The Anchor is 7 mins from T5 with free parking, proper pub food and real ales.',
     images: [DEFAULT_NEAR_HEATHROW_IMAGE]
   }),
   alternates: {
@@ -44,8 +44,8 @@ export default function NearHeathrowPage() {
       {/* Hero Section */}
       <HeroWrapper
         route="/near-heathrow"
-        title="The Closest Pub to Heathrow Airport"
-        description="Just 7 minutes from Terminal 5 • 11 minutes from Terminals 2 & 3"
+        title="Pubs Near Heathrow Airport — The Anchor"
+        description="The best pub near Heathrow Airport — just 7 minutes from Terminal 5 with free parking, proper food and a beer garden under the flight path."
         variant="default"
         breadcrumbs={[
           { name: 'Near Heathrow' }
@@ -104,7 +104,7 @@ export default function NearHeathrowPage() {
       <section className="bg-anchor-bg-raised border-b border-anchor-gold/15 py-6">
         <Container>
           <p className="text-center text-lg md:text-xl text-anchor-cream-text/80 max-w-4xl mx-auto leading-relaxed">
-            The Anchor is the closest independent pub to Heathrow Airport, located in Stanwell Moor just 7 minutes from Terminal 5. We offer freshly prepared food, a dog-friendly beer garden under the flight path, and free parking for all guests.
+            Searching for pubs near Heathrow Airport or restaurants near Heathrow Airport? The Anchor is one of the best places to eat near Heathrow — a proper country pub in Stanwell Moor, just 7 minutes from Terminal 5. We serve freshly prepared British pub food with free parking, a dog-friendly beer garden under the flight path, and a warm welcome for travellers and locals alike.
           </p>
         </Container>
       </section>
@@ -116,7 +116,7 @@ export default function NearHeathrowPage() {
             className="text-center text-anchor-cream-text"
             seo={{ structured: true, speakable: true }}
           >
-            The Anchor - Pub Near Heathrow Airport
+            The Best Pub Near Heathrow Airport
           </PageTitle>
           <p className="mt-4 text-center text-lg text-anchor-cream-text/70 max-w-4xl mx-auto">
             The Anchor is the closest traditional pub to Heathrow Airport &mdash; just 7 minutes by car from Terminal 5, 11 minutes from Terminals 2 and 3, and 12 minutes from Terminal 4. Free parking for 20 cars is available with no time limit while dining.
@@ -284,7 +284,7 @@ export default function NearHeathrowPage() {
       <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
         <Container>
           <SectionHeader
-            title="Plan your Heathrow stopover"
+            title="Plan Your Visit — The Best Pub Near Heathrow"
             subtitle="Make the most of your time near the airport with these quick resources"
           />
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-5 max-w-6xl mx-auto">

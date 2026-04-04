@@ -87,7 +87,7 @@ const defaultSections: FooterSection[] = [
     titleClass: 'text-anchor-gold',
     items: [
       { label: 'Beer Garden & Plane Spotting', href: '/beer-garden' },
-      { label: 'Pub Garden', href: '/pub-garden-heathrow' },
+      { label: 'Pub Garden', href: '/beer-garden' },
       { label: 'Plane Spotting Guide', href: '/plane-spotting-heathrow' },
       { label: 'Live Sport Pub', href: '/live-sport' },
       { label: 'Pizza Menu', href: '/pizza-menu' },

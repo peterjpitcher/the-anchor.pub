@@ -13,17 +13,17 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-    title: 'Live Sport on Big Screens | Rugby, F1 & Football | Near Heathrow',
-    description: `Watch live terrestrial sport, rugby, and F1 at ${BRAND.name}. Multiple HD screens and a great atmosphere. We're just 7 mins from Heathrow T5.`,
+    title: 'Live Sport Pub Near Heathrow | Football, Rugby & F1 on Big Screens | The Anchor',
+    description: `Your live sport pub near Heathrow. Watch football, rugby and F1 on big screens at ${BRAND.name} with free parking and great food. 7 mins from T5.`,
     openGraph: {
-        title: 'Live Sport on Big Screens | Rugby, F1 & Football | Near Heathrow',
-        description: 'Every goal, every try, every lap. Watch it live on our big screens with a cold pint in hand.',
+        title: 'Live Sport Pub Near Heathrow | Football, Rugby & F1 on Big Screens | The Anchor',
+        description: 'Your live sport pub near Heathrow. Watch football, rugby and F1 on big screens with a cold pint and free parking.',
         images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({
-        title: 'Live Sport on Big Screens | Rugby, F1 & Football | Near Heathrow',
-        description: 'Every goal, every try, every lap. Watch it live on our big screens with a cold pint in hand.',
+        title: 'Live Sport Pub Near Heathrow | Football, Rugby & F1 on Big Screens | The Anchor',
+        description: 'Your live sport pub near Heathrow. Watch football, rugby and F1 on big screens with a cold pint and free parking.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
     alternates: {
@@ -97,7 +97,7 @@ export default function LiveSportPage() {
 
             <Container className="py-8">
                 <PageTitle as="h1" className="text-center mb-6" seo={{ structured: true }}>
-                    Watch Live Sport Near Heathrow — Big Screens &amp; Great Atmosphere
+                    Live Sport Pub Near Heathrow — Big Screens &amp; Great Atmosphere
                 </PageTitle>
             </Container>
 

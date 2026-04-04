@@ -14,17 +14,17 @@ const formatRate = (value: number | null | undefined, fallback: string) =>
   typeof value === 'number' && Number.isFinite(value) ? value.toFixed(2) : fallback
 
 export const metadata: Metadata = {
-  title: 'Heathrow Parking from £15/day | 7 Mins to T5 | Park & Eat',
-  description: 'Heathrow parking from £15/day or £75/week at The Anchor, Stanwell Moor. Keep your keys, CCTV, 7 mins to T5. Have a meal before your flight -- free parking when you dine.',
+  title: 'Cheap Heathrow Parking from £15/day | 7 Mins to T5 | Park & Eat | The Anchor',
+  description: 'Cheap Heathrow parking from £15/day or £75/week — save up to 60% vs official Heathrow car parks. CCTV, keep your keys, 7 mins to T5. The Anchor, Stanwell Moor.',
   openGraph: {
-    title: 'Heathrow Parking from £15/day | 7 Mins to T5 | Park & Eat',
-    description: 'Heathrow parking from £15/day or £75/week at The Anchor, Stanwell Moor. Keep your keys, CCTV, 7 mins to T5. Have a meal before your flight -- free parking when you dine.',
+    title: 'Cheap Heathrow Parking from £15/day | 7 Mins to T5 | Park & Eat | The Anchor',
+    description: 'Cheap Heathrow parking from £15/day or £75/week — save up to 60% vs official Heathrow car parks. CCTV, keep your keys, 7 mins to T5. The Anchor, Stanwell Moor.',
     images: [{ url: DEFAULT_PARKING_IMAGE, width: 1200, height: 630, alt: 'Free parking at The Anchor pub near Heathrow Airport' }],
     url: 'https://www.the-anchor.pub/heathrow-parking'
   },
   twitter: getTwitterMetadata({
-    title: 'Heathrow Parking from £15/day | 7 Mins to T5 | Park & Eat',
-    description: 'Heathrow parking from £15/day or £75/week at The Anchor, Stanwell Moor. Keep your keys, CCTV, 7 mins to T5. Have a meal before your flight -- free parking when you dine.',
+    title: 'Cheap Heathrow Parking from £15/day | 7 Mins to T5 | Park & Eat | The Anchor',
+    description: 'Cheap Heathrow parking from £15/day or £75/week — save up to 60% vs official Heathrow car parks. CCTV, keep your keys, 7 mins to T5. The Anchor, Stanwell Moor.',
     images: [DEFAULT_PARKING_IMAGE]
   }),
   alternates: {
@@ -370,7 +370,7 @@ export default async function HeathrowParkingPage() {
       <Section background="dark" spacing="md">
         <Container>
           <PageTitle className="text-center text-anchor-cream-text" seo={{ structured: true, speakable: true }}>
-            Heathrow Airport Parking Made Simple – Long Stay, Short Stay, Crew Parking
+            Cheap Heathrow Parking — Long Stay &amp; Short Stay from £15/day
           </PageTitle>
           <p className="mx-auto mt-4 max-w-4xl text-center text-lg text-anchor-cream-text/70">
             Travellers searching for Heathrow parking, Heathrow car parking or "long stay parking near me" choose The Anchor because we combine affordable airport-long term parking with the warmth of a real pub. Book online in minutes, grab a bite or coffee while you wait, then take a taxi or the 442 bus for a five to ten minute ride to any Heathrow terminal.

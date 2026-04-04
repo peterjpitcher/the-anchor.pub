@@ -15,16 +15,16 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { getBusinessStats } from '@/lib/schema-with-reviews'
 
 export const metadata: Metadata = {
-    title: 'Pub Near Wraysbury | The Anchor - Dining & Entertainment',
+    title: 'Pubs in Wraysbury | Dining, Entertainment & Free Parking | The Anchor',
     description: `${BRAND.name} is a top-rated pub just 5 mins from Wraysbury. Famous Sunday Roasts, stone-baked pizzas, and live entertainment. Free parking & family friendly.`,
     openGraph: {
-        title: 'The Anchor - Traditional Pub Near Wraysbury',
+        title: 'Pubs in Wraysbury | Dining, Entertainment & Free Parking | The Anchor',
         description: 'Looking for a change from the local? We are just 5 minutes from Wraysbury with great food and entertainment.',
         images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({
-        title: 'The Anchor - Traditional Pub Near Wraysbury',
+        title: 'Pubs in Wraysbury | Dining, Entertainment & Free Parking | The Anchor',
         description: 'Looking for a change from the local? We are just 5 minutes from Wraysbury with great food and entertainment.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
@@ -250,7 +250,7 @@ export default async function WraysburyPubPage() {
                         />
                         <div className="prose prose-invert max-w-none space-y-4 text-anchor-cream-text/80">
                             <p>
-                                Wraysbury is a lovely village, but let&rsquo;s be honest &mdash; the pub options are limited. When you fancy a change of scene without a major expedition, The Anchor is right there. Head along the B376 through Hythe End, past the sailing club, and keep going on Horton Road. You&rsquo;ll cross the M25 bridge and we&rsquo;re immediately on your left. Five minutes, tops. If you&rsquo;re coming from the other end of the village near the station, you can also cut across via the M25 at Junction 13 &mdash; it&rsquo;s just as quick.
+                                Wraysbury is a lovely village, but let&rsquo;s be honest &mdash; pubs in Wraysbury are limited. When you fancy a change of scene without a major expedition, The Anchor is right there. Head along the B376 through Hythe End, past the sailing club, and keep going on Horton Road. You&rsquo;ll cross the M25 bridge and we&rsquo;re immediately on your left. Five minutes, tops. If you&rsquo;re coming from the other end of the village near the station, you can also cut across via the M25 at Junction 13 &mdash; it&rsquo;s just as quick.
                             </p>
                             <p>
                                 We think of ourselves as Wraysbury&rsquo;s second local. Plenty of your neighbours are already regulars here &mdash; some walk over on sunny evenings along Horton Road, others drive across after a day at the reservoir. If you&rsquo;re into the Wraysbury reservoir walks or you&rsquo;ve been birdwatching around the gravel pits, we&rsquo;re the natural finishing point: a cold pint, a stone-baked pizza, and a seat in the garden watching the planes come in low overhead.

@@ -19,15 +19,15 @@ import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 
 export const metadata: Metadata = {
-  title: 'Pub Near Heathrow Terminal 4 | 12 Mins from T4 | Free Parking | The Anchor',
+  title: 'Pubs Near Heathrow Terminal 4 | 12 Mins from T4 | Free Parking | The Anchor',
   description: 'Nearest pub to Heathrow Terminal 4. 12 minutes by taxi, free parking if driving. British pub food, Sunday roasts & real ales. Dog-friendly beer garden. Book a table.',
   openGraph: {
-    title: 'Pub Near Heathrow Terminal 4 | 12 Mins Away | Free Parking',
+    title: 'Pubs Near Heathrow Terminal 4 | 12 Mins Away | Free Parking',
     description: '12 minutes from T4. Free parking for 20 cars. British pub food, Sunday roasts & real ales. Dog-friendly beer garden.',
     images: [{ url: DEFAULT_NEAR_HEATHROW_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Heathrow Airport' }],
   },
   twitter: getTwitterMetadata({
-    title: 'Pub Near Heathrow Terminal 4 - Free Parking & British Food',
+    title: 'Pubs Near Heathrow Terminal 4 | 12 Mins Away | Free Parking',
     description: 'The Anchor is the closest village pub to Heathrow Terminal 4 with free parking, British dishes and real ales.',
     images: [DEFAULT_NEAR_HEATHROW_IMAGE]
   }),
@@ -48,7 +48,7 @@ export default function Terminal4Page() {
       {/* Hero Section */}
       <HeroWrapper
         route="/near-heathrow/terminal-4"
-        title="Traditional British Pub Near Heathrow Terminal 4"
+        title="Pubs Near Heathrow Terminal 4 — The Anchor"
         description="Perfect for SkyTeam & budget travelers • Free parking • Real British hospitality"
         variant="default"
         tags={[
@@ -93,7 +93,7 @@ export default function Terminal4Page() {
           <div className="max-w-4xl mx-auto bg-anchor-bg-raised border border-anchor-gold/15 rounded-2xl p-6">
             <h2 className="text-2xl font-bold text-anchor-cream-text mb-3">Snapshot For Terminal 4 Guests</h2>
             <p className="text-anchor-cream-text/70 mb-4">
-              Staying around T4 or flying SkyTeam? The Anchor brings warm Surrey village hospitality within a 12 minute taxi ride.
+              Searching for pubs near Heathrow Terminal 4? The Anchor brings warm Surrey village hospitality within a 12 minute taxi ride.
             </p>
             <div className="grid gap-3 md:grid-cols-2 text-anchor-cream-text/70">
 	              <div className="flex items-start gap-2">
@@ -223,7 +223,7 @@ export default function Terminal4Page() {
       <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
         <Container>
           <PageTitle className="text-center text-anchor-cream-text" seo={{ structured: true, speakable: true }}>
-            Pub Near Heathrow Terminal 4 - The Anchor
+            Pubs Near Heathrow Terminal 4 - The Anchor
           </PageTitle>
         </Container>
       </section>

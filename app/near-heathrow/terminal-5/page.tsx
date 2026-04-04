@@ -19,16 +19,16 @@ import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 
 export const metadata: Metadata = {
-  title: 'Pub Near Heathrow Terminal 5 | 7 Mins from T5 | Free Parking | The Anchor',
-  description: 'Closest pub to Heathrow Terminal 5. Just 7 minutes by taxi (£20-25) or drive & park free. British pub food, dog-friendly beer garden. Popular with BA crew. Book a table.',
+  title: 'Pubs Near Heathrow Terminal 5 | 7 Mins from T5 | Free Parking | The Anchor',
+  description: 'Looking for pubs near Heathrow Terminal 5? The Anchor is just 7 minutes by taxi (£20-25) or drive and park free. British pub food, dog-friendly beer garden. Popular with BA crew.',
   openGraph: {
-    title: 'Pub Near Heathrow Terminal 5 | 7 Mins Away | Free Parking',
-    description: '7 minutes from T5 by taxi. Free parking for 20 cars. British pub food, dog-friendly beer garden & real ales. Popular with BA crew.',
+    title: 'Pubs Near Heathrow Terminal 5 | 7 Mins Away | Free Parking',
+    description: 'Looking for pubs near Heathrow Terminal 5? Just 7 minutes by taxi. Free parking for 20 cars. British pub food, dog-friendly beer garden & real ales.',
     images: [{ url: DEFAULT_NEAR_HEATHROW_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Heathrow Airport' }],
   },
   twitter: getTwitterMetadata({
-    title: 'Pub Near Heathrow Terminal 5 | 7 Mins Away | Free Parking',
-    description: '7 minutes from T5 by taxi. Free parking for 20 cars. British pub food, dog-friendly beer garden & real ales. Popular with BA crew.',
+    title: 'Pubs Near Heathrow Terminal 5 | 7 Mins Away | Free Parking',
+    description: 'Looking for pubs near Heathrow Terminal 5? Just 7 minutes by taxi. Free parking for 20 cars. British pub food, dog-friendly beer garden & real ales.',
     images: [DEFAULT_NEAR_HEATHROW_IMAGE]
   }),
   alternates: {
@@ -48,7 +48,7 @@ export default function Terminal5Page() {
       {/* Hero Section */}
       <HeroWrapper
         route="/near-heathrow/terminal-5"
-        title="The Closest Pub to Heathrow Terminal 5"
+        title="The Best Pub Near Heathrow Terminal 5"
         description="Perfect for British Airways travelers • Free parking • Traditional British pub"
         variant="default"
         tags={[
@@ -94,7 +94,7 @@ export default function Terminal5Page() {
           <div className="max-w-4xl mx-auto bg-anchor-bg-raised border border-anchor-gold/15 rounded-2xl p-6">
             <h2 className="text-2xl font-bold text-anchor-cream-text mb-3">Essential Details at a Glance</h2>
             <p className="text-anchor-cream-text/70 mb-4">
-              The Anchor is the closest independent pub to Terminal 5. Swap hotel bars for real British hospitality, fair pint prices and free parking.
+              Searching for pubs near Heathrow Terminal 5? The Anchor is the closest independent pub to T5 — just 7 minutes away. Swap hotel bars for real British hospitality, fair pint prices and free parking.
             </p>
             <div className="grid gap-3 md:grid-cols-2 text-anchor-cream-text/70">
 	              <div className="flex items-start gap-2">
@@ -219,7 +219,7 @@ export default function Terminal5Page() {
       <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
         <Container>
           <PageTitle className="text-center text-anchor-cream-text" seo={{ structured: true, speakable: true }}>
-            Pub Near Heathrow Terminal 5 - The Anchor
+            Pubs Near Heathrow Terminal 5 — The Anchor
           </PageTitle>
         </Container>
       </section>

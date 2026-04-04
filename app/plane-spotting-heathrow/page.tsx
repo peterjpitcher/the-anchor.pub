@@ -12,16 +12,16 @@ import { getBusinessHours } from '@/lib/api'
 import { generateOpeningHoursSpecification } from '@/lib/schema-utils'
 
 export const metadata: Metadata = {
-  title: 'Heathrow Plane Spotting Pub | Garden Views Every 90 Secs | The Anchor',
-  description: 'The ultimate Heathrow plane spotting pub. Watch A380s & Dreamliners from our beer garden under the flight path. Free parking, WiFi & food. 7 mins from T5.',
+  title: 'Plane Spotting Heathrow | Best Viewing Spots & Locations | The Anchor',
+  description: 'The definitive guide to plane spotting at Heathrow. Best viewing areas, spotting locations and where to watch planes land — including our beer garden with free parking, food and WiFi.',
   openGraph: {
-    title: 'Plane Spotting at Heathrow - The Anchor Beer Garden',
-    description: 'Enjoy aircraft overhead every 90 seconds from The Anchor beer garden with free parking, hot food and WiFi – just 7 minutes from Terminal 5.',
+    title: 'Plane Spotting Heathrow — Best Viewing Spots & Locations | The Anchor',
+    description: 'Heathrow plane spotting guide: best viewing areas and spotting locations. Watch planes land every 90 seconds from our beer garden with free parking, food and WiFi.',
     images: [{ url: DEFAULT_NEAR_HEATHROW_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Heathrow Airport' }]
   },
   twitter: getTwitterMetadata({
-    title: 'Plane Spotting at Heathrow - The Anchor Beer Garden',
-    description: 'Plane spotters love The Anchor: free parking, hot food, WiFi and aircraft overhead every 90 seconds just minutes from Heathrow.',
+    title: 'Plane Spotting Heathrow — Best Viewing Spots & Locations | The Anchor',
+    description: 'Heathrow plane spotting guide: best viewing areas, spotting locations and where to watch planes. Free parking, food and WiFi at The Anchor.',
     images: [DEFAULT_NEAR_HEATHROW_IMAGE]
   }),
   alternates: {
@@ -72,8 +72,8 @@ export default async function PlaneSpottingHeathrowPage() {
 
       <HeroWrapper
         route="/plane-spotting-heathrow"
-        title="Plane Spotting at Heathrow"
-        description="Watch widebodies roar overhead every 90 seconds from our beer garden"
+        title="Heathrow Plane Spotting — The Best Places to Watch Planes"
+        description="The definitive guide to plane spotting at Heathrow. Watch planes land every 90 seconds from our beer garden — plus the best Heathrow viewing areas and spotting locations. Free parking & food."
         variant="default"
         tags={[
           { label: 'A380 & Dreamliner Views', variant: 'primary' },
@@ -183,7 +183,7 @@ export default async function PlaneSpottingHeathrowPage() {
       <Section background="dark" spacing="sm">
         <Container>
           <PageTitle className="text-center text-anchor-cream-text" seo={{ structured: true, speakable: true }}>
-            Heathrow Plane Spotting Pub – The Anchor Beer Garden
+            Plane Spotting Heathrow — Best Viewing Spots & Locations
           </PageTitle>
         </Container>
       </Section>
@@ -191,7 +191,7 @@ export default async function PlaneSpottingHeathrowPage() {
       <Section background="dark" spacing="md">
         <Container>
           <SectionHeader
-            title="Why Plane Spotters Choose The Anchor"
+            title="Best Heathrow Plane Spotting Locations"
             subtitle="Front-row views, hot food and shelter when the weather turns – everything you need for an aviation day out."
           />
           <FeatureGrid
@@ -226,7 +226,7 @@ export default async function PlaneSpottingHeathrowPage() {
       <Section background="dark" spacing="md" className="bg-anchor-bg-raised border-y border-anchor-gold/15">
         <Container>
           <SectionHeader
-            title="Plan Your Heathrow Plane Spotting Trip"
+            title="Plan Your Heathrow Plane Watching Trip"
             subtitle="Make the most of every arrival with timings, transport and kit tips."
           />
           <InfoBoxGrid
@@ -277,7 +277,7 @@ export default async function PlaneSpottingHeathrowPage() {
       <Section background="dark" spacing="md">
         <Container>
           <SectionHeader
-            title="Other Heathrow Plane Spotting Locations"
+            title="Other Heathrow Viewing Areas & Spotting Spots"
             subtitle="Make a full day of it by pairing The Anchor with these classic viewing spots."
           />
           <FeatureGrid

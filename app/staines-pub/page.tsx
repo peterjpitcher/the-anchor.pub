@@ -15,16 +15,16 @@ import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 import { getBusinessStats } from '@/lib/schema-with-reviews'
 
 export const metadata: Metadata = {
-  title: 'Staines Pub | Sunday Roasts, Private Rooms & Free Parking',
-  description: 'Traditional pub 8 minutes from Staines-upon-Thames. Sunday roasts, stone-baked pizza, quiz nights & private rooms for celebrations. Free parking & real ales.',
+  title: 'Pubs in Staines-upon-Thames | Sunday Roasts & Free Parking | The Anchor',
+  description: 'Looking for pubs in Staines? The Anchor is a traditional pub 8 minutes from Staines-upon-Thames with Sunday roasts, stone-baked pizza, quiz nights and free parking. One of the best pubs Staines-upon-Thames has nearby.',
   openGraph: {
-    title: 'Staines Pub Near Heathrow - The Anchor Stanwell Moor',
-    description: 'Traditional pub 8 minutes from Staines with Sunday roast, stone-baked pizzas, hosted nights and free parking. See /whats-on for the latest.',
+    title: 'Pubs in Staines-upon-Thames | Sunday Roasts & Free Parking | The Anchor',
+    description: 'Looking for pubs in Staines? The Anchor is a traditional pub 8 minutes from Staines-upon-Thames with Sunday roasts, stone-baked pizzas, hosted nights and free parking.',
     images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
   },
   twitter: getTwitterMetadata({
-    title: 'Staines Pub Near Heathrow - The Anchor Stanwell Moor',
-    description: 'Traditional pub 8 minutes from Staines with Sunday roast, stone-baked pizzas, hosted nights and free parking. See /whats-on for the latest.',
+    title: 'Pubs in Staines-upon-Thames | Sunday Roasts & Free Parking | The Anchor',
+    description: 'Looking for pubs in Staines? The Anchor is a traditional pub 8 minutes from Staines-upon-Thames with Sunday roasts, stone-baked pizzas, hosted nights and free parking.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
   alternates: {
@@ -99,7 +99,7 @@ export default async function StainesPubPage() {
       {/* Hero Section */}
       <HeroWrapper
         route="/staines-pub"
-        title="Your Local Staines Pub"
+        title="Your Pub Near Staines-upon-Thames"
         description="Traditional British pub serving the Staines community with great food, entertainment, and a warm welcome"
         variant="default"
         tags={[
@@ -144,7 +144,7 @@ export default async function StainesPubPage() {
       <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-5xl mx-auto bg-anchor-bg-raised border border-anchor-gold/15 rounded-none p-6">
-            <h2 className="text-2xl font-bold text-anchor-gold-vivid mb-3">Staines Locals Love Us For</h2>
+            <h2 className="text-2xl font-bold text-anchor-gold-vivid mb-3">Why We&apos;re One of the Best Pubs Near Staines-upon-Thames</h2>
             <div className="grid gap-3 md:grid-cols-2 text-anchor-cream-text/70">
               <div className="flex items-start gap-2">
                 <span className="font-semibold text-anchor-gold"></span>
@@ -174,7 +174,7 @@ export default async function StainesPubPage() {
             className="text-center text-anchor-cream-text"
             seo={{ structured: true, speakable: true }}
           >
-            Surrey Pub Near Staines - The Anchor - Heathrow Pub & Dining
+            Pub Near Staines-upon-Thames — The Anchor
           </PageTitle>
         </Container>
       </section>
@@ -184,8 +184,8 @@ export default async function StainesPubPage() {
         <Container>
           <div className="max-w-6xl mx-auto">
             <SectionHeader
-              title="Why Staines Locals Love The Anchor"
-              subtitle="Just a short drive from Staines-upon-Thames, discover Surrey's best kept secret - a proper British pub experience"
+              title="Why Locals Choose Us Over Other Pubs in Staines"
+              subtitle="Just a short drive from Staines-upon-Thames, The Anchor offers a proper British pub experience away from the busy high street"
               className="text-center mb-12"
             />
 
@@ -493,12 +493,12 @@ export default async function StainesPubPage() {
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
-              title="A Different Night Out from Staines High Street"
+              title="A Different Night Out from the Pubs in Staines"
               className="text-center mb-8"
             />
             <div className="prose prose-invert max-w-none text-anchor-cream-text/70 space-y-4">
               <p>
-                Staines High Street has no shortage of pubs — The Swan, The Bells, the Wetherspoons on the corner — but
+                If you&apos;re searching for pubs in Staines, the high street has no shortage — The Swan, The Bells, the Wetherspoons on the corner — but
                 anyone who has tried to get a table on a Friday night knows the drill. Packed bars, queues at the door,
                 and nowhere to park without feeding a meter. The Anchor offers something genuinely different: a proper
                 village pub with free parking, a spacious beer garden, and none of the weekend crush.
@@ -512,7 +512,7 @@ export default async function StainesPubPage() {
               </p>
               <p>
                 Most locals still call it Staines rather than Staines-upon-Thames, whatever the council decided back
-                in 2012. Either way, we are just outside the town boundary but close enough for an easy weeknight meal
+                in 2012. Either way, we&apos;re one of the friendliest pubs Staines-upon-Thames has nearby — just outside the town boundary but close enough for an easy weeknight meal
                 or a lazy Sunday roast without battling for a space on the one-way system. Many of our regulars
                 discovered us exactly that way — looking for somewhere with decent food, real ales, and room to breathe.
                 Once they tried the stone-baked pizzas and caught a sunset in the beer garden with the planes coming
@@ -542,8 +542,8 @@ export default async function StainesPubPage() {
             answer: "The Anchor is just 8 minutes drive from Staines town centre via the A30. We're located on Horton Road in Stanwell Moor, with free parking available."
           },
           {
-            question: "What makes The Anchor different from other Staines pubs?",
-            answer: "We offer unique entertainment including hosted nights like Music Bingo with Nikki Manfadge, quiz nights, famous Sunday roasts, stone-baked pizzas, plus a dog-friendly beer garden with plane spotting views of Heathrow. See /whats-on for the latest events."
+            question: "What makes The Anchor different from other pubs in Staines?",
+            answer: "We offer unique entertainment including hosted nights like Music Bingo with Nikki Manfadge, quiz nights, famous Sunday roasts, stone-baked pizzas, plus a dog-friendly beer garden with plane spotting views of Heathrow. Unlike most pubs in Staines-upon-Thames, we have free parking and a spacious outdoor garden. See /whats-on for the latest events."
           },
           {
             question: "Do you have parking at your Staines area pub?",

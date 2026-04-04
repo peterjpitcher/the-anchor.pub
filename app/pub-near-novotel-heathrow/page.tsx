@@ -109,7 +109,7 @@ export default function PubNearNovotelHeathrowPage() {
               Pub Near Novotel London Heathrow
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
-              Staying at the Novotel Heathrow? The Anchor is just 15 minutes away — an independent British pub with home-cooked food from scratch, real ales, and free parking. A proper local experience away from hotel prices.
+              Staying at the Novotel Heathrow? The Anchor is just 15 minutes away — an independent British pub with home-cooked food from scratch, real ales, and free parking. Among the best pubs near Heathrow Airport, we&apos;re a proper local experience with real character, well worth the short taxi ride from your hotel.
             </p>
           </div>
         </Container>

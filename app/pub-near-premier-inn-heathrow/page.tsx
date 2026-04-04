@@ -109,7 +109,7 @@ export default function PubNearPremierInnHeathrowPage() {
               Pub Near Premier Inn Heathrow Terminal 5
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
-              Staying at Premier Inn Heathrow? Skip the Brewers Fayre and discover The Anchor — an independent British pub just 8 minutes away with better food, real ales, and free parking.
+              Staying at Premier Inn Heathrow? Skip the Brewers Fayre and discover The Anchor — an independent British pub just 8 minutes away with better food, real ales, and free parking. One of the best pubs near Heathrow Airport, we offer a proper alternative to hotel dining with home-cooked meals and a genuinely local atmosphere.
             </p>
           </div>
         </Container>

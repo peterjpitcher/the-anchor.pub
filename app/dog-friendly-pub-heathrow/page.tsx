@@ -89,7 +89,7 @@ export default function DogFriendlyPage() {
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle className="text-anchor-cream-text mb-4">
-                            Four-Legged Friends Welcome
+                            Dog-Friendly Pub Near Heathrow — Paws Welcome
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">
                             A pub isn't a proper pub without a dog sleeping by the fire. We welcome well-behaved dogs throughout the entire venue — bar, dining area, and beer garden. Whether you've just been for a walk or you're stopping off on a journey, your dog is as welcome as you are.

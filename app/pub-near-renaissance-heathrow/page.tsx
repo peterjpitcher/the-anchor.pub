@@ -109,7 +109,7 @@ export default function PubNearRenaissanceHeathrowPage() {
               Pub Near Renaissance London Heathrow Hotel
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
-              Staying at the Renaissance Heathrow? The Anchor is just 12 minutes away — a proper British village pub offering a genuine local experience that no hotel bar can replicate. Real ales, home-cooked food, and warm hospitality.
+              Staying at the Renaissance Heathrow? The Anchor is just 12 minutes away — a proper British village pub offering a genuine local experience that no hotel bar can replicate. Real ales, home-cooked food, and warm hospitality make us one of the most popular places to eat near Heathrow for discerning Marriott guests.
             </p>
           </div>
         </Container>

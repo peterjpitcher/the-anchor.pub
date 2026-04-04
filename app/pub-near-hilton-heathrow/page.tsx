@@ -110,7 +110,7 @@ export default function PubNearHiltonHeathrowPage() {
               Pub Near Hilton London Heathrow Airport
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
-              Staying at the Hilton Heathrow? The Anchor is just 10 minutes away — a traditional British pub with home-cooked food, real ales, and free parking. Popular with business travellers looking to escape hotel prices.
+              Staying at the Hilton Heathrow? The Anchor is just 10 minutes away — a traditional British pub with home-cooked food, real ales, and free parking. Popular with business travellers looking to escape hotel prices, we&apos;re one of the top-rated restaurants near Heathrow for guests who want something better than the hotel bar.
             </p>
           </div>
         </Container>

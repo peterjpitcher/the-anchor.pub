@@ -12,16 +12,16 @@ import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 
 export const metadata: Metadata = {
-    title: 'Private Hire Venue Near Heathrow | The Anchor Stanwell Moor',
-    description: 'The Anchor is a premier private hire venue near Heathrow for wakes, christenings, weddings, and parties. Flexible spaces, free parking, and custom catering.',
+    title: 'Function Room & Party Venue Near Heathrow | Private Hire | The Anchor',
+    description: 'Book a function room or party venue near Heathrow for 10-50 guests. Buffets from £9.95pp, free parking, and a dedicated events team. The Anchor, Stanwell Moor.',
     openGraph: {
-        title: 'Private Hire Venue Near Heathrow | The Anchor',
-        description: 'Flexible event spaces for all occasions. Free parking, custom menus, and dedicated planners.',
+        title: 'Function Room & Party Venue Near Heathrow | Private Hire | The Anchor',
+        description: 'Book a function room or party venue near Heathrow for 10-50 guests. Buffets from £9.95pp, free parking, and a dedicated events team.',
         images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Private hire venue at The Anchor near Heathrow Airport' }],
     },
     twitter: getTwitterMetadata({
-        title: 'Private Hire Venue Near Heathrow | The Anchor',
-        description: 'Flexible event spaces for all occasions. Free parking, custom menus, and dedicated planners.',
+        title: 'Function Room & Party Venue Near Heathrow | Private Hire | The Anchor',
+        description: 'Book a function room or party venue near Heathrow for 10-50 guests. Buffets from £9.95pp, free parking, and a dedicated events team.',
         images: [DEFAULT_CORPORATE_IMAGE]
     }),
     alternates: {
@@ -40,8 +40,8 @@ export default function PrivateHirePage() {
             />
             <HeroWrapper
                 route="/private-hire"
-                title="Private Hire & Events"
-                description="Private rooms for 10–50 guests · Free parking for all · Buffet packages from £9.95pp · 7 mins from Heathrow"
+                title="Function Room & Party Venue"
+                description="Function rooms for 10–50 guests · Free parking for all · Buffet packages from £9.95pp · 7 mins from Heathrow"
 
                 tags={[
                     { label: "7 Mins from Heathrow", variant: "success" },
@@ -81,11 +81,11 @@ export default function PrivateHirePage() {
             <section className="py-12 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <PageTitle className="text-center mb-8" seo={{ structured: true, speakable: true }}>
-                        Your Event, Your Space — Private Hire at The Anchor
+                        Function Room &amp; Party Venue Near Heathrow — Private Hire
                     </PageTitle>
 
                     <p className="text-center text-lg text-anchor-cream-text/70 mb-8 max-w-4xl mx-auto">
-                        The Anchor is an independent private hire venue in Stanwell Moor, 7 minutes from Heathrow Terminal 5. We host everything from intimate parties of 10 to celebrations of 50, with buffet packages from &pound;9.95 per person, free parking for all guests, and a personal touch you won&apos;t get from a hotel.
+                        The Anchor is an independent function room and party venue in Stanwell Moor, 7 minutes from Heathrow Terminal 5. Whether you need a function room for a christening or a party venue for a milestone birthday, we host gatherings from 10 to 50 guests with buffet packages from &pound;9.95 per person, free parking for all, and a personal touch you won&apos;t get from a hotel. Looking for venue hire near Staines? We&apos;re just a short drive away.
                     </p>
 
                     <div className="flex justify-center mb-10">
@@ -305,8 +305,8 @@ export default function PrivateHirePage() {
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeader
-                            title="Our Private Dining Spaces"
-                            subtitle="Flexible rooms for 10 to 50 guests"
+                            title="Our Function Rooms"
+                            subtitle="Flexible party venue spaces for 10 to 50 guests"
                         />
                         <div className="grid md:grid-cols-2 gap-6">
                             <div className="relative aspect-[4/3] overflow-hidden rounded-none">
@@ -329,7 +329,7 @@ export default function PrivateHirePage() {
                             </div>
                         </div>
                         <p className="text-center text-sm text-anchor-cream-text/50 mt-4">
-                            Our private dining room — seating for up to 26 guests with standing room for more, and French doors opening onto the beer garden
+                            Our main function room — seating for up to 26 guests with standing room for more, and French doors opening onto the beer garden
                         </p>
                     </div>
                 </Container>
@@ -551,7 +551,7 @@ export default function PrivateHirePage() {
                             {
                                 icon: "",
                                 title: "Private Bar",
-                                description: "Exclusive bar options available for private function room hire.",
+                                description: "Exclusive bar options available with your function room hire.",
                                 className: "text-center"
                             },
                             {

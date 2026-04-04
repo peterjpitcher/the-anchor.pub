@@ -17,16 +17,16 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 const SUNDAY_LUNCH_BOOKING_URL = '/book-table?sunday_lunch=true&purpose=food'
 
 export const metadata: Metadata = {
-  title: 'Sunday Roast Near Heathrow from £19.99 | Book by Sat 1pm',
-  description: 'Traditional British Sunday roast near Heathrow from £19.99. Chicken, lamb, pork belly & vegetarian options. Free parking. 7 mins from Terminal 5. Pre-order by Saturday 1pm.',
+  title: 'Sunday Roast & Lunch Near Heathrow | From £19.99 | Book a Table | The Anchor',
+  description: 'Traditional Sunday roast and Sunday lunch near Heathrow from £19.99. Chicken, lamb, pork belly & vegetarian options. Just 8 minutes from Staines-upon-Thames. Free parking. Book by Saturday 1pm.',
   openGraph: {
-    title: 'Sunday Roast Near Heathrow from £19.99 | Book by Sat 1pm',
-    description: 'Traditional British Sunday roast from £19.99. Chicken, lamb, pork belly & vegetarian options. Free parking. 7 mins from Heathrow T5. Book by Saturday 1pm.',
+    title: 'Sunday Roast & Lunch Near Heathrow | From £19.99 | Book a Table | The Anchor',
+    description: 'Traditional Sunday roast and Sunday lunch near Heathrow from £19.99. Chicken, lamb, pork belly & vegetarian options. Just 8 minutes from Staines-upon-Thames. Free parking. Book by Saturday 1pm.',
     images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg'],
   },
   twitter: getTwitterMetadata({
-    title: 'Sunday Roast Near Heathrow from £19.99 | Book by Sat 1pm',
-    description: 'Traditional Sunday lunch near Staines and Heathrow. Sunday lunch bookings require a £10 per person deposit.',
+    title: 'Sunday Roast & Lunch Near Heathrow | From £19.99 | Book a Table | The Anchor',
+    description: 'Traditional Sunday roast and Sunday lunch near Heathrow. Just 8 minutes from Staines-upon-Thames. £10pp deposit required.',
     images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg']
   }),
   alternates: {
@@ -402,7 +402,7 @@ export default async function SundayLunchPage() {
 
       <HeroWrapper
         route="/sunday-lunch"
-        title="Sunday Roast at The Anchor"
+        title="Sunday Roast & Lunch at The Anchor"
         description={`Traditional roasts cooked fresh to order. ${sundayServiceSentence} — pre-order by Saturday 1pm. Sunday lunch bookings require a £10 per person deposit.`}
         variant="default"
         tags={[
@@ -457,14 +457,14 @@ export default async function SundayLunchPage() {
 
       <Container>
         <PageTitle as="h1" className="text-center mb-6" seo={{ structured: true, speakable: true }}>
-          Traditional Sunday Roast Near Heathrow — From £19.99
+          Sunday Roast & Lunch Near Heathrow — From £19.99
         </PageTitle>
       </Container>
 
       <section className="bg-anchor-bg-raised border-b border-anchor-gold/15 py-8">
         <Container>
           <p className="text-center text-lg text-anchor-cream-text/70 max-w-4xl mx-auto">
-            Sunday roast at The Anchor costs from &pound;19.99 per person and must be pre-ordered by 1pm on Saturday, with a &pound;10 per person deposit required. Choose from chicken, lamb shank, pork belly or butternut squash wellington, all served with Yorkshire pudding and seasonal vegetables.
+            Sunday lunch at The Anchor costs from &pound;19.99 per person and must be pre-ordered by 1pm on Saturday, with a &pound;10 per person deposit required. Choose from chicken, lamb shank, pork belly or butternut squash wellington — all served with Yorkshire pudding and seasonal vegetables. Just 8 minutes from Staines-upon-Thames, our Sunday roast is one of the best near Heathrow.
           </p>
         </Container>
       </section>
@@ -474,7 +474,7 @@ export default async function SundayLunchPage() {
           <div className="max-w-4xl mx-auto">
             <SectionHeader
               title="The offer"
-              subtitle="Choose your roast, we cook it fresh to order."
+              subtitle="Choose your Sunday lunch roast — we cook it fresh to order."
             />
 
             <div className="grid gap-4 sm:grid-cols-3">
@@ -510,7 +510,7 @@ export default async function SundayLunchPage() {
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
-              title="Sunday Roast menu"
+              title="Sunday Lunch Menu"
               subtitle="All dishes served with herb and garlic-crusted roast potatoes, seasonal vegetables, Yorkshire pudding, and red wine gravy."
             />
 
@@ -591,7 +591,7 @@ export default async function SundayLunchPage() {
             </div>
 
             <p className="mt-4 text-center text-sm text-anchor-cream-text/55">
-              {sundayServiceSentence}. Free parking available.
+              {sundayServiceSentence}. Free parking available. Just 8 minutes from Staines-upon-Thames.
             </p>
           </div>
         </Container>
