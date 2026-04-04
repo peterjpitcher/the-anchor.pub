@@ -23,15 +23,15 @@ import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
-  title: "What's On at The Anchor (Near Heathrow T5) | Music Bingo, Quiz & Bingo",
-  description: "See what's on at The Anchor in Stanwell Moor near Heathrow Terminal 5 and Staines: quiz nights, Music Bingo hosted by Nikki Manfadge, cash bingo, live sport, and one-off events. Free parking on site.",
+  title: "What's On This Week | Live Events Near Heathrow T5 | The Anchor",
+  description: "Quiz nights, Music Bingo, cash bingo & live music at The Anchor, Stanwell Moor. Free entry events from £3. Free parking, 7 mins from Heathrow T5. See this week's lineup.",
   openGraph: {
-    title: "What's On at The Anchor Near Heathrow Terminal 5",
+    title: "What's On This Week at The Anchor Near Heathrow",
     description: "Live calendar for quiz nights, hosted events, bingo and sport at The Anchor in Stanwell Moor with free parking.",
     images: ["/images/events/quiz-night/the-anchor-quiz-night-stanwell-moor.jpg"],
   },
   twitter: getTwitterMetadata({
-    title: "What's On at The Anchor Near Heathrow Terminal 5",
+    title: "What's On This Week at The Anchor Near Heathrow",
     description: "See The Anchor's entertainment diary for quiz nights, hosted events, bingo and live sport close to Heathrow with free parking.",
     images: ["/images/events/quiz-night/the-anchor-quiz-night-stanwell-moor.jpg"]
   }),

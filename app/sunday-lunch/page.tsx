@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { AlertBox, Button, Container, SectionHeader } from '@/components/ui'
+import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { HeroWrapper } from '@/components/hero'
 import { Metadata } from 'next'
 import { Icon } from '@/components/ui/Icon'
@@ -401,7 +402,7 @@ export default async function SundayLunchPage() {
 
       <HeroWrapper
         route="/sunday-lunch"
-        title="Sunday Lunch at The Anchor"
+        title="Sunday Roast at The Anchor"
         description={`Traditional roasts cooked fresh to order. ${sundayServiceSentence} — pre-order by Saturday 1pm. Sunday lunch bookings require a £10 per person deposit.`}
         variant="default"
         tags={[
@@ -454,6 +455,12 @@ export default async function SundayLunchPage() {
         }
       />
 
+      <Container>
+        <PageTitle as="h1" className="text-center mb-6" seo={{ structured: true, speakable: true }}>
+          Traditional Sunday Roast Near Heathrow — From £19.99
+        </PageTitle>
+      </Container>
+
       <section className="bg-anchor-bg-raised border-b border-anchor-gold/15 py-8">
         <Container>
           <p className="text-center text-lg text-anchor-cream-text/70 max-w-4xl mx-auto">
@@ -503,7 +510,7 @@ export default async function SundayLunchPage() {
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
-              title="Sunday Lunch menu"
+              title="Sunday Roast menu"
               subtitle="All dishes served with herb and garlic-crusted roast potatoes, seasonal vegetables, Yorkshire pudding, and red wine gravy."
             />
 

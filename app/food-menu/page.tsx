@@ -144,7 +144,7 @@ function deriveKitchenStatusData(hours: BusinessHours | null): KitchenStatusData
 
 export const metadata: Metadata = {
   title: 'Pub Food Menu Near Heathrow | Pizza, Pies & Sunday Roasts',
-  description: 'Pub classics, stone-baked pizza, pies & fish and chips at The Anchor near Heathrow. Kitchen open Tuesday-Sunday. Free parking, 7 mins from T5. View menu online.',
+  description: 'Pub food from £8.95 at The Anchor near Heathrow. Stone-baked pizza, beer-battered fish & chips, gourmet burgers & pies. Kitchen open Tue-Sun. Free parking, 7 mins from T5. Book a table online.',
   openGraph: {
     title: 'Pub Food Menu Near Heathrow | Pizza, Pies & Sunday Roasts',
     description: 'Pub classics, stone-baked pizza, pies & fish and chips at The Anchor near Heathrow. Kitchen open Tuesday-Sunday. Free parking, 7 mins from T5. View menu online.',

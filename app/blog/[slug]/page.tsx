@@ -11,6 +11,8 @@ import { getBlogHeroUrl } from '@/lib/blog-image'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
+export const revalidate = 3600
+
 export async function generateStaticParams() {
   const posts = await getAllBlogPosts()
   return posts.map((post) => ({
@@ -127,8 +129,13 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
 export default async function BlogPostPage({ params }: { params: { slug: string } }) {
   const post = await getBlogPost(params.slug)
-  
+
   if (!post) {
+    notFound()
+  }
+
+  // Block direct access to future-dated (unpublished) posts
+  if (post?.publishDate && new Date(post.publishDate) > new Date()) {
     notFound()
   }
 

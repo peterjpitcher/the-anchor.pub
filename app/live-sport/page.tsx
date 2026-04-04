@@ -95,6 +95,12 @@ export default function LiveSportPage() {
                 }
             />
 
+            <Container className="py-8">
+                <PageTitle as="h1" className="text-center mb-6" seo={{ structured: true }}>
+                    Watch Live Sport Near Heathrow — Big Screens &amp; Great Atmosphere
+                </PageTitle>
+            </Container>
+
             <section className="bg-anchor-bg py-6">
                 <Container>
                     <p className="text-center text-sm text-anchor-cream-text/55"><strong>Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
@@ -219,10 +225,40 @@ export default function LiveSportPage() {
                     {
                         question: "Are children allowed during matches?",
                         answer: "Yes, until 8pm. However, please be aware that the pub can get loud and busy during major sporting events."
+                    },
+                    {
+                        question: "Do you show Six Nations rugby?",
+                        answer: "Yes — every Six Nations match is shown live on our big screens with full audio. Book early for England and Wales matches as we fill up quickly."
+                    },
+                    {
+                        question: "Can I watch Formula 1 at The Anchor?",
+                        answer: "Yes, we show all F1 qualifying sessions and races live on our big screens."
+                    },
+                    {
+                        question: "Do you have Sky Sports or TNT?",
+                        answer: "No — we show terrestrial channels only (BBC, ITV, Channel 4). This covers Six Nations, F1, international football, cricket, golf, and horse racing."
+                    },
+                    {
+                        question: "Can I request a specific match or event?",
+                        answer: "If it is on a terrestrial channel, yes. Let us know in advance and we will make sure it is on with full audio."
+                    },
+                    {
+                        question: "Is there food available during live sport?",
+                        answer: "Yes — our full kitchen menu is available including stone-baked pizza, burgers, fish and chips, and pub classics. Book a table to guarantee your spot for big matches."
                     }
                 ]}
                 className="bg-white"
             />
+
+            <section className="section-spacing bg-anchor-bg">
+                <Container>
+                    <SectionHeader title="What We're Showing" subtitle="Terrestrial sport on our big screens" />
+                    <div className="prose prose-invert max-w-3xl mx-auto">
+                        <p>We show every major sporting event available on BBC, ITV, and Channel 4. Current highlights include Six Nations rugby, Formula 1, international football qualifiers, and cricket. All matches are shown with full audio on multiple HD screens.</p>
+                        <p>Want to watch something specific? Let us know and we will make sure it is on. We can also reserve seating for big matches — just call ahead or book online.</p>
+                    </div>
+                </Container>
+            </section>
 
             <CTASection
                 title="Secure Your Spot for the Big Game"

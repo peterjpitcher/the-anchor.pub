@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
-import { Container, SectionHeader, FeatureGrid, InfoBoxGrid, Button } from '@/components/ui'
+import { Container, SectionHeader, FeatureGrid, InfoBoxGrid } from '@/components/ui'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -10,6 +10,7 @@ import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { landmarks } from '@/lib/local-seo-data'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
+import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 export const metadata: Metadata = {
     title: 'Christening Venue Near Staines & Stanwell | The Anchor',
@@ -34,12 +35,18 @@ const nearbyChurches = landmarks.filter(l => l.type === 'church');
 export default function ChristeningsPage() {
     return (
         <>
+            <BreadcrumbJsonLd items={[
+                { name: 'Home', url: '/' },
+                { name: 'Private Hire', url: '/private-hire' },
+                { name: 'Christenings', url: '/private-hire/christenings' }
+            ]} />
+
             <HeroWrapper
                 route="/private-hire/christenings"
                 variant="feature"
                 title="Christenings & Naming Ceremonies"
                 description="Celebrate with family and friends in a relaxed, child-friendly setting"
-               
+
                 tags={[
                     { label: "Family Friendly", variant: "success" },
                     { label: "Buffet & Roast Options", variant: "default" },
@@ -79,8 +86,8 @@ export default function ChristeningsPage() {
 
             <section className="py-12 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
-                    <PageTitle className="text-center mb-6" seo={{ structured: true, speakable: true }}>
-                        The Perfect Post-Church Celebration
+                    <PageTitle className="text-center mb-6" as="h1" seo={{ structured: true, speakable: true }}>
+                        Christening & Naming Ceremony Venue Near Heathrow
                     </PageTitle>
                     <div className="max-w-3xl mx-auto text-center">
                         <p className="text-lg text-anchor-cream-text/70 mb-8">
@@ -126,7 +133,45 @@ export default function ChristeningsPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
+            <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15 border-b border-anchor-gold/15">
+                <Container>
+                    <SectionHeader
+                        title="Children's Facilities"
+                        subtitle="We make every child feel welcome"
+                    />
+                    <FeatureGrid
+                        columns={4}
+                        features={[
+                            {
+                                icon: "",
+                                title: "High Chairs",
+                                description: "High chairs are available for babies and toddlers — just let us know when you book how many you need.",
+                                className: "text-center"
+                            },
+                            {
+                                icon: "",
+                                title: "Children's Menu",
+                                description: "A dedicated kids' menu with all their favourites, including smaller portions of our Sunday Roast.",
+                                className: "text-center"
+                            },
+                            {
+                                icon: "",
+                                title: "Safe Enclosed Garden",
+                                description: "Our beer garden is enclosed and safe for little ones to explore while the adults relax.",
+                                className: "text-center"
+                            },
+                            {
+                                icon: "",
+                                title: "Baby Changing",
+                                description: "Baby changing facilities are available on site for your convenience.",
+                                className: "text-center"
+                            }
+                        ]}
+                    />
+                </Container>
+            </section>
+
+            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
                 <Container>
                     <SectionHeader
                         title="Why Families Love Us"
@@ -149,11 +194,77 @@ export default function ChristeningsPage() {
                             {
                                 icon: "",
                                 title: "Photo Opportunities",
-                                description: "Our garden area provides a lovely backdrop for family photos (weather permitting!).",
+                                description: "Our garden area and traditional pub backdrop provide a lovely setting for family photos (weather permitting).",
                                 className: "text-center"
                             }
                         ]}
                     />
+                </Container>
+            </section>
+
+            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+                <Container>
+                    <SectionHeader
+                        title="Planning Your Christening Reception"
+                        subtitle="A simple step-by-step guide"
+                    />
+                    <div className="max-w-3xl mx-auto">
+                        <ol className="space-y-6">
+                            <li className="flex gap-4">
+                                <span className="flex-shrink-0 w-8 h-8 rounded-full bg-anchor-gold-vivid text-anchor-dark font-bold flex items-center justify-center text-sm">1</span>
+                                <div>
+                                    <h3 className="font-bold text-anchor-cream-text mb-1">Book the venue early</h3>
+                                    <p className="text-anchor-cream-text/70">We recommend securing your date 2–4 weeks ahead of the ceremony, particularly for Sundays when our roast is popular. Call us on 01753 682707 or use the enquiry form below.</p>
+                                </div>
+                            </li>
+                            <li className="flex gap-4">
+                                <span className="flex-shrink-0 w-8 h-8 rounded-full bg-anchor-gold-vivid text-anchor-dark font-bold flex items-center justify-center text-sm">2</span>
+                                <div>
+                                    <h3 className="font-bold text-anchor-cream-text mb-1">Choose your catering</h3>
+                                    <p className="text-anchor-cream-text/70">Decide between a relaxed buffet, afternoon tea, or a Sunday Roast if your service is on a Sunday. We will walk you through the options and pricing when you enquire.</p>
+                                </div>
+                            </li>
+                            <li className="flex gap-4">
+                                <span className="flex-shrink-0 w-8 h-8 rounded-full bg-anchor-gold-vivid text-anchor-dark font-bold flex items-center justify-center text-sm">3</span>
+                                <div>
+                                    <h3 className="font-bold text-anchor-cream-text mb-1">Decorations and cake</h3>
+                                    <p className="text-anchor-cream-text/70">You are welcome to bring balloons, table decorations, and a celebration cake. We'll provide the knife and napkins. Please avoid loose confetti and glitter, which are difficult to clean up.</p>
+                                </div>
+                            </li>
+                            <li className="flex gap-4">
+                                <span className="flex-shrink-0 w-8 h-8 rounded-full bg-anchor-gold-vivid text-anchor-dark font-bold flex items-center justify-center text-sm">4</span>
+                                <div>
+                                    <h3 className="font-bold text-anchor-cream-text mb-1">Photo opportunities</h3>
+                                    <p className="text-anchor-cream-text/70">Our enclosed beer garden and warm pub interior provide a lovely backdrop for family photographs. You are welcome to arrive a little early on the day to set up and capture those first moments.</p>
+                                </div>
+                            </li>
+                        </ol>
+                    </div>
+                </Container>
+            </section>
+
+            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+                <Container>
+                    <div className="max-w-3xl mx-auto text-center">
+                        <h2 className="text-2xl font-bold text-anchor-cream-text mb-4">Also Planning a Baby Shower or Gender Reveal?</h2>
+                        <p className="text-anchor-cream-text/70 mb-6">
+                            The Anchor is equally well suited for baby showers and gender reveals. Explore our dedicated pages for more details on packages and ideas.
+                        </p>
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                            <Link
+                                href="/private-hire/baby-showers"
+                                className="inline-block bg-anchor-bg-raised border border-anchor-gold/30 rounded-lg px-6 py-3 text-anchor-gold-vivid font-semibold hover:bg-anchor-gold/10 transition-colors"
+                            >
+                                Baby Shower Venue
+                            </Link>
+                            <Link
+                                href="/private-hire/gender-reveal"
+                                className="inline-block bg-anchor-bg-raised border border-anchor-gold/30 rounded-lg px-6 py-3 text-anchor-gold-vivid font-semibold hover:bg-anchor-gold/10 transition-colors"
+                            >
+                                Gender Reveal Venue
+                            </Link>
+                        </div>
+                    </div>
                 </Container>
             </section>
 
@@ -162,16 +273,40 @@ export default function ChristeningsPage() {
             <FAQAccordionWithSchema
                 faqs={[
                     {
-                        question: "Can we decorate the area?",
-                        answer: "Yes, you are welcome to bring balloons and table decorations for your dedicated area."
+                        question: "Can we bring a celebration cake?",
+                        answer: "Yes, absolutely. You are very welcome to bring your own cake. We will provide a knife, plates, and napkins. Just let us know in advance so we can keep it safe in our kitchen until it's needed."
                     },
                     {
-                        question: "Is there a room hire fee?",
-                        answer: "For most christening parties booking a buffet or meal, there is no separate room hire fee, just a minimum spend on food/drink."
+                        question: "What are the decoration rules?",
+                        answer: "Balloons, banners, and table centrepieces are all welcome. We ask that you avoid loose confetti and glitter as these are very difficult to clean from our carpets and upholstery."
+                    },
+                    {
+                        question: "How long after the church service should we book the reception to start?",
+                        answer: "Most ceremonies run between 30 and 60 minutes. We recommend allowing at least 30 minutes of buffer time between the service and your reception start, so guests aren't waiting around. We'll have the space ready from your agreed arrival time."
+                    },
+                    {
+                        question: "Do you have high chairs?",
+                        answer: "Yes, we have high chairs available. Please let us know how many you need when you make your booking so we can have them ready."
                     },
                     {
                         question: "Do you have a children's menu?",
-                        answer: "Yes, we have a dedicated kids' menu with all their favourites, including smaller portions of our roast on Sundays."
+                        answer: "Yes, we have a dedicated kids' menu with all their favourites, including smaller portions of our Sunday Roast on Sundays."
+                    },
+                    {
+                        question: "Is the venue accessible for elderly guests and grandparents?",
+                        answer: "Yes. The venue is on the ground floor with step-free access and ample parking directly outside. If any guests have specific accessibility requirements, please let us know when you book and we will do our best to accommodate them."
+                    },
+                    {
+                        question: "Can we take photographs in the garden?",
+                        answer: "Of course. Our enclosed beer garden and traditional pub exterior make a lovely backdrop for group photographs. The garden is also safely enclosed, which is reassuring when there are young children about."
+                    },
+                    {
+                        question: "Is there parking for guests?",
+                        answer: "Yes, we have free on-site parking for approximately 20 vehicles. For larger parties, there is also roadside parking nearby. Please mention parking requirements when you enquire and we can advise."
+                    },
+                    {
+                        question: "Is there a room hire fee?",
+                        answer: "For most christening parties booking a buffet or meal, there is no separate room hire fee — just a minimum spend on food and drink. Contact us for specific details based on your guest numbers."
                     }
                 ]}
             />

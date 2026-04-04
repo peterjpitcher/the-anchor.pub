@@ -8,9 +8,9 @@ import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
-import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { parseMenuMarkdown, type MenuCategory } from '@/lib/menu-parser'
 import { DietaryMenuNav } from '@/components/food/DietaryMenuNav'
+import { PageTitle } from '@/components/ui/typography/PageTitle'
 
 export const revalidate = 3600
 
@@ -150,6 +150,26 @@ export default async function VeganMenuPage() {
       question: 'Are the burgers vegan?',
       answer: 'No. Our Garden Veg Burger and Garden Stack are vegetarian but not vegan. If you\u2019re looking for a vegan main, the stone-baked pizzas without mozzarella are your best option.',
     },
+    {
+      question: 'Can I build a full vegan meal at The Anchor?',
+      answer: 'Yes. A vegan pizza (ask for no mozzarella) with chips, sweet potato fries and garlic bread makes a proper full meal. Everything on that list is fully plant-based as standard.',
+    },
+    {
+      question: 'Is The Anchor good for vegan travellers near Heathrow?',
+      answer: 'Yes. We are 7 minutes from Heathrow Terminal 5 with free parking. We have vegan options available and can accommodate dietary requirements \u2014 far better than the limited options inside the terminal.',
+    },
+    {
+      question: 'Do you label vegan items on your menu?',
+      answer: 'Yes. Fully vegan dishes are labelled VE on our menu. Dishes that can be made vegan on request are labelled VEO. Just ask at the bar if you are unsure.',
+    },
+    {
+      question: 'Are your vegan options gluten-free too?',
+      answer: 'Some vegan items overlap with gluten-free options. Our chips and sweet potato fries are naturally gluten-free and vegan. Stone-baked pizzas are available with a gluten-free base and can be made vegan. Ask at the bar for full allergen details.',
+    },
+    {
+      question: 'What is the best vegan main course at The Anchor?',
+      answer: 'Our stone-baked Rustic Classic or Garden Club pizza without mozzarella is our most popular vegan main. The bases and tomato sauce are naturally dairy-free, and the toppings work brilliantly without cheese.',
+    },
   ]
 
   return (
@@ -197,16 +217,26 @@ export default async function VeganMenuPage() {
         <Container>
           <Card className="card-dark rounded-none">
             <CardBody>
-              <SectionHeader
-                title="Vegan Pub Food at The Anchor"
-                subtitle="Honest about what we offer."
-              />
+              <PageTitle as="h1" className="text-anchor-cream-text mb-2">
+                Vegan Pub Food &amp; Plant-Based Menu Near Heathrow
+              </PageTitle>
+              <p className="text-anchor-cream-text/55 mb-4">Honest about what we offer.</p>
               <p className="text-anchor-cream-text/70">
                 We&rsquo;ll be straight with you &mdash; we&rsquo;re a traditional British pub, not a vegan restaurant.
                 But we do have proper vegan options, and more dishes that can be made vegan on request. Our stone-baked
                 garlic bread is naturally vegan (no butter), our chips and sweet potato fries are vegan, and two of our
                 pizzas can be made vegan by removing the mozzarella. It&rsquo;s not a huge list, but everything on it
                 is genuinely good.
+              </p>
+              <p className="text-anchor-cream-text/70 mt-3">
+                For a plant-based main, our stone-baked Rustic Classic and Garden Club pizzas work brilliantly without
+                mozzarella &mdash; the tomato sauce and bases are dairy-free. Combine with chips, chunky chips,
+                sweet potato fries or onion rings for a fully vegan pub meal. We accommodate dietary requirements where
+                we can, so if you have a specific need, ask at the bar and we will do our best.
+              </p>
+              <p className="text-anchor-cream-text/70 mt-3">
+                We&rsquo;re 7 minutes from Heathrow Terminal 5 with 20 free parking spaces &mdash; a proper pub
+                stopover before or after your flight, with food everyone at the table can eat.
               </p>
             </CardBody>
           </Card>
@@ -459,23 +489,6 @@ export default async function VeganMenuPage() {
         label="Book a Table"
       />
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: jsonLdSafeStringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: faqItems.map((faq) => ({
-              '@type': 'Question',
-              name: faq.question,
-              acceptedAnswer: {
-                '@type': 'Answer',
-                text: faq.answer,
-              },
-            })),
-          }),
-        }}
-      />
     </>
   )
 }
