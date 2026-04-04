@@ -1,7 +1,7 @@
 ---
 title: "Private Party Venues Near Heathrow: Your Complete Guide"
 slug: private-party-venues-near-heathrow
-date: "2026-04-04"
+date: "2026-04-08"
 publishDate: "2026-04-08"
 description: "Looking for a private party venue near Heathrow? From birthdays to leaving dos, here's everything you need to know about hosting your celebration."
 author: "The Anchor"

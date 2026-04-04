@@ -1,7 +1,7 @@
 ---
 title: "How to Plan a Christening Reception: A Step-by-Step Guide"
 slug: how-to-plan-christening-reception
-date: "2026-04-04"
+date: "2026-04-20"
 publishDate: "2026-04-20"
 description: "Planning a christening reception? Step-by-step guide covering venue, catering, timing, cake, decorations, and guest logistics."
 author: "The Anchor Team"

@@ -1,7 +1,7 @@
 ---
 title: "Leaving Party Ideas Your Colleagues Will Actually Enjoy"
 slug: leaving-party-ideas
-date: "2026-04-04"
+date: "2026-04-15"
 publishDate: "2026-04-15"
 description: "Planning a leaving do? Ideas for speeches, activities, and venues that make the send-off memorable. Plus venue tips near Heathrow."
 author: "The Anchor Team"

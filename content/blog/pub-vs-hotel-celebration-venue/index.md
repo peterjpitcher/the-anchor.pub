@@ -1,7 +1,7 @@
 ---
 title: "Pub vs Hotel: Where to Host Your Celebration Near Heathrow"
 slug: pub-vs-hotel-celebration-venue
-date: "2026-04-04"
+date: "2026-04-22"
 publishDate: "2026-04-22"
 description: "Pub or hotel for your next celebration? Honest comparison of atmosphere, cost, flexibility, parking, and food near Heathrow."
 author: "The Anchor Team"

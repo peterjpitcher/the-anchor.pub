@@ -1,7 +1,7 @@
 ---
 title: "Pubs with Private Rooms Near Heathrow: What to Look For"
 slug: pub-with-private-room-near-heathrow
-date: "2026-04-04"
+date: "2026-04-19"
 publishDate: "2026-04-19"
 description: "Looking for a pub with a private room near Heathrow? What to check before booking, what it costs, and why The Anchor is a top choice."
 author: "The Anchor Team"

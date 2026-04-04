@@ -1,7 +1,7 @@
 ---
 title: "How to Plan a Surprise Birthday Party at a Pub"
 slug: how-to-plan-surprise-birthday-party
-date: "2026-04-04"
+date: "2026-04-17"
 publishDate: "2026-04-17"
 description: "Step-by-step guide to planning a surprise birthday party. From keeping the secret to the big reveal, plus pub venue tips near Heathrow."
 author: "The Anchor Team"

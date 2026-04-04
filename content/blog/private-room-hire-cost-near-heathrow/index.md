@@ -1,7 +1,7 @@
 ---
 title: "How Much Does Private Room Hire Cost Near Heathrow?"
 slug: private-room-hire-cost-near-heathrow
-date: "2026-04-04"
+date: "2026-04-21"
 publishDate: "2026-04-21"
 description: "What does it actually cost to hire a private room for an event near Heathrow? Breakdown of minimum spend, catering, and drinks packages."
 author: "The Anchor Team"

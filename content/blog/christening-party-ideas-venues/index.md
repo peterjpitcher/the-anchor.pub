@@ -1,7 +1,7 @@
 ---
 title: "Christening Party Ideas and Venues Near Heathrow"
 slug: christening-party-ideas-venues
-date: "2026-04-04"
+date: "2026-04-14"
 publishDate: "2026-04-14"
 description: "Planning a christening celebration? Party ideas, venue tips, and everything you need for a brilliant post-service gathering near Heathrow."
 author: "The Anchor Team"

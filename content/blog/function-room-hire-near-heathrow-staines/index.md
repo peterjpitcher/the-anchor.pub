@@ -1,7 +1,7 @@
 ---
 title: "Function Room Hire Near Heathrow and Staines (2026 Guide)"
 slug: function-room-hire-near-heathrow-staines
-date: "2026-04-04"
+date: "2026-04-18"
 publishDate: "2026-04-18"
 description: "Need a function room near Heathrow? Compare pub, hotel and community options in Staines and Stanwell Moor. Free parking, flexible catering, no room hire charge."
 author: "The Anchor"

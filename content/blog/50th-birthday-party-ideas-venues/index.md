@@ -1,7 +1,7 @@
 ---
 title: "50th Birthday Party Ideas and Venues Near Heathrow"
 slug: 50th-birthday-party-ideas-venues
-date: "2026-04-04"
+date: "2026-04-11"
 publishDate: "2026-04-11"
 description: "Turning 50 deserves a proper celebration. Party ideas, planning tips, and the best venues near Heathrow for a milestone birthday."
 author: "The Anchor"

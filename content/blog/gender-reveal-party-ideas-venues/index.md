@@ -1,7 +1,7 @@
 ---
 title: "Gender Reveal Party Ideas and Venues Near Heathrow"
 slug: gender-reveal-party-ideas-venues
-date: "2026-04-04"
+date: "2026-04-13"
 publishDate: "2026-04-13"
 description: "Planning a gender reveal party? Creative reveal ideas, planning tips, and the best venues with outdoor space near Heathrow."
 author: "The Anchor Team"

@@ -1,7 +1,7 @@
 ---
 title: "60th Birthday Party Ideas and Venues Near Heathrow"
 slug: 60th-birthday-party-ideas-venues
-date: "2026-04-04"
+date: "2026-04-12"
 publishDate: "2026-04-12"
 description: "Celebrating a 60th birthday? Relaxed party ideas and accessible venues near Heathrow for a memorable milestone."
 author: "The Anchor Team"
