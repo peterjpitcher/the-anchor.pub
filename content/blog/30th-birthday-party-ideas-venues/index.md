@@ -2,6 +2,7 @@
 title: "30th Birthday Party Ideas and Venues Near Heathrow"
 slug: 30th-birthday-party-ideas-venues
 date: "2026-04-09"
+publishDate: "2026-04-09"
 author: "The Anchor Team"
 description: "Planning a 30th birthday? From party themes to the perfect venue, here's everything you need for a brilliant celebration near Heathrow."
 keywords:
