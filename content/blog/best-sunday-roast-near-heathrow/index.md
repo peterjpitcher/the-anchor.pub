@@ -5,8 +5,10 @@ date: "2026-03-20"
 author: "Billy"
 keywords:
   - best sunday roast near heathrow
+  - sunday roast heathrow airport
   - sunday lunch near heathrow
   - sunday roast staines
+  - roast dinner near heathrow
   - roast dinner near terminal 5
   - sunday lunch near me heathrow
   - best roast dinner surrey
@@ -21,7 +23,7 @@ images: []
 
 ![Sunday roast with Yorkshire pudding at The Anchor, Stanwell Moor](/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg)
 
-Finding a proper Sunday roast near Heathrow isn't as easy as you'd think. Airport restaurants don't do them, hotel carveries are hit-and-miss, and you need to know where to look. We've rounded up the best options within 20 minutes of Heathrow, with real prices, booking info, and what to expect.
+Finding a proper Sunday roast near Heathrow Airport isn't as easy as you'd think. Airport restaurants don't do them, hotel carveries are hit-and-miss, and you need to know where the locals actually go. We've rounded up the best roast dinner options within 20 minutes of Heathrow for 2026, with real prices, booking info, and what to expect when you get there.
 
 ## Quick Comparison: Sunday Roasts Near Heathrow
 
@@ -41,7 +43,7 @@ Every one of these is a better bet than anything you'll find inside the terminal
 
 **Best for:** Cooked-to-order quality, families, dog owners, free parking
 
-The Anchor is the closest proper pub to Heathrow Terminal 5 — about seven minutes by car, tucked away in the village of Stanwell Moor. It's a proper local, not a chain, and they take their Sunday roasts seriously.
+The Anchor is the closest proper pub to Heathrow Terminal 5, about seven minutes by car, tucked away in the village of Stanwell Moor just off the M25 at Junction 14. It's a proper local, not a chain, and they take their Sunday roasts seriously. If you're after a roast dinner near Heathrow that's actually worth the trip, this is where to start.
 
 ### The menu
 
@@ -55,6 +57,8 @@ Four roast options, all cooked fresh to order:
 
 Every plate comes with herb and garlic-crusted roast potatoes, a Yorkshire pudding, seasonal veg, and gravy. The gravy is gluten-free by default, and they can adapt for vegan diners with notice.
 
+The vegetarian wellington deserves a special mention. A lot of pubs treat the veggie option as an afterthought, but the beetroot and butternut squash wellington here is a proper dish in its own right, wrapped in puff pastry with its own vegetarian gravy. It's not a token option sitting at the bottom of the menu.
+
 ### How booking works
 
 This is the bit that catches people out — you **must pre-order by 1pm Saturday**. Sunday lunch bookings require a **£10 per person deposit**, which gets deducted from your final bill. It's not a chain-style walk-in carvery; everything is cooked to order, so they need the numbers in advance.
@@ -63,11 +67,17 @@ This is the bit that catches people out — you **must pre-order by 1pm Saturday
 
 The regular weekday menu — burgers, pizzas, fish and chips, pies — is also available on Sunday without pre-ordering.
 
-### The setting
+### Families and dogs
 
-There's a big beer garden that's dog-friendly, which is ideal for a post-roast wander. Kids can run around outside. Planes come over every 90 seconds or so — you're directly under the Heathrow flight path, and honestly it's part of the experience. Free parking for about 20 cars.
+The Anchor is genuinely family-friendly, not just in the "we have a kids menu" sense. There's a large beer garden where kids can run around after eating, and the kids' roast chicken (£13.99) comes with the same proper trimmings as the adult portions, just sized down. Dogs are welcome in the garden too, so the whole family can come along.
 
-[Book Sunday lunch at The Anchor](/sunday-lunch) or call **01753 682707**.
+Planes come over every 90 seconds or so as you're directly under the Heathrow flight path. Kids love it, and honestly, it's part of the experience. Free parking for about 20 cars right outside.
+
+### Why locals rate it
+
+What sets The Anchor apart from the chain options is that everything is cooked to order. You're not getting slices off a carvery counter that's been sitting under heat lamps. The lamb shank has been braised for hours. The pork belly has proper crackling. It takes a bit more planning because of the pre-order system, but the quality difference is noticeable.
+
+[Book your Sunday roast at The Anchor](/sunday-lunch) or call **01753 682707**. Tables fill up by Friday most weeks, so don't leave it to Saturday morning.
 
 ---
 
@@ -164,6 +174,18 @@ The Anchor in Stanwell Moor has free parking for about 20 cars. Toby Carvery Col
 
 The kitchen is open 1pm–6pm on Sundays, with last orders at 5:30pm. You must pre-order your roast by 1pm Saturday. Sunday lunch bookings require a £10 per person deposit, deducted from your final bill.
 
+### Is there a vegetarian Sunday roast near Heathrow?
+
+The Anchor offers a beetroot and butternut squash wellington (£19.99) with vegetarian gravy and all the trimmings. They can also cater for vegan diners with advance notice. Most chain pubs in the area have a veggie option too, though quality varies.
+
+### Can I get a Sunday roast near Heathrow before a flight?
+
+Absolutely. The Anchor is only seven minutes from Terminal 5, and if you book a 1pm sitting you'll be done by 2:30pm with plenty of time for an evening flight. Let them know your flight time when you book and they'll pace the service accordingly. There's free parking on site, so no meter to worry about.
+
+### How do I get to The Anchor from Heathrow?
+
+From the airport, head south on the M25 and come off at Junction 14. Stanwell Moor is signposted from there, and the pub is on Horton Road. It's a straight seven-minute drive from Terminal 5. Postcode for sat nav: TW19 6AQ.
+
 ---
 
-Ready to book your Sunday roast? [Reserve a table at The Anchor](/sunday-lunch) or call **01753 682707**. Free parking, dog-friendly garden, and seven minutes from Terminal 5.
+Ready to book your Sunday roast? [Reserve a table at The Anchor for this Sunday](/sunday-lunch) or call **01753 682707**. From £19.99 per person, with free parking, a dog-friendly garden, and just seven minutes from Terminal 5. Pre-order by 1pm Saturday to secure your table.
