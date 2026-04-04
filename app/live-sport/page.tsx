@@ -95,6 +95,12 @@ export default function LiveSportPage() {
                 }
             />
 
+            <Container className="py-8">
+                <PageTitle as="h1" className="text-center mb-6" seo={{ structured: true }}>
+                    Watch Live Sport Near Heathrow — Big Screens &amp; Great Atmosphere
+                </PageTitle>
+            </Container>
+
             <section className="bg-anchor-bg py-6">
                 <Container>
                     <p className="text-center text-sm text-anchor-cream-text/55"><strong>Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>

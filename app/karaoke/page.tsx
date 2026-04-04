@@ -34,6 +34,7 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { RegretReduction } from '@/components/psychology'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
+import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 export const metadata: Metadata = {
     title: 'Karaoke Nights Near Heathrow | Sing Out at The Anchor',
@@ -245,6 +246,11 @@ export default async function KaraokePage() {
 
     return (
         <>
+            <BreadcrumbJsonLd items={[
+                { name: 'Home', url: '/' },
+                { name: "What's On", url: '/whats-on' },
+                { name: 'Karaoke', url: '/karaoke' }
+            ]} />
             <HeroWrapper
                 route="/karaoke"
                 title="Karaoke Nights at The Anchor"
