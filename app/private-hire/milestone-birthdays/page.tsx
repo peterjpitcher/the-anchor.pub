@@ -200,10 +200,24 @@ export default function MilestoneBirthdaysPage() {
                 </Container>
             </section>
 
+            <section className="py-8 bg-anchor-bg border-b border-anchor-gold/15">
+                <Container>
+                    <div className="max-w-3xl mx-auto text-center">
+                        <p className="text-lg text-anchor-cream-text/70">
+                            Use our calculator below for an instant estimate, or call us for a bespoke quote.
+                        </p>
+                    </div>
+                </Container>
+            </section>
+
             <PrivateBookingSection eventType="Birthday Party" />
 
             <FAQAccordionWithSchema
                 faqs={[
+                    {
+                        question: "How much does a milestone birthday party at The Anchor cost?",
+                        answer: "It depends on your guest count, catering choices, and any extras like DJ or decorations. Use our pricing calculator on this page for an instant estimate, or call us on 01753 682707 for a personalised quote. There are no hidden charges."
+                    },
                     {
                         question: "Do you host 18th birthday parties?",
                         answer: "We generally focus on 21st birthdays and above. For 18th parties, please call us to discuss your requirements as strict ID policies will apply."

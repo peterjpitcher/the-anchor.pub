@@ -185,10 +185,24 @@ export default function RetirementPartiesPage() {
                 </Container>
             </section>
 
+            <section className="py-8 bg-anchor-bg border-b border-anchor-gold/15">
+                <Container>
+                    <div className="max-w-3xl mx-auto text-center">
+                        <p className="text-lg text-anchor-cream-text/70">
+                            Use our calculator below for an instant estimate, or call us for a bespoke quote.
+                        </p>
+                    </div>
+                </Container>
+            </section>
+
             <PrivateBookingSection eventType="Other" />
 
             <FAQAccordionWithSchema
                 faqs={[
+                    {
+                        question: "How much does a retirement party at The Anchor cost?",
+                        answer: "It depends on your guest count, catering choices, and any extras like DJ or decorations. Use our pricing calculator on this page for an instant estimate, or call us on 01753 682707 for a personalised quote. There are no hidden charges."
+                    },
                     {
                         question: "Can we set up a tab?",
                         answer: "Yes, we can set up a bar tab with a limit or for specific drinks. We can provide a VAT receipt for company expenses."
