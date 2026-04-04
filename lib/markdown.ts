@@ -75,11 +75,12 @@ export async function getAllBlogPosts(): Promise<BlogPost[]> {
     })
   )
   
+  const now = new Date()
   return posts
     .filter((post): post is BlogPost => post !== null)
     .filter(post => {
       if (post.publishDate) {
-        return new Date(post.publishDate) <= new Date()
+        return new Date(post.publishDate) <= now
       }
       return true
     })

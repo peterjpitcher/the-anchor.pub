@@ -8,7 +8,6 @@ import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
-import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { parseMenuMarkdown, type MenuCategory } from '@/lib/menu-parser'
 import { DietaryMenuNav } from '@/components/food/DietaryMenuNav'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
@@ -490,23 +489,6 @@ export default async function VeganMenuPage() {
         label="Book a Table"
       />
 
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: jsonLdSafeStringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: faqItems.map((faq) => ({
-              '@type': 'Question',
-              name: faq.question,
-              acceptedAnswer: {
-                '@type': 'Answer',
-                text: faq.answer,
-              },
-            })),
-          }),
-        }}
-      />
     </>
   )
 }

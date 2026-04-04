@@ -10,7 +10,6 @@ import { parseMenuMarkdown, type MenuData, type MenuCategory } from '@/lib/menu-
 import { getBusinessHours, isKitchenOpen } from '@/lib/api'
 import { formatTime12Hour } from '@/lib/time-utils'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
-import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { MenuRenderer } from '@/components/MenuRenderer'
 import { DietaryMenuNav } from '@/components/food/DietaryMenuNav'
@@ -496,24 +495,6 @@ export default async function VegetarianMenuPage() {
         </Container>
       </Section>
 
-      {/* Structured data */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: jsonLdSafeStringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: faqItems.map((faq) => ({
-              '@type': 'Question',
-              name: faq.question,
-              acceptedAnswer: {
-                '@type': 'Answer',
-                text: faq.answer,
-              },
-            })),
-          }),
-        }}
-      />
     </>
   )
 }
