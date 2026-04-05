@@ -76,13 +76,13 @@ export default function CookieBanner() {
               <p className="text-xs text-gray-700 flex-1">
                 We use cookies.{' '}
                 <Link href="/privacy-policy" className="underline">
-                  Learn more
+                  Read our privacy policy
                 </Link>
               </p>
               <div className="flex gap-1">
                 <button
                   onClick={() => setShowPreferences(true)}
-                  className="p-1.5 text-gray-500 hover:text-gray-700"
+                  className="p-2.5 min-h-[48px] min-w-[48px] flex items-center justify-center text-gray-500 hover:text-gray-700"
                   aria-label="Cookie settings"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -93,8 +93,8 @@ export default function CookieBanner() {
                 <Button
                   onClick={handleRejectAll}
                   variant="ghost"
-                  size="xs"
-                  className="px-2 py-1 text-xs"
+                  size="sm"
+                  className="min-h-[48px] text-xs"
                   aria-label="Reject all cookies"
                 >
                   Reject
@@ -102,8 +102,8 @@ export default function CookieBanner() {
                 <Button
                   onClick={handleAcceptAll}
                   variant="primary"
-                  size="xs"
-                  className="px-2 py-1 text-xs"
+                  size="sm"
+                  className="min-h-[48px] text-xs"
                   aria-label="Accept all cookies"
                 >
                   Accept
@@ -119,7 +119,7 @@ export default function CookieBanner() {
               <p className="text-xs mt-1 text-gray-600">
                 We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.{' '}
                 <Link href="/privacy-policy" className="underline hover:text-anchor-gold">
-                  Learn more
+                  Read our privacy policy
                 </Link>
               </p>
             </div>

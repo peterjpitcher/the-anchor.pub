@@ -116,7 +116,7 @@ export function HeroSectionServer({
             className="object-cover"
             priority={image.priority !== false}
             sizes="(max-width: 640px) 640px, (max-width: 1024px) 1024px, 1920px"
-            quality={82}
+            quality={65}
             placeholder={blurDataURL ? 'blur' : 'empty'}
             blurDataURL={blurDataURL}
             style={{ objectPosition }}

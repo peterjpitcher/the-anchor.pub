@@ -130,7 +130,7 @@ export async function NextEventServer() {
                   alt={`${nextEvent.name} event promotional poster - ${nextEvent.category?.name || 'upcoming event'} at The Anchor`}
                   fill
                   className="object-contain drop-shadow-xl"
-                  sizes="(max-width: 1024px) 60vw, 280px"
+                  sizes="(max-width: 640px) 200px, (max-width: 1024px) 220px, 260px"
                 />
               </div>
             </div>

@@ -236,12 +236,21 @@ export function StatusBar({
     }
     return (
       <div className={cn(
-        'inline-block rounded-full px-6 py-3 shadow-md min-h-[44px]',
+        'flex w-full flex-col items-center justify-center gap-1 rounded-full px-4 sm:px-6 py-2.5 shadow-md',
         mergedTheme.background,
         mergedTheme.border,
         className
       )}>
-        <LoadingState variant="skeleton" className="h-5 w-32" />
+        <div className="flex flex-col items-center gap-0.5 text-sm sm:text-base font-medium w-full text-center">
+          <div className="flex items-center justify-center gap-1.5 leading-tight">
+            <LoadingState variant="skeleton" className="h-[1em] w-32" />
+          </div>
+          {showKitchen && (
+            <div className="flex items-center justify-center gap-1.5 leading-tight">
+              <LoadingState variant="skeleton" className="h-[1em] w-36" />
+            </div>
+          )}
+        </div>
       </div>
     )
   }
