@@ -3,7 +3,7 @@
 **Created:** 4 April 2026
 **Data sources:** Google Keyword Planner (6 rounds, 240+ keywords) + Google Search Console (3 months)
 **Last updated:** 5 April 2026
-**Status:** ALL 128 PAGES MAPPED AND OPTIMISED. Phase 1+2 (commit `4bf2949`), Phase 3 (commit TBD).
+**Status:** ALL 128 PAGES MAPPED AND OPTIMISED. Phase 1+2 (commit `4bf2949`), Phase 3 (commit `16b44ec`).
 
 Use this document to verify keyword targeting on any page, plan new pages, or brief content writers.
 
