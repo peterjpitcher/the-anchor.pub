@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   title: 'Accessibility at The Anchor | Stanwell Moor Pub',
   description: 'Step-free access to the bar and dining area, with a ramp available for the beer garden. Everything you need to know to plan your visit to The Anchor, Stanwell Moor.',
   alternates: {
-    canonical: './'
+    canonical: '/accessibility'
   }
 }
 

@@ -18,16 +18,16 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { getBusinessStats } from '@/lib/schema-with-reviews'
 
 export const metadata: Metadata = {
-  title: 'Pubs in Ashford Middlesex | Traditional Pub & Free Parking | The Anchor',
+  title: 'Pubs in Ashford Middlesex | Free Parking | The Anchor',
   description: `${BRAND.name} - traditional British pub 10 mins from Ashford. Free parking, Sunday roasts, quiz nights & family-friendly. Easy A30 access.`,
   openGraph: {
-    title: 'Pubs in Ashford Middlesex | Traditional Pub & Free Parking | The Anchor',
+    title: 'Pubs in Ashford Middlesex | Free Parking | The Anchor',
     description: 'Just 10 minutes from Ashford with free parking. Sunday roasts, British classics, and regular events.',
     images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
     type: 'website',
   },
   twitter: getTwitterMetadata({
-    title: 'Pubs in Ashford Middlesex | Traditional Pub & Free Parking | The Anchor',
+    title: 'Pubs in Ashford Middlesex | Free Parking | The Anchor',
     description: 'Just 10 minutes from Ashford with free parking. Sunday roasts, British classics, and regular events.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),

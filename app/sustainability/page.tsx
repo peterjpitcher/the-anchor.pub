@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     description: 'Award-winning sustainability practices at The Anchor. What we do, why it matters, and what we\'re still working on.',
   }),
   alternates: {
-    canonical: './'
+    canonical: '/sustainability'
   }
 }
 

@@ -13,6 +13,7 @@ import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { PhoneButton } from '@/components/PhoneButton'
+import { localBusinessSchema } from '@/lib/schema'
 import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 
 export const metadata: Metadata = {
@@ -41,6 +42,10 @@ export default function NearHeathrowPage() {
         label="Book a Table"
       />
       <SpeakableSchema />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([localBusinessSchema, parkingFacilitySchema]) }}
+      />
       {/* Hero Section */}
       <HeroWrapper
         route="/near-heathrow"

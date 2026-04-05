@@ -479,6 +479,17 @@ export default async function LiveMusicPage() {
                 </Container>
             </Section>
 
+            <Section spacing="sm" background="white">
+                <Container>
+                    <div className="max-w-3xl mx-auto text-center">
+                        <h2 className="text-2xl font-bold text-anchor-cream-text mb-3">More Things to Do at The Anchor</h2>
+                        <p className="text-anchor-cream-text/70">
+                            Love a night out near Heathrow? Try our <Link href="/karaoke" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition">Friday karaoke nights</Link> with 50,000+ songs, or test your knowledge at our monthly <Link href="/quiz-night" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition">pub quiz night</Link> with cash prizes.
+                        </p>
+                    </div>
+                </Container>
+            </Section>
+
             <FAQAccordionWithSchema faqs={FAQS} className="bg-white" />
 
             <Section spacing="md" background="gray">

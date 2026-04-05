@@ -16,15 +16,15 @@ import { generateOpeningHoursSpecification } from '@/lib/schema-utils'
 export const revalidate = 86400 // Revalidate every 24 hours
 
 export const metadata: Metadata = {
-  title: 'Beer Garden Near Heathrow | Outdoor Pub & Dog-Friendly | The Anchor',
+  title: 'Beer Garden Near Heathrow | Dog-Friendly Pub | The Anchor',
   description: '64-seat outdoor pub garden 7 mins from Heathrow with outdoor dining under the flight path. Dog-friendly, heated areas, full food menu served to your table. Free parking.',
   openGraph: {
-    title: 'Beer Garden Near Heathrow | Outdoor Pub & Dog-Friendly | The Anchor',
+    title: 'Beer Garden Near Heathrow | Dog-Friendly Pub | The Anchor',
     description: '64-seat outdoor pub garden 7 mins from Heathrow with outdoor dining under the flight path. Dog-friendly, heated areas, full food menu served to your table. Free parking.',
     images: ['/images/garden/beer-garden/the-anchor-beer-garden-heathrow-flight-path.jpg'],
   },
   twitter: getTwitterMetadata({
-    title: 'Beer Garden Near Heathrow | Outdoor Pub & Dog-Friendly | The Anchor',
+    title: 'Beer Garden Near Heathrow | Dog-Friendly Pub | The Anchor',
     description: 'Outdoor pub garden 7 mins from Heathrow. Dog-friendly, heated areas, full food menu. Free parking.',
     images: ['/images/garden/beer-garden/the-anchor-beer-garden-heathrow-flight-path.jpg']
   }),

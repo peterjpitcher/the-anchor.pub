@@ -25,7 +25,7 @@ export const metadata: Metadata = {
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
     alternates: {
-        canonical: '/pub-garden-heathrow'
+        canonical: '/beer-garden'
     }
 }
 

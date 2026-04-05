@@ -585,6 +585,17 @@ export default async function QuizNightPage() {
         </Container>
       </Section>
 
+      <Section spacing="sm" background="white">
+        <Container>
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-2xl font-bold text-anchor-cream-text mb-3">More Things to Do at The Anchor</h2>
+            <p className="text-anchor-cream-text/70">
+              Not a quiz night? No problem. Grab the mic at our <Link href="/karaoke" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition">Friday karaoke nights</Link> or enjoy a free gig at our regular <Link href="/live-music" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition">live music evenings</Link> featuring local bands and acoustic acts.
+            </p>
+          </div>
+        </Container>
+      </Section>
+
       <FAQAccordionWithSchema faqs={FAQS} className="bg-white" />
 
       <Section spacing="md" background="white">

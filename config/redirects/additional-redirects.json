@@ -77,7 +77,7 @@
   },
   {
     "source": "/blog/tag/FamilyFriendly",
-    "destination": "/blog/tag/family-friendly",
+    "destination": "/blog/tag/community",
     "permanent": true
   },
   {

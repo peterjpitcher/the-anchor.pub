@@ -581,6 +581,9 @@ export default async function FoodMenuPage() {
                   </ul>
                 </div>
               </div>
+              <p className="mt-4 text-anchor-cream-text/70">
+                View our full <Link href="/food-menu/gluten-free" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition">gluten-free menu</Link>, <Link href="/food-menu/vegan" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition">vegan menu</Link> or <Link href="/food-menu/vegetarian" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition">vegetarian menu</Link> for detailed options. We also have a dedicated <Link href="/burger-menu" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition">burger menu</Link> with veggie and classic choices.
+              </p>
               <div className="mt-6 max-w-xs">
                 <MenuSectionCta
                   label="View Dietary Picks"

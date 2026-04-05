@@ -464,6 +464,17 @@ export default async function KaraokePage() {
                 </Container>
             </Section>
 
+            <Section spacing="sm" background="white">
+                <Container>
+                    <div className="max-w-3xl mx-auto text-center">
+                        <h2 className="text-2xl font-bold text-anchor-cream-text mb-3">More Things to Do at The Anchor</h2>
+                        <p className="text-anchor-cream-text/70">
+                            Looking for more entertainment near Heathrow? Catch a gig at our <Link href="/live-music" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition">live music nights</Link> featuring local bands and acoustic sessions, or rally your team for our monthly <Link href="/quiz-night" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition">pub quiz night</Link> with a £25 bar tab up for grabs.
+                        </p>
+                    </div>
+                </Container>
+            </Section>
+
             <FAQAccordionWithSchema faqs={FAQS} className="bg-white" />
 
             <Section spacing="md" background="gray">
