@@ -37,16 +37,16 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 export const metadata: Metadata = {
-    title: 'Karaoke Nights Near Heathrow | Sing Out at The Anchor',
+    title: 'Karaoke Pub Near Heathrow | Friday Nights at The Anchor',
     description:
-        'Join karaoke night near Heathrow at The Anchor. 50,000+ songs, hosted by Nikki Manfadge, Fridays 8-11pm. Free entry. Sing your heart out in Stanwell Moor!',
+        'Looking for a karaoke pub near me? The Anchor hosts karaoke every Friday 8-11pm. 50,000+ songs, hosted by Nikki Manfadge. Free entry, free parking, Stanwell Moor.',
     openGraph: {
-        title: 'Karaoke Nights Near Heathrow | The Anchor',
+        title: 'Karaoke Pub Near Heathrow | The Anchor',
         description: '50,000+ songs, hosted by Nikki Manfadge, Fridays 8-11pm. Free entry. Sing your heart out in Stanwell Moor.',
         images: [{ url: DEFAULT_EVENT_IMAGE, width: 1200, height: 630, alt: 'Events at The Anchor pub near Heathrow' }]
     },
     twitter: getTwitterMetadata({
-        title: 'Karaoke Nights Near Heathrow | The Anchor',
+        title: 'Karaoke Pub Near Heathrow | The Anchor',
         description: '50,000+ songs, hosted by Nikki Manfadge, Fridays 8-11pm. Free entry. Sing your heart out in Stanwell Moor.',
         images: [DEFAULT_EVENT_IMAGE]
     }),
@@ -312,10 +312,10 @@ export default async function KaraokePage() {
             <Section spacing="sm" background="white">
                 <Container>
                     <PageTitle className="text-center text-anchor-gold-vivid" seo={{ structured: true, speakable: true }}>
-                        Karaoke Pub Near Heathrow – Sing Your Way to Stardom
+                        Karaoke Pub Near Heathrow &mdash; Sing Your Way to Stardom
                     </PageTitle>
                     <p className="text-lg text-anchor-cream-text/70 text-center max-w-3xl mx-auto">
-                        Ready to unleash your inner rock star? The Anchor's karaoke nights are legendary in Stanwell Moor. Whether you're belting out ballads or rapping 90s classics, we provide the stage, the mic, and the enthusiastic crowd. Just minutes from Heathrow, it's the perfect place to let loose. {heroDescription}
+                        Ready to unleash your inner rock star? The Anchor&rsquo;s karaoke nights are legendary in Stanwell Moor. Whether you&rsquo;re belting out ballads or rapping 90s classics, we provide the stage, the mic, and the enthusiastic crowd. One of the best things to do near Heathrow on a Friday night, it&rsquo;s the perfect place to let loose. {heroDescription}
                     </p>
                 </Container>
             </Section>

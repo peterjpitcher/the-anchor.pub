@@ -15,16 +15,16 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { getBusinessStats } from '@/lib/schema-with-reviews'
 
 export const metadata: Metadata = {
-    title: 'Pub Near Sunbury-on-Thames | The Anchor - Sunday Roasts',
-    description: `${BRAND.name} is a favourite destination for Sunbury residents. Known for exceptional Sunday Roasts, stone-baked pizzas, and a family-friendly atmosphere. Easy parking.`,
+    title: 'Pubs in Sunbury | The Anchor - Sunday Roasts & Free Parking',
+    description: `Looking for pubs in Sunbury? ${BRAND.name} is a favourite for Sunbury residents. Exceptional Sunday roasts, stone-baked pizzas, family-friendly atmosphere, and free parking.`,
     openGraph: {
-        title: 'The Anchor - Destination Dining Near Sunbury',
+        title: 'Pubs in Sunbury | The Anchor Stanwell Moor',
         description: 'Worth the short drive from Sunbury for the best Sunday Roast in the area. Free parking and great value.',
         images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({
-        title: 'The Anchor - Destination Dining Near Sunbury',
+        title: 'Pubs in Sunbury | The Anchor Stanwell Moor',
         description: 'Worth the short drive from Sunbury for the best Sunday Roast in the area. Free parking and great value.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
@@ -146,10 +146,10 @@ export default async function SunburyPubPage() {
                             }}
                             className="text-anchor-cream-text mb-4"
                         >
-                            The Best Sunday Roast Near Sunbury
+                            Pubs in Sunbury &mdash; The Best Sunday Roast Near You
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">
-                            Many Sunbury residents make the short drive to The Anchor for our famous Sunday lunches. We offer the perfect mix of quality food, better value, and easy parking that's hard to find in Sunbury itself.
+                            Many Sunbury residents make the short drive to The Anchor for our famous Sunday lunches. If you&rsquo;re looking for pubs near Sunbury with quality food, better value, and easy parking, we tick every box.
                         </p>
                     </div>
                 </Container>

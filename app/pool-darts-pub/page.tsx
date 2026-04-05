@@ -13,17 +13,17 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-    title: 'Pub With Pool Table & Darts Near Heathrow | The Anchor',
-    description: `Looking for a game of pool or darts near Heathrow? ${BRAND.name} features a tournament-quality pool table and dart board area. Perfect for a relaxed evening.`,
+    title: 'Pool Table Pub Near Heathrow | Darts & Pints | The Anchor',
+    description: `Looking for a pool table pub near you? ${BRAND.name} in Stanwell Moor has a tournament-quality pool table, darts board and great beer — just 7 minutes from Heathrow T5 with free parking.`,
     openGraph: {
-        title: 'Pool, Darts & Pints at The Anchor',
-        description: 'Challenge a mate to a frame of pool or a round of darts. Great beer and good competition.',
+        title: 'Pool Table Pub & Darts Near Heathrow | The Anchor',
+        description: 'Looking for a pool table pub near you? Challenge a mate to a frame of pool or a round of darts at The Anchor, Stanwell Moor.',
         images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({
-        title: 'Pool, Darts & Pints at The Anchor',
-        description: 'Challenge a mate to a frame of pool or a round of darts. Great beer and good competition.',
+        title: 'Pool Table Pub & Darts Near Heathrow | The Anchor',
+        description: 'Looking for a pool table pub near you? Challenge a mate to a frame of pool or a round of darts at The Anchor, Stanwell Moor.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
     alternates: {
@@ -82,10 +82,10 @@ export default function PoolAndDartsPage() {
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle className="text-anchor-gold-vivid mb-4">
-                            Game On
+                            Your Pool Table Pub Near Heathrow
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">
-                            There's nothing quite like a traditional pub game. Whether you're settling a score with a colleague, practicing your aim, or just killing time with a pint, our games area is the perfect spot.
+                            Looking for a pool table pub near you? There's nothing quite like a traditional pub game. Whether you're settling a score with a colleague, practising your aim at the dartboard, or just killing time with a pint, our games area is the perfect spot. The Anchor is the darts pub near Heathrow where a frame and a pint go hand in hand.
                         </p>
                     </div>
                 </Container>

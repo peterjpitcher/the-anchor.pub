@@ -14,16 +14,16 @@ import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 
 export const metadata: Metadata = {
-    title: 'Engagement Party Venue Near Heathrow | The Anchor',
-    description: `Celebrate your engagement at ${BRAND.name}. Romantic atmosphere, flexible buffet options, and private areas. The perfect venue near Staines and Heathrow.`,
+    title: 'Engagement Party Venue Near Heathrow | The Anchor Pub',
+    description: `Looking for an engagement party venue? Celebrate at ${BRAND.name} with prosecco packages, flexible buffets, and private areas. Free parking near Staines and Heathrow.`,
     openGraph: {
-        title: 'Celebrate Your Engagement at The Anchor',
+        title: 'Engagement Party Venue | The Anchor Stanwell Moor',
         description: 'She said yes! Now let\'s celebrate. Discover our engagement party packages with prosecco, buffets, and private areas.',
         images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Private hire venue at The Anchor near Heathrow Airport' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({
-        title: 'Celebrate Your Engagement at The Anchor',
+        title: 'Engagement Party Venue | The Anchor Stanwell Moor',
         description: 'She said yes! Now let\'s celebrate. Discover our engagement party packages with prosecco, buffets, and private areas.',
         images: [DEFAULT_CORPORATE_IMAGE]
     }),
@@ -113,7 +113,7 @@ export default function EngagementPartiesPage() {
                             Engagement Party Venue Near Heathrow & Staines
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">
-                            Congratulations on your engagement! Whether you want a quiet family dinner to share the news or a big bash with all your friends, The Anchor provides the perfect backdrop for your first celebration as a fiancé(e).
+                            Congratulations on your engagement! Whether you want a quiet family dinner to share the news or a big bash with all your friends, The Anchor is the ideal engagement party venue near Heathrow &mdash; the perfect backdrop for your first celebration as a fianc&eacute;(e).
                         </p>
                     </div>
                 </Container>

@@ -15,16 +15,16 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-  title: 'Private Party Venue Near Heathrow & Staines | The Anchor',
-  description: 'Book The Anchor for private parties near Heathrow and Staines, including wedding receptions, birthdays and celebrations. Flexible 10-200 guest spaces, free parking, custom menus and dedicated event coordinators.',
+  title: 'Birthday Party Venue Near Heathrow & Staines | Celebrations | The Anchor',
+  description: 'Book The Anchor for birthday parties and celebrations near Heathrow and Staines. DJ space, late licence, decorations welcome, and dedicated party coordinators. 10-200 guests with free parking.',
   openGraph: {
-    title: 'Private Party Venue Near Heathrow - The Anchor Stanwell Moor',
-    description: 'Flexible party spaces with free parking, custom menus and dedicated planners near Heathrow.',
+    title: 'Birthday Party Venue Near Heathrow - Celebrations at The Anchor',
+    description: 'Birthday parties and celebrations with DJ space, late licence, and free parking near Heathrow.',
     images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Private hire venue at The Anchor near Heathrow Airport' }],
   },
   twitter: getTwitterMetadata({
-    title: 'Private Party Venue Near Heathrow - The Anchor Stanwell Moor',
-    description: 'Flexible party spaces with free parking, custom menus and dedicated planners near Heathrow.',
+    title: 'Birthday Party Venue Near Heathrow - Celebrations at The Anchor',
+    description: 'Birthday parties and celebrations with DJ space, late licence, and free parking near Heathrow.',
     images: [DEFAULT_CORPORATE_IMAGE]
   }),
   alternates: {
@@ -51,8 +51,8 @@ export default function PrivatePartyVenuePage() {
       {/* Hero Section */}
       <HeroWrapper
         route="/private-party-venue"
-        title="Private Party Venue"
-        description="Create unforgettable celebrations at The Anchor"
+        title="Birthday Party Venue & Celebrations"
+        description="The perfect spot for birthdays, milestones and social celebrations near Heathrow"
         tags={[
           { label: "10-200 Guests", variant: "success" },
           { label: "All Occasions", variant: "default" },
@@ -118,10 +118,10 @@ export default function PrivatePartyVenuePage() {
               seo={{ structured: true, speakable: true }}
               className="text-anchor-cream-text mb-4"
             >
-              Private Party Venue - Celebrations at The Anchor
+              Birthday Party Venue &amp; Celebrations at The Anchor
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
-              Create unforgettable memories with flexible spaces for birthdays, anniversaries, and special occasions
+              DJ space, late licence, decorations welcome — everything you need for birthdays and celebrations
             </p>
           </div>
         </Container>

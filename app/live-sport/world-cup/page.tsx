@@ -34,7 +34,7 @@ const AREA_LINKS = [
 ]
 
 export const metadata: Metadata = {
-  title: 'Watch FIFA World Cup 2026 Near Heathrow | The Anchor Stanwell Moor',
+  title: 'World Cup Pub Near Me | Watch 2026 Live | The Anchor Stanwell Moor',
   description: `See every FIFA World Cup 2026 kick-off time in UK time (BST) and book tables for matches we're showing at ${BRAND.name}, Stanwell Moor near Heathrow Terminal 5. 4 screens, sound on for games we show, free parking.`,
   openGraph: {
     title: 'Watch FIFA World Cup 2026 at The Anchor',
@@ -160,7 +160,7 @@ export default async function WorldCupPage() {
       <section className="bg-anchor-bg py-8">
         <Container>
           <div className="mx-auto max-w-5xl text-center">
-            <PageTitle className="mb-4 text-anchor-gold-vivid">Your World Cup Base Near Heathrow</PageTitle>
+            <PageTitle className="mb-4 text-anchor-gold-vivid">World Cup Pub Near Me — Your Match Base Near Heathrow</PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
               The FIFA World Cup 2026 runs from <strong>11 June to 19 July 2026</strong>. If you’re looking for a proper pub
               atmosphere near Heathrow ({HEATHROW_TIMES.terminal5} minutes from Terminal 5), you’re in the right place.

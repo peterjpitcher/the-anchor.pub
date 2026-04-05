@@ -109,7 +109,7 @@ export default function PubNearCrownePlazaHeathrowPage() {
               Pub Near Crowne Plaza London Heathrow
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
-              Staying at the Crowne Plaza Heathrow? The Anchor is just 12 minutes away — a traditional British pub with home-cooked food, real ales, and free parking. Popular with corporate guests looking for a genuine local experience.
+              Staying at the Crowne Plaza Heathrow? The Anchor is just 12 minutes away — a traditional British pub with home-cooked food, real ales, and free parking. Rated one of the best pubs near Heathrow Airport, we offer a proper alternative to hotel dining that corporate guests keep coming back to.
             </p>
           </div>
         </Container>

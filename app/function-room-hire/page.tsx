@@ -18,16 +18,16 @@ import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 import { TrustBar, ValueProofStrip, RegretReduction } from '@/components/psychology'
 
 export const metadata: Metadata = {
-  title: 'Function Room Hire Near Heathrow | 10-200 Guests | Free Parking',
-  description: 'Hire flexible function rooms near Heathrow and Staines for 10-200 guests. The Anchor offers free parking, tailored catering and AV support for meetings, parties and celebrations.',
+  title: 'Function Room Hire Near Heathrow | Capacity 10-200 | 6 Layout Options',
+  description: 'Flexible function room with 6 layout options for 10-200 guests near Heathrow. AV equipment, climate control, wheelchair access, and free parking included. View room specs and capacities.',
   openGraph: {
-    title: 'Function Room Hire Near Heathrow | 10-200 Guests | Free Parking',
-    description: 'Flexible venue with free parking, catering and AV support for meetings and celebrations near Heathrow.',
+    title: 'Function Room Hire Near Heathrow | Capacity 10-200 | 6 Layout Options',
+    description: 'Flexible function room with 6 layouts, AV equipment and free parking near Heathrow. View room specs and capacities.',
     images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Private hire venue at The Anchor near Heathrow Airport' }],
   },
   twitter: getTwitterMetadata({
-    title: 'Function Room Hire Near Heathrow | 10-200 Guests | Free Parking',
-    description: 'Flexible venue with free parking, catering and AV support for meetings and celebrations near Heathrow.',
+    title: 'Function Room Hire Near Heathrow | Capacity 10-200 | 6 Layout Options',
+    description: 'Flexible function room with 6 layouts, AV equipment and free parking near Heathrow. View room specs and capacities.',
     images: [DEFAULT_CORPORATE_IMAGE]
   }),
   alternates: {
@@ -87,8 +87,8 @@ export default function FunctionRoomHirePage() {
       {/* Hero Section */}
       <HeroWrapper
         route="/function-room-hire"
-        title="Function Room Hire"
-        description="Flexible rooms for 10–200 guests with free parking, AV support and custom catering. Tailored pricing for every event."
+        title="Function Room Hire — Flexible Space for 10-200 Guests"
+        description="Ground-floor rooms with 6 layout options, AV equipment, climate control and wheelchair access. Free parking included."
 
         tags={[
           { label: " Multiple Spaces", variant: "default" },
@@ -179,7 +179,7 @@ export default function FunctionRoomHirePage() {
       <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
         <div className="container mx-auto px-4">
           <PageTitle className="text-center text-anchor-cream-text mb-8" seo={{ structured: true, speakable: true }}>
-            Function Room Hire - Private Events at The Anchor
+            Function Room Hire - Room Specs, Layouts &amp; Capacities at The Anchor
           </PageTitle>
         </div>
       </section>

@@ -12,15 +12,15 @@ import { landmarks } from '@/lib/local-seo-data'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 
 export const metadata: Metadata = {
-    title: 'Wedding Reception & Engagement Party Venue | The Anchor',
+    title: 'Wedding Venue Near Heathrow | Receptions & Engagements | The Anchor',
     description: 'The perfect venue near Staines Registry Office an Great Fosters for engagement parties, rehearsal dinners, and relaxed wedding receptions. Free parking.',
     openGraph: {
-        title: 'Wedding & Engagement Venue | The Anchor Stanwell Moor',
+        title: 'Wedding Venue Near Heathrow | The Anchor Stanwell Moor',
         description: 'Relaxed wedding celebrations, engagement parties, and day-after brunches.',
         images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Private hire venue at The Anchor near Heathrow Airport' }],
     },
     twitter: getTwitterMetadata({
-        title: 'Wedding & Engagement Venue | The Anchor Stanwell Moor',
+        title: 'Wedding Venue Near Heathrow | The Anchor Stanwell Moor',
         description: 'Relaxed wedding celebrations, engagement parties, and day-after brunches.',
         images: [DEFAULT_CORPORATE_IMAGE]
     }),
@@ -80,7 +80,7 @@ export default function WeddingsPage() {
             <section className="py-12 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <PageTitle className="text-center mb-6" seo={{ structured: true, speakable: true }}>
-                        Not Just Another Wedding Venue
+                        Wedding Venue Near Heathrow — Not Your Typical Reception
                     </PageTitle>
                     <div className="max-w-3xl mx-auto text-center">
                         <p className="text-lg text-anchor-cream-text/70 mb-8">

@@ -13,7 +13,7 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
 const NYE_BOOKING_URL = '/book-table?purpose=drinks'
 
-const PAGE_TITLE = "New Year's Eve at The Anchor | Party Near Heathrow"
+const PAGE_TITLE = "New Year's Eve Pub Near Heathrow | The Anchor Stanwell Moor"
 const PAGE_DESCRIPTION =
   "Ring in 2027 at The Anchor near Heathrow. New Year's Eve party with live entertainment, midnight countdown, and free parking. Book your spot."
 
@@ -77,7 +77,7 @@ export default function NewYearsEvePage(): React.JSX.Element {
 
       <HeroWrapper
         route="/new-years-eve"
-        title="New Year's Eve at The Anchor"
+        title="New Year's Eve Pub in Stanwell Moor"
         description="See in the New Year at a proper village pub. Midnight countdown, live entertainment, and none of the London prices or transport chaos."
         eyebrow="31 December"
         lead={

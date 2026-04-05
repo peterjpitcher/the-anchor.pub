@@ -31,17 +31,17 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 export const metadata: Metadata = {
-  title: 'Open Mic Sign-Up | The Anchor, Stanwell Moor',
+  title: 'Open Mic Night Near Heathrow | Perform at The Anchor',
   description:
-    'Register to perform at The Anchor open mic in Stanwell Moor near Heathrow. Acoustic-friendly to start, with all performer types welcome for future events. See upcoming dates and book a table (walk-ins welcome).',
+    'Open mic night near Heathrow at The Anchor, Stanwell Moor. Acoustic-friendly to start, all performer types welcome. Free entry, free parking, walk-ins welcome. See upcoming dates.',
   openGraph: {
-    title: 'Open Mic Night | The Anchor, Stanwell Moor',
-    description: 'Sign up to perform at The Anchor open mic. Acoustic-friendly, all types welcome. Walk-ins welcome.',
+    title: 'Open Mic Night Near Heathrow | The Anchor, Stanwell Moor',
+    description: 'Open mic night near Heathrow — sign up to perform at The Anchor. Acoustic-friendly, all types welcome. Walk-ins welcome.',
     images: [{ url: DEFAULT_EVENT_IMAGE, width: 1200, height: 630, alt: 'Events at The Anchor pub near Heathrow' }]
   },
   twitter: getTwitterMetadata({
-    title: 'Open Mic Night | The Anchor, Stanwell Moor',
-    description: 'Sign up to perform at The Anchor open mic. Acoustic-friendly, all types welcome. Walk-ins welcome.',
+    title: 'Open Mic Night Near Heathrow | The Anchor, Stanwell Moor',
+    description: 'Open mic night near Heathrow — sign up to perform at The Anchor. Acoustic-friendly, all types welcome. Walk-ins welcome.',
     images: [DEFAULT_EVENT_IMAGE]
   }),
   alternates: {
@@ -253,10 +253,10 @@ export default async function OpenMicPage() {
       <Section spacing="sm" background="white">
         <Container>
           <PageTitle className="text-center text-anchor-gold-vivid" seo={{ structured: true, speakable: true }}>
-            Open Mic at The Anchor (Stanwell Moor)
+            Open Mic Night Near Heathrow — The Anchor, Stanwell Moor
           </PageTitle>
           <p className="text-lg text-anchor-cream-text/70 text-center max-w-3xl mx-auto">
-            Whether you’ve been gigging for years or you’re trying your first set, we’d love to hear from you. Fill in the form below and we’ll keep your details on file so we can invite you when we’re booking upcoming nights.
+            Looking for an open mic night near you? Whether you’ve been gigging for years or you’re trying your first set, we’d love to hear from you. Fill in the form below and we’ll keep your details on file so we can invite you when we’re booking upcoming nights.
           </p>
         </Container>
       </Section>

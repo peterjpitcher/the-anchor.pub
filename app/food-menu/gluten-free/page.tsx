@@ -15,16 +15,16 @@ import { DietaryMenuNav } from '@/components/food/DietaryMenuNav'
 export const revalidate = 3600
 
 export const metadata: Metadata = {
-  title: 'Gluten-Free Menu | Pub Food Near Heathrow',
-  description: 'Gluten-free pub food near Heathrow Airport. GF pizza bases, sticky toffee pudding, chocolate brownie, and sides. Ask at the bar for GF options. Free parking.',
+  title: 'Gluten-Free Pub Food Near Heathrow | GF Menu | The Anchor',
+  description: 'Proper gluten-free pub food near Heathrow Airport. GF pizza bases, sticky toffee pudding, chocolate brownie and sides — no surcharge. Free parking, 7 mins from T5.',
   openGraph: {
-    title: 'Gluten-Free Menu | Pub Food Near Heathrow',
-    description: 'Gluten-free pub food near Heathrow Airport. GF pizza bases, sticky toffee pudding, chocolate brownie, and sides. Ask at the bar for GF options.',
+    title: 'Gluten-Free Pub Food | The Anchor, Stanwell Moor',
+    description: 'Proper gluten-free pub food near Heathrow. GF pizza bases, naturally gluten-free puddings and sides — no surcharge.',
     images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg'],
   },
   twitter: getTwitterMetadata({
-    title: 'Gluten-Free Menu | Pub Food Near Heathrow',
-    description: 'Gluten-free pub food near Heathrow. GF pizza bases, naturally gluten-free puddings and sides. Ask at the bar for GF options.',
+    title: 'Gluten-Free Pub Food | The Anchor, Stanwell Moor',
+    description: 'Proper gluten-free pub food near Heathrow. GF pizza bases, naturally gluten-free puddings and sides — no surcharge.',
     images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg'],
   }),
   alternates: {
@@ -172,7 +172,7 @@ export default async function GlutenFreeMenuPage() {
 
       <HeroWrapper
         route="/food-menu/gluten-free"
-        title="Gluten-Free Menu"
+        title="Gluten-Free Pub Food"
         description="Proper gluten-free pub food near Heathrow — GF pizza bases, naturally gluten-free puddings and sides."
         variant="default"
         breadcrumbs={[
@@ -210,7 +210,7 @@ export default async function GlutenFreeMenuPage() {
                 subtitle="Proper options, not afterthoughts."
               />
               <p className="text-anchor-cream-text/70">
-                Eating out with coeliac disease or gluten sensitivity near Heathrow can be a challenge &mdash; most
+                Looking for gluten-free pub food near Heathrow? Eating out with coeliac disease or gluten sensitivity can be a challenge &mdash; most
                 pubs can offer you a jacket potato and not much else. At The Anchor, we&rsquo;ve made sure there are
                 proper options. All our stone-baked pizzas can be made on a gluten-free base at no extra charge, our
                 garlic bread comes in a GF version, and two of our puddings are naturally gluten-free. It&rsquo;s not

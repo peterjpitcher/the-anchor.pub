@@ -138,7 +138,7 @@ export default async function FishAndChipsPage() {
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle className="text-anchor-cream-text mb-4">
-                            A British Institution
+                            Fish and Chips Near Heathrow — A British Institution
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">
                             Whether you're a local resident or a traveller passing through Heathrow, sometimes only Fish and Chips will do. We don't mess around with the recipe. We use fresh fish, a secret-recipe beer batter, and we cook it to order so it hits your table crispy and hot.

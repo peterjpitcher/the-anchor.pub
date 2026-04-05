@@ -36,17 +36,17 @@ import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
 export const metadata: Metadata = {
-    title: 'Live Music Near Heathrow | Live at The Anchor | Bands & Open Mic',
+    title: 'Live Music Pub Near Heathrow | Bands & Open Mic | The Anchor',
     description:
-        'Live at The Anchor — new bands, acoustic sessions & open mic nights monthly in Stanwell Moor near Heathrow. Free entry, free parking, 7 mins from T5. See upcoming gigs.',
+        'The best live music pub near Heathrow — bands, acoustic sessions & open mic nights monthly in Stanwell Moor. Free entry, free parking, 7 mins from T5. See upcoming gigs.',
     openGraph: {
-        title: 'Live Music Near Heathrow | Live at The Anchor | Bands & Open Mic',
-        description: 'Live at The Anchor — new bands, acoustic sessions & open mic nights monthly in Stanwell Moor near Heathrow. Free entry, free parking, 7 mins from T5. See upcoming gigs.',
+        title: 'Live Music Pub Near Heathrow | The Anchor, Stanwell Moor',
+        description: 'The best live music pub near Heathrow — bands, acoustic sessions & open mic nights monthly. Free entry, free parking, 7 mins from T5.',
         images: [{ url: DEFAULT_EVENT_IMAGE, width: 1200, height: 630, alt: 'Events at The Anchor pub near Heathrow' }]
     },
     twitter: getTwitterMetadata({
-        title: 'Live Music Near Heathrow | Live at The Anchor | Bands & Open Mic',
-        description: 'Live at The Anchor — new bands, acoustic sessions & open mic nights monthly in Stanwell Moor near Heathrow. Free entry, free parking, 7 mins from T5. See upcoming gigs.',
+        title: 'Live Music Pub Near Heathrow | The Anchor, Stanwell Moor',
+        description: 'The best live music pub near Heathrow — bands, acoustic sessions & open mic nights monthly. Free entry, free parking, 7 mins from T5.',
         images: [DEFAULT_EVENT_IMAGE]
     }),
     alternates: {
@@ -320,10 +320,10 @@ export default async function LiveMusicPage() {
             <Section spacing="sm" background="white">
                 <Container>
                     <PageTitle as="h1" className="text-center mb-6" seo={{ structured: true, speakable: true }}>
-                        Live at The Anchor — Live Music Near Heathrow
+                        Live Music Pub Near Heathrow — Live at The Anchor
                     </PageTitle>
                     <p className="text-lg text-anchor-cream-text/70 text-center max-w-3xl mx-auto">
-                        Looking for live music near Heathrow? The Anchor brings you the best local talent, from foot-tapping acoustic sets to high-energy party bands. Located in Stanwell Moor, just minutes from the airport, we’re the perfect spot for music lovers to unwind with a pint and a gig. {heroDescription}
+                        Looking for a live music pub near you? The Anchor brings you the best local talent, from foot-tapping acoustic sets to high-energy party bands. Located in Stanwell Moor, just minutes from the airport, we’re the perfect live music pub near Heathrow for music lovers to unwind with a pint and a gig. {heroDescription}
                     </p>
                 </Container>
             </Section>

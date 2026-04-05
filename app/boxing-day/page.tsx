@@ -17,19 +17,19 @@ const addressLine = `${CONTACT.address.street}, ${CONTACT.address.town}, ${CONTA
 const mapQuery = `The Anchor, ${CONTACT.address.street}, ${CONTACT.address.postcode}`
 
 export const metadata: Metadata = {
-  title: 'Boxing Day at The Anchor | Pub Walk & Lunch Near Heathrow',
+  title: 'Boxing Day Pub Near Heathrow | Walk & Lunch at The Anchor',
   description:
     'Boxing Day 2026 at The Anchor near Heathrow. Escape the leftovers \u2014 proper pub food, craft beer, and a walk around Stanwell Moor. Free parking. Dog-friendly.',
   alternates: { canonical: '/boxing-day' },
   openGraph: {
-    title: 'Boxing Day at The Anchor | Pub Walk & Lunch Near Heathrow',
+    title: 'Boxing Day Pub Near Heathrow | Walk & Lunch at The Anchor',
     description:
       'Boxing Day 2026 at The Anchor near Heathrow. Escape the leftovers \u2014 proper pub food, craft beer, and a walk around Stanwell Moor. Free parking. Dog-friendly.',
     images: [DEFAULT_PAGE_HEADER_IMAGE],
     type: 'website',
   },
   twitter: getTwitterMetadata({
-    title: 'Boxing Day at The Anchor | Pub Walk & Lunch Near Heathrow',
+    title: 'Boxing Day Pub Near Heathrow | Walk & Lunch at The Anchor',
     description:
       'Boxing Day 2026 at The Anchor near Heathrow. Escape the leftovers \u2014 proper pub food, craft beer, and a walk around Stanwell Moor. Free parking. Dog-friendly.',
     images: [DEFAULT_PAGE_HEADER_IMAGE],
@@ -71,7 +71,7 @@ export default function BoxingDayPage() {
 
       <HeroWrapper
         route="/boxing-day"
-        title="Boxing Day at The Anchor"
+        title="Boxing Day Pub at The Anchor"
         description="Escape the house, walk off the turkey, and end up at a proper pub. The Anchor is the perfect Boxing Day destination \u2014 close enough to not be a mission, far enough from the sofa to feel like an outing."
         eyebrow="Saturday 26 December 2026"
         lead={

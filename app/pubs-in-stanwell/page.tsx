@@ -12,16 +12,16 @@ import { getBusinessHours } from '@/lib/api'
 import { generateOpeningHoursSpecification } from '@/lib/schema-utils'
 
 export const metadata: Metadata = {
-  title: 'Pubs in Stanwell & Stanwell Moor | Traditional Local Pub | The Anchor',
-  description: 'The Anchor is Stanwell Moor\'s traditional local pub. Family-friendly village pub with beer garden, free parking, and great food. Your perfect local near Heathrow.',
+  title: 'Pubs in Stanwell Moor | Village Pub & Beer Garden | The Anchor',
+  description: 'The Anchor is the heart of Stanwell Moor village. Traditional pub with beer garden, free parking, great food and live entertainment. Your proper local in TW19.',
   openGraph: {
-    title: 'The Anchor - Heathrow Pub & Dining - Your Local Pub in Stanwell Moor',
-    description: 'Traditional village pub serving Stanwell Moor since 1995. Great food, beer garden, free parking.',
+    title: 'Pubs in Stanwell Moor | Village Pub & Beer Garden | The Anchor',
+    description: 'Stanwell Moor\'s village pub since 1995. Beer garden, free parking, great food and live entertainment.',
     images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
   },
   twitter: getTwitterMetadata({
-    title: 'The Anchor - Heathrow Pub & Dining - Your Local Pub in Stanwell Moor',
-    description: 'Traditional village pub serving Stanwell Moor since 1995. Great food, beer garden, free parking.',
+    title: 'Pubs in Stanwell Moor | Village Pub & Beer Garden | The Anchor',
+    description: 'Stanwell Moor\'s village pub since 1995. Beer garden, free parking, great food and live entertainment.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
   alternates: {
@@ -83,8 +83,8 @@ export default async function PubsInStanwellPage() {
       {/* Hero Section */}
       <HeroWrapper
         route="/pubs-in-stanwell"
-        title="Your Local Pub in Stanwell Moor"
-        description="Traditional British pub serving our community since 1995"
+        title="Stanwell Moor's Village Pub & Beer Garden"
+        description="The heart of Stanwell Moor village — traditional British pub since 1995"
         variant="default"
         tags={[
           { label: "Traditional Local", variant: "success" },
@@ -127,7 +127,7 @@ export default async function PubsInStanwellPage() {
             className="text-center text-anchor-cream-text"
             seo={{ structured: true, speakable: true }}
           >
-            Pubs in Stanwell & Stanwell Moor - The Anchor Traditional British Pub
+            Pubs in Stanwell Moor - The Anchor Village Pub &amp; Beer Garden
           </PageTitle>
         </Container>
       </section>
@@ -137,8 +137,8 @@ export default async function PubsInStanwellPage() {
         <Container>
           <div className="max-w-6xl mx-auto">
             <SectionHeader
-              title="Why The Anchor is Stanwell Moor's Favourite Local"
-              subtitle="A proper British pub at the heart of our village community"
+              title="Why The Anchor is Stanwell Moor's Favourite Village Pub"
+              subtitle="A proper local at the heart of Stanwell Moor"
             />
             
             <div className="grid md:grid-cols-2 gap-8 mb-12">

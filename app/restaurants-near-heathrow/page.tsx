@@ -14,16 +14,16 @@ import { getBusinessHours } from '@/lib/api'
 import { generateKitchenHoursSpecification } from '@/lib/schema-utils'
 
 export const metadata: Metadata = {
-  title: 'Restaurant Near Heathrow | Skip Airport Prices | 7 Mins from T5',
-  description: 'Traditional British restaurant 7 minutes from Heathrow Terminal 5 and 10-15 minutes from Terminals 2, 3 and 4. Free parking saves £20-40. Proper meals at pub prices, not airport prices.',
+  title: 'Where to Eat Near Heathrow Before Your Flight | 7 Mins from T5',
+  description: 'Pre-flight dining 7 minutes from Heathrow Terminal 5. Proper meals before you fly, layover food worth leaving the airport for, and free parking. Better than terminal restaurants.',
   openGraph: {
-    title: 'Restaurant Near Heathrow | Skip Airport Prices | 7 Mins from T5',
-    description: 'Skip expensive airport dining. Traditional British food, free parking, 7 minutes from Terminal 5.',
+    title: 'Where to Eat Near Heathrow Before Your Flight | 7 Mins from T5',
+    description: 'Pre-flight dining near Heathrow. Proper meals, free parking, 7 minutes from Terminal 5 — worth the detour.',
     images: [{ url: DEFAULT_NEAR_HEATHROW_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Heathrow Airport' }],
   },
   twitter: getTwitterMetadata({
-    title: 'Restaurant Near Heathrow | Skip Airport Prices | 7 Mins from T5',
-    description: 'Skip expensive airport dining. Traditional British food, free parking, 7 minutes from Terminal 5.',
+    title: 'Where to Eat Near Heathrow Before Your Flight | 7 Mins from T5',
+    description: 'Pre-flight dining near Heathrow. Proper meals, free parking, 7 minutes from Terminal 5 — worth the detour.',
     images: [DEFAULT_NEAR_HEATHROW_IMAGE]
   }),
   alternates: {
@@ -115,8 +115,8 @@ export default async function RestaurantsNearHeathrowPage() {
       {/* Hero Section */}
       <HeroWrapper
         route="/restaurants-near-heathrow"
-        title="Restaurant Near Heathrow Airport"
-        description="Skip the expensive terminal dining - proper British food just 7 minutes away"
+        title="Where to Eat Near Heathrow Before Your Flight"
+        description="Pre-flight dining, layover meals and post-landing food — just 7 minutes from Terminal 5"
         variant="default"
 	        tags={[
 	          { label: "Free Parking for Guests", variant: "success" },
@@ -159,7 +159,7 @@ export default async function RestaurantsNearHeathrowPage() {
             className="text-center text-anchor-cream-text"
             seo={{ structured: true, speakable: true }}
           >
-            Restaurant Near Heathrow - Traditional British Dining Alternative to Airport Food
+            Where to Eat Near Heathrow - Pre-Flight Dining &amp; Layover Meals Just Minutes Away
           </PageTitle>
         </Container>
       </section>
@@ -169,7 +169,7 @@ export default async function RestaurantsNearHeathrowPage() {
         <Container>
           <div className="max-w-4xl mx-auto">
             <p className="text-lg leading-relaxed text-anchor-cream-text/80">
-              The best restaurants near Heathrow Airport outside the terminal include traditional pubs, hotel restaurants, and family dining spots within 15 minutes&apos; drive. For the best value, local pubs like The Anchor in Stanwell Moor offer freshly prepared food from &pound;10, free parking, and a genuine atmosphere &mdash; all just 7 minutes from Terminal 5.
+              Wondering where to eat near Heathrow before your flight? Travellers with a few hours to spare are ditching overpriced terminal food for proper meals nearby. The Anchor in Stanwell Moor is just 7 minutes from Terminal 5 &mdash; ideal for pre-flight dining, layover meals, or a post-landing bite. Free parking, freshly cooked food from &pound;10, and a genuine atmosphere make it worth the short detour.
             </p>
           </div>
         </Container>

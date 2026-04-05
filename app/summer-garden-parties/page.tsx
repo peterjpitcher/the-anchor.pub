@@ -13,7 +13,7 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-    title: 'Pub Garden Parties & BBQ Hire Heathrow | The Anchor',
+    title: 'Summer Garden Party Venue Near Heathrow | BBQ Hire at The Anchor',
     description: `Host your summer event in our large pub garden. BBQ packages, outdoor bar options, and plenty of sunshine. Perfect for birthdays and team socials near Heathrow.`,
     openGraph: {
         title: 'Summer Garden Parties at The Anchor',
@@ -46,7 +46,7 @@ export default function SummerGardenPartiesPage() {
 
             <HeroWrapper
                 route="/summer-garden-parties"
-                title="Summer Garden Parties"
+                title="Summer Garden Party Venue"
                 description="Exclusive areas, BBQ packages, and festival vibes."
                 variant="default"
                 primaryCta={

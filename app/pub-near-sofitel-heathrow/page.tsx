@@ -113,7 +113,7 @@ export default function PubNearSofitelHeathrowPage() {
               Pub Near Sofitel London Heathrow Terminal 5
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
-              Staying at the Sofitel? The Anchor is just 7 minutes away — real British pub food, proper pints, and free parking at a fraction of hotel prices.
+              Staying at the Sofitel? The Anchor is just 7 minutes away — real British pub food, proper pints, and free parking at a fraction of hotel prices. We&apos;re one of the best pubs near Heathrow Airport for guests who want a proper local experience over hotel dining.
             </p>
           </div>
         </Container>

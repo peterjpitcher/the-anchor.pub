@@ -13,17 +13,17 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { BookTableButton } from '@/components/BookTableButton'
 
 export const metadata: Metadata = {
-  title: `Windsor Pub Alternative - Free Parking & Sunday Roast | ${BRAND.name}`,
-  description: `${BRAND.name} is 15 minutes from Windsor Castle with free parking, Sunday roasts, stone-baked pizzas and countryside atmosphere outside the ULEZ zone.`,
+  title: `Pubs in Windsor — Best Alternative with Free Parking | ${BRAND.name}`,
+  description: `Searching for pubs in Windsor? ${BRAND.name} is just 15 minutes from Windsor Castle with free parking, Sunday roasts, stone-baked pizzas and countryside atmosphere outside the ULEZ zone.`,
   openGraph: {
-    title: 'Windsor Pub Alternative - The Anchor Stanwell Moor',
-    description: '15 minutes from Windsor with free parking, Sunday roast, stone-baked pizzas and countryside atmosphere.',
+    title: 'Pubs in Windsor — The Anchor, Stanwell Moor',
+    description: 'One of the best pubs near Windsor — 15 minutes away with free parking, Sunday roast, stone-baked pizzas and countryside atmosphere.',
     images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
     type: 'website',
   },
   twitter: getTwitterMetadata({
-    title: 'Windsor Pub Alternative - The Anchor Stanwell Moor',
-    description: '15 minutes from Windsor with free parking, Sunday roast, stone-baked pizzas and countryside atmosphere.',
+    title: 'Pubs in Windsor — The Anchor, Stanwell Moor',
+    description: 'One of the best pubs near Windsor — 15 minutes away with free parking, Sunday roast, stone-baked pizzas and countryside atmosphere.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
   alternates: {
@@ -147,10 +147,10 @@ export default function WindsorPubPage() {
               }}
               className="text-anchor-cream-text mb-4"
             >
-              Windsor Pub - Traditional British Pub Near Windsor
+              Pubs in Windsor — Traditional British Pub Near Windsor
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
-              Your local traditional pub just 15 minutes from Windsor Castle with free parking
+              Searching for pubs in Windsor? Your local traditional pub is just 15 minutes from Windsor Castle with free parking
             </p>
           </div>
         </Container>
@@ -456,7 +456,7 @@ export default function WindsorPubPage() {
             />
             <div className="prose prose-invert max-w-none space-y-4 text-anchor-cream-text/80">
               <p>
-                If you know Windsor, you know the drill: fight for a parking space in River Street or King Edward VII car park, pay through the nose, then squeeze into a packed High Street pub where half the crowd are day-trippers clutching castle guidebooks. There&rsquo;s nothing wrong with the tourist pubs &mdash; they serve their purpose &mdash; but sometimes you want somewhere that feels like <em>yours</em>.
+                If you&rsquo;re looking for pubs near Windsor, you know the drill: fight for a parking space in River Street or King Edward VII car park, pay through the nose, then squeeze into a packed High Street pub where half the crowd are day-trippers clutching castle guidebooks. There&rsquo;s nothing wrong with the tourist pubs &mdash; they serve their purpose &mdash; but sometimes you want somewhere that feels like <em>yours</em>.
               </p>
               <p>
                 That&rsquo;s the drive that brings Windsor residents our way. The quickest route is straight down the A308 through Datchet, picking up Horton Road past Wraysbury &mdash; about 20 minutes of easy, mostly single-carriageway driving with barely a traffic light in sight. If you&rsquo;d rather use the motorway, the M25 from Junction 13 or 14 drops you practically on our doorstep. Either way, you swap Windsor&rsquo;s parking charges (easily three or four quid an hour) for 20 free spaces right outside the door.

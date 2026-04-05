@@ -13,17 +13,17 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-    title: 'Luggage Storage Near Heathrow | Free with Dining | The Anchor',
-    description: `Need to store luggage near Heathrow? Don't pay airport prices. Store your bags for FREE at ${BRAND.name} when you stop for a meal. We're just 7 mins from T5.`,
+    title: 'Luggage Storage Heathrow — Free with Dining | The Anchor',
+    description: `Need luggage storage at Heathrow? Don't pay airport prices. Store your bags for FREE at ${BRAND.name} when you stop for a meal — just 7 mins from T5 with free parking.`,
     openGraph: {
-        title: 'Free Luggage Storage Near Heathrow (With Dining)',
-        description: 'Checked out early? Flight delayed? Store your bags with us while you enjoy a proper British meal.',
+        title: 'Luggage Storage Heathrow — Free with Dining at The Anchor',
+        description: 'Need luggage storage at Heathrow? Store your bags free while you enjoy a proper British meal, 7 minutes from Terminal 5.',
         images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({
-        title: 'Free Luggage Storage Near Heathrow (With Dining)',
-        description: 'Checked out early? Flight delayed? Store your bags with us while you enjoy a proper British meal.',
+        title: 'Luggage Storage Heathrow — Free with Dining at The Anchor',
+        description: 'Need luggage storage at Heathrow? Store your bags free while you enjoy a proper British meal, 7 minutes from Terminal 5.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
     alternates: {
@@ -104,10 +104,10 @@ export default function LuggageStoragePage() {
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle className="text-anchor-cream-text mb-4">
-                            Hours to Kill Before Your Flight?
+                            Luggage Storage Heathrow — Hours to Kill Before Your Flight?
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">
-                            Checking out of your hotel at 11am but your flight isn't until 8pm? Don't spend 9 hours sitting on a hard plastic chair at Terminal 5. Come to The Anchor, store your bags safely, and enjoy a few hours of proper British hospitality.
+                            Need luggage storage near Heathrow? Checking out of your hotel at 11am but your flight isn't until 8pm? Don't spend 9 hours sitting on a hard plastic chair at Terminal 5. Come to The Anchor, store your bags safely, and enjoy a few hours of proper British hospitality.
                         </p>
                     </div>
                 </Container>

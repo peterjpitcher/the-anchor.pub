@@ -109,7 +109,7 @@ export default function PubNearIbisHeathrowPage() {
               Pub Near ibis London Heathrow
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
-              Smart travellers stay at the ibis to save on accommodation — then spend the difference on a proper evening at The Anchor. Just 12 minutes away: real ales, home-cooked British food, and free parking.
+              Smart travellers stay at the ibis to save on accommodation — then spend the difference on a proper evening at The Anchor. Just 12 minutes away: real ales, home-cooked British food, and free parking. If you&apos;re searching for places to eat near Heathrow, we&apos;re the genuine local that budget-savvy guests love.
             </p>
           </div>
         </Container>

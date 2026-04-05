@@ -13,7 +13,7 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
 const ST_PATRICKS_DAY_BOOKING_URL = '/book-table?purpose=food'
 
-const PAGE_TITLE = "St Patrick's Day at The Anchor | Guinness & Live Music"
+const PAGE_TITLE = "St Patrick's Day Pub Near Heathrow | Guinness & Live Music at The Anchor"
 const PAGE_DESCRIPTION =
   "Celebrate St Patrick's Day 2027 at The Anchor near Heathrow. Guinness, Irish whiskey, live music, themed food. Free parking, dog-friendly. 17 March."
 
@@ -77,7 +77,7 @@ export default function StPatricksDayPage(): React.JSX.Element {
 
       <HeroWrapper
         route="/st-patricks-day"
-        title="St Patrick's Day at The Anchor"
+        title="St Patrick's Day Pub at The Anchor"
         description="Guinness on tap, Irish whiskey, live music and a proper St Patrick's Day atmosphere — without the city centre crowds. Join us every 17 March."
         eyebrow="17 March"
         lead={

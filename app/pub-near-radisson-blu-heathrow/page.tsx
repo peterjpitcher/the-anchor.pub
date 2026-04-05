@@ -109,7 +109,7 @@ export default function PubNearRadissonBluHeathrowPage() {
               Pub Near Radisson Blu Edwardian Heathrow
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
-              Staying at the Radisson Blu Heathrow? The Anchor is just 12 minutes away — a genuine British community pub with home-cooked food, real ales, and free parking. The authentic local experience your hotel can&apos;t offer.
+              Staying at the Radisson Blu Heathrow? The Anchor is just 12 minutes away — a genuine British community pub with home-cooked food, real ales, and free parking. For places to eat near Heathrow with real character, we&apos;re the authentic local experience your hotel can&apos;t offer.
             </p>
           </div>
         </Container>

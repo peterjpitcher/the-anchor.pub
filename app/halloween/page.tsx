@@ -17,19 +17,19 @@ const addressLine = `${CONTACT.address.street}, ${CONTACT.address.town}, ${CONTA
 const mapQuery = `The Anchor, ${CONTACT.address.street}, ${CONTACT.address.postcode}`
 
 export const metadata: Metadata = {
-  title: 'Halloween at The Anchor | Fancy Dress & Themed Cocktails',
+  title: 'Halloween Pub Near Heathrow | Fancy Dress & Themed Cocktails at The Anchor',
   description:
     'Halloween 2026 at The Anchor near Heathrow. Fancy dress party, themed cocktails, spooky decorations. Free parking, dog-friendly. 31 October.',
   alternates: { canonical: '/halloween' },
   openGraph: {
-    title: 'Halloween at The Anchor | Fancy Dress & Themed Cocktails',
+    title: 'Halloween Pub Near Heathrow | Fancy Dress & Themed Cocktails at The Anchor',
     description:
       'Halloween 2026 at The Anchor near Heathrow. Fancy dress party, themed cocktails, spooky decorations. Free parking, dog-friendly. 31 October.',
     images: [DEFAULT_PAGE_HEADER_IMAGE],
     type: 'website',
   },
   twitter: getTwitterMetadata({
-    title: 'Halloween at The Anchor | Fancy Dress & Themed Cocktails',
+    title: 'Halloween Pub Near Heathrow | Fancy Dress & Themed Cocktails at The Anchor',
     description:
       'Halloween 2026 at The Anchor near Heathrow. Fancy dress party, themed cocktails, spooky decorations. Free parking, dog-friendly. 31 October.',
     images: [DEFAULT_PAGE_HEADER_IMAGE],
@@ -71,7 +71,7 @@ export default function HalloweenPage() {
 
       <HeroWrapper
         route="/halloween"
-        title="Halloween at The Anchor"
+        title="Halloween Pub Night at The Anchor"
         description="Fancy dress, themed cocktails, spooky decorations and a brilliant atmosphere. Join us on 31 October for our annual Halloween celebration in Stanwell Moor."
         eyebrow="Saturday 31 October 2026"
         lead={

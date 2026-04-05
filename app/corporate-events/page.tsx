@@ -16,16 +16,16 @@ import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 import { TrustBar, ValueProofStrip, RegretReduction } from '@/components/psychology'
 
 export const metadata: Metadata = {
-  title: 'Corporate Event Venue Near Heathrow | Free Parking | 10-200 Guests',
-  description: 'Host corporate events minutes from Heathrow. The Anchor offers private meeting rooms, breakout space, AV support and free parking 7 minutes from Terminal 5.',
+  title: 'Corporate Events Near Heathrow | Free Parking | 10-200 Guests',
+  description: 'Host corporate events near Heathrow at The Anchor. Private meeting rooms, breakout space, AV support and free parking — just 7 minutes from Terminal 5.',
   openGraph: {
-    title: 'Corporate Event Venue Near Heathrow | Free Parking | 10-200 Guests',
-    description: 'Private meeting rooms, AV support and free parking 7 minutes from Heathrow Terminal 5.',
+    title: 'Corporate Events Near Heathrow | The Anchor, Stanwell Moor',
+    description: 'Host corporate events near Heathrow — private meeting rooms, AV support and free parking 7 minutes from Terminal 5.',
     images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Private hire venue at The Anchor near Heathrow Airport' }],
   },
   twitter: getTwitterMetadata({
-    title: 'Corporate Event Venue Near Heathrow | Free Parking | 10-200 Guests',
-    description: 'Private meeting rooms, AV support and free parking 7 minutes from Heathrow Terminal 5.',
+    title: 'Corporate Events Near Heathrow | The Anchor, Stanwell Moor',
+    description: 'Host corporate events near Heathrow — private meeting rooms, AV support and free parking 7 minutes from Terminal 5.',
     images: [DEFAULT_CORPORATE_IMAGE]
   }),
   alternates: {
@@ -106,10 +106,10 @@ export default function CorporateEventsPage() {
               seo={{ structured: true, speakable: true }}
               className="text-anchor-cream-text mb-4"
             >
-              Corporate Events - Business Venue Near Heathrow
+              Corporate Events Near Heathrow — Business Venue at The Anchor
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
-              Professional meeting rooms and event spaces for businesses, just 7 minutes from Terminal 5
+              Planning a corporate event near Heathrow? Professional meeting rooms and event spaces for 10-200 guests, just 7 minutes from Terminal 5
             </p>
           </div>
         </Container>

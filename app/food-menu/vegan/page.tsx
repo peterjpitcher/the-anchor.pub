@@ -15,15 +15,15 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 export const revalidate = 3600
 
 export const metadata: Metadata = {
-  title: 'Vegan Menu | Pub Food Near Heathrow',
+  title: 'Vegan Pub Food Near Me | Menu & Prices | The Anchor',
   description: 'Vegan pub food near Heathrow Airport. Stone-baked garlic bread, chips, sweet potato fries, onion rings and pizzas that can be made vegan. Free parking, 7 mins from T5.',
   openGraph: {
-    title: 'Vegan Menu | Pub Food Near Heathrow',
+    title: 'Vegan Pub Food | The Anchor Near Heathrow',
     description: 'Vegan pub food near Heathrow Airport. Stone-baked garlic bread, chips, sweet potato fries, onion rings and pizzas that can be made vegan on request.',
     images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg'],
   },
   twitter: getTwitterMetadata({
-    title: 'Vegan Menu | Pub Food Near Heathrow',
+    title: 'Vegan Pub Food | The Anchor Near Heathrow',
     description: 'Vegan pub food near Heathrow. Stone-baked garlic bread, chips, sweet potato fries, onion rings and pizzas that can be made vegan on request.',
     images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg'],
   }),
@@ -218,12 +218,12 @@ export default async function VeganMenuPage() {
           <Card className="card-dark rounded-none">
             <CardBody>
               <PageTitle as="h1" className="text-anchor-cream-text mb-2">
-                Vegan Pub Food &amp; Plant-Based Menu Near Heathrow
+                Vegan Pub Food Near Heathrow &mdash; Our Plant-Based Menu
               </PageTitle>
               <p className="text-anchor-cream-text/55 mb-4">Honest about what we offer.</p>
               <p className="text-anchor-cream-text/70">
                 We&rsquo;ll be straight with you &mdash; we&rsquo;re a traditional British pub, not a vegan restaurant.
-                But we do have proper vegan options, and more dishes that can be made vegan on request. Our stone-baked
+                But if you&rsquo;re searching for vegan pub food near me, we&rsquo;ve got you covered with proper options and more dishes that can be made vegan on request. Our stone-baked
                 garlic bread is naturally vegan (no butter), our chips and sweet potato fries are vegan, and two of our
                 pizzas can be made vegan by removing the mozzarella. It&rsquo;s not a huge list, but everything on it
                 is genuinely good.

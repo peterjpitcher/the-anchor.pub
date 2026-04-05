@@ -15,16 +15,16 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { getBusinessStats } from '@/lib/schema-with-reviews'
 
 export const metadata: Metadata = {
-    title: 'Pub Near Longford & Heathrow Hotels | The Anchor',
+    title: 'Pubs in Longford — Your Nearest Village Local | The Anchor',
     description: `Staying in Longford or Bath Road hotels? Escape to ${BRAND.name} for authentic British food and better prices. Just a short walk or taxi ride away.`,
     openGraph: {
-        title: 'The Anchor - Traditional Pub Near Longford Hotels',
+        title: 'Pubs in Longford — The Anchor, Stanwell Moor',
         description: 'Escape the hotel prices! Authentic British pub food and drinks just minutes from Longford.',
         images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({
-        title: 'The Anchor - Traditional Pub Near Longford Hotels',
+        title: 'Pubs in Longford — The Anchor, Stanwell Moor',
         description: 'Escape the hotel prices! Authentic British pub food and drinks just minutes from Longford.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
@@ -146,7 +146,7 @@ export default async function LongfordPubPage() {
                             }}
                             className="text-anchor-cream-text mb-4"
                         >
-                            Minutes from Longford Hotels & Bath Road
+                            Pubs in Longford — Minutes from Hotels & Bath Road
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">
                             Don't settle for overpriced hotel food. The Anchor is your nearest traditional village pub, offering a genuine British experience just a stone's throw from Longford.

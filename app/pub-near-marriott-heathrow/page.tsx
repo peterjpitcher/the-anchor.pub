@@ -109,7 +109,7 @@ export default function PubNearMarriottHeathrowPage() {
               Pub Near Marriott London Heathrow
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
-              Staying at the Marriott Heathrow? The Anchor is just 12 minutes away — a proper British pub with home-cooked food, real ales, and free parking. A genuine escape from hotel restaurant prices.
+              Staying at the Marriott Heathrow? The Anchor is just 12 minutes away — a proper British pub with home-cooked food, real ales, and free parking. As one of the top-rated pubs near Heathrow Airport, we&apos;re a genuine escape from hotel restaurant prices.
             </p>
           </div>
         </Container>

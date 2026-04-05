@@ -23,7 +23,7 @@ import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
-  title: "What's On This Week | Live Events Near Heathrow T5 | The Anchor",
+  title: "Pub Events Near Heathrow | What's On This Week at The Anchor",
   description: "Quiz nights, Music Bingo, cash bingo & live music at The Anchor, Stanwell Moor. Free entry events from £3. Free parking, 7 mins from Heathrow T5. See this week's lineup.",
   openGraph: {
     title: "What's On This Week at The Anchor Near Heathrow",
@@ -124,7 +124,7 @@ export default async function WhatsOnPage() {
       {/* Hero Section */}
       <HeroWrapper
         route="/whats-on"
-        title="What's On at The Anchor"
+        title="Pub Events at The Anchor"
         description="From Music Bingo hosted by Nikki Manfadge to quiz nights and one-off events — check the listings for the latest."
        
 	        tags={[
@@ -212,7 +212,7 @@ export default async function WhatsOnPage() {
         <Container>
           <SectionHeader
             title="Seven Minutes from Heathrow Terminal 5"
-            subtitle="Ideal for cabin crew socials, airport shift drinks and travellers looking for nightlife outside the terminal."
+            subtitle="Looking for things to do near Heathrow? Ideal for cabin crew socials, airport shift drinks and travellers looking for nightlife outside the terminal."
           />
           <InfoBoxGrid
             columns={3}

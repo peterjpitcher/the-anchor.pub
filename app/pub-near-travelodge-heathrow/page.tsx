@@ -109,7 +109,7 @@ export default function PubNearTravelodgeHeathrowPage() {
               Pub Near Travelodge London Heathrow
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
-              Staying at a Travelodge near Heathrow? You&apos;ve made a smart choice saving on your room — now reward yourself with a proper evening at The Anchor, just 10 minutes away. Real food, real ales, real pub.
+              Staying at a Travelodge near Heathrow? You&apos;ve made a smart choice saving on your room — now reward yourself with a proper evening at The Anchor, just 10 minutes away. One of the best places to eat near Heathrow, we serve real food, real ales, and offer a real pub atmosphere you won&apos;t find at the airport.
             </p>
           </div>
         </Container>

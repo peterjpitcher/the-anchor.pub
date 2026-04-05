@@ -15,16 +15,16 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { getBusinessStats } from '@/lib/schema-with-reviews'
 
 export const metadata: Metadata = {
-    title: 'Horton Pub & Dining | The Anchor - Your Local Village Pub',
-    description: `${BRAND.name} in Stanwell Moor is your closest traditional village pub. Just 2 mins from Horton. Free parking, Sunday roasts, and real ales.`,
+    title: 'Pubs in Horton | The Anchor - Your Closest Village Pub',
+    description: `Looking for pubs in Horton? ${BRAND.name} in Stanwell Moor is just 2 mins away. Free parking, Sunday roasts, real ales, and a warm village welcome.`,
     openGraph: {
-        title: 'The Anchor - Traditional Pub Near Horton',
+        title: 'Pubs in Horton | The Anchor Stanwell Moor',
         description: 'Your local village pub, just a 2-minute drive from Horton. Authentic British food, real ales, and a warm welcome.',
         images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({
-        title: 'The Anchor - Traditional Pub Near Horton',
+        title: 'Pubs in Horton | The Anchor Stanwell Moor',
         description: 'Your local village pub, just a 2-minute drive from Horton. Authentic British food, real ales, and a warm welcome.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
@@ -147,7 +147,7 @@ export default async function HortonPubPage() {
                             }}
                             className="text-anchor-cream-text mb-4"
                         >
-                            Horton Pub - Traditional British Pub Just 1 Mile Away
+                            Pubs in Horton &mdash; Traditional British Pub Just 1 Mile Away
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">
                             The Anchor in Stanwell Moor is practically in Horton! We are your closest traditional pub with food, offering a warm welcome to our neighbours.

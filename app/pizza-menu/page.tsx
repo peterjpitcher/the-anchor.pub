@@ -13,16 +13,16 @@ import Image from 'next/image'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
-    title: 'Barrel & Stone Pizza at The Anchor | Stone Baked & Fresh',
+    title: 'Pizza Near Heathrow | Barrel & Stone at The Anchor',
     description: `Experience authentic Barrel & Stone pizza at ${BRAND.name} near Heathrow. Freshly prepared, stone-baked on site using finest Italian ingredients. Crisp, thin, and delicious.`,
     openGraph: {
-        title: 'Fresh Stone Baked Pizza at The Anchor',
+        title: 'Pizza Near Heathrow | Stone Baked at The Anchor',
         description: 'Prepared and baked fresh on site. The finest Italian ingredients, stone-baked for the perfect crisp finish.',
         images: ['/images/page-headers/pizza-tuesday/pizza-tuesday.jpg'],
         type: 'website',
     },
     twitter: getTwitterMetadata({
-        title: 'Fresh Stone Baked Pizza at The Anchor',
+        title: 'Pizza Near Heathrow | Stone Baked at The Anchor',
         description: 'Prepared and baked fresh on site. The finest Italian ingredients, stone-baked for the perfect crisp finish.',
         images: ['/images/page-headers/pizza-tuesday/pizza-tuesday.jpg']
     }),
@@ -135,7 +135,7 @@ export default async function PizzaMenuPage() {
                 <Container>
                     <div className="max-w-4xl mx-auto text-center mb-12">
                         <PageTitle className="text-anchor-cream-text mb-6">
-                            Freshly Prepared, Stone Baked
+                            Pizza Near Heathrow — Freshly Prepared, Stone Baked
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70 leading-relaxed mb-6">
                             At The Anchor, our pizzas are all about proper stone-baked quality — prepared and baked here on site, on traditional pizza stones at high temperature for that thin, crispy finish.

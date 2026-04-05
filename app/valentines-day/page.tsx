@@ -150,7 +150,7 @@ export async function generateMetadata(): Promise<Metadata> {
     ? event.metaTitle
     : event?.name
     ? `${event.name} | Valentine's Day at The Anchor`
-    : "Valentine's Day at The Anchor | Dinner Near Heathrow"
+    : "Valentine's Day Dinner Near Heathrow | The Anchor Stanwell Moor"
 
   const description = event?.metaDescription
     ? event.metaDescription
@@ -289,7 +289,7 @@ export default async function ValentinesDayPage() {
 
       <HeroWrapper
         route="/valentines-day"
-        title="Valentine's Day at The Anchor"
+        title="Valentine's Day Dinner at The Anchor"
         description={event?.description || "Book early for Valentine's Day near Heathrow at The Anchor in Stanwell Moor (TW19)."}
         eyebrow={eventDate}
         lead={
