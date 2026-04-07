@@ -10,6 +10,7 @@ import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { landmarks } from '@/lib/local-seo-data'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
+import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 export const metadata: Metadata = {
     title: 'Wedding Venue Near Heathrow | Receptions & Engagements | The Anchor',
@@ -34,6 +35,12 @@ const nearbyWeddingVenues = landmarks.filter(l => l.type === 'registry_office');
 export default function WeddingsPage() {
     return (
         <>
+            <BreadcrumbJsonLd items={[
+                { name: 'Home', url: '/' },
+                { name: 'Private Hire', url: '/private-hire' },
+                { name: 'Weddings', url: '/private-hire/weddings' }
+            ]} />
+
             <HeroWrapper
                 route="/private-hire/weddings"
                 variant="feature"
@@ -170,21 +177,208 @@ export default function WeddingsPage() {
                 </Container>
             </section>
 
+            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+                <Container>
+                    <SectionHeader
+                        title="Near Staines Registration Office"
+                        subtitle="The perfect pub wedding reception after a registry ceremony"
+                    />
+                    <div className="prose prose-invert max-w-3xl mx-auto">
+                        <p className="text-anchor-cream-text/70 mb-4">
+                            Staines Registration Office on Kingston Road is one of the most popular spots for civil ceremonies in the Spelthorne area. If you are planning a small, intimate wedding there, The Anchor is ideally placed for the reception that follows. We are less than 10 minutes away by car, and our relaxed setting is the perfect antidote to the formality of the ceremony itself.
+                        </p>
+                        <p className="text-anchor-cream-text/70 mb-4">
+                            A pub wedding reception at The Anchor is not about top tables, table plans, or formal speeches (unless you want them). It is about gathering your favourite people, sharing good food and drink, and celebrating the fact that you just got married. Many couples tell us that the pub reception was the highlight of their day — the moment everyone finally relaxed and the real celebration began.
+                        </p>
+                        <p className="text-anchor-cream-text/70 mb-4">
+                            We can reserve our private dining room for your party, set up a drinks reception for when you arrive, and arrange a buffet or sit-down meal depending on your preference. If you want to give a speech, plug in a playlist, or even arrange a first dance, we can make it happen. But there is no pressure to follow the traditional wedding reception format — this is your celebration, your way.
+                        </p>
+                        <p className="text-anchor-cream-text/70">
+                            For couples travelling from further afield, our location near Heathrow Airport means guests can fly in and find hotels easily. There are dozens of hotels within a five-minute drive, from budget options to four-star comfort. This makes us a practical small wedding venue for Heathrow-area celebrations where guests are arriving from different parts of the country — or the world.
+                        </p>
+                    </div>
+                </Container>
+            </section>
+
+            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+                <Container>
+                    <SectionHeader
+                        title="Intimate Pub Wedding Receptions"
+                        subtitle="Small celebrations done properly"
+                    />
+                    <div className="prose prose-invert max-w-3xl mx-auto mb-8">
+                        <p className="text-anchor-cream-text/70 mb-4">
+                            Not every wedding needs 200 guests and a ballroom. More and more couples are choosing small, meaningful celebrations — a registry office ceremony followed by a long lunch or evening party at a pub they love. If that sounds like you, The Anchor Pub is exactly the kind of venue you are looking for.
+                        </p>
+                        <p className="text-anchor-cream-text/70 mb-4">
+                            We specialise in wedding celebrations for 10 to 60 guests. Our private dining room provides an intimate, self-contained space where you can eat, drink, and celebrate without feeling lost in a cavernous function room. For larger parties of up to 80, we can extend into the main bar area or reserve additional space to suit your needs.
+                        </p>
+                        <p className="text-anchor-cream-text/70 mb-4">
+                            What makes a pub wedding reception special is the atmosphere. There is a warmth and character to celebrating in a proper pub that you simply cannot replicate in a hotel conference room. The exposed beams, the real fire in winter, the beer garden in summer — these are the details that make your wedding photos look and feel different from everyone else&apos;s.
+                        </p>
+                        <p className="text-anchor-cream-text/70">
+                            Whether you have just come from Staines Registration Office, a local church, or even a destination ceremony abroad and want to throw a UK celebration, we will make your pub wedding reception feel exactly as it should — personal, joyful, and completely yours.
+                        </p>
+                    </div>
+                </Container>
+            </section>
+
+            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+                <Container>
+                    <SectionHeader
+                        title="Wedding Reception Packages"
+                        subtitle="Flexible options for every style of celebration"
+                    />
+                    <div className="max-w-4xl mx-auto">
+                        <div className="grid md:grid-cols-3 gap-6 mb-8">
+                            <div className="card-dark rounded-none p-8 text-center">
+                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2">Buffet Reception</h3>
+                                <p className="text-2xl font-bold text-anchor-cream-text mb-1">From £14.95<span className="text-sm font-normal text-anchor-cream-text/55">/person</span></p>
+                                <p className="text-anchor-cream-text/55 mb-4 italic">Relaxed and sociable</p>
+                                <p className="text-anchor-cream-text/70 mb-4">A generous buffet spread that lets guests mingle and eat at their own pace. The most popular choice for pub wedding receptions where the mood is informal and celebratory.</p>
+                                <ul className="text-sm text-anchor-cream-text/55 space-y-1 text-left">
+                                    <li>Hot &amp; cold buffet items</li>
+                                    <li>Vegetarian &amp; dietary options</li>
+                                    <li>Wedding cake cutting service</li>
+                                    <li>Tea, coffee &amp; biscuits</li>
+                                </ul>
+                            </div>
+
+                            <div className="card-dark rounded-none p-8 text-center border-2 border-anchor-gold/30">
+                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2">Sit-Down Meal</h3>
+                                <p className="text-2xl font-bold text-anchor-cream-text mb-1">From £24.95<span className="text-sm font-normal text-anchor-cream-text/55">/person</span></p>
+                                <p className="text-anchor-cream-text/55 mb-4 italic">A touch of formality</p>
+                                <p className="text-anchor-cream-text/70 mb-4">A two or three-course meal served at the table. Perfect if you want the structure of a traditional wedding breakfast but in a more relaxed setting.</p>
+                                <ul className="text-sm text-anchor-cream-text/55 space-y-1 text-left">
+                                    <li>2 or 3 courses</li>
+                                    <li>Choice of mains</li>
+                                    <li>Pre-order service for larger groups</li>
+                                    <li>Dedicated waiting staff</li>
+                                </ul>
+                            </div>
+
+                            <div className="card-dark rounded-none p-8 text-center">
+                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2">Evening Party</h3>
+                                <p className="text-2xl font-bold text-anchor-cream-text mb-1">Min. spend applies</p>
+                                <p className="text-anchor-cream-text/55 mb-4 italic">For after-parties and celebrations</p>
+                                <p className="text-anchor-cream-text/70 mb-4">Reserve a space for an evening celebration with drinks, music, and a late-night buffet. Ideal for couples who have had their main reception elsewhere and want a more casual after-party.</p>
+                                <ul className="text-sm text-anchor-cream-text/55 space-y-1 text-left">
+                                    <li>Reserved area or private room</li>
+                                    <li>Sound system for music/DJ</li>
+                                    <li>Bar tab or pay-as-you-go</li>
+                                    <li>Late-night buffet options</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6 text-center">
+                            <p className="text-anchor-cream-text/70 text-sm">
+                                All wedding reception packages include use of a reserved area, dedicated staff, setup and cleardown, and free parking. Drinks packages (Prosecco reception, beer buckets, open bar tab) can be added to any option. Call us on <strong className="text-anchor-gold-vivid">01753 682707</strong> for a bespoke quote.
+                            </p>
+                        </div>
+                    </div>
+                </Container>
+            </section>
+
+            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+                <Container>
+                    <SectionHeader
+                        title="What Couples Say"
+                        subtitle="From recent wedding celebrations at The Anchor"
+                    />
+                    <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-6">
+                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
+                            <p className="text-anchor-cream-text/70 italic mb-4">&ldquo;We got married at Staines Registry Office and came straight to The Anchor for lunch with 30 of our closest friends. It was exactly what we wanted — no fuss, great food, and a proper celebration. The staff even had Prosecco waiting when we walked through the door.&rdquo;</p>
+                            <p className="text-sm text-anchor-gold-vivid font-semibold">— Laura &amp; Mike, Staines</p>
+                        </div>
+                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
+                            <p className="text-anchor-cream-text/70 italic mb-4">&ldquo;We had our main wedding abroad and threw a pub wedding reception at The Anchor for all the friends and family who could not make the trip. The buffet was brilliant, the music was perfect, and the atmosphere was exactly right. Better than any hotel function room.&rdquo;</p>
+                            <p className="text-sm text-anchor-gold-vivid font-semibold">— Sophie &amp; James, Ashford</p>
+                        </div>
+                    </div>
+                </Container>
+            </section>
+
+            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+                <Container>
+                    <SectionHeader
+                        title="Planning Your Wedding Celebration"
+                        subtitle="A step-by-step guide"
+                    />
+                    <div className="max-w-3xl mx-auto">
+                        <ol className="space-y-6">
+                            <li className="flex gap-4">
+                                <span className="flex-shrink-0 w-8 h-8 rounded-full bg-anchor-gold-vivid text-anchor-dark font-bold flex items-center justify-center text-sm">1</span>
+                                <div>
+                                    <h3 className="font-bold text-anchor-cream-text mb-1">Get in touch early</h3>
+                                    <p className="text-anchor-cream-text/70">Call us on 01753 682707 or use the enquiry form below. For weekend wedding receptions, we recommend booking 4 to 8 weeks in advance. Weekday celebrations are often available at shorter notice.</p>
+                                </div>
+                            </li>
+                            <li className="flex gap-4">
+                                <span className="flex-shrink-0 w-8 h-8 rounded-full bg-anchor-gold-vivid text-anchor-dark font-bold flex items-center justify-center text-sm">2</span>
+                                <div>
+                                    <h3 className="font-bold text-anchor-cream-text mb-1">Choose your format</h3>
+                                    <p className="text-anchor-cream-text/70">Decide whether you want a buffet, sit-down meal, or evening party. We will walk you through the options, discuss drinks packages, and help you plan the flow of the day.</p>
+                                </div>
+                            </li>
+                            <li className="flex gap-4">
+                                <span className="flex-shrink-0 w-8 h-8 rounded-full bg-anchor-gold-vivid text-anchor-dark font-bold flex items-center justify-center text-sm">3</span>
+                                <div>
+                                    <h3 className="font-bold text-anchor-cream-text mb-1">Add your personal touches</h3>
+                                    <p className="text-anchor-cream-text/70">Bring decorations, a photo wall, a wedding cake, and your Spotify playlist. We provide the blank canvas and the sound system — you add the personality.</p>
+                                </div>
+                            </li>
+                            <li className="flex gap-4">
+                                <span className="flex-shrink-0 w-8 h-8 rounded-full bg-anchor-gold-vivid text-anchor-dark font-bold flex items-center justify-center text-sm">4</span>
+                                <div>
+                                    <h3 className="font-bold text-anchor-cream-text mb-1">Celebrate</h3>
+                                    <p className="text-anchor-cream-text/70">On the day, everything will be ready for you. Walk in, be greeted with drinks, and enjoy the party. We handle the rest — from setup to final cleardown.</p>
+                                </div>
+                            </li>
+                        </ol>
+                    </div>
+                </Container>
+            </section>
+
             <PrivateBookingSection eventType="Wedding Reception" />
 
             <FAQAccordionWithSchema
                 faqs={[
                     {
-                        question: "How many guests can you accommodate?",
-                        answer: "We can host intimate dinners for 10 up to parties of 80 in our private room, or up to 200 for exclusive venue hire."
+                        question: "How many guests can you accommodate for a wedding reception?",
+                        answer: "We can host intimate dinners for 10 up to parties of 80 in our private dining room. For exclusive venue hire, we can accommodate up to 200 guests across the whole pub."
                     },
                     {
                         question: "Do you have a late license?",
-                        answer: "Our standard license runs until 11pm (11:30pm Fri/Sat), but extensions can be arranged for private parties upon request."
+                        answer: "Our standard license runs until 11pm (11:30pm Fri/Sat), but extensions can be arranged for private wedding parties upon request."
                     },
                     {
-                        question: "Is there anywhere for guests to stay?",
-                        answer: "Yes, being near Heathrow means there are dozens of hotels within a 5-minute drive, catering to all budgets."
+                        question: "Is there anywhere for guests to stay nearby?",
+                        answer: "Yes, being near Heathrow means there are dozens of hotels within a 5-minute drive, catering to all budgets. From Premier Inn and Travelodge to four-star options, your guests will have no trouble finding somewhere to stay."
+                    },
+                    {
+                        question: "How far is The Anchor from Staines Registration Office?",
+                        answer: "We are less than 10 minutes by car from Staines Registration Office on Kingston Road. Many couples come directly to The Anchor after their ceremony for a relaxed pub wedding reception."
+                    },
+                    {
+                        question: "Can we bring a wedding cake?",
+                        answer: "Absolutely. You are welcome to bring your own wedding cake and we will store it safely until you are ready to cut it. We will provide a cake knife, plates, and napkins."
+                    },
+                    {
+                        question: "Can we play our own music or bring a DJ?",
+                        answer: "Yes to both. We have a sound system you can connect your phone or laptop to for a playlist. If you would prefer a DJ, we have space and power connections available. Just let us know when you book."
+                    },
+                    {
+                        question: "Is there a room hire fee for wedding receptions?",
+                        answer: "For wedding receptions that include a catering package, there is generally no separate room hire fee — just a minimum spend on food and drink. Contact us for specific details based on your guest numbers and requirements."
+                    },
+                    {
+                        question: "Can we decorate the venue?",
+                        answer: "Yes, you are welcome to bring your own decorations — balloons, flowers, table centres, photo walls, and banners are all fine. We ask that you avoid loose confetti and glitter. You can arrive early on the day to set up."
+                    },
+                    {
+                        question: "Do you cater for dietary requirements?",
+                        answer: "Yes. We can cater for vegetarian, vegan, gluten-free, and other dietary needs. Please let us know the requirements when you book and we will ensure all your guests are catered for."
                     }
                 ]}
             />

@@ -597,6 +597,134 @@ export default async function SundayLunchPage() {
         </Container>
       </section>
 
+      {/* The Sunday Roast Experience */}
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+        <Container>
+          <div className="max-w-4xl mx-auto">
+            <SectionHeader
+              title="The Sunday Roast Experience"
+              subtitle="What makes our Sunday lunch worth the drive."
+            />
+            <div className="prose prose-invert max-w-none text-anchor-cream-text/70 space-y-4">
+              <p>
+                A proper Sunday roast is more than a meal &mdash; it&rsquo;s the centrepiece of the week. At The Anchor, we take that seriously. Every roast is cooked fresh to order, which is exactly why we ask you to pre-order by Saturday 1pm. No batch cooking, no heat lamps, no shortcuts.
+              </p>
+              <p>
+                Each plate arrives with herb and garlic-crusted roast potatoes &mdash; golden on the outside, fluffy in the middle &mdash; a proper Yorkshire pudding that&rsquo;s risen tall and crisp, fresh seasonal vegetables, and rich red wine gravy made in-house. Vegetarian gravy is always available on request.
+              </p>
+              <p>
+                Our roasted chicken comes with sage and onion stuffing balls. The slow-cooked lamb shank is braised until it falls off the bone in a red wine gravy that&rsquo;s had hours of attention. The crispy pork belly has proper crackling and is served alongside Bramley apple sauce &mdash; tart enough to cut through the richness. And for vegetarians, the beetroot and butternut squash Wellington in golden puff pastry is a genuine centrepiece, not a token afterthought.
+              </p>
+              <p>
+                For the little ones, our kids&rsquo; roasted chicken is a smaller portion of the real thing &mdash; same quality, same trimmings, just sized right. And if you fancy something extra, add a side of our creamy cauliflower cheese for &pound;3.99.
+              </p>
+              <p>
+                Whether you&rsquo;re looking for a Sunday roast near Heathrow before a flight, a roast dinner near me after a long week, or a proper Sunday lunch near me with the family &mdash; this is the kind of meal that makes you glad you booked ahead.
+              </p>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* Best Sunday Roast in Surrey */}
+      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+        <Container>
+          <div className="max-w-4xl mx-auto">
+            <SectionHeader
+              title="Best Sunday Roast Near Heathrow &amp; Surrey"
+              subtitle="A proper roast worth travelling for."
+            />
+            <div className="prose prose-invert max-w-none text-anchor-cream-text/70 space-y-4">
+              <p>
+                If you&rsquo;re searching for the best Sunday roast in Surrey, you&rsquo;ll find us at The Anchor in Stanwell Moor &mdash; a village pub that&rsquo;s been part of the community since 1751. We&rsquo;re not a chain restaurant or a hotel dining room. We&rsquo;re an independent British pub where the landlord knows your name and the roasts are cooked with care.
+              </p>
+              <p>
+                What sets our Sunday lunch apart? Every dish is cooked fresh to your order. The lamb shank braises for hours. The pork belly is slow-roasted until the crackling shatters. The roast potatoes are hand-tossed in herb and garlic before they hit the oven. It&rsquo;s Sunday lunch the way it should be done &mdash; properly.
+              </p>
+              <p>
+                We&rsquo;re rated 4.6 out of 5 on Google, with regulars travelling from Staines-upon-Thames, Ashford, Egham, and Windsor specifically for our Sunday roasts. We&rsquo;re also popular with Heathrow travellers looking for a real meal before or after a flight &mdash; just 7 minutes from Terminal 5 with 20 free parking spaces on site.
+              </p>
+              <p>
+                Our Sunday lunch starts from &pound;19.99 per person. You get a full roast with all the trimmings, served in a proper pub with a beer garden, dog-friendly spaces, and a warm welcome. Whether you&rsquo;re celebrating a birthday, catching up with the family, or just fancy a roast dinner near me without cooking it yourself &mdash; we&rsquo;ve got you covered.
+              </p>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* Why Book With Us */}
+      <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+        <Container>
+          <div className="max-w-4xl mx-auto">
+            <SectionHeader
+              title="Why Book Sunday Lunch at The Anchor?"
+              subtitle="More than just great food."
+            />
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg-card p-5">
+                <p className="text-sm font-semibold text-anchor-gold-vivid">Free Parking</p>
+                <p className="mt-1 text-sm text-anchor-cream-text/70">
+                  20 free on-site parking spaces. No meters, no time limits, no stress. Park up and enjoy your Sunday lunch without watching the clock.
+                </p>
+              </div>
+              <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg-card p-5">
+                <p className="text-sm font-semibold text-anchor-gold-vivid">Dog &amp; Family Friendly</p>
+                <p className="mt-1 text-sm text-anchor-cream-text/70">
+                  Dogs welcome throughout the pub and beer garden. We have water bowls, treats, and high chairs for the little humans. Everyone&rsquo;s part of the family here.
+                </p>
+              </div>
+              <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg-card p-5">
+                <p className="text-sm font-semibold text-anchor-gold-vivid">Rated 4.6/5 on Google</p>
+                <p className="mt-1 text-sm text-anchor-cream-text/70">
+                  With over 238 Google reviews, our Sunday lunch is one of the highest-rated in the area. Don&rsquo;t just take our word for it.
+                </p>
+              </div>
+              <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg-card p-5">
+                <p className="text-sm font-semibold text-anchor-gold-vivid">7 Minutes from Heathrow T5</p>
+                <p className="mt-1 text-sm text-anchor-cream-text/70">
+                  Perfect for a Sunday roast near Heathrow before or after a flight. We&rsquo;re closer than most airport restaurants &mdash; and the food is infinitely better.
+                </p>
+              </div>
+              <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg-card p-5">
+                <p className="text-sm font-semibold text-anchor-gold-vivid">Beer Garden</p>
+                <p className="mt-1 text-sm text-anchor-cream-text/70">
+                  On a sunny day, enjoy your post-roast pint in the beer garden &mdash; directly under Heathrow&rsquo;s flight path. Watch planes land every 90 seconds at peak times.
+                </p>
+              </div>
+              <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg-card p-5">
+                <p className="text-sm font-semibold text-anchor-gold-vivid">Outside ULEZ</p>
+                <p className="mt-1 text-sm text-anchor-cream-text/70">
+                  We&rsquo;re outside the ULEZ zone, saving you &pound;12.50 a day. Drive over without the congestion charge hanging over your roast.
+                </p>
+              </div>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* Seasonal Roasts */}
+      <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+        <Container>
+          <div className="max-w-4xl mx-auto">
+            <SectionHeader
+              title="Seasonal Sunday Roasts"
+              subtitle="Our menu moves with the seasons."
+            />
+            <div className="prose prose-invert max-w-none text-anchor-cream-text/70 space-y-4">
+              <p>
+                While our core roast options &mdash; chicken, lamb shank, pork belly, and vegetarian wellington &mdash; are available year-round, we adjust what goes on the plate with the seasons. In spring, expect lighter seasonal vegetables and fresh greens. Summer brings garden herbs and vibrant side dishes. Come autumn and winter, portions get heartier, root vegetables take centre stage, and the gravy gets richer.
+              </p>
+              <p>
+                We occasionally introduce seasonal specials too. Keep an eye on our social media or call ahead on 01753 682707 to find out what&rsquo;s on this week. Our pre-order system means we source ingredients fresh each week, so you&rsquo;re always getting the best of what&rsquo;s available.
+              </p>
+              <p>
+                Looking for a Sunday lunch near me that changes with the calendar? The Anchor&rsquo;s Sunday roast is never quite the same twice &mdash; and that&rsquo;s exactly the point.
+              </p>
+            </div>
+          </div>
+        </Container>
+      </section>
+
       <section id="faq">
         <FAQAccordionWithSchema
           className="bg-anchor-bg"
@@ -623,6 +751,30 @@ export default async function SundayLunchPage() {
             {
               question: "Can I visit on Sunday without pre-ordering?",
               answer: "Yes — our regular menu is available on Sundays without pre-order. Sunday lunch roasts require advance booking."
+            },
+            {
+              question: "Is The Anchor a good Sunday roast near Heathrow?",
+              answer: "Yes. We're just 7 minutes from Heathrow Terminal 5 with 20 free parking spaces. Many guests stop in for a proper Sunday roast before or after a flight — much better than airport food."
+            },
+            {
+              question: "Do you have a kids' Sunday roast?",
+              answer: "Yes. Our kids' roasted chicken is a smaller portion of the same quality roast, served with all the trimmings for £13.99. Perfect for younger diners."
+            },
+            {
+              question: "Is there a vegetarian Sunday roast option?",
+              answer: "Yes — our beetroot and butternut squash Wellington is a proper vegetarian Sunday roast in golden puff pastry, served with roast potatoes, seasonal vegetables, and vegetarian gravy. From £19.99."
+            },
+            {
+              question: "Can I book for a group on Sunday?",
+              answer: "Absolutely. We seat groups of all sizes. For parties of 20 or more, please call us on 01753 682707 to arrange. The pub is also available for private hire."
+            },
+            {
+              question: "Is parking free on Sundays?",
+              answer: "Yes. We have 20 free on-site parking spaces available every day, including Sundays. No meters, no time limits while you're dining with us."
+            },
+            {
+              question: "Are dogs welcome during Sunday lunch?",
+              answer: "Yes — dogs are welcome throughout the pub and in the beer garden. We have water bowls and treats. Just mention it when you book."
             }
           ]}
         />

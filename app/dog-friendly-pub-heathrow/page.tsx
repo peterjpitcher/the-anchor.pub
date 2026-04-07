@@ -9,19 +9,21 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
+import { getBusinessStats } from '@/lib/schema-with-reviews'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
-    title: 'Dog Friendly Pub Near Heathrow | Pets Welcome | The Anchor',
-    description: `Looking for a dog friendly pub near Heathrow? We welcome four-legged friends with water bowls, treats, and a large garden. The perfect pit stop for a walk.`,
+    title: 'Dog Friendly Pub Near Heathrow | Beer Garden & Water Bowls | The Anchor',
+    description: `Dog friendly pub near Heathrow with a 64-seat beer garden, water bowls and food served to your table outdoors. Free parking, 7 mins from T5. Rated 4.6/5 on Google.`,
     openGraph: {
-        title: 'Dogs Welcome at The Anchor',
-        description: 'Water bowls, treats, and plenty of fuss for your four-legged friends.',
+        title: 'Dog Friendly Pub Near Heathrow — Beer Garden & Free Parking',
+        description: '64-seat dog-friendly beer garden with water bowls, outdoor dining and free parking. 7 mins from Heathrow T5.',
         images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({
-        title: 'Dogs Welcome at The Anchor',
-        description: 'Water bowls, treats, and plenty of fuss for your four-legged friends.',
+        title: 'Dog Friendly Pub Near Heathrow — Beer Garden & Free Parking',
+        description: '64-seat dog-friendly beer garden with water bowls, outdoor dining and free parking. 7 mins from Heathrow T5.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
     alternates: {
@@ -29,17 +31,50 @@ export const metadata: Metadata = {
     }
 }
 
-export default function DogFriendlyPage() {
+export default async function DogFriendlyPage() {
+    const { rating, reviewCount } = await getBusinessStats()
+
     const breadcrumbSchema = generateBreadcrumbSchema([
         { name: 'Home', url: '/' },
         { name: 'Dog Friendly Pub', url: '/dog-friendly-pub-heathrow' }
     ])
 
+    const dogFriendlyLocalBusinessSchema = {
+        "@context": "https://schema.org",
+        "@type": ["Restaurant", "BarOrPub"],
+        "@id": "https://www.the-anchor.pub/#business",
+        "name": "The Anchor",
+        "description": "Dog-friendly pub near Heathrow Airport with a 64-seat beer garden, water bowls, and food served outdoors. Free parking.",
+        "url": "https://www.the-anchor.pub/dog-friendly-pub-heathrow",
+        "telephone": CONTACT.phoneIntl,
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": CONTACT.address.street,
+            "addressLocality": CONTACT.address.town,
+            "addressRegion": "Surrey",
+            "postalCode": CONTACT.address.postcode,
+            "addressCountry": "GB"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": rating,
+            "reviewCount": reviewCount,
+            "bestRating": "5",
+            "worstRating": "1"
+        },
+        "amenityFeature": [
+            { "@type": "LocationFeatureSpecification", "name": "Dog Friendly", "value": true },
+            { "@type": "LocationFeatureSpecification", "name": "Beer Garden", "value": true },
+            { "@type": "LocationFeatureSpecification", "name": "Water Bowls for Dogs", "value": true },
+            { "@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true }
+        ]
+    }
+
     return (
         <>
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify([breadcrumbSchema]) }}
+                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([breadcrumbSchema, dogFriendlyLocalBusinessSchema]) }}
             />
 
             <HeroWrapper

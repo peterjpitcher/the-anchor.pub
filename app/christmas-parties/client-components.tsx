@@ -208,6 +208,104 @@ const FAQ_ITEMS = [
   {
     question: "How do you handle dietary requests?",
     answer: "Vegetarian, vegan, gluten-free and other dietary requests are happily accommodated. Just include the details on your pre-order so the kitchen can prepare suitable swaps."
+  },
+  {
+    question: "What is a shared Christmas party night?",
+    answer: "Shared party nights run Tuesday to Thursday through December. Your group gets its own table with crackers and festive decor, but you share the pub atmosphere with other parties. It's a brilliant option for smaller teams of six to twelve who want the buzz of a big night out without booking the whole venue."
+  },
+  {
+    question: "Can we have exclusive use of the whole pub?",
+    answer: "Yes - full venue hire is available for parties of 60 or more on selected dates, typically midweek. You get the run of the bar, dining room and conservatory with your own playlist or live entertainment. Get in touch early because exclusive-use dates go fast."
+  },
+  {
+    question: "Do you offer corporate Christmas party packages near Heathrow?",
+    answer: "We do. Our corporate Christmas party packages include VAT invoicing, an easy pre-order system for your team, and a dedicated point of contact to handle all the details. We're seven minutes from Heathrow Terminal 5 and two minutes from the M25 Junction 14, so colleagues travelling from different offices or airports can get here easily."
+  },
+  {
+    question: "Can we book a Christmas party for just drinks, no food?",
+    answer: "Absolutely. We can reserve an area for drinks-only celebrations and set up a pre-paid bar tab with an agreed budget. Add nibbles platters or a buffet later if you change your mind - we're flexible."
+  },
+  {
+    question: "What time do Christmas parties start and finish?",
+    answer: "Most dinner parties begin between 6 pm and 7:30 pm with a two-hour table reservation as standard. Longer sittings and late-bar extensions until midnight are available for larger groups or weekend bookings. Buffet parties can run later by arrangement."
+  },
+  {
+    question: "Is The Anchor outside the ULEZ zone?",
+    answer: "Yes - we're outside the ULEZ boundary, saving your guests £12.50 per vehicle compared to driving into central London. Combined with free on-site parking, it makes us one of the most accessible Christmas party venues near Heathrow."
+  }
+]
+
+const TESTIMONIALS = [
+  {
+    quote: "We've booked our office Christmas do at The Anchor three years running. The food is brilliant, the staff remember us, and nobody has to fight for parking. Best Christmas party pub near Heathrow by a mile.",
+    author: "Sarah T.",
+    detail: "Office manager, Poyle business park"
+  },
+  {
+    quote: "Organised a buffet for 40 cabin crew and ground staff from different terminals. Everyone found the place easily, the buffet was generous, and the bar tab system meant zero fuss. We'll be back.",
+    author: "James R.",
+    detail: "Airline operations team, Heathrow"
+  },
+  {
+    quote: "The turkey dinner was honestly better than my nan's - don't tell her. Crackers, candles, the lot. Proper festive without being tacky. Already booked for this year.",
+    author: "Michelle K.",
+    detail: "Staines-upon-Thames"
+  }
+]
+
+const WHY_BOOK_REASONS = [
+  {
+    icon: 'car' as const,
+    title: 'Free Parking for Every Guest',
+    description: 'Around 20 free spaces on-site with no time limit while you celebrate. No parking charges, no meters, no stress. Overnight stays are welcome - collect the car the next morning.'
+  },
+  {
+    icon: 'mapPin' as const,
+    title: '7 Minutes from Heathrow T5',
+    description: 'The closest traditional British pub to Heathrow Airport. Ideal for teams spread across terminals, nearby business parks and airport hotels. Two minutes from M25 Junction 14.'
+  },
+  {
+    icon: 'shield' as const,
+    title: 'Outside the ULEZ Zone',
+    description: 'Save your guests £12.50 each compared to driving into London. We are outside the ULEZ boundary, making us one of the most affordable Christmas party venues in Surrey.'
+  },
+  {
+    icon: 'users' as const,
+    title: 'Private Spaces for Every Size',
+    description: 'Intimate dining room for up to 25 seated, main bar area for larger groups, or full venue hire for up to 60 seated and 200 standing. We shape the space around your party.'
+  },
+  {
+    icon: 'heart' as const,
+    title: 'A Proper Village Pub Christmas',
+    description: 'No soulless hotel function rooms. No identikit chain pubs. Just a genuine village local with real character, warm hospitality and food that actually tastes of Christmas.'
+  },
+  {
+    icon: 'briefcase' as const,
+    title: 'Easy for Organisers',
+    description: 'Simple pre-order system, VAT invoices for accounts, a dedicated contact to handle your booking, and a £40 voucher for the organiser when you bring 20 or more guests.'
+  }
+]
+
+const PARTY_IDEAS = [
+  {
+    title: 'Quiz Night Christmas Special',
+    description: 'Our resident quizmaster runs a festive-themed quiz packed with Christmas music rounds, picture rounds and general knowledge. Teams of up to eight compete for prizes and bragging rights. Add a buffet or sit-down dinner before the quiz kicks off.',
+    ideal: 'Teams of 12-60 who love a bit of friendly competition'
+  },
+  {
+    title: 'Music Bingo Christmas Edition',
+    description: 'Think bingo, but instead of numbers you are listening for Christmas songs. When your tune plays, dab your card. Get a line or full house and win prizes. It is surprisingly competitive and always gets the whole room singing along.',
+    ideal: 'Mixed groups who want something different and inclusive'
+  },
+  {
+    title: 'Karaoke Christmas Party',
+    description: 'We have got a professional karaoke setup with over 50,000 songs including all the Christmas classics. Imagine your boss belting out Fairytale of New York after a few mulled wines. Book the main bar for a full karaoke takeover.',
+    ideal: 'Office groups and friend circles who are not afraid of the mic'
+  },
+  {
+    title: 'Live Band Christmas Celebration',
+    description: 'Hire a live band or acoustic act to perform during your party. We have excellent acoustics, a dedicated performance area and a late bar licence until midnight. We can recommend local acts or you are welcome to bring your own.',
+    ideal: 'Larger groups of 30+ who want a proper party atmosphere'
   }
 ]
 
@@ -967,6 +1065,187 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
       </Section>
 
       <Section background="white" spacing="md">
+        <Container>
+          <div className="max-w-5xl mx-auto space-y-8">
+            <div className="text-center space-y-4">
+              <h2 className="text-3xl font-bold text-anchor-cream-text">Why book your Christmas party at The Anchor?</h2>
+              <p className="text-base text-anchor-cream-text/70 max-w-3xl mx-auto">
+                We have been hosting Christmas parties near Heathrow for years, and there are some pretty good reasons people keep coming back. Whether you are planning a corporate Christmas party for airport colleagues or a festive get-together with mates from Staines, here is why The Anchor Pub is the Christmas party venue Heathrow teams, Surrey offices and local groups choose again and again.
+              </p>
+            </div>
+            <Grid cols={3} gap="md">
+              {WHY_BOOK_REASONS.map(reason => (
+                <Card key={reason.title} className="h-full">
+                  <div className="p-6 space-y-3">
+                    <Icon name={reason.icon} className="h-8 w-8 text-red-600" />
+                    <h3 className="text-lg font-semibold text-anchor-cream-text">{reason.title}</h3>
+                    <p className="text-sm text-anchor-cream-text/70">{reason.description}</p>
+                  </div>
+                </Card>
+              ))}
+            </Grid>
+          </div>
+        </Container>
+      </Section>
+
+      <Section background="gray" spacing="md">
+        <Container>
+          <div className="max-w-5xl mx-auto space-y-8">
+            <div className="text-center space-y-4">
+              <Badge className="bg-red-100 text-red-700 w-fit mx-auto">Corporate &amp; office parties</Badge>
+              <h2 className="text-3xl font-bold text-anchor-cream-text">Corporate Christmas parties near Heathrow</h2>
+              <p className="text-base text-anchor-cream-text/70 max-w-3xl mx-auto">
+                If you have been tasked with organising the office Christmas party, you already know the drill: find somewhere everyone can get to, keep it within budget, and make sure people actually enjoy themselves. We make all three easy.
+              </p>
+            </div>
+            <div className="grid md:grid-cols-2 gap-8 items-start">
+              <div className="space-y-5">
+                <h3 className="text-xl font-semibold text-anchor-cream-text">Why offices choose us</h3>
+                <ul className="space-y-3 text-sm text-anchor-cream-text/70">
+                  <li className="flex items-start gap-3">
+                    <Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid flex-shrink-0" />
+                    <span><strong className="text-anchor-cream-text">Central for distributed teams</strong> — seven minutes from Heathrow Terminal 5, two minutes off the M25 Junction 14. Colleagues arriving from different offices, terminals or even different countries can meet in one easy spot.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid flex-shrink-0" />
+                    <span><strong className="text-anchor-cream-text">VAT invoices and corporate billing</strong> — proper invoices for the accounts department, pre-payment options for bar tabs, and deposit invoicing to keep finance happy.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid flex-shrink-0" />
+                    <span><strong className="text-anchor-cream-text">Simple pre-order system</strong> — no more chasing colleagues for menu choices via spreadsheets. We send you a simple form link to share with your team.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid flex-shrink-0" />
+                    <span><strong className="text-anchor-cream-text">Free parking and ULEZ-free</strong> — around 20 free spaces on-site and we are outside the ULEZ zone. No parking charges, no congestion fees, no hidden costs for your team.</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid flex-shrink-0" />
+                    <span><strong className="text-anchor-cream-text">The organiser perk</strong> — book a group of 20 or more and receive a £40 voucher for yourself in January. A little thank-you for doing the hard work.</span>
+                  </li>
+                </ul>
+              </div>
+              <div className="space-y-5">
+                <h3 className="text-xl font-semibold text-anchor-cream-text">Popular corporate setups</h3>
+                <div className="space-y-4">
+                  <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-raised p-5">
+                    <h4 className="font-semibold text-anchor-cream-text mb-1">Small team dinner (6-25)</h4>
+                    <p className="text-sm text-anchor-cream-text/70">Private dining room with three-course festive menu, crackers and candles. From £36.95 per person midweek. Ideal for Poyle, Colnbrook and Heathrow business park teams.</p>
+                  </div>
+                  <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-raised p-5">
+                    <h4 className="font-semibold text-anchor-cream-text mb-1">Department celebration (26-60)</h4>
+                    <p className="text-sm text-anchor-cream-text/70">Main bar and dining area configured for your group with buffet or sit-down service. Add entertainment like a quiz or Music Bingo for a memorable corporate Christmas party near Heathrow.</p>
+                  </div>
+                  <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-raised p-5">
+                    <h4 className="font-semibold text-anchor-cream-text mb-1">Full venue hire (60-200)</h4>
+                    <p className="text-sm text-anchor-cream-text/70">Exclusive use of the entire pub. Bring a DJ, hire a live band, or let us arrange karaoke. Late bar until midnight. Perfect for larger corporate Christmas parties and airline crew celebrations.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="text-center">
+              <p className="text-sm text-anchor-cream-text/70 mb-4">
+                Already organising? Check our <Link href="/corporate-christmas-parties" className="underline decoration-dotted text-anchor-gold hover:text-anchor-gold-vivid transition">dedicated corporate Christmas parties page</Link> for more detail on packages for Heathrow businesses.
+              </p>
+            </div>
+          </div>
+        </Container>
+      </Section>
+
+      <Section background="white" spacing="md">
+        <Container>
+          <div className="max-w-5xl mx-auto space-y-8">
+            <div className="text-center space-y-4">
+              <h2 className="text-3xl font-bold text-anchor-cream-text">Christmas party ideas at The Anchor</h2>
+              <p className="text-base text-anchor-cream-text/70 max-w-3xl mx-auto">
+                Not every Christmas party needs to be a standard sit-down dinner. We host all kinds of festive celebrations and can tailor the evening around your group. Here are some of our most popular Christmas party ideas near Heathrow and Staines.
+              </p>
+            </div>
+            <Grid cols={2} gap="md">
+              {PARTY_IDEAS.map(idea => (
+                <Card key={idea.title} className="h-full">
+                  <div className="p-6 space-y-3">
+                    <h3 className="text-lg font-semibold text-anchor-cream-text">{idea.title}</h3>
+                    <p className="text-sm text-anchor-cream-text/70">{idea.description}</p>
+                    <p className="text-xs text-anchor-gold font-semibold">Best for: {idea.ideal}</p>
+                  </div>
+                </Card>
+              ))}
+            </Grid>
+            <div className="text-center">
+              <p className="text-sm text-anchor-cream-text/70">
+                Got something else in mind? We love creative ideas. Call us on {CONTACT_PHONE} or drop a note in your enquiry and we will make it happen.
+              </p>
+            </div>
+          </div>
+        </Container>
+      </Section>
+
+      <Section background="gray" spacing="md">
+        <Container>
+          <div className="max-w-4xl mx-auto space-y-8">
+            <div className="text-center space-y-4">
+              <h2 className="text-3xl font-bold text-anchor-cream-text">What our guests say about Christmas at The Anchor</h2>
+            </div>
+            <Grid cols={3} gap="md">
+              {TESTIMONIALS.map(testimonial => (
+                <Card key={testimonial.author} className="h-full">
+                  <div className="p-6 space-y-4">
+                    <p className="text-sm text-anchor-cream-text/70 italic leading-relaxed">&ldquo;{testimonial.quote}&rdquo;</p>
+                    <div>
+                      <p className="text-sm font-semibold text-anchor-cream-text">{testimonial.author}</p>
+                      <p className="text-xs text-anchor-cream-text/55">{testimonial.detail}</p>
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </Grid>
+          </div>
+        </Container>
+      </Section>
+
+      <Section background="white" spacing="sm">
+        <Container>
+          <div className="max-w-3xl mx-auto">
+            <div className="rounded-2xl border-2 border-red-600/30 bg-red-50/5 p-8 text-center space-y-4">
+              <Icon name="clock" className="mx-auto h-10 w-10 text-red-600" />
+              <h2 className="text-2xl font-bold text-anchor-cream-text">Book early — December dates fill fast</h2>
+              <p className="text-base text-anchor-cream-text/70">
+                Every year we see the same thing: Friday and Saturday nights in December are fully booked by October, and midweek slots fill up shortly after. If you have a preferred date for your Christmas party near Heathrow, the sooner you get in touch the better your chances. We only have one private dining room and a limited number of evening slots, so once they are gone, they are gone.
+              </p>
+              <p className="text-sm text-anchor-cream-text/70">
+                Not sure about exact numbers yet? That is fine. Send an enquiry with your rough headcount and preferred week, and we will pencil you in while you finalise the guest list. A £10 per person deposit secures your date.
+              </p>
+              <div className="flex flex-col md:flex-row justify-center gap-4 pt-2">
+                <Button
+                  variant="primary"
+                  size="lg"
+                  onClick={() => {
+                    trackCtaClick({
+                      id: 'christmas_urgency_dinner',
+                      label: 'Enquire Now — Dinner',
+                      location: 'urgency_section',
+                      destination: 'enquiry_form',
+                      mode: 'dinner'
+                    })
+                    handleOpenForm('dinner', {}, 'urgency_section')
+                  }}
+                >
+                  Enquire now — lock in your date
+                </Button>
+                <a
+                  href={CONTACT_PHONE_LINK}
+                  onClick={() => trackPhoneCallClick({ source: 'christmas_urgency', phone: CONTACT_PHONE })}
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-anchor-gold/30 px-6 py-3 text-sm font-semibold text-anchor-cream-text/70 hover:border-anchor-gold hover:text-anchor-gold transition"
+                >
+                  <Icon name="phone" className="h-4 w-4" /> Call {CONTACT_PHONE}
+                </a>
+              </div>
+            </div>
+          </div>
+        </Container>
+      </Section>
+
+      <Section background="gray" spacing="md">
         <Container>
           <FAQAccordionWithSchema
             title="Christmas Party FAQs"

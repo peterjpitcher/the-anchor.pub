@@ -313,6 +313,70 @@ export default async function VegetarianMenuPage() {
         ))}
       </div>
 
+      {/* Vegetarian Dining Near Heathrow */}
+      <Section background="white" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15">
+        <Container>
+          <Card className="card-dark rounded-none">
+            <CardBody>
+              <SectionHeader
+                title="Vegetarian Dining Near Heathrow Airport"
+                subtitle="A proper meal before, after, or instead of a flight."
+                align="left"
+                className="mb-6"
+              />
+              <div className="text-anchor-cream-text/70 space-y-4">
+                <p>
+                  Finding a vegetarian restaurant near Heathrow that serves more than a limp salad and overpriced airport pasta can be a challenge. At The Anchor, we take a different approach &mdash; our vegetarian pub food is made with the same care, the same fresh ingredients, and the same generous portions as everything else on our menu.
+                </p>
+                <p>
+                  We&rsquo;re just 7 minutes from Heathrow Terminal 5, with 20 free parking spaces and step-free access from the car park. Whether you&rsquo;re a Heathrow traveller stopping in for a pre-flight meal, an airport hotel guest looking for something better than room service, or a local who simply wants vegetarian pub food that doesn&rsquo;t feel like an afterthought &mdash; you&rsquo;re welcome here.
+                </p>
+                <p>
+                  Our kitchen is open Tuesday to Saturday from 4pm to 9pm, Saturday from noon to 7pm, and Sunday from 1pm to 6pm. The kitchen is closed on Mondays. Every vegetarian dish is cooked fresh to order, and we clearly label all vegetarian (V) and vegan (VE) items. If you have specific allergen needs, speak to the team at the bar and we&rsquo;ll walk you through what works for you.
+                </p>
+                <p>
+                  We also accommodate groups &mdash; from a quiet meal for two to a table of ten, we can handle it. For parties of 20 or more, call us on{' '}
+                  <a href="tel:+441753682707" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid">01753 682707</a> and we&rsquo;ll sort you out.
+                </p>
+              </div>
+            </CardBody>
+          </Card>
+        </Container>
+      </Section>
+
+      {/* Expanded dish descriptions */}
+      <Section background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+        <Container>
+          <Card className="card-dark rounded-none">
+            <CardBody>
+              <SectionHeader
+                title="Our Favourite Vegetarian Dishes"
+                subtitle="What our regulars keep ordering."
+                align="left"
+                className="mb-6"
+              />
+              <div className="text-anchor-cream-text/70 space-y-4">
+                <p>
+                  <strong className="text-anchor-cream-text">Butternut Squash, Mixed Bean &amp; Mature Cheddar Pie</strong> &mdash; This is the dish that puts our vegetarian menu on the map. A proper pie with golden pastry, a rich filling of roasted butternut squash, mixed beans, and mature cheddar, served with creamy mash and seasonal vegetables (or chips, if you prefer). <em>Contains: gluten, dairy.</em>
+                </p>
+                <p>
+                  <strong className="text-anchor-cream-text">Garden Veg Burger</strong> &mdash; Not a generic frozen patty. Our Garden Veg Burger is served with onion ring, salad and chips in a brioche bun. For bigger appetites, upgrade to the Garden Stack which adds extra toppings. <em>Contains: gluten, dairy, egg.</em>
+                </p>
+                <p>
+                  <strong className="text-anchor-cream-text">Spinach &amp; Ricotta Cannelloni</strong> &mdash; Baked in tomato sauce and served with side salad. Creamy ricotta and spinach wrapped in pasta tubes, topped with melted cheese. Comfort food at its finest. <em>Contains: gluten, dairy, egg.</em>
+                </p>
+                <p>
+                  <strong className="text-anchor-cream-text">Mac &amp; Cheese with Crispy Onions</strong> &mdash; Creamy, cheesy, and served with garlic bread. This is the vegetarian comfort dish that non-vegetarians order too. <em>Contains: gluten, dairy.</em>
+                </p>
+                <p>
+                  <strong className="text-anchor-cream-text">Stone-Baked Pizzas</strong> &mdash; The Rustic Classic and Garden Club are vegetarian as standard and can be made vegan by removing the mozzarella. All pizzas are available with a gluten-free base. <em>Contains: gluten, dairy (standard); gluten-free base available.</em>
+                </p>
+              </div>
+            </CardBody>
+          </Card>
+        </Container>
+      </Section>
+
       {/* Vegan options callout */}
       <Section background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>

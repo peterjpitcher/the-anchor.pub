@@ -35,6 +35,8 @@ import { RegretReduction } from '@/components/psychology'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
+import { getBusinessStats } from '@/lib/schema-with-reviews'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
     title: 'Karaoke Pub Near Heathrow | Friday Nights at The Anchor',
@@ -235,7 +237,10 @@ function KaraokeEventCards({ events }: { events: Event[] }) {
 }
 
 export default async function KaraokePage() {
-    const events = await getKaraokeEvents()
+    const [events, { rating, reviewCount }] = await Promise.all([
+        getKaraokeEvents(),
+        getBusinessStats()
+    ])
     const nextEvent = events[0]
     const nextEventDate = nextEvent ? formatEventDate(nextEvent.startDate) : 'Dates announced soon'
     const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '8:00pm approx'
@@ -251,6 +256,71 @@ export default async function KaraokePage() {
                 { name: "What's On", url: '/whats-on' },
                 { name: 'Karaoke', url: '/karaoke' }
             ]} />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify({
+                    "@context": "https://schema.org",
+                    "@type": "EventSeries",
+                    "@id": "https://www.the-anchor.pub/#karaoke-series",
+                    "name": "Karaoke Nights with Nikki Manfadge at The Anchor",
+                    "description": "Friday karaoke nights hosted by Nikki Manfadge with 50,000+ songs. Free entry, free parking, 7 mins from Heathrow T5.",
+                    "startDate": "2024-01-01",
+                    "endDate": "2026-12-31",
+                    "eventSchedule": {
+                        "@type": "Schedule",
+                        "repeatFrequency": "P1W",
+                        "byDay": "https://schema.org/Friday",
+                        "startTime": "20:00:00",
+                        "endTime": "23:00:00",
+                        "scheduleTimezone": "Europe/London"
+                    },
+                    "location": {
+                        "@type": "Place",
+                        "name": "The Anchor",
+                        "address": {
+                            "@type": "PostalAddress",
+                            "streetAddress": "Horton Road",
+                            "addressLocality": "Stanwell Moor",
+                            "addressRegion": "Surrey",
+                            "postalCode": "TW19 6AQ",
+                            "addressCountry": "GB"
+                        }
+                    },
+                    "offers": {
+                        "@type": "Offer",
+                        "price": "0",
+                        "priceCurrency": "GBP",
+                        "availability": "https://schema.org/InStock",
+                        "description": "Free entry"
+                    },
+                    "performer": {
+                        "@type": "Person",
+                        "name": "Nikki Manfadge",
+                        "jobTitle": "Entertainment Host",
+                        "worksFor": { "@id": "https://www.the-anchor.pub/#organization" }
+                    },
+                    "organizer": {
+                        "@id": "https://www.the-anchor.pub/#organization"
+                    }
+                }) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify({
+                    "@context": "https://schema.org",
+                    "@type": ["Restaurant", "BarOrPub"],
+                    "@id": "https://www.the-anchor.pub/#business",
+                    "name": "The Anchor",
+                    "url": "https://www.the-anchor.pub/karaoke",
+                    "aggregateRating": {
+                        "@type": "AggregateRating",
+                        "ratingValue": rating,
+                        "reviewCount": reviewCount,
+                        "bestRating": "5",
+                        "worstRating": "1"
+                    }
+                }) }}
+            />
             <HeroWrapper
                 route="/karaoke"
                 title="Karaoke Nights at The Anchor"

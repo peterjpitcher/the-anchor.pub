@@ -385,6 +385,66 @@ export default async function VeganMenuPage() {
         </Container>
       </Section>
 
+      {/* Vegan Dining Near Heathrow */}
+      <Section background="white" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15">
+        <Container>
+          <Card className="card-dark rounded-none">
+            <CardBody>
+              <SectionHeader
+                title="Vegan Dining Near Heathrow Airport"
+                subtitle="Honest options at a traditional pub, just minutes from the terminal."
+                align="left"
+                className="mb-6"
+              />
+              <div className="text-anchor-cream-text/70 space-y-4">
+                <p>
+                  If you&rsquo;re looking for a vegan restaurant near Heathrow, we should be upfront &mdash; we&rsquo;re a traditional British pub, not a plant-based specialist. But that doesn&rsquo;t mean vegan diners get short-changed. We have genuine vegan pub food options, and we&rsquo;re honest about what we can and can&rsquo;t do.
+                </p>
+                <p>
+                  Our garlic bread has been vegan since day one &mdash; stone-baked without butter. Our chips, chunky chips, sweet potato fries, and onion rings are all fully plant-based. And two of our stone-baked pizzas (Rustic Classic and Garden Club) can be made vegan by removing the mozzarella, with the bases and tomato sauce already dairy-free.
+                </p>
+                <p>
+                  We&rsquo;re 7 minutes from Heathrow Terminal 5, with 20 free parking spaces and luggage storage available. For Heathrow travellers, crew members, and airport hotel guests looking for vegan pub food near me that&rsquo;s better than anything inside the terminal &mdash; we&rsquo;re the closest traditional pub to the airport and one of the few with proper vegan options.
+                </p>
+                <p>
+                  Our kitchen team is happy to talk through what works for you. If you have allergies beyond dairy and animal products, let us know when you order and we&rsquo;ll advise. We prepare all food in a single kitchen, so we can&rsquo;t guarantee zero cross-contamination &mdash; but we can tell you exactly what&rsquo;s in every dish.
+                </p>
+              </div>
+            </CardBody>
+          </Card>
+        </Container>
+      </Section>
+
+      {/* How to Build a Full Vegan Meal */}
+      <Section background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+        <Container>
+          <Card className="card-dark rounded-none">
+            <CardBody>
+              <SectionHeader
+                title="How to Build a Full Vegan Meal"
+                subtitle="Our recommendations for putting together a proper vegan pub meal."
+                align="left"
+                className="mb-6"
+              />
+              <div className="text-anchor-cream-text/70 space-y-4">
+                <p>
+                  <strong className="text-anchor-cream-text">The Full Vegan Spread:</strong> Start with stone-baked garlic bread to share, order a Rustic Classic or Garden Club pizza without mozzarella as your main, and add a side of sweet potato fries or onion rings. That&rsquo;s a proper three-course vegan pub meal without a single compromise.
+                </p>
+                <p>
+                  <strong className="text-anchor-cream-text">Quick Bite:</strong> Short on time? A garlic bread and chips makes a solid vegan snack. Fast, filling, and fully plant-based.
+                </p>
+                <p>
+                  <strong className="text-anchor-cream-text">Sides as a Meal:</strong> Our vegan sides &mdash; chips, chunky chips, sweet potato fries, and onion rings &mdash; are all generous portions. Order two or three sides and you&rsquo;ve got a perfectly good meal without needing a main course.
+                </p>
+                <p>
+                  <strong className="text-anchor-cream-text">Drinks:</strong> We carry a range of beers, wines, and soft drinks. Ask at the bar about vegan-friendly options &mdash; many of our drinks are naturally plant-based.
+                </p>
+              </div>
+            </CardBody>
+          </Card>
+        </Container>
+      </Section>
+
       {/* Allergen note */}
       <Section background="gray" spacing="sm" className="bg-anchor-bg border-b border-anchor-gold/15">
         <Container>

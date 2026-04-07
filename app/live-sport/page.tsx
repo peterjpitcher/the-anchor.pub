@@ -11,19 +11,21 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
+import { getBusinessStats } from '@/lib/schema-with-reviews'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
-    title: 'Live Sport Pub Near Heathrow | Football, Rugby & F1 on Big Screens | The Anchor',
-    description: `Your live sport pub near Heathrow. Watch football, rugby and F1 on big screens at ${BRAND.name} with free parking and great food. 7 mins from T5.`,
+    title: 'Watch Live Sport Near Heathrow | Major Tournaments & Events | The Anchor',
+    description: `Watch major sporting events near Heathrow — Six Nations, World Cup, Euros & F1 on big screens at ${BRAND.name}. Free parking, great food, 7 mins from T5.`,
     openGraph: {
-        title: 'Live Sport Pub Near Heathrow | Football, Rugby & F1 on Big Screens | The Anchor',
-        description: 'Your live sport pub near Heathrow. Watch football, rugby and F1 on big screens with a cold pint and free parking.',
+        title: 'Watch Live Sport Near Heathrow — Major Tournaments on Big Screens',
+        description: 'Six Nations, World Cup, Euros and F1 on big screens with a cold pint and free parking. 7 mins from Heathrow T5.',
         images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({
-        title: 'Live Sport Pub Near Heathrow | Football, Rugby & F1 on Big Screens | The Anchor',
-        description: 'Your live sport pub near Heathrow. Watch football, rugby and F1 on big screens with a cold pint and free parking.',
+        title: 'Watch Live Sport Near Heathrow — Major Tournaments on Big Screens',
+        description: 'Six Nations, World Cup, Euros and F1 on big screens with free parking and great food. 7 mins from Heathrow T5.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
     alternates: {
@@ -31,7 +33,9 @@ export const metadata: Metadata = {
     }
 }
 
-export default function LiveSportPage() {
+export default async function LiveSportPage() {
+    const { rating, reviewCount } = await getBusinessStats()
+
     const breadcrumbSchema = generateBreadcrumbSchema([
         { name: 'Home', url: '/' },
         { name: 'Live Sport', url: '/live-sport' }
@@ -41,8 +45,8 @@ export default function LiveSportPage() {
     const sportsSchema = {
         "@context": "https://schema.org",
         "@type": "SportsActivityLocation",
-        "name": `${BRAND.name} Sports Bar`,
-        "description": "A premier destination for watching live sports events including Six Nations Rugby and Formula 1.",
+        "name": `${BRAND.name} - Live Sport`,
+        "description": "Watch major sporting events on big screens — Six Nations, World Cup, Euros, F1 and more. Free parking and great food near Heathrow.",
         "address": {
             "@type": "PostalAddress",
             "streetAddress": CONTACT.address.street,
@@ -51,14 +55,52 @@ export default function LiveSportPage() {
             "addressCountry": CONTACT.address.country
         },
         "telephone": CONTACT.phoneIntl,
-        "image": DEFAULT_PAGE_HEADER_IMAGE
+        "image": DEFAULT_PAGE_HEADER_IMAGE,
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": rating,
+            "reviewCount": reviewCount,
+            "bestRating": "5",
+            "worstRating": "1"
+        }
+    }
+
+    const screeningEventSchema = {
+        "@context": "https://schema.org",
+        "@type": "ScreeningEvent",
+        "name": "Live Sport Screenings at The Anchor",
+        "description": "Watch Six Nations, World Cup 2026, Euros and F1 on big screens at The Anchor. Terrestrial channels only (BBC, ITV, Channel 4).",
+        "location": {
+            "@type": "Place",
+            "name": "The Anchor",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": CONTACT.address.street,
+                "addressLocality": CONTACT.address.town,
+                "addressRegion": "Surrey",
+                "postalCode": CONTACT.address.postcode,
+                "addressCountry": "GB"
+            }
+        },
+        "organizer": {
+            "@id": "https://www.the-anchor.pub/#organization"
+        },
+        "isAccessibleForFree": true,
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "GBP",
+            "availability": "https://schema.org/InStock",
+            "description": "Free entry — just turn up and enjoy"
+        }
     }
 
     return (
         <>
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify([sportsSchema, breadcrumbSchema]) }}
+                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([sportsSchema, breadcrumbSchema, screeningEventSchema]) }}
             />
 
             <HeroWrapper

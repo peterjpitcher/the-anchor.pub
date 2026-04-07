@@ -14,17 +14,17 @@ import { getBusinessStats } from '@/lib/schema-with-reviews'
 import { BookTableButton } from '@/components/BookTableButton'
 
 export const metadata: Metadata = {
-  title: `Stanwell Village Pub | Sunday Roasts, Pizza & Free Parking | ${BRAND.name}`,
-  description: `${BRAND.name} is Stanwell's village pub with Sunday roasts, stone-baked pizzas, quiz nights and free parking just minutes from Heathrow.`,
+  title: `Stanwell Village Pub | Beer Garden, Sunday Roasts & Free Parking | ${BRAND.name}`,
+  description: `The Anchor is Stanwell Moor's village pub — rated 4.6/5 on Google. Sunday roasts from £19.99, stone-baked pizzas, dog-friendly beer garden and free parking. 7 mins from Heathrow T5.`,
   openGraph: {
-    title: 'Stanwell Village Pub - The Anchor Stanwell Moor',
-    description: 'Enjoy Sunday roasts, stone-baked pizzas and local events at The Anchor, Stanwell Moor\'s village pub near Heathrow.',
+    title: 'Stanwell Village Pub — Beer Garden, Food & Free Parking',
+    description: 'Rated 4.6/5 on Google. Sunday roasts, stone-baked pizzas and a dog-friendly beer garden at The Anchor, Stanwell Moor.',
     images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
     type: 'website',
   },
   twitter: getTwitterMetadata({
-    title: 'Stanwell Village Pub - The Anchor Stanwell Moor',
-    description: 'Enjoy Sunday roasts, stone-baked pizzas and local events at The Anchor, Stanwell Moor\'s village pub near Heathrow.',
+    title: 'Stanwell Village Pub — Beer Garden, Food & Free Parking',
+    description: 'Rated 4.6/5 on Google. Sunday roasts, stone-baked pizzas and a dog-friendly beer garden at The Anchor, Stanwell Moor.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
   alternates: {

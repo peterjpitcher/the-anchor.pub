@@ -1,9 +1,39 @@
 # SEO Keyword Reference — The Anchor Website
 
 **Created:** 4 April 2026
-**Data sources:** Google Keyword Planner (6 rounds, 240+ keywords) + Google Search Console (3 months)
-**Last updated:** 5 April 2026
-**Status:** ALL 128 PAGES MAPPED AND OPTIMISED. Phase 1+2 (commit `4bf2949`), Phase 3 (commit `16b44ec`).
+**Data sources:** Google Keyword Planner (7 rounds, 290+ keywords) + Google Search Console (3 months + 30-day refresh 7 April)
+**Last updated:** 7 April 2026
+**Status:** ALL 128 PAGES MAPPED AND OPTIMISED + content expansion + 3 new blog posts. Phase 1+2 (commit `4bf2949`), Phase 3 (commit `16b44ec`), Phase 4: CTR fixes + content expansion + schema enhancements (7 April 2026).
+
+### Phase 4 Changes (7 April 2026)
+
+**Wave 1 — CTR fixes (6 pages):** Rewrote titles/meta descriptions on /stanwell-pub, /dog-friendly-pub-heathrow, /live-sport, /whats-on, /near-heathrow, /staines-pub. Added 4.6/5 rating, price anchors, specific features. Removed "real ales" (incorrect) and repositioned /live-sport to terrestrial-only.
+
+**Wave 2 — Quick content additions:** Added "celebration of life" + "funeral tea" language to /private-hire/wakes. Added CTA banners to 2 cannibalising blog posts (sunday roast, fish & chips).
+
+**Wave 3 — Content expansion (12 pages):** Expanded /private-hire/wakes (247→466 lines), /christenings, /baby-showers, /gender-reveal, /weddings (193→387 lines), /sunday-lunch, /book-table, /burger-menu, /food-menu/vegetarian, /food-menu/vegan, /christmas-parties, /live-music.
+
+**Wave 4 — New blog posts (3):** things-to-do-near-heathrow (500/mo), best-sunday-roast-surrey (500/mo), best-pub-food-near-heathrow (500/mo).
+
+**Wave 5 — Schema enhancements:** EventVenue on 3 private hire pages, AggregateRating on 7 pages, PriceSpecification on 4 event pages, Person schema (Nikki Manfadge) on 2 pages, ScreeningEvent on /live-sport.
+
+### New Keywords Added (Phase 4)
+
+| Keyword | Vol/mo | Target Page |
+|---------|--------|-------------|
+| things to do near heathrow airport | 500 | /blog/things-to-do-near-heathrow |
+| best sunday roast surrey | 500 | /blog/best-sunday-roast-surrey + /sunday-lunch |
+| best pub food surrey | 500 | /blog/best-pub-food-near-heathrow |
+| celebration of life venue | local | /private-hire/wakes |
+| funeral tea venue | local | /private-hire/wakes |
+| pub wedding reception staines | local | /private-hire/weddings |
+| christmas party pub staines | 50 | /christmas-parties |
+
+### Business Rules Confirmed (7 April 2026)
+
+- **No real ale by handpump** — only bottled. Never target "real ale pub" keywords.
+- **No Sky Sports / TNT Sports** — terrestrial channels only (BBC, ITV, Channel 4). Target major tournaments, not weekly football.
+- **Not a wedding venue** — position for intimate pub receptions, not traditional weddings.
 
 Use this document to verify keyword targeting on any page, plan new pages, or brief content writers.
 

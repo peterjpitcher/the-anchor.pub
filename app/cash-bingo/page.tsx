@@ -37,6 +37,8 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { JsonLd } from '@/components/JsonLd'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { bingoEventSeries } from '@/lib/schema'
+import { getBusinessStats } from '@/lib/schema-with-reviews'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
   title: 'Cash Bingo Near Heathrow | Bingo Games & Jackpots | The Anchor',
@@ -238,7 +240,10 @@ function BingoEventCards({ events }: { events: Event[] }) {
 }
 
 export default async function CashBingoPage() {
-  const events = await getBingoEvents()
+  const [events, { rating, reviewCount }] = await Promise.all([
+    getBingoEvents(),
+    getBusinessStats()
+  ])
   const nextEvent = events[0]
   const nextEventDate = nextEvent ? formatEventDate(nextEvent.startDate) : 'Next date announced soon'
   const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '7:00 pm start'
@@ -256,6 +261,23 @@ export default async function CashBingoPage() {
           { name: "What's On", url: '/whats-on' },
           { name: 'Cash Bingo', url: '/cash-bingo' }
         ]}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify({
+          "@context": "https://schema.org",
+          "@type": ["Restaurant", "BarOrPub"],
+          "@id": "https://www.the-anchor.pub/#business",
+          "name": "The Anchor",
+          "url": "https://www.the-anchor.pub/cash-bingo",
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": rating,
+            "reviewCount": reviewCount,
+            "bestRating": "5",
+            "worstRating": "1"
+          }
+        }) }}
       />
 	      <HeroWrapper
 	        route="/cash-bingo"

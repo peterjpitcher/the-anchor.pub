@@ -259,6 +259,115 @@ export default async function BurgerMenuPage() {
                 </Container>
             </section>
 
+            {/* Sourcing Story */}
+            <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+                <Container>
+                    <div className="max-w-3xl mx-auto">
+                        <SectionHeader
+                            title="Where Our Beef Comes From"
+                            subtitle="Quality chuck steak, simply handled."
+                        />
+                        <div className="prose prose-invert max-w-none text-anchor-cream-text/70 space-y-4">
+                            <p>
+                                We use 100% British chuck steak mince for every burger we serve. Chuck steak comes from the shoulder of the animal &mdash; it has the right balance of meat and fat for a juicy, flavourful patty that holds together on the grill without being greasy.
+                            </p>
+                            <p>
+                                We don&rsquo;t add breadcrumbs, fillers, or binding agents. Each patty is hand-formed to order and seasoned with nothing more than salt and pepper. The beef does the work &mdash; we just get out of the way. That&rsquo;s what separates a proper gourmet burger near Heathrow from the mass-produced patties you&rsquo;ll find at chain restaurants and airport terminals.
+                            </p>
+                            <p>
+                                Our brioche buns are toasted on the same griddle as the patties, soaking up flavour and giving them enough structure to hold a double-stacked burger without falling apart. It&rsquo;s a small detail, but it makes a difference.
+                            </p>
+                        </div>
+                    </div>
+                </Container>
+            </section>
+
+            {/* Sides, Shakes & Accompaniments */}
+            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+                <Container>
+                    <div className="max-w-3xl mx-auto">
+                        <SectionHeader
+                            title="Sides &amp; Extras"
+                            subtitle="Because a burger deserves proper company."
+                        />
+                        <div className="prose prose-invert max-w-none text-anchor-cream-text/70 space-y-4">
+                            <p>
+                                Every burger comes with chips as standard &mdash; proper seasoned chips, not an afterthought. But if you want to upgrade, we&rsquo;ve got you covered:
+                            </p>
+                        </div>
+                        <div className="grid sm:grid-cols-2 gap-4 mt-6">
+                            <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg-card p-5">
+                                <p className="text-sm font-semibold text-anchor-gold-vivid">Chunky Chips</p>
+                                <p className="mt-1 text-sm text-anchor-cream-text/70">Thick-cut, golden, and satisfying. The classic upgrade.</p>
+                            </div>
+                            <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg-card p-5">
+                                <p className="text-sm font-semibold text-anchor-gold-vivid">Sweet Potato Fries</p>
+                                <p className="mt-1 text-sm text-anchor-cream-text/70">Crispy on the outside, soft in the middle. A lighter option.</p>
+                            </div>
+                            <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg-card p-5">
+                                <p className="text-sm font-semibold text-anchor-gold-vivid">Cheesy Chips</p>
+                                <p className="mt-1 text-sm text-anchor-cream-text/70">Melted cheese over hot chips. Indulgent and worth every calorie.</p>
+                            </div>
+                            <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg-card p-5">
+                                <p className="text-sm font-semibold text-anchor-gold-vivid">Onion Rings</p>
+                                <p className="mt-1 text-sm text-anchor-cream-text/70">Crispy battered onion rings &mdash; perfect alongside any burger.</p>
+                            </div>
+                        </div>
+                        <div className="prose prose-invert max-w-none text-anchor-cream-text/70 mt-6 space-y-4">
+                            <p>
+                                Whether you&rsquo;re after a gourmet burger near Heathrow or just the best burger restaurant near Heathrow for a pre-flight meal, the sides are half the experience. We keep it simple &mdash; quality ingredients, cooked properly.
+                            </p>
+                        </div>
+                    </div>
+                </Container>
+            </section>
+
+            {/* Customisation */}
+            <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+                <Container>
+                    <div className="max-w-3xl mx-auto">
+                        <SectionHeader
+                            title="Make It Your Own"
+                            subtitle="Add an extra patty, swap your bun, or go all out."
+                        />
+                        <div className="prose prose-invert max-w-none text-anchor-cream-text/70 space-y-4">
+                            <p>
+                                Every burger on our menu can be customised. Fancy an extra patty? Done. Want a gluten-free bun? Just ask your server. Prefer no salad? No problem. We&rsquo;re a pub, not a production line &mdash; we cook to order and we&rsquo;re happy to adjust.
+                            </p>
+                            <p>
+                                Our double-stacked burgers are already generous, but if you&rsquo;re properly hungry, adding an extra patty takes it to another level. The smash technique means each patty is thin and crispy, so stacking three doesn&rsquo;t turn your burger into something you can&rsquo;t actually eat.
+                            </p>
+                            <p>
+                                Not a meat eater? Our Garden Veg Burger and Garden Stack are proper vegetarian burgers &mdash; not token additions to tick a box. They&rsquo;re served with the same care and the same quality sides. We also accommodate vegan requests where possible &mdash; just ask at the bar.
+                            </p>
+                        </div>
+                    </div>
+                </Container>
+            </section>
+
+            {/* Heathrow positioning */}
+            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+                <Container>
+                    <div className="max-w-3xl mx-auto">
+                        <SectionHeader
+                            title="A Proper Burger Near Heathrow"
+                            subtitle="7 minutes from Terminal 5. Free parking. No airport prices."
+                        />
+                        <div className="prose prose-invert max-w-none text-anchor-cream-text/70 space-y-4">
+                            <p>
+                                If you&rsquo;re looking for a burger restaurant near Heathrow that isn&rsquo;t a chain and doesn&rsquo;t charge airport prices, The Anchor is your answer. We&rsquo;re in Stanwell Moor, just 7 minutes from Terminal 5 and 2 minutes from M25 Junction 14.
+                            </p>
+                            <p>
+                                Whether you&rsquo;re killing time before a flight, refuelling after a long journey, or hosting a Heathrow layover meal with friends &mdash; a gourmet burger near Heathrow beats anything you&rsquo;ll find inside the terminal. We have 20 free parking spaces, dogs are welcome, and we even store luggage if you need us to.
+                            </p>
+                            <p>
+                                We&rsquo;re rated 4.6 out of 5 on Google. Regulars come from Staines, Ashford, Egham, and Windsor for our burgers &mdash; but we&rsquo;re also a favourite with travellers who discover us once and keep coming back.
+                            </p>
+                        </div>
+                    </div>
+                </Container>
+            </section>
+
             <FAQAccordionWithSchema
                 faqs={[
                     {

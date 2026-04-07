@@ -307,6 +307,87 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
         </Grid>
       </Section>
 
+      {/* Signature Dishes Preview */}
+      <Section spacing="md" container containerSize="md" className="bg-anchor-bg border-b border-anchor-gold/15">
+        <SectionHeader
+          title="A Taste of What&rsquo;s on the Menu"
+          subtitle="A few favourites to whet your appetite before you book."
+          align="center"
+        />
+        <div className="space-y-4 max-w-2xl mx-auto">
+          <div className="flex justify-between items-start gap-4 py-3 border-b border-anchor-gold/10">
+            <div>
+              <h3 className="font-semibold text-anchor-cream-text">Fish &amp; Chips</h3>
+              <p className="text-sm text-anchor-cream-text/60 mt-1">Beer-battered fish, chips, mushy peas and tartare sauce. A proper British classic.</p>
+            </div>
+            <span className="text-anchor-gold-vivid font-semibold whitespace-nowrap">&pound;15.00</span>
+          </div>
+          <div className="flex justify-between items-start gap-4 py-3 border-b border-anchor-gold/10">
+            <div>
+              <h3 className="font-semibold text-anchor-cream-text">The Anchor Burger</h3>
+              <p className="text-sm text-anchor-cream-text/60 mt-1">Double smash burger with American cheese, gherkins, lettuce, and burger sauce in a brioche bun. Chips included.</p>
+            </div>
+            <span className="text-anchor-gold-vivid font-semibold whitespace-nowrap">&pound;14.00</span>
+          </div>
+          <div className="flex justify-between items-start gap-4 py-3 border-b border-anchor-gold/10">
+            <div>
+              <h3 className="font-semibold text-anchor-cream-text">Stone-Baked Pizza</h3>
+              <p className="text-sm text-anchor-cream-text/60 mt-1">Choose from our range of freshly made stone-baked pizzas. Gluten-free bases available.</p>
+            </div>
+            <span className="text-anchor-gold-vivid font-semibold whitespace-nowrap">from &pound;11.00</span>
+          </div>
+          <div className="flex justify-between items-start gap-4 py-3">
+            <div>
+              <h3 className="font-semibold text-anchor-cream-text">Sunday Roast</h3>
+              <p className="text-sm text-anchor-cream-text/60 mt-1">Chicken, lamb shank, pork belly or veggie wellington. All the trimmings. Pre-order by Saturday 1pm.</p>
+            </div>
+            <span className="text-anchor-gold-vivid font-semibold whitespace-nowrap">from &pound;19.99</span>
+          </div>
+        </div>
+        <p className="text-center mt-6">
+          <Link href="/food-menu" className="text-anchor-gold-vivid font-semibold hover:underline">
+            See the full food menu &rarr;
+          </Link>
+        </p>
+      </Section>
+
+      {/* Customer Review */}
+      <Section spacing="md" container containerSize="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+        <div className="max-w-2xl mx-auto text-center">
+          <p className="text-2xl text-anchor-cream-text/80 italic leading-relaxed">
+            &ldquo;Lovely pub, great food, friendly staff. We stopped in on our way to Heathrow and wished we&apos;d found it sooner. Will definitely be back.&rdquo;
+          </p>
+          <p className="mt-4 text-sm text-anchor-cream-text/50">&mdash; Google Review, rated 5/5</p>
+        </div>
+      </Section>
+
+      {/* Getting Here */}
+      <Section spacing="md" container containerSize="md" className="bg-anchor-bg border-b border-anchor-gold/15">
+        <SectionHeader
+          title="Getting Here"
+          subtitle="Easy to find, plenty of parking, and closer than you think."
+          align="center"
+        />
+        <div className="max-w-2xl mx-auto">
+          <div className="prose prose-invert max-w-none text-anchor-cream-text/70 space-y-4">
+            <p>
+              The Anchor Pub is on Horton Road, Stanwell Moor, Surrey, TW19 6AQ &mdash; just 2 minutes from M25 Junction 14 and 7 minutes from Heathrow Terminal 5. Whether you&apos;re booking a pub table near Heathrow for a pre-flight meal, a layover lunch, or a restaurant reservation near Heathrow for a special evening, we&apos;re easy to reach from all directions.
+            </p>
+            <p>
+              We have 20 free on-site parking spaces with CCTV and floodlighting. No meters, no time limits while you&apos;re dining. The car park has a level surface with step-free access to the bar and dining area.
+            </p>
+            <p>
+              By bus, we&apos;re served by the 441, 442, and 555 routes from Heathrow Central Bus Station. We&apos;re also outside the ULEZ zone, saving you &pound;12.50 a day if you&apos;re driving from London.
+            </p>
+          </div>
+          <p className="mt-6 text-center">
+            <Link href="/find-us" className="text-anchor-gold-vivid font-semibold hover:underline">
+              View map and full directions &rarr;
+            </Link>
+          </p>
+        </div>
+      </Section>
+
       {/* FAQ section */}
       <FAQAccordionWithSchema
         title="Booking FAQs"

@@ -15,16 +15,16 @@ import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 import { getBusinessStats } from '@/lib/schema-with-reviews'
 
 export const metadata: Metadata = {
-  title: 'Pubs in Staines-upon-Thames | Sunday Roasts & Free Parking | The Anchor',
-  description: 'Looking for pubs in Staines? The Anchor is a traditional pub 8 minutes from Staines-upon-Thames with Sunday roasts, stone-baked pizza, quiz nights and free parking. One of the best pubs Staines-upon-Thames has nearby.',
+  title: 'Pubs in Staines-upon-Thames | Beer Garden, Roasts & Free Parking | The Anchor',
+  description: 'Pub near Staines rated 4.6/5 on Google. Sunday roasts from £19.99, dog-friendly beer garden, quiz nights, Music Bingo and free parking. 8 mins from Staines-upon-Thames centre.',
   openGraph: {
-    title: 'Pubs in Staines-upon-Thames | Sunday Roasts & Free Parking | The Anchor',
-    description: 'Looking for pubs in Staines? The Anchor is a traditional pub 8 minutes from Staines-upon-Thames with Sunday roasts, stone-baked pizzas, hosted nights and free parking.',
+    title: 'Pub Near Staines — Beer Garden, Sunday Roasts & Free Parking',
+    description: 'Rated 4.6/5 on Google. Sunday roasts, dog-friendly beer garden, quiz nights and free parking — 8 mins from Staines-upon-Thames.',
     images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
   },
   twitter: getTwitterMetadata({
-    title: 'Pubs in Staines-upon-Thames | Sunday Roasts & Free Parking | The Anchor',
-    description: 'Looking for pubs in Staines? The Anchor is a traditional pub 8 minutes from Staines-upon-Thames with Sunday roasts, stone-baked pizzas, hosted nights and free parking.',
+    title: 'Pub Near Staines — Beer Garden, Sunday Roasts & Free Parking',
+    description: 'Rated 4.6/5 on Google. Sunday roasts, dog-friendly beer garden, quiz nights and free parking — 8 mins from Staines-upon-Thames.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
   alternates: {

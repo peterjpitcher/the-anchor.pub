@@ -36,6 +36,8 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { JsonLd } from '@/components/JsonLd'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { bingoEventSeries } from '@/lib/schema'
+import { getBusinessStats } from '@/lib/schema-with-reviews'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
   title: 'Music Bingo Near Heathrow | Singalong Bingo Night | The Anchor',
@@ -259,7 +261,10 @@ function MusicBingoEventCards({ events }: { events: Event[] }) {
 }
 
 export default async function MusicBingoPage() {
-  const events = await getMusicBingoEvents()
+  const [events, { rating, reviewCount }] = await Promise.all([
+    getMusicBingoEvents(),
+    getBusinessStats()
+  ])
   const nextEvent = events[0]
   const nextEventDate = nextEvent ? formatEventDate(nextEvent.startDate) : 'Next date announced soon'
   const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '7:30pm'
@@ -278,6 +283,70 @@ export default async function MusicBingoPage() {
           { name: "What's On", url: '/whats-on' },
           { name: 'Music Bingo', url: '/music-bingo' }
         ]}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify({
+          "@context": "https://schema.org",
+          "@type": "EventSeries",
+          "@id": "https://www.the-anchor.pub/#music-bingo-series",
+          "name": "Music Bingo with Nikki Manfadge at The Anchor",
+          "description": "Song snippets replace numbers, prizes land every round, and Nikki Manfadge keeps the singalong energy high. A fun bingo night near Heathrow.",
+          "startDate": "2024-01-01",
+          "endDate": "2026-12-31",
+          "eventSchedule": {
+            "@type": "Schedule",
+            "repeatFrequency": "P1M",
+            "startTime": "19:00:00",
+            "endTime": "22:00:00",
+            "scheduleTimezone": "Europe/London"
+          },
+          "location": {
+            "@type": "Place",
+            "name": "The Anchor",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Horton Road",
+              "addressLocality": "Stanwell Moor",
+              "addressRegion": "Surrey",
+              "postalCode": "TW19 6AQ",
+              "addressCountry": "GB"
+            }
+          },
+          "offers": {
+            "@type": "Offer",
+            "price": "3",
+            "priceCurrency": "GBP",
+            "availability": "https://schema.org/InStock",
+            "description": "£3 per person entry"
+          },
+          "performer": {
+            "@type": "Person",
+            "name": "Nikki Manfadge",
+            "jobTitle": "Entertainment Host",
+            "worksFor": { "@id": "https://www.the-anchor.pub/#organization" }
+          },
+          "organizer": {
+            "@id": "https://www.the-anchor.pub/#organization"
+          }
+        }) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify({
+          "@context": "https://schema.org",
+          "@type": ["Restaurant", "BarOrPub"],
+          "@id": "https://www.the-anchor.pub/#business",
+          "name": "The Anchor",
+          "url": "https://www.the-anchor.pub/music-bingo",
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": rating,
+            "reviewCount": reviewCount,
+            "bestRating": "5",
+            "worstRating": "1"
+          }
+        }) }}
       />
       <HeroWrapper
         route="/music-bingo"

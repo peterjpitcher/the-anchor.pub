@@ -10,18 +10,20 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { landmarks } from '@/lib/local-seo-data'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
+import { CONTACT, BRAND } from '@/lib/constants'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
-    title: 'Wake Venue Near South West Middlesex Crematorium | The Anchor',
-    description: 'A peaceful and respectful venue for wakes and funeral receptions near South West Middlesex Crematorium and Staines Cemetery. Private rooms, buffet packages, and compassionate staff.',
+    title: 'Wake Venue & Celebration of Life | Near SW Middlesex Crematorium | The Anchor',
+    description: 'A peaceful venue for wakes, funeral receptions and celebrations of life near South West Middlesex Crematorium and Staines Cemetery. Private rooms, funeral tea packages from £9.95pp, free parking and compassionate staff.',
     openGraph: {
-        title: 'Wake & Funeral Reception Venue | The Anchor Stanwell Moor',
-        description: 'Respectful, private spaces for post-service gatherings. Just minutes from local crematoriums.',
+        title: 'Wake Venue & Celebration of Life | The Anchor Stanwell Moor',
+        description: 'Respectful, private spaces for wakes, funeral teas and celebrations of life. Buffet packages from £9.95pp. Minutes from local crematoriums.',
         images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Private hire venue at The Anchor near Heathrow Airport' }],
     },
     twitter: getTwitterMetadata({
-        title: 'Wake & Funeral Reception Venue | The Anchor Stanwell Moor',
-        description: 'Respectful, private spaces for post-service gatherings. Just minutes from local crematoriums.',
+        title: 'Wake Venue & Celebration of Life | The Anchor Stanwell Moor',
+        description: 'Wakes, funeral teas and celebrations of life. Buffet packages from £9.95pp, free parking, minutes from local crematoriums.',
         images: [DEFAULT_CORPORATE_IMAGE]
     }),
     alternates: {
@@ -32,6 +34,44 @@ export const metadata: Metadata = {
 const nearbyCrematoriums = landmarks.filter(l => l.type === 'crematorium');
 
 export default function WakesPage() {
+    const eventVenueSchema = {
+        "@context": "https://schema.org",
+        "@type": "EventVenue",
+        "@id": "https://www.the-anchor.pub/private-hire/wakes#venue",
+        "name": `${BRAND.name} Private Dining Room`,
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": CONTACT.address.street,
+            "addressLocality": CONTACT.address.town,
+            "addressRegion": "Surrey",
+            "postalCode": CONTACT.address.postcode,
+            "addressCountry": "GB"
+        },
+        "telephone": CONTACT.phoneIntl,
+        "url": "https://www.the-anchor.pub/private-hire/wakes",
+        "image": `https://www.the-anchor.pub${DEFAULT_CORPORATE_IMAGE}`,
+        "description": "A peaceful, private venue for wakes, funeral receptions and celebrations of life near South West Middlesex Crematorium.",
+        "maximumAttendeeCapacity": 50,
+        "amenityFeature": [
+            { "@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true },
+            { "@type": "LocationFeatureSpecification", "name": "Wheelchair Accessible", "value": true },
+            { "@type": "LocationFeatureSpecification", "name": "Catering", "value": true },
+            { "@type": "LocationFeatureSpecification", "name": "Private Dining Room", "value": true },
+            { "@type": "LocationFeatureSpecification", "name": "Ground Floor Access", "value": true }
+        ],
+        "potentialAction": {
+            "@type": "CommunicateAction",
+            "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://www.the-anchor.pub/private-hire#enquiry",
+                "actionPlatform": [
+                    "https://schema.org/DesktopWebPlatform",
+                    "https://schema.org/MobileWebPlatform"
+                ]
+            }
+        }
+    }
+
     return (
         <>
             <BreadcrumbJsonLd items={[
@@ -39,17 +79,21 @@ export default function WakesPage() {
                 { name: 'Private Hire', url: '/private-hire' },
                 { name: 'Wakes', url: '/private-hire/wakes' }
             ]} />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(eventVenueSchema) }}
+            />
 
             <HeroWrapper
                 route="/private-hire/wakes"
                 variant="feature"
-                title="Wakes & Funeral Receptions"
+                title="Wakes, Funeral Receptions & Celebrations of Life"
                 description="A peaceful, respectful venue for gathering with family and friends"
 
                 tags={[
                     { label: "Near SW Middlesex Crematorium", variant: "default" },
                     { label: "Compassionate Team", variant: "success" },
-                    { label: "Buffet & Tea Packages", variant: "default" },
+                    { label: "Funeral Tea from £9.95pp", variant: "default" },
                     { label: "Free Parking", variant: "success" }
                 ]}
                 primaryCta={
@@ -185,6 +229,182 @@ export default function WakesPage() {
                             }
                         ]}
                     />
+                </Container>
+            </section>
+
+            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+                <Container>
+                    <SectionHeader
+                        title="What to Expect on the Day"
+                        subtitle="We take care of the details so you can focus on being together"
+                    />
+                    <div className="prose prose-invert max-w-3xl mx-auto">
+                        <p className="text-anchor-cream-text/70 mb-4">
+                            Organising a wake reception can feel overwhelming, especially during such a difficult time. At The Anchor, we have hosted hundreds of funeral receptions and wakes over the years, and our experienced team knows exactly how to make the day run smoothly. Here is what you can expect when you choose us as your wake venue.
+                        </p>
+                        <p className="text-anchor-cream-text/70 mb-4">
+                            Before the day, we will agree on all the details with you or your funeral director by phone. We are happy to liaise directly with the funeral home if that is easier for you. We will confirm the catering, room layout, arrival time, and any personal touches you would like.
+                        </p>
+                        <p className="text-anchor-cream-text/70 mb-4">
+                            On the morning of your wake reception, our team will prepare the private dining room to your requirements. If you have provided photographs, an order of service, or flower arrangements, we will set these up on a dedicated display table. The room will be clean, warm, and ready before any guests arrive.
+                        </p>
+                        <p className="text-anchor-cream-text/70 mb-4">
+                            When guests begin to arrive, our staff will be on hand to welcome everyone and direct them to the private space. Tea, coffee, and soft drinks can be ready on arrival, or we can serve drinks from the bar as guests settle in. If you have ordered a buffet, we will lay it out at a time that suits your schedule — many families prefer to allow 30 to 45 minutes of mingling before food is served.
+                        </p>
+                        <p className="text-anchor-cream-text/70 mb-4">
+                            Throughout the afternoon, we maintain a discreet presence. Our team is always nearby if you need anything — extra drinks, more napkins, a quiet word about timings — but we will never intrude on your gathering. Many families tell us they appreciated the balance between attentive service and respectful distance.
+                        </p>
+                        <p className="text-anchor-cream-text/70">
+                            There is no strict time limit on your wake. We understand that some gatherings naturally wind down after a couple of hours, while others continue into the early evening. We will never rush you. When you are ready to leave, we take care of all the cleardown and cleaning.
+                        </p>
+                    </div>
+                </Container>
+            </section>
+
+            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+                <Container>
+                    <SectionHeader
+                        title="Celebration of Life"
+                        subtitle="A modern, uplifting alternative to the traditional wake"
+                    />
+                    <div className="prose prose-invert max-w-3xl mx-auto mb-8">
+                        <p className="text-anchor-cream-text/70 mb-4">
+                            More and more families are choosing to hold a celebration of life rather than a traditional wake. A celebration of life venue focuses on remembering the person you loved through happy memories, shared laughter, and personal tributes — rather than a sombre, formal gathering.
+                        </p>
+                        <p className="text-anchor-cream-text/70 mb-4">
+                            At The Anchor, we are perfectly set up for celebration of life events. Our private dining room can be decorated with photos, memory boards, and personal items that reflect the life of your loved one. You are welcome to play their favourite music through our sound system, set up a slideshow, or create a memory table where guests can leave notes and share stories.
+                        </p>
+                        <p className="text-anchor-cream-text/70 mb-4">
+                            Many families choose to serve their loved one&apos;s favourite foods or drinks as part of the celebration. If they had a favourite beer, a go-to cocktail, or a dish they always ordered, let us know and we will do our best to include it. These small personal touches often mean the most.
+                        </p>
+                        <p className="text-anchor-cream-text/70 mb-4">
+                            A celebration of life venue does not need to follow any particular format. Some families arrange informal speeches or toasts. Others prefer a purely social gathering where people can talk, eat, and remember at their own pace. We are flexible and will support whatever approach feels right for you. The important thing is that the day reflects the person being remembered — and that everyone leaves feeling they have honoured them properly.
+                        </p>
+                        <p className="text-anchor-cream-text/70">
+                            Whether you call it a wake, a funeral reception, a memorial, or a celebration of life, the venue and the care behind it are what matter. We provide both.
+                        </p>
+                    </div>
+                </Container>
+            </section>
+
+            <Section className="bg-anchor-bg border-b border-anchor-gold/15">
+                <Container>
+                    <SectionHeader
+                        title="Funeral Tea Packages"
+                        subtitle="Simple, honest pricing with no hidden charges"
+                    />
+                    <div className="max-w-4xl mx-auto">
+                        <div className="grid md:grid-cols-3 gap-6 mb-8">
+                            <div className="card-dark rounded-none p-8 text-center">
+                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2">Classic Finger Buffet</h3>
+                                <p className="text-2xl font-bold text-anchor-cream-text mb-1">From £9.95<span className="text-sm font-normal text-anchor-cream-text/55">/person</span></p>
+                                <p className="text-anchor-cream-text/55 mb-4 italic">Minimum 20 guests</p>
+                                <p className="text-anchor-cream-text/70 mb-4">A selection of sandwiches, sausage rolls, quiche, crisps, and assorted savoury bites. A traditional and well-loved option that suits all ages.</p>
+                                <ul className="text-sm text-anchor-cream-text/55 space-y-1 text-left">
+                                    <li>Assorted sandwiches (meat &amp; vegetarian)</li>
+                                    <li>Sausage rolls &amp; mini quiches</li>
+                                    <li>Crisps, nuts &amp; nibbles</li>
+                                    <li>Tea, coffee &amp; biscuits included</li>
+                                </ul>
+                            </div>
+
+                            <div className="card-dark rounded-none p-8 text-center border-2 border-anchor-gold/30">
+                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2">Enhanced Buffet</h3>
+                                <p className="text-2xl font-bold text-anchor-cream-text mb-1">From £14.95<span className="text-sm font-normal text-anchor-cream-text/55">/person</span></p>
+                                <p className="text-anchor-cream-text/55 mb-4 italic">Our most popular funeral tea option</p>
+                                <p className="text-anchor-cream-text/70 mb-4">Everything in the classic buffet plus hot options, a wider selection of sandwiches, and homemade cakes. A more substantial spread for guests who may have travelled.</p>
+                                <ul className="text-sm text-anchor-cream-text/55 space-y-1 text-left">
+                                    <li>All classic buffet items</li>
+                                    <li>Hot sausage rolls or chicken goujons</li>
+                                    <li>Selection of homemade cakes</li>
+                                    <li>Fresh fruit platter</li>
+                                </ul>
+                            </div>
+
+                            <div className="card-dark rounded-none p-8 text-center">
+                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2">Afternoon Tea</h3>
+                                <p className="text-2xl font-bold text-anchor-cream-text mb-1">From £18.95<span className="text-sm font-normal text-anchor-cream-text/55">/person</span></p>
+                                <p className="text-anchor-cream-text/55 mb-4 italic">A refined option for smaller gatherings</p>
+                                <p className="text-anchor-cream-text/70 mb-4">Finger sandwiches, scones with clotted cream and jam, and a selection of delicate cakes — served on tiered stands. A touch of elegance for a meaningful occasion.</p>
+                                <ul className="text-sm text-anchor-cream-text/55 space-y-1 text-left">
+                                    <li>Finger sandwiches on white &amp; brown bread</li>
+                                    <li>Scones with clotted cream &amp; jam</li>
+                                    <li>Selection of miniature cakes</li>
+                                    <li>Unlimited tea &amp; coffee</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6 text-center">
+                            <p className="text-anchor-cream-text/70 text-sm">
+                                All funeral tea packages include use of the private dining room, dedicated staff, setup, cleardown, and free parking. Prices are indicative and may vary based on guest numbers and specific requirements. Call us on <strong className="text-anchor-gold-vivid">01753 682707</strong> for a bespoke quote tailored to your needs.
+                            </p>
+                        </div>
+                    </div>
+                </Container>
+            </Section>
+
+            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+                <Container>
+                    <SectionHeader
+                        title="What Families Say About Us"
+                        subtitle="Words from families who have trusted us with their arrangements"
+                    />
+                    <div className="max-w-4xl mx-auto grid md:grid-cols-3 gap-6">
+                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
+                            <p className="text-anchor-cream-text/70 italic mb-4">&ldquo;The team at The Anchor made a difficult day so much easier. The room was set up beautifully, the food was lovely, and the staff were incredibly kind and discreet. We could not have asked for more.&rdquo;</p>
+                            <p className="text-sm text-anchor-gold-vivid font-semibold">— Sarah, Staines</p>
+                        </div>
+                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
+                            <p className="text-anchor-cream-text/70 italic mb-4">&ldquo;We held a celebration of life for my father here and it was exactly what he would have wanted. Relaxed, warm, and full of laughter. The staff even arranged his favourite beer on each table. That meant the world to us.&rdquo;</p>
+                            <p className="text-sm text-anchor-gold-vivid font-semibold">— James, Ashford</p>
+                        </div>
+                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
+                            <p className="text-anchor-cream-text/70 italic mb-4">&ldquo;Everything was arranged at very short notice and the team handled it all with great care. The funeral director recommended The Anchor and we are so glad they did. A peaceful venue with genuinely compassionate staff.&rdquo;</p>
+                            <p className="text-sm text-anchor-gold-vivid font-semibold">— Priya, Feltham</p>
+                        </div>
+                    </div>
+                </Container>
+            </section>
+
+            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+                <Container>
+                    <SectionHeader
+                        title="Planning a Wake — Step by Step"
+                        subtitle="A simple guide to arranging a funeral reception at The Anchor"
+                    />
+                    <div className="max-w-3xl mx-auto">
+                        <ol className="space-y-6">
+                            <li className="flex gap-4">
+                                <span className="flex-shrink-0 w-8 h-8 rounded-full bg-anchor-gold-vivid text-anchor-dark font-bold flex items-center justify-center text-sm">1</span>
+                                <div>
+                                    <h3 className="font-bold text-anchor-cream-text mb-1">Call us or ask your funeral director to call</h3>
+                                    <p className="text-anchor-cream-text/70">You can call us directly on 01753 682707, or your funeral director can make the arrangements on your behalf. We are available seven days a week and can often accommodate bookings within 24 to 48 hours.</p>
+                                </div>
+                            </li>
+                            <li className="flex gap-4">
+                                <span className="flex-shrink-0 w-8 h-8 rounded-full bg-anchor-gold-vivid text-anchor-dark font-bold flex items-center justify-center text-sm">2</span>
+                                <div>
+                                    <h3 className="font-bold text-anchor-cream-text mb-1">Choose your catering package</h3>
+                                    <p className="text-anchor-cream-text/70">Select from our classic finger buffet, enhanced buffet, or afternoon tea. We can also create a bespoke menu if you have something specific in mind. Let us know about any dietary requirements and we will cater for everyone.</p>
+                                </div>
+                            </li>
+                            <li className="flex gap-4">
+                                <span className="flex-shrink-0 w-8 h-8 rounded-full bg-anchor-gold-vivid text-anchor-dark font-bold flex items-center justify-center text-sm">3</span>
+                                <div>
+                                    <h3 className="font-bold text-anchor-cream-text mb-1">Share any personal touches</h3>
+                                    <p className="text-anchor-cream-text/70">Let us know if you would like to display photographs, an order of service, or flowers. Tell us about any music you would like played or any other details that would make the day feel personal and meaningful.</p>
+                                </div>
+                            </li>
+                            <li className="flex gap-4">
+                                <span className="flex-shrink-0 w-8 h-8 rounded-full bg-anchor-gold-vivid text-anchor-dark font-bold flex items-center justify-center text-sm">4</span>
+                                <div>
+                                    <h3 className="font-bold text-anchor-cream-text mb-1">Leave the rest to us</h3>
+                                    <p className="text-anchor-cream-text/70">On the day, everything will be ready before your guests arrive. We handle the setup, the catering, and the cleardown. You and your family can focus entirely on being together and remembering your loved one.</p>
+                                </div>
+                            </li>
+                        </ol>
+                    </div>
                 </Container>
             </section>
 

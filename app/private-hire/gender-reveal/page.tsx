@@ -250,6 +250,120 @@ export default function GenderRevealPage() {
 
             <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
                 <Container>
+                    <SectionHeader
+                        title="Gender Reveal Party Packages"
+                        subtitle="Food, drinks, and the big moment — all taken care of"
+                    />
+                    <div className="max-w-4xl mx-auto">
+                        <div className="grid md:grid-cols-3 gap-6 mb-8">
+                            <div className="card-dark rounded-none p-8 text-center">
+                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2">Afternoon Tea</h3>
+                                <p className="text-2xl font-bold text-anchor-cream-text mb-1">From £14.95<span className="text-sm font-normal text-anchor-cream-text/55">/person</span></p>
+                                <p className="text-anchor-cream-text/55 mb-4 italic">A classic choice for gender reveals</p>
+                                <p className="text-anchor-cream-text/70 mb-4">Finger sandwiches, scones, and miniature cakes served on tiered stands. A refined option that looks beautiful in photos and keeps the mood celebratory.</p>
+                                <ul className="text-sm text-anchor-cream-text/55 space-y-1 text-left">
+                                    <li>Finger sandwiches</li>
+                                    <li>Scones with clotted cream &amp; jam</li>
+                                    <li>Miniature cakes &amp; pastries</li>
+                                    <li>Unlimited tea &amp; coffee</li>
+                                </ul>
+                            </div>
+
+                            <div className="card-dark rounded-none p-8 text-center border-2 border-anchor-gold/30">
+                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2">Party Buffet</h3>
+                                <p className="text-2xl font-bold text-anchor-cream-text mb-1">From £9.95<span className="text-sm font-normal text-anchor-cream-text/55">/person</span></p>
+                                <p className="text-anchor-cream-text/55 mb-4 italic">Most popular for gender reveal parties</p>
+                                <p className="text-anchor-cream-text/70 mb-4">A generous spread of wraps, quiches, salads, and sweet treats. A relaxed gender reveal party pub option that works for groups of all sizes.</p>
+                                <ul className="text-sm text-anchor-cream-text/55 space-y-1 text-left">
+                                    <li>Wraps, sandwiches &amp; quiche</li>
+                                    <li>Fresh salads &amp; fruit</li>
+                                    <li>Crisps, dips &amp; nibbles</li>
+                                    <li>Sweet treats &amp; mini cakes</li>
+                                </ul>
+                            </div>
+
+                            <div className="card-dark rounded-none p-8 text-center">
+                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2">Drinks & Nibbles</h3>
+                                <p className="text-2xl font-bold text-anchor-cream-text mb-1">Min. spend applies</p>
+                                <p className="text-anchor-cream-text/55 mb-4 italic">For shorter, focused celebrations</p>
+                                <p className="text-anchor-cream-text/70 mb-4">Reserve a space, enjoy drinks from the bar, and add a simple nibbles platter. Ideal if the gender reveal is the main event and you want to keep things short and sweet.</p>
+                                <ul className="text-sm text-anchor-cream-text/55 space-y-1 text-left">
+                                    <li>Reserved area or garden space</li>
+                                    <li>Bar tab or pay-as-you-go</li>
+                                    <li>Sharing platters available</li>
+                                    <li>Mocktails for the parents-to-be</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6 text-center">
+                            <p className="text-anchor-cream-text/70 text-sm">
+                                All gender reveal venue packages include use of a reserved area, free parking, and help from our team with setup and coordination. Call us on <strong className="text-anchor-gold-vivid">01753 682707</strong> for a quote.
+                            </p>
+                        </div>
+                    </div>
+                </Container>
+            </section>
+
+            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+                <Container>
+                    <SectionHeader
+                        title="Reveal Ideas & Inspiration"
+                        subtitle="Creative ways to share the big news"
+                    />
+                    <div className="max-w-4xl mx-auto">
+                        <div className="grid md:grid-cols-2 gap-6 mb-8">
+                            <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
+                                <h3 className="text-lg font-bold text-anchor-cream-text mb-3">Outdoor Reveal Ideas</h3>
+                                <p className="text-anchor-cream-text/70 mb-3">Our beer garden is the perfect stage for dramatic outdoor reveals. Popular choices include:</p>
+                                <ul className="text-sm text-anchor-cream-text/70 space-y-2">
+                                    <li><strong className="text-anchor-gold-vivid">Smoke cannons</strong> — the most popular choice. Vivid pink or blue smoke against the open sky makes for spectacular photos.</li>
+                                    <li><strong className="text-anchor-gold-vivid">Confetti poppers</strong> — handheld confetti cannons that shower pink or blue tissue paper. Best on a calm day.</li>
+                                    <li><strong className="text-anchor-gold-vivid">Balloon pop</strong> — fill a large black balloon with pink or blue confetti. Pop it together for the big reveal.</li>
+                                    <li><strong className="text-anchor-gold-vivid">Paint throw</strong> — wearing white, throw coloured powder paint at each other for an unforgettable reveal (and unforgettable photos).</li>
+                                </ul>
+                            </div>
+                            <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
+                                <h3 className="text-lg font-bold text-anchor-cream-text mb-3">Indoor Reveal Ideas</h3>
+                                <p className="text-anchor-cream-text/70 mb-3">If you prefer an indoor gender reveal party, or the weather is not cooperating, these options work brilliantly inside:</p>
+                                <ul className="text-sm text-anchor-cream-text/70 space-y-2">
+                                    <li><strong className="text-anchor-gold-vivid">Cake cutting</strong> — a white-iced cake with pink or blue sponge inside. The classic reveal moment that everyone loves.</li>
+                                    <li><strong className="text-anchor-gold-vivid">Box opening</strong> — a large box filled with pink or blue balloons that float out when the lid is lifted.</li>
+                                    <li><strong className="text-anchor-gold-vivid">Scratch cards</strong> — hand out custom scratch cards to guests and let everyone reveal at the same time.</li>
+                                    <li><strong className="text-anchor-gold-vivid">Piñata</strong> — fill a piñata with pink or blue sweets. The parents-to-be take turns until the big reveal spills out.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div className="bg-anchor-bg border border-anchor-gold/20 rounded-xl p-6 text-center">
+                            <p className="text-anchor-cream-text/70">
+                                Not sure which reveal method to choose? Our team has seen them all and can help you decide what will work best for your group size, the time of year, and your photography plans. Just ask when you enquire.
+                            </p>
+                        </div>
+                    </div>
+                </Container>
+            </section>
+
+            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+                <Container>
+                    <SectionHeader
+                        title="What Our Guests Say"
+                        subtitle="From recent gender reveal parties at The Anchor"
+                    />
+                    <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-6">
+                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
+                            <p className="text-anchor-cream-text/70 italic mb-4">&ldquo;We did our gender reveal in the beer garden with smoke cannons and it was absolutely amazing. The photos came out brilliantly. The staff helped us time everything perfectly so our photographer was ready. Could not have gone better.&rdquo;</p>
+                            <p className="text-sm text-anchor-gold-vivid font-semibold">— Chloe &amp; Dan, Staines</p>
+                        </div>
+                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
+                            <p className="text-anchor-cream-text/70 italic mb-4">&ldquo;We used the keeper of the gender service and it was brilliant — we were just as surprised as our guests! The buffet was generous, the garden was lovely, and the staff were genuinely excited for us. Such a fun afternoon at a great gender reveal venue.&rdquo;</p>
+                            <p className="text-sm text-anchor-gold-vivid font-semibold">— Priya &amp; Raj, Feltham</p>
+                        </div>
+                    </div>
+                </Container>
+            </section>
+
+            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+                <Container>
                     <div className="max-w-3xl mx-auto text-center">
                         <h2 className="text-2xl font-bold text-anchor-cream-text mb-4">Also Considering a Baby Shower?</h2>
                         <p className="text-anchor-cream-text/70 mb-6">

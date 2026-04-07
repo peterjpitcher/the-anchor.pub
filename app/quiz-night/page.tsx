@@ -36,6 +36,9 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { JsonLd } from '@/components/JsonLd'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { quizNightEventSeries } from '@/lib/schema'
+import { getBusinessStats } from '@/lib/schema-with-reviews'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { CONTACT } from '@/lib/constants'
 
 export const metadata: Metadata = {
   title: 'Pub Quiz Night Near Heathrow | Cash Prizes | The Anchor',
@@ -264,7 +267,10 @@ function QuizNightEvents({ events }: { events: Event[] }) {
 }
 
 export default async function QuizNightPage() {
-  const events = await getQuizEvents()
+  const [events, { rating, reviewCount }] = await Promise.all([
+    getQuizEvents(),
+    getBusinessStats()
+  ])
   const nextEvent = events[0]
   const nextEventDate = nextEvent ? formatEventDate(nextEvent.startDate) : 'Next date announced soon'
   const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '7:30 pm start'
@@ -282,6 +288,24 @@ export default async function QuizNightPage() {
           { name: "What's On", url: '/whats-on' },
           { name: 'Quiz Night', url: '/quiz-night' }
         ]}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify({
+          "@context": "https://schema.org",
+          "@type": ["Restaurant", "BarOrPub"],
+          "@id": "https://www.the-anchor.pub/#business",
+          "name": "The Anchor",
+          "url": "https://www.the-anchor.pub/quiz-night",
+          "telephone": CONTACT.phoneIntl,
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": rating,
+            "reviewCount": reviewCount,
+            "bestRating": "5",
+            "worstRating": "1"
+          }
+        }) }}
       />
       <HeroWrapper
         route="/quiz-night"

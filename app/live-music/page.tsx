@@ -332,8 +332,71 @@ export default async function LiveMusicPage() {
                 <Container>
                     <SectionHeader title="Live at The Anchor" subtitle="New bands, singer-songwriters & open mic nights — every month" />
                     <div className="prose prose-invert max-w-3xl mx-auto">
-                        <p><strong>Live at The Anchor</strong> is our monthly live music programme showcasing local and touring musicians in an intimate pub setting. From acoustic singer-songwriters to full bands, every gig is free entry with a brilliant atmosphere.</p>
-                        <p>We also host regular open mic nights where anyone can sign up to perform — whether you are a seasoned musician or trying the stage for the first time.</p>
+                        <p><strong>Live at The Anchor</strong> is our monthly live music programme showcasing local and touring musicians in an intimate pub setting. From acoustic singer-songwriters to full bands, every gig is free entry with a brilliant atmosphere. We have been building this programme to give Stanwell Moor, Staines and the wider Heathrow area a proper live music pub where the sound is great, the beer is cold, and you are close enough to the stage to make eye contact with the guitarist.</p>
+                        <p>We also host regular <strong>open mic nights</strong> where anyone can sign up to perform — whether you are a seasoned musician or trying the stage for the first time. Our open mic nights in Staines and Stanwell Moor have become a firm favourite with local performers looking for a supportive, appreciative crowd.</p>
+                    </div>
+                </Container>
+            </Section>
+
+            <Section spacing="md" background="white">
+                <Container>
+                    <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 items-start">
+                        <div className="space-y-5">
+                            <h2 className="text-3xl font-bold text-anchor-cream-text">Open Mic Nights at The Anchor</h2>
+                            <p className="text-anchor-cream-text/70">
+                                Our open mic nights run monthly and are open to singers, guitarists, duos, poets and anyone brave enough to get up on stage. Whether you have been performing for years or this is your very first time, you will find a warm welcome and an audience that genuinely wants you to do well. It is one of the best open mic nights near Staines and a hidden gem for performers in the Heathrow area.
+                            </p>
+                            <div className="space-y-4">
+                                <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-card p-5">
+                                    <h3 className="text-lg font-semibold text-anchor-cream-text mb-2">How to sign up</h3>
+                                    <p className="text-sm text-anchor-cream-text/70">Arrive from 7 pm on the night and put your name on the list at the bar. Slots are first come, first served and typically run 10-15 minutes each. We usually fit in 8-12 performers per evening.</p>
+                                </div>
+                                <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-card p-5">
+                                    <h3 className="text-lg font-semibold text-anchor-cream-text mb-2">What to expect</h3>
+                                    <p className="text-sm text-anchor-cream-text/70">We provide a PA system, microphones and basic monitoring. Acoustic instruments are best for the room, though we can accommodate electric guitars at a sensible volume. The atmosphere is encouraging and friendly — this is a pub, not a talent show. Everyone gets a round of applause.</p>
+                                </div>
+                                <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-card p-5">
+                                    <h3 className="text-lg font-semibold text-anchor-cream-text mb-2">For the audience</h3>
+                                    <p className="text-sm text-anchor-cream-text/70">You do not need to perform to enjoy open mic night. Some of the best evenings happen when the pub is full of people who came for the music and stayed for the surprises. Grab a table, order some food, and enjoy the show. No cover charge, ever.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="space-y-5">
+                            <h2 className="text-3xl font-bold text-anchor-cream-text">Live Music Near Staines</h2>
+                            <p className="text-anchor-cream-text/70">
+                                Good live music pubs near Staines are harder to find than you would think. Most of the bigger venues focus on DJs or tribute acts, and the smaller places often lack the space or sound setup to do live music properly. The Anchor fills that gap. We are just eight minutes from Staines-upon-Thames centre, tucked away in Stanwell Moor village, with a dedicated performance area, quality acoustics and room for around 100 people to enjoy the show.
+                            </p>
+                            <p className="text-anchor-cream-text/70">
+                                If you have been searching for live music near Staines, live music pubs near Heathrow, or an open mic night in Staines, you have found the right place. We bring in acts from across Surrey, West London and beyond — everything from acoustic solo artists to four-piece bands playing classic rock, soul, funk and pop covers.
+                            </p>
+                            <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-card p-5 space-y-3">
+                                <h3 className="text-lg font-semibold text-anchor-cream-text">Getting here for a gig</h3>
+                                <ul className="space-y-2 text-sm text-anchor-cream-text/70">
+                                    <li><strong>From Staines:</strong> 8 minutes by car or taxi. Follow the B378 towards Stanwell Moor.</li>
+                                    <li><strong>From Heathrow:</strong> 7 minutes from Terminal 5, 11 minutes from Terminals 2 and 3.</li>
+                                    <li><strong>Parking:</strong> Around 20 free spaces on-site. No charges, no meters.</li>
+                                    <li><strong>By bus:</strong> Routes 441 and 442 stop nearby.</li>
+                                    <li><strong>Taxi home:</strong> Stanwell Moor is well served by local cabs and rideshares. Typical fare to Staines centre is around £10-12.</li>
+                                </ul>
+                            </div>
+                            <p className="text-sm text-anchor-cream-text/70">
+                                We are outside the ULEZ zone, so there is no extra charge for driving here. With free parking and free entry to every gig, a night of live music at The Anchor is one of the most affordable evenings out near Heathrow.
+                            </p>
+                        </div>
+                    </div>
+                </Container>
+            </Section>
+
+            <Section spacing="sm" background="gray">
+                <Container>
+                    <div className="max-w-4xl mx-auto text-center space-y-4">
+                        <h2 className="text-2xl font-bold text-anchor-cream-text">Want to play at The Anchor?</h2>
+                        <p className="text-anchor-cream-text/70 max-w-2xl mx-auto">
+                            We are always looking for talented musicians and bands to join the <strong>Live at The Anchor</strong> lineup. If you play original music or covers and want a great pub gig in the Heathrow and Staines area, get in touch. We pay our performers fairly and treat every act with respect.
+                        </p>
+                        <p className="text-sm text-anchor-cream-text/55">
+                            Send a short bio, links to your music and your available dates to <a href="mailto:manager@the-anchor.pub" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">manager@the-anchor.pub</a> or call 01753 682707.
+                        </p>
                     </div>
                 </Container>
             </Section>

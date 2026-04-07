@@ -11,6 +11,8 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { landmarks } from '@/lib/local-seo-data'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
+import { CONTACT, BRAND } from '@/lib/constants'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
     title: 'Baby Shower Venue Near Ashford Hospital | The Anchor',
@@ -33,6 +35,45 @@ export const metadata: Metadata = {
 const nearbyHospitals = landmarks.filter(l => l.type === 'hospital');
 
 export default function BabyShowersPage() {
+    const eventVenueSchema = {
+        "@context": "https://schema.org",
+        "@type": "EventVenue",
+        "@id": "https://www.the-anchor.pub/private-hire/baby-showers#venue",
+        "name": `${BRAND.name} Baby Shower Venue`,
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": CONTACT.address.street,
+            "addressLocality": CONTACT.address.town,
+            "addressRegion": "Surrey",
+            "postalCode": CONTACT.address.postcode,
+            "addressCountry": "GB"
+        },
+        "telephone": CONTACT.phoneIntl,
+        "url": "https://www.the-anchor.pub/private-hire/baby-showers",
+        "image": `https://www.the-anchor.pub${DEFAULT_CORPORATE_IMAGE}`,
+        "description": "Bright and airy venue for baby showers with afternoon tea packages, mocktails, and private spaces near Ashford Hospital.",
+        "maximumAttendeeCapacity": 50,
+        "amenityFeature": [
+            { "@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true },
+            { "@type": "LocationFeatureSpecification", "name": "Wheelchair Accessible", "value": true },
+            { "@type": "LocationFeatureSpecification", "name": "Catering", "value": true },
+            { "@type": "LocationFeatureSpecification", "name": "Afternoon Tea Packages", "value": true },
+            { "@type": "LocationFeatureSpecification", "name": "Mocktail Menu", "value": true },
+            { "@type": "LocationFeatureSpecification", "name": "Space for Games", "value": true }
+        ],
+        "potentialAction": {
+            "@type": "CommunicateAction",
+            "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://www.the-anchor.pub/private-hire#enquiry",
+                "actionPlatform": [
+                    "https://schema.org/DesktopWebPlatform",
+                    "https://schema.org/MobileWebPlatform"
+                ]
+            }
+        }
+    }
+
     return (
         <>
             <BreadcrumbJsonLd items={[
@@ -40,6 +81,10 @@ export default function BabyShowersPage() {
                 { name: 'Private Hire', url: '/private-hire' },
                 { name: 'Baby Showers', url: '/private-hire/baby-showers' }
             ]} />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(eventVenueSchema) }}
+            />
 
             <HeroWrapper
                 route="/private-hire/baby-showers"
@@ -211,6 +256,131 @@ export default function BabyShowersPage() {
             </section>
 
             <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+                <Container>
+                    <SectionHeader
+                        title="Baby Shower Afternoon Tea Packages"
+                        subtitle="Treat the mum-to-be to something special"
+                    />
+                    <div className="max-w-4xl mx-auto">
+                        <div className="grid md:grid-cols-3 gap-6 mb-8">
+                            <div className="card-dark rounded-none p-8 text-center">
+                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2">Classic Afternoon Tea</h3>
+                                <p className="text-2xl font-bold text-anchor-cream-text mb-1">From £14.95<span className="text-sm font-normal text-anchor-cream-text/55">/person</span></p>
+                                <p className="text-anchor-cream-text/55 mb-4 italic">Our most popular baby shower option</p>
+                                <p className="text-anchor-cream-text/70 mb-4">Finger sandwiches, scones with clotted cream and jam, and a selection of miniature cakes — all served on tiered stands for that extra touch of elegance.</p>
+                                <ul className="text-sm text-anchor-cream-text/55 space-y-1 text-left">
+                                    <li>Finger sandwiches on white &amp; brown bread</li>
+                                    <li>Scones with clotted cream &amp; jam</li>
+                                    <li>Miniature cakes &amp; pastries</li>
+                                    <li>Unlimited tea &amp; coffee</li>
+                                </ul>
+                            </div>
+
+                            <div className="card-dark rounded-none p-8 text-center border-2 border-anchor-gold/30">
+                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2">Prosecco Afternoon Tea</h3>
+                                <p className="text-2xl font-bold text-anchor-cream-text mb-1">From £19.95<span className="text-sm font-normal text-anchor-cream-text/55">/person</span></p>
+                                <p className="text-anchor-cream-text/55 mb-4 italic">Add a glass of fizz for the guests</p>
+                                <p className="text-anchor-cream-text/70 mb-4">Everything in the classic baby shower afternoon tea, plus a glass of Prosecco on arrival for those who are celebrating. Mocktails available for the mum-to-be.</p>
+                                <ul className="text-sm text-anchor-cream-text/55 space-y-1 text-left">
+                                    <li>All classic afternoon tea items</li>
+                                    <li>Glass of Prosecco on arrival</li>
+                                    <li>Mocktail for the guest of honour</li>
+                                    <li>Upgrade to Champagne available</li>
+                                </ul>
+                            </div>
+
+                            <div className="card-dark rounded-none p-8 text-center">
+                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2">Party Buffet</h3>
+                                <p className="text-2xl font-bold text-anchor-cream-text mb-1">From £9.95<span className="text-sm font-normal text-anchor-cream-text/55">/person</span></p>
+                                <p className="text-anchor-cream-text/55 mb-4 italic">A relaxed, informal option</p>
+                                <p className="text-anchor-cream-text/70 mb-4">A generous spread of wraps, quiches, salads, and sweet treats. A less formal baby shower venue option that works well for larger groups and mixed-age celebrations.</p>
+                                <ul className="text-sm text-anchor-cream-text/55 space-y-1 text-left">
+                                    <li>Wraps, sandwiches &amp; quiche</li>
+                                    <li>Fresh salads &amp; fruit</li>
+                                    <li>Crisps, dips &amp; nibbles</li>
+                                    <li>Sweet treats &amp; cake</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6 text-center">
+                            <p className="text-anchor-cream-text/70 text-sm">
+                                All baby shower packages include use of a reserved area, dedicated staff, and free parking. No room hire fee when booking a catering package. Call us on <strong className="text-anchor-gold-vivid">01753 682707</strong> for a bespoke quote based on your guest numbers and preferences.
+                            </p>
+                        </div>
+                    </div>
+                </Container>
+            </section>
+
+            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+                <Container>
+                    <SectionHeader
+                        title="Decorations & Styling"
+                        subtitle="Make the space your own"
+                    />
+                    <div className="prose prose-invert max-w-3xl mx-auto mb-8">
+                        <p className="text-anchor-cream-text/70 mb-4">
+                            Whether you are going for an Instagram-worthy baby shower venue or something more understated, we provide a blank canvas for you to decorate as you wish. Our reserved area has plenty of wall space for banners and backdrops, and we can arrange tables to create a dedicated gift area, game zone, and photo corner.
+                        </p>
+                        <p className="text-anchor-cream-text/70 mb-4">
+                            Many of our baby shower guests bring balloon arches, flower arrangements, custom tablecloths, and themed tableware. You are welcome to arrive up to an hour early on the day to set everything up at your leisure. Our team will be on hand to help carry things in, rearrange furniture, and make sure the space looks exactly how you imagined it.
+                        </p>
+                        <p className="text-anchor-cream-text/70">
+                            We only ask that you avoid loose confetti and glitter, which can be very difficult to remove from our upholstery. Biodegradable confetti, paper pom-poms, and fabric bunting are all great alternatives that look just as lovely in photos.
+                        </p>
+                    </div>
+                    <FeatureGrid
+                        columns={4}
+                        features={[
+                            {
+                                icon: "",
+                                title: "Balloon Arches",
+                                description: "Plenty of space for freestanding balloon arches, garlands, and helium arrangements.",
+                                className: "text-center"
+                            },
+                            {
+                                icon: "",
+                                title: "Photo Backdrops",
+                                description: "Set up a dedicated photo area with your own backdrop, props, and lighting.",
+                                className: "text-center"
+                            },
+                            {
+                                icon: "",
+                                title: "Gift Table",
+                                description: "We will set up a dedicated table for gifts, nappy cakes, and party favours.",
+                                className: "text-center"
+                            },
+                            {
+                                icon: "",
+                                title: "Themed Tableware",
+                                description: "Bring your own tablecloths, plates, and napkins to match your colour scheme.",
+                                className: "text-center"
+                            }
+                        ]}
+                    />
+                </Container>
+            </section>
+
+            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+                <Container>
+                    <SectionHeader
+                        title="What Our Guests Say"
+                        subtitle="From recent baby showers at The Anchor"
+                    />
+                    <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-6">
+                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
+                            <p className="text-anchor-cream-text/70 italic mb-4">&ldquo;We hosted my sister&apos;s baby shower here and it was absolutely perfect. The afternoon tea was delicious, the mocktails were a lovely touch, and the staff helped us set up all the decorations beforehand. Such a relaxed and happy afternoon.&rdquo;</p>
+                            <p className="text-sm text-anchor-gold-vivid font-semibold">— Emma, Staines</p>
+                        </div>
+                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
+                            <p className="text-anchor-cream-text/70 italic mb-4">&ldquo;The baby shower venue was ideal — the private space meant we could play games and open gifts without feeling self-conscious. Free parking was a huge bonus with all the presents and decorations we had to carry in. Highly recommend.&rdquo;</p>
+                            <p className="text-sm text-anchor-gold-vivid font-semibold">— Jasmine, Ashford</p>
+                        </div>
+                    </div>
+                </Container>
+            </section>
+
+            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-3xl mx-auto text-center">
                         <h2 className="text-2xl font-bold text-anchor-cream-text mb-4">Planning a Christening or Gender Reveal Too?</h2>

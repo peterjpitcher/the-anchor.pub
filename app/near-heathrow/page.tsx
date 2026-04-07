@@ -18,15 +18,15 @@ import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 
 export const metadata: Metadata = {
   title: 'Pubs Near Heathrow Airport | 7 Mins from T5 | Free Parking | The Anchor',
-  description: 'Looking for pubs near Heathrow Airport? The Anchor is 7 mins from T5 with free parking, a dog-friendly beer garden and proper pub food. One of the best restaurants near Heathrow for pre-flight dining.',
+  description: 'The Anchor — rated 4.6/5 on Google — is the closest traditional pub to Heathrow Airport. 7 mins from T5, free parking, dog-friendly beer garden, Sunday roasts from £19.99 and food served daily (except Mon).',
   openGraph: {
     title: 'Pubs Near Heathrow Airport | 7 Mins from T5 | Free Parking | The Anchor',
-    description: 'Looking for pubs near Heathrow Airport? The Anchor is 7 mins from T5 with free parking, a dog-friendly beer garden and proper pub food. One of the best restaurants near Heathrow for pre-flight dining.',
+    description: 'Rated 4.6/5 on Google. The closest traditional pub to Heathrow — 7 mins from T5, free parking, dog-friendly beer garden and food served daily.',
     images: [{ url: DEFAULT_NEAR_HEATHROW_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Heathrow Airport' }],
   },
   twitter: getTwitterMetadata({
     title: 'Pubs Near Heathrow Airport | 7 Mins from T5 | Free Parking | The Anchor',
-    description: 'Looking for pubs near Heathrow? The Anchor is 7 mins from T5 with free parking, proper pub food and real ales.',
+    description: 'Rated 4.6/5. The closest traditional pub to Heathrow — 7 mins from T5, free parking, dog-friendly beer garden, Sunday roasts and pub food.',
     images: [DEFAULT_NEAR_HEATHROW_IMAGE]
   }),
   alternates: {

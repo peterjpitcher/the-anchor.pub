@@ -21,18 +21,19 @@ import { getBusinessHours } from '@/lib/api'
 import { buildOpeningHoursSchema } from '@/lib/opening-hours-schema'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { getBusinessStats } from '@/lib/schema-with-reviews'
 
 export const metadata: Metadata = {
-  title: "Pub Events Near Heathrow | What's On This Week at The Anchor",
-  description: "Quiz nights, Music Bingo, cash bingo & live music at The Anchor, Stanwell Moor. Free entry events from £3. Free parking, 7 mins from Heathrow T5. See this week's lineup.",
+  title: "What's On Near Heathrow | Quiz, Bingo & Live Music Every Week | The Anchor",
+  description: "Weekly pub events near Heathrow: Music Bingo, cash bingo, pub quiz, open mic nights and more at The Anchor, Stanwell Moor. Entry from £3, free parking, 7 mins from T5.",
   openGraph: {
-    title: "What's On This Week at The Anchor Near Heathrow",
-    description: "Live calendar for quiz nights, hosted events, bingo and sport at The Anchor in Stanwell Moor with free parking.",
+    title: "What's On Near Heathrow — Quiz, Bingo & Live Music Every Week",
+    description: "Weekly pub events: Music Bingo, cash bingo, pub quiz, open mic and more at The Anchor, Stanwell Moor. From £3, free parking.",
     images: ["/images/events/quiz-night/the-anchor-quiz-night-stanwell-moor.jpg"],
   },
   twitter: getTwitterMetadata({
-    title: "What's On This Week at The Anchor Near Heathrow",
-    description: "See The Anchor's entertainment diary for quiz nights, hosted events, bingo and live sport close to Heathrow with free parking.",
+    title: "What's On Near Heathrow — Quiz, Bingo & Live Music Every Week",
+    description: "Weekly pub events: Music Bingo, cash bingo, pub quiz, open mic and more at The Anchor, Stanwell Moor. From £3, free parking.",
     images: ["/images/events/quiz-night/the-anchor-quiz-night-stanwell-moor.jpg"]
   }),
   alternates: {
@@ -56,7 +57,10 @@ async function getOpeningHoursSpecification() {
 }
 
 export default async function WhatsOnPage() {
-  const openingHoursSpecification = await getOpeningHoursSpecification()
+  const [openingHoursSpecification, { rating, reviewCount }] = await Promise.all([
+    getOpeningHoursSpecification(),
+    getBusinessStats()
+  ])
 
   return (
     <>
@@ -90,6 +94,13 @@ export default async function WhatsOnPage() {
                 "addressCountry": "GB"
               },
               "maximumAttendeeCapacity": 100,
+              "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": rating,
+                "reviewCount": reviewCount,
+                "bestRating": "5",
+                "worstRating": "1"
+              },
               "amenityFeature": [
                 {
                   "@type": "LocationFeatureSpecification",
