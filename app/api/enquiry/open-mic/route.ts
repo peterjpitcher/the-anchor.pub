@@ -48,10 +48,7 @@ export async function POST(request: NextRequest) {
         ...(forwardedFor ? { 'X-Forwarded-For': forwardedFor } : {}),
         ...(userAgent ? { 'User-Agent': userAgent } : {}),
       },
-      body: JSON.stringify({
-        ...body.data,
-        ...(typeof rawBody.turnstile_token === 'string' ? { turnstile_token: rawBody.turnstile_token } : {})
-      }),
+      body: JSON.stringify(body.data),
     })
 
     const payload = await response.json().catch(() => null)

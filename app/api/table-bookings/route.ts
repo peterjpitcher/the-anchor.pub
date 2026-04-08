@@ -373,21 +373,23 @@ export async function POST(request: NextRequest) {
     const idempotencyKey =
       asTrimmedString(request.headers.get('Idempotency-Key')) || createIdempotencyKey('tbl')
 
+    const turnstileToken = typeof body.turnstile_token === 'string' ? body.turnstile_token : null
+
     const upstream = await fetch(`${API_BASE_URL}/table-bookings`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'X-API-Key': API_KEY,
-        'Idempotency-Key': idempotencyKey
+        'Idempotency-Key': idempotencyKey,
+        // Management API reads the Turnstile token from this header, not from the body
+        ...(turnstileToken ? { 'x-turnstile-token': turnstileToken } : {})
       },
       cache: 'no-store',
       // skip_customer_sms: website bookings show PayPal buttons inline, so customer
       // doesn't need a separate SMS payment link
       body: JSON.stringify({
         ...normalized.payload,
-        skip_customer_sms: true,
-        // Forward the Turnstile token so the management API can verify it independently
-        ...(typeof body.turnstile_token === 'string' ? { turnstile_token: body.turnstile_token } : {})
+        skip_customer_sms: true
       })
     })
 

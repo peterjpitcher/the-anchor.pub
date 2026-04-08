@@ -133,17 +133,17 @@ export async function POST(request: NextRequest) {
 
         const idempotencyKey = request.headers.get('Idempotency-Key') || createIdempotencyKey()
 
+        const turnstileToken = typeof body.turnstile_token === 'string' ? body.turnstile_token : null
+
         const res = await fetch(`${API_BASE_URL}/private-booking-enquiry`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'X-API-Key': API_KEY,
-                'Idempotency-Key': idempotencyKey
+                'Idempotency-Key': idempotencyKey,
+                ...(turnstileToken ? { 'x-turnstile-token': turnstileToken } : {})
             },
-            body: JSON.stringify({
-                ...mappedPayload,
-                ...(typeof body.turnstile_token === 'string' ? { turnstile_token: body.turnstile_token } : {})
-            })
+            body: JSON.stringify(mappedPayload)
         })
 
         const data = await res.json()
