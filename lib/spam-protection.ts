@@ -88,7 +88,8 @@ type SpamCheckResult =
  */
 export async function checkSpamProtection(
   request: NextRequest | Request,
-  body: Record<string, unknown>
+  body: Record<string, unknown>,
+  options?: { skipTurnstile?: boolean }
 ): Promise<SpamCheckResult> {
   // 1. Rate limit by IP
   const clientIp = getClientIp(request)
@@ -129,16 +130,20 @@ export async function checkSpamProtection(
   }
 
   // 5. Turnstile CAPTCHA verification
-  const turnstile = await verifyTurnstileToken(
-    (body?.turnstile_token as string | null | undefined) ?? null
-  )
-  if (!turnstile.success) {
-    return {
-      blocked: true,
-      response: Response.json(
-        { success: false, error: turnstile.error || 'Security check failed.' },
-        { status: 403 }
-      )
+  //    Skip when the upstream management API will verify the token itself
+  //    (Turnstile tokens are single-use — verifying here would consume it)
+  if (!options?.skipTurnstile) {
+    const turnstile = await verifyTurnstileToken(
+      (body?.turnstile_token as string | null | undefined) ?? null
+    )
+    if (!turnstile.success) {
+      return {
+        blocked: true,
+        response: Response.json(
+          { success: false, error: turnstile.error || 'Security check failed.' },
+          { status: 403 }
+        )
+      }
     }
   }
 

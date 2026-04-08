@@ -303,7 +303,7 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
 
-    const spam = await checkSpamProtection(request, body)
+    const spam = await checkSpamProtection(request, body, { skipTurnstile: true })
     if (spam.blocked) return spam.response
 
     const normalized = normaliseIncomingPayload(body)

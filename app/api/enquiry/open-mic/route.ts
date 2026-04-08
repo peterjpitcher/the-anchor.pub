@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
 
     const rawBody = await request.json()
 
-    const spam = await checkSpamProtection(request, rawBody)
+    const spam = await checkSpamProtection(request, rawBody, { skipTurnstile: true })
     if (spam.blocked) return spam.response
 
     const body = payloadSchema.safeParse(rawBody)
