@@ -62,9 +62,10 @@ export async function checkSpamProtection(
     }
   }
 
-  // 3. Timing — reject submissions faster than a human can complete a form
+  // 3. Timing — reject if too fast OR if timing field is missing entirely
+  //    (missing _t means the request didn't come from our form)
   const formDuration = typeof body?._t === 'number' ? body._t : null
-  if (formDuration !== null && formDuration < MIN_FORM_DURATION_SECONDS) {
+  if (formDuration === null || formDuration < MIN_FORM_DURATION_SECONDS) {
     return {
       blocked: true,
       response: Response.json({ success: true })

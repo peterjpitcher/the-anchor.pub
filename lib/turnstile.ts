@@ -8,8 +8,9 @@ type TurnstileVerifyResult = {
 export async function verifyTurnstileToken(token: string | null | undefined): Promise<TurnstileVerifyResult> {
   const secret = process.env.TURNSTILE_SECRET_KEY
   if (!secret) {
-    // If no secret is configured, skip validation (allows gradual rollout)
-    return { success: true }
+    // No secret configured — block the request rather than silently allowing it.
+    // Set TURNSTILE_SECRET_KEY in Vercel env vars to enable verification.
+    return { success: false, error: 'Security verification is not configured. Please try again later.' }
   }
 
   if (!token || typeof token !== 'string' || token.trim().length === 0) {
