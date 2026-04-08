@@ -1326,13 +1326,29 @@ export class AnchorAPI {
     }
 
     try {
+      const payload = await this.request<unknown>('/menu/sunday-lunch', {
+        next: { revalidate: 0 }
+      })
+      const candidate = this.unwrapSuccessData<SundayLunchMenuResponse>(payload) || (payload as SundayLunchMenuResponse)
+      if (candidate && Array.isArray(candidate.mains) && Array.isArray(candidate.sides)) {
+        return {
+          ...candidate,
+          menu_date: candidate.menu_date || menuDate
+        }
+      }
+    } catch (error) {
+      logError('api-sunday-lunch-menu-server', error, { menuDate })
+    }
+
+    // Fallback: try generic menu endpoint and extract sunday sections
+    try {
       const menu = await this.getMenu()
       const mapped = this.mapSundayLunchMenuFromMenu(menu, menuDate)
       if (mapped) {
         return mapped
       }
     } catch (error) {
-      logError('api-sunday-lunch-menu-server', error, { menuDate })
+      logError('api-sunday-lunch-menu-server-fallback', error, { menuDate })
     }
 
     return {
