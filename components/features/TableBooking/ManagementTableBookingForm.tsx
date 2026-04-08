@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile'
 import { Alert } from '@/components/ui/feedback/Alert'
 import { Card, CardBody } from '@/components/ui/layout/Card'
 import { Input, Textarea } from '@/components/ui/primitives/Input'
@@ -11,6 +12,8 @@ import { isMothersDayEvent, MOTHERS_DAY_DEFAULT_TIME, MOTHERS_DAY_SERVICE_DATE }
 import { SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP, getSundayLunchDepositAmount } from '@/lib/constants'
 import { getSundayLunchCutoffDate, hasSundayLunchCutoffPassed } from '@/lib/sunday-lunch-cutoff'
 import { PayPalDepositSection } from './PayPalDepositSection'
+
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
 
 type BookingPurpose = 'food' | 'drinks'
 type LookupState = 'idle' | 'loading' | 'known' | 'unknown'
@@ -584,6 +587,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const [policyAccepted, setPolicyAccepted] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
+  const turnstileRef = useRef<TurnstileInstance | null>(null)
   const [result, setResult] = useState<ManagementTableBookingResult | null>(null)
 
   const holdExpiry = formatHoldExpiry(result?.hold_expires_at || null)
@@ -1439,7 +1444,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
         purpose: effectivePurpose,
         ...(notes.trim() ? { notes: notes.trim() } : {}),
         ...(effectiveSundayLunch ? { sunday_lunch: true } : {}),
-        ...(sundaySelections.selections ? { menu_selections: sundaySelections.selections } : {})
+        ...(sundaySelections.selections ? { menu_selections: sundaySelections.selections } : {}),
+        ...(turnstileToken ? { turnstile_token: turnstileToken } : {})
       }
 
       const response = await fetch('/api/table-bookings', {
@@ -1479,6 +1485,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       setError(submitError?.message || 'We could not process your booking right now.')
     } finally {
       setLoading(false)
+      setTurnstileToken(null)
+      turnstileRef.current?.reset()
     }
   }
 
@@ -1517,6 +1525,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setDepositAmountForPayment(0)
     setPaymentState('idle')
     setPaymentError(null)
+    setTurnstileToken(null)
+    turnstileRef.current?.reset()
   }
 
   if (selectedSuggestedEvent) {
@@ -2301,6 +2311,17 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               </>
             ) : (
               <>
+                {TURNSTILE_SITE_KEY && (
+                  <Turnstile
+                    ref={turnstileRef}
+                    siteKey={TURNSTILE_SITE_KEY}
+                    onSuccess={setTurnstileToken}
+                    onError={() => setTurnstileToken(null)}
+                    onExpire={() => setTurnstileToken(null)}
+                    options={{ theme: 'dark', size: 'flexible' }}
+                  />
+                )}
+
                 <label className="flex items-start gap-2 text-sm text-anchor-cream-text/70">
                   <input
                     type="checkbox"
@@ -2322,6 +2343,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                     variant="primary"
                     className="w-full sm:w-auto"
                     loading={loading}
+                    disabled={TURNSTILE_SITE_KEY ? !turnstileToken : false}
                     onClick={handleConfirmBooking}
                   >
                     {requiresSundayLunchDeposit || requiresGroupDeposit ? 'Confirm and pay deposit' : 'Confirm booking'}
