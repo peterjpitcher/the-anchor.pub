@@ -1,5 +1,6 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { anchorAPI } from '@/lib/api'
+import { checkSpamProtection } from '@/lib/spam-protection'
 import { getSundayLunchDepositAmount } from '@/lib/constants'
 import { normaliseUKPhone } from '@/lib/hours-utils'
 import {
@@ -23,16 +24,19 @@ function jsonResponse(payload: unknown, status = 200): Response {
  * Booking submission endpoint for the wizard
  * Handles both JavaScript and non-JavaScript submissions
  */
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     let bookingData: any
-    
+
     // Check content type to handle both JSON and form data
     const contentType = request.headers.get('content-type')
-    
+
     if (contentType?.includes('application/json')) {
       // JavaScript submission
       const jsonData = await request.json()
+
+      const spam = await checkSpamProtection(request, jsonData)
+      if (spam.blocked) return spam.response
       // Map camelCase from frontend to snake_case for API
       bookingData = {
         date: jsonData.date,
@@ -49,7 +53,10 @@ export async function POST(request: Request) {
         menuSelections: jsonData.menuSelections // THIS WAS MISSING!
       }
     } else if (contentType?.includes('application/x-www-form-urlencoded')) {
-      // Non-JavaScript form submission
+      // Non-JavaScript form submission — rate limit only (no JSON body for full check)
+      const formSpam = await checkSpamProtection(request, {})
+      if (formSpam.blocked) return formSpam.response
+
       const formData = await request.formData()
       bookingData = {
         date: formData.get('date'),

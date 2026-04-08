@@ -1,7 +1,8 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { anchorAPI, ParkingBookingRequest } from '@/lib/api'
 import { logError } from '@/lib/error-handling'
 import { normaliseUKPhone } from '@/lib/hours-utils'
+import { checkSpamProtection } from '@/lib/spam-protection'
 
 const REQUIRED_CUSTOMER_FIELDS = ['first_name', 'last_name', 'mobile_number'] as const
 const REQUIRED_VEHICLE_FIELDS = ['registration'] as const
@@ -13,7 +14,7 @@ function buildIdempotencyKey(
   return `parking-${Buffer.from(safe).toString('base64')}`
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   let body: any
 
   try {
@@ -27,6 +28,9 @@ export async function POST(request: Request) {
       }
     }, { status: 400 })
   }
+
+  const spam = await checkSpamProtection(request, body)
+  if (spam.blocked) return spam.response
 
   const customer = body?.customer
   const vehicle = body?.vehicle

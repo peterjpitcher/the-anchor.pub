@@ -1,5 +1,7 @@
+import { NextRequest } from 'next/server'
 import { anchorAPI } from '@/lib/api'
 import type { TableBookingRequest } from '@/lib/api'
+import { checkSpamProtection } from '@/lib/spam-protection'
 import {
   isTimeWithinRanges,
   normalizeTime,
@@ -22,11 +24,14 @@ function jsonResponse(payload: unknown, status = 200): Response {
  * Accepts structured JSON for direct booking creation
  * Designed for GPT-5 and other AI agents
  */
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     // Parse request body
     const body = await request.json()
-    
+
+    const spam = await checkSpamProtection(request, body)
+    if (spam.blocked) return spam.response
+
     // Validate required fields
     if (!body.date || !body.time || !body.partySize || !body.customer) {
       return jsonResponse({
