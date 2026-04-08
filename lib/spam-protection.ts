@@ -27,6 +27,54 @@ function isRateLimited(ip: string): boolean {
 // Minimum seconds a real user needs to fill any form
 const MIN_FORM_DURATION_SECONDS = 3
 
+// ── Phone country allowlist ─────────────────────────────────────────────────
+// Accepted calling codes for a pub near Heathrow. Add more as needed.
+const ALLOWED_PHONE_PREFIXES = [
+  '+44',   // UK
+  '+1',    // US / Canada
+  '+33',   // France
+  '+34',   // Spain
+  '+353',  // Ireland
+  '+49',   // Germany
+  '+31',   // Netherlands
+  '+32',   // Belgium
+  '+39',   // Italy
+  '+351',  // Portugal
+  '+41',   // Switzerland
+  '+45',   // Denmark
+  '+46',   // Sweden
+  '+47',   // Norway
+  '+48',   // Poland
+  '+43',   // Austria
+  '+61',   // Australia
+  '+64',   // New Zealand
+  '+971',  // UAE (Dubai layover traffic near Heathrow)
+]
+
+/**
+ * Extract a phone number from common payload shapes and check its country prefix.
+ * Returns true if the number looks suspicious (non-allowlisted country).
+ */
+function hasSuspiciousPhone(body: Record<string, unknown>): boolean {
+  // Find the phone value from various payload shapes
+  const phone =
+    (typeof body.phone === 'string' && body.phone) ||
+    (typeof body.contact_phone === 'string' && body.contact_phone) ||
+    (typeof body.customer_phone === 'string' && body.customer_phone) ||
+    (typeof (body.customer as Record<string, unknown>)?.mobile_number === 'string'
+      && (body.customer as Record<string, unknown>).mobile_number as string) ||
+    null
+
+  if (!phone) return false // no phone to check — let other validation handle it
+
+  const trimmed = phone.trim()
+
+  // Only check numbers that start with + (international format)
+  if (!trimmed.startsWith('+')) return false
+
+  return !ALLOWED_PHONE_PREFIXES.some((prefix) => trimmed.startsWith(prefix))
+}
+
 type SpamCheckResult =
   | { blocked: false }
   | { blocked: true; response: Response }
@@ -62,7 +110,15 @@ export async function checkSpamProtection(
     }
   }
 
-  // 3. Timing — reject if too fast OR if timing field is missing entirely
+  // 3. Phone country check — block numbers from non-allowlisted countries
+  if (hasSuspiciousPhone(body)) {
+    return {
+      blocked: true,
+      response: Response.json({ success: true })
+    }
+  }
+
+  // 4. Timing — reject if too fast OR if timing field is missing entirely
   //    (missing _t means the request didn't come from our form)
   const formDuration = typeof body?._t === 'number' ? body._t : null
   if (formDuration === null || formDuration < MIN_FORM_DURATION_SECONDS) {
@@ -72,7 +128,7 @@ export async function checkSpamProtection(
     }
   }
 
-  // 4. Turnstile CAPTCHA verification
+  // 5. Turnstile CAPTCHA verification
   const turnstile = await verifyTurnstileToken(
     (body?.turnstile_token as string | null | undefined) ?? null
   )
