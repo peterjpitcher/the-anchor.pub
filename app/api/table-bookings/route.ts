@@ -383,7 +383,12 @@ export async function POST(request: NextRequest) {
       cache: 'no-store',
       // skip_customer_sms: website bookings show PayPal buttons inline, so customer
       // doesn't need a separate SMS payment link
-      body: JSON.stringify({ ...normalized.payload, skip_customer_sms: true })
+      body: JSON.stringify({
+        ...normalized.payload,
+        skip_customer_sms: true,
+        // Forward the Turnstile token so the management API can verify it independently
+        ...(typeof body.turnstile_token === 'string' ? { turnstile_token: body.turnstile_token } : {})
+      })
     })
 
     const rawText = await upstream.text()

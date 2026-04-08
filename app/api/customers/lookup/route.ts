@@ -6,6 +6,24 @@ import { getSafeUpstreamErrorMessage, safeJsonParse } from '@/lib/upstream-json'
 const API_BASE_URL = getManagementApiBaseUrl()
 const API_KEY = process.env.ANCHOR_API_KEY
 
+// ── Per-IP rate limiting to protect the shared upstream API key budget ───────
+const LOOKUP_RATE_LIMIT_WINDOW_MS = 60_000
+const LOOKUP_RATE_LIMIT_MAX = 6 // generous for real users, blocks automated abuse
+const lookupRateLimitMap = new Map<string, number[]>()
+
+function isLookupRateLimited(ip: string): boolean {
+  const now = Date.now()
+  const timestamps = lookupRateLimitMap.get(ip) ?? []
+  const recent = timestamps.filter((t) => now - t < LOOKUP_RATE_LIMIT_WINDOW_MS)
+  if (recent.length >= LOOKUP_RATE_LIMIT_MAX) {
+    lookupRateLimitMap.set(ip, recent)
+    return true
+  }
+  recent.push(now)
+  lookupRateLimitMap.set(ip, recent)
+  return false
+}
+
 function createDegradedLookupResponse(reason: string, status = 200) {
   return NextResponse.json(
     {
@@ -26,6 +44,11 @@ function createDegradedLookupResponse(reason: string, status = 200) {
 export async function GET(request: NextRequest) {
   if (!API_KEY) {
     return createDegradedLookupResponse('missing_api_key')
+  }
+
+  const clientIp = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown'
+  if (isLookupRateLimited(clientIp)) {
+    return createDegradedLookupResponse('rate_limited')
   }
 
   const phone = request.nextUrl.searchParams.get('phone')?.trim() || ''

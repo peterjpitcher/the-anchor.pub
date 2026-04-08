@@ -140,7 +140,10 @@ export async function POST(request: NextRequest) {
                 'X-API-Key': API_KEY,
                 'Idempotency-Key': idempotencyKey
             },
-            body: JSON.stringify(mappedPayload)
+            body: JSON.stringify({
+                ...mappedPayload,
+                ...(typeof body.turnstile_token === 'string' ? { turnstile_token: body.turnstile_token } : {})
+            })
         })
 
         const data = await res.json()

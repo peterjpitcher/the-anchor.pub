@@ -125,7 +125,10 @@ export async function POST(request: NextRequest) {
         'Idempotency-Key': idempotencyKey
       },
       cache: 'no-store',
-      body: JSON.stringify(normalized.payload)
+      body: JSON.stringify({
+        ...normalized.payload,
+        ...(typeof body.turnstile_token === 'string' ? { turnstile_token: body.turnstile_token } : {})
+      })
     })
 
     const rawText = await upstream.text()
