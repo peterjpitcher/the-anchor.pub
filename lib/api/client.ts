@@ -1099,7 +1099,9 @@ export class AnchorAPI {
 
   // Menu
   async getMenu(): Promise<MenuResponse> {
-    return this.request<MenuResponse>('/menu')
+    return this.request<MenuResponse>('/menu', {
+      next: { revalidate: 0 }
+    })
   }
 
   async getMenuSpecials(): Promise<{
