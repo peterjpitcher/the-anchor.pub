@@ -1,12 +1,15 @@
 'use client'
 
-import { type FormEvent, useState } from 'react'
+import { type FormEvent, useRef, useState } from 'react'
+import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile'
 import { Alert } from '@/components/ui/feedback/Alert'
 import { Card, CardBody } from '@/components/ui/layout/Card'
 import { Button } from '@/components/ui/primitives/Button'
 import { Input } from '@/components/ui/primitives/Input'
 import { trackEventBookingStart } from '@/lib/gtm-events'
 import type { Event } from '@/lib/api'
+
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
 
 type LookupState = 'idle' | 'loading' | 'known' | 'unknown'
 type EventBookingState = 'confirmed' | 'pending_payment' | 'full_with_waitlist_option' | 'blocked'
@@ -103,6 +106,10 @@ export function ManagementEventBookingForm({ event, title, compact = false }: Ma
   const [result, setResult] = useState<EventBookingResult | null>(null)
   const [waitlistLoading, setWaitlistLoading] = useState(false)
   const [waitlistResult, setWaitlistResult] = useState<WaitlistResult | null>(null)
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
+  const turnstileRef = useRef<TurnstileInstance | null>(null)
+  const [honeypot, setHoneypot] = useState('')
+  const formLoadedAt = useRef(Date.now())
 
   const detailsUnlocked = lookupState === 'known' || lookupState === 'unknown'
   const isKnownCustomer = lookupState === 'known'
@@ -219,7 +226,10 @@ export function ManagementEventBookingForm({ event, title, compact = false }: Ma
           ...(resolvedFirstName ? { first_name: resolvedFirstName } : {}),
           ...(resolvedLastName ? { last_name: resolvedLastName } : {}),
           ...(knownCustomer?.email ? { email: knownCustomer.email } : {}),
-          seats: clampedSeats
+          seats: clampedSeats,
+          ...(turnstileToken ? { turnstile_token: turnstileToken } : {}),
+          ...(honeypot ? { website: honeypot } : {}),
+          _t: Math.floor((Date.now() - formLoadedAt.current) / 1000)
         })
       })
 
@@ -257,6 +267,8 @@ export function ManagementEventBookingForm({ event, title, compact = false }: Ma
       setError(submitError?.message || 'We could not complete this event booking.')
     } finally {
       setLoading(false)
+      setTurnstileToken(null)
+      turnstileRef.current?.reset()
     }
   }
 
@@ -278,7 +290,10 @@ export function ManagementEventBookingForm({ event, title, compact = false }: Ma
           ...(firstName.trim() ? { first_name: firstName.trim() } : {}),
           ...(lastName.trim() ? { last_name: lastName.trim() } : {}),
           ...(knownCustomer?.email ? { email: knownCustomer.email } : {}),
-          requested_seats: seats
+          requested_seats: seats,
+          ...(turnstileToken ? { turnstile_token: turnstileToken } : {}),
+          ...(honeypot ? { website: honeypot } : {}),
+          _t: Math.floor((Date.now() - formLoadedAt.current) / 1000)
         })
       })
 
@@ -378,6 +393,20 @@ export function ManagementEventBookingForm({ event, title, compact = false }: Ma
 
           {detailsUnlocked && (
             <>
+              {/* Honeypot — hidden from real users, filled by bots */}
+              <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', top: '-9999px', opacity: 0, height: 0, overflow: 'hidden' }}>
+                <label htmlFor="evt-website">Website</label>
+                <input
+                  id="evt-website"
+                  name="website"
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={honeypot}
+                  onChange={(e) => setHoneypot(e.target.value)}
+                />
+              </div>
+
               <Input
                 label="Number of Seats"
                 type="text"
@@ -403,7 +432,18 @@ export function ManagementEventBookingForm({ event, title, compact = false }: Ma
                 }}
               />
 
-              <Button type="submit" fullWidth size="lg" loading={loading}>
+              {TURNSTILE_SITE_KEY && (
+                <Turnstile
+                  ref={turnstileRef}
+                  siteKey={TURNSTILE_SITE_KEY}
+                  onSuccess={setTurnstileToken}
+                  onError={() => setTurnstileToken(null)}
+                  onExpire={() => setTurnstileToken(null)}
+                  options={{ theme: 'dark', size: 'flexible' }}
+                />
+              )}
+
+              <Button type="submit" fullWidth size="lg" loading={loading} disabled={TURNSTILE_SITE_KEY ? !turnstileToken : false}>
                 Book Event
               </Button>
             </>

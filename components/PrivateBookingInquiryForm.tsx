@@ -1,8 +1,11 @@
 'use client'
 
-import { useState } from 'react'
+import { useRef, useState } from 'react'
+import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile'
 import { PrivateBookingRequest, createPrivateBooking } from '@/lib/api'
 import { trackPrivateHireEnquirySubmitted } from '@/lib/gtm-events'
+
+const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
 
 type LookupState = 'idle' | 'loading' | 'known' | 'unknown'
 
@@ -45,6 +48,10 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
     const [lookupError, setLookupError] = useState<string | null>(null)
     const [knownCustomer, setKnownCustomer] = useState<CustomerLookupResult['customer']>(null)
     const [lookupDegraded, setLookupDegraded] = useState(false)
+    const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
+    const turnstileRef = useRef<TurnstileInstance | null>(null)
+    const [honeypot, setHoneypot] = useState('')
+    const formLoadedAt = useRef(Date.now())
 
     const [formData, setFormData] = useState<PrivateBookingRequest>({
         customer_first_name: initialData?.customer_first_name || '',
@@ -153,7 +160,10 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
                 customer_first_name: formData.customer_first_name.trim() || 'Guest',
                 customer_last_name: formData.customer_last_name?.trim() || '',
                 contact_email: formData.contact_email?.trim() || '',
-                items: bookingItems
+                items: bookingItems,
+                ...(turnstileToken ? { turnstile_token: turnstileToken } : {}),
+                ...(honeypot ? { website: honeypot } : {}),
+                _t: Math.floor((Date.now() - formLoadedAt.current) / 1000)
             })
 
             if (response.success) {
@@ -169,6 +179,8 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
             setError('Network error. Please try again.')
         } finally {
             setLoading(false)
+            setTurnstileToken(null)
+            turnstileRef.current?.reset()
         }
     }
 
@@ -375,10 +387,35 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
                 )}
 
                 {detailsUnlocked && (
-                    <div className="pt-4 border-t border-anchor-gold/15">
+                    <div className="pt-4 border-t border-anchor-gold/15 space-y-4">
+                        {/* Honeypot — hidden from real users, filled by bots */}
+                        <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', top: '-9999px', opacity: 0, height: 0, overflow: 'hidden' }}>
+                            <label htmlFor="prv-website">Website</label>
+                            <input
+                                id="prv-website"
+                                name="website"
+                                type="text"
+                                tabIndex={-1}
+                                autoComplete="off"
+                                value={honeypot}
+                                onChange={(e) => setHoneypot(e.target.value)}
+                            />
+                        </div>
+
+                        {TURNSTILE_SITE_KEY && (
+                            <Turnstile
+                                ref={turnstileRef}
+                                siteKey={TURNSTILE_SITE_KEY}
+                                onSuccess={setTurnstileToken}
+                                onError={() => setTurnstileToken(null)}
+                                onExpire={() => setTurnstileToken(null)}
+                                options={{ theme: 'dark', size: 'flexible' }}
+                            />
+                        )}
+
                         <button
                             type="submit"
-                            disabled={loading}
+                            disabled={loading || (TURNSTILE_SITE_KEY ? !turnstileToken : false)}
                             className="w-full md:w-auto px-8 py-3 bg-anchor-gold hover:bg-anchor-gold-vivid text-anchor-charcoal font-semibold rounded-lg shadow-sm disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                         >
                             {loading ? 'Submitting...' : 'Send Inquiry'}

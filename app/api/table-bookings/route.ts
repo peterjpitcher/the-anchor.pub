@@ -9,7 +9,7 @@ import {
   normalizeTime,
   resolveServiceRanges
 } from '@/lib/table-booking-service-windows'
-import { verifyTurnstileToken } from '@/lib/turnstile'
+import { checkSpamProtection } from '@/lib/spam-protection'
 
 const API_BASE_URL = getManagementApiBaseUrl()
 const API_KEY = process.env.ANCHOR_API_KEY
@@ -303,10 +303,8 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
 
-    const turnstile = await verifyTurnstileToken(body?.turnstile_token)
-    if (!turnstile.success) {
-      return createApiErrorResponse(turnstile.error || 'Security check failed.', 403)
-    }
+    const spam = await checkSpamProtection(request, body)
+    if (spam.blocked) return spam.response
 
     const normalized = normaliseIncomingPayload(body)
     if (!normalized.payload) {

@@ -30,7 +30,8 @@ export async function verifyTurnstileToken(token: string | null | undefined): Pr
 
     return { success: false, error: 'Security check failed. Please try again.' }
   } catch {
-    // If Turnstile is unreachable, fail open to avoid blocking legitimate bookings
-    return { success: true }
+    // Fail closed — if Turnstile is unreachable, reject the request.
+    // Legitimate users can retry; bots are blocked.
+    return { success: false, error: 'Security verification unavailable. Please try again in a moment.' }
   }
 }

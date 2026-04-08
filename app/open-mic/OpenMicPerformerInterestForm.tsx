@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
 import Link from 'next/link'
 
 import { Alert, Button, Checkbox, Input, Textarea } from '@/components/ui'
@@ -20,6 +20,7 @@ export function OpenMicPerformerInterestForm() {
 
   const [consentDataStorage, setConsentDataStorage] = useState(false)
   const [honeypot, setHoneypot] = useState('')
+  const formLoadedAt = useRef(Date.now())
 
   const [submitting, setSubmitting] = useState(false)
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle')
@@ -43,7 +44,8 @@ export function OpenMicPerformerInterestForm() {
       phone: phone.trim(),
       bio: bio.trim(),
       consentDataStorage,
-      honeypot
+      honeypot,
+      _t: Math.floor((Date.now() - formLoadedAt.current) / 1000)
     }
   }, [bio, consentDataStorage, email, fullName, honeypot, phone])
 

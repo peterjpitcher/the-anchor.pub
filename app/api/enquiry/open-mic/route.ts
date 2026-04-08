@@ -1,6 +1,7 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
+import { checkSpamProtection } from '@/lib/spam-protection'
 
 const MANAGEMENT_API_BASE_URL = getManagementApiBaseUrl()
 
@@ -13,7 +14,7 @@ const payloadSchema = z.object({
   honeypot: z.string().optional(),
 })
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     const managementKey = process.env.ANCHOR_API_KEY
     if (!managementKey) {
@@ -23,7 +24,12 @@ export async function POST(request: Request) {
       )
     }
 
-    const body = payloadSchema.safeParse(await request.json())
+    const rawBody = await request.json()
+
+    const spam = await checkSpamProtection(request, rawBody)
+    if (spam.blocked) return spam.response
+
+    const body = payloadSchema.safeParse(rawBody)
     if (!body.success) {
       return NextResponse.json(
         { success: false, error: body.error.issues[0]?.message ?? 'Invalid submission.' },

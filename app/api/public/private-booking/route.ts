@@ -1,6 +1,7 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { logError } from '@/lib/error-handling'
+import { checkSpamProtection } from '@/lib/spam-protection'
 
 const API_BASE_URL = getManagementApiBaseUrl()
 const API_KEY = process.env.ANCHOR_API_KEY
@@ -78,7 +79,7 @@ function toNotes(payload: LegacyPrivateBookingPayload): string | undefined {
     return lines.join('\n')
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
     try {
         if (!API_KEY) {
             return NextResponse.json(
@@ -93,11 +94,16 @@ export async function POST(request: Request) {
             )
         }
 
-        const body: LegacyPrivateBookingPayload = await request.json()
-        const fullName = [asTrimmedString(body.customer_first_name), asTrimmedString(body.customer_last_name)]
+        const body = await request.json()
+
+        const spam = await checkSpamProtection(request, body)
+        if (spam.blocked) return spam.response
+
+        const pb: LegacyPrivateBookingPayload = body
+        const fullName = [asTrimmedString(pb.customer_first_name), asTrimmedString(pb.customer_last_name)]
             .filter(Boolean)
             .join(' ')
-        const phone = asTrimmedString(body.contact_phone)
+        const phone = asTrimmedString(pb.contact_phone)
 
         if (!phone) {
             return NextResponse.json(
@@ -112,15 +118,15 @@ export async function POST(request: Request) {
             )
         }
 
-        const groupSize = asPositiveInt(body.guest_count)
-        const notes = toNotes(body)
+        const groupSize = asPositiveInt(pb.guest_count)
+        const notes = toNotes(pb)
 
         const mappedPayload = {
             phone,
-            ...(asTrimmedString(body.default_country_code) ? { default_country_code: asTrimmedString(body.default_country_code) } : {}),
+            ...(asTrimmedString(pb.default_country_code) ? { default_country_code: asTrimmedString(pb.default_country_code) } : {}),
             ...(fullName ? { name: fullName } : {}),
-            ...(asTrimmedString(body.event_date) ? { date: asTrimmedString(body.event_date) } : {}),
-            ...(asTrimmedString(body.start_time) ? { time: asTrimmedString(body.start_time) } : {}),
+            ...(asTrimmedString(pb.event_date) ? { date: asTrimmedString(pb.event_date) } : {}),
+            ...(asTrimmedString(pb.start_time) ? { time: asTrimmedString(pb.start_time) } : {}),
             ...(groupSize ? { group_size: groupSize } : {}),
             ...(notes ? { notes } : {})
         }

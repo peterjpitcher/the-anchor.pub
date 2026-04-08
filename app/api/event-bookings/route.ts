@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createApiErrorResponse, logError } from '@/lib/error-handling'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { getSafeUpstreamErrorMessage, safeJsonParse } from '@/lib/upstream-json'
+import { checkSpamProtection } from '@/lib/spam-protection'
 
 const API_BASE_URL = getManagementApiBaseUrl()
 const API_KEY = process.env.ANCHOR_API_KEY
@@ -123,6 +124,10 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json()
+
+    const spam = await checkSpamProtection(request, body)
+    if (spam.blocked) return spam.response
+
     const normalized = normalizePayload(body)
 
     if (!normalized.payload) {

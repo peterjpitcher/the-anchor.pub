@@ -1,5 +1,6 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
+import { checkSpamProtection } from '@/lib/spam-protection'
 
 const DEFAULT_TO = 'manager@the-anchor.pub'
 const GRAPH_SCOPE = 'https://graph.microsoft.com/.default'
@@ -153,9 +154,14 @@ async function sendMicrosoftGraphEmail(accessToken: string, options: { to: strin
   }
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
-    const body = (await request.json()) as Partial<ChristmasEnquiryPayload>
+    const rawBody = await request.json()
+
+    const spam = await checkSpamProtection(request, rawBody)
+    if (spam.blocked) return spam.response
+
+    const body = rawBody as Partial<ChristmasEnquiryPayload>
 
     if (!body.name || !body.email || !body.phone || !body.partySize || !body.preferredDate || !body.preferredTime || !body.mode) {
       return NextResponse.json(

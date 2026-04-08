@@ -1383,6 +1383,8 @@ function ChristmasEnquiryForm({ context, onContextChange, onSuccess }: Christmas
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle')
   const [message, setMessage] = useState<string>('')
   const [submitting, setSubmitting] = useState(false)
+  const [xmasHoneypot, setXmasHoneypot] = useState('')
+  const xmasFormLoadedAt = useRef(Date.now())
 
   useEffect(() => {
     setPreferredTime(prev => prev || TIME_OPTIONS[2])
@@ -1428,7 +1430,9 @@ function ChristmasEnquiryForm({ context, onContextChange, onSuccess }: Christmas
           preferredTime,
           extras: context.extras,
           perks: context.perks,
-          notes
+          notes,
+          ...(xmasHoneypot ? { website: xmasHoneypot } : {}),
+          _t: Math.floor((Date.now() - xmasFormLoadedAt.current) / 1000)
         })
       })
 
@@ -1711,6 +1715,8 @@ function ChristmasLightbox({ suppressed, context, onContextChange, onSubmitSucce
   const [preferredDate, setPreferredDate] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [submitting, setSubmitting] = useState(false)
+  const [lbHoneypot, setLbHoneypot] = useState('')
+  const lbFormLoadedAt = useRef(Date.now())
 
   useEffect(() => {
     if (suppressed) return
@@ -1795,7 +1801,9 @@ function ChristmasLightbox({ suppressed, context, onContextChange, onSubmitSucce
           preferredTime: 'Flexible',
           extras: context.extras,
           perks: union(context.perks, ['early-bird']),
-          notes: 'Submitted via Early-Bird lightbox'
+          notes: 'Submitted via Early-Bird lightbox',
+          ...(lbHoneypot ? { website: lbHoneypot } : {}),
+          _t: Math.floor((Date.now() - lbFormLoadedAt.current) / 1000)
         })
       })
 

@@ -31,4 +31,13 @@ const customJestConfig = {
 }
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
-module.exports = createJestConfig(customJestConfig)
+// We wrap it to override transformIgnorePatterns after next/jest sets defaults
+module.exports = async () => {
+  const jestConfig = await createJestConfig(customJestConfig)()
+  return {
+    ...jestConfig,
+    transformIgnorePatterns: [
+      '/node_modules/(?!@marsidev/react-turnstile/).+\\.js$',
+    ],
+  }
+}

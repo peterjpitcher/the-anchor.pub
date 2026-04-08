@@ -589,6 +589,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const [error, setError] = useState<string | null>(null)
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
   const turnstileRef = useRef<TurnstileInstance | null>(null)
+  const [website, setWebsite] = useState('')
+  const formLoadedAt = useRef(Date.now())
   const [result, setResult] = useState<ManagementTableBookingResult | null>(null)
 
   const holdExpiry = formatHoldExpiry(result?.hold_expires_at || null)
@@ -1445,7 +1447,9 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
         ...(notes.trim() ? { notes: notes.trim() } : {}),
         ...(effectiveSundayLunch ? { sunday_lunch: true } : {}),
         ...(sundaySelections.selections ? { menu_selections: sundaySelections.selections } : {}),
-        ...(turnstileToken ? { turnstile_token: turnstileToken } : {})
+        ...(turnstileToken ? { turnstile_token: turnstileToken } : {}),
+        ...(website ? { website } : {}),
+        _t: Math.floor((Date.now() - formLoadedAt.current) / 1000)
       }
 
       const response = await fetch('/api/table-bookings', {
@@ -1527,6 +1531,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setPaymentError(null)
     setTurnstileToken(null)
     turnstileRef.current?.reset()
+    setWebsite('')
+    formLoadedAt.current = Date.now()
   }
 
   if (selectedSuggestedEvent) {
@@ -2311,6 +2317,20 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               </>
             ) : (
               <>
+                {/* Honeypot — hidden from real users, filled by bots */}
+                <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', top: '-9999px', opacity: 0, height: 0, overflow: 'hidden' }}>
+                  <label htmlFor="website">Website</label>
+                  <input
+                    id="website"
+                    name="website"
+                    type="text"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={website}
+                    onChange={(e) => setWebsite(e.target.value)}
+                  />
+                </div>
+
                 {TURNSTILE_SITE_KEY && (
                   <Turnstile
                     ref={turnstileRef}
