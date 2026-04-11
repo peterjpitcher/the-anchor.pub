@@ -125,25 +125,25 @@ const useCountdown = (target: string | Date) => {
 }
 
 const PERK_OPTIONS = [
-  { id: 'early-bird', label: 'Early-Bird: 20% off food bill when you book by 1 Oct (parties of 6+)' },
-  { id: 'mid-week', label: 'Tue-Wed: free coffee & mince pie with dinner' }
+  { id: 'early-bird', label: 'Early-Bird: 20% off your food bill — book by 1 Oct (parties of 6+)' },
+  { id: 'mid-week', label: 'Tue–Wed: complimentary coffee & mince pie with your festive dinner' }
 ]
 
 const FESTIVE_PRICING = [
   {
-    tier: 'Shared party nights (Tue–Thu)',
+    tier: 'Shared Christmas party nights (Tue–Thu)',
     price: '£36.95 per person',
-    includes: 'Three-course menu, festive decor, crackers, background playlist and optional Prosecco upgrade'
+    includes: 'Three-course festive menu with crackers, candles, background playlist and optional Prosecco upgrade. Join other groups for the buzz of a proper Christmas party night out.'
   },
   {
     tier: 'Weekend private hire dinners (Fri–Sat)',
     price: '£39.95 per person',
-    includes: 'Private dining room or main bar layout, late bar option until midnight and support for DJs or entertainment'
+    includes: 'Private dining room or main bar layout, late bar option until midnight, and room for DJs or live entertainment. Your Christmas party, your way.'
   },
   {
     tier: 'Festive buffets (26+ guests)',
     price: 'From £10.95 per person',
-    includes: 'Three buffet tiers with hot finger food, salads and grazing boards refreshed for the first hour'
+    includes: 'Three buffet tiers with hot finger food, salads and grazing boards refreshed for the first hour. Great for standing receptions and team gatherings.'
   }
 ]
 
@@ -171,83 +171,99 @@ const EarlyBirdCountdown = ({ className = '' }: { className?: string }) => {
 const FAQ_ITEMS = [
   {
     question: "Is there a minimum spend for shared party nights or private hire?",
-    answer: "Weeknight shared party nights start at £36.95 per guest with no additional room hire. Weekend private dinners run from £39.95 per guest and we agree a minimum guest count, not a bar spend, so you keep control of the budget."
+    answer: "Weeknight shared Christmas party nights start at £36.95 per guest with no additional room hire. Weekend private dinners run from £39.95 per guest — we agree a minimum guest count, not a bar spend, so you keep control of the budget."
   },
   {
     question: "Is there a hire fee for Christmas parties?",
-    answer: "There is no hire fee when you book one of our festive food or buffet packages. Let us know if you need exclusive use of a space and we will talk you through the options."
+    answer: "No hire fee when you book one of our festive packages. If you need exclusive use of a space, get in touch and we'll talk through the options."
   },
   {
     question: "Is there a minimum group size?",
-    answer: "Our festive menu is available for parties of six or more. Smaller groups are welcome to join us from the à la carte menu in the pub."
+    answer: "Our festive menu is available for Christmas parties of six or more. Smaller groups are welcome to join us from the a la carte menu."
   },
   {
     question: "Are you close to Heathrow and Staines?",
-    answer: "Yes - we're seven minutes from Heathrow Terminal 5, around fifteen minutes from the Terminal 2 landside entrance and just eight minutes from Staines-upon-Thames. We're an easy Surrey Christmas party venue for Ashford, Windsor and the Heathrow villages."
+    answer: "Yes — seven minutes from Heathrow Terminal 5, around fifteen from Terminal 2 and eight minutes from Staines-upon-Thames. We're an easy-to-reach Christmas party venue for Ashford, Windsor, west London and the Heathrow villages."
   },
   {
     question: "Can we bring our own food?",
-    answer: "Celebration cakes are welcome. Any other external catering needs advance approval plus a signed food safety waiver and the supplier's liability insurance. Additional charges may apply."
+    answer: "Celebration cakes are welcome. Other external catering needs advance approval plus a signed food safety waiver and the supplier's liability insurance."
   },
   {
     question: "Can you run a bar tab for our group?",
-    answer: "Yes, we can pre-set a bar tab with your budget and keep you updated throughout the night. Invoicing in advance is also available if preferred."
+    answer: "Absolutely. We'll pre-set a bar tab with your budget and keep you updated through the night. Advance invoicing is also available."
   },
   {
     question: "How do guests travel from Heathrow hotels or terminals?",
-    answer: "Taxi and rideshare journeys from Heathrow Terminal 5 take around seven minutes and typically cost £18-22. We are fifteen minutes from the Terminal 2 landside entrance and have space for mini-coaches."
+    answer: "A taxi from Heathrow T5 takes around seven minutes and typically costs £18–22. We're fifteen minutes from Terminal 2 and have room for mini-coaches."
   },
   {
     question: "What entertainment can we have?",
-    answer: "We can play festive playlists through our sound system, or you can bring your own. Live bands, DJs, quizzes and karaoke are all welcome with a little notice."
+    answer: "Festive playlists through our sound system, or bring your own. Live bands, DJs, quizzes and karaoke are all welcome with a bit of notice."
   },
   {
     question: "Is parking available?",
-    answer: "Yes - around 20 free spaces on-site just seven minutes from Heathrow Terminal 5. You're welcome to leave cars overnight and collect them the next day."
+    answer: "Around 20 free spaces on-site, seven minutes from Heathrow T5. You're welcome to leave cars overnight and collect them the next day."
   },
   {
     question: "How do you handle dietary requests?",
-    answer: "Vegetarian, vegan, gluten-free and other dietary requests are happily accommodated. Just include the details on your pre-order so the kitchen can prepare suitable swaps."
+    answer: "Vegetarian, vegan, gluten-free and other dietary requirements are happily accommodated. Include the details on your pre-order so the kitchen can prepare suitable alternatives."
   },
   {
     question: "What is a shared Christmas party night?",
-    answer: "Shared party nights run Tuesday to Thursday through December. Your group gets its own table with crackers and festive decor, but you share the pub atmosphere with other parties. It's a brilliant option for smaller teams of six to twelve who want the buzz of a big night out without booking the whole venue."
+    answer: "Shared Christmas party nights run Tuesday to Thursday through December. Your group gets its own table with crackers and festive decor, but you share the pub atmosphere with other parties. Brilliant for smaller teams of six to twelve who want the buzz of a big night out without booking the whole venue."
   },
   {
     question: "Can we have exclusive use of the whole pub?",
-    answer: "Yes - full venue hire is available for parties of 60 or more on selected dates, typically midweek. You get the run of the bar, dining room and conservatory with your own playlist or live entertainment. Get in touch early because exclusive-use dates go fast."
+    answer: "Yes — full venue hire is available for parties of 60 or more on selected dates, typically midweek. You get the run of the bar, dining room and conservatory with your own playlist or live entertainment. Get in touch early — exclusive-use dates go fast."
   },
   {
     question: "Do you offer corporate Christmas party packages near Heathrow?",
-    answer: "We do. Our corporate Christmas party packages include VAT invoicing, an easy pre-order system for your team, and a dedicated point of contact to handle all the details. We're seven minutes from Heathrow Terminal 5 and two minutes from the M25 Junction 14, so colleagues travelling from different offices or airports can get here easily."
+    answer: "We do. Our corporate packages include VAT invoicing, a simple pre-order system for your team, and a dedicated point of contact. We're seven minutes from Heathrow T5 and two minutes from M25 J14, so colleagues from different offices get here easily."
   },
   {
     question: "Can we book a Christmas party for just drinks, no food?",
-    answer: "Absolutely. We can reserve an area for drinks-only celebrations and set up a pre-paid bar tab with an agreed budget. Add nibbles platters or a buffet later if you change your mind - we're flexible."
+    answer: "Yes. We can reserve an area for a drinks-only celebration and set up a pre-paid bar tab. Add nibbles or a buffet later if you change your mind — we're flexible."
   },
   {
     question: "What time do Christmas parties start and finish?",
-    answer: "Most dinner parties begin between 6 pm and 7:30 pm with a two-hour table reservation as standard. Longer sittings and late-bar extensions until midnight are available for larger groups or weekend bookings. Buffet parties can run later by arrangement."
+    answer: "Most festive dinners begin between 6 pm and 7:30 pm with a two-hour table reservation. Longer sittings and late-bar extensions until midnight are available for larger groups. Christmas lunches typically start from 12 pm. Buffet parties can run later by arrangement."
   },
   {
     question: "Is The Anchor outside the ULEZ zone?",
-    answer: "Yes - we're outside the ULEZ boundary, saving your guests £12.50 per vehicle compared to driving into central London. Combined with free on-site parking, it makes us one of the most accessible Christmas party venues near Heathrow."
+    answer: "Yes — we're outside the ULEZ boundary, saving your guests £12.50 per vehicle compared to driving into London. Free parking on-site makes us one of the most accessible Christmas party venues near Heathrow."
+  },
+  {
+    question: "Can we book a Christmas lunch instead of dinner?",
+    answer: "Absolutely. We serve the same festive menu at lunchtime and in the evening, so a Christmas lunch here is every bit as generous as the dinner service. Midweek Christmas lunches are particularly popular with office teams who want to celebrate during the day and still get home at a sensible hour. If you've been searching for a Christmas lunch near me or a festive lunch in Surrey, you've found the right pub."
+  },
+  {
+    question: "What's the difference between a Christmas do and a shared party night?",
+    answer: "They're the same thing by a different name. A shared Christmas party night means your group has its own table and festive setup, but you share the pub with other parties — so there's a great atmosphere without needing to fill the whole venue. Whether you call it your works Christmas do, your staff Christmas party or just \"the annual night out,\" the format works brilliantly for groups of six to twenty-five."
+  },
+  {
+    question: "Do you serve a festive menu outside of party bookings?",
+    answer: "Our festive menu runs throughout December for pre-booked parties of six or more. If you're after a Christmas meal for a smaller group, our regular menu features plenty of seasonal specials. For a full festive dinner or festive lunch with all the trimmings, book a party of six or more and you'll get the complete Christmas experience."
+  },
+  {
+    question: "Can I find you by searching \"xmas party near me\"?",
+    answer: "Yes — whether you search for \"xmas party near me,\" \"Christmas party near me\" or \"Christmas lunch near me,\" you'll find us. We're in Stanwell Moor, Surrey, seven minutes from Heathrow Terminal 5 and ten minutes from Staines-upon-Thames. The postcode is TW19 6AQ if you want to check the drive time from your office."
   }
 ]
 
 const TESTIMONIALS = [
   {
-    quote: "We've booked our office Christmas do at The Anchor three years running. The food is brilliant, the staff remember us, and nobody has to fight for parking. Best Christmas party pub near Heathrow by a mile.",
+    quote: "We've booked our works Christmas do at The Anchor three years running. The food is brilliant, the staff remember our names, and nobody has to fight for parking. Best Christmas party pub near Heathrow, hands down.",
     author: "Sarah T.",
     detail: "Office manager, Poyle business park"
   },
   {
-    quote: "Organised a buffet for 40 cabin crew and ground staff from different terminals. Everyone found the place easily, the buffet was generous, and the bar tab system meant zero fuss. We'll be back.",
+    quote: "Organised a Christmas buffet for 40 crew from different terminals. Everyone found the place easily, the buffet was generous, and the bar tab system meant zero fuss on the night. Already rebooked.",
     author: "James R.",
     detail: "Airline operations team, Heathrow"
   },
   {
-    quote: "The turkey dinner was honestly better than my nan's - don't tell her. Crackers, candles, the lot. Proper festive without being tacky. Already booked for this year.",
+    quote: "We booked a Christmas lunch for twelve — the turkey was honestly better than my nan's. Don't tell her. Crackers, candles, the lot. Proper festive without being tacky.",
     author: "Michelle K.",
     detail: "Staines-upon-Thames"
   }
@@ -257,54 +273,54 @@ const WHY_BOOK_REASONS = [
   {
     icon: 'car' as const,
     title: 'Free Parking for Every Guest',
-    description: 'Around 20 free spaces on-site with no time limit while you celebrate. No parking charges, no meters, no stress. Overnight stays are welcome - collect the car the next morning.'
+    description: 'Around 20 free spaces on-site — no meters, no charges, no stress. Leave the car overnight and collect it the next morning. That alone makes us one of the easiest Christmas party venues near Heathrow to get to.'
   },
   {
     icon: 'mapPin' as const,
     title: '7 Minutes from Heathrow T5',
-    description: 'The closest traditional British pub to Heathrow Airport. Ideal for teams spread across terminals, nearby business parks and airport hotels. Two minutes from M25 Junction 14.'
+    description: 'The closest traditional pub to Heathrow Airport. Two minutes from M25 Junction 14. Whether your guests are coming from terminals, business parks or airport hotels, they\'ll find us fast.'
   },
   {
     icon: 'shield' as const,
     title: 'Outside the ULEZ Zone',
-    description: 'Save your guests £12.50 each compared to driving into London. We are outside the ULEZ boundary, making us one of the most affordable Christmas party venues in Surrey.'
+    description: 'Save your guests £12.50 each compared to driving into London. Combined with free parking, we\'re one of the most affordable Christmas party venues in Surrey.'
   },
   {
     icon: 'users' as const,
     title: 'Private Spaces for Every Size',
-    description: 'Intimate dining room for up to 25 seated, main bar area for larger groups, or full venue hire for up to 60 seated and 200 standing. We shape the space around your party.'
+    description: 'Intimate dining room for up to 25, main bar for larger groups, full venue hire for up to 60 seated and 200 standing. We shape the space around your party — not the other way round.'
   },
   {
     icon: 'heart' as const,
     title: 'A Proper Village Pub Christmas',
-    description: 'No soulless hotel function rooms. No identikit chain pubs. Just a genuine village local with real character, warm hospitality and food that actually tastes of Christmas.'
+    description: 'No soulless hotel function rooms. No identikit chains. A genuine village local with real fires, warm hospitality and food that actually tastes of Christmas. This is what a Christmas do should feel like.'
   },
   {
     icon: 'briefcase' as const,
     title: 'Easy for Organisers',
-    description: 'Simple pre-order system, VAT invoices for accounts, a dedicated contact to handle your booking, and a £40 voucher for the organiser when you bring 20 or more guests.'
+    description: 'Simple pre-order system (no spreadsheets), VAT invoices for accounts, a dedicated contact for your booking, and a £40 voucher for the organiser when you bring 20 or more.'
   }
 ]
 
 const PARTY_IDEAS = [
   {
     title: 'Quiz Night Christmas Special',
-    description: 'Our resident quizmaster runs a festive-themed quiz packed with Christmas music rounds, picture rounds and general knowledge. Teams of up to eight compete for prizes and bragging rights. Add a buffet or sit-down dinner before the quiz kicks off.',
-    ideal: 'Teams of 12-60 who love a bit of friendly competition'
+    description: 'Our resident quizmaster runs a festive quiz packed with Christmas music rounds, picture rounds and general knowledge. Teams of up to eight compete for prizes and bragging rights. Add a buffet or sit-down dinner before the quiz kicks off.',
+    ideal: 'Teams of 12–60 who love friendly competition'
   },
   {
     title: 'Music Bingo Christmas Edition',
-    description: 'Think bingo, but instead of numbers you are listening for Christmas songs. When your tune plays, dab your card. Get a line or full house and win prizes. It is surprisingly competitive and always gets the whole room singing along.',
+    description: 'Bingo, but you\'re listening for Christmas songs instead of numbers. Dab your card when your tune plays. Get a line or full house and win prizes. Surprisingly competitive — and it gets the whole room singing.',
     ideal: 'Mixed groups who want something different and inclusive'
   },
   {
     title: 'Karaoke Christmas Party',
-    description: 'We have got a professional karaoke setup with over 50,000 songs including all the Christmas classics. Imagine your boss belting out Fairytale of New York after a few mulled wines. Book the main bar for a full karaoke takeover.',
-    ideal: 'Office groups and friend circles who are not afraid of the mic'
+    description: 'Professional setup with over 50,000 songs including every Christmas classic you can think of. Picture the boss belting out Fairytale of New York after a couple of mulled wines. Book the main bar for a full karaoke takeover.',
+    ideal: 'Office groups and friend circles who aren\'t afraid of the mic'
   },
   {
     title: 'Live Band Christmas Celebration',
-    description: 'Hire a live band or acoustic act to perform during your party. We have excellent acoustics, a dedicated performance area and a late bar licence until midnight. We can recommend local acts or you are welcome to bring your own.',
+    description: 'Hire a live band or acoustic act to perform during your party. We\'ve got solid acoustics, a dedicated performance area and a late bar licence until midnight. We can recommend local acts or you\'re welcome to bring your own.',
     ideal: 'Larger groups of 30+ who want a proper party atmosphere'
   }
 ]
@@ -482,7 +498,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
               <div className="flex items-center gap-2">
                 <Icon name="sparkles" className="h-5 w-5" />
                 <p className="text-sm md:text-base font-semibold">
-                  Book by 1 Oct to enjoy 20% off your food bill for every adult in parties of six or more.
+                  Book by 1 Oct and take 20% off your food bill — that's every adult in parties of six or more.
                 </p>
               </div>
               <EarlyBirdCountdown className="text-red-100 text-xs md:text-sm" />
@@ -511,22 +527,22 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
             <Card className="h-full">
               <div className="p-6 space-y-3 text-center">
                 <Icon name="calendar" className="mx-auto h-8 w-8 text-red-600" />
-                <h3 className="text-lg font-semibold text-anchor-cream-text">Mid-week value</h3>
-                <p className="text-sm text-anchor-cream-text/70">Tue-Thu 3 courses for £36.95 per person (groups of 6+).</p>
+                <h3 className="text-lg font-semibold text-anchor-cream-text">Mid-week Christmas meals from £36.95</h3>
+                <p className="text-sm text-anchor-cream-text/70">Tue–Thu three-course festive dinners for £36.95 per person. The same generous menu, the same crackers and candles — just a kinder price tag for your Christmas do.</p>
               </div>
             </Card>
             <Card className="h-full">
               <div className="p-6 space-y-3 text-center">
                 <Icon name="utensils" className="mx-auto h-8 w-8 text-red-600" />
-                <h3 className="text-lg font-semibold text-anchor-cream-text">Yorkies & pigs in blankets</h3>
-                <p className="text-sm text-anchor-cream-text/70">Every roast comes with the favourites, plus herb-crusted triple-cooked roast potatoes, seasonal vegetables and our signature gravy.</p>
+                <h3 className="text-lg font-semibold text-anchor-cream-text">Yorkies, pigs in blankets & all the trimmings</h3>
+                <p className="text-sm text-anchor-cream-text/70">Every Christmas meal arrives with herb-crusted triple-cooked roast potatoes, seasonal veg, sage & onion stuffing, Yorkshire puddings and our signature gravy. No shortcuts.</p>
               </div>
             </Card>
             <Card className="h-full">
               <div className="p-6 space-y-3 text-center">
                 <Icon name="gift" className="mx-auto h-8 w-8 text-red-600" />
-                <h3 className="text-lg font-semibold text-anchor-cream-text">Crackers & festive decor</h3>
-                <p className="text-sm text-anchor-cream-text/70">Tables arrive dressed with crackers, candles and a proper Christmas glow.</p>
+                <h3 className="text-lg font-semibold text-anchor-cream-text">Crackers, candles & proper festive warmth</h3>
+                <p className="text-sm text-anchor-cream-text/70">Tables dressed for Christmas with crackers and candlelight. A real village pub with character — not a chain restaurant with tinsel.</p>
               </div>
             </Card>
           </Grid>
@@ -536,9 +552,9 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
       <Section background="gray" spacing="md">
         <Container>
           <div className="mx-auto max-w-5xl space-y-4 text-center">
-            <h2 className="text-3xl font-bold text-anchor-cream-text">2026 festive packages &amp; pricing</h2>
+            <h2 className="text-3xl font-bold text-anchor-cream-text">2026 Christmas party packages &amp; pricing</h2>
             <p className="text-base text-anchor-cream-text/70">
-              Book shared party nights, private dining and Sunday lunches with transparent per-person pricing. Pick the option that fits your Heathrow Christmas party or Surrey celebration, then submit your enquiry to lock in dates.
+              Whether you're after a shared Christmas party night, a private festive dinner or a buffet for the whole department, we've got transparent per-person pricing with no hidden hire fees. Pick your Christmas party package, then send your enquiry to lock in a date.
             </p>
           </div>
           <div className="mt-8 overflow-hidden rounded-2xl border border-anchor-gold/15 bg-anchor-bg-card">
@@ -603,12 +619,12 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
       <Section background="white" spacing="sm">
         <Container>
           <div className="mx-auto max-w-4xl space-y-4 text-center">
-            <h2 className="text-2xl font-bold text-anchor-cream-text">Christmas party venue minutes from Heathrow &amp; Staines</h2>
+            <h2 className="text-2xl font-bold text-anchor-cream-text">Christmas party venue minutes from Heathrow, Staines &amp; Surrey</h2>
             <p className="text-base text-anchor-cream-text/70">
-              The Anchor is a favourite choice for Christmas party venues near Heathrow, Staines-upon-Thames and Ashford. We're seven minutes from Terminal 5, fifteen from the Terminal 2 landside entrance and just over the river from Windsor - so airport teams, local businesses and Surrey neighbours can celebrate without the stress of city travel. As a relaxed Christmas party venue Surrey organisers rely on, we host Christmas parties Heathrow crews and remain one of the Christmas party venues Heathrow teams book year after year.
+              The Anchor is one of the most popular Christmas party venues in Surrey for a reason — we're seven minutes from Heathrow Terminal 5, fifteen from Terminal 2 and just over the river from Windsor. Airport teams, Staines offices and Surrey neighbours celebrate here without the stress of city travel. If you're searching for Christmas parties near Heathrow or a Christmas lunch in Surrey, you've found the right place.
             </p>
             <p className="text-sm text-anchor-cream-text/70">
-              Looking for great value or even cheap Christmas parties around Heathrow? Weeknight dining is priced from £36.95 for full three-course feasts with all the trimmings, making us one of the best-priced Christmas party pubs in Surrey without compromising on hospitality. It's a welcoming Christmas party pub Staines teams can walk to, the Christmas party pub Terminal 2 landside crews recommend, and a handy base for a Christmas party in Staines, Ashford or Windsor.
+              We're also one of the best-value options around. Mid-week Christmas dinners start at £36.95 for a full three-course meal with all the trimmings, and festive lunches run on the same menu — so whether your team wants a Christmas lunch near Staines or an evening works Christmas do after shifts, the price stays fair. As a Christmas party venue outside the ULEZ zone with free parking, we save your guests money before they've even ordered a drink. That's why Heathrow crews, Poyle business park teams and west London groups book us year after year.
             </p>
           </div>
         </Container>
@@ -617,16 +633,16 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
       <Section background="white" spacing="sm">
         <Container>
           <div className="mx-auto max-w-4xl text-center space-y-5">
-            <h3 className="text-xl font-semibold text-anchor-cream-text">Planning from nearby towns?</h3>
+            <h3 className="text-xl font-semibold text-anchor-cream-text">Planning from a nearby town?</h3>
             <p className="text-sm text-anchor-cream-text/70">
-              We regularly welcome festive groups from across Surrey and West London. Explore our local guides below and then send your enquiry when you're ready to reserve a date.
+              We welcome festive groups from across Surrey and west London every December. Browse our local guides, then send your enquiry.
             </p>
             <div className="flex flex-wrap justify-center gap-3">
               {[
-                { href: '/staines-pub', label: 'Christmas gatherings from Staines-upon-Thames' },
-                { href: '/ashford-pub', label: 'Ashford & Stanwell Christmas meet-ups' },
-                { href: '/windsor-pub', label: 'Windsor festive party ideas' },
-                { href: '/heathrow-hotels-pub', label: 'Heathrow hotel teams & layovers' }
+                { href: '/staines-pub', label: 'Christmas parties from Staines-upon-Thames' },
+                { href: '/ashford-pub', label: 'Ashford & Stanwell festive gatherings' },
+                { href: '/windsor-pub', label: 'Windsor Christmas party ideas' },
+                { href: '/heathrow-hotels-pub', label: 'Heathrow hotel teams & airport crews' }
               ].map(link => (
                 <Link
                   key={link.href}
@@ -663,7 +679,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                 </tbody>
               </table>
               <p className="px-4 py-4 text-sm text-anchor-cream-text/70 border-t border-anchor-gold/15">
-                Children under 12 dine for £12.95 (2 courses) or £15.95 (3 courses). Christmas bookings are for parties of six or more. A £10 per person deposit secures your festive reservation and is non-refundable. Full pre-orders for every guest are due seven days in advance; we&apos;ll do our utmost with late changes but can&apos;t guarantee them. Please flag dietary requirements when you order so we can arrange suitable alternatives – some substitutions may carry a small surcharge. Tables are reserved for two hours as standard.
+                Our festive menu is available for parties of six or more. A £10 per person deposit secures your Christmas party booking and is non-refundable. Full pre-orders for every guest are due seven days in advance — we&apos;ll do our best with late changes but can&apos;t guarantee them. Flag dietary requirements when you order so we can prepare suitable alternatives; some substitutions may carry a small surcharge. Tables are reserved for two hours as standard.
               </p>
             </div>
             <div className="flex flex-col md:flex-row justify-center gap-4">
@@ -709,10 +725,10 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
           <div className="grid items-start gap-8 lg:grid-cols-2">
             <div className="space-y-6">
               <Badge className="bg-red-100 text-red-700 w-fit">Festive 3-course set menu</Badge>
-              <h2 className="text-3xl font-bold text-anchor-cream-text">Christmas menu snapshot</h2>
-              <p className="text-sm italic text-anchor-cream-text/70 mb-2">Sample menu - 2026 selection to be confirmed in October</p>
+              <h2 className="text-3xl font-bold text-anchor-cream-text">Our festive menu</h2>
+              <p className="text-sm italic text-anchor-cream-text/70 mb-2">Sample menu — 2026 selection confirmed in October</p>
               <p className="text-base sm:text-lg text-anchor-cream-text/70">
-                Three generous courses that feel like Christmas at home - just with more room for everyone. Whether you're after a Christmas dinner near Heathrow, typing "Christmas dinner near me" from Terminal 5, eyeing a Christmas lunch near Staines or planning a festive pub feast for Surrey colleagues, every main arrives with herb-crusted triple-cooked roast potatoes, seasonal vegetables, Yorkshire puddings, pigs in blankets, sage &amp; onion stuffing and our signature gravy to share.
+                Three generous courses that feel like Christmas at home, just with someone else doing the washing up. Whether you're booking a festive dinner for Friday night or a Christmas lunch for the team on a Tuesday, every main arrives with herb-crusted triple-cooked roast potatoes, seasonal vegetables, Yorkshire puddings, pigs in blankets, sage &amp; onion stuffing and our signature gravy. It's the same festive menu for lunch and dinner — so your Christmas meal tastes just as good at midday.
               </p>
               <p className="text-sm text-anchor-gold font-semibold">Available for festive parties of six or more guests.</p>
               <div className="space-y-5 text-left">
@@ -797,9 +813,9 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
       <Section background="gray" spacing="md" container>
         <Container>
           <div className="max-w-4xl mx-auto space-y-6 text-center">
-            <h2 className="text-3xl font-bold text-anchor-cream-text">Build the feast your way</h2>
+            <h2 className="text-3xl font-bold text-anchor-cream-text">Build your Christmas feast your way</h2>
             <p className="text-anchor-cream-text/70">
-              Add sharers and drinks bundles so everything arrives just how your guests like it. Let us know and we'll have them waiting on the table.
+              Add sharing platters and drinks bundles to round off your festive meal. Let us know what you'd like and we'll have everything waiting on the table when you arrive.
             </p>
           </div>
 
@@ -854,9 +870,9 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
       <Section background="white" spacing="md">
         <Container>
           <div className="max-w-4xl mx-auto text-center space-y-6">
-            <h2 className="text-3xl font-bold text-anchor-cream-text">Seasonal offers</h2>
+            <h2 className="text-3xl font-bold text-anchor-cream-text">Seasonal offers & perks</h2>
             <p className="text-anchor-cream-text/70">
-              Pick the perks that suit your celebration and include them in your enquiry.
+              Choose the extras that suit your celebration and include them in your Christmas party booking.
             </p>
           </div>
 
@@ -892,7 +908,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
           <div className="max-w-4xl mx-auto text-center space-y-6">
             <h2 className="text-3xl font-bold text-anchor-cream-text">Festive buffets for 26 or more guests</h2>
             <p className="text-anchor-cream-text/70">
-              Ideal for standing receptions, quiz nights and team gatherings. Buffets are laid out for 90 minutes with hot dishes refreshed for the first hour, giving you a flexible option for a Christmas party in Heathrow or a late-night celebration in Staines.
+              Standing receptions, quiz nights, team gatherings — buffets keep things relaxed. Food is laid out for 90 minutes with hot dishes refreshed for the first hour, giving you a flexible Christmas party format that works for afternoon celebrations and late-night dos alike.
             </p>
           </div>
 
@@ -901,12 +917,12 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
               {
                 title: 'Festive Sandwich & Salad',
                 price: '£10.95 per person',
-                description: 'Seasonal sandwich platter with turkey, stuffing & cranberry alongside house favourites, mixed leaf salad, crisps, crudités and dips.'
+                description: 'Seasonal sandwich platters with turkey, stuffing & cranberry alongside house favourites, mixed leaf salad, crisps, crudites and dips.'
               },
               {
                 title: 'Festive Hot Finger',
                 price: '£13.95 per person',
-                description: 'Sandwich selection plus chicken goujons, pigs in blankets, sausage rolls, mini pizzas, spring rolls and plenty of dipping sauces.'
+                description: 'Everything from the sandwich tier plus chicken goujons, pigs in blankets, sausage rolls, mini pizzas, spring rolls and dipping sauces.'
               },
               {
                 title: 'Festive Premium Grazing',
@@ -963,9 +979,9 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                   Service notes
                 </h3>
                 <ul className="space-y-2 text-sm text-anchor-cream-text/70">
-                  <li>Designed for groups of 26+ with 90-minute buffet window.</li>
-                  <li>Hot options topped up for the first 60 minutes.</li>
-                  <li>Deposit £10pp, pre-order 7 days ahead, final numbers 72 hours prior.</li>
+                  <li>Designed for groups of 26+ with a 90-minute buffet window.</li>
+                  <li>Hot options refreshed for the first 60 minutes.</li>
+                  <li>Deposit £10 per person, pre-order 7 days ahead, final numbers 72 hours prior.</li>
                   <li>Optional 10% service charge for parties of 6+.</li>
                   <li>Vegetarian, vegan and gluten-free swaps available.</li>
                 </ul>
@@ -985,7 +1001,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
             </div>
             <div className="md:w-1/2 space-y-4 text-left">
               <h3 className="text-2xl font-bold text-anchor-cream-text">Ready to feed a crowd?</h3>
-              <p className="text-sm text-anchor-cream-text/70">We'll dress the buffet tables with signage, festive decor and all condiments. Tell us your guest count and we'll suggest the right tier and add-ons.</p>
+              <p className="text-sm text-anchor-cream-text/70">Ready to feed a crowd? We'll dress the buffet tables with signage, festive decor and all condiments. Tell us your guest count and we'll suggest the right tier and add-ons.</p>
               <Button
                 variant="primary"
                 size="md"
@@ -1013,30 +1029,30 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
             <Card className="h-full">
               <div className="p-6 space-y-3">
                 <h3 className="text-lg font-semibold text-anchor-cream-text">Private Dining Room</h3>
-                <p className="text-sm text-anchor-cream-text/70">Seat up to 25 guests per sitting with cosy decor and direct service. Ideal for Heathrow airport teams, Staines offices and family gatherings wanting a Christmas party pub atmosphere.</p>
+                <p className="text-sm text-anchor-cream-text/70">Seat up to 25 guests with cosy decor and direct table service. Ideal for a Christmas lunch with family, an intimate works do or a small staff Christmas party away from the main bar.</p>
               </div>
             </Card>
             <Card className="h-full">
               <div className="p-6 space-y-3">
                 <h3 className="text-lg font-semibold text-anchor-cream-text">Main Bar & Dining</h3>
-                <p className="text-sm text-anchor-cream-text/70">Flexible layouts for larger celebrations or buffet-style evenings. We'll shape the room around plans for Heathrow Christmas parties, Terminal 2 landside crews and Surrey community nights.</p>
+                <p className="text-sm text-anchor-cream-text/70">Flexible layouts for larger celebrations — sit-down dinners, buffet-style evenings or standing receptions. We'll shape the room to fit your Christmas party, whether it's 30 or 60 guests.</p>
               </div>
             </Card>
             <Card className="h-full">
               <div className="p-6 space-y-3">
-                <h3 className="text-lg font-semibold text-anchor-cream-text">Light-filled conservatory</h3>
-                <p className="text-sm text-anchor-cream-text/70">Bright, semi-private space with festive decor perfect for welcome drinks, dessert stations or kids tables for Christmas parties in Ashford, Staines and the Heathrow villages.</p>
+                <h3 className="text-lg font-semibold text-anchor-cream-text">Light-filled Conservatory</h3>
+                <p className="text-sm text-anchor-cream-text/70">Bright, semi-private space perfect for welcome drinks, dessert stations or children's tables. Works beautifully for afternoon Christmas lunches when you want natural daylight.</p>
               </div>
             </Card>
           </Grid>
           <div className="mt-10 text-sm text-anchor-cream-text/70 text-center space-y-2">
-            <p>Free on-site parking for around 20 cars • Five minutes from Heathrow Terminal 5 • Ten minutes to Staines-upon-Thames • Outside the ULEZ • Also a handy Windsor Christmas party venue • Sheltered smoking area available</p>
+            <p>Free on-site parking for around 20 cars · Seven minutes from Heathrow Terminal 5 · Ten minutes to Staines-upon-Thames · Outside the ULEZ · Sheltered smoking area</p>
             <p>
               Driving from farther afield?{' '}
               <Link href="/blog/cheap-heathrow-parking-alternatives" className="underline decoration-dotted hover:text-anchor-gold transition-colors">Read our cheap Heathrow parking guide</Link>{' '}
               or{' '}
               <Link href="/heathrow-parking" className="underline decoration-dotted hover:text-anchor-gold transition-colors">pre-book parking at The Anchor</Link>{' '}
-              so your guests arrive without stress.
+              so your guests arrive stress-free.
             </p>
           </div>
         </Container>
@@ -1049,15 +1065,15 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
           </div>
           <div className="max-w-3xl mx-auto mt-8">
             <ul className="space-y-3 text-sm text-anchor-cream-text/70">
-              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid" />Deposit £10 per person to secure your festive booking – deposits are non-refundable.</li>
-              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid" />Full pre-orders for every guest are required at least seven days before your meal.</li>
-              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid" />We&apos;ll always try to help with last-minute changes, but we can&apos;t guarantee them once your order is confirmed.</li>
-              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid" />Standard table time is two hours, with longer sittings available for larger parties.</li>
+              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid" />A £10 per person deposit secures your Christmas party booking. Deposits are non-refundable.</li>
+              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid" />Full pre-orders for every guest are due at least seven days before your Christmas meal.</li>
+              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid" />We&apos;ll always try to accommodate last-minute changes, but once your order is confirmed we can&apos;t guarantee them.</li>
+              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid" />Standard table time is two hours. Longer sittings available for larger parties.</li>
               <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid" />An optional 10% service charge applies to tables of six or more.</li>
-              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid" />Include any dietary requirements or allergies with your pre-order so we can provide suitable alternatives; some substitutions may carry a small surcharge.</li>
+              <li className="flex items-start gap-3"><Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid" />Include dietary requirements or allergies with your pre-order so the kitchen can prepare suitable alternatives. Some substitutions may carry a small surcharge.</li>
               <li className="flex items-start gap-3">
                 <Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid" />
-                <span>Need guest parking? Share our <Link href="/blog/cheap-heathrow-parking-alternatives" className="underline decoration-dotted hover:text-anchor-gold transition-colors">cheap Heathrow parking tips</Link> or direct drivers to <Link href="/heathrow-parking" className="underline decoration-dotted hover:text-anchor-gold transition-colors">pre-booked spaces at The Anchor</Link>.</span>
+                <span>Guests driving? Share our <Link href="/blog/cheap-heathrow-parking-alternatives" className="underline decoration-dotted hover:text-anchor-gold transition-colors">cheap Heathrow parking tips</Link> or point them to <Link href="/heathrow-parking" className="underline decoration-dotted hover:text-anchor-gold transition-colors">pre-booked spaces at The Anchor</Link>.</span>
               </li>
             </ul>
           </div>
@@ -1070,7 +1086,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
             <div className="text-center space-y-4">
               <h2 className="text-3xl font-bold text-anchor-cream-text">Why book your Christmas party at The Anchor?</h2>
               <p className="text-base text-anchor-cream-text/70 max-w-3xl mx-auto">
-                We have been hosting Christmas parties near Heathrow for years, and there are some pretty good reasons people keep coming back. Whether you are planning a corporate Christmas party for airport colleagues or a festive get-together with mates from Staines, here is why The Anchor Pub is the Christmas party venue Heathrow teams, Surrey offices and local groups choose again and again.
+                We've been hosting Christmas parties near Heathrow for years, and people keep coming back. Whether you're planning a staff Christmas party for airport colleagues, a festive lunch for the team or a Friday-night Christmas do with mates from Staines, here's why The Anchor is the Christmas party venue Surrey groups choose again and again.
               </p>
             </div>
             <Grid cols={3} gap="md">
@@ -1093,9 +1109,9 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
           <div className="max-w-5xl mx-auto space-y-8">
             <div className="text-center space-y-4">
               <Badge className="bg-red-100 text-red-700 w-fit mx-auto">Corporate &amp; office parties</Badge>
-              <h2 className="text-3xl font-bold text-anchor-cream-text">Corporate Christmas parties near Heathrow</h2>
+              <h2 className="text-3xl font-bold text-anchor-cream-text">Office Christmas party venue near Heathrow</h2>
               <p className="text-base text-anchor-cream-text/70 max-w-3xl mx-auto">
-                If you have been tasked with organising the office Christmas party, you already know the drill: find somewhere everyone can get to, keep it within budget, and make sure people actually enjoy themselves. We make all three easy.
+                Been tasked with organising the works Christmas do? You need somewhere everyone can get to, food that's actually good, and a bill that won't make finance wince. We make all three easy — and we've been hosting office Christmas parties for Heathrow businesses, Poyle teams and Surrey offices for years.
               </p>
             </div>
             <div className="grid md:grid-cols-2 gap-8 items-start">
@@ -1104,23 +1120,23 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                 <ul className="space-y-3 text-sm text-anchor-cream-text/70">
                   <li className="flex items-start gap-3">
                     <Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid flex-shrink-0" />
-                    <span><strong className="text-anchor-cream-text">Central for distributed teams</strong> — seven minutes from Heathrow Terminal 5, two minutes off the M25 Junction 14. Colleagues arriving from different offices, terminals or even different countries can meet in one easy spot.</span>
+                    <span><strong className="text-anchor-cream-text">Central for distributed teams</strong> — Seven minutes from Heathrow T5, two minutes off M25 J14. Colleagues from different offices, terminals or countries meet in one easy spot.</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid flex-shrink-0" />
-                    <span><strong className="text-anchor-cream-text">VAT invoices and corporate billing</strong> — proper invoices for the accounts department, pre-payment options for bar tabs, and deposit invoicing to keep finance happy.</span>
+                    <span><strong className="text-anchor-cream-text">VAT invoices and corporate billing</strong> — Proper invoices for accounts, pre-payment options for bar tabs, and deposit invoicing so finance stays happy.</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid flex-shrink-0" />
-                    <span><strong className="text-anchor-cream-text">Simple pre-order system</strong> — no more chasing colleagues for menu choices via spreadsheets. We send you a simple form link to share with your team.</span>
+                    <span><strong className="text-anchor-cream-text">Simple pre-order system</strong> — No more chasing colleagues for menu choices on spreadsheets. We send you a form link to share with the team.</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid flex-shrink-0" />
-                    <span><strong className="text-anchor-cream-text">Free parking and ULEZ-free</strong> — around 20 free spaces on-site and we are outside the ULEZ zone. No parking charges, no congestion fees, no hidden costs for your team.</span>
+                    <span><strong className="text-anchor-cream-text">Free parking and ULEZ-free</strong> — Around 20 free spaces plus we're outside the ULEZ zone. No parking charges, no congestion fees.</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid flex-shrink-0" />
-                    <span><strong className="text-anchor-cream-text">The organiser perk</strong> — book a group of 20 or more and receive a £40 voucher for yourself in January. A little thank-you for doing the hard work.</span>
+                    <span><strong className="text-anchor-cream-text">The organiser perk</strong> — Book a staff Christmas party for 20 or more and receive a £40 voucher for yourself in January. You've earned it.</span>
                   </li>
                 </ul>
               </div>
@@ -1128,23 +1144,23 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                 <h3 className="text-xl font-semibold text-anchor-cream-text">Popular corporate setups</h3>
                 <div className="space-y-4">
                   <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-raised p-5">
-                    <h4 className="font-semibold text-anchor-cream-text mb-1">Small team dinner (6-25)</h4>
-                    <p className="text-sm text-anchor-cream-text/70">Private dining room with three-course festive menu, crackers and candles. From £36.95 per person midweek. Ideal for Poyle, Colnbrook and Heathrow business park teams.</p>
+                    <h4 className="font-semibold text-anchor-cream-text mb-1">Small team dinner (6–25)</h4>
+                    <p className="text-sm text-anchor-cream-text/70">Private dining room with three-course festive menu, crackers and candles. From £36.95 per person midweek. Popular with Poyle, Colnbrook and Heathrow business park teams.</p>
                   </div>
                   <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-raised p-5">
-                    <h4 className="font-semibold text-anchor-cream-text mb-1">Department celebration (26-60)</h4>
-                    <p className="text-sm text-anchor-cream-text/70">Main bar and dining area configured for your group with buffet or sit-down service. Add entertainment like a quiz or Music Bingo for a memorable corporate Christmas party near Heathrow.</p>
+                    <h4 className="font-semibold text-anchor-cream-text mb-1">Department celebration (26–60)</h4>
+                    <p className="text-sm text-anchor-cream-text/70">Main bar configured for your group with buffet or sit-down service. Add a quiz or Music Bingo for a memorable works Christmas do.</p>
                   </div>
                   <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-raised p-5">
-                    <h4 className="font-semibold text-anchor-cream-text mb-1">Full venue hire (60-200)</h4>
-                    <p className="text-sm text-anchor-cream-text/70">Exclusive use of the entire pub. Bring a DJ, hire a live band, or let us arrange karaoke. Late bar until midnight. Perfect for larger corporate Christmas parties and airline crew celebrations.</p>
+                    <h4 className="font-semibold text-anchor-cream-text mb-1">Full venue hire (60–200)</h4>
+                    <p className="text-sm text-anchor-cream-text/70">Exclusive use of the entire pub. Bring a DJ, book a live band, or let us set up karaoke. Late bar until midnight. Perfect for airline crews and larger corporate Christmas parties.</p>
                   </div>
                 </div>
               </div>
             </div>
             <div className="text-center">
               <p className="text-sm text-anchor-cream-text/70 mb-4">
-                Already organising? Check our <Link href="/corporate-christmas-parties" className="underline decoration-dotted text-anchor-gold hover:text-anchor-gold-vivid transition">dedicated corporate Christmas parties page</Link> for more detail on packages for Heathrow businesses.
+                Already organising? See our <Link href="/corporate-christmas-parties" className="underline decoration-dotted text-anchor-gold hover:text-anchor-gold-vivid transition">dedicated corporate Christmas parties page</Link> for detailed packages.
               </p>
             </div>
           </div>
@@ -1157,7 +1173,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
             <div className="text-center space-y-4">
               <h2 className="text-3xl font-bold text-anchor-cream-text">Christmas party ideas at The Anchor</h2>
               <p className="text-base text-anchor-cream-text/70 max-w-3xl mx-auto">
-                Not every Christmas party needs to be a standard sit-down dinner. We host all kinds of festive celebrations and can tailor the evening around your group. Here are some of our most popular Christmas party ideas near Heathrow and Staines.
+                Not every Christmas do needs to be a standard sit-down meal. We host all sorts of festive celebrations and can shape the evening around your group. Here are some of our most popular ideas.
               </p>
             </div>
             <Grid cols={2} gap="md">
@@ -1210,10 +1226,10 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
               <Icon name="clock" className="mx-auto h-10 w-10 text-red-600" />
               <h2 className="text-2xl font-bold text-anchor-cream-text">Book early — December dates fill fast</h2>
               <p className="text-base text-anchor-cream-text/70">
-                Every year we see the same thing: Friday and Saturday nights in December are fully booked by October, and midweek slots fill up shortly after. If you have a preferred date for your Christmas party near Heathrow, the sooner you get in touch the better your chances. We only have one private dining room and a limited number of evening slots, so once they are gone, they are gone.
+                Every year it's the same story: Friday and Saturday nights sell out by October, and midweek Christmas party slots fill shortly after. Whether you're planning a festive dinner, a Christmas lunch or a works do, the sooner you get in touch the better your chances.
               </p>
               <p className="text-sm text-anchor-cream-text/70">
-                Not sure about exact numbers yet? That is fine. Send an enquiry with your rough headcount and preferred week, and we will pencil you in while you finalise the guest list. A £10 per person deposit secures your date.
+                Not sure about exact numbers yet? No problem. Send an enquiry with your rough headcount and preferred week and we'll pencil you in while you finalise the guest list. A £10 per person deposit secures your date.
               </p>
               <div className="flex flex-col md:flex-row justify-center gap-4 pt-2">
                 <Button
@@ -1260,7 +1276,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
           <div className="text-center space-y-8">
             <h2 className="text-4xl font-bold text-anchor-gold-vivid">Ready to plan your Christmas at The Anchor?</h2>
             <p className="text-lg text-anchor-cream-text/70 max-w-2xl mx-auto">
-              Send your enquiry and we'll come back within one working day. Need a quicker answer? Call the team and we'll help right away.
+              Send your enquiry and we'll come back within one working day. Need a quicker answer? Call the team — we're here to help.
             </p>
             <div className="flex flex-col md:flex-row justify-center gap-4">
               <Button
