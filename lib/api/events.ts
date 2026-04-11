@@ -92,6 +92,15 @@ export interface Event {
   performer_type?: string | null
   metaTitle?: string | null
   metaDescription?: string | null
+  // SEO Keyword Engine fields
+  primary_keywords?: string[]
+  secondary_keywords?: string[]
+  local_seo_keywords?: string[]
+  image_alt_text?: string | null
+  cancellation_policy?: string | null
+  accessibility_notes?: string | null
+  previous_event_summary?: string | null
+  attendance_note?: string | null
   category?: {
     id: string
     name: string
