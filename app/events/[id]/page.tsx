@@ -28,6 +28,10 @@ import {
   MOTHERS_DAY_BOOKING_CTA_LABEL
 } from '@/lib/mothers-day-booking'
 import { getEventPriceLabel } from '@/lib/event-pricing'
+import { getEventSeoStrategy, getCategoryPageUrl, isFallbackEvent, PAST_EVENT_REDIRECT_DAYS, CANCELLED_INDEX_DAYS } from '@/lib/event-seo-strategy'
+import { getUpcomingEventsByCategory } from '@/lib/api/events'
+import RelatedEvents from '@/components/events/RelatedEvents'
+import LiteYouTube from '@/components/events/LiteYouTube'
 
 type Props = {
   params: { id: string }
@@ -163,14 +167,31 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       event.description ||
       `Join us for ${event.name} at The Anchor in Stanwell Moor. ${formatEventDate(event.startDate)} at ${formatEventTime(event.startDate)}.`
     
+    // Determine if event should be noindexed
+    const eventDate = Date.parse(event.startDate)
+    const daysSinceEvent = (Date.now() - eventDate) / (1000 * 60 * 60 * 24)
+    const eventStatus = normalizeEventStatus(event)
+    const shouldNoindex =
+      (daysSinceEvent > PAST_EVENT_REDIRECT_DAYS) ||
+      (eventStatus === 'cancelled' && daysSinceEvent > CANCELLED_INDEX_DAYS)
+
+    // Merge keyword arrays
+    const keywords = [
+      ...(event.primary_keywords || []),
+      ...(event.secondary_keywords || []),
+      ...(event.local_seo_keywords || [])
+    ].join(', ') || undefined
+
     return {
       title: event.metaTitle || `${event.name} | The Anchor - Heathrow Pub & Dining`,
       description,
+      keywords,
+      ...(shouldNoindex ? { robots: { index: false, follow: true } } : {}),
       alternates: {
         canonical,
       },
       openGraph: {
-        title: event.name,
+        title: event.metaTitle || event.name,
         description: event.shortDescription || event.description || `Event at The Anchor - ${formatEventDate(event.startDate)}`,
         url: canonical,
         siteName: 'The Anchor',
@@ -185,7 +206,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         type: 'website',
       },
       twitter: getTwitterMetadata({
-        title: event.name,
+        title: event.metaTitle || event.name,
         description,
         images: [ogImage]
       })
@@ -217,7 +238,27 @@ export default async function EventPage({ params }: Props) {
     notFound()
   }
 
+  // Event lifecycle SEO strategy — redirect stale past/cancelled events
   const isPastEvent = isEventInPast(event)
+  if (isPastEvent || normalizeEventStatus(event) === 'cancelled') {
+    let nextEvent = null
+    if (event.category?.id) {
+      try {
+        const upcoming = await getUpcomingEventsByCategory(event.category.id, 1)
+        const validUpcoming = upcoming.filter(e => !isFallbackEvent(e) && e.id !== params.id)
+        nextEvent = validUpcoming[0] || null
+      } catch {
+        nextEvent = null
+      }
+    }
+
+    const seoStrategy = getEventSeoStrategy(event, nextEvent)
+
+    if (seoStrategy.redirect) {
+      permanentRedirect(seoStrategy.redirect)
+    }
+  }
+
   const bookingBlockReason = getEventBookingBlockReason(event)
   const bookingDisabledCopy = bookingBlockReason ? getBookingDisabledCopy(bookingBlockReason) : null
   const statusNotice = getStatusNotice(status, isPastEvent)
@@ -263,6 +304,10 @@ export default async function EventPage({ params }: Props) {
   const mothersDayBookingUrl = buildMothersDayBookingUrl()
   const mothersDayBookingCopy =
     'Choose each guest’s Sunday lunch main in the booking flow, then pay the £10 per person deposit to secure your table.'
+  const imageAlt = event.image_alt_text || `${event.name} - ${event.category?.name || 'Event'} at The Anchor, Stanwell Moor`
+  const blurDataURL = `data:image/svg+xml;base64,${Buffer.from(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1"><rect fill="${event.category?.color || '#1a1a2e'}" width="1" height="1"/></svg>`
+  ).toString('base64')}`
   const heroRoute = `/events/${encodeURIComponent(canonicalSegment || params.id)}`
   const rawHeroDescription = event.shortDescription || event.brief || null
   const heroDescription = rawHeroDescription
@@ -343,6 +388,7 @@ export default async function EventPage({ params }: Props) {
         description={heroDescription}
         breadcrumbs={[
           { name: "What's On", href: '/whats-on' },
+          ...(event.category ? [{ name: event.category.name, href: getCategoryPageUrl(event.category.slug) }] : []),
           { name: event.name }
         ]}
         tags={heroTags}
@@ -370,11 +416,13 @@ export default async function EventPage({ params }: Props) {
                 <div className="relative aspect-square rounded-2xl overflow-hidden shadow-lg max-w-md mx-auto">
                   <Image
                     src={event.heroImageUrl || event.image![0]}
-                    alt={event.name}
+                    alt={imageAlt}
                     fill
                     className="object-cover"
                     sizes="(max-width: 768px) 100vw, 420px"
                     priority
+                    placeholder="blur"
+                    blurDataURL={blurDataURL}
                   />
                 </div>
               </div>
@@ -414,11 +462,13 @@ export default async function EventPage({ params }: Props) {
                   <div className="hidden lg:block relative aspect-square rounded-2xl overflow-hidden mb-6 shadow-lg">
                     <Image
                       src={event.heroImageUrl || event.image![0]}
-                      alt={event.name}
+                      alt={imageAlt}
                       fill
                       className="object-cover"
                       sizes="420px"
                       priority
+                      placeholder="blur"
+                      blurDataURL={blurDataURL}
                     />
                   </div>
                 )}
@@ -543,11 +593,45 @@ export default async function EventPage({ params }: Props) {
                   </CardBody>
                 </Card>
 
+                {/* Social Proof */}
+                {(event.previous_event_summary || event.attendance_note) && (
+                  <div className="mb-6 p-4 rounded-lg bg-anchor-bg-raised/30 border border-anchor-gold/10">
+                    {event.previous_event_summary && (
+                      <p className="text-sm text-anchor-cream-text/70">
+                        <span className="font-medium text-anchor-gold-vivid">Last time:</span> {event.previous_event_summary}
+                      </p>
+                    )}
+                    {event.attendance_note && (
+                      <p className="text-sm text-anchor-cream-text/70 mt-1">
+                        {event.attendance_note}
+                      </p>
+                    )}
+                  </div>
+                )}
+
                 {/* Description */}
                 {(event.longDescription || event.about || event.description) && (
                   <div className="mb-6 lg:mb-8">
                     <h2 className="text-xl md:text-2xl font-bold text-anchor-gold-vivid mb-3 md:mb-4">About This Event</h2>
                     <p className="text-anchor-cream-text/70 whitespace-pre-wrap text-base md:text-lg leading-relaxed">{event.longDescription || event.about || event.description}</p>
+                  </div>
+                )}
+
+                {/* Category Link */}
+                {event.category && (
+                  <Link
+                    href={getCategoryPageUrl(event.category.slug)}
+                    className="inline-flex items-center text-sm text-anchor-gold hover:text-anchor-gold-light hover:underline mb-6"
+                  >
+                    View all {event.category.name} events &rarr;
+                  </Link>
+                )}
+
+                {/* Cancellation Policy */}
+                {event.cancellation_policy && (
+                  <div className="mt-4 mb-6 p-3 rounded-md bg-anchor-bg-raised/20 border border-anchor-gold/10">
+                    <p className="text-xs font-medium text-anchor-gold-vivid mb-1">Cancellation Policy</p>
+                    <p className="text-sm text-anchor-cream-text/70">{event.cancellation_policy}</p>
                   </div>
                 )}
 
@@ -596,7 +680,15 @@ export default async function EventPage({ params }: Props) {
                   </div>
                 </CardBody>
               </Card>
-            
+
+              {/* Accessibility */}
+              {event.accessibility_notes && (
+                <div className="p-3 rounded-md bg-anchor-bg-raised/20 border border-anchor-gold/10">
+                  <p className="text-xs font-medium text-anchor-gold-vivid mb-1">Accessibility</p>
+                  <p className="text-sm text-anchor-cream-text/70">{event.accessibility_notes}</p>
+                </div>
+              )}
+
               {/* FAQs */}
               {((event.faq && event.faq.length > 0) || (event.faqPage && event.faqPage.mainEntity.length > 0)) && (
                 <div>
@@ -622,12 +714,7 @@ export default async function EventPage({ params }: Props) {
                     {event.video.map((videoUrl, index) => (
                       <div key={index} className="relative aspect-video rounded-none overflow-hidden bg-anchor-bg-raised">
                         {videoUrl.includes('youtube.com') || videoUrl.includes('youtu.be') ? (
-                          <iframe
-                            src={videoUrl.replace('watch?v=', 'embed/').replace('youtu.be/', 'youtube.com/embed/')}
-                            className="absolute inset-0 w-full h-full"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                          />
+                          <LiteYouTube url={videoUrl} title={`${event.name} - Video ${index + 1}`} />
                         ) : (
                           <video
                             src={videoUrl}
@@ -641,6 +728,14 @@ export default async function EventPage({ params }: Props) {
                 </div>
               )}
             </div>
+          </div>
+          {/* Related Events */}
+          <div className="max-w-6xl mx-auto mt-8">
+            <RelatedEvents
+              currentEventId={event.id}
+              categoryId={event.category?.id}
+              categoryName={event.category?.name}
+            />
           </div>
         </Container>
       </Section>
