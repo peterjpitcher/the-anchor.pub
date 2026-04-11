@@ -11,7 +11,9 @@ Optimise the event template page on the-anchor.pub to consume the new keyword en
 3. Implement authority-preserving event lifecycle (active → recent → redirect/noindex)
 4. Add missing structured data (breadcrumbs, venue amenities)
 5. Add related events section for internal linking
-6. Improve Core Web Vitals (lite YouTube embed, cache headers, blur placeholders)
+6. Improve Core Web Vitals (lite YouTube embed, blur placeholders)
+7. Handle cancelled event SEO correctly
+8. Sync sitemap with event lifecycle
 
 ## Non-Goals
 
@@ -64,6 +66,16 @@ No API client changes needed — `anchorAPI.getEvent()` already returns `*` from
 
 Use the existing `normalizeEventStatus()` from `lib/event-lifecycle.ts` to get the status, then map.
 
+**Also fix `offers.availability`** — currently derived only from `remainingAttendeeCapacity === 0`. Add status-based mapping:
+
+| event_status | offers.availability |
+|-------------|-------------------|
+| `cancelled` | `https://schema.org/Discontinued` |
+| `postponed` | `https://schema.org/PreOrder` |
+| `sold_out` | `https://schema.org/SoldOut` |
+| `scheduled` | Derive from capacity (existing logic) |
+| `rescheduled` | Derive from capacity (existing logic) |
+
 ### Bug 2: Past Events Fully Indexed
 
 **File:** `app/events/[id]/page.tsx` (in `generateMetadata`)
@@ -83,10 +95,38 @@ Use the existing `normalizeEventStatus()` from `lib/event-lifecycle.ts` to get t
 - Canonical stays on this page
 
 **Stage 3 — Stale past** (30+ days after event date — configurable via `PAST_EVENT_REDIRECT_DAYS` constant, default 30):
-- **Recurring events** (same category has a future event): `301 redirect` to the next upcoming instance of the same category. All earned authority flows to the fresh page. If no upcoming instance, redirect to `/whats-on/[category]`.
-- **One-off events** (no future event in same category): `noindex, follow`. Keep page live. Internal links to category listing and What's On pass equity upward.
+- **Recurring events** (same category has a future event): `301 redirect` to the next upcoming instance of the same category. All earned authority flows to the fresh page. If no upcoming instance, redirect to the category's top-level page (see Category URL Mapping below).
+- **One-off events** (no future event in same category): `noindex, follow`. Keep page live. Internal links to category page and What's On pass equity upward.
+- **Events with no category:** Always `noindex, follow` — no redirect (can't determine a meaningful target).
+
+**Cancelled events** (any age):
+- Keep indexed for 7 days after cancellation (people search "is [event] cancelled")
+- After 7 days: `noindex, follow`
+- Don't redirect — the cancellation notice has SEO value
+- Remove from sitemap after 7 days
+- Set `offers.availability` to `https://schema.org/Discontinued`
+
+**Category URL Mapping:** The site uses top-level category pages, NOT `/whats-on/[category]`:
+
+| Category | URL |
+|----------|-----|
+| Quiz Night | `/quiz-night` |
+| Cash Bingo | `/cash-bingo` |
+| Music Bingo | `/music-bingo` |
+| Karaoke | `/karaoke` |
+| Live Music | `/live-music` |
+| Open Mic | `/open-mic` |
+| (fallback) | `/whats-on` |
+
+A `getCategoryPageUrl(categorySlug: string): string` helper maps category slugs to their top-level routes, falling back to `/whats-on` for unknown categories.
 
 **Implementation:** A helper function `getEventSeoStrategy(event, upcomingEvents)` returns `{ index: boolean, redirect?: string }`. The redirect lookup uses the existing `anchorAPI.getEvents({ category_id, from_date, limit: 1 })` to find the next event in the same category.
+
+**Redirect safety:** The API client silently returns synthetic/fallback events when the real API is down. The redirect lookup **must** reject fallback data:
+- Check if the returned event has a synthetic/fallback ID or marker
+- If the API call fails or returns fallback data, skip the redirect entirely
+- Fall back to rendering the current page with `noindex, follow`
+- **Never issue a 301 based on fallback/synthetic data** — permanent redirects are cached by browsers and CDNs and are extremely hard to undo
 
 **Authority preservation rationale:** Recurring events compound authority — every past quiz night redirects to the next one, stacking all backlinks onto the current page. One-off events pass equity to listing pages via `follow` directive. No authority is ever destroyed.
 
@@ -186,26 +226,28 @@ Only shown when `event.accessibility_notes` is non-empty. Also feeds Schema.org 
 
 ## 5. Structured Data Additions
 
-### Breadcrumb Schema
+### Breadcrumb Enhancement
 
-**File:** `app/events/[id]/page.tsx`
+The existing `Breadcrumbs` component (rendered via `HeroWrapper`) already generates both visual breadcrumbs and `BreadcrumbList` JSON-LD. No new file needed. Just add the category level to the breadcrumb data passed to `HeroWrapper`:
 
-Add `BreadcrumbList` JSON-LD alongside the existing `EventSchema`:
-
+**Current:**
 ```typescript
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.the-anchor.pub" },
-    { "@type": "ListItem", "position": 2, "name": "What's On", "item": "https://www.the-anchor.pub/whats-on" },
-    { "@type": "ListItem", "position": 3, "name": event.category?.name, "item": `https://www.the-anchor.pub/whats-on/${event.category?.slug}` },
-    { "@type": "ListItem", "position": 4, "name": event.name }
-  ]
-}
+breadcrumbs={[
+  { name: "What's On", href: '/whats-on' },
+  { name: event.name }
+]}
 ```
 
-Only include category breadcrumb when `event.category` exists. Last item has no `item` URL (current page).
+**Updated:**
+```typescript
+breadcrumbs={[
+  { name: "What's On", href: '/whats-on' },
+  ...(event.category ? [{ name: event.category.name, href: getCategoryPageUrl(event.category.slug) }] : []),
+  { name: event.name }
+]}
+```
+
+This adds a category breadcrumb (e.g. "Home > What's On > Quiz Night > Quiz Night 6 May") with a link to the actual category page (using the `getCategoryPageUrl` helper from the lifecycle section). Omitted when event has no category.
 
 ### Venue Schema Enhancement
 
@@ -230,7 +272,7 @@ location: {
 }
 ```
 
-These are venue constants — hardcoded is appropriate for a single-venue site.
+These are venue constants — hardcoded is appropriate for a single-venue site. Reuse existing venue data from `lib/constants.ts` and `lib/schema-with-reviews.ts` where available to avoid duplication with the `/whats-on` page's `EventVenue` schema.
 
 ### eventStatus Fix
 
@@ -260,11 +302,13 @@ Server component that renders up to 3 related upcoming event cards.
 
 **Section heading:** "More Events at The Anchor"
 
-**Additional contextual links:**
-- "View all [category name] events →" link after the About section
-- "See what's on this week →" link in the CTA section
+**No-category fallback:** When `event.category` is null, skip category-based filtering and fetch any upcoming events. Backfill logic handles this naturally.
 
-**Data source:** `anchorAPI.getEvents({ category_id, from_date: today, limit: 4 })` called server-side in the page component alongside the main event fetch. Filter out the current event client-side to get max 3.
+**Additional contextual links:**
+- "View all [category name] events →" link after the About section — links to `getCategoryPageUrl(event.category.slug)`. Omitted when no category.
+- "See what's on this week →" link in the CTA section — always links to `/whats-on`
+
+**Data source:** `anchorAPI.getEvents({ category_id, from_date: today, limit: 4 })` called server-side. Use the existing `getUpcomingEventsByCategory()` helper from `lib/api/events.ts`. Filter out the current event to get max 3. Follow the existing `UpcomingEvents` component pattern — wrap in its own server component with `try/catch` so API failures don't break the page.
 
 ### SEO Value
 
@@ -284,22 +328,24 @@ Server component that renders up to 3 related upcoming event cards.
 **Fix:** Create a `LiteYouTube` component that:
 1. Renders a thumbnail image with a play button overlay
 2. Only loads the YouTube iframe when the user clicks play
-3. Zero external dependencies — custom implementation using YouTube thumbnail URL pattern: `https://img.youtube.com/vi/[VIDEO_ID]/maxresdefault.jpg`
+3. Zero external dependencies — custom implementation
+
+**Safety requirements:**
+- Parse URLs with `new URL()` — no substring matching
+- Allowlist YouTube hostnames: `youtube.com`, `www.youtube.com`, `youtu.be`, `www.youtube-nocookie.com`
+- Validate video ID is exactly 11 characters matching `/^[a-zA-Z0-9_-]{11}$/`
+- Thumbnail URL: `https://img.youtube.com/vi/[VIDEO_ID]/maxresdefault.jpg`
+- Fall back to `hqdefault.jpg` if `maxresdefault.jpg` fails (not all videos have max resolution)
+- Add `title` attribute to the iframe when loaded (accessibility)
+- If URL doesn't pass validation, fall back to a plain link (not an iframe)
 
 This significantly improves LCP and TTI on pages with promo videos.
 
 ### Cache Strategy
 
-**File:** `app/events/[id]/page.tsx` (route segment config or `revalidate`)
+The existing API-level caching (`revalidate: 300` in the API client) is already appropriate and doesn't need changing. Route-level `revalidate` cannot be set dynamically per-event in Next.js, so the spec does not attempt it.
 
-| Event State | Strategy |
-|-------------|----------|
-| Future (7+ days out) | `revalidate: 3600` (1 hour) |
-| Future (within 7 days) | `revalidate: 300` (5 minutes) |
-| Recently past (0-30 days) | `revalidate: 86400` (24 hours) |
-| Stale past (30+ days) | 301 redirect or `revalidate: 604800` (1 week) |
-
-Implementation via dynamic `revalidate` value based on event date distance.
+The event lifecycle strategy (301 redirects for stale recurring events, noindex for one-offs) handles stale content without needing route-level cache changes. The 300-second API revalidation ensures upcoming events show near-real-time capacity/availability data.
 
 ### Image Blur Placeholder
 
@@ -322,18 +368,17 @@ This provides instant visual feedback while the real image loads, improving perc
 | File | Changes |
 |------|---------|
 | `lib/api/events.ts` | Add 8 new fields to Event interface |
-| `app/events/[id]/page.tsx` | Metadata keywords, OG title, past event lifecycle, image alt, new content sections, breadcrumb schema, related events, cache strategy, blur placeholder |
-| `lib/structured-data/event-schema.ts` | Fix eventStatus mapping, venue amenities, telephone, hasMap |
-| `app/events/[id]/opengraph-image.tsx` | Use image_alt_text for OG image alt attribute |
+| `app/events/[id]/page.tsx` | Metadata keywords + robots, OG title, past event lifecycle, image alt, new content sections, breadcrumb category, related events, blur placeholder |
+| `lib/structured-data/event-schema.ts` | Fix eventStatus mapping, offers.availability mapping, venue amenities, telephone, hasMap, accessibilityFeature, refundPolicy |
+| `app/sitemap.ts` | Exclude stale past events (30+ days) and cancelled events (7+ days) |
 
 ### New Files
 
 | File | Purpose |
 |------|---------|
-| `components/events/RelatedEvents.tsx` | Related events section (server component) |
-| `components/events/LiteYouTube.tsx` | Lightweight YouTube embed (client component) |
-| `lib/event-seo-strategy.ts` | Event lifecycle helper (getEventSeoStrategy) |
-| `lib/structured-data/breadcrumb-schema.ts` | Breadcrumb JSON-LD builder |
+| `components/events/RelatedEvents.tsx` | Related events section (server component with try/catch) |
+| `components/events/LiteYouTube.tsx` | Lightweight YouTube embed with URL validation (client component) |
+| `lib/event-seo-strategy.ts` | Event lifecycle + redirect helper (getEventSeoStrategy, getCategoryPageUrl) |
 
 ---
 
@@ -341,11 +386,16 @@ This provides instant visual feedback while the real image loads, improving perc
 
 All changes are additive. No database changes. No API changes. No breaking changes.
 
-1. Update Event interface
-2. Fix 3 bugs (eventStatus, past event indexing, alt text)
-3. Add keyword consumption to metadata
-4. Add new content sections (social proof, cancellation, accessibility)
-5. Add structured data (breadcrumbs, venue enrichment)
-6. Add related events component
-7. Add performance improvements (lite YouTube, cache, blur)
-8. Test with Google Rich Results Test and PageSpeed Insights
+1. Update Event interface (8 new fields)
+2. Create event SEO strategy helper (lifecycle, category URL mapping, redirect safety)
+3. Fix schema bugs (eventStatus mapping, offers.availability mapping)
+4. Fix image alt text (use image_alt_text field)
+5. Add event lifecycle to page (noindex for stale/cancelled, 301 redirects for recurring)
+6. Add keyword consumption to metadata (keywords meta, OG title)
+7. Add new content sections (social proof, cancellation policy, accessibility notes)
+8. Enhance structured data (breadcrumb category, venue amenities)
+9. Add related events component
+10. Add LiteYouTube component
+11. Update sitemap (exclude stale past and cancelled events)
+12. Add image blur placeholders
+13. Test with Google Rich Results Test and PageSpeed Insights
