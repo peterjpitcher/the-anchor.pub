@@ -238,11 +238,13 @@ export default async function EventPage({ params }: Props) {
     notFound()
   }
 
-  // Event lifecycle SEO strategy — redirect stale past/cancelled events
+  // Event lifecycle SEO strategy — redirect stale past events to next upcoming event
   const isPastEvent = isEventInPast(event)
-  if (isPastEvent || normalizeEventStatus(event) === 'cancelled') {
+  if (isPastEvent) {
+    // Only look up the next event for past (non-cancelled) events.
+    // Cancelled events never redirect — they render with a cancelled banner.
     let nextEvent = null
-    if (event.category?.id) {
+    if (event.category?.id && normalizeEventStatus(event) !== 'cancelled') {
       try {
         const upcoming = await getUpcomingEventsByCategory(event.category.id, 1)
         const validUpcoming = upcoming.filter(e => !isFallbackEvent(e) && e.id !== params.id)

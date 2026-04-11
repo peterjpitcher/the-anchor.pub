@@ -47,14 +47,16 @@ export function getEventSeoStrategy(
   const status = normalizeEventStatus(event)
   const isPast = isEventInPast(event)
 
-  // Cancelled events: index for 7 days, then noindex
+  // Cancelled events: index for 7 days, then noindex.
+  // Note: cancelled events never redirect — the page renders with a cancelled banner.
   if (status === 'cancelled') {
     // We can't reliably know when it was cancelled from the event data,
-    // so use the event date as proxy — noindex if event date was 7+ days ago
+    // so use the event date as proxy — noindex if event date was >7 days ago.
+    // Threshold uses `>` to align with generateMetadata() and app/sitemap.ts.
     const eventDate = Date.parse(event.startDate)
     const daysSinceEvent = (Date.now() - eventDate) / (1000 * 60 * 60 * 24)
     return {
-      index: daysSinceEvent < CANCELLED_INDEX_DAYS,
+      index: daysSinceEvent <= CANCELLED_INDEX_DAYS,
       showEndedBanner: true,
       stage: 'stale',
     }
@@ -65,11 +67,12 @@ export function getEventSeoStrategy(
     return { index: true, showEndedBanner: false, stage: 'active' }
   }
 
-  // Recently past (0-30 days)
+  // Recently past (0-30 days). Threshold uses `<=` to align with
+  // generateMetadata() and app/sitemap.ts which both use `>`.
   const eventDate = Date.parse(event.startDate)
   const daysSinceEvent = (Date.now() - eventDate) / (1000 * 60 * 60 * 24)
 
-  if (daysSinceEvent < PAST_EVENT_REDIRECT_DAYS) {
+  if (daysSinceEvent <= PAST_EVENT_REDIRECT_DAYS) {
     return { index: true, showEndedBanner: true, stage: 'recent' }
   }
 
@@ -84,17 +87,10 @@ export function getEventSeoStrategy(
     }
   }
 
-  // Stale past, no next event — redirect to category page or whats-on
-  if (event.category?.slug) {
-    return {
-      index: false,
-      redirect: getCategoryPageUrl(event.category.slug),
-      showEndedBanner: true,
-      stage: 'stale',
-    }
-  }
-
-  // Stale past, no category — noindex, keep page
+  // Stale past, no next event — noindex but keep the page visible so users
+  // who arrive from event listings can still see event details and book future events.
+  // Category pages (/quiz-night, /music-bingo etc.) are standalone SEO assets and
+  // should not receive redirects from individual event pages.
   return { index: false, showEndedBanner: true, stage: 'stale' }
 }
 
