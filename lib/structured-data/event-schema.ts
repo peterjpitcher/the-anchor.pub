@@ -2,6 +2,8 @@ import { Event } from '@/lib/api'
 import { getEventDateRangeUtc } from '@/lib/event-calendar'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getEventWebsiteUrl } from '@/lib/event-url'
+import { getSchemaEventStatus, getSchemaOfferAvailability } from '@/lib/event-seo-strategy'
+import { CONTACT } from '@/lib/constants'
 
 export function buildEventSchema(event: Event) {
   const eventUrl = getEventWebsiteUrl(event, { absolute: true })
@@ -27,10 +29,7 @@ export function buildEventSchema(event: Event) {
   const offer: Record<string, unknown> = {
     '@type': 'Offer',
     url: bookingUrl,
-    availability:
-      event.remainingAttendeeCapacity === 0
-        ? 'https://schema.org/SoldOut'
-        : 'https://schema.org/InStock'
+    availability: getSchemaOfferAvailability(event)
   }
 
   if (typeof rawPrice === 'string' && rawPrice.trim().length > 0 && hasNumericPrice && numericPrice >= 0) {
@@ -45,7 +44,7 @@ export function buildEventSchema(event: Event) {
     offer.validFrom = event.offers.validFrom
   }
 
-  return {
+  const schema: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': 'Event',
     '@id': eventUrl,
@@ -64,7 +63,7 @@ export function buildEventSchema(event: Event) {
     startDate,
     ...(endDate && { endDate }),
     ...(event.duration && { duration: event.duration }),
-    eventStatus: 'https://schema.org/EventScheduled',
+    eventStatus: getSchemaEventStatus(event),
     eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
     location: {
       '@type': 'Place',
@@ -81,7 +80,17 @@ export function buildEventSchema(event: Event) {
         '@type': 'GeoCoordinates',
         latitude: 51.462509,
         longitude: -0.502067
-      }
+      },
+      telephone: CONTACT.phone,
+      amenityFeature: [
+        { '@type': 'LocationFeatureSpecification', name: 'Free Parking', value: true },
+        { '@type': 'LocationFeatureSpecification', name: 'Dog Friendly', value: true },
+        { '@type': 'LocationFeatureSpecification', name: 'Family Friendly', value: true },
+        { '@type': 'LocationFeatureSpecification', name: 'Wheelchair Accessible', value: true },
+        { '@type': 'LocationFeatureSpecification', name: 'Free WiFi', value: true },
+        { '@type': 'LocationFeatureSpecification', name: 'Beer Garden', value: true },
+      ],
+      hasMap: 'https://maps.google.com/?q=The+Anchor+Stanwell+Moor+TW19+6AQ',
     },
     performer: event.performer
       ? {
@@ -143,4 +152,16 @@ export function buildEventSchema(event: Event) {
       }
     })
   }
+
+  // Conditionally add accessibility feature from event data
+  if (event.accessibility_notes) {
+    schema.accessibilityFeature = [event.accessibility_notes]
+  }
+
+  // Conditionally add refund policy from event data
+  if (event.cancellation_policy) {
+    schema.refundPolicy = event.cancellation_policy
+  }
+
+  return schema
 }
