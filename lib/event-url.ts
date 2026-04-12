@@ -40,7 +40,14 @@ export function getEventWebsitePath(event: EventUrlSource): string {
   }
 
   if (event.url) {
-    return resolvePathFromUrl(event.url)
+    const resolved = resolvePathFromUrl(event.url)
+    // Only accept paths that resolve to an event detail page.
+    // Rejects category pages (/quiz-night), listing pages (/whats-on),
+    // external URLs turned into internal paths, and bare strings.
+    if (resolved.startsWith('/events/') && resolved.length > '/events/'.length) {
+      return resolved
+    }
+    // Fall through to default /events listing page
   }
 
   return EVENT_PATH_PREFIX
