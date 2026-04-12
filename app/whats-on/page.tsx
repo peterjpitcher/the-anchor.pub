@@ -63,21 +63,24 @@ export default async function WhatsOnPage() {
     getUpcomingEvents(24).catch(() => [] as Event[]),
   ])
 
-  // Resolve next upcoming event for each Monthly Highlights category
+  // Resolve next upcoming event for each Monthly Highlights category.
+  // The /events list endpoint does not include category objects, so match
+  // on event name and slug instead.
   const nextMusicBingo = upcomingEvents.find(e => {
-    const slug = e.category?.slug?.toLowerCase() ?? ''
-    const name = e.category?.name?.toLowerCase() ?? ''
-    return slug.includes('music-bingo') || name.includes('music bingo')
+    const slug = (e.slug ?? '').toLowerCase()
+    const name = (e.name ?? '').toLowerCase()
+    return slug.startsWith('music-bingo') || name.includes('music bingo')
   })
   const nextQuizNight = upcomingEvents.find(e => {
-    const slug = e.category?.slug?.toLowerCase() ?? ''
-    const name = e.category?.name?.toLowerCase() ?? ''
-    return slug.includes('quiz') || name.includes('quiz')
+    const slug = (e.slug ?? '').toLowerCase()
+    const name = (e.name ?? '').toLowerCase()
+    return slug.startsWith('quiz-night') || name === 'quiz night'
   })
   const nextCashBingo = upcomingEvents.find(e => {
-    const slug = e.category?.slug?.toLowerCase() ?? ''
-    const name = e.category?.name?.toLowerCase() ?? ''
-    return slug.includes('bingo-night') || name.includes('bingo night')
+    const slug = (e.slug ?? '').toLowerCase()
+    const name = (e.name ?? '').toLowerCase()
+    // Match "Bingo" but not "Music Bingo"
+    return slug.startsWith('bingo') || (name.includes('bingo') && !name.includes('music'))
   })
 
   return (
