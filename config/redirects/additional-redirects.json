@@ -457,28 +457,13 @@
     "permanent": true
   },
   {
-    "source": "/events/quiz-night",
-    "destination": "/quiz-night",
-    "permanent": true
-  },
-  {
     "source": "/events/quiz-night-pub-pursuit-2025-09-03",
     "destination": "/quiz-night",
     "permanent": true
   },
   {
-    "source": "/events/karaoke",
-    "destination": "/karaoke",
-    "permanent": true
-  },
-  {
     "source": "/events/:id/book",
     "destination": "/events/:id",
-    "permanent": true
-  },
-  {
-    "source": "/events/quiz-night-:date",
-    "destination": "/quiz-night",
     "permanent": true
   },
   {
