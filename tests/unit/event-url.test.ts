@@ -1,9 +1,9 @@
 import { getEventWebsitePath, getEventWebsiteUrl } from '@/lib/event-url'
 
-type EventUrlSource = { slug?: string; id?: string; url?: string }
+type EventUrlSource = { slug: string; id: string; url?: string }
 
 function makeSource(overrides: Partial<EventUrlSource> = {}): EventUrlSource {
-  return { slug: '', id: '', url: undefined, ...overrides }
+  return { slug: '', id: '', ...overrides }
 }
 
 describe('getEventWebsitePath', () => {
