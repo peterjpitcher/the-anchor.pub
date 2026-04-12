@@ -1,15 +1,19 @@
-import { getUpcomingEvents, getBusinessHours, type BusinessHours } from '@/lib/api'
+import { getUpcomingEvents, getBusinessHours, type BusinessHours, type Event } from '@/lib/api'
 import { FilteredUpcomingEventsClient } from './FilteredUpcomingEventsClient'
 import { EventSchema } from '@/components/seo/EventSchema'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getEventDateRangeUtc } from '@/lib/event-calendar'
 import type { DisplayEvent } from '@/types/display-event'
 
-export async function FilteredUpcomingEvents() {
+interface FilteredUpcomingEventsProps {
+  events?: Event[]
+}
+
+export async function FilteredUpcomingEvents({ events: prefetchedEvents }: FilteredUpcomingEventsProps = {}) {
   try {
     // Fetch events and business hours in parallel
     const [events, businessHours] = await Promise.all([
-      getUpcomingEvents(24), // API limits event listings to 24 per request
+      prefetchedEvents ? Promise.resolve(prefetchedEvents) : getUpcomingEvents(24),
       getBusinessHours()
     ])
 
