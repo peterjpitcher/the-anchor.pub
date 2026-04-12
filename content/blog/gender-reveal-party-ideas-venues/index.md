@@ -13,7 +13,7 @@ keywords:
 tags:
   - private-hire
   - gender-reveal
-  - guide
+  - guides
 featured: false
 hero: "hero.jpg"
 images: []

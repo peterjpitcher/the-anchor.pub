@@ -693,5 +693,60 @@
     "source": "/blog/tag/children",
     "destination": "/blog/tag/community",
     "permanent": true
+  },
+  {
+    "source": "/blog/tag/guide",
+    "destination": "/blog/tag/guides",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/function-room",
+    "destination": "/blog/tag/private-hire",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/gender-reveal",
+    "destination": "/blog/tag/private-hire",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/wakes",
+    "destination": "/blog/tag/private-hire",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/christenings",
+    "destination": "/blog/tag/private-hire",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/work-events",
+    "destination": "/blog/tag/private-hire",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/plane-spotting",
+    "destination": "/blog/tag/heathrow",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/things-to-do",
+    "destination": "/blog/tag/heathrow",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/savings",
+    "destination": "/blog/tag/guides",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/pricing",
+    "destination": "/blog/tag/guides",
+    "permanent": true
+  },
+  {
+    "source": "/blog/tag/comparison",
+    "destination": "/blog/tag/guides",
+    "permanent": true
   }
 ]

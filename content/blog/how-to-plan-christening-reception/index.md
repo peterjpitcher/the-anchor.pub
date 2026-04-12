@@ -12,7 +12,7 @@ keywords:
 tags:
   - private-hire
   - christenings
-  - guide
+  - guides
 featured: false
 hero: "hero.jpg"
 images: []

@@ -5,6 +5,8 @@ import { Metadata } from 'next'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { BLOG_FALLBACK_IMAGE } from '@/lib/blog-image'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { getTagSEOContent } from '@/lib/tag-seo-content'
+import tagRedirects from '@/config/redirects/tag-redirects.json'
 
 export const metadata: Metadata = {
   title: 'All Blog Topics | The Anchor - Heathrow Pub & Dining',
@@ -24,46 +26,27 @@ export const metadata: Metadata = {
   }
 }
 
-// Tag display names and descriptions
-const tagInfo: Record<string, { name: string; description: string; category: string }> = {
-  // Core Categories
-  'food-and-drink': { name: 'Food & Drink', description: 'Delicious pub food, dining experiences, and drink selections', category: 'Core' },
-  'events': { name: 'Events', description: 'Live entertainment, quizzes, and special events', category: 'Core' },
-  'community': { name: 'Community', description: 'Local news, charity initiatives, and village stories', category: 'Core' },
-  'sports': { name: 'Sports', description: 'Live sports coverage and fixtures', category: 'Core' },
-  'offers': { name: 'Special Offers', description: 'Latest deals, discounts, and promotions', category: 'Core' },
-  'seasonal': { name: 'Seasonal', description: 'Festive celebrations and holiday updates', category: 'Core' },
-  'news': { name: 'News', description: 'General updates and announcements', category: 'Core' },
-}
+const redirectSourceTags = new Set(
+  tagRedirects
+    .filter((r: { source: string }) => r.source.startsWith('/blog/tag/'))
+    .map((r: { source: string }) => r.source.replace('/blog/tag/', ''))
+)
 
 export default async function AllTagsPage() {
   const allPosts = await getAllBlogPosts()
 
-  // Get all unique tags with counts
+  // Get all unique tags with counts, excluding redirected tags
   const tagCounts = new Map<string, number>()
   allPosts.forEach(post => {
     post.tags.forEach(tag => {
-      tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1)
+      if (!redirectSourceTags.has(tag)) {
+        tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1)
+      }
     })
   })
 
-  // Group tags by category
-  const categorizedTags: Record<string, Array<[string, number]>> = {
-    'Core': [],
-    'Other': []
-  }
-
-  // Sort tags into categories
-  Array.from(tagCounts.entries()).forEach(([tag, count]) => {
-    const info = tagInfo[tag]
-    const category = info?.category || 'Other'
-    categorizedTags[category].push([tag, count])
-  })
-
-  // Sort each category by count
-  Object.keys(categorizedTags).forEach(category => {
-    categorizedTags[category].sort((a, b) => b[1] - a[1])
-  })
+  // Sort by count descending
+  const sortedTags = Array.from(tagCounts.entries()).sort((a, b) => b[1] - a[1])
 
   return (
     <>
@@ -87,45 +70,34 @@ export default async function AllTagsPage() {
         }
       />
 
-      {/* Tags by Category */}
+      {/* Tags Grid */}
       <Section spacing="lg" container containerSize="lg" className="bg-anchor-bg">
-        {Object.entries(categorizedTags).map(([category, tags]) => {
-          if (tags.length === 0) return null
+        <h2 className="text-2xl font-bold text-anchor-gold-vivid mb-6">
+          Browse by Topic
+        </h2>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {sortedTags.map(([tag, count]) => {
+            const seoContent = getTagSEOContent(tag)
 
-          return (
-            <div key={category} className="mb-12 last:mb-0">
-              <h2 className="text-2xl font-bold text-anchor-gold-vivid mb-6">
-                {category === 'Core' ? 'Browse by Topic' : category}
-              </h2>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {tags.map(([tag, count]) => {
-                  const info = tagInfo[tag] || {
-                    name: tag.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
-                    description: `Posts about ${tag}`
-                  }
-
-                  return (
-                    <Link
-                      key={tag}
-                      href={`/blog/tag/${tag}`}
-                      className="group bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-4 hover:border-anchor-gold/40 transition-all"
-                    >
-                      <h3 className="font-semibold text-anchor-gold-vivid group-hover:text-anchor-gold transition-colours mb-1">
-                        {info.name}
-                      </h3>
-                      <p className="text-sm text-anchor-cream-text/70 mb-2 line-clamp-2">
-                        {info.description}
-                      </p>
-                      <span className="text-sm sm:text-xs bg-anchor-bg px-2 py-1 rounded-full text-anchor-cream-text/55">
-                        {count} {count === 1 ? 'post' : 'posts'}
-                      </span>
-                    </Link>
-                  )
-                })}
-              </div>
-            </div>
-          )
-        })}
+            return (
+              <Link
+                key={tag}
+                href={`/blog/tag/${tag}`}
+                className="group bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-4 hover:border-anchor-gold/40 transition-all"
+              >
+                <h3 className="font-semibold text-anchor-gold-vivid group-hover:text-anchor-gold transition-colours mb-1">
+                  {seoContent.name}
+                </h3>
+                <p className="text-sm text-anchor-cream-text/70 mb-2 line-clamp-2">
+                  {seoContent.description}
+                </p>
+                <span className="text-sm sm:text-xs bg-anchor-bg px-2 py-1 rounded-full text-anchor-cream-text/55">
+                  {count} {count === 1 ? 'post' : 'posts'}
+                </span>
+              </Link>
+            )
+          })}
+        </div>
       </Section>
 
       {/* CTA Section */}

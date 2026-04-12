@@ -13,7 +13,7 @@ keywords:
 tags:
   - private-hire
   - work-events
-  - guide
+  - guides
 featured: false
 hero: "hero.jpg"
 images: []

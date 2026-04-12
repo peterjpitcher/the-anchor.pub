@@ -15,7 +15,7 @@ keywords:
 tags:
   - private-hire
   - function-room
-  - guide
+  - guides
 featured: false
 hero: "hero.jpg"
 images: []

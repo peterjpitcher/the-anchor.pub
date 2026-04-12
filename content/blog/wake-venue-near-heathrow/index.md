@@ -16,7 +16,7 @@ keywords:
 tags:
   - private-hire
   - wakes
-  - guide
+  - guides
 featured: false
 hero: "hero.jpg"
 images: []

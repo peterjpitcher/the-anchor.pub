@@ -13,7 +13,7 @@ keywords:
 tags:
   - private-hire
   - pricing
-  - guide
+  - guides
 featured: false
 hero: "hero.jpg"
 images: []

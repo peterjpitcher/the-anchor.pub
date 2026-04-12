@@ -9,8 +9,15 @@ import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { getBlogHeroUrl, BLOG_FALLBACK_IMAGE } from '@/lib/blog-image'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import tagRedirects from '@/config/redirects/tag-redirects.json'
 
 export const revalidate = 3600
+
+const redirectSourceTags = new Set(
+  tagRedirects
+    .filter((r: { source: string }) => r.source.startsWith('/blog/tag/'))
+    .map((r: { source: string }) => r.source.replace('/blog/tag/', ''))
+)
 
 function normalizeTagSlug(tag: string): string {
   try {
@@ -28,9 +35,11 @@ export async function generateStaticParams() {
     post.tags.forEach(tag => allTags.add(tag))
   })
   
-  return Array.from(allTags).map(tag => ({
-    tag: tag
-  }))
+  return Array.from(allTags)
+    .filter(tag => !redirectSourceTags.has(tag))
+    .map(tag => ({
+      tag: tag
+    }))
 }
 
 export async function generateMetadata({ params }: { params: { tag: string } }): Promise<Metadata> {
@@ -166,7 +175,7 @@ export default async function TagPage({ params }: { params: { tag: string } }) {
           Explore More Topics
         </h2>
         <div className="flex flex-wrap gap-3 justify-center">
-          {Array.from(allTags).sort().map(t => (
+          {Array.from(allTags).filter(t => !redirectSourceTags.has(t)).sort().map(t => (
             <Link
               key={t}
               href={`/blog/tag/${encodeURIComponent(normalizeTagSlug(t))}`}

@@ -14,7 +14,7 @@ keywords:
   - private party venue near heathrow
 tags:
   - private-hire
-  - guide
+  - guides
 featured: false
 hero: "hero.jpg"
 images: []
