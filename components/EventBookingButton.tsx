@@ -10,6 +10,9 @@ import {
   isMothersDayEvent,
   MOTHERS_DAY_BOOKING_CTA_LABEL
 } from '@/lib/mothers-day-booking'
+import { CATEGORY_ROUTES } from '@/lib/event-seo-strategy'
+
+const CATEGORY_PAGE_PATHS = new Set(Object.values(CATEGORY_ROUTES))
 
 type EventBookingButtonProps = {
   event: Event
@@ -46,6 +49,13 @@ function normalizeBookingUrl(rawUrl: string | null | undefined, event: Event): s
     const eventUrl = getEventWebsiteUrl(event, { absolute: true })
     const eventUrlParsed = new URL(eventUrl)
     if (parsed.origin === eventUrlParsed.origin && normalisedPath === eventUrlParsed.pathname.replace(/\/+$/, '')) {
+      return null
+    }
+
+    // Reject same-origin URLs that point to SEO category pages (e.g. /quiz-night,
+    // /cash-bingo). These are not booking destinations — the event detail page is.
+    const sameOrigin = parsed.origin === eventUrlParsed.origin
+    if (sameOrigin && CATEGORY_PAGE_PATHS.has(normalisedPath)) {
       return null
     }
 

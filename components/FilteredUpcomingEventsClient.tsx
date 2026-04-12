@@ -218,7 +218,11 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
           <div className="bg-anchor-green text-white px-4 sm:px-6 py-3 sm:py-4">
             <div className="flex items-center justify-between gap-3">
               <div className="flex-1 min-w-0">
-                <h3 className="text-base sm:text-lg font-bold line-clamp-1 text-white">{event.name}</h3>
+                <h3 className="text-base sm:text-lg font-bold line-clamp-1 text-white">
+                  <Link href={`/events/${event.slug || event.id}`} className="hover:text-anchor-gold transition-colors">
+                    {event.name}
+                  </Link>
+                </h3>
                 <p className="text-sm sm:text-base opacity-90 text-white/90">{eventDate}</p>
               </div>
               <div className="flex-shrink-0 text-right">

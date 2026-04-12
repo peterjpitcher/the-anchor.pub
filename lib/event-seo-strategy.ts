@@ -8,7 +8,7 @@ export const CANCELLED_INDEX_DAYS = 7
  * Map category slugs to their actual top-level page routes.
  * The site uses top-level category pages, NOT /whats-on/[category].
  */
-const CATEGORY_ROUTES: Record<string, string> = {
+export const CATEGORY_ROUTES: Record<string, string> = {
   'quiz-night': '/quiz-night',
   'cash-bingo': '/cash-bingo',
   'music-bingo': '/music-bingo',
