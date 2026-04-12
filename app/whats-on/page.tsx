@@ -17,7 +17,7 @@ import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/Inter
 import { BookTableButton } from '@/components/BookTableButton'
 import { TrustBar } from '@/components/psychology'
 import { quizNightEventSeries, bingoEventSeries } from '@/lib/schema'
-import { getBusinessHours } from '@/lib/api'
+import { getBusinessHours, getUpcomingEvents, type Event } from '@/lib/api'
 import { buildOpeningHoursSchema } from '@/lib/opening-hours-schema'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
@@ -57,10 +57,28 @@ async function getOpeningHoursSpecification() {
 }
 
 export default async function WhatsOnPage() {
-  const [openingHoursSpecification, { rating, reviewCount }] = await Promise.all([
+  const [openingHoursSpecification, { rating, reviewCount }, upcomingEvents] = await Promise.all([
     getOpeningHoursSpecification(),
-    getBusinessStats()
+    getBusinessStats(),
+    getUpcomingEvents(24).catch(() => [] as Event[]),
   ])
+
+  // Resolve next upcoming event for each Monthly Highlights category
+  const nextMusicBingo = upcomingEvents.find(e => {
+    const slug = e.category?.slug?.toLowerCase() ?? ''
+    const name = e.category?.name?.toLowerCase() ?? ''
+    return slug.includes('music-bingo') || name.includes('music bingo')
+  })
+  const nextQuizNight = upcomingEvents.find(e => {
+    const slug = e.category?.slug?.toLowerCase() ?? ''
+    const name = e.category?.name?.toLowerCase() ?? ''
+    return slug.includes('quiz') || name.includes('quiz')
+  })
+  const nextCashBingo = upcomingEvents.find(e => {
+    const slug = e.category?.slug?.toLowerCase() ?? ''
+    const name = e.category?.name?.toLowerCase() ?? ''
+    return slug.includes('bingo-night') || name.includes('bingo night')
+  })
 
   return (
     <>
@@ -325,7 +343,7 @@ export default async function WhatsOnPage() {
           <SpeakableContent selector="events-list" priority="high">
             <div className="max-w-5xl mx-auto">
               <Suspense fallback={<div className="text-center py-8">Loading events...</div>}>
-                <FilteredUpcomingEvents />
+                <FilteredUpcomingEvents events={upcomingEvents} />
               </Suspense>
             </div>
           </SpeakableContent>
@@ -341,7 +359,7 @@ export default async function WhatsOnPage() {
           />
 
           <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            <Link href="/music-bingo" className="group">
+            <Link href={nextMusicBingo ? `/events/${nextMusicBingo.slug || nextMusicBingo.id}` : '/music-bingo'} className="group">
               <Card variant="default" className="h-full transition-all hover:border-anchor-gold/40 card-dark rounded-none">
                 <CardBody className="text-center p-8">
                   <div className="text-5xl mb-4"></div>
@@ -356,7 +374,7 @@ export default async function WhatsOnPage() {
               </Card>
             </Link>
 
-            <Link href="/quiz-night" className="group">
+            <Link href={nextQuizNight ? `/events/${nextQuizNight.slug || nextQuizNight.id}` : '/quiz-night'} className="group">
               <Card variant="default" className="h-full transition-all hover:border-anchor-gold/40 card-dark rounded-none">
                 <CardBody className="text-center p-8">
                   <div className="text-5xl mb-4"></div>
@@ -371,7 +389,7 @@ export default async function WhatsOnPage() {
               </Card>
             </Link>
 
-            <Link href="/cash-bingo" className="group">
+            <Link href={nextCashBingo ? `/events/${nextCashBingo.slug || nextCashBingo.id}` : '/cash-bingo'} className="group">
               <Card variant="default" className="h-full transition-all hover:border-anchor-gold/40 card-dark rounded-none">
                 <CardBody className="text-center p-8">
                   <div className="text-5xl mb-4"></div>
