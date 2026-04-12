@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { trackFaqItemOpened } from '@/lib/gtm-events'
+import { cn } from '@/lib/utils'
 
 interface FAQItem {
   question: string
@@ -59,7 +60,7 @@ export function FAQAccordionWithSchema({
         />
       )}
       
-      <section className={`section-spacing ${className}`}>
+      <section className={cn('section-spacing bg-anchor-bg-card', className)}>
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl md:text-4xl font-bold text-anchor-cream-text mb-8 text-center">
@@ -104,11 +105,12 @@ export function FAQAccordionWithSchema({
                   <div
                     id={`faq-answer-${index}`}
                     className={`px-6 overflow-hidden transition-all duration-200 ${
-                      openIndex === index ? 'pb-4' : 'max-h-0'
+                      openIndex === index ? 'pb-4' : ''
                     }`}
                     style={{
                       maxHeight: openIndex === index ? '500px' : '0',
                     }}
+                    aria-hidden={openIndex !== index}
                   >
                     <p className="text-anchor-cream-text/70">
                       {faq.answer}

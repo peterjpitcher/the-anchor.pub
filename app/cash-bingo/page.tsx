@@ -544,7 +544,7 @@ export default async function CashBingoPage() {
         </Container>
       </Section>
 
-      <FAQAccordionWithSchema faqs={FAQS} className="bg-white" />
+      <FAQAccordionWithSchema faqs={FAQS} />
 
       <Section spacing="md" background="white">
         <Container>

@@ -545,7 +545,7 @@ export default async function KaraokePage() {
                 </Container>
             </Section>
 
-            <FAQAccordionWithSchema faqs={FAQS} className="bg-white" />
+            <FAQAccordionWithSchema faqs={FAQS} />
 
             <Section spacing="md" background="gray">
                 <Container>
