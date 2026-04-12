@@ -2,13 +2,75 @@ import { Event } from '@/lib/api'
 import { getEventDateRangeUtc } from '@/lib/event-calendar'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getEventWebsiteUrl } from '@/lib/event-url'
-import { getSchemaEventStatus, getSchemaOfferAvailability } from '@/lib/event-seo-strategy'
+import { getSchemaEventStatus, getSchemaOfferAvailability, CATEGORY_ROUTES } from '@/lib/event-seo-strategy'
 import { CONTACT } from '@/lib/constants'
+
+const SITE_ORIGIN = 'https://www.the-anchor.pub'
+const CATEGORY_PAGE_PATHS = new Set(Object.values(CATEGORY_ROUTES))
+
+function isSameOriginCategoryPath(url: URL): boolean {
+  if (url.origin !== SITE_ORIGIN) return false
+  const normalisedPath = url.pathname.replace(/\/+$/, '')
+  return CATEGORY_PAGE_PATHS.has(normalisedPath)
+}
+
+function sanitiseSchemaUrl(
+  rawUrl: string | null | undefined,
+  fallbackUrl: string
+): string {
+  if (!rawUrl || typeof rawUrl !== 'string') return fallbackUrl
+  const trimmed = rawUrl.trim()
+  if (!trimmed) return fallbackUrl
+
+  try {
+    const parsed = new URL(trimmed, SITE_ORIGIN)
+    if (isSameOriginCategoryPath(parsed)) return fallbackUrl
+    return trimmed
+  } catch {
+    return fallbackUrl
+  }
+}
+
+function sanitisePotentialAction(
+  action: Event['potentialAction'] | undefined
+): Event['potentialAction'] | null {
+  if (!action?.target?.urlTemplate) return action ?? null
+
+  try {
+    const parsed = new URL(action.target.urlTemplate, SITE_ORIGIN)
+    if (isSameOriginCategoryPath(parsed)) return null
+    return action
+  } catch {
+    return action
+  }
+}
+
+function sanitiseMainEntityOfPage(
+  mainEntity: Event['mainEntityOfPage'] | undefined,
+  eventUrl: string
+): Event['mainEntityOfPage'] | undefined {
+  if (!mainEntity) return undefined
+  const id = mainEntity['@id']
+  if (!id) return mainEntity
+
+  try {
+    const parsed = new URL(id, SITE_ORIGIN)
+    if (isSameOriginCategoryPath(parsed)) {
+      return { '@type': 'WebPage', '@id': eventUrl }
+    }
+    return mainEntity
+  } catch {
+    return mainEntity
+  }
+}
 
 export function buildEventSchema(event: Event) {
   const eventUrl = getEventWebsiteUrl(event, { absolute: true })
   const eventImage = event.image?.[0] || event.heroImageUrl || event.thumbnailImageUrl || DEFAULT_EVENT_IMAGE
-  const bookingUrl = event.bookingUrl || eventUrl
+  const bookingUrl =
+    sanitiseSchemaUrl(event.bookingUrl, '') ||
+    sanitiseSchemaUrl(event.offers?.url, '') ||
+    eventUrl
   const { start, end } = getEventDateRangeUtc(event)
   const startDate = Number.isNaN(start.getTime()) ? event.startDate : start.toISOString()
   const endDate = Number.isNaN(end.getTime())
@@ -119,8 +181,8 @@ export function buildEventSchema(event: Event) {
       remainingAttendeeCapacity: event.remainingAttendeeCapacity
     }),
     url: eventUrl,
-    ...(event.mainEntityOfPage && { mainEntityOfPage: event.mainEntityOfPage }),
-    potentialAction: event.potentialAction ?? {
+    ...(event.mainEntityOfPage && { mainEntityOfPage: sanitiseMainEntityOfPage(event.mainEntityOfPage, eventUrl) }),
+    potentialAction: sanitisePotentialAction(event.potentialAction) ?? {
       '@type': 'ReserveAction',
       target: {
         '@type': 'EntryPoint',
