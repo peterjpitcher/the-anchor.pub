@@ -20,7 +20,7 @@ describe('page-header-images', () => {
   })
 
   it('resolves parent inheritance metadata', () => {
-    const image = getPageHeaderImage('/private-hire/weddings')
+    const image = getPageHeaderImage('/private-hire/wakes')
 
     expect(image).not.toBeNull()
     expect(image?.resolution).toBe('inherited')

@@ -17,15 +17,15 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 const SUNDAY_LUNCH_BOOKING_URL = '/book-table?sunday_lunch=true&purpose=food'
 
 export const metadata: Metadata = {
-  title: 'Sunday Roast & Lunch Near Heathrow | From £19.99 | Book a Table | The Anchor',
-  description: 'Traditional Sunday roast and Sunday lunch near Heathrow from £19.99. Chicken, lamb, pork belly & vegetarian options. Just 8 minutes from Staines-upon-Thames. Free parking. Book by Saturday 1pm.',
+  title: 'Sunday Roast & Lunch Near Heathrow | From £19 | Book a Table | The Anchor',
+  description: 'Traditional Sunday roast and Sunday lunch near Heathrow from £19. Chicken, pork belly & vegetarian options. Just 8 minutes from Staines-upon-Thames. Free parking. Book by Saturday 1pm.',
   openGraph: {
-    title: 'Sunday Roast & Lunch Near Heathrow | From £19.99 | Book a Table | The Anchor',
-    description: 'Traditional Sunday roast and Sunday lunch near Heathrow from £19.99. Chicken, lamb, pork belly & vegetarian options. Just 8 minutes from Staines-upon-Thames. Free parking. Book by Saturday 1pm.',
+    title: 'Sunday Roast & Lunch Near Heathrow | From £19 | Book a Table | The Anchor',
+    description: 'Traditional Sunday roast and Sunday lunch near Heathrow from £19. Chicken, pork belly & vegetarian options. Just 8 minutes from Staines-upon-Thames. Free parking. Book by Saturday 1pm.',
     images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg'],
   },
   twitter: getTwitterMetadata({
-    title: 'Sunday Roast & Lunch Near Heathrow | From £19.99 | Book a Table | The Anchor',
+    title: 'Sunday Roast & Lunch Near Heathrow | From £19 | Book a Table | The Anchor',
     description: 'Traditional Sunday roast and Sunday lunch near Heathrow. Just 8 minutes from Staines-upon-Thames. £10pp deposit required.',
     images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg']
   }),
@@ -59,28 +59,23 @@ const FALLBACK_MENU: NormalizedMenu = {
     {
       name: 'Roasted Chicken',
       description: 'Oven-roasted chicken breast with sage & onion stuffing balls, herb and garlic-crusted roast potatoes, seasonal vegetables, Yorkshire pudding, and red wine gravy',
-      price: 19.99
-    },
-    {
-      name: 'Slow-Cooked Lamb Shank',
-      description: 'Tender slow-braised lamb shank in rich red wine gravy, served with herb and garlic-crusted roast potatoes, seasonal vegetables, and a Yorkshire pudding',
-      price: 23.99
+      price: 19
     },
     {
       name: 'Crispy Pork Belly',
       description: 'Crispy crackling and tender slow-roasted pork belly with Bramley apple sauce, herb and garlic-crusted roast potatoes, seasonal vegetables, Yorkshire pudding, and red wine gravy',
-      price: 21.99
+      price: 22
     },
     {
       name: 'Beetroot & Butternut Squash Wellington (V)',
       description: 'Golden puff pastry filled with beetroot & butternut squash, served with herb and garlic-crusted roast potatoes, seasonal vegetables, and vegetarian gravy',
-      price: 19.99,
+      price: 19,
       dietary_info: ['vegetarian']
     },
     {
       name: 'Kids Roasted Chicken',
       description: 'A smaller portion of our roasted chicken with herb and garlic-crusted roast potatoes, seasonal vegetables, Yorkshire pudding, and red wine gravy',
-      price: 13.99
+      price: 13
     }
   ],
   sides: [
@@ -111,7 +106,7 @@ const FALLBACK_MENU: NormalizedMenu = {
     {
       name: 'Cauliflower Cheese',
       description: 'Creamy cauliflower cheese — the perfect add-on to your roast.',
-      price: 3.99,
+      price: 4,
       included: false
     }
   ],
@@ -457,14 +452,14 @@ export default async function SundayLunchPage() {
 
       <Container>
         <PageTitle as="h1" className="text-center mb-6" seo={{ structured: true, speakable: true }}>
-          Sunday Roast & Lunch Near Heathrow — From £19.99
+          Sunday Roast & Lunch Near Heathrow — From £19
         </PageTitle>
       </Container>
 
       <section className="bg-anchor-bg-raised border-b border-anchor-gold/15 py-8">
         <Container>
           <p className="text-center text-lg text-anchor-cream-text/70 max-w-4xl mx-auto">
-            Sunday lunch at The Anchor costs from &pound;19.99 per person and must be pre-ordered by 1pm on Saturday, with a &pound;10 per person deposit required. Choose from chicken, lamb shank, pork belly or butternut squash wellington — all served with Yorkshire pudding and seasonal vegetables. Just 8 minutes from Staines-upon-Thames, our Sunday roast is one of the best near Heathrow.
+            Sunday lunch at The Anchor costs from &pound;19 per person and must be pre-ordered by 1pm on Saturday, with a &pound;10 per person deposit required. Choose from chicken, pork belly or butternut squash wellington — all served with Yorkshire pudding and seasonal vegetables. Just 8 minutes from Staines-upon-Thames, our Sunday roast is one of the best near Heathrow.
           </p>
         </Container>
       </section>
@@ -481,7 +476,7 @@ export default async function SundayLunchPage() {
               <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg-card p-5">
                 <p className="text-sm font-semibold text-anchor-gold-vivid">Choose your roast</p>
                 <p className="mt-1 text-sm text-anchor-cream-text/70">
-                  Roasted chicken, lamb shank, pork belly, Wellington (V), or kids roasted chicken.
+                  Roasted chicken, pork belly, Wellington (V), or kids roasted chicken.
                 </p>
               </div>
               <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg-card p-5">
@@ -560,7 +555,7 @@ export default async function SundayLunchPage() {
               <p className="mt-1 text-anchor-cream-text">
                 <span className="font-semibold">Cauliflower Cheese</span>
                 <span className="text-anchor-cream-text/60 font-normal"> — creamy cauliflower cheese, the perfect add-on to your roast.</span>
-                <span className="text-anchor-cream-text/50 font-normal ml-1"> · £3.99</span>
+                <span className="text-anchor-cream-text/50 font-normal ml-1"> · £4</span>
               </p>
             </div>
 
@@ -613,10 +608,10 @@ export default async function SundayLunchPage() {
                 Each plate arrives with herb and garlic-crusted roast potatoes &mdash; golden on the outside, fluffy in the middle &mdash; a proper Yorkshire pudding that&rsquo;s risen tall and crisp, fresh seasonal vegetables, and rich red wine gravy made in-house. Vegetarian gravy is always available on request.
               </p>
               <p>
-                Our roasted chicken comes with sage and onion stuffing balls. The slow-cooked lamb shank is braised until it falls off the bone in a red wine gravy that&rsquo;s had hours of attention. The crispy pork belly has proper crackling and is served alongside Bramley apple sauce &mdash; tart enough to cut through the richness. And for vegetarians, the beetroot and butternut squash Wellington in golden puff pastry is a genuine centrepiece, not a token afterthought.
+                Our roasted chicken comes with sage and onion stuffing balls. The crispy pork belly has proper crackling and is served alongside Bramley apple sauce &mdash; tart enough to cut through the richness. And for vegetarians, the beetroot and butternut squash Wellington in golden puff pastry is a genuine centrepiece, not a token afterthought.
               </p>
               <p>
-                For the little ones, our kids&rsquo; roasted chicken is a smaller portion of the real thing &mdash; same quality, same trimmings, just sized right. And if you fancy something extra, add a side of our creamy cauliflower cheese for &pound;3.99.
+                For the little ones, our kids&rsquo; roasted chicken is a smaller portion of the real thing &mdash; same quality, same trimmings, just sized right. And if you fancy something extra, add a side of our creamy cauliflower cheese for &pound;4.
               </p>
               <p>
                 Whether you&rsquo;re looking for a Sunday roast near Heathrow before a flight, a roast dinner near me after a long week, or a proper Sunday lunch near me with the family &mdash; this is the kind of meal that makes you glad you booked ahead.
@@ -639,13 +634,13 @@ export default async function SundayLunchPage() {
                 If you&rsquo;re searching for the best Sunday roast in Surrey, you&rsquo;ll find us at The Anchor in Stanwell Moor &mdash; a village pub that&rsquo;s been part of the community since 1751. We&rsquo;re not a chain restaurant or a hotel dining room. We&rsquo;re an independent British pub where the landlord knows your name and the roasts are cooked with care.
               </p>
               <p>
-                What sets our Sunday lunch apart? Every dish is cooked fresh to your order. The lamb shank braises for hours. The pork belly is slow-roasted until the crackling shatters. The roast potatoes are hand-tossed in herb and garlic before they hit the oven. It&rsquo;s Sunday lunch the way it should be done &mdash; properly.
+                What sets our Sunday lunch apart? Every dish is cooked fresh to your order. The pork belly is slow-roasted until the crackling shatters. The roast potatoes are hand-tossed in herb and garlic before they hit the oven. It&rsquo;s Sunday lunch the way it should be done &mdash; properly.
               </p>
               <p>
                 We&rsquo;re rated 4.6 out of 5 on Google, with regulars travelling from Staines-upon-Thames, Ashford, Egham, and Windsor specifically for our Sunday roasts. We&rsquo;re also popular with Heathrow travellers looking for a real meal before or after a flight &mdash; just 7 minutes from Terminal 5 with 20 free parking spaces on site.
               </p>
               <p>
-                Our Sunday lunch starts from &pound;19.99 per person. You get a full roast with all the trimmings, served in a proper pub with a beer garden, dog-friendly spaces, and a warm welcome. Whether you&rsquo;re celebrating a birthday, catching up with the family, or just fancy a roast dinner near me without cooking it yourself &mdash; we&rsquo;ve got you covered.
+                Our Sunday lunch starts from &pound;19 per person. You get a full roast with all the trimmings, served in a proper pub with a beer garden, dog-friendly spaces, and a warm welcome. Whether you&rsquo;re celebrating a birthday, catching up with the family, or just fancy a roast dinner near me without cooking it yourself &mdash; we&rsquo;ve got you covered.
               </p>
             </div>
           </div>
@@ -712,7 +707,7 @@ export default async function SundayLunchPage() {
             />
             <div className="prose prose-invert max-w-none text-anchor-cream-text/70 space-y-4">
               <p>
-                While our core roast options &mdash; chicken, lamb shank, pork belly, and vegetarian wellington &mdash; are available year-round, we adjust what goes on the plate with the seasons. In spring, expect lighter seasonal vegetables and fresh greens. Summer brings garden herbs and vibrant side dishes. Come autumn and winter, portions get heartier, root vegetables take centre stage, and the gravy gets richer.
+                While our core roast options &mdash; chicken, pork belly, and vegetarian wellington &mdash; are available year-round, we adjust what goes on the plate with the seasons. In spring, expect lighter seasonal vegetables and fresh greens. Summer brings garden herbs and vibrant side dishes. Come autumn and winter, portions get heartier, root vegetables take centre stage, and the gravy gets richer.
               </p>
               <p>
                 We occasionally introduce seasonal specials too. Keep an eye on our social media or call ahead on 01753 682707 to find out what&rsquo;s on this week. Our pre-order system means we source ingredients fresh each week, so you&rsquo;re always getting the best of what&rsquo;s available.
@@ -758,11 +753,11 @@ export default async function SundayLunchPage() {
             },
             {
               question: "Do you have a kids' Sunday roast?",
-              answer: "Yes. Our kids' roasted chicken is a smaller portion of the same quality roast, served with all the trimmings for £13.99. Perfect for younger diners."
+              answer: "Yes. Our kids' roasted chicken is a smaller portion of the same quality roast, served with all the trimmings for £13. Perfect for younger diners."
             },
             {
               question: "Is there a vegetarian Sunday roast option?",
-              answer: "Yes — our beetroot and butternut squash Wellington is a proper vegetarian Sunday roast in golden puff pastry, served with roast potatoes, seasonal vegetables, and vegetarian gravy. From £19.99."
+              answer: "Yes — our beetroot and butternut squash Wellington is a proper vegetarian Sunday roast in golden puff pastry, served with roast potatoes, seasonal vegetables, and vegetarian gravy. From £19."
             },
             {
               question: "Can I book for a group on Sunday?",

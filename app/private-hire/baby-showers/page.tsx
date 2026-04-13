@@ -13,6 +13,8 @@ import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { getCateringData } from '@/lib/api/catering-packages'
+import { CateringPackagesTable } from '@/components/features/CateringPackagesTable'
 
 export const metadata: Metadata = {
     title: 'Baby Shower Venue Near Ashford Hospital | The Anchor',
@@ -34,7 +36,8 @@ export const metadata: Metadata = {
 
 const nearbyHospitals = landmarks.filter(l => l.type === 'hospital');
 
-export default function BabyShowersPage() {
+export default async function BabyShowersPage() {
+    const { foodPackages } = await getCateringData()
     const eventVenueSchema = {
         "@context": "https://schema.org",
         "@type": "EventVenue",
@@ -155,39 +158,16 @@ export default function BabyShowersPage() {
             <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
                 <Container>
                     <SectionHeader
-                        title="Afternoon Tea Package"
-                        subtitle="Our most popular baby shower option"
+                        title="Food & Drink"
+                        subtitle="Our most popular baby shower options"
                     />
                     <div className="max-w-4xl mx-auto">
-                        <div className="grid md:grid-cols-2 gap-6 mb-8">
-                            <div className="card-dark rounded-none p-8 text-center">
-                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2">Afternoon Tea</h3>
-                                <p className="text-anchor-cream-text/55 mb-4 italic">Catering packages available upon request</p>
-                                <p className="text-anchor-cream-text/70 mb-4">Classic finger sandwiches, homemade scones with clotted cream, and a selection of delicate cakes — all served on tiered stands for that special touch.</p>
-                                <ul className="text-sm text-anchor-cream-text/55 space-y-1">
-                                    <li>+ Add Prosecco on arrival for those who are celebrating</li>
-                                </ul>
-                            </div>
-
-                            <div className="card-dark rounded-none p-8 text-center">
-                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2">Light Lunch Buffet</h3>
-                                <p className="text-anchor-cream-text/55 mb-4 italic">Catering packages available upon request</p>
-                                <p className="text-anchor-cream-text/70 mb-4">A spread of wraps, quiches, fresh salads, and fruit platters. A lighter option that works well for a midday celebration.</p>
-                            </div>
-                        </div>
-
-                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
-                            <h3 className="font-bold text-anchor-gold-vivid mb-3 text-center">Our Mocktail Highlights</h3>
-                            <p className="text-anchor-cream-text/70 text-center mb-4">
-                                The mum-to-be should never feel left out. Our bar team can prepare a selection of alcohol-free cocktails so everyone can raise a proper glass.
-                            </p>
-                            <ul className="grid sm:grid-cols-3 gap-3 text-center text-sm text-anchor-cream-text/70">
-                                <li className="bg-anchor-bg p-3 rounded-lg">Virgin Mojito</li>
-                                <li className="bg-anchor-bg p-3 rounded-lg">Sparkling Elderflower Fizz</li>
-                                <li className="bg-anchor-bg p-3 rounded-lg">Strawberry Lemonade Spritz</li>
-                            </ul>
-                            <p className="text-center text-xs text-anchor-cream-text/50 mt-3">Ask us about seasonal mocktail options when you enquire.</p>
-                        </div>
+                        <p className="text-anchor-cream-text/70 text-center mb-6">
+                            From classic afternoon tea to relaxed buffets, we have a range of catering packages to suit your baby shower. Our bar team can also prepare a selection of alcohol-free cocktails so the mum-to-be never feels left out.
+                        </p>
+                        <p className="text-anchor-cream-text/70 text-center text-sm">
+                            See our full catering packages and pricing below, or ask us about seasonal mocktail options when you enquire.
+                        </p>
                     </div>
                 </Container>
             </section>
@@ -258,49 +238,16 @@ export default function BabyShowersPage() {
             <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <SectionHeader
-                        title="Baby Shower Afternoon Tea Packages"
+                        title="Baby Shower Catering Packages"
                         subtitle="Treat the mum-to-be to something special"
                     />
                     <div className="max-w-4xl mx-auto">
-                        <div className="grid md:grid-cols-3 gap-6 mb-8">
-                            <div className="card-dark rounded-none p-8 text-center">
-                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2">Classic Afternoon Tea</h3>
-                                <p className="text-2xl font-bold text-anchor-cream-text mb-1">From £14.95<span className="text-sm font-normal text-anchor-cream-text/55">/person</span></p>
-                                <p className="text-anchor-cream-text/55 mb-4 italic">Our most popular baby shower option</p>
-                                <p className="text-anchor-cream-text/70 mb-4">Finger sandwiches, scones with clotted cream and jam, and a selection of miniature cakes — all served on tiered stands for that extra touch of elegance.</p>
-                                <ul className="text-sm text-anchor-cream-text/55 space-y-1 text-left">
-                                    <li>Finger sandwiches on white &amp; brown bread</li>
-                                    <li>Scones with clotted cream &amp; jam</li>
-                                    <li>Miniature cakes &amp; pastries</li>
-                                    <li>Unlimited tea &amp; coffee</li>
-                                </ul>
-                            </div>
-
-                            <div className="card-dark rounded-none p-8 text-center border-2 border-anchor-gold/30">
-                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2">Prosecco Afternoon Tea</h3>
-                                <p className="text-2xl font-bold text-anchor-cream-text mb-1">From £19.95<span className="text-sm font-normal text-anchor-cream-text/55">/person</span></p>
-                                <p className="text-anchor-cream-text/55 mb-4 italic">Add a glass of fizz for the guests</p>
-                                <p className="text-anchor-cream-text/70 mb-4">Everything in the classic baby shower afternoon tea, plus a glass of Prosecco on arrival for those who are celebrating. Mocktails available for the mum-to-be.</p>
-                                <ul className="text-sm text-anchor-cream-text/55 space-y-1 text-left">
-                                    <li>All classic afternoon tea items</li>
-                                    <li>Glass of Prosecco on arrival</li>
-                                    <li>Mocktail for the guest of honour</li>
-                                    <li>Upgrade to Champagne available</li>
-                                </ul>
-                            </div>
-
-                            <div className="card-dark rounded-none p-8 text-center">
-                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2">Party Buffet</h3>
-                                <p className="text-2xl font-bold text-anchor-cream-text mb-1">From £9.95<span className="text-sm font-normal text-anchor-cream-text/55">/person</span></p>
-                                <p className="text-anchor-cream-text/55 mb-4 italic">A relaxed, informal option</p>
-                                <p className="text-anchor-cream-text/70 mb-4">A generous spread of wraps, quiches, salads, and sweet treats. A less formal baby shower venue option that works well for larger groups and mixed-age celebrations.</p>
-                                <ul className="text-sm text-anchor-cream-text/55 space-y-1 text-left">
-                                    <li>Wraps, sandwiches &amp; quiche</li>
-                                    <li>Fresh salads &amp; fruit</li>
-                                    <li>Crisps, dips &amp; nibbles</li>
-                                    <li>Sweet treats &amp; cake</li>
-                                </ul>
-                            </div>
+                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6 mb-8">
+                            <CateringPackagesTable
+                                packages={foodPackages}
+                                showDescription={true}
+                                filterNames={['Afternoon Tea', 'Prosecco Afternoon Tea', 'Finger Buffet', 'Sandwich Buffet']}
+                            />
                         </div>
 
                         <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6 text-center">

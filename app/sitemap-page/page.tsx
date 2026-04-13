@@ -88,7 +88,6 @@ const sitemapSections: SitemapSection[] = [
       { label: 'Corporate Events', href: '/corporate-events' },
       { label: 'Corporate Christmas Parties', href: '/corporate-christmas-parties' },
       { label: 'Christmas Parties', href: '/christmas-parties' },
-      { label: 'Weddings', href: '/private-hire/weddings' },
       { label: 'Wakes & Memorials', href: '/private-hire/wakes' },
       { label: 'Christenings', href: '/private-hire/christenings' },
       { label: 'Baby Showers', href: '/private-hire/baby-showers' },
@@ -160,21 +159,6 @@ const sitemapSections: SitemapSection[] = [
     links: [
       { label: 'Leave a Review', href: '/leave-review' },
       { label: 'Privacy Policy', href: '/privacy-policy' },
-    ]
-  },
-  {
-    title: 'Diagnostics & Demos',
-    links: [
-      { label: 'Components Library', href: '/components' },
-      { label: 'Demo Header', href: '/demo-header' },
-      { label: 'Debug Hours', href: '/debug-hours' },
-      { label: 'GTM Debug', href: '/gtm-debug' },
-      { label: 'Test GTM', href: '/test-gtm' },
-      { label: 'Test Hours', href: '/test-hours' },
-      { label: 'Test Navigation Tracking', href: '/test-navigation-tracking' },
-      { label: 'Test Reviews', href: '/test-reviews' },
-      { label: 'Test Simple', href: '/test-simple' },
-      { label: 'Test Tracking', href: '/test-tracking' },
     ]
   },
 ]

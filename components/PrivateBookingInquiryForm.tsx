@@ -364,7 +364,6 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
                                     className="w-full px-4 py-2 bg-anchor-bg-card border border-anchor-gold/30 text-anchor-cream-text rounded-lg focus:ring-2 focus:ring-anchor-gold focus:border-anchor-gold"
                                 >
                                     <option>Birthday Party</option>
-                                    <option>Wedding Reception</option>
                                     <option>Corporate Event</option>
                                     <option>Wake / Memorial</option>
                                     <option>Christening / Baby Shower</option>

@@ -279,7 +279,7 @@ export default function HomePage() {
             </Link>
             <Link href="/sunday-lunch" className="block p-4 bg-anchor-green rounded-lg text-center hover:bg-anchor-green/90 transition-colors">
               <span className="block text-lg font-bold text-white">Sunday Lunch</span>
-              <span className="text-sm text-white/80">From &pound;19.99 &middot; Book by Saturday 1pm</span>
+              <span className="text-sm text-white/80">From &pound;19 &middot; Book by Saturday 1pm</span>
             </Link>
           </div>
         </Container>
@@ -413,7 +413,7 @@ export default function HomePage() {
               </BookTableButton>
               <Link href="/sunday-lunch">
                 <Button variant="secondary" size="lg" className="w-full sm:w-auto bg-white/10 text-white hover:bg-white/20 border border-white/25">
-                  Sunday Lunch &mdash; from &pound;19.99
+                  Sunday Lunch &mdash; from &pound;19
                 </Button>
               </Link>
             </div>
@@ -560,7 +560,7 @@ export default function HomePage() {
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link href="/sunday-lunch">
               <Button variant="secondary" size="lg">
-                Book Sunday Lunch — from £19.99
+                Book Sunday Lunch — from £19
               </Button>
             </Link>
             <Link href="/drinks" className="text-anchor-gold hover:text-anchor-gold/80 font-medium underline underline-offset-4">

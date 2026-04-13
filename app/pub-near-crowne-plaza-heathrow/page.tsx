@@ -13,16 +13,16 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
   title: 'Pub Near Crowne Plaza Heathrow | 12 Mins | Free Parking | The Anchor',
-  description: 'Traditional British pub 12 minutes from Crowne Plaza London Heathrow. Real ales, home-cooked food & free parking. The ideal local for corporate guests.',
+  description: 'Traditional British pub 12 minutes from Crowne Plaza London Heathrow. Draught beers, home-cooked food & free parking. The ideal local for corporate guests.',
   openGraph: {
     title: 'Pub Near Crowne Plaza Heathrow | 12 Mins | Free Parking',
-    description: '12 minutes from Crowne Plaza London Heathrow. Traditional British pub with home-cooked food, real ales & free parking. Great for corporate dining.',
+    description: '12 minutes from Crowne Plaza London Heathrow. Traditional British pub with home-cooked food, draught beers & free parking. Great for corporate dining.',
     images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Crowne Plaza Heathrow' }],
     type: 'website',
   },
   twitter: getTwitterMetadata({
     title: 'Pub Near Crowne Plaza Heathrow | 12 Mins | Free Parking',
-    description: '12 minutes from Crowne Plaza Heathrow. British pub with home-cooked food, real ales & free parking.',
+    description: '12 minutes from Crowne Plaza Heathrow. British pub with home-cooked food, draught beers & free parking.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
   alternates: {
@@ -109,7 +109,7 @@ export default function PubNearCrownePlazaHeathrowPage() {
               Pub Near Crowne Plaza London Heathrow
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
-              Staying at the Crowne Plaza Heathrow? The Anchor is just 12 minutes away — a traditional British pub with home-cooked food, real ales, and free parking. Rated one of the best pubs near Heathrow Airport, we offer a proper alternative to hotel dining that corporate guests keep coming back to.
+              Staying at the Crowne Plaza Heathrow? The Anchor is just 12 minutes away — a traditional British pub with home-cooked food, draught beers, and free parking. Rated one of the best pubs near Heathrow Airport, we offer a proper alternative to hotel dining that corporate guests keep coming back to.
             </p>
           </div>
         </Container>
@@ -189,7 +189,7 @@ export default function PubNearCrownePlazaHeathrowPage() {
               features={[
                 { icon: '', title: 'British Classics', description: 'Steaks, fish & chips, burgers and daily specials — all cooked fresh from £8.99', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
                 { icon: '', title: 'Great Drinks', description: 'Draught lagers, bottled ales and craft beers — proper pub drinking from £4.80 a pint', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Sunday Roast', description: 'Traditional British roast from £19.99 — pre-booking recommended for weekends', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Sunday Roast', description: 'Traditional British roast from £19 — pre-booking recommended for weekends', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
               ]}
               className="mb-6"
             />
@@ -245,7 +245,7 @@ export default function PubNearCrownePlazaHeathrowPage() {
 
       <CTASection
         title="12 Minutes from Crowne Plaza Heathrow"
-        description="Traditional British pub with home-cooked food, real ales and free parking. Perfect for corporate dining."
+        description="Traditional British pub with home-cooked food, draught beers and free parking. Perfect for corporate dining."
         buttons={[
           { text: 'Book a Table', href: '/book-table', variant: 'white' },
           { text: 'Call Us', href: CONTACT.phoneHref, isPhone: true, phoneSource: 'crowne_plaza_heathrow_cta', variant: 'secondary' },

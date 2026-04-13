@@ -13,16 +13,16 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
   title: 'Pub Near Holiday Inn Heathrow | 12 Mins | Free Parking | The Anchor',
-  description: 'Great pub 12 minutes from Holiday Inn Heathrow. Family-friendly British pub with home-cooked food, real ales & free parking. A proper alternative to hotel dining.',
+  description: 'Great pub 12 minutes from Holiday Inn Heathrow. Family-friendly British pub with home-cooked food, draught beers & free parking. A proper alternative to hotel dining.',
   openGraph: {
     title: 'Pub Near Holiday Inn Heathrow | 12 Mins | Free Parking',
-    description: '12 minutes from Holiday Inn Heathrow. Family-friendly British pub with home-cooked food, real ales & free parking.',
+    description: '12 minutes from Holiday Inn Heathrow. Family-friendly British pub with home-cooked food, draught beers & free parking.',
     images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Holiday Inn Heathrow' }],
     type: 'website',
   },
   twitter: getTwitterMetadata({
     title: 'Pub Near Holiday Inn Heathrow | 12 Mins | Free Parking',
-    description: '12 minutes from Holiday Inn Heathrow. Family-friendly British pub with home-cooked food, real ales & free parking.',
+    description: '12 minutes from Holiday Inn Heathrow. Family-friendly British pub with home-cooked food, draught beers & free parking.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
   alternates: {
@@ -109,7 +109,7 @@ export default function PubNearHolidayInnHeathrowPage() {
               Pub Near Holiday Inn Heathrow
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
-              Staying at a Holiday Inn near Heathrow? The Anchor is just 12 minutes away — a family-friendly British pub with home-cooked food, real ales, a beer garden and free parking. If you&apos;re looking for places to eat near Heathrow that aren&apos;t a hotel chain, we&apos;re one of the best pubs near Heathrow Airport for families.
+              Staying at a Holiday Inn near Heathrow? The Anchor is just 12 minutes away — a family-friendly British pub with home-cooked food, draught beers, a beer garden and free parking. If you&apos;re looking for places to eat near Heathrow that aren&apos;t a hotel chain, we&apos;re one of the best pubs near Heathrow Airport for families.
             </p>
           </div>
         </Container>
@@ -184,18 +184,11 @@ export default function PubNearHolidayInnHeathrowPage() {
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader title="Deals for Holiday Inn Guests" />
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="card-dark rounded-none p-6 text-center">
-                <p className="text-4xl mb-2"></p>
-                <h3 className="text-xl font-bold text-anchor-cream-text mb-2">Tuesday Pizza Deal</h3>
-                <p className="text-3xl font-bold text-red-400 mb-2">Buy 1 Get 1 Free</p>
-                <p className="text-anchor-cream-text/70">All stone-baked pizzas, all day Tuesday</p>
-                <p className="text-sm text-anchor-cream-text/55 mt-2">Kids love it — great for families</p>
-              </div>
+            <div className="max-w-md mx-auto">
               <div className="card-dark rounded-none p-6 text-center">
                 <p className="text-4xl mb-2"></p>
                 <h3 className="text-xl font-bold text-anchor-cream-text mb-2">Sunday Roast</h3>
-                <p className="text-3xl font-bold text-amber-300 mb-2">From £19.99</p>
+                <p className="text-3xl font-bold text-amber-300 mb-2">From £19</p>
                 <p className="text-anchor-cream-text/70">Traditional British roast with all the trimmings</p>
                 <p className="text-sm text-anchor-cream-text/55 mt-2">Pre-booking recommended for Sundays</p>
               </div>
@@ -272,7 +265,7 @@ export default function PubNearHolidayInnHeathrowPage() {
 
       <CTASection
         title="12 Minutes from Holiday Inn Heathrow"
-        description="Family-friendly British pub with home-cooked food, real ales, beer garden and free parking."
+        description="Family-friendly British pub with home-cooked food, draught beers, beer garden and free parking."
         buttons={[
           { text: 'Book a Table', href: '/book-table', variant: 'white' },
           { text: 'Call Us', href: CONTACT.phoneHref, isPhone: true, phoneSource: 'holiday_inn_heathrow_cta', variant: 'secondary' },

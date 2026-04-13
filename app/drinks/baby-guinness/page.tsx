@@ -11,18 +11,18 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
   title: 'Baby Guinness Shot £3.50 | The Anchor - Heathrow Pub & Dining | Near Heathrow',
-  description: 'Perfect Baby Guinness shots at The Anchor, just 7 minutes from Heathrow. £3.50 each or 2 for £6. Popular for hen parties and celebrations. Much cheaper than airport bars.',
+  description: 'Perfect Baby Guinness shots at The Anchor, just 7 minutes from Heathrow. £3.50 each. Popular for hen parties and celebrations. Much cheaper than airport bars.',
   alternates: {
     canonical: '/drinks/baby-guinness'
   },
   openGraph: {
     title: 'Baby Guinness Shot at The Anchor',
-    description: 'The perfect layered shot that looks like a tiny Guinness. £3.50 each or 2 for £6.',
+    description: 'The perfect layered shot that looks like a tiny Guinness. £3.50 each.',
     images: [{ url: DEFAULT_DRINKS_IMAGE, width: 1200, height: 630, alt: 'Drinks menu at The Anchor pub near Heathrow' }],
   },
   twitter: getTwitterMetadata({
     title: 'Baby Guinness Shot at The Anchor',
-    description: 'The perfect layered shot that looks like a tiny Guinness. £3.50 each or 2 for £6.',
+    description: 'The perfect layered shot that looks like a tiny Guinness. £3.50 each.',
     images: [DEFAULT_DRINKS_IMAGE]
   })
 }
@@ -67,9 +67,6 @@ export default function BabyGuinnessPage() {
 	              <div className="flex gap-4 mb-8">
 	                <Badge variant="primary" className="text-lg px-4 py-2">
 	                  £3.50 each
-	                </Badge>
-	                <Badge variant="success" className="text-lg px-4 py-2">
-	                  2 for £6
 	                </Badge>
 	              </div>
 
@@ -163,36 +160,20 @@ export default function BabyGuinnessPage() {
                   The combination of coffee and cream flavours makes it surprisingly smooth and easy to drink,
                   which is why it's become one of the most ordered shots in pubs across the UK. At The Anchor,
                   we've been serving Baby Guinness shots for years, and they remain one of our top sellers -
-                  especially on Tuesday pizza nights and during our weekend events.
+                  especially during our weekend events.
                 </p>
               </section>
 
-              {/* Variations */}
+              {/* Pricing */}
               <section className="mb-12">
-                <h2 className="text-2xl font-bold text-anchor-gold-vivid mb-4">Variations We Also Serve</h2>
-                <div className="grid md:grid-cols-3 gap-4">
-                  <Card className="card-dark rounded-none">
-                    <CardBody className="text-center">
-                      <h3 className="font-semibold mb-2 text-anchor-cream-text">Classic Baby Guinness</h3>
-                      <p className="text-sm text-anchor-cream-text/55">Kahlúa & Bailey's</p>
-                      <p className="text-anchor-gold font-bold">£3.50</p>
-                    </CardBody>
-                  </Card>
-                  <Card className="card-dark rounded-none">
-                    <CardBody className="text-center">
-                      <h3 className="font-semibold mb-2 text-anchor-cream-text">Slippery Nipple</h3>
-                      <p className="text-sm text-anchor-cream-text/55">Vodka, Bailey's & Grenadine</p>
-                      <p className="text-anchor-gold font-bold">£4.00</p>
-                    </CardBody>
-                  </Card>
-                  <Card className="card-dark rounded-none">
-                    <CardBody className="text-center">
-                      <h3 className="font-semibold mb-2 text-anchor-cream-text">B52</h3>
-                      <p className="text-sm text-anchor-cream-text/55">Kahlúa, Bailey's & Grand Marnier</p>
-                      <p className="text-anchor-gold font-bold">£4.50</p>
-                    </CardBody>
-                  </Card>
-                </div>
+                <h2 className="text-2xl font-bold text-anchor-gold-vivid mb-4">Baby Guinness Pricing</h2>
+                <Card className="card-dark rounded-none">
+                  <CardBody className="text-center">
+                    <h3 className="font-semibold mb-2 text-anchor-cream-text">Classic Baby Guinness</h3>
+                    <p className="text-sm text-anchor-cream-text/55">Kahlúa & Bailey's</p>
+                    <p className="text-anchor-gold font-bold text-2xl">£3.50</p>
+                  </CardBody>
+                </Card>
               </section>
 
               {/* Why Choose The Anchor */}
@@ -246,9 +227,9 @@ export default function BabyGuinnessPage() {
                     10 or more, give us a heads up and we'll have them ready when you arrive.</p>
                   </div>
                   <div>
-                    <h3 className="font-semibold mb-2 text-anchor-cream-text">Do you offer any deals on Baby Guinness shots?</h3>
-                    <p className="text-anchor-cream-text/70">Yes! Get 2 for £6 - perfect for sharing with a friend or
-                    for when one just isn't enough!</p>
+                    <h3 className="font-semibold mb-2 text-anchor-cream-text">How much is a Baby Guinness?</h3>
+                    <p className="text-anchor-cream-text/70">Our Baby Guinness shots are £3.50 each - great value
+                    compared to airport bars where you'd pay £8 or more for the same thing.</p>
                   </div>
                 </div>
               </section>

@@ -589,33 +589,29 @@
     ]
   },
   "sunday_roast": {
-    "price_from": 19.99,
+    "price_from": 19,
     "currency": "GBP",
     "options": [
       {
         "name": "Roasted Chicken",
-        "price": 19.99
-      },
-      {
-        "name": "Slow-Cooked Lamb Shank",
-        "price": 23.99
+        "price": 19
       },
       {
         "name": "Crispy Pork Belly",
-        "price": 21.99
+        "price": 22
       },
       {
         "name": "Beetroot & Butternut Squash Wellington",
-        "price": 19.99,
+        "price": 19,
         "vegetarian": true
       },
       {
         "name": "Kids Roasted Chicken",
-        "price": 13.99
+        "price": 13
       }
     ],
     "add_ons": [
-      { "name": "Cauliflower Cheese", "price": 3.99 }
+      { "name": "Cauliflower Cheese", "price": 4 }
     ],
     "INCORRECT_OPTIONS": "Some older pages reference 'beef, pork, chicken, or vegetarian'. The actual current options are listed above. Do NOT use 'beef' as a roast option.",
     "accompaniments": "Herb & garlic-crusted roast potatoes, seasonal vegetables, Yorkshire pudding, red wine gravy. Vegetarian gravy available on request.",

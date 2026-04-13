@@ -14,15 +14,15 @@ import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 
 export const metadata: Metadata = {
   title: 'Book a Table at The Anchor | Near Heathrow | Free Parking',
-  description: 'Book a table at The Anchor near Heathrow with instant confirmation. Pub classics from £8.95, Sunday roasts from £19.99. Free parking, dog-friendly, 7 mins from T5. Walk-ins welcome.',
+  description: 'Book a table at The Anchor near Heathrow with instant confirmation. Pub classics from £8.95, Sunday roasts from £19. Free parking, dog-friendly, 7 mins from T5. Walk-ins welcome.',
   openGraph: {
     title: 'Book a Table at The Anchor | Near Heathrow | Free Parking',
-    description: 'Book a table at The Anchor near Heathrow with instant confirmation. Pub classics from £8.95, Sunday roasts from £19.99. Free parking, dog-friendly, 7 mins from T5. Walk-ins welcome.',
+    description: 'Book a table at The Anchor near Heathrow with instant confirmation. Pub classics from £8.95, Sunday roasts from £19. Free parking, dog-friendly, 7 mins from T5. Walk-ins welcome.',
     images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }]
   },
   twitter: getTwitterMetadata({
     title: 'Book a Table at The Anchor | Near Heathrow | Free Parking',
-    description: 'Book a table at The Anchor near Heathrow with instant confirmation. Pub classics from £8.95, Sunday roasts from £19.99. Free parking, dog-friendly, 7 mins from T5. Walk-ins welcome.',
+    description: 'Book a table at The Anchor near Heathrow with instant confirmation. Pub classics from £8.95, Sunday roasts from £19. Free parking, dog-friendly, 7 mins from T5. Walk-ins welcome.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
   alternates: {
@@ -285,7 +285,7 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
             <CardBody>
               <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-2">Sunday Roast</h3>
               <p className="text-anchor-cream-text/70 text-sm mb-4">
-                Our Sunday roasts are legendary locally — choose from beef, chicken, pork, or a vegetarian option. Roasts are served from noon, priced from £19.99, and must be pre-ordered when booking.
+                Our Sunday roasts are legendary locally — choose from beef, chicken, pork, or a vegetarian option. Roasts are served from noon, priced from £19, and must be pre-ordered when booking.
               </p>
               <Link href="/sunday-lunch" className="text-anchor-gold-vivid font-semibold text-sm hover:underline">
                 About Sunday roast &rarr;
@@ -339,9 +339,9 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
           <div className="flex justify-between items-start gap-4 py-3">
             <div>
               <h3 className="font-semibold text-anchor-cream-text">Sunday Roast</h3>
-              <p className="text-sm text-anchor-cream-text/60 mt-1">Chicken, lamb shank, pork belly or veggie wellington. All the trimmings. Pre-order by Saturday 1pm.</p>
+              <p className="text-sm text-anchor-cream-text/60 mt-1">Chicken, pork belly or veggie wellington. All the trimmings. Pre-order by Saturday 1pm.</p>
             </div>
-            <span className="text-anchor-gold-vivid font-semibold whitespace-nowrap">from &pound;19.99</span>
+            <span className="text-anchor-gold-vivid font-semibold whitespace-nowrap">from &pound;19</span>
           </div>
         </div>
         <p className="text-center mt-6">

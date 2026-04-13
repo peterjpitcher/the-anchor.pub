@@ -11,20 +11,11 @@ const EXEMPT_PAGES = new Set([
   'app/book-event/page.tsx',
   'app/booking-confirmation/page.tsx',
   'app/[...unmatched]/page.tsx',
-  'app/components/page.tsx',
-  'app/debug-hours/page.tsx',
   'app/drinks/[slug]/page.tsx',
   'app/free-parking/page.tsx',
-  'app/gtm-debug/page.tsx',
   'app/leave-review/page.tsx',
   'app/heathrow-parking/confirmation/[bookingId]/page.tsx',
   'app/parking/bookings/[id]/page.tsx',
-  'app/test-gtm/page.tsx',
-  'app/test-hours/page.tsx',
-  'app/test-navigation-tracking/page.tsx',
-  'app/test-reviews/page.tsx',
-  'app/test-simple/page.tsx',
-  'app/test-tracking/page.tsx',
   'app/whats-on/drag-shows/page.tsx',
 ])
 
@@ -37,7 +28,6 @@ const DEFAULT_HEADER_IMAGE_ALLOWED_ROUTES = new Set([
   '/coach-parking-heathrow',
   '/colnbrook-pub',
   '/corporate-christmas-parties',
-  '/demo-header',
   '/dog-friendly-pub-heathrow',
   '/family-friendly-pub-heathrow',
   '/fish-and-chips-heathrow',
@@ -93,7 +83,6 @@ const PRIVATE_HIRE_CHILD_ROUTES = new Set([
   '/private-hire/near/[slug]',
   '/private-hire/retirement-parties',
   '/private-hire/wakes',
-  '/private-hire/weddings',
 ])
 
 const TERMINAL_ROUTES = new Set([

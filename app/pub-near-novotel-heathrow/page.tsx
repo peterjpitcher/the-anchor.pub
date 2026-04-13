@@ -13,16 +13,16 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
   title: 'Pub Near Novotel Heathrow | 15 Mins | Free Parking | The Anchor',
-  description: 'Traditional British pub 15 minutes from Novotel London Heathrow. Home-cooked food, real ales & free parking. An independent alternative to hotel dining near Heathrow.',
+  description: 'Traditional British pub 15 minutes from Novotel London Heathrow. Home-cooked food, draught beers & free parking. An independent alternative to hotel dining near Heathrow.',
   openGraph: {
     title: 'Pub Near Novotel Heathrow | 15 Mins | Free Parking | The Anchor',
-    description: '15 minutes from Novotel London Heathrow. Traditional British pub with home-cooked food, real ales & free parking.',
+    description: '15 minutes from Novotel London Heathrow. Traditional British pub with home-cooked food, draught beers & free parking.',
     images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Novotel Heathrow' }],
     type: 'website',
   },
   twitter: getTwitterMetadata({
     title: 'Pub Near Novotel Heathrow | 15 Mins | Free Parking | The Anchor',
-    description: '15 minutes from Novotel London Heathrow. British pub with home-cooked food, real ales & free parking.',
+    description: '15 minutes from Novotel London Heathrow. British pub with home-cooked food, draught beers & free parking.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
   alternates: {
@@ -72,7 +72,7 @@ export default function PubNearNovotelHeathrowPage() {
       <HeroWrapper
         route="/pub-near-novotel-heathrow"
         title="Pub Near Novotel Heathrow"
-        description="15 minutes away — independent British pub with proper food and real ales"
+        description="15 minutes away — independent British pub with proper food and draught beers"
         variant="default"
         primaryCta={
           <BookTableButton
@@ -109,7 +109,7 @@ export default function PubNearNovotelHeathrowPage() {
               Pub Near Novotel London Heathrow
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
-              Staying at the Novotel Heathrow? The Anchor is just 15 minutes away — an independent British pub with home-cooked food from scratch, real ales, and free parking. Among the best pubs near Heathrow Airport, we&apos;re a proper local experience with real character, well worth the short taxi ride from your hotel.
+              Staying at the Novotel Heathrow? The Anchor is just 15 minutes away — an independent British pub with home-cooked food from scratch, draught beers, and free parking. Among the best pubs near Heathrow Airport, we&apos;re a proper local experience with real character, well worth the short taxi ride from your hotel.
             </p>
           </div>
         </Container>
@@ -184,17 +184,11 @@ export default function PubNearNovotelHeathrowPage() {
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader title="Great Value Deals Worth Knowing" />
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="card-dark rounded-none p-6 text-center">
-                <p className="text-4xl mb-2"></p>
-                <h3 className="text-xl font-bold text-anchor-cream-text mb-2">Tuesday Pizza Deal</h3>
-                <p className="text-3xl font-bold text-red-400 mb-2">Buy 1 Get 1 Free</p>
-                <p className="text-anchor-cream-text/70">All stone-baked pizzas every Tuesday</p>
-              </div>
+            <div className="max-w-md mx-auto">
               <div className="card-dark rounded-none p-6 text-center">
                 <p className="text-4xl mb-2"></p>
                 <h3 className="text-xl font-bold text-anchor-cream-text mb-2">Sunday Roast</h3>
-                <p className="text-3xl font-bold text-amber-300 mb-2">From £19.99</p>
+                <p className="text-3xl font-bold text-amber-300 mb-2">From £19</p>
                 <p className="text-anchor-cream-text/70">Traditional British roast — pre-booking recommended</p>
               </div>
             </div>
@@ -255,7 +249,7 @@ export default function PubNearNovotelHeathrowPage() {
           },
           {
             question: 'Is there a pub near Novotel Heathrow?',
-            answer: 'Yes — The Anchor in Stanwell Moor is approximately 15 minutes from Novotel London Heathrow. It\'s an independent British pub with home-cooked food, real ales, and free parking. The short journey is well worth it for the authentic local experience.'
+            answer: 'Yes — The Anchor in Stanwell Moor is approximately 15 minutes from Novotel London Heathrow. It\'s an independent British pub with home-cooked food, draught beers, and free parking. The short journey is well worth it for the authentic local experience.'
           },
           {
             question: 'What restaurants are near Novotel Heathrow?',
@@ -275,7 +269,7 @@ export default function PubNearNovotelHeathrowPage() {
 
       <CTASection
         title="15 Minutes from Novotel Heathrow"
-        description="Independent British pub with home-cooked food, real ales and free parking. Walk-ins welcome."
+        description="Independent British pub with home-cooked food, draught beers and free parking. Walk-ins welcome."
         buttons={[
           { text: 'Book a Table', href: '/book-table', variant: 'white' },
           { text: 'Call Us', href: CONTACT.phoneHref, isPhone: true, phoneSource: 'novotel_heathrow_cta', variant: 'secondary' },

@@ -157,7 +157,7 @@ export default async function VegetarianMenuPage() {
     },
     {
       question: 'Can I get a vegetarian Sunday roast?',
-      answer: 'Yes, butternut squash wellington is our vegetarian Sunday roast option (from \u00A319.99, pre-order by Saturday 1pm).',
+      answer: 'Yes, butternut squash wellington is our vegetarian Sunday roast option (from \u00A319, pre-order by Saturday 1pm).',
     },
     {
       question: 'Are the vegetarian pizzas stone-baked?',

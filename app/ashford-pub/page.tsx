@@ -382,8 +382,8 @@ export default async function AshfordPubPage() {
                     <p className="text-sm text-anchor-cream-text/70">18th, 21st, 40th, 50th celebrations</p>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-anchor-gold mb-1"> Wedding Receptions</h4>
-                    <p className="text-sm text-anchor-cream-text/70">Beautiful venue, competitive pricing</p>
+                    <h4 className="font-semibold text-anchor-gold mb-1"> Engagement Parties</h4>
+                    <p className="text-sm text-anchor-cream-text/70">Celebrate your milestone in style</p>
                   </div>
                   <div>
                     <h4 className="font-semibold text-anchor-gold mb-1"> Sports Club Events</h4>

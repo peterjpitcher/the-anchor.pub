@@ -13,17 +13,17 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-    title: 'Luggage Storage Heathrow — Free with Dining | The Anchor',
-    description: `Need luggage storage at Heathrow? Don't pay airport prices. Store your bags for FREE at ${BRAND.name} when you stop for a meal — just 7 mins from T5 with free parking.`,
+    title: 'Luggage Friendly Pub Near Heathrow — Bring Your Bags | The Anchor',
+    description: `Visiting near Heathrow with luggage? You're welcome to bring your bags to ${BRAND.name} — we have plenty of space. Enjoy a meal just 7 mins from T5 with free parking.`,
     openGraph: {
-        title: 'Luggage Storage Heathrow — Free with Dining at The Anchor',
-        description: 'Need luggage storage at Heathrow? Store your bags free while you enjoy a proper British meal, 7 minutes from Terminal 5.',
+        title: 'Luggage Friendly Pub Near Heathrow — Bring Your Bags to The Anchor',
+        description: 'Visiting near Heathrow with luggage? Bring your bags with you and enjoy a proper British meal, 7 minutes from Terminal 5.',
         images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({
-        title: 'Luggage Storage Heathrow — Free with Dining at The Anchor',
-        description: 'Need luggage storage at Heathrow? Store your bags free while you enjoy a proper British meal, 7 minutes from Terminal 5.',
+        title: 'Luggage Friendly Pub Near Heathrow — Bring Your Bags to The Anchor',
+        description: 'Visiting near Heathrow with luggage? Bring your bags with you and enjoy a proper British meal, 7 minutes from Terminal 5.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
     alternates: {
@@ -35,23 +35,23 @@ export default function LuggageStoragePage() {
     const howToSchema = {
         "@context": "https://schema.org",
         "@type": "HowTo",
-        "name": "How to Store Luggage at The Anchor",
-        "description": "Store your luggage securely while enjoying a meal near Heathrow Airport.",
+        "name": "How to Visit The Anchor with Luggage",
+        "description": "Enjoy a meal at The Anchor near Heathrow — you're welcome to bring your luggage with you.",
         "step": [
             {
                 "@type": "HowToStep",
                 "name": "Book a Table",
-                "text": "Reserve a table for lunch or dinner and mention 'Luggage Storage' in the booking notes."
+                "text": "Reserve a table for lunch or dinner. No need to mention luggage — just bring it along."
             },
             {
                 "@type": "HowToStep",
-                "name": "Arrive & Drop Off",
-                "text": "Bring your bags inside. Our staff will tag them and store them in a secure area."
+                "name": "Arrive with Your Bags",
+                "text": "Bring your luggage inside — we have plenty of space and you're welcome to keep it beside you."
             },
             {
                 "@type": "HowToStep",
-                "name": "Relax",
-                "text": "Enjoy your meal without worrying about dragging heavy suitcases around."
+                "name": "Relax & Enjoy",
+                "text": "Enjoy a proper meal without worrying about your bags. Much better than sitting on the airport floor."
             }
         ]
     }
@@ -70,8 +70,8 @@ export default function LuggageStoragePage() {
 
             <HeroWrapper
                 route="/luggage-storage-heathrow"
-                title="Luggage Storage Near Heathrow"
-                description="Don't sit on the airport floor. Store your bags for FREE when you dine with us."
+                title="Luggage Friendly Pub Near Heathrow"
+                description="Visiting before or after a flight? Bring your luggage with you — we have plenty of space."
                 variant="default"
                 primaryCta={
                     <BookTableButton
@@ -81,12 +81,12 @@ export default function LuggageStoragePage() {
                         size="lg"
                         className="w-full sm:w-auto"
                     >
-                        Book & Store
+                        Book a Table
                     </BookTableButton>
                 }
                 secondaryCta={
                     <PhoneButton phone={CONTACT.phone} source="luggage_hero" variant="secondary">
-                        Call to Check Space
+                        Call Us
                     </PhoneButton>
                 }
                 secondaryInfo={
@@ -95,7 +95,7 @@ export default function LuggageStoragePage() {
                         <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
                         <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog &amp; family friendly</span>
                         <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free luggage storage for diners</span>
+                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Luggage welcome</span>
                     </div>
                 }
             />
@@ -104,10 +104,10 @@ export default function LuggageStoragePage() {
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle className="text-anchor-cream-text mb-4">
-                            Luggage Storage Heathrow — Hours to Kill Before Your Flight?
+                            Hours to Kill Before Your Flight? Bring Your Bags to The Anchor
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">
-                            Need luggage storage near Heathrow? Checking out of your hotel at 11am but your flight isn't until 8pm? Don't spend 9 hours sitting on a hard plastic chair at Terminal 5. Come to The Anchor, store your bags safely, and enjoy a few hours of proper British hospitality.
+                            Checking out of your hotel at 11am but your flight isn't until 8pm? Don't spend 9 hours sitting on a hard plastic chair at Terminal 5. Come to The Anchor and bring your luggage with you — we have plenty of space, and you're very welcome. Enjoy a few hours of proper British hospitality before you fly.
                         </p>
                     </div>
                 </Container>
@@ -118,7 +118,7 @@ export default function LuggageStoragePage() {
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
                             title="How It Works"
-                            subtitle="It's simple, secure, and much better than a locker."
+                            subtitle="Simple — just bring your bags along."
                         />
 
                         <FeatureGrid
@@ -126,16 +126,16 @@ export default function LuggageStoragePage() {
                             features={[
                                 {
                                     icon: "",
-                                    title: "1. Book Your Spot",
-                                    description: "Book a table for a meal and add 'Luggage' to the notes so we know you're coming.",
+                                    title: "1. Book a Table",
+                                    description: "Book a table for a meal — no need to mention luggage, just turn up with it.",
                                     variant: "colored",
                                     color: "bg-anchor-bg-card",
                                     className: "rounded-xl p-6 text-center"
                                 },
                                 {
                                     icon: "",
-                                    title: "2. Safe & Secure",
-                                    description: "We store your bags in a non-public area behind the bar or in our function room.",
+                                    title: "2. Bring Your Bags",
+                                    description: "Wheel your luggage right in — we have plenty of room and you can keep it beside you.",
                                     variant: "colored",
                                     color: "bg-anchor-bg-card",
                                     className: "rounded-xl p-6 text-center"
@@ -154,9 +154,9 @@ export default function LuggageStoragePage() {
 
                         <AlertBox
                             variant="info"
-                            title="Capacity Note"
+                            title="Good to Know"
                             className="max-w-2xl mx-auto mt-8"
-                            content={`We can accommodate most standard suitcases. If you have oversized items (surfboards, cycles etc), please call us first on ${CONTACT.phone} to check we have space.`}
+                            content={`We can easily accommodate standard suitcases and cabin bags. If you have oversized items, please call us first on ${CONTACT.phone} and we'll do our best to help.`}
                         />
                     </div>
                 </Container>
@@ -166,26 +166,26 @@ export default function LuggageStoragePage() {
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeader
-                            title="Why Choose Us Over Airport Lockers?"
+                            title="Why Wait at the Airport?"
                         />
 
                         <div className="grid md:grid-cols-2 gap-8 mb-8">
                             <div className="bg-anchor-bg-raised p-6 rounded-xl border border-anchor-gold/15">
                                 <h3 className="text-xl font-bold text-anchor-cream-text mb-2">The Anchor</h3>
                                 <ul className="space-y-3">
-                                    <li className="flex items-center">Free storage for diners</li>
+                                    <li className="flex items-center">Luggage welcome — plenty of space</li>
                                     <li className="flex items-center">Comfortable seating & WiFi</li>
                                     <li className="flex items-center">Great food & beer</li>
                                     <li className="flex items-center">Fresh air in the garden</li>
                                 </ul>
                             </div>
                             <div className="bg-red-900/20 border border-red-500/30 p-6 rounded-xl">
-                                <h3 className="text-xl font-bold text-red-400 mb-2">Airport Left Luggage</h3>
+                                <h3 className="text-xl font-bold text-red-400 mb-2">Waiting at the Airport</h3>
                                 <ul className="space-y-3">
-                                    <li className="flex items-center">Expensive per item fees</li>
-                                    <li className="flex items-center">Busy queues</li>
-                                    <li className="flex items-center">Nowhere to sit</li>
-                                    <li className="flex items-center">Only fast food nearby</li>
+                                    <li className="flex items-center">Hard plastic chairs</li>
+                                    <li className="flex items-center">Overpriced food & drink</li>
+                                    <li className="flex items-center">Crowded and noisy</li>
+                                    <li className="flex items-center">Hours of boredom</li>
                                 </ul>
                             </div>
                         </div>
@@ -196,12 +196,12 @@ export default function LuggageStoragePage() {
             <FAQAccordionWithSchema
                 faqs={[
                     {
-                        question: "Is it really free?",
-                        answer: "Yes! If you are eating a main meal with us, we are happy to look after your bags for the duration of your stay plus a reasonable buffer time."
+                        question: "Can I bring my luggage to the pub?",
+                        answer: "Absolutely! You are very welcome to bring your luggage with you when visiting The Anchor. We have plenty of space, so just wheel your bags in and enjoy your meal."
                     },
                     {
-                        question: "Can I leave bags all day?",
-                        answer: "We focus on storage while you are on the premises. If you need to leave bags and go into London, please contact us - we may charge a small fee for this service."
+                        question: "Is there enough room for suitcases?",
+                        answer: "Yes — we are a spacious venue with lots of room. Standard suitcases and cabin bags are no problem at all. If you have particularly large or unusual items, give us a call and we will do our best to accommodate you."
                     },
                     {
                         question: "How far are you from Terminal 5?",
@@ -212,11 +212,11 @@ export default function LuggageStoragePage() {
             />
 
             <CTASection
-                title="Drop Your Bags, Pick Up a Pint"
-                description="Book your table now and travel stress-free."
+                title="Bring Your Bags, Grab a Bite"
+                description="Book your table now — luggage is always welcome."
                 buttons={[
                     {
-                        text: "Book & Store",
+                        text: "Book a Table",
                         href: `${CONTACT.phoneHref}`, // Using phone as booking link for now or the book widget
                         isPhone: true,
                         phoneSource: "luggage_cta",

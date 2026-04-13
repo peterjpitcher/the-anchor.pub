@@ -13,16 +13,16 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
   title: 'Pub Near Renaissance Heathrow | 12 Mins | The Anchor',
-  description: 'Authentic British pub 12 minutes from Renaissance London Heathrow Hotel. Real ales, home-cooked food & free parking. A genuine local experience for Marriott guests.',
+  description: 'Authentic British pub 12 minutes from Renaissance London Heathrow Hotel. Draught beers, home-cooked food & free parking. A genuine local experience for Marriott guests.',
   openGraph: {
     title: 'Pub Near Renaissance Heathrow | 12 Mins | The Anchor',
-    description: '12 minutes from Renaissance London Heathrow. Authentic British pub with home-cooked food, real ales & free parking.',
+    description: '12 minutes from Renaissance London Heathrow. Authentic British pub with home-cooked food, draught beers & free parking.',
     images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Renaissance London Heathrow' }],
     type: 'website',
   },
   twitter: getTwitterMetadata({
     title: 'Pub Near Renaissance Heathrow | 12 Mins | The Anchor',
-    description: '12 minutes from Renaissance London Heathrow. British pub with home-cooked food, real ales & free parking.',
+    description: '12 minutes from Renaissance London Heathrow. British pub with home-cooked food, draught beers & free parking.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
   alternates: {
@@ -109,7 +109,7 @@ export default function PubNearRenaissanceHeathrowPage() {
               Pub Near Renaissance London Heathrow Hotel
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
-              Staying at the Renaissance Heathrow? The Anchor is just 12 minutes away — a proper British village pub offering a genuine local experience that no hotel bar can replicate. Real ales, home-cooked food, and warm hospitality make us one of the most popular places to eat near Heathrow for discerning Marriott guests.
+              Staying at the Renaissance Heathrow? The Anchor is just 12 minutes away — a proper British village pub offering a genuine local experience that no hotel bar can replicate. Draught beers, home-cooked food, and warm hospitality make us one of the most popular places to eat near Heathrow for discerning Marriott guests.
             </p>
           </div>
         </Container>
@@ -145,7 +145,7 @@ export default function PubNearRenaissanceHeathrowPage() {
                 <ul className="space-y-3">
                   {[
                     'Home-cooked British food — from £8.99',
-                    'Rotating real ales and craft beers',
+                    'Rotating draught beers and craft beers',
                     'Warm, character-filled village pub',
                     'Seasonal menu and daily specials',
                     'Dog-friendly beer garden',
@@ -187,8 +187,8 @@ export default function PubNearRenaissanceHeathrowPage() {
             <FeatureGrid
               columns={3}
               features={[
-                { icon: '', title: 'Sunday Roast', description: 'Traditional British roast from £19.99 — the definitive Sunday lunch experience.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Great Drinks', description: 'Bottled real ales and familiar draught lagers. A very British ritual worth experiencing.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Sunday Roast', description: 'Traditional British roast from £19 — the definitive Sunday lunch experience.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Great Drinks', description: 'Draught beers and familiar draught lagers. A very British ritual worth experiencing.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
                 { icon: '', title: 'Fish & Chips', description: 'Fresh battered cod with chips — the British classic every visitor should try.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
               ]}
               className="mb-6"
@@ -225,7 +225,7 @@ export default function PubNearRenaissanceHeathrowPage() {
           },
           {
             question: 'Is there a pub near Renaissance Heathrow?',
-            answer: 'Yes — The Anchor in Stanwell Moor is the closest independent pub to Renaissance London Heathrow, approximately 12 minutes away. It\'s an authentic British village pub with home-cooked food, real ales, and a warm community atmosphere.'
+            answer: 'Yes — The Anchor in Stanwell Moor is the closest independent pub to Renaissance London Heathrow, approximately 12 minutes away. It\'s an authentic British village pub with home-cooked food, draught beers, and a warm community atmosphere.'
           },
           {
             question: 'What food is available near Renaissance Heathrow Hotel?',
@@ -245,7 +245,7 @@ export default function PubNearRenaissanceHeathrowPage() {
 
       <CTASection
         title="12 Minutes from Renaissance Heathrow"
-        description="Authentic British pub with home-cooked food, real ales and free parking. A genuine local experience."
+        description="Authentic British pub with home-cooked food, draught beers and free parking. A genuine local experience."
         buttons={[
           { text: 'Book a Table', href: '/book-table', variant: 'white' },
           { text: 'Call Us', href: CONTACT.phoneHref, isPhone: true, phoneSource: 'renaissance_heathrow_cta', variant: 'secondary' },

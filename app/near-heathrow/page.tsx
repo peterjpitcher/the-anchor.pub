@@ -18,7 +18,7 @@ import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 
 export const metadata: Metadata = {
   title: 'Pubs Near Heathrow Airport | 7 Mins from T5 | Free Parking | The Anchor',
-  description: 'The Anchor — rated 4.6/5 on Google — is the closest traditional pub to Heathrow Airport. 7 mins from T5, free parking, dog-friendly beer garden, Sunday roasts from £19.99 and food served daily (except Mon).',
+  description: 'The Anchor — rated 4.6/5 on Google — is the closest traditional pub to Heathrow Airport. 7 mins from T5, free parking, dog-friendly beer garden, Sunday roasts from £19 and food served daily (except Mon).',
   openGraph: {
     title: 'Pubs Near Heathrow Airport | 7 Mins from T5 | Free Parking | The Anchor',
     description: 'Rated 4.6/5 on Google. The closest traditional pub to Heathrow — 7 mins from T5, free parking, dog-friendly beer garden and food served daily.',
@@ -231,7 +231,7 @@ export default function NearHeathrowPage() {
               <div className="text-5xl mb-4"></div>
               <h2 className="text-2xl font-bold text-anchor-gold-vivid mb-3">Proper British Pub</h2>
               <p className="text-anchor-cream-text/70">
-                Traditional pub atmosphere with real ales, hearty food, and genuine
+                Traditional pub atmosphere with draught beers, hearty food, and genuine
                 British hospitality. A taste of local life.
               </p>
             </div>
@@ -762,7 +762,7 @@ export default function NearHeathrowPage() {
                   Why Smart Travellers Choose The Anchor
                 </h3>
                 <p className="text-anchor-cream-text/70 mb-4">
-                  It&apos;s not just about convenience — it&apos;s about the experience. Real ales on tap,
+                  It&apos;s not just about convenience — it&apos;s about the experience. Draught beers on tap,
                   not just commercial lagers. Food cooked to order, not reheated. Staff who remember
                   your name, not just your order number.
                 </p>

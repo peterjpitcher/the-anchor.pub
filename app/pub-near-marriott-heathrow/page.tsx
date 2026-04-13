@@ -13,16 +13,16 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
   title: 'Pub Near Marriott Heathrow | 12 Mins | Free Parking | The Anchor',
-  description: 'Traditional British pub 12 minutes from Marriott London Heathrow. Real ales, home-cooked food & free parking. Perfect for business dinners and team meals.',
+  description: 'Traditional British pub 12 minutes from Marriott London Heathrow. Draught beers, home-cooked food & free parking. Perfect for business dinners and team meals.',
   openGraph: {
     title: 'Pub Near Marriott Heathrow | 12 Mins | Free Parking | The Anchor',
-    description: '12 minutes from Marriott London Heathrow. Traditional British pub with home-cooked food, real ales & free parking. Ideal for business dinners.',
+    description: '12 minutes from Marriott London Heathrow. Traditional British pub with home-cooked food, draught beers & free parking. Ideal for business dinners.',
     images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Marriott London Heathrow' }],
     type: 'website',
   },
   twitter: getTwitterMetadata({
     title: 'Pub Near Marriott Heathrow | 12 Mins | Free Parking | The Anchor',
-    description: '12 minutes from Marriott London Heathrow. British pub with home-cooked food, real ales & free parking.',
+    description: '12 minutes from Marriott London Heathrow. British pub with home-cooked food, draught beers & free parking.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
   alternates: {
@@ -109,7 +109,7 @@ export default function PubNearMarriottHeathrowPage() {
               Pub Near Marriott London Heathrow
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
-              Staying at the Marriott Heathrow? The Anchor is just 12 minutes away — a proper British pub with home-cooked food, real ales, and free parking. As one of the top-rated pubs near Heathrow Airport, we&apos;re a genuine escape from hotel restaurant prices.
+              Staying at the Marriott Heathrow? The Anchor is just 12 minutes away — a proper British pub with home-cooked food, draught beers, and free parking. As one of the top-rated pubs near Heathrow Airport, we&apos;re a genuine escape from hotel restaurant prices.
             </p>
           </div>
         </Container>
@@ -188,7 +188,7 @@ export default function PubNearMarriottHeathrowPage() {
               columns={3}
               features={[
                 { icon: '', title: 'Classic Mains', description: 'From £8.99 — steaks, fish & chips, burgers and British classics cooked fresh daily', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Real Ales', description: 'Wide selection of beers, wines and spirits — a proper British pint from £4.80', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Draught Beers', description: 'Wide selection of beers, wines and spirits — a proper British pint from £4.80', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
                 { icon: '', title: 'Stone-Baked Pizza', description: 'Authentic stone-baked pizzas from £12 — great for groups and families', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
               ]}
               className="mb-8"
@@ -247,7 +247,7 @@ export default function PubNearMarriottHeathrowPage() {
 
       <CTASection
         title="12 Minutes from Marriott Heathrow"
-        description="Traditional British pub with home-cooked food, real ales and free parking. Perfect for business or leisure."
+        description="Traditional British pub with home-cooked food, draught beers and free parking. Perfect for business or leisure."
         buttons={[
           { text: 'Book a Table', href: '/book-table', variant: 'white' },
           { text: 'Call Us', href: CONTACT.phoneHref, isPhone: true, phoneSource: 'marriott_heathrow_cta', variant: 'secondary' },

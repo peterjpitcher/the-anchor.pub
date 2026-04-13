@@ -80,13 +80,13 @@ export function WizardStep2SundayOffer({ onSelect, onBack, selectedDate }: Wizar
                 Yes, Sunday Roast Please!
               </h3>
               <p className="text-gray-700 mb-3">
-                Roasted chicken, lamb shank, pork belly or vegetarian Wellington with all the trimmings.
+                Roasted chicken, pork belly or vegetarian Wellington with all the trimmings.
                 Yorkshire puddings made fresh to order.
               </p>
               <div className="space-y-2 text-sm">
                 <div className="flex items-center gap-2 text-amber-700">
                   <Icon name="check" className="w-4 h-4" />
-                  <span>Adults: £19.99-£23.99</span>
+                  <span>Adults: £19-£22</span>
                 </div>
                 <div className="flex items-center gap-2 text-amber-700">
                   <Icon name="info" className="w-4 h-4" />

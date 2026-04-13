@@ -13,16 +13,16 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
   title: 'Pub Near Premier Inn Heathrow | 8 Mins | Free Parking | The Anchor',
-  description: 'Great pub just 8 minutes from Premier Inn Heathrow. Independent British pub with home-cooked food, real ales & free parking. A real alternative to hotel dining.',
+  description: 'Great pub just 8 minutes from Premier Inn Heathrow. Independent British pub with home-cooked food, draught beers & free parking. A real alternative to hotel dining.',
   openGraph: {
     title: 'Pub Near Premier Inn Heathrow | 8 Mins | Free Parking',
-    description: '8 minutes from Premier Inn Heathrow. Independent British pub with home-cooked food, real ales & 20 free parking spaces.',
+    description: '8 minutes from Premier Inn Heathrow. Independent British pub with home-cooked food, draught beers & 20 free parking spaces.',
     images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Premier Inn Heathrow' }],
     type: 'website',
   },
   twitter: getTwitterMetadata({
     title: 'Pub Near Premier Inn Heathrow | 8 Mins | Free Parking',
-    description: '8 minutes from Premier Inn Heathrow. Independent British pub with home-cooked food, real ales & free parking.',
+    description: '8 minutes from Premier Inn Heathrow. Independent British pub with home-cooked food, draught beers & free parking.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
   alternates: {
@@ -109,7 +109,7 @@ export default function PubNearPremierInnHeathrowPage() {
               Pub Near Premier Inn Heathrow Terminal 5
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
-              Staying at Premier Inn Heathrow? Skip the Brewers Fayre and discover The Anchor — an independent British pub just 8 minutes away with better food, real ales, and free parking. One of the best pubs near Heathrow Airport, we offer a proper alternative to hotel dining with home-cooked meals and a genuinely local atmosphere.
+              Staying at Premier Inn Heathrow? Skip the Brewers Fayre and discover The Anchor — an independent British pub just 8 minutes away with better food, draught beers, and free parking. One of the best pubs near Heathrow Airport, we offer a proper alternative to hotel dining with home-cooked meals and a genuinely local atmosphere.
             </p>
           </div>
         </Container>
@@ -125,7 +125,7 @@ export default function PubNearPremierInnHeathrowPage() {
                 { icon: '', title: '8 Minutes', description: 'By taxi from Premier Inn Heathrow T5', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
                 { icon: '', title: '~£10–12', description: 'Short taxi fare each way', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
                 { icon: '', title: 'Free Parking', description: '20 spaces — no hourly charges', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: 'Real Ales', description: 'Proper draught beer, not just lager', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: 'Draught Beers', description: 'Proper draught beer, not just lager', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
               ]}
               className="mb-8"
             />
@@ -187,18 +187,11 @@ export default function PubNearPremierInnHeathrowPage() {
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader title="Deals Worth Knowing About" />
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="card-dark rounded-none p-6 text-center">
-                <p className="text-4xl mb-2"></p>
-                <h3 className="text-xl font-bold text-anchor-cream-text mb-2">Tuesday Pizza Deal</h3>
-                <p className="text-3xl font-bold text-red-400 mb-2">Buy 1 Get 1 Free</p>
-                <p className="text-anchor-cream-text/70">All stone-baked pizzas, all day Tuesday</p>
-                <p className="text-sm text-anchor-cream-text/55 mt-2">Perfect if your stay includes a Tuesday</p>
-              </div>
+            <div className="max-w-md mx-auto">
               <div className="card-dark rounded-none p-6 text-center">
                 <p className="text-4xl mb-2"></p>
                 <h3 className="text-xl font-bold text-anchor-cream-text mb-2">Sunday Roast</h3>
-                <p className="text-3xl font-bold text-amber-300 mb-2">From £19.99</p>
+                <p className="text-3xl font-bold text-amber-300 mb-2">From £19</p>
                 <p className="text-anchor-cream-text/70">Traditional British roast with all the trimmings</p>
                 <p className="text-sm text-anchor-cream-text/55 mt-2">Pre-booking recommended for Sundays</p>
               </div>
@@ -232,7 +225,7 @@ export default function PubNearPremierInnHeathrowPage() {
         faqs={[
           {
             question: 'Is there a pub near Premier Inn Heathrow Terminal 5?',
-            answer: 'Yes — The Anchor in Stanwell Moor is just 8 minutes by taxi from Premier Inn Heathrow Terminal 5. It\'s an independent British pub with home-cooked food, real ales, and 20 free parking spaces. Taxi fare is typically £10–12 each way.'
+            answer: 'Yes — The Anchor in Stanwell Moor is just 8 minutes by taxi from Premier Inn Heathrow Terminal 5. It\'s an independent British pub with home-cooked food, draught beers, and 20 free parking spaces. Taxi fare is typically £10–12 each way.'
           },
           {
             question: 'What\'s the nearest pub to Premier Inn Heathrow Bath Road?',
@@ -256,7 +249,7 @@ export default function PubNearPremierInnHeathrowPage() {
 
       <CTASection
         title="8 Minutes from Premier Inn Heathrow"
-        description="Independent British pub with home-cooked food, real ales and free parking. Walk-ins welcome."
+        description="Independent British pub with home-cooked food, draught beers and free parking. Walk-ins welcome."
         buttons={[
           { text: 'Book a Table', href: '/book-table', variant: 'white' },
           { text: 'Call Us', href: CONTACT.phoneHref, isPhone: true, phoneSource: 'premier_inn_heathrow_cta', variant: 'secondary' },

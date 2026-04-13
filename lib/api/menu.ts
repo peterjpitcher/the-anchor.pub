@@ -122,16 +122,7 @@ export const FALLBACK_SUNDAY_LUNCH_MENU: SundayLunchMenuResponse = {
       id: 'fallback-roasted-chicken',
       name: 'Roasted Chicken',
       description: 'Oven-roasted chicken breast with sage & onion stuffing balls, herb and garlic-crusted roast potatoes, seasonal vegetables, Yorkshire pudding, and red wine gravy',
-      price: 19.99,
-      dietary_info: [],
-      allergens: [],
-      is_available: true
-    },
-    {
-      id: 'fallback-lamb-shank',
-      name: 'Slow-Cooked Lamb Shank',
-      description: 'Tender slow-braised lamb shank in rich red wine gravy, served with herb and garlic-crusted roast potatoes, seasonal vegetables, and a Yorkshire pudding',
-      price: 23.99,
+      price: 19,
       dietary_info: [],
       allergens: [],
       is_available: true
@@ -140,7 +131,7 @@ export const FALLBACK_SUNDAY_LUNCH_MENU: SundayLunchMenuResponse = {
       id: 'fallback-crispy-pork-belly',
       name: 'Crispy Pork Belly',
       description: 'Crispy crackling and tender slow-roasted pork belly with Bramley apple sauce, herb and garlic-crusted roast potatoes, seasonal vegetables, Yorkshire pudding, and red wine gravy',
-      price: 21.99,
+      price: 22,
       dietary_info: [],
       allergens: [],
       is_available: true
@@ -149,7 +140,7 @@ export const FALLBACK_SUNDAY_LUNCH_MENU: SundayLunchMenuResponse = {
       id: 'fallback-wellington-v',
       name: 'Beetroot & Butternut Squash Wellington (V)',
       description: 'Golden puff pastry filled with beetroot & butternut squash, served with herb and garlic-crusted roast potatoes, seasonal vegetables, and vegetarian gravy',
-      price: 19.99,
+      price: 19,
       dietary_info: ['vegetarian'],
       allergens: ['gluten'],
       is_available: true
@@ -158,7 +149,7 @@ export const FALLBACK_SUNDAY_LUNCH_MENU: SundayLunchMenuResponse = {
       id: 'fallback-kids-roasted-chicken',
       name: 'Kids Roasted Chicken',
       description: 'A smaller portion of our roasted chicken with herb and garlic-crusted roast potatoes, seasonal vegetables, Yorkshire pudding, and red wine gravy',
-      price: 13.99,
+      price: 13,
       dietary_info: [],
       allergens: [],
       is_available: true

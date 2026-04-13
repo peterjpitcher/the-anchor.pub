@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     if (!landmark) return {}
 
     const eventType = landmark.type === 'crematorium' ? 'Wake & Funeral Reception'
-        : landmark.type === 'registry_office' ? 'Wedding Reception'
+        : landmark.type === 'registry_office' ? 'Private Event'
             : landmark.type === 'hospital' ? 'Baby Shower & Event'
                 : 'Private Hire'
 
@@ -56,18 +56,15 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
 
     // Determine context based on landmark type
     const isWake = landmark.type === 'crematorium'
-    const isWedding = landmark.type === 'registry_office'
     const isBaby = landmark.type === 'hospital'
 
-    const title = isWake ? 'Wakes & Memorials' : isWedding ? 'Wedding Celebrations' : isBaby ? 'Baby Showers & Events' : 'Private Hire & Events'
-    const context = isWake ? 'wakes' : isWedding ? 'wedding' : isBaby ? 'baby_shower' : 'private_party'
+    const title = isWake ? 'Wakes & Memorials' : isBaby ? 'Baby Showers & Events' : 'Private Hire & Events'
+    const context = isWake ? 'wakes' : isBaby ? 'baby_shower' : 'private_party'
     const eventType = isWake
         ? 'Wake / Memorial'
-        : isWedding
-            ? 'Wedding Reception'
-            : isBaby
-                ? 'Christening / Baby Shower'
-                : 'Other'
+        : isBaby
+            ? 'Christening / Baby Shower'
+            : 'Other'
 
     return (
         <>

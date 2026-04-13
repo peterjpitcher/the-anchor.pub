@@ -16,13 +16,13 @@ export const metadata: Metadata = {
   description: 'Great pub just 10 minutes from Travelodge London Heathrow. Real British food, proper ales & free parking. The smart traveller\'s dinner upgrade near Heathrow.',
   openGraph: {
     title: 'Pub Near Travelodge Heathrow | 10 Mins | Free Parking | The Anchor',
-    description: '10 minutes from Travelodge London Heathrow. Real British pub with home-cooked food, real ales & free parking.',
+    description: '10 minutes from Travelodge London Heathrow. Real British pub with home-cooked food, draught beers & free parking.',
     images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Travelodge Heathrow' }],
     type: 'website',
   },
   twitter: getTwitterMetadata({
     title: 'Pub Near Travelodge Heathrow | 10 Mins | Free Parking | The Anchor',
-    description: '10 minutes from Travelodge Heathrow. British pub with home-cooked food, real ales & free parking.',
+    description: '10 minutes from Travelodge Heathrow. British pub with home-cooked food, draught beers & free parking.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
   alternates: {
@@ -109,7 +109,7 @@ export default function PubNearTravelodgeHeathrowPage() {
               Pub Near Travelodge London Heathrow
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
-              Staying at a Travelodge near Heathrow? You&apos;ve made a smart choice saving on your room — now reward yourself with a proper evening at The Anchor, just 10 minutes away. One of the best places to eat near Heathrow, we serve real food, real ales, and offer a real pub atmosphere you won&apos;t find at the airport.
+              Staying at a Travelodge near Heathrow? You&apos;ve made a smart choice saving on your room — now reward yourself with a proper evening at The Anchor, just 10 minutes away. One of the best places to eat near Heathrow, we serve real food, draught beers, and offer a real pub atmosphere you won&apos;t find at the airport.
             </p>
           </div>
         </Container>
@@ -223,7 +223,7 @@ export default function PubNearTravelodgeHeathrowPage() {
         faqs={[
           {
             question: 'Is there a pub near Travelodge London Heathrow?',
-            answer: 'Yes — The Anchor in Stanwell Moor is 10–15 minutes from most Travelodge Heathrow properties. It\'s an independent British pub with home-cooked food, real ales, and 20 free parking spaces. A short taxi or Uber ride costs around £12–15.'
+            answer: 'Yes — The Anchor in Stanwell Moor is 10–15 minutes from most Travelodge Heathrow properties. It\'s an independent British pub with home-cooked food, draught beers, and 20 free parking spaces. A short taxi or Uber ride costs around £12–15.'
           },
           {
             question: 'What\'s the nearest pub to Travelodge Heathrow Central?',
@@ -239,7 +239,7 @@ export default function PubNearTravelodgeHeathrowPage() {
           },
           {
             question: 'Are there any food deals near Travelodge Heathrow?',
-            answer: 'Yes — The Anchor serves stone-baked pizzas from £12 and classic British pub food with mains from £8.99. We also have a Sunday roast from £19.99 at weekends. Check our menu for other specials and seasonal deals.'
+            answer: 'Yes — The Anchor serves stone-baked pizzas from £12 and classic British pub food with mains from £8.99. We also have a Sunday roast from £19 at weekends. Check our menu for other specials and seasonal deals.'
           },
         ]}
         className="bg-anchor-bg"
@@ -247,7 +247,7 @@ export default function PubNearTravelodgeHeathrowPage() {
 
       <CTASection
         title="10 Minutes from Travelodge Heathrow"
-        description="Real British pub with home-cooked food, real ales and free parking. Smart travellers love it."
+        description="Real British pub with home-cooked food, draught beers and free parking. Smart travellers love it."
         buttons={[
           { text: 'Book a Table', href: '/book-table', variant: 'white' },
           { text: 'Call Us', href: CONTACT.phoneHref, isPhone: true, phoneSource: 'travelodge_heathrow_cta', variant: 'secondary' },

@@ -257,7 +257,7 @@ export default function AboutPage() {
                   <CardBody className="text-center">
                     <div className="text-4xl mb-4" aria-hidden="true"></div>
                     <h3 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-vivid">
-                      Sunday Roasts from &pound;19.99
+                      Sunday Roasts from &pound;19
                     </h3>
                     <p className="text-anchor-cream-text/70 mb-4">
                       Proper roasts with all the trimmings. Yorkshire puddings, roast

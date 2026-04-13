@@ -14,7 +14,7 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
     title: 'Dining Near Heathrow T5 | Best Pre-Flight Meal',
-    description: `Avoid the airline food! Enjoy a proper British meal at ${BRAND.name} before you fly. Authentic Fish & Chips, Burgers, and Real Ale - we're just 7 mins from T5.`,
+    description: `Avoid the airline food! Enjoy a proper British meal at ${BRAND.name} before you fly. Authentic Fish & Chips, Burgers, and Draught Beer - we're just 7 mins from T5.`,
     openGraph: {
         title: 'The Last Proper Meal Before You Fly',
         description: 'Don\'t settle for an expensive airport sandwich. Enjoy authentic British pub food just minutes from your terminal.',
@@ -47,7 +47,7 @@ export default function PreFlightDiningPage() {
             <HeroWrapper
                 route="/pre-flight-meal"
                 title="Your Last Proper Meal Before Flying"
-                description="Authentic British food. Real Ale. 5 Minutes from Terminal 5."
+                description="Authentic British food. Draught Beer. 5 Minutes from Terminal 5."
                 variant="default"
                 primaryCta={
                     <BookTableButton

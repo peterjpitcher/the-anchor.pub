@@ -111,7 +111,6 @@ const defaultItems: NavigationItem[] = [
       { label: 'Gender Reveal Parties', href: '/private-hire/gender-reveal' },
       { label: 'Baby Showers', href: '/private-hire/baby-showers' },
       { label: 'Christenings', href: '/private-hire/christenings' },
-      { label: 'Weddings', href: '/private-hire/weddings' },
       { label: 'Wakes & Memorials', href: '/private-hire/wakes' },
       { label: 'Retirement Parties', href: '/private-hire/retirement-parties' },
       { label: 'Corporate Events', href: '/corporate-events' },

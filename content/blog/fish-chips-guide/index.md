@@ -42,7 +42,6 @@ Looking for authentic **fish and chips near Heathrow**? The Anchor in Stanwell M
 ### Related Links
 
 - [Full food menu](/food-menu) for burgers, pizzas and desserts
-- [Tuesday pizza deals](/pizza-tuesday) if your group wants a mix of dishes
 - [Drinks menu](/drinks) featuring bottled ales, draught lagers and British ciders
 - [Directions and parking guide](/find-us) before you visit
 

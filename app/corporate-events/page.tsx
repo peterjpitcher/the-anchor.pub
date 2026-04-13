@@ -478,7 +478,7 @@ export default function CorporateEventsPage() {
       <InternalLinkingSection
         title="Also Explore"
         links={[
-          { href: '/private-hire', title: 'Private Hire & Events', description: 'Wakes, christenings, weddings, parties and more' },
+          { href: '/private-hire', title: 'Private Hire & Events', description: 'Wakes, christenings, parties and more' },
           { href: '/function-room-hire', title: 'Function Room Hire', description: 'Flexible spaces with layout options for any occasion' },
         ]}
         className="section-spacing-md"

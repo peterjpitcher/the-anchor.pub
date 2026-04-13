@@ -43,15 +43,15 @@ import { CONTACT } from '@/lib/constants'
 export const metadata: Metadata = {
   title: 'Pub Quiz Night Near Heathrow | Cash Prizes | The Anchor',
   description:
-    "Monthly pub quiz at The Anchor near Heathrow. £3 entry, £25 bar tab prize for the winners. Teams of up to 6 welcome. Free parking, real ales. Check dates below.",
+    "Monthly pub quiz at The Anchor near Heathrow. £3 entry, £25 bar tab prize for the winners. Teams of up to 6 welcome. Free parking, draught beers. Check dates below.",
   openGraph: {
     title: 'Pub Quiz Night Near Heathrow | Cash Prizes | The Anchor',
-    description: 'Monthly pub quiz at The Anchor near Heathrow. £3 entry, £25 bar tab prize for the winners. Teams of up to 6 welcome. Free parking, real ales. Check dates below.',
+    description: 'Monthly pub quiz at The Anchor near Heathrow. £3 entry, £25 bar tab prize for the winners. Teams of up to 6 welcome. Free parking, draught beers. Check dates below.',
     images: [{ url: DEFAULT_EVENT_IMAGE, width: 1200, height: 630, alt: 'Events at The Anchor pub near Heathrow' }]
   },
   twitter: getTwitterMetadata({
     title: 'Pub Quiz Night Near Heathrow | Cash Prizes | The Anchor',
-    description: 'Monthly pub quiz at The Anchor near Heathrow. £3 entry, £25 bar tab prize for the winners. Teams of up to 6 welcome. Free parking, real ales. Check dates below.',
+    description: 'Monthly pub quiz at The Anchor near Heathrow. £3 entry, £25 bar tab prize for the winners. Teams of up to 6 welcome. Free parking, draught beers. Check dates below.',
     images: [DEFAULT_EVENT_IMAGE]
   }),
   alternates: {

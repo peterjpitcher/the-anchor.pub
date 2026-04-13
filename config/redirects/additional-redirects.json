@@ -475,5 +475,10 @@
     "source": "/pub-garden-heathrow",
     "destination": "/beer-garden",
     "permanent": true
+  },
+  {
+    "source": "/private-hire/weddings",
+    "destination": "/private-hire",
+    "permanent": true
   }
 ]

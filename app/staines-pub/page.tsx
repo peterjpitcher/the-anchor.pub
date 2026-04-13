@@ -16,7 +16,7 @@ import { getBusinessStats } from '@/lib/schema-with-reviews'
 
 export const metadata: Metadata = {
   title: 'Pubs in Staines-upon-Thames | Beer Garden, Roasts & Free Parking | The Anchor',
-  description: 'Pub near Staines rated 4.6/5 on Google. Sunday roasts from £19.99, dog-friendly beer garden, quiz nights, Music Bingo and free parking. 8 mins from Staines-upon-Thames centre.',
+  description: 'Pub near Staines rated 4.6/5 on Google. Sunday roasts from £19, dog-friendly beer garden, quiz nights, Music Bingo and free parking. 8 mins from Staines-upon-Thames centre.',
   openGraph: {
     title: 'Pub Near Staines — Beer Garden, Sunday Roasts & Free Parking',
     description: 'Rated 4.6/5 on Google. Sunday roasts, dog-friendly beer garden, quiz nights and free parking — 8 mins from Staines-upon-Thames.',
@@ -237,8 +237,8 @@ export default async function StainesPubPage() {
       <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <SectionHeader
-            title="Private Rooms & Wedding Receptions Near Staines"
-            subtitle="Flexible spaces for celebrations, receptions and family gatherings."
+            title="Private Rooms & Event Hire Near Staines"
+            subtitle="Flexible spaces for celebrations, parties and family gatherings."
           />
           <InfoBoxGrid
             columns={2}
@@ -260,11 +260,11 @@ export default async function StainesPubPage() {
                 color: "bg-anchor-bg-card"
               },
               {
-                title: "Wedding receptions in the Staines area",
+                title: "Event hire in the Staines area",
                 content: (
                   <>
                     <p className="mb-4 text-anchor-cream-text/70">
-                      We host wedding receptions near Staines with flexible layouts, buffet or three-course menus,
+                      We host private events near Staines with flexible layouts, buffet or three-course menus,
                       and dedicated support for speeches and playlists.
                     </p>
                     <Link href="/private-party-venue" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition">
@@ -434,8 +434,8 @@ export default async function StainesPubPage() {
                     <p className="text-sm text-anchor-cream-text/70">Team meetings and Christmas parties</p>
                   </div>
                   <div>
-                    <h4 className="font-semibold text-anchor-gold mb-1">Wedding Receptions</h4>
-                    <p className="text-sm text-anchor-cream-text/70">Beautiful venue for your special day</p>
+                    <h4 className="font-semibold text-anchor-gold mb-1">Engagement Parties</h4>
+                    <p className="text-sm text-anchor-cream-text/70">Celebrate your milestone with friends and family</p>
                   </div>
                   <div>
                     <h4 className="font-semibold text-anchor-gold mb-1">Memorial Services</h4>
@@ -514,7 +514,7 @@ export default async function StainesPubPage() {
                 Most locals still call it Staines rather than Staines-upon-Thames, whatever the council decided back
                 in 2012. Either way, we&apos;re one of the friendliest pubs Staines-upon-Thames has nearby — just outside the town boundary but close enough for an easy weeknight meal
                 or a lazy Sunday roast without battling for a space on the one-way system. Many of our regulars
-                discovered us exactly that way — looking for somewhere with decent food, real ales, and room to breathe.
+                discovered us exactly that way — looking for somewhere with decent food, draught beers, and room to breathe.
                 Once they tried the stone-baked pizzas and caught a sunset in the beer garden with the planes coming
                 over, they stopped bothering with the High Street altogether.
               </p>
@@ -554,8 +554,8 @@ export default async function StainesPubPage() {
             answer: "Yes. We offer private rooms and flexible layouts for birthdays, wakes and group celebrations. See the function room hire page or call 01753 682707 to plan your event."
           },
           {
-            question: "Can we book wedding receptions in the Staines area?",
-            answer: "We host wedding receptions near Staines with buffet or seated menu options, a dedicated event team, and free on-site parking. Contact us to check dates."
+            question: "Can we book private events in the Staines area?",
+            answer: "We host private events near Staines with buffet or seated menu options, a dedicated event team, and free on-site parking. Contact us to check dates."
           }
         ]}
         className="bg-anchor-bg-raised"

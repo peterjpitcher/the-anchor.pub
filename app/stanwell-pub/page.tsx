@@ -15,7 +15,7 @@ import { BookTableButton } from '@/components/BookTableButton'
 
 export const metadata: Metadata = {
   title: `Stanwell Village Pub | Beer Garden, Sunday Roasts & Free Parking | ${BRAND.name}`,
-  description: `The Anchor is Stanwell Moor's village pub — rated 4.6/5 on Google. Sunday roasts from £19.99, stone-baked pizzas, dog-friendly beer garden and free parking. 7 mins from Heathrow T5.`,
+  description: `The Anchor is Stanwell Moor's village pub — rated 4.6/5 on Google. Sunday roasts from £19, stone-baked pizzas, dog-friendly beer garden and free parking. 7 mins from Heathrow T5.`,
   openGraph: {
     title: 'Stanwell Village Pub — Beer Garden, Food & Free Parking',
     description: 'Rated 4.6/5 on Google. Sunday roasts, stone-baked pizzas and a dog-friendly beer garden at The Anchor, Stanwell Moor.',
@@ -185,7 +185,7 @@ export default async function StanwellPubPage() {
                 {
                   icon: "",
                   title: "Traditional Values",
-                  description: "Proper British pub with real ales and honest food",
+                  description: "Proper British pub with draught beers and honest food",
                   variant: "colored",
                   color: "bg-anchor-bg-card",
                   className: "rounded-none p-6 text-center border border-anchor-gold/15"
@@ -298,11 +298,10 @@ export default async function StanwellPubPage() {
                 <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Famous Sunday Roasts</h3>
                 <p className="text-anchor-cream-text/70 mb-3">The talk of Stanwell! Our traditional Sunday roasts must be ordered by 1pm Saturday.</p>
 	                <ul className="space-y-2 text-anchor-cream-text/70">
-	                  <li>• Roasted Chicken - £19.99</li>
-	                  <li>• Slow-Cooked Lamb Shank - £23.99</li>
-	                  <li>• Crispy Pork Belly - £21.99</li>
-	                  <li>• Beetroot &amp; Butternut Squash Wellington (V) - £19.99</li>
-	                  <li>• Kids Roasted Chicken - £13.99</li>
+	                  <li>• Roasted Chicken - £19</li>
+	                  <li>• Crispy Pork Belly - £22</li>
+	                  <li>• Beetroot &amp; Butternut Squash Wellington (V) - £19</li>
+	                  <li>• Kids Roasted Chicken - £13</li>
 	                </ul>
                 <p className="mt-3 text-sm text-anchor-gold">Book early - Stanwell locals fill tables fast!</p>
               </div>

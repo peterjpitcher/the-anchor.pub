@@ -12,6 +12,8 @@ import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { getCateringData } from '@/lib/api/catering-packages'
+import { CateringPackagesTable } from '@/components/features/CateringPackagesTable'
 
 export const metadata: Metadata = {
     title: 'Wake Venue & Celebration of Life | Near SW Middlesex Crematorium | The Anchor',
@@ -33,7 +35,9 @@ export const metadata: Metadata = {
 
 const nearbyCrematoriums = landmarks.filter(l => l.type === 'crematorium');
 
-export default function WakesPage() {
+export default async function WakesPage() {
+    const { foodPackages } = await getCateringData()
+
     const eventVenueSchema = {
         "@context": "https://schema.org",
         "@type": "EventVenue",
@@ -289,53 +293,16 @@ export default function WakesPage() {
 
             <Section className="bg-anchor-bg border-b border-anchor-gold/15">
                 <Container>
-                    <SectionHeader
-                        title="Funeral Tea Packages"
-                        subtitle="Simple, honest pricing with no hidden charges"
-                    />
                     <div className="max-w-4xl mx-auto">
-                        <div className="grid md:grid-cols-3 gap-6 mb-8">
-                            <div className="card-dark rounded-none p-8 text-center">
-                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2">Classic Finger Buffet</h3>
-                                <p className="text-2xl font-bold text-anchor-cream-text mb-1">From £9.95<span className="text-sm font-normal text-anchor-cream-text/55">/person</span></p>
-                                <p className="text-anchor-cream-text/55 mb-4 italic">Minimum 20 guests</p>
-                                <p className="text-anchor-cream-text/70 mb-4">A selection of sandwiches, sausage rolls, quiche, crisps, and assorted savoury bites. A traditional and well-loved option that suits all ages.</p>
-                                <ul className="text-sm text-anchor-cream-text/55 space-y-1 text-left">
-                                    <li>Assorted sandwiches (meat &amp; vegetarian)</li>
-                                    <li>Sausage rolls &amp; mini quiches</li>
-                                    <li>Crisps, nuts &amp; nibbles</li>
-                                    <li>Tea, coffee &amp; biscuits included</li>
-                                </ul>
-                            </div>
+                        <CateringPackagesTable
+                            packages={foodPackages}
+                            title="Funeral Tea Packages"
+                            subtitle="Simple, honest pricing with no hidden charges"
+                            showDescription={true}
+                            filterNames={['Sandwich Buffet', 'Finger Buffet', 'Premium Buffet', 'Afternoon Tea']}
+                        />
 
-                            <div className="card-dark rounded-none p-8 text-center border-2 border-anchor-gold/30">
-                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2">Enhanced Buffet</h3>
-                                <p className="text-2xl font-bold text-anchor-cream-text mb-1">From £14.95<span className="text-sm font-normal text-anchor-cream-text/55">/person</span></p>
-                                <p className="text-anchor-cream-text/55 mb-4 italic">Our most popular funeral tea option</p>
-                                <p className="text-anchor-cream-text/70 mb-4">Everything in the classic buffet plus hot options, a wider selection of sandwiches, and homemade cakes. A more substantial spread for guests who may have travelled.</p>
-                                <ul className="text-sm text-anchor-cream-text/55 space-y-1 text-left">
-                                    <li>All classic buffet items</li>
-                                    <li>Hot sausage rolls or chicken goujons</li>
-                                    <li>Selection of homemade cakes</li>
-                                    <li>Fresh fruit platter</li>
-                                </ul>
-                            </div>
-
-                            <div className="card-dark rounded-none p-8 text-center">
-                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2">Afternoon Tea</h3>
-                                <p className="text-2xl font-bold text-anchor-cream-text mb-1">From £18.95<span className="text-sm font-normal text-anchor-cream-text/55">/person</span></p>
-                                <p className="text-anchor-cream-text/55 mb-4 italic">A refined option for smaller gatherings</p>
-                                <p className="text-anchor-cream-text/70 mb-4">Finger sandwiches, scones with clotted cream and jam, and a selection of delicate cakes — served on tiered stands. A touch of elegance for a meaningful occasion.</p>
-                                <ul className="text-sm text-anchor-cream-text/55 space-y-1 text-left">
-                                    <li>Finger sandwiches on white &amp; brown bread</li>
-                                    <li>Scones with clotted cream &amp; jam</li>
-                                    <li>Selection of miniature cakes</li>
-                                    <li>Unlimited tea &amp; coffee</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6 text-center">
+                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6 text-center mt-8">
                             <p className="text-anchor-cream-text/70 text-sm">
                                 All funeral tea packages include use of the private dining room, dedicated staff, setup, cleardown, and free parking. Prices are indicative and may vary based on guest numbers and specific requirements. Call us on <strong className="text-anchor-gold-vivid">01753 682707</strong> for a bespoke quote tailored to your needs.
                             </p>

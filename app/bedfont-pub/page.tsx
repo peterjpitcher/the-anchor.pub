@@ -352,7 +352,7 @@ export default function BedfontPubPage() {
                 The industrial estate and business park workers along the Bedfont and Feltham corridor have cottoned on to us as well. If you work at Bedfont Lakes Business Park, DHL, or any of the units along Bedfont Road, we&rsquo;re your closest proper pub for a Friday evening wind-down or a team celebration. Seven minutes from the business park, free parking, and prices that won&rsquo;t eat into your weekend budget.
               </p>
               <p>
-                We&rsquo;re genuinely close enough to be your regular. Tuesday pizza nights, the monthly quiz, Music Bingo with Nikki Manfadge &mdash; plenty of Bedfont residents are already part of the furniture. You might as well join them.
+                We&rsquo;re genuinely close enough to be your regular. The monthly quiz, Music Bingo with Nikki Manfadge &mdash; plenty of Bedfont residents are already part of the furniture. You might as well join them.
               </p>
             </div>
           </div>

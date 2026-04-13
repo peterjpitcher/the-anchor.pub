@@ -14,7 +14,7 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
   title: `Heathrow Hotels Pub Near Me | ${BRAND.name} - Surrey Pub Escape`,
-  description: `Traditional Surrey pub minutes from Heathrow hotels. Free parking in Surrey countryside, authentic British food, real ale. Escape airport hotel prices.`,
+  description: `Traditional Surrey pub minutes from Heathrow hotels. Free parking in Surrey countryside, authentic British food, draught beer. Escape airport hotel prices.`,
   openGraph: {
     title: 'The Anchor - Traditional Pub Near Heathrow Hotels',
     description: 'Escape expensive hotel restaurants! Authentic British pub with free parking, just minutes from all Heathrow hotels.',
@@ -382,7 +382,7 @@ export default function HeathrowHotelsPubPage() {
 	              features={[
 	                {
 	                  icon: "",
-	                  title: "Real Ales",
+	                  title: "Draught Beers",
 	                  description: "Try proper British beer - not just hotel lagers. From £4.80/pint",
 	                  variant: "default",
 	                  className: "bg-anchor-bg-raised rounded-lg p-6 border border-anchor-gold/15 text-center"
@@ -397,7 +397,7 @@ export default function HeathrowHotelsPubPage() {
 	                {
 	                  icon: "",
 	                  title: "Sunday Roast",
-	                  description: "Must-try British tradition for Sunday visitors. From £19.99",
+	                  description: "Must-try British tradition for Sunday visitors. From £19",
 	                  variant: "default",
 	                  className: "bg-anchor-bg-raised rounded-lg p-6 border border-anchor-gold/15 text-center"
 	                }
@@ -502,14 +502,7 @@ export default function HeathrowHotelsPubPage() {
               title="Special Times at The Anchor"
             />
             
-            <div className="grid md:grid-cols-2 gap-8 mb-8">
-              <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
-                <h3 className="text-xl font-bold text-anchor-cream-text mb-3">Tuesday Pizza Deal</h3>
-                <p className="text-4xl font-bold text-anchor-gold-vivid mb-2">BUY 1 GET 1 FREE</p>
-                <p className="text-anchor-cream-text/70">All pizzas, all day Tuesday</p>
-                <p className="text-sm mt-2">Perfect for sharing with travel companions!</p>
-              </div>
-              
+            <div className="max-w-md mx-auto mb-8">
               <div className="bg-anchor-bg-raised rounded-xl p-6 border border-anchor-gold/15">
                 <h3 className="text-xl font-bold text-anchor-cream-text mb-3">Early Evening Dining</h3>
                 <p className="text-2xl font-bold text-anchor-gold-vivid mb-2">Kitchen from 6pm</p>

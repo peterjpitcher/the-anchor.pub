@@ -122,7 +122,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/corporate-events',
     '/corporate-christmas-parties',
     '/christmas-parties',
-    '/private-hire/weddings',
     '/private-hire/wakes',
     '/private-hire/christenings',
     '/private-hire/baby-showers',

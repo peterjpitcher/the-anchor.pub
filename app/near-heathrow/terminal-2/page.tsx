@@ -175,7 +175,7 @@ export default function Terminal2Page() {
               <div className="card-dark rounded-none p-6">
                 <h3 className="text-xl font-semibold text-anchor-gold-vivid mb-2">All-Day Menu & Drinks</h3>
                 <p className="text-sm text-anchor-cream-text/70 mb-4">
-                  Burgers, fish & chips, cocktails and real ales served fast. Free parking and WiFi while you track arrivals.
+                  Burgers, fish & chips, cocktails and draught beers served fast. Free parking and WiFi while you track arrivals.
                 </p>
                 <div className="flex flex-col gap-2">
                   <BookTableButton

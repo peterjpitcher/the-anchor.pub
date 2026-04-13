@@ -105,7 +105,7 @@ export default async function LongfordPubPage() {
             <HeroWrapper
                 route="/longford-pub"
                 title="Authentic British Pub Near Longford"
-                description="Escape the hotel strip for real food, real ale, and real prices"
+                description="Escape the hotel strip for real food, draught beer, and real prices"
                 variant="default"
                 primaryCta={
                     <BookTableButton
@@ -297,7 +297,7 @@ export default async function LongfordPubPage() {
 
             <CTASection
                 title="Escape the Hotel Bubble"
-                description="Real food, real ale, right next door."
+                description="Real food, draught beer, right next door."
                 buttons={[
                     {
                         text: "Book a Table",

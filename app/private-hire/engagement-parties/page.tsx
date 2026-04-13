@@ -12,6 +12,8 @@ import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
+import { getCateringData } from '@/lib/api/catering-packages'
+import { CateringPackagesTable } from '@/components/features/CateringPackagesTable'
 
 export const metadata: Metadata = {
     title: 'Engagement Party Venue Near Heathrow | The Anchor Pub',
@@ -32,7 +34,8 @@ export const metadata: Metadata = {
     }
 }
 
-export default function EngagementPartiesPage() {
+export default async function EngagementPartiesPage() {
+    const { foodPackages } = await getCateringData()
     const eventVenueSchema = {
         "@context": "https://schema.org",
         "@type": "EventVenue",
@@ -187,11 +190,25 @@ export default function EngagementPartiesPage() {
                                 </p>
                                 <ul className="list-disc pl-5 text-anchor-cream-text/70 space-y-2">
                                     <li>Capacity for 30-100 guests</li>
-                                    <li>Buffet prices start from £12pp</li>
+                                    <li>Buffet packages to suit all budgets</li>
                                     <li>Space for entertainment</li>
                                 </ul>
                             </div>
                         </div>
+                    </div>
+                </Container>
+            </section>
+
+            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+                <Container>
+                    <div className="max-w-4xl mx-auto">
+                        <CateringPackagesTable
+                            packages={foodPackages}
+                            title="Catering Packages"
+                            subtitle="Prices per person — minimum guest numbers may apply"
+                            showDescription={true}
+                            filterNames={['Sandwich Buffet', 'Finger Buffet', 'Premium Buffet', 'Burger Buffet', 'Afternoon Tea', 'Prosecco Afternoon Tea']}
+                        />
                     </div>
                 </Container>
             </section>

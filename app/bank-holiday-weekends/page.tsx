@@ -20,7 +20,7 @@ const BANK_HOLIDAYS_2026 = [
   { name: 'Boxing Day', date: '26 December', note: 'Check website for special hours' },
 ] as const
 
-const SUNDAY_ROAST_PRICE = '\u00a319.99'
+const SUNDAY_ROAST_PRICE = '\u00a319'
 const SUNDAY_ROAST_PREORDER_DEADLINE = 'Saturday 1pm'
 
 export const metadata: Metadata = {

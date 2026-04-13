@@ -20,15 +20,15 @@ import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 
 export const metadata: Metadata = {
   title: 'Pubs Near Heathrow Terminal 4 | 12 Mins from T4 | Free Parking | The Anchor',
-  description: 'Nearest pub to Heathrow Terminal 4. 12 minutes by taxi, free parking if driving. British pub food, Sunday roasts & real ales. Dog-friendly beer garden. Book a table.',
+  description: 'Nearest pub to Heathrow Terminal 4. 12 minutes by taxi, free parking if driving. British pub food, Sunday roasts & draught beers. Dog-friendly beer garden. Book a table.',
   openGraph: {
     title: 'Pubs Near Heathrow Terminal 4 | 12 Mins Away | Free Parking',
-    description: '12 minutes from T4. Free parking for 20 cars. British pub food, Sunday roasts & real ales. Dog-friendly beer garden.',
+    description: '12 minutes from T4. Free parking for 20 cars. British pub food, Sunday roasts & draught beers. Dog-friendly beer garden.',
     images: [{ url: DEFAULT_NEAR_HEATHROW_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Heathrow Airport' }],
   },
   twitter: getTwitterMetadata({
     title: 'Pubs Near Heathrow Terminal 4 | 12 Mins Away | Free Parking',
-    description: 'The Anchor is the closest village pub to Heathrow Terminal 4 with free parking, British dishes and real ales.',
+    description: 'The Anchor is the closest village pub to Heathrow Terminal 4 with free parking, British dishes and draught beers.',
     images: [DEFAULT_NEAR_HEATHROW_IMAGE]
   }),
   alternates: {
@@ -191,7 +191,7 @@ export default function Terminal4Page() {
               <div className="card-dark rounded-none p-6">
                 <h3 className="text-xl font-semibold text-anchor-gold-vivid mb-2">All-Day Menu & Drinks</h3>
                 <p className="text-sm text-anchor-cream-text/70 mb-4">
-                  Burgers, fish & chips, cocktails and real ales serve fast with free parking — a better alternative to hotel bars.
+                  Burgers, fish & chips, cocktails and draught beers served fast with free parking — a better alternative to hotel bars.
                 </p>
                 <div className="flex flex-col gap-2">
                   <BookTableButton

@@ -13,16 +13,16 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
   title: 'Pub Near ibis Heathrow | 12 Mins | Free Parking | The Anchor',
-  description: 'Independent pub 12 minutes from ibis London Heathrow. Real British food, real ales & free parking. Spend less on your hotel, spend more on your evening out.',
+  description: 'Independent pub 12 minutes from ibis London Heathrow. Real British food, draught beers & free parking. Spend less on your hotel, spend more on your evening out.',
   openGraph: {
     title: 'Pub Near ibis Heathrow | 12 Mins | Free Parking | The Anchor',
-    description: '12 minutes from ibis London Heathrow. Real British pub with home-cooked food, real ales & free parking. A proper evening out.',
+    description: '12 minutes from ibis London Heathrow. Real British pub with home-cooked food, draught beers & free parking. A proper evening out.',
     images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near ibis Heathrow' }],
     type: 'website',
   },
   twitter: getTwitterMetadata({
     title: 'Pub Near ibis Heathrow | 12 Mins | Free Parking | The Anchor',
-    description: '12 minutes from ibis Heathrow. British pub with home-cooked food, real ales & free parking.',
+    description: '12 minutes from ibis Heathrow. British pub with home-cooked food, draught beers & free parking.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
   alternates: {
@@ -109,7 +109,7 @@ export default function PubNearIbisHeathrowPage() {
               Pub Near ibis London Heathrow
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
-              Smart travellers stay at the ibis to save on accommodation — then spend the difference on a proper evening at The Anchor. Just 12 minutes away: real ales, home-cooked British food, and free parking. If you&apos;re searching for places to eat near Heathrow, we&apos;re the genuine local that budget-savvy guests love.
+              Smart travellers stay at the ibis to save on accommodation — then spend the difference on a proper evening at The Anchor. Just 12 minutes away: draught beers, home-cooked British food, and free parking. If you&apos;re searching for places to eat near Heathrow, we&apos;re the genuine local that budget-savvy guests love.
             </p>
           </div>
         </Container>
@@ -189,7 +189,7 @@ export default function PubNearIbisHeathrowPage() {
               features={[
                 { icon: '', title: 'Fish & Chips', description: 'British classic — fresh battered cod, chips and mushy peas. Proper pub grub.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
                 { icon: '', title: 'Stone-Baked Pizza', description: 'Authentic stone-baked pizzas from £12 — proper pub grub cooked fresh to order.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Real Ales from £4.80', description: 'Wide selection of beers, wines and spirits — proper British drinks at proper pub prices.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Draught Beers from £4.80', description: 'Wide selection of beers, wines and spirits — proper British drinks at proper pub prices.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
               ]}
               className="mb-6"
             />
@@ -221,7 +221,7 @@ export default function PubNearIbisHeathrowPage() {
         faqs={[
           {
             question: 'Is there a pub near ibis London Heathrow?',
-            answer: 'Yes — The Anchor in Stanwell Moor is approximately 12 minutes by taxi from ibis London Heathrow. It\'s an independent British pub with home-cooked food, real ales, and 20 free parking spaces. Taxi fare is typically around £15 each way.'
+            answer: 'Yes — The Anchor in Stanwell Moor is approximately 12 minutes by taxi from ibis London Heathrow. It\'s an independent British pub with home-cooked food, draught beers, and 20 free parking spaces. Taxi fare is typically around £15 each way.'
           },
           {
             question: 'What\'s the nearest pub to ibis Heathrow Bath Road?',
@@ -245,7 +245,7 @@ export default function PubNearIbisHeathrowPage() {
 
       <CTASection
         title="12 Minutes from ibis Heathrow"
-        description="Independent British pub with home-cooked food, real ales and free parking. Walk-ins welcome."
+        description="Independent British pub with home-cooked food, draught beers and free parking. Walk-ins welcome."
         buttons={[
           { text: 'Book a Table', href: '/book-table', variant: 'white' },
           { text: 'Call Us', href: CONTACT.phoneHref, isPhone: true, phoneSource: 'ibis_heathrow_cta', variant: 'secondary' },

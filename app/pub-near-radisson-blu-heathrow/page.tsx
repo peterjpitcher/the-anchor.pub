@@ -13,16 +13,16 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
   title: 'Pub Near Radisson Blu Heathrow | 12 Mins | The Anchor',
-  description: 'Authentic British pub 12 minutes from Radisson Blu Edwardian Heathrow. Real ales, home-cooked food & free parking. A genuine local alternative to hotel dining.',
+  description: 'Authentic British pub 12 minutes from Radisson Blu Edwardian Heathrow. Draught beers, home-cooked food & free parking. A genuine local alternative to hotel dining.',
   openGraph: {
     title: 'Pub Near Radisson Blu Heathrow | 12 Mins | The Anchor',
-    description: '12 minutes from Radisson Blu Edwardian Heathrow. Authentic British pub with home-cooked food, real ales & free parking.',
+    description: '12 minutes from Radisson Blu Edwardian Heathrow. Authentic British pub with home-cooked food, draught beers & free parking.',
     images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Radisson Blu Heathrow' }],
     type: 'website',
   },
   twitter: getTwitterMetadata({
     title: 'Pub Near Radisson Blu Heathrow | 12 Mins | The Anchor',
-    description: '12 minutes from Radisson Blu Heathrow. British pub with home-cooked food, real ales & free parking.',
+    description: '12 minutes from Radisson Blu Heathrow. British pub with home-cooked food, draught beers & free parking.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
   alternates: {
@@ -109,7 +109,7 @@ export default function PubNearRadissonBluHeathrowPage() {
               Pub Near Radisson Blu Edwardian Heathrow
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
-              Staying at the Radisson Blu Heathrow? The Anchor is just 12 minutes away — a genuine British community pub with home-cooked food, real ales, and free parking. For places to eat near Heathrow with real character, we&apos;re the authentic local experience your hotel can&apos;t offer.
+              Staying at the Radisson Blu Heathrow? The Anchor is just 12 minutes away — a genuine British community pub with home-cooked food, draught beers, and free parking. For places to eat near Heathrow with real character, we&apos;re the authentic local experience your hotel can&apos;t offer.
             </p>
           </div>
         </Container>
@@ -188,8 +188,8 @@ export default function PubNearRadissonBluHeathrowPage() {
               columns={3}
               features={[
                 { icon: '', title: 'Fish & Chips', description: 'The quintessential British dish — fresh battered cod with chips and mushy peas.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Sunday Roast', description: 'Traditional roast from £19.99 — pre-booking recommended for weekends.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Great Drinks Selection', description: 'Bottled real ales and draught lagers. Proper British beer culture.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Sunday Roast', description: 'Traditional roast from £19 — pre-booking recommended for weekends.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Great Drinks Selection', description: 'Draught beers and lagers. Proper British beer culture.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
               ]}
               className="mb-6"
             />
@@ -250,7 +250,7 @@ export default function PubNearRadissonBluHeathrowPage() {
           },
           {
             question: 'Is there a pub near Radisson Blu Heathrow?',
-            answer: 'Yes — The Anchor in Stanwell Moor is the closest independent pub to Radisson Blu Edwardian Heathrow, approximately 12 minutes away. It\'s an authentic British pub with home-cooked food, real ales, and a genuine community atmosphere.'
+            answer: 'Yes — The Anchor in Stanwell Moor is the closest independent pub to Radisson Blu Edwardian Heathrow, approximately 12 minutes away. It\'s an authentic British pub with home-cooked food, draught beers, and a genuine community atmosphere.'
           },
           {
             question: 'What restaurants are near Radisson Blu Heathrow?',
@@ -270,7 +270,7 @@ export default function PubNearRadissonBluHeathrowPage() {
 
       <CTASection
         title="12 Minutes from Radisson Blu Heathrow"
-        description="Authentic British pub with home-cooked food, real ales and free parking. A genuine local experience."
+        description="Authentic British pub with home-cooked food, draught beers and free parking. A genuine local experience."
         buttons={[
           { text: 'Book a Table', href: '/book-table', variant: 'white' },
           { text: 'Call Us', href: CONTACT.phoneHref, isPhone: true, phoneSource: 'radisson_blu_heathrow_cta', variant: 'secondary' },

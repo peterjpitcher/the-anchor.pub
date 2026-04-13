@@ -10,6 +10,9 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
+import { getCateringData } from '@/lib/api/catering-packages'
+import { CateringPackagesTable } from '@/components/features/CateringPackagesTable'
+import { VenueSpacesTable } from '@/components/features/VenueSpacesTable'
 
 export const metadata: Metadata = {
     title: 'Function Room & Party Venue Near Heathrow | Private Hire | The Anchor',
@@ -29,7 +32,8 @@ export const metadata: Metadata = {
     }
 }
 
-export default function PrivateHirePage() {
+export default async function PrivateHirePage() {
+    const { foodPackages, drinkPackages, addonPackages, spaces } = await getCateringData()
     return (
         <>
             <BreadcrumbJsonLd
@@ -137,27 +141,6 @@ export default function PrivateHirePage() {
                             </div>
                         </Link>
 
-                        {/* Weddings */}
-                        <Link href="/private-hire/weddings" className="group block h-full">
-                            <div className="card-dark rounded-none overflow-hidden hover:shadow-md transition-all h-full">
-                                <div className="aspect-video bg-gray-200 relative">
-                                    <Image
-                                        src="/images/private-hire/weddings.png"
-                                        alt="Wedding reception venue at The Anchor near Heathrow"
-                                        fill
-                                        className="object-cover"
-                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                    />
-                                </div>
-                                <div className="p-6">
-                                    <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2 group-hover:text-anchor-gold transition-colors">Weddings & Engagements</h3>
-                                    <p className="text-anchor-cream-text/70 mb-4">From engagement parties to day-after brunches. The perfect spot for pre and post-wedding gatherings.</p>
-                                    <span className="text-anchor-gold font-semibold text-sm flex items-center gap-1">
-                                        View Wedding Events <span className="group-hover:translate-x-1 transition-transform">→</span>
-                                    </span>
-                                </div>
-                            </div>
-                        </Link>
 
                         {/* Parties */}
                         <Link href="/private-party-venue" className="group block h-full">
@@ -233,51 +216,40 @@ export default function PrivateHirePage() {
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeader
-                            title="Indicative Pricing"
-                            subtitle="Packages to suit every occasion and budget"
+                            title="Our Packages"
+                            subtitle="Catering, drinks and venue hire to suit every occasion"
                         />
 
-                        <div className="overflow-x-auto">
-                            <table className="w-full text-left border-collapse">
-                                <thead>
-                                    <tr className="border-b border-anchor-gold/30">
-                                        <th scope="col" className="py-3 pr-4 text-sm font-semibold text-anchor-gold-vivid">Package</th>
-                                        <th scope="col" className="py-3 pr-4 text-sm font-semibold text-anchor-gold-vivid">From (per person)</th>
-                                        <th scope="col" className="py-3 text-sm font-semibold text-anchor-gold-vivid">Includes</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="divide-y divide-anchor-gold/10">
-                                    <tr>
-                                        <td className="py-3 pr-4 text-anchor-cream-text font-medium">Drinks Reception</td>
-                                        <td className="py-3 pr-4 text-anchor-cream-text">Free (min bar spend applies)</td>
-                                        <td className="py-3 text-anchor-cream-text/70">Private area, dedicated bar staff</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="py-3 pr-4 text-anchor-cream-text font-medium">Finger Buffet</td>
-                                        <td className="py-3 pr-4 text-anchor-cream-text">&pound;9.95</td>
-                                        <td className="py-3 text-anchor-cream-text/70">Selection of hot and cold bites</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="py-3 pr-4 text-anchor-cream-text font-medium">Hot Buffet</td>
-                                        <td className="py-3 pr-4 text-anchor-cream-text">&pound;14.95</td>
-                                        <td className="py-3 text-anchor-cream-text/70">Choice of mains, sides, dessert</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="py-3 pr-4 text-anchor-cream-text font-medium">Sit-Down Meal</td>
-                                        <td className="py-3 pr-4 text-anchor-cream-text">&pound;24.95</td>
-                                        <td className="py-3 text-anchor-cream-text/70">2 or 3 courses, table service</td>
-                                    </tr>
-                                    <tr>
-                                        <td className="py-3 pr-4 text-anchor-cream-text font-medium">Sunday Lunch Party</td>
-                                        <td className="py-3 pr-4 text-anchor-cream-text">&pound;19.99</td>
-                                        <td className="py-3 text-anchor-cream-text/70">Traditional roast, booking deposit</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div className="space-y-10">
+                            <CateringPackagesTable
+                                packages={foodPackages}
+                                title="Food Packages"
+                                subtitle="All prices per person unless stated"
+                            />
+
+                            <CateringPackagesTable
+                                packages={drinkPackages}
+                                title="Drink Packages"
+                            />
+
+                            <CateringPackagesTable
+                                packages={addonPackages}
+                                title="Extras"
+                            />
+
+                            {spaces.length > 0 && (
+                                <div>
+                                    <div className="mb-4">
+                                        <h3 className="text-xl font-bold text-anchor-gold-vivid">Venue Hire</h3>
+                                        <p className="text-sm text-anchor-cream-text/60 mt-1">Hourly rates — no minimum spend required</p>
+                                    </div>
+                                    <VenueSpacesTable spaces={spaces} />
+                                </div>
+                            )}
                         </div>
 
-                        <p className="mt-6 text-sm text-anchor-cream-text/60 italic">
-                            All prices are per person. Bespoke packages available — get in touch to discuss your requirements.
+                        <p className="mt-8 text-sm text-anchor-cream-text/60 italic">
+                            Sit-down meals and Sunday lunches are priced à la carte from our menu. Bespoke packages available — get in touch to discuss your requirements.
                         </p>
 
                         <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
@@ -356,13 +328,13 @@ export default function PrivateHirePage() {
                                 <tbody className="divide-y divide-anchor-gold/10">
                                     <tr>
                                         <td className="py-3 pr-4 text-anchor-cream-text font-medium">Room hire</td>
-                                        <td className="py-3 pr-4 text-anchor-cream-text">From free (with catering)</td>
+                                        <td className="py-3 pr-4 text-anchor-cream-text">From &pound;25/hr</td>
                                         <td className="py-3 text-anchor-cream-text/50">&pound;500–&pound;2,000</td>
                                     </tr>
                                     <tr>
                                         <td className="py-3 pr-4 text-anchor-cream-text font-medium">Catering per head</td>
-                                        <td className="py-3 pr-4 text-anchor-cream-text">From &pound;9.95</td>
-                                        <td className="py-3 text-anchor-cream-text/50">From &pound;35–&pound;55</td>
+                                        <td className="py-3 pr-4 text-anchor-cream-text">From &pound;9.95pp</td>
+                                        <td className="py-3 text-anchor-cream-text/50">From &pound;35–&pound;55pp</td>
                                     </tr>
                                     <tr>
                                         <td className="py-3 pr-4 text-anchor-cream-text font-medium">Parking</td>

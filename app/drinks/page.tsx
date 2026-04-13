@@ -22,16 +22,16 @@ import { getBusinessHours } from '@/lib/api'
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
-  title: 'Drinks Menu Near Heathrow | Real Ales, Cocktails & Wine',
-  description: 'Draught beers, real ales, cocktails, wines & spirits at The Anchor near Heathrow. Pints from £4.50, cocktails from £8. Free parking, 7 mins from T5. View menu.',
+  title: 'Drinks Menu Near Heathrow | Draught Beers, Cocktails & Wine',
+  description: 'Draught beers, draught beers, cocktails, wines & spirits at The Anchor near Heathrow. Pints from £4.50, cocktails from £8. Free parking, 7 mins from T5. View menu.',
   openGraph: {
-    title: 'Drinks Menu Near Heathrow | Real Ales, Cocktails & Wine',
-    description: 'Draught beers, real ales, cocktails, wines & spirits at The Anchor near Heathrow. Pints from £4.50, cocktails from £8. Free parking, 7 mins from T5. View menu.',
+    title: 'Drinks Menu Near Heathrow | Draught Beers, Cocktails & Wine',
+    description: 'Draught beers, draught beers, cocktails, wines & spirits at The Anchor near Heathrow. Pints from £4.50, cocktails from £8. Free parking, 7 mins from T5. View menu.',
     images: [{ url: DEFAULT_DRINKS_IMAGE, width: 1200, height: 630, alt: 'Drinks menu at The Anchor pub near Heathrow' }],
   },
   twitter: getTwitterMetadata({
-    title: 'Drinks Menu Near Heathrow | Real Ales, Cocktails & Wine',
-    description: 'Draught beers, real ales, cocktails, wines & spirits at The Anchor near Heathrow. Pints from £4.50, cocktails from £8. Free parking, 7 mins from T5. View menu.',
+    title: 'Drinks Menu Near Heathrow | Draught Beers, Cocktails & Wine',
+    description: 'Draught beers, draught beers, cocktails, wines & spirits at The Anchor near Heathrow. Pints from £4.50, cocktails from £8. Free parking, 7 mins from T5. View menu.',
     images: [DEFAULT_DRINKS_IMAGE]
   }),
   alternates: {
@@ -74,7 +74,7 @@ export default async function DrinksMenuPage() {
     "@type": "Menu",
     "@id": "https://www.the-anchor.pub/drinks#menu",
     "name": "The Anchor Drinks Menu",
-    "description": "Full bar service with real ales, draught lagers, wines, spirits and soft drinks at The Anchor in Stanwell Moor, Surrey",
+    "description": "Full bar service with draught beers, lagers, wines, spirits and soft drinks at The Anchor in Stanwell Moor, Surrey",
     "hasMenuSection": menuDataWithoutManagersSpecial.categories.map(category => ({
       "@type": "MenuSection",
       "name": category.title,
@@ -137,7 +137,7 @@ export default async function DrinksMenuPage() {
     "amenityFeature": [
       {
         "@type": "LocationFeatureSpecification",
-        "name": "Real Ales",
+        "name": "Draught Beers",
         "value": true
       },
       {
@@ -182,10 +182,10 @@ export default async function DrinksMenuPage() {
       <HeroWrapper
         route="/drinks"
         title="Drinks at The Anchor"
-        description="From real ales to premium spirits - something for everyone"
+        description="From draught beers to premium spirits - something for everyone"
         variant="default"
         tags={[
-          { label: 'Real Ales', variant: 'default' },
+          { label: 'Draught Beers', variant: 'default' },
           { label: 'Premium Spirits', variant: 'default' },
           { label: 'Wine Selection', variant: 'default' },
           { label: 'Cocktails', variant: 'primary' }
@@ -306,7 +306,7 @@ export default async function DrinksMenuPage() {
               Drinks Menu - Beers, Wines & Spirits
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
-              Explore our extensive selection of real ales, draught lagers, premium spirits, wines, and cocktails
+              Explore our extensive selection of draught beers, lagers, premium spirits, wines, and cocktails
             </p>
           </div>
         </Container>
@@ -422,7 +422,7 @@ export default async function DrinksMenuPage() {
                   title: "Quality & Choice",
                   content: (
                     <>
-                      <p className="text-anchor-cream-text/70 mb-4">From real ales to handcrafted cocktails, we take drinks seriously. Expert bar staff, proper glassware, and drinks served exactly how they should be. No shortcuts.</p>
+                      <p className="text-anchor-cream-text/70 mb-4">From draught beers to handcrafted cocktails, we take drinks seriously. Expert bar staff, proper glassware, and drinks served exactly how they should be. No shortcuts.</p>
                       <p className="text-sm text-anchor-cream-text/70">Can't see your favourite? Just ask - we might have it!</p>
                     </>
                   ),
@@ -543,7 +543,7 @@ export default async function DrinksMenuPage() {
           },
           {
             question: "Where can I find well-kept draught beer near Heathrow?",
-            answer: "The Anchor is just 7 minutes from Heathrow and offers an excellent selection of real ales and premium lagers. We're much better value than airport bars and have a proper pub atmosphere with our beer garden."
+            answer: "The Anchor is just 7 minutes from Heathrow and offers an excellent selection of draught beers and premium lagers. We're much better value than airport bars and have a proper pub atmosphere with our beer garden."
           },
           {
             question: "Do you have non-alcoholic drink options?",

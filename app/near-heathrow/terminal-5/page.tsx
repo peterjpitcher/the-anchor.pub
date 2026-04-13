@@ -23,12 +23,12 @@ export const metadata: Metadata = {
   description: 'Looking for pubs near Heathrow Terminal 5? The Anchor is just 7 minutes by taxi (£20-25) or drive and park free. British pub food, dog-friendly beer garden. Popular with BA crew.',
   openGraph: {
     title: 'Pubs Near Heathrow Terminal 5 | 7 Mins Away | Free Parking',
-    description: 'Looking for pubs near Heathrow Terminal 5? Just 7 minutes by taxi. Free parking for 20 cars. British pub food, dog-friendly beer garden & real ales.',
+    description: 'Looking for pubs near Heathrow Terminal 5? Just 7 minutes by taxi. Free parking for 20 cars. British pub food, dog-friendly beer garden & draught beers.',
     images: [{ url: DEFAULT_NEAR_HEATHROW_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Heathrow Airport' }],
   },
   twitter: getTwitterMetadata({
     title: 'Pubs Near Heathrow Terminal 5 | 7 Mins Away | Free Parking',
-    description: 'Looking for pubs near Heathrow Terminal 5? Just 7 minutes by taxi. Free parking for 20 cars. British pub food, dog-friendly beer garden & real ales.',
+    description: 'Looking for pubs near Heathrow Terminal 5? Just 7 minutes by taxi. Free parking for 20 cars. British pub food, dog-friendly beer garden & draught beers.',
     images: [DEFAULT_NEAR_HEATHROW_IMAGE]
   }),
   alternates: {
@@ -559,7 +559,7 @@ export default function Terminal5Page() {
                 <ul className="space-y-2 text-anchor-cream-text/70 mb-6">
                   <li className="flex gap-2">
                     <span className="text-anchor-gold"></span>
-                    <span>Bottled real ales alongside draught lagers and ciders</span>
+                    <span>Bottled draught beers alongside ciders and ciders</span>
                   </li>
 	                  <li className="flex gap-2">
 	                    <span className="text-anchor-gold"></span>
@@ -640,7 +640,7 @@ export default function Terminal5Page() {
         title="Plan The Rest Of Your Visit"
         links={[
           { href: '/food-menu', title: 'Food Menu', description: 'Stone-baked pizzas, burgers and Sunday roast pre-orders' },
-          { href: '/drinks', title: 'Drinks Menu', description: 'Real ales, cocktails and value pub prices near Heathrow' },
+          { href: '/drinks', title: 'Drinks Menu', description: 'Draught beers, cocktails and value pub prices near Heathrow' },
           { href: '/private-hire#enquiry', title: 'Book an Event', description: 'Reserve private space for crew briefings or celebrations' },
           { href: '/near-heathrow/terminal-3', title: 'Terminal 3 Guide', description: 'Directions and tips for Virgin and Emirates flights' }
         ]}

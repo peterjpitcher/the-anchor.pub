@@ -14,16 +14,16 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
   title: 'Pub Near Hilton Heathrow | 10 Mins | Free Parking | The Anchor',
-  description: 'Traditional British pub 10 minutes from Hilton London Heathrow Airport. Real ales, home-cooked food & free parking. Ideal for business travellers. Book a table.',
+  description: 'Traditional British pub 10 minutes from Hilton London Heathrow Airport. Draught beers, home-cooked food & free parking. Ideal for business travellers. Book a table.',
   openGraph: {
     title: 'Pub Near Hilton Heathrow | 10 Mins | Free Parking | The Anchor',
-    description: '10 minutes from Hilton London Heathrow. Traditional British pub with home-cooked food, real ales & free parking. Perfect for business travellers.',
+    description: '10 minutes from Hilton London Heathrow. Traditional British pub with home-cooked food, draught beers & free parking. Perfect for business travellers.',
     images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Hilton London Heathrow Airport' }],
     type: 'website',
   },
   twitter: getTwitterMetadata({
     title: 'Pub Near Hilton Heathrow | 10 Mins | Free Parking | The Anchor',
-    description: '10 minutes from Hilton Heathrow. British pub with home-cooked food, real ales & free parking.',
+    description: '10 minutes from Hilton Heathrow. British pub with home-cooked food, draught beers & free parking.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
   alternates: {
@@ -110,7 +110,7 @@ export default function PubNearHiltonHeathrowPage() {
               Pub Near Hilton London Heathrow Airport
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
-              Staying at the Hilton Heathrow? The Anchor is just 10 minutes away — a traditional British pub with home-cooked food, real ales, and free parking. Popular with business travellers looking to escape hotel prices, we&apos;re one of the top-rated restaurants near Heathrow for guests who want something better than the hotel bar.
+              Staying at the Hilton Heathrow? The Anchor is just 10 minutes away — a traditional British pub with home-cooked food, draught beers, and free parking. Popular with business travellers looking to escape hotel prices, we&apos;re one of the top-rated restaurants near Heathrow for guests who want something better than the hotel bar.
             </p>
           </div>
         </Container>
@@ -192,7 +192,7 @@ export default function PubNearHiltonHeathrowPage() {
               columns={3}
               features={[
                 { icon: '', title: 'Classic Mains', description: 'From £8.99 — steaks, fish & chips, burgers and British classics cooked fresh daily', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Real Ales', description: 'Wide selection of beers, wines and spirits — a proper British pint from £4.80', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Draught Beers', description: 'Wide selection of beers, wines and spirits — a proper British pint from £4.80', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
                 { icon: '', title: 'Wine & Spirits', description: 'Quality wines, premium spirits and cocktails — all at pub prices', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
               ]}
               className="mb-8"
@@ -267,7 +267,7 @@ export default function PubNearHiltonHeathrowPage() {
 
       <CTASection
         title="10 Minutes from Hilton Heathrow"
-        description="Traditional British pub with home-cooked food, real ales and free parking. Perfect for business or leisure."
+        description="Traditional British pub with home-cooked food, draught beers and free parking. Perfect for business or leisure."
         buttons={[
           { text: 'Book a Table', href: '/book-table', variant: 'white' },
           { text: 'Call Us', href: CONTACT.phoneHref, isPhone: true, phoneSource: 'hilton_heathrow_cta', variant: 'secondary' },

@@ -330,14 +330,6 @@ export default function FunctionRoomHirePage() {
                 <div className="bg-anchor-bg-raised w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-3xl"></span>
                 </div>
-                <h3 className="font-bold mb-2">Weddings</h3>
-                <p className="text-sm text-anchor-cream-text/70">Receptions, ceremonies, engagement parties</p>
-              </div>
-
-              <div className="text-center">
-                <div className="bg-anchor-bg-raised w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-3xl"></span>
-                </div>
                 <h3 className="font-bold mb-2">Memorial Services</h3>
                 <p className="text-sm text-anchor-cream-text/70">Wakes, celebrations of life, gatherings</p>
               </div>
@@ -525,48 +517,32 @@ export default function FunctionRoomHirePage() {
           <div className="max-w-4xl mx-auto">
             <SectionHeader
               title="Simple, Transparent Pricing"
-              subtitle="Flexible pricing tailored to your event needs"
+              subtitle="Hourly venue hire tailored to your event"
             />
 
             <div className="card-dark rounded-none p-8 mb-8">
-              <h3 className="text-xl font-bold text-anchor-gold-vivid mb-6 text-center">Typical Minimum Spends</h3>
-              <div className="grid md:grid-cols-2 gap-8">
-                <div>
-	                  <h4 className="font-bold mb-4">Weekdays (Mon-Thu)</h4>
-	                  <ul className="space-y-2 text-anchor-cream-text/70">
-	                    <li>• Morning/Afternoon: From £150</li>
-	                    <li>• Evening: From £300</li>
-	                    <li>• All Day: From £400</li>
-	                  </ul>
-	                </div>
-	                <div>
-	                  <h4 className="font-bold mb-4">Weekends (Fri-Sun)</h4>
-	                  <ul className="space-y-2 text-anchor-cream-text/70">
-	                    <li>• Morning/Afternoon: From £250</li>
-	                    <li>• Evening: From £500</li>
-	                    <li>• All Day: From £600</li>
-	                  </ul>
-	                </div>
+              <h3 className="text-xl font-bold text-anchor-gold-vivid mb-6 text-center">Venue Hire Rates</h3>
+              <div className="text-center">
+                <p className="text-3xl font-bold text-anchor-gold mb-2">From £25/hr</p>
+                <p className="text-anchor-cream-text/70 mb-4">for our private dining room</p>
+                <p className="text-anchor-cream-text/70">
+                  Venue hire is charged at an hourly rate, with pricing based on the space you need, the day of the week, and your event requirements. Catering and drinks are quoted separately so you only pay for what you need.
+                </p>
               </div>
-              <p className="text-sm text-anchor-cream-text/70 mt-6 text-center">
-                * Exact minimums depend on specific date, time, and space required.
-                December and peak times may have higher minimums.
-              </p>
             </div>
 
             <AlertBox
               variant="info"
-              title="How Minimum Spend Works"
+              title="Get a Personalised Quote"
               content={
                 <div>
                   <p className="mb-3">
-                    Your minimum spend covers food, drinks, and any extras you choose. Most events naturally
-                    exceed minimums once you add catering and beverages for your guests.
+                    Every event is different, so we tailor pricing to your needs. Tell us about your event and
+                    we'll put together a clear, no-obligation quote covering venue hire, catering and any extras.
                   </p>
-	                  <p className="font-semibold">
-	                    Example: 50-person evening event with buffet and drinks typically totals £750-1000,
-	                    easily exceeding the £500 weekend minimum.
-	                  </p>
+                  <p className="font-semibold text-center">
+                    Call us on 01753 682707 or <a href="/private-hire#enquiry" className="text-anchor-gold underline">submit an enquiry online</a>.
+                  </p>
                 </div>
               }
             />
@@ -659,11 +635,11 @@ export default function FunctionRoomHirePage() {
         faqs={[
           {
             question: "What exactly is included in function room hire?",
-            answer: "Everything you need is included: the space configured to your requirements, tables, chairs, linens, basic AV equipment (microphone, music system), dedicated staff, setup/breakdown, and cleaning. We offer flexible venue hire pricing tailored to your event, alongside minimum spend requirements on food and drinks."
+            answer: "Everything you need is included: the space configured to your requirements, tables, chairs, linens, basic AV equipment (microphone, music system), dedicated staff, setup/breakdown, and cleaning. Venue hire is charged at an hourly rate, and catering is quoted separately."
           },
           {
             question: "How does your venue hire pricing work?",
-            answer: "We offer flexible venue hire pricing that's tailored to each event. Our rates vary by day, time, and the type of event you're hosting. We're always willing to discuss your needs and work within your budget. Contact us for a personalised quote that suits your requirements."
+            answer: "Venue hire is charged at an hourly rate — from £25/hr for our private dining room. Rates vary by day, time, and the space required. Catering and drinks are quoted separately. Contact us for a personalised quote tailored to your event."
           },
           {
             question: "Can I view the function rooms before booking?",
@@ -679,7 +655,7 @@ export default function FunctionRoomHirePage() {
           },
           {
             question: "What are your minimum guest numbers?",
-            answer: "We can accommodate groups from 10 people upwards. For exclusive use of the entire venue, we typically require 80+ guests or equivalent minimum spend. Smaller groups are perfectly welcome in our function room."
+            answer: "We can accommodate groups from 10 people upwards. For exclusive use of the entire venue, we typically require 80+ guests. Smaller groups are perfectly welcome in our function room."
           },
           {
             question: "Is there disabled access to the function rooms?",

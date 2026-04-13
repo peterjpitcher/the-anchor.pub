@@ -137,7 +137,7 @@ export default async function ParkingConfirmationPage({ params }: Props) {
         >
           While you&apos;re here — visit the pub
         </Link>
-        <p className="text-anchor-sage text-xs text-center">Full menu · Real ales · Family friendly</p>
+        <p className="text-anchor-sage text-xs text-center">Full menu · Draught beers · Family friendly</p>
       </div>
     </main>
   )

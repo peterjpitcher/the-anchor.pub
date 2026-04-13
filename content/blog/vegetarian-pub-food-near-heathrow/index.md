@@ -43,7 +43,7 @@ The Anchor in Stanwell Moor — about seven minutes from Heathrow Terminal 5 —
 
 - **Gluten-free options** are available on several dishes. If you are coeliac or have a serious intolerance, let the team know when booking and they will talk you through what works.
 - **The kitchen can adapt most dishes** if you ask. They are genuinely happy to accommodate rather than just pointing you at the one vegetarian option on the menu.
-- **Stone-baked pizzas** are available in vegetarian and vegan options from £11. (**Update:** The BOGOF pizza deal is no longer available — check our website for current offers.)
+- **Stone-baked pizzas** are available in vegetarian and vegan options from £11.
 - **Sunday roast** with the butternut squash wellington must be **pre-ordered and booked in advance**. You can [book online](/book-table) or call 01753 682707.
 - **Free parking** and **dog-friendly** throughout the pub. The beer garden is a bonus in warmer months, with planes overhead for a bit of Heathrow theatre.
 
@@ -88,7 +88,7 @@ Yes. The Anchor offers a butternut squash wellington as part of their Sunday roa
 
 ### Does The Anchor offer vegetarian pizzas?
 
-Yes — our stone-baked pizza menu includes vegetarian and vegan options such as Margherita and vegetable pizzas. Prices start from £11. (**Update:** The BOGOF pizza deal previously offered on Tuesdays and Wednesdays is no longer available. Check our website for current offers.)
+Yes — our stone-baked pizza menu includes vegetarian and vegan options such as Margherita and vegetable pizzas. Prices start from £11.
 
 ### Does The Anchor cater for gluten-free diets as well?
 

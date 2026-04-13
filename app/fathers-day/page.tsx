@@ -16,7 +16,7 @@ const FATHERS_DAY_DATE = '2026-06-21'
 const FATHERS_DAY_LABEL = 'Sunday 21 June 2026'
 const FATHERS_DAY_SERVICE_WINDOW = '1pm\u20136pm'
 const FATHERS_DAY_LAST_BOOKING = '5:30pm'
-const FATHERS_DAY_ROAST_PRICE_FROM = 19.99
+const FATHERS_DAY_ROAST_PRICE_FROM = 19
 const FATHERS_DAY_DEPOSIT_PER_PERSON = 10
 
 const FATHERS_DAY_BOOKING_URL = '/book-table?purpose=sunday_lunch'
@@ -26,19 +26,19 @@ const WEBSITE_ORIGIN = 'https://www.the-anchor.pub'
 export const metadata: Metadata = {
   title: "Father's Day at The Anchor | Pub Lunch Near Heathrow",
   description:
-    "Treat Dad to Father's Day 2026 at The Anchor near Heathrow. Sunday roast from \u00a319.99, craft beer, beer garden plane spotting. Free parking. Book now.",
+    "Treat Dad to Father's Day 2026 at The Anchor near Heathrow. Sunday roast from \u00a319, craft beer, beer garden plane spotting. Free parking. Book now.",
   alternates: { canonical: '/fathers-day' },
   openGraph: {
     title: "Father's Day at The Anchor | Pub Lunch Near Heathrow",
     description:
-      "Treat Dad to Father's Day 2026 at The Anchor near Heathrow. Sunday roast from \u00a319.99, craft beer, beer garden plane spotting. Free parking. Book now.",
+      "Treat Dad to Father's Day 2026 at The Anchor near Heathrow. Sunday roast from \u00a319, craft beer, beer garden plane spotting. Free parking. Book now.",
     images: [DEFAULT_PAGE_HEADER_IMAGE],
     type: 'website'
   },
   twitter: getTwitterMetadata({
     title: "Father's Day at The Anchor | Pub Lunch Near Heathrow",
     description:
-      "Treat Dad to Father's Day 2026 at The Anchor near Heathrow. Sunday roast from \u00a319.99, craft beer, beer garden plane spotting. Free parking. Book now.",
+      "Treat Dad to Father's Day 2026 at The Anchor near Heathrow. Sunday roast from \u00a319, craft beer, beer garden plane spotting. Free parking. Book now.",
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   })
 }
@@ -51,8 +51,8 @@ export default function FathersDayPage() {
     {
       question: "What\u2019s on the Father\u2019s Day menu?",
       answer:
-        "Father\u2019s Day falls on a Sunday, so the full Sunday roast menu is available \u2014 chicken, lamb, pork belly, or a vegetarian option. " +
-        "Mains start from \u00a319.99. All served with roast potatoes, seasonal vegetables, Yorkshire pudding and gravy."
+        "Father\u2019s Day falls on a Sunday, so the full Sunday roast menu is available \u2014 chicken, pork belly, or a vegetarian option. " +
+        "Mains start from \u00a319. All served with roast potatoes, seasonal vegetables, Yorkshire pudding and gravy."
     },
     {
       question: "Do I need to book for Father\u2019s Day?",
@@ -64,7 +64,7 @@ export default function FathersDayPage() {
       question: 'Is there a set menu or special pricing?',
       answer:
         "There\u2019s no separate set menu \u2014 it\u2019s our regular Sunday roast menu, which is what makes it special. " +
-        "Proper food, cooked from scratch. Mains from \u00a319.99."
+        "Proper food, cooked from scratch. Mains from \u00a319."
     },
     {
       question: "What time is Father\u2019s Day lunch served?",
@@ -87,7 +87,7 @@ export default function FathersDayPage() {
     name: "Father\u2019s Day Lunch at The Anchor",
     description:
       `Treat Dad to Father\u2019s Day lunch at The Anchor in Stanwell Moor (TW19), near Heathrow. ` +
-      `Sunday roast from \u00a3${FATHERS_DAY_ROAST_PRICE_FROM.toFixed(2)}. Serving ${FATHERS_DAY_SERVICE_WINDOW}. ` +
+      `Sunday roast from \u00a3${String(FATHERS_DAY_ROAST_PRICE_FROM)}. Serving ${FATHERS_DAY_SERVICE_WINDOW}. ` +
       `Beer garden with plane spotting, free parking. Booking required with \u00a3${FATHERS_DAY_DEPOSIT_PER_PERSON} per person deposit.`,
     startDate: `${FATHERS_DAY_DATE}T13:00:00+01:00`,
     endDate: `${FATHERS_DAY_DATE}T18:00:00+01:00`,
@@ -121,7 +121,7 @@ export default function FathersDayPage() {
       '@type': 'Offer',
       url: `${WEBSITE_ORIGIN}${FATHERS_DAY_BOOKING_URL}`,
       priceCurrency: 'GBP',
-      price: FATHERS_DAY_ROAST_PRICE_FROM.toFixed(2),
+      price: String(FATHERS_DAY_ROAST_PRICE_FROM),
       availability: 'https://schema.org/InStock'
     },
     image: [
@@ -158,7 +158,7 @@ export default function FathersDayPage() {
         eyebrow={FATHERS_DAY_LABEL}
         lead={
           <p className="text-white/90 text-base sm:text-lg">
-            Sunday roast from &pound;{FATHERS_DAY_ROAST_PRICE_FROM.toFixed(2)} &bull; &pound;{FATHERS_DAY_DEPOSIT_PER_PERSON}pp deposit &bull; Book by Saturday 1pm
+            Sunday roast from &pound;{String(FATHERS_DAY_ROAST_PRICE_FROM)} &bull; &pound;{FATHERS_DAY_DEPOSIT_PER_PERSON}pp deposit &bull; Book by Saturday 1pm
           </p>
         }
         image={{
@@ -168,7 +168,7 @@ export default function FathersDayPage() {
         tags={[
           { label: `Serving ${FATHERS_DAY_SERVICE_WINDOW}`, variant: 'warning' },
           { label: `Last booking ${FATHERS_DAY_LAST_BOOKING}`, variant: 'default' },
-          { label: `From \u00a3${FATHERS_DAY_ROAST_PRICE_FROM.toFixed(2)}`, variant: 'default' },
+          { label: `From \u00a3${String(FATHERS_DAY_ROAST_PRICE_FROM)}`, variant: 'default' },
           { label: 'Beer garden & plane spotting', variant: 'success' },
           { label: 'Booking required', variant: 'success' }
         ]}
@@ -216,12 +216,12 @@ export default function FathersDayPage() {
               Treat Dad to a Proper Pub Lunch
             </h2>
             <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
-              Father&apos;s Day lands on a Sunday, which means the full roast menu is on. Chicken, lamb,
+              Father&apos;s Day lands on a Sunday, which means the full roast menu is on. Chicken,
               pork belly or a vegetarian option &mdash; all cooked from scratch, served with golden roast potatoes,
               seasonal vegetables, a generous Yorkshire pudding and our signature gravy.
             </p>
             <p className="text-anchor-cream-text/70 leading-relaxed">
-              Mains start from <span className="font-semibold">&pound;{FATHERS_DAY_ROAST_PRICE_FROM.toFixed(2)}</span>.
+              Mains start from <span className="font-semibold">&pound;{String(FATHERS_DAY_ROAST_PRICE_FROM)}</span>.
               We serve from <span className="font-semibold">1pm</span> to <span className="font-semibold">6pm</span>,
               last table at <span className="font-semibold">{FATHERS_DAY_LAST_BOOKING}</span>.
               Pre-orders and a &pound;{FATHERS_DAY_DEPOSIT_PER_PERSON} per person deposit are required by Saturday 1pm.

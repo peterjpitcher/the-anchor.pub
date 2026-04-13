@@ -183,7 +183,7 @@ export default async function PubsInStanwellPage() {
                         </p>
                         <ul className="space-y-2 text-anchor-cream-text/70">
                           <li>Home-cooked British food</li>
-                          <li>Real ales and chilled lagers</li>
+                          <li>Draught beers and chilled lagers</li>
                           <li>Large beer garden</li>
                           <li>Live entertainment</li>
                           <li>Free parking always</li>

@@ -10,6 +10,8 @@ import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
+import { getCateringData } from '@/lib/api/catering-packages'
+import { CateringPackagesTable } from '@/components/features/CateringPackagesTable'
 
 export const metadata: Metadata = {
     title: 'Gender Reveal Party Venue | The Anchor',
@@ -30,7 +32,8 @@ export const metadata: Metadata = {
     }
 }
 
-export default function GenderRevealPage() {
+export default async function GenderRevealPage() {
+    const { foodPackages } = await getCateringData()
     const eventVenueSchema = {
         "@context": "https://schema.org",
         "@type": "EventVenue",
@@ -255,45 +258,12 @@ export default function GenderRevealPage() {
                         subtitle="Food, drinks, and the big moment — all taken care of"
                     />
                     <div className="max-w-4xl mx-auto">
-                        <div className="grid md:grid-cols-3 gap-6 mb-8">
-                            <div className="card-dark rounded-none p-8 text-center">
-                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2">Afternoon Tea</h3>
-                                <p className="text-2xl font-bold text-anchor-cream-text mb-1">From £14.95<span className="text-sm font-normal text-anchor-cream-text/55">/person</span></p>
-                                <p className="text-anchor-cream-text/55 mb-4 italic">A classic choice for gender reveals</p>
-                                <p className="text-anchor-cream-text/70 mb-4">Finger sandwiches, scones, and miniature cakes served on tiered stands. A refined option that looks beautiful in photos and keeps the mood celebratory.</p>
-                                <ul className="text-sm text-anchor-cream-text/55 space-y-1 text-left">
-                                    <li>Finger sandwiches</li>
-                                    <li>Scones with clotted cream &amp; jam</li>
-                                    <li>Miniature cakes &amp; pastries</li>
-                                    <li>Unlimited tea &amp; coffee</li>
-                                </ul>
-                            </div>
-
-                            <div className="card-dark rounded-none p-8 text-center border-2 border-anchor-gold/30">
-                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2">Party Buffet</h3>
-                                <p className="text-2xl font-bold text-anchor-cream-text mb-1">From £9.95<span className="text-sm font-normal text-anchor-cream-text/55">/person</span></p>
-                                <p className="text-anchor-cream-text/55 mb-4 italic">Most popular for gender reveal parties</p>
-                                <p className="text-anchor-cream-text/70 mb-4">A generous spread of wraps, quiches, salads, and sweet treats. A relaxed gender reveal party pub option that works for groups of all sizes.</p>
-                                <ul className="text-sm text-anchor-cream-text/55 space-y-1 text-left">
-                                    <li>Wraps, sandwiches &amp; quiche</li>
-                                    <li>Fresh salads &amp; fruit</li>
-                                    <li>Crisps, dips &amp; nibbles</li>
-                                    <li>Sweet treats &amp; mini cakes</li>
-                                </ul>
-                            </div>
-
-                            <div className="card-dark rounded-none p-8 text-center">
-                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2">Drinks & Nibbles</h3>
-                                <p className="text-2xl font-bold text-anchor-cream-text mb-1">Min. spend applies</p>
-                                <p className="text-anchor-cream-text/55 mb-4 italic">For shorter, focused celebrations</p>
-                                <p className="text-anchor-cream-text/70 mb-4">Reserve a space, enjoy drinks from the bar, and add a simple nibbles platter. Ideal if the gender reveal is the main event and you want to keep things short and sweet.</p>
-                                <ul className="text-sm text-anchor-cream-text/55 space-y-1 text-left">
-                                    <li>Reserved area or garden space</li>
-                                    <li>Bar tab or pay-as-you-go</li>
-                                    <li>Sharing platters available</li>
-                                    <li>Mocktails for the parents-to-be</li>
-                                </ul>
-                            </div>
+                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6 mb-8">
+                            <CateringPackagesTable
+                                packages={foodPackages}
+                                showDescription={true}
+                                filterNames={['Afternoon Tea', 'Prosecco Afternoon Tea', 'Finger Buffet', 'Sandwich Buffet']}
+                            />
                         </div>
 
                         <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6 text-center">

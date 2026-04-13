@@ -168,7 +168,7 @@ export default async function ColnbrookPubPage() {
                                 {
                                     icon: "",
                                     title: "After Work",
-                                    description: "Cold biers, real ales, and a great wine list for the end of the day",
+                                    description: "Cold beers, draught lagers, and a great wine list for the end of the day",
                                     variant: "colored",
                                     color: "bg-anchor-bg-card",
                                     className: "rounded-xl p-6 text-center"

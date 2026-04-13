@@ -14,16 +14,16 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
   title: 'Pub Near Sofitel Heathrow | 7 Mins from T5 | The Anchor',
-  description: 'Traditional British pub just 7 minutes from Sofitel London Heathrow Terminal 5. Escape hotel prices — real ales, home-cooked food & free parking. Book a table.',
+  description: 'Traditional British pub just 7 minutes from Sofitel London Heathrow Terminal 5. Escape hotel prices — draught beers, home-cooked food & free parking. Book a table.',
   openGraph: {
     title: 'Pub Near Sofitel Heathrow T5 | 7 Mins Away | The Anchor',
-    description: 'Just 7 minutes from Sofitel London Heathrow. Real British pub with home-cooked food, real ales & free parking. Honest pub pricing.',
+    description: 'Just 7 minutes from Sofitel London Heathrow. Real British pub with home-cooked food, draught beers & free parking. Honest pub pricing.',
     images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Sofitel Heathrow Terminal 5' }],
     type: 'website',
   },
   twitter: getTwitterMetadata({
     title: 'Pub Near Sofitel Heathrow T5 | 7 Mins Away | The Anchor',
-    description: 'Just 7 minutes from Sofitel London Heathrow. Real British pub with home-cooked food, real ales & free parking.',
+    description: 'Just 7 minutes from Sofitel London Heathrow. Real British pub with home-cooked food, draught beers & free parking.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
   alternates: {
@@ -151,7 +151,7 @@ export default function PubNearSofitelHeathrowPage() {
                 <ul className="space-y-3">
                   {[
                     'Home-cooked British food from £8.99',
-                    'Real ales and proper draught beer',
+                    'Draught beers and lagers',
                     'Warm, unpretentious pub atmosphere',
                     'Dog-friendly beer garden',
                     'No dress code, no pressure',
@@ -189,7 +189,7 @@ export default function PubNearSofitelHeathrowPage() {
               columns={3}
               features={[
                 { icon: '', title: 'Fish & Chips', description: 'Classic British dish — fresh battered cod with chips and mushy peas', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Sunday Roast', description: 'Traditional roast from £19.99 — a British institution worth experiencing', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Sunday Roast', description: 'Traditional roast from £19 — a British institution worth experiencing', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
                 { icon: '', title: 'Stone-Baked Pizza', description: 'Authentic stone-baked pizzas from £12 — great for sharing', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
               ]}
               className="mb-8"
@@ -247,7 +247,7 @@ export default function PubNearSofitelHeathrowPage() {
 
       <CTASection
         title="7 Minutes from Sofitel — Worth Every Second"
-        description="Authentic British pub food and real ales at honest prices. Book a table or just walk in."
+        description="Authentic British pub food and draught beers at honest prices. Book a table or just walk in."
         buttons={[
           { text: 'Book a Table', href: '/book-table', variant: 'white' },
           { text: 'Call Us', href: CONTACT.phoneHref, isPhone: true, phoneSource: 'sofitel_heathrow_cta', variant: 'secondary' },

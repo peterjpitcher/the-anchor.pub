@@ -12,6 +12,8 @@ import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
+import { getCateringData } from '@/lib/api/catering-packages'
+import { CateringPackagesTable } from '@/components/features/CateringPackagesTable'
 
 export const metadata: Metadata = {
     title: 'Milestone Birthday Party Venue | 30th, 40th, 50th Parties',
@@ -32,7 +34,8 @@ export const metadata: Metadata = {
     }
 }
 
-export default function MilestoneBirthdaysPage() {
+export default async function MilestoneBirthdaysPage() {
+    const { foodPackages } = await getCateringData()
     const eventVenueSchema = {
         "@context": "https://schema.org",
         "@type": "EventVenue",
@@ -184,6 +187,19 @@ export default function MilestoneBirthdaysPage() {
                                 <span className="text-sm font-semibold text-anchor-gold-vivid">Perfect for 60ths+</span>
                             </div>
                         </div>
+                    </div>
+                </Container>
+            </section>
+
+            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+                <Container>
+                    <div className="max-w-4xl mx-auto">
+                        <CateringPackagesTable
+                            packages={foodPackages}
+                            title="Catering Packages"
+                            subtitle="Prices per person — minimum guest numbers may apply"
+                            showDescription={true}
+                        />
                     </div>
                 </Container>
             </section>

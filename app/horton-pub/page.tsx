@@ -16,16 +16,16 @@ import { getBusinessStats } from '@/lib/schema-with-reviews'
 
 export const metadata: Metadata = {
     title: 'Pubs in Horton | The Anchor - Your Closest Village Pub',
-    description: `Looking for pubs in Horton? ${BRAND.name} in Stanwell Moor is just 2 mins away. Free parking, Sunday roasts, real ales, and a warm village welcome.`,
+    description: `Looking for pubs in Horton? ${BRAND.name} in Stanwell Moor is just 2 mins away. Free parking, Sunday roasts, draught beers, and a warm village welcome.`,
     openGraph: {
         title: 'Pubs in Horton | The Anchor Stanwell Moor',
-        description: 'Your local village pub, just a 2-minute drive from Horton. Authentic British food, real ales, and a warm welcome.',
+        description: 'Your local village pub, just a 2-minute drive from Horton. Authentic British food, draught beers, and a warm welcome.',
         images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({
         title: 'Pubs in Horton | The Anchor Stanwell Moor',
-        description: 'Your local village pub, just a 2-minute drive from Horton. Authentic British food, real ales, and a warm welcome.',
+        description: 'Your local village pub, just a 2-minute drive from Horton. Authentic British food, draught beers, and a warm welcome.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
     alternates: {
@@ -185,7 +185,7 @@ export default async function HortonPubPage() {
                                 },
                                 {
                                     icon: "",
-                                    title: "Real Ales",
+                                    title: "Draught Beers",
                                     description: "Properly kept ales and a great wine selection",
                                     variant: "colored",
                                     color: "bg-anchor-bg-card",

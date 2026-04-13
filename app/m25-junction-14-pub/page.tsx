@@ -15,16 +15,16 @@ import { BookTableButton } from '@/components/BookTableButton'
 
 export const metadata: Metadata = {
   title: `M25 Junction 14 Pub (5 Mins) - Free Parking & Food | ${BRAND.name}`,
-  description: `Pull off Junction 14 M25 for The Anchor: free parking, proper British pub food, real ales and a relaxed Surrey village break minutes from Heathrow.`,
+  description: `Pull off Junction 14 M25 for The Anchor: free parking, proper British pub food, draught beers and a relaxed Surrey village break minutes from Heathrow.`,
   openGraph: {
     title: 'M25 Junction 14 Pub Stop - The Anchor Stanwell Moor',
-    description: '5 minutes from M25 J14 with free parking, British pub food and real ales.',
+    description: '5 minutes from M25 J14 with free parking, British pub food and draught beers.',
     images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
     type: 'website',
   },
   twitter: getTwitterMetadata({
     title: 'M25 Junction 14 Pub Stop - The Anchor Stanwell Moor',
-    description: '5 minutes from M25 J14 with free parking, British pub food and real ales.',
+    description: '5 minutes from M25 J14 with free parking, British pub food and draught beers.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
   alternates: {
@@ -139,7 +139,7 @@ export default function M25Junction14PubPage() {
           <div className="max-w-4xl mx-auto bg-anchor-bg-raised border border-anchor-gold/15 rounded-2xl p-6">
             <h2 className="text-2xl font-bold text-anchor-cream-text mb-3">Why Stop Off At The Anchor</h2>
             <p className="text-anchor-cream-text/70 mb-4">
-              Swap service-station sandwiches for hearty pub food, real ales and a breather before rejoining the M25 from Junction 14.
+              Swap service-station sandwiches for hearty pub food, draught beers and a breather before rejoining the M25 from Junction 14.
             </p>
             <div className="grid gap-3 md:grid-cols-2 text-anchor-cream-text/70">
               <div className="flex items-start gap-2">
@@ -279,7 +279,7 @@ export default function M25Junction14PubPage() {
                   <li className="flex items-start gap-3">
                     <span className="text-anchor-gold text-xl"></span>
                     <div>
-                      <strong>Proper refreshment</strong> - Real ales, wines, soft drinks
+                      <strong>Proper refreshment</strong> - Draught beers, wines, soft drinks
                     </div>
                   </li>
                   <li className="flex items-start gap-3">
@@ -546,7 +546,7 @@ export default function M25Junction14PubPage() {
         title="Helpful Links Before You Rejoin The Motorway"
         links={[
           { href: '/food-menu', title: 'Food Menu', description: 'Hot meals and quick bites for motorway drivers' },
-          { href: '/drinks', title: 'Drinks Menu', description: 'Real ales, low alcohol options and takeaway coffee' },
+          { href: '/drinks', title: 'Drinks Menu', description: 'Draught beers, low alcohol options and takeaway coffee' },
           { href: '/private-party-venue', title: 'Private Hire', description: 'Book meeting space for team briefings or reunions' },
           { href: '/near-heathrow', title: 'Near Heathrow Hub', description: 'Travel tips for every airport terminal' }
         ]}

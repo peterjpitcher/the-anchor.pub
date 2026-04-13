@@ -13,6 +13,8 @@ import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { getCateringData } from '@/lib/api/catering-packages'
+import { CateringPackagesTable } from '@/components/features/CateringPackagesTable'
 
 export const metadata: Metadata = {
     title: 'Christening Venue Near Staines & Stanwell | The Anchor',
@@ -34,7 +36,9 @@ export const metadata: Metadata = {
 
 const nearbyChurches = landmarks.filter(l => l.type === 'church');
 
-export default function ChristeningsPage() {
+export default async function ChristeningsPage() {
+    const { foodPackages } = await getCateringData()
+
     const eventVenueSchema = {
         "@context": "https://schema.org",
         "@type": "EventVenue",
@@ -338,53 +342,20 @@ export default function ChristeningsPage() {
 
             <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
                 <Container>
-                    <SectionHeader
-                        title="Christening Party Packages"
-                        subtitle="Flexible catering to suit every family and budget"
-                    />
                     <div className="max-w-4xl mx-auto">
-                        <div className="grid md:grid-cols-3 gap-6 mb-8">
-                            <div className="card-dark rounded-none p-8 text-center">
-                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2">Finger Buffet</h3>
-                                <p className="text-2xl font-bold text-anchor-cream-text mb-1">From £9.95<span className="text-sm font-normal text-anchor-cream-text/55">/person</span></p>
-                                <p className="text-anchor-cream-text/55 mb-4 italic">Minimum 20 guests</p>
-                                <p className="text-anchor-cream-text/70 mb-4">A classic spread of sandwiches, sausage rolls, quiche, and savoury bites. Perfect for a relaxed christening party where guests can mingle and eat at their own pace.</p>
-                                <ul className="text-sm text-anchor-cream-text/55 space-y-1 text-left">
-                                    <li>Assorted sandwiches</li>
-                                    <li>Sausage rolls &amp; mini quiches</li>
-                                    <li>Crisps, nuts &amp; nibbles</li>
-                                    <li>Tea &amp; coffee included</li>
-                                </ul>
-                            </div>
+                        <CateringPackagesTable
+                            packages={foodPackages}
+                            title="Christening Party Packages"
+                            subtitle="Flexible catering to suit every family and budget"
+                            showDescription={true}
+                            filterNames={['Sandwich Buffet', 'Finger Buffet', 'Premium Buffet', 'Afternoon Tea']}
+                        />
 
-                            <div className="card-dark rounded-none p-8 text-center border-2 border-anchor-gold/30">
-                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2">Enhanced Buffet</h3>
-                                <p className="text-2xl font-bold text-anchor-cream-text mb-1">From £14.95<span className="text-sm font-normal text-anchor-cream-text/55">/person</span></p>
-                                <p className="text-anchor-cream-text/55 mb-4 italic">Most popular for christenings</p>
-                                <p className="text-anchor-cream-text/70 mb-4">A more generous spread with hot options, homemade cakes, and fresh fruit. Ideal for christening parties with guests of all ages, including children.</p>
-                                <ul className="text-sm text-anchor-cream-text/55 space-y-1 text-left">
-                                    <li>All classic buffet items</li>
-                                    <li>Hot chicken goujons or sausage rolls</li>
-                                    <li>Homemade cakes &amp; pastries</li>
-                                    <li>Fresh fruit platter</li>
-                                </ul>
-                            </div>
+                        <p className="text-anchor-cream-text/70 text-sm mt-6">
+                            Sunday lunches are also available for Sunday christenings, priced &agrave; la carte from our menu.
+                        </p>
 
-                            <div className="card-dark rounded-none p-8 text-center">
-                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-2">Sunday Roast</h3>
-                                <p className="text-2xl font-bold text-anchor-cream-text mb-1">Menu prices</p>
-                                <p className="text-anchor-cream-text/55 mb-4 italic">Sunday christenings only</p>
-                                <p className="text-anchor-cream-text/70 mb-4">If your christening is on a Sunday, why not treat your guests to our famous Sunday Roast? We can reserve a large area and take pre-orders for the whole party.</p>
-                                <ul className="text-sm text-anchor-cream-text/55 space-y-1 text-left">
-                                    <li>Choice of roast meats</li>
-                                    <li>All the trimmings</li>
-                                    <li>Children&apos;s portions available</li>
-                                    <li>Pre-orders for smooth service</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6 text-center">
+                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6 text-center mt-6">
                             <p className="text-anchor-cream-text/70 text-sm">
                                 All christening party pub packages include use of a reserved area, dedicated staff, and free parking. No separate room hire fee when booking a catering package. Call us on <strong className="text-anchor-gold-vivid">01753 682707</strong> for a quote tailored to your guest numbers.
                             </p>

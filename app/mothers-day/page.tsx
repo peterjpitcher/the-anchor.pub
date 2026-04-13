@@ -40,9 +40,9 @@ const MOTHERS_DAY_SERVICE_START_ISO = `${MOTHERS_DAY_DATE}T13:00:00+00:00`
 const MOTHERS_DAY_SERVICE_END_ISO = `${MOTHERS_DAY_DATE}T18:00:00+00:00`
 const MOTHERS_DAY_SERVICE_WINDOW_LABEL = '1pm–6pm'
 const MOTHERS_DAY_LAST_BOOKING_LABEL = '5:30pm'
-const MOTHERS_DAY_ADULT_PRICE_LOW = 19.99
-const MOTHERS_DAY_ADULT_PRICE_HIGH = 23.99
-const MOTHERS_DAY_KIDS_ROAST_PRICE = 13.99
+const MOTHERS_DAY_ADULT_PRICE_LOW = 19
+const MOTHERS_DAY_ADULT_PRICE_HIGH = 22
+const MOTHERS_DAY_KIDS_ROAST_PRICE = 13
 
 const MOTHERS_DAY_DEPOSIT_NOTE =
   'Sunday lunch bookings require a £10 per person deposit.'
@@ -136,7 +136,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const title = `Mother’s Day Lunch near Staines (${eventDateLabel}) | The Anchor`
   const description =
     `Make Mother’s Day easy with a cooked-from-scratch Sunday lunch near Staines on ${eventDateLabel}. ` +
-    `Serving 1pm–6pm (last booking 5:30pm), no set sittings. Vegan/veg options. From £19.99. Booking required.`
+    `Serving 1pm–6pm (last booking 5:30pm), no set sittings. Vegan/veg options. From £19. Booking required.`
   const keywords =
     "mother's day lunch near staines, mothering sunday lunch staines-upon-thames, mother's day sunday roast near staines, mother's day lunch near heathrow, stanwell moor TW19"
 
@@ -186,8 +186,8 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
     `(last table ${MOTHERS_DAY_LAST_BOOKING_LABEL}). No set sittings.`
 
   const heroLeadText =
-    `Adults £${MOTHERS_DAY_ADULT_PRICE_LOW.toFixed(2)}–£${MOTHERS_DAY_ADULT_PRICE_HIGH.toFixed(2)} • ` +
-    `Kids roast £${MOTHERS_DAY_KIDS_ROAST_PRICE.toFixed(2)} • ` +
+    `Adults £${String(MOTHERS_DAY_ADULT_PRICE_LOW)}–£${String(MOTHERS_DAY_ADULT_PRICE_HIGH)} • ` +
+    `Kids roast £${String(MOTHERS_DAY_KIDS_ROAST_PRICE)} • ` +
     '£10 per person deposit required'
 
   const faqs = [
@@ -213,7 +213,7 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
     },
     {
       question: 'How much is Mother’s Day lunch?',
-      answer: `Adult mains are £${MOTHERS_DAY_ADULT_PRICE_LOW.toFixed(2)}–£${MOTHERS_DAY_ADULT_PRICE_HIGH.toFixed(2)}. Kids roast is available from £${MOTHERS_DAY_KIDS_ROAST_PRICE.toFixed(2)}.`
+      answer: `Adult mains are £${String(MOTHERS_DAY_ADULT_PRICE_LOW)}–£${String(MOTHERS_DAY_ADULT_PRICE_HIGH)}. Kids roast is available from £${String(MOTHERS_DAY_KIDS_ROAST_PRICE)}.`
     },
     {
       question: 'Do you have vegetarian or vegan options?',
@@ -237,8 +237,8 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
       `Mother’s Day lunch near Staines at The Anchor in Stanwell Moor (TW19), close to Heathrow Terminal 5. ` +
       `Serving ${MOTHERS_DAY_SERVICE_WINDOW_LABEL} (last table booking ${MOTHERS_DAY_LAST_BOOKING_LABEL}). ` +
       `No set sittings — book a time that suits you and enjoy your meal at a comfortable pace. ` +
-      `Adults mains £${MOTHERS_DAY_ADULT_PRICE_LOW.toFixed(2)}–£${MOTHERS_DAY_ADULT_PRICE_HIGH.toFixed(2)}; ` +
-      `kids roast from £${MOTHERS_DAY_KIDS_ROAST_PRICE.toFixed(2)}. Vegetarian and vegan options available, ` +
+      `Adults mains £${String(MOTHERS_DAY_ADULT_PRICE_LOW)}–£${String(MOTHERS_DAY_ADULT_PRICE_HIGH)}; ` +
+      `kids roast from £${String(MOTHERS_DAY_KIDS_ROAST_PRICE)}. Vegetarian and vegan options available, ` +
       `served with vegetarian gravy. Booking required. ${MOTHERS_DAY_DEPOSIT_NOTE}`,
     startDate: MOTHERS_DAY_SERVICE_START_ISO,
     endDate: MOTHERS_DAY_SERVICE_END_ISO,
@@ -272,8 +272,8 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
       '@type': 'AggregateOffer',
       url: toAbsoluteUrl(DEFAULT_MOTHERS_DAY_BOOKING_URL),
       priceCurrency: 'GBP',
-      lowPrice: MOTHERS_DAY_KIDS_ROAST_PRICE.toFixed(2),
-      highPrice: MOTHERS_DAY_ADULT_PRICE_HIGH.toFixed(2),
+      lowPrice: String(MOTHERS_DAY_KIDS_ROAST_PRICE),
+      highPrice: String(MOTHERS_DAY_ADULT_PRICE_HIGH),
       availability: 'https://schema.org/InStock'
     },
     image: [
@@ -333,8 +333,8 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
         tags={[
           { label: `Serving ${MOTHERS_DAY_SERVICE_WINDOW_LABEL}`, variant: 'warning' },
           { label: `Last booking ${MOTHERS_DAY_LAST_BOOKING_LABEL}`, variant: 'default' },
-          { label: `Adults £${MOTHERS_DAY_ADULT_PRICE_LOW.toFixed(2)}–£${MOTHERS_DAY_ADULT_PRICE_HIGH.toFixed(2)}`, variant: 'default' },
-          { label: `Kids roast from £${MOTHERS_DAY_KIDS_ROAST_PRICE.toFixed(2)}`, variant: 'default' },
+          { label: `Adults £${String(MOTHERS_DAY_ADULT_PRICE_LOW)}–£${String(MOTHERS_DAY_ADULT_PRICE_HIGH)}`, variant: 'default' },
+          { label: `Kids roast from £${String(MOTHERS_DAY_KIDS_ROAST_PRICE)}`, variant: 'default' },
           { label: 'Vegan & vegetarian options', variant: 'success' },
           { label: 'Booking required', variant: 'success' }
         ]}
@@ -407,12 +407,12 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
                     <li className="flex gap-2">
                       <span className="text-anchor-gold">•</span>
                       <span>
-                        Adults: £{MOTHERS_DAY_ADULT_PRICE_LOW.toFixed(2)}–£{MOTHERS_DAY_ADULT_PRICE_HIGH.toFixed(2)}
+                        Adults: £{String(MOTHERS_DAY_ADULT_PRICE_LOW)}–£{String(MOTHERS_DAY_ADULT_PRICE_HIGH)}
                       </span>
                     </li>
                     <li className="flex gap-2">
                       <span className="text-anchor-gold">•</span>
-                      <span>Kids roast: from £{MOTHERS_DAY_KIDS_ROAST_PRICE.toFixed(2)}</span>
+                      <span>Kids roast: from £{String(MOTHERS_DAY_KIDS_ROAST_PRICE)}</span>
                     </li>
                   </ul>
                 </div>
@@ -476,8 +476,8 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
                 <p className="mt-3 text-anchor-cream-text/70 leading-relaxed">
                   We&apos;re serving from <span className="font-semibold">1pm</span> to <span className="font-semibold">6pm</span>, with the{' '}
                   <span className="font-semibold">last table booking at {MOTHERS_DAY_LAST_BOOKING_LABEL}</span>. Adults mains are{' '}
-                  <span className="font-semibold">£{MOTHERS_DAY_ADULT_PRICE_LOW.toFixed(2)}–£{MOTHERS_DAY_ADULT_PRICE_HIGH.toFixed(2)}</span>,
-                  and kids roast is available from <span className="font-semibold">£{MOTHERS_DAY_KIDS_ROAST_PRICE.toFixed(2)}</span>.
+                  <span className="font-semibold">£{String(MOTHERS_DAY_ADULT_PRICE_LOW)}–£{String(MOTHERS_DAY_ADULT_PRICE_HIGH)}</span>,
+                  and kids roast is available from <span className="font-semibold">£{String(MOTHERS_DAY_KIDS_ROAST_PRICE)}</span>.
                 </p>
                 <p className="mt-3 text-anchor-cream-text/70 leading-relaxed">
                   There are no set sittings. Book a time that suits you within the service window and enjoy your meal at a comfortable pace.

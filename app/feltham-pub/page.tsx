@@ -13,7 +13,7 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
   title: 'Pub Near Feltham | Free Parking & Sunday Roasts | The Anchor',
-  description: 'Looking for pubs near Feltham? The Anchor is just 10 minutes away with free parking, Sunday roasts from £19.99, stone-baked pizzas and quiz nights in a relaxed village pub.',
+  description: 'Looking for pubs near Feltham? The Anchor is just 10 minutes away with free parking, Sunday roasts from £19, stone-baked pizzas and quiz nights in a relaxed village pub.',
   openGraph: {
     title: 'Pub Near Feltham | Free Parking & Sunday Roasts | The Anchor',
     description: 'Pubs near Feltham — just 10 minutes away with free parking, Sunday roasts, stone-baked pizzas and quiz nights.',
@@ -444,7 +444,7 @@ export default function FelthamPubPage() {
                 along Feltham Hill Road — thousands of people finishing shifts every evening with limited options for a
                 proper sit-down meal nearby. Most end up in chain restaurants or grabbing a takeaway. The Anchor is just
                 ten minutes down Feltham Hill Road and the A30, with free parking and a kitchen serving hearty pub food
-                from 6pm on weeknights. It is the kind of place where you can unwind with a pint of real ale and a
+                from 6pm on weeknights. It is the kind of place where you can unwind with a pint of draught beer and a
                 stone-baked pizza without fighting for a table.
               </p>
               <p>

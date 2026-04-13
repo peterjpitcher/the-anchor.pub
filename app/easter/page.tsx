@@ -21,7 +21,7 @@ const EASTER_SUNDAY_DATE = '2026-04-05'
 const EASTER_SUNDAY_LABEL = 'Sunday 5 April 2026'
 const EASTER_SUNDAY_SERVICE_WINDOW = '1pm\u20136pm'
 const EASTER_SUNDAY_LAST_BOOKING = '5:30pm'
-const EASTER_ROAST_PRICE_FROM = 19.99
+const EASTER_ROAST_PRICE_FROM = 19
 const EASTER_DEPOSIT_PER_PERSON = 10
 
 const EASTER_BOOKING_URL = '/book-table?purpose=sunday_lunch'
@@ -31,19 +31,19 @@ const WEBSITE_ORIGIN = 'https://www.the-anchor.pub'
 export const metadata: Metadata = {
   title: 'Easter at The Anchor | Sunday Lunch & Beer Garden',
   description:
-    'Celebrate Easter 2026 at The Anchor near Heathrow. Easter Sunday roast from \u00a319.99, dog-friendly beer garden, free parking. Book by Saturday 1pm.',
+    'Celebrate Easter 2026 at The Anchor near Heathrow. Easter Sunday roast from \u00a319, dog-friendly beer garden, free parking. Book by Saturday 1pm.',
   alternates: { canonical: '/easter' },
   openGraph: {
     title: 'Easter at The Anchor | Sunday Lunch & Beer Garden',
     description:
-      'Celebrate Easter 2026 at The Anchor near Heathrow. Easter Sunday roast from \u00a319.99, dog-friendly beer garden, free parking. Book by Saturday 1pm.',
+      'Celebrate Easter 2026 at The Anchor near Heathrow. Easter Sunday roast from \u00a319, dog-friendly beer garden, free parking. Book by Saturday 1pm.',
     images: [DEFAULT_PAGE_HEADER_IMAGE],
     type: 'website'
   },
   twitter: getTwitterMetadata({
     title: 'Easter at The Anchor | Sunday Lunch & Beer Garden',
     description:
-      'Celebrate Easter 2026 at The Anchor near Heathrow. Easter Sunday roast from \u00a319.99, dog-friendly beer garden, free parking. Book by Saturday 1pm.',
+      'Celebrate Easter 2026 at The Anchor near Heathrow. Easter Sunday roast from \u00a319, dog-friendly beer garden, free parking. Book by Saturday 1pm.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   })
 }
@@ -74,8 +74,8 @@ export default function EasterPage() {
     {
       question: 'What\u2019s on the Easter menu?',
       answer:
-        'Our Easter Sunday menu is the same as our regular Sunday roast \u2014 choose from chicken, lamb, pork belly, or a vegetarian option. ' +
-        'Mains start from \u00a319.99. All served with roast potatoes, seasonal vegetables, Yorkshire pudding and gravy.'
+        'Our Easter Sunday menu is the same as our regular Sunday roast \u2014 choose from chicken, pork belly, or a vegetarian option. ' +
+        'Mains start from \u00a319. All served with roast potatoes, seasonal vegetables, Yorkshire pudding and gravy.'
     },
     {
       question: 'Is there parking?',
@@ -92,7 +92,7 @@ export default function EasterPage() {
     name: 'Easter Sunday Lunch at The Anchor',
     description:
       `Easter Sunday lunch at The Anchor in Stanwell Moor (TW19), near Heathrow. ` +
-      `Traditional roast from \u00a3${EASTER_ROAST_PRICE_FROM.toFixed(2)}. Serving ${EASTER_SUNDAY_SERVICE_WINDOW}. ` +
+      `Traditional roast from \u00a3${String(EASTER_ROAST_PRICE_FROM)}. Serving ${EASTER_SUNDAY_SERVICE_WINDOW}. ` +
       `Dog-friendly beer garden, free parking. Booking required with \u00a3${EASTER_DEPOSIT_PER_PERSON} per person deposit by Saturday 1pm.`,
     startDate: `${EASTER_SUNDAY_DATE}T13:00:00+01:00`,
     endDate: `${EASTER_SUNDAY_DATE}T18:00:00+01:00`,
@@ -126,7 +126,7 @@ export default function EasterPage() {
       '@type': 'Offer',
       url: `${WEBSITE_ORIGIN}${EASTER_BOOKING_URL}`,
       priceCurrency: 'GBP',
-      price: EASTER_ROAST_PRICE_FROM.toFixed(2),
+      price: String(EASTER_ROAST_PRICE_FROM),
       availability: 'https://schema.org/InStock'
     },
     image: [
@@ -163,7 +163,7 @@ export default function EasterPage() {
         eyebrow={EASTER_SUNDAY_LABEL}
         lead={
           <p className="text-white/90 text-base sm:text-lg">
-            Sunday roast from \u00a3{EASTER_ROAST_PRICE_FROM.toFixed(2)} &bull; \u00a3{EASTER_DEPOSIT_PER_PERSON}pp deposit &bull; Book by Saturday 1pm
+            Sunday roast from \u00a3{String(EASTER_ROAST_PRICE_FROM)} &bull; \u00a3{EASTER_DEPOSIT_PER_PERSON}pp deposit &bull; Book by Saturday 1pm
           </p>
         }
         image={{
@@ -173,7 +173,7 @@ export default function EasterPage() {
         tags={[
           { label: `Serving ${EASTER_SUNDAY_SERVICE_WINDOW}`, variant: 'warning' },
           { label: `Last booking ${EASTER_SUNDAY_LAST_BOOKING}`, variant: 'default' },
-          { label: `From \u00a3${EASTER_ROAST_PRICE_FROM.toFixed(2)}`, variant: 'default' },
+          { label: `From \u00a3${String(EASTER_ROAST_PRICE_FROM)}`, variant: 'default' },
           { label: 'Dog-friendly beer garden', variant: 'success' },
           { label: 'Booking required', variant: 'success' }
         ]}
@@ -225,9 +225,9 @@ export default function EasterPage() {
               cooked from scratch &mdash; the kind of lunch that marks the start of spring and brings the whole family together.
             </p>
             <p className="text-anchor-cream-text/70 leading-relaxed">
-              Choose from chicken, lamb, pork belly, or a vegetarian option, all served with golden roast potatoes,
+              Choose from chicken, pork belly, or a vegetarian option, all served with golden roast potatoes,
               seasonal vegetables, a generous Yorkshire pudding and our signature gravy. Mains start from{' '}
-              <span className="font-semibold">&pound;{EASTER_ROAST_PRICE_FROM.toFixed(2)}</span>.
+              <span className="font-semibold">&pound;{String(EASTER_ROAST_PRICE_FROM)}</span>.
             </p>
             <p className="text-anchor-cream-text/70 leading-relaxed">
               We serve from <span className="font-semibold">1pm</span> to <span className="font-semibold">6pm</span>,

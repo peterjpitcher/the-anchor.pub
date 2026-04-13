@@ -144,7 +144,7 @@ function deriveKitchenStatusData(hours: BusinessHours | null): KitchenStatusData
 
 export const metadata: Metadata = {
   title: 'Where to Eat Near Heathrow Airport | Pub Food Menu | The Anchor',
-  description: 'Where to eat near Heathrow Airport? The Anchor serves fish & chips from £15, stone-baked pizza from £12, burgers from £11 and Sunday roasts from £19.99. Free parking, 7 mins from T5. Book a table.',
+  description: 'Where to eat near Heathrow Airport? The Anchor serves fish & chips from £15, stone-baked pizza from £12, burgers from £11 and Sunday roasts from £19. Free parking, 7 mins from T5. Book a table.',
   openGraph: {
     title: 'Where to Eat Near Heathrow Airport | Pub Food Menu | The Anchor',
     description: 'Looking for restaurants near Heathrow? The Anchor serves proper pub food — fish & chips, pizza, pies and Sunday roasts. Free parking, 7 mins from T5. View our menu.',
@@ -202,8 +202,8 @@ export default async function FoodMenuPage() {
 	    {
 	      question: 'Do you serve Sunday roast at The Anchor?',
 	      answer: sundayKitchenHours
-	        ? `Yes. Sunday roast and Sunday lunch service runs ${sundayKitchenHours} with beef, chicken, lamb, and vegetarian plates. Pre-order by 1pm Saturday. Sunday lunch bookings require a £10 per person deposit.`
-	        : 'Yes. Sunday roast and Sunday lunch service runs during our Sunday kitchen hours with beef, chicken, lamb, and vegetarian plates. Pre-order by 1pm Saturday. Sunday lunch bookings require a £10 per person deposit.'
+	        ? `Yes. Sunday roast and Sunday lunch service runs ${sundayKitchenHours} with chicken, pork belly, and vegetarian plates. Pre-order by 1pm Saturday. Sunday lunch bookings require a £10 per person deposit.`
+	        : 'Yes. Sunday roast and Sunday lunch service runs during our Sunday kitchen hours with chicken, pork belly, and vegetarian plates. Pre-order by 1pm Saturday. Sunday lunch bookings require a £10 per person deposit.'
 	    },
     {
       question: "Is there a children's menu?",
@@ -439,7 +439,7 @@ export default async function FoodMenuPage() {
             <CardBody className="text-center py-8">
               <h2 className="text-2xl font-bold text-anchor-cream-text mb-3">Sunday Roast</h2>
               <p className="text-anchor-cream-text/70 mb-4 max-w-lg mx-auto">
-                Traditional Sunday roast from &pound;19.99 &mdash; chicken, lamb, pork belly or vegetarian.
+                Traditional Sunday roast from &pound;19 &mdash; chicken, pork belly or vegetarian.
                 Pre-order by Saturday 1pm.
               </p>
               <MenuSectionCta

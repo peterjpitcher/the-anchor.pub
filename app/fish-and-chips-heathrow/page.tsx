@@ -161,7 +161,7 @@ export default async function FishAndChipsPage() {
                                 {
                                     icon: "",
                                     title: "Beer Batter",
-                                    description: "We make our batter fresh daily using real ale for that perfect golden crunch.",
+                                    description: "We make our batter fresh daily using ale for that perfect golden crunch.",
                                     variant: "colored",
                                     color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"
