@@ -51,6 +51,11 @@ export default function EventAvailability({ eventId, className = '', showDetails
     return null
   }
 
+  // Hide the widget entirely when bookings are disabled for this event
+  if (availability.reason === 'bookings_disabled') {
+    return null
+  }
+
   if (!availability.available) {
     return (
       <div className={`text-sm font-semibold text-red-600 ${className}`} role="alert" aria-live="assertive">
@@ -59,8 +64,9 @@ export default function EventAvailability({ eventId, className = '', showDetails
     )
   }
 
-  const isLimited = availability.remaining < 10
-  const percentageFull = availability.percentage_full
+  const remaining = availability.remaining ?? 0
+  const percentageFull = availability.percentage_full ?? 0
+  const isLimited = remaining < 10
   const isNearlySoldOut = percentageFull >= 75
 
   if (showDetails) {

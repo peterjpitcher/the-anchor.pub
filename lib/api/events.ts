@@ -171,11 +171,13 @@ export interface EventsResponse {
 // Event availability check
 export interface EventAvailability {
   available: boolean
-  event_id: string
-  capacity: number
-  booked: number
-  remaining: number
-  percentage_full: number
+  event_id?: string
+  capacity?: number
+  booked?: number
+  remaining?: number
+  percentage_full?: number
+  reason?: string
+  message?: string
 }
 
 // Event categories

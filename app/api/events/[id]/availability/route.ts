@@ -11,6 +11,23 @@ export async function POST(
     const body = await request.json()
     const seats = body.seats || 1
     
+    // First, check if this event has bookings disabled
+    try {
+      const event = await anchorAPI.getEvent(params.id)
+      if (event && event.bookings_enabled === false) {
+        return NextResponse.json({
+          success: true,
+          data: {
+            available: false,
+            reason: 'bookings_disabled',
+            message: 'Bookings are not available for this event'
+          }
+        })
+      }
+    } catch {
+      // If we can't fetch the event, continue with the availability check
+    }
+
     let availability;
 
     try {

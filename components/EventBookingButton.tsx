@@ -126,6 +126,21 @@ export function EventBookingButton({
   source,
   onClick
 }: EventBookingButtonProps) {
+  // Events with bookings disabled show a static "No booking required" button
+  if (event.bookings_enabled === false) {
+    return (
+      <Button
+        className={cn('whitespace-normal break-words', className)}
+        disabled
+        fullWidth={fullWidth}
+        size={size}
+        variant="secondary"
+      >
+        No booking required
+      </Button>
+    )
+  }
+
   const bookingUrl = resolveBookingUrl(event)
   const isExternalBooking = bookingUrl ? /^https?:\/\//i.test(bookingUrl) : false
   const resolvedLabel = label || (isMothersDayEvent(event) ? MOTHERS_DAY_BOOKING_CTA_LABEL : 'Book Now')
