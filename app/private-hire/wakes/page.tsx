@@ -15,9 +15,12 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { getCateringData, getLowestFoodPrice } from '@/lib/api/catering-packages'
 import { CateringPackagesTable } from '@/components/features/CateringPackagesTable'
 
+const WAKE_PACKAGE_NAMES = ['Sandwich Buffet', 'Finger Buffet', 'Premium Buffet', 'Afternoon Tea']
+
 export async function generateMetadata(): Promise<Metadata> {
     const { foodPackages } = await getCateringData()
-    const fromPrice = getLowestFoodPrice(foodPackages) || '£11' // fallback only if API returns no per-head food packages
+    const wakePackages = foodPackages.filter((p) => WAKE_PACKAGE_NAMES.includes(p.name))
+    const fromPrice = getLowestFoodPrice(wakePackages) || '£12' // fallback only if API returns no wake packages
 
     return {
         title: 'Wake Venue & Celebration of Life | Near SW Middlesex Crematorium | The Anchor',
@@ -42,7 +45,8 @@ const nearbyCrematoriums = landmarks.filter(l => l.type === 'crematorium');
 
 export default async function WakesPage() {
     const { foodPackages } = await getCateringData()
-    const fromPrice = getLowestFoodPrice(foodPackages) || '£11' // fallback only if API returns no per-head food packages
+    const wakePackages = foodPackages.filter((p) => WAKE_PACKAGE_NAMES.includes(p.name))
+    const fromPrice = getLowestFoodPrice(wakePackages) || '£12' // fallback only if API returns no wake packages
 
     const eventVenueSchema = {
         "@context": "https://schema.org",
@@ -305,7 +309,7 @@ export default async function WakesPage() {
                             title="Funeral Tea Packages"
                             subtitle="Simple, honest pricing with no hidden charges"
                             showDescription={true}
-                            filterNames={['Sandwich Buffet', 'Finger Buffet', 'Premium Buffet', 'Afternoon Tea']}
+                            filterNames={WAKE_PACKAGE_NAMES}
                         />
 
                         <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6 text-center mt-8">
