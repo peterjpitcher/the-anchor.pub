@@ -92,6 +92,27 @@ function validatePayload(payload: EventWaitlistPayload): string | null {
   return null
 }
 
+function hasUpstreamErrorCode(input: unknown, code: string): boolean {
+  if (!input || typeof input !== 'object') return false
+  const payload = input as Record<string, unknown>
+  const errorObject =
+    payload.error && typeof payload.error === 'object'
+      ? (payload.error as Record<string, unknown>)
+      : null
+  const dataObject =
+    payload.data && typeof payload.data === 'object'
+      ? (payload.data as Record<string, unknown>)
+      : null
+
+  const codes = [
+    payload.code,
+    errorObject?.code,
+    dataObject?.code
+  ]
+
+  return codes.some((value) => typeof value === 'string' && value.toUpperCase() === code.toUpperCase())
+}
+
 export async function POST(request: NextRequest) {
   if (!API_KEY) {
     return createApiErrorResponse('Event waitlist service unavailable', 503)
@@ -133,6 +154,14 @@ export async function POST(request: NextRequest) {
     const fallbackPayload = {
       success: false,
       error: getSafeUpstreamErrorMessage(rawText, 'Event waitlist request failed')
+    }
+
+    // Handle BOOKINGS_DISABLED rejection from management API
+    if (upstream.status === 409 && hasUpstreamErrorCode(parsed, 'BOOKINGS_DISABLED')) {
+      return NextResponse.json(
+        { success: false, error: { code: 'BOOKINGS_DISABLED', message: 'Bookings are not available for this event. No booking is needed — just turn up!' } },
+        { status: 409, headers: { 'X-Idempotency-Key': idempotencyKey } }
+      )
     }
 
     return NextResponse.json(parsed ?? fallbackPayload, {

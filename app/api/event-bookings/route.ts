@@ -92,6 +92,27 @@ function validatePayload(payload: EventBookingPayload): string | null {
   return null
 }
 
+function hasErrorCode(input: unknown, code: string): boolean {
+  if (!input || typeof input !== 'object') return false
+  const payload = input as Record<string, unknown>
+  const errorObject =
+    payload.error && typeof payload.error === 'object'
+      ? (payload.error as Record<string, unknown>)
+      : null
+  const dataObject =
+    payload.data && typeof payload.data === 'object'
+      ? (payload.data as Record<string, unknown>)
+      : null
+
+  const codes = [
+    payload.code,
+    errorObject?.code,
+    dataObject?.code
+  ]
+
+  return codes.some((value) => typeof value === 'string' && value.toUpperCase() === code.toUpperCase())
+}
+
 function hasPolicyViolation(input: unknown): boolean {
   if (!input || typeof input !== 'object') return false
   const payload = input as Record<string, unknown>
@@ -158,6 +179,15 @@ export async function POST(request: NextRequest) {
     const fallbackPayload = {
       success: false,
       error: getSafeUpstreamErrorMessage(rawText, 'Event booking request failed')
+    }
+
+    // Handle BOOKINGS_DISABLED rejection from management API
+    const bookingsDisabled = upstream.status === 409 && hasErrorCode(parsed, 'BOOKINGS_DISABLED')
+    if (bookingsDisabled) {
+      return NextResponse.json(
+        { success: false, error: { code: 'BOOKINGS_DISABLED', message: 'Bookings are not available for this event. No booking is needed — just turn up!' } },
+        { status: 409, headers: { 'X-Idempotency-Key': idempotencyKey } }
+      )
     }
 
     const policyViolation = upstream.status === 409 && hasPolicyViolation(parsed)
