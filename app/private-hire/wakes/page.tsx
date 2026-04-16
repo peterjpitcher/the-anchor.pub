@@ -12,24 +12,29 @@ import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
-import { getCateringData } from '@/lib/api/catering-packages'
+import { getCateringData, getLowestFoodPrice } from '@/lib/api/catering-packages'
 import { CateringPackagesTable } from '@/components/features/CateringPackagesTable'
 
-export const metadata: Metadata = {
-    title: 'Wake Venue & Celebration of Life | Near SW Middlesex Crematorium | The Anchor',
-    description: 'A peaceful venue for wakes, funeral receptions and celebrations of life near South West Middlesex Crematorium and Staines Cemetery. Private rooms, funeral tea packages from £9.95pp, free parking and compassionate staff.',
-    openGraph: {
-        title: 'Wake Venue & Celebration of Life | The Anchor Stanwell Moor',
-        description: 'Respectful, private spaces for wakes, funeral teas and celebrations of life. Buffet packages from £9.95pp. Minutes from local crematoriums.',
-        images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Private hire venue at The Anchor near Heathrow Airport' }],
-    },
-    twitter: getTwitterMetadata({
-        title: 'Wake Venue & Celebration of Life | The Anchor Stanwell Moor',
-        description: 'Wakes, funeral teas and celebrations of life. Buffet packages from £9.95pp, free parking, minutes from local crematoriums.',
-        images: [DEFAULT_CORPORATE_IMAGE]
-    }),
-    alternates: {
-        canonical: '/private-hire/wakes'
+export async function generateMetadata(): Promise<Metadata> {
+    const { foodPackages } = await getCateringData()
+    const fromPrice = getLowestFoodPrice(foodPackages) || '£11' // fallback only if API returns no per-head food packages
+
+    return {
+        title: 'Wake Venue & Celebration of Life | Near SW Middlesex Crematorium | The Anchor',
+        description: `A peaceful venue for wakes, funeral receptions and celebrations of life near South West Middlesex Crematorium and Staines Cemetery. Private rooms, funeral tea packages from ${fromPrice}pp, free parking and compassionate staff.`,
+        openGraph: {
+            title: 'Wake Venue & Celebration of Life | The Anchor Stanwell Moor',
+            description: `Respectful, private spaces for wakes, funeral teas and celebrations of life. Buffet packages from ${fromPrice}pp. Minutes from local crematoriums.`,
+            images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Private hire venue at The Anchor near Heathrow Airport' }],
+        },
+        twitter: getTwitterMetadata({
+            title: 'Wake Venue & Celebration of Life | The Anchor Stanwell Moor',
+            description: `Wakes, funeral teas and celebrations of life. Buffet packages from ${fromPrice}pp, free parking, minutes from local crematoriums.`,
+            images: [DEFAULT_CORPORATE_IMAGE]
+        }),
+        alternates: {
+            canonical: '/private-hire/wakes'
+        }
     }
 }
 
@@ -37,6 +42,7 @@ const nearbyCrematoriums = landmarks.filter(l => l.type === 'crematorium');
 
 export default async function WakesPage() {
     const { foodPackages } = await getCateringData()
+    const fromPrice = getLowestFoodPrice(foodPackages) || '£11' // fallback only if API returns no per-head food packages
 
     const eventVenueSchema = {
         "@context": "https://schema.org",
@@ -97,7 +103,7 @@ export default async function WakesPage() {
                 tags={[
                     { label: "Near SW Middlesex Crematorium", variant: "default" },
                     { label: "Compassionate Team", variant: "success" },
-                    { label: "Funeral Tea from £9.95pp", variant: "default" },
+                    { label: `Funeral Tea from ${fromPrice}pp`, variant: "default" },
                     { label: "Free Parking", variant: "success" }
                 ]}
                 primaryCta={

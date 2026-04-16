@@ -10,30 +10,37 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
-import { getCateringData } from '@/lib/api/catering-packages'
+import { getCateringData, getLowestFoodPrice } from '@/lib/api/catering-packages'
 import { CateringPackagesTable } from '@/components/features/CateringPackagesTable'
 import { VenueSpacesTable } from '@/components/features/VenueSpacesTable'
 
-export const metadata: Metadata = {
-    title: 'Function Room & Party Venue Near Heathrow | Private Hire | The Anchor',
-    description: 'Book a function room or party venue near Heathrow for 10-50 guests. Buffets from £9.95pp, free parking, and a dedicated events team. The Anchor, Stanwell Moor.',
-    openGraph: {
+export async function generateMetadata(): Promise<Metadata> {
+    const { foodPackages } = await getCateringData()
+    const fromPrice = getLowestFoodPrice(foodPackages) || '£11' // fallback only if API returns no per-head food packages
+    const desc = `Book a function room or party venue near Heathrow for 10-50 guests. Buffets from ${fromPrice}pp, free parking, and a dedicated events team.`
+
+    return {
         title: 'Function Room & Party Venue Near Heathrow | Private Hire | The Anchor',
-        description: 'Book a function room or party venue near Heathrow for 10-50 guests. Buffets from £9.95pp, free parking, and a dedicated events team.',
-        images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Private hire venue at The Anchor near Heathrow Airport' }],
-    },
-    twitter: getTwitterMetadata({
-        title: 'Function Room & Party Venue Near Heathrow | Private Hire | The Anchor',
-        description: 'Book a function room or party venue near Heathrow for 10-50 guests. Buffets from £9.95pp, free parking, and a dedicated events team.',
-        images: [DEFAULT_CORPORATE_IMAGE]
-    }),
-    alternates: {
-        canonical: '/private-hire'
+        description: `${desc} The Anchor, Stanwell Moor.`,
+        openGraph: {
+            title: 'Function Room & Party Venue Near Heathrow | Private Hire | The Anchor',
+            description: desc,
+            images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Private hire venue at The Anchor near Heathrow Airport' }],
+        },
+        twitter: getTwitterMetadata({
+            title: 'Function Room & Party Venue Near Heathrow | Private Hire | The Anchor',
+            description: desc,
+            images: [DEFAULT_CORPORATE_IMAGE]
+        }),
+        alternates: {
+            canonical: '/private-hire'
+        }
     }
 }
 
 export default async function PrivateHirePage() {
     const { foodPackages, drinkPackages, addonPackages, spaces } = await getCateringData()
+    const fromPrice = getLowestFoodPrice(foodPackages) || '£11' // fallback only if API returns no per-head food packages
     return (
         <>
             <BreadcrumbJsonLd
@@ -45,13 +52,13 @@ export default async function PrivateHirePage() {
             <HeroWrapper
                 route="/private-hire"
                 title="Function Room & Party Venue"
-                description="Function rooms for 10–50 guests · Free parking for all · Buffet packages from £9.95pp · 7 mins from Heathrow"
+                description={`Function rooms for 10–50 guests · Free parking for all · Buffet packages from ${fromPrice}pp · 7 mins from Heathrow`}
 
                 tags={[
                     { label: "7 Mins from Heathrow", variant: "success" },
                     { label: "Free Parking", variant: "default" },
                     { label: "10-50 Guests", variant: "default" },
-                    { label: "From £9.95pp", variant: "success" }
+                    { label: `From ${fromPrice}pp`, variant: "success" }
                 ]}
                 primaryCta={
                     <PhoneButton
@@ -89,7 +96,7 @@ export default async function PrivateHirePage() {
                     </PageTitle>
 
                     <p className="text-center text-lg text-anchor-cream-text/70 mb-8 max-w-4xl mx-auto">
-                        The Anchor is an independent function room and party venue in Stanwell Moor, 7 minutes from Heathrow Terminal 5. Whether you need a function room for a christening or a party venue for a milestone birthday, we host gatherings from 10 to 50 guests with buffet packages from &pound;9.95 per person, free parking for all, and a personal touch you won&apos;t get from a hotel. Looking for venue hire near Staines? We&apos;re just a short drive away.
+                        The Anchor is an independent function room and party venue in Stanwell Moor, 7 minutes from Heathrow Terminal 5. Whether you need a function room for a christening or a party venue for a milestone birthday, we host gatherings from 10 to 50 guests with {`buffet packages from ${fromPrice} per person`}, free parking for all, and a personal touch you won&apos;t get from a hotel. Looking for venue hire near Staines? We&apos;re just a short drive away.
                     </p>
 
                     <div className="flex justify-center mb-10">
@@ -333,7 +340,7 @@ export default async function PrivateHirePage() {
                                     </tr>
                                     <tr>
                                         <td className="py-3 pr-4 text-anchor-cream-text font-medium">Catering per head</td>
-                                        <td className="py-3 pr-4 text-anchor-cream-text">From &pound;9.95pp</td>
+                                        <td className="py-3 pr-4 text-anchor-cream-text">From {fromPrice}pp</td>
                                         <td className="py-3 text-anchor-cream-text/50">From &pound;35–&pound;55pp</td>
                                     </tr>
                                     <tr>

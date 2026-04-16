@@ -1,3 +1,4 @@
+import { cache } from 'react'
 import { getPrivateBookingConfig, type PrivateBookingConfig } from './private-bookings'
 
 export interface CateringPackage {
@@ -67,9 +68,10 @@ export interface CateringData {
 
 /**
  * Fetch and categorise catering packages and venue spaces from the management API.
- * Intended for use in server components.
+ * Wrapped in React.cache() to deduplicate calls within a single render pass
+ * (e.g. generateMetadata + page component).
  */
-export async function getCateringData(): Promise<CateringData> {
+export const getCateringData = cache(async (): Promise<CateringData> => {
   const response = await getPrivateBookingConfig()
 
   const emptyResult: CateringData = {
@@ -92,6 +94,16 @@ export async function getCateringData(): Promise<CateringData> {
     addonPackages: mapped.filter((p) => p.category === 'addon'),
     spaces: spaces.map(mapSpace),
   }
+})
+
+/** Get the lowest per-head food package price formatted for display (e.g. "£11") */
+export function getLowestFoodPrice(packages: CateringPackage[]): string {
+  const perHead = packages.filter(
+    (p) => p.category === 'food' && p.pricingModel === 'per_head' && p.costPerHead > 0
+  )
+  if (perHead.length === 0) return ''
+  const lowest = Math.min(...perHead.map((p) => p.costPerHead))
+  return lowest % 1 === 0 ? `£${lowest}` : `£${lowest.toFixed(2)}`
 }
 
 /** Format a package price for display */
