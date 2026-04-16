@@ -103,6 +103,13 @@ function getBookingDisabledCopy(reason: ReturnType<typeof getEventBookingBlockRe
     }
   }
 
+  if (reason === 'bookings_disabled') {
+    return {
+      title: 'No booking required',
+      message: 'No booking is needed for this event — just turn up!'
+    }
+  }
+
   if (reason === 'past') {
     return {
       title: 'Booking unavailable',

@@ -97,6 +97,7 @@ export interface Event {
   secondary_keywords?: string[]
   local_seo_keywords?: string[]
   image_alt_text?: string | null
+  bookings_enabled?: boolean
   cancellation_policy?: string | null
   accessibility_notes?: string | null
   previous_event_summary?: string | null

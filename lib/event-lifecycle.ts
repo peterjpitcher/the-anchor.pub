@@ -9,7 +9,7 @@ export type EventStatus =
   | 'sold_out'
   | 'unknown'
 
-export type EventBookingBlockReason = 'draft' | 'cancelled' | 'sold_out' | 'past' | null
+export type EventBookingBlockReason = 'draft' | 'cancelled' | 'bookings_disabled' | 'sold_out' | 'past' | null
 
 function normalizeText(value: unknown): string {
   return typeof value === 'string' ? value.trim().toLowerCase() : ''
@@ -42,12 +42,13 @@ export function isEventInPast(event: Pick<Event, 'startDate'>, now: number = Dat
 }
 
 export function getEventBookingBlockReason(
-  event: Pick<Event, 'event_status' | 'eventStatus' | 'startDate'>,
+  event: Pick<Event, 'event_status' | 'eventStatus' | 'startDate' | 'bookings_enabled'>,
   now: number = Date.now()
 ): EventBookingBlockReason {
   const status = normalizeEventStatus(event)
   if (status === 'draft') return 'draft'
   if (status === 'cancelled') return 'cancelled'
+  if (event.bookings_enabled === false) return 'bookings_disabled'
   if (status === 'sold_out') return 'sold_out'
   if (isEventInPast(event, now)) return 'past'
   return null
