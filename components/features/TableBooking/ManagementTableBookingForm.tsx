@@ -1302,6 +1302,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   function buildSundayMenuSelections(): {
     ok: boolean
     selections?: Array<{
+      menu_dish_id: string
       guest_name: string
       custom_item_name: string
       item_type: 'main'
@@ -1340,6 +1341,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     const selections = guestOrders.map((order, index) => {
       const item = getMenuItem(order.menuItemId)
       return {
+        menu_dish_id: order.menuItemId,
         guest_name: order.guestName.trim() || `Guest ${index + 1}`,
         custom_item_name: item?.name || 'Sunday lunch main',
         item_type: 'main' as const,
