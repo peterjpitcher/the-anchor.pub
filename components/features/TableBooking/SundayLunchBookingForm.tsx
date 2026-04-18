@@ -417,6 +417,7 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
       
       // Convert menu selections to the required API format
       const menuItems: Array<{
+        menu_dish_id: string
         custom_item_name: string
         item_type: string
         quantity: number
@@ -430,18 +431,20 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
           const mainItem = menu.mains.find(m => m.id === selection.menu_item_id)
           if (mainItem) {
             menuItems.push({
+              menu_dish_id: mainItem.id,
               custom_item_name: mainItem.name,
               item_type: 'main',
               quantity: 1,
               guest_name: selection.guest_name,
               price_at_booking: mainItem.price
             })
-            
+
             // Add included sides for each guest
             menu.sides
               .filter(side => side.included)
               .forEach(side => {
                 menuItems.push({
+                  menu_dish_id: side.id,
                   custom_item_name: side.name,
                   item_type: 'side',
                   quantity: 1,
@@ -452,7 +455,7 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
           }
         }
       })
-      
+
       // Add optional extras
       sideSelections
         .filter(side => side.quantity > 0)
@@ -462,6 +465,7 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
             // Add one entry per quantity
             for (let i = 0; i < sideSelection.quantity; i++) {
               menuItems.push({
+                menu_dish_id: sideItem.id,
                 custom_item_name: sideItem.name,
                 item_type: 'side',
                 quantity: 1,

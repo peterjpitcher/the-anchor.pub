@@ -16,6 +16,11 @@ const API_KEY = process.env.ANCHOR_API_KEY
 
 type BookingPurpose = 'food' | 'drinks'
 
+type SundayPreorderItem = {
+  menu_dish_id: string
+  quantity: number
+}
+
 type ManagementTableBookingPayload = {
   phone: string
   first_name?: string
@@ -27,6 +32,9 @@ type ManagementTableBookingPayload = {
   purpose: BookingPurpose
   notes?: string
   sunday_lunch?: boolean
+  dietary_requirements?: string[]
+  allergies?: string[]
+  sunday_preorder_items?: SundayPreorderItem[]
   default_country_code?: string
 }
 
@@ -49,6 +57,7 @@ type LegacyTableBookingPayload = {
   celebration_type?: string
   notes?: string
   menu_selections?: Array<{
+    menu_dish_id?: string
     guest_name?: string
     custom_item_name?: string
     item_type?: string
@@ -64,34 +73,6 @@ function mergeNotes(...parts: Array<string | undefined>): string | undefined {
 
   if (merged.length === 0) return undefined
   return merged.join('\n')
-}
-
-function buildNameLine(firstName?: string, lastName?: string): string | undefined {
-  const fullName = [asTrimmedString(firstName), asTrimmedString(lastName)]
-    .filter(Boolean)
-    .join(' ')
-
-  if (!fullName) return undefined
-  return `Name: ${fullName}`
-}
-
-function buildMenuSelectionNotes(value: unknown): string | undefined {
-  if (!Array.isArray(value) || value.length === 0) return undefined
-
-  const parts = value
-    .map((entry) => {
-      if (!entry || typeof entry !== 'object') return null
-      const item = entry as Record<string, unknown>
-      const guest = asTrimmedString(item.guest_name) || 'Guest'
-      const dish = asTrimmedString(item.custom_item_name) || asTrimmedString(item.item_name)
-      const quantity = asPositiveInt(item.quantity) || 1
-      if (!dish) return null
-      return `${guest}: ${dish} x${quantity}`
-    })
-    .filter((line): line is string => Boolean(line))
-
-  if (parts.length === 0) return undefined
-  return `Sunday lunch pre-order: ${parts.join(' | ')}`
 }
 
 function createIdempotencyKey(prefix: string): string {
@@ -133,56 +114,61 @@ function toStringList(value: unknown): string[] {
   return single ? [single] : []
 }
 
-function buildLegacyNotes(payload: LegacyTableBookingPayload): string | undefined {
-  const lines: string[] = []
+// Aggregates menu_selections entries into sunday_preorder_items keyed by
+// menu_dish_id. Entries without a menu_dish_id are skipped -- they'll still
+// appear in the auto-generated note blob as a kitchen-side fallback, but the
+// management API now expects structured UUIDs so it can populate
+// table_booking_items.
+function buildSundayPreorderItems(
+  value: unknown
+): SundayPreorderItem[] | undefined {
+  if (!Array.isArray(value) || value.length === 0) return undefined
 
-  const firstName = asTrimmedString(payload.customer?.first_name)
-  const lastName = asTrimmedString(payload.customer?.last_name)
-  const fullName = [firstName, lastName].filter(Boolean).join(' ')
-  if (fullName) lines.push(`Name: ${fullName}`)
+  const totals = new Map<string, number>()
 
-  const email = asTrimmedString(payload.customer?.email)
-  if (email) lines.push(`Email: ${email}`)
-
-  const occasion = asTrimmedString(payload.celebration_type)
-  if (occasion) lines.push(`Occasion: ${occasion}`)
-
-  const specialRequirements = asTrimmedString(payload.special_requirements)
-  if (specialRequirements) lines.push(`Special requirements: ${specialRequirements}`)
-
-  const dietaryRequirements = toStringList(payload.dietary_requirements)
-  if (dietaryRequirements.length > 0) {
-    lines.push(`Dietary requirements: ${dietaryRequirements.join(', ')}`)
+  for (const entry of value) {
+    if (!entry || typeof entry !== 'object') continue
+    const item = entry as Record<string, unknown>
+    const menuDishId = asTrimmedString(item.menu_dish_id)
+    if (!menuDishId) continue
+    const quantity = asPositiveInt(item.quantity) ?? 1
+    totals.set(menuDishId, (totals.get(menuDishId) ?? 0) + quantity)
   }
 
-  const allergies = toStringList(payload.allergies)
-  if (allergies.length > 0) {
-    lines.push(`Allergies: ${allergies.join(', ')}`)
-  }
+  if (totals.size === 0) return undefined
 
-  if (Array.isArray(payload.menu_selections) && payload.menu_selections.length > 0) {
-    const selectionSummary = payload.menu_selections
-      .slice(0, 12)
-      .map((item) => {
-        const guest = asTrimmedString(item.guest_name) || 'Guest'
-        const dish = asTrimmedString(item.custom_item_name) || 'Menu item'
-        const quantity = asPositiveInt(item.quantity) || 1
-        return `${guest}: ${dish} x${quantity}`
-      })
-      .join(' | ')
-
-    if (selectionSummary) {
-      lines.push(`Sunday lunch pre-order: ${selectionSummary}`)
-    }
-  }
-
-  const explicitNotes = asTrimmedString(payload.notes)
-  if (explicitNotes) lines.push(`Notes: ${explicitNotes}`)
-
-  if (lines.length === 0) return undefined
-  return lines.join('\n')
+  return Array.from(totals, ([menu_dish_id, quantity]) => ({ menu_dish_id, quantity }))
 }
 
+// A human-readable fallback summary of the pre-order in case saveSundayPreorder
+// on the management side fails -- it stays in the free-text notes column so
+// the kitchen is never blind. Once we have confidence in the structured path
+// we can drop this.
+function buildMenuSelectionFallbackNote(
+  value: LegacyTableBookingPayload['menu_selections']
+): string | undefined {
+  if (!Array.isArray(value) || value.length === 0) return undefined
+
+  const parts = value
+    .slice(0, 12)
+    .map((item) => {
+      const guest = asTrimmedString(item.guest_name) || 'Guest'
+      const dish = asTrimmedString(item.custom_item_name) || 'Menu item'
+      const quantity = asPositiveInt(item.quantity) || 1
+      return `${guest}: ${dish} x${quantity}`
+    })
+    .join(' | ')
+
+  if (!parts) return undefined
+  return `Sunday lunch pre-order: ${parts}`
+}
+
+// Parses either of the two shapes the site currently sends -- the "management"
+// top-level shape (ManagementTableBookingForm) and the "legacy" nested
+// shape with a customer{} wrapper (SundayLunchBookingForm) -- into the single
+// structured payload the management API expects. Key guarantee: customer name,
+// email, dietary needs, allergies, and per-guest pre-order dishes end up in
+// their own structured fields, not stuffed into the notes blob.
 function normaliseIncomingPayload(input: unknown): {
   payload?: ManagementTableBookingPayload
   error?: string
@@ -193,68 +179,85 @@ function normaliseIncomingPayload(input: unknown): {
 
   const body = input as Record<string, unknown>
 
-  const isNewShape =
-    typeof body.phone === 'string' ||
-    typeof body.purpose === 'string' ||
-    typeof body.sunday_lunch === 'boolean'
+  // Top-level first_name/last_name/email/phone (management form) takes
+  // precedence; fall back to the nested customer{} object for the Sunday lunch
+  // form. Either is accepted.
+  const customer = (body.customer && typeof body.customer === 'object'
+    ? (body.customer as Record<string, unknown>)
+    : {}) as Record<string, unknown>
 
-  if (isNewShape) {
-    const phone = asTrimmedString(body.phone)
-    const date = asTrimmedString(body.date)
-    const time = asTrimmedString(body.time)
-    const partySize = asPositiveInt(body.party_size)
-    const purpose = body.purpose === 'drinks' ? 'drinks' : body.purpose === 'food' ? 'food' : undefined
-    const firstName = asTrimmedString(body.first_name)
-    const lastName = asTrimmedString(body.last_name)
-    const menuSelectionNotes = buildMenuSelectionNotes(body.menu_selections)
-    const notes = mergeNotes(buildNameLine(firstName, lastName), menuSelectionNotes, asTrimmedString(body.notes))
-    const sundayLunch = body.sunday_lunch === true
-    const defaultCountryCode = asTrimmedString(body.default_country_code)
+  const phone =
+    asTrimmedString(body.phone) ||
+    asTrimmedString(customer.mobile_number) ||
+    asTrimmedString(body.customer_phone)
 
-    if (!phone || !date || !time || !partySize || !purpose) {
-      return { error: 'Missing required fields: phone, date, time, party_size, purpose' }
-    }
+  const firstName = asTrimmedString(body.first_name) || asTrimmedString(customer.first_name)
+  const lastName = asTrimmedString(body.last_name) || asTrimmedString(customer.last_name)
+  const email = asTrimmedString(body.email) || asTrimmedString(customer.email)
 
-    return {
-      payload: {
-        phone,
-        ...(firstName ? { first_name: firstName } : {}),
-        ...(lastName ? { last_name: lastName } : {}),
-        ...(asTrimmedString(body.email) ? { email: asTrimmedString(body.email) } : {}),
-        date,
-        time,
-        party_size: partySize,
-        purpose,
-        ...(notes ? { notes } : {}),
-        ...(sundayLunch ? { sunday_lunch: true } : {}),
-        ...(defaultCountryCode ? { default_country_code: defaultCountryCode } : {})
-      }
-    }
+  const date = asTrimmedString(body.date)
+  const time = asTrimmedString(body.time)
+  const partySize = asPositiveInt(body.party_size)
+  const defaultCountryCode = asTrimmedString(body.default_country_code)
+
+  // Sunday lunch is signalled either by a top-level boolean or by the legacy
+  // booking_type string. Either works.
+  const sundayLunch =
+    body.sunday_lunch === true || body.booking_type === 'sunday_lunch'
+
+  // Sunday lunch always implies a food booking; otherwise respect purpose or
+  // default to food (kitchen bookings are the common case via this route).
+  const explicitPurpose =
+    body.purpose === 'drinks' ? 'drinks' : body.purpose === 'food' ? 'food' : undefined
+  const purpose: BookingPurpose = sundayLunch
+    ? 'food'
+    : explicitPurpose ?? (body.purpose === undefined ? 'food' : undefined as unknown as BookingPurpose)
+
+  if (!phone || !date || !time || !partySize || !purpose) {
+    return { error: 'Missing required fields: phone, date, time, party_size, purpose' }
   }
 
-  const legacy = body as LegacyTableBookingPayload
-  const phone = asTrimmedString(legacy.customer?.mobile_number) || asTrimmedString(legacy.customer_phone)
-  const date = asTrimmedString(legacy.date)
-  const time = asTrimmedString(legacy.time)
-  const partySize = asPositiveInt(legacy.party_size)
-  const purpose = legacy.purpose === 'drinks' ? 'drinks' : 'food'
-  const sundayLunch = legacy.booking_type === 'sunday_lunch'
-  const notes = buildLegacyNotes(legacy)
+  const dietaryRequirements = toStringList(body.dietary_requirements)
+  const allergies = toStringList(body.allergies)
 
-  if (!phone || !date || !time || !partySize) {
-    return { error: 'Missing required fields: phone, date, time, and party_size' }
-  }
+  const sundayPreorderItems = buildSundayPreorderItems(body.menu_selections)
+
+  // notes is strictly the user's free-text (e.g. "anniversary dinner") -- the
+  // Sunday lunch form labels it "special_requirements", the management form
+  // labels it "notes". We also append a human-readable fallback summary of the
+  // pre-order so the kitchen isn't blind if the structured items save fails on
+  // the management side.
+  const userNote =
+    asTrimmedString(body.special_requirements) || asTrimmedString(body.notes)
+  const occasionNote = asTrimmedString(body.celebration_type)
+  const fallbackSelectionNote = sundayLunch
+    ? buildMenuSelectionFallbackNote(
+        body.menu_selections as LegacyTableBookingPayload['menu_selections']
+      )
+    : undefined
+  const notes = mergeNotes(
+    occasionNote ? `Occasion: ${occasionNote}` : undefined,
+    userNote,
+    fallbackSelectionNote
+  )
 
   return {
     payload: {
       phone,
+      ...(firstName ? { first_name: firstName } : {}),
+      ...(lastName ? { last_name: lastName } : {}),
+      ...(email ? { email } : {}),
       date,
       time,
       party_size: partySize,
       purpose,
       ...(notes ? { notes } : {}),
-      ...(sundayLunch ? { sunday_lunch: true } : {})
-    }
+      ...(sundayLunch ? { sunday_lunch: true } : {}),
+      ...(dietaryRequirements.length > 0 ? { dietary_requirements: dietaryRequirements } : {}),
+      ...(allergies.length > 0 ? { allergies } : {}),
+      ...(sundayPreorderItems ? { sunday_preorder_items: sundayPreorderItems } : {}),
+      ...(defaultCountryCode ? { default_country_code: defaultCountryCode } : {}),
+    },
   }
 }
 
