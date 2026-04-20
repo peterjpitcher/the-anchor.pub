@@ -322,6 +322,20 @@ export default async function HeathrowParkingPage() {
         }
       />
 
+      <Section background="dark" spacing="lg" id="book-parking">
+        <Container>
+          <div className="mx-auto max-w-5xl space-y-6">
+            <h2 className="text-3xl font-bold text-anchor-cream-text text-center">
+              Reserve & Pay for Heathrow Parking in Four Steps
+            </h2>
+            <p className="text-center text-anchor-cream-text/70">
+              Check live availability, lock in the best long stay parking price and pay securely with PayPal – perfect for airport drop-offs, contractors and extended holidays.
+            </p>
+            <ParkingBookingWizard initialRates={rateCard} />
+          </div>
+        </Container>
+      </Section>
+
       <Section background="dark" spacing="lg">
         <Container>
           <div className="mx-auto max-w-5xl">
@@ -427,20 +441,6 @@ export default async function HeathrowParkingPage() {
             <p className="mt-6 text-center text-sm text-anchor-cream-text/55">
               Allow extra time for your transfer and note that parking remains at The Anchor in Stanwell Moor, not within the airport boundary.
             </p>
-          </div>
-        </Container>
-      </Section>
-
-      <Section background="dark" spacing="lg" id="book-parking">
-        <Container>
-          <div className="mx-auto max-w-5xl space-y-6">
-            <h2 className="text-3xl font-bold text-anchor-cream-text text-center">
-              Reserve & Pay for Heathrow Parking in Four Steps
-            </h2>
-            <p className="text-center text-anchor-cream-text/70">
-              Check live availability, lock in the best long stay parking price and pay securely with PayPal – perfect for airport drop-offs, contractors and extended holidays.
-            </p>
-            <ParkingBookingWizard initialRates={rateCard} />
           </div>
         </Container>
       </Section>
