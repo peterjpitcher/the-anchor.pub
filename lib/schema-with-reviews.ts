@@ -61,6 +61,11 @@ const getEnhancedSchemasCached = unstable_cache(
       },
       "url": "https://www.the-anchor.pub",
       "telephone": "+441753682707",
+      "sameAs": [
+        "https://www.facebook.com/theanchorpubsm/",
+        "https://www.instagram.com/theanchor.pub/",
+        "https://whatpub.com/pubs/SRY/14044/anchor-stanwell-moor"
+      ],
       "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": rating,

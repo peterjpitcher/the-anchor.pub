@@ -41,17 +41,17 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { CONTACT } from '@/lib/constants'
 
 export const metadata: Metadata = {
-  title: 'Pub Quiz Night Near Heathrow | Cash Prizes | The Anchor',
+  title: 'Pub Quiz Near Heathrow | £3 Entry, Cash Prizes | The Anchor',
   description:
-    "Monthly pub quiz at The Anchor near Heathrow. £3 entry, £25 bar tab prize for the winners. Teams of up to 6 welcome. Free parking, draught beers. Check dates below.",
+    "Monthly quiz night at The Anchor, Stanwell Moor. £3 entry, £25 bar tab for the winners. Teams of up to 6. Free parking, 7 mins from Heathrow T5. Book your spot.",
   openGraph: {
-    title: 'Pub Quiz Night Near Heathrow | Cash Prizes | The Anchor',
-    description: 'Monthly pub quiz at The Anchor near Heathrow. £3 entry, £25 bar tab prize for the winners. Teams of up to 6 welcome. Free parking, draught beers. Check dates below.',
+    title: 'Pub Quiz Near Heathrow | £3 Entry, Cash Prizes | The Anchor',
+    description: 'Monthly quiz night at The Anchor, Stanwell Moor. £3 entry, £25 bar tab for the winners. Teams of up to 6. Free parking, 7 mins from Heathrow T5. Book your spot.',
     images: [{ url: DEFAULT_EVENT_IMAGE, width: 1200, height: 630, alt: 'Events at The Anchor pub near Heathrow' }]
   },
   twitter: getTwitterMetadata({
-    title: 'Pub Quiz Night Near Heathrow | Cash Prizes | The Anchor',
-    description: 'Monthly pub quiz at The Anchor near Heathrow. £3 entry, £25 bar tab prize for the winners. Teams of up to 6 welcome. Free parking, draught beers. Check dates below.',
+    title: 'Pub Quiz Near Heathrow | £3 Entry, Cash Prizes | The Anchor',
+    description: 'Monthly quiz night at The Anchor, Stanwell Moor. £3 entry, £25 bar tab for the winners. Teams of up to 6. Free parking, 7 mins from Heathrow T5. Book your spot.',
     images: [DEFAULT_EVENT_IMAGE]
   }),
   alternates: {
@@ -280,6 +280,10 @@ export default async function QuizNightPage() {
 	    ? `Doors ${doorTime}. Quiz starts ${nextEventTime}. It’s £3 per player — build a team of up to six or arrive solo and we’ll match you.`
 	    : 'Doors 6:30 pm. Quiz starts 7:00 pm. It’s £3 per player — build a team of up to six or arrive solo and we’ll match you.'
 
+  // Extract ISO date (YYYY-MM-DD) from startDate for booking URL prefill
+  const nextEventIsoDate = nextEvent ? nextEvent.startDate.slice(0, 10) : null
+  const bookingHref = nextEventIsoDate ? `/book-table?date=${nextEventIsoDate}` : '/book-table'
+
   return (
     <>
       <BreadcrumbJsonLd
@@ -323,6 +327,7 @@ export default async function QuizNightPage() {
             variant="primary"
             size="lg"
             className="w-full sm:w-auto"
+            customHref={bookingHref}
           >
             Book Your Quiz Table
           </BookTableButton>

@@ -15,8 +15,8 @@ import { getBusinessStats } from '@/lib/schema-with-reviews'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
-    title: 'Watch Live Sport Near Heathrow | Major Tournaments & Events | The Anchor',
-    description: `Watch major sporting events near Heathrow — Six Nations, World Cup, Euros & F1 on big screens at ${BRAND.name}. Free parking, great food, 7 mins from T5.`,
+    title: 'Watch Live Sport Near Heathrow | Big Screens | The Anchor',
+    description: `Watch Six Nations, Euros, F1 & World Cup on big screens at The Anchor, Stanwell Moor. Terrestrial sport, great atmosphere, free parking, 7 mins from Heathrow T5.`,
     openGraph: {
         title: 'Watch Live Sport Near Heathrow — Major Tournaments on Big Screens',
         description: 'Six Nations, World Cup, Euros and F1 on big screens with a cold pint and free parking. 7 mins from Heathrow T5.',

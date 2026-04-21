@@ -470,6 +470,11 @@ export default async function GlutenFreeMenuPage() {
           description="Reserve online or call ahead — we will have your table ready."
           buttons={[
             {
+              text: 'Book a Table',
+              href: '/book-table',
+              variant: 'white',
+            },
+            {
               text: 'Call: 01753 682707',
               href: 'tel:+441753682707',
               variant: 'white',
@@ -495,17 +500,42 @@ export default async function GlutenFreeMenuPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: jsonLdSafeStringify({
-            '@context': 'https://schema.org',
-            '@type': 'FAQPage',
-            mainEntity: faqItems.map((faq) => ({
-              '@type': 'Question',
-              name: faq.question,
-              acceptedAnswer: {
-                '@type': 'Answer',
-                text: faq.answer,
+              '@context': 'https://schema.org',
+              '@type': 'Restaurant',
+              '@id': 'https://www.the-anchor.pub/#business',
+              name: 'The Anchor',
+              description: 'Traditional British pub near Heathrow Airport with gluten-free pub food options including GF pizza bases, naturally gluten-free puddings and sides.',
+              servesCuisine: ['British', 'Pizza', 'Pub Food'],
+              hasMenu: {
+                '@type': 'Menu',
+                name: 'Gluten-Free Menu',
+                url: 'https://www.the-anchor.pub/food-menu/gluten-free',
+                description: 'Gluten-free pub food options at The Anchor near Heathrow — GF pizza bases, naturally gluten-free puddings and sides, no surcharge.',
               },
-            })),
-          }),
+              address: {
+                '@type': 'PostalAddress',
+                streetAddress: 'Horton Road',
+                addressLocality: 'Stanwell Moor',
+                addressRegion: 'Surrey',
+                postalCode: 'TW19 6AQ',
+                addressCountry: 'GB',
+              },
+              telephone: '+441753682707',
+              url: 'https://www.the-anchor.pub',
+              priceRange: '££',
+              potentialAction: {
+                '@type': 'ReserveAction',
+                target: {
+                  '@type': 'EntryPoint',
+                  urlTemplate: 'https://www.the-anchor.pub/book-table',
+                  actionPlatform: [
+                    'https://schema.org/DesktopWebPlatform',
+                    'https://schema.org/MobileWebPlatform',
+                  ],
+                },
+                result: { '@type': 'FoodEstablishmentReservation' },
+              },
+            }),
         }}
       />
     </>

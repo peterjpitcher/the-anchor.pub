@@ -23,8 +23,8 @@ export async function generateMetadata(): Promise<Metadata> {
     const fromPrice = getLowestFoodPrice(wakePackages) || '£12' // fallback only if API returns no wake packages
 
     return {
-        title: 'Wake Venue & Celebration of Life | Near SW Middlesex Crematorium | The Anchor',
-        description: `A peaceful venue for wakes, funeral receptions and celebrations of life near South West Middlesex Crematorium and Staines Cemetery. Private rooms, funeral tea packages from ${fromPrice}pp, free parking and compassionate staff.`,
+        title: 'Wake & Funeral Reception Venue | Near Heathrow | The Anchor',
+        description: `Private room for wakes, funeral teas & celebrations of life near Staines & Heathrow. Up to 50 guests, buffet packages from ${fromPrice}pp, free parking. Compassionate staff.`,
         openGraph: {
             title: 'Wake Venue & Celebration of Life | The Anchor Stanwell Moor',
             description: `Respectful, private spaces for wakes, funeral teas and celebrations of life. Buffet packages from ${fromPrice}pp. Minutes from local crematoriums.`,
@@ -122,7 +122,7 @@ export default async function WakesPage() {
                     </PhoneButton>
                 }
                 secondaryCta={
-                    <Link href="/private-hire#enquiry" className="w-full sm:w-auto">
+                    <Link href="#enquiry" className="w-full sm:w-auto">
                         <Button variant="secondary" size="lg" className="w-full sm:w-auto">
                             Enquire Online
                         </Button>
@@ -167,7 +167,7 @@ export default async function WakesPage() {
                 </Container>
             </section>
 
-            <PrivateBookingSection eventType="Wake / Memorial" />
+            <PrivateBookingSection id="enquiry" eventType="Wake / Memorial" />
 
             <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
@@ -198,6 +198,7 @@ export default async function WakesPage() {
                     <div className="prose prose-invert max-w-3xl mx-auto mb-8">
                         <p>We offer a range of buffet and tea &amp; coffee packages to suit your needs and budget. Use our calculator below to get an instant indication of costs for your gathering, or call us to discuss your requirements.</p>
                         <p>All packages include use of our private dining room, dedicated staff, free parking, and setup and cleardown. We can also arrange flowers, photos, and order of service display.</p>
+                        <p>Guests who choose to stay on after the reception are welcome to order from <Link href="/food-menu" className="text-anchor-gold hover:underline">our full food menu</Link> at their leisure.</p>
                     </div>
                 </Container>
             </Section>
@@ -381,6 +382,40 @@ export default async function WakesPage() {
                                 </div>
                             </li>
                         </ol>
+                    </div>
+                </Container>
+            </section>
+
+            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+                <Container>
+                    <div className="max-w-3xl mx-auto">
+                        <h2 className="text-2xl md:text-3xl font-bold text-anchor-gold-vivid mb-4">Near Slough Crematorium</h2>
+                        <p className="text-anchor-cream-text/70 mb-4">
+                            Slough Cemetery and Crematorium on Stoke Road is around 12 minutes&rsquo; drive from The Anchor. Many families use the A412 or B470 for a straightforward journey between the two, and our free car park means guests can arrive without worrying about parking charges after an already difficult day.
+                        </p>
+                        <p className="text-anchor-cream-text/70 mb-4">
+                            We can have the private dining room set and ready before you arrive from the service. Whether you need space for a small, intimate gathering or up to 50 guests, we will prepare the room accordingly. Our staff understand that timings after a cremation can be unpredictable, and we will always accommodate a slightly later start without fuss.
+                        </p>
+                        <p className="text-anchor-cream-text/70">
+                            If you are travelling from the Slough or Langley area, we are easily reached via the M25 junction 14. There is no need to navigate central Staines or Heathrow traffic — the approach from the north is straightforward and signposted. Call us on <a href="tel:+441753682707" className="text-anchor-gold hover:underline">01753 682707</a> to discuss arrangements, and we will take care of the rest.
+                        </p>
+                    </div>
+                </Container>
+            </section>
+
+            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+                <Container>
+                    <div className="max-w-3xl mx-auto">
+                        <h2 className="text-2xl md:text-3xl font-bold text-anchor-gold-vivid mb-4">Near Staines Cemetery</h2>
+                        <p className="text-anchor-cream-text/70 mb-4">
+                            Staines Cemetery on London Road is approximately 8 minutes from The Anchor, making it one of the most convenient wake venues for families gathering after a burial or committal service in Staines-upon-Thames. The route along the B378 is direct and avoids the busiest parts of the town centre.
+                        </p>
+                        <p className="text-anchor-cream-text/70 mb-4">
+                            Families travelling from Staines will find our location in Stanwell Moor easy to reach by car or taxi. For guests using public transport, there are bus services connecting Staines town centre to Stanwell Moor. Our 20-space car park is free for all guests, and there is additional unrestricted street parking nearby for larger gatherings.
+                        </p>
+                        <p className="text-anchor-cream-text/70">
+                            We welcome families from Staines, Ashford, Laleham, and Shepperton who are looking for a quiet, private venue after a service at Staines Cemetery. Our team is accustomed to arranging wakes at short notice, and we will do everything we can to support you. Please call us on <a href="tel:+441753682707" className="text-anchor-gold hover:underline">01753 682707</a> — there is always someone here to help.
+                        </p>
                     </div>
                 </Container>
             </section>

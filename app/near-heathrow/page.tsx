@@ -17,8 +17,8 @@ import { localBusinessSchema } from '@/lib/schema'
 import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 
 export const metadata: Metadata = {
-  title: 'Pubs Near Heathrow Airport | 7 Mins from T5 | Free Parking | The Anchor',
-  description: 'The Anchor — rated 4.6/5 on Google — is the closest traditional pub to Heathrow Airport. 7 mins from T5, free parking, dog-friendly beer garden, Sunday roasts from £19 and food served daily (except Mon).',
+  title: 'Pub Near Heathrow Airport | 7 Mins from T5 | The Anchor',
+  description: 'Rated 4.6/5 on Google. Traditional pub 7 mins from Heathrow T5 — free parking, dog-friendly beer garden, Sunday roasts from £19, quiz nights & live events.',
   openGraph: {
     title: 'Pubs Near Heathrow Airport | 7 Mins from T5 | Free Parking | The Anchor',
     description: 'Rated 4.6/5 on Google. The closest traditional pub to Heathrow — 7 mins from T5, free parking, dog-friendly beer garden and food served daily.',

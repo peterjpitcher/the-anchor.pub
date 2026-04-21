@@ -39,9 +39,9 @@ import { getBusinessStats } from '@/lib/schema-with-reviews'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
-    title: 'Karaoke Pub Near Heathrow | Friday Nights at The Anchor',
+    title: 'Karaoke Fridays Near Heathrow | Free Entry | The Anchor',
     description:
-        'Looking for a karaoke pub near me? The Anchor hosts karaoke every Friday 8-11pm. 50,000+ songs, hosted by Nikki Manfadge. Free entry, free parking, Stanwell Moor.',
+        'Karaoke every Friday 8–11pm at The Anchor, Stanwell Moor. 50,000+ songs, hosted nights, free entry & free parking. 7 mins from Heathrow T5. Grab the mic tonight.',
     openGraph: {
         title: 'Karaoke Pub Near Heathrow | The Anchor',
         description: '50,000+ songs, hosted by Nikki Manfadge, Fridays 8-11pm. Free entry. Sing your heart out in Stanwell Moor.',

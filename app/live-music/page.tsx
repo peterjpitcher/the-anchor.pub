@@ -34,6 +34,8 @@ import { cn } from '@/lib/utils'
 import { BookTableButton } from '@/components/BookTableButton'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
+import { liveMusicEventSeries } from '@/lib/schema'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
     title: 'Live Music Pub Near Heathrow | Bands & Open Mic | The Anchor',
@@ -275,6 +277,11 @@ export default async function LiveMusicPage() {
 
     return (
         <>
+            {/* EventSeries JSON-LD Schema */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(liveMusicEventSeries) }}
+            />
             <HeroWrapper
                 route="/live-music"
                 title="Live Music at The Anchor"

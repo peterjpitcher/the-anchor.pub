@@ -142,6 +142,19 @@ function formatSimpleTime(time?: string | null): string | null {
   return `${displayHour}${minutePart}${period}`
 }
 
+/** Build a /book-table link pre-filled with the event date (YYYY-MM-DD in Europe/London). */
+function getTableBookingHref(event: DisplayEvent): string | null {
+  if (!event.startDate) return null
+  const start = getEventDateRangeUtc(event).start
+  if (Number.isNaN(start.getTime())) return null
+  // Only offer table booking for future events
+  if (start.getTime() < Date.now()) return null
+  // Use Europe/London to match the displayed event date (avoids UTC midnight edge cases in BST)
+  const parts = start.toLocaleDateString('en-CA', { timeZone: LONDON_TIME_ZONE })
+  // en-CA locale outputs YYYY-MM-DD format
+  return `/book-table?date=${parts}`
+}
+
 interface EventCardProps {
   event: DisplayEvent
   index: number
@@ -310,6 +323,17 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
                 {!isTimeChange && (
                   <div className="space-y-2">
                     <EventBookingButton event={event} size="lg" source="whats_on_event_card_mobile" />
+                    {getTableBookingHref(event) && (
+                      <Link
+                        href={getTableBookingHref(event)!}
+                        className="inline-flex items-center gap-1 text-anchor-cream-text/70 hover:text-anchor-gold text-sm transition-colors"
+                      >
+                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        Reserve a table for this night
+                      </Link>
+                    )}
                     <Link
                       href={`/events/${event.slug || event.id}`}
                       className="inline-flex items-center text-anchor-gold font-semibold text-sm"
@@ -442,6 +466,17 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
                         size="lg"
                         source="whats_on_event_card_desktop"
                       />
+                      {getTableBookingHref(event) && (
+                        <Link
+                          href={getTableBookingHref(event)!}
+                          className="inline-flex items-center justify-center gap-1 text-anchor-cream-text/70 hover:text-anchor-gold text-sm transition-colors"
+                        >
+                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                          </svg>
+                          Reserve a table
+                        </Link>
+                      )}
                       <Link
                         href={`/events/${event.slug || event.id}`}
                         className="inline-flex items-center justify-center text-anchor-gold hover:text-anchor-gold-light font-semibold text-sm"

@@ -14,8 +14,8 @@ import { getBusinessStats } from '@/lib/schema-with-reviews'
 import { BookTableButton } from '@/components/BookTableButton'
 
 export const metadata: Metadata = {
-  title: `Stanwell Village Pub | Beer Garden, Sunday Roasts & Free Parking | ${BRAND.name}`,
-  description: `The Anchor is Stanwell Moor's village pub — rated 4.6/5 on Google. Sunday roasts from £19, stone-baked pizzas, dog-friendly beer garden and free parking. 7 mins from Heathrow T5.`,
+  title: 'The Anchor | Stanwell Moor Pub | Rated 4.6★ on Google',
+  description: 'Your local in Stanwell Moor — rated 4.6/5 on Google. Sunday roasts from £19, stone-baked pizzas, dog-friendly beer garden, quiz nights & free parking.',
   openGraph: {
     title: 'Stanwell Village Pub — Beer Garden, Food & Free Parking',
     description: 'Rated 4.6/5 on Google. Sunday roasts, stone-baked pizzas and a dog-friendly beer garden at The Anchor, Stanwell Moor.',
@@ -153,7 +153,7 @@ export default async function StanwellPubPage() {
               }}
               className="text-anchor-cream-text mb-4"
             >
-              Stanwell Pub - Traditional British Pub in Stanwell Moor
+              Your Local Pub in Stanwell Moor
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
               Your local village pub serving the Stanwell community for generations

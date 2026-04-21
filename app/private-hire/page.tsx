@@ -13,6 +13,8 @@ import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 import { getCateringData, getLowestFoodPrice } from '@/lib/api/catering-packages'
 import { CateringPackagesTable } from '@/components/features/CateringPackagesTable'
 import { VenueSpacesTable } from '@/components/features/VenueSpacesTable'
+import { CONTACT, BRAND } from '@/lib/constants'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export async function generateMetadata(): Promise<Metadata> {
     const { foodPackages } = await getCateringData()
@@ -20,15 +22,15 @@ export async function generateMetadata(): Promise<Metadata> {
     const desc = `Book a function room or party venue near Heathrow for 10-50 guests. Buffets from ${fromPrice}pp, free parking, and a dedicated events team.`
 
     return {
-        title: 'Function Room & Party Venue Near Heathrow | Private Hire | The Anchor',
+        title: 'Private Hire Venue Near Heathrow | Wakes, Parties & Events | The Anchor',
         description: `${desc} The Anchor, Stanwell Moor.`,
         openGraph: {
-            title: 'Function Room & Party Venue Near Heathrow | Private Hire | The Anchor',
+            title: 'Private Hire Venue Near Heathrow | Wakes, Parties & Events | The Anchor',
             description: desc,
             images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Private hire venue at The Anchor near Heathrow Airport' }],
         },
         twitter: getTwitterMetadata({
-            title: 'Function Room & Party Venue Near Heathrow | Private Hire | The Anchor',
+            title: 'Private Hire Venue Near Heathrow | Wakes, Parties & Events | The Anchor',
             description: desc,
             images: [DEFAULT_CORPORATE_IMAGE]
         }),
@@ -41,8 +43,52 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function PrivateHirePage() {
     const { foodPackages, drinkPackages, addonPackages, spaces } = await getCateringData()
     const fromPrice = getLowestFoodPrice(foodPackages) || '£11' // fallback only if API returns no per-head food packages
+
+    const eventVenueSchema = {
+        "@context": "https://schema.org",
+        "@type": "EventVenue",
+        "@id": "https://www.the-anchor.pub/private-hire#venue",
+        "name": `${BRAND.name} Private Hire Venue`,
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": CONTACT.address.street,
+            "addressLocality": CONTACT.address.town,
+            "addressRegion": "Surrey",
+            "postalCode": CONTACT.address.postcode,
+            "addressCountry": "GB"
+        },
+        "telephone": CONTACT.phoneIntl,
+        "url": "https://www.the-anchor.pub/private-hire",
+        "description": "Private hire venue near Heathrow for wakes, parties, christenings, corporate events and celebrations. Up to 50 guests, buffet packages available, free parking.",
+        "maximumAttendeeCapacity": 50,
+        "amenityFeature": [
+            { "@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true },
+            { "@type": "LocationFeatureSpecification", "name": "Wheelchair Accessible", "value": true },
+            { "@type": "LocationFeatureSpecification", "name": "Catering", "value": true },
+            { "@type": "LocationFeatureSpecification", "name": "Private Dining Room", "value": true },
+            { "@type": "LocationFeatureSpecification", "name": "AV Equipment", "value": true },
+            { "@type": "LocationFeatureSpecification", "name": "WiFi", "value": true },
+            { "@type": "LocationFeatureSpecification", "name": "Private Bar", "value": true }
+        ],
+        "potentialAction": {
+            "@type": "ReserveAction",
+            "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://www.the-anchor.pub/private-hire#enquiry",
+                "actionPlatform": [
+                    "https://schema.org/DesktopWebPlatform",
+                    "https://schema.org/MobileWebPlatform"
+                ]
+            }
+        }
+    }
+
     return (
         <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(eventVenueSchema) }}
+            />
             <BreadcrumbJsonLd
                 items={[
                     { name: 'Home', url: '/' },

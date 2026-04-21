@@ -24,8 +24,8 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { getBusinessStats } from '@/lib/schema-with-reviews'
 
 export const metadata: Metadata = {
-  title: "What's On Near Heathrow | Quiz, Bingo & Live Music Every Week | The Anchor",
-  description: "Weekly pub events near Heathrow: Music Bingo, cash bingo, pub quiz, open mic nights and more at The Anchor, Stanwell Moor. Entry from £3, free parking, 7 mins from T5.",
+  title: "Quiz, Karaoke & Bingo Every Week | The Anchor Pub",
+  description: "Pub quiz, karaoke Fridays, Music Bingo, cash bingo & live music at The Anchor, Stanwell Moor. Entry from £3. Free parking, 7 mins from Heathrow T5. See all dates.",
   openGraph: {
     title: "What's On Near Heathrow — Quiz, Bingo & Live Music Every Week",
     description: "Weekly pub events: Music Bingo, cash bingo, pub quiz, open mic and more at The Anchor, Stanwell Moor. From £3, free parking.",

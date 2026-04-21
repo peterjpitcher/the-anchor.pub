@@ -109,6 +109,44 @@ export const landmarks: Landmark[] = [
         description: 'Accessible via the M25 and local roads, we provide a great off-site location for Stockley Park businesses.'
     },
 
+    // Additional Crematoriums
+    {
+        slug: 'kempton-park-crematorium',
+        name: 'Kempton Park Crematorium',
+        type: 'crematorium',
+        address: 'Feltham Road, Hanworth TW13 4LY',
+        distance: '12 mins drive',
+        description: 'The Anchor offers a private, peaceful setting for families gathering after services at Kempton Park Crematorium — a straightforward 12-minute drive via the A316.'
+    },
+
+    // Additional Registry Offices
+    {
+        slug: 'windsor-register-office',
+        name: 'Windsor Register Office',
+        type: 'registry_office',
+        address: 'King Edward Court, Windsor SL4 1DT',
+        distance: '20 mins drive',
+        description: 'After your ceremony at Windsor Register Office, The Anchor provides a relaxed venue for a celebratory meal or drinks reception, with free parking for all guests.'
+    },
+    {
+        slug: 'spelthorne-registration-office',
+        name: 'Spelthorne Registration Office',
+        type: 'registry_office',
+        address: 'Knowle Green, Staines TW18 1XB',
+        distance: '9 mins drive',
+        description: 'Just 9 minutes from Spelthorne Registration Office, The Anchor is perfectly placed for wedding breakfasts, naming ceremonies, and post-registration celebrations.'
+    },
+
+    // Airports
+    {
+        slug: 'heathrow-airport',
+        name: 'Heathrow Airport',
+        type: 'other',
+        address: 'Heathrow Airport TW6',
+        distance: '7 mins drive',
+        description: 'The Anchor is 7 minutes from Heathrow Terminal 5 — ideal for airport staff events, farewell dinners, and gatherings for those travelling or arriving at Heathrow.'
+    },
+
     // Sports Venues
     {
         slug: 'staines-rugby-club',

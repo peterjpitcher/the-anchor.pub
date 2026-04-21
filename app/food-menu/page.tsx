@@ -144,7 +144,7 @@ function deriveKitchenStatusData(hours: BusinessHours | null): KitchenStatusData
 
 export const metadata: Metadata = {
   title: 'Where to Eat Near Heathrow Airport | Pub Food Menu | The Anchor',
-  description: 'Where to eat near Heathrow Airport? The Anchor serves fish & chips from £15, stone-baked pizza from £12, burgers from £11 and Sunday roasts from £19. Free parking, 7 mins from T5. Book a table.',
+  description: 'Where to eat near Heathrow Airport? The Anchor serves fish & chips from £15, stone-baked pizza from £12, burgers from £11 and Sunday roasts from £19. Free parking, 7 mins from T5. Book a table online.',
   openGraph: {
     title: 'Where to Eat Near Heathrow Airport | Pub Food Menu | The Anchor',
     description: 'Looking for restaurants near Heathrow? The Anchor serves proper pub food — fish & chips, pizza, pies and Sunday roasts. Free parking, 7 mins from T5. View our menu.',
@@ -657,6 +657,11 @@ export default async function FoodMenuPage() {
           title="Hungry? Book Your Table Now"
           description="Weekends and roast services fill quickly. Book today and we will have your table ready."
           buttons={[
+            {
+              text: 'Book a Table',
+              href: '/book-table',
+              variant: 'white'
+            },
             {
               text: 'Call: 01753 682707',
               href: 'tel:+441753682707',

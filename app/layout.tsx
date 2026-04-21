@@ -52,10 +52,10 @@ const merriweather = Merriweather({
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.the-anchor.pub'),
   title: {
-    default: 'The Anchor | Pub Near Heathrow | Stanwell Moor',
+    default: 'The Anchor Pub | Stanwell Moor | Near Heathrow',
     template: '%s | The Anchor Stanwell Moor'
   },
-  description: 'The Anchor in Stanwell Moor — traditional pub near Heathrow Airport. Sunday roasts, quiz nights, Music Bingo, dog-friendly beer garden under the flight path. Free parking, 7 mins from T5.',
+  description: 'The Anchor, Stanwell Moor — rated 4.6/5 on Google. Traditional pub 7 mins from Heathrow T5. Sunday roasts, quiz nights, karaoke Fridays, beer garden & free parking.',
   authors: [{ name: 'The Anchor' }],
   creator: 'The Anchor',
   publisher: 'The Anchor',

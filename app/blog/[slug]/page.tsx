@@ -10,6 +10,7 @@ import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { getBlogHeroUrl } from '@/lib/blog-image'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
+import { BookTableButton } from '@/components/BookTableButton'
 
 export const revalidate = 3600
 
@@ -83,6 +84,24 @@ function extractFaqEntries(markdown: string): Array<{ question: string; answer: 
   flushEntry()
 
   return entries
+}
+
+/**
+ * Tags that indicate a Heathrow/plane-spotting/travel post where a booking CTA is relevant.
+ * Also catches posts by slug pattern (e.g. "plane-spotting-heathrow-guide" which uses generic tags).
+ */
+const HEATHROW_CTA_TAGS = new Set([
+  'heathrow',
+  'plane-spotting',
+  'parking',
+  'travel',
+])
+
+const HEATHROW_SLUG_KEYWORDS = ['heathrow', 'plane', 'parking', 'aviation', 'airport', 'layover']
+
+function shouldShowHeathrowBookingCta(slug: string, tags: string[]): boolean {
+  if (tags.some((tag) => HEATHROW_CTA_TAGS.has(tag.toLowerCase().trim()))) return true
+  return HEATHROW_SLUG_KEYWORDS.some((kw) => slug.toLowerCase().includes(kw))
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
@@ -159,6 +178,8 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
     : `https://www.the-anchor.pub${ogImageUrl}`
 
   const faqEntries = extractFaqEntries(post.content)
+
+  const showHeathrowCta = shouldShowHeathrowBookingCta(post.slug, post.tags)
 
   // BlogPosting structured data for better SEO
   const blogPostingSchema = {
@@ -365,6 +386,32 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
         </div>
       </Section>
 
+      {/* Heathrow / Plane-Spotting Booking CTA — only shown for relevant posts */}
+      {showHeathrowCta && (
+        <Section spacing="md" container containerSize="md" className="bg-anchor-bg-card border-y border-anchor-gold/20">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+            <div className="flex-1">
+              <h2 className="text-xl font-bold text-anchor-gold-vivid mb-2">
+                Visiting Heathrow? The Anchor is 5 minutes away
+              </h2>
+              <p className="text-anchor-cream-text/70">
+                Book a table for lunch in our beer garden — great food, cold drinks, and a proper base for a day of spotting.
+              </p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-3 shrink-0">
+              <BookTableButton source="blog_heathrow_cta" context="heathrow_visitor" size="md">
+                Book a Table
+              </BookTableButton>
+              <Link href="/food-menu">
+                <Button variant="secondary" size="md">
+                  View Food Menu
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </Section>
+      )}
+
       {/* Share Section */}
       <Section background="gray" spacing="sm" container containerSize="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
         <div className="text-center">
@@ -414,16 +461,41 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
           Experience everything we write about firsthand. Join us for great food, drinks, and atmosphere!
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link href="/find-us">
-            <Button variant="outline" size="lg" className="!text-white !border-white hover:!bg-white hover:!text-anchor-green">
-              Get Directions
-            </Button>
-          </Link>
-          <Link href="/blog">
-            <Button variant="outline" size="lg" className="!text-white !border-white hover:!bg-white hover:!text-anchor-green">
-              More Stories
-            </Button>
-          </Link>
+          {showHeathrowCta ? (
+            <>
+              <BookTableButton
+                source="blog_footer_cta"
+                context="heathrow_visitor"
+                size="lg"
+                className="!bg-anchor-gold !text-anchor-dark hover:!bg-anchor-gold-light"
+              >
+                Book a Table
+              </BookTableButton>
+              <Link href="/food-menu">
+                <Button variant="outline" size="lg" className="!text-white !border-white hover:!bg-white hover:!text-anchor-green">
+                  View Food Menu
+                </Button>
+              </Link>
+              <Link href="/find-us">
+                <Button variant="outline" size="lg" className="!text-white !border-white hover:!bg-white hover:!text-anchor-green">
+                  Get Directions
+                </Button>
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link href="/find-us">
+                <Button variant="outline" size="lg" className="!text-white !border-white hover:!bg-white hover:!text-anchor-green">
+                  Get Directions
+                </Button>
+              </Link>
+              <Link href="/blog">
+                <Button variant="outline" size="lg" className="!text-white !border-white hover:!bg-white hover:!text-anchor-green">
+                  More Stories
+                </Button>
+              </Link>
+            </>
+          )}
         </div>
       </Section>
     </>

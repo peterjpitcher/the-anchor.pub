@@ -10,6 +10,7 @@ import { parseMenuMarkdown, type MenuData, type MenuCategory } from '@/lib/menu-
 import { getBusinessHours, isKitchenOpen } from '@/lib/api'
 import { formatTime12Hour } from '@/lib/time-utils'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { MenuRenderer } from '@/components/MenuRenderer'
 import { DietaryMenuNav } from '@/components/food/DietaryMenuNav'
@@ -517,6 +518,49 @@ export default async function VegetarianMenuPage() {
 
       {/* FAQ Section */}
       <FAQAccordionWithSchema faqs={faqItems} className="bg-anchor-bg-card" />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: jsonLdSafeStringify({
+              '@context': 'https://schema.org',
+              '@type': 'Restaurant',
+              '@id': 'https://www.the-anchor.pub/#business',
+              name: 'The Anchor',
+              description: 'Traditional British pub near Heathrow Airport with a vegetarian menu including pies, pizzas, pasta, burgers and puddings.',
+              servesCuisine: ['British', 'Pizza', 'Pub Food', 'Vegetarian'],
+              hasMenu: {
+                '@type': 'Menu',
+                name: 'Vegetarian Menu',
+                url: 'https://www.the-anchor.pub/food-menu/vegetarian',
+                description: 'Vegetarian pub food at The Anchor near Heathrow — butternut squash pie, stone-baked pizzas, mac and cheese, garden veg burger and more.',
+              },
+              address: {
+                '@type': 'PostalAddress',
+                streetAddress: 'Horton Road',
+                addressLocality: 'Stanwell Moor',
+                addressRegion: 'Surrey',
+                postalCode: 'TW19 6AQ',
+                addressCountry: 'GB',
+              },
+              telephone: '+441753682707',
+              url: 'https://www.the-anchor.pub',
+              priceRange: '££',
+              potentialAction: {
+                '@type': 'ReserveAction',
+                target: {
+                  '@type': 'EntryPoint',
+                  urlTemplate: 'https://www.the-anchor.pub/book-table',
+                  actionPlatform: [
+                    'https://schema.org/DesktopWebPlatform',
+                    'https://schema.org/MobileWebPlatform',
+                  ],
+                },
+                result: { '@type': 'FoodEstablishmentReservation' },
+              },
+            }),
+        }}
+      />
 
       {/* Internal links */}
       <Section background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">

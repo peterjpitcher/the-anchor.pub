@@ -17,16 +17,16 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 const SUNDAY_LUNCH_BOOKING_URL = '/book-table?sunday_lunch=true&purpose=food'
 
 export const metadata: Metadata = {
-  title: 'Sunday Roast & Lunch Near Heathrow | From £19 | Book a Table | The Anchor',
-  description: 'Traditional Sunday roast and Sunday lunch near Heathrow from £19. Chicken, pork belly & vegetarian options. Just 8 minutes from Staines-upon-Thames. Free parking. Book by Saturday 1pm.',
+  title: 'Sunday Roast Near Heathrow | From £19 | Book by Saturday',
+  description: 'Traditional Sunday roast from £19 at The Anchor, Stanwell Moor. Chicken, pork belly & veggie options. Must book by Saturday 1pm. Free parking, 7 mins from T5.',
   openGraph: {
-    title: 'Sunday Roast & Lunch Near Heathrow | From £19 | Book a Table | The Anchor',
-    description: 'Traditional Sunday roast and Sunday lunch near Heathrow from £19. Chicken, pork belly & vegetarian options. Just 8 minutes from Staines-upon-Thames. Free parking. Book by Saturday 1pm.',
+    title: 'Sunday Roast Near Heathrow | From £19 | Book by Saturday',
+    description: 'Traditional Sunday roast from £19 at The Anchor, Stanwell Moor. Chicken, pork belly & veggie options. Must book by Saturday 1pm. Free parking, 7 mins from T5.',
     images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg'],
   },
   twitter: getTwitterMetadata({
-    title: 'Sunday Roast & Lunch Near Heathrow | From £19 | Book a Table | The Anchor',
-    description: 'Traditional Sunday roast and Sunday lunch near Heathrow. Just 8 minutes from Staines-upon-Thames. £10pp deposit required.',
+    title: 'Sunday Roast Near Heathrow | From £19 | Book by Saturday',
+    description: 'Traditional Sunday roast from £19 at The Anchor, Stanwell Moor. Chicken, pork belly & veggie options. Must book by Saturday 1pm. Free parking, 7 mins from T5.',
     images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg']
   }),
   alternates: {
@@ -401,6 +401,7 @@ export default async function SundayLunchPage() {
         description={`Traditional roasts cooked fresh to order. ${sundayServiceSentence} — pre-order by Saturday 1pm. Sunday lunch bookings require a £10 per person deposit.`}
         variant="default"
         tags={[
+          { label: 'From £19pp', variant: 'success' },
           { label: sundayServiceLabel, variant: 'warning' },
           { label: 'Book by Saturday 1pm', variant: 'default' },
           { label: '£10pp deposit — secures your table', variant: 'success' }

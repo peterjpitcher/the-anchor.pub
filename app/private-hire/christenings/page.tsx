@@ -17,8 +17,8 @@ import { getCateringData } from '@/lib/api/catering-packages'
 import { CateringPackagesTable } from '@/components/features/CateringPackagesTable'
 
 export const metadata: Metadata = {
-    title: 'Christening Venue Near Staines & Stanwell | The Anchor',
-    description: 'The perfect venue for christening parties and baptism receptions in Stanwell Moor. Family-friendly, buffet options, and free parking for all guests.',
+    title: 'Christening Venue Near Heathrow & Staines | The Anchor',
+    description: 'Private room for christening parties & baptism receptions at The Anchor, Stanwell Moor. Up to 50 guests, buffet options, family-friendly, free parking. Near Heathrow.',
     openGraph: {
         title: 'Christening Party Venue | The Anchor Stanwell Moor',
         description: 'Celebrate your little one\'s special day. Family-friendly venue with private rooms.',

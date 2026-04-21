@@ -13,16 +13,16 @@ import { RegretReduction, ValueProofStrip } from '@/components/psychology'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 
 export const metadata: Metadata = {
-  title: 'Book a Table at The Anchor | Near Heathrow | Free Parking',
-  description: 'Book a table at The Anchor near Heathrow with instant confirmation. Pub classics from £8.95, Sunday roasts from £19. Free parking, dog-friendly, 7 mins from T5. Walk-ins welcome.',
+  title: 'Book a Table Near Heathrow | Sunday Roast | The Anchor',
+  description: 'Reserve your table at The Anchor, Stanwell Moor — instant confirmation. Pub food from £8.95, Sunday roast from £19. Dog-friendly, free parking, 7 mins from T5.',
   openGraph: {
-    title: 'Book a Table at The Anchor | Near Heathrow | Free Parking',
-    description: 'Book a table at The Anchor near Heathrow with instant confirmation. Pub classics from £8.95, Sunday roasts from £19. Free parking, dog-friendly, 7 mins from T5. Walk-ins welcome.',
+    title: 'Book a Table Near Heathrow | Sunday Roast | The Anchor',
+    description: 'Reserve your table at The Anchor, Stanwell Moor — instant confirmation. Pub food from £8.95, Sunday roast from £19. Dog-friendly, free parking, 7 mins from T5.',
     images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }]
   },
   twitter: getTwitterMetadata({
-    title: 'Book a Table at The Anchor | Near Heathrow | Free Parking',
-    description: 'Book a table at The Anchor near Heathrow with instant confirmation. Pub classics from £8.95, Sunday roasts from £19. Free parking, dog-friendly, 7 mins from T5. Walk-ins welcome.',
+    title: 'Book a Table Near Heathrow | Sunday Roast | The Anchor',
+    description: 'Reserve your table at The Anchor, Stanwell Moor — instant confirmation. Pub food from £8.95, Sunday roast from £19. Dog-friendly, free parking, 7 mins from T5.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
   alternates: {
@@ -111,26 +111,26 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
         variant="default"
         statusBarPosition="above"
         primaryCta={
+          <Link href="#booking-form">
+            <Button
+              variant="primary"
+              size="lg"
+              className="w-full sm:w-auto"
+            >
+              Book Online
+            </Button>
+          </Link>
+        }
+        secondaryCta={
           <PhoneButton
             phone="01753 682707"
             source="book_table_hero"
-            variant="primary"
+            variant="outline"
             size="lg"
-            className="w-full sm:w-auto"
+            className="w-full sm:w-auto !bg-white/10 !text-white !border-white/30 hover:!bg-white/20"
           >
             Prefer to call? 01753 682707
           </PhoneButton>
-        }
-        secondaryCta={
-          <Link href="/find-us">
-            <Button
-              variant="outline"
-              size="lg"
-              className="w-full sm:w-auto !bg-white/10 !text-white !border-white/30 hover:!bg-white/20"
-            >
-              Find Us
-            </Button>
-          </Link>
         }
         image={{
           src: DEFAULT_PAGE_HEADER_IMAGE,
@@ -166,7 +166,7 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
         </p>
       </Section>
 
-      <Section background="gray" spacing="sm" container containerSize="lg" className="bg-anchor-bg-raised">
+      <Section id="booking-form" background="gray" spacing="sm" container containerSize="lg" className="bg-anchor-bg-raised">
         <div className="grid items-start gap-5 lg:gap-8 lg:grid-cols-[minmax(0,2fr),minmax(0,1fr)]">
           <div className="order-1">
             <div className="mb-4">

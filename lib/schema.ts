@@ -273,6 +273,56 @@ export const bingoEventSeries = {
   }
 }
 
+// Live Music Event Series Schema
+export const liveMusicEventSeries = {
+  "@context": "https://schema.org",
+  "@type": "EventSeries",
+  "@id": "https://www.the-anchor.pub/#live-music-series",
+  "name": "Live at The Anchor — Live Music Nights",
+  "description": "Regular live music nights at The Anchor, Stanwell Moor — bands, acoustic sessions and open mic nights. Free entry, free parking, 7 mins from Heathrow T5.",
+  "startDate": "2024-01-01",
+  "endDate": "2026-12-31",
+  "eventSchedule": {
+    "@type": "Schedule",
+    "repeatFrequency": "P1M",
+    "startTime": "20:00:00",
+    "endTime": "23:00:00",
+    "scheduleTimezone": "Europe/London"
+  },
+  "location": {
+    "@type": "Place",
+    "name": "The Anchor",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Horton Road",
+      "addressLocality": "Stanwell Moor",
+      "addressRegion": "Surrey",
+      "postalCode": "TW19 6AQ",
+      "addressCountry": "GB"
+    }
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "GBP",
+    "availability": "https://schema.org/InStock"
+  },
+  "organizer": {
+    "@id": "https://www.the-anchor.pub/#organization"
+  },
+  "potentialAction": {
+    "@type": "ReserveAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://www.the-anchor.pub/book-table",
+      "actionPlatform": [
+        "https://schema.org/DesktopWebPlatform",
+        "https://schema.org/MobileWebPlatform"
+      ]
+    }
+  }
+}
+
 // Parking Facility Schema
 export const parkingFacilitySchema = {
   "@context": "https://schema.org",

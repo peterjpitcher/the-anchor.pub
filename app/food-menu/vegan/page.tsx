@@ -8,6 +8,7 @@ import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
+import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { parseMenuMarkdown, type MenuCategory } from '@/lib/menu-parser'
 import { DietaryMenuNav } from '@/components/food/DietaryMenuNav'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
@@ -547,6 +548,49 @@ export default async function VeganMenuPage() {
       <FoodStickyCtaBar
         ctaContext="food"
         label="Book a Table"
+      />
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: jsonLdSafeStringify({
+              '@context': 'https://schema.org',
+              '@type': 'Restaurant',
+              '@id': 'https://www.the-anchor.pub/#business',
+              name: 'The Anchor',
+              description: 'Traditional British pub near Heathrow Airport with vegan pub food options including stone-baked garlic bread, chips and pizzas made vegan on request.',
+              servesCuisine: ['British', 'Pizza', 'Pub Food'],
+              hasMenu: {
+                '@type': 'Menu',
+                name: 'Vegan Menu',
+                url: 'https://www.the-anchor.pub/food-menu/vegan',
+                description: 'Vegan pub food at The Anchor near Heathrow — garlic bread, chips, sweet potato fries, onion rings and stone-baked pizzas made vegan on request.',
+              },
+              address: {
+                '@type': 'PostalAddress',
+                streetAddress: 'Horton Road',
+                addressLocality: 'Stanwell Moor',
+                addressRegion: 'Surrey',
+                postalCode: 'TW19 6AQ',
+                addressCountry: 'GB',
+              },
+              telephone: '+441753682707',
+              url: 'https://www.the-anchor.pub',
+              priceRange: '££',
+              potentialAction: {
+                '@type': 'ReserveAction',
+                target: {
+                  '@type': 'EntryPoint',
+                  urlTemplate: 'https://www.the-anchor.pub/book-table',
+                  actionPlatform: [
+                    'https://schema.org/DesktopWebPlatform',
+                    'https://schema.org/MobileWebPlatform',
+                  ],
+                },
+                result: { '@type': 'FoodEstablishmentReservation' },
+              },
+            }),
+        }}
       />
 
     </>
