@@ -68,7 +68,7 @@ async function getSitemapEvents(): Promise<Event[]> {
   return Array.from(uniqueEvents.values())
 }
 
-const STATIC_LAST_MODIFIED = new Date('2026-03-20')
+const STATIC_LAST_MODIFIED = new Date('2026-04-21')
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://www.the-anchor.pub'

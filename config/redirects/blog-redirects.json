@@ -305,16 +305,6 @@
     "permanent": true
   },
   {
-    "source": "/post/2019-feedback-survey",
-    "destination": "/blog/2019-feedback-survey",
-    "permanent": true
-  },
-  {
-    "source": "/post/2020-quiz-league",
-    "destination": "/blog/2020-quiz-league",
-    "permanent": true
-  },
-  {
     "source": "/post/25-off-kraken-rum-this-june-manager-s-special",
     "destination": "/blog/25-off-kraken-rum-this-june-manager-s-special",
     "permanent": true
@@ -327,11 +317,6 @@
   {
     "source": "/post/a-night-to-remember-the-anchor-s-gameshow-house-pa",
     "destination": "/blog/gameshow-house-party",
-    "permanent": true
-  },
-  {
-    "source": "/post/a-personal-pub-for-personal-celebrations",
-    "destination": "/blog/a-personal-pub-for-personal-celebrations",
     "permanent": true
   },
   {
@@ -355,11 +340,6 @@
     "permanent": true
   },
   {
-    "source": "/post/bar-staff-wanted",
-    "destination": "/blog/bar-staff-wanted",
-    "permanent": true
-  },
-  {
     "source": "/post/bombay-sapphire-special-this-month-theanchor-pub",
     "destination": "/blog/bombay-sapphire-special-this-month-theanchor-pub",
     "permanent": true
@@ -372,11 +352,6 @@
   {
     "source": "/post/buy-one-get-one-free-pizza-deal-every-tuesday-at-t",
     "destination": "/blog/buy-one-get-one-free-pizza-deal-every-tuesday-at-t",
-    "permanent": true
-  },
-  {
-    "source": "/post/calling-all-pool-players",
-    "destination": "/blog/calling-all-pool-players",
     "permanent": true
   },
   {
@@ -415,11 +390,6 @@
     "permanent": true
   },
   {
-    "source": "/post/changes-to-food-until-mid-april-2019",
-    "destination": "/blog/changes-to-food-until-mid-april-2019",
-    "permanent": true
-  },
-  {
     "source": "/post/charity-walk-for-holly-near-heathrow-stanwell-moor",
     "destination": "/blog/charity-walk-holly",
     "permanent": true
@@ -430,33 +400,8 @@
     "permanent": true
   },
   {
-    "source": "/post/christmas-2021",
-    "destination": "/blog/christmas-2021",
-    "permanent": true
-  },
-  {
-    "source": "/post/christmas-fair-at-the-anchor",
-    "destination": "/blog/christmas-fair-at-the-anchor",
-    "permanent": true
-  },
-  {
-    "source": "/post/closed-for-one-day-monday-october-12th",
-    "destination": "/blog/closed-for-one-day-monday-october-12th",
-    "permanent": true
-  },
-  {
-    "source": "/post/covid-19-updates",
-    "destination": "/blog/covid-19-updates",
-    "permanent": true
-  },
-  {
     "source": "/post/creations-by-lee-jewellery-event-at-the-anchor-exc",
     "destination": "/blog/jewellery-event",
-    "permanent": true
-  },
-  {
-    "source": "/post/curry-club-september-2019",
-    "destination": "/blog/curry-club-september-2019",
     "permanent": true
   },
   {
@@ -500,18 +445,8 @@
     "permanent": true
   },
   {
-    "source": "/post/easter-weekend-2022",
-    "destination": "/blog/easter-weekend-2022",
-    "permanent": true
-  },
-  {
     "source": "/post/easter-weekend-fun-at-the-anchor-pub",
     "destination": "/blog/easter-weekend-fun-at-the-anchor-pub",
-    "permanent": true
-  },
-  {
-    "source": "/post/eat-out-to-help-out-coming-in-august",
-    "destination": "/blog/eat-out-to-help-out-coming-in-august",
     "permanent": true
   },
   {
@@ -570,16 +505,6 @@
     "permanent": true
   },
   {
-    "source": "/post/have-you-tried-kraken-rum",
-    "destination": "/blog/have-you-tried-kraken-rum",
-    "permanent": true
-  },
-  {
-    "source": "/post/hope-of-opening-getting-closer",
-    "destination": "/blog/hope-of-opening-getting-closer",
-    "permanent": true
-  },
-  {
     "source": "/post/host-your-company-celebrations-at-the-anchor-pub-i",
     "destination": "/blog/company-celebrations",
     "permanent": true
@@ -605,11 +530,6 @@
     "permanent": true
   },
   {
-    "source": "/post/introducing-coke-signature-mixers",
-    "destination": "/blog/introducing-coke-signature-mixers",
-    "permanent": true
-  },
-  {
     "source": "/post/introducing-stanwell-moor-brew-at-the-anchor-thean",
     "destination": "/blog/stanwell-moor-brew",
     "permanent": true
@@ -630,18 +550,8 @@
     "permanent": true
   },
   {
-    "source": "/post/make-father-s-day-special",
-    "destination": "/blog/make-father-s-day-special",
-    "permanent": true
-  },
-  {
     "source": "/post/monthly-music-bingo-nights-great-food-prizes-and-f",
     "destination": "/blog/music-bingo-nights",
-    "permanent": true
-  },
-  {
-    "source": "/post/mother-s-day-at-the-anchor",
-    "destination": "/blog/mother-s-day-at-the-anchor",
     "permanent": true
   },
   {
@@ -660,23 +570,8 @@
     "permanent": true
   },
   {
-    "source": "/post/new-menu-options-launching-february-1st-2023",
-    "destination": "/blog/new-menu-options-launching-february-1st-2023",
-    "permanent": true
-  },
-  {
-    "source": "/post/new-rules-from-september-24th-2020",
-    "destination": "/blog/new-rules-from-september-24th-2020",
-    "permanent": true
-  },
-  {
     "source": "/post/new-year-vibes-stanwell-moor-village-staines-the-a",
     "destination": "/blog/new-year-celebration",
-    "permanent": true
-  },
-  {
-    "source": "/post/opening-times-are-changing-from-april-1st",
-    "destination": "/blog/opening-times-are-changing-from-april-1st",
     "permanent": true
   },
   {
@@ -692,16 +587,6 @@
   {
     "source": "/post/paws-and-profits-tips-for-starting-a-pet-friendly-",
     "destination": "/blog/pet-friendly-business-tips",
-    "permanent": true
-  },
-  {
-    "source": "/post/pizza-anyone",
-    "destination": "/blog/pizza-anyone",
-    "permanent": true
-  },
-  {
-    "source": "/post/post-lock-down-information",
-    "destination": "/blog/post-lock-down-information",
     "permanent": true
   },
   {
@@ -725,11 +610,6 @@
     "permanent": true
   },
   {
-    "source": "/post/quiz-night-at-the-anchor",
-    "destination": "/blog/quiz-night-at-the-anchor",
-    "permanent": true
-  },
-  {
     "source": "/post/random-acts-of-kindness-day-join-our-village-celeb",
     "destination": "/blog/kindness-day",
     "permanent": true
@@ -745,21 +625,6 @@
     "permanent": true
   },
   {
-    "source": "/post/reopening-update",
-    "destination": "/blog/reopening-update",
-    "permanent": true
-  },
-  {
-    "source": "/post/reopening-update-april-2021",
-    "destination": "/blog/reopening-update-april-2021",
-    "permanent": true
-  },
-  {
-    "source": "/post/restrictions-update-july-2021",
-    "destination": "/blog/restrictions-update-july-2021",
-    "permanent": true
-  },
-  {
     "source": "/post/rum-tasting-night-stanwell-moor-explore-caribbean-",
     "destination": "/blog/rum-tasting-caribbean",
     "permanent": true
@@ -770,16 +635,6 @@
     "permanent": true
   },
   {
-    "source": "/post/six-nations-rugby-at-the-anchor-2023",
-    "destination": "/blog/six-nations-rugby-at-the-anchor-2023",
-    "permanent": true
-  },
-  {
-    "source": "/post/spring-clocks-change-2023",
-    "destination": "/blog/spring-clocks-change-2023",
-    "permanent": true
-  },
-  {
     "source": "/post/spring-tasting-night-a-celebration-of-exquisite-sp",
     "destination": "/blog/spring-tasting-night-a-celebration-of-exquisite-sp",
     "permanent": true
@@ -787,11 +642,6 @@
   {
     "source": "/post/spring-tasting-night-at-the-anchor-unmissable-flav",
     "destination": "/blog/spring-tasting-night",
-    "permanent": true
-  },
-  {
-    "source": "/post/st-patrick-s-day-2023",
-    "destination": "/blog/st-patrick-s-day-2023",
     "permanent": true
   },
   {
@@ -807,11 +657,6 @@
   {
     "source": "/post/sunday-lunch-at-the-anchor-is-back-pre-order-now",
     "destination": "/blog/sunday-lunch-at-the-anchor-is-back-pre-order-now",
-    "permanent": true
-  },
-  {
-    "source": "/post/tabs-are-changing",
-    "destination": "/blog/tabs-are-changing",
     "permanent": true
   },
   {
@@ -870,18 +715,8 @@
     "permanent": true
   },
   {
-    "source": "/post/the-importance-of-being-dog-friendly",
-    "destination": "/blog/dog-friendly-pub",
-    "permanent": true
-  },
-  {
     "source": "/post/the-ultimate-guide-to-the-british-chip-shop-experi",
     "destination": "/blog/fish-chips-guide",
-    "permanent": true
-  },
-  {
-    "source": "/post/this-december-at-the-anchor",
-    "destination": "/blog/this-december-at-the-anchor",
     "permanent": true
   },
   {
@@ -920,38 +755,8 @@
     "permanent": true
   },
   {
-    "source": "/post/welcome-to-halloween-2021",
-    "destination": "/blog/welcome-to-halloween-2021",
-    "permanent": true
-  },
-  {
     "source": "/post/welcome-to-the-2024-25-premier-league-season-at-th",
     "destination": "/blog/premier-league-2024-25",
-    "permanent": true
-  },
-  {
-    "source": "/post/welcoming-ice-breaker-ipa-on-draught",
-    "destination": "/blog/welcoming-ice-breaker-ipa-on-draught",
-    "permanent": true
-  },
-  {
-    "source": "/post/welcoming-old-mout",
-    "destination": "/blog/welcoming-old-mout",
-    "permanent": true
-  },
-  {
-    "source": "/post/what-is-race-night",
-    "destination": "/blog/what-is-race-night",
-    "permanent": true
-  },
-  {
-    "source": "/post/what-is-the-history-of-april-fools-day",
-    "destination": "/blog/what-is-the-history-of-april-fools-day",
-    "permanent": true
-  },
-  {
-    "source": "/post/what-makes-stanwell-moor-a-lovely-little-village",
-    "destination": "/blog/stanwell-moor-village",
     "permanent": true
   },
   {
