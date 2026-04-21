@@ -5,7 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: '*',
-        allow: '/',
+        allow: ['/', '/_next/static/'],
         disallow: [
           '/api/',
           // Allow static assets so crawlers can render pages correctly.
@@ -16,21 +16,11 @@ export default function robots(): MetadataRoute.Robots {
           '/_partials/',
           '/_api/',
           '/_scripts/',
+          '/cdn-cgi/',
           '/subscribe',
           '/leave-a-review',
           '/subscribe-for-digital-flyers',
-          '/p5-demo',
-          // Internal / debug routes (keep out of crawl + index)
-          '/components',
-          '/debug-hours',
-          '/demo-header',
-          '/gtm-debug',
-          '/test-gtm',
-          '/test-hours',
-          '/test-navigation-tracking',
-          '/test-reviews',
-          '/test-simple',
-          '/test-tracking'
+          '/p5-demo'
         ]
       }
     ],
