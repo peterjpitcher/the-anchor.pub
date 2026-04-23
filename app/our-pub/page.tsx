@@ -19,13 +19,13 @@ export const metadata: Metadata = {
     title: 'Inside The Anchor | Our Pub, Garden & Facilities',
     description:
       'Take a look around The Anchor in Stanwell Moor. Bar, dining room, beer garden under the Heathrow flight path, pool table and darts. Free parking, dog-friendly.',
-    images: ['/images/our-pub/the-anchor-main-bar-area.png'],
+    images: ['/images/our-pub/the-anchor-main-bar-area.jpg'],
   },
   twitter: getTwitterMetadata({
     title: 'Inside The Anchor | Our Pub, Garden & Facilities',
     description:
       'Take a look around The Anchor in Stanwell Moor — bar, dining room, garden, pool and darts. 7 min from Heathrow T5.',
-    images: ['/images/our-pub/the-anchor-main-bar-area.png'],
+    images: ['/images/our-pub/the-anchor-main-bar-area.jpg'],
   }),
   alternates: { canonical: '/our-pub' },
 }
@@ -53,31 +53,31 @@ const imageGallerySchema = {
 
 const PHOTOS = {
   bar: {
-    src: '/images/our-pub/the-anchor-bar.png',
+    src: '/images/our-pub/the-anchor-bar.jpg',
     alt: 'Fully stocked bar at The Anchor with draught taps, spirits and gin collection',
   },
   diningIn: {
-    src: '/images/our-pub/the-anchor-dining-room-interior.png',
+    src: '/images/our-pub/the-anchor-dining-room-interior.jpg',
     alt: 'The Anchor dining room interior with warm lighting and table settings',
   },
   diningOut: {
-    src: '/images/our-pub/the-anchor-dining-room-garden-view.png',
+    src: '/images/our-pub/the-anchor-dining-room-garden-view.jpg',
     alt: 'View from The Anchor dining room through french doors to the garden',
   },
   garden: {
-    src: '/images/our-pub/the-anchor-beer-garden-heathrow.png',
+    src: '/images/our-pub/the-anchor-beer-garden-heathrow.jpg',
     alt: 'The Anchor beer garden with seating directly under the Heathrow flight path',
   },
   mainBar: {
-    src: '/images/our-pub/the-anchor-main-bar-area.png',
+    src: '/images/our-pub/the-anchor-main-bar-area.jpg',
     alt: 'Main bar area at The Anchor with dartboard and jukebox',
   },
   pool: {
-    src: '/images/our-pub/the-anchor-pool-table.png',
+    src: '/images/our-pub/the-anchor-pool-table.jpg',
     alt: 'Pool table area at The Anchor pub in Stanwell Moor',
   },
   poolBay: {
-    src: '/images/our-pub/the-anchor-pool-table-bay-window.png',
+    src: '/images/our-pub/the-anchor-pool-table-bay-window.jpg',
     alt: 'Bay window seating near the pool table at The Anchor, perfect for a quieter meal',
   },
 } as const
