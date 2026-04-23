@@ -354,7 +354,10 @@ export default async function PrivateHirePage() {
                             </div>
                         </div>
                         <p className="text-center text-sm text-anchor-cream-text/50 mt-4">
-                            Our main function room — seating for up to 26 guests with standing room for more, and French doors opening onto the beer garden
+                            Our main function room — seating for up to 26 guests with standing room for more, and French doors opening onto the beer garden.{' '}
+                            <Link href="/our-pub" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid hover:underline">
+                                View all venue photos &rarr;
+                            </Link>
                         </p>
                     </div>
                 </Container>
@@ -593,6 +596,7 @@ export default async function PrivateHirePage() {
             <InternalLinkingSection
                 title="Also Explore"
                 links={[
+                    { href: '/our-pub', title: 'See Inside The Anchor', description: 'Photos of the bar, dining room, garden and games area' },
                     { href: '/function-room-hire', title: 'Function Room Hire', description: 'Flexible spaces for 10-50 guests with AV support' },
                     { href: '/corporate-events', title: 'Corporate Events', description: 'Professional meeting rooms and business event packages' },
                 ]}

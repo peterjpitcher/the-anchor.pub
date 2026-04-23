@@ -53,7 +53,8 @@ const PAGE_HEADER_ALT_TEXT: Record<string, string> = {
   'near-heathrow-terminal-2': 'Convenient pub location near Terminal 2 with aircraft in background',
   'near-heathrow-terminal-3': 'The Anchor pub garden with Terminal 3 flight path visible above',
   'near-heathrow-terminal-4': 'Traditional British pub experience near Terminal 4 at The Anchor',
-  'near-heathrow-terminal-5': 'The Anchor pub exterior with Terminal 5 aircraft passing overhead'
+  'near-heathrow-terminal-5': 'The Anchor pub exterior with Terminal 5 aircraft passing overhead',
+  'our-pub': 'Inside The Anchor — bar, dining room, garden and games area in Stanwell Moor near Heathrow'
 };
 
 function normaliseRoute(route: string): string {

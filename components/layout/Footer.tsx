@@ -85,6 +85,7 @@ const defaultSections: FooterSection[] = [
     title: 'Special Features',
     titleClass: 'text-anchor-gold',
     items: [
+      { label: 'Our Pub', href: '/our-pub' },
       { label: 'Beer Garden & Plane Spotting', href: '/beer-garden' },
       { label: 'Pub Garden', href: '/beer-garden' },
       { label: 'Plane Spotting Guide', href: '/plane-spotting-heathrow' },

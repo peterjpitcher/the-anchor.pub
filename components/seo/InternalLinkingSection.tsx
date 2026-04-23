@@ -52,7 +52,8 @@ export const commonLinkGroups = {
   mainPages: [
     { href: '/whats-on', title: "What's On", description: 'Events and entertainment' },
     { href: '/food-menu', title: 'Food Menu', description: 'Full dining options' },
-    { href: '/drinks', title: 'Drinks Menu', description: 'Bar and beverage selection' }
+    { href: '/drinks', title: 'Drinks Menu', description: 'Bar and beverage selection' },
+    { href: '/our-pub', title: 'Our Pub', description: 'Photos of the bar, dining room, garden and games area' }
   ],
   events: [
     { href: '/music-bingo', title: 'Music Bingo & Hosted Nights', description: 'See Music Bingo dates and details' },

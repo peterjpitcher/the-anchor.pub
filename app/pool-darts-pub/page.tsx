@@ -166,6 +166,11 @@ export default function PoolAndDartsPage() {
                         variant: "primary"
                     },
                     {
+                        text: "See Inside The Pub",
+                        href: "/our-pub",
+                        variant: "white"
+                    },
+                    {
                         text: "Get Directions",
                         href: "https://maps.google.com/maps?daddr=The+Anchor+Stanwell+Moor+TW19+6AQ",
                         variant: "white"

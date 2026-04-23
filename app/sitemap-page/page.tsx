@@ -120,6 +120,7 @@ const sitemapSections: SitemapSection[] = [
   {
     title: 'Highlights & Facilities',
     links: [
+      { label: 'Our Pub', href: '/our-pub' },
       { label: 'Beer Garden', href: '/beer-garden' },
       { label: 'Pub Garden', href: '/beer-garden' },
       { label: 'Plane Spotting Guide', href: '/plane-spotting-heathrow' },

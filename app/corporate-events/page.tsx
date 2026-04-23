@@ -478,6 +478,7 @@ export default function CorporateEventsPage() {
       <InternalLinkingSection
         title="Also Explore"
         links={[
+          { href: '/our-pub', title: 'See Inside The Anchor', description: 'Photos of the bar, dining room, garden and games area' },
           { href: '/private-hire', title: 'Private Hire & Events', description: 'Wakes, christenings, parties and more' },
           { href: '/function-room-hire', title: 'Function Room Hire', description: 'Flexible spaces with layout options for any occasion' },
         ]}

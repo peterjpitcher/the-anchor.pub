@@ -316,6 +316,22 @@ export default function AboutPage() {
                 </Card>
               </Link>
 
+              <Link href="/our-pub" className="group">
+                <Card variant="default" className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
+                  <CardBody className="text-center">
+                    <div className="text-4xl mb-4" aria-hidden="true"></div>
+                    <h3 className="text-xl font-bold text-anchor-cream-text mb-2 group-hover:text-anchor-gold-vivid">
+                      See Inside The Anchor
+                    </h3>
+                    <p className="text-anchor-cream-text/70 mb-4">
+                      Photos of the bar, dining room, garden, pool table and games area.
+                      Have a look around before you visit.
+                    </p>
+                    <p className="text-anchor-gold-vivid font-semibold">View photos &rarr;</p>
+                  </CardBody>
+                </Card>
+              </Link>
+
               <Link href="/drinks" className="group">
                 <Card variant="default" className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
                   <CardBody className="text-center">
@@ -373,8 +389,8 @@ export default function AboutPage() {
                   Est. 1751
                 </h3>
                 <p className="text-anchor-cream-text/70">
-                  Nearly 275 years of serving the Stanwell Moor community and welcoming
-                  visitors from around the world.
+                  Serving the Stanwell Moor community and welcoming visitors from
+                  around the world since 1751.
                 </p>
               </div>
             </div>
@@ -390,7 +406,7 @@ export default function AboutPage() {
           {
             question: 'How long has The Anchor been open?',
             answer:
-              'The Anchor has been a pub in Stanwell Moor since 1751 \u2014 nearly 275 years of serving the local community and welcoming visitors.',
+              'The Anchor has been a pub in Stanwell Moor since 1751, serving the local community and welcoming visitors for over two and a half centuries.',
           },
           {
             question: "What is The Anchor\u2019s food hygiene rating?",

@@ -34,8 +34,8 @@
     "tagline": "Where Everyone's Welcome",
     "type": "Independent British village pub and restaurant",
     "pub_group": "Greene King Tenants network",
-    "heritage_statement": "Part of the community since the 1800s",
-    "detailed_heritage": "A village pub since 1751 — nearly 275 years old. Stood before Heathrow existed; Heathrow grew from a grass airstrip in the 1940s.",
+    "heritage_statement": "Part of the community since 1751",
+    "detailed_heritage": "A village pub since 1751. Stood before Heathrow existed; Heathrow grew from a grass airstrip in the 1940s.",
     "founding_year": 1751,
     "founding_year_note": "RESOLVED 2026-03-22: Canonical year is 1751. Claims.json (1866), blog posts (1869), and footer ('since the 1800s') are all incorrect and should be updated.",
     "descriptions": {

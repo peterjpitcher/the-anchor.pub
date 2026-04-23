@@ -243,6 +243,9 @@ export function PrivateBookingCalculator({ eventType }: PrivateBookingCalculator
                     <div className="flex items-center gap-3 mb-6">
                         <span className="flex items-center justify-center w-7 h-7 border border-anchor-gold/50 text-anchor-gold-vivid text-xs font-bold">1</span>
                         <h4 className="font-serif text-xl font-bold text-anchor-cream-text">Choose a Space</h4>
+                        <a href="/our-pub" className="ml-auto text-sm text-anchor-gold font-semibold hover:text-anchor-gold-vivid hover:underline">
+                            See photos &rarr;
+                        </a>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

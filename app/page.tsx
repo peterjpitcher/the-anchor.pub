@@ -558,6 +558,11 @@ export default function HomePage() {
 
           {/* Food & Drink CTAs */}
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link href="/our-pub">
+              <Button variant="secondary" size="lg">
+                Take a Look Around
+              </Button>
+            </Link>
             <Link href="/sunday-lunch">
               <Button variant="secondary" size="lg">
                 Book Sunday Lunch — from £19

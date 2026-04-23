@@ -486,6 +486,11 @@ export default async function BeerGardenPage() {
                    Call 01753 682707
                 </Button>
               </Link>
+              <Link href="/our-pub">
+                <Button size="lg" variant="secondary" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
+                   See Inside The Pub
+                </Button>
+              </Link>
               <Link href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor" target="_blank" rel="noopener noreferrer">
                 <Button size="lg" variant="secondary" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
                    Get Directions
