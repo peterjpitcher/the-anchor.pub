@@ -23,15 +23,15 @@ export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'Drinks Menu Near Heathrow | Draught Beers, Cocktails & Wine',
-  description: 'Draught beers, draught beers, cocktails, wines & spirits at The Anchor near Heathrow. Pints from £4.50, cocktails from £8. Free parking, 7 mins from T5. View menu.',
+  description: 'Draught beers, draught beers, cocktails, wines & spirits at The Anchor near Heathrow. Pints from £4.95, cocktails from £8. Free parking, 7 mins from T5. View menu.',
   openGraph: {
     title: 'Drinks Menu Near Heathrow | Draught Beers, Cocktails & Wine',
-    description: 'Draught beers, draught beers, cocktails, wines & spirits at The Anchor near Heathrow. Pints from £4.50, cocktails from £8. Free parking, 7 mins from T5. View menu.',
+    description: 'Draught beers, draught beers, cocktails, wines & spirits at The Anchor near Heathrow. Pints from £4.95, cocktails from £8. Free parking, 7 mins from T5. View menu.',
     images: [{ url: DEFAULT_DRINKS_IMAGE, width: 1200, height: 630, alt: 'Drinks menu at The Anchor pub near Heathrow' }],
   },
   twitter: getTwitterMetadata({
     title: 'Drinks Menu Near Heathrow | Draught Beers, Cocktails & Wine',
-    description: 'Draught beers, draught beers, cocktails, wines & spirits at The Anchor near Heathrow. Pints from £4.50, cocktails from £8. Free parking, 7 mins from T5. View menu.',
+    description: 'Draught beers, draught beers, cocktails, wines & spirits at The Anchor near Heathrow. Pints from £4.95, cocktails from £8. Free parking, 7 mins from T5. View menu.',
     images: [DEFAULT_DRINKS_IMAGE]
   }),
   alternates: {
@@ -535,7 +535,7 @@ export default async function DrinksMenuPage() {
         faqs={[
           {
             question: "What beers are on tap at The Anchor?",
-            answer: "We have a fantastic selection of draught beers including Birra Moretti, Guinness, Stella Artois, Aspall Cider, Inch's Apple Cider, Fosters, Carlsberg, and 1664 Biere. Our draught selection offers something for every taste, from crisp lagers to rich stouts."
+            answer: "We have a fantastic selection of draught beers including Birra Moretti, Guinness, Stella Artois, Aspall Cider, Inch's Apple Cider, Fosters and Carlsberg. Our draught selection offers something for every taste, from crisp lagers to rich stouts."
           },
           {
             question: "Do you serve cocktails at The Anchor?",

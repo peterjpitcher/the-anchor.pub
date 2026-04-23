@@ -57,7 +57,7 @@ Here's what we typically put together for office Christmas parties:
 - **Sit-down meal from £22 per head** — two or three courses with a genuine choice of mains
 - **Private dining room** — seats up to 40, with AV equipment if you want to do a quick presentation or awards before the party starts
 - **Free parking** — 20 spaces on site, no charge, no validation stamps
-- **Real pub bar prices** — pints from £4.50, not hotel rates
+- **Real pub bar prices** — pints from £4.95, not hotel rates
 - **Bespoke planning** — we'll build a menu around your group, your budget, and any dietary requirements
 
 The difference isn't just price. It's that you're having a Christmas party in an actual pub, with a real fire, proper atmosphere, and staff who know your name by the second round.

@@ -628,7 +628,7 @@
   },
   "drinks": {
     "_source": "product-list-export-2026-03-22. Complete inventory from POS system.",
-    "draught": ["Birra Moretti", "Guinness", "Stella Artois", "Aspall Cider", "Inch's Apple Cider", "Fosters", "Carlsberg", "1664 Biere"],
+    "draught": ["Birra Moretti", "Guinness", "Stella Artois", "Aspall Cider", "Inch's Apple Cider", "Fosters", "Carlsberg"],
     "draught_note": "Shandies available for all draught lagers.",
     "bottled_ales": ["Abbot Ale", "Greene King IPA", "Old Speckled Hen", "Newcastle Brown Ale"],
     "bottled_beers": ["Budweiser", "Corona Extra", "Desperados", "Peroni", "Peroni 0%"],

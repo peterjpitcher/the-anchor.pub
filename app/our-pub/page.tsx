@@ -178,9 +178,9 @@ export default function OurPubPage() {
               <p className="text-anchor-cream-text/80 leading-relaxed">
                 Whether you&apos;re after a cold pint of Guinness, a Tanqueray and
                 tonic, or something from our collection of 17&nbsp;whiskeys, the bar
-                has you covered. We pour eight draught lines &mdash; Birra Moretti,
-                Stella Artois, Fosters, Carlsberg, 1664 Bi&egrave;re, Guinness, Aspall
-                cider and Inch&apos;s &mdash; with pints starting from &pound;4.50.
+                has you covered. We pour seven draught lines &mdash; Birra Moretti,
+                Stella Artois, Fosters, Carlsberg, Guinness, Aspall cider and
+                Inch&apos;s &mdash; with pints starting from &pound;4.95.
               </p>
               <p className="text-anchor-cream-text/80 leading-relaxed">
                 Behind the bar, things get interesting. Our gin shelf runs
@@ -442,7 +442,7 @@ export default function OurPubPage() {
           {
             question: 'What drinks do you have on draught?',
             answer:
-              'We pour eight draught lines: Birra Moretti, Stella Artois, Fosters, Carlsberg, 1664 Biere, Guinness, Aspall cider and Inch\'s cider. Pints start from £4.50.',
+              'We pour seven draught lines: Birra Moretti, Stella Artois, Fosters, Carlsberg, Guinness, Aspall cider and Inch\'s cider. Pints start from £4.95.',
           },
           {
             question: 'Can I hire the dining room for a private event?',
