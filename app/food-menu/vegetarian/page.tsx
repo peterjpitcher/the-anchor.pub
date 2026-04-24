@@ -24,6 +24,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Vegetarian Menu | Pub Food Near Heathrow',
     description: 'Vegetarian pub food near Heathrow Airport. From butternut squash pie to stone-baked pizzas and mac & cheese. Proper meat-free meals, not afterthoughts.',
+    images: [
+      {
+        url: '/images/page-headers/home/page-headers-homepage.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'The Anchor in Stanwell Moor',
+      },
+    ],
   },
   twitter: getTwitterMetadata({
     title: 'Vegetarian Menu | Pub Food Near Heathrow',
@@ -246,7 +254,7 @@ export default async function VegetarianMenuPage() {
         <Container>
           <Card className="card-dark rounded-none">
             <CardBody>
-              <PageTitle as="h1" className="text-anchor-cream-text mb-2">
+              <PageTitle as="h2" className="text-anchor-cream-text mb-2">
                 Vegetarian Pub Food Near Heathrow
               </PageTitle>
               <p className="text-anchor-cream-text/55 mb-4">Meat-free dishes we are genuinely proud of.</p>

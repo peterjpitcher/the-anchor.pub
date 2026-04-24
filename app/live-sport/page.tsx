@@ -11,11 +11,10 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
-import { getBusinessStats } from '@/lib/schema-with-reviews'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
-    title: 'Watch Live Sport Near Heathrow | Big Screens | The Anchor',
+    title: 'Watch Live Sport Near Heathrow | Big Screens',
     description: `Watch Six Nations, Euros, F1 & World Cup on big screens at The Anchor, Stanwell Moor. Terrestrial sport, great atmosphere, free parking, 7 mins from Heathrow T5.`,
     openGraph: {
         title: 'Watch Live Sport Near Heathrow — Major Tournaments on Big Screens',
@@ -34,8 +33,6 @@ export const metadata: Metadata = {
 }
 
 export default async function LiveSportPage() {
-    const { rating, reviewCount } = await getBusinessStats()
-
     const breadcrumbSchema = generateBreadcrumbSchema([
         { name: 'Home', url: '/' },
         { name: 'Live Sport', url: '/live-sport' }
@@ -55,14 +52,7 @@ export default async function LiveSportPage() {
             "addressCountry": CONTACT.address.country
         },
         "telephone": CONTACT.phoneIntl,
-        "image": DEFAULT_PAGE_HEADER_IMAGE,
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": rating,
-            "reviewCount": reviewCount,
-            "bestRating": "5",
-            "worstRating": "1"
-        }
+        "image": DEFAULT_PAGE_HEADER_IMAGE
     }
 
     const screeningEventSchema = {
@@ -138,7 +128,7 @@ export default async function LiveSportPage() {
             />
 
             <Container className="py-8">
-                <PageTitle as="h1" className="text-center mb-6" seo={{ structured: true }}>
+                <PageTitle as="h2" className="text-center mb-6" seo={{ structured: true }}>
                     Live Sport Pub Near Heathrow — Big Screens &amp; Great Atmosphere
                 </PageTitle>
             </Container>

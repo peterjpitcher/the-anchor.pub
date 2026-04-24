@@ -14,7 +14,7 @@ import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 import { BookTableButton } from '@/components/BookTableButton'
 
 export const metadata: Metadata = {
-  title: `M25 Junction 14 Pub (5 Mins) - Free Parking & Food | ${BRAND.name}`,
+  title: 'M25 Junction 14 Pub | 5 Mins | Free Parking & Food',
   description: `Pull off Junction 14 M25 for The Anchor: free parking, proper British pub food, draught beers and a relaxed Surrey village break minutes from Heathrow.`,
   openGraph: {
     title: 'M25 Junction 14 Pub Stop - The Anchor Stanwell Moor',

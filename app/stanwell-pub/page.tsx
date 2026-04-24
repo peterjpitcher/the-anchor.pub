@@ -10,11 +10,10 @@ import { CONTACT, BRAND, PARKING } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
-import { getBusinessStats } from '@/lib/schema-with-reviews'
 import { BookTableButton } from '@/components/BookTableButton'
 
 export const metadata: Metadata = {
-  title: 'The Anchor | Stanwell Moor Pub | Rated 4.6★ on Google',
+  title: 'Stanwell Moor Pub | Rated 4.6★ on Google',
   description: 'Your local in Stanwell Moor — rated 4.6/5 on Google. Sunday roasts from £19, stone-baked pizzas, dog-friendly beer garden, quiz nights & free parking.',
   openGraph: {
     title: 'Stanwell Village Pub — Beer Garden, Food & Free Parking',
@@ -32,9 +31,7 @@ export const metadata: Metadata = {
   }
 }
 
-export default async function StanwellPubPage() {
-  const { rating, reviewCount } = await getBusinessStats()
-
+export default function StanwellPubPage() {
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": ["Restaurant", "BarOrPub"],
@@ -64,14 +61,7 @@ export default async function StanwellPubPage() {
         "name": "Stanwell Moor"
       }
     ],
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": rating,
-      "reviewCount": reviewCount,
-      "bestRating": "5",
-      "worstRating": "1"
-    },
-	    "priceRange": "££",
+    "priceRange": "££",
     "servesCuisine": ["British", "Traditional English", "Sunday Roast"],
     "telephone": CONTACT.phoneIntl,
     "url": "https://www.the-anchor.pub/stanwell-pub"

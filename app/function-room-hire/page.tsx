@@ -19,7 +19,7 @@ import { TrustBar, ValueProofStrip, RegretReduction } from '@/components/psychol
 
 export const metadata: Metadata = {
   title: 'Function Room Hire Near Heathrow | Capacity 10-200 | 6 Layout Options',
-  description: 'Flexible function room with 6 layout options for 10-200 guests near Heathrow. AV equipment, climate control, wheelchair access, and free parking included. View room specs and capacities.',
+  description: 'Flexible function room for 10-200 guests near Heathrow. Six layout options, AV equipment, wheelchair access and free parking included. View specs.',
   openGraph: {
     title: 'Function Room Hire Near Heathrow | Capacity 10-200 | 6 Layout Options',
     description: 'Flexible function room with 6 layouts, AV equipment and free parking near Heathrow. View room specs and capacities.',

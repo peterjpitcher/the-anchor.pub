@@ -286,7 +286,7 @@
   },
   {
     "source": "/blog/watch-euro-2024-games-stanwell-moor-village-staine",
-    "destination": "/blog/euro-2024-viewing",
+    "destination": "/live-sport",
     "permanent": true
   },
   {
@@ -336,7 +336,7 @@
   },
   {
     "source": "/post/autumn-internationals-2024-full-fixtures-highlight",
-    "destination": "/blog/autumn-internationals-2024-full-fixtures-highlight",
+    "destination": "/live-sport",
     "permanent": true
   },
   {
@@ -751,7 +751,7 @@
   },
   {
     "source": "/post/watch-euro-2024-games-stanwell-moor-village-staine",
-    "destination": "/blog/euro-2024-viewing",
+    "destination": "/live-sport",
     "permanent": true
   },
   {

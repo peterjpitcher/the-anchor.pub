@@ -35,11 +35,10 @@ import { RegretReduction } from '@/components/psychology'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
-import { getBusinessStats } from '@/lib/schema-with-reviews'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
-    title: 'Karaoke Fridays Near Heathrow | Free Entry | The Anchor',
+    title: 'Karaoke Fridays Near Heathrow | Free Entry',
     description:
         'Karaoke every Friday 8–11pm at The Anchor, Stanwell Moor. 50,000+ songs, hosted nights, free entry & free parking. 7 mins from Heathrow T5. Grab the mic tonight.',
     openGraph: {
@@ -237,10 +236,7 @@ function KaraokeEventCards({ events }: { events: Event[] }) {
 }
 
 export default async function KaraokePage() {
-    const [events, { rating, reviewCount }] = await Promise.all([
-        getKaraokeEvents(),
-        getBusinessStats()
-    ])
+    const events = await getKaraokeEvents()
     const nextEvent = events[0]
     const nextEventDate = nextEvent ? formatEventDate(nextEvent.startDate) : 'Dates announced soon'
     const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '8:00pm approx'
@@ -311,14 +307,7 @@ export default async function KaraokePage() {
                     "@type": ["Restaurant", "BarOrPub"],
                     "@id": "https://www.the-anchor.pub/#business",
                     "name": "The Anchor",
-                    "url": "https://www.the-anchor.pub/karaoke",
-                    "aggregateRating": {
-                        "@type": "AggregateRating",
-                        "ratingValue": rating,
-                        "reviewCount": reviewCount,
-                        "bestRating": "5",
-                        "worstRating": "1"
-                    }
+                    "url": "https://www.the-anchor.pub/karaoke"
                 }) }}
             />
             <HeroWrapper

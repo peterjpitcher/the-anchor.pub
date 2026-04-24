@@ -190,7 +190,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     ].join(', ') || undefined
 
     return {
-      title: event.metaTitle || `${event.name} | The Anchor - Heathrow Pub & Dining`,
+      title: event.metaTitle || event.name,
       description,
       keywords,
       ...(shouldNoindex ? { robots: { index: false, follow: true } } : {}),
@@ -220,7 +220,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     }
   } catch {
     return {
-      title: 'Event Not Found | The Anchor - Heathrow Pub & Dining',
+      title: 'Event Not Found',
       description: 'This event could not be found.',
     }
   }

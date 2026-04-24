@@ -24,7 +24,7 @@ const SUNDAY_ROAST_PRICE = '\u00a319'
 const SUNDAY_ROAST_PREORDER_DEADLINE = 'Saturday 1pm'
 
 export const metadata: Metadata = {
-  title: 'Bank Holiday Weekends at The Anchor | Pub Near Heathrow',
+  title: 'Bank Holiday Weekends | Pub Near Heathrow',
   description:
     'Make the most of every bank holiday weekend at The Anchor near Heathrow. Extended hours, beer garden, Sunday roasts, and free parking. Check our opening times.',
   alternates: { canonical: '/bank-holiday-weekends' },

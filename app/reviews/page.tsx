@@ -17,6 +17,19 @@ export const metadata: Metadata = {
   description:
     'Read what guests say about The Anchor near Heathrow. Rated 4.6/5 on Google with 238 reviews. Real feedback about our food, beer garden, events and private hire.',
   alternates: { canonical: '/reviews' },
+  openGraph: {
+    title: 'Reviews | What Our Guests Say | The Anchor Stanwell Moor',
+    description:
+      'Read what guests say about The Anchor near Heathrow. Rated 4.6/5 on Google with 238 reviews. Real feedback about our food, beer garden, events and private hire.',
+    images: [
+      {
+        url: '/images/page-headers/home/page-headers-homepage.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'The Anchor in Stanwell Moor',
+      },
+    ],
+  },
 }
 
 interface ReviewHighlight {
@@ -126,6 +139,19 @@ export default function ReviewsPage() {
           { name: 'Home', url: 'https://www.the-anchor.pub/' },
           { name: 'Reviews', url: 'https://www.the-anchor.pub/reviews' },
         ]}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'WebPage',
+            'name': 'Reviews — What Our Guests Say About The Anchor',
+            'description': `Read what guests say about The Anchor near Heathrow. Rated ${rating}/5 on Google with ${totalReviews}+ reviews.`,
+            'url': 'https://www.the-anchor.pub/reviews',
+            'about': { '@id': 'https://www.the-anchor.pub/#business' }
+          })
+        }}
       />
 
       {/* Hero / Title */}

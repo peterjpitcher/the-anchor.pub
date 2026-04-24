@@ -13,7 +13,7 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
 const ST_PATRICKS_DAY_BOOKING_URL = '/book-table?purpose=food'
 
-const PAGE_TITLE = "St Patrick's Day Pub Near Heathrow | Guinness & Live Music at The Anchor"
+const PAGE_TITLE = "St Patrick's Day Pub Near Heathrow | Guinness & Live Music"
 const PAGE_DESCRIPTION =
   "Celebrate St Patrick's Day 2027 at The Anchor near Heathrow. Guinness, Irish whiskey, live music, themed food. Free parking, dog-friendly. 17 March."
 

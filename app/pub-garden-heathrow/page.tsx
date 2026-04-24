@@ -11,7 +11,7 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-    title: 'Beer Garden Near Heathrow | Outdoor Dining & Drinks | The Anchor',
+    title: 'Beer Garden Near Heathrow | Outdoor Dining & Drinks',
     description: `Enjoy a pint in the sun at ${BRAND.name}. Large grassy beer garden, outdoor dining tables, and plenty of space. Just minutes from Heathrow Airport.`,
     openGraph: {
         title: 'The Anchor Beer Garden',

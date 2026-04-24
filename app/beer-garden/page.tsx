@@ -16,7 +16,7 @@ import { generateOpeningHoursSpecification } from '@/lib/schema-utils'
 export const revalidate = 86400 // Revalidate every 24 hours
 
 export const metadata: Metadata = {
-  title: 'Beer Garden Near Heathrow | Dog-Friendly Pub | The Anchor',
+  title: 'Beer Garden Near Heathrow | Dog-Friendly Pub',
   description: '64-seat outdoor pub garden 7 mins from Heathrow with outdoor dining under the flight path. Dog-friendly, heated areas, full food menu served to your table. Free parking.',
   openGraph: {
     title: 'Beer Garden Near Heathrow | Dog-Friendly Pub | The Anchor',

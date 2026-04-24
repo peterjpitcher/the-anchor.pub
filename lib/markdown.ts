@@ -261,8 +261,10 @@ export function distributeImages(
       result += `
         <figure class="not-prose my-8 mx-auto w-full max-w-full sm:max-w-xl lg:max-w-[420px] xl:max-w-[460px]">
           <img 
-            src="${imagePath}" 
-            alt="${imageAlt}" 
+            src="${imagePath}"
+            alt="${imageAlt}"
+            width="800"
+            height="450"
             class="block w-full h-auto max-h-[520px] object-contain rounded-xl shadow-sm ring-1 ring-black/5"
             loading="lazy"
             decoding="async"
@@ -284,8 +286,8 @@ export function getFeaturedPosts(limit: number = 3): BlogPost[] {
     .slice(0, limit)
 }
 
-// Get posts by tag
+// Get posts by tag (excludes noindex posts so tag archives only surface indexable content)
 export function getPostsByTag(tag: string): BlogPost[] {
   const allPosts = getAllBlogPosts()
-  return allPosts.filter(post => post.tags.includes(tag))
+  return allPosts.filter(post => post.tags.includes(tag) && !post.noindex)
 }

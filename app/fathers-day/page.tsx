@@ -24,7 +24,7 @@ const FATHERS_DAY_BOOKING_URL = '/book-table?purpose=sunday_lunch'
 const WEBSITE_ORIGIN = 'https://www.the-anchor.pub'
 
 export const metadata: Metadata = {
-  title: "Father's Day at The Anchor | Pub Lunch Near Heathrow",
+  title: "Father's Day Pub Lunch Near Heathrow",
   description:
     "Treat Dad to Father's Day 2026 at The Anchor near Heathrow. Sunday roast from \u00a319, craft beer, beer garden plane spotting. Free parking. Book now.",
   alternates: { canonical: '/fathers-day' },

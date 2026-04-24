@@ -29,7 +29,7 @@ const EASTER_BOOKING_URL = '/book-table?purpose=sunday_lunch'
 const WEBSITE_ORIGIN = 'https://www.the-anchor.pub'
 
 export const metadata: Metadata = {
-  title: 'Easter at The Anchor | Sunday Lunch & Beer Garden',
+  title: 'Easter Sunday Lunch & Beer Garden',
   description:
     'Celebrate Easter 2026 at The Anchor near Heathrow. Easter Sunday roast from \u00a319, dog-friendly beer garden, free parking. Book by Saturday 1pm.',
   alternates: { canonical: '/easter' },

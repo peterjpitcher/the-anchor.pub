@@ -19,8 +19,8 @@ import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 
 export const metadata: Metadata = {
-  title: 'Pubs Near Heathrow Terminal 5 | 7 Mins from T5 | Free Parking | The Anchor',
-  description: 'Looking for pubs near Heathrow Terminal 5? The Anchor is just 7 minutes by taxi (£20-25) or drive and park free. British pub food, dog-friendly beer garden. Popular with BA crew.',
+  title: 'Pubs Near Heathrow Terminal 5 | 7 Mins | Free Parking',
+  description: 'Nearest pub to Heathrow Terminal 5 — just 7 minutes by taxi or drive and park free. British pub food, dog-friendly beer garden and draught beers.',
   openGraph: {
     title: 'Pubs Near Heathrow Terminal 5 | 7 Mins Away | Free Parking',
     description: 'Looking for pubs near Heathrow Terminal 5? Just 7 minutes by taxi. Free parking for 20 cars. British pub food, dog-friendly beer garden & draught beers.',
@@ -736,7 +736,7 @@ export default function Terminal5Page() {
               "@type": "Restaurant",
               "name": "The Anchor - Pub Near Heathrow Terminal 5",
               "description": "The closest pub to Heathrow Terminal 5 - just 7 minutes drive with free parking.",
-              "image": "https://www.the-anchor.pub/images/page-headers/near-heathrow/Heathrow.jpg",
+              "image": "https://www.the-anchor.pub/images/page-headers/near-heathrow/heathrow-airport-view.jpg",
               "address": {
                 "@type": "PostalAddress",
                 "streetAddress": "Horton Road",

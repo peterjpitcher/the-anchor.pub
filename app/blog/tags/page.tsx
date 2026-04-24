@@ -9,8 +9,8 @@ import { getTagSEOContent } from '@/lib/tag-seo-content'
 import tagRedirects from '@/config/redirects/tag-redirects.json'
 
 export const metadata: Metadata = {
-  title: 'All Blog Topics | The Anchor - Heathrow Pub & Dining',
-  description: 'Browse all blog topics and categories from The Anchor. Find posts about food, drinks, events, and more.',
+  title: 'All Blog Topics',
+  description: 'Browse all blog topics from The Anchor near Heathrow. Find posts about pub food, Sunday roasts, beer garden events, quiz nights and local community stories.',
   openGraph: {
     title: 'All Blog Topics - The Anchor',
     description: 'Explore all blog categories and topics',

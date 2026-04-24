@@ -10,7 +10,7 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-    title: 'Office Christmas Party Near Heathrow | Corporate | The Anchor',
+    title: 'Office Christmas Party Near Heathrow | Corporate',
     description: 'Book your office or corporate Christmas party at The Anchor, Surrey. Free parking, 7 min from Heathrow T5. Three-course festive menu from £36.95pp. Enquire now.',
     openGraph: {
         title: 'Office & Corporate Christmas Party 2026 | Near Heathrow T5 | The Anchor Pub',

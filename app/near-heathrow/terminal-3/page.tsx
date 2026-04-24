@@ -20,8 +20,8 @@ import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 
 export const metadata: Metadata = {
-  title: 'Pubs Near Heathrow Terminal 3 | 11 Mins from T3 | Free Parking | The Anchor',
-  description: 'Nearest independent pub to Heathrow Terminal 3. 11 minutes by taxi, free parking if driving. Family-friendly, Sunday roasts & stone-baked pizza. Popular with Virgin & Emirates travellers.',
+  title: 'Pubs Near Heathrow Terminal 3 | 11 Mins | Free Parking',
+  description: 'Nearest independent pub to Heathrow Terminal 3. 11 minutes by taxi, free parking if driving. Sunday roasts, stone-baked pizza and a dog-friendly garden.',
   openGraph: {
     title: 'Pubs Near Heathrow Terminal 3 | 11 Mins Away | Free Parking',
     description: '11 minutes from T3 by taxi. Free parking. Family-friendly dining, Sunday roasts & stone-baked pizza. Popular with Virgin & Emirates travellers.',
@@ -715,7 +715,7 @@ export default function Terminal3Page() {
               "@type": "Restaurant",
               "name": "The Anchor - Pub Near Heathrow Terminal 3",
               "description": "Family-friendly British pub just 11 minutes from Heathrow Terminal 3 with free parking.",
-              "image": "https://www.the-anchor.pub/images/page-headers/near-heathrow/Heathrow.jpg",
+              "image": "https://www.the-anchor.pub/images/page-headers/near-heathrow/heathrow-airport-view.jpg",
               "address": {
                 "@type": "PostalAddress",
                 "streetAddress": "Horton Road",

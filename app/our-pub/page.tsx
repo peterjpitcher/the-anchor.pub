@@ -12,7 +12,7 @@ import { JsonLd } from '@/components/JsonLd'
 export const revalidate = 86400
 
 export const metadata: Metadata = {
-  title: 'Inside The Anchor | Our Pub, Garden & Facilities | Stanwell Moor',
+  title: 'Our Pub, Garden & Facilities | Stanwell Moor',
   description:
     'Take a look around The Anchor in Stanwell Moor. Bar with 18 gins and 17 whiskeys, sunlit dining room, beer garden under the Heathrow flight path, pool table and darts. 7 min from T5.',
   openGraph: {

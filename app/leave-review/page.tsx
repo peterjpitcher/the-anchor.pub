@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 
 export const metadata: Metadata = {
-  title: 'Leave a Review - The Anchor - Heathrow Pub & Dining',
+  title: 'Leave a Review',
   description: 'Share your experience at The Anchor. Leave us a review on Google to help others discover our traditional British pub near Heathrow.',
   robots: 'noindex, follow',
   alternates: {

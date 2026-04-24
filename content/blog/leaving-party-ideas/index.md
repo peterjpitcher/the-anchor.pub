@@ -145,7 +145,7 @@ Whether you're planning a long lunch or an evening event, the venue can make or 
 
 We host leaving dos regularly, and we'll be straightforward about what we offer.
 
-**The space:** Our private dining room seats 26 with standing room for more. French doors open onto the [beer garden](/best-beer-gardens-near-heathrow), so you're not boxed in. For larger groups, we can host up to 50 guests across the venue.
+**The space:** Our private dining room seats 26 with standing room for more. French doors open onto the [beer garden](/beer-garden), so you're not boxed in. For larger groups, we can host up to 50 guests across the venue.
 
 **AV equipment:** We have a projector, screen, and sound system — so your slideshow, video messages, or pub quiz all work properly. No faffing with Bluetooth speakers or balancing a laptop on a stool.
 

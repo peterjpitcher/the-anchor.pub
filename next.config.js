@@ -232,6 +232,7 @@ const nextConfig = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     unoptimized: false,
   },
+  trailingSlash: false,
   poweredByHeader: false,
   compress: true,
   productionBrowserSourceMaps: false,

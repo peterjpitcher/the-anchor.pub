@@ -13,7 +13,7 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-  title: 'Pub Near Bedfont | 5 Mins Away | Free Parking | The Anchor',
+  title: 'Pub Near Bedfont | 5 Mins Away | Free Parking',
   description: 'The Anchor - 5 mins from Bedfont. Traditional British pub with free parking, great food & regular events. Perfect local for Bedfont residents.',
   openGraph: {
     title: 'Pub Near Bedfont | 5 Mins Away | Free Parking | The Anchor',

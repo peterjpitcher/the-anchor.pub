@@ -3,7 +3,7 @@ import { getEventDateRangeUtc } from '@/lib/event-calendar'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getEventWebsiteUrl } from '@/lib/event-url'
 import { getSchemaEventStatus, getSchemaOfferAvailability, CATEGORY_ROUTES } from '@/lib/event-seo-strategy'
-import { CONTACT } from '@/lib/constants'
+
 
 const SITE_ORIGIN = 'https://www.the-anchor.pub'
 const CATEGORY_PAGE_PATHS = new Set(Object.values(CATEGORY_ROUTES))
@@ -129,6 +129,7 @@ export function buildEventSchema(event: Event) {
     eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
     location: {
       '@type': 'Place',
+      '@id': 'https://www.the-anchor.pub/#business',
       name: 'The Anchor',
       address: {
         '@type': 'PostalAddress',
@@ -138,21 +139,6 @@ export function buildEventSchema(event: Event) {
         postalCode: 'TW19 6AQ',
         addressCountry: 'GB'
       },
-      geo: {
-        '@type': 'GeoCoordinates',
-        latitude: 51.462509,
-        longitude: -0.502067
-      },
-      telephone: CONTACT.phone,
-      amenityFeature: [
-        { '@type': 'LocationFeatureSpecification', name: 'Free Parking', value: true },
-        { '@type': 'LocationFeatureSpecification', name: 'Dog Friendly', value: true },
-        { '@type': 'LocationFeatureSpecification', name: 'Family Friendly', value: true },
-        { '@type': 'LocationFeatureSpecification', name: 'Wheelchair Accessible', value: true },
-        { '@type': 'LocationFeatureSpecification', name: 'Free WiFi', value: true },
-        { '@type': 'LocationFeatureSpecification', name: 'Beer Garden', value: true },
-      ],
-      hasMap: 'https://maps.google.com/?q=The+Anchor+Stanwell+Moor+TW19+6AQ',
     },
     performer: event.performer
       ? {

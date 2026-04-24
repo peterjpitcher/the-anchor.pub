@@ -15,10 +15,9 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
-import { getBusinessStats } from '@/lib/schema-with-reviews'
 
 export const metadata: Metadata = {
-  title: 'Pubs in Ashford Middlesex | Free Parking | The Anchor',
+  title: 'Pubs in Ashford Middlesex | Free Parking',
   description: `${BRAND.name} - traditional British pub 10 mins from Ashford. Free parking, Sunday roasts, quiz nights & family-friendly. Easy A30 access.`,
   openGraph: {
     title: 'Pubs in Ashford Middlesex | Free Parking | The Anchor',
@@ -36,9 +35,7 @@ export const metadata: Metadata = {
   }
 }
 
-export default async function AshfordPubPage() {
-  const { rating, reviewCount } = await getBusinessStats()
-
+export default function AshfordPubPage() {
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": ["Restaurant", "BarOrPub"],
@@ -72,14 +69,7 @@ export default async function AshfordPubPage() {
         "name": "Littleton"
       }
     ],
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": rating,
-      "reviewCount": reviewCount,
-      "bestRating": "5",
-      "worstRating": "1"
-    },
-	    "priceRange": "££",
+    "priceRange": "££",
     "servesCuisine": ["British", "Traditional English", "Sunday Roast"],
     "telephone": CONTACT.phoneIntl,
     "url": "https://www.the-anchor.pub/ashford-pub"

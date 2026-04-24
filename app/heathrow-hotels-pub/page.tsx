@@ -13,7 +13,7 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-  title: `Heathrow Hotels Pub Near Me | ${BRAND.name} - Surrey Pub Escape`,
+  title: 'Pub Near Heathrow Hotels | Surrey Pub Escape',
   description: `Traditional Surrey pub minutes from Heathrow hotels. Free parking in Surrey countryside, authentic British food, draught beer. Escape airport hotel prices.`,
   openGraph: {
     title: 'The Anchor - Traditional Pub Near Heathrow Hotels',

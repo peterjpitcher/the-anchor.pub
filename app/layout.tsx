@@ -172,14 +172,14 @@ export default function RootLayout({
         <link rel="manifest" href="/manifest.json" />
 
         {/* Meta tags */}
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#005131" />
         <meta name="format-detection" content="telephone=no" />
 
         {/* Next.js handles font and image prioritisation automatically */}
-        <DynamicSchema />
       </head>
       <body className={`font-sans antialiased ${outfit.variable} ${merriweather.variable}`}>
+        {/* Global structured data (JSON-LD) — placed in body to avoid Next.js head deduplication */}
+        <DynamicSchema />
         {/* Google Tag Manager (noscript) */}
         <noscript>
           <iframe

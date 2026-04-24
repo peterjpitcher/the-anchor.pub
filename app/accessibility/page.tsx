@@ -7,7 +7,7 @@ import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { BookTableButton } from '@/components/BookTableButton'
 
 export const metadata: Metadata = {
-  title: 'Accessibility at The Anchor | Stanwell Moor Pub',
+  title: 'Accessibility | Stanwell Moor Pub',
   description: 'Step-free access to the bar and dining area, with a ramp available for the beer garden. Everything you need to know to plan your visit to The Anchor, Stanwell Moor.',
   alternates: {
     canonical: '/accessibility'

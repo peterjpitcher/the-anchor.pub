@@ -13,7 +13,7 @@ import { RegretReduction, ValueProofStrip } from '@/components/psychology'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 
 export const metadata: Metadata = {
-  title: 'Book a Table Near Heathrow | Sunday Roast | The Anchor',
+  title: 'Book a Table Near Heathrow | Sunday Roast',
   description: 'Reserve your table at The Anchor, Stanwell Moor — instant confirmation. Pub food from £8.95, Sunday roast from £19. Dog-friendly, free parking, 7 mins from T5.',
   openGraph: {
     title: 'Book a Table Near Heathrow | Sunday Roast | The Anchor',
@@ -76,31 +76,50 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'FoodEstablishmentReservation',
-            reservationFor: {
-              '@type': 'FoodEstablishment',
-              name: 'The Anchor',
-              address: {
-                '@type': 'PostalAddress',
-                streetAddress: 'Horton Road',
-                addressLocality: 'Stanwell Moor',
-                postalCode: 'TW19 6AQ'
+          __html: JSON.stringify([
+            {
+              '@context': 'https://schema.org',
+              '@type': 'WebPage',
+              'name': 'Book a Table at The Anchor',
+              'description': 'Reserve your table at The Anchor, Stanwell Moor. Instant confirmation. Free parking, 7 mins from Heathrow T5.',
+              'url': 'https://www.the-anchor.pub/book-table',
+              'potentialAction': {
+                '@type': 'ReserveAction',
+                'target': {
+                  '@type': 'EntryPoint',
+                  'urlTemplate': 'https://www.the-anchor.pub/book-table'
+                },
+                'result': {
+                  '@type': 'FoodEstablishmentReservation'
+                }
               }
             },
-            url: 'https://www.the-anchor.pub/book-table',
-            potentialAction: {
-              '@type': 'ReserveAction',
-              target: {
-                '@type': 'EntryPoint',
-                urlTemplate: 'https://www.the-anchor.pub/book-table'
+            {
+              '@context': 'https://schema.org',
+              '@type': 'FoodEstablishmentReservation',
+              reservationFor: {
+                '@type': 'FoodEstablishment',
+                name: 'The Anchor',
+                address: {
+                  '@type': 'PostalAddress',
+                  streetAddress: 'Horton Road',
+                  addressLocality: 'Stanwell Moor',
+                  postalCode: 'TW19 6AQ'
+                }
               },
-              result: {
-                '@type': 'FoodEstablishmentReservation'
+              url: 'https://www.the-anchor.pub/book-table',
+              potentialAction: {
+                '@type': 'ReserveAction',
+                target: {
+                  '@type': 'EntryPoint',
+                  urlTemplate: 'https://www.the-anchor.pub/book-table'
+                },
+                result: {
+                  '@type': 'FoodEstablishmentReservation'
+                }
               }
             }
-          })
+          ])
         }}
       />
 

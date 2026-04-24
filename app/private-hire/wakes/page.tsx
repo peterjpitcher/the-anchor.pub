@@ -23,7 +23,7 @@ export async function generateMetadata(): Promise<Metadata> {
     const fromPrice = getLowestFoodPrice(wakePackages) || '£12' // fallback only if API returns no wake packages
 
     return {
-        title: 'Wake & Funeral Reception Venue | Near Heathrow | The Anchor',
+        title: 'Wake & Funeral Reception Venue | Near Heathrow',
         description: `Private room for wakes, funeral teas & celebrations of life near Staines & Heathrow. Up to 50 guests, buffet packages from ${fromPrice}pp, free parking. Compassionate staff.`,
         openGraph: {
             title: 'Wake Venue & Celebration of Life | The Anchor Stanwell Moor',
@@ -141,7 +141,7 @@ export default async function WakesPage() {
 
             <section className="py-12 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container size="md">
-                    <PageTitle className="text-center mb-6" as="h1" seo={{ structured: true, speakable: true }}>
+                    <PageTitle className="text-center mb-6" as="h2" seo={{ structured: true, speakable: true }}>
                         Wake Venue & Funeral Receptions Near Heathrow
                     </PageTitle>
                     <p className="text-lg text-anchor-cream-text/70 text-center mb-8">

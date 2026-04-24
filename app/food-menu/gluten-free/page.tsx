@@ -15,7 +15,7 @@ import { DietaryMenuNav } from '@/components/food/DietaryMenuNav'
 export const revalidate = 3600
 
 export const metadata: Metadata = {
-  title: 'Gluten-Free Pub Food Near Heathrow | GF Menu | The Anchor',
+  title: 'Gluten-Free Pub Food Near Heathrow | GF Menu',
   description: 'Proper gluten-free pub food near Heathrow Airport. GF pizza bases, sticky toffee pudding, chocolate brownie and sides — no surcharge. Free parking, 7 mins from T5.',
   openGraph: {
     title: 'Gluten-Free Pub Food | The Anchor, Stanwell Moor',

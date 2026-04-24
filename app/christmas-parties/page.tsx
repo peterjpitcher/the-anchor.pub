@@ -7,7 +7,7 @@ import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { TrustBar } from '@/components/psychology'
 
 export const metadata: Metadata = {
-  title: 'Christmas Parties & Festive Lunch Near Heathrow | The Anchor',
+  title: 'Christmas Parties & Festive Lunch Near Heathrow',
   description:
     'Book your Christmas party or festive lunch at The Anchor, Surrey. Three-course meals from £36.95, buffets for 26+, free parking near Heathrow T5. Enquire now.',
   openGraph: {

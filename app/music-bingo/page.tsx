@@ -36,11 +36,10 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { JsonLd } from '@/components/JsonLd'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { bingoEventSeries } from '@/lib/schema'
-import { getBusinessStats } from '@/lib/schema-with-reviews'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
-  title: 'Music Bingo Near Heathrow | Win Every Round | The Anchor',
+  title: 'Music Bingo Near Heathrow | Win Every Round',
   description:
     'Singalong Music Bingo at The Anchor, Stanwell Moor — song snippets replace numbers, prizes every round. Book early, it sells out. 7 mins from Heathrow T5.',
   openGraph: {
@@ -261,10 +260,7 @@ function MusicBingoEventCards({ events }: { events: Event[] }) {
 }
 
 export default async function MusicBingoPage() {
-  const [events, { rating, reviewCount }] = await Promise.all([
-    getMusicBingoEvents(),
-    getBusinessStats()
-  ])
+  const events = await getMusicBingoEvents()
   const nextEvent = events[0]
   const nextEventDate = nextEvent ? formatEventDate(nextEvent.startDate) : 'Next date announced soon'
   const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '7:30pm'
@@ -338,14 +334,7 @@ export default async function MusicBingoPage() {
           "@type": ["Restaurant", "BarOrPub"],
           "@id": "https://www.the-anchor.pub/#business",
           "name": "The Anchor",
-          "url": "https://www.the-anchor.pub/music-bingo",
-          "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": rating,
-            "reviewCount": reviewCount,
-            "bestRating": "5",
-            "worstRating": "1"
-          }
+          "url": "https://www.the-anchor.pub/music-bingo"
         }) }}
       />
       <HeroWrapper

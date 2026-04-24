@@ -19,7 +19,7 @@ import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 
 export const metadata: Metadata = {
-  title: 'Pubs Near Heathrow Terminal 4 | 12 Mins from T4 | Free Parking | The Anchor',
+  title: 'Pubs Near Heathrow Terminal 4 | 12 Mins | Free Parking',
   description: 'Nearest pub to Heathrow Terminal 4. 12 minutes by taxi, free parking if driving. British pub food, Sunday roasts & draught beers. Dog-friendly beer garden. Book a table.',
   openGraph: {
     title: 'Pubs Near Heathrow Terminal 4 | 12 Mins Away | Free Parking',
@@ -715,7 +715,7 @@ export default function Terminal4Page() {
               "@type": "Restaurant",
               "name": "The Anchor - Pub Near Heathrow Terminal 4",
               "description": "Traditional British pub just 12 minutes from Heathrow Terminal 4 with free parking.",
-              "image": "https://www.the-anchor.pub/images/page-headers/near-heathrow/Heathrow.jpg",
+              "image": "https://www.the-anchor.pub/images/page-headers/near-heathrow/heathrow-airport-view.jpg",
               "address": {
                 "@type": "PostalAddress",
                 "streetAddress": "Horton Road",

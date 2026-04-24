@@ -14,7 +14,7 @@ import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
 import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 
 export const metadata: Metadata = {
-  title: 'Heathrow Layover Dining (Near T5) | Eat in 90 Minutes | The Anchor',
+  title: 'Heathrow Layover Dining (Near T5) | Eat in 90 Minutes',
   description: 'Make the most of a Heathrow layover with The Anchor’s fast pub dining, free parking, and book-ahead tips. Perfect for 2–3 hour stopovers near Terminal 5.',
   openGraph: {
     title: 'Heathrow Layover Dining in 90 Minutes (Near T5) | The Anchor',

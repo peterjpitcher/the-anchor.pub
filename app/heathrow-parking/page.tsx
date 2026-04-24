@@ -14,7 +14,7 @@ const formatRate = (value: number | null | undefined, fallback: string) =>
   typeof value === 'number' && Number.isFinite(value) ? value.toFixed(2) : fallback
 
 export const metadata: Metadata = {
-  title: 'Cheap Heathrow Parking from £15/day | 7 Mins to T5 | Park & Eat | The Anchor',
+  title: 'Cheap Heathrow Parking from £15/day | 7 Mins to T5',
   description: 'Cheap Heathrow parking from £15/day or £75/week — save up to 60% vs official Heathrow car parks. CCTV, keep your keys, 7 mins to T5. The Anchor, Stanwell Moor.',
   openGraph: {
     title: 'Cheap Heathrow Parking from £15/day | 7 Mins to T5 | Park & Eat | The Anchor',
@@ -178,7 +178,7 @@ function buildParkingFacilitySchema(rateCard: ParkingRateCard | null) {
     '@id': 'https://www.the-anchor.pub/heathrow-parking#facility',
     name: 'Heathrow Parking at The Anchor',
     description: 'Secure long stay and short stay Heathrow airport parking with PayPal checkout, CCTV, lighting and on-site hospitality in Stanwell Moor.',
-    image: 'https://www.the-anchor.pub/images/page-headers/parking-near-heathrow/Heathrow.jpg',
+    image: 'https://www.the-anchor.pub/images/page-headers/parking-near-heathrow/heathrow-airport-view.jpg',
     url: 'https://www.the-anchor.pub/heathrow-parking',
     telephone: '+441753682707',
     address: {

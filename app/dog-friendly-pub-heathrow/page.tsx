@@ -9,11 +9,10 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
-import { getBusinessStats } from '@/lib/schema-with-reviews'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
-    title: 'Dog Friendly Pub Near Heathrow | Beer Garden & Water Bowls | The Anchor',
+    title: 'Dog Friendly Pub Near Heathrow | Beer Garden & Water Bowls',
     description: `Dog friendly pub near Heathrow with a 64-seat beer garden, water bowls and food served to your table outdoors. Free parking, 7 mins from T5. Rated 4.6/5 on Google.`,
     openGraph: {
         title: 'Dog Friendly Pub Near Heathrow — Beer Garden & Free Parking',
@@ -32,8 +31,6 @@ export const metadata: Metadata = {
 }
 
 export default async function DogFriendlyPage() {
-    const { rating, reviewCount } = await getBusinessStats()
-
     const breadcrumbSchema = generateBreadcrumbSchema([
         { name: 'Home', url: '/' },
         { name: 'Dog Friendly Pub', url: '/dog-friendly-pub-heathrow' }
@@ -54,13 +51,6 @@ export default async function DogFriendlyPage() {
             "addressRegion": "Surrey",
             "postalCode": CONTACT.address.postcode,
             "addressCountry": "GB"
-        },
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": rating,
-            "reviewCount": reviewCount,
-            "bestRating": "5",
-            "worstRating": "1"
         },
         "amenityFeature": [
             { "@type": "LocationFeatureSpecification", "name": "Dog Friendly", "value": true },

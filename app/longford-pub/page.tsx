@@ -12,10 +12,9 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
-import { getBusinessStats } from '@/lib/schema-with-reviews'
 
 export const metadata: Metadata = {
-    title: 'Pubs in Longford — Your Nearest Village Local | The Anchor',
+    title: 'Pubs in Longford | Your Nearest Village Local',
     description: `Staying in Longford or Bath Road hotels? Escape to ${BRAND.name} for authentic British food and better prices. Just a short walk or taxi ride away.`,
     openGraph: {
         title: 'Pubs in Longford — The Anchor, Stanwell Moor',
@@ -33,9 +32,7 @@ export const metadata: Metadata = {
     }
 }
 
-export default async function LongfordPubPage() {
-    const { rating, reviewCount } = await getBusinessStats()
-
+export default function LongfordPubPage() {
     const localBusinessSchema = {
         "@context": "https://schema.org",
         "@type": ["Restaurant", "BarOrPub"],
@@ -65,13 +62,6 @@ export default async function LongfordPubPage() {
                 "name": "Heathrow Bath Road"
             }
         ],
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": rating,
-            "reviewCount": reviewCount,
-            "bestRating": "5",
-            "worstRating": "1"
-        },
         "priceRange": "££",
         "servesCuisine": ["British", "Traditional English", "Fish and Chips", "Burger"],
         "telephone": CONTACT.phoneIntl,

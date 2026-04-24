@@ -12,10 +12,9 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
-import { getBusinessStats } from '@/lib/schema-with-reviews'
 
 export const metadata: Metadata = {
-    title: 'Pubs in Wraysbury | Dining, Entertainment & Free Parking | The Anchor',
+    title: 'Pubs in Wraysbury | Dining & Free Parking',
     description: `${BRAND.name} is a top-rated pub just 5 mins from Wraysbury. Famous Sunday Roasts, stone-baked pizzas, and live entertainment. Free parking & family friendly.`,
     openGraph: {
         title: 'Pubs in Wraysbury | Dining, Entertainment & Free Parking | The Anchor',
@@ -33,9 +32,7 @@ export const metadata: Metadata = {
     }
 }
 
-export default async function WraysburyPubPage() {
-    const { rating, reviewCount } = await getBusinessStats()
-
+export default function WraysburyPubPage() {
     const localBusinessSchema = {
         "@context": "https://schema.org",
         "@type": ["Restaurant", "BarOrPub"],
@@ -65,13 +62,6 @@ export default async function WraysburyPubPage() {
                 "name": "Horton"
             }
         ],
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": rating,
-            "reviewCount": reviewCount,
-            "bestRating": "5",
-            "worstRating": "1"
-        },
         "priceRange": "££",
         "servesCuisine": ["British", "Traditional English", "Sunday Roast", "Pizza"],
         "telephone": CONTACT.phoneIntl,

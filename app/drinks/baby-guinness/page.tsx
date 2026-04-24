@@ -10,7 +10,7 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
-  title: 'Baby Guinness Shot £3.50 | The Anchor - Heathrow Pub & Dining | Near Heathrow',
+  title: 'Baby Guinness Shot £3.50 | Near Heathrow',
   description: 'Perfect Baby Guinness shots at The Anchor, just 7 minutes from Heathrow. £3.50 each. Popular for hen parties and celebrations. Much cheaper than airport bars.',
   alternates: {
     canonical: '/drinks/baby-guinness'

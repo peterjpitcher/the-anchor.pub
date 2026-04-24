@@ -13,7 +13,7 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
 const NYE_BOOKING_URL = '/book-table?purpose=drinks'
 
-const PAGE_TITLE = "New Year's Eve Pub Near Heathrow | The Anchor Stanwell Moor"
+const PAGE_TITLE = "New Year's Eve Pub Near Heathrow"
 const PAGE_DESCRIPTION =
   "Ring in 2027 at The Anchor near Heathrow. New Year's Eve party with live entertainment, midnight countdown, and free parking. Book your spot."
 

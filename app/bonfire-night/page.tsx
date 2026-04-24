@@ -19,7 +19,7 @@ const BONFIRE_NIGHT_DAY = 'Thursday'
 const KITCHEN_HOURS = '6pm\u20139pm'
 
 export const metadata: Metadata = {
-  title: 'Bonfire Night at The Anchor | 5th November Near Heathrow',
+  title: 'Bonfire Night | 5th November Near Heathrow',
   description:
     'Bonfire Night 2026 at The Anchor near Heathrow. Warm up with pub food and drinks on 5th November. Beer garden views, free parking, dog-friendly.',
   alternates: { canonical: '/bonfire-night' },

@@ -36,12 +36,11 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { JsonLd } from '@/components/JsonLd'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { quizNightEventSeries } from '@/lib/schema'
-import { getBusinessStats } from '@/lib/schema-with-reviews'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { CONTACT } from '@/lib/constants'
 
 export const metadata: Metadata = {
-  title: 'Pub Quiz Near Heathrow | £3 Entry, Cash Prizes | The Anchor',
+  title: 'Pub Quiz Near Heathrow | £3 Entry, Cash Prizes',
   description:
     "Monthly quiz night at The Anchor, Stanwell Moor. £3 entry, £25 bar tab for the winners. Teams of up to 6. Free parking, 7 mins from Heathrow T5. Book your spot.",
   openGraph: {
@@ -267,10 +266,7 @@ function QuizNightEvents({ events }: { events: Event[] }) {
 }
 
 export default async function QuizNightPage() {
-  const [events, { rating, reviewCount }] = await Promise.all([
-    getQuizEvents(),
-    getBusinessStats()
-  ])
+  const events = await getQuizEvents()
   const nextEvent = events[0]
   const nextEventDate = nextEvent ? formatEventDate(nextEvent.startDate) : 'Next date announced soon'
   const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '7:30 pm start'
@@ -301,14 +297,7 @@ export default async function QuizNightPage() {
           "@id": "https://www.the-anchor.pub/#business",
           "name": "The Anchor",
           "url": "https://www.the-anchor.pub/quiz-night",
-          "telephone": CONTACT.phoneIntl,
-          "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": rating,
-            "reviewCount": reviewCount,
-            "bestRating": "5",
-            "worstRating": "1"
-          }
+          "telephone": CONTACT.phoneIntl
         }) }}
       />
       <HeroWrapper

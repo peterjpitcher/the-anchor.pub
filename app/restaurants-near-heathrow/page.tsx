@@ -15,7 +15,7 @@ import { generateKitchenHoursSpecification } from '@/lib/schema-utils'
 
 export const metadata: Metadata = {
   title: 'Where to Eat Near Heathrow Before Your Flight | 7 Mins from T5',
-  description: 'Pre-flight dining 7 minutes from Heathrow Terminal 5. Proper meals before you fly, layover food worth leaving the airport for, and free parking. Better than terminal restaurants.',
+  description: 'Pre-flight dining 7 minutes from Heathrow T5. Proper pub meals before you fly, free parking and prices that beat the terminal. Book a table.',
   openGraph: {
     title: 'Where to Eat Near Heathrow Before Your Flight | 7 Mins from T5',
     description: 'Pre-flight dining near Heathrow. Proper meals, free parking, 7 minutes from Terminal 5 — worth the detour.',

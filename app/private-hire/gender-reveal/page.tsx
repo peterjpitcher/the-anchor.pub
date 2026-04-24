@@ -14,7 +14,7 @@ import { getCateringData } from '@/lib/api/catering-packages'
 import { CateringPackagesTable } from '@/components/features/CateringPackagesTable'
 
 export const metadata: Metadata = {
-    title: 'Gender Reveal Party Venue | The Anchor',
+    title: 'Gender Reveal Party Venue Near Heathrow',
     description: `Hosting a gender reveal? The Anchor offers the perfect garden space for smoke cannons and confetti. Celebrate your baby news with family and friends.`,
     openGraph: {
         title: 'Gender Reveal Parties at The Anchor',
@@ -110,7 +110,7 @@ export default async function GenderRevealPage() {
             <section className="py-8 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-cream-text mb-4" as="h1" seo={{ structured: true, speakable: true }}>
+                        <PageTitle className="text-anchor-cream-text mb-4" as="h2" seo={{ structured: true, speakable: true }}>
                             Gender Reveal Party Venue Near Heathrow
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">

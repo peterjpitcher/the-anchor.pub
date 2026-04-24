@@ -68,110 +68,142 @@ async function getSitemapEvents(): Promise<Event[]> {
   return Array.from(uniqueEvents.values())
 }
 
-const STATIC_LAST_MODIFIED = new Date('2026-04-21')
+// Group dates by when pages were added/updated for more meaningful lastModified
+const DATES = {
+  launch: new Date('2025-06-01'),       // Original site launch pages
+  seoOverhaul: new Date('2026-03-22'),  // SEO overhaul batch
+  apr2026: new Date('2026-04-21'),      // April 2026 additions
+} as const
+
+type StaticRoute = { path: string; lastModified: Date }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://www.the-anchor.pub'
 
-  // Define all static routes
-  const staticRoutes = [
-    '',
-    '/about',
-    '/blog',
-    '/blog/tags',
-    '/food-menu',
-    '/food-menu/vegetarian',
-    '/food-menu/vegan',
-    '/food-menu/gluten-free',
-    '/mothers-day',
-    '/valentines-day',
-    '/st-patricks-day',
-    '/new-years-eve',
-    '/easter',
-    '/fathers-day',
-    '/halloween',
-    '/boxing-day',
-    '/bonfire-night',
-    '/bank-holiday-weekends',
-    '/sunday-lunch',
-    '/pizza-menu',
-    '/burger-menu',
-    '/fish-and-chips-heathrow',
-    '/drinks',
-    '/drinks/managers-special',
-    '/drinks/baby-guinness',
-    '/whats-on',
-    '/quiz-night',
-    '/cash-bingo',
-    '/music-bingo',
-    '/karaoke',
-    '/live-music',
-    '/open-mic',
-    '/live-sport',
+  // Define all static routes with meaningful lastModified dates
+  const staticRoutes: StaticRoute[] = [
+    // Core pages — original launch
+    { path: '', lastModified: DATES.apr2026 },
+    { path: '/about', lastModified: DATES.launch },
+    { path: '/blog', lastModified: DATES.apr2026 },
+    { path: '/blog/tags', lastModified: DATES.seoOverhaul },
+    { path: '/food-menu', lastModified: DATES.apr2026 },
+    { path: '/food-menu/vegetarian', lastModified: DATES.seoOverhaul },
+    { path: '/food-menu/vegan', lastModified: DATES.seoOverhaul },
+    { path: '/food-menu/gluten-free', lastModified: DATES.seoOverhaul },
+    { path: '/mothers-day', lastModified: DATES.seoOverhaul },
+    { path: '/valentines-day', lastModified: DATES.seoOverhaul },
+    { path: '/st-patricks-day', lastModified: DATES.seoOverhaul },
+    { path: '/new-years-eve', lastModified: DATES.seoOverhaul },
+    { path: '/easter', lastModified: DATES.seoOverhaul },
+    { path: '/fathers-day', lastModified: DATES.seoOverhaul },
+    { path: '/halloween', lastModified: DATES.seoOverhaul },
+    { path: '/boxing-day', lastModified: DATES.seoOverhaul },
+    { path: '/bonfire-night', lastModified: DATES.seoOverhaul },
+    { path: '/bank-holiday-weekends', lastModified: DATES.seoOverhaul },
+    { path: '/sunday-lunch', lastModified: DATES.apr2026 },
+    { path: '/pizza-menu', lastModified: DATES.seoOverhaul },
+    { path: '/burger-menu', lastModified: DATES.seoOverhaul },
+    { path: '/fish-and-chips-heathrow', lastModified: DATES.seoOverhaul },
+    { path: '/drinks', lastModified: DATES.apr2026 },
+    { path: '/drinks/managers-special', lastModified: DATES.seoOverhaul },
+    { path: '/drinks/baby-guinness', lastModified: DATES.seoOverhaul },
 
-    '/live-sport/six-nations',
-    '/live-sport/f1',
-    '/live-sport/boxing',
-    '/live-sport/world-cup',
-    '/pool-darts-pub',
-    '/summer-garden-parties',
-    '/book-table',
-    '/private-hire',
-    '/private-party-venue',
-    '/function-room-hire',
-    '/corporate-events',
-    '/corporate-christmas-parties',
-    '/christmas-parties',
-    '/private-hire/wakes',
-    '/private-hire/christenings',
-    '/private-hire/baby-showers',
-    '/private-hire/engagement-parties',
-    '/private-hire/gender-reveal',
-    '/private-hire/milestone-birthdays',
-    '/private-hire/retirement-parties',
-    '/near-heathrow',
-    '/near-heathrow/terminal-2',
-    '/near-heathrow/terminal-3',
-    '/near-heathrow/terminal-4',
-    '/near-heathrow/terminal-5',
-    '/find-us',
-    '/heathrow-layover-dining',
-    '/pre-flight-meal',
-    '/heathrow-family-dining',
-    '/luggage-storage-heathrow',
-    '/heathrow-parking',
-    '/heathrow-parking/terminal-2',
-    '/heathrow-parking/terminal-3',
-    '/heathrow-parking/terminal-4',
-    '/heathrow-parking/terminal-5',
-    '/coach-parking-heathrow',
-    '/restaurants-near-heathrow',
-    '/heathrow-hotels-pub',
-    '/pub-near-sofitel-heathrow',
-    '/pub-near-premier-inn-heathrow',
-    '/pub-near-hilton-heathrow',
-    '/pub-near-marriott-heathrow',
-    '/pub-near-crowne-plaza-heathrow',
-    '/pub-near-ibis-heathrow',
-    '/pub-near-travelodge-heathrow',
-    '/pub-near-renaissance-heathrow',
-    '/m25-junction-14-pub',
-    '/beer-garden',
-    '/our-pub',
-    '/plane-spotting-heathrow',
-    '/dog-friendly-pub-heathrow',
-    '/family-friendly-pub-heathrow',
-    '/ashford-pub',
-    '/colnbrook-pub',
-    '/feltham-pub',
-    '/staines-pub',
-    '/stanwell-pub',
-    '/sitemap-page',
-    '/privacy-policy',
-    '/accessibility',
-    '/safety-and-respect',
-    '/sustainability',
-    '/reviews',
+    // Events & entertainment
+    { path: '/whats-on', lastModified: DATES.apr2026 },
+    { path: '/quiz-night', lastModified: DATES.apr2026 },
+    { path: '/cash-bingo', lastModified: DATES.apr2026 },
+    { path: '/music-bingo', lastModified: DATES.apr2026 },
+    { path: '/karaoke', lastModified: DATES.apr2026 },
+    { path: '/live-music', lastModified: DATES.launch },
+    { path: '/open-mic', lastModified: DATES.launch },
+    { path: '/live-sport', lastModified: DATES.apr2026 },
+    { path: '/live-sport/six-nations', lastModified: DATES.seoOverhaul },
+    { path: '/live-sport/f1', lastModified: DATES.seoOverhaul },
+    { path: '/live-sport/boxing', lastModified: DATES.seoOverhaul },
+    { path: '/live-sport/world-cup', lastModified: DATES.seoOverhaul },
+    { path: '/pool-darts-pub', lastModified: DATES.seoOverhaul },
+    { path: '/summer-garden-parties', lastModified: DATES.seoOverhaul },
+
+    // Booking & private hire
+    { path: '/book-table', lastModified: DATES.apr2026 },
+    { path: '/private-hire', lastModified: DATES.launch },
+    { path: '/private-party-venue', lastModified: DATES.seoOverhaul },
+    { path: '/function-room-hire', lastModified: DATES.seoOverhaul },
+    { path: '/corporate-events', lastModified: DATES.seoOverhaul },
+    { path: '/corporate-christmas-parties', lastModified: DATES.seoOverhaul },
+    { path: '/christmas-parties', lastModified: DATES.seoOverhaul },
+    { path: '/private-hire/wakes', lastModified: DATES.seoOverhaul },
+    { path: '/private-hire/christenings', lastModified: DATES.seoOverhaul },
+    { path: '/private-hire/baby-showers', lastModified: DATES.seoOverhaul },
+    { path: '/private-hire/engagement-parties', lastModified: DATES.seoOverhaul },
+    { path: '/private-hire/gender-reveal', lastModified: DATES.seoOverhaul },
+    { path: '/private-hire/milestone-birthdays', lastModified: DATES.seoOverhaul },
+    { path: '/private-hire/retirement-parties', lastModified: DATES.seoOverhaul },
+
+    // Heathrow & location pages
+    { path: '/near-heathrow', lastModified: DATES.launch },
+    { path: '/near-heathrow/terminal-2', lastModified: DATES.launch },
+    { path: '/near-heathrow/terminal-3', lastModified: DATES.launch },
+    { path: '/near-heathrow/terminal-4', lastModified: DATES.launch },
+    { path: '/near-heathrow/terminal-5', lastModified: DATES.launch },
+    { path: '/find-us', lastModified: DATES.launch },
+    { path: '/heathrow-layover-dining', lastModified: DATES.seoOverhaul },
+    { path: '/pre-flight-meal', lastModified: DATES.seoOverhaul },
+    { path: '/heathrow-family-dining', lastModified: DATES.apr2026 },
+    { path: '/luggage-storage-heathrow', lastModified: DATES.seoOverhaul },
+    { path: '/heathrow-parking', lastModified: DATES.launch },
+    { path: '/heathrow-parking/terminal-2', lastModified: DATES.launch },
+    { path: '/heathrow-parking/terminal-3', lastModified: DATES.launch },
+    { path: '/heathrow-parking/terminal-4', lastModified: DATES.launch },
+    { path: '/heathrow-parking/terminal-5', lastModified: DATES.launch },
+    { path: '/coach-parking-heathrow', lastModified: DATES.seoOverhaul },
+    { path: '/restaurants-near-heathrow', lastModified: DATES.seoOverhaul },
+
+    // Hotel proximity pages
+    { path: '/heathrow-hotels-pub', lastModified: DATES.seoOverhaul },
+    { path: '/pub-near-sofitel-heathrow', lastModified: DATES.seoOverhaul },
+    { path: '/pub-near-premier-inn-heathrow', lastModified: DATES.seoOverhaul },
+    { path: '/pub-near-hilton-heathrow', lastModified: DATES.seoOverhaul },
+    { path: '/pub-near-marriott-heathrow', lastModified: DATES.seoOverhaul },
+    { path: '/pub-near-crowne-plaza-heathrow', lastModified: DATES.seoOverhaul },
+    { path: '/pub-near-ibis-heathrow', lastModified: DATES.seoOverhaul },
+    { path: '/pub-near-travelodge-heathrow', lastModified: DATES.seoOverhaul },
+    { path: '/pub-near-renaissance-heathrow', lastModified: DATES.seoOverhaul },
+    { path: '/pub-near-holiday-inn-heathrow', lastModified: DATES.apr2026 },
+    { path: '/pub-near-novotel-heathrow', lastModified: DATES.apr2026 },
+    { path: '/pub-near-radisson-blu-heathrow', lastModified: DATES.apr2026 },
+
+    // Venue & facilities
+    { path: '/m25-junction-14-pub', lastModified: DATES.seoOverhaul },
+    { path: '/beer-garden', lastModified: DATES.launch },
+    { path: '/our-pub', lastModified: DATES.apr2026 },
+    { path: '/plane-spotting-heathrow', lastModified: DATES.seoOverhaul },
+    { path: '/dog-friendly-pub-heathrow', lastModified: DATES.apr2026 },
+    { path: '/family-friendly-pub-heathrow', lastModified: DATES.seoOverhaul },
+
+    // Local area pages
+    { path: '/ashford-pub', lastModified: DATES.apr2026 },
+    { path: '/bedfont-pub', lastModified: DATES.apr2026 },
+    { path: '/colnbrook-pub', lastModified: DATES.apr2026 },
+    { path: '/egham-pub', lastModified: DATES.apr2026 },
+    { path: '/feltham-pub', lastModified: DATES.launch },
+    { path: '/horton-pub', lastModified: DATES.apr2026 },
+    { path: '/longford-pub', lastModified: DATES.apr2026 },
+    { path: '/staines-pub', lastModified: DATES.apr2026 },
+    { path: '/stanwell-pub', lastModified: DATES.apr2026 },
+    { path: '/sunbury-pub', lastModified: DATES.apr2026 },
+    { path: '/windsor-pub', lastModified: DATES.apr2026 },
+    { path: '/wraysbury-pub', lastModified: DATES.apr2026 },
+    { path: '/pubs-in-stanwell', lastModified: DATES.apr2026 },
+
+    // Footer / legal
+    { path: '/sitemap-page', lastModified: DATES.launch },
+    { path: '/privacy-policy', lastModified: DATES.launch },
+    { path: '/accessibility', lastModified: DATES.launch },
+    { path: '/safety-and-respect', lastModified: DATES.launch },
+    { path: '/sustainability', lastModified: DATES.launch },
+    { path: '/reviews', lastModified: DATES.seoOverhaul },
   ]
 
   // Get all blog posts
@@ -190,10 +222,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Map static routes
   const staticSitemap = staticRoutes.map((route) => ({
-    url: `${baseUrl}${route}`,
-    lastModified: STATIC_LAST_MODIFIED,
-    changeFrequency: (route === '' ? 'daily' : route === '/blog' ? 'daily' : route === '/book-table' ? 'daily' : route === '/safety-and-respect' ? 'yearly' : route === '/accessibility' || route === '/sustainability' ? 'monthly' : 'weekly') as 'daily' | 'weekly' | 'monthly' | 'yearly',
-    priority: route === '' ? 1.0 : route === '/book-table' ? 0.95 : route.includes('near-heathrow') ? 0.9 : route === '/blog' ? 0.9 : route.includes('-pub') ? 0.85 : route === '/accessibility' || route === '/sustainability' ? 0.7 : route === '/safety-and-respect' ? 0.6 : 0.8,
+    url: `${baseUrl}${route.path}`,
+    lastModified: route.lastModified,
   }))
 
   // Map blog post routes
@@ -202,8 +232,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     return {
       url: `${baseUrl}/blog/${post.slug}`,
       lastModified,
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
     }
   })
 
@@ -219,16 +247,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     .filter((tag) => !redirectSourceTags.has(tag))
     .map((tag) => ({
       url: `${baseUrl}/blog/tag/${tag}`,
-      lastModified: STATIC_LAST_MODIFIED,
-      changeFrequency: 'weekly' as const,
-      priority: 0.6,
+      lastModified: DATES.apr2026,
     }))
 
   const landmarkSitemap = landmarks.map((landmark) => ({
     url: `${baseUrl}/private-hire/near/${landmark.slug}`,
-    lastModified: STATIC_LAST_MODIFIED,
-    changeFrequency: 'monthly' as const,
-    priority: 0.7,
+    lastModified: DATES.seoOverhaul,
   }))
 
   const nowMs = Date.now()
@@ -252,14 +276,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     .map((event) => ({
       url: `${baseUrl}${getEventWebsitePath(event)}`,
       lastModified: getSafeDate(event._meta?.lastUpdated ?? event.startDate),
-      changeFrequency:
-        Date.parse(event.startDate) > nowMs
-          ? ('daily' as const)
-          : ('monthly' as const),
-      priority:
-        Date.parse(event.startDate) > nowMs
-          ? 0.85
-          : 0.65,
     }))
 
   return [...staticSitemap, ...blogSitemap, ...tagSitemap, ...landmarkSitemap, ...eventSitemap]

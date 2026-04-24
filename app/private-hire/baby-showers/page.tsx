@@ -17,7 +17,7 @@ import { getCateringData } from '@/lib/api/catering-packages'
 import { CateringPackagesTable } from '@/components/features/CateringPackagesTable'
 
 export const metadata: Metadata = {
-    title: 'Baby Shower Venue Near Ashford Hospital | The Anchor',
+    title: 'Baby Shower Venue Near Ashford Hospital',
     description: 'Host the perfect baby shower at The Anchor. Afternoon tea packages, mocktails, and private spaces near Ashford Hospital. Free parking.',
     openGraph: {
         title: 'Baby Shower Venue | The Anchor Stanwell Moor',
@@ -134,7 +134,7 @@ export default async function BabyShowersPage() {
 
             <section className="py-12 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
-                    <PageTitle className="text-center mb-6" as="h1" seo={{ structured: true, speakable: true }}>
+                    <PageTitle className="text-center mb-6" as="h2" seo={{ structured: true, speakable: true }}>
                         Baby Shower Venue Near Ashford Hospital & Heathrow
                     </PageTitle>
                     <div className="max-w-3xl mx-auto text-center">

@@ -8,11 +8,19 @@ import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { BookTableButton } from '@/components/BookTableButton'
 
 export const metadata: Metadata = {
-  title: 'Sustainability | The Anchor - BII Sustainability Champion',
+  title: 'Sustainability | BII Sustainability Champion',
   description: 'Award-winning sustainability practices at The Anchor, Stanwell Moor. BII Sustainability Champion. What we do, why it matters, and what we\'re still working on.',
   openGraph: {
     title: 'Sustainability | The Anchor - BII Sustainability Champion',
     description: 'Award-winning sustainability practices at The Anchor, Stanwell Moor. BII Sustainability Champion. What we do, why it matters, and what we\'re still working on.',
+    images: [
+      {
+        url: '/images/page-headers/home/page-headers-homepage.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'The Anchor in Stanwell Moor',
+      },
+    ],
   },
   twitter: getTwitterMetadata({
     title: 'Sustainability | The Anchor - BII Sustainability Champion',

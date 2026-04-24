@@ -638,7 +638,6 @@ export function Navigation({
         width={logo.width}
         height={logo.height}
         className={cn(size === 'sm' ? 'h-12 w-auto' : 'h-16 w-auto')}
-        priority
         sizes={size === 'sm' ? '120px' : '150px'}
       />
     </Link>
@@ -759,7 +758,6 @@ export function Navigation({
                 width={logo.width}
                 height={logo.height}
                 className="h-12 w-auto"
-                priority
                 sizes="150px"
               />
             </Link>

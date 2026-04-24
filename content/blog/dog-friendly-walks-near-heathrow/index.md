@@ -18,7 +18,7 @@ hero: "hero.jpg"
 images: []
 ---
 
-# Dog-Friendly Pubs & Walks Near Heathrow Airport
+## Dog-Friendly Pubs & Walks Near Heathrow Airport
 
 Living near Heathrow doesn't mean sacrificing green space. Some of Surrey's best walks are minutes from the airport — and most of them end within strolling distance of a dog-friendly pub.
 

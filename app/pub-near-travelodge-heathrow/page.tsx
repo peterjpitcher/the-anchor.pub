@@ -12,7 +12,7 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-  title: 'Pub Near Travelodge Heathrow | 10 Mins | Free Parking | The Anchor',
+  title: 'Pub Near Travelodge Heathrow | 10 Mins | Free Parking',
   description: 'Great pub just 10 minutes from Travelodge London Heathrow. Real British food, proper ales & free parking. The smart traveller\'s dinner upgrade near Heathrow.',
   openGraph: {
     title: 'Pub Near Travelodge Heathrow | 10 Mins | Free Parking | The Anchor',
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 const localBusinessSchema = {
   '@context': 'https://schema.org',
   '@type': ['Restaurant', 'BarOrPub'],
-  '@id': 'https://www.the-anchor.pub/pub-near-travelodge-heathrow#business',
+  '@id': 'https://www.the-anchor.pub/#business',
   name: `${BRAND.name} - Near Travelodge Heathrow`,
   image: `https://www.the-anchor.pub${DEFAULT_PAGE_HEADER_IMAGE}`,
   address: {

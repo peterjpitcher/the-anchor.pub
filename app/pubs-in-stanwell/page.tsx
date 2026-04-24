@@ -12,7 +12,7 @@ import { getBusinessHours } from '@/lib/api'
 import { generateOpeningHoursSpecification } from '@/lib/schema-utils'
 
 export const metadata: Metadata = {
-  title: 'Pubs in Stanwell Moor | Village Pub & Beer Garden | The Anchor',
+  title: 'Pubs in Stanwell Moor | Village Pub & Beer Garden',
   description: 'The Anchor is the heart of Stanwell Moor village. Traditional pub with beer garden, free parking, great food and live entertainment. Your proper local in TW19.',
   openGraph: {
     title: 'Pubs in Stanwell Moor | Village Pub & Beer Garden | The Anchor',

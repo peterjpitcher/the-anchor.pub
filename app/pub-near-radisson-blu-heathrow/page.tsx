@@ -12,7 +12,7 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-  title: 'Pub Near Radisson Blu Heathrow | 12 Mins | The Anchor',
+  title: 'Pub Near Radisson Blu Heathrow | 12 Mins',
   description: 'Authentic British pub 12 minutes from Radisson Blu Edwardian Heathrow. Draught beers, home-cooked food & free parking. A genuine local alternative to hotel dining.',
   openGraph: {
     title: 'Pub Near Radisson Blu Heathrow | 12 Mins | The Anchor',
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 const localBusinessSchema = {
   '@context': 'https://schema.org',
   '@type': ['Restaurant', 'BarOrPub'],
-  '@id': 'https://www.the-anchor.pub/pub-near-radisson-blu-heathrow#business',
+  '@id': 'https://www.the-anchor.pub/#business',
   name: `${BRAND.name} - Near Radisson Blu Heathrow`,
   image: `https://www.the-anchor.pub${DEFAULT_PAGE_HEADER_IMAGE}`,
   address: {

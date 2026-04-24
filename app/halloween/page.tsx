@@ -17,7 +17,7 @@ const addressLine = `${CONTACT.address.street}, ${CONTACT.address.town}, ${CONTA
 const mapQuery = `The Anchor, ${CONTACT.address.street}, ${CONTACT.address.postcode}`
 
 export const metadata: Metadata = {
-  title: 'Halloween Pub Near Heathrow | Fancy Dress & Themed Cocktails at The Anchor',
+  title: 'Halloween Pub Near Heathrow | Fancy Dress & Cocktails',
   description:
     'Halloween 2026 at The Anchor near Heathrow. Fancy dress party, themed cocktails, spooky decorations. Free parking, dog-friendly. 31 October.',
   alternates: { canonical: '/halloween' },

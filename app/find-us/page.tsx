@@ -22,8 +22,8 @@ import { parkingFacilitySchema } from '@/lib/schemas/parking'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-  title: 'Directions to The Anchor (TW19 6AQ) | Free Parking | Near Heathrow T5',
-  description: 'Get directions to The Anchor on Horton Road, Stanwell Moor TW19 6AQ. Seven minutes from Heathrow Terminal 5 with free parking and easy access from M25 Junction 14 and Staines.',
+  title: 'Directions (TW19 6AQ) | Free Parking | Near Heathrow T5',
+  description: 'Directions to The Anchor, Horton Road, Stanwell Moor TW19 6AQ. Seven minutes from Heathrow T5 with free parking. Easy access from M25 J14 and Staines.',
   openGraph: {
     title: 'Directions to The Anchor (TW19 6AQ)',
     description: 'Driving and public transport directions from Heathrow terminals to The Anchor on Horton Road with free parking.',
@@ -64,7 +64,14 @@ export default function FindUsPage() {
       <SpeakableSchema />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([findUsPlaceSchema, breadcrumbSchema, howToFromHeathrowSchema, parkingFacilitySchema]) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([findUsPlaceSchema, breadcrumbSchema, howToFromHeathrowSchema, parkingFacilitySchema, {
+          "@context": "https://schema.org",
+          "@type": "ContactPage",
+          "name": "Find The Anchor — Directions & Contact",
+          "description": "Get directions to The Anchor on Horton Road, Stanwell Moor TW19 6AQ. Seven minutes from Heathrow Terminal 5 with free parking.",
+          "url": "https://www.the-anchor.pub/find-us",
+          "mainEntity": { "@id": "https://www.the-anchor.pub/#business" }
+        }]) }}
       />
       {/* Hero Section */}
       <HeroWrapper

@@ -12,10 +12,9 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
-import { getBusinessStats } from '@/lib/schema-with-reviews'
 
 export const metadata: Metadata = {
-    title: 'Pubs in Sunbury | The Anchor - Sunday Roasts & Free Parking',
+    title: 'Pubs in Sunbury | Sunday Roasts & Free Parking',
     description: `Looking for pubs in Sunbury? ${BRAND.name} is a favourite for Sunbury residents. Exceptional Sunday roasts, stone-baked pizzas, family-friendly atmosphere, and free parking.`,
     openGraph: {
         title: 'Pubs in Sunbury | The Anchor Stanwell Moor',
@@ -33,9 +32,7 @@ export const metadata: Metadata = {
     }
 }
 
-export default async function SunburyPubPage() {
-    const { rating, reviewCount } = await getBusinessStats()
-
+export default function SunburyPubPage() {
     const localBusinessSchema = {
         "@context": "https://schema.org",
         "@type": ["Restaurant", "BarOrPub"],
@@ -65,13 +62,6 @@ export default async function SunburyPubPage() {
                 "name": "Upper Halliford"
             }
         ],
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": rating,
-            "reviewCount": reviewCount,
-            "bestRating": "5",
-            "worstRating": "1"
-        },
         "priceRange": "££",
         "servesCuisine": ["British", "Traditional English", "Sunday Roast", "Pizza"],
         "telephone": CONTACT.phoneIntl,

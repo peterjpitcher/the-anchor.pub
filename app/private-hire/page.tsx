@@ -22,7 +22,7 @@ export async function generateMetadata(): Promise<Metadata> {
     const desc = `Book a function room or party venue near Heathrow for 10-50 guests. Buffets from ${fromPrice}pp, free parking, and a dedicated events team.`
 
     return {
-        title: 'Private Hire Venue Near Heathrow | Wakes, Parties & Events | The Anchor',
+        title: 'Private Hire Venue Near Heathrow | Wakes, Parties & Events',
         description: `${desc} The Anchor, Stanwell Moor.`,
         openGraph: {
             title: 'Private Hire Venue Near Heathrow | Wakes, Parties & Events | The Anchor',
@@ -87,7 +87,17 @@ export default async function PrivateHirePage() {
         <>
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(eventVenueSchema) }}
+                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([
+                    {
+                        "@context": "https://schema.org",
+                        "@type": "WebPage",
+                        "name": "Private Hire Venue Near Heathrow",
+                        "description": "Book a function room or party venue near Heathrow for 10-50 guests. Free parking and a dedicated events team.",
+                        "url": "https://www.the-anchor.pub/private-hire",
+                        "about": { "@id": "https://www.the-anchor.pub/#business" }
+                    },
+                    eventVenueSchema
+                ]) }}
             />
             <BreadcrumbJsonLd
                 items={[

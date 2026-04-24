@@ -18,7 +18,7 @@ import {
 } from '@/components/ui'
 
 export const metadata: Metadata = {
-  title: 'About The Anchor | Our Story Since 1751',
+  title: 'About Us | Our Story Since 1751',
   description:
     "The Anchor in Stanwell Moor has been a village pub since 1751. Rated 4.6/5 on Google with 5-star food hygiene. Meet the team behind Heathrow\u2019s favourite local pub.",
   alternates: { canonical: '/about' },
@@ -30,6 +30,14 @@ export const metadata: Metadata = {
     siteName: 'The Anchor',
     locale: 'en_GB',
     type: 'website',
+    images: [
+      {
+        url: '/images/page-headers/home/page-headers-homepage.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'The Anchor in Stanwell Moor',
+      },
+    ],
   },
 }
 
@@ -62,12 +70,6 @@ const aboutPageSchema = {
     telephone: '+441753682707',
     email: 'manager@the-anchor.pub',
     url: 'https://www.the-anchor.pub',
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '4.6',
-      bestRating: '5',
-      ratingCount: '238',
-    },
     amenityFeature: [
       { '@type': 'LocationFeatureSpecification', name: 'Free Parking', value: true },
       { '@type': 'LocationFeatureSpecification', name: 'Dog Friendly', value: true },

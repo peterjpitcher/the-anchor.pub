@@ -34,8 +34,8 @@ const AREA_LINKS = [
 ]
 
 export const metadata: Metadata = {
-  title: 'World Cup Pub Near Me | Watch 2026 Live | The Anchor Stanwell Moor',
-  description: `See every FIFA World Cup 2026 kick-off time in UK time (BST) and book tables for matches we're showing at ${BRAND.name}, Stanwell Moor near Heathrow Terminal 5. 4 screens, sound on for games we show, free parking.`,
+  title: 'World Cup Pub Near Me | Watch 2026 Live',
+  description: `FIFA World Cup 2026 kick-off times (UK) and table bookings at ${BRAND.name}, Stanwell Moor. 4 screens, sound on, free parking near Heathrow T5.`,
   openGraph: {
     title: 'Watch FIFA World Cup 2026 at The Anchor',
     description: 'All match dates in one place. 4 screens, sound on for games we show, and proper pub atmosphere near Heathrow.',

@@ -571,7 +571,11 @@ export async function getUpcomingEvents(limit: number = 10, daysLookahead?: numb
     })
   } catch (error) {
     logError('api-upcoming-events', error, { limit, daysLookahead })
-    return createFallbackEventsResponse().events
+    // Return empty array on failure — UI components should handle the empty state.
+    // Previously this returned a hardcoded fallback event ("the-anchor-showcase")
+    // which rendered as a real event on the homepage but produced 404s on
+    // calendar link endpoints (e.g. /api/calendar/event/the-anchor-showcase).
+    return []
   }
 }
 

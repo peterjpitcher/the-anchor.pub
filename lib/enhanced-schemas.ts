@@ -109,8 +109,7 @@ export const drinksMenuSchema = {
           "offers": {
             "@type": "Offer",
             "price": "4.50",
-            "priceCurrency": "GBP",
-            "unitCode": "175ml glass"
+            "priceCurrency": "GBP"
           }
         }
       ]
@@ -118,53 +117,13 @@ export const drinksMenuSchema = {
   ]
 }
 
-// Enhanced Place Schema for Find Us page
+// Enhanced Place Schema for Find Us page — references the canonical business entity
 export const findUsPlaceSchema = {
   "@context": "https://schema.org",
   "@type": "Restaurant",
-  "name": "The Anchor",
-  "description": "Traditional British pub near Heathrow Airport with free parking",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "Horton Road",
-    "addressLocality": "Stanwell Moor",
-    "addressRegion": "Surrey",
-    "postalCode": "TW19 6AQ",
-    "addressCountry": "GB"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 51.462509,
-    "longitude": -0.502067
-  },
+  "@id": "https://www.the-anchor.pub/#business",
   "hasMap": "https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ",
-  "publicAccess": true,
-  "smokingAllowed": "Outside only",
-  "amenityFeature": [
-    {
-      "@type": "LocationFeatureSpecification",
-      "name": "Free Parking",
-      "value": true
-    },
-    {
-      "@type": "LocationFeatureSpecification",
-      "name": "Wheelchair Accessible",
-      "value": true
-    },
-    {
-      "@type": "LocationFeatureSpecification",
-      "name": "Beer Garden",
-      "value": true
-    },
-    {
-      "@type": "LocationFeatureSpecification",
-      "name": "Dog Friendly",
-      "value": true
-    }
-  ],
-  "paymentAccepted": "Cash, Credit Card, Debit Card, Contactless",
-  "currenciesAccepted": "GBP",
-  "priceRange": "££"
+  "publicAccess": true
 }
 
 // Event Booking Service Schema
@@ -174,8 +133,7 @@ export const eventBookingServiceSchema = {
   "name": "Private Event Hosting at The Anchor",
   "description": "Host your special event at The Anchor - birthdays, wakes, corporate events, and celebrations",
   "provider": {
-    "@type": "Restaurant",
-    "name": "The Anchor"
+    "@id": "https://www.the-anchor.pub/#business"
   },
   "areaServed": {
     "@type": "GeoCircle",

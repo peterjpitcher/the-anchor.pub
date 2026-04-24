@@ -13,7 +13,7 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-  title: 'Pub Near Sofitel Heathrow | 7 Mins from T5 | The Anchor',
+  title: 'Pub Near Sofitel Heathrow | 7 Mins from T5',
   description: 'Traditional British pub just 7 minutes from Sofitel London Heathrow Terminal 5. Escape hotel prices — draught beers, home-cooked food & free parking. Book a table.',
   openGraph: {
     title: 'Pub Near Sofitel Heathrow T5 | 7 Mins Away | The Anchor',
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
 const localBusinessSchema = {
   '@context': 'https://schema.org',
   '@type': ['Restaurant', 'BarOrPub'],
-  '@id': 'https://www.the-anchor.pub/pub-near-sofitel-heathrow#business',
+  '@id': 'https://www.the-anchor.pub/#business',
   name: `${BRAND.name} - Near Sofitel Heathrow`,
   image: `https://www.the-anchor.pub${DEFAULT_PAGE_HEADER_IMAGE}`,
   address: {

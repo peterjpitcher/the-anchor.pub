@@ -12,10 +12,9 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
-import { getBusinessStats } from '@/lib/schema-with-reviews'
 
 export const metadata: Metadata = {
-    title: 'Pubs in Horton | The Anchor - Your Closest Village Pub',
+    title: 'Pubs in Horton | Your Closest Village Pub',
     description: `Looking for pubs in Horton? ${BRAND.name} in Stanwell Moor is just 2 mins away. Free parking, Sunday roasts, draught beers, and a warm village welcome.`,
     openGraph: {
         title: 'Pubs in Horton | The Anchor Stanwell Moor',
@@ -33,9 +32,7 @@ export const metadata: Metadata = {
     }
 }
 
-export default async function HortonPubPage() {
-    const { rating, reviewCount } = await getBusinessStats()
-
+export default function HortonPubPage() {
     const localBusinessSchema = {
         "@context": "https://schema.org",
         "@type": ["Restaurant", "BarOrPub"],
@@ -65,13 +62,6 @@ export default async function HortonPubPage() {
                 "name": "Stanwell Moor"
             }
         ],
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": rating,
-            "reviewCount": reviewCount,
-            "bestRating": "5",
-            "worstRating": "1"
-        },
         "priceRange": "££",
         "servesCuisine": ["British", "Traditional English", "Sunday Roast"],
         "telephone": CONTACT.phoneIntl,

@@ -12,7 +12,7 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-  title: 'Pub Near Novotel Heathrow | 15 Mins | Free Parking | The Anchor',
+  title: 'Pub Near Novotel Heathrow | 15 Mins | Free Parking',
   description: 'Traditional British pub 15 minutes from Novotel London Heathrow. Home-cooked food, draught beers & free parking. An independent alternative to hotel dining near Heathrow.',
   openGraph: {
     title: 'Pub Near Novotel Heathrow | 15 Mins | Free Parking | The Anchor',
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 const localBusinessSchema = {
   '@context': 'https://schema.org',
   '@type': ['Restaurant', 'BarOrPub'],
-  '@id': 'https://www.the-anchor.pub/pub-near-novotel-heathrow#business',
+  '@id': 'https://www.the-anchor.pub/#business',
   name: `${BRAND.name} - Near Novotel Heathrow`,
   image: `https://www.the-anchor.pub${DEFAULT_PAGE_HEADER_IMAGE}`,
   address: {

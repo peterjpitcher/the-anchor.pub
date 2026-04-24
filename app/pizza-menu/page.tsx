@@ -13,7 +13,7 @@ import Image from 'next/image'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
-    title: 'Pizza Near Heathrow | Barrel & Stone at The Anchor',
+    title: 'Pizza Near Heathrow | Barrel & Stone',
     description: `Experience authentic Barrel & Stone pizza at ${BRAND.name} near Heathrow. Freshly prepared, stone-baked on site using finest Italian ingredients. Crisp, thin, and delicious.`,
     openGraph: {
         title: 'Pizza Near Heathrow | Stone Baked at The Anchor',

@@ -12,7 +12,7 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-  title: 'Pub Near ibis Heathrow | 12 Mins | Free Parking | The Anchor',
+  title: 'Pub Near ibis Heathrow | 12 Mins | Free Parking',
   description: 'Independent pub 12 minutes from ibis London Heathrow. Real British food, draught beers & free parking. Spend less on your hotel, spend more on your evening out.',
   openGraph: {
     title: 'Pub Near ibis Heathrow | 12 Mins | Free Parking | The Anchor',
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 const localBusinessSchema = {
   '@context': 'https://schema.org',
   '@type': ['Restaurant', 'BarOrPub'],
-  '@id': 'https://www.the-anchor.pub/pub-near-ibis-heathrow#business',
+  '@id': 'https://www.the-anchor.pub/#business',
   name: `${BRAND.name} - Near ibis Heathrow`,
   image: `https://www.the-anchor.pub${DEFAULT_PAGE_HEADER_IMAGE}`,
   address: {

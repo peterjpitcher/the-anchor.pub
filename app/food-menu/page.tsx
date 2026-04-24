@@ -143,8 +143,8 @@ function deriveKitchenStatusData(hours: BusinessHours | null): KitchenStatusData
 }
 
 export const metadata: Metadata = {
-  title: 'Where to Eat Near Heathrow Airport | Pub Food Menu | The Anchor',
-  description: 'Where to eat near Heathrow Airport? The Anchor serves fish & chips from £15, stone-baked pizza from £12, burgers from £11 and Sunday roasts from £19. Free parking, 7 mins from T5. Book a table online.',
+  title: 'Where to Eat Near Heathrow Airport | Pub Food Menu',
+  description: 'Pub food menu near Heathrow. Fish & chips from £15, stone-baked pizza from £12, burgers from £11 and Sunday roasts from £19. Free parking, 7 mins from T5.',
   openGraph: {
     title: 'Where to Eat Near Heathrow Airport | Pub Food Menu | The Anchor',
     description: 'Looking for restaurants near Heathrow? The Anchor serves proper pub food — fish & chips, pizza, pies and Sunday roasts. Free parking, 7 mins from T5. View our menu.',
@@ -688,6 +688,14 @@ export default async function FoodMenuPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: jsonLdSafeStringify([
+            {
+              '@context': 'https://schema.org',
+              '@type': 'WebPage',
+              'name': 'Food Menu — The Anchor Near Heathrow',
+              'description': 'Where to eat near Heathrow Airport? The Anchor serves fish & chips, stone-baked pizza, burgers and Sunday roasts. Free parking, 7 mins from T5.',
+              'url': 'https://www.the-anchor.pub/food-menu',
+              'mainEntity': { '@id': 'https://www.the-anchor.pub/food-menu#menu' }
+            },
             {
               '@context': 'https://schema.org',
               '@type': 'Menu',

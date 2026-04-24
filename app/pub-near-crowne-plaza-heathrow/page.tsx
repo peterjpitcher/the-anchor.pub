@@ -12,7 +12,7 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-  title: 'Pub Near Crowne Plaza Heathrow | 12 Mins | Free Parking | The Anchor',
+  title: 'Pub Near Crowne Plaza Heathrow | 12 Mins | Free Parking',
   description: 'Traditional British pub 12 minutes from Crowne Plaza London Heathrow. Draught beers, home-cooked food & free parking. The ideal local for corporate guests.',
   openGraph: {
     title: 'Pub Near Crowne Plaza Heathrow | 12 Mins | Free Parking',
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 const localBusinessSchema = {
   '@context': 'https://schema.org',
   '@type': ['Restaurant', 'BarOrPub'],
-  '@id': 'https://www.the-anchor.pub/pub-near-crowne-plaza-heathrow#business',
+  '@id': 'https://www.the-anchor.pub/#business',
   name: `${BRAND.name} - Near Crowne Plaza Heathrow`,
   image: `https://www.the-anchor.pub${DEFAULT_PAGE_HEADER_IMAGE}`,
   address: {

@@ -12,7 +12,7 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-  title: 'Pubs in Egham — Best Alternative with Free Parking | The Anchor',
+  title: 'Pubs in Egham | Free Parking Alternative',
   description: 'Searching for pubs in Egham? The Anchor is just 12 minutes away with free parking, Sunday roasts, stone-baked pizzas and a warm local welcome for Royal Holloway students.',
   openGraph: {
     title: 'Pubs in Egham — The Anchor, Stanwell Moor',

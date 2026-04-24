@@ -16,7 +16,7 @@ import { getCateringData } from '@/lib/api/catering-packages'
 import { CateringPackagesTable } from '@/components/features/CateringPackagesTable'
 
 export const metadata: Metadata = {
-    title: 'Engagement Party Venue Near Heathrow | The Anchor Pub',
+    title: 'Engagement Party Venue Near Heathrow',
     description: `Looking for an engagement party venue? Celebrate at ${BRAND.name} with prosecco packages, flexible buffets, and private areas. Free parking near Staines and Heathrow.`,
     openGraph: {
         title: 'Engagement Party Venue | The Anchor Stanwell Moor',
@@ -112,7 +112,7 @@ export default async function EngagementPartiesPage() {
             <section className="py-8 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-cream-text mb-4" as="h1" seo={{ structured: true, speakable: true }}>
+                        <PageTitle className="text-anchor-cream-text mb-4" as="h2" seo={{ structured: true, speakable: true }}>
                             Engagement Party Venue Near Heathrow & Staines
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">

@@ -8,7 +8,7 @@ interface Props {
 }
 
 export const metadata: Metadata = {
-  title: 'Parking Confirmed | The Anchor',
+  title: 'Parking Confirmed',
   robots: { index: false },
 }
 

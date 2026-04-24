@@ -18,8 +18,8 @@ import { PARKING } from '@/lib/constants'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-  title: 'Pubs Near Heathrow Terminal 2 | 11 Mins from T2 | Free Parking | The Anchor',
-  description: "Nearest pub to Heathrow Terminal 2 (Queen's Terminal). 11 minutes by taxi, free parking if driving. Home-cooked British food, dog-friendly beer garden. Book a table today.",
+  title: 'Pubs Near Heathrow Terminal 2 | 11 Mins | Free Parking',
+  description: "Nearest pub to Heathrow Terminal 2 (Queen's Terminal). 11 minutes by taxi, free parking if driving. Home-cooked British food and dog-friendly beer garden.",
   openGraph: {
     title: "Pubs Near Heathrow Terminal 2 | 11 Mins Away | Free Parking",
     description: "11 minutes from T2 (Queen's Terminal). Free parking for 20 cars. Home-cooked British food & dog-friendly beer garden.",
@@ -733,7 +733,7 @@ export default function Terminal2Page() {
             "@type": "Restaurant",
             "name": "The Anchor - Pub Near Heathrow Terminal 2",
             "description": "Traditional British pub just 11 minutes from Heathrow Terminal 2 with free parking.",
-            "image": "https://www.the-anchor.pub/images/page-headers/near-heathrow/Heathrow.jpg",
+            "image": "https://www.the-anchor.pub/images/page-headers/near-heathrow/heathrow-airport-view.jpg",
             "address": {
               "@type": "PostalAddress",
               "streetAddress": "Horton Road",

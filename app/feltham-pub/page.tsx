@@ -12,7 +12,7 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-  title: 'Pub Near Feltham | Free Parking & Sunday Roasts | The Anchor',
+  title: 'Pub Near Feltham | Free Parking & Sunday Roasts',
   description: 'Looking for pubs near Feltham? The Anchor is just 10 minutes away with free parking, Sunday roasts from £19, stone-baked pizzas and quiz nights in a relaxed village pub.',
   openGraph: {
     title: 'Pub Near Feltham | Free Parking & Sunday Roasts | The Anchor',

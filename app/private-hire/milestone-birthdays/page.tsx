@@ -112,7 +112,7 @@ export default async function MilestoneBirthdaysPage() {
             <section className="py-8 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle className="text-anchor-cream-text mb-4" as="h1" seo={{ structured: true, speakable: true }}>
+                        <PageTitle className="text-anchor-cream-text mb-4" as="h2" seo={{ structured: true, speakable: true }}>
                             Milestone Birthday Party Venue — 21st, 30th, 40th, 50th
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">

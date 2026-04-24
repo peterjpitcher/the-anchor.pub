@@ -12,7 +12,7 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-  title: 'Pub Near Premier Inn Heathrow | 8 Mins | Free Parking | The Anchor',
+  title: 'Pub Near Premier Inn Heathrow | 8 Mins | Free Parking',
   description: 'Great pub just 8 minutes from Premier Inn Heathrow. Independent British pub with home-cooked food, draught beers & free parking. A real alternative to hotel dining.',
   openGraph: {
     title: 'Pub Near Premier Inn Heathrow | 8 Mins | Free Parking',
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 const localBusinessSchema = {
   '@context': 'https://schema.org',
   '@type': ['Restaurant', 'BarOrPub'],
-  '@id': 'https://www.the-anchor.pub/pub-near-premier-inn-heathrow#business',
+  '@id': 'https://www.the-anchor.pub/#business',
   name: `${BRAND.name} - Near Premier Inn Heathrow`,
   image: `https://www.the-anchor.pub${DEFAULT_PAGE_HEADER_IMAGE}`,
   address: {

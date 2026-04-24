@@ -17,7 +17,7 @@ const addressLine = `${CONTACT.address.street}, ${CONTACT.address.town}, ${CONTA
 const mapQuery = `The Anchor, ${CONTACT.address.street}, ${CONTACT.address.postcode}`
 
 export const metadata: Metadata = {
-  title: 'Boxing Day Pub Near Heathrow | Walk & Lunch at The Anchor',
+  title: 'Boxing Day Pub Near Heathrow | Walk & Lunch',
   description:
     'Boxing Day 2026 at The Anchor near Heathrow. Escape the leftovers \u2014 proper pub food, craft beer, and a walk around Stanwell Moor. Free parking. Dog-friendly.',
   alternates: { canonical: '/boxing-day' },

@@ -66,12 +66,6 @@ export default function FamilyDiningPage() {
                         "latitude": 51.462509,
                         "longitude": -0.502067
                     },
-                    "aggregateRating": {
-                        "@type": "AggregateRating",
-                        "ratingValue": "4.6",
-                        "bestRating": "5",
-                        "reviewCount": "238"
-                    },
                     "amenityFeature": [
                         { "@type": "LocationFeatureSpecification", "name": "High Chairs", "value": true },
                         { "@type": "LocationFeatureSpecification", "name": "Children's Menu", "value": true },
@@ -124,7 +118,7 @@ export default function FamilyDiningPage() {
             <section className="py-8 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
-                        <PageTitle as="h1" className="text-anchor-cream-text mb-4">
+                        <PageTitle as="h2" className="text-anchor-cream-text mb-4">
                             Family-Friendly Pub &amp; Restaurant Near Heathrow Airport
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">

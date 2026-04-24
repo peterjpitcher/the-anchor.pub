@@ -6,11 +6,19 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { Section } from '@/components/ui'
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy & Cookie Policy | The Anchor',
-  description: 'Learn how The Anchor collects, uses, and protects your personal information and data.',
+  title: 'Privacy Policy & Cookie Policy',
+  description: 'Privacy and cookie policy for The Anchor, Stanwell Moor. How we collect, use and protect your data when you book a table, enquire about events or browse our site.',
   openGraph: {
     title: 'Privacy Policy & Cookie Policy | The Anchor',
     description: 'Learn how The Anchor collects, uses, and protects your personal information and data.',
+    images: [
+      {
+        url: '/images/page-headers/home/page-headers-homepage.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'The Anchor in Stanwell Moor',
+      },
+    ],
   },
   alternates: {
     canonical: '/privacy-policy'

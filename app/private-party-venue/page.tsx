@@ -15,8 +15,8 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-  title: 'Birthday Party Venue Near Heathrow & Staines | Celebrations | The Anchor',
-  description: 'Book The Anchor for birthday parties and celebrations near Heathrow and Staines. DJ space, late licence, decorations welcome, and dedicated party coordinators. 10-200 guests with free parking.',
+  title: 'Birthday Party Venue Near Heathrow & Staines',
+  description: 'Book The Anchor for birthday parties near Heathrow and Staines. DJ space, late licence, decorations welcome. 10-200 guests with free parking.',
   openGraph: {
     title: 'Birthday Party Venue Near Heathrow - Celebrations at The Anchor',
     description: 'Birthday parties and celebrations with DJ space, late licence, and free parking near Heathrow.',

@@ -12,11 +12,10 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
-import { getBusinessStats } from '@/lib/schema-with-reviews'
 
 export const metadata: Metadata = {
-  title: 'Pubs in Staines-upon-Thames | Beer Garden, Roasts & Free Parking | The Anchor',
-  description: 'Pub near Staines rated 4.6/5 on Google. Sunday roasts from £19, dog-friendly beer garden, quiz nights, Music Bingo and free parking. 8 mins from Staines-upon-Thames centre.',
+  title: 'Pubs in Staines-upon-Thames | Roasts & Free Parking',
+  description: 'Pub near Staines rated 4.6/5 on Google. Sunday roasts from £19, dog-friendly beer garden, quiz nights and free parking. 8 mins from Staines centre.',
   openGraph: {
     title: 'Pub Near Staines — Beer Garden, Sunday Roasts & Free Parking',
     description: 'Rated 4.6/5 on Google. Sunday roasts, dog-friendly beer garden, quiz nights and free parking — 8 mins from Staines-upon-Thames.',
@@ -32,9 +31,7 @@ export const metadata: Metadata = {
   }
 }
 
-export default async function StainesPubPage() {
-  const { rating, reviewCount } = await getBusinessStats()
-
+export default function StainesPubPage() {
   // Schema for local SEO
   const localBusinessSchema = {
     "@context": "https://schema.org",
@@ -69,14 +66,7 @@ export default async function StainesPubPage() {
         "name": "Stanwell"
       }
     ],
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": rating,
-      "reviewCount": reviewCount,
-      "bestRating": "5",
-      "worstRating": "1"
-    },
-	    "priceRange": "££",
+    "priceRange": "££",
     "servesCuisine": ["British", "Pizza", "Sunday Roast"],
     "hasMenu": "https://www.the-anchor.pub/food-menu",
     "telephone": CONTACT.phoneIntl,

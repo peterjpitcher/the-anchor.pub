@@ -13,8 +13,8 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { BookTableButton } from '@/components/BookTableButton'
 
 export const metadata: Metadata = {
-  title: `Pubs in Windsor — Best Alternative with Free Parking | ${BRAND.name}`,
-  description: `Searching for pubs in Windsor? ${BRAND.name} is just 15 minutes from Windsor Castle with free parking, Sunday roasts, stone-baked pizzas and countryside atmosphere outside the ULEZ zone.`,
+  title: 'Pubs in Windsor | Free Parking Alternative',
+  description: `Pubs near Windsor? ${BRAND.name} is 15 minutes from Windsor Castle with free parking, Sunday roasts and stone-baked pizzas. Outside the ULEZ zone.`,
   openGraph: {
     title: 'Pubs in Windsor — The Anchor, Stanwell Moor',
     description: 'One of the best pubs near Windsor — 15 minutes away with free parking, Sunday roast, stone-baked pizzas and countryside atmosphere.',

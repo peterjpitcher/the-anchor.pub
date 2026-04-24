@@ -324,6 +324,16 @@ export function HeroWrapper({
   )
 }
 
+// Intermediate paths that do not have a corresponding page.
+// Breadcrumb segments matching these paths are rendered as
+// non-clickable text instead of links to avoid 404s.
+const NON_PAGE_PATHS = new Set([
+  '/private-hire/near',
+  '/blog/tag',
+  '/heathrow-parking/confirmation',
+  '/parking/bookings',
+])
+
 // Helper function to generate breadcrumbs from route
 function generateBreadcrumbsFromRoute(route: string): BreadcrumbItem[] {
   if (!route || route === '/') return []
@@ -338,9 +348,14 @@ function generateBreadcrumbsFromRoute(route: string): BreadcrumbItem[] {
       .map(word => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ')
 
+    const isLastSegment = index === segments.length - 1
+    const isNonPagePath = NON_PAGE_PATHS.has(path)
+
     breadcrumbs.push({
       name,
-      href: index < segments.length - 1 ? path : undefined
+      // Last segment is always non-clickable (current page).
+      // Intermediate segments that don't have a real page are also non-clickable.
+      href: !isLastSegment && !isNonPagePath ? path : undefined
     })
   })
 

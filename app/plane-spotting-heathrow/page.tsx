@@ -12,8 +12,8 @@ import { getBusinessHours } from '@/lib/api'
 import { generateOpeningHoursSpecification } from '@/lib/schema-utils'
 
 export const metadata: Metadata = {
-  title: 'Plane Spotting Heathrow | Best Viewing Spots & Locations | The Anchor',
-  description: 'The definitive guide to plane spotting at Heathrow. Best viewing areas, spotting locations and where to watch planes land — including our beer garden with free parking, food and WiFi.',
+  title: 'Plane Spotting Heathrow | Best Viewing Spots & Locations',
+  description: 'Heathrow plane spotting guide. Best viewing areas, spotting locations and where to watch planes land. Visit our beer garden with free parking and food.',
   openGraph: {
     title: 'Plane Spotting Heathrow — Best Viewing Spots & Locations | The Anchor',
     description: 'Heathrow plane spotting guide: best viewing areas and spotting locations. Watch planes land every 90 seconds from our beer garden with free parking, food and WiFi.',

@@ -12,7 +12,7 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-  title: 'Pub Near Renaissance Heathrow | 12 Mins | The Anchor',
+  title: 'Pub Near Renaissance Heathrow | 12 Mins',
   description: 'Authentic British pub 12 minutes from Renaissance London Heathrow Hotel. Draught beers, home-cooked food & free parking. A genuine local experience for Marriott guests.',
   openGraph: {
     title: 'Pub Near Renaissance Heathrow | 12 Mins | The Anchor',
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 const localBusinessSchema = {
   '@context': 'https://schema.org',
   '@type': ['Restaurant', 'BarOrPub'],
-  '@id': 'https://www.the-anchor.pub/pub-near-renaissance-heathrow#business',
+  '@id': 'https://www.the-anchor.pub/#business',
   name: `${BRAND.name} - Near Renaissance Heathrow`,
   image: `https://www.the-anchor.pub${DEFAULT_PAGE_HEADER_IMAGE}`,
   address: {

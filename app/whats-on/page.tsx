@@ -21,10 +21,9 @@ import { getBusinessHours, getUpcomingEvents, type Event } from '@/lib/api'
 import { buildOpeningHoursSchema } from '@/lib/opening-hours-schema'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
-import { getBusinessStats } from '@/lib/schema-with-reviews'
 
 export const metadata: Metadata = {
-  title: "Quiz, Karaoke & Bingo Every Week | The Anchor Pub",
+  title: "Quiz, Karaoke & Bingo Every Week",
   description: "Pub quiz, karaoke Fridays, Music Bingo, cash bingo & live music at The Anchor, Stanwell Moor. Entry from £3. Free parking, 7 mins from Heathrow T5. See all dates.",
   openGraph: {
     title: "What's On Near Heathrow — Quiz, Bingo & Live Music Every Week",
@@ -57,9 +56,8 @@ async function getOpeningHoursSpecification() {
 }
 
 export default async function WhatsOnPage() {
-  const [openingHoursSpecification, { rating, reviewCount }, upcomingEvents] = await Promise.all([
+  const [openingHoursSpecification, upcomingEvents] = await Promise.all([
     getOpeningHoursSpecification(),
-    getBusinessStats(),
     getUpcomingEvents(24).catch(() => [] as Event[]),
   ])
 
@@ -98,6 +96,14 @@ export default async function WhatsOnPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: jsonLdSafeStringify([
+            {
+              "@context": "https://schema.org",
+              "@type": "CollectionPage",
+              "name": "What's On at The Anchor — Events & Entertainment",
+              "description": "Pub quiz, karaoke, Music Bingo, cash bingo and live music at The Anchor, Stanwell Moor. See all upcoming dates.",
+              "url": "https://www.the-anchor.pub/whats-on",
+              "about": { "@id": "https://www.the-anchor.pub/#business" }
+            },
             quizNightEventSeries,
             bingoEventSeries,
             {
@@ -115,13 +121,6 @@ export default async function WhatsOnPage() {
                 "addressCountry": "GB"
               },
               "maximumAttendeeCapacity": 100,
-              "aggregateRating": {
-                "@type": "AggregateRating",
-                "ratingValue": rating,
-                "reviewCount": reviewCount,
-                "bestRating": "5",
-                "worstRating": "1"
-              },
               "amenityFeature": [
                 {
                   "@type": "LocationFeatureSpecification",

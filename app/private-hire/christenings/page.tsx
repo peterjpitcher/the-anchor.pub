@@ -17,7 +17,7 @@ import { getCateringData } from '@/lib/api/catering-packages'
 import { CateringPackagesTable } from '@/components/features/CateringPackagesTable'
 
 export const metadata: Metadata = {
-    title: 'Christening Venue Near Heathrow & Staines | The Anchor',
+    title: 'Christening Venue Near Heathrow & Staines',
     description: 'Private room for christening parties & baptism receptions at The Anchor, Stanwell Moor. Up to 50 guests, buffet options, family-friendly, free parking. Near Heathrow.',
     openGraph: {
         title: 'Christening Party Venue | The Anchor Stanwell Moor',
@@ -135,7 +135,7 @@ export default async function ChristeningsPage() {
 
             <section className="py-12 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
-                    <PageTitle className="text-center mb-6" as="h1" seo={{ structured: true, speakable: true }}>
+                    <PageTitle className="text-center mb-6" as="h2" seo={{ structured: true, speakable: true }}>
                         Christening & Naming Ceremony Venue Near Heathrow
                     </PageTitle>
                     <div className="max-w-3xl mx-auto text-center">

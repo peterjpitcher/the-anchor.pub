@@ -13,7 +13,7 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-    title: 'Luggage Friendly Pub Near Heathrow — Bring Your Bags | The Anchor',
+    title: 'Luggage Friendly Pub Near Heathrow | Bring Your Bags',
     description: `Visiting near Heathrow with luggage? You're welcome to bring your bags to ${BRAND.name} — we have plenty of space. Enjoy a meal just 7 mins from T5 with free parking.`,
     openGraph: {
         title: 'Luggage Friendly Pub Near Heathrow — Bring Your Bags to The Anchor',

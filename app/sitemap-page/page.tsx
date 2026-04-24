@@ -19,7 +19,7 @@ type SitemapSection = {
 }
 
 export const metadata: Metadata = {
-  title: 'Sitemap | The Anchor - Heathrow Pub & Dining',
+  title: 'Sitemap',
   description: 'Complete sitemap of The Anchor website. Find all our pages including menus, events, location information and special offers.',
   robots: {
     index: true,

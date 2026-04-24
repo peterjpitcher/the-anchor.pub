@@ -19,7 +19,7 @@ const SixNationsLightbox = dynamic(
 )
 
 export const metadata: Metadata = {
-    title: 'Six Nations Pub Near Me | Watch 2026 Live | The Anchor Stanwell Moor',
+    title: 'Six Nations Pub Near Me | Watch 2026 Live',
     description: `Watch every Six Nations 2026 match live with sound at The Anchor, Stanwell Moor near Heathrow. 4 screens, kitchen open for every game. Book now.`,
     openGraph: {
         title: 'Watch Six Nations 2026 at The Anchor',

@@ -53,7 +53,7 @@ function getStatusBadge(booking: ParkingBookingDetails) {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   return {
-    title: `Parking booking ${params.id} | The Anchor Heathrow Parking`,
+    title: `Parking Booking ${params.id}`,
     robots: 'noindex, nofollow'
   }
 }

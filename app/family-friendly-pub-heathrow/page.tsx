@@ -11,7 +11,7 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-    title: 'Family Friendly Pub Near Heathrow | Kids Menu | The Anchor',
+    title: 'Family Friendly Pub Near Heathrow | Kids Menu',
     description: `A welcoming family pub near Heathrow. Kids menu, high chairs, and a large garden. Relaxed dining for the whole family at ${BRAND.name}.`,
     openGraph: {
         title: 'Family Dining at The Anchor',

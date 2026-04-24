@@ -6,7 +6,7 @@ import { Metadata } from 'next'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 export const metadata: Metadata = {
-  title: 'Safety and Respect | The Anchor, Stanwell Moor',
+  title: 'Safety and Respect',
   description: 'A pub where everyone is genuinely welcome. Our commitment to a safe, respectful environment at The Anchor, Stanwell Moor.',
   alternates: {
     canonical: '/safety-and-respect'

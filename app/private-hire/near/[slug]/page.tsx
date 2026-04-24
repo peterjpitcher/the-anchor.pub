@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
                 : 'Private Hire'
 
     return {
-        title: `${eventType} Venue Near ${landmark.name} | The Anchor`,
+        title: `${eventType} Venue Near ${landmark.name}`,
         description: `${eventType} venue just ${landmark.distance} from ${landmark.name}. Free parking, private rooms, and flexible catering options.`,
         openGraph: {
             title: `${eventType} Venue Near ${landmark.name}`,
@@ -42,7 +42,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
             images: [DEFAULT_CORPORATE_IMAGE]
         }),
         alternates: {
-            canonical: './'
+            canonical: `/private-hire/near/${landmark.slug}`
         }
     }
 }

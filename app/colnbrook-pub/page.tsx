@@ -12,10 +12,9 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
-import { getBusinessStats } from '@/lib/schema-with-reviews'
 
 export const metadata: Metadata = {
-    title: 'Pubs in Colnbrook & Poyle | Food, Drinks & Free Parking | The Anchor',
+    title: 'Pubs in Colnbrook & Poyle | Food, Drinks & Free Parking',
     description: `${BRAND.name} is the perfect spot for Poyle Industrial Estate workers and Colnbrook residents. Great food, cold pints, and free parking just 2 miles away.`,
     openGraph: {
         title: 'Pubs in Colnbrook & Poyle | Food, Drinks & Free Parking | The Anchor',
@@ -33,9 +32,7 @@ export const metadata: Metadata = {
     }
 }
 
-export default async function ColnbrookPubPage() {
-    const { rating, reviewCount } = await getBusinessStats()
-
+export default function ColnbrookPubPage() {
     const localBusinessSchema = {
         "@context": "https://schema.org",
         "@type": ["Restaurant", "BarOrPub"],
@@ -65,13 +62,6 @@ export default async function ColnbrookPubPage() {
                 "name": "Poyle"
             }
         ],
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": rating,
-            "reviewCount": reviewCount,
-            "bestRating": "5",
-            "worstRating": "1"
-        },
         "priceRange": "££",
         "servesCuisine": ["British", "Traditional English", "Sunday Roast", "Pizza", "Lunch"],
         "telephone": CONTACT.phoneIntl,

@@ -12,7 +12,7 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-  title: 'Pub Near Marriott Heathrow | 12 Mins | Free Parking | The Anchor',
+  title: 'Pub Near Marriott Heathrow | 12 Mins | Free Parking',
   description: 'Traditional British pub 12 minutes from Marriott London Heathrow. Draught beers, home-cooked food & free parking. Perfect for business dinners and team meals.',
   openGraph: {
     title: 'Pub Near Marriott Heathrow | 12 Mins | Free Parking | The Anchor',
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 const localBusinessSchema = {
   '@context': 'https://schema.org',
   '@type': ['Restaurant', 'BarOrPub'],
-  '@id': 'https://www.the-anchor.pub/pub-near-marriott-heathrow#business',
+  '@id': 'https://www.the-anchor.pub/#business',
   name: `${BRAND.name} - Near Marriott Heathrow`,
   image: `https://www.the-anchor.pub${DEFAULT_PAGE_HEADER_IMAGE}`,
   address: {

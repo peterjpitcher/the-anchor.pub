@@ -31,7 +31,7 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 export const metadata: Metadata = {
-  title: 'Open Mic Night Near Heathrow | Perform at The Anchor',
+  title: 'Open Mic Night Near Heathrow | Live Performers Welcome',
   description:
     'Open mic night near Heathrow at The Anchor, Stanwell Moor. Acoustic-friendly to start, all performer types welcome. Free entry, free parking, walk-ins welcome. See upcoming dates.',
   openGraph: {

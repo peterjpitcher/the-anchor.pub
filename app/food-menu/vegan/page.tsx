@@ -16,7 +16,7 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 export const revalidate = 3600
 
 export const metadata: Metadata = {
-  title: 'Vegan Pub Food Near Me | Menu & Prices | The Anchor',
+  title: 'Vegan Pub Food Near Me | Menu & Prices',
   description: 'Vegan pub food near Heathrow Airport. Stone-baked garlic bread, chips, sweet potato fries, onion rings and pizzas that can be made vegan. Free parking, 7 mins from T5.',
   openGraph: {
     title: 'Vegan Pub Food | The Anchor Near Heathrow',
@@ -218,7 +218,7 @@ export default async function VeganMenuPage() {
         <Container>
           <Card className="card-dark rounded-none">
             <CardBody>
-              <PageTitle as="h1" className="text-anchor-cream-text mb-2">
+              <PageTitle as="h2" className="text-anchor-cream-text mb-2">
                 Vegan Pub Food Near Heathrow &mdash; Our Plant-Based Menu
               </PageTitle>
               <p className="text-anchor-cream-text/55 mb-4">Honest about what we offer.</p>

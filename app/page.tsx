@@ -44,13 +44,13 @@ export const revalidate = 60 * 60 * 24 // 24 hours
 
 export const metadata: Metadata = {
   title: 'The Anchor Stanwell Moor | Pub Near Heathrow | Free Parking',
-  description: 'Highest-rated independent pub near Heathrow Airport. 7 minutes from T5, free parking, dog-friendly beer garden. Sunday roasts, stone-baked pizza & quiz nights. Book a table.',
+  description: 'Top-rated independent pub near Heathrow. 7 mins from T5, free parking, dog-friendly beer garden. Sunday roasts, stone-baked pizza and quiz nights.',
   alternates: {
     canonical: '/'
   },
   openGraph: {
     title: 'The Anchor Stanwell Moor | Pub Near Heathrow | Free Parking',
-    description: 'Highest-rated independent pub near Heathrow Airport. 7 minutes from T5, free parking, dog-friendly beer garden. Sunday roasts, stone-baked pizza & quiz nights. Book a table.',
+    description: 'Top-rated independent pub near Heathrow. 7 mins from T5, free parking, dog-friendly beer garden. Sunday roasts, stone-baked pizza and quiz nights.',
     url: '/',
     siteName: 'The Anchor',
     images: [

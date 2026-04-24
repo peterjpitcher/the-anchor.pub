@@ -57,7 +57,7 @@ const MOTHERS_DAY_PHOTOS = [
     caption: 'Roasts cooked fresh to order'
   },
   {
-    src: '/images/food/sunday-roast/Food.jpeg',
+    src: '/images/food/sunday-roast/sunday-roast-the-anchor.jpeg',
     alt: "Cooked-from-scratch food at The Anchor near Staines",
     caption: 'Cooked-from-scratch favourites'
   },

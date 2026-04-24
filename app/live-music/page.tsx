@@ -38,7 +38,7 @@ import { liveMusicEventSeries } from '@/lib/schema'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
-    title: 'Live Music Pub Near Heathrow | Bands & Open Mic | The Anchor',
+    title: 'Live Music Pub Near Heathrow | Bands & Open Mic',
     description:
         'The best live music pub near Heathrow — bands, acoustic sessions & open mic nights monthly in Stanwell Moor. Free entry, free parking, 7 mins from T5. See upcoming gigs.',
     openGraph: {
@@ -326,7 +326,7 @@ export default async function LiveMusicPage() {
 
             <Section spacing="sm" background="white">
                 <Container>
-                    <PageTitle as="h1" className="text-center mb-6" seo={{ structured: true, speakable: true }}>
+                    <PageTitle as="h2" className="text-center mb-6" seo={{ structured: true, speakable: true }}>
                         Live Music Pub Near Heathrow — Live at The Anchor
                     </PageTitle>
                     <p className="text-lg text-anchor-cream-text/70 text-center max-w-3xl mx-auto">

@@ -298,13 +298,6 @@ export default async function SundayLunchPage() {
         hasMenuSection: schemaMenuSections,
         inLanguage: 'en-GB'
       },
-      aggregateRating: {
-        '@type': 'AggregateRating',
-        ratingValue: '4.6',
-        reviewCount: '238',
-        bestRating: '5',
-        worstRating: '1'
-      },
       potentialAction: {
         '@type': 'ReserveAction',
         target: {
@@ -452,7 +445,7 @@ export default async function SundayLunchPage() {
       />
 
       <Container>
-        <PageTitle as="h1" className="text-center mb-6" seo={{ structured: true, speakable: true }}>
+        <PageTitle as="h2" className="text-center mb-6" seo={{ structured: true, speakable: true }}>
           Sunday Roast & Lunch Near Heathrow — From £19
         </PageTitle>
       </Container>

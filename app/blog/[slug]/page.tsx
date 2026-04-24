@@ -109,7 +109,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   
   if (!post) {
     return {
-      title: 'Post Not Found | The Anchor Blog',
+      title: 'Post Not Found',
     }
   }
 
@@ -117,7 +117,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   const ogImageAlt = post.ogImageAlt || post.title
 
   return {
-    title: `${post.title} | The Anchor Blog`,
+    title: `${post.title} | Blog`,
     description: post.description,
     alternates: {
       canonical: `/blog/${params.slug}`

@@ -13,8 +13,8 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-    title: 'Pool Table Pub Near Heathrow | Darts & Pints | The Anchor',
-    description: `Looking for a pool table pub near you? ${BRAND.name} in Stanwell Moor has a tournament-quality pool table, darts board and great beer — just 7 minutes from Heathrow T5 with free parking.`,
+    title: 'Pool Table Pub Near Heathrow | Darts & Pints',
+    description: `Pool table pub near Heathrow. ${BRAND.name} has a tournament-quality table, darts board and great beer. 7 mins from T5 with free parking.`,
     openGraph: {
         title: 'Pool Table Pub & Darts Near Heathrow | The Anchor',
         description: 'Looking for a pool table pub near you? Challenge a mate to a frame of pool or a round of darts at The Anchor, Stanwell Moor.',

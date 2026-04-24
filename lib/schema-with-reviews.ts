@@ -31,7 +31,7 @@ export async function getBusinessStats() {
 const getEnhancedSchemasCached = unstable_cache(
   async () => {
     const stats = await getBusinessStatsCached()
-    const { rating, reviewCount, openingHours } = stats
+    const { openingHours } = stats
 
     const defaultImages = [
       `https://www.the-anchor.pub${DEFAULT_PAGE_HEADER_IMAGE}`,
@@ -66,13 +66,6 @@ const getEnhancedSchemasCached = unstable_cache(
         "https://www.instagram.com/theanchor.pub/",
         "https://whatpub.com/pubs/SRY/14044/anchor-stanwell-moor"
       ],
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": rating,
-        "reviewCount": reviewCount,
-        "bestRating": "5",
-        "worstRating": "1"
-      },
       "priceRange": "££",
       "servesCuisine": ["British", "Pizza", "Pub Food", "Sunday Roast"],
       ...(openingHours.length ? { "openingHoursSpecification": openingHours } : {}),

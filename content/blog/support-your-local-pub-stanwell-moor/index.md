@@ -62,7 +62,7 @@ imageAlts:
   - "Guest holding a bottle prize and smiling at community bingo night"
 ---
 
-# Support your local pub: keeping community pubs alive in Stanwell Moor
+## Support your local pub: keeping community pubs alive in Stanwell Moor
 
 ## A quick message from us at The Anchor
 
