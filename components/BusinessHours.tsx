@@ -229,65 +229,58 @@ export function BusinessHours({ showKitchen = true, className = '' }: BusinessHo
         }) => {
           if (!displayHours) return null
 
+          const noteText = specialHours?.note || specialHours?.reason
+          const sundayLunchMessage = hasSundayLunchNotice ? (sundayLunchInfo?.message || 'Sunday lunch unavailable') : null
+
           return (
-            <div
-              key={isoDate || day}
-              className={`flex items-center justify-between px-3 py-1.5 rounded ${
-                isToday ? 'bg-white/10 ring-1 ring-white/30' : 'hover:bg-white/5'
-              } ${(hasSpecialHours || hasSundayLunchNotice) ? 'ring-1 ring-yellow-400/50' : ''}`}
-            >
-              {/* Left: Day */}
-              <div className="flex items-center gap-3 min-w-0">
-                <div className="flex flex-col leading-tight">
+            <div key={isoDate || day}>
+              <div
+                className={`flex items-center justify-between px-3 py-1.5 rounded ${
+                  isToday ? 'bg-white/10 ring-1 ring-white/30' : 'hover:bg-white/5'
+                } ${(hasSpecialHours || hasSundayLunchNotice) ? 'ring-1 ring-yellow-400/50' : ''}`}
+              >
+                {/* Left: Day */}
+                <div className="flex items-center gap-3 min-w-0">
                   <span className="text-sm font-medium capitalize text-white">
                     {day.slice(0, 3).charAt(0).toUpperCase() + day.slice(1, 3)}
                     {isToday && <span className="text-sm sm:text-xs"> &bull;</span>}
                   </span>
-                  {(hasSpecialHours || hasSundayLunchNotice) && (
-                    <span className="text-[11px] text-amber-300 font-semibold">
-                      {hasSundayLunchNotice ? 'Lunch service update' : 'Special hours'}
-                    </span>
+                </div>
+
+                {/* Right: Hours */}
+                <div className="text-right text-sm space-y-0.5">
+                  {displayHours.is_closed ? (
+                    <span className={hasSpecialHours ? 'text-yellow-400' : 'text-white'}>Closed</span>
+                  ) : (
+                    <>
+                      <div>
+                        <span className="text-xs text-white/60 mr-1">Bar:</span>
+                        <span className={hasSpecialHours ? 'text-yellow-400' : 'text-white'}>
+                          {formatTime(displayHours.opens)} - {formatTime(displayHours.closes)}
+                        </span>
+                      </div>
+
+                      {showKitchen && (
+                        <div className="text-xs">
+                          <span className="text-white/60 mr-1">Kitchen:</span>
+                          {renderKitchen(kitchen, kitchenClosed, hasSpecialHours)}
+                        </div>
+                      )}
+                    </>
                   )}
                 </div>
               </div>
-
-              {/* Right: Hours */}
-              <div className="text-right text-sm space-y-0.5">
-                {displayHours.is_closed ? (
-                  <div>
-                    <span className={hasSpecialHours ? 'text-yellow-400' : 'text-white'}>
-                      Closed{hasSpecialHours && (specialHours?.note || specialHours?.reason) ? ` (${specialHours?.note || specialHours?.reason})` : ''}
-                    </span>
-                  </div>
-                ) : (
-                  <>
-                    <div>
-                      <span className="text-xs text-white/60 mr-1">Bar:</span>
-                      <span className={hasSpecialHours ? 'text-yellow-400' : 'text-white'}>
-                        {formatTime(displayHours.opens)} - {formatTime(displayHours.closes)}
-                      </span>
-                    </div>
-
-                    {showKitchen && (
-                      <div className="text-xs">
-                        <span className="text-white/60 mr-1">Kitchen:</span>
-                        {renderKitchen(kitchen, kitchenClosed, hasSpecialHours)}
-                      </div>
-                    )}
-
-                    {hasSpecialHours && (specialHours?.note || specialHours?.reason) && (
-                      <div className="text-xs text-yellow-300/90 mt-1 text-right">
-                        {specialHours?.note || specialHours?.reason}
-                      </div>
-                    )}
-                    {hasSundayLunchNotice && (
-                      <div className="text-xs text-amber-200 mt-1 text-right">
-                        {sundayLunchInfo?.message || 'Sunday lunch unavailable'}
-                      </div>
-                    )}
-                  </>
-                )}
-              </div>
+              {/* Full-width note below the day row */}
+              {hasSpecialHours && noteText && (
+                <div className="px-3 pb-1.5 text-[11px] text-amber-300 font-semibold">
+                  {noteText}
+                </div>
+              )}
+              {sundayLunchMessage && (
+                <div className="px-3 pb-1.5 text-[11px] text-amber-200">
+                  {sundayLunchMessage}
+                </div>
+              )}
             </div>
           )
         })}

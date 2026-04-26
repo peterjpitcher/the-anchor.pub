@@ -209,7 +209,7 @@ describe('BusinessHours', () => {
         ],
       })
       render(<BusinessHours />)
-      expect(screen.getByText(/Closed/)).toBeInTheDocument()
+      expect(screen.getAllByText(/Closed/).length).toBeGreaterThan(0)
       expect(screen.getByText(/Closed for maintenance/)).toBeInTheDocument()
     })
   })
