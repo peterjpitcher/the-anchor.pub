@@ -163,13 +163,7 @@ export default function HomePage() {
             </span>
           </div>
         }
-        tags={[
-          { label: 'Free Parking', icon: '', size: 'small', className: 'bg-white/15 text-white backdrop-blur-sm border border-white/10' },
-          { label: 'Dog Friendly', icon: '', size: 'small', className: 'bg-white/15 text-white backdrop-blur-sm border border-white/10' },
-          { label: 'Family Welcome', icon: '', size: 'small', className: 'bg-white/15 text-white backdrop-blur-sm border border-white/10' },
-          { label: 'Step-Free Access', icon: '', size: 'small', className: 'bg-white/15 text-white backdrop-blur-sm border border-white/10' },
-          { label: '7 mins from Heathrow', icon: '', size: 'small', className: 'bg-white/15 text-white backdrop-blur-sm border border-white/10' }
-        ]}
+        showContextStrip={true}
         ctaContainerClassName="px-2 sm:px-0 max-w-md mx-auto"
         primaryCta={
           <BookTableButton
