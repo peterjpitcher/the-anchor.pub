@@ -295,7 +295,7 @@ export default function FindUsPage() {
               />
               <SpeakableContent selector="opening-hours" priority="high">
                 <div className="bg-anchor-green/95 rounded-2xl shadow-lg p-6 max-w-2xl mx-auto">
-                  <BusinessHours variant="condensed" showKitchen={true} />
+                  <BusinessHours />
                 </div>
               </SpeakableContent>
             </div>
@@ -489,7 +489,7 @@ export default function FindUsPage() {
 
                 <div>
                   <h4 className="text-lg font-semibold text-white mb-3">Opening Hours</h4>
-                  <BusinessHours variant="dark" showKitchen={false} />
+                  <BusinessHours showKitchen={false} />
                 </div>
               </div>
             </div>

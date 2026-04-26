@@ -776,7 +776,7 @@ export default function HomePage() {
 
               <div className="card-dark p-4">
                 <h3 className="text-lg font-bold mb-3 text-anchor-gold-vivid">Opening Hours</h3>
-                <BusinessHours variant="condensed" showKitchen={true} />
+                <BusinessHours />
               </div>
             </Grid>
           </div>
