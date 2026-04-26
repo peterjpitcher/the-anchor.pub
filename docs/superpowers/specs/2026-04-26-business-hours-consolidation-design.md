@@ -1,7 +1,7 @@
 # Business Hours Component Consolidation
 
 **Date:** 2026-04-26
-**Status:** Draft (revised after review)
+**Status:** Draft (revised after second review)
 **Complexity:** M (component rewrite + call-site migration + dead code deletion + tests)
 
 ## Problem
@@ -10,12 +10,12 @@
 
 Additionally, 5 related components have zero imports anywhere in the codebase and must be deleted:
 - `components/BusinessHoursSection.tsx`
-- `components/ui/OpeningHours.tsx`
+- `components/ui/OpeningHours.tsx` (also exports `OpenStatus` — both unused)
 - `components/KitchenHoursString.tsx`
 - `components/KitchenHoursDisplay.tsx`
 - `components/BusinessHoursText.tsx`
 
-`components/ui/index.ts` still re-exports `OpeningHours` (line 52) and `BusinessHoursSection` (line 65) — these exports must also be removed.
+`components/ui/index.ts` still re-exports `OpeningHours` and `OpenStatus` (line 52) and `BusinessHoursSection` (line 65) — all three exports must be removed.
 
 ## Decision
 
@@ -23,7 +23,7 @@ Rewrite `BusinessHours.tsx` with a single rendering path based on the `condensed
 
 ## Visual Change Acknowledgement
 
-**This is a breaking visual change across ~25 SEO landing pages.** These pages currently render the `full` variant (status banner, full day names, "Opening Hours" heading, microdata attributes, embedded JSON-LD). After consolidation they will render the condensed-based layout (StatusBar component, abbreviated day names, compact spacing, no embedded schema). This is intentional — the condensed layout is already proven on the highest-traffic pages (homepage, find-us) and provides a more consistent experience site-wide.
+**This is a breaking visual change across ~25 SEO landing pages.** These pages currently render the `full` variant (status banner, full day names, "Opening Hours" heading, `itemProp`/`itemScope` microdata attributes, embedded JSON-LD). After consolidation they will render the condensed-based layout (StatusBar component, abbreviated day names, compact spacing, no embedded schema). This is intentional — the condensed layout is already proven on the highest-traffic pages (homepage, find-us) and provides a more consistent experience site-wide.
 
 ## Design
 
@@ -105,8 +105,9 @@ For the main Monday–Sunday list, each day's mapped ISO date is checked against
 - Shows count in the toggle label: "See upcoming changes (3)".
 - Collapsed by default; `showUpcoming` state toggles visibility.
 - Each entry shows: formatted date label (e.g. "Sat 3 May"), bar hours, kitchen hours (if `showKitchen`), and note/reason.
-- For future special hours entries that override only some fields (e.g. kitchen closed but bar hours not specified), the regular hours for that weekday are used as the fallback for unspecified fields. Specifically: derive the weekday from the special hours date, look up `hours.regularHours[weekday]`, and merge.
 - Sort: ascending by date.
+
+**Merge semantics for future special hours entries:** When a special hours entry overrides only some fields, derive the weekday from the entry's date, look up `hours.regularHours[weekday]`, and merge using `??` for `opens`/`closes`. **Exception: `kitchen` uses property-presence semantics, not `??` on the inner fields.** If the special hours entry has a `kitchen` property at all — even if its value is `null` — that is the authoritative kitchen state. Only fall back to `regularHours[weekday].kitchen` when the special hours entry has no `kitchen` property. This preserves the critical invariant that `kitchen: null` means "no service", not "use regular hours".
 
 ### Sunday Lunch Notices
 
@@ -118,51 +119,56 @@ Preserved from `condensed` variant. When a Sunday has `sundayLunchInfo.available
 
 ### Schema.org JSON-LD
 
-**Removed from the component.** The `full` variant currently embeds `OpeningHoursSpecification` JSON-LD and `itemProp`/`itemScope` microdata, but:
-1. `BusinessHours` is a `'use client'` component — server-rendered JSON-LD is more reliably crawled.
-2. 6 pages already generate schema server-side, creating duplicates on those pages.
+**Removed from the component.** The `full` variant currently embeds a single `OpeningHoursSpecification` JSON-LD block and `itemProp`/`itemScope` microdata. Both are removed because:
 
-**Schema coverage audit:**
+1. **The existing schema is structurally incorrect.** It lists all non-closed weekdays in `dayOfWeek` but applies today's `opens`/`closes` times to all of them (`hours.regularHours[todayKey].opens/closes`). This means if today is Wednesday (opens 12pm, closes 11pm) but Saturday opens at 11am, the schema still claims Saturday opens at 12pm. This is misleading structured data.
+2. `BusinessHours` is a `'use client'` component — server-rendered JSON-LD is more reliably crawled.
+3. Pages that already generate schema server-side have duplicates.
 
-Currently have server-side `openingHoursSpecification`: 6 pages
+**Server-side schema coverage audit:**
+
+Pages with full regular opening hours schema (via `generateOpeningHoursSpecification` or `buildOpeningHoursSchema`): **5 pages**
 - `app/beer-garden/page.tsx`
 - `app/drinks/page.tsx`
 - `app/plane-spotting-heathrow/page.tsx`
 - `app/pubs-in-stanwell/page.tsx`
-- `app/sunday-lunch/page.tsx`
 - `app/whats-on/page.tsx`
 
-Will lose hours schema after this change: 40 pages (all pages rendering `<BusinessHours />` without server-side schema). Key pages affected:
+Pages with partial/domain-specific hours schema (not full regular hours): **3 pages**
+- `app/sunday-lunch/page.tsx` — Sunday lunch service hours only
+- `app/food-menu/page.tsx` — kitchen hours only (does not render `<BusinessHours />`)
+- `app/restaurants-near-heathrow/page.tsx` — kitchen hours only (does not render `<BusinessHours />`)
+
+Pages that render `<BusinessHours />` and will lose component JSON-LD: **25 pages** (28 JSX instances across 27 pages; find-us has 2 instances; 2 pages import but don't render: `food-menu`, `live-sport`)
 - `app/page.tsx` (homepage)
 - `app/find-us/page.tsx`
 - `app/m25-junction-14-pub/page.tsx`
-- All 12 `app/pub-near-*/page.tsx` hotel pages
-- All 10 town pub pages (`ashford-pub`, `bedfont-pub`, etc.)
-- `app/food-menu/page.tsx`, `app/live-sport/page.tsx`, etc.
+- `app/heathrow-hotels-pub/page.tsx`
+- 11 `app/pub-near-*/page.tsx` hotel pages
+- 10 town pub pages (`ashford-pub`, `bedfont-pub`, `colnbrook-pub`, `egham-pub`, `feltham-pub`, `horton-pub`, `longford-pub`, `stanwell-pub`, `staines-pub`, `sunbury-pub`, `wraysbury-pub`, `windsor-pub`)
 
-**Tradeoff accepted:** Removing client-rendered JSON-LD from 40 pages is a short-term schema regression. This is acceptable because:
-- Client-rendered JSON-LD is less reliably crawled than server-side.
-- The `full` variant's schema was per-day (today only), not a complete weekly specification — limited SEO value.
-- Adding `generateOpeningHoursSpecification()` to the 40 affected pages is a mechanical follow-up task.
+**Note:** Only pages using the `full` variant (the default) had embedded JSON-LD. The 3 instances using `condensed` or `dark` variants (homepage, find-us x2) never had component JSON-LD.
 
-**Follow-up task (out of scope for this spec):** Add server-side `openingHoursSpecification` to the 40 pages listed above.
+**Tradeoff accepted:** The existing client-rendered JSON-LD was structurally incorrect (wrong hours applied to all days) and client-rendered (less reliably crawled). Removing it is a net improvement even before server-side schema is added.
+
+**Follow-up task (out of scope for this spec):** Add correct server-side `openingHoursSpecification` to the 25 affected pages using `generateOpeningHoursSpecification()`.
 
 ## Dead Code Deletion
 
 Delete these files (verified zero imports across the codebase):
 1. `components/BusinessHoursSection.tsx`
-2. `components/ui/OpeningHours.tsx`
+2. `components/ui/OpeningHours.tsx` (exports `OpeningHours` and `OpenStatus`)
 3. `components/KitchenHoursString.tsx`
 4. `components/KitchenHoursDisplay.tsx`
 5. `components/BusinessHoursText.tsx`
 
 Remove from `components/ui/index.ts`:
-- Line 52: `export { OpeningHours, OpenStatus } from './OpeningHours'`
+- Line 52: `export { OpeningHours, OpenStatus } from './OpeningHours'` — removes both named exports
 - Line 65: `export { BusinessHoursSection } from '../BusinessHoursSection'`
 
 ## Migration
 
-~28 call sites across the codebase. **Important:** the default rendering changes visually for all sites — this is not a no-op migration for the ~25 pages using the default variant.
+28 JSX instances across 27 pages. **Important:** the default rendering changes visually for all sites — this is not a no-op migration for the ~25 pages using the default variant.
 
 | Current usage | New usage | Visual change |
 |---|---|---|
@@ -181,13 +187,19 @@ Remove from `components/ui/index.ts`:
 **Remove variant, keep showKitchen (1 page):**
 - `app/find-us/page.tsx:492` — `variant="dark" showKitchen={false}` → `showKitchen={false}`
 
+**Import but don't render (no change needed, no visual impact):**
+- `app/food-menu/page.tsx` — imports `BusinessHours` type, not the component
+- `app/live-sport/page.tsx` — imports component but does not render it
+
 ## Testing
 
 There are no existing tests for `BusinessHours`. `StatusBar.boundary.test.tsx` tests the `StatusBar` component only and does not protect this consolidation.
 
-### Required: Unit Tests (RTL + Vitest)
+### Required: Unit Tests (RTL + Jest)
 
-Create `tests/unit/BusinessHours.test.tsx` with the following cases:
+Create `tests/unit/BusinessHours.test.tsx` with the following cases.
+
+**Time dependency:** All tests must freeze London time using `jest.useFakeTimers()` set to a known Wednesday in `Europe/London`. This prevents day-dependent flakiness in day-to-date mapping and upcoming-changes boundary logic.
 
 **Rendering states:**
 - Loading state renders skeleton
@@ -202,7 +214,8 @@ Create `tests/unit/BusinessHours.test.tsx` with the following cases:
 - `kitchen: null` renders "No service" (not kitchen times from regular hours)
 - `is_kitchen_closed: true` renders "Closed"
 - Kitchen with `{ opens, closes }` renders formatted times
-- Special hours kitchen overrides regular hours kitchen via `??` semantics
+- Special hours with `kitchen` property present and set to `null` renders "No service" (does not fall back to regular kitchen)
+- Special hours without `kitchen` property falls back to regular kitchen hours
 
 **Special hours:**
 - Day with special hours shows yellow highlight and note text
@@ -218,24 +231,27 @@ Create `tests/unit/BusinessHours.test.tsx` with the following cases:
 - Entries sorted ascending by date
 - Entries already in main list are excluded
 - Toggle expands/collapses the section
-- Future rows use regular hours as fallback for unspecified fields
+- Future rows with partial overrides merge with regular weekday hours via `??` for `opens`/`closes`
+- Future rows with `kitchen: null` show "No service" (property-presence semantics, not fallback)
 
 **`className` prop:**
 - Applied to root wrapper in loading state
 - Applied to root wrapper in error state
 - Applied to root wrapper in success state
 
-### Required: Manual Verification
+### Manual Verification
 
 Verify on 3 representative pages after implementation:
 - Homepage (`app/page.tsx`)
 - Find Us (`app/find-us/page.tsx`) — both instances
 - One SEO landing page (e.g. `app/m25-junction-14-pub/page.tsx`)
 
-Check: layout renders correctly, today highlighting, special hours if applicable, `showKitchen={false}` on Find Us lower section.
+Check: layout renders correctly, today highlighting, `showKitchen={false}` on Find Us lower section.
+
+**Special hours verification:** Do not rely on live API having special hours during the test run. Special hours confidence comes from unit tests. Manual verification covers layout, styling, and integration with the provider — not special hours rendering.
 
 ## Out of Scope
 
 - Redesigning the `StatusBar` component (separate concern).
-- Adding server-side `openingHoursSpecification` to the 40 pages that will lose client-side schema (follow-up task — list above).
+- Adding server-side `openingHoursSpecification` to the 25 pages that will lose (incorrect) client-side schema (follow-up task — list in Schema section).
 - Restyling the component visually beyond what's described (consolidation, not redesign).
