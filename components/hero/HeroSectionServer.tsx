@@ -17,6 +17,7 @@ interface HeroSectionServerProps {
   breadcrumbs?: ReactNode
   tags?: ReactNode
   cta?: ReactNode
+  bottomSlot?: ReactNode
   className?: string
   contentClassName?: string
   style?: CSSProperties
@@ -89,6 +90,7 @@ export function HeroSectionServer({
   breadcrumbs,
   tags,
   cta,
+  bottomSlot,
   className,
   contentClassName,
   style,
@@ -125,7 +127,7 @@ export function HeroSectionServer({
         <div className={cn('absolute inset-0', overlayClasses[overlay])} />
       </div>
 
-      <div className={cn('relative z-10 h-full flex flex-col', paddingClasses[size])}>
+      <div className={cn('relative z-10 h-full flex flex-col', paddingClasses[size], bottomSlot && 'pb-14 sm:pb-16')}>
         <div
           className={cn(
             'container mx-auto px-4 sm:px-6 lg:px-8 flex-1 flex flex-col',
@@ -159,6 +161,7 @@ export function HeroSectionServer({
             )}
           </div>
         </div>
+        {bottomSlot}
       </div>
     </section>
   )
