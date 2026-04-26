@@ -304,42 +304,8 @@ export default async function QuizNightPage() {
         route="/quiz-night"
         title="Pub Quiz Night at The Anchor Near Heathrow"
         description="Proper quiz night pub energy with trivia rounds, seasonal themes and prizes worth bragging about. Your Heathrow pub trivia night HQ."
-       
-	        tags={[
-	          { label: '7 mins from Heathrow', variant: 'default' },
-	          { label: 'Fresh themes monthly', variant: 'primary' },
-	          { label: '£3 per player · teams up to 6', variant: 'default' }
-	        ]}
-        primaryCta={
-          <BookTableButton
-            source="quiz_night_hero"
-            variant="primary"
-            size="lg"
-            className="w-full sm:w-auto"
-            customHref={bookingHref}
-          >
-            Book Your Quiz Table
-          </BookTableButton>
-        }
-        secondaryCta={
-          <Link
-            href="#quiz-dates"
-            className={cn(
-              'inline-flex items-center justify-center font-semibold text-center transition-all duration-200 rounded-full whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-anchor-gold focus:ring-offset-2 bg-white text-anchor-green border-2 border-anchor-green hover:bg-anchor-green hover:text-white px-8 py-3.5 text-lg min-h-[48px] w-full sm:w-auto'
-            )}
-          >
-            See upcoming quiz dates
-          </Link>
-        }
-        secondaryInfo={
-          <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog &amp; family friendly</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free entry</span>
-          </div>
-        }
+        enableSmartCtas={true}
+        showContextStrip={true}
       />
 
       {/* Definitive answer for featured snippets */}

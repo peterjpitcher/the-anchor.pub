@@ -341,52 +341,8 @@ export default async function MusicBingoPage() {
         route="/music-bingo"
         title="Music Bingo Nights at The Anchor"
         description="Song snippets replace numbers, prizes land every round, and Nikki Manfadge keeps the singalong energy high."
-       
-        tags={[
-          { label: 'Songs instead of numbers', variant: 'primary' },
-          { label: 'Prizes every round', variant: 'default' },
-          { label: 'Full menu from 6pm', variant: 'default' }
-        ]}
-        primaryCta={
-          <BookTableButton
-            source="music_bingo_hero"
-            variant="primary"
-            size="lg"
-            className="w-full sm:w-auto"
-          >
-            Book a Music Bingo Table
-          </BookTableButton>
-        }
-        secondaryCta={
-          <>
-            <Link
-              href="#music-bingo-dates"
-              className={cn(
-                'inline-flex items-center justify-center rounded-full border-2 border-anchor-green px-8 py-3.5 text-center text-lg font-semibold text-anchor-green transition-all duration-200 min-h-[48px] w-full whitespace-nowrap hover:bg-anchor-green hover:text-white focus:outline-none focus:ring-2 focus:ring-anchor-gold focus:ring-offset-2 sm:w-auto'
-              )}
-            >
-              See upcoming Music Bingo dates
-            </Link>
-            <PhoneButton
-              phone="01753 682707"
-              source="music_bingo_hero"
-              variant="secondary"
-              size="lg"
-              className="w-full sm:w-auto"
-            >
-              Call to reserve: 01753 682707
-            </PhoneButton>
-          </>
-        }
-        secondaryInfo={
-          <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog &amp; family friendly</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">£3 per person</span>
-          </div>
-        }
+        enableSmartCtas={true}
+        showContextStrip={true}
       />
 
       <Section spacing="sm" background="white">

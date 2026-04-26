@@ -272,42 +272,8 @@ export default async function CashBingoPage() {
 	        route="/cash-bingo"
 	        title="Cash Bingo Nights & Bingo Games at The Anchor"
 	        description="Play bingo for cash and classic bingo games near Heathrow with £10 bingo tickets and books, bingo calls and numbers, a snowball bonus and jackpot bingo prizes."
-	       
-	        tags={[
-	          { label: ' £10 bingo tickets & books', variant: 'default' },
-	          { label: ' Snowball bingo bonus grows monthly', variant: 'primary' },
-	          { label: ' Full menu 6 pm–9 pm', variant: 'default' }
-	        ]}
-        primaryCta={
-          <a
-            href="#bingo-dates"
-            className={cn(
-              'inline-flex items-center justify-center font-semibold text-center transition-all duration-200 rounded-full whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-anchor-gold focus:ring-offset-2 bg-white text-anchor-green border-2 border-anchor-green hover:bg-anchor-green hover:text-white px-8 py-3.5 text-lg min-h-[48px] w-full sm:w-auto'
-            )}
-          >
-             See upcoming bingo dates
-          </a>
-        }
-        secondaryCta={
-          <PhoneButton
-            phone="01753 682707"
-            source="cash_bingo_hero"
-            variant="secondary"
-            size="lg"
-            className="w-full sm:w-auto"
-          >
-             Call to reserve: 01753 682707
-          </PhoneButton>
-        }
-        secondaryInfo={
-          <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog &amp; family friendly</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free entry</span>
-          </div>
-        }
+	        enableSmartCtas={true}
+	        showContextStrip={true}
       />
 
       <Section spacing="sm" background="white">

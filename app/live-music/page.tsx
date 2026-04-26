@@ -286,42 +286,8 @@ export default async function LiveMusicPage() {
                 route="/live-music"
                 title="Live Music at The Anchor"
                 description="Experience the best live music pub near Heathrow. From acoustic sessions to full bands, enjoy great tunes and free entry in Stanwell Moor."
-               
-                tags={[
-                    { label: 'Live Local Talent', variant: 'primary' },
-                    { label: 'Always Free Entry', variant: 'default' },
-                    { label: 'Cold Pints & Hot Food', variant: 'default' }
-                ]}
-                primaryCta={
-                    <a
-                        href="#music-dates"
-                        className={cn(
-                            'inline-flex items-center justify-center font-semibold text-center transition-all duration-200 rounded-full whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-anchor-gold focus:ring-offset-2 bg-white text-anchor-green border-2 border-anchor-green hover:bg-anchor-green hover:text-white px-8 py-3.5 text-lg min-h-[48px] w-full sm:w-auto'
-                        )}
-                    >
-                        See upcoming gigs
-                    </a>
-                }
-                secondaryCta={
-                    <PhoneButton
-                        phone="01753 682707"
-                        source="live_music_hero"
-                        variant="secondary"
-                        size="lg"
-                        className="w-full sm:w-auto"
-                    >
-                        Call to reserve: 01753 682707
-                    </PhoneButton>
-                }
-                secondaryInfo={
-                    <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog &amp; family friendly</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free entry</span>
-                    </div>
-                }
+                enableSmartCtas={true}
+                showContextStrip={true}
             />
 
             <Section spacing="sm" background="white">
