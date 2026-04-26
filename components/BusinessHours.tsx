@@ -235,33 +235,33 @@ export function BusinessHours({ showKitchen = true, className = '' }: BusinessHo
           return (
             <div key={isoDate || day}>
               <div
-                className={`flex items-center justify-between px-3 py-1.5 rounded ${
+                className={`flex items-center justify-between px-3 py-2 rounded ${
                   isToday ? 'bg-white/10 ring-1 ring-white/30' : 'hover:bg-white/5'
                 } ${(hasSpecialHours || hasSundayLunchNotice) ? 'ring-1 ring-yellow-400/50' : ''}`}
               >
                 {/* Left: Day */}
                 <div className="flex items-center gap-3 min-w-0">
-                  <span className="text-sm font-medium capitalize text-white">
+                  <span className="text-base font-medium capitalize text-white">
                     {day.slice(0, 3).charAt(0).toUpperCase() + day.slice(1, 3)}
-                    {isToday && <span className="text-sm sm:text-xs"> &bull;</span>}
+                    {isToday && <span className="text-sm"> &bull;</span>}
                   </span>
                 </div>
 
                 {/* Right: Hours */}
-                <div className="text-right text-sm space-y-0.5">
+                <div className="text-right space-y-0.5">
                   {displayHours.is_closed ? (
                     <span className={hasSpecialHours ? 'text-yellow-400' : 'text-white'}>Closed</span>
                   ) : (
                     <>
                       <div>
-                        <span className="text-xs text-white/60 mr-1">Bar:</span>
+                        <span className="text-sm text-white/60 mr-1">Bar:</span>
                         <span className={hasSpecialHours ? 'text-yellow-400' : 'text-white'}>
                           {formatTime(displayHours.opens)} - {formatTime(displayHours.closes)}
                         </span>
                       </div>
 
                       {showKitchen && (
-                        <div className="text-xs">
+                        <div className="text-sm">
                           <span className="text-white/60 mr-1">Kitchen:</span>
                           {renderKitchen(kitchen, kitchenClosed, hasSpecialHours)}
                         </div>
@@ -272,12 +272,12 @@ export function BusinessHours({ showKitchen = true, className = '' }: BusinessHo
               </div>
               {/* Full-width note below the day row */}
               {hasSpecialHours && noteText && (
-                <div className="px-3 pb-1.5 text-[11px] text-amber-300 font-semibold">
+                <div className="px-3 pb-1 text-xs text-amber-300 font-semibold">
                   {noteText}
                 </div>
               )}
               {sundayLunchMessage && (
-                <div className="px-3 pb-1.5 text-[11px] text-amber-200">
+                <div className="px-3 pb-1 text-xs text-amber-200">
                   {sundayLunchMessage}
                 </div>
               )}
@@ -292,7 +292,7 @@ export function BusinessHours({ showKitchen = true, className = '' }: BusinessHo
           <button
             type="button"
             onClick={() => setShowUpcoming(prev => !prev)}
-            className="text-xs text-white/80 underline hover:text-white"
+            className="text-sm text-white/80 underline hover:text-white"
           >
             {showUpcoming ? 'Hide' : 'See'} upcoming changes ({upcomingChanges.length})
           </button>
@@ -302,32 +302,35 @@ export function BusinessHours({ showKitchen = true, className = '' }: BusinessHo
               {upcomingChanges.map((entry) => (
                 <div
                   key={entry.date}
-                  className="flex items-center justify-between px-3 py-1.5 rounded ring-1 ring-yellow-400/50"
+                  className="px-3 py-2 rounded ring-1 ring-yellow-400/50"
                 >
-                  <div className="flex flex-col leading-tight">
-                    <span className="text-sm font-medium text-white">{entry.dateLabel}</span>
-                    <span className="text-[11px] text-amber-300 font-semibold">{entry.note}</span>
-                  </div>
-
-                  <div className="text-right text-sm space-y-0.5">
-                    {entry.is_closed ? (
-                      <span className="text-yellow-400">Closed</span>
-                    ) : (
-                      <>
-                        <div>
-                          <span className="text-xs text-white/60 mr-1">Bar:</span>
-                          <span className="text-yellow-400">
-                            {formatTime(entry.opens)} - {formatTime(entry.closes)}
-                          </span>
-                        </div>
-                        {showKitchen && (
-                          <div className="text-xs">
-                            <span className="text-white/60 mr-1">Kitchen:</span>
-                            {renderKitchen(entry.kitchen, entry.kitchenClosed, true)}
+                  {/* Top row: date + hours */}
+                  <div className="flex items-center justify-between">
+                    <span className="text-base font-medium text-white">{entry.dateLabel}</span>
+                    <div className="text-right space-y-0.5">
+                      {entry.is_closed ? (
+                        <span className="text-yellow-400">Closed</span>
+                      ) : (
+                        <>
+                          <div>
+                            <span className="text-sm text-white/60 mr-1">Bar:</span>
+                            <span className="text-yellow-400">
+                              {formatTime(entry.opens)} - {formatTime(entry.closes)}
+                            </span>
                           </div>
-                        )}
-                      </>
-                    )}
+                          {showKitchen && (
+                            <div className="text-sm">
+                              <span className="text-white/60 mr-1">Kitchen:</span>
+                              {renderKitchen(entry.kitchen, entry.kitchenClosed, true)}
+                            </div>
+                          )}
+                        </>
+                      )}
+                    </div>
+                  </div>
+                  {/* Full-width note below */}
+                  <div className="text-xs text-amber-300 font-semibold mt-1">
+                    {entry.note}
                   </div>
                 </div>
               ))}
