@@ -43,38 +43,13 @@ export default function F1Page() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify([breadcrumbSchema]) }}
             />
 
-            <HeroWrapper
-                route="/live-sport/f1"
-                title="Watch F1™ Live Here"
-                description="From lights out to the chequered flag. We show every Qualifying session and Race live."
-                variant="default"
-                primaryCta={
-                    <BookTableButton
-                        source="f1_hero"
-                        context="sport"
-                        variant="primary"
-                        size="lg"
-                        className="w-full sm:w-auto"
-                    >
-                        Book Pit Stop
-                    </BookTableButton>
-                }
-                secondaryCta={
-                    <Link href="/food-menu">
-                        <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-                            Refuel
-                        </Button>
-                    </Link>
-                }
-                secondaryInfo={
-                    <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog &amp; family friendly</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free entry</span>
-                    </div>
-                }
+                        <HeroWrapper
+              route="/live-sport/f1"
+              title="Watch F1™ Live Here"
+              description="From lights out to the chequered flag. We show every Qualifying session and Race live."
+              variant="default"
+              enableSmartCtas={true}
+              showContextStrip={true}
             />
 
             <section className="py-8 bg-anchor-bg">

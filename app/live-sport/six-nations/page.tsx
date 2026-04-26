@@ -101,38 +101,13 @@ export default function SixNationsPage() {
 
             <SixNationsLightbox />
 
-            <HeroWrapper
-                route="/live-sport/six-nations"
-                title="Watch Six Nations 2026 Live"
-                description="Every match live on BBC & ITV • Sound on • 4 Screens • Kitchen open for every game."
-                variant="default"
-                primaryCta={
-                    <BookTableButton
-                        source="six_nations_hero"
-                        context="sport"
-                        variant="primary"
-                        size="lg"
-                        className="w-full sm:w-auto"
-                    >
-                        Book Best Seat
-                    </BookTableButton>
-                }
-                secondaryCta={
-                    <Link href="/food-menu">
-                        <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-                            View Menu
-                        </Button>
-                    </Link>
-                }
-                secondaryInfo={
-                    <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog &amp; family friendly</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free entry</span>
-                    </div>
-                }
+                        <HeroWrapper
+              route="/live-sport/six-nations"
+              title="Watch Six Nations 2026 Live"
+              description="Every match live on BBC & ITV • Sound on • 4 Screens • Kitchen open for every game."
+              variant="default"
+              enableSmartCtas={true}
+              showContextStrip={true}
             />
 
             <section className="py-12 bg-anchor-bg">

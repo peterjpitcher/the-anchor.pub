@@ -93,38 +93,13 @@ export default async function LiveSportPage() {
                 dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([sportsSchema, breadcrumbSchema, screeningEventSchema]) }}
             />
 
-            <HeroWrapper
-                route="/live-sport"
-                title="Live Sport at The Anchor"
-                description="Terrestrial Channels Only (BBC/ITV/Channel 4). Multiple Screens. Great Food. The best atmosphere outside the stadium."
-                variant="default"
-                primaryCta={
-                    <BookTableButton
-                        source="sport_hero"
-                        context="dining_sport"
-                        variant="primary"
-                        size="lg"
-                        className="w-full sm:w-auto"
-                    >
-                        Book Best Seat
-                    </BookTableButton>
-                }
-                secondaryCta={
-                    <Link href="#schedule">
-                        <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-                            See What's On
-                        </Button>
-                    </Link>
-                }
-                secondaryInfo={
-                    <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog &amp; family friendly</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free entry</span>
-                    </div>
-                }
+                        <HeroWrapper
+              route="/live-sport"
+              title="Live Sport at The Anchor"
+              description="Terrestrial Channels Only (BBC/ITV/Channel 4). Multiple Screens. Great Food. The best atmosphere outside the stadium."
+              variant="default"
+              enableSmartCtas={true}
+              showContextStrip={true}
             />
 
             <Container className="py-8">

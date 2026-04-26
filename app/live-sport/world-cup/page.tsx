@@ -123,38 +123,13 @@ export default async function WorldCupPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify([eventSchema, breadcrumbSchema]) }}
       />
 
-      <HeroWrapper
+            <HeroWrapper
         route="/live-sport/world-cup"
         title="Watch FIFA World Cup 2026 Live"
         description="All match dates • 4 screens • Sound on for games we show • Kitchen open."
         variant="default"
-        primaryCta={
-          <BookTableButton
-            source="world_cup_hero"
-            context="sport"
-            variant="primary"
-            size="lg"
-            className="w-full sm:w-auto"
-          >
-            Book Best Seat
-          </BookTableButton>
-        }
-        secondaryCta={
-          <Link href="/food-menu">
-            <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-              View Menu
-            </Button>
-          </Link>
-        }
-        secondaryInfo={
-          <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog &amp; family friendly</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free entry</span>
-          </div>
-        }
+        enableSmartCtas={true}
+        showContextStrip={true}
       />
 
       <section className="bg-anchor-bg py-8">

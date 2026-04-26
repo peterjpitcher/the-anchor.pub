@@ -43,38 +43,13 @@ export default function BoxingPage() {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify([breadcrumbSchema]) }}
             />
 
-            <HeroWrapper
-                route="/live-sport/boxing"
-                title="Big Fight Nights"
-                description="Anthony Joshua. Tyson Fury. Usyk. When the heavyweights collide, we're the place to be."
-                variant="default"
-                primaryCta={
-                    <BookTableButton
-                        source="boxing_hero"
-                        context="sport"
-                        variant="primary"
-                        size="lg"
-                        className="w-full sm:w-auto"
-                    >
-                        Book Ringside
-                    </BookTableButton>
-                }
-                secondaryCta={
-                    <Link href="/drinks">
-                        <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-                            Drinks Menu
-                        </Button>
-                    </Link>
-                }
-                secondaryInfo={
-                    <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog &amp; family friendly</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free entry</span>
-                    </div>
-                }
+                        <HeroWrapper
+              route="/live-sport/boxing"
+              title="Big Fight Nights"
+              description="Anthony Joshua. Tyson Fury. Usyk. When the heavyweights collide, we're the place to be."
+              variant="default"
+              enableSmartCtas={true}
+              showContextStrip={true}
             />
 
             <section className="py-8 bg-anchor-bg">
