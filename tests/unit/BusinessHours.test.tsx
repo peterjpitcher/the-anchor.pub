@@ -29,6 +29,9 @@ jest.mock('@/components/layout/StatusBar', () => ({
 //   Thu = 2026-04-30, Fri = 2026-05-01, Sat = 2026-05-02, Sun = 2026-05-03
 const FROZEN_TIME = new Date('2026-04-29T13:00:00.000Z') // 14:00 BST
 
+// Configure userEvent to work with fake timers
+const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime })
+
 beforeAll(() => {
   jest.useFakeTimers()
   jest.setSystemTime(FROZEN_TIME)
@@ -267,7 +270,7 @@ describe('BusinessHours', () => {
       })
       render(<BusinessHours />)
       const toggle = screen.getByText(/upcoming changes/i)
-      await userEvent.click(toggle)
+      await user.click(toggle)
       const items = screen.getAllByText(/First|Second/)
       expect(items[0]).toHaveTextContent('First')
       expect(items[1]).toHaveTextContent('Second')
@@ -282,9 +285,9 @@ describe('BusinessHours', () => {
       render(<BusinessHours />)
       const toggle = screen.getByText(/upcoming changes/i)
       expect(screen.queryByText('Private function')).not.toBeInTheDocument()
-      await userEvent.click(toggle)
+      await user.click(toggle)
       expect(screen.getByText('Private function')).toBeInTheDocument()
-      await userEvent.click(toggle)
+      await user.click(toggle)
       expect(screen.queryByText('Private function')).not.toBeInTheDocument()
     })
 
@@ -296,8 +299,10 @@ describe('BusinessHours', () => {
       })
       render(<BusinessHours />)
       const toggle = screen.getByText(/upcoming changes/i)
-      await userEvent.click(toggle)
-      expect(screen.getByText(/2pm/)).toBeInTheDocument()
+      await user.click(toggle)
+      // 2pm appears in the upcoming changes row (bar opens 14:00)
+      expect(screen.getAllByText(/2pm/).length).toBeGreaterThan(0)
+      // 1pm appears from regular Saturday kitchen fallback (opens: '13:00')
       expect(screen.getAllByText(/1pm/).length).toBeGreaterThan(0)
     })
 
@@ -309,7 +314,7 @@ describe('BusinessHours', () => {
       })
       render(<BusinessHours />)
       const toggle = screen.getByText(/upcoming changes/i)
-      await userEvent.click(toggle)
+      await user.click(toggle)
       const upcomingSection = screen.getByText('No food').closest('div')
       expect(upcomingSection).toBeTruthy()
     })
