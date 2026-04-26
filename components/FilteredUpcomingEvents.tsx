@@ -91,10 +91,13 @@ export function mapSpecialHoursToEvents(businessHours: BusinessHours | null): Di
 
   return grouped
     .map(special => {
-      const { startDate: firstDate, endDate: lastDate, opens, closes, status, note, reason, is_closed } = special
+      const { startDate: firstDate, endDate: lastDate, opens, closes, status, note, reason, is_closed, kitchen, is_kitchen_closed, schedule_config } = special
       const statusLabel = status || (is_closed ? 'closed' : 'modified')
       const openTime = formatTimeString(opens)
       const closeTime = formatTimeString(closes)
+      const kitchenOpens = kitchen?.opens ? formatTimeString(kitchen.opens) : null
+      const kitchenCloses = kitchen?.closes ? formatTimeString(kitchen.closes) : null
+      const hasSundayLunch = Array.isArray(schedule_config) && schedule_config.some((s: any) => s.booking_type === 'sunday_lunch' || s.slot_type === 'sunday_lunch')
       const startDateStr = `${firstDate}T${openTime || '00:00'}:00Z`
 
       const name = `Special Opening Hours – ${formatSpecialDate(firstDate, lastDate)}`
@@ -182,7 +185,11 @@ export function mapSpecialHoursToEvents(businessHours: BusinessHours | null): Di
         timeChangeOpens: openTime,
         timeChangeCloses: closeTime,
         timeChangeDate: firstDate,
-        timeChangeRangeEnd: lastDate
+        timeChangeRangeEnd: lastDate,
+        timeChangeKitchenOpens: kitchenOpens,
+        timeChangeKitchenCloses: kitchenCloses,
+        timeChangeIsKitchenClosed: is_kitchen_closed === true || kitchen === null,
+        timeChangeHasSundayLunch: hasSundayLunch
       } as DisplayEvent
     })
     .sort((a, b) => getEventDateRangeUtc(a).start.getTime() - getEventDateRangeUtc(b).start.getTime())
@@ -218,8 +225,11 @@ function formatTimeString(value?: string | null): string | null {
   if (!value) return null
   const parts = value.split(':')
   if (parts.length >= 2) {
-    const [hours, minutes] = parts
-    return `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}`
+    const h = parseInt(parts[0], 10)
+    const m = parseInt(parts[1], 10)
+    const period = h >= 12 ? 'pm' : 'am'
+    const display = h === 0 ? 12 : h > 12 ? h - 12 : h
+    return m === 0 ? `${display}${period}` : `${display}:${m.toString().padStart(2, '0')}${period}`
   }
   return value
 }

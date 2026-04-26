@@ -285,18 +285,6 @@ export default async function EventPage({ params }: Props) {
     (typeof event.duration_minutes === 'number' && event.duration_minutes > 0
       ? `${event.duration_minutes} minutes`
       : null)
-  const capacity =
-    typeof event.capacity === 'number'
-      ? event.capacity
-      : typeof event.maximumAttendeeCapacity === 'number'
-        ? event.maximumAttendeeCapacity
-        : null
-  const seatsRemaining =
-    typeof event.seats_remaining === 'number'
-      ? event.seats_remaining
-      : typeof event.remainingAttendeeCapacity === 'number'
-        ? event.remainingAttendeeCapacity
-        : null
   const priceLabel = getEventPriceLabel(event)
   const locationQuery = [
     event.location?.name,
@@ -584,18 +572,6 @@ export default async function EventPage({ params }: Props) {
                         <div>
                           <dt className="font-semibold text-anchor-gold-vivid">Price</dt>
                           <dd>{priceLabel}</dd>
-                        </div>
-                      ) : null}
-                      {typeof capacity === 'number' ? (
-                        <div>
-                          <dt className="font-semibold text-anchor-gold-vivid">Capacity</dt>
-                          <dd>{capacity}</dd>
-                        </div>
-                      ) : null}
-                      {typeof seatsRemaining === 'number' ? (
-                        <div>
-                          <dt className="font-semibold text-anchor-gold-vivid">Seats remaining</dt>
-                          <dd>{Math.max(seatsRemaining, 0)}</dd>
                         </div>
                       ) : null}
                     </dl>

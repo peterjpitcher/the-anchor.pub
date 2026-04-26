@@ -256,11 +256,6 @@ export default function HomePage() {
                 View All Events
               </Button>
             </Link>
-            <Button asChild variant="ghost" size="sm">
-              <a href="/api/calendar/upcoming">
-                Add upcoming events to your calendar (.ics)
-              </a>
-            </Button>
           </div>
 
           {/* Regular Events */}

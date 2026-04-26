@@ -47,25 +47,7 @@ export default function BookingConfirmation({
     return minute === 0 ? `${displayHour}${period}` : `${displayHour}:${minute.toString().padStart(2, '0')}${period}`
   }
 
-  const addToCalendar = () => {
-    const date = booking.confirmation_details?.date || booking.booking_details?.date
-    const time = booking.confirmation_details?.time || booking.booking_details?.time
-    const duration = booking.confirmation_details?.duration_minutes || booking.booking_details?.duration_minutes || 120
-    const startDate = new Date(`${date}T${time}`)
-    const endDate = new Date(startDate.getTime() + duration * 60000)
-    
-    const event = {
-      title: `Table booking at The Anchor`,
-      start: startDate.toISOString().replace(/-|:|\.\d\d\d/g, ''),
-      end: endDate.toISOString().replace(/-|:|\.\d\d\d/g, ''),
-      location: 'The Anchor, 5-7 Church Street, Colnbrook, SL3 0LW',
-      details: `Booking reference: ${booking.booking_reference}\nParty size: ${booking.confirmation_details?.party_size || booking.booking_details?.party_size} people`
-    }
-    
-    const googleCalendarUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(event.title)}&dates=${event.start}/${event.end}&location=${encodeURIComponent(event.location)}&details=${encodeURIComponent(event.details)}`
-    
-    window.open(googleCalendarUrl, '_blank')
-  }
+
 
   return (
     <Card variant="elevated" className={`bg-green-50 border-green-200 ${className}`}>
@@ -134,15 +116,6 @@ export default function BookingConfirmation({
         </div>
 
         <div className="space-y-3">
-          <Button
-            variant="outline"
-            fullWidth
-            onClick={addToCalendar}
-          >
-            <Icon name="calendar" className="mr-2" />
-            Add to Calendar
-          </Button>
-          
           {onNewBooking && (
             <Button
               variant="ghost"

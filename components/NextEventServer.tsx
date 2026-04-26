@@ -7,7 +7,8 @@ import { EventSchema } from '@/components/seo/EventSchema'
 import { EventBookingButton } from '@/components/EventBookingButton'
 import { Button } from '@/components/ui'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
-import { EventSecondaryActions } from '@/components/events/EventSecondaryActions'
+import { ShareButton } from '@/components/ShareButton'
+import { getEventWebsiteUrl } from '@/lib/event-url'
 
 const MAX_URGENCY_DAYS = 3
 const LONDON_TIME_ZONE = 'Europe/London'
@@ -118,22 +119,22 @@ export async function NextEventServer() {
     const eventImage = nextEvent.image?.[0] || nextEvent.heroImageUrl || DEFAULT_EVENT_IMAGE
     
     return (
-      <div className="max-w-5xl mx-auto space-y-4">
+      <div className="max-w-6xl mx-auto space-y-4">
         <div className="card-dark">
           <EventSchema event={nextEvent} />
 
-          <div className="grid gap-0 lg:grid-cols-[minmax(0,260px)_minmax(0,1fr)]">
-            <div className="relative flex items-center justify-center bg-anchor-bg border-r border-anchor-gold/15 p-5 lg:p-6">
-              <div className="relative w-full max-w-[200px] sm:max-w-[220px] lg:max-w-full aspect-[3/4]">
+          <div className="grid gap-0 lg:grid-cols-[minmax(0,340px)_minmax(0,1fr)]">
+            <Link href={`/events/${nextEvent.slug || nextEvent.id}`} className="relative flex items-center justify-center bg-anchor-bg border-r border-anchor-gold/15 p-5 lg:p-6">
+              <div className="relative w-full max-w-[260px] sm:max-w-[280px] lg:max-w-full aspect-square">
                 <Image
                   src={eventImage}
                   alt={`${nextEvent.name} event promotional poster - ${nextEvent.category?.name || 'upcoming event'} at The Anchor`}
                   fill
-                  className="object-contain drop-shadow-xl"
-                  sizes="(max-width: 640px) 200px, (max-width: 1024px) 220px, 260px"
+                  className="object-cover hover:scale-105 transition-transform duration-300"
+                  sizes="(max-width: 640px) 260px, (max-width: 1024px) 280px, 340px"
                 />
               </div>
-            </div>
+            </Link>
 
             <div className="flex flex-col gap-4 p-5 lg:p-6">
               <div className="flex flex-wrap items-center gap-2 text-xs font-semibold uppercase tracking-wide">
@@ -212,14 +213,15 @@ export async function NextEventServer() {
                     View Details
                   </Button>
                 </Link>
+                <ShareButton
+                  title={nextEvent.name}
+                  url={getEventWebsiteUrl(nextEvent, { absolute: true })}
+                  source="homepage_next_event"
+                  variant="secondary"
+                  size="lg"
+                  className="w-full sm:w-auto"
+                />
               </div>
-
-              <EventSecondaryActions
-                event={nextEvent}
-                source="homepage_next_event_actions"
-                className="justify-start"
-                size="sm"
-              />
             </div>
           </div>
         </div>
@@ -240,16 +242,16 @@ export async function NextEventServer() {
               return (
                 <div key={event.id} className="card-dark">
                   <EventSchema event={event} />
-                  <div className="grid grid-cols-[80px_1fr] gap-3 p-4">
-                    <div className="relative w-20 h-28 overflow-hidden bg-anchor-bg flex-shrink-0 border border-anchor-gold/15">
+                  <div className="grid grid-cols-[160px_1fr] p-4 gap-4">
+                    <Link href={`/events/${event.slug || event.id}`} className="relative aspect-square overflow-hidden bg-anchor-bg border border-anchor-gold/15 block">
                       <Image
                         src={previewImage}
                         alt={`${event.name} event promotional poster`}
                         fill
-                        className="object-contain"
-                        sizes="80px"
+                        className="object-cover hover:scale-105 transition-transform duration-300"
+                        sizes="160px"
                       />
-                    </div>
+                    </Link>
 
                     <div className="min-w-0">
                       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-anchor-cream-text/50">
@@ -278,14 +280,14 @@ export async function NextEventServer() {
                             Details
                           </Button>
                         </Link>
+                        <ShareButton
+                          title={event.name}
+                          url={getEventWebsiteUrl(event, { absolute: true })}
+                          source="homepage_next_event_list"
+                          variant="secondary"
+                          size="sm"
+                        />
                       </div>
-
-                      <EventSecondaryActions
-                        event={event}
-                        source="homepage_next_event_list_actions"
-                        className="mt-2 justify-start"
-                        size="xs"
-                      />
                     </div>
                   </div>
                 </div>

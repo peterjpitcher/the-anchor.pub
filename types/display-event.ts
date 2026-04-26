@@ -9,4 +9,8 @@ export type DisplayEvent = Event & {
   timeChangeCloses?: string | null
   timeChangeDate?: string | null
   timeChangeRangeEnd?: string | null
+  timeChangeKitchenOpens?: string | null
+  timeChangeKitchenCloses?: string | null
+  timeChangeIsKitchenClosed?: boolean
+  timeChangeHasSundayLunch?: boolean
 }

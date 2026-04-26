@@ -230,13 +230,38 @@ export default async function WhatsOnPage() {
         }
       />
 
-      <TrustBar variant="events" />
+      {/* Upcoming Events from API — first thing after the hero */}
+      <Section id="upcoming-events" background="white" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15">
+        <Container>
+          <SectionHeader
+            title="Upcoming Events"
+            subtitle="Live updates from our events calendar"
+          />
+
+          <SpeakableContent selector="events-list" priority="high">
+            <div className="max-w-5xl mx-auto">
+              <Suspense fallback={<div className="text-center py-8">Loading events...</div>}>
+                <FilteredUpcomingEvents events={upcomingEvents} />
+              </Suspense>
+            </div>
+          </SpeakableContent>
+        </Container>
+      </Section>
 
       <section className="bg-anchor-bg-raised border-b border-anchor-gold/15 py-6">
         <Container>
           <p className="text-center text-sm text-anchor-cream-text/70"><strong className="text-anchor-cream-text">Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
         </Container>
       </section>
+
+      {/* Page Title */}
+      <Section background="white" spacing="sm" className="bg-anchor-bg border-b border-anchor-gold/15">
+        <Container>
+          <PageTitle className="text-center text-anchor-cream-text" seo={{ structured: true, speakable: true }}>
+            What's On - Events & Entertainment at The Anchor - Heathrow Pub & Dining
+          </PageTitle>
+        </Container>
+      </Section>
 
       {/* Heathrow Positioning */}
       <Section background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
@@ -286,15 +311,6 @@ export default async function WhatsOnPage() {
         </Container>
       </Section>
 
-      {/* Page Title */}
-      <Section background="white" spacing="sm" className="bg-anchor-bg border-b border-anchor-gold/15">
-        <Container>
-          <PageTitle className="text-center text-anchor-cream-text" seo={{ structured: true, speakable: true }}>
-            What's On - Events & Entertainment at The Anchor - Heathrow Pub & Dining
-          </PageTitle>
-        </Container>
-      </Section>
-
       <Section background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <SectionHeader
@@ -324,31 +340,6 @@ export default async function WhatsOnPage() {
               }
             ]}
           />
-        </Container>
-      </Section>
-
-      {/* Upcoming Events from API */}
-      <Section id="upcoming-events" background="white" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15">
-        <Container>
-          <SectionHeader
-            title="Upcoming Events"
-            subtitle="Live updates from our events calendar"
-          />
-          <div className="mt-4 flex justify-center">
-            <Button asChild variant="ghost" size="sm">
-              <a href="/api/calendar/upcoming">
-                Add all upcoming events to your calendar (.ics)
-              </a>
-            </Button>
-          </div>
-
-          <SpeakableContent selector="events-list" priority="high">
-            <div className="max-w-5xl mx-auto">
-              <Suspense fallback={<div className="text-center py-8">Loading events...</div>}>
-                <FilteredUpcomingEvents events={upcomingEvents} />
-              </Suspense>
-            </div>
-          </SpeakableContent>
         </Container>
       </Section>
 

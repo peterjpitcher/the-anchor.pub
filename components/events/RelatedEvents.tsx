@@ -46,7 +46,7 @@ export default async function RelatedEvents({
           id="related-events-heading"
           className="text-2xl font-bold text-anchor-gold mb-6"
         >
-          {categoryName ? `More ${categoryName} Events` : 'More Upcoming Events'}
+          More Events
         </h2>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -67,7 +67,7 @@ export default async function RelatedEvents({
                 className="group block rounded-lg overflow-hidden bg-anchor-green-dark hover:bg-anchor-green transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-anchor-gold"
               >
                 {/* Thumbnail with category badge overlay */}
-                <div className="relative aspect-[16/9] w-full overflow-hidden">
+                <div className="relative aspect-square w-full overflow-hidden">
                   <Image
                     src={imageSrc}
                     alt={altText}

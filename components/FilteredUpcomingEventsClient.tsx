@@ -7,9 +7,9 @@ import { useInView } from 'react-intersection-observer'
 import { formatEventDate, formatEventTime, getEventShortDescription, formatDoorTime } from '@/lib/api'
 import { getEventDateRangeUtc } from '@/lib/event-calendar'
 import { EventBookingButton } from '@/components/EventBookingButton'
+import { Button } from '@/components/ui'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getEventPriceLabel } from '@/lib/event-pricing'
-import { EventSecondaryActions } from '@/components/events/EventSecondaryActions'
 import type { DisplayEvent } from '@/types/display-event'
 
 const MAX_URGENCY_DAYS = 3
@@ -188,11 +188,6 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
     ? formatTimeChangeDate(event.timeChangeDate, event.timeChangeRangeEnd)
     : formatEventDate(event.startDate)
 
-  const timeChangeSchedule =
-    event.timeChangeStatus === 'closed'
-      ? 'Closed'
-      : `Open ${event.timeChangeOpens || 'TBC'} - ${event.timeChangeCloses || 'TBC'}`
-
   const timeChangeMessage =
     event.timeChangeNote ||
     (event.timeChangeStatus === 'closed'
@@ -200,24 +195,41 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
       : 'Opening hours have been adjusted for this date.')
 
   if (isTimeChange) {
+    const isClosed = event.timeChangeStatus === 'closed'
+    const kitchenClosed = event.timeChangeIsKitchenClosed
+
+    // Build a compact hours summary
+    const hoursParts: string[] = []
+    if (isClosed) {
+      hoursParts.push('Closed')
+    } else {
+      hoursParts.push(`Bar ${event.timeChangeOpens || 'TBC'}–${event.timeChangeCloses || 'TBC'}`)
+      if (kitchenClosed) {
+        hoursParts.push('Kitchen closed')
+      } else if (event.timeChangeKitchenOpens && event.timeChangeKitchenCloses) {
+        hoursParts.push(`Kitchen ${event.timeChangeKitchenOpens}–${event.timeChangeKitchenCloses}`)
+      }
+      if (event.timeChangeHasSundayLunch) {
+        hoursParts.push('Sunday lunch available')
+      }
+    }
+
     return (
-      <div ref={ref} className="card-dark rounded-none p-4">
+      <div ref={ref} className="border-l-2 border-anchor-gold/40 bg-anchor-bg-raised/30 px-4 py-3">
         {inView ? (
-          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6">
-             <div className="flex items-center gap-3 sm:min-w-[160px]">
-               <span className="font-bold text-anchor-cream-text">{eventDate}</span>
-             </div>
-
-             <div className="flex-1 text-anchor-cream-text/70">
-                {timeChangeMessage}
-             </div>
-
-             <div className="text-sm font-semibold text-anchor-gold-vivid whitespace-nowrap bg-anchor-gold/10 px-3 py-1 rounded-full">
-                {timeChangeSchedule}
-             </div>
+          <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 text-base">
+            <span className="font-semibold text-anchor-cream-text whitespace-nowrap">{eventDate}</span>
+            <span className="text-anchor-cream-text/50 hidden sm:inline">·</span>
+            <span className="text-anchor-cream-text/70">{hoursParts.join(' · ')}</span>
+            {timeChangeMessage && timeChangeMessage !== 'Opening hours have been adjusted for this date.' && (
+              <>
+                <span className="text-anchor-cream-text/50 hidden sm:inline">·</span>
+                <span className="text-anchor-gold-vivid text-sm font-medium">{timeChangeMessage}</span>
+              </>
+            )}
           </div>
         ) : (
-           <div className="h-12 bg-anchor-bg-raised animate-pulse rounded"></div>
+           <div className="h-6 bg-anchor-bg-raised animate-pulse rounded"></div>
         )}
       </div>
     )
@@ -227,278 +239,150 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
     <div ref={ref} className="card-dark rounded-none overflow-hidden">
       {inView ? (
         <>
-          {/* Event Header with Name and Time */}
-          <div className="bg-anchor-green text-white px-4 sm:px-6 py-3 sm:py-4">
-            <div className="flex items-center justify-between gap-3">
-              <div className="flex-1 min-w-0">
-                <h3 className="text-base sm:text-lg font-bold line-clamp-1 text-white">
-                  <Link href={`/events/${event.slug || event.id}`} className="hover:text-anchor-gold transition-colors">
-                    {event.name}
-                  </Link>
-                </h3>
-                <p className="text-sm sm:text-base opacity-90 text-white/90">{eventDate}</p>
-              </div>
-              <div className="flex-shrink-0 text-right">
-                <p className="text-lg sm:text-xl font-bold text-white">{startTime}</p>
-                {endTime && (
-                  <p className="text-lg sm:text-xl font-bold text-white/90">
-                    → {endTime}
-                  </p>
-                )}
-                {!isTimeChange && formatDoorTime(event.doorTime) && (
-                  <p className="text-sm sm:text-xs opacity-75 text-white/75">{formatDoorTime(event.doorTime)}</p>
-                )}
-              </div>
-            </div>
-          </div>
-          
-          {/* Mobile Layout */}
-          <div className="sm:hidden p-4">
-            <div className="flex items-start gap-3">
-              {/* Mobile Thumbnail */}
-              {isTimeChange ? null : (
-                <Link href={`/events/${event.slug || event.id}`} className="flex-shrink-0">
-                  <div className="relative w-20 h-20 rounded-lg overflow-hidden">
-                    <Image
-                      src={eventImage}
-                      alt={`${event.name} event promotional image - ${event.category?.name || 'entertainment'} at The Anchor`}
-                      fill
-                      className="object-contain"
-                      sizes="80px"
-                      loading={index < 3 ? "eager" : "lazy"}
-                    />
-                  </div>
-                </Link>
-              )}
-              
-              {/* Mobile Content */}
-              <div className="flex-1 min-w-0">
-                {timingInfo && (
-                  <div className="mb-3">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <span className="inline-flex items-center gap-2 rounded-full bg-anchor-green/10 px-2 py-1 text-xs font-semibold uppercase tracking-wide text-anchor-green">
-                        {timingInfo.relativeLabel}
-                      </span>
-                      {timingInfo.urgency && (
-                        <span className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-semibold uppercase tracking-wide shadow-sm ${timingInfo.urgency.badgeClassName}`}>
-                          {timingInfo.urgency.label}
-                        </span>
-                      )}
-                    </div>
-                    {timingInfo.urgency && (
-                      <div className={`mt-2 rounded-xl p-3 text-xs leading-relaxed shadow-sm ${timingInfo.urgency.panelClassName}`}>
-                        <p className="font-semibold uppercase tracking-wide">
-                          {timingInfo.urgency.label}
-                        </p>
-                        <p className="mt-1">
-                          {timingInfo.urgency.message}
-                        </p>
-                      </div>
-                    )}
-                  </div>
-                )}
-                <p className="text-sm text-anchor-cream-text/70 line-clamp-2 mb-2">
-                  {isTimeChange ? timeChangeMessage : getEventShortDescription(event)}
-                </p>
-                
-                {/* Mobile Meta Info */}
-                <div className="flex flex-wrap items-center gap-2 text-sm sm:text-xs mb-3">
-                  {priceLabel && (
-                    <span className="text-anchor-gold font-semibold">{priceLabel}</span>
-                  )}
+          {/* Mobile Layout — image on top, content below */}
+          <div className="sm:hidden">
+            {!isTimeChange && (
+              <Link href={`/events/${event.slug || event.id}`} className="block">
+                <div className="relative aspect-square w-full overflow-hidden bg-anchor-bg">
+                  <Image
+                    src={eventImage}
+                    alt={`${event.name} event promotional image - ${event.category?.name || 'entertainment'} at The Anchor`}
+                    fill
+                    className="object-cover"
+                    sizes="100vw"
+                    loading={index < 3 ? "eager" : "lazy"}
+                  />
                   {event.category && (
-                    <span 
-                      className="inline-flex items-center px-2 py-0.5 font-semibold rounded-full"
+                    <span
+                      className="absolute top-3 left-3 px-2.5 py-1 text-xs font-semibold rounded-full"
                       style={{
-                        backgroundColor: `${event.category.color}20`,
-                        color: event.category.color
+                        backgroundColor: `${event.category.color}cc`,
+                        color: '#ffffff'
                       }}
                     >
                       {event.category.name}
                     </span>
                   )}
                 </div>
-                
-                {/* Mobile CTA */}
-                {!isTimeChange && (
-                  <div className="space-y-2">
-                    <EventBookingButton event={event} size="lg" source="whats_on_event_card_mobile" />
-                    {getTableBookingHref(event) && (
-                      <Link
-                        href={getTableBookingHref(event)!}
-                        className="inline-flex items-center gap-1 text-anchor-cream-text/70 hover:text-anchor-gold text-sm transition-colors"
-                      >
-                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                        Reserve a table for this night
-                      </Link>
-                    )}
-                    <Link
-                      href={`/events/${event.slug || event.id}`}
-                      className="inline-flex items-center text-anchor-gold font-semibold text-sm"
-                    >
-                      View details
-                      <svg className="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </Link>
-                    <EventSecondaryActions
-                      event={event}
-                      source="whats_on_event_card_mobile_actions"
-                      className="pt-2 justify-start"
-                      size="xs"
-                    />
-                  </div>
+              </Link>
+            )}
+
+            <div className="p-4">
+              <div className="flex items-center justify-between gap-2 mb-2">
+                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-anchor-cream-text/50">
+                  {eventDate} · {startTime}
+                  {endTime ? ` → ${endTime}` : ''}
+                </p>
+                {priceLabel && (
+                  <span className="text-sm font-semibold text-anchor-gold">{priceLabel}</span>
                 )}
               </div>
+
+              <Link href={`/events/${event.slug || event.id}`}>
+                <h3 className="text-lg font-bold text-anchor-cream-text hover:text-anchor-gold-vivid transition-colors leading-snug">
+                  {event.name}
+                </h3>
+              </Link>
+
+              <p className="mt-1 text-sm text-anchor-cream-text/70 line-clamp-2">
+                {isTimeChange ? timeChangeMessage : getEventShortDescription(event)}
+              </p>
+
+              {timingInfo?.urgency && (
+                <div className={`mt-3 p-3 text-xs leading-relaxed ${timingInfo.urgency.panelClassName}`}>
+                  <p className="font-semibold uppercase tracking-wide">{timingInfo.urgency.label}</p>
+                  <p className="mt-1">{timingInfo.urgency.message}</p>
+                </div>
+              )}
+
+              {!isTimeChange && (
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <EventBookingButton event={event} size="sm" source="whats_on_event_card_mobile" />
+                  <Button asChild size="sm" className="bg-anchor-green text-white hover:bg-anchor-green/80">
+                    <Link href={`/events/${event.slug || event.id}`}>
+                      Details
+                    </Link>
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
-          
-          {/* Desktop Layout */}
-          <div className="hidden sm:block p-6">
-            <div className="flex items-start gap-4">
-              {/* Event Image */}
-              {isTimeChange ? null : (
-                <Link href={`/events/${event.slug || event.id}`} className="flex-shrink-0">
-                  <div className="relative w-32 h-32 rounded-lg overflow-hidden">
-                    <Image
-                      src={eventImage}
-                      alt={`${event.name} event promotional image - ${event.category?.name || 'entertainment'} at The Anchor`}
-                      fill
-                      className="object-contain hover:scale-105 transition-transform duration-300"
-                      sizes="128px"
-                      loading={index < 3 ? "eager" : "lazy"}
-                    />
-                  </div>
-                </Link>
-              )}
-              
-              <div className="flex-1">
-                {timingInfo && (
-                  <div className="mb-4">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <span className="inline-flex items-center gap-2 rounded-full bg-anchor-green/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-anchor-green">
-                        {timingInfo.relativeLabel}
-                      </span>
-                      {timingInfo.urgency && (
-                        <span className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide shadow-sm ${timingInfo.urgency.badgeClassName}`}>
-                          {timingInfo.urgency.label}
-                        </span>
-                      )}
-                    </div>
-                    {timingInfo.urgency && (
-                      <div className={`mt-3 rounded-2xl p-4 text-sm leading-relaxed shadow-sm ${timingInfo.urgency.panelClassName}`}>
-                        <p className="font-semibold uppercase tracking-wide">
-                          {timingInfo.urgency.label}
-                        </p>
-                        <p className="mt-2">
-                          {timingInfo.urgency.message}
-                        </p>
-                      </div>
-                    )}
-                  </div>
+
+          {/* Desktop Layout — large square image left, content right */}
+          <div className="hidden sm:grid sm:grid-cols-[200px_1fr]">
+            {!isTimeChange ? (
+              <Link href={`/events/${event.slug || event.id}`} className="relative aspect-square overflow-hidden bg-anchor-bg block">
+                <Image
+                  src={eventImage}
+                  alt={`${event.name} event promotional image - ${event.category?.name || 'entertainment'} at The Anchor`}
+                  fill
+                  className="object-cover hover:scale-105 transition-transform duration-300"
+                  sizes="200px"
+                  loading={index < 3 ? "eager" : "lazy"}
+                />
+                {event.category && (
+                  <span
+                    className="absolute top-3 left-3 px-2.5 py-1 text-xs font-semibold rounded-full"
+                    style={{
+                      backgroundColor: `${event.category.color}cc`,
+                      color: '#ffffff'
+                    }}
+                  >
+                    {event.category.name}
+                  </span>
                 )}
-                <p className="text-anchor-cream-text/70 mb-3">
-                  {isTimeChange ? timeChangeMessage : getEventShortDescription(event)}
-                </p>
-                
-                {/* Event highlights if available */}
-                {!isTimeChange && event.highlights && event.highlights.length > 0 && (
-                  <div className="flex flex-wrap gap-2 mb-3">
-                    {event.highlights.slice(0, 3).map((highlight, idx) => (
-                      <span key={idx} className="text-sm sm:text-xs bg-anchor-bg-raised px-2 py-1 rounded-full text-anchor-cream-text/70 whitespace-nowrap">
-                        {highlight}
-                      </span>
-                    ))}
-                  </div>
-                )}
-                
-                <div className="flex flex-wrap items-center gap-4 text-sm">
+              </Link>
+            ) : (
+              <div className="bg-anchor-bg-raised" />
+            )}
+
+            <div className="p-5 flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between gap-2 mb-1">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-anchor-cream-text/50">
+                    {eventDate} · {startTime}
+                    {endTime ? ` → ${endTime}` : ''}
+                    {!isTimeChange && formatDoorTime(event.doorTime) ? ` · Doors ${formatDoorTime(event.doorTime)}` : ''}
+                  </p>
                   {priceLabel && (
-                    <span className="text-anchor-gold font-semibold">{priceLabel}</span>
-                  )}
-                  {!isTimeChange && event.performer && (
-                    <span className="text-anchor-cream-text/70">
-                      Featuring: {event.performer.name}
-                    </span>
-                  )}
-                  
-                  {!isTimeChange && event.duration && (
-                    <span className="text-anchor-cream-text/70 text-sm sm:text-xs">
-                      Duration: {event.duration.replace('PT', '').replace('H', 'h ').replace('M', 'm')}
-                    </span>
-                  )}
-                  {isTimeChange && (
-                    <span className="inline-flex items-center gap-2 text-sm font-semibold text-anchor-green">
-                      {timeChangeSchedule}
-                    </span>
-                  )}
-                </div>
-                
-                <div className="flex items-center justify-between mt-4">
-                  <div className="flex items-center gap-3">
-                    {event.category && (
-                      <span 
-                        className="inline-block px-3 py-1 text-sm sm:text-xs font-semibold rounded-full"
-                        style={{
-                          backgroundColor: `${event.category.color}20`,
-                          color: event.category.color
-                        }}
-                      >
-                        {event.category.name}
-                      </span>
-                    )}
-                    
-                    {!isTimeChange && event.video && event.video.length > 0 && (
-                      <span className="text-sm sm:text-xs text-anchor-cream-text/70">
-                        Video available
-                      </span>
-                    )}
-                  </div>
-                  
-                  {!isTimeChange && (
-                    <div className="flex flex-col items-stretch gap-2 sm:flex-row sm:items-center sm:justify-end">
-                      <EventBookingButton
-                        event={event}
-                        className="sm:min-w-[220px]"
-                        fullWidth={false}
-                        size="lg"
-                        source="whats_on_event_card_desktop"
-                      />
-                      {getTableBookingHref(event) && (
-                        <Link
-                          href={getTableBookingHref(event)!}
-                          className="inline-flex items-center justify-center gap-1 text-anchor-cream-text/70 hover:text-anchor-gold text-sm transition-colors"
-                        >
-                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                          </svg>
-                          Reserve a table
-                        </Link>
-                      )}
-                      <Link
-                        href={`/events/${event.slug || event.id}`}
-                        className="inline-flex items-center justify-center text-anchor-gold hover:text-anchor-gold-light font-semibold text-sm"
-                      >
-                        View details
-                        <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                        </svg>
-                      </Link>
-                    </div>
+                    <span className="text-sm font-semibold text-anchor-gold">{priceLabel}</span>
                   )}
                 </div>
 
-                {!isTimeChange && (
-                  <EventSecondaryActions
-                    event={event}
-                    source="whats_on_event_card_desktop_actions"
-                    className="mt-4 justify-end"
-                    size="xs"
-                  />
+                <Link href={`/events/${event.slug || event.id}`}>
+                  <h3 className="text-xl font-bold text-anchor-cream-text hover:text-anchor-gold-vivid transition-colors leading-snug">
+                    {event.name}
+                  </h3>
+                </Link>
+
+                <p className="mt-1 text-sm text-anchor-cream-text/70 line-clamp-2">
+                  {isTimeChange ? timeChangeMessage : getEventShortDescription(event)}
+                </p>
+
+                {timingInfo?.urgency && (
+                  <div className={`mt-3 p-3 text-sm leading-relaxed ${timingInfo.urgency.panelClassName}`}>
+                    <p className="font-semibold uppercase tracking-wide">{timingInfo.urgency.label}</p>
+                    <p className="mt-1">{timingInfo.urgency.message}</p>
+                  </div>
                 )}
               </div>
+
+              {!isTimeChange && (
+                <div className="flex flex-wrap items-center gap-3 mt-4">
+                  <EventBookingButton
+                    event={event}
+                    className="sm:min-w-[180px]"
+                    fullWidth={false}
+                    size="md"
+                    source="whats_on_event_card_desktop"
+                  />
+                  <Button asChild size="md" className="bg-anchor-green text-white hover:bg-anchor-green/80">
+                    <Link href={`/events/${event.slug || event.id}`}>
+                      View Details
+                    </Link>
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
         </>
