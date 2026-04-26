@@ -80,6 +80,7 @@ export default async function EngagementPartiesPage() {
             />
 
             <HeroWrapper
+                showContextStrip={true}
                 route="/private-hire/engagement-parties"
                 variant="feature"
                 title="Engagement Parties at The Anchor"

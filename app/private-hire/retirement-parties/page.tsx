@@ -80,6 +80,7 @@ export default async function RetirementPartiesPage() {
             />
 
             <HeroWrapper
+                showContextStrip={true}
                 route="/private-hire/retirement-parties"
                 variant="feature"
                 title="Retirement Parties & Leaving Dos"

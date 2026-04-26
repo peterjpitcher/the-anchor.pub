@@ -99,6 +99,7 @@ export default async function WakesPage() {
             />
 
             <HeroWrapper
+                showContextStrip={true}
                 route="/private-hire/wakes"
                 variant="feature"
                 title="Wakes, Funeral Receptions & Celebrations of Life"

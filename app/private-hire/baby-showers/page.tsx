@@ -90,6 +90,7 @@ export default async function BabyShowersPage() {
             />
 
             <HeroWrapper
+                showContextStrip={true}
                 route="/private-hire/baby-showers"
                 variant="feature"
                 title="Baby Showers"

@@ -78,6 +78,7 @@ export default async function GenderRevealPage() {
             />
 
             <HeroWrapper
+                showContextStrip={true}
                 route="/private-hire/gender-reveal"
                 variant="feature"
                 title="Gender Reveal Parties"

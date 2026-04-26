@@ -106,6 +106,7 @@ export default async function PrivateHirePage() {
                 ]}
             />
             <HeroWrapper
+                showContextStrip={true}
                 route="/private-hire"
                 title="Function Room & Party Venue"
                 description={`Function rooms for 10–50 guests · Free parking for all · Buffet packages from ${fromPrice}pp · 7 mins from Heathrow`}

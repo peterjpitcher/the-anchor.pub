@@ -168,6 +168,7 @@ export default function ChristmasPartiesPage() {
         ]}
       />
       <HeroWrapper
+        showContextStrip={true}
         id="christmas-hero"
         route="/christmas-parties"
        

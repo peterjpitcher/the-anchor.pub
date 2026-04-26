@@ -50,6 +50,7 @@ export default function PrivatePartyVenuePage() {
 
       {/* Hero Section */}
       <HeroWrapper
+        showContextStrip={true}
         route="/private-party-venue"
         title="Birthday Party Venue & Celebrations"
         description="The perfect spot for birthdays, milestones and social celebrations near Heathrow"

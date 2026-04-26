@@ -91,6 +91,7 @@ export default async function ChristeningsPage() {
             />
 
             <HeroWrapper
+                showContextStrip={true}
                 route="/private-hire/christenings"
                 variant="feature"
                 title="Christenings & Naming Ceremonies"

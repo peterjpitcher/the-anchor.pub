@@ -86,6 +86,7 @@ export default function FunctionRoomHirePage() {
 
       {/* Hero Section */}
       <HeroWrapper
+        showContextStrip={true}
         route="/function-room-hire"
         title="Function Room Hire — Flexible Space for 10-200 Guests"
         description="Ground-floor rooms with 6 layout options, AV equipment, climate control and wheelchair access. Free parking included."

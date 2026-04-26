@@ -51,6 +51,7 @@ export default function CorporateEventsPage() {
 
       {/* Hero Section */}
       <HeroWrapper
+        showContextStrip={true}
         route="/corporate-events"
         title="Corporate Event Venue Near Heathrow"
         description="Host up to 200 guests — or keep it small from 10 — 7 minutes from Terminal 5 with free parking"

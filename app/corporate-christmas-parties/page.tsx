@@ -42,6 +42,7 @@ export default function ChristmasPartiesPage() {
             />
 
             <HeroWrapper
+                showContextStrip={true}
                 route="/corporate-christmas-parties"
                 eyebrow="Corporate Christmas 2026"
                 title="Office Christmas party & corporate Christmas party venue near Heathrow"

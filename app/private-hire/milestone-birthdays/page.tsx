@@ -80,6 +80,7 @@ export default async function MilestoneBirthdaysPage() {
             />
 
             <HeroWrapper
+                showContextStrip={true}
                 route="/private-hire/milestone-birthdays"
                 variant="feature"
                 title="The Ultimate Birthday Party Venue"
