@@ -75,7 +75,7 @@ export default function StPatricksDayPage(): React.JSX.Element {
         ]}
       />
 
-      <HeroWrapper
+            <HeroWrapper
         route="/st-patricks-day"
         title="St Patrick's Day Pub at The Anchor"
         description="Guinness on tap, Irish whiskey, live music and a proper St Patrick's Day atmosphere — without the city centre crowds. Join us every 17 March."
@@ -85,45 +85,8 @@ export default function StPatricksDayPage(): React.JSX.Element {
             Live music &middot; Guinness &middot; Irish whiskey &middot; Themed food &middot; Free parking
           </p>
         }
-        tags={[
-          { label: 'Guinness on tap', variant: 'success' },
-          { label: 'Live music & entertainment', variant: 'default' },
-          { label: 'Irish-themed food', variant: 'default' },
-          { label: 'Free parking', variant: 'success' },
-          { label: 'Dog-friendly', variant: 'default' },
-        ]}
-        primaryCta={
-          <Button asChild variant="primary" size="lg" fullWidth className="w-full sm:w-auto">
-            <a href={ST_PATRICKS_DAY_BOOKING_URL}>
-              Book a Table
-            </a>
-          </Button>
-        }
-        secondaryCta={
-          <>
-            <Link href="/whats-on" className="w-full sm:w-auto">
-              <Button variant="secondary" size="lg" fullWidth className="w-full sm:w-auto">
-                See what&apos;s on
-              </Button>
-            </Link>
-            <PhoneButton
-              phone={CONTACT.phone}
-              source="st_patricks_hero"
-              variant="secondary"
-              size="lg"
-              className="w-full sm:w-auto"
-            >
-              Call {CONTACT.phone}
-            </PhoneButton>
-          </>
-        }
-        secondaryInfo={
-          <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking &middot; 20 spaces</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog-friendly</span>
-          </div>
-        }
+        enableSmartCtas={true}
+        showContextStrip={true}
       />
 
       {/* The Craic at The Anchor */}

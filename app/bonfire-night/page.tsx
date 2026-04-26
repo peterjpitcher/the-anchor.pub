@@ -61,7 +61,7 @@ export default function BonfireNightPage() {
         ]}
       />
 
-      <HeroWrapper
+            <HeroWrapper
         route="/bonfire-night"
         title="Bonfire Night at The Anchor"
         description={`Warm up on Guy Fawkes Night at The Anchor in Stanwell Moor. Hot food, cold pints, and a beer garden with a view \u2014 ${BONFIRE_NIGHT_DATE}.`}
@@ -75,37 +75,8 @@ export default function BonfireNightPage() {
           src: DEFAULT_PAGE_HEADER_IMAGE,
           alt: 'Bonfire Night at The Anchor near Heathrow',
         }}
-        tags={[
-          { label: `Kitchen ${KITCHEN_HOURS}`, variant: 'warning' },
-          { label: 'Beer garden open', variant: 'default' },
-          { label: 'Free parking', variant: 'default' },
-          { label: 'Dog-friendly', variant: 'success' },
-        ]}
-        primaryCta={
-          <Button asChild variant="primary" size="lg" fullWidth className="w-full sm:w-auto">
-            <a href="/book-table?purpose=food">
-              Book a Table
-            </a>
-          </Button>
-        }
-        secondaryCta={
-          <>
-            <Link href="/find-us" className="w-full sm:w-auto">
-              <Button variant="secondary" size="lg" fullWidth className="w-full sm:w-auto">
-                Directions &amp; parking
-              </Button>
-            </Link>
-            <PhoneButton
-              phone={CONTACT.phone}
-              source="bonfire_night_hero"
-              variant="secondary"
-              size="lg"
-              className="w-full sm:w-auto"
-            >
-              Call {CONTACT.phone}
-            </PhoneButton>
-          </>
-        }
+        enableSmartCtas={true}
+        showContextStrip={true}
       />
 
       <Section background="white" spacing="md">

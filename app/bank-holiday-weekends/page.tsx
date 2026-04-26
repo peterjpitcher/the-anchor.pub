@@ -71,7 +71,7 @@ export default function BankHolidayWeekendsPage() {
         ]}
       />
 
-      <HeroWrapper
+            <HeroWrapper
         route="/bank-holiday-weekends"
         title="Bank Holiday Weekends at The Anchor"
         description="Make the most of every bank holiday at your local. Beer garden, pub grub, Sunday roasts, and no rush to get home."
@@ -85,37 +85,8 @@ export default function BankHolidayWeekendsPage() {
           src: DEFAULT_PAGE_HEADER_IMAGE,
           alt: 'Bank holiday weekends at The Anchor near Heathrow',
         }}
-        tags={[
-          { label: 'Open every bank holiday', variant: 'success' },
-          { label: 'Sunday roasts available', variant: 'default' },
-          { label: 'Beer garden', variant: 'default' },
-          { label: 'Free parking', variant: 'default' },
-        ]}
-        primaryCta={
-          <Button asChild variant="primary" size="lg" fullWidth className="w-full sm:w-auto">
-            <a href="/book-table">
-              Book a Table
-            </a>
-          </Button>
-        }
-        secondaryCta={
-          <>
-            <Link href="/whats-on" className="w-full sm:w-auto">
-              <Button variant="secondary" size="lg" fullWidth className="w-full sm:w-auto">
-                What&apos;s on
-              </Button>
-            </Link>
-            <PhoneButton
-              phone={CONTACT.phone}
-              source="bank_holiday_hero"
-              variant="secondary"
-              size="lg"
-              className="w-full sm:w-auto"
-            >
-              Call {CONTACT.phone}
-            </PhoneButton>
-          </>
-        }
+        enableSmartCtas={true}
+        showContextStrip={true}
       />
 
       <Section background="white" spacing="md">

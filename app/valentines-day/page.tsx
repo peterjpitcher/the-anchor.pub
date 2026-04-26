@@ -287,7 +287,7 @@ export default async function ValentinesDayPage() {
 
       {event && <EventSchema event={event} />}
 
-      <HeroWrapper
+            <HeroWrapper
         route="/valentines-day"
         title="Valentine's Day Dinner at The Anchor"
         description={event?.description || "Book early for Valentine's Day near Heathrow at The Anchor in Stanwell Moor (TW19)."}
@@ -298,51 +298,8 @@ export default async function ValentinesDayPage() {
             Free parking • Seven minutes from Heathrow Terminal 5
           </p>
         }
-       
-        breadcrumbs={[
-          { name: 'Home', href: '/' },
-          { name: "Valentine's Day" }
-        ]}
-        tags={[
-          { label: `⏰ ${eventTime}`, variant: 'default' },
-          ...(isFreeEntry ? [{ label: 'Free entry', variant: 'success' as const }] : []),
-          ...(proseccoOffer ? [{ label: 'Prosecco offer', variant: 'primary' as const }] : []),
-          { label: 'Bookings recommended', variant: 'success' }
-        ]}
-        primaryCta={
-          <Button asChild variant="primary" size="lg" fullWidth className="w-full sm:w-auto">
-            <a href={VALENTINES_DAY_BOOKING_URL}>
-              Book Valentine's Table
-            </a>
-          </Button>
-        }
-        secondaryCta={
-          <>
-            <Link href={eventPageUrl} className="w-full sm:w-auto">
-              <Button variant="secondary" size="lg" fullWidth className="w-full sm:w-auto">
-                {event ? 'View full event details' : "See what's on"}
-              </Button>
-            </Link>
-            <PhoneButton
-              phone="01753 682707"
-              source="valentines_hero"
-              variant="secondary"
-              size="lg"
-              className="w-full sm:w-auto"
-            >
-              Call: 01753 682707
-            </PhoneButton>
-          </>
-        }
-        secondaryInfo={
-          <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog & family friendly</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Rated 4.6/5 on Google</span>
-          </div>
-        }
+        enableSmartCtas={true}
+        showContextStrip={true}
       />
 
       <Section spacing="md" background="white">

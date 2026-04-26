@@ -315,7 +315,7 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
         />
       ) : null}
 
-      <HeroWrapper
+            <HeroWrapper
         route="/mothers-day"
         title="Mother’s Day Lunch near Staines"
         description={heroDescription}
@@ -325,53 +325,12 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
             {heroLeadText}
           </p>
         }
-       
         image={{
           src: DEFAULT_PAGE_HEADER_IMAGE,
           alt: "Mother's Day lunch near Staines at The Anchor in Stanwell Moor"
         }}
-        tags={[
-          { label: `Serving ${MOTHERS_DAY_SERVICE_WINDOW_LABEL}`, variant: 'warning' },
-          { label: `Last booking ${MOTHERS_DAY_LAST_BOOKING_LABEL}`, variant: 'default' },
-          { label: `Adults £${String(MOTHERS_DAY_ADULT_PRICE_LOW)}–£${String(MOTHERS_DAY_ADULT_PRICE_HIGH)}`, variant: 'default' },
-          { label: `Kids roast from £${String(MOTHERS_DAY_KIDS_ROAST_PRICE)}`, variant: 'default' },
-          { label: 'Vegan & vegetarian options', variant: 'success' },
-          { label: 'Booking required', variant: 'success' }
-        ]}
-        primaryCta={
-          <BookTableButton
-            source="mothers_day_hero"
-            context="mothers_day"
-            variant="primary"
-            size="lg"
-            fullWidth
-            className="w-full sm:w-auto"
-            trackingLabel={MOTHERS_DAY_BOOKING_CTA_LABEL}
-            eventName="Mother's Day Lunch"
-            customHref={mothersDayBookingUrl}
-          >
-            {MOTHERS_DAY_BOOKING_CTA_LABEL}
-          </BookTableButton>
-        }
-        secondaryCta={
-          <>
-            <Link href="/find-us" className="w-full sm:w-auto">
-              <Button variant="secondary" size="lg" fullWidth className="w-full sm:w-auto">
-                Directions & parking
-              </Button>
-            </Link>
-            <PhoneButton
-              phone={CONTACT.phone}
-              source="mothers_day_hero"
-              variant="secondary"
-              size="lg"
-              className="w-full sm:w-auto"
-            >
-              Call to Book
-            </PhoneButton>
-          </>
-        }
-        secondaryInfo={MOTHERS_DAY_BOOKING_FLOW_NOTE}
+        enableSmartCtas={true}
+        showContextStrip={true}
       />
 
       <Section background="white" spacing="md">

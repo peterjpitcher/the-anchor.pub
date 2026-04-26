@@ -153,7 +153,7 @@ export default function EasterPage() {
         }}
       />
 
-      <HeroWrapper
+            <HeroWrapper
         route="/easter"
         title="Easter at The Anchor"
         description={
@@ -170,47 +170,8 @@ export default function EasterPage() {
           src: DEFAULT_PAGE_HEADER_IMAGE,
           alt: 'Easter Sunday lunch at The Anchor near Heathrow'
         }}
-        tags={[
-          { label: `Serving ${EASTER_SUNDAY_SERVICE_WINDOW}`, variant: 'warning' },
-          { label: `Last booking ${EASTER_SUNDAY_LAST_BOOKING}`, variant: 'default' },
-          { label: `From \u00a3${String(EASTER_ROAST_PRICE_FROM)}`, variant: 'default' },
-          { label: 'Dog-friendly beer garden', variant: 'success' },
-          { label: 'Booking required', variant: 'success' }
-        ]}
-        primaryCta={
-          <BookTableButton
-            source="easter_hero"
-            context="sunday_lunch"
-            variant="primary"
-            size="lg"
-            fullWidth
-            className="w-full sm:w-auto"
-            trackingLabel="Book Easter Sunday Lunch"
-            eventName="Easter Sunday Lunch"
-            customHref={EASTER_BOOKING_URL}
-          >
-            Book Easter Sunday Lunch
-          </BookTableButton>
-        }
-        secondaryCta={
-          <>
-            <Link href="/find-us" className="w-full sm:w-auto">
-              <Button variant="secondary" size="lg" fullWidth className="w-full sm:w-auto">
-                Directions &amp; parking
-              </Button>
-            </Link>
-            <PhoneButton
-              phone={CONTACT.phone}
-              source="easter_hero"
-              variant="secondary"
-              size="lg"
-              className="w-full sm:w-auto"
-            >
-              Call to Book
-            </PhoneButton>
-          </>
-        }
-        secondaryInfo="Choose each guest&rsquo;s Sunday lunch main in the booking flow, then complete the &pound;10 per person deposit to secure your table."
+        enableSmartCtas={true}
+        showContextStrip={true}
       />
 
       {/* Easter Sunday Lunch */}

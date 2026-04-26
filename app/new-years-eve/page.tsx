@@ -75,7 +75,7 @@ export default function NewYearsEvePage(): React.JSX.Element {
         ]}
       />
 
-      <HeroWrapper
+            <HeroWrapper
         route="/new-years-eve"
         title="New Year's Eve Pub in Stanwell Moor"
         description="See in the New Year at a proper village pub. Midnight countdown, live entertainment, and none of the London prices or transport chaos."
@@ -85,45 +85,8 @@ export default function NewYearsEvePage(): React.JSX.Element {
             Midnight countdown &middot; Live entertainment &middot; Free parking &middot; No surge pricing
           </p>
         }
-        tags={[
-          { label: 'Midnight countdown', variant: 'success' },
-          { label: 'Live entertainment', variant: 'default' },
-          { label: 'Free parking', variant: 'success' },
-          { label: 'Late licence', variant: 'default' },
-          { label: 'Dog-friendly (early evening)', variant: 'default' },
-        ]}
-        primaryCta={
-          <Button asChild variant="primary" size="lg" fullWidth className="w-full sm:w-auto">
-            <a href={NYE_BOOKING_URL}>
-              Book Your Spot
-            </a>
-          </Button>
-        }
-        secondaryCta={
-          <>
-            <Link href="/whats-on" className="w-full sm:w-auto">
-              <Button variant="secondary" size="lg" fullWidth className="w-full sm:w-auto">
-                See what&apos;s on
-              </Button>
-            </Link>
-            <PhoneButton
-              phone={CONTACT.phone}
-              source="nye_hero"
-              variant="secondary"
-              size="lg"
-              className="w-full sm:w-auto"
-            >
-              Call {CONTACT.phone}
-            </PhoneButton>
-          </>
-        }
-        secondaryInfo={
-          <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking &middot; 20 spaces</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Late licence</span>
-          </div>
-        }
+        enableSmartCtas={true}
+        showContextStrip={true}
       />
 
       {/* See in the New Year */}

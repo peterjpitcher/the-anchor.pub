@@ -148,7 +148,7 @@ export default function FathersDayPage() {
         }}
       />
 
-      <HeroWrapper
+            <HeroWrapper
         route="/fathers-day"
         title="Father&rsquo;s Day at The Anchor"
         description={
@@ -165,47 +165,8 @@ export default function FathersDayPage() {
           src: DEFAULT_PAGE_HEADER_IMAGE,
           alt: "Father\u2019s Day lunch at The Anchor near Heathrow"
         }}
-        tags={[
-          { label: `Serving ${FATHERS_DAY_SERVICE_WINDOW}`, variant: 'warning' },
-          { label: `Last booking ${FATHERS_DAY_LAST_BOOKING}`, variant: 'default' },
-          { label: `From \u00a3${String(FATHERS_DAY_ROAST_PRICE_FROM)}`, variant: 'default' },
-          { label: 'Beer garden & plane spotting', variant: 'success' },
-          { label: 'Booking required', variant: 'success' }
-        ]}
-        primaryCta={
-          <BookTableButton
-            source="fathers_day_hero"
-            context="sunday_lunch"
-            variant="primary"
-            size="lg"
-            fullWidth
-            className="w-full sm:w-auto"
-            trackingLabel="Book Father's Day Lunch"
-            eventName="Father's Day Lunch"
-            customHref={FATHERS_DAY_BOOKING_URL}
-          >
-            Book Father&apos;s Day Lunch
-          </BookTableButton>
-        }
-        secondaryCta={
-          <>
-            <Link href="/find-us" className="w-full sm:w-auto">
-              <Button variant="secondary" size="lg" fullWidth className="w-full sm:w-auto">
-                Directions &amp; parking
-              </Button>
-            </Link>
-            <PhoneButton
-              phone={CONTACT.phone}
-              source="fathers_day_hero"
-              variant="secondary"
-              size="lg"
-              className="w-full sm:w-auto"
-            >
-              Call to Book
-            </PhoneButton>
-          </>
-        }
-        secondaryInfo="Choose each guest&rsquo;s Sunday lunch main in the booking flow, then complete the &pound;10 per person deposit to secure your table."
+        enableSmartCtas={true}
+        showContextStrip={true}
       />
 
       {/* Treat Dad */}

@@ -69,7 +69,7 @@ export default function HalloweenPage() {
         ]}
       />
 
-      <HeroWrapper
+            <HeroWrapper
         route="/halloween"
         title="Halloween Pub Night at The Anchor"
         description="Fancy dress, themed cocktails, spooky decorations and a brilliant atmosphere. Join us on 31 October for our annual Halloween celebration in Stanwell Moor."
@@ -79,48 +79,8 @@ export default function HalloweenPage() {
             Fancy dress encouraged &middot; Themed cocktails &middot; Prizes for best costume
           </p>
         }
-        tags={[
-          { label: 'Fancy dress encouraged', variant: 'success' },
-          { label: 'Themed cocktails', variant: 'default' },
-          { label: 'Families welcome (before 8pm)', variant: 'default' },
-          { label: 'Free parking', variant: 'default' },
-        ]}
-        primaryCta={
-          <Button asChild variant="primary" size="lg" fullWidth className="w-full sm:w-auto">
-            <a href={HALLOWEEN_BOOKING_URL}>Book a Table for Food</a>
-          </Button>
-        }
-        secondaryCta={
-          <>
-            <Link href="/whats-on" className="w-full sm:w-auto">
-              <Button variant="secondary" size="lg" fullWidth className="w-full sm:w-auto">
-                See what&apos;s on
-              </Button>
-            </Link>
-            <PhoneButton
-              phone={CONTACT.phone}
-              source="halloween_hero"
-              variant="secondary"
-              size="lg"
-              className="w-full sm:w-auto"
-            >
-              Call {CONTACT.phone}
-            </PhoneButton>
-          </>
-        }
-        secondaryInfo={
-          <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">
-              Free parking &middot; 20 spaces
-            </span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">
-              {HEATHROW_TIMES.terminal5} min from Heathrow T5
-            </span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">
-              Dog &amp; family friendly
-            </span>
-          </div>
-        }
+        enableSmartCtas={true}
+        showContextStrip={true}
       />
 
       <Section spacing="md" background="white">

@@ -69,7 +69,7 @@ export default function BoxingDayPage() {
         ]}
       />
 
-      <HeroWrapper
+            <HeroWrapper
         route="/boxing-day"
         title="Boxing Day Pub at The Anchor"
         description="Escape the house, walk off the turkey, and end up at a proper pub. The Anchor is the perfect Boxing Day destination \u2014 close enough to not be a mission, far enough from the sofa to feel like an outing."
@@ -79,48 +79,8 @@ export default function BoxingDayPage() {
             Proper pub food &middot; Craft beer &middot; Dog-friendly walks &middot; Free parking
           </p>
         }
-        tags={[
-          { label: 'Kitchen 1pm\u20137pm', variant: 'warning' },
-          { label: 'Dog-friendly', variant: 'success' },
-          { label: 'Beer garden open', variant: 'default' },
-          { label: 'Free parking', variant: 'default' },
-        ]}
-        primaryCta={
-          <Button asChild variant="primary" size="lg" fullWidth className="w-full sm:w-auto">
-            <a href={BOXING_DAY_BOOKING_URL}>Book a Table</a>
-          </Button>
-        }
-        secondaryCta={
-          <>
-            <Link href="/find-us" className="w-full sm:w-auto">
-              <Button variant="secondary" size="lg" fullWidth className="w-full sm:w-auto">
-                Directions &amp; parking
-              </Button>
-            </Link>
-            <PhoneButton
-              phone={CONTACT.phone}
-              source="boxing_day_hero"
-              variant="secondary"
-              size="lg"
-              className="w-full sm:w-auto"
-            >
-              Call {CONTACT.phone}
-            </PhoneButton>
-          </>
-        }
-        secondaryInfo={
-          <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">
-              Free parking &middot; 20 spaces
-            </span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">
-              {HEATHROW_TIMES.terminal5} min from Heathrow T5
-            </span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">
-              Dog &amp; family friendly
-            </span>
-          </div>
-        }
+        enableSmartCtas={true}
+        showContextStrip={true}
       />
 
       <Section spacing="md" background="white">
