@@ -176,6 +176,39 @@ export default function RootLayout({
         <meta name="format-detection" content="telephone=no" />
 
         {/* Next.js handles font and image prioritisation automatically */}
+
+        {/* Google Consent Mode defaults — MUST fire before GTM script loads */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments);}
+(function(){
+  try{
+    var c=document.cookie.match(/anchor-cookie-consent=([^;]+)/);
+    if(c){
+      var p=JSON.parse(decodeURIComponent(c[1]));
+      gtag('consent','default',{
+        'analytics_storage':p.analytics?'granted':'denied',
+        'ad_storage':p.marketing?'granted':'denied',
+        'personalization_storage':p.preferences?'granted':'denied',
+        'functionality_storage':'granted',
+        'security_storage':'granted'
+      });
+      return;
+    }
+  }catch(e){}
+  gtag('consent','default',{
+    'analytics_storage':'denied',
+    'ad_storage':'denied',
+    'personalization_storage':'denied',
+    'functionality_storage':'granted',
+    'security_storage':'granted',
+    'wait_for_update':500
+  });
+})();`,
+          }}
+        />
       </head>
       <body className={`font-sans antialiased ${outfit.variable} ${merriweather.variable}`}>
         {/* Global structured data (JSON-LD) — placed in body to avoid Next.js head deduplication */}

@@ -53,16 +53,8 @@ export function setConsentStatus(consent: Partial<CookieConsent>) {
     secure: process.env.NODE_ENV === 'production'
   });
 
-  // Update Google Tag Manager consent state
-  if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('consent', 'update', {
-      'analytics_storage': newConsent.analytics ? 'granted' : 'denied',
-      'ad_storage': newConsent.marketing ? 'granted' : 'denied',
-      'personalization_storage': newConsent.preferences ? 'granted' : 'denied'
-    });
-  }
-
-  // Trigger custom event for other components to react
+  // Trigger custom event — GTMProvider and AnalyticsProvider listen for this
+  // and update consent state in GTM/Clarity respectively
   if (typeof window !== 'undefined') {
     window.dispatchEvent(new CustomEvent('cookieConsentUpdate', { detail: newConsent }));
   }
@@ -117,19 +109,3 @@ function cleanupCookies() {
   });
 }
 
-// Initialize Google consent mode with default state
-export function initializeConsentMode() {
-  if (typeof window === 'undefined' || !window.gtag) return;
-
-  const consent = getConsentStatus();
-  
-  // Set default consent state
-  window.gtag('consent', 'default', {
-    'analytics_storage': consent?.analytics ? 'granted' : 'denied',
-    'ad_storage': consent?.marketing ? 'granted' : 'denied',
-    'personalization_storage': consent?.preferences ? 'granted' : 'denied',
-    'functionality_storage': 'granted', // Necessary cookies
-    'security_storage': 'granted', // Necessary cookies
-    'wait_for_update': 500 // Wait 500ms for consent update
-  });
-}

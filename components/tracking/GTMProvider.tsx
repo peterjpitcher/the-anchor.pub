@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
-import { initializeConsentMode, getConsentStatus } from '@/lib/cookies'
+import { getConsentStatus } from '@/lib/cookies'
 
 interface GTMProviderProps {
   gtmId: string
@@ -20,27 +20,19 @@ export function GTMProvider({ gtmId, children }: GTMProviderProps) {
     if (window.__gtmInitialized) return
     window.__gtmInitialized = true
 
-    // Initialize dataLayer and gtag
-    window.dataLayer = window.dataLayer || []
-    window.gtag = window.gtag || function() {
-      window.dataLayer!.push(arguments)
-    }
-    
-    // Initialize Google consent mode on the client
-    initializeConsentMode()
-    
-    // Listen for consent updates
+    // Consent defaults are set inline in <head> before GTM loads.
+    // This listener handles consent updates when users interact with the banner.
     const handleConsentUpdate = () => {
       const consent = getConsentStatus()
-      if (consent) {
-        window.gtag!('consent', 'update', {
+      if (consent && window.gtag) {
+        window.gtag('consent', 'update', {
           'analytics_storage': consent.analytics ? 'granted' : 'denied',
           'ad_storage': consent.marketing ? 'granted' : 'denied',
           'personalization_storage': consent.preferences ? 'granted' : 'denied'
         })
       }
     }
-    
+
     window.addEventListener('cookieConsentUpdate', handleConsentUpdate)
     return () => window.removeEventListener('cookieConsentUpdate', handleConsentUpdate)
   }, [gtmId])
