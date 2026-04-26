@@ -11,7 +11,6 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
-import { BookTableButton } from '@/components/BookTableButton'
 
 export const metadata: Metadata = {
   title: 'M25 Junction 14 Pub | 5 Mins | Free Parking & Food',
@@ -104,33 +103,8 @@ export default function M25Junction14PubPage() {
         title="Your M25 Junction 14 Pit Stop"
         description="Just 5 minutes from the motorway - real food, real prices"
         variant="default"
-        primaryCta={
-          <BookTableButton
-            source="m25_j14_hero"
-            variant="primary"
-            size="lg"
-            className="w-full sm:w-auto"
-            context="m25_stopover"
-          >
-            Book a Table
-          </BookTableButton>
-        }
-        secondaryCta={
-          <Link href="/food-menu" className="w-full sm:w-auto">
-            <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-              View Menu
-            </Button>
-          </Link>
-        }
-        secondaryInfo={
-          <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog & family friendly</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Rated 4.6/5 on Google</span>
-          </div>
-        }
+        enableSmartCtas={true}
+        showContextStrip={true}
       />
 
       {/* Quick Summary */}

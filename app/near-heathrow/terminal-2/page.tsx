@@ -12,7 +12,6 @@ import { CTASection, Container } from '@/components/ui'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
-import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { PARKING } from '@/lib/constants'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
@@ -49,40 +48,8 @@ export default function Terminal2Page() {
           { name: 'Near Heathrow', href: '/near-heathrow' },
           { name: 'Terminal 2' }
         ]}
-        tags={[
-          { label: "Just 11 minutes away", variant: "warning" }
-        ]}
-        primaryCta={
-          <BookTableButton
-            source="terminal_2_hero"
-            variant="primary"
-            size="lg"
-            className="w-full sm:w-auto"
-            context="heathrow_terminal_2"
-          >
-            Book a Table Online
-          </BookTableButton>
-        }
-        secondaryCta={
-          <Link href="#directions">
-            <Button
-              variant="secondary"
-              size="lg"
-              className="bg-white text-anchor-green hover:bg-gray-100 w-full sm:w-auto"
-            >
-              Get Directions
-            </Button>
-          </Link>
-        }
-        secondaryInfo={
-          <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog & family friendly</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Rated 4.6/5 on Google</span>
-          </div>
-        }
+        enableSmartCtas={true}
+        showContextStrip={true}
       />
 
       {/* Google Rating Strip */}

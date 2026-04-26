@@ -51,41 +51,8 @@ export default function Terminal5Page() {
         title="The Best Pub Near Heathrow Terminal 5"
         description="Perfect for British Airways travelers • Free parking • Traditional British pub"
         variant="default"
-        tags={[
-          { label: 'Just 7 minutes away', variant: 'success' },
-          { label: 'British Airways Terminal', variant: 'primary' }
-        ]}
-        primaryCta={
-          <BookTableButton
-            source="terminal_5_hero"
-            context="heathrow_terminal_5"
-            variant="primary"
-            size="lg"
-            className="w-full sm:w-auto"
-          >
-            Book a Table Online
-          </BookTableButton>
-        }
-        secondaryCta={
-          <Link href="#directions">
-            <Button
-              variant="secondary"
-              size="lg"
-              className="w-full sm:w-auto"
-            >
-              Get Directions
-            </Button>
-          </Link>
-        }
-        secondaryInfo={
-          <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog & family friendly</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Rated 4.6/5 on Google</span>
-          </div>
-        }
+        enableSmartCtas={true}
+        showContextStrip={true}
       />
 
       {/* Quick Summary */}

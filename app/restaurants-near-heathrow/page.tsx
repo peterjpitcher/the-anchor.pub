@@ -4,7 +4,6 @@ import { Button, CTASection, SectionHeader, FeatureGrid, InfoBoxGrid, AlertBox, 
 import { HeroWrapper } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
-import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneLink } from '@/components/PhoneLink'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { GoogleReviews } from '@/components/reviews'
@@ -118,38 +117,8 @@ export default async function RestaurantsNearHeathrowPage() {
         title="Where to Eat Near Heathrow Before Your Flight"
         description="Pre-flight dining, layover meals and post-landing food — just 7 minutes from Terminal 5"
         variant="default"
-	        tags={[
-	          { label: "Free Parking for Guests", variant: "success" },
-	          { label: "⏱7 mins from Terminal 5", variant: "warning" },
-	          { label: "Honest Pub Pricing", variant: "primary" },
-	          { label: "Cooked Fresh to Order", variant: "default" }
-	        ]}
-        primaryCta={
-          <BookTableButton
-            variant="primary"
-            size="lg"
-            source="restaurants_near_heathrow_hero"
-            className="w-full sm:w-auto"
-          >
-            Book a Table
-          </BookTableButton>
-        }
-        secondaryCta={
-          <Link href="/food-menu">
-            <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-              View Full Menu
-            </Button>
-          </Link>
-        }
-        secondaryInfo={
-          <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog & family friendly</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Rated 4.6/5 on Google</span>
-          </div>
-        }
+        enableSmartCtas={true}
+        showContextStrip={true}
       />
 
       {/* Page Title for SEO */}
