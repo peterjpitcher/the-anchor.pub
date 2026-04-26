@@ -2,9 +2,7 @@ import Link from 'next/link'
 import { Metadata } from 'next'
 import { Container, Section, Card, CardBody, Alert } from '@/components/ui'
 import { CTASection, SectionHeader } from '@/components/ui'
-import { BookTableButton } from '@/components/BookTableButton'
 import { HeroWrapper } from '@/components/hero'
-import { MenuSectionCta } from '@/components/food/MenuSectionCta'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { parseMenuMarkdown, type MenuData, type MenuCategory } from '@/lib/menu-parser'
 import { getBusinessHours, isKitchenOpen } from '@/lib/api'
@@ -218,35 +216,8 @@ export default async function VegetarianMenuPage() {
           { name: 'Food & Drink', href: '/food-menu' },
           { name: 'Vegetarian' },
         ]}
-        tags={[
-          { label: 'Stone-baked pizzas', variant: 'default' },
-          { label: 'Veggie pies', variant: 'default' },
-          { label: 'Proper puddings', variant: 'default' },
-          { label: 'Free parking', variant: 'default' },
-        ]}
-        primaryCta={
-          <BookTableButton
-            source="vegetarian_menu_hero"
-            context="food"
-            variant="primary"
-            size="lg"
-            className="sm:w-auto"
-            trackingLabel="Hero Book a Table"
-          >
-            Reserve Your Table
-          </BookTableButton>
-        }
-        secondaryCta={
-          <MenuSectionCta
-            label="View Vegetarian Menu"
-            scrollToId="menu"
-            analyticsLabel="view_full_menu"
-            location="vegetarian_menu_hero"
-            variant="secondary"
-            fullWidth
-            className="sm:w-auto sm:min-w-0"
-          />
-        }
+        enableSmartCtas={true}
+        showContextStrip={true}
       />
 
       {/* Definitive answer paragraph */}

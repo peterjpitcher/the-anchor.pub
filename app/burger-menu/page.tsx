@@ -6,7 +6,7 @@ import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
-import { BookTableButton } from '@/components/BookTableButton'
+
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { parseMenuMarkdown } from '@/lib/menu-parser'
@@ -103,33 +103,8 @@ export default async function BurgerMenuPage() {
                 title="Gourmet Pub Burgers"
                 description="Juicy. Stacked. Delicious. Served in a brioche bun with chips."
                 variant="default"
-                primaryCta={
-                    <BookTableButton
-                        source="burger_hero"
-                        context="food"
-                        variant="primary"
-                        size="lg"
-                        className="w-full sm:w-auto"
-                    >
-                         Book Table
-                    </BookTableButton>
-                }
-                secondaryCta={
-                    <Link href="/food-menu">
-                        <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-                             Full Menu
-                        </Button>
-                    </Link>
-                }
-                secondaryInfo={
-                  <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-                    <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-                    <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-                    <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog & family friendly</span>
-                    <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-                    <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Rated 4.6/5 on Google</span>
-                  </div>
-                }
+                enableSmartCtas={true}
+                showContextStrip={true}
             />
 
             <section className="py-8 bg-anchor-bg border-b border-anchor-gold/15">

@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { Metadata } from 'next'
 import { Container, Section, Card, CardBody, Alert } from '@/components/ui'
 import { CTASection, SectionHeader } from '@/components/ui'
-import { BookTableButton } from '@/components/BookTableButton'
+
 import { HeroWrapper } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
@@ -179,25 +179,8 @@ export default async function GlutenFreeMenuPage() {
           { name: 'Food & Drink', href: '/food-menu' },
           { name: 'Gluten-Free' },
         ]}
-        tags={[
-          { label: 'GF pizza bases', variant: 'default' },
-          { label: 'GF puddings', variant: 'default' },
-          { label: 'No surcharge', variant: 'default' },
-        ]}
-        ctaContainerClassName="gap-4 sm:items-center"
-        ctaContainerProps={{ 'data-sticky-cta-guard': 'true' }}
-        primaryCta={
-          <BookTableButton
-            source="gluten_free_menu_hero"
-            context="food"
-            variant="primary"
-            size="lg"
-            className="sm:w-auto"
-            trackingLabel="Hero Book a Table"
-          >
-            Reserve Your Table
-          </BookTableButton>
-        }
+        enableSmartCtas={true}
+        showContextStrip={true}
       />
 
       {/* Definitive answer paragraph */}

@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { Metadata } from 'next'
 import { Container, Section, Card, CardBody, Alert } from '@/components/ui'
 import { CTASection, SectionHeader } from '@/components/ui'
-import { BookTableButton } from '@/components/BookTableButton'
+
 import { HeroWrapper } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
@@ -192,25 +192,8 @@ export default async function VeganMenuPage() {
           { name: 'Food & Drink', href: '/food-menu' },
           { name: 'Vegan' },
         ]}
-        tags={[
-          { label: 'Stone-baked garlic bread', variant: 'default' },
-          { label: 'Vegan sides', variant: 'default' },
-          { label: 'Pizzas (VEO)', variant: 'default' },
-        ]}
-        ctaContainerClassName="gap-4 sm:items-center"
-        ctaContainerProps={{ 'data-sticky-cta-guard': 'true' }}
-        primaryCta={
-          <BookTableButton
-            source="vegan_menu_hero"
-            context="food"
-            variant="primary"
-            size="lg"
-            className="sm:w-auto"
-            trackingLabel="Hero Book a Table"
-          >
-            Reserve Your Table
-          </BookTableButton>
-        }
+        enableSmartCtas={true}
+        showContextStrip={true}
       />
 
       {/* Honest opening paragraph */}
