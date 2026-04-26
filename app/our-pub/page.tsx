@@ -99,48 +99,8 @@ export default function OurPubPage() {
         title="Take a Look Around"
         description="A proper village pub since 1751 — here's what's waiting for you"
         variant="default"
-        tags={[
-          { label: 'Est. 1751', variant: 'default' },
-          { label: '18 Gins', variant: 'success' },
-          { label: '17 Whiskeys', variant: 'success' },
-          { label: 'Pool & Darts', variant: 'default' },
-          { label: 'Beer Garden', variant: 'primary' },
-        ]}
-        primaryCta={
-          <BookTableButton
-            source="our_pub_hero"
-            variant="primary"
-            size="lg"
-            className="w-full sm:w-auto"
-          />
-        }
-        secondaryCta={
-          <Link href="/find-us">
-            <Button
-              variant="secondary"
-              size="lg"
-              className="w-full sm:w-auto"
-            >
-              Find Us
-            </Button>
-          </Link>
-        }
-        secondaryInfo={
-          <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">
-              Free parking &middot; 20 spaces
-            </span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">
-              7 min from Heathrow T5
-            </span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">
-              Dog &amp; family friendly
-            </span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">
-              Rated 4.6/5 on Google
-            </span>
-          </div>
-        }
+        enableSmartCtas={true}
+        showContextStrip={true}
       />
 
       {/* Intro */}

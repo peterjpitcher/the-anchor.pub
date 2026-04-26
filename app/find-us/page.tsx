@@ -13,7 +13,7 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneLink } from '@/components/PhoneLink'
 import { EmailLink } from '@/components/EmailLink'
 import { PhoneButton } from '@/components/PhoneButton'
-import { DirectionsButton } from '@/components/DirectionsButton'
+
 import { WhatsAppLink } from '@/components/WhatsAppLink'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { SpeakableSchema } from '@/components/seo/SpeakableSchema'
@@ -79,42 +79,8 @@ export default function FindUsPage() {
         title="Find The Anchor"
         description="Easy to find, hard to leave!"
         variant="default"
-        tags={[
-          { label: "Independent village pub minutes from Heathrow", variant: "default", size: "medium" },
-          { label: "Horton Road plane-spotting area", variant: "primary", size: "medium" },
-          { label: "Free Parking", variant: "success", size: "medium" }
-        ]}
-        primaryCta={
-          <DirectionsButton
-            href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ"
-            source="find_us_hero"
-            variant="primary"
-            size="lg"
-            className="w-full sm:w-auto"
-          >
-            Get Directions
-          </DirectionsButton>
-        }
-        secondaryCta={
-          <PhoneButton
-            phone="01753682707"
-            source="find_us_hero"
-            variant="secondary"
-            size="lg"
-            className="w-full sm:w-auto"
-          >
-            Call Us
-          </PhoneButton>
-        }
-        secondaryInfo={
-          <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog & family friendly</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Rated 4.6/5 on Google</span>
-          </div>
-        }
+        enableSmartCtas={true}
+        showContextStrip={true}
       />
 
       {/* Page Title for SEO */}

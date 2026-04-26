@@ -46,34 +46,8 @@ export default function SustainabilityPage() {
         title="Sustainability"
         description="What we do, why it matters, and what we're still working on"
         variant="default"
-        tags={[
-          { label: 'BII Sustainability Champion', variant: 'success' },
-          { label: 'Energy Efficient', variant: 'primary' },
-          { label: 'Community Focused', variant: 'default' }
-        ]}
-        primaryCta={
-          <Link href="/near-heathrow">
-            <Button variant="primary" size="lg" className="w-full sm:w-auto">
-              Visit The Anchor
-            </Button>
-          </Link>
-        }
-        secondaryCta={
-          <Link href="/beer-garden">
-            <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-              Our Beer Garden
-            </Button>
-          </Link>
-        }
-        secondaryInfo={
-          <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog & family friendly</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Rated 4.6/5 on Google</span>
-          </div>
-        }
+        enableSmartCtas={true}
+        showContextStrip={true}
       />
 
       {/* Intro */}

@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
 import { HeroWrapper } from '@/components/hero'
-import { Button, Section } from '@/components/ui'
+import { Section } from '@/components/ui'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneLink } from '@/components/PhoneLink'
 import { EmailLink } from '@/components/EmailLink'
@@ -173,20 +173,8 @@ export default function SitemapPage() {
         title="Sitemap"
         description="Find your way around The Anchor website"
         variant="feature"
-        primaryCta={
-          <Link href="/">
-            <Button variant="primary" size="lg" className="w-full sm:w-auto">
-              Back to Home
-            </Button>
-          </Link>
-        }
-        secondaryCta={
-          <Link href="/find-us">
-            <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-              Find Us
-            </Button>
-          </Link>
-        }
+        enableSmartCtas={true}
+        showContextStrip={true}
       />
 
       {/* Page Title */}
