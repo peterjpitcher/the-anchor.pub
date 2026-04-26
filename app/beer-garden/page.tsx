@@ -91,54 +91,11 @@ export default async function BeerGardenPage() {
         title="Beer Garden Near Heathrow"
         description="Watch aircraft every 90 seconds while enjoying a pint — food from £10, dogs welcome"
         variant="default"
-        tags={[
-          { label: ' Every 90 Seconds', variant: 'success' },
-          { label: ' Photo Opportunities', variant: 'primary' },
-          { label: ' Dog Friendly', variant: 'default' },
-          { label: ' Full Bar Service', variant: 'default' }
-        ]}
-        primaryCta={
-          <BookTableButton
-            source="beer_garden_hero"
-            variant="primary"
-            size="lg"
-            className="w-full sm:w-auto"
-          />
-        }
-        secondaryCta={
-          <>
-            <Link href="/plane-spotting-heathrow">
-              <Button
-                variant="secondary"
-                size="lg"
-                className="w-full sm:w-auto"
-              >
-                 Plane Spotting Guide
-              </Button>
-            </Link>
-            <Link href="/drinks">
-              <Button
-                variant="secondary"
-                size="lg"
-                className="w-full sm:w-auto"
-              >
-                 View Drinks Menu
-              </Button>
-            </Link>
-          </>
-        }
-        secondaryInfo={
-          <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog & family friendly</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Rated 4.6/5 on Google</span>
-          </div>
-        }
+        enableSmartCtas={true}
+        showContextStrip={true}
       >
         <div className="bg-anchor-bg-card/90 backdrop-blur-sm text-anchor-gold-vivid font-bold text-lg md:text-xl px-6 py-3 rounded-full inline-block mt-4 border border-anchor-gold/30">
-           DIRECTLY UNDER THE FLIGHT PATH 
+           DIRECTLY UNDER THE FLIGHT PATH
         </div>
       </HeroWrapper>
 

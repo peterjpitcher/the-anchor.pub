@@ -7,8 +7,7 @@ import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
-import { BookTableButton } from '@/components/BookTableButton'
-import { PhoneButton } from '@/components/PhoneButton'
+
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
@@ -49,33 +48,8 @@ export default function PoolAndDartsPage() {
                 title="Pool & Darts"
                 description="Tournament quality facilities for the serious player or casual chancer."
                 variant="default"
-                primaryCta={
-                    <BookTableButton
-                        source="pool_hero"
-                        context="dining_pool"
-                        variant="primary"
-                        size="lg"
-                        className="w-full sm:w-auto"
-                    >
-                        Book a Table Nearby
-                    </BookTableButton>
-                }
-                secondaryCta={
-                    <Link href="/food-menu">
-                        <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-                            View Bar Menu
-                        </Button>
-                    </Link>
-                }
-                secondaryInfo={
-                  <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-                    <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-                    <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-                    <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog & family friendly</span>
-                    <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-                    <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Rated 4.6/5 on Google</span>
-                  </div>
-                }
+                enableSmartCtas={true}
+                showContextStrip={true}
             />
 
             <section className="py-8 bg-anchor-bg">

@@ -5,7 +5,7 @@ import { Container, Section, SectionHeader, FeatureGrid, InfoBoxGrid, CTASection
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BookTableButton } from '@/components/BookTableButton'
-import { DirectionsButton } from '@/components/DirectionsButton'
+
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
 import { getBusinessHours } from '@/lib/api'
@@ -75,41 +75,8 @@ export default async function PlaneSpottingHeathrowPage() {
         title="Heathrow Plane Spotting — The Best Places to Watch Planes"
         description="The definitive guide to plane spotting at Heathrow. Watch planes land every 90 seconds from our beer garden — plus the best Heathrow viewing areas and spotting locations. Free parking & food."
         variant="default"
-        tags={[
-          { label: 'A380 & Dreamliner Views', variant: 'primary' },
-          { label: 'Full Bar Service', variant: 'default' },
-          { label: 'Free Parking', variant: 'success' },
-          { label: 'Free WiFi', variant: 'default' }
-        ]}
-        primaryCta={
-          <BookTableButton
-            variant="primary"
-            size="lg"
-            source="plane_spotting_hero"
-            className="w-full sm:w-auto"
-          >
-            Reserve a Table
-          </BookTableButton>
-        }
-        secondaryCta={
-          <DirectionsButton
-            source="plane_spotting_hero"
-            size="lg"
-            href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ"
-            className="w-full sm:w-auto"
-          >
-            Get Directions
-          </DirectionsButton>
-        }
-        secondaryInfo={
-          <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog & family friendly</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Rated 4.6/5 on Google</span>
-          </div>
-        }
+        enableSmartCtas={true}
+        showContextStrip={true}
       />
 
       <Section background="dark" spacing="sm">

@@ -195,45 +195,15 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
           route="/drinks/managers-special"
           title="Manager's Special"
           description="25% off a featured spirit each month — our way of giving back, and a great excuse to try something new."
-         
+
           showStatusBar
           statusBarPosition="below"
-          tags={[
-            { label: '25% off featured spirit', variant: 'primary' as const },
-            { label: 'Updated monthly', variant: 'default' as const }
-          ]}
           breadcrumbs={[
             { name: 'Drinks', href: '/drinks' },
             { name: "Manager's Special" }
           ]}
-          primaryCta={(
-            <BookTableButton
-              source="managers_special_hero"
-              variant="secondary"
-              size="lg"
-              className="w-full bg-white text-purple-700 hover:bg-gray-100 sm:w-auto"
-            />
-          )}
-          secondaryCta={(
-            <Link href="/drinks">
-              <Button
-                variant="secondary"
-                size="lg"
-                className="w-full bg-white/10 text-white hover:bg-white/20 sm:w-auto"
-              >
-                View Drinks Menu
-              </Button>
-            </Link>
-          )}
-          secondaryInfo={
-            <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-              <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-              <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-              <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog & family friendly</span>
-              <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-              <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Rated 4.6/5 on Google</span>
-            </div>
-          }
+          enableSmartCtas={true}
+          showContextStrip={true}
         />
         <Section spacing="md" container className="bg-anchor-bg border-b border-anchor-gold/15">
           <div className="mx-auto flex max-w-3xl flex-col items-center gap-6 text-center">
@@ -409,13 +379,6 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
     }
   ]
 
-  const heroTags = [
-    { label: '25% off this month', variant: 'primary' as const },
-    { label: `Valid until ${offerEndsLabel}`, variant: 'default' as const },
-    ...(spirit.abv ? [{ label: spirit.abv, variant: 'default' as const }] : []),
-    ...(spirit.origin ? [{ label: spirit.origin, variant: 'default' as const }] : [])
-  ]
-
   return (
     <>
       <MenuPageTracker 
@@ -433,52 +396,16 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
         route="/drinks/managers-special"
         title={`${spirit.discount} ${spirit.name}`}
         description={promotion.subheadline || promotion.offerText}
-       
+
         showStatusBar
         statusBarPosition="below"
-        tags={heroTags}
         eyebrow={`Manager's Special · ${promotionMonthYearLabel}`}
         breadcrumbs={[
           { name: 'Drinks', href: '/drinks' },
           { name: "Manager's Special" }
         ]}
-        primaryCta={
-          <BookTableButton
-            source="managers_special_hero"
-            variant="secondary"
-            size="lg"
-            className="bg-white text-purple-700 hover:bg-gray-100 w-full sm:w-auto"
-          />
-        }
-        secondaryCta={
-          <>
-            <Link href="#why">
-              <Button
-                variant="secondary"
-                size="lg"
-                className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm w-full sm:w-auto"
-              >
-                Why We Do It
-              </Button>
-            </Link>
-            <PhoneButton
-              phone="01753 682707"
-              variant="secondary"
-              size="lg"
-              className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm w-full sm:w-auto"
-              source="managers_special_hero"
-            />
-          </>
-        }
-        secondaryInfo={
-          <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog & family friendly</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Rated 4.6/5 on Google</span>
-          </div>
-        }
+        enableSmartCtas={true}
+        showContextStrip={true}
       />
 
       <Section spacing="sm" container className="bg-anchor-bg border-b border-anchor-gold/15">

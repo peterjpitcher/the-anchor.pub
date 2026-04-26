@@ -7,8 +7,7 @@ import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
-import { BookTableButton } from '@/components/BookTableButton'
-import { PhoneButton } from '@/components/PhoneButton'
+
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
@@ -49,27 +48,8 @@ export default function CoachParkingPage() {
                 title="Coach Parties Welcome"
                 description="Ample parking, great group food, and the driver eats on us."
                 variant="default"
-                primaryCta={
-                    <Link href="/contact">
-                        <Button variant="primary" size="lg" className="w-full sm:w-auto">
-                             Enquire for Group
-                        </Button>
-                    </Link>
-                }
-                secondaryCta={
-                    <PhoneButton phone={CONTACT.phone} source="coach_hero" variant="secondary">
-                        Call to Check Space
-                    </PhoneButton>
-                }
-                secondaryInfo={
-                    <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog &amp; family friendly</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Driver eats free</span>
-                    </div>
-                }
+                enableSmartCtas={true}
+                showContextStrip={true}
             />
 
             <section className="py-8 bg-anchor-bg-card border-b border-anchor-gold/15">
