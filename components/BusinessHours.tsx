@@ -233,19 +233,18 @@ export function BusinessHours({ showKitchen = true, className = '' }: BusinessHo
           const sundayLunchMessage = hasSundayLunchNotice ? (sundayLunchInfo?.message || 'Sunday lunch unavailable') : null
 
           return (
-            <div key={isoDate || day}>
-              <div
-                className={`flex items-center justify-between px-3 py-2 rounded ${
-                  isToday ? 'bg-white/10 ring-1 ring-white/30' : 'hover:bg-white/5'
-                } ${(hasSpecialHours || hasSundayLunchNotice) ? 'ring-1 ring-yellow-400/50' : ''}`}
-              >
+            <div
+              key={isoDate || day}
+              className={`rounded px-3 py-2 ${
+                isToday ? 'bg-white/10 ring-1 ring-white/30' : 'hover:bg-white/5'
+              } ${(hasSpecialHours || hasSundayLunchNotice) ? 'ring-1 ring-yellow-400/50' : ''}`}
+            >
+              <div className="flex items-center justify-between">
                 {/* Left: Day */}
-                <div className="flex items-center gap-3 min-w-0">
-                  <span className="text-base font-medium capitalize text-white">
-                    {day.slice(0, 3).charAt(0).toUpperCase() + day.slice(1, 3)}
-                    {isToday && <span className="text-sm"> &bull;</span>}
-                  </span>
-                </div>
+                <span className="text-base font-medium capitalize text-white">
+                  {day.slice(0, 3).charAt(0).toUpperCase() + day.slice(1, 3)}
+                  {isToday && <span className="text-sm"> &bull;</span>}
+                </span>
 
                 {/* Right: Hours */}
                 <div className="text-right space-y-0.5">
@@ -270,14 +269,14 @@ export function BusinessHours({ showKitchen = true, className = '' }: BusinessHo
                   )}
                 </div>
               </div>
-              {/* Full-width note below the day row */}
+              {/* Full-width note inside the box */}
               {hasSpecialHours && noteText && (
-                <div className="px-3 pb-1 text-xs text-amber-300 font-semibold">
+                <div className="text-xs text-amber-300 font-semibold mt-1">
                   {noteText}
                 </div>
               )}
               {sundayLunchMessage && (
-                <div className="px-3 pb-1 text-xs text-amber-200">
+                <div className="text-xs text-amber-200 mt-1">
                   {sundayLunchMessage}
                 </div>
               )}
