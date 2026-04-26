@@ -15,7 +15,6 @@ import { SpeakableSchema } from '@/components/seo/SpeakableSchema'
 import { SpeakableContent } from '@/components/voice/SpeakableContent'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
 import { BookTableButton } from '@/components/BookTableButton'
-import { TrustBar } from '@/components/psychology'
 import { quizNightEventSeries, bingoEventSeries } from '@/lib/schema'
 import { getBusinessHours, getUpcomingEvents, type Event } from '@/lib/api'
 import { buildOpeningHoursSchema } from '@/lib/opening-hours-schema'
@@ -157,13 +156,7 @@ export default async function WhatsOnPage() {
         route="/whats-on"
         title="Pub Events at The Anchor"
         description="From Music Bingo hosted by Nikki Manfadge to quiz nights and one-off events — check the listings for the latest."
-       
-	        tags={[
-	          { label: 'Music Bingo (Nikki)', variant: 'primary' },
-	          { label: 'Quiz Night £3', variant: 'warning' },
-	          { label: 'Pool & Darts FREE', variant: 'default' },
-	          { label: 'Great Atmosphere', variant: 'success' }
-	        ]}
+        showContextStrip={true}
         primaryCta={
           <BookTableButton
             source="whats_on_hero"
@@ -218,15 +211,6 @@ export default async function WhatsOnPage() {
               </Button>
             </Link>
           </>
-        }
-        secondaryInfo={
-          <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog & family friendly</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Rated 4.6/5 on Google</span>
-          </div>
         }
       />
 
