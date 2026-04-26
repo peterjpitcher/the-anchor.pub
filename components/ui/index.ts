@@ -49,7 +49,6 @@ export { EventMetadata } from './EventMetadata'
 export { PriceDisplay } from './PriceDisplay'
 export { OpeningStatus } from './OpeningStatus'
 export { Price, PriceRange } from './Price'
-export { OpeningHours, OpenStatus } from './OpeningHours'
 export { Icon, type IconName } from './Icon'
 export * from './Icon' // Export all icon components
 export { ErrorDisplay, EventsErrorDisplay, BookingErrorDisplay, FlightErrorDisplay } from './ErrorDisplay'
@@ -62,7 +61,6 @@ export type * from './types'
 // Section Components
 export { CTASection } from '../CTASection'
 export { SectionHeader } from '../SectionHeader'
-export { BusinessHoursSection } from '../BusinessHoursSection'
 
 // Card Components
 export { FeatureCard, FeatureGrid } from '../FeatureCard'
