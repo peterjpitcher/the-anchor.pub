@@ -389,6 +389,7 @@ export default async function SundayLunchPage() {
       />
 
       <HeroWrapper
+        showContextStrip={true}
         route="/sunday-lunch"
         title="Sunday Roast & Lunch at The Anchor"
         description={`Traditional roasts cooked fresh to order. ${sundayServiceSentence} — pre-order by Saturday 1pm. Sunday lunch bookings require a £10 per person deposit.`}

@@ -287,6 +287,7 @@ export default async function HeathrowParkingPage() {
       />
 
 	      <HeroWrapper
+	        showContextStrip={true}
 	        route="/heathrow-parking"
 	        title="Heathrow Parking – Book, Pay & Park in Stanwell Moor"
 	        description="Secure long stay and short stay Heathrow parking from £5 per hour. Drop your car with us in Stanwell Moor, then grab a taxi or the 442 bus to Heathrow in minutes."

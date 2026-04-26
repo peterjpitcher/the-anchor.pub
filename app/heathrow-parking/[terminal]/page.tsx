@@ -142,6 +142,7 @@ export default function TerminalParkingPage({ params }: { params: { terminal: st
       />
 
       <HeroWrapper
+        showContextStrip={true}
         route={currentPath}
         title={`Cheap Heathrow Terminal ${terminalNumber} Parking from £15/day`}
         description={`Compare Terminal ${terminalNumber} parking costs and book a cheaper off-airport option in Stanwell Moor. Typical transfer: ${terminal.transferTime} (${terminal.routeHint}).`}

@@ -124,6 +124,7 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
       />
 
       <HeroWrapper
+        showContextStrip={true}
         route="/book-table"
         title="Book a Table at The Anchor"
         description="Reserve your table online with mobile confirmation."

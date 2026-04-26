@@ -89,6 +89,7 @@ export default async function BlogPage({
       />
       {/* Hero Section */}
       <HeroWrapper
+        showContextStrip={true}
         route="/blog"
         title="The Anchor Blog"
         description="News, events, and stories from your local pub"

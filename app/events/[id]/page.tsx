@@ -378,6 +378,7 @@ export default async function EventPage({ params }: Props) {
         </Section>
       ) : null}
       <HeroWrapper
+        showContextStrip={true}
         route={heroRoute}
        
         seasonalFallback="always"

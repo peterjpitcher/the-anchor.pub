@@ -310,6 +310,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
       <ScrollDepthTracker />
       {/* Hero Section */}
       <HeroWrapper
+        showContextStrip={true}
         route={`/blog/${params.slug}`}
         title={post.title}
         description={

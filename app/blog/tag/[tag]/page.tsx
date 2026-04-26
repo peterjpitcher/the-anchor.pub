@@ -90,6 +90,7 @@ export default async function TagPage({ params }: { params: { tag: string } }) {
     <>
       {/* Hero Section */}
       <HeroWrapper
+        showContextStrip={true}
         route={`/blog/tag/${tag}`}
         title={displayName}
         description={seoContent.heroContent}

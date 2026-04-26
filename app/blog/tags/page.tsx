@@ -52,6 +52,7 @@ export default async function AllTagsPage() {
     <>
       {/* Hero Section */}
       <HeroWrapper
+        showContextStrip={true}
         route="/blog/tags"
         title="All Blog Topics"
         description={`Explore all ${tagCounts.size} topics from our blog`}
