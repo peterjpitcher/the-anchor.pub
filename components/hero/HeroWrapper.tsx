@@ -16,6 +16,9 @@ import { getPageHeaderImage, getDefaultHeaderImage } from '@/lib/page-header-ima
 import { StatusBar } from '@/components/layout/StatusBar'
 import { cn } from '@/lib/utils'
 import { getSeasonalAltText, getSeasonalFocal, getSeasonalHomepageImage } from '@/lib/seasonal-utils'
+import { SmartCTAs } from './SmartCTAs'
+import { ContextStrip } from './ContextStrip'
+import type { Event } from '@/lib/api'
 
 interface HeroTagConfig {
   label: string
@@ -90,6 +93,13 @@ interface HeroWrapperProps {
   // Custom content (legacy)
   children?: ReactNode
 
+  /** Opt-in: render smart context-aware CTAs when no page CTA props provided */
+  enableSmartCtas?: boolean
+  /** Opt-in: render live context strip at bottom of hero */
+  showContextStrip?: boolean
+  /** Upcoming events for smart CTA and context strip awareness */
+  heroEvents?: Event[]
+
   // Styling
   className?: string
   contentClassName?: string
@@ -129,6 +139,9 @@ export function HeroWrapper({
   ctaContainerProps,
   cta,
   children,
+  enableSmartCtas = false,
+  showContextStrip = false,
+  heroEvents,
   className,
   contentClassName,
   id
@@ -238,9 +251,17 @@ export function HeroWrapper({
 
   const ctaContent = structuredCtaContent ?? cta
 
+  // Smart CTAs: only when explicitly opted in AND no page CTA overrides exist
+  const hasAnyCTAOverride = Boolean(primaryCta || secondaryCta || cta)
+  const shouldUseSmartCtas = enableSmartCtas && !hasAnyCTAOverride
+
+  const resolvedCtaContent = shouldUseSmartCtas
+    ? <SmartCTAs route={route} heroEvents={heroEvents} />
+    : ctaContent
+
   const shouldRenderStatusBarAbove = resolvedShowStatusBar && resolvedStatusBarPosition === 'above'
   const shouldRenderStatusBarBelow = resolvedShowStatusBar && resolvedStatusBarPosition === 'below'
-  const hasHeroActions = Boolean(ctaContent) || shouldRenderStatusBarAbove || shouldRenderStatusBarBelow
+  const hasHeroActions = Boolean(resolvedCtaContent) || shouldRenderStatusBarAbove || shouldRenderStatusBarBelow
 
   const alignmentClass = {
     left: 'justify-start',
@@ -259,9 +280,9 @@ export function HeroWrapper({
           />
         </div>
       )}
-      {ctaContent}
+      {resolvedCtaContent}
       {shouldRenderStatusBarBelow && (
-        <div className={cn('w-full flex', ctaContent ? 'mt-6' : 'mt-0', alignmentClass)}>
+        <div className={cn('w-full flex', resolvedCtaContent ? 'mt-6' : 'mt-0', alignmentClass)}>
           <StatusBar
             variant={resolvedStatusBarVariant}
             showKitchen={statusBarShowKitchen}
@@ -316,6 +337,7 @@ export function HeroWrapper({
         ) : undefined
       }
       cta={heroCta}
+      bottomSlot={showContextStrip ? <ContextStrip heroEvents={heroEvents} /> : undefined}
       className={heroClassName}
       contentClassName={resolvedContentClassName}
     >
