@@ -61,17 +61,11 @@ export async function POST(request: NextRequest) {
       }
     }
     
-    // Determine if it's a Sunday roast booking
-    const date = new Date(bookingDate + 'T12:00:00')
-    const isSunday = date.getDay() === 0
-    const requestedType =
-      body.type === 'sunday_lunch' || body.type === 'regular'
-        ? body.type
-        : undefined
-
-    const bookingType: BookingType = requestedType || (isSunday ? 'sunday_lunch' : 'regular')
-    const requestedPurpose: BookingPurpose = body.purpose === 'drinks' ? 'drinks' : 'food'
-    const purpose: BookingPurpose = bookingType === 'sunday_lunch' ? 'food' : requestedPurpose
+    // Sunday-lunch as a separate booking type is retired with the walk-in launch
+    // (spec §6, §8.1). The AI-agent endpoint creates regular bookings on every
+    // day; deposit messaging below is gated on partySize >= 10 alone.
+    const bookingType: BookingType = 'regular'
+    const purpose: BookingPurpose = body.purpose === 'drinks' ? 'drinks' : 'food'
     const normalizedBookingTime = normalizeTime(String(body.time))
 
     try {
@@ -153,12 +147,8 @@ export async function POST(request: NextRequest) {
           phone: body.customer.phone
         },
         message: `Booking confirmed for ${body.partySize} people on ${formatDateForDisplay(bookingDate)} at ${formatTimeForDisplay(body.time)}`,
-        specialInstructions: isSunday && bookingType === 'sunday_lunch'
-          ? (
-              body.partySize >= 7
-                ? 'Sunday lunch roasts must be pre-ordered by 1pm Saturday. Bookings of 7+ require a £10 per person deposit to secure the booking. This is deducted from your final bill.'
-                : 'Sunday lunch roasts must be pre-ordered by 1pm Saturday. A £10 per person deposit is required and is deducted from your final bill.'
-            )
+        specialInstructions: body.partySize >= 10
+          ? 'Bookings of 10 or more require a £10 per person deposit, fully deducted from your bill on the day.'
           : null
       }
     })
@@ -182,7 +172,9 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
   const date = searchParams.get('date')
   const partySize = searchParams.get('partySize')
-  const typeParam = searchParams.get('type')
+  // The `type` query param is still accepted for backwards compatibility but
+  // is read-only — Sunday-lunch as a separate booking type is retired (spec §6).
+  void searchParams.get('type')
   const purposeParam = searchParams.get('purpose')
   
   if (!date) {
@@ -206,15 +198,12 @@ export async function GET(request: Request) {
       checkDate = parsedDate
     }
     
-    // Check availability
+    // Sunday-lunch as a separate booking type is retired (spec §6, §8.1).
+    // Treat every day as 'regular'. The legacy `type` query param is still
+    // accepted for backwards compatibility but it no longer changes behaviour.
     const isSunday = new Date(checkDate + 'T12:00:00').getDay() === 0
-    const requestedType =
-      typeParam === 'sunday_lunch' || typeParam === 'regular'
-        ? typeParam
-        : undefined
-    const bookingType: BookingType = requestedType || (isSunday ? 'sunday_lunch' : 'regular')
-    const requestedPurpose: BookingPurpose = purposeParam === 'drinks' ? 'drinks' : 'food'
-    const purpose: BookingPurpose = bookingType === 'sunday_lunch' ? 'food' : requestedPurpose
+    const bookingType: BookingType = 'regular'
+    const purpose: BookingPurpose = purposeParam === 'drinks' ? 'drinks' : 'food'
     const normalizedPartySize = Number.parseInt(partySize || '2', 10)
 
     const availabilityParams = new URLSearchParams({
