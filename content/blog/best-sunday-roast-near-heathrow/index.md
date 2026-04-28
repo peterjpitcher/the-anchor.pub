@@ -25,13 +25,13 @@ images: []
 
 Finding a proper Sunday roast near Heathrow Airport isn't as easy as you'd think. Airport restaurants don't do them, hotel carveries are hit-and-miss, and you need to know where the locals actually go. We've rounded up the best roast dinner options within 20 minutes of Heathrow for 2026, with real prices, booking info, and what to expect when you get there.
 
-> **Ready to book?** [Book your Sunday roast at The Anchor](/sunday-lunch) — from £19.99, pre-order by Saturday 1pm. Free parking, 7 mins from T5.
+> **Ready to book?** [Book your Sunday roast at The Anchor](/sunday-lunch) — from £19.99, served 1pm-6pm. Walk in or book ahead, no pre-order needed. Free parking, 7 mins from T5.
 
 ## Quick Comparison: Sunday Roasts Near Heathrow
 
 | Pub / Restaurant | Price | Booking Required? | Parking | Distance from T5 | Dog Friendly |
 | --- | --- | --- | --- | --- | --- |
-| **The Anchor**, Stanwell Moor | From £19.99 | Yes (by Sat 1pm) | Free (20 spaces) | 7 mins | Yes |
+| **The Anchor**, Stanwell Moor | From £19.99 | Recommended, walk-ins welcome | Free (20 spaces) | 7 mins | Yes |
 | **The Swan**, Staines | ~£16–20 | Recommended | Paid (town centre) | 15 mins | No |
 | **The Bells**, Staines | ~£14–18 | Walk-in possible | Paid | 15 mins | Check |
 | **Toby Carvery**, Colnbrook | ~£12–15 | Walk-in | Free | 10 mins | No |
@@ -63,11 +63,11 @@ The vegetarian wellington deserves a special mention. A lot of pubs treat the ve
 
 ### How booking works
 
-This is the bit that catches people out — you **must pre-order by 1pm Saturday**. Sunday lunch bookings require a **£10 per person deposit**, which gets deducted from your final bill. It's not a chain-style walk-in carvery; everything is cooked to order, so they need the numbers in advance.
+Sunday roasts are walk-in friendly — no pre-order, no Saturday cutoff. Booking ahead is recommended for groups and peak slots, but not required. Groups of 10 or more take a £10 per person deposit, fully deducted from the final bill. Everything is still cooked fresh to order, not pre-plated under a heat lamp.
 
 **Kitchen hours on Sunday:** 1pm–6pm (last orders 5:30pm).
 
-The regular weekday menu — burgers, pizzas, fish and chips, pies — is also available on Sunday without pre-ordering.
+The regular weekday menu — burgers, pizzas, fish and chips, pies — is also available on Sunday.
 
 ### Families and dogs
 
@@ -79,7 +79,7 @@ Planes come over every 90 seconds or so as you're directly under the Heathrow fl
 
 What sets The Anchor apart from the chain options is that everything is cooked to order. You're not getting slices off a carvery counter that's been sitting under heat lamps. The lamb shank has been braised for hours. The pork belly has proper crackling. It takes a bit more planning because of the pre-order system, but the quality difference is noticeable.
 
-[Book your Sunday roast at The Anchor](/sunday-lunch) or call **01753 682707**. Tables fill up by Friday most weeks, so don't leave it to Saturday morning.
+[Book your Sunday roast at The Anchor](/sunday-lunch) or call **01753 682707**. Walk-ins are welcome, but peak slots fill up quickly — booking ahead saves a wait.
 
 ---
 
@@ -144,7 +144,7 @@ If you're flying out on a Sunday evening, a proper roast lunch is a brilliant wa
 - **Book your roast for 1pm–2pm.** That gives you a relaxed meal with time for pudding and coffee.
 - **Back to the airport by 4pm.** Even with a 7pm flight, you'll have plenty of time through security.
 - **Free parking at The Anchor** means no clock-watching on a parking meter.
-- **Pre-order by Saturday 1pm** for The Anchor — don't leave it to Sunday morning.
+- **Book ahead for The Anchor** — walk-ins are welcome, but peak slots fill up quickly.
 - **Luggage is welcome.** The Anchor has space for cabin bags and overnight cases at the table.
 - **Tell them your flight time** when booking. They'll pace the service so you're not rushed or waiting.
 
@@ -158,7 +158,7 @@ For a cooked-to-order roast with proper trimmings, The Anchor in Stanwell Moor i
 
 ### Do I need to book Sunday lunch near Heathrow?
 
-It depends where you go. The Anchor requires pre-ordering by 1pm Saturday. Toby Carvery is walk-in. For most pubs, booking is recommended — especially for groups of four or more.
+It depends where you go. The Anchor accepts walk-ins on Sundays — booking ahead is recommended but not required. Toby Carvery is walk-in. For most pubs, booking is recommended — especially for groups of four or more.
 
 ### How much is a Sunday roast near Heathrow?
 
@@ -174,7 +174,7 @@ The Anchor in Stanwell Moor has free parking for about 20 cars. Toby Carvery Col
 
 ### What time is Sunday lunch at The Anchor?
 
-The kitchen is open 1pm–6pm on Sundays, with last orders at 5:30pm. You must pre-order your roast by 1pm Saturday. Sunday lunch bookings require a £10 per person deposit, deducted from your final bill.
+The kitchen is open 1pm–6pm on Sundays, with last orders at 5:30pm. Roasts are walk-in friendly — no pre-order needed. Booking ahead is recommended for peak slots. Groups of 10 or more take a £10 per person deposit, fully deducted from the final bill.
 
 ### Is there a vegetarian Sunday roast near Heathrow?
 
@@ -190,4 +190,4 @@ From the airport, head south on the M25 and come off at Junction 14. Stanwell Mo
 
 ---
 
-Ready to book your Sunday roast? [Reserve a table at The Anchor for this Sunday](/sunday-lunch) or call **01753 682707**. From £19.99 per person, with free parking, a dog-friendly garden, and just seven minutes from Terminal 5. Pre-order by 1pm Saturday to secure your table.
+Ready to book your Sunday roast? [Reserve a table at The Anchor for this Sunday](/sunday-lunch) or call **01753 682707**. From £19.99 per person, with free parking, a dog-friendly garden, and just seven minutes from Terminal 5. Walk-ins are welcome, but booking ahead saves a wait at peak times.

@@ -116,7 +116,7 @@ Full disclosure: this is the bit where we talk about ourselves. We've tried to k
 
 Proper British pub food, cooked fresh to order. Our menu covers pub classics (fish and chips at £15, bangers and mash at £14), gourmet burgers from £11, stone-baked pizzas from £12, comfort dishes like lasagne and chicken katsu curry at £14--15, and traditional pies from £15. Desserts are all £5--6.
 
-On Sundays, we do a proper roast: roasted chicken, slow-cooked lamb shank, crispy pork belly, or beetroot and butternut squash wellington. Prices start from £19.99 and you'll need to book in advance -- it's a pre-order system with a Saturday 1pm deadline. It's a proper roast with herb and garlic-crusted potatoes, seasonal veg, Yorkshire pudding, and red wine gravy. Not a microwave in sight.
+On Sundays, we do a proper roast: roasted chicken, slow-cooked lamb shank, crispy pork belly, or beetroot and butternut squash wellington. Prices start from £19.99. Roasts are served 1pm-6pm — walk in or book ahead, no pre-order needed. It's a proper roast with herb and garlic-crusted potatoes, seasonal veg, Yorkshire pudding, and red wine gravy. Not a microwave in sight.
 
 We also have a kids menu: sausage and mash, fish fingers, chicken goujons, or tomato pasta, all at sensible prices. On Sundays, kids can have a mini roast for £13.99.
 

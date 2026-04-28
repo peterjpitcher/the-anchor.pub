@@ -68,7 +68,7 @@ A proper Sunday roast includes:
 - Seasonal vegetables
 - Rich gravy
 
-At The Anchor, Sunday roasts require advance booking (by Saturday 1pm). This is so the kitchen can order the right quantities and cook everything properly rather than rushing through pre-cooked meals.
+At The Anchor, Sunday roasts are served 1pm-6pm — walk in or book ahead, no pre-order needed. Everything is still cooked fresh to order, not warmed up under heat lamps.
 
 [Book Sunday lunch →](/sunday-lunch)
 

@@ -60,7 +60,7 @@ The gravy is gluten-free by default. Vegan options available with advance notice
 
 ### What you need to know
 
-You must pre-order by 1pm Saturday. Sunday lunch bookings require a £10 per person deposit (deducted from the bill). Kitchen hours on Sunday are 1pm-6pm, last orders 5:30pm. The regular weekday menu — burgers, pizzas, fish and chips — is also available on Sunday without pre-ordering.
+Walk in or book ahead — no pre-order needed. Kitchen hours on Sunday are 1pm-6pm, last orders 5:30pm. Groups of 10 or more take a £10 per person deposit, fully deducted from the bill. The regular weekday menu — burgers, pizzas, fish and chips — is also available on Sunday.
 
 Free parking for about 20 cars. Dogs welcome throughout the venue. The beer garden seats 64, with planes coming over every 90 seconds (directly under Heathrow's flight path — kids love it). Outside the ULEZ zone.
 
@@ -254,7 +254,7 @@ Prices across Surrey range from about £16 to £28 per person for a main course 
 
 ### Do I need to book Sunday lunch in Surrey?
 
-At most of the pubs on this list, yes. Some accept walk-ins, but booking is recommended at all of them, particularly for groups. The Anchor requires pre-ordering by 1pm Saturday. The Victoria and Running Horses book up a week or more in advance.
+At most of the pubs on this list, yes. Some accept walk-ins, but booking is recommended at all of them, particularly for groups. The Anchor accepts walk-ins on Sundays — booking is recommended but not required. The Victoria and Running Horses book up a week or more in advance.
 
 ### Where's the best Sunday roast near the M25 in Surrey?
 

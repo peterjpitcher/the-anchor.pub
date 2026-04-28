@@ -3,8 +3,7 @@ title: Sunday Lunch Near Heathrow | Traditional Roasts at The Anchor
 description: >-
   Book your traditional Sunday lunch near Heathrow Airport at The Anchor pub.
   Fresh roast dinners with Yorkshire puddings served Sundays 1–6pm (last orders
-  5:30pm). Pre-order by Saturday 1pm; Sunday lunch bookings require a £10 per
-  person deposit.
+  5:30pm). Walk in or book ahead — no pre-order needed.
 date: '2025-02-02'
 oldUrl: >-
   https://www.the-anchor.pub/post/sunday-lunch-at-the-anchor-is-back-pre-order-now
@@ -41,7 +40,7 @@ Unlike chain pubs and airport restaurants, our **traditional roast dinner** phil
 - **Traditional cooking methods** - Just like Sunday lunch at home
 - **Generous portions** - Proper pub-sized servings
 - **Fair prices** - Better value than airport dining
-- **Pre-order by Saturday 1pm** - So we can cook everything fresh to order
+- **Walk in or book ahead** - Booking is recommended for peak slots, but not required
 
 ## Our Traditional Sunday Lunch Menu
 
@@ -132,8 +131,8 @@ Our **book-ahead** policy ensures:
 2. **Let us know your preferred roasts** so the kitchen can plan portions
 3. **Book your time slot** (1pm-6pm Sundays)
 4. **Mention dietary requirements** when booking
-5. **Deadline: Saturday 1pm** for next day's lunch
-6. **Sunday lunch bookings** require a **£10 per person deposit**
+5. **Walk in or book any time** — no Saturday cutoff
+6. **Groups of 10 or more** take a **£10 per person deposit**, fully deducted from the bill
 
 ## Sunday Lunch Service Details
 
@@ -142,12 +141,12 @@ Our **book-ahead** policy ensures:
 **Service Hours:**
 - Sundays only: 1pm - 6pm
 - Last orders 5:30pm
-- Sunday roasts require pre-order by Saturday 1pm
-- Walk-ins can order from regular menu
+- Walk in or book ahead — no pre-order needed
+- Regular menu also available alongside the roasts
 
 **Booking Timeline:**
-- Book any day during the week
-- Saturday 1pm deadline for Sunday
+- Book any day during the week, or just walk in
+- No Saturday cutoff — book or walk in right up to service
 - Book online at [/sunday-lunch](/sunday-lunch)
 - Group bookings welcome
 
@@ -194,7 +193,7 @@ Unlike rushed **Heathrow dining** or chain restaurants:
 ### About Sunday Lunch at The Anchor
 
 **Can I just turn up on Sunday?**
-You're welcome to visit, but Sunday lunch requires pre-booking. Our regular menu is available for walk-ins.
+Yes — Sunday roasts are walk-in friendly. Booking ahead is recommended for peak slots, but not required.
 
 **Is the pub really dog-friendly?**
 Absolutely! Dogs are welcome in our bar area and garden. Water bowls provided.
@@ -206,7 +205,7 @@ Let us know when booking. We cater for most dietary needs with advance notice.
 Yes! We love family gatherings and group bookings. Book early for best availability.
 
 **Do you take a deposit?**
-Yes. Sunday lunch bookings require a £10 per person deposit.
+Only for groups of 10 or more — £10 per person, fully deducted from the bill on the day. Smaller bookings don't require a deposit.
 
 **Is parking available?**
 Free parking for all Sunday lunch guests.
@@ -226,9 +225,9 @@ Don't miss out - tables fill fast!
 
 📍 **Visit**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ  
 📞 **Call**: 01753 682707  
-🕐 **Deadline**: Saturday 1pm for Sunday lunch  
-🍽️ **Serving**: Sundays 1pm-6pm  
+🕐 **Serving**: Sundays 1pm-6pm (last orders 5:30pm)  
+🍽️ **Walk in or book ahead** — no pre-order needed  
 
-**Remember: Pre-booking essential for Sunday lunch!**
+**Booking ahead is recommended for peak slots, but never required.**
 
 *Follow The Anchor on social media for Sunday lunch updates and special offers.*

@@ -47,7 +47,7 @@ Planning a **family Sunday lunch near Heathrow**? Whether you’re welcoming rel
 | Time | What Happens | Family Hack |
 | --- | --- | --- |
 | 12:45 | Arrive & get settled | Grab a drink while the kitchen gets going |
-| 13:00 | Roasts served fresh to order | Pre-order by **Saturday 1pm** to secure your roast |
+| 13:00 | Roasts served fresh to order | Walk in from 1pm or book ahead — no pre-order needed |
 | 14:00 | Puddings & hot drinks | Share desserts to keep things easy |
 | 14:30 | Garden time | Let kids burn off energy before the drive home |
 - Need airport timing? Consult our [Heathrow layover dining guide](/heathrow-layover-dining) for taxi times and boarding buffers.

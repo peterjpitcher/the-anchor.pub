@@ -84,7 +84,7 @@ There are no dedicated vegetarian restaurants in the immediate Heathrow area. Yo
 
 ### Can I get a vegan Sunday roast near Heathrow?
 
-Yes. The Anchor offers a butternut squash wellington as part of their Sunday roast menu at £19.99, served with all the trimmings. It must be pre-ordered when you book your table. Some chain carveries also offer plant-based options, though the quality is inconsistent.
+Yes. The Anchor offers a butternut squash wellington as part of their Sunday roast menu at £19.99, served with all the trimmings. Walk in or book ahead — no pre-order needed. Some chain carveries also offer plant-based options, though the quality is inconsistent.
 
 ### Does The Anchor offer vegetarian pizzas?
 

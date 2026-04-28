@@ -72,7 +72,7 @@ The [menu](/food-menu) covers proper British pub food without trying to be somet
 
 **Pizzas:** Full pizza menu available — good for sharing or a lighter option
 
-**Sunday roasts:** From £19.99, cooked to order (must pre-order by Saturday 1pm). See our [Sunday roast guide](/blog/best-sunday-roast-near-heathrow) for full details.
+**Sunday roasts:** From £19.99, cooked to order, served 1pm-6pm — walk in or book ahead, no pre-order needed. See our [Sunday roast guide](/blog/best-sunday-roast-near-heathrow) for full details.
 
 ### Why locals rate it
 

@@ -170,7 +170,7 @@ If you're organising a 60th for someone else (as is often the case), here's a pr
 
 **2 weeks before:**
 - Final headcount to the venue. Pay the deposit (£250 at The Anchor).
-- For Sunday lunch bookings, remember the Saturday 1pm pre-order deadline.
+- Sunday lunch is now walk-in friendly (1pm-6pm) — no pre-order or Saturday cutoff to worry about.
 - Confirm access arrangements for any guests with mobility needs.
 
 **On the day:**
