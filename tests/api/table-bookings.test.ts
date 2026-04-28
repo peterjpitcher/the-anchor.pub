@@ -51,12 +51,27 @@ describe('Table Booking API Routes', () => {
   })
 })
 
+jest.mock('@/lib/spam-protection', () => ({
+  checkSpamProtection: jest.fn().mockResolvedValue({ blocked: false })
+}))
+
 describe('Table Booking Route - Party Size Validation', () => {
   let createTableBooking: (request: any) => Promise<Response>
 
   beforeEach(async () => {
     process.env.ANCHOR_API_KEY = 'test-api-key'
     ;(global as any).fetch = jest.fn()
+
+    if (typeof (Response as any).json !== 'function') {
+      ;(Response as any).json = (body: unknown, init?: ResponseInit) =>
+        new Response(JSON.stringify(body), {
+          ...init,
+          headers: {
+            'Content-Type': 'application/json',
+            ...(init?.headers || {})
+          }
+        })
+    }
 
     jest.resetModules()
     ;({ POST: createTableBooking } = await import('@/app/api/table-bookings/route'))

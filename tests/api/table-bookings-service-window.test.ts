@@ -8,6 +8,10 @@ jest.mock('@/lib/api', () => ({
   }
 }))
 
+jest.mock('@/lib/spam-protection', () => ({
+  checkSpamProtection: jest.fn().mockResolvedValue({ blocked: false })
+}))
+
 const SUNDAY_HOURS = {
   regularHours: {
     sunday: {
@@ -30,6 +34,19 @@ describe('Table Bookings API - Service Window Enforcement', () => {
     process.env.ANCHOR_API_KEY = 'test-api-key'
     mockGetBusinessHours.mockResolvedValue(SUNDAY_HOURS)
     ;(global as any).fetch = jest.fn()
+
+    // Polyfill the static Response.json helper that NextResponse.json relies on
+    // (Jest's node-fetch Response doesn't include it).
+    if (typeof (Response as any).json !== 'function') {
+      ;(Response as any).json = (body: unknown, init?: ResponseInit) =>
+        new Response(JSON.stringify(body), {
+          ...init,
+          headers: {
+            'Content-Type': 'application/json',
+            ...(init?.headers || {})
+          }
+        })
+    }
 
     jest.resetModules()
     ;({ POST: createTableBooking } = await import('@/app/api/table-bookings/route'))

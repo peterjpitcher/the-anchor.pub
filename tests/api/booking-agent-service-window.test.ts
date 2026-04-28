@@ -10,6 +10,10 @@ jest.mock('@/lib/api', () => ({
   }
 }))
 
+jest.mock('@/lib/spam-protection', () => ({
+  checkSpamProtection: jest.fn().mockResolvedValue({ blocked: false })
+}))
+
 const SUNDAY_HOURS = {
   regularHours: {
     sunday: {
