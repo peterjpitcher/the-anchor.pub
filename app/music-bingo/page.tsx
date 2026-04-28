@@ -432,7 +432,7 @@ export default async function MusicBingoPage() {
               <CardBody>
                 <h3 className="mb-2 text-xl font-semibold text-anchor-gold-vivid">Sunday Roast Music Bingo Warm-Up</h3>
                 <p className="mb-4 text-sm text-anchor-cream-text/70">
-                  Book Sunday roast by 1pm Saturday and bring the crew for a proper pub lunch before Music Bingo.
+                  Walk in for a Sunday roast (served 1pm-6pm) or book ahead, then bring the crew for Music Bingo.
                 </p>
                 <div className="flex flex-col gap-2">
                   <BookTableButton
