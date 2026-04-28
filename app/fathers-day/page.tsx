@@ -4,6 +4,7 @@ import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
+import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncement'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
 import { Badge, Button, Card, CardBody, Container, Section } from '@/components/ui'
@@ -12,33 +13,37 @@ import { CONTACT, HEATHROW_TIMES } from '@/lib/constants'
 import { DEFAULT_PAGE_HEADER_IMAGE, DEFAULT_SUNDAY_LUNCH_IMAGE, DEFAULT_FOOD_IMAGE, DEFAULT_DRINKS_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
+// Father's Day 2026 (Sunday 21 June 2026) is the next live seasonal event after
+// the 17 May walk-in launch — the page ships in the post-launch walk-in state
+// from launch onward. Keyword cluster layered: 'fathers day pub lunch',
+// 'fathers day sunday roast', 'fathers day pub near me', 'where to take dad
+// for sunday lunch'. (Spec §8.6 — keyword plan delivered in conversation.)
 const FATHERS_DAY_DATE = '2026-06-21'
 const FATHERS_DAY_LABEL = 'Sunday 21 June 2026'
-const FATHERS_DAY_SERVICE_WINDOW = '1pm\u20136pm'
+const FATHERS_DAY_SERVICE_WINDOW = '1pm–6pm'
 const FATHERS_DAY_LAST_BOOKING = '5:30pm'
 const FATHERS_DAY_ROAST_PRICE_FROM = 19
-const FATHERS_DAY_DEPOSIT_PER_PERSON = 10
 
-const FATHERS_DAY_BOOKING_URL = '/book-table?purpose=sunday_lunch'
+const FATHERS_DAY_BOOKING_URL = '/book-table'
 
 const WEBSITE_ORIGIN = 'https://www.the-anchor.pub'
 
 export const metadata: Metadata = {
-  title: "Father's Day Pub Lunch Near Heathrow",
+  title: "Father's Day Pub Lunch Near Heathrow | Sunday Roast",
   description:
-    "Treat Dad to Father's Day 2026 at The Anchor near Heathrow. Sunday roast from \u00a319, craft beer, beer garden plane spotting. Free parking. Book now.",
+    "Father's Day pub lunch at The Anchor near Heathrow — Sunday roast served 1pm–6pm, walk-ins welcome. From £19. Beer garden, free parking, planes overhead.",
   alternates: { canonical: '/fathers-day' },
   openGraph: {
-    title: "Father's Day at The Anchor | Pub Lunch Near Heathrow",
+    title: "Father's Day Pub Lunch & Sunday Roast Near Heathrow | The Anchor",
     description:
-      "Treat Dad to Father's Day 2026 at The Anchor near Heathrow. Sunday roast from \u00a319, craft beer, beer garden plane spotting. Free parking. Book now.",
+      "Father's Day pub lunch at The Anchor near Heathrow — Sunday roast served 1pm–6pm, walk-ins welcome. From £19. Beer garden, free parking, planes overhead.",
     images: [DEFAULT_PAGE_HEADER_IMAGE],
     type: 'website'
   },
   twitter: getTwitterMetadata({
-    title: "Father's Day at The Anchor | Pub Lunch Near Heathrow",
+    title: "Father's Day Pub Lunch & Sunday Roast Near Heathrow | The Anchor",
     description:
-      "Treat Dad to Father's Day 2026 at The Anchor near Heathrow. Sunday roast from \u00a319, craft beer, beer garden plane spotting. Free parking. Book now.",
+      "Father's Day pub lunch at The Anchor near Heathrow — Sunday roast served 1pm–6pm, walk-ins welcome. From £19. Beer garden, free parking, planes overhead.",
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   })
 }
@@ -49,34 +54,40 @@ export default function FathersDayPage() {
 
   const faqs = [
     {
-      question: "What\u2019s on the Father\u2019s Day menu?",
+      question: "What's on the Father's Day menu?",
       answer:
-        "Father\u2019s Day falls on a Sunday, so the full Sunday roast menu is available \u2014 chicken, pork belly, or a vegetarian option. " +
-        "Mains start from \u00a319. All served with roast potatoes, seasonal vegetables, Yorkshire pudding and gravy."
+        "Father's Day falls on a Sunday, so the full Sunday roast menu is on — chicken, pork belly, or a vegetarian wellington. " +
+        "Mains start from £19. All served with roast potatoes, seasonal vegetables, Yorkshire pudding and gravy."
     },
     {
-      question: "Do I need to book for Father\u2019s Day?",
+      question: "Do I need to book for Father's Day?",
       answer:
-        "Yes. Sunday lunch requires advance booking with a \u00a310 per person deposit, placed by Saturday 1pm. " +
-        "Father\u2019s Day is always popular, so booking early is strongly recommended."
+        "Walk-ins are welcome on Father's Day Sunday between 1pm and 6pm — no pre-order needed. Booking is still recommended, especially for groups, since it's one of our busiest Sundays. " +
+        "Groups of 10 or more take a £10 per person deposit on booking, fully deducted from the bill on the day."
+    },
+    {
+      question: "Where to take dad for Sunday lunch near Heathrow?",
+      answer:
+        "The Anchor in Stanwell Moor — 7 minutes from Heathrow Terminal 5 by car, with 20 free parking spaces, a dog-friendly beer garden and planes passing overhead every 90 seconds. " +
+        "It's a proper local pub, not a chain — Sunday roast cooked from scratch, mains from £19."
     },
     {
       question: 'Is there a set menu or special pricing?',
       answer:
-        "There\u2019s no separate set menu \u2014 it\u2019s our regular Sunday roast menu, which is what makes it special. " +
-        "Proper food, cooked from scratch. Mains from \u00a319."
+        "There's no separate set menu — it's our regular Sunday roast menu, which is what makes it special. " +
+        "Proper food, cooked from scratch. Mains from £19."
     },
     {
-      question: "What time is Father\u2019s Day lunch served?",
+      question: "What time is Father's Day lunch served?",
       answer:
         "We serve Sunday lunch from 1pm to 6pm, with the last table booking at 5:30pm. " +
-        "No set sittings \u2014 book a time that suits you."
+        "No set sittings — book a time that suits you, or just walk in."
     },
     {
       question: 'Is there parking?',
       answer:
-        `Yes \u2014 we have 20 free parking spaces on site. No meters, no charges. ` +
-        `We\u2019re about ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 by car.`
+        `Yes — we have 20 free parking spaces on site. No meters, no charges. ` +
+        `We're about ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 by car.`
     }
   ]
 
@@ -84,11 +95,11 @@ export default function FathersDayPage() {
     '@context': 'https://schema.org',
     '@type': 'Event',
     '@id': `${WEBSITE_ORIGIN}/fathers-day#event`,
-    name: "Father\u2019s Day Lunch at The Anchor",
+    name: "Father's Day Lunch at The Anchor",
     description:
-      `Treat Dad to Father\u2019s Day lunch at The Anchor in Stanwell Moor (TW19), near Heathrow. ` +
-      `Sunday roast from \u00a3${String(FATHERS_DAY_ROAST_PRICE_FROM)}. Serving ${FATHERS_DAY_SERVICE_WINDOW}. ` +
-      `Beer garden with plane spotting, free parking. Booking required with \u00a3${FATHERS_DAY_DEPOSIT_PER_PERSON} per person deposit.`,
+      `Treat Dad to Father's Day pub lunch at The Anchor in Stanwell Moor (TW19), near Heathrow. ` +
+      `Sunday roast from £${String(FATHERS_DAY_ROAST_PRICE_FROM)}. Serving ${FATHERS_DAY_SERVICE_WINDOW}. ` +
+      `Walk in or book ahead. Beer garden with plane spotting, free parking.`,
     startDate: `${FATHERS_DAY_DATE}T13:00:00+01:00`,
     endDate: `${FATHERS_DAY_DATE}T18:00:00+01:00`,
     eventStatus: 'https://schema.org/EventScheduled',
@@ -137,7 +148,7 @@ export default function FathersDayPage() {
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', url: '/' },
-          { name: "Father\u2019s Day", url: '/fathers-day' }
+          { name: "Father's Day", url: '/fathers-day' }
         ]}
       />
 
@@ -153,39 +164,40 @@ export default function FathersDayPage() {
         title="Father&rsquo;s Day at The Anchor"
         description={
           "A proper Sunday roast, a cold pint, planes coming in low overhead, and the family all in one place. " +
-          "That\u2019s Father\u2019s Day sorted."
+          "That's Father's Day sorted."
         }
         eyebrow={FATHERS_DAY_LABEL}
         lead={
           <p className="text-white/90 text-base sm:text-lg">
-            Sunday roast from &pound;{String(FATHERS_DAY_ROAST_PRICE_FROM)} &bull; &pound;{FATHERS_DAY_DEPOSIT_PER_PERSON}pp deposit &bull; Book by Saturday 1pm
+            Sunday roast from &pound;{String(FATHERS_DAY_ROAST_PRICE_FROM)} &bull; Walk in or book ahead &bull; Served {FATHERS_DAY_SERVICE_WINDOW}
           </p>
         }
         image={{
           src: DEFAULT_PAGE_HEADER_IMAGE,
-          alt: "Father\u2019s Day lunch at The Anchor near Heathrow"
+          alt: "Father's Day pub lunch at The Anchor near Heathrow"
         }}
         enableSmartCtas={true}
         showContextStrip={true}
       />
 
-      {/* Treat Dad */}
+      {/* Treat Dad — Father's Day pub lunch */}
       <Section background="white" spacing="md">
         <Container size="lg">
           <div className="mx-auto max-w-4xl space-y-6">
+            <LaunchAnnouncement variant="banner" />
             <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">
-              Treat Dad to a Proper Pub Lunch
+              Treat Dad to a Proper Father&rsquo;s Day Pub Lunch
             </h2>
             <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
-              Father&apos;s Day lands on a Sunday, which means the full roast menu is on. Chicken,
-              pork belly or a vegetarian option &mdash; all cooked from scratch, served with golden roast potatoes,
+              Father&apos;s Day pub lunch lands on a Sunday, which means the full Father&apos;s Day Sunday roast menu is on. Chicken,
+              pork belly or a vegetarian wellington &mdash; all cooked from scratch, served with golden roast potatoes,
               seasonal vegetables, a generous Yorkshire pudding and our signature gravy.
             </p>
             <p className="text-anchor-cream-text/70 leading-relaxed">
               Mains start from <span className="font-semibold">&pound;{String(FATHERS_DAY_ROAST_PRICE_FROM)}</span>.
               We serve from <span className="font-semibold">1pm</span> to <span className="font-semibold">6pm</span>,
               last table at <span className="font-semibold">{FATHERS_DAY_LAST_BOOKING}</span>.
-              Pre-orders and a &pound;{FATHERS_DAY_DEPOSIT_PER_PERSON} per person deposit are required by Saturday 1pm.
+              Walk in or book ahead &mdash; deposits only apply to groups of 10 or more.
             </p>
 
             <div className="rounded-2xl bg-anchor-bg-raised p-6 border border-anchor-gold/15">
@@ -219,29 +231,29 @@ export default function FathersDayPage() {
         </Container>
       </Section>
 
-      {/* What Dad Actually Wants */}
+      {/* Where to take dad for Sunday lunch */}
       <Section background="gray" spacing="md">
         <Container size="lg">
           <div className="mx-auto max-w-4xl space-y-6">
             <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">
-              What Dad Actually Wants
+              Where to Take Dad for Sunday Lunch Near Heathrow
             </h2>
             <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
-              Not a spa day. Not socks. A proper pub lunch with his family, a cold beer, and something
-              to look at. At The Anchor, a plane passes overhead every 90 seconds &mdash; which gives
-              Dad a perfectly valid reason to sit in the beer garden for as long as he likes.
+              The short answer: a proper Father&apos;s Day pub near me &mdash; not a chain restaurant, not a hotel buffet.
+              The Anchor in Stanwell Moor is 7 minutes from Heathrow Terminal 5, with 20 free parking spaces, a dog-friendly
+              beer garden, and a plane every 90 seconds that gives Dad a perfectly valid reason to sit outside as long as he likes.
             </p>
             <p className="text-anchor-cream-text/70 leading-relaxed">
-              With 20 free parking spaces on site, nobody&apos;s rushing to feed a meter.
-              And because we&apos;re only {HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5,
-              it&apos;s easy to get to from just about anywhere nearby.
+              Father&apos;s Day Sunday roast cooked from scratch, drinks from the bar, the family all in one place,
+              and nobody&apos;s rushing to feed a meter. With free parking on site and only {HEATHROW_TIMES.terminal5} minutes
+              from Heathrow T5, it&apos;s easy to get to from anywhere nearby.
             </p>
             <div className="flex flex-wrap gap-3">
-              <Badge variant="default" size="sm">Proper roast</Badge>
-              <Badge variant="default" size="sm">Cold beer</Badge>
+              <Badge variant="default" size="sm">Father&apos;s Day Sunday roast</Badge>
+              <Badge variant="default" size="sm">Walk-ins welcome</Badge>
               <Badge variant="default" size="sm">Planes every 90 seconds</Badge>
               <Badge variant="success" size="sm">Free parking</Badge>
-              <Badge variant="default" size="sm">No rush</Badge>
+              <Badge variant="default" size="sm">Dog-friendly</Badge>
             </div>
           </div>
         </Container>
@@ -292,7 +304,7 @@ export default function FathersDayPage() {
             <div className="flex flex-col gap-3 sm:flex-row">
               <BookTableButton
                 source="fathers_day_gift"
-                context="sunday_lunch"
+                context="fathers_day"
                 variant="primary"
                 size="lg"
                 fullWidth
@@ -326,12 +338,12 @@ export default function FathersDayPage() {
               Father&apos;s Day lunch is on <span className="font-semibold">{FATHERS_DAY_LABEL}</span>. Serving{' '}
               <span className="font-semibold">{FATHERS_DAY_SERVICE_WINDOW}</span> (last booking{' '}
               <span className="font-semibold">{FATHERS_DAY_LAST_BOOKING}</span>).
-              Pre-orders and a &pound;{FATHERS_DAY_DEPOSIT_PER_PERSON} per person deposit are required by Saturday 1pm.
+              Walk in or book ahead &mdash; deposits only apply to groups of 10 or more.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <BookTableButton
                 source="fathers_day_cta"
-                context="sunday_lunch"
+                context="fathers_day"
                 variant="primary"
                 size="lg"
                 fullWidth
@@ -406,7 +418,7 @@ export default function FathersDayPage() {
       <InternalLinkingSection
         title="More to explore at The Anchor"
         links={[
-          { href: FATHERS_DAY_BOOKING_URL, title: "Book Father\u2019s Day lunch", description: 'Reserve online in minutes' },
+          { href: FATHERS_DAY_BOOKING_URL, title: "Book Father's Day lunch", description: 'Reserve online in minutes' },
           { href: '/sunday-lunch', title: 'Sunday lunch menu', description: 'Full menu and prices' },
           ...commonLinkGroups.dining,
           ...commonLinkGroups.location
