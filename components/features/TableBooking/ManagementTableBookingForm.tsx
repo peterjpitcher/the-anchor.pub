@@ -9,7 +9,12 @@ import { Button } from '@/components/ui/primitives/Button'
 import { ManagementEventBookingForm } from '@/components/features/EventBooking/ManagementEventBookingForm'
 import { trackTableBookingClick } from '@/lib/gtm-events'
 import { isMothersDayEvent, MOTHERS_DAY_DEFAULT_TIME, MOTHERS_DAY_SERVICE_DATE } from '@/lib/mothers-day-booking'
-import { LARGE_GROUP_DEPOSIT_PER_PERSON_GBP, computeLargeGroupDepositAmount } from '@/lib/constants'
+import {
+  LARGE_GROUP_DEPOSIT_PER_PERSON_GBP,
+  LARGE_GROUP_DEPOSIT_POLICY_COPY,
+  computeLargeGroupDepositAmount,
+  requiresDeposit,
+} from '@/lib/constants'
 import { getSundayLunchCutoffDate, hasSundayLunchCutoffPassed } from '@/lib/sunday-lunch-cutoff'
 import { PayPalDepositSection } from './PayPalDepositSection'
 
