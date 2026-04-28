@@ -613,7 +613,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const sundayLunchCutoffDate: string | null = null
   const purposeLockedToFood = !mothersDayMode && selectedDateIsSunday && sundayLunch
   const requiresSundayLunchDeposit = mothersDayMode || (selectedDateIsSunday && sundayLunch)
-  const requiresGroupDeposit = !requiresSundayLunchDeposit && partySize >= 7
+  const requiresGroupDeposit = !requiresSundayLunchDeposit && requiresDeposit(partySize)
   const sundayLunchDepositAmount = requiresSundayLunchDeposit ? computeLargeGroupDepositAmount(partySize) : 0
   const groupDepositAmount = requiresGroupDeposit ? partySize * LARGE_GROUP_DEPOSIT_PER_PERSON_GBP : 0
   const sundayLunchDepositPerGuestLabel = `£${LARGE_GROUP_DEPOSIT_PER_PERSON_GBP} per person`
