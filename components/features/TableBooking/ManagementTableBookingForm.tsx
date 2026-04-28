@@ -2126,6 +2126,14 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               ) : null}
             </div>
 
+            <p className="text-sm text-anchor-cream-text/70">
+              Plans changed?{' '}
+              <a href="tel:+441753682707" className="font-semibold underline">
+                A quick call to 01753 682707
+              </a>{' '}
+              lets us offer your table to someone else. Thanks for letting us know.
+            </p>
+
             {result?.state === 'pending_payment' ? (
               <>
                 {paymentState === 'confirmed' ? (
