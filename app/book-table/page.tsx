@@ -6,7 +6,7 @@ import { ManagementTableBookingForm } from '@/components/features/TableBooking/M
 import { BookTableUpcomingEventsPanel } from '@/components/features/TableBooking/BookTableUpcomingEventsPanel'
 import { Section, Button, Grid, Card, CardBody, SectionHeader } from '@/components/ui'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
-import { SUNDAY_LUNCH_DEPOSIT_POLICY_COPY } from '@/lib/constants'
+import { LARGE_GROUP_DEPOSIT_POLICY_COPY } from '@/lib/constants'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { RegretReduction, ValueProofStrip } from '@/components/psychology'
@@ -228,7 +228,7 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
               <ul className="mt-3 space-y-2 text-left text-sm text-anchor-cream-text/70">
                 <li>• For groups of 20+, please call us.</li>
                 <li>• A £10 per person deposit is required for groups of 7 or more. This is deducted from your final bill.</li>
-                <li>• {SUNDAY_LUNCH_DEPOSIT_POLICY_COPY}</li>
+                <li>• {LARGE_GROUP_DEPOSIT_POLICY_COPY}</li>
                 <li>• Add access needs or dietary notes in the notes box.</li>
                 <li>• Can't see the time you want? Give us a ring.</li>
               </ul>

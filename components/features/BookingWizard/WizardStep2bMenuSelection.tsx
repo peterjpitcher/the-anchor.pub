@@ -6,7 +6,7 @@ import { Alert } from '@/components/ui/feedback/Alert'
 import { Badge } from '@/components/ui/primitives/Badge'
 import type { MenuSelectionPayload, MenuSummary } from './types'
 import { formatPrice } from '@/lib/utils'
-import { SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP, getSundayLunchDepositAmount } from '@/lib/constants'
+import { LARGE_GROUP_DEPOSIT_PER_PERSON_GBP, computeLargeGroupDepositAmount } from '@/lib/constants'
 
 interface GuestSelection {
   guest_name: string
@@ -275,7 +275,7 @@ export function SundayMenuSelection({
 
     const mainsTotal = guests.reduce((sum, guest) => sum + guest.price, 0)
     const extrasTotal = extras.reduce((sum, extra) => sum + extra.price, 0)
-    const deposit = getSundayLunchDepositAmount(partySize)
+    const deposit = computeLargeGroupDepositAmount(partySize)
 
     const summary: MenuSummary = {
       guests,
@@ -474,7 +474,7 @@ export function SundayMenuSelection({
           <span>{formatPrice(totals.total, 'GBP')}</span>
         </div>
         <div className="flex justify-between text-sm text-amber-800">
-          <span>Deposit due now (£{SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP} per guest)</span>
+          <span>Deposit due now (£{LARGE_GROUP_DEPOSIT_PER_PERSON_GBP} per guest)</span>
           <span>{formatPrice(totals.deposit, 'GBP')}</span>
         </div>
         {menuComputation.summary.extras.length > 0 && (

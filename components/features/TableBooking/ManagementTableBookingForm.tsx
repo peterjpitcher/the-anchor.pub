@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/primitives/Button'
 import { ManagementEventBookingForm } from '@/components/features/EventBooking/ManagementEventBookingForm'
 import { trackTableBookingClick } from '@/lib/gtm-events'
 import { isMothersDayEvent, MOTHERS_DAY_DEFAULT_TIME, MOTHERS_DAY_SERVICE_DATE } from '@/lib/mothers-day-booking'
-import { SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP, getSundayLunchDepositAmount } from '@/lib/constants'
+import { LARGE_GROUP_DEPOSIT_PER_PERSON_GBP, computeLargeGroupDepositAmount } from '@/lib/constants'
 import { getSundayLunchCutoffDate, hasSundayLunchCutoffPassed } from '@/lib/sunday-lunch-cutoff'
 import { PayPalDepositSection } from './PayPalDepositSection'
 
@@ -606,9 +606,9 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const purposeLockedToFood = !mothersDayMode && selectedDateIsSunday && sundayLunch
   const requiresSundayLunchDeposit = mothersDayMode || (selectedDateIsSunday && sundayLunch)
   const requiresGroupDeposit = !requiresSundayLunchDeposit && partySize >= 7
-  const sundayLunchDepositAmount = requiresSundayLunchDeposit ? getSundayLunchDepositAmount(partySize) : 0
-  const groupDepositAmount = requiresGroupDeposit ? partySize * SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP : 0
-  const sundayLunchDepositPerGuestLabel = `£${SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP} per person`
+  const sundayLunchDepositAmount = requiresSundayLunchDeposit ? computeLargeGroupDepositAmount(partySize) : 0
+  const groupDepositAmount = requiresGroupDeposit ? partySize * LARGE_GROUP_DEPOSIT_PER_PERSON_GBP : 0
+  const sundayLunchDepositPerGuestLabel = `£${LARGE_GROUP_DEPOSIT_PER_PERSON_GBP} per person`
   const detailsUnlocked = lookupState === 'known' || lookupState === 'unknown'
   const isKnownCustomer = lookupState === 'known'
   const selectedDateEvents = eventsByDate[date] || []
@@ -2261,7 +2261,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               ) : null}
               {requiresGroupDeposit ? (
                 <p className="mt-3 text-xs text-anchor-cream-text/70">
-                  A £{SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP} per person deposit is required for groups of 7 or more. This is deducted from your final bill.
+                  A £{LARGE_GROUP_DEPOSIT_PER_PERSON_GBP} per person deposit is required for groups of 7 or more. This is deducted from your final bill.
                 </p>
               ) : null}
             </div>

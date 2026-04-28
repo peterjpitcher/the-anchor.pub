@@ -18,7 +18,7 @@ import { LoadingState } from '@/components/ui/LoadingState'
 import { Badge } from '@/components/ui/primitives/Badge'
 import { trackTableBookingClick, trackTableBookingFunnel, trackFormComplete, trackError } from '@/lib/gtm-events'
 import { logError } from '@/lib/error-handling'
-import { SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP, getSundayLunchDepositAmount } from '@/lib/constants'
+import { LARGE_GROUP_DEPOSIT_PER_PERSON_GBP, computeLargeGroupDepositAmount } from '@/lib/constants'
 
 interface SundayLunchBookingProps {
   className?: string
@@ -326,7 +326,7 @@ export default function SundayLunchBooking({
     (sum, side) => sum + side.price_at_booking * (side.quantity || 0),
     0
   )
-  const depositAmount = getSundayLunchDepositAmount(bookingState.partySize)
+  const depositAmount = computeLargeGroupDepositAmount(bookingState.partySize)
   const totalAmount = mainCoursesTotal + sidesTotal
 
   const buildMenuPayload = () => {
@@ -612,7 +612,7 @@ export default function SundayLunchBooking({
                 Sunday roasts must be pre-ordered and paid for by 1pm on Saturday.
               </p>
               <p className="text-sm">
-                This ensures we can prepare your meal fresh to order. A £{SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP} per person deposit is deducted from your final bill.
+                This ensures we can prepare your meal fresh to order. A £{LARGE_GROUP_DEPOSIT_PER_PERSON_GBP} per person deposit is deducted from your final bill.
               </p>
               <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 mt-3">
                 <p className="text-sm font-medium text-amber-900">

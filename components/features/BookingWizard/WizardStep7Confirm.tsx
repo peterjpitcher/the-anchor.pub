@@ -2,7 +2,7 @@
 
 import { Icon } from '@/components/ui/Icon'
 import { cn, formatPrice } from '@/lib/utils'
-import { SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP, getSundayLunchDepositAmount } from '@/lib/constants'
+import { LARGE_GROUP_DEPOSIT_PER_PERSON_GBP, computeLargeGroupDepositAmount } from '@/lib/constants'
 import type { BookingWizardData } from './types'
 
 interface WizardStep7ConfirmProps {
@@ -42,7 +42,7 @@ export function WizardStep7Confirm({
   
   // Calculate deposit if Sunday lunch
   const isSundayLunch = bookingData.bookingType === 'sunday_lunch'
-  const depositAmount = isSundayLunch ? getSundayLunchDepositAmount(bookingData.partySize) : 0
+  const depositAmount = isSundayLunch ? computeLargeGroupDepositAmount(bookingData.partySize) : 0
   
   return (
     <div className="space-y-6">
@@ -172,7 +172,7 @@ export function WizardStep7Confirm({
 	                Deposit Required: {formatPrice(depositAmount, 'GBP')}
 	              </p>
 	              <p className="text-sm text-amber-700">
-	                £{SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP} per person deposit for Sunday roasts. This amount will be deducted from your final bill.
+	                £{LARGE_GROUP_DEPOSIT_PER_PERSON_GBP} per person deposit for Sunday roasts. This amount will be deducted from your final bill.
 	                The deposit ensures we prepare fresh ingredients specifically for your table.
 	              </p>
 	            </div>

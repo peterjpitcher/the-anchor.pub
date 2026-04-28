@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { anchorAPI } from '@/lib/api'
 import { checkSpamProtection } from '@/lib/spam-protection'
-import { getSundayLunchDepositAmount } from '@/lib/constants'
+import { computeLargeGroupDepositAmount } from '@/lib/constants'
 import { normaliseUKPhone } from '@/lib/hours-utils'
 import {
   isTimeWithinRanges,
@@ -189,7 +189,7 @@ export async function POST(request: NextRequest) {
     const partySize = Number(bookingData.partySize || 1)
     // Deposit is £10/person for Sunday lunch and groups of 7+ — same rate for both
     const requiresDeposit = resolvedBookingType === 'sunday_lunch' || partySize >= 7
-    const fallbackDepositAmount = requiresDeposit ? getSundayLunchDepositAmount(partySize) : 0
+    const fallbackDepositAmount = requiresDeposit ? computeLargeGroupDepositAmount(partySize) : 0
 
     // Check if payment is required (Sunday lunch bookings should return this from API)
     if (pendingPaymentFlow && !paymentUrl) {

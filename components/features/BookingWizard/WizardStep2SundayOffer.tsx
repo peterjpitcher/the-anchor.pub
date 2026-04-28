@@ -1,7 +1,7 @@
 'use client'
 
 import { Icon } from '@/components/ui/Icon'
-import { SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP } from '@/lib/constants'
+import { LARGE_GROUP_DEPOSIT_PER_PERSON_GBP } from '@/lib/constants'
 
 interface WizardStep2SundayOfferProps {
   onSelect: (type: 'regular' | 'sunday_lunch') => void
@@ -90,7 +90,7 @@ export function WizardStep2SundayOffer({ onSelect, onBack, selectedDate }: Wizar
                 </div>
                 <div className="flex items-center gap-2 text-amber-700">
                   <Icon name="info" className="w-4 h-4" />
-                  <span>£{SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP} per person deposit required (comes off your bill)</span>
+                  <span>£{LARGE_GROUP_DEPOSIT_PER_PERSON_GBP} per person deposit required (comes off your bill)</span>
                 </div>
                 <div className="flex items-center gap-2 text-amber-700">
                   <Icon name="clock" className="w-4 h-4" />
@@ -145,7 +145,7 @@ export function WizardStep2SundayOffer({ onSelect, onBack, selectedDate }: Wizar
           <div className="text-sm text-blue-800">
             <p className="font-medium mb-1">Why do we require a deposit for Sunday roasts?</p>
             <p>
-              The £{SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP} per person deposit ensures we prepare fresh ingredients specifically for your table,
+              The £{LARGE_GROUP_DEPOSIT_PER_PERSON_GBP} per person deposit ensures we prepare fresh ingredients specifically for your table,
               reducing waste and keeping our prices fair. The deposit comes straight off your final bill.
             </p>
           </div>

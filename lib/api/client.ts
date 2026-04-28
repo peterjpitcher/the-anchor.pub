@@ -2,7 +2,7 @@
 
 import { logError } from '@/lib/error-handling'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
-import { getSundayLunchDepositAmount } from '@/lib/constants'
+import { computeLargeGroupDepositAmount } from '@/lib/constants'
 
 import type { EventsResponse, EventCategoriesResponse, EventAvailability, Event } from './events'
 import { FALLBACK_EVENT_CATEGORIES, createFallbackEvent, createFallbackEventsResponse } from './events'
@@ -271,8 +271,8 @@ export class AnchorAPI {
     const bookingReference = result.booking_reference || result.table_booking_id || bookingId
     const pendingPayment = result.state === 'pending_payment'
     const requiresNextStep = pendingPayment
-    // Deposit is £10/person for both Sunday lunch and groups of 7+
-    const depositAmount = pendingPayment ? getSundayLunchDepositAmount(Number(originalRequest.party_size || 1)) : 0
+    // Deposit is £10/person for groups of 10+ (large-group policy)
+    const depositAmount = pendingPayment ? computeLargeGroupDepositAmount(Number(originalRequest.party_size || 1)) : 0
     const duration =
       typeof originalRequest.duration_minutes === 'number'
         ? originalRequest.duration_minutes

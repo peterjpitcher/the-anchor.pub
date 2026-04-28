@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo, useCallback } from 'react'
 import { cn } from '@/lib/utils'
 import { Icon } from '@/components/ui/Icon'
-import { SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP } from '@/lib/constants'
+import { LARGE_GROUP_DEPOSIT_PER_PERSON_GBP } from '@/lib/constants'
 import type {
   AvailabilityData,
   EventsByDate,
@@ -448,7 +448,7 @@ export function WizardStepPlanVisit({
                     <span className="font-semibold text-anchor-charcoal">Sunday lunch</span>
 	                  </div>
 		                  <p className="text-sm text-gray-700">
-		                    Pre-order roasts and pay the £{SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP}pp deposit now (deducted from your final bill).
+		                    Pre-order roasts and pay the £{LARGE_GROUP_DEPOSIT_PER_PERSON_GBP}pp deposit now (deducted from your final bill).
 		                  </p>
 		                </button>
 

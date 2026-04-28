@@ -10,7 +10,7 @@ import { Icon } from '@/components/ui/Icon'
 import { PhoneLink } from '@/components/PhoneLink'
 import { DateTime } from 'luxon'
 import { formatPrice, type BusinessHours, isKitchenOpen, getKitchenStatus, anchorAPI } from '@/lib/api'
-import { SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP, getSundayLunchDepositAmount } from '@/lib/constants'
+import { LARGE_GROUP_DEPOSIT_PER_PERSON_GBP, computeLargeGroupDepositAmount } from '@/lib/constants'
 
 interface MenuItem {
   id: string
@@ -330,7 +330,7 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
   }, [date])
   
   // Calculate deposit amount (£10 per person)
-  const depositAmount = getSundayLunchDepositAmount(partySize)
+  const depositAmount = computeLargeGroupDepositAmount(partySize)
   const mainCoursesTotal = menuSelections.reduce((sum, selection) => sum + selection.price_at_booking, 0)
   const sidesTotal = sideSelections.reduce((sum, selection) => sum + (selection.price_at_booking * selection.quantity), 0)
   const totalAmount = mainCoursesTotal + sidesTotal
@@ -790,7 +790,7 @@ export default function SundayLunchBookingForm({ className }: SundayLunchBooking
         <div>
 		          <p className="font-medium">Advance Booking Required by 1pm Saturday</p>
 		          <p className="text-sm mt-1">
-		            Sunday roasts require a confirmed booking with {formatPrice(depositAmount)} deposit (£{SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP} per person) by 1pm Saturday.
+		            Sunday roasts require a confirmed booking with {formatPrice(depositAmount)} deposit (£{LARGE_GROUP_DEPOSIT_PER_PERSON_GBP} per person) by 1pm Saturday.
 		            This deposit is deducted from your final bill, with the remaining balance due on arrival.
 		          </p>
           {(() => {

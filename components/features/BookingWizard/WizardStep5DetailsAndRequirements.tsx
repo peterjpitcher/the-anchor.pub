@@ -5,7 +5,7 @@ import { Icon } from '@/components/ui/Icon'
 import { Alert } from '@/components/ui/feedback/Alert'
 import { SundayMenuSelection } from './WizardStep2bMenuSelection'
 import { cn, formatPrice } from '@/lib/utils'
-import { SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP, getSundayLunchDepositAmount } from '@/lib/constants'
+import { LARGE_GROUP_DEPOSIT_PER_PERSON_GBP, computeLargeGroupDepositAmount } from '@/lib/constants'
 import type { MenuSelectionPayload, MenuSummary } from './types'
 
 interface WizardStep5DetailsAndRequirementsProps {
@@ -137,7 +137,7 @@ export function WizardStep5DetailsAndRequirements({
   })()
 
   const canPreOrder = sundayLunchAvailable && isSunday && !sundayDeadlinePassed
-  const depositAmount = getSundayLunchDepositAmount(partySize)
+  const depositAmount = computeLargeGroupDepositAmount(partySize)
 
   const handleSelectBookingType = (type: 'regular' | 'sunday_lunch') => {
     if (type === 'sunday_lunch' && !canPreOrder) {
@@ -188,7 +188,7 @@ export function WizardStep5DetailsAndRequirements({
 	            <div>
 	              <h3 className="text-lg font-semibold text-anchor-charcoal">Sunday options</h3>
 		              <p className="text-sm text-gray-600">
-		                Pre-order to guarantee roasts and pay the £{SUNDAY_LUNCH_DEPOSIT_PER_PERSON_GBP}pp deposit online. This deposit is deducted from your final bill.
+		                Pre-order to guarantee roasts and pay the £{LARGE_GROUP_DEPOSIT_PER_PERSON_GBP}pp deposit online. This deposit is deducted from your final bill.
 		              </p>
 	            </div>
 	            <div className="text-sm text-amber-800 font-medium">
