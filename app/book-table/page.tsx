@@ -4,6 +4,7 @@ import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { PhoneButton } from '@/components/PhoneButton'
 import { ManagementTableBookingForm } from '@/components/features/TableBooking/ManagementTableBookingForm'
 import { BookTableUpcomingEventsPanel } from '@/components/features/TableBooking/BookTableUpcomingEventsPanel'
+import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncement'
 import { Section, Button, Grid, Card, CardBody, SectionHeader } from '@/components/ui'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { LARGE_GROUP_DEPOSIT_POLICY_COPY } from '@/lib/constants'
@@ -36,8 +37,6 @@ type BookTablePageProps = {
     time?: string
     party_size?: string
     purpose?: string
-    sunday_lunch?: string
-    mothers_day?: string
   }
 }
 
@@ -53,22 +52,14 @@ function parsePurpose(value?: string): 'food' | 'drinks' | undefined {
   return undefined
 }
 
-function parseBoolean(value?: string): boolean | undefined {
-  if (!value) return undefined
-  const normalized = value.trim().toLowerCase()
-  if (['1', 'true', 'yes', 'on'].includes(normalized)) return true
-  if (['0', 'false', 'no', 'off'].includes(normalized)) return false
-  return undefined
-}
-
 export default function BookPage({ searchParams }: BookTablePageProps) {
+  // sunday_lunch and mothers_day query params are silently ignored — Sunday-lunch
+  // as a separate booking type is retired with the walk-in launch (spec §6, §8.1).
   const prefill = {
     date: searchParams?.date,
     time: searchParams?.time,
     partySize: parsePartySize(searchParams?.party_size),
-    purpose: parsePurpose(searchParams?.purpose),
-    sundayLunch: parseBoolean(searchParams?.sunday_lunch),
-    mothersDay: parseBoolean(searchParams?.mothers_day)
+    purpose: parsePurpose(searchParams?.purpose)
   }
 
   return (
@@ -189,7 +180,8 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
       <Section id="booking-form" background="gray" spacing="sm" container containerSize="lg" className="bg-anchor-bg-raised">
         <div className="grid items-start gap-5 lg:gap-8 lg:grid-cols-[minmax(0,2fr),minmax(0,1fr)]">
           <div className="order-1">
-            <div className="mb-4">
+            <div className="mb-4 space-y-3">
+              <LaunchAnnouncement variant="banner" />
               <RegretReduction variant="booking" />
             </div>
             <ManagementTableBookingForm prefill={prefill} />
@@ -227,7 +219,6 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
               <h2 className="text-xl font-semibold text-anchor-gold-vivid">Quick tips</h2>
               <ul className="mt-3 space-y-2 text-left text-sm text-anchor-cream-text/70">
                 <li>• For groups of 20+, please call us.</li>
-                <li>• A £10 per person deposit is required for groups of 7 or more. This is deducted from your final bill.</li>
                 <li>• {LARGE_GROUP_DEPOSIT_POLICY_COPY}</li>
                 <li>• Add access needs or dietary notes in the notes box.</li>
                 <li>• Can't see the time you want? Give us a ring.</li>
@@ -305,7 +296,7 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
             <CardBody>
               <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-2">Sunday Roast</h3>
               <p className="text-anchor-cream-text/70 text-sm mb-4">
-                Our Sunday roasts are legendary locally — choose from beef, chicken, pork, or a vegetarian option. Roasts are served from noon, priced from £19, and must be pre-ordered when booking.
+                Our Sunday roasts are legendary locally — choose from beef, chicken, pork, or a vegetarian option. Served from 1pm Sundays, priced from £19. Walk in or book ahead.
               </p>
               <Link href="/sunday-lunch" className="text-anchor-gold-vivid font-semibold text-sm hover:underline">
                 About Sunday roast &rarr;
@@ -359,7 +350,7 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
           <div className="flex justify-between items-start gap-4 py-3">
             <div>
               <h3 className="font-semibold text-anchor-cream-text">Sunday Roast</h3>
-              <p className="text-sm text-anchor-cream-text/60 mt-1">Chicken, pork belly or veggie wellington. All the trimmings. Pre-order by Saturday 1pm.</p>
+              <p className="text-sm text-anchor-cream-text/60 mt-1">Chicken, pork belly or veggie wellington. All the trimmings. Served 1pm-6pm Sundays — walk in or book ahead.</p>
             </div>
             <span className="text-anchor-gold-vivid font-semibold whitespace-nowrap">from &pound;19</span>
           </div>
@@ -414,11 +405,11 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
         faqs={[
           {
             question: 'Do I need to book in advance?',
-            answer: 'Walk-ins are always welcome, but we recommend booking ahead — especially for Sunday roasts, larger groups (7+), and busy weekend evenings. Booking takes under a minute online and guarantees your table.'
+            answer: 'Walk-ins are always welcome, including for Sunday roast (1pm-6pm). We still recommend booking ahead for larger groups (10+) and busy weekend evenings — booking takes under a minute online and guarantees your table.'
           },
           {
             question: 'Is there a deposit required?',
-            answer: 'A £10 per person deposit is required for groups of 7 or more. This is fully deductible from your final bill on the day. Sunday roast bookings also require a pre-payment to confirm your order.'
+            answer: 'A £10 per person deposit is required for groups of 10 or more. This is fully deductible from your final bill on the day. No deposit required for smaller groups.'
           },
           {
             question: 'Can I book for a special occasion?',
@@ -434,7 +425,7 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
           },
           {
             question: 'What are your kitchen hours?',
-            answer: 'Our kitchen is open Tuesday to Saturday from noon until 9pm, and Sunday from noon until 5pm. The kitchen is closed on Mondays. Check our food menu page for the latest hours, as they can vary on bank holidays.'
+            answer: 'Our kitchen is open Tuesday to Saturday from noon until 9pm, and Sunday from 1pm until 6pm. The kitchen is closed on Mondays. Check our food menu page for the latest hours, as they can vary on bank holidays.'
           },
           {
             question: 'Is The Anchor dog-friendly?',
