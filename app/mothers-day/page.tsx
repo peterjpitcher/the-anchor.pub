@@ -1,17 +1,15 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { cache } from 'react'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
+import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncement'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
-import { EventPageTracker } from '@/components/tracking/EventPageTracker'
 import { Badge, Button, Card, CardBody, Container, Section } from '@/components/ui'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
-import { anchorAPI, formatEventDate, type Event } from '@/lib/api'
 import { CONTACT, HEATHROW_TIMES } from '@/lib/constants'
 import {
   DEFAULT_DRINKS_IMAGE,
@@ -21,21 +19,18 @@ import {
   DEFAULT_SUNDAY_LUNCH_IMAGE
 } from '@/lib/image-fallbacks'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
-import {
-  buildMothersDayBookingUrl,
-  isMothersDayEvent,
-  MOTHERS_DAY_BOOKING_CTA_LABEL,
-  MOTHERS_DAY_SERVICE_DATE
-} from '@/lib/mothers-day-booking'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
-
-export const dynamic = 'force-dynamic'
 
 const WEBSITE_ORIGIN = 'https://www.the-anchor.pub'
 
-const DEFAULT_MOTHERS_DAY_BOOKING_URL = buildMothersDayBookingUrl()
-
-const MOTHERS_DAY_DATE = MOTHERS_DAY_SERVICE_DATE
+// Mother's Day 2026 (15 March) is past at time of authoring. The page persists
+// for rolling SEO and Mother's Day 2027 (Sunday 14 March 2027). Copy describes
+// the post-launch walk-in model unconditionally — no date-aware switch needed
+// because no claim references a date before 17 May 2026. Keyword cluster
+// layered (per spec §8.6 + keyword plan): mothers day lunch near me,
+// mothers day sunday lunch near me, mothers day sunday lunch, mothers day pub
+// lunch, mothers day sunday roast.
+const MOTHERS_DAY_DATE = '2027-03-14'
 const MOTHERS_DAY_SERVICE_START_ISO = `${MOTHERS_DAY_DATE}T13:00:00+00:00`
 const MOTHERS_DAY_SERVICE_END_ISO = `${MOTHERS_DAY_DATE}T18:00:00+00:00`
 const MOTHERS_DAY_SERVICE_WINDOW_LABEL = '1pm–6pm'
@@ -44,12 +39,9 @@ const MOTHERS_DAY_ADULT_PRICE_LOW = 19
 const MOTHERS_DAY_ADULT_PRICE_HIGH = 22
 const MOTHERS_DAY_KIDS_ROAST_PRICE = 13
 
-const MOTHERS_DAY_DEPOSIT_NOTE =
-  'Sunday lunch bookings require a £10 per person deposit.'
-const MOTHERS_DAY_BOOKING_FLOW_NOTE =
-  'Choose each guest’s Sunday lunch main in the booking flow, then complete the £10 per person deposit payment to secure your table.'
+const MOTHERS_DAY_BOOKING_URL = '/book-table'
+const MOTHERS_DAY_BOOKING_CTA_LABEL = 'Book Mother’s Day Lunch'
 
-// TODO: Swap these for Mother’s Day-specific photos when available.
 const MOTHERS_DAY_PHOTOS = [
   {
     src: DEFAULT_SUNDAY_LUNCH_IMAGE,
@@ -75,107 +67,52 @@ function toAbsoluteUrl(value: string): string {
   return `${WEBSITE_ORIGIN}/${value}`
 }
 
-function parsePartySizePrefill(value?: string): number | undefined {
-  if (!value) return undefined
-  const parsed = Number.parseInt(value, 10)
-  if (!Number.isFinite(parsed)) return undefined
-  const clamped = Math.min(Math.max(parsed, 1), 50)
-  return clamped
-}
-
-function parseTimePrefill(value?: string): string | undefined {
-  if (!value) return undefined
-  const trimmed = value.trim()
-  if (/^\d{2}:\d{2}$/.test(trimmed)) return trimmed
-  if (/^\d{2}:\d{2}:\d{2}$/.test(trimmed)) return trimmed.slice(0, 5)
-  return undefined
-}
-
-type MothersDayPageProps = {
-  searchParams?: {
-    party_size?: string
-    time?: string
-  }
-}
-
-const getNextMothersDayEvent = cache(async (): Promise<Event | null> => {
-  try {
-    const now = new Date()
-    const fromDate = now.toISOString().split('T')[0]
-    const response = await anchorAPI.getEvents({
-      from_date: fromDate,
-      limit: 200,
-      status: 'scheduled'
-    })
-    const nowMs = Date.now()
-
-    const candidates = (response?.events || [])
-      .filter((event) => {
-        const startMs = Date.parse(event.startDate)
-        return Number.isFinite(startMs) && startMs > nowMs
-      })
-      .filter(isMothersDayEvent)
-      .sort((a, b) => Date.parse(a.startDate) - Date.parse(b.startDate))
-
-    return candidates[0] ?? null
-  } catch {
-    return null
-  }
+const eventDateLabelStatic = new Date(MOTHERS_DAY_SERVICE_START_ISO).toLocaleDateString('en-GB', {
+  weekday: 'long',
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'Europe/London'
 })
 
-export async function generateMetadata(): Promise<Metadata> {
-  const event = await getNextMothersDayEvent()
+const eventDateShortStatic = new Date(MOTHERS_DAY_SERVICE_START_ISO).toLocaleDateString('en-GB', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'Europe/London'
+})
 
-  const eventDateLabel = new Date(MOTHERS_DAY_SERVICE_START_ISO).toLocaleDateString('en-GB', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-    timeZone: 'Europe/London'
+const titleStatic = `Mother’s Day Lunch & Sunday Roast Near Staines | The Anchor`
+const descriptionStatic =
+  `Mother's Day lunch near me — Mother's Day Sunday roast at The Anchor near Staines. ` +
+  `Served ${MOTHERS_DAY_SERVICE_WINDOW_LABEL} (last booking ${MOTHERS_DAY_LAST_BOOKING_LABEL}). ` +
+  `Walk-ins welcome, booking recommended. From £${String(MOTHERS_DAY_ADULT_PRICE_LOW)}.`
+const keywordsStatic =
+  "mothers day lunch near me, mothers day sunday lunch near me, mothers day sunday lunch, mothers day pub lunch, mothers day sunday roast, mother's day lunch near staines, stanwell moor TW19"
+
+export const metadata: Metadata = {
+  title: titleStatic,
+  description: descriptionStatic,
+  keywords: keywordsStatic,
+  alternates: {
+    canonical: '/mothers-day'
+  },
+  openGraph: {
+    title: titleStatic,
+    description: descriptionStatic,
+    images: [DEFAULT_PAGE_HEADER_IMAGE],
+    type: 'website'
+  },
+  twitter: getTwitterMetadata({
+    title: titleStatic,
+    description: descriptionStatic,
+    images: [DEFAULT_PAGE_HEADER_IMAGE]
   })
-
-  const title = `Mother’s Day Lunch near Staines (${eventDateLabel}) | The Anchor`
-  const description =
-    `Make Mother’s Day easy with a cooked-from-scratch Sunday lunch near Staines on ${eventDateLabel}. ` +
-    `Serving 1pm–6pm (last booking 5:30pm), no set sittings. Vegan/veg options. From £19. Booking required.`
-  const keywords =
-    "mother's day lunch near staines, mothering sunday lunch staines-upon-thames, mother's day sunday roast near staines, mother's day lunch near heathrow, stanwell moor TW19"
-
-  const socialImages = [
-    DEFAULT_PAGE_HEADER_IMAGE,
-    event?.image?.[0]
-  ].filter((value): value is string => typeof value === 'string' && value.length > 0)
-
-  return {
-    title,
-    description,
-    keywords,
-    alternates: {
-      canonical: '/mothers-day'
-    },
-    openGraph: {
-      title,
-      description,
-      images: socialImages,
-      type: 'website'
-    },
-    twitter: getTwitterMetadata({
-      title,
-      description,
-      images: socialImages
-    })
-  }
 }
 
-export default async function MothersDayPage({ searchParams }: MothersDayPageProps) {
-  const event = await getNextMothersDayEvent()
-  const mothersDayBookingUrl = buildMothersDayBookingUrl({
-    partySize: parsePartySizePrefill(searchParams?.party_size),
-    time: parseTimePrefill(searchParams?.time)
-  })
-
-  const eventDateLabel = formatEventDate(MOTHERS_DAY_SERVICE_START_ISO)
-  const eventDateText = eventDateLabel.replace(',', '')
-  const eventImage = event?.image?.[0] || DEFAULT_EVENT_IMAGE
+export default function MothersDayPage() {
+  const eventDateText = eventDateShortStatic
+  const eventImage = DEFAULT_EVENT_IMAGE
 
   const addressLine = `${CONTACT.address.street}, ${CONTACT.address.town}, ${CONTACT.address.county}, ${CONTACT.address.postcode}`
   const mapQuery = `The Anchor, ${CONTACT.address.street}, ${CONTACT.address.postcode}`
@@ -183,17 +120,30 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
   const heroDescription =
     `Make Mother’s Day easy with a relaxed, cooked-from-scratch Sunday lunch at The Anchor in Stanwell Moor (TW19), ` +
     `near Staines-upon-Thames and Heathrow Terminal 5. Serving ${MOTHERS_DAY_SERVICE_WINDOW_LABEL} ` +
-    `(last table ${MOTHERS_DAY_LAST_BOOKING_LABEL}). No set sittings.`
+    `(last table ${MOTHERS_DAY_LAST_BOOKING_LABEL}). Walk in or book ahead. No set sittings.`
 
   const heroLeadText =
     `Adults £${String(MOTHERS_DAY_ADULT_PRICE_LOW)}–£${String(MOTHERS_DAY_ADULT_PRICE_HIGH)} • ` +
     `Kids roast £${String(MOTHERS_DAY_KIDS_ROAST_PRICE)} • ` +
-    '£10 per person deposit required'
+    'Walk in or book ahead'
 
   const faqs = [
     {
       question: 'When is Mother’s Day Lunch at The Anchor?',
       answer: `Mother’s Day Lunch is on ${eventDateText}. We serve from 1pm–6pm, with the last table booking at 5:30pm.`
+    },
+    {
+      question: 'Where can I find a Mother’s Day Sunday lunch near me?',
+      answer:
+        `The Anchor in Stanwell Moor (TW19), close to Staines-upon-Thames and Heathrow Terminal 5. ` +
+        `Mother’s Day Sunday roast cooked from scratch — chicken, pork belly, vegetarian wellington — mains from £${String(MOTHERS_DAY_ADULT_PRICE_LOW)}. ` +
+        `Walk-ins welcome 1pm–6pm, booking recommended.`
+    },
+    {
+      question: 'Do I need to book for Mother’s Day?',
+      answer:
+        `Walk-ins are welcome on Mother’s Day Sunday between 1pm and 6pm — no pre-order needed. Booking is still recommended, especially for groups, since Mother’s Day always books up quickly. ` +
+        `Groups of 10 or more take a £10 per person deposit on booking, fully deducted from the bill on the day.`
     },
     {
       question: 'Are there set sittings?',
@@ -202,17 +152,7 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
         `(last table booking ${MOTHERS_DAY_LAST_BOOKING_LABEL}) and enjoy your meal at a comfortable pace.`
     },
     {
-      question: 'How do I book?',
-      answer:
-        `Use the “${MOTHERS_DAY_BOOKING_CTA_LABEL}” button on this page to book online in our booking form. ` +
-        `${MOTHERS_DAY_BOOKING_FLOW_NOTE} Prefer to talk? Call ${CONTACT.phone}.`
-    },
-    {
-      question: 'How does the Sunday lunch deposit work?',
-      answer: MOTHERS_DAY_DEPOSIT_NOTE
-    },
-    {
-      question: 'How much is Mother’s Day lunch?',
+      question: 'How much is Mother’s Day pub lunch?',
       answer: `Adult mains are £${String(MOTHERS_DAY_ADULT_PRICE_LOW)}–£${String(MOTHERS_DAY_ADULT_PRICE_HIGH)}. Kids roast is available from £${String(MOTHERS_DAY_KIDS_ROAST_PRICE)}.`
     },
     {
@@ -232,14 +172,14 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
     '@context': 'https://schema.org',
     '@type': 'Event',
     '@id': `${WEBSITE_ORIGIN}/mothers-day#event`,
-    name: 'Mother’s Day Lunch near Staines at The Anchor',
+    name: 'Mother’s Day Sunday Lunch near Staines at The Anchor',
     description:
-      `Mother’s Day lunch near Staines at The Anchor in Stanwell Moor (TW19), close to Heathrow Terminal 5. ` +
+      `Mother’s Day Sunday lunch near Staines at The Anchor in Stanwell Moor (TW19), close to Heathrow Terminal 5. ` +
       `Serving ${MOTHERS_DAY_SERVICE_WINDOW_LABEL} (last table booking ${MOTHERS_DAY_LAST_BOOKING_LABEL}). ` +
-      `No set sittings — book a time that suits you and enjoy your meal at a comfortable pace. ` +
+      `No set sittings — walk in or book ahead. ` +
       `Adults mains £${String(MOTHERS_DAY_ADULT_PRICE_LOW)}–£${String(MOTHERS_DAY_ADULT_PRICE_HIGH)}; ` +
       `kids roast from £${String(MOTHERS_DAY_KIDS_ROAST_PRICE)}. Vegetarian and vegan options available, ` +
-      `served with vegetarian gravy. Booking required. ${MOTHERS_DAY_DEPOSIT_NOTE}`,
+      `served with vegetarian gravy.`,
     startDate: MOTHERS_DAY_SERVICE_START_ISO,
     endDate: MOTHERS_DAY_SERVICE_END_ISO,
     eventStatus: 'https://schema.org/EventScheduled',
@@ -270,7 +210,7 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
     },
     offers: {
       '@type': 'AggregateOffer',
-      url: toAbsoluteUrl(DEFAULT_MOTHERS_DAY_BOOKING_URL),
+      url: toAbsoluteUrl(MOTHERS_DAY_BOOKING_URL),
       priceCurrency: 'GBP',
       lowPrice: String(MOTHERS_DAY_KIDS_ROAST_PRICE),
       highPrice: String(MOTHERS_DAY_ADULT_PRICE_HIGH),
@@ -306,20 +246,11 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
         }}
       />
 
-      {event ? (
-        <EventPageTracker
-          eventId={event.id}
-          eventName={event.name}
-          eventDate={event.startDate}
-          eventPrice={event.offers?.price ? Number.parseFloat(event.offers.price) : undefined}
-        />
-      ) : null}
-
             <HeroWrapper
         route="/mothers-day"
-        title="Mother’s Day Lunch near Staines"
+        title="Mother’s Day Sunday Lunch Near Staines"
         description={heroDescription}
-        eyebrow={eventDateLabel}
+        eyebrow={eventDateLabelStatic}
         lead={
           <p className="text-white/90 text-base sm:text-lg">
             {heroLeadText}
@@ -327,7 +258,7 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
         }
         image={{
           src: DEFAULT_PAGE_HEADER_IMAGE,
-          alt: "Mother's Day lunch near Staines at The Anchor in Stanwell Moor"
+          alt: "Mother's Day pub lunch near Staines at The Anchor in Stanwell Moor"
         }}
         enableSmartCtas={true}
         showContextStrip={true}
@@ -356,7 +287,7 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
                   <p className="text-sm font-semibold uppercase tracking-wide text-anchor-cream-text/70">Serving times</p>
                   <p className="text-lg font-bold text-anchor-gold-vivid">{MOTHERS_DAY_SERVICE_WINDOW_LABEL}</p>
                   <p className="text-sm text-anchor-cream-text/70">
-                    Last table booking: {MOTHERS_DAY_LAST_BOOKING_LABEL}. No set sittings — book the time that suits you.
+                    Last table booking: {MOTHERS_DAY_LAST_BOOKING_LABEL}. No set sittings — book the time that suits you, or just walk in.
                   </p>
                 </div>
 
@@ -377,9 +308,9 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
                 </div>
 
                 <div className="space-y-2">
-                  <p className="text-sm font-semibold uppercase tracking-wide text-anchor-cream-text/70">Booking policy</p>
+                  <p className="text-sm font-semibold uppercase tracking-wide text-anchor-cream-text/70">Booking</p>
                   <p className="text-sm text-anchor-cream-text/70">
-                    Mother’s Day always books up quickly, so advance booking is required. {MOTHERS_DAY_DEPOSIT_NOTE}
+                    Mother’s Day always books up quickly, so booking ahead is recommended. Walk-ins are welcome — no pre-order needed.
                   </p>
                 </div>
 
@@ -393,7 +324,7 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
                     className="w-full"
                     trackingLabel={MOTHERS_DAY_BOOKING_CTA_LABEL}
                     eventName="Mother's Day Lunch"
-                    customHref={mothersDayBookingUrl}
+                    customHref={MOTHERS_DAY_BOOKING_URL}
                   >
                     {MOTHERS_DAY_BOOKING_CTA_LABEL}
                   </BookTableButton>
@@ -402,12 +333,13 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
             </Card>
 
             <div className="space-y-6">
+              <LaunchAnnouncement variant="banner" />
               <div>
                 <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">
-                  What to expect
+                  Mother&rsquo;s Day Pub Lunch — What to Expect
                 </h2>
                 <p className="mt-4 text-anchor-cream-text/70 text-lg leading-relaxed">
-                  Make Mother&apos;s Day easy. Join us at The Anchor in Stanwell Moor (TW19) for a relaxed, cooked-from-scratch Sunday lunch
+                  Make Mother&apos;s Day easy. Join us at The Anchor in Stanwell Moor (TW19) for a relaxed, cooked-from-scratch Mother&apos;s Day Sunday lunch
                   where Mum can properly switch off and enjoy being looked after — near{' '}
                   <Link
                     href="/staines-pub"
@@ -425,7 +357,7 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
                   .
                 </p>
                 <p className="mt-4 text-anchor-cream-text/70 leading-relaxed">
-                  Expect a proper Mother&apos;s Day roast, cooked from scratch and served fresh to order, with everything you&apos;d want from a
+                  Expect a proper Mother&apos;s Day Sunday roast, cooked from scratch and served fresh to order, with everything you&apos;d want from a
                   traditional Sunday lunch: golden roast potatoes, seasonal vegetables, a generous Yorkshire pudding, and our signature gravy.
                 </p>
                 <p className="mt-3 text-anchor-cream-text/70 leading-relaxed">
@@ -439,7 +371,7 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
                   and kids roast is available from <span className="font-semibold">£{String(MOTHERS_DAY_KIDS_ROAST_PRICE)}</span>.
                 </p>
                 <p className="mt-3 text-anchor-cream-text/70 leading-relaxed">
-                  There are no set sittings. Book a time that suits you within the service window and enjoy your meal at a comfortable pace.
+                  There are no set sittings. Walk in or book a time that suits you within the service window — either way, enjoy your meal at a comfortable pace.
                 </p>
 
                 <div className="mt-6 rounded-2xl bg-anchor-bg-raised p-6 border border-anchor-gold/15">
@@ -474,7 +406,7 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
               <div className="rounded-2xl border border-anchor-gold/15 bg-anchor-bg-raised p-6">
                 <div className="flex flex-wrap items-center gap-3">
                   <Badge variant="success" size="sm">
-                    Advance booking required
+                    Walk-ins welcome
                   </Badge>
                   <Badge variant="default" size="sm">
                     Cooked-from-scratch lunch
@@ -498,11 +430,15 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
                     </li>
                     <li className="flex gap-2">
                       <span className="text-anchor-gold">•</span>
-                      <span>{MOTHERS_DAY_DEPOSIT_NOTE}</span>
+                      <span>Walk-ins welcome — no pre-order needed.</span>
                     </li>
                     <li className="flex gap-2">
                       <span className="text-anchor-gold">•</span>
-                      <span>Mother’s Day always books up quickly, so advance booking is required.</span>
+                      <span>Mother’s Day always books up quickly, so booking ahead is recommended.</span>
+                    </li>
+                    <li className="flex gap-2">
+                      <span className="text-anchor-gold">•</span>
+                      <span>Groups of 10 or more take a £10 per person deposit on booking, fully deducted from the bill on the day.</span>
                     </li>
                     <li className="flex gap-2">
                       <span className="text-anchor-gold">•</span>
@@ -521,7 +457,7 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
                     className="w-full sm:w-auto sm:min-w-[240px]"
                     trackingLabel={MOTHERS_DAY_BOOKING_CTA_LABEL}
                     eventName="Mother's Day Lunch"
-                    customHref={mothersDayBookingUrl}
+                    customHref={MOTHERS_DAY_BOOKING_URL}
                   >
                     {MOTHERS_DAY_BOOKING_CTA_LABEL}
                   </BookTableButton>
@@ -531,7 +467,6 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
                     </Button>
                   </Link>
                 </div>
-                <p className="mt-4 text-sm text-anchor-cream-text/70">{MOTHERS_DAY_BOOKING_FLOW_NOTE}</p>
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2">
@@ -563,7 +498,7 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
                   <CardBody className="space-y-2 p-6">
                     <h3 className="text-lg font-semibold text-anchor-gold-vivid">Prefer to talk?</h3>
                     <p className="text-sm text-anchor-cream-text/70">
-                      Questions about your booking or special requests? Give us a call and we’ll help.
+                      Questions about your booking or special requests? Give us a call and we&rsquo;ll help.
                     </p>
                     <PhoneButton
                       phone={CONTACT.phone}
@@ -585,14 +520,14 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
       <Section background="gray" spacing="lg">
         <Container size="lg">
           <div className="mx-auto max-w-4xl text-center space-y-6">
-            <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">Book your Mother’s Day lunch</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">Book your Mother&rsquo;s Day lunch</h2>
             <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
-              Mother’s Day Lunch is on <span className="font-semibold">{eventDateText}</span> at The Anchor in Stanwell Moor (TW19), near Staines-upon-Thames.
+              Mother&rsquo;s Day Lunch is on <span className="font-semibold">{eventDateText}</span> at The Anchor in Stanwell Moor (TW19), near Staines-upon-Thames.
               Serving <span className="font-semibold">{MOTHERS_DAY_SERVICE_WINDOW_LABEL}</span> (last table booking <span className="font-semibold">{MOTHERS_DAY_LAST_BOOKING_LABEL}</span>).
-              No set sittings — book a time that suits you and enjoy your meal at a comfortable pace. Mother’s Day always books up quickly, so booking is required.
+              Walk in or book ahead — Mother&rsquo;s Day always books up quickly, so booking is recommended.
             </p>
             <p className="text-sm text-anchor-cream-text/70">
-              {MOTHERS_DAY_DEPOSIT_NOTE} Please add dietary requirements when booking.
+              Walk-ins welcome on Sundays 1pm–6pm — no pre-order needed. Groups of 10 or more take a £10 per person deposit on booking, fully deducted from the bill on the day. Please add dietary requirements when booking.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <BookTableButton
@@ -604,7 +539,7 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
                 className="w-full sm:w-auto sm:min-w-[240px]"
                 trackingLabel={MOTHERS_DAY_BOOKING_CTA_LABEL}
                 eventName="Mother's Day Lunch"
-                customHref={mothersDayBookingUrl}
+                customHref={MOTHERS_DAY_BOOKING_URL}
               >
                 {MOTHERS_DAY_BOOKING_CTA_LABEL}
               </BookTableButton>
@@ -618,7 +553,6 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
                 Call {CONTACT.phone}
               </PhoneButton>
             </div>
-            <p className="text-sm text-anchor-cream-text/70">{MOTHERS_DAY_BOOKING_FLOW_NOTE}</p>
           </div>
         </Container>
       </Section>
@@ -659,7 +593,7 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
               <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">Where we are</h2>
               <p className="text-anchor-cream-text/70 leading-relaxed">
                 The Anchor is in Stanwell Moor, Surrey (TW19 6AQ) — close to Heathrow and easy to reach from Staines-upon-Thames,
-                with free parking available on site. If you’re searching for a Mother&apos;s Day lunch near Staines, this is the easy option.
+                with free parking available on site. If you&rsquo;re searching for a Mother&apos;s Day lunch near me, this is the easy option.
               </p>
               <p className="text-anchor-cream-text/70">
                 Address: <span className="font-semibold text-anchor-gold-vivid">{addressLine}</span>
@@ -691,7 +625,7 @@ export default async function MothersDayPage({ searchParams }: MothersDayPagePro
       <InternalLinkingSection
         title="More to explore at The Anchor"
         links={[
-          { href: mothersDayBookingUrl, title: 'Book Mother’s Day Sunday lunch', description: 'Reserve online in minutes' },
+          { href: MOTHERS_DAY_BOOKING_URL, title: 'Book Mother’s Day Sunday lunch', description: 'Reserve online in minutes' },
           ...commonLinkGroups.dining,
           ...commonLinkGroups.location
         ]}
