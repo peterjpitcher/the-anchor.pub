@@ -8,14 +8,12 @@ import { Input, Textarea } from '@/components/ui/primitives/Input'
 import { Button } from '@/components/ui/primitives/Button'
 import { ManagementEventBookingForm } from '@/components/features/EventBooking/ManagementEventBookingForm'
 import { trackTableBookingClick } from '@/lib/gtm-events'
-import { isMothersDayEvent, MOTHERS_DAY_DEFAULT_TIME, MOTHERS_DAY_SERVICE_DATE } from '@/lib/mothers-day-booking'
 import {
   LARGE_GROUP_DEPOSIT_PER_PERSON_GBP,
   LARGE_GROUP_DEPOSIT_POLICY_COPY,
   computeLargeGroupDepositAmount,
   requiresDeposit,
 } from '@/lib/constants'
-import { getSundayLunchCutoffDate, hasSundayLunchCutoffPassed } from '@/lib/sunday-lunch-cutoff'
 import { PayPalDepositSection } from './PayPalDepositSection'
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
@@ -436,22 +434,6 @@ function normalizeSuggestedEvents(payload: any, targetDate: string): SuggestedEv
         ? source.start_time
         : null
 
-    if (
-      isMothersDayEvent({
-        startDate,
-        name,
-        shortDescription,
-        description: typeof source.description === 'string' ? source.description : null,
-        about: typeof source.about === 'string' ? source.about : null,
-        slug: typeof source.slug === 'string' ? source.slug : undefined,
-        identifier: typeof source.identifier === 'string' ? source.identifier : undefined,
-        keywords: typeof source.keywords === 'string' ? source.keywords : undefined,
-        time
-      })
-    ) {
-      continue
-    }
-
     const offers =
       source.offers && typeof source.offers === 'object'
         ? (source.offers as Record<string, unknown>)
@@ -519,28 +501,21 @@ function BookingProgressBar({ currentStep, totalSteps }: { currentStep: number; 
 }
 
 export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFormProps) {
-  // Mother's Day 2026 (15 March) is past; the prefill plumbing has been removed.
-  // Locally retained as `false` so dependent branches drop out cleanly in subsequent
-  // commits (Steps 3-7 of Task 9.1). Will be removed entirely in Step 5.
-  const mothersDayPrefillRequested = false
-
   // Trigger re-renders so time-based cutoffs update without requiring a reload.
-  const [now, setNow] = useState(() => new Date())
+  // (Retained because the LaunchAnnouncement, hold-expiry and other time-derived
+  // surfaces benefit from a periodic tick; the legacy Sunday-lunch / Mother's-Day
+  // cutoff calculations that originally drove this have been retired in §8.1.)
+  const [, setNow] = useState(() => new Date())
   useEffect(() => {
     if (typeof window === 'undefined') return
     const intervalId = window.setInterval(() => setNow(new Date()), 30_000)
     return () => window.clearInterval(intervalId)
   }, [])
 
-  const initialMothersDayCutoffPassed =
-    mothersDayPrefillRequested && hasSundayLunchCutoffPassed(MOTHERS_DAY_SERVICE_DATE, now)
-  const initialMothersDayMode = mothersDayPrefillRequested && !initialMothersDayCutoffPassed
-  const mothersDayCutoffDate = useMemo(() => getSundayLunchCutoffDate(MOTHERS_DAY_SERVICE_DATE), [])
   const today = useMemo(() => new Date().toISOString().slice(0, 10), [])
-  const defaultDate = mothersDayPrefillRequested ? MOTHERS_DAY_SERVICE_DATE : toIsoDateInputValue(prefill?.date) || today
-  const defaultRequestedTime =
-    toTimeInputValue(prefill?.time) || (mothersDayPrefillRequested ? MOTHERS_DAY_DEFAULT_TIME : getDefaultTimeValue())
-  const defaultPartySize = Math.min(Math.max(prefill?.partySize || (mothersDayPrefillRequested ? 4 : 2), 1), 20)
+  const defaultDate = toIsoDateInputValue(prefill?.date) || today
+  const defaultRequestedTime = toTimeInputValue(prefill?.time) || getDefaultTimeValue()
+  const defaultPartySize = Math.min(Math.max(prefill?.partySize || 2, 1), 20)
 
   const [step, setStep] = useState<BookingStep>('find')
 
@@ -579,10 +554,15 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
-  const [purpose, setPurpose] = useState<BookingPurpose>(mothersDayPrefillRequested ? 'food' : prefill?.purpose || 'food')
+  const [purpose, setPurpose] = useState<BookingPurpose>(prefill?.purpose || 'food')
   const [notes, setNotes] = useState('')
 
-  const [sundayLunch, setSundayLunch] = useState(initialMothersDayMode ? true : false)
+  // Sunday-lunch as a separate booking type is retired with the walk-in launch
+  // (spec §6, §8.1). These states stay false so the dependent JSX/effects below
+  // drop out cleanly. The remaining references will be fully cleaned up by
+  // Wave 3 Agent G alongside the lib/sunday-lunch-cutoff.ts and Sunday menu
+  // route deletions.
+  const [sundayLunch, setSundayLunch] = useState(false)
   const [sundayPlanManuallySelected, setSundayPlanManuallySelected] = useState(false)
   const [sundayMenuItems, setSundayMenuItems] = useState<SundayLunchMenuItem[]>([])
   const [sundayMenuLoading, setSundayMenuLoading] = useState(false)
@@ -605,19 +585,20 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const [result, setResult] = useState<ManagementTableBookingResult | null>(null)
 
   const holdExpiry = formatHoldExpiry(result?.hold_expires_at || null)
-  const mothersDayRequested =
-    mothersDayPrefillRequested || (date === MOTHERS_DAY_SERVICE_DATE && purpose === 'food')
-  const mothersDayCutoffPassed =
-    mothersDayRequested && hasSundayLunchCutoffPassed(MOTHERS_DAY_SERVICE_DATE, now)
-  const mothersDayMode = mothersDayRequested && !mothersDayCutoffPassed
+  // Mother's Day 2026 is past; the dedicated Mother's Day mode has been retired
+  // with the walk-in launch (spec §7.8). The flag is locally retained as `false`
+  // so the dependent JSX branches and effects drop out cleanly without churning
+  // every line in this commit. Wave 3 Agent G will collapse the surviving
+  // references after this is deployed.
+  const mothersDayMode = false
   const selectedDateIsSunday = useMemo(() => isSundayDate(date), [date])
-  // Sunday-lunch Saturday-1pm cutoff is retired with the walk-in launch (spec §6, §8.1).
-  // These constants stay false/null so the dependent JSX branches drop out cleanly;
-  // the JSX itself is removed in Steps 5-6 of Task 9.1.
+  // Sunday-lunch Saturday-1pm cutoff and the Sunday-lunch deposit-source flag
+  // are both retired (spec §6, §8.1). These locals stay false so the dependent
+  // JSX branches drop out cleanly.
   const sundayLunchCutoffPassed = false
   const sundayLunchCutoffDate: string | null = null
-  const purposeLockedToFood = !mothersDayMode && selectedDateIsSunday && sundayLunch
-  const requiresSundayLunchDeposit = mothersDayMode || (selectedDateIsSunday && sundayLunch)
+  const purposeLockedToFood = selectedDateIsSunday && sundayLunch
+  const requiresSundayLunchDeposit = selectedDateIsSunday && sundayLunch
   const requiresGroupDeposit = !requiresSundayLunchDeposit && requiresDeposit(partySize)
   const sundayLunchDepositAmount = requiresSundayLunchDeposit ? computeLargeGroupDepositAmount(partySize) : 0
   const groupDepositAmount = requiresGroupDeposit ? partySize * LARGE_GROUP_DEPOSIT_PER_PERSON_GBP : 0
@@ -646,22 +627,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       }))
     )
   }, [partySize])
-
-  useEffect(() => {
-    if (!mothersDayMode) return
-
-    if (date !== MOTHERS_DAY_SERVICE_DATE) {
-      setDate(MOTHERS_DAY_SERVICE_DATE)
-    }
-
-    if (purpose !== 'food') {
-      setPurpose('food')
-    }
-
-    if (!sundayLunch) {
-      setSundayLunch(true)
-    }
-  }, [date, mothersDayMode, purpose, sundayLunch])
 
   useEffect(() => {
     if (previousDateRef.current === date) {
@@ -1435,33 +1400,31 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     const resolvedFirstName = firstName.trim()
     const resolvedLastName = lastName.trim()
     const resolvedEmail = (isKnownCustomer ? knownCustomer?.email : email.trim()) || undefined
-    const effectiveDate = mothersDayMode ? MOTHERS_DAY_SERVICE_DATE : date
-    const effectivePurpose: BookingPurpose = mothersDayMode ? 'food' : purpose
-    const effectiveSundayLunch = mothersDayMode ? true : sundayLunch
     const idempotencyKey = createClientIdempotencyKey('tbl_web')
 
     setLoading(true)
 
     trackTableBookingClick({
       source: 'book_table_management_form',
-      context: sundayLunch ? 'sunday_lunch' : 'regular',
+      context: 'regular',
       destination: '/api/table-bookings'
     })
 
     try {
+      // Public payload no longer carries sunday_lunch / menu_selections / booking_type.
+      // The proxy at /api/table-bookings strips these defensively (spec §6, §8.1)
+      // and always forwards booking_type='regular' to the management API.
       const payload = {
         phone: trimmedPhone,
         default_country_code: '44',
         ...(resolvedFirstName ? { first_name: resolvedFirstName } : {}),
         ...(resolvedLastName ? { last_name: resolvedLastName } : {}),
         ...(resolvedEmail ? { email: resolvedEmail } : {}),
-        date: effectiveDate,
+        date,
         time: selectedTime,
         party_size: partySize,
-        purpose: effectivePurpose,
+        purpose,
         ...(notes.trim() ? { notes: notes.trim() } : {}),
-        ...(effectiveSundayLunch ? { sunday_lunch: true } : {}),
-        ...(sundaySelections.selections ? { menu_selections: sundaySelections.selections } : {}),
         ...(turnstileToken ? { turnstile_token: turnstileToken } : {}),
         ...(website ? { website } : {}),
         _t: Math.floor((Date.now() - formLoadedAt.current) / 1000)
