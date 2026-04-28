@@ -281,7 +281,7 @@ export default function HomePage() {
             </Link>
             <Link href="/sunday-lunch" className="block p-4 bg-anchor-green rounded-lg text-center hover:bg-anchor-green/90 transition-colors">
               <span className="block text-lg font-bold text-white">Sunday Lunch</span>
-              <span className="text-sm text-white/80">From &pound;19 &middot; Book by Saturday 1pm</span>
+              <span className="text-sm text-white/80">From &pound;19 &middot; Walk in or book ahead</span>
             </Link>
           </div>
         </Container>
@@ -719,7 +719,7 @@ export default function HomePage() {
           },
           {
             question: 'Can I book a table at The Anchor?',
-            answer: 'Yes, you can book a table online via our booking system or by calling 01753 682707. Booking is strongly recommended for Sunday lunch (must be pre-ordered by Saturday 1pm) and for groups of 6 or more.'
+            answer: 'Yes, you can book a table online via our booking system or by calling 01753 682707. Booking is recommended for groups of 6 or more and on Sunday afternoons. Walk-ins are welcome for Sunday roast (1pm–6pm) — no pre-order needed.'
           },
           {
             question: 'Does The Anchor have any special offers?',
