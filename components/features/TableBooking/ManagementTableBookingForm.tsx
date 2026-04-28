@@ -606,9 +606,11 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     mothersDayRequested && hasSundayLunchCutoffPassed(MOTHERS_DAY_SERVICE_DATE, now)
   const mothersDayMode = mothersDayRequested && !mothersDayCutoffPassed
   const selectedDateIsSunday = useMemo(() => isSundayDate(date), [date])
-  const sundayLunchCutoffPassed =
-    selectedDateIsSunday && hasSundayLunchCutoffPassed(date, now)
-  const sundayLunchCutoffDate = useMemo(() => getSundayLunchCutoffDate(date), [date])
+  // Sunday-lunch Saturday-1pm cutoff is retired with the walk-in launch (spec §6, §8.1).
+  // These constants stay false/null so the dependent JSX branches drop out cleanly;
+  // the JSX itself is removed in Steps 5-6 of Task 9.1.
+  const sundayLunchCutoffPassed = false
+  const sundayLunchCutoffDate: string | null = null
   const purposeLockedToFood = !mothersDayMode && selectedDateIsSunday && sundayLunch
   const requiresSundayLunchDeposit = mothersDayMode || (selectedDateIsSunday && sundayLunch)
   const requiresGroupDeposit = !requiresSundayLunchDeposit && partySize >= 7
