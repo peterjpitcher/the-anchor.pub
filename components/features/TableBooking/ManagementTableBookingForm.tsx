@@ -59,6 +59,11 @@ type ManagementTableBookingResult = {
   table_name: string | null
   booking_id?: string
   deposit_amount?: number
+  // Set by the management API when inline PayPal setup fails for a 10+ booking.
+  // Surfaced to the customer as a recovery link alongside the call-us copy.
+  // See spec §6 ("Failed-PayPal recovery") and §8.1 (PayPal failure recovery).
+  fallback_payment_url?: string | null
+  payment_required?: boolean
 }
 
 type SundayLunchMenuItem = {
@@ -2144,8 +2149,34 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                     ) : null}
                   </Alert>
                 ) : paymentState === 'error' && !paypalOrderId ? (
-                  <Alert variant="error" title="Unable to set up payment">
+                  <Alert variant="warning" title="We couldn't open the PayPal payment automatically">
                     <p>{paymentError ?? 'Please try again or call us to complete your booking.'}</p>
+                    <p className="mt-2">Two ways to finish your booking:</p>
+                    <ul className="mt-2 list-disc space-y-1 pl-6">
+                      <li>
+                        Call us on{' '}
+                        <a href="tel:+441753682707" className="font-semibold underline">
+                          01753 682707
+                        </a>{' '}
+                        — we'll take payment over the phone.
+                      </li>
+                      {result?.fallback_payment_url ? (
+                        <li>
+                          Or open the secure payment link we've sent to your phone, or{' '}
+                          <a
+                            href={result.fallback_payment_url}
+                            className="font-semibold underline"
+                            rel="noopener noreferrer"
+                          >
+                            click here to complete your deposit
+                          </a>
+                          .
+                        </li>
+                      ) : (
+                        <li>Or check your phone — we've sent you a secure payment link by SMS.</li>
+                      )}
+                    </ul>
+                    <p className="mt-2 text-xs">Your table is held while you complete payment.</p>
                   </Alert>
                 ) : paypalOrderId && bookingIdForPayment ? (
                   <>
