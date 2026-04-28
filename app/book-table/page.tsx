@@ -13,6 +13,13 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { RegretReduction, ValueProofStrip } from '@/components/psychology'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 
+// Revalidate every 1 hour for the walk-in launch fortnight (10–22 May 2026)
+// so the LaunchAnnouncement banner flips reliably at the cutover even on
+// cached pages. See spec §8.5.
+// TODO(post-launch): revert to 60 * 60 * 24 (24 hours) after 22 May 2026, or
+// drop the export entirely if the original was using Next.js' default.
+export const revalidate = 60 * 60 // 1 hour during launch fortnight
+
 export const metadata: Metadata = {
   title: 'Book a Table Near Heathrow | Sunday Roast',
   description: 'Reserve your table at The Anchor, Stanwell Moor — instant confirmation. Pub food from £8.95, Sunday roast from £19. Dog-friendly, free parking, 7 mins from T5.',

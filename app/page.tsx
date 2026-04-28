@@ -40,8 +40,11 @@ import {
   Section
 } from '@/components/ui'
 
-// Revalidate every 24 hours to ensure seasonal images update
-export const revalidate = 60 * 60 * 24 // 24 hours
+// Revalidate every 1 hour for the walk-in launch fortnight (10–22 May 2026)
+// so the LaunchAnnouncement banner flips reliably at the cutover even on
+// cached pages. See spec §8.5.
+// TODO(post-launch): revert to 60 * 60 * 24 (24 hours) after 22 May 2026.
+export const revalidate = 60 * 60 // 1 hour during launch fortnight
 
 export const metadata: Metadata = {
   title: 'The Anchor Stanwell Moor | Pub Near Heathrow | Free Parking',
