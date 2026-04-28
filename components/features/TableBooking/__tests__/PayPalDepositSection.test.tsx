@@ -30,8 +30,9 @@ global.fetch = mockFetch
 describe('PayPalDepositSection', () => {
   const defaultProps = {
     bookingId: '550e8400-e29b-41d4-a716-446655440000',
-    depositAmount: 80,
-    bookingSummary: 'Sunday 22 March · 1:00pm · 8 guests',
+    // Walk-in launch threshold: deposit applies at 10+. £10 per person, so 10 guests = £100.
+    depositAmount: 100,
+    bookingSummary: 'Saturday 23 May · 7:30pm · 10 guests',
     onSuccess: jest.fn(),
     onError: jest.fn(),
     orderId: 'PAYPAL-ORDER-123',
@@ -41,8 +42,8 @@ describe('PayPalDepositSection', () => {
 
   it('renders booking summary and deposit amount', () => {
     render(<PayPalDepositSection {...defaultProps} />)
-    expect(screen.getByText('Sunday 22 March · 1:00pm · 8 guests')).toBeInTheDocument()
-    expect(screen.getByText(/£80/)).toBeInTheDocument()
+    expect(screen.getByText('Saturday 23 May · 7:30pm · 10 guests')).toBeInTheDocument()
+    expect(screen.getByText(/£100/)).toBeInTheDocument()
   })
 
   it('calls onSuccess after successful capture', async () => {

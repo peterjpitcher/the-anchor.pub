@@ -1,3 +1,5 @@
+export {}
+
 const mockGetBusinessHours = jest.fn()
 const mockCreateTableBooking = jest.fn()
 

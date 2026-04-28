@@ -7,7 +7,6 @@
 import { GET as getAvailability } from '@/app/api/table-bookings/availability/route'
 import { POST as createBooking } from '@/app/api/table-bookings/create/route'
 import { GET as getBooking, DELETE as cancelBooking } from '@/app/api/table-bookings/[reference]/route'
-import { GET as getSundayMenu } from '@/app/api/table-bookings/menu/sunday-lunch/route'
 
 describe('Table Booking API Routes', () => {
   beforeEach(() => {
@@ -48,13 +47,6 @@ describe('Table Booking API Routes', () => {
       expect(typeof getBooking).toBe('function')
       expect(cancelBooking).toBeDefined()
       expect(typeof cancelBooking).toBe('function')
-    })
-  })
-
-  describe('Sunday Lunch Menu Route', () => {
-    it('should export GET handler', () => {
-      expect(getSundayMenu).toBeDefined()
-      expect(typeof getSundayMenu).toBe('function')
     })
   })
 })
@@ -99,11 +91,10 @@ describe('Table Booking Route - Party Size Validation', () => {
 
 // Type checks for API integration
 import { anchorAPI } from '@/lib/api'
-import type { 
-  TableAvailabilityResponse, 
-  TableBookingRequest, 
-  TableBookingResponse,
-  SundayLunchMenuResponse 
+import type {
+  TableAvailabilityResponse,
+  TableBookingRequest,
+  TableBookingResponse
 } from '@/lib/api'
 
 // Ensure methods exist on anchorAPI
@@ -137,12 +128,9 @@ const typeChecks = async () => {
     'guest@example.com'
   )
 
-  // Cancel booking  
+  // Cancel booking
   const cancellation = await anchorAPI.cancelTableBooking('REF123', {
     reason: 'Changed plans',
     customerEmail: 'guest@example.com'
   })
-
-  // Get Sunday lunch menu
-  const menu: SundayLunchMenuResponse = await anchorAPI.getSundayLunchMenu()
 }

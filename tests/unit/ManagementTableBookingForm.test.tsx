@@ -51,41 +51,13 @@ describe('ManagementTableBookingForm', () => {
 
     render(<ManagementTableBookingForm prefill={{ date: '2026-03-15', purpose: 'drinks' }} />)
 
+    // Both events appear (the "Mother's Day Lunch" filter that used to live in
+    // the form has been retired alongside Mother's Day mode); we just assert
+    // the suggestions render. If a future filter is added it can re-assert.
     await waitFor(() => expect(screen.getByText('Quiz Night')).toBeInTheDocument())
-    expect(screen.queryByText("Mother's Day Lunch")).not.toBeInTheDocument()
   })
 
-  it('shows Mother’s Day context when selecting Sunday, March 15, 2026 for food from /book-table', async () => {
-    ;(global as any).fetch = jest.fn((input: RequestInfo | URL) => {
-      const url = typeof input === 'string' ? input : input.toString()
-
-      if (url.startsWith('/api/events?')) {
-        return Promise.resolve(
-          new Response(JSON.stringify({ success: true, data: { events: [] } }), {
-            status: 200,
-            headers: { 'Content-Type': 'application/json' }
-          })
-        )
-      }
-
-      return Promise.reject(new Error(`Unexpected fetch call: ${url}`))
-    })
-
-    render(<ManagementTableBookingForm />)
-
-    fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-03-15' } })
-
-    await waitFor(() =>
-      expect(
-        screen.getByText(
-          'Mother’s Day Sunday Lunch is fixed to Sunday, 15 March 2026. Choose party size and preferred time, then continue.'
-        )
-      ).toBeInTheDocument()
-    )
-    expect(screen.queryByLabelText('Date')).not.toBeInTheDocument()
-  })
-
-  it('requires Mother’s Day pre-order selections and submits menu_selections when complete', async () => {
+  it('renders the PayPal call-us recovery state with fallback_payment_url', async () => {
     let submittedPayload: Record<string, unknown> | null = null
 
     ;(global as any).fetch = jest.fn((input: RequestInfo | URL, init?: RequestInit) => {
@@ -106,13 +78,13 @@ describe('ManagementTableBookingForm', () => {
             JSON.stringify({
               success: true,
               data: {
-                date: '2026-03-15',
+                date: '2026-05-24',
                 available: true,
                 time_slots: [
                   {
                     time: '13:00',
                     available: true,
-                    available_capacity: 10
+                    available_capacity: 12
                   }
                 ]
               }
@@ -130,34 +102,7 @@ describe('ManagementTableBookingForm', () => {
           new Response(
             JSON.stringify({
               success: true,
-              data: {
-                known: false,
-                lookup_degraded: false
-              }
-            }),
-            {
-              status: 200,
-              headers: { 'Content-Type': 'application/json' }
-            }
-          )
-        )
-      }
-
-      if (url.startsWith('/api/table-bookings/menu/sunday-lunch?')) {
-        return Promise.resolve(
-          new Response(
-            JSON.stringify({
-              success: true,
-              data: {
-                mains: [
-                  {
-                    id: 'dish-1',
-                    name: 'Roast Beef',
-                    price: 19.99,
-                    is_available: true
-                  }
-                ]
-              }
+              data: { known: false, lookup_degraded: false }
             }),
             {
               status: 200,
@@ -169,168 +114,26 @@ describe('ManagementTableBookingForm', () => {
 
       if (url === '/api/table-bookings') {
         submittedPayload = JSON.parse(String(init?.body || '{}'))
-        return Promise.resolve(
-          new Response(
-            JSON.stringify({
-              success: true,
-              data: {
-                state: 'confirmed',
-                table_booking_id: 'tb-123',
-                booking_reference: 'TB-123',
-                reason: null,
-                blocked_reason: null,
-                next_step_url: null,
-                hold_expires_at: null,
-                table_name: 'A1'
-              }
-            }),
-            {
-              status: 201,
-              headers: { 'Content-Type': 'application/json' }
-            }
-          )
-        )
-      }
-
-      return Promise.reject(new Error(`Unexpected fetch call: ${url}`))
-    })
-
-    render(<ManagementTableBookingForm prefill={{ mothersDay: true }} />)
-
-    fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
-
-    await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
-    fireEvent.click(screen.getByRole('button', { name: '1pm' }))
-    fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
-
-    fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-    fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
-
-    await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
-    fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Jane' } })
-    fireEvent.change(screen.getByLabelText('Last Name'), { target: { value: 'Guest' } })
-
-    await waitFor(() => expect(screen.getAllByRole('combobox')).toHaveLength(4))
-
-    fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
-    expect(await screen.findByText('Please select a Sunday lunch main for each guest.')).toBeInTheDocument()
-    expect(screen.queryByText('Review your booking')).not.toBeInTheDocument()
-
-    const menuSelects = screen.getAllByRole('combobox')
-    for (const select of menuSelects) {
-      fireEvent.change(select, { target: { value: 'dish-1' } })
-    }
-
-    fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
-    await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
-    expect(screen.getByText('Deposit due now')).toBeInTheDocument()
-    expect(screen.getByText('£40.00')).toBeInTheDocument()
-    expect(screen.getByText('This deposit is deducted from your final bill.')).toBeInTheDocument()
-
-    fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
-    fireEvent.click(screen.getByRole('button', { name: 'Confirm booking' }))
-
-    await waitFor(() => expect(submittedPayload).not.toBeNull())
-    expect(submittedPayload?.sunday_lunch).toBe(true)
-    expect(submittedPayload?.purpose).toBe('food')
-    expect(Array.isArray(submittedPayload?.menu_selections)).toBe(true)
-    expect((submittedPayload?.menu_selections as Array<unknown>).length).toBe(4)
-  })
-
-  it('shows a blocking error when pending payment is returned without a payment link', async () => {
-    ;(global as any).fetch = jest.fn((input: RequestInfo | URL) => {
-      const url = typeof input === 'string' ? input : input.toString()
-
-      if (url.startsWith('/api/events?')) {
-        return Promise.resolve(
-          new Response(JSON.stringify({ success: true, data: { events: [] } }), {
-            status: 200,
-            headers: { 'Content-Type': 'application/json' }
-          })
-        )
-      }
-
-      if (url.startsWith('/api/table-bookings/availability?')) {
-        return Promise.resolve(
-          new Response(
-            JSON.stringify({
-              success: true,
-              data: {
-                date: '2026-03-15',
-                available: true,
-                time_slots: [
-                  {
-                    time: '13:00',
-                    available: true,
-                    available_capacity: 10
-                  }
-                ]
-              }
-            }),
-            {
-              status: 200,
-              headers: { 'Content-Type': 'application/json' }
-            }
-          )
-        )
-      }
-
-      if (url.startsWith('/api/customers/lookup?')) {
-        return Promise.resolve(
-          new Response(
-            JSON.stringify({
-              success: true,
-              data: {
-                known: false,
-                lookup_degraded: false
-              }
-            }),
-            {
-              status: 200,
-              headers: { 'Content-Type': 'application/json' }
-            }
-          )
-        )
-      }
-
-      if (url.startsWith('/api/table-bookings/menu/sunday-lunch?')) {
-        return Promise.resolve(
-          new Response(
-            JSON.stringify({
-              success: true,
-              data: {
-                mains: [
-                  {
-                    id: 'dish-1',
-                    name: 'Roast Beef',
-                    price: 19.99,
-                    is_available: true
-                  }
-                ]
-              }
-            }),
-            {
-              status: 200,
-              headers: { 'Content-Type': 'application/json' }
-            }
-          )
-        )
-      }
-
-      if (url === '/api/table-bookings') {
+        // Simulate a 10+ booking where the management API set up the booking
+        // and the payment is required, but inline PayPal failed to set up,
+        // so the response surfaces a fallback_payment_url for the customer.
         return Promise.resolve(
           new Response(
             JSON.stringify({
               success: true,
               data: {
                 state: 'pending_payment',
-                table_booking_id: 'tb-404',
-                booking_reference: 'TB-404',
-                reason: null,
+                table_booking_id: 'tb-pending-recovery',
+                booking_reference: 'TB-PENDING-RECOVERY',
+                booking_id: 'tb-pending-recovery',
+                deposit_amount: 100,
+                payment_required: true,
+                fallback_payment_url: 'https://pay.example.com/secure-link',
                 blocked_reason: null,
                 next_step_url: null,
                 hold_expires_at: null,
-                table_name: null
+                table_name: null,
+                reason: null
               }
             }),
             {
@@ -341,10 +144,27 @@ describe('ManagementTableBookingForm', () => {
         )
       }
 
+      // Inline PayPal create-order returns an error to drive the recovery branch
+      if (url === '/api/table-bookings/paypal/create-order') {
+        return Promise.resolve(
+          new Response(
+            JSON.stringify({ success: false, error: 'PayPal setup failed' }),
+            {
+              status: 502,
+              headers: { 'Content-Type': 'application/json' }
+            }
+          )
+        )
+      }
+
       return Promise.reject(new Error(`Unexpected fetch call: ${url}`))
     })
 
-    render(<ManagementTableBookingForm prefill={{ mothersDay: true }} />)
+    render(<ManagementTableBookingForm />)
+
+    fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '10' } })
+    fireEvent.blur(screen.getByLabelText('Party Size'))
+    fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-05-24' } })
 
     fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
@@ -359,19 +179,30 @@ describe('ManagementTableBookingForm', () => {
     fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Jane' } })
     fireEvent.change(screen.getByLabelText('Last Name'), { target: { value: 'Guest' } })
 
-    await waitFor(() => expect(screen.getAllByRole('combobox')).toHaveLength(4))
-    for (const select of screen.getAllByRole('combobox')) {
-      fireEvent.change(select, { target: { value: 'dish-1' } })
-    }
-
     fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
     await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
 
     fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
-    fireEvent.click(screen.getByRole('button', { name: 'Confirm booking' }))
+    fireEvent.click(screen.getByRole('button', { name: /Confirm and pay deposit/i }))
 
-    await waitFor(() => expect(screen.getByText('Deposit payment link unavailable')).toBeInTheDocument())
-    expect(screen.getByText('this booking is not yet confirmed.', { exact: false })).toBeInTheDocument()
-    expect(screen.queryByText('Booking confirmed')).not.toBeInTheDocument()
+    // Expect the "couldn't open PayPal" recovery state with the fallback link rendered
+    await waitFor(() =>
+      expect(
+        screen.getByText("We couldn't open the PayPal payment automatically", { exact: false })
+      ).toBeInTheDocument()
+    )
+
+    const fallbackLink = await screen.findByRole('link', {
+      name: /click here to complete your deposit/i
+    })
+    expect(fallbackLink).toHaveAttribute('href', 'https://pay.example.com/secure-link')
+
+    // Verify the public payload no longer carries sunday_lunch or menu_selections
+    expect(submittedPayload).not.toBeNull()
+    const payload = submittedPayload as unknown as Record<string, unknown>
+    expect(payload.sunday_lunch).toBeUndefined()
+    expect(payload.menu_selections).toBeUndefined()
+    expect(payload.booking_type).toBeUndefined()
+    expect(payload.purpose).toBe('food')
   })
 })

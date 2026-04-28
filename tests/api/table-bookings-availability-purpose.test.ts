@@ -1,3 +1,5 @@
+export {}
+
 const mockGetBusinessHours = jest.fn()
 
 jest.mock('@/lib/api', () => ({
