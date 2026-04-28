@@ -1650,19 +1650,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
           </Alert>
         )}
 
-        {mothersDayRequested && mothersDayCutoffPassed ? (
-          <Alert variant="warning" title="Mother's Day Sunday lunch pre-orders closed">
-            <p>
-              Sunday lunch pre-orders for Mother's Day (Sunday, {MOTHERS_DAY_SERVICE_DATE}) closed at 1pm on{' '}
-              {mothersDayCutoffDate ? formatDateForDisplay(mothersDayCutoffDate) : 'the Saturday before'} (London time).
-            </p>
-            <p className="mt-2">
-              You can still book a weekday menu table for that Sunday, or call{' '}
-              <a href="tel:+441753682707" className="font-semibold underline">01753 682707</a>.
-            </p>
-          </Alert>
-        ) : null}
-
         {step === 'find' && (
           <div className="space-y-4">
             <div>
