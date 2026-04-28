@@ -260,7 +260,7 @@ export default function StanwellPubPage() {
             <div className="grid md:grid-cols-2 gap-8 mb-8">
               <div className="card-dark rounded-none p-6">
                 <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Famous Sunday Roasts</h3>
-                <p className="text-anchor-cream-text/70 mb-3">The talk of Stanwell! Our traditional Sunday roasts must be ordered by 1pm Saturday.</p>
+                <p className="text-anchor-cream-text/70 mb-3">The talk of Stanwell! Traditional Sunday roasts served 1pm-6pm — walk in or book ahead, no pre-order needed.</p>
 	                <ul className="space-y-2 text-anchor-cream-text/70">
 	                  <li>• Roasted Chicken - £19</li>
 	                  <li>• Crispy Pork Belly - £22</li>
