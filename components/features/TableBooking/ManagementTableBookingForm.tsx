@@ -11,7 +11,6 @@ import { trackTableBookingClick } from '@/lib/gtm-events'
 import {
   LARGE_GROUP_DEPOSIT_PER_PERSON_GBP,
   LARGE_GROUP_DEPOSIT_POLICY_COPY,
-  computeLargeGroupDepositAmount,
   requiresDeposit,
 } from '@/lib/constants'
 import { PayPalDepositSection } from './PayPalDepositSection'
@@ -64,17 +63,6 @@ type ManagementTableBookingResult = {
   payment_required?: boolean
 }
 
-type SundayLunchMenuItem = {
-  id: string
-  name: string
-  price: number
-}
-
-type GuestOrder = {
-  guestName: string
-  menuItemId: string
-}
-
 type AvailabilitySlot = {
   time: string
   available?: boolean
@@ -88,7 +76,6 @@ type AvailabilityData = {
   time_slots: AvailabilitySlot[]
   message?: string
   special_notes?: string
-  sunday_lunch_available?: boolean
 }
 
 type AlternativeSlot = {
@@ -179,51 +166,12 @@ function formatGbpCurrency(value: number): string {
   }).format(value)
 }
 
-function isSundayDate(isoDate: string): boolean {
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(isoDate)) return false
-  const [year, month, day] = isoDate.split('-').map((part) => Number.parseInt(part, 10))
-  if (!Number.isFinite(year) || !Number.isFinite(month) || !Number.isFinite(day)) return false
-  return new Date(Date.UTC(year, month - 1, day)).getUTCDay() === 0
-}
-
 function createClientIdempotencyKey(prefix: string): string {
   if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
     return `${prefix}_${crypto.randomUUID()}`
   }
 
   return `${prefix}_${Date.now()}_${Math.random().toString(16).slice(2)}`
-}
-
-function normalizeSundayLunchMenu(input: unknown): SundayLunchMenuItem[] {
-  if (!input || typeof input !== 'object') return []
-  const root = input as Record<string, unknown>
-  const payload = (root.data && typeof root.data === 'object' ? root.data : root) as Record<string, unknown>
-  const mains = Array.isArray(payload.mains) ? payload.mains : []
-
-  return mains
-    .map((item) => {
-      if (!item || typeof item !== 'object') return null
-      const source = item as Record<string, unknown>
-      if (source.is_available === false) return null
-      const id = typeof source.id === 'string' && source.id.trim().length > 0 ? source.id.trim() : null
-      const name = typeof source.name === 'string' ? source.name.trim() : ''
-      if (!id || !name) return null
-
-      const rawPrice = source.price
-      const parsedPrice =
-        typeof rawPrice === 'number'
-          ? rawPrice
-          : typeof rawPrice === 'string'
-          ? Number.parseFloat(rawPrice)
-          : 0
-
-      return {
-        id,
-        name,
-        price: Number.isFinite(parsedPrice) ? parsedPrice : 0
-      } satisfies SundayLunchMenuItem
-    })
-    .filter((item): item is SundayLunchMenuItem => Boolean(item))
 }
 
 function parseLookupResponse(payload: any): CustomerLookupResult {
@@ -273,9 +221,7 @@ function normalizeAvailabilityResponse(payload: any): AvailabilityData {
     available: Boolean(data?.available) || timeSlots.some((slot) => slot.available === true),
     time_slots: timeSlots,
     message: typeof data?.message === 'string' ? data.message : undefined,
-    special_notes: typeof data?.special_notes === 'string' ? data.special_notes : undefined,
-    sunday_lunch_available:
-      typeof data?.sunday_lunch_available === 'boolean' ? data.sunday_lunch_available : undefined
+    special_notes: typeof data?.special_notes === 'string' ? data.special_notes : undefined
   }
 }
 
@@ -557,18 +503,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const [purpose, setPurpose] = useState<BookingPurpose>(prefill?.purpose || 'food')
   const [notes, setNotes] = useState('')
 
-  // Sunday-lunch as a separate booking type is retired with the walk-in launch
-  // (spec §6, §8.1). These states stay false so the dependent JSX/effects below
-  // drop out cleanly. The remaining references will be fully cleaned up by
-  // Wave 3 Agent G alongside the lib/sunday-lunch-cutoff.ts and Sunday menu
-  // route deletions.
-  const [sundayLunch, setSundayLunch] = useState(false)
-  const [sundayPlanManuallySelected, setSundayPlanManuallySelected] = useState(false)
-  const [sundayMenuItems, setSundayMenuItems] = useState<SundayLunchMenuItem[]>([])
-  const [sundayMenuLoading, setSundayMenuLoading] = useState(false)
-  const [sundayMenuError, setSundayMenuError] = useState<string | null>(null)
-  const [guestOrders, setGuestOrders] = useState<GuestOrder[]>([])
-
   const [paypalOrderId, setPaypalOrderId] = useState<string | null>(null)
   const [bookingIdForPayment, setBookingIdForPayment] = useState<string | null>(null)
   const [depositAmountForPayment, setDepositAmountForPayment] = useState<number>(0)
@@ -585,24 +519,12 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const [result, setResult] = useState<ManagementTableBookingResult | null>(null)
 
   const holdExpiry = formatHoldExpiry(result?.hold_expires_at || null)
-  // Mother's Day 2026 is past; the dedicated Mother's Day mode has been retired
-  // with the walk-in launch (spec §7.8). The flag is locally retained as `false`
-  // so the dependent JSX branches and effects drop out cleanly without churning
-  // every line in this commit. Wave 3 Agent G will collapse the surviving
-  // references after this is deployed.
-  const mothersDayMode = false
-  const selectedDateIsSunday = useMemo(() => isSundayDate(date), [date])
-  // Sunday-lunch Saturday-1pm cutoff and the Sunday-lunch deposit-source flag
-  // are both retired (spec §6, §8.1). These locals stay false so the dependent
-  // JSX branches drop out cleanly.
-  const sundayLunchCutoffPassed = false
-  const sundayLunchCutoffDate: string | null = null
-  const purposeLockedToFood = selectedDateIsSunday && sundayLunch
-  const requiresSundayLunchDeposit = selectedDateIsSunday && sundayLunch
-  const requiresGroupDeposit = !requiresSundayLunchDeposit && requiresDeposit(partySize)
-  const sundayLunchDepositAmount = requiresSundayLunchDeposit ? computeLargeGroupDepositAmount(partySize) : 0
+  // Sunday lunch as a separate booking type, the Saturday-1pm cutoff, the
+  // dedicated Mother's Day mode, and the Sunday menu pre-order flow are all
+  // retired with the walk-in launch (spec §6, §7.8, §8.1). Sundays are now
+  // regular food bookings; deposit gating is purely group-size based (10+).
+  const requiresGroupDeposit = requiresDeposit(partySize)
   const groupDepositAmount = requiresGroupDeposit ? partySize * LARGE_GROUP_DEPOSIT_PER_PERSON_GBP : 0
-  const sundayLunchDepositPerGuestLabel = `£${LARGE_GROUP_DEPOSIT_PER_PERSON_GBP} per person`
   const detailsUnlocked = lookupState === 'known' || lookupState === 'unknown'
   const isKnownCustomer = lookupState === 'known'
   const selectedDateEvents = eventsByDate[date] || []
@@ -620,25 +542,12 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   )
 
   useEffect(() => {
-    setGuestOrders((previous) =>
-      Array.from({ length: partySize }, (_, index) => ({
-        guestName: previous[index]?.guestName || `Guest ${index + 1}`,
-        menuItemId: previous[index]?.menuItemId || ''
-      }))
-    )
-  }, [partySize])
-
-  useEffect(() => {
     if (previousDateRef.current === date) {
       return
     }
 
     previousDateRef.current = date
-
-    if (!mothersDayMode) {
-      setSundayPlanManuallySelected(false)
-    }
-  }, [date, mothersDayMode])
+  }, [date])
 
   useEffect(() => {
     if (result?.state !== 'pending_payment' || !result.booking_id) return
@@ -668,90 +577,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
         setPaymentState('error')
       })
   }, [result?.state, result?.booking_id, result?.deposit_amount])
-
-  useEffect(() => {
-    if (mothersDayMode) {
-      return
-    }
-
-    if (!selectedDateIsSunday || purpose === 'drinks') {
-      if (sundayLunch) {
-        setSundayLunch(false)
-      }
-      return
-    }
-
-    if (sundayLunchCutoffPassed) {
-      if (sundayLunch) {
-        setSundayLunch(false)
-      }
-      return
-    }
-
-    // If the API has confirmed sunday lunch is unavailable for this date, keep it off
-    if (availability?.sunday_lunch_available === false) {
-      if (sundayLunch) {
-        setSundayLunch(false)
-      }
-      return
-    }
-
-    if (!sundayLunch && !sundayPlanManuallySelected) {
-      setSundayLunch(true)
-    }
-  }, [
-    availability,
-    mothersDayMode,
-    purpose,
-    selectedDateIsSunday,
-    sundayLunch,
-    sundayLunchCutoffPassed,
-    sundayPlanManuallySelected
-  ])
-
-  useEffect(() => {
-    if (!sundayLunch || !selectedDateIsSunday || !detailsUnlocked || step !== 'details') {
-      return
-    }
-
-    let cancelled = false
-
-    async function loadSundayMenu() {
-      setSundayMenuLoading(true)
-      setSundayMenuError(null)
-
-      try {
-        const response = await fetch(`/api/table-bookings/menu/sunday-lunch?date=${encodeURIComponent(date)}`, {
-          cache: 'no-store'
-        })
-        const body = await response.json()
-        const menuData = normalizeSundayLunchMenu(body)
-
-        if (!response.ok || menuData.length === 0) {
-          throw new Error('Sunday lunch menu is unavailable right now. Please call us to book.')
-        }
-
-        if (!cancelled) {
-          setSundayMenuItems(menuData)
-        }
-      } catch (menuError: any) {
-        if (!cancelled) {
-          setSundayMenuItems([])
-          setSundayMenuError(menuError?.message || 'Sunday lunch menu is unavailable right now.')
-        }
-      } finally {
-        if (!cancelled) {
-          setSundayMenuLoading(false)
-        }
-      }
-    }
-
-    void loadSundayMenu()
-
-    return () => {
-      cancelled = true
-    }
-  }, [date, detailsUnlocked, selectedDateIsSunday, step, sundayLunch])
 
   useEffect(() => {
     if (datePickerFocusRef.current) {
@@ -830,23 +655,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       cancelled = true
     }
   }, [date, eventFetchRefresh, eventsByDate])
-
-  useEffect(() => {
-    if (mothersDayMode) return
-    if (selectedDateIsSunday && sundayLunch && purpose !== 'food') {
-      setPurpose('food')
-    }
-  }, [mothersDayMode, selectedDateIsSunday, sundayLunch, purpose])
-
-  useEffect(() => {
-    if (purpose === 'drinks' && sundayLunch) {
-      setSundayLunch(false)
-    }
-  }, [purpose, sundayLunch])
-
-  function getMenuItem(menuItemId: string): SundayLunchMenuItem | null {
-    return sundayMenuItems.find((item) => item.id === menuItemId) || null
-  }
 
   async function fetchAvailabilityForDate(
     targetDate: string,
@@ -1006,9 +814,9 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       await runAvailabilitySearch({
         targetDate: date,
         targetTime: requestedTime,
-        targetPurpose: mothersDayMode ? 'food' : purpose,
+        targetPurpose: purpose,
         source: 'book_table_find_table',
-        context: `availability_first_${mothersDayMode ? 'food' : purpose}`,
+        context: `availability_first_${purpose}`,
         signal: controller.signal
       })
     } catch (availabilityFailure: unknown) {
@@ -1111,15 +919,10 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   }
 
   function handlePurposeSelection(nextPurpose: BookingPurpose) {
-    if (mothersDayMode) return
     if (nextPurpose === purpose) return
 
     setPurpose(nextPurpose)
-    setSundayPlanManuallySelected(false)
     setDrinksAlternative(null)
-    if (nextPurpose === 'drinks') {
-      setSundayLunch(false)
-    }
 
     setSelectedTime('')
     setAvailability(null)
@@ -1277,60 +1080,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setError(null)
   }
 
-  function buildSundayMenuSelections(): {
-    ok: boolean
-    selections?: Array<{
-      menu_dish_id: string
-      guest_name: string
-      custom_item_name: string
-      item_type: 'main'
-      quantity: number
-      price_at_booking: number
-    }>
-    error?: string
-  } {
-    if (!sundayLunch) {
-      return { ok: true }
-    }
-
-    if (!selectedDateIsSunday) {
-      return { ok: false, error: 'Sunday lunch can only be selected for Sundays.' }
-    }
-
-    if (sundayMenuLoading) {
-      return { ok: false, error: 'Sunday lunch menu is still loading. Please wait a moment and try again.' }
-    }
-
-    if (sundayMenuItems.length === 0) {
-      return {
-        ok: false,
-        error: sundayMenuError || 'Sunday lunch menu is unavailable right now.'
-      }
-    }
-
-    const missingSelection = guestOrders.find((order) => !order.menuItemId)
-    if (missingSelection) {
-      return {
-        ok: false,
-        error: 'Please select a Sunday lunch main for each guest.'
-      }
-    }
-
-    const selections = guestOrders.map((order, index) => {
-      const item = getMenuItem(order.menuItemId)
-      return {
-        menu_dish_id: order.menuItemId,
-        guest_name: order.guestName.trim() || `Guest ${index + 1}`,
-        custom_item_name: item?.name || 'Sunday lunch main',
-        item_type: 'main' as const,
-        quantity: 1,
-        price_at_booking: item?.price || 0
-      }
-    })
-
-    return { ok: true, selections }
-  }
-
   function validateDetailsStep(): boolean {
     if (!selectedTime) {
       setStep('choose')
@@ -1350,12 +1099,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
     if (!isKnownCustomer && (!firstName.trim() || !lastName.trim())) {
       setError('Please enter your first name and last name.')
-      return false
-    }
-
-    const sundaySelections = buildSundayMenuSelections()
-    if (!sundaySelections.ok) {
-      setError(sundaySelections.error || 'Please complete your Sunday lunch selections.')
       return false
     }
 
@@ -1387,12 +1130,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
     if (!policyAccepted) {
       setError('Please confirm you understand the booking and no-show policy before continuing.')
-      return
-    }
-
-    const sundaySelections = buildSundayMenuSelections()
-    if (!sundaySelections.ok) {
-      setError(sundaySelections.error || 'Please complete your Sunday lunch selections.')
       return
     }
 
@@ -1493,12 +1230,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setFirstName('')
     setLastName('')
     setEmail('')
-    setPurpose(mothersDayMode ? 'food' : prefill?.purpose || 'food')
+    setPurpose(prefill?.purpose || 'food')
     setNotes('')
-    setSundayLunch(mothersDayMode ? true : false)
-    setSundayPlanManuallySelected(false)
-    setSundayMenuItems([])
-    setSundayMenuError(null)
     setPolicyAccepted(false)
     setError(null)
     setResult(null)
@@ -1623,9 +1356,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
             <div>
               <h3 className="text-lg font-semibold text-anchor-gold-vivid">Find a table</h3>
               <p className="mt-1 text-sm text-anchor-cream-text/70">
-                {mothersDayMode
-                  ? `Mother's Day Sunday Lunch is fixed to Sunday, 15 March 2026. Choose party size and preferred time, then continue.`
-                  : `Start with party size, date, booking type, and time. We'll ask for contact details after you pick a slot.`}
+                {`Start with party size, date, booking type, and time. We'll ask for contact details after you pick a slot.`}
               </p>
             </div>
 
@@ -1654,23 +1385,17 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               }}
             />
 
-            {mothersDayMode ? (
-              <div className="rounded-xl border border-anchor-gold/25 bg-anchor-gold/10 px-4 py-3 text-sm text-anchor-cream-text">
-                Date: <strong>Sunday, 15 March 2026</strong>
-              </div>
-            ) : (
-              <Input
-                label="Date"
-                type="date"
-                min={today}
-                required
-                value={date}
-                onChange={(event) => handleDateChange(event.target.value)}
-                onFocus={handleDateInputFocus}
-                onBlur={handleDateInputBlur}
-                error={dateError || undefined}
-              />
-            )}
+            <Input
+              label="Date"
+              type="date"
+              min={today}
+              required
+              value={date}
+              onChange={(event) => handleDateChange(event.target.value)}
+              onFocus={handleDateInputFocus}
+              onBlur={handleDateInputBlur}
+              error={dateError || undefined}
+            />
 
             <Input
               label="Preferred Time"
@@ -1680,29 +1405,27 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               onChange={(event) => setRequestedTime(event.target.value)}
             />
 
-            {!mothersDayMode ? (
-              <div>
-                <label htmlFor="table-booking-purpose-find" className="mb-1 block text-sm font-medium text-anchor-cream-text/70">
-                  Booking for
-                </label>
-                <select
-                  id="table-booking-purpose-find"
-                  value={purpose}
-                  onChange={(event) => handlePurposeSelection(event.target.value === 'drinks' ? 'drinks' : 'food')}
-                  className="w-full rounded-lg border border-anchor-gold/30 bg-anchor-bg-card px-4 py-2 text-anchor-cream-text focus:border-transparent focus:outline-none focus:ring-2 focus:ring-anchor-gold"
-                >
-                  <option value="food">Food (kitchen hours)</option>
-                  <option value="drinks">Drinks (bar hours)</option>
-                </select>
-                <p className="mt-2 text-xs text-anchor-cream-text/60">
-                  {purpose === 'food'
-                    ? 'Food bookings are shown within kitchen service hours.'
-                    : 'Drinks-only bookings can include later bar slots when available.'}
-                </p>
-              </div>
-            ) : null}
+            <div>
+              <label htmlFor="table-booking-purpose-find" className="mb-1 block text-sm font-medium text-anchor-cream-text/70">
+                Booking for
+              </label>
+              <select
+                id="table-booking-purpose-find"
+                value={purpose}
+                onChange={(event) => handlePurposeSelection(event.target.value === 'drinks' ? 'drinks' : 'food')}
+                className="w-full rounded-lg border border-anchor-gold/30 bg-anchor-bg-card px-4 py-2 text-anchor-cream-text focus:border-transparent focus:outline-none focus:ring-2 focus:ring-anchor-gold"
+              >
+                <option value="food">Food (kitchen hours)</option>
+                <option value="drinks">Drinks (bar hours)</option>
+              </select>
+              <p className="mt-2 text-xs text-anchor-cream-text/60">
+                {purpose === 'food'
+                  ? 'Food bookings are shown within kitchen service hours.'
+                  : 'Drinks-only bookings can include later bar slots when available.'}
+              </p>
+            </div>
 
-            {!mothersDayMode && (showDateEventSuggestions || selectedDateEventsLoading || selectedDateEventsLoaded) &&
+            {(showDateEventSuggestions || selectedDateEventsLoading || selectedDateEventsLoaded) &&
               renderDateEventSuggestions({
                 title: 'Events on this date',
                 description:
@@ -1710,7 +1433,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 context: 'find_step'
               })}
 
-            {!mothersDayMode && selectedDateEventError && !showDateEventSuggestions && !selectedDateEventsLoading ? (
+            {selectedDateEventError && !showDateEventSuggestions && !selectedDateEventsLoading ? (
               <p className="text-xs text-anchor-cream-text/50">{selectedDateEventError}</p>
             ) : null}
 
@@ -1733,11 +1456,9 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               <p className="mt-1 text-sm text-anchor-cream-text/70">
                 {formatDateForDisplay(date)} for {partySize} {partySize === 1 ? 'guest' : 'guests'}.
               </p>
-              {!mothersDayMode ? (
-                <p className="mt-1 text-xs text-anchor-cream-text/60">
-                  Showing {purpose === 'drinks' ? 'drinks-only' : 'food'} slots.
-                </p>
-              ) : null}
+              <p className="mt-1 text-xs text-anchor-cream-text/60">
+                Showing {purpose === 'drinks' ? 'drinks-only' : 'food'} slots.
+              </p>
             </div>
 
             {availabilityLoading ? (
@@ -1795,7 +1516,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               </div>
             )}
 
-            {!mothersDayMode && (showDateEventSuggestions || selectedDateEventsLoading || selectedDateEventsLoaded) &&
+            {(showDateEventSuggestions || selectedDateEventsLoading || selectedDateEventsLoaded) &&
               renderDateEventSuggestions({
                 title:
                   availableSlots.length === 0
@@ -1810,7 +1531,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 highlight: availableSlots.length === 0
               })}
 
-            {availableSlots.length === 0 && !mothersDayMode && (
+            {availableSlots.length === 0 && (
               <div className="space-y-3 rounded-xl border border-anchor-gold/15 bg-anchor-bg-raised p-4">
                 <p className="text-sm font-semibold text-anchor-cream-text/80">Nearest alternatives</p>
 
@@ -1845,20 +1566,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 </div>
               </div>
             )}
-
-            {availableSlots.length === 0 && mothersDayMode ? (
-              <div className="rounded-lg border border-anchor-gold/25 bg-anchor-gold/10 p-3 text-sm text-anchor-cream-text">
-                <p className="font-semibold">Mother's Day Sunday Lunch</p>
-                <p className="mt-1">
-                  Online slots may be limited. Call us and we'll check the latest availability for Sunday 15 March.
-                </p>
-                <div className="mt-2">
-                  <Button asChild size="sm" variant="secondary">
-                    <a href="tel:+441753682707">Call to check availability</a>
-                  </Button>
-                </div>
-              </div>
-            ) : null}
 
             <div className="flex flex-col gap-2 pt-2 sm:flex-row sm:flex-wrap">
               <Button type="button" variant="outline" className="w-full sm:w-auto" onClick={handleBackToFind}>
@@ -1976,31 +1683,14 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
             {detailsUnlocked ? (
               <>
-                {mothersDayMode ? (
-                  <div className="rounded-xl border border-anchor-gold/25 bg-anchor-gold/10 p-4 text-sm text-anchor-cream-text">
-                    <p className="font-semibold">Mother's Day Sunday Lunch booking</p>
-                    <p className="mt-1">
-                      Booking type is fixed to food + Sunday lunch for Sunday, 15 March 2026.
-                    </p>
-                    <p className="mt-1">
-                      Choose each guest's Sunday lunch main in this step. After review, pay a {sundayLunchDepositPerGuestLabel} deposit to secure your table.
-                    </p>
-                  </div>
-                ) : (
-                  <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-raised p-4 text-sm text-anchor-cream-text/70">
-                    <p className="font-semibold text-anchor-cream-text">
-                      Booking for: {purpose === 'drinks' ? 'Drinks (bar hours)' : 'Food (kitchen hours)'}
-                    </p>
-                    <p className="mt-1 text-xs text-anchor-cream-text/60">
-                      Need to switch between food and drinks? Go back to step 1 and tap Find a table again.
-                    </p>
-                    {purposeLockedToFood ? (
-                      <p className="mt-2 text-xs text-anchor-cream-text/70">
-                        Sunday lunch bookings are served from our Sunday lunch menu.
-                      </p>
-                    ) : null}
-                  </div>
-                )}
+                <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-raised p-4 text-sm text-anchor-cream-text/70">
+                  <p className="font-semibold text-anchor-cream-text">
+                    Booking for: {purpose === 'drinks' ? 'Drinks (bar hours)' : 'Food (kitchen hours)'}
+                  </p>
+                  <p className="mt-1 text-xs text-anchor-cream-text/60">
+                    Need to switch between food and drinks? Go back to step 1 and tap Find a table again.
+                  </p>
+                </div>
 
                 <Textarea
                   label="Notes (optional)"
@@ -2049,7 +1739,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 </div>
                 <div className="flex justify-between gap-3">
                   <dt className="font-medium">Booking for</dt>
-                  <dd>{mothersDayMode ? `Food (Mother's Day Sunday Lunch)` : purpose === 'drinks' ? 'Drinks' : 'Food'}</dd>
+                  <dd>{purpose === 'drinks' ? 'Drinks' : 'Food'}</dd>
                 </div>
                 <div className="flex justify-between gap-3">
                   <dt className="font-medium">Mobile</dt>
@@ -2063,18 +1753,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                     </dd>
                   </div>
                 ) : null}
-                {sundayLunch ? (
-                  <div className="flex justify-between gap-3">
-                    <dt className="font-medium">Sunday lunch</dt>
-                    <dd>Pre-order completed</dd>
-                  </div>
-                ) : null}
-                {requiresSundayLunchDeposit ? (
-                  <div className="flex justify-between gap-3">
-                    <dt className="font-medium">Deposit due now</dt>
-                    <dd>{formatGbpCurrency(sundayLunchDepositAmount)}</dd>
-                  </div>
-                ) : null}
                 {requiresGroupDeposit ? (
                   <div className="flex justify-between gap-3">
                     <dt className="font-medium">Deposit due now</dt>
@@ -2082,11 +1760,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                   </div>
                 ) : null}
               </dl>
-              {requiresSundayLunchDeposit ? (
-                <p className="mt-3 text-xs text-anchor-cream-text/70">
-                  This deposit is deducted from your final bill.
-                </p>
-              ) : null}
               {requiresGroupDeposit ? (
                 <p className="mt-3 text-xs text-anchor-cream-text/70">
                   {LARGE_GROUP_DEPOSIT_POLICY_COPY}
@@ -2230,7 +1903,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                     disabled={TURNSTILE_SITE_KEY ? !turnstileToken : false}
                     onClick={handleConfirmBooking}
                   >
-                    {requiresSundayLunchDeposit || requiresGroupDeposit ? 'Confirm and pay deposit' : 'Confirm booking'}
+                    {requiresGroupDeposit ? 'Confirm and pay deposit' : 'Confirm booking'}
                   </Button>
                 </div>
               </>
