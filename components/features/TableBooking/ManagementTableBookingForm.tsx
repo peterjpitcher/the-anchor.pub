@@ -109,8 +109,6 @@ interface ManagementTableBookingFormProps {
     time?: string
     partySize?: number
     purpose?: BookingPurpose
-    sundayLunch?: boolean
-    mothersDay?: boolean
   }
 }
 
@@ -516,7 +514,10 @@ function BookingProgressBar({ currentStep, totalSteps }: { currentStep: number; 
 }
 
 export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFormProps) {
-  const mothersDayPrefillRequested = prefill?.mothersDay === true
+  // Mother's Day 2026 (15 March) is past; the prefill plumbing has been removed.
+  // Locally retained as `false` so dependent branches drop out cleanly in subsequent
+  // commits (Steps 3-7 of Task 9.1). Will be removed entirely in Step 5.
+  const mothersDayPrefillRequested = false
 
   // Trigger re-renders so time-based cutoffs update without requiring a reload.
   const [now, setNow] = useState(() => new Date())
@@ -576,8 +577,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const [purpose, setPurpose] = useState<BookingPurpose>(mothersDayPrefillRequested ? 'food' : prefill?.purpose || 'food')
   const [notes, setNotes] = useState('')
 
-  const [sundayLunch, setSundayLunch] = useState(initialMothersDayMode ? true : Boolean(prefill?.sundayLunch))
-  const [sundayPlanManuallySelected, setSundayPlanManuallySelected] = useState(Boolean(prefill?.sundayLunch))
+  const [sundayLunch, setSundayLunch] = useState(initialMothersDayMode ? true : false)
+  const [sundayPlanManuallySelected, setSundayPlanManuallySelected] = useState(false)
   const [sundayMenuItems, setSundayMenuItems] = useState<SundayLunchMenuItem[]>([])
   const [sundayMenuLoading, setSundayMenuLoading] = useState(false)
   const [sundayMenuError, setSundayMenuError] = useState<string | null>(null)
@@ -1524,8 +1525,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setEmail('')
     setPurpose(mothersDayMode ? 'food' : prefill?.purpose || 'food')
     setNotes('')
-    setSundayLunch(mothersDayMode ? true : Boolean(prefill?.sundayLunch))
-    setSundayPlanManuallySelected(Boolean(prefill?.sundayLunch))
+    setSundayLunch(mothersDayMode ? true : false)
+    setSundayPlanManuallySelected(false)
     setSundayMenuItems([])
     setSundayMenuError(null)
     setPolicyAccepted(false)
