@@ -168,7 +168,7 @@ export default function FelthamPubPage() {
                 </li>
 	                <li className="flex items-start">
 	                  <span className="text-anchor-gold mr-3"></span>
-	                  <span>Our celebrated Sunday roasts - pre-order by 1pm Saturday. Sunday lunch bookings require a £10 per person deposit.</span>
+	                  <span>Celebrated Sunday roasts served 1pm-6pm — walk in or book ahead, no pre-order needed.</span>
 	                </li>
                 <li className="flex items-start">
                   <span className="text-anchor-gold mr-3"></span>
@@ -291,7 +291,7 @@ export default function FelthamPubPage() {
                         </li>
 	                        <li className="flex items-start">
 	                          <span className="text-anchor-gold mr-2">•</span>
-	                          Sunday roasts - pre-order by 1pm Saturday. Sunday lunch bookings require a £10 per person deposit.
+	                          Sunday roasts served 1pm-6pm — walk in or book ahead, no pre-order needed.
 	                        </li>
                         <li className="flex items-start">
                           <span className="text-anchor-gold mr-2">•</span>
