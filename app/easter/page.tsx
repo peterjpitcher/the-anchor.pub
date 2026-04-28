@@ -4,6 +4,7 @@ import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
+import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncement'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
 import { Badge, Button, Card, CardBody, Container, Section } from '@/components/ui'
@@ -17,33 +18,35 @@ import {
 } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
-const EASTER_SUNDAY_DATE = '2026-04-05'
-const EASTER_SUNDAY_LABEL = 'Sunday 5 April 2026'
-const EASTER_SUNDAY_SERVICE_WINDOW = '1pm\u20136pm'
+// Easter 2026 (5 April) is past at time of authoring. The page persists for
+// rolling SEO and Easter 2027 (Sunday 4 April 2027). Copy describes the
+// post-launch walk-in model unconditionally.
+const EASTER_SUNDAY_DATE = '2027-04-04'
+const EASTER_SUNDAY_LABEL = 'Sunday 4 April 2027'
+const EASTER_SUNDAY_SERVICE_WINDOW = '1pm–6pm'
 const EASTER_SUNDAY_LAST_BOOKING = '5:30pm'
 const EASTER_ROAST_PRICE_FROM = 19
-const EASTER_DEPOSIT_PER_PERSON = 10
 
-const EASTER_BOOKING_URL = '/book-table?purpose=sunday_lunch'
+const EASTER_BOOKING_URL = '/book-table'
 
 const WEBSITE_ORIGIN = 'https://www.the-anchor.pub'
 
 export const metadata: Metadata = {
   title: 'Easter Sunday Lunch & Beer Garden',
   description:
-    'Celebrate Easter 2026 at The Anchor near Heathrow. Easter Sunday roast from \u00a319, dog-friendly beer garden, free parking. Book by Saturday 1pm.',
+    'Celebrate Easter at The Anchor near Heathrow. Easter Sunday roast served 1pm–6pm, from £19. Walk in or book ahead. Dog-friendly beer garden, free parking.',
   alternates: { canonical: '/easter' },
   openGraph: {
     title: 'Easter at The Anchor | Sunday Lunch & Beer Garden',
     description:
-      'Celebrate Easter 2026 at The Anchor near Heathrow. Easter Sunday roast from \u00a319, dog-friendly beer garden, free parking. Book by Saturday 1pm.',
+      'Celebrate Easter at The Anchor near Heathrow. Easter Sunday roast served 1pm–6pm, from £19. Walk in or book ahead. Dog-friendly beer garden, free parking.',
     images: [DEFAULT_PAGE_HEADER_IMAGE],
     type: 'website'
   },
   twitter: getTwitterMetadata({
     title: 'Easter at The Anchor | Sunday Lunch & Beer Garden',
     description:
-      'Celebrate Easter 2026 at The Anchor near Heathrow. Easter Sunday roast from \u00a319, dog-friendly beer garden, free parking. Book by Saturday 1pm.',
+      'Celebrate Easter at The Anchor near Heathrow. Easter Sunday roast served 1pm–6pm, from £19. Walk in or book ahead. Dog-friendly beer garden, free parking.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   })
 }
@@ -56,32 +59,32 @@ export default function EasterPage() {
     {
       question: 'What are your Easter opening hours?',
       answer:
-        'We\u2019re open throughout the Easter weekend. Good Friday through Easter Sunday: normal hours with full kitchen service. ' +
-        'Easter Monday: open for drinks only \u2014 the kitchen is closed on Mondays, including bank holidays.'
+        'We’re open throughout the Easter weekend. Good Friday through Easter Sunday: normal hours with full kitchen service. ' +
+        'Easter Monday: open for drinks only — the kitchen is closed on Mondays, including bank holidays.'
     },
     {
       question: 'Do I need to book for Easter Sunday lunch?',
       answer:
-        'Yes. Easter Sunday lunch requires advance booking with a \u00a310 per person deposit, placed by Saturday 1pm. ' +
-        'You\u2019ll choose each guest\u2019s main in the booking flow and pay the deposit online to secure your table.'
+        'Walk-ins are welcome on Easter Sunday between 1pm and 6pm — no pre-order needed. Booking is still recommended for groups, especially for parties of six or more. ' +
+        'Groups of 10 or more take a £10 per person deposit on booking, fully deducted from the bill on the day.'
     },
     {
       question: 'Is The Anchor dog-friendly?',
       answer:
         'Absolutely. Well-behaved dogs are welcome inside the pub and in the beer garden. Water bowls are always available. ' +
-        'It\u2019s a great spot for a post-walk Easter Sunday lunch.'
+        'It’s a great spot for a post-walk Easter Sunday lunch.'
     },
     {
-      question: 'What\u2019s on the Easter menu?',
+      question: 'What’s on the Easter menu?',
       answer:
-        'Our Easter Sunday menu is the same as our regular Sunday roast \u2014 choose from chicken, pork belly, or a vegetarian option. ' +
-        'Mains start from \u00a319. All served with roast potatoes, seasonal vegetables, Yorkshire pudding and gravy.'
+        'Our Easter Sunday menu is the same as our regular Sunday roast — choose from chicken, pork belly, or a vegetarian option. ' +
+        'Mains start from £19. All served with roast potatoes, seasonal vegetables, Yorkshire pudding and gravy.'
     },
     {
       question: 'Is there parking?',
       answer:
-        `Yes \u2014 we have ${20} free parking spaces on site. No meters, no charges. ` +
-        `We\u2019re about ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 by car.`
+        `Yes — we have ${20} free parking spaces on site. No meters, no charges. ` +
+        `We’re about ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 by car.`
     }
   ]
 
@@ -92,8 +95,8 @@ export default function EasterPage() {
     name: 'Easter Sunday Lunch at The Anchor',
     description:
       `Easter Sunday lunch at The Anchor in Stanwell Moor (TW19), near Heathrow. ` +
-      `Traditional roast from \u00a3${String(EASTER_ROAST_PRICE_FROM)}. Serving ${EASTER_SUNDAY_SERVICE_WINDOW}. ` +
-      `Dog-friendly beer garden, free parking. Booking required with \u00a3${EASTER_DEPOSIT_PER_PERSON} per person deposit by Saturday 1pm.`,
+      `Traditional roast from £${String(EASTER_ROAST_PRICE_FROM)}. Serving ${EASTER_SUNDAY_SERVICE_WINDOW}. ` +
+      `Walk in or book ahead. Dog-friendly beer garden, free parking.`,
     startDate: `${EASTER_SUNDAY_DATE}T13:00:00+01:00`,
     endDate: `${EASTER_SUNDAY_DATE}T18:00:00+01:00`,
     eventStatus: 'https://schema.org/EventScheduled',
@@ -157,13 +160,13 @@ export default function EasterPage() {
         route="/easter"
         title="Easter at The Anchor"
         description={
-          `Gather the family for a proper Easter Sunday roast at The Anchor in Stanwell Moor \u2014 ` +
+          `Gather the family for a proper Easter Sunday roast at The Anchor in Stanwell Moor — ` +
           `cooked from scratch, served ${EASTER_SUNDAY_SERVICE_WINDOW}, with free parking and a dog-friendly beer garden.`
         }
         eyebrow={EASTER_SUNDAY_LABEL}
         lead={
           <p className="text-white/90 text-base sm:text-lg">
-            Sunday roast from \u00a3{String(EASTER_ROAST_PRICE_FROM)} &bull; \u00a3{EASTER_DEPOSIT_PER_PERSON}pp deposit &bull; Book by Saturday 1pm
+            Sunday roast from &pound;{String(EASTER_ROAST_PRICE_FROM)} &bull; Walk in or book ahead &bull; Served {EASTER_SUNDAY_SERVICE_WINDOW}
           </p>
         }
         image={{
@@ -178,6 +181,7 @@ export default function EasterPage() {
       <Section background="white" spacing="md">
         <Container size="lg">
           <div className="mx-auto max-w-4xl space-y-6">
+            <LaunchAnnouncement variant="banner" />
             <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">
               Easter Sunday Lunch
             </h2>
@@ -197,19 +201,19 @@ export default function EasterPage() {
             </p>
 
             <div className="rounded-2xl bg-anchor-bg-raised p-6 border border-anchor-gold/15">
-              <h3 className="text-sm font-semibold uppercase tracking-wide text-anchor-gold-vivid">Booking policy</h3>
+              <h3 className="text-sm font-semibold uppercase tracking-wide text-anchor-gold-vivid">How Sunday works</h3>
               <ul className="mt-3 space-y-2 text-sm text-anchor-cream-text/70">
                 <li className="flex gap-2">
                   <span className="text-anchor-gold">&bull;</span>
-                  <span>Advance booking required with a &pound;{EASTER_DEPOSIT_PER_PERSON} per person deposit.</span>
+                  <span>Walk-ins are welcome between <span className="font-semibold">1pm and 6pm</span> &mdash; no pre-order needed.</span>
                 </li>
                 <li className="flex gap-2">
                   <span className="text-anchor-gold">&bull;</span>
-                  <span>Pre-orders must be placed by <span className="font-semibold">Saturday 1pm</span>.</span>
+                  <span>Booking is still recommended for groups, especially parties of six or more.</span>
                 </li>
                 <li className="flex gap-2">
                   <span className="text-anchor-gold">&bull;</span>
-                  <span>Choose each guest&apos;s main in the booking flow and pay the deposit online.</span>
+                  <span>Groups of 10 or more take a &pound;10 per person deposit on booking, fully deducted from the bill on the day.</span>
                 </li>
               </ul>
             </div>
@@ -217,7 +221,7 @@ export default function EasterPage() {
             <div className="flex flex-col gap-3 sm:flex-row">
               <BookTableButton
                 source="easter_lunch_section"
-                context="sunday_lunch"
+                context="easter_sunday"
                 variant="primary"
                 size="lg"
                 fullWidth
@@ -338,12 +342,12 @@ export default function EasterPage() {
               Easter Sunday lunch is on <span className="font-semibold">{EASTER_SUNDAY_LABEL}</span>. Serving{' '}
               <span className="font-semibold">{EASTER_SUNDAY_SERVICE_WINDOW}</span> (last booking{' '}
               <span className="font-semibold">{EASTER_SUNDAY_LAST_BOOKING}</span>).
-              Pre-orders and a &pound;{EASTER_DEPOSIT_PER_PERSON} per person deposit are required by Saturday 1pm.
+              Walk in or book ahead &mdash; deposits only apply to groups of 10 or more.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <BookTableButton
                 source="easter_cta"
-                context="sunday_lunch"
+                context="easter_sunday"
                 variant="primary"
                 size="lg"
                 fullWidth
