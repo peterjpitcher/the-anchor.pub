@@ -8,6 +8,7 @@ import { Suspense, type CSSProperties } from 'react'
 import { parkingFacilitySchema } from '@/lib/schemas/parking'
 import { LazySection } from '@/components/LazySection'
 import { HeroWrapper } from '@/components/hero'
+import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncement'
 
 import { PhoneLinksSection, QuickEnquiryLinks } from '@/components/homepage/PhoneLinksSection'
 import { PhoneLink } from '@/components/PhoneLink'
@@ -184,6 +185,15 @@ export default function HomePage() {
         showStatusBar={false}
         showBreadcrumbs={false}
       />
+
+      {/* Walk-in launch announcement (auto-hides at 18:00 BST on 17 May 2026) */}
+      <div className="bg-anchor-bg-raised">
+        <Container>
+          <div className="py-3">
+            <LaunchAnnouncement variant="hero" />
+          </div>
+        </Container>
+      </div>
 
       {/* Main Page Title for SEO */}
       <div className="bg-anchor-bg-raised pt-12 pb-8 border-b border-anchor-gold/15">
