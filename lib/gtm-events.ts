@@ -74,28 +74,6 @@ export function pushToDataLayer(data: GTMEvent, options?: TrackingDispatchOption
   dispatchTrackingEvent(data, options)
 }
 
-// Booking Wizard Tracking
-export function trackBookingWizardStep(step: number, stepName: string) {
-  pushToDataLayer({
-    event: 'booking_wizard_step',
-    step_number: step,
-    step_name: stepName
-  })
-}
-
-export function trackBookingWizardComplete(bookingData: {
-  booking_type: string
-  party_size: number
-  is_sunday: boolean
-}) {
-  pushToDataLayer({
-    event: 'booking_wizard_complete',
-    booking_type: bookingData.booking_type,
-    party_size: bookingData.party_size,
-    is_sunday_lunch: bookingData.is_sunday
-  })
-}
-
 // Event booking funnel
 export function trackEventView(eventData: {
   eventId: string
