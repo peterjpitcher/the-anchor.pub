@@ -12,6 +12,7 @@ import { AnalyticsProvider } from '@/components/tracking/AnalyticsProvider'
 import { GTMProvider } from '@/components/tracking/GTMProvider'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import CookieBanner from '@/components/CookieBanner'
+import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncement'
 import { DynamicSchema } from '@/components/seo/DynamicSchema'
 import { BusinessHoursProvider } from '@/components/providers/BusinessHoursProvider'
 import { DeferredRender } from '@/components/DeferredRender'
@@ -263,6 +264,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
               </main>
               <ErrorBoundary>
                 <footer role="contentinfo">
+                  <LaunchAnnouncement variant="slim" />
                   <Footer />
                 </footer>
               </ErrorBoundary>
