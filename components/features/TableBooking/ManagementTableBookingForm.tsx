@@ -2121,7 +2121,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               ) : null}
               {requiresGroupDeposit ? (
                 <p className="mt-3 text-xs text-anchor-cream-text/70">
-                  A £{LARGE_GROUP_DEPOSIT_PER_PERSON_GBP} per person deposit is required for groups of 7 or more. This is deducted from your final bill.
+                  A £{LARGE_GROUP_DEPOSIT_PER_PERSON_GBP} per person deposit is required for groups of 10 or more. This is deducted from your final bill.
                 </p>
               ) : null}
             </div>
