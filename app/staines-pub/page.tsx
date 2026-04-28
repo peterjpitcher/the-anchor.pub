@@ -162,7 +162,7 @@ export default function StainesPubPage() {
 	                {
 	                  icon: "",
 	                  title: "Famous Sunday Roasts",
-	                  description: "Our renowned roasts\nPre-order by 1pm Saturday\nSunday lunch bookings require a £10 per person deposit\nRegular menu also available",
+	                  description: "Our renowned roasts\nServed 1pm-6pm\nWalk in or book ahead — no pre-order needed\nRegular menu also available",
 	                  className: "text-center"
 	                },
                 {
@@ -335,7 +335,7 @@ export default function StainesPubPage() {
                   <span className="bg-anchor-gold text-anchor-bg px-3 py-1 rounded-full text-sm font-semibold">ROASTS</span>
                 </div>
 		                <p className="text-anchor-cream-text/70">
-		                  Famous Sunday roasts served 1pm-6pm. Pre-order by 1pm Saturday. Sunday lunch bookings require a £10 per person deposit.
+		                  Famous Sunday roasts served 1pm-6pm. Walk in or book ahead — no pre-order needed.
 		                </p>
               </div>
 
