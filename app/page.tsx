@@ -387,8 +387,8 @@ export default function HomePage() {
 
             <div className="mt-8 p-6 card-dark">
               <p className="text-center text-anchor-cream-text/70">
-                <strong className="text-anchor-gold-vivid">Important:</strong> Sunday roasts require pre-order by 1pm Saturday.
-                Sunday lunch bookings require a £10 per person deposit. Regular menu available on Sundays without pre-order. Free parking for all guests.
+                <strong className="text-anchor-gold-vivid">Sunday roast:</strong> served 1pm–6pm. Walk in or book ahead — no pre-order needed.
+                Groups of 10 or more take a £10 per person deposit on booking, fully deducted from the bill. Free parking for all guests.
               </p>
             </div>
           </div>
@@ -527,7 +527,7 @@ export default function HomePage() {
             <GalleryImage
               src="/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg"
               alt="Traditional Sunday roast at The Anchor"
-              caption="Famous Sunday Roasts - pre-order by 1pm Saturday (Sunday lunch bookings require a £10 per person deposit)"
+              caption="Famous Sunday Roasts — served 1pm–6pm, walk in or book ahead"
               width={600}
               height={600}
             />
@@ -700,7 +700,7 @@ export default function HomePage() {
           },
           {
             question: 'What food does The Anchor serve?',
-            answer: 'We serve traditional British pub food including stone-baked pizzas, fish & chips, burgers, and Sunday roasts. Sunday lunch must be pre-ordered by 1pm Saturday and requires a £10 per person deposit. Prices range from approximately £10–£20 for mains.'
+            answer: 'We serve traditional British pub food including stone-baked pizzas, fish & chips, burgers, and Sunday roasts. Sunday roast is served 1pm–6pm — walk in or book ahead. Prices range from approximately £10–£20 for mains; Sunday roast from £19.'
           },
           {
             question: 'When is the kitchen open?',
