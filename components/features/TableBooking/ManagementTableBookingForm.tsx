@@ -8,6 +8,7 @@ import { Card, CardBody } from '@/components/ui/layout/Card'
 import { Input, Textarea } from '@/components/ui/primitives/Input'
 import { Button } from '@/components/ui/primitives/Button'
 import { ManagementEventBookingForm } from '@/components/features/EventBooking/ManagementEventBookingForm'
+import { useBusinessHoursContext } from '@/components/providers/BusinessHoursProvider'
 import {
   pushToDataLayer,
   trackTableBookingClick,
@@ -18,6 +19,12 @@ import {
   LARGE_GROUP_DEPOSIT_POLICY_COPY,
   requiresDeposit,
 } from '@/lib/constants'
+import {
+  formatTimeNoSeconds,
+  getEffectiveDayHours,
+  isKitchenClosed,
+  isVenueClosed,
+} from '@/lib/hours-utils'
 import { PayPalDepositSection } from './PayPalDepositSection'
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
@@ -533,8 +540,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const [eventsLoadingDate, setEventsLoadingDate] = useState<string | null>(null)
   const [dismissedEventDates, setDismissedEventDates] = useState<string[]>([])
   const [selectedSuggestedEvent, setSelectedSuggestedEvent] = useState<SuggestedEvent | null>(null)
-  const [eventFetchRefresh, setEventFetchRefresh] = useState(0)
-  const datePickerFocusRef = useRef(false)
   const previousDateRef = useRef(date)
   const availabilityControllerRef = useRef<AbortController | null>(null)
 
@@ -575,7 +580,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const detailsUnlocked = lookupState === 'known' || lookupState === 'unknown'
   const isKnownCustomer = lookupState === 'known'
   const selectedDateEvents = eventsByDate[date] || []
-  const selectedDateEventsLoaded = Object.prototype.hasOwnProperty.call(eventsByDate, date)
   const selectedDateEventsLoading = eventsLoadingDate === date
   const selectedDateEventError = eventErrorsByDate[date] || null
   const hideDateEventSuggestions = dismissedEventDates.includes(date)
@@ -587,6 +591,63 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       (availability?.time_slots || []).filter((slot) => isSlotAvailable(slot, partySize)),
     [availability?.time_slots, partySize]
   )
+
+  // Date-aware bar / kitchen hours summary, shown above the party-size
+  // field on the Find step. Pulls from the global BusinessHoursProvider
+  // so we benefit from the same caching as the header status bar; falls
+  // back to null while hours are still loading or the date is invalid.
+  const businessHoursContext = useBusinessHoursContext()
+  const businessHours = businessHoursContext?.hours ?? null
+  const hoursNote = useMemo(() => {
+    if (!businessHours || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return null
+
+    const effective = getEffectiveDayHours(
+      date,
+      businessHours.regularHours,
+      businessHours.specialHours
+    )
+
+    if (isVenueClosed(effective)) {
+      return {
+        summary: "We're closed all day on this date.",
+        footer: 'Please pick another date when we’re open.'
+      }
+    }
+
+    const barRange =
+      effective.opens && effective.closes
+        ? `${formatTimeNoSeconds(effective.opens)}–${formatTimeNoSeconds(effective.closes)}`
+        : null
+
+    const kitchen = effective.kitchen
+    const kitchenIsClosed = isKitchenClosed(effective)
+    let kitchenRange: string | null = null
+    if (
+      !kitchenIsClosed &&
+      kitchen &&
+      typeof kitchen === 'object' &&
+      'opens' in kitchen &&
+      'closes' in kitchen
+    ) {
+      const k = kitchen as { opens?: string; closes?: string }
+      if (k.opens && k.closes) {
+        kitchenRange = `${formatTimeNoSeconds(k.opens)}–${formatTimeNoSeconds(k.closes)}`
+      }
+    }
+
+    const parts: string[] = []
+    if (barRange) parts.push(`Bar open ${barRange}`)
+    if (kitchenIsClosed) parts.push('Kitchen closed today')
+    else if (kitchenRange) parts.push(`Kitchen open ${kitchenRange}`)
+
+    if (parts.length === 0) return null
+
+    return {
+      summary: parts.join(' · '),
+      footer:
+        'Tables booked here are for dining — you’re welcome to come in any time during bar hours for a drink first, no booking needed.'
+    }
+  }, [date, businessHours])
 
   useEffect(() => {
     if (previousDateRef.current === date) {
@@ -626,10 +687,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   }, [result?.state, result?.booking_id, result?.deposit_amount])
 
   useEffect(() => {
-    if (datePickerFocusRef.current) {
-      return
-    }
-
     if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
       return
     }
@@ -701,7 +758,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     return () => {
       cancelled = true
     }
-  }, [date, eventFetchRefresh, eventsByDate])
+  }, [date, eventsByDate])
 
   async function fetchAvailabilityForDate(
     targetDate: string,
@@ -957,15 +1014,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     }
   }
 
-  function handleDateInputFocus() {
-    datePickerFocusRef.current = true
-  }
-
-  function handleDateInputBlur() {
-    datePickerFocusRef.current = false
-    setEventFetchRefresh((previous) => previous + 1)
-  }
-
   function handlePurposeSelection(nextPurpose: BookingPurpose) {
     if (nextPurpose === purpose) return
 
@@ -998,12 +1046,11 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       )
     }
 
+    // No events for this date → render nothing (avoid distracting empty
+    // placeholder; user explicitly asked us to omit this when there's
+    // nothing to suggest).
     if (selectedDateEvents.length === 0) {
-      return (
-        <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-raised p-4 text-sm text-anchor-cream-text/70">
-          No special events are listed on {formatDateForDisplay(date)} right now.
-        </div>
-      )
+      return null
     }
 
     return (
@@ -1467,6 +1514,16 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               </p>
             </div>
 
+            {hoursNote ? (
+              <div className="rounded-lg border border-anchor-gold/15 bg-anchor-bg-raised/50 p-3 text-sm text-anchor-cream-text/80">
+                <p className="font-semibold text-anchor-cream-text">
+                  {formatDateForDisplay(date)}
+                </p>
+                <p className="mt-1">{hoursNote.summary}</p>
+                <p className="mt-2 text-xs text-anchor-cream-text/60">{hoursNote.footer}</p>
+              </div>
+            ) : null}
+
             <Input
               label="Party Size"
               type="number"
@@ -1500,8 +1557,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               required
               value={date}
               onChange={(event) => handleDateChange(event.target.value)}
-              onFocus={handleDateInputFocus}
-              onBlur={handleDateInputBlur}
               error={dateError || undefined}
             />
 
@@ -1536,7 +1591,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               </p>
             </div>
 
-            {(showDateEventSuggestions || selectedDateEventsLoading || selectedDateEventsLoaded) &&
+            {(showDateEventSuggestions || selectedDateEventsLoading) &&
               renderDateEventSuggestions({
                 title: 'Events on this date',
                 description:
@@ -1627,7 +1682,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               </div>
             )}
 
-            {(showDateEventSuggestions || selectedDateEventsLoading || selectedDateEventsLoaded) &&
+            {(showDateEventSuggestions || selectedDateEventsLoading) &&
               renderDateEventSuggestions({
                 title:
                   availableSlots.length === 0
