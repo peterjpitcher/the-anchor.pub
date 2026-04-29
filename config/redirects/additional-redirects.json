@@ -1,5 +1,10 @@
 [
   {
+    "source": "/blog/sunday-lunch-at-the-anchor-is-back-pre-order-now",
+    "destination": "/sunday-lunch",
+    "permanent": true
+  },
+  {
     "source": "/pizza-tuesday",
     "destination": "/food-menu",
     "permanent": true
