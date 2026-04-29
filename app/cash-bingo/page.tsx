@@ -356,7 +356,7 @@ export default async function CashBingoPage() {
               <CardBody>
                 <h3 className="text-xl font-semibold text-anchor-gold-vivid mb-2">Sunday Roast Bingo Weekends</h3>
                 <p className="text-sm text-anchor-cream-text/70 mb-4">
-                  Book Sunday roast by 1pm Saturday and tuck in before doors open at 6 pm. Perfect for family bingo nights.
+                  Walk in for Sunday roast 1pm-6pm and tuck in before doors open at 6 pm. Perfect for family bingo nights.
                 </p>
                 <div className="flex flex-col gap-2">
                   <BookTableButton
