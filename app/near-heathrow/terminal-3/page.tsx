@@ -137,7 +137,7 @@ export default function Terminal3Page() {
               <div className="card-dark rounded-none p-6">
                 <h3 className="text-xl font-semibold text-anchor-gold-vivid mb-2">Sunday Roast</h3>
                 <p className="text-sm text-anchor-cream-text/70 mb-4">
-                  Book by 1pm Saturday and enjoy Yorkshire puddings, crispy potatoes and homemade gravy with the family.
+                  Walk in 1pm-6pm or book ahead - Yorkshire puddings, crispy potatoes and homemade gravy with the family.
                 </p>
                 <div className="flex flex-col gap-2">
                   <BookTableButton

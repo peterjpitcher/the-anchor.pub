@@ -119,7 +119,7 @@ export default function Terminal5Page() {
             <div className="card-dark rounded-none p-6">
               <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-2">Sunday Roast (Sun 1–6pm)</h3>
               <p className="text-sm text-anchor-cream-text/70 mb-4">
-                Book by 1pm Saturday and enjoy Yorkshire puddings, crispy potatoes and homemade gravy before your flight.
+                Walk in 1pm-6pm or book ahead - Yorkshire puddings, crispy potatoes and homemade gravy before your flight.
               </p>
               <div className="flex flex-col gap-2">
                 <BookTableButton
@@ -459,7 +459,7 @@ export default function Terminal5Page() {
                   </li>
 	                  <li className="flex gap-3">
 	                    <span></span>
-		                    <span>Our Sunday roast is famous among T5 staff - pre-order by 1pm Saturday (Sunday lunch bookings require a £10 per person deposit)</span>
+		                    <span>Our Sunday roast is famous among T5 staff - walk in 1pm-6pm or book ahead (groups of 10+ pay a £10 per person deposit)</span>
 		                  </li>
                 </ul>
               }
@@ -534,7 +534,7 @@ export default function Terminal5Page() {
 	                  </li>
 	                  <li className="flex gap-2">
 	                    <span className="text-anchor-gold"></span>
-		                    <span>Sunday roasts that locals queue for - pre-order by 1pm Saturday (Sunday lunch bookings require a £10 per person deposit)</span>
+		                    <span>Sunday roasts that locals queue for - walk in 1pm-6pm or book ahead (groups of 10+ pay a £10 per person deposit)</span>
 		                  </li>
                   <li className="flex gap-2">
                     <span className="text-anchor-gold"></span>
