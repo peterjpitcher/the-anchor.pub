@@ -5,16 +5,18 @@ const ITEMS: SundayLunchMenuItem[] = [
   {
     name: 'Roast Beef Topside',
     description: 'Slow-roasted topside, carved fresh per plate.',
+    priceLabel: '£22',
   },
   {
     name: 'Beetroot & Butternut Squash Wellington',
     description: 'Golden puff pastry with seasonal vegetables and our vegan gravy.',
+    priceLabel: '£20',
     badge: 'Vegan',
   },
 ]
 
 describe('SundayLunchMenuList', () => {
-  it('renders one row per menu item with name and description', () => {
+  it('renders one row per menu item with name, description and price', () => {
     render(<SundayLunchMenuList items={ITEMS} />)
 
     expect(
@@ -29,6 +31,8 @@ describe('SundayLunchMenuList', () => {
     expect(
       screen.getByText(/golden puff pastry with seasonal vegetables/i)
     ).toBeInTheDocument()
+    expect(screen.getByText('£22')).toBeInTheDocument()
+    expect(screen.getByText('£20')).toBeInTheDocument()
   })
 
   it('renders an optional badge next to the dish name', () => {
@@ -44,12 +48,5 @@ describe('SundayLunchMenuList', () => {
     expect(screen.queryAllByRole('button')).toHaveLength(0)
     expect(screen.queryAllByRole('link')).toHaveLength(0)
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
-  })
-
-  it('does not display any prices', () => {
-    render(<SundayLunchMenuList items={ITEMS} />)
-
-    // No GBP signs anywhere in the rendered tree.
-    expect(screen.queryByText(/£\s*\d/)).not.toBeInTheDocument()
   })
 })

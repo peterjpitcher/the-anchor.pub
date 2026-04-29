@@ -34,17 +34,17 @@ export const revalidate = 60 * 60
 export const metadata: Metadata = {
   title: 'Sunday Roast & Lunch Near Heathrow | The Anchor, Stanwell Moor',
   description:
-    'Walk-in friendly Sunday roast served 1pm-6pm at The Anchor, Stanwell Moor. Cooked to order, 7 minutes from Heathrow Terminal 5. Free parking, dog-friendly. Booking recommended.',
+    'Walk-in friendly Sunday roast served 1pm-6pm at The Anchor, Stanwell Moor. Mains from £19, 7 minutes from Heathrow Terminal 5. Free parking, dog-friendly. Booking recommended.',
   openGraph: {
     title: 'Sunday Roast & Lunch Near Heathrow | The Anchor, Stanwell Moor',
     description:
-      'Walk-in friendly Sunday roast served 1pm-6pm at The Anchor, Stanwell Moor. Cooked to order, 7 minutes from Heathrow Terminal 5. Free parking, dog-friendly. Booking recommended.',
+      'Walk-in friendly Sunday roast served 1pm-6pm at The Anchor, Stanwell Moor. Mains from £19, 7 minutes from Heathrow Terminal 5. Free parking, dog-friendly. Booking recommended.',
     images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg']
   },
   twitter: getTwitterMetadata({
     title: 'Sunday Roast & Lunch Near Heathrow | The Anchor, Stanwell Moor',
     description:
-      'Walk-in friendly Sunday roast served 1pm-6pm at The Anchor, Stanwell Moor. Cooked to order, 7 minutes from Heathrow Terminal 5. Free parking, dog-friendly. Booking recommended.',
+      'Walk-in friendly Sunday roast served 1pm-6pm at The Anchor, Stanwell Moor. Mains from £19, 7 minutes from Heathrow Terminal 5. Free parking, dog-friendly. Booking recommended.',
     images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg']
   }),
   alternates: {
@@ -56,37 +56,44 @@ export const metadata: Metadata = {
 const SUNDAY_ROAST_MENU = [
   {
     name: 'Roast Beef Topside',
+    priceLabel: '£22',
     description:
       'Slow-roasted topside of beef, carved fresh on the day, served with triple-cooked, herb-and-garlic crusted roast potatoes, seasonal vegetables, a fluffy Yorkshire pudding and a generous pour of our signature gravy — a secret recipe we’ve refined ourselves over the years.'
   },
   {
     name: 'Roast Pork Leg',
+    priceLabel: '£20',
     description:
       'Tender roasted pork leg sliced to order with Bramley apple sauce, triple-cooked, herb-and-garlic crusted roast potatoes, seasonal vegetables, a Yorkshire pudding and our signature gravy.'
   },
   {
     name: 'Roast Turkey with Stuffing Ball',
+    priceLabel: '£19',
     description:
       'Roasted turkey carved fresh, served with a sage and onion stuffing ball, triple-cooked, herb-and-garlic crusted roast potatoes, seasonal vegetables, a Yorkshire pudding and our signature gravy.'
   },
   {
     name: 'Beef & Ale Pie',
+    priceLabel: '£21',
     description:
       'Slow-cooked British beef in a rich ale gravy, topped with golden short-crust pastry. Served with triple-cooked, herb-and-garlic crusted roast potatoes, seasonal vegetables and our signature gravy. (No Yorkshire pudding with the pies.)'
   },
   {
     name: 'Chicken & Wild Mushroom Pie',
+    priceLabel: '£21',
     description:
       'Tender chicken and wild mushrooms in a creamy sauce, topped with golden short-crust pastry. Served with triple-cooked, herb-and-garlic crusted roast potatoes, seasonal vegetables and our signature gravy. (No Yorkshire pudding with the pies.)'
   },
   {
     name: 'Beetroot & Butternut Squash Wellington',
+    priceLabel: '£20',
     badge: 'Vegan',
     description:
       'Golden puff pastry filled with roasted beetroot and butternut squash, served with triple-cooked, herb-and-garlic crusted roast potatoes, seasonal vegetables and our regular vegan gravy. Free upgrade to our signature gravy on request (note: the signature gravy contains meat stock, so it makes the dish non-vegan).'
   },
   {
     name: 'Kids Roast',
+    priceLabel: '£14',
     badge: 'Kids menu',
     description:
       'A smaller plate of any of our roasts — your child’s choice of roast pork, roast turkey or beetroot & butternut squash wellington — served with triple-cooked, herb-and-garlic crusted roast potatoes, seasonal vegetables, a Yorkshire pudding (with the pork or turkey) and our signature gravy.'
@@ -191,7 +198,7 @@ function buildMenuJsonLd() {
     '@type': 'Menu',
     name: 'The Anchor Sunday Roast Menu',
     description:
-      'Sunday roast served 1pm–6pm at The Anchor, Stanwell Moor — 7 minutes from Heathrow Terminal 5. Cooked to order from scratch.',
+      'Sunday roast served 1pm–6pm at The Anchor, Stanwell Moor — 7 minutes from Heathrow Terminal 5. Mains from £19, cooked to order from scratch.',
     url: `${WEBSITE_ORIGIN}/sunday-lunch`,
     isPartOf: { '@id': `${WEBSITE_ORIGIN}/#business` },
     hasMenuSection: [
@@ -201,7 +208,12 @@ function buildMenuJsonLd() {
         hasMenuItem: SUNDAY_ROAST_MENU.map((item) => ({
           '@type': 'MenuItem',
           name: item.name,
-          description: item.description
+          description: item.description,
+          offers: {
+            '@type': 'Offer',
+            priceCurrency: 'GBP',
+            price: item.priceLabel.replace('£', '')
+          }
         }))
       }
     ]
@@ -420,7 +432,7 @@ export default function SundayLunchPage() {
         <Container>
           <SectionHeader
             title="What&rsquo;s on the Plate"
-            subtitle="Sunday roast at The Anchor — cooked to order, served with all the trimmings."
+            subtitle="Sunday roast at The Anchor — mains from £19, cooked to order with all the trimmings."
             align="center"
           />
           <SundayLunchMenuList items={SUNDAY_ROAST_MENU} />
@@ -444,10 +456,10 @@ export default function SundayLunchPage() {
                   Vegan Sunday Roast
                 </h3>
                 <p className="mt-2 text-sm text-anchor-cream-text/75 leading-relaxed">
-                  Our beetroot and butternut squash wellington is fully vegan and served with our regular vegan gravy
-                  &mdash; not an afterthought, but a dish in its own right. Free upgrade to our signature gravy on request
-                  (note: the signature gravy contains meat stock, so the upgrade makes the dish non-vegan). Mention dietary
-                  requirements when booking and we&apos;ll make sure your visit goes smoothly.
+                  Our beetroot and butternut squash wellington (&pound;20) is fully vegan and served with our regular vegan
+                  gravy &mdash; not an afterthought, but a dish in its own right. Free upgrade to our signature gravy on
+                  request (note: the signature gravy contains meat stock, so the upgrade makes the dish non-vegan). Mention
+                  dietary requirements when booking and we&apos;ll make sure your visit goes smoothly.
                 </p>
               </div>
             </div>
@@ -537,7 +549,7 @@ export default function SundayLunchPage() {
                     <tr className="border-t border-anchor-gold/10">
                       <th scope="row" className="px-4 py-3 font-semibold align-top text-anchor-cream-text">Vegan option</th>
                       <td className="px-4 py-3 align-top">Rare</td>
-                      <td className="px-4 py-3 align-top">Dedicated vegan wellington with regular vegan gravy</td>
+                      <td className="px-4 py-3 align-top">Dedicated vegan wellington (£20) with regular vegan gravy</td>
                     </tr>
                     <tr className="border-t border-anchor-gold/10">
                       <th scope="row" className="px-4 py-3 font-semibold align-top text-anchor-cream-text">Best for</th>
@@ -659,7 +671,7 @@ export default function SundayLunchPage() {
                 <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-anchor-gold-bright text-anchor-charcoal font-bold">2</span>
                 <div>
                   <p className="font-semibold text-anchor-cream-text">Sunday roast at 1pm</p>
-                  <p className="text-sm text-anchor-cream-text/70">Walk in or book ahead — service runs until 6pm.</p>
+                  <p className="text-sm text-anchor-cream-text/70">Walk in or book ahead — plates from &pound;19, service runs until 6pm.</p>
                 </div>
               </li>
               <li className="flex gap-4">
@@ -764,7 +776,7 @@ export default function SundayLunchPage() {
               Book your Sunday roast at The Anchor
             </h2>
             <p className="text-white/85 text-base">
-              Walk in or book ahead — served 1pm to 6pm every Sunday. 7 minutes from Heathrow Terminal 5.
+              Walk in or book ahead — served 1pm to 6pm every Sunday. Mains from £19. 7 minutes from Heathrow Terminal 5.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <BookTableButton
