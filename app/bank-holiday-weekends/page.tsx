@@ -21,7 +21,6 @@ const BANK_HOLIDAYS_2026 = [
 ] as const
 
 const SUNDAY_ROAST_PRICE = '\u00a319'
-const SUNDAY_ROAST_PREORDER_DEADLINE = 'Saturday 1pm'
 
 export const metadata: Metadata = {
   title: 'Bank Holiday Weekends | Pub Near Heathrow',
@@ -48,7 +47,7 @@ export default function BankHolidayWeekendsPage() {
     {
       question: 'Do you do Sunday roast on bank holiday weekends?',
       answer:
-        `Yes \u2014 we serve Sunday roast every Sunday, including bank holiday weekends. Roasts start from ${SUNDAY_ROAST_PRICE} and pre-ordering by ${SUNDAY_ROAST_PREORDER_DEADLINE} is required. The day before a bank holiday Monday is the perfect time for a roast \u2014 no work tomorrow.`,
+        `Yes \u2014 we serve Sunday roast every Sunday 1pm-6pm, including bank holiday weekends. Roasts start from ${SUNDAY_ROAST_PRICE} and walk-ins are welcome (booking recommended for groups). The day before a bank holiday Monday is the perfect time for a roast \u2014 no work tomorrow.`,
     },
     {
       question: 'Is there free parking?',
@@ -165,9 +164,8 @@ export default function BankHolidayWeekendsPage() {
                 than that.
               </p>
               <p className="text-anchor-cream-text/70 leading-relaxed">
-                Sunday lunch bookings require pre-ordering by{' '}
-                <span className="font-semibold">{SUNDAY_ROAST_PREORDER_DEADLINE}</span> and a
-                deposit. Book online or give us a call.
+                Walk in 1pm-6pm or book ahead online. Groups of 10 or more pay a
+                £10 per person deposit, fully deducted from your bill on the day.
               </p>
               <div className="flex flex-col gap-3 sm:flex-row">
                 <Button asChild variant="primary" size="lg" fullWidth className="w-full sm:w-auto">
