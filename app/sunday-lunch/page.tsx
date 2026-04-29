@@ -10,6 +10,11 @@ import { PhoneButton } from '@/components/PhoneButton'
 import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncement'
 import { SundayLunchHowItWorks } from '@/components/sunday-lunch/SundayLunchHowItWorks'
 import { SectionViewTracker } from '@/components/sunday-lunch/SectionViewTracker'
+import { StickyMobileBookingCTA } from '@/components/conversion/StickyMobileBookingCTA'
+import { ScrollProgressBookingTooltip } from '@/components/conversion/ScrollProgressBookingTooltip'
+import { ExitIntentBookingModal } from '@/components/conversion/ExitIntentBookingModal'
+import { DeferredHomepageTrackers } from '@/components/tracking/DeferredHomepageTrackers'
+import { MenuPageTracker } from '@/components/tracking/MenuPageTracker'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 
@@ -619,6 +624,13 @@ export default function SundayLunchPage() {
           </div>
         </Container>
       </section>
+
+      {/* Conversion + tracking layer (Wave 2C) */}
+      <StickyMobileBookingCTA />
+      <ScrollProgressBookingTooltip />
+      <ExitIntentBookingModal />
+      <DeferredHomepageTrackers />
+      <MenuPageTracker menuType="sunday_lunch" />
     </>
   )
 }
