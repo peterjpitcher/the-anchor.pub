@@ -612,7 +612,7 @@ export default function SundayLunchPage() {
       <section className="bg-anchor-bg py-12 border-b border-anchor-gold/15">
         <Container>
           <SectionHeader
-            title="What Guests Say About Sunday Roast at The Anchor"
+            title="Why Locals Rate It One of the Best Sunday Roasts Near Heathrow"
             subtitle="Curated 5&#9733; reviews from Google."
             align="center"
           />
