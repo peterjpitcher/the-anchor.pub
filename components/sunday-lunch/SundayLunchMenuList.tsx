@@ -37,7 +37,10 @@ export function SundayLunchMenuList({
 
   return (
     <>
-      <div className="mt-8 mx-auto max-w-3xl space-y-4">
+      <p className="mt-6 text-center text-xs uppercase tracking-wider text-anchor-gold-vivid/80">
+        Tap any roast to see the photo + full description
+      </p>
+      <div className="mt-3 mx-auto max-w-3xl space-y-1 rounded-lg border border-anchor-gold/15 bg-anchor-bg-raised/40 p-2">
         {items.map((item) => {
           const lightboxItem: MenuItem = {
             name: item.name,
@@ -53,15 +56,23 @@ export function SundayLunchMenuList({
               type="button"
               onClick={() => setSelected(lightboxItem)}
               aria-label={`View details for ${item.name}`}
-              className="w-full text-left flex justify-between items-start gap-4 py-4 border-b border-anchor-gold/10 last:border-b-0 rounded-md hover:bg-anchor-bg-raised/50 focus:outline-none focus:ring-2 focus:ring-anchor-gold focus:ring-offset-2 focus:ring-offset-anchor-bg transition-colors motion-reduce:transition-none px-2 -mx-2"
+              className="group w-full text-left flex justify-between items-center gap-4 py-4 px-3 rounded-md cursor-pointer hover:bg-anchor-bg-raised focus:outline-none focus:ring-2 focus:ring-anchor-gold focus:ring-offset-2 focus:ring-offset-anchor-bg transition-colors motion-reduce:transition-none"
             >
-              <div>
+              <div className="flex-1 min-w-0">
                 <h3 className="font-semibold text-anchor-cream-text">{item.name}</h3>
                 <p className="text-sm text-anchor-cream-text/65 mt-1">{item.description}</p>
               </div>
-              <span className="text-anchor-gold-vivid font-semibold whitespace-nowrap">
-                {item.priceLabel}
-              </span>
+              <div className="flex items-center gap-3 shrink-0">
+                <span className="text-anchor-gold-vivid font-semibold whitespace-nowrap">
+                  {item.priceLabel}
+                </span>
+                <span
+                  aria-hidden="true"
+                  className="flex h-8 w-8 items-center justify-center rounded-full border border-anchor-gold/30 text-anchor-gold-vivid text-sm transition-transform group-hover:translate-x-0.5 group-hover:border-anchor-gold motion-reduce:transition-none"
+                >
+                  &rarr;
+                </span>
+              </div>
             </button>
           )
         })}

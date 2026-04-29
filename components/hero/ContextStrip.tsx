@@ -21,40 +21,17 @@ export function ContextStrip({ heroEvents }: ContextStripProps) {
   // Build slots
   const slots: Array<{ text: string; className: string }> = []
 
-  // Slot 1: Status
-  if (ctx.isOpen) {
-    const barLabel = ctx.barClosesAt ? ` · Bar until ${ctx.barClosesAt}` : ''
-    slots.push({
-      text: `Open now${barLabel}`,
-      className: 'text-anchor-gold-vivid font-semibold'
-    })
-  } else {
-    // Bare "Closed" reads as "the pub is shut" and worried first-time visitors
-    // (per UX feedback). Always pair it with the next opening time when we
-    // know one — and use amber rather than red when the pub is opening within
-    // the next ~24 hours, so it reads as informational rather than alarming.
-    const nextLabel = ctx.nextOpensLabel
-    const isOpeningSoon =
-      !!nextLabel && (nextLabel.startsWith('today') || nextLabel.startsWith('tomorrow'))
-    const openingSuffix = nextLabel ? ` · Opens ${nextLabel}` : ''
-    slots.push({
-      text: `Closed${openingSuffix}`,
-      className: isOpeningSoon
-        ? 'text-amber-300 font-semibold'
-        : 'text-red-400 font-semibold'
-    })
-  }
-
-  // Slot 2: Kitchen
-  if (ctx.kitchenOpen && ctx.kitchenClosesAt) {
-    slots.push({
-      text: `Kitchen open until ${ctx.kitchenClosesAt}`,
-      className: 'text-white/80'
-    })
-  } else if (!ctx.kitchenOpen && ctx.isOpen) {
+  // Open/Closed status removed per UX feedback — the green opening-hours
+  // pill in the global page header already shows today's bar + kitchen
+  // hours, so the duplicate "Open now" / "Closed" status in the hero
+  // overlay was confusing rather than helpful. Kitchen status here is
+  // narrowly retained: only the "kitchen closed but bar open" case adds
+  // information beyond the header pill — that's a real edge case and worth
+  // surfacing where it occurs.
+  if (!ctx.kitchenOpen && ctx.isOpen) {
     slots.push({
       text: 'Kitchen closed today',
-      className: 'text-red-400'
+      className: 'text-amber-300'
     })
   }
 
