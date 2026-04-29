@@ -1,0 +1,103 @@
+<h2>New booking & payment flow</h2>
+<p class="subtitle">Everything from first click to confirmation — customer never leaves the-anchor.pub</p>
+
+<div style="display: flex; gap: 32px; align-items: flex-start; flex-wrap: wrap;">
+
+  <!-- LEFT: New website flow -->
+  <div style="flex: 1; min-width: 280px;">
+    <div style="background: #1a3a2a; border: 2px solid #2d6a45; border-radius: 12px; padding: 20px;">
+      <div style="color: #6ee7a0; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">New: website booking flow</div>
+
+      <div style="display: flex; flex-direction: column; gap: 6px;">
+
+        <div style="background: #132318; border-radius: 8px; padding: 10px 14px; border-left: 3px solid #6ee7a0;">
+          <div style="color: #f0e6c6; font-size: 13px; font-weight: 600;">Step 1 — Choose dates</div>
+          <div style="color: #9ab89f; font-size: 12px;">Availability check → price preview</div>
+        </div>
+
+        <div style="text-align: center; color: #6ee7a0; font-size: 18px;">↓</div>
+
+        <div style="background: #132318; border-radius: 8px; padding: 10px 14px; border-left: 3px solid #6ee7a0;">
+          <div style="color: #f0e6c6; font-size: 13px; font-weight: 600;">Step 2 — Your details</div>
+          <div style="color: #9ab89f; font-size: 12px;">Name, mobile, email</div>
+        </div>
+
+        <div style="text-align: center; color: #6ee7a0; font-size: 18px;">↓</div>
+
+        <div style="background: #132318; border-radius: 8px; padding: 10px 14px; border-left: 3px solid #6ee7a0;">
+          <div style="color: #f0e6c6; font-size: 13px; font-weight: 600;">Step 3 — Vehicle details</div>
+          <div style="color: #9ab89f; font-size: 12px;">Reg, make, model, colour</div>
+        </div>
+
+        <div style="text-align: center; color: #6ee7a0; font-size: 18px;">↓</div>
+
+        <div style="background: #132318; border-radius: 8px; padding: 10px 14px; border-left: 3px solid #c9a020; border-width: 2px;">
+          <div style="color: #f0e6c6; font-size: 13px; font-weight: 600;">Step 4 — Review & Pay <span style="color: #c9a020;">★ new</span></div>
+          <div style="color: #9ab89f; font-size: 12px;">Booking summary + PayPal Smart Buttons inline</div>
+          <div style="margin-top: 8px; background: #1e3d2e; border-radius: 6px; padding: 8px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+            <div style="background: #003087; color: white; border-radius: 4px; padding: 4px 10px; font-size: 11px; font-weight: 700;">Pay<span style="color: #009cde;">Pal</span></div>
+            <div style="background: #555; color: white; border-radius: 4px; padding: 4px 10px; font-size: 11px;">💳 Debit / Credit Card</div>
+          </div>
+        </div>
+
+        <div style="text-align: center; color: #6ee7a0; font-size: 18px;">↓</div>
+
+        <div style="background: #132318; border-radius: 8px; padding: 10px 14px; border-left: 3px solid #c9a020;">
+          <div style="color: #f0e6c6; font-size: 13px; font-weight: 600;">PayPal overlay opens <em>on the page</em></div>
+          <div style="color: #9ab89f; font-size: 12px;">Customer pays — never leaves the-anchor.pub</div>
+        </div>
+
+        <div style="text-align: center; color: #6ee7a0; font-size: 18px;">↓</div>
+
+        <div style="background: #0d2b1a; border-radius: 8px; padding: 10px 14px; border: 2px solid #6ee7a0;">
+          <div style="color: #6ee7a0; font-size: 13px; font-weight: 700;">✓ Confirmation page on the-anchor.pub</div>
+          <div style="color: #9ab89f; font-size: 12px;">Reference, dates, vehicle reg, amount paid</div>
+          <div style="color: #9ab89f; font-size: 12px; margin-top: 4px;">📱 Confirmation SMS sent to customer</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: What happens behind the scenes -->
+  <div style="flex: 1; min-width: 280px;">
+    <div style="background: #1a1a2e; border: 2px solid #4a4a7a; border-radius: 12px; padding: 20px;">
+      <div style="color: #a0a0e0; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;">Behind the scenes</div>
+
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+
+        <div style="background: #12122a; border-radius: 8px; padding: 10px 14px;">
+          <div style="color: #e0e0f0; font-size: 12px; font-weight: 600; margin-bottom: 4px;">On PayPal button click</div>
+          <div style="color: #8080b0; font-size: 11px;">Website calls management API: create booking (pending) + PayPal order atomically. Returns <code>paypal_order_id</code>. <strong>No SMS sent yet.</strong></div>
+        </div>
+
+        <div style="background: #12122a; border-radius: 8px; padding: 10px 14px;">
+          <div style="color: #e0e0f0; font-size: 12px; font-weight: 600; margin-bottom: 4px;">On payment approved</div>
+          <div style="color: #8080b0; font-size: 11px;">PayPal SDK fires <code>onApprove</code>. Website calls management API: capture payment, confirm booking, send confirmation SMS.</div>
+        </div>
+
+        <div style="background: #12122a; border-radius: 8px; padding: 10px 14px;">
+          <div style="color: #e0e0f0; font-size: 12px; font-weight: 600; margin-bottom: 4px;">PayPal webhook (belt & braces)</div>
+          <div style="color: #8080b0; font-size: 11px;">Management tools still receive <code>PAYMENT.CAPTURE.COMPLETED</code> webhook — idempotent so it won't double-confirm. Safety net if <code>onApprove</code> fails mid-network.</div>
+        </div>
+
+        <div style="background: #12122a; border-radius: 8px; padding: 10px 14px;">
+          <div style="color: #e0e0f0; font-size: 12px; font-weight: 600; margin-bottom: 4px;">Staff bookings — unchanged</div>
+          <div style="color: #8080b0; font-size: 11px;">Management tools flow stays exactly as-is. Staff create booking → payment request SMS sent as today.</div>
+        </div>
+
+        <div style="background: #12122a; border-radius: 8px; padding: 10px 14px; border: 1px solid #4a4a7a;">
+          <div style="color: #e0e0f0; font-size: 12px; font-weight: 600; margin-bottom: 6px;">Edge cases handled</div>
+          <div style="color: #8080b0; font-size: 11px; line-height: 1.7;">
+            ❌ <strong>User cancels PayPal overlay</strong> → returns to step 4, can try again. Booking expires in 30 mins (not 7 days).<br>
+            ❌ <strong>Capture fails</strong> → show error, offer retry or phone number.<br>
+            ❌ <strong>Network drops after approval</strong> → webhook catches it, SMS still sent.<br>
+            ❌ <strong>Slot fills up</strong> → capacity re-checked on order creation, not just step 1.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>

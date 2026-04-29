@@ -1,0 +1,45 @@
+<h2>Three approaches to hero consistency</h2>
+<p class="subtitle">Each solves clutter + conversion differently. Which direction feels right?</p>
+
+<div class="options">
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Strict Template — One Layout, Every Page</h3>
+      <p>Every hero gets exactly: <strong>title + one-line description + ONE primary CTA + ONE secondary CTA</strong>. No tags, no pills, no secondary info. The image does the selling. Consistency is the feature.</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Pros</h4><ul><li>Dead simple, zero clutter</li><li>Forces you to pick THE action per page</li><li>Fast to scan — visitors know what to do instantly</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>Loses context pills (free parking, Heathrow proximity)</li><li>Some pages genuinely need more info up front</li><li>May feel too minimal for a pub with personality</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Tiered Template — 3 Fixed Tiers Based on Page Intent</h3>
+      <p>Define 3 hero "weights" with strict rules about what each can contain:</p>
+      <ul style="margin:8px 0;padding-left:20px;color:#ccc">
+        <li><strong>Minimal</strong> (landing pages, SEO pages): Title + description + 1 CTA</li>
+        <li><strong>Standard</strong> (main sections like /whats-on, /food-menu): Title + description + 1 primary CTA + 1 secondary CTA + up to 3 trust signals</li>
+        <li><strong>Feature</strong> (homepage only): Full treatment with seasonal images, multiple CTAs, trust bar</li>
+      </ul>
+      <div class="pros-cons">
+        <div class="pros"><h4>Pros</h4><ul><li>Consistent within each tier</li><li>Right amount of info for each page type</li><li>Clear rules — no guesswork about what to include</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>Need to categorise every page</li><li>Edge cases ("is this page standard or minimal?")</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Smart Hero — Dynamic Content Based on Context</h3>
+      <p>The hero adapts automatically: if there's an event tonight, show it. If kitchen is open, show "Order food". If it's Sunday, push Sunday lunch. Time-of-day and day-of-week aware CTAs pulled from the live API data.</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Pros</h4><ul><li>Always relevant — the right message at the right time</li><li>Feels alive and current</li><li>Could significantly boost conversion with contextual CTAs</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>Most complex to build</li><li>Harder to predict what visitors see</li><li>Risk of confusing messaging if logic gets it wrong</li></ul></div>
+      </div>
+    </div>
+  </div>
+</div>

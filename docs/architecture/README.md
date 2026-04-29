@@ -1,6 +1,6 @@
 ---
 generated: true
-last_updated: 2026-04-21T00:00:00Z
+last_updated: 2026-04-28T00:00:00Z
 source: session-setup
 project: the-anchor-pub
 ---
@@ -14,18 +14,19 @@ project: the-anchor-pub
 
 | File | Contents | Status |
 |------|----------|--------|
-| [overview.md](./overview.md) | Tech stack, scale metrics, auth model, data flow | Generated |
-| [routes.md](./routes.md) | All 117 page routes + 40 API routes with methods | Generated |
-| [server-actions.md](./server-actions.md) | No server actions — mutation pattern via API routes | Generated |
-| [data-model.md](./data-model.md) | No local DB — Management API client docs + critical null-safety rule | Generated |
-| [env-vars.md](./env-vars.md) | All env vars: declared vs used, public vs server | Generated |
-| [relationships.md](./relationships.md) | Routes × integrations cross-reference map | Generated |
+| [[overview]] | Tech stack, scale metrics, auth model, data flow | Generated 2026-04-28 |
+| [[routes]] | All page routes + API routes with methods | Generated 2026-04-28 |
+| [[server-actions]] | No server actions — `anchorAPI` client + mutation pattern | Generated 2026-04-28 |
+| [[data-model]] | No local DB — Management API client docs + critical null-safety rule | Generated 2026-04-28 |
+| [[env-vars]] | All env vars: declared vs used, public vs server | Generated 2026-04-28 |
+| [[relationships]] | Routes x integrations cross-reference + Sunday lunch surface | Generated 2026-04-28 |
 | [NOTES.md](./NOTES.md) | Persistent human notes (never overwritten) | Manual |
 
-## Quick Facts
+## Quick facts
 
-- **117** page routes, **40** API routes
+- **~150** page routes, **41** API routes (incl. blog content route)
 - **0** server actions (`'use server'`) — all mutations via API proxy routes
 - **No local database** — data owned by `OJ-AnchorManagementTools`
 - **7** external integrations: Management API, PayPal, Turnstile, AviationStack, GTM, Clarity, Microsoft Graph
 - **No auth** — fully public site; `ANCHOR_API_KEY` is server-only
+- **Sunday lunch booking** — wizard-driven, deposit-gated (£10 pp), 1pm Saturday cutoff in Europe/London

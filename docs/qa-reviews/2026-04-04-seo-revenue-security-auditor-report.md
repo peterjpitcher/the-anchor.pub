@@ -1,0 +1,7 @@
+**Findings**
+- `SEC-001 [Low]` Malformed `publishDate` values can bypass the unpublished-post guard and expose a scheduled post by direct slug. In [lib/markdown.ts:80](/Users/peterpitcher/Cursor/OJ-The-Anchor.pub/lib/markdown.ts:80), an invalid date is treated as unpublished because `Invalid Date <= now` is `false`, so it drops out of listings. In [app/blog/[slug]/page.tsx:138](/Users/peterpitcher/Cursor/OJ-The-Anchor.pub/app/blog/[slug]/page.tsx:138), the same invalid date passes the direct-route check because `Invalid Date > now` is also `false`. Result: a typoed `publishDate` can hide a post from indexes/sitemaps while still serving it at `/blog/<slug>` if the slug is guessed. Treat invalid dates as unpublished or fail content load/build, and reuse one shared predicate.
+
+**Notes**
+- I did not find an exploitable XSS issue in [app/heathrow-family-dining/page.tsx:47](/Users/peterpitcher/Cursor/OJ-The-Anchor.pub/app/heathrow-family-dining/page.tsx:47). The new JSON-LD is hardcoded and uses `jsonLdSafeStringify`, which escapes `<` and prevents `</script>` breakout.
+- I verified a future-dated post returned `404` and did not leak the unpublished title/description in the rendered response, so the new guard in [app/blog/[slug]/page.tsx:130](/Users/peterpitcher/Cursor/OJ-The-Anchor.pub/app/blog/[slug]/page.tsx:130) is effective for well-formed dates.
+- No security findings in the new content sections in [app/book-table/page.tsx](/Users/peterpitcher/Cursor/OJ-The-Anchor.pub/app/book-table/page.tsx).

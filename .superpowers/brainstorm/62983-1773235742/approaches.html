@@ -1,0 +1,87 @@
+<h2>Three approaches to inline PayPal checkout</h2>
+<p class="subtitle">All three keep the customer on the-anchor.pub. Pick the one that feels right.</p>
+
+<div class="options">
+
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>PayPal Smart Buttons — inline, no redirect</h3>
+      <p>The wizard gains a step 4 "Review & Pay". When the customer clicks the PayPal button, a mini PayPal overlay opens <em>on the page</em> — they pay (PayPal account or card), close the overlay, and land on a branded confirmation page on the-anchor.pub. They never leave the site.</p>
+      <div class="pros-cons">
+        <div class="pros">
+          <h4>Pros</h4>
+          <ul>
+            <li>Customer never leaves the-anchor.pub</li>
+            <li>Supports PayPal account <em>and</em> card — no PayPal account needed</li>
+            <li>Booking + payment happen in one atomic flow</li>
+            <li>Reuses existing PayPal backend in management tools</li>
+            <li>Highest conversion — no escape routes</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <h4>Cons</h4>
+          <ul>
+            <li>Requires PayPal JS SDK integration on the website</li>
+            <li>Need a new <code>/api/parking/payment/capture</code> route on the website</li>
+            <li>Need a new confirmation page on the-anchor.pub</li>
+          </ul>
+        </div>
+      </div>
+      <p><strong>My recommendation.</strong> Most work but solves the problem completely.</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>PayPal redirect — but return to the-anchor.pub</h3>
+      <p>Keep the current redirect-to-PayPal flow, but change the <code>return_url</code> so PayPal sends the customer back to a confirmation page on the-anchor.pub instead of management.orangejelly.co.uk. Minimal backend change.</p>
+      <div class="pros-cons">
+        <div class="pros">
+          <h4>Pros</h4>
+          <ul>
+            <li>Very little backend change — just swap return URLs</li>
+            <li>Familiar PayPal flow customers know</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <h4>Cons</h4>
+          <ul>
+            <li>Customer still leaves the-anchor.pub to pay</li>
+            <li>Same drop-off risk — people close the PayPal tab</li>
+            <li>Doesn't fully solve the problem</li>
+          </ul>
+        </div>
+      </div>
+      <p>Quick win but doesn't address the root cause.</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="c" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>Require payment before booking is submitted</h3>
+      <p>Flip the flow: collect card/PayPal details in the wizard <em>before</em> creating a booking. The booking is only created once payment is authorised. Customer sees booking confirmation immediately after.</p>
+      <div class="pros-cons">
+        <div class="pros">
+          <h4>Pros</h4>
+          <ul>
+            <li>Zero pending-unpaid bookings — every booking is pre-paid</li>
+            <li>No capacity held by abandoned checkouts</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <h4>Cons</h4>
+          <ul>
+            <li>Biggest backend change — requires PayPal "authorise then capture" pattern</li>
+            <li>More complex error handling if booking creation fails after payment</li>
+            <li>Staff manual bookings would need a different code path</li>
+          </ul>
+        </div>
+      </div>
+      <p>Cleanest data model but highest complexity.</p>
+    </div>
+  </div>
+
+</div>

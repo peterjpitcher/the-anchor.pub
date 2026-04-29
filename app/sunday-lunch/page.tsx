@@ -56,37 +56,37 @@ const SUNDAY_ROAST_MENU = [
   {
     name: 'Roasted Chicken',
     description:
-      'Oven-roasted chicken breast with sage & onion stuffing balls, herb-and-garlic roast potatoes, seasonal vegetables, Yorkshire pudding, and red wine gravy.',
+      'Oven-roasted chicken breast with sage & onion stuffing balls, triple-cooked, herb-and-garlic crusted roast potatoes, seasonal vegetables, Yorkshire pudding, and our signature gravy.',
     priceLabel: '£19'
   },
   {
     name: 'Crispy Pork Belly',
     description:
-      'Crispy crackling and tender slow-roasted pork belly with Bramley apple sauce, herb-and-garlic roast potatoes, seasonal vegetables, Yorkshire pudding, and red wine gravy.',
+      'Crispy crackling and tender slow-roasted pork belly with Bramley apple sauce, triple-cooked, herb-and-garlic crusted roast potatoes, seasonal vegetables, Yorkshire pudding, and our signature gravy.',
     priceLabel: '£22'
   },
   {
     name: 'Roast Beef',
     description:
-      'Slow-roasted topside of beef carved fresh, served with herb-and-garlic roast potatoes, seasonal vegetables, Yorkshire pudding and a generous pour of red wine gravy.',
+      'Slow-roasted topside of beef carved fresh, served with triple-cooked, herb-and-garlic crusted roast potatoes, seasonal vegetables, Yorkshire pudding and a generous pour of our signature gravy.',
     priceLabel: '£22'
   },
   {
     name: 'Lamb Shank',
     description:
-      'Slow-cooked lamb shank with rich gravy, herb-and-garlic roast potatoes, seasonal vegetables and Yorkshire pudding. (Subject to availability — seasonal dish.)',
+      'Slow-cooked lamb shank with rich gravy, triple-cooked, herb-and-garlic crusted roast potatoes, seasonal vegetables and Yorkshire pudding. (Subject to availability — seasonal dish.)',
     priceLabel: '£24'
   },
   {
     name: 'Beetroot & Butternut Squash Wellington (V)',
     description:
-      'Golden puff pastry filled with beetroot and butternut squash, served with herb-and-garlic roast potatoes, seasonal vegetables and vegetarian gravy.',
+      'Golden puff pastry filled with beetroot and butternut squash, served with triple-cooked, herb-and-garlic crusted roast potatoes, seasonal vegetables and vegetarian gravy.',
     priceLabel: '£19'
   },
   {
     name: 'Kids Roasted Chicken',
     description:
-      'A smaller portion of our roasted chicken with herb-and-garlic roast potatoes, seasonal vegetables, Yorkshire pudding, and red wine gravy.',
+      'A smaller portion of our roasted chicken with triple-cooked, herb-and-garlic crusted roast potatoes, seasonal vegetables, Yorkshire pudding, and our signature gravy.',
     priceLabel: '£13'
   }
 ] as const
@@ -427,7 +427,7 @@ export default function SundayLunchPage() {
           />
           <SundayLunchMenuList
             items={SUNDAY_ROAST_MENU}
-            fallbackImageSrc="/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg"
+            fallbackImageSrc="/images/food/sunday-roast/sunday-roast-lightbox.png"
           />
           <p className="mt-6 text-center text-sm text-anchor-cream-text/60">
             Every plate cooked to order. Add cauliflower cheese, extra Yorkshires or pigs in blankets at the bar on the day.
@@ -522,7 +522,7 @@ export default function SundayLunchPage() {
                     <tr className="border-t border-anchor-gold/10">
                       <th scope="row" className="px-4 py-3 font-semibold align-top text-anchor-cream-text">Roast potatoes</th>
                       <td className="px-4 py-3 align-top">Bulk-cooked, kept warm</td>
-                      <td className="px-4 py-3 align-top">Triple-cooked in beef dripping with herbs and garlic</td>
+                      <td className="px-4 py-3 align-top">Triple-cooked, herb-and-garlic crusted, finished to perfection</td>
                     </tr>
                     <tr className="border-t border-anchor-gold/10">
                       <th scope="row" className="px-4 py-3 font-semibold align-top text-anchor-cream-text">Vegetarian option</th>
@@ -583,7 +583,7 @@ export default function SundayLunchPage() {
                   </li>
                   <li className="flex gap-3">
                     <span aria-hidden="true" className="text-anchor-gold-vivid mt-1">&bull;</span>
-                    <span>Triple-cooked roast potatoes in beef dripping with herbs and garlic.</span>
+                    <span>Triple-cooked roast potatoes, herb-and-garlic crusted, finished to perfection.</span>
                   </li>
                   <li className="flex gap-3">
                     <span aria-hidden="true" className="text-anchor-gold-vivid mt-1">&bull;</span>
@@ -591,7 +591,11 @@ export default function SundayLunchPage() {
                   </li>
                   <li className="flex gap-3">
                     <span aria-hidden="true" className="text-anchor-gold-vivid mt-1">&bull;</span>
-                    <span>Gravy from the pan, finished with red wine. Seasonal veg &mdash; what&apos;s good that week.</span>
+                    <span>Our signature gravy &mdash; a secret recipe we&apos;ve developed and refined over years (regular gravy on request).</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span aria-hidden="true" className="text-anchor-gold-vivid mt-1">&bull;</span>
+                    <span>Seasonal vegetables &mdash; chosen for what&apos;s at its best, with local availability where we can.</span>
                   </li>
                 </ul>
                 <p className="mt-5 text-anchor-cream-text/70 leading-relaxed">
@@ -605,7 +609,7 @@ export default function SundayLunchPage() {
               <div className="order-1 lg:order-2">
                 <Image
                   src="/images/food/sunday-roast/sunday-roast-the-anchor.jpeg"
-                  alt="Roast beef Sunday lunch with Yorkshire pudding, triple-cooked roasties and red-wine gravy at The Anchor pub near Heathrow"
+                  alt="Roast beef Sunday lunch with Yorkshire pudding, triple-cooked herb-and-garlic crusted roasties and our signature gravy at The Anchor pub near Heathrow"
                   width={1200}
                   height={900}
                   loading="lazy"

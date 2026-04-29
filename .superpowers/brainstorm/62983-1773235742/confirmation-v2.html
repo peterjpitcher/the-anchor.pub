@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Confirmation Page Mockup</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #111; color: #f0e6c6; }
+
+  .page-chrome { max-width: 480px; margin: 0 auto; background: #0c1d11; min-height: 100vh; }
+
+  /* Nav */
+  .nav { background: #005131; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
+  .nav-logo { color: white; font-weight: 700; font-size: 15px; }
+  .nav-sub { color: #a8c8a8; font-size: 12px; }
+
+  /* Hero */
+  .hero { background: #005131; padding: 36px 24px 28px; text-align: center; }
+  .success-circle { width: 56px; height: 56px; background: #22c55e; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
+  .success-circle svg { width: 28px; height: 28px; stroke: white; stroke-width: 3; fill: none; }
+  .hero h1 { color: white; font-size: 22px; font-weight: 700; margin-bottom: 6px; }
+  .hero .ref { color: #86efac; font-size: 13px; }
+  .hero .ref strong { color: #fbbf24; }
+
+  /* SMS banner */
+  .sms-banner { background: #1a3a1a; border-top: 3px solid #fbbf24; padding: 11px 20px; display: flex; align-items: center; gap: 10px; }
+  .sms-banner span { font-size: 20px; }
+  .sms-banner p { color: #fbbf24; font-size: 13px; font-weight: 500; }
+
+  /* Section card */
+  .card { background: #132318; margin: 16px; border-radius: 12px; overflow: hidden; }
+  .card-header { background: #1e3a25; padding: 10px 16px; }
+  .card-header h3 { color: #86efac; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+  .card-body { padding: 16px; }
+
+  /* Detail rows */
+  .detail-row { display: flex; justify-content: space-between; align-items: flex-start; padding: 9px 0; border-bottom: 1px solid #1e3a25; }
+  .detail-row:last-child { border-bottom: none; }
+  .detail-label { color: #6a9a6a; font-size: 12px; padding-top: 1px; }
+  .detail-value { color: #f0e6c6; font-size: 13px; font-weight: 600; text-align: right; }
+  .detail-value.price { color: #86efac; font-size: 16px; }
+  .detail-value small { display: block; color: #8aaa8a; font-weight: 400; font-size: 12px; }
+
+  /* Info rows */
+  .info-row { display: flex; align-items: flex-start; gap: 10px; padding: 7px 0; border-bottom: 1px solid #1e3a25; }
+  .info-row:last-child { border-bottom: none; }
+  .info-icon { font-size: 15px; padding-top: 1px; flex-shrink: 0; }
+  .info-text { color: #9ab89f; font-size: 13px; line-height: 1.4; }
+
+  /* CTA */
+  .cta-wrap { margin: 0 16px 24px; }
+  .cta-btn { display: block; background: #005131; color: white; text-align: center; padding: 14px 20px; border-radius: 10px; font-size: 14px; font-weight: 600; text-decoration: none; border: 2px solid #2d7a50; }
+  .cta-sub { color: #4a7a54; font-size: 12px; text-align: center; margin-top: 7px; }
+
+  /* Page label */
+  .page-label { text-align: center; padding: 10px; color: #333; font-size: 11px; }
+
+  /* Outer wrapper */
+  .outer { background: #1a1a1a; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 20px; gap: 12px; }
+  .caption { color: #888; font-size: 13px; text-align: center; max-width: 480px; line-height: 1.6; }
+  .select-btn { background: #005131; color: white; border: none; border-radius: 8px; padding: 12px 28px; font-size: 14px; font-weight: 600; cursor: pointer; margin-top: 4px; }
+  .select-btn:hover { background: #006a40; }
+</style>
+</head>
+<body>
+<div class="outer">
+  <p class="caption"><strong style="color:#f0e6c6;">Confirmation page</strong> — customer lands here after PayPal payment completes, stays entirely on the-anchor.pub</p>
+
+  <div class="page-chrome">
+    <nav class="nav">
+      <span class="nav-logo">The Anchor</span>
+      <span class="nav-sub">Heathrow Parking</span>
+    </nav>
+
+    <div class="hero">
+      <div class="success-circle">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h1>Parking confirmed</h1>
+      <p class="ref">Booking reference: <strong>PAR-20260311-0042</strong></p>
+    </div>
+
+    <div class="sms-banner">
+      <span>📱</span>
+      <p>Confirmation text sent to your mobile</p>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><h3>Your booking</h3></div>
+      <div class="card-body">
+        <div class="detail-row">
+          <span class="detail-label">Drop off</span>
+          <span class="detail-value">Mon 16 Mar 2026 <small>08:30</small></span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Pick up</span>
+          <span class="detail-value">Mon 23 Mar 2026 <small>18:00</small></span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Vehicle</span>
+          <span class="detail-value">AB12 CDE<small>Ford Focus · Silver</small></span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">Amount paid</span>
+          <span class="detail-value price">£105.00</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><h3>Getting here</h3></div>
+      <div class="card-body">
+        <div class="info-row">
+          <span class="info-icon">📍</span>
+          <span class="info-text">Horton Road, Stanwell Moor, TW19 6AQ</span>
+        </div>
+        <div class="info-row">
+          <span class="info-icon">🚕</span>
+          <span class="info-text">7 minutes to Terminal 5 by taxi or rideshare</span>
+        </div>
+        <div class="info-row">
+          <span class="info-icon">🚌</span>
+          <span class="info-text">Bus 442 from outside — direct to T2, T3, T4 &amp; T5</span>
+        </div>
+        <div class="info-row">
+          <span class="info-icon">🔑</span>
+          <span class="info-text">Keep your keys with you at all times</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-wrap">
+      <a class="cta-btn" href="#">While you're here — visit the pub</a>
+      <p class="cta-sub">Full menu · Real ales · Family friendly</p>
+    </div>
+  </div>
+
+  <button class="select-btn" onclick="window.__sendEvent && window.__sendEvent('click', 'layout-approved', 'Confirmation page layout approved')">
+    ✓ Looks good
+  </button>
+</div>
+</body>
+</html>

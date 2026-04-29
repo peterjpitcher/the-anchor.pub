@@ -1,0 +1,118 @@
+<h2>Architecture — what changes where</h2>
+<p class="subtitle">Two codebases, minimal changes. Green = new. Amber = modified. Grey = unchanged.</p>
+
+<div style="display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap;">
+
+  <!-- Website -->
+  <div style="flex: 1; min-width: 300px;">
+    <div style="background: #1a2a1a; border: 2px solid #2d6a45; border-radius: 12px; padding: 20px;">
+      <div style="color: #6ee7a0; font-size: 13px; font-weight: 700; margin-bottom: 4px;">the-anchor.pub</div>
+      <div style="color: #5a8a65; font-size: 11px; margin-bottom: 16px;">OJ-The-Anchor.pub codebase</div>
+
+      <!-- New files -->
+      <div style="margin-bottom: 14px;">
+        <div style="color: #6ee7a0; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">New files</div>
+
+        <div style="background: #0d2b1a; border-left: 3px solid #6ee7a0; border-radius: 6px; padding: 10px 12px; margin-bottom: 8px;">
+          <div style="color: #e0f0e0; font-size: 12px; font-weight: 600;">app/api/parking/payment/create-order/route.ts</div>
+          <div style="color: #7ab07a; font-size: 11px; margin-top: 3px;">Receives booking data from wizard → calls management API (with <code>source:'website'</code>) → returns <code>paypal_order_id</code> to PayPal SDK</div>
+        </div>
+
+        <div style="background: #0d2b1a; border-left: 3px solid #6ee7a0; border-radius: 6px; padding: 10px 12px; margin-bottom: 8px;">
+          <div style="color: #e0f0e0; font-size: 12px; font-weight: 600;">app/api/parking/payment/capture/route.ts</div>
+          <div style="color: #7ab07a; font-size: 11px; margin-top: 3px;">Receives <code>order_id + booking_id</code> from PayPal <code>onApprove</code> → calls management capture API → returns <code>booking_id</code> for redirect</div>
+        </div>
+
+        <div style="background: #0d2b1a; border-left: 3px solid #6ee7a0; border-radius: 6px; padding: 10px 12px; margin-bottom: 8px;">
+          <div style="color: #e0f0e0; font-size: 12px; font-weight: 600;">app/heathrow-parking/confirmation/[bookingId]/page.tsx</div>
+          <div style="color: #7ab07a; font-size: 11px; margin-top: 3px;">Branded confirmation page. Fetches booking details. Shows reference, dates, vehicle reg, amount, "SMS sent" notice, parking tips.</div>
+        </div>
+      </div>
+
+      <!-- Modified files -->
+      <div style="margin-bottom: 14px;">
+        <div style="color: #c9a020; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Modified files</div>
+
+        <div style="background: #2a1f00; border-left: 3px solid #c9a020; border-radius: 6px; padding: 10px 12px; margin-bottom: 8px;">
+          <div style="color: #e0d0a0; font-size: 12px; font-weight: 600;">components/features/ParkingBookingWizard/index.tsx</div>
+          <div style="color: #a08040; font-size: 11px; margin-top: 3px;">Step 4 swapped from "here's your PayPal link" to PayPal Smart Buttons rendered inline via PayPal JS SDK. Handles <code>onApprove</code>, <code>onCancel</code>, <code>onError</code>.</div>
+        </div>
+
+        <div style="background: #2a1f00; border-left: 3px solid #c9a020; border-radius: 6px; padding: 10px 12px; margin-bottom: 8px;">
+          <div style="color: #e0d0a0; font-size: 12px; font-weight: 600;">lib/api.ts</div>
+          <div style="color: #a08040; font-size: 11px; margin-top: 3px;">Add <code>createParkingPaymentOrder()</code> and <code>captureParkingPayment()</code> methods. Update <code>getBookingById()</code> return type for confirmation page.</div>
+        </div>
+      </div>
+
+      <!-- Unchanged -->
+      <div>
+        <div style="color: #666; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Unchanged</div>
+        <div style="color: #555; font-size: 11px; line-height: 1.8;">
+          app/api/parking/rates/ · app/api/parking/availability/ · app/api/parking/bookings/ · app/heathrow-parking/page.tsx · All other pages
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Management Tools -->
+  <div style="flex: 1; min-width: 300px;">
+    <div style="background: #1a1a2a; border: 2px solid #4a4a8a; border-radius: 12px; padding: 20px;">
+      <div style="color: #a0a0e8; font-size: 13px; font-weight: 700; margin-bottom: 4px;">management.orangejelly.co.uk</div>
+      <div style="color: #5a5a8a; font-size: 11px; margin-bottom: 16px;">OJ-AnchorManagementTools codebase</div>
+
+      <!-- New files -->
+      <div style="margin-bottom: 14px;">
+        <div style="color: #a0a0e8; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">New files</div>
+
+        <div style="background: #0d0d2b; border-left: 3px solid #a0a0e8; border-radius: 6px; padding: 10px 12px; margin-bottom: 8px;">
+          <div style="color: #d0d0f0; font-size: 12px; font-weight: 600;">app/api/parking/payment/capture/route.ts</div>
+          <div style="color: #7070a0; font-size: 11px; margin-top: 3px;">New POST endpoint. Accepts <code>{ order_id, booking_id }</code>. Captures PayPal payment, confirms booking, sends confirmation SMS. Idempotent.</div>
+        </div>
+      </div>
+
+      <!-- Modified files -->
+      <div style="margin-bottom: 14px;">
+        <div style="color: #c9a020; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Modified files</div>
+
+        <div style="background: #2a1f00; border-left: 3px solid #c9a020; border-radius: 6px; padding: 10px 12px; margin-bottom: 8px;">
+          <div style="color: #e0d0a0; font-size: 12px; font-weight: 600;">app/api/parking/bookings/route.ts</div>
+          <div style="color: #a08040; font-size: 11px; margin-top: 3px;">Add optional <code>source: 'website'</code> field to POST body. When present: create booking + PayPal order as normal, but <strong>skip the payment request SMS</strong>. Return includes <code>paypal_order_id</code>.</div>
+        </div>
+
+        <div style="background: #2a1f00; border-left: 3px solid #c9a020; border-radius: 6px; padding: 10px 12px; margin-bottom: 8px;">
+          <div style="color: #e0d0a0; font-size: 12px; font-weight: 600;">lib/parking/payments.ts</div>
+          <div style="color: #a08040; font-size: 11px; margin-top: 3px;">Extract capture + confirm logic into a shared <code>captureParkingPaymentAndConfirm()</code> function. Reused by both the new capture endpoint and the existing <code>/api/parking/payment/return</code> redirect handler.</div>
+        </div>
+      </div>
+
+      <!-- Unchanged -->
+      <div>
+        <div style="color: #666; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">Unchanged</div>
+        <div style="color: #555; font-size: 11px; line-height: 1.8;">
+          api/parking/payment/return/ (SMS flow still uses this) · api/webhooks/paypal/parking/ · All cron jobs · Staff UI · SMS reminder flow
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Summary bar -->
+<div style="margin-top: 20px; background: #1a1a1a; border-radius: 10px; padding: 14px 20px; display: flex; gap: 24px; flex-wrap: wrap;">
+  <div>
+    <span style="color: #6ee7a0; font-weight: 700;">3</span>
+    <span style="color: #888; font-size: 12px; margin-left: 6px;">new files (website)</span>
+  </div>
+  <div>
+    <span style="color: #a0a0e8; font-weight: 700;">1</span>
+    <span style="color: #888; font-size: 12px; margin-left: 6px;">new file (management)</span>
+  </div>
+  <div>
+    <span style="color: #c9a020; font-weight: 700;">4</span>
+    <span style="color: #888; font-size: 12px; margin-left: 6px;">modified files total</span>
+  </div>
+  <div>
+    <span style="color: #888; font-weight: 700;">0</span>
+    <span style="color: #888; font-size: 12px; margin-left: 6px;">deleted files</span>
+  </div>
+</div>
