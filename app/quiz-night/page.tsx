@@ -395,7 +395,7 @@ export default async function QuizNightPage() {
               <CardBody>
                 <h3 className="text-xl font-semibold text-anchor-gold-vivid mb-2">Sunday Roast Quiz Warm-Up</h3>
                 <p className="text-sm text-anchor-cream-text/70 mb-4">
-                  Book Sunday roast by 1pm Saturday and bring the team for a proper pub lunch before quizzing.
+                  Walk in for Sunday roast 1pm-6pm and bring the team for a proper pub lunch before quizzing.
                 </p>
                 <div className="flex flex-col gap-2">
                   <BookTableButton
