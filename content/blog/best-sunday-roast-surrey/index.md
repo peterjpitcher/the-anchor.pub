@@ -44,7 +44,7 @@ We've pulled together seven of the best Sunday roast pubs across Surrey for 2026
 
 **Best for:** Cooked-to-order quality, families, dog owners, free parking near Heathrow
 
-The Anchor sits in the village of Stanwell Moor on the Surrey/Middlesex border, about seven minutes from Heathrow Terminal 5 and two minutes from M25 Junction 14. It's an independent village pub, not a chain, and they take their Sunday roasts seriously enough to require pre-ordering by Saturday lunchtime — everything is cooked fresh to order.
+The Anchor sits in the village of Stanwell Moor on the Surrey/Middlesex border, about seven minutes from Heathrow Terminal 5 and two minutes from M25 Junction 14. It's an independent village pub, not a chain, and they take their Sunday roasts seriously — everything is cooked fresh to order from scratch, served 1pm-6pm.
 
 ### The roast
 
