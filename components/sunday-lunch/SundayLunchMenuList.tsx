@@ -37,10 +37,7 @@ export function SundayLunchMenuList({
 
   return (
     <>
-      <p className="mt-6 text-center text-xs uppercase tracking-wider text-anchor-gold-vivid/80">
-        Tap any roast to see the photo + full description
-      </p>
-      <div className="mt-3 mx-auto max-w-3xl space-y-1 rounded-lg border border-anchor-gold/15 bg-anchor-bg-raised/40 p-2">
+      <div className="mt-8 mx-auto max-w-3xl space-y-1 rounded-lg border border-anchor-gold/15 bg-anchor-bg-raised/40 p-2">
         {items.map((item) => {
           const lightboxItem: MenuItem = {
             name: item.name,
