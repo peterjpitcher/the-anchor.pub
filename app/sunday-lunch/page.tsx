@@ -518,8 +518,7 @@ export default function SundayLunchPage() {
               served with vegetarian gravy on the side.
             </p>
             <p className="text-anchor-cream-text/70 leading-relaxed mt-4">
-              That&apos;s why people drive in from Surrey, Ashford, Staines and west London for it. It&apos;s also why we don&apos;t do
-              a carvery — heat lamps and self-serve trays don&apos;t do this kind of cooking justice.
+              That&apos;s why people drive in from Surrey, Ashford, Staines and west London for it.
             </p>
           </div>
         </Container>
