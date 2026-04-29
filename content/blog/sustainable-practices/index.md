@@ -25,14 +25,14 @@ tags:
   - community
   - news
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
 
   
 
-![Image featuring the BII Sustainability Champion Award logo and a message from The Anchor, celebrating their commitment to sustainability in the hospitality industry.](/content/blog/sustainable-practices/hero.png)
+![Image featuring the BII Sustainability Champion Award logo and a message from The Anchor, celebrating their commitment to sustainability in the hospitality industry.](/content/blog/sustainable-practices/hero.jpg)
 
 ## Introduction
 

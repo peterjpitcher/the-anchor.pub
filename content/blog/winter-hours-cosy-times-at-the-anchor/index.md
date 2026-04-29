@@ -23,7 +23,7 @@ tags:
   - events
   - food-and-drink
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 ---
 
@@ -45,7 +45,7 @@ Looking for a **warm winter retreat near Heathrow Airport**? The Anchor in **Sta
 - **Lunch**: 12:00 PM - 3:00 PM daily
 - **Dinner**: 5:00 PM - 8:30 PM (8:00 PM Sunday)
 
-![winter hours cosy times at the anchor image](/content/blog/winter-hours-cosy-times-at-the-anchor/image-1.png)
+![winter hours cosy times at the anchor image](/content/blog/winter-hours-cosy-times-at-the-anchor/image-1.jpg)
 
 ### Why Visit The Anchor This Winter
 

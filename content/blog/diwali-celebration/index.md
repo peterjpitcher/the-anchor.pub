@@ -28,7 +28,7 @@ tags:
   - news
   - community
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
@@ -57,7 +57,7 @@ The Anchor pub in **Stanwell Moor** proudly hosts **Diwali celebrations near Hea
 
 But as we step into 2023, Diwali's radiance has crossed borders and oceans. From the bustling streets of Delhi to the high-rise buildings of New York, Diwali 2023 is a testament to the festival's universal appeal. Candles, lanterns, and diyas light up homes, while families come together to share feasts, exchange gifts, and create memories.
 
-![Group of diverse children painting colourful clay lamps (diyas) in a festive setting, with lights strung up in the background and other children and adults engaging in similar activities around them.](/content/blog/diwali-celebration/image-1.png)
+![Group of diverse children painting colourful clay lamps (diyas) in a festive setting, with lights strung up in the background and other children and adults engaging in similar activities around them.](/content/blog/diwali-celebration/image-1.jpg)
 
 ## **Diwali Festival Events Near Heathrow Terminal 5**
 
@@ -78,7 +78,7 @@ Perfect for **Indian families near the airport**, **Hindu community members**, a
 
 The heart and soul of Stanwell Moor's community initiatives, the SMRA, stands as a beacon of unity and progress. This association is not just a group; it's a movement driven by the residents, for the residents. With friends, neighbours, mothers, fathers, husbands, and wives at its core, the SMRA relentlessly advocates for a better quality of life in Stanwell Moor. From challenging local authorities and businesses to ensure improved services and a cleaner environment, the SMRA embodies the spirit of community action. As the village gears up for Diwali 2023, the association's role in bringing the festivities to life is paramount.
 
-![Close-up of a child's hands intricately decorating a pattern on paper, with a beautifully carved clay pot in the centre, surrounded by lit candles, colourful rangoli designs, and bowls of vibrant powders.](/content/blog/diwali-celebration/image-2.png)
+![Close-up of a child's hands intricately decorating a pattern on paper, with a beautifully carved clay pot in the centre, surrounded by lit candles, colourful rangoli designs, and bowls of vibrant powders.](/content/blog/diwali-celebration/image-2.jpg)
 
 **Local Sponsors Elevating Diwali 2023 in Stanwell Moor**
 
@@ -108,7 +108,7 @@ At The Anchor **near Heathrow Airport**, we celebrate our diverse community with
 - **Free parking** for all attendees
 - **Traditional decorations** throughout the pub
 
-![Group of diverse children sitting in a circle around a vibrant rangoli design, each holding up a lit clay lamp (diya), all smiling and dressed in warm, festive colours against a light wooden backdrop.](/content/blog/diwali-celebration/image-3.png)
+![Group of diverse children sitting in a circle around a vibrant rangoli design, each holding up a lit clay lamp (diya), all smiling and dressed in warm, festive colours against a light wooden backdrop.](/content/blog/diwali-celebration/image-3.jpg)
 
 ## **Join Our Annual Diwali Celebrations Near Heathrow**
 

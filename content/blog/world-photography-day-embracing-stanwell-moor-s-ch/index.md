@@ -24,7 +24,7 @@ tags:
   - community
   - news
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 ---
 
@@ -38,7 +38,7 @@ Come August 19th, the world immerses itself in celebrating an art form that's as
 
 The origin of this day traces back to the invention of the Daguerreotype, a photographic process developed by Frenchmen Louis Daguerre and Joseph Nicéphore Niépce in 1837. On August 19, 1839, the French Academy of Sciences announced the daguerreotype process. And thus, World Photography Day was born – perfect for our **photography competition near Heathrow**.
 
-![world photography day embracing stanwell moor s ch image](/content/blog/world-photography-day-embracing-stanwell-moor-s-ch/image-1.png)
+![world photography day embracing stanwell moor s ch image](/content/blog/world-photography-day-embracing-stanwell-moor-s-ch/image-1.jpg)
 
 ## Stanwell Moor Through the Lens - A Village Near Heathrow
 
@@ -52,7 +52,7 @@ To those fortunate enough to call **Stanwell Moor Village** home, or to those wh
 - Community life moments
 - Seasonal village beauty
 
-![world photography day embracing stanwell moor s ch image](/content/blog/world-photography-day-embracing-stanwell-moor-s-ch/image-2.png)
+![world photography day embracing stanwell moor s ch image](/content/blog/world-photography-day-embracing-stanwell-moor-s-ch/image-2.jpg)
 
 ## Photography: More Than Just Clicks
 
@@ -60,7 +60,7 @@ Photography is often seen as the art of 'capturing moments.' But in essence, it'
 
 In our unique location near **Heathrow Airport**, photographers can capture the fascinating juxtaposition of village tranquility against the backdrop of international travel – making Stanwell Moor a photographer's paradise.
 
-![world photography day embracing stanwell moor s ch image](/content/blog/world-photography-day-embracing-stanwell-moor-s-ch/image-3.png)
+![world photography day embracing stanwell moor s ch image](/content/blog/world-photography-day-embracing-stanwell-moor-s-ch/image-3.jpg)
 
 ## A Canvas Named Stanwell Moor - Your Subject Near Heathrow
 
@@ -74,7 +74,7 @@ Considering the sheer beauty of our village, **Stanwell Moor** isn't just a plac
 - Wildlife despite urban proximity
 - Historic village character
 
-![world photography day embracing stanwell moor s ch image](/content/blog/world-photography-day-embracing-stanwell-moor-s-ch/image-4.png)
+![world photography day embracing stanwell moor s ch image](/content/blog/world-photography-day-embracing-stanwell-moor-s-ch/image-4.jpg)
 
 ## Your Chance to Feature in Our Pub Near Heathrow
 
@@ -90,7 +90,7 @@ To all the spirited photographers of our village and visitors from the airport a
 
 If your photo stands out, we'll reach out for a high-resolution version to frame and proudly display on our walls. Imagine your creativity becoming a permanent feature in our traditional British pub!
 
-![world photography day embracing stanwell moor s ch image](/content/blog/world-photography-day-embracing-stanwell-moor-s-ch/image-5.png)
+![world photography day embracing stanwell moor s ch image](/content/blog/world-photography-day-embracing-stanwell-moor-s-ch/image-5.jpg)
 
 ## Prizes and Recognition
 

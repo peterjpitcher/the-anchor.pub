@@ -26,7 +26,7 @@ tags:
   - food-and-drink
   - news
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
@@ -57,7 +57,7 @@ Our Stanwell Moor Brew offers a refreshing crispness that makes it incredibly dr
 
   
 
-![Close-up of a beer glass with a "Stanwell Moor Brew" house lager label.](/content/blog/stanwell-moor-brew/image-1.png)
+![Close-up of a beer glass with a "Stanwell Moor Brew" house lager label.](/content/blog/stanwell-moor-brew/image-1.jpg)
 
   
 

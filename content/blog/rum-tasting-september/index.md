@@ -27,7 +27,7 @@ tags:
   - events
   - offers
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---

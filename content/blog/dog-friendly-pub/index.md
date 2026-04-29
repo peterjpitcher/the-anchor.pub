@@ -23,7 +23,7 @@ tags:
   - news
   - food-and-drink
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 ---
 
@@ -62,7 +62,7 @@ Book early for Sunday lunch - our dog-friendly tables fill up fast!
 
 ## Our Dog-Friendly Garden Terrace
 
-![the importance of being dog friendly image](/content/blog/dog-friendly-pub/image-1.png)
+![the importance of being dog friendly image](/content/blog/dog-friendly-pub/image-1.jpg)
 
 ### The Perfect Outdoor Space for Dogs
 
@@ -100,7 +100,7 @@ Being a **family friendly pub** in Stanwell Moor means we're perfectly positione
 
 ## Our Official Dog-Friendly Policy
 
-![the importance of being dog friendly image](/content/blog/dog-friendly-pub/image-2.png)
+![the importance of being dog friendly image](/content/blog/dog-friendly-pub/image-2.jpg)
 
 ### Clear Guidelines for a Great Experience
 
@@ -227,6 +227,6 @@ At The Anchor, we believe that the best times are shared with all family members
 
 Whether you're a Heathrow traveler with time to spare, a local looking for your new regular, or visiting the area with your dog, The Anchor provides the perfect dog-friendly experience. Because life's too short to leave your best friend at home!
 
-![the importance of being dog friendly image](/content/blog/dog-friendly-pub/image-3.png)
+![the importance of being dog friendly image](/content/blog/dog-friendly-pub/image-3.jpg)
 
 *Follow The Anchor on social media for dog event updates and photos from our four-legged visitors! #DogFriendlyPubNearHeathrow*

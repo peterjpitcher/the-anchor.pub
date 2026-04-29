@@ -27,13 +27,13 @@ tags:
   - news
   - offers
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 ---
 
   
 
-![international women s day 2024 celebration stanwel image](/content/blog/womens-day-2024/hero.png)
+![international women s day 2024 celebration stanwel image](/content/blog/womens-day-2024/hero.jpg)
 
   
 

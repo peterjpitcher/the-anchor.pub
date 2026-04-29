@@ -25,12 +25,12 @@ tags:
   - news
   - community
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
 
-![A small, fluffy puppy with a blue harness sitting on green grass. The text reads "The Anchor, Stanwell Moor Village, starting a pet-friendly business while welcoming a new pet" by guest blogger Cindy Aldridge.](/content/blog/pet-friendly-business-tips/hero.png)
+![A small, fluffy puppy with a blue harness sitting on green grass. The text reads "The Anchor, Stanwell Moor Village, starting a pet-friendly business while welcoming a new pet" by guest blogger Cindy Aldridge.](/content/blog/pet-friendly-business-tips/hero.jpg)
 
 Looking to create a **pet-friendly business near Heathrow**? The Anchor pub in Stanwell Moor has perfected the art of welcoming both two-legged and four-legged customers! Just 7 minutes from Terminal 5, we've learned valuable lessons about building a successful dog-friendly venue that serves our diverse community of airport workers, local families, and pet lovers.
 

@@ -23,7 +23,7 @@ tags:
   - offers
   - news
 featured: true
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
@@ -138,7 +138,7 @@ The cheaper pizza is FREE!
 - Dine in or takeaway
 - Perfect for families and groups
 
-![Enjoying pizza at The Anchor pub](/content/blog/buy-one-get-one-free-on-all-pizza-every-tuesday/image-4.png)
+![Enjoying pizza at The Anchor pub](/content/blog/buy-one-get-one-free-on-all-pizza-every-tuesday/image-4.jpg)
 
 ## Perfect for Different Groups
 

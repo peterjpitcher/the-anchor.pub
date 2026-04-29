@@ -28,12 +28,12 @@ tags:
   - events
   - offers
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
 
-![A promotional graphic for The Anchor's Double Up Offer, highlighting "Double Up for 2 Quid!" with a £2 upgrade on spirits and a call to visit the-anchor.pub for terms and conditions.](/content/blog/double-up-offer/hero.png)
+![A promotional graphic for The Anchor's Double Up Offer, highlighting "Double Up for 2 Quid!" with a £2 upgrade on spirits and a call to visit the-anchor.pub for terms and conditions.](/content/blog/double-up-offer/hero.jpg)
 
 ## Double Up Spirits for £2 Near Heathrow Airport
 

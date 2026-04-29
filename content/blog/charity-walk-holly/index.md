@@ -27,12 +27,12 @@ tags:
   - events
   - news
 featured: true
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
 
-![Charity Walk for Holly - Supporting Momentum Children's Charity](/content/blog/charity-walk-holly/hero.png)
+![Charity Walk for Holly - Supporting Momentum Children's Charity](/content/blog/charity-walk-holly/hero.jpg)
 
 The Anchor pub in **Stanwell Moor** proudly supports Jason West's incredible 65-mile charity walk for his daughter Holly. Starting from our **traditional pub near Heathrow Airport**, this community event showcases the strength of our local village.
 

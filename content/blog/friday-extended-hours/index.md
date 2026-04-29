@@ -27,14 +27,14 @@ tags:
   - news
   - community
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
 
   
 
-![Open from noon on Fridays. Serving lunch from 12pm to 3pm.](/content/blog/friday-extended-hours/hero.png)
+![Open from noon on Fridays. Serving lunch from 12pm to 3pm.](/content/blog/friday-extended-hours/hero.jpg)
 
 ## Friday Lunch Near Heathrow - Open from Noon Every Week
 

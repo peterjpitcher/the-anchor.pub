@@ -24,12 +24,12 @@ tags:
   - community
   - news
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
 
-![this december at the anchor image](/content/blog/this-december-at-the-anchor/hero.png)
+![this december at the anchor image](/content/blog/this-december-at-the-anchor/hero.jpg)
 
 Looking for magical **December events near Heathrow**? The Anchor in Stanwell Moor becomes your festive headquarters this Christmas! Just 7 minutes from Terminal 5, we're transforming our traditional British pub into a winter wonderland with events, entertainment, and seasonal cheer throughout December.
 

@@ -105,7 +105,7 @@ Our **pub events near Heathrow Airport** attract:
 
 Through our race nights, The Anchor has supported:
 
-![what is race night image](/content/blog/what-is-race-night/image-1.png)
+![what is race night image](/content/blog/what-is-race-night/image-1.jpg)
 
 **Dreams Come True Children's Charity**
 - Supporting terminally ill children

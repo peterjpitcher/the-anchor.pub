@@ -27,12 +27,12 @@ tags:
   - news
   - food-and-drink
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
 
-![Rum Tasting Night poster with two rum bottles, a tropical cocktail garnished with fruit and a flower, lush foliage, and warm lighting.](/content/blog/rum-tasting-caribbean/hero.png)
+![Rum Tasting Night poster with two rum bottles, a tropical cocktail garnished with fruit and a flower, lush foliage, and warm lighting.](/content/blog/rum-tasting-caribbean/hero.jpg)
 
   
 

@@ -25,12 +25,12 @@ tags:
   - news
   - food-and-drink
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
 
-![A promotional graphic for The Anchor pub, highlighting a free pint offer of Stanwell Moor Brew for Stanwell Moor residents during November 2024. The design includes the brew’s logo and key offer details in a bold, engaging layout.](/content/blog/free-pint-offer-this-november/hero.png)
+![A promotional graphic for The Anchor pub, highlighting a free pint offer of Stanwell Moor Brew for Stanwell Moor residents during November 2024. The design includes the brew’s logo and key offer details in a bold, engaging layout.](/content/blog/free-pint-offer-this-november/hero.jpg)
 
 **Update: This offer has ended, and Stanwell Moor Brew is no longer available at The Anchor.** Our draught selection changes from time to time — visit us or call 01753 682707 to find out what is currently on tap.
 

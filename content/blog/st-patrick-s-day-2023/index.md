@@ -25,7 +25,7 @@ tags:
   - news
   - offers
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
@@ -62,7 +62,7 @@ March 17th is the traditional death date of Saint Patrick, the patron saint of I
 
 St. Patrick's Day is a celebration of Irish culture and heritage, and has become a popular holiday around the world. It's a time for parades, traditional Irish music and dance, and of course, lots of green!
 
-![st patrick s day 2023 image](/content/blog/st-patrick-s-day-2023/image-1.png)
+![st patrick s day 2023 image](/content/blog/st-patrick-s-day-2023/image-1.jpg)
 
 ### Do the Irish wear green on St Patrick Day?
 
@@ -80,7 +80,7 @@ While green is the traditional colour of St. Patrick's Day, orange is also an im
 
 While St. Patrick is the patron saint of Ireland, his holiday is celebrated around the world, including in England. However, it is not an official public holiday in England and is not celebrated to the same extent as it is in Ireland.
 
-![st patrick s day 2023 image](/content/blog/st-patrick-s-day-2023/image-2.png)
+![st patrick s day 2023 image](/content/blog/st-patrick-s-day-2023/image-2.jpg)
 
 ### What does wearing orange on St. Patrick Day mean?
 

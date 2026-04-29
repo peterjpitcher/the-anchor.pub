@@ -23,7 +23,7 @@ tags:
   - news
   - events
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
@@ -102,7 +102,7 @@ Our **music bingo prizes** include:
 
 Everyone has multiple chances to win throughout the night!
 
-![Friends gathered around a table, engaged in Music Bingo at our village pub.](/content/blog/music-bingo-nights/image-1.png)
+![Friends gathered around a table, engaged in Music Bingo at our village pub.](/content/blog/music-bingo-nights/image-1.jpg)
 
 ## Food and Drink
 
@@ -150,7 +150,7 @@ What makes our nights special:
 - Fair and fun
 - Interactive hosting style
 
-![A joyful group of friends celebrating a win at Music Bingo night.](/content/blog/music-bingo-nights/image-2.png)
+![A joyful group of friends celebrating a win at Music Bingo night.](/content/blog/music-bingo-nights/image-2.jpg)
 
 ## Perfect for Groups
 
@@ -197,7 +197,7 @@ Our playlists include:
 
 Everyone will hear songs they love!
 
-![Group of smiling friends posing together during Music Bingo night at our village pub.](/content/blog/music-bingo-nights/image-3.png)
+![Group of smiling friends posing together during Music Bingo night at our village pub.](/content/blog/music-bingo-nights/image-3.jpg)
 
 ## Why Choose The Anchor
 
@@ -236,7 +236,7 @@ Music bingo fills up fast:
 - Mention dietary requirements
 - Request specific seating
 
-![Cheerful group of Music Bingo participants posing for a photo at our pub.](/content/blog/music-bingo-nights/image-4.png)
+![Cheerful group of Music Bingo participants posing for a photo at our pub.](/content/blog/music-bingo-nights/image-4.jpg)
 
 ## Special Theme Nights
 
@@ -277,7 +277,7 @@ Our **music bingo near Heathrow** creates:
 
 Many players return every month!
 
-![Snapshot of a jovial group of friends, making memories at our Music Bingo event.](/content/blog/music-bingo-nights/image-5.png)
+![Snapshot of a jovial group of friends, making memories at our Music Bingo event.](/content/blog/music-bingo-nights/image-5.jpg)
 
 ## Corporate Bookings
 

@@ -166,7 +166,7 @@ export default async function PrivateHirePage() {
                             <div className="card-dark rounded-none overflow-hidden hover:shadow-md transition-all h-full">
                                 <div className="aspect-video bg-gray-200 relative">
                                     <Image
-                                        src="/images/private-hire/wakes.png"
+                                        src="/images/private-hire/wakes.jpg"
                                         alt="Wake venue at The Anchor near Heathrow"
                                         fill
                                         className="object-cover"
@@ -188,7 +188,7 @@ export default async function PrivateHirePage() {
                             <div className="card-dark rounded-none overflow-hidden hover:shadow-md transition-all h-full">
                                 <div className="aspect-video bg-gray-200 relative">
                                     <Image
-                                        src="/images/private-hire/christenings.png"
+                                        src="/images/private-hire/christenings.jpg"
                                         alt="Christening venue at The Anchor near Heathrow"
                                         fill
                                         className="object-cover"
@@ -211,7 +211,7 @@ export default async function PrivateHirePage() {
                             <div className="card-dark rounded-none overflow-hidden hover:shadow-md transition-all h-full">
                                 <div className="aspect-video bg-gray-200 relative">
                                     <Image
-                                        src="/images/private-hire/parties.png"
+                                        src="/images/private-hire/parties.jpg"
                                         alt="Private party venue at The Anchor near Heathrow"
                                         fill
                                         className="object-cover"
@@ -233,7 +233,7 @@ export default async function PrivateHirePage() {
                             <div className="card-dark rounded-none overflow-hidden hover:shadow-md transition-all h-full">
                                 <div className="aspect-video bg-gray-200 relative">
                                     <Image
-                                        src="/images/private-hire/baby-showers.png"
+                                        src="/images/private-hire/baby-showers.jpg"
                                         alt="Baby shower venue at The Anchor near Heathrow"
                                         fill
                                         className="object-cover"
@@ -255,7 +255,7 @@ export default async function PrivateHirePage() {
                             <div className="card-dark rounded-none overflow-hidden hover:shadow-md transition-all h-full">
                                 <div className="aspect-video bg-gray-200 relative">
                                     <Image
-                                        src="/images/private-hire/corporate.png"
+                                        src="/images/private-hire/corporate.jpg"
                                         alt="Corporate event venue at The Anchor near Heathrow"
                                         fill
                                         className="object-cover"

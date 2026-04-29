@@ -24,12 +24,12 @@ tags:
   - news
   - events
 featured: true
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
 
-![Nikki Manfadge's Drag Cabaret at The Anchor](/content/blog/drag-cabaret-nikki/hero.png)
+![Nikki Manfadge's Drag Cabaret at The Anchor](/content/blog/drag-cabaret-nikki/hero.jpg)
 
 Looking for the best **drag shows near Heathrow**? Experience an unforgettable night of entertainment at The Anchor with resident drag queen **Nikki Manfadge**. Just 7 minutes from Terminal 5, discover Stanwell Moor's hottest cabaret show where anything can happen!
 

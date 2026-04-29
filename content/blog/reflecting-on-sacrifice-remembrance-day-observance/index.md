@@ -25,7 +25,7 @@ tags:
   - news
   - community
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
@@ -48,7 +48,7 @@ Remembrance Day, observed annually on the 11th of November, marks the end of Wor
 
 At The Anchor, we believe in the power of this remembrance. It’s not just about reflecting on the past; it’s about acknowledging the lessons learned and the courage displayed. Every story of bravery, every tale of sacrifice strengthens our resolve to cherish the peace and freedoms we enjoy today.
 
-![Artistic representation of a Remembrance Day ceremony. A vast array of soldiers from different eras stand in formation with the iconic British landmarks, including Big Ben and the Houses of Parliament, in the misty background. A radiant large red poppy hovers in the sky, casting light upon the assembly.](/content/blog/reflecting-on-sacrifice-remembrance-day-observance/image-1.png)
+![Artistic representation of a Remembrance Day ceremony. A vast array of soldiers from different eras stand in formation with the iconic British landmarks, including Big Ben and the Houses of Parliament, in the misty background. A radiant large red poppy hovers in the sky, casting light upon the assembly.](/content/blog/reflecting-on-sacrifice-remembrance-day-observance/image-1.jpg)
 
 ## The Poppy: More Than Just a Flower
 
@@ -72,7 +72,7 @@ At The Anchor, located near **Heathrow Airport** in **Stanwell Moor**, we observ
 - Participate in local **Staines remembrance events**
 - Create a space for **community reflection**
 
-![Watercolor illustration of a vibrant red poppy in the foreground, with silhouettes of soldiers and a military tank in the background amidst a battlefield scattered with more poppies. The scene is imbued with muted tones, evoking a somber yet poignant ambiance.](/content/blog/reflecting-on-sacrifice-remembrance-day-observance/image-2.png)
+![Watercolor illustration of a vibrant red poppy in the foreground, with silhouettes of soldiers and a military tank in the background amidst a battlefield scattered with more poppies. The scene is imbued with muted tones, evoking a somber yet poignant ambiance.](/content/blog/reflecting-on-sacrifice-remembrance-day-observance/image-2.jpg)
 
 ## Staines Remembrance Day Events - Near The Anchor
 
@@ -106,7 +106,7 @@ As we at The Anchor prepare to mark this important day, we invite our customers,
 
 While we won't be open for business on Remembrance Day, our hearts and thoughts will be with the heroes we're honouring. We remember not just for the sake of the past, but to remind ourselves of the enduring values of courage, sacrifice, and hope that shape our present and future. At The Anchor, we're more than just a pub near Heathrow; we're a part of a community that values its history, honours its heroes, and looks forward to a future of peace and unity.
 
-![Picturesque scene of a small British village during sunrise. Residents, including military personnel and civilians of diverse backgrounds, gather around a war memorial adorned with red poppies and wreaths. The focus is on a young boy and an elderly woman, both in coats adorned with poppies, as they pay their respects.](/content/blog/reflecting-on-sacrifice-remembrance-day-observance/image-3.png)
+![Picturesque scene of a small British village during sunrise. Residents, including military personnel and civilians of diverse backgrounds, gather around a war memorial adorned with red poppies and wreaths. The focus is on a young boy and an elderly woman, both in coats adorned with poppies, as they pay their respects.](/content/blog/reflecting-on-sacrifice-remembrance-day-observance/image-3.jpg)
 
 ## Participating in the Day's Events
 

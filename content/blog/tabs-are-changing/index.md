@@ -23,14 +23,14 @@ tags:
   - community
   - news
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
 
   
 
-![tabs are changing image](/content/blog/tabs-are-changing/hero.png)
+![tabs are changing image](/content/blog/tabs-are-changing/hero.jpg)
 
 ## Bar Tab System at The Anchor - Convenient for Regulars Near Heathrow
 

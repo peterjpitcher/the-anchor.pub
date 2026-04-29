@@ -29,7 +29,7 @@ tags:
   - community
   - sports
 featured: true
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
@@ -46,7 +46,7 @@ The Six Nations Rugby Championship brings together Europe's finest teams: Englan
 
 One of the unique aspects of the tournament is the "Calcutta Cup," which is contested annually between England and Scotland. The cup is named after the Indian city of Calcutta, where it was made in 1879. The history and tradition of this rivalry adds extra excitement to the match between these two teams.
 
-![six nations rugby at the anchor 2023 image](/content/blog/six-nations-rugby-at-the-anchor-2023/image-1.png)
+![six nations rugby at the anchor 2023 image](/content/blog/six-nations-rugby-at-the-anchor-2023/image-1.jpg)
 
 The tournament also includes the "Millennium Trophy," contested between Ireland and England, and the "Giuseppe Garibaldi Trophy," contested between France and Italy. These trophies add even more to the competitive spirit of the tournament.
 
@@ -56,7 +56,7 @@ The Six Nations tournament is known for its passionate fans and intense atmosphe
 
 Each year brings new excitement as teams battle for the championship title. The tournament is renowned for its unpredictable nature, passionate fans, and world-class rugby that keeps us on the edge of our seats at The Anchor.
 
-![six nations rugby at the anchor 2023 image](/content/blog/six-nations-rugby-at-the-anchor-2023/image-2.png)
+![six nations rugby at the anchor 2023 image](/content/blog/six-nations-rugby-at-the-anchor-2023/image-2.jpg)
 
 Whether England is defending their title or chasing glory, every match matters in this prestigious championship. Join fellow rugby fans at our **pub near Heathrow** for an unforgettable Six Nations experience.
 
@@ -93,9 +93,9 @@ Whether you're supporting England at Twickenham or following the away matches, T
 
 The Six Nations Championship runs every year from February to March, bringing the best of European rugby to your local pub. Check our events page for this year's fixtures and special match day offers.
 
-![six nations rugby at the anchor 2023 image](/content/blog/six-nations-rugby-at-the-anchor-2023/image-3.png)
+![six nations rugby at the anchor 2023 image](/content/blog/six-nations-rugby-at-the-anchor-2023/image-3.jpg)
 
-![six nations rugby at the anchor 2023 image](/content/blog/six-nations-rugby-at-the-anchor-2023/image-4.png)
+![six nations rugby at the anchor 2023 image](/content/blog/six-nations-rugby-at-the-anchor-2023/image-4.jpg)
 
 ## Experience Six Nations at The Best Rugby Pub Near Heathrow Airport
 

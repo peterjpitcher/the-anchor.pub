@@ -26,13 +26,13 @@ tags:
   - community
   - news
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 ---
 
   
 
-![Chalkboard sign with ornate detailing reading 'WE'RE HIRING' in bold, cursive chalk lettering. The Anchor's logo is present at the bottom right with the tagline 'Stanwell Moor Village,' indicating the pub's location.](/content/blog/pub-jobs-heathrow/hero.png)
+![Chalkboard sign with ornate detailing reading 'WE'RE HIRING' in bold, cursive chalk lettering. The Anchor's logo is present at the bottom right with the tagline 'Stanwell Moor Village,' indicating the pub's location.](/content/blog/pub-jobs-heathrow/hero.jpg)
 
   
 

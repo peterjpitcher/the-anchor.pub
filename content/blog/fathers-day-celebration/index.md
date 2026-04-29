@@ -27,7 +27,7 @@ tags:
   - food-and-drink
   - news
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
@@ -82,7 +82,7 @@ All mains served with roast potatoes, seasonal vegetables, creamy mash, Yorkshir
 
 Perfect for celebrating Father's Day at our **family-friendly pub near Stanwell Moor** and **Heathrow Airport**.
 
-![celebrate father s day at the anchor unforgettable image](/content/blog/fathers-day-celebration/image-1.png)
+![celebrate father s day at the anchor unforgettable image](/content/blog/fathers-day-celebration/image-1.jpg)
 
 ## **Free Pint for Dads at Our Pub Near Heathrow**
 

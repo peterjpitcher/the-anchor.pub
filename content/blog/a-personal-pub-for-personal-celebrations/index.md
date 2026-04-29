@@ -41,7 +41,7 @@ Celebrating life's most important moments deserves the perfect venue. At The Anc
 
 As the premier **party venue near Heathrow Airport**, we offer comprehensive event services through our trusted network of partners. From corporate celebrations for airport businesses to intimate baby showers for **Staines** locals, our experienced team ensures every detail is perfect.
 
-![a personal pub for personal celebrations image](/content/blog/a-personal-pub-for-personal-celebrations/image-1.png)
+![a personal pub for personal celebrations image](/content/blog/a-personal-pub-for-personal-celebrations/image-1.jpg)
 
 ### Birthday Parties & Milestone Celebrations Near Heathrow
 

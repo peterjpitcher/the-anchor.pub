@@ -25,14 +25,14 @@ tags:
   - community
   - news
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
 
   
 
-![International Day of Peace - A photo of sheet sitting under a tree with a blue sky background](/content/blog/peace-day-stanwell/hero.png)
+![International Day of Peace - A photo of sheet sitting under a tree with a blue sky background](/content/blog/peace-day-stanwell/hero.jpg)
 
   
 

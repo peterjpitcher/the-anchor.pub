@@ -27,7 +27,7 @@ tags:
   - events
   - offers
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
@@ -64,21 +64,21 @@ Our gameshow nights at this **entertainment venue near Heathrow** always end wit
 
 ### Gallery: Gameshow Night Highlights
 
-![Drag bingo in action at The Anchor](/content/blog/gameshow-house-party/image-1.png)
+![Drag bingo in action at The Anchor](/content/blog/gameshow-house-party/image-1.jpg)
 
-![The Price is Right contestants](/content/blog/gameshow-house-party/image-5.png)
+![The Price is Right contestants](/content/blog/gameshow-house-party/image-5.jpg)
 
-![Fortunate Families teams competing](/content/blog/gameshow-house-party/image-10.png)
+![Fortunate Families teams competing](/content/blog/gameshow-house-party/image-10.jpg)
 
-![Play Your Cards Right excitement](/content/blog/gameshow-house-party/image-15.png)
+![Play Your Cards Right excitement](/content/blog/gameshow-house-party/image-15.jpg)
 
-![Winners celebrating with prizes](/content/blog/gameshow-house-party/image-20.png)
+![Winners celebrating with prizes](/content/blog/gameshow-house-party/image-20.jpg)
 
-![Packed pub atmosphere](/content/blog/gameshow-house-party/image-25.png)
+![Packed pub atmosphere](/content/blog/gameshow-house-party/image-25.jpg)
 
-![Nikki Manfadge entertaining the crowd](/content/blog/gameshow-house-party/image-30.png)
+![Nikki Manfadge entertaining the crowd](/content/blog/gameshow-house-party/image-30.jpg)
 
-![Happy contestants and audience](/content/blog/gameshow-house-party/image-35.png)
+![Happy contestants and audience](/content/blog/gameshow-house-party/image-35.jpg)
   
 
 ## **Why Choose The Anchor for Entertainment Near Heathrow**

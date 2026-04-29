@@ -27,7 +27,7 @@ tags:
   - news
   - offers
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
@@ -36,7 +36,7 @@ noindex: true
 
 ---
 
-![Promotional graphic for Pravha, highlighting its crisp, light taste and Prague's brewing tradition. The image shows a close-up of golden beer with bubbles, the Pravha logo, and The Anchor pub logo in the corner.](/content/blog/pravha-beer/hero.png)
+![Promotional graphic for Pravha, highlighting its crisp, light taste and Prague's brewing tradition. The image shows a close-up of golden beer with bubbles, the Pravha logo, and The Anchor pub logo in the corner.](/content/blog/pravha-beer/hero.jpg)
 
   
 

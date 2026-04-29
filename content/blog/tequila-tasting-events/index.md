@@ -23,7 +23,7 @@ tags:
   - food-and-drink
   - news
 featured: true
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
@@ -46,7 +46,7 @@ Our **tequila tasting events** have set a new standard for spirits experiences i
 
 "Amazing experience, loved everything about it, fantastic evening!" - just one of many 5-star reviews from the night.
 
-![Guests enjoying tequila tasting at The Anchor](/content/blog/tequila-tasting-events/image-1.png)
+![Guests enjoying tequila tasting at The Anchor](/content/blog/tequila-tasting-events/image-1.jpg)
 
 ## What Makes Our Tequila Tastings Special
 
@@ -73,7 +73,7 @@ Our **spirits tasting near Heathrow** stands out because:
 
 ### More Than Just Drinks
 
-![Mexican themed decorations and table setup](/content/blog/tequila-tasting-events/image-2.png)
+![Mexican themed decorations and table setup](/content/blog/tequila-tasting-events/image-2.jpg)
 
 **7:00 PM - Welcome & Introduction**
 - Arrival drink (welcome cocktail)
@@ -108,7 +108,7 @@ Our **spirits tasting near Heathrow** stands out because:
 
 ### What Made It Perfect
 
-![Happy guests at tequila tasting event](/content/blog/tequila-tasting-events/image-3.png)
+![Happy guests at tequila tasting event](/content/blog/tequila-tasting-events/image-3.jpg)
 
 Every single guest rated us 5 stars. Here's why:
 
@@ -158,7 +158,7 @@ Located in Stanwell Moor, we offer:
 
 ### Winter Warmers: December 2024
 
-![Cozy winter spirits selection](/content/blog/tequila-tasting-events/image-4.png)
+![Cozy winter spirits selection](/content/blog/tequila-tasting-events/image-4.jpg)
 
 Following our tequila success, join us for:
 
@@ -199,7 +199,7 @@ Our **tequila tasting near Heathrow** events sell out quickly:
 
 ### Premium Experience, Complete Package
 
-![Selection of premium tequilas](/content/blog/tequila-tasting-events/image-5.png)
+![Selection of premium tequilas](/content/blog/tequila-tasting-events/image-5.jpg)
 
 **Your £35 Ticket Includes:**
 - Welcome drink on arrival

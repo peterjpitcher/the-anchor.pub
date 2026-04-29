@@ -26,14 +26,14 @@ tags:
   - news
   - sports
 featured: true
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
 
   
 
-![calling all pool players image](/content/blog/calling-all-pool-players/hero.png)
+![calling all pool players image](/content/blog/calling-all-pool-players/hero.jpg)
 
 ## Join The Anchor Pool Team - Best Pool League Near Heathrow Airport
 

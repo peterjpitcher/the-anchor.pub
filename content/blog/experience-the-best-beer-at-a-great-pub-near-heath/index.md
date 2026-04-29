@@ -28,7 +28,7 @@ tags:
   - community
   - news
 featured: true
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---

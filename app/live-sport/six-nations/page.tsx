@@ -124,7 +124,7 @@ export default function SixNationsPage() {
 
                     <div className="relative h-[300px] mb-12 rounded-2xl overflow-hidden shadow-xl">
                         <Image
-                            src="/images/six-nations/hero-pub.png"
+                            src="/images/six-nations/hero-pub.jpg"
                             alt="Atmosphere at The Anchor during Six Nations"
                             fill
                             className="object-cover"

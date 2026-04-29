@@ -156,7 +156,7 @@ export function ChristmasLightbox() {
                 {/* Hero Image Area */}
                 <div className="relative h-48 sm:h-56 bg-red-900 text-white flex items-center justify-center overflow-hidden">
                     <Image
-                        src="/images/page-headers/christmas-parties/2026/hero-table.png"
+                        src="/images/page-headers/christmas-parties/2026/hero-table.jpg"
                         alt="Christmas at The Anchor"
                         fill
                         className="object-cover"

@@ -147,7 +147,7 @@ export function SixNationsLightbox() {
                 {/* Hero Image Area */}
                 <div className="relative h-48 sm:h-56 bg-anchor-green text-white flex items-center justify-center overflow-hidden">
                     <Image
-                        src="/images/six-nations/hero-pub.png"
+                        src="/images/six-nations/hero-pub.jpg"
                         alt="Six Nations at The Anchor"
                         fill
                         className="object-cover"

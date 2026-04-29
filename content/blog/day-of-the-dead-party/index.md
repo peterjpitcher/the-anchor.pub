@@ -24,7 +24,7 @@ tags:
   - events
   - food-and-drink
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
@@ -61,7 +61,7 @@ Join us for a month-long celebration of life, remembrance, and Mexican culture!
 
 At The Anchor, we're bringing these traditions to life with respect and authenticity.
 
-![Halloween Themed Pub Quiz Night at The Anchor, featuring a Día de Muertos skull with floral decorations. Event date and details included.](/content/blog/day-of-the-dead-party/image-1.png)
+![Halloween Themed Pub Quiz Night at The Anchor, featuring a Día de Muertos skull with floral decorations. Event date and details included.](/content/blog/day-of-the-dead-party/image-1.jpg)
 
 ## Halloween Quiz Night: October 9th
 
@@ -85,7 +85,7 @@ Kick off the festivities with our **Halloween-themed quiz**:
 
 Book your table: [https://bit.ly/3VhJzzy](https://bit.ly/3VhJzzy)
 
-![Tequila Tasting Evening poster at The Anchor, with event details and bold text highlighting Friday, October 18th.](/content/blog/day-of-the-dead-party/image-2.png)
+![Tequila Tasting Evening poster at The Anchor, with event details and bold text highlighting Friday, October 18th.](/content/blog/day-of-the-dead-party/image-2.jpg)
 
 ## Premium Tequila Tasting: October 18th
 
@@ -125,7 +125,7 @@ In Mexican tradition, tequila plays an important role:
 
 Our tasting honours these traditions while creating new memories.
 
-![Nikki Manfadge hosting Gameshow House Party at The Anchor. Bright red background with bold white text and fun, lively imagery.](/content/blog/day-of-the-dead-party/image-3.png)
+![Nikki Manfadge hosting Gameshow House Party at The Anchor. Bright red background with bold white text and fun, lively imagery.](/content/blog/day-of-the-dead-party/image-3.jpg)
 
 ## Gameshow House Party: October 30th
 
@@ -142,7 +142,7 @@ Join Nikki Manfadge for an unforgettable evening:
 
 In true Day of the Dead spirit, we celebrate life with joy and laughter!
 
-![Day of the Dead Fancy Dress Halloween Party at The Anchor. Event information with a festive Día de Muertos skull image.](/content/blog/day-of-the-dead-party/image-4.png)
+![Day of the Dead Fancy Dress Halloween Party at The Anchor. Event information with a festive Día de Muertos skull image.](/content/blog/day-of-the-dead-party/image-4.jpg)
 
 ## Grand Finale: November 2nd Party
 

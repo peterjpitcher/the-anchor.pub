@@ -26,12 +26,12 @@ tags:
   - food-and-drink
   - news
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
 
-![A striking image of a woman with traditional Día de los Muertos face paint and a vibrant flower crown featuring marigolds and sunflowers. The text reads 'A Toast to the Dead: The Cultural Significance of Tequila During Día de los Muertos.' The Anchor logo is positioned at the top, with bold white fonts used for the headline.](/content/blog/tequila-day-of-dead/hero.png)
+![A striking image of a woman with traditional Día de los Muertos face paint and a vibrant flower crown featuring marigolds and sunflowers. The text reads 'A Toast to the Dead: The Cultural Significance of Tequila During Día de los Muertos.' The Anchor logo is positioned at the top, with bold white fonts used for the headline.](/content/blog/tequila-day-of-dead/hero.jpg)
 
 ## Experience Day of the Dead Tequila Traditions Near Heathrow
 

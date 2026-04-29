@@ -25,7 +25,7 @@ tags:
   - food-and-drink
   - news
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
@@ -78,7 +78,7 @@ Our special **Mother's Day set menu** typically includes:
 - Cheesecake of the day
 - Fresh fruit salad
 
-![mothers day at the anchor march 19th image](/content/blog/mothers-day-at-the-anchor-march-19th/image-1.png)
+![mothers day at the anchor march 19th image](/content/blog/mothers-day-at-the-anchor-march-19th/image-1.jpg)
 
 ### Why Choose The Anchor for Mother's Day Near Heathrow
 
@@ -96,7 +96,7 @@ Our special **Mother's Day set menu** typically includes:
 - Children's portions available
 - Special dietary requirements catered for
 
-![mothers day at the anchor march 19th image](/content/blog/mothers-day-at-the-anchor-march-19th/image-2.png)
+![mothers day at the anchor march 19th image](/content/blog/mothers-day-at-the-anchor-march-19th/image-2.jpg)
 
 ## Where did Mothers Day originate from?
 
@@ -110,7 +110,7 @@ The modern holiday of Mother's Day as we know it, began with Anna Jarvis, who or
 
 The campaign to establish Mother's Day as a national holiday began in earnest in the United States, and in 1914, President Woodrow Wilson signed a bill officially establishing the second Sunday in May as Mother's Day.
 
-![mothers day at the anchor march 19th image](/content/blog/mothers-day-at-the-anchor-march-19th/image-3.png)
+![mothers day at the anchor march 19th image](/content/blog/mothers-day-at-the-anchor-march-19th/image-3.jpg)
 
 ### Tips for Your Mother's Day Visit
 

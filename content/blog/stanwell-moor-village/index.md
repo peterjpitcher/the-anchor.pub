@@ -24,7 +24,7 @@ tags:
   - community
   - news
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 ---
 
@@ -62,7 +62,7 @@ A note from our local Councillor, Jim McIlroy:
 
 ## The Anchor
 
-![The Anchor Pub](/content/blog/stanwell-moor-village/image-1.png)
+![The Anchor Pub](/content/blog/stanwell-moor-village/image-1.jpg)
 
 **Link to Website:** [https://www.the-anchor.pub](https://www.the-anchor.pub) (online ordering for collection available here:
 
@@ -74,7 +74,7 @@ We are the village local. We have been operating The Anchor since March 2019 and
 
 ## T5 Stores & Post Office
 
-![T5 Stores](/content/blog/stanwell-moor-village/image-2.png)
+![T5 Stores](/content/blog/stanwell-moor-village/image-2.jpg)
 
 Our lovely local shop is set up with all of the essentials. They provide a wide range of food items, with many speciality foods to make sure everyone has what they need. They also offer full post office services (a rarity in a small community nowadays), National Lottery and PayPoint.
 
@@ -92,7 +92,7 @@ Heathrow Laundrette offers an excellent service with lots of added extras! Dry c
 
 ## Polash Tandoori
 
-![Polash Tandoori](/content/blog/stanwell-moor-village/image-4.png)
+![Polash Tandoori](/content/blog/stanwell-moor-village/image-4.jpg)
 
 **Link to Website:** [https://www.polashtandoori.co.uk/](https://www.polashtandoori.co.uk/)
 

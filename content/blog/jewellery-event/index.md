@@ -29,14 +29,14 @@ tags:
   - events
   - community
 featured: true
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
 
   
 
-![Promotional graphic for Creations by Lee Jewellery Event at The Anchor. The image displays an array of silver and gold jewellery with intricate designs and various gemstones, set against a festive background adorned with Christmas decorations like pine branches, baubles, and stars. The text 'The Anchor Stanwell Moor Village - CREATIONS by Lee' overlays the image in elegant, decorative fonts, highlighting the event's location and artisanal brand.](/content/blog/jewellery-event/hero.png)
+![Promotional graphic for Creations by Lee Jewellery Event at The Anchor. The image displays an array of silver and gold jewellery with intricate designs and various gemstones, set against a festive background adorned with Christmas decorations like pine branches, baubles, and stars. The text 'The Anchor Stanwell Moor Village - CREATIONS by Lee' overlays the image in elegant, decorative fonts, highlighting the event's location and artisanal brand.](/content/blog/jewellery-event/hero.jpg)
 
 ## Exclusive Jewellery Events Near Heathrow Airport
 

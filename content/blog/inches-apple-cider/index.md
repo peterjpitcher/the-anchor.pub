@@ -25,7 +25,7 @@ tags:
   - food-and-drink
   - seasonal
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 ---
 
@@ -72,7 +72,7 @@ Looking for authentic **British apple cider near Heathrow Airport**? The Anchor 
 
   
 
-![Top down photo of the bubbles on top of a pint of Inches apple cider](/content/blog/inches-apple-cider/image-1.png)
+![Top down photo of the bubbles on top of a pint of Inches apple cider](/content/blog/inches-apple-cider/image-1.jpg)
 
 ## Tasting Notes - What to Expect
 

@@ -28,7 +28,7 @@ tags:
   - events
   - offers
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
@@ -189,18 +189,18 @@ All of the progress we're making with the new Dining Room right now wouldn't be 
 
   
 
-![Architectural line drawing of The Anchor's front exterior.](/content/blog/new-dining-room/image-1.png)
+![Architectural line drawing of The Anchor's front exterior.](/content/blog/new-dining-room/image-1.jpg)
 
   
 
-![Architectural line drawing of The Anchor's side profile with visible signage.](/content/blog/new-dining-room/image-2.png)
+![Architectural line drawing of The Anchor's side profile with visible signage.](/content/blog/new-dining-room/image-2.jpg)
 
   
 
-![Architectural line drawing of The Anchor showcasing a new extension with orange details.](/content/blog/new-dining-room/image-3.png)
+![Architectural line drawing of The Anchor showcasing a new extension with orange details.](/content/blog/new-dining-room/image-3.jpg)
 
   
 
-![Floor plan of The Anchor highlighting the proposed dining area.](/content/blog/new-dining-room/image-4.png)
+![Floor plan of The Anchor highlighting the proposed dining area.](/content/blog/new-dining-room/image-4.jpg)
 
 *The Anchor - Expanding to serve you better near Heathrow Airport*

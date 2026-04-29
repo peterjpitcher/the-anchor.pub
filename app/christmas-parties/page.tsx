@@ -14,12 +14,12 @@ export const metadata: Metadata = {
     title: 'Christmas Parties & Lunch 2026 Near Heathrow Terminal 5 | Shared Nights & Private Hire',
     description:
       'A proper village-pub Christmas with shared party nights, private hire, festive lunches and generous roasts. Free parking minutes from Heathrow Terminal 5, near Staines, Ashford and Windsor.',
-    images: [{ url: '/images/page-headers/christmas-parties/2026/hero-table.png', width: 1200, height: 630, alt: 'Christmas parties at The Anchor near Heathrow' }]
+    images: [{ url: '/images/page-headers/christmas-parties/2026/hero-table.jpg', width: 1200, height: 630, alt: 'Christmas parties at The Anchor near Heathrow' }]
   },
   twitter: getTwitterMetadata({
     title: 'Christmas Parties & Lunch 2026 Near Heathrow Terminal 5 | Shared Nights & Private Hire',
     description: 'A proper village-pub Christmas with shared party nights, private hire, festive lunches and generous roasts. Free parking minutes from Heathrow Terminal 5, near Staines, Ashford and Windsor.',
-    images: ['/images/page-headers/christmas-parties/2026/hero-table.png']
+    images: ['/images/page-headers/christmas-parties/2026/hero-table.jpg']
   }),
   alternates: {
     canonical: '/christmas-parties'
@@ -35,7 +35,7 @@ const structuredData = {
   startDate: '2026-11-24',
   endDate: '2026-12-23',
   eventStatus: 'https://schema.org/EventScheduled',
-  image: ['https://www.the-anchor.pub/images/page-headers/christmas-parties/2026/hero-table.png'],
+  image: ['https://www.the-anchor.pub/images/page-headers/christmas-parties/2026/hero-table.jpg'],
   location: {
     '@type': 'Place',
     name: 'The Anchor, Stanwell Moor',
@@ -176,7 +176,7 @@ export default function ChristmasPartiesPage() {
         description="Three-course Christmas dinners and lunches piled with herb-crusted triple-cooked roast potatoes, pigs in blankets and sage & onion stuffing. Crackers on the table, candles lit, and your Christmas do sorted — whether it's a works night out or a family Christmas meal."
         eyebrow={<span className="text-red-100">Christmas 2026</span>}
         image={{
-          src: '/images/page-headers/christmas-parties/2026/hero-table.png',
+          src: '/images/page-headers/christmas-parties/2026/hero-table.jpg',
           alt: 'Festive Christmas dinner table setting at The Anchor near Heathrow',
           priority: true
         }}

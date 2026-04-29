@@ -29,7 +29,7 @@ tags:
   - community
   - news
 featured: true
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
@@ -74,7 +74,7 @@ While we are committed to bringing you as much Premier League action as possible
 
 ## Enjoy Great Food and Drink During Premier League Matches
 
-![welcome to the 2024 25 premier league season at th image](/content/blog/premier-league-2024-25/image-1.png)
+![welcome to the 2024 25 premier league season at th image](/content/blog/premier-league-2024-25/image-1.jpg)
 
 Don't miss out on our delicious food menu, available during key Premier League match times:
 

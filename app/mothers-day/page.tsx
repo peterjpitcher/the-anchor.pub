@@ -54,7 +54,7 @@ const MOTHERS_DAY_PHOTOS = [
     caption: 'Cooked-from-scratch favourites'
   },
   {
-    src: '/images/mothers-day/drinks.png',
+    src: '/images/mothers-day/drinks.jpg',
     alt: "Refreshing Mother's Day drinks in the sunshine at The Anchor",
     caption: 'Drinks for the whole table'
   }

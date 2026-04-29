@@ -21,12 +21,12 @@ tags:
   - events
   - news
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
 
-![quiz night at the anchor image](/content/blog/quiz-night-at-the-anchor/hero.png)
+![quiz night at the anchor image](/content/blog/quiz-night-at-the-anchor/hero.jpg)
 
 Looking for the best **quiz night near Heathrow**? Join us monthly at The Anchor as teams battle it out in our legendary pub quiz! Just 7 minutes from Terminal 5, join Stanwell Moor's favourite quiz tradition featuring professional questions, fantastic prizes, and great entertainment.
 

@@ -84,7 +84,7 @@ Planning your festive season near **Heathrow Airport**? The Anchor in **Stanwell
 - Multiple screens for sports
 - Garden area (weather permitting)
 
-![christmas 2021 image](/content/blog/christmas-2021/image-2.png)
+![christmas 2021 image](/content/blog/christmas-2021/image-2.jpg)
 
 ## Plan Your Festive Visit to The Anchor
 

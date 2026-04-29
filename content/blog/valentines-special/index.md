@@ -26,7 +26,7 @@ tags:
   - seasonal
   - news
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
@@ -49,7 +49,7 @@ This 14th February 2024, from 6 pm to 9 pm, immerse yourself in a romantic atmos
 
   
 
-![A Black lady presenting a red rose to a Hispanic lady, both sharing smiles and clad in red, embodying romance. The Anchor's logo is showcased at the top with the location 'Stanwell Moor Village.'](/content/blog/valentines-special/image-1.png)
+![A Black lady presenting a red rose to a Hispanic lady, both sharing smiles and clad in red, embodying romance. The Anchor's logo is showcased at the top with the location 'Stanwell Moor Village.'](/content/blog/valentines-special/image-1.jpg)
 
 ## Your Effortless Path to Valentine's Day Dining: Book Online
 
@@ -61,7 +61,7 @@ Booking your romantic evening is easy with our online reservation system. Secure
 
   
 
-![A Caucasian chap and an Indian bloke in dinner suits clinking champagne flutes, encircled by heart-shaped adornments and a backdrop of rich red hues, commemorating Valentine's Day at The Anchor.](/content/blog/valentines-special/image-2.png)
+![A Caucasian chap and an Indian bloke in dinner suits clinking champagne flutes, encircled by heart-shaped adornments and a backdrop of rich red hues, commemorating Valentine's Day at The Anchor.](/content/blog/valentines-special/image-2.jpg)
 
 ## Discover Local Charm: Your Valentine's Day Dining Destination
 
@@ -80,7 +80,7 @@ The Anchor epitomises the quaint charm and warmth of our village, making it the 
 
   
 
-![An Indian gentleman donning a turban and a lady are whimsically hit by Cupid's arrow amidst a cascade of hearts and a vibrant red celebratory background, with The Anchor's logo indicating the festivity's venue.](/content/blog/valentines-special/image-3.png)
+![An Indian gentleman donning a turban and a lady are whimsically hit by Cupid's arrow amidst a cascade of hearts and a vibrant red celebratory background, with The Anchor's logo indicating the festivity's venue.](/content/blog/valentines-special/image-3.jpg)
 
 ## Make This Valentine's Day Unforgettable
 

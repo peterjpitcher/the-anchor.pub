@@ -23,12 +23,12 @@ tags:
   - news
   - food-and-drink
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
 
-![A scenic image of an agave field under a bright blue sky with mountains in the background. The text reads 'Tequila and Tradition: The Role of Agave in Mexican Culture.' The Anchor logo is positioned at the top, with a bold, green font for the headline. The image reflects the connection between tequila production and Mexican tradition.](/content/blog/tequila-and-tradition-how-agave-shapes-mexican-cul/hero.png)
+![A scenic image of an agave field under a bright blue sky with mountains in the background. The text reads 'Tequila and Tradition: The Role of Agave in Mexican Culture.' The Anchor logo is positioned at the top, with a bold, green font for the headline. The image reflects the connection between tequila production and Mexican tradition.](/content/blog/tequila-and-tradition-how-agave-shapes-mexican-cul/hero.jpg)
 
 At The Anchor **pub near Heathrow**, we're passionate about premium spirits and their stories. Our carefully curated tequila selection celebrates the rich Mexican tradition behind every bottle. Whether you're a tequila connoisseur or curious newcomer, discover the fascinating history of agave and tequila at our **traditional pub** in Stanwell Moor.
 

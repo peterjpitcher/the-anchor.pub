@@ -25,7 +25,7 @@ tags:
   - community
   - news
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
@@ -80,7 +80,7 @@ After the cleanup, join us back at The Anchor. We will share stories, experience
 
   
 
-![A collage of sponsor logos for Earth Day 2024, set against a backdrop of clouds and green hills, representing the community and environmental focus. Logos include The Anchor, Stanwell Moor Residents Association, TW19 Staines, Surrey County Council, Spelthorne Borough Council, Heathrow Airport, Airpets, Aymer Clearance, Biffa, Costa Carwash, and Town Farm Primary School.](/content/blog/earth-day-cleanup/image-1.png)
+![A collage of sponsor logos for Earth Day 2024, set against a backdrop of clouds and green hills, representing the community and environmental focus. Logos include The Anchor, Stanwell Moor Residents Association, TW19 Staines, Surrey County Council, Spelthorne Borough Council, Heathrow Airport, Airpets, Aymer Clearance, Biffa, Costa Carwash, and Town Farm Primary School.](/content/blog/earth-day-cleanup/image-1.jpg)
 
   
 
@@ -192,11 +192,11 @@ Whether you're an **airport employee** looking to give back, a **Stanwell Moor r
 
 ### Gallery: Earth Day Success Near Heathrow
 
-![Community volunteers at Earth Day cleanup](/content/blog/earth-day-cleanup/image-5.png)
+![Community volunteers at Earth Day cleanup](/content/blog/earth-day-cleanup/image-5.jpg)
 
-![Volunteers enjoying lunch at The Anchor](/content/blog/earth-day-cleanup/image-10.png)
+![Volunteers enjoying lunch at The Anchor](/content/blog/earth-day-cleanup/image-10.jpg)
 
-![Group photo of Earth Day participants](/content/blog/earth-day-cleanup/image-15.png)
+![Group photo of Earth Day participants](/content/blog/earth-day-cleanup/image-15.jpg)
 
 
 

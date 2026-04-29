@@ -798,7 +798,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
             </div>
             <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl border border-anchor-gold/15">
               <Image
-                src="/images/page-headers/christmas-parties/2026/trimmings-board.png"
+                src="/images/page-headers/christmas-parties/2026/trimmings-board.jpg"
                 alt="Christmas trimmings board at The Anchor pub near Staines with Yorkshire puddings and pigs in blankets"
                 fill
                 className="object-cover"

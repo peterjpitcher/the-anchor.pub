@@ -28,14 +28,14 @@ tags:
   - news
   - offers
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
 
   
 
-![An eye-catching St. Patrick's Day banner featuring a shamrock-filled background with The Anchor's logo, event details for 2024, and a playful slogan about the day's festivities.](/content/blog/st-patricks-day-2024/hero.png)
+![An eye-catching St. Patrick's Day banner featuring a shamrock-filled background with The Anchor's logo, event details for 2024, and a playful slogan about the day's festivities.](/content/blog/st-patricks-day-2024/hero.jpg)
 
   
 

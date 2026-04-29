@@ -28,13 +28,13 @@ tags:
   - events
   - offers
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 ---
 
   
 
-![Promotional banner featuring Sky Sports and TNT Sports logos with 'The Future of Sport at The Anchor' text.](/content/blog/sports-update/hero.png)
+![Promotional banner featuring Sky Sports and TNT Sports logos with 'The Future of Sport at The Anchor' text.](/content/blog/sports-update/hero.jpg)
 
 ## Sports Viewing Update at The Anchor Near Heathrow Airport
 

@@ -28,11 +28,11 @@ tags:
   - events
   - offers
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 ---
 
-![A woman studies a map on a beach beside her chocolate Labrador.](/content/blog/dog-travel-tips/hero.png)
+![A woman studies a map on a beach beside her chocolate Labrador.](/content/blog/dog-travel-tips/hero.jpg)
 
 ## Dog-Friendly Travel Stop Near Heathrow Airport
 

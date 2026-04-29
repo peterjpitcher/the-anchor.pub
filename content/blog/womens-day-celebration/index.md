@@ -25,7 +25,7 @@ tags:
   - events
   - news
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 ---
 
@@ -60,7 +60,7 @@ This year’s theme for International Women's Day is “Choose to Challenge”. 
 
   
 
-![international women s day celebrating the achievem image](/content/blog/womens-day-celebration/image-1.png)
+![international women s day celebrating the achievem image](/content/blog/womens-day-celebration/image-1.jpg)
 
 ## Celebrate International Women's Day at Our Pub Near Heathrow
 

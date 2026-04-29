@@ -26,14 +26,14 @@ tags:
   - food-and-drink
   - news
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
 
   
 
-![Promotional image for Pancake Day 2024 at The Anchor Family Diner. The image background shows a close-up of golden-brown pancakes drizzled with syrup and lemon juice, dusted with sugar, with lemon wedges nearby. Overlaid text in stylish fonts reads 'Pancake Day 2024'. Below, an offer states 'FREE PANCAKES when eating dinner! Tuesday, February 13th 2024'. The restaurant's logo is in the top right corner, suggesting a festive and delicious event.](/content/blog/pancake-day-celebration/hero.png)
+![Promotional image for Pancake Day 2024 at The Anchor Family Diner. The image background shows a close-up of golden-brown pancakes drizzled with syrup and lemon juice, dusted with sugar, with lemon wedges nearby. Overlaid text in stylish fonts reads 'Pancake Day 2024'. Below, an offer states 'FREE PANCAKES when eating dinner! Tuesday, February 13th 2024'. The restaurant's logo is in the top right corner, suggesting a festive and delicious event.](/content/blog/pancake-day-celebration/hero.jpg)
 
   
 

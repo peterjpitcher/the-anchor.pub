@@ -25,14 +25,14 @@ tags:
   - news
   - food-and-drink
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
 
   
 
-![Easter Weekend 2023 Campaign](/content/blog/easter-weekend-fun-at-the-anchor-pub/hero.png)
+![Easter Weekend 2023 Campaign](/content/blog/easter-weekend-fun-at-the-anchor-pub/hero.jpg)
 
 ## Easter Weekend at The Anchor - Your Family Pub Near Heathrow
 

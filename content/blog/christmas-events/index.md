@@ -24,12 +24,12 @@ tags:
   - events
   - news
 featured: true
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
 
-![Christmas event schedule at The Anchor pub featuring key dates for karaoke, market, quiz, bingo, and parties with festive decorations.](/content/blog/christmas-events/hero.png)
+![Christmas event schedule at The Anchor pub featuring key dates for karaoke, market, quiz, bingo, and parties with festive decorations.](/content/blog/christmas-events/hero.jpg)
 
 Looking for the perfect **Christmas pub near Heathrow**? The Anchor in Stanwell Moor transforms into a festive wonderland each December. From traditional Christmas dinners to lively New Year's Eve parties, discover why we're the go-to destination for **festive events** near Heathrow Airport.
 

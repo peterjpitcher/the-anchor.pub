@@ -28,7 +28,7 @@ tags:
   - community
   - offers
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
@@ -78,7 +78,7 @@ Regularly hosting food-themed events is another hallmark of The Anchor. For inst
 
   
 
-![Wide angle view of a cozy pub atmosphere during an event](/content/blog/unique-events/image-1.png)
+![Wide angle view of a cozy pub atmosphere during an event](/content/blog/unique-events/image-1.jpg)
 
 Cozy setting with patrons enjoying drinks and food at The Anchor.
 
@@ -100,7 +100,7 @@ Statistics show that about 70% of consumers prefer companies that engage with ch
 
   
 
-![High angle view of Christmas decorations at the pub](/content/blog/unique-events/image-2.png)
+![High angle view of Christmas decorations at the pub](/content/blog/unique-events/image-2.jpg)
 
 Christmas decorations create a festive atmosphere at The Anchor.
 

@@ -23,12 +23,12 @@ tags:
   - food-and-drink
   - news
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
 
-![celebrating national burger day a half price burge image](/content/blog/national-burger-day/hero.png)
+![celebrating national burger day a half price burge image](/content/blog/national-burger-day/hero.jpg)
 
 Craving the **best burgers near Heathrow**? The Anchor in Stanwell Moor serves hand-pressed gourmet burgers that rival any airport restaurant - at pub prices. Just 7 minutes from Terminal 5, discover why locals and travelers alike call our burgers the best in the area.
 

@@ -22,7 +22,7 @@ tags:
   - offers
   - seasonal
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
@@ -33,7 +33,7 @@ Looking for the perfect **Valentine's dinner near Heathrow**? Skip overpriced ai
 
 ### Romantic Dining Without the Airport Prices
 
-![valentines day meal offer for two image](/content/blog/valentines-day-meal-offer-for-two/image-1.png)
+![valentines day meal offer for two image](/content/blog/valentines-day-meal-offer-for-two/image-1.jpg)
 
 Create unforgettable memories at our **romantic restaurant** without breaking the bank. The Anchor offers the perfect blend of intimate atmosphere, quality food, and exceptional value for Valentine's Day.
 

@@ -27,14 +27,14 @@ tags:
   - offers
   - news
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
 
   
 
-![world salami day pizza dive into exclusive pizza d image](/content/blog/salami-day-pizza/hero.png)
+![world salami day pizza dive into exclusive pizza d image](/content/blog/salami-day-pizza/hero.jpg)
 
   
 

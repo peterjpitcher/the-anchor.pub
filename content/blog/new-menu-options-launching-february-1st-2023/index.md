@@ -20,7 +20,7 @@ tags:
   - news
   - offers
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
@@ -63,7 +63,7 @@ Our chicken katsu curry is a bold twist on a pub classic, served hot and full of
 
   
 
-![new menu options launching february 1st 2023 image](/content/blog/new-menu-options-launching-february-1st-2023/image-1.png)
+![new menu options launching february 1st 2023 image](/content/blog/new-menu-options-launching-february-1st-2023/image-1.jpg)
 
 ## Three brand new pizzas!
 

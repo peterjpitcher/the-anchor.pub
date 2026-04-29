@@ -25,7 +25,7 @@ tags:
   - food-and-drink
   - events
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 ---
 
@@ -49,7 +49,7 @@ Another theory is that April Fools' Day began in 16th century France when the co
 
 The tradition of playing practical jokes on April Fools' Day spread throughout Europe and eventually made its way to North America. In the United Kingdom, April Fools' Day is also known as "All Fools' Day" and is celebrated by playing pranks and hoaxes on friends and family.
 
-![what is the history of april fools day image](/content/blog/what-is-the-history-of-april-fools-day/image-1.png)
+![what is the history of april fools day image](/content/blog/what-is-the-history-of-april-fools-day/image-1.jpg)
 
 ## Celebrate April Fools' Day at The Anchor Near Terminal 5
 
@@ -84,7 +84,7 @@ Here are some harmless prank ideas you can use to celebrate April Fools' Day:
 
 Remember to keep your pranks harmless and good-natured, and be prepared to laugh along with your victims. After pulling your pranks, meet at The Anchor to share the stories!
 
-![what is the history of april fools day image](/content/blog/what-is-the-history-of-april-fools-day/image-2.png)
+![what is the history of april fools day image](/content/blog/what-is-the-history-of-april-fools-day/image-2.jpg)
 
 ## Famous April Fools' Pranks in History
 

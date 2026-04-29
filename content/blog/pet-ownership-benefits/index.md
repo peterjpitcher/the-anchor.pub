@@ -25,12 +25,12 @@ tags:
   - community
   - news
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: []
 noindex: true
 ---
 
-![A tan and white dog with floppy ears is lying on a wooden deck, resting in the sunlight. The dog appears relaxed, with its head resting on the floor near a black wall with a power socket. Glass doors and outdoor furniture are visible in the background.](/content/blog/pet-ownership-benefits/hero.png)
+![A tan and white dog with floppy ears is lying on a wooden deck, resting in the sunlight. The dog appears relaxed, with its head resting on the floor near a black wall with a power socket. Glass doors and outdoor furniture are visible in the background.](/content/blog/pet-ownership-benefits/hero.jpg)
 
 In today's fast-paced world around **Heathrow Airport**, maintaining both physical fitness and mental well-being can be challenging - especially for busy airport workers and local families. One simple yet powerful way to enhance overall health is through pet ownership. At [The Anchor](https://www.the-anchor.pub/) in Stanwell Moor, just 7 minutes from Terminal 5, we celebrate the incredible benefits pets bring to our lives every day in our dog-friendly pub.
 
