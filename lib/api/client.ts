@@ -3,13 +3,20 @@
 import { logError } from '@/lib/error-handling'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { computeLargeGroupDepositAmount } from '@/lib/constants'
+import {
+  buildSlotsWithKitchenState,
+  londonNowParts,
+  normalizeTime,
+  resolveCombinedServiceRanges,
+  type BookingType
+} from '@/lib/table-booking-service-windows'
 
 import type { EventsResponse, EventCategoriesResponse, EventAvailability, Event } from './events'
 import { FALLBACK_EVENT_CATEGORIES, createFallbackEvent, createFallbackEventsResponse } from './events'
 import type { MenuResponse, DietaryMenuResponse, SundayLunchMenuResponse, MenuSectionItem } from './menu'
 import { FALLBACK_SUNDAY_LUNCH_MENU } from './menu'
 import type { BusinessHours, AmenitiesResponse } from './hours'
-import type { TableAvailabilitySlot, TableAvailabilityResponse, TableBookingRequest, TableBookingResponse } from './bookings'
+import type { TableAvailabilityResponse, TableBookingRequest, TableBookingResponse } from './bookings'
 import type {
   ParkingRateCard,
   ParkingAvailabilitySlot,
@@ -417,156 +424,26 @@ export class AnchorAPI {
       booking_type?: 'regular' | 'sunday_lunch'
     }
   ): TableAvailabilityResponse {
-    const bookingType = params.booking_type === 'sunday_lunch' ? 'sunday_lunch' : 'regular'
-    const normalizeClock = (value: string): string => {
-      if (/^\d{2}:\d{2}$/.test(value)) return value
-      if (/^\d{2}:\d{2}:\d{2}$/.test(value)) return value.slice(0, 5)
-      return value
-    }
-    const isValidClock = (value: string): boolean => /^([01]\d|2[0-3]):[0-5]\d$/.test(value)
-    const toMinutes = (value: string): number => {
-      const normalized = normalizeClock(value)
-      const [hours, minutes] = normalized.split(':')
-      return (Number.parseInt(hours || '0', 10) * 60) + Number.parseInt(minutes || '0', 10)
-    }
-    const toClock = (totalMinutes: number): string => {
-      const normalized = ((totalMinutes % 1440) + 1440) % 1440
-      const hours = Math.floor(normalized / 60)
-      const minutes = normalized % 60
-      return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`
-    }
-    const londonNowParts = (): { isoDate: string; minutes: number } => {
-      const formatter = new Intl.DateTimeFormat('en-CA', {
-        timeZone: 'Europe/London',
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false
-      })
-      const parts = formatter.formatToParts(new Date())
-      const map = Object.fromEntries(parts.map((part) => [part.type, part.value]))
-      return {
-        isoDate: `${map.year}-${map.month}-${map.day}`,
-        minutes: (Number.parseInt(map.hour || '0', 10) * 60) + Number.parseInt(map.minute || '0', 10)
-      }
-    }
+    // The public availability contract is now combined: a single bookable slot
+    // set with `kitchen_open` stamped per slot, regardless of any `booking_type`
+    // or `purpose` hint. Mirror `app/api/table-bookings/availability/route.ts`.
+    const bookingType: BookingType = 'regular'
+    const normalizedTime = normalizeTime(params.time)
 
-    const [yearRaw, monthRaw, dayRaw] = params.date.split('-')
-    const year = Number.parseInt(yearRaw || '', 10)
-    const month = Number.parseInt(monthRaw || '', 10)
-    const day = Number.parseInt(dayRaw || '', 10)
-    const dayKey = Number.isFinite(year) && Number.isFinite(month) && Number.isFinite(day)
-      ? new Date(Date.UTC(year, month - 1, day))
-          .toLocaleDateString('en-GB', { weekday: 'long', timeZone: 'UTC' })
-          .toLowerCase()
-      : 'monday'
+    const { ranges, kitchenRanges, closed, message } = resolveCombinedServiceRanges(
+      businessHours,
+      params.date,
+      { bookingType }
+    )
 
-    const regularDay = (businessHours.regularHours?.[dayKey] || null) as Record<string, unknown> | null
-    const specialDay = ((businessHours.specialHours || []) as Array<Record<string, unknown>>).find(
-      (entry) => entry?.date === params.date
-    ) || null
-
-    const isClosed =
-      specialDay?.status === 'closed' ||
-      specialDay?.is_closed === true ||
-      (specialDay && specialDay.opens === null && specialDay.closes === null) ||
-      regularDay?.is_closed === true
-
-    if (isClosed) {
+    if (closed) {
       return {
         date: params.date,
-        time: normalizeClock(params.time),
+        time: normalizedTime,
         party_size: params.party_size,
         available: false,
         time_slots: [],
-        message: 'We are closed on that date. Please choose another day.'
-      }
-    }
-
-    const parseScheduleConfig = (value: unknown): Array<{ startsAt: string; endsAt: string; bookingType?: string; capacity: number }> => {
-      if (!Array.isArray(value)) return []
-      const entries: Array<{ startsAt: string; endsAt: string; bookingType?: string; capacity: number }> = []
-
-      for (const entry of value) {
-        if (!entry || typeof entry !== 'object') continue
-
-        const source = entry as Record<string, unknown>
-        const startsAt = normalizeClock(String(source.starts_at || ''))
-        const endsAt = normalizeClock(String(source.ends_at || ''))
-        if (!isValidClock(startsAt) || !isValidClock(endsAt) || toMinutes(endsAt) <= toMinutes(startsAt)) {
-          continue
-        }
-
-        const rawCapacity = source.capacity
-        const parsedCapacity =
-          typeof rawCapacity === 'number'
-            ? Math.floor(rawCapacity)
-            : typeof rawCapacity === 'string'
-            ? Number.parseInt(rawCapacity, 10)
-            : 50
-
-        entries.push({
-          startsAt,
-          endsAt,
-          bookingType: this.asTrimmedString(source.booking_type),
-          capacity: Number.isFinite(parsedCapacity) && parsedCapacity > 0 ? parsedCapacity : 50
-        })
-      }
-
-      return entries
-    }
-
-    const scheduleConfig = parseScheduleConfig(
-      (specialDay?.schedule_config as unknown) ?? (regularDay?.schedule_config as unknown)
-    )
-    const typedSchedule = scheduleConfig.filter((entry) => entry.bookingType === bookingType)
-    const fallbackSchedule = bookingType === 'regular' && typedSchedule.length === 0
-      ? scheduleConfig
-      : typedSchedule
-
-    const ranges = fallbackSchedule.map((entry) => ({
-      startsAt: entry.startsAt,
-      endsAt: entry.endsAt,
-      capacity: entry.capacity
-    }))
-
-    if (ranges.length === 0) {
-      const kitchen = (specialDay !== null
-        ? (specialDay?.kitchen as any ?? null)
-        : (regularDay?.kitchen as any ?? null)) as Record<string, unknown> | null
-      const kitchenOpens = typeof kitchen?.opens === 'string' ? normalizeClock(kitchen.opens) : null
-      const kitchenCloses = typeof kitchen?.closes === 'string' ? normalizeClock(kitchen.closes) : null
-
-      if (bookingType === 'sunday_lunch') {
-        return {
-          date: params.date,
-          time: normalizeClock(params.time),
-          party_size: params.party_size,
-          available: false,
-          time_slots: [],
-          message: 'Sunday lunch is unavailable for that date. Please choose another date or call us.'
-        }
-      } else {
-        const venueOpens = normalizeClock(String(specialDay?.opens || regularDay?.opens || kitchenOpens || '12:00'))
-        const venueCloses = normalizeClock(String(specialDay?.closes || regularDay?.closes || kitchenCloses || '22:00'))
-        if (!isValidClock(venueOpens) || !isValidClock(venueCloses) || toMinutes(venueCloses) <= toMinutes(venueOpens)) {
-          return {
-            date: params.date,
-            time: normalizeClock(params.time),
-            party_size: params.party_size,
-            available: false,
-            time_slots: [],
-            message: 'We could not determine available times for that date.'
-          }
-        }
-
-        ranges.push({
-          startsAt: venueOpens,
-          endsAt: venueCloses,
-          capacity: 50
-        })
+        message: message || 'We are closed on that date. Please choose another day.'
       }
     }
 
@@ -576,57 +453,29 @@ export class AnchorAPI {
         ? Math.ceil((londonNow.minutes + 60) / 30) * 30
         : undefined
 
-    const slots = new Map<string, TableAvailabilitySlot>()
-    for (const range of ranges) {
-      const start = toMinutes(range.startsAt)
-      const end = toMinutes(range.endsAt)
-      if (!Number.isFinite(start) || !Number.isFinite(end) || end <= start) continue
+    const timeSlots = buildSlotsWithKitchenState(
+      ranges,
+      kitchenRanges,
+      params.party_size,
+      30,
+      minMinutesForToday
+    )
 
-      for (let cursor = start; cursor < end; cursor += 30) {
-        if (typeof minMinutesForToday === 'number' && cursor < minMinutesForToday) {
-          continue
-        }
-
-        const slotTime = toClock(cursor)
-        const availableCapacity = Math.max(range.capacity, 0)
-        const isAvailable = availableCapacity >= params.party_size
-        const existing = slots.get(slotTime)
-
-        if (!existing) {
-          slots.set(slotTime, {
-            time: slotTime,
-            available: isAvailable,
-            available_capacity: availableCapacity,
-            reason: isAvailable ? undefined : 'party_too_large'
-          })
-          continue
-        }
-
-        const mergedCapacity = Math.max(existing.available_capacity || 0, availableCapacity)
-        const mergedAvailable = mergedCapacity >= params.party_size
-        slots.set(slotTime, {
-          ...existing,
-          available_capacity: mergedCapacity,
-          available: mergedAvailable,
-          reason: mergedAvailable ? undefined : existing.reason || 'party_too_large'
-        })
-      }
-    }
-
-    const timeSlots = Array.from(slots.values()).sort((a, b) => toMinutes(a.time) - toMinutes(b.time))
-    const available = timeSlots.some((slot) => slot.available === true || (slot.available_capacity || 0) >= params.party_size)
+    const available = timeSlots.some(
+      (slot) => slot.available === true || (slot.available_capacity || 0) >= params.party_size
+    )
 
     return {
       date: params.date,
-      time: normalizeClock(params.time),
+      time: normalizedTime,
       party_size: params.party_size,
       available,
       time_slots: timeSlots,
-      message: available
+      message: message || (available
         ? 'These times are based on current service windows and will be confirmed instantly when you continue.'
-        : 'No online times are currently available for this request. Please choose an alternative or join the waitlist.',
+        : 'No online times are currently available for this request. Please choose another date or call 01753 682707.'),
       special_notes:
-        'If your preferred time is unavailable, choose a nearby slot or call 01753 682707 to join the waitlist.'
+        'If your preferred time is unavailable, choose a nearby slot or call 01753 682707.'
     }
   }
 
