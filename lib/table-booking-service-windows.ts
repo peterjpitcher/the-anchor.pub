@@ -331,3 +331,67 @@ export function resolveServiceRanges(
     closed: false
   }
 }
+
+export type CombinedServiceRangeResolution = {
+  ranges: ServiceRange[]
+  kitchenRanges: ServiceRange[]
+  closed: boolean
+  message?: string
+}
+
+export function resolveCombinedServiceRanges(
+  businessHours: BusinessHours,
+  isoDate: string,
+  options?: { bookingType?: BookingType }
+): CombinedServiceRangeResolution {
+  const bookingType: BookingType = options?.bookingType ?? 'regular'
+
+  const drinks = resolveServiceRanges(businessHours, isoDate, {
+    bookingType,
+    purpose: 'drinks'
+  })
+
+  if (drinks.closed) {
+    return {
+      ranges: [],
+      kitchenRanges: [],
+      closed: true,
+      message: drinks.message
+    }
+  }
+
+  const food = resolveServiceRanges(businessHours, isoDate, {
+    bookingType,
+    purpose: 'food'
+  })
+
+  return {
+    ranges: drinks.ranges,
+    kitchenRanges: food.closed ? [] : food.ranges,
+    closed: false,
+    message: drinks.message
+  }
+}
+
+export function buildSlotsWithKitchenState(
+  ranges: ServiceRange[],
+  kitchenRanges: ServiceRange[],
+  partySize: number,
+  slotIntervalMinutes = 30,
+  minMinutesForToday?: number
+): Array<{
+  time: string
+  available: boolean
+  available_capacity: number
+  reason?: string
+  kitchen_open: boolean
+}> {
+  const baseSlots = buildSlotsFromRanges(ranges, partySize, slotIntervalMinutes, minMinutesForToday)
+  return baseSlots.map((slot) => ({
+    time: slot.time,
+    available: slot.available ?? false,
+    available_capacity: slot.available_capacity,
+    reason: slot.reason,
+    kitchen_open: isTimeWithinRanges(slot.time, kitchenRanges)
+  }))
+}
