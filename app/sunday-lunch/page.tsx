@@ -627,8 +627,53 @@ export default function SundayLunchPage() {
         </Container>
       </section>
 
-      {/* Reviews */}
+      {/* Heathrow itinerary — for layovers and pre/post-flight visits */}
       <section className="bg-anchor-bg py-12 border-b border-anchor-gold/15">
+        <Container>
+          <div className="mx-auto max-w-3xl">
+            <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text mb-3">
+              Sunday Roast Between Flights &mdash; Plan Your Visit Around Heathrow
+            </h2>
+            <p className="text-anchor-cream-text/70 leading-relaxed mb-6">
+              Best for layovers between 3 and 6 hours, post-arrival meals before checking into a Heathrow hotel, or the
+              last bite of proper British food before you fly home.
+            </p>
+            <ol className="space-y-4 text-anchor-cream-text/80 leading-relaxed">
+              <li className="flex gap-4">
+                <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-anchor-gold-bright text-anchor-charcoal font-bold">1</span>
+                <div>
+                  <p className="font-semibold text-anchor-cream-text">Land at T5</p>
+                  <p className="text-sm text-anchor-cream-text/70">7-minute drive (free parking, no meters).</p>
+                </div>
+              </li>
+              <li className="flex gap-4">
+                <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-anchor-gold-bright text-anchor-charcoal font-bold">2</span>
+                <div>
+                  <p className="font-semibold text-anchor-cream-text">Sunday roast at 1pm</p>
+                  <p className="text-sm text-anchor-cream-text/70">Walk in or book ahead, plates from &pound;19.</p>
+                </div>
+              </li>
+              <li className="flex gap-4">
+                <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-anchor-gold-bright text-anchor-charcoal font-bold">3</span>
+                <div>
+                  <p className="font-semibold text-anchor-cream-text">Beer garden under the flight path</p>
+                  <p className="text-sm text-anchor-cream-text/70">For plane-spotters with time to kill.</p>
+                </div>
+              </li>
+              <li className="flex gap-4">
+                <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-anchor-gold-bright text-anchor-charcoal font-bold">4</span>
+                <div>
+                  <p className="font-semibold text-anchor-cream-text">Easy 7-min back to T5</p>
+                  <p className="text-sm text-anchor-cream-text/70">For evening flights.</p>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </Container>
+      </section>
+
+      {/* Reviews */}
+      <section className="bg-anchor-bg-raised py-12 border-b border-anchor-gold/15">
         <Container>
           <SectionHeader
             title="Why Locals Rate It One of the Best Sunday Roasts Near Heathrow"
