@@ -164,7 +164,7 @@ export default async function VegetarianMenuPage() {
     },
     {
       question: 'Can I get a vegetarian Sunday roast?',
-      answer: 'Yes, butternut squash wellington is our vegetarian Sunday roast option (from \u00A319, pre-order by Saturday 1pm).',
+      answer: 'Yes, butternut squash wellington is our vegetarian Sunday roast option (from \u00A319). Walk in 1pm-6pm or book ahead.',
     },
     {
       question: 'Are the vegetarian pizzas stone-baked?',
@@ -239,7 +239,7 @@ export default async function VegetarianMenuPage() {
               <p className="text-anchor-cream-text/70 mt-3">
                 Our kitchen handles vegetarian orders with care. Every dish on this page is cooked fresh to order,
                 and we clearly label vegetarian and vegan items on our menu. For Sunday lunch, our butternut squash
-                wellington is a genuine centrepiece &mdash; pre-order by Saturday 1pm to guarantee yours.
+                wellington is a genuine centrepiece &mdash; walk in 1pm-6pm or book ahead.
               </p>
               <ul className="mt-4 space-y-2 text-anchor-cream-text/70">
                 <li>&bull; Vegetarian pies, burgers, pasta and pizzas &mdash; all cooked fresh to order.</li>
