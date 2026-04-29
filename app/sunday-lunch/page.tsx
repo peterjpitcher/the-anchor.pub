@@ -323,8 +323,8 @@ export default function SundayLunchPage() {
           </p>
         }
         image={{
-          src: '/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg',
-          alt: 'Sunday roast at The Anchor near Heathrow'
+          src: '/images/food/sunday-roast/the-anchor-sunday-roast-hero.png',
+          alt: 'Roast beef Sunday lunch with Yorkshire pudding, roasties and gravy at The Anchor pub near Heathrow'
         }}
         primaryCta={
           <BookTableButton
