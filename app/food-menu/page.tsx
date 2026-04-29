@@ -202,8 +202,8 @@ export default async function FoodMenuPage() {
 	    {
 	      question: 'Do you serve Sunday roast at The Anchor?',
 	      answer: sundayKitchenHours
-	        ? `Yes. Sunday roast and Sunday lunch service runs ${sundayKitchenHours} with chicken, pork belly, and vegetarian plates. Pre-order by 1pm Saturday. Sunday lunch bookings require a £10 per person deposit.`
-	        : 'Yes. Sunday roast and Sunday lunch service runs during our Sunday kitchen hours with chicken, pork belly, and vegetarian plates. Pre-order by 1pm Saturday. Sunday lunch bookings require a £10 per person deposit.'
+	        ? `Yes. Sunday roast and Sunday lunch service runs ${sundayKitchenHours} with chicken, pork belly, and vegetarian plates. Walk-ins are welcome - groups of 10 or more pay a £10 per person deposit, fully deducted from your bill on the day.`
+	        : 'Yes. Sunday roast and Sunday lunch service runs during our Sunday kitchen hours with chicken, pork belly, and vegetarian plates. Walk-ins are welcome - groups of 10 or more pay a £10 per person deposit, fully deducted from your bill on the day.'
 	    },
     {
       question: "Is there a children's menu?",
@@ -231,7 +231,7 @@ export default async function FoodMenuPage() {
     },
     {
       question: 'Do you offer Sunday roasts for Staines locals?',
-      answer: 'Yes. Our Sunday roasts are popular with Staines guests; book by 1pm Saturday to reserve your table.'
+      answer: 'Yes. Our Sunday roasts are popular with Staines guests - walk in 1pm-6pm or book ahead.'
     }
   ]
 
@@ -366,7 +366,7 @@ export default async function FoodMenuPage() {
                   description: (
                     <>
                       Roasts with all the trimmings — Yorkshires, crispy spuds, rich gravy and a proper welcome.
-                      Book by 1pm Saturday to guarantee yours.
+                      Walk in 1pm-6pm or book ahead.
                       <Link
                         href="/sunday-lunch"
                         className="mt-2 block text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition"
@@ -440,7 +440,7 @@ export default async function FoodMenuPage() {
               <h2 className="text-2xl font-bold text-anchor-cream-text mb-3">Sunday Roast</h2>
               <p className="text-anchor-cream-text/70 mb-4 max-w-lg mx-auto">
                 Traditional Sunday roast from &pound;19 &mdash; chicken, pork belly or vegetarian.
-                Pre-order by Saturday 1pm.
+                Walk in 1pm-6pm or book ahead.
               </p>
               <MenuSectionCta
                 label="View Sunday Lunch Menu & Book"
