@@ -149,6 +149,11 @@ const FAQS = [
       "We're 7 minutes from Heathrow Terminal 5 by car. Free parking on site, no meters, no time limits while you're dining. Easy reach from Staines, Ashford, Surrey and west London."
   },
   {
+    question: 'Is Sunday dinner the same as Sunday lunch at The Anchor?',
+    answer:
+      "Yes. We serve Sunday lunch / Sunday dinner / Sunday roast — different names for the same plate, depending on what you call it. We're open 1pm to 6pm so it works as a late lunch or an early dinner."
+  },
+  {
     question: 'Is The Anchor a carvery?',
     answer:
       "No. We cook every plate to order rather than serving from a carvery line. The meat is carved fresh, the gravy made fresh, the trimmings hand-prepped. If you want a traditional Sunday roast carved fresh and brought to your table — that's what you're after."
@@ -364,9 +369,10 @@ export default function SundayLunchPage() {
             Sunday Roast &amp; Lunch Near Heathrow at The Anchor
           </PageTitle>
           <p className="mt-4 text-center text-lg text-anchor-cream-text/70 max-w-3xl mx-auto">
-            Looking for the best Sunday roast near you? The Anchor in Stanwell Moor serves a proper Sunday lunch from 1pm to 6pm
-            every week — beef, pork belly, chicken, lamb shank, vegetarian wellington — cooked to order from scratch. No pre-order, no
-            self-serve carvery. Walk in or book ahead. Free parking. 7 minutes from Heathrow Terminal 5.
+            Looking for the best Sunday roast near you? The Anchor in Stanwell Moor serves a proper Sunday lunch &mdash; or
+            Sunday dinner, depending what you call it &mdash; from 1pm to 6pm every week. Beef, pork belly, chicken, lamb
+            shank, vegetarian wellington &mdash; cooked to order from scratch. No pre-order, no self-serve carvery. Walk in
+            or book ahead. Free parking. 7 minutes from Heathrow Terminal 5.
           </p>
           <ul
             aria-label="At a glance"
