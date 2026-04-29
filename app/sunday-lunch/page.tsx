@@ -333,7 +333,7 @@ export default function SundayLunchPage() {
           </p>
         }
         image={{
-          src: '/images/food/sunday-roast/the-anchor-sunday-roast-hero.png',
+          src: '/images/food/sunday-roast/the-anchor-sunday-roast-hero.jpg',
           alt: 'Roast beef Sunday lunch with Yorkshire pudding, roasties and gravy at The Anchor pub near Heathrow'
         }}
         primaryCta={
@@ -443,7 +443,7 @@ export default function SundayLunchPage() {
             <div className="grid gap-0 md:grid-cols-2 md:items-stretch">
               <div className="relative aspect-[4/3] md:aspect-auto md:min-h-[260px]">
                 <Image
-                  src="/images/food/sunday-roast/sunday-roast-wellington-plated.png"
+                  src="/images/food/sunday-roast/sunday-roast-wellington-plated.jpg"
                   alt="Beetroot and butternut squash wellington Sunday roast plated with seasonal vegetables and vegan gravy at The Anchor pub near Heathrow"
                   fill
                   loading="lazy"
@@ -492,7 +492,7 @@ export default function SundayLunchPage() {
                 {' '}lets us offer your table to someone else.</li>
             </ul>
             <Image
-              src="/images/food/sunday-roast/sunday-roast-potatoes-tossed.png"
+              src="/images/food/sunday-roast/sunday-roast-potatoes-tossed.jpg"
               alt="Triple-cooked, herb-and-garlic crusted Sunday roast potatoes being tossed in the prep bowl at The Anchor pub near Heathrow"
               width={1200}
               height={900}
@@ -634,7 +634,7 @@ export default function SundayLunchPage() {
               </div>
               <div className="order-1 lg:order-2">
                 <Image
-                  src="/images/food/sunday-roast/sunday-roast-beef-carved.png"
+                  src="/images/food/sunday-roast/sunday-roast-beef-carved.jpg"
                   alt="Slow-roasted topside of beef being carved fresh per plate at The Anchor pub near Heathrow"
                   width={1200}
                   height={900}

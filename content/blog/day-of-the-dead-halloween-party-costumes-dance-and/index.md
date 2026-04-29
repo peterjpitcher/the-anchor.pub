@@ -27,12 +27,12 @@ tags:
   - events
   - offers
 featured: false
-hero: hero.png
+hero: hero.jpg
 images: null
 noindex: true
 ---
 
-![Colourful Day of the Dead themed poster for The Anchor’s Annual Halloween Party on Saturday, November 2nd 2024, featuring a man with sugar skull face paint and details about the event.](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/hero.png)
+![Colourful Day of the Dead themed poster for The Anchor’s Annual Halloween Party on Saturday, November 2nd 2024, featuring a man with sugar skull face paint and details about the event.](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/hero.jpg)
 
 ## Annual Halloween Party Near Heathrow Airport
 
@@ -180,47 +180,47 @@ Even without a professional face painter, our guests impressed with their DIY sk
 
 ![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-60.jpg)
 
-![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-61.png)
+![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-61.jpg)
 
-![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-62.png)
+![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-62.jpg)
 
-![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-63.png)
+![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-63.jpg)
 
-![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-64.png)
+![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-64.jpg)
 
-![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-65.png)
+![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-65.jpg)
 
-![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-66.png)
+![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-66.jpg)
 
-![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-67.png)
+![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-67.jpg)
 
-![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-68.png)
+![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-68.jpg)
 
-![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-69.png)
+![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-69.jpg)
 
-![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-7.png)
+![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-7.jpg)
 
-![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-70.png)
+![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-70.jpg)
 
-![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-71.png)
+![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-71.jpg)
 
-![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-72.png)
+![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-72.jpg)
 
-![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-73.png)
+![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-73.jpg)
 
-![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-74.png)
+![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-74.jpg)
 
-![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-75.png)
+![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-75.jpg)
 
-![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-76.png)
+![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-76.jpg)
 
-![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-77.png)
+![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-77.jpg)
 
-![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-78.png)
+![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-78.jpg)
 
-![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-8.png)
+![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-8.jpg)
 
-![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-9.png)
+![day of the dead halloween party costumes dance and image](/content/blog/day-of-the-dead-halloween-party-costumes-dance-and/image-9.jpg)
 
   
 
