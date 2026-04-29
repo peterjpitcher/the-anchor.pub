@@ -9,6 +9,13 @@ import { getEffectiveDayHours } from '@/lib/hours-utils'
 export interface HeroContext {
   isOpen: boolean
   barClosesAt: string | null
+  /**
+   * Human-friendly label for when the bar will next be open, computed only
+   * when isOpen === false. Examples: "today at 4pm", "tomorrow at 12pm",
+   * "Friday at 12pm". Null when no upcoming opening can be found within the
+   * lookahead window.
+   */
+  nextOpensLabel: string | null
   kitchenOpen: boolean
   kitchenClosesAt: string | null
   bookingsAccepting: boolean
@@ -146,6 +153,73 @@ export function isSundayLunchAvailableNow(
   return currentMinutes < endMinutes
 }
 
+/** Add `days` London-calendar days to a YYYY-MM-DD date string. */
+function addLondonDays(dateStr: string, days: number): string {
+  const [y, m, d] = dateStr.split('-').map((p) => parseInt(p, 10))
+  const dt = new Date(Date.UTC(y, m - 1, d))
+  dt.setUTCDate(dt.getUTCDate() + days)
+  return dt.toISOString().slice(0, 10)
+}
+
+/** Day-of-week label for an offset in days from today. */
+function dayLabelForOffset(offset: number, baseDate: string): string {
+  if (offset === 0) return 'today'
+  if (offset === 1) return 'tomorrow'
+  const target = addLondonDays(baseDate, offset)
+  const [y, m, d] = target.split('-').map((p) => parseInt(p, 10))
+  const dt = new Date(Date.UTC(y, m - 1, d, 12, 0, 0))
+  return dt.toLocaleDateString('en-GB', { weekday: 'long', timeZone: LONDON_TZ })
+}
+
+/** "HH:MM" → minutes since midnight (London local). */
+function parseTimeToMinutes(time: string): number | null {
+  const parts = time.split(':')
+  if (parts.length < 2) return null
+  const h = parseInt(parts[0], 10)
+  const m = parseInt(parts[1], 10)
+  if (Number.isNaN(h) || Number.isNaN(m)) return null
+  return h * 60 + m
+}
+
+/**
+ * Find the next time the bar will be open, scanning today + the next 6 days.
+ * Returns a label like "today at 4pm" / "tomorrow at 12pm" / "Friday at 12pm".
+ * Today is included only if its `opens` time is still in the future (London local).
+ */
+export function findNextBarOpening(
+  businessHours: BusinessHours,
+  now: Date
+): string | null {
+  const todayStr = getLondonDateStr(now)
+
+  // London local minutes since midnight
+  const londonNow = new Date(now.toLocaleString('en-US', { timeZone: LONDON_TZ }))
+  const nowMinutes = londonNow.getHours() * 60 + londonNow.getMinutes()
+
+  for (let offset = 0; offset <= 6; offset += 1) {
+    const dateStr = addLondonDays(todayStr, offset)
+    const effective = getEffectiveDayHours(
+      dateStr,
+      businessHours.regularHours || {},
+      businessHours.specialHours
+    )
+    if ((effective as { is_closed?: boolean }).is_closed === true) continue
+    const opens = (effective as { opens?: string | null }).opens
+    if (!opens) continue
+    const opensMinutes = parseTimeToMinutes(opens)
+    if (opensMinutes === null) continue
+    // Skip today if the opens time has already passed (we'd already be open then,
+    // which is contradicted by isOpen === false — but defensively skip).
+    if (offset === 0 && opensMinutes <= nowMinutes) continue
+    const timeLabel = formatTime12h(opens)
+    if (!timeLabel) continue
+    const dayLabel = dayLabelForOffset(offset, todayStr)
+    return `${dayLabel} at ${timeLabel}`
+  }
+
+  return null
+}
+
 /**
  * Compute hero display state from BusinessHours + events.
  * Pure function. London timezone. No side effects, no fetches.
@@ -161,6 +235,7 @@ export function resolveHeroContext(
     return {
       isOpen: false,
       barClosesAt: null,
+      nextOpensLabel: null,
       kitchenOpen: false,
       kitchenClosesAt: null,
       bookingsAccepting: true,
@@ -213,9 +288,14 @@ export function resolveHeroContext(
   // Sunday lunch
   const sundayLunchAvailable = isSundayLunchAvailableNow(businessHours, now)
 
+  // Next-opens label — only computed when currently closed, so the hero
+  // ContextStrip can replace bare "Closed" with "Closed · Opens at 4pm" etc.
+  const nextOpensLabel = isOpen ? null : findNextBarOpening(businessHours, now)
+
   return {
     isOpen,
     barClosesAt,
+    nextOpensLabel,
     kitchenOpen,
     kitchenClosesAt,
     bookingsAccepting,

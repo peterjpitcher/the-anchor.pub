@@ -29,9 +29,19 @@ export function ContextStrip({ heroEvents }: ContextStripProps) {
       className: 'text-anchor-gold-vivid font-semibold'
     })
   } else {
+    // Bare "Closed" reads as "the pub is shut" and worried first-time visitors
+    // (per UX feedback). Always pair it with the next opening time when we
+    // know one — and use amber rather than red when the pub is opening within
+    // the next ~24 hours, so it reads as informational rather than alarming.
+    const nextLabel = ctx.nextOpensLabel
+    const isOpeningSoon =
+      !!nextLabel && (nextLabel.startsWith('today') || nextLabel.startsWith('tomorrow'))
+    const openingSuffix = nextLabel ? ` · Opens ${nextLabel}` : ''
     slots.push({
-      text: 'Closed',
-      className: 'text-red-400 font-semibold'
+      text: `Closed${openingSuffix}`,
+      className: isOpeningSoon
+        ? 'text-amber-300 font-semibold'
+        : 'text-red-400 font-semibold'
     })
   }
 

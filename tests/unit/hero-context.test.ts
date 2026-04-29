@@ -368,6 +368,7 @@ describe('resolveHeroCtas', () => {
   const baseContext: HeroContext = {
     isOpen: true,
     barClosesAt: '10pm',
+    nextOpensLabel: null,
     kitchenOpen: true,
     kitchenClosesAt: '9pm',
     bookingsAccepting: true,

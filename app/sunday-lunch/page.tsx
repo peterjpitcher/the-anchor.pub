@@ -432,15 +432,29 @@ export default function SundayLunchPage() {
           <p className="mt-6 text-center text-sm text-anchor-cream-text/60">
             Every plate cooked to order. Add cauliflower cheese, extra Yorkshires or pigs in blankets at the bar on the day.
           </p>
-          <div className="mx-auto max-w-3xl mt-8 rounded-lg border border-anchor-gold/15 bg-anchor-bg-raised p-5">
-            <h3 className="text-lg font-semibold text-anchor-cream-text">
-              Vegan &amp; Vegetarian Sunday Roast
-            </h3>
-            <p className="mt-2 text-sm text-anchor-cream-text/75 leading-relaxed">
-              The beetroot and butternut squash wellington (&pound;19) is fully vegetarian and is served with vegetarian
-              gravy &mdash; not an afterthought, but a dish in its own right. Mention dietary requirements when booking
-              and we&apos;ll happily discuss vegan adaptations on request.
-            </p>
+          <div className="mx-auto max-w-4xl mt-8 rounded-lg border border-anchor-gold/15 bg-anchor-bg-raised overflow-hidden">
+            <div className="grid gap-0 md:grid-cols-2 md:items-stretch">
+              <div className="relative aspect-[4/3] md:aspect-auto md:min-h-[260px]">
+                <Image
+                  src="/images/food/sunday-roast/sunday-roast-wellington-plated.png"
+                  alt="Beetroot and butternut squash wellington Sunday roast plated with seasonal vegetables and vegetarian gravy at The Anchor pub near Heathrow"
+                  fill
+                  loading="lazy"
+                  sizes="(min-width:768px) 50vw, 100vw"
+                  className="object-cover"
+                />
+              </div>
+              <div className="p-5 md:p-6">
+                <h3 className="text-lg font-semibold text-anchor-cream-text">
+                  Vegan &amp; Vegetarian Sunday Roast
+                </h3>
+                <p className="mt-2 text-sm text-anchor-cream-text/75 leading-relaxed">
+                  The beetroot and butternut squash wellington (&pound;19) is fully vegetarian and is served with our
+                  vegetarian gravy &mdash; not an afterthought, but a dish in its own right. Mention dietary requirements
+                  when booking and we&apos;ll happily discuss vegan adaptations on request.
+                </p>
+              </div>
+            </div>
           </div>
         </Container>
       </section>
@@ -470,10 +484,10 @@ export default function SundayLunchPage() {
                 {' '}lets us offer your table to someone else.</li>
             </ul>
             <Image
-              src="/images/garden/beer-garden/the-anchor-beer-garden-heathrow-flight-path.jpg"
-              alt="Beer garden under the Heathrow flight path at The Anchor pub, Stanwell Moor"
-              width={1280}
-              height={720}
+              src="/images/food/sunday-roast/sunday-roast-potatoes-tossed.png"
+              alt="Triple-cooked, herb-and-garlic crusted Sunday roast potatoes being tossed in the prep bowl at The Anchor pub near Heathrow"
+              width={1200}
+              height={900}
               loading="lazy"
               sizes="(min-width:1024px) 720px, 100vw"
               className="mt-8 w-full h-auto rounded-lg border border-anchor-gold/15 object-cover"
@@ -608,8 +622,8 @@ export default function SundayLunchPage() {
               </div>
               <div className="order-1 lg:order-2">
                 <Image
-                  src="/images/food/sunday-roast/sunday-roast-the-anchor.jpeg"
-                  alt="Roast beef Sunday lunch with Yorkshire pudding, triple-cooked herb-and-garlic crusted roasties and our signature gravy at The Anchor pub near Heathrow"
+                  src="/images/food/sunday-roast/sunday-roast-beef-carved.png"
+                  alt="Slow-roasted topside of beef being carved fresh per plate at The Anchor pub near Heathrow"
                   width={1200}
                   height={900}
                   loading="lazy"
