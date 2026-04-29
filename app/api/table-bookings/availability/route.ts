@@ -1,13 +1,12 @@
 import { anchorAPI, type BusinessHours, type TableAvailabilityResponse } from '@/lib/api'
 import { createApiErrorResponse, logError } from '@/lib/error-handling'
 import {
-  buildSlotsFromRanges,
+  buildSlotsWithKitchenState,
   isValidIsoDate,
   isValidTime,
   londonNowParts,
   normalizeTime,
-  resolveServiceRanges,
-  type BookingPurpose,
+  resolveCombinedServiceRanges,
   type BookingType
 } from '@/lib/table-booking-service-windows'
 
@@ -18,20 +17,20 @@ function parsePositiveInt(value: string | null, fallback: number): number {
   return parsed
 }
 
-function buildFallbackAvailability(
+function buildCombinedAvailability(
   businessHours: BusinessHours,
   options: {
     date: string
     partySize: number
     time: string
     bookingType: BookingType
-    purpose: BookingPurpose
   }
 ): TableAvailabilityResponse {
-  const { ranges, message } = resolveServiceRanges(businessHours, options.date, {
-    bookingType: options.bookingType,
-    purpose: options.purpose
-  })
+  const { ranges, kitchenRanges, message } = resolveCombinedServiceRanges(
+    businessHours,
+    options.date,
+    { bookingType: options.bookingType }
+  )
 
   const londonNow = londonNowParts()
   const minMinutesForToday =
@@ -39,7 +38,14 @@ function buildFallbackAvailability(
       ? Math.ceil((londonNow.minutes + 60) / 30) * 30
       : undefined
 
-  const timeSlots = buildSlotsFromRanges(ranges, options.partySize, 30, minMinutesForToday)
+  const timeSlots = buildSlotsWithKitchenState(
+    ranges,
+    kitchenRanges,
+    options.partySize,
+    30,
+    minMinutesForToday
+  )
+
   const available = timeSlots.some(
     (slot) => slot.available === true || (slot.available_capacity || 0) >= options.partySize
   )
@@ -48,9 +54,7 @@ function buildFallbackAvailability(
     message ||
     (available
       ? 'These times are based on current service windows and will be confirmed instantly when you continue.'
-      : options.purpose === 'food'
-      ? 'No online food times are currently available for this request. You can try drinks-only times or call us.'
-      : 'No online times are currently available for this request. Please choose an alternative or join the waitlist.')
+      : 'No online times are currently available for this request. Please choose another date or call 01753 682707.')
 
   return {
     date: options.date,
@@ -60,9 +64,7 @@ function buildFallbackAvailability(
     time_slots: timeSlots,
     message: fallbackMessage,
     special_notes:
-      options.purpose === 'food'
-        ? 'Food bookings follow kitchen service hours. For later slots, switch to drinks-only or call 01753 682707.'
-        : 'If your preferred time is unavailable, choose a nearby slot or call 01753 682707 to join the waitlist.'
+      'If your preferred time is unavailable, choose a nearby slot or call 01753 682707.'
   }
 }
 
@@ -71,14 +73,13 @@ export async function GET(request: Request) {
   const date = searchParams.get('date')
   const partySizeRaw = searchParams.get('party_size')
   const requestedTime = searchParams.get('time') || '19:00'
-  // Sunday-lunch as a separate booking type is retired with the walk-in launch
-  // (spec §6, §8.1). The booking_type query param is still accepted for
-  // backwards compatibility but every request resolves as 'regular'.
-  void searchParams.get('booking_type')
-  const bookingType: BookingType = 'regular'
 
-  const purpose: BookingPurpose =
-    searchParams.get('purpose') === 'drinks' ? 'drinks' : 'food'
+  // booking_type and purpose query params are accepted for backwards compatibility
+  // with stale links/clients but are intentionally ignored: the public availability
+  // contract is now a single combined slot list with per-slot kitchen_open.
+  void searchParams.get('booking_type')
+  void searchParams.get('purpose')
+  const bookingType: BookingType = 'regular'
 
   if (!date || !partySizeRaw) {
     return createApiErrorResponse(
@@ -100,12 +101,11 @@ export async function GET(request: Request) {
 
   try {
     const businessHours = await anchorAPI.getBusinessHours()
-    const fallback = buildFallbackAvailability(businessHours, {
+    const fallback = buildCombinedAvailability(businessHours, {
       date,
       partySize,
       time: normalizedTime,
-      bookingType,
-      purpose
+      bookingType
     })
 
     return new Response(
@@ -114,7 +114,7 @@ export async function GET(request: Request) {
         data: fallback,
         meta: {
           source: 'schedule_fallback',
-          purpose
+          service_model: 'combined_food_drinks'
         }
       }),
       {
@@ -129,8 +129,7 @@ export async function GET(request: Request) {
       date,
       time: normalizedTime,
       partySize,
-      bookingType,
-      purpose
+      bookingType
     })
 
     return createApiErrorResponse(
