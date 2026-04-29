@@ -138,13 +138,14 @@ function normaliseIncomingPayload(input: unknown): {
   const partySize = asPositiveInt(body.party_size)
   const defaultCountryCode = asTrimmedString(body.default_country_code)
 
-  // purpose defaults to food (kitchen bookings are the common case via this
-  // route). booking_type and sunday_lunch from the inbound body are ignored.
-  const explicitPurpose =
+  // purpose is REQUIRED. AB-001: silently coercing missing/invalid values to
+  // 'food' caused direct API submissions outside kitchen hours to fail with a
+  // misleading service-window error. booking_type and sunday_lunch from the
+  // inbound body are still ignored (defence in depth).
+  const purpose: BookingPurpose | undefined =
     body.purpose === 'drinks' ? 'drinks' : body.purpose === 'food' ? 'food' : undefined
-  const purpose: BookingPurpose = explicitPurpose ?? 'food'
 
-  if (!phone || !date || !time || !partySize) {
+  if (!phone || !date || !time || !partySize || !purpose) {
     return { error: 'Missing required fields: phone, date, time, party_size, purpose' }
   }
 

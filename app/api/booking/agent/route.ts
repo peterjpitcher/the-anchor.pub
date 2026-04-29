@@ -39,7 +39,20 @@ export async function POST(request: NextRequest) {
         error: 'Missing required fields: date, time, partySize, customer'
       }, 400)
     }
-    
+
+    // AB-002: purpose is REQUIRED. Agents that received a `kitchen_open: false`
+    // slot from the GET endpoint and then POST without an explicit purpose were
+    // previously coerced to 'food', which then failed service-window
+    // validation late in the pipeline. Reject explicitly instead.
+    const purpose: BookingPurpose | undefined =
+      body.purpose === 'drinks' ? 'drinks' : body.purpose === 'food' ? 'food' : undefined
+    if (!purpose) {
+      return jsonResponse({
+        success: false,
+        error: 'Missing required field: purpose (must be "food" or "drinks")'
+      }, 400)
+    }
+
     // Validate customer data
     if (!body.customer.firstName || !body.customer.lastName || !body.customer.phone) {
       return jsonResponse({
@@ -47,7 +60,7 @@ export async function POST(request: NextRequest) {
         error: 'Missing customer fields: firstName, lastName, phone'
       }, 400)
     }
-    
+
     // Parse natural language date if needed
     let bookingDate = body.date
     if (isNaN(Date.parse(bookingDate))) {
@@ -60,12 +73,11 @@ export async function POST(request: NextRequest) {
         }, 400)
       }
     }
-    
+
     // Sunday-lunch as a separate booking type is retired with the walk-in launch
     // (spec §6, §8.1). The AI-agent endpoint creates regular bookings on every
     // day; deposit messaging below is gated on partySize >= 10 alone.
     const bookingType: BookingType = 'regular'
-    const purpose: BookingPurpose = body.purpose === 'drinks' ? 'drinks' : 'food'
     const normalizedBookingTime = normalizeTime(String(body.time))
 
     try {
@@ -81,11 +93,11 @@ export async function POST(request: NextRequest) {
         isTimeWithinRanges(normalizedBookingTime, serviceWindow.ranges)
 
       if (!canBookTime) {
+        // AB-003: customer-facing copy must be neutral — no food/drinks/kitchen
+        // wording (matches the website submit-route copy).
         const message =
           serviceWindow.message ||
-          (purpose === 'food'
-            ? 'Food bookings are only available during kitchen service hours. Please choose another time or switch to drinks.'
-            : 'That time is outside our drinks booking window. Please choose another time or call 01753 682707.')
+          'That time is outside online booking hours. Please choose another time or call 01753 682707.'
 
         return jsonResponse({
           success: false,

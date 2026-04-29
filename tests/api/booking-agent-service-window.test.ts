@@ -46,7 +46,7 @@ describe('Booking Agent API - Service Window Enforcement', () => {
     delete (global as any).fetch
   })
 
-  it('rejects food bookings outside kitchen hours', async () => {
+  it('rejects food bookings outside kitchen hours with neutral copy (AB-003)', async () => {
     const request = {
       json: async () => ({
         date: '2026-03-01',
@@ -67,7 +67,13 @@ describe('Booking Agent API - Service Window Enforcement', () => {
 
     expect(response.status).toBe(400)
     const payload = await response.json()
-    expect(String(payload?.error?.message || payload?.error || '')).toContain('Food bookings')
+    const errorText = String(payload?.error?.message || payload?.error || '')
+    expect(errorText).toMatch(/outside online booking hours/i)
+    const lower = errorText.toLowerCase()
+    expect(lower).not.toContain('food booking')
+    expect(lower).not.toContain('switch to drinks')
+    expect(lower).not.toContain('kitchen service')
+    expect(lower).not.toContain('kitchen hours')
     expect(mockCreateTableBooking).not.toHaveBeenCalled()
   })
 

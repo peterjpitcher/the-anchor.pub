@@ -298,6 +298,116 @@ describe('resolveCombinedServiceRanges', () => {
     expect(result.kitchenRanges).toHaveLength(0)
     expect(result.message).toBeTruthy()
   })
+
+  it('master ranges span the full venue window even when schedule_config drinks/regular entries match kitchen hours', async () => {
+    // Production bug: management API returns schedule_config with `drinks` or
+    // `regular` entries that mirror kitchen hours (12:00–21:00) instead of the
+    // full pub window (12:00–23:00). The combined master range MUST span the
+    // full venue window so customers can book late-evening drinks slots.
+    const { resolveCombinedServiceRanges, toMinutes } = await import('@/lib/table-booking-service-windows')
+    const businessHours = makeBusinessHours({
+      tuesday: {
+        opens: '12:00:00',
+        closes: '23:00:00',
+        kitchen: { opens: '12:00:00', closes: '21:00:00' },
+        schedule_config: [
+          { booking_type: 'food', starts_at: '12:00', ends_at: '21:00', capacity: 50 },
+          { booking_type: 'drinks', starts_at: '12:00', ends_at: '21:00', capacity: 50 }
+        ]
+      }
+    })
+    const result = resolveCombinedServiceRanges(businessHours, '2026-05-05')
+    expect(result.closed).toBe(false)
+    const masterEnd = Math.max(...result.ranges.map((r) => toMinutes(r.endsAt)))
+    const masterStart = Math.min(...result.ranges.map((r) => toMinutes(r.startsAt)))
+    expect(masterStart).toBeLessThanOrEqual(toMinutes('12:00'))
+    // The master window must reach 23:00 (full pub close), not stop at kitchen close 21:00.
+    expect(masterEnd).toBeGreaterThanOrEqual(toMinutes('23:00'))
+    // Kitchen overlay should still cap at kitchen close (21:00).
+    const kitchenEnd = Math.max(...result.kitchenRanges.map((r) => toMinutes(r.endsAt)))
+    expect(kitchenEnd).toBeLessThanOrEqual(toMinutes('21:00'))
+  })
+
+  it('master ranges span the full venue window when schedule_config has only a regular entry', async () => {
+    // Even more conservative variant — when the management API is configured
+    // with `regular` rather than `drinks` entries, the same fall-through
+    // applies and the venue window remains authoritative.
+    const { resolveCombinedServiceRanges, toMinutes } = await import('@/lib/table-booking-service-windows')
+    const businessHours = makeBusinessHours({
+      tuesday: {
+        opens: '12:00:00',
+        closes: '23:00:00',
+        kitchen: { opens: '12:00:00', closes: '21:00:00' },
+        schedule_config: [
+          { booking_type: 'regular', starts_at: '12:00', ends_at: '21:00', capacity: 50 }
+        ]
+      }
+    })
+    const result = resolveCombinedServiceRanges(businessHours, '2026-05-05')
+    const masterEnd = Math.max(...result.ranges.map((r) => toMinutes(r.endsAt)))
+    expect(masterEnd).toBeGreaterThanOrEqual(toMinutes('23:00'))
+  })
+})
+
+describe('resolveServiceRanges — drinks purpose spans full pub window', () => {
+  it('drinks ranges cover late-evening times even when schedule_config drinks entry matches kitchen hours', async () => {
+    const { resolveServiceRanges, isTimeWithinRanges } = await import('@/lib/table-booking-service-windows')
+    const businessHours = makeBusinessHours({
+      tuesday: {
+        opens: '12:00:00',
+        closes: '23:00:00',
+        kitchen: { opens: '12:00:00', closes: '21:00:00' },
+        schedule_config: [
+          { booking_type: 'food', starts_at: '12:00', ends_at: '21:00', capacity: 50 },
+          { booking_type: 'drinks', starts_at: '12:00', ends_at: '21:00', capacity: 50 }
+        ]
+      }
+    })
+    const result = resolveServiceRanges(businessHours, '2026-05-05', {
+      bookingType: 'regular',
+      purpose: 'drinks'
+    })
+    expect(result.closed).toBe(false)
+    expect(result.ranges.length).toBeGreaterThan(0)
+    // Late-evening drinks time MUST fall within the resolved drinks window.
+    expect(isTimeWithinRanges('22:30', result.ranges)).toBe(true)
+  })
+
+  it('drinks ranges still cover the full venue window when only a regular schedule entry exists', async () => {
+    const { resolveServiceRanges, isTimeWithinRanges } = await import('@/lib/table-booking-service-windows')
+    const businessHours = makeBusinessHours({
+      tuesday: {
+        opens: '12:00:00',
+        closes: '23:00:00',
+        kitchen: { opens: '12:00:00', closes: '21:00:00' },
+        schedule_config: [
+          { booking_type: 'regular', starts_at: '12:00', ends_at: '21:00', capacity: 50 }
+        ]
+      }
+    })
+    const result = resolveServiceRanges(businessHours, '2026-05-05', {
+      bookingType: 'regular',
+      purpose: 'drinks'
+    })
+    expect(isTimeWithinRanges('22:30', result.ranges)).toBe(true)
+  })
+
+  it('drinks ranges fall back to venue window when schedule_config is empty (existing behaviour preserved)', async () => {
+    const { resolveServiceRanges, isTimeWithinRanges } = await import('@/lib/table-booking-service-windows')
+    const businessHours = makeBusinessHours({
+      tuesday: {
+        opens: '12:00:00',
+        closes: '23:00:00',
+        kitchen: { opens: '12:00:00', closes: '21:00:00' }
+      }
+    })
+    const result = resolveServiceRanges(businessHours, '2026-05-05', {
+      bookingType: 'regular',
+      purpose: 'drinks'
+    })
+    expect(isTimeWithinRanges('22:30', result.ranges)).toBe(true)
+    expect(isTimeWithinRanges('20:00', result.ranges)).toBe(true)
+  })
 })
 
 describe('buildSlotsWithKitchenState', () => {

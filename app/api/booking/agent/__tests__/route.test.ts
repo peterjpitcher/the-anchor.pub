@@ -180,4 +180,81 @@ describe('Booking Agent API - walk-in launch behaviour', () => {
     expect(typeof body.booking.specialInstructions).toBe('string')
     expect(body.booking.specialInstructions).toContain('£10 per person')
   })
+
+  it('returns HTTP 400 when purpose is missing (AB-002)', async () => {
+    const request = {
+      json: async () => ({
+        date: '2026-05-22',
+        time: '19:00',
+        partySize: 4,
+        // purpose deliberately omitted
+        customer: {
+          firstName: 'Pat',
+          lastName: 'Guest',
+          phone: '07700900000'
+        }
+      })
+    } as any
+
+    const response = await createAgentBooking(request)
+    expect(response.status).toBe(400)
+    const body = await response.json()
+    const errorText = String(body?.error?.message || body?.error || '')
+    expect(errorText).toMatch(/purpose/i)
+    expect(mockCreateTableBooking).not.toHaveBeenCalled()
+  })
+
+  it('returns HTTP 400 when purpose is invalid (AB-002)', async () => {
+    const request = {
+      json: async () => ({
+        date: '2026-05-22',
+        time: '19:00',
+        partySize: 4,
+        purpose: 'lunch', // typo / unsupported value
+        customer: {
+          firstName: 'Pat',
+          lastName: 'Guest',
+          phone: '07700900000'
+        }
+      })
+    } as any
+
+    const response = await createAgentBooking(request)
+    expect(response.status).toBe(400)
+    const body = await response.json()
+    const errorText = String(body?.error?.message || body?.error || '')
+    expect(errorText).toMatch(/purpose/i)
+    expect(mockCreateTableBooking).not.toHaveBeenCalled()
+  })
+
+  it('uses neutral copy when a request falls outside the booking window (AB-003)', async () => {
+    // Force the food window to apply: 22:30 is after kitchen close 21:00, so
+    // service-window validation will reject.
+    const request = {
+      json: async () => ({
+        date: '2026-05-22',
+        time: '22:30',
+        partySize: 4,
+        purpose: 'food',
+        customer: {
+          firstName: 'Pat',
+          lastName: 'Guest',
+          phone: '07700900000'
+        }
+      })
+    } as any
+
+    const response = await createAgentBooking(request)
+    expect(response.status).toBe(400)
+    const body = await response.json()
+    const errorText = String(body?.error?.message || body?.error || '')
+    const lower = errorText.toLowerCase()
+    expect(lower).toMatch(/outside online booking hours/i)
+    expect(lower).not.toContain('food booking')
+    expect(lower).not.toContain('switch to drinks')
+    expect(lower).not.toContain('kitchen service')
+    expect(lower).not.toContain('kitchen hours')
+    expect(lower).not.toContain('drinks booking window')
+    expect(mockCreateTableBooking).not.toHaveBeenCalled()
+  })
 })

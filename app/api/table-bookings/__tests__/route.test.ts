@@ -7,8 +7,8 @@
  *      Sunday-lunch behaviour back in).
  *   2. Always forward booking_type='regular' to the management API.
  *   3. NOT enforce any Saturday-1pm cutoff (Sunday-lunch cutoff retired).
- *   4. Forward `purpose` through unchanged when valid; default to 'food'
- *      when the inbound payload omits it.
+ *   4. Forward `purpose` through unchanged when valid; reject with 400 when
+ *      missing or invalid (AB-001 — direct API callers must declare purpose).
  */
 
 export {}
@@ -241,6 +241,85 @@ describe('website /api/table-bookings proxy — walk-in launch sanitisation', ()
     const forwarded = JSON.parse(String(calls[0].init.body))
     expect(forwarded.purpose).toBe('drinks')
     expect(forwarded.booking_type).toBe('regular')
+  })
+
+  it('accepts a drinks booking at 22:30 even when schedule_config drinks entry matches kitchen hours', async () => {
+    // AB-001-adjacent: the user-reported bug. With schedule_config drinks entries
+    // mirroring kitchen hours (12:00-21:00) and venue 12:00-23:00, a 22:30
+    // drinks booking must still pass service-window validation.
+    mockGetBusinessHours.mockResolvedValueOnce({
+      regularHours: {
+        friday: {
+          opens: '12:00',
+          closes: '23:00',
+          is_closed: false,
+          kitchen: { opens: '12:00', closes: '21:00' },
+          schedule_config: [
+            { booking_type: 'food', starts_at: '12:00', ends_at: '21:00', capacity: 50 },
+            { booking_type: 'drinks', starts_at: '12:00', ends_at: '21:00', capacity: 50 }
+          ]
+        }
+      },
+      specialHours: []
+    })
+
+    const calls = installUpstreamFetch()
+    const POST = await getPostHandler()
+
+    const res = await POST(
+      buildRequest({
+        phone: '07700900000',
+        date: '2026-05-22', // Friday
+        time: '22:30',
+        party_size: 2,
+        purpose: 'drinks'
+      }) as any
+    )
+
+    expect(res.status).toBe(201)
+    expect(calls).toHaveLength(1)
+    const forwarded = JSON.parse(String(calls[0].init.body))
+    expect(forwarded.purpose).toBe('drinks')
+  })
+
+  it('returns HTTP 400 when purpose is missing (AB-001)', async () => {
+    const calls = installUpstreamFetch()
+    const POST = await getPostHandler()
+
+    const res = await POST(
+      buildRequest({
+        phone: '07700900000',
+        date: '2026-05-22',
+        time: '13:00',
+        party_size: 2
+        // purpose deliberately omitted
+      }) as any
+    )
+
+    expect(res.status).toBe(400)
+    const body = await res.json()
+    expect(String(body.error)).toMatch(/purpose/i)
+    expect(calls).toHaveLength(0)
+  })
+
+  it('returns HTTP 400 when purpose is invalid (AB-001)', async () => {
+    const calls = installUpstreamFetch()
+    const POST = await getPostHandler()
+
+    const res = await POST(
+      buildRequest({
+        phone: '07700900000',
+        date: '2026-05-22',
+        time: '13:00',
+        party_size: 2,
+        purpose: 'lunch' // typo / unsupported value
+      }) as any
+    )
+
+    expect(res.status).toBe(400)
+    const body = await res.json()
+    expect(String(body.error)).toMatch(/purpose/i)
+    expect(calls).toHaveLength(0)
   })
 
   it('rejects a food booking outside kitchen hours with neutral customer-facing copy', async () => {

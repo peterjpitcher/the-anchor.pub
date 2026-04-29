@@ -295,16 +295,12 @@ export function resolveServiceRanges(
     }
   }
 
-  const drinksRanges = toServiceRanges(byBookingType('drinks'))
-  if (drinksRanges.length > 0) {
-    return { ranges: drinksRanges, closed: false }
-  }
-
-  const regularRanges = toServiceRanges(byBookingType('regular'))
-  if (regularRanges.length > 0) {
-    return { ranges: regularRanges, closed: false }
-  }
-
+  // Drinks purpose: the bookable window is ALWAYS the full venue/pub
+  // opens-closes range for the date. We deliberately ignore any
+  // `drinks`/`regular` schedule_config entries — in production these
+  // sometimes mirror kitchen hours, which would incorrectly clip late-evening
+  // bar slots out of the wizard's slot grid (user-reported bug, April 2026).
+  // Schedule_config still drives food window resolution above.
   const venueOpens = normalizeTime(
     String(specialDay?.opens || regularDay?.opens || kitchenOpens || '12:00')
   )
