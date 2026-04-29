@@ -160,21 +160,26 @@ Generated from `/SSOT.json` (2026-03-22 codebase crawl).
 
 ## Sunday Roast
 
-- **Price from:** £19.99
-- **Options:**
-  - Roasted Chicken: £19.99
-  - Slow-Cooked Lamb Shank: £23.99
-  - Crispy Pork Belly: £21.99
-  - Beetroot and Butternut Squash Wellington: £19.99 (vegetarian)
-  - Kids Roasted Chicken: £13.99
-- **DO NOT** list beef as a roast option (this is a known error in older content)
-- **Accompaniments:** Herb and garlic-crusted roast potatoes, seasonal vegetables, Yorkshire pudding, red wine gravy. Vegetarian gravy available on request.
-- **Add-on:** Cauliflower Cheese £3.99
-- **Pre-order deadline:** Saturday 1pm
-- **Deposit:** £10 per person (deducted from bill)
-- **Advance booking required:** yes
-- **Regular menu also available** on Sundays (without pre-order)
-- **Max online party size:** 20 (larger groups must call)
+Menu refreshed 2026-04-29. Walk-in launch shipped 2026-05-17 — no pre-order, no Saturday cutoff, no per-roast prepayment.
+
+- **Price from:** £19 (turkey)
+- **Current options:**
+  - Roast Beef Topside: £22 (28-day topside, sliced fresh)
+  - Roast Pork Leg: £20 (sliced to order, with Bramley apple sauce)
+  - Roast Turkey with Stuffing Ball: £19 (sage and onion stuffing ball)
+  - Beef & Ale Pie: £21 (NO Yorkshire pudding with the pies)
+  - Chicken & Wild Mushroom Pie: £21 (NO Yorkshire pudding with the pies)
+  - Beetroot & Butternut Squash Wellington: £20 (**fully vegan** — never describe as "vegetarian")
+  - Kids Roast: £14 (smaller portion; choice of pork, turkey or wellington)
+- **Beef IS now a roast option** — older "do not use beef" guidance is reversed.
+- **Retired (do not list):** Roasted Chicken (adult), Slow-Cooked Lamb Shank, Crispy Pork Belly, Cauliflower Cheese side. Lamb is no longer served anywhere.
+- **Accompaniments:** Triple-cooked, herb-and-garlic crusted roast potatoes (**we do NOT use beef dripping** — never claim that). Seasonal vegetables. Yorkshire pudding with the three sliced roasts and the kids roast (not with the pies).
+- **Gravy:** Signature gravy — a secret recipe we've refined ourselves over the years — is the default for all meat dishes (contains meat stock; NOT vegan). Regular gravy IS vegan and is the default for the wellington. Wellington customers can upgrade for free to signature gravy on request (note: the upgrade makes the dish non-vegan).
+- **Pre-order:** Not required. Walk-ins welcome 1pm – 6pm.
+- **Booking:** Recommended for groups and peak slots, but not required.
+- **Deposit:** Only for groups of 10 or more on any day, any booking type — £10 per person, fully deducted from the bill.
+- **Regular menu also available** on Sundays.
+- **Max online party size:** 20 (larger groups must call).
 
 ## Events
 
@@ -313,7 +318,11 @@ These are verified as INCORRECT. Never use them in any content:
 - **1866 or 1869 as founding year** — correct year is 1751
 - **"Since the 1800s"** — too vague, use 1751
 - **"Best" or "premier" claims** without substantiation
-- **Beef as a Sunday roast option** — not on current menu
+- **Old Sunday roast menu** — Roasted Chicken (adult), Slow-Cooked Lamb Shank, Crispy Pork Belly and the Cauliflower Cheese side were retired 2026-04-29. Beef is now the headline roast (was previously flagged as "not on menu" — that guidance is reversed).
+- **Wellington described as "vegetarian"** — it is fully vegan. Always say "vegan" in customer-facing copy.
+- **"Beef dripping" potatoes** — we do not use beef dripping. Potatoes are triple-cooked and herb-and-garlic crusted.
+- **"Red wine gravy"** — never describe our gravy as red wine gravy. The default is our **signature gravy** — a secret recipe we've refined ourselves over the years. The vegan alternative is **regular gravy**.
+- **Sunday roast pre-order / Saturday 1pm cutoff / per-roast prepayment** — all retired 2026-05-17 with the walk-in launch. Don't reintroduce.
 - **BOGOF pizza** — discontinued
 - **Stanwell Moor Brew** — discontinued
 - **Champions League viewing** — pub cannot show it (no Sky/TNT)

@@ -22,12 +22,23 @@ This document records the operational claims used in customer-facing page copy. 
 
 ## Sunday Roast — operational claims
 
-Effective from the 17 May 2026 walk-in launch:
+Effective from the 17 May 2026 walk-in launch. Menu refreshed 29 April 2026 (chicken, lamb, pork belly and cauliflower cheese retired; turkey, two pies and sliced beef/pork added; wellington reaffirmed as vegan).
 
 - **Service window:** Sundays 1pm – 6pm (kitchen 1pm – 6pm, last bookable arrival 5:30pm).
 - **Pre-order:** Not required. No Saturday cutoff. Walk-ins welcome.
 - **Booking:** Recommended for groups and peak slots, but not required.
-- **Menu:** Roasted Chicken (£19), Crispy Pork Belly (£22), Beetroot & Butternut Squash Wellington (V) (£19), Kids Roasted Chicken (£13). Regular weekday menu (burgers, pizzas, fish and chips) is also available on Sundays.
+- **Menu:**
+    - Roast Beef Topside — £22
+    - Roast Pork Leg (sliced) — £20
+    - Roast Turkey with Stuffing Ball — £19
+    - Beef & Ale Pie — £21 (no Yorkshire pudding)
+    - Chicken & Wild Mushroom Pie — £21 (no Yorkshire pudding)
+    - Beetroot & Butternut Squash Wellington — £20 (fully vegan)
+    - Kids Roast (smaller portion, choice of pork, turkey or wellington) — £14
+- **Accompaniments:** Triple-cooked, herb-and-garlic crusted roast potatoes (we do *not* use beef dripping); seasonal vegetables; Yorkshire pudding with the three sliced roasts and the kids roast (not with the pies); our signature gravy — a secret recipe we've refined ourselves over the years. Regular vegan gravy is available on request and is the default with the wellington; a free upgrade to signature gravy is offered (note: the signature gravy contains meat stock, so the upgrade makes the dish non-vegan).
+- **Wellington wording:** Use "vegan" — never "vegetarian" — when referring to the wellington. The default plate is fully vegan.
+- **Retired (do not list):** Roasted Chicken (adult), Slow-Cooked Lamb Shank, Crispy Pork Belly, Cauliflower Cheese side. The DB rows are deactivated, not deleted (FKs into `table_booking_items`).
+- **Regular weekday menu** (burgers, pizzas, fish and chips) is also available on Sundays.
 - **Deposit:** No Sunday-specific deposit. The standard large-group deposit applies on any day — see "Deposit policy" below.
 
 ## Deposit policy
@@ -41,7 +52,7 @@ Effective from the 17 May 2026 walk-in launch:
 
 - **Mains:** Traditional British pub classics (fish & chips, pies, burgers) £11 – £16.
 - **Pizzas:** Stone-baked, from £12.
-- **Sunday roast:** £19 – £22.
+- **Sunday roast:** Mains from £19 (turkey) up to £22 (beef topside). Vegan wellington £20. Kids roast £14. See Sunday Roast section above for the full line-up.
 - **Friday over-65s offer:** 50% off fish & chips for over-65s on Fridays.
 
 ## Service exclusions

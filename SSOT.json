@@ -571,7 +571,7 @@
       }
     ],
     "removed_items": [
-      "Lamb Shank (main menu — still available as Sunday roast)",
+      "Lamb Shank (removed from both main menu and Sunday roast as of 2026-04-29)",
       "Speck Ham & Parmesan pizza"
     ],
     "CORRECTION_2026_03_22": "Stacks (Beef, Chicken, Garden, Spicy Chicken) are back on the menu at £14 each — they were previously listed as removed. Updated in House Burgers section.",
@@ -589,38 +589,70 @@
     ]
   },
   "sunday_roast": {
+    "_source": "Menu refreshed 2026-04-29. DB table sunday_lunch_menu_items in the management project is the live source; old rows soft-deleted (is_active=false) because table_booking_items has FKs into them.",
     "price_from": 19,
     "currency": "GBP",
     "options": [
       {
-        "name": "Roasted Chicken",
-        "price": 19
+        "name": "Roast Beef Topside",
+        "price": 22,
+        "yorkshire_pudding": true,
+        "notes": "28-day topside, slow-roasted, carved fresh per plate."
       },
       {
-        "name": "Crispy Pork Belly",
-        "price": 22
+        "name": "Roast Pork Leg",
+        "price": 20,
+        "yorkshire_pudding": true,
+        "notes": "Roasted pork leg sliced to order with Bramley apple sauce."
+      },
+      {
+        "name": "Roast Turkey with Stuffing Ball",
+        "price": 19,
+        "yorkshire_pudding": true,
+        "notes": "Carved fresh, served with a sage and onion stuffing ball."
+      },
+      {
+        "name": "Beef & Ale Pie",
+        "price": 21,
+        "yorkshire_pudding": false,
+        "notes": "Slow-cooked British beef in ale gravy under golden short-crust pastry. NO Yorkshire pudding with the pies."
+      },
+      {
+        "name": "Chicken & Wild Mushroom Pie",
+        "price": 21,
+        "yorkshire_pudding": false,
+        "notes": "Tender chicken and wild mushrooms in creamy sauce under golden short-crust pastry. NO Yorkshire pudding with the pies."
       },
       {
         "name": "Beetroot & Butternut Squash Wellington",
-        "price": 19,
-        "vegetarian": true
+        "price": 20,
+        "vegan": true,
+        "yorkshire_pudding": false,
+        "notes": "Fully vegan. Default gravy is the regular vegan gravy. Free upgrade to the signature gravy on request — that contains meat stock, so the upgrade makes the dish non-vegan. Use 'vegan' (never 'vegetarian') in customer copy."
       },
       {
-        "name": "Kids Roasted Chicken",
-        "price": 13
+        "name": "Kids Roast",
+        "price": 14,
+        "kids": true,
+        "smaller_portion": true,
+        "notes": "Smaller, child-sized plate. Choice of roast pork, roast turkey or beetroot & butternut squash wellington. Yorkshire pudding only with pork or turkey."
       }
     ],
-    "add_ons": [
-      { "name": "Cauliflower Cheese", "price": 4 }
-    ],
-    "INCORRECT_OPTIONS": "Some older pages reference 'beef, pork, chicken, or vegetarian'. The actual current options are listed above. Do NOT use 'beef' as a roast option.",
-    "accompaniments": "Herb & garlic-crusted roast potatoes, seasonal vegetables, Yorkshire pudding, red wine gravy. Vegetarian gravy available on request.",
+    "RETIRED_OPTIONS": "As of 2026-04-29 the following are RETIRED. Do NOT list: Roasted Chicken (adult), Slow-Cooked Lamb Shank, Crispy Pork Belly, Cauliflower Cheese side. Lamb in particular is no longer offered anywhere.",
+    "accompaniments": "Triple-cooked, herb-and-garlic crusted roast potatoes (we do NOT use beef dripping); seasonal vegetables; Yorkshire pudding with the three sliced roasts and the kids roast (NOT with the pies); our signature gravy — a secret recipe refined ourselves over the years. Regular gravy IS vegan and is the default for the wellington.",
+    "gravy_rules": {
+      "signature_gravy": "Default for all meat dishes. Secret recipe, made from scratch. Contains meat stock — NOT vegan.",
+      "regular_gravy": "Default for the wellington. Fully vegan. Available on request with any dish.",
+      "wellington_upgrade": "Wellington customers can upgrade for free to the signature gravy on request — note the upgrade makes the dish non-vegan."
+    },
     "booking_policy": {
-      "pre_order_deadline": "Saturday 1pm",
-      "deposit_per_person_gbp": 10,
+      "_walk_in_launch_2026_05_17": "Sunday walk-in launch shipped 2026-05-17. Pre-order and Saturday-1pm cutoff are RETIRED. Advance booking is no longer required for any party size; deposit only applies for groups of 10+ on any day, any booking type.",
+      "pre_order_required": false,
+      "advance_booking_required": false,
+      "walk_ins_welcome": true,
+      "deposit_per_person_gbp_for_groups_of_10_or_more": 10,
       "deposit_deducted": true,
-      "advance_booking_required": true,
-      "regular_menu_also_available": "Yes, without pre-order",
+      "regular_menu_also_available": "Yes",
       "max_online_party_size": 20,
       "larger_groups": "Must call",
       "kitchen_dependency": "Blocked if kitchen is closed for that date"
@@ -1058,7 +1090,9 @@
     "best_or_premier_claims": "Any claim about 'best' or 'premier' without substantiation",
     "dog_secure_fencing": "Must be verified before publishing",
     "dog_special_dinners": "'Special doggy Sunday dinners available' must be verified before publishing",
-    "old_sunday_roast_options": "Do NOT use 'beef' as a roast option — current menu has chicken, lamb, pork belly, and vegetarian wellington",
+    "old_sunday_roast_options": "As of 2026-04-29: Do NOT list Roasted Chicken (adult), Slow-Cooked Lamb Shank, Crispy Pork Belly, Cauliflower Cheese side, or 'vegetarian wellington'. Current menu: Roast Beef Topside, Roast Pork Leg, Roast Turkey with Stuffing Ball, Beef & Ale Pie, Chicken & Wild Mushroom Pie, Beetroot & Butternut Squash Wellington (VEGAN), Kids Roast. Beef IS now a roast option — older 'do not use beef' guidance is reversed.",
+    "wellington_vegetarian_phrasing": "Wellington is VEGAN, not vegetarian. Do NOT describe the wellington as 'vegetarian' in customer-facing copy or schemas.",
+    "sunday_roast_pre_order_pre_pay": "Pre-order, Saturday-1pm cutoff and per-roast prepayment are RETIRED post-2026-05-17 walk-in launch. Do not reintroduce in copy, JSON-LD, or booking flows.",
     "old_menu_items": "Lamb Shank (main), Beef/Chicken/Veggie Stacks, Speck Ham & Parmesan pizza — all REMOVED",
     "info_email": "info@theanchorpub.co.uk is legacy — use manager@the-anchor.pub",
     "bogof_pizza": "DISCONTINUED. Remove all BOGOF pizza references from pages, schemas, and blog posts.",
