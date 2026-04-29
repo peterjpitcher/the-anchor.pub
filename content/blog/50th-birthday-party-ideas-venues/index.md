@@ -58,7 +58,7 @@ For a certain kind of person (and you probably know whether the birthday person 
 
 No fuss, no speeches unless someone insists, just an exceptional meal with the people who matter most. This works particularly well when the guest list is tight — close family and lifelong friends rather than the full address book.
 
-At The Anchor, a [Sunday roast celebration](/sunday-lunch) starts from £19.99 per person, with options including slow-cooked lamb shank (£23.99), crispy pork belly (£21.99), and a beetroot and butternut squash wellington for vegetarians (£19.99). Pre-orders close by Saturday at 1pm, with a £10 per person deposit that comes off the final bill.
+At The Anchor, a [Sunday roast celebration](/sunday-lunch) starts from £19.99 per person, with options including slow-cooked lamb shank (£23.99), crispy pork belly (£21.99), and a beetroot and butternut squash wellington for vegetarians (£19.99). Walk in or book ahead — no pre-order needed, served 1pm-6pm. Groups of 10 or more take a £10 per person deposit, fully deducted from the final bill on the day.
 
 ### The beer garden party
 
