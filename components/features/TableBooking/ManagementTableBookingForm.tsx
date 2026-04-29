@@ -1,13 +1,18 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile'
 import { Alert } from '@/components/ui/feedback/Alert'
 import { Card, CardBody } from '@/components/ui/layout/Card'
 import { Input, Textarea } from '@/components/ui/primitives/Input'
 import { Button } from '@/components/ui/primitives/Button'
 import { ManagementEventBookingForm } from '@/components/features/EventBooking/ManagementEventBookingForm'
-import { trackTableBookingClick } from '@/lib/gtm-events'
+import {
+  pushToDataLayer,
+  trackTableBookingClick,
+  trackTableBookingFunnel,
+} from '@/lib/gtm-events'
 import {
   LARGE_GROUP_DEPOSIT_PER_PERSON_GBP,
   LARGE_GROUP_DEPOSIT_POLICY_COPY,
@@ -458,6 +463,48 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     return () => window.clearInterval(intervalId)
   }, [])
 
+  // Booking source from `?source=...` query param (e.g. `sunday_lunch_hero`).
+  // Defaults to `'direct'` so every funnel event always carries a source.
+  const searchParams = useSearchParams()
+  const bookingSource = useMemo(() => {
+    const raw = searchParams?.get('source')?.trim()
+    return raw && raw.length > 0 ? raw.slice(0, 80) : 'direct'
+  }, [searchParams])
+
+  // Funnel tracking lifecycle:
+  //  - `view` fires once on mount
+  //  - `start` fires once on the first user interaction (any field)
+  //  - `submit` / `success` / `error` fire from the booking submit handler
+  const hasViewedRef = useRef(false)
+  const hasInteractedRef = useRef(false)
+  const getDeviceType = (): 'mobile' | 'desktop' => {
+    if (typeof window === 'undefined') return 'desktop'
+    return window.innerWidth < 768 ? 'mobile' : 'desktop'
+  }
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || hasViewedRef.current) return
+    hasViewedRef.current = true
+    trackTableBookingFunnel({
+      step: 'view',
+      source: bookingSource,
+      deviceType: getDeviceType(),
+    })
+    // bookingSource is stable for the lifetime of the form (URL doesn't change
+    // between mount and unmount in our flow). Listed for lint clarity.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  function markFunnelStart() {
+    if (hasInteractedRef.current) return
+    hasInteractedRef.current = true
+    trackTableBookingFunnel({
+      step: 'start',
+      source: bookingSource,
+      deviceType: getDeviceType(),
+    })
+  }
+
   const today = useMemo(() => new Date().toISOString().slice(0, 10), [])
   const defaultDate = toIsoDateInputValue(prefill?.date) || today
   const defaultRequestedTime = toTimeInputValue(prefill?.time) || getDefaultTimeValue()
@@ -890,6 +937,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   }
 
   function handleDateChange(value: string) {
+    markFunnelStart()
     setDate(value)
     setAvailability(null)
     setAlternativeSlots([])
@@ -921,6 +969,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   function handlePurposeSelection(nextPurpose: BookingPurpose) {
     if (nextPurpose === purpose) return
 
+    markFunnelStart()
     setPurpose(nextPurpose)
     setDrinksAlternative(null)
 
@@ -1147,6 +1196,17 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       destination: '/api/table-bookings'
     })
 
+    // Funnel: submit attempt. Fired here (not in `try`) so it lands even if
+    // the request never makes it to the server (e.g. offline).
+    trackTableBookingFunnel({
+      step: 'submit',
+      partySize,
+      bookingDate: date,
+      bookingTime: selectedTime,
+      source: bookingSource,
+      deviceType: getDeviceType(),
+    })
+
     try {
       // Public payload no longer carries sunday_lunch / menu_selections / booking_type.
       // The proxy at /api/table-bookings strips these defensively (spec §6, §8.1)
@@ -1199,9 +1259,56 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
         const blockedReason = bookingResult.blocked_reason || 'blocked'
         setError(BLOCKED_REASON_COPY[blockedReason] || bookingResult.reason || BLOCKED_REASON_COPY.blocked)
         setStep('choose')
+        trackTableBookingFunnel({
+          step: 'error',
+          partySize,
+          bookingDate: date,
+          bookingTime: selectedTime,
+          errorType: blockedReason,
+          errorMessage: bookingResult.reason || BLOCKED_REASON_COPY[blockedReason] || 'blocked',
+          source: bookingSource,
+          deviceType: getDeviceType(),
+        })
+      } else if (bookingResult.state === 'confirmed') {
+        // Funnel success
+        trackTableBookingFunnel({
+          step: 'success',
+          partySize,
+          bookingDate: date,
+          bookingTime: selectedTime,
+          bookingReference: bookingResult.booking_reference || undefined,
+          source: bookingSource,
+          deviceType: getDeviceType(),
+        })
+
+        // GA4 purchase event so bookings appear in the Monetisation reports.
+        // Confirmed (no deposit) bookings have value 0; the `transaction_id`
+        // is the booking reference so duplicates de-dupe in GA4.
+        const transactionId =
+          bookingResult.booking_reference || bookingResult.table_booking_id || undefined
+        if (transactionId) {
+          pushToDataLayer({
+            event: 'purchase',
+            transaction_id: transactionId,
+            value: bookingResult.deposit_amount ?? 0,
+            currency: 'GBP',
+            booking_source: bookingSource,
+          })
+        }
       }
     } catch (submitError: any) {
-      setError(submitError?.message || 'We could not process your booking right now.')
+      const errorMessage = submitError?.message || 'We could not process your booking right now.'
+      setError(errorMessage)
+      trackTableBookingFunnel({
+        step: 'error',
+        partySize,
+        bookingDate: date,
+        bookingTime: selectedTime,
+        errorType: 'submit_failed',
+        errorMessage,
+        source: bookingSource,
+        deviceType: getDeviceType(),
+      })
     } finally {
       setLoading(false)
       setTurnstileToken(null)
@@ -1368,6 +1475,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               required
               value={partySizeDisplay}
               onChange={(event) => {
+                markFunnelStart()
                 const raw = event.target.value
                 setPartySizeDisplay(raw)
                 if (raw === '') return
@@ -1402,7 +1510,10 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               type="time"
               required
               value={requestedTime}
-              onChange={(event) => setRequestedTime(event.target.value)}
+              onChange={(event) => {
+                markFunnelStart()
+                setRequestedTime(event.target.value)
+              }}
             />
 
             <div>
@@ -1605,7 +1716,10 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 required
                 value={phone}
                 disabled={detailsUnlocked}
-                onChange={(event) => setPhone(event.target.value)}
+                onChange={(event) => {
+                  markFunnelStart()
+                  setPhone(event.target.value)
+                }}
                 placeholder="07xxx xxxxxx"
                 helperText="We only use this for booking confirmation and reminders."
               />

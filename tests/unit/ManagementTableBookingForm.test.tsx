@@ -1,8 +1,23 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { ManagementTableBookingForm } from '@/components/features/TableBooking/ManagementTableBookingForm'
 
+const trackTableBookingFunnel = jest.fn()
+const pushToDataLayer = jest.fn()
+const trackTableBookingClick = jest.fn()
+
 jest.mock('@/lib/gtm-events', () => ({
-  trackTableBookingClick: jest.fn()
+  trackTableBookingClick: (...args: unknown[]) => trackTableBookingClick(...args),
+  trackTableBookingFunnel: (...args: unknown[]) => trackTableBookingFunnel(...args),
+  pushToDataLayer: (...args: unknown[]) => pushToDataLayer(...args),
+}))
+
+jest.mock('next/navigation', () => ({
+  useSearchParams: () => new URLSearchParams(),
+  usePathname: () => '/book-table',
+  useRouter: () => ({
+    push: jest.fn(),
+    replace: jest.fn(),
+  }),
 }))
 
 describe('ManagementTableBookingForm', () => {
@@ -204,5 +219,138 @@ describe('ManagementTableBookingForm', () => {
     expect(payload.menu_selections).toBeUndefined()
     expect(payload.booking_type).toBeUndefined()
     expect(payload.purpose).toBe('food')
+  })
+
+  it('fires the booking funnel sequence on a happy-path confirmed booking', async () => {
+    ;(global as any).fetch = jest.fn((input: RequestInfo | URL) => {
+      const url = typeof input === 'string' ? input : input.toString()
+
+      if (url.startsWith('/api/events?')) {
+        return Promise.resolve(
+          new Response(JSON.stringify({ success: true, data: { events: [] } }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' }
+          })
+        )
+      }
+
+      if (url.startsWith('/api/table-bookings/availability?')) {
+        return Promise.resolve(
+          new Response(
+            JSON.stringify({
+              success: true,
+              data: {
+                date: '2026-06-07',
+                available: true,
+                time_slots: [{ time: '13:00', available: true, available_capacity: 8 }]
+              }
+            }),
+            { status: 200, headers: { 'Content-Type': 'application/json' } }
+          )
+        )
+      }
+
+      if (url.startsWith('/api/customers/lookup?')) {
+        return Promise.resolve(
+          new Response(
+            JSON.stringify({ success: true, data: { known: false, lookup_degraded: false } }),
+            { status: 200, headers: { 'Content-Type': 'application/json' } }
+          )
+        )
+      }
+
+      if (url === '/api/table-bookings') {
+        return Promise.resolve(
+          new Response(
+            JSON.stringify({
+              success: true,
+              data: {
+                state: 'confirmed',
+                table_booking_id: 'tb-confirmed-1',
+                booking_reference: 'TB-CONF-1',
+                blocked_reason: null,
+                next_step_url: null,
+                hold_expires_at: null,
+                table_name: 'Window 4',
+                reason: null
+              }
+            }),
+            { status: 201, headers: { 'Content-Type': 'application/json' } }
+          )
+        )
+      }
+
+      return Promise.reject(new Error(`Unexpected fetch call: ${url}`))
+    })
+
+    render(<ManagementTableBookingForm />)
+
+    // view fires on mount.
+    await waitFor(() =>
+      expect(trackTableBookingFunnel).toHaveBeenCalledWith(
+        expect.objectContaining({ step: 'view', source: 'direct' })
+      )
+    )
+
+    // First field interaction fires `start`.
+    fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '4' } })
+    expect(trackTableBookingFunnel).toHaveBeenCalledWith(
+      expect.objectContaining({ step: 'start', source: 'direct' })
+    )
+
+    fireEvent.blur(screen.getByLabelText('Party Size'))
+    fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-06-07' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+
+    await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+    fireEvent.click(screen.getByRole('button', { name: '1pm' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+
+    fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900111' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+
+    await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+    fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+    fireEvent.change(screen.getByLabelText('Last Name'), { target: { value: 'Walker' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
+
+    await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
+    fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
+    fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
+
+    // submit + success fire as the booking flow completes.
+    await waitFor(() =>
+      expect(trackTableBookingFunnel).toHaveBeenCalledWith(
+        expect.objectContaining({ step: 'submit', partySize: 4, bookingDate: '2026-06-07' })
+      )
+    )
+    await waitFor(() =>
+      expect(trackTableBookingFunnel).toHaveBeenCalledWith(
+        expect.objectContaining({
+          step: 'success',
+          partySize: 4,
+          bookingReference: 'TB-CONF-1',
+          source: 'direct',
+        })
+      )
+    )
+
+    // GA4 purchase event should fire with the booking reference as transaction_id.
+    expect(pushToDataLayer).toHaveBeenCalledWith(
+      expect.objectContaining({
+        event: 'purchase',
+        transaction_id: 'TB-CONF-1',
+        currency: 'GBP',
+        booking_source: 'direct',
+      })
+    )
+
+    // Sequence assertion: view → start → submit → success in order.
+    const steps = trackTableBookingFunnel.mock.calls.map((call) => (call[0] as any).step)
+    const indexOf = (s: string) => steps.indexOf(s)
+    expect(indexOf('view')).toBeGreaterThanOrEqual(0)
+    expect(indexOf('start')).toBeGreaterThan(indexOf('view'))
+    expect(indexOf('submit')).toBeGreaterThan(indexOf('start'))
+    expect(indexOf('success')).toBeGreaterThan(indexOf('submit'))
   })
 })
