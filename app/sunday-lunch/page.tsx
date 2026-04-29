@@ -11,6 +11,7 @@ import { PhoneButton } from '@/components/PhoneButton'
 import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncement'
 import { SundayLunchHowItWorks } from '@/components/sunday-lunch/SundayLunchHowItWorks'
 import { SectionViewTracker } from '@/components/sunday-lunch/SectionViewTracker'
+import { PhoneLink } from '@/components/PhoneLink'
 import { StickyMobileBookingCTA } from '@/components/conversion/StickyMobileBookingCTA'
 import { ScrollProgressBookingTooltip } from '@/components/conversion/ScrollProgressBookingTooltip'
 import { ExitIntentBookingModal } from '@/components/conversion/ExitIntentBookingModal'
@@ -466,7 +467,16 @@ export default function SundayLunchPage() {
               <li>&bull; Walk-ins are welcome the whole window. Booking guarantees your spot, especially for parties of six or more.</li>
               <li>&bull; No pre-order, no Saturday cutoff. Choose your roast at the table.</li>
               <li>&bull; Groups of 10 or more take a £10 per person deposit on booking, fully deducted from the bill on the day.</li>
-              <li>&bull; Plans changed? A quick call to <a href="tel:+441753682707" className="font-semibold underline">01753 682707</a> lets us offer your table to someone else.</li>
+              <li>&bull; Plans changed? A quick call to{' '}
+                <PhoneLink
+                  phone="01753 682707"
+                  source="sunday_lunch_inline"
+                  className="font-semibold underline"
+                  showIcon={false}
+                >
+                  01753 682707
+                </PhoneLink>
+                {' '}lets us offer your table to someone else.</li>
             </ul>
           </div>
         </Container>
