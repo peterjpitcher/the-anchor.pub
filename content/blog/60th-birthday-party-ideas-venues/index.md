@@ -39,7 +39,7 @@ A Sunday lunch party is arguably the perfect format for a 60th. It's familiar, i
 
 At The Anchor, [Sunday roast](/sunday-lunch) starts from £19.99 per person, with options including roasted chicken (£19.99), crispy pork belly (£21.99), slow-cooked lamb shank (£23.99), and a vegetarian beetroot and butternut squash Wellington (£19.99). Kids roasted chicken is £13.99. All roasts come with herb and garlic-crusted roast potatoes, seasonal vegetables, Yorkshire pudding, and red wine gravy (vegetarian gravy available on request). Add cauliflower cheese for £3.99.
 
-**Make it work:** Sunday lunch requires advance booking and a £10 per person deposit (deducted from the bill), with a pre-order deadline of Saturday at 1pm. Maximum online party size is 20 — for larger groups, call 01753 682707 directly. The regular menu is also available on Sundays without pre-ordering, so guests who fancy something different aren't stuck.
+**Make it work:** Walk in or book ahead — no pre-order needed and no Saturday cutoff. Sunday roast is served 1pm to 6pm, with last bookings at 5:30pm. Maximum online party size is 20; for larger groups call 01753 682707 directly. Groups of 10 or more take a £10 per person deposit, fully deducted from the bill on the day. The regular weekday menu is also available on Sundays for guests who fancy something different.
 
 ### Afternoon tea-style gathering
 
