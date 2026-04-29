@@ -108,7 +108,7 @@ describe('Booking Agent API - Service Window Enforcement', () => {
     expect(payload.booking_type).toBe('regular')
   })
 
-  it('passes purpose through when checking availability', async () => {
+  it('returns combined slots without filtering by purpose for agent GET', async () => {
     ;(global as any).fetch = jest.fn().mockResolvedValue(
       new Response(
         JSON.stringify({
@@ -117,12 +117,19 @@ describe('Booking Agent API - Service Window Enforcement', () => {
             available: true,
             time_slots: [
               {
+                time: '20:00',
+                available: true,
+                available_capacity: 6,
+                kitchen_open: true
+              },
+              {
                 time: '21:30',
                 available: true,
-                available_capacity: 6
+                available_capacity: 6,
+                kitchen_open: false
               }
             ],
-            message: 'Slots available'
+            message: 'These times are based on current service windows and will be confirmed instantly when you continue.'
           }
         }),
         {
@@ -140,10 +147,17 @@ describe('Booking Agent API - Service Window Enforcement', () => {
 
     const calledUrl = String((global.fetch as jest.Mock).mock.calls[0][0])
     expect(calledUrl).toContain('/api/table-bookings/availability?')
-    expect(calledUrl).toContain('purpose=drinks')
+    // Agent GET no longer claims purpose-filtered availability — combined contract.
+    expect(calledUrl).not.toContain('purpose=')
 
     const payload = await response.json()
-    expect(payload.purpose).toBe('drinks')
-    expect(payload.times).toEqual([{ time: '21:30', available: true }])
+    expect(payload.success).toBe(true)
+    // Purpose filter is gone from the response; service is exposed via per-slot kitchen_open.
+    expect(payload).not.toHaveProperty('purpose')
+    expect(Array.isArray(payload.times)).toBe(true)
+    expect(payload.times.length).toBe(2)
+    expect(payload.times.every((t: { kitchen_open?: boolean }) => typeof t.kitchen_open === 'boolean')).toBe(true)
+    expect(payload.times[0]).toMatchObject({ time: '20:00', available: true, kitchen_open: true })
+    expect(payload.times[1]).toMatchObject({ time: '21:30', available: true, kitchen_open: false })
   })
 })

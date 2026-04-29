@@ -172,18 +172,20 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
   const date = searchParams.get('date')
   const partySize = searchParams.get('partySize')
-  // The `type` query param is still accepted for backwards compatibility but
-  // is read-only — Sunday-lunch as a separate booking type is retired (spec §6).
+  // The `type` and `purpose` query params are still accepted for backwards
+  // compatibility but are read-only no-ops on the GET path. Public availability
+  // is now combined (drinks + food) and exposes `kitchen_open` per slot
+  // (spec §6, §9). Sunday-lunch as a separate booking type is also retired.
   void searchParams.get('type')
-  const purposeParam = searchParams.get('purpose')
-  
+  void searchParams.get('purpose')
+
   if (!date) {
     return jsonResponse({
       success: false,
       error: 'Date parameter required'
     }, 400)
   }
-  
+
   try {
     // Parse natural language date if needed
     let checkDate = date
@@ -197,13 +199,9 @@ export async function GET(request: Request) {
       }
       checkDate = parsedDate
     }
-    
-    // Sunday-lunch as a separate booking type is retired (spec §6, §8.1).
-    // Treat every day as 'regular'. The legacy `type` query param is still
-    // accepted for backwards compatibility but it no longer changes behaviour.
+
     const isSunday = new Date(checkDate + 'T12:00:00').getDay() === 0
     const bookingType: BookingType = 'regular'
-    const purpose: BookingPurpose = purposeParam === 'drinks' ? 'drinks' : 'food'
     const normalizedPartySize = Number.parseInt(partySize || '2', 10)
 
     const availabilityParams = new URLSearchParams({
@@ -211,9 +209,7 @@ export async function GET(request: Request) {
       time: '12:00',
       party_size: Number.isFinite(normalizedPartySize) && normalizedPartySize > 0
         ? String(normalizedPartySize)
-        : '2',
-      booking_type: bookingType,
-      purpose
+        : '2'
     })
 
     const availabilityUrl = new URL('/api/table-bookings/availability', request.url)
@@ -241,28 +237,41 @@ export async function GET(request: Request) {
     }
 
     const availability = availabilityBody?.data || availabilityBody
-    
-    return jsonResponse({
-      success: true,
-      date: checkDate,
-      available: availability.available,
-      times:
-        availability.time_slots?.map((slot: any) => {
+
+    type UpstreamSlot = {
+      time?: string
+      available?: boolean
+      available_capacity?: number
+      kitchen_open?: boolean
+    }
+
+    const times = Array.isArray(availability?.time_slots)
+      ? (availability.time_slots as UpstreamSlot[]).map((slot) => {
           const availableCapacity =
             typeof slot.available_capacity === 'number'
               ? slot.available_capacity
               : 0
-          return {
-            time: slot.time,
+          const entry: { time: string; available: boolean; kitchen_open?: boolean } = {
+            time: String(slot.time ?? ''),
             available: slot.available ?? availableCapacity > 0
           }
-        }) || [],
+          if (typeof slot.kitchen_open === 'boolean') {
+            entry.kitchen_open = slot.kitchen_open
+          }
+          return entry
+        })
+      : []
+
+    return jsonResponse({
+      success: true,
+      date: checkDate,
+      available: availability.available,
+      times,
       isSunday,
       bookingType,
-      purpose,
       message: availability.message || availability.special_notes
     })
-    
+
   } catch (error: unknown) {
     return jsonResponse({
       success: false,
