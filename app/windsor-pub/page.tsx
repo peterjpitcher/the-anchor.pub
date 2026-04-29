@@ -224,7 +224,7 @@ export default function WindsorPubPage() {
 	                  <li className="flex items-start gap-3">
 	                    <span className="text-anchor-gold text-xl"></span>
 	                    <div>
-	                      <strong>Famous Sunday Roasts</strong> - Pre-order by 1pm Saturday. Sunday lunch bookings require a £10 per person deposit.
+	                      <strong>Famous Sunday Roasts</strong> - Walk in 1pm-6pm or book ahead. Groups of 10+ pay a £10 per person deposit.
 	                    </div>
 	                  </li>
                   <li className="flex items-start gap-3">
