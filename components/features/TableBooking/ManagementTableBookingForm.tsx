@@ -29,7 +29,6 @@ import { PayPalDepositSection } from './PayPalDepositSection'
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
 
-type BookingPurpose = 'food' | 'drinks'
 type LookupState = 'idle' | 'loading' | 'known' | 'unknown'
 type BookingStep = 'find' | 'choose' | 'details' | 'review'
 
@@ -80,6 +79,7 @@ type AvailabilitySlot = {
   available?: boolean
   available_capacity: number
   reason?: string
+  kitchen_open?: boolean
 }
 
 type AvailabilityData = {
@@ -90,10 +90,13 @@ type AvailabilityData = {
   special_notes?: string
 }
 
-type AlternativeSlot = {
+type SelectedSlotService = {
   date: string
   time: string
+  kitchen_open?: boolean
 }
+
+type AlternativeSlot = SelectedSlotService
 
 type SuggestedEvent = {
   id: string
@@ -110,7 +113,6 @@ interface ManagementTableBookingFormProps {
     date?: string
     time?: string
     partySize?: number
-    purpose?: BookingPurpose
   }
 }
 
@@ -224,7 +226,9 @@ function normalizeAvailabilityResponse(payload: any): AvailabilityData {
       time,
       available,
       available_capacity: availableCapacity,
-      reason: typeof source.reason === 'string' ? source.reason : undefined
+      reason: typeof source.reason === 'string' ? source.reason : undefined,
+      kitchen_open:
+        typeof source.kitchen_open === 'boolean' ? source.kitchen_open : undefined
     })
   }
 
@@ -524,6 +528,12 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const [date, setDate] = useState(defaultDate)
   const [requestedTime, setRequestedTime] = useState(defaultRequestedTime)
   const [selectedTime, setSelectedTime] = useState<string>('')
+  // Captured at slot-select time so the submit step can derive `purpose`
+  // ('food' | 'drinks') from the slot's `kitchen_open` flag without re-fetching
+  // availability — covers the nearest-alternative path where the slot is not
+  // in the current `availability.time_slots`.
+  const [selectedSlotService, setSelectedSlotService] =
+    useState<SelectedSlotService | null>(null)
 
   const [availability, setAvailability] = useState<AvailabilityData | null>(null)
   const [availabilityLoading, setAvailabilityLoading] = useState(false)
@@ -531,10 +541,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const [dateError, setDateError] = useState<string | null>(null)
   const [alternativeSlots, setAlternativeSlots] = useState<AlternativeSlot[]>([])
   const [alternativesLoading, setAlternativesLoading] = useState(false)
-  const [drinksAlternative, setDrinksAlternative] = useState<{
-    available: boolean
-    slotCount: number
-  } | null>(null)
   const [eventsByDate, setEventsByDate] = useState<Record<string, SuggestedEvent[]>>({})
   const [eventErrorsByDate, setEventErrorsByDate] = useState<Record<string, string>>({})
   const [eventsLoadingDate, setEventsLoadingDate] = useState<string | null>(null)
@@ -552,7 +558,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
-  const [purpose, setPurpose] = useState<BookingPurpose>(prefill?.purpose || 'food')
   const [notes, setNotes] = useState('')
 
   const [paypalOrderId, setPaypalOrderId] = useState<string | null>(null)
@@ -644,8 +649,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
     return {
       summary: parts.join(' · '),
-      footer:
-        'Tables booked here are for dining — you’re welcome to come in any time during bar hours for a drink first, no booking needed.'
+      footer: null as string | null
     }
   }, [date, businessHours])
 
@@ -763,14 +767,12 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   async function fetchAvailabilityForDate(
     targetDate: string,
     targetTime: string,
-    targetPurpose: BookingPurpose,
     signal?: AbortSignal
   ): Promise<AvailabilityData> {
     const params = new URLSearchParams({
       date: targetDate,
       party_size: String(partySize),
-      time: targetTime,
-      purpose: targetPurpose
+      time: targetTime
     })
 
     const response = await fetch(`/api/table-bookings/availability?${params.toString()}`, {
@@ -791,7 +793,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     return normalizeAvailabilityResponse(body)
   }
 
-  async function loadNearestAlternatives(targetDate: string, targetTime: string, targetPurpose: BookingPurpose) {
+  async function loadNearestAlternatives(targetDate: string, targetTime: string) {
     setAlternativesLoading(true)
     setAlternativeSlots([])
 
@@ -800,7 +802,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       const candidateResponses = await Promise.all(
         dateCandidates.map(async (candidateDate) => {
           try {
-            return await fetchAvailabilityForDate(candidateDate, targetTime, targetPurpose)
+            return await fetchAvailabilityForDate(candidateDate, targetTime)
           } catch {
             return null
           }
@@ -814,7 +816,11 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
         const slots = response.time_slots
           .filter((slot) => isSlotAvailable(slot, partySize))
           .slice(0, 2)
-          .map((slot) => ({ date: response.date || targetDate, time: slot.time }))
+          .map((slot) => ({
+            date: response.date || targetDate,
+            time: slot.time,
+            kitchen_open: slot.kitchen_open
+          }))
 
         alternatives.push(...slots)
         if (alternatives.length >= 6) {
@@ -831,7 +837,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   async function runAvailabilitySearch(input: {
     targetDate: string
     targetTime: string
-    targetPurpose: BookingPurpose
     source: string
     context: string
     signal?: AbortSignal
@@ -849,7 +854,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     const availabilityData = await fetchAvailabilityForDate(
       input.targetDate,
       input.targetTime,
-      input.targetPurpose,
       input.signal
     )
     const closestTime = pickClosestSlot(availabilityData.time_slots, input.targetTime, partySize)
@@ -858,29 +862,12 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setRequestedTime(input.targetTime)
     setAvailability(availabilityData)
     setSelectedTime(closestTime || '')
+    // A new availability response invalidates the previous slot selection.
+    setSelectedSlotService(null)
     setStep('choose')
 
     if (!closestTime) {
-      void loadNearestAlternatives(input.targetDate, input.targetTime, input.targetPurpose)
-
-      // Auto-check drinks availability when food returns no slots
-      if (input.targetPurpose === 'food') {
-        try {
-          const drinksData = await fetchAvailabilityForDate(
-            input.targetDate,
-            input.targetTime,
-            'drinks',
-            input.signal
-          )
-          const drinksSlots = (drinksData.time_slots || []).filter((s) => isSlotAvailable(s, partySize))
-          setDrinksAlternative({
-            available: drinksSlots.length > 0,
-            slotCount: drinksSlots.length
-          })
-        } catch {
-          setDrinksAlternative(null)
-        }
-      }
+      void loadNearestAlternatives(input.targetDate, input.targetTime)
     }
   }
 
@@ -912,15 +899,13 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setResult(null)
     setAvailabilityLoading(true)
     setAlternativeSlots([])
-    setDrinksAlternative(null)
 
     try {
       await runAvailabilitySearch({
         targetDate: date,
         targetTime: requestedTime,
-        targetPurpose: purpose,
         source: 'book_table_find_table',
-        context: `availability_first_${purpose}`,
+        context: 'availability_first',
         signal: controller.signal
       })
     } catch (availabilityFailure: unknown) {
@@ -952,9 +937,14 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     })
   }
 
-  function handleSlotSelect(slotTime: string) {
-    setSelectedTime(slotTime)
-    setRequestedTime(slotTime)
+  function handleSlotSelect(slot: AvailabilitySlot) {
+    setSelectedTime(slot.time)
+    setRequestedTime(slot.time)
+    setSelectedSlotService({
+      date,
+      time: slot.time,
+      kitchen_open: slot.kitchen_open
+    })
     trackTableBookingClick({
       source: 'book_table_slot_selected',
       context: 'availability_step'
@@ -965,6 +955,14 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setDate(alternative.date)
     setRequestedTime(alternative.time)
     setSelectedTime(alternative.time)
+    // Carry the alternative's kitchen_open through so submit-time purpose
+    // derivation can find the slot even though the current `availability`
+    // belongs to the originally-requested date.
+    setSelectedSlotService({
+      date: alternative.date,
+      time: alternative.time,
+      kitchen_open: alternative.kitchen_open
+    })
     setStep('details')
     setError(null)
   }
@@ -999,7 +997,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setAvailability(null)
     setAlternativeSlots([])
     setSelectedTime('')
-    setDrinksAlternative(null)
+    setSelectedSlotService(null)
     if (value && /^\d{4}-\d{2}-\d{2}$/.test(value)) {
       const todayMidnight = new Date()
       todayMidnight.setHours(0, 0, 0, 0)
@@ -1012,20 +1010,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     } else {
       setDateError(null)
     }
-  }
-
-  function handlePurposeSelection(nextPurpose: BookingPurpose) {
-    if (nextPurpose === purpose) return
-
-    markFunnelStart()
-    setPurpose(nextPurpose)
-    setDrinksAlternative(null)
-
-    setSelectedTime('')
-    setAvailability(null)
-    setAvailabilityError(null)
-    setAlternativeSlots([])
-    setError(null)
   }
 
   function renderDateEventSuggestions(options: {
@@ -1216,6 +1200,28 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setStep('review')
   }
 
+  // Derive the management-API `purpose` field from the chosen slot's
+  // `kitchen_open` flag. Strict rule (spec §8 → "Submit Purpose Derivation"):
+  //   1. Prefer `selectedSlotService` if it matches the current date/time.
+  //   2. Otherwise look up the slot in the current `availability.time_slots`.
+  //   3. If a matching slot exists and `kitchen_open === false`, return 'drinks'.
+  //   4. If a matching slot exists and `kitchen_open` is `true` or `undefined`, return 'food'.
+  //   5. If no matching slot can be found, return null — the caller must block submit.
+  function deriveSubmitPurpose(): 'food' | 'drinks' | null {
+    const matchService =
+      selectedSlotService &&
+      selectedSlotService.date === date &&
+      selectedSlotService.time === selectedTime
+        ? selectedSlotService
+        : null
+    if (matchService) {
+      return matchService.kitchen_open === false ? 'drinks' : 'food'
+    }
+    const slot = availability?.time_slots.find((s) => s.time === selectedTime)
+    if (!slot) return null
+    return slot.kitchen_open === false ? 'drinks' : 'food'
+  }
+
   async function handleConfirmBooking() {
     setError(null)
     setResult(null)
@@ -1226,6 +1232,13 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
     if (!policyAccepted) {
       setError('Please confirm you understand the booking and no-show policy before continuing.')
+      return
+    }
+
+    const purpose = deriveSubmitPurpose()
+    if (!purpose) {
+      setError('Please choose a time again before confirming.')
+      setStep('choose')
       return
     }
 
@@ -1258,6 +1271,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       // Public payload no longer carries sunday_lunch / menu_selections / booking_type.
       // The proxy at /api/table-bookings strips these defensively (spec §6, §8.1)
       // and always forwards booking_type='regular' to the management API.
+      // `purpose` is derived from the selected slot's kitchen_open flag — see
+      // deriveSubmitPurpose() above.
       const payload = {
         phone: trimmedPhone,
         default_country_code: '44',
@@ -1370,11 +1385,11 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setDate(defaultDate)
     setRequestedTime(defaultRequestedTime)
     setSelectedTime('')
+    setSelectedSlotService(null)
     setAvailability(null)
     setAvailabilityError(null)
     setAlternativeSlots([])
     setAlternativesLoading(false)
-    setDrinksAlternative(null)
     setDismissedEventDates([])
     setSelectedSuggestedEvent(null)
     setPhone('')
@@ -1384,7 +1399,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setFirstName('')
     setLastName('')
     setEmail('')
-    setPurpose(prefill?.purpose || 'food')
     setNotes('')
     setPolicyAccepted(false)
     setError(null)
@@ -1510,7 +1524,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
             <div>
               <h3 className="text-lg font-semibold text-anchor-gold-vivid">Find a table</h3>
               <p className="mt-1 text-sm text-anchor-cream-text/70">
-                {`Start with party size, date, booking type, and time. We'll ask for contact details after you pick a slot.`}
+                {`Start with party size, date, and time. We'll ask for contact details after you pick a slot.`}
               </p>
             </div>
 
@@ -1520,7 +1534,9 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                   {formatDateForDisplay(date)}
                 </p>
                 <p className="mt-1">{hoursNote.summary}</p>
-                <p className="mt-2 text-xs text-anchor-cream-text/60">{hoursNote.footer}</p>
+                {hoursNote.footer ? (
+                  <p className="mt-2 text-xs text-anchor-cream-text/60">{hoursNote.footer}</p>
+                ) : null}
               </div>
             ) : null}
 
@@ -1540,7 +1556,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 if (Number.isNaN(parsed)) return
                 const clamped = Math.min(Math.max(parsed, 1), 20)
                 setPartySize(clamped)
-                setDrinksAlternative(null)
+                setSelectedSlotService(null)
               }}
               onBlur={() => {
                 const parsed = Number.parseInt(partySizeDisplay, 10)
@@ -1570,26 +1586,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 setRequestedTime(event.target.value)
               }}
             />
-
-            <div>
-              <label htmlFor="table-booking-purpose-find" className="mb-1 block text-sm font-medium text-anchor-cream-text/70">
-                Booking for
-              </label>
-              <select
-                id="table-booking-purpose-find"
-                value={purpose}
-                onChange={(event) => handlePurposeSelection(event.target.value === 'drinks' ? 'drinks' : 'food')}
-                className="w-full rounded-lg border border-anchor-gold/30 bg-anchor-bg-card px-4 py-2 text-anchor-cream-text focus:border-transparent focus:outline-none focus:ring-2 focus:ring-anchor-gold"
-              >
-                <option value="food">Food (kitchen hours)</option>
-                <option value="drinks">Drinks (bar hours)</option>
-              </select>
-              <p className="mt-2 text-xs text-anchor-cream-text/60">
-                {purpose === 'food'
-                  ? 'Food bookings are shown within kitchen service hours.'
-                  : 'Drinks-only bookings can include later bar slots when available.'}
-              </p>
-            </div>
 
             {(showDateEventSuggestions || selectedDateEventsLoading) &&
               renderDateEventSuggestions({
@@ -1622,9 +1618,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               <p className="mt-1 text-sm text-anchor-cream-text/70">
                 {formatDateForDisplay(date)} for {partySize} {partySize === 1 ? 'guest' : 'guests'}.
               </p>
-              <p className="mt-1 text-xs text-anchor-cream-text/60">
-                Showing {purpose === 'drinks' ? 'drinks-only' : 'food'} slots.
-              </p>
             </div>
 
             {availabilityLoading ? (
@@ -1639,14 +1632,21 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                     <button
                       key={slot.time}
                       type="button"
-                      onClick={() => handleSlotSelect(slot.time)}
-                      className={`rounded-xl border px-3 py-3 text-sm font-semibold transition-colors ${
+                      onClick={() => handleSlotSelect(slot)}
+                      className={`rounded-xl border px-3 py-3 text-center transition-colors ${
                         isSelected
                           ? 'border-anchor-gold bg-anchor-gold/15 text-anchor-gold-vivid'
                           : 'border-anchor-gold/25 bg-anchor-bg-card text-anchor-cream-text hover:border-anchor-gold'
                       }`}
                     >
-                      {formatTimeForDisplay(slot.time)}
+                      <span className="block text-base font-semibold">
+                        {formatTimeForDisplay(slot.time)}
+                      </span>
+                      {typeof slot.kitchen_open === 'boolean' ? (
+                        <span className="mt-1 block text-xs font-normal text-anchor-cream-text/60">
+                          {slot.kitchen_open ? 'Drinks & food' : 'Drinks only'}
+                        </span>
+                      ) : null}
                     </button>
                   )
                 })}
@@ -1659,27 +1659,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 </p>
                 {availability?.special_notes ? <p className="mt-2">{availability.special_notes}</p> : null}
               </Alert>
-            )}
-
-            {drinksAlternative?.available && purpose === 'food' && availableSlots.length === 0 && (
-              <div className="rounded-xl border border-anchor-gold/30 bg-anchor-gold/10 p-4 text-center">
-                <p className="text-sm font-semibold text-anchor-gold-vivid mb-2">
-                  Our kitchen is closed, but the bar is open
-                </p>
-                <p className="text-sm text-anchor-cream-text/80 mb-3">
-                  {drinksAlternative.slotCount} drinks-only {drinksAlternative.slotCount === 1 ? 'time' : 'times'} available
-                </p>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setDrinksAlternative(null)
-                    handlePurposeSelection('drinks')
-                  }}
-                  className="rounded-xl border border-anchor-gold bg-anchor-gold/20 px-4 py-2 text-sm font-semibold text-anchor-gold-vivid hover:bg-anchor-gold/30 transition-colors"
-                >
-                  Check drinks availability
-                </button>
-              </div>
             )}
 
             {(showDateEventSuggestions || selectedDateEventsLoading) &&
@@ -1851,24 +1830,13 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
             ) : null}
 
             {detailsUnlocked ? (
-              <>
-                <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-raised p-4 text-sm text-anchor-cream-text/70">
-                  <p className="font-semibold text-anchor-cream-text">
-                    Booking for: {purpose === 'drinks' ? 'Drinks (bar hours)' : 'Food (kitchen hours)'}
-                  </p>
-                  <p className="mt-1 text-xs text-anchor-cream-text/60">
-                    Need to switch between food and drinks? Go back to step 1 and tap Find a table again.
-                  </p>
-                </div>
-
-                <Textarea
-                  label="Notes (optional)"
-                  value={notes}
-                  onChange={(event) => setNotes(event.target.value)}
-                  placeholder="Special requests, accessibility needs, occasion details..."
-                  rows={3}
-                />
-              </>
+              <Textarea
+                label="Notes (optional)"
+                value={notes}
+                onChange={(event) => setNotes(event.target.value)}
+                placeholder="Special requests, accessibility needs, occasion details..."
+                rows={3}
+              />
             ) : null}
 
             <div className="flex flex-col gap-2 pt-2 sm:flex-row sm:flex-wrap">
@@ -1905,10 +1873,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 <div className="flex justify-between gap-3">
                   <dt className="font-medium">Time</dt>
                   <dd>{formatTimeForDisplay(selectedTime || requestedTime)}</dd>
-                </div>
-                <div className="flex justify-between gap-3">
-                  <dt className="font-medium">Booking for</dt>
-                  <dd>{purpose === 'drinks' ? 'Drinks' : 'Food'}</dd>
                 </div>
                 <div className="flex justify-between gap-3">
                   <dt className="font-medium">Mobile</dt>

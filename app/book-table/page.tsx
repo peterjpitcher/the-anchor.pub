@@ -43,7 +43,6 @@ type BookTablePageProps = {
     date?: string
     time?: string
     party_size?: string
-    purpose?: string
   }
 }
 
@@ -54,19 +53,15 @@ function parsePartySize(value?: string): number | undefined {
   return Math.min(Math.max(parsed, 1), 20)
 }
 
-function parsePurpose(value?: string): 'food' | 'drinks' | undefined {
-  if (value === 'food' || value === 'drinks') return value
-  return undefined
-}
-
 export default function BookPage({ searchParams }: BookTablePageProps) {
-  // sunday_lunch and mothers_day query params are silently ignored — Sunday-lunch
-  // as a separate booking type is retired with the walk-in launch (spec §6, §8.1).
+  // sunday_lunch, mothers_day, and purpose query params are silently ignored.
+  // Sunday-lunch as a separate booking type is retired with the walk-in launch
+  // (spec §6, §8.1); the booking purpose chooser is replaced by per-slot
+  // kitchen-open captions and submit-time derivation (spec §5, §8).
   const prefill = {
     date: searchParams?.date,
     time: searchParams?.time,
-    partySize: parsePartySize(searchParams?.party_size),
-    purpose: parsePurpose(searchParams?.purpose)
+    partySize: parsePartySize(searchParams?.party_size)
   }
 
   return (
