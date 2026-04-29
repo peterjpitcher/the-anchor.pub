@@ -90,7 +90,7 @@ A typical two-course dinner with a drink: **£25–35 per person**.
 
 This is where the comparison gets interesting. Hotel restaurants have the advantage of sophisticated kitchens, but they're cooking for large numbers of covers with standardised processes. The result is food that is technically competent but rarely exciting.
 
-The Anchor's kitchen cooks traditional British food from scratch every day. The fish is properly battered, the Sunday roast is an actual event (slow-roasted, pre-ordered, served with proper accompaniments), and the pizzas are stone-baked rather than conveyor-belt chain style.
+The Anchor's kitchen cooks traditional British food from scratch every day. The fish is properly battered, the Sunday roast is an actual event (slow-roasted, cooked to order, served with proper accompaniments), and the pizzas are stone-baked rather than conveyor-belt chain style.
 
 **The honest verdict:** for everyday pub food — fish & chips, burgers, pizza — The Anchor is likely better than a hotel equivalent and reliably better value. For a formal multi-course meal with extensive wine selection, a hotel restaurant has advantages.
 
