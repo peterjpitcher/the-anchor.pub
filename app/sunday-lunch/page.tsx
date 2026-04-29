@@ -22,17 +22,17 @@ const WEBSITE_ORIGIN = 'https://www.the-anchor.pub'
 export const revalidate = 60 * 60
 
 export const metadata: Metadata = {
-  title: 'Sunday Roast Near Heathrow | The Anchor, Stanwell Moor',
+  title: 'Sunday Roast & Lunch Near Heathrow | The Anchor, Stanwell Moor',
   description:
     'Walk-in friendly Sunday roast served 1pm-6pm at The Anchor, Stanwell Moor. From £19. 7 minutes from Heathrow Terminal 5. Free parking, dog-friendly. Booking recommended.',
   openGraph: {
-    title: 'Sunday Roast Near Heathrow | The Anchor, Stanwell Moor',
+    title: 'Sunday Roast & Lunch Near Heathrow | The Anchor, Stanwell Moor',
     description:
       'Walk-in friendly Sunday roast served 1pm-6pm at The Anchor, Stanwell Moor. From £19. 7 minutes from Heathrow Terminal 5. Free parking, dog-friendly. Booking recommended.',
     images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg']
   },
   twitter: getTwitterMetadata({
-    title: 'Sunday Roast Near Heathrow | The Anchor, Stanwell Moor',
+    title: 'Sunday Roast & Lunch Near Heathrow | The Anchor, Stanwell Moor',
     description:
       'Walk-in friendly Sunday roast served 1pm-6pm at The Anchor, Stanwell Moor. From £19. 7 minutes from Heathrow Terminal 5. Free parking, dog-friendly. Booking recommended.',
     images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg']
@@ -301,7 +301,7 @@ export default function SundayLunchPage() {
 
       <HeroWrapper
         route="/sunday-lunch"
-        title="Sunday Roast Near Heathrow"
+        title="Sunday Roast & Lunch Near Heathrow"
         description="Made from scratch. Walk in 1pm–6pm or book ahead. 7 minutes from Heathrow Terminal 5."
         eyebrow="The Anchor, Stanwell Moor"
         lead={
@@ -354,7 +354,7 @@ export default function SundayLunchPage() {
       <div className="bg-anchor-bg pt-12 pb-8 border-b border-anchor-gold/15">
         <Container>
           <PageTitle className="text-center text-anchor-cream-text" seo={{ structured: true, speakable: true }}>
-            Sunday Roast Near Heathrow at The Anchor
+            Sunday Roast &amp; Lunch Near Heathrow at The Anchor
           </PageTitle>
           <p className="mt-4 text-center text-lg text-anchor-cream-text/70 max-w-3xl mx-auto">
             Looking for the best Sunday roast near you? The Anchor in Stanwell Moor serves a proper Sunday lunch from 1pm to 6pm
