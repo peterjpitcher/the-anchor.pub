@@ -1,4 +1,11 @@
 import { render, screen, act } from '@testing-library/react'
+
+// The tracking dispatcher gates dataLayer pushes behind cookie consent. In
+// unit tests we always want events to flow so we can assert them.
+jest.mock('@/lib/cookies', () => ({
+  canUseCookieCategory: () => true,
+}))
+
 import { LaunchAnnouncement } from '../LaunchAnnouncement'
 
 // Boundary fixtures align with the constants in lib/constants.ts:
@@ -10,14 +17,20 @@ const MAY_17_AT_19_BST = new Date('2026-05-17T19:00:00+01:00').getTime()
 
 describe('LaunchAnnouncement', () => {
   let originalNow: () => number
+  let dataLayer: Array<Record<string, unknown>>
 
   beforeEach(() => {
     originalNow = Date.now
+    // Reset the GA4 dataLayer so each test starts with a fresh queue. The
+    // tracking dispatcher writes here directly via `window.dataLayer.push`.
+    dataLayer = []
+    ;(window as any).dataLayer = dataLayer
   })
 
   afterEach(() => {
     Date.now = originalNow
     jest.useRealTimers()
+    delete (window as any).dataLayer
   })
 
   it('renders pre-launch copy before May 17 BST', () => {
@@ -67,5 +80,51 @@ describe('LaunchAnnouncement', () => {
       jest.advanceTimersByTime(60_000)
     })
     expect(screen.getByText(/today from 1pm/i)).toBeInTheDocument()
+  })
+
+  it('fires banner_interaction view event on initial render with the current state', () => {
+    Date.now = () => MAY_16_BST
+    render(<LaunchAnnouncement variant="banner" />)
+
+    const events = dataLayer.filter((e) => e.event === 'banner_interaction')
+    expect(events.length).toBeGreaterThanOrEqual(1)
+    expect(events[0]).toMatchObject({
+      event: 'banner_interaction',
+      banner_id: 'sunday_walk_in_launch',
+      banner_action: 'view',
+      banner_campaign: 'walk_in_launch_2026',
+      banner_label: 'pre_launch',
+    })
+  })
+
+  it('fires banner_interaction transition event when state flips on interval', () => {
+    jest.useFakeTimers()
+    Date.now = () => MAY_16_BST
+    render(<LaunchAnnouncement variant="banner" />)
+
+    // Initial mount fires the pre_launch view event.
+    expect(
+      dataLayer.filter((e) => e.event === 'banner_interaction').map((e) => e.banner_label)
+    ).toEqual(['pre_launch'])
+
+    // Advance timers to cross the launch boundary.
+    Date.now = () => MAY_17_AT_NOON_BST
+    act(() => {
+      jest.advanceTimersByTime(60_000)
+    })
+
+    expect(
+      dataLayer.filter((e) => e.event === 'banner_interaction').map((e) => e.banner_label)
+    ).toEqual(['pre_launch', 'launch_day'])
+
+    // Advance again past the end of the banner window.
+    Date.now = () => MAY_17_AT_19_BST
+    act(() => {
+      jest.advanceTimersByTime(60_000)
+    })
+
+    expect(
+      dataLayer.filter((e) => e.event === 'banner_interaction').map((e) => e.banner_label)
+    ).toEqual(['pre_launch', 'launch_day', 'hidden'])
   })
 })
