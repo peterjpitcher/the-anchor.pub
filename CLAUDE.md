@@ -4,6 +4,20 @@ Project-specific guidance. The workspace CLAUDE.md at `/Users/peterpitcher/Curso
 
 ---
 
+## ⚠ Before writing any customer-facing content — read the SSOT
+
+**Mandatory pre-flight for any task that produces customer-facing content** (page copy, JSON-LD schemas, blog posts, social copy, marketing emails, email templates, press copy, alt text, meta descriptions, etc.):
+
+1. Read **`docs/SSOT.md`** — the single source of truth for every brand and operational fact.
+2. For structured lookups (menu prices, drinks inventory, hours), `SSOT.json` mirrors a subset of the SSOT in JSON.
+3. **The SSOT wins.** If existing page copy disagrees with the SSOT, the page is wrong — not the SSOT. Fix the page.
+4. **Do not invent facts.** If a claim you want to make is not in the SSOT, stop and ask. Do not infer, do not embellish, do not fall back on training data.
+5. **When operational reality changes, update `docs/SSOT.md` first.** Page copy, JSON-LD, and the management DB all follow.
+
+`docs/SSOT.md` covers: identity & voice · contact & location · opening hours · Sunday roast · weekday food · drinks · booking & deposits · venue/parking/amenities · beer garden · events · private hire · ratings · areas served · banned claims.
+
+---
+
 ## Stack
 
 - **Next.js 14** App Router, TypeScript, Tailwind CSS, CVA
@@ -85,13 +99,17 @@ If `is_kitchen_closed` or `kitchen === null` for a date, food/sunday_lunch slots
 
 ## Critical Business Rules
 
-- **Brand:** Always "The Anchor" (not "The Anchor Pub") in customer-facing copy
-- **Contact:** manager@the-anchor.pub | 01753 682707
-- **Location:** Stanwell Moor, near Heathrow Airport
-- **Monday kitchen:** Always closed unless a special hours record explicitly opens it
-- **Sunday lunch:** Requires advance booking and prepayment; blocked if kitchen is closed for that date
-- **No service:** No breakfast, delivery, Sky Sports, or guest ales
-- **Verified copy:** `/docs/copy-assumptions.md` is the source of truth for operational claims used in page copy
+These are short reminders. The full set of operational claims and banned phrases lives in **`docs/SSOT.md`** — read it before writing any content.
+
+- **Brand:** Always "The Anchor" (not "The Anchor Pub") in customer-facing copy.
+- **Contact:** manager@the-anchor.pub | 01753 682707.
+- **Location:** Stanwell Moor, near Heathrow Airport.
+- **Monday kitchen:** Always closed unless a special-hours record explicitly opens it.
+- **Sunday lunch:** Walk-ins welcome 1pm – 6pm. **No pre-order, no Saturday cutoff, no per-roast prepayment** (changed at the 17 May 2026 walk-in launch). Blocked only if the kitchen is closed for that date.
+- **Sunday roast menu (current):** Beef Topside £22 · Pork Leg £20 · Turkey w/ Stuffing Ball £19 · Beef & Ale Pie £21 · Chicken & Wild Mushroom Pie £21 · Vegan Wellington £20 · Kids Roast £14. Wellington is **vegan**, never "vegetarian". See `docs/SSOT.md` §4 for full rules (gravy, accompaniments, retired items).
+- **Group deposit:** Groups of 10+ on any day, any booking type — £10 per person, deducted from the bill.
+- **No service:** No breakfast, no delivery, no Sky/TNT Sports, no guest ales, no real-ale positioning, no wedding receptions, no accessible toilet, no baby changing.
+- **Verified copy:** `docs/SSOT.md` is canonical. `SSOT.json` mirrors the structured subset.
 
 ---
 
@@ -135,7 +153,7 @@ lib/
   gtm-events.ts       Analytics event helpers
   constants.ts        Business constants
 public/               Static assets
-docs/                 Documentation (api-integration.md, copy-assumptions.md, parking-api.md)
+docs/                 Documentation (SSOT.md ← canonical brand/claims source, api-integration.md, parking-api.md)
 tests/                Jest test files
 ```
 

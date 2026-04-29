@@ -1,6 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$comment": "Single Source of Truth for The Anchor brand. Generated 2026-03-22 from full codebase crawl of OJ-The-Anchor.pub. All AI agents, copywriters, and developers should reference this file for verified brand facts.",
+  "$comment": "Structured mirror of The Anchor's Single Source of Truth. The canonical, human-edited source is docs/SSOT.md — if this JSON and the Markdown disagree, the Markdown wins and this file should be reconciled. AI agents, copywriters, and developers should read docs/SSOT.md before writing customer-facing content; use this JSON for programmatic lookups (menu, hours, drinks inventory).",
+  "_canonical_source": "docs/SSOT.md",
   "meta": {
     "version": "1.0.0",
     "generated": "2026-03-22",
