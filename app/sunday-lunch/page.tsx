@@ -367,6 +367,30 @@ export default function SundayLunchPage() {
             every week — beef, pork belly, chicken, lamb shank, vegetarian wellington — cooked to order from scratch. No pre-order, no
             self-serve carvery. Walk in or book ahead. Free parking. 7 minutes from Heathrow Terminal 5.
           </p>
+          <ul
+            aria-label="At a glance"
+            className="mt-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-sm text-anchor-cream-text/75"
+          >
+            <li className="inline-flex items-center gap-1.5">
+              <span aria-hidden="true">&#128054;</span>
+              <span>Dog friendly</span>
+            </li>
+            <li aria-hidden="true" className="text-anchor-cream-text/40">&middot;</li>
+            <li className="inline-flex items-center gap-1.5">
+              <span aria-hidden="true">&#127359;&#65039;</span>
+              <span>Free parking</span>
+            </li>
+            <li aria-hidden="true" className="text-anchor-cream-text/40">&middot;</li>
+            <li className="inline-flex items-center gap-1.5">
+              <span aria-hidden="true">&#128694;</span>
+              <span>Walk in any time</span>
+            </li>
+            <li aria-hidden="true" className="text-anchor-cream-text/40">&middot;</li>
+            <li className="inline-flex items-center gap-1.5">
+              <span aria-hidden="true">&#11088;</span>
+              <span>4.6/5 on Google</span>
+            </li>
+          </ul>
         </Container>
       </div>
 
