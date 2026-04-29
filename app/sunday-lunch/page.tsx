@@ -94,9 +94,9 @@ const SUNDAY_ROAST_MENU = [
   {
     name: 'Kids Roast',
     priceLabel: '£14',
-    badge: 'Kids menu',
+    badge: 'Smaller portion',
     description:
-      'A smaller plate of any of our roasts — your child’s choice of roast pork, roast turkey or beetroot & butternut squash wellington — served with triple-cooked, herb-and-garlic crusted roast potatoes, seasonal vegetables, a Yorkshire pudding (with the pork or turkey) and our signature gravy.'
+      'A child-sized portion of any of our roasts — your child’s choice of roast pork, roast turkey or beetroot & butternut squash wellington — served on a smaller plate with triple-cooked, herb-and-garlic crusted roast potatoes, seasonal vegetables, a Yorkshire pudding (with the pork or turkey) and our signature gravy.'
   }
 ] as const
 
