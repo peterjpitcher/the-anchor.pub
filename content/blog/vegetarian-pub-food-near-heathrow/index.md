@@ -28,7 +28,7 @@ The Anchor in Stanwell Moor — about seven minutes from Heathrow Terminal 5 —
 
 ### Vegetarian Highlights
 
-- **Butternut squash wellington** — available as part of the Sunday roast menu (£19.99). A proper centrepiece dish with all the trimmings, not a sad plate of vegetables with gravy poured over them. This needs pre-ordering as part of the Sunday lunch booking.
+- **Butternut squash wellington** — available as part of the Sunday roast menu (£19.99). A proper centrepiece dish with all the trimmings, not a sad plate of vegetables with gravy poured over them. Walk in or book ahead, served 1pm-6pm — no pre-order needed.
 - **Stone-baked Margherita pizza** — from £11, with a proper thin base and fresh toppings. Available every day the kitchen is open.
 - **Vegetable stone-baked pizza** — loaded with roasted veg, same thin base, same price bracket.
 - **Veggie burger** — a substantial patty with proper toppings, not a frozen disc from a catering supplier.
@@ -44,7 +44,7 @@ The Anchor in Stanwell Moor — about seven minutes from Heathrow Terminal 5 —
 - **Gluten-free options** are available on several dishes. If you are coeliac or have a serious intolerance, let the team know when booking and they will talk you through what works.
 - **The kitchen can adapt most dishes** if you ask. They are genuinely happy to accommodate rather than just pointing you at the one vegetarian option on the menu.
 - **Stone-baked pizzas** are available in vegetarian and vegan options from £11.
-- **Sunday roast** with the butternut squash wellington must be **pre-ordered and booked in advance**. You can [book online](/book-table) or call 01753 682707.
+- **Sunday roast** with the butternut squash wellington is served 1pm-6pm — walk in or [book online](/book-table). Booking is recommended for groups of six or more. Call 01753 682707 for larger parties.
 - **Free parking** and **dog-friendly** throughout the pub. The beer garden is a bonus in warmer months, with planes overhead for a bit of Heathrow theatre.
 
 ## Other Vegetarian and Vegan Options Near Heathrow
@@ -71,7 +71,7 @@ Staines and Hounslow both have a decent selection of Indian restaurants, which a
 A few practical things worth knowing if you are eating out meat-free near Heathrow:
 
 - **Call ahead for vegan-specific requirements.** Most pubs and restaurants can accommodate vegetarians without notice, but vegan dishes — especially involving cheese substitutes or specific allergen considerations — sometimes need a heads-up.
-- **Sunday roast bookings are essential.** If you want the butternut squash wellington at The Anchor, you need to pre-order. Do not turn up expecting it to be available on the day.
+- **Walk-ins are welcome on Sundays.** The butternut squash wellington is served alongside the rest of the roast menu, 1pm-6pm. Booking ahead is sensible for peak slots and groups, but not required.
 - **Ask about cooking methods, not just ingredients.** Chips fried in the same oil as battered fish, bread rolls with butter glazes, soup made with chicken stock — these are the things that catch people out. A good kitchen will know the answer immediately.
 - **Pub gardens are your friend.** If you are travelling with a mix of meat-eaters and vegetarians, a pub like The Anchor works well because there is something for everyone. Nobody has to compromise.
 - **Check menus online before you go.** Most places near Heathrow have their menus on their website. It saves the awkward moment of sitting down and finding there is nothing you want to eat. The Anchor's [full menu is here](/food-menu).
