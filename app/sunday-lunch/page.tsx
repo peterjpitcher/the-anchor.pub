@@ -9,6 +9,7 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncement'
 import { SundayLunchHowItWorks } from '@/components/sunday-lunch/SundayLunchHowItWorks'
+import { SectionViewTracker } from '@/components/sunday-lunch/SectionViewTracker'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 
@@ -142,9 +143,9 @@ const FAQS = [
       "We're 7 minutes from Heathrow Terminal 5 by car. Free parking on site, no meters, no time limits while you're dining. Easy reach from Staines, Ashford, Surrey and west London."
   },
   {
-    question: "Is this a carvery?",
+    question: 'Is The Anchor a carvery?',
     answer:
-      "We're not a carvery. Every plate is cooked to order from scratch — meat carved fresh, gravy made fresh, trimmings hand-prepped. No buffet, no heat lamps, no self-serve."
+      "No. We cook every plate to order rather than serving from a carvery line. The meat is carved fresh, the gravy made fresh, the trimmings hand-prepped. If you want a traditional Sunday roast carved fresh and brought to your table — that's what you're after."
   },
   {
     question: 'Do you have vegan or vegetarian options?',
@@ -426,27 +427,77 @@ export default function SundayLunchPage() {
       </section>
 
       {/* Sunday roast vs carvery — captures the 50K monthly carvery search */}
-      <section className="bg-anchor-bg py-12 border-b border-anchor-gold/15">
-        <Container>
-          <div className="mx-auto max-w-3xl">
-            <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text mb-4">
-              Sunday Roast vs Carvery — What&rsquo;s the Difference?
-            </h2>
-            <p className="text-anchor-cream-text/70 leading-relaxed">
-              When people search for &ldquo;carvery near me&rdquo;, they usually mean somewhere serving a proper roast on a Sunday. The Anchor isn&apos;t a carvery in
-              the technical sense — there&apos;s no buffet line, no heat lamps, no self-serve. We cook every plate to order from scratch:
-              the meat carved fresh; the gravy made fresh; the Yorkshires baked in batches; the trimmings hand-prepped that morning.
-            </p>
-            <p className="text-anchor-cream-text/70 leading-relaxed mt-4">
-              The result: bigger portions of better food, with no sad sliced beef sitting under a lamp. Mains from £19. Walk in or book ahead, served 1pm–6pm.
-            </p>
-            <p className="text-anchor-cream-text/70 leading-relaxed mt-4">
-              If you&apos;re weighing up a chain carvery near Heathrow versus an independent pub Sunday roast, that&apos;s the trade-off — slightly higher
-              ticket price, considerably better plate.
-            </p>
-          </div>
-        </Container>
-      </section>
+      <SectionViewTracker sectionId="carvery_comparison">
+        <section className="bg-anchor-bg py-12 border-b border-anchor-gold/15">
+          <Container>
+            <div className="mx-auto max-w-4xl">
+              <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text mb-4">
+                Sunday Roast or Carvery? What to Expect Near Heathrow
+              </h2>
+              <p className="text-anchor-cream-text/70 leading-relaxed mb-6">
+                If you&apos;re weighing up a chain carvery near Heathrow versus an independent pub Sunday roast, here&apos;s what
+                actually changes on the plate.
+              </p>
+              <div className="overflow-x-auto rounded-lg border border-anchor-gold/15">
+                <table className="w-full text-sm md:text-base text-left">
+                  <thead className="bg-anchor-bg-raised text-anchor-cream-text">
+                    <tr>
+                      <th scope="col" className="px-4 py-3 font-semibold">Detail</th>
+                      <th scope="col" className="px-4 py-3 font-semibold">Carvery</th>
+                      <th scope="col" className="px-4 py-3 font-semibold">The Anchor</th>
+                    </tr>
+                  </thead>
+                  <tbody className="text-anchor-cream-text/80">
+                    <tr className="border-t border-anchor-gold/10">
+                      <th scope="row" className="px-4 py-3 font-semibold align-top text-anchor-cream-text">Serving style</th>
+                      <td className="px-4 py-3 align-top">Self-serve buffet line</td>
+                      <td className="px-4 py-3 align-top">Cooked to order, plated</td>
+                    </tr>
+                    <tr className="border-t border-anchor-gold/10">
+                      <th scope="row" className="px-4 py-3 font-semibold align-top text-anchor-cream-text">Meat carved</th>
+                      <td className="px-4 py-3 align-top">Pre-sliced, kept warm under lamps</td>
+                      <td className="px-4 py-3 align-top">Carved fresh per plate</td>
+                    </tr>
+                    <tr className="border-t border-anchor-gold/10">
+                      <th scope="row" className="px-4 py-3 font-semibold align-top text-anchor-cream-text">Yorkshire pudding</th>
+                      <td className="px-4 py-3 align-top">Batch-baked, may be reheated</td>
+                      <td className="px-4 py-3 align-top">Baked to order from fresh batter</td>
+                    </tr>
+                    <tr className="border-t border-anchor-gold/10">
+                      <th scope="row" className="px-4 py-3 font-semibold align-top text-anchor-cream-text">Roast potatoes</th>
+                      <td className="px-4 py-3 align-top">Bulk-cooked, kept warm</td>
+                      <td className="px-4 py-3 align-top">Triple-cooked in beef dripping with herbs and garlic</td>
+                    </tr>
+                    <tr className="border-t border-anchor-gold/10">
+                      <th scope="row" className="px-4 py-3 font-semibold align-top text-anchor-cream-text">Vegetarian option</th>
+                      <td className="px-4 py-3 align-top">Rare</td>
+                      <td className="px-4 py-3 align-top">Dedicated wellington from £19</td>
+                    </tr>
+                    <tr className="border-t border-anchor-gold/10">
+                      <th scope="row" className="px-4 py-3 font-semibold align-top text-anchor-cream-text">Best for</th>
+                      <td className="px-4 py-3 align-top">Low-cost volume</td>
+                      <td className="px-4 py-3 align-top">A proper Sunday lunch</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div className="mt-6 flex justify-center">
+                <BookTableButton
+                  source="sunday_lunch_carvery"
+                  context="sunday_roast"
+                  variant="primary"
+                  size="md"
+                  customHref={SUNDAY_LUNCH_BOOKING_URL}
+                  trackingLabel="Book a Sunday roast"
+                  eventName="Sunday roast"
+                >
+                  Book your Sunday roast
+                </BookTableButton>
+              </div>
+            </div>
+          </Container>
+        </section>
+      </SectionViewTracker>
 
       {/* From the kitchen */}
       <section className="bg-anchor-bg-raised py-12 border-b border-anchor-gold/15">
