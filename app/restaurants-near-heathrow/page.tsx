@@ -684,7 +684,7 @@ export default async function RestaurantsNearHeathrowPage() {
 	          },
           {
             question: "Do you take reservations?",
-            answer: "Yes, we recommend booking a table, especially for Sunday lunch which requires pre-ordering by 1pm Saturday. Call 01753 682707 or book online."
+            answer: "Yes, we take reservations and walk-ins. Sunday roast is served 1pm-6pm — no pre-order needed. Call 01753 682707 or book online."
           },
           {
             question: "Can I get takeaway if I'm in a hurry?",
