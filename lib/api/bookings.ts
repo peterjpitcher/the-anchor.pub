@@ -6,6 +6,7 @@ export interface TableAvailabilitySlot {
   available_capacity: number
   reason?: string
   requires_prepayment?: boolean
+  kitchen_open?: boolean
 }
 
 export interface TableAvailabilityResponse {
