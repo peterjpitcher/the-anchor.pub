@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Container, SectionHeader } from '@/components/ui'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { HeroWrapper } from '@/components/hero'
@@ -531,24 +532,62 @@ export default function SundayLunchPage() {
       {/* From the kitchen */}
       <section className="bg-anchor-bg-raised py-12 border-b border-anchor-gold/15">
         <Container>
-          <div className="mx-auto max-w-3xl">
-            <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text mb-4">
+          <div className="mx-auto max-w-5xl">
+            <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text mb-6">
               From the Kitchen
             </h2>
-            <p className="text-anchor-cream-text/70 leading-relaxed">
-              Our Sunday roast is built the way it should be. Beef topside slow-roasted to medium-rare. Pork belly scored
-              and rendered until the crackling shatters at a tap. Chicken brined and roasted bone-in for proper flavour.
-              Lamb shanks braised slowly until the meat falls off the bone. Roast potatoes triple-cooked in beef dripping
-              with herbs and garlic. Yorkshire puddings baked to order from a fresh batter. Gravy from the pan, finished
-              with red wine. Veg seasonal — what&apos;s good that week.
-            </p>
-            <p className="text-anchor-cream-text/70 leading-relaxed mt-4">
-              The vegetarian wellington gets the same care: beetroot and butternut squash wrapped in golden puff pastry,
-              served with vegetarian gravy on the side.
-            </p>
-            <p className="text-anchor-cream-text/70 leading-relaxed mt-4">
-              That&apos;s why people drive in from Surrey, Ashford, Staines and west London for it.
-            </p>
+            <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
+              <div className="order-2 lg:order-1">
+                <ul className="space-y-3 text-anchor-cream-text/80 leading-relaxed">
+                  <li className="flex gap-3">
+                    <span aria-hidden="true" className="text-anchor-gold-vivid mt-1">&bull;</span>
+                    <span>Beef topside, slow-roasted to medium-rare and carved fresh per plate.</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span aria-hidden="true" className="text-anchor-gold-vivid mt-1">&bull;</span>
+                    <span>Pork belly scored and rendered until the crackling shatters at a tap.</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span aria-hidden="true" className="text-anchor-gold-vivid mt-1">&bull;</span>
+                    <span>Chicken brined and roasted bone-in for proper flavour.</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span aria-hidden="true" className="text-anchor-gold-vivid mt-1">&bull;</span>
+                    <span>Lamb shanks braised slowly until the meat falls off the bone.</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span aria-hidden="true" className="text-anchor-gold-vivid mt-1">&bull;</span>
+                    <span>Triple-cooked roast potatoes in beef dripping with herbs and garlic.</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span aria-hidden="true" className="text-anchor-gold-vivid mt-1">&bull;</span>
+                    <span>Yorkshire puddings baked to order from a fresh batter.</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span aria-hidden="true" className="text-anchor-gold-vivid mt-1">&bull;</span>
+                    <span>Gravy from the pan, finished with red wine. Seasonal veg &mdash; what&apos;s good that week.</span>
+                  </li>
+                </ul>
+                <p className="mt-5 text-anchor-cream-text/70 leading-relaxed">
+                  The vegetarian wellington gets the same care: beetroot and butternut squash wrapped in golden puff
+                  pastry, served with vegetarian gravy on the side.
+                </p>
+                <p className="mt-3 text-anchor-cream-text/70 leading-relaxed">
+                  That&apos;s why people drive in from Surrey, Ashford, Staines and west London for it.
+                </p>
+              </div>
+              <div className="order-1 lg:order-2">
+                <Image
+                  src="/images/food/sunday-roast/sunday-roast-the-anchor.jpeg"
+                  alt="Roast beef Sunday lunch with Yorkshire pudding, triple-cooked roasties and red-wine gravy at The Anchor pub near Heathrow"
+                  width={1200}
+                  height={900}
+                  loading="lazy"
+                  sizes="(min-width:1024px) 50vw, 100vw"
+                  className="w-full h-auto rounded-lg border border-anchor-gold/15 object-cover"
+                />
+              </div>
+            </div>
           </div>
         </Container>
       </section>
