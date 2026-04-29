@@ -242,4 +242,34 @@ describe('website /api/table-bookings proxy — walk-in launch sanitisation', ()
     expect(forwarded.purpose).toBe('drinks')
     expect(forwarded.booking_type).toBe('regular')
   })
+
+  it('rejects a food booking outside kitchen hours with neutral customer-facing copy', async () => {
+    // Direct API submission for purpose=food at 22:30, after kitchen close (21:00).
+    // Validation must still block — copy must not mention food/drinks/kitchen/bar.
+    const calls = installUpstreamFetch()
+    const POST = await getPostHandler()
+
+    const res = await POST(
+      buildRequest({
+        phone: '07700900000',
+        date: '2026-05-22',
+        time: '22:30',
+        party_size: 2,
+        purpose: 'food'
+      }) as any
+    )
+
+    expect(res.status).toBe(400)
+    const body = await res.json()
+    const errorText: string = String(body.error)
+    expect(errorText).toMatch(/outside online booking hours/i)
+    const lowerError = errorText.toLowerCase()
+    expect(lowerError).not.toContain('food booking')
+    expect(lowerError).not.toContain('switch to drinks')
+    expect(lowerError).not.toContain('drinks-only')
+    expect(lowerError).not.toContain('kitchen hours')
+    expect(lowerError).not.toContain('bar hours')
+    // Must not have reached the management API
+    expect(calls).toHaveLength(0)
+  })
 })

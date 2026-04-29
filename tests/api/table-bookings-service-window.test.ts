@@ -58,7 +58,7 @@ describe('Table Bookings API - Service Window Enforcement', () => {
     jest.clearAllMocks()
   })
 
-  it('rejects food bookings outside kitchen hours', async () => {
+  it('rejects food bookings outside kitchen hours with neutral copy', async () => {
     const request = {
       json: async () => ({
         phone: '07700900000',
@@ -74,7 +74,14 @@ describe('Table Bookings API - Service Window Enforcement', () => {
 
     expect(response.status).toBe(400)
     const data = await response.json()
-    expect(String(data.error)).toContain('Food bookings')
+    const errorText = String(data.error)
+    expect(errorText).toMatch(/outside online booking hours/i)
+    const lowerError = errorText.toLowerCase()
+    expect(lowerError).not.toContain('food booking')
+    expect(lowerError).not.toContain('switch to drinks')
+    expect(lowerError).not.toContain('drinks-only')
+    expect(lowerError).not.toContain('kitchen hours')
+    expect(lowerError).not.toContain('bar hours')
     expect((global.fetch as jest.Mock)).not.toHaveBeenCalled()
   })
 

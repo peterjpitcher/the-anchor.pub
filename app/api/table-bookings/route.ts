@@ -205,12 +205,12 @@ function validatePayload(payload: ManagementTableBookingPayload): string | null 
   return null
 }
 
-function buildServiceWindowError(payload: ManagementTableBookingPayload): string {
-  if (payload.purpose === 'food') {
-    return 'Food bookings are only available during kitchen hours. For later bookings, switch to drinks-only or call 01753 682707.'
-  }
-
-  return 'That time is outside our drinks booking window. Please choose another time or call 01753 682707.'
+// Customer-facing copy is intentionally neutral (no food/drinks/kitchen/bar
+// references) so the public booking flow no longer exposes the internal
+// purpose classification (spec §7, plan T5). Server-side logging still
+// records `purpose` for diagnostics — see logError calls below.
+function buildServiceWindowError(_payload: ManagementTableBookingPayload): string {
+  return 'That time is outside online booking hours. Please choose another time or call 01753 682707.'
 }
 
 export async function POST(request: NextRequest) {
