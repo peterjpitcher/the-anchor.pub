@@ -583,20 +583,41 @@ export default function SundayLunchPage() {
       <section className="bg-anchor-bg-raised py-12 border-b border-anchor-gold/15">
         <Container>
           <div className="mx-auto max-w-3xl">
-            <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text mb-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text mb-6">
               Sunday Roast in Surrey, Near Ashford and West London
             </h2>
-            <p className="text-anchor-cream-text/70 leading-relaxed">
-              The Anchor sits in Stanwell Moor, Surrey — a few minutes from Ashford, Staines-upon-Thames, Egham, Wraysbury and Bedfont,
-              and easy reach from west London via the M25 (Junction 14). If you&apos;re searching for the best Sunday lunch in Ashford, a
-              Sunday roast in Surrey, or somewhere in west London for a Sunday dinner near you, we&apos;re a 10–25 minute drive depending
-              on where you start.
-            </p>
-            <p className="text-anchor-cream-text/70 leading-relaxed mt-4">
-              For Heathrow visitors: 7 minutes from Terminal 5 by car, free parking, and an outdoor beer garden where you can watch
-              planes overhead while you eat. Pre-flight Sunday lunch, post-landing Sunday roast, or Sunday lunch with airport hotel
-              guests — all part of the rhythm of the place.
-            </p>
+            <div className="space-y-6 text-anchor-cream-text/70 leading-relaxed">
+              <div>
+                <h3 className="text-xl font-semibold text-anchor-cream-text mb-2">From Surrey</h3>
+                <p>
+                  Egham, Wraysbury, Englefield Green and Virginia Water are all within a 10&ndash;15 minute drive of The Anchor.
+                  Easy reach via the A30 or M25 Junction 13.
+                </p>
+                <p className="mt-2 italic text-anchor-cream-text/60">
+                  &ldquo;Lovely Sunday roast and you can also park the car if you need to go to Heathrow airport.&rdquo; &mdash; Andrea, Egham regular.
+                </p>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold text-anchor-cream-text mb-2">From Ashford &amp; Staines</h3>
+                <p>
+                  Ashford, Staines-upon-Thames and Bedfont are 8&ndash;12 minutes by car. We&apos;re the closest pub Sunday
+                  roast for anyone heading west off the A30 &mdash; free parking on site, no time limits while you&apos;re dining.
+                </p>
+                <p className="mt-2 italic text-anchor-cream-text/60">
+                  &ldquo;The Sunday roasts are to die for. Great atmosphere all round. A must to visit.&rdquo; &mdash; Michael, Ashford.
+                </p>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold text-anchor-cream-text mb-2">From West London</h3>
+                <p>
+                  Hounslow, Feltham, Hayes and Heathrow village are 15&ndash;25 minutes via the A30 or M25 Junction 14.
+                  Outside the ULEZ zone, with an outdoor beer garden under the Heathrow flight path.
+                </p>
+                <p className="mt-2 italic text-anchor-cream-text/60">
+                  &ldquo;Came in this past Sunday for the Sunday roast before our flight home. Absolutely delicious plates!&rdquo; &mdash; T, west London visitor.
+                </p>
+              </div>
+            </div>
           </div>
         </Container>
       </section>
