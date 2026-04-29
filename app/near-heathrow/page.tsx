@@ -94,7 +94,7 @@ export default function NearHeathrowPage() {
               <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-6">
                 <h3 className="text-xl font-semibold text-anchor-gold-vivid mb-2">Sunday Roast</h3>
                 <p className="text-sm text-anchor-cream-text/70 mb-4">
-                  Book by 1pm Saturday and enjoy Yorkshire puddings, crispy potatoes and homemade gravy before your flight.
+                  Walk in 1pm-6pm or book ahead - Yorkshire puddings, crispy potatoes and homemade gravy before your flight.
                 </p>
                 <div className="flex flex-col gap-2">
                   <BookTableButton
@@ -788,7 +788,7 @@ export default function NearHeathrowPage() {
                 },
                 {
                   question: "Can I book a table at The Anchor?",
-                  answer: "Yes, you can book a table online or by calling us on 01753 682707. Booking is recommended for Sunday lunch (must be pre-ordered by Saturday 1pm) and for larger groups."
+                  answer: "Yes, you can book a table online or by calling us on 01753 682707. Walk-ins are welcome for Sunday roast (1pm-6pm); booking is recommended for larger groups."
                 },
                 {
                   question: "What terminal is closest to The Anchor pub?",
