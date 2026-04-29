@@ -154,9 +154,9 @@ const FAQS = [
       "No. We cook every plate to order rather than serving from a carvery line. The meat is carved fresh, the gravy made fresh, the trimmings hand-prepped. If you want a traditional Sunday roast carved fresh and brought to your table — that's what you're after."
   },
   {
-    question: 'Do you have vegan or vegetarian options?',
+    question: 'Do you serve a vegan or vegetarian Sunday roast?',
     answer:
-      'Yes — our beetroot and butternut squash wellington is fully vegetarian and is served with vegetarian gravy. Mention dietary requirements when booking.'
+      "Yes — our beetroot and butternut squash wellington is fully vegetarian and is served with vegetarian gravy. Mention dietary requirements when booking and we'll make sure your visit goes smoothly. We're happy to discuss vegan adaptations on request."
   }
 ] as const
 
@@ -434,6 +434,16 @@ export default function SundayLunchPage() {
           <p className="mt-6 text-center text-sm text-anchor-cream-text/60">
             Every plate cooked to order. Add cauliflower cheese, extra Yorkshires or pigs in blankets at the bar on the day.
           </p>
+          <div className="mx-auto max-w-3xl mt-8 rounded-lg border border-anchor-gold/15 bg-anchor-bg-raised p-5">
+            <h3 className="text-lg font-semibold text-anchor-cream-text">
+              Vegan &amp; Vegetarian Sunday Roast
+            </h3>
+            <p className="mt-2 text-sm text-anchor-cream-text/75 leading-relaxed">
+              The beetroot and butternut squash wellington (&pound;19) is fully vegetarian and is served with vegetarian
+              gravy &mdash; not an afterthought, but a dish in its own right. Mention dietary requirements when booking
+              and we&apos;ll happily discuss vegan adaptations on request.
+            </p>
+          </div>
         </Container>
       </section>
 
