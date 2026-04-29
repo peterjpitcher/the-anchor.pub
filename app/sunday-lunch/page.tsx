@@ -478,6 +478,15 @@ export default function SundayLunchPage() {
                 </PhoneLink>
                 {' '}lets us offer your table to someone else.</li>
             </ul>
+            <Image
+              src="/images/garden/beer-garden/the-anchor-beer-garden-heathrow-flight-path.jpg"
+              alt="Beer garden under the Heathrow flight path at The Anchor pub, Stanwell Moor"
+              width={1280}
+              height={720}
+              loading="lazy"
+              sizes="(min-width:1024px) 720px, 100vw"
+              className="mt-8 w-full h-auto rounded-lg border border-anchor-gold/15 object-cover"
+            />
           </div>
         </Container>
       </section>
