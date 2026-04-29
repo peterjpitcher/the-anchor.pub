@@ -371,7 +371,7 @@ export default async function FoodMenuPage() {
                         href="/sunday-lunch"
                         className="mt-2 block text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition"
                       >
-                        View roast options →
+                        Our Sunday roast menu →
                       </Link>
                     </>
                   ),

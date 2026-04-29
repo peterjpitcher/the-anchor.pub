@@ -369,11 +369,11 @@ export default function EasterPage() {
               </PhoneButton>
             </div>
             <p className="text-sm text-anchor-cream-text/70">
-              Or visit our{' '}
+              Or browse{' '}
               <Link href="/sunday-lunch" className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted">
-                Sunday lunch page
+                our Sunday roast menu
               </Link>{' '}
-              for the full menu.
+              for the full lineup.
             </p>
           </div>
         </Container>
@@ -423,7 +423,7 @@ export default function EasterPage() {
         title="More to explore at The Anchor"
         links={[
           { href: EASTER_BOOKING_URL, title: 'Book Easter Sunday lunch', description: 'Reserve online in minutes' },
-          { href: '/sunday-lunch', title: 'Sunday lunch menu', description: 'Full menu and prices' },
+          { href: '/sunday-lunch', title: 'Sunday roast near Heathrow', description: 'Full menu, prices and walk-in info' },
           ...commonLinkGroups.dining,
           ...commonLinkGroups.location
         ]}
