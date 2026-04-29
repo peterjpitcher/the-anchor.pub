@@ -42,6 +42,20 @@ describe('LaunchAnnouncement', () => {
     expect(container).toBeEmptyDOMElement()
   })
 
+  it('hides the slim variant pre-launch (footer slim is omitted before 17 May per spec §8.7)', () => {
+    Date.now = () => MAY_16_BST
+    const { container } = render(<LaunchAnnouncement variant="slim" />)
+    expect(container).toBeEmptyDOMElement()
+  })
+
+  it('renders the slim variant on launch day', () => {
+    Date.now = () => MAY_17_AT_NOON_BST
+    render(<LaunchAnnouncement variant="slim" />)
+    expect(
+      screen.getByText(/Walk-ins welcome today from 1pm/i)
+    ).toBeInTheDocument()
+  })
+
   it('client child re-checks expiry on interval and switches', () => {
     jest.useFakeTimers()
     Date.now = () => MAY_16_BST

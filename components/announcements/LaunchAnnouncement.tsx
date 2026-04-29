@@ -15,16 +15,24 @@ const PRE_LAUNCH_COPY =
 const LAUNCH_DAY_COPY =
   'Walk-ins welcome today from 1pm — turn up between 1pm-6pm or book ahead'
 
-function pickCopy(now: number): string | null {
+function pickCopy(
+  variant: LaunchAnnouncementVariant,
+  now: number,
+): string | null {
   if (now >= WALK_IN_LAUNCH_BANNER_ENDS_AT_MS) return null
-  if (now < WALK_IN_LAUNCH_STARTS_AT_MS) return PRE_LAUNCH_COPY
+  if (now < WALK_IN_LAUNCH_STARTS_AT_MS) {
+    // Per spec §8.7: footer slim is omitted pre-launch and only shows the
+    // launch-day "today from 1pm" copy. Hero + banner show pre-launch teaser.
+    if (variant === 'slim') return null
+    return PRE_LAUNCH_COPY
+  }
   return LAUNCH_DAY_COPY
 }
 
 const VARIANT_CLASSES: Record<LaunchAnnouncementVariant, string> = {
-  hero: 'mt-4 rounded-lg bg-anchor-gold/15 px-6 py-3 text-base font-semibold text-anchor-gold-vivid',
-  banner: 'rounded-md bg-anchor-gold/10 px-4 py-2 text-sm text-anchor-cream-text',
-  slim: 'border-t border-anchor-gold/20 px-3 py-1.5 text-xs text-anchor-cream-text/80',
+  hero: 'mt-4 rounded-lg bg-anchor-gold/15 px-6 py-3 text-base font-semibold text-anchor-gold-vivid text-center',
+  banner: 'rounded-md bg-anchor-gold/10 px-4 py-2 text-sm text-anchor-cream-text text-center',
+  slim: 'border-t border-anchor-gold/20 px-3 py-1.5 text-xs text-anchor-cream-text/80 text-center',
 }
 
 /**
@@ -38,13 +46,13 @@ const VARIANT_CLASSES: Record<LaunchAnnouncementVariant, string> = {
  * See spec sections 7.6 and 8.5.
  */
 export function LaunchAnnouncement({ variant }: LaunchAnnouncementProps) {
-  const initialCopy = pickCopy(Date.now())
+  const initialCopy = pickCopy(variant, Date.now())
   return (
     <LaunchAnnouncementClient
       variant={variant}
       initialCopy={initialCopy}
       className={VARIANT_CLASSES[variant]}
-      preLaunchCopy={PRE_LAUNCH_COPY}
+      preLaunchCopy={variant === 'slim' ? null : PRE_LAUNCH_COPY}
       launchDayCopy={LAUNCH_DAY_COPY}
       startsAtMs={WALK_IN_LAUNCH_STARTS_AT_MS}
       endsAtMs={WALK_IN_LAUNCH_BANNER_ENDS_AT_MS}

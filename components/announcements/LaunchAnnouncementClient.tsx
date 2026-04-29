@@ -7,7 +7,7 @@ interface LaunchAnnouncementClientProps {
   variant: LaunchAnnouncementVariant
   initialCopy: string | null
   className: string
-  preLaunchCopy: string
+  preLaunchCopy: string | null
   launchDayCopy: string
   startsAtMs: number
   endsAtMs: number
@@ -36,6 +36,8 @@ export function LaunchAnnouncementClient({
         return
       }
       if (now < startsAtMs) {
+        // preLaunchCopy may be null for variants that are hidden pre-launch
+        // (e.g. footer slim per spec §8.7).
         setCopy(preLaunchCopy)
         return
       }
