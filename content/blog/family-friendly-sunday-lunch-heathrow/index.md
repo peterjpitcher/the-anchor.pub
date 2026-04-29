@@ -73,7 +73,7 @@ Friendly, well-behaved dogs are welcome in the bar and garden areas. We have wat
 
 1. [Book Sunday lunch](/sunday-lunch) (or call/WhatsApp **+44 1753 682707**) with your party details.
 2. Tell us if you need high chairs, booster seats, or pram space.
-3. Sunday lunch bookings require a **£10 per person deposit**.
+3. Walk in or book ahead — no pre-order needed. Groups of 10 or more take a **£10 per person deposit** on booking, fully deducted from the bill on the day.
 4. Want a cake or balloons? Drop them off the day before and we’ll set the table.
 
 ---
