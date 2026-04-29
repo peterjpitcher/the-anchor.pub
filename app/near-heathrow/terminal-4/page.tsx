@@ -132,7 +132,7 @@ export default function Terminal4Page() {
                     Book Roast Table
                   </BookTableButton>
                   <Link href="/sunday-lunch" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
-                    Sunday roast menu →
+                    Sunday roast 12 minutes from Terminal 4 →
                   </Link>
                 </div>
               </div>

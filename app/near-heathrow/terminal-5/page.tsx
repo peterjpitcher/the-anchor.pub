@@ -130,7 +130,7 @@ export default function Terminal5Page() {
                   Book Roast Table
                 </BookTableButton>
                 <Link href="/sunday-lunch" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
-                  Sunday roast menu →
+                  Sunday roast 7 minutes from Terminal 5 →
                 </Link>
               </div>
             </div>
