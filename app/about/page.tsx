@@ -263,7 +263,7 @@ export default function AboutPage() {
                     </h3>
                     <p className="text-anchor-cream-text/70 mb-4">
                       Proper roasts with all the trimmings. Yorkshire puddings, roast
-                      potatoes, and rich gravy. Pre-order by Saturday 1pm.
+                      potatoes, and rich gravy. Walk-ins welcome 1pm-6pm.
                     </p>
                     <p className="text-anchor-gold-vivid font-semibold">Book Sunday lunch &rarr;</p>
                   </CardBody>
