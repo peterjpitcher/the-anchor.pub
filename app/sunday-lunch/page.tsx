@@ -11,6 +11,7 @@ import { PhoneButton } from '@/components/PhoneButton'
 import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncement'
 import { SundayLunchHowItWorks } from '@/components/sunday-lunch/SundayLunchHowItWorks'
 import { SectionViewTracker } from '@/components/sunday-lunch/SectionViewTracker'
+import { SundayLunchMenuList } from '@/components/sunday-lunch/SundayLunchMenuList'
 import { PhoneLink } from '@/components/PhoneLink'
 import { StickyMobileBookingCTA } from '@/components/conversion/StickyMobileBookingCTA'
 import { ScrollProgressBookingTooltip } from '@/components/conversion/ScrollProgressBookingTooltip'
@@ -424,20 +425,10 @@ export default function SundayLunchPage() {
             subtitle="Sunday roast at The Anchor — mains from £19, served with all the trimmings."
             align="center"
           />
-          <div className="mt-8 mx-auto max-w-3xl space-y-4">
-            {SUNDAY_ROAST_MENU.map((item) => (
-              <div
-                key={item.name}
-                className="flex justify-between items-start gap-4 py-4 border-b border-anchor-gold/10 last:border-b-0"
-              >
-                <div>
-                  <h3 className="font-semibold text-anchor-cream-text">{item.name}</h3>
-                  <p className="text-sm text-anchor-cream-text/65 mt-1">{item.description}</p>
-                </div>
-                <span className="text-anchor-gold-vivid font-semibold whitespace-nowrap">{item.priceLabel}</span>
-              </div>
-            ))}
-          </div>
+          <SundayLunchMenuList
+            items={SUNDAY_ROAST_MENU}
+            fallbackImageSrc="/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg"
+          />
           <p className="mt-6 text-center text-sm text-anchor-cream-text/60">
             Every plate cooked to order. Add cauliflower cheese, extra Yorkshires or pigs in blankets at the bar on the day.
           </p>
