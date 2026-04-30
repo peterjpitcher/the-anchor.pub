@@ -10,6 +10,7 @@ import { DirectionsLink } from '@/components/DirectionsButton'
 import { WhatsAppLink } from '@/components/WhatsAppLink'
 import { SocialLink as SocialLinkComponent } from '@/components/SocialLink'
 import { trackNavigationClick } from '@/lib/gtm-events'
+import { trustLinks } from '@/lib/internal-linking-data'
 
 interface FooterSection {
   title: string
@@ -148,6 +149,15 @@ const defaultSections: FooterSection[] = [
       { label: 'Sunbury', href: '/sunbury-pub' },
       { label: 'Windsor', href: '/windsor-pub' },
       { label: 'Wraysbury', href: '/wraysbury-pub' }
+    ]
+  },
+  {
+    title: 'Trust & Policies',
+    titleClass: 'text-anchor-gold',
+    items: [
+      ...trustLinks.map((link) => ({ label: link.label, href: link.href })),
+      { label: 'Accessibility', href: '/accessibility' },
+      { label: 'Privacy Policy', href: '/privacy-policy' }
     ]
   }
 ]

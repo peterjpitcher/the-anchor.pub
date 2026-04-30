@@ -10,6 +10,7 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { parseMenuMarkdown } from '@/lib/menu-parser'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 
 export const metadata: Metadata = {
     title: 'Best Fish and Chips Near Heathrow | Fresh Beer Battered Cod',
@@ -203,6 +204,27 @@ export default async function FishAndChipsPage() {
                     }
                 ]}
                 className="bg-white"
+            />
+
+            <InternalLinkingSection
+                title="More Fish and Food Guides"
+                links={[
+                    {
+                        href: '/blog/fish-chips-guide',
+                        title: 'Fish and Chips Guide',
+                        description: 'A deeper guide to proper pub fish and chips near Heathrow.',
+                    },
+                    {
+                        href: '/food-menu',
+                        title: 'Full Food Menu',
+                        description: 'See our full pub menu, including mains, pizzas and Sunday lunch.',
+                    },
+                    {
+                        href: '/sunday-lunch',
+                        title: 'Sunday Lunch',
+                        description: 'Traditional Sunday roasts with proper trimmings.',
+                    },
+                ]}
             />
 
             <CTASection

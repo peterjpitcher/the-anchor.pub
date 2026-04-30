@@ -14,6 +14,31 @@ import { CateringPackagesTable } from '@/components/features/CateringPackagesTab
 import { VenueSpacesTable } from '@/components/features/VenueSpacesTable'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { landmarks, type LandmarkType } from '@/lib/local-seo-data'
+
+type LandmarkGroup = {
+    title: string
+    description: string
+    types: LandmarkType[]
+}
+
+const landmarkGroups: LandmarkGroup[] = [
+    {
+        title: 'Wakes and memorial receptions',
+        description: 'Nearby crematoriums and cemeteries where families often need a quiet private room afterwards.',
+        types: ['crematorium'],
+    },
+    {
+        title: 'Christenings, weddings and ceremonies',
+        description: 'Churches, registry offices and ceremony venues within a practical drive of The Anchor.',
+        types: ['church', 'registry_office'],
+    },
+    {
+        title: 'Work, travel and team gatherings',
+        description: 'Business parks, Heathrow and local venues for meetings, team meals and private celebrations.',
+        types: ['hospital', 'business_park', 'sports_venue', 'other'],
+    },
+]
 
 export async function generateMetadata(): Promise<Metadata> {
     const { foodPackages } = await getCateringData()
@@ -264,6 +289,49 @@ export default async function PrivateHirePage() {
                                 </div>
                             </div>
                         </Link>
+                    </div>
+                </Container>
+            </section>
+
+            <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
+                <Container>
+                    <SectionHeader
+                        title="Private Hire Near Local Venues and Landmarks"
+                        subtitle="Find the most relevant private-hire page for your ceremony, workplace, sports club or family gathering."
+                    />
+
+                    <div className="space-y-10 max-w-6xl mx-auto">
+                        {landmarkGroups.map((group) => {
+                            const groupLandmarks = landmarks.filter((landmark) => group.types.includes(landmark.type))
+
+                            return (
+                                <div key={group.title}>
+                                    <div className="mb-4">
+                                        <h3 className="text-2xl font-bold text-anchor-gold-vivid">{group.title}</h3>
+                                        <p className="mt-2 text-anchor-cream-text/70">{group.description}</p>
+                                    </div>
+
+                                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                        {groupLandmarks.map((landmark) => (
+                                            <Link
+                                                key={landmark.slug}
+                                                href={`/private-hire/near/${landmark.slug}`}
+                                                className="group block h-full"
+                                            >
+                                                <div className="h-full border border-anchor-gold/15 bg-anchor-bg-card p-5 transition-colors group-hover:border-anchor-gold/45">
+                                                    <h4 className="font-bold text-anchor-gold-vivid group-hover:text-anchor-gold">
+                                                        {landmark.name}
+                                                    </h4>
+                                                    <p className="mt-2 text-sm text-anchor-cream-text/70">
+                                                        {landmark.distance} from The Anchor. {landmark.description}
+                                                    </p>
+                                                </div>
+                                            </Link>
+                                        ))}
+                                    </div>
+                                </div>
+                            )
+                        })}
                     </div>
                 </Container>
             </section>

@@ -4,6 +4,7 @@ import { ChristmasPartiesPageClient } from './client-components'
 import { ChristmasHeroPrimaryCta, ChristmasHeroSecondaryCta } from './christmas-hero-ctas'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { TrustBar } from '@/components/psychology'
+import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 
 export const metadata: Metadata = {
   title: 'Christmas Parties & Festive Lunch Near Heathrow',
@@ -188,6 +189,26 @@ export default function ChristmasPartiesPage() {
       />
       <TrustBar variant="private-hire" />
       <ChristmasPartiesPageClient structuredData={structuredData} />
+      <InternalLinkingSection
+        title="More Christmas Party Planning"
+        links={[
+          {
+            href: '/blog/cheap-christmas-parties-heathrow',
+            title: 'Cheap Christmas Parties Near Heathrow',
+            description: 'Practical ideas for keeping Christmas party costs sensible without losing the atmosphere.',
+          },
+          {
+            href: '/corporate-christmas-parties',
+            title: 'Corporate Christmas Parties',
+            description: 'Work Christmas party options for Heathrow, Staines and Surrey teams.',
+          },
+          {
+            href: '/boxing-day',
+            title: 'Boxing Day',
+            description: 'Post-Christmas pub visits, food and drinks at The Anchor.',
+          },
+        ]}
+      />
     </>
   )
 }

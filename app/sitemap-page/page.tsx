@@ -6,6 +6,8 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneLink } from '@/components/PhoneLink'
 import { EmailLink } from '@/components/EmailLink'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
+import { seasonalOccasionLinks, trustLinks } from '@/lib/internal-linking-data'
+import { landmarks } from '@/lib/local-seo-data'
 
 type SitemapLink = {
   label: string
@@ -62,8 +64,6 @@ const sitemapSections: SitemapSection[] = [
     title: 'Events & Entertainment',
     links: [
       { label: "What's On", href: '/whats-on' },
-      { label: 'Valentine’s Day', href: '/valentines-day' },
-      { label: "Mother's Day", href: '/mothers-day' },
       { label: 'Music Bingo & Hosted Nights', href: '/music-bingo' },
       { label: 'Quiz Night', href: '/quiz-night' },
       { label: 'Cash Bingo', href: '/cash-bingo' },
@@ -76,8 +76,14 @@ const sitemapSections: SitemapSection[] = [
       { label: 'F1 Racing', href: '/live-sport/f1' },
       { label: 'Boxing Nights', href: '/live-sport/boxing' },
       { label: 'World Cup 2026', href: '/live-sport/world-cup' },
-      { label: 'Summer Garden Parties', href: '/summer-garden-parties' },
     ]
+  },
+  {
+    title: 'Seasonal Events & Occasions',
+    links: seasonalOccasionLinks.map((link) => ({
+      label: link.label,
+      href: link.href,
+    })),
   },
   {
     title: 'Private Hire & Celebrations',
@@ -96,6 +102,13 @@ const sitemapSections: SitemapSection[] = [
       { label: 'Milestone Birthdays', href: '/private-hire/milestone-birthdays' },
       { label: 'Retirement Parties', href: '/private-hire/retirement-parties' },
     ]
+  },
+  {
+    title: 'Private Hire Near Local Venues',
+    links: landmarks.map((landmark) => ({
+      label: landmark.name,
+      href: `/private-hire/near/${landmark.slug}`,
+    })),
   },
   {
     title: 'Heathrow & Travel',
@@ -158,7 +171,12 @@ const sitemapSections: SitemapSection[] = [
   {
     title: 'Guest Services',
     links: [
+      ...trustLinks.map((link) => ({
+        label: link.label,
+        href: link.href,
+      })),
       { label: 'Leave a Review', href: '/leave-review' },
+      { label: 'Accessibility', href: '/accessibility' },
       { label: 'Privacy Policy', href: '/privacy-policy' },
     ]
   },

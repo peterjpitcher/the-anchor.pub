@@ -98,6 +98,8 @@ import {
   getRedirectMapSize,
   resolveRedirectUrl,
 } from '@/lib/middleware-redirects'
+import { seasonalOccasionLinks, trustLinks } from '@/lib/internal-linking-data'
+import { landmarks } from '@/lib/local-seo-data'
 
 import additionalRedirects from '@/config/redirects/additional-redirects.json'
 import blogRedirects from '@/config/redirects/blog-redirects.json'
@@ -322,6 +324,70 @@ describe('sitemap-vs-redirects', () => {
     // "Page with redirect" in Google Search Console. Either remove the
     // page from the sitemap or remove the redirect.
     expect(offending).toEqual([])
+  })
+})
+
+describe('orphan-page internal linking guards', () => {
+  const previouslyOrphanedSeasonalPaths = [
+    '/bank-holiday-weekends',
+    '/bonfire-night',
+    '/boxing-day',
+    '/easter',
+    '/fathers-day',
+    '/halloween',
+    '/new-years-eve',
+    '/st-patricks-day',
+  ]
+
+  const previouslyOrphanedTrustPaths = [
+    '/reviews',
+    '/safety-and-respect',
+    '/sustainability',
+  ]
+
+  it('keeps previously orphaned seasonal pages in the shared occasion link set', () => {
+    const seasonalPaths = seasonalOccasionLinks.map((link) => link.href)
+    expect(seasonalPaths).toEqual(expect.arrayContaining(previouslyOrphanedSeasonalPaths))
+  })
+
+  it('keeps previously orphaned trust pages in the shared footer link set', () => {
+    const linkedTrustPaths = trustLinks.map((link) => link.href)
+    expect(linkedTrustPaths).toEqual(expect.arrayContaining(previouslyOrphanedTrustPaths))
+  })
+
+  it('has local landmark pages available for the private-hire hub', () => {
+    const landmarkPaths = landmarks.map((landmark) => `/private-hire/near/${landmark.slug}`)
+
+    expect(landmarkPaths).toEqual(expect.arrayContaining([
+      '/private-hire/near/ashford-town-fc',
+      '/private-hire/near/bedfont-lakes',
+      '/private-hire/near/great-fosters-egham',
+      '/private-hire/near/heathrow-airport',
+      '/private-hire/near/spelthorne-registration-office',
+      '/private-hire/near/staines-registration-office',
+      '/private-hire/near/staines-rugby-club',
+      '/private-hire/near/stockley-park',
+      '/private-hire/near/windsor-register-office',
+    ]))
+  })
+
+  it('wires the orphan repair link sets into crawlable hubs', () => {
+    const whatsOnPage = fs.readFileSync(path.join(process.cwd(), 'app', 'whats-on', 'page.tsx'), 'utf8')
+    const privateHirePage = fs.readFileSync(path.join(process.cwd(), 'app', 'private-hire', 'page.tsx'), 'utf8')
+    const footer = fs.readFileSync(path.join(process.cwd(), 'components', 'layout', 'Footer.tsx'), 'utf8')
+
+    expect(whatsOnPage).toContain('seasonalOccasionLinks')
+    expect(whatsOnPage).toContain('getRecentEvents')
+    expect(privateHirePage).toContain('landmarkGroups')
+    expect(footer).toContain('trustLinks')
+  })
+
+  it('strengthens the one-link commercial blog posts from relevant pages', () => {
+    const fishPage = fs.readFileSync(path.join(process.cwd(), 'app', 'fish-and-chips-heathrow', 'page.tsx'), 'utf8')
+    const christmasPage = fs.readFileSync(path.join(process.cwd(), 'app', 'christmas-parties', 'page.tsx'), 'utf8')
+
+    expect(fishPage).toContain('/blog/fish-chips-guide')
+    expect(christmasPage).toContain('/blog/cheap-christmas-parties-heathrow')
   })
 })
 

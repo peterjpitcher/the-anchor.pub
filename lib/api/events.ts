@@ -536,6 +536,7 @@ export function hasLimitedAvailability(event: Event): boolean {
 
 // Standalone helpers that use the singleton (imported lazily to avoid circulars)
 const MAX_EVENTS_LIMIT = 100
+const RECENT_EVENT_DEFAULT_DAYS = 30
 
 export async function getUpcomingEvents(limit: number = 10, daysLookahead?: number): Promise<Event[]> {
   // Import lazily to avoid circular dependency with client.ts
@@ -575,6 +576,43 @@ export async function getUpcomingEvents(limit: number = 10, daysLookahead?: numb
     // Previously this returned a hardcoded fallback event ("the-anchor-showcase")
     // which rendered as a real event on the homepage but produced 404s on
     // calendar link endpoints (e.g. /api/calendar/event/the-anchor-showcase).
+    return []
+  }
+}
+
+export async function getRecentEvents(
+  limit: number = 10,
+  daysBack: number = RECENT_EVENT_DEFAULT_DAYS
+): Promise<Event[]> {
+  const { anchorAPI } = await import('./client')
+  try {
+    const safeLimit = Math.min(Math.max(Math.floor(limit), 1), MAX_EVENTS_LIMIT)
+    const safeDaysBack = Math.min(Math.max(Math.floor(daysBack), 1), 90)
+    const fetchLimit = Math.min(Math.max(safeLimit * 3, 20), MAX_EVENTS_LIMIT)
+
+    const now = new Date()
+    const fromDate = new Date(now)
+    fromDate.setDate(now.getDate() - safeDaysBack)
+
+    const response = await anchorAPI.getEvents({
+      from_date: fromDate.toISOString().split('T')[0],
+      to_date: now.toISOString().split('T')[0],
+      limit: fetchLimit,
+      status: 'scheduled,rescheduled,postponed,sold_out,cancelled',
+    })
+
+    const nowMs = Date.now()
+    const earliestMs = fromDate.getTime()
+
+    return (response.events || [])
+      .filter(event => {
+        const startMs = Date.parse(event.startDate)
+        return Number.isFinite(startMs) && startMs < nowMs && startMs >= earliestMs
+      })
+      .sort((a, b) => Date.parse(b.startDate) - Date.parse(a.startDate))
+      .slice(0, safeLimit)
+  } catch (error) {
+    logError('api-recent-events', error, { limit, daysBack })
     return []
   }
 }

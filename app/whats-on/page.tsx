@@ -16,9 +16,10 @@ import { SpeakableContent } from '@/components/voice/SpeakableContent'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
 import { BookTableButton } from '@/components/BookTableButton'
 import { quizNightEventSeries, bingoEventSeries } from '@/lib/schema'
-import { getBusinessHours, getUpcomingEvents, type Event } from '@/lib/api'
+import { getBusinessHours, getRecentEvents, getUpcomingEvents, formatEventDate, type Event } from '@/lib/api'
 import { buildOpeningHoursSchema } from '@/lib/opening-hours-schema'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { seasonalOccasionLinks } from '@/lib/internal-linking-data'
 
 export const metadata: Metadata = {
   title: "Quiz, Karaoke & Bingo Every Week",
@@ -54,9 +55,10 @@ async function getOpeningHoursSpecification() {
 }
 
 export default async function WhatsOnPage() {
-  const [openingHoursSpecification, upcomingEvents] = await Promise.all([
+  const [openingHoursSpecification, upcomingEvents, recentEvents] = await Promise.all([
     getOpeningHoursSpecification(),
     getUpcomingEvents(24).catch(() => [] as Event[]),
+    getRecentEvents(12).catch(() => [] as Event[]),
   ])
 
   // Resolve next upcoming event for each Monthly Highlights category.
@@ -508,6 +510,63 @@ export default async function WhatsOnPage() {
           />
         </Container>
       </Section>
+
+      <Section background="white" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15">
+        <Container>
+          <SectionHeader
+            title="Seasonal Events and Occasion Guides"
+            subtitle="Plan ahead for the pub dates people search for throughout the year."
+          />
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
+            {seasonalOccasionLinks.map((link) => (
+              <Link key={link.href} href={link.href} className="group block h-full">
+                <div className="h-full border border-anchor-gold/15 bg-anchor-bg-card p-5 transition-colors group-hover:border-anchor-gold/45">
+                  <h3 className="text-lg font-bold text-anchor-gold-vivid group-hover:text-anchor-gold">
+                    {link.label}
+                  </h3>
+                  <p className="mt-2 text-sm text-anchor-cream-text/70">
+                    {link.description}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </Container>
+      </Section>
+
+      {recentEvents.length > 0 && (
+        <Section id="recent-events" background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+          <Container>
+            <SectionHeader
+              title="Recent Event Archive"
+              subtitle="Recently finished event pages stay linked while Google recrawls and the next dates are promoted."
+            />
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-6xl mx-auto">
+              {recentEvents.map((event) => {
+                const eventPath = `/events/${event.slug || event.id}`
+
+                return (
+                  <Link key={event.id || event.slug} href={eventPath} className="group block h-full">
+                    <div className="h-full border border-anchor-gold/15 bg-anchor-bg-card p-5 transition-colors group-hover:border-anchor-gold/45">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-anchor-cream-text/50">
+                        {formatEventDate(event.startDate)}
+                      </p>
+                      <h3 className="mt-2 text-lg font-bold text-anchor-gold-vivid group-hover:text-anchor-gold">
+                        {event.name}
+                      </h3>
+                      <p className="mt-2 text-sm text-anchor-cream-text/70">
+                        {event.brief || event.shortDescription || event.description || 'See details from this recent event at The Anchor.'}
+                      </p>
+                    </div>
+                  </Link>
+                )
+              })}
+            </div>
+          </Container>
+        </Section>
+      )}
 
       {/* Private Events */}
       <Section background="white" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15">

@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils'
 import type { NavigationItem } from '@/lib/types'
 import { useFocusTrap } from '@/hooks/useFocusTrap'
 import { BookTableButton } from '@/components/BookTableButton'
+import { Icon, type IconName } from '@/components/ui/Icon'
 import { trackModalClose, trackModalEngage, trackModalOpen, trackNavigationClick, type ModalCloseReason } from '@/lib/gtm-events'
 import { nowInLondon, parseLondonDate } from '@/lib/time-london'
 
@@ -84,11 +85,15 @@ const defaultItems: NavigationItem[] = [
     label: 'Menus',
     href: '/food-menu',
     items: [
+      { label: 'Book a Table', href: '/book-table' },
+      { label: 'Sunday Roast', href: '/sunday-lunch' },
       { label: 'Food Menu', href: '/food-menu' },
+      { label: 'Pizza Menu', href: '/pizza-menu' },
+      { label: 'Burger Menu', href: '/burger-menu' },
+      { label: 'Fish & Chips', href: '/fish-and-chips-heathrow' },
       { label: 'Vegetarian Menu', href: '/food-menu/vegetarian' },
       { label: 'Vegan Menu', href: '/food-menu/vegan' },
-      { label: 'Gluten-Free Menu', href: '/food-menu/gluten-free' },
-      { label: 'Sunday Lunch', href: '/sunday-lunch' }
+      { label: 'Gluten-Free Menu', href: '/food-menu/gluten-free' }
     ]
   },
   {
@@ -126,6 +131,7 @@ const defaultItems: NavigationItem[] = [
       { label: 'Find Us', href: '/find-us' },
       { label: 'Our Pub', href: '/our-pub' },
       { label: 'Beer Garden', href: '/beer-garden' },
+      { label: 'Free Parking', href: '/heathrow-parking' },
       { label: 'Dog-Friendly Pub', href: '/dog-friendly-pub-heathrow' },
       { label: 'Near Heathrow Overview', href: '/near-heathrow' },
       { label: 'Layover Dining', href: '/heathrow-layover-dining' },
@@ -150,12 +156,54 @@ const defaultLogo = {
   height: 60
 }
 
-const quickTasks = [
-  { label: 'Book a Table', href: '/book-table', icon: '' },
-  { label: 'Food Menu', href: '/food-menu', icon: '' },
-  { label: "What's On", href: '/whats-on', icon: '' },
-  { label: 'Find Us', href: '/find-us', icon: '' }
+const mobilePriorityTasks: Array<{
+  label: string
+  href: string
+  description: string
+  icon: IconName
+  featured?: boolean
+}> = [
+  {
+    label: 'Book a Table',
+    href: '/book-table',
+    description: 'Food bookings',
+    icon: 'utensils',
+    featured: true
+  },
+  {
+    label: 'Sunday Roast',
+    href: '/sunday-lunch',
+    description: 'Priority food service',
+    icon: 'calendar'
+  },
+  {
+    label: 'Private Hire',
+    href: '/private-hire#enquiry',
+    description: 'Parties and events',
+    icon: 'party'
+  },
+  {
+    label: "What's On",
+    href: '/whats-on#upcoming-events',
+    description: 'Hosted event bookings',
+    icon: 'music'
+  }
 ]
+
+const mobileSectionPriority = [
+  'Menus',
+  'Events & Hire',
+  "What's On",
+  'Drinks',
+  'Visit Us',
+  'Our Story',
+  'Blog'
+]
+
+const mobileLabelOverrides: Record<string, string> = {
+  Menus: 'Food & Bookings',
+  'Events & Hire': 'Private Hire',
+}
 
 const toMenuId = (label: string) =>
   `nav-${label.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`
@@ -223,6 +271,17 @@ export function Navigation({
     tertiaryCtaButton ||
     promoCtaButtons.length > 0
   )
+  const mobileItems = useMemo(() => {
+    const priority = new Map(mobileSectionPriority.map((label, index) => [label, index]))
+
+    return [...items].sort((a, b) => {
+      const aIndex = priority.get(a.label) ?? Number.MAX_SAFE_INTEGER
+      const bIndex = priority.get(b.label) ?? Number.MAX_SAFE_INTEGER
+
+      if (aIndex !== bIndex) return aIndex - bIndex
+      return items.indexOf(a) - items.indexOf(b)
+    })
+  }, [items])
 
   const recordMobileMenuEngagement = useCallback((element: string) => {
     if (mobileMenuEngaged.current) return
@@ -334,6 +393,7 @@ export function Navigation({
 
 
   const renderLink = (item: NavigationItem, isMobile = false) => {
+    const displayLabel = isMobile ? (mobileLabelOverrides[item.label] || item.label) : item.label
     const linkClass = cn(
       'font-medium transition-colours',
       mergedTheme.text,
@@ -432,7 +492,7 @@ export function Navigation({
             aria-controls={sectionId}
             onClick={() => toggleMobileSection(item.label)}
           >
-            <span>{item.label}</span>
+            <span>{displayLabel}</span>
             <svg
               className={cn('h-4 w-4 transition-transform', isOpen && 'rotate-180')}
               fill="none"
@@ -460,7 +520,7 @@ export function Navigation({
                 closeMobileMenu('cta')
               }}
             >
-              All {item.label}
+              All {displayLabel}
             </Link>
             {item.items.map((subItem) => (
               <Link
@@ -512,7 +572,7 @@ export function Navigation({
             }
           }}
         >
-          {item.label}
+          {displayLabel}
         </a>
       )
     }
@@ -537,7 +597,7 @@ export function Navigation({
           }
         }}
       >
-        {item.label}
+        {displayLabel}
       </Link>
     )
   }
@@ -683,6 +743,52 @@ export function Navigation({
     })
   }
 
+  const renderMobilePriorityTask = (task: typeof mobilePriorityTasks[number]) => (
+    <Link
+      key={task.href}
+      href={task.href}
+      className={cn(
+        'group flex items-start gap-3 rounded-lg border transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50',
+        task.featured
+          ? 'border-anchor-gold bg-anchor-gold px-4 py-4 text-anchor-green hover:bg-anchor-gold-light'
+          : 'border-white/10 bg-white/10 px-4 py-3 text-white hover:bg-white/20'
+      )}
+      onClick={() => {
+        trackNavigationClick({
+          label: task.label,
+          url: task.href,
+          level: 'main',
+          deviceType: 'mobile',
+          isExternal: false,
+          location: 'mobile_menu'
+        })
+        recordMobileMenuEngagement('priority_task')
+        closeMobileMenu('cta')
+      }}
+    >
+      <span
+        className={cn(
+          'mt-0.5 inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full',
+          task.featured ? 'bg-anchor-green/15' : 'bg-white/10'
+        )}
+        aria-hidden="true"
+      >
+        <Icon name={task.icon} className="h-5 w-5" />
+      </span>
+      <span className="min-w-0">
+        <span className="block text-base font-bold leading-tight">{task.label}</span>
+        <span
+          className={cn(
+            'mt-1 block text-sm leading-snug',
+            task.featured ? 'text-anchor-green/80' : 'text-white/75'
+          )}
+        >
+          {task.description}
+        </span>
+      </span>
+    </Link>
+  )
+
 
 
   return (
@@ -798,52 +904,36 @@ export function Navigation({
           ref={focusTrapRef}
           className={cn(
             mobileHiddenClass,
-            'bg-anchor-green-dark border-t border-anchor-green-light shadow-lg'
+            'max-h-[calc(100vh-8rem)] overflow-y-auto overscroll-contain bg-anchor-green-dark border-t border-anchor-green-light shadow-lg'
           )}
           role="dialog"
           aria-label="Mobile navigation menu"
           aria-modal="true"
         >
           <div className="container mx-auto px-4 py-6 space-y-6">
-            {(ctaButton || secondaryCtaButton || tertiaryCtaButton) && (
-              <div className="space-y-3">
-                {renderPrimaryCTA(true)}
-                {renderSecondaryCTA(true)}
-                {renderPromoCTAs(true)}
-                {renderTertiaryCTA(true)}
-              </div>
-            )}
             <div className="rounded-xl border border-white/10 bg-anchor-green/60 p-4">
               <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white/70">
-                Top tasks
+                Priority bookings
               </p>
-              <div className="mt-3 grid grid-cols-2 gap-3">
-                {quickTasks.map((task) => (
-                  <Link
-                    key={task.href}
-                    href={task.href}
-                    className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium text-white bg-white/10 hover:bg-white/20 transition-colors"
-	                    onClick={() => {
-	                      trackNavigationClick({
-	                        label: task.label,
-	                        url: task.href,
-	                        level: 'main',
-	                        deviceType: 'mobile',
-	                        isExternal: false,
-	                        location: 'mobile_menu'
-	                      })
-	                      recordMobileMenuEngagement('quick_task')
-	                      closeMobileMenu('cta')
-	                    }}
-	                  >
-                    <span aria-hidden="true">{task.icon}</span>
-                    <span>{task.label}</span>
-                  </Link>
-                ))}
+              <div className="mt-3 space-y-3">
+                {mobilePriorityTasks.map((task) => renderMobilePriorityTask(task))}
               </div>
             </div>
+
+            {(activePromoCtaButtons.length > 0 || tertiaryCtaButton) && (
+              <div className="space-y-3 rounded-xl border border-white/10 bg-white/5 p-4">
+                <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white/70">
+                  Seasonal highlights
+                </p>
+                <div className="space-y-3">
+                  {renderPromoCTAs(true)}
+                  {renderTertiaryCTA(true)}
+                </div>
+              </div>
+            )}
+
             <div className="space-y-1">
-              {items.map(item => renderLink(item, true))}
+              {mobileItems.map(item => renderLink(item, true))}
             </div>
           </div>
         </div>
