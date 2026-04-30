@@ -2,7 +2,7 @@
 
 **Site:** https://www.the-anchor.pub
 **Repo:** `OJ-The-Anchor.pub`
-**Updated:** 2026-04-30 (round 7 — final verification + tag lifecycle classification applied; P0 + P1 + P2 pre-deploy complete)
+**Updated:** 2026-04-30 (round 8 — production verified; GSC validation pending)
 **Purpose:** single execution and verification spec for finishing the Google Search Console indexing work.
 
 ---
@@ -19,7 +19,7 @@ The four review findings from the previous attempted completion have been fixed:
 - noindex blog posts are no longer surfaced through indexable blog archives/tag pages, and three stale dated posts have been moved to the noindex lifecycle;
 - broad blog tag archive pages (`events`, `food-and-drink`, `news`, `sports`) now render `noindex, follow` and are excluded from the sitemap, so search equity can concentrate on the stronger topical landing pages.
 
-Production verification is **pending deploy** — see §11 below. Pre-deploy verification:
+Production deployment and verification are complete — see §11 below. Local verification:
 
 - `node tasks/gsc-indexing-fix/audit-gsc-csvs.mjs` → counts unchanged (596 URLs, 7 redirect-error, 116 crawled-not-indexed) ✓
 - `npm test -- --runInBand seo-indexing event-seo-strategy sitemap-events` → 41 tests pass ✓
@@ -61,7 +61,7 @@ Keep those files as audit history, but implement from this file.
 
 ## 1. Current verdict
 
-The work is salvageable, and the local pre-deploy implementation is now in a much stronger state. The previous work was not complete because it downgraded reviewer P0/P1 issues and overstated the P2 triage. This version fixes those gaps: redirect flattening, sitemap resilience, scoped CI, lifecycle policy, enriched triage, and archive/noindex cleanup are implemented and covered by local checks. Production verification and GSC validation remain pending deploy.
+The work is salvageable, and the implementation is now in a much stronger state. The previous work was not complete because it downgraded reviewer P0/P1 issues and overstated the P2 triage. This version fixes those gaps: redirect flattening, sitemap resilience, scoped CI, lifecycle policy, enriched triage, archive/noindex cleanup, and production platform redirect configuration. Production verification has passed. GSC validation remains pending.
 
 Do not start a broad content-linking or copy rewrite project as part of the indexing fix. The technical guardrails are now in place; use the enriched triage CSV to keep content-growth work limited to the 5 `manual-review-page` candidates.
 
@@ -184,9 +184,9 @@ Evidence:
 
 ## 5. Rework completed and remaining verification
 
-The earlier review findings have been reworked below. The only remaining indexing work is deploy-time verification and GSC validation; the separate content-growth review is deliberately scoped to the 5 `manual-review-page` URLs from the triage CSV.
+The earlier review findings have been reworked below. The only remaining indexing work is GSC validation and monitoring; the separate content-growth review is deliberately scoped to the 5 `manual-review-page` URLs from the triage CSV.
 
-### P0. Flatten and test the 7 redirect-error URLs ✅ Implemented (verification pending deploy)
+### P0. Flatten and test the 7 redirect-error URLs ✅ Implemented and production verified
 
 GSC export:
 
@@ -251,7 +251,7 @@ rules shipped.
   - `next.config.js` guard asserting concrete redirects are not present in the
     pre-middleware framework redirect pipeline.
 
-**Production verification (run after deploy):**
+**Production verification (passed 2026-04-30 after deploy):**
 
 ```bash
 # Each command should land on /blog/tag/sports or /blog/tag/community in one
@@ -271,6 +271,11 @@ curl -sI https://the-anchor.pub/blog/tag/pet-friendly | grep -E '^(HTTP|Location
 - Single `301` with `Location: https://www.the-anchor.pub/blog/tag/<sports|community>` for each of the seven URLs.
 - A subsequent `curl -L` on the destination should return `200` with the consolidated tag page.
 - No `Location: https://www.the-anchor.pub/blog/tag/<source>` intermediate hop on apex variants.
+
+**Live result:** `https://the-anchor.pub/blog/tag/rugby` now returns one
+`301 Location: https://www.the-anchor.pub/blog/tag/sports`, then `200`.
+The www variants return one `301` to the consolidated tag path. External
+redirect `/leave-review` remains a valid `301` to the Google review URL.
 
 **GSC validation:** click "Validate fix" on the Redirect-error report only after the production verification commands above all show single-hop redirects.
 
@@ -373,7 +378,7 @@ it('does not disallow event opengraph-image routes', () => {
 This ensures `app/robots.ts` will never silently regress to blocking OG-image
 routes. The test runs in CI on every PR.
 
-**Production smoke check (run after deploy):**
+**Production smoke check (passed after deploy):**
 
 ```bash
 curl -sI https://www.the-anchor.pub/events/<some-event-slug>/opengraph-image \
@@ -631,7 +636,6 @@ Code and guardrail files changed by this workstream:
 
 Remaining likely touchpoints are operational/content, not broad technical fixes:
 
-- Production verification after deploy (§11).
 - GSC validation after production verification (§11).
 - Manual content-growth review of the 5 `manual-review-page` rows in the triage CSV.
 
@@ -646,13 +650,25 @@ This work is done when:
 5. ✅ Sitemap generation is cached and resilient to management API slowness (two-phase bounded fetch, per-page abort timeout, tested partial fallback).
 6. ✅ Audit script re-run; counts unchanged.
 7. ✅ The 116 "Crawled - currently not indexed" URLs have been triaged with status, canonical, robots, rendered incoming links, action, and recommendation. Content work is scoped only to the 5 `manual-review-page` rows.
-8. ⏳ GSC validation — pending production verification after deploy. See §11.
+8. ⏳ GSC validation — production verification has passed; validation can now be started. See §11.
 9. ✅ Each implemented fix states the root cause, fix rationale, and regression prevention (this document).
 10. ✅ Content-growth opportunities are clearly separated from technical indexing defects (triage CSV `action` column).
 
-## 11. Production verification checklist (pending deploy)
+## 11. Production verification checklist ✅ Passed
 
-After merging `fix/gsc-indexing-final` and deploying to production:
+Production deployment completed on 2026-04-30. Live verification results:
+
+| Check | Result |
+|---|---|
+| Redirect-error URLs | Pass. Apex variants now go directly to `https://www.the-anchor.pub/blog/tag/<sports|community>` in one 301; `curl -L` lands on 200. |
+| External redirect `/leave-review` | Pass. `301 -> https://g.page/r/CQz1W5fqSTqPEAI/review`. |
+| `robots.txt` | Pass. `200`, `Cache-Control: public, max-age=14400, s-maxage=300, must-revalidate`, `X-Robots-Tag: all`. |
+| Static CSS with `?dpl=` | Pass. `200`, `Cache-Control: public, max-age=31536000, immutable`, `X-Robots-Tag: all`. |
+| Event OG image | Pass. `200`, `Content-Type: image/png`, `X-Robots-Tag: noindex, nofollow, noimageindex`. |
+| `sitemap.xml` | Pass. `200`, 208 URLs, no broad noindex tag archives listed. |
+| Broad blog tag archives | Pass. `events`, `food-and-drink`, `news`, and `sports` render `noindex, follow`. |
+
+Reference commands:
 
 ```bash
 # P0.1 — flatten redirect-error chains. Each command must show a single 301
@@ -687,7 +703,7 @@ curl -sI https://www.the-anchor.pub/sitemap.xml | grep -iE 'cache-control|x-verc
 curl -s https://www.the-anchor.pub/sitemap.xml | grep -c '<url>'
 ```
 
-Expected outcomes:
+Expected outcomes, now verified:
 
 - P0.1: every URL ends in a single `301 → https://www.the-anchor.pub/blog/tag/<sports|community>`.
 - P1.1: `Cache-Control: public, max-age=14400, s-maxage=300, must-revalidate`, `cf-cache-status: HIT`.
@@ -695,7 +711,7 @@ Expected outcomes:
 - P1.3: `Content-Type: image/png`, `X-Robots-Tag: noindex, nofollow, noimageindex`.
 - P1.5: 5-minute shared-cache TTL; URL count > 200 (full corpus).
 
-Once those all pass, in GSC:
+Next, in GSC:
 
 - Click "Validate fix" on the **Redirect error** report (covers all 7 URLs).
 - Click "Validate fix" on the **Blocked by robots.txt** report (already validated previously; re-running is safe).
@@ -717,11 +733,9 @@ After validation begins, monitor the GSC report weekly for:
 
 ## 12. Plain-English remaining work
 
-The local code and documentation work is done. The remaining work is operational:
+The code, documentation, push, deployment, and production checks are done. The remaining work is operational inside GSC and editorial:
 
-1. Commit and push this branch.
-2. Deploy it to production.
-3. Run the production `curl` checks in §11 to prove redirects, robots headers, static assets, OG images, and sitemap behaviour are correct on the live site.
-4. Only after those checks pass, validate the specific GSC reports listed in §11.
-5. Monitor GSC weekly. Redirect and stale/noindex cohorts should fall as Google recrawls.
-6. Treat the 5 `manual-review-page` rows as a separate organic-growth content task, not as part of the technical indexing fix.
+1. In GSC, click "Validate fix" for the specific reports listed in §11.
+2. Do not bulk-validate "Crawled - currently not indexed"; use the CSV triage buckets.
+3. Monitor GSC weekly. Redirect and stale/noindex cohorts should fall as Google recrawls.
+4. Treat the 5 `manual-review-page` rows as a separate organic-growth content task, not as part of the technical indexing fix.
