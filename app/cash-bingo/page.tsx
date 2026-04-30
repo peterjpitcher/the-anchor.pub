@@ -37,7 +37,6 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { JsonLd } from '@/components/JsonLd'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { bingoEventSeries } from '@/lib/schema'
-import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
   title: 'Cash Bingo Near Heathrow | Bingo Games & Jackpots',
@@ -257,16 +256,6 @@ export default async function CashBingoPage() {
           { name: "What's On", url: '/whats-on' },
           { name: 'Cash Bingo', url: '/cash-bingo' }
         ]}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify({
-          "@context": "https://schema.org",
-          "@type": ["Restaurant", "BarOrPub"],
-          "@id": "https://www.the-anchor.pub/#business",
-          "name": "The Anchor",
-          "url": "https://www.the-anchor.pub/cash-bingo"
-        }) }}
       />
 	      <HeroWrapper
 	        route="/cash-bingo"

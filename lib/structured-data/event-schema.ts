@@ -129,7 +129,6 @@ export function buildEventSchema(event: Event) {
     eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
     location: {
       '@type': 'Place',
-      '@id': 'https://www.the-anchor.pub/#business',
       name: 'The Anchor',
       address: {
         '@type': 'PostalAddress',

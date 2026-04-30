@@ -68,15 +68,7 @@ export default async function BurgerMenuPage() {
 	                "name": "Burgers",
                 "hasMenuItem": menuItems
             }
-        ]
-    }
-
-    const restaurantSchema = {
-        "@context": "https://schema.org",
-        "@type": "Restaurant",
-        "@id": "https://www.the-anchor.pub/#business",
-        "name": "The Anchor",
-        "hasMenu": { "@id": "https://www.the-anchor.pub/burger-menu#menu" },
+        ],
         "potentialAction": {
             "@type": "ReserveAction",
             "target": {
@@ -95,7 +87,7 @@ export default async function BurgerMenuPage() {
         <>
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([menuSchema, restaurantSchema, breadcrumbSchema]) }}
+                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([menuSchema, breadcrumbSchema]) }}
             />
 
             <HeroWrapper

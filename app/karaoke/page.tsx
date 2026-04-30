@@ -300,16 +300,6 @@ export default async function KaraokePage() {
                     }
                 }) }}
             />
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify({
-                    "@context": "https://schema.org",
-                    "@type": ["Restaurant", "BarOrPub"],
-                    "@id": "https://www.the-anchor.pub/#business",
-                    "name": "The Anchor",
-                    "url": "https://www.the-anchor.pub/karaoke"
-                }) }}
-            />
             <HeroWrapper
                 route="/karaoke"
                 title="Karaoke Nights at The Anchor"

@@ -484,28 +484,12 @@ export default async function GlutenFreeMenuPage() {
         dangerouslySetInnerHTML={{
           __html: jsonLdSafeStringify({
               '@context': 'https://schema.org',
-              '@type': 'Restaurant',
-              '@id': 'https://www.the-anchor.pub/#business',
-              name: 'The Anchor',
-              description: 'Traditional British pub near Heathrow Airport with gluten-free pub food options including GF pizza bases, naturally gluten-free puddings and sides.',
-              servesCuisine: ['British', 'Pizza', 'Pub Food'],
-              hasMenu: {
-                '@type': 'Menu',
-                name: 'Gluten-Free Menu',
-                url: 'https://www.the-anchor.pub/food-menu/gluten-free',
-                description: 'Gluten-free pub food options at The Anchor near Heathrow — GF pizza bases, naturally gluten-free puddings and sides, no surcharge.',
-              },
-              address: {
-                '@type': 'PostalAddress',
-                streetAddress: 'Horton Road',
-                addressLocality: 'Stanwell Moor',
-                addressRegion: 'Surrey',
-                postalCode: 'TW19 6AQ',
-                addressCountry: 'GB',
-              },
-              telephone: '+441753682707',
-              url: 'https://www.the-anchor.pub',
-              priceRange: '££',
+              '@type': 'Menu',
+              '@id': 'https://www.the-anchor.pub/food-menu/gluten-free#menu',
+              name: 'Gluten-Free Menu at The Anchor',
+              description: 'Gluten-free pub food options at The Anchor near Heathrow — GF pizza bases, naturally gluten-free puddings and sides, no surcharge.',
+              url: 'https://www.the-anchor.pub/food-menu/gluten-free',
+              isPartOf: { '@id': 'https://www.the-anchor.pub/#business' },
               potentialAction: {
                 '@type': 'ReserveAction',
                 target: {

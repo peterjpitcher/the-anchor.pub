@@ -327,16 +327,6 @@ export default async function MusicBingoPage() {
           }
         }) }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify({
-          "@context": "https://schema.org",
-          "@type": ["Restaurant", "BarOrPub"],
-          "@id": "https://www.the-anchor.pub/#business",
-          "name": "The Anchor",
-          "url": "https://www.the-anchor.pub/music-bingo"
-        }) }}
-      />
       <HeroWrapper
         route="/music-bingo"
         title="Music Bingo Nights at The Anchor"

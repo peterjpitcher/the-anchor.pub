@@ -4,7 +4,7 @@ import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { Metadata } from 'next'
-import { CONTACT, BRAND } from '@/lib/constants'
+import { CONTACT } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
 import { PageTitle } from '@/components/ui/typography/PageTitle'
@@ -36,35 +36,11 @@ export default async function DogFriendlyPage() {
         { name: 'Dog Friendly Pub', url: '/dog-friendly-pub-heathrow' }
     ])
 
-    const dogFriendlyLocalBusinessSchema = {
-        "@context": "https://schema.org",
-        "@type": ["Restaurant", "BarOrPub"],
-        "@id": "https://www.the-anchor.pub/#business",
-        "name": "The Anchor",
-        "description": "Dog-friendly pub near Heathrow Airport with a 64-seat beer garden, water bowls, and food served outdoors. Free parking.",
-        "url": "https://www.the-anchor.pub/dog-friendly-pub-heathrow",
-        "telephone": CONTACT.phoneIntl,
-        "address": {
-            "@type": "PostalAddress",
-            "streetAddress": CONTACT.address.street,
-            "addressLocality": CONTACT.address.town,
-            "addressRegion": "Surrey",
-            "postalCode": CONTACT.address.postcode,
-            "addressCountry": "GB"
-        },
-        "amenityFeature": [
-            { "@type": "LocationFeatureSpecification", "name": "Dog Friendly", "value": true },
-            { "@type": "LocationFeatureSpecification", "name": "Beer Garden", "value": true },
-            { "@type": "LocationFeatureSpecification", "name": "Water Bowls for Dogs", "value": true },
-            { "@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true }
-        ]
-    }
-
     return (
         <>
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([breadcrumbSchema, dogFriendlyLocalBusinessSchema]) }}
+                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(breadcrumbSchema) }}
             />
 
             <HeroWrapper

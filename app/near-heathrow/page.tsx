@@ -12,7 +12,6 @@ import { parkingFacilitySchema } from '@/lib/schemas/parking'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { localBusinessSchema } from '@/lib/schema'
 import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 
 export const metadata: Metadata = {
@@ -43,7 +42,7 @@ export default function NearHeathrowPage() {
       <SpeakableSchema />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([localBusinessSchema, parkingFacilitySchema]) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(parkingFacilitySchema) }}
       />
       {/* Hero Section */}
       <HeroWrapper

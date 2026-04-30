@@ -120,10 +120,12 @@ export const drinksMenuSchema = {
 // Enhanced Place Schema for Find Us page — references the canonical business entity
 export const findUsPlaceSchema = {
   "@context": "https://schema.org",
-  "@type": "Restaurant",
-  "@id": "https://www.the-anchor.pub/#business",
+  "@type": "Place",
+  "@id": "https://www.the-anchor.pub/find-us#place",
+  "name": "The Anchor",
   "hasMap": "https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor+TW19+6AQ",
-  "publicAccess": true
+  "publicAccess": true,
+  "isPartOf": { "@id": "https://www.the-anchor.pub/#business" }
 }
 
 // Event Booking Service Schema

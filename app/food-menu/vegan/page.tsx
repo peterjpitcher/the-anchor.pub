@@ -538,28 +538,12 @@ export default async function VeganMenuPage() {
         dangerouslySetInnerHTML={{
           __html: jsonLdSafeStringify({
               '@context': 'https://schema.org',
-              '@type': 'Restaurant',
-              '@id': 'https://www.the-anchor.pub/#business',
-              name: 'The Anchor',
-              description: 'Traditional British pub near Heathrow Airport with vegan pub food options including stone-baked garlic bread, chips and pizzas made vegan on request.',
-              servesCuisine: ['British', 'Pizza', 'Pub Food'],
-              hasMenu: {
-                '@type': 'Menu',
-                name: 'Vegan Menu',
-                url: 'https://www.the-anchor.pub/food-menu/vegan',
-                description: 'Vegan pub food at The Anchor near Heathrow — garlic bread, chips, sweet potato fries, onion rings and stone-baked pizzas made vegan on request.',
-              },
-              address: {
-                '@type': 'PostalAddress',
-                streetAddress: 'Horton Road',
-                addressLocality: 'Stanwell Moor',
-                addressRegion: 'Surrey',
-                postalCode: 'TW19 6AQ',
-                addressCountry: 'GB',
-              },
-              telephone: '+441753682707',
-              url: 'https://www.the-anchor.pub',
-              priceRange: '££',
+              '@type': 'Menu',
+              '@id': 'https://www.the-anchor.pub/food-menu/vegan#menu',
+              name: 'Vegan Menu at The Anchor',
+              description: 'Vegan pub food at The Anchor near Heathrow — garlic bread, chips, sweet potato fries, onion rings and stone-baked pizzas made vegan on request.',
+              url: 'https://www.the-anchor.pub/food-menu/vegan',
+              isPartOf: { '@id': 'https://www.the-anchor.pub/#business' },
               potentialAction: {
                 '@type': 'ReserveAction',
                 target: {

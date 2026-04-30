@@ -63,15 +63,7 @@ export default async function PizzaMenuPage() {
                     "priceCurrency": "GBP"
                 }
             }))
-        })) : []
-    }
-
-    const restaurantSchema = {
-        "@context": "https://schema.org",
-        "@type": "Restaurant",
-        "@id": "https://www.the-anchor.pub/#business",
-        "name": "The Anchor",
-        "hasMenu": { "@id": "https://www.the-anchor.pub/pizza-menu#menu" },
+        })) : [],
         "potentialAction": {
             "@type": "ReserveAction",
             "target": {
@@ -90,7 +82,7 @@ export default async function PizzaMenuPage() {
         <>
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([menuSchema, restaurantSchema, breadcrumbSchema]) }}
+                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([menuSchema, breadcrumbSchema]) }}
             />
 
             <HeroWrapper

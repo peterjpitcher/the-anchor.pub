@@ -36,8 +36,6 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { JsonLd } from '@/components/JsonLd'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { quizNightEventSeries } from '@/lib/schema'
-import { jsonLdSafeStringify } from '@/lib/jsonld'
-import { CONTACT } from '@/lib/constants'
 
 export const metadata: Metadata = {
   title: 'Pub Quiz Near Heathrow | £3 Entry, Cash Prizes',
@@ -288,17 +286,6 @@ export default async function QuizNightPage() {
           { name: "What's On", url: '/whats-on' },
           { name: 'Quiz Night', url: '/quiz-night' }
         ]}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify({
-          "@context": "https://schema.org",
-          "@type": ["Restaurant", "BarOrPub"],
-          "@id": "https://www.the-anchor.pub/#business",
-          "name": "The Anchor",
-          "url": "https://www.the-anchor.pub/quiz-night",
-          "telephone": CONTACT.phoneIntl
-        }) }}
       />
       <HeroWrapper
         route="/quiz-night"

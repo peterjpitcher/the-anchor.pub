@@ -5,7 +5,7 @@ import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { Metadata } from 'next'
-import { CONTACT, BRAND } from '@/lib/constants'
+import { CONTACT } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
@@ -29,29 +29,12 @@ export const metadata: Metadata = {
   }
 }
 
-const localBusinessSchema = {
+const nearbyHotelSchema = {
   '@context': 'https://schema.org',
-  '@type': ['Restaurant', 'BarOrPub'],
-  '@id': 'https://www.the-anchor.pub/#business',
-  name: `${BRAND.name} - Near Sofitel Heathrow`,
-  image: `https://www.the-anchor.pub${DEFAULT_PAGE_HEADER_IMAGE}`,
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: CONTACT.address.street,
-    addressLocality: CONTACT.address.town,
-    addressRegion: 'Surrey',
-    postalCode: CONTACT.address.postcode,
-    addressCountry: 'GB'
-  },
-  geo: {
-    '@type': 'GeoCoordinates',
-    latitude: CONTACT.coordinates.lat,
-    longitude: CONTACT.coordinates.lng
-  },
-  telephone: CONTACT.phoneIntl,
-  url: 'https://www.the-anchor.pub/pub-near-sofitel-heathrow',
-  priceRange: '££',
-  servesCuisine: ['British', 'Traditional English', 'Sunday Roast'],
+  '@type': 'Place',
+  '@id': 'https://www.the-anchor.pub/pub-near-sofitel-heathrow#nearby',
+  name: 'The Anchor — near Sofitel Heathrow',
+  isPartOf: { '@id': 'https://www.the-anchor.pub/#business' },
   nearbyAttractions: [
     { '@type': 'Hotel', name: 'Sofitel London Heathrow', description: '7 minutes away' }
   ]
@@ -68,7 +51,7 @@ export default function PubNearSofitelHeathrowPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([localBusinessSchema, breadcrumbSchema]) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([nearbyHotelSchema, breadcrumbSchema]) }}
       />
 
       <HeroWrapper
