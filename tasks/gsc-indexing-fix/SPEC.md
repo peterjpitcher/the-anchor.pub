@@ -5,7 +5,7 @@
 **Date of GSC export:** 2026-04-29
 **Last revised:** 2026-04-30 (critical review added; `not-found.tsx` redirect proposal rejected)
 
-This spec is for review. It started as a pre-implementation spec; some work has since shipped in commit `b319ee6`. The critical review below supersedes the original proposal where they conflict.
+This spec is now an audit-trail document only. It started as a pre-implementation spec; some work has since shipped in commit `b319ee6`, and the live implementation plan now lives in `tasks/gsc-indexing-fix/REVIEW-PACK.md`. Do **not** implement from this file without checking the review pack first. The critical correction below supersedes the original proposal where they conflict.
 
 ---
 

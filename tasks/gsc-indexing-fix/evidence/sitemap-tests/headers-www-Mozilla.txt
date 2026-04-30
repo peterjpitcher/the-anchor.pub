@@ -1,0 +1,30 @@
+# Request: GET https://www.the-anchor.pub/sitemap.xml
+# User-Agent: Mozilla/5.0
+# Fetched: 2026-04-30 12:04:50 UTC
+
+HTTP/1.1 200
+Date: Thu, 30 Apr 2026 12:04:53 GMT
+Content-Type: application/xml
+Transfer-Encoding: chunked
+Connection: close
+Age: 0
+Cache-Control: public, max-age=0, must-revalidate
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=MDulROdwlFwEMq3%2B0wboeE7T5y9CGXrScvzdcb1lrQFehi0D3RgwyhIxu0y9%2BQiXNyNPAZIo5lI2vZkmEKszDovZAkFK1C2b9G1TBRsDdy59QHiaFGgDySURzVu7RqbI9RS%2BmQ4%3D"}]}
+permissions-policy: camera=(), microphone=(), geolocation=()
+referrer-policy: strict-origin-when-cross-origin
+Server: cloudflare
+strict-transport-security: max-age=63072000; includeSubDomains; preload
+vary: RSC, Next-Router-State-Tree, Next-Router-Prefetch
+vary: accept-encoding
+x-content-type-options: nosniff
+x-dns-prefetch-control: on
+x-frame-options: DENY
+x-matched-path: /sitemap.xml
+x-robots-tag: all
+x-vercel-cache: MISS
+x-vercel-id: lhr1::iad1::c6jxv-1777550692642-e34b763ab2fb
+x-xss-protection: 1; mode=block
+cf-cache-status: DYNAMIC
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+CF-RAY: 9f466954e814dacf-LHR
+alt-svc: h3=":443"; ma=86400

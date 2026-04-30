@@ -1,0 +1,36 @@
+# Trailing-slash probe (NO redirect follow)
+# HTTP/1.1 308
+Location: /sitemap.xml
+Content-Type: text/plain
+
+# Followed result:
+# Request: GET https://www.the-anchor.pub/sitemap.xml/
+# User-Agent: Mozilla/5.0
+# Fetched: 2026-04-30 12:04:52 UTC
+
+HTTP/1.1 200
+Date: Thu, 30 Apr 2026 12:04:54 GMT
+Content-Type: application/xml
+Transfer-Encoding: chunked
+Connection: close
+Age: 0
+Cache-Control: public, max-age=0, must-revalidate
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=cE5gGlOOrYZFlhXpBapAZGdm9MC%2FQVnsseDiA5%2FOTQIvxZRdlZ6Ud5ZFQNYyRR335S9LVkB4cDc9PXh95MVkF1%2FFzJsizYWGKI8hXyEzpjA23I%2Blb%2B%2Fm7zvi73hbWxI9Soi8z6g%3D"}]}
+permissions-policy: camera=(), microphone=(), geolocation=()
+referrer-policy: strict-origin-when-cross-origin
+Server: cloudflare
+strict-transport-security: max-age=63072000; includeSubDomains; preload
+vary: RSC, Next-Router-State-Tree, Next-Router-Prefetch
+vary: accept-encoding
+x-content-type-options: nosniff
+x-dns-prefetch-control: on
+x-frame-options: DENY
+x-matched-path: /sitemap.xml
+x-robots-tag: all
+x-vercel-cache: MISS
+x-vercel-id: lhr1::iad1::xhdxg-1777550693842-e145770a0e06
+x-xss-protection: 1; mode=block
+cf-cache-status: DYNAMIC
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+CF-RAY: 9f46695c7dc4bcc3-LHR
+alt-svc: h3=":443"; ma=86400

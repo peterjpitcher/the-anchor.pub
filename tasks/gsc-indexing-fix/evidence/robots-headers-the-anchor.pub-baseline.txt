@@ -1,0 +1,14 @@
+HTTP/2 307 
+date: Thu, 30 Apr 2026 12:01:53 GMT
+content-type: text/plain
+location: https://www.the-anchor.pub/robots.txt
+cache-control: public, max-age=14400, must-revalidate
+server: cloudflare
+strict-transport-security: max-age=63072000
+x-vercel-id: lhr1::gvv4l-1777550513984-89331b7b472a
+cf-cache-status: MISS
+nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+report-to: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=J%2BA1nXOzRP8cbEDu%2Bhg%2FXYZfbS78XtUD7G5jj%2FxIFgEeuYFEuXoRB8Wk8gpK590A%2BiIEAGtVp3B%2FYnqwyz%2BTdR7D%2FcBijbZEYsw6GvjJdx99htyVKx9%2Fjb8X3qSvUbwdYA%3D%3D"}]}
+cf-ray: 9f4664f7e9968cd8-LHR
+alt-svc: h3=":443"; ma=86400
+

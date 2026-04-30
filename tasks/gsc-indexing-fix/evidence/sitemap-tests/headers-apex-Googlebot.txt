@@ -1,0 +1,19 @@
+# Request: GET https://the-anchor.pub/sitemap.xml
+# User-Agent: Googlebot/2.1
+# Fetched: 2026-04-30 12:04:51 UTC
+
+HTTP/1.1 307
+Date: Thu, 30 Apr 2026 12:04:53 GMT
+Content-Type: text/plain
+Transfer-Encoding: chunked
+Connection: close
+Cache-Control: public, max-age=0, must-revalidate
+location: https://www.the-anchor.pub/sitemap.xml
+Server: cloudflare
+strict-transport-security: max-age=63072000
+x-vercel-id: lhr1::9k7vb-1777550693593-f4985c9bb3c5
+cf-cache-status: DYNAMIC
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=t7kujM1ctY5SJwjq887eIanWzdOoq%2FgO03jx7Txmcyd%2FqIpKK2Iz2cOH7%2BKAZ8il9egest3zqFhgY0lnO8IN5F28mYR%2B19hn7IQph6H0reFIAaVUikoYcNV60E8CGPEk4g%3D%3D"}]}
+CF-RAY: 9f46695aa8706331-LHR
+alt-svc: h3=":443"; ma=86400

@@ -1,0 +1,24 @@
+# Sample of 20 sitemap URLs fetched HEAD (no redirect follow)
+
+Status counts: {"200": 20}
+
+ 200 https://www.the-anchor.pub
+ 200 https://www.the-anchor.pub/about
+ 200 https://www.the-anchor.pub/blog
+ 200 https://www.the-anchor.pub/blog/tags
+ 200 https://www.the-anchor.pub/food-menu
+ 200 https://www.the-anchor.pub/events/pub-quiz-night-2026-05-06
+ 200 https://www.the-anchor.pub/events/music-bingo-2026-05-08
+ 200 https://www.the-anchor.pub/events/gavin-and-stacey-quiz-night-2026-05-15
+ 200 https://www.the-anchor.pub/events/cash-bingo-2026-05-20
+ 200 https://www.the-anchor.pub/events/live-music-jessica-lovelock-2026-05-23
+ 200 https://www.the-anchor.pub/pizza-menu
+ 200 https://www.the-anchor.pub/book-table
+ 200 https://www.the-anchor.pub/find-us
+ 200 https://www.the-anchor.pub/pub-near-renaissance-heathrow
+ 200 https://www.the-anchor.pub/sunbury-pub
+ 200 https://www.the-anchor.pub/blog/60th-birthday-party-ideas-venues
+ 200 https://www.the-anchor.pub/blog/best-places-to-eat-near-heathrow
+ 200 https://www.the-anchor.pub/blog/pizza-deals-stanwell-heathrow-tuesdays
+ 200 https://www.the-anchor.pub/blog/tag/private-hire
+ 200 https://www.the-anchor.pub/private-hire/near/great-fosters-egham
