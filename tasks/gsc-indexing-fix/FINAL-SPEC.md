@@ -22,7 +22,7 @@ The four review findings from the previous attempted completion have been fixed:
 Production verification is **pending deploy** — see §11 below. Pre-deploy verification:
 
 - `node tasks/gsc-indexing-fix/audit-gsc-csvs.mjs` → counts unchanged (596 URLs, 7 redirect-error, 116 crawled-not-indexed) ✓
-- `npm test -- --runInBand seo-indexing event-seo-strategy sitemap-events` → 38 tests pass ✓
+- `npm test -- --runInBand seo-indexing event-seo-strategy sitemap-events` → 39 tests pass ✓
 - `npm run lint:next` → clean (`audit:hero` failures are pre-existing tech debt, not GSC-related) ✓
 - `npm run build` → clean (middleware bundle 36.2 kB) ✓
 - `node tasks/gsc-indexing-fix/triage-not-indexed.mjs` → 116 enriched rows emitted; manual-review cohort reduced to 5 URLs ✓
@@ -33,6 +33,7 @@ Code/policy/test changes:
 |---|---|
 | `lib/middleware-redirects.ts` | New. Concrete redirect lookup map (~3,200 rules pre-filtered to non-pattern sources), with URL resolver that preserves external destinations and same-site query strings. |
 | `middleware.ts` | Looks up `pathname` against the map; emits a single redirect combining host change and path change for same-site destinations without breaking external redirects. Fixes apex 2-hop chains. |
+| `vercel.json` | Removed broad host/trailing-slash redirects that ran before middleware and recreated the apex → www → destination chain in production. |
 | `next.config.js` | Removed misleading `X-Robots-Tag: noindex, nofollow` from `/_next/static/*`, `*.js`, `*.css`, `*.woff2`, `/_next/image`, `/fonts/*` (Cloudflare overrides them anyway). Documented robots.txt cache policy with Cloudflare-extended browser TTL. |
 | `app/sitemap.ts` | Two-phase bounded event fetching: page 0 first, then remaining pages in parallel only if page 0 is full; per-page abort timeout + partial fallback. Function now exported for direct testing. |
 | `lib/markdown.ts` | Added `getIndexableBlogPosts()` so archive-style surfaces can intentionally exclude `noindex` posts. |
@@ -199,13 +200,14 @@ GSC export:
 | 2026-01-07 | `https://www.the-anchor.pub/blog/tag/dog-friendly` |
 | 2026-01-05 | `https://the-anchor.pub/blog/tag/rugby` |
 
-**Root cause:** middleware emitted apex → www host redirect, then Next.js
-`redirects()` in `next.config.js` emitted a second redirect for the path
-consolidation. Each lap was a separate 301; apex URLs spent two hops landing
-on `/blog/tag/sports` or `/blog/tag/community`. GSC reported the longer apex
-chains as "Redirect error" while the www single-hop variants (also flagged) are
-likely stale entries that never re-crawled after the consolidation rules
-shipped.
+**Root cause:** production had multiple redirect layers. Broad host/trailing-slash
+redirects in `vercel.json` ran before Next middleware, producing apex → www.
+Then Next.js `redirects()` in `next.config.js` emitted a second redirect for
+the path consolidation. Each lap was a separate redirect; apex URLs spent two
+hops landing on `/blog/tag/sports` or `/blog/tag/community`. GSC reported the
+longer apex chains as "Redirect error" while the www single-hop variants (also
+flagged) are likely stale entries that never re-crawled after the consolidation
+rules shipped.
 
 **Durable fix (code/config):**
 
@@ -217,6 +219,9 @@ shipped.
   matches, middleware applies BOTH the host change and the path change in a
   single 301 response. The Next.js redirects() pipeline is therefore a no-op
   for these URLs because middleware has already redirected.
+- Broad `vercel.json` catch-all host/trailing-slash redirects have been removed
+  because Vercel routing runs before middleware and would otherwise recreate
+  the chain in production.
 - External concrete redirects are explicitly resolved with `new URL(destination)`;
   they are not written into `url.pathname`. Same-site concrete redirects
   preserve the request query string when the destination has no explicit query.
@@ -232,6 +237,8 @@ shipped.
   - Destinations-not-sources guard preventing accidental chain reintroduction.
   - Pattern-source negative tests.
   - External redirect and same-site query preservation guards.
+  - `vercel.json` broad redirect guard so platform routing cannot preempt
+    middleware flattening again.
 
 **Production verification (run after deploy):**
 
@@ -575,7 +582,7 @@ PATH="/bin:/usr/bin:/usr/local/bin:/opt/homebrew/bin:$PATH" \
 Result:
 
 - 3 test suites passed.
-- 38 tests passed.
+- 39 tests passed.
 
 Also run for this workstream:
 

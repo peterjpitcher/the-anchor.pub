@@ -190,6 +190,21 @@ describe('middleware redirect lookup (apex/host chain flattening)', () => {
     { source: '/blog/tag/dog-friendly', destination: '/blog/tag/community' },
   ]
 
+  it('does not let broad Vercel redirects preempt middleware flattening', () => {
+    // Vercel routing runs before Next middleware. Broad host/trailing-slash
+    // redirects in vercel.json recreate the apex -> www -> destination chain
+    // before middleware can combine the host and path redirect.
+    const vercelConfig = JSON.parse(
+      fs.readFileSync(path.join(process.cwd(), 'vercel.json'), 'utf8'),
+    )
+    const broadRedirects = (vercelConfig.redirects || []).filter(
+      (rule: { source?: string }) =>
+        rule.source === '/(.*)' || rule.source === '/(.*)/',
+    )
+
+    expect(broadRedirects).toEqual([])
+  })
+
   it.each(REDIRECT_ERROR_URLS)(
     'flattens $source to $destination in one hop',
     ({ source, destination }) => {

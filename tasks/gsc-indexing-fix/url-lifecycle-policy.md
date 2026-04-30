@@ -160,6 +160,8 @@ Current case-E stale posts added during the GSC indexing cleanup:
 2. **One hop only.** Apex + path consolidation is flattened in middleware (see
    `lib/middleware-redirects.ts`). Adding a new redirect whose destination is
    itself a redirect source breaks the `redirect-loops` test.
+   Broad catch-all redirects in `vercel.json` are not allowed because Vercel
+   routing runs before middleware and can recreate chains in production.
 3. **Never robots-block as a workaround.** If a URL is wrong, fix the URL or
    redirect it; do not hide it from crawlers via `robots.txt`. (Past incident:
    `Disallow: /*?dpl=*` blocked Vercel deploy-tagged static assets.)
