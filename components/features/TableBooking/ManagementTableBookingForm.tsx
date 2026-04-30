@@ -157,7 +157,17 @@ function getDefaultTimeValue(): string {
   // which is wrong for any visitor whose device is not on UK time.
   const { minutes } = londonNowParts()
   const next = Math.ceil((minutes + 60) / 30) * 30
-  return toTimeString(next % 1440)
+  if (next >= 1440) {
+    // Crosses midnight; clamp to last valid 30-min slot of today instead of
+    // wrapping to 00:00. Wrapping with `% 1440` while the date stays today
+    // confuses the customer and causes the search to submit a time that has
+    // already passed earlier on the same London day. We deliberately do not
+    // auto-advance the date here because that would also need to coordinate
+    // with the date input default; the customer can change either field.
+    // See codex AB-002 / WF-003.
+    return '23:30'
+  }
+  return toTimeString(next)
 }
 
 function toTimeInputValue(value: string | undefined): string {
@@ -308,11 +318,14 @@ function formatTimeForDisplay(time: string): string {
 function addDays(isoDate: string, days: number): string {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(isoDate)) return isoDate
   const [year, month, day] = isoDate.split('-').map((part) => Number.parseInt(part, 10))
-  // UTC arithmetic from a date-only anchor + format through London. BST/GMT
-  // shifts never cross noon, so this produces the correct calendar date in
-  // every browser timezone.
+  // Pure UTC arithmetic — no London-format roundtrip. We never go through a
+  // timezone formatter, so BST/GMT transitions cannot affect the calendar
+  // date result. See codex AB-001.
   const date = new Date(Date.UTC(year, month - 1, day + days))
-  return londonIsoDate(date)
+  const resultYear = date.getUTCFullYear()
+  const resultMonth = String(date.getUTCMonth() + 1).padStart(2, '0')
+  const resultDay = String(date.getUTCDate()).padStart(2, '0')
+  return `${resultYear}-${resultMonth}-${resultDay}`
 }
 
 function isPastLondonDate(value: string): boolean {
@@ -1073,7 +1086,11 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   function handleRequestedTimeChange(value: string) {
     markFunnelStart()
     setRequestedTime(value)
-    setSlotWindowAnchorTime(value)
+    // Do NOT set the slot-window anchor here — the anchor is search-time
+    // state, owned exclusively by `runAvailabilitySearch` (spec §5.2).
+    // Mutating it from a draft input handler couples input state to choose-
+    // step rendering and can re-centre stale availability after a failed or
+    // unsubmitted edit. See codex ARCH-002.
     setShowAllTimes(false)
     setSelectedSlotService(null)
   }
@@ -1477,6 +1494,14 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
           deviceType: getDeviceType(),
         })
       } else if (bookingResult.state === 'confirmed') {
+        // Defence-in-depth: drop the cached submit-intent key on a confirmed
+        // terminal state so a hypothetical second Confirm with the same
+        // payload would mint a new key rather than dedupe with the just-
+        // succeeded booking. Pending-payment and blocked states deliberately
+        // keep the cached key (the former is still in flight, the latter is
+        // a retry case). See codex AB-003.
+        clearSubmitIntentIdempotencyKey()
+
         // Funnel success
         trackTableBookingFunnel({
           step: 'success',
@@ -2217,7 +2242,13 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 </label>
 
                 <div className="flex flex-col gap-2 pt-2 sm:flex-row sm:flex-wrap">
-                  <Button type="button" variant="outline" className="w-full sm:w-auto min-h-12" onClick={() => setStep('details')}>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="w-full sm:w-auto min-h-12"
+                    onClick={() => setStep('details')}
+                    disabled={loading}
+                  >
                     Back
                   </Button>
                   <Button

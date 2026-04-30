@@ -1464,4 +1464,211 @@ describe('ManagementTableBookingForm', () => {
       expect(secondKey).not.toBe(firstKey)
     })
   })
+
+  describe('Codex review fixes', () => {
+    it('addDays advances 2027-03-28 (next BST transition) to 2027-03-29 in alternative search URLs (AB-001)', async () => {
+      // No slots available on the primary date — wizard then searches the
+      // next three calendar dates via addDays. The BST transition (last Sunday
+      // of March) is the canonical risk for any date arithmetic that round-
+      // trips through a London formatter. Verifying 2027-03-29 surfaces in
+      // the alternate URL set proves addDays produces the correct calendar
+      // date across the DST boundary in pure UTC arithmetic.
+      const altUrls: string[] = []
+      ;(global as any).fetch = jest.fn((input: RequestInfo | URL) => {
+        const url = typeof input === 'string' ? input : input.toString()
+        if (url.startsWith('/api/events?')) {
+          return Promise.resolve(
+            new Response(JSON.stringify({ success: true, data: { events: [] } }), {
+              status: 200,
+              headers: { 'Content-Type': 'application/json' }
+            })
+          )
+        }
+        if (url.startsWith('/api/customers/lookup?')) {
+          return Promise.resolve(
+            new Response(JSON.stringify({ success: true, data: { known: false, lookup_degraded: false } }), {
+              status: 200,
+              headers: { 'Content-Type': 'application/json' }
+            })
+          )
+        }
+        if (url.startsWith('/api/table-bookings/availability')) {
+          const params = new URL(url, 'https://t.test').searchParams
+          const date = params.get('date') || ''
+          if (date !== '2027-03-28') {
+            altUrls.push(url)
+          }
+          return Promise.resolve(
+            new Response(
+              JSON.stringify({ success: true, data: { date, available: false, time_slots: [] } }),
+              { status: 200, headers: { 'Content-Type': 'application/json' } }
+            )
+          )
+        }
+        return Promise.reject(new Error(`Unexpected fetch call: ${url}`))
+      })
+
+      render(<ManagementTableBookingForm />)
+      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2027-03-28' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+
+      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+      // Wait for nearest-alternative searches to fire (3 dates).
+      await waitFor(() => expect(altUrls.length).toBeGreaterThanOrEqual(3))
+
+      const dates = altUrls.map((u) => new URL(u, 'https://t.test').searchParams.get('date'))
+      expect(dates).toEqual(expect.arrayContaining(['2027-03-29', '2027-03-30', '2027-03-31']))
+    })
+
+    it('default Preferred Time clamps to 23:30 when London now+1h crosses midnight (AB-002 / WF-003)', async () => {
+      // 2026-04-30T22:00:00Z = 2026-04-30 23:00 BST in London. now+60min wraps
+      // past 1440. Prior code returned 00:00 while the date stayed today; the
+      // fix clamps to the last valid 30-min slot of today.
+      jest.useFakeTimers().setSystemTime(new Date('2026-04-30T22:00:00Z'))
+      try {
+        ;(global as any).fetch = jest.fn(() =>
+          Promise.resolve(
+            new Response(
+              JSON.stringify({ success: true, data: { date: '', available: false, time_slots: [] } }),
+              { status: 200, headers: { 'Content-Type': 'application/json' } }
+            )
+          )
+        )
+
+        render(<ManagementTableBookingForm />)
+        const timeInput = screen.getByLabelText('Preferred Time') as HTMLInputElement
+        expect(timeInput.value).toBe('23:30')
+      } finally {
+        jest.useRealTimers()
+      }
+    })
+
+    it('clears the cached submit-intent key on confirmed booking so a re-attempt with the same payload mints a fresh key (AB-003)', async () => {
+      // Confirm one booking. Without resetJourney intervening, "Book another"
+      // re-renders the wizard from scratch — but `resetJourney` also clears
+      // the cache. The defensive clear-on-confirmed fires *before* the user
+      // can do anything; this test verifies the resulting end state: any
+      // subsequent same-fingerprint Confirm produces a fresh idempotency key.
+      const history = {
+        ref: {
+          current: [] as Array<{ headers: Record<string, string>; body: Record<string, unknown> }>
+        }
+      }
+      setupFetchMock({
+        availability: [{ time: '13:00', available: true, available_capacity: 4, kitchen_open: true }],
+        captureBookingHistory: history
+      })
+
+      render(<ManagementTableBookingForm />)
+
+      // First booking: same date, same details → fingerprint A → key K1.
+      const fillBookingFlow = async () => {
+        fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+        fireEvent.blur(screen.getByLabelText('Party Size'))
+        fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-06-07' } })
+        fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+        await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+        fireEvent.click(screen.getByRole('button', { name: /1pm/i }))
+        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+        await waitFor(() => expect(screen.getByLabelText('Mobile Number')).toBeInTheDocument())
+        fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
+        fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+        await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+        fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+        fireEvent.change(screen.getByLabelText('Last Name'), { target: { value: 'Walker' } })
+        fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
+        await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
+        fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
+        fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
+      }
+
+      await fillBookingFlow()
+      await waitFor(() => expect(history.ref.current.length).toBe(1))
+      await waitFor(() => expect(screen.getByText(/all booked in/i)).toBeInTheDocument())
+
+      // Book another with identical inputs → fingerprint A → must mint K2 ≠ K1.
+      // (Both the confirmed-state clear and resetJourney's clear contribute;
+      // either alone is sufficient for this expectation.)
+      fireEvent.click(screen.getByRole('button', { name: /Book another table/i }))
+      await waitFor(() => expect(screen.getByLabelText('Date')).toBeInTheDocument())
+      await fillBookingFlow()
+      await waitFor(() => expect(history.ref.current.length).toBe(2))
+
+      const firstKey = history.ref.current[0].headers['idempotency-key']
+      const secondKey = history.ref.current[1].headers['idempotency-key']
+      expect(firstKey).toBeTruthy()
+      expect(secondKey).toBeTruthy()
+      expect(secondKey).not.toBe(firstKey)
+    })
+
+    it('disables the review-step Back button while Confirm is in flight (WF-004)', async () => {
+      // Hold the booking POST in a deferred promise; assert the Back button
+      // is disabled while loading. This prevents the customer from leaving
+      // the review step mid-submission with the request still pending.
+      // TS narrows the closed-over `null` initialiser, so use a `{ fn? }`
+      // wrapper that the test mutates without confusing the inference.
+      const release: { fn?: (value: Response) => void } = {}
+      const bookingPromise = new Promise<Response>((resolve) => {
+        release.fn = resolve
+      })
+
+      setupFetchMock({
+        availability: [{ time: '13:00', available: true, available_capacity: 4, kitchen_open: true }],
+        bookingHandler: () => bookingPromise as unknown as Response
+      })
+
+      render(<ManagementTableBookingForm />)
+      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-06-07' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+      fireEvent.click(screen.getByRole('button', { name: /1pm/i }))
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      await waitFor(() => expect(screen.getByLabelText('Mobile Number')).toBeInTheDocument())
+      fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+      fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+      fireEvent.change(screen.getByLabelText('Last Name'), { target: { value: 'Walker' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
+      await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
+      fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
+
+      // Before Confirm: Back is enabled.
+      const backBefore = screen.getByRole('button', { name: 'Back' }) as HTMLButtonElement
+      expect(backBefore.disabled).toBe(false)
+
+      fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
+
+      // While the booking POST is pending, Back must be disabled.
+      await waitFor(() => {
+        const backDuring = screen.getByRole('button', { name: 'Back' }) as HTMLButtonElement
+        expect(backDuring.disabled).toBe(true)
+      })
+
+      // Release the deferred POST so the test can settle cleanly.
+      release.fn?.(
+        new Response(
+          JSON.stringify({
+            success: true,
+            data: {
+              state: 'confirmed',
+              table_booking_id: 'tb-1',
+              booking_reference: 'TB-1',
+              blocked_reason: null,
+              next_step_url: null,
+              hold_expires_at: null,
+              table_name: 'Window 4',
+              reason: null
+            }
+          }),
+          { status: 201, headers: { 'Content-Type': 'application/json' } }
+        )
+      )
+      await waitFor(() => expect(screen.getByText(/all booked in/i)).toBeInTheDocument())
+    })
+  })
 })
