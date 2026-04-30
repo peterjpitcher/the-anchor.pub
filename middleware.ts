@@ -44,8 +44,14 @@ export function middleware(request: NextRequest) {
     // tasks/gsc-indexing-fix/FINAL-SPEC.md §P0.1.
     const matchedRedirect = lookupRedirect(url.pathname)
     if (matchedRedirect) {
+        const canonicalUrl = new URL(request.url)
+        canonicalUrl.protocol = url.protocol
+        canonicalUrl.host = url.host
+        canonicalUrl.pathname = url.pathname
+        canonicalUrl.search = url.search
+
         return NextResponse.redirect(
-            resolveRedirectUrl(url, matchedRedirect),
+            resolveRedirectUrl(canonicalUrl, matchedRedirect),
             getRedirectStatus(matchedRedirect),
         )
     }

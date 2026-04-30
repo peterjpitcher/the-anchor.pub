@@ -22,7 +22,7 @@ The four review findings from the previous attempted completion have been fixed:
 Production verification is **pending deploy** — see §11 below. Pre-deploy verification:
 
 - `node tasks/gsc-indexing-fix/audit-gsc-csvs.mjs` → counts unchanged (596 URLs, 7 redirect-error, 116 crawled-not-indexed) ✓
-- `npm test -- --runInBand seo-indexing event-seo-strategy sitemap-events` → 39 tests pass ✓
+- `npm test -- --runInBand seo-indexing event-seo-strategy sitemap-events` → 40 tests pass ✓
 - `npm run lint:next` → clean (`audit:hero` failures are pre-existing tech debt, not GSC-related) ✓
 - `npm run build` → clean (middleware bundle 36.2 kB) ✓
 - `node tasks/gsc-indexing-fix/triage-not-indexed.mjs` → 116 enriched rows emitted; manual-review cohort reduced to 5 URLs ✓
@@ -222,6 +222,9 @@ rules shipped.
 - Broad `vercel.json` catch-all host/trailing-slash redirects have been removed
   because Vercel routing runs before middleware and would otherwise recreate
   the chain in production.
+- The Vercel project-domain redirect on `the-anchor.pub` has also been removed
+  (`redirect: null`) because it ran before the application and produced apex
+  → www as a separate platform hop.
 - External concrete redirects are explicitly resolved with `new URL(destination)`;
   they are not written into `url.pathname`. Same-site concrete redirects
   preserve the request query string when the destination has no explicit query.
@@ -239,6 +242,8 @@ rules shipped.
   - External redirect and same-site query preservation guards.
   - `vercel.json` broad redirect guard so platform routing cannot preempt
     middleware flattening again.
+  - Middleware response guard asserting apex concrete redirects emit the
+    canonical `https://www.the-anchor.pub/...` destination in the first hop.
 
 **Production verification (run after deploy):**
 
@@ -582,7 +587,7 @@ PATH="/bin:/usr/bin:/usr/local/bin:/opt/homebrew/bin:$PATH" \
 Result:
 
 - 3 test suites passed.
-- 39 tests passed.
+- 40 tests passed.
 
 Also run for this workstream:
 

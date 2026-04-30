@@ -21,6 +21,7 @@
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
+import { NextRequest } from 'next/server'
 
 // Mock the events API so the sitemap test does not hit the network. The
 // sitemap calls `anchorAPI.getEvents` inside `getSitemapEvents`; returning
@@ -90,6 +91,7 @@ import {
 } from '@/app/blog/tag/[tag]/page'
 import BlogTagPage from '@/app/blog/tag/[tag]/page'
 import { isNoindexBlogTag } from '@/lib/blog-tag-policy'
+import { middleware } from '@/middleware'
 import {
   lookupRedirect,
   getRedirectStatus,
@@ -214,6 +216,22 @@ describe('middleware redirect lookup (apex/host chain flattening)', () => {
       expect(getRedirectStatus(rule!)).toBe(301)
     },
   )
+
+  it('middleware emits the canonical host and destination for apex concrete redirects', () => {
+    const request = new NextRequest('https://the-anchor.pub/blog/tag/rugby', {
+      headers: {
+        host: 'the-anchor.pub',
+        'x-forwarded-proto': 'https',
+      },
+    })
+
+    const response = middleware(request)
+
+    expect(response.status).toBe(301)
+    expect(response.headers.get('location')).toBe(
+      'https://www.the-anchor.pub/blog/tag/sports',
+    )
+  })
 
   it('returns undefined for paths that should not redirect', () => {
     expect(lookupRedirect('/')).toBeUndefined()
