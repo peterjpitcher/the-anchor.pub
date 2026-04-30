@@ -1,11 +1,46 @@
 # GSC Indexing Fix — Discovery & Spec
 
-**Source data:** `temp/GSC Errors/the-anchor.pub-Coverage-Drilldown-2026-04-30 (0..7)/Table.csv`
+**Source data:** eight sibling GSC export folders under `temp/GSC Errors/`, from `the-anchor.pub-Coverage-Drilldown-2026-04-30/` through `the-anchor.pub-Coverage-Drilldown-2026-04-30 (7)/`
 **Pages flagged:** 596 across 8 GSC categories
 **Date of GSC export:** 2026-04-29
-**Last revised:** 2026-04-30 (verified findings against git history; B3 reclassified)
+**Last revised:** 2026-04-30 (critical review added; `not-found.tsx` redirect proposal rejected)
 
-This spec is for review. **Nothing has been changed yet.** Each finding cites evidence (URL counts, file paths, line numbers, dates); each proposal is sized so it can be approved, deferred, or rejected independently.
+This spec is for review. It started as a pre-implementation spec; some work has since shipped in commit `b319ee6`. The critical review below supersedes the original proposal where they conflict.
+
+---
+
+## Critical correction: do not redirect from `not-found.tsx`
+
+The earlier version of this spec proposed adding:
+
+```ts
+// app/events/[id]/not-found.tsx
+import { permanentRedirect } from 'next/navigation'
+
+export default function EventNotFound() {
+  permanentRedirect('/whats-on')
+}
+```
+
+That proposal is rejected.
+
+Observed behaviour in this repo: the file compiled without warnings, but `EventNotFound` did not appear in `.next/server/**/*.js` after a clean `npm run build`. The sibling `app/events/[id]/page.tsx` compiled normally and its own `permanentRedirect('/whats-on')` calls were present.
+
+Next.js documentation does **not** document `not-found.tsx` as a supported place to perform redirects. The documented purpose of `not-found.js` is to render UI when `notFound()` is thrown within a route segment. The documented purpose of `notFound()` is to throw a `NEXT_HTTP_ERROR_FALLBACK;404`, render the `not-found` file, and inject a `noindex` robots meta tag. Separately, `permanentRedirect()` is documented for Server Components, Client Components, Route Handlers, and Server Functions, and the redirecting guide recommends `next.config.js` redirects or Middleware when redirecting before render.
+
+Recommended patterns for this project:
+
+1. **Known URL mappings:** use `next.config.js` redirect entries or Middleware. This is appropriate for old slugs and legacy paths.
+2. **Data-dependent event redirects:** perform the decision inside `app/events/[id]/page.tsx` before calling `notFound()`. If the event has a close replacement, call `permanentRedirect()` from the page component.
+3. **Truly removed content:** use `notFound()` plus a normal `not-found.tsx` UI, or another deliberate 404/410 strategy. Do not redirect everything to `/whats-on` by default.
+4. **Segment-specific 404 UI:** keep `not-found.tsx` as UI only. It should not be used as a hidden redirect hook.
+
+Official references checked:
+
+- Next.js `not-found.js`: <https://nextjs.org/docs/14/app/api-reference/file-conventions/not-found>
+- Next.js `notFound()`: <https://nextjs.org/docs/app/api-reference/functions/not-found>
+- Next.js `permanentRedirect()`: <https://nextjs.org/docs/app/api-reference/functions/permanentRedirect>
+- Next.js redirecting guide: <https://nextjs.org/docs/14/app/building-your-application/routing/redirecting>
 
 ---
 
@@ -109,11 +144,15 @@ The rule was presumably added to stop Google indexing the *HTML* version of `?dp
 - `app/sitemap.ts:268-274` excludes events older than `PAST_EVENT_REDIRECT_DAYS` from the sitemap, but no catch-all picks them up after that
 - The 404'd events are ones the management API no longer returns
 
-**Proposed fix:** add `app/events/[slug]/not-found.tsx` that calls `permanentRedirect('/whats-on')`. Any 404 hit on an `/events/<slug>` URL becomes a 308 redirect to the events index.
+**Rejected fix:** do **not** add `app/events/[id]/not-found.tsx` that calls `permanentRedirect('/whats-on')`. That pattern compiled silently but was not present in the server build output, and it is not documented as a supported use of `not-found.tsx`.
 
-**Risk:** low. Live events route normally; only missing slugs hit the redirect.
+**Implemented workaround:** put the redirect decisions directly in `app/events/[id]/page.tsx`, where `permanentRedirect()` is documented and the compiled output includes the redirect calls. The current implementation redirects missing/falsy events and draft events to `/whats-on`.
 
-**Files touched:** `app/events/[slug]/not-found.tsx` (new file).
+**Critical follow-up:** this should become an explicit event lifecycle policy, not a blanket redirect. Redirect to `/whats-on` only when it is a useful replacement. If an event is genuinely removed and has no close replacement, prefer `notFound()` with a real 404 UI or a deliberate 410/404 strategy.
+
+**Risk:** medium if left as a blanket redirect. Live events route normally, but broad redirects can send stale event URLs to a weak replacement and may be interpreted poorly by users and search engines.
+
+**Files touched:** `app/events/[id]/page.tsx`. Do not add `app/events/[id]/not-found.tsx` for redirects.
 
 **Resolves:** 10 URLs in "Not found (404)" + future drift.
 
@@ -201,7 +240,7 @@ Broken image URL.
 | # | Task | Files | Resolves | Risk |
 |---|---|---|---|---|
 | 1 | Remove `/*?dpl=*` from `app/robots.ts` disallow | `app/robots.ts` (1 line) | 106 URLs | very low |
-| 2 | Add `app/events/[slug]/not-found.tsx` redirecting to `/whats-on` | new file | 10 URLs + future past events | low |
+| 2 | Keep event redirect logic in `app/events/[id]/page.tsx`; do **not** use `not-found.tsx` as a redirect hook | `app/events/[id]/page.tsx` | 10 URLs + future drift | medium until lifecycle policy is explicit |
 | 3 | Audit & remove `drinks-redirects.json` entries that contradict the sitemap | `config/redirects/drinks-redirects.json` | 1 URL + drift prevention | low |
 | 4 | Add `/hr` redirect (destination TBC) | `config/redirects/additional-redirects.json` | 1 URL | very low |
 | 5 | Spot-check 5 of 52 noindexed blog posts | n/a | verification only | none |
