@@ -8,6 +8,7 @@ import { EmailLink } from '@/components/EmailLink'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { seasonalOccasionLinks, trustLinks } from '@/lib/internal-linking-data'
 import { landmarks } from '@/lib/local-seo-data'
+import { formatEventDate, getRecentEvents, type Event } from '@/lib/api'
 
 type SitemapLink = {
   label: string
@@ -19,6 +20,8 @@ type SitemapSection = {
   title: string
   links: SitemapLink[]
 }
+
+export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'Sitemap',
@@ -182,7 +185,25 @@ const sitemapSections: SitemapSection[] = [
   },
 ]
 
-export default function SitemapPage() {
+function buildRecentEventSection(events: Event[]): SitemapSection | null {
+  if (events.length === 0) return null
+
+  return {
+    title: 'Recent Event Archive',
+    links: events.map((event) => ({
+      label: `${event.name} - ${formatEventDate(event.startDate)}`,
+      href: `/events/${event.slug || event.id}`,
+    })),
+  }
+}
+
+export default async function SitemapPage() {
+  const recentEvents = await getRecentEvents(12).catch(() => [] as Event[])
+  const recentEventSection = buildRecentEventSection(recentEvents)
+  const sections = recentEventSection
+    ? [...sitemapSections.slice(0, 4), recentEventSection, ...sitemapSections.slice(4)]
+    : sitemapSections
+
   return (
     <>
       {/* Hero Section */}
@@ -205,7 +226,7 @@ export default function SitemapPage() {
       {/* Sitemap Links */}
       <Section background="gray" spacing="lg" container containerSize="lg">
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {sitemapSections.map((section) => (
+          {sections.map((section) => (
             <div key={section.title} className="bg-anchor-bg-card rounded-xl p-6 border border-anchor-gold/15">
               <h2 className="text-xl font-bold text-anchor-gold-vivid mb-4">
                 {section.title}

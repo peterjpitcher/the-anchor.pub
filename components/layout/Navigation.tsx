@@ -178,7 +178,7 @@ const mobilePriorityTasks: Array<{
   },
   {
     label: 'Private Hire',
-    href: '/private-hire#enquiry',
+    href: '/private-hire',
     description: 'Parties and events',
     icon: 'party'
   },
@@ -750,7 +750,7 @@ export function Navigation({
       className={cn(
         'group flex items-start gap-3 rounded-lg border transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white/50',
         task.featured
-          ? 'border-anchor-gold bg-anchor-gold px-4 py-4 text-anchor-green hover:bg-anchor-gold-light'
+          ? 'border-anchor-gold bg-anchor-gold px-4 py-4 text-white hover:bg-anchor-gold-light'
           : 'border-white/10 bg-white/10 px-4 py-3 text-white hover:bg-white/20'
       )}
       onClick={() => {
@@ -769,7 +769,7 @@ export function Navigation({
       <span
         className={cn(
           'mt-0.5 inline-flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full',
-          task.featured ? 'bg-anchor-green/15' : 'bg-white/10'
+          task.featured ? 'bg-white/15' : 'bg-white/10'
         )}
         aria-hidden="true"
       >
@@ -780,7 +780,7 @@ export function Navigation({
         <span
           className={cn(
             'mt-1 block text-sm leading-snug',
-            task.featured ? 'text-anchor-green/80' : 'text-white/75'
+            task.featured ? 'text-white/80' : 'text-white/75'
           )}
         >
           {task.description}
@@ -913,7 +913,7 @@ export function Navigation({
           <div className="container mx-auto px-4 py-6 space-y-6">
             <div className="rounded-xl border border-white/10 bg-anchor-green/60 p-4">
               <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white/70">
-                Priority bookings
+                Plan your visit
               </p>
               <div className="mt-3 space-y-3">
                 {mobilePriorityTasks.map((task) => renderMobilePriorityTask(task))}
