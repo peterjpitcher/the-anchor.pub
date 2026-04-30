@@ -17,7 +17,6 @@ import { StatusBar } from '@/components/layout/StatusBar'
 import { cn } from '@/lib/utils'
 import { getSeasonalAltText, getSeasonalFocal, getSeasonalHomepageImage } from '@/lib/seasonal-utils'
 import { SmartCTAs } from './SmartCTAs'
-import { ContextStrip } from './ContextStrip'
 import type { Event } from '@/lib/api'
 
 interface HeroTagConfig {
@@ -95,7 +94,12 @@ interface HeroWrapperProps {
 
   /** Opt-in: render smart context-aware CTAs when no page CTA props provided */
   enableSmartCtas?: boolean
-  /** Opt-in: render live context strip at bottom of hero */
+  /**
+   * Deprecated compatibility prop.
+   *
+   * The live context strip duplicated the global header status and was removed
+   * sitewide because it confused visitors when kitchen status changed.
+   */
   showContextStrip?: boolean
   /** Upcoming events for smart CTA and context strip awareness */
   heroEvents?: Event[]
@@ -140,7 +144,6 @@ export function HeroWrapper({
   cta,
   children,
   enableSmartCtas = false,
-  showContextStrip = false,
   heroEvents,
   className,
   contentClassName,
@@ -337,7 +340,7 @@ export function HeroWrapper({
         ) : undefined
       }
       cta={heroCta}
-      bottomSlot={showContextStrip ? <ContextStrip heroEvents={heroEvents} /> : undefined}
+      bottomSlot={undefined}
       className={heroClassName}
       contentClassName={resolvedContentClassName}
     >

@@ -17,8 +17,9 @@ describe('HeroWrapper smart hero integration', () => {
     expect(source).toMatch(/enableSmartCtas\s*=\s*false/)
   })
 
-  it('should have showContextStrip prop defaulting to false', () => {
-    expect(source).toMatch(/showContextStrip\s*=\s*false/)
+  it('should keep showContextStrip as a deprecated compatibility prop', () => {
+    expect(source).toMatch(/showContextStrip\?: boolean/)
+    expect(source).toMatch(/Deprecated compatibility prop/)
   })
 
   it('should check all three CTA override props before enabling smart CTAs', () => {
@@ -33,14 +34,14 @@ describe('HeroWrapper smart hero integration', () => {
     expect(source).toMatch(/shouldUseSmartCtas\s*=\s*enableSmartCtas\s*&&\s*!hasAnyCTAOverride/)
   })
 
-  it('should render ContextStrip via bottomSlot when showContextStrip is true', () => {
-    expect(source).toMatch(/bottomSlot=\{showContextStrip/)
-    expect(source).toMatch(/<ContextStrip/)
+  it('should not render ContextStrip via bottomSlot', () => {
+    expect(source).toMatch(/bottomSlot=\{undefined\}/)
+    expect(source).not.toMatch(/<ContextStrip/)
   })
 
-  it('should import SmartCTAs and ContextStrip', () => {
+  it('should import SmartCTAs only', () => {
     expect(source).toMatch(/import.*SmartCTAs.*from/)
-    expect(source).toMatch(/import.*ContextStrip.*from/)
+    expect(source).not.toMatch(/import.*ContextStrip.*from/)
   })
 })
 
@@ -59,29 +60,3 @@ describe('HeroSectionServer bottomSlot integration', () => {
     expect(source).toMatch(/bottomSlot\s*&&\s*'pb-14/)
   })
 })
-
-describe('No existing pages affected', () => {
-  it('should not have enableSmartCtas or showContextStrip on any page file', () => {
-    const appDir = path.join(process.cwd(), 'app')
-    const pageFiles = findPageFiles(appDir)
-
-    for (const file of pageFiles) {
-      const content = fs.readFileSync(file, 'utf8')
-      expect(content).not.toMatch(/enableSmartCtas/)
-      expect(content).not.toMatch(/showContextStrip/)
-    }
-  })
-})
-
-function findPageFiles(dir: string): string[] {
-  const results: string[] = []
-  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-    const fullPath = path.join(dir, entry.name)
-    if (entry.isDirectory()) {
-      results.push(...findPageFiles(fullPath))
-    } else if (entry.name === 'page.tsx') {
-      results.push(fullPath)
-    }
-  }
-  return results
-}

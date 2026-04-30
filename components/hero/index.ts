@@ -3,7 +3,6 @@ export { Breadcrumbs, type BreadcrumbItem } from './Breadcrumbs'
 export { HeroTag } from './HeroTag'
 export { HeroWrapper } from './HeroWrapper'
 export { SmartCTAs } from './SmartCTAs'
-export { ContextStrip } from './ContextStrip'
 export type {
   HeroVariantName,
   HeroCtaLayoutKey,
