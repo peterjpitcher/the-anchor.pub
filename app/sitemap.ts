@@ -7,7 +7,6 @@ import tagRedirects from '@/config/redirects/tag-redirects.json'
 import { PAST_EVENT_REDIRECT_DAYS, CANCELLED_INDEX_DAYS } from '@/lib/event-seo-strategy'
 
 export const revalidate = 60 * 60 // 1 hour
-export const dynamic = 'force-dynamic'
 
 const EVENT_PAGE_SIZE = 100
 const EVENT_MAX_PAGES = 20
