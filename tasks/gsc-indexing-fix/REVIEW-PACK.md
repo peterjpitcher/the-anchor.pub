@@ -1017,3 +1017,78 @@ If you have limited time, here are the highest-leverage areas to scrutinise:
 7. **Reviewer P0/P1 items in §0.1**: still being deferred to a later round. Is that ordering right, or should any of them be pulled forward into round 2?
 
 **Reviewer answer to item 7:** pull forward the redirect-error chain investigation, URL lifecycle policy, and regression checks. The full audit script can be smaller at first, but there must be some automated protection before another large batch of SEO edits ships.
+
+---
+
+## 18. Production verification log — round 2 post-deploy (2026-04-30)
+
+After commits `29cf4cd`, `af2d28e`, `e52cd0b`, `20a9e92` deployed and the owner purged Cloudflare cache for `/robots.txt` (both apex and www), verification was run from the orchestrator sandbox via Python `urllib`.
+
+### 18.1 robots.txt — fix confirmed live
+
+```
+GET https://www.the-anchor.pub/robots.txt → 200
+GET https://the-anchor.pub/robots.txt    → 200
+Body searched for "/*?dpl=*" → NOT FOUND
+```
+
+The `Disallow: /*?dpl=*` line is gone from both apex and www responses. The 106 `/_next/static/css/HASH.css?dpl=DEPLOY_ID` URLs are no longer blocked from Googlebot's render pass.
+
+### 18.2 Sitemap — force-dynamic removal confirmed effective
+
+Two consecutive fetches:
+```
+fetch #1: x-vercel-cache: STALE,   Age: 4913, Body bytes: 15839
+fetch #2: x-vercel-cache: HIT,     Age: 0,    Body bytes: 15839
+```
+The second fetch hitting the Vercel ISR cache proves `revalidate = 60 * 60` is now active. Before the fix, every fetch was uncached and triggered up to 20 upstream API calls — the most plausible cause of the "Temporary processing error" reported by GSC URL Inspection.
+
+### 18.3 Breadcrumb dedup — confirmed on production
+
+Three spot-checks:
+```
+/blog/family-friendly-sunday-lunch-heathrow: 1 BreadcrumbList (was 2)
+/sunday-lunch:                                1 BreadcrumbList (was 2)
+/private-hire/christenings:                   1 BreadcrumbList (was 2)
+```
+All three pages match the post-fix scan that ran during build (0 of 275 pages with >1 BreadcrumbList).
+
+### 18.4 Static asset accessibility — confirmed
+
+```
+GET /_next/static/css/<HASH>.css?dpl=<DEPLOY> → 200
+  Cache-Control: public, max-age=31536000, immutable
+  CF-Cache-Status: HIT
+  x-vercel-cache: HIT
+```
+Asset is served with both Cloudflare and Vercel cache hitting. No robots.txt block in play.
+
+### 18.5 Loose end identified — sitemap Cache-Control header not from `next.config.js`
+
+The `next.config.js` rule we shipped (`Cache-Control: public, max-age=300, s-maxage=300, must-revalidate` for `/sitemap.xml`) is **not** appearing in the live response. Live response shows `Cache-Control: public, max-age=0, must-revalidate` — this is being set by Next.js's dynamic route handler at the framework level, overriding our config.
+
+**Impact:** none for the round-2 fix because Vercel ISR caching still works (proven by 18.2). But the config rule is dead code as written.
+
+**Round 3 follow-up:** investigate whether to set the cache header inside `app/sitemap.ts` directly via response headers, or accept Next.js's default. Not blocking.
+
+### 18.6 Loose end identified — `X-Robots-Tag` on `/_next/static/*` not applied
+
+Live response shows `X-Robots-Tag: all` on a `_next/static` CSS asset, where `next.config.js:138-149` sets `X-Robots-Tag: noindex, nofollow` for `/_next/static/:path*`.
+
+**Impact:** very low. `X-Robots-Tag: all` means "no restriction" — for a CSS file this is harmless because Google doesn't typically index CSS bodies regardless. Not the same as the asset being indexed as a search result.
+
+**Round 3 follow-up:** investigate why this header rule is being overridden. Possibly Vercel-set, possibly Cloudflare-managed. Not blocking.
+
+### 18.7 Ready for GSC validation
+
+After these verifications, the round-2 fix is **ready for "Validate fix" in Google Search Console** for these issue categories:
+
+- Blocked by robots.txt — the 106 dpl-tagged static assets
+- Not found (404) — the 17 stale tag URLs (already redirect; Google just hasn't re-checked)
+- Page with redirect — most fade naturally; safe to validate
+
+Do **not** validate yet:
+- Redirect error (7 URLs) — needs the sitemap fix to settle first; revisit after re-crawl
+- Crawled — currently not indexed (116 URLs) — orphan hypothesis was refuted (§14.6); a different diagnosis is needed before action
+
+Re-export GSC drilldowns 14 days after these commits land and rerun the audit script for a counts-by-issue comparison.
