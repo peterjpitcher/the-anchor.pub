@@ -5,6 +5,7 @@ import { anchorAPI, type Event } from '@/lib/api'
 import { getEventWebsitePath } from '@/lib/event-url'
 import tagRedirects from '@/config/redirects/tag-redirects.json'
 import { PAST_EVENT_REDIRECT_DAYS, CANCELLED_INDEX_DAYS } from '@/lib/event-seo-strategy'
+import { isNoindexBlogTag } from '@/lib/blog-tag-policy'
 
 export const revalidate = 60 * 60 // 1 hour
 
@@ -12,6 +13,11 @@ const EVENT_PAGE_SIZE = 100
 const EVENT_MAX_PAGES = 20
 const EVENT_SITEMAP_STATUS_FILTER = 'scheduled,rescheduled,postponed,sold_out,cancelled'
 const EVENT_SITEMAP_FROM_DATE = '2000-01-01'
+// Per-page timeout for the management API. We fetch page 0 first, then fetch
+// remaining pages in parallel only if page 0 is full. That bounds sitemap
+// regeneration to roughly two timeout windows rather than EVENT_MAX_PAGES
+// sequential waits.
+const EVENT_PAGE_TIMEOUT_MS = 3_000
 
 function getSafeDate(value?: string): Date {
   if (!value) {
@@ -35,33 +41,61 @@ function isDraftEvent(event: Event): boolean {
   return schemaStatus.includes('draft')
 }
 
-async function getSitemapEvents(): Promise<Event[]> {
-  const uniqueEvents = new Map<string, Event>()
+async function fetchSitemapEventsPage(page: number): Promise<Event[] | null> {
+  const controller = new AbortController()
+  const timeout = setTimeout(() => controller.abort(), EVENT_PAGE_TIMEOUT_MS)
 
   try {
-    for (let page = 0; page < EVENT_MAX_PAGES; page += 1) {
-      const offset = page * EVENT_PAGE_SIZE
-      const response = await anchorAPI.getEvents({
+    const response = await anchorAPI.getEvents(
+      {
         from_date: EVENT_SITEMAP_FROM_DATE,
         status: EVENT_SITEMAP_STATUS_FILTER,
         limit: EVENT_PAGE_SIZE,
-        offset
-      })
-
-      const batch = Array.isArray(response.events) ? response.events : []
-      if (batch.length === 0) break
-
-      for (const event of batch) {
-        if (isDraftEvent(event)) continue
-        const key = `${event.id || event.slug || ''}`.trim()
-        if (!key) continue
-        uniqueEvents.set(key, event)
-      }
-
-      if (batch.length < EVENT_PAGE_SIZE) break
-    }
+        offset: page * EVENT_PAGE_SIZE,
+      },
+      { signal: controller.signal },
+    )
+    return Array.isArray(response.events) ? response.events : []
   } catch {
+    return null
+  } finally {
+    clearTimeout(timeout)
+  }
+}
+
+function addSitemapEvents(uniqueEvents: Map<string, Event>, batch: Event[]): void {
+  for (const event of batch) {
+    if (isDraftEvent(event)) continue
+    const key = `${event.id || event.slug || ''}`.trim()
+    if (!key) continue
+    uniqueEvents.set(key, event)
+  }
+}
+
+export async function getSitemapEvents(): Promise<Event[]> {
+  const uniqueEvents = new Map<string, Event>()
+  const firstBatch = await fetchSitemapEventsPage(0)
+
+  if (!firstBatch || firstBatch.length === 0) {
     return []
+  }
+
+  addSitemapEvents(uniqueEvents, firstBatch)
+
+  if (firstBatch.length < EVENT_PAGE_SIZE) {
+    return Array.from(uniqueEvents.values())
+  }
+
+  const remainingBatches = await Promise.all(
+    Array.from({ length: EVENT_MAX_PAGES - 1 }, (_, index) =>
+      fetchSitemapEventsPage(index + 1),
+    ),
+  )
+
+  for (const batch of remainingBatches) {
+    if (!batch || batch.length === 0) break
+    addSitemapEvents(uniqueEvents, batch)
+    if (batch.length < EVENT_PAGE_SIZE) break
   }
 
   return Array.from(uniqueEvents.values())
@@ -243,9 +277,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       .map((r) => r.source.replace('/blog/tag/', ''))
   )
 
-  // Map tag pages — exclude any tag that redirects to avoid "page with redirect" in GSC
+  // Map tag pages — exclude redirect sources and broad archive tags that are
+  // intentionally noindexed in favour of stronger topical landing pages.
   const tagSitemap = Array.from(allTags)
-    .filter((tag) => !redirectSourceTags.has(tag))
+    .filter((tag) => !redirectSourceTags.has(tag) && !isNoindexBlogTag(tag))
     .map((tag) => ({
       url: `${baseUrl}/blog/tag/${tag}`,
       lastModified: DATES.apr2026,

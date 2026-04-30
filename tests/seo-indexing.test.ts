@@ -75,11 +75,27 @@ jest.mock('@/lib/markdown', () => {
       .filter(Boolean)
   }
 
-  return { getAllBlogPosts }
+  function getIndexableBlogPosts() {
+    return getAllBlogPosts().filter((post: { noindex?: boolean }) => !post.noindex)
+  }
+
+  return { getAllBlogPosts, getIndexableBlogPosts }
 })
 
 import robots from '@/app/robots'
 import sitemap from '@/app/sitemap'
+import {
+  generateMetadata as generateBlogTagMetadata,
+  generateStaticParams as generateBlogTagStaticParams,
+} from '@/app/blog/tag/[tag]/page'
+import BlogTagPage from '@/app/blog/tag/[tag]/page'
+import { isNoindexBlogTag } from '@/lib/blog-tag-policy'
+import {
+  lookupRedirect,
+  getRedirectStatus,
+  getRedirectMapSize,
+  resolveRedirectUrl,
+} from '@/lib/middleware-redirects'
 
 import additionalRedirects from '@/config/redirects/additional-redirects.json'
 import blogRedirects from '@/config/redirects/blog-redirects.json'
@@ -152,6 +168,100 @@ describe('robots.txt', () => {
   it('allows root and static assets so crawlers can render pages', () => {
     expect(allow).toEqual(expect.arrayContaining(['/', '/_next/static/']))
   })
+
+  it('does not disallow event opengraph-image routes', () => {
+    // OG-image routes must remain crawlable so social previews can fetch them.
+    // They opt out of search indexing via X-Robots-Tag (set on the route),
+    // not via robots.txt, so robots.txt should never block them.
+    const offending = disallow.filter((rule) => rule.includes('opengraph-image'))
+    expect(offending).toEqual([])
+  })
+})
+
+describe('middleware redirect lookup (apex/host chain flattening)', () => {
+  // The seven URLs reported by GSC as "Redirect error" — see
+  // tasks/gsc-indexing-fix/FINAL-SPEC.md §P0.1. Both www and apex variants of
+  // these tags must resolve in a single hop to the consolidated destination,
+  // not via the apex -> www -> destination chain.
+  const REDIRECT_ERROR_URLS: Array<{ source: string; destination: string }> = [
+    { source: '/blog/tag/rugby', destination: '/blog/tag/sports' },
+    { source: '/blog/tag/premier-league', destination: '/blog/tag/sports' },
+    { source: '/blog/tag/pet-friendly', destination: '/blog/tag/community' },
+    { source: '/blog/tag/dog-friendly', destination: '/blog/tag/community' },
+  ]
+
+  it.each(REDIRECT_ERROR_URLS)(
+    'flattens $source to $destination in one hop',
+    ({ source, destination }) => {
+      const rule = lookupRedirect(source)
+      expect(rule).toBeDefined()
+      expect(rule!.destination).toBe(destination)
+      expect(getRedirectStatus(rule!)).toBe(301)
+    },
+  )
+
+  it('returns undefined for paths that should not redirect', () => {
+    expect(lookupRedirect('/')).toBeUndefined()
+    expect(lookupRedirect('/sunday-lunch')).toBeUndefined()
+    expect(lookupRedirect('/whats-on')).toBeUndefined()
+  })
+
+  it('preserves external redirect destinations', () => {
+    const rule = lookupRedirect('/leave-review')
+    expect(rule).toBeDefined()
+    expect(rule!.destination).toBe('https://g.page/r/CQz1W5fqSTqPEAI/review')
+
+    const redirectUrl = resolveRedirectUrl(
+      new URL('https://www.the-anchor.pub/leave-review'),
+      rule!,
+    )
+
+    expect(redirectUrl.toString()).toBe('https://g.page/r/CQz1W5fqSTqPEAI/review')
+  })
+
+  it('preserves query strings for same-site concrete redirects', () => {
+    const rule = lookupRedirect('/blog/tag/rugby')
+    expect(rule).toBeDefined()
+
+    const redirectUrl = resolveRedirectUrl(
+      new URL('https://www.the-anchor.pub/blog/tag/rugby?utm_source=test'),
+      rule!,
+    )
+
+    expect(redirectUrl.toString()).toBe(
+      'https://www.the-anchor.pub/blog/tag/sports?utm_source=test',
+    )
+  })
+
+  it('does not include pattern-based sources (those stay in next.config.js)', () => {
+    // Pattern rules use `:slug` or `:path*` syntax — middleware can not match
+    // them with a simple Map lookup, so they remain in the framework redirects
+    // pipeline. This guards against accidentally precompiling them and
+    // producing literal `/profile/:path*` matches.
+    expect(lookupRedirect('/profile/:path*')).toBeUndefined()
+    expect(lookupRedirect('/_api/:path*')).toBeUndefined()
+  })
+
+  it('flattening map is non-empty and bounded by total concrete rules', () => {
+    // Sanity check: the map should contain at least one rule per redirect file
+    // (defended via a soft lower bound) and no more than the total rule count.
+    const size = getRedirectMapSize()
+    expect(size).toBeGreaterThan(100)
+    expect(size).toBeLessThanOrEqual(ALL_REDIRECTS.length)
+  })
+
+  it('flattened destinations are not themselves redirect sources', () => {
+    // If a destination is also a source, middleware would still emit a single
+    // 301 but the result would land on a redirect, recreating a chain on the
+    // next request. Guards against accidental chain reintroduction.
+    const sources = new Set(
+      ALL_REDIRECTS.filter((r) => isConcretePath(r.source)).map((r) => r.source),
+    )
+    const offending = REDIRECT_ERROR_URLS.filter(({ destination }) =>
+      sources.has(destination),
+    )
+    expect(offending).toEqual([])
+  })
 })
 
 describe('sitemap-vs-redirects', () => {
@@ -208,6 +318,96 @@ describe('sitemap-vs-noindex', () => {
     const offending = noindexSlugs.filter((slug) => sitemapPaths.has(`/blog/${slug}`))
     expect(offending).toEqual([])
   })
+})
+
+describe('blog archive-vs-noindex', () => {
+  function readBlogTagIndexability(): Map<string, { indexable: string[]; noindex: string[] }> {
+    const blogDir = path.join(process.cwd(), 'content', 'blog')
+    const tagStats = new Map<string, { indexable: string[]; noindex: string[] }>()
+    if (!fs.existsSync(blogDir)) return tagStats
+
+    for (const entry of fs.readdirSync(blogDir)) {
+      const indexPath = path.join(blogDir, entry, 'index.md')
+      if (!fs.existsSync(indexPath)) continue
+      const { data } = matter(fs.readFileSync(indexPath, 'utf8'))
+      const tags = Array.isArray(data.tags)
+        ? data.tags.filter((t: unknown): t is string => typeof t === 'string')
+        : []
+
+      for (const tag of tags) {
+        const key = tag.trim().toLowerCase()
+        const current = tagStats.get(key) || { indexable: [], noindex: [] }
+        if (data.noindex === true) {
+          current.noindex.push(entry)
+        } else {
+          current.indexable.push(entry)
+        }
+        tagStats.set(key, current)
+      }
+    }
+
+    return tagStats
+  }
+
+  function collectHrefs(node: unknown): string[] {
+    if (node == null || typeof node === 'boolean') return []
+    if (Array.isArray(node)) return node.flatMap(collectHrefs)
+    if (typeof node !== 'object') return []
+
+    const element = node as { props?: { href?: unknown; children?: unknown } }
+    const ownHref = typeof element.props?.href === 'string' ? [element.props.href] : []
+    return ownHref.concat(collectHrefs(element.props?.children))
+  }
+
+  it('does not generate tag archive pages for tags that only contain noindex posts', async () => {
+    const tagStats = readBlogTagIndexability()
+    const noindexOnlyTags = [...tagStats.entries()]
+      .filter(([, stats]) => stats.noindex.length > 0 && stats.indexable.length === 0)
+      .map(([tag]) => tag)
+
+    const generatedTags = new Set(
+      (await generateBlogTagStaticParams()).map(({ tag }) => tag),
+    )
+    const offending = noindexOnlyTags.filter((tag) => generatedTags.has(tag))
+
+    expect(offending).toEqual([])
+  })
+
+  it('does not surface noindex posts on indexable tag archive pages', async () => {
+    const tagStats = readBlogTagIndexability()
+    const candidate = [...tagStats.entries()].find(
+      ([, stats]) => stats.indexable.length > 0 && stats.noindex.length > 0,
+    )
+
+    // The real corpus has mixed tags like `news` and `events`, where legacy
+    // noindex posts should not dilute the indexable archive page.
+    expect(candidate).toBeDefined()
+
+    const [tag, stats] = candidate!
+    const rendered = await BlogTagPage({ params: { tag } })
+    const hrefs = new Set(collectHrefs(rendered))
+    const offending = stats.noindex.filter((slug) => hrefs.has(`/blog/${slug}`))
+
+    expect(offending).toEqual([])
+  })
+})
+
+describe('blog tag index policy', () => {
+  const broadArchiveTags = ['events', 'food-and-drink', 'news', 'sports']
+
+  it.each(broadArchiveTags)(
+    'keeps broad archive tag %s noindexed and out of the sitemap',
+    async (tag) => {
+      expect(isNoindexBlogTag(tag)).toBe(true)
+
+      const metadata = await generateBlogTagMetadata({ params: { tag } })
+      expect(metadata.robots).toEqual({ index: false, follow: true })
+
+      const sitemapEntries = await sitemap()
+      const sitemapPaths = new Set(sitemapEntries.map((entry) => toPath(entry.url)))
+      expect(sitemapPaths.has(`/blog/tag/${tag}`)).toBe(false)
+    },
+  )
 })
 
 describe('redirect-loops', () => {

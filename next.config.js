@@ -118,6 +118,14 @@ const nextConfig = {
         ],
       },
       {
+        // robots.txt cache policy
+        // Code intent: 5-minute browser + 5-minute shared-cache TTL so a hot
+        // robots.txt fix propagates within minutes.
+        // Live reality: Cloudflare's "Browser Cache TTL" rule extends the
+        // browser max-age to 4 hours (max-age=14400). Shared-cache (s-maxage)
+        // is preserved at 300s, so CDN refresh remains fast, and a hot fix
+        // can be propagated immediately by purging the URL in Cloudflare.
+        // See tasks/gsc-indexing-fix/FINAL-SPEC.md §P1 robots.txt cache header.
         source: '/robots.txt',
         headers: [
           {
@@ -136,15 +144,16 @@ const nextConfig = {
         ],
       },
       {
+        // Static assets only need long-lived caching. Crawlability is required
+        // (Googlebot fetches CSS/JS to render pages); X-Robots-Tag is
+        // intentionally NOT set here because Cloudflare overrides it to "all"
+        // on production. Indexing risk for hashed JS/CSS is negligible — they
+        // contain no useful query content. See FINAL-SPEC.md §P1 X-Robots-Tag.
         source: '/_next/static/:path*',
         headers: [
           {
             key: 'Cache-Control',
             value: 'public, max-age=31536000, immutable',
-          },
-          {
-            key: 'X-Robots-Tag',
-            value: 'noindex, nofollow',
           },
         ],
       },
@@ -155,10 +164,6 @@ const nextConfig = {
             key: 'Cache-Control',
             value: 'public, max-age=31536000, immutable',
           },
-          {
-            key: 'X-Robots-Tag',
-            value: 'noindex, nofollow',
-          },
         ],
       },
       {
@@ -168,10 +173,6 @@ const nextConfig = {
             key: 'Cache-Control',
             value: 'public, max-age=31536000, immutable',
           },
-          {
-            key: 'X-Robots-Tag',
-            value: 'noindex, nofollow',
-          },
         ],
       },
       {
@@ -180,10 +181,6 @@ const nextConfig = {
           {
             key: 'Cache-Control',
             value: 'public, max-age=31536000, immutable',
-          },
-          {
-            key: 'X-Robots-Tag',
-            value: 'noindex, nofollow',
           },
         ],
       },
@@ -203,10 +200,6 @@ const nextConfig = {
             key: 'Cache-Control',
             value: 'public, max-age=31536000, immutable',
           },
-          {
-            key: 'X-Robots-Tag',
-            value: 'noindex, nofollow',
-          },
         ],
       },
       {
@@ -215,10 +208,6 @@ const nextConfig = {
           {
             key: 'Cache-Control',
             value: 'public, max-age=31536000, immutable',
-          },
-          {
-            key: 'X-Robots-Tag',
-            value: 'noindex, nofollow',
           },
         ],
       },

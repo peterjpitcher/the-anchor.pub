@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { lookupRedirect, getRedirectStatus, resolveRedirectUrl } from '@/lib/middleware-redirects'
 
 export function middleware(request: NextRequest) {
     // Handle domain redirects (non-www to www) and force HTTPS for production hostname
@@ -37,7 +38,18 @@ export function middleware(request: NextRequest) {
         shouldRedirect = true
     }
 
-    // If we removed all params the URL might end with '?', so ensure it is clean
+    // Flatten apex/host + concrete redirect chains into a single 301. Without this
+    // the apex variants of consolidated tag redirects produced two hops (apex -> www,
+    // then www -> destination) which GSC reported as "Redirect error". See
+    // tasks/gsc-indexing-fix/FINAL-SPEC.md §P0.1.
+    const matchedRedirect = lookupRedirect(url.pathname)
+    if (matchedRedirect) {
+        return NextResponse.redirect(
+            resolveRedirectUrl(url, matchedRedirect),
+            getRedirectStatus(matchedRedirect),
+        )
+    }
+
     if (shouldRedirect) {
         url.search = url.searchParams.toString()
         return NextResponse.redirect(url, 301)

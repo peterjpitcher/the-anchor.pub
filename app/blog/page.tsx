@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { getAllBlogPosts } from '@/lib/markdown'
+import { getIndexableBlogPosts } from '@/lib/markdown'
 import { Button, Container, Section, Card, CardBody, Badge, Grid, GridItem } from '@/components/ui'
 import { StatusBar } from '@/components/layout/StatusBar'
 import { Metadata } from 'next'
@@ -37,7 +37,7 @@ export default async function BlogPage({
   searchParams: { page?: string }
 }) {
   const currentPage = Number(searchParams.page) || 1
-  const allPosts = await getAllBlogPosts()
+  const allPosts = await getIndexableBlogPosts()
 
   // Calculate pagination
   const totalPosts = allPosts.length

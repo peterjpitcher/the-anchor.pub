@@ -120,7 +120,7 @@ Your **local cosy pub** comes alive with regular events:
 - **Seasonal celebrations** - Christmas, Easter, and more
 - **Community fundraisers** - Supporting local causes
 
-Check our events calendar to see what's on during your visit!
+Check our [what's on calendar](/whats-on) to see quiz nights, Music Bingo, bingo, and one-off events during your visit.
 
 ## Perfect for Every Occasion
 
@@ -179,6 +179,16 @@ What makes The Anchor truly cosy:
 - Free parking available
 
 **Opening Hours:** Check our website for current opening hours, as they may vary by season and for special events.
+
+## Plan Your Visit
+
+Make the most of a cosy pub visit by checking the pages that matter before you set off:
+
+- [Food menu](/food-menu) for current dishes and dietary options.
+- [Sunday lunch](/sunday-lunch) if you want a proper roast near Heathrow.
+- [What's on](/whats-on) for quiz nights, bingo, and hosted event nights.
+- [Dog-friendly pub guide](/dog-friendly-pub-heathrow) if you're bringing your dog.
+- [Find us](/find-us) for directions, parking, and contact details.
 
 ## Why Choose The Anchor?
 

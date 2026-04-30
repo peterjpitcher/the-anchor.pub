@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { getBlogPost, getAllBlogPosts, distributeImages } from '@/lib/markdown'
+import { getBlogPost, getAllBlogPosts, getIndexableBlogPosts, distributeImages } from '@/lib/markdown'
 import { Button, Section } from '@/components/ui'
 import { Metadata } from 'next'
 import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
@@ -158,11 +158,14 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
     notFound()
   }
 
-  // Get all posts for navigation
-  const allPosts = await getAllBlogPosts()
-  const currentIndex = allPosts.findIndex(p => p.slug === post.slug)
-  const prevPost = currentIndex > 0 ? allPosts[currentIndex - 1] : null
-  const nextPost = currentIndex < allPosts.length - 1 ? allPosts[currentIndex + 1] : null
+  // Keep indexable posts from linking through previous/next navigation to
+  // intentionally noindexed archive posts.
+  const navigationPosts = post.noindex
+    ? await getAllBlogPosts()
+    : await getIndexableBlogPosts()
+  const currentIndex = navigationPosts.findIndex(p => p.slug === post.slug)
+  const prevPost = currentIndex > 0 ? navigationPosts[currentIndex - 1] : null
+  const nextPost = currentIndex < navigationPosts.length - 1 ? navigationPosts[currentIndex + 1] : null
 
   // Distribute images throughout content only if images array has items
   const contentWithImages = post.images && post.images.length > 0 

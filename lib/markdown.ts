@@ -137,6 +137,10 @@ export function getAllBlogPosts(): BlogPost[] {
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 }
 
+export function getIndexableBlogPosts(): BlogPost[] {
+  return getAllBlogPosts().filter(post => !post.noindex)
+}
+
 export async function getBlogPost(slug: string): Promise<BlogPost | null> {
   try {
     const postPath = path.join(contentDirectory, 'blog', slug, 'index.md')
@@ -280,14 +284,12 @@ export function distributeImages(
 
 // Get featured blog posts
 export function getFeaturedPosts(limit: number = 3): BlogPost[] {
-  const allPosts = getAllBlogPosts()
-  return allPosts
+  return getIndexableBlogPosts()
     .filter(post => post.featured)
     .slice(0, limit)
 }
 
 // Get posts by tag (excludes noindex posts so tag archives only surface indexable content)
 export function getPostsByTag(tag: string): BlogPost[] {
-  const allPosts = getAllBlogPosts()
-  return allPosts.filter(post => post.tags.includes(tag) && !post.noindex)
+  return getIndexableBlogPosts().filter(post => post.tags.includes(tag))
 }

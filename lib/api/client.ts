@@ -703,7 +703,7 @@ export class AnchorAPI {
     limit?: number
     offset?: number
     status?: string
-  } = {}): Promise<EventsResponse> {
+  } = {}, options: RequestInit = {}): Promise<EventsResponse> {
     const query = new URLSearchParams()
     Object.entries(params).forEach(([key, value]) => {
       if (value !== undefined) {
@@ -711,7 +711,7 @@ export class AnchorAPI {
       }
     })
 
-    return this.request<EventsResponse>(`/events?${query.toString()}`)
+    return this.request<EventsResponse>(`/events?${query.toString()}`, options)
   }
 
   async getEvent(idOrSlug: string): Promise<Event> {

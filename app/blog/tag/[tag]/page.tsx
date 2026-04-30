@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { getAllBlogPosts } from '@/lib/markdown'
+import { getIndexableBlogPosts } from '@/lib/markdown'
 import { Button, Section } from '@/components/ui'
 import { Metadata } from 'next'
 import { permanentRedirect } from 'next/navigation'
@@ -10,6 +10,7 @@ import { getBlogHeroUrl, BLOG_FALLBACK_IMAGE } from '@/lib/blog-image'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import tagRedirects from '@/config/redirects/tag-redirects.json'
+import { isNoindexBlogTag, normalizeBlogTag } from '@/lib/blog-tag-policy'
 
 export const revalidate = 3600
 
@@ -20,15 +21,11 @@ const redirectSourceTags = new Set(
 )
 
 function normalizeTagSlug(tag: string): string {
-  try {
-    return decodeURIComponent(tag).trim().toLowerCase()
-  } catch {
-    return tag.trim().toLowerCase()
-  }
+  return normalizeBlogTag(tag)
 }
 
 export async function generateStaticParams() {
-  const posts = await getAllBlogPosts()
+  const posts = await getIndexableBlogPosts()
   const allTags = new Set<string>()
   
   posts.forEach(post => {
@@ -62,12 +59,13 @@ export async function generateMetadata({ params }: { params: { tag: string } }):
       description: seoContent.metaDescription,
       images: [BLOG_FALLBACK_IMAGE]
     }),
+    ...(isNoindexBlogTag(tag) ? { robots: { index: false, follow: true } } : {}),
   }
 }
 
 export default async function TagPage({ params }: { params: { tag: string } }) {
   const tag = normalizeTagSlug(params.tag)
-  const allPosts = await getAllBlogPosts()
+  const allPosts = await getIndexableBlogPosts()
   const taggedPosts = allPosts.filter(post => 
     post.tags.map(t => normalizeTagSlug(t)).includes(tag)
   )

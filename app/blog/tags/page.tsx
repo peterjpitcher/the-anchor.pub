@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { getAllBlogPosts } from '@/lib/markdown'
+import { getIndexableBlogPosts } from '@/lib/markdown'
 import { Button, Section } from '@/components/ui'
 import { Metadata } from 'next'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
@@ -33,7 +33,7 @@ const redirectSourceTags = new Set(
 )
 
 export default async function AllTagsPage() {
-  const allPosts = await getAllBlogPosts()
+  const allPosts = await getIndexableBlogPosts()
 
   // Get all unique tags with counts, excluding redirected tags
   const tagCounts = new Map<string, number>()
