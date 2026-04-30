@@ -92,4 +92,46 @@ describe('pickSlotWindow', () => {
   it('exports DEFAULT_SLOT_WINDOW_SIZE === 7', () => {
     expect(DEFAULT_SLOT_WINDOW_SIZE).toBe(7)
   })
+
+  it('sorts unordered slots by time before windowing (defensive contract)', () => {
+    // Same 22 slots as day22, but shuffled. The helper must not assume
+    // sorted input — if the API ever returns slots out of order, the grid
+    // would otherwise be incoherent.
+    const sorted = makeSlots('12:00', 22)
+    const shuffled = [
+      sorted[5],  // 14:30
+      sorted[14], // 19:00
+      sorted[0],  // 12:00
+      sorted[11], // 17:30
+      sorted[19], // 21:30
+      sorted[3],  // 13:30
+      sorted[16], // 20:00
+      sorted[8],  // 16:00
+      sorted[2],  // 13:00
+      sorted[20], // 22:00
+      sorted[12], // 18:00
+      sorted[1],  // 12:30
+      sorted[17], // 20:30
+      sorted[6],  // 15:00
+      sorted[13], // 18:30
+      sorted[4],  // 14:00
+      sorted[18], // 21:00
+      sorted[10], // 17:00
+      sorted[15], // 19:30
+      sorted[9],  // 16:30
+      sorted[21], // 22:30
+      sorted[7]   // 15:30
+    ]
+    const out = pickSlotWindow(shuffled, '19:00')
+    expect(out).toHaveLength(7)
+    expect(out.map((s) => s.time)).toEqual([
+      '17:30',
+      '18:00',
+      '18:30',
+      '19:00',
+      '19:30',
+      '20:00',
+      '20:30'
+    ])
+  })
 })

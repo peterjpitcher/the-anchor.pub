@@ -12,20 +12,29 @@ export function pickSlotWindow<T extends Pick<TableAvailabilitySlot, 'time'>>(
     return []
   }
 
-  if (slots.length <= size) {
-    return slots
+  // Defensive sort: the availability route already returns chronological
+  // slots, but the helper must not silently produce a jumbled grid if that
+  // contract is ever broken upstream. Sort a shallow copy so callers' arrays
+  // are never mutated.
+  const sortedSlots =
+    slots.length > 1 && !isAscendingByTime(slots)
+      ? [...slots].sort((a, b) => toMinutes(a.time) - toMinutes(b.time))
+      : slots
+
+  if (sortedSlots.length <= size) {
+    return sortedSlots
   }
 
   const normalizedRequestedTime = normalizeTime(requestedTime)
   if (!isValidTime(normalizedRequestedTime)) {
-    return slots.slice(0, size)
+    return sortedSlots.slice(0, size)
   }
 
   const requestedMinutes = toMinutes(normalizedRequestedTime)
   let centerIndex = 0
   let bestDistance = Number.POSITIVE_INFINITY
 
-  slots.forEach((slot, index) => {
+  sortedSlots.forEach((slot, index) => {
     const distance = Math.abs(toMinutes(slot.time) - requestedMinutes)
     if (distance < bestDistance) {
       bestDistance = distance
@@ -42,10 +51,19 @@ export function pickSlotWindow<T extends Pick<TableAvailabilitySlot, 'time'>>(
     start = 0
   }
 
-  if (end > slots.length) {
-    start = Math.max(0, start - (end - slots.length))
-    end = slots.length
+  if (end > sortedSlots.length) {
+    start = Math.max(0, start - (end - sortedSlots.length))
+    end = sortedSlots.length
   }
 
-  return slots.slice(start, end)
+  return sortedSlots.slice(start, end)
+}
+
+function isAscendingByTime<T extends Pick<TableAvailabilitySlot, 'time'>>(slots: T[]): boolean {
+  for (let i = 1; i < slots.length; i++) {
+    if (toMinutes(slots[i].time) < toMinutes(slots[i - 1].time)) {
+      return false
+    }
+  }
+  return true
 }

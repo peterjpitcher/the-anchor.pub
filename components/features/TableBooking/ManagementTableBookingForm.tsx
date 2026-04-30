@@ -587,6 +587,11 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const [selectedSuggestedEvent, setSelectedSuggestedEvent] = useState<SuggestedEvent | null>(null)
   const previousDateRef = useRef(date)
   const availabilityControllerRef = useRef<AbortController | null>(null)
+  // Stale-search guard for loadNearestAlternatives. Each call captures its own
+  // monotonically-increasing id; only the latest call is allowed to write to
+  // alternativeSlots. Bumped by every search-input change so an in-flight
+  // request from an abandoned search context cannot repopulate the panel.
+  const nearestAlternativesRequestRef = useRef(0)
 
   const [phone, setPhone] = useState('')
   const [lookupState, setLookupState] = useState<LookupState>('idle')
@@ -871,6 +876,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     targetTime: string,
     targetPartySize: number
   ) {
+    const requestId = ++nearestAlternativesRequestRef.current
     setAlternativesLoading(true)
     setAlternativeSlots([])
 
@@ -885,6 +891,13 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
           }
         })
       )
+
+      // Stale-search guard: if a newer search has started while these candidate
+      // requests were in flight, drop this response on the floor — the newer
+      // call owns the alternatives panel now.
+      if (requestId !== nearestAlternativesRequestRef.current) {
+        return
+      }
 
       const alternatives: AlternativeSlot[] = []
       for (const response of candidateResponses) {
@@ -907,7 +920,11 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
       setAlternativeSlots(alternatives.slice(0, 6))
     } finally {
-      setAlternativesLoading(false)
+      // Only the latest request resets the loading flag. Earlier in-flight
+      // requests must not flip the spinner off while a newer search is loading.
+      if (requestId === nearestAlternativesRequestRef.current) {
+        setAlternativesLoading(false)
+      }
     }
   }
 
@@ -985,6 +1002,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setResult(null)
     setAvailabilityLoading(true)
     setAlternativeSlots([])
+    nearestAlternativesRequestRef.current++
     setShowAllTimes(false)
     // A new availability search starts a new submit-intent. Drop any cached
     // idempotency key so the next Confirm cannot accidentally dedupe with a
@@ -1093,6 +1111,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     // unsubmitted edit. See codex ARCH-002.
     setShowAllTimes(false)
     setSelectedSlotService(null)
+    nearestAlternativesRequestRef.current++
   }
 
   function handleDateChange(value: string) {
@@ -1100,6 +1119,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setDate(value)
     setAvailability(null)
     setAlternativeSlots([])
+    nearestAlternativesRequestRef.current++
     setSelectedTime('')
     setSelectedSlotService(null)
     setShowAllTimes(false)
@@ -1561,6 +1581,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setAvailability(null)
     setAvailabilityError(null)
     setAlternativeSlots([])
+    nearestAlternativesRequestRef.current++
     setAlternativesLoading(false)
     setDismissedEventDates([])
     setSelectedSuggestedEvent(null)
@@ -1743,6 +1764,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 setPartySize(clamped)
                 setSelectedSlotService(null)
                 setShowAllTimes(false)
+                nearestAlternativesRequestRef.current++
               }}
               onBlur={() => {
                 const parsed = Number.parseInt(partySizeDisplay, 10)
@@ -1751,6 +1773,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 setPartySizeDisplay(String(clamped))
                 setSelectedSlotService(null)
                 setShowAllTimes(false)
+                nearestAlternativesRequestRef.current++
               }}
             />
 
