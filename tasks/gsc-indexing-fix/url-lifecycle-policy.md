@@ -162,6 +162,8 @@ Current case-E stale posts added during the GSC indexing cleanup:
    itself a redirect source breaks the `redirect-loops` test.
    Broad catch-all redirects in `vercel.json` are not allowed because Vercel
    routing runs before middleware and can recreate chains in production.
+   Concrete JSON redirects must also stay out of `next.config.js`; only pattern
+   redirects belong there.
 3. **Never robots-block as a workaround.** If a URL is wrong, fix the URL or
    redirect it; do not hide it from crawlers via `robots.txt`. (Past incident:
    `Disallow: /*?dpl=*` blocked Vercel deploy-tagged static assets.)

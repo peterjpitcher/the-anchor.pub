@@ -207,6 +207,16 @@ describe('middleware redirect lookup (apex/host chain flattening)', () => {
     expect(broadRedirects).toEqual([])
   })
 
+  it('keeps concrete redirects out of next.config.js so middleware owns one-hop flattening', async () => {
+    const nextConfig = require('../next.config.js')
+    const frameworkRedirects = await nextConfig.redirects()
+    const concreteFrameworkRedirects = frameworkRedirects.filter((rule: RedirectRule) =>
+      isConcretePath(rule.source),
+    )
+
+    expect(concreteFrameworkRedirects).toEqual([])
+  })
+
   it.each(REDIRECT_ERROR_URLS)(
     'flattens $source to $destination in one hop',
     ({ source, destination }) => {

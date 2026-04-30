@@ -30,11 +30,26 @@ function normaliseRedirect(redirect) {
   return redirect
 }
 
+function isPatternRedirect(redirect) {
+  const source = typeof redirect?.source === 'string' ? redirect.source : ''
+  return source.includes(':') || source.includes('*') || source.includes('(')
+}
+
+const allRedirects = [
+  ...wixRedirects,
+  ...blogRedirects,
+  ...tagRedirects,
+  ...legacyRedirects,
+  ...drinksRedirects,
+  ...additionalRedirects,
+]
+
 const nextConfig = {
   async redirects() {
-    return [...wixRedirects, ...blogRedirects, ...tagRedirects, ...legacyRedirects, ...drinksRedirects, ...additionalRedirects].map(
-      normaliseRedirect
-    )
+    // Next/Vercel framework redirects run before middleware. Concrete redirect
+    // sources therefore live in middleware so apex host + path consolidation can
+    // happen in one hop. Keep only pattern redirects here.
+    return allRedirects.filter(isPatternRedirect).map(normaliseRedirect)
   },
   async headers() {
     const securityHeaders = [

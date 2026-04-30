@@ -22,7 +22,7 @@ The four review findings from the previous attempted completion have been fixed:
 Production verification is **pending deploy** — see §11 below. Pre-deploy verification:
 
 - `node tasks/gsc-indexing-fix/audit-gsc-csvs.mjs` → counts unchanged (596 URLs, 7 redirect-error, 116 crawled-not-indexed) ✓
-- `npm test -- --runInBand seo-indexing event-seo-strategy sitemap-events` → 40 tests pass ✓
+- `npm test -- --runInBand seo-indexing event-seo-strategy sitemap-events` → 41 tests pass ✓
 - `npm run lint:next` → clean (`audit:hero` failures are pre-existing tech debt, not GSC-related) ✓
 - `npm run build` → clean (middleware bundle 36.2 kB) ✓
 - `node tasks/gsc-indexing-fix/triage-not-indexed.mjs` → 116 enriched rows emitted; manual-review cohort reduced to 5 URLs ✓
@@ -34,7 +34,7 @@ Code/policy/test changes:
 | `lib/middleware-redirects.ts` | New. Concrete redirect lookup map (~3,200 rules pre-filtered to non-pattern sources), with URL resolver that preserves external destinations and same-site query strings. |
 | `middleware.ts` | Looks up `pathname` against the map; emits a single redirect combining host change and path change for same-site destinations without breaking external redirects. Fixes apex 2-hop chains. |
 | `vercel.json` | Removed broad host/trailing-slash redirects that ran before middleware and recreated the apex → www → destination chain in production. |
-| `next.config.js` | Removed misleading `X-Robots-Tag: noindex, nofollow` from `/_next/static/*`, `*.js`, `*.css`, `*.woff2`, `/_next/image`, `/fonts/*` (Cloudflare overrides them anyway). Documented robots.txt cache policy with Cloudflare-extended browser TTL. |
+| `next.config.js` | Removed misleading `X-Robots-Tag: noindex, nofollow` from `/_next/static/*`, `*.js`, `*.css`, `*.woff2`, `/_next/image`, `/fonts/*` (Cloudflare overrides them anyway). Concrete redirects are now excluded from Next/Vercel's pre-middleware redirect pipeline; only pattern redirects stay there. Documented robots.txt cache policy with Cloudflare-extended browser TTL. |
 | `app/sitemap.ts` | Two-phase bounded event fetching: page 0 first, then remaining pages in parallel only if page 0 is full; per-page abort timeout + partial fallback. Function now exported for direct testing. |
 | `lib/markdown.ts` | Added `getIndexableBlogPosts()` so archive-style surfaces can intentionally exclude `noindex` posts. |
 | `lib/blog-tag-policy.ts` | New. Shared policy for broad blog tag archives that should remain browseable but not indexable (`events`, `food-and-drink`, `news`, `sports`). |
@@ -225,6 +225,10 @@ rules shipped.
 - The Vercel project-domain redirect on `the-anchor.pub` has also been removed
   (`redirect: null`) because it ran before the application and produced apex
   → www as a separate platform hop.
+- Concrete JSON redirects are filtered out of `next.config.js` because
+  Next/Vercel framework redirects also run before middleware. Only pattern
+  redirects stay in the framework pipeline; concrete redirects are owned by
+  middleware.
 - External concrete redirects are explicitly resolved with `new URL(destination)`;
   they are not written into `url.pathname`. Same-site concrete redirects
   preserve the request query string when the destination has no explicit query.
@@ -244,6 +248,8 @@ rules shipped.
     middleware flattening again.
   - Middleware response guard asserting apex concrete redirects emit the
     canonical `https://www.the-anchor.pub/...` destination in the first hop.
+  - `next.config.js` guard asserting concrete redirects are not present in the
+    pre-middleware framework redirect pipeline.
 
 **Production verification (run after deploy):**
 
@@ -587,7 +593,7 @@ PATH="/bin:/usr/bin:/usr/local/bin:/opt/homebrew/bin:$PATH" \
 Result:
 
 - 3 test suites passed.
-- 40 tests passed.
+- 41 tests passed.
 
 Also run for this workstream:
 
