@@ -10,7 +10,6 @@ export default function robots(): MetadataRoute.Robots {
           '/api/',
           // Allow static assets so crawlers can render pages correctly.
           '/_next/data/',
-          '/*?dpl=*',
           '/_serverless/',
           '/_partials/',
           '/_api/',

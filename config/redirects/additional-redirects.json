@@ -485,5 +485,10 @@
     "source": "/private-hire/weddings",
     "destination": "/private-hire",
     "permanent": true
+  },
+  {
+    "source": "/hr",
+    "destination": "/",
+    "permanent": true
   }
 ]

@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import { notFound, permanentRedirect } from 'next/navigation'
+import { permanentRedirect } from 'next/navigation'
 import { Button, Container, Section, Card, CardBody, Alert } from '@/components/ui'
 import { EventSchema } from '@/components/seo/EventSchema'
 import { EventBookingButton } from '@/components/EventBookingButton'
@@ -240,9 +240,13 @@ export default async function EventPage({ params }: Props) {
     permanentRedirect(`/events/${encodeURIComponent(canonicalSegment)}`)
   }
 
+  if (!event) {
+    permanentRedirect('/whats-on')
+  }
+
   const status = normalizeEventStatus(event)
   if (status === 'draft') {
-    notFound()
+    permanentRedirect('/whats-on')
   }
 
   // Event lifecycle SEO strategy — redirect stale past events to next upcoming event
