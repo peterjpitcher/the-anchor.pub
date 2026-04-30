@@ -50,12 +50,17 @@ export function middleware(request: NextRequest) {
         canonicalUrl.pathname = url.pathname
         canonicalUrl.search = url.search
 
-        return new NextResponse(null, {
-            status: getRedirectStatus(matchedRedirect),
-            headers: {
-                Location: resolveRedirectUrl(canonicalUrl, matchedRedirect).toString(),
-            },
-        })
+        if (/^https?:\/\//i.test(matchedRedirect.destination)) {
+            return NextResponse.redirect(
+                resolveRedirectUrl(canonicalUrl, matchedRedirect),
+                getRedirectStatus(matchedRedirect),
+            )
+        }
+
+        const resolvedDestination = resolveRedirectUrl(canonicalUrl, matchedRedirect)
+        url.pathname = resolvedDestination.pathname
+        url.search = resolvedDestination.search
+        return NextResponse.redirect(url, getRedirectStatus(matchedRedirect))
     }
 
     if (shouldRedirect) {
