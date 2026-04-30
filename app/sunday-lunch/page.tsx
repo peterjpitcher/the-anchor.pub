@@ -176,22 +176,6 @@ const FAQS = [
   }
 ] as const
 
-function buildFaqJsonLd() {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    isPartOf: { '@id': `${WEBSITE_ORIGIN}/#business` },
-    mainEntity: FAQS.map((faq) => ({
-      '@type': 'Question',
-      name: faq.question,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: faq.answer
-      }
-    }))
-  }
-}
-
 function buildMenuJsonLd() {
   return {
     '@context': 'https://schema.org',
@@ -220,76 +204,6 @@ function buildMenuJsonLd() {
   }
 }
 
-function buildRestaurantJsonLd() {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'Restaurant',
-    '@id': `${WEBSITE_ORIGIN}/#business`,
-    name: 'The Anchor',
-    description:
-      'Traditional British pub near Heathrow serving Sunday roast 1pm–6pm. Cooked to order, walk in or book ahead.',
-    url: `${WEBSITE_ORIGIN}/sunday-lunch`,
-    servesCuisine: ['British', 'Sunday Lunch'],
-    priceRange: '££',
-    acceptsReservations: true,
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: 'Horton Road',
-      addressLocality: 'Stanwell Moor',
-      addressRegion: 'Surrey',
-      postalCode: 'TW19 6AQ',
-      addressCountry: 'GB'
-    },
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: 51.462509,
-      longitude: -0.502067
-    },
-    telephone: '+441753682707',
-    areaServed: {
-      '@type': 'GeoCircle',
-      geoMidpoint: {
-        '@type': 'GeoCoordinates',
-        latitude: 51.462509,
-        longitude: -0.502067
-      },
-      geoRadius: '16000'
-    },
-    openingHoursSpecification: [
-      {
-        '@type': 'OpeningHoursSpecification',
-        dayOfWeek: ['Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-        opens: '16:00',
-        closes: '22:00'
-      },
-      {
-        '@type': 'OpeningHoursSpecification',
-        dayOfWeek: 'Saturday',
-        opens: '12:00',
-        closes: '22:00'
-      },
-      {
-        '@type': 'OpeningHoursSpecification',
-        dayOfWeek: 'Sunday',
-        opens: '13:00',
-        closes: '18:00'
-      }
-    ],
-    potentialAction: {
-      '@type': 'ReserveAction',
-      target: {
-        '@type': 'EntryPoint',
-        urlTemplate: `${WEBSITE_ORIGIN}/book-table`,
-        actionPlatform: [
-          'https://schema.org/DesktopWebPlatform',
-          'https://schema.org/MobileWebPlatform'
-        ]
-      },
-      result: { '@type': 'FoodEstablishmentReservation' }
-    }
-  }
-}
-
 function buildBreadcrumbJsonLd() {
   return generateBreadcrumbSchema([
     { name: 'Home', url: '/' },
@@ -298,24 +212,14 @@ function buildBreadcrumbJsonLd() {
 }
 
 export default function SundayLunchPage() {
-  const faqJsonLd = buildFaqJsonLd()
   const menuJsonLd = buildMenuJsonLd()
-  const restaurantJsonLd = buildRestaurantJsonLd()
   const breadcrumbJsonLd = buildBreadcrumbJsonLd()
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(restaurantJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(breadcrumbJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(faqJsonLd) }}
       />
       <script
         type="application/ld+json"
