@@ -12,6 +12,11 @@ import { ManagementEventBookingForm } from '@/components/features/EventBooking/M
 import { useBusinessHoursContext } from '@/components/providers/BusinessHoursProvider'
 import { pickSlotWindow } from '@/lib/table-booking-slot-window'
 import {
+  londonIsoDate,
+  londonNowParts,
+  toTimeString,
+} from '@/lib/table-booking-service-windows'
+import {
   pushToDataLayer,
   trackTableBookingClick,
   trackTableBookingFunnel,
@@ -143,15 +148,16 @@ function toIsoDateInputValue(value: string | undefined): string {
   if (/^\d{4}-\d{2}-\d{2}$/.test(value)) return value
   const date = new Date(value)
   if (Number.isNaN(date.getTime())) return ''
-  return date.toISOString().slice(0, 10)
+  return londonIsoDate(date)
 }
 
 function getDefaultTimeValue(): string {
-  const now = new Date()
-  now.setMinutes(now.getMinutes() + 60)
-  const roundedMinutes = now.getMinutes() >= 30 ? 30 : 0
-  now.setMinutes(roundedMinutes, 0, 0)
-  return `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`
+  // Compute "now + 1 hour, rounded up to the next 30-minute slot" in
+  // Europe/London. The previous implementation used the browser-local clock,
+  // which is wrong for any visitor whose device is not on UK time.
+  const { minutes } = londonNowParts()
+  const next = Math.ceil((minutes + 60) / 30) * 30
+  return toTimeString(next % 1440)
 }
 
 function toTimeInputValue(value: string | undefined): string {
@@ -302,8 +308,18 @@ function formatTimeForDisplay(time: string): string {
 function addDays(isoDate: string, days: number): string {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(isoDate)) return isoDate
   const [year, month, day] = isoDate.split('-').map((part) => Number.parseInt(part, 10))
+  // UTC arithmetic from a date-only anchor + format through London. BST/GMT
+  // shifts never cross noon, so this produces the correct calendar date in
+  // every browser timezone.
   const date = new Date(Date.UTC(year, month - 1, day + days))
-  return date.toISOString().slice(0, 10)
+  return londonIsoDate(date)
+}
+
+function isPastLondonDate(value: string): boolean {
+  // Compare YYYY-MM-DD strings against London today. We deliberately do NOT
+  // parse `value` with `new Date(...)` — that would re-introduce browser-local
+  // timezone drift on the customer's device.
+  return /^\d{4}-\d{2}-\d{2}$/.test(value) && value < londonNowParts().isoDate
 }
 
 function getLondonIsoDate(dateTimeValue: string): string | null {
@@ -469,6 +485,9 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   // (Retained because the LaunchAnnouncement, hold-expiry and other time-derived
   // surfaces benefit from a periodic tick; the legacy Sunday-lunch / Mother's-Day
   // cutoff calculations that originally drove this have been retired in §8.1.)
+  //
+  // Re-render tick only. Booking date/time computations must use Europe/London
+  // helpers (londonIsoDate / londonNowParts), not the browser-local value below.
   const [, setNow] = useState(() => new Date())
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -518,7 +537,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     })
   }
 
-  const today = useMemo(() => new Date().toISOString().slice(0, 10), [])
+  const today = useMemo(() => londonNowParts().isoDate, [])
   const defaultDate = toIsoDateInputValue(prefill?.date) || today
   const defaultRequestedTime = toTimeInputValue(prefill?.time) || getDefaultTimeValue()
   const defaultPartySize = Math.min(Math.max(prefill?.partySize || 2, 1), 20)
@@ -911,15 +930,12 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setPartySize(clampedSize)
     setPartySizeDisplay(String(clampedSize))
 
-    // Reject past dates before hitting the API.
-    if (date && /^\d{4}-\d{2}-\d{2}$/.test(date)) {
-      const todayMidnight = new Date()
-      todayMidnight.setHours(0, 0, 0, 0)
-      const selectedDate = new Date(date + 'T00:00:00')
-      if (selectedDate < todayMidnight) {
-        setDateError('Please select a future date')
-        return
-      }
+    // Reject past dates before hitting the API. Compared as YYYY-MM-DD strings
+    // against Europe/London today — the customer's browser-local clock is
+    // intentionally ignored.
+    if (isPastLondonDate(date)) {
+      setDateError('Please select a future date')
+      return
     }
 
     // Cancel any in-flight availability request before starting a new one.
@@ -1043,14 +1059,10 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setSelectedSlotService(null)
     setShowAllTimes(false)
     if (value && /^\d{4}-\d{2}-\d{2}$/.test(value)) {
-      const todayMidnight = new Date()
-      todayMidnight.setHours(0, 0, 0, 0)
-      const selectedDate = new Date(value + 'T00:00:00')
-      if (selectedDate < todayMidnight) {
-        setDateError('Please select a future date')
-      } else {
-        setDateError(null)
-      }
+      // Past-date validation runs in Europe/London. Do not parse value with
+      // `new Date(...)` for booking validation — that re-introduces the
+      // browser-local timezone bug on travellers outside the UK.
+      setDateError(isPastLondonDate(value) ? 'Please select a future date' : null)
     } else {
       setDateError(null)
     }

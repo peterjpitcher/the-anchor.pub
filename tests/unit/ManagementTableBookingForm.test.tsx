@@ -900,4 +900,99 @@ describe('ManagementTableBookingForm', () => {
       expect(captureUrl.ref.current).not.toMatch(/party_size=2/)
     })
   })
+
+  describe('London timezone correctness', () => {
+    beforeEach(() => {
+      // 2026-04-29T23:30:00Z = 2026-04-30 00:30 BST in London.
+      jest.useFakeTimers().setSystemTime(new Date('2026-04-29T23:30:00Z'))
+    })
+
+    afterEach(() => {
+      jest.useRealTimers()
+    })
+
+    it('date input min and default are London today (2026-04-30), not UTC (2026-04-29)', async () => {
+      setupFetchMock({ availability: [] })
+      render(<ManagementTableBookingForm />)
+
+      const dateInput = screen.getByLabelText('Date') as HTMLInputElement
+      expect(dateInput.min).toBe('2026-04-30')
+      expect(dateInput.value).toBe('2026-04-30')
+    })
+
+    it('Preferred Time default is computed from London now (00:30 + 60 → 01:30)', async () => {
+      setupFetchMock({ availability: [] })
+      render(<ManagementTableBookingForm />)
+
+      const timeInput = screen.getByLabelText('Preferred Time') as HTMLInputElement
+      expect(timeInput.value).toBe('01:30')
+    })
+
+    it('past-date validation uses London today: 2026-04-29 rejected, 2026-04-30 allowed', async () => {
+      const captureUrl = { ref: { current: null as string | null } }
+      setupFetchMock({
+        availability: [{ time: '13:00', available: true, available_capacity: 4, kitchen_open: true }],
+        captureUrl
+      })
+
+      render(<ManagementTableBookingForm />)
+
+      const dateInput = screen.getByLabelText('Date') as HTMLInputElement
+      // 2026-04-29 is yesterday in London — should be rejected with no fetch.
+      fireEvent.change(dateInput, { target: { value: '2026-04-29' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+      await waitFor(() =>
+        expect(screen.getByText(/please select a future date/i)).toBeInTheDocument()
+      )
+      expect(captureUrl.ref.current).toBeNull()
+
+      // 2026-04-30 is today in London — should be allowed.
+      fireEvent.change(dateInput, { target: { value: '2026-04-30' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+      await waitFor(() => expect(captureUrl.ref.current).not.toBeNull())
+    })
+
+    it('toIsoDateInputValue respects London for full date-time prefill values', async () => {
+      setupFetchMock({ availability: [] })
+      // Prefill with a UTC datetime equivalent to 2026-04-30 00:30 BST in London.
+      render(<ManagementTableBookingForm prefill={{ date: '2026-04-29T23:30:00Z' }} />)
+
+      const dateInput = screen.getByLabelText('Date') as HTMLInputElement
+      expect(dateInput.value).toBe('2026-04-30')
+    })
+
+    it('submitted POST body date matches the London date input', async () => {
+      const capturePayload = { ref: { current: null as Record<string, unknown> | null } }
+      setupFetchMock({
+        availability: [{ time: '13:00', available: true, available_capacity: 4, kitchen_open: true }],
+        capturePayload
+      })
+
+      render(<ManagementTableBookingForm />)
+
+      // Default Date input is London today (2026-04-30); leave it as-is.
+      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+
+      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+      fireEvent.click(screen.getByRole('button', { name: /1pm/i }))
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+
+      fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+
+      await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+      fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+      fireEvent.change(screen.getByLabelText('Last Name'), { target: { value: 'Walker' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
+
+      await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
+      fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
+      fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
+
+      await waitFor(() => expect(capturePayload.ref.current).not.toBeNull())
+      expect(capturePayload.ref.current).toMatchObject({ date: '2026-04-30' })
+    })
+  })
 })
