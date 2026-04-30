@@ -678,4 +678,226 @@ describe('ManagementTableBookingForm', () => {
     expect(indexOf('submit')).toBeGreaterThan(indexOf('start'))
     expect(indexOf('success')).toBeGreaterThan(indexOf('submit'))
   })
+
+  describe('Step 2 slot window + party-size threading', () => {
+    function makeAvailabilitySlots(
+      start: string,
+      count: number,
+      options: { kitchenClosesAt?: string; capacity?: number } = {}
+    ): TimeSlot[] {
+      const { kitchenClosesAt, capacity = 10 } = options
+      const [hh, mm] = start.split(':').map((part) => Number.parseInt(part, 10))
+      const startMinutes = hh * 60 + mm
+      const closeMinutes = kitchenClosesAt
+        ? Number.parseInt(kitchenClosesAt.split(':')[0], 10) * 60 +
+          Number.parseInt(kitchenClosesAt.split(':')[1], 10)
+        : null
+      return Array.from({ length: count }, (_, idx) => {
+        const total = startMinutes + idx * 30
+        const hours = String(Math.floor(total / 60)).padStart(2, '0')
+        const minutes = String(total % 60).padStart(2, '0')
+        const time = `${hours}:${minutes}`
+        const kitchen_open = closeMinutes === null ? true : total < closeMinutes
+        return { time, available: true, available_capacity: capacity, kitchen_open }
+      })
+    }
+
+    async function searchForTable(
+      overrides: { partySize?: string; date?: string; requestedTime?: string } = {}
+    ) {
+      const partySize = overrides.partySize ?? '2'
+      const date = overrides.date ?? '2026-06-07'
+      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: partySize } })
+      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: date } })
+      if (overrides.requestedTime) {
+        fireEvent.change(screen.getByLabelText('Preferred Time'), {
+          target: { value: overrides.requestedTime }
+        })
+      }
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+    }
+
+    function getSlotButtons(): HTMLElement[] {
+      return screen.queryAllByRole('button', { name: /Drinks/i })
+    }
+
+    it('renders only 7 slots centred on the preferred time and shows "See more times"', async () => {
+      setupFetchMock({ availability: makeAvailabilitySlots('12:00', 22) })
+
+      render(<ManagementTableBookingForm />)
+      await searchForTable({ requestedTime: '19:00' })
+
+      // Anchor 19:00 → window 17:30..20:30 = 5:30pm..8:30pm.
+      expect(screen.getByRole('button', { name: /5:30pm/i })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /6pm/i })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /6:30pm/i })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /7pm/i })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /7:30pm/i })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /8pm/i })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /8:30pm/i })).toBeInTheDocument()
+
+      // 12pm and 10:30pm are outside the window.
+      expect(screen.queryByRole('button', { name: /^12pm/i })).not.toBeInTheDocument()
+      expect(screen.queryByRole('button', { name: /10:30pm/i })).not.toBeInTheDocument()
+
+      expect(getSlotButtons()).toHaveLength(7)
+      expect(screen.getByRole('button', { name: /See more times/i })).toBeInTheDocument()
+    })
+
+    it('expanding "See more times" reveals all available slots and hides the expander', async () => {
+      setupFetchMock({ availability: makeAvailabilitySlots('12:00', 22) })
+
+      render(<ManagementTableBookingForm />)
+      await searchForTable({ requestedTime: '19:00' })
+
+      fireEvent.click(screen.getByRole('button', { name: /See more times/i }))
+
+      expect(screen.getByRole('button', { name: /^12pm/i })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /10:30pm/i })).toBeInTheDocument()
+      expect(screen.queryByRole('button', { name: /See more times/i })).not.toBeInTheDocument()
+    })
+
+    it('does not render the expander when 5 or 7 slots are available', async () => {
+      // 5 slots
+      setupFetchMock({ availability: makeAvailabilitySlots('19:00', 5) })
+      const view = render(<ManagementTableBookingForm />)
+      await searchForTable({ requestedTime: '19:00' })
+
+      expect(getSlotButtons()).toHaveLength(5)
+      expect(screen.queryByRole('button', { name: /See more times/i })).not.toBeInTheDocument()
+
+      view.unmount()
+      jest.clearAllMocks()
+
+      // 7 slots
+      setupFetchMock({ availability: makeAvailabilitySlots('19:00', 7) })
+      render(<ManagementTableBookingForm />)
+      await searchForTable({ requestedTime: '19:00' })
+
+      expect(getSlotButtons()).toHaveLength(7)
+      expect(screen.queryByRole('button', { name: /See more times/i })).not.toBeInTheDocument()
+    })
+
+    it('expanded grid stays expanded and does not re-centre when selecting a slot', async () => {
+      setupFetchMock({ availability: makeAvailabilitySlots('12:00', 22) })
+
+      render(<ManagementTableBookingForm />)
+      await searchForTable({ requestedTime: '19:00' })
+
+      fireEvent.click(screen.getByRole('button', { name: /See more times/i }))
+      expect(screen.getByRole('button', { name: /^12pm/i })).toBeInTheDocument()
+
+      fireEvent.click(screen.getByRole('button', { name: /10:30pm/i }))
+
+      // 12pm still visible because expansion was not collapsed.
+      expect(screen.getByRole('button', { name: /^12pm/i })).toBeInTheDocument()
+      expect(screen.queryByRole('button', { name: /See more times/i })).not.toBeInTheDocument()
+      // Continue button surfaces once a slot is selected.
+      expect(screen.getByRole('button', { name: /^Continue$/i })).toBeInTheDocument()
+    })
+
+    it('selecting an edge slot does not re-centre the collapsed window', async () => {
+      setupFetchMock({ availability: makeAvailabilitySlots('12:00', 22) })
+
+      render(<ManagementTableBookingForm />)
+      await searchForTable({ requestedTime: '19:00' })
+
+      // Edge slot at 8:30pm (= 20:30, last in window).
+      fireEvent.click(screen.getByRole('button', { name: /8:30pm/i }))
+
+      // Window still anchored on 19:00 → 5:30pm visible, 9pm not visible.
+      expect(screen.getByRole('button', { name: /5:30pm/i })).toBeInTheDocument()
+      expect(screen.queryByRole('button', { name: /^9pm/i })).not.toBeInTheDocument()
+      // Continue indicates the slot was selected without disturbing the window.
+      expect(screen.getByRole('button', { name: /^Continue$/i })).toBeInTheDocument()
+    })
+
+    it('changing date collapses the expanded grid', async () => {
+      setupFetchMock({
+        availability: (url) => {
+          const params = new URL(url, 'https://t.test').searchParams
+          const date = params.get('date')
+          return { date: date ?? '', time_slots: makeAvailabilitySlots('12:00', 22) }
+        }
+      })
+
+      render(<ManagementTableBookingForm />)
+      await searchForTable({ requestedTime: '19:00' })
+
+      fireEvent.click(screen.getByRole('button', { name: /See more times/i }))
+      expect(screen.getByRole('button', { name: /^12pm/i })).toBeInTheDocument()
+
+      // Back to find step
+      fireEvent.click(screen.getByRole('button', { name: 'Back' }))
+      // Change the date and search again
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-06-08' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+
+      // Collapsed back to 7-slot window.
+      expect(getSlotButtons()).toHaveLength(7)
+      expect(screen.getByRole('button', { name: /See more times/i })).toBeInTheDocument()
+    })
+
+    it('changing party size collapses the expanded grid', async () => {
+      setupFetchMock({ availability: makeAvailabilitySlots('12:00', 22) })
+
+      render(<ManagementTableBookingForm />)
+      await searchForTable({ requestedTime: '19:00' })
+
+      fireEvent.click(screen.getByRole('button', { name: /See more times/i }))
+      expect(screen.getByRole('button', { name: /^12pm/i })).toBeInTheDocument()
+
+      fireEvent.click(screen.getByRole('button', { name: 'Back' }))
+      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '4' } })
+      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+
+      expect(getSlotButtons()).toHaveLength(7)
+      expect(screen.getByRole('button', { name: /See more times/i })).toBeInTheDocument()
+    })
+
+    it('changing preferred time collapses and re-centres the window', async () => {
+      setupFetchMock({ availability: makeAvailabilitySlots('12:00', 22) })
+
+      render(<ManagementTableBookingForm />)
+      await searchForTable({ requestedTime: '19:00' })
+
+      fireEvent.click(screen.getByRole('button', { name: /See more times/i }))
+      fireEvent.click(screen.getByRole('button', { name: 'Back' }))
+
+      fireEvent.change(screen.getByLabelText('Preferred Time'), { target: { value: '22:00' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+
+      // 22:00 → window 19:30..22:30 = 7:30pm..10:30pm.
+      expect(screen.getByRole('button', { name: /7:30pm/i })).toBeInTheDocument()
+      expect(screen.getByRole('button', { name: /10:30pm/i })).toBeInTheDocument()
+      // Earlier slots no longer visible.
+      expect(screen.queryByRole('button', { name: /^12pm/i })).not.toBeInTheDocument()
+      expect(screen.queryByRole('button', { name: /5:30pm/i })).not.toBeInTheDocument()
+    })
+
+    it('uses the freshly-typed party size in the availability URL even without onBlur', async () => {
+      const captureUrl = { ref: { current: null as string | null } }
+      setupFetchMock({
+        availability: makeAvailabilitySlots('12:00', 22, { capacity: 12 }),
+        captureUrl
+      })
+
+      render(<ManagementTableBookingForm />)
+      // Type 10 but DO NOT blur — onChange fires, but stale-closure paths would still see 2.
+      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '10' } })
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-06-07' } })
+      fireEvent.change(screen.getByLabelText('Preferred Time'), { target: { value: '19:00' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+
+      await waitFor(() => expect(captureUrl.ref.current).not.toBeNull())
+      expect(captureUrl.ref.current).toMatch(/party_size=10/)
+      expect(captureUrl.ref.current).not.toMatch(/party_size=2/)
+    })
+  })
 })

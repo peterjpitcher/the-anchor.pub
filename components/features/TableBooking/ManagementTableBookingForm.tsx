@@ -3,12 +3,14 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile'
+import { ChevronDown } from 'lucide-react'
 import { Alert } from '@/components/ui/feedback/Alert'
 import { Card, CardBody } from '@/components/ui/layout/Card'
 import { Input, Textarea } from '@/components/ui/primitives/Input'
 import { Button } from '@/components/ui/primitives/Button'
 import { ManagementEventBookingForm } from '@/components/features/EventBooking/ManagementEventBookingForm'
 import { useBusinessHoursContext } from '@/components/providers/BusinessHoursProvider'
+import { pickSlotWindow } from '@/lib/table-booking-slot-window'
 import {
   pushToDataLayer,
   trackTableBookingClick,
@@ -528,6 +530,11 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const [date, setDate] = useState(defaultDate)
   const [requestedTime, setRequestedTime] = useState(defaultRequestedTime)
   const [selectedTime, setSelectedTime] = useState<string>('')
+  // Step-2 slot window. `slotWindowAnchorTime` is captured at search time so
+  // selecting a slot (which mutates `requestedTime`) does not re-centre the
+  // visible grid; `showAllTimes` toggles the "See more times" expander.
+  const [showAllTimes, setShowAllTimes] = useState(false)
+  const [slotWindowAnchorTime, setSlotWindowAnchorTime] = useState(defaultRequestedTime)
   // Captured at slot-select time so the submit step can derive `purpose`
   // ('food' | 'drinks') from the slot's `kitchen_open` flag without re-fetching
   // availability — covers the nearest-alternative path where the slot is not
@@ -595,6 +602,15 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     () =>
       (availability?.time_slots || []).filter((slot) => isSlotAvailable(slot, partySize)),
     [availability?.time_slots, partySize]
+  )
+  // Visible step-2 slots: by default a 7-slot window centred on the search-time
+  // anchor, expanded to the full list when the customer taps "See more times".
+  const visibleSlots = useMemo(
+    () =>
+      showAllTimes
+        ? availableSlots
+        : pickSlotWindow(availableSlots, slotWindowAnchorTime),
+    [availableSlots, showAllTimes, slotWindowAnchorTime]
   )
 
   // Date-aware bar / kitchen hours summary, shown above the party-size
@@ -767,11 +783,12 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   async function fetchAvailabilityForDate(
     targetDate: string,
     targetTime: string,
+    targetPartySize: number,
     signal?: AbortSignal
   ): Promise<AvailabilityData> {
     const params = new URLSearchParams({
       date: targetDate,
-      party_size: String(partySize),
+      party_size: String(targetPartySize),
       time: targetTime
     })
 
@@ -793,7 +810,11 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     return normalizeAvailabilityResponse(body)
   }
 
-  async function loadNearestAlternatives(targetDate: string, targetTime: string) {
+  async function loadNearestAlternatives(
+    targetDate: string,
+    targetTime: string,
+    targetPartySize: number
+  ) {
     setAlternativesLoading(true)
     setAlternativeSlots([])
 
@@ -802,7 +823,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       const candidateResponses = await Promise.all(
         dateCandidates.map(async (candidateDate) => {
           try {
-            return await fetchAvailabilityForDate(candidateDate, targetTime)
+            return await fetchAvailabilityForDate(candidateDate, targetTime, targetPartySize)
           } catch {
             return null
           }
@@ -814,7 +835,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
         if (!response) continue
 
         const slots = response.time_slots
-          .filter((slot) => isSlotAvailable(slot, partySize))
+          .filter((slot) => isSlotAvailable(slot, targetPartySize))
           .slice(0, 2)
           .map((slot) => ({
             date: response.date || targetDate,
@@ -837,6 +858,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   async function runAvailabilitySearch(input: {
     targetDate: string
     targetTime: string
+    targetPartySize: number
     source: string
     context: string
     signal?: AbortSignal
@@ -854,12 +876,21 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     const availabilityData = await fetchAvailabilityForDate(
       input.targetDate,
       input.targetTime,
+      input.targetPartySize,
       input.signal
     )
-    const closestTime = pickClosestSlot(availabilityData.time_slots, input.targetTime, partySize)
+    const closestTime = pickClosestSlot(
+      availabilityData.time_slots,
+      input.targetTime,
+      input.targetPartySize
+    )
 
     setDate(input.targetDate)
     setRequestedTime(input.targetTime)
+    // Pin the slot-window anchor at the originally-requested time. Subsequent
+    // slot selections may move `requestedTime`, but the visible window stays put.
+    setSlotWindowAnchorTime(input.targetTime)
+    setShowAllTimes(false)
     setAvailability(availabilityData)
     setSelectedTime(closestTime || '')
     // A new availability response invalidates the previous slot selection.
@@ -867,12 +898,14 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setStep('choose')
 
     if (!closestTime) {
-      void loadNearestAlternatives(input.targetDate, input.targetTime)
+      void loadNearestAlternatives(input.targetDate, input.targetTime, input.targetPartySize)
     }
   }
 
   async function handleFindTable() {
-    // Sync partySizeDisplay → partySize on submit in case blur hasn't fired
+    // Sync partySizeDisplay → partySize on submit in case blur hasn't fired.
+    // The clamped value is also threaded explicitly through the availability
+    // search so the network request sees the freshly-typed size, not stale state.
     const parsedSize = Number.parseInt(partySizeDisplay, 10)
     const clampedSize = (!Number.isFinite(parsedSize) || parsedSize < 1) ? 1 : Math.min(parsedSize, 20)
     setPartySize(clampedSize)
@@ -899,11 +932,13 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setResult(null)
     setAvailabilityLoading(true)
     setAlternativeSlots([])
+    setShowAllTimes(false)
 
     try {
       await runAvailabilitySearch({
         targetDate: date,
         targetTime: requestedTime,
+        targetPartySize: clampedSize,
         source: 'book_table_find_table',
         context: 'availability_first',
         signal: controller.signal
@@ -991,6 +1026,14 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     })
   }
 
+  function handleRequestedTimeChange(value: string) {
+    markFunnelStart()
+    setRequestedTime(value)
+    setSlotWindowAnchorTime(value)
+    setShowAllTimes(false)
+    setSelectedSlotService(null)
+  }
+
   function handleDateChange(value: string) {
     markFunnelStart()
     setDate(value)
@@ -998,6 +1041,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setAlternativeSlots([])
     setSelectedTime('')
     setSelectedSlotService(null)
+    setShowAllTimes(false)
     if (value && /^\d{4}-\d{2}-\d{2}$/.test(value)) {
       const todayMidnight = new Date()
       todayMidnight.setHours(0, 0, 0, 0)
@@ -1384,6 +1428,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setPartySizeDisplay(String(defaultPartySize))
     setDate(defaultDate)
     setRequestedTime(defaultRequestedTime)
+    setSlotWindowAnchorTime(defaultRequestedTime)
+    setShowAllTimes(false)
     setSelectedTime('')
     setSelectedSlotService(null)
     setAvailability(null)
@@ -1557,12 +1603,15 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 const clamped = Math.min(Math.max(parsed, 1), 20)
                 setPartySize(clamped)
                 setSelectedSlotService(null)
+                setShowAllTimes(false)
               }}
               onBlur={() => {
                 const parsed = Number.parseInt(partySizeDisplay, 10)
                 const clamped = (!Number.isFinite(parsed) || parsed < 1) ? 1 : Math.min(parsed, 20)
                 setPartySize(clamped)
                 setPartySizeDisplay(String(clamped))
+                setSelectedSlotService(null)
+                setShowAllTimes(false)
               }}
             />
 
@@ -1581,10 +1630,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               type="time"
               required
               value={requestedTime}
-              onChange={(event) => {
-                markFunnelStart()
-                setRequestedTime(event.target.value)
-              }}
+              onChange={(event) => handleRequestedTimeChange(event.target.value)}
             />
 
             {(showDateEventSuggestions || selectedDateEventsLoading) &&
@@ -1625,32 +1671,45 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
             ) : null}
 
             {availableSlots.length > 0 ? (
-              <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
-                {availableSlots.map((slot) => {
-                  const isSelected = selectedTime === slot.time
-                  return (
-                    <button
-                      key={slot.time}
-                      type="button"
-                      onClick={() => handleSlotSelect(slot)}
-                      className={`rounded-xl border px-3 py-3 text-center transition-colors ${
-                        isSelected
-                          ? 'border-anchor-gold bg-anchor-gold/15 text-anchor-gold-vivid'
-                          : 'border-anchor-gold/25 bg-anchor-bg-card text-anchor-cream-text hover:border-anchor-gold'
-                      }`}
-                    >
-                      <span className="block text-base font-semibold">
-                        {formatTimeForDisplay(slot.time)}
-                      </span>
-                      {typeof slot.kitchen_open === 'boolean' ? (
-                        <span className="mt-1 block text-xs font-normal text-anchor-cream-text/60">
-                          {slot.kitchen_open ? 'Drinks & food' : 'Drinks only'}
+              <>
+                <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+                  {visibleSlots.map((slot) => {
+                    const isSelected = selectedTime === slot.time
+                    return (
+                      <button
+                        key={slot.time}
+                        type="button"
+                        onClick={() => handleSlotSelect(slot)}
+                        className={`rounded-xl border px-3 py-3 text-center transition-colors ${
+                          isSelected
+                            ? 'border-anchor-gold bg-anchor-gold/15 text-anchor-gold-vivid'
+                            : 'border-anchor-gold/25 bg-anchor-bg-card text-anchor-cream-text hover:border-anchor-gold'
+                        }`}
+                      >
+                        <span className="block text-base font-semibold">
+                          {formatTimeForDisplay(slot.time)}
                         </span>
-                      ) : null}
-                    </button>
-                  )
-                })}
-              </div>
+                        {typeof slot.kitchen_open === 'boolean' ? (
+                          <span className="mt-1 block text-xs font-normal text-anchor-cream-text/60">
+                            {slot.kitchen_open ? 'Drinks & food' : 'Drinks only'}
+                          </span>
+                        ) : null}
+                      </button>
+                    )
+                  })}
+                </div>
+
+                {!showAllTimes && availableSlots.length > visibleSlots.length ? (
+                  <button
+                    type="button"
+                    onClick={() => setShowAllTimes(true)}
+                    className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl border border-anchor-gold/30 px-4 py-3 text-base font-medium text-anchor-gold-vivid transition-colors hover:border-anchor-gold hover:bg-anchor-gold/5 focus:outline-none focus:ring-2 focus:ring-anchor-gold focus:ring-offset-2 sm:w-auto sm:px-6"
+                  >
+                    See more times
+                    <ChevronDown aria-hidden="true" className="h-4 w-4" />
+                  </button>
+                ) : null}
+              </>
             ) : (
               <Alert variant="warning" title="No online times available">
                 <p>
