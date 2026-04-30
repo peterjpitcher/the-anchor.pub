@@ -257,7 +257,12 @@ const nextConfig = {
     // Optimize for edge runtime
     serverComponentsExternalPackages: ['sharp'],
     outputFileTracingIncludes: {
-      '/content/blog/[...path]': ['./content/blog/**/*']
+      '/content/blog/[...path]': ['./content/blog/**/*'],
+      '/sitemap.xml': ['./content/blog/**/*'],
+      '/blog': ['./content/blog/**/*'],
+      '/blog/[slug]': ['./content/blog/**/*'],
+      '/blog/tag/[tag]': ['./content/blog/**/*'],
+      '/blog/tags': ['./content/blog/**/*']
     }
   },
 }
