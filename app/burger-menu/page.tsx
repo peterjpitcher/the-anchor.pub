@@ -2,7 +2,6 @@ import Link from 'next/link'
 import { Button, CTASection, SectionHeader, FeatureGrid, AlertBox, Container } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
@@ -34,12 +33,6 @@ export const metadata: Metadata = {
 export default async function BurgerMenuPage() {
     const menuData = await parseMenuMarkdown('food')
     const burgerCategory = menuData?.categories.find(c => c.id === 'burgers')
-
-    const breadcrumbSchema = generateBreadcrumbSchema([
-        { name: 'Home', url: '/' },
-        { name: 'Food', url: '/food-menu' },
-        { name: 'Burger Menu', url: '/burger-menu' }
-    ])
 
     // Generate dynamic schema based on fetched data
     const menuItems = burgerCategory?.sections.flatMap(section =>
@@ -87,7 +80,7 @@ export default async function BurgerMenuPage() {
         <>
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([menuSchema, breadcrumbSchema]) }}
+                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([menuSchema]) }}
             />
 
             <HeroWrapper

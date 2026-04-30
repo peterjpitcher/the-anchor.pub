@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { PhoneButton } from '@/components/PhoneButton'
-import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
 import { Badge, Button, Card, CardBody, Container, Section } from '@/components/ui'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
@@ -62,12 +61,6 @@ const faqs = [
 export default function BoxingDayPage() {
   return (
     <>
-      <BreadcrumbJsonLd
-        items={[
-          { name: 'Home', url: '/' },
-          { name: 'Boxing Day', url: '/boxing-day' },
-        ]}
-      />
 
             <HeroWrapper
         route="/boxing-day"

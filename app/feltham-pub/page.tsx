@@ -3,7 +3,7 @@ import { Button, CTASection, SectionHeader, FeatureGrid, InfoBoxGrid, Container 
 import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { generateBreadcrumbSchema, generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
+import { generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
 import { Metadata } from 'next'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneButton } from '@/components/PhoneButton'
@@ -29,11 +29,6 @@ export const metadata: Metadata = {
 }
 
 export default function FelthamPubPage() {
-  const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: 'Home', url: '/' },
-    { name: 'Feltham Pub', url: '/feltham-pub' }
-  ])
-
   const directionsSchema = generateHowToDirectionsSchema(
     "Feltham Town Centre",
     "The Anchor",
@@ -77,7 +72,7 @@ export default function FelthamPubPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([localBusinessSchema, breadcrumbSchema, directionsSchema]) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([localBusinessSchema, directionsSchema]) }}
       />
       
       {/* Hero Section */}

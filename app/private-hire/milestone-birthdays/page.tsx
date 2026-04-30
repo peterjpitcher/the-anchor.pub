@@ -3,7 +3,6 @@ import { Button, CTASection, SectionHeader, FeatureGrid, InfoBoxGrid, AlertBox, 
 import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
@@ -66,17 +65,11 @@ export default async function MilestoneBirthdaysPage() {
         }
     }
 
-    const breadcrumbSchema = generateBreadcrumbSchema([
-        { name: 'Home', url: '/' },
-        { name: 'Private Hire', url: '/private-hire' },
-        { name: 'Milestone Birthdays', url: '/private-hire/milestone-birthdays' }
-    ])
-
     return (
         <>
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify([eventVenueSchema, breadcrumbSchema]) }}
+                dangerouslySetInnerHTML={{ __html: JSON.stringify([eventVenueSchema]) }}
             />
 
             <HeroWrapper

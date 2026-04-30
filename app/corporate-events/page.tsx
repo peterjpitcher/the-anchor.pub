@@ -2,7 +2,6 @@ import Link from 'next/link'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
-import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { CONTACT } from '@/lib/constants'
 import { Button, Container, SectionHeader, FeatureGrid, InfoBoxGrid, AlertBox } from '@/components/ui'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
@@ -35,19 +34,9 @@ export const metadata: Metadata = {
 
 
 export default function CorporateEventsPage() {
-  const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: 'Home', url: '/' },
-    { name: 'Private Hire & Events', url: '/private-hire' },
-    { name: 'Corporate Events', url: '/corporate-events' }
-  ])
-
   return (
     <>
       <EventSchema event={staticEvents.corporateEvents} />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
 
       {/* Hero Section */}
       <HeroWrapper

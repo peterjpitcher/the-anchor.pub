@@ -35,7 +35,6 @@ import { RegretReduction, PsychBadge } from '@/components/psychology'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { JsonLd } from '@/components/JsonLd'
-import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { bingoEventSeries } from '@/lib/schema'
 
 export const metadata: Metadata = {
@@ -250,13 +249,6 @@ export default async function CashBingoPage() {
 
   return (
     <>
-      <BreadcrumbJsonLd
-        items={[
-          { name: 'Home', url: '/' },
-          { name: "What's On", url: '/whats-on' },
-          { name: 'Cash Bingo', url: '/cash-bingo' }
-        ]}
-      />
 	      <HeroWrapper
 	        route="/cash-bingo"
 	        title="Cash Bingo Nights & Bingo Games at The Anchor"

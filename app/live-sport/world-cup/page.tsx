@@ -3,7 +3,6 @@ import type { Metadata } from 'next'
 import { AlertBox, Button, Container, CTASection, FeatureGrid, SectionHeader } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { BRAND, CONTACT, HEATHROW_TIMES, PARKING } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { BookTableButton } from '@/components/BookTableButton'
@@ -62,12 +61,6 @@ export default async function WorldCupPage() {
     console.warn('World Cup fixtures fetch failed', error)
   }
 
-  const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: 'Home', url: '/' },
-    { name: 'Live Sport', url: '/live-sport' },
-    { name: 'FIFA World Cup 2026', url: '/live-sport/world-cup' },
-  ])
-
   const eventSchema = {
     '@context': 'https://schema.org',
     '@type': 'Event',
@@ -120,7 +113,7 @@ export default async function WorldCupPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([eventSchema, breadcrumbSchema]) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([eventSchema]) }}
       />
 
             <HeroWrapper

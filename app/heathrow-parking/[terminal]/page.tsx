@@ -115,31 +115,8 @@ export default function TerminalParkingPage({ params }: { params: { terminal: st
   const currentPath = `/heathrow-parking/${params.terminal}`
   const relatedGuides = Object.entries(TERMINAL_PAGES).filter(([slug]) => slug !== params.terminal)
 
-  const breadcrumbSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: [
-      {
-        '@type': 'ListItem',
-        position: 1,
-        name: 'Heathrow Parking',
-        item: 'https://www.the-anchor.pub/heathrow-parking'
-      },
-      {
-        '@type': 'ListItem',
-        position: 2,
-        name: `Terminal ${terminalNumber} parking`,
-        item: `https://www.the-anchor.pub${currentPath}`
-      }
-    ]
-  }
-
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
 
       <HeroWrapper
         showContextStrip={true}

@@ -8,7 +8,6 @@ import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
-import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 import { getCateringData, getLowestFoodPrice } from '@/lib/api/catering-packages'
 import { CateringPackagesTable } from '@/components/features/CateringPackagesTable'
@@ -98,12 +97,6 @@ export default async function PrivateHirePage() {
                     },
                     eventVenueSchema
                 ]) }}
-            />
-            <BreadcrumbJsonLd
-                items={[
-                    { name: 'Home', url: '/' },
-                    { name: 'Private Hire', url: '/private-hire' }
-                ]}
             />
             <HeroWrapper
                 showContextStrip={true}

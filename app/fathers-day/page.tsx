@@ -5,7 +5,6 @@ import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncement'
-import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
 import { Badge, Button, Card, CardBody, Container, Section } from '@/components/ui'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
@@ -145,12 +144,6 @@ export default function FathersDayPage() {
 
   return (
     <>
-      <BreadcrumbJsonLd
-        items={[
-          { name: 'Home', url: '/' },
-          { name: "Father's Day", url: '/fathers-day' }
-        ]}
-      />
 
       <script
         type="application/ld+json"

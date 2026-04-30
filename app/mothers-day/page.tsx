@@ -6,7 +6,6 @@ import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncement'
-import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
 import { Badge, Button, Card, CardBody, Container, Section } from '@/components/ui'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
@@ -231,13 +230,6 @@ export default function MothersDayPage() {
 
   return (
     <>
-      <BreadcrumbJsonLd
-        items={[
-          { name: 'Home', url: '/' },
-          { name: "What's On", url: '/whats-on' },
-          { name: "Mother's Day Lunch", url: '/mothers-day' }
-        ]}
-      />
 
       <script
         type="application/ld+json"

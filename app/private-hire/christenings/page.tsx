@@ -10,7 +10,6 @@ import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { landmarks } from '@/lib/local-seo-data'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
-import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { getCateringData } from '@/lib/api/catering-packages'
@@ -80,11 +79,6 @@ export default async function ChristeningsPage() {
 
     return (
         <>
-            <BreadcrumbJsonLd items={[
-                { name: 'Home', url: '/' },
-                { name: 'Private Hire', url: '/private-hire' },
-                { name: 'Christenings', url: '/private-hire/christenings' }
-            ]} />
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(eventVenueSchema) }}

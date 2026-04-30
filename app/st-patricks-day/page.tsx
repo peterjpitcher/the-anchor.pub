@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { PhoneButton } from '@/components/PhoneButton'
-import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
 import { Badge, Button, Card, CardBody, Container, Section } from '@/components/ui'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
@@ -68,12 +67,6 @@ export default function StPatricksDayPage(): React.JSX.Element {
 
   return (
     <>
-      <BreadcrumbJsonLd
-        items={[
-          { name: 'Home', url: '/' },
-          { name: "St Patrick's Day", url: '/st-patricks-day' },
-        ]}
-      />
 
             <HeroWrapper
         route="/st-patricks-day"

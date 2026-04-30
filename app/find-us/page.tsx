@@ -7,7 +7,7 @@ import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import { Metadata } from 'next'
 import { BusinessHours } from '@/components/BusinessHours'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { findUsPlaceSchema, generateBreadcrumbSchema, generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
+import { findUsPlaceSchema, generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
 import { CTASection, SectionHeader, FeatureGrid, InfoBoxGrid } from '@/components/ui'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneLink } from '@/components/PhoneLink'
@@ -40,11 +40,6 @@ export const metadata: Metadata = {
 }
 
 export default function FindUsPage() {
-  const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: 'Home', url: '/' },
-    { name: 'Find Us', url: '/find-us' }
-  ])
-
   const howToFromHeathrowSchema = generateHowToDirectionsSchema(
     "Heathrow Terminal 5",
     "The Anchor",
@@ -64,7 +59,7 @@ export default function FindUsPage() {
       <SpeakableSchema />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([findUsPlaceSchema, breadcrumbSchema, howToFromHeathrowSchema, parkingFacilitySchema, {
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([findUsPlaceSchema, howToFromHeathrowSchema, parkingFacilitySchema, {
           "@context": "https://schema.org",
           "@type": "ContactPage",
           "name": "Find The Anchor — Directions & Contact",

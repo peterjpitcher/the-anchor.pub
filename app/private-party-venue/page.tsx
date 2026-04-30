@@ -3,7 +3,6 @@ import { Button } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
-import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { SectionHeader, FeatureGrid, InfoBoxGrid, AlertBox, QuickInfoGrid, Container } from '@/components/ui'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { EventSchema } from '@/components/seo/EventSchema'
@@ -34,19 +33,9 @@ export const metadata: Metadata = {
 
 
 export default function PrivatePartyVenuePage() {
-  const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: 'Home', url: '/' },
-    { name: 'Private Hire & Events', url: '/private-hire' },
-    { name: 'Private Parties', url: '/private-party-venue' }
-  ])
-
   return (
     <>
       <EventSchema event={staticEvents.privateParties} />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
 
       {/* Hero Section */}
       <HeroWrapper

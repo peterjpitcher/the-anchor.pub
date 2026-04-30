@@ -3,8 +3,6 @@ import { Button, Container, SectionHeader } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
-import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
-
 export const metadata: Metadata = {
   title: 'Safety and Respect',
   description: 'A pub where everyone is genuinely welcome. Our commitment to a safe, respectful environment at The Anchor, Stanwell Moor.',
@@ -16,12 +14,6 @@ export const metadata: Metadata = {
 export default function SafetyAndRespectPage() {
   return (
     <>
-      <BreadcrumbJsonLd
-        items={[
-          { name: 'Home', url: '/' },
-          { name: 'Safety and Respect', url: '/safety-and-respect' }
-        ]}
-      />
 
       <HeroWrapper
         route="/safety-and-respect"

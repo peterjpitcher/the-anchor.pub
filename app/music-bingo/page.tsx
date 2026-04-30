@@ -34,7 +34,6 @@ import { cn } from '@/lib/utils'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { JsonLd } from '@/components/JsonLd'
-import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { bingoEventSeries } from '@/lib/schema'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
@@ -273,13 +272,6 @@ export default async function MusicBingoPage() {
 
   return (
     <>
-      <BreadcrumbJsonLd
-        items={[
-          { name: 'Home', url: '/' },
-          { name: "What's On", url: '/whats-on' },
-          { name: 'Music Bingo', url: '/music-bingo' }
-        ]}
-      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify({

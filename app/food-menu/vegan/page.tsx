@@ -5,7 +5,6 @@ import { CTASection, SectionHeader } from '@/components/ui'
 
 import { HeroWrapper } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
@@ -175,13 +174,6 @@ export default async function VeganMenuPage() {
 
   return (
     <>
-      <BreadcrumbJsonLd
-        items={[
-          { name: 'Home', url: '/' },
-          { name: 'Food Menu', url: '/food-menu' },
-          { name: 'Vegan Menu', url: '/food-menu/vegan' },
-        ]}
-      />
 
       <HeroWrapper
         route="/food-menu/vegan"

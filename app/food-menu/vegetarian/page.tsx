@@ -9,7 +9,6 @@ import { getBusinessHours, isKitchenOpen } from '@/lib/api'
 import { formatTime12Hour } from '@/lib/time-utils'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
-import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { MenuRenderer } from '@/components/MenuRenderer'
 import { DietaryMenuNav } from '@/components/food/DietaryMenuNav'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
@@ -198,13 +197,6 @@ export default async function VegetarianMenuPage() {
 
   return (
     <>
-      <BreadcrumbJsonLd
-        items={[
-          { name: 'Home', url: '/' },
-          { name: 'Food Menu', url: '/food-menu' },
-          { name: 'Vegetarian Menu', url: '/food-menu/vegetarian' },
-        ]}
-      />
 
       {/* Hero */}
       <HeroWrapper

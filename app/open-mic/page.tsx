@@ -28,8 +28,6 @@ import { cn } from '@/lib/utils'
 import { OpenMicPerformerInterestForm } from './OpenMicPerformerInterestForm'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
-import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
-
 export const metadata: Metadata = {
   title: 'Open Mic Night Near Heathrow | Live Performers Welcome',
   description:
@@ -203,11 +201,6 @@ export default async function OpenMicPage() {
 
   return (
     <>
-      <BreadcrumbJsonLd items={[
-          { name: 'Home', url: '/' },
-          { name: "What's On", url: '/whats-on' },
-          { name: 'Open Mic', url: '/open-mic' }
-      ]} />
       <HeroWrapper
         route="/open-mic"
         title="Perform at The Anchor — Open Mic Sign-Up"

@@ -18,7 +18,6 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { quizNightEventSeries, bingoEventSeries } from '@/lib/schema'
 import { getBusinessHours, getUpcomingEvents, type Event } from '@/lib/api'
 import { buildOpeningHoursSchema } from '@/lib/opening-hours-schema'
-import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
@@ -82,12 +81,6 @@ export default async function WhatsOnPage() {
 
   return (
     <>
-      <BreadcrumbJsonLd
-        items={[
-          { name: 'Home', url: '/' },
-          { name: 'Events', url: '/whats-on' }
-        ]}
-      />
       <SpeakableSchema />
       <ScrollDepthTracker />
       {/* JSON-LD Event Series Schemas */}

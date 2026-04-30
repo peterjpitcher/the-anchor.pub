@@ -9,7 +9,6 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
-import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 
 export const metadata: Metadata = {
@@ -72,17 +71,11 @@ export default function StainesPubPage() {
     "url": "https://www.the-anchor.pub"
   }
 
-  const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: 'Home', url: '/' },
-    { name: 'Near Heathrow', url: '/near-heathrow' },
-    { name: 'Staines Pub', url: '/staines-pub' }
-  ])
-
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([breadcrumbSchema, localBusinessSchema]) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([localBusinessSchema]) }}
       />
 
       {/* Hero Section */}

@@ -3,7 +3,7 @@ import { Button, CTASection, SectionHeader, FeatureGrid, InfoBoxGrid, AlertBox, 
 import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { generateBreadcrumbSchema, generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
+import { generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
 import { Metadata } from 'next'
 import { CONTACT, BRAND, PARKING } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
@@ -74,12 +74,6 @@ const localBusinessSchema = {
 }
 
 export default function HeathrowHotelsPubPage() {
-  const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: 'Home', url: '/' },
-    { name: 'Near Heathrow', url: '/near-heathrow' },
-    { name: 'Heathrow Hotels Pub', url: '/heathrow-hotels-pub' }
-  ])
-
   const directionsSchema = generateHowToDirectionsSchema(
     'Heathrow Hotels',
     'The Anchor - Heathrow Pub & Dining',
@@ -97,7 +91,7 @@ export default function HeathrowHotelsPubPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([localBusinessSchema, breadcrumbSchema, directionsSchema]) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([localBusinessSchema, directionsSchema]) }}
       />
       
       {/* Hero Section */}

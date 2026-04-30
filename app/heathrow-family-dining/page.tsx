@@ -3,7 +3,6 @@ import { Button, CTASection, SectionHeader, FeatureGrid, InfoBoxGrid, AlertBox, 
 import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
@@ -32,17 +31,8 @@ export const metadata: Metadata = {
 }
 
 export default function FamilyDiningPage() {
-    const breadcrumbSchema = generateBreadcrumbSchema([
-        { name: 'Home', url: '/' },
-        { name: 'Family Dining', url: '/heathrow-family-dining' }
-    ])
-
     return (
         <>
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify([breadcrumbSchema]) }}
-            />
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify({

@@ -34,7 +34,9 @@ export function Breadcrumbs({
       "@type": "ListItem",
       "position": index + 1,
       "name": item.name,
-      "item": item.href ? `https://www.the-anchor.pub${item.href}` : undefined
+      "item": item.href === '/'
+        ? 'https://www.the-anchor.pub'
+        : item.href ? `https://www.the-anchor.pub${item.href}` : undefined
     }))
   }
 

@@ -2,7 +2,6 @@ import Link from 'next/link'
 import { Button, CTASection, SectionHeader, FeatureGrid, AlertBox, Container } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
@@ -30,18 +29,8 @@ export const metadata: Metadata = {
 }
 
 export default function BoxingPage() {
-    const breadcrumbSchema = generateBreadcrumbSchema([
-        { name: 'Home', url: '/' },
-        { name: 'Live Sport', url: '/live-sport-pub' },
-        { name: 'Boxing', url: '/live-sport/boxing' }
-    ])
-
     return (
         <>
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify([breadcrumbSchema]) }}
-            />
 
                         <HeroWrapper
               route="/live-sport/boxing"

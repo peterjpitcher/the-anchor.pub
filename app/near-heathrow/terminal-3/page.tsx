@@ -15,7 +15,6 @@ import { DirectionsButton } from '@/components/DirectionsButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { PARKING } from '@/lib/constants'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
-import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 
 export const metadata: Metadata = {
@@ -37,12 +36,6 @@ export const metadata: Metadata = {
 }
 
 export default function Terminal3Page() {
-  const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: 'Home', url: '/' },
-    { name: 'Near Heathrow', url: '/near-heathrow' },
-    { name: 'Terminal 3', url: '/near-heathrow/terminal-3' }
-  ])
-
   return (
     <>
       
@@ -676,7 +669,6 @@ export default function Terminal3Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify([
-            breadcrumbSchema,
             {
               "@context": "https://schema.org",
               "@type": "Restaurant",

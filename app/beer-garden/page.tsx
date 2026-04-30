@@ -9,7 +9,6 @@ import { GoogleReviews } from '@/components/reviews'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { BookTableButton } from '@/components/BookTableButton'
 import { parkingFacilitySchema } from '@/lib/schemas/parking'
-import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { getBusinessHours } from '@/lib/api'
 import { generateOpeningHoursSpecification } from '@/lib/schema-utils'
 
@@ -74,12 +73,6 @@ export default async function BeerGardenPage() {
   }
   return (
     <>
-      <BreadcrumbJsonLd
-        items={[
-          { name: 'Home', url: '/' },
-          { name: 'Beer Garden', url: '/beer-garden' }
-        ]}
-      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify([planeSpottingSchema, parkingFacilitySchema]) }}

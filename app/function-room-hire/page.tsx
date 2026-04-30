@@ -4,7 +4,6 @@ import { Button } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
-import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { CTASection, SectionHeader, FeatureGrid, InfoBoxGrid, AlertBox, QuickInfoGrid, Container } from '@/components/ui'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
@@ -74,15 +73,9 @@ const functionRoomSchema = {
 }
 
 export default function FunctionRoomHirePage() {
-  const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: 'Home', url: '/' },
-    { name: 'Private Hire & Events', url: '/private-hire' },
-    { name: 'Function Room Hire', url: '/function-room-hire' }
-  ])
-
   return (
     <>
-      <JsonLd data={[functionRoomSchema, breadcrumbSchema]} />
+      <JsonLd data={[functionRoomSchema]} />
 
       {/* Hero Section */}
       <HeroWrapper

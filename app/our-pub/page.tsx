@@ -4,7 +4,6 @@ import { Metadata } from 'next'
 import { Button, Container } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { BookTableButton } from '@/components/BookTableButton'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { JsonLd } from '@/components/JsonLd'
@@ -85,12 +84,6 @@ const PHOTOS = {
 export default function OurPubPage() {
   return (
     <>
-      <BreadcrumbJsonLd
-        items={[
-          { name: 'Home', url: '/' },
-          { name: 'Our Pub', url: '/our-pub' },
-        ]}
-      />
       <JsonLd data={imageGallerySchema} />
 
       {/* Hero */}

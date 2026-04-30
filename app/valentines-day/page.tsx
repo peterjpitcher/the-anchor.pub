@@ -5,7 +5,6 @@ import { cache } from 'react'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { PhoneButton } from '@/components/PhoneButton'
-import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { EventSchema } from '@/components/seo/EventSchema'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
 import { anchorAPI, formatEventDate, formatEventTime, type Event } from '@/lib/api'
@@ -278,12 +277,6 @@ export default async function ValentinesDayPage() {
 
   return (
     <>
-      <BreadcrumbJsonLd
-        items={[
-          { name: 'Home', url: '/' },
-          { name: "Valentine's Day", url: '/valentines-day' }
-        ]}
-      />
 
       {event && <EventSchema event={event} />}
 

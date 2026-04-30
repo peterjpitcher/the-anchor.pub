@@ -4,7 +4,6 @@ import dynamic from 'next/dynamic'
 import { Button, CTASection, SectionHeader, FeatureGrid, AlertBox, Container } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { Metadata } from 'next'
 import { CONTACT, BRAND, PARKING } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
@@ -38,12 +37,6 @@ export const metadata: Metadata = {
 }
 
 export default function SixNationsPage() {
-    const breadcrumbSchema = generateBreadcrumbSchema([
-        { name: 'Home', url: '/' },
-        { name: 'Live Sport', url: '/live-sport-pub' },
-        { name: 'Six Nations 2026', url: '/live-sport/six-nations' }
-    ])
-
     const eventSchema = {
         "@context": "https://schema.org",
         "@type": "Event",
@@ -96,7 +89,7 @@ export default function SixNationsPage() {
         <>
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify([eventSchema, breadcrumbSchema]) }}
+                dangerouslySetInnerHTML={{ __html: JSON.stringify([eventSchema]) }}
             />
 
             <SixNationsLightbox />

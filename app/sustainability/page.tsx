@@ -4,7 +4,6 @@ import { HeroWrapper } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
-import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { BookTableButton } from '@/components/BookTableButton'
 
 export const metadata: Metadata = {
@@ -34,12 +33,6 @@ export const metadata: Metadata = {
 export default function SustainabilityPage() {
   return (
     <>
-      <BreadcrumbJsonLd
-        items={[
-          { name: 'Home', url: '/' },
-          { name: 'Sustainability', url: '/sustainability' }
-        ]}
-      />
 
       <HeroWrapper
         route="/sustainability"

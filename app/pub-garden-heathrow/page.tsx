@@ -2,7 +2,6 @@ import Link from 'next/link'
 import { Button, CTASection, SectionHeader, FeatureGrid, AlertBox, Container } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
@@ -30,17 +29,8 @@ export const metadata: Metadata = {
 }
 
 export default function PubGardenPage() {
-    const breadcrumbSchema = generateBreadcrumbSchema([
-        { name: 'Home', url: '/' },
-        { name: 'Beer Garden', url: '/pub-garden-heathrow' }
-    ])
-
     return (
         <>
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify([breadcrumbSchema]) }}
-            />
 
             <HeroWrapper
                 route="/pub-garden-heathrow"

@@ -4,7 +4,6 @@ import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { Section, Card, CardBody, Button, Badge } from '@/components/ui'
 import { BookTableButton } from '@/components/BookTableButton'
 
-import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { DEFAULT_DRINKS_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
@@ -28,12 +27,6 @@ export const metadata: Metadata = {
 }
 
 export default function BabyGuinnessPage() {
-  const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: 'Home', url: '/' },
-    { name: 'Drinks', url: '/drinks' },
-    { name: 'Baby Guinness', url: '/drinks/baby-guinness' }
-  ])
-
   return (
     <>
       <HeroWrapper
@@ -311,10 +304,6 @@ export default function BabyGuinnessPage() {
       />
 
       {/* Breadcrumb Schema */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(breadcrumbSchema) }}
-      />
     </>
   )
 }

@@ -20,8 +20,6 @@ import { ExitIntentBookingModal } from '@/components/conversion/ExitIntentBookin
 import { DeferredHomepageTrackers } from '@/components/tracking/DeferredHomepageTrackers'
 import { MenuPageTracker } from '@/components/tracking/MenuPageTracker'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
-import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
-
 const SUNDAY_LUNCH_BOOKING_URL = '/book-table'
 const WEBSITE_ORIGIN = 'https://www.the-anchor.pub'
 
@@ -204,23 +202,10 @@ function buildMenuJsonLd() {
   }
 }
 
-function buildBreadcrumbJsonLd() {
-  return generateBreadcrumbSchema([
-    { name: 'Home', url: '/' },
-    { name: 'Sunday Lunch', url: '/sunday-lunch' }
-  ])
-}
-
 export default function SundayLunchPage() {
   const menuJsonLd = buildMenuJsonLd()
-  const breadcrumbJsonLd = buildBreadcrumbJsonLd()
-
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(breadcrumbJsonLd) }}
-      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(menuJsonLd) }}

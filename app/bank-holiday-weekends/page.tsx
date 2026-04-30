@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { PhoneButton } from '@/components/PhoneButton'
-import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
 import { Badge, Button, Card, CardBody, Container, Section } from '@/components/ui'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
@@ -63,12 +62,6 @@ export default function BankHolidayWeekendsPage() {
 
   return (
     <>
-      <BreadcrumbJsonLd
-        items={[
-          { name: 'Home', url: '/' },
-          { name: 'Bank Holiday Weekends', url: '/bank-holiday-weekends' },
-        ]}
-      />
 
             <HeroWrapper
         route="/bank-holiday-weekends"

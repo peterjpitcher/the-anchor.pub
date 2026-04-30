@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { ChristmasPartiesPageClient } from './client-components'
 import { ChristmasHeroPrimaryCta, ChristmasHeroSecondaryCta } from './christmas-hero-ctas'
-import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { TrustBar } from '@/components/psychology'
 
@@ -161,12 +160,6 @@ const structuredData = {
 export default function ChristmasPartiesPage() {
   return (
     <>
-      <BreadcrumbJsonLd
-        items={[
-          { name: 'Home', url: '/' },
-          { name: 'Christmas Parties', url: '/christmas-parties' }
-        ]}
-      />
       <HeroWrapper
         showContextStrip={true}
         id="christmas-hero"

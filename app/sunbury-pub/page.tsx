@@ -4,7 +4,7 @@ import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
-import { generateBreadcrumbSchema, generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
+import { generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
@@ -67,12 +67,6 @@ export default function SunburyPubPage() {
         "url": "https://www.the-anchor.pub/sunbury-pub"
     }
 
-    const breadcrumbSchema = generateBreadcrumbSchema([
-        { name: 'Home', url: '/' },
-        { name: 'Locations', url: '/locations' },
-        { name: 'Sunbury Pub', url: '/sunbury-pub' }
-    ])
-
     const directionsSchema = generateHowToDirectionsSchema(
         'Sunbury-on-Thames',
         'The Anchor - Heathrow Pub & Dining',
@@ -88,7 +82,7 @@ export default function SunburyPubPage() {
         <>
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify([localBusinessSchema, breadcrumbSchema, directionsSchema]) }}
+                dangerouslySetInnerHTML={{ __html: JSON.stringify([localBusinessSchema, directionsSchema]) }}
             />
 
             <HeroWrapper

@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { Metadata } from 'next'
 import { HeroWrapper } from '@/components/hero'
-import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { JsonLd } from '@/components/JsonLd'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BookTableButton } from '@/components/BookTableButton'
@@ -82,12 +81,6 @@ const aboutPageSchema = {
 export default function AboutPage() {
   return (
     <>
-      <BreadcrumbJsonLd
-        items={[
-          { name: 'Home', url: '/' },
-          { name: 'About', url: '/about' },
-        ]}
-      />
       <JsonLd data={[aboutPageSchema]} />
 
       {/* Hero */}

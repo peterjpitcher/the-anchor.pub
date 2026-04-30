@@ -10,7 +10,6 @@ import { SpeakableSchema } from '@/components/seo/SpeakableSchema'
 import { SpeakableContent } from '@/components/voice/SpeakableContent'
 import { parkingFacilitySchema } from '@/lib/schemas/parking'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
-import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 
@@ -826,12 +825,6 @@ export default function NearHeathrowPage() {
       />
 
       {/* JSON-LD Schema */}
-      <BreadcrumbJsonLd
-        items={[
-          { name: 'Home', url: '/' },
-          { name: 'Near Heathrow', url: '/near-heathrow' }
-        ]}
-      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

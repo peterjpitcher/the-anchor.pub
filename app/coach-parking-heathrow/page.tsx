@@ -3,7 +3,6 @@ import { Button, CTASection, SectionHeader, FeatureGrid, FeatureCard, InfoBoxGri
 import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
@@ -31,17 +30,8 @@ export const metadata: Metadata = {
 }
 
 export default function CoachParkingPage() {
-    const breadcrumbSchema = generateBreadcrumbSchema([
-        { name: 'Home', url: '/' },
-        { name: 'Coach Parking', url: '/coach-parking-heathrow' }
-    ])
-
     return (
         <>
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify([breadcrumbSchema]) }}
-            />
 
             <HeroWrapper
                 route="/coach-parking-heathrow"

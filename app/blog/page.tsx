@@ -8,9 +8,6 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { getBlogHeroUrl, BLOG_FALLBACK_IMAGE } from '@/lib/blog-image'
-import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
-import { jsonLdSafeStringify } from '@/lib/jsonld'
-
 export const metadata: Metadata = {
   title: 'Blog | Heathrow Travel Tips, Pub Events & Local Guides',
   description: 'Read The Anchor blog for Heathrow Terminal 5 travel tips, pub events, food and drink guides, and community stories from Stanwell Moor and Staines.',
@@ -78,15 +75,6 @@ export default async function BlogPage({
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: jsonLdSafeStringify(generateBreadcrumbSchema([
-            { name: 'Home', url: '/' },
-            { name: 'Blog', url: '/blog' }
-          ]))
-        }}
-      />
       {/* Hero Section */}
       <HeroWrapper
         showContextStrip={true}

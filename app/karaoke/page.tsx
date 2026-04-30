@@ -34,7 +34,6 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { RegretReduction } from '@/components/psychology'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
-import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
@@ -247,11 +246,6 @@ export default async function KaraokePage() {
 
     return (
         <>
-            <BreadcrumbJsonLd items={[
-                { name: 'Home', url: '/' },
-                { name: "What's On", url: '/whats-on' },
-                { name: 'Karaoke', url: '/karaoke' }
-            ]} />
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify({

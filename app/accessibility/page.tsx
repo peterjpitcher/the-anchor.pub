@@ -3,7 +3,6 @@ import { Button, Container, Section, SectionHeader } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
-import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { BookTableButton } from '@/components/BookTableButton'
 
 export const metadata: Metadata = {
@@ -17,12 +16,6 @@ export const metadata: Metadata = {
 export default function AccessibilityPage() {
   return (
     <>
-      <BreadcrumbJsonLd
-        items={[
-          { name: 'Home', url: '/' },
-          { name: 'Accessibility', url: '/accessibility' }
-        ]}
-      />
 
       <HeroWrapper
         route="/accessibility"

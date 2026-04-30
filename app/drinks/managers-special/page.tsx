@@ -1,7 +1,6 @@
 import { Metadata } from 'next'
 import { Button, Section, FullWidthSection } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
-import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import Link from 'next/link'
 import { PricingCard } from '@/components/PricingCard'
@@ -178,19 +177,9 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
       }
     ]
 
-    const breadcrumbSchema = generateBreadcrumbSchema([
-      { name: 'Home', url: '/' },
-      { name: 'Drinks Menu', url: '/drinks' },
-      { name: "Manager's Special", url: '/drinks/managers-special' }
-    ])
-
     return (
       <>
         <MenuPageTracker menuType="managers_special" />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([breadcrumbSchema]) }}
-        />
         <HeroWrapper
           route="/drinks/managers-special"
           title="Manager's Special"
@@ -310,12 +299,6 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
   const { spirit, promotion } = currentPromotion
   const dynamicImagePath = getPromotionImage(currentPromotion.imageFolder)
 
-  const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: 'Home', url: '/' },
-    { name: 'Drinks Menu', url: '/drinks' },
-    { name: "Manager's Special", url: '/drinks/managers-special' }
-  ])
-
   const promotionMonthDate = new Date(`${currentPromotion.startDate}T12:00:00Z`)
   const promotionMonthName = promotionMonthDate.toLocaleDateString('en-GB', { month: 'long' })
   const promotionMonthYearLabel = promotionMonthDate.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' })
@@ -389,7 +372,7 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([productSchema, breadcrumbSchema]) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([productSchema]) }}
       />
       
       <HeroWrapper

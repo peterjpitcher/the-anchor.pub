@@ -9,7 +9,6 @@ import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { landmarks } from '@/lib/local-seo-data'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
-import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { getCateringData, getLowestFoodPrice } from '@/lib/api/catering-packages'
@@ -88,11 +87,6 @@ export default async function WakesPage() {
 
     return (
         <>
-            <BreadcrumbJsonLd items={[
-                { name: 'Home', url: '/' },
-                { name: 'Private Hire', url: '/private-hire' },
-                { name: 'Wakes', url: '/private-hire/wakes' }
-            ]} />
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(eventVenueSchema) }}

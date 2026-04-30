@@ -3,7 +3,7 @@ import { Button } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { generateBreadcrumbSchema, generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
+import { generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
 import { Metadata } from 'next'
 import { CTASection, SectionHeader, FeatureGrid, Container } from '@/components/ui'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
@@ -29,11 +29,6 @@ export const metadata: Metadata = {
 }
 
 export default function BedfontPubPage() {
-  const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: 'Home', url: '/' },
-    { name: 'Bedfont Pub', url: '/bedfont-pub' }
-  ])
-
   const directionsSchema = generateHowToDirectionsSchema(
     "Bedfont",
     "The Anchor",
@@ -82,7 +77,7 @@ export default function BedfontPubPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([localBusinessSchema, breadcrumbSchema, directionsSchema]) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([localBusinessSchema, directionsSchema]) }}
       />
       
       {/* Hero Section */}

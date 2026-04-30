@@ -2,7 +2,6 @@ import Link from 'next/link'
 import { Button, CTASection, SectionHeader, FeatureGrid, Container } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
@@ -64,17 +63,11 @@ export default async function GenderRevealPage() {
         }
     }
 
-    const breadcrumbSchema = generateBreadcrumbSchema([
-        { name: 'Home', url: '/' },
-        { name: 'Private Hire', url: '/private-hire' },
-        { name: 'Gender Reveal', url: '/private-hire/gender-reveal' }
-    ])
-
     return (
         <>
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify([eventVenueSchema, breadcrumbSchema]) }}
+                dangerouslySetInnerHTML={{ __html: JSON.stringify([eventVenueSchema]) }}
             />
 
             <HeroWrapper

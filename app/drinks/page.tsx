@@ -6,7 +6,7 @@ import { MenuRenderer } from '@/components/MenuRenderer'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
-import { drinksMenuSchema, generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
+import { drinksMenuSchema } from '@/lib/enhanced-schemas'
 import { SectionHeader, FeatureGrid, InfoBoxGrid } from '@/components/ui'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { MenuPageTracker } from '@/components/tracking/MenuPageTracker'
@@ -40,11 +40,6 @@ export const metadata: Metadata = {
 }
 
 export default async function DrinksMenuPage() {
-  const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: 'Home', url: '/' },
-    { name: 'Drinks Menu', url: '/drinks' }
-  ])
-
   const [menuData, businessHours] = await Promise.all([
     parseMenuMarkdown('drinks'),
     getBusinessHours()
@@ -174,8 +169,7 @@ export default async function DrinksMenuPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([
           enhancedDrinksMenuSchema,
-          barSchema,
-          breadcrumbSchema
+          barSchema
         ]) }}
       />
       {/* Hero Section */}

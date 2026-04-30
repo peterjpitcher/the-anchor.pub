@@ -4,7 +4,7 @@ import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
-import { generateBreadcrumbSchema, generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
+import { generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
 import { Metadata } from 'next'
 import { CONTACT, BRAND, PARKING } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
@@ -71,12 +71,6 @@ const localBusinessSchema = {
 }
 
 export default function M25Junction14PubPage() {
-  const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: 'Home', url: '/' },
-    { name: 'Locations', url: '/locations' },
-    { name: 'M25 Junction 14 Pub', url: '/m25-junction-14-pub' }
-  ])
-
   const directionsSchema = generateHowToDirectionsSchema(
     'M25 Junction 14',
     'The Anchor - Heathrow Pub & Dining',
@@ -94,7 +88,7 @@ export default function M25Junction14PubPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([localBusinessSchema, breadcrumbSchema, directionsSchema]) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([localBusinessSchema, directionsSchema]) }}
       />
       
       {/* Hero Section */}

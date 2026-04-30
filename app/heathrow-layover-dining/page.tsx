@@ -8,7 +8,6 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { SpeakableSchema } from '@/components/seo/SpeakableSchema'
 import { SpeakableContent } from '@/components/voice/SpeakableContent'
-import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
 import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
@@ -30,12 +29,6 @@ export const metadata: Metadata = {
     images: [DEFAULT_NEAR_HEATHROW_IMAGE]
   })
 }
-
-const breadcrumbSchema = generateBreadcrumbSchema([
-  { name: 'Home', url: '/' },
-  { name: 'Near Heathrow', url: '/near-heathrow' },
-  { name: 'Heathrow Layover Dining', url: '/heathrow-layover-dining' }
-])
 
 const faqItems = [
   {
@@ -71,10 +64,6 @@ const faqItems = [
 export default function HeathrowLayoverDiningPage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
-      />
       <SpeakableSchema />
 
       <HeroWrapper

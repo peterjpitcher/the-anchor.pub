@@ -19,7 +19,6 @@ import { generateKitchenHoursSpecification, generateNutritionInfo, generateSuita
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 import { DietaryMenuNav } from '@/components/food/DietaryMenuNav'
-import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import type { KitchenStatusData } from '@/components/psychology'
 
 export const revalidate = 3600 // Revalidate every hour
@@ -237,12 +236,6 @@ export default async function FoodMenuPage() {
 
   return (
     <>
-      <BreadcrumbJsonLd
-        items={[
-          { name: 'Home', url: '/' },
-          { name: 'Food Menu', url: '/food-menu' }
-        ]}
-      />
       <SpeakableSchema />
       <MenuPageTracker
         menuType="food"

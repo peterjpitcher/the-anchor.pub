@@ -15,7 +15,6 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
-import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 
 export const metadata: Metadata = {
@@ -37,12 +36,6 @@ export const metadata: Metadata = {
 }
 
 export default function Terminal5Page() {
-  const breadcrumbSchema = generateBreadcrumbSchema([
-    { name: 'Home', url: '/' },
-    { name: 'Near Heathrow', url: '/near-heathrow' },
-    { name: 'Terminal 5', url: '/near-heathrow/terminal-5' }
-  ])
-
   return (
     <>
       {/* Hero Section */}
@@ -697,7 +690,6 @@ export default function Terminal5Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify([
-            breadcrumbSchema,
             {
               "@context": "https://schema.org",
               "@type": "Restaurant",

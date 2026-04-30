@@ -2,7 +2,6 @@ import Link from 'next/link'
 import { Button, CTASection, SectionHeader, FeatureGrid, AlertBox, Container } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { generateBreadcrumbSchema } from '@/lib/enhanced-schemas'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
@@ -36,12 +35,6 @@ export default async function FishAndChipsPage() {
     // Find the 'Mains' category, then the section with title 'Classic Chip Shop Favourites'
     const mainsCategory = menuData?.categories.find(c => c.id === 'mains')
     const fishSection = mainsCategory?.sections.find(s => s.title === 'Classic Chip Shop Favourites')
-
-    const breadcrumbSchema = generateBreadcrumbSchema([
-        { name: 'Home', url: '/' },
-        { name: 'Food', url: '/food-menu' },
-        { name: 'Fish & Chips', url: '/fish-and-chips-heathrow' }
-    ])
 
     const productSchema = {
         "@context": "https://schema.org",
@@ -93,7 +86,7 @@ export default async function FishAndChipsPage() {
         <>
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([productSchema, menuSchema, breadcrumbSchema]) }}
+                dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([productSchema, menuSchema]) }}
             />
 
             <HeroWrapper
