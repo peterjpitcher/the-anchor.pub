@@ -50,10 +50,12 @@ export function middleware(request: NextRequest) {
         canonicalUrl.pathname = url.pathname
         canonicalUrl.search = url.search
 
-        return NextResponse.redirect(
-            resolveRedirectUrl(canonicalUrl, matchedRedirect),
-            getRedirectStatus(matchedRedirect),
-        )
+        return new NextResponse(null, {
+            status: getRedirectStatus(matchedRedirect),
+            headers: {
+                Location: resolveRedirectUrl(canonicalUrl, matchedRedirect).toString(),
+            },
+        })
     }
 
     if (shouldRedirect) {
