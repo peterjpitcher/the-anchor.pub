@@ -601,6 +601,20 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const formLoadedAt = useRef(Date.now())
   const [result, setResult] = useState<ManagementTableBookingResult | null>(null)
 
+  // Wizard root ref for scroll-to-top on step transitions. Mounted-guard ref
+  // prevents the effect from firing on initial mount — only step changes
+  // after first paint should scroll.
+  const wizardRef = useRef<HTMLDivElement>(null)
+  const wizardMountedRef = useRef(false)
+
+  useEffect(() => {
+    if (!wizardMountedRef.current) {
+      wizardMountedRef.current = true
+      return
+    }
+    wizardRef.current?.scrollIntoView({ block: 'start' })
+  }, [step])
+
   const holdExpiry = formatHoldExpiry(result?.hold_expires_at || null)
   // Sunday lunch as a separate booking type, the Saturday-1pm cutoff, the
   // dedicated Mother's Day mode, and the Sunday menu pre-order flow are all
@@ -1492,7 +1506,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
             <Button
               type="button"
               variant="outline"
-              className="w-full sm:w-auto"
+              className="w-full sm:w-auto min-h-12"
               onClick={() => setSelectedSuggestedEvent(null)}
             >
               Back to table booking
@@ -1532,7 +1546,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
             <p>&#x2022; If anything changes, give us a ring on 01753 682707</p>
           </div>
 
-          <Button type="button" variant="outline" onClick={resetJourney}>
+          <Button type="button" variant="outline" size="lg" onClick={resetJourney}>
             Book another table
           </Button>
         </CardBody>
@@ -1542,6 +1556,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
 
   return (
+    <div ref={wizardRef}>
     <Card variant="elevated">
       <CardBody className="space-y-6">
         <BookingProgressBar currentStep={currentStepIndex + 1} totalSteps={STEP_ORDER.length} />
@@ -1578,7 +1593,13 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
         )}
 
         {step === 'find' && (
-          <div className="space-y-4">
+          <form
+            className="space-y-4"
+            onSubmit={(event) => {
+              event.preventDefault()
+              void handleFindTable()
+            }}
+          >
             <div>
               <h3 className="text-lg font-semibold text-anchor-gold-vivid">Find a table</h3>
               <p className="mt-1 text-sm text-anchor-cream-text/70">
@@ -1601,6 +1622,9 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
             <Input
               label="Party Size"
               type="number"
+              size="lg"
+              inputMode="numeric"
+              pattern="[0-9]*"
               min={1}
               max={20}
               required
@@ -1630,6 +1654,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
             <Input
               label="Date"
               type="date"
+              size="lg"
               min={today}
               required
               value={date}
@@ -1640,6 +1665,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
             <Input
               label="Preferred Time"
               type="time"
+              size="lg"
               required
               value={requestedTime}
               onChange={(event) => handleRequestedTimeChange(event.target.value)}
@@ -1663,10 +1689,10 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               </Alert>
             )}
 
-            <Button type="button" fullWidth size="lg" loading={availabilityLoading} onClick={handleFindTable}>
+            <Button type="submit" fullWidth size="lg" loading={availabilityLoading}>
               Find a table
             </Button>
-          </div>
+          </form>
         )}
 
         {step === 'choose' && (
@@ -1687,12 +1713,18 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
                   {visibleSlots.map((slot) => {
                     const isSelected = selectedTime === slot.time
+                    // Combined aria-label so screen readers announce time + service
+                    // as one phrase. When `kitchen_open` is undefined (legacy
+                    // path) we default to "drinks and food" to match the visual
+                    // default.
+                    const serviceCaption = slot.kitchen_open === false ? 'drinks only' : 'drinks and food'
                     return (
                       <button
                         key={slot.time}
                         type="button"
+                        aria-label={`${formatTimeForDisplay(slot.time)}, ${serviceCaption}`}
                         onClick={() => handleSlotSelect(slot)}
-                        className={`rounded-xl border px-3 py-3 text-center transition-colors ${
+                        className={`min-h-14 rounded-xl border px-3 py-3 text-center transition-colors ${
                           isSelected
                             ? 'border-anchor-gold bg-anchor-gold/15 text-anchor-gold-vivid'
                             : 'border-anchor-gold/25 bg-anchor-bg-card text-anchor-cream-text hover:border-anchor-gold'
@@ -1760,7 +1792,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                         key={`${option.date}-${option.time}`}
                         type="button"
                         onClick={() => handleChooseAlternative(option)}
-                        className="flex w-full items-center justify-between rounded-lg border border-anchor-gold/25 bg-anchor-bg-card px-3 py-2 text-left text-sm hover:border-anchor-gold"
+                        className="flex min-h-12 w-full items-center justify-between rounded-lg border border-anchor-gold/25 bg-anchor-bg-card px-3 py-3 text-left text-base hover:border-anchor-gold"
                       >
                         <span className="font-medium text-anchor-cream-text/80">{formatDateForDisplay(option.date)}</span>
                         <span className="text-anchor-gold-vivid font-semibold">{formatTimeForDisplay(option.time)}</span>
@@ -1775,7 +1807,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                   <p className="font-semibold">Join waitlist</p>
                   <p className="mt-1">Call us and we'll add you to the waitlist for cancellations.</p>
                   <div className="mt-2">
-                    <Button asChild size="sm" variant="secondary">
+                    <Button asChild size="sm" variant="secondary" className="min-h-12">
                       <a href="tel:+441753682707">Join waitlist by phone</a>
                     </Button>
                   </div>
@@ -1784,7 +1816,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
             )}
 
             <div className="flex flex-col gap-2 pt-2 sm:flex-row sm:flex-wrap">
-              <Button type="button" variant="outline" className="w-full sm:w-auto" onClick={handleBackToFind}>
+              <Button type="button" variant="outline" className="w-full sm:w-auto min-h-12" onClick={handleBackToFind}>
                 Back
               </Button>
 
@@ -1792,6 +1824,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 <Button
                   type="button"
                   variant="primary"
+                  size="lg"
                   className="w-full sm:w-auto"
                   onClick={() => {
                     setStep('details')
@@ -1818,6 +1851,9 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               <Input
                 label="Mobile Number"
                 type="tel"
+                size="lg"
+                inputMode="tel"
+                autoComplete="tel"
                 required
                 value={phone}
                 disabled={detailsUnlocked}
@@ -1834,7 +1870,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                   <Button
                     type="button"
                     size="md"
-                    className="w-full sm:w-auto"
+                    className="w-full sm:w-auto min-h-12"
                     loading={lookupState === 'loading'}
                     onClick={handlePhoneLookup}
                   >
@@ -1845,7 +1881,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                     type="button"
                     size="md"
                     variant="outline"
-                    className="w-full sm:w-auto"
+                    className="w-full sm:w-auto min-h-12"
                     onClick={resetPhoneLookup}
                   >
                     Use Different Number
@@ -1875,6 +1911,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 <Input
                   label="First Name"
                   type="text"
+                  size="lg"
+                  autoComplete="given-name"
                   required
                   value={firstName}
                   onChange={(event) => setFirstName(event.target.value)}
@@ -1883,6 +1921,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 <Input
                   label="Last Name"
                   type="text"
+                  size="lg"
+                  autoComplete="family-name"
                   required
                   value={lastName}
                   onChange={(event) => setLastName(event.target.value)}
@@ -1892,6 +1932,9 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                   <Input
                     label="Email (optional)"
                     type="email"
+                    size="lg"
+                    inputMode="email"
+                    autoComplete="email"
                     value={email}
                     onChange={(event) => setEmail(event.target.value)}
                     placeholder="name@example.com"
@@ -1911,12 +1954,12 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
             ) : null}
 
             <div className="flex flex-col gap-2 pt-2 sm:flex-row sm:flex-wrap">
-              <Button type="button" variant="outline" className="w-full sm:w-auto" onClick={handleBackToChoose}>
+              <Button type="button" variant="outline" className="w-full sm:w-auto min-h-12" onClick={handleBackToChoose}>
                 Back
               </Button>
 
               {detailsUnlocked ? (
-                <Button type="button" variant="primary" className="w-full sm:w-auto" onClick={handleContinueToReview}>
+                <Button type="button" variant="primary" size="lg" className="w-full sm:w-auto" onClick={handleContinueToReview}>
                   Continue to review
                 </Button>
               ) : null}
@@ -2051,7 +2094,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 )}
 
                 {paymentState !== 'confirmed' && (
-                  <Button type="button" variant="outline" className="w-full sm:w-auto" onClick={resetJourney}>
+                  <Button type="button" variant="outline" size="lg" className="w-full sm:w-auto" onClick={resetJourney}>
                     Start a new booking
                   </Button>
                 )}
@@ -2083,7 +2126,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                   />
                 )}
 
-                <label className="flex items-start gap-2 text-sm text-anchor-cream-text/70">
+                <label className="flex min-h-12 items-start gap-2 py-2 text-sm text-anchor-cream-text/70">
                   <input
                     type="checkbox"
                     checked={policyAccepted}
@@ -2096,12 +2139,13 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 </label>
 
                 <div className="flex flex-col gap-2 pt-2 sm:flex-row sm:flex-wrap">
-                  <Button type="button" variant="outline" className="w-full sm:w-auto" onClick={() => setStep('details')}>
+                  <Button type="button" variant="outline" className="w-full sm:w-auto min-h-12" onClick={() => setStep('details')}>
                     Back
                   </Button>
                   <Button
                     type="button"
                     variant="primary"
+                    size="lg"
                     className="w-full sm:w-auto"
                     loading={loading}
                     disabled={TURNSTILE_SITE_KEY ? !turnstileToken : false}
@@ -2116,5 +2160,6 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
         )}
       </CardBody>
     </Card>
+    </div>
   )
 }

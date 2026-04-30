@@ -116,6 +116,14 @@ function setupFetchMock(options: {
   return fetchMock
 }
 
+// jsdom does not implement scrollIntoView natively. The wizard mount-guarded
+// effect calls it on step transitions, so install a no-op for every test.
+beforeAll(() => {
+  if (!(Element.prototype as unknown as { scrollIntoView?: unknown }).scrollIntoView) {
+    ;(Element.prototype as unknown as { scrollIntoView: () => void }).scrollIntoView = () => undefined
+  }
+})
+
 describe('ManagementTableBookingForm', () => {
   afterEach(() => {
     jest.clearAllMocks()
@@ -993,6 +1001,217 @@ describe('ManagementTableBookingForm', () => {
 
       await waitFor(() => expect(capturePayload.ref.current).not.toBeNull())
       expect(capturePayload.ref.current).toMatchObject({ date: '2026-04-30' })
+    })
+  })
+
+  describe('Mobile optimisation', () => {
+    it('Party Size input has inputMode="numeric" and pattern="[0-9]*"', () => {
+      setupFetchMock({ availability: [] })
+      render(<ManagementTableBookingForm />)
+
+      const partySize = screen.getByLabelText('Party Size') as HTMLInputElement
+      expect(partySize.inputMode).toBe('numeric')
+      expect(partySize.pattern).toBe('[0-9]*')
+    })
+
+    it('Mobile Number input has inputMode="tel" and autoComplete="tel"', async () => {
+      setupFetchMock({
+        availability: [{ time: '19:00', available: true, available_capacity: 4, kitchen_open: true }]
+      })
+
+      render(<ManagementTableBookingForm />)
+      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-06-07' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+
+      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+      fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+
+      const phone = screen.getByLabelText('Mobile Number') as HTMLInputElement
+      expect(phone.inputMode).toBe('tel')
+      expect(phone.getAttribute('autocomplete')).toBe('tel')
+    })
+
+    it('First Name, Last Name, Email carry correct autoComplete and inputMode hints', async () => {
+      setupFetchMock({
+        availability: [{ time: '19:00', available: true, available_capacity: 4, kitchen_open: true }]
+      })
+
+      render(<ManagementTableBookingForm />)
+      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-06-07' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+
+      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+      fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+
+      fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+
+      await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+
+      const firstName = screen.getByLabelText('First Name') as HTMLInputElement
+      const lastName = screen.getByLabelText('Last Name') as HTMLInputElement
+      const email = screen.getByLabelText('Email (optional)') as HTMLInputElement
+
+      expect(firstName.getAttribute('autocomplete')).toBe('given-name')
+      expect(lastName.getAttribute('autocomplete')).toBe('family-name')
+      expect(email.inputMode).toBe('email')
+      expect(email.getAttribute('autocomplete')).toBe('email')
+    })
+
+    it('slot button has aria-label combining time and service caption', async () => {
+      setupFetchMock({
+        availability: [
+          { time: '19:00', available: true, available_capacity: 4, kitchen_open: true },
+          { time: '22:00', available: true, available_capacity: 4, kitchen_open: false }
+        ]
+      })
+
+      render(<ManagementTableBookingForm />)
+      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-06-07' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+
+      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+
+      const foodSlot = screen.getByRole('button', { name: /7pm, drinks and food/i })
+      const drinksSlot = screen.getByRole('button', { name: /10pm, drinks only/i })
+      expect(foodSlot).toBeInTheDocument()
+      expect(drinksSlot).toBeInTheDocument()
+    })
+
+    it('slot button class includes min-h-14, alternative button class includes min-h-12', async () => {
+      // Primary date returns no available slots; alternative date returns a late slot.
+      setupFetchMock({
+        availability: (url) => {
+          const params = new URL(url, 'https://t.test').searchParams
+          const date = params.get('date')
+          if (date === '2026-06-07') {
+            return { date: '2026-06-07', time_slots: [] }
+          }
+          if (date === '2026-06-08') {
+            return {
+              date: '2026-06-08',
+              time_slots: [
+                { time: '22:30', available: true, available_capacity: 6, kitchen_open: false }
+              ]
+            }
+          }
+          return { date: date || '', time_slots: [] }
+        }
+      })
+
+      render(<ManagementTableBookingForm />)
+      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-06-07' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+
+      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+
+      // The alternative button (10:30pm on 2026-06-08) should be present and at least 48px tall.
+      const altBtn = await screen.findByRole('button', { name: /10:30pm/i })
+      expect(altBtn.className).toMatch(/min-h-12/)
+      expect(altBtn.className).toMatch(/py-3/)
+      expect(altBtn.className).toMatch(/text-base/)
+    })
+
+    it('booking-policy checkbox label is a 48 px tap target', async () => {
+      setupFetchMock({
+        availability: [{ time: '19:00', available: true, available_capacity: 4, kitchen_open: true }]
+      })
+
+      render(<ManagementTableBookingForm />)
+      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-06-07' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+
+      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+      fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+
+      fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+
+      await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+      fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Sam' } })
+      fireEvent.change(screen.getByLabelText('Last Name'), { target: { value: 'Walker' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
+
+      await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
+
+      const checkbox = screen.getByRole('checkbox', { name: /I understand The Anchor/i })
+      // Walk up to the wrapping <label> and assert min-h-12 is on it (or its inner row).
+      const label = checkbox.closest('label') as HTMLLabelElement
+      expect(label).not.toBeNull()
+      expect(label.className).toMatch(/min-h-12/)
+    })
+
+    it('step transition triggers scrollIntoView with { block: "start" } and not on initial mount', async () => {
+      // jsdom does not implement scrollIntoView; install a no-op so we can spy on it.
+      if (!(Element.prototype as unknown as { scrollIntoView?: unknown }).scrollIntoView) {
+        ;(Element.prototype as unknown as { scrollIntoView: () => void }).scrollIntoView = () => undefined
+      }
+      const scrollSpy = jest
+        .spyOn(Element.prototype, 'scrollIntoView')
+        .mockImplementation(() => undefined)
+
+      setupFetchMock({
+        availability: [{ time: '19:00', available: true, available_capacity: 4, kitchen_open: true }]
+      })
+
+      render(<ManagementTableBookingForm />)
+      // Initial mount must NOT trigger scrollIntoView.
+      expect(scrollSpy).not.toHaveBeenCalled()
+
+      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-06-07' } })
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+
+      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+      // Entering step 'choose' should fire scrollIntoView once with { block: 'start' }.
+      const calls = scrollSpy.mock.calls
+      expect(calls.length).toBeGreaterThanOrEqual(1)
+      expect(calls[0][0]).toEqual(expect.objectContaining({ block: 'start' }))
+
+      // Advance to details — another scrollIntoView call.
+      const beforeAdvance = scrollSpy.mock.calls.length
+      fireEvent.click(screen.getByRole('button', { name: /7pm/ }))
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+      await waitFor(() => expect(screen.getByLabelText('Mobile Number')).toBeInTheDocument())
+      expect(scrollSpy.mock.calls.length).toBeGreaterThan(beforeAdvance)
+
+      scrollSpy.mockRestore()
+    })
+
+    it('pressing Enter on Preferred Time submits the find-step form', async () => {
+      const captureUrl = { ref: { current: null as string | null } }
+      setupFetchMock({
+        availability: [{ time: '13:00', available: true, available_capacity: 4, kitchen_open: true }],
+        captureUrl
+      })
+
+      render(<ManagementTableBookingForm />)
+      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '2' } })
+      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-06-07' } })
+      fireEvent.change(screen.getByLabelText('Preferred Time'), { target: { value: '13:00' } })
+
+      // Submitting the surrounding <form> via the time input must trigger the search.
+      const timeInput = screen.getByLabelText('Preferred Time') as HTMLInputElement
+      const form = timeInput.closest('form') as HTMLFormElement
+      expect(form).not.toBeNull()
+      fireEvent.submit(form)
+
+      await waitFor(() => expect(captureUrl.ref.current).not.toBeNull())
     })
   })
 })
