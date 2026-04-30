@@ -615,6 +615,16 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     wizardRef.current?.scrollIntoView({ block: 'start' })
   }, [step])
 
+  // Submit-intent idempotency cache. Reuse the same Idempotency-Key when the
+  // customer retries a Confirm with the same booking payload, so the management
+  // API's server-side dedupe recognises the retry. Generate a fresh key when
+  // any meaningful payload field changes. Volatile fields (`_t`,
+  // `turnstile_token`, `website`) are intentionally excluded from the
+  // fingerprint — they can change between retries without changing the booking
+  // intent. Stored in a ref because the value is never rendered and we need to
+  // read/write it inside the submit handler without async state timing issues.
+  const submitIntentKeyRef = useRef<{ fingerprint: string; key: string } | null>(null)
+
   const holdExpiry = formatHoldExpiry(result?.hold_expires_at || null)
   // Sunday lunch as a separate booking type, the Saturday-1pm cutoff, the
   // dedicated Mother's Day mode, and the Sunday menu pre-order flow are all
@@ -963,6 +973,10 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setAvailabilityLoading(true)
     setAlternativeSlots([])
     setShowAllTimes(false)
+    // A new availability search starts a new submit-intent. Drop any cached
+    // idempotency key so the next Confirm cannot accidentally dedupe with a
+    // pre-search booking attempt. See spec §13.2.
+    clearSubmitIntentIdempotencyKey()
 
     try {
       await runAvailabilitySearch({
@@ -1292,6 +1306,48 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     return slot.kitchen_open === false ? 'drinks' : 'food'
   }
 
+  // Build a stable JSON fingerprint of the meaningful submit-intent fields.
+  // Volatile anti-bot / telemetry fields (`_t`, `turnstile_token`, `website`)
+  // are deliberately excluded — see spec §13.2.
+  function buildSubmitIntentFingerprint(input: {
+    phone: string
+    firstName?: string
+    lastName?: string
+    email?: string
+    date: string
+    time: string
+    partySize: number
+    purpose: 'food' | 'drinks'
+    notes?: string
+  }): string {
+    return JSON.stringify({
+      phone: input.phone.trim(),
+      firstName: input.firstName?.trim() || '',
+      lastName: input.lastName?.trim() || '',
+      email: input.email?.trim() || '',
+      date: input.date,
+      time: input.time,
+      partySize: input.partySize,
+      purpose: input.purpose,
+      notes: input.notes?.trim() || ''
+    })
+  }
+
+  // Reuse the cached idempotency key when the fingerprint matches the previous
+  // submit intent; otherwise mint a new one and replace the cache entry.
+  function getSubmitIntentIdempotencyKey(fingerprint: string): string {
+    if (submitIntentKeyRef.current?.fingerprint === fingerprint) {
+      return submitIntentKeyRef.current.key
+    }
+    const key = createClientIdempotencyKey('tbl_web')
+    submitIntentKeyRef.current = { fingerprint, key }
+    return key
+  }
+
+  function clearSubmitIntentIdempotencyKey() {
+    submitIntentKeyRef.current = null
+  }
+
   async function handleConfirmBooking() {
     setError(null)
     setResult(null)
@@ -1316,7 +1372,24 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     const resolvedFirstName = firstName.trim()
     const resolvedLastName = lastName.trim()
     const resolvedEmail = (isKnownCustomer ? knownCustomer?.email : email.trim()) || undefined
-    const idempotencyKey = createClientIdempotencyKey('tbl_web')
+    const trimmedNotes = notes.trim()
+
+    // Build the submit-intent fingerprint from non-volatile payload fields,
+    // then look up (or mint) the idempotency key. This guarantees that a retry
+    // of the same booking intent reuses the key, while a changed slot or guest
+    // detail forces a new key. See spec §13.2.
+    const idempotencyFingerprint = buildSubmitIntentFingerprint({
+      phone: trimmedPhone,
+      firstName: resolvedFirstName,
+      lastName: resolvedLastName,
+      email: resolvedEmail,
+      date,
+      time: selectedTime,
+      partySize,
+      purpose,
+      notes: trimmedNotes
+    })
+    const idempotencyKey = getSubmitIntentIdempotencyKey(idempotencyFingerprint)
 
     setLoading(true)
 
@@ -1353,7 +1426,9 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
         time: selectedTime,
         party_size: partySize,
         purpose,
-        ...(notes.trim() ? { notes: notes.trim() } : {}),
+        ...(trimmedNotes ? { notes: trimmedNotes } : {}),
+        // Volatile fields below — added after the idempotency key has already
+        // been selected so they cannot influence the submit-intent fingerprint.
         ...(turnstileToken ? { turnstile_token: turnstileToken } : {}),
         ...(website ? { website } : {}),
         _t: Math.floor((Date.now() - formLoadedAt.current) / 1000)
@@ -1484,6 +1559,9 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     turnstileRef.current?.reset()
     setWebsite('')
     formLoadedAt.current = Date.now()
+    // Drop the cached submit-intent key so the next booking minted by the
+    // wizard cannot reuse a previous booking's Idempotency-Key. See spec §13.2.
+    clearSubmitIntentIdempotencyKey()
   }
 
   if (selectedSuggestedEvent) {

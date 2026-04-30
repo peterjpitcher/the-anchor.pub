@@ -44,7 +44,16 @@ function setupFetchMock(options: {
   bookingResponse?: { state: string; [k: string]: unknown }
   capturePayload?: { ref: { current: Record<string, unknown> | null } }
   captureUrl?: { ref: { current: string | null } }
+  captureHeaders?: { ref: { current: Record<string, string> | null } }
+  captureBookingHistory?: {
+    ref: { current: Array<{ headers: Record<string, string>; body: Record<string, unknown> }> }
+  }
+  bookingHandler?: (
+    init: RequestInit | undefined,
+    callIndex: number
+  ) => Promise<Response> | Response | null
 }): jest.Mock {
+  let bookingCallCount = 0
   const fetchMock = jest.fn((input: RequestInfo | URL, init?: RequestInit) => {
     const url = typeof input === 'string' ? input : input.toString()
 
@@ -89,8 +98,38 @@ function setupFetchMock(options: {
     }
 
     if (url === '/api/table-bookings') {
+      const headersIn: Record<string, string> = {}
+      const rawHeaders = init?.headers
+      if (rawHeaders) {
+        if (rawHeaders instanceof Headers) {
+          rawHeaders.forEach((value, key) => {
+            headersIn[key.toLowerCase()] = value
+          })
+        } else if (Array.isArray(rawHeaders)) {
+          for (const [key, value] of rawHeaders) {
+            headersIn[key.toLowerCase()] = value
+          }
+        } else {
+          for (const [key, value] of Object.entries(rawHeaders as Record<string, string>)) {
+            headersIn[key.toLowerCase()] = value
+          }
+        }
+      }
+      const parsedBody = JSON.parse(String(init?.body || '{}')) as Record<string, unknown>
       if (options.capturePayload) {
-        options.capturePayload.ref.current = JSON.parse(String(init?.body || '{}'))
+        options.capturePayload.ref.current = parsedBody
+      }
+      if (options.captureHeaders) {
+        options.captureHeaders.ref.current = headersIn
+      }
+      if (options.captureBookingHistory) {
+        options.captureBookingHistory.ref.current.push({ headers: headersIn, body: parsedBody })
+      }
+      const callIndex = bookingCallCount
+      bookingCallCount += 1
+      if (options.bookingHandler) {
+        const handlerResult = options.bookingHandler(init, callIndex)
+        if (handlerResult) return Promise.resolve(handlerResult)
       }
       const body = options.bookingResponse || {
         state: 'confirmed',
@@ -1212,6 +1251,217 @@ describe('ManagementTableBookingForm', () => {
       fireEvent.submit(form)
 
       await waitFor(() => expect(captureUrl.ref.current).not.toBeNull())
+    })
+  })
+
+  describe('Submit-intent idempotency key', () => {
+    async function fillFindAndProceedToReview(options: {
+      partySize?: string
+      date?: string
+      slotName?: RegExp
+      firstName?: string
+      lastName?: string
+      phone?: string
+      notes?: string
+    } = {}) {
+      const partySize = options.partySize ?? '2'
+      const date = options.date ?? '2026-06-07'
+      const slotName = options.slotName ?? /1pm/i
+      const firstName = options.firstName ?? 'Sam'
+      const lastName = options.lastName ?? 'Walker'
+      const phone = options.phone ?? '07700900000'
+
+      fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: partySize } })
+      fireEvent.blur(screen.getByLabelText('Party Size'))
+      fireEvent.change(screen.getByLabelText('Date'), { target: { value: date } })
+      fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
+
+      await waitFor(() => expect(screen.getByText('Choose your time')).toBeInTheDocument())
+      fireEvent.click(screen.getByRole('button', { name: slotName }))
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+
+      await waitFor(() => expect(screen.getByLabelText('Mobile Number')).toBeInTheDocument())
+      fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: phone } })
+      fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
+
+      await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+      fireEvent.change(screen.getByLabelText('First Name'), { target: { value: firstName } })
+      fireEvent.change(screen.getByLabelText('Last Name'), { target: { value: lastName } })
+      if (options.notes) {
+        fireEvent.change(screen.getByLabelText(/Notes \(optional\)/i), { target: { value: options.notes } })
+      }
+      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
+
+      await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
+      fireEvent.click(screen.getByRole('checkbox', { name: /I understand The Anchor/i }))
+    }
+
+    it('reuses Idempotency-Key across Confirm retries when the booking intent is unchanged', async () => {
+      const history = {
+        ref: {
+          current: [] as Array<{ headers: Record<string, string>; body: Record<string, unknown> }>
+        }
+      }
+      setupFetchMock({
+        availability: [{ time: '13:00', available: true, available_capacity: 4, kitchen_open: true }],
+        captureBookingHistory: history,
+        bookingHandler: (_init, callIndex) => {
+          if (callIndex === 0) {
+            // First Confirm fails as if the network timed out.
+            return jsonResponse(
+              { success: false, error: 'Temporarily unavailable' },
+              { status: 503 }
+            )
+          }
+          return null
+        }
+      })
+
+      render(<ManagementTableBookingForm />)
+      await fillFindAndProceedToReview()
+
+      // First Confirm: server fails, customer stays on review.
+      fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
+      await waitFor(() => expect(history.ref.current.length).toBe(1))
+      // Wait for the failure to propagate (loading clears, error surfaces).
+      await waitFor(() =>
+        expect(screen.getByText(/Temporarily unavailable/i)).toBeInTheDocument()
+      )
+
+      // Second Confirm: same intent, retried by customer.
+      fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
+      await waitFor(() => expect(history.ref.current.length).toBe(2))
+
+      const firstKey = history.ref.current[0].headers['idempotency-key']
+      const secondKey = history.ref.current[1].headers['idempotency-key']
+      expect(firstKey).toBeTruthy()
+      expect(secondKey).toBeTruthy()
+      expect(secondKey).toBe(firstKey)
+    })
+
+    it('issues a new Idempotency-Key after a fresh availability search (Book another)', async () => {
+      const history = {
+        ref: {
+          current: [] as Array<{ headers: Record<string, string>; body: Record<string, unknown> }>
+        }
+      }
+      setupFetchMock({
+        availability: [{ time: '13:00', available: true, available_capacity: 4, kitchen_open: true }],
+        captureBookingHistory: history
+      })
+
+      render(<ManagementTableBookingForm />)
+      await fillFindAndProceedToReview({ date: '2026-06-07' })
+      fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
+      await waitFor(() => expect(history.ref.current.length).toBe(1))
+      await waitFor(() => expect(screen.getByText(/all booked in/i)).toBeInTheDocument())
+
+      // Book another → resetJourney must clear the cached key. Then run a brand
+      // new search on a different date and confirm again.
+      fireEvent.click(screen.getByRole('button', { name: /Book another table/i }))
+      await waitFor(() => expect(screen.getByLabelText('Date')).toBeInTheDocument())
+      await fillFindAndProceedToReview({ date: '2026-06-08' })
+      fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
+      await waitFor(() => expect(history.ref.current.length).toBe(2))
+
+      const firstKey = history.ref.current[0].headers['idempotency-key']
+      const secondKey = history.ref.current[1].headers['idempotency-key']
+      expect(firstKey).toBeTruthy()
+      expect(secondKey).toBeTruthy()
+      expect(secondKey).not.toBe(firstKey)
+    })
+
+    it('reuses Idempotency-Key across Back-to-details and forward-to-review when nothing changes', async () => {
+      const history = {
+        ref: {
+          current: [] as Array<{ headers: Record<string, string>; body: Record<string, unknown> }>
+        }
+      }
+      setupFetchMock({
+        availability: [{ time: '13:00', available: true, available_capacity: 4, kitchen_open: true }],
+        captureBookingHistory: history,
+        bookingHandler: (_init, callIndex) => {
+          if (callIndex === 0) {
+            return jsonResponse(
+              { success: false, error: 'Temporarily unavailable' },
+              { status: 503 }
+            )
+          }
+          return null
+        }
+      })
+
+      render(<ManagementTableBookingForm />)
+      await fillFindAndProceedToReview()
+
+      fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
+      await waitFor(() => expect(history.ref.current.length).toBe(1))
+      await waitFor(() =>
+        expect(screen.getByText(/Temporarily unavailable/i)).toBeInTheDocument()
+      )
+
+      // Back to details, immediately Continue to review (no field changes).
+      const backButtons = screen.getAllByRole('button', { name: 'Back' })
+      fireEvent.click(backButtons[backButtons.length - 1])
+      await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
+      await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
+      // Policy checkbox state is preserved on back-and-forward, do not toggle it.
+      fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
+      await waitFor(() => expect(history.ref.current.length).toBe(2))
+
+      const firstKey = history.ref.current[0].headers['idempotency-key']
+      const secondKey = history.ref.current[1].headers['idempotency-key']
+      expect(firstKey).toBeTruthy()
+      expect(secondKey).toBe(firstKey)
+    })
+
+    it('issues a new Idempotency-Key when the customer changes notes after backing out of review', async () => {
+      const history = {
+        ref: {
+          current: [] as Array<{ headers: Record<string, string>; body: Record<string, unknown> }>
+        }
+      }
+      setupFetchMock({
+        availability: [{ time: '13:00', available: true, available_capacity: 4, kitchen_open: true }],
+        captureBookingHistory: history,
+        bookingHandler: (_init, callIndex) => {
+          if (callIndex === 0) {
+            return jsonResponse(
+              { success: false, error: 'Temporarily unavailable' },
+              { status: 503 }
+            )
+          }
+          return null
+        }
+      })
+
+      render(<ManagementTableBookingForm />)
+      await fillFindAndProceedToReview()
+
+      fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
+      await waitFor(() => expect(history.ref.current.length).toBe(1))
+      await waitFor(() =>
+        expect(screen.getByText(/Temporarily unavailable/i)).toBeInTheDocument()
+      )
+
+      // Back to details, change notes, forward to review, Confirm.
+      const backButtons = screen.getAllByRole('button', { name: 'Back' })
+      fireEvent.click(backButtons[backButtons.length - 1])
+      await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
+      fireEvent.change(screen.getByLabelText(/Notes \(optional\)/i), {
+        target: { value: 'Window seat please' }
+      })
+      fireEvent.click(screen.getByRole('button', { name: 'Continue to review' }))
+      await waitFor(() => expect(screen.getByText('Review your booking')).toBeInTheDocument())
+      // Policy checkbox state is preserved on back-and-forward, do not toggle it.
+      fireEvent.click(screen.getByRole('button', { name: /Confirm booking/i }))
+      await waitFor(() => expect(history.ref.current.length).toBe(2))
+
+      const firstKey = history.ref.current[0].headers['idempotency-key']
+      const secondKey = history.ref.current[1].headers['idempotency-key']
+      expect(firstKey).toBeTruthy()
+      expect(secondKey).not.toBe(firstKey)
     })
   })
 })
