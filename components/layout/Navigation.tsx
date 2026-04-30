@@ -173,7 +173,7 @@ const mobilePriorityTasks: Array<{
   {
     label: 'Sunday Roast',
     href: '/sunday-lunch',
-    description: 'Priority food service',
+    description: 'Sunday lunch tables',
     icon: 'calendar'
   },
   {
