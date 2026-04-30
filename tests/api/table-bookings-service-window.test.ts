@@ -437,3 +437,38 @@ describe('buildSlotsWithKitchenState', () => {
     expect(slots.every((s) => s.kitchen_open === false)).toBe(true)
   })
 })
+
+describe('londonIsoDate', () => {
+  afterEach(() => {
+    jest.useRealTimers()
+  })
+
+  it('returns the London date for a UTC instant in the previous calendar day', async () => {
+    const { londonIsoDate } = await import('@/lib/table-booking-service-windows')
+    // 2026-04-29 23:30 UTC is 2026-04-30 00:30 BST in London.
+    expect(londonIsoDate(new Date('2026-04-29T23:30:00Z'))).toBe('2026-04-30')
+  })
+
+  it('returns the London date for a UTC instant on the same calendar day in winter', async () => {
+    const { londonIsoDate } = await import('@/lib/table-booking-service-windows')
+    // 2026-12-31 23:30 UTC is 2026-12-31 23:30 GMT (no shift).
+    expect(londonIsoDate(new Date('2026-12-31T23:30:00Z'))).toBe('2026-12-31')
+  })
+
+  it('falls back to "now" when called with no argument', async () => {
+    jest.useFakeTimers().setSystemTime(new Date('2026-06-15T12:00:00Z'))
+    const { londonIsoDate } = await import('@/lib/table-booking-service-windows')
+    expect(londonIsoDate()).toBe('2026-06-15')
+  })
+})
+
+describe('londonNowParts uses londonIsoDate', () => {
+  afterEach(() => jest.useRealTimers())
+
+  it('returns the London ISO date for a UTC pre-midnight instant', async () => {
+    jest.useFakeTimers().setSystemTime(new Date('2026-04-29T23:30:00Z'))
+    const { londonNowParts } = await import('@/lib/table-booking-service-windows')
+    const result = londonNowParts()
+    expect(result.isoDate).toBe('2026-04-30') // London BST
+  })
+})

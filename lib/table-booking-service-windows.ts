@@ -52,25 +52,31 @@ export function toTimeString(totalMinutes: number): string {
   return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}`
 }
 
-export function londonNowParts(): { isoDate: string; minutes: number } {
-  const formatter = new Intl.DateTimeFormat('en-CA', {
+export function londonIsoDate(date: Date = new Date()): string {
+  return new Intl.DateTimeFormat('en-CA', {
     timeZone: 'Europe/London',
     year: 'numeric',
     month: '2-digit',
-    day: '2-digit',
+    day: '2-digit'
+  }).format(date)
+}
+
+export function londonNowParts(): { isoDate: string; minutes: number } {
+  const formatter = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Europe/London',
     hour: '2-digit',
     minute: '2-digit',
     hour12: false
   })
 
-  const parts = formatter.formatToParts(new Date())
+  const now = new Date()
+  const parts = formatter.formatToParts(now)
   const map = Object.fromEntries(parts.map((part) => [part.type, part.value]))
-  const isoDate = `${map.year}-${map.month}-${map.day}`
   const hours = Number.parseInt(map.hour || '0', 10)
   const minutes = Number.parseInt(map.minute || '0', 10)
 
   return {
-    isoDate,
+    isoDate: londonIsoDate(now),
     minutes: hours * 60 + minutes
   }
 }
