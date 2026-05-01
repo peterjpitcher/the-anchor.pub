@@ -269,7 +269,7 @@ const MenuItemList = memo(function MenuItemList({ item, itemId, isFocused, onFoc
   return (
     <div 
       className={`flex justify-between items-center p-2 rounded-lg transition-colours ${
-        isFocused ? 'bg-amber-50' : 'hover:bg-gray-50'
+        isFocused ? 'bg-amber-500/10' : 'hover:bg-anchor-bg-raised'
       }`}
       itemScope 
       itemType="https://schema.org/MenuItem"

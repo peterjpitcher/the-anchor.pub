@@ -2,6 +2,7 @@ import {
   WALK_IN_LAUNCH_BANNER_ENDS_AT_MS,
   WALK_IN_LAUNCH_STARTS_AT_MS,
 } from '@/lib/constants'
+import { getSundayRoastContent } from '@/lib/sunday-roast'
 import { LaunchAnnouncementClient } from './LaunchAnnouncementClient'
 
 export type LaunchAnnouncementVariant = 'hero' | 'banner' | 'slim'
@@ -10,8 +11,7 @@ export interface LaunchAnnouncementProps {
   variant: LaunchAnnouncementVariant
 }
 
-const PRE_LAUNCH_COPY =
-  'Sunday lunch walk-ins start 17 May 2026, 1pm-6pm. Until then, our kitchen is open on Sundays with our weekday menu.'
+const PRE_LAUNCH_COPY = getSundayRoastContent(new Date(0)).availabilityLong
 const LAUNCH_DAY_COPY =
   'Walk-ins welcome today from 1pm — turn up between 1pm-6pm or book ahead'
 

@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { DateTime } from 'luxon'
 import { StatusBar } from '@/components/layout/StatusBar'
 import { CONTACT_INFO } from '@/lib/error-handling'
-import { LoadingState } from '@/components/ui/LoadingState'
 import { useBusinessHoursContext } from '@/components/providers/BusinessHoursProvider'
 
 interface BusinessHoursProps {
@@ -20,8 +19,15 @@ export function BusinessHours({ showKitchen = true, className = '' }: BusinessHo
   // --- Loading state ---
   if (loading) {
     return (
-      <div className={className}>
-        <LoadingState variant="skeleton" className="h-20 w-full" />
+      <div className={`bg-anchor-bg-raised border border-anchor-gold/15 rounded-lg p-4 ${className}`}>
+        <p className="text-sm font-semibold text-anchor-gold-vivid">Opening hours are loading</p>
+        <p className="mt-1 text-sm text-anchor-cream-text/70">
+          Call{' '}
+          <a href={CONTACT_INFO.phoneLink} className="text-anchor-gold hover:text-anchor-gold-light font-semibold underline">
+            {CONTACT_INFO.phone}
+          </a>{' '}
+          for today&apos;s bar and kitchen times.
+        </p>
       </div>
     )
   }

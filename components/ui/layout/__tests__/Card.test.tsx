@@ -18,21 +18,21 @@ describe('Card', () => {
         <CardBody>Default</CardBody>
       </Card>
     )
-    expect(screen.getByTestId('card')).toHaveClass('border', 'border-gray-200')
+    expect(screen.getByTestId('card')).toHaveClass('border', 'border-anchor-gold/20')
     
     rerender(
       <Card variant="outlined" testId="card">
         <CardBody>Outlined</CardBody>
       </Card>
     )
-    expect(screen.getByTestId('card')).toHaveClass('border-2', 'border-gray-300')
+    expect(screen.getByTestId('card')).toHaveClass('border-2', 'border-anchor-gold/40')
     
     rerender(
       <Card variant="elevated" testId="card">
         <CardBody>Elevated</CardBody>
       </Card>
     )
-    expect(screen.getByTestId('card')).toHaveClass('shadow-lg')
+    expect(screen.getByTestId('card')).toHaveClass('shadow-[0_16px_40px_rgba(0,0,0,0.4)]')
   })
 
   it('renders with different padding options', () => {
@@ -111,7 +111,7 @@ describe('CardHeader', () => {
     render(<CardHeader>Header</CardHeader>)
     
     const header = screen.getByText('Header')
-    expect(header).toHaveClass('border-b', 'border-gray-200')
+    expect(header).toHaveClass('border-b', 'border-anchor-gold/15')
   })
 
   it('applies custom className', () => {
@@ -133,7 +133,7 @@ describe('CardTitle', () => {
     render(<CardTitle>Title</CardTitle>)
     
     const title = screen.getByText('Title')
-    expect(title).toHaveClass('text-lg', 'font-semibold', 'text-gray-900')
+    expect(title).toHaveClass('text-lg', 'font-semibold', 'text-anchor-cream-text')
   })
 
   it('accepts custom as prop', () => {
@@ -171,7 +171,7 @@ describe('CardFooter', () => {
     render(<CardFooter>Footer</CardFooter>)
     
     const footer = screen.getByText('Footer')
-    expect(footer).toHaveClass('border-t', 'border-gray-200')
+    expect(footer).toHaveClass('border-t', 'border-anchor-gold/15')
   })
 
   it('applies custom className', () => {

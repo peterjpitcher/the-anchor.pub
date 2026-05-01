@@ -32,7 +32,7 @@ const testScenarios = [
       today: { opens: '16:00:00', closes: '22:00:00' },
       regularHours: {}
     },
-    expected: 'Bar: Open until 10pm'
+    expected: 'Bar: Open · closes 10pm'
   },
   {
     name: 'Just after opening',
@@ -42,7 +42,7 @@ const testScenarios = [
       today: { opens: '16:00:00', closes: '22:00:00' },
       regularHours: {}
     },
-    expected: 'Bar: Open until 10pm'
+    expected: 'Bar: Open · closes 10pm'
   },
   {
     name: 'Just before closing',
@@ -52,7 +52,7 @@ const testScenarios = [
       today: { closes: '22:00:00', kitchen: { closes: '21:00:00' } },
       regularHours: {}
     },
-    expected: 'Bar: Open until 10pm'
+    expected: 'Bar: Open · closes 10pm'
   },
   {
     name: 'Exactly at closing',
@@ -90,7 +90,7 @@ const testScenarios = [
       },
       regularHours: {}
     },
-    expected: 'Bar: Open until 10pm',
+    expected: 'Bar: Open · closes 10pm',
     expectedKitchen: 'Kitchen: Opens at 6pm'
   },
   {
@@ -112,7 +112,7 @@ const testScenarios = [
         }
       }
     },
-    expected: 'Bar: Open until 10pm',
+    expected: 'Bar: Open · closes 10pm',
     expectedKitchen: 'Kitchen: Opens Tuesday at 6pm'
   },
   {
@@ -140,7 +140,7 @@ const testScenarios = [
         }
       }
     },
-    expected: 'Bar: Open until 10pm',
+    expected: 'Bar: Open · closes 10pm',
     expectedKitchen: 'Kitchen: Opens tomorrow at 6pm'
   }
 ]
@@ -200,22 +200,23 @@ describe('StatusBar Boundary Tests', () => {
     expect(screen.getByText('(updating...)')).toBeInTheDocument()
   })
 
-  it('should handle null data gracefully', () => {
+  it('should show a useful fallback when hours are unavailable', () => {
     const mockUseBusinessHours = useBusinessHours as jest.MockedFunction<typeof useBusinessHours>
     mockUseBusinessHours.mockReturnValue({
       hours: null,
       loading: false,
-      error: null,
+      error: new Error('Unavailable'),
       isStale: false,
       refresh: async () => {}
     })
-    
-    const { container } = render(<StatusBar />)
-    
-    expect(container.firstChild).toBeNull()
+
+    render(<StatusBar />)
+
+    expect(screen.getByText('Opening times unavailable')).toBeInTheDocument()
+    expect(screen.getByText("Call 01753 682707 for today's times")).toHaveAttribute('href', 'tel:+441753682707')
   })
 
-  it('should show loading state when loading and no cached data', () => {
+  it('should show useful fallback content when loading and no cached data', () => {
     const mockUseBusinessHours = useBusinessHours as jest.MockedFunction<typeof useBusinessHours>
     mockUseBusinessHours.mockReturnValue({
       hours: null,
@@ -226,8 +227,8 @@ describe('StatusBar Boundary Tests', () => {
     })
     
     render(<StatusBar />)
-    
-    // Should show loading skeleton
-    expect(document.querySelector('.animate-pulse')).toBeInTheDocument()
+
+    expect(screen.getByText('Opening times loading')).toBeInTheDocument()
+    expect(screen.getByText("Call 01753 682707 for today's times")).toHaveAttribute('href', 'tel:+441753682707')
   })
 })

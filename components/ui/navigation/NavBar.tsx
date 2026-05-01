@@ -25,7 +25,7 @@ const navBarVariants = cva(
     variants: {
       variant: {
         default: 'bg-anchor-green text-white',
-        light: 'bg-white text-gray-900',
+        light: 'bg-anchor-bg-card text-anchor-cream-text',
         transparent: 'bg-transparent'
       },
       size: {
@@ -205,7 +205,7 @@ const NavItem = ({ item, variant = 'default', onClick, isMobile = false }: NavIt
   const linkClasses = cn(
     'font-medium transition-colours flex items-center gap-2',
     variant === 'default' && 'text-white hover:text-anchor-gold',
-    variant === 'light' && 'text-gray-700 hover:text-anchor-green',
+    variant === 'light' && 'text-anchor-cream-text/70 hover:text-anchor-gold',
     variant === 'transparent' && 'text-current hover:opacity-80'
   )
 
@@ -285,8 +285,8 @@ const MobileMenu = ({ isOpen, items, actions, variant = 'default', onClose }: Mo
   const menuClasses = cn(
     'absolute top-full left-0 right-0 shadow-lg',
     variant === 'default' && 'bg-anchor-green-dark',
-    variant === 'light' && 'bg-white',
-    variant === 'transparent' && 'bg-white/95 backdrop-blur'
+    variant === 'light' && 'bg-anchor-bg-card',
+    variant === 'transparent' && 'bg-anchor-bg-card/95 backdrop-blur'
   )
 
   return (

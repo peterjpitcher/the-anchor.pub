@@ -60,6 +60,7 @@ export function middleware(request: NextRequest) {
         const resolvedDestination = resolveRedirectUrl(canonicalUrl, matchedRedirect)
         url.pathname = resolvedDestination.pathname
         url.search = resolvedDestination.search
+        url.hash = resolvedDestination.hash
         return NextResponse.redirect(url, getRedirectStatus(matchedRedirect))
     }
 

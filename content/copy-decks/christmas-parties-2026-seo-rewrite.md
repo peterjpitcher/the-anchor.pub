@@ -40,7 +40,7 @@
 - 7 min from Heathrow T5
 - Dog & family friendly
 - Super-fast fibre broadband
-- 10–200 guests
+- 10-50 room bookings; larger events by enquiry
 
 ---
 

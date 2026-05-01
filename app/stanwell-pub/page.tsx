@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { Button, CTASection, SectionHeader, FeatureGrid, InfoBoxGrid, DirectionsCard, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { BookTableButton } from '@/components/BookTableButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
 import { generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
@@ -10,27 +11,36 @@ import { CONTACT, BRAND, PARKING } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
+import { SUNDAY_ROAST, getSundayRoastContent } from '@/lib/sunday-roast'
 
-export const metadata: Metadata = {
-  title: 'Stanwell Moor Pub | Rated 4.6★ on Google',
-  description: 'Your local in Stanwell Moor — rated 4.6/5 on Google. Sunday roasts from £19, stone-baked pizzas, dog-friendly beer garden, quiz nights & free parking.',
-  openGraph: {
-    title: 'Stanwell Village Pub — Beer Garden, Food & Free Parking',
-    description: 'Rated 4.6/5 on Google. Sunday roasts, stone-baked pizzas and a dog-friendly beer garden at The Anchor, Stanwell Moor.',
-    images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
-    type: 'website',
-  },
-  twitter: getTwitterMetadata({
-    title: 'Stanwell Village Pub — Beer Garden, Food & Free Parking',
-    description: 'Rated 4.6/5 on Google. Sunday roasts, stone-baked pizzas and a dog-friendly beer garden at The Anchor, Stanwell Moor.',
-    images: [DEFAULT_PAGE_HEADER_IMAGE]
-  }),
-  alternates: {
-    canonical: '/stanwell-pub'
+export function generateMetadata(): Metadata {
+  const sunday = getSundayRoastContent()
+  const sundayPhrase = sunday.isLive
+    ? `Sunday roasts ${SUNDAY_ROAST.fromPriceLabel}`
+    : `Sunday roast starts ${SUNDAY_ROAST.launchDateLabel}`
+
+  return {
+    title: 'Stanwell Moor Pub | Rated 4.6★ on Google',
+    description: `Your local in Stanwell Moor — rated 4.6/5 on Google. ${sundayPhrase}, stone-baked pizzas, dog-friendly beer garden, quiz nights & free parking.`,
+    openGraph: {
+      title: 'Stanwell Village Pub — Beer Garden, Food & Free Parking',
+      description: `Rated 4.6/5 on Google. ${sundayPhrase}, stone-baked pizzas and a dog-friendly beer garden at The Anchor, Stanwell Moor.`,
+      images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
+      type: 'website',
+    },
+    twitter: getTwitterMetadata({
+      title: 'Stanwell Village Pub — Beer Garden, Food & Free Parking',
+      description: `Rated 4.6/5 on Google. ${sundayPhrase}, stone-baked pizzas and a dog-friendly beer garden at The Anchor, Stanwell Moor.`,
+      images: [DEFAULT_PAGE_HEADER_IMAGE]
+    }),
+    alternates: {
+      canonical: '/stanwell-pub'
+    }
   }
 }
 
 export default function StanwellPubPage() {
+  const sunday = getSundayRoastContent()
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": ["Restaurant", "BarOrPub"],
@@ -90,6 +100,11 @@ export default function StanwellPubPage() {
         title="Stanwell's Traditional Village Pub"
         description="The heart of the Stanwell community since generations"
         variant="default"
+        primaryCta={
+          <BookTableButton source="stanwell_pub_hero" context="local_pub" variant="primary" size="lg">
+            Book a Table
+          </BookTableButton>
+        }
         enableSmartCtas={true}
         showContextStrip={true}
       />
@@ -254,7 +269,9 @@ export default function StanwellPubPage() {
             <div className="grid md:grid-cols-2 gap-8 mb-8">
               <div className="card-dark rounded-none p-6">
                 <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Famous Sunday Roasts</h3>
-                <p className="text-anchor-cream-text/70 mb-3">The talk of Stanwell! Traditional Sunday roasts served 1pm-6pm — walk in or book ahead, no pre-order needed.</p>
+                <p className="text-anchor-cream-text/70 mb-3">
+                  The talk of Stanwell! {sunday.isLive ? 'Traditional Sunday roasts served 1pm-6pm — walk in or book ahead, no pre-order needed.' : `Traditional Sunday roasts start ${SUNDAY_ROAST.launchDateLabel}.`}
+                </p>
 	                <ul className="space-y-2 text-anchor-cream-text/70">
 	                  <li>• Roasted Chicken - £19</li>
 	                  <li>• Crispy Pork Belly - £22</li>

@@ -87,7 +87,7 @@ export function CTASection({
                                    button.variant === 'warning' ? 'primary' :
                                    (button.variant as 'primary' | 'secondary' | 'outline' || 'primary')
               const phoneClassName = button.variant === 'white' 
-                ? `flex-1 bg-white text-anchor-green hover:bg-gray-100 ${button.className || ''}`
+                ? `flex-1 ${button.className || ''}`
                 : `flex-1 ${button.className || ''}`
               
               return (
@@ -115,8 +115,8 @@ export function CTASection({
                 
                 // Map "white" variant to appropriate styling
                 const emailClassName = button.variant === 'white' 
-                  ? `flex-1 inline-flex items-center justify-center px-6 py-3 bg-white text-anchor-green hover:bg-gray-100 rounded-md font-semibold transition-colors ${button.className || ''}`
-                  : `flex-1 inline-flex items-center justify-center px-6 py-3 bg-anchor-sand text-anchor-green hover:bg-anchor-sand-light rounded-md font-semibold transition-colors ${button.className || ''}`
+                  ? `flex-1 inline-flex items-center justify-center px-6 py-3 bg-anchor-bg-card text-anchor-cream-text border-2 border-anchor-gold/30 hover:bg-anchor-bg-raised hover:text-anchor-gold-vivid rounded-full font-semibold transition-colors ${button.className || ''}`
+                  : `flex-1 inline-flex items-center justify-center px-6 py-3 bg-anchor-gold text-white hover:bg-anchor-gold-light rounded-full font-semibold transition-colors ${button.className || ''}`
                 
                 return (
                   <EmailLink
@@ -147,7 +147,7 @@ export function CTASection({
                                        button.variant === 'warning' ? 'primary' :
                                        (button.variant as 'primary' | 'secondary' | 'outline' | 'ghost' | 'link' || 'primary')
               const directionsClassName = button.variant === 'white' 
-                ? `flex-1 bg-white text-anchor-green hover:bg-gray-100 ${button.className || ''}`
+                ? `flex-1 ${button.className || ''}`
                 : `flex-1 ${button.className || ''}`
               
               return (
@@ -191,7 +191,7 @@ export function CTASection({
             // Map "white" variant to outline with custom styling
             const buttonVariant = button.variant === 'white' ? 'outline' : (button.variant || 'secondary')
             const buttonClassName = button.variant === 'white' 
-              ? `flex-1 !text-white !border-white hover:!bg-white hover:!text-anchor-green ${button.className || ''}`
+              ? `flex-1 ${button.className || ''}`
               : `flex-1 ${button.className || ''}`
             
             const buttonElement = (

@@ -6,6 +6,7 @@ import { getEventWebsitePath } from '@/lib/event-url'
 import tagRedirects from '@/config/redirects/tag-redirects.json'
 import { PAST_EVENT_REDIRECT_DAYS, CANCELLED_INDEX_DAYS } from '@/lib/event-seo-strategy'
 import { isNoindexBlogTag } from '@/lib/blog-tag-policy'
+import { isRetiredEvent } from '@/lib/api/events'
 
 export const revalidate = 60 * 60 // 1 hour
 
@@ -66,6 +67,7 @@ async function fetchSitemapEventsPage(page: number): Promise<Event[] | null> {
 function addSitemapEvents(uniqueEvents: Map<string, Event>, batch: Event[]): void {
   for (const event of batch) {
     if (isDraftEvent(event)) continue
+    if (isRetiredEvent(event)) continue
     const key = `${event.id || event.slug || ''}`.trim()
     if (!key) continue
     uniqueEvents.set(key, event)
@@ -136,7 +138,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/bank-holiday-weekends', lastModified: DATES.seoOverhaul },
     { path: '/sunday-lunch', lastModified: DATES.apr2026 },
     { path: '/pizza-menu', lastModified: DATES.seoOverhaul },
-    { path: '/burger-menu', lastModified: DATES.seoOverhaul },
     { path: '/fish-and-chips-heathrow', lastModified: DATES.seoOverhaul },
     { path: '/drinks', lastModified: DATES.apr2026 },
     { path: '/drinks/managers-special', lastModified: DATES.seoOverhaul },
@@ -149,7 +150,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/music-bingo', lastModified: DATES.apr2026 },
     { path: '/karaoke', lastModified: DATES.apr2026 },
     { path: '/live-music', lastModified: DATES.launch },
-    { path: '/open-mic', lastModified: DATES.launch },
     { path: '/live-sport', lastModified: DATES.apr2026 },
     { path: '/live-sport/six-nations', lastModified: DATES.seoOverhaul },
     { path: '/live-sport/f1', lastModified: DATES.seoOverhaul },

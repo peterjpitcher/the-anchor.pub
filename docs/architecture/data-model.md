@@ -23,7 +23,7 @@ See [[overview]] for the architectural rationale.
 |---|---|---|
 | Management API | Bookings, events, hours, menus, customers, reviews, parking | `lib/api/client.ts` (`anchorAPI`) → `app/api/*/route.ts` |
 | AviationStack | Live Heathrow flight data | parking proxy routes |
-| Microsoft Graph | Sends Christmas / open-mic enquiry emails | enquiry proxy routes |
+| Microsoft Graph | Sends Christmas enquiry emails | enquiry proxy routes |
 | Cloudflare Turnstile | Verifies submitted form tokens | `lib/turnstile.ts` |
 | PayPal | Order create + capture for parking and table-booking deposits | PayPal-flavoured proxy routes |
 
@@ -63,7 +63,6 @@ The website's [[routes#api-routes|API proxy routes]] are 1:1 wrappers around the
 - `POST /private-bookings`
 - `GET  /private-bookings/config`
 - `POST /enquiries/christmas`
-- `POST /enquiries/open-mic`
 
 ### Parking
 

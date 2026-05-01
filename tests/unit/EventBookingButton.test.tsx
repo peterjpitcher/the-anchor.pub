@@ -1,10 +1,10 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import type { Event } from '@/lib/api'
 import { EventBookingButton } from '@/components/EventBookingButton'
-import { trackEventBookingStart } from '@/lib/gtm-events'
+import { trackEventBookClick } from '@/lib/gtm-events'
 
 jest.mock('@/lib/gtm-events', () => ({
-  trackEventBookingStart: jest.fn()
+  trackEventBookClick: jest.fn()
 }))
 
 function makeEvent(overrides: Partial<Event> = {}): Event {
@@ -34,8 +34,8 @@ function makeEvent(overrides: Partial<Event> = {}): Event {
 }
 
 describe('EventBookingButton', () => {
-  const mockTrackEventBookingStart = trackEventBookingStart as jest.MockedFunction<
-    typeof trackEventBookingStart
+  const mockTrackEventBookClick = trackEventBookClick as jest.MockedFunction<
+    typeof trackEventBookClick
   >
 
   beforeEach(() => {
@@ -47,7 +47,7 @@ describe('EventBookingButton', () => {
 
     render(<EventBookingButton event={event} />)
 
-    const link = screen.getByRole('link', { name: 'Book Now for Test Event' })
+    const link = screen.getByRole('link', { name: 'Reserve event table for Test Event' })
     expect(link).toHaveAttribute('href', '/events/test-event')
   })
 
@@ -66,7 +66,7 @@ describe('EventBookingButton', () => {
 
     render(<EventBookingButton event={event} onClick={onClick} />)
 
-    const link = screen.getByRole('link', { name: 'Book Now for Test Event' })
+    const link = screen.getByRole('link', { name: 'Reserve event table for Test Event' })
     expect(link).toHaveAttribute(
       'href',
       'https://tickets.example.com/the-anchor/test-event'
@@ -77,10 +77,13 @@ describe('EventBookingButton', () => {
     fireEvent.click(link)
 
     expect(onClick).toHaveBeenCalled()
-    expect(mockTrackEventBookingStart).toHaveBeenCalledWith({
+    expect(mockTrackEventBookClick).toHaveBeenCalledWith({
       eventId: 'event_123',
       eventName: 'Test Event',
-      eventPrice: 10
+      eventDate: '2025-01-01T19:00:00Z',
+      eventPrice: 10,
+      source: undefined,
+      ctaLabel: 'Reserve event table'
     })
   })
 
@@ -99,7 +102,7 @@ describe('EventBookingButton', () => {
 
     render(<EventBookingButton event={event} />)
 
-    const link = screen.getByRole('link', { name: 'Book Now for Test Event' })
+    const link = screen.getByRole('link', { name: 'Reserve event table for Test Event' })
     expect(link).toHaveAttribute(
       'href',
       'https://tickets.example.com/the-anchor/offer-booking'
@@ -114,7 +117,7 @@ describe('EventBookingButton', () => {
 
     render(<EventBookingButton event={event} />)
 
-    const link = screen.getByRole('link', { name: 'Book Now for Test Event' })
+    const link = screen.getByRole('link', { name: 'Reserve event table for Test Event' })
     expect(link).toHaveAttribute('href', '/events/test-event')
     expect(link).not.toHaveAttribute('target', '_blank')
   })
@@ -135,7 +138,7 @@ describe('EventBookingButton', () => {
 
     render(<EventBookingButton event={event} />)
 
-    const link = screen.getByRole('link', { name: 'Book Now for Test Event' })
+    const link = screen.getByRole('link', { name: 'Free entry, reserve table for Test Event' })
     expect(link).toHaveAttribute('href', '/events/test-event')
   })
 

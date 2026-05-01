@@ -15,6 +15,7 @@ import { VenueSpacesTable } from '@/components/features/VenueSpacesTable'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { landmarks, type LandmarkType } from '@/lib/local-seo-data'
+import { PRIVATE_HIRE_CAPACITY, PRIVATE_HIRE_CAPACITY_SUMMARY } from '@/lib/private-hire-capacity'
 
 type LandmarkGroup = {
     title: string
@@ -43,7 +44,7 @@ const landmarkGroups: LandmarkGroup[] = [
 export async function generateMetadata(): Promise<Metadata> {
     const { foodPackages } = await getCateringData()
     const fromPrice = getLowestFoodPrice(foodPackages) || '£11' // fallback only if API returns no per-head food packages
-    const desc = `Book a function room or party venue near Heathrow for 10-50 guests. Buffets from ${fromPrice}pp, free parking, and a dedicated events team.`
+    const desc = `Book a function room or party venue near Heathrow. ${PRIVATE_HIRE_CAPACITY.summary} Buffets from ${fromPrice}pp, free parking, and a dedicated events team.`
 
     return {
         title: 'Private Hire Venue Near Heathrow | Wakes, Parties & Events',
@@ -83,8 +84,8 @@ export default async function PrivateHirePage() {
         },
         "telephone": CONTACT.phoneIntl,
         "url": "https://www.the-anchor.pub/private-hire",
-        "description": "Private hire venue near Heathrow for wakes, parties, christenings, corporate events and celebrations. Up to 50 guests, buffet packages available, free parking.",
-        "maximumAttendeeCapacity": 50,
+        "description": `Private hire venue near Heathrow for wakes, parties, christenings, corporate events and celebrations. ${PRIVATE_HIRE_CAPACITY_SUMMARY} Buffet packages available, free parking.`,
+        "maximumAttendeeCapacity": PRIVATE_HIRE_CAPACITY.spaces.entirePub.standing,
         "amenityFeature": [
             { "@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true },
             { "@type": "LocationFeatureSpecification", "name": "Wheelchair Accessible", "value": true },
@@ -116,7 +117,7 @@ export default async function PrivateHirePage() {
                         "@context": "https://schema.org",
                         "@type": "WebPage",
                         "name": "Private Hire Venue Near Heathrow",
-                        "description": "Book a function room or party venue near Heathrow for 10-50 guests. Free parking and a dedicated events team.",
+                        "description": `Book a function room or party venue near Heathrow. ${PRIVATE_HIRE_CAPACITY.summary} Free parking and a dedicated events team.`,
                         "url": "https://www.the-anchor.pub/private-hire",
                         "about": { "@id": "https://www.the-anchor.pub/#business" }
                     },
@@ -127,12 +128,12 @@ export default async function PrivateHirePage() {
                 showContextStrip={true}
                 route="/private-hire"
                 title="Function Room & Party Venue"
-                description={`Function rooms for 10–50 guests · Free parking for all · Buffet packages from ${fromPrice}pp · 7 mins from Heathrow`}
+                description={`Room bookings for 10–50 guests · Larger events by enquiry · Free parking · Buffet packages from ${fromPrice}pp · 7 mins from Heathrow`}
 
                 tags={[
                     { label: "7 Mins from Heathrow", variant: "success" },
                     { label: "Free Parking", variant: "default" },
-                    { label: "10-50 Guests", variant: "default" },
+                    { label: "10-50 Room Bookings", variant: "default" },
                     { label: `From ${fromPrice}pp`, variant: "success" }
                 ]}
                 primaryCta={
@@ -159,10 +160,12 @@ export default async function PrivateHirePage() {
                         <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
                         <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog &amp; family friendly</span>
                         <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">10–50 guests</span>
+                        <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">10–50 room bookings</span>
                     </div>
                 }
             />
+
+            <PrivateBookingSection id="enquiry" eventType="Other" />
 
             <section className="py-12 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
@@ -171,7 +174,7 @@ export default async function PrivateHirePage() {
                     </PageTitle>
 
                     <p className="text-center text-lg text-anchor-cream-text/70 mb-8 max-w-4xl mx-auto">
-                        The Anchor is an independent function room and party venue in Stanwell Moor, 7 minutes from Heathrow Terminal 5. Whether you need a function room for a christening or a party venue for a milestone birthday, we host gatherings from 10 to 50 guests with {`buffet packages from ${fromPrice} per person`}, free parking for all, and a personal touch you won&apos;t get from a hotel. Looking for venue hire near Staines? We&apos;re just a short drive away.
+                        The Anchor is an independent function room and party venue in Stanwell Moor, 7 minutes from Heathrow Terminal 5. Whether you need a function room for a christening or a party venue for a milestone birthday, we host room bookings for 10 to 50 guests with {`buffet packages from ${fromPrice} per person`}, free parking for all, and a personal touch you won&apos;t get from a hotel. Larger events and full-venue hire are available by enquiry. Looking for venue hire near Staines? We&apos;re just a short drive away.
                     </p>
 
                     <div className="flex justify-center mb-10">
@@ -590,12 +593,12 @@ export default async function PrivateHirePage() {
                                 rel="noopener noreferrer"
                                 className="w-full sm:w-auto"
                             >
-                                <Button variant="secondary" size="lg" className="w-full sm:w-auto bg-white text-anchor-green hover:bg-gray-100 border-white">
+                                <Button variant="secondary" size="lg" className="w-full sm:w-auto bg-anchor-gold text-anchor-green hover:bg-anchor-gold-light border-anchor-gold">
                                     WhatsApp Us
                                 </Button>
                             </Link>
                             <Link href="/private-hire#enquiry" className="w-full sm:w-auto">
-                                <Button variant="outline" size="lg" className="w-full sm:w-auto border-white text-white hover:bg-white hover:text-anchor-green">
+                                <Button variant="outline" size="lg" className="w-full sm:w-auto border-anchor-gold text-anchor-gold hover:bg-anchor-gold hover:text-anchor-green">
                                     Enquire Online
                                 </Button>
                             </Link>
@@ -604,7 +607,7 @@ export default async function PrivateHirePage() {
                                 source="private_hire_green_cta"
                                 variant="outline"
                                 size="lg"
-                                className="w-full sm:w-auto border-white text-white hover:bg-white hover:text-anchor-green"
+                                className="w-full sm:w-auto border-anchor-gold text-anchor-gold hover:bg-anchor-gold hover:text-anchor-green"
                             >
                                 Call: 01753 682707
                             </PhoneButton>
@@ -612,8 +615,6 @@ export default async function PrivateHirePage() {
                     </div>
                 </Container>
             </section>
-
-            <PrivateBookingSection id="enquiry" eventType="Other" />
 
             <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
                 <Container>
@@ -669,7 +670,7 @@ export default async function PrivateHirePage() {
                 title="Also Explore"
                 links={[
                     { href: '/our-pub', title: 'See Inside The Anchor', description: 'Photos of the bar, dining room, garden and games area' },
-                    { href: '/function-room-hire', title: 'Function Room Hire', description: 'Flexible spaces for 10-50 guests with AV support' },
+                    { href: '/function-room-hire', title: 'Function Room Hire', description: 'Room bookings for 10-50 guests; larger events by enquiry' },
                     { href: '/corporate-events', title: 'Corporate Events', description: 'Professional meeting rooms and business event packages' },
                 ]}
                 className="section-spacing-md"

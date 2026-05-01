@@ -40,7 +40,7 @@
 - 7 min from Heathrow T5
 - 2 min from M25 J14
 - Outside ULEZ zone
-- 10–200 guests
+- 10-50 room bookings; larger events by enquiry
 
 **CTAs:**
 - Enquire about your Christmas party booking

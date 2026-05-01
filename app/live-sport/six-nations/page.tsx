@@ -261,7 +261,7 @@ export default function SixNationsPage() {
                                 answer: "We are located in Stanwell Moor, just a 7-minute drive from Terminal 5, making us the perfect stopover for rugby fans travelling through the airport."
                             }
                         ]}
-                        className="bg-white max-w-3xl mx-auto"
+                        className="bg-anchor-bg-card max-w-3xl mx-auto"
                     />
                 </Container>
             </section>

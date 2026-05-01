@@ -13,36 +13,36 @@ export function AlertBox({
 }: AlertBoxProps) {
   const variantStyles = {
     info: {
-      container: 'bg-blue-50 border-blue-200',
-      title: 'text-blue-800',
-      content: 'text-blue-700'
+      container: 'bg-anchor-bg-card border-anchor-gold/25',
+      title: 'text-anchor-gold-vivid',
+      content: 'text-anchor-cream-text/75'
     },
     warning: {
-      container: 'bg-amber-50 border-amber-200',
-      title: 'text-amber-800',
-      content: 'text-amber-700'
+      container: 'bg-amber-500/10 border-amber-500/30',
+      title: 'text-amber-300',
+      content: 'text-anchor-cream-text/75'
     },
     success: {
-      container: 'bg-green-50 border-green-200',
-      title: 'text-green-800',
-      content: 'text-green-700'
+      container: 'bg-emerald-500/10 border-emerald-500/30',
+      title: 'text-emerald-300',
+      content: 'text-anchor-cream-text/75'
     },
     error: {
-      container: 'bg-red-50 border-red-200',
-      title: 'text-red-800',
-      content: 'text-red-700'
+      container: 'bg-red-500/10 border-red-500/30',
+      title: 'text-red-300',
+      content: 'text-anchor-cream-text/75'
     },
     tip: {
-      container: 'bg-purple-50 border-purple-200',
-      title: 'text-purple-800',
-      content: 'text-purple-700'
+      container: 'bg-anchor-bg-card border-anchor-gold/25',
+      title: 'text-anchor-gold-vivid',
+      content: 'text-anchor-cream-text/75'
     }
   }
 
   const styles = variantStyles[variant]
 
   return (
-    <div className={`rounded-xl p-6 border-2 ${styles.container} ${className}`}>
+    <div className={`rounded-none p-6 border ${styles.container} ${className}`}>
       {title && (
         <h3 className={`text-lg font-bold mb-2 ${styles.title}`}>
           {title}

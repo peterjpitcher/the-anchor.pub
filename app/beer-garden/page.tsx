@@ -422,7 +422,7 @@ export default async function BeerGardenPage() {
               Ready for Planes, Pints & Proper Food?
             </h2>
             <p className="text-xl text-white/90 mb-8">
-              Join fellow aviation enthusiasts, enjoy stone-baked pizzas or pre-order Sunday roast before wheels-up.
+              Join fellow aviation enthusiasts, enjoy stone-baked pizzas or book ahead for Sunday roast before wheels-up.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <BookTableButton

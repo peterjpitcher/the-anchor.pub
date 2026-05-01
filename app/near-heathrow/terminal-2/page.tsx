@@ -48,6 +48,16 @@ export default function Terminal2Page() {
           { name: 'Near Heathrow', href: '/near-heathrow' },
           { name: 'Terminal 2' }
         ]}
+        primaryCta={
+          <BookTableButton
+            source="terminal_2_hero"
+            context="terminal_2"
+            variant="primary"
+            size="lg"
+          >
+            Book a Table
+          </BookTableButton>
+        }
         enableSmartCtas={true}
         showContextStrip={true}
       />
@@ -597,7 +607,7 @@ export default function Terminal2Page() {
                 context="heathrow_terminal_2_hotels"
                 variant="secondary"
                 size="lg"
-                className="bg-white text-anchor-green hover:bg-gray-100"
+                className="bg-anchor-gold text-anchor-green hover:bg-anchor-gold-light"
               >
                 Book Your Table Online
               </BookTableButton>

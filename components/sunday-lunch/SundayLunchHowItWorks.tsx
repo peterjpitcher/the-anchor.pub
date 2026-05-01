@@ -1,15 +1,10 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { WALK_IN_LAUNCH_STARTS_AT_MS } from '@/lib/constants'
-
-const PRE_LAUNCH_BODY =
-  'From 17 May 2026, walk-ins are welcome on Sundays 1pm–6pm — no pre-order needed. Until then, our kitchen is open on Sundays with our weekday menu.'
-const POST_LAUNCH_BODY =
-  'Walk-ins welcome on Sundays 1pm–6pm. Booking is still recommended for groups of six or more.'
+import { getSundayRoastContent } from '@/lib/sunday-roast'
 
 function pickBody(now: number): string {
-  return now < WALK_IN_LAUNCH_STARTS_AT_MS ? PRE_LAUNCH_BODY : POST_LAUNCH_BODY
+  return getSundayRoastContent(new Date(now)).availabilityLong
 }
 
 /**

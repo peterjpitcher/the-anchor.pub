@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { Button, CTASection, SectionHeader, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { BookTableButton } from '@/components/BookTableButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
 import { generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
@@ -97,6 +98,11 @@ export default function M25Junction14PubPage() {
         title="Your M25 Junction 14 Pit Stop"
         description="Just 5 minutes from the motorway - real food, real prices"
         variant="default"
+        primaryCta={
+          <BookTableButton source="m25_junction_14_pub_hero" context="local_pub" variant="primary" size="lg">
+            Book a Table
+          </BookTableButton>
+        }
         enableSmartCtas={true}
         showContextStrip={true}
       />

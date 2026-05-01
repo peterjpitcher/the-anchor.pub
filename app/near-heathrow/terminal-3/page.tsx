@@ -45,6 +45,16 @@ export default function Terminal3Page() {
         title="Pubs Near Heathrow Terminal 3 — The Anchor"
         description="Perfect for Virgin Atlantic & Emirates travelers • Free parking • British hospitality"
         variant="default"
+        primaryCta={
+          <BookTableButton
+            source="terminal_3_hero"
+            context="terminal_3"
+            variant="primary"
+            size="lg"
+          >
+            Book a Table
+          </BookTableButton>
+        }
         enableSmartCtas={true}
         showContextStrip={true}
       />
@@ -558,7 +568,7 @@ export default function Terminal3Page() {
                 context="heathrow_terminal_3_hotels"
                 variant="secondary"
                 size="lg"
-                className="bg-white text-anchor-green hover:bg-gray-100"
+                className="bg-anchor-gold text-anchor-green hover:bg-anchor-gold-light"
               >
                 Book Your Table Online
               </BookTableButton>
@@ -571,7 +581,7 @@ export default function Terminal3Page() {
         title="Make The Most Of Your Heathrow Stop"
         links={[
           { href: '/food-menu#pizza', title: 'Pizza Menu', description: 'Stone-baked pizzas for crew and families' },
-          { href: '/food-menu', title: 'Full Food Menu', description: 'Pub classics and Sunday roast pre-orders' },
+          { href: '/food-menu', title: 'Full Food Menu', description: 'Pub classics and Sunday roasts' },
           { href: '/drinks', title: 'Drinks Menu', description: 'Energy boost before red-eye flights' },
           { href: '/near-heathrow/terminal-4', title: 'Terminal 4 Guide', description: 'Travel tips for other Heathrow terminals' }
         ]}

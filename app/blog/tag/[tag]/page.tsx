@@ -200,12 +200,12 @@ export default async function TagPage({ params }: { params: { tag: string } }) {
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link href="/find-us">
-            <Button variant="outline" size="lg" className="!text-white !border-white hover:!bg-white hover:!text-anchor-green">
+            <Button variant="outline" size="lg" className="!text-anchor-gold !border-anchor-gold hover:!bg-anchor-gold hover:!text-anchor-green">
               Get Directions
             </Button>
           </Link>
           <Link href="/whats-on">
-            <Button variant="outline" size="lg" className="!text-white !border-white hover:!bg-white hover:!text-anchor-green">
+            <Button variant="outline" size="lg" className="!text-anchor-gold !border-anchor-gold hover:!bg-anchor-gold hover:!text-anchor-green">
               See What's On
             </Button>
           </Link>

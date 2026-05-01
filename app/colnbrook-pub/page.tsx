@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { Button, CTASection, SectionHeader, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { BookTableButton } from '@/components/BookTableButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
 import { generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
@@ -89,6 +90,11 @@ export default function ColnbrookPubPage() {
                 title="Pub & Dining Near Colnbrook & Poyle"
                 description="The ideal local for Poyle Industrial Estate and Colnbrook residents"
                 variant="default"
+                primaryCta={
+                    <BookTableButton source="colnbrook_pub_hero" context="local_pub" variant="primary" size="lg">
+                        Book a Table
+                    </BookTableButton>
+                }
                 enableSmartCtas={true}
                 showContextStrip={true}
             />
@@ -162,7 +168,7 @@ export default function ColnbrookPubPage() {
                         />
 
                         <div className="card-dark rounded-none p-8 mb-8 text-center">
-                            <h3 className="text-2xl font-bold text-blue-800 mb-4">Poyle Business Specials</h3>
+                            <h3 className="text-2xl font-bold text-anchor-gold-vivid mb-4">Poyle Business Specials</h3>
                             <p className="text-anchor-cream-text/70 mb-6">
                                 We regularly host team meetings, leaving dos, and Christmas parties for companies based in the Poyle Industrial Estate. We can offer buffet packages and private areas.
                             </p>

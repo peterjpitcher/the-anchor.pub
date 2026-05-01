@@ -28,8 +28,9 @@ import {
   MOTHERS_DAY_BOOKING_CTA_LABEL
 } from '@/lib/mothers-day-booking'
 import { getEventPriceLabel } from '@/lib/event-pricing'
+import { getEventBookingCopy } from '@/lib/event-booking-copy'
 import { getEventSeoStrategy, getCategoryPageUrl, isFallbackEvent, PAST_EVENT_REDIRECT_DAYS, CANCELLED_INDEX_DAYS } from '@/lib/event-seo-strategy'
-import { getUpcomingEventsByCategory } from '@/lib/api/events'
+import { getUpcomingEventsByCategory, isRetiredEvent } from '@/lib/api/events'
 import RelatedEvents from '@/components/events/RelatedEvents'
 import LiteYouTube from '@/components/events/LiteYouTube'
 
@@ -166,6 +167,20 @@ function EventHighlights({
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   try {
     const event = await anchorAPI.getEvent(params.id)
+    if (isRetiredEvent(event)) {
+      return {
+        title: 'Live Music at The Anchor',
+        description: 'See the latest live music events at The Anchor.',
+        alternates: {
+          canonical: '/live-music',
+        },
+        robots: {
+          index: false,
+          follow: true,
+        },
+      }
+    }
+
     const canonical = `/events/${event.slug || params.id}`
     const ogImage = `${canonical}/opengraph-image`
     const description =
@@ -235,6 +250,10 @@ export default async function EventPage({ params }: Props) {
     permanentRedirect('/whats-on')
   }
 
+  if (isRetiredEvent(event)) {
+    permanentRedirect('/live-music')
+  }
+
   const canonicalSegment = getEventCanonicalSegment(event)
   if (canonicalSegment && canonicalSegment !== params.id) {
     permanentRedirect(`/events/${encodeURIComponent(canonicalSegment)}`)
@@ -279,7 +298,8 @@ export default async function EventPage({ params }: Props) {
   const eventDate = formatEventDate(event.startDate)
   const eventTime = formatEventTime(event.startDate)
   const headerDoorTime = formatDoorTime(event.doorTime)
-  const bookingModeLabel = getEventBookingModeLabel(event.booking_mode)
+  const eventBookingCopy = getEventBookingCopy(event)
+  const bookingModeLabel = eventBookingCopy.label || getEventBookingModeLabel(event.booking_mode)
   const statusLabel = getEventStatusLabel(status)
   const endTime = formatClockTime(event.end_time)
   const doorsTime = formatClockTime(event.doors_time)
@@ -304,7 +324,7 @@ export default async function EventPage({ params }: Props) {
     !isPastEvent
   const mothersDayBookingUrl = buildMothersDayBookingUrl()
   const mothersDayBookingCopy =
-    'Choose each guest’s Sunday lunch main in the booking flow, then pay the £10 per person deposit to secure your table.'
+    'Reserve your Mother’s Day table online. Walk-ins are welcome, but booking ahead is recommended because this Sunday fills quickly.'
   const imageAlt = event.image_alt_text || `${event.name} - ${event.category?.name || 'Event'} at The Anchor, Stanwell Moor`
   const blurDataURL = `data:image/svg+xml;base64,${Buffer.from(
     `<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1"><rect fill="${event.category?.color || '#1a1a2e'}" width="1" height="1"/></svg>`
@@ -336,6 +356,8 @@ export default async function EventPage({ params }: Props) {
       className="w-full sm:w-auto"
       fullWidth={false}
       size="lg"
+      label="Reserve Event Table"
+      customHref="#event-booking"
       source={`event_page_hero_${params.id}`}
     />
   )
@@ -430,35 +452,10 @@ export default async function EventPage({ params }: Props) {
               </div>
             )}
             
-            {/* Mobile: Booking + highlights (aligned with desktop component set) */}
-            <div className="lg:hidden mb-6 max-w-md mx-auto space-y-4">
-              {mothersDayBookingFlow ? (
-                <Card variant="elevated" padding="none" className="bg-anchor-bg-card rounded-none border border-anchor-gold/15">
-                  <CardBody className="space-y-3 p-4">
-                    <h2 className="text-xl font-bold text-anchor-gold-vivid">{MOTHERS_DAY_BOOKING_CTA_LABEL}</h2>
-                    <p className="text-sm text-anchor-cream-text/70">{mothersDayBookingCopy}</p>
-                    <Button asChild fullWidth size="lg">
-                      <Link href={mothersDayBookingUrl}>
-                        {MOTHERS_DAY_BOOKING_CTA_LABEL}
-                      </Link>
-                    </Button>
-                  </CardBody>
-                </Card>
-              ) : bookingBlockReason ? (
-                <Alert variant="info" title={bookingDisabledCopy?.title}>
-                  <p>{bookingDisabledCopy?.message}</p>
-                </Alert>
-              ) : (
-                <ManagementEventBookingForm event={event} title="Book now" compact />
-              )}
-              <EventSecondaryActions event={event} source="event_page_mobile_actions" className="justify-start" size="sm" />
-              <EventHighlights highlights={event.highlights} compact />
-            </div>
-            
             {/* Main Content Grid */}
             <div className="grid lg:grid-cols-[minmax(0,420px),minmax(0,1fr)] gap-6 lg:gap-10">
               {/* Left Column - Event Image and Info */}
-              <div className="order-2 lg:order-1">
+              <div className="order-1 lg:order-1">
                 {/* Event image - desktop */}
                 {(event.heroImageUrl || event.image?.[0]) && (
                   <div className="hidden lg:block relative aspect-square rounded-2xl overflow-hidden mb-6 shadow-lg">
@@ -475,7 +472,7 @@ export default async function EventPage({ params }: Props) {
                   </div>
                 )}
 
-                <div className="hidden lg:block space-y-4">
+                <div id="event-booking" className="mb-6 scroll-mt-24">
                   {mothersDayBookingFlow ? (
                     <Card variant="elevated" padding="none" className="bg-anchor-bg-card rounded-none border border-anchor-gold/15">
                       <CardBody className="space-y-3 p-4">
@@ -493,22 +490,29 @@ export default async function EventPage({ params }: Props) {
                       <p>{bookingDisabledCopy?.message}</p>
                     </Alert>
                   ) : (
-                    <ManagementEventBookingForm event={event} title="Book now" compact />
+                    <ManagementEventBookingForm
+                      event={event}
+                      title="Reserve your event table"
+                      compact
+                      foodPrompt={eventBookingCopy.foodPrompt}
+                    />
                   )}
+                </div>
 
+                <div className="mb-6">
                   <EventSecondaryActions
                     event={event}
-                    source="event_page_desktop_sidebar_actions"
+                    source="event_page_sidebar_actions"
                     className="justify-start"
                     size="sm"
                   />
                 </div>
 
-                <EventHighlights highlights={event.highlights} className="hidden lg:block mt-6" compact />
+                <EventHighlights highlights={event.highlights} compact />
               </div>
-              
-              {/* Right Column - Details and Booking */}
-              <div className="order-1 lg:order-2">
+
+              {/* Right Column - Details */}
+              <div className="order-2 lg:order-2">
                 <Card variant="default" padding="none" className="mb-6 border border-anchor-gold/15 bg-anchor-bg-card rounded-none lg:mb-8">
                   <CardBody className="p-4">
                     <h2 className="text-lg font-bold text-anchor-gold-vivid md:text-xl">Event information</h2>
@@ -583,6 +587,16 @@ export default async function EventPage({ params }: Props) {
                   </CardBody>
                 </Card>
 
+                <Card variant="default" padding="none" className="mb-6 border border-anchor-gold/15 bg-anchor-bg-card rounded-none lg:mb-8">
+                  <CardBody className="p-4">
+                    <h2 className="text-lg font-bold text-anchor-gold-vivid md:text-xl">Booking and payment</h2>
+                    <div className="mt-3 space-y-2 text-sm text-anchor-cream-text/70">
+                      <p>{eventBookingCopy.policy}</p>
+                      <p>{eventBookingCopy.foodPrompt}</p>
+                    </div>
+                  </CardBody>
+                </Card>
+
                 {/* Social Proof */}
                 {(event.previous_event_summary || event.attendance_note) && (
                   <div className="mb-6 p-4 rounded-lg bg-anchor-bg-raised/30 border border-anchor-gold/10">
@@ -618,7 +632,7 @@ export default async function EventPage({ params }: Props) {
                 )}
 
                 {/* Cancellation Policy */}
-                {event.cancellation_policy && (
+                {event.cancellation_policy && !eventBookingCopy.suppressRawCancellationPolicy && (
                   <div className="mt-4 mb-6 p-3 rounded-md bg-anchor-bg-raised/20 border border-anchor-gold/10">
                     <p className="text-xs font-medium text-anchor-gold-vivid mb-1">Cancellation Policy</p>
                     <p className="text-sm text-anchor-cream-text/70">{event.cancellation_policy}</p>
@@ -738,7 +752,7 @@ export default async function EventPage({ params }: Props) {
           </h2>
           <p className="text-base md:text-lg lg:text-xl mb-6 md:mb-8 max-w-2xl mx-auto px-2">
             {mothersDayBookingFlow
-              ? 'Choose each guest’s Sunday lunch main in the booking flow, then pay the £10 per person deposit to secure your table.'
+              ? 'Reserve your Mother’s Day table online. Walk-ins are welcome, but booking ahead is recommended because this Sunday fills quickly.'
               : 'Choose your preferred time and booking option using the button below.'}
           </p>
           
@@ -756,6 +770,8 @@ export default async function EventPage({ params }: Props) {
                   className="w-full sm:w-auto"
                   fullWidth={false}
                   size="xl"
+                  label="Reserve Event Table"
+                  customHref="#event-booking"
                   source={`event_page_cta_${params.id}`}
                 />
               </div>
@@ -766,7 +782,7 @@ export default async function EventPage({ params }: Props) {
                 source={`event_page_${params.id}`}
                 variant="secondary"
                 size="lg"
-                className="bg-white text-anchor-green hover:bg-gray-100 w-full sm:w-auto"
+                className="bg-anchor-gold text-anchor-green hover:bg-anchor-gold-light w-full sm:w-auto"
               >
                  Call: 01753 682707
               </PhoneButton>
@@ -777,7 +793,7 @@ export default async function EventPage({ params }: Props) {
                 variant="secondary"
                 size="lg"
                 fullWidth
-                className="bg-white text-anchor-green hover:bg-gray-100 sm:w-auto"
+                className="bg-anchor-gold text-anchor-green hover:bg-anchor-gold-light sm:w-auto"
               >
                 View All Events
               </Button>

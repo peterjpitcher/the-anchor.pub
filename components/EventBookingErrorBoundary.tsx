@@ -28,17 +28,17 @@ export class EventBookingErrorBoundary extends React.Component<Props, State> {
   render() {
     if (this.state.hasError) {
       return this.props.fallback || (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-6" role="alert">
-          <h3 className="text-lg font-semibold text-red-800 mb-2">Booking System Error</h3>
-          <p className="text-red-700 mb-4">
+        <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-6" role="alert">
+          <h3 className="text-lg font-semibold text-red-300 mb-2">Booking System Error</h3>
+          <p className="text-anchor-cream-text/75 mb-4">
             We're experiencing technical difficulties with our booking system.
           </p>
-          <p className="text-sm text-red-600">
+          <p className="text-sm text-anchor-cream-text/70">
             Please call us at <PhoneLink phone="01753682707" source="event_booking_error" className="underline font-semibold" showIcon={false}>01753 682707</PhoneLink> to book your spot.
           </p>
           <button
             onClick={() => this.setState({ hasError: false, error: null })}
-            className="mt-4 text-sm text-red-700 underline hover:text-red-800"
+            className="mt-4 text-sm text-red-300 underline hover:text-red-200"
           >
             Try again
           </button>

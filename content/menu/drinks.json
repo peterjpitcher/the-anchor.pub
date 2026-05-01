@@ -7,10 +7,12 @@
  "id": "draught",
  "title": "On Tap",
  "emoji": "",
+ "description": "Start here if you want the pub at its simplest: cold lager, properly settled Guinness, cider for the garden and easy pints for a quick round.",
  "sections": [
  {
  "title": "Lagers & Beers",
  "style": "grid",
+ "description": "Clean, familiar pints for after work, before food or a relaxed airport meet-up. These are the taps people choose when they want something crisp and dependable.",
  "items": [
  {
  "name": "Birra Moretti",
@@ -37,6 +39,7 @@
  {
  "title": "Stouts & Ciders",
  "style": "grid",
+ "description": "A slower pint of Guinness or a brighter apple-led cider changes the pace of the round. Good choices when you are settling in for food, sport or a garden table.",
  "items": [
  {
  "name": "Guinness",
@@ -61,10 +64,12 @@
  "id": "bottles",
  "title": "Bottled Drinks",
  "emoji": "",
+ "description": "Bottles keep the choice broad: British ales, easy lagers, fruit ciders and no-alcohol options for drivers, travellers and anyone pacing the evening.",
  "sections": [
  {
  "title": "Bottled Ales",
  "style": "grid",
+ "description": "Traditional British bottles with malt, bitterness and a little more character than a standard lager. Best when you want a pint with a slower, richer finish.",
  "items": [
  {
  "name": "Abbot Ale",
@@ -91,6 +96,7 @@
  {
  "title": "Bottled Beers",
  "style": "grid",
+ "description": "Cold, recognisable bottles for easy rounds and mixed tables. Use this section when everyone wants something different but nobody wants to study the bar.",
  "items": [
  {
  "name": "Budweiser",
@@ -122,6 +128,7 @@
  {
  "title": "Bottled Ciders",
  "style": "grid",
+ "description": "From crisp apple to fruit-led bottles, these are garden-friendly drinks that work well over ice and with salty snacks.",
  "items": [
  {
  "name": "Magners Original",
@@ -151,11 +158,12 @@
  "id": "cocktails",
  "title": "Cocktails",
  "emoji": "",
+ "description": "Cocktails at The Anchor are built for pub drinking: recognisable classics, fruit-led favourites and long serves that do not need a dress code.",
  "sections": [
  {
  "title": "Featured Cocktails",
  "style": "grid",
- "description": "NEW! Our mixologist's special creations using premium mixers. Limited time only!",
+ "description": "Bright, easy-drinking serves using premium mixers and familiar spirits. Start here if you want something more interesting than a spirit and mixer without going too formal.",
  "highlight": true,
  "items": [
  {
@@ -203,6 +211,7 @@
  {
  "title": "Classic Cocktails",
  "style": "grid",
+ "description": "The crowd-pleasers: sharp Margaritas, fresh Mojitos, coffee-led Espresso Martinis and spritz-style drinks for early evening.",
  "items": [
  {
  "name": "Espresso Martini",
@@ -239,6 +248,7 @@
  {
  "title": "Signature Cocktails",
  "style": "grid",
+ "description": "More playful house serves for garden sessions, birthdays and anyone who likes fruit, colour and a little theatre in the glass.",
  "items": [
  {
  "name": "Peach Blush",
@@ -275,6 +285,7 @@
  {
  "title": "Shots & Bombs",
  "style": "grid",
+ "description": "Small serves for celebrations and late-night rounds. Ask the bar team what is popular if you are buying for a group.",
  "items": [
  {
  "name": "Baby Guinness",
@@ -299,13 +310,13 @@
  "id": "spirits",
  "title": "Spirits",
  "emoji": "",
- "description": "Our extensive collection of premium spirits, carefully curated for every taste",
+ "description": "A broad back bar for simple mixers, proper G&Ts, whisky over ice, rum and cola, tequila serves, liqueurs and after-dinner drinks.",
  "sections": [
  {
  "title": "Manager's Special",
  "style": "grid",
  "highlight": true,
- "description": "Discover this month's featured spirit at 25% off.",
+ "description": "Every month we pick one bottle, explain why it is worth trying and take 25% off the featured serve while stocks last.",
  "items": [
  {
  "name": "Monthly Feature",
@@ -318,6 +329,7 @@
  {
  "title": "Gin Collection",
  "style": "grid",
+ "description": "Classic London Dry, citrus-led bottles, berry gins and floral serves. If you are not sure where to start, tell us whether you prefer dry, fruity or fresh.",
  "items": [
  {
  "name": "Bombay Sapphire",
@@ -424,6 +436,7 @@
  {
  "title": "Whisky Cabinet",
  "style": "grid",
+ "description": "Irish, bourbon, Scotch and single malts for sipping, mixing or trying side by side. Ginger ale is a good first serve if you are whisky-curious.",
  "items": [
  {
  "name": "Jameson",
@@ -515,6 +528,7 @@
  {
  "title": "Vodka Selection",
  "style": "grid",
+ "description": "Clean premium vodkas for simple serves, plus flavoured bottles for lemonade, soda and fruit-led cocktails.",
  "items": [
  {
  "name": "Grey Goose",
@@ -556,6 +570,7 @@
  {
  "title": "Rum & Tequila Bar",
  "style": "grid",
+ "description": "From spiced rum and cola to tequila with lime, this is the lively end of the shelf: tropical, citrusy, warming and built for long drinks.",
  "items": [
  {
  "name": "Kraken Black Spiced",
@@ -697,6 +712,7 @@
  {
  "title": "Liqueurs & Digestifs",
  "style": "grid",
+ "description": "Sweet, bitter, herbal and creamy bottles for spritzes, coffee drinks, dessert serves and after-dinner measures.",
  "items": [
  {
  "name": "Disaronno",
@@ -768,6 +784,7 @@
  {
  "title": "Brandy, Port & Sherry",
  "style": "grid",
+ "description": "Classic after-dinner drinks with deeper fruit, oak and warmth. Good with coffee, pudding or a slower last drink.",
  "items": [
  {
  "name": "Courvoisier VS",
@@ -799,6 +816,7 @@
  {
  "title": "Vermouth",
  "style": "grid",
+ "description": "A small but useful cocktail shelf: dry vermouth for Martinis, sweet vermouth for richer aperitif-style serves.",
  "items": [
  { 
  "name": "Martini Rosso", 
@@ -815,6 +833,7 @@
  {
  "title": "Shooters",
  "style": "grid",
+ "description": "Ice-cold party serves with herbal, fruit and aniseed flavours. Best ordered as a quick shared round.",
  "items": [
  { 
  "name": "Jägermeister", 
@@ -864,10 +883,12 @@
  "id": "wine",
  "title": "Wine Selection",
  "emoji": "",
+ "description": "Single-serve bottles for casual tables, larger bottles for sharing and familiar styles that sit comfortably with pub food.",
  "sections": [
  {
  "title": "Red Wine",
  "style": "grid",
+ "description": "Soft Merlot, bolder Shiraz, Cabernet and Malbec for roasts, pies, burgers and longer meals.",
  "items": [
  {
  "name": "Counterpoint Shiraz",
@@ -904,6 +925,7 @@
  {
  "title": "White Wine",
  "style": "grid",
+ "description": "Crisp Sauvignon Blanc, easy Pinot Grigio and fuller Chardonnay for fish, chicken, pizza and lighter pub dishes.",
  "items": [
  {
  "name": "Counterpoint Chardonnay",
@@ -950,6 +972,7 @@
  {
  "title": "Rosé Wine",
  "style": "grid",
+ "description": "Dry, pale and fruitier rosé styles for garden tables, celebrations and anyone who wants something chilled but not too heavy.",
  "items": [
  {
  "name": "Gris des Seigneurs",
@@ -981,6 +1004,7 @@
  {
  "title": "Sparkling Wine",
  "style": "grid",
+ "description": "Bubbles for birthdays, brunch-style visits and tables that want a celebratory bottle without making it complicated.",
  "items": [
  {
  "name": "Giorgio & Gianni Prosecco",
@@ -992,6 +1016,7 @@
  {
  "title": "Seasonal Special",
  "style": "grid",
+ "description": "Limited-time warmers and seasonal serves appear here when the weather calls for something different.",
  "items": [
  {
  "name": "Mulled Wine",
@@ -1006,11 +1031,12 @@
  "id": "soft",
  "title": "Soft Drinks & Mixers",
  "emoji": "",
- "description": "Refreshing non-alcoholic options and premium mixers for every occasion",
+ "description": "Drivers, families, airport pick-ups and anyone skipping alcohol still get a proper choice: soft drinks, juices, mixers, water and energy drinks.",
  "sections": [
  {
  "title": "Classic Soft Drinks",
  "style": "grid",
+ "description": "Reliable cold soft drinks for kids, designated drivers and anyone who wants something simple with food.",
  "items": [
  { 
  "name": "Coca-Cola Range", 
@@ -1042,6 +1068,7 @@
  {
  "title": "Fresh Juices & Mixers",
  "style": "grid",
+ "description": "Juices and mixers for mocktails, long serves and building a spirit exactly how you like it.",
  "items": [
  { 
  "name": "Fresh Fruit Juices", 
@@ -1073,6 +1100,7 @@
  {
  "title": "Energy & Hydration",
  "style": "grid",
+ "description": "A practical corner of the menu for airport runs, late nights, kids' drinks and staying hydrated between rounds.",
  "items": [
  { 
  "name": "Red Bull", 

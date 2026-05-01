@@ -171,6 +171,37 @@
         "origin": "United Kingdom",
         "distillery": "Gordon's"
       },
+      "education": {
+        "story": "This is the easy-going side of gin: still built on a gin base, but led by ripe passionfruit aroma, soft tropical sweetness and a lighter citrus finish. It is a good first step for guests who usually choose spritzes, fruit ciders or cocktails and want something long, cold and refreshing.",
+        "whyPicked": "May is when the garden starts to feel useful again. We picked Gordon's Tropical Passionfruit because it works as a sunny, no-fuss long drink before food, after work, or with a table of friends who all want something approachable.",
+        "flavourProfile": "Expect passionfruit first, then citrus lift, then a gentle gin dryness underneath. Compared with a classic London Dry, this drinks softer, fruitier and sweeter.",
+        "perfectServe": "Tall glass, plenty of ice, lemonade or tonic, and a squeeze of lime. Choose lemonade for a sweeter tropical serve, or tonic if you want the gin side to show through.",
+        "foodPairings": [
+          "Stone-baked pizza with chilli, pepperoni or roasted vegetables",
+          "Fish and chips, where the citrus and passionfruit cut through the batter",
+          "Salty bar snacks or chips shared in the garden"
+        ],
+        "tryIfYouLike": [
+          "Passionfruit martinis",
+          "Fruit-led spritzes",
+          "Gin with lemonade"
+        ],
+        "barTeamTip": "If you are not sure whether to choose tonic or lemonade, start with lemonade. If you normally find flavoured gin too sweet, ask for tonic and extra lime.",
+        "glossary": [
+          {
+            "term": "Flavoured gin",
+            "definition": "Gin with added flavour after distillation. The best examples keep the gin structure while making one fruit or botanical easy to spot."
+          },
+          {
+            "term": "Juniper",
+            "definition": "The piney, dry botanical that makes gin taste like gin. In fruit-led gins it sits behind the main flavour."
+          },
+          {
+            "term": "Long serve",
+            "definition": "A spirit served tall over ice with a mixer, designed to be refreshing rather than strong and short."
+          }
+        ]
+      },
       "promotion": {
         "headline": "May's Manager's Special",
         "subheadline": "Tropical Passionfruit, Pub-Perfect",
@@ -206,6 +237,37 @@
         ],
         "origin": "United Kingdom",
         "distillery": "Chase Distillery"
+      },
+      "education": {
+        "story": "Pink grapefruit gin is all about contrast: bright citrus aroma, a little natural bitterness, and enough gin dryness to keep the serve crisp. It is more grown-up than a very sweet fruit gin, but still easy to drink.",
+        "whyPicked": "June needs something sharp, cold and clean. This bottle earns its place because grapefruit works beautifully in a pub garden serve: aromatic on the nose, refreshing with tonic, and lively enough to stand up to food.",
+        "flavourProfile": "Zesty grapefruit peel, light bitterness, clean citrus and a dry gin finish. The key word is crisp rather than sweet.",
+        "perfectServe": "Premium tonic, lots of ice and a wedge or twist of grapefruit. For something lighter, ask for soda and a squeeze of lemon.",
+        "foodPairings": [
+          "Fish and chips, especially with extra lemon",
+          "Chicken or vegetable pizzas with fresh herbs",
+          "Sunday roast turkey, where citrus helps lift the gravy and potatoes"
+        ],
+        "tryIfYouLike": [
+          "Classic G&T",
+          "Paloma-style grapefruit drinks",
+          "Citrus-forward cocktails"
+        ],
+        "barTeamTip": "Grapefruit can read sweeter or sharper depending on the mixer. Tonic keeps it dry; soda makes it lighter; lemonade makes it much fruitier.",
+        "glossary": [
+          {
+            "term": "Citrus oils",
+            "definition": "The aromatic oils in citrus peel. They give grapefruit drinks their bright smell before you even taste them."
+          },
+          {
+            "term": "Bittersweet",
+            "definition": "A flavour balance where sweetness is checked by a bitter edge, common in grapefruit and aperitif-style drinks."
+          },
+          {
+            "term": "Spritz",
+            "definition": "A lighter mixed drink usually built with bubbles, ice and a bright flavour base."
+          }
+        ]
       },
       "promotion": {
         "headline": "June's Manager's Special",
@@ -243,6 +305,37 @@
         "origin": "Caribbean",
         "distillery": "Captain Morgan"
       },
+      "education": {
+        "story": "Flavoured rum is built for mixing: the rum brings soft sugarcane depth and spice, while the tropical fruit character makes the drink bright and holiday-like. Captain Morgan's Tiki sits firmly in the long, fun, summer-drink camp.",
+        "whyPicked": "July is made for relaxed serves. We chose this because it can go simple with cola, brighter with pineapple juice, or party-style as the base of a rum punch.",
+        "flavourProfile": "Tropical fruit sweetness, soft vanilla, gentle spice and a smooth rum finish. It is rounded rather than dry.",
+        "perfectServe": "Pineapple juice over plenty of ice, finished with a squeeze of lime. Cola and lime works well if you prefer a darker, simpler serve.",
+        "foodPairings": [
+          "Burgers, especially with barbecue or chilli heat",
+          "Spicy pizza toppings",
+          "Salty chips or loaded sides shared with friends"
+        ],
+        "tryIfYouLike": [
+          "Rum punch",
+          "Pina colada-style flavours",
+          "Spiced rum and cola"
+        ],
+        "barTeamTip": "A squeeze of lime matters here. It reins in the sweetness and makes the tropical fruit taste fresher.",
+        "glossary": [
+          {
+            "term": "Flavoured rum",
+            "definition": "Rum with added fruit, spice or other flavouring, usually designed for easy mixed drinks."
+          },
+          {
+            "term": "Punch",
+            "definition": "A mixed drink style that balances spirit, fruit, sweetness and citrus."
+          },
+          {
+            "term": "Highball",
+            "definition": "A tall drink made with spirit, mixer and ice. Rum and pineapple is a classic highball structure."
+          }
+        ]
+      },
       "promotion": {
         "headline": "July's Manager's Special",
         "subheadline": "Tropical Rum, Holiday Vibes",
@@ -278,6 +371,37 @@
         ],
         "origin": "Mexico",
         "distillery": "Jose Cuervo"
+      },
+      "education": {
+        "story": "Silver tequila keeps the focus on fresh agave rather than oak. That makes it bright, crisp and cocktail-friendly: exactly the style you want in a Margarita, tequila soda or grapefruit serve.",
+        "whyPicked": "August is peak citrus-and-ice weather. Jose Cuervo Silver gives us a clean tequila special that teaches people tequila can be refreshing and food-friendly, not just a shot.",
+        "flavourProfile": "Fresh agave sweetness, citrus lift and a clean finish. It is sharper and lighter than aged tequila styles.",
+        "perfectServe": "A simple Margarita with lime, or a tall tequila soda with fresh lime if you want something lighter. Grapefruit soda gives a Paloma-style serve.",
+        "foodPairings": [
+          "Fish and chips with extra lime or lemon",
+          "Chicken dishes and lighter pizzas",
+          "Anything with chilli, where tequila's citrus edge helps"
+        ],
+        "tryIfYouLike": [
+          "Margaritas",
+          "Palomas",
+          "Vodka soda with lime, but want more character"
+        ],
+        "barTeamTip": "If tequila has only ever meant shots, try it tall with soda and lime. You taste the agave without the sweetness of a cocktail.",
+        "glossary": [
+          {
+            "term": "Agave",
+            "definition": "The plant used to make tequila. It gives tequila its green, lightly sweet and peppery character."
+          },
+          {
+            "term": "Silver tequila",
+            "definition": "A clear tequila style that is usually chosen for freshness and mixing rather than oak-aged richness."
+          },
+          {
+            "term": "Paloma",
+            "definition": "A tequila and grapefruit drink style. It is bright, fizzy and less sweet than many tropical cocktails."
+          }
+        ]
       },
       "promotion": {
         "headline": "August's Manager's Special",
@@ -315,6 +439,37 @@
         "origin": "United Kingdom",
         "distillery": "Chase Distillery"
       },
+      "education": {
+        "story": "Sloe gin is one of Britain's great hedgerow drinks: gin softened and deepened by sloe berries, giving dark fruit, gentle sweetness and a warming finish. It bridges summer drinking and autumn evenings neatly.",
+        "whyPicked": "September sits between seasons. Chase Sloe Gin gives us something that still works with bubbles, but starts to bring richer berry notes for cooler nights.",
+        "flavourProfile": "Dark berry fruit, jammy depth, soft almond-like sweetness and a gentle warming finish.",
+        "perfectServe": "Neat over ice if you want the fruit to lead, with tonic for a longer drink, or topped with Prosecco for a sparkling berry serve.",
+        "foodPairings": [
+          "Roast pork or turkey, where berry notes work like a fruit sauce",
+          "Cheese and savoury snacks",
+          "Desserts with apple, berry or almond flavours"
+        ],
+        "tryIfYouLike": [
+          "Berry spritzes",
+          "Port or fruit-led after-dinner drinks",
+          "Gin, but want something softer"
+        ],
+        "barTeamTip": "Sloe gin changes a lot with the serve. Over ice it feels rich; with tonic it becomes sharper; with bubbles it turns into a celebration drink.",
+        "glossary": [
+          {
+            "term": "Sloe berry",
+            "definition": "The small dark fruit of the blackthorn bush. It gives sloe gin its deep berry flavour."
+          },
+          {
+            "term": "Maceration",
+            "definition": "The process of steeping fruit in alcohol so colour, aroma and flavour move into the spirit."
+          },
+          {
+            "term": "Aperitif",
+            "definition": "A drink served before food to wake up the palate. A lighter sloe gin serve can work this way."
+          }
+        ]
+      },
       "promotion": {
         "headline": "September's Manager's Special",
         "subheadline": "Hedgerow-Berry Classic with a Premium Finish",
@@ -350,6 +505,37 @@
         ],
         "origin": "Caribbean",
         "distillery": "The Kraken"
+      },
+      "education": {
+        "story": "Black spiced rum is rum turned towards the darker end of the flavour wheel: molasses, vanilla, baking spice and a fuller finish. Kraken is bold enough to make a simple mixer feel like a proper drink.",
+        "whyPicked": "October needs something with atmosphere. As the nights draw in, this is the bottle for cola, ginger beer and slow, warming serves after food.",
+        "flavourProfile": "Dark sugar, molasses, vanilla, warming spice and a bold finish that lingers.",
+        "perfectServe": "Ginger beer and fresh lime for a stormy-style serve, or cola and lime if you want the pub classic.",
+        "foodPairings": [
+          "Beef pie or rich gravy-led dishes",
+          "Burgers with smoky or barbecue flavours",
+          "Chocolate or sticky desserts"
+        ],
+        "tryIfYouLike": [
+          "Spiced rum and cola",
+          "Ginger beer cocktails",
+          "Warming winter serves"
+        ],
+        "barTeamTip": "Ginger beer brings out the spice. Cola brings out the vanilla and dark sugar. Choose the mixer based on which side you want to taste.",
+        "glossary": [
+          {
+            "term": "Molasses",
+            "definition": "A dark sugar by-product often associated with rum. It brings treacle-like depth and richness."
+          },
+          {
+            "term": "Spiced rum",
+            "definition": "Rum flavoured with spices such as vanilla, clove-style warmth or baking-spice notes."
+          },
+          {
+            "term": "Stormy-style",
+            "definition": "A tall rum, ginger beer and lime serve. It is spicy, refreshing and darker than a cola mixer."
+          }
+        ]
       },
       "promotion": {
         "headline": "October's Manager's Special",
@@ -387,6 +573,37 @@
         "origin": "Scotland",
         "distillery": "Monkey Shoulder"
       },
+      "education": {
+        "story": "Blended malt Scotch is about balance: malt whisky character without the rough edges that can put new whisky drinkers off. Monkey Shoulder is smooth, rounded and built to work neat, over ice or in cocktails.",
+        "whyPicked": "November is whisky weather, but we wanted an approachable bottle rather than something intimidating. This is a good bridge between classic Scotch and modern mixed whisky drinks.",
+        "flavourProfile": "Honeyed malt, vanilla, soft orange, gentle spice and a smooth finish.",
+        "perfectServe": "Neat or over ice for the classic route, ginger ale and orange for a long serve, or a Whisky Sour if you want citrus and texture.",
+        "foodPairings": [
+          "Roast beef or beef pie",
+          "Cheese-led snacks and savoury boards",
+          "Puddings with vanilla, apple or caramel"
+        ],
+        "tryIfYouLike": [
+          "Bourbon and ginger",
+          "Whisky sours",
+          "Smooth Scotch without heavy smoke"
+        ],
+        "barTeamTip": "If you are whisky-curious, ask for it with ginger ale first. You still get malt and spice, but the serve stays bright and easy.",
+        "glossary": [
+          {
+            "term": "Blended malt",
+            "definition": "A Scotch made by combining malt whiskies from more than one distillery, without grain whisky."
+          },
+          {
+            "term": "Malt",
+            "definition": "Barley that has been prepared for brewing or distilling. It gives whisky cereal, honey and biscuit-like notes."
+          },
+          {
+            "term": "Whisky Sour",
+            "definition": "A cocktail structure balancing whisky, lemon and sweetness for a sharper, lighter serve."
+          }
+        ]
+      },
       "promotion": {
         "headline": "November's Manager's Special",
         "subheadline": "Smooth Scotch Whisky, Perfect for a Fireside Sip",
@@ -422,6 +639,37 @@
         ],
         "origin": "Italy",
         "distillery": "Disaronno"
+      },
+      "education": {
+        "story": "Amaretto is a liqueur built around almond-like sweetness, soft spice and a dessert-friendly finish. Disaronno is the classic name people recognise, and December is when that after-dinner style makes most sense.",
+        "whyPicked": "December calls for something festive without being heavy. Disaronno works over ice, with cola, or as an Amaretto Sour, so it can be a quiet digestif or a proper cocktail.",
+        "flavourProfile": "Sweet almond, marzipan, hints of cherry, soft spice and a smooth finish.",
+        "perfectServe": "Over ice after food, with cola and lemon for a longer pub serve, or as an Amaretto Sour for a festive cocktail.",
+        "foodPairings": [
+          "Chocolate desserts",
+          "Christmas pudding or mince-pie flavours",
+          "Coffee, especially after a meal"
+        ],
+        "tryIfYouLike": [
+          "Amaretto Sour",
+          "Dessert cocktails",
+          "Baileys-style after-dinner drinks but want something brighter"
+        ],
+        "barTeamTip": "If you find liqueurs too sweet, ask for an Amaretto Sour. Lemon changes the drink completely and makes the almond notes feel sharper.",
+        "glossary": [
+          {
+            "term": "Amaretto",
+            "definition": "An Italian-style liqueur known for almond-like sweetness and a soft, dessert-friendly finish."
+          },
+          {
+            "term": "Liqueur",
+            "definition": "A sweetened spirit, often flavoured with fruit, nuts, herbs, spice or coffee."
+          },
+          {
+            "term": "Digestif",
+            "definition": "A drink served after food. Sweet or aromatic liqueurs are often used this way."
+          }
+        ]
       },
       "promotion": {
         "headline": "December's Manager's Special",

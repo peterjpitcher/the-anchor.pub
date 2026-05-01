@@ -44,9 +44,10 @@ function normalizePrice(price?: string): {
 
 interface MenuRendererProps {
   menuData: MenuData
+  eyebrow?: string
 }
 
-export function MenuRenderer({ menuData }: MenuRendererProps) {
+export function MenuRenderer({ menuData, eyebrow = menuData.title || 'Menu' }: MenuRendererProps) {
   const [focusedItem, setFocusedItem] = useState<string | null>(null)
   const menuRef = useRef<HTMLDivElement>(null)
 
@@ -154,21 +155,26 @@ export function MenuRenderer({ menuData }: MenuRendererProps) {
           <section
             key={category.id}
             id={category.id}
-            className={cn('py-8', categoryIndex % 2 === 0 ? 'bg-anchor-bg-raised' : 'bg-anchor-bg')}
+            className={cn('scroll-mt-24 py-10 md:py-12', categoryIndex % 2 === 0 ? 'bg-anchor-bg-raised' : 'bg-anchor-bg')}
             itemScope
             itemType="https://schema.org/MenuSection"
           >
           <Container>
             <div className="max-w-6xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-bold text-anchor-cream-text mb-8 text-center" itemProp="name">
-                {category.title}
-              </h2>
-
-              {category.description && (
-                <p className="text-center text-lg text-anchor-cream-text/70 mb-8" itemProp="description">
-                  {category.description}
+              <div className="mb-8 max-w-3xl">
+                <p className="text-sm font-semibold uppercase tracking-[0.28em] text-anchor-gold-vivid">
+                  {eyebrow}
                 </p>
-              )}
+                <h2 className="mt-2 text-3xl md:text-4xl font-bold text-anchor-cream-text" itemProp="name">
+                  {category.title}
+                </h2>
+
+                {category.description && (
+                  <p className="mt-4 text-lg leading-relaxed text-anchor-cream-text/70" itemProp="description">
+                    {category.description}
+                  </p>
+                )}
+              </div>
 
               {/* Special Offer Notifications for this section */}
               <SpecialOfferNotifications targetSection={category.id} />
@@ -177,7 +183,7 @@ export function MenuRenderer({ menuData }: MenuRendererProps) {
                 <div
                   key={section.title ?? sectionIndex}
                   className={cn(
-                    'mb-8',
+                    'mb-10',
                     section.highlight && 'relative rounded-3xl px-6 py-12 shadow-lg overflow-visible',
                     section.highlight && category.id === 'cocktails' && 'border border-amber-500/30 bg-amber-900/10',
                     section.highlight && category.id === 'spirits' && 'border-4 border-anchor-green bg-gradient-to-br from-anchor-green to-anchor-green-dark shadow-xl'
@@ -195,17 +201,19 @@ export function MenuRenderer({ menuData }: MenuRendererProps) {
                     </div>
                   )}
 
-                  {section.title && (
-                    <h3 className="text-base font-semibold uppercase tracking-widest text-anchor-gold/60 mt-6 mb-1 first:mt-0">
-                      {section.title}
-                    </h3>
-                  )}
+                  <div className="mb-4 border-l-2 border-anchor-gold/50 pl-4">
+                    {section.title && (
+                      <h3 className="text-base font-semibold uppercase tracking-widest text-anchor-gold/70">
+                        {section.title}
+                      </h3>
+                    )}
 
-                  {section.description && (
-                    <p className="text-sm text-anchor-cream-text/55 mb-2">
-                      {section.description}
-                    </p>
-                  )}
+                    {section.description && (
+                      <p className="mt-2 max-w-3xl text-sm leading-relaxed text-anchor-cream-text/60">
+                        {section.description}
+                      </p>
+                    )}
+                  </div>
 
                   {/* Compact two-column layout for add-on sections */}
                   {section.style === 'list' && section.title?.toLowerCase().includes('add') ? (
@@ -226,17 +234,22 @@ export function MenuRenderer({ menuData }: MenuRendererProps) {
                     </div>
                   ) : (
                   /* Unified row list */
-                  <div role="list">
+                  <div
+                    role="list"
+                    className={cn(
+                      section.style === 'grid' && 'grid gap-3 sm:grid-cols-2 lg:grid-cols-3'
+                    )}
+                  >
                     {section.items.map((item, itemIndex) => {
                       const itemId = `${category.id}-${sectionIndex}-${itemIndex}`
 
                       if (item.special) {
                         const { displayPrice, schemaPrice } = normalizePrice(item.price)
                         return (
-                          <Link key={item.name} href="/drinks/managers-special" className="relative block group mb-2">
+                          <Link key={item.name} href="/drinks/managers-special" className="relative block group">
                             <HeroBadge text="25% OFF" variant="special" position="absolute" />
                             <div
-                              className="bg-anchor-green/10 border-2 border-anchor-green/40 rounded-2xl p-5 group-hover:shadow-xl group-hover:scale-[1.01] transition-all cursor-pointer"
+                              className="h-full bg-anchor-green/10 border-2 border-anchor-green/40 rounded-lg p-5 group-hover:shadow-xl group-hover:scale-[1.01] transition-all cursor-pointer"
                               itemScope
                               itemType="https://schema.org/MenuItem"
                               role="listitem"
@@ -271,7 +284,16 @@ export function MenuRenderer({ menuData }: MenuRendererProps) {
                         )
                       }
 
-                      return (
+                      return section.style === 'grid' ? (
+                        <MenuItemCard
+                          key={item.name}
+                          item={item}
+                          itemId={itemId}
+                          isFocused={focusedItem === itemId}
+                          onFocus={setFocusedItem}
+                          isHighlighted={!!(section.highlight && category.id === 'cocktails')}
+                        />
+                      ) : (
                         <MenuItemRow
                           key={item.name}
                           item={item}
@@ -321,7 +343,7 @@ interface MenuItemProps {
 
 const MenuItemRow = memo(function MenuItemRow({ item, itemId, isFocused, onFocus, isHighlighted }: MenuItemProps) {
   const { displayPrice, schemaPrice, gfAvailable } = normalizePrice(item.price)
-  const priceLabel = displayPrice ? `, ${displayPrice}` : ''
+  const priceLabel = displayPrice ? `, £${displayPrice}` : ''
 
   return (
     <div
@@ -374,11 +396,90 @@ const MenuItemRow = memo(function MenuItemRow({ item, itemId, isFocused, onFocus
             itemType="https://schema.org/Offer"
           >
             {' · '}
-            <span itemProp="price" content={schemaPrice}>{displayPrice}</span>
+            <span itemProp="price" content={schemaPrice}>£{displayPrice}</span>
             <meta itemProp="priceCurrency" content="GBP" />
           </span>
         )}
       </p>
+      <AllergenInfo item={item} />
+      {item.vegan && (
+        <meta itemProp="suitableForDiet" content="https://schema.org/VeganDiet" />
+      )}
+      {item.vegetarian && (
+        <meta itemProp="suitableForDiet" content="https://schema.org/VegetarianDiet" />
+      )}
+      {item.glutenFree && (
+        <meta itemProp="suitableForDiet" content="https://schema.org/GlutenFreeDiet" />
+      )}
+    </div>
+  )
+})
+
+const MenuItemCard = memo(function MenuItemCard({ item, itemId, isFocused, onFocus, isHighlighted }: MenuItemProps) {
+  const { displayPrice, schemaPrice, gfAvailable } = normalizePrice(item.price)
+  const priceLabel = displayPrice ? `, £${displayPrice}` : ''
+
+  return (
+    <div
+      className={cn(
+        'h-full rounded-lg border border-anchor-gold/10 bg-anchor-bg-card p-4 transition hover:border-anchor-gold/30 hover:bg-anchor-bg-card/80',
+        isFocused && 'border-anchor-gold/40 bg-anchor-gold/5'
+      )}
+      itemScope
+      itemType="https://schema.org/MenuItem"
+      role="listitem"
+      data-menu-item
+      data-item-id={itemId}
+      aria-label={`${item.name}${priceLabel}${item.vegan ? ', vegan' : item.vegetarian ? ', vegetarian' : ''}${item.glutenFree ? ', gluten-free' : ''}`}
+      tabIndex={0}
+      onFocus={() => onFocus(itemId)}
+    >
+      <div className="flex items-start justify-between gap-3">
+        <h4 className="text-base font-semibold leading-snug text-anchor-cream-text" itemProp="name">
+          {item.name}
+        </h4>
+        {displayPrice && (
+          <span
+            className="shrink-0 text-sm font-semibold text-anchor-gold-vivid"
+            itemProp="offers"
+            itemScope
+            itemType="https://schema.org/Offer"
+          >
+            <span itemProp="price" content={schemaPrice}>£{displayPrice}</span>
+            <meta itemProp="priceCurrency" content="GBP" />
+          </span>
+        )}
+      </div>
+
+      <div className="mt-2 flex flex-wrap gap-1.5">
+        {isHighlighted && <HeroBadge text="NEW" variant="new" position="inline" />}
+        {item.featured && (
+          <span className="text-[11px] font-semibold text-amber-400 bg-amber-400/10 px-1.5 py-0.5 rounded leading-none">
+            Guest favourite
+          </span>
+        )}
+        {item.vegan && (
+          <span className="text-[11px] font-bold text-emerald-400 bg-emerald-400/10 px-1.5 py-0.5 rounded leading-none">VE</span>
+        )}
+        {item.vegetarian && !item.vegan && (
+          <span className="text-[11px] font-bold text-emerald-400 bg-emerald-400/10 px-1.5 py-0.5 rounded leading-none">V</span>
+        )}
+        {item.veganOptionAvailable && (
+          <span className="text-[11px] font-semibold text-emerald-400/80 bg-emerald-400/10 px-1.5 py-0.5 rounded leading-none">VEO</span>
+        )}
+        {item.glutenFree && (
+          <span className="text-[11px] font-semibold text-anchor-green/80 bg-anchor-green/10 px-1.5 py-0.5 rounded leading-none">GF</span>
+        )}
+        {(gfAvailable || item.glutenFreeAvailable) && !item.glutenFree && (
+          <span className="text-[11px] font-semibold text-anchor-green/80 bg-anchor-green/10 px-1.5 py-0.5 rounded leading-none">GF opt</span>
+        )}
+      </div>
+
+      {item.description && (
+        <p className="mt-3 text-sm leading-relaxed text-anchor-cream-text/60" itemProp="description">
+          {item.description}
+        </p>
+      )}
       <AllergenInfo item={item} />
       {item.vegan && (
         <meta itemProp="suitableForDiet" content="https://schema.org/VeganDiet" />

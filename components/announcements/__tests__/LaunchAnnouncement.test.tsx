@@ -37,7 +37,7 @@ describe('LaunchAnnouncement', () => {
     Date.now = () => MAY_16_BST
     render(<LaunchAnnouncement variant="banner" />)
     expect(
-      screen.getByText(/Sunday lunch walk-ins start 17 May 2026/i)
+      screen.getByText(/Sunday roast starts Sunday 17 May 2026/i)
     ).toBeInTheDocument()
   })
 
@@ -73,7 +73,7 @@ describe('LaunchAnnouncement', () => {
     jest.useFakeTimers()
     Date.now = () => MAY_16_BST
     render(<LaunchAnnouncement variant="banner" />)
-    expect(screen.getByText(/walk-ins start 17 May/i)).toBeInTheDocument()
+    expect(screen.getByText(/Sunday roast starts Sunday 17 May/i)).toBeInTheDocument()
 
     Date.now = () => MAY_17_AT_NOON_BST
     act(() => {

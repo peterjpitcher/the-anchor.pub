@@ -118,7 +118,7 @@ export default function F1Page() {
                         answer: "Absolutely. Our full food menu is available, or grab a Sunday Roast during European race times."
                     }
                 ]}
-                className="bg-white"
+                className="bg-anchor-bg-card"
             />
 
             <CTASection

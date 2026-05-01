@@ -383,7 +383,7 @@ export default async function BlogPage({
                 variant="secondary"
                 size="lg"
                 fullWidth
-                className="sm:w-auto bg-white text-anchor-green hover:bg-gray-100"
+                className="sm:w-auto bg-anchor-gold text-anchor-green hover:bg-anchor-gold-light"
               >
                 View Upcoming Events
               </Button>
@@ -393,7 +393,7 @@ export default async function BlogPage({
                 variant="secondary"
                 size="lg"
                 fullWidth
-                className="sm:w-auto bg-white text-anchor-green hover:bg-gray-100"
+                className="sm:w-auto bg-anchor-gold text-anchor-green hover:bg-anchor-gold-light"
               >
                 Visit Us Today
               </Button>

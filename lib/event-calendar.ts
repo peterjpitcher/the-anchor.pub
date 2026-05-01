@@ -13,7 +13,7 @@ type DateTimeParts = {
   second: number
 }
 
-function stripTimeZoneOffset(value: string): string {
+export function stripEventTimeZoneOffset(value: string): string {
   if (!value) return value
 
   if (value.includes('+') || value.includes('Z')) {
@@ -28,7 +28,7 @@ function stripTimeZoneOffset(value: string): string {
 }
 
 function parseDateTimeParts(value: string): DateTimeParts | null {
-  const clean = stripTimeZoneOffset(value).trim()
+  const clean = stripEventTimeZoneOffset(value).trim()
   if (!clean) return null
 
   const separator = clean.includes('T') ? 'T' : clean.includes(' ') ? ' ' : null
@@ -51,6 +51,85 @@ function parseDateTimeParts(value: string): DateTimeParts | null {
   if (numbers.some((num) => !Number.isFinite(num))) return null
 
   return { year, month, day, hour, minute, second }
+}
+
+function getLondonDatePartsFromInstant(value: string): DateTimeParts | null {
+  const parsed = new Date(value)
+  if (Number.isNaN(parsed.getTime())) return null
+
+  const parts = new Intl.DateTimeFormat('en-GB', {
+    timeZone: EVENT_TIME_ZONE,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false
+  }).formatToParts(parsed)
+
+  const lookup = (type: Intl.DateTimeFormatPartTypes) => parts.find((part) => part.type === type)?.value
+  const result = {
+    year: Number.parseInt(lookup('year') ?? '', 10),
+    month: Number.parseInt(lookup('month') ?? '', 10),
+    day: Number.parseInt(lookup('day') ?? '', 10),
+    hour: Number.parseInt(lookup('hour') ?? '', 10),
+    minute: Number.parseInt(lookup('minute') ?? '', 10),
+    second: Number.parseInt(lookup('second') ?? '0', 10)
+  }
+
+  return Object.values(result).every((num) => Number.isFinite(num)) ? result : null
+}
+
+export function getEventLocalDateTimeParts(value: string): DateTimeParts | null {
+  return parseDateTimeParts(value) ?? getLondonDatePartsFromInstant(value)
+}
+
+export function getEventLocalIsoDate(value: string): string | null {
+  const parts = getEventLocalDateTimeParts(value)
+  if (!parts) return null
+
+  return [
+    parts.year.toString().padStart(4, '0'),
+    parts.month.toString().padStart(2, '0'),
+    parts.day.toString().padStart(2, '0')
+  ].join('-')
+}
+
+export function formatEventLocalDate(
+  value: string,
+  options: Intl.DateTimeFormatOptions = {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  }
+): string {
+  const parts = getEventLocalDateTimeParts(value)
+  if (!parts) return 'Date TBC'
+
+  const localDate = new Date(Date.UTC(parts.year, parts.month - 1, parts.day, 12, 0, 0))
+  return localDate.toLocaleDateString('en-GB', {
+    ...options,
+    timeZone: 'UTC'
+  })
+}
+
+export function formatEventLocalTime(
+  value: string,
+  options: { includeMinutesWhenZero?: boolean; fallback?: string } = {}
+): string {
+  const parts = getEventLocalDateTimeParts(value)
+  if (!parts) return options.fallback ?? 'Time TBC'
+
+  const period = parts.hour >= 12 ? 'pm' : 'am'
+  const displayHours = parts.hour % 12 || 12
+
+  if (parts.minute === 0 && !options.includeMinutesWhenZero) {
+    return `${displayHours}${period}`
+  }
+
+  return `${displayHours}:${parts.minute.toString().padStart(2, '0')}${period}`
 }
 
 function getTimeZoneOffsetMs(timeZone: string, date: Date): number {

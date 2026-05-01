@@ -67,7 +67,7 @@ export default async function RestaurantsNearHeathrowPage() {
         {
           "@type": "MenuSection",
           "name": "Sunday Roast",
-          "description": "Traditional British Sunday roasts (pre-order required)"
+          "description": "Traditional British Sunday roasts served Sundays 1pm-6pm"
         },
         {
           "@type": "MenuSection",
@@ -457,7 +457,7 @@ export default async function RestaurantsNearHeathrowPage() {
 	                {
 	                  icon: "",
 	                  title: "Famous Sunday Roasts",
-	                  description: "Traditional roast dinners with Yorkshire puddings, roast potatoes & homemade gravy. £19-£22 (pre-order required)",
+	                  description: "Traditional roast dinners with Yorkshire puddings, roast potatoes & homemade gravy. £19-£22, served Sundays 1pm-6pm.",
 	                  className: "text-center"
 	                },
                 {

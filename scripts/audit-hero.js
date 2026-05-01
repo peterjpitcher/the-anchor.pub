@@ -45,7 +45,6 @@ const DEFAULT_HEADER_IMAGE_ALLOWED_ROUTES = new Set([
   '/luggage-storage-heathrow',
   '/m25-junction-14-pub',
   '/music-bingo',
-  '/open-mic',
   '/plane-spotting-heathrow',
   '/pool-darts-pub',
   '/pre-flight-meal',
@@ -174,8 +173,16 @@ function parsePage(pageFile) {
   const heroWrappers = []
   let heroSectionCount = 0
   let localH1Count = 0
+  let redirectCallCount = 0
 
   function visit(node) {
+    if (ts.isCallExpression(node)) {
+      const expressionText = node.expression.getText(sourceFile)
+      if (expressionText === 'redirect' || expressionText === 'permanentRedirect') {
+        redirectCallCount += 1
+      }
+    }
+
     if (ts.isJsxOpeningElement(node) || ts.isJsxSelfClosingElement(node)) {
       const tagName = node.tagName.getText(sourceFile)
 
@@ -222,6 +229,7 @@ function parsePage(pageFile) {
     heroWrappers,
     heroSectionCount,
     localH1Count,
+    isRedirectOnly: redirectCallCount > 0 && heroWrappers.length === 0 && heroSectionCount === 0 && localH1Count === 0,
   }
 }
 
@@ -235,7 +243,7 @@ function audit() {
 
   for (const pageFile of pages) {
     const info = parsePage(pageFile)
-    const exempt = isExemptFile(pageFile)
+    const exempt = isExemptFile(pageFile) || info.isRedirectOnly
 
     if (!exempt && info.heroWrappers.length === 0) {
       pushIssue(issues, pageFile, 1, 'Missing `HeroWrapper` on non-exempt content page.')

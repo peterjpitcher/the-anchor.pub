@@ -46,7 +46,7 @@ describe('Breadcrumb', () => {
     
     const electronics = screen.getByText('Electronics')
     expect(electronics).toHaveAttribute('aria-current', 'page')
-    expect(electronics).toHaveClass('text-anchor-green', 'font-semibold')
+    expect(electronics).toHaveClass('text-anchor-gold-vivid', 'font-semibold')
   })
 
   it('respects explicit current item', () => {
@@ -130,7 +130,7 @@ describe('Breadcrumb composition API', () => {
     
     const link = screen.getByText('Test Link')
     expect(link.closest('a')).toHaveAttribute('href', '/test')
-    expect(link).toHaveClass('text-gray-600', 'hover:text-anchor-green')
+    expect(link).toHaveClass('text-anchor-cream-text/60', 'hover:text-anchor-gold')
   })
 
   it('BreadcrumbPage has current page styling', () => {
@@ -138,7 +138,7 @@ describe('Breadcrumb composition API', () => {
     
     const page = screen.getByText('Current')
     expect(page).toHaveAttribute('aria-current', 'page')
-    expect(page).toHaveClass('text-anchor-green', 'font-semibold')
+    expect(page).toHaveClass('text-anchor-gold-vivid', 'font-semibold')
   })
 
   it('BreadcrumbSeparator renders default separator', () => {

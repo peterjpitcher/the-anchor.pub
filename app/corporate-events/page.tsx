@@ -15,7 +15,7 @@ import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 import { TrustBar, ValueProofStrip, RegretReduction } from '@/components/psychology'
 
 export const metadata: Metadata = {
-  title: 'Corporate Events Near Heathrow | Free Parking | 10-200 Guests',
+  title: 'Corporate Events Near Heathrow | Free Parking | The Anchor',
   description: 'Host corporate events near Heathrow at The Anchor. Private meeting rooms, breakout space, AV support and free parking — just 7 minutes from Terminal 5.',
   openGraph: {
     title: 'Corporate Events Near Heathrow | The Anchor, Stanwell Moor',
@@ -43,7 +43,7 @@ export default function CorporateEventsPage() {
         showContextStrip={true}
         route="/corporate-events"
         title="Corporate Event Venue Near Heathrow"
-        description="Host up to 200 guests — or keep it small from 10 — 7 minutes from Terminal 5 with free parking"
+        description="Room bookings for 10-50 guests, with larger corporate events by enquiry. 7 minutes from Terminal 5 with free parking."
         tags={[
           { label: "7 mins from Heathrow", variant: "success" },
           { label: "Free Parking", variant: "default" },
@@ -82,7 +82,7 @@ export default function CorporateEventsPage() {
             <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
             <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog &amp; family friendly</span>
             <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">10–200 guests</span>
+            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">10-50 room bookings</span>
           </div>
         }
       />
@@ -99,7 +99,7 @@ export default function CorporateEventsPage() {
               Corporate Events Near Heathrow — Business Venue at The Anchor
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
-              Planning a corporate event near Heathrow? Professional meeting rooms and event spaces for 10-200 guests, just 7 minutes from Terminal 5
+              Planning a corporate event near Heathrow? Professional meeting rooms for 10-50 guests, with larger events by enquiry, just 7 minutes from Terminal 5.
             </p>
           </div>
         </Container>
@@ -118,7 +118,7 @@ export default function CorporateEventsPage() {
               { icon: "", title: "Heathrow Proximity", description: "7 minutes from T5 - perfect for international teams & clients", className: "text-center" },
 	              { icon: "", title: "Free Parking", description: "20 spaces on-site - saves significantly compared to city venues", className: "text-center" },
               { icon: "", title: "Flexible Pricing", description: "Competitive venue hire rates tailored to your needs", className: "text-center" },
-              { icon: "", title: "Flexible Spaces", description: "Configure for 10-200 guests - meetings to conferences", className: "text-center" }
+              { icon: "", title: "Flexible Spaces", description: "Configure room bookings for 10-50 guests; larger events by enquiry", className: "text-center" }
             ]}
             className="mb-12"
           />
@@ -253,7 +253,7 @@ export default function CorporateEventsPage() {
                       <p className="mb-4">Every corporate event is unique. We provide:</p>
                       <ul className="space-y-3">
                         <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Flexible timing</strong> - Half day, full day, or evening sessions</span></li>
-                        <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Scalable spaces</strong> - Configure for 10-200 attendees</span></li>
+                        <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Scalable spaces</strong> - Configure rooms for 10-50 attendees, with larger events by enquiry</span></li>
                         <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Custom catering</strong> - From coffee breaks to formal dinners</span></li>
                         <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Professional support</strong> - AV equipment and dedicated coordinator</span></li>
                         <li className="flex items-start gap-2"><span className="text-anchor-gold-vivid"></span><span><strong>Transparent pricing</strong> - Clear quotes with no hidden fees</span></li>
@@ -480,7 +480,7 @@ export default function CorporateEventsPage() {
         faqs={[
           {
             question: "What makes The Anchor ideal for corporate events near Heathrow?",
-            answer: "We're just 7 minutes from Terminal 5 with free parking, making us perfect for international teams. We offer flexible spaces for 10-200 guests, professional catering, and competitive venue hire rates tailored to your needs. Being outside the ULEZ zone saves your attendees money too."
+            answer: "We're just 7 minutes from Terminal 5 with free parking, making us perfect for international teams. We offer flexible room bookings for 10-50 guests, larger events by enquiry, professional catering, and competitive venue hire rates tailored to your needs. Being outside the ULEZ zone saves your attendees money too."
           },
           {
             question: "What technology and equipment do you provide for business meetings?",

@@ -8,6 +8,7 @@ jest.mock('@/lib/api', () => ({
 
 // Mock gtm-events
 jest.mock('@/lib/gtm-events', () => ({
+  trackPrivateHireEnquiryStarted: jest.fn(),
   trackPrivateHireEnquirySubmitted: jest.fn(),
 }))
 
@@ -82,6 +83,7 @@ describe('PrivateBookingInquiryForm tracking', () => {
 
     expect(mockTrack).toHaveBeenCalledWith({
       enquiryType: 'Birthday Party', // default value in formData
+      guestCount: 50,
       pageSource: expect.any(String),
     })
   })

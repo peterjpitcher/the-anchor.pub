@@ -12,6 +12,11 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { RegretReduction, ValueProofStrip } from '@/components/psychology'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
+import {
+  getFoodMenuPageData,
+  getSundayLunchMenuPageData,
+  type MenuPageItem
+} from '@/lib/menu-page-data'
 
 // Revalidate every 1 hour for the walk-in launch fortnight (10–22 May 2026)
 // so the LaunchAnnouncement banner flips reliably at the cutover even on
@@ -20,21 +25,33 @@ import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 // drop the export entirely if the original was using Next.js' default.
 export const revalidate = 60 * 60 // 1 hour during launch fortnight
 
-export const metadata: Metadata = {
-  title: 'Book a Table Near Heathrow | Sunday Roast',
-  description: 'Reserve your table at The Anchor, Stanwell Moor — instant confirmation. Pub food from £8.95, Sunday roast from £19. Dog-friendly, free parking, 7 mins from T5.',
-  openGraph: {
-    title: 'Book a Table Near Heathrow | Sunday Roast | The Anchor',
-    description: 'Reserve your table at The Anchor, Stanwell Moor — instant confirmation. Pub food from £8.95, Sunday roast from £19. Dog-friendly, free parking, 7 mins from T5.',
-    images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }]
-  },
-  twitter: getTwitterMetadata({
-    title: 'Book a Table Near Heathrow | Sunday Roast | The Anchor',
-    description: 'Reserve your table at The Anchor, Stanwell Moor — instant confirmation. Pub food from £8.95, Sunday roast from £19. Dog-friendly, free parking, 7 mins from T5.',
-    images: [DEFAULT_PAGE_HEADER_IMAGE]
-  }),
-  alternates: {
-    canonical: '/book-table'
+export async function generateMetadata(): Promise<Metadata> {
+  const [foodMenu, sundayMenu] = await Promise.all([
+    getFoodMenuPageData(),
+    getSundayLunchMenuPageData()
+  ])
+  const foodPhrase = foodMenu?.priceFromLabel ? ` Food ${foodMenu.priceFromLabel}.` : ''
+  const sundayPhrase = sundayMenu.menuData
+    ? ' Sunday lunch menu details are loaded live.'
+    : ' Sunday lunch details are available on request.'
+  const description = `Reserve your table at The Anchor, Stanwell Moor — instant confirmation.${foodPhrase}${sundayPhrase} Dog-friendly, free parking, 7 mins from T5.`
+
+  return {
+    title: 'Book a Table Near Heathrow | Sunday Roast',
+    description,
+    openGraph: {
+      title: 'Book a Table Near Heathrow | Sunday Roast | The Anchor',
+      description,
+      images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }]
+    },
+    twitter: getTwitterMetadata({
+      title: 'Book a Table Near Heathrow | Sunday Roast | The Anchor',
+      description,
+      images: [DEFAULT_PAGE_HEADER_IMAGE]
+    }),
+    alternates: {
+      canonical: '/book-table'
+    }
   }
 }
 
@@ -53,7 +70,16 @@ function parsePartySize(value?: string): number | undefined {
   return Math.min(Math.max(parsed, 1), 20)
 }
 
-export default function BookPage({ searchParams }: BookTablePageProps) {
+function itemPreview(items: MenuPageItem[], limit = 4): MenuPageItem[] {
+  return items.slice(0, limit)
+}
+
+export default async function BookPage({ searchParams }: BookTablePageProps) {
+  const [foodMenu, sundayMenu] = await Promise.all([
+    getFoodMenuPageData(),
+    getSundayLunchMenuPageData()
+  ])
+  const previewItems = itemPreview(foodMenu?.items ?? [])
   // sunday_lunch, mothers_day, and purpose query params are silently ignored.
   // Sunday-lunch as a separate booking type is retired with the walk-in launch
   // (spec §6, §8.1); the booking purpose chooser is replaced by per-slot
@@ -284,9 +310,9 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
         <Grid cols={3} gap="md">
           <Card>
             <CardBody>
-              <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-2">Pub Classics &amp; Pizza</h3>
+              <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-2">Current Food Menu</h3>
               <p className="text-anchor-cream-text/70 text-sm mb-4">
-                From stone-baked pizzas and proper fish &amp; chips to hearty burgers and home-made pies — there&apos;s something for everyone on our kitchen menu, with mains from £8.95.
+                Dish names, descriptions and prices follow the latest kitchen menu.
               </p>
               <Link href="/food-menu" className="text-anchor-gold-vivid font-semibold text-sm hover:underline">
                 View food menu &rarr;
@@ -298,7 +324,7 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
             <CardBody>
               <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-2">Sunday Roast</h3>
               <p className="text-anchor-cream-text/70 text-sm mb-4">
-                Our Sunday roasts are legendary locally — choose from beef, chicken, pork, or a vegetarian option. Served from 1pm Sundays, priced from £19. Walk in or book ahead.
+                Sunday lunch has a dedicated page. {sundayMenu.menuData ? 'Current Sunday dishes are listed there.' : 'Call us for the current Sunday menu while the online dish list is unavailable.'}
               </p>
               <Link href="/sunday-lunch" className="text-anchor-gold-vivid font-semibold text-sm hover:underline">
                 About Sunday roast &rarr;
@@ -324,38 +350,29 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
       <Section spacing="md" container containerSize="md" className="bg-anchor-bg border-b border-anchor-gold/15">
         <SectionHeader
           title="A Taste of What&rsquo;s on the Menu"
-          subtitle="A few favourites to whet your appetite before you book."
+          subtitle="A live sample from the current food menu."
           align="center"
         />
         <div className="space-y-4 max-w-2xl mx-auto">
-          <div className="flex justify-between items-start gap-4 py-3 border-b border-anchor-gold/10">
-            <div>
-              <h3 className="font-semibold text-anchor-cream-text">Fish &amp; Chips</h3>
-              <p className="text-sm text-anchor-cream-text/60 mt-1">Beer-battered fish, chips, mushy peas and tartare sauce. A proper British classic.</p>
-            </div>
-            <span className="text-anchor-gold-vivid font-semibold whitespace-nowrap">&pound;15.00</span>
-          </div>
-          <div className="flex justify-between items-start gap-4 py-3 border-b border-anchor-gold/10">
-            <div>
-              <h3 className="font-semibold text-anchor-cream-text">The Anchor Burger</h3>
-              <p className="text-sm text-anchor-cream-text/60 mt-1">Double smash burger with American cheese, gherkins, lettuce, and burger sauce in a brioche bun. Chips included.</p>
-            </div>
-            <span className="text-anchor-gold-vivid font-semibold whitespace-nowrap">&pound;14.00</span>
-          </div>
-          <div className="flex justify-between items-start gap-4 py-3 border-b border-anchor-gold/10">
-            <div>
-              <h3 className="font-semibold text-anchor-cream-text">Stone-Baked Pizza</h3>
-              <p className="text-sm text-anchor-cream-text/60 mt-1">Choose from our range of freshly made stone-baked pizzas. Gluten-free bases available.</p>
-            </div>
-            <span className="text-anchor-gold-vivid font-semibold whitespace-nowrap">from &pound;11.00</span>
-          </div>
-          <div className="flex justify-between items-start gap-4 py-3">
-            <div>
-              <h3 className="font-semibold text-anchor-cream-text">Sunday Roast</h3>
-              <p className="text-sm text-anchor-cream-text/60 mt-1">Chicken, pork belly or veggie wellington. All the trimmings. Served 1pm-6pm Sundays — walk in or book ahead.</p>
-            </div>
-            <span className="text-anchor-gold-vivid font-semibold whitespace-nowrap">from &pound;19</span>
-          </div>
+          {previewItems.length > 0 ? (
+            previewItems.map((item) => (
+              <div key={item.id} className="flex justify-between items-start gap-4 py-3 border-b border-anchor-gold/10 last:border-b-0">
+                <div>
+                  <h3 className="font-semibold text-anchor-cream-text">{item.name}</h3>
+                  {item.description && (
+                    <p className="text-sm text-anchor-cream-text/60 mt-1">{item.description}</p>
+                  )}
+                </div>
+                {item.priceLabel && (
+                  <span className="text-anchor-gold-vivid font-semibold whitespace-nowrap">{item.priceLabel}</span>
+                )}
+              </div>
+            ))
+          ) : (
+            <p className="text-center text-anchor-cream-text/70">
+              Menu preview temporarily unavailable. Call us for the current dish list.
+            </p>
+          )}
         </div>
         <p className="text-center mt-6">
           <Link href="/food-menu" className="text-anchor-gold-vivid font-semibold hover:underline">
@@ -390,7 +407,7 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
               We have 20 free on-site parking spaces with CCTV and floodlighting. No meters, no time limits while you&apos;re dining. The car park has a level surface with step-free access to the bar and dining area.
             </p>
             <p>
-              By bus, we&apos;re served by the 441, 442, and 555 routes from Heathrow Central Bus Station. We&apos;re also outside the ULEZ zone, saving you &pound;12.50 a day if you&apos;re driving from London.
+              By bus, we&apos;re served by the 441, 442, and 555 routes from Heathrow Central Bus Station. We&apos;re also outside the ULEZ zone, avoiding the daily charge if you&apos;re driving from London.
             </p>
           </div>
           <p className="mt-6 text-center">
@@ -407,7 +424,7 @@ export default function BookPage({ searchParams }: BookTablePageProps) {
         faqs={[
           {
             question: 'Do I need to book in advance?',
-            answer: 'Walk-ins are always welcome, including for Sunday roast (1pm-6pm). We still recommend booking ahead for larger groups (10+) and busy weekend evenings — booking takes under a minute online and guarantees your table.'
+            answer: 'Walk-ins are welcome when tables are available. We still recommend booking ahead for larger groups and busy weekend evenings — booking takes under a minute online and guarantees your table.'
           },
           {
             question: 'Is there a deposit required?',

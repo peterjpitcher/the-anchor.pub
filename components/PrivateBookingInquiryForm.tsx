@@ -3,7 +3,7 @@
 import { useRef, useState } from 'react'
 import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile'
 import { PrivateBookingRequest, createPrivateBooking } from '@/lib/api'
-import { trackPrivateHireEnquirySubmitted } from '@/lib/gtm-events'
+import { trackPrivateHireEnquiryStarted, trackPrivateHireEnquirySubmitted } from '@/lib/gtm-events'
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
 
@@ -52,6 +52,7 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
     const turnstileRef = useRef<TurnstileInstance | null>(null)
     const [honeypot, setHoneypot] = useState('')
     const formLoadedAt = useRef(Date.now())
+    const enquiryStartedRef = useRef(false)
 
     const [formData, setFormData] = useState<PrivateBookingRequest>({
         customer_first_name: initialData?.customer_first_name || '',
@@ -70,6 +71,16 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
     const bookingItems = initialData?.items || []
     const detailsUnlocked = lookupState === 'known' || lookupState === 'unknown'
     const isKnownCustomer = lookupState === 'known'
+
+    const trackEnquiryStartedOnce = () => {
+        if (enquiryStartedRef.current) return
+        enquiryStartedRef.current = true
+        trackPrivateHireEnquiryStarted({
+            enquiryType: formData.event_type,
+            guestCount: formData.guest_count,
+            pageSource: typeof window !== 'undefined' ? window.location.pathname : '',
+        })
+    }
 
     const handlePhoneLookup = async () => {
         setLookupError(null)
@@ -170,6 +181,7 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
                 setSuccess(true)
                 trackPrivateHireEnquirySubmitted({
                     enquiryType: formData.event_type,
+                    guestCount: formData.guest_count,
                     pageSource: typeof window !== 'undefined' ? window.location.pathname : '',
                 })
             } else {
@@ -229,13 +241,16 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
                     <h4 className="font-medium text-anchor-cream-text border-b border-anchor-gold/15 pb-2">Contact Details</h4>
                     <div>
                         <label className="block text-sm font-medium text-anchor-cream-text/70 mb-1">Mobile Number *</label>
-                        <p className="text-xs text-anchor-cream-text/55 mb-1">Enter your number first so we can check if you’re already in our system.</p>
+                        <p className="text-xs text-anchor-cream-text/55 mb-1">Enter your mobile so we can confirm your enquiry and check whether you are already in our system.</p>
                         <input
                             required
                             type="tel"
                             value={phone}
                             disabled={detailsUnlocked}
-                            onChange={e => setPhone(e.target.value)}
+                            onChange={e => {
+                                trackEnquiryStartedOnce()
+                                setPhone(e.target.value)
+                            }}
                             className="w-full px-4 py-2 bg-anchor-bg-card border border-anchor-gold/30 text-anchor-cream-text rounded-lg focus:ring-2 focus:ring-anchor-gold focus:border-anchor-gold disabled:opacity-60"
                         />
                     </div>
@@ -294,7 +309,10 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
                                         required
                                         type="text"
                                         value={formData.customer_first_name}
-                                        onChange={e => setFormData({ ...formData, customer_first_name: e.target.value })}
+                                        onChange={e => {
+                                            trackEnquiryStartedOnce()
+                                            setFormData({ ...formData, customer_first_name: e.target.value })
+                                        }}
                                         className="w-full px-4 py-2 bg-anchor-bg-card border border-anchor-gold/30 text-anchor-cream-text rounded-lg focus:ring-2 focus:ring-anchor-gold focus:border-anchor-gold"
                                     />
                                 </div>
@@ -305,7 +323,10 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
                                         required
                                         type="text"
                                         value={formData.customer_last_name || ''}
-                                        onChange={e => setFormData({ ...formData, customer_last_name: e.target.value })}
+                                        onChange={e => {
+                                            trackEnquiryStartedOnce()
+                                            setFormData({ ...formData, customer_last_name: e.target.value })
+                                        }}
                                         className="w-full px-4 py-2 bg-anchor-bg-card border border-anchor-gold/30 text-anchor-cream-text rounded-lg focus:ring-2 focus:ring-anchor-gold focus:border-anchor-gold"
                                     />
                                 </div>
@@ -315,7 +336,10 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
                                     <input
                                         type="email"
                                         value={formData.contact_email || ''}
-                                        onChange={e => setFormData({ ...formData, contact_email: e.target.value })}
+                                        onChange={e => {
+                                            trackEnquiryStartedOnce()
+                                            setFormData({ ...formData, contact_email: e.target.value })
+                                        }}
                                         className="w-full px-4 py-2 bg-anchor-bg-card border border-anchor-gold/30 text-anchor-cream-text rounded-lg focus:ring-2 focus:ring-anchor-gold focus:border-anchor-gold"
                                     />
                                 </div>

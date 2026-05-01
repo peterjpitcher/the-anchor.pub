@@ -67,82 +67,281 @@ const defaultItems: NavigationItem[] = [
   {
     label: "What's On",
     href: '/whats-on',
+    description: 'Events, games, live music and sport nights.',
     items: [
-      { label: 'Upcoming Events', href: '/whats-on#upcoming-events' },
-      { label: "Mother's Day Lunch", href: '/mothers-day' },
-      { label: 'Music Bingo (Nikki)', href: '/music-bingo' },
-      { label: 'Quiz Night', href: '/quiz-night' },
-      { label: 'Cash Bingo', href: '/cash-bingo' },
-      { label: 'Karaoke', href: '/karaoke' },
-      { label: 'Live Music', href: '/live-music' },
-      { label: 'Open Mic', href: '/open-mic' },
-      { label: 'Live Sport Pub', href: '/live-sport' },
-      { label: 'Six Nations 2026', href: '/live-sport/six-nations' },
-      { label: 'World Cup 2026', href: '/live-sport/world-cup' }
+      {
+        label: 'Upcoming Events',
+        href: '/whats-on#upcoming-events',
+        description: 'See the next ticketed events and weekly nights.'
+      },
+      {
+        label: "Mother's Day Lunch",
+        href: '/mothers-day',
+        description: 'Family lunch bookings for Mothering Sunday.'
+      },
+      {
+        label: 'Music Bingo (Nikki)',
+        href: '/music-bingo',
+        description: 'Hosted music bingo with food, drinks and prizes.'
+      },
+      {
+        label: 'Quiz Night',
+        href: '/quiz-night',
+        description: 'Pub quiz nights, teams, timings and prizes.'
+      },
+      {
+        label: 'Cash Bingo',
+        href: '/cash-bingo',
+        description: 'Classic bingo sessions with cash prizes.'
+      },
+      {
+        label: 'Karaoke',
+        href: '/karaoke',
+        description: 'Singalong nights, party groups and bar tables.'
+      },
+      {
+        label: 'Live Music',
+        href: '/live-music',
+        description: 'Bands, acoustic sessions and live pub nights.'
+      },
+      {
+        label: 'Live Sport Pub',
+        href: '/live-sport',
+        description: 'Big-screen sport, match days and table bookings.'
+      },
+      {
+        label: 'Six Nations 2026',
+        href: '/live-sport/six-nations',
+        description: 'Rugby fixtures, atmosphere and match-day plans.'
+      },
+      {
+        label: 'World Cup 2026',
+        href: '/live-sport/world-cup',
+        description: 'Football viewing, groups and World Cup fixtures.'
+      }
     ]
   },
   {
     label: 'Menus',
     href: '/food-menu',
+    description: 'Food menus, dietary options and table bookings.',
     items: [
-      { label: 'Book a Table', href: '/book-table' },
-      { label: 'Sunday Roast', href: '/sunday-lunch' },
-      { label: 'Food Menu', href: '/food-menu' },
-      { label: 'Pizza Menu', href: '/pizza-menu' },
-      { label: 'Burger Menu', href: '/burger-menu' },
-      { label: 'Fish & Chips', href: '/fish-and-chips-heathrow' },
-      { label: 'Vegetarian Menu', href: '/food-menu/vegetarian' },
-      { label: 'Vegan Menu', href: '/food-menu/vegan' },
-      { label: 'Gluten-Free Menu', href: '/food-menu/gluten-free' }
+      {
+        label: 'Full Food Menu',
+        href: '/food-menu',
+        description: 'Current dishes, dietary filters and live menu details.'
+      },
+      {
+        label: 'Sunday Roast',
+        href: '/sunday-lunch',
+        description: 'Sunday lunch details, timings and table bookings.'
+      },
+      {
+        label: 'Stone-Baked Pizza',
+        href: '/pizza-menu',
+        description: 'Current pizza dishes from the live menu.'
+      },
+      {
+        label: 'Fish & Chips',
+        href: '/fish-and-chips-heathrow',
+        description: 'Current fish and chip options near Heathrow.'
+      },
+      {
+        label: 'Vegetarian Menu',
+        href: '/food-menu/vegetarian',
+        description: 'Vegetarian dishes from the live menu.'
+      },
+      {
+        label: 'Vegan Options',
+        href: '/food-menu/vegan',
+        description: 'Vegan and vegan-option dishes from the live menu.'
+      },
+      {
+        label: 'Gluten-Free Options',
+        href: '/food-menu/gluten-free',
+        description: 'Gluten-free options and allergen guidance.'
+      },
+      {
+        label: 'Book a Table',
+        href: '/book-table',
+        description: 'Reserve for lunch, dinner, Sunday roast or a group meal.'
+      }
     ]
   },
   {
     label: 'Drinks',
     href: '/drinks',
+    description: 'Bar menu, seasonal drinks and manager picks.',
     items: [
-      { label: 'Drinks Menu', href: '/drinks' },
-      { label: "Manager's Special", href: '/drinks/managers-special' }
+      {
+        label: 'Drinks Menu',
+        href: '/drinks',
+        description: 'Draught pints, cocktails, spirits, wine and soft drinks.'
+      },
+      {
+        label: "Manager's Special",
+        href: '/drinks/managers-special',
+        description: 'Current bottle of the month, tasting notes and serves.'
+      }
     ]
   },
   {
     label: 'Events & Hire',
     href: '/private-hire',
+    description: 'Private parties, celebrations and venue hire.',
     items: [
-      { label: 'Private Hire & Events', href: '/private-hire' },
-      { label: 'Get a Quote / Enquire', href: '/private-hire#enquiry' },
-      { label: 'Private Parties', href: '/private-party-venue' },
-      { label: 'Milestone Birthdays', href: '/private-hire/milestone-birthdays' },
-      { label: 'Engagement Parties', href: '/private-hire/engagement-parties' },
-      { label: 'Gender Reveal Parties', href: '/private-hire/gender-reveal' },
-      { label: 'Baby Showers', href: '/private-hire/baby-showers' },
-      { label: 'Christenings', href: '/private-hire/christenings' },
-      { label: 'Wakes & Memorials', href: '/private-hire/wakes' },
-      { label: 'Retirement Parties', href: '/private-hire/retirement-parties' },
-      { label: 'Corporate Events', href: '/corporate-events' },
-      { label: 'Corporate Christmas Parties', href: '/corporate-christmas-parties' },
-      { label: 'Christmas Parties', href: '/christmas-parties' },
-      { label: 'Function Room Hire', href: '/function-room-hire' }
+      {
+        label: 'Private Hire & Events',
+        href: '/private-hire',
+        description: 'Overview of spaces, food, drinks and capacity.'
+      },
+      {
+        label: 'Get a Quote / Enquire',
+        href: '/private-hire#enquiry',
+        description: 'Tell us your date, guest count and event plans.'
+      },
+      {
+        label: 'Private Parties',
+        href: '/private-party-venue',
+        description: 'Birthdays, family parties and relaxed celebrations.'
+      },
+      {
+        label: 'Milestone Birthdays',
+        href: '/private-hire/milestone-birthdays',
+        description: '30th, 40th, 50th and big birthday gatherings.'
+      },
+      {
+        label: 'Engagement Parties',
+        href: '/private-hire/engagement-parties',
+        description: 'Engagement celebrations with food and bar options.'
+      },
+      {
+        label: 'Gender Reveal Parties',
+        href: '/private-hire/gender-reveal',
+        description: 'Garden-friendly parties with flexible layouts.'
+      },
+      {
+        label: 'Baby Showers',
+        href: '/private-hire/baby-showers',
+        description: 'Daytime showers, buffets and family tables.'
+      },
+      {
+        label: 'Christenings',
+        href: '/private-hire/christenings',
+        description: 'Post-service meals and family receptions.'
+      },
+      {
+        label: 'Wakes & Memorials',
+        href: '/private-hire/wakes',
+        description: 'Respectful gatherings with simple catering.'
+      },
+      {
+        label: 'Retirement Parties',
+        href: '/private-hire/retirement-parties',
+        description: 'Work send-offs, speeches and drinks packages.'
+      },
+      {
+        label: 'Corporate Events',
+        href: '/corporate-events',
+        description: 'Team meals, away days and work socials.'
+      },
+      {
+        label: 'Corporate Christmas Parties',
+        href: '/corporate-christmas-parties',
+        description: 'Office Christmas parties near Heathrow.'
+      },
+      {
+        label: 'Christmas Parties',
+        href: '/christmas-parties',
+        description: 'Festive private hire, menus and group bookings.'
+      },
+      {
+        label: 'Function Room Hire',
+        href: '/function-room-hire',
+        description: 'Room hire details, layouts and practical info.'
+      }
     ]
   },
   {
     label: 'Visit Us',
     href: '/find-us',
+    description: 'Directions, parking, Heathrow stops and local guides.',
     items: [
-      { label: 'Find Us', href: '/find-us' },
-      { label: 'Our Pub', href: '/our-pub' },
-      { label: 'Beer Garden', href: '/beer-garden' },
-      { label: 'Free Parking', href: '/heathrow-parking' },
-      { label: 'Dog-Friendly Pub', href: '/dog-friendly-pub-heathrow' },
-      { label: 'Near Heathrow Overview', href: '/near-heathrow' },
-      { label: 'Layover Dining', href: '/heathrow-layover-dining' },
-      { label: 'Terminal 2', href: '/near-heathrow/terminal-2' },
-      { label: 'Terminal 3', href: '/near-heathrow/terminal-3' },
-      { label: 'Terminal 4', href: '/near-heathrow/terminal-4' },
-      { label: 'Terminal 5', href: '/near-heathrow/terminal-5' },
-      { label: 'Heathrow Hotels', href: '/heathrow-hotels-pub' },
-      { label: 'M25 Junction 14', href: '/m25-junction-14-pub' },
-      { label: 'Restaurants Near Heathrow', href: '/restaurants-near-heathrow' },
-      { label: 'Plane Spotting Guide', href: '/plane-spotting-heathrow' }
+      {
+        label: 'Find Us',
+        href: '/find-us',
+        description: 'Address, map, phone number and travel info.'
+      },
+      {
+        label: 'Our Pub',
+        href: '/our-pub',
+        description: 'What to expect when you visit The Anchor.'
+      },
+      {
+        label: 'Beer Garden',
+        href: '/beer-garden',
+        description: 'Outdoor tables under the Heathrow flight path.'
+      },
+      {
+        label: 'Free Parking',
+        href: '/heathrow-parking',
+        description: 'On-site parking for pub guests and bookings.'
+      },
+      {
+        label: 'Dog-Friendly Pub',
+        href: '/dog-friendly-pub-heathrow',
+        description: 'Dogs welcome in the bar and beer garden.'
+      },
+      {
+        label: 'Near Heathrow Overview',
+        href: '/near-heathrow',
+        description: 'Why we work well for airport stops.'
+      },
+      {
+        label: 'Layover Dining',
+        href: '/heathrow-layover-dining',
+        description: 'A proper pub meal between flights.'
+      },
+      {
+        label: 'Terminal 2',
+        href: '/near-heathrow/terminal-2',
+        description: 'Food, drinks and parking near T2.'
+      },
+      {
+        label: 'Terminal 3',
+        href: '/near-heathrow/terminal-3',
+        description: 'A local pub stop near Terminal 3.'
+      },
+      {
+        label: 'Terminal 4',
+        href: '/near-heathrow/terminal-4',
+        description: 'Directions and dining from Terminal 4.'
+      },
+      {
+        label: 'Terminal 5',
+        href: '/near-heathrow/terminal-5',
+        description: 'Seven minutes from Terminal 5.'
+      },
+      {
+        label: 'Heathrow Hotels',
+        href: '/heathrow-hotels-pub',
+        description: 'A pub alternative to hotel restaurants.'
+      },
+      {
+        label: 'M25 Junction 14',
+        href: '/m25-junction-14-pub',
+        description: 'Easy stop-off near the motorway.'
+      },
+      {
+        label: 'Restaurants Near Heathrow',
+        href: '/restaurants-near-heathrow',
+        description: 'Compare nearby dining and pub food.'
+      },
+      {
+        label: 'Plane Spotting Guide',
+        href: '/plane-spotting-heathrow',
+        description: 'Watch aircraft from the garden.'
+      }
     ]
   },
   { label: 'Our Story', href: '/about' },
@@ -201,7 +400,7 @@ const mobileSectionPriority = [
 ]
 
 const mobileLabelOverrides: Record<string, string> = {
-  Menus: 'Food & Bookings',
+  Menus: 'Food Menus',
   'Events & Hire': 'Private Hire',
 }
 
@@ -406,6 +605,9 @@ export function Navigation({
     // Handle dropdown items for desktop
     if (!isMobile && item.items && item.items.length > 0) {
       const dropdownId = toMenuId(item.label)
+      const hasItemDescriptions = item.items.some((subItem) => Boolean(subItem.description))
+      const hasManyDropdownItems = hasItemDescriptions && item.items.length > 6
+      const alignDropdownRight = item.label === 'Menus' || item.label === 'Events & Hire' || item.label === 'Visit Us'
 
       return (
         <div
@@ -446,15 +648,24 @@ export function Navigation({
             </svg>
           </Link>
           <div className={cn(
-            'absolute left-0 mt-2 w-[90vw] sm:w-56 max-w-xs rounded-md shadow-lg bg-anchor-green-dark ring-1 ring-black ring-opacity-5 transition-all duration-200 text-left',
+            'absolute mt-2 w-[90vw] rounded-md shadow-lg bg-anchor-green-dark ring-1 ring-black ring-opacity-5 transition-all duration-200 text-left group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-focus-within:opacity-100 group-focus-within:visible group-focus-within:translate-y-0',
+            alignDropdownRight ? 'right-0' : 'left-0',
+            hasItemDescriptions
+              ? hasManyDropdownItems
+                ? 'sm:w-[42rem] max-w-[42rem]'
+                : 'sm:w-[26rem] max-w-[26rem]'
+              : 'sm:w-56 max-w-xs',
             openDropdown === item.label ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-2'
           )} id={dropdownId} role="menu">
-            <div className="py-1">
+            <div className={cn('py-1', hasManyDropdownItems && 'sm:grid sm:grid-cols-2 sm:gap-x-1')}>
               {item.items.map((subItem) => (
                 <Link
                   key={subItem.href}
                   href={subItem.href}
-                  className="block px-4 py-2 text-sm text-white hover:bg-anchor-gold hover:text-white transition-colors"
+                  className={cn(
+                    'block px-4 py-2.5 text-sm text-white hover:bg-anchor-gold hover:text-white transition-colors',
+                    subItem.description && 'border-b border-white/10 last:border-b-0'
+                  )}
                   role="menuitem"
                   onClick={() => trackNavigationClick({
                     label: subItem.label,
@@ -465,7 +676,12 @@ export function Navigation({
                     location: 'header'
                   })}
                 >
-                  {subItem.label}
+                  <span className="block font-semibold">{subItem.label}</span>
+                  {subItem.description && (
+                    <span className="mt-0.5 block text-xs leading-snug text-white/70">
+                      {subItem.description}
+                    </span>
+                  )}
                 </Link>
               ))}
             </div>
@@ -506,7 +722,11 @@ export function Navigation({
           <div id={sectionId} className={cn('mt-1 space-y-2 pl-4', isOpen ? 'block' : 'hidden')}>
             <Link
               href={item.href}
-              className={cn(linkClass, 'text-base py-2')}
+              className={cn(
+                linkClass,
+                'text-base py-2',
+                item.description && 'flex-col items-start'
+              )}
               onClick={() => {
                 trackNavigationClick({
                   label: item.label,
@@ -520,13 +740,22 @@ export function Navigation({
                 closeMobileMenu('cta')
               }}
             >
-              All {displayLabel}
+              <span className="block">All {displayLabel}</span>
+              {item.description && (
+                <span className="mt-0.5 block text-sm leading-snug text-white/60">
+                  {item.description}
+                </span>
+              )}
             </Link>
             {item.items.map((subItem) => (
               <Link
                 key={subItem.href}
                 href={subItem.href}
-                className={cn(linkClass, 'text-base py-2')}
+                className={cn(
+                  linkClass,
+                  'text-base py-2',
+                  subItem.description && 'flex-col items-start'
+                )}
                 onClick={() => {
                   trackNavigationClick({
                     label: subItem.label,
@@ -540,7 +769,12 @@ export function Navigation({
                   closeMobileMenu('cta')
                 }}
               >
-                {subItem.label}
+                <span className="block">{subItem.label}</span>
+                {subItem.description && (
+                  <span className="mt-0.5 block text-sm leading-snug text-white/60">
+                    {subItem.description}
+                  </span>
+                )}
               </Link>
             ))}
           </div>
@@ -627,7 +861,7 @@ export function Navigation({
 
     const baseClasses = 'inline-flex items-center justify-center font-semibold transition-all rounded-full px-4 py-1.5 text-sm xl:px-6 xl:py-2 xl:text-base'
     const variantClasses = button.variant === 'secondary'
-      ? 'bg-white text-anchor-green hover:bg-white/90 border border-white'
+      ? 'bg-anchor-bg-card text-anchor-cream-text hover:bg-anchor-bg-raised hover:text-anchor-gold-vivid border border-anchor-gold/30'
       : cn(mergedTheme.ctaBackground, mergedTheme.ctaText, mergedTheme.ctaHoverBackground)
 
     const ctaClass = cn(

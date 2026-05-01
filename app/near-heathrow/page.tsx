@@ -12,26 +12,36 @@ import { parkingFacilitySchema } from '@/lib/schemas/parking'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
+import { SUNDAY_ROAST, getSundayRoastContent } from '@/lib/sunday-roast'
 
-export const metadata: Metadata = {
-  title: 'Pub Near Heathrow Airport | 7 Mins from T5',
-  description: 'Rated 4.6/5 on Google. Traditional pub 7 mins from Heathrow T5 — free parking, dog-friendly beer garden, Sunday roasts from £19, quiz nights & live events.',
-  openGraph: {
-    title: 'Pubs Near Heathrow Airport | 7 Mins from T5 | Free Parking | The Anchor',
-    description: 'Rated 4.6/5 on Google. The closest traditional pub to Heathrow — 7 mins from T5, free parking, dog-friendly beer garden and food served daily.',
-    images: [{ url: DEFAULT_NEAR_HEATHROW_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Heathrow Airport' }],
-  },
-  twitter: getTwitterMetadata({
-    title: 'Pubs Near Heathrow Airport | 7 Mins from T5 | Free Parking | The Anchor',
-    description: 'Rated 4.6/5. The closest traditional pub to Heathrow — 7 mins from T5, free parking, dog-friendly beer garden, Sunday roasts and pub food.',
-    images: [DEFAULT_NEAR_HEATHROW_IMAGE]
-  }),
-  alternates: {
-    canonical: '/near-heathrow'
+export function generateMetadata(): Metadata {
+  const sunday = getSundayRoastContent()
+  const sundayPhrase = sunday.isLive
+    ? `Sunday roasts ${SUNDAY_ROAST.fromPriceLabel}`
+    : `Sunday roast starts ${SUNDAY_ROAST.launchDateLabel}`
+
+  return {
+    title: 'Pub Near Heathrow Airport | 7 Mins from T5',
+    description: `Rated 4.6/5 on Google. Traditional pub 7 mins from Heathrow T5 — free parking, dog-friendly beer garden, ${sundayPhrase}, quiz nights & live events.`,
+    openGraph: {
+      title: 'Pubs Near Heathrow Airport | 7 Mins from T5 | Free Parking | The Anchor',
+      description: 'Rated 4.6/5 on Google. The closest traditional pub to Heathrow — 7 mins from T5, free parking, dog-friendly beer garden and food served daily.',
+      images: [{ url: DEFAULT_NEAR_HEATHROW_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Heathrow Airport' }],
+    },
+    twitter: getTwitterMetadata({
+      title: 'Pubs Near Heathrow Airport | 7 Mins from T5 | Free Parking | The Anchor',
+      description: `Rated 4.6/5. The closest traditional pub to Heathrow — 7 mins from T5, free parking, dog-friendly beer garden, ${sundayPhrase} and pub food.`,
+      images: [DEFAULT_NEAR_HEATHROW_IMAGE]
+    }),
+    alternates: {
+      canonical: '/near-heathrow'
+    }
   }
 }
 
 export default function NearHeathrowPage() {
+  const sunday = getSundayRoastContent()
+
   return (
     <>
       <FoodStickyCtaBar
@@ -786,7 +796,9 @@ export default function NearHeathrowPage() {
                 },
                 {
                   question: "Can I book a table at The Anchor?",
-                  answer: "Yes, you can book a table online or by calling us on 01753 682707. Walk-ins are welcome for Sunday roast (1pm-6pm); booking is recommended for larger groups."
+                  answer: sunday.isLive
+                    ? "Yes, you can book a table online or by calling us on 01753 682707. Walk-ins are welcome for Sunday roast (1pm-6pm); booking is recommended for larger groups."
+                    : `Yes, you can book a table online or by calling us on 01753 682707. ${sunday.availabilityLong} Booking is recommended for launch Sundays and larger groups.`
                 },
                 {
                   question: "What terminal is closest to The Anchor pub?",

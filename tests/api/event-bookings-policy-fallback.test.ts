@@ -47,7 +47,8 @@ describe('Event Bookings API - policy violation handling', () => {
         phone: '07700900000',
         seats: 4,
         first_name: 'Jane',
-        last_name: 'Guest'
+        last_name: 'Guest',
+        _t: 4
       }),
       headers: new Headers()
     } as any
@@ -83,7 +84,8 @@ describe('Event Bookings API - policy violation handling', () => {
       json: async () => ({
         event_id: '550e8400-e29b-41d4-a716-446655440000',
         phone: '07700900000',
-        seats: 2
+        seats: 2,
+        _t: 4
       }),
       headers: new Headers()
     } as any
@@ -98,5 +100,40 @@ describe('Event Bookings API - policy violation handling', () => {
     expect(typeof payload.error?.message).toBe('string')
     expect(payload.error?.message.length).toBeGreaterThan(0)
     expect(payload.redirect_to).toBeUndefined()
+  })
+
+  it('forwards optional event dining intent notes to the management event booking API', async () => {
+    ;(global.fetch as jest.Mock).mockResolvedValue(
+      new Response(
+        JSON.stringify({
+          success: true,
+          data: {
+            state: 'confirmed',
+            booking_id: 'booking-123'
+          }
+        }),
+        {
+          status: 200,
+          headers: { 'Content-Type': 'application/json' }
+        }
+      )
+    )
+
+    const request = {
+      json: async () => ({
+        event_id: '550e8400-e29b-41d4-a716-446655440000',
+        phone: '07700900000',
+        seats: 4,
+        notes: 'Event dining intent: Planning to eat before the event',
+        _t: 4
+      }),
+      headers: new Headers()
+    } as any
+
+    const response = await createEventBooking(request)
+
+    expect(response.status).toBe(200)
+    const upstreamBody = JSON.parse(String((global.fetch as jest.Mock).mock.calls[0][1].body))
+    expect(upstreamBody.notes).toBe('Event dining intent: Planning to eat before the event')
   })
 })

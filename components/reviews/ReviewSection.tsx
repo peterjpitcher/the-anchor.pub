@@ -22,23 +22,23 @@ export function ReviewSection({
   className = ""
 }: ReviewSectionProps) {
   const bgClasses = {
-    white: "bg-white",
-    gray: "bg-gray-50",
-    cream: "bg-anchor-cream",
+    white: "bg-anchor-bg-card",
+    gray: "bg-anchor-bg",
+    cream: "bg-anchor-bg-card",
     dark: "bg-anchor-bg"
   }
 
   const titleClasses = {
-    white: "text-anchor-green",
-    gray: "text-anchor-green",
-    cream: "text-anchor-green",
+    white: "text-anchor-cream-text",
+    gray: "text-anchor-cream-text",
+    cream: "text-anchor-cream-text",
     dark: "text-anchor-cream-text"
   }
 
   const subtitleClasses = {
-    white: "text-gray-600",
-    gray: "text-gray-600",
-    cream: "text-gray-600",
+    white: "text-anchor-cream-text/70",
+    gray: "text-anchor-cream-text/70",
+    cream: "text-anchor-cream-text/70",
     dark: "text-anchor-cream-text/70"
   }
 

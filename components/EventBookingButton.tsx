@@ -1,8 +1,9 @@
 'use client'
 
 import type { Event } from '@/lib/api'
-import { trackEventBookingStart } from '@/lib/gtm-events'
+import { trackEventBookClick } from '@/lib/gtm-events'
 import { getEventWebsiteUrl } from '@/lib/event-url'
+import { getEventBookingCopy } from '@/lib/event-booking-copy'
 import { Button } from '@/components/ui'
 import { cn } from '@/lib/utils'
 import {
@@ -22,6 +23,7 @@ type EventBookingButtonProps = {
   variant?: 'primary' | 'secondary' | 'ghost' | 'outline' | 'danger' | 'warning'
   label?: string
   unavailableLabel?: string
+  customHref?: string
   source?: string
   onClick?: () => void
 }
@@ -123,6 +125,7 @@ export function EventBookingButton({
   variant = 'primary',
   label,
   unavailableLabel = 'Booking options available closer to the event',
+  customHref,
   source,
   onClick
 }: EventBookingButtonProps) {
@@ -141,9 +144,9 @@ export function EventBookingButton({
     )
   }
 
-  const bookingUrl = resolveBookingUrl(event)
+  const bookingUrl = customHref || resolveBookingUrl(event)
   const isExternalBooking = bookingUrl ? /^https?:\/\//i.test(bookingUrl) : false
-  const resolvedLabel = label || (isMothersDayEvent(event) ? MOTHERS_DAY_BOOKING_CTA_LABEL : 'Book Now')
+  const resolvedLabel = label || (isMothersDayEvent(event) ? MOTHERS_DAY_BOOKING_CTA_LABEL : getEventBookingCopy(event).label)
 
   if (!bookingUrl) {
     return (
@@ -174,10 +177,13 @@ export function EventBookingButton({
         onClick={(clickEvent) => {
           clickEvent.stopPropagation()
           onClick?.()
-          trackEventBookingStart({
+          trackEventBookClick({
             eventId: event.id,
             eventName: event.name,
-            eventPrice: getEventPrice(event)
+            eventDate: event.startDate,
+            eventPrice: getEventPrice(event),
+            source,
+            ctaLabel: resolvedLabel
           })
         }}
         aria-label={`${resolvedLabel} for ${event.name}${source ? ` (${source})` : ''}`}

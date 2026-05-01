@@ -14,7 +14,6 @@ export const CATEGORY_ROUTES: Record<string, string> = {
   'music-bingo': '/music-bingo',
   'karaoke': '/karaoke',
   'live-music': '/live-music',
-  'open-mic': '/open-mic',
 }
 
 export function getCategoryPageUrl(categorySlug: string | undefined | null): string {

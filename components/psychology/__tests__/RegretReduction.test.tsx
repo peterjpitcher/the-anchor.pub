@@ -5,7 +5,7 @@ describe('RegretReduction', () => {
   it('renders booking variant reassurances', () => {
     render(<RegretReduction variant="booking" />)
     expect(screen.getByText(/Free to cancel/i)).toBeInTheDocument()
-    expect(screen.getByText(/Card only required for Sunday lunch/i)).toBeInTheDocument()
+    expect(screen.getByText(/Free parking on site/i)).toBeInTheDocument()
     expect(screen.getByText(/Confirmation in seconds/i)).toBeInTheDocument()
   })
 

@@ -61,7 +61,7 @@ This is where we come in, and we'll be straightforward about what The Anchor off
 
 We're in Stanwell Moor, seven minutes from Terminal 5. We've hosted everything from small team planning days to 200-person company events. Here's what that looks like:
 
-- **Private function room** for 10 to 200 guests, with flexible layouts to suit boardroom-style meetings, theatre setups, or informal arrangements
+- **Private function room** for 10 to 50 guests, with flexible layouts to suit boardroom-style meetings, theatre setups, or informal arrangements. Larger events are available by enquiry.
 - **AV equipment** — projector, screen, and sound system for presentations and workshops
 - **Catering from £12 per head** for a buffet, or from £18 per head for a sit-down meal. Custom menus available for larger events
 - **Free parking** for your entire team — 20 spaces on site, no charges. Near Heathrow, where hotels charge £15–25 per car, this saves a meaningful amount
@@ -112,7 +112,7 @@ We have a projector, screen, and sound system available in the function room. It
 
 ### How many people can The Anchor accommodate?
 
-From 10 to 200 guests, depending on the layout. Smaller groups can use a dedicated section of the function room in a boardroom arrangement. Larger events can take over the full space, and for 150+ we can open up additional areas.
+From 10 to 50 guests for normal room bookings, depending on the layout. Smaller groups can use a dedicated section of the function room in a boardroom arrangement. Larger events can take over the full space by enquiry.
 
 ### Is there free parking for corporate events?
 

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { Container, SectionHeader } from '@/components/ui'
+import { Container, SectionHeader, Alert } from '@/components/ui'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { HeroWrapper } from '@/components/hero'
 import { Metadata } from 'next'
@@ -11,7 +11,6 @@ import { PhoneButton } from '@/components/PhoneButton'
 import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncement'
 import { SundayLunchHowItWorks } from '@/components/sunday-lunch/SundayLunchHowItWorks'
 import { SectionViewTracker } from '@/components/sunday-lunch/SectionViewTracker'
-import { SundayLunchMenuList } from '@/components/sunday-lunch/SundayLunchMenuList'
 import { TimedBookingPrompt } from '@/components/sunday-lunch/TimedBookingPrompt'
 import { PhoneLink } from '@/components/PhoneLink'
 import { StickyMobileBookingCTA } from '@/components/conversion/StickyMobileBookingCTA'
@@ -20,181 +19,110 @@ import { ExitIntentBookingModal } from '@/components/conversion/ExitIntentBookin
 import { DeferredHomepageTrackers } from '@/components/tracking/DeferredHomepageTrackers'
 import { MenuPageTracker } from '@/components/tracking/MenuPageTracker'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
-const SUNDAY_LUNCH_BOOKING_URL = '/book-table'
+import { getSundayRoastContent, SUNDAY_ROAST, type SundayRoastContent } from '@/lib/sunday-roast'
+import { getSundayLunchMenuPageData, type MenuPageItem } from '@/lib/menu-page-data'
+import { MenuRenderer } from '@/components/MenuRenderer'
+
+const SUNDAY_LUNCH_BOOKING_URL = SUNDAY_ROAST.bookingHref
 const WEBSITE_ORIGIN = 'https://www.the-anchor.pub'
 
-// Caching strategy for the launch fortnight (spec §8.5):
-// drop revalidate from 24h to 1h so the LaunchAnnouncement banner flips
-// reliably at the cutover even on cached pages.
-// TODO(post-launch): revert to 24h after 22 May 2026.
 export const revalidate = 60 * 60
 
-export const metadata: Metadata = {
-  title: 'Sunday Roast & Lunch Near Heathrow | The Anchor, Stanwell Moor',
-  description:
-    'Walk-in friendly Sunday roast served 1pm-6pm at The Anchor, Stanwell Moor. Mains from £19, 7 minutes from Heathrow Terminal 5. Free parking, dog-friendly. Booking recommended.',
-  openGraph: {
+export async function generateMetadata(): Promise<Metadata> {
+  const menu = await getSundayLunchMenuPageData()
+  const pricePhrase = menu.priceFromLabel ? ` Mains ${menu.priceFromLabel}.` : ''
+  const description = menu.menuData
+    ? `Sunday roast served 1pm-6pm at The Anchor, Stanwell Moor.${pricePhrase} 7 minutes from Heathrow Terminal 5. Free parking, dog-friendly.`
+    : 'Sunday roast served 1pm-6pm at The Anchor, Stanwell Moor. Call us for the current Sunday dish list.'
+
+  return {
     title: 'Sunday Roast & Lunch Near Heathrow | The Anchor, Stanwell Moor',
-    description:
-      'Walk-in friendly Sunday roast served 1pm-6pm at The Anchor, Stanwell Moor. Mains from £19, 7 minutes from Heathrow Terminal 5. Free parking, dog-friendly. Booking recommended.',
-    images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg']
-  },
-  twitter: getTwitterMetadata({
-    title: 'Sunday Roast & Lunch Near Heathrow | The Anchor, Stanwell Moor',
-    description:
-      'Walk-in friendly Sunday roast served 1pm-6pm at The Anchor, Stanwell Moor. Mains from £19, 7 minutes from Heathrow Terminal 5. Free parking, dog-friendly. Booking recommended.',
-    images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg']
-  }),
-  alternates: {
-    // Absolute path per spec §7.7 — keeps /sunday-lunch SEO equity.
-    canonical: '/sunday-lunch'
+    description,
+    openGraph: {
+      title: 'Sunday Roast & Lunch Near Heathrow | The Anchor, Stanwell Moor',
+      description,
+      images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg']
+    },
+    twitter: getTwitterMetadata({
+      title: 'Sunday Roast & Lunch Near Heathrow | The Anchor, Stanwell Moor',
+      description,
+      images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg']
+    }),
+    alternates: {
+      canonical: '/sunday-lunch'
+    }
   }
 }
 
-const SUNDAY_ROAST_MENU = [
-  {
-    name: 'Roast Beef Topside',
-    priceLabel: '£22',
-    description:
-      'Slow-roasted topside of beef, carved fresh on the day, served with triple-cooked, herb-and-garlic crusted roast potatoes, seasonal vegetables, a fluffy Yorkshire pudding and a generous pour of our signature gravy — a secret recipe we’ve refined ourselves over the years.'
-  },
-  {
-    name: 'Roast Pork Leg',
-    priceLabel: '£20',
-    description:
-      'Tender roasted pork leg sliced to order with Bramley apple sauce, triple-cooked, herb-and-garlic crusted roast potatoes, seasonal vegetables, a Yorkshire pudding and our signature gravy.'
-  },
-  {
-    name: 'Roast Turkey with Stuffing Ball',
-    priceLabel: '£19',
-    description:
-      'Roasted turkey carved fresh, served with a sage and onion stuffing ball, triple-cooked, herb-and-garlic crusted roast potatoes, seasonal vegetables, a Yorkshire pudding and our signature gravy.'
-  },
-  {
-    name: 'Beef & Ale Pie',
-    priceLabel: '£21',
-    description:
-      'Slow-cooked British beef in a rich ale gravy, topped with golden short-crust pastry. Served with triple-cooked, herb-and-garlic crusted roast potatoes, seasonal vegetables and our signature gravy. (No Yorkshire pudding with the pies.)'
-  },
-  {
-    name: 'Chicken & Wild Mushroom Pie',
-    priceLabel: '£21',
-    description:
-      'Tender chicken and wild mushrooms in a creamy sauce, topped with golden short-crust pastry. Served with triple-cooked, herb-and-garlic crusted roast potatoes, seasonal vegetables and our signature gravy. (No Yorkshire pudding with the pies.)'
-  },
-  {
-    name: 'Beetroot & Butternut Squash Wellington',
-    priceLabel: '£20',
-    badge: 'Vegan',
-    description:
-      'Golden puff pastry filled with roasted beetroot and butternut squash, served with triple-cooked, herb-and-garlic crusted roast potatoes, seasonal vegetables and our regular vegan gravy. Free upgrade to our signature gravy on request (note: the signature gravy contains meat stock, so it makes the dish non-vegan).'
-  },
-  {
-    name: 'Kids Roast',
-    priceLabel: '£14',
-    badge: 'Smaller portion',
-    description:
-      'A child-sized portion of any of our roasts — your child’s choice of roast pork, roast turkey or beetroot & butternut squash wellington — served on a smaller plate with triple-cooked, herb-and-garlic crusted roast potatoes, seasonal vegetables, a Yorkshire pudding (with the pork or turkey) and our signature gravy.'
-  }
-] as const
+function joinItemNames(items: MenuPageItem[]): string {
+  if (items.length === 0) return 'the current Sunday lunch menu'
+  if (items.length === 1) return items[0].name
+  return `${items.slice(0, -1).map((item) => item.name).join(', ')} and ${items[items.length - 1].name}`
+}
 
-const REVIEWS = [
-  {
-    body:
-      'It was hands down the best meal we had in England. Cosy atmosphere, warm hospitality from the team, and the food itself.',
-    author: 'IJ'
-  },
-  {
-    body:
-      'Came in this past Sunday for the Sunday roast before our flight home. Had the lamb shank and my partner had the pork belly. Absolutely delicious plates! Very hospitable owners and staff.',
-    author: 'T'
-  },
-  {
-    body:
-      'Lovely Sunday roast and you can also park the car if you need to go to Heathrow airport.',
-    author: 'Andrea Pisani'
-  },
-  {
-    body:
-      'Incredible roast dinner! Friendly and helpful staff too. Great stop before heading to Heathrow!',
-    author: 'Iona Turner'
-  },
-  {
-    body:
-      "Sunday roasts are great. Fantastic! Really good size, delicious gravy and plenty of veg. The belly pork was awesome!",
-    author: 'Penny Johnson'
-  },
-  {
-    body:
-      'The Sunday roasts are to die for. Great atmosphere all round. A must to visit.',
-    author: 'Michael Frewin'
-  }
-] as const
+function getSundayLunchFaqs(sunday: SundayRoastContent, currentMains: MenuPageItem[]) {
+  return [
+    {
+      question: 'Do I need to book a Sunday roast near me?',
+      answer: 'Walk-ins are welcome during Sunday lunch service. Booking is still recommended for larger groups and peak slots.'
+    },
+    {
+      question: 'Is there a deposit for Sunday lunch?',
+      answer: `${sunday.smallPartyCopy} ${sunday.depositCopy}`
+    },
+    {
+      question: 'What time is Sunday roast served?',
+      answer: 'Sunday roast is served 1pm to 6pm every Sunday. Last table booking is 5:30pm.'
+    },
+    {
+      question: 'What is on the Sunday lunch menu?',
+      answer: currentMains.length > 0
+        ? `The current Sunday lunch mains are ${joinItemNames(currentMains)}.`
+        : 'Please call us for the current Sunday dish list.'
+    },
+    {
+      question: 'Is The Anchor a dog-friendly Sunday roast?',
+      answer: 'Yes. Dogs are welcome inside the pub and in the beer garden. Water bowls are always out.'
+    },
+    {
+      question: 'How far is The Anchor from Heathrow?',
+      answer: "We're 7 minutes from Heathrow Terminal 5 by car. Free parking on site, no meters, no time limits while you're dining."
+    },
+    {
+      question: 'Is The Anchor a carvery?',
+      answer: 'No. Sunday lunch is cooked and plated by the kitchen rather than served from a self-serve carvery line.'
+    },
+    {
+      question: 'Do you serve a vegan or vegetarian Sunday roast?',
+      answer: currentMains.some((item) => item.vegan || item.vegetarian)
+        ? 'Yes. The current Sunday menu includes a vegetarian or vegan option. Ask at the bar for allergen guidance before ordering.'
+        : 'Please call us for the current Sunday dietary options.'
+    }
+  ] as const
+}
 
-const FAQS = [
-  {
-    question: 'Do I need to book a Sunday roast near me?',
-    answer:
-      'Walk-ins are welcome on Sundays between 1pm and 6pm — no pre-order needed. Booking is still recommended, especially for groups of six or more, since Sunday lunch books up fast around Heathrow.'
-  },
-  {
-    question: 'Is there a deposit for Sunday lunch?',
-    answer:
-      'Only for groups of 10 or more — £10 per person, fully deducted from your bill on the day. Smaller groups pay nothing up front; just turn up or book online.'
-  },
-  {
-    question: 'What time is Sunday roast served?',
-    answer:
-      'Sunday roast is served 1pm to 6pm every Sunday. Last table booking is 5:30pm. Walk-ins are welcome any time during the service window.'
-  },
-  {
-    question: 'Is The Anchor a dog-friendly Sunday roast?',
-    answer:
-      'Yes. Dogs are welcome inside the pub and in the beer garden. Water bowls are always out. Plenty of regulars come for a Sunday walk first, then a roast.'
-  },
-  {
-    question: 'How far is The Anchor from Heathrow?',
-    answer:
-      "We're 7 minutes from Heathrow Terminal 5 by car. Free parking on site, no meters, no time limits while you're dining. Easy reach from Staines, Ashford, Surrey and west London."
-  },
-  {
-    question: 'Is Sunday dinner the same as Sunday lunch at The Anchor?',
-    answer:
-      "Yes. We serve Sunday lunch / Sunday dinner / Sunday roast — different names for the same plate, depending on what you call it. We're open 1pm to 6pm so it works as a late lunch or an early dinner."
-  },
-  {
-    question: 'Is The Anchor a carvery?',
-    answer:
-      "No. We cook every plate to order rather than serving from a carvery line. The meat is carved fresh, the gravy made fresh, the trimmings hand-prepped. If you want a traditional Sunday roast carved fresh and brought to your table — that's what you're after."
-  },
-  {
-    question: 'Do you serve a vegan or vegetarian Sunday roast?',
-    answer:
-      "Yes — our beetroot and butternut squash wellington is fully vegan and is served with our regular vegan gravy. We can also offer a free upgrade to our signature gravy on request (note: that makes the dish non-vegan, as our signature gravy contains meat stock). Mention dietary requirements when booking and we'll make sure your visit goes smoothly."
-  }
-] as const
+function buildMenuJsonLd(menuItems: MenuPageItem[]) {
+  if (menuItems.length === 0) return null
 
-function buildMenuJsonLd() {
   return {
     '@context': 'https://schema.org',
     '@type': 'Menu',
-    name: 'The Anchor Sunday Roast Menu',
-    description:
-      'Sunday roast served 1pm–6pm at The Anchor, Stanwell Moor — 7 minutes from Heathrow Terminal 5. Mains from £19, cooked to order from scratch.',
+    name: 'The Anchor Sunday Lunch Menu',
+    description: 'Sunday lunch menu at The Anchor, Stanwell Moor.',
     url: `${WEBSITE_ORIGIN}/sunday-lunch`,
     isPartOf: { '@id': `${WEBSITE_ORIGIN}/#business` },
     hasMenuSection: [
       {
         '@type': 'MenuSection',
-        name: 'Sunday Roast Mains',
-        hasMenuItem: SUNDAY_ROAST_MENU.map((item) => ({
+        name: 'Sunday Lunch Mains',
+        hasMenuItem: menuItems.map((item) => ({
           '@type': 'MenuItem',
           name: item.name,
           description: item.description,
           offers: {
             '@type': 'Offer',
             priceCurrency: 'GBP',
-            price: item.priceLabel.replace('£', '')
+            price: item.price
           }
         }))
       }
@@ -202,28 +130,34 @@ function buildMenuJsonLd() {
   }
 }
 
-export default function SundayLunchPage() {
-  const menuJsonLd = buildMenuJsonLd()
+export default async function SundayLunchPage() {
+  const sunday = getSundayRoastContent()
+  const sundayMenu = await getSundayLunchMenuPageData()
+  const faqs = getSundayLunchFaqs(sunday, sundayMenu.mains)
+  const menuJsonLd = buildMenuJsonLd(sundayMenu.mains)
+
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(menuJsonLd) }}
-      />
+      {menuJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(menuJsonLd) }}
+        />
+      )}
 
       <HeroWrapper
         route="/sunday-lunch"
         title="Sunday Roast & Lunch Near Heathrow"
-        description="Made from scratch. Walk in 1pm–6pm or book ahead. 7 minutes from Heathrow Terminal 5."
+        description="Sunday lunch is served 1pm-6pm. Current dishes and prices are shown when available online."
         eyebrow="The Anchor, Stanwell Moor"
         lead={
           <p className="text-white/90 text-base sm:text-lg">
-            Sunday roast from &pound;19 &bull; Walk in or book ahead &bull; Served 1pm&ndash;6pm
+            Walk in during service or book ahead for busy slots. 7 minutes from Heathrow Terminal 5.
           </p>
         }
         image={{
           src: '/images/food/sunday-roast/the-anchor-sunday-roast-hero.jpg',
-          alt: 'Roast beef Sunday lunch with Yorkshire pudding, roasties and gravy at The Anchor pub near Heathrow'
+          alt: 'Sunday lunch plate at The Anchor pub near Heathrow'
         }}
         primaryCta={
           <BookTableButton
@@ -262,101 +196,62 @@ export default function SundayLunchPage() {
         </Container>
       </div>
 
-      {/* H1 + lead */}
       <div className="bg-anchor-bg pt-12 pb-8 border-b border-anchor-gold/15">
         <Container>
           <PageTitle className="text-center text-anchor-cream-text" seo={{ structured: true, speakable: true }}>
             Sunday Roast &amp; Lunch Near Heathrow at The Anchor
           </PageTitle>
           <p className="mt-4 text-center text-lg text-anchor-cream-text/70 max-w-3xl mx-auto">
-            Looking for the best Sunday roast near you? The Anchor in Stanwell Moor serves a proper Sunday lunch &mdash; or
-            Sunday dinner, depending what you call it &mdash; from 1pm to 6pm every week. Sliced roast beef, pork and
-            turkey, beef &amp; ale and chicken &amp; wild mushroom pies, plus a fully vegan beetroot &amp; butternut squash
-            wellington &mdash; all cooked to order from scratch. No pre-order, no self-serve carvery. Walk in or book ahead.
-            Free parking. 7 minutes from Heathrow Terminal 5.
+            Sunday lunch is served every Sunday from 1pm to 6pm. Walk-ins are welcome, booking is recommended for busier slots, and current dishes are shown here when available online.
           </p>
           <ul
             aria-label="At a glance"
             className="mt-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-sm text-anchor-cream-text/75"
           >
-            <li className="inline-flex items-center gap-1.5">
-              <span aria-hidden="true">&#128054;</span>
-              <span>Dog friendly</span>
-            </li>
+            <li>Dog friendly</li>
             <li aria-hidden="true" className="text-anchor-cream-text/40">&middot;</li>
-            <li className="inline-flex items-center gap-1.5">
-              <span aria-hidden="true">&#127359;&#65039;</span>
-              <span>Free parking</span>
-            </li>
+            <li>Free parking</li>
             <li aria-hidden="true" className="text-anchor-cream-text/40">&middot;</li>
-            <li className="inline-flex items-center gap-1.5">
-              <span aria-hidden="true">&#128694;</span>
-              <span>Walk in any time</span>
-            </li>
+            <li>Walk-ins welcome</li>
             <li aria-hidden="true" className="text-anchor-cream-text/40">&middot;</li>
-            <li className="inline-flex items-center gap-1.5">
-              <span aria-hidden="true">&#11088;</span>
-              <span>4.6/5 on Google</span>
-            </li>
+            <li>4.6/5 on Google</li>
           </ul>
         </Container>
       </div>
 
-      {/* Featured 5★ review */}
-      <section className="bg-anchor-bg-raised py-10 border-b border-anchor-gold/15">
-        <Container>
-          <figure className="mx-auto max-w-3xl text-center">
-            <blockquote className="text-2xl text-anchor-cream-text/85 italic leading-relaxed">
-              &ldquo;It was hands down the best meal we had in England. Cosy atmosphere, hospitality from the team, and the food itself.&rdquo;
-            </blockquote>
-            <figcaption className="mt-4 text-sm text-anchor-cream-text/60">
-              &mdash; IJ, Google review (5&#9733;)
-            </figcaption>
-          </figure>
-        </Container>
-      </section>
-
-      {/* What's on the plate — Sunday roast menu */}
       <section className="bg-anchor-bg py-12 border-b border-anchor-gold/15">
         <Container>
           <SectionHeader
-            title="What&rsquo;s on the Plate"
-            subtitle="Sunday roast at The Anchor — mains from £19, cooked to order with all the trimmings."
+            title="Current Sunday Lunch Menu"
+            subtitle={sundayMenu.menuData ? 'From the current Sunday lunch menu.' : 'Call us for the current Sunday dish list.'}
             align="center"
           />
-          <SundayLunchMenuList items={SUNDAY_ROAST_MENU} />
-          <p className="mt-6 text-center text-sm text-anchor-cream-text/60">
-            Every plate cooked to order. Extra Yorkshires or pigs in blankets can be added at the bar on the day.
-          </p>
-          <div className="mx-auto max-w-4xl mt-8 rounded-lg border border-anchor-gold/15 bg-anchor-bg-raised overflow-hidden">
-            <div className="grid gap-0 md:grid-cols-2 md:items-stretch">
-              <div className="relative aspect-[4/3] md:aspect-auto md:min-h-[260px]">
-                <Image
-                  src="/images/food/sunday-roast/sunday-roast-wellington-plated.jpg"
-                  alt="Beetroot and butternut squash wellington Sunday roast plated with seasonal vegetables and vegan gravy at The Anchor pub near Heathrow"
-                  fill
-                  loading="lazy"
-                  sizes="(min-width:768px) 50vw, 100vw"
-                  className="object-cover"
-                />
-              </div>
-              <div className="p-5 md:p-6">
-                <h3 className="text-lg font-semibold text-anchor-cream-text">
-                  Vegan Sunday Roast
-                </h3>
-                <p className="mt-2 text-sm text-anchor-cream-text/75 leading-relaxed">
-                  Our beetroot and butternut squash wellington (&pound;20) is fully vegan and served with our regular vegan
-                  gravy &mdash; not an afterthought, but a dish in its own right. Free upgrade to our signature gravy on
-                  request (note: the signature gravy contains meat stock, so the upgrade makes the dish non-vegan). Mention
-                  dietary requirements when booking and we&apos;ll make sure your visit goes smoothly.
-                </p>
-              </div>
-            </div>
-          </div>
+
+          {sundayMenu.menuData ? (
+            <MenuRenderer menuData={sundayMenu.menuData} eyebrow="Sunday lunch menu" />
+          ) : (
+            <Alert
+              variant="warning"
+              title="Sunday menu temporarily unavailable"
+              className="mx-auto max-w-3xl"
+            >
+              <p className="text-anchor-cream-text/70">
+                The current Sunday dish list is temporarily unavailable online. Please call{' '}
+                <PhoneLink
+                  phone="01753 682707"
+                  source="sunday_lunch_menu_unavailable"
+                  className="font-semibold underline"
+                  showIcon={false}
+                >
+                  01753 682707
+                </PhoneLink>{' '}
+                for the current dish list before travelling.
+              </p>
+            </Alert>
+          )}
         </Container>
       </section>
 
-      {/* How Sundays work — date-aware */}
       <section className="bg-anchor-bg-raised py-12 border-b border-anchor-gold/15">
         <Container>
           <div className="mx-auto max-w-3xl">
@@ -365,10 +260,10 @@ export default function SundayLunchPage() {
             </h2>
             <SundayLunchHowItWorks />
             <ul className="mt-6 space-y-2 text-anchor-cream-text/70 text-base">
-              <li>&bull; Service window: 1pm to 6pm. Last table booking 5:30pm. Kitchen serves until 6pm.</li>
-              <li>&bull; Walk-ins are welcome the whole window. Booking guarantees your spot, especially for parties of six or more.</li>
-              <li>&bull; No pre-order, no Saturday cutoff. Choose your roast at the table.</li>
-              <li>&bull; Groups of 10 or more take a £10 per person deposit on booking, fully deducted from the bill on the day.</li>
+              <li>&bull; Service window: 1pm to 6pm. Last table booking 5:30pm.</li>
+              <li>&bull; Walk-ins are welcome. Booking guarantees your spot, especially for larger parties.</li>
+              <li>&bull; No Sunday-specific pre-order is required.</li>
+              <li>&bull; {sunday.depositCopy}</li>
               <li>&bull; Plans changed? A quick call to{' '}
                 <PhoneLink
                   phone="01753 682707"
@@ -382,7 +277,7 @@ export default function SundayLunchPage() {
             </ul>
             <Image
               src="/images/food/sunday-roast/sunday-roast-potatoes-tossed.jpg"
-              alt="Triple-cooked, herb-and-garlic crusted Sunday roast potatoes being tossed in the prep bowl at The Anchor pub near Heathrow"
+              alt="Sunday lunch prep at The Anchor pub near Heathrow"
               width={1200}
               height={900}
               loading="lazy"
@@ -393,7 +288,6 @@ export default function SundayLunchPage() {
         </Container>
       </section>
 
-      {/* Sunday roast vs carvery — captures the 50K monthly carvery search */}
       <SectionViewTracker sectionId="carvery_comparison">
         <section className="bg-anchor-bg py-12 border-b border-anchor-gold/15">
           <Container>
@@ -402,8 +296,7 @@ export default function SundayLunchPage() {
                 Sunday Roast or Carvery? What to Expect Near Heathrow
               </h2>
               <p className="text-anchor-cream-text/70 leading-relaxed mb-6">
-                If you&apos;re weighing up a chain carvery near Heathrow versus an independent pub Sunday roast, here&apos;s what
-                actually changes on the plate.
+                If you are weighing up a chain carvery near Heathrow versus an independent pub Sunday lunch, the main difference is service style: we plate from the kitchen rather than running a self-serve carvery line.
               </p>
               <div className="overflow-x-auto rounded-lg border border-anchor-gold/15">
                 <table className="w-full text-sm md:text-base text-left">
@@ -418,32 +311,17 @@ export default function SundayLunchPage() {
                     <tr className="border-t border-anchor-gold/10">
                       <th scope="row" className="px-4 py-3 font-semibold align-top text-anchor-cream-text">Serving style</th>
                       <td className="px-4 py-3 align-top">Self-serve buffet line</td>
-                      <td className="px-4 py-3 align-top">Cooked to order, plated</td>
+                      <td className="px-4 py-3 align-top">Cooked and plated by the kitchen</td>
                     </tr>
                     <tr className="border-t border-anchor-gold/10">
-                      <th scope="row" className="px-4 py-3 font-semibold align-top text-anchor-cream-text">Meat carved</th>
-                      <td className="px-4 py-3 align-top">Pre-sliced, kept warm under lamps</td>
-                      <td className="px-4 py-3 align-top">Carved fresh per plate</td>
+                      <th scope="row" className="px-4 py-3 font-semibold align-top text-anchor-cream-text">Booking</th>
+                      <td className="px-4 py-3 align-top">Varies by venue</td>
+                      <td className="px-4 py-3 align-top">Walk in or book ahead</td>
                     </tr>
                     <tr className="border-t border-anchor-gold/10">
-                      <th scope="row" className="px-4 py-3 font-semibold align-top text-anchor-cream-text">Yorkshire pudding</th>
-                      <td className="px-4 py-3 align-top">Batch-baked, may be reheated</td>
-                      <td className="px-4 py-3 align-top">Baked to order from fresh batter</td>
-                    </tr>
-                    <tr className="border-t border-anchor-gold/10">
-                      <th scope="row" className="px-4 py-3 font-semibold align-top text-anchor-cream-text">Roast potatoes</th>
-                      <td className="px-4 py-3 align-top">Bulk-cooked, kept warm</td>
-                      <td className="px-4 py-3 align-top">Triple-cooked, herb-and-garlic crusted, finished to perfection</td>
-                    </tr>
-                    <tr className="border-t border-anchor-gold/10">
-                      <th scope="row" className="px-4 py-3 font-semibold align-top text-anchor-cream-text">Vegan option</th>
-                      <td className="px-4 py-3 align-top">Rare</td>
-                      <td className="px-4 py-3 align-top">Dedicated vegan wellington (£20) with regular vegan gravy</td>
-                    </tr>
-                    <tr className="border-t border-anchor-gold/10">
-                      <th scope="row" className="px-4 py-3 font-semibold align-top text-anchor-cream-text">Best for</th>
-                      <td className="px-4 py-3 align-top">Low-cost volume</td>
-                      <td className="px-4 py-3 align-top">A proper Sunday lunch</td>
+                      <th scope="row" className="px-4 py-3 font-semibold align-top text-anchor-cream-text">Menu details</th>
+                      <td className="px-4 py-3 align-top">Check with the venue</td>
+                      <td className="px-4 py-3 align-top">Shown online when available, or confirmed by phone</td>
                     </tr>
                   </tbody>
                 </table>
@@ -466,115 +344,57 @@ export default function SundayLunchPage() {
         </section>
       </SectionViewTracker>
 
-      {/* From the kitchen */}
       <section className="bg-anchor-bg-raised py-12 border-b border-anchor-gold/15">
         <Container>
-          <div className="mx-auto max-w-5xl">
-            <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text mb-6">
-              From the Kitchen
-            </h2>
-            <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
-              <div className="order-2 lg:order-1">
-                <ul className="space-y-3 text-anchor-cream-text/80 leading-relaxed">
-                  <li className="flex gap-3">
-                    <span aria-hidden="true" className="text-anchor-gold-vivid mt-1">&bull;</span>
-                    <span>Beef topside, slow-roasted to medium-rare and carved fresh per plate.</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span aria-hidden="true" className="text-anchor-gold-vivid mt-1">&bull;</span>
-                    <span>Pork leg slow-roasted, sliced to order, with crisp Bramley apple sauce.</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span aria-hidden="true" className="text-anchor-gold-vivid mt-1">&bull;</span>
-                    <span>Turkey carved fresh, served with a sage and onion stuffing ball.</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span aria-hidden="true" className="text-anchor-gold-vivid mt-1">&bull;</span>
-                    <span>Beef &amp; ale pie: slow-cooked British beef in a rich ale gravy, topped with golden short-crust pastry.</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span aria-hidden="true" className="text-anchor-gold-vivid mt-1">&bull;</span>
-                    <span>Chicken &amp; wild mushroom pie: tender chicken and wild mushrooms in a creamy sauce, topped with golden short-crust pastry.</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span aria-hidden="true" className="text-anchor-gold-vivid mt-1">&bull;</span>
-                    <span>Triple-cooked roast potatoes, herb-and-garlic crusted, finished to perfection.</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span aria-hidden="true" className="text-anchor-gold-vivid mt-1">&bull;</span>
-                    <span>Yorkshire puddings baked to order from a fresh batter (with the sliced roasts).</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span aria-hidden="true" className="text-anchor-gold-vivid mt-1">&bull;</span>
-                    <span>Our signature gravy &mdash; a secret recipe we&apos;ve developed and refined over years (regular vegan gravy on request).</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span aria-hidden="true" className="text-anchor-gold-vivid mt-1">&bull;</span>
-                    <span>Seasonal vegetables &mdash; chosen for what&apos;s at its best.</span>
-                  </li>
-                </ul>
-                <p className="mt-5 text-anchor-cream-text/70 leading-relaxed">
-                  The vegan wellington gets the same care: beetroot and butternut squash wrapped in golden puff pastry,
-                  served with our regular vegan gravy on the side.
-                </p>
-                <p className="mt-3 text-anchor-cream-text/70 leading-relaxed">
-                  That&apos;s why people drive in from Surrey, Ashford, Staines and west London for it.
-                </p>
+          <SectionHeader
+            title="Why Locals Choose Sunday Lunch Here"
+            subtitle="Free parking, easy booking and a village pub setting minutes from Heathrow."
+            align="center"
+          />
+          <div className="mt-8 grid gap-6 md:grid-cols-3">
+            {[
+              ['Easy to reach', '7 minutes from Heathrow Terminal 5 by car, outside the terminal rush.'],
+              ['Good for groups', 'Book online for standard tables or call us for larger parties.'],
+              ['Dog friendly', 'Dogs are welcome inside and in the beer garden.']
+            ].map(([title, body]) => (
+              <div key={title} className="rounded-lg border border-anchor-gold/15 bg-anchor-bg p-6">
+                <h3 className="text-lg font-semibold text-anchor-cream-text">{title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-anchor-cream-text/70">{body}</p>
               </div>
-              <div className="order-1 lg:order-2">
-                <Image
-                  src="/images/food/sunday-roast/sunday-roast-beef-carved.jpg"
-                  alt="Slow-roasted topside of beef being carved fresh per plate at The Anchor pub near Heathrow"
-                  width={1200}
-                  height={900}
-                  loading="lazy"
-                  sizes="(min-width:1024px) 50vw, 100vw"
-                  className="w-full h-auto rounded-lg border border-anchor-gold/15 object-cover"
-                />
-              </div>
-            </div>
+            ))}
           </div>
         </Container>
       </section>
 
-      {/* Heathrow itinerary — for layovers and pre/post-flight visits */}
       <section className="bg-anchor-bg py-12 border-b border-anchor-gold/15">
         <Container>
           <div className="mx-auto max-w-3xl">
             <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text mb-3">
-              Sunday Roast Between Flights &mdash; Plan Your Visit Around Heathrow
+              Sunday Lunch Between Flights
             </h2>
             <p className="text-anchor-cream-text/70 leading-relaxed mb-6">
-              Best for layovers between 3 and 6 hours, post-arrival meals before checking into a Heathrow hotel, or the
-              last bite of proper British food before you fly home.
+              Best for layovers with enough time to leave the airport, post-arrival meals before checking into a Heathrow hotel, or a proper pub lunch before an evening flight.
             </p>
             <ol className="space-y-4 text-anchor-cream-text/80 leading-relaxed">
               <li className="flex gap-4">
                 <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-anchor-gold-bright text-anchor-charcoal font-bold">1</span>
                 <div>
                   <p className="font-semibold text-anchor-cream-text">Land at T5</p>
-                  <p className="text-sm text-anchor-cream-text/70">7-minute drive (free parking, no meters).</p>
+                  <p className="text-sm text-anchor-cream-text/70">7-minute drive with free parking at the pub.</p>
                 </div>
               </li>
               <li className="flex gap-4">
                 <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-anchor-gold-bright text-anchor-charcoal font-bold">2</span>
                 <div>
-                  <p className="font-semibold text-anchor-cream-text">Sunday roast at 1pm</p>
-                  <p className="text-sm text-anchor-cream-text/70">Walk in or book ahead — plates from &pound;19, service runs until 6pm.</p>
+                  <p className="font-semibold text-anchor-cream-text">Sunday lunch</p>
+                  <p className="text-sm text-anchor-cream-text/70">Walk in during service or book ahead for a guaranteed table.</p>
                 </div>
               </li>
               <li className="flex gap-4">
                 <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-anchor-gold-bright text-anchor-charcoal font-bold">3</span>
                 <div>
-                  <p className="font-semibold text-anchor-cream-text">Beer garden under the flight path</p>
-                  <p className="text-sm text-anchor-cream-text/70">For plane-spotters with time to kill.</p>
-                </div>
-              </li>
-              <li className="flex gap-4">
-                <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-anchor-gold-bright text-anchor-charcoal font-bold">4</span>
-                <div>
-                  <p className="font-semibold text-anchor-cream-text">Easy 7-min back to T5</p>
-                  <p className="text-sm text-anchor-cream-text/70">For evening flights.</p>
+                  <p className="font-semibold text-anchor-cream-text">Easy return</p>
+                  <p className="text-sm text-anchor-cream-text/70">Head back to T5 when you are ready.</p>
                 </div>
               </li>
             </ol>
@@ -582,90 +402,19 @@ export default function SundayLunchPage() {
         </Container>
       </section>
 
-      {/* Reviews */}
-      <section className="bg-anchor-bg-raised py-12 border-b border-anchor-gold/15">
-        <Container>
-          <SectionHeader
-            title="Why Locals Rate It One of the Best Sunday Roasts Near Heathrow"
-            subtitle="Curated 5&#9733; reviews from Google."
-            align="center"
-          />
-          <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {REVIEWS.map((review) => (
-              <figure
-                key={review.author}
-                className="rounded-2xl border border-anchor-gold/15 bg-anchor-bg-raised p-6"
-              >
-                <blockquote className="text-anchor-cream-text/80 leading-relaxed text-sm">
-                  &ldquo;{review.body}&rdquo;
-                </blockquote>
-                <figcaption className="mt-4 text-xs font-semibold text-anchor-gold-vivid">
-                  &mdash; {review.author}, Google review
-                </figcaption>
-              </figure>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      {/* Local SEO — Surrey / Ashford / west London */}
-      <section className="bg-anchor-bg-raised py-12 border-b border-anchor-gold/15">
-        <Container>
-          <div className="mx-auto max-w-3xl">
-            <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text mb-6">
-              Sunday Roast in Surrey, Near Ashford and West London
-            </h2>
-            <div className="space-y-6 text-anchor-cream-text/70 leading-relaxed">
-              <div>
-                <h3 className="text-xl font-semibold text-anchor-cream-text mb-2">From Surrey</h3>
-                <p>
-                  Egham, Wraysbury, Englefield Green and Virginia Water are all within a 10&ndash;15 minute drive of The Anchor.
-                  Easy reach via the A30 or M25 Junction 13.
-                </p>
-                <p className="mt-2 italic text-anchor-cream-text/60">
-                  &ldquo;Lovely Sunday roast and you can also park the car if you need to go to Heathrow airport.&rdquo; &mdash; Andrea, Egham regular.
-                </p>
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-anchor-cream-text mb-2">From Ashford &amp; Staines</h3>
-                <p>
-                  Ashford, Staines-upon-Thames and Bedfont are 8&ndash;12 minutes by car. We&apos;re the closest pub Sunday
-                  roast for anyone heading west off the A30 &mdash; free parking on site, no time limits while you&apos;re dining.
-                </p>
-                <p className="mt-2 italic text-anchor-cream-text/60">
-                  &ldquo;The Sunday roasts are to die for. Great atmosphere all round. A must to visit.&rdquo; &mdash; Michael, Ashford.
-                </p>
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-anchor-cream-text mb-2">From West London</h3>
-                <p>
-                  Hounslow, Feltham, Hayes and Heathrow village are 15&ndash;25 minutes via the A30 or M25 Junction 14.
-                  Outside the ULEZ zone, with an outdoor beer garden under the Heathrow flight path.
-                </p>
-                <p className="mt-2 italic text-anchor-cream-text/60">
-                  &ldquo;Came in this past Sunday for the Sunday roast before our flight home. Absolutely delicious plates!&rdquo; &mdash; T, west London visitor.
-                </p>
-              </div>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      {/* FAQ */}
       <FAQAccordionWithSchema
         title="Sunday Roast FAQs"
-        faqs={FAQS.map((faq) => ({ question: faq.question, answer: faq.answer }))}
+        faqs={faqs.map((faq) => ({ question: faq.question, answer: faq.answer }))}
       />
 
-      {/* Final CTA */}
       <section className="bg-anchor-green py-12 text-center">
         <Container>
           <div className="max-w-2xl mx-auto space-y-5">
             <h2 className="text-2xl md:text-3xl font-bold text-white">
-              Book your Sunday roast at The Anchor
+              Book your Sunday lunch at The Anchor
             </h2>
             <p className="text-white/85 text-base">
-              Walk in or book ahead — served 1pm to 6pm every Sunday. Mains from £19. 7 minutes from Heathrow Terminal 5.
+              Sunday service runs 1pm to 6pm. 7 minutes from Heathrow Terminal 5.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <BookTableButton
@@ -673,7 +422,7 @@ export default function SundayLunchPage() {
                 context="sunday_roast"
                 variant="secondary"
                 size="lg"
-                className="bg-white text-anchor-green hover:bg-gray-100"
+                className="bg-anchor-gold text-anchor-green hover:bg-anchor-gold-light"
                 customHref={SUNDAY_LUNCH_BOOKING_URL}
                 trackingLabel="Book a Sunday roast"
                 eventName="Sunday roast"
@@ -699,7 +448,6 @@ export default function SundayLunchPage() {
         </Container>
       </section>
 
-      {/* Conversion + tracking layer (Wave 2C) */}
       <StickyMobileBookingCTA />
       <ScrollProgressBookingTooltip />
       <ExitIntentBookingModal />

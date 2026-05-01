@@ -24,6 +24,19 @@ export type ManagersSpecial = {
     origin?: string
     distillery?: string
   }
+  education?: {
+    story: string
+    whyPicked: string
+    flavourProfile: string
+    perfectServe: string
+    foodPairings: string[]
+    tryIfYouLike: string[]
+    barTeamTip: string
+    glossary: Array<{
+      term: string
+      definition: string
+    }>
+  }
   promotion: {
     headline: string
     subheadline?: string

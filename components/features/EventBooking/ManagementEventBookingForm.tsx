@@ -6,13 +6,15 @@ import { Alert } from '@/components/ui/feedback/Alert'
 import { Card, CardBody } from '@/components/ui/layout/Card'
 import { Button } from '@/components/ui/primitives/Button'
 import { Input } from '@/components/ui/primitives/Input'
-import { trackEventBookingStart } from '@/lib/gtm-events'
+import { trackEventBookingComplete, trackEventBookingStart } from '@/lib/gtm-events'
 import type { Event } from '@/lib/api'
+import { formatEventLocalDate, formatEventLocalTime } from '@/lib/event-calendar'
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
 
 type LookupState = 'idle' | 'loading' | 'known' | 'unknown'
 type EventBookingState = 'confirmed' | 'pending_payment' | 'full_with_waitlist_option' | 'blocked'
+type FoodIntent = 'planning_to_eat' | 'event_only'
 
 type CustomerLookupResult = {
   known: boolean
@@ -50,6 +52,7 @@ interface ManagementEventBookingFormProps {
   event: Pick<Event, 'id' | 'name' | 'startDate' | 'time'>
   title?: string
   compact?: boolean
+  foodPrompt?: string
 }
 
 const BLOCKED_COPY: Record<string, string> = {
@@ -58,6 +61,19 @@ const BLOCKED_COPY: Record<string, string> = {
   sold_out: 'This event is sold out.',
   payment_required: 'Payment is required to secure this booking.'
 }
+
+const FOOD_INTENT_OPTIONS: Array<{ value: FoodIntent; label: string; description: string }> = [
+  {
+    value: 'planning_to_eat',
+    label: 'Planning to eat before the event',
+    description: 'Arrive early and order from the team on the night.'
+  },
+  {
+    value: 'event_only',
+    label: 'Event or drinks only',
+    description: 'Reserve seats without food on this visit.'
+  }
+]
 
 function getBlockedMessage(reason: string | null | undefined): string {
   if (!reason) return BLOCKED_COPY.blocked
@@ -90,7 +106,12 @@ function hasPolicyViolation(payload: any): boolean {
   return candidates.some((value) => typeof value === 'string' && value.toUpperCase() === 'POLICY_VIOLATION')
 }
 
-export function ManagementEventBookingForm({ event, title, compact = false }: ManagementEventBookingFormProps) {
+export function ManagementEventBookingForm({
+  event,
+  title,
+  compact = false,
+  foodPrompt = 'Food is available before most hosted events. Book early if your group wants to eat first.'
+}: ManagementEventBookingFormProps) {
   const [phone, setPhone] = useState('')
   const [lookupState, setLookupState] = useState<LookupState>('idle')
   const [knownCustomer, setKnownCustomer] = useState<CustomerLookupResult['customer']>(null)
@@ -101,6 +122,7 @@ export function ManagementEventBookingForm({ event, title, compact = false }: Ma
   const [lastName, setLastName] = useState('')
   const [seats, setSeats] = useState(2)
   const [seatsDisplay, setSeatsDisplay] = useState('2')
+  const [foodIntent, setFoodIntent] = useState<FoodIntent>('planning_to_eat')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [result, setResult] = useState<EventBookingResult | null>(null)
@@ -113,6 +135,17 @@ export function ManagementEventBookingForm({ event, title, compact = false }: Ma
 
   const detailsUnlocked = lookupState === 'known' || lookupState === 'unknown'
   const isKnownCustomer = lookupState === 'known'
+  const eventDate = formatEventLocalDate(event.startDate, {
+    weekday: 'short',
+    day: 'numeric',
+    month: 'short'
+  })
+  const eventTime = formatEventLocalTime(event.startDate)
+  const selectedFoodIntent = FOOD_INTENT_OPTIONS.find((option) => option.value === foodIntent) || FOOD_INTENT_OPTIONS[0]
+
+  function buildFoodNotes(): string {
+    return `Event dining intent: ${selectedFoodIntent.label}`
+  }
 
   async function handlePhoneLookup() {
     setLookupError(null)
@@ -210,8 +243,14 @@ export function ManagementEventBookingForm({ event, title, compact = false }: Ma
 
     trackEventBookingStart({
       eventId: event.id,
-      eventName: event.name
+      eventName: event.name,
+      eventDate: event.startDate,
+      partySize: clampedSeats,
+      foodIntent,
+      source: 'event_booking_form'
     })
+
+    const notes = buildFoodNotes()
 
     try {
       const response = await fetch('/api/event-bookings', {
@@ -227,6 +266,7 @@ export function ManagementEventBookingForm({ event, title, compact = false }: Ma
           ...(resolvedLastName ? { last_name: resolvedLastName } : {}),
           ...(knownCustomer?.email ? { email: knownCustomer.email } : {}),
           seats: clampedSeats,
+          notes,
           ...(turnstileToken ? { turnstile_token: turnstileToken } : {}),
           ...(honeypot ? { website: honeypot } : {}),
           _t: Math.floor((Date.now() - formLoadedAt.current) / 1000)
@@ -260,6 +300,17 @@ export function ManagementEventBookingForm({ event, title, compact = false }: Ma
       const bookingData = data as EventBookingResult
       setResult(bookingData)
 
+      if (bookingData.state === 'confirmed') {
+        trackEventBookingComplete({
+          eventId: event.id,
+          eventName: event.name,
+          eventDate: event.startDate,
+          tickets: clampedSeats,
+          foodIntent,
+          bookingId: bookingData.booking_id
+        })
+      }
+
       if (bookingData.state === 'blocked') {
         setError(getBlockedMessage(bookingData.reason))
       }
@@ -291,6 +342,7 @@ export function ManagementEventBookingForm({ event, title, compact = false }: Ma
           ...(lastName.trim() ? { last_name: lastName.trim() } : {}),
           ...(knownCustomer?.email ? { email: knownCustomer.email } : {}),
           requested_seats: seats,
+          notes: buildFoodNotes(),
           ...(turnstileToken ? { turnstile_token: turnstileToken } : {}),
           ...(honeypot ? { website: honeypot } : {}),
           _t: Math.floor((Date.now() - formLoadedAt.current) / 1000)
@@ -331,6 +383,72 @@ export function ManagementEventBookingForm({ event, title, compact = false }: Ma
         ) : null}
 
         <form onSubmit={handleSubmit} className={compact ? 'space-y-3' : 'space-y-4'}>
+          <div className={compact ? 'space-y-3 border border-anchor-gold/15 bg-anchor-bg-raised p-3' : 'space-y-4 border border-anchor-gold/15 bg-anchor-bg-raised p-4'}>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-anchor-gold-vivid">Selected event</p>
+              <p className="mt-1 text-sm font-semibold text-anchor-cream-text">{event.name}</p>
+              <p className="text-sm text-anchor-cream-text/70">{eventDate} at {eventTime}</p>
+            </div>
+
+            <Input
+              label="Number of Seats"
+              type="text"
+              inputMode="numeric"
+              pattern="[0-9]*"
+              required
+              value={seatsDisplay}
+              onChange={(event) => {
+                const raw = event.target.value
+                if (raw !== '' && !/^\d+$/.test(raw)) return
+                setSeatsDisplay(raw)
+                if (raw === '') return
+                const parsed = Number.parseInt(raw, 10)
+                if (Number.isNaN(parsed)) return
+                setSeats(Math.min(Math.max(parsed, 1), 20))
+              }}
+              onBlur={() => {
+                const parsed = Number.parseInt(seatsDisplay, 10)
+                const clamped = (!Number.isFinite(parsed) || parsed < 1) ? 1 : Math.min(parsed, 20)
+                setSeats(clamped)
+                setSeatsDisplay(String(clamped))
+              }}
+              helperText="Choose your party size before entering contact details."
+            />
+
+            <fieldset className="space-y-3">
+              <legend className="text-sm font-semibold text-anchor-cream-text">Want to eat before the event?</legend>
+              <p className="text-sm text-anchor-cream-text/70">{foodPrompt}</p>
+              <div className="grid gap-2">
+                {FOOD_INTENT_OPTIONS.map((option) => (
+                  <label
+                    key={option.value}
+                    className={`flex cursor-pointer gap-3 border p-3 transition-colors ${
+                      foodIntent === option.value
+                        ? 'border-anchor-gold bg-anchor-gold/10'
+                        : 'border-anchor-gold/15 bg-anchor-bg-card hover:border-anchor-gold/40'
+                    }`}
+                  >
+                    <input
+                      type="radio"
+                      name="food_intent"
+                      value={option.value}
+                      checked={foodIntent === option.value}
+                      onChange={() => setFoodIntent(option.value)}
+                      className="mt-1 h-4 w-4 accent-anchor-gold"
+                    />
+                    <span>
+                      <span className="block text-sm font-semibold text-anchor-cream-text">{option.label}</span>
+                      <span className="block text-xs text-anchor-cream-text/60">{option.description}</span>
+                    </span>
+                  </label>
+                ))}
+              </div>
+              <p className="text-xs text-anchor-cream-text/60">
+                This is not a food pre-order. Please order with the bar team on arrival.
+              </p>
+            </fieldset>
+          </div>
+
           <div className={compact ? 'border border-anchor-gold/15 bg-anchor-bg-raised p-3' : 'border border-anchor-gold/15 bg-anchor-bg-raised p-4'}>
             <Input
               label="Mobile Number"
@@ -340,7 +458,7 @@ export function ManagementEventBookingForm({ event, title, compact = false }: Ma
               disabled={detailsUnlocked}
               onChange={(event) => setPhone(event.target.value)}
               placeholder="07xxx xxxxxx"
-              helperText="Enter your number first so we can check if you’re already in our system."
+              helperText="Enter your mobile so we can confirm the reservation and check whether you are already in our system."
             />
 
             <div className="mt-3 flex flex-wrap gap-2">
@@ -406,31 +524,6 @@ export function ManagementEventBookingForm({ event, title, compact = false }: Ma
                   onChange={(e) => setHoneypot(e.target.value)}
                 />
               </div>
-
-              <Input
-                label="Number of Seats"
-                type="text"
-                inputMode="numeric"
-                pattern="[0-9]*"
-                required
-                value={seatsDisplay}
-                onChange={(event) => {
-                  const raw = event.target.value
-                  // Allow empty (user is clearing to retype) and digits only
-                  if (raw !== '' && !/^\d+$/.test(raw)) return
-                  setSeatsDisplay(raw)
-                  if (raw === '') return
-                  const parsed = Number.parseInt(raw, 10)
-                  if (Number.isNaN(parsed)) return
-                  setSeats(Math.min(Math.max(parsed, 1), 20))
-                }}
-                onBlur={() => {
-                  const parsed = Number.parseInt(seatsDisplay, 10)
-                  const clamped = (!Number.isFinite(parsed) || parsed < 1) ? 1 : Math.min(parsed, 20)
-                  setSeats(clamped)
-                  setSeatsDisplay(String(clamped))
-                }}
-              />
 
               {TURNSTILE_SITE_KEY && (
                 <Turnstile

@@ -451,12 +451,12 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
                 Book a Table
               </BookTableButton>
               <Link href="/food-menu">
-                <Button variant="outline" size="lg" className="!text-white !border-white hover:!bg-white hover:!text-anchor-green">
+                <Button variant="outline" size="lg" className="!text-anchor-gold !border-anchor-gold hover:!bg-anchor-gold hover:!text-anchor-green">
                   View Food Menu
                 </Button>
               </Link>
               <Link href="/find-us">
-                <Button variant="outline" size="lg" className="!text-white !border-white hover:!bg-white hover:!text-anchor-green">
+                <Button variant="outline" size="lg" className="!text-anchor-gold !border-anchor-gold hover:!bg-anchor-gold hover:!text-anchor-green">
                   Get Directions
                 </Button>
               </Link>
@@ -464,12 +464,12 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
           ) : (
             <>
               <Link href="/find-us">
-                <Button variant="outline" size="lg" className="!text-white !border-white hover:!bg-white hover:!text-anchor-green">
+                <Button variant="outline" size="lg" className="!text-anchor-gold !border-anchor-gold hover:!bg-anchor-gold hover:!text-anchor-green">
                   Get Directions
                 </Button>
               </Link>
               <Link href="/blog">
-                <Button variant="outline" size="lg" className="!text-white !border-white hover:!bg-white hover:!text-anchor-green">
+                <Button variant="outline" size="lg" className="!text-anchor-gold !border-anchor-gold hover:!bg-anchor-gold hover:!text-anchor-green">
                   More Stories
                 </Button>
               </Link>

@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/overlays/Modal'
 import { BookTableButton } from '@/components/BookTableButton'
 import { pushToDataLayer } from '@/lib/gtm-events'
+import { getSundayRoastContent, SUNDAY_ROAST } from '@/lib/sunday-roast'
 
 const SESSION_DISMISS_KEY = 'sunday_lunch_booking_prompt_dismissed'
 const DEFAULT_DELAY_MS = 15_000
@@ -68,6 +69,7 @@ export function TimedBookingPrompt({
   promptId = PROMPT_ID,
 }: TimedBookingPromptProps = {}) {
   const [open, setOpen] = useState(false)
+  const sunday = getSundayRoastContent()
 
   useEffect(() => {
     if (readDismissed()) return
@@ -110,9 +112,9 @@ export function TimedBookingPrompt({
       </ModalHeader>
       <ModalBody>
         <p className="text-base text-anchor-cream-text/85 leading-relaxed">
-          Sundays book up fast at The Anchor — we&rsquo;re 7 minutes from
-          Heathrow Terminal 5. Walk-ins are welcome 1pm to 6pm, but a quick
-          booking guarantees your table.
+          {sunday.isLive
+            ? 'Sundays book up fast at The Anchor. We are 7 minutes from Heathrow Terminal 5. Walk-ins are welcome 1pm to 6pm, but a quick booking guarantees your table.'
+            : `${sunday.availabilityLong} We are 7 minutes from Heathrow Terminal 5, and booking ahead is recommended for launch Sundays.`}
         </p>
         <p className="mt-3 text-sm text-anchor-cream-text/65 leading-relaxed">
           Larger group? Parties of ten or more take a £10-per-person deposit
@@ -123,12 +125,12 @@ export function TimedBookingPrompt({
         <BookTableButton
           source="sunday_lunch_timed_prompt"
           context="sunday_roast"
-          customHref="/book-table"
+          customHref={SUNDAY_ROAST.bookingHref}
           variant="primary"
           size="md"
           onClickAfterTracking={() => dismiss('cta')}
         >
-          Book a table
+          Book Sunday Roast
         </BookTableButton>
       </ModalFooter>
     </Modal>

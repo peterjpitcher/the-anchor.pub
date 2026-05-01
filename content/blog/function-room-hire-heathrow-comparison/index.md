@@ -64,7 +64,7 @@ This is where The Anchor fits, and we'll be upfront about what we offer.
 
 We host everything from corporate team lunches to 200-person birthday parties, christenings, retirement dos, and wakes. Here's what that looks like in practice:
 
-- **Capacity:** 10 to 200 guests with flexible layouts — intimate areas for smaller groups, full venue hire for larger events
+- **Capacity:** room bookings for 10 to 50 guests, with full-venue hire and larger events available by enquiry
 - **Catering:** Buffets from £12 per head, sit-down meals from £18 per head, and custom menus for events that need something specific
 - **Parking:** Free for all guests, with 20 spaces on site. Near Heathrow, where hotels charge £15–25 per car, this saves your guests a small fortune
 - **AV equipment:** Available for presentations, slideshows, and speeches

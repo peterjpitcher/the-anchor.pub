@@ -59,7 +59,7 @@ Our current burger menu (served with chips and the sauce of your choice) include
 - Spicy Chicken Stack
 - Veggie Stack
 
-See the full burger menu here: /burger-menu
+See the burger section in the full food menu here: /food-menu#burgers
 
 ## Why Choose The Anchor for Burgers
 

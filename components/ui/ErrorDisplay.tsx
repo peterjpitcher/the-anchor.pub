@@ -26,9 +26,9 @@ export function ErrorDisplay({
   const [detailsExpanded, setDetailsExpanded] = useState(false)
 
   const baseClasses = {
-    inline: 'text-red-700 text-sm',
-    card: 'bg-red-50 border border-red-200 rounded-lg p-6 text-center',
-    banner: 'bg-red-50 border-t border-b border-red-200 py-4 px-6'
+    inline: 'text-red-300 text-sm',
+    card: 'bg-red-500/10 border border-red-500/30 rounded-lg p-6 text-center',
+    banner: 'bg-red-500/10 border-t border-b border-red-500/30 py-4 px-6'
   }
 
   if (variant === 'inline') {
@@ -51,7 +51,7 @@ export function ErrorDisplay({
   return (
     <div className={cn(baseClasses[variant], className)} role="alert">
       <div className="max-w-2xl mx-auto">
-        <p className="text-red-700 mb-4 text-base font-medium">{message}</p>
+        <p className="text-red-300 mb-4 text-base font-medium">{message}</p>
         
         <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
           {onRetry && (
@@ -78,7 +78,7 @@ export function ErrorDisplay({
         </div>
 
         {showDetails && technicalDetails && (
-          <div className="mt-4 border-t border-red-200 pt-4">
+          <div className="mt-4 border-t border-red-500/20 pt-4">
             <button
               onClick={() => setDetailsExpanded(!detailsExpanded)}
               className="text-sm text-anchor-cream-text/70 hover:text-anchor-cream-text underline focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-anchor-gold rounded"

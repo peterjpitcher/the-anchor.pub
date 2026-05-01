@@ -37,7 +37,7 @@ If you're short on time, here's the overview. If you want the detail, keep scrol
 | **Catering per head** | £9.95-£17.99 | £45-£120 |
 | **Parking** | Usually free | £15-£35 per car per day |
 | **Flexibility** | High -- timings, food, decorations | Moderate -- set packages, time slots |
-| **Capacity** | 10-200 (varies by venue) | 10-1,000+ |
+| **Capacity** | 10-50 room bookings; larger events by enquiry | 10-1,000+ |
 | **Dog-friendly** | Often yes | Rarely |
 | **Overnight stays** | No (nearby hotels available) | Yes |
 | **AV/tech** | Basic to good | Professional-grade |

@@ -14,6 +14,11 @@ function isSameOriginCategoryPath(url: URL): boolean {
   return CATEGORY_PAGE_PATHS.has(normalisedPath)
 }
 
+function isManagementUrl(url: URL): boolean {
+  const hostname = url.hostname.toLowerCase()
+  return hostname.includes('orangejelly') || hostname.startsWith('management.')
+}
+
 function sanitiseSchemaUrl(
   rawUrl: string | null | undefined,
   fallbackUrl: string
@@ -24,8 +29,9 @@ function sanitiseSchemaUrl(
 
   try {
     const parsed = new URL(trimmed, SITE_ORIGIN)
+    if (isManagementUrl(parsed)) return fallbackUrl
     if (isSameOriginCategoryPath(parsed)) return fallbackUrl
-    return trimmed
+    return parsed.href
   } catch {
     return fallbackUrl
   }
@@ -38,6 +44,7 @@ function sanitisePotentialAction(
 
   try {
     const parsed = new URL(action.target.urlTemplate, SITE_ORIGIN)
+    if (isManagementUrl(parsed)) return null
     if (isSameOriginCategoryPath(parsed)) return null
     return action
   } catch {
@@ -171,7 +178,7 @@ export function buildEventSchema(event: Event) {
       '@type': 'ReserveAction',
       target: {
         '@type': 'EntryPoint',
-        urlTemplate: 'https://www.the-anchor.pub/book-table',
+        urlTemplate: eventUrl,
         actionPlatform: [
           'https://schema.org/DesktopWebPlatform',
           'https://schema.org/MobileWebPlatform'
@@ -203,11 +210,6 @@ export function buildEventSchema(event: Event) {
   // Conditionally add accessibility feature from event data
   if (event.accessibility_notes) {
     schema.accessibilityFeature = [event.accessibility_notes]
-  }
-
-  // Conditionally add refund policy from event data
-  if (event.cancellation_policy) {
-    schema.refundPolicy = event.cancellation_policy
   }
 
   return schema

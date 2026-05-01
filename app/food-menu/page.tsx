@@ -11,45 +11,24 @@ import ScrollDepthTracker from '@/components/tracking/ScrollDepthTracker'
 import { SpeakableSchema } from '@/components/seo/SpeakableSchema'
 import { SpeakableContent } from '@/components/voice/SpeakableContent'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
-import { parseMenuMarkdown } from '@/lib/menu-parser'
 import { getBusinessHours, isKitchenOpen, type BusinessHours } from '@/lib/api'
 import { formatTime12Hour } from '@/lib/time-utils'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
-import { generateKitchenHoursSpecification, generateNutritionInfo, generateSuitableForDiet } from '@/lib/schema-utils'
+import { generateKitchenHoursSpecification, generateSuitableForDiet } from '@/lib/schema-utils'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 import { DietaryMenuNav } from '@/components/food/DietaryMenuNav'
 import type { KitchenStatusData } from '@/components/psychology'
+import {
+  getFishAndChipsMenuPageData,
+  getFoodMenuPageData,
+  getMenuUnavailableMessage,
+  getPizzaMenuPageData,
+  getSundayLunchMenuPageData,
+  type MenuPageItem
+} from '@/lib/menu-page-data'
 
-export const revalidate = 3600 // Revalidate every hour
-
-const MENU_SECTION_LIST = [
-  {
-    position: 1,
-    name: 'British Pub Classics',
-    url: 'https://www.the-anchor.pub/food-menu#pub-classics'
-  },
-  {
-    position: 2,
-    name: 'Traditional British Pies',
-    url: 'https://www.the-anchor.pub/food-menu#pies'
-  },
-  {
-    position: 3,
-    name: 'Stone-Baked Pizza',
-    url: 'https://www.the-anchor.pub/food-menu#pizza'
-  },
-  {
-    position: 4,
-    name: 'Comfort Favourites',
-    url: 'https://www.the-anchor.pub/food-menu#comfort-favourites'
-  },
-  {
-    position: 5,
-    name: 'Near Heathrow',
-    url: 'https://www.the-anchor.pub/food-menu#near-heathrow'
-  }
-]
+export const revalidate = 3600
 
 function buildKitchenHoursMap(hours: BusinessHours): Record<string, string> | null {
   const schedule: Record<string, string> = {}
@@ -103,20 +82,17 @@ function deriveKitchenStatusData(hours: BusinessHours | null): KitchenStatusData
   if (!hours) return null
 
   const londonNow = new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/London' }))
-  const day = londonNow.getDay() // 0=Sun, 1=Mon, 2=Tue...6=Sat
+  const day = londonNow.getDay()
 
-  // Monday - kitchen always closed
   if (day === 1) return { type: 'closed-today' }
 
   const dayKeys = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'] as const
   const dayKey = dayKeys[day] as keyof typeof hours.regularHours
-
   const dayHours = hours.regularHours[dayKey]
   if (!dayHours || (dayHours as any).is_closed) return { type: 'closed-today' }
 
   const kitchen = (dayHours as any).kitchen
   if (!kitchen || (kitchen as any).is_closed) return { type: 'closed-today' }
-
   if (!kitchen.opens || !kitchen.closes) return null
 
   const nowMinutes = londonNow.getHours() * 60 + londonNow.getMinutes()
@@ -124,53 +100,66 @@ function deriveKitchenStatusData(hours: BusinessHours | null): KitchenStatusData
   const [closeH, closeM] = kitchen.closes.split(':').map(Number)
   const openMinutes = openH * 60 + openM
   const closeMinutes = closeH * 60 + closeM
-
   const closesAtFormatted = formatTime12Hour(kitchen.closes)
   const opensAtFormatted = formatTime12Hour(kitchen.opens)
 
-  if (nowMinutes < openMinutes) {
-    return { type: 'opens-later', opensAt: opensAtFormatted }
-  }
-  if (nowMinutes >= closeMinutes) {
-    return { type: 'closed-today' }
-  }
-  // Within 2 hours of closing
-  if (closeMinutes - nowMinutes <= 120) {
-    return { type: 'closing-soon', closesAt: closesAtFormatted }
-  }
+  if (nowMinutes < openMinutes) return { type: 'opens-later', opensAt: opensAtFormatted }
+  if (nowMinutes >= closeMinutes) return { type: 'closed-today' }
+  if (closeMinutes - nowMinutes <= 120) return { type: 'closing-soon', closesAt: closesAtFormatted }
   return { type: 'open', closesAt: closesAtFormatted }
 }
 
-export const metadata: Metadata = {
-  title: 'Where to Eat Near Heathrow Airport | Pub Food Menu',
-  description: 'Pub food menu near Heathrow. Fish & chips from £15, stone-baked pizza from £12, burgers from £11 and Sunday roasts from £19. Free parking, 7 mins from T5.',
-  openGraph: {
-    title: 'Where to Eat Near Heathrow Airport | Pub Food Menu | The Anchor',
-    description: 'Looking for restaurants near Heathrow? The Anchor serves proper pub food — fish & chips, pizza, pies and Sunday roasts. Free parking, 7 mins from T5. View our menu.',
-    images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg'],
-  },
-  twitter: getTwitterMetadata({
-    title: 'Where to Eat Near Heathrow Airport | Pub Food Menu | The Anchor',
-    description: 'Looking for restaurants near Heathrow? The Anchor serves proper pub food — fish & chips, pizza, pies and Sunday roasts. Free parking, 7 mins from T5. View our menu.',
-    images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg']
-  }),
-  alternates: {
-    canonical: '/food-menu'
+function itemPreview(items: MenuPageItem[], limit = 4): MenuPageItem[] {
+  return items.slice(0, limit)
+}
+
+function joinItemNames(items: MenuPageItem[]): string {
+  if (items.length === 0) return 'the current live menu'
+  if (items.length === 1) return items[0].name
+  return `${items.slice(0, -1).map((item) => item.name).join(', ')} and ${items[items.length - 1].name}`
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const data = await getFoodMenuPageData()
+  const pricePhrase = data?.priceFromLabel ? ` Dishes ${data.priceFromLabel}.` : ''
+  const description = data
+    ? `Pub food menu near Heathrow from The Anchor's live menu.${pricePhrase} Free parking, 7 minutes from Terminal 5.`
+    : 'Pub food menu near Heathrow at The Anchor. Current dishes and prices from the latest kitchen menu.'
+
+  return {
+    title: 'Where to Eat Near Heathrow Airport | Pub Food Menu',
+    description,
+    openGraph: {
+      title: 'Where to Eat Near Heathrow Airport | Pub Food Menu | The Anchor',
+      description,
+      images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg'],
+    },
+    twitter: getTwitterMetadata({
+      title: 'Where to Eat Near Heathrow Airport | Pub Food Menu | The Anchor',
+      description,
+      images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg']
+    }),
+    alternates: {
+      canonical: '/food-menu'
+    }
   }
 }
 
-
 export default async function FoodMenuPage() {
-  const [menuData, businessHours] = await Promise.all([
-    parseMenuMarkdown('food'),
-    getBusinessHours()
+  const [menuData, businessHours, pizzaData, fishData, sundayData] = await Promise.all([
+    getFoodMenuPageData(),
+    getBusinessHours().catch(() => null),
+    getPizzaMenuPageData(),
+    getFishAndChipsMenuPageData(),
+    getSundayLunchMenuPageData()
   ])
-  const kitchenHoursSpecification = generateKitchenHoursSpecification(businessHours)
+
+  const kitchenHoursSpecification = businessHours ? generateKitchenHoursSpecification(businessHours) : []
 
   if (!menuData) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-anchor-bg">
-        <p className="text-xl text-anchor-cream-text/70">Menu temporarily unavailable. Please call us on 01753 682707.</p>
+        <p className="text-xl text-anchor-cream-text/70">{getMenuUnavailableMessage()}</p>
       </div>
     )
   }
@@ -178,14 +167,18 @@ export default async function FoodMenuPage() {
   const kitchenHoursMap = businessHours ? buildKitchenHoursMap(businessHours) : null
   const kitchenSchedule = businessHours ? buildKitchenSchedule(businessHours) : null
   const kitchenStatusData = deriveKitchenStatusData(businessHours)
-  const sundayKitchen = businessHours?.regularHours?.sunday?.kitchen
-  const sundayKitchenHours = sundayKitchen && isKitchenOpen(sundayKitchen)
-    ? `${formatTime12Hour(sundayKitchen.opens)}-${formatTime12Hour(sundayKitchen.closes)}`
-    : null
   const menuDataWithKitchenHours = {
-    ...menuData,
+    ...menuData.menuData,
     ...(kitchenHoursMap ? { kitchenHours: kitchenHoursMap } : {})
   }
+  const menuSections = menuData.menuData.categories.map((category, index) => ({
+    position: index + 1,
+    name: category.title,
+    url: `https://www.the-anchor.pub/food-menu#${category.id}`
+  }))
+  const pizzaPreview = itemPreview(pizzaData?.pizzaItems ?? [])
+  const fishPreview = itemPreview(fishData?.fishItems ?? [])
+  const dietaryPreview = itemPreview([...menuData.vegetarianItems, ...menuData.veganItems, ...menuData.glutenFreeItems])
 
   const faqItems = [
     {
@@ -196,41 +189,35 @@ export default async function FoodMenuPage() {
     },
     {
       question: 'Where can I view your food menu or pub menu online?',
-      answer: 'You can view the full food menu and pub menu on this page. Use the filters for vegetarian menu and gluten free menu options, then book a table when you are ready.'
+      answer: 'You can view the full live food menu on this page. Use the filters for vegetarian, vegan and gluten-free options, then book a table when you are ready.'
     },
-	    {
-	      question: 'Do you serve Sunday roast at The Anchor?',
-	      answer: sundayKitchenHours
-	        ? `Yes. Sunday roast and Sunday lunch service runs ${sundayKitchenHours} with chicken, pork belly, and vegetarian plates. Walk-ins are welcome - groups of 10 or more pay a £10 per person deposit, fully deducted from your bill on the day.`
-	        : 'Yes. Sunday roast and Sunday lunch service runs during our Sunday kitchen hours with chicken, pork belly, and vegetarian plates. Walk-ins are welcome - groups of 10 or more pay a £10 per person deposit, fully deducted from your bill on the day.'
-	    },
+    {
+      question: 'Do you serve Sunday roast at The Anchor?',
+      answer: sundayData.menuData
+        ? `Yes. The Sunday lunch page lists the current Sunday menu. ${sundayData.priceFromLabel ? `Mains ${sundayData.priceFromLabel}.` : ''}`
+        : 'Yes. Sunday roast details are handled on the Sunday lunch page. Please call us for the current dish list.'
+    },
     {
       question: "Is there a children's menu?",
       answer: 'We have smaller portions, high chairs, and colouring packs on request.'
     },
     {
-      question: 'Do you serve fish & chips?',
-      answer: 'Yes. Our pub food menu includes beer-battered fish & chips with tartar sauce and chunky chips, plus gluten free options on request.'
+      question: 'Do you serve fish and chips?',
+      answer: fishPreview.length > 0
+        ? `Yes. The current fish and chip options include ${joinItemNames(fishPreview)}.`
+        : 'Please call us for the current fish and chip options if the menu is temporarily unavailable online.'
     },
     {
       question: 'Do you cater for dietary requirements?',
-      answer: 'Yes. We offer vegetarian menu choices and gluten free menu options, and we can guide you through allergens at the bar.'
+      answer: 'Yes. Use the live filters on this page for vegetarian, vegan and gluten-free options, and ask the bar team for allergen guidance before ordering.'
     },
     {
       question: 'Can I book a table for food?',
-      answer: 'Absolutely. Reserve online or call 01753 682707 — ideal for larger groups or pre-flight meals.'
+      answer: 'Yes. Reserve online or call 01753 682707 for larger groups or pre-flight meals.'
     },
     {
       question: 'Is takeaway available?',
-      answer: 'Yes. Call ahead and we will have your order ready for collection from the same food menu.'
-    },
-    {
-      question: 'Where can I find a British pub food menu near Staines?',
-      answer: 'The Anchor in Stanwell Moor is a 10-minute drive from Staines-upon-Thames and serves classic British pub dishes, Sunday roast, fish & chips, and a stone-baked pizza menu.'
-    },
-    {
-      question: 'Do you offer Sunday roasts for Staines locals?',
-      answer: 'Yes. Our Sunday roasts are popular with Staines guests - walk in 1pm-6pm or book ahead.'
+      answer: 'Yes. Call ahead and order from the current live menu for collection.'
     }
   ]
 
@@ -246,14 +233,14 @@ export default async function FoodMenuPage() {
       <HeroWrapper
         route="/food-menu"
         title="Where to Eat Near Heathrow Airport — Our Menu"
-        description="Looking for pub food near Heathrow Airport? Our fish & chips, stone-baked pizzas, hearty pies and Sunday roasts are all cooked fresh to order — pull up a chair and make yourself at home."
+        description="Current dishes, descriptions and prices from the latest kitchen menu."
         variant="default"
         breadcrumbs={[{ name: 'Food & Drink' }]}
         tags={[
-          { label: 'Roast pre-orders', variant: 'default' },
-          { label: 'Stone-baked pizzas', variant: 'default' },
-          { label: 'Pub classics', variant: 'default' },
-          { label: 'Veggie friendly', variant: 'default' }
+          { label: 'Live menu', variant: 'default' },
+          { label: 'Dietary filters', variant: 'default' },
+          { label: 'Book a table', variant: 'default' },
+          { label: 'Free parking', variant: 'default' }
         ]}
         ctaContainerClassName="gap-4 sm:items-center"
         ctaContainerProps={{ 'data-sticky-cta-guard': 'true' }}
@@ -285,7 +272,6 @@ export default async function FoodMenuPage() {
             <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Free parking · 20 spaces</span>
             <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
             <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog & family friendly</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
             <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Rated 4.6/5 on Google</span>
             {kitchenStatusData && kitchenStatusData.type === 'closing-soon' && (
               <span className="flex items-center gap-1.5 text-amber-300 font-medium">
@@ -311,20 +297,16 @@ export default async function FoodMenuPage() {
           <Card className="card-dark rounded-none">
             <CardBody>
               <SectionHeader
-                title="Proper British Pub Food at The Anchor"
-                subtitle="Honest food, a warm welcome and a menu that brings people back week after week."
+                title="Live Food Menu at The Anchor"
+                subtitle="Current dishes, descriptions and prices in one place."
               />
               <p className="text-anchor-cream-text/70">
-                Looking for restaurants near Heathrow Airport? The Anchor is the kind of pub where you&apos;re welcome
-                whether you&apos;re a regular or it&apos;s your first visit. Our menu is built around the classics — golden pies,
-                beer-battered fish &amp; chips from &pound;15, stone-baked pizzas from &pound;12, burgers from &pound;11 and hearty
-                pub favourites, all cooked fresh to order. Whether you need food near Heathrow Airport before a flight
-                or a relaxed lunch near Heathrow on a day out, come in, find a seat and stay a while.
+                Looking for food near Heathrow Airport? The menu below is grouped by current kitchen sections and can be filtered by dietary need.
               </p>
               <ul className="mt-4 space-y-2 text-anchor-cream-text/70">
-                <li>• Proper British pub classics, cooked fresh to order every day.</li>
-                <li>• Something for everyone — meat, veggie and gluten-friendly options throughout.</li>
-                <li>• Easy to reach with free parking, a short drive from Staines and Heathrow.</li>
+                <li>&bull; {menuData.items.length} current food items listed.</li>
+                <li>&bull; Dietary labels are shown from the latest menu guidance.</li>
+                <li>&bull; Free parking, 7 minutes from Heathrow Terminal 5.</li>
               </ul>
             </CardBody>
           </Card>
@@ -355,45 +337,27 @@ export default async function FoodMenuPage() {
               columns={4}
               features={[
                 {
-                  title: 'Signature Sunday Roast',
-                  description: (
-                    <>
-                      Roasts with all the trimmings — Yorkshires, crispy spuds, rich gravy and a proper welcome.
-                      Walk in 1pm-6pm or book ahead.
-                      <Link
-                        href="/sunday-lunch"
-                        className="mt-2 block text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition"
-                      >
-                        Our Sunday roast menu →
-                      </Link>
-                    </>
-                  ),
+                  title: 'Full Live Menu',
+                  description: 'The full menu below follows the latest dish, description and price updates.',
                   className: 'text-left bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15'
                 },
                 {
-                  title: 'Stone-Baked Pizzas',
-                  description: (
-                    <>
-                      Hand-stretched bases, stone-baked and loaded with generous toppings. Our pizzas are a firm
-                      favourite — and for good reason.
-                      <Link
-                        href="/food-menu#pizza"
-                        className="mt-2 block text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition"
-                      >
-                        See pizza picks →
-                      </Link>
-                    </>
-                  ),
+                  title: 'Pizza Menu',
+                  description: pizzaPreview.length > 0
+                    ? `Current pizza choices include ${joinItemNames(pizzaPreview)}.`
+                    : 'Please call us for the current pizza choices if the menu is temporarily unavailable online.',
                   className: 'text-left bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15'
                 },
                 {
-                  title: 'Pub Classics, Fast',
-                  description: 'From beer-battered fish & chips to golden pies and hearty burgers — proper British pub food, cooked to order and on your table in minutes.',
+                  title: 'Dietary Options',
+                  description: dietaryPreview.length > 0
+                    ? `Current dietary picks include ${joinItemNames(dietaryPreview)}.`
+                    : 'Use the filters to see vegetarian, vegan and gluten-free options.',
                   className: 'text-left bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15'
                 },
                 {
-                  title: 'Veggie & Gluten-Friendly',
-                  description: "Vegetarian mains, a garden veg burger, gluten-aware pizza bases and a team ready to help with any allergen question. Everyone's welcome at The Anchor.",
+                  title: 'Near Heathrow',
+                  description: 'Free parking, easy access from Terminal 5 and a table booking flow that works well for pre-flight meals.',
                   className: 'text-left bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15'
                 }
               ]}
@@ -402,38 +366,13 @@ export default async function FoodMenuPage() {
         </Container>
       </Section>
 
-      <Section background="white" spacing="sm" className="bg-anchor-bg border-b border-anchor-gold/15">
-        <Container>
-          <div className="grid gap-6 md:grid-cols-2">
-            <Card className="card-dark rounded-none">
-              <CardBody>
-                <blockquote className="text-lg font-semibold text-anchor-cream-text">
-                  "Sunday lunch was faultless — Yorkshire puddings like clouds, quick service, and the team could not do enough for us."
-                </blockquote>
-                <p className="mt-4 text-sm text-anchor-cream-text/55">Google review · August 2025</p>
-              </CardBody>
-            </Card>
-            <Card className="card-dark rounded-none">
-              <CardBody>
-                <blockquote className="text-lg font-semibold text-anchor-cream-text">
-                  "We stopped on the way past Heathrow. Proper food, fair prices, and parking was a breeze — booked again for next month."
-                </blockquote>
-                <p className="mt-4 text-sm text-anchor-cream-text/55">Tripadvisor review · July 2025</p>
-              </CardBody>
-            </Card>
-          </div>
-        </Container>
-      </Section>
-
-      {/* Sunday Lunch — brief summary card linking to dedicated /sunday-lunch page */}
       <Section background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15" id="sunday-roast">
         <Container>
           <Card className="card-dark rounded-none border border-anchor-gold/20">
             <CardBody className="text-center py-8">
               <h2 className="text-2xl font-bold text-anchor-cream-text mb-3">Sunday Roast</h2>
               <p className="text-anchor-cream-text/70 mb-4 max-w-lg mx-auto">
-                Traditional Sunday roast from &pound;19 &mdash; chicken, pork belly or vegetarian.
-                Walk in 1pm-6pm or book ahead.
+                Sunday lunch has a dedicated page. Current Sunday dishes and prices are shown there when available online.
               </p>
               <MenuSectionCta
                 label="View Sunday Lunch Menu & Book"
@@ -454,31 +393,31 @@ export default async function FoodMenuPage() {
             <Card className="card-dark rounded-none">
               <CardBody>
                 <SectionHeader
-                  title="Stone-Baked Pizzas"
-                  subtitle="Hand-stretched bases, San Marzano sauce, and generous toppings."
+                  title="Pizza Menu"
+                  subtitle="Current pizza items from the live food menu."
                   align="left"
                   className="mb-6"
                 />
                 <ul className="space-y-3 text-anchor-cream-text/70">
-                  <li>• Stone-baked pizzas served during kitchen hours.</li>
-                  <li>• Mix and match toppings — dine in or takeaway with free parking.</li>
-                  <li>• Gluten-aware bases available when you pre-book.</li>
+                  <li>&bull; Dine in or call for collection.</li>
+                  <li>&bull; Dietary labels update with the menu data.</li>
+                  <li>&bull; Ask at the bar for allergen guidance before ordering.</li>
                 </ul>
                 <div className="mt-6 flex flex-col sm:flex-row gap-3">
                   <BookTableButton
-                    source='food_menu_pizza_cta'
-                    context='pizza_menu'
-                    variant='primary'
-                    size='lg'
-                    className='sm:w-auto'
-                    trackingLabel='Book Pizza Table'
+                    source="food_menu_pizza_cta"
+                    context="pizza_menu"
+                    variant="primary"
+                    size="lg"
+                    className="sm:w-auto"
+                    trackingLabel="Book Pizza Table"
                   >
                     Book a Table
                   </BookTableButton>
                   <MenuSectionCta
-                    label="View Pizza Menu"
-                    scrollToId="menu"
-                    analyticsLabel="view_full_menu"
+                    label="View Pizza Page"
+                    href="/pizza-menu"
+                    analyticsLabel="pizza_menu"
                     location="food_menu_pizza_section"
                     variant="outline"
                     fullWidth
@@ -489,43 +428,49 @@ export default async function FoodMenuPage() {
             </Card>
             <Card className="card-dark rounded-none">
               <CardBody>
-                <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-3">Pizza Highlights</h3>
-                <ul className="space-y-2 text-sm text-anchor-cream-text/70">
-                  <li><strong>Rustic Classic:</strong> Rich tomato sauce and mozzarella on a crisp stone-baked base.</li>
-                  <li><strong>Fully Loaded:</strong> Napoli salami, speck ham, fennel salami and mozzarella.</li>
-                  <li><strong>Nice &amp; Spicy:</strong> Nduja, Ventricina and roquito peppers for those who like heat.</li>
-                  <li><strong>Garden Club:</strong> Roasted courgette, caramelised onions, rocket and mozzarella.</li>
-                </ul>
+                <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-3">Current Pizza Highlights</h3>
+                {pizzaPreview.length > 0 ? (
+                  <ul className="space-y-2 text-sm text-anchor-cream-text/70">
+                    {pizzaPreview.map((item) => (
+                      <li key={item.id}>
+                        <strong>{item.name}:</strong> {item.description} {item.priceLabel && <span>{item.priceLabel}</span>}
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="text-sm text-anchor-cream-text/70">Please call us for the current pizza choices if the menu is temporarily unavailable online.</p>
+                )}
               </CardBody>
             </Card>
           </div>
         </Container>
       </Section>
 
-      <Section background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15" id="pub-classics">
+      <Section background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15" id="current-menu">
         <Container>
           <div className="grid gap-6 lg:grid-cols-[1.2fr_1fr] items-start">
             <Card className="card-dark rounded-none">
               <CardBody>
                 <SectionHeader
-                  title="Pub Classics Done Properly"
-                  subtitle="Honest British pub food, cooked fresh to order — usually on your table within 15 minutes."
+                  title="Current Menu Picks"
+                  subtitle="A live sample from the current food menu."
                   align="left"
                   className="mb-6"
                 />
                 <ul className="space-y-3 text-anchor-cream-text/70">
-                  <li>• Beer-battered fish &amp; chips with mushy peas and tartare sauce.</li>
-                  <li>• Golden pies with rich fillings, baked in crisp pastry and served with mash.</li>
-                  <li>• Chicken katsu, lasagne, mac &amp; cheese and hearty pub favourites cooked fresh.</li>
-                  <li>• Quick enough for lunch breaks or pre-flight dinners.</li>
+                  {itemPreview(menuData.items, 5).map((item) => (
+                    <li key={item.id}>
+                      &bull; <strong>{item.name}</strong>{item.description ? ` — ${item.description}` : ''} {item.priceLabel && <span>{item.priceLabel}</span>}
+                    </li>
+                  ))}
                 </ul>
                 <div className="mt-6 max-w-xs">
                   <BookTableButton
-                    source='food_menu_classics_cta'
-                    context='food'
-                    variant='primary'
-                    size='lg'
-                    trackingLabel='Book Dinner Table'
+                    source="food_menu_classics_cta"
+                    context="food"
+                    variant="primary"
+                    size="lg"
+                    trackingLabel="Book Dinner Table"
                   >
                     Book a Table for Dinner
                   </BookTableButton>
@@ -553,41 +498,19 @@ export default async function FoodMenuPage() {
           <Card className="card-dark rounded-none">
             <CardBody>
               <SectionHeader
-                title="Vegetarian & Gluten-Friendly Picks"
-                subtitle="Dedicated veggie mains, gluten-aware pizza bases and a team always happy to help with allergen queries."
+                title="Vegetarian, Vegan & Gluten-Free Picks"
+                subtitle="Dietary pages follow the same current kitchen menu."
                 align="left"
                 className="mb-6"
               />
-              <div className="grid gap-6 md:grid-cols-2">
-                <div>
-                  <ul className="space-y-3 text-anchor-cream-text/70">
-                    <li>• Garden Veg Burger served with chips and salad — a proper veggie option.</li>
-                    <li>• Garden Club pizza with roasted courgettes, caramelised onions and rocket.</li>
-                    <li>• Spinach & Ricotta Cannelloni baked with tomato sauce and garlic bread.</li>
-                  </ul>
-                </div>
-                <div>
-                  <ul className="space-y-3 text-anchor-cream-text/70">
-                    <li>• Gluten-aware pizza bases available when pre-booked.</li>
-                    <li>• Allergen matrix on hand — just ask the team.</li>
-                    <li>• Vegetarian roast available every Sunday.</li>
-                  </ul>
-                </div>
+              <div className="grid gap-6 md:grid-cols-3 text-anchor-cream-text/70">
+                <p>Vegetarian dishes: {menuData.vegetarianItems.length}</p>
+                <p>Vegan or vegan-option dishes: {menuData.veganItems.length + menuData.veganOptionItems.length}</p>
+                <p>Gluten-free or gluten-free-option dishes: {menuData.glutenFreeItems.length + menuData.glutenFreeOptionItems.length}</p>
               </div>
               <p className="mt-4 text-anchor-cream-text/70">
-                View our full <Link href="/food-menu/gluten-free" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition">gluten-free menu</Link>, <Link href="/food-menu/vegan" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition">vegan menu</Link> or <Link href="/food-menu/vegetarian" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition">vegetarian menu</Link> for detailed options. We also have a dedicated <Link href="/burger-menu" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition">burger menu</Link> with veggie and classic choices.
+                View our full <Link href="/food-menu/gluten-free" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition">gluten-free menu</Link>, <Link href="/food-menu/vegan" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition">vegan menu</Link> or <Link href="/food-menu/vegetarian" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition">vegetarian menu</Link> for detailed options.
               </p>
-              <div className="mt-6 max-w-xs">
-                <MenuSectionCta
-                  label="View Dietary Picks"
-                  href="?veg=1#menu"
-                  analyticsLabel="dietary_picks"
-                  location="food_menu_dietary_section"
-                  variant="outline"
-                  fullWidth
-                  className="sm:w-auto sm:min-w-0"
-                />
-              </div>
             </CardBody>
           </Card>
         </Container>
@@ -599,27 +522,16 @@ export default async function FoodMenuPage() {
             <CardBody>
               <SectionHeader
                 title="Near Heathrow"
-                subtitle="Ideal for crews, airport teams, and anyone passing through — no airport prices, no parking stress."
+                subtitle="Ideal for crews, airport teams, and anyone passing through."
                 align="left"
                 className="mb-6"
               />
               <ul className="space-y-3 text-anchor-cream-text/70">
-                <li>• 7 minutes to Terminal 5 by taxi.</li>
-                <li>• 11 minutes to Terminals 2 &amp; 3 avoiding car-park queues.</li>
-                <li>• Free on-site parking with downloadable receipts.</li>
-                <li>• Most meals served within 15 minutes.</li>
+                <li>&bull; 7 minutes to Terminal 5 by taxi.</li>
+                <li>&bull; 11 minutes to Terminals 2 and 3 avoiding car-park queues.</li>
+                <li>&bull; Free on-site parking with downloadable receipts.</li>
+                <li>&bull; Book ahead for groups and busy weekend slots.</li>
               </ul>
-              <div className="mt-6 max-w-xs">
-                <MenuSectionCta
-                  label="Plan Your Pre-Flight Meal"
-                  href="/heathrow-layover-dining"
-                  analyticsLabel="near_heathrow"
-                  location="food_menu_heathrow_section"
-                  variant="outline"
-                  fullWidth
-                  className="sm:w-auto sm:min-w-0"
-                />
-              </div>
             </CardBody>
           </Card>
         </Container>
@@ -633,7 +545,7 @@ export default async function FoodMenuPage() {
             className="max-w-4xl mx-auto"
           >
             <p className="text-anchor-cream-text/70">
-              Gluten-aware bases and vegetarian mains are available. All dishes are prepared in a single kitchen where allergens are present — speak to us about your needs before ordering.
+              All dishes are prepared in a single kitchen where allergens are present. Speak to us about your needs before ordering.
             </p>
           </Alert>
         </Container>
@@ -648,7 +560,7 @@ export default async function FoodMenuPage() {
       <div data-sticky-cta-guard="true">
         <CTASection
           title="Hungry? Book Your Table Now"
-          description="Weekends and roast services fill quickly. Book today and we will have your table ready."
+          description="Weekends and busy services fill quickly. Book today and we will have your table ready."
           buttons={[
             {
               text: 'Book a Table',
@@ -684,10 +596,10 @@ export default async function FoodMenuPage() {
             {
               '@context': 'https://schema.org',
               '@type': 'WebPage',
-              'name': 'Food Menu — The Anchor Near Heathrow',
-              'description': 'Where to eat near Heathrow Airport? The Anchor serves fish & chips, stone-baked pizza, burgers and Sunday roasts. Free parking, 7 mins from T5.',
-              'url': 'https://www.the-anchor.pub/food-menu',
-              'mainEntity': { '@id': 'https://www.the-anchor.pub/food-menu#menu' }
+              name: 'Food Menu — The Anchor Near Heathrow',
+              description: 'Food menu near Heathrow Airport from The Anchor.',
+              url: 'https://www.the-anchor.pub/food-menu',
+              mainEntity: { '@id': 'https://www.the-anchor.pub/food-menu#menu' }
             },
             {
               '@context': 'https://schema.org',
@@ -696,26 +608,25 @@ export default async function FoodMenuPage() {
               url: 'https://www.the-anchor.pub/food-menu',
               provider: { '@id': 'https://www.the-anchor.pub/#business' },
               name: 'The Anchor Food Menu',
-              description: 'Traditional British pub food near Heathrow Airport — classics, pies, stone-baked pizzas, burgers and Sunday roasts.',
-              hasMenuSection: menuData.categories.map(category => ({
+              description: 'Current food menu near Heathrow Airport.',
+              hasMenuSection: menuData.menuData.categories.map(category => ({
                 '@type': 'MenuSection',
                 name: category.title,
                 description: category.description,
                 hasMenuItem: category.sections.flatMap(section =>
                   section.items.map(item => {
-                    const numericPrice = item.price ? item.price.replace(/[^0-9.]/g, ' ').trim().split(/\s+/)[0] : undefined
+                    const pageItem = item as MenuPageItem
                     return {
                       '@type': 'MenuItem',
-                      name: item.name,
-                      description: item.description,
+                      name: pageItem.name,
+                      description: pageItem.description,
                       offers: {
                         '@type': 'Offer',
-                        price: numericPrice,
+                        price: pageItem.price,
                         priceCurrency: 'GBP',
                         availability: 'https://schema.org/InStock'
                       },
-                      suitableForDiet: generateSuitableForDiet(item),
-                      nutrition: generateNutritionInfo(item.name, category.id)
+                      suitableForDiet: generateSuitableForDiet(pageItem)
                     }
                   })
                 )
@@ -745,22 +656,21 @@ export default async function FoodMenuPage() {
                 longitude: -0.502067
               },
               openingHoursSpecification: kitchenHoursSpecification,
-	              telephone: '+441753682707',
-	              url: 'https://www.the-anchor.pub',
-	              priceRange: '££',
-	              potentialAction: {
-	                '@type': 'ReserveAction',
-	                target: {
-	                  '@type': 'EntryPoint',
-	                  urlTemplate: 'https://www.the-anchor.pub/book-table',
-	                  actionPlatform: [
-	                    'https://schema.org/DesktopWebPlatform',
-	                    'https://schema.org/MobileWebPlatform'
-	                  ]
-	                },
-	                result: { '@type': 'FoodEstablishmentReservation' }
-	              }
-	            },
+              telephone: '+441753682707',
+              url: 'https://www.the-anchor.pub',
+              potentialAction: {
+                '@type': 'ReserveAction',
+                target: {
+                  '@type': 'EntryPoint',
+                  urlTemplate: 'https://www.the-anchor.pub/book-table',
+                  actionPlatform: [
+                    'https://schema.org/DesktopWebPlatform',
+                    'https://schema.org/MobileWebPlatform'
+                  ]
+                },
+                result: { '@type': 'FoodEstablishmentReservation' }
+              }
+            },
             {
               '@context': 'https://schema.org',
               '@type': 'FAQPage',
@@ -777,7 +687,7 @@ export default async function FoodMenuPage() {
               '@context': 'https://schema.org',
               '@type': 'ItemList',
               name: 'Food Menu Sections',
-              itemListElement: MENU_SECTION_LIST.map(section => ({
+              itemListElement: menuSections.map(section => ({
                 '@type': 'ListItem',
                 position: section.position,
                 name: section.name,

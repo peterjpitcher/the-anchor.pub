@@ -8,6 +8,7 @@ import { CONTACT } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
+import { SUNDAY_ROAST, getSundayRoastContent } from '@/lib/sunday-roast'
 
 export const metadata: Metadata = {
   title: 'Pub Near Travelodge Heathrow | 10 Mins | Free Parking',
@@ -29,6 +30,8 @@ export const metadata: Metadata = {
 }
 
 export default function PubNearTravelodgeHeathrowPage() {
+  const sunday = getSundayRoastContent()
+
   return (
     <>
 
@@ -178,7 +181,9 @@ export default function PubNearTravelodgeHeathrowPage() {
           },
           {
             question: 'Are there any food deals near Travelodge Heathrow?',
-            answer: 'Yes — The Anchor serves stone-baked pizzas from £12 and classic British pub food with mains from £8.99. We also have a Sunday roast from £19 at weekends. Check our menu for other specials and seasonal deals.'
+            answer: sunday.isLive
+              ? 'Yes — The Anchor serves stone-baked pizzas from £12 and classic British pub food with mains from £8.99. We also have a Sunday roast from £19 at weekends. Check our menu for other specials and seasonal deals.'
+              : `Yes — The Anchor serves stone-baked pizzas from £12 and classic British pub food with mains from £8.99. Sunday roast starts ${SUNDAY_ROAST.launchDateLabel}. Check our menu for other specials and seasonal deals.`
           },
         ]}
         className="bg-anchor-bg"

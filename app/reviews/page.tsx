@@ -10,6 +10,7 @@ import {
 } from '@/components/ui'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
+import { HeroWrapper } from '@/components/hero'
 import { DEFAULT_REVIEW_STATS } from '@/lib/google/review-utils'
 
 export const metadata: Metadata = {
@@ -154,13 +155,17 @@ export default function ReviewsPage() {
         }}
       />
 
-      {/* Hero / Title */}
-      <div className="bg-anchor-bg-raised pt-16 pb-12 border-b border-anchor-gold/15">
+      <HeroWrapper
+        route="/reviews"
+        title="What Our Guests Say"
+        description={`Rated ${rating}/5 on Google with ${totalReviews}+ reviews. Real feedback about food, beer garden, events and private hire near Heathrow.`}
+        variant="feature"
+      />
+
+      {/* Rating Summary */}
+      <div className="bg-anchor-bg-raised py-8 border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold text-anchor-cream-text mb-6">
-              What Our Guests Say
-            </h1>
             <div className="inline-flex flex-col items-center gap-3 bg-anchor-bg-card rounded-xl p-6 border border-anchor-gold/20">
               <div className="text-5xl font-bold text-anchor-gold-vivid">
                 {rating}

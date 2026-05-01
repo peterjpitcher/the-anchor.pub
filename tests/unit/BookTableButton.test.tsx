@@ -85,7 +85,7 @@ describe('BookTableButton', () => {
   it('renders with default props', () => {
     render(<BookTableButton source="test" />)
 
-    expect(screen.getByRole('button', { name: '📅 Book a Table' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Book a Table' })).toBeInTheDocument()
   })
 
   it('renders custom children', () => {
@@ -97,7 +97,7 @@ describe('BookTableButton', () => {
   it('tracks events and navigates to booking flow on click', () => {
     render(<BookTableButton source="hero" />)
 
-    fireEvent.click(screen.getByRole('button', { name: '📅 Book a Table' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Book a Table' }))
 
     expect(mockTrackCtaClick).toHaveBeenCalledWith({
       id: 'book_table_hero',
@@ -129,7 +129,7 @@ describe('BookTableButton', () => {
 
     render(<BookTableButton source="mobile_menu" />)
 
-    fireEvent.click(screen.getByRole('button', { name: '📅 Book a Table' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Book a Table' }))
 
     expect(mockTrackTableBookingClick).toHaveBeenCalledWith(expect.objectContaining({
       source: 'mobile_menu',
@@ -147,7 +147,7 @@ describe('BookTableButton', () => {
       />
     )
 
-    fireEvent.click(screen.getByRole('button', { name: '📅 Book a Table' }))
+    fireEvent.click(screen.getByRole('button', { name: 'Book a Table' }))
 
     expect(afterTracking).toHaveBeenCalled()
     expect(mockTrackCtaClick).toHaveBeenCalled()
@@ -168,7 +168,7 @@ describe('BookTableButton', () => {
         jest.setSystemTime(new Date(2024, 0, 15, hour, 0, 0))
 
         const { getByRole, unmount } = render(<BookTableButton source="test" />)
-        fireEvent.click(getByRole('button', { name: '📅 Book a Table' }))
+        fireEvent.click(getByRole('button', { name: 'Book a Table' }))
 
         expect(mockTrackTableBookingClick).toHaveBeenCalledWith(expect.objectContaining({
           timeOfDay: expected,

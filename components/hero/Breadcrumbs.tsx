@@ -40,10 +40,10 @@ export function Breadcrumbs({
     }))
   }
 
-  const textColor = theme === 'dark' ? 'text-white/70' : 'text-gray-600'
-  const hoverColor = theme === 'dark' ? 'hover:text-white' : 'hover:text-gray-900'
-  const currentColor = theme === 'dark' ? 'text-white' : 'text-gray-900'
-  const iconColor = theme === 'dark' ? 'text-white/50' : 'text-gray-600'
+  const textColor = theme === 'dark' ? 'text-white/70' : 'text-anchor-cream-text/65'
+  const hoverColor = theme === 'dark' ? 'hover:text-white' : 'hover:text-anchor-gold'
+  const currentColor = theme === 'dark' ? 'text-white' : 'text-anchor-gold-vivid'
+  const iconColor = theme === 'dark' ? 'text-white/50' : 'text-anchor-cream-text/45'
 
   return (
     <>

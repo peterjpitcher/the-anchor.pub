@@ -18,8 +18,17 @@ const IMAGE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.webp'];
 
 // Maps canonical route-derived folder names to legacy image folders.
 const PAGE_HEADER_FOLDER_ALIASES: Record<string, string> = {
+  'about': 'our-pub',
+  'book-table': 'food-menu',
+  'boxing-day': 'christmas-parties',
+  'fish-and-chips-heathrow': 'food-menu',
   'heathrow-parking': 'parking-near-heathrow',
   'heathrow-hotels-pub': 'hotel-near-heathrow',
+  'halloween': 'whats-on',
+  'new-years-eve': 'whats-on',
+  'pizza-menu': 'pizza-tuesday',
+  'reviews': 'our-pub',
+  'st-patricks-day': 'drinks',
 };
 
 // Descriptive alt text for each page header
@@ -27,6 +36,9 @@ const PAGE_HEADER_ALT_TEXT: Record<string, string> = {
   'home': 'The Anchor pub entrance with warm lighting and traditional British pub signage',
   'whats-on': 'Collage of hosted nights, quiz nights, and live music posters glowing under stage lights at The Anchor',
   'food-menu': 'Signature Anchor dishes including Sunday roast, gourmet burgers, and small plates styled on a wooden table',
+  'book-table': 'The Anchor food menu dishes ready for guests booking a table near Heathrow',
+  'fish-and-chips-heathrow': 'Beer-battered fish and chips served as part of The Anchor food menu near Heathrow',
+  'pizza-menu': 'Stone-baked pizza served at The Anchor pub near Heathrow',
   'drinks': 'Backlit bar showcasing draught lagers, bottled ales, premium spirits, and wine glasses at The Anchor',
   'sunday-lunch': 'Traditional Sunday roast with Yorkshire puddings, roasted vegetables, and rich gravy at The Anchor',
   'beer-garden': 'Spacious beer garden with wooden tables, festoon lighting, and aircraft overhead near Heathrow',
@@ -54,7 +66,13 @@ const PAGE_HEADER_ALT_TEXT: Record<string, string> = {
   'near-heathrow-terminal-3': 'The Anchor pub garden with Terminal 3 flight path visible above',
   'near-heathrow-terminal-4': 'Traditional British pub experience near Terminal 4 at The Anchor',
   'near-heathrow-terminal-5': 'The Anchor pub exterior with Terminal 5 aircraft passing overhead',
-  'our-pub': 'Inside The Anchor — bar, dining room, garden and games area in Stanwell Moor near Heathrow'
+  'our-pub': 'Inside The Anchor — bar, dining room, garden and games area in Stanwell Moor near Heathrow',
+  'about': 'Inside The Anchor — bar, dining room, garden and games area in Stanwell Moor near Heathrow',
+  'boxing-day': 'Festively decorated dining area at The Anchor for Boxing Day food and drinks',
+  'halloween': 'Hosted event night at The Anchor with guests enjoying seasonal entertainment',
+  'new-years-eve': 'Hosted event night at The Anchor with guests celebrating in the pub',
+  'reviews': 'Inside The Anchor showing the warm pub atmosphere guests review',
+  'st-patricks-day': 'Backlit bar at The Anchor with draught beer and drinks ready for St Patrick’s Day'
 };
 
 function normaliseRoute(route: string): string {

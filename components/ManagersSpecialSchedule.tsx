@@ -4,7 +4,7 @@ import type { ManagersSpecial } from '@/types/managers-special'
 import { BookTableButton } from '@/components/BookTableButton'
 import { Button, Container, Section } from '@/components/ui'
 import { BotanicalsGrid } from '@/components/BotanicalsGrid'
-import { getPromotionImage } from '@/lib/managers-special-utils'
+import { getPromotionImage } from '@/lib/managers-special'
 import { DEFAULT_DRINKS_IMAGE } from '@/lib/image-fallbacks'
 
 function formatMonthYear(dateStr: string): string {
@@ -123,6 +123,11 @@ export function ManagersSpecialSchedule({
                       <p className="mt-3 text-anchor-cream-text/70">
                         {promo.promotion.offerText}
                       </p>
+                      {promo.education?.whyPicked && (
+                        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-anchor-cream-text/60">
+                          {promo.education.whyPicked}
+                        </p>
+                      )}
                       <div className="mt-5 flex flex-wrap items-center gap-3 text-sm text-anchor-cream-text/70">
                         <span className="rounded-full bg-anchor-gold/20 px-3 py-1 font-semibold text-anchor-gold-vivid">{promo.spirit.discount}</span>
                         <span className="font-semibold text-anchor-cream-text">{priceLabel}</span>
@@ -143,7 +148,7 @@ export function ManagersSpecialSchedule({
                     </div>
 
                     {imagePath && (
-                      <div className="mx-auto w-full max-w-xs md:mx-0 md:max-w-[220px]">
+                      <div className="mx-auto hidden w-full max-w-xs md:mx-0 md:block md:max-w-[220px]">
                         <div className="rounded-none bg-anchor-bg-raised p-3">
                           <Image
                             src={imagePath}
@@ -225,6 +230,19 @@ export function ManagersSpecialSchedule({
                         {promo.spirit.longDescription || promo.spirit.description || promo.promotion.offerText}
                       </p>
 
+                      {promo.education && (
+                        <div className="mt-6 grid gap-4 md:grid-cols-2">
+                          <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg-raised p-4">
+                            <h4 className="font-bold text-anchor-cream-text">Why it is in the line-up</h4>
+                            <p className="mt-2 text-sm leading-relaxed text-anchor-cream-text/70">{promo.education.whyPicked}</p>
+                          </div>
+                          <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg-raised p-4">
+                            <h4 className="font-bold text-anchor-cream-text">Best first serve</h4>
+                            <p className="mt-2 text-sm leading-relaxed text-anchor-cream-text/70">{promo.education.perfectServe}</p>
+                          </div>
+                        </div>
+                      )}
+
                       <div className="mt-8 grid gap-6 md:grid-cols-2">
                         <div>
                           <h4 className="text-lg font-bold text-anchor-cream-text">Tasting notes</h4>
@@ -280,4 +298,3 @@ export function ManagersSpecialSchedule({
     </Section>
   )
 }
-

@@ -56,7 +56,7 @@ export function GalleryImage({
         height={height}
         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
         className={cn(
-          "object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
+          "object-cover object-center w-full h-full transition-transform duration-300 group-hover:scale-105"
         )}
         loading={priority ? 'eager' : 'lazy'}
         priority={priority}

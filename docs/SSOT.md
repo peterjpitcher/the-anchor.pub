@@ -164,6 +164,7 @@ British, Pizza, Pub Food, Sunday Roast.
 
 - **No breakfast service.**
 - **No delivery.** Takeaway by phone for collection only.
+- **No gluten-free fish and chips.** Do not claim gluten-free batter, gluten-free fried fish, grilled gluten-free fish, or a dedicated gluten-free fryer for fish and chips. Guests who need gluten-free options should use the gluten-free menu/allergen guidance instead.
 - **No "real ale" positioning.** We stock bottled ales only; no handpumps. Do not market as a "real ale pub".
 
 ### Kids menu (regular)
@@ -327,13 +328,13 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 - Capacity 50. Catalogue 50,000+ songs.
 - Host: Nikki Manfadge.
 
-### Open Mic
-
-- Acoustic-friendly to start. Walk-ins welcome. Performer sign-up available.
-
 ### Curry Club
 
 - Monthly rotating curry-night specials.
+
+### Retired entertainment formats
+
+- **Open mic is discontinued.** Do not list, promote, or link to open mic nights. The retired `/open-mic` route redirects to `/live-music`.
 
 ## 11. Private Hire
 

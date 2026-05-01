@@ -75,10 +75,11 @@ function makeHours(overrides: Record<string, any> = {}) {
 
 describe('BusinessHours', () => {
   describe('rendering states', () => {
-    it('should render skeleton when loading', () => {
+    it('should render useful fallback copy when loading', () => {
       mockContextValue.loading = true
-      const { container } = render(<BusinessHours />)
-      expect(container.querySelector('.h-20')).toBeTruthy()
+      render(<BusinessHours />)
+      expect(screen.getByText(/Opening hours are loading/i)).toBeInTheDocument()
+      expect(screen.getByText(/01753 682707/)).toBeInTheDocument()
     })
 
     it('should render error fallback with phone number when error', () => {

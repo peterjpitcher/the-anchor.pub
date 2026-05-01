@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { Button } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { BookTableButton } from '@/components/BookTableButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
 import { Metadata } from 'next'
@@ -86,6 +87,11 @@ export default function BedfontPubPage() {
         title="Bedfont's Closest Traditional Pub"
         description="Just 5 minutes away with free parking"
         variant="default"
+        primaryCta={
+          <BookTableButton source="bedfont_pub_hero" context="local_pub" variant="primary" size="lg">
+            Book a Table
+          </BookTableButton>
+        }
         enableSmartCtas={true}
         showContextStrip={true}
       />

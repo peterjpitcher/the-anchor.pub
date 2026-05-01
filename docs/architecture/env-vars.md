@@ -19,7 +19,7 @@ This is the canonical list of environment variables consumed by the website. Sou
 | `ANCHOR_API_BASE_URL` | Optional override for the management API base URL (defaults to production) | yes (commented) | `lib/management-api-base.ts`, used by all proxy routes |
 | `OPENWEATHER_API_KEY` | Weather widget data | yes | weather features in `lib/`/`components/` (server-side fetch) |
 | `TURNSTILE_SECRET_KEY` | Verifies Cloudflare Turnstile tokens server-side | yes | `lib/turnstile.ts` (consumed by `lib/spam-protection.ts`) |
-| `MICROSOFT_CLIENT_ID` | Graph app registration — for sending enquiry emails | no | `app/api/enquiry/christmas/route.ts`, `app/api/enquiry/open-mic/route.ts` |
+| `MICROSOFT_CLIENT_ID` | Graph app registration — for sending enquiry emails | no | `app/api/enquiry/christmas/route.ts` |
 | `MICROSOFT_CLIENT_SECRET` | Graph app registration | no | same as above |
 | `MICROSOFT_TENANT_ID` | Graph app registration | no | same as above |
 | `MICROSOFT_USER_EMAIL` | The mailbox used to send enquiry emails | no | same as above |

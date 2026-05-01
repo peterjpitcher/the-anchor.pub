@@ -68,12 +68,12 @@ export default function CookieBanner() {
   return (
     <>
       {/* Main Banner - Mobile-optimized with collapsible design */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50 animate-slide-up safe-area-inset-bottom">
+      <div className="fixed bottom-0 left-0 right-0 bg-anchor-bg-card border-t border-anchor-gold/20 shadow-[0_-18px_50px_rgba(0,0,0,0.45)] z-50 animate-slide-up safe-area-inset-bottom">
         <div className="max-w-7xl mx-auto px-3 py-2 sm:px-6 sm:py-3 lg:px-8">
           {/* Mobile: Compact single-line design */}
           <div className="sm:hidden">
             <div className="flex items-center justify-between gap-2">
-              <p className="text-xs text-gray-700 flex-1">
+              <p className="text-xs text-anchor-cream-text/75 flex-1">
                 We use cookies.{' '}
                 <Link href="/privacy-policy" className="underline">
                   Read our privacy policy
@@ -82,7 +82,7 @@ export default function CookieBanner() {
               <div className="flex gap-1">
                 <button
                   onClick={() => setShowPreferences(true)}
-                  className="p-2.5 min-h-[48px] min-w-[48px] flex items-center justify-center text-gray-500 hover:text-gray-700"
+                  className="p-2.5 min-h-[48px] min-w-[48px] flex items-center justify-center text-anchor-cream-text/60 hover:text-anchor-cream-text"
                   aria-label="Cookie settings"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -114,9 +114,9 @@ export default function CookieBanner() {
           
           {/* Desktop: Full design */}
           <div className="hidden sm:flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="flex-1 text-sm text-gray-700">
+            <div className="flex-1 text-sm text-anchor-cream-text/75">
               <p className="font-medium">We value your privacy</p>
-              <p className="text-xs mt-1 text-gray-600">
+              <p className="text-xs mt-1 text-anchor-cream-text/65">
                 We use cookies to enhance your experience. By continuing to visit this site you agree to our use of cookies.{' '}
                 <Link href="/privacy-policy" className="underline hover:text-anchor-gold">
                   Read our privacy policy

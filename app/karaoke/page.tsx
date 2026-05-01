@@ -521,7 +521,7 @@ export default async function KaraokePage() {
                                 source="karaoke_cta_bottom"
                                 variant="secondary"
                                 size="lg"
-                                className="w-full sm:w-auto bg-white text-anchor-green hover:bg-gray-100"
+                                className="w-full sm:w-auto bg-anchor-gold text-anchor-green hover:bg-anchor-gold-light"
                             >
                                 Book Your Table
                             </BookTableButton>

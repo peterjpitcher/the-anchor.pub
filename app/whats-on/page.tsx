@@ -17,6 +17,7 @@ import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/Inter
 import { BookTableButton } from '@/components/BookTableButton'
 import { quizNightEventSeries, bingoEventSeries } from '@/lib/schema'
 import { getBusinessHours, getRecentEvents, getUpcomingEvents, formatEventDate, type Event } from '@/lib/api'
+import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
 import { buildOpeningHoursSchema } from '@/lib/opening-hours-schema'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { seasonalOccasionLinks } from '@/lib/internal-linking-data'
@@ -26,12 +27,12 @@ export const metadata: Metadata = {
   description: "Pub quiz, karaoke Fridays, Music Bingo, cash bingo & live music at The Anchor, Stanwell Moor. Entry from £3. Free parking, 7 mins from Heathrow T5. See all dates.",
   openGraph: {
     title: "What's On Near Heathrow — Quiz, Bingo & Live Music Every Week",
-    description: "Weekly pub events: Music Bingo, cash bingo, pub quiz, open mic and more at The Anchor, Stanwell Moor. From £3, free parking.",
+    description: "Weekly pub events: Music Bingo, cash bingo, pub quiz, karaoke and live music at The Anchor, Stanwell Moor. From £3, free parking.",
     images: ["/images/events/quiz-night/the-anchor-quiz-night-stanwell-moor.jpg"],
   },
   twitter: getTwitterMetadata({
     title: "What's On Near Heathrow — Quiz, Bingo & Live Music Every Week",
-    description: "Weekly pub events: Music Bingo, cash bingo, pub quiz, open mic and more at The Anchor, Stanwell Moor. From £3, free parking.",
+    description: "Weekly pub events: Music Bingo, cash bingo, pub quiz, karaoke and live music at The Anchor, Stanwell Moor. From £3, free parking.",
     images: ["/images/events/quiz-night/the-anchor-quiz-night-stanwell-moor.jpg"]
   }),
   alternates: {
@@ -160,7 +161,7 @@ export default async function WhatsOnPage() {
             fullWidth
             className="w-full sm:w-auto"
           >
-            Reserve a Table
+            Reserve Event Table
           </BookTableButton>
         }
         secondaryCta={
@@ -219,7 +220,7 @@ export default async function WhatsOnPage() {
 
           <SpeakableContent selector="events-list" priority="high">
             <div className="max-w-5xl mx-auto">
-              <Suspense fallback={<div className="text-center py-8">Loading events...</div>}>
+              <Suspense fallback={<div className="text-center py-8 text-anchor-cream-text/70">Upcoming events are loading. Call 01753 682707 if you need today&apos;s listings.</div>}>
                 <FilteredUpcomingEvents events={upcomingEvents} />
               </Suspense>
             </div>
@@ -574,7 +575,7 @@ export default async function WhatsOnPage() {
           <div className="max-w-4xl mx-auto text-center">
             <SectionHeader
               title="Host Your Event at The Anchor"
-              subtitle="Transform your special occasion into an unforgettable experience. We offer versatile venue spaces for 10-200 guests with comprehensive event services including catering, entertainment, and our preferred vendor network."
+              subtitle={`Transform your special occasion into an unforgettable experience. Room bookings for ${PRIVATE_HIRE_CAPACITY.recommendedRange}; larger events and full-venue hire available by enquiry.`}
             />
             <FeatureGrid
               columns={3}
@@ -639,7 +640,7 @@ export default async function WhatsOnPage() {
           },
           {
             question: "Can I hire The Anchor for a private party?",
-            answer: "Yes! We offer versatile venue spaces that can accommodate groups from 10 to 200 guests. Perfect for birthdays, corporate events, wakes, and any celebration. Our experienced team will work with you to create the perfect event with flexible catering options and our preferred vendor network. Contact us on 01753 682707 for a personalised consultation."
+            answer: `Yes. We offer room bookings for ${PRIVATE_HIRE_CAPACITY.recommendedRange}, with larger events and full-venue hire available by enquiry. Perfect for birthdays, corporate events, wakes, and celebrations. Contact us on 01753 682707 for a personalised consultation.`
           },
 	          {
 	            question: "Is there bingo at The Anchor?",
@@ -680,7 +681,7 @@ export default async function WhatsOnPage() {
                 source="whats_on_cta"
                 size="lg"
                 variant="secondary"
-                className="bg-white text-anchor-green hover:bg-gray-100"
+                className="bg-anchor-gold text-anchor-green hover:bg-anchor-gold-light"
               />
             </div>
             <div className="flex justify-center gap-6 mb-8">

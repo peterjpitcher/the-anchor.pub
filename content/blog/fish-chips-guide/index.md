@@ -179,8 +179,8 @@ Check our website for current service hours. Generous portions are available thr
 **Can I pre-order for takeaway?**  
 Yes. Call 01753 682707 and we will time your order for collection so it stays crisp for the journey.
 
-**Do you offer gluten free batter?**  
-We can prepare gluten free fish and chips with 24 hours notice so we can dedicate a fryer and avoid cross-contamination.
+**Do you offer gluten-free fish and chips?**  
+No. We do not offer gluten-free fish and chips, gluten-free batter, gluten-free fried fish, grilled gluten-free fish, or a dedicated gluten-free fryer for fish and chips. If you need gluten-free options, see our gluten-free menu or ask the bar team for allergen guidance before ordering.
 
 ## Reviews from Our Chip Shop Fans
 

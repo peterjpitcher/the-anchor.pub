@@ -4,6 +4,7 @@ import { Button } from '@/components/ui'
 import { StatusBar } from '@/components/layout/StatusBar'
 import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { BookTableButton } from '@/components/BookTableButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
 import { generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
@@ -100,6 +101,11 @@ export default function AshfordPubPage() {
         title="Traditional British Pub Near Ashford"
         description="Just 10 minutes from Ashford with free parking"
         variant="default"
+        primaryCta={
+          <BookTableButton source="ashford_pub_hero" context="local_pub" variant="primary" size="lg">
+            Book a Table
+          </BookTableButton>
+        }
         enableSmartCtas={true}
         showContextStrip={true}
       />

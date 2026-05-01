@@ -278,6 +278,51 @@ describe('middleware redirect lookup (apex/host chain flattening)', () => {
     )
   })
 
+  it('preserves section fragments for same-site concrete redirects', () => {
+    const rule = lookupRedirect('/food/pizza')
+    expect(rule).toBeDefined()
+    expect(rule!.destination).toBe('/food-menu#pizza')
+
+    const redirectUrl = resolveRedirectUrl(
+      new URL('https://www.the-anchor.pub/food/pizza?utm_source=test'),
+      rule!,
+    )
+
+    expect(redirectUrl.toString()).toBe(
+      'https://www.the-anchor.pub/food-menu?utm_source=test#pizza',
+    )
+  })
+
+  it('redirects the retired burger page to the burger section', () => {
+    const rule = lookupRedirect('/burger-menu')
+    expect(rule).toBeDefined()
+    expect(rule!.destination).toBe('/food-menu#burgers')
+    expect(getRedirectStatus(rule!)).toBe(301)
+  })
+
+  it('middleware preserves the section fragment for retired menu pages', () => {
+    const request = new NextRequest('https://www.the-anchor.pub/burger-menu', {
+      headers: {
+        host: 'www.the-anchor.pub',
+        'x-forwarded-proto': 'https',
+      },
+    })
+
+    const response = middleware(request)
+
+    expect(response.status).toBe(301)
+    expect(response.headers.get('location')).toBe(
+      'https://www.the-anchor.pub/food-menu#burgers',
+    )
+  })
+
+  it('redirects the retired open-mic page to live music', () => {
+    const rule = lookupRedirect('/open-mic')
+    expect(rule).toBeDefined()
+    expect(rule!.destination).toBe('/live-music')
+    expect(getRedirectStatus(rule!)).toBe(301)
+  })
+
   it('does not include pattern-based sources (those stay in next.config.js)', () => {
     // Pattern rules use `:slug` or `:path*` syntax — middleware can not match
     // them with a simple Map lookup, so they remain in the framework redirects

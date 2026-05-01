@@ -444,7 +444,7 @@ export default function FindUsPage() {
                   <Button
                     variant="primary"
                     size="lg"
-                    className="!bg-white !text-anchor-green hover:!bg-white/90"
+                    className="!bg-anchor-gold !text-anchor-green hover:!bg-anchor-gold-light"
                   >
                     Book a Table Online
                   </Button>

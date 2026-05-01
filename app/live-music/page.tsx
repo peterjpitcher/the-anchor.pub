@@ -38,17 +38,17 @@ import { liveMusicEventSeries } from '@/lib/schema'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
 export const metadata: Metadata = {
-    title: 'Live Music Pub Near Heathrow | Bands & Open Mic',
+    title: 'Live Music Pub Near Heathrow | Bands & Acoustic Nights',
     description:
-        'The best live music pub near Heathrow — bands, acoustic sessions & open mic nights monthly in Stanwell Moor. Free entry, free parking, 7 mins from T5. See upcoming gigs.',
+        'The best live music pub near Heathrow — bands, acoustic sessions and tribute acts in Stanwell Moor. Free entry, free parking, 7 mins from T5. See upcoming gigs.',
     openGraph: {
         title: 'Live Music Pub Near Heathrow | The Anchor, Stanwell Moor',
-        description: 'The best live music pub near Heathrow — bands, acoustic sessions & open mic nights monthly. Free entry, free parking, 7 mins from T5.',
+        description: 'The best live music pub near Heathrow — bands, acoustic sessions and tribute acts. Free entry, free parking, 7 mins from T5.',
         images: [{ url: DEFAULT_EVENT_IMAGE, width: 1200, height: 630, alt: 'Events at The Anchor pub near Heathrow' }]
     },
     twitter: getTwitterMetadata({
         title: 'Live Music Pub Near Heathrow | The Anchor, Stanwell Moor',
-        description: 'The best live music pub near Heathrow — bands, acoustic sessions & open mic nights monthly. Free entry, free parking, 7 mins from T5.',
+        description: 'The best live music pub near Heathrow — bands, acoustic sessions and tribute acts. Free entry, free parking, 7 mins from T5.',
         images: [DEFAULT_EVENT_IMAGE]
     }),
     alternates: {
@@ -59,11 +59,6 @@ export const metadata: Metadata = {
 const LIVE_MUSIC_CATEGORY = {
     name: 'Live Music',
     slug: 'live-music'
-}
-
-const OPEN_MIC_CATEGORY = {
-    name: 'Open Mic Night',
-    slug: 'open-mic-night'
 }
 
 const normalizeCategoryValue = (value?: string | null) =>
@@ -80,31 +75,13 @@ function getCategoryIdByLabel(categories: EventCategory[], label: typeof LIVE_MU
     })?.id
 }
 
-function isOpenMicEvent(event: Event) {
-    const targetName = normalizeCategoryValue(OPEN_MIC_CATEGORY.name)
-    const targetSlug = normalizeCategoryValue(OPEN_MIC_CATEGORY.slug)
-    const categoryName = normalizeCategoryValue(event.category?.name)
-    const categorySlug = normalizeCategoryValue(event.category?.slug)
-
-    return categoryName === targetName || categorySlug === targetSlug
-}
-
 async function getLiveMusicEvents() {
     const categories = await getEventCategories()
     const liveMusicCategoryId = getCategoryIdByLabel(categories, LIVE_MUSIC_CATEGORY)
-    const openMicCategoryId = getCategoryIdByLabel(categories, OPEN_MIC_CATEGORY)
+    if (!liveMusicCategoryId) return []
 
-    const categoryIds = [liveMusicCategoryId, openMicCategoryId].filter(Boolean) as string[]
-    if (categoryIds.length === 0) return []
-
-    const results = await Promise.all(
-        categoryIds.map((categoryId) => getUpcomingEventsByCategory(categoryId, 60, 365))
-    )
-
-    const merged = results.flat()
-    const deduped = Array.from(new Map(merged.map(event => [event.id, event])).values())
-
-    return deduped.sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
+    const events = await getUpcomingEventsByCategory(liveMusicCategoryId, 60, 365)
+    return events.sort((a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime())
 }
 
 const WHY_LOVE_IT = [
@@ -159,12 +136,12 @@ const FAQS = [
     {
         question: 'Is there live music near Heathrow Airport?',
         answer:
-            'Yes — Live at The Anchor hosts bands and open mic nights monthly, just 7 minutes from Heathrow Terminal 5. Free entry, free parking.'
+            'Yes — Live at The Anchor hosts bands, acoustic nights and tribute acts, just 7 minutes from Heathrow Terminal 5. Free entry, free parking.'
     },
     {
         question: 'How can I perform at The Anchor?',
         answer:
-            'Sign up for our open mic nights or contact us about performing as part of the Live at The Anchor programme. See our open mic page for details.'
+            'Contact us about performing as part of the Live at The Anchor programme. Send a short bio, music links and available dates to manager@the-anchor.pub.'
     },
     {
         question: 'Do you charge for live music events?',
@@ -193,7 +170,6 @@ function MusicEventCards({ events }: { events: Event[] }) {
                 const isDraft = (event.eventStatus || '').toLowerCase().includes('draft')
                 const isScheduled = (event.eventStatus || '').toLowerCase().includes('scheduled')
                 const isTentative = isDraft || (!isScheduled && new Date(event.startDate).getTime() > new Date().getTime() + 30 * 24 * 60 * 60 * 1000)
-                const openMic = isOpenMicEvent(event)
                 const eventUrl = getEventWebsiteUrl(event)
                 const imageSrc = event.heroImageUrl || event.image?.[0] || null
 
@@ -203,7 +179,7 @@ function MusicEventCards({ events }: { events: Event[] }) {
                             <div className="min-w-0">
                                 <div className="flex items-center gap-2 mb-1">
                                     <p className="text-xs uppercase tracking-wide text-white/70">
-                                        {openMic ? 'Open Mic Night' : 'Live Music Event'}
+                                        Live Music Event
                                     </p>
                                     {isTentative && (
                                         <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-blue-500 text-white border border-blue-400">
@@ -218,7 +194,7 @@ function MusicEventCards({ events }: { events: Event[] }) {
                             </div>
                             <div className="text-right">
                                 <p className="text-lg font-semibold text-white">{startTime}</p>
-                                <p className="text-xs text-white/70">{openMic ? 'Walk-ins welcome' : 'Free Entry'}</p>
+                                <p className="text-xs text-white/70">Free Entry</p>
                             </div>
                         </div>
 
@@ -243,9 +219,7 @@ function MusicEventCards({ events }: { events: Event[] }) {
                                     <p className="text-anchor-cream-text/70 leading-relaxed">{event.description}</p>
                                 )}
                                 <p className="text-sm text-anchor-cream-text/55">
-                                    {openMic
-                                        ? "Acoustic-friendly to start, with all performer types welcome for future events. Walk-ins are welcome, and you can book a table if you'd like a guaranteed seat."
-                                        : 'Join us for a fantastic night of live music. Great beer, great atmosphere, and no cover charge.'}
+                                    Join us for a fantastic night of live music. Great beer, great atmosphere, and no cover charge.
                                 </p>
                             </div>
 
@@ -254,7 +228,7 @@ function MusicEventCards({ events }: { events: Event[] }) {
                                     event={event}
                                     className="w-full"
                                     source="live_music_event_card"
-                                    label={openMic ? 'Book a table' : 'Book Now'}
+                                    label="Reserve event table"
                                 />
                             </div>
                         </CardBody>
@@ -303,10 +277,10 @@ export default async function LiveMusicPage() {
 
             <Section spacing="md" background="gray">
                 <Container>
-                    <SectionHeader title="Live at The Anchor" subtitle="New bands, singer-songwriters & open mic nights — every month" />
+                    <SectionHeader title="Live at The Anchor" subtitle="New bands, singer-songwriters and tribute acts" />
                     <div className="prose prose-invert max-w-3xl mx-auto">
                         <p><strong>Live at The Anchor</strong> is our monthly live music programme showcasing local and touring musicians in an intimate pub setting. From acoustic singer-songwriters to full bands, every gig is free entry with a brilliant atmosphere. We have been building this programme to give Stanwell Moor, Staines and the wider Heathrow area a proper live music pub where the sound is great, the beer is cold, and you are close enough to the stage to make eye contact with the guitarist.</p>
-                        <p>We also host regular <strong>open mic nights</strong> where anyone can sign up to perform — whether you are a seasoned musician or trying the stage for the first time. Our open mic nights in Staines and Stanwell Moor have become a firm favourite with local performers looking for a supportive, appreciative crowd.</p>
+                        <p>Expect a rotating mix of acoustic sets, cover bands, tribute acts and local performers. The programme changes through the year, so check the gig list below for the latest confirmed dates.</p>
                     </div>
                 </Container>
             </Section>
@@ -315,22 +289,22 @@ export default async function LiveMusicPage() {
                 <Container>
                     <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 items-start">
                         <div className="space-y-5">
-                            <h2 className="text-3xl font-bold text-anchor-cream-text">Open Mic Nights at The Anchor</h2>
+                            <h2 className="text-3xl font-bold text-anchor-cream-text">Bands and Acoustic Nights</h2>
                             <p className="text-anchor-cream-text/70">
-                                Our open mic nights run monthly and are open to singers, guitarists, duos, poets and anyone brave enough to get up on stage. Whether you have been performing for years or this is your very first time, you will find a warm welcome and an audience that genuinely wants you to do well. It is one of the best open mic nights near Staines and a hidden gem for performers in the Heathrow area.
+                                Our live music nights bring local performers into a proper pub room where the crowd is close, the sound is warm and the atmosphere feels personal. Some nights are stripped-back acoustic sets, others are full-band evenings with familiar covers and a dancefloor feel.
                             </p>
                             <div className="space-y-4">
                                 <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-card p-5">
-                                    <h3 className="text-lg font-semibold text-anchor-cream-text mb-2">How to sign up</h3>
-                                    <p className="text-sm text-anchor-cream-text/70">Arrive from 7 pm on the night and put your name on the list at the bar. Slots are first come, first served and typically run 10-15 minutes each. We usually fit in 8-12 performers per evening.</p>
+                                    <h3 className="text-lg font-semibold text-anchor-cream-text mb-2">What we book</h3>
+                                    <p className="text-sm text-anchor-cream-text/70">We book acoustic soloists, duos, bands and tribute acts that fit a village pub crowd. Covers, classics, soul, funk, rock and upbeat singalong sets all work well here.</p>
                                 </div>
                                 <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-card p-5">
                                     <h3 className="text-lg font-semibold text-anchor-cream-text mb-2">What to expect</h3>
-                                    <p className="text-sm text-anchor-cream-text/70">We provide a PA system, microphones and basic monitoring. Acoustic instruments are best for the room, though we can accommodate electric guitars at a sensible volume. The atmosphere is encouraging and friendly — this is a pub, not a talent show. Everyone gets a round of applause.</p>
+                                    <p className="text-sm text-anchor-cream-text/70">The room is intimate, the gigs are free entry, and tables are available to book if you want a guaranteed seat. Most live music nights start around 8:30pm.</p>
                                 </div>
                                 <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-card p-5">
                                     <h3 className="text-lg font-semibold text-anchor-cream-text mb-2">For the audience</h3>
-                                    <p className="text-sm text-anchor-cream-text/70">You do not need to perform to enjoy open mic night. Some of the best evenings happen when the pub is full of people who came for the music and stayed for the surprises. Grab a table, order some food, and enjoy the show. No cover charge, ever.</p>
+                                    <p className="text-sm text-anchor-cream-text/70">Grab a table, order some food, and enjoy the show. No cover charge, ever.</p>
                                 </div>
                             </div>
                         </div>
@@ -340,7 +314,7 @@ export default async function LiveMusicPage() {
                                 Good live music pubs near Staines are harder to find than you would think. Most of the bigger venues focus on DJs or tribute acts, and the smaller places often lack the space or sound setup to do live music properly. The Anchor fills that gap. We are just eight minutes from Staines-upon-Thames centre, tucked away in Stanwell Moor village, with a dedicated performance area, quality acoustics and room for around 100 people to enjoy the show.
                             </p>
                             <p className="text-anchor-cream-text/70">
-                                If you have been searching for live music near Staines, live music pubs near Heathrow, or an open mic night in Staines, you have found the right place. We bring in acts from across Surrey, West London and beyond — everything from acoustic solo artists to four-piece bands playing classic rock, soul, funk and pop covers.
+                                If you have been searching for live music near Staines or live music pubs near Heathrow, you have found the right place. We bring in acts from across Surrey, West London and beyond — everything from acoustic solo artists to four-piece bands playing classic rock, soul, funk and pop covers.
                             </p>
                             <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-card p-5 space-y-3">
                                 <h3 className="text-lg font-semibold text-anchor-cream-text">Getting here for a gig</h3>

@@ -15,7 +15,7 @@ describe('Input', () => {
 
   it('applies variant classes correctly', () => {
     const { rerender } = render(<Input variant="default" />)
-    expect(screen.getByRole('textbox')).toHaveClass('border-gray-300')
+    expect(screen.getByRole('textbox')).toHaveClass('border-anchor-gold/30')
 
     rerender(<Input variant="error" />)
     expect(screen.getByRole('textbox')).toHaveClass('border-red-500')

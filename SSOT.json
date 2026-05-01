@@ -579,7 +579,8 @@
     "copy_corrections": {
       "mushy_peas_not_minted": "Always 'mushy peas', never 'minted peas'",
       "garden_veg_burger": "Always 'Garden Veg Burger', never 'Vegetable Burger'",
-      "garden_club_pizza": "Contains roasted courgettes, caramelised onions, rocket — NOT grilled courgette, peppers, balsamic glaze"
+      "garden_club_pizza": "Contains roasted courgettes, caramelised onions, rocket — NOT grilled courgette, peppers, balsamic glaze",
+      "gluten_free_fish_and_chips": "We do not offer gluten-free fish and chips, gluten-free batter, gluten-free fried fish, grilled gluten-free fish, or a dedicated gluten-free fryer for fish and chips. Direct guests to the gluten-free menu/allergen guidance instead."
     },
     "kids_menu": [
       "Sausage and mash",
@@ -773,9 +774,6 @@
       "format": "Classic TV gameshow formats with a drag twist — Blankety Blank, Name That Tune, Play Your Cards Right, etc.",
       "note": "Formerly 'Drag Cabaret with Nikki Manfadge' — renamed July 2025"
     },
-    "open_mic": {
-      "description": "Acoustic-friendly to start, walk-ins welcome, performer sign-up available"
-    },
     "curry_club": {
       "schedule": "Monthly",
       "description": "Rotating curry night specials",
@@ -785,6 +783,9 @@
       "schedule": "Occasional (not fixed frequency)",
       "categories": ["Whisky", "Gin", "Rum", "Wine", "Beer"],
       "format": "Expert-led sessions"
+    },
+    "retired_event_formats": {
+      "open_mic": "Discontinued. Do not list, promote, or link to open mic nights. The retired /open-mic route redirects to /live-music."
     }
   },
   "private_hire": {
@@ -1094,7 +1095,8 @@
     "old_sunday_roast_options": "As of 2026-04-29: Do NOT list Roasted Chicken (adult), Slow-Cooked Lamb Shank, Crispy Pork Belly, Cauliflower Cheese side, or 'vegetarian wellington'. Current menu: Roast Beef Topside, Roast Pork Leg, Roast Turkey with Stuffing Ball, Beef & Ale Pie, Chicken & Wild Mushroom Pie, Beetroot & Butternut Squash Wellington (VEGAN), Kids Roast. Beef IS now a roast option — older 'do not use beef' guidance is reversed.",
     "wellington_vegetarian_phrasing": "Wellington is VEGAN, not vegetarian. Do NOT describe the wellington as 'vegetarian' in customer-facing copy or schemas.",
     "sunday_roast_pre_order_pre_pay": "Pre-order, Saturday-1pm cutoff and per-roast prepayment are RETIRED post-2026-05-17 walk-in launch. Do not reintroduce in copy, JSON-LD, or booking flows.",
-    "old_menu_items": "Lamb Shank (main), Beef/Chicken/Veggie Stacks, Speck Ham & Parmesan pizza — all REMOVED",
+    "old_menu_items": "Lamb Shank (main) and Speck Ham & Parmesan pizza are removed. Do not list them. Stacks are back on the menu at £14 each.",
+    "gluten_free_fish_and_chips": "Do NOT claim gluten-free fish and chips, gluten-free batter, gluten-free fried fish, grilled gluten-free fish, or a dedicated gluten-free fryer for fish and chips.",
     "info_email": "info@theanchorpub.co.uk is legacy — use manager@the-anchor.pub",
     "bogof_pizza": "DISCONTINUED. Remove all BOGOF pizza references from pages, schemas, and blog posts.",
     "stanwell_moor_brew": "DISCONTINUED. Remove all Stanwell Moor Brew references from pages, schemas, and blog posts.",

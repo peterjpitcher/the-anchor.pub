@@ -191,11 +191,11 @@ Real numbers for 35 guests at The Anchor.
 - Parking: free
 - **Total: approximately £535**
 
-**The Sunday lunch (around £900):**
-- Sunday roast from £19.99/head: ~£700 (35 guests, mixed choices)
+**The Sunday lunch (around £1,000):**
+- Sunday roast from £19/head: ~£665 (35 guests, mixed choices)
 - Welcome prosecco: £280 (35 x £7.99)
 - Decorations: ~£40
-- **Total: approximately £1,020**
+- **Total: approximately £985**
 
 **The evening celebration (around £1,300):**
 - Premium buffet: £488 (35 x £13.95)

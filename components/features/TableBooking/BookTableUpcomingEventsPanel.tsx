@@ -2,29 +2,18 @@ import Link from 'next/link'
 import { getUpcomingEvents, type Event } from '@/lib/api'
 import { isMothersDayEvent } from '@/lib/mothers-day-booking'
 import { getEventPriceLabel } from '@/lib/event-pricing'
+import { formatEventLocalDate, formatEventLocalTime } from '@/lib/event-calendar'
 
 function formatEventDateShort(dateValue: string): string {
-  const parsed = new Date(dateValue)
-  if (Number.isNaN(parsed.getTime())) return 'Date TBC'
-
-  return parsed.toLocaleDateString('en-GB', {
+  return formatEventLocalDate(dateValue, {
     weekday: 'short',
     day: 'numeric',
-    month: 'short',
-    timeZone: 'Europe/London'
+    month: 'short'
   })
 }
 
 function formatEventTimeShort(dateValue: string): string {
-  const parsed = new Date(dateValue)
-  if (Number.isNaN(parsed.getTime())) return 'Time TBC'
-
-  return parsed.toLocaleTimeString('en-GB', {
-    hour: 'numeric',
-    minute: '2-digit',
-    hour12: true,
-    timeZone: 'Europe/London'
-  })
+  return formatEventLocalTime(dateValue)
 }
 
 function getEventBookingHref(event: Pick<Event, 'id' | 'slug'>): string {

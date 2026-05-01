@@ -134,13 +134,13 @@ export default function AvailabilityChecker({
   }
 
   return (
-    <Card variant="elevated" className={`bg-amber-50 border-amber-200 ${className}`}>
+    <Card variant="elevated" className={`bg-anchor-bg-card border border-anchor-gold/20 ${className}`}>
       <CardBody>
         <div className="mb-6">
-          <h3 className="text-lg font-semibold text-amber-900 mb-2">
+          <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-2">
             Table Availability
           </h3>
-          <div className="flex flex-wrap gap-2 text-sm text-gray-700">
+          <div className="flex flex-wrap gap-2 text-sm text-anchor-cream-text/70">
             <Badge variant="default">
               <Icon name="calendar" className="mr-1" />
               {formatDate(date)}
@@ -161,7 +161,7 @@ export default function AvailabilityChecker({
         {availability && (
           <div className="space-y-4">
             <div>
-              <p className="text-sm font-medium text-gray-700 mb-3">
+              <p className="text-sm font-medium text-anchor-cream-text/70 mb-3">
                 Available times near {formatTime(time)}:
               </p>
               

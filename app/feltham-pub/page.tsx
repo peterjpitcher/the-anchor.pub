@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { Button, CTASection, SectionHeader, FeatureGrid, InfoBoxGrid, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { BookTableButton } from '@/components/BookTableButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
 import { Metadata } from 'next'
@@ -9,26 +10,35 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
+import { SUNDAY_ROAST, getSundayRoastContent } from '@/lib/sunday-roast'
 
-export const metadata: Metadata = {
-  title: 'Pub Near Feltham | Free Parking & Sunday Roasts',
-  description: 'Looking for pubs near Feltham? The Anchor is just 10 minutes away with free parking, Sunday roasts from £19, stone-baked pizzas and quiz nights in a relaxed village pub.',
-  openGraph: {
-    title: 'Pub Near Feltham | Free Parking & Sunday Roasts | The Anchor',
-    description: 'Pubs near Feltham — just 10 minutes away with free parking, Sunday roasts, stone-baked pizzas and quiz nights.',
-    images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
-  },
-  twitter: getTwitterMetadata({
-    title: 'Pub Near Feltham | Free Parking & Sunday Roasts | The Anchor',
-    description: 'Pubs near Feltham — just 10 minutes away with free parking, Sunday roasts, stone-baked pizzas and quiz nights.',
-    images: [DEFAULT_PAGE_HEADER_IMAGE]
-  }),
-  alternates: {
-    canonical: '/feltham-pub'
+export function generateMetadata(): Metadata {
+  const sunday = getSundayRoastContent()
+  const sundayPhrase = sunday.isLive
+    ? `Sunday roasts ${SUNDAY_ROAST.fromPriceLabel}`
+    : `Sunday roast starts ${SUNDAY_ROAST.launchDateLabel}`
+
+  return {
+    title: 'Pub Near Feltham | Free Parking & Sunday Roasts',
+    description: `Looking for pubs near Feltham? The Anchor is just 10 minutes away with free parking, ${sundayPhrase}, stone-baked pizzas and quiz nights in a relaxed village pub.`,
+    openGraph: {
+      title: 'Pub Near Feltham | Free Parking & Sunday Roasts | The Anchor',
+      description: `Pubs near Feltham — just 10 minutes away with free parking, ${sundayPhrase}, stone-baked pizzas and quiz nights.`,
+      images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
+    },
+    twitter: getTwitterMetadata({
+      title: 'Pub Near Feltham | Free Parking & Sunday Roasts | The Anchor',
+      description: `Pubs near Feltham — just 10 minutes away with free parking, ${sundayPhrase}, stone-baked pizzas and quiz nights.`,
+      images: [DEFAULT_PAGE_HEADER_IMAGE]
+    }),
+    alternates: {
+      canonical: '/feltham-pub'
+    }
   }
 }
 
 export default function FelthamPubPage() {
+  const sunday = getSundayRoastContent()
   const directionsSchema = generateHowToDirectionsSchema(
     "Feltham Town Centre",
     "The Anchor",
@@ -81,6 +91,11 @@ export default function FelthamPubPage() {
         title="Your Local Pub Near Feltham"
         description="Just 10 minutes away with free parking"
         variant="default"
+        primaryCta={
+          <BookTableButton source="feltham_pub_hero" context="local_pub" variant="primary" size="lg">
+            Book a Table
+          </BookTableButton>
+        }
         enableSmartCtas={true}
         showContextStrip={true}
       />
@@ -163,7 +178,7 @@ export default function FelthamPubPage() {
                 </li>
 	                <li className="flex items-start">
 	                  <span className="text-anchor-gold mr-3"></span>
-	                  <span>Celebrated Sunday roasts served 1pm-6pm — walk in or book ahead, no pre-order needed.</span>
+	                  <span>Celebrated Sunday roasts {sunday.isLive ? 'served 1pm-6pm — walk in or book ahead, no pre-order needed.' : `start ${SUNDAY_ROAST.launchDateLabel}.`}</span>
 	                </li>
                 <li className="flex items-start">
                   <span className="text-anchor-gold mr-3"></span>
@@ -286,7 +301,7 @@ export default function FelthamPubPage() {
                         </li>
 	                        <li className="flex items-start">
 	                          <span className="text-anchor-gold mr-2">•</span>
-	                          Sunday roasts served 1pm-6pm — walk in or book ahead, no pre-order needed.
+	                          Sunday roasts {sunday.isLive ? 'served 1pm-6pm — walk in or book ahead, no pre-order needed.' : `start ${SUNDAY_ROAST.launchDateLabel}.`}
 	                        </li>
                         <li className="flex items-start">
                           <span className="text-anchor-gold mr-2">•</span>
@@ -362,7 +377,7 @@ export default function FelthamPubPage() {
             <div className="card-dark rounded-none p-6 text-center">
               <p className="text-lg text-anchor-cream-text mb-4">
                 <strong>Feltham groups love our flexibility!</strong> 
-                Competitive rates - let's discuss your needs. Spaces for 10-200 guests.
+                Competitive rates - let's discuss your needs. Room bookings for 10-50 guests, with larger events by enquiry.
               </p>
               <div className="flex flex-wrap justify-center gap-4">
                 <Link href="/private-party-venue">

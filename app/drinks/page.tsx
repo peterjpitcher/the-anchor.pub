@@ -18,20 +18,21 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { DEFAULT_DRINKS_IMAGE } from '@/lib/image-fallbacks'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { getBusinessHours } from '@/lib/api'
+import { getDrinksHeroImage } from '@/lib/drinks-hero-image'
 
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   title: 'Drinks Menu Near Heathrow | Draught Beers, Cocktails & Wine',
-  description: 'Draught beers, draught beers, cocktails, wines & spirits at The Anchor near Heathrow. Pints from £4.95, cocktails from £8. Free parking, 7 mins from T5. View menu.',
+  description: 'Draught beers, cocktails, wines, spirits and soft drinks at The Anchor near Heathrow. Free parking, 7 mins from T5. View the drinks menu.',
   openGraph: {
     title: 'Drinks Menu Near Heathrow | Draught Beers, Cocktails & Wine',
-    description: 'Draught beers, draught beers, cocktails, wines & spirits at The Anchor near Heathrow. Pints from £4.95, cocktails from £8. Free parking, 7 mins from T5. View menu.',
+    description: 'Draught beers, cocktails, wines, spirits and soft drinks at The Anchor near Heathrow. Free parking, 7 mins from T5. View the drinks menu.',
     images: [{ url: DEFAULT_DRINKS_IMAGE, width: 1200, height: 630, alt: 'Drinks menu at The Anchor pub near Heathrow' }],
   },
   twitter: getTwitterMetadata({
     title: 'Drinks Menu Near Heathrow | Draught Beers, Cocktails & Wine',
-    description: 'Draught beers, draught beers, cocktails, wines & spirits at The Anchor near Heathrow. Pints from £4.95, cocktails from £8. Free parking, 7 mins from T5. View menu.',
+    description: 'Draught beers, cocktails, wines, spirits and soft drinks at The Anchor near Heathrow. Free parking, 7 mins from T5. View the drinks menu.',
     images: [DEFAULT_DRINKS_IMAGE]
   }),
   alternates: {
@@ -116,6 +117,7 @@ export default async function DrinksMenuPage() {
   }
 
   const openingHoursSpecification = generateOpeningHoursSpecification(businessHours)
+  const drinksHeroImage = getDrinksHeroImage()
 
   // BarOrPub specific schema
   const barSchema = {
@@ -176,8 +178,13 @@ export default async function DrinksMenuPage() {
       <HeroWrapper
         route="/drinks"
         title="Drinks at The Anchor"
-        description="From draught beers to premium spirits - something for everyone"
+        description="Start with the taps, browse the bottles, or ask the bar team for a proper serve"
         variant="default"
+        image={{
+          ...drinksHeroImage,
+          objectPosition: 'center center',
+          priority: true
+        }}
         tags={[
           { label: 'Draught Beers', variant: 'default' },
           { label: 'Premium Spirits', variant: 'default' },
@@ -190,7 +197,7 @@ export default async function DrinksMenuPage() {
             variant="secondary"
             size="lg"
             fullWidth
-            className="w-full sm:w-auto bg-white text-anchor-green hover:bg-gray-100"
+            className="w-full sm:w-auto bg-anchor-gold text-anchor-green hover:bg-anchor-gold-light"
           >
             Reserve a Table
           </BookTableButton>
@@ -240,54 +247,8 @@ export default async function DrinksMenuPage() {
         }
       />
 
-      {/* Popular Draught & Spirits */}
-      <Section background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15" id="featured-offers">
-        <Container>
-          <SectionHeader
-            title="Your Favourite Drinks on Tap Near Heathrow"
-            subtitle="From Birra Moretti and Stella Artois to Guinness and premium spirits, we pour what travellers and locals ask for most."
-          />
-          <InfoBoxGrid
-            columns={3}
-            className="max-w-5xl mx-auto"
-            boxes={[
-              {
-                title: "Birra Moretti & Stella Artois",
-                content: (
-                  <p className="text-anchor-cream-text/70">
-                    Ice-cold Birra Moretti and Stella Artois served properly every day. Popular with airport crew looking for a familiar pint before or after shifts.
-                  </p>
-                ),
-                variant: "colored",
-                color: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15"
-              },
-              {
-                title: "Guinness & Inch’s Cider",
-                content: (
-                  <p className="text-anchor-cream-text/70">
-                    Pour-perfect Guinness plus Inch&apos;s Medium Apple Cider for those sunny beer garden sessions under the Heathrow flight path.
-                  </p>
-                ),
-                variant: "colored",
-                color: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15"
-              },
-              {
-                title: "Premium Spirits & Chambord",
-                content: (
-                  <p className="text-anchor-cream-text/70">
-                    Build cocktails with Chambord, Disaronno, Duppy Share rum and plenty of premium spirits. Ask for Baby Guinness shots too.
-                  </p>
-                ),
-                variant: "colored",
-                color: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15"
-              }
-            ]}
-          />
-        </Container>
-      </Section>
-
       {/* Page Title */}
-      <Section className="py-8 bg-anchor-bg border-b border-anchor-gold/15">
+      <Section className="py-8 bg-anchor-bg border-b border-anchor-gold/15" id="menu">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <PageTitle
@@ -297,41 +258,93 @@ export default async function DrinksMenuPage() {
               }}
               className="text-anchor-cream-text mb-4"
             >
-              Drinks Menu - Beers, Wines & Spirits
+              The Drinks List
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
-              Explore our extensive selection of draught beers, lagers, premium spirits, wines, and cocktails
+              Browse the bar before you arrive: draught pints first, then bottles, cocktails, spirits, wine and soft drinks.
             </p>
           </div>
         </Container>
       </Section>
 
       {/* Quick Links */}
-      <Section background="gray" spacing="md">
+      <Section background="gray" spacing="sm" className="border-b border-anchor-gold/15">
         <Container>
-          <div className="flex flex-wrap justify-center gap-4">
+          <div className="mb-5 text-center">
+            <p className="text-sm font-semibold uppercase tracking-[0.24em] text-anchor-gold-vivid">Jump straight to</p>
+          </div>
+          <div className="flex flex-wrap justify-center gap-3">
             {menuData.categories.map((category) => (
               <Link
                 key={category.id}
                 href={`#${category.id}`}
-                className="rounded-none bg-anchor-bg-card px-6 py-3 border border-anchor-gold/15 transition-colors hover:border-anchor-gold/30 text-anchor-cream-text"
+                className="rounded-full bg-anchor-bg-card px-5 py-3 border border-anchor-gold/15 transition-colors hover:border-anchor-gold/30 text-anchor-cream-text"
               >
                 {category.title}
               </Link>
             ))}
             <Link
               href="/food-menu#pizza"
-              className="rounded-none bg-anchor-bg-card px-6 py-3 border border-anchor-gold/15 transition-colors hover:border-anchor-gold/30 text-anchor-cream-text"
+              className="rounded-full bg-anchor-bg-card px-5 py-3 border border-anchor-gold/15 transition-colors hover:border-anchor-gold/30 text-anchor-cream-text"
             >
               Pizza Menu
             </Link>
             <Link
               href="/sunday-lunch"
-              className="rounded-none bg-anchor-bg-card px-6 py-3 border border-anchor-gold/15 transition-colors hover:border-anchor-gold/30 text-anchor-cream-text"
+              className="rounded-full bg-anchor-bg-card px-5 py-3 border border-anchor-gold/15 transition-colors hover:border-anchor-gold/30 text-anchor-cream-text"
             >
               Sunday Roast Booking
             </Link>
           </div>
+        </Container>
+      </Section>
+
+      {/* Menu Content */}
+      <MenuRenderer menuData={menuDataWithoutManagersSpecial} eyebrow="Drinks list" />
+
+      {/* Popular Draught & Spirits */}
+      <Section background="white" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15" id="featured-offers">
+        <Container>
+          <SectionHeader
+            title="Bar Team Favourites"
+            subtitle="A few easy places to start if you are not sure what to order first."
+          />
+          <InfoBoxGrid
+            columns={3}
+            className="max-w-5xl mx-auto"
+            boxes={[
+              {
+                title: "Birra Moretti & Stella Artois",
+                content: (
+                  <p className="text-anchor-cream-text/70">
+                    Familiar, cold and quick to choose. These are the pints people ask for when they want a reliable lager before food, after work or while waiting for a flight to land.
+                  </p>
+                ),
+                variant: "colored",
+                color: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15"
+              },
+              {
+                title: "Guinness & Inch's Cider",
+                content: (
+                  <p className="text-anchor-cream-text/70">
+                    Guinness for a slower, creamier pint; Inch&apos;s for a brighter cider in the garden. Both work well when you are settling in rather than rushing through a round.
+                  </p>
+                ),
+                variant: "colored",
+                color: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15"
+              },
+              {
+                title: "Premium Spirits & Chambord",
+                content: (
+                  <p className="text-anchor-cream-text/70">
+                    If you want something longer, sweeter or more cocktail-led, start with the spirits shelves. Chambord, Disaronno, rum, gin and tequila give the bar team plenty to build from.
+                  </p>
+                ),
+                variant: "colored",
+                color: "bg-anchor-bg-card rounded-none p-6 border border-anchor-gold/15"
+              }
+            ]}
+          />
         </Container>
       </Section>
 
@@ -509,11 +522,6 @@ export default async function DrinksMenuPage() {
         </Container>
       </Section>
 
-      {/* Menu Content */}
-      <div id="menu">
-        <MenuRenderer menuData={menuDataWithoutManagersSpecial} />
-      </div>
-
       {/* Internal Links for SEO */}
       <Section background="white" spacing="md">
         <Container>
@@ -575,7 +583,7 @@ export default async function DrinksMenuPage() {
                 size="lg"
                 variant="secondary"
                 fullWidth
-                className="w-full sm:w-auto bg-white text-anchor-green hover:bg-gray-100"
+                className="w-full sm:w-auto bg-anchor-gold text-anchor-green hover:bg-anchor-gold-light"
               >
                 Reserve a Table
               </BookTableButton>

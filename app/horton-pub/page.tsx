@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { Button, CTASection, SectionHeader, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { BookTableButton } from '@/components/BookTableButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
 import { generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
@@ -90,6 +91,11 @@ export default function HortonPubPage() {
                 title="Your Local Village Pub Near Horton"
                 description="Just a 2-minute drive or short walk from Horton village"
                 variant="default"
+                primaryCta={
+                    <BookTableButton source="horton_pub_hero" context="local_pub" variant="primary" size="lg">
+                        Book a Table
+                    </BookTableButton>
+                }
                 enableSmartCtas={true}
                 showContextStrip={true}
             />

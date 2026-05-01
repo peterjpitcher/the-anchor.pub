@@ -23,13 +23,14 @@ describe('BookTableUpcomingEventsPanel', () => {
         id: 'evt-quiz',
         slug: 'quiz-night',
         name: 'Quiz Night',
-        startDate: '2026-03-22T20:00:00+00:00'
+        startDate: '2026-05-06T19:00:00+00:00'
       }
     ])
 
     render(await BookTableUpcomingEventsPanel())
 
     await waitFor(() => expect(screen.getByText('Quiz Night')).toBeInTheDocument())
+    expect(screen.getByText((content) => content.includes('Wed 6 May') && content.includes('7pm'))).toBeInTheDocument()
     expect(screen.queryByText("Mother's Day Lunch")).not.toBeInTheDocument()
   })
 })

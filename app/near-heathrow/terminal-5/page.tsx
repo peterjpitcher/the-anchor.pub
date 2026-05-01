@@ -44,6 +44,16 @@ export default function Terminal5Page() {
         title="The Best Pub Near Heathrow Terminal 5"
         description="Perfect for British Airways travelers • Free parking • Traditional British pub"
         variant="default"
+        primaryCta={
+          <BookTableButton
+            source="terminal_5_hero"
+            context="terminal_5"
+            variant="primary"
+            size="lg"
+          >
+            Book a Table
+          </BookTableButton>
+        }
         enableSmartCtas={true}
         showContextStrip={true}
       />
@@ -599,7 +609,7 @@ export default function Terminal5Page() {
       <InternalLinkingSection
         title="Plan The Rest Of Your Visit"
         links={[
-          { href: '/food-menu', title: 'Food Menu', description: 'Stone-baked pizzas, burgers and Sunday roast pre-orders' },
+          { href: '/food-menu', title: 'Food Menu', description: 'Stone-baked pizzas, burgers and Sunday roasts' },
           { href: '/drinks', title: 'Drinks Menu', description: 'Draught beers, cocktails and value pub prices near Heathrow' },
           { href: '/private-hire#enquiry', title: 'Book an Event', description: 'Reserve private space for crew briefings or celebrations' },
           { href: '/near-heathrow/terminal-3', title: 'Terminal 3 Guide', description: 'Directions and tips for Virgin and Emirates flights' }

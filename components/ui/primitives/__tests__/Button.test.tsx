@@ -13,7 +13,7 @@ describe('Button', () => {
     expect(screen.getByRole('button')).toHaveClass('bg-anchor-gold')
 
     rerender(<Button variant="secondary">Secondary</Button>)
-    expect(screen.getByRole('button')).toHaveClass('bg-white')
+    expect(screen.getByRole('button')).toHaveClass('bg-anchor-bg-card')
   })
 
   it('applies size classes correctly', () => {

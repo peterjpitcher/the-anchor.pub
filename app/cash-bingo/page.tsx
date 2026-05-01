@@ -126,7 +126,7 @@ const FAQS = [
   {
     question: 'Do I need to book in advance?',
     answer:
-      'Yes—tickets sell fast. If booking is open you’ll see a Book Now button above. If not, booking options are available closer to the event — check back nearer the date or call 01753 682707 and we’ll help.'
+      'Yes—tables sell fast. If booking is open you’ll see a reserve table button above. If not, booking options are available closer to the event — check back nearer the date or call 01753 682707 and we’ll help.'
   },
   {
     question: 'Is there an age limit for bingo night?',
@@ -494,7 +494,7 @@ export default async function CashBingoPage() {
                 phone="01753 682707"
                 source="cash_bingo_cta_bottom"
                 size="lg"
-                className="w-full sm:w-auto bg-white text-anchor-green hover:bg-gray-100"
+                className="w-full sm:w-auto bg-anchor-gold text-anchor-green hover:bg-anchor-gold-light"
               >
                  Call us on 01753 682707
               </PhoneButton>

@@ -13,12 +13,11 @@ export function HeroBadge({
   position = 'absolute',
   className = ''
 }: HeroBadgeProps) {
-  // Color schemes for different variants
   const variantStyles = {
     new: 'bg-red-500 text-white',
     featured: 'bg-amber-500 text-white',
-    special: 'bg-white text-green-700 font-bold',
-    limited: 'bg-purple-600 text-white'
+    special: 'bg-anchor-gold text-anchor-green font-bold',
+    limited: 'bg-fuchsia-500/90 text-white'
   }
 
   const baseStyles = variantStyles[variant] || variantStyles.new

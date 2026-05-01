@@ -68,7 +68,6 @@ All routes below are server-only Next.js Route Handlers under `app/api/**/route.
 | URL Path | Method | Auth | Source File |
 |---|---|---|---|
 | `/api/enquiry/christmas` | POST | `ANCHOR_API_KEY` + Microsoft Graph + Turnstile | `app/api/enquiry/christmas/route.ts` |
-| `/api/enquiry/open-mic` | POST | `ANCHOR_API_KEY` + Microsoft Graph + Turnstile | `app/api/enquiry/open-mic/route.ts` |
 | `/api/private-booking-enquiry` | POST | `ANCHOR_API_KEY` + Turnstile | `app/api/private-booking-enquiry/route.ts` |
 | `/api/public/private-booking` | POST | `ANCHOR_API_KEY` + Turnstile | `app/api/public/private-booking/route.ts` |
 | `/api/public/private-booking/config` | GET | `ANCHOR_API_KEY` | `app/api/public/private-booking/config/route.ts` |
@@ -117,7 +116,7 @@ The site has **121 page files**. They fall into these groups:
 
 ### Events / What's On
 
-`/whats-on`, `/whats-on/drag-shows`, `/events/[id]`, `/cash-bingo`, `/music-bingo`, `/quiz-night`, `/karaoke`, `/open-mic`, `/live-music`, `/live-sport`, `/live-sport/boxing`, `/live-sport/f1`, `/live-sport/six-nations`, `/live-sport/world-cup`, `/easter`, `/halloween`, `/bonfire-night`, `/new-years-eve`, `/boxing-day`, `/valentines-day`, `/mothers-day`, `/fathers-day`, `/st-patricks-day`, `/bank-holiday-weekends`, `/summer-garden-parties`.
+`/whats-on`, `/whats-on/drag-shows`, `/events/[id]`, `/cash-bingo`, `/music-bingo`, `/quiz-night`, `/karaoke`, `/live-music`, `/live-sport`, `/live-sport/boxing`, `/live-sport/f1`, `/live-sport/six-nations`, `/live-sport/world-cup`, `/easter`, `/halloween`, `/bonfire-night`, `/new-years-eve`, `/boxing-day`, `/valentines-day`, `/mothers-day`, `/fathers-day`, `/st-patricks-day`, `/bank-holiday-weekends`, `/summer-garden-parties`.
 
 ### Local SEO — Areas & Hotels
 

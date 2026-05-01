@@ -24,16 +24,16 @@ export function ReviewsBadge({
   }
 
   return (
-    <div className={`bg-white rounded-xl shadow-lg inline-flex items-center gap-4 ${sizeClasses[size]}`}>
+    <div className={`bg-anchor-bg-card border border-anchor-gold/20 shadow-[0_16px_40px_rgba(0,0,0,0.35)] inline-flex items-center gap-4 ${sizeClasses[size]}`}>
       <div className="text-center">
-        <div className={`font-bold text-3xl text-anchor-green ${size === 'large' ? 'text-4xl' : ''}`}>
+        <div className={`font-bold text-3xl text-anchor-gold-vivid ${size === 'large' ? 'text-4xl' : ''}`}>
           {rating}
         </div>
         <div className={`flex gap-0.5 ${starSize[size]}`}>
           {[...Array(5)].map((_, i) => (
             <span
               key={i}
-              className={i < Math.round(rating) ? "text-yellow-400" : "text-gray-300"}
+              className={i < Math.round(rating) ? "text-yellow-400" : "text-anchor-cream-text/25"}
             >
             </span>
           ))}
@@ -41,17 +41,17 @@ export function ReviewsBadge({
       </div>
       
       <div className="text-left">
-        <div className="font-semibold text-anchor-green">
+        <div className="font-semibold text-anchor-cream-text">
           Google Reviews
         </div>
-        <div className="text-gray-600">
+        <div className="text-anchor-cream-text/70">
           {totalReviews} reviews
         </div>
         <a 
           href="https://g.page/theanchorpubsm?share"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-sm text-anchor-gold hover:text-anchor-green transition-colors mt-1 inline-block"
+          className="text-sm text-anchor-gold hover:text-anchor-gold-light transition-colors mt-1 inline-block"
         >
           View on Google →
         </a>

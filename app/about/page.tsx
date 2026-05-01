@@ -287,7 +287,7 @@ export default function AboutPage() {
                       Private Hire
                     </h3>
                     <p className="text-anchor-cream-text/70 mb-4">
-                      Flexible spaces for 10 to 200 guests. Birthdays, corporate events,
+                      Flexible room bookings for 10 to 50 guests, with larger events by enquiry. Birthdays, corporate events,
                       celebrations &mdash; we handle the lot.
                     </p>
                     <p className="text-anchor-gold-vivid font-semibold">Plan your event &rarr;</p>

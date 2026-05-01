@@ -126,7 +126,7 @@ export default function FamilyFriendlyPage() {
                         answer: "We certainly do! A smaller portion of our famous roast with all the trimmings."
                     }
                 ]}
-                className="bg-white"
+                className="bg-anchor-bg-card"
             />
 
             <CTASection

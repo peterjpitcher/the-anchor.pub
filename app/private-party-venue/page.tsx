@@ -15,7 +15,7 @@ import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
   title: 'Birthday Party Venue Near Heathrow & Staines',
-  description: 'Book The Anchor for birthday parties near Heathrow and Staines. DJ space, late licence, decorations welcome. 10-200 guests with free parking.',
+  description: 'Book The Anchor for birthday parties near Heathrow and Staines. DJ space, late licence, decorations welcome. 10-50 room bookings, larger events by enquiry, and free parking.',
   openGraph: {
     title: 'Birthday Party Venue Near Heathrow - Celebrations at The Anchor',
     description: 'Birthday parties and celebrations with DJ space, late licence, and free parking near Heathrow.',
@@ -44,7 +44,7 @@ export default function PrivatePartyVenuePage() {
         title="Birthday Party Venue & Celebrations"
         description="The perfect spot for birthdays, milestones and social celebrations near Heathrow"
         tags={[
-          { label: "10-200 Guests", variant: "success" },
+          { label: "10-50 Room Bookings", variant: "success" },
           { label: "All Occasions", variant: "default" },
           { label: "Free Parking", variant: "default" },
           { label: "Custom Menus", variant: "success" }
@@ -95,7 +95,7 @@ export default function PrivatePartyVenuePage() {
             <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
             <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog & family friendly</span>
             <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">10–200 guests</span>
+            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">10-50 room bookings</span>
           </div>
         }
       />

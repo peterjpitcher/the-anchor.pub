@@ -41,6 +41,31 @@
     "statusCode": 301
   },
   {
+    "source": "/burger-menu",
+    "destination": "/food-menu#burgers",
+    "permanent": true
+  },
+  {
+    "source": "/open-mic",
+    "destination": "/live-music",
+    "permanent": true
+  },
+  {
+    "source": "/events/open-mic-night-live-at-the-anchor",
+    "destination": "/live-music",
+    "permanent": true
+  },
+  {
+    "source": "/events/open-mic-night-live-at-the-anchor-2026-04-25",
+    "destination": "/live-music",
+    "permanent": true
+  },
+  {
+    "source": "/events/live-at-the-anchor-open-mic-night-2026-04-25",
+    "destination": "/live-music",
+    "permanent": true
+  },
+  {
     "source": "/contact",
     "destination": "/find-us",
     "permanent": true
@@ -192,6 +217,11 @@
   },
   {
     "source": "/special-offers",
+    "destination": "/drinks/managers-special",
+    "permanent": true
+  },
+  {
+    "source": "/managers-special",
     "destination": "/drinks/managers-special",
     "permanent": true
   },

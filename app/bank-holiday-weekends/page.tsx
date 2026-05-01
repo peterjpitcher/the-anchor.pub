@@ -8,6 +8,7 @@ import { Badge, Button, Card, CardBody, Container, Section } from '@/components/
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import { CONTACT, HEATHROW_TIMES } from '@/lib/constants'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
+import { getSundayRoastContent } from '@/lib/sunday-roast'
 
 const BANK_HOLIDAYS_2026 = [
   { name: 'Good Friday', date: '3 April', note: 'Kitchen open (Friday hours: 6pm\u20139pm)' },
@@ -31,6 +32,7 @@ export const metadata: Metadata = {
 export default function BankHolidayWeekendsPage() {
   const addressLine = `${CONTACT.address.street}, ${CONTACT.address.town}, ${CONTACT.address.county}, ${CONTACT.address.postcode}`
   const mapQuery = `The Anchor, ${CONTACT.address.street}, ${CONTACT.address.postcode}`
+  const sunday = getSundayRoastContent()
 
   const faqs = [
     {
@@ -46,7 +48,9 @@ export default function BankHolidayWeekendsPage() {
     {
       question: 'Do you do Sunday roast on bank holiday weekends?',
       answer:
-        `Yes \u2014 we serve Sunday roast every Sunday 1pm-6pm, including bank holiday weekends. Roasts start from ${SUNDAY_ROAST_PRICE} and walk-ins are welcome (booking recommended for groups). The day before a bank holiday Monday is the perfect time for a roast \u2014 no work tomorrow.`,
+        sunday.isLive
+          ? `Yes \u2014 we serve Sunday roast every Sunday 1pm-6pm, including bank holiday weekends. Roasts start from ${SUNDAY_ROAST_PRICE} and walk-ins are welcome (booking recommended for groups). The day before a bank holiday Monday is the perfect time for a roast \u2014 no work tomorrow.`
+          : `${sunday.availabilityLong} From launch, roasts start from ${SUNDAY_ROAST_PRICE}; booking is recommended for bank holiday weekends and groups.`,
     },
     {
       question: 'Is there free parking?',
@@ -157,7 +161,7 @@ export default function BankHolidayWeekendsPage() {
                 than that.
               </p>
               <p className="text-anchor-cream-text/70 leading-relaxed">
-                Walk in 1pm-6pm or book ahead online. Groups of 10 or more pay a
+                {sunday.isLive ? 'Walk in 1pm-6pm or book ahead online.' : `${sunday.availabilityLong} Book ahead for launch Sundays.`} Groups of 10 or more pay a
                 £10 per person deposit, fully deducted from your bill on the day.
               </p>
               <div className="flex flex-col gap-3 sm:flex-row">

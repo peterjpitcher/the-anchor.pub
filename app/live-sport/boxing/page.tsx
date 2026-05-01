@@ -118,7 +118,7 @@ export default function BoxingPage() {
                         answer: "We are licensed until late on weekends, but for fights that go into the early hours (like Vegas fights), please check with us directly as it depends on our license extension for that specific night."
                     }
                 ]}
-                className="bg-white"
+                className="bg-anchor-bg-card"
             />
 
             <CTASection

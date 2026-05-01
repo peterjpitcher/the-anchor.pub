@@ -50,18 +50,18 @@ export default function BookingConfirmation({
 
 
   return (
-    <Card variant="elevated" className={`bg-green-50 border-green-200 ${className}`}>
+    <Card variant="elevated" className={`bg-emerald-500/10 border border-emerald-500/30 ${className}`}>
       <CardBody>
         <div className="text-center mb-6">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
-            <Icon name="check" className="h-8 w-8 text-green-600" />
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-emerald-500/10 border border-emerald-500/30 rounded-full mb-4">
+            <Icon name="check" className="h-8 w-8 text-emerald-300" />
           </div>
           
-          <h2 className="text-2xl font-bold text-green-900 mb-2">
+          <h2 className="text-2xl font-bold text-emerald-300 mb-2">
             Booking Confirmed!
           </h2>
           
-          <p className="text-gray-700">
+          <p className="text-anchor-cream-text/70">
             We'll send you a text confirmation to your phone number
           </p>
         </div>
@@ -75,9 +75,9 @@ export default function BookingConfirmation({
           </div>
         </Alert>
 
-        <div className="bg-white rounded-lg border border-gray-200 p-4 space-y-3 mb-6">
+        <div className="bg-anchor-bg-card rounded-lg border border-anchor-gold/20 p-4 space-y-3 mb-6">
           <div className="flex items-start justify-between">
-            <div className="flex items-center text-gray-600">
+            <div className="flex items-center text-anchor-cream-text/65">
               <Icon name="calendar" className="mr-2 h-4 w-4" />
               <span className="text-sm">Date</span>
             </div>
@@ -85,7 +85,7 @@ export default function BookingConfirmation({
           </div>
           
           <div className="flex items-start justify-between">
-            <div className="flex items-center text-gray-600">
+            <div className="flex items-center text-anchor-cream-text/65">
               <Icon name="clock" className="mr-2 h-4 w-4" />
               <span className="text-sm">Time</span>
             </div>
@@ -93,7 +93,7 @@ export default function BookingConfirmation({
           </div>
           
           <div className="flex items-start justify-between">
-            <div className="flex items-center text-gray-600">
+            <div className="flex items-center text-anchor-cream-text/65">
               <Icon name="users" className="mr-2 h-4 w-4" />
               <span className="text-sm">Party Size</span>
             </div>
@@ -103,11 +103,11 @@ export default function BookingConfirmation({
           </div>
           
           {(booking.confirmation_details?.special_requirements || booking.booking_details?.special_requirements) && (
-            <div className="pt-3 border-t border-gray-200">
+            <div className="pt-3 border-t border-anchor-gold/15">
               <div className="flex items-start">
-                <Icon name="info" className="mr-2 h-4 w-4 text-gray-600 mt-0.5" />
+                <Icon name="info" className="mr-2 h-4 w-4 text-anchor-cream-text/65 mt-0.5" />
                 <div>
-                  <span className="text-sm text-gray-600 block mb-1">Special Requirements</span>
+                  <span className="text-sm text-anchor-cream-text/65 block mb-1">Special Requirements</span>
                   <span className="text-sm">{booking.confirmation_details?.special_requirements || booking.booking_details?.special_requirements}</span>
                 </div>
               </div>
@@ -127,13 +127,13 @@ export default function BookingConfirmation({
           )}
         </div>
 
-        <div className="mt-6 pt-6 border-t border-green-200">
-          <p className="text-sm text-gray-600 text-center">
+        <div className="mt-6 pt-6 border-t border-emerald-500/20">
+          <p className="text-sm text-anchor-cream-text/70 text-center">
             Need to change or cancel your booking? Call us at{' '}
             <PhoneLink
               phone="01753682707"
               source="booking_confirmation"
-              className="font-semibold text-green-700 underline"
+              className="font-semibold text-emerald-300 underline"
               showIcon={false}
             >
               01753 682707
@@ -141,7 +141,7 @@ export default function BookingConfirmation({
           </p>
           
           {booking.cancellation_policy && (
-            <p className="text-xs text-gray-500 text-center mt-2">
+            <p className="text-xs text-anchor-cream-text/55 text-center mt-2">
               {booking.cancellation_policy}
             </p>
           )}

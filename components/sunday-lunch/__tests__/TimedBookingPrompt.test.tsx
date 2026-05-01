@@ -1,4 +1,5 @@
 import { act, render, screen } from '@testing-library/react'
+import type { ReactNode } from 'react'
 import { TimedBookingPrompt } from '../TimedBookingPrompt'
 import { pushToDataLayer } from '@/lib/gtm-events'
 
@@ -14,6 +15,14 @@ jest.mock('@/lib/gtm-events', () => ({
 jest.mock('next/navigation', () => ({
   usePathname: () => '/sunday-lunch',
   useRouter: () => ({ push: jest.fn() }),
+}))
+
+jest.mock('@/components/BookTableButton', () => ({
+  BookTableButton: ({ children, onClickAfterTracking }: { children: ReactNode; onClickAfterTracking?: () => void }) => (
+    <button type="button" onClick={onClickAfterTracking}>
+      {children}
+    </button>
+  ),
 }))
 
 const mockPush = pushToDataLayer as jest.MockedFunction<typeof pushToDataLayer>
@@ -76,7 +85,7 @@ describe('TimedBookingPrompt', () => {
 
     // Simulate Escape close via the Modal — fire dismiss by clicking the
     // Book a table CTA, which also sets the dismissal flag.
-    const cta = screen.getByRole('button', { name: /book a table/i })
+    const cta = screen.getByRole('button', { name: /book sunday roast/i })
     act(() => {
       cta.click()
     })

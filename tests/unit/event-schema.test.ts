@@ -16,7 +16,7 @@ describe('buildEventSchema', () => {
     const schema = buildEventSchema(minimalEvent)
     const action = (schema as any).potentialAction
     expect(action?.['@type']).toBe('ReserveAction')
-    expect(action?.target?.urlTemplate).toBe('https://www.the-anchor.pub/book-table')
+    expect(action?.target?.urlTemplate).toBe('https://www.the-anchor.pub/events/test-1')
   })
 
   it('preserves event.potentialAction when provided', () => {
@@ -88,6 +88,17 @@ describe('buildEventSchema — booking URL sanitisation', () => {
     const schema = buildEventSchema(event) as any
     expect(schema.offers.url).toBe('https://www.the-anchor.pub/events/my-event')
   })
+
+  it('rejects internal management booking URLs', () => {
+    const event = {
+      ...minimalEvent,
+      slug: 'managed-event',
+      bookingUrl: 'https://management.orangejelly.co.uk/bookings/events/123'
+    }
+    const schema = buildEventSchema(event) as any
+
+    expect(schema.offers.url).toBe('https://www.the-anchor.pub/events/managed-event')
+  })
 })
 
 describe('buildEventSchema — potentialAction sanitisation', () => {
@@ -127,6 +138,27 @@ describe('buildEventSchema — potentialAction sanitisation', () => {
     const schema = buildEventSchema(event) as any
     expect(schema.potentialAction.target.urlTemplate).toBe(
       'https://booking.example.com/reserve'
+    )
+  })
+
+  it('rejects potentialAction with internal management urlTemplate', () => {
+    const event = {
+      ...minimalEvent,
+      slug: 'managed-event',
+      potentialAction: {
+        '@type': 'ReserveAction' as const,
+        target: {
+          '@type': 'EntryPoint' as const,
+          urlTemplate: 'https://management.orangejelly.co.uk/bookings/events/123',
+          inLanguage: 'en-GB'
+        },
+        result: { '@type': 'Reservation' as const, name: 'Booking' }
+      }
+    }
+    const schema = buildEventSchema(event) as any
+
+    expect(schema.potentialAction.target.urlTemplate).toBe(
+      'https://www.the-anchor.pub/events/managed-event'
     )
   })
 })

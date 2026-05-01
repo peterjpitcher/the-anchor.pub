@@ -144,7 +144,7 @@ export default function CoachParkingPage() {
                         answer: "Email us your numbers and requirements 24 hours in advance, and we will have everything ready to go when you pull in."
                     }
                 ]}
-                className="bg-white"
+                className="bg-anchor-bg-card"
             />
 
             <CTASection

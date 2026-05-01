@@ -55,9 +55,11 @@ const sitemapSections: SitemapSection[] = [
     links: [
       { label: 'Food Menu', href: '/food-menu' },
       { label: 'Sunday Lunch', href: '/sunday-lunch' },
-      { label: 'Pizza Menu', href: '/pizza-menu' },
-      { label: 'Burger Menu', href: '/burger-menu' },
+      { label: 'Stone-Baked Pizza', href: '/pizza-menu' },
       { label: 'Fish & Chips', href: '/fish-and-chips-heathrow' },
+      { label: 'Vegetarian Menu', href: '/food-menu/vegetarian' },
+      { label: 'Vegan Options', href: '/food-menu/vegan' },
+      { label: 'Gluten-Free Options', href: '/food-menu/gluten-free' },
       { label: 'Drinks Menu', href: '/drinks' },
       { label: "Manager's Special", href: '/drinks/managers-special' },
       { label: 'Baby Guinness', href: '/drinks/baby-guinness' },
@@ -73,7 +75,6 @@ const sitemapSections: SitemapSection[] = [
       { label: 'Music Bingo', href: '/music-bingo' },
       { label: 'Karaoke', href: '/karaoke' },
       { label: 'Live Music', href: '/live-music' },
-      { label: 'Open Mic', href: '/open-mic' },
 
       { label: 'Six Nations Rugby', href: '/live-sport/six-nations' },
       { label: 'F1 Racing', href: '/live-sport/f1' },

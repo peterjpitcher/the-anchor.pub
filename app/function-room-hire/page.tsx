@@ -17,15 +17,15 @@ import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 import { TrustBar, ValueProofStrip, RegretReduction } from '@/components/psychology'
 
 export const metadata: Metadata = {
-  title: 'Function Room Hire Near Heathrow | Capacity 10-200 | 6 Layout Options',
-  description: 'Flexible function room for 10-200 guests near Heathrow. Six layout options, AV equipment, wheelchair access and free parking included. View specs.',
+  title: 'Function Room Hire Near Heathrow | 10-50 Guests | Free Parking',
+  description: 'Flexible function room hire for 10-50 guests near Heathrow, with larger events by enquiry. Layout options, AV support and free parking included.',
   openGraph: {
-    title: 'Function Room Hire Near Heathrow | Capacity 10-200 | 6 Layout Options',
+    title: 'Function Room Hire Near Heathrow | 10-50 Guests | Free Parking',
     description: 'Flexible function room with 6 layouts, AV equipment and free parking near Heathrow. View room specs and capacities.',
     images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Private hire venue at The Anchor near Heathrow Airport' }],
   },
   twitter: getTwitterMetadata({
-    title: 'Function Room Hire Near Heathrow | Capacity 10-200 | 6 Layout Options',
+    title: 'Function Room Hire Near Heathrow | 10-50 Guests | Free Parking',
     description: 'Flexible function room with 6 layouts, AV equipment and free parking near Heathrow. View room specs and capacities.',
     images: [DEFAULT_CORPORATE_IMAGE]
   }),
@@ -39,7 +39,7 @@ const functionRoomSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
   name: "Function Room Hire at The Anchor",
-  description: "Flexible function room and event space hire for all occasions. Multiple rooms available for 10-200 guests with catering and free parking.",
+  description: "Flexible function room and event space hire for all occasions. Room bookings for 10-50 guests, with larger events by enquiry, catering and free parking.",
   provider: {
     "@type": "Organization",
     name: "The Anchor",
@@ -81,7 +81,7 @@ export default function FunctionRoomHirePage() {
       <HeroWrapper
         showContextStrip={true}
         route="/function-room-hire"
-        title="Function Room Hire — Flexible Space for 10-200 Guests"
+        title="Function Room Hire — 10-50 Guests, Larger Events by Enquiry"
         description="Ground-floor rooms with 6 layout options, AV equipment, climate control and wheelchair access. Free parking included."
 
         tags={[
@@ -129,7 +129,7 @@ export default function FunctionRoomHirePage() {
             <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
             <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog &amp; family friendly</span>
             <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">10–200 guests</span>
+            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">10-50 room bookings</span>
           </div>
         }
       />
@@ -150,7 +150,7 @@ export default function FunctionRoomHirePage() {
             <div className="grid gap-3 md:grid-cols-2 text-anchor-cream-text/70">
               <div className="flex items-start gap-2">
                 <span className="font-semibold text-anchor-gold"></span>
-                <span>Flexible spaces for 10-200 guests with breakout areas</span>
+                <span>Flexible spaces for 10-50 guests, with larger events by enquiry</span>
               </div>
               <div className="flex items-start gap-2">
                 <span className="font-semibold text-anchor-gold"></span>
@@ -597,8 +597,8 @@ export default function FunctionRoomHirePage() {
             <div className="rounded-xl bg-anchor-bg-raised border border-anchor-gold/15 p-5 mb-6">
               <h3 className="font-semibold text-anchor-gold-vivid mb-3">Which space suits your event?</h3>
               <ul className="space-y-2 text-sm text-anchor-cream-text/70">
-                <li>• <strong>10–50 guests</strong> — our private dining room, ideal for dinners and celebrations</li>
-                <li>• <strong>50–200 guests</strong> — full venue hire, perfect for large parties and corporate events</li>
+                <li>• <strong>10-50 guests</strong> — our private dining room, ideal for dinners and celebrations</li>
+                <li>• <strong>50+ guests</strong> — larger room, garden or full venue hire by enquiry</li>
               </ul>
             </div>
             <div className="mb-6">

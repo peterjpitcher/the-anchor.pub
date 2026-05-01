@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { Button, CTASection, SectionHeader, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { BookTableButton } from '@/components/BookTableButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT, BRAND, PARKING, HEATHROW_TIMES } from '@/lib/constants'
@@ -10,26 +11,35 @@ import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
+import { SUNDAY_ROAST, getSundayRoastContent } from '@/lib/sunday-roast'
 
-export const metadata: Metadata = {
-  title: 'Pubs in Staines-upon-Thames | Roasts & Free Parking',
-  description: 'Pub near Staines rated 4.6/5 on Google. Sunday roasts from £19, dog-friendly beer garden, quiz nights and free parking. 8 mins from Staines centre.',
-  openGraph: {
-    title: 'Pub Near Staines — Beer Garden, Sunday Roasts & Free Parking',
-    description: 'Rated 4.6/5 on Google. Sunday roasts, dog-friendly beer garden, quiz nights and free parking — 8 mins from Staines-upon-Thames.',
-    images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
-  },
-  twitter: getTwitterMetadata({
-    title: 'Pub Near Staines — Beer Garden, Sunday Roasts & Free Parking',
-    description: 'Rated 4.6/5 on Google. Sunday roasts, dog-friendly beer garden, quiz nights and free parking — 8 mins from Staines-upon-Thames.',
-    images: [DEFAULT_PAGE_HEADER_IMAGE]
-  }),
-  alternates: {
-    canonical: '/staines-pub'
+export function generateMetadata(): Metadata {
+  const sunday = getSundayRoastContent()
+  const sundayPhrase = sunday.isLive
+    ? `Sunday roasts ${SUNDAY_ROAST.fromPriceLabel}`
+    : `Sunday roast starts ${SUNDAY_ROAST.launchDateLabel}`
+
+  return {
+    title: 'Pubs in Staines-upon-Thames | Roasts & Free Parking',
+    description: `Pub near Staines rated 4.6/5 on Google. ${sundayPhrase}, dog-friendly beer garden, quiz nights and free parking. 8 mins from Staines centre.`,
+    openGraph: {
+      title: 'Pub Near Staines — Beer Garden, Sunday Roasts & Free Parking',
+      description: `Rated 4.6/5 on Google. ${sundayPhrase}, dog-friendly beer garden, quiz nights and free parking — 8 mins from Staines-upon-Thames.`,
+      images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
+    },
+    twitter: getTwitterMetadata({
+      title: 'Pub Near Staines — Beer Garden, Sunday Roasts & Free Parking',
+      description: `Rated 4.6/5 on Google. ${sundayPhrase}, dog-friendly beer garden, quiz nights and free parking — 8 mins from Staines-upon-Thames.`,
+      images: [DEFAULT_PAGE_HEADER_IMAGE]
+    }),
+    alternates: {
+      canonical: '/staines-pub'
+    }
   }
 }
 
 export default function StainesPubPage() {
+  const sunday = getSundayRoastContent()
   // Schema for local SEO
   const localBusinessSchema = {
     "@context": "https://schema.org",
@@ -84,6 +94,11 @@ export default function StainesPubPage() {
         title="Your Pub Near Staines-upon-Thames"
         description="Traditional British pub serving the Staines community with great food, entertainment, and a warm welcome"
         variant="default"
+        primaryCta={
+          <BookTableButton source="staines_pub_hero" context="local_pub" variant="primary" size="lg">
+            Book a Table
+          </BookTableButton>
+        }
         enableSmartCtas={true}
         showContextStrip={true}
       />
@@ -328,7 +343,7 @@ export default function StainesPubPage() {
                   <span className="bg-anchor-gold text-anchor-bg px-3 py-1 rounded-full text-sm font-semibold">ROASTS</span>
                 </div>
 		                <p className="text-anchor-cream-text/70">
-		                  Famous Sunday roasts served 1pm-6pm. Walk in or book ahead — no pre-order needed.
+		                  {sunday.isLive ? 'Famous Sunday roasts served 1pm-6pm. Walk in or book ahead — no pre-order needed.' : `Famous Sunday roasts start ${SUNDAY_ROAST.launchDateLabel}. Book ahead for launch Sundays.`}
 		                </p>
               </div>
 
@@ -541,7 +556,7 @@ export default function StainesPubPage() {
             text: "Get Directions from Staines",
             href: "https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor",
             variant: "outline",
-            className: "!text-white !border-white hover:!bg-white hover:!text-anchor-green"
+            className: "!text-anchor-gold !border-anchor-gold hover:!bg-anchor-gold hover:!text-anchor-green"
           }
         ]}
         variant="green"

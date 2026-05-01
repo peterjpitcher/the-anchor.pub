@@ -16,7 +16,7 @@ export function LazySection({
   className = '',
   threshold = 0.1,
   rootMargin = '50px',
-  fallback = <div className="h-64 bg-gray-100 animate-pulse rounded-lg" />
+  fallback = <div className="h-64 bg-anchor-bg-card border border-anchor-gold/15 animate-pulse" />
 }: LazySectionProps) {
   const { ref, inView } = useInView({
     threshold,

@@ -109,7 +109,7 @@ export function FilteredMenuRenderer({ menuData }: FilteredMenuRendererProps) {
           </div>
         </div>
       ) : (
-        <MenuRenderer menuData={filteredMenuData} />
+        <MenuRenderer menuData={filteredMenuData} eyebrow="Food menu" />
       )}
     </>
   )

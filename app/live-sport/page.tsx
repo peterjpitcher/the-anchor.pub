@@ -248,7 +248,7 @@ export default async function LiveSportPage() {
                         answer: "Yes — our full kitchen menu is available including stone-baked pizza, burgers, fish and chips, and pub classics. Book a table to guarantee your spot for big matches."
                     }
                 ]}
-                className="bg-white"
+                className="bg-anchor-bg-card"
             />
 
             <section className="section-spacing bg-anchor-bg">

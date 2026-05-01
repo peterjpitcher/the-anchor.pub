@@ -58,7 +58,7 @@ For a quick lunch, the burgers and pizzas are your best bet. They come out fast 
 
 For a proper dinner, the steaks and pie selection are worth the trip. Our steak and ale pie in particular is a regular favourite.
 
-On Sundays, we do a [traditional roast](/sunday-lunch) served 1pm-6pm — walk in or book ahead, no pre-order needed. It is the real thing: roast chicken, slow-cooked lamb shank, crispy pork belly, or beetroot and butternut squash wellington, all served with herb and garlic-crusted potatoes, seasonal vegetables, Yorkshire pudding, and proper red wine gravy. Prices start from £19.99. If you are visiting on a Sunday and want a proper British roast dinner experience, this is where to get it.
+On Sundays from 17 May 2026, we do a [traditional roast](/sunday-lunch) served 1pm-6pm — walk in or book ahead once service launches, no pre-order needed. It is the real thing: roast chicken, slow-cooked lamb shank, crispy pork belly, or beetroot and butternut squash wellington, all served with herb and garlic-crusted potatoes, seasonal vegetables, Yorkshire pudding, and proper red wine gravy. Prices start from £19. If you are visiting on a Sunday and want a proper British roast dinner experience, this is where to get it.
 
 Browse our full [food menu](/food-menu) to see current prices and options, including [vegetarian](/food-menu/vegetarian), [vegan](/food-menu/vegan), and [gluten-free](/food-menu/gluten-free) choices.
 
@@ -67,7 +67,7 @@ Browse our full [food menu](/food-menu) to see current prices and options, inclu
 - **Address:** Horton Road, Stanwell Moor, TW19 6AQ
 - **Phone:** 01753 682707
 - **Kitchen hours:** Open Tuesday to Sunday (kitchen closed on Mondays, though the pub is open for drinks)
-- **Booking:** [Book a table online](/book-table) or call us. Walk-ins are welcome but booking is recommended for groups of 4 or more
+- **Booking:** [Book a table online](/book-table) or call us. Walk-ins are welcome for standard food service; Sunday roast starts Sunday 17 May 2026 and booking is recommended for launch Sundays and groups of 4 or more
 - **Getting there:** 7 minutes from Terminal 5, 12 minutes from Terminals 2 and 3, 15 minutes from Terminal 4
 
 ## Other Places to Eat Near Heathrow

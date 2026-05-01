@@ -11,7 +11,7 @@ interface PsychBadgeProps {
 const DEFAULTS: Record<PsychBadgeVariant, { label: string; className: string; icon: string }> = {
   free: {
     label: 'Free entry',
-    className: 'bg-green-100 text-green-800 border-green-200',
+    className: 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30',
     icon: '',
   },
   authority: {
@@ -21,12 +21,12 @@ const DEFAULTS: Record<PsychBadgeVariant, { label: string; className: string; ic
   },
   price: {
     label: 'Great value',
-    className: 'bg-blue-50 text-blue-700 border-blue-200',
+    className: 'bg-sky-500/10 text-sky-300 border-sky-500/30',
     icon: '',
   },
   prize: {
     label: 'Prizes every round',
-    className: 'bg-purple-50 text-purple-700 border-purple-200',
+    className: 'bg-fuchsia-500/10 text-fuchsia-300 border-fuchsia-500/30',
     icon: '',
   },
 }

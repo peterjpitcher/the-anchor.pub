@@ -120,7 +120,7 @@ const FAQS = [
   {
     question: 'How much is entry and do we need to book?',
     answer:
-      'It’s £3 per player. If booking is open you’ll see a Book Now button above. If not, booking options are available closer to the event — check back nearer the date or call 01753 682707 and we’ll help.'
+      'It’s £3 per player. If booking is open you’ll see a reserve table button above. If not, booking options are available closer to the event — check back nearer the date or call 01753 682707 and we’ll help.'
   },
   {
     question: 'How many players can we bring?',
@@ -573,7 +573,7 @@ export default async function QuizNightPage() {
                 source="quiz_night_cta_bottom"
                 variant="secondary"
                 size="lg"
-                className="w-full sm:w-auto bg-white text-anchor-green hover:bg-gray-100"
+                className="w-full sm:w-auto bg-anchor-gold text-anchor-green hover:bg-anchor-gold-light"
               >
                 Book Your Team Table
               </BookTableButton>

@@ -589,7 +589,7 @@ export default async function MusicBingoPage() {
                 source="music_bingo_cta_bottom"
                 variant="secondary"
                 size="lg"
-                className="w-full bg-white text-anchor-green hover:bg-gray-100 sm:w-auto"
+                className="w-full bg-anchor-gold text-anchor-green hover:bg-anchor-gold-light sm:w-auto"
               >
                 Book Music Bingo
               </BookTableButton>

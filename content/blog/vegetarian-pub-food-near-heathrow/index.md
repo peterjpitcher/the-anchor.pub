@@ -71,7 +71,7 @@ Staines and Hounslow both have a decent selection of Indian restaurants, which a
 A few practical things worth knowing if you are eating out meat-free near Heathrow:
 
 - **Call ahead for vegan-specific requirements.** Most pubs and restaurants can accommodate vegetarians without notice, but vegan dishes — especially involving cheese substitutes or specific allergen considerations — sometimes need a heads-up.
-- **Walk-ins are welcome on Sundays.** The butternut squash wellington is served alongside the rest of the roast menu, 1pm-6pm. Booking ahead is sensible for peak slots and groups, but not required.
+- **Sunday roast starts Sunday 17 May 2026.** From launch, the butternut squash wellington is served alongside the rest of the roast menu, 1pm-6pm. Booking ahead is sensible for peak slots and groups, but not required.
 - **Ask about cooking methods, not just ingredients.** Chips fried in the same oil as battered fish, bread rolls with butter glazes, soup made with chicken stock — these are the things that catch people out. A good kitchen will know the answer immediately.
 - **Pub gardens are your friend.** If you are travelling with a mix of meat-eaters and vegetarians, a pub like The Anchor works well because there is something for everyone. Nobody has to compromise.
 - **Check menus online before you go.** Most places near Heathrow have their menus on their website. It saves the awkward moment of sitting down and finding there is nothing you want to eat. The Anchor's [full menu is here](/food-menu).

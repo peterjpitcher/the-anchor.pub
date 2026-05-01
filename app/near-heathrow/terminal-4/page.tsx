@@ -44,6 +44,16 @@ export default function Terminal4Page() {
         title="Pubs Near Heathrow Terminal 4 — The Anchor"
         description="Perfect for SkyTeam & budget travelers • Free parking • Real British hospitality"
         variant="default"
+        primaryCta={
+          <BookTableButton
+            source="terminal_4_hero"
+            context="terminal_4"
+            variant="primary"
+            size="lg"
+          >
+            Book a Table
+          </BookTableButton>
+        }
         enableSmartCtas={true}
         showContextStrip={true}
       />

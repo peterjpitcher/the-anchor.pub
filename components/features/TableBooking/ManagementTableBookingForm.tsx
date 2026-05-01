@@ -26,6 +26,7 @@ import {
   LARGE_GROUP_DEPOSIT_POLICY_COPY,
   requiresDeposit,
 } from '@/lib/constants'
+import { formatEventLocalTime, getEventDateRangeUtc, getEventLocalIsoDate } from '@/lib/event-calendar'
 import {
   formatTimeNoSeconds,
   getEffectiveDayHours,
@@ -336,27 +337,11 @@ function isPastLondonDate(value: string): boolean {
 }
 
 function getLondonIsoDate(dateTimeValue: string): string | null {
-  const parsed = new Date(dateTimeValue)
-  if (Number.isNaN(parsed.getTime())) return null
-
-  return new Intl.DateTimeFormat('en-CA', {
-    timeZone: 'Europe/London',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit'
-  }).format(parsed)
+  return getEventLocalIsoDate(dateTimeValue)
 }
 
 function formatEventTimeLabel(dateTimeValue: string): string {
-  const parsed = new Date(dateTimeValue)
-  if (Number.isNaN(parsed.getTime())) return 'Time TBC'
-
-  return parsed.toLocaleTimeString('en-GB', {
-    hour: 'numeric',
-    minute: '2-digit',
-    hour12: true,
-    timeZone: 'Europe/London'
-  })
+  return formatEventLocalTime(dateTimeValue, { includeMinutesWhenZero: true })
 }
 
 function formatEventPriceLabel(value: unknown, currency?: string): string | null {
@@ -460,8 +445,8 @@ function normalizeSuggestedEvents(payload: any, targetDate: string): SuggestedEv
   }
 
   return normalized.sort((left, right) => {
-    const leftTime = Date.parse(left.startDate)
-    const rightTime = Date.parse(right.startDate)
+    const leftTime = getEventDateRangeUtc(left).start.getTime()
+    const rightTime = getEventDateRangeUtc(right).start.getTime()
     return leftTime - rightTime
   })
 }
@@ -515,6 +500,12 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     const raw = searchParams?.get('source')?.trim()
     return raw && raw.length > 0 ? raw.slice(0, 80) : 'direct'
   }, [searchParams])
+  const bookingType = useMemo(() => {
+    const raw = searchParams?.get('bookingType')?.trim() || searchParams?.get('booking_type')?.trim()
+    if (raw === 'sunday_roast' || raw === 'sunday_lunch') return 'sunday_roast'
+    if (bookingSource.toLowerCase().includes('sunday')) return 'sunday_roast'
+    return 'regular'
+  }, [bookingSource, searchParams])
 
   // Funnel tracking lifecycle:
   //  - `view` fires once on mount
@@ -533,6 +524,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     trackTableBookingFunnel({
       step: 'view',
       source: bookingSource,
+      bookingType,
       deviceType: getDeviceType(),
     })
     // bookingSource is stable for the lifetime of the form (URL doesn't change
@@ -546,6 +538,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     trackTableBookingFunnel({
       step: 'start',
       source: bookingSource,
+      bookingType,
       deviceType: getDeviceType(),
     })
   }
@@ -1432,7 +1425,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
     trackTableBookingClick({
       source: 'book_table_management_form',
-      context: 'regular',
+      context: bookingType,
       destination: '/api/table-bookings'
     })
 
@@ -1444,6 +1437,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       bookingDate: date,
       bookingTime: selectedTime,
       source: bookingSource,
+      bookingType,
       deviceType: getDeviceType(),
     })
 
@@ -1511,6 +1505,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
           errorType: blockedReason,
           errorMessage: bookingResult.reason || BLOCKED_REASON_COPY[blockedReason] || 'blocked',
           source: bookingSource,
+          bookingType,
           deviceType: getDeviceType(),
         })
       } else if (bookingResult.state === 'confirmed') {
@@ -1530,6 +1525,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
           bookingTime: selectedTime,
           bookingReference: bookingResult.booking_reference || undefined,
           source: bookingSource,
+          bookingType,
           deviceType: getDeviceType(),
         })
 
@@ -1559,6 +1555,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
         errorType: 'submit_failed',
         errorMessage,
         source: bookingSource,
+        bookingType,
         deviceType: getDeviceType(),
       })
     } finally {
@@ -1644,7 +1641,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
             name: selectedSuggestedEvent.name,
             startDate: selectedSuggestedEvent.startDate
           }}
-          title="Book now"
+          title="Reserve event table"
           compact
         />
       </div>

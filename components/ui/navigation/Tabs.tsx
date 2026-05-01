@@ -100,8 +100,8 @@ const tabListVariants = cva(
   {
     variants: {
       variant: {
-        line: 'border-b border-gray-200',
-        enclosed: 'bg-gray-100 p-1 rounded-lg',
+        line: 'border-b border-anchor-gold/15',
+        enclosed: 'bg-anchor-bg-card border border-anchor-gold/20 p-1 rounded-lg',
         pills: 'gap-2'
       },
       orientation: {
@@ -155,8 +155,8 @@ const tabTriggerVariants = cva(
     variants: {
       variant: {
         line: 'border-b-2 border-transparent pb-2 px-1 hover:text-anchor-gold data-[state=active]:border-anchor-gold data-[state=active]:text-anchor-gold',
-        enclosed: 'rounded-md px-3 py-1.5 hover:bg-white/50 data-[state=active]:bg-white data-[state=active]:shadow-sm',
-        pills: 'rounded-full px-4 py-2 hover:bg-gray-100 data-[state=active]:bg-anchor-gold data-[state=active]:text-white'
+        enclosed: 'rounded-md px-3 py-1.5 text-anchor-cream-text/70 hover:bg-anchor-bg-raised data-[state=active]:bg-anchor-bg-raised data-[state=active]:text-anchor-gold-vivid data-[state=active]:shadow-sm',
+        pills: 'rounded-full px-4 py-2 text-anchor-cream-text/70 hover:bg-anchor-bg-raised data-[state=active]:bg-anchor-gold data-[state=active]:text-anchor-green'
       },
       size: {
         sm: 'text-sm',

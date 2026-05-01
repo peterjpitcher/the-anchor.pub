@@ -234,10 +234,10 @@ export default function BabyGuinnessPage() {
                 source="baby_guinness_page"
                 variant="outline"
                 size="lg"
-                className="!text-white !border-white hover:!bg-white hover:!text-anchor-green"
+                className="!text-anchor-gold !border-anchor-gold hover:!bg-anchor-gold hover:!text-anchor-green"
               />
               <Link href="/drinks">
-                <Button variant="outline" size="lg" className="!text-white !border-white hover:!bg-white hover:!text-anchor-green">
+                <Button variant="outline" size="lg" className="!text-anchor-gold !border-anchor-gold hover:!bg-anchor-gold hover:!text-anchor-green">
                   View Full Drinks Menu
                 </Button>
               </Link>

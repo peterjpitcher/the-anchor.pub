@@ -2,6 +2,7 @@
 
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { logError } from '@/lib/error-handling'
+import { formatEventLocalDate, formatEventLocalTime } from '@/lib/event-calendar'
 
 export interface Event {
   '@type': 'Event'
@@ -247,6 +248,39 @@ export const FALLBACK_EVENT_CATEGORIES: EventCategoriesResponse = {
   }
 }
 
+const RETIRED_EVENT_CATEGORY_SLUGS = new Set(['open-mic', 'open-mic-night'])
+const RETIRED_EVENT_CATEGORY_NAMES = new Set(['open mic', 'open mic night'])
+
+function normalizeRetiredEventToken(value?: string | null): string {
+  return value?.toLowerCase().replace(/[-_]+/g, ' ').replace(/\s+/g, ' ').trim() ?? ''
+}
+
+export function isRetiredEventCategory(category?: Pick<EventCategory, 'name' | 'slug'> | null): boolean {
+  const slug = category?.slug?.toLowerCase().trim()
+  const name = normalizeRetiredEventToken(category?.name)
+
+  return Boolean(
+    (slug && (RETIRED_EVENT_CATEGORY_SLUGS.has(slug) || slug.includes('open-mic'))) ||
+    (name && (RETIRED_EVENT_CATEGORY_NAMES.has(name) || name.includes('open mic')))
+  )
+}
+
+export function isRetiredEvent(event: Pick<Event, 'category' | 'slug' | 'name'>): boolean {
+  if (isRetiredEventCategory(event.category)) return true
+
+  const slug = event.slug?.toLowerCase().trim()
+  const name = normalizeRetiredEventToken(event.name)
+
+  return Boolean(
+    (slug && (RETIRED_EVENT_CATEGORY_SLUGS.has(slug) || slug.includes('open-mic'))) ||
+    (name && (RETIRED_EVENT_CATEGORY_NAMES.has(name) || name.includes('open mic')))
+  )
+}
+
+function removeRetiredEvents(events: Event[]): Event[] {
+  return events.filter(event => !isRetiredEvent(event))
+}
+
 export function createFallbackEvent(eventId: string): Event {
   const normalizedId = eventId.replace(/\/+$/, '')
   const id = normalizedId || 'the-anchor-event'
@@ -361,56 +395,16 @@ export function createFallbackEventsResponse(): EventsResponse {
 
 // Format helpers
 export function formatEventDate(dateString: string): string {
-  // Parse the date string and display in UK timezone
-  const date = new Date(dateString)
-  return date.toLocaleDateString('en-GB', {
+  return formatEventLocalDate(dateString, {
     weekday: 'long',
     year: 'numeric',
     month: 'long',
-    day: 'numeric',
-    timeZone: 'Europe/London'
+    day: 'numeric'
   })
 }
 
 export function formatEventTime(dateString: string): string {
-  let date: Date
-
-  // IMPORTANT: The API returns times like "2025-07-18T19:00+00:00" which are UTC
-  // But these events are actually scheduled for local UK time (7pm local, not 7pm UTC)
-  // So we need to treat the numeric time as local time, ignoring the timezone offset
-
-  // Extract just the date and time part, ignoring any timezone info
-  let cleanDateString = dateString
-
-  // Remove timezone offset (+00:00, -05:00, etc) or Z
-  if (dateString.includes('+') || dateString.includes('Z')) {
-    cleanDateString = dateString.split('+')[0].split('Z')[0]
-  } else if (dateString.includes('-') && dateString.lastIndexOf('-') > 10) {
-    // Handle negative offsets (but not the date separators)
-    cleanDateString = dateString.substring(0, dateString.lastIndexOf('-'))
-  }
-
-  // Parse as local time
-  if (cleanDateString.includes('T')) {
-    date = new Date(cleanDateString)
-  } else {
-    // Format like "2024-03-20 19:00:00"
-    const isoString = cleanDateString.replace(' ', 'T')
-    date = new Date(isoString)
-  }
-
-  // Format the time
-  const hours = date.getHours()
-  const minutes = date.getMinutes()
-  const period = hours >= 12 ? 'pm' : 'am'
-  const displayHours = hours % 12 || 12
-
-  // Convert to the desired format (8pm instead of 8:00 pm)
-  if (minutes === 0) {
-    return `${displayHours}${period}`
-  } else {
-    return `${displayHours}:${minutes.toString().padStart(2, '0')}${period}`
-  }
+  return formatEventLocalTime(dateString)
 }
 
 export function formatPrice(price: string | number, currency: string = 'GBP'): string {
@@ -473,37 +467,7 @@ export function getEventShortDescription(event: Event, maxLength: number = 150):
 export function formatDoorTime(doorTimeString: string | null | undefined): string | null {
   if (!doorTimeString) return null
 
-  // Use the same logic as formatEventTime - strip timezone and treat as local time
-  let cleanDateString = doorTimeString
-
-  // Remove timezone offset (+00:00, -05:00, etc) or Z
-  if (doorTimeString.includes('+') || doorTimeString.includes('Z')) {
-    cleanDateString = doorTimeString.split('+')[0].split('Z')[0]
-  } else if (doorTimeString.includes('-') && doorTimeString.lastIndexOf('-') > 10) {
-    // Handle negative offsets (but not the date separators)
-    cleanDateString = doorTimeString.substring(0, doorTimeString.lastIndexOf('-'))
-  }
-
-  // Parse as local time
-  let date: Date
-  if (cleanDateString.includes('T')) {
-    date = new Date(cleanDateString)
-  } else {
-    // Format like "2024-03-20 19:00:00"
-    const isoString = cleanDateString.replace(' ', 'T')
-    date = new Date(isoString)
-  }
-
-  const hours = date.getHours()
-  const minutes = date.getMinutes()
-  const period = hours >= 12 ? 'pm' : 'am'
-  const displayHours = hours % 12 || 12
-
-  const timeString = minutes === 0
-    ? `${displayHours}${period}`
-    : `${displayHours}:${minutes.toString().padStart(2, '0')}${period}`
-
-  return 'Doors: ' + timeString
+  return 'Doors: ' + formatEventLocalTime(doorTimeString)
 }
 
 // Helper to format event duration
@@ -566,7 +530,7 @@ export async function getUpcomingEvents(limit: number = 10, daysLookahead?: numb
     const events = response.events || []
     const nowMs = Date.now()
 
-    return events.filter(event => {
+    return removeRetiredEvents(events).filter(event => {
       const startMs = Date.parse(event.startDate)
       return Number.isFinite(startMs) && startMs > nowMs
     })
@@ -604,7 +568,7 @@ export async function getRecentEvents(
     const nowMs = Date.now()
     const earliestMs = fromDate.getTime()
 
-    return (response.events || [])
+    return removeRetiredEvents(response.events || [])
       .filter(event => {
         const startMs = Date.parse(event.startDate)
         return Number.isFinite(startMs) && startMs < nowMs && startMs >= earliestMs
@@ -652,7 +616,7 @@ export async function getUpcomingEventsByCategory(
     const events = response.events || []
     const nowMs = Date.now()
 
-    return events.filter(event => {
+    return removeRetiredEvents(events).filter(event => {
       const startMs = Date.parse(event.startDate)
       return Number.isFinite(startMs) && startMs > nowMs
     })
@@ -669,7 +633,7 @@ export async function getTodaysEvents(): Promise<Event[]> {
     const events = response.events || []
     const nowMs = Date.now()
 
-    return events.filter(event => {
+    return removeRetiredEvents(events).filter(event => {
       const startMs = Date.parse(event.startDate)
       return Number.isFinite(startMs) && startMs > nowMs
     })
@@ -686,7 +650,7 @@ export async function getEventsByCategory(category: string, limit: number = 20):
       category_id: category,
       limit,
     })
-    return response.events || []
+    return removeRetiredEvents(response.events || [])
   } catch (error) {
     logError('api-events-by-category', error, { category, limit })
     return []
@@ -707,7 +671,7 @@ export async function getEventCategories(): Promise<EventCategory[]> {
   const { anchorAPI } = await import('./client')
   try {
     const response = await anchorAPI.getEventCategories()
-    return response.categories || []
+    return (response.categories || []).filter(category => !isRetiredEventCategory(category))
   } catch (error) {
     logError('api-event-categories', error)
     return []

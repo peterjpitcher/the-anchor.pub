@@ -75,7 +75,7 @@ export function getEventStatusLabel(status: EventStatus): string {
 export function getEventBookingModeLabel(mode: string | null | undefined): string | null {
   const normalized = normalizeText(mode)
   if (!normalized) return null
-  if (normalized === 'table') return 'Table bookings'
+  if (normalized === 'table') return 'Reserve a table'
   if (normalized === 'general') return 'General entry'
   if (normalized === 'mixed') return 'Table + general'
   return mode ? mode : null

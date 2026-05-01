@@ -95,13 +95,50 @@ export function trackEventBookingStart(eventData: {
   eventId: string
   eventName: string
   eventPrice?: number
+  eventDate?: string
+  partySize?: number
+  foodIntent?: string
+  source?: string
 }) {
+  pushToDataLayer({
+    event: 'event_booking_started',
+    event_id: eventData.eventId,
+    event_name: eventData.eventName,
+    event_date: eventData.eventDate,
+    party_size: eventData.partySize,
+    food_intent: eventData.foodIntent,
+    booking_source: eventData.source,
+    value: eventData.eventPrice,
+    currency: 'GBP'
+  }, { sendToApi: true })
+
   pushToDataLayer({
     event: 'begin_checkout',
     event_id: eventData.eventId,
+    event_name: eventData.eventName,
     value: eventData.eventPrice,
     currency: 'GBP'
   })
+}
+
+export function trackEventBookClick(eventData: {
+  eventId: string
+  eventName: string
+  eventPrice?: number
+  eventDate?: string
+  source?: string
+  ctaLabel?: string
+}) {
+  pushToDataLayer({
+    event: 'event_book_click',
+    event_id: eventData.eventId,
+    event_name: eventData.eventName,
+    event_date: eventData.eventDate,
+    booking_source: eventData.source,
+    cta_label: eventData.ctaLabel,
+    value: eventData.eventPrice,
+    currency: 'GBP'
+  }, { sendToApi: true })
 }
 
 export function trackEventBookingComplete(eventData: {
@@ -109,10 +146,27 @@ export function trackEventBookingComplete(eventData: {
   eventName: string
   tickets: number
   totalValue?: number
+  eventDate?: string
+  foodIntent?: string
+  bookingId?: string | null
 }) {
+  pushToDataLayer({
+    event: 'event_booking_completed',
+    event_id: eventData.eventId,
+    event_name: eventData.eventName,
+    event_date: eventData.eventDate,
+    booking_id: eventData.bookingId,
+    party_size: eventData.tickets,
+    food_intent: eventData.foodIntent,
+    value: eventData.totalValue,
+    currency: 'GBP'
+  }, { sendToApi: true })
+
   pushToDataLayer({
     event: 'purchase',
     event_id: eventData.eventId,
+    event_name: eventData.eventName,
+    transaction_id: eventData.bookingId || undefined,
     quantity: eventData.tickets,
     value: eventData.totalValue,
     currency: 'GBP'
@@ -167,13 +221,35 @@ function normaliseTableBookingClick(input: TableBookingClickInput) {
 
 export function trackTableBookingClick(data: TableBookingClickInput) {
   const { source, metadata } = normaliseTableBookingClick(data)
+  const bookingContext = String(metadata.booking_context || '').toLowerCase()
+  const bookingDestination = String(metadata.booking_destination || '').toLowerCase()
+  const isSundayRoastBooking =
+    bookingContext.includes('sunday') ||
+    bookingDestination.includes('sunday_lunch') ||
+    bookingDestination.includes('sunday_roast')
 
-  pushToDataLayer({
-    event: 'table_booking_click',
+  const payload = {
     booking_method: 'internal_management_platform',
     booking_source: source,
     ...metadata
+  }
+
+  pushToDataLayer({
+    event: 'table_booking_click',
+    ...payload
   }, { sendToApi: true })
+
+  pushToDataLayer({
+    event: 'book_table_click',
+    ...payload
+  }, { sendToApi: true })
+
+  if (isSundayRoastBooking) {
+    pushToDataLayer({
+      event: 'sunday_roast_book_click',
+      ...payload
+    }, { sendToApi: true })
+  }
 }
 
 // Comprehensive table booking funnel tracking
@@ -183,6 +259,7 @@ export function trackTableBookingFunnel(data: {
   bookingDate?: string
   bookingTime?: string
   bookingReference?: string
+  bookingType?: string
   errorType?: string
   errorMessage?: string
   source: string
@@ -200,15 +277,65 @@ export function trackTableBookingFunnel(data: {
   if (data.bookingDate) eventData.booking_date = data.bookingDate
   if (data.bookingTime) eventData.booking_time = data.bookingTime
   if (data.bookingReference) eventData.booking_reference = data.bookingReference
+  if (data.bookingType) eventData.booking_type = data.bookingType
   if (data.errorType) eventData.error_type = data.errorType
   if (data.errorMessage) eventData.error_message = data.errorMessage
 
   pushToDataLayer(eventData)
+
+  if (data.step === 'start') {
+    pushToDataLayer({
+      event: 'table_booking_started',
+      booking_source: data.source,
+      booking_type: data.bookingType,
+      party_size: data.partySize,
+      booking_date: data.bookingDate,
+      booking_time: data.bookingTime
+    }, { sendToApi: true })
+
+    if (data.bookingType === 'sunday_roast') {
+      pushToDataLayer({
+        event: 'sunday_roast_booking_started',
+        booking_source: data.source,
+        party_size: data.partySize,
+        booking_date: data.bookingDate,
+        booking_time: data.bookingTime
+      }, { sendToApi: true })
+    }
+  }
+
+  if (data.step === 'success') {
+    pushToDataLayer({
+      event: 'table_booking_completed',
+      booking_source: data.source,
+      booking_type: data.bookingType,
+      booking_reference: data.bookingReference,
+      party_size: data.partySize,
+      booking_date: data.bookingDate,
+      booking_time: data.bookingTime
+    }, { sendToApi: true })
+
+    if (data.bookingType === 'sunday_roast') {
+      pushToDataLayer({
+        event: 'sunday_roast_booking_completed',
+        booking_source: data.source,
+        booking_reference: data.bookingReference,
+        party_size: data.partySize,
+        booking_date: data.bookingDate,
+        booking_time: data.bookingTime
+      }, { sendToApi: true })
+    }
+  }
 }
 
 export function trackMenuView(menuType: 'food' | 'drinks' | 'sunday') {
   pushToDataLayer({
     event: 'view_menu',
+    menu_type: menuType
+  })
+
+  pushToDataLayer({
+    event: 'menu_view',
     menu_type: menuType
   })
 }
@@ -220,6 +347,13 @@ export function trackPhoneCallClick(data: { phone?: string; source: string }) {
     contact_source: data.source,
     phone: data.phone
   })
+
+  pushToDataLayer({
+    event: 'call_click',
+    contact_method: 'phone',
+    contact_source: data.source,
+    phone: data.phone
+  }, { sendToApi: true })
 }
 
 // Backwards-compatible alias (previously `trackPhoneCall(context)`).
@@ -585,10 +719,54 @@ export function trackFaqItemOpened(data: {
 export function trackPrivateHireEnquirySubmitted(data: {
   enquiryType?: string
   pageSource: string
+  guestCount?: number
 }) {
   pushToDataLayer({
     event: 'private_hire_enquiry_submitted',
     enquiry_type: data.enquiryType,
+    page_source: data.pageSource,
+    party_size: data.guestCount,
+  }, { sendToApi: true })
+}
+
+export function trackPrivateHireEnquiryStarted(data: {
+  enquiryType?: string
+  pageSource: string
+  guestCount?: number
+}) {
+  pushToDataLayer({
+    event: 'private_hire_enquiry_started',
+    enquiry_type: data.enquiryType,
+    page_source: data.pageSource,
+    party_size: data.guestCount,
+  }, { sendToApi: true })
+}
+
+export function trackQuoteToolStarted(data: {
+  eventType?: string
+  guestCount?: number
+  pageSource?: string
+}) {
+  pushToDataLayer({
+    event: 'quote_tool_started',
+    enquiry_type: data.eventType,
+    party_size: data.guestCount,
+    page_source: data.pageSource,
+  }, { sendToApi: true })
+}
+
+export function trackQuoteToolCompleted(data: {
+  eventType?: string
+  guestCount?: number
+  estimateValue?: number
+  pageSource?: string
+}) {
+  pushToDataLayer({
+    event: 'quote_tool_completed',
+    enquiry_type: data.eventType,
+    party_size: data.guestCount,
+    value: data.estimateValue,
+    currency: 'GBP',
     page_source: data.pageSource,
   }, { sendToApi: true })
 }

@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { Button, CTASection, SectionHeader, FeatureGrid, InfoBoxGrid, AlertBox, Container } from '@/components/ui'
 import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
+import { BookTableButton } from '@/components/BookTableButton'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DirectionsButton } from '@/components/DirectionsButton'
 import { generateHowToDirectionsSchema } from '@/lib/enhanced-schemas'
@@ -89,6 +90,11 @@ export default function WraysburyPubPage() {
                 title="The Perfect Alternative to Your Wraysbury Local"
                 description="Just a short 5-minute drive from Wraysbury Village"
                 variant="default"
+                primaryCta={
+                    <BookTableButton source="wraysbury_pub_hero" context="local_pub" variant="primary" size="lg">
+                        Book a Table
+                    </BookTableButton>
+                }
                 enableSmartCtas={true}
                 showContextStrip={true}
             />
@@ -163,21 +169,21 @@ export default function WraysburyPubPage() {
 
                         <div className="grid md:grid-cols-2 gap-8 mb-8">
                             <div className="card-dark rounded-none p-6">
-                                <h3 className="text-xl font-bold text-blue-800 mb-4">Celebrations</h3>
+                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Celebrations</h3>
                                 <p className="text-anchor-cream-text/70 mb-4">
                                     Planning a party? We frequently host birthdays and celebrations for Wraysbury residents. Our private hire options are flexible and affordable.
                                 </p>
-                                <Link href="/private-hire" className="text-blue-600 font-bold hover:underline">
+                                <Link href="/private-hire" className="text-anchor-gold font-bold hover:text-anchor-gold-light hover:underline">
                                     View Private Hire Options →
                                 </Link>
                             </div>
 
                             <div className="card-dark rounded-none p-6">
-                                <h3 className="text-xl font-bold text-purple-800 mb-4">What's On</h3>
+                                <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">What's On</h3>
                                 <p className="text-anchor-cream-text/70 mb-4">
                                     Join us for Music Bingo hosted by Nikki Manfadge or test your knowledge at our quiz nights. See /whats-on for the latest listings.
                                 </p>
-                                <Link href="/whats-on" className="text-purple-600 font-bold hover:underline">
+                                <Link href="/whats-on" className="text-anchor-gold font-bold hover:text-anchor-gold-light hover:underline">
                                     Check Event Calendar →
                                 </Link>
                             </div>

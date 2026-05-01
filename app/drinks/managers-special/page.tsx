@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import Image from 'next/image'
 import { Button, Section, FullWidthSection } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
@@ -9,10 +10,13 @@ import { MenuPageTracker } from '@/components/tracking/MenuPageTracker'
 import { PhoneButton } from '@/components/PhoneButton'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
-import { getPromotionImage } from '@/lib/managers-special-utils'
 import { DEFAULT_DRINKS_IMAGE } from '@/lib/image-fallbacks'
-import { getCurrentPromotion as getCurrentManagersSpecial, getNextPromotion, getPromotionById } from '@/lib/managers-special'
-import { nowInLondonComponents } from '@/lib/time-london'
+import {
+  getCurrentPromotion as getCurrentManagersSpecial,
+  getPromotionById,
+  getPromotionImage
+} from '@/lib/managers-special'
+import { getDrinksHeroImage } from '@/lib/drinks-hero-image'
 import type { ManagersSpecial } from '@/types/managers-special'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 
@@ -35,11 +39,35 @@ function formatPriceGBP(value: string): string {
   return `£${numeric.toFixed(2)}`
 }
 
-function formatNextCountdown(daysUntil: number | null): string | null {
-  if (daysUntil === null) return null
-  if (daysUntil <= 0) return 'Next month starts today'
-  if (daysUntil === 1) return 'Next month starts tomorrow'
-  return `Next month starts in ${daysUntil} days`
+type ManagerEducation = NonNullable<ManagersSpecial['education']>
+
+function getEducation(promotion: ManagersSpecial): ManagerEducation {
+  if (promotion.education) return promotion.education
+
+  const { spirit } = promotion
+  return {
+    story: spirit.longDescription || spirit.description || promotion.promotion.offerText,
+    whyPicked: `We picked ${spirit.name} because it gives guests a clear way into ${spirit.category.toLowerCase()} without needing to know the back bar inside out.`,
+    flavourProfile: spirit.tastingNotes?.join(', ') || spirit.description || 'Ask the bar team for the flavour profile.',
+    perfectServe: spirit.servingSuggestions?.[0] || 'Ask the bar team for the best serve.',
+    foodPairings: [
+      'Stone-baked pizza',
+      'Salty bar snacks',
+      'A relaxed drink before or after food'
+    ],
+    tryIfYouLike: [
+      spirit.category,
+      'Trying something new without buying a full bottle',
+      'Asking the bar team for a recommendation'
+    ],
+    barTeamTip: 'Start with the simplest serve first. Once you know the flavour, it is easier to decide whether you want it longer, drier or sweeter.',
+    glossary: [
+      {
+        term: spirit.category,
+        definition: `The drink style for this month's special. Ask the bar team how it differs from similar bottles on the shelf.`
+      }
+    ]
+  }
 }
 
 function resolvePromotion(searchParams: PageSearchParams = {}): { promotion: ManagersSpecial | null; mode: 'live' | 'preview' | 'time-travel' } {
@@ -144,18 +172,7 @@ export async function generateMetadata({ searchParams }: { searchParams: PageSea
 
 export default function ManagersSpecialPage({ searchParams }: { searchParams: PageSearchParams }) {
   const { promotion: currentPromotion } = resolvePromotion(searchParams)
-  const { year, month, day } = nowInLondonComponents()
-  const today = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`
-  const toUtcMidnightMs = (dateStr: string) => {
-    const [y, m, d] = dateStr.split('-').map(Number)
-    return Date.UTC(y, m - 1, d)
-  }
-
-  const nextPromotion = getNextPromotion()
-  const daysUntilNext = nextPromotion
-    ? Math.max(0, Math.ceil((toUtcMidnightMs(nextPromotion.startDate) - toUtcMidnightMs(today)) / (1000 * 60 * 60 * 24)))
-    : null
-  const nextCountdownLabel = formatNextCountdown(daysUntilNext)
+  const drinksHeroImage = getDrinksHeroImage()
   
   if (!currentPromotion) {
     const fallbackFaqs = [
@@ -169,7 +186,7 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
       },
       {
         question: "When does it change?",
-        answer: "The offer refreshes every month. We keep next month’s bottle under wraps — check back on the 1st for the reveal."
+        answer: "The offer refreshes every month. We keep the next bottle under wraps and reveal the active special on the 1st."
       },
       {
         question: "How do I get the offer?",
@@ -184,7 +201,11 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
           route="/drinks/managers-special"
           title="Manager's Special"
           description="25% off a featured spirit each month — our way of giving back, and a great excuse to try something new."
-
+          image={{
+            ...drinksHeroImage,
+            objectPosition: 'center center',
+            priority: true
+          }}
           showStatusBar
           statusBarPosition="below"
           breadcrumbs={[
@@ -217,22 +238,6 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
             </div>
           </div>
         </Section>
-
-        <FullWidthSection className="bg-gradient-to-r from-anchor-green to-emerald-800 py-12 md:py-16">
-          <div className="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8">
-            <div className="mx-auto max-w-3xl text-center text-white">
-              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white/70">
-                Next Month&apos;s Reveal
-              </p>
-              <h2 className="mt-3 text-3xl font-bold text-white md:text-4xl">
-                {nextCountdownLabel || "Coming soon"}
-              </h2>
-              <p className="mt-4 text-white/90">
-                We keep the next bottle under wraps to build anticipation. Check back on the 1st for the reveal.
-              </p>
-            </div>
-          </div>
-        </FullWidthSection>
 
         <Section spacing="lg" container className="bg-anchor-bg-raised border-b border-anchor-gold/15" id="why">
           <div className="mx-auto grid max-w-5xl gap-10 md:grid-cols-2 md:gap-12">
@@ -298,6 +303,7 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
   
   const { spirit, promotion } = currentPromotion
   const dynamicImagePath = getPromotionImage(currentPromotion.imageFolder)
+  const education = getEducation(currentPromotion)
 
   const promotionMonthDate = new Date(`${currentPromotion.startDate}T12:00:00Z`)
   const promotionMonthName = promotionMonthDate.toLocaleDateString('en-GB', { month: 'long' })
@@ -354,7 +360,7 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
     },
     {
       question: "When does it change?",
-      answer: "The special refreshes every month. We keep next month’s bottle under wraps — check back on the 1st for the reveal."
+      answer: "The special refreshes on the 1st of each month. We only show the current bottle, so next month stays a surprise until it is live."
     },
     {
       question: "Any terms?",
@@ -378,8 +384,17 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
       <HeroWrapper
         route="/drinks/managers-special"
         title={`${spirit.discount} ${spirit.name}`}
-        description={promotion.subheadline || promotion.offerText}
-
+        description={promotion.subheadline || education.flavourProfile}
+        lead={
+          <p className="max-w-2xl text-base text-white/90 sm:text-lg">
+            {promotion.offerText}. Single measures are {specialPriceLabel} throughout {promotionMonthName}, subject to availability.
+          </p>
+        }
+        image={{
+          ...drinksHeroImage,
+          objectPosition: 'center center',
+          priority: true
+        }}
         showStatusBar
         statusBarPosition="below"
         eyebrow={`Manager's Special · ${promotionMonthYearLabel}`}
@@ -387,7 +402,27 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
           { name: 'Drinks', href: '/drinks' },
           { name: "Manager's Special" }
         ]}
-        enableSmartCtas={true}
+        tags={[
+          { label: spirit.category, variant: 'default' },
+          { label: `${specialPriceLabel} single`, variant: 'primary' },
+          { label: `Was ${originalPriceLabel}`, variant: 'default' }
+        ]}
+        primaryCta={
+          <BookTableButton
+            source="managers_special_hero"
+            variant="primary"
+            size="lg"
+            fullWidth
+            className="w-full sm:w-auto"
+          />
+        }
+        secondaryCta={
+          <Link href="/drinks" className="w-full sm:w-auto">
+            <Button variant="secondary" size="lg" fullWidth className="sm:w-auto">
+              View Drinks Menu
+            </Button>
+          </Link>
+        }
         showContextStrip={true}
       />
 
@@ -396,39 +431,29 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
           className="text-center text-anchor-gold-vivid"
           seo={{ structured: true }}
         >
-          Manager&apos;s Special — {promotionMonthName}
+          {promotionMonthName}&apos;s Product of the Month: {spirit.name}
         </PageTitle>
         <p className="mx-auto mt-4 max-w-3xl text-center text-lg text-anchor-cream-text/70">
-          Every month we hand-pick one premium spirit and take 25% off every serve. It&apos;s a simple way to give back to our community — and make it easy for everyone to try the best of our back bar.
+          The Manager&apos;s Special is not just a discount sticker on a bottle. Each month we pick one spirit, explain what makes it interesting, and give you a simple way to try it properly at the bar.
         </p>
       </Section>
 
       <Section spacing="lg" container className="bg-anchor-bg-raised border-b border-anchor-gold/15">
-        <div className="mx-auto grid max-w-5xl gap-10 md:grid-cols-2 md:items-start md:gap-12">
-          <div>
-            <h2 className="text-3xl font-bold text-anchor-cream-text">This month&apos;s featured bottle</h2>
-            <p className="mt-4 text-lg text-anchor-cream-text/70">
-              <span className="font-semibold text-anchor-cream-text">{spirit.name}</span>
-              {spirit.description || promotion.offerText ? ` — ${spirit.description || promotion.offerText}` : null}
-            </p>
-            <p className="mt-4 text-anchor-cream-text/70">
-              Ask at the bar for the best serve and tasting notes. The discount applies to every serve of this bottle all month, while stocks last.
-            </p>
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-              <Link href="/drinks" className="w-full sm:w-auto">
-                <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                  View Drinks Menu
-                </Button>
-              </Link>
-              <Link href="#why" className="w-full sm:w-auto">
-                <Button size="lg" className="w-full sm:w-auto">
-                  Why We Do It
-                </Button>
-              </Link>
+        <div id="details" className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[minmax(0,0.95fr),minmax(0,1.05fr)] lg:items-start lg:gap-14">
+          <div className="space-y-6">
+            <div className="overflow-hidden rounded-lg border border-anchor-gold/20 bg-anchor-bg-card p-3 shadow-xl">
+              <div className="relative aspect-square overflow-hidden rounded-md bg-anchor-bg">
+                <Image
+                  src={dynamicImagePath || DEFAULT_DRINKS_IMAGE}
+                  alt={promotion.heroAlt || `${spirit.name} Manager's Special at The Anchor`}
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 45vw"
+                  className="object-cover object-center"
+                  priority={false}
+                />
+              </div>
             </div>
-          </div>
 
-          <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg-card p-6 shadow-sm md:p-8">
             <PricingCard
               title="Single Measure"
               volume="25ml"
@@ -436,29 +461,112 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
               originalPrice={originalPriceLabel}
               savings={savingsLabel}
               featured={true}
+              className="rounded-lg"
             />
-            <p className="mt-4 text-center text-sm text-anchor-cream-text/55">
-              Doubles available at standard bar pricing • Subject to availability • Challenge 25 applies
+            <p className="text-center text-sm text-anchor-cream-text/55">
+              Doubles available at standard bar pricing. Subject to availability. Challenge 25 applies.
             </p>
+          </div>
+
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.28em] text-anchor-gold-vivid">
+              Learn the bottle
+            </p>
+            <h2 className="mt-3 text-3xl font-bold text-anchor-cream-text md:text-4xl">
+              What makes {spirit.name} worth trying?
+            </h2>
+            <p className="mt-5 text-lg leading-relaxed text-anchor-cream-text/75">
+              {education.story}
+            </p>
+
+            <div className="mt-8 grid gap-4 sm:grid-cols-2">
+              <div className="rounded-lg border border-anchor-gold/15 bg-anchor-bg-card p-5">
+                <h3 className="text-lg font-bold text-anchor-cream-text">Why we picked it</h3>
+                <p className="mt-3 text-sm leading-relaxed text-anchor-cream-text/70">{education.whyPicked}</p>
+              </div>
+              <div className="rounded-lg border border-anchor-gold/15 bg-anchor-bg-card p-5">
+                <h3 className="text-lg font-bold text-anchor-cream-text">What to taste for</h3>
+                <p className="mt-3 text-sm leading-relaxed text-anchor-cream-text/70">{education.flavourProfile}</p>
+              </div>
+            </div>
+
+            <div className="mt-8 rounded-lg border border-anchor-gold/20 bg-anchor-bg p-6">
+              <h3 className="text-xl font-bold text-anchor-cream-text">Best first serve</h3>
+              <p className="mt-3 text-anchor-cream-text/70">{education.perfectServe}</p>
+              <p className="mt-5 border-l-4 border-anchor-gold/60 pl-4 text-sm italic text-anchor-cream-text/65">
+                Bar team tip: {education.barTeamTip}
+              </p>
+            </div>
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <BookTableButton
+                source="managers_special_details"
+                size="lg"
+                className="w-full sm:w-auto"
+              />
+              <Link href="/drinks" className="w-full sm:w-auto">
+                <Button variant="outline" size="lg" className="w-full sm:w-auto">
+                  See the Full Bar
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </Section>
 
-      <FullWidthSection className="bg-gradient-to-r from-anchor-green to-emerald-800 py-12 md:py-16">
-        <div className="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-3xl text-center text-white">
-            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-white/70">
-              Next Month&apos;s Reveal
+      <Section spacing="lg" container className="bg-anchor-bg border-b border-anchor-gold/15">
+        <div className="mx-auto max-w-6xl">
+          <div className="max-w-3xl">
+            <p className="text-sm font-semibold uppercase tracking-[0.28em] text-anchor-gold-vivid">
+              Tasting guide
             </p>
-            <h2 className="mt-3 text-3xl font-bold text-white md:text-4xl">
-              {nextCountdownLabel || "Coming soon"}
+            <h2 className="mt-3 text-3xl font-bold text-anchor-cream-text md:text-4xl">
+              How to get more from the glass
             </h2>
-            <p className="mt-4 text-white/90">
-              We keep the next bottle under wraps to build anticipation. Check back on the 1st for the reveal.
+            <p className="mt-4 text-lg text-anchor-cream-text/70">
+              You do not need to be a spirits expert. Use these notes to decide whether this month&apos;s bottle suits your taste.
             </p>
           </div>
+
+          <div className="mt-10 grid gap-6 lg:grid-cols-3">
+            <div className="rounded-lg border border-anchor-gold/15 bg-anchor-bg-raised p-6">
+              <h3 className="text-xl font-bold text-anchor-cream-text">Pairs well with</h3>
+              <ul className="mt-5 space-y-3 text-anchor-cream-text/70">
+                {education.foodPairings.map((pairing) => (
+                  <li key={pairing} className="flex gap-3">
+                    <span className="mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-anchor-gold" aria-hidden="true" />
+                    <span>{pairing}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="rounded-lg border border-anchor-gold/15 bg-anchor-bg-raised p-6">
+              <h3 className="text-xl font-bold text-anchor-cream-text">Try it if you like</h3>
+              <ul className="mt-5 space-y-3 text-anchor-cream-text/70">
+                {education.tryIfYouLike.map((item) => (
+                  <li key={item} className="flex gap-3">
+                    <span className="mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-anchor-gold" aria-hidden="true" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="rounded-lg border border-anchor-gold/15 bg-anchor-bg-raised p-6">
+              <h3 className="text-xl font-bold text-anchor-cream-text">Useful words</h3>
+              <div className="mt-5 space-y-4">
+                {education.glossary.map((item) => (
+                  <div key={item.term}>
+                    <p className="font-semibold text-anchor-gold-vivid">{item.term}</p>
+                    <p className="mt-1 text-sm leading-relaxed text-anchor-cream-text/70">{item.definition}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
-      </FullWidthSection>
+      </Section>
 
       <Section spacing="lg" container className="bg-anchor-bg-raised border-b border-anchor-gold/15" id="why">
         <div className="mx-auto grid max-w-5xl gap-10 md:grid-cols-2 md:gap-12">
@@ -519,24 +627,24 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
         />
       </Section>
 
-      <FullWidthSection className="bg-gradient-to-br from-purple-600 to-purple-800 py-16 md:py-24">
+      <FullWidthSection className="bg-anchor-green py-16 md:py-24">
         <div className="mx-auto w-full max-w-3xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="text-3xl font-bold text-white md:text-5xl">
-              Come try this month&apos;s Manager&apos;s Special
+              Try it while it is the bottle of the month
             </h2>
-            <p className="mt-6 text-xl text-purple-100">
-              {spirit.discount} off {spirit.name} all {promotionMonthName}. Ask at the bar for the perfect serve.
+            <p className="mt-6 text-xl text-white/85">
+              {spirit.discount} off {spirit.name} all {promotionMonthName}. Ask the bar team for the serve above, or tell us what you normally drink and we&apos;ll steer you.
             </p>
             <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center">
               <BookTableButton
                 source="managers_special_cta"
                 size="lg"
                 variant="secondary"
-                className="bg-white text-purple-700 hover:bg-gray-100"
+                className="bg-anchor-gold text-anchor-green hover:bg-anchor-gold-light"
               />
               <Link href="/find-us">
-                <Button size="lg" variant="secondary" className="bg-purple-700 text-white hover:bg-purple-600">
+                <Button size="lg" variant="secondary" className="bg-white/10 text-white hover:bg-white/20">
                   Get Directions
                 </Button>
               </Link>
@@ -544,11 +652,11 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
                 phone="01753 682707"
                 size="lg"
                 variant="secondary"
-                className="bg-purple-700 text-white hover:bg-purple-600"
+                className="bg-white/10 text-white hover:bg-white/20"
                 source="managers_special_cta"
               />
             </div>
-            <p className="mt-6 text-purple-200">
+            <p className="mt-6 text-white/70">
               Offer valid until {offerEndsLabel}
             </p>
           </div>

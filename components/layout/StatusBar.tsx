@@ -2,7 +2,6 @@
 
 import { cn } from '@/lib/utils'
 import { StatusIndicator } from '@/components/ui/StatusIndicator'
-import { LoadingState } from '@/components/ui/LoadingState'
 import { useBusinessHours } from '@/hooks/useBusinessHours'
 import { formatTime12Hour, getTodayHours, getTomorrowHours, findNextKitchenOpening } from '@/lib/status-boundary-calculator'
 import { KitchenStatus } from '@/lib/api'
@@ -78,11 +77,7 @@ function getBarStatus(hours: any): string {
 
   // Trust currentStatus.isOpen from API
   if (currentStatus.isOpen) {
-    const opens = todayHours?.opens
     const closes = todayHours?.closes
-    if (opens && closes) {
-      return `Bar: Opens ${formatTime12Hour(opens)} closes ${formatTime12Hour(closes)}`
-    }
     if (closes) {
       return `Bar: Open · closes ${formatTime12Hour(closes)}`
     }
@@ -97,9 +92,6 @@ function getBarStatus(hours: any): string {
     openingTime.setHours(openHour, openMin, 0, 0)
 
     if (openingTime > now) {
-      if (todayHours.closes) {
-        return `Bar: Opens ${formatTime12Hour(todayHours.opens)} closes ${formatTime12Hour(todayHours.closes)}`
-      }
       return `Bar: Opens at ${formatTime12Hour(todayHours.opens)}`
     }
   }
@@ -107,9 +99,6 @@ function getBarStatus(hours: any): string {
   // Opens tomorrow - get tomorrow's data
   const tomorrowHours = getTomorrowHours(hours)
   if (tomorrowHours?.opens && !tomorrowHours.is_closed) {
-    if (tomorrowHours.closes) {
-      return `Bar: Tomorrow ${formatTime12Hour(tomorrowHours.opens)}-${formatTime12Hour(tomorrowHours.closes)}`
-    }
     return `Bar: Opens tomorrow at ${formatTime12Hour(tomorrowHours.opens)}`
   }
 
@@ -146,7 +135,7 @@ function getKitchenStatus(hours: any): {
     const timeLabel = formatTime12Hour(nextOpening.opens)
     const whenLabel =
       nextOpening.offset === 0
-        ? `today at ${timeLabel}`
+        ? `at ${timeLabel}`
         : nextOpening.offset === 1
           ? `tomorrow at ${timeLabel}`
           : `${nextOpening.dayName} at ${timeLabel}`
@@ -184,7 +173,7 @@ function getKitchenStatus(hours: any): {
     // Use currentStatus.kitchenOpen from API (source of truth)
     if (currentStatus.kitchenOpen) {
       return {
-        status: `Kitchen: Opens ${formatTime12Hour(kitchenHours.opens)} closes ${formatTime12Hour(kitchenHours.closes)}`,
+        status: `Kitchen: Open · closes ${formatTime12Hour(kitchenHours.closes)}`,
         indicator: 'open'
       }
     } else {
@@ -195,9 +184,9 @@ function getKitchenStatus(hours: any): {
       openingTime.setHours(openHour, openMin, 0, 0)
 
       if (openingTime > now) {
-        // Opens later today - show full schedule
+        // Opens later today - keep the message focused on the next action.
         return {
-          status: `Kitchen: Opens ${formatTime12Hour(kitchenHours.opens)} closes ${formatTime12Hour(kitchenHours.closes)}`,
+          status: `Kitchen: Opens at ${formatTime12Hour(kitchenHours.opens)}`,
           indicator: currentStatus.isOpen ? 'warning' : 'closed'
         }
       }
@@ -229,11 +218,34 @@ export function StatusBar({
   const mergedTheme = { ...defaultTheme, ...theme }
   const mergedLabels = { ...defaultLabels, ...labels }
   
-  // Show loading state only if no cached data
-  if (loading && !hours) {
+  function renderFallbackStatus(reason: 'loading' | 'unavailable') {
+    const barFallback =
+      reason === 'loading'
+        ? 'Opening times loading'
+        : 'Opening times unavailable'
+    const kitchenFallback = "Call 01753 682707 for today's times"
+
     if (variant === 'navigation') {
-      return <LoadingState variant="skeleton" className="h-5 w-32" />
+      return (
+        <div className={cn('flex flex-col items-start gap-1 text-[13px] sm:text-[15px] font-semibold', className)}>
+          <div className="flex items-center gap-1.5">
+            <StatusIndicator status="warning" size="sm" />
+            <span className="whitespace-normal break-words text-left leading-snug uppercase tracking-wider text-white">
+              {barFallback}
+            </span>
+          </div>
+          {showKitchen && (
+            <div className="flex items-center gap-1.5">
+              <StatusIndicator status="warning" size="sm" />
+              <a href="tel:+441753682707" className="whitespace-normal break-words text-left leading-snug uppercase tracking-wider text-white underline decoration-white/40 underline-offset-2">
+                {kitchenFallback}
+              </a>
+            </div>
+          )}
+        </div>
+      )
     }
+
     return (
       <div className={cn(
         'flex w-full flex-col items-center justify-center gap-1 rounded-full px-4 sm:px-6 py-2.5 shadow-md',
@@ -243,11 +255,15 @@ export function StatusBar({
       )}>
         <div className="flex flex-col items-center gap-0.5 text-sm sm:text-base font-medium w-full text-center">
           <div className="flex items-center justify-center gap-1.5 leading-tight">
-            <LoadingState variant="skeleton" className="h-[1em] w-32" />
+            <StatusIndicator status="warning" size={variant === 'compact' ? 'sm' : 'md'} />
+            <span className="leading-tight uppercase tracking-wider">{barFallback}</span>
           </div>
           {showKitchen && (
             <div className="flex items-center justify-center gap-1.5 leading-tight">
-              <LoadingState variant="skeleton" className="h-[1em] w-36" />
+              <StatusIndicator status="warning" size={variant === 'compact' ? 'sm' : 'md'} />
+              <a href="tel:+441753682707" className="leading-tight uppercase tracking-wider underline decoration-white/40 underline-offset-2">
+                {kitchenFallback}
+              </a>
             </div>
           )}
         </div>
@@ -255,9 +271,14 @@ export function StatusBar({
     )
   }
 
-  // If no data at all, hide gracefully
+  // Show useful fallback content if no cached data is available.
+  if (loading && !hours) {
+    return renderFallbackStatus('loading')
+  }
+
+  // If no data at all, keep a useful contact path visible.
   if (!hours) {
-    return null
+    return renderFallbackStatus(error ? 'unavailable' : 'loading')
   }
 
   // Get status messages from API data

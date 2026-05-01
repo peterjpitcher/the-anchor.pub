@@ -91,7 +91,7 @@ export function ReviewsCarousel({
         <>
           <button
             onClick={goToPrevious}
-            className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 shadow-lg transition-colors"
+            className="absolute left-0 top-1/2 -translate-y-1/2 bg-anchor-bg-card/90 hover:bg-anchor-bg-raised border border-anchor-gold/25 p-2 shadow-lg text-anchor-cream-text transition-colors"
             aria-label="Previous review"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -101,7 +101,7 @@ export function ReviewsCarousel({
           
           <button
             onClick={goToNext}
-            className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full p-2 shadow-lg transition-colors"
+            className="absolute right-0 top-1/2 -translate-y-1/2 bg-anchor-bg-card/90 hover:bg-anchor-bg-raised border border-anchor-gold/25 p-2 shadow-lg text-anchor-cream-text transition-colors"
             aria-label="Next review"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -115,7 +115,7 @@ export function ReviewsCarousel({
                 key={index}
                 onClick={() => setCurrentIndex(index)}
                 className={`w-2 h-2 rounded-full transition-colors ${
-                  index === currentIndex ? 'bg-anchor-gold' : 'bg-gray-300'
+                  index === currentIndex ? 'bg-anchor-gold' : 'bg-anchor-cream-text/25'
                 }`}
                 aria-label={`Go to review ${index + 1}`}
               />

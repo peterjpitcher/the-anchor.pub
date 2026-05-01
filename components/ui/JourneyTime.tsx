@@ -43,7 +43,7 @@ export const JourneyTime = forwardRef<HTMLDivElement, JourneyTimeProps>(
           ref={ref}
           className={cn(
             'flex justify-between items-center p-3 rounded-lg',
-            highlight ? 'bg-amber-50 border border-amber-200' : 'bg-anchor-bg-raised',
+            highlight ? 'bg-amber-500/10 border border-amber-500/30' : 'bg-anchor-bg-raised',
             className
           )}
           data-testid={testId}
@@ -52,7 +52,7 @@ export const JourneyTime = forwardRef<HTMLDivElement, JourneyTimeProps>(
           <span className="font-semibold text-anchor-cream-text">{to}</span>
           <span className={cn(
             'font-bold',
-            highlight ? 'text-amber-600' : 'text-anchor-gold'
+            highlight ? 'text-amber-300' : 'text-anchor-gold'
           )}>
             {formatDuration(duration)}
           </span>
@@ -66,7 +66,7 @@ export const JourneyTime = forwardRef<HTMLDivElement, JourneyTimeProps>(
           ref={ref}
           className={cn(
             'p-4 rounded-lg',
-            highlight ? 'bg-amber-50 border border-amber-200' : 'bg-anchor-bg-raised',
+            highlight ? 'bg-amber-500/10 border border-amber-500/30' : 'bg-anchor-bg-raised',
             className
           )}
           data-testid={testId}
@@ -87,7 +87,7 @@ export const JourneyTime = forwardRef<HTMLDivElement, JourneyTimeProps>(
                 <div className="text-right">
                   <p className={cn(
                     'text-lg font-bold',
-                    highlight ? 'text-amber-600' : 'text-anchor-gold'
+                    highlight ? 'text-amber-300' : 'text-anchor-gold'
                   )}>
                     {formatDuration(duration)}
                   </p>
@@ -117,7 +117,7 @@ export const JourneyTime = forwardRef<HTMLDivElement, JourneyTimeProps>(
         <span className="text-anchor-cream-text/70">{to}:</span>
         <span className={cn(
           'font-semibold',
-          highlight ? 'text-amber-600' : 'text-anchor-gold'
+          highlight ? 'text-amber-300' : 'text-anchor-gold'
         )}>
           {formatDuration(duration)}
         </span>

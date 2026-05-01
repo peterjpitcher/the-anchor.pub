@@ -24,6 +24,9 @@ import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { JsonLd } from '@/components/JsonLd'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { DEFAULT_OG_IMAGE } from '@/lib/image-fallbacks'
+import { getSundayRoastContent, SUNDAY_ROAST } from '@/lib/sunday-roast'
+import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
+import { getCurrentPromotion as getCurrentManagersSpecial, getPromotionImage } from '@/lib/managers-special'
 import {
   Button,
   Card,
@@ -47,14 +50,14 @@ import {
 export const revalidate = 60 * 60 // 1 hour during launch fortnight
 
 export const metadata: Metadata = {
-  title: 'The Anchor Stanwell Moor | Pub Near Heathrow | Free Parking',
-  description: 'Top-rated independent pub near Heathrow. 7 mins from T5, free parking, dog-friendly beer garden. Sunday roasts, stone-baked pizza and quiz nights.',
+  title: 'Pub Near Heathrow T5 | Food, Sunday Roast & Events',
+  description: 'Traditional pub 7 minutes from Heathrow Terminal 5 with free parking, pub food, Sunday roast, hosted events and private hire. Book a table at The Anchor.',
   alternates: {
     canonical: '/'
   },
   openGraph: {
-    title: 'The Anchor Stanwell Moor | Pub Near Heathrow | Free Parking',
-    description: 'Top-rated independent pub near Heathrow. 7 mins from T5, free parking, dog-friendly beer garden. Sunday roasts, stone-baked pizza and quiz nights.',
+    title: 'The Anchor Stanwell Moor | Pub Near Heathrow With Parking',
+    description: 'Traditional pub 7 minutes from Heathrow Terminal 5 with free parking, pub food, Sunday roast, hosted events and private hire.',
     url: '/',
     siteName: 'The Anchor',
     images: [
@@ -69,8 +72,8 @@ export const metadata: Metadata = {
     type: 'website'
   },
   twitter: getTwitterMetadata({
-    title: 'The Anchor Stanwell Moor | Pub Near Heathrow | Free Parking',
-    description: 'Free parking, Sunday roasts, stone-baked pizzas, and hosted events like Music Bingo with Nikki Manfadge. See /whats-on for the latest.',
+    title: 'Pub Near Heathrow T5 | Food, Sunday Roast & Events',
+    description: 'Free parking, pub food, Sunday roast, hosted events and private hire 7 minutes from Heathrow Terminal 5.',
     images: [DEFAULT_OG_IMAGE]
   })
 }
@@ -102,6 +105,9 @@ export default function HomePage() {
   const seasonalGreeting = getSeasonalGreeting(seasonalImage.season)
   const seasonalAltText = getSeasonalAltText(seasonalImage.season)
   const focal = getSeasonalFocal(seasonalImage.season)
+  const sunday = getSundayRoastContent()
+  const managersSpecial = getCurrentManagersSpecial()
+  const managersSpecialImage = managersSpecial ? getPromotionImage(managersSpecial.imageFolder) : null
 
 
 
@@ -117,7 +123,7 @@ export default function HomePage() {
         titleClassName="text-5xl sm:text-5xl md:text-6xl lg:text-7xl"
         title={
           <span className="drop-shadow-[0_2px_6px_rgba(0,0,0,0.65)]">
-            {seasonalGreeting}
+            Proper pub food, Sunday roasts and events near Heathrow
           </span>
         }
         className="hero-focal"
@@ -149,10 +155,10 @@ export default function HomePage() {
         lead={
           <div className="flex flex-col items-center gap-4">
             <p className="text-2xl sm:text-3xl text-white font-serif drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-              Where Everyone&apos;s Welcome
+              The Anchor, Stanwell Moor
             </p>
             <p className="text-base sm:text-lg text-white/90 font-medium drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)] max-w-xl mx-auto text-center px-4">
-              The closest traditional British pub to Heathrow — 7 mins from T5, free parking, proper food
+              Seven minutes from Terminal 5 with free parking, traditional pub food, hosted nights and private hire.
             </p>
 
             <div className="flex justify-center px-2 sm:px-0 w-full">
@@ -179,9 +185,9 @@ export default function HomePage() {
           />
         }
         secondaryCta={
-          <Link href="/food-menu" className="w-full">
+          <Link href={SUNDAY_ROAST.bookingHref} className="w-full">
             <Button variant="secondary" size="lg" fullWidth>
-              View Menu
+              Book Sunday Roast
             </Button>
           </Link>
         }
@@ -197,6 +203,48 @@ export default function HomePage() {
           </div>
         </Container>
       </div>
+
+      <section className="bg-anchor-bg-card py-8 border-b border-anchor-gold/15">
+        <Container>
+          <div className="mx-auto max-w-6xl">
+            <h2 className="text-center text-2xl md:text-3xl font-bold text-anchor-cream-text">What are you here for?</h2>
+            <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {[
+                {
+                  title: 'Food today',
+                  copy: 'Pub classics, pizza and drinks minutes from Heathrow.',
+                  href: '/book-table?source=homepage_path_food&bookingType=food',
+                  cta: 'Book a Table'
+                },
+                {
+                  title: 'Sunday roast',
+                  copy: sunday.isLive ? 'Served Sundays, 1pm to 6pm.' : 'Starts Sunday 17 May 2026.',
+                  href: SUNDAY_ROAST.bookingHref,
+                  cta: 'Book Sunday Roast'
+                },
+                {
+                  title: 'What’s On',
+                  copy: 'Quiz nights, music bingo, cash bingo and more.',
+                  href: '/whats-on?source=homepage_path_events',
+                  cta: 'Reserve Event Table'
+                },
+                {
+                  title: 'Private hire',
+                  copy: 'Parties, wakes, christenings and work events near Heathrow.',
+                  href: '/private-hire?source=homepage_path_private_hire',
+                  cta: 'Get Event Quote'
+                }
+              ].map((item) => (
+                <Link key={item.title} href={item.href} className="block rounded-lg border border-anchor-gold/15 bg-anchor-bg-raised p-5 transition hover:border-anchor-gold/40">
+                  <h3 className="text-lg font-bold text-anchor-cream-text">{item.title}</h3>
+                  <p className="mt-2 min-h-[44px] text-sm text-anchor-cream-text/70">{item.copy}</p>
+                  <p className="mt-4 text-sm font-semibold text-anchor-gold-vivid">{item.cta} →</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </Container>
+      </section>
 
       {/* Main Page Title for SEO */}
       <div className="bg-anchor-bg-raised pt-12 pb-8 border-b border-anchor-gold/15">
@@ -235,7 +283,7 @@ export default function HomePage() {
                 </div>
                 <div className="flex items-start gap-2">
                   <span className="font-semibold text-anchor-gold-vivid"></span>
-                  <span>Stone-baked pizzas, Sunday roasts and daily pub classics</span>
+                  <span>Stone-baked pizzas, {sunday.isLive ? 'Sunday roasts' : 'Sunday roast from 17 May'} and daily pub classics</span>
                 </div>
                 <div className="flex items-start gap-2">
                   <span className="font-semibold text-anchor-gold-vivid"></span>
@@ -281,7 +329,7 @@ export default function HomePage() {
             </Link>
             <Link href="/sunday-lunch" className="block p-4 bg-anchor-green rounded-lg text-center hover:bg-anchor-green/90 transition-colors">
               <span className="block text-lg font-bold text-white">Sunday Lunch</span>
-              <span className="text-sm text-white/80">From &pound;19 &middot; Walk in or book ahead</span>
+              <span className="text-sm text-white/80">{sunday.isLive ? 'From £19 · Walk in or book ahead' : 'Starts 17 May · Book ahead'}</span>
             </Link>
           </div>
         </Container>
@@ -390,8 +438,7 @@ export default function HomePage() {
 
             <div className="mt-8 p-6 card-dark">
               <p className="text-center text-anchor-cream-text/70">
-                <strong className="text-anchor-gold-vivid">Sunday roast:</strong> served 1pm–6pm. Walk in or book ahead — no pre-order needed.
-                Groups of 10 or more take a £10 per person deposit on booking, fully deducted from the bill. Free parking for all guests.
+                <strong className="text-anchor-gold-vivid">Sunday roast:</strong> {sunday.availabilityLong} Free parking for all guests.
               </p>
             </div>
           </div>
@@ -409,13 +456,13 @@ export default function HomePage() {
                 source="homepage_mid_cta"
                 variant="secondary"
                 size="lg"
-                className="bg-white text-anchor-green hover:bg-gray-100"
+                className="bg-anchor-gold text-anchor-green hover:bg-anchor-gold-light"
               >
                 Book a Table
               </BookTableButton>
               <Link href="/sunday-lunch">
                 <Button variant="secondary" size="lg" className="w-full sm:w-auto bg-white/10 text-white hover:bg-white/20 border border-white/25">
-                  Sunday Lunch &mdash; from &pound;19
+                  {sunday.isLive ? 'Sunday Lunch — from £19' : 'Sunday Roast — starts 17 May'}
                 </Button>
               </Link>
             </div>
@@ -519,31 +566,48 @@ export default function HomePage() {
       </div>
 
       {/* Photo Gallery */}
-      <div className="bg-anchor-bg section-spacing-md border-b border-anchor-gold/15">
+      <div id="life-at-anchor" className="bg-anchor-bg section-spacing-md border-b border-anchor-gold/15">
         <Container>
           <SectionHeader
             title="Life at The Anchor"
           />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          <div className={`grid grid-cols-1 md:grid-cols-2 ${managersSpecialImage ? 'lg:grid-cols-4' : 'lg:grid-cols-3'} gap-6 max-w-6xl mx-auto`}>
             {/* Food Photo - Now First */}
-            <GalleryImage
-              src="/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg"
-              alt="Traditional Sunday roast at The Anchor"
-              caption="Famous Sunday Roasts — served 1pm–6pm, walk in or book ahead"
-              width={600}
-              height={600}
-            />
+            <Link href="/sunday-roast">
+              <GalleryImage
+                src="/images/food/sunday-roast/the-anchor-sunday-roast-hero.jpg"
+                alt="Traditional Sunday roast at The Anchor"
+                caption={sunday.isLive ? 'Famous Sunday Roasts — served 1pm–6pm, walk in or book ahead' : 'Sunday Roast — starts Sunday 17 May 2026'}
+                width={600}
+                height={600}
+              />
+            </Link>
+
+            {managersSpecialImage && managersSpecial && (
+              <Link href="/drinks/managers-special">
+                <GalleryImage
+                  src={managersSpecialImage}
+                  alt={managersSpecial.promotion.heroAlt || `${managersSpecial.spirit.name} Manager's Special at The Anchor`}
+                  caption={`${managersSpecial.promotion.headline} — ${managersSpecial.spirit.discount} ${managersSpecial.spirit.name}`}
+                  width={600}
+                  height={600}
+                  priority={false}
+                />
+              </Link>
+            )}
 
             {/* Event Photo - Now Second */}
-            <GalleryImage
-              src="/images/page-headers/private-hire/private-hire.jpg"
-              alt="Private hire event at The Anchor"
-              caption="Private Hire - Birthdays, Celebrations & Corporate"
-              width={600}
-              height={600}
-              priority={false}
-            />
+            <Link href="/private-hire">
+              <GalleryImage
+                src="/images/page-headers/private-hire/private-hire.jpg"
+                alt="Private hire event at The Anchor"
+                caption="Private Hire - Birthdays, Celebrations & Corporate"
+                width={600}
+                height={600}
+                priority={false}
+              />
+            </Link>
 
             {/* Garden Photo */}
             <Link href="/beer-garden">
@@ -567,11 +631,13 @@ export default function HomePage() {
             </Link>
             <Link href="/sunday-lunch">
               <Button variant="secondary" size="lg">
-                Book Sunday Lunch — from £19
+                {sunday.isLive ? 'Book Sunday Lunch — from £19' : 'Book Sunday Roast — starts 17 May'}
               </Button>
             </Link>
-            <Link href="/drinks" className="text-anchor-gold hover:text-anchor-gold/80 font-medium underline underline-offset-4">
-              View Drinks Menu
+            <Link href="/drinks">
+              <Button variant="secondary" size="lg">
+                View Drinks Menu
+              </Button>
             </Link>
           </div>
         </Container>
@@ -646,7 +712,7 @@ export default function HomePage() {
                       </li>
                       <li className="flex items-start gap-3">
                         <span className="text-anchor-gold-vivid"></span>
-                        <span className="text-anchor-cream-text/70"><strong className="text-anchor-cream-text">Flexible spaces</strong> for 10-200 guests</span>
+                        <span className="text-anchor-cream-text/70"><strong className="text-anchor-cream-text">Flexible spaces</strong> for {PRIVATE_HIRE_CAPACITY.recommendedRange}; larger events by enquiry</span>
                       </li>
                       <li className="flex items-start gap-3">
                         <span className="text-anchor-gold-vivid"></span>
@@ -703,7 +769,7 @@ export default function HomePage() {
           },
           {
             question: 'What food does The Anchor serve?',
-            answer: 'We serve traditional British pub food including stone-baked pizzas, fish & chips, burgers, and Sunday roasts. Sunday roast is served 1pm–6pm — walk in or book ahead. Prices range from approximately £10–£20 for mains; Sunday roast from £19.'
+            answer: `We serve traditional British pub food including stone-baked pizzas, fish & chips, burgers, and Sunday roast. ${sunday.availabilityShort} Prices range from approximately £10–£20 for mains; Sunday roast from £19.`
           },
           {
             question: 'When is the kitchen open?',
@@ -719,11 +785,11 @@ export default function HomePage() {
           },
           {
             question: 'Can I book a table at The Anchor?',
-            answer: 'Yes, you can book a table online via our booking system or by calling 01753 682707. Booking is recommended for groups of 6 or more and on Sunday afternoons. Walk-ins are welcome for Sunday roast (1pm–6pm) — no pre-order needed.'
+            answer: `Yes, you can book a table online via our booking system or by calling 01753 682707. Booking is recommended for groups of 6 or more and on Sunday afternoons. ${sunday.availabilityLong}`
           },
           {
             question: 'Does The Anchor have any special offers?',
-            answer: 'We host regular events including Music Bingo, quiz nights, and karaoke. We also serve stone-baked pizzas, classic pub dishes, and Sunday roasts. See the What\'s On page for the latest details.'
+            answer: `We host regular events including Music Bingo, quiz nights, and karaoke. We also serve stone-baked pizzas, classic pub dishes, and Sunday roast. ${sunday.availabilityShort} See the What's On page for the latest details.`
           },
           {
             question: 'How do I get from Heathrow Terminal 5 to The Anchor?',

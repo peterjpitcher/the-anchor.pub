@@ -14,6 +14,7 @@ type EventWaitlistPayload = {
   first_name?: string
   last_name?: string
   email?: string
+  notes?: string
   default_country_code?: string
 }
 
@@ -53,6 +54,7 @@ function normalizePayload(input: unknown): { payload?: EventWaitlistPayload; err
   const firstName = asTrimmedString(body.first_name)
   const lastName = asTrimmedString(body.last_name)
   const email = asTrimmedString(body.email)
+  const notes = asTrimmedString(body.notes)
   const defaultCountryCode = asTrimmedString(body.default_country_code)
 
   if (!eventId || !phone || !requestedSeats) {
@@ -67,6 +69,7 @@ function normalizePayload(input: unknown): { payload?: EventWaitlistPayload; err
       ...(firstName ? { first_name: firstName } : {}),
       ...(lastName ? { last_name: lastName } : {}),
       ...(email ? { email } : {}),
+      ...(notes ? { notes } : {}),
       ...(defaultCountryCode ? { default_country_code: defaultCountryCode } : {})
     }
   }
@@ -87,6 +90,10 @@ function validatePayload(payload: EventWaitlistPayload): string | null {
 
   if (payload.default_country_code && !/^\d{1,4}$/.test(payload.default_country_code)) {
     return 'default_country_code must contain 1 to 4 digits'
+  }
+
+  if (payload.notes && payload.notes.length > 500) {
+    return 'Notes must be 500 characters or fewer'
   }
 
   return null

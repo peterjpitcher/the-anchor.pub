@@ -63,7 +63,7 @@ See [[routes]] for the full table.
 | Google Tag Manager | Site-wide analytics | `components/tracking/*`, `lib/gtm-events.ts` |
 | Microsoft Clarity | Session replay / heatmap | `NEXT_PUBLIC_CLARITY_PROJECT_ID` |
 | AviationStack | Heathrow flight data for parking pages | `lib/api` (parking modules) |
-| Microsoft Graph | Christmas/open-mic enquiry email delivery | `app/api/enquiry/christmas`, `app/api/enquiry/open-mic` |
+| Microsoft Graph | Christmas enquiry email delivery | `app/api/enquiry/christmas` |
 
 Full integration map is in [[relationships]].
 

@@ -1,9 +1,10 @@
 'use client'
 
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useRef } from 'react'
 import { PrivateBookingConfig, PrivateBookingItem, getPrivateBookingConfig, formatCurrency } from '@/lib/api'
 import { PrivateBookingInquiryForm } from './PrivateBookingInquiryForm'
 import { useCountdown } from '@/hooks/useCountdown'
+import { trackQuoteToolCompleted, trackQuoteToolStarted } from '@/lib/gtm-events'
 import {
     PRIVATE_HIRE_2026_PROMO_DEPOSIT_DEADLINE_COPY,
     PRIVATE_HIRE_2026_PROMO_DISABLED_STORAGE_KEY,
@@ -14,6 +15,16 @@ interface PrivateBookingCalculatorProps {
     eventType?: string
 }
 
+const EVENT_TYPE_OPTIONS = [
+    'Birthday Party',
+    'Wake / Memorial',
+    'Christening / Baby Shower',
+    'Corporate Event',
+    'Retirement Party',
+    'Christmas Party',
+    'Other'
+]
+
 export function PrivateBookingCalculator({ eventType }: PrivateBookingCalculatorProps) {
     const [config, setConfig] = useState<PrivateBookingConfig | null>(null)
     const [loading, setLoading] = useState(true)
@@ -21,11 +32,13 @@ export function PrivateBookingCalculator({ eventType }: PrivateBookingCalculator
     const [showInquiryForm, setShowInquiryForm] = useState(false)
 
     // Selection Request
+    const [selectedEventType, setSelectedEventType] = useState<string>(eventType || 'Birthday Party')
     const [selectedSpaceId, setSelectedSpaceId] = useState<string>('')
     const [guestCount, setGuestCount] = useState<number>(30)
     const [hours, setHours] = useState<number>(4)
     const [selectedPackages, setSelectedPackages] = useState<Array<{ id: string, quantity: number }>>([])
     const [selectedVendorIds, setSelectedVendorIds] = useState<Set<string>>(new Set())
+    const quoteStartedRef = useRef(false)
 
     // UI State
     const [isAddingItem, setIsAddingItem] = useState(false)
@@ -53,6 +66,10 @@ export function PrivateBookingCalculator({ eventType }: PrivateBookingCalculator
     }, [])
 
     useEffect(() => {
+        if (eventType) setSelectedEventType(eventType)
+    }, [eventType])
+
+    useEffect(() => {
         if (typeof window === 'undefined') return
 
         const now = Date.now()
@@ -78,7 +95,18 @@ export function PrivateBookingCalculator({ eventType }: PrivateBookingCalculator
         return `${promoCountdown.days}d ${pad(promoCountdown.hours)}h ${pad(promoCountdown.minutes)}m ${pad(promoCountdown.seconds)}s`
     }, [promoActive, promoCountdown.days, promoCountdown.expired, promoCountdown.hours, promoCountdown.minutes, promoCountdown.seconds])
 
+    const trackQuoteStartedOnce = (overrideEventType = selectedEventType) => {
+        if (quoteStartedRef.current) return
+        quoteStartedRef.current = true
+        trackQuoteToolStarted({
+            eventType: overrideEventType,
+            guestCount,
+            pageSource: typeof window !== 'undefined' ? window.location.pathname : ''
+        })
+    }
+
     const toggleVendor = (vendorId: string) => {
+        trackQuoteStartedOnce()
         const newSet = new Set(selectedVendorIds)
         if (newSet.has(vendorId)) newSet.delete(vendorId)
         else newSet.add(vendorId)
@@ -86,6 +114,7 @@ export function PrivateBookingCalculator({ eventType }: PrivateBookingCalculator
     }
 
     const addPackage = (packageId: string) => {
+        trackQuoteStartedOnce()
         if (!selectedPackages.find(p => p.id === packageId)) {
             setSelectedPackages([...selectedPackages, { id: packageId, quantity: guestCount }])
         }
@@ -93,10 +122,12 @@ export function PrivateBookingCalculator({ eventType }: PrivateBookingCalculator
     }
 
     const removePackage = (packageId: string) => {
+        trackQuoteStartedOnce()
         setSelectedPackages(selectedPackages.filter(p => p.id !== packageId))
     }
 
     const updatePackageQuantity = (packageId: string, quantity: number) => {
+        trackQuoteStartedOnce()
         setSelectedPackages(selectedPackages.map(p =>
             p.id === packageId ? { ...p, quantity } : p
         ))
@@ -171,7 +202,7 @@ export function PrivateBookingCalculator({ eventType }: PrivateBookingCalculator
         guest_count: guestCount,
         items,
         internal_notes: `Calculated Estimate: ${formatCurrency(total)}`,
-        ...(eventType ? { event_type: eventType } : {})
+        event_type: selectedEventType
     }
 
     if (showInquiryForm) {
@@ -238,10 +269,39 @@ export function PrivateBookingCalculator({ eventType }: PrivateBookingCalculator
             </div>
 
             <div className="p-8 space-y-12 bg-anchor-bg-card">
-                {/* Space Selection */}
                 <section>
                     <div className="flex items-center gap-3 mb-6">
                         <span className="flex items-center justify-center w-7 h-7 border border-anchor-gold/50 text-anchor-gold-vivid text-xs font-bold">1</span>
+                        <h4 className="font-serif text-xl font-bold text-anchor-cream-text">Choose Event Type</h4>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                        {EVENT_TYPE_OPTIONS.map((option) => {
+                            const selected = selectedEventType === option
+                            return (
+                                <button
+                                    key={option}
+                                    type="button"
+                                    onClick={() => {
+                                        trackQuoteStartedOnce(option)
+                                        setSelectedEventType(option)
+                                    }}
+                                    className={`px-4 py-2 text-sm font-semibold transition-all ${selected
+                                        ? 'bg-anchor-gold-vivid text-anchor-bg'
+                                        : 'border border-anchor-gold/30 text-anchor-cream-text hover:border-anchor-gold hover:text-anchor-gold-vivid'
+                                    }`}
+                                    aria-pressed={selected}
+                                >
+                                    {option}
+                                </button>
+                            )
+                        })}
+                    </div>
+                </section>
+
+                {/* Space Selection */}
+                <section>
+                    <div className="flex items-center gap-3 mb-6">
+                        <span className="flex items-center justify-center w-7 h-7 border border-anchor-gold/50 text-anchor-gold-vivid text-xs font-bold">2</span>
                         <h4 className="font-serif text-xl font-bold text-anchor-cream-text">Choose a Space</h4>
                         <a href="/our-pub" className="ml-auto text-sm text-anchor-gold font-semibold hover:text-anchor-gold-vivid hover:underline">
                             See photos &rarr;
@@ -291,7 +351,10 @@ export function PrivateBookingCalculator({ eventType }: PrivateBookingCalculator
                                     name="space"
                                     value={space.id}
                                     checked={selectedSpaceId === space.id}
-                                    onChange={(e) => setSelectedSpaceId(e.target.value)}
+                                    onChange={(e) => {
+                                        trackQuoteStartedOnce()
+                                        setSelectedSpaceId(e.target.value)
+                                    }}
                                     className="sr-only"
                                 />
                             </label>
@@ -302,7 +365,7 @@ export function PrivateBookingCalculator({ eventType }: PrivateBookingCalculator
                 {/* Event Details */}
                 <section className="bg-anchor-bg-raised p-8 border border-anchor-gold/15">
                     <div className="flex items-center gap-3 mb-6">
-                        <span className="flex items-center justify-center w-7 h-7 border border-anchor-gold/50 text-anchor-gold-vivid text-xs font-bold">2</span>
+                        <span className="flex items-center justify-center w-7 h-7 border border-anchor-gold/50 text-anchor-gold-vivid text-xs font-bold">3</span>
                         <h4 className="font-serif text-xl font-bold text-anchor-cream-text">Event Details</h4>
                     </div>
 
@@ -315,7 +378,10 @@ export function PrivateBookingCalculator({ eventType }: PrivateBookingCalculator
                                     min="10"
                                     max={selectedSpace?.capacity_standing || 200}
                                     value={guestCount}
-                                    onChange={(e) => setGuestCount(Number(e.target.value))}
+                                    onChange={(e) => {
+                                        trackQuoteStartedOnce()
+                                        setGuestCount(Number(e.target.value))
+                                    }}
                                     className="w-full pl-5 pr-16 py-4 bg-anchor-bg-card border border-anchor-gold/30 rounded-none focus:ring-2 focus:ring-anchor-gold focus:border-anchor-gold transition-all font-bold text-xl text-anchor-cream-text group-hover:border-anchor-gold/50"
                                 />
                                 <div className="absolute inset-y-0 right-0 pr-5 flex items-center pointer-events-none text-anchor-cream-text/55 font-medium uppercase text-xs tracking-wider">
@@ -331,7 +397,10 @@ export function PrivateBookingCalculator({ eventType }: PrivateBookingCalculator
                                     min={selectedSpace?.minimum_hours || 2}
                                     max="12"
                                     value={hours}
-                                    onChange={(e) => setHours(Number(e.target.value))}
+                                    onChange={(e) => {
+                                        trackQuoteStartedOnce()
+                                        setHours(Number(e.target.value))
+                                    }}
                                     className="w-full pl-5 pr-16 py-4 bg-anchor-bg-card border border-anchor-gold/30 rounded-none focus:ring-2 focus:ring-anchor-gold focus:border-anchor-gold transition-all font-bold text-xl text-anchor-cream-text group-hover:border-anchor-gold/50"
                                 />
                                 <div className="absolute inset-y-0 right-0 pr-5 flex items-center pointer-events-none text-anchor-cream-text/55 font-medium uppercase text-xs tracking-wider">
@@ -346,14 +415,17 @@ export function PrivateBookingCalculator({ eventType }: PrivateBookingCalculator
                 <section>
                     <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-6 gap-4">
                         <div className="flex items-center gap-3">
-                            <span className="flex items-center justify-center w-7 h-7 border border-anchor-gold/50 text-anchor-gold-vivid text-xs font-bold">3</span>
+                            <span className="flex items-center justify-center w-7 h-7 border border-anchor-gold/50 text-anchor-gold-vivid text-xs font-bold">4</span>
                             <div>
                                 <h4 className="font-serif text-xl font-bold text-anchor-cream-text">Catering & Drinks</h4>
                                 <p className="text-sm text-anchor-cream-text/55 mt-1">Add food packages or drinks tokens</p>
                             </div>
                         </div>
                         <button
-                            onClick={() => setIsAddingItem(true)}
+                            onClick={() => {
+                                trackQuoteStartedOnce()
+                                setIsAddingItem(true)
+                            }}
                             className="text-sm bg-anchor-bg-raised border border-dashed border-anchor-gold/40 text-anchor-gold-vivid font-bold px-6 py-3 rounded-none hover:bg-anchor-gold-vivid hover:text-anchor-bg hover:border-anchor-gold-vivid transition-all flex items-center justify-center gap-2"
                         >
                             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -370,7 +442,10 @@ export function PrivateBookingCalculator({ eventType }: PrivateBookingCalculator
                                     <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.25 4.75H4.75D3.64543 4.75 2.75 5.64543 2.75 6.75V19.25L5.75 16.25L8.75 19.25L11.75 16.25L14.75 19.25L17.75 16.25L20.75 19.25V6.75C20.75 5.64543 19.8546 4.75 18.75 4.75H19.25Z" /></svg>
                                 </div>
                                 <p className="text-anchor-cream-text/55 font-medium mb-1">No catering items selected.</p>
-                                <button onClick={() => setIsAddingItem(true)} className="text-anchor-gold font-bold hover:underline text-sm">Browse Menu Options</button>
+                                <button onClick={() => {
+                                    trackQuoteStartedOnce()
+                                    setIsAddingItem(true)
+                                }} className="text-anchor-gold font-bold hover:underline text-sm">Browse Menu Options</button>
                             </div>
                         )}
 
@@ -537,7 +612,7 @@ export function PrivateBookingCalculator({ eventType }: PrivateBookingCalculator
                 {config.vendors.length > 0 && (
                     <section>
                         <div className="flex items-center gap-3 mb-6">
-                            <span className="flex items-center justify-center w-7 h-7 border border-anchor-gold/50 text-anchor-gold-vivid text-xs font-bold">4</span>
+                            <span className="flex items-center justify-center w-7 h-7 border border-anchor-gold/50 text-anchor-gold-vivid text-xs font-bold">5</span>
                             <h4 className="font-serif text-xl font-bold text-anchor-cream-text">Recommended Services</h4>
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -574,7 +649,15 @@ export function PrivateBookingCalculator({ eventType }: PrivateBookingCalculator
                 </div>
 
                 <button
-                    onClick={() => setShowInquiryForm(true)}
+                    onClick={() => {
+                        trackQuoteToolCompleted({
+                            eventType: selectedEventType,
+                            guestCount,
+                            estimateValue: total,
+                            pageSource: typeof window !== 'undefined' ? window.location.pathname : ''
+                        })
+                        setShowInquiryForm(true)
+                    }}
                     className="group px-8 py-4 bg-anchor-gold-vivid hover:bg-anchor-gold text-anchor-bg font-bold text-lg rounded-none transition-all w-full md:w-auto flex items-center justify-center gap-2"
                 >
                     Check Availability

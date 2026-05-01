@@ -161,12 +161,6 @@ interface EventCardProps {
 }
 
 const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
-  const { ref, inView } = useInView({
-    threshold: 0.1,
-    triggerOnce: true,
-    rootMargin: '100px'
-  })
-
   const isTimeChange = !!event.isTimeChange
   const eventImage = event.image?.[0] || event.heroImageUrl || DEFAULT_EVENT_IMAGE
   const timingInfo = isTimeChange ? null : getEventTimingInfo(event)
@@ -215,30 +209,25 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
     }
 
     return (
-      <div ref={ref} className="border-l-2 border-anchor-gold/40 bg-anchor-bg-raised/30 px-4 py-3">
-        {inView ? (
-          <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 text-base">
-            <span className="font-semibold text-anchor-cream-text whitespace-nowrap">{eventDate}</span>
-            <span className="text-anchor-cream-text/50 hidden sm:inline">·</span>
-            <span className="text-anchor-cream-text/70">{hoursParts.join(' · ')}</span>
-            {timeChangeMessage && timeChangeMessage !== 'Opening hours have been adjusted for this date.' && (
-              <>
-                <span className="text-anchor-cream-text/50 hidden sm:inline">·</span>
-                <span className="text-anchor-gold-vivid text-sm font-medium">{timeChangeMessage}</span>
-              </>
-            )}
-          </div>
-        ) : (
-           <div className="h-6 bg-anchor-bg-raised animate-pulse rounded"></div>
-        )}
+      <div className="border-l-2 border-anchor-gold/40 bg-anchor-bg-raised/30 px-4 py-3">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 text-base">
+          <span className="font-semibold text-anchor-cream-text whitespace-nowrap">{eventDate}</span>
+          <span className="text-anchor-cream-text/50 hidden sm:inline">·</span>
+          <span className="text-anchor-cream-text/70">{hoursParts.join(' · ')}</span>
+          {timeChangeMessage && timeChangeMessage !== 'Opening hours have been adjusted for this date.' && (
+            <>
+              <span className="text-anchor-cream-text/50 hidden sm:inline">·</span>
+              <span className="text-anchor-gold-vivid text-sm font-medium">{timeChangeMessage}</span>
+            </>
+          )}
+        </div>
       </div>
     )
   }
 
   return (
-    <div ref={ref} className="card-dark rounded-none overflow-hidden">
-      {inView ? (
-        <>
+    <div className="card-dark rounded-none overflow-hidden">
+      <>
           {/* Mobile Layout — image on top, content below */}
           <div className="sm:hidden">
             {!isTimeChange && (
@@ -385,23 +374,7 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
               )}
             </div>
           </div>
-        </>
-      ) : (
-        // Loading skeleton
-        <div className="animate-pulse">
-          <div className="bg-anchor-bg-raised h-20 sm:h-24"></div>
-          <div className="p-4 sm:p-6">
-            <div className="flex items-start gap-3 sm:gap-4">
-              <div className="w-20 h-20 sm:w-32 sm:h-32 bg-anchor-bg-raised rounded-lg"></div>
-              <div className="flex-1 space-y-3">
-                <div className="h-4 bg-anchor-bg-raised rounded w-3/4"></div>
-                <div className="h-4 bg-anchor-bg-raised rounded w-1/2"></div>
-                <div className="h-4 bg-anchor-bg-raised rounded w-1/4"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      </>
     </div>
   )
 })

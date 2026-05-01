@@ -115,7 +115,7 @@ export default function PoolAndDartsPage() {
                         answer: "Children are welcome to play under adult supervision, provided they are tall enough to play safely and respectfully with the equipment."
                     }
                 ]}
-                className="bg-white"
+                className="bg-anchor-bg-card"
             />
 
             <CTASection

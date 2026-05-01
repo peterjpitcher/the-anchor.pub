@@ -32,14 +32,13 @@ A cross-reference map: who calls whom, which file uses which integration, and wh
 
 - `lib/turnstile.ts` — server-side token verification
 - `lib/spam-protection.ts` — orchestrates Turnstile + heuristic checks for booking forms
-- Consumers: `app/api/table-bookings/route.ts`, `app/api/booking/agent/route.ts`, `app/api/public/private-booking/route.ts`, `app/api/event-bookings/route.ts`, `app/api/event-waitlist/route.ts`, `app/api/parking/bookings/route.ts`, `app/api/enquiry/christmas/route.ts`, `app/api/enquiry/open-mic/route.ts`
+- Consumers: `app/api/table-bookings/route.ts`, `app/api/booking/agent/route.ts`, `app/api/public/private-booking/route.ts`, `app/api/event-bookings/route.ts`, `app/api/event-waitlist/route.ts`, `app/api/parking/bookings/route.ts`, `app/api/enquiry/christmas/route.ts`
 - Widget rendered by: `components/PrivateBookingInquiryForm.tsx`, `components/features/EventBooking/ManagementEventBookingForm.tsx`, `components/features/TableBooking/ManagementTableBookingForm.tsx`
 
 ### Microsoft Graph (enquiry emails)
 
 - `app/api/enquiry/christmas/route.ts`
-- `app/api/enquiry/open-mic/route.ts`
-- Both also forward the structured enquiry to the management API; Graph is the email transport.
+- This also forwards the structured enquiry to the management API; Graph is the email transport.
 
 ### Google Tag Manager + Microsoft Clarity
 
@@ -66,7 +65,6 @@ A cross-reference map: who calls whom, which file uses which integration, and wh
 | `/api/parking/*` | `app/heathrow-parking/*`, `app/parking/bookings/[id]/page.tsx` |
 | `/api/private-booking-enquiry`, `/api/public/private-booking*` | `components/PrivateBookingInquiryForm.tsx`, `app/private-hire/*` |
 | `/api/enquiry/christmas` | `app/christmas-parties/page.tsx`, `app/corporate-christmas-parties/page.tsx` |
-| `/api/enquiry/open-mic` | `app/open-mic/page.tsx` |
 | `/api/customers/lookup` | Booking forms (returning-customer prefill) |
 | `/api/reviews*` | `app/reviews/page.tsx`, homepage testimonial sections |
 | `/api/analytics`, `/api/web-vitals` | `components/tracking/*` (web-vitals beacons) |

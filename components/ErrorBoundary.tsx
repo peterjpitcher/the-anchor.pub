@@ -46,10 +46,10 @@ export class ErrorBoundary extends React.Component<Props, State> {
       return (
         <div className="min-h-[200px] flex items-center justify-center p-4">
           <div className="text-center max-w-md">
-            <h2 className="text-xl font-semibold text-gray-900 mb-2">
+            <h2 className="text-xl font-semibold text-anchor-cream-text mb-2">
               Something went wrong
             </h2>
-            <p className="text-gray-600 mb-4">
+            <p className="text-anchor-cream-text/70 mb-4">
               We're sorry, but something unexpected happened. Please try refreshing the page.
             </p>
             <Button onClick={this.reset} variant="primary">
