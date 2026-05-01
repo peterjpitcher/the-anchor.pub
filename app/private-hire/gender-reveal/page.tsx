@@ -108,7 +108,7 @@ export default async function GenderRevealPage() {
                             Gender Reveal Party Venue Near Heathrow
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">
-                            Gender reveals are all about the moment — and the photos! The Anchor offers extensive outdoor space ideal for smoke cannons, balloon pops, or confetti showers, followed by a relaxed celebration with your loved ones.
+                            Gender reveals are all about the moment, and the photos! The Anchor offers extensive outdoor space ideal for smoke cannons, balloon pops, or confetti showers, followed by a relaxed celebration with your loved ones.
                         </p>
                     </div>
                 </Container>
@@ -249,7 +249,7 @@ export default async function GenderRevealPage() {
                 <Container>
                     <SectionHeader
                         title="Gender Reveal Party Packages"
-                        subtitle="Food, drinks, and the big moment — all taken care of"
+                        subtitle="Food, drinks, and the big moment, all taken care of"
                     />
                     <div className="max-w-4xl mx-auto">
                         <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6 mb-8">
@@ -281,20 +281,20 @@ export default async function GenderRevealPage() {
                                 <h3 className="text-lg font-bold text-anchor-cream-text mb-3">Outdoor Reveal Ideas</h3>
                                 <p className="text-anchor-cream-text/70 mb-3">Our beer garden is the perfect stage for dramatic outdoor reveals. Popular choices include:</p>
                                 <ul className="text-sm text-anchor-cream-text/70 space-y-2">
-                                    <li><strong className="text-anchor-gold-vivid">Smoke cannons</strong> — the most popular choice. Vivid pink or blue smoke against the open sky makes for spectacular photos.</li>
-                                    <li><strong className="text-anchor-gold-vivid">Confetti poppers</strong> — handheld confetti cannons that shower pink or blue tissue paper. Best on a calm day.</li>
-                                    <li><strong className="text-anchor-gold-vivid">Balloon pop</strong> — fill a large black balloon with pink or blue confetti. Pop it together for the big reveal.</li>
-                                    <li><strong className="text-anchor-gold-vivid">Paint throw</strong> — wearing white, throw coloured powder paint at each other for an unforgettable reveal (and unforgettable photos).</li>
+                                    <li><strong className="text-anchor-gold-vivid">Smoke cannons</strong>, the most popular choice. Vivid pink or blue smoke against the open sky makes for spectacular photos.</li>
+                                    <li><strong className="text-anchor-gold-vivid">Confetti poppers</strong>, handheld confetti cannons that shower pink or blue tissue paper. Best on a calm day.</li>
+                                    <li><strong className="text-anchor-gold-vivid">Balloon pop</strong>, fill a large black balloon with pink or blue confetti. Pop it together for the big reveal.</li>
+                                    <li><strong className="text-anchor-gold-vivid">Paint throw</strong>, wearing white, throw coloured powder paint at each other for an unforgettable reveal (and unforgettable photos).</li>
                                 </ul>
                             </div>
                             <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
                                 <h3 className="text-lg font-bold text-anchor-cream-text mb-3">Indoor Reveal Ideas</h3>
                                 <p className="text-anchor-cream-text/70 mb-3">If you prefer an indoor gender reveal party, or the weather is not cooperating, these options work brilliantly inside:</p>
                                 <ul className="text-sm text-anchor-cream-text/70 space-y-2">
-                                    <li><strong className="text-anchor-gold-vivid">Cake cutting</strong> — a white-iced cake with pink or blue sponge inside. The classic reveal moment that everyone loves.</li>
-                                    <li><strong className="text-anchor-gold-vivid">Box opening</strong> — a large box filled with pink or blue balloons that float out when the lid is lifted.</li>
-                                    <li><strong className="text-anchor-gold-vivid">Scratch cards</strong> — hand out custom scratch cards to guests and let everyone reveal at the same time.</li>
-                                    <li><strong className="text-anchor-gold-vivid">Piñata</strong> — fill a piñata with pink or blue sweets. The parents-to-be take turns until the big reveal spills out.</li>
+                                    <li><strong className="text-anchor-gold-vivid">Cake cutting</strong>, a white-iced cake with pink or blue sponge inside. The classic reveal moment that everyone loves.</li>
+                                    <li><strong className="text-anchor-gold-vivid">Box opening</strong>, a large box filled with pink or blue balloons that float out when the lid is lifted.</li>
+                                    <li><strong className="text-anchor-gold-vivid">Scratch cards</strong>, hand out custom scratch cards to guests and let everyone reveal at the same time.</li>
+                                    <li><strong className="text-anchor-gold-vivid">Piñata</strong>, fill a piñata with pink or blue sweets. The parents-to-be take turns until the big reveal spills out.</li>
                                 </ul>
                             </div>
                         </div>
@@ -316,11 +316,11 @@ export default async function GenderRevealPage() {
                     <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-6">
                         <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
                             <p className="text-anchor-cream-text/70 italic mb-4">&ldquo;We did our gender reveal in the beer garden with smoke cannons and it was absolutely amazing. The photos came out brilliantly. The staff helped us time everything perfectly so our photographer was ready. Could not have gone better.&rdquo;</p>
-                            <p className="text-sm text-anchor-gold-vivid font-semibold">— Chloe &amp; Dan, Staines</p>
+                            <p className="text-sm text-anchor-gold-vivid font-semibold">Chloe &amp; Dan, Staines</p>
                         </div>
                         <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
-                            <p className="text-anchor-cream-text/70 italic mb-4">&ldquo;We used the keeper of the gender service and it was brilliant — we were just as surprised as our guests! The buffet was generous, the garden was lovely, and the staff were genuinely excited for us. Such a fun afternoon at a great gender reveal venue.&rdquo;</p>
-                            <p className="text-sm text-anchor-gold-vivid font-semibold">— Priya &amp; Raj, Feltham</p>
+                            <p className="text-anchor-cream-text/70 italic mb-4">&ldquo;We used the keeper of the gender service and it was brilliant, we were just as surprised as our guests! The buffet was generous, the garden was lovely, and the staff were genuinely excited for us. Such a fun afternoon at a great gender reveal venue.&rdquo;</p>
+                            <p className="text-sm text-anchor-gold-vivid font-semibold">Priya &amp; Raj, Feltham</p>
                         </div>
                     </div>
                 </Container>
@@ -356,7 +356,7 @@ export default async function GenderRevealPage() {
                         answer: "We always have an indoor backup plan ready. While smoke cannons work best outdoors, we can switch to a balloon pop or cake cut inside our function area. We will agree your indoor backup option at the time of booking."
                     },
                     {
-                        question: "Can I use the garden or indoors — or both?",
+                        question: "Can I use the garden or indoors, or both?",
                         answer: "You can choose either setting, or use both: start the celebration inside with food and drinks, then head to the garden for the reveal moment. We will help you plan the flow of the event when you enquire."
                     },
                     {

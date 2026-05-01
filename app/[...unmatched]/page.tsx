@@ -10,7 +10,7 @@ type UnmatchedPageProps = {
 }
 
 export default function UnmatchedPage({ params, searchParams }: UnmatchedPageProps) {
-  // Vercel preview deploy URLs use ?dpl= parameter — redirect these to homepage
+  // Vercel preview deploy URLs use ?dpl= parameter, redirect these to homepage
   if (searchParams?.dpl) {
     redirect(buildFallbackHomeRedirect(searchParams))
   }

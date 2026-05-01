@@ -30,7 +30,7 @@ images: []
 noindex: true
 ---
 
-Walking into a historic British pub like The Anchor in Stanwell Moor Village is more than a casual outing—it’s a step into a cultural institution that bridges tradition and community spirit. Combining its 19th-century charm with a modern, inclusive approach, The Anchor creates a versatile and welcoming environment, catering to locals, travellers, and families alike. To make the most of your visit, understanding the unspoken rules of pub etiquette will help you enjoy your night out while respecting the cherished customs of British pub culture.
+Walking into a historic British pub like The Anchor in Stanwell Moor Village is more than a casual outing, it’s a step into a cultural institution that bridges tradition and community spirit. Combining its 19th-century charm with a modern, inclusive approach, The Anchor creates a versatile and welcoming environment, catering to locals, travellers, and families alike. To make the most of your visit, understanding the unspoken rules of pub etiquette will help you enjoy your night out while respecting the cherished customs of British pub culture.
 
   
 
@@ -48,7 +48,7 @@ British pubs often operate on a counter-service system, where patrons order dire
 
   
 
-*   **Wait Your Turn Politely:** There may not be an obvious queue, but bartenders will serve customers in the order they arrive. Avoid calling out to the staff—simply stand at the bar and make eye contact when ready to order.
+*   **Wait Your Turn Politely:** There may not be an obvious queue, but bartenders will serve customers in the order they arrive. Avoid calling out to the staff, simply stand at the bar and make eye contact when ready to order.
     
 *   **Know What You Want:** Browse the drinks menu in advance to avoid holding up the line. For a true local experience, try one of our bottled ales like Abbot Ale.
     
@@ -70,7 +70,7 @@ In British pubs, tipping is less formal than in other dining establishments, but
       
     
 
-Unsure about tipping customs? Don’t hesitate to ask politely—it’s always better to clarify than overthink.
+Unsure about tipping customs? Don’t hesitate to ask politely, it’s always better to clarify than overthink.
 
   
 
@@ -80,7 +80,7 @@ British pubs are known for their warmth and inclusivity, but maintaining persona
 
   
 
-*   **Be Aware of Regular Patrons:** Some seats or spots may be unofficially “reserved” by locals who frequent the pub. If in doubt, a quick smile and question—“Is this seat taken?”—will avoid misunderstandings.
+*   **Be Aware of Regular Patrons:** Some seats or spots may be unofficially “reserved” by locals who frequent the pub. If in doubt, a quick smile and question, “Is this seat taken?”, will avoid misunderstandings.
     
 *   **Keep the Bar Area Clear:** Once your drink is in hand, step away from the bar to allow others access. This simple act contributes to the relaxed yet efficient atmosphere pubs are known for.
     
@@ -108,7 +108,7 @@ One of the joys of British pub culture lies in the social opportunities it offer
 
 ### 5\. Responsible Drinking and Dining
 
-Enjoying a great night out at a pub isn’t about how many pints you can drink—it’s about savouring the experience responsibly.
+Enjoying a great night out at a pub isn’t about how many pints you can drink, it’s about savouring the experience responsibly.
 
   
 
@@ -134,7 +134,7 @@ Practising good etiquette extends beyond your time at the bar. Ensuring you leav
 
 ## Discover the Joy of British Pub Culture at The Anchor
 
-Whether you’re stopping in for a quick pint, a family meal, or a lively evening with friends, a visit to The Anchor is about more than just great food and drink—it’s about sharing in the cherished tradition of British pub culture. Combining history with inclusivity, we take pride in offering a warm and welcoming space for all.
+Whether you’re stopping in for a quick pint, a family meal, or a lively evening with friends, a visit to The Anchor is about more than just great food and drink, it’s about sharing in the cherished tradition of British pub culture. Combining history with inclusivity, we take pride in offering a warm and welcoming space for all.
 
   
 

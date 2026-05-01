@@ -231,7 +231,7 @@ export function AllergenFilterBar({
           </p>
         </div>
 
-        {/* Panel footer — clear all */}
+        {/* Panel footer, clear all */}
         {activeFilterCount > 0 && (
           <div className="border-t border-anchor-gold/15 px-5 py-4">
             <button

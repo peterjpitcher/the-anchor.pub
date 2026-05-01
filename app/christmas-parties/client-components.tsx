@@ -125,7 +125,7 @@ const useCountdown = (target: string | Date) => {
 }
 
 const PERK_OPTIONS = [
-  { id: 'early-bird', label: 'Early-Bird: 20% off your food bill — book by 1 Oct (parties of 6+)' },
+  { id: 'early-bird', label: 'Early-Bird: 20% off your food bill, book by 1 Oct (parties of 6+)' },
   { id: 'mid-week', label: 'Tue–Wed: complimentary coffee & mince pie with your festive dinner' }
 ]
 
@@ -171,7 +171,7 @@ const EarlyBirdCountdown = ({ className = '' }: { className?: string }) => {
 const FAQ_ITEMS = [
   {
     question: "Is there a minimum spend for shared party nights or private hire?",
-    answer: "Weeknight shared Christmas party nights start at £36.95 per guest with no additional room hire. Weekend private dinners run from £39.95 per guest — we agree a minimum guest count, not a bar spend, so you keep control of the budget."
+    answer: "Weeknight shared Christmas party nights start at £36.95 per guest with no additional room hire. Weekend private dinners run from £39.95 per guest, we agree a minimum guest count, not a bar spend, so you keep control of the budget."
   },
   {
     question: "Is there a hire fee for Christmas parties?",
@@ -183,7 +183,7 @@ const FAQ_ITEMS = [
   },
   {
     question: "Are you close to Heathrow and Staines?",
-    answer: "Yes — seven minutes from Heathrow Terminal 5, around fifteen from Terminal 2 and eight minutes from Staines-upon-Thames. We're an easy-to-reach Christmas party venue for Ashford, Windsor, west London and the Heathrow villages."
+    answer: "Yes, seven minutes from Heathrow Terminal 5, around fifteen from Terminal 2 and eight minutes from Staines-upon-Thames. We're an easy-to-reach Christmas party venue for Ashford, Windsor, west London and the Heathrow villages."
   },
   {
     question: "Can we bring our own food?",
@@ -215,7 +215,7 @@ const FAQ_ITEMS = [
   },
   {
     question: "Can we have exclusive use of the whole pub?",
-    answer: "Yes — full venue hire is available for parties of 60 or more on selected dates, typically midweek. You get the run of the bar, dining room and conservatory with your own playlist or live entertainment. Get in touch early — exclusive-use dates go fast."
+    answer: "Yes, full venue hire is available for parties of 60 or more on selected dates, typically midweek. You get the run of the bar, dining room and conservatory with your own playlist or live entertainment. Get in touch early, exclusive-use dates go fast."
   },
   {
     question: "Do you offer corporate Christmas party packages near Heathrow?",
@@ -223,7 +223,7 @@ const FAQ_ITEMS = [
   },
   {
     question: "Can we book a Christmas party for just drinks, no food?",
-    answer: "Yes. We can reserve an area for a drinks-only celebration and set up a pre-paid bar tab. Add nibbles or a buffet later if you change your mind — we're flexible."
+    answer: "Yes. We can reserve an area for a drinks-only celebration and set up a pre-paid bar tab. Add nibbles or a buffet later if you change your mind, we're flexible."
   },
   {
     question: "What time do Christmas parties start and finish?",
@@ -231,7 +231,7 @@ const FAQ_ITEMS = [
   },
   {
     question: "Is The Anchor outside the ULEZ zone?",
-    answer: "Yes — we're outside the ULEZ boundary, saving your guests £12.50 per vehicle compared to driving into London. Free parking on-site makes us one of the most accessible Christmas party venues near Heathrow."
+    answer: "Yes, we're outside the ULEZ boundary, saving your guests £12.50 per vehicle compared to driving into London. Free parking on-site makes us one of the most accessible Christmas party venues near Heathrow."
   },
   {
     question: "Can we book a Christmas lunch instead of dinner?",
@@ -239,7 +239,7 @@ const FAQ_ITEMS = [
   },
   {
     question: "What's the difference between a Christmas do and a shared party night?",
-    answer: "They're the same thing by a different name. A shared Christmas party night means your group has its own table and festive setup, but you share the pub with other parties — so there's a great atmosphere without needing to fill the whole venue. Whether you call it your works Christmas do, your staff Christmas party or just \"the annual night out,\" the format works brilliantly for groups of six to twenty-five."
+    answer: "They're the same thing by a different name. A shared Christmas party night means your group has its own table and festive setup, but you share the pub with other parties, so there's a great atmosphere without needing to fill the whole venue. Whether you call it your works Christmas do, your staff Christmas party or just \"the annual night out,\" the format works brilliantly for groups of six to twenty-five."
   },
   {
     question: "Do you serve a festive menu outside of party bookings?",
@@ -247,7 +247,7 @@ const FAQ_ITEMS = [
   },
   {
     question: "Can I find you by searching \"xmas party near me\"?",
-    answer: "Yes — whether you search for \"xmas party near me,\" \"Christmas party near me\" or \"Christmas lunch near me,\" you'll find us. We're in Stanwell Moor, Surrey, seven minutes from Heathrow Terminal 5 and ten minutes from Staines-upon-Thames. The postcode is TW19 6AQ if you want to check the drive time from your office."
+    answer: "Yes, whether you search for \"xmas party near me,\" \"Christmas party near me\" or \"Christmas lunch near me,\" you'll find us. We're in Stanwell Moor, Surrey, seven minutes from Heathrow Terminal 5 and ten minutes from Staines-upon-Thames. The postcode is TW19 6AQ if you want to check the drive time from your office."
   }
 ]
 
@@ -263,7 +263,7 @@ const TESTIMONIALS = [
     detail: "Airline operations team, Heathrow"
   },
   {
-    quote: "We booked a Christmas lunch for twelve — the turkey was honestly better than my nan's. Don't tell her. Crackers, candles, the lot. Proper festive without being tacky.",
+    quote: "We booked a Christmas lunch for twelve, the turkey was honestly better than my nan's. Don't tell her. Crackers, candles, the lot. Proper festive without being tacky.",
     author: "Michelle K.",
     detail: "Staines-upon-Thames"
   }
@@ -273,7 +273,7 @@ const WHY_BOOK_REASONS = [
   {
     icon: 'car' as const,
     title: 'Free Parking for Every Guest',
-    description: 'Around 20 free spaces on-site — no meters, no charges, no stress. Leave the car overnight and collect it the next morning. That alone makes us one of the easiest Christmas party venues near Heathrow to get to.'
+    description: 'Around 20 free spaces on-site, no meters, no charges, no stress. Leave the car overnight and collect it the next morning. That alone makes us one of the easiest Christmas party venues near Heathrow to get to.'
   },
   {
     icon: 'mapPin' as const,
@@ -288,7 +288,7 @@ const WHY_BOOK_REASONS = [
   {
     icon: 'users' as const,
     title: 'Private Spaces for Every Size',
-    description: 'Intimate dining room for up to 25, main bar for larger groups, full venue hire for up to 60 seated and 200 standing. We shape the space around your party — not the other way round.'
+    description: 'Intimate dining room for up to 25, main bar for larger groups, full venue hire for up to 60 seated and 200 standing. We shape the space around your party, not the other way round.'
   },
   {
     icon: 'heart' as const,
@@ -310,7 +310,7 @@ const PARTY_IDEAS = [
   },
   {
     title: 'Music Bingo Christmas Edition',
-    description: 'Bingo, but you\'re listening for Christmas songs instead of numbers. Dab your card when your tune plays. Get a line or full house and win prizes. Surprisingly competitive — and it gets the whole room singing.',
+    description: 'Bingo, but you\'re listening for Christmas songs instead of numbers. Dab your card when your tune plays. Get a line or full house and win prizes. Surprisingly competitive, and it gets the whole room singing.',
     ideal: 'Mixed groups who want something different and inclusive'
   },
   {
@@ -498,7 +498,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
               <div className="flex items-center gap-2">
                 <Icon name="sparkles" className="h-5 w-5" />
                 <p className="text-sm md:text-base font-semibold">
-                  Book by 1 Oct and take 20% off your food bill — that's every adult in parties of six or more.
+                  Book by 1 Oct and take 20% off your food bill, that's every adult in parties of six or more.
                 </p>
               </div>
               <EarlyBirdCountdown className="text-red-100 text-xs md:text-sm" />
@@ -528,7 +528,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
               <div className="p-6 space-y-3 text-center">
                 <Icon name="calendar" className="mx-auto h-8 w-8 text-red-600" />
                 <h3 className="text-lg font-semibold text-anchor-cream-text">Mid-week Christmas meals from £36.95</h3>
-                <p className="text-sm text-anchor-cream-text/70">Tue–Thu three-course festive dinners for £36.95 per person. The same generous menu, the same crackers and candles — just a kinder price tag for your Christmas do.</p>
+                <p className="text-sm text-anchor-cream-text/70">Tue–Thu three-course festive dinners for £36.95 per person. The same generous menu, the same crackers and candles, just a kinder price tag for your Christmas do.</p>
               </div>
             </Card>
             <Card className="h-full">
@@ -542,7 +542,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
               <div className="p-6 space-y-3 text-center">
                 <Icon name="gift" className="mx-auto h-8 w-8 text-red-600" />
                 <h3 className="text-lg font-semibold text-anchor-cream-text">Crackers, candles & proper festive warmth</h3>
-                <p className="text-sm text-anchor-cream-text/70">Tables dressed for Christmas with crackers and candlelight. A real village pub with character — not a chain restaurant with tinsel.</p>
+                <p className="text-sm text-anchor-cream-text/70">Tables dressed for Christmas with crackers and candlelight. A real village pub with character, not a chain restaurant with tinsel.</p>
               </div>
             </Card>
           </Grid>
@@ -621,10 +621,10 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
           <div className="mx-auto max-w-4xl space-y-4 text-center">
             <h2 className="text-2xl font-bold text-anchor-cream-text">Christmas party venue minutes from Heathrow, Staines &amp; Surrey</h2>
             <p className="text-base text-anchor-cream-text/70">
-              The Anchor is one of the most popular Christmas party venues in Surrey for a reason — we're seven minutes from Heathrow Terminal 5, fifteen from Terminal 2 and just over the river from Windsor. Airport teams, Staines offices and Surrey neighbours celebrate here without the stress of city travel. If you're searching for Christmas parties near Heathrow or a Christmas lunch in Surrey, you've found the right place.
+              The Anchor is one of the most popular Christmas party venues in Surrey for a reason, we're seven minutes from Heathrow Terminal 5, fifteen from Terminal 2 and just over the river from Windsor. Airport teams, Staines offices and Surrey neighbours celebrate here without the stress of city travel. If you're searching for Christmas parties near Heathrow or a Christmas lunch in Surrey, you've found the right place.
             </p>
             <p className="text-sm text-anchor-cream-text/70">
-              We're also one of the best-value options around. Mid-week Christmas dinners start at £36.95 for a full three-course meal with all the trimmings, and festive lunches run on the same menu — so whether your team wants a Christmas lunch near Staines or an evening works Christmas do after shifts, the price stays fair. As a Christmas party venue outside the ULEZ zone with free parking, we save your guests money before they've even ordered a drink. That's why Heathrow crews, Poyle business park teams and west London groups book us year after year.
+              We're also one of the best-value options around. Mid-week Christmas dinners start at £36.95 for a full three-course meal with all the trimmings, and festive lunches run on the same menu, so whether your team wants a Christmas lunch near Staines or an evening works Christmas do after shifts, the price stays fair. As a Christmas party venue outside the ULEZ zone with free parking, we save your guests money before they've even ordered a drink. That's why Heathrow crews, Poyle business park teams and west London groups book us year after year.
             </p>
           </div>
         </Container>
@@ -679,7 +679,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                 </tbody>
               </table>
               <p className="px-4 py-4 text-sm text-anchor-cream-text/70 border-t border-anchor-gold/15">
-                Our festive menu is available for parties of six or more. A £10 per person deposit secures your Christmas party booking and is non-refundable. Full pre-orders for every guest are due seven days in advance — we&apos;ll do our best with late changes but can&apos;t guarantee them. Flag dietary requirements when you order so we can prepare suitable alternatives; some substitutions may carry a small surcharge. Tables are reserved for two hours as standard.
+                Our festive menu is available for parties of six or more. A £10 per person deposit secures your Christmas party booking and is non-refundable. Full pre-orders for every guest are due seven days in advance, we&apos;ll do our best with late changes but can&apos;t guarantee them. Flag dietary requirements when you order so we can prepare suitable alternatives; some substitutions may carry a small surcharge. Tables are reserved for two hours as standard.
               </p>
             </div>
             <div className="flex flex-col md:flex-row justify-center gap-4">
@@ -726,9 +726,9 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
             <div className="space-y-6">
               <Badge className="bg-red-100 text-red-700 w-fit">Festive 3-course set menu</Badge>
               <h2 className="text-3xl font-bold text-anchor-cream-text">Our festive menu</h2>
-              <p className="text-sm italic text-anchor-cream-text/70 mb-2">Sample menu — 2026 selection confirmed in October</p>
+              <p className="text-sm italic text-anchor-cream-text/70 mb-2">Sample menu, 2026 selection confirmed in October</p>
               <p className="text-base sm:text-lg text-anchor-cream-text/70">
-                Three generous courses that feel like Christmas at home, just with someone else doing the washing up. Whether you're booking a festive dinner for Friday night or a Christmas lunch for the team on a Tuesday, every main arrives with herb-crusted triple-cooked roast potatoes, seasonal vegetables, Yorkshire puddings, pigs in blankets, sage &amp; onion stuffing and our signature gravy. It's the same festive menu for lunch and dinner — so your Christmas meal tastes just as good at midday.
+                Three generous courses that feel like Christmas at home, just with someone else doing the washing up. Whether you're booking a festive dinner for Friday night or a Christmas lunch for the team on a Tuesday, every main arrives with herb-crusted triple-cooked roast potatoes, seasonal vegetables, Yorkshire puddings, pigs in blankets, sage &amp; onion stuffing and our signature gravy. It's the same festive menu for lunch and dinner, so your Christmas meal tastes just as good at midday.
               </p>
               <p className="text-sm text-anchor-gold font-semibold">Available for festive parties of six or more guests.</p>
               <div className="space-y-5 text-left">
@@ -908,7 +908,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
           <div className="max-w-4xl mx-auto text-center space-y-6">
             <h2 className="text-3xl font-bold text-anchor-cream-text">Festive buffets for 26 or more guests</h2>
             <p className="text-anchor-cream-text/70">
-              Standing receptions, quiz nights, team gatherings — buffets keep things relaxed. Food is laid out for 90 minutes with hot dishes refreshed for the first hour, giving you a flexible Christmas party format that works for afternoon celebrations and late-night dos alike.
+              Standing receptions, quiz nights, team gatherings, buffets keep things relaxed. Food is laid out for 90 minutes with hot dishes refreshed for the first hour, giving you a flexible Christmas party format that works for afternoon celebrations and late-night dos alike.
             </p>
           </div>
 
@@ -1035,7 +1035,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
             <Card className="h-full">
               <div className="p-6 space-y-3">
                 <h3 className="text-lg font-semibold text-anchor-cream-text">Main Bar & Dining</h3>
-                <p className="text-sm text-anchor-cream-text/70">Flexible layouts for larger celebrations — sit-down dinners, buffet-style evenings or standing receptions. We'll shape the room to fit your Christmas party, whether it's 30 or 60 guests.</p>
+                <p className="text-sm text-anchor-cream-text/70">Flexible layouts for larger celebrations, sit-down dinners, buffet-style evenings or standing receptions. We'll shape the room to fit your Christmas party, whether it's 30 or 60 guests.</p>
               </div>
             </Card>
             <Card className="h-full">
@@ -1111,7 +1111,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
               <Badge className="bg-red-100 text-red-700 w-fit mx-auto">Corporate &amp; office parties</Badge>
               <h2 className="text-3xl font-bold text-anchor-cream-text">Office Christmas party venue near Heathrow</h2>
               <p className="text-base text-anchor-cream-text/70 max-w-3xl mx-auto">
-                Been tasked with organising the works Christmas do? You need somewhere everyone can get to, food that's actually good, and a bill that won't make finance wince. We make all three easy — and we've been hosting office Christmas parties for Heathrow businesses, Poyle teams and Surrey offices for years.
+                Been tasked with organising the works Christmas do? You need somewhere everyone can get to, food that's actually good, and a bill that won't make finance wince. We make all three easy, and we've been hosting office Christmas parties for Heathrow businesses, Poyle teams and Surrey offices for years.
               </p>
             </div>
             <div className="grid md:grid-cols-2 gap-8 items-start">
@@ -1120,23 +1120,23 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                 <ul className="space-y-3 text-sm text-anchor-cream-text/70">
                   <li className="flex items-start gap-3">
                     <Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid flex-shrink-0" />
-                    <span><strong className="text-anchor-cream-text">Central for distributed teams</strong> — Seven minutes from Heathrow T5, two minutes off M25 J14. Colleagues from different offices, terminals or countries meet in one easy spot.</span>
+                    <span><strong className="text-anchor-cream-text">Central for distributed teams</strong>, Seven minutes from Heathrow T5, two minutes off M25 J14. Colleagues from different offices, terminals or countries meet in one easy spot.</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid flex-shrink-0" />
-                    <span><strong className="text-anchor-cream-text">VAT invoices and corporate billing</strong> — Proper invoices for accounts, pre-payment options for bar tabs, and deposit invoicing so finance stays happy.</span>
+                    <span><strong className="text-anchor-cream-text">VAT invoices and corporate billing</strong>, Proper invoices for accounts, pre-payment options for bar tabs, and deposit invoicing so finance stays happy.</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid flex-shrink-0" />
-                    <span><strong className="text-anchor-cream-text">Simple pre-order system</strong> — No more chasing colleagues for menu choices on spreadsheets. We send you a form link to share with the team.</span>
+                    <span><strong className="text-anchor-cream-text">Simple pre-order system</strong>, No more chasing colleagues for menu choices on spreadsheets. We send you a form link to share with the team.</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid flex-shrink-0" />
-                    <span><strong className="text-anchor-cream-text">Free parking and ULEZ-free</strong> — Around 20 free spaces plus we're outside the ULEZ zone. No parking charges, no congestion fees.</span>
+                    <span><strong className="text-anchor-cream-text">Free parking and ULEZ-free</strong>, Around 20 free spaces plus we're outside the ULEZ zone. No parking charges, no congestion fees.</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <Icon name="check" className="mt-0.5 h-5 w-5 text-anchor-gold-vivid flex-shrink-0" />
-                    <span><strong className="text-anchor-cream-text">The organiser perk</strong> — Book a staff Christmas party for 20 or more and receive a £40 voucher for yourself in January. You've earned it.</span>
+                    <span><strong className="text-anchor-cream-text">The organiser perk</strong>, Book a staff Christmas party for 20 or more and receive a £40 voucher for yourself in January. You've earned it.</span>
                   </li>
                 </ul>
               </div>
@@ -1224,7 +1224,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
           <div className="max-w-3xl mx-auto">
             <div className="rounded-2xl border-2 border-red-600/30 bg-red-50/5 p-8 text-center space-y-4">
               <Icon name="clock" className="mx-auto h-10 w-10 text-red-600" />
-              <h2 className="text-2xl font-bold text-anchor-cream-text">Book early — December dates fill fast</h2>
+              <h2 className="text-2xl font-bold text-anchor-cream-text">Book early, December dates fill fast</h2>
               <p className="text-base text-anchor-cream-text/70">
                 Every year it's the same story: Friday and Saturday nights sell out by October, and midweek Christmas party slots fill shortly after. Whether you're planning a festive dinner, a Christmas lunch or a works do, the sooner you get in touch the better your chances.
               </p>
@@ -1238,7 +1238,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                   onClick={() => {
                     trackCtaClick({
                       id: 'christmas_urgency_dinner',
-                      label: 'Enquire Now — Dinner',
+                      label: 'Enquire Now, Dinner',
                       location: 'urgency_section',
                       destination: 'enquiry_form',
                       mode: 'dinner'
@@ -1246,7 +1246,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                     handleOpenForm('dinner', {}, 'urgency_section')
                   }}
                 >
-                  Enquire now — lock in your date
+                  Enquire now, lock in your date
                 </Button>
                 <a
                   href={CONTACT_PHONE_LINK}
@@ -1276,7 +1276,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
           <div className="text-center space-y-8">
             <h2 className="text-4xl font-bold text-anchor-gold-vivid">Ready to plan your Christmas at The Anchor?</h2>
             <p className="text-lg text-anchor-cream-text/70 max-w-2xl mx-auto">
-              Send your enquiry and we'll come back within one working day. Need a quicker answer? Call the team — we're here to help.
+              Send your enquiry and we'll come back within one working day. Need a quicker answer? Call the team, we're here to help.
             </p>
             <div className="flex flex-col md:flex-row justify-center gap-4">
               <Button

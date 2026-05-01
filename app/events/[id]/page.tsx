@@ -107,7 +107,7 @@ function getBookingDisabledCopy(reason: ReturnType<typeof getEventBookingBlockRe
   if (reason === 'bookings_disabled') {
     return {
       title: 'No booking required',
-      message: 'No booking is needed for this event — just turn up!'
+      message: 'No booking is needed for this event, just turn up!'
     }
   }
 
@@ -268,11 +268,11 @@ export default async function EventPage({ params }: Props) {
     permanentRedirect('/whats-on')
   }
 
-  // Event lifecycle SEO strategy — redirect stale past events to next upcoming event
+  // Event lifecycle SEO strategy, redirect stale past events to next upcoming event
   const isPastEvent = isEventInPast(event)
   if (isPastEvent) {
     // Only look up the next event for past (non-cancelled) events.
-    // Cancelled events never redirect — they render with a cancelled banner.
+    // Cancelled events never redirect, they render with a cancelled banner.
     let nextEvent = null
     if (event.category?.id && normalizeEventStatus(event) !== 'cancelled') {
       try {

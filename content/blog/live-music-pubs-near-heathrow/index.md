@@ -38,11 +38,11 @@ Check the [Live Music page](/live-music) for the next confirmed gig.
 
 A few things set The Anchor apart from the bigger venues in the area:
 
-- **Intimate setting** — The pub's layout means the sound fills the room properly. You're not straining to hear from the back of some cavernous function room.
-- **Free entry, every time** — No cover charge, no minimum spend. Just come in and enjoy it.
-- **Free parking** — There's a car park right at the pub. No paying for parking on top of your night out.
-- **Seven minutes from Terminal 5** — If you're staying near the airport or heading home after a flight, you can be here before your ears have even adjusted to the quiet.
-- **Proper pub atmosphere** — Cold pints, good food if you're hungry, and staff who actually know the regulars by name.
+- **Intimate setting**, The pub's layout means the sound fills the room properly. You're not straining to hear from the back of some cavernous function room.
+- **Free entry, every time**, No cover charge, no minimum spend. Just come in and enjoy it.
+- **Free parking**, There's a car park right at the pub. No paying for parking on top of your night out.
+- **Seven minutes from Terminal 5**, If you're staying near the airport or heading home after a flight, you can be here before your ears have even adjusted to the quiet.
+- **Proper pub atmosphere**, Cold pints, good food if you're hungry, and staff who actually know the regulars by name.
 
 **Address:** The Anchor, Stanwell Moor, TW19 6AQ (M25 Junction 14)
 **Phone:** 01753 682707

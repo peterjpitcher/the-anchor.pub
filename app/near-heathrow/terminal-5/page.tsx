@@ -19,7 +19,7 @@ import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 
 export const metadata: Metadata = {
   title: 'Pubs Near Heathrow Terminal 5 | 7 Mins | Free Parking',
-  description: 'Nearest pub to Heathrow Terminal 5 — just 7 minutes by taxi or drive and park free. British pub food, dog-friendly beer garden and draught beers.',
+  description: 'Nearest pub to Heathrow Terminal 5, just 7 minutes by taxi or drive and park free. British pub food, dog-friendly beer garden and draught beers.',
   openGraph: {
     title: 'Pubs Near Heathrow Terminal 5 | 7 Mins Away | Free Parking',
     description: 'Looking for pubs near Heathrow Terminal 5? Just 7 minutes by taxi. Free parking for 20 cars. British pub food, dog-friendly beer garden & draught beers.',
@@ -64,7 +64,7 @@ export default function Terminal5Page() {
           <div className="max-w-4xl mx-auto bg-anchor-bg-raised border border-anchor-gold/15 rounded-2xl p-6">
             <h2 className="text-2xl font-bold text-anchor-cream-text mb-3">Essential Details at a Glance</h2>
             <p className="text-anchor-cream-text/70 mb-4">
-              Searching for pubs near Heathrow Terminal 5? The Anchor is the closest independent pub to T5 — just 7 minutes away. Swap hotel bars for real British hospitality, fair pint prices and free parking.
+              Searching for pubs near Heathrow Terminal 5? The Anchor is the closest independent pub to T5, just 7 minutes away. Swap hotel bars for real British hospitality, fair pint prices and free parking.
             </p>
             <div className="grid gap-3 md:grid-cols-2 text-anchor-cream-text/70">
 	              <div className="flex items-start gap-2">
@@ -116,7 +116,7 @@ export default function Terminal5Page() {
         <div className="container mx-auto px-4">
           <SectionHeader
             title="Need Food Near Terminal 5?"
-            subtitle="Book ahead so your meal is ready when you arrive — proper pub food, no queues."
+            subtitle="Book ahead so your meal is ready when you arrive, proper pub food, no queues."
           />
           <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
             <div className="card-dark rounded-none p-6">
@@ -140,7 +140,7 @@ export default function Terminal5Page() {
             <div className="card-dark rounded-none p-6">
               <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-2">Stone-Baked Pizzas</h3>
               <p className="text-sm text-anchor-cream-text/70 mb-4">
-                Hand-stretched pizzas with bold toppings — perfect for crew nights, family send-offs or late layovers.
+                Hand-stretched pizzas with bold toppings, perfect for crew nights, family send-offs or late layovers.
               </p>
               <div className="flex flex-col gap-2">
                 <BookTableButton
@@ -159,7 +159,7 @@ export default function Terminal5Page() {
             <div className="card-dark rounded-none p-6">
               <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-2">All-Day Menu</h3>
               <p className="text-sm text-anchor-cream-text/70 mb-4">
-                Burgers, fish & chips, veggie options and sharers served fast — great for BA crews and Sofitel/Hilton guests.
+                Burgers, fish & chips, veggie options and sharers served fast, great for BA crews and Sofitel/Hilton guests.
               </p>
               <div className="flex flex-col gap-2">
                 <BookTableButton
@@ -189,7 +189,7 @@ export default function Terminal5Page() {
       <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">
         <Container>
           <PageTitle className="text-center text-anchor-cream-text" seo={{ structured: true, speakable: true }}>
-            Pubs Near Heathrow Terminal 5 — The Anchor
+            Pubs Near Heathrow Terminal 5, The Anchor
           </PageTitle>
         </Container>
       </section>
@@ -375,12 +375,12 @@ export default function Terminal5Page() {
                 {
                   title: "Great Value Pub Food",
                   icon: "",
-                  content: "Proper British pub meals — stone-baked pizzas, burgers, fish & chips, and Sunday roasts. Real food, generous portions, in a relaxed village pub setting."
+                  content: "Proper British pub meals, stone-baked pizzas, burgers, fish & chips, and Sunday roasts. Real food, generous portions, in a relaxed village pub setting."
                 },
                 {
                   title: "Free Parking for Patrons",
                   icon: "",
-                  content: "We have 20 free parking spaces for customers. Perfect for meeting arriving passengers or enjoying a meal before your flight — no parking fees while you're with us."
+                  content: "We have 20 free parking spaces for customers. Perfect for meeting arriving passengers or enjoying a meal before your flight, no parking fees while you're with us."
                 },
                 {
                   title: "Pre-Flight Dining",
@@ -626,7 +626,7 @@ export default function Terminal5Page() {
           },
           {
             question: "Is there parking at The Anchor near Terminal 5?",
-            answer: "Yes! We offer free parking for all customers with space for 20 cars. No fees, no time limits — free while you're visiting us. Perfect for meeting arriving passengers or enjoying a meal before your flight."
+            answer: "Yes! We offer free parking for all customers with space for 20 cars. No fees, no time limits, free while you're visiting us. Perfect for meeting arriving passengers or enjoying a meal before your flight."
           },
 	          {
 	            question: "Can I get a taxi from Terminal 5 to The Anchor?",

@@ -189,7 +189,7 @@ export default async function ChristeningsPage() {
                             {
                                 icon: "",
                                 title: "High Chairs",
-                                description: "High chairs are available for babies and toddlers — just let us know when you book how many you need.",
+                                description: "High chairs are available for babies and toddlers, just let us know when you book how many you need.",
                                 className: "text-center"
                             },
                             {
@@ -368,11 +368,11 @@ export default async function ChristeningsPage() {
                     <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-6">
                         <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
                             <p className="text-anchor-cream-text/70 italic mb-4">&ldquo;We held our daughter&apos;s christening reception here after the service at St Mary&apos;s. The buffet was generous, the staff were brilliant with all the children, and having free parking right outside made life so much easier with all the grandparents. Lovely afternoon.&rdquo;</p>
-                            <p className="text-sm text-anchor-gold-vivid font-semibold">— Rachel, Staines</p>
+                            <p className="text-sm text-anchor-gold-vivid font-semibold">Rachel, Staines</p>
                         </div>
                         <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
                             <p className="text-anchor-cream-text/70 italic mb-4">&ldquo;The enclosed garden was perfect for the children to run around while we enjoyed drinks and food inside. The team set up a beautiful table for gifts and our christening cake. Could not recommend this christening venue enough.&rdquo;</p>
-                            <p className="text-sm text-anchor-gold-vivid font-semibold">— David, Ashford</p>
+                            <p className="text-sm text-anchor-gold-vivid font-semibold">David, Ashford</p>
                         </div>
                     </div>
                 </Container>
@@ -416,7 +416,7 @@ export default async function ChristeningsPage() {
                     },
                     {
                         question: "Is there a room hire fee?",
-                        answer: "For most christening parties booking a buffet or meal, there is no separate room hire fee — just a minimum spend on food and drink. Contact us for specific details based on your guest numbers."
+                        answer: "For most christening parties booking a buffet or meal, there is no separate room hire fee, just a minimum spend on food and drink. Contact us for specific details based on your guest numbers."
                     }
                 ]}
             />

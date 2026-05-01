@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   twitter: getTwitterMetadata({
     title: 'Inside The Anchor | Our Pub, Garden & Facilities',
     description:
-      'Take a look around The Anchor in Stanwell Moor — bar, dining room, garden, pool and darts. 7 min from Heathrow T5.',
+      'Take a look around The Anchor in Stanwell Moor, bar, dining room, garden, pool and darts. 7 min from Heathrow T5.',
     images: ['/images/our-pub/the-anchor-main-bar-area.jpg'],
   }),
   alternates: { canonical: '/our-pub' },
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
 const imageGallerySchema = {
   '@context': 'https://schema.org',
   '@type': 'ImageGallery',
-  name: 'Inside The Anchor — Photos of Our Pub in Stanwell Moor',
+  name: 'Inside The Anchor, Photos of Our Pub in Stanwell Moor',
   description:
     'Photo tour of The Anchor pub in Stanwell Moor near Heathrow Airport. Bar, dining room, beer garden, pool table and games area.',
   url: 'https://www.the-anchor.pub/our-pub',
@@ -90,7 +90,7 @@ export default function OurPubPage() {
       <HeroWrapper
         route="/our-pub"
         title="Take a Look Around"
-        description="A proper village pub since 1751 — here's what's waiting for you"
+        description="A proper village pub since 1751, here's what's waiting for you"
         variant="default"
         enableSmartCtas={true}
         showContextStrip={true}
@@ -100,7 +100,7 @@ export default function OurPubPage() {
       <section className="bg-anchor-bg-raised border-b border-anchor-gold/15 py-8">
         <Container>
           <p className="text-center text-lg md:text-xl text-anchor-cream-text/80 max-w-3xl mx-auto leading-relaxed">
-            We could tell you all about The Anchor &mdash; a village pub since 1751,
+            We could tell you all about The Anchor, a village pub since 1751,
             the plane-spotting garden, the 18&nbsp;gins behind the bar. But honestly?
             It&apos;s better to just show you. Here&apos;s a look around our pub in
             Stanwell Moor, just seven minutes from Heathrow Terminal&nbsp;5.
@@ -131,9 +131,9 @@ export default function OurPubPage() {
               <p className="text-anchor-cream-text/80 leading-relaxed">
                 Whether you&apos;re after a cold pint of Guinness, a Tanqueray and
                 tonic, or something from our collection of 17&nbsp;whiskeys, the bar
-                has you covered. We pour seven draught lines &mdash; Birra Moretti,
+                has you covered. We pour seven draught lines, Birra Moretti,
                 Stella Artois, Fosters, Carlsberg, Guinness, Aspall cider and
-                Inch&apos;s &mdash; with pints starting from &pound;4.95.
+                Inch&apos;s, with pints starting from &pound;4.95.
               </p>
               <p className="text-anchor-cream-text/80 leading-relaxed">
                 Behind the bar, things get interesting. Our gin shelf runs
@@ -191,7 +191,7 @@ export default function OurPubPage() {
             <div className="space-y-4">
               <p className="text-anchor-cream-text/80 leading-relaxed">
                 Our dining room is one of those spaces that changes with the
-                seasons &mdash; and somehow gets better each time. In summer,
+                seasons, and somehow gets better each time. In summer,
                 sunshine floods through the french doors, which open straight out
                 to the garden for that fresh, airy feel. In winter, the heating
                 keeps things properly cosy. It seats 26 and it&apos;s always a
@@ -201,7 +201,7 @@ export default function OurPubPage() {
                 Here&apos;s the bit people don&apos;t expect: you can watch planes
                 landing and taking off from Heathrow right from your table. The
                 south runway is close enough that you can spot airline liveries
-                while you eat. It&apos;s genuinely brilliant &mdash; especially if
+                while you eat. It&apos;s genuinely brilliant, especially if
                 you&apos;ve got kids (or, let&apos;s be honest, if you&apos;re just
                 into{' '}
                 <Link
@@ -227,7 +227,7 @@ export default function OurPubPage() {
                 >
                   birthday parties
                 </Link>
-                , retirement dos, baby showers or business meetings &mdash;
+                , retirement dos, baby showers or business meetings,
                 you get exclusive use of the room, full access to the bar, and the
                 option to extend into the garden. There&apos;s a TV in there as
                 well, handy for presentations or watching live events.
@@ -264,7 +264,7 @@ export default function OurPubPage() {
                 >
                   beer garden
                 </Link>{' '}
-                sits directly under Heathrow&apos;s south runway &mdash; planes
+                sits directly under Heathrow&apos;s south runway, planes
                 come over every 90&nbsp;seconds or so, at around 500 to
                 800&nbsp;feet. It&apos;s mesmerising. Grab a drink, stretch out on
                 the grass, and just look up. There&apos;s nothing quite like it.
@@ -280,7 +280,7 @@ export default function OurPubPage() {
                 >
                   pub garden near Heathrow
                 </Link>{' '}
-                is honestly one of the best spots around &mdash; and we&apos;re not
+                is honestly one of the best spots around, and we&apos;re not
                 the only ones who think so (4.6&nbsp;stars on Google, 238&nbsp;reviews
                 and counting).
               </p>
@@ -310,13 +310,13 @@ export default function OurPubPage() {
             <div className="space-y-4">
               <p className="text-anchor-cream-text/80 leading-relaxed">
                 The main bar area is the heart of The Anchor. This is where
-                you&apos;ll find the dartboard, the jukebox and &mdash; more often
-                than not &mdash; a good conversation with whoever&apos;s sitting
+                you&apos;ll find the dartboard, the jukebox and, more often
+                than not, a good conversation with whoever&apos;s sitting
                 next to you.
               </p>
               <p className="text-anchor-cream-text/80 leading-relaxed">
                 The jukebox deserves a mention on its own. It plays throughout the
-                pub &mdash; inside and out in the garden &mdash; so the music
+                pub, inside and out in the garden, so the music
                 follows you wherever you go. And the{' '}
                 <Link
                   href="/pool-darts-pub"
@@ -371,15 +371,15 @@ export default function OurPubPage() {
                   pool table
                 </Link>{' '}
                 is &pound;1 a game and available whenever we&apos;re open. It&apos;s
-                tucked into its own area &mdash; the kind of spot where you&apos;ll
+                tucked into its own area, the kind of spot where you&apos;ll
                 lose an hour without noticing, especially with a couple of pints on
-                the go. Mates, dates, work colleagues &mdash; everyone ends up round
+                the go. Mates, dates, work colleagues, everyone ends up round
                 the pool table eventually.
               </p>
               <p className="text-anchor-cream-text/80 leading-relaxed">
                 Just past the pool table, there&apos;s a table in our second bay
                 window. It&apos;s a little more removed from the buzz of the main
-                bar &mdash; perfect if you want a quieter bite to eat or a catch-up
+                bar, perfect if you want a quieter bite to eat or a catch-up
                 without shouting over the jukebox. Best of both worlds: close enough
                 to the action, far enough to actually hear each other.
               </p>
@@ -400,7 +400,7 @@ export default function OurPubPage() {
           {
             question: 'Can I hire the dining room for a private event?',
             answer:
-              'Yes. Our dining room seats 26 and is available for private hire — birthday parties, business meetings, retirement dos and more. You get exclusive use of the room with full bar access and the option to extend into the garden. Call us on 01753 682707 to discuss.',
+              'Yes. Our dining room seats 26 and is available for private hire, birthday parties, business meetings, retirement dos and more. You get exclusive use of the room with full bar access and the option to extend into the garden. Call us on 01753 682707 to discuss.',
           },
           {
             question: 'Is the pub dog-friendly?',

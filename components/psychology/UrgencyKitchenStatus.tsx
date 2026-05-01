@@ -69,7 +69,7 @@ export function UrgencyKitchenStatus({ status, className }: UrgencyKitchenStatus
       <span className="font-medium">{config.message}</span>
       {config.linkText && (
         <>
-          <span className="text-anchor-cream-text/55" aria-hidden="true">—</span>
+          <span className="text-anchor-cream-text/55" aria-hidden="true">, </span>
           <Link
             href="/book-table"
             className="underline underline-offset-2 hover:no-underline font-medium"

@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
   const payerId = request.nextUrl.searchParams.get('PayerID')
 
   if (!payerId) {
-    // User cancelled the PayPal flow — send them back to the booking form
+    // User cancelled the PayPal flow, send them back to the booking form
     return NextResponse.redirect(new URL('/book-table?payment=cancelled', request.url))
   }
 

@@ -90,7 +90,7 @@ At The Anchor, every month is a celebration of our diverse community. We honour 
 
   
 
-Our **Kraken Rum offer near Heathrow** aligns perfectly with our values of inclusivity and warmth. At The Anchor, everyone is welcome—from long-time locals and newcomers to solo visitors and entire families. Our space is designed for all: it's woman-friendly, dog-friendly, and community-first. Kraken's rich character—spiced, dark, and daring—captures the essence of the stories we all bring to the table.
+Our **Kraken Rum offer near Heathrow** aligns perfectly with our values of inclusivity and warmth. At The Anchor, everyone is welcome, from long-time locals and newcomers to solo visitors and entire families. Our space is designed for all: it's woman-friendly, dog-friendly, and community-first. Kraken's rich character, spiced, dark, and daring, captures the essence of the stories we all bring to the table.
 
   
 
@@ -131,7 +131,7 @@ Kraken Black Cherry introduces a new layer to our rum offerings. It's deep, smoo
 
 🎟️ **Tickets: £30**
 
-Available exclusively at the bar, this price covers all tastings, supper, and activities—no extra fees, just a fantastic night!
+Available exclusively at the bar, this price covers all tastings, supper, and activities, no extra fees, just a fantastic night!
 
 [More about Kraken Rum](https://www.krakenrum.com)
 

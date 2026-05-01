@@ -26,7 +26,7 @@ The good news: you don't need a massive budget or a Pinterest-perfect plan. What
 
 ## Party theme ideas that actually work for a 30th
 
-Themes get a bad reputation because people think they mean matching napkins and centrepieces. They don't. A good theme is just a thread that ties the evening together and gives your guests something to talk about. Here are ideas that land well for a 30th — tested by real people, not lifted from a mood board.
+Themes get a bad reputation because people think they mean matching napkins and centrepieces. They don't. A good theme is just a thread that ties the evening together and gives your guests something to talk about. Here are ideas that land well for a 30th, tested by real people, not lifted from a mood board.
 
 ### Decades party: dress as your best era
 
@@ -36,7 +36,7 @@ Pick the decade you were born in (1996, so the nineties count) or let everyone c
 
 ### "Dirty Thirty" cocktail night
 
-This one's popular for a reason. Set a dress code (black tie, all black, or smart casual — your call), arrange cocktails or a drinks package, and let the venue handle the rest. It feels grown-up without being stuffy.
+This one's popular for a reason. Set a dress code (black tie, all black, or smart casual, your call), arrange cocktails or a drinks package, and let the venue handle the rest. It feels grown-up without being stuffy.
 
 **Make it work:** Most pubs and venues offer welcome drinks packages. At The Anchor, welcome prosecco starts from just £7.99 per head for groups of 10 or more. That's your red carpet moment sorted.
 
@@ -44,11 +44,11 @@ This one's popular for a reason. Set a dress code (black tie, all black, or smar
 
 Forget generic pub quizzes. Write one about yourself. Rounds on your life: childhood photos, embarrassing stories, obscure facts only your oldest mates would know. It's interactive, it's funny, and it means people who don't know each other end up bonding over how ridiculous you were at 14.
 
-**Make it work:** Four rounds works best. Mix picture rounds, music clips, and a "who said it" round using real quotes from your group chat. Award prizes for last place too — it takes the pressure off.
+**Make it work:** Four rounds works best. Mix picture rounds, music clips, and a "who said it" round using real quotes from your group chat. Award prizes for last place too, it takes the pressure off.
 
 ### Garden party with a twist
 
-If your birthday falls anywhere between May and September, an outdoor celebration is hard to beat. But instead of a standard barbecue, add something unexpected. Lawn games tournament. A cocktail-making station. Or, if you're near Heathrow, a beer garden where planes fly overhead every 90 seconds — because nothing starts a conversation like an A380 at 500 feet.
+If your birthday falls anywhere between May and September, an outdoor celebration is hard to beat. But instead of a standard barbecue, add something unexpected. Lawn games tournament. A cocktail-making station. Or, if you're near Heathrow, a beer garden where planes fly overhead every 90 seconds, because nothing starts a conversation like an A380 at 500 feet.
 
 **Make it work:** Book a venue with genuine outdoor space. The Anchor's beer garden seats 64, sits directly under Heathrow's southern runway approach, and has full food and drink service during kitchen hours. It's not your average garden party backdrop.
 
@@ -56,17 +56,17 @@ If your birthday falls anywhere between May and September, an outdoor celebratio
 
 Pick a film series or TV show that defined your twenties. Set up a projector, arrange comfortable seating, and build the menu around the theme. A Peaky Blinders night gets whisky cocktails and flat caps. An Italian Job theme gets pizza and questionable cockney accents.
 
-**Make it work:** You need a venue with AV equipment or a space where you can bring your own. Some pubs have projectors, screens, and sound systems already set up — worth asking before you start lugging your own gear.
+**Make it work:** You need a venue with AV equipment or a space where you can bring your own. Some pubs have projectors, screens, and sound systems already set up, worth asking before you start lugging your own gear.
 
 ## Activity ideas to keep 30 guests entertained
 
 Here's something nobody warns you about when planning a 30th: if you invite more than 15 people, you can't rely on conversation alone. People cluster into groups they already know, the two halves of your life (school friends and work friends, usually) hover in separate corners, and the birthday person spends the night doing laps trying to talk to everyone.
 
-Activities fix this. Not cheesy icebreakers — proper things that give people a reason to mix.
+Activities fix this. Not cheesy icebreakers, proper things that give people a reason to mix.
 
 ### Photo timeline wall
 
-Print photos from each year of your life (or every couple of years — 30 photos is plenty) and arrange them on a wall or across a table. Label each one with the year and a one-line caption. Guests will gravitate to it, spot people they know, and start conversations with strangers who appear in the same photos. Low effort, high impact.
+Print photos from each year of your life (or every couple of years, 30 photos is plenty) and arrange them on a wall or across a table. Label each one with the year and a one-line caption. Guests will gravitate to it, spot people they know, and start conversations with strangers who appear in the same photos. Low effort, high impact.
 
 ### Predictions jar
 
@@ -74,7 +74,7 @@ Set out slips of paper and ask every guest to write a prediction for your next d
 
 ### Music bingo
 
-If you've never tried music bingo, it's regular bingo but with song clips instead of numbers. It works brilliantly for mixed groups because musical taste cuts across every social circle. The Anchor runs music bingo nights regularly with a catalogue of over 50,000 songs — so if you're planning a private event, it's worth asking about a dedicated game for your party.
+If you've never tried music bingo, it's regular bingo but with song clips instead of numbers. It works brilliantly for mixed groups because musical taste cuts across every social circle. The Anchor runs music bingo nights regularly with a catalogue of over 50,000 songs, so if you're planning a private event, it's worth asking about a dedicated game for your party.
 
 ### Karaoke (but make it competitive)
 
@@ -120,15 +120,15 @@ Sober and sober-curious guests are more common than ever, and there's nothing wo
 
 ## Choosing a 30th birthday party venue near Heathrow
 
-Right, you've got your theme. You've got your food plan. Now you need somewhere to put it all. If you're looking for a 30th birthday party venue near Heathrow, Staines, or anywhere in the Stanwell Moor area of Surrey, here's what actually matters — and what doesn't.
+Right, you've got your theme. You've got your food plan. Now you need somewhere to put it all. If you're looking for a 30th birthday party venue near Heathrow, Staines, or anywhere in the Stanwell Moor area of Surrey, here's what actually matters, and what doesn't.
 
 ### What matters when choosing a venue
 
 **Private space that's actually private.** "Semi-private area" means a roped-off corner of a busy pub where you'll spend the night shouting over strangers. You want a room with a door. At The Anchor, the private dining room seats 26 with standing room for more, and French doors open onto the beer garden for overflow. It's your space for the night.
 
-**No room hire fee.** Many venues charge £200-500 just for the room before you've spent a penny on food or drink. Look for venues that use a minimum spend model instead — you're spending money on food and drinks anyway, so the room cost effectively disappears. The Anchor charges no room hire fee. The minimum spend is £500-1,500 depending on the day and group size, and that goes entirely toward what your guests actually consume.
+**No room hire fee.** Many venues charge £200-500 just for the room before you've spent a penny on food or drink. Look for venues that use a minimum spend model instead, you're spending money on food and drinks anyway, so the room cost effectively disappears. The Anchor charges no room hire fee. The minimum spend is £500-1,500 depending on the day and group size, and that goes entirely toward what your guests actually consume.
 
-**Parking that doesn't cost extra.** If your guests are driving (and near Heathrow, many will be), parking fees add up fast. Hotel venues typically charge £15-25 per car. The Anchor has 20 free parking spaces on-site — no fees, no time limits while visiting, CCTV and floodlit. Additional parking is also available nearby.
+**Parking that doesn't cost extra.** If your guests are driving (and near Heathrow, many will be), parking fees add up fast. Hotel venues typically charge £15-25 per car. The Anchor has 20 free parking spaces on-site, no fees, no time limits while visiting, CCTV and floodlit. Additional parking is also available nearby.
 
 **A dedicated person who handles things.** You don't want to be chasing bar staff on the night of your own party. Venues with a dedicated events coordinator take the logistics off your hands. That means someone who manages the timeline, checks the food is ready, and sorts problems before you even notice them.
 
@@ -154,9 +154,9 @@ Those figures tell a clear story. A 30th birthday at an airport hotel can cost f
 
 ## Location matters: why Stanwell Moor works for a 30th
 
-If your guests are scattered across west London, Surrey, and Berkshire, a venue near Heathrow makes practical sense. Everyone knows how to get there. It's near the M25 (two minutes from Junction 14), accessible by bus from Heathrow Central Bus Station (routes 441, 442, 555), and sits outside the ULEZ zone — saving your London-based guests £12.50 they'd rather spend at the bar.
+If your guests are scattered across west London, Surrey, and Berkshire, a venue near Heathrow makes practical sense. Everyone knows how to get there. It's near the M25 (two minutes from Junction 14), accessible by bus from Heathrow Central Bus Station (routes 441, 442, 555), and sits outside the ULEZ zone, saving your London-based guests £12.50 they'd rather spend at the bar.
 
-Stanwell Moor itself is a proper village. It's quiet, it's got character, and it's a world away from the identikit venues you'll find along the Bath Road hotel corridor. The Anchor has been here since 1751 — nearly 275 years — which means it's not some pop-up party venue. It's a real pub with real history that happens to be brilliant for events.
+Stanwell Moor itself is a proper village. It's quiet, it's got character, and it's a world away from the identikit venues you'll find along the Bath Road hotel corridor. The Anchor has been here since 1751, nearly 275 years, which means it's not some pop-up party venue. It's a real pub with real history that happens to be brilliant for events.
 
 **Getting here from key locations:**
 
@@ -173,7 +173,7 @@ All drive times are approximate and traffic dependent, but the point stands: it'
 If your 30th is a few months away, here's a realistic timeline that keeps you organised without turning party planning into a second job.
 
 **8-12 weeks before:**
-- Choose your venue and book it. Popular dates (Fridays and Saturdays, especially in summer) go fast. Contact the events coordinator early — at The Anchor, you can [get an instant quote for your milestone birthday](/private-hire/milestone-birthdays) online.
+- Choose your venue and book it. Popular dates (Fridays and Saturdays, especially in summer) go fast. Contact the events coordinator early, at The Anchor, you can [get an instant quote for your milestone birthday](/private-hire/milestone-birthdays) online.
 - Set your guest list and budget. Be honest about numbers. Venues plan food and space around your headcount, and a last-minute jump from 30 to 50 causes problems.
 
 **6-8 weeks before:**
@@ -229,11 +229,11 @@ Eight to twelve weeks is ideal for most local venues. If you want a Friday or Sa
 
 **Can I bring my own decorations to a pub venue?**
 
-Most independent pubs are happy for you to decorate the space, as long as you take everything down afterwards. Balloons, banners, photos, table decorations — go for it. Just check with the venue beforehand about anything that involves fixing things to walls or ceilings.
+Most independent pubs are happy for you to decorate the space, as long as you take everything down afterwards. Balloons, banners, photos, table decorations, go for it. Just check with the venue beforehand about anything that involves fixing things to walls or ceilings.
 
 **What's the best day of the week for a 30th birthday party?**
 
-Saturday evenings are the most popular, but Friday nights are nearly as good and often easier to book. Sunday afternoons work brilliantly if you've got families and children attending — the vibe is more relaxed, the [food menu](/food-menu) is available alongside buffet packages, and guests don't have the Monday-morning excuse to leave early.
+Saturday evenings are the most popular, but Friday nights are nearly as good and often easier to book. Sunday afternoons work brilliantly if you've got families and children attending, the vibe is more relaxed, the [food menu](/food-menu) is available alongside buffet packages, and guests don't have the Monday-morning excuse to leave early.
 
 **Is a 30th birthday party tax-deductible if it's combined with a work event?**
 
@@ -245,7 +245,7 @@ It varies. At The Anchor, [private hire](/private-hire) accommodates 10-50 guest
 
 **Do I need to pay a deposit?**
 
-Most venues require a deposit to secure your date. At The Anchor, it's £250, and you'll confirm final numbers and food choices closer to the date. The minimum spend model means you're not paying for an empty room — every pound goes toward food and drinks.
+Most venues require a deposit to secure your date. At The Anchor, it's £250, and you'll confirm final numbers and food choices closer to the date. The minimum spend model means you're not paying for an empty room, every pound goes toward food and drinks.
 
 ---
 

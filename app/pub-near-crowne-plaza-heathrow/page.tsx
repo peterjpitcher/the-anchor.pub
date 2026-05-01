@@ -35,7 +35,7 @@ export default function PubNearCrownePlazaHeathrowPage() {
       <HeroWrapper
         route="/pub-near-crowne-plaza-heathrow"
         title="Pub Near Crowne Plaza Heathrow"
-        description="12 minutes away — a proper British pub for corporate guests and team dinners"
+        description="12 minutes away, a proper British pub for corporate guests and team dinners"
         variant="default"
         enableSmartCtas={true}
         showContextStrip={true}
@@ -48,7 +48,7 @@ export default function PubNearCrownePlazaHeathrowPage() {
               Pub Near Crowne Plaza London Heathrow
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
-              Staying at the Crowne Plaza Heathrow? The Anchor is just 12 minutes away — a traditional British pub with home-cooked food, draught beers, and free parking. Rated one of the best pubs near Heathrow Airport, we offer a proper alternative to hotel dining that corporate guests keep coming back to.
+              Staying at the Crowne Plaza Heathrow? The Anchor is just 12 minutes away, a traditional British pub with home-cooked food, draught beers, and free parking. Rated one of the best pubs near Heathrow Airport, we offer a proper alternative to hotel dining that corporate guests keep coming back to.
             </p>
           </div>
         </Container>
@@ -62,7 +62,7 @@ export default function PubNearCrownePlazaHeathrowPage() {
               features={[
                 { icon: '', title: '12 Minutes', description: 'By taxi from Crowne Plaza Heathrow', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
                 { icon: '', title: '~£15–18', description: 'Typical taxi fare each way', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: 'Free Parking', description: '20 spaces — no charges', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: 'Free Parking', description: '20 spaces, no charges', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
                 { icon: '', title: 'Group Bookings', description: 'Private dining for teams of any size', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
               ]}
               className="mb-8"
@@ -76,7 +76,7 @@ export default function PubNearCrownePlazaHeathrowPage() {
           <div className="max-w-4xl mx-auto">
             <SectionHeader
               title="Corporate Dining Near Crowne Plaza Heathrow"
-              subtitle="The Crowne Plaza is a favourite for international business travellers. When you need a proper dinner that isn't a hotel restaurant, The Anchor offers the perfect alternative — relaxed, professional, and genuinely British."
+              subtitle="The Crowne Plaza is a favourite for international business travellers. When you need a proper dinner that isn't a hotel restaurant, The Anchor offers the perfect alternative, relaxed, professional, and genuinely British."
             />
             <div className="grid md:grid-cols-2 gap-8">
               <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
@@ -85,7 +85,7 @@ export default function PubNearCrownePlazaHeathrowPage() {
                   {[
                     'Full VAT receipts for all purchases',
                     'Private dining room for team events',
-                    'Free WiFi — work while you eat',
+                    'Free WiFi, work while you eat',
                     'Group bookings taken in advance',
                     'Quieter than the hotel bar',
                     'Honest pub pricing with mains from £8.99',
@@ -126,9 +126,9 @@ export default function PubNearCrownePlazaHeathrowPage() {
             <FeatureGrid
               columns={3}
               features={[
-                { icon: '', title: 'British Classics', description: 'Steaks, fish & chips, burgers and daily specials — all cooked fresh from £8.99', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Great Drinks', description: 'Draught lagers, bottled ales and craft beers — proper pub drinking from £4.80 a pint', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Sunday Roast', description: 'Traditional British roast from £19 — pre-booking recommended for weekends', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'British Classics', description: 'Steaks, fish & chips, burgers and daily specials, all cooked fresh from £8.99', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Great Drinks', description: 'Draught lagers, bottled ales and craft beers, proper pub drinking from £4.80 a pint', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Sunday Roast', description: 'Traditional British roast from £19, pre-booking recommended for weekends', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
               ]}
               className="mb-6"
             />
@@ -160,7 +160,7 @@ export default function PubNearCrownePlazaHeathrowPage() {
         faqs={[
           {
             question: 'How far is The Anchor from Crowne Plaza London Heathrow?',
-            answer: 'The Anchor is approximately 12 minutes by taxi from Crowne Plaza London Heathrow. Taxi fare is typically £15–18 each way. If driving a rental car, we have 20 free parking spaces — postcode TW19 6AQ.'
+            answer: 'The Anchor is approximately 12 minutes by taxi from Crowne Plaza London Heathrow. Taxi fare is typically £15–18 each way. If driving a rental car, we have 20 free parking spaces, postcode TW19 6AQ.'
           },
           {
             question: 'Is there a good pub near Crowne Plaza Heathrow for corporate dining?',
@@ -172,7 +172,7 @@ export default function PubNearCrownePlazaHeathrowPage() {
           },
           {
             question: 'Can I book a private dining room near Crowne Plaza Heathrow?',
-            answer: 'Yes — The Anchor has a private dining room suitable for team dinners and corporate events. Call us to discuss availability and arrange a bespoke menu for your group. Private hire is also available for larger events.'
+            answer: 'Yes, The Anchor has a private dining room suitable for team dinners and corporate events. Call us to discuss availability and arrange a bespoke menu for your group. Private hire is also available for larger events.'
           },
           {
             question: 'Do you provide VAT receipts for business expenses near Crowne Plaza?',

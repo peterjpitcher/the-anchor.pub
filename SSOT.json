@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$comment": "Structured mirror of The Anchor's Single Source of Truth. The canonical, human-edited source is docs/SSOT.md — if this JSON and the Markdown disagree, the Markdown wins and this file should be reconciled. AI agents, copywriters, and developers should read docs/SSOT.md before writing customer-facing content; use this JSON for programmatic lookups (menu, hours, drinks inventory).",
+  "$comment": "Structured mirror of The Anchor's Single Source of Truth. The canonical, human-edited source is docs/SSOT.md, if this JSON and the Markdown disagree, the Markdown wins and this file should be reconciled. AI agents, copywriters, and developers should read docs/SSOT.md before writing customer-facing content; use this JSON for programmatic lookups (menu, hours, drinks inventory).",
   "_canonical_source": "docs/SSOT.md",
   "meta": {
     "version": "1.0.0",
@@ -119,8 +119,8 @@
   "digital": {
     "domain": {
       "canonical": "https://www.the-anchor.pub",
-      "note": "Always with www — Cloudflare + Vercel",
-      "tls": "Full or Full (strict) — never Flexible"
+      "note": "Always with www, Cloudflare + Vercel",
+      "tls": "Full or Full (strict), never Flexible"
     },
     "seo": {
       "default_title": "The Anchor | Pub Near Heathrow | Stanwell Moor",
@@ -197,6 +197,7 @@
       ],
       "perspective": "Use 'we' language",
       "language": "British English",
+      "punctuation": "Do not use em dashes in customer-facing copy. Prefer commas, short sentences, or parentheses where needed.",
       "notes": "Responds to local demographic change including growing Indian community"
     }
   },
@@ -255,7 +256,7 @@
       "buggy_space": true,
       "breastfeeding": "Welcome",
       "activity_packs": "Communal colouring books and crayons",
-      "children_welcome_until": "Always welcome — completely family friendly including dogs. No age cut-off."
+      "children_welcome_until": "Always welcome, completely family friendly including dogs. No age cut-off."
     },
     "dog_policy": {
       "welcome_areas": "Throughout the entire venue",
@@ -290,7 +291,7 @@
       "A330",
       "Boeing 747"
     ],
-    "peak_spotting_times": "Planes operate on a rotating weekly schedule — one week landings are overhead until 3pm, the next week from 3pm. The schedule alternates weekly.",
+    "peak_spotting_times": "Planes operate on a rotating weekly schedule, one week landings are overhead until 3pm, the next week from 3pm. The schedule alternates weekly.",
     "westerly_operations": "~50% of the year (alternating weekly schedule)",
     "features": [
       "Heated areas",
@@ -575,11 +576,11 @@
       "Lamb Shank (removed from both main menu and Sunday roast as of 2026-04-29)",
       "Speck Ham & Parmesan pizza"
     ],
-    "CORRECTION_2026_03_22": "Stacks (Beef, Chicken, Garden, Spicy Chicken) are back on the menu at £14 each — they were previously listed as removed. Updated in House Burgers section.",
+    "CORRECTION_2026_03_22": "Stacks (Beef, Chicken, Garden, Spicy Chicken) are back on the menu at £14 each, they were previously listed as removed. Updated in House Burgers section.",
     "copy_corrections": {
       "mushy_peas_not_minted": "Always 'mushy peas', never 'minted peas'",
       "garden_veg_burger": "Always 'Garden Veg Burger', never 'Vegetable Burger'",
-      "garden_club_pizza": "Contains roasted courgettes, caramelised onions, rocket — NOT grilled courgette, peppers, balsamic glaze",
+      "garden_club_pizza": "Contains roasted courgettes, caramelised onions, rocket, NOT grilled courgette, peppers, balsamic glaze",
       "gluten_free_fish_and_chips": "We do not offer gluten-free fish and chips, gluten-free batter, gluten-free fried fish, grilled gluten-free fish, or a dedicated gluten-free fryer for fish and chips. Direct guests to the gluten-free menu/allergen guidance instead."
     },
     "kids_menu": [
@@ -630,7 +631,7 @@
         "price": 20,
         "vegan": true,
         "yorkshire_pudding": false,
-        "notes": "Fully vegan. Default gravy is the regular vegan gravy. Free upgrade to the signature gravy on request — that contains meat stock, so the upgrade makes the dish non-vegan. Use 'vegan' (never 'vegetarian') in customer copy."
+        "notes": "Fully vegan. Default gravy is the regular vegan gravy. Free upgrade to the signature gravy on request, that contains meat stock, so the upgrade makes the dish non-vegan. Use 'vegan' (never 'vegetarian') in customer copy."
       },
       {
         "name": "Kids Roast",
@@ -641,11 +642,11 @@
       }
     ],
     "RETIRED_OPTIONS": "As of 2026-04-29 the following are RETIRED. Do NOT list: Roasted Chicken (adult), Slow-Cooked Lamb Shank, Crispy Pork Belly, Cauliflower Cheese side. Lamb in particular is no longer offered anywhere.",
-    "accompaniments": "Triple-cooked, herb-and-garlic crusted roast potatoes (we do NOT use beef dripping); seasonal vegetables; Yorkshire pudding with the three sliced roasts and the kids roast (NOT with the pies); our signature gravy — a secret recipe refined ourselves over the years. Regular gravy IS vegan and is the default for the wellington.",
+    "accompaniments": "Triple-cooked, herb-and-garlic crusted roast potatoes (we do NOT use beef dripping); seasonal vegetables; Yorkshire pudding with the three sliced roasts and the kids roast (NOT with the pies); our signature gravy, a secret recipe refined ourselves over the years. Regular gravy IS vegan and is the default for the wellington.",
     "gravy_rules": {
-      "signature_gravy": "Default for all meat dishes. Secret recipe, made from scratch. Contains meat stock — NOT vegan.",
+      "signature_gravy": "Default for all meat dishes. Secret recipe, made from scratch. Contains meat stock, NOT vegan.",
       "regular_gravy": "Default for the wellington. Fully vegan. Available on request with any dish.",
-      "wellington_upgrade": "Wellington customers can upgrade for free to the signature gravy on request — note the upgrade makes the dish non-vegan."
+      "wellington_upgrade": "Wellington customers can upgrade for free to the signature gravy on request, note the upgrade makes the dish non-vegan."
     },
     "booking_policy": {
       "_walk_in_launch_2026_05_17": "Sunday walk-in launch shipped 2026-05-17. Pre-order and Saturday-1pm cutoff are RETIRED. Advance booking is no longer required for any party size; deposit only applies for groups of 10+ on any day, any booking type.",
@@ -690,7 +691,7 @@
       { "name": "Stanwell Moor Brew", "status": "DISCONTINUED as of 2026-03-22." },
       { "name": "Pravha", "status": "DISCONTINUED. Confirmed by owner 2026-03-22. Remove from all pages and blog posts." }
     ],
-    "promotions": ["Double-up on optics for £2", "Monthly Manager's Special — discounted featured premium spirit"],
+    "promotions": ["Double-up on optics for £2", "Monthly Manager's Special, discounted featured premium spirit"],
     "bar_tab_policy": { "eligibility": "Regular customers only", "validity": "7 days", "maximum_gbp": 50 },
     "equipment": "T-Bar beer pumps (shorter lines, colder/fresher pints), upgraded glass washer",
     "live_sport_note": "Terrestrial channels only (BBC/ITV/Channel 4). Does NOT have Sky Sports or TNT Sports."
@@ -699,7 +700,7 @@
   "discontinued_offers": [
     {
       "name": "BOGOF Pizza",
-      "description": "Buy One Get One Free pizza — formerly ran on Tuesdays",
+      "description": "Buy One Get One Free pizza, formerly ran on Tuesdays",
       "status": "DISCONTINUED as of 2026-03-22. Remove from all pages, schemas, and blog posts."
     },
     {
@@ -711,7 +712,7 @@
     }
   ],
   "events": {
-    "_source_note": "Event details cross-referenced with anchor-management-tools database 2026-03-22. Actual event dates, prices, and times are managed per-event in the management app — the values below are defaults.",
+    "_source_note": "Event details cross-referenced with anchor-management-tools database 2026-03-22. Actual event dates, prices, and times are managed per-event in the management app, the values below are defaults.",
     "quiz_night": {
       "schedule": "First Wednesday of each month",
       "doors": "6:30pm",
@@ -730,7 +731,7 @@
       "host": "Question One Quiz Masters (Nikki Manfadge occasional)"
     },
     "cash_bingo": {
-      "schedule": "Monthly (dates vary — see listings)",
+      "schedule": "Monthly (dates vary, see listings)",
       "doors": "6:00pm (book sales from 6pm)",
       "start": "7:00pm (eyes-down, confirmed 2026-03-22)",
       "end": "~9:30pm",
@@ -771,8 +772,8 @@
     "nikkis_games_night": {
       "schedule": "Wednesdays 7-10pm",
       "host": "Nikki Manfadge",
-      "format": "Classic TV gameshow formats with a drag twist — Blankety Blank, Name That Tune, Play Your Cards Right, etc.",
-      "note": "Formerly 'Drag Cabaret with Nikki Manfadge' — renamed July 2025"
+      "format": "Classic TV gameshow formats with a drag twist, Blankety Blank, Name That Tune, Play Your Cards Right, etc.",
+      "note": "Formerly 'Drag Cabaret with Nikki Manfadge', renamed July 2025"
     },
     "curry_club": {
       "schedule": "Monthly",
@@ -796,7 +797,7 @@
       "Beer garden",
       "Dining room (private hire)"
     ],
-    "room_hire_charge": "None — minimum spend model applies",
+    "room_hire_charge": "None, minimum spend model applies",
     "minimum_spend_range_gbp": "500-1500 depending on day/size",
     "catering_buffet_from_gbp": 12.0,
     "catering_sitdown_from_gbp": 18.0,
@@ -953,7 +954,7 @@
     {
       "id": "women",
       "name": "Women",
-      "description": "Including women visiting alone — safety and welcome-led positioning"
+      "description": "Including women visiting alone, safety and welcome-led positioning"
     },
     {
       "id": "dog-owners",
@@ -1000,7 +1001,7 @@
   ],
   "competitive_landscape": {
     "radius": "3-5 miles",
-    "note": "Excludes all venues inside Heathrow terminals — they are not direct competitors. Researched 2026-03-22.",
+    "note": "Excludes all venues inside Heathrow terminals, they are not direct competitors. Researched 2026-03-22.",
     "total_licensed_premises": 164,
     "named_competitors": [
       { "name": "Rising Sun", "type": "Independent (Star Pubs & Bars)", "location": "Stanwell village", "distance": "0.7 miles", "overlap": "Nearest pub, Sunday roast, garden, live music" },
@@ -1015,9 +1016,9 @@
       { "name": "The Ostrich Inn", "type": "Independent (freehold)", "location": "Colnbrook", "distance": "3.5 miles", "overlap": "Grade II* heritage, restaurant, private dining, accommodation" }
     ],
     "removed_competitors": [
-      { "name": "Queen's Arms", "reason": "Inside Heathrow Terminal 2 — not a direct competitor" },
-      { "name": "Gordon Ramsay Plane Food", "reason": "Inside Heathrow Terminal 5 — not a direct competitor" },
-      { "name": "The Pheasant, Stanwell", "reason": "No current listing found — likely closed or changed name" }
+      { "name": "Queen's Arms", "reason": "Inside Heathrow Terminal 2, not a direct competitor" },
+      { "name": "Gordon Ramsay Plane Food", "reason": "Inside Heathrow Terminal 5, not a direct competitor" },
+      { "name": "The Pheasant, Stanwell", "reason": "No current listing found, likely closed or changed name" }
     ]
   },
   "seo_keywords": [
@@ -1046,14 +1047,14 @@
   "community_context": {
     "only_pub_in_stanwell_moor": true,
     "local_council": "Spelthorne",
-    "positioning_note": "Not trying to be a destination gastropub — aims to be a community pub",
+    "positioning_note": "Not trying to be a destination gastropub, aims to be a community pub",
     "local_businesses": [
       "T5 Stores (shopping)",
       "Laundrette",
       "Polash Tandoori (takeaway)"
     ],
     "nearby_nature": [
-      { "name": "Staines Moor Nature Reserve", "distance": "5-minute walk", "description": "Ancient SSSI grassland — never ploughed in 1,000+ years — with over 200 bird species." },
+      { "name": "Staines Moor Nature Reserve", "distance": "5-minute walk", "description": "Ancient SSSI grassland, never ploughed in 1,000+ years, with over 200 bird species." },
       { "name": "River Colne Footpath", "distance": "5-minute walk (village edge)", "description": "Bankside path south through open wetland countryside towards Staines Moor." },
       { "name": "King George VI Reservoir Path", "distance": "15-minute walk", "description": "Fenced embankment causeway between two vast reservoirs; outstanding winter wildfowl." },
       { "name": "Staines Reservoir Causeway Path", "distance": "20-minute walk", "description": "High-level path across twin Staines Reservoirs (built 1902); superb birdwatching." },
@@ -1092,12 +1093,12 @@
     "best_or_premier_claims": "Any claim about 'best' or 'premier' without substantiation",
     "dog_secure_fencing": "Must be verified before publishing",
     "dog_special_dinners": "'Special doggy Sunday dinners available' must be verified before publishing",
-    "old_sunday_roast_options": "As of 2026-04-29: Do NOT list Roasted Chicken (adult), Slow-Cooked Lamb Shank, Crispy Pork Belly, Cauliflower Cheese side, or 'vegetarian wellington'. Current menu: Roast Beef Topside, Roast Pork Leg, Roast Turkey with Stuffing Ball, Beef & Ale Pie, Chicken & Wild Mushroom Pie, Beetroot & Butternut Squash Wellington (VEGAN), Kids Roast. Beef IS now a roast option — older 'do not use beef' guidance is reversed.",
+    "old_sunday_roast_options": "As of 2026-04-29: Do NOT list Roasted Chicken (adult), Slow-Cooked Lamb Shank, Crispy Pork Belly, Cauliflower Cheese side, or 'vegetarian wellington'. Current menu: Roast Beef Topside, Roast Pork Leg, Roast Turkey with Stuffing Ball, Beef & Ale Pie, Chicken & Wild Mushroom Pie, Beetroot & Butternut Squash Wellington (VEGAN), Kids Roast. Beef IS now a roast option, older 'do not use beef' guidance is reversed.",
     "wellington_vegetarian_phrasing": "Wellington is VEGAN, not vegetarian. Do NOT describe the wellington as 'vegetarian' in customer-facing copy or schemas.",
     "sunday_roast_pre_order_pre_pay": "Pre-order, Saturday-1pm cutoff and per-roast prepayment are RETIRED post-2026-05-17 walk-in launch. Do not reintroduce in copy, JSON-LD, or booking flows.",
     "old_menu_items": "Lamb Shank (main) and Speck Ham & Parmesan pizza are removed. Do not list them. Stacks are back on the menu at £14 each.",
     "gluten_free_fish_and_chips": "Do NOT claim gluten-free fish and chips, gluten-free batter, gluten-free fried fish, grilled gluten-free fish, or a dedicated gluten-free fryer for fish and chips.",
-    "info_email": "info@theanchorpub.co.uk is legacy — use manager@the-anchor.pub",
+    "info_email": "info@theanchorpub.co.uk is legacy, use manager@the-anchor.pub",
     "bogof_pizza": "DISCONTINUED. Remove all BOGOF pizza references from pages, schemas, and blog posts.",
     "stanwell_moor_brew": "DISCONTINUED. Remove all Stanwell Moor Brew references from pages, schemas, and blog posts.",
     "champions_league_claim": "INCORRECT. The pub does not have Sky/TNT Sports and cannot show Champions League. Fix pizza Tuesday blog post.",

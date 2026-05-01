@@ -180,7 +180,7 @@ export default function HeathrowLayoverDiningPage() {
               {
                 icon: '',
                 title: 'Luggage-Friendly Seating',
-                description: 'Plenty of space at tables for hand luggage and suitcases — we’ll help you keep everything nearby and secure.'
+                description: 'Plenty of space at tables for hand luggage and suitcases, we’ll help you keep everything nearby and secure.'
               },
               {
                 icon: '',
@@ -320,7 +320,7 @@ export default function HeathrowLayoverDiningPage() {
               },
               {
                 title: 'Takeaway Ready',
-                content: <p>All-day menu items travel well — take leftovers or order takeaway pizzas for the onward journey.</p>
+                content: <p>All-day menu items travel well, take leftovers or order takeaway pizzas for the onward journey.</p>
               }
             ]}
           />

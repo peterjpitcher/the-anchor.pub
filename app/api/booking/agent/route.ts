@@ -93,7 +93,7 @@ export async function POST(request: NextRequest) {
         isTimeWithinRanges(normalizedBookingTime, serviceWindow.ranges)
 
       if (!canBookTime) {
-        // AB-003: customer-facing copy must be neutral — no food/drinks/kitchen
+        // AB-003: customer-facing copy must be neutral, no food/drinks/kitchen
         // wording (matches the website submit-route copy).
         const message =
           serviceWindow.message ||

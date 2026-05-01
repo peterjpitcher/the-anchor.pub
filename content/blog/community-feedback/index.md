@@ -43,7 +43,7 @@ noindex: true
 
 ## The Anchor's Journey: Your Community Pub Near Heathrow Airport
 
-For nearly three centuries, The Anchor has stood as a testament to the rich heritage and vibrant community spirit of **Stanwell Moor Village**, just **7 minutes from Heathrow Terminal 5**. As we look to the future, we're reaching out to you, our cherished community—including **Heathrow workers**, **Staines residents**, and everyone near the **airport**—to help shape the next chapter of our story.
+For nearly three centuries, The Anchor has stood as a testament to the rich heritage and vibrant community spirit of **Stanwell Moor Village**, just **7 minutes from Heathrow Terminal 5**. As we look to the future, we're reaching out to you, our cherished community, including **Heathrow workers**, **Staines residents**, and everyone near the **airport**, to help shape the next chapter of our story.
 
   
 

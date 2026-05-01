@@ -36,7 +36,7 @@ export default function ChristmasPartiesPage() {
                 route="/corporate-christmas-parties"
                 eyebrow="Corporate Christmas 2026"
                 title="Office Christmas party & corporate Christmas party venue near Heathrow"
-                description="You've been handed the job of organising the works christmas do. Deep breath. We've hosted office parties for Heathrow crews, Poyle business parks and Surrey teams for years — so we know exactly what you need: great food, easy parking, and zero drama on the night. Three-course festive menu from £36.95 per person, with a proper pub atmosphere that actually feels like Christmas."
+                description="You've been handed the job of organising the works christmas do. Deep breath. We've hosted office parties for Heathrow crews, Poyle business parks and Surrey teams for years, so we know exactly what you need: great food, easy parking, and zero drama on the night. Three-course festive menu from £36.95 per person, with a proper pub atmosphere that actually feels like Christmas."
                 variant="default"
                 primaryCta={
                     <Link href="/christmas-parties#christmas-enquiry">
@@ -73,7 +73,7 @@ export default function ChristmasPartiesPage() {
                             Every office has that one legendary Christmas do. The food was brilliant. Nobody had to argue about parking. Someone from accounts sang karaoke. Let&apos;s make yours the one people remember this year.
                         </p>
                         <p className="text-lg text-anchor-cream-text/70">
-                            At The Anchor, we handle the details so you can enjoy the night. A dedicated contact for your booking, a simple online pre-order system (no chasing colleagues on spreadsheets), and a kitchen that takes festive food seriously — herb-crusted triple-cooked roast potatoes, pigs in blankets, sage &amp; onion stuffing, the lot. Whether you&apos;re after a sit-down work christmas lunch on a Tuesday or a Friday-night party with a DJ and a late bar, we&apos;ll shape it around your team.
+                            At The Anchor, we handle the details so you can enjoy the night. A dedicated contact for your booking, a simple online pre-order system (no chasing colleagues on spreadsheets), and a kitchen that takes festive food seriously, herb-crusted triple-cooked roast potatoes, pigs in blankets, sage &amp; onion stuffing, the lot. Whether you&apos;re after a sit-down work christmas lunch on a Tuesday or a Friday-night party with a DJ and a late bar, we&apos;ll shape it around your team.
                         </p>
                     </div>
                 </Container>
@@ -100,7 +100,7 @@ export default function ChristmasPartiesPage() {
                                 {
                                     icon: "",
                                     title: "Free Parking, Outside the ULEZ",
-                                    description: "Around 20 free spaces on-site — no meters, no charges, no £12.50 ULEZ fee. Your team can leave cars overnight and collect them the next morning. That alone makes us one of the most affordable christmas party venues near Heathrow.",
+                                    description: "Around 20 free spaces on-site, no meters, no charges, no £12.50 ULEZ fee. Your team can leave cars overnight and collect them the next morning. That alone makes us one of the most affordable christmas party venues near Heathrow.",
                                     variant: "colored",
                                     color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"
@@ -121,7 +121,7 @@ export default function ChristmasPartiesPage() {
                             variant="warning"
                             title="Early bird offer"
                             className="max-w-2xl mx-auto mt-8"
-                            content="Book by 1 October and take 20% off your food bill — for every adult in parties of six or more. That's a decent saving to report back to finance."
+                            content="Book by 1 October and take 20% off your food bill, for every adult in parties of six or more. That's a decent saving to report back to finance."
                         />
                     </div>
                 </Container>
@@ -140,7 +140,7 @@ export default function ChristmasPartiesPage() {
                                     <span className="text-anchor-gold-vivid mr-2 text-xl"></span>
                                     <div>
                                         <strong className="block text-anchor-cream-text">No Spreadsheet Required</strong>
-                                        <span className="text-anchor-cream-text/70 text-sm">We send you a pre-order form link. Share it with the team. Everyone picks their courses. Done. Dietary requirements, allergies and children&apos;s meals all captured in one place. VAT invoices are available for accounts — just ask.</span>
+                                        <span className="text-anchor-cream-text/70 text-sm">We send you a pre-order form link. Share it with the team. Everyone picks their courses. Done. Dietary requirements, allergies and children&apos;s meals all captured in one place. VAT invoices are available for accounts, just ask.</span>
                                     </div>
                                 </li>
                                 <li className="flex items-start">
@@ -154,7 +154,7 @@ export default function ChristmasPartiesPage() {
                                     <span className="text-anchor-gold-vivid mr-2 text-xl"></span>
                                     <div>
                                         <strong className="block text-anchor-cream-text">£40 Voucher for Groups of 20+</strong>
-                                        <span className="text-anchor-cream-text/70 text-sm">Book a staff christmas party for twenty or more guests and we&apos;ll send you a £40 voucher to spend at The Anchor in January. You organised the whole thing — you&apos;ve earned a quiet meal on us.</span>
+                                        <span className="text-anchor-cream-text/70 text-sm">Book a staff christmas party for twenty or more guests and we&apos;ll send you a £40 voucher to spend at The Anchor in January. You organised the whole thing, you&apos;ve earned a quiet meal on us.</span>
                                     </div>
                                 </li>
                             </ul>
@@ -162,7 +162,7 @@ export default function ChristmasPartiesPage() {
                         <div className="bg-anchor-bg-raised border border-anchor-gold/15 p-8 rounded-xl text-center">
                             <h3 className="text-2xl font-bold mb-4">Early Bird Offer</h3>
                             <p className="mb-6">
-                                <strong>20% off your food bill</strong> when booked by 1 October (parties of 6+). Tue–Thu from £36.95pp. Fri–Sat from £39.95pp. The same generous three-course festive menu, the same crackers and candles — just a kinder number on the invoice.
+                                <strong>20% off your food bill</strong> when booked by 1 October (parties of 6+). Tue–Thu from £36.95pp. Fri–Sat from £39.95pp. The same generous three-course festive menu, the same crackers and candles, just a kinder number on the invoice.
                             </p>
                             <Link href="/christmas-parties#christmas-enquiry">
                                 <Button variant="secondary" size="lg">
@@ -188,7 +188,7 @@ export default function ChristmasPartiesPage() {
                                 {
                                     icon: "",
                                     title: "Small Team Dinner (6–25)",
-                                    description: "Private dining room. Three-course festive menu. Tue–Thu: £36.95 per person. Fri–Sat: £39.95 per person. Cosy private dining with crackers, candles and direct table service. The room seats up to 25 — perfect for a department work christmas lunch or an intimate staff dinner. Popular with Poyle, Colnbrook and Heathrow business park teams.",
+                                    description: "Private dining room. Three-course festive menu. Tue–Thu: £36.95 per person. Fri–Sat: £39.95 per person. Cosy private dining with crackers, candles and direct table service. The room seats up to 25, perfect for a department work christmas lunch or an intimate staff dinner. Popular with Poyle, Colnbrook and Heathrow business park teams.",
                                     variant: "colored",
                                     color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"
@@ -204,7 +204,7 @@ export default function ChristmasPartiesPage() {
                                 {
                                     icon: "",
                                     title: "Full Venue Hire (60–200)",
-                                    description: "Exclusive use of the entire pub. Pricing on enquiry. Private use of the bar, dining room and conservatory. Bring a DJ, book a live band, or let us set up karaoke. Late bar until midnight. Up to 60 seated or 200 standing — ideal for airline crews, multi-site teams and larger corporate christmas parties.",
+                                    description: "Exclusive use of the entire pub. Pricing on enquiry. Private use of the bar, dining room and conservatory. Bring a DJ, book a live band, or let us set up karaoke. Late bar until midnight. Up to 60 seated or 200 standing, ideal for airline crews, multi-site teams and larger corporate christmas parties.",
                                     variant: "colored",
                                     color: "bg-anchor-bg-raised",
                                     className: "rounded-xl p-6 text-center"
@@ -214,7 +214,7 @@ export default function ChristmasPartiesPage() {
                         />
 
                         <p className="text-anchor-cream-text/70 text-sm mb-6">
-                            Children&apos;s pricing: Under 12 — 2 courses £12.95 · 3 courses £15.95
+                            Children&apos;s pricing: Under 12, 2 courses £12.95 · 3 courses £15.95
                         </p>
 
                         <div className="flex flex-wrap justify-center gap-4">
@@ -238,20 +238,20 @@ export default function ChristmasPartiesPage() {
                     <div className="max-w-4xl mx-auto text-center">
                         <span className="inline-flex items-center gap-1.5 bg-anchor-gold/10 border border-anchor-gold/25 rounded-full px-3 py-1 text-xs font-medium text-anchor-gold mb-4">Three-course set menu</span>
                         <SectionHeader
-                            title="Our festive menu — the same at lunch and dinner"
+                            title="Our festive menu, the same at lunch and dinner"
                         />
                         <p className="text-lg text-anchor-cream-text/70 mb-4">
                             Three generous courses that feel like Christmas at home, just with someone else doing the washing up. Whether your team books a festive lunch on a Tuesday or a Friday-night dinner, every main arrives with herb-crusted triple-cooked roast potatoes, seasonal vegetables, Yorkshire puddings, pigs in blankets, sage &amp; onion stuffing and our signature gravy.
                         </p>
                         <p className="text-sm text-anchor-cream-text/50 mb-6">
-                            Sample menu — 2026 selection confirmed in October. Available for parties of six or more.
+                            Sample menu, 2026 selection confirmed in October. Available for parties of six or more.
                         </p>
 
                         <AlertBox
                             variant="warning"
                             title="Christmas lunch near me?"
                             className="max-w-2xl mx-auto mb-8"
-                            content="Our midweek lunches are the same full festive menu as the evening — no cut-down &quot;lunch version.&quot; Three courses, all the trimmings, proper coffee to finish."
+                            content="Our midweek lunches are the same full festive menu as the evening, no cut-down &quot;lunch version.&quot; Three courses, all the trimmings, proper coffee to finish."
                         />
 
                         <Link href="/food-menu">
@@ -268,7 +268,7 @@ export default function ChristmasPartiesPage() {
                 faqs={[
                     {
                         question: "How do we book an office Christmas party?",
-                        answer: "Send us an enquiry with your group size, preferred date and whether you'd like lunch or dinner. We'll come back within one working day with availability and next steps. A £10 per person deposit (non-refundable) secures your christmas party booking — we can invoice this separately for your accounts team."
+                        answer: "Send us an enquiry with your group size, preferred date and whether you'd like lunch or dinner. We'll come back within one working day with availability and next steps. A £10 per person deposit (non-refundable) secures your christmas party booking, we can invoice this separately for your accounts team."
                     },
                     {
                         question: "Can we book a work christmas lunch instead of an evening dinner?",
@@ -276,7 +276,7 @@ export default function ChristmasPartiesPage() {
                     },
                     {
                         question: "What's included in your christmas party packages?",
-                        answer: "All christmas party packages include a three-course festive menu with crackers and candlelit tables. Tue–Thu from £36.95pp, Fri–Sat from £39.95pp. Buffets are available from £10.95pp for groups of 26 or more. There are no hidden hire fees — the per-person price covers everything except drinks."
+                        answer: "All christmas party packages include a three-course festive menu with crackers and candlelit tables. Tue–Thu from £36.95pp, Fri–Sat from £39.95pp. Buffets are available from £10.95pp for groups of 26 or more. There are no hidden hire fees, the per-person price covers everything except drinks."
                     },
                     {
                         question: "Do you provide VAT invoices and corporate billing?",
@@ -284,11 +284,11 @@ export default function ChristmasPartiesPage() {
                     },
                     {
                         question: "How close are you to Heathrow and the M25?",
-                        answer: "The Anchor is in Stanwell Moor, Surrey (TW19 6AQ) — seven minutes from Heathrow Terminal 5, fifteen minutes from Terminal 2, and two minutes from M25 Junction 14. We're a christmas party venue that colleagues from different offices, terminals and even countries can reach easily."
+                        answer: "The Anchor is in Stanwell Moor, Surrey (TW19 6AQ), seven minutes from Heathrow Terminal 5, fifteen minutes from Terminal 2, and two minutes from M25 Junction 14. We're a christmas party venue that colleagues from different offices, terminals and even countries can reach easily."
                     },
                     {
                         question: "Is there parking? Are you inside the ULEZ?",
-                        answer: "Around 20 free spaces on-site — no meters, no charges. We're outside the ULEZ zone, saving your guests £12.50 per car compared to driving into London. Cars can stay overnight. We're one of the most accessible company christmas party venues near Heathrow."
+                        answer: "Around 20 free spaces on-site, no meters, no charges. We're outside the ULEZ zone, saving your guests £12.50 per car compared to driving into London. Cars can stay overnight. We're one of the most accessible company christmas party venues near Heathrow."
                     },
                     {
                         question: "What entertainment do you offer for a works christmas do?",
@@ -304,7 +304,7 @@ export default function ChristmasPartiesPage() {
 
             <CTASection
                 title="Ready to book your office christmas party?"
-                description="Send your enquiry and we'll come back within one working day with availability, pricing and everything you need to get sign-off. Prefer a quick chat? Call the team — we'll talk you through the options. The sooner you get in touch, the better your date options. Friday and Saturday nights sell out by October. Midweek slots follow shortly after."
+                description="Send your enquiry and we'll come back within one working day with availability, pricing and everything you need to get sign-off. Prefer a quick chat? Call the team, we'll talk you through the options. The sooner you get in touch, the better your date options. Friday and Saturday nights sell out by October. Midweek slots follow shortly after."
                 buttons={[
                     {
                         text: " Enquire about your Christmas party booking",

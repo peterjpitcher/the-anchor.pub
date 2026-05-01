@@ -82,7 +82,7 @@ export default async function BeerGardenPage() {
       <HeroWrapper
         route="/beer-garden"
         title="Beer Garden Near Heathrow"
-        description="Watch aircraft every 90 seconds while enjoying a pint — food from £10, dogs welcome"
+        description="Watch aircraft every 90 seconds while enjoying a pint, food from £10, dogs welcome"
         variant="default"
         enableSmartCtas={true}
         showContextStrip={true}
@@ -184,7 +184,7 @@ export default async function BeerGardenPage() {
             className="text-center text-anchor-cream-text"
             seo={{ structured: true, speakable: true }}
           >
-            Beer Garden Near Heathrow — Outdoor Pub Dining Under the Flight Path
+            Beer Garden Near Heathrow, Outdoor Pub Dining Under the Flight Path
           </PageTitle>
           <p className="text-center text-lg text-anchor-cream-text/70 mt-4 max-w-4xl mx-auto">
             The Anchor&apos;s beer garden sits directly under Heathrow&apos;s southern runway flight path, with aircraft passing overhead approximately every 90 seconds during peak hours. The 64-seat garden features heated areas and is fully dog-friendly with water bowls provided.
@@ -236,7 +236,7 @@ export default async function BeerGardenPage() {
                       </div>
                       <div className="bg-anchor-bg rounded-lg p-4 border border-anchor-gold/15">
                         <p className="text-sm text-anchor-cream-text/55">
-                          <strong>Schedule:</strong> Planes operate on a rotating weekly schedule — one week landings are overhead until 3pm, the next week from 3pm<br />
+                          <strong>Schedule:</strong> Planes operate on a rotating weekly schedule, one week landings are overhead until 3pm, the next week from 3pm<br />
                           <strong>Frequency:</strong> Every 90 seconds (peak)<br />
                           <strong>Overhead Operations:</strong> ~50% of the year (alternating weekly schedule)
                         </p>
@@ -401,7 +401,7 @@ export default async function BeerGardenPage() {
           },
           {
             question: "When is the best time for plane spotting at The Anchor?",
-            answer: "Planes operate on a rotating weekly schedule — one week landings are overhead until 3pm, the next week from 3pm. The schedule alternates weekly, so there's always a good chance of seeing planes during your visit."
+            answer: "Planes operate on a rotating weekly schedule, one week landings are overhead until 3pm, the next week from 3pm. The schedule alternates weekly, so there's always a good chance of seeing planes during your visit."
           },
           {
             question: "Is the beer garden dog friendly?",

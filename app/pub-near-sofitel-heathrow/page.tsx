@@ -11,7 +11,7 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
   title: 'Pub Near Sofitel Heathrow | 7 Mins from T5',
-  description: 'Traditional British pub just 7 minutes from Sofitel London Heathrow Terminal 5. Escape hotel prices — draught beers, home-cooked food & free parking. Book a table.',
+  description: 'Traditional British pub just 7 minutes from Sofitel London Heathrow Terminal 5. Escape hotel prices, draught beers, home-cooked food & free parking. Book a table.',
   openGraph: {
     title: 'Pub Near Sofitel Heathrow T5 | 7 Mins Away | The Anchor',
     description: 'Just 7 minutes from Sofitel London Heathrow. Real British pub with home-cooked food, draught beers & free parking. Honest pub pricing.',
@@ -32,7 +32,7 @@ const nearbyHotelSchema = {
   '@context': 'https://schema.org',
   '@type': 'Place',
   '@id': 'https://www.the-anchor.pub/pub-near-sofitel-heathrow#nearby',
-  name: 'The Anchor — near Sofitel Heathrow',
+  name: 'The Anchor, near Sofitel Heathrow',
   isPartOf: { '@id': 'https://www.the-anchor.pub/#business' },
   nearbyAttractions: [
     { '@type': 'Hotel', name: 'Sofitel London Heathrow', description: '7 minutes away' }
@@ -50,7 +50,7 @@ export default function PubNearSofitelHeathrowPage() {
       <HeroWrapper
         route="/pub-near-sofitel-heathrow"
         title="Pub Near Sofitel Heathrow"
-        description="Just 7 minutes from Terminal 5 — authentic British pub at half the hotel price"
+        description="Just 7 minutes from Terminal 5, authentic British pub at half the hotel price"
         variant="default"
         enableSmartCtas={true}
         showContextStrip={true}
@@ -63,7 +63,7 @@ export default function PubNearSofitelHeathrowPage() {
               Pub Near Sofitel London Heathrow Terminal 5
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
-              Staying at the Sofitel? The Anchor is just 7 minutes away — real British pub food, proper pints, and free parking at a fraction of hotel prices. We&apos;re one of the best pubs near Heathrow Airport for guests who want a proper local experience over hotel dining.
+              Staying at the Sofitel? The Anchor is just 7 minutes away, real British pub food, proper pints, and free parking at a fraction of hotel prices. We&apos;re one of the best pubs near Heathrow Airport for guests who want a proper local experience over hotel dining.
             </p>
           </div>
         </Container>
@@ -93,7 +93,7 @@ export default function PubNearSofitelHeathrowPage() {
           <div className="max-w-4xl mx-auto">
             <SectionHeader
               title="Real Pub Experience Near Sofitel Heathrow"
-              subtitle="The Sofitel is one of the finest airport hotels in the world — but for a proper British pub night, The Anchor is your answer."
+              subtitle="The Sofitel is one of the finest airport hotels in the world, but for a proper British pub night, The Anchor is your answer."
             />
             <div className="grid md:grid-cols-2 gap-8">
               <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
@@ -138,9 +138,9 @@ export default function PubNearSofitelHeathrowPage() {
             <FeatureGrid
               columns={3}
               features={[
-                { icon: '', title: 'Fish & Chips', description: 'Classic British dish — fresh battered cod with chips and mushy peas', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Sunday Roast', description: 'Traditional roast from £19 — a British institution worth experiencing', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Stone-Baked Pizza', description: 'Authentic stone-baked pizzas from £12 — great for sharing', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Fish & Chips', description: 'Classic British dish, fresh battered cod with chips and mushy peas', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Sunday Roast', description: 'Traditional roast from £19, a British institution worth experiencing', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Stone-Baked Pizza', description: 'Authentic stone-baked pizzas from £12, great for sharing', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
               ]}
               className="mb-8"
             />
@@ -189,14 +189,14 @@ export default function PubNearSofitelHeathrowPage() {
           },
           {
             question: 'Can I get a taxi back to Sofitel from The Anchor?',
-            answer: 'Yes — our staff can help you call a taxi, or you can use Uber from the pub. The return journey to Sofitel Heathrow Terminal 5 typically takes 7–10 minutes and costs £12–15.'
+            answer: 'Yes, our staff can help you call a taxi, or you can use Uber from the pub. The return journey to Sofitel Heathrow Terminal 5 typically takes 7–10 minutes and costs £12–15.'
           },
         ]}
         className="bg-anchor-bg"
       />
 
       <CTASection
-        title="7 Minutes from Sofitel — Worth Every Second"
+        title="7 Minutes from Sofitel, Worth Every Second"
         description="Authentic British pub food and draught beers at honest prices. Book a table or just walk in."
         buttons={[
           { text: 'Book a Table', href: '/book-table', variant: 'white' },

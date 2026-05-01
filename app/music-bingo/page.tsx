@@ -40,7 +40,7 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 export const metadata: Metadata = {
   title: 'Music Bingo Near Heathrow | Win Every Round',
   description:
-    'Singalong Music Bingo at The Anchor, Stanwell Moor — song snippets replace numbers, prizes every round. Book early, it sells out. 7 mins from Heathrow T5.',
+    'Singalong Music Bingo at The Anchor, Stanwell Moor, song snippets replace numbers, prizes every round. Book early, it sells out. 7 mins from Heathrow T5.',
   openGraph: {
     title: 'Music Bingo Near Heathrow | The Anchor',
     description: 'Song snippets replace numbers, prizes every round. Book for this singalong bingo night in Stanwell Moor.',

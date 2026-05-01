@@ -147,7 +147,7 @@ export default function ReviewsPage() {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'WebPage',
-            'name': 'Reviews — What Our Guests Say About The Anchor',
+            'name': 'Reviews, What Our Guests Say About The Anchor',
             'description': `Read what guests say about The Anchor near Heathrow. Rated ${rating}/5 on Google with ${totalReviews}+ reviews.`,
             'url': 'https://www.the-anchor.pub/reviews',
             'about': { '@id': 'https://www.the-anchor.pub/#business' }

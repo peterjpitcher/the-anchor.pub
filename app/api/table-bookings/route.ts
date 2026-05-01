@@ -153,7 +153,7 @@ function normaliseIncomingPayload(input: unknown): {
   const allergies = toStringList(body.allergies)
 
   // notes is strictly the user's free-text. Sunday-lunch pre-order menu_selections
-  // are no longer supported on the public path (spec §6, §8.1) — Sundays are
+  // are no longer supported on the public path (spec §6, §8.1), Sundays are
   // regular food bookings now.
   const userNote =
     asTrimmedString(body.special_requirements) || asTrimmedString(body.notes)
@@ -209,7 +209,7 @@ function validatePayload(payload: ManagementTableBookingPayload): string | null 
 // Customer-facing copy is intentionally neutral (no food/drinks/kitchen/bar
 // references) so the public booking flow no longer exposes the internal
 // purpose classification (spec §7, plan T5). Server-side logging still
-// records `purpose` for diagnostics — see logError calls below.
+// records `purpose` for diagnostics, see logError calls below.
 function buildServiceWindowError(_payload: ManagementTableBookingPayload): string {
   return 'That time is outside online booking hours. Please choose another time or call 01753 682707.'
 }
@@ -239,7 +239,7 @@ export async function POST(request: NextRequest) {
 
     try {
       const businessHours = await anchorAPI.getBusinessHours()
-      // Always resolve as a 'regular' booking — Sunday-lunch as a separate
+      // Always resolve as a 'regular' booking, Sunday-lunch as a separate
       // booking type is retired on the public path (spec §7.1).
       const serviceWindow = resolveServiceRanges(businessHours, normalized.payload.date, {
         bookingType: 'regular',
@@ -287,7 +287,7 @@ export async function POST(request: NextRequest) {
       // doesn't need a separate SMS payment link. The management API will set
       // skip_customer_sms=false when inline PayPal setup fails so the customer
       // also receives an SMS link (spec §6, §8.9).
-      // Always forward booking_type='regular' — defence in depth against hostile
+      // Always forward booking_type='regular', defence in depth against hostile
       // or stale clients (spec §6, §8.1).
       body: JSON.stringify({
         ...normalized.payload,

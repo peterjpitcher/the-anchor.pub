@@ -35,7 +35,7 @@ export default function PubNearRadissonBluHeathrowPage() {
       <HeroWrapper
         route="/pub-near-radisson-blu-heathrow"
         title="Pub Near Radisson Blu Heathrow"
-        description="12 minutes away — authentic British local for Radisson guests seeking a genuine experience"
+        description="12 minutes away, authentic British local for Radisson guests seeking a genuine experience"
         variant="default"
         enableSmartCtas={true}
         showContextStrip={true}
@@ -48,7 +48,7 @@ export default function PubNearRadissonBluHeathrowPage() {
               Pub Near Radisson Blu Edwardian Heathrow
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
-              Staying at the Radisson Blu Heathrow? The Anchor is just 12 minutes away — a genuine British community pub with home-cooked food, draught beers, and free parking. For places to eat near Heathrow with real character, we&apos;re the authentic local experience your hotel can&apos;t offer.
+              Staying at the Radisson Blu Heathrow? The Anchor is just 12 minutes away, a genuine British community pub with home-cooked food, draught beers, and free parking. For places to eat near Heathrow with real character, we&apos;re the authentic local experience your hotel can&apos;t offer.
             </p>
           </div>
         </Container>
@@ -62,7 +62,7 @@ export default function PubNearRadissonBluHeathrowPage() {
               features={[
                 { icon: '', title: '12 Minutes', description: 'By taxi from Radisson Blu Heathrow', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
                 { icon: '', title: '~£15–18', description: 'Typical taxi fare each way', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: 'Free Parking', description: '20 spaces — no charges at all', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: 'Free Parking', description: '20 spaces, no charges at all', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
                 { icon: '', title: 'Authentically Local', description: 'A real community pub since 1751', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
               ]}
               className="mb-8"
@@ -76,19 +76,19 @@ export default function PubNearRadissonBluHeathrowPage() {
           <div className="max-w-4xl mx-auto">
             <SectionHeader
               title="Authentic British Pub Near Radisson Blu Heathrow"
-              subtitle="The Radisson Blu is an outstanding hotel — but for a genuinely British pub night, The Anchor is where Radisson guests go when they want to experience real local life rather than another hotel bar."
+              subtitle="The Radisson Blu is an outstanding hotel, but for a genuinely British pub night, The Anchor is where Radisson guests go when they want to experience real local life rather than another hotel bar."
             />
             <div className="grid md:grid-cols-2 gap-8">
               <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
                 <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">What You Get at The Anchor</h3>
                 <ul className="space-y-3">
                   {[
-                    'Home-cooked British food — from £8.99',
+                    'Home-cooked British food, from £8.99',
                     'Draught lagers, bottled ales and craft beers',
                     'Warm, unpretentious community atmosphere',
                     'Dog-friendly beer garden',
                     'Full VAT receipts for business expenses',
-                    'Regular events — quiz, music bingo, karaoke',
+                    'Regular events, quiz, music bingo, karaoke',
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-3">
                       <span className="text-anchor-gold font-bold"></span>
@@ -126,8 +126,8 @@ export default function PubNearRadissonBluHeathrowPage() {
             <FeatureGrid
               columns={3}
               features={[
-                { icon: '', title: 'Fish & Chips', description: 'The quintessential British dish — fresh battered cod with chips and mushy peas.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Sunday Roast', description: 'Traditional roast from £19 — pre-booking recommended for weekends.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Fish & Chips', description: 'The quintessential British dish, fresh battered cod with chips and mushy peas.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Sunday Roast', description: 'Traditional roast from £19, pre-booking recommended for weekends.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
                 { icon: '', title: 'Great Drinks Selection', description: 'Draught beers and lagers. Proper British beer culture.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
               ]}
               className="mb-6"
@@ -165,16 +165,16 @@ export default function PubNearRadissonBluHeathrowPage() {
             />
             <div className="prose prose-invert max-w-none space-y-4 text-anchor-cream-text/70">
               <p>
-                From the Radisson Blu, a taxi takes about 15 minutes via the Southern Perimeter Road and costs approximately &pound;15&ndash;18. If you prefer public transport, the 490 bus runs toward Staines and you can get off on Stanwell Moor Road &mdash; it&rsquo;s a short walk from there. But honestly, for an evening out, Uber is the simplest option.
+                From the Radisson Blu, a taxi takes about 15 minutes via the Southern Perimeter Road and costs approximately &pound;15&ndash;18. If you prefer public transport, the 490 bus runs toward Staines and you can get off on Stanwell Moor Road, it&rsquo;s a short walk from there. But honestly, for an evening out, Uber is the simplest option.
               </p>
               <p>
-                We know business travellers need speed and efficiency. Our kitchen opens at 6pm on weekdays &mdash; you can be sitting down with a pint by 6:10, eating by 6:15, and back at the hotel by 8pm if you need to be. We provide full itemised VAT receipts for expenses, and there&rsquo;s free WiFi throughout if you need to catch up on emails between courses.
+                We know business travellers need speed and efficiency. Our kitchen opens at 6pm on weekdays, you can be sitting down with a pint by 6:10, eating by 6:15, and back at the hotel by 8pm if you need to be. We provide full itemised VAT receipts for expenses, and there&rsquo;s free WiFi throughout if you need to catch up on emails between courses.
               </p>
               <p>
-                Let&rsquo;s talk money. Radisson Blu restaurant mains typically run &pound;20&ndash;30. At The Anchor, the same quality British classics &mdash; fish and chips, steaks, pies, burgers &mdash; cost &pound;10&ndash;17. The money you save comfortably pays for your taxi both ways. Order a proper ale or a pint of Moretti instead of a hotel-price drink and you&rsquo;re ahead on every line of the receipt.
+                Let&rsquo;s talk money. Radisson Blu restaurant mains typically run &pound;20&ndash;30. At The Anchor, the same quality British classics, fish and chips, steaks, pies, burgers, cost &pound;10&ndash;17. The money you save comfortably pays for your taxi both ways. Order a proper ale or a pint of Moretti instead of a hotel-price drink and you&rsquo;re ahead on every line of the receipt.
               </p>
               <p>
-                What Radisson guests consistently tell us is that the contrast is what makes it worthwhile. You leave a polished, corporate hotel and walk into a 270-year-old village pub with low ceilings, proper beer, and locals at the bar. No background music playlist curated by a brand agency &mdash; just conversation, good food, and the occasional plane overhead. It&rsquo;s exactly the kind of evening you can&rsquo;t get from a hotel restaurant, no matter how good the hotel is.
+                What Radisson guests consistently tell us is that the contrast is what makes it worthwhile. You leave a polished, corporate hotel and walk into a 270-year-old village pub with low ceilings, proper beer, and locals at the bar. No background music playlist curated by a brand agency, just conversation, good food, and the occasional plane overhead. It&rsquo;s exactly the kind of evening you can&rsquo;t get from a hotel restaurant, no matter how good the hotel is.
               </p>
             </div>
           </div>
@@ -185,11 +185,11 @@ export default function PubNearRadissonBluHeathrowPage() {
         faqs={[
           {
             question: 'How far is The Anchor from Radisson Blu Edwardian Heathrow?',
-            answer: 'The Anchor is approximately 12 minutes by taxi from Radisson Blu Edwardian Heathrow. Taxi fare is typically £15–18 each way. Free parking is available if you are driving — postcode TW19 6AQ.'
+            answer: 'The Anchor is approximately 12 minutes by taxi from Radisson Blu Edwardian Heathrow. Taxi fare is typically £15–18 each way. Free parking is available if you are driving, postcode TW19 6AQ.'
           },
           {
             question: 'Is there a pub near Radisson Blu Heathrow?',
-            answer: 'Yes — The Anchor in Stanwell Moor is the closest independent pub to Radisson Blu Edwardian Heathrow, approximately 12 minutes away. It\'s an authentic British pub with home-cooked food, draught beers, and a genuine community atmosphere.'
+            answer: 'Yes, The Anchor in Stanwell Moor is the closest independent pub to Radisson Blu Edwardian Heathrow, approximately 12 minutes away. It\'s an authentic British pub with home-cooked food, draught beers, and a genuine community atmosphere.'
           },
           {
             question: 'What restaurants are near Radisson Blu Heathrow?',
@@ -197,11 +197,11 @@ export default function PubNearRadissonBluHeathrowPage() {
           },
           {
             question: 'Does The Anchor near Radisson Blu cater for business expenses?',
-            answer: 'Yes — full itemised VAT receipts are provided for all purchases. We also have free WiFi and a quieter dining room suitable for business meals.'
+            answer: 'Yes, full itemised VAT receipts are provided for all purchases. We also have free WiFi and a quieter dining room suitable for business meals.'
           },
           {
             question: 'Can I get a return taxi from The Anchor to Radisson Blu Heathrow?',
-            answer: 'Yes — our staff are happy to help arrange a taxi, or you can use Uber from the pub. The return journey to Radisson Blu Heathrow takes approximately 12 minutes and costs around £15–18.'
+            answer: 'Yes, our staff are happy to help arrange a taxi, or you can use Uber from the pub. The return journey to Radisson Blu Heathrow takes approximately 12 minutes and costs around £15–18.'
           },
         ]}
         className="bg-anchor-bg"

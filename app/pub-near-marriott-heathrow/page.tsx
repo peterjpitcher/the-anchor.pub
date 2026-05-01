@@ -35,7 +35,7 @@ export default function PubNearMarriottHeathrowPage() {
       <HeroWrapper
         route="/pub-near-marriott-heathrow"
         title="Pub Near Marriott Heathrow"
-        description="12 minutes away — authentic British pub for business guests and leisure travellers"
+        description="12 minutes away, authentic British pub for business guests and leisure travellers"
         variant="default"
         enableSmartCtas={true}
         showContextStrip={true}
@@ -48,7 +48,7 @@ export default function PubNearMarriottHeathrowPage() {
               Pub Near Marriott London Heathrow
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
-              Staying at the Marriott Heathrow? The Anchor is just 12 minutes away — a proper British pub with home-cooked food, draught beers, and free parking. As one of the top-rated pubs near Heathrow Airport, we&apos;re a genuine escape from hotel restaurant prices.
+              Staying at the Marriott Heathrow? The Anchor is just 12 minutes away, a proper British pub with home-cooked food, draught beers, and free parking. As one of the top-rated pubs near Heathrow Airport, we&apos;re a genuine escape from hotel restaurant prices.
             </p>
           </div>
         </Container>
@@ -62,7 +62,7 @@ export default function PubNearMarriottHeathrowPage() {
               features={[
                 { icon: '', title: '12 Minutes', description: 'By taxi from Marriott Heathrow', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
                 { icon: '', title: '~£15–18', description: 'Typical taxi fare each way', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: 'Free Parking', description: '20 spaces — no hotel charges', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: 'Free Parking', description: '20 spaces, no hotel charges', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
                 { icon: '', title: 'VAT Receipts', description: 'Full receipts for expenses', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
               ]}
               className="mb-8"
@@ -76,7 +76,7 @@ export default function PubNearMarriottHeathrowPage() {
           <div className="max-w-4xl mx-auto">
             <SectionHeader
               title="The Business Traveller's Local Near Marriott Heathrow"
-              subtitle="Marriott guests are often here on business. The Anchor offers the perfect setting for client dinners, team meals, or simply unwinding after a long day — at a fraction of hotel restaurant prices."
+              subtitle="Marriott guests are often here on business. The Anchor offers the perfect setting for client dinners, team meals, or simply unwinding after a long day, at a fraction of hotel restaurant prices."
             />
             <div className="grid md:grid-cols-2 gap-8">
               <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
@@ -87,7 +87,7 @@ export default function PubNearMarriottHeathrowPage() {
                     'Free WiFi throughout the pub',
                     'Quieter dining room for business meals',
                     'Group bookings and private hire available',
-                    'Relaxed atmosphere — no dress code',
+                    'Relaxed atmosphere, no dress code',
                     'Honest pub pricing with mains from £8.99',
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-3">
@@ -106,7 +106,7 @@ export default function PubNearMarriottHeathrowPage() {
                   </div>
                   <div>
                     <p className="font-semibold">By Car (Rental)</p>
-                    <p className="text-sm">Head south from Bath Road via the A3044. Follow signs for Stanwell/Stanwell Moor. Turn right onto Horton Road — the pub is on your left.</p>
+                    <p className="text-sm">Head south from Bath Road via the A3044. Follow signs for Stanwell/Stanwell Moor. Turn right onto Horton Road, the pub is on your left.</p>
                   </div>
                   <div className="pt-2 border-t border-anchor-gold/15">
                     <p className="text-sm font-medium">Postcode: <strong>TW19 6AQ</strong></p>
@@ -126,9 +126,9 @@ export default function PubNearMarriottHeathrowPage() {
             <FeatureGrid
               columns={3}
               features={[
-                { icon: '', title: 'Classic Mains', description: 'From £8.99 — steaks, fish & chips, burgers and British classics cooked fresh daily', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Draught Beers', description: 'Wide selection of beers, wines and spirits — a proper British pint from £4.80', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Stone-Baked Pizza', description: 'Authentic stone-baked pizzas from £12 — great for groups and families', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Classic Mains', description: 'From £8.99, steaks, fish & chips, burgers and British classics cooked fresh daily', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Draught Beers', description: 'Wide selection of beers, wines and spirits, a proper British pint from £4.80', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Stone-Baked Pizza', description: 'Authentic stone-baked pizzas from £12, great for groups and families', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
               ]}
               className="mb-8"
             />
@@ -162,7 +162,7 @@ export default function PubNearMarriottHeathrowPage() {
         faqs={[
           {
             question: 'How far is The Anchor from Marriott London Heathrow?',
-            answer: 'The Anchor is approximately 12 minutes by taxi from Marriott London Heathrow. The taxi fare is typically £15–18 each way. If you have a rental car, we offer 20 free parking spaces — enter postcode TW19 6AQ.'
+            answer: 'The Anchor is approximately 12 minutes by taxi from Marriott London Heathrow. The taxi fare is typically £15–18 each way. If you have a rental car, we offer 20 free parking spaces, enter postcode TW19 6AQ.'
           },
           {
             question: 'Is there a pub near Marriott Heathrow for business dinners?',
@@ -174,11 +174,11 @@ export default function PubNearMarriottHeathrowPage() {
           },
           {
             question: 'Can I get a taxi from Marriott Heathrow to The Anchor?',
-            answer: 'Yes — ask the Marriott concierge to arrange a taxi, or use Uber. The journey is approximately 12 minutes. We have 20 free parking spaces if you prefer to drive a rental car (postcode TW19 6AQ).'
+            answer: 'Yes, ask the Marriott concierge to arrange a taxi, or use Uber. The journey is approximately 12 minutes. We have 20 free parking spaces if you prefer to drive a rental car (postcode TW19 6AQ).'
           },
           {
             question: 'Do you provide receipts for business expenses near Marriott Heathrow?',
-            answer: 'Yes — we provide full itemised VAT receipts for all meals and drinks, making The Anchor an excellent choice for expense-friendly business entertaining.'
+            answer: 'Yes, we provide full itemised VAT receipts for all meals and drinks, making The Anchor an excellent choice for expense-friendly business entertaining.'
           },
         ]}
         className="bg-anchor-bg"

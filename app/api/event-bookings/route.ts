@@ -192,7 +192,7 @@ export async function POST(request: NextRequest) {
     const bookingsDisabled = upstream.status === 409 && hasErrorCode(parsed, 'BOOKINGS_DISABLED')
     if (bookingsDisabled) {
       return NextResponse.json(
-        { success: false, error: { code: 'BOOKINGS_DISABLED', message: 'Bookings are not available for this event. No booking is needed — just turn up!' } },
+        { success: false, error: { code: 'BOOKINGS_DISABLED', message: 'Bookings are not available for this event. No booking is needed, just turn up!' } },
         { status: 409, headers: { 'X-Idempotency-Key': idempotencyKey } }
       )
     }

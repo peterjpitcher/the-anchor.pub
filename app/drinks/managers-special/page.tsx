@@ -182,7 +182,7 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
       },
       {
         question: "Why do you run it?",
-        answer: "To make it easier for everyone to try our best bottles at pub prices — whether you’re a regular, visiting from nearby, or stopping off after Heathrow."
+        answer: "To make it easier for everyone to try our best bottles at pub prices, whether you’re a regular, visiting from nearby, or stopping off after Heathrow."
       },
       {
         question: "When does it change?",
@@ -200,7 +200,7 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
         <HeroWrapper
           route="/drinks/managers-special"
           title="Manager's Special"
-          description="25% off a featured spirit each month — our way of giving back, and a great excuse to try something new."
+          description="25% off a featured spirit each month, our way of giving back, and a great excuse to try something new."
           image={{
             ...drinksHeroImage,
             objectPosition: 'center center',
@@ -222,7 +222,7 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
               Each month we hand-pick one premium spirit and take 25% off every serve. It&apos;s a simple way to share
-              the best of our back bar with the people who support us — and to help everyone discover something new.
+              the best of our back bar with the people who support us, and to help everyone discover something new.
             </p>
             <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
               <Link href="/drinks">
@@ -257,7 +257,7 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
                 </li>
                 <li className="flex gap-3">
                   <span className="mt-1 h-2 w-2 flex-shrink-0 rounded-full bg-anchor-gold" aria-hidden="true" />
-                  <span>Showcase what we love from the top shelf — with simple, great serves at the bar.</span>
+                  <span>Showcase what we love from the top shelf, with simple, great serves at the bar.</span>
                 </li>
               </ul>
             </div>
@@ -573,7 +573,7 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
           <div>
             <h2 className="text-3xl font-bold text-anchor-cream-text">Why we do it</h2>
             <p className="mt-4 text-lg text-anchor-cream-text/70">
-              The Anchor is a community pub at heart. The Manager&apos;s Special is our monthly thank-you — a way to share premium spirits at a price that feels fair, and to keep the back bar fun for everyone.
+              The Anchor is a community pub at heart. The Manager&apos;s Special is our monthly thank-you, a way to share premium spirits at a price that feels fair, and to keep the back bar fun for everyone.
             </p>
             <ul className="mt-6 space-y-3 text-anchor-cream-text/70">
               <li className="flex gap-3">
@@ -613,7 +613,7 @@ export default function ManagersSpecialPage({ searchParams }: { searchParams: Pa
               </li>
             </ol>
             <p className="mt-6 text-sm text-anchor-cream-text/55">
-              No memberships, no vouchers, no happy-hour window — just one great bottle, all month.
+              No memberships, no vouchers, no happy-hour window, just one great bottle, all month.
             </p>
           </div>
         </div>

@@ -1,5 +1,5 @@
 // lib/api/index.ts
-// Barrel re-export — all domain modules re-exported from one place.
+// Barrel re-export, all domain modules re-exported from one place.
 // This keeps all existing `import { X } from '@/lib/api'` imports working.
 
 export * from './shared'

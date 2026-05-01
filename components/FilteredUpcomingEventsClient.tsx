@@ -228,7 +228,7 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
   return (
     <div className="card-dark rounded-none overflow-hidden">
       <>
-          {/* Mobile Layout — image on top, content below */}
+          {/* Mobile Layout, image on top, content below */}
           <div className="sm:hidden">
             {!isTimeChange && (
               <Link href={`/events/${event.slug || event.id}`} className="block">
@@ -297,7 +297,7 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
             </div>
           </div>
 
-          {/* Desktop Layout — large square image left, content right */}
+          {/* Desktop Layout, large square image left, content right */}
           <div className="hidden sm:grid sm:grid-cols-[200px_1fr]">
             {!isTimeChange ? (
               <Link href={`/events/${event.slug || event.id}`} className="relative aspect-square overflow-hidden bg-anchor-bg block">

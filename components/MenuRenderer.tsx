@@ -386,7 +386,7 @@ const MenuItemRow = memo(function MenuItemRow({ item, itemId, isFocused, onFocus
           <span className="text-[11px] font-semibold text-anchor-green/80 bg-anchor-green/10 px-1.5 py-0.5 rounded leading-none ml-1.5">GF opt</span>
         )}
         {item.description && (
-          <span className="text-anchor-cream-text/60 font-normal" itemProp="description"> — {item.description}</span>
+          <span className="text-anchor-cream-text/60 font-normal" itemProp="description">, {item.description}</span>
         )}
         {displayPrice && (
           <span

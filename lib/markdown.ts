@@ -61,7 +61,7 @@ export interface MenuItem {
 // Blog functions
 
 /**
- * Lightweight metadata-only fetch — reads frontmatter without running the
+ * Lightweight metadata-only fetch, reads frontmatter without running the
  * remark markdown-to-HTML pipeline. Use this for listings, tag pages,
  * sitemap, and navigation where htmlContent is not needed.
  */
@@ -105,7 +105,7 @@ export function getBlogPostMeta(slug: string): BlogPost | null {
       images: existingImages,
       imageAlts,
       content,
-      htmlContent: undefined  // Not computed — use getBlogPost() for full HTML
+      htmlContent: undefined  // Not computed, use getBlogPost() for full HTML
     }
   } catch (error) {
     console.error(`Error reading blog post meta ${slug}:`, error)

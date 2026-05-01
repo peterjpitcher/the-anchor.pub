@@ -238,7 +238,7 @@ export default async function ValentinesDayPage() {
         {
           question: 'Is it free entry?',
           answer: isFreeEntry
-            ? 'Yes — entry is free (no tickets needed). We recommend booking a table for dinner to guarantee your spot.'
+            ? 'Yes, entry is free (no tickets needed). We recommend booking a table for dinner to guarantee your spot.'
             : 'Please use the booking link on this page for the latest entry and booking details.'
         },
         {
@@ -340,7 +340,7 @@ export default async function ValentinesDayPage() {
                   Valentine's Day dinner near Heathrow
                 </h2>
                 <p className="mt-4 text-anchor-cream-text/70 text-lg leading-relaxed">
-                  Celebrate Valentine's Day in Stanwell Moor at The Anchor — a cosy village pub with free parking,
+                  Celebrate Valentine's Day in Stanwell Moor at The Anchor, a cosy village pub with free parking,
                   seven minutes from{' '}
                   <Link href="/near-heathrow/terminal-5" className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted">
                     Heathrow Terminal 5
@@ -349,7 +349,7 @@ export default async function ValentinesDayPage() {
                 </p>
                 <p className="mt-3 text-anchor-cream-text/70 leading-relaxed">
                   {event
-                    ? `This year's Valentine's event is ${event.name} on ${eventDate}. ${isFreeEntry ? 'Entry is free — book your table for dinner and enjoy the night.' : 'Book early to secure your place.'}`
+                    ? `This year's Valentine's event is ${event.name} on ${eventDate}. ${isFreeEntry ? 'Entry is free, book your table for dinner and enjoy the night.' : 'Book early to secure your place.'}`
                     : "We'll publish this year's Valentine's details here as soon as they're confirmed. In the meantime, you can still book a regular table below."}
                 </p>
 
@@ -494,7 +494,7 @@ export default async function ValentinesDayPage() {
           <div className="mx-auto max-w-4xl text-center space-y-6">
             <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">Book your Valentine's table</h2>
             <p className="text-anchor-cream-text/70 text-lg">
-              We take online bookings on our table booking page. Choose your date, time, and party size — and book early to get your preferred slot.
+              We take online bookings on our table booking page. Choose your date, time, and party size, and book early to get your preferred slot.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Button asChild variant="primary" size="lg" fullWidth className="w-full sm:w-auto">
@@ -512,7 +512,7 @@ export default async function ValentinesDayPage() {
                 Call 01753 682707
               </PhoneButton>
             </div>
-            <p className="text-sm text-anchor-cream-text/70">Tables for 8+ guests — please call.</p>
+            <p className="text-sm text-anchor-cream-text/70">Tables for 8+ guests, please call.</p>
           </div>
         </Container>
       </Section>
@@ -524,7 +524,7 @@ export default async function ValentinesDayPage() {
               <div className="space-y-4">
                 <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">Where we are</h2>
                 <p className="text-anchor-cream-text/70 leading-relaxed">
-                  The Anchor is in Stanwell Moor, Surrey (TW19 6AQ) — a quick drive from Heathrow and easy to reach
+                  The Anchor is in Stanwell Moor, Surrey (TW19 6AQ), a quick drive from Heathrow and easy to reach
                   from Staines-upon-Thames, Ashford and Windsor. If you're searching for a Valentine's Day restaurant
                   near Heathrow, this is the easy, stress-free option with free parking.
                 </p>

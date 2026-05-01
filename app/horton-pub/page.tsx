@@ -110,7 +110,7 @@ export default function HortonPubPage() {
                             }}
                             className="text-anchor-cream-text mb-4"
                         >
-                            Pubs in Horton &mdash; Traditional British Pub Just 1 Mile Away
+                            Pubs in Horton, Traditional British Pub Just 1 Mile Away
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">
                             The Anchor in Stanwell Moor is practically in Horton! We are your closest traditional pub with food, offering a warm welcome to our neighbours.
@@ -213,20 +213,20 @@ export default function HortonPubPage() {
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <SectionHeader
-                            title="Next Village Over &mdash; Practically Your Local"
+                            title="Next Village Over, Practically Your Local"
                         />
                         <div className="prose prose-invert max-w-none space-y-4 text-anchor-cream-text/80">
                             <p>
-                                Horton and Stanwell Moor are connected by the same road &mdash; Horton Road &mdash; and we&rsquo;re barely a mile apart. If you live in Horton, The Anchor is genuinely your closest pub. Head east out of the village, cross over the M25 bridge, and we&rsquo;re right there on your left. Two minutes in the car. On a nice evening, it&rsquo;s a pleasant twenty-minute walk along the pavement, and some of our Horton regulars do exactly that when the weather&rsquo;s good.
+                                Horton and Stanwell Moor are connected by the same road, Horton Road, and we&rsquo;re barely a mile apart. If you live in Horton, The Anchor is genuinely your closest pub. Head east out of the village, cross over the M25 bridge, and we&rsquo;re right there on your left. Two minutes in the car. On a nice evening, it&rsquo;s a pleasant twenty-minute walk along the pavement, and some of our Horton regulars do exactly that when the weather&rsquo;s good.
                             </p>
                             <p>
-                                Horton is a quiet, beautiful village, but it doesn&rsquo;t have its own pub any more. That makes us your de facto local, and we take that seriously. We know a lot of Horton residents by name &mdash; they&rsquo;re some of our most loyal regulars. Whether it&rsquo;s a midweek pint after work, a family Sunday roast, or a big birthday celebration, Horton folk treat The Anchor like their own, and we love that.
+                                Horton is a quiet, beautiful village, but it doesn&rsquo;t have its own pub any more. That makes us your de facto local, and we take that seriously. We know a lot of Horton residents by name, they&rsquo;re some of our most loyal regulars. Whether it&rsquo;s a midweek pint after work, a family Sunday roast, or a big birthday celebration, Horton folk treat The Anchor like their own, and we love that.
                             </p>
                             <p>
-                                If you walk the Horton Country Park trails or the footpaths around the Berkshire countryside, we&rsquo;re the natural place to finish up. Muddy boots and muddy dogs are both welcome &mdash; we&rsquo;re a country pub, not a wine bar. And because we&rsquo;re so close, you can pop in for a quick one without it turning into a whole evening out (unless you want it to, of course).
+                                If you walk the Horton Country Park trails or the footpaths around the Berkshire countryside, we&rsquo;re the natural place to finish up. Muddy boots and muddy dogs are both welcome, we&rsquo;re a country pub, not a wine bar. And because we&rsquo;re so close, you can pop in for a quick one without it turning into a whole evening out (unless you want it to, of course).
                             </p>
                             <p>
-                                The short distance means quiz nights, Music Bingo, and our other events are all on your doorstep. A few Horton teams are regulars at the monthly quiz &mdash; the taxi home is barely a fiver, which makes it very easy to say yes to &ldquo;one more round.&rdquo;
+                                The short distance means quiz nights, Music Bingo, and our other events are all on your doorstep. A few Horton teams are regulars at the monthly quiz, the taxi home is barely a fiver, which makes it very easy to say yes to &ldquo;one more round.&rdquo;
                             </p>
                         </div>
                     </div>

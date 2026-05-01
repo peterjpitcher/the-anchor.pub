@@ -47,10 +47,10 @@ export function getEventSeoStrategy(
   const isPast = isEventInPast(event)
 
   // Cancelled events: index for 7 days, then noindex.
-  // Note: cancelled events never redirect — the page renders with a cancelled banner.
+  // Note: cancelled events never redirect, the page renders with a cancelled banner.
   if (status === 'cancelled') {
     // We can't reliably know when it was cancelled from the event data,
-    // so use the event date as proxy — noindex if event date was >7 days ago.
+    // so use the event date as proxy, noindex if event date was >7 days ago.
     // Threshold uses `>` to align with generateMetadata() and app/sitemap.ts.
     const eventDate = Date.parse(event.startDate)
     const daysSinceEvent = (Date.now() - eventDate) / (1000 * 60 * 60 * 24)
@@ -75,7 +75,7 @@ export function getEventSeoStrategy(
     return { index: true, showEndedBanner: true, stage: 'recent' }
   }
 
-  // Stale past (30+ days) — redirect if we have a next event, noindex otherwise
+  // Stale past (30+ days), redirect if we have a next event, noindex otherwise
   if (nextEventInCategory) {
     const segment = nextEventInCategory.slug || nextEventInCategory.id
     return {
@@ -86,7 +86,7 @@ export function getEventSeoStrategy(
     }
   }
 
-  // Stale past, no next event — noindex but keep the page visible so users
+  // Stale past, no next event, noindex but keep the page visible so users
   // who arrive from event listings can still see event details and book future events.
   // Category pages (/quiz-night, /music-bingo etc.) are standalone SEO assets and
   // should not receive redirects from individual event pages.

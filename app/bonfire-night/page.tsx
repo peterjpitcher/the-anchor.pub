@@ -42,7 +42,7 @@ export default function BonfireNightPage() {
     {
       question: 'Is the beer garden open on Bonfire Night?',
       answer:
-        'Yes \u2014 the beer garden is open as usual. Wrap up warm and you might catch fireworks in the distance with planes overhead. It\u2019s quite the view on a crisp November evening.',
+        'Yes, the beer garden is open as usual. Wrap up warm and you might catch fireworks in the distance with planes overhead. It\u2019s quite the view on a crisp November evening.',
     },
     {
       question: 'Is the pub dog-friendly on Bonfire Night?',
@@ -57,7 +57,7 @@ export default function BonfireNightPage() {
             <HeroWrapper
         route="/bonfire-night"
         title="Bonfire Night at The Anchor"
-        description={`Warm up on Guy Fawkes Night at The Anchor in Stanwell Moor. Hot food, cold pints, and a beer garden with a view \u2014 ${BONFIRE_NIGHT_DATE}.`}
+        description={`Warm up on Guy Fawkes Night at The Anchor in Stanwell Moor. Hot food, cold pints, and a beer garden with a view, ${BONFIRE_NIGHT_DATE}.`}
         eyebrow={`${BONFIRE_NIGHT_DAY} ${BONFIRE_NIGHT_DATE}`}
         lead={
           <p className="text-white/90 text-base sm:text-lg">
@@ -78,7 +78,7 @@ export default function BonfireNightPage() {
             {/* Guy Fawkes Night */}
             <div className="space-y-4">
               <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">
-                Guy Fawkes Night \u2014 {BONFIRE_NIGHT_DATE}
+                Guy Fawkes Night, {BONFIRE_NIGHT_DATE}
               </h2>
               <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
                 The 5th of November falls on a {BONFIRE_NIGHT_DAY} this year, and The Anchor is the
@@ -86,7 +86,7 @@ export default function BonfireNightPage() {
                 or just want a proper meal and a pint on a cold November evening, we&apos;ve got you covered.
               </p>
               <p className="text-anchor-cream-text/70 leading-relaxed">
-                There&apos;s something special about the beer garden on a crisp autumn night \u2014
+                There&apos;s something special about the beer garden on a crisp autumn night,
                 wrap up warm, grab a drink, and enjoy the view. With planes coming in overhead and
                 fireworks lighting up the sky in the distance, it&apos;s a Bonfire Night experience
                 you won&apos;t forget in a hurry.
@@ -100,7 +100,7 @@ export default function BonfireNightPage() {
               </h2>
               <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
                 The Anchor is perfectly placed for Bonfire Night. Enjoy a meal before heading to
-                one of the local fireworks displays around Staines, Ashford, or Windsor \u2014 or
+                one of the local fireworks displays around Staines, Ashford, or Windsor, or
                 warm up afterwards with a pint by the bar.
               </p>
               <p className="text-anchor-cream-text/70 leading-relaxed">
@@ -117,7 +117,7 @@ export default function BonfireNightPage() {
               <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
                 The 5th of November 2026 is a {BONFIRE_NIGHT_DAY}, so the kitchen is open{' '}
                 <span className="font-semibold">{KITCHEN_HOURS}</span>. That gives you plenty of
-                time for a proper hot meal to warm up \u2014 think fish &amp; chips, hearty pies,
+                time for a proper hot meal to warm up, think fish &amp; chips, hearty pies,
                 loaded burgers, and all the pub classics done right.
               </p>
               <p className="text-anchor-cream-text/70 leading-relaxed">
@@ -169,7 +169,7 @@ export default function BonfireNightPage() {
               </h2>
               <p className="mt-3 text-anchor-cream-text/70 leading-relaxed">
                 We&apos;re a dog-friendly pub and your four-legged friends are always welcome.
-                However, Bonfire Night can be stressful for dogs \u2014 the bangs, flashes, and
+                However, Bonfire Night can be stressful for dogs, the bangs, flashes, and
                 smell of fireworks can be genuinely upsetting for some pets.
               </p>
               <p className="mt-3 text-anchor-cream-text/70 leading-relaxed">
@@ -260,7 +260,7 @@ export default function BonfireNightPage() {
             <div className="space-y-4">
               <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">Where we are</h2>
               <p className="text-anchor-cream-text/70 leading-relaxed">
-                The Anchor is in Stanwell Moor, Surrey (TW19 6AQ) \u2014 close to Heathrow and easy
+                The Anchor is in Stanwell Moor, Surrey (TW19 6AQ), close to Heathrow and easy
                 to reach from Staines-upon-Thames, Ashford, and Windsor. Free parking on site.
               </p>
               <p className="text-anchor-cream-text/70">

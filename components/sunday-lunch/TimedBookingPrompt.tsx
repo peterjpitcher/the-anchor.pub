@@ -23,7 +23,7 @@ export interface TimedBookingPromptProps {
    */
   delayMs?: number
   /**
-   * Override the analytics prompt id — keeps the prompt reusable on
+   * Override the analytics prompt id, keeps the prompt reusable on
    * other pages later without the events colliding.
    */
   promptId?: string
@@ -34,7 +34,7 @@ function readDismissed(): boolean {
   try {
     return window.sessionStorage.getItem(SESSION_DISMISS_KEY) === 'true'
   } catch {
-    // sessionStorage can throw in private browsing — treat as not-dismissed
+    // sessionStorage can throw in private browsing, treat as not-dismissed
     // so the user still sees the prompt at most once per page load.
     return false
   }
@@ -45,7 +45,7 @@ function writeDismissed(): void {
   try {
     window.sessionStorage.setItem(SESSION_DISMISS_KEY, 'true')
   } catch {
-    // ignore — see readDismissed
+    // ignore, see readDismissed
   }
 }
 
@@ -57,7 +57,7 @@ function writeDismissed(): void {
  *   page views in the same tab/session.
  * - Tracks `booking_prompt_open`, `booking_prompt_dismiss`, `booking_prompt_cta`
  *   so we can measure how often the prompt converts vs. annoys.
- * - Uses the shared {@link Modal} primitive — focus trap, Escape, backdrop
+ * - Uses the shared {@link Modal} primitive, focus trap, Escape, backdrop
  *   click, scroll lock all come for free.
  *
  * Replaces the per-dish click-to-lightbox feature. The brief was always to
@@ -75,7 +75,7 @@ export function TimedBookingPrompt({
     if (readDismissed()) return
 
     const timer = window.setTimeout(() => {
-      // Re-check at fire time — protects against the (unlikely) race where
+      // Re-check at fire time, protects against the (unlikely) race where
       // another tab dismissed the prompt while ours was waiting.
       if (readDismissed()) return
       setOpen(true)

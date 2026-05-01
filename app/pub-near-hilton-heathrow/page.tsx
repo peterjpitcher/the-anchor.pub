@@ -35,7 +35,7 @@ export default function PubNearHiltonHeathrowPage() {
       <HeroWrapper
         route="/pub-near-hilton-heathrow"
         title="Pub Near Hilton Heathrow"
-        description="10 minutes away — a proper British pub for business travellers and leisure guests alike"
+        description="10 minutes away, a proper British pub for business travellers and leisure guests alike"
         variant="default"
         enableSmartCtas={true}
         showContextStrip={true}
@@ -48,7 +48,7 @@ export default function PubNearHiltonHeathrowPage() {
               Pub Near Hilton London Heathrow Airport
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
-              Staying at the Hilton Heathrow? The Anchor is just 10 minutes away — a traditional British pub with home-cooked food, draught beers, and free parking. Popular with business travellers looking to escape hotel prices, we&apos;re one of the top-rated restaurants near Heathrow for guests who want something better than the hotel bar.
+              Staying at the Hilton Heathrow? The Anchor is just 10 minutes away, a traditional British pub with home-cooked food, draught beers, and free parking. Popular with business travellers looking to escape hotel prices, we&apos;re one of the top-rated restaurants near Heathrow for guests who want something better than the hotel bar.
             </p>
           </div>
         </Container>
@@ -63,7 +63,7 @@ export default function PubNearHiltonHeathrowPage() {
               features={[
                 { icon: '', title: '10 Minutes', description: 'By taxi from Hilton Heathrow', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
                 { icon: '', title: '~£12–15', description: 'Taxi fare each way', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: 'Free Parking', description: '20 spaces — no charges', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: 'Free Parking', description: '20 spaces, no charges', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
                 { icon: '', title: 'VAT Receipts', description: 'Full receipts for expenses', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
               ]}
               className="mb-8"
@@ -129,9 +129,9 @@ export default function PubNearHiltonHeathrowPage() {
             <FeatureGrid
               columns={3}
               features={[
-                { icon: '', title: 'Classic Mains', description: 'From £8.99 — steaks, fish & chips, burgers and British classics cooked fresh daily', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Draught Beers', description: 'Wide selection of beers, wines and spirits — a proper British pint from £4.80', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Wine & Spirits', description: 'Quality wines, premium spirits and cocktails — all at pub prices', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Classic Mains', description: 'From £8.99, steaks, fish & chips, burgers and British classics cooked fresh daily', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Draught Beers', description: 'Wide selection of beers, wines and spirits, a proper British pint from £4.80', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Wine & Spirits', description: 'Quality wines, premium spirits and cocktails, all at pub prices', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
               ]}
               className="mb-8"
             />
@@ -140,7 +140,7 @@ export default function PubNearHiltonHeathrowPage() {
               <div className="grid md:grid-cols-3 gap-4 text-center text-sm text-anchor-cream-text/70">
                 <div>
                   <p className="font-semibold mb-1">Atmosphere</p>
-                  <p>Relaxed but professional — great for building relationships</p>
+                  <p>Relaxed but professional, great for building relationships</p>
                 </div>
                 <div>
                   <p className="font-semibold mb-1">Cost</p>
@@ -148,7 +148,7 @@ export default function PubNearHiltonHeathrowPage() {
                 </div>
                 <div>
                   <p className="font-semibold mb-1">Booking</p>
-                  <p>Recommended for groups of 6+ — call us to arrange</p>
+                  <p>Recommended for groups of 6+, call us to arrange</p>
                 </div>
               </div>
             </div>
@@ -193,11 +193,11 @@ export default function PubNearHiltonHeathrowPage() {
           },
           {
             question: 'Can I get a taxi from Hilton Heathrow to The Anchor?',
-            answer: 'Yes — ask the Hilton concierge to arrange a taxi, or use Uber. The journey takes about 10–12 minutes. Alternatively, if you\'ve got a rental car, you can drive and park free at the pub (postcode TW19 6AQ).'
+            answer: 'Yes, ask the Hilton concierge to arrange a taxi, or use Uber. The journey takes about 10–12 minutes. Alternatively, if you\'ve got a rental car, you can drive and park free at the pub (postcode TW19 6AQ).'
           },
           {
             question: 'Do you provide receipts for business expenses?',
-            answer: 'Yes — we provide full itemised VAT receipts for all meals and drinks. The Anchor is an expense-friendly alternative for business travellers.'
+            answer: 'Yes, we provide full itemised VAT receipts for all meals and drinks. The Anchor is an expense-friendly alternative for business travellers.'
           },
         ]}
         className="bg-anchor-bg"

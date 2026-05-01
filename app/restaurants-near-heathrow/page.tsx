@@ -17,12 +17,12 @@ export const metadata: Metadata = {
   description: 'Pre-flight dining 7 minutes from Heathrow T5. Proper pub meals before you fly, free parking and prices that beat the terminal. Book a table.',
   openGraph: {
     title: 'Where to Eat Near Heathrow Before Your Flight | 7 Mins from T5',
-    description: 'Pre-flight dining near Heathrow. Proper meals, free parking, 7 minutes from Terminal 5 — worth the detour.',
+    description: 'Pre-flight dining near Heathrow. Proper meals, free parking, 7 minutes from Terminal 5, worth the detour.',
     images: [{ url: DEFAULT_NEAR_HEATHROW_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Heathrow Airport' }],
   },
   twitter: getTwitterMetadata({
     title: 'Where to Eat Near Heathrow Before Your Flight | 7 Mins from T5',
-    description: 'Pre-flight dining near Heathrow. Proper meals, free parking, 7 minutes from Terminal 5 — worth the detour.',
+    description: 'Pre-flight dining near Heathrow. Proper meals, free parking, 7 minutes from Terminal 5, worth the detour.',
     images: [DEFAULT_NEAR_HEATHROW_IMAGE]
   }),
   alternates: {
@@ -115,7 +115,7 @@ export default async function RestaurantsNearHeathrowPage() {
       <HeroWrapper
         route="/restaurants-near-heathrow"
         title="Where to Eat Near Heathrow Before Your Flight"
-        description="Pre-flight dining, layover meals and post-landing food — just 7 minutes from Terminal 5"
+        description="Pre-flight dining, layover meals and post-landing food, just 7 minutes from Terminal 5"
         variant="default"
         enableSmartCtas={true}
         showContextStrip={true}
@@ -138,7 +138,7 @@ export default async function RestaurantsNearHeathrowPage() {
         <Container>
           <div className="max-w-4xl mx-auto">
             <p className="text-lg leading-relaxed text-anchor-cream-text/80">
-              Wondering where to eat near Heathrow before your flight? Travellers with a few hours to spare are ditching overpriced terminal food for proper meals nearby. The Anchor in Stanwell Moor is just 7 minutes from Terminal 5 &mdash; ideal for pre-flight dining, layover meals, or a post-landing bite. Free parking, freshly cooked food from &pound;10, and a genuine atmosphere make it worth the short detour.
+              Wondering where to eat near Heathrow before your flight? Travellers with a few hours to spare are ditching overpriced terminal food for proper meals nearby. The Anchor in Stanwell Moor is just 7 minutes from Terminal 5, ideal for pre-flight dining, layover meals, or a post-landing bite. Free parking, freshly cooked food from &pound;10, and a genuine atmosphere make it worth the short detour.
             </p>
           </div>
         </Container>
@@ -264,7 +264,7 @@ export default async function RestaurantsNearHeathrowPage() {
                 <ul className="space-y-2 text-anchor-cream-text/70">
                   <li><strong>Drive:</strong> 7 minutes via A3044</li>
                   <li><strong>Taxi:</strong> approx. &pound;10&ndash;12</li>
-                  <li><strong>Route:</strong> Head south on the A3044 towards Stanwell Moor &mdash; we are on Horton Road</li>
+                  <li><strong>Route:</strong> Head south on the A3044 towards Stanwell Moor, we are on Horton Road</li>
                 </ul>
               </div>
               <div className="card-dark rounded-none p-6">
@@ -680,11 +680,11 @@ export default async function RestaurantsNearHeathrowPage() {
           },
 	          {
 	            question: "Are you cheaper than airport restaurants?",
-	            answer: "Yes — we offer honest pub pricing with mains from £8.99 and freshly cooked food. Plus, parking is completely free for guests."
+	            answer: "Yes, we offer honest pub pricing with mains from £8.99 and freshly cooked food. Plus, parking is completely free for guests."
 	          },
           {
             question: "Do you take reservations?",
-            answer: "Yes, we take reservations and walk-ins. Sunday roast is served 1pm-6pm — no pre-order needed. Call 01753 682707 or book online."
+            answer: "Yes, we take reservations and walk-ins. Sunday roast is served 1pm-6pm, no pre-order needed. Call 01753 682707 or book online."
           },
           {
             question: "Can I get takeaway if I'm in a hurry?",

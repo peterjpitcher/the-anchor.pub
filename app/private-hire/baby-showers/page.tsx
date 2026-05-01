@@ -175,7 +175,7 @@ export default async function BabyShowersPage() {
                     />
                     <div className="max-w-3xl mx-auto">
                         <p className="text-anchor-cream-text/70 text-center mb-6">
-                            We have plenty of space to accommodate all the baby shower classics. Bring your own game kits or improvise — our team will make sure you have room to set everything up.
+                            We have plenty of space to accommodate all the baby shower classics. Bring your own game kits or improvise, our team will make sure you have room to set everything up.
                         </p>
                         <div className="grid sm:grid-cols-2 gap-4">
                             <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-4">
@@ -191,7 +191,7 @@ export default async function BabyShowersPage() {
                             <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-4">
                                 <h4 className="font-semibold text-anchor-cream-text mb-2">Photo area and backdrop</h4>
                                 <p className="text-sm text-anchor-cream-text/70">
-                                    We can help you set up a dedicated photo area or backdrop in your reserved space. Bring your props, banners, and balloon arrangements — we'll give you room to create something special.
+                                    We can help you set up a dedicated photo area or backdrop in your reserved space. Bring your props, banners, and balloon arrangements, we'll give you room to create something special.
                                 </p>
                             </div>
                         </div>
@@ -312,11 +312,11 @@ export default async function BabyShowersPage() {
                     <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-6">
                         <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
                             <p className="text-anchor-cream-text/70 italic mb-4">&ldquo;We hosted my sister&apos;s baby shower here and it was absolutely perfect. The afternoon tea was delicious, the mocktails were a lovely touch, and the staff helped us set up all the decorations beforehand. Such a relaxed and happy afternoon.&rdquo;</p>
-                            <p className="text-sm text-anchor-gold-vivid font-semibold">— Emma, Staines</p>
+                            <p className="text-sm text-anchor-gold-vivid font-semibold">Emma, Staines</p>
                         </div>
                         <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
-                            <p className="text-anchor-cream-text/70 italic mb-4">&ldquo;The baby shower venue was ideal — the private space meant we could play games and open gifts without feeling self-conscious. Free parking was a huge bonus with all the presents and decorations we had to carry in. Highly recommend.&rdquo;</p>
-                            <p className="text-sm text-anchor-gold-vivid font-semibold">— Jasmine, Ashford</p>
+                            <p className="text-anchor-cream-text/70 italic mb-4">&ldquo;The baby shower venue was ideal, the private space meant we could play games and open gifts without feeling self-conscious. Free parking was a huge bonus with all the presents and decorations we had to carry in. Highly recommend.&rdquo;</p>
+                            <p className="text-sm text-anchor-gold-vivid font-semibold">Jasmine, Ashford</p>
                         </div>
                     </div>
                 </Container>
@@ -377,7 +377,7 @@ export default async function BabyShowersPage() {
                     },
                     {
                         question: "Can we set up a photo area or backdrop?",
-                        answer: "Absolutely. Bring your backdrops, balloon garlands, and props — we will make sure your reserved area has space for a dedicated photo spot."
+                        answer: "Absolutely. Bring your backdrops, balloon garlands, and props, we will make sure your reserved area has space for a dedicated photo spot."
                     },
                     {
                         question: "Is there a room hire fee?",

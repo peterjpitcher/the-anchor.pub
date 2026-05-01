@@ -166,8 +166,8 @@ export default function ChristmasPartiesPage() {
         id="christmas-hero"
         route="/christmas-parties"
        
-        title="Christmas parties & festive lunch near Heathrow — a proper village-pub celebration"
-        description="Three-course Christmas dinners and lunches piled with herb-crusted triple-cooked roast potatoes, pigs in blankets and sage & onion stuffing. Crackers on the table, candles lit, and your Christmas do sorted — whether it's a works night out or a family Christmas meal."
+        title="Christmas parties & festive lunch near Heathrow, a proper village-pub celebration"
+        description="Three-course Christmas dinners and lunches piled with herb-crusted triple-cooked roast potatoes, pigs in blankets and sage & onion stuffing. Crackers on the table, candles lit, and your Christmas do sorted, whether it's a works night out or a family Christmas meal."
         eyebrow={<span className="text-red-100">Christmas 2026</span>}
         image={{
           src: '/images/page-headers/christmas-parties/2026/hero-table.jpg',

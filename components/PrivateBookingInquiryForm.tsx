@@ -411,7 +411,7 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
 
                 {detailsUnlocked && (
                     <div className="pt-4 border-t border-anchor-gold/15 space-y-4">
-                        {/* Honeypot — hidden from real users, filled by bots */}
+                        {/* Honeypot, hidden from real users, filled by bots */}
                         <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', top: '-9999px', opacity: 0, height: 0, overflow: 'hidden' }}>
                             <label htmlFor="prv-website">Website</label>
                             <input

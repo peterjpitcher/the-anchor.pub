@@ -8,7 +8,7 @@ type TurnstileVerifyResult = {
 export async function verifyTurnstileToken(token: string | null | undefined): Promise<TurnstileVerifyResult> {
   const secret = process.env.TURNSTILE_SECRET_KEY
   if (!secret) {
-    // No secret configured — block the request rather than silently allowing it.
+    // No secret configured, block the request rather than silently allowing it.
     // Set TURNSTILE_SECRET_KEY in Vercel env vars to enable verification.
     return { success: false, error: 'Security verification is not configured. Please try again later.' }
   }
@@ -31,7 +31,7 @@ export async function verifyTurnstileToken(token: string | null | undefined): Pr
 
     return { success: false, error: 'Security check failed. Please try again.' }
   } catch {
-    // Fail closed — if Turnstile is unreachable, reject the request.
+    // Fail closed, if Turnstile is unreachable, reject the request.
     // Legitimate users can retry; bots are blocked.
     return { success: false, error: 'Security verification unavailable. Please try again in a moment.' }
   }

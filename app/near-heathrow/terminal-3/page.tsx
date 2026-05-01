@@ -42,7 +42,7 @@ export default function Terminal3Page() {
       {/* Hero Section */}
       <HeroWrapper
         route="/near-heathrow/terminal-3"
-        title="Pubs Near Heathrow Terminal 3 — The Anchor"
+        title="Pubs Near Heathrow Terminal 3, The Anchor"
         description="Perfect for Virgin Atlantic & Emirates travelers • Free parking • British hospitality"
         variant="default"
         primaryCta={
@@ -159,7 +159,7 @@ export default function Terminal3Page() {
               <div className="card-dark rounded-none p-6">
                 <h3 className="text-xl font-semibold text-anchor-gold-vivid mb-2">Stone-Baked Pizzas</h3>
                 <p className="text-sm text-anchor-cream-text/70 mb-4">
-                  Hand-stretched pizzas with bold toppings — ideal for family send-offs and crew nights.
+                  Hand-stretched pizzas with bold toppings, ideal for family send-offs and crew nights.
                 </p>
                 <div className="flex flex-col gap-2">
                   <BookTableButton
@@ -597,7 +597,7 @@ export default function Terminal3Page() {
           },
           {
             question: "Do you have parking for Terminal 3 travelers?",
-            answer: `Yes! We offer free parking for all customers with space for ${PARKING.capacity} cars. No fees, no time limits — free while you're visiting us.`
+            answer: `Yes! We offer free parking for all customers with space for ${PARKING.capacity} cars. No fees, no time limits, free while you're visiting us.`
           },
           {
             question: "What time should I leave for Terminal 3?",

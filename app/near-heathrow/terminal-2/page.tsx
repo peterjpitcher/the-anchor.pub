@@ -41,7 +41,7 @@ export default function Terminal2Page() {
       {/* Hero Section */}
       <HeroWrapper
         route="/near-heathrow/terminal-2"
-        title="Pubs Near Heathrow Terminal 2 — The Anchor"
+        title="Pubs Near Heathrow Terminal 2, The Anchor"
         description="Perfect for Star Alliance travelers • Free parking • Traditional British hospitality"
         variant="default"
         breadcrumbs={[
@@ -132,7 +132,7 @@ export default function Terminal2Page() {
               <div className="card-dark rounded-none p-6">
                 <h3 className="text-xl font-semibold text-anchor-gold-vivid mb-2">Stone-Baked Pizzas</h3>
                 <p className="text-sm text-anchor-cream-text/70 mb-4">
-                  Hand-stretched pizzas with bold toppings — ideal for crew meetups or family send-offs.
+                  Hand-stretched pizzas with bold toppings, ideal for crew meetups or family send-offs.
                 </p>
                 <div className="flex flex-col gap-2">
                   <BookTableButton
@@ -339,7 +339,7 @@ export default function Terminal2Page() {
 	                {
 	                  title: "Smart Parking Choice",
 	                  icon: "",
-                  content: "Heathrow short-stay parking costs add up fast. Park free with us while dropping off or collecting passengers — no fees, no time limits."
+                  content: "Heathrow short-stay parking costs add up fast. Park free with us while dropping off or collecting passengers, no fees, no time limits."
 	                },
                 {
                   title: "International Meets Local",
@@ -624,7 +624,7 @@ export default function Terminal2Page() {
           },
           {
             question: "Do you have parking for Terminal 2 travelers?",
-            answer: `Yes! We offer free parking for all customers with space for ${PARKING.capacity} cars. No fees, no time limits — free while you're visiting us.`
+            answer: `Yes! We offer free parking for all customers with space for ${PARKING.capacity} cars. No fees, no time limits, free while you're visiting us.`
           },
           {
             question: "What time should I leave for Terminal 2?",

@@ -511,7 +511,7 @@ export function ManagementEventBookingForm({
 
           {detailsUnlocked && (
             <>
-              {/* Honeypot — hidden from real users, filled by bots */}
+              {/* Honeypot, hidden from real users, filled by bots */}
               <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', top: '-9999px', opacity: 0, height: 0, overflow: 'hidden' }}>
                 <label htmlFor="evt-website">Website</label>
                 <input

@@ -46,7 +46,7 @@ The four weeks of world-class rugby will see northern hemisphere powerhouses cla
 - **Free parking** for all guests
 - **Dog-friendly** atmosphere
 
-The tournament follows the **Rugby World Cup 2023**, and all teams will be coming into the series with points to prove—whether it be reclaiming dominance, seeking revenge, or establishing new rivalries. Experience it all at our **pub near Staines**.
+The tournament follows the **Rugby World Cup 2023**, and all teams will be coming into the series with points to prove, whether it be reclaiming dominance, seeking revenge, or establishing new rivalries. Experience it all at our **pub near Staines**.
 
 ## **Autumn Internationals 2024 Fixtures: Complete Schedule**
 

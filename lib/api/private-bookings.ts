@@ -73,7 +73,7 @@ export interface PrivateBookingRequest {
   event_type?: string
   internal_notes?: string
   items?: PrivateBookingItem[]
-  // Spam protection fields — checked server-side, not forwarded upstream
+  // Spam protection fields, checked server-side, not forwarded upstream
   turnstile_token?: string
   website?: string
   _t?: number

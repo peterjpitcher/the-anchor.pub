@@ -33,7 +33,7 @@ export default function AccessibilityPage() {
             <p className="text-lg text-anchor-cream-text/70 leading-relaxed">
               We want everyone to enjoy visiting The Anchor. This page gives you honest, practical
               information about our facilities so you can plan your visit with confidence. If you
-              have questions not covered here, call us — we&apos;re happy to help.
+              have questions not covered here, call us, we&apos;re happy to help.
             </p>
           </div>
         </Container>
@@ -97,11 +97,11 @@ export default function AccessibilityPage() {
                 <ul className="space-y-3 text-anchor-cream-text/70">
                   <li className="flex items-start gap-3">
                     <span className="text-xl" aria-hidden="true"></span>
-                    <span>Free on-site parking for approximately 20 cars — level surface</span>
+                    <span>Free on-site parking for approximately 20 cars, level surface</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-xl" aria-hidden="true"></span>
-                    <span>Close to the entrance — no significant distances to navigate</span>
+                    <span>Close to the entrance, no significant distances to navigate</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-xl" aria-hidden="true"></span>
@@ -124,8 +124,8 @@ export default function AccessibilityPage() {
           <div className="max-w-3xl mx-auto">
             <SectionHeader title="Call ahead" />
             <p className="text-anchor-cream-text/70 leading-relaxed mb-6">
-              If you&apos;d like to talk through your visit before you come — what to expect, where
-              to park, what might work best for you — give us a call. We&apos;re happy to have
+              If you&apos;d like to talk through your visit before you come, what to expect, where
+              to park, what might work best for you, give us a call. We&apos;re happy to have
               that conversation.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
@@ -146,7 +146,7 @@ export default function AccessibilityPage() {
         faqs={[
           {
             question: 'Is The Anchor wheelchair accessible?',
-            answer: 'The bar and dining area are step-free. The beer garden has steps but a ramp is available on request. Our car park has a level surface close to the entrance. We currently don\'t have an accessible toilet — please call ahead if you\'d like to talk through your visit.'
+            answer: 'The bar and dining area are step-free. The beer garden has steps but a ramp is available on request. Our car park has a level surface close to the entrance. We currently don\'t have an accessible toilet, please call ahead if you\'d like to talk through your visit.'
           },
           {
             question: 'Is the beer garden step-free?',

@@ -38,7 +38,7 @@ export default function FamilyDiningPage() {
                 dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify({
                     "@context": "https://schema.org",
                     "@type": "Restaurant",
-                    "name": "The Anchor — Family Dining Near Heathrow",
+                    "name": "The Anchor, Family Dining Near Heathrow",
                     "description": "Family-friendly pub restaurant near Heathrow Airport with kids menu, high chairs, large beer garden, and free parking.",
                     "url": "https://www.the-anchor.pub/heathrow-family-dining",
                     "telephone": "+441753682707",

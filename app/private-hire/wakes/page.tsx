@@ -259,10 +259,10 @@ export default async function WakesPage() {
                             On the morning of your wake reception, our team will prepare the private dining room to your requirements. If you have provided photographs, an order of service, or flower arrangements, we will set these up on a dedicated display table. The room will be clean, warm, and ready before any guests arrive.
                         </p>
                         <p className="text-anchor-cream-text/70 mb-4">
-                            When guests begin to arrive, our staff will be on hand to welcome everyone and direct them to the private space. Tea, coffee, and soft drinks can be ready on arrival, or we can serve drinks from the bar as guests settle in. If you have ordered a buffet, we will lay it out at a time that suits your schedule — many families prefer to allow 30 to 45 minutes of mingling before food is served.
+                            When guests begin to arrive, our staff will be on hand to welcome everyone and direct them to the private space. Tea, coffee, and soft drinks can be ready on arrival, or we can serve drinks from the bar as guests settle in. If you have ordered a buffet, we will lay it out at a time that suits your schedule, many families prefer to allow 30 to 45 minutes of mingling before food is served.
                         </p>
                         <p className="text-anchor-cream-text/70 mb-4">
-                            Throughout the afternoon, we maintain a discreet presence. Our team is always nearby if you need anything — extra drinks, more napkins, a quiet word about timings — but we will never intrude on your gathering. Many families tell us they appreciated the balance between attentive service and respectful distance.
+                            Throughout the afternoon, we maintain a discreet presence. Our team is always nearby if you need anything, extra drinks, more napkins, a quiet word about timings, but we will never intrude on your gathering. Many families tell us they appreciated the balance between attentive service and respectful distance.
                         </p>
                         <p className="text-anchor-cream-text/70">
                             There is no strict time limit on your wake. We understand that some gatherings naturally wind down after a couple of hours, while others continue into the early evening. We will never rush you. When you are ready to leave, we take care of all the cleardown and cleaning.
@@ -279,7 +279,7 @@ export default async function WakesPage() {
                     />
                     <div className="prose prose-invert max-w-3xl mx-auto mb-8">
                         <p className="text-anchor-cream-text/70 mb-4">
-                            More and more families are choosing to hold a celebration of life rather than a traditional wake. A celebration of life venue focuses on remembering the person you loved through happy memories, shared laughter, and personal tributes — rather than a sombre, formal gathering.
+                            More and more families are choosing to hold a celebration of life rather than a traditional wake. A celebration of life venue focuses on remembering the person you loved through happy memories, shared laughter, and personal tributes, rather than a sombre, formal gathering.
                         </p>
                         <p className="text-anchor-cream-text/70 mb-4">
                             At The Anchor, we are perfectly set up for celebration of life events. Our private dining room can be decorated with photos, memory boards, and personal items that reflect the life of your loved one. You are welcome to play their favourite music through our sound system, set up a slideshow, or create a memory table where guests can leave notes and share stories.
@@ -288,7 +288,7 @@ export default async function WakesPage() {
                             Many families choose to serve their loved one&apos;s favourite foods or drinks as part of the celebration. If they had a favourite beer, a go-to cocktail, or a dish they always ordered, let us know and we will do our best to include it. These small personal touches often mean the most.
                         </p>
                         <p className="text-anchor-cream-text/70 mb-4">
-                            A celebration of life venue does not need to follow any particular format. Some families arrange informal speeches or toasts. Others prefer a purely social gathering where people can talk, eat, and remember at their own pace. We are flexible and will support whatever approach feels right for you. The important thing is that the day reflects the person being remembered — and that everyone leaves feeling they have honoured them properly.
+                            A celebration of life venue does not need to follow any particular format. Some families arrange informal speeches or toasts. Others prefer a purely social gathering where people can talk, eat, and remember at their own pace. We are flexible and will support whatever approach feels right for you. The important thing is that the day reflects the person being remembered, and that everyone leaves feeling they have honoured them properly.
                         </p>
                         <p className="text-anchor-cream-text/70">
                             Whether you call it a wake, a funeral reception, a memorial, or a celebration of life, the venue and the care behind it are what matter. We provide both.
@@ -326,15 +326,15 @@ export default async function WakesPage() {
                     <div className="max-w-4xl mx-auto grid md:grid-cols-3 gap-6">
                         <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
                             <p className="text-anchor-cream-text/70 italic mb-4">&ldquo;The team at The Anchor made a difficult day so much easier. The room was set up beautifully, the food was lovely, and the staff were incredibly kind and discreet. We could not have asked for more.&rdquo;</p>
-                            <p className="text-sm text-anchor-gold-vivid font-semibold">— Sarah, Staines</p>
+                            <p className="text-sm text-anchor-gold-vivid font-semibold">Sarah, Staines</p>
                         </div>
                         <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
                             <p className="text-anchor-cream-text/70 italic mb-4">&ldquo;We held a celebration of life for my father here and it was exactly what he would have wanted. Relaxed, warm, and full of laughter. The staff even arranged his favourite beer on each table. That meant the world to us.&rdquo;</p>
-                            <p className="text-sm text-anchor-gold-vivid font-semibold">— James, Ashford</p>
+                            <p className="text-sm text-anchor-gold-vivid font-semibold">James, Ashford</p>
                         </div>
                         <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
                             <p className="text-anchor-cream-text/70 italic mb-4">&ldquo;Everything was arranged at very short notice and the team handled it all with great care. The funeral director recommended The Anchor and we are so glad they did. A peaceful venue with genuinely compassionate staff.&rdquo;</p>
-                            <p className="text-sm text-anchor-gold-vivid font-semibold">— Priya, Feltham</p>
+                            <p className="text-sm text-anchor-gold-vivid font-semibold">Priya, Feltham</p>
                         </div>
                     </div>
                 </Container>
@@ -343,7 +343,7 @@ export default async function WakesPage() {
             <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
                 <Container>
                     <SectionHeader
-                        title="Planning a Wake — Step by Step"
+                        title="Planning a Wake, Step by Step"
                         subtitle="A simple guide to arranging a funeral reception at The Anchor"
                     />
                     <div className="max-w-3xl mx-auto">
@@ -392,7 +392,7 @@ export default async function WakesPage() {
                             We can have the private dining room set and ready before you arrive from the service. Whether you need space for a small, intimate gathering or up to 50 guests, we will prepare the room accordingly. Our staff understand that timings after a cremation can be unpredictable, and we will always accommodate a slightly later start without fuss.
                         </p>
                         <p className="text-anchor-cream-text/70">
-                            If you are travelling from the Slough or Langley area, we are easily reached via the M25 junction 14. There is no need to navigate central Staines or Heathrow traffic — the approach from the north is straightforward and signposted. Call us on <a href="tel:+441753682707" className="text-anchor-gold hover:underline">01753 682707</a> to discuss arrangements, and we will take care of the rest.
+                            If you are travelling from the Slough or Langley area, we are easily reached via the M25 junction 14. There is no need to navigate central Staines or Heathrow traffic, the approach from the north is straightforward and signposted. Call us on <a href="tel:+441753682707" className="text-anchor-gold hover:underline">01753 682707</a> to discuss arrangements, and we will take care of the rest.
                         </p>
                     </div>
                 </Container>
@@ -409,7 +409,7 @@ export default async function WakesPage() {
                             Families travelling from Staines will find our location in Stanwell Moor easy to reach by car or taxi. For guests using public transport, there are bus services connecting Staines town centre to Stanwell Moor. Our 20-space car park is free for all guests, and there is additional unrestricted street parking nearby for larger gatherings.
                         </p>
                         <p className="text-anchor-cream-text/70">
-                            We welcome families from Staines, Ashford, Laleham, and Shepperton who are looking for a quiet, private venue after a service at Staines Cemetery. Our team is accustomed to arranging wakes at short notice, and we will do everything we can to support you. Please call us on <a href="tel:+441753682707" className="text-anchor-gold hover:underline">01753 682707</a> — there is always someone here to help.
+                            We welcome families from Staines, Ashford, Laleham, and Shepperton who are looking for a quiet, private venue after a service at Staines Cemetery. Our team is accustomed to arranging wakes at short notice, and we will do everything we can to support you. Please call us on <a href="tel:+441753682707" className="text-anchor-gold hover:underline">01753 682707</a>, there is always someone here to help.
                         </p>
                     </div>
                 </Container>
@@ -427,7 +427,7 @@ export default async function WakesPage() {
                     },
                     {
                         question: "How much does a wake reception cost?",
-                        answer: "Our buffet packages start from a competitive per-head rate. Use our pricing calculator on this page for an instant estimate, or call us for a bespoke quote. There are no hidden charges — the price includes room hire, staff, and parking."
+                        answer: "Our buffet packages start from a competitive per-head rate. Use our pricing calculator on this page for an instant estimate, or call us for a bespoke quote. There are no hidden charges, the price includes room hire, staff, and parking."
                     },
                     {
                         question: "Can we bring our own flowers or photos?",

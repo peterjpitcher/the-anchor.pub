@@ -395,7 +395,7 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
 
         if (!res.ok) {
           const err = await res.json().catch(() => ({}))
-          // Throwing here causes PayPal SDK to show its own error screen — intentional.
+          // Throwing here causes PayPal SDK to show its own error screen, intentional.
           throw new Error(err?.error || 'Could not create order')
         }
 
@@ -606,7 +606,7 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
       case 4:
         return (
           <>
-            {/* PayPal JS SDK — loaded lazily when customer reaches step 4 */}
+            {/* PayPal JS SDK, loaded lazily when customer reaches step 4 */}
             {process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID && (
               <Script
                 src={`https://www.paypal.com/sdk/js?client-id=${process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID}&currency=GBP&intent=capture`}
@@ -653,7 +653,7 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
               {/* State messages */}
               {captureState === 'cancelled' && (
                 <p className="text-sm text-anchor-gold bg-anchor-bg-raised rounded-lg px-4 py-3">
-                  Payment cancelled — you can try again below.
+                  Payment cancelled, you can try again below.
                 </p>
               )}
               {captureState === 'error' && (
@@ -668,13 +668,13 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
               )}
 
               {/* PayPal button container */}
-              {/* Error state — shown if SDK fails to load or client ID is missing */}
+              {/* Error state, shown if SDK fails to load or client ID is missing */}
               {(paypalLoadError || !process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID) && (
                 <p className="text-sm text-red-400 bg-anchor-bg-raised rounded-lg px-4 py-3">
                   Payment could not be loaded. Please call us on <a href="tel:01753682707" className="font-semibold underline">01753 682707</a> to complete your booking.
                 </p>
               )}
-              {/* Skeleton shown while SDK loads — sibling to the container, not inside it */}
+              {/* Skeleton shown while SDK loads, sibling to the container, not inside it */}
               {!paypalLoaded && !paypalLoadError && process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID && captureState !== 'capturing' && (
                 <div className="h-12 rounded-lg bg-anchor-bg-raised animate-pulse" />
               )}

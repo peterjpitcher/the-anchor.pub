@@ -231,7 +231,7 @@ export function getStatusBarDisplay(
     
     if (options.showCountdown && currentStatus.closesIn) {
       // Explicit "closes in" for clarity
-      stripText = `Open — closes in ${currentStatus.closesIn}`;
+      stripText = `Open, closes in ${currentStatus.closesIn}`;
     } else {
       stripText = 'Open';
     }
@@ -242,7 +242,7 @@ export function getStatusBarDisplay(
     
     if (options.showCountdown && currentStatus.opensIn) {
       // Explicit "opens in" for clarity
-      stripText = `Closed — opens in ${currentStatus.opensIn}`;
+      stripText = `Closed, opens in ${currentStatus.opensIn}`;
     } else {
       stripText = 'Closed';
     }
@@ -266,7 +266,7 @@ export function getStatusBarDisplay(
       
       const kitchenClosesIn = currentStatus.services?.kitchen?.closesIn;
       if (options.showCountdown && kitchenClosesIn) {
-        kitchenPill = `Kitchen open — closes in ${kitchenClosesIn}`;
+        kitchenPill = `Kitchen open, closes in ${kitchenClosesIn}`;
       } else {
         kitchenPill = 'Kitchen open';
       }

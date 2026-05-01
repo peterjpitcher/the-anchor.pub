@@ -111,7 +111,7 @@ export default function PrivatePartyVenuePage() {
               Birthday Party Venue &amp; Celebrations at The Anchor
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
-              DJ space, late licence, decorations welcome — everything you need for birthdays and celebrations
+              DJ space, late licence, decorations welcome, everything you need for birthdays and celebrations
             </p>
           </div>
         </Container>

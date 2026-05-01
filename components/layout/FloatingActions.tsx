@@ -47,7 +47,7 @@ export function FloatingActions() {
         />
       )}
 
-      {/* Floating Action Button — z-[70] to sit above FoodStickyCtaBar (z-[60]) */}
+      {/* Floating Action Button, z-[70] to sit above FoodStickyCtaBar (z-[60]) */}
       <div className="fixed bottom-6 right-6 z-[70]">
         {/* Action Menu */}
         <div

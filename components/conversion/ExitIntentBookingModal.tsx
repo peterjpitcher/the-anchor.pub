@@ -41,7 +41,7 @@ export function ExitIntentBookingModal() {
   useEffect(() => {
     if (typeof window === 'undefined') return
 
-    // Mobile: bail out — the sticky bar handles the same job.
+    // Mobile: bail out, the sticky bar handles the same job.
     if (window.innerWidth < DESKTOP_MIN_WIDTH) return
 
     try {
@@ -92,7 +92,7 @@ export function ExitIntentBookingModal() {
       </ModalHeader>
       <ModalBody>
         <p className="text-base text-anchor-cream-text/90 leading-relaxed">
-          Sunday lunch books up fast — want to grab a table while you&apos;re here?
+          Sunday lunch books up fast, want to grab a table while you&apos;re here?
         </p>
       </ModalBody>
       <ModalFooter>

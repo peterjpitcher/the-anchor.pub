@@ -15,12 +15,12 @@ export const metadata: Metadata = {
   title: 'Plane Spotting Heathrow | Best Viewing Spots & Locations',
   description: 'Heathrow plane spotting guide. Best viewing areas, spotting locations and where to watch planes land. Visit our beer garden with free parking and food.',
   openGraph: {
-    title: 'Plane Spotting Heathrow — Best Viewing Spots & Locations | The Anchor',
+    title: 'Plane Spotting Heathrow, Best Viewing Spots & Locations | The Anchor',
     description: 'Heathrow plane spotting guide: best viewing areas and spotting locations. Watch planes land every 90 seconds from our beer garden with free parking, food and WiFi.',
     images: [{ url: DEFAULT_NEAR_HEATHROW_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Heathrow Airport' }]
   },
   twitter: getTwitterMetadata({
-    title: 'Plane Spotting Heathrow — Best Viewing Spots & Locations | The Anchor',
+    title: 'Plane Spotting Heathrow, Best Viewing Spots & Locations | The Anchor',
     description: 'Heathrow plane spotting guide: best viewing areas, spotting locations and where to watch planes. Free parking, food and WiFi at The Anchor.',
     images: [DEFAULT_NEAR_HEATHROW_IMAGE]
   }),
@@ -72,8 +72,8 @@ export default async function PlaneSpottingHeathrowPage() {
 
       <HeroWrapper
         route="/plane-spotting-heathrow"
-        title="Heathrow Plane Spotting — The Best Places to Watch Planes"
-        description="The definitive guide to plane spotting at Heathrow. Watch planes land every 90 seconds from our beer garden — plus the best Heathrow viewing areas and spotting locations. Free parking & food."
+        title="Heathrow Plane Spotting, The Best Places to Watch Planes"
+        description="The definitive guide to plane spotting at Heathrow. Watch planes land every 90 seconds from our beer garden, plus the best Heathrow viewing areas and spotting locations. Free parking & food."
         variant="default"
         enableSmartCtas={true}
         showContextStrip={true}
@@ -106,7 +106,7 @@ export default async function PlaneSpottingHeathrowPage() {
               <CardBody>
                 <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-2">Stone-Baked Pizzas</h3>
                 <p className="text-sm text-anchor-cream-text/70 mb-4">
-                  Hand-stretched pizzas with bold toppings — a favourite with aviation meet-ups and crew nights.
+                  Hand-stretched pizzas with bold toppings, a favourite with aviation meet-ups and crew nights.
                 </p>
                 <div className="flex flex-col gap-2">
                   <BookTableButton
@@ -150,7 +150,7 @@ export default async function PlaneSpottingHeathrowPage() {
       <Section background="dark" spacing="sm">
         <Container>
           <PageTitle className="text-center text-anchor-cream-text" seo={{ structured: true, speakable: true }}>
-            Plane Spotting Heathrow — Best Viewing Spots & Locations
+            Plane Spotting Heathrow, Best Viewing Spots & Locations
           </PageTitle>
         </Container>
       </Section>

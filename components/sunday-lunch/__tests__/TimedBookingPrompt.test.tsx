@@ -83,7 +83,7 @@ describe('TimedBookingPrompt', () => {
       jest.advanceTimersByTime(500)
     })
 
-    // Simulate Escape close via the Modal — fire dismiss by clicking the
+    // Simulate Escape close via the Modal, fire dismiss by clicking the
     // Book a table CTA, which also sets the dismissal flag.
     const cta = screen.getByRole('button', { name: /book sunday roast/i })
     act(() => {

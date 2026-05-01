@@ -16,7 +16,7 @@ const BANK_HOLIDAYS_2026 = [
   { name: 'Early May Bank Holiday', date: '4 May', note: 'Kitchen closed (Monday)' },
   { name: 'Spring Bank Holiday', date: '25 May', note: 'Kitchen closed (Monday)' },
   { name: 'Summer Bank Holiday', date: '31 August', note: 'Kitchen closed (Monday)' },
-  { name: 'Christmas Day', date: '25 December', note: 'Pub closed \u2014 check nearer the time' },
+  { name: 'Christmas Day', date: '25 December', note: 'Pub closed, check nearer the time' },
   { name: 'Boxing Day', date: '26 December', note: 'Check website for special hours' },
 ] as const
 
@@ -38,29 +38,29 @@ export default function BankHolidayWeekendsPage() {
     {
       question: 'Are you open on bank holidays?',
       answer:
-        'Yes \u2014 we\u2019re open on all bank holidays except Christmas Day. Opening hours may vary on some bank holidays, so check the website or give us a call to confirm.',
+        'Yes, we\u2019re open on all bank holidays except Christmas Day. Opening hours may vary on some bank holidays, so check the website or give us a call to confirm.',
     },
     {
       question: 'Is the kitchen open on bank holiday Mondays?',
       answer:
-        'No \u2014 the kitchen is closed every Monday, including bank holiday Mondays. The pub is open for drinks, and you\u2019re welcome to use the beer garden, pool table, and dartboard.',
+        'No, the kitchen is closed every Monday, including bank holiday Mondays. The pub is open for drinks, and you\u2019re welcome to use the beer garden, pool table, and dartboard.',
     },
     {
       question: 'Do you do Sunday roast on bank holiday weekends?',
       answer:
         sunday.isLive
-          ? `Yes \u2014 we serve Sunday roast every Sunday 1pm-6pm, including bank holiday weekends. Roasts start from ${SUNDAY_ROAST_PRICE} and walk-ins are welcome (booking recommended for groups). The day before a bank holiday Monday is the perfect time for a roast \u2014 no work tomorrow.`
+          ? `Yes, we serve Sunday roast every Sunday 1pm-6pm, including bank holiday weekends. Roasts start from ${SUNDAY_ROAST_PRICE} and walk-ins are welcome (booking recommended for groups). The day before a bank holiday Monday is the perfect time for a roast, no work tomorrow.`
           : `${sunday.availabilityLong} From launch, roasts start from ${SUNDAY_ROAST_PRICE}; booking is recommended for bank holiday weekends and groups.`,
     },
     {
       question: 'Is there free parking?',
       answer:
-        'Yes \u2014 we have free on-site parking for pub guests. We\u2019re also easy to reach from Staines-upon-Thames and just 7 minutes from Heathrow Terminal 5.',
+        'Yes, we have free on-site parking for pub guests. We\u2019re also easy to reach from Staines-upon-Thames and just 7 minutes from Heathrow Terminal 5.',
     },
     {
       question: 'Do you have events on bank holidays?',
       answer:
-        'We often have entertainment on bank holiday weekends \u2014 check our What\u2019s On page for the latest listings, or follow us on social media for updates.',
+        'We often have entertainment on bank holiday weekends, check our What\u2019s On page for the latest listings, or follow us on social media for updates.',
     },
   ]
 
@@ -96,7 +96,7 @@ export default function BankHolidayWeekendsPage() {
               <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
                 Bank holiday weekends are made for the pub. Whether it&apos;s the May bank holiday,
                 August bank holiday, or anything in between, The Anchor is open and ready. A long
-                weekend means no rush \u2014 so settle in, enjoy the beer garden if the sun&apos;s
+                weekend means no rush, so settle in, enjoy the beer garden if the sun&apos;s
                 out, and make the most of the extra day off.
               </p>
             </div>
@@ -108,7 +108,7 @@ export default function BankHolidayWeekendsPage() {
               </h2>
               <p className="text-anchor-cream-text/70 leading-relaxed">
                 Here are the remaining UK bank holidays for 2026. We&apos;re open on all of them
-                (except Christmas Day). Opening hours may vary \u2014 check the website or call
+                (except Christmas Day). Opening hours may vary, check the website or call
                 ahead to confirm.
               </p>
               <div className="rounded-2xl border border-anchor-gold/15 bg-anchor-bg-raised overflow-hidden">
@@ -189,7 +189,7 @@ export default function BankHolidayWeekendsPage() {
                 order a round, and soak it in.
               </p>
               <p className="text-anchor-cream-text/70 leading-relaxed">
-                The garden is a proper suntrap when the weather&apos;s good \u2014 and on a bank
+                The garden is a proper suntrap when the weather&apos;s good, and on a bank
                 holiday weekend, there&apos;s no reason to rush home.
               </p>
               <Link
@@ -215,7 +215,7 @@ export default function BankHolidayWeekendsPage() {
                 Bank holiday Mondays
               </h2>
               <p className="mt-3 text-anchor-cream-text/70 leading-relaxed">
-                We&apos;re open on bank holiday Mondays \u2014 but the kitchen is{' '}
+                We&apos;re open on bank holiday Mondays, but the kitchen is{' '}
                 <span className="font-semibold">closed every Monday</span>, including bank holidays.
                 That&apos;s just how we run things, and we&apos;d rather be upfront about it.
               </p>
@@ -331,7 +331,7 @@ export default function BankHolidayWeekendsPage() {
             <div className="space-y-4">
               <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">Where we are</h2>
               <p className="text-anchor-cream-text/70 leading-relaxed">
-                The Anchor is in Stanwell Moor, Surrey (TW19 6AQ) \u2014 close to Heathrow and
+                The Anchor is in Stanwell Moor, Surrey (TW19 6AQ), close to Heathrow and
                 easy to reach from Staines-upon-Thames, Ashford, and Windsor. Free parking on site.
               </p>
               <p className="text-anchor-cream-text/70">

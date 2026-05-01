@@ -120,12 +120,12 @@ const FAQS = [
   {
     question: 'How much is entry and do we need to book?',
     answer:
-      'It’s £3 per player. If booking is open you’ll see a reserve table button above. If not, booking options are available closer to the event — check back nearer the date or call 01753 682707 and we’ll help.'
+      'It’s £3 per player. If booking is open you’ll see a reserve table button above. If not, booking options are available closer to the event, check back nearer the date or call 01753 682707 and we’ll help.'
   },
   {
     question: 'How many players can we bring?',
     answer:
-      'Teams are capped at six players to keep things fair. Smaller groups and solo quizzers are welcome—we happily pair you with other legends on the night.'
+      'Teams are capped at six players to keep things fair. Smaller groups and solo quizzers are welcome, we happily pair you with other legends on the night.'
   },
   {
     question: 'Can kids or dogs come to quiz night?',
@@ -150,7 +150,7 @@ const FAQS = [
   {
     question: 'Is this the closest pub quiz near Heathrow hotels?',
     answer:
-      'Yes—we\'re just seven minutes from Heathrow Terminal 5 and 8 minutes from Staines. We\'re the go-to “pub quiz near me” for airport crews, local hotels and Stanwell Moor neighbours looking for a proper quiz night without London prices.'
+      'Yes, we\'re just seven minutes from Heathrow Terminal 5 and 8 minutes from Staines. We\'re the go-to “pub quiz near me” for airport crews, local hotels and Stanwell Moor neighbours looking for a proper quiz night without London prices.'
   },
   {
     question: 'Do you run quiz nights on weekends?',
@@ -270,8 +270,8 @@ export default async function QuizNightPage() {
   const doorTime = nextEvent ? formatDoorTime(nextEvent.doorTime) ?? '6:30 pm' : '6:30 pm'
 
 	  const heroDescription = nextEvent
-	    ? `Doors ${doorTime}. Quiz starts ${nextEventTime}. It’s £3 per player — build a team of up to six or arrive solo and we’ll match you.`
-	    : 'Doors 6:30 pm. Quiz starts 7:00 pm. It’s £3 per player — build a team of up to six or arrive solo and we’ll match you.'
+	    ? `Doors ${doorTime}. Quiz starts ${nextEventTime}. It’s £3 per player, build a team of up to six or arrive solo and we’ll match you.`
+	    : 'Doors 6:30 pm. Quiz starts 7:00 pm. It’s £3 per player, build a team of up to six or arrive solo and we’ll match you.'
 
   // Extract ISO date (YYYY-MM-DD) from startDate for booking URL prefill
   const nextEventIsoDate = nextEvent ? nextEvent.startDate.slice(0, 10) : null
@@ -360,7 +360,7 @@ export default async function QuizNightPage() {
           <div className="max-w-5xl mx-auto">
             <h2 className="text-3xl font-bold text-anchor-cream-text text-center mb-6">Upcoming quiz night dates</h2>
             <p className="text-anchor-cream-text/70 text-center mb-8">
-              We list confirmed quiz night dates below. For the very latest schedule—including bonus weekend quizzes—check our <Link href="/whats-on" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">What’s On page</Link> or call 01753 682707 and we’ll give you the next available date.
+              We list confirmed quiz night dates below. For the very latest schedule, including bonus weekend quizzes, check our <Link href="/whats-on" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">What’s On page</Link> or call 01753 682707 and we’ll give you the next available date.
             </p>
             <QuizNightEvents events={events} />
           </div>
@@ -494,7 +494,7 @@ export default async function QuizNightPage() {
                 <ul className="space-y-3 text-white/90 text-sm">
                   <li>Phones away during questions (–5 points if we catch a scroll).</li>
                   <li>Families welcome until 9 pm. Kids score bonus applause when they nail a question.</li>
-                  <li>Dogs welcome—water bowls and treats ready behind the bar.</li>
+                  <li>Dogs welcome, water bowls and treats ready behind the bar.</li>
                   <li>Charity pot when available supports local causes. We’ll shout about the beneficiary each month.</li>
                 </ul>
               </CardBody>
@@ -515,7 +515,7 @@ export default async function QuizNightPage() {
                 <CardBody className="space-y-3">
                   <h3 className="text-xl font-semibold text-anchor-cream-text">Balance your brain power</h3>
                   <p className="text-anchor-cream-text/70 text-sm leading-relaxed">
-                    Mix general knowledge legends with niche specialists—think music, sport, film buffs and a wildcard who reads the news. Diverse teams smash the picture and music rounds every time.
+                    Mix general knowledge legends with niche specialists, think music, sport, film buffs and a wildcard who reads the news. Diverse teams smash the picture and music rounds every time.
                   </p>
                 </CardBody>
               </Card>
@@ -539,7 +539,7 @@ export default async function QuizNightPage() {
                 <CardBody className="space-y-3">
                   <h3 className="text-xl font-semibold text-anchor-cream-text">Arrive early, fuel up</h3>
                   <p className="text-anchor-cream-text/70 text-sm leading-relaxed">
-                    We open the doors at 6:30 pm—grab sharers, settle the team and review recent headlines before the 7:00 pm kickoff. A fed team is a focused team.
+                    We open the doors at 6:30 pm, grab sharers, settle the team and review recent headlines before the 7:00 pm kickoff. A fed team is a focused team.
                   </p>
                 </CardBody>
               </Card>

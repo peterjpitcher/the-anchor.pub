@@ -26,7 +26,7 @@ Whether you're planning your own 50th or organising a surprise for someone who d
 
 ## Why a 50th birthday deserves more than "drinks at ours"
 
-A 50th birthday party sits in unique territory. It's not a 30th, where everyone's still happy with a house party and a playlist. And it's not a 60th, where expectations have quietly downscaled. Fifty is the milestone where people genuinely want to gather — old friends, family, colleagues, the lot — and do something that feels like an occasion.
+A 50th birthday party sits in unique territory. It's not a 30th, where everyone's still happy with a house party and a playlist. And it's not a 60th, where expectations have quietly downscaled. Fifty is the milestone where people genuinely want to gather, old friends, family, colleagues, the lot, and do something that feels like an occasion.
 
 That doesn't mean it needs to be expensive. It means it needs to be thoughtful. The best 50th birthday celebrations we've seen share a few things: a venue with some character, food that people actually talk about, enough space for everyone to mix, and a host who isn't spending the whole night refilling ice trays.
 
@@ -36,7 +36,7 @@ That doesn't mean it needs to be expensive. It means it needs to be thoughtful. 
 
 An afternoon party (think 1pm to 5pm on a Saturday or Sunday) is quietly becoming the most popular format for 50th birthdays. And for good reason.
 
-Your guest list for a 50th probably spans four decades of friendships. That means parents with young children, older relatives who'd rather not drive home at midnight, and a fair few people who — let's be honest — prefer a 3pm finish to a 3am one. An afternoon format lets everyone attend without childcare logistics or taxi negotiations.
+Your guest list for a 50th probably spans four decades of friendships. That means parents with young children, older relatives who'd rather not drive home at midnight, and a fair few people who, let's be honest, prefer a 3pm finish to a 3am one. An afternoon format lets everyone attend without childcare logistics or taxi negotiations.
 
 Pair it with a proper sit-down lunch or a generous buffet spread, and it feels more like a celebration than a late-night session ever could. Add a few bottles of prosecco, a short speech (keep it under five minutes, for everyone's sake), and you've got something people will remember.
 
@@ -48,33 +48,33 @@ The key to a good evening 50th is giving people something to do beyond standing 
 
 ### The surprise party
 
-Surprise parties for a 50th are either spectacular or catastrophic. There's no middle ground. The logistics are harder than people think — you need a venue that can hold everyone out of sight, a convincing cover story for getting the guest of honour there, and at least one person who can keep a secret for more than 48 hours.
+Surprise parties for a 50th are either spectacular or catastrophic. There's no middle ground. The logistics are harder than people think, you need a venue that can hold everyone out of sight, a convincing cover story for getting the guest of honour there, and at least one person who can keep a secret for more than 48 hours.
 
-If you're going the surprise route, pick a venue with a separate entrance or a private room that's out of the main sightline. Arrive at least 45 minutes early. And have a backup plan for the guest of honour's outfit — nobody wants to walk into their own surprise party in joggers.
+If you're going the surprise route, pick a venue with a separate entrance or a private room that's out of the main sightline. Arrive at least 45 minutes early. And have a backup plan for the guest of honour's outfit, nobody wants to walk into their own surprise party in joggers.
 
 ### Sunday lunch as a 50th celebration
 
 For a certain kind of person (and you probably know whether the birthday person is this kind of person), a beautifully done Sunday roast with 15 or 20 of their favourite people is the perfect 50th.
 
-No fuss, no speeches unless someone insists, just an exceptional meal with the people who matter most. This works particularly well when the guest list is tight — close family and lifelong friends rather than the full address book.
+No fuss, no speeches unless someone insists, just an exceptional meal with the people who matter most. This works particularly well when the guest list is tight, close family and lifelong friends rather than the full address book.
 
-At The Anchor, a [Sunday roast celebration](/sunday-lunch) starts from £19.99 per person, with options including slow-cooked lamb shank (£23.99), crispy pork belly (£21.99), and a beetroot and butternut squash wellington for vegetarians (£19.99). Walk in or book ahead — no pre-order needed, served 1pm-6pm. Groups of 10 or more take a £10 per person deposit, fully deducted from the final bill on the day.
+At The Anchor, a [Sunday roast celebration](/sunday-lunch) starts from £19.99 per person, with options including slow-cooked lamb shank (£23.99), crispy pork belly (£21.99), and a beetroot and butternut squash wellington for vegetarians (£19.99). Walk in or book ahead, no pre-order needed, served 1pm-6pm. Groups of 10 or more take a £10 per person deposit, fully deducted from the final bill on the day.
 
 ### The beer garden party
 
 If the birthday falls between May and September, an outdoor celebration changes everything. There's something about being outside with a drink in your hand that makes people relax in a way they just don't indoors.
 
-The trick is finding a beer garden that's actually set up for a group — not just a few benches bolted to a car park. You want enough seating for everyone, food service to the table, and ideally something interesting to look at beyond the back of a building. (At The Anchor, that "something interesting" is planes landing at Heathrow every 90 seconds, roughly 500 to 800 feet overhead. It's oddly mesmerising after a glass of wine.)
+The trick is finding a beer garden that's actually set up for a group, not just a few benches bolted to a car park. You want enough seating for everyone, food service to the table, and ideally something interesting to look at beyond the back of a building. (At The Anchor, that "something interesting" is planes landing at Heathrow every 90 seconds, roughly 500 to 800 feet overhead. It's oddly mesmerising after a glass of wine.)
 
 ## Planning a 50th birthday party: the details people forget
 
 ### How far ahead should you book?
 
-For a 50th, book your venue at least eight to twelve weeks in advance. Saturdays in particular go fast — at most venues near Heathrow, Saturday evening slots for private events fill up two to four months ahead.
+For a 50th, book your venue at least eight to twelve weeks in advance. Saturdays in particular go fast, at most venues near Heathrow, Saturday evening slots for private events fill up two to four months ahead.
 
 If you're planning a surprise, you might need even longer. You'll want to send save-the-date messages early enough that people keep the date free, but vague enough that nobody accidentally tips off the birthday person.
 
-For a Sunday lunch celebration, two to four weeks is usually enough, but check with the venue — popular Sunday slots can fill up, especially for groups of 15 or more.
+For a Sunday lunch celebration, two to four weeks is usually enough, but check with the venue, popular Sunday slots can fill up, especially for groups of 15 or more.
 
 ### Guest numbers: how many people actually come?
 
@@ -86,11 +86,11 @@ Give your venue a confirmed number a week before the event. Most venues (includi
 
 A 50th birthday guest list is uniquely diverse. You'll have children who won't eat anything green, twenty-somethings with dietary requirements you've never heard of, contemporaries who want a proper meal, and older relatives who prefer familiar food done well.
 
-The solution is a buffet format with genuine variety, or a set menu with enough options to cover the range. Avoid anything too experimental — your aunt from Surrey and your colleague from accounts both need to find something they'll eat.
+The solution is a buffet format with genuine variety, or a set menu with enough options to cover the range. Avoid anything too experimental, your aunt from Surrey and your colleague from accounts both need to find something they'll eat.
 
 Common dietary considerations to plan for:
 
-- Vegetarian and vegan options (not an afterthought — proper dishes)
+- Vegetarian and vegan options (not an afterthought, proper dishes)
 - Gluten-free alternatives
 - Nut allergies (especially in shared buffet settings)
 - Halal requirements (increasingly relevant in the Heathrow corridor, where guest lists often reflect the area's diversity)
@@ -117,21 +117,21 @@ The single biggest variable is drinks. A cash bar (where guests buy their own) v
 
 Not every venue suits a 50th. Here's what actually matters when you're comparing options:
 
-**Private or semi-private space.** A 50th isn't a night at the pub — your guests shouldn't be competing with strangers for seats. Look for a venue with a dedicated private room or a section that can be properly separated from the main area.
+**Private or semi-private space.** A 50th isn't a night at the pub, your guests shouldn't be competing with strangers for seats. Look for a venue with a dedicated private room or a section that can be properly separated from the main area.
 
 **Flexible catering.** You need a venue that can work with your budget and your guest list's dietary needs, not one that hands you a fixed package and says take it or leave it.
 
-**Parking.** This is where Heathrow-area venues diverge sharply. Airport hotels charge £15-25 per car. Some local venues have limited or no parking. When your guests are driving from across Surrey, west London, and Berkshire, free parking isn't a luxury — it's the difference between people coming and people making excuses.
+**Parking.** This is where Heathrow-area venues diverge sharply. Airport hotels charge £15-25 per car. Some local venues have limited or no parking. When your guests are driving from across Surrey, west London, and Berkshire, free parking isn't a luxury, it's the difference between people coming and people making excuses.
 
 **Accessibility.** At 50, your guest list likely includes people with mobility considerations. Check for step-free access, ground-floor facilities, and accessible parking. Not every venue gets this right.
 
-**The atmosphere question.** Hotel function rooms are versatile but soulless. Community halls are cheap but you're decorating a blank box. Pubs and restaurants generally land in the sweet spot for a 50th — enough character to feel like an occasion, relaxed enough that people actually enjoy themselves.
+**The atmosphere question.** Hotel function rooms are versatile but soulless. Community halls are cheap but you're decorating a blank box. Pubs and restaurants generally land in the sweet spot for a 50th, enough character to feel like an occasion, relaxed enough that people actually enjoy themselves.
 
 ### Hotel venues near Heathrow
 
-The usual suspects — Sofitel, Hilton, Marriott — all offer private event packages. Expect to pay £50-100 per head for food alone, plus room hire (£500-2,000), plus parking for your guests. For a group of 40, you're looking at a minimum of £3,000-4,000 before the bar tab.
+The usual suspects, Sofitel, Hilton, Marriott, all offer private event packages. Expect to pay £50-100 per head for food alone, plus room hire (£500-2,000), plus parking for your guests. For a group of 40, you're looking at a minimum of £3,000-4,000 before the bar tab.
 
-Hotels work well for large, formal celebrations — if you want 80+ guests, a dance floor, and a professional events team managing every detail. They're less suited to intimate gatherings where the per-head cost feels disproportionate.
+Hotels work well for large, formal celebrations, if you want 80+ guests, a dance floor, and a professional events team managing every detail. They're less suited to intimate gatherings where the per-head cost feels disproportionate.
 
 ### Pubs and independent venues near Heathrow
 
@@ -141,13 +141,13 @@ This is where value and atmosphere overlap. Local venues typically charge less, 
 
 We're a village pub in Stanwell Moor, seven minutes from Heathrow Terminal 5. We've been hosting milestone birthday celebrations since the building was a pub in 1751 (though the party planning has improved since then).
 
-Here's exactly what we offer and what we don't — because honest information is more useful than a sales pitch.
+Here's exactly what we offer and what we don't, because honest information is more useful than a sales pitch.
 
 ### Space and capacity
 
 Our private dining room seats 26 for a sit-down meal, with standing room for more. French doors open onto the beer garden, which seats 64. For a 50th birthday, that means you can comfortably host an intimate dinner for 20-odd people indoors, or a larger celebration of up to 50 guests using both spaces.
 
-For groups of 10 to 50, we operate on a minimum spend model — no room hire charge. The minimum spend ranges from £500 to £1,500 depending on the day and size of your event, with a £250 deposit to secure the date.
+For groups of 10 to 50, we operate on a minimum spend model, no room hire charge. The minimum spend ranges from £500 to £1,500 depending on the day and size of your event, with a £250 deposit to secure the date.
 
 ### Food and drink packages
 
@@ -159,20 +159,20 @@ Buffet options start from £9.95 per head (minimum 30 guests):
 - **Premium Buffet:** £13.95/head
 - **Indoor BBQ:** £17.99/head
 
-Drinks packages are available from £6.99 per head for welcome drinks, or £7.99 for prosecco and orange juice. Unlimited tea and coffee runs at £4.49 per head — useful for afternoon celebrations with older guests. Kids get unlimited squash for £3.50 per head.
+Drinks packages are available from £6.99 per head for welcome drinks, or £7.99 for prosecco and orange juice. Unlimited tea and coffee runs at £4.49 per head, useful for afternoon celebrations with older guests. Kids get unlimited squash for £3.50 per head.
 
 You can also bring your own food at no charge if you prefer to arrange catering independently.
 
 ### What we get right
 
-- **Free parking** for all guests — 20 spaces on site, no fees, no time limits. CCTV and floodlit.
+- **Free parking** for all guests, 20 spaces on site, no fees, no time limits. CCTV and floodlit.
 - **Step-free access** to the bar, dining area, and car park
 - **Beer garden ramp** available on request (there are steps from the bar, but we have a ramp for those who need it)
-- **AV equipment** — projector, screen, and sound system for slideshows, speeches, or that embarrassing montage someone always puts together
+- **AV equipment**, projector, screen, and sound system for slideshows, speeches, or that embarrassing montage someone always puts together
 - **Dedicated events coordinator** who handles the details
-- **Dog friendly** throughout the venue — water bowls and treats provided, so the family dog is welcome too
-- **Free WiFi** — handy for sharing photos on the night
-- **Location** — 7 minutes from Terminal 5, 2 minutes from M25 Junction 14, outside the ULEZ zone
+- **Dog friendly** throughout the venue, water bowls and treats provided, so the family dog is welcome too
+- **Free WiFi**, handy for sharing photos on the night
+- **Location**, 7 minutes from Terminal 5, 2 minutes from M25 Junction 14, outside the ULEZ zone
 
 ### What we're honest about
 
@@ -185,15 +185,15 @@ You can also bring your own food at no charge if you prefer to arrange catering 
 
 The best milestone birthday parties have personal touches that a venue can't provide from a menu. Here are ideas that cost almost nothing but make the evening:
 
-**A decade wall.** Print photos from every decade of the birthday person's life — baby pictures, awkward school photos, wedding shots, holiday snaps — and pin them up. Give each decade a label. Guests will spend half the night in front of it.
+**A decade wall.** Print photos from every decade of the birthday person's life, baby pictures, awkward school photos, wedding shots, holiday snaps, and pin them up. Give each decade a label. Guests will spend half the night in front of it.
 
-**The memory jar.** Leave slips of paper and pens on each table. Ask guests to write a favourite memory, a piece of advice for the next 50 years, or something they've never told the birthday person. Read them out (or not — some are better kept private).
+**The memory jar.** Leave slips of paper and pens on each table. Ask guests to write a favourite memory, a piece of advice for the next 50 years, or something they've never told the birthday person. Read them out (or not, some are better kept private).
 
-**A signature cocktail.** Ask the venue to create a cocktail named after the guest of honour. It doesn't have to be complicated — a renamed gin and tonic with a garnish that means something works perfectly.
+**A signature cocktail.** Ask the venue to create a cocktail named after the guest of honour. It doesn't have to be complicated, a renamed gin and tonic with a garnish that means something works perfectly.
 
 **The playlist.** Create a collaborative playlist in advance. Ask each guest to add one song that reminds them of the birthday person, or one song from the year they met. You'll end up with something better than any DJ could put together.
 
-**A short toast, not a speech.** Nobody at a 50th wants to stand through a 20-minute speech. Ask two or three people to prepare 90 seconds each — one funny story, one genuine tribute, done. Under five minutes total.
+**A short toast, not a speech.** Nobody at a 50th wants to stand through a 20-minute speech. Ask two or three people to prepare 90 seconds each, one funny story, one genuine tribute, done. Under five minutes total.
 
 ## 50th birthday party planning checklist
 
@@ -231,19 +231,19 @@ Use this timeline to stay on track:
 
 ### How much does a 50th birthday party cost in 2026?
 
-A 50th birthday party for 30-40 guests typically costs between £800 and £3,000 depending on venue, catering, and drinks. At a local pub venue like The Anchor near Heathrow, buffet packages start from £9.95 per head with no room hire charge — making a complete celebration for 40 guests achievable from around £600-800 before drinks. Hotel venues near Heathrow typically start from £50 per head, putting the same event at £2,500-4,000.
+A 50th birthday party for 30-40 guests typically costs between £800 and £3,000 depending on venue, catering, and drinks. At a local pub venue like The Anchor near Heathrow, buffet packages start from £9.95 per head with no room hire charge, making a complete celebration for 40 guests achievable from around £600-800 before drinks. Hotel venues near Heathrow typically start from £50 per head, putting the same event at £2,500-4,000.
 
 ### How far in advance should I book a 50th birthday venue?
 
-For Saturday evening events, book eight to twelve weeks ahead. Friday evenings and Sunday lunchtimes need four to eight weeks. Midweek celebrations can often be arranged with two to four weeks' notice. If you're planning a surprise party, add extra time — you'll need to coordinate with guests before confirming with the venue.
+For Saturday evening events, book eight to twelve weeks ahead. Friday evenings and Sunday lunchtimes need four to eight weeks. Midweek celebrations can often be arranged with two to four weeks' notice. If you're planning a surprise party, add extra time, you'll need to coordinate with guests before confirming with the venue.
 
 ### What food works best for a 50th birthday party?
 
-Buffets are the most popular format for 50th birthday parties because they accommodate mixed-age groups and varied dietary needs. A good buffet gives guests flexibility — children can pick what they like, guests with dietary requirements can see exactly what's available, and the food service doesn't tie you to a fixed schedule. For a more intimate celebration with under 25 guests, a sit-down meal (such as a Sunday roast) creates a more personal feel.
+Buffets are the most popular format for 50th birthday parties because they accommodate mixed-age groups and varied dietary needs. A good buffet gives guests flexibility, children can pick what they like, guests with dietary requirements can see exactly what's available, and the food service doesn't tie you to a fixed schedule. For a more intimate celebration with under 25 guests, a sit-down meal (such as a Sunday roast) creates a more personal feel.
 
 ### Can I hold a 50th birthday party on a Sunday?
 
-Absolutely, and it's increasingly popular. A Sunday celebration — particularly a long lunch — works well for milestone birthdays because it suits guests with families, tends to cost less than Saturday, and has a naturally relaxed pace. At The Anchor, Sunday roasts are available from £19.99 per person with advance booking, or you can arrange a buffet for larger groups.
+Absolutely, and it's increasingly popular. A Sunday celebration, particularly a long lunch, works well for milestone birthdays because it suits guests with families, tends to cost less than Saturday, and has a naturally relaxed pace. At The Anchor, Sunday roasts are available from £19.99 per person with advance booking, or you can arrange a buffet for larger groups.
 
 ### What's the best venue for a 50th birthday near Heathrow?
 
@@ -251,7 +251,7 @@ The best venue depends on your group size, budget, and style. Airport hotels sui
 
 ---
 
-**Ready to plan your 50th birthday celebration?** Use our [milestone birthday calculator](/private-hire/milestone-birthdays) to get an instant estimate based on your guest numbers and preferences. Or call us on 01753 682707 to talk through your plans — we'll help you put together something that fits your budget and makes the birthday person feel properly celebrated.
+**Ready to plan your 50th birthday celebration?** Use our [milestone birthday calculator](/private-hire/milestone-birthdays) to get an instant estimate based on your guest numbers and preferences. Or call us on 01753 682707 to talk through your plans, we'll help you put together something that fits your budget and makes the birthday person feel properly celebrated.
 
 You can also explore our [private hire options](/private-hire), [Sunday lunch menu](/sunday-lunch), and [full food menu](/food-menu) to start shaping your ideas.
 

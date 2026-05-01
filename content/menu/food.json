@@ -1,6 +1,6 @@
 {
   "title": "Food Menu",
-  "description": "Proper British pub food at The Anchor — cooked fresh to order and served with a warm welcome.",
+  "description": "Proper British pub food at The Anchor, cooked fresh to order and served with a warm welcome.",
   "lastUpdated": "2026-03-20",
   "categories": [
     {
@@ -274,13 +274,13 @@
       "sections": [
         {
           "title": "Pizza Selection",
-          "description": "Stone-baked to order on hand-stretched bases. All 12-inch pizzas are available with a gluten-free base on request — just ask when ordering.",
+          "description": "Stone-baked to order on hand-stretched bases. All 12-inch pizzas are available with a gluten-free base on request, just ask when ordering.",
           "style": "grid",
           "items": [
             {
               "name": "Rustic Classic",
               "price": "12",
-              "description": "Rich tomato sauce, creamy mozzarella, crisp stone-baked crust — a timeless favourite. Available with gluten-free base.",
+              "description": "Rich tomato sauce, creamy mozzarella, crisp stone-baked crust, a timeless favourite. Available with gluten-free base.",
               "allergens": ["gluten", "milk", "soya"],
               "vegetarian": true,
               "veganOptionAvailable": true,
@@ -305,7 +305,7 @@
             {
               "name": "Nice & Spicy",
               "price": "14",
-              "description": "'Nduja, Ventricina, roquito peppers and mozzarella — fiery flavours on a crisp crust. Available with gluten-free base.",
+              "description": "'Nduja, Ventricina, roquito peppers and mozzarella, fiery flavours on a crisp crust. Available with gluten-free base.",
               "allergens": ["gluten", "milk", "soya"],
               "vegetarian": false,
               "glutenFreeAvailable": true
@@ -347,7 +347,7 @@
         },
         {
           "title": "Garlic Bread",
-          "description": "Baked in the same stone oven as our pizzas — golden and crisp on the outside with a soft, garlicky centre.",
+          "description": "Baked in the same stone oven as our pizzas, golden and crisp on the outside with a soft, garlicky centre.",
           "style": "grid",
           "items": [
             {
@@ -362,7 +362,7 @@
             {
               "name": "Garlic Bread with Mozzarella",
               "price": "12",
-              "description": "Warm garlic bread crowned with melted mozzarella — a proper shareable.",
+              "description": "Warm garlic bread crowned with melted mozzarella, a proper shareable.",
               "allergens": ["gluten", "milk", "soya"],
               "vegetarian": true,
               "glutenFreeAvailable": true
@@ -420,7 +420,7 @@
         },
         {
           "title": "Sides",
-          "description": "The essentials — perfect for sharing or adding to any plate.",
+          "description": "The essentials, perfect for sharing or adding to any plate.",
           "style": "list",
           "items": [
             {
@@ -449,7 +449,7 @@
             {
               "name": "Sweet Potato Fries",
               "price": "5",
-              "description": "Lightly spiced sweet potato fries — perfect alongside anything on the menu.",
+              "description": "Lightly spiced sweet potato fries, perfect alongside anything on the menu.",
               "allergens": [],
               "vegetarian": true,
               "vegan": true,
@@ -458,7 +458,7 @@
             {
               "name": "6 Onion Rings",
               "price": "4",
-              "description": "Beer-battered onion rings, golden and crisp — a proper table sharer.",
+              "description": "Beer-battered onion rings, golden and crisp, a proper table sharer.",
               "allergens": ["gluten"],
               "vegetarian": true,
               "vegan": true
@@ -479,7 +479,7 @@
             {
               "name": "Sticky Toffee Pudding",
               "price": "6",
-              "description": "Rich sponge in toffee sauce, served warm with custard — the pudding that earns its place every time.",
+              "description": "Rich sponge in toffee sauce, served warm with custard, the pudding that earns its place every time.",
               "allergens": ["eggs"],
               "vegetarian": true,
               "glutenFree": true
@@ -487,14 +487,14 @@
             {
               "name": "Apple Crumble",
               "price": "6",
-              "description": "Warm apple crumble served with custard or ice cream — a proper British pud.",
+              "description": "Warm apple crumble served with custard or ice cream, a proper British pud.",
               "allergens": ["gluten"],
               "vegetarian": true
             },
             {
               "name": "Chocolate Fudge Brownie",
               "price": "6",
-              "description": "Warm chocolate brownie with custard or ice cream — gooey, rich and completely worth it.",
+              "description": "Warm chocolate brownie with custard or ice cream, gooey, rich and completely worth it.",
               "allergens": ["eggs", "milk", "soya"],
               "vegetarian": true,
               "glutenFree": true
@@ -502,14 +502,14 @@
             {
               "name": "Chocolate Fudge Cake",
               "price": "6",
-              "description": "Hot chocolate fudge cake with cream or custard — the indulgent finish your meal deserves.",
+              "description": "Hot chocolate fudge cake with cream or custard, the indulgent finish your meal deserves.",
               "allergens": ["gluten", "eggs", "milk"],
               "vegetarian": true
             },
             {
               "name": "Ice Cream Sundae",
               "price": "5",
-              "description": "Three scoops of ice cream with chocolate or strawberry sauce — a simple pleasure done right.",
+              "description": "Three scoops of ice cream with chocolate or strawberry sauce, a simple pleasure done right.",
               "allergens": ["milk"],
               "vegetarian": true,
               "glutenFreeAvailable": true
@@ -521,7 +521,7 @@
     {
       "id": "hot-drinks",
       "title": "Hot Drinks",
-      "description": "A proper cup to finish your visit — made properly and served without the airport price tag.",
+      "description": "A proper cup to finish your visit, made properly and served without the airport price tag.",
       "sections": [
         {
           "title": "",
@@ -552,7 +552,7 @@
             {
               "name": "Individual Pot of Tea (Tetley)",
               "price": "3",
-              "description": "A proper brew — classic Tetley in your own pot.",
+              "description": "A proper brew, classic Tetley in your own pot.",
               "allergens": [],
               "vegetarian": true
             },

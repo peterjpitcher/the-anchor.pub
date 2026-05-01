@@ -16,15 +16,15 @@ import { TrustBar, ValueProofStrip, RegretReduction } from '@/components/psychol
 
 export const metadata: Metadata = {
   title: 'Corporate Events Near Heathrow | Free Parking | The Anchor',
-  description: 'Host corporate events near Heathrow at The Anchor. Private meeting rooms, breakout space, AV support and free parking — just 7 minutes from Terminal 5.',
+  description: 'Host corporate events near Heathrow at The Anchor. Private meeting rooms, breakout space, AV support and free parking, just 7 minutes from Terminal 5.',
   openGraph: {
     title: 'Corporate Events Near Heathrow | The Anchor, Stanwell Moor',
-    description: 'Host corporate events near Heathrow — private meeting rooms, AV support and free parking 7 minutes from Terminal 5.',
+    description: 'Host corporate events near Heathrow, private meeting rooms, AV support and free parking 7 minutes from Terminal 5.',
     images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Private hire venue at The Anchor near Heathrow Airport' }],
   },
   twitter: getTwitterMetadata({
     title: 'Corporate Events Near Heathrow | The Anchor, Stanwell Moor',
-    description: 'Host corporate events near Heathrow — private meeting rooms, AV support and free parking 7 minutes from Terminal 5.',
+    description: 'Host corporate events near Heathrow, private meeting rooms, AV support and free parking 7 minutes from Terminal 5.',
     images: [DEFAULT_CORPORATE_IMAGE]
   }),
   alternates: {
@@ -96,7 +96,7 @@ export default function CorporateEventsPage() {
               seo={{ structured: true, speakable: true }}
               className="text-anchor-cream-text mb-4"
             >
-              Corporate Events Near Heathrow — Business Venue at The Anchor
+              Corporate Events Near Heathrow, Business Venue at The Anchor
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
               Planning a corporate event near Heathrow? Professional meeting rooms for 10-50 guests, with larger events by enquiry, just 7 minutes from Terminal 5.

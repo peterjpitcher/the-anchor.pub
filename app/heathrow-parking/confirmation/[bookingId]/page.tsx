@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import Link from 'next/link'
 import { anchorAPI } from '@/lib/api'
 
-// Next.js 15: params is a Promise — must be awaited before use.
+// Next.js 15: params is a Promise, must be awaited before use.
 interface Props {
   params: Promise<{ bookingId: string }>
 }
@@ -119,7 +119,7 @@ export default async function ParkingConfirmationPage({ params }: Props) {
             {[
               { icon: '📍', text: 'Horton Road, Stanwell Moor, TW19 6AQ' },
               { icon: '🚕', text: '7 minutes to Terminal 5 by taxi or rideshare' },
-              { icon: '🚌', text: 'Bus 442 from outside — direct to T2, T3, T4 & T5' },
+              { icon: '🚌', text: 'Bus 442 from outside, direct to T2, T3, T4 & T5' },
               { icon: '🔑', text: 'Keep your keys with you at all times' },
             ].map(({ icon, text }) => (
               <div key={text} className="flex items-start gap-3 py-3">
@@ -135,7 +135,7 @@ export default async function ParkingConfirmationPage({ params }: Props) {
           href="/"
           className="block w-full text-center bg-anchor-green text-white font-semibold py-3.5 rounded-xl hover:bg-anchor-green-dark transition-colors"
         >
-          While you&apos;re here — visit the pub
+          While you&apos;re here, visit the pub
         </Link>
         <p className="text-anchor-sage text-xs text-center">Full menu · Draught beers · Family friendly</p>
       </div>

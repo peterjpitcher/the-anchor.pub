@@ -107,7 +107,7 @@ export default function SixNationsPage() {
                 <Container>
                     <div className="max-w-4xl mx-auto text-center mb-12">
                         <PageTitle className="text-anchor-gold-vivid mb-4">
-                            Six Nations Pub Near Me — Live Rugby in Stanwell Moor
+                            Six Nations Pub Near Me, Live Rugby in Stanwell Moor
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">
                             We're just 7 minutes from Heathrow Terminal 5 and miles away from the generic sports bar vibe.

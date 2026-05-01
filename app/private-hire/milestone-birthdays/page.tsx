@@ -107,7 +107,7 @@ export default async function MilestoneBirthdaysPage() {
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle className="text-anchor-cream-text mb-4" as="h2" seo={{ structured: true, speakable: true }}>
-                            Milestone Birthday Party Venue — 21st, 30th, 40th, 50th
+                            Milestone Birthday Party Venue, 21st, 30th, 40th, 50th
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">
                             You only turn 30 (or 40, or 50...) once! Make it a night to remember at The Anchor. We specialize in hosting lively milestone parties where the atmosphere is buzzing, the drinks are flowing, and the food keeps everyone going.
@@ -191,7 +191,7 @@ export default async function MilestoneBirthdaysPage() {
                         <CateringPackagesTable
                             packages={foodPackages}
                             title="Catering Packages"
-                            subtitle="Prices per person — minimum guest numbers may apply"
+                            subtitle="Prices per person, minimum guest numbers may apply"
                             showDescription={true}
                         />
                     </div>

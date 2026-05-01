@@ -136,7 +136,7 @@ export default function PreFlightDiningPage() {
                     },
                     {
                         question: "Is there a kids menu?",
-                        answer: "Yes — we have smaller portions and family favourites (sausages and fish fingers) to keep the little ones happy."
+                        answer: "Yes, we have smaller portions and family favourites (sausages and fish fingers) to keep the little ones happy."
                     },
                     {
                         question: "Can I bring my luggage inside?",

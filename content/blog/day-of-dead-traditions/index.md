@@ -151,6 +151,6 @@ While many cultures mourn the dead with sombre rituals, Mexico's Day of the Dead
 - **Convenient location** - Easy access from Heathrow and Staines
 - **Free parking** - No airport parking fees
 
-The Day of the Dead traditions exemplify Mexico's rich cultural heritage and offer a unique perspective on life and death. By honouring the deceased with love and celebration, we show that death is not the end, but a continuation of the journey—a journey that brings together the living and the dead in a vibrant, joyful reunion.
+The Day of the Dead traditions exemplify Mexico's rich cultural heritage and offer a unique perspective on life and death. By honouring the deceased with love and celebration, we show that death is not the end, but a continuation of the journey, a journey that brings together the living and the dead in a vibrant, joyful reunion.
 
 *The Anchor - Your cultural celebration destination near Heathrow Airport*

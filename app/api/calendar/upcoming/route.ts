@@ -28,7 +28,7 @@ export async function GET(request: Request) {
     .sort((a, b) => getEventDateRangeUtc(a).start.getTime() - getEventDateRangeUtc(b).start.getTime())
 
   const ics = buildEventsCalendarIcs(filtered, {
-    calendarName: 'The Anchor — Upcoming Events',
+    calendarName: 'The Anchor, Upcoming Events',
     calendarDescription: 'Upcoming events and entertainment at The Anchor in Stanwell Moor near Heathrow.',
     prodId: '-//The Anchor//Upcoming Events//EN'
   })

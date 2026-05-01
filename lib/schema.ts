@@ -278,8 +278,8 @@ export const liveMusicEventSeries = {
   "@context": "https://schema.org",
   "@type": "EventSeries",
   "@id": "https://www.the-anchor.pub/#live-music-series",
-  "name": "Live at The Anchor — Live Music Nights",
-  "description": "Regular live music nights at The Anchor, Stanwell Moor — bands, acoustic sessions and tribute acts. Free entry, free parking, 7 mins from Heathrow T5.",
+  "name": "Live at The Anchor, Live Music Nights",
+  "description": "Regular live music nights at The Anchor, Stanwell Moor, bands, acoustic sessions and tribute acts. Free entry, free parking, 7 mins from Heathrow T5.",
   "startDate": "2024-01-01",
   "endDate": "2026-12-31",
   "eventSchedule": {

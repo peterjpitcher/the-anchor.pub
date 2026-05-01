@@ -18,7 +18,7 @@ export default function SafetyAndRespectPage() {
       <HeroWrapper
         route="/safety-and-respect"
         title="Safety and Respect"
-        description="A pub where you can walk in and feel at ease — whoever you are"
+        description="A pub where you can walk in and feel at ease, whoever you are"
         variant="default"
       />
 
@@ -27,7 +27,7 @@ export default function SafetyAndRespectPage() {
         <Container>
           <div className="max-w-3xl mx-auto">
             <p className="text-lg text-anchor-cream-text/70 leading-relaxed">
-              We're the kind of pub where you can walk in on your own or with a group, whatever your background, and feel at ease. That's not accidental — it's how we run things.
+              We're the kind of pub where you can walk in on your own or with a group, whatever your background, and feel at ease. That's not accidental, it's how we run things.
             </p>
           </div>
         </Container>
@@ -43,7 +43,7 @@ export default function SafetyAndRespectPage() {
                 The Anchor is a proper local, but you don't need to be local to feel welcome here. We get solo visitors who just want a quiet pint, families out for Sunday lunch, groups celebrating birthdays, regulars who've been coming for years, and people who've never set foot in the place before. They all get the same thing: a decent drink, good food if they want it, and staff who actually pay attention.
               </p>
               <p>
-                We're near Heathrow, so we see travellers, airline crew, people killing time before a flight, and people who've just landed and want something that isn't an airport bar. We get new residents who've moved to the area and are looking for somewhere to become a regular. We get older couples, younger groups, dog walkers, plane spotters — the lot.
+                We're near Heathrow, so we see travellers, airline crew, people killing time before a flight, and people who've just landed and want something that isn't an airport bar. We get new residents who've moved to the area and are looking for somewhere to become a regular. We get older couples, younger groups, dog walkers, plane spotters, the lot.
               </p>
               <p>
                 The common thread is simple: everyone here treats everyone else with respect. That's not a rule we had to invent. It's just the kind of place this is.
@@ -60,7 +60,7 @@ export default function SafetyAndRespectPage() {
             <SectionHeader title="Our standards" />
             <div className="space-y-4 text-anchor-cream-text/70 leading-relaxed">
               <p>
-                We have zero tolerance for harassment, discrimination, or behaviour that makes anyone feel unwelcome. That applies to guests and to staff — no exceptions.
+                We have zero tolerance for harassment, discrimination, or behaviour that makes anyone feel unwelcome. That applies to guests and to staff, no exceptions.
               </p>
               <p>
                 Our team is here to help. If something doesn't feel right, tell any member of staff. You don't need to explain. You don't need to make a case. We'll take it from there.
@@ -97,7 +97,7 @@ export default function SafetyAndRespectPage() {
             <SectionHeader title="Our events" />
             <div className="space-y-4 text-anchor-cream-text/70 leading-relaxed">
               <p>
-                We run a full events programme — quiz nights, cash bingo, music bingo, drag cabaret shows and gameshow house parties, many hosted by the brilliant Nikki Manfadge. Our events are designed to be fun, a little ridiculous, and welcoming for everyone. The atmosphere is warm, the crowd is mixed, and nobody takes themselves too seriously.
+                We run a full events programme, quiz nights, cash bingo, music bingo, drag cabaret shows and gameshow house parties, many hosted by the brilliant Nikki Manfadge. Our events are designed to be fun, a little ridiculous, and welcoming for everyone. The atmosphere is warm, the crowd is mixed, and nobody takes themselves too seriously.
               </p>
               <p>
                 Check our <Link href="/whats-on" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid transition">what's on page</Link> for upcoming events.
@@ -118,7 +118,7 @@ export default function SafetyAndRespectPage() {
           },
           {
             question: 'Is The Anchor family-friendly?',
-            answer: 'Yes — families are welcome. Children are always welcome — we\'re completely family friendly.'
+            answer: 'Yes, families are welcome. Children are always welcome, we\'re completely family friendly.'
           },
           {
             question: 'What should I do if I feel uncomfortable?',
@@ -126,7 +126,7 @@ export default function SafetyAndRespectPage() {
           },
           {
             question: 'Are your events suitable for everyone?',
-            answer: "Our events — quiz nights, music bingo, cash bingo, drag cabaret shows and more — are aimed at adults and designed to be fun for everyone. We check the room, not who's in it."
+            answer: "Our events, quiz nights, music bingo, cash bingo, drag cabaret shows and more, are aimed at adults and designed to be fun for everyone. We check the room, not who's in it."
           },
           {
             question: 'Do you have a harassment policy?',

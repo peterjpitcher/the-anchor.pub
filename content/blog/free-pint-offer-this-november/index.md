@@ -32,7 +32,7 @@ noindex: true
 
 ![A promotional graphic for The Anchor pub, highlighting a free pint offer of Stanwell Moor Brew for Stanwell Moor residents during November 2024. The design includes the brew’s logo and key offer details in a bold, engaging layout.](/content/blog/free-pint-offer-this-november/hero.jpg)
 
-**Update: This offer has ended, and Stanwell Moor Brew is no longer available at The Anchor.** Our draught selection changes from time to time — visit us or call 01753 682707 to find out what is currently on tap.
+**Update: This offer has ended, and Stanwell Moor Brew is no longer available at The Anchor.** Our draught selection changes from time to time, visit us or call 01753 682707 to find out what is currently on tap.
 
 ---
 
@@ -52,7 +52,7 @@ At **The Anchor**, community is at the heart of everything we do. For over a cen
 
   
 
-We know trying something new can sometimes be a leap of faith, so here’s your chance to taste our much-loved Stanwell Moor Brew—on us! We’re confident it will soon become your go-to choice at the bar.
+We know trying something new can sometimes be a leap of faith, so here’s your chance to taste our much-loved Stanwell Moor Brew, on us! We’re confident it will soon become your go-to choice at the bar.
 
   
 
@@ -104,7 +104,7 @@ Crafted to be both approachable and complex, Stanwell Moor Brew is a versatile a
     
 2.  **What do I need to bring?** Please ensure your flyer has the **date and address filled in on the back**.
     
-3.  **How many pints can I claim?** The offer is limited to **one pint per household**—one flyer per transaction.
+3.  **How many pints can I claim?** The offer is limited to **one pint per household**, one flyer per transaction.
     
 4.  **What if I lose my flyer?** Unfortunately, **lost or damaged flyers cannot be replaced**.
     

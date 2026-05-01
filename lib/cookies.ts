@@ -53,7 +53,7 @@ export function setConsentStatus(consent: Partial<CookieConsent>) {
     secure: process.env.NODE_ENV === 'production'
   });
 
-  // Trigger custom event — GTMProvider and AnalyticsProvider listen for this
+  // Trigger custom event, GTMProvider and AnalyticsProvider listen for this
   // and update consent state in GTM/Clarity respectively
   if (typeof window !== 'undefined') {
     window.dispatchEvent(new CustomEvent('cookieConsentUpdate', { detail: newConsent }));

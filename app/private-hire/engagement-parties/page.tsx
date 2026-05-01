@@ -110,7 +110,7 @@ export default async function EngagementPartiesPage() {
                             Engagement Party Venue Near Heathrow & Staines
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">
-                            Congratulations on your engagement! Whether you want a quiet family dinner to share the news or a big bash with all your friends, The Anchor is the ideal engagement party venue near Heathrow &mdash; the perfect backdrop for your first celebration as a fianc&eacute;(e).
+                            Congratulations on your engagement! Whether you want a quiet family dinner to share the news or a big bash with all your friends, The Anchor is the ideal engagement party venue near Heathrow, the perfect backdrop for your first celebration as a fianc&eacute;(e).
                         </p>
                     </div>
                 </Container>
@@ -199,7 +199,7 @@ export default async function EngagementPartiesPage() {
                         <CateringPackagesTable
                             packages={foodPackages}
                             title="Catering Packages"
-                            subtitle="Prices per person — minimum guest numbers may apply"
+                            subtitle="Prices per person, minimum guest numbers may apply"
                             showDescription={true}
                             filterNames={['Sandwich Buffet', 'Finger Buffet', 'Premium Buffet', 'Burger Buffet', 'Afternoon Tea', 'Prosecco Afternoon Tea']}
                         />

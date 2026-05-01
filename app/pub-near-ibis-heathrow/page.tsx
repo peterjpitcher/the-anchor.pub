@@ -35,7 +35,7 @@ export default function PubNearIbisHeathrowPage() {
       <HeroWrapper
         route="/pub-near-ibis-heathrow"
         title="Pub Near ibis Heathrow"
-        description="12 minutes away — upgrade your evening with a proper British pub experience"
+        description="12 minutes away, upgrade your evening with a proper British pub experience"
         variant="default"
         enableSmartCtas={true}
         showContextStrip={true}
@@ -48,7 +48,7 @@ export default function PubNearIbisHeathrowPage() {
               Pub Near ibis London Heathrow
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
-              Smart travellers stay at the ibis to save on accommodation — then spend the difference on a proper evening at The Anchor. Just 12 minutes away: draught beers, home-cooked British food, and free parking. If you&apos;re searching for places to eat near Heathrow, we&apos;re the genuine local that budget-savvy guests love.
+              Smart travellers stay at the ibis to save on accommodation, then spend the difference on a proper evening at The Anchor. Just 12 minutes away: draught beers, home-cooked British food, and free parking. If you&apos;re searching for places to eat near Heathrow, we&apos;re the genuine local that budget-savvy guests love.
             </p>
           </div>
         </Container>
@@ -62,8 +62,8 @@ export default function PubNearIbisHeathrowPage() {
               features={[
                 { icon: '', title: '12 Minutes', description: 'By taxi from ibis Heathrow', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
                 { icon: '', title: '~£15', description: 'Typical taxi fare each way', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: 'Free Parking', description: '20 spaces — drive and park free', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: 'Great Value', description: 'Mains from £8.99 — pub prices', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: 'Free Parking', description: '20 spaces, drive and park free', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: 'Great Value', description: 'Mains from £8.99, pub prices', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
               ]}
               className="mb-8"
             />
@@ -76,19 +76,19 @@ export default function PubNearIbisHeathrowPage() {
           <div className="max-w-4xl mx-auto">
             <SectionHeader
               title="Upgrade Your Evening Near ibis Heathrow"
-              subtitle="You saved on your hotel — now treat yourself to a proper night out. The Anchor is the independent local that ibis guests discover and keep coming back to."
+              subtitle="You saved on your hotel, now treat yourself to a proper night out. The Anchor is the independent local that ibis guests discover and keep coming back to."
             />
             <div className="grid md:grid-cols-2 gap-8">
               <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
                 <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">What Smart Travellers Love</h3>
                 <ul className="space-y-3">
                   {[
-                    'Home-cooked food — not microwave hotel meals',
+                    'Home-cooked food, not microwave hotel meals',
                     'Real draught ales and craft beers',
                     'Large beer garden for warm evenings',
-                    'Dog-friendly — bring your four-legged traveller',
+                    'Dog-friendly, bring your four-legged traveller',
                     'Quiz nights and live events most weeks',
-                    'Cash, card, contactless — all accepted',
+                    'Cash, card, contactless, all accepted',
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-3">
                       <span className="text-anchor-gold font-bold"></span>
@@ -126,9 +126,9 @@ export default function PubNearIbisHeathrowPage() {
             <FeatureGrid
               columns={3}
               features={[
-                { icon: '', title: 'Fish & Chips', description: 'British classic — fresh battered cod, chips and mushy peas. Proper pub grub.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Stone-Baked Pizza', description: 'Authentic stone-baked pizzas from £12 — proper pub grub cooked fresh to order.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Draught Beers from £4.80', description: 'Wide selection of beers, wines and spirits — proper British drinks at proper pub prices.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Fish & Chips', description: 'British classic, fresh battered cod, chips and mushy peas. Proper pub grub.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Stone-Baked Pizza', description: 'Authentic stone-baked pizzas from £12, proper pub grub cooked fresh to order.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Draught Beers from £4.80', description: 'Wide selection of beers, wines and spirits, proper British drinks at proper pub prices.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
               ]}
               className="mb-6"
             />
@@ -160,23 +160,23 @@ export default function PubNearIbisHeathrowPage() {
         faqs={[
           {
             question: 'Is there a pub near ibis London Heathrow?',
-            answer: 'Yes — The Anchor in Stanwell Moor is approximately 12 minutes by taxi from ibis London Heathrow. It\'s an independent British pub with home-cooked food, draught beers, and 20 free parking spaces. Taxi fare is typically around £15 each way.'
+            answer: 'Yes, The Anchor in Stanwell Moor is approximately 12 minutes by taxi from ibis London Heathrow. It\'s an independent British pub with home-cooked food, draught beers, and 20 free parking spaces. Taxi fare is typically around £15 each way.'
           },
           {
             question: 'What\'s the nearest pub to ibis Heathrow Bath Road?',
-            answer: 'The Anchor in Stanwell Moor is the closest independent pub to ibis Heathrow Bath Road, approximately 12 minutes away. We serve traditional British pub food with mains from £8.99 — much better value than hotel dining.'
+            answer: 'The Anchor in Stanwell Moor is the closest independent pub to ibis Heathrow Bath Road, approximately 12 minutes away. We serve traditional British pub food with mains from £8.99, much better value than hotel dining.'
           },
           {
             question: 'Is food at The Anchor near ibis Heathrow good value?',
-            answer: 'Yes — mains start from £8.99 and everything is freshly cooked to order. Stone-baked pizzas from £12, classic fish & chips, and a full menu of British pub favourites.'
+            answer: 'Yes, mains start from £8.99 and everything is freshly cooked to order. Stone-baked pizzas from £12, classic fish & chips, and a full menu of British pub favourites.'
           },
           {
             question: 'Can I get a taxi from ibis Heathrow to The Anchor?',
-            answer: 'Yes — use Uber or ask the ibis reception for a local taxi. Tell the driver "The Anchor pub, Stanwell Moor, TW19 6AQ". The journey is approximately 12 minutes and costs around £15.'
+            answer: 'Yes, use Uber or ask the ibis reception for a local taxi. Tell the driver "The Anchor pub, Stanwell Moor, TW19 6AQ". The journey is approximately 12 minutes and costs around £15.'
           },
           {
             question: 'Is The Anchor near ibis Heathrow open in the evenings?',
-            answer: 'Yes — we open at 4pm Tuesday to Friday and from noon on Saturdays and Sundays. Kitchen serves until 9pm Tuesday–Friday, 7pm Saturday, and 5pm Sunday. Perfect for an evening meal during your stay.'
+            answer: 'Yes, we open at 4pm Tuesday to Friday and from noon on Saturdays and Sundays. Kitchen serves until 9pm Tuesday–Friday, 7pm Saturday, and 5pm Sunday. Perfect for an evening meal during your stay.'
           },
         ]}
         className="bg-anchor-bg"

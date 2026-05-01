@@ -21,7 +21,7 @@ export function DailySpecials({ isOpen }: DailySpecialsProps) {
   // Don't show specials if closed
   if (!isOpen) return null
 
-  // Saturday = 6 — remind customers to book Sunday roast
+  // Saturday = 6, remind customers to book Sunday roast
   const showSundayBooking = currentDay === 6
 
   if (!showSundayBooking) return null

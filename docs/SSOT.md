@@ -1,6 +1,6 @@
-# The Anchor — Single Source of Truth
+# The Anchor, Single Source of Truth
 
-> **Read before writing customer-facing content.** This document is the canonical reference for every fact about The Anchor that appears on the website, in JSON-LD schemas, in blog posts, in social copy, in marketing emails, or in any other customer-facing surface. If a claim you want to make is not in this document, **stop and ask** — do not guess, do not infer, do not fall back on training data.
+> **Read before writing customer-facing content.** This document is the canonical reference for every fact about The Anchor that appears on the website, in JSON-LD schemas, in blog posts, in social copy, in marketing emails, or in any other customer-facing surface. If a claim you want to make is not in this document, **stop and ask**, do not guess, do not infer, do not fall back on training data.
 >
 > If this document and existing page copy disagree, the SSOT wins. Update this document first when operational reality changes; the page copy and JSON-LD must follow.
 
@@ -22,8 +22,9 @@ Last menu refresh: **2026-04-29** (Sunday roast line-up rebuilt; wellington reaf
 - **Heritage line:** A village pub since 1751. Stood here before Heathrow existed; Heathrow grew from a grass airstrip in the 1940s.
 - **Marketing description:** The closest traditional British pub to Heathrow Airport. Famous Sunday roasts, beer garden under the flight path, and FREE parking for all guests.
 - **Tone:** Friendly, cheeky, inclusive.
-- **Perspective:** First-person plural — "we" / "our".
+- **Perspective:** First-person plural, "we" / "our".
 - **Language:** British English spelling and idiom.
+- **Punctuation:** Do not use em dashes in customer-facing copy. Prefer commas, short sentences, or parentheses where needed.
 - **Audience note:** Responds to local demographic change including the growing Indian community.
 
 ## 2. Contact & Location
@@ -37,17 +38,17 @@ Last menu refresh: **2026-04-29** (Sunday roast line-up rebuilt; wellington reaf
 - **M25:** 2 minutes from Junction 14.
 - **Bus:** Routes 441, 442, 555 from Heathrow Central Bus Station.
 - **ULEZ:** Outside the ULEZ zone (saves visitors approximately £12.50/day vs. London venues).
-- **Location framing:** Stanwell Moor, near Heathrow Airport — the closest proper pub to Terminal 5, ~7 minutes by car.
+- **Location framing:** Stanwell Moor, near Heathrow Airport, the closest proper pub to Terminal 5, ~7 minutes by car.
 
 ### Heathrow proximity
 
 | From | Time by car | Distance |
 |---|---|---|
-| Terminal 2 | 11 minutes | — |
+| Terminal 2 | 11 minutes |, |
 | Terminal 3 | 11 minutes | 5.3 miles |
-| Terminal 4 | 12 minutes | — |
+| Terminal 4 | 12 minutes |, |
 | Terminal 5 | 7 minutes | 3.8 miles |
-| Staines | 8 minutes | — |
+| Staines | 8 minutes |, |
 
 General range to use in copy: **7–12 minutes** from any Heathrow terminal.
 
@@ -64,9 +65,9 @@ General range to use in copy: **7–12 minutes** from any Heathrow terminal.
 **Live-music nights:** Kitchen open until midnight.
 **Quiz nights:** Kitchen open until 9pm.
 
-> Special-hours overrides come from the management API (`/business/hours`) and **always win**. `kitchen: null` for a date means the kitchen is closed for that date — treat as deliberate, not as missing data. Use `??` (not `||`) when resolving special vs. regular kitchen data; `||` will silently fall through and has caused real bugs.
+> Special-hours overrides come from the management API (`/business/hours`) and **always win**. `kitchen: null` for a date means the kitchen is closed for that date, treat as deliberate, not as missing data. Use `??` (not `||`) when resolving special vs. regular kitchen data; `||` will silently fall through and has caused real bugs.
 
-## 4. Sunday Roast — operational claims
+## 4. Sunday Roast, operational claims
 
 Effective from the **17 May 2026 walk-in launch**. Menu refreshed **29 April 2026** (chicken, lamb, pork belly and cauliflower cheese retired; turkey, two pies and sliced beef/pork added; wellington reaffirmed as vegan).
 
@@ -75,7 +76,7 @@ Effective from the **17 May 2026 walk-in launch**. Menu refreshed **29 April 202
 - **Walk-ins:** Welcome the whole window.
 - **Booking:** Recommended for groups and peak slots, but not required.
 - **Max online party size:** 20. Larger groups must call.
-- **Deposit:** No Sunday-specific deposit. The standard large-group deposit (groups of 10+) applies on any day, any booking type — see §7.
+- **Deposit:** No Sunday-specific deposit. The standard large-group deposit (groups of 10+) applies on any day, any booking type, see §7.
 
 ### Current menu
 
@@ -99,20 +100,20 @@ Triple-cooked, herb-and-garlic crusted roast potatoes. Seasonal vegetables. York
 
 ### Gravy rules
 
-- **Signature gravy** — a secret recipe we've refined ourselves over the years. Default for all meat dishes. **Contains meat stock; not vegan.**
-- **Regular gravy** — fully vegan. Default with the wellington. Available on request with any dish.
-- **Wellington upgrade path** — wellington customers can upgrade for free to the signature gravy on request. The upgrade makes the dish non-vegan; flag this when offering.
+- **Signature gravy**, a secret recipe we've refined ourselves over the years. Default for all meat dishes. **Contains meat stock; not vegan.**
+- **Regular gravy**, fully vegan. Default with the wellington. Available on request with any dish.
+- **Wellington upgrade path**, wellington customers can upgrade for free to the signature gravy on request. The upgrade makes the dish non-vegan; flag this when offering.
 
 > Do **not** describe our gravy as "red wine gravy". The signature gravy is a secret recipe; the alternative is the regular vegan gravy.
 
 ### Wellington wording
 
-The wellington is **fully vegan**. In customer-facing copy, schemas, and JSON-LD always use "vegan" — never "vegetarian". The wellington is a dish in its own right, not an afterthought.
+The wellington is **fully vegan**. In customer-facing copy, schemas, and JSON-LD always use "vegan", never "vegetarian". The wellington is a dish in its own right, not an afterthought.
 
 ### Retired items (do not list)
 
 - Roasted Chicken (adult)
-- Slow-Cooked Lamb Shank — lamb is no longer served anywhere, on any menu.
+- Slow-Cooked Lamb Shank, lamb is no longer served anywhere, on any menu.
 - Crispy Pork Belly
 - Cauliflower Cheese side
 
@@ -120,7 +121,7 @@ The DB rows for these items are deactivated (`is_active = false`) rather than de
 
 ### Reversed prior guidance
 
-Older content marked beef as "not on the current menu" — that guidance is **reversed**. Beef Topside is now the headline roast.
+Older content marked beef as "not on the current menu", that guidance is **reversed**. Beef Topside is now the headline roast.
 
 ### Regular menu on Sundays
 
@@ -345,7 +346,7 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 - **Minimum spend:** £500 – £1,500 depending on day and size.
 - **Deposit:** £250.
 
-### Catering — Buffet (verified prices)
+### Catering, Buffet (verified prices)
 
 | Package | Price | Minimum |
 |---|---|---|
@@ -366,8 +367,8 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 | Unlimited Tea and Coffee | £4.49/head | 10 |
 | Kids Unlimited Squash | £3.50/head | 10 |
 | Pimm's Jar | £5.99 | 30 |
-| Bar Tab | variable | — |
-| Bring Your Own Food | free | — |
+| Bar Tab | variable |, |
+| Bring Your Own Food | free |, |
 
 ### Kids Catering
 
@@ -383,9 +384,9 @@ AV equipment (projector, screen, sound system) · Dedicated events coordinator �
 
 Wakes / memorials · Christenings · Baby showers · Gender reveals · Retirement parties · Milestone birthdays · Summer garden parties · Corporate events · Christmas parties · Private parties.
 
-> **Pre-order language is allowed** for private events and Christmas parties. The 2026-05-17 walk-in change applies only to the **Sunday roast service** — it does not affect private-hire pre-ordering.
+> **Pre-order language is allowed** for private events and Christmas parties. The 2026-05-17 walk-in change applies only to the **Sunday roast service**, it does not affect private-hire pre-ordering.
 
-### Wakes — speciality
+### Wakes, speciality
 
 - Private entrance area.
 - No room hire charge.
@@ -393,9 +394,9 @@ Wakes / memorials · Christenings · Baby showers · Gender reveals · Retiremen
 
 ### Nearby venues for wakes
 
-- South West Middlesex Crematorium — 10 minutes drive.
-- Staines Cemetery — 8 minutes drive.
-- Slough Crematorium — 15 minutes drive.
+- South West Middlesex Crematorium, 10 minutes drive.
+- Staines Cemetery, 8 minutes drive.
+- Slough Crematorium, 15 minutes drive.
 
 ## 12. Ratings & Reputation
 
@@ -411,37 +412,37 @@ Wakes / memorials · Christenings · Baby showers · Gender reveals · Retiremen
 
 **Nearby hotels (commonly referenced):** Sofitel, Travelodge, Hilton, Marriott, Renaissance, Crowne Plaza, Premier Inn, ibis.
 
-## 14. Things We Don't Say — Banned Claims
+## 14. Things We Don't Say, Banned Claims
 
 These are verified incorrect or risky. **Never use them in any content** (page copy, schema, blog, social, email):
 
 ### Identity & history
-- **1866 or 1869 as founding year** — correct year is 1751.
-- **"Since the 1800s"** — too vague; use 1751.
+- **1866 or 1869 as founding year**, correct year is 1751.
+- **"Since the 1800s"**, too vague; use 1751.
 - **"Best" or "premier" claims** without substantiation.
 
 ### Sunday roast
-- **Roasted Chicken (adult), Slow-Cooked Lamb Shank, Crispy Pork Belly, Cauliflower Cheese side** — all retired 2026-04-29. Lamb is no longer served anywhere.
-- **Wellington as "vegetarian"** — it is **fully vegan**. Always say "vegan".
-- **"Beef-dripping" potatoes** — we do not use beef dripping. Potatoes are triple-cooked and herb-and-garlic crusted.
-- **"Red wine gravy"** — never describe our gravy as red wine gravy. Use "signature gravy" (default, contains meat stock) or "regular gravy" (vegan, available on request and default with the wellington).
-- **Sunday roast pre-order / Saturday 1pm cutoff / per-roast prepayment** — all retired with the 2026-05-17 walk-in launch. Don't reintroduce.
-- **Beef as "not on the menu"** — that older guidance is reversed; beef is now the headline roast.
+- **Roasted Chicken (adult), Slow-Cooked Lamb Shank, Crispy Pork Belly, Cauliflower Cheese side**, all retired 2026-04-29. Lamb is no longer served anywhere.
+- **Wellington as "vegetarian"**, it is **fully vegan**. Always say "vegan".
+- **"Beef-dripping" potatoes**, we do not use beef dripping. Potatoes are triple-cooked and herb-and-garlic crusted.
+- **"Red wine gravy"**, never describe our gravy as red wine gravy. Use "signature gravy" (default, contains meat stock) or "regular gravy" (vegan, available on request and default with the wellington).
+- **Sunday roast pre-order / Saturday 1pm cutoff / per-roast prepayment**, all retired with the 2026-05-17 walk-in launch. Don't reintroduce.
+- **Beef as "not on the menu"**, that older guidance is reversed; beef is now the headline roast.
 
 ### Drinks & sport
-- **BOGOF pizza** — discontinued.
-- **Stanwell Moor Brew** — discontinued.
-- **Pravha beer** — no longer stocked.
-- **Champions League viewing** — we cannot show it (no Sky/TNT). Fix any old pizza-Tuesday content that implies otherwise.
+- **BOGOF pizza**, discontinued.
+- **Stanwell Moor Brew**, discontinued.
+- **Pravha beer**, no longer stocked.
+- **Champions League viewing**, we cannot show it (no Sky/TNT). Fix any old pizza-Tuesday content that implies otherwise.
 
 ### Operations
-- **`info@theanchorpub.co.uk`** — legacy email. Use `manager@the-anchor.pub`.
-- **EV charging "coming soon"** — not happening; remove all "coming soon" references.
-- **Dog secure fencing** — unverified, do not claim.
-- **Special doggy Sunday dinners** — unverified, do not claim.
-- **Baby changing facilities** — verified **NO**, we do not have them.
-- **Accessible toilet** — verified **NO**, we do not have one.
-- **Wedding receptions** — we host smaller private events only, not wedding receptions.
+- **`info@theanchorpub.co.uk`**, legacy email. Use `manager@the-anchor.pub`.
+- **EV charging "coming soon"**, not happening; remove all "coming soon" references.
+- **Dog secure fencing**, unverified, do not claim.
+- **Special doggy Sunday dinners**, unverified, do not claim.
+- **Baby changing facilities**, verified **NO**, we do not have them.
+- **Accessible toilet**, verified **NO**, we do not have one.
+- **Wedding receptions**, we host smaller private events only, not wedding receptions.
 
 ## 15. Maintaining This Document
 

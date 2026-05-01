@@ -311,7 +311,7 @@ export default async function KaraokePage() {
             <Section spacing="sm" background="white">
                 <Container>
                     <PageTitle className="text-center text-anchor-gold-vivid" seo={{ structured: true, speakable: true }}>
-                        Karaoke Pub Near Heathrow &mdash; Sing Your Way to Stardom
+                        Karaoke Pub Near Heathrow, Sing Your Way to Stardom
                     </PageTitle>
                     <p className="text-lg text-anchor-cream-text/70 text-center max-w-3xl mx-auto">
                         Ready to unleash your inner rock star? The Anchor&rsquo;s karaoke nights are legendary in Stanwell Moor. Whether you&rsquo;re belting out ballads or rapping 90s classics, we provide the stage, the mic, and the enthusiastic crowd. One of the best things to do near Heathrow on a Friday night, it&rsquo;s the perfect place to let loose. {heroDescription}
@@ -514,7 +514,7 @@ export default async function KaraokePage() {
                     <div className="max-w-4xl mx-auto bg-gradient-to-br from-anchor-green to-anchor-green/80 rounded-2xl p-8 text-white text-center shadow-lg">
                         <h2 className="text-3xl font-bold mb-4 text-white">Ready to take the stage?</h2>
                         <p className="text-lg mb-6">
-                            Reserve your spot or call the bar team — we'll make sure your table is ready.
+                            Reserve your spot or call the bar team, we'll make sure your table is ready.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <BookTableButton

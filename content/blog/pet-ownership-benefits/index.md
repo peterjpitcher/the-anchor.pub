@@ -64,7 +64,7 @@ The unconditional love they provide promotes a sense of security and well-being,
 
 ## Mood Enhancement Through Pet Interaction
 
-Interacting with pets at venues like **The Anchor near Heathrow** can boost levels of serotonin and dopamine—neurotransmitters that regulate mood and contribute to happiness. 
+Interacting with pets at venues like **The Anchor near Heathrow** can boost levels of serotonin and dopamine, neurotransmitters that regulate mood and contribute to happiness.
 
 **Mental Health Benefits:**
 - Natural antidepressant effects

@@ -1,6 +1,6 @@
 ---
 title: "Best Places to Eat Near Heathrow Airport (2026 Guide)"
-description: "Compare the best dining options near Heathrow — airport restaurants, hotel dining, and local pubs. Real prices, honest reviews, and insider tips from a local."
+description: "Compare the best dining options near Heathrow, airport restaurants, hotel dining, and local pubs. Real prices, honest reviews, and insider tips from a local."
 date: "2026-03-20"
 author: "Billy"
 keywords:

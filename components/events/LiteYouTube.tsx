@@ -7,7 +7,7 @@ const YOUTUBE_HOSTS = ['youtube.com', 'www.youtube.com', 'youtu.be', 'www.youtub
 const VIDEO_ID_REGEX = /^[a-zA-Z0-9_-]{11}$/
 const EMBED_PATH_REGEX = /\/embed\/([a-zA-Z0-9_-]{11})/
 
-// Static JSX hoisted outside component — never changes between renders
+// Static JSX hoisted outside component, never changes between renders
 const PLAY_BUTTON = (
   <div className="absolute inset-0 flex items-center justify-center">
     <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center group-hover:bg-red-700 transition-colors shadow-lg">

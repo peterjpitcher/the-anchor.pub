@@ -21,15 +21,15 @@ export function generateMetadata(): Metadata {
 
   return {
     title: 'Stanwell Moor Pub | Rated 4.6★ on Google',
-    description: `Your local in Stanwell Moor — rated 4.6/5 on Google. ${sundayPhrase}, stone-baked pizzas, dog-friendly beer garden, quiz nights & free parking.`,
+    description: `Your local in Stanwell Moor, rated 4.6/5 on Google. ${sundayPhrase}, stone-baked pizzas, dog-friendly beer garden, quiz nights & free parking.`,
     openGraph: {
-      title: 'Stanwell Village Pub — Beer Garden, Food & Free Parking',
+      title: 'Stanwell Village Pub, Beer Garden, Food & Free Parking',
       description: `Rated 4.6/5 on Google. ${sundayPhrase}, stone-baked pizzas and a dog-friendly beer garden at The Anchor, Stanwell Moor.`,
       images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
       type: 'website',
     },
     twitter: getTwitterMetadata({
-      title: 'Stanwell Village Pub — Beer Garden, Food & Free Parking',
+      title: 'Stanwell Village Pub, Beer Garden, Food & Free Parking',
       description: `Rated 4.6/5 on Google. ${sundayPhrase}, stone-baked pizzas and a dog-friendly beer garden at The Anchor, Stanwell Moor.`,
       images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
@@ -270,7 +270,7 @@ export default function StanwellPubPage() {
               <div className="card-dark rounded-none p-6">
                 <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Famous Sunday Roasts</h3>
                 <p className="text-anchor-cream-text/70 mb-3">
-                  The talk of Stanwell! {sunday.isLive ? 'Traditional Sunday roasts served 1pm-6pm — walk in or book ahead, no pre-order needed.' : `Traditional Sunday roasts start ${SUNDAY_ROAST.launchDateLabel}.`}
+                  The talk of Stanwell! {sunday.isLive ? 'Traditional Sunday roasts served 1pm-6pm, walk in or book ahead, no pre-order needed.' : `Traditional Sunday roasts start ${SUNDAY_ROAST.launchDateLabel}.`}
                 </p>
 	                <ul className="space-y-2 text-anchor-cream-text/70">
 	                  <li>• Roasted Chicken - £19</li>
@@ -429,13 +429,13 @@ export default function StanwellPubPage() {
                 Stanwell village and Stanwell Moor are neighbouring communities separated by a few fields and a
                 pleasant stretch of Stanwell Moor Road. The Anchor sits on the Moor side, at the end of Horton Road,
                 where the village meets open countryside and the reservoirs. It is a fifteen-to-twenty-minute walk
-                from Stanwell village centre — a route many of our regulars take on summer evenings, often with
+                from Stanwell village centre, a route many of our regulars take on summer evenings, often with
                 a dog or two in tow.
               </p>
               <p>
                 The area has deep roots. St Mary the Virgin in Stanwell dates back to the twelfth century, and
                 the village has been a settled community since before the Domesday Book. The Anchor, established in
-                1751, is part of that heritage — a proper local that has served generations of Stanwell families.
+                1751, is part of that heritage, a proper local that has served generations of Stanwell families.
                 We have hosted christenings, wakes, birthday parties, and retirement dos for people who grew up
                 on these streets, and their children after them.
               </p>
@@ -443,7 +443,7 @@ export default function StanwellPubPage() {
                 For those who enjoy a walk before their pint, the Staines Reservoirs and the King George VI
                 Reservoir are right on our doorstep. Birdwatchers, joggers, and weekend walkers regularly finish
                 their circuit at The Anchor for a well-earned Sunday roast or a midweek pizza. The beer garden
-                catches the afternoon sun and offers uninterrupted views of the Heathrow flight path — it is the
+                catches the afternoon sun and offers uninterrupted views of the Heathrow flight path, it is the
                 natural pit-stop after a lap of the reservoir, and far more rewarding than heading back to the car
                 park empty-handed.
               </p>

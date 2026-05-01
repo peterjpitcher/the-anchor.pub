@@ -319,7 +319,7 @@ function formatTimeForDisplay(time: string): string {
 function addDays(isoDate: string, days: number): string {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(isoDate)) return isoDate
   const [year, month, day] = isoDate.split('-').map((part) => Number.parseInt(part, 10))
-  // Pure UTC arithmetic — no London-format roundtrip. We never go through a
+  // Pure UTC arithmetic, no London-format roundtrip. We never go through a
   // timezone formatter, so BST/GMT transitions cannot affect the calendar
   // date result. See codex AB-001.
   const date = new Date(Date.UTC(year, month - 1, day + days))
@@ -331,7 +331,7 @@ function addDays(isoDate: string, days: number): string {
 
 function isPastLondonDate(value: string): boolean {
   // Compare YYYY-MM-DD strings against London today. We deliberately do NOT
-  // parse `value` with `new Date(...)` — that would re-introduce browser-local
+  // parse `value` with `new Date(...)`, that would re-introduce browser-local
   // timezone drift on the customer's device.
   return /^\d{4}-\d{2}-\d{2}$/.test(value) && value < londonNowParts().isoDate
 }
@@ -562,7 +562,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const [slotWindowAnchorTime, setSlotWindowAnchorTime] = useState(defaultRequestedTime)
   // Captured at slot-select time so the submit step can derive `purpose`
   // ('food' | 'drinks') from the slot's `kitchen_open` flag without re-fetching
-  // availability — covers the nearest-alternative path where the slot is not
+  // availability, covers the nearest-alternative path where the slot is not
   // in the current `availability.time_slots`.
   const [selectedSlotService, setSelectedSlotService] =
     useState<SelectedSlotService | null>(null)
@@ -613,7 +613,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const [result, setResult] = useState<ManagementTableBookingResult | null>(null)
 
   // Wizard root ref for scroll-to-top on step transitions. Mounted-guard ref
-  // prevents the effect from firing on initial mount — only step changes
+  // prevents the effect from firing on initial mount, only step changes
   // after first paint should scroll.
   const wizardRef = useRef<HTMLDivElement>(null)
   const wizardMountedRef = useRef(false)
@@ -631,7 +631,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   // API's server-side dedupe recognises the retry. Generate a fresh key when
   // any meaningful payload field changes. Volatile fields (`_t`,
   // `turnstile_token`, `website`) are intentionally excluded from the
-  // fingerprint — they can change between retries without changing the booking
+  // fingerprint, they can change between retries without changing the booking
   // intent. Stored in a ref because the value is never rendered and we need to
   // read/write it inside the submit handler without async state timing issues.
   const submitIntentKeyRef = useRef<{ fingerprint: string; key: string } | null>(null)
@@ -886,7 +886,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       )
 
       // Stale-search guard: if a newer search has started while these candidate
-      // requests were in flight, drop this response on the floor — the newer
+      // requests were in flight, drop this response on the floor, the newer
       // call owns the alternatives panel now.
       if (requestId !== nearestAlternativesRequestRef.current) {
         return
@@ -978,7 +978,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setPartySizeDisplay(String(clampedSize))
 
     // Reject past dates before hitting the API. Compared as YYYY-MM-DD strings
-    // against Europe/London today — the customer's browser-local clock is
+    // against Europe/London today, the customer's browser-local clock is
     // intentionally ignored.
     if (isPastLondonDate(date)) {
       setDateError('Please select a future date')
@@ -1097,7 +1097,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   function handleRequestedTimeChange(value: string) {
     markFunnelStart()
     setRequestedTime(value)
-    // Do NOT set the slot-window anchor here — the anchor is search-time
+    // Do NOT set the slot-window anchor here, the anchor is search-time
     // state, owned exclusively by `runAvailabilitySearch` (spec §5.2).
     // Mutating it from a draft input handler couples input state to choose-
     // step rendering and can re-centre stale availability after a failed or
@@ -1118,7 +1118,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     setShowAllTimes(false)
     if (value && /^\d{4}-\d{2}-\d{2}$/.test(value)) {
       // Past-date validation runs in Europe/London. Do not parse value with
-      // `new Date(...)` for booking validation — that re-introduces the
+      // `new Date(...)` for booking validation, that re-introduces the
       // browser-local timezone bug on travellers outside the UK.
       setDateError(isPastLondonDate(value) ? 'Please select a future date' : null)
     } else {
@@ -1320,7 +1320,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   //   2. Otherwise look up the slot in the current `availability.time_slots`.
   //   3. If a matching slot exists and `kitchen_open === false`, return 'drinks'.
   //   4. If a matching slot exists and `kitchen_open` is `true` or `undefined`, return 'food'.
-  //   5. If no matching slot can be found, return null — the caller must block submit.
+  //   5. If no matching slot can be found, return null, the caller must block submit.
   function deriveSubmitPurpose(): 'food' | 'drinks' | null {
     const matchService =
       selectedSlotService &&
@@ -1338,7 +1338,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
   // Build a stable JSON fingerprint of the meaningful submit-intent fields.
   // Volatile anti-bot / telemetry fields (`_t`, `turnstile_token`, `website`)
-  // are deliberately excluded — see spec §13.2.
+  // are deliberately excluded, see spec §13.2.
   function buildSubmitIntentFingerprint(input: {
     phone: string
     firstName?: string
@@ -1445,7 +1445,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       // Public payload no longer carries sunday_lunch / menu_selections / booking_type.
       // The proxy at /api/table-bookings strips these defensively (spec §6, §8.1)
       // and always forwards booking_type='regular' to the management API.
-      // `purpose` is derived from the selected slot's kitchen_open flag — see
+      // `purpose` is derived from the selected slot's kitchen_open flag, see
       // deriveSubmitPurpose() above.
       const payload = {
         phone: trimmedPhone,
@@ -1458,7 +1458,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
         party_size: partySize,
         purpose,
         ...(trimmedNotes ? { notes: trimmedNotes } : {}),
-        // Volatile fields below — added after the idempotency key has already
+        // Volatile fields below, added after the idempotency key has already
         // been selected so they cannot influence the submit-intent fingerprint.
         ...(turnstileToken ? { turnstile_token: turnstileToken } : {}),
         ...(website ? { website } : {}),
@@ -1652,7 +1652,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
     return (
       <Card variant="elevated">
         <CardBody className="space-y-4">
-          <Alert variant="success" title={"You're all booked in — see you soon!"}>
+          <Alert variant="success" title={"You're all booked in, see you soon!"}>
             <p>
               Reference: <strong>{result.booking_reference || 'Provided by SMS shortly'}</strong>
             </p>
@@ -1662,8 +1662,8 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
           <div className="mt-4 rounded-xl bg-anchor-bg-raised border border-anchor-gold/15 p-4 text-sm text-anchor-cream-text/70 space-y-1">
             <p className="font-semibold text-anchor-gold-vivid">When you arrive:</p>
-            <p>&#x2022; Free parking right outside &mdash; no ticket needed</p>
-            <p>&#x2022; No need to check in &mdash; just head to the bar and we&apos;ll find your table</p>
+            <p>&#x2022; Free parking right outside, no ticket needed</p>
+            <p>&#x2022; No need to check in, just head to the bar and we&apos;ll find your table</p>
             <p>&#x2022; If anything changes, give us a ring on 01753 682707</p>
           </div>
 
@@ -2148,7 +2148,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
             {result?.state === 'pending_payment' ? (
               <>
                 {paymentState === 'confirmed' ? (
-                  <Alert variant="success" title="Deposit paid — booking confirmed!">
+                  <Alert variant="success" title="Deposit paid, booking confirmed!">
                     <p>Your deposit has been received. Your table is now secured.</p>
                     {result.booking_reference ? (
                       <p className="mt-1">Booking reference: <strong>{result.booking_reference}</strong></p>
@@ -2164,7 +2164,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                         <a href="tel:+441753682707" className="font-semibold underline">
                           01753 682707
                         </a>{' '}
-                        — we'll take payment over the phone.
+                        we'll take payment over the phone.
                       </li>
                       {result?.fallback_payment_url ? (
                         <li>
@@ -2179,7 +2179,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                           .
                         </li>
                       ) : (
-                        <li>Or check your phone — we've sent you a secure payment link by SMS.</li>
+                        <li>Or check your phone, we've sent you a secure payment link by SMS.</li>
                       )}
                     </ul>
                     <p className="mt-2 text-xs">Your table is held while you complete payment.</p>
@@ -2224,7 +2224,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               </>
             ) : (
               <>
-                {/* Honeypot — hidden from real users, filled by bots */}
+                {/* Honeypot, hidden from real users, filled by bots */}
                 <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', top: '-9999px', opacity: 0, height: 0, overflow: 'hidden' }}>
                   <label htmlFor="website">Website</label>
                   <input

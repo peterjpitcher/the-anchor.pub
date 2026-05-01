@@ -769,16 +769,16 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     keywords: ['september events stanwell moor', 'autumn pub heathrow', 'september dining surrey', 'harvest events TW19', 'september activities stanwell moor']
   },
 
-  // Thin-page content fixes — tags that previously used generic fallback copy
+  // Thin-page content fixes, tags that previously used generic fallback copy
 
   'food-and-drink': {
     name: 'Food & Drink',
     description: 'Menus, seasonal dishes, drink highlights and dining tips from our kitchen and bar',
     metaTitle: 'Food & Drink | The Anchor Stanwell Moor',
-    metaDescription: 'Browse 55+ posts on food and drink at The Anchor Stanwell Moor. Sunday roasts, pizzas, seasonal menus and bar picks — free parking near Heathrow.',
+    metaDescription: 'Browse 55+ posts on food and drink at The Anchor Stanwell Moor. Sunday roasts, pizzas, seasonal menus and bar picks, free parking near Heathrow.',
     heroContent: 'From our famous Sunday roasts to stone-baked pizzas and a well-stocked bar, food and drink are what we do best at The Anchor. Browse our latest posts for menu updates, seasonal specials and behind-the-scenes from the kitchen.',
-    introContent: 'Our kitchen serves pub classics done properly — beer-battered fish and chips, hand-pressed burgers, stone-baked pizzas and a Sunday roast that fills up fast. The bar keeps things interesting with rotating draught lines, bottled ales, a decent spirits shelf and cocktails mixed to order. We write about what\'s new, what\'s seasonal, and what our regulars keep coming back for. If you\'re planning a visit, these posts will help you decide what to order.',
-    valueProposition: 'Hungry? Book a table online or call us on 01753 682707. Kitchen hours vary by day, so check before you visit — and remember, Mondays the kitchen is closed unless we say otherwise.',
+    introContent: 'Our kitchen serves pub classics done properly, beer-battered fish and chips, hand-pressed burgers, stone-baked pizzas and a Sunday roast that fills up fast. The bar keeps things interesting with rotating draught lines, bottled ales, a decent spirits shelf and cocktails mixed to order. We write about what\'s new, what\'s seasonal, and what our regulars keep coming back for. If you\'re planning a visit, these posts will help you decide what to order.',
+    valueProposition: 'Hungry? Book a table online or call us on 01753 682707. Kitchen hours vary by day, so check before you visit, and remember, Mondays the kitchen is closed unless we say otherwise.',
     keywords: ['pub food stanwell moor', 'food and drink near heathrow', 'sunday roast TW19', 'stone baked pizza stanwell', 'best pub menu near heathrow airport']
   },
 
@@ -786,9 +786,9 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     name: 'Visitor Guides & How-Tos',
     description: 'Practical guides for visiting The Anchor, planning events and getting the most from your trip',
     metaTitle: 'Guides | The Anchor Stanwell Moor',
-    metaDescription: 'Practical guides from The Anchor Stanwell Moor. Visitor tips, event planning, Heathrow parking advice and local know-how — 7 min from the airport.',
+    metaDescription: 'Practical guides from The Anchor Stanwell Moor. Visitor tips, event planning, Heathrow parking advice and local know-how, 7 min from the airport.',
     heroContent: 'Whether you\'re visiting for the first time, planning an event or trying to sort Heathrow parking, our guides cut through the noise with practical advice you can actually use.',
-    introContent: 'We\'ve put together guides on everything from booking your first Sunday lunch to planning a private event in our function room. You\'ll also find Heathrow-specific advice — parking options, terminal transfer times, and why a proper meal before security beats an overpriced airport sandwich. These aren\'t generic travel articles. They\'re written by people who live and work seven minutes from the airport and know the area properly.',
+    introContent: 'We\'ve put together guides on everything from booking your first Sunday lunch to planning a private event in our function room. You\'ll also find Heathrow-specific advice, parking options, terminal transfer times, and why a proper meal before security beats an overpriced airport sandwich. These aren\'t generic travel articles. They\'re written by people who live and work seven minutes from the airport and know the area properly.',
     valueProposition: 'Got a question our guides don\'t cover? Drop us an email at manager@the-anchor.pub or call 01753 682707. We\'re always happy to help.',
     keywords: ['visitor guide stanwell moor pub', 'heathrow area guide TW19', 'pub near heathrow tips', 'planning events stanwell moor', 'things to know the anchor pub']
   },
@@ -797,9 +797,9 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     name: 'Private Hire & Events',
     description: 'Function room hire, party planning and private event ideas at The Anchor',
     metaTitle: 'Private Hire | The Anchor Stanwell Moor',
-    metaDescription: 'Private hire at The Anchor Stanwell Moor. Function room for birthdays, retirement dos, christenings and more — free parking, 7 min from Heathrow.',
+    metaDescription: 'Private hire at The Anchor Stanwell Moor. Function room for birthdays, retirement dos, christenings and more, free parking, 7 min from Heathrow.',
     heroContent: 'The Anchor\'s function room is the go-to spot in Stanwell Moor for private celebrations. Browse our posts on party planning, venue setup and making the most of your event.',
-    introContent: 'Our function room handles everything from milestone birthdays and retirement parties to christenings, engagement celebrations and wakes. We keep things flexible — you bring the guest list, we sort the food, drinks and space. Most of our private hire clients are locals or Heathrow-area workers who want a proper venue without London prices. These posts cover what to expect, how to plan, and what previous guests have done with the space.',
+    introContent: 'Our function room handles everything from milestone birthdays and retirement parties to christenings, engagement celebrations and wakes. We keep things flexible, you bring the guest list, we sort the food, drinks and space. Most of our private hire clients are locals or Heathrow-area workers who want a proper venue without London prices. These posts cover what to expect, how to plan, and what previous guests have done with the space.',
     valueProposition: 'Ready to book? Email manager@the-anchor.pub with your date, guest count and any catering preferences. We\'ll put together options that work for your budget.',
     keywords: ['private hire stanwell moor', 'function room near heathrow', 'party venue TW19', 'private event pub surrey', 'book function room stanwell moor']
   },
@@ -810,8 +810,8 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     metaTitle: 'Travel Tips | The Anchor Near Heathrow',
     metaDescription: 'Travel tips from The Anchor, 7 minutes from Heathrow Airport. Pre-flight meals, parking advice and what to do with spare time before your flight.',
     heroContent: 'Travelling through Heathrow? We\'re the closest traditional pub to the airport, and we\'ve picked up a thing or two about making journeys smoother. Here\'s what we know.',
-    introContent: 'Living seven minutes from one of the world\'s busiest airports means we see a lot of travellers. Early morning flyers grabbing a meal, cabin crew winding down after long hauls, families killing time before a late departure. Our travel posts cover the practical stuff — where to park without overpaying, how to time your journey to the terminals, and why a proper meal before security beats an overpriced airport sandwich every time.',
-    valueProposition: 'Flying soon? Pop in for a pre-flight meal with free parking. We\'re open Tuesday to Sunday — check our hours before heading over.',
+    introContent: 'Living seven minutes from one of the world\'s busiest airports means we see a lot of travellers. Early morning flyers grabbing a meal, cabin crew winding down after long hauls, families killing time before a late departure. Our travel posts cover the practical stuff, where to park without overpaying, how to time your journey to the terminals, and why a proper meal before security beats an overpriced airport sandwich every time.',
+    valueProposition: 'Flying soon? Pop in for a pre-flight meal with free parking. We\'re open Tuesday to Sunday, check our hours before heading over.',
     keywords: ['travel tips heathrow airport', 'pre flight meal near heathrow', 'things to do before flight heathrow', 'pub near heathrow for travellers', 'heathrow travel advice stanwell moor']
   },
 
@@ -819,10 +819,10 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     name: 'Heathrow & Airport Life',
     description: 'Posts about Heathrow Airport, terminal life and what\'s nearby',
     metaTitle: 'Heathrow | The Anchor Stanwell Moor',
-    metaDescription: 'Heathrow content from The Anchor — closest traditional pub to the airport. Terminal guides, local tips and airport favourites in Stanwell Moor.',
+    metaDescription: 'Heathrow content from The Anchor, closest traditional pub to the airport. Terminal guides, local tips and airport favourites in Stanwell Moor.',
     heroContent: 'The Anchor sits closer to Heathrow than almost anywhere you\'d actually want to eat. Our Heathrow posts cover airport life, terminal tips and why locals prefer us to the departures lounge.',
-    introContent: 'We\'re 7 to 15 minutes from every Heathrow terminal depending on traffic, with free parking for all guests. That makes us a regular stop for airport workers, flight crews and passengers who\'d rather have a proper pint than pay terminal prices. Our Heathrow posts dig into what it\'s like living and working near the airport — plus practical information for anyone passing through the area.',
-    valueProposition: 'Visiting the area? We\'re on Horton Road, Stanwell Moor — easy to find and even easier to park. Book a table or just turn up.',
+    introContent: 'We\'re 7 to 15 minutes from every Heathrow terminal depending on traffic, with free parking for all guests. That makes us a regular stop for airport workers, flight crews and passengers who\'d rather have a proper pint than pay terminal prices. Our Heathrow posts dig into what it\'s like living and working near the airport, plus practical information for anyone passing through the area.',
+    valueProposition: 'Visiting the area? We\'re on Horton Road, Stanwell Moor, easy to find and even easier to park. Book a table or just turn up.',
     keywords: ['pub near heathrow airport', 'heathrow airport local pub', 'closest pub to heathrow', 'eating near heathrow terminals', 'stanwell moor heathrow pub']
   },
 
@@ -830,9 +830,9 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     name: 'Birthday Celebrations',
     description: 'Birthday party ideas, venue tips and milestone celebration inspiration',
     metaTitle: 'Birthday Parties | The Anchor Stanwell Moor',
-    metaDescription: 'Plan a birthday at The Anchor Stanwell Moor. Function room, in-house catering, free parking — from intimate dinners to milestone parties near Heathrow.',
+    metaDescription: 'Plan a birthday at The Anchor Stanwell Moor. Function room, in-house catering, free parking, from intimate dinners to milestone parties near Heathrow.',
     heroContent: 'From 30ths to 70ths and everything in between, The Anchor has hosted hundreds of birthday celebrations in Stanwell Moor. Our posts share what works and how to plan yours.',
-    introContent: 'Our function room fits birthday parties of various sizes, and we handle the catering in-house so you don\'t need to coordinate outside suppliers. Most birthday bookings are milestone celebrations — 40ths, 50ths, 60ths — where people want somewhere relaxed with good food and enough space for everyone. These posts cover party planning tips, what our venue offers, and ideas from previous celebrations that went down well.',
+    introContent: 'Our function room fits birthday parties of various sizes, and we handle the catering in-house so you don\'t need to coordinate outside suppliers. Most birthday bookings are milestone celebrations, 40ths, 50ths, 60ths, where people want somewhere relaxed with good food and enough space for everyone. These posts cover party planning tips, what our venue offers, and ideas from previous celebrations that went down well.',
     valueProposition: 'Planning a birthday? Get in touch at manager@the-anchor.pub with your rough numbers and preferred date. We\'ll talk you through the options.',
     keywords: ['birthday party venue stanwell moor', 'milestone birthday pub near heathrow', 'birthday celebration TW19', 'private birthday party surrey pub', '50th birthday venue near heathrow']
   },

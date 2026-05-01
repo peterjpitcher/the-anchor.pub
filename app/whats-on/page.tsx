@@ -26,12 +26,12 @@ export const metadata: Metadata = {
   title: "Quiz, Karaoke & Bingo Every Week",
   description: "Pub quiz, karaoke Fridays, Music Bingo, cash bingo & live music at The Anchor, Stanwell Moor. Entry from £3. Free parking, 7 mins from Heathrow T5. See all dates.",
   openGraph: {
-    title: "What's On Near Heathrow — Quiz, Bingo & Live Music Every Week",
+    title: "What's On Near Heathrow, Quiz, Bingo & Live Music Every Week",
     description: "Weekly pub events: Music Bingo, cash bingo, pub quiz, karaoke and live music at The Anchor, Stanwell Moor. From £3, free parking.",
     images: ["/images/events/quiz-night/the-anchor-quiz-night-stanwell-moor.jpg"],
   },
   twitter: getTwitterMetadata({
-    title: "What's On Near Heathrow — Quiz, Bingo & Live Music Every Week",
+    title: "What's On Near Heathrow, Quiz, Bingo & Live Music Every Week",
     description: "Weekly pub events: Music Bingo, cash bingo, pub quiz, karaoke and live music at The Anchor, Stanwell Moor. From £3, free parking.",
     images: ["/images/events/quiz-night/the-anchor-quiz-night-stanwell-moor.jpg"]
   }),
@@ -94,7 +94,7 @@ export default async function WhatsOnPage() {
             {
               "@context": "https://schema.org",
               "@type": "CollectionPage",
-              "name": "What's On at The Anchor — Events & Entertainment",
+              "name": "What's On at The Anchor, Events & Entertainment",
               "description": "Pub quiz, karaoke, Music Bingo, cash bingo and live music at The Anchor, Stanwell Moor. See all upcoming dates.",
               "url": "https://www.the-anchor.pub/whats-on",
               "about": { "@id": "https://www.the-anchor.pub/#business" }
@@ -151,7 +151,7 @@ export default async function WhatsOnPage() {
       <HeroWrapper
         route="/whats-on"
         title="Pub Events at The Anchor"
-        description="From Music Bingo hosted by Nikki Manfadge to quiz nights and one-off events — check the listings for the latest."
+        description="From Music Bingo hosted by Nikki Manfadge to quiz nights and one-off events, check the listings for the latest."
         showContextStrip={true}
         primaryCta={
           <BookTableButton
@@ -210,7 +210,7 @@ export default async function WhatsOnPage() {
         }
       />
 
-      {/* Upcoming Events from API — first thing after the hero */}
+      {/* Upcoming Events from API, first thing after the hero */}
       <Section id="upcoming-events" background="white" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15">
         <Container>
           <SectionHeader

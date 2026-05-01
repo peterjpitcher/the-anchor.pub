@@ -117,7 +117,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Define all static routes with meaningful lastModified dates
   const staticRoutes: StaticRoute[] = [
-    // Core pages — original launch
+    // Core pages, original launch
     { path: '', lastModified: DATES.apr2026 },
     { path: '/about', lastModified: DATES.launch },
     { path: '/blog', lastModified: DATES.apr2026 },
@@ -244,7 +244,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const excludedBlogSlugs = new Set([
     'euro-2024-viewing',
     'autumn-internationals-2024-full-fixtures-highlight',
-    // Cannibalises /sunday-lunch — 301 redirected via additional-redirects.json.
+    // Cannibalises /sunday-lunch, 301 redirected via additional-redirects.json.
     'sunday-lunch-at-the-anchor-is-back-pre-order-now'
   ])
   const indexableBlogPosts = blogPosts.filter((post) => !excludedBlogSlugs.has(post.slug) && !post.noindex)
@@ -277,7 +277,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       .map((r) => r.source.replace('/blog/tag/', ''))
   )
 
-  // Map tag pages — exclude redirect sources and broad archive tags that are
+  // Map tag pages, exclude redirect sources and broad archive tags that are
   // intentionally noindexed in favour of stronger topical landing pages.
   const tagSitemap = Array.from(allTags)
     .filter((tag) => !redirectSourceTags.has(tag) && !isNoindexBlogTag(tag))

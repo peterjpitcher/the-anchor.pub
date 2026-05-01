@@ -350,7 +350,7 @@ export default function HomePage() {
               {
                 icon: "",
                 title: "Eat Well, Spend Less",
-                description: "Airport food costs twice as much. Enjoy a proper British pub meal from £10 — 7 minutes from the terminals, no terminal markup.",
+                description: "Airport food costs twice as much. Enjoy a proper British pub meal from £10, 7 minutes from the terminals, no terminal markup.",
                 variant: "colored",
                 color: "bg-anchor-sand/30",
                 className: "card-warm p-8 text-center"
@@ -450,7 +450,7 @@ export default function HomePage() {
         <Container>
           <div className="max-w-2xl mx-auto">
             <p className="text-white text-lg font-semibold mb-2">Ready to visit?</p>
-            <p className="text-white/80 text-sm mb-5">Book your table online or call us — walk-ins welcome but booking guarantees your spot.</p>
+            <p className="text-white/80 text-sm mb-5">Book your table online or call us, walk-ins welcome but booking guarantees your spot.</p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <BookTableButton
                 source="homepage_mid_cta"
@@ -462,7 +462,7 @@ export default function HomePage() {
               </BookTableButton>
               <Link href="/sunday-lunch">
                 <Button variant="secondary" size="lg" className="w-full sm:w-auto bg-white/10 text-white hover:bg-white/20 border border-white/25">
-                  {sunday.isLive ? 'Sunday Lunch — from £19' : 'Sunday Roast — starts 17 May'}
+                  {sunday.isLive ? 'Sunday Lunch, from £19' : 'Sunday Roast, starts 17 May'}
                 </Button>
               </Link>
             </div>
@@ -578,7 +578,7 @@ export default function HomePage() {
               <GalleryImage
                 src="/images/food/sunday-roast/the-anchor-sunday-roast-hero.jpg"
                 alt="Traditional Sunday roast at The Anchor"
-                caption={sunday.isLive ? 'Famous Sunday Roasts — served 1pm–6pm, walk in or book ahead' : 'Sunday Roast — starts Sunday 17 May 2026'}
+                caption={sunday.isLive ? 'Famous Sunday Roasts, served 1pm–6pm, walk in or book ahead' : 'Sunday Roast, starts Sunday 17 May 2026'}
                 width={600}
                 height={600}
               />
@@ -589,7 +589,7 @@ export default function HomePage() {
                 <GalleryImage
                   src={managersSpecialImage}
                   alt={managersSpecial.promotion.heroAlt || `${managersSpecial.spirit.name} Manager's Special at The Anchor`}
-                  caption={`${managersSpecial.promotion.headline} — ${managersSpecial.spirit.discount} ${managersSpecial.spirit.name}`}
+                  caption={`${managersSpecial.promotion.headline}, ${managersSpecial.spirit.discount} ${managersSpecial.spirit.name}`}
                   width={600}
                   height={600}
                   priority={false}
@@ -631,7 +631,7 @@ export default function HomePage() {
             </Link>
             <Link href="/sunday-lunch">
               <Button variant="secondary" size="lg">
-                {sunday.isLive ? 'Book Sunday Lunch — from £19' : 'Book Sunday Roast — starts 17 May'}
+                {sunday.isLive ? 'Book Sunday Lunch, from £19' : 'Book Sunday Roast, starts 17 May'}
               </Button>
             </Link>
             <Link href="/drinks">
@@ -761,7 +761,7 @@ export default function HomePage() {
           },
           {
             question: 'Is there free parking at The Anchor?',
-            answer: 'Yes — we have 20 free parking spaces for patrons with no time limit while you are dining or drinking with us. This saves you the high cost of airport parking. For longer-stay parking, we also offer pre-bookable Heathrow parking from £15/day.'
+            answer: 'Yes, we have 20 free parking spaces for patrons with no time limit while you are dining or drinking with us. This saves you the high cost of airport parking. For longer-stay parking, we also offer pre-bookable Heathrow parking from £15/day.'
           },
           {
             question: 'Is The Anchor dog friendly?',
@@ -777,7 +777,7 @@ export default function HomePage() {
           },
           {
             question: 'Can I watch planes from The Anchor?',
-            answer: 'Yes — our beer garden sits directly under the Heathrow flight path. You can watch aircraft passing overhead every 90 seconds during peak times. It\'s a unique experience for aviation enthusiasts and families alike.'
+            answer: 'Yes, our beer garden sits directly under the Heathrow flight path. You can watch aircraft passing overhead every 90 seconds during peak times. It\'s a unique experience for aviation enthusiasts and families alike.'
           },
           {
             question: 'Is The Anchor family friendly?',

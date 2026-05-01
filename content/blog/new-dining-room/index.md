@@ -39,7 +39,7 @@ noindex: true
 
   
 
-Nestled in the heart of **Stanwell Moor Village**, just **7 minutes from Heathrow Terminal 5**, The Anchor, a charming and beloved local pub, is embarking on a thrilling journey of transformation. Renowned for its cosy atmosphere and community spirit, we are now taking a significant leap forward. The much-loved conservatory, a fixture of The Anchor since 1995, is being replaced by a splendid new Dining Room. This change is not just a refurbishment; it's a renewal of our commitment to our patrons—including **Heathrow workers**, **Staines families**, and travelers near the **airport**—and the community.
+Nestled in the heart of **Stanwell Moor Village**, just **7 minutes from Heathrow Terminal 5**, The Anchor, a charming and beloved local pub, is embarking on a thrilling journey of transformation. Renowned for its cosy atmosphere and community spirit, we are now taking a significant leap forward. The much-loved conservatory, a fixture of The Anchor since 1995, is being replaced by a splendid new Dining Room. This change is not just a refurbishment; it's a renewal of our commitment to our patrons, including **Heathrow workers**, **Staines families**, and travelers near the **airport**, and the community.
 
   
 
@@ -51,7 +51,7 @@ Nestled in the heart of **Stanwell Moor Village**, just **7 minutes from Heathro
 
   
 
-The new extension, fondly to be known as the Dining Room, is poised to become a beacon of light and comfort. Envision windows spanning the sides, inviting the sunshine in and creating a space bathed in natural light. At the rear, French doors will open up to the fresh air, seamlessly blending the indoors with the beauty of our garden. The roof, though retaining its charming pitched exterior, will be flat inside – a nod to modernity with a purpose. This design is more than aesthetic; it's about enveloping our guests in warmth during the winter and providing a cool haven in the summer—perfect for those escaping the busy **Heathrow terminals** nearby.
+The new extension, fondly to be known as the Dining Room, is poised to become a beacon of light and comfort. Envision windows spanning the sides, inviting the sunshine in and creating a space bathed in natural light. At the rear, French doors will open up to the fresh air, seamlessly blending the indoors with the beauty of our garden. The roof, though retaining its charming pitched exterior, will be flat inside – a nod to modernity with a purpose. This design is more than aesthetic; it's about enveloping our guests in warmth during the winter and providing a cool haven in the summer, perfect for those escaping the busy **Heathrow terminals** nearby.
 
   
 
@@ -75,7 +75,7 @@ As we usher in this new era, The Anchor is also undergoing a revamp in its inter
 
   
 
-In line with our commitment to the environment and the future, the new Dining Room isn't just about aesthetic appeal. We are integrating features to improve energy efficiency, thereby reducing our environmental impact. Once complete, we anticipate a better EPC rating, reflecting our efforts in providing a warm and welcoming space, responsibly. This initiative is a testament to our dedication to not just serving the community but also caring for our environment—important for our location near one of the world's busiest airports.
+In line with our commitment to the environment and the future, the new Dining Room isn't just about aesthetic appeal. We are integrating features to improve energy efficiency, thereby reducing our environmental impact. Once complete, we anticipate a better EPC rating, reflecting our efforts in providing a warm and welcoming space, responsibly. This initiative is a testament to our dedication to not just serving the community but also caring for our environment, important for our location near one of the world's busiest airports.
 
   
 

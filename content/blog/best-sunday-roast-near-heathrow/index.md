@@ -25,7 +25,7 @@ images: []
 
 Finding a proper Sunday roast near Heathrow Airport isn't as easy as you'd think. Airport restaurants don't do them, hotel carveries are hit-and-miss, and you need to know where the locals actually go. We've rounded up the best roast dinner options within 20 minutes of Heathrow for 2026, with real prices, booking info, and what to expect when you get there.
 
-> **Ready to book?** [Book your Sunday roast at The Anchor](/sunday-lunch) — from £19.99, served 1pm-6pm. Walk in or book ahead, no pre-order needed. Free parking, 7 mins from T5.
+> **Ready to book?** [Book your Sunday roast at The Anchor](/sunday-lunch), from £19.99, served 1pm-6pm. Walk in or book ahead, no pre-order needed. Free parking, 7 mins from T5.
 
 ## Quick Comparison: Sunday Roasts Near Heathrow
 
@@ -51,11 +51,11 @@ The Anchor is the closest proper pub to Heathrow Terminal 5, about seven minutes
 
 Four roast options, all cooked fresh to order:
 
-- **Roasted Chicken** (£19.99) — breast with sage and onion stuffing balls, red wine gravy
-- **Slow-Cooked Lamb Shank** (£23.99) — braised until it falls apart, rich red wine gravy
-- **Crispy Pork Belly** (£21.99) — proper crackling, Bramley apple sauce
-- **Beetroot & Butternut Squash Wellington** (£19.99) — puff pastry, vegetarian gravy (V)
-- **Kids Roasted Chicken** (£13.99) — smaller portion with all the trimmings
+- **Roasted Chicken** (£19.99), breast with sage and onion stuffing balls, red wine gravy
+- **Slow-Cooked Lamb Shank** (£23.99), braised until it falls apart, rich red wine gravy
+- **Crispy Pork Belly** (£21.99), proper crackling, Bramley apple sauce
+- **Beetroot & Butternut Squash Wellington** (£19.99), puff pastry, vegetarian gravy (V)
+- **Kids Roasted Chicken** (£13.99), smaller portion with all the trimmings
 
 Every plate comes with herb and garlic-crusted roast potatoes, a Yorkshire pudding, seasonal veg, and gravy. The gravy is gluten-free by default, and they can adapt for vegan diners with notice.
 
@@ -63,11 +63,11 @@ The vegetarian wellington deserves a special mention. A lot of pubs treat the ve
 
 ### How booking works
 
-Sunday roasts are walk-in friendly — no pre-order, no Saturday cutoff. Booking ahead is recommended for groups and peak slots, but not required. Groups of 10 or more take a £10 per person deposit, fully deducted from the final bill. Everything is still cooked fresh to order, not pre-plated under a heat lamp.
+Sunday roasts are walk-in friendly, no pre-order, no Saturday cutoff. Booking ahead is recommended for groups and peak slots, but not required. Groups of 10 or more take a £10 per person deposit, fully deducted from the final bill. Everything is still cooked fresh to order, not pre-plated under a heat lamp.
 
 **Kitchen hours on Sunday:** 1pm–6pm (last orders 5:30pm).
 
-The regular weekday menu — burgers, pizzas, fish and chips, pies — is also available on Sunday.
+The regular weekday menu, burgers, pizzas, fish and chips, pies, is also available on Sunday.
 
 ### Families and dogs
 
@@ -87,9 +87,9 @@ What sets The Anchor apart from the chain options is that everything is cooked t
 
 **Best for:** Town centre convenience, a traditional pub setting
 
-The Swan is a well-known Staines local with a solid reputation for Sunday lunches. It's a traditional pub in the centre of town — exposed brick, proper bar, the sort of place where regulars have their own seats.
+The Swan is a well-known Staines local with a solid reputation for Sunday lunches. It's a traditional pub in the centre of town, exposed brick, proper bar, the sort of place where regulars have their own seats.
 
-The roast is a good standard — expect the usual choices of beef, chicken, or a veggie option, served with all the trimmings. Prices tend to sit around £16–20 for a main. Portions are decent.
+The roast is a good standard, expect the usual choices of beef, chicken, or a veggie option, served with all the trimmings. Prices tend to sit around £16–20 for a main. Portions are decent.
 
 The main downside is parking. You're in Staines town centre, so it's pay-and-display in the municipal car parks. On a busy Sunday, that can add a bit of hassle. About 15 minutes from Terminal 5. Booking is recommended, especially for groups.
 
@@ -99,9 +99,9 @@ The main downside is parking. You're in Staines town centre, so it's pay-and-dis
 
 **Best for:** Budget-friendly, kids, no-booking-needed convenience
 
-If you just want a reliable, no-fuss carvery, the Toby in Colnbrook is about 10 minutes from Terminal 5. You know what you're getting — queue up, pick your meat, load up on veg and Yorkshire puddings. Prices start around £12–15, and kids eat for less.
+If you just want a reliable, no-fuss carvery, the Toby in Colnbrook is about 10 minutes from Terminal 5. You know what you're getting, queue up, pick your meat, load up on veg and Yorkshire puddings. Prices start around £12–15, and kids eat for less.
 
-It's not going to win any awards for culinary innovation, but it's consistent, family-friendly, and you can walk in without a booking. Free parking. The trade-off is that it's a chain — the meat is carved from a hot counter, not cooked to your order. If you want volume over finesse, it does the job.
+It's not going to win any awards for culinary innovation, but it's consistent, family-friendly, and you can walk in without a booking. Free parking. The trade-off is that it's a chain, the meat is carved from a hot counter, not cooked to your order. If you want volume over finesse, it does the job.
 
 ---
 
@@ -109,15 +109,15 @@ It's not going to win any awards for culinary innovation, but it's consistent, f
 
 **Best for:** Airport hotel guests, Bath Road convenience
 
-The Three Magpies is a Greene King pub on Bath Road in Hayes — the hotel strip between the airport and central London. It's handy if you're staying at one of the nearby hotels and don't fancy a taxi ride.
+The Three Magpies is a Greene King pub on Bath Road in Hayes, the hotel strip between the airport and central London. It's handy if you're staying at one of the nearby hotels and don't fancy a taxi ride.
 
-The Sunday roast is standard chain pub fare — reliable enough, with the usual beef, chicken, and veggie options in the £13–17 range. It's a large pub, so walk-ins are usually fine, though booking is sensible for groups. Parking is limited. About 12 minutes from Terminal 5.
+The Sunday roast is standard chain pub fare, reliable enough, with the usual beef, chicken, and veggie options in the £13–17 range. It's a large pub, so walk-ins are usually fine, though booking is sensible for groups. Parking is limited. About 12 minutes from Terminal 5.
 
 ---
 
 ## 5. The Bells and Other Staines Options
 
-Staines has a handful of other pubs doing Sunday roasts. The Bells is worth a mention — it's a straightforward local with roasts in the £14–18 range. Walk-ins are generally possible.
+Staines has a handful of other pubs doing Sunday roasts. The Bells is worth a mention, it's a straightforward local with roasts in the £14–18 range. Walk-ins are generally possible.
 
 Staines as a whole gives you more choice than anywhere else near Heathrow, but you're 15 minutes from the airport and dealing with town centre parking. If you're specifically after a quick pre-flight or post-flight roast, the closer options may suit you better.
 
@@ -127,11 +127,11 @@ Staines as a whole gives you more choice than anywhere else near Heathrow, but y
 
 Not all roasts are created equal. Here's what separates a proper Sunday lunch from a forgettable one:
 
-- **Yorkshire pudding** — Should be crisp on the outside, soft inside. If it's a frozen mini from a packet, you'll know.
-- **Gravy** — Proper gravy made from meat juices, not granules. This is the single biggest tell.
-- **Vegetables** — Seasonal, with some colour and bite. Not boiled to grey mush.
-- **Meat quality** — Cooked to order beats a carvery counter every time. A lamb shank that's been braised for hours is a different experience to a slice of beef that's been sitting under a heat lamp.
-- **Roast potatoes** — Crispy outside, fluffy inside. Goose fat or herb-crusted is ideal.
+- **Yorkshire pudding**, Should be crisp on the outside, soft inside. If it's a frozen mini from a packet, you'll know.
+- **Gravy**, Proper gravy made from meat juices, not granules. This is the single biggest tell.
+- **Vegetables**, Seasonal, with some colour and bite. Not boiled to grey mush.
+- **Meat quality**, Cooked to order beats a carvery counter every time. A lamb shank that's been braised for hours is a different experience to a slice of beef that's been sitting under a heat lamp.
+- **Roast potatoes**, Crispy outside, fluffy inside. Goose fat or herb-crusted is ideal.
 
 The fundamental difference between a cooked-to-order roast and a carvery is time and care. A carvery is faster and cheaper. A proper sit-down roast takes longer but tastes like Sunday is supposed to taste.
 
@@ -144,7 +144,7 @@ If you're flying out on a Sunday evening, a proper roast lunch is a brilliant wa
 - **Book your roast for 1pm–2pm.** That gives you a relaxed meal with time for pudding and coffee.
 - **Back to the airport by 4pm.** Even with a 7pm flight, you'll have plenty of time through security.
 - **Free parking at The Anchor** means no clock-watching on a parking meter.
-- **Book ahead for The Anchor** — Sunday roast starts Sunday 17 May 2026; from launch, walk-ins are welcome but peak slots fill up quickly.
+- **Book ahead for The Anchor**, Sunday roast starts Sunday 17 May 2026; from launch, walk-ins are welcome but peak slots fill up quickly.
 - **Luggage is welcome.** The Anchor has space for cabin bags and overnight cases at the table.
 - **Tell them your flight time** when booking. They'll pace the service so you're not rushed or waiting.
 
@@ -154,11 +154,11 @@ If you're flying out on a Sunday evening, a proper roast lunch is a brilliant wa
 
 ### What's the best Sunday roast near Heathrow Airport?
 
-For a cooked-to-order roast with proper trimmings, The Anchor in Stanwell Moor is the closest quality option to Heathrow — seven minutes from Terminal 5. If you want a budget carvery, Toby Carvery Colnbrook is about 10 minutes away.
+For a cooked-to-order roast with proper trimmings, The Anchor in Stanwell Moor is the closest quality option to Heathrow, seven minutes from Terminal 5. If you want a budget carvery, Toby Carvery Colnbrook is about 10 minutes away.
 
 ### Do I need to book Sunday lunch near Heathrow?
 
-It depends where you go. The Anchor accepts walk-ins on Sundays — booking ahead is recommended but not required. Toby Carvery is walk-in. For most pubs, booking is recommended — especially for groups of four or more.
+It depends where you go. The Anchor accepts walk-ins on Sundays, booking ahead is recommended but not required. Toby Carvery is walk-in. For most pubs, booking is recommended, especially for groups of four or more.
 
 ### How much is a Sunday roast near Heathrow?
 
@@ -166,7 +166,7 @@ Prices range from around £12 at Toby Carvery to £23.99 for a lamb shank at The
 
 ### Is there a Sunday carvery near Heathrow?
 
-Yes — Toby Carvery in Colnbrook is about 10 minutes from Terminal 5. It's the nearest carvery-style option. Most other pubs in the area serve plated, cooked-to-order roasts rather than carvery counters.
+Yes, Toby Carvery in Colnbrook is about 10 minutes from Terminal 5. It's the nearest carvery-style option. Most other pubs in the area serve plated, cooked-to-order roasts rather than carvery counters.
 
 ### Can I get a Sunday roast near Heathrow with free parking?
 
@@ -174,7 +174,7 @@ The Anchor in Stanwell Moor has free parking for about 20 cars. Toby Carvery Col
 
 ### What time is Sunday lunch at The Anchor?
 
-The kitchen is open 1pm–6pm on Sundays, with last orders at 5:30pm. Roasts are walk-in friendly — no pre-order needed. Booking ahead is recommended for peak slots. Groups of 10 or more take a £10 per person deposit, fully deducted from the final bill.
+The kitchen is open 1pm–6pm on Sundays, with last orders at 5:30pm. Roasts are walk-in friendly, no pre-order needed. Booking ahead is recommended for peak slots. Groups of 10 or more take a £10 per person deposit, fully deducted from the final bill.
 
 ### Is there a vegetarian Sunday roast near Heathrow?
 

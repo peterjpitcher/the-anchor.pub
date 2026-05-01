@@ -119,7 +119,7 @@ export default function FamilyFriendlyPage() {
                     },
                     {
                         question: "Are children allowed in the evening?",
-                        answer: "Children are always welcome at The Anchor — there's no age cut-off or time restriction. In the summer, families often enjoy the garden until sunset."
+                        answer: "Children are always welcome at The Anchor, there's no age cut-off or time restriction. In the summer, families often enjoy the garden until sunset."
                     },
                     {
                         question: "Do you do kids Sunday roasts?",

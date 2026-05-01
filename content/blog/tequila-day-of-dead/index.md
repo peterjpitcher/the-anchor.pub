@@ -51,7 +51,7 @@ Tequila’s presence in Día de los Muertos goes beyond its status as a popular 
 
   
 
-This offering of tequila represents more than just a favourite drink—it is a gesture of remembrance, acknowledging the deceased's place in the family and community. By offering tequila, families create a bridge between the earthly and spiritual realms, continuing to care for their loved ones even after they have passed.
+This offering of tequila represents more than just a favourite drink, it is a gesture of remembrance, acknowledging the deceased's place in the family and community. By offering tequila, families create a bridge between the earthly and spiritual realms, continuing to care for their loved ones even after they have passed.
 
   
 
@@ -77,7 +77,7 @@ One of the most significant rituals involving tequila during Día de los Muertos
 
   
 
-The toasts are often accompanied by personal stories, memories, and expressions of love, allowing the living to share moments with the dead. This act of toasting is not one of sorrow, but of joy—an acknowledgement that the spirits continue to play a vital role in the lives of their families. In this way, tequila helps to forge a connection between the past and the present, the living and the dead.
+The toasts are often accompanied by personal stories, memories, and expressions of love, allowing the living to share moments with the dead. This act of toasting is not one of sorrow, but of joy, an acknowledgement that the spirits continue to play a vital role in the lives of their families. In this way, tequila helps to forge a connection between the past and the present, the living and the dead.
 
   
 
@@ -103,7 +103,7 @@ Tequila is often shared at community gatherings during Día de los Muertos, wher
 
   
 
-In many ways, tequila embodies the spirit of Día de los Muertos. It represents celebration, resilience, and unity—values that are central to the holiday itself.
+In many ways, tequila embodies the spirit of Día de los Muertos. It represents celebration, resilience, and unity, values that are central to the holiday itself.
 
   
 

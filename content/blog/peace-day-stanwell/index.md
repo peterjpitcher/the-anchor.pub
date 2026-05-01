@@ -83,7 +83,7 @@ We're also committed to extending our ethos of community and peace to the natura
 
 ## A Village that Embodies Peace
 
-Stanwell Moor Village is more than its human inhabitants; it's a naturally beautiful space too. From the local fishing lake—a dog-walking favourite—to the idyllic Moors perfect for a Sunday picnic, there's beauty at every turn. The Stanwell Moor Residents Association often organises community clean-ups. Most recently, we all pitched in for a 'big clean-up' to celebrate the coronation of the King and Queen. Participants were afterwards treated to a well-deserved meal at The Anchor, making it a community event through and through.
+Stanwell Moor Village is more than its human inhabitants; it's a naturally beautiful space too. From the local fishing lake, a dog-walking favourite, to the idyllic Moors perfect for a Sunday picnic, there's beauty at every turn. The Stanwell Moor Residents Association often organises community clean-ups. Most recently, we all pitched in for a 'big clean-up' to celebrate the coronation of the King and Queen. Participants were afterwards treated to a well-deserved meal at The Anchor, making it a community event through and through.
 
   
 

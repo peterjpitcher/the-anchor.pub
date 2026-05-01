@@ -65,7 +65,7 @@ function hasSuspiciousPhone(body: Record<string, unknown>): boolean {
       && (body.customer as Record<string, unknown>).mobile_number as string) ||
     null
 
-  if (!phone) return false // no phone to check — let other validation handle it
+  if (!phone) return false // no phone to check, let other validation handle it
 
   const trimmed = phone.trim()
 
@@ -103,7 +103,7 @@ export async function checkSpamProtection(
     }
   }
 
-  // 2. Honeypot — if a hidden field has a value, return fake success
+  // 2. Honeypot, if a hidden field has a value, return fake success
   if (body?.website || body?.honeypot_field) {
     return {
       blocked: true,
@@ -111,7 +111,7 @@ export async function checkSpamProtection(
     }
   }
 
-  // 3. Phone country check — block numbers from non-allowlisted countries
+  // 3. Phone country check, block numbers from non-allowlisted countries
   if (hasSuspiciousPhone(body)) {
     return {
       blocked: true,
@@ -119,7 +119,7 @@ export async function checkSpamProtection(
     }
   }
 
-  // 4. Timing — reject if too fast OR if timing field is missing entirely
+  // 4. Timing, reject if too fast OR if timing field is missing entirely
   //    (missing _t means the request didn't come from our form)
   const formDuration = typeof body?._t === 'number' ? body._t : null
   if (formDuration === null || formDuration < MIN_FORM_DURATION_SECONDS) {
@@ -131,7 +131,7 @@ export async function checkSpamProtection(
 
   // 5. Turnstile CAPTCHA verification
   //    Skip when the upstream management API will verify the token itself
-  //    (Turnstile tokens are single-use — verifying here would consume it)
+  //    (Turnstile tokens are single-use, verifying here would consume it)
   if (!options?.skipTurnstile) {
     const turnstile = await verifyTurnstileToken(
       (body?.turnstile_token as string | null | undefined) ?? null

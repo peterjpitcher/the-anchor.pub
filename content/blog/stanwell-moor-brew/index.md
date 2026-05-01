@@ -35,13 +35,13 @@ noindex: true
 
   
 
-**Update: Stanwell Moor Brew is no longer available at The Anchor.** Our draught selection changes from time to time — visit us or call 01753 682707 to find out what is currently on tap.
+**Update: Stanwell Moor Brew is no longer available at The Anchor.** Our draught selection changes from time to time, visit us or call 01753 682707 to find out what is currently on tap.
 
 ---
 
 ## Exclusive House Lager Near Heathrow Airport
 
-Step into The Anchor pub in **Stanwell Moor**, just **7 minutes from Heathrow Terminal 5**, where tradition meets innovation. We're excited to introduce our exclusive house beer—Stanwell Moor Brew, a crisp lager perfect for **Heathrow workers** after shifts, **Staines residents** seeking quality beer, and travellers wanting authentic local pours near the **airport**. Developed with Greene King, this refreshing beer offers premium quality without airport prices.
+Step into The Anchor pub in **Stanwell Moor**, just **7 minutes from Heathrow Terminal 5**, where tradition meets innovation. We're excited to introduce our exclusive house beer, Stanwell Moor Brew, a crisp lager perfect for **Heathrow workers** after shifts, **Staines residents** seeking quality beer, and travellers wanting authentic local pours near the **airport**. Developed with Greene King, this refreshing beer offers premium quality without airport prices.
 
   
 
@@ -100,7 +100,7 @@ Visit us at The Anchor for a warm, welcoming experience and the chance to try th
 📍 **Location**: The Anchor, Horton Road, Stanwell Moor, TW19 6AQ
 ✈️ **From Heathrow**: Just 7 minutes from all terminals
 🚗 **Parking**: Free on-site parking
-🍺 **Previously On Tap**: Stanwell Moor Brew exclusive house lager (no longer available — ask about our current draught selection)
+🍺 **Previously On Tap**: Stanwell Moor Brew exclusive house lager (no longer available, ask about our current draught selection)
 💷 **Price**: Proper pub prices, not airport prices
 ⏰ **Perfect For**: After-work drinks, weekend relaxation
 📞 **Bookings**: 01753 682707

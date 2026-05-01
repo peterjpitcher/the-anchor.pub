@@ -62,7 +62,7 @@ The night’s fancy dress competition brought out the best and boldest in costum
 
   
 
-Even without a professional face painter, our guests impressed with their DIY skills, and the winners walked away with pride (and a few fun prizes!). This competition captured the essence of our event—a blend of fun, community, and creativity.
+Even without a professional face painter, our guests impressed with their DIY skills, and the winners walked away with pride (and a few fun prizes!). This competition captured the essence of our event, a blend of fun, community, and creativity.
 
   
 

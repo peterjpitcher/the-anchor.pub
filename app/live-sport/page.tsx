@@ -16,13 +16,13 @@ export const metadata: Metadata = {
     title: 'Watch Live Sport Near Heathrow | Big Screens',
     description: `Watch Six Nations, Euros, F1 & World Cup on big screens at The Anchor, Stanwell Moor. Terrestrial sport, great atmosphere, free parking, 7 mins from Heathrow T5.`,
     openGraph: {
-        title: 'Watch Live Sport Near Heathrow — Major Tournaments on Big Screens',
+        title: 'Watch Live Sport Near Heathrow, Major Tournaments on Big Screens',
         description: 'Six Nations, World Cup, Euros and F1 on big screens with a cold pint and free parking. 7 mins from Heathrow T5.',
         images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({
-        title: 'Watch Live Sport Near Heathrow — Major Tournaments on Big Screens',
+        title: 'Watch Live Sport Near Heathrow, Major Tournaments on Big Screens',
         description: 'Six Nations, World Cup, Euros and F1 on big screens with free parking and great food. 7 mins from Heathrow T5.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
@@ -37,7 +37,7 @@ export default async function LiveSportPage() {
         "@context": "https://schema.org",
         "@type": "SportsActivityLocation",
         "name": `${BRAND.name} - Live Sport`,
-        "description": "Watch major sporting events on big screens — Six Nations, World Cup, Euros, F1 and more. Free parking and great food near Heathrow.",
+        "description": "Watch major sporting events on big screens, Six Nations, World Cup, Euros, F1 and more. Free parking and great food near Heathrow.",
         "address": {
             "@type": "PostalAddress",
             "streetAddress": CONTACT.address.street,
@@ -76,7 +76,7 @@ export default async function LiveSportPage() {
             "price": "0",
             "priceCurrency": "GBP",
             "availability": "https://schema.org/InStock",
-            "description": "Free entry — just turn up and enjoy"
+            "description": "Free entry, just turn up and enjoy"
         }
     }
 
@@ -98,7 +98,7 @@ export default async function LiveSportPage() {
 
             <Container className="py-8">
                 <PageTitle as="h2" className="text-center mb-6" seo={{ structured: true }}>
-                    Live Sport Pub Near Heathrow — Big Screens &amp; Great Atmosphere
+                    Live Sport Pub Near Heathrow, Big Screens &amp; Great Atmosphere
                 </PageTitle>
             </Container>
 
@@ -229,7 +229,7 @@ export default async function LiveSportPage() {
                     },
                     {
                         question: "Do you show Six Nations rugby?",
-                        answer: "Yes — every Six Nations match is shown live on our big screens with full audio. Book early for England and Wales matches as we fill up quickly."
+                        answer: "Yes, every Six Nations match is shown live on our big screens with full audio. Book early for England and Wales matches as we fill up quickly."
                     },
                     {
                         question: "Can I watch Formula 1 at The Anchor?",
@@ -237,7 +237,7 @@ export default async function LiveSportPage() {
                     },
                     {
                         question: "Do you have Sky Sports or TNT?",
-                        answer: "No — we show terrestrial channels only (BBC, ITV, Channel 4). This covers Six Nations, F1, international football, cricket, golf, and horse racing."
+                        answer: "No, we show terrestrial channels only (BBC, ITV, Channel 4). This covers Six Nations, F1, international football, cricket, golf, and horse racing."
                     },
                     {
                         question: "Can I request a specific match or event?",
@@ -245,7 +245,7 @@ export default async function LiveSportPage() {
                     },
                     {
                         question: "Is there food available during live sport?",
-                        answer: "Yes — our full kitchen menu is available including stone-baked pizza, burgers, fish and chips, and pub classics. Book a table to guarantee your spot for big matches."
+                        answer: "Yes, our full kitchen menu is available including stone-baked pizza, burgers, fish and chips, and pub classics. Book a table to guarantee your spot for big matches."
                     }
                 ]}
                 className="bg-anchor-bg-card"
@@ -256,7 +256,7 @@ export default async function LiveSportPage() {
                     <SectionHeader title="What We're Showing" subtitle="Terrestrial sport on our big screens" />
                     <div className="prose prose-invert max-w-3xl mx-auto">
                         <p>We show every major sporting event available on BBC, ITV, and Channel 4. Current highlights include Six Nations rugby, Formula 1, international football qualifiers, and cricket. All matches are shown with full audio on multiple HD screens.</p>
-                        <p>Want to watch something specific? Let us know and we will make sure it is on. We can also reserve seating for big matches — just call ahead or book online.</p>
+                        <p>Want to watch something specific? Let us know and we will make sure it is on. We can also reserve seating for big matches, just call ahead or book online.</p>
                     </div>
                 </Container>
             </section>

@@ -1,6 +1,6 @@
 ---
 title: "Best Sunday Roast Pubs in Surrey (2026 Guide)"
-description: "Honest comparison of the best Sunday roast pubs across Surrey — real prices, booking info, parking, and what to expect. 7 pubs reviewed for 2026."
+description: "Honest comparison of the best Sunday roast pubs across Surrey, real prices, booking info, parking, and what to expect. 7 pubs reviewed for 2026."
 date: "2026-04-07"
 author: "Billy"
 keywords:
@@ -20,7 +20,7 @@ hero: hero.jpg
 images: []
 ---
 
-Surrey does Sunday roasts properly. Whether you're after a cooked-to-order lamb shank in a village pub, a budget-friendly carvery, or a gastropub roast with all the trimmings, the county has enough options to keep you busy for months. The hard part is knowing which places are actually worth the drive — and which ones coast on reputation.
+Surrey does Sunday roasts properly. Whether you're after a cooked-to-order lamb shank in a village pub, a budget-friendly carvery, or a gastropub roast with all the trimmings, the county has enough options to keep you busy for months. The hard part is knowing which places are actually worth the drive, and which ones coast on reputation.
 
 We've pulled together seven of the best Sunday roast pubs across Surrey for 2026, covering everything from the villages near Heathrow to the Surrey Hills. Every pub listed here has been chosen for a reason: quality of the roast, value for money, atmosphere, or a combination of all three.
 
@@ -44,25 +44,25 @@ We've pulled together seven of the best Sunday roast pubs across Surrey for 2026
 
 **Best for:** Cooked-to-order quality, families, dog owners, free parking near Heathrow
 
-The Anchor sits in the village of Stanwell Moor on the Surrey/Middlesex border, about seven minutes from Heathrow Terminal 5 and two minutes from M25 Junction 14. It's an independent village pub, not a chain, and they take their Sunday roasts seriously — everything is cooked fresh to order from scratch, served 1pm-6pm.
+The Anchor sits in the village of Stanwell Moor on the Surrey/Middlesex border, about seven minutes from Heathrow Terminal 5 and two minutes from M25 Junction 14. It's an independent village pub, not a chain, and they take their Sunday roasts seriously, everything is cooked fresh to order from scratch, served 1pm-6pm.
 
 ### The roast
 
 Four options, all served with herb and garlic-crusted roast potatoes, a Yorkshire pudding, seasonal veg, and gravy:
 
-- **Roasted Chicken** (£19.99) — breast with sage and onion stuffing balls, red wine gravy
-- **Slow-Cooked Lamb Shank** (£23.99) — braised until it falls apart
-- **Crispy Pork Belly** (£21.99) — proper crackling, Bramley apple sauce
-- **Beetroot & Butternut Squash Wellington** (£19.99) — puff pastry, vegetarian gravy (V)
-- **Kids Roasted Chicken** (£13.99) — full trimmings, smaller portion
+- **Roasted Chicken** (£19.99), breast with sage and onion stuffing balls, red wine gravy
+- **Slow-Cooked Lamb Shank** (£23.99), braised until it falls apart
+- **Crispy Pork Belly** (£21.99), proper crackling, Bramley apple sauce
+- **Beetroot & Butternut Squash Wellington** (£19.99), puff pastry, vegetarian gravy (V)
+- **Kids Roasted Chicken** (£13.99), full trimmings, smaller portion
 
 The gravy is gluten-free by default. Vegan options available with advance notice.
 
 ### What you need to know
 
-Walk in or book ahead — no pre-order needed. Kitchen hours on Sunday are 1pm-6pm, last orders 5:30pm. Groups of 10 or more take a £10 per person deposit, fully deducted from the bill. The regular weekday menu — burgers, pizzas, fish and chips — is also available on Sunday.
+Walk in or book ahead, no pre-order needed. Kitchen hours on Sunday are 1pm-6pm, last orders 5:30pm. Groups of 10 or more take a £10 per person deposit, fully deducted from the bill. The regular weekday menu, burgers, pizzas, fish and chips, is also available on Sunday.
 
-Free parking for about 20 cars. Dogs welcome throughout the venue. The beer garden seats 64, with planes coming over every 90 seconds (directly under Heathrow's flight path — kids love it). Outside the ULEZ zone.
+Free parking for about 20 cars. Dogs welcome throughout the venue. The beer garden seats 64, with planes coming over every 90 seconds (directly under Heathrow's flight path, kids love it). Outside the ULEZ zone.
 
 [Book your Sunday roast at The Anchor](/sunday-lunch) or call **01753 682707**.
 
@@ -76,13 +76,13 @@ Shere is regularly cited as one of the prettiest villages in England, and it's e
 
 ### The roast
 
-The menu typically features beef, chicken, and a veggie option, all served with proper trimmings. Expect to pay around £18-24 for a main. Portions are generous, and the quality is consistently above average — this isn't a place that coasts on the setting alone.
+The menu typically features beef, chicken, and a veggie option, all served with proper trimmings. Expect to pay around £18-24 for a main. Portions are generous, and the quality is consistently above average, this isn't a place that coasts on the setting alone.
 
 The vegetables tend to be well-cooked rather than the grey mush you get at lesser pubs. The Yorkshire puddings are made in-house. Beef is usually the standout.
 
 ### What you need to know
 
-Booking is recommended, especially for Sunday lunch. The pub gets busy — it's a destination village for walkers and cyclists, particularly in spring and summer. Parking is limited in the village itself; there's a small car park nearby but it fills quickly. Arriving before 12:30 helps.
+Booking is recommended, especially for Sunday lunch. The pub gets busy, it's a destination village for walkers and cyclists, particularly in spring and summer. Parking is limited in the village itself; there's a small car park nearby but it fills quickly. Arriving before 12:30 helps.
 
 Dogs are welcome in the garden area. The village has a lovely stream running through it, which makes for a pleasant post-lunch walk. If you're combining a roast with a countryside walk, the trails up to the North Downs Way start from the village.
 
@@ -94,17 +94,17 @@ Dogs are welcome in the garden area. The village has a lovely stream running thr
 
 **Best for:** Classic Surrey pub, reliable quality, good portions
 
-The Cricketers is a well-known Cobham local with a solid reputation for consistent quality. It's the sort of pub where you know exactly what you're going to get — a proper roast, decent trimmings, and a pint in a traditional setting. Not trying to reinvent the wheel, just executing the basics well.
+The Cricketers is a well-known Cobham local with a solid reputation for consistent quality. It's the sort of pub where you know exactly what you're going to get, a proper roast, decent trimmings, and a pint in a traditional setting. Not trying to reinvent the wheel, just executing the basics well.
 
 ### The roast
 
-Expect the usual selection — beef, chicken, pork, and a vegetarian option — in the £17-22 range. Trimmings are standard but well done: good roast potatoes, Yorkshire puddings, seasonal veg, and proper gravy. The beef tends to be the most popular, and the chicken is reliably good.
+Expect the usual selection, beef, chicken, pork, and a vegetarian option, in the £17-22 range. Trimmings are standard but well done: good roast potatoes, Yorkshire puddings, seasonal veg, and proper gravy. The beef tends to be the most popular, and the chicken is reliably good.
 
-Portions are generous enough that you won't need a starter, though the starters are worth a look if you're hungry. Desserts are traditional pub fare — sticky toffee pudding, crumble, that sort of thing.
+Portions are generous enough that you won't need a starter, though the starters are worth a look if you're hungry. Desserts are traditional pub fare, sticky toffee pudding, crumble, that sort of thing.
 
 ### What you need to know
 
-Booking is recommended for Sunday lunch, particularly for groups of four or more. The pub has its own car park, which is a genuine advantage in Cobham where street parking can be tricky. Check ahead on dog policy — it varies by area of the pub.
+Booking is recommended for Sunday lunch, particularly for groups of four or more. The pub has its own car park, which is a genuine advantage in Cobham where street parking can be tricky. Check ahead on dog policy, it varies by area of the pub.
 
 Cobham itself has a pleasant high street with independent shops and cafes if you want to extend the outing.
 
@@ -120,13 +120,13 @@ If you want a Sunday roast that leans more towards restaurant quality than tradi
 
 ### The roast
 
-This is the more refined end of the spectrum. The menu is shorter but more considered — typically two or three protein options plus a vegetarian dish, all carefully sourced. Prices run higher than average at around £20-28, but the quality of the ingredients and execution justify it.
+This is the more refined end of the spectrum. The menu is shorter but more considered, typically two or three protein options plus a vegetarian dish, all carefully sourced. Prices run higher than average at around £20-28, but the quality of the ingredients and execution justify it.
 
-The potatoes are excellent — properly crispy, well-seasoned. The gravy is made from scratch. Vegetables are treated as an actual component of the plate rather than an afterthought. If you care about the details of a roast, you'll notice the difference here.
+The potatoes are excellent, properly crispy, well-seasoned. The gravy is made from scratch. Vegetables are treated as an actual component of the plate rather than an afterthought. If you care about the details of a roast, you'll notice the difference here.
 
 ### What you need to know
 
-Booking is essential — this place fills up for Sunday lunch, often a week or two in advance. The pub has its own car park with reasonable space. Dogs are welcome in the garden area. The wine list is notably better than most pubs in the area, which makes it a good choice if wine with your roast matters to you.
+Booking is essential, this place fills up for Sunday lunch, often a week or two in advance. The pub has its own car park with reasonable space. Dogs are welcome in the garden area. The wine list is notably better than most pubs in the area, which makes it a good choice if wine with your roast matters to you.
 
 It's on the pricier side for a pub roast, so this is one for a special Sunday rather than an every-week habit.
 
@@ -138,11 +138,11 @@ It's on the pricier side for a pub roast, so this is one for a special Sunday ra
 
 **Best for:** Combining a walk with a roast, countryside atmosphere
 
-If you're the type who likes to earn your roast with a morning walk, the King William IV near Box Hill is perfectly positioned. Box Hill is one of Surrey's most popular walking spots — the National Trust site at the summit has panoramic views across the Surrey Weald — and the pub sits at the bottom, ready to reward you with a roast when you come back down.
+If you're the type who likes to earn your roast with a morning walk, the King William IV near Box Hill is perfectly positioned. Box Hill is one of Surrey's most popular walking spots, the National Trust site at the summit has panoramic views across the Surrey Weald, and the pub sits at the bottom, ready to reward you with a roast when you come back down.
 
 ### The roast
 
-A solid traditional offering in the £18-24 range. Beef, chicken, pork, and a vegetarian option with all the proper trimmings. The quality is consistent — not the fanciest roast in Surrey, but honest, well-cooked, and generously portioned.
+A solid traditional offering in the £18-24 range. Beef, chicken, pork, and a vegetarian option with all the proper trimmings. The quality is consistent, not the fanciest roast in Surrey, but honest, well-cooked, and generously portioned.
 
 The lamb, when it's on the menu, is particularly good. Yorkshire puddings are crisp and well-risen. The gravy is the proper kind.
 
@@ -150,7 +150,7 @@ The lamb, when it's on the menu, is particularly good. Yorkshire puddings are cr
 
 Booking is recommended, particularly in spring and summer when Box Hill is busy with walkers and cyclists. The pub has its own car park, though it can fill up on sunny Sundays. Dogs are welcome throughout, which makes it a good choice for walking groups with dogs.
 
-The pub has a genuine village atmosphere — locals at the bar, walkers in muddy boots, the occasional cyclist. It's unpretentious in the best way.
+The pub has a genuine village atmosphere, locals at the bar, walkers in muddy boots, the occasional cyclist. It's unpretentious in the best way.
 
 **Location:** Mickleham, near Dorking (about 30 minutes from the M25 at Junction 9)
 
@@ -170,7 +170,7 @@ What sets it apart from many Surrey pubs is the value. You're getting a quality 
 
 ### What you need to know
 
-Walk-ins are often possible, though booking is sensible for larger groups. The pub has its own car park. Dogs are welcome. The atmosphere is relaxed and unpretentious — families, locals, dog walkers.
+Walk-ins are often possible, though booking is sensible for larger groups. The pub has its own car park. Dogs are welcome. The atmosphere is relaxed and unpretentious, families, locals, dog walkers.
 
 West Horsley is close to Horsley railway station (South Western Railway from Waterloo), making it one of the more accessible Surrey villages by public transport.
 
@@ -182,17 +182,17 @@ West Horsley is close to Horsley railway station (South Western Railway from Wat
 
 **Best for:** Upmarket roast, excellent wine, couples and special occasions
 
-Another Mickleham option, but with a distinctly different feel to the King William IV. The Running Horses positions itself as a dining pub — the sort of place where the wine list gets as much attention as the food menu. It's more polished, slightly more formal, and the roast reflects that.
+Another Mickleham option, but with a distinctly different feel to the King William IV. The Running Horses positions itself as a dining pub, the sort of place where the wine list gets as much attention as the food menu. It's more polished, slightly more formal, and the roast reflects that.
 
 ### The roast
 
-This is the premium end of the Surrey Sunday roast spectrum, with prices around £20-26. The menu is curated rather than extensive — expect two or three well-chosen proteins and a vegetarian option, all presented with more care than your average pub roast.
+This is the premium end of the Surrey Sunday roast spectrum, with prices around £20-26. The menu is curated rather than extensive, expect two or three well-chosen proteins and a vegetarian option, all presented with more care than your average pub roast.
 
 The meat quality is excellent. The accompanying vegetables and potatoes are treated as important components rather than filler. If you're the sort of person who notices the difference between good roast potatoes and great ones, you'll appreciate the attention to detail.
 
 ### What you need to know
 
-Booking is essential. This place is popular, and Sunday lunch tables go quickly — booking a week in advance is sensible. The pub has its own car park. Dogs are welcome in the garden. The interior is comfortable and well-maintained, with a slightly more formal feel than the average country pub.
+Booking is essential. This place is popular, and Sunday lunch tables go quickly, booking a week in advance is sensible. The pub has its own car park. Dogs are welcome in the garden. The interior is comfortable and well-maintained, with a slightly more formal feel than the average country pub.
 
 It's a good date-night-but-Sunday-lunch option. The kind of place where you might linger over a bottle of wine after the plates are cleared.
 
@@ -206,7 +206,7 @@ Every pub claims to do a "proper" Sunday roast, but there's a world of differenc
 
 ### Meat quality and cooking
 
-The single biggest factor. A cooked-to-order roast — where the meat is prepared for your specific table — is a fundamentally different experience from a carvery counter where slices have been sitting under heat lamps. A braised lamb shank that's had hours of slow cooking, or a pork belly with proper crackling, can't be replicated on a carvery line.
+The single biggest factor. A cooked-to-order roast, where the meat is prepared for your specific table, is a fundamentally different experience from a carvery counter where slices have been sitting under heat lamps. A braised lamb shank that's had hours of slow cooking, or a pork belly with proper crackling, can't be replicated on a carvery line.
 
 ### Yorkshire puddings
 
@@ -238,7 +238,7 @@ Seasonal, with colour and bite. Not boiled into submission. A good pub serves ve
 
 5. **Time your arrival.** First sittings (12-1pm) tend to get the freshest service. Later sittings are more relaxed but can sometimes feel like the kitchen is winding down.
 
-6. **Combine it with something.** A walk before lunch makes the roast taste better. Box Hill, the North Downs, the Thames Path — Surrey has no shortage of options.
+6. **Combine it with something.** A walk before lunch makes the roast taste better. Box Hill, the North Downs, the Thames Path, Surrey has no shortage of options.
 
 ---
 
@@ -254,11 +254,11 @@ Prices across Surrey range from about £16 to £28 per person for a main course 
 
 ### Do I need to book Sunday lunch in Surrey?
 
-At most of the pubs on this list, yes. Some accept walk-ins, but booking is recommended at all of them, particularly for groups. The Anchor accepts walk-ins on Sundays — booking is recommended but not required. The Victoria and Running Horses book up a week or more in advance.
+At most of the pubs on this list, yes. Some accept walk-ins, but booking is recommended at all of them, particularly for groups. The Anchor accepts walk-ins on Sundays, booking is recommended but not required. The Victoria and Running Horses book up a week or more in advance.
 
 ### Where's the best Sunday roast near the M25 in Surrey?
 
-The Anchor in Stanwell Moor is two minutes from M25 Junction 14 — the closest quality option to the motorway. The King William IV and Running Horses in Mickleham are both close to Junction 9.
+The Anchor in Stanwell Moor is two minutes from M25 Junction 14, the closest quality option to the motorway. The King William IV and Running Horses in Mickleham are both close to Junction 9.
 
 ### Is there a dog-friendly pub with a Sunday roast in Surrey?
 
@@ -266,7 +266,7 @@ Several. The Anchor, King William IV, Barley Mow, and Running Horses all welcome
 
 ### What's the best Sunday roast in Surrey for vegetarians?
 
-The Anchor's beetroot and butternut squash wellington (£19.99) is a standout — a proper dish, not a token option. The Victoria in Oxshott also consistently does an excellent vegetarian roast. Any pub that lists a creative veggie option rather than "vegetable lasagne" is usually a good sign.
+The Anchor's beetroot and butternut squash wellington (£19.99) is a standout, a proper dish, not a token option. The Victoria in Oxshott also consistently does an excellent vegetarian roast. Any pub that lists a creative veggie option rather than "vegetable lasagne" is usually a good sign.
 
 ---
 

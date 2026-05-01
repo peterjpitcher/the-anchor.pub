@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     default: 'The Anchor Pub | Stanwell Moor | Near Heathrow',
     template: '%s | The Anchor Stanwell Moor'
   },
-  description: 'The Anchor, Stanwell Moor — rated 4.6/5 on Google. Traditional pub 7 mins from Heathrow T5. Sunday roasts, quiz nights, karaoke Fridays, beer garden & free parking.',
+  description: 'The Anchor, Stanwell Moor, rated 4.6/5 on Google. Traditional pub 7 mins from Heathrow T5. Sunday roasts, quiz nights, karaoke Fridays, beer garden & free parking.',
   authors: [{ name: 'The Anchor' }],
   creator: 'The Anchor',
   publisher: 'The Anchor',
@@ -178,7 +178,7 @@ export default function RootLayout({
 
         {/* Next.js handles font and image prioritisation automatically */}
 
-        {/* Google Consent Mode defaults — MUST fire before GTM script loads */}
+        {/* Google Consent Mode defaults, MUST fire before GTM script loads */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -212,7 +212,7 @@ function gtag(){dataLayer.push(arguments);}
         />
       </head>
       <body className={`font-sans antialiased ${outfit.variable} ${merriweather.variable}`}>
-        {/* Global structured data (JSON-LD) — placed in body to avoid Next.js head deduplication */}
+        {/* Global structured data (JSON-LD), placed in body to avoid Next.js head deduplication */}
         <DynamicSchema />
         {/* Google Tag Manager (noscript) */}
         <noscript>

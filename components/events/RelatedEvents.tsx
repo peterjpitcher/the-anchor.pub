@@ -113,7 +113,7 @@ export default async function RelatedEvents({
       </section>
     )
   } catch {
-    // API failure — fail silently so the main event page is unaffected
+    // API failure, fail silently so the main event page is unaffected
     return null
   }
 }

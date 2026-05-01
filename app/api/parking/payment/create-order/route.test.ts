@@ -9,7 +9,7 @@ if (typeof Response !== 'undefined' && !('json' in Response)) {
   })
 }
 
-// jest.mock is hoisted — use global jest.fn() (not @jest/globals) so the factory works
+// jest.mock is hoisted, use global jest.fn() (not @jest/globals) so the factory works
 jest.mock('@/lib/api', () => ({
   anchorAPI: {
     createParkingPaymentOrder: jest.fn(),

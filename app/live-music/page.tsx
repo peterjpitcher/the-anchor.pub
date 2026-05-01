@@ -40,15 +40,15 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 export const metadata: Metadata = {
     title: 'Live Music Pub Near Heathrow | Bands & Acoustic Nights',
     description:
-        'The best live music pub near Heathrow — bands, acoustic sessions and tribute acts in Stanwell Moor. Free entry, free parking, 7 mins from T5. See upcoming gigs.',
+        'The best live music pub near Heathrow, bands, acoustic sessions and tribute acts in Stanwell Moor. Free entry, free parking, 7 mins from T5. See upcoming gigs.',
     openGraph: {
         title: 'Live Music Pub Near Heathrow | The Anchor, Stanwell Moor',
-        description: 'The best live music pub near Heathrow — bands, acoustic sessions and tribute acts. Free entry, free parking, 7 mins from T5.',
+        description: 'The best live music pub near Heathrow, bands, acoustic sessions and tribute acts. Free entry, free parking, 7 mins from T5.',
         images: [{ url: DEFAULT_EVENT_IMAGE, width: 1200, height: 630, alt: 'Events at The Anchor pub near Heathrow' }]
     },
     twitter: getTwitterMetadata({
         title: 'Live Music Pub Near Heathrow | The Anchor, Stanwell Moor',
-        description: 'The best live music pub near Heathrow — bands, acoustic sessions and tribute acts. Free entry, free parking, 7 mins from T5.',
+        description: 'The best live music pub near Heathrow, bands, acoustic sessions and tribute acts. Free entry, free parking, 7 mins from T5.',
         images: [DEFAULT_EVENT_IMAGE]
     }),
     alternates: {
@@ -136,7 +136,7 @@ const FAQS = [
     {
         question: 'Is there live music near Heathrow Airport?',
         answer:
-            'Yes — Live at The Anchor hosts bands, acoustic nights and tribute acts, just 7 minutes from Heathrow Terminal 5. Free entry, free parking.'
+            'Yes, Live at The Anchor hosts bands, acoustic nights and tribute acts, just 7 minutes from Heathrow Terminal 5. Free entry, free parking.'
     },
     {
         question: 'How can I perform at The Anchor?',
@@ -146,7 +146,7 @@ const FAQS = [
     {
         question: 'Do you charge for live music events?',
         answer:
-            'No — all Live at The Anchor gigs are free entry. Just turn up, grab a drink, and enjoy the music.'
+            'No, all Live at The Anchor gigs are free entry. Just turn up, grab a drink, and enjoy the music.'
     }
 ]
 
@@ -267,7 +267,7 @@ export default async function LiveMusicPage() {
             <Section spacing="sm" background="white">
                 <Container>
                     <PageTitle as="h2" className="text-center mb-6" seo={{ structured: true, speakable: true }}>
-                        Live Music Pub Near Heathrow — Live at The Anchor
+                        Live Music Pub Near Heathrow, Live at The Anchor
                     </PageTitle>
                     <p className="text-lg text-anchor-cream-text/70 text-center max-w-3xl mx-auto">
                         Looking for a live music pub near you? The Anchor brings you the best local talent, from foot-tapping acoustic sets to high-energy party bands. Located in Stanwell Moor, just minutes from the airport, we’re the perfect live music pub near Heathrow for music lovers to unwind with a pint and a gig. {heroDescription}
@@ -314,7 +314,7 @@ export default async function LiveMusicPage() {
                                 Good live music pubs near Staines are harder to find than you would think. Most of the bigger venues focus on DJs or tribute acts, and the smaller places often lack the space or sound setup to do live music properly. The Anchor fills that gap. We are just eight minutes from Staines-upon-Thames centre, tucked away in Stanwell Moor village, with a dedicated performance area, quality acoustics and room for around 100 people to enjoy the show.
                             </p>
                             <p className="text-anchor-cream-text/70">
-                                If you have been searching for live music near Staines or live music pubs near Heathrow, you have found the right place. We bring in acts from across Surrey, West London and beyond — everything from acoustic solo artists to four-piece bands playing classic rock, soul, funk and pop covers.
+                                If you have been searching for live music near Staines or live music pubs near Heathrow, you have found the right place. We bring in acts from across Surrey, West London and beyond, everything from acoustic solo artists to four-piece bands playing classic rock, soul, funk and pop covers.
                             </p>
                             <div className="rounded-xl border border-anchor-gold/15 bg-anchor-bg-card p-5 space-y-3">
                                 <h3 className="text-lg font-semibold text-anchor-cream-text">Getting here for a gig</h3>

@@ -14,13 +14,13 @@ export const metadata: Metadata = {
     title: 'Dog Friendly Pub Near Heathrow | Beer Garden & Water Bowls',
     description: `Dog friendly pub near Heathrow with a 64-seat beer garden, water bowls and food served to your table outdoors. Free parking, 7 mins from T5. Rated 4.6/5 on Google.`,
     openGraph: {
-        title: 'Dog Friendly Pub Near Heathrow — Beer Garden & Free Parking',
+        title: 'Dog Friendly Pub Near Heathrow, Beer Garden & Free Parking',
         description: '64-seat dog-friendly beer garden with water bowls, outdoor dining and free parking. 7 mins from Heathrow T5.',
         images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({
-        title: 'Dog Friendly Pub Near Heathrow — Beer Garden & Free Parking',
+        title: 'Dog Friendly Pub Near Heathrow, Beer Garden & Free Parking',
         description: '64-seat dog-friendly beer garden with water bowls, outdoor dining and free parking. 7 mins from Heathrow T5.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
@@ -55,10 +55,10 @@ export default async function DogFriendlyPage() {
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle className="text-anchor-cream-text mb-4">
-                            Dog-Friendly Pub Near Heathrow — Paws Welcome
+                            Dog-Friendly Pub Near Heathrow, Paws Welcome
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">
-                            A pub isn't a proper pub without a dog sleeping by the fire. We welcome well-behaved dogs throughout the entire venue — bar, dining area, and beer garden. Whether you've just been for a walk or you're stopping off on a journey, your dog is as welcome as you are.
+                            A pub isn't a proper pub without a dog sleeping by the fire. We welcome well-behaved dogs throughout the entire venue, bar, dining area, and beer garden. Whether you've just been for a walk or you're stopping off on a journey, your dog is as welcome as you are.
                         </p>
                     </div>
                 </Container>
@@ -117,7 +117,7 @@ export default async function DogFriendlyPage() {
                 faqs={[
                     {
                         question: "Are dogs allowed in the restaurant?",
-                        answer: "Dogs are welcome throughout the entire venue — bar, dining area, and beer garden. Your dog can stay with you wherever you choose to sit."
+                        answer: "Dogs are welcome throughout the entire venue, bar, dining area, and beer garden. Your dog can stay with you wherever you choose to sit."
                     },
                     {
                         question: "Is there a limit on dog size?",

@@ -49,7 +49,7 @@ const faqs = [
   {
     question: 'Do you serve food on Halloween?',
     answer:
-      'Yes \u2014 our regular food menu is available earlier in the evening. Halloween falls on a Saturday in 2026, so the kitchen is open 1pm\u20137pm. Book a table if you\u2019d like to eat.',
+      'Yes, our regular food menu is available earlier in the evening. Halloween falls on a Saturday in 2026, so the kitchen is open 1pm\u20137pm. Book a table if you\u2019d like to eat.',
   },
   {
     question: 'Is there parking?',
@@ -87,7 +87,7 @@ export default function HalloweenPage() {
               <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
                 Every year we go all out for Halloween at The Anchor. The pub gets fully decked out with
                 spooky decorations, the bar team put together a menu of themed cocktails and shots, and
-                fancy dress is very much encouraged (though never required &mdash; you won&apos;t be turned away
+                fancy dress is very much encouraged (though never required, you won&apos;t be turned away
                 in jeans).
               </p>
               <p className="text-anchor-cream-text/70 leading-relaxed">
@@ -105,7 +105,7 @@ export default function HalloweenPage() {
               <p className="text-anchor-cream-text/70 leading-relaxed">
                 Previous years have featured themed cocktails, spooky shots, and a few surprises behind
                 the bar. The music keeps things lively, and there are prizes for the best fancy dress
-                costume &mdash; so it&apos;s worth making an effort if you&apos;re the competitive type.
+                costume, so it&apos;s worth making an effort if you&apos;re the competitive type.
               </p>
               <p className="text-anchor-cream-text/70 leading-relaxed">
                 Our regular food menu is available earlier in the evening (kitchen closes at 7pm on
@@ -125,7 +125,7 @@ export default function HalloweenPage() {
                 Families Welcome
               </h2>
               <p className="text-anchor-cream-text/70 leading-relaxed">
-                Earlier in the evening &mdash; before about 8pm &mdash; Halloween at The Anchor is great
+                Earlier in the evening, before about 8pm, Halloween at The Anchor is great
                 for families. Kids in costume are very welcome, and the beer garden is perfect for
                 trick-or-treat age children. There&apos;s plenty of space to run around, and the decorations
                 are more fun than frightening.
@@ -141,7 +141,7 @@ export default function HalloweenPage() {
               <h2 className="text-2xl font-bold text-anchor-cream-text">Booking</h2>
               <p className="text-anchor-cream-text/70 leading-relaxed">
                 Walk-ins are welcome for drinks all evening. If you&apos;d like to eat, we recommend booking
-                a table &mdash; the kitchen is open 1pm&ndash;7pm on Saturdays.
+                a table, the kitchen is open 1pm&ndash;7pm on Saturdays.
               </p>
               <div className="flex flex-col gap-3 sm:flex-row">
                 <Button asChild variant="primary" size="lg" fullWidth className="w-full sm:w-auto sm:min-w-[220px]">
@@ -158,7 +158,7 @@ export default function HalloweenPage() {
                 </PhoneButton>
               </div>
               <p className="text-sm text-anchor-cream-text/70">
-                Tables for 8+ guests &mdash; please call.
+                Tables for 8+ guests, please call.
               </p>
             </div>
           </div>
@@ -202,7 +202,7 @@ export default function HalloweenPage() {
                   Where we are
                 </h2>
                 <p className="text-anchor-cream-text/70 leading-relaxed">
-                  The Anchor is in Stanwell Moor, Surrey (TW19 6AQ) &mdash; about {HEATHROW_TIMES.terminal5} minutes
+                  The Anchor is in Stanwell Moor, Surrey (TW19 6AQ), about {HEATHROW_TIMES.terminal5} minutes
                   from Heathrow Terminal 5, with free on-site parking.
                 </p>
                 <p className="text-anchor-cream-text/70">

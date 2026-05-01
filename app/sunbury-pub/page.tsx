@@ -110,7 +110,7 @@ export default function SunburyPubPage() {
                             }}
                             className="text-anchor-cream-text mb-4"
                         >
-                            Pubs in Sunbury &mdash; The Best Sunday Roast Near You
+                            Pubs in Sunbury, The Best Sunday Roast Near You
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">
                             Many Sunbury residents make the short drive to The Anchor for our famous Sunday lunches. If you&rsquo;re looking for pubs near Sunbury with quality food, better value, and easy parking, we tick every box.
@@ -208,10 +208,10 @@ export default function SunburyPubPage() {
                                 Sunbury&rsquo;s got a decent high street, but if you&rsquo;re after a proper independent pub rather than another chain, the options thin out quickly. That&rsquo;s why a growing number of Sunbury residents have made The Anchor their regular. The drive is dead simple: head up the A308 past Sunbury Cross, through Ashford, and pick up the A30 towards Stanwell Moor. You&rsquo;ll be with us in about 15 minutes, even on a busy day.
                             </p>
                             <p>
-                                Kempton Park regulars are some of our biggest fans. After a day at the races, the last thing you want is to fight through Sunbury traffic for an overpriced drink. Nip across to The Anchor instead &mdash; we&rsquo;re just off the A308, there&rsquo;s always parking, and you can settle into a proper pub with a pint to dissect the day&rsquo;s results. Race day Saturdays have become a bit of a tradition for a few Sunbury groups.
+                                Kempton Park regulars are some of our biggest fans. After a day at the races, the last thing you want is to fight through Sunbury traffic for an overpriced drink. Nip across to The Anchor instead, we&rsquo;re just off the A308, there&rsquo;s always parking, and you can settle into a proper pub with a pint to dissect the day&rsquo;s results. Race day Saturdays have become a bit of a tradition for a few Sunbury groups.
                             </p>
                             <p>
-                                If you&rsquo;re a Thames Path walker or you spend your weekends around Sunbury Lock, you&rsquo;ll know that the riverside pub options can be heaving in summer. We offer the same relaxed, outdoor-drinking atmosphere in our beer garden &mdash; minus the crowds, with the added entertainment of watching 747s float overhead on their way into Heathrow. It&rsquo;s quite the backdrop for a Sunday roast.
+                                If you&rsquo;re a Thames Path walker or you spend your weekends around Sunbury Lock, you&rsquo;ll know that the riverside pub options can be heaving in summer. We offer the same relaxed, outdoor-drinking atmosphere in our beer garden, minus the crowds, with the added entertainment of watching 747s float overhead on their way into Heathrow. It&rsquo;s quite the backdrop for a Sunday roast.
                             </p>
                             <p>
                                 We&rsquo;re also outside the ULEZ zone, which saves Sunbury drivers a few quid if they&rsquo;re coming from the London side. Free parking, no congestion charge worries, and proper pub prices that don&rsquo;t make you wince when you get to the bar. That&rsquo;s the deal.

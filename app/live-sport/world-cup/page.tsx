@@ -128,7 +128,7 @@ export default async function WorldCupPage() {
       <section className="bg-anchor-bg py-8">
         <Container>
           <div className="mx-auto max-w-5xl text-center">
-            <PageTitle className="mb-4 text-anchor-gold-vivid">World Cup Pub Near Me — Your Match Base Near Heathrow</PageTitle>
+            <PageTitle className="mb-4 text-anchor-gold-vivid">World Cup Pub Near Me, Your Match Base Near Heathrow</PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
               The FIFA World Cup 2026 runs from <strong>11 June to 19 July 2026</strong>. If you’re looking for a proper pub
               atmosphere near Heathrow ({HEATHROW_TIMES.terminal5} minutes from Terminal 5), you’re in the right place.
@@ -271,7 +271,7 @@ export default async function WorldCupPage() {
                 variant="warning"
                 title="Fixtures temporarily unavailable"
                 className="mx-auto max-w-2xl"
-                content="We’re having trouble loading the full match schedule right now. Please check back soon — in the meantime you can still book a table for any date."
+                content="We’re having trouble loading the full match schedule right now. Please check back soon, in the meantime you can still book a table for any date."
               />
             )}
           </div>
@@ -344,7 +344,7 @@ export default async function WorldCupPage() {
               <SectionHeader title="Food & Drink" subtitle="Settle in and make a day of it." className="mb-6 text-left" />
               <div className="prose text-anchor-cream-text/70">
                 <p>
-                  Proper pub classics, cold pints, and a friendly crowd — ideal for afternoon kick-offs or big evening games.
+                  Proper pub classics, cold pints, and a friendly crowd, ideal for afternoon kick-offs or big evening games.
                 </p>
                 <p>Kitchen is open during our opening hours (check the menu for current serving times).</p>
               </div>
@@ -376,7 +376,7 @@ export default async function WorldCupPage() {
                   <span>Free parking ({PARKING.capacity} spaces)</span>
                 </li>
                 <li className="flex gap-2">
-                  <span>Bus 442 (Staines Heathrow) stops outside — ask for The Anchor, Horton Road</span>
+                  <span>Bus 442 (Staines Heathrow) stops outside, ask for The Anchor, Horton Road</span>
                 </li>
               </ul>
               <div className="flex flex-wrap gap-4">
@@ -400,7 +400,7 @@ export default async function WorldCupPage() {
           />
           <div className="mx-auto max-w-5xl rounded-2xl bg-anchor-bg-raised p-8 ring-1 ring-anchor-gold/15">
             <p className="text-center text-sm text-anchor-cream-text/70">
-              Searching for “World Cup pub near me”? The Anchor is an easy drive from Heathrow hotels and nearby towns — with
+              Searching for “World Cup pub near me”? The Anchor is an easy drive from Heathrow hotels and nearby towns, with
               free parking on-site.
             </p>
             <div className="mt-6 flex flex-wrap justify-center gap-3">
@@ -439,7 +439,7 @@ export default async function WorldCupPage() {
               },
               {
                 question: 'Do you take deposits or minimum spend?',
-                answer: 'No — there are no deposits required and no minimum spend.',
+                answer: 'No, there are no deposits required and no minimum spend.',
               },
               {
                 question: 'How long do you hold tables?',
@@ -454,7 +454,7 @@ export default async function WorldCupPage() {
               {
                 question: 'Is the sound on?',
                 answer:
-                  'Yes — sound is on for all games we show. If a match clashes with another event, we may review the sound on the day.',
+                  'Yes, sound is on for all games we show. If a match clashes with another event, we may review the sound on the day.',
               },
               {
                 question: 'How many screens do you have?',
@@ -462,11 +462,11 @@ export default async function WorldCupPage() {
               },
               {
                 question: 'Are the kick-off times shown in UK time?',
-                answer: 'Yes — the fixtures list shows kick-off times in UK time (BST).',
+                answer: 'Yes, the fixtures list shows kick-off times in UK time (BST).',
               },
               {
                 question: 'Do you have parking and how do I get there?',
-                answer: `Yes — free on-site parking for guests (${PARKING.capacity} spaces). We’re ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5, and the 442 bus from Staines Heathrow stops outside.`,
+                answer: `Yes, free on-site parking for guests (${PARKING.capacity} spaces). We’re ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5, and the 442 bus from Staines Heathrow stops outside.`,
               },
             ]}
             className="mx-auto max-w-3xl bg-anchor-bg-raised"

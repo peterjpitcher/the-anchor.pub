@@ -24,7 +24,7 @@ const WEBSITE_ORIGIN = 'https://www.the-anchor.pub'
 
 // Mother's Day 2026 (15 March) is past at time of authoring. The page persists
 // for rolling SEO and Mother's Day 2027 (Sunday 14 March 2027). Copy describes
-// the post-launch walk-in model unconditionally — no date-aware switch needed
+// the post-launch walk-in model unconditionally, no date-aware switch needed
 // because no claim references a date before 17 May 2026. Keyword cluster
 // layered (per spec §8.6 + keyword plan): mothers day lunch near me,
 // mothers day sunday lunch near me, mothers day sunday lunch, mothers day pub
@@ -83,7 +83,7 @@ const eventDateShortStatic = new Date(MOTHERS_DAY_SERVICE_START_ISO).toLocaleDat
 
 const titleStatic = `Mother’s Day Lunch & Sunday Roast Near Staines | The Anchor`
 const descriptionStatic =
-  `Mother's Day lunch near me — Mother's Day Sunday roast at The Anchor near Staines. ` +
+  `Mother's Day lunch near me, Mother's Day Sunday roast at The Anchor near Staines. ` +
   `Served ${MOTHERS_DAY_SERVICE_WINDOW_LABEL} (last booking ${MOTHERS_DAY_LAST_BOOKING_LABEL}). ` +
   `Walk-ins welcome, booking recommended. From £${String(MOTHERS_DAY_ADULT_PRICE_LOW)}.`
 const keywordsStatic =
@@ -135,13 +135,13 @@ export default function MothersDayPage() {
       question: 'Where can I find a Mother’s Day Sunday lunch near me?',
       answer:
         `The Anchor in Stanwell Moor (TW19), close to Staines-upon-Thames and Heathrow Terminal 5. ` +
-        `Mother’s Day Sunday roast cooked from scratch — chicken, pork belly, vegetarian wellington — mains from £${String(MOTHERS_DAY_ADULT_PRICE_LOW)}. ` +
+        `Mother’s Day Sunday roast cooked from scratch, chicken, pork belly, vegetarian wellington, mains from £${String(MOTHERS_DAY_ADULT_PRICE_LOW)}. ` +
         `Walk-ins welcome 1pm–6pm, booking recommended.`
     },
     {
       question: 'Do I need to book for Mother’s Day?',
       answer:
-        `Walk-ins are welcome on Mother’s Day Sunday between 1pm and 6pm — no pre-order needed. Booking is still recommended, especially for groups, since Mother’s Day always books up quickly. ` +
+        `Walk-ins are welcome on Mother’s Day Sunday between 1pm and 6pm, no pre-order needed. Booking is still recommended, especially for groups, since Mother’s Day always books up quickly. ` +
         `Groups of 10 or more take a £10 per person deposit on booking, fully deducted from the bill on the day.`
     },
     {
@@ -157,7 +157,7 @@ export default function MothersDayPage() {
     {
       question: 'Do you have vegetarian or vegan options?',
       answer:
-        'Yes — vegetarian and vegan options are available, including a dedicated vegan main. Vegetarian and vegan dishes are served with vegetarian gravy. Please mention dietary requirements when booking.'
+        'Yes, vegetarian and vegan options are available, including a dedicated vegan main. Vegetarian and vegan dishes are served with vegetarian gravy. Please mention dietary requirements when booking.'
     },
     {
       question: 'Where is The Anchor and is there parking?',
@@ -175,7 +175,7 @@ export default function MothersDayPage() {
     description:
       `Mother’s Day Sunday lunch near Staines at The Anchor in Stanwell Moor (TW19), close to Heathrow Terminal 5. ` +
       `Serving ${MOTHERS_DAY_SERVICE_WINDOW_LABEL} (last table booking ${MOTHERS_DAY_LAST_BOOKING_LABEL}). ` +
-      `No set sittings — walk in or book ahead. ` +
+      `No set sittings, walk in or book ahead. ` +
       `Adults mains £${String(MOTHERS_DAY_ADULT_PRICE_LOW)}–£${String(MOTHERS_DAY_ADULT_PRICE_HIGH)}; ` +
       `kids roast from £${String(MOTHERS_DAY_KIDS_ROAST_PRICE)}. Vegetarian and vegan options available, ` +
       `served with vegetarian gravy.`,
@@ -279,7 +279,7 @@ export default function MothersDayPage() {
                   <p className="text-sm font-semibold uppercase tracking-wide text-anchor-cream-text/70">Serving times</p>
                   <p className="text-lg font-bold text-anchor-gold-vivid">{MOTHERS_DAY_SERVICE_WINDOW_LABEL}</p>
                   <p className="text-sm text-anchor-cream-text/70">
-                    Last table booking: {MOTHERS_DAY_LAST_BOOKING_LABEL}. No set sittings — book the time that suits you, or just walk in.
+                    Last table booking: {MOTHERS_DAY_LAST_BOOKING_LABEL}. No set sittings, book the time that suits you, or just walk in.
                   </p>
                 </div>
 
@@ -302,7 +302,7 @@ export default function MothersDayPage() {
                 <div className="space-y-2">
                   <p className="text-sm font-semibold uppercase tracking-wide text-anchor-cream-text/70">Booking</p>
                   <p className="text-sm text-anchor-cream-text/70">
-                    Mother’s Day always books up quickly, so booking ahead is recommended. Walk-ins are welcome — no pre-order needed.
+                    Mother’s Day always books up quickly, so booking ahead is recommended. Walk-ins are welcome, no pre-order needed.
                   </p>
                 </div>
 
@@ -328,11 +328,11 @@ export default function MothersDayPage() {
               <LaunchAnnouncement variant="banner" />
               <div>
                 <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">
-                  Mother&rsquo;s Day Pub Lunch — What to Expect
+                  Mother&rsquo;s Day Pub Lunch, What to Expect
                 </h2>
                 <p className="mt-4 text-anchor-cream-text/70 text-lg leading-relaxed">
                   Make Mother&apos;s Day easy. Join us at The Anchor in Stanwell Moor (TW19) for a relaxed, cooked-from-scratch Mother&apos;s Day Sunday lunch
-                  where Mum can properly switch off and enjoy being looked after — near{' '}
+                  where Mum can properly switch off and enjoy being looked after, near{' '}
                   <Link
                     href="/staines-pub"
                     className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted"
@@ -363,7 +363,7 @@ export default function MothersDayPage() {
                   and kids roast is available from <span className="font-semibold">£{String(MOTHERS_DAY_KIDS_ROAST_PRICE)}</span>.
                 </p>
                 <p className="mt-3 text-anchor-cream-text/70 leading-relaxed">
-                  There are no set sittings. Walk in or book a time that suits you within the service window — either way, enjoy your meal at a comfortable pace.
+                  There are no set sittings. Walk in or book a time that suits you within the service window, either way, enjoy your meal at a comfortable pace.
                 </p>
 
                 <div className="mt-6 rounded-2xl bg-anchor-bg-raised p-6 border border-anchor-gold/15">
@@ -422,7 +422,7 @@ export default function MothersDayPage() {
                     </li>
                     <li className="flex gap-2">
                       <span className="text-anchor-gold">•</span>
-                      <span>Walk-ins welcome — no pre-order needed.</span>
+                      <span>Walk-ins welcome, no pre-order needed.</span>
                     </li>
                     <li className="flex gap-2">
                       <span className="text-anchor-gold">•</span>
@@ -516,10 +516,10 @@ export default function MothersDayPage() {
             <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
               Mother&rsquo;s Day Lunch is on <span className="font-semibold">{eventDateText}</span> at The Anchor in Stanwell Moor (TW19), near Staines-upon-Thames.
               Serving <span className="font-semibold">{MOTHERS_DAY_SERVICE_WINDOW_LABEL}</span> (last table booking <span className="font-semibold">{MOTHERS_DAY_LAST_BOOKING_LABEL}</span>).
-              Walk in or book ahead — Mother&rsquo;s Day always books up quickly, so booking is recommended.
+              Walk in or book ahead, Mother&rsquo;s Day always books up quickly, so booking is recommended.
             </p>
             <p className="text-sm text-anchor-cream-text/70">
-              Walk-ins welcome on Sundays 1pm–6pm — no pre-order needed. Groups of 10 or more take a £10 per person deposit on booking, fully deducted from the bill on the day. Please add dietary requirements when booking.
+              Walk-ins welcome on Sundays 1pm–6pm, no pre-order needed. Groups of 10 or more take a £10 per person deposit on booking, fully deducted from the bill on the day. Please add dietary requirements when booking.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <BookTableButton
@@ -584,7 +584,7 @@ export default function MothersDayPage() {
             <div className="space-y-4">
               <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">Where we are</h2>
               <p className="text-anchor-cream-text/70 leading-relaxed">
-                The Anchor is in Stanwell Moor, Surrey (TW19 6AQ) — close to Heathrow and easy to reach from Staines-upon-Thames,
+                The Anchor is in Stanwell Moor, Surrey (TW19 6AQ), close to Heathrow and easy to reach from Staines-upon-Thames,
                 with free parking available on site. If you&rsquo;re searching for a Mother&apos;s Day lunch near me, this is the easy option.
               </p>
               <p className="text-anchor-cream-text/70">

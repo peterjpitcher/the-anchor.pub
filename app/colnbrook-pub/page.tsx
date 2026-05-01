@@ -112,7 +112,7 @@ export default function ColnbrookPubPage() {
                             Minutes from Poyle Industrial Estate & Colnbrook
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">
-                            Finish your shift and relax. If you are looking for pubs in Colnbrook, we are the go-to spot for businesses in Poyle and residents alike — quality food and a great atmosphere guaranteed.
+                            Finish your shift and relax. If you are looking for pubs in Colnbrook, we are the go-to spot for businesses in Poyle and residents alike, quality food and a great atmosphere guaranteed.
                         </p>
                     </div>
                 </Container>
@@ -206,11 +206,11 @@ export default function ColnbrookPubPage() {
                         <div className="prose prose-invert max-w-none text-anchor-cream-text/70 space-y-4">
                             <p>
                                 The Poyle and Colnbrook industrial estates employ thousands of people in logistics, air
-                                cargo, and aviation services — from DHL and FedEx warehouses to smaller freight
+                                cargo, and aviation services, from DHL and FedEx warehouses to smaller freight
                                 forwarders lining the Colnbrook bypass. When the shift ends, options are slim. A few
                                 takeaways on Colnbrook High Street, the odd cafe that closes at four, and not much else.
-                                The Anchor is straight down the bypass and along Horton Road — five to seven minutes,
-                                no motorway required — and it is the closest proper pub with a full kitchen and real
+                                The Anchor is straight down the bypass and along Horton Road, five to seven minutes,
+                                no motorway required, and it is the closest proper pub with a full kitchen and real
                                 ales on tap.
                             </p>
                             <p>

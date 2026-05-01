@@ -28,7 +28,7 @@ images: []
 noindex: true
 ---
 
-**Update: The buy-one-get-one-free pizza deal described below is no longer available.** We still serve our delicious stone-baked pizzas every week — [check our current menu](/food-menu) for the latest prices and offers.
+**Update: The buy-one-get-one-free pizza deal described below is no longer available.** We still serve our delicious stone-baked pizzas every week, [check our current menu](/food-menu) for the latest prices and offers.
 
 ---
 

@@ -34,7 +34,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const sundayPhrase = sundayMenu.menuData
     ? ' Sunday lunch menu details are loaded live.'
     : ' Sunday lunch details are available on request.'
-  const description = `Reserve your table at The Anchor, Stanwell Moor — instant confirmation.${foodPhrase}${sundayPhrase} Dog-friendly, free parking, 7 mins from T5.`
+  const description = `Reserve your table at The Anchor, Stanwell Moor, instant confirmation.${foodPhrase}${sundayPhrase} Dog-friendly, free parking, 7 mins from T5.`
 
   return {
     title: 'Book a Table Near Heathrow | Sunday Roast',
@@ -387,7 +387,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
           <p className="text-2xl text-anchor-cream-text/80 italic leading-relaxed">
             &ldquo;Lovely pub, great food, friendly staff. We stopped in on our way to Heathrow and wished we&apos;d found it sooner. Will definitely be back.&rdquo;
           </p>
-          <p className="mt-4 text-sm text-anchor-cream-text/50">&mdash; Google Review, rated 5/5</p>
+          <p className="mt-4 text-sm text-anchor-cream-text/50">, Google Review, rated 5/5</p>
         </div>
       </Section>
 
@@ -401,7 +401,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
         <div className="max-w-2xl mx-auto">
           <div className="prose prose-invert max-w-none text-anchor-cream-text/70 space-y-4">
             <p>
-              The Anchor Pub is on Horton Road, Stanwell Moor, Surrey, TW19 6AQ &mdash; just 2 minutes from M25 Junction 14 and 7 minutes from Heathrow Terminal 5. Whether you&apos;re booking a pub table near Heathrow for a pre-flight meal, a layover lunch, or a restaurant reservation near Heathrow for a special evening, we&apos;re easy to reach from all directions.
+              The Anchor Pub is on Horton Road, Stanwell Moor, Surrey, TW19 6AQ, just 2 minutes from M25 Junction 14 and 7 minutes from Heathrow Terminal 5. Whether you&apos;re booking a pub table near Heathrow for a pre-flight meal, a layover lunch, or a restaurant reservation near Heathrow for a special evening, we&apos;re easy to reach from all directions.
             </p>
             <p>
               We have 20 free on-site parking spaces with CCTV and floodlighting. No meters, no time limits while you&apos;re dining. The car park has a level surface with step-free access to the bar and dining area.
@@ -424,7 +424,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
         faqs={[
           {
             question: 'Do I need to book in advance?',
-            answer: 'Walk-ins are welcome when tables are available. We still recommend booking ahead for larger groups and busy weekend evenings — booking takes under a minute online and guarantees your table.'
+            answer: 'Walk-ins are welcome when tables are available. We still recommend booking ahead for larger groups and busy weekend evenings, booking takes under a minute online and guarantees your table.'
           },
           {
             question: 'Is there a deposit required?',
@@ -432,7 +432,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
           },
           {
             question: 'Can I book for a special occasion?',
-            answer: 'Yes — we love hosting birthdays, anniversaries, and celebrations. Use the notes field when booking to let us know, or call us on 01753 682707 to discuss any special arrangements.'
+            answer: 'Yes, we love hosting birthdays, anniversaries, and celebrations. Use the notes field when booking to let us know, or call us on 01753 682707 to discuss any special arrangements.'
           },
           {
             question: 'Do you cater for dietary requirements?',
@@ -448,7 +448,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
           },
           {
             question: 'Is The Anchor dog-friendly?',
-            answer: 'Yes — dogs are welcome both inside the pub and in the beer garden. We have water bowls available and our team love a visit from a four-legged friend. Just mention it when you book if you\'re bringing a dog.'
+            answer: 'Yes, dogs are welcome both inside the pub and in the beer garden. We have water bowls available and our team love a visit from a four-legged friend. Just mention it when you book if you\'re bringing a dog.'
           },
           {
             question: 'Can I book for a Heathrow layover meal?',

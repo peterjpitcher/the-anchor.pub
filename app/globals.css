@@ -155,7 +155,7 @@ body {
   background: #0c1d11;
 }
 
-/* Fixed grain overlay — cinematic film texture */
+/* Fixed grain overlay, cinematic film texture */
 body::before {
   content: '';
   position: fixed;

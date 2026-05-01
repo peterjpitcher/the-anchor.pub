@@ -232,7 +232,7 @@ export default async function FoodMenuPage() {
 
       <HeroWrapper
         route="/food-menu"
-        title="Where to Eat Near Heathrow Airport — Our Menu"
+        title="Where to Eat Near Heathrow Airport, Our Menu"
         description="Current dishes, descriptions and prices from the latest kitchen menu."
         variant="default"
         breadcrumbs={[{ name: 'Food & Drink' }]}
@@ -275,7 +275,7 @@ export default async function FoodMenuPage() {
             <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Rated 4.6/5 on Google</span>
             {kitchenStatusData && kitchenStatusData.type === 'closing-soon' && (
               <span className="flex items-center gap-1.5 text-amber-300 font-medium">
-                Kitchen closes at {kitchenStatusData.closesAt} — book now
+                Kitchen closes at {kitchenStatusData.closesAt}, book now
               </span>
             )}
             {kitchenStatusData && kitchenStatusData.type === 'opens-later' && (
@@ -460,7 +460,7 @@ export default async function FoodMenuPage() {
                 <ul className="space-y-3 text-anchor-cream-text/70">
                   {itemPreview(menuData.items, 5).map((item) => (
                     <li key={item.id}>
-                      &bull; <strong>{item.name}</strong>{item.description ? ` — ${item.description}` : ''} {item.priceLabel && <span>{item.priceLabel}</span>}
+                      &bull; <strong>{item.name}</strong>{item.description ? `, ${item.description}` : ''} {item.priceLabel && <span>{item.priceLabel}</span>}
                     </li>
                   ))}
                 </ul>
@@ -596,7 +596,7 @@ export default async function FoodMenuPage() {
             {
               '@context': 'https://schema.org',
               '@type': 'WebPage',
-              name: 'Food Menu — The Anchor Near Heathrow',
+              name: 'Food Menu, The Anchor Near Heathrow',
               description: 'Food menu near Heathrow Airport from The Anchor.',
               url: 'https://www.the-anchor.pub/food-menu',
               mainEntity: { '@id': 'https://www.the-anchor.pub/food-menu#menu' }

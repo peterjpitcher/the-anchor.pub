@@ -44,7 +44,7 @@ describe('SundayLunchMenuList', () => {
   it('does not render any clickable rows or buttons', () => {
     render(<SundayLunchMenuList items={ITEMS} />)
 
-    // Menu rows must be plain list items — no buttons, no links.
+    // Menu rows must be plain list items, no buttons, no links.
     expect(screen.queryAllByRole('button')).toHaveLength(0)
     expect(screen.queryAllByRole('link')).toHaveLength(0)
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()

@@ -36,13 +36,13 @@ noindex: true
 
 ## Introduction
 
-Nestled in the heart of Stanwell Moor Village, The Anchor has been a cornerstone of our community since 1751. For generations, we have served as a welcoming space where locals and travellers alike can enjoy good food, great company, and a warm atmosphere. But as much as we value our rich history, we are also committed to the future—especially when it comes to sustainability. Recognised as a [BII Sustainability Champion](https://www.bii.org/BII/Events-Awards/Sustainability-Champion-Articles/The-Anchor.aspx), The Anchor is proud to lead the way in sustainable practices, blending tradition with innovation to create a lasting positive impact on both our community and the environment.
+Nestled in the heart of Stanwell Moor Village, The Anchor has been a cornerstone of our community since 1751. For generations, we have served as a welcoming space where locals and travellers alike can enjoy good food, great company, and a warm atmosphere. But as much as we value our rich history, we are also committed to the future, especially when it comes to sustainability. Recognised as a [BII Sustainability Champion](https://www.bii.org/BII/Events-Awards/Sustainability-Champion-Articles/The-Anchor.aspx), The Anchor is proud to lead the way in sustainable practices, blending tradition with innovation to create a lasting positive impact on both our community and the environment.
 
   
 
 ## The Importance of Sustainability in the Hospitality Industry
 
-In today’s world, sustainability is no longer a luxury—it’s a necessity. The hospitality industry, in particular, plays a crucial role in shaping sustainable practices, as it directly influences both local communities and global environmental health. At The Anchor, we believe that embracing sustainability is not just about reducing our carbon footprint; it’s about setting an example for others to follow. By adopting environmentally friendly practices, we not only help preserve our planet but also enhance the experience we offer to our customers, ensuring that The Anchor remains a beloved fixture in our community for generations to come.
+In today’s world, sustainability is no longer a luxury, it’s a necessity. The hospitality industry, in particular, plays a crucial role in shaping sustainable practices, as it directly influences both local communities and global environmental health. At The Anchor, we believe that embracing sustainability is not just about reducing our carbon footprint; it’s about setting an example for others to follow. By adopting environmentally friendly practices, we not only help preserve our planet but also enhance the experience we offer to our customers, ensuring that The Anchor remains a beloved fixture in our community for generations to come.
 
   
 
@@ -70,13 +70,13 @@ At The Anchor, we believe that sustainability extends to every aspect of our ope
 
 ### Honey Bee Mine Campaign
 
-Sustainability is not just about what we do within our pub—it’s also about how we engage with our community. One of our most successful initiatives has been the "Honey Bee Mine" campaign, which encouraged local residents to plant pollinator-friendly seeds in their gardens. This initiative aimed to enhance the local environment, support biodiversity, and bring our community together in a shared effort to create a more beautiful, sustainable village. The response was overwhelmingly positive, with many residents participating and taking pride in contributing to a greener future.
+Sustainability is not just about what we do within our pub, it’s also about how we engage with our community. One of our most successful initiatives has been the "Honey Bee Mine" campaign, which encouraged local residents to plant pollinator-friendly seeds in their gardens. This initiative aimed to enhance the local environment, support biodiversity, and bring our community together in a shared effort to create a more beautiful, sustainable village. The response was overwhelmingly positive, with many residents participating and taking pride in contributing to a greener future.
 
   
 
 ### Earth Day Initiatives
 
-In addition to the Honey Bee Mine campaign, The Anchor has also led community-driven environmental initiatives, such as our Earth Day event. This event saw local businesses and residents come together to clean up Stanwell Moor Village, collecting nearly 75 bags of rubbish and significantly improving the aesthetics and environmental health of our community. The event was more than just a cleanup—it was a demonstration of the power of collective action and a celebration of our shared commitment to preserving our environment.
+In addition to the Honey Bee Mine campaign, The Anchor has also led community-driven environmental initiatives, such as our Earth Day event. This event saw local businesses and residents come together to clean up Stanwell Moor Village, collecting nearly 75 bags of rubbish and significantly improving the aesthetics and environmental health of our community. The event was more than just a cleanup, it was a demonstration of the power of collective action and a celebration of our shared commitment to preserving our environment.
 
   
 
@@ -94,7 +94,7 @@ We invite our customers and community members to join us on this journey. Whethe
 
   
 
-At The Anchor, sustainability is not just a practise—it’s a core value that shapes every aspect of our business. By combining tradition with innovation, we strive to create a pub that not only honours its historical roots but also looks to the future with a commitment to environmental stewardship. We are excited to continue this journey, and we thank our customers, community, and partners for their ongoing support. Together, we can make a lasting difference, one pint at a time.
+At The Anchor, sustainability is not just a practise, it’s a core value that shapes every aspect of our business. By combining tradition with innovation, we strive to create a pub that not only honours its historical roots but also looks to the future with a commitment to environmental stewardship. We are excited to continue this journey, and we thank our customers, community, and partners for their ongoing support. Together, we can make a lasting difference, one pint at a time.
 
   
 

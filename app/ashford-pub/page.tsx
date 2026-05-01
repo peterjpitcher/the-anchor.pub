@@ -527,7 +527,7 @@ export default function AshfordPubPage() {
             <div className="prose prose-invert max-w-none text-anchor-cream-text/70 space-y-4">
               <p>
                 Ashford Middlesex is closer to The Anchor than most people realise. Head west on the A30 past Clockhouse
-                Roundabout, follow it for a couple of miles, and turn right onto Horton Road — eight to ten minutes
+                Roundabout, follow it for a couple of miles, and turn right onto Horton Road, eight to ten minutes
                 door to door. You cross the dual carriageway and suddenly you are in a proper village setting with
                 fields, a church, and a pub that has been pouring pints since 1751. If you are searching for pubs in Ashford
                 that offer something beyond the usual high-street chains, the short drive is well worth it.

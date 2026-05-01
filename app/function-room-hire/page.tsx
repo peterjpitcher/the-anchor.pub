@@ -81,7 +81,7 @@ export default function FunctionRoomHirePage() {
       <HeroWrapper
         showContextStrip={true}
         route="/function-room-hire"
-        title="Function Room Hire — 10-50 Guests, Larger Events by Enquiry"
+        title="Function Room Hire, 10-50 Guests, Larger Events by Enquiry"
         description="Ground-floor rooms with 6 layout options, AV equipment, climate control and wheelchair access. Free parking included."
 
         tags={[
@@ -597,8 +597,8 @@ export default function FunctionRoomHirePage() {
             <div className="rounded-xl bg-anchor-bg-raised border border-anchor-gold/15 p-5 mb-6">
               <h3 className="font-semibold text-anchor-gold-vivid mb-3">Which space suits your event?</h3>
               <ul className="space-y-2 text-sm text-anchor-cream-text/70">
-                <li>• <strong>10-50 guests</strong> — our private dining room, ideal for dinners and celebrations</li>
-                <li>• <strong>50+ guests</strong> — larger room, garden or full venue hire by enquiry</li>
+                <li>• <strong>10-50 guests</strong>, our private dining room, ideal for dinners and celebrations</li>
+                <li>• <strong>50+ guests</strong>, larger room, garden or full venue hire by enquiry</li>
               </ul>
             </div>
             <div className="mb-6">
@@ -634,7 +634,7 @@ export default function FunctionRoomHirePage() {
           },
           {
             question: "How does your venue hire pricing work?",
-            answer: "Venue hire is charged at an hourly rate — from £25/hr for our private dining room. Rates vary by day, time, and the space required. Catering and drinks are quoted separately. Contact us for a personalised quote tailored to your event."
+            answer: "Venue hire is charged at an hourly rate, from £25/hr for our private dining room. Rates vary by day, time, and the space required. Catering and drinks are quoted separately. Contact us for a personalised quote tailored to your event."
           },
           {
             question: "Can I view the function rooms before booking?",

@@ -29,9 +29,9 @@ Searching for the **best Tuesday pizza deals near Heathrow**? Every Tuesday from
 ## What Makes Pizza Tuesday Unbeatable
 
 ### Buy One Pizza, Get One Free (All Night)
-- Offer runs **every Tuesday** during kitchen hours—no vouchers or app required.
+- Offer runs **every Tuesday** during kitchen hours, no vouchers or app required.
 - Applies to the **entire pizza menu**, including vegetarian and gluten-friendly bases.
-- Order multiple rounds and the offer keeps stacking—perfect for groups and parties.
+- Order multiple rounds and the offer keeps stacking, perfect for groups and parties.
 
 ### Quality Ingredients, Authentic Flavour
 - Dough made fresh daily with Italian flour.
@@ -53,19 +53,19 @@ Searching for the **best Tuesday pizza deals near Heathrow**? Every Tuesday from
 | BBQ Smokehouse | Pulled chicken, red onion, BBQ glaze | IPA |
 | Vegan Napoli (Ve) | Vegan mozzarella, capers, artichokes | Elderflower fizz |
 
-> **Tip:** Add garlic bread or our chilli honey dip and the free pizza still applies—just pay for the extras.
+> **Tip:** Add garlic bread or our chilli honey dip and the free pizza still applies, just pay for the extras.
 
 ## How to Plan Your Tuesday Visit
 
 1. **Book a table** via [our booking page](/book-table) or WhatsApp **+44 1753 682707**.
 2. Select “Pizza Tuesday” so the team reserves ovens & dough for your party.
 3. For 6+ guests, we’ll touch base ahead of time so the kitchen can pace service for your group.
-4. Arriving from Heathrow? Allow 10 minutes from T5, 15 minutes from T2/T3 traffic permitting—or follow our [Heathrow layover dining guide](/heathrow-layover-dining) for timed itineraries and taxi tips.
+4. Arriving from Heathrow? Allow 10 minutes from T5, 15 minutes from T2/T3 traffic permitting, or follow our [Heathrow layover dining guide](/heathrow-layover-dining) for timed itineraries and taxi tips.
 
 ## FAQs About Our Pizza Deal
 
 ### Can I take leftovers home?
-Yes! We provide takeaway boxes—just ask your server. **Update:** The BOGOF deal is no longer available. Please check our current menu and offers at the pub or on our website.
+Yes! We provide takeaway boxes, just ask your server. **Update:** The BOGOF deal is no longer available. Please check our current menu and offers at the pub or on our website.
 
 ### Do you cater for gluten-free?
 We offer gluten-friendly bases; mention when booking to guarantee availability.

@@ -104,7 +104,7 @@ Originally a day for spiritual renewal and offering prayers for missionaries wor
 
 ### Traditional Irish Menu
 
-Join us for Irish-themed food specials alongside our regular menu (availability varies — ask the team on the day).
+Join us for Irish-themed food specials alongside our regular menu (availability varies, ask the team on the day).
 
 ### Drinks Specials
 

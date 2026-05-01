@@ -13,7 +13,7 @@
  * Strategy:
  *   - Eager-load every concrete (non-pattern) redirect rule into a `Map` keyed by
  *     source path.
- *   - Skip rules whose `source` contains `:` `*` or `(` — those are pattern rules
+ *   - Skip rules whose `source` contains `:` `*` or `(`, those are pattern rules
  *     handled exclusively by Next.js.
  *   - Middleware can then resolve `path -> destination` in O(1) and apply both
  *     host change and path change in a single 301 response.

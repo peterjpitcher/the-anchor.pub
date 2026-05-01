@@ -59,12 +59,12 @@ export default function EasterPage() {
       question: 'What are your Easter opening hours?',
       answer:
         'We’re open throughout the Easter weekend. Good Friday through Easter Sunday: normal hours with full kitchen service. ' +
-        'Easter Monday: open for drinks only — the kitchen is closed on Mondays, including bank holidays.'
+        'Easter Monday: open for drinks only, the kitchen is closed on Mondays, including bank holidays.'
     },
     {
       question: 'Do I need to book for Easter Sunday lunch?',
       answer:
-        'Walk-ins are welcome on Easter Sunday between 1pm and 6pm — no pre-order needed. Booking is still recommended for groups, especially for parties of six or more. ' +
+        'Walk-ins are welcome on Easter Sunday between 1pm and 6pm, no pre-order needed. Booking is still recommended for groups, especially for parties of six or more. ' +
         'Groups of 10 or more take a £10 per person deposit on booking, fully deducted from the bill on the day.'
     },
     {
@@ -76,13 +76,13 @@ export default function EasterPage() {
     {
       question: 'What’s on the Easter menu?',
       answer:
-        'Our Easter Sunday menu is the same as our regular Sunday roast — choose from chicken, pork belly, or a vegetarian option. ' +
+        'Our Easter Sunday menu is the same as our regular Sunday roast, choose from chicken, pork belly, or a vegetarian option. ' +
         'Mains start from £19. All served with roast potatoes, seasonal vegetables, Yorkshire pudding and gravy.'
     },
     {
       question: 'Is there parking?',
       answer:
-        `Yes — we have ${20} free parking spaces on site. No meters, no charges. ` +
+        `Yes, we have ${20} free parking spaces on site. No meters, no charges. ` +
         `We’re about ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 by car.`
     }
   ]
@@ -153,7 +153,7 @@ export default function EasterPage() {
         route="/easter"
         title="Easter at The Anchor"
         description={
-          `Gather the family for a proper Easter Sunday roast at The Anchor in Stanwell Moor — ` +
+          `Gather the family for a proper Easter Sunday roast at The Anchor in Stanwell Moor, ` +
           `cooked from scratch, served ${EASTER_SUNDAY_SERVICE_WINDOW}, with free parking and a dog-friendly beer garden.`
         }
         eyebrow={EASTER_SUNDAY_LABEL}
@@ -180,7 +180,7 @@ export default function EasterPage() {
             </h2>
             <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
               Easter Sunday is one of those meals that deserves a proper table. Join us at The Anchor for a traditional roast
-              cooked from scratch &mdash; the kind of lunch that marks the start of spring and brings the whole family together.
+              cooked from scratch, the kind of lunch that marks the start of spring and brings the whole family together.
             </p>
             <p className="text-anchor-cream-text/70 leading-relaxed">
               Choose from chicken, pork belly, or a vegetarian option, all served with golden roast potatoes,
@@ -190,7 +190,7 @@ export default function EasterPage() {
             <p className="text-anchor-cream-text/70 leading-relaxed">
               We serve from <span className="font-semibold">1pm</span> to <span className="font-semibold">6pm</span>,
               with the last table booking at <span className="font-semibold">{EASTER_SUNDAY_LAST_BOOKING}</span>.
-              No set sittings &mdash; book a time that suits you and enjoy your meal at a comfortable pace.
+              No set sittings, book a time that suits you and enjoy your meal at a comfortable pace.
             </p>
 
             <div className="rounded-2xl bg-anchor-bg-raised p-6 border border-anchor-gold/15">
@@ -198,7 +198,7 @@ export default function EasterPage() {
               <ul className="mt-3 space-y-2 text-sm text-anchor-cream-text/70">
                 <li className="flex gap-2">
                   <span className="text-anchor-gold">&bull;</span>
-                  <span>Walk-ins are welcome between <span className="font-semibold">1pm and 6pm</span> &mdash; no pre-order needed.</span>
+                  <span>Walk-ins are welcome between <span className="font-semibold">1pm and 6pm</span>, no pre-order needed.</span>
                 </li>
                 <li className="flex gap-2">
                   <span className="text-anchor-gold">&bull;</span>
@@ -288,7 +288,7 @@ export default function EasterPage() {
             </h2>
             <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
               April is when our beer garden really comes alive. The sun&apos;s out, the first spring flowers are up,
-              and a plane passes overhead every 90 seconds or so &mdash; which, as it turns out, is surprisingly entertaining
+              and a plane passes overhead every 90 seconds or so, which, as it turns out, is surprisingly entertaining
               with a drink in hand.
             </p>
             <p className="text-anchor-cream-text/70 leading-relaxed">
@@ -315,12 +315,12 @@ export default function EasterPage() {
             <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
               Easter at The Anchor is about good food and family time. A proper roast that someone else cooks
               and clears up, a garden the kids can explore, and the novelty of watching planes come in low
-              over your table &mdash; something that never quite gets old, even for the grown-ups.
+              over your table, something that never quite gets old, even for the grown-ups.
             </p>
             <p className="text-anchor-cream-text/70 leading-relaxed">
               With free parking on site and just {HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5,
               it&apos;s easy to get to and easy to leave when the little ones have had enough.
-              No rush, no fuss &mdash; just a relaxed Easter Sunday with the people who matter.
+              No rush, no fuss, just a relaxed Easter Sunday with the people who matter.
             </p>
           </div>
         </Container>
@@ -335,7 +335,7 @@ export default function EasterPage() {
               Easter Sunday lunch is on <span className="font-semibold">{EASTER_SUNDAY_LABEL}</span>. Serving{' '}
               <span className="font-semibold">{EASTER_SUNDAY_SERVICE_WINDOW}</span> (last booking{' '}
               <span className="font-semibold">{EASTER_SUNDAY_LAST_BOOKING}</span>).
-              Walk in or book ahead &mdash; deposits only apply to groups of 10 or more.
+              Walk in or book ahead, deposits only apply to groups of 10 or more.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <BookTableButton
@@ -379,7 +379,7 @@ export default function EasterPage() {
             <div className="space-y-4">
               <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">Where we are</h2>
               <p className="text-anchor-cream-text/70 leading-relaxed">
-                The Anchor is in Stanwell Moor, Surrey (TW19 6AQ) &mdash; close to Heathrow and easy to reach from{' '}
+                The Anchor is in Stanwell Moor, Surrey (TW19 6AQ), close to Heathrow and easy to reach from{' '}
                 <Link href="/staines-pub" className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted">
                   Staines-upon-Thames
                 </Link>

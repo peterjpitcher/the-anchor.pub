@@ -61,7 +61,7 @@ export default function NewYearsEvePage(): React.JSX.Element {
     {
       question: 'Is there parking?',
       answer:
-        'Yes. We have 20 free parking spaces on site — ideal for designated drivers. If you are drinking, taxis are easy to arrange for the short trip back to local hotels or home.',
+        'Yes. We have 20 free parking spaces on site, ideal for designated drivers. If you are drinking, taxis are easy to arrange for the short trip back to local hotels or home.',
     },
   ]
 
@@ -91,12 +91,12 @@ export default function NewYearsEvePage(): React.JSX.Element {
             </h2>
             <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
               Forget the overpriced city centre bars and the nightmare of getting home afterwards. New Year&apos;s Eve
-              at The Anchor is a proper celebration in a proper village pub — midnight countdown, party atmosphere,
+              at The Anchor is a proper celebration in a proper village pub, midnight countdown, party atmosphere,
               and you can actually get served at the bar.
             </p>
             <p className="text-anchor-cream-text/70 leading-relaxed">
               We put on live entertainment every New Year&apos;s Eve, keep the drinks flowing, and make sure
-              everyone has a brilliant night. The atmosphere is always spot on — lively enough to feel like a
+              everyone has a brilliant night. The atmosphere is always spot on, lively enough to feel like a
               real party, small enough that you&apos;re not queuing for everything.
             </p>
             <div className="flex flex-wrap items-center gap-3">
@@ -118,7 +118,7 @@ export default function NewYearsEvePage(): React.JSX.Element {
             </h2>
             <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
               No &pound;80 taxi home. No surge pricing. No spending half the night in a queue. Just a village pub
-              that knows how to throw a party — with 20 free parking spaces right outside for whoever&apos;s
+              that knows how to throw a party, with 20 free parking spaces right outside for whoever&apos;s
               driving.
             </p>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -126,7 +126,7 @@ export default function NewYearsEvePage(): React.JSX.Element {
                 <CardBody className="space-y-2 p-6">
                   <h3 className="text-lg font-semibold text-anchor-gold-vivid">Free parking</h3>
                   <p className="text-sm text-anchor-cream-text/70">
-                    20 free spaces on site. Your designated driver parks for free, or grab an easy taxi home —
+                    20 free spaces on site. Your designated driver parks for free, or grab an easy taxi home,
                     no surge pricing out here.
                   </p>
                 </CardBody>
@@ -136,7 +136,7 @@ export default function NewYearsEvePage(): React.JSX.Element {
                   <h3 className="text-lg font-semibold text-anchor-gold-vivid">Actually get a drink</h3>
                   <p className="text-sm text-anchor-cream-text/70">
                     Unlike packed city bars, you can actually get to our bar. Craft beer, cocktails, champagne for
-                    the midnight toast — all without the 20-minute queue.
+                    the midnight toast, all without the 20-minute queue.
                   </p>
                 </CardBody>
               </Card>
@@ -171,7 +171,7 @@ export default function NewYearsEvePage(): React.JSX.Element {
               Food &amp; drink
             </h2>
             <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
-              We typically serve food earlier in the evening on New Year&apos;s Eve — a chance to eat well
+              We typically serve food earlier in the evening on New Year&apos;s Eve, a chance to eat well
               before the party gets going. Whether it&apos;s from our regular menu or a special NYE menu,
               you&apos;ll want to book your table if you&apos;re planning to dine.
             </p>
@@ -219,7 +219,7 @@ export default function NewYearsEvePage(): React.JSX.Element {
             </h2>
             <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
               We typically have a late licence on New Year&apos;s Eve, staying open until at least 1am so you
-              can properly see in the New Year. Walk-ins are possible, but booking is strongly recommended —
+              can properly see in the New Year. Walk-ins are possible, but booking is strongly recommended,
               it gets busy, and a reserved table means you&apos;re guaranteed your spot.
             </p>
             <div className="rounded-2xl border border-anchor-gold/15 bg-anchor-bg-raised p-6">
@@ -230,7 +230,7 @@ export default function NewYearsEvePage(): React.JSX.Element {
                 <ul className="mt-3 space-y-2 text-sm text-anchor-cream-text/70">
                   <li className="flex gap-2">
                     <span className="text-anchor-gold">&bull;</span>
-                    <span>Late licence — typically open until at least 1am</span>
+                    <span>Late licence, typically open until at least 1am</span>
                   </li>
                   <li className="flex gap-2">
                     <span className="text-anchor-gold">&bull;</span>
@@ -246,7 +246,7 @@ export default function NewYearsEvePage(): React.JSX.Element {
                   </li>
                   <li className="flex gap-2">
                     <span className="text-anchor-gold">&bull;</span>
-                    <span>Booking recommended — walk-ins welcome if space allows</span>
+                    <span>Booking recommended, walk-ins welcome if space allows</span>
                   </li>
                 </ul>
               </div>
@@ -277,12 +277,12 @@ export default function NewYearsEvePage(): React.JSX.Element {
             </h2>
             <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
               Staying at a Heathrow hotel over New Year&apos;s? Don&apos;t settle for the hotel bar. We&apos;re
-              just {HEATHROW_TIMES.terminal5} minutes from Terminal 5 — an easy taxi ride for a proper New Year&apos;s
+              just {HEATHROW_TIMES.terminal5} minutes from Terminal 5, an easy taxi ride for a proper New Year&apos;s
               Eve celebration with real atmosphere.
             </p>
             <p className="text-anchor-cream-text/70 leading-relaxed">
               Airport hotel guests regularly come over for the evening. The taxi back is quick and
-              affordable — a fraction of what you&apos;d pay in central London.
+              affordable, a fraction of what you&apos;d pay in central London.
             </p>
             <Link
               href="/near-heathrow/terminal-5"
@@ -322,7 +322,7 @@ export default function NewYearsEvePage(): React.JSX.Element {
                 Call {CONTACT.phone}
               </PhoneButton>
             </div>
-            <p className="text-sm text-anchor-cream-text/70">Tables for 8+ guests — please call.</p>
+            <p className="text-sm text-anchor-cream-text/70">Tables for 8+ guests, please call.</p>
           </div>
         </Container>
       </Section>
@@ -335,7 +335,7 @@ export default function NewYearsEvePage(): React.JSX.Element {
               <div className="space-y-4">
                 <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">Where we are</h2>
                 <p className="text-anchor-cream-text/70 leading-relaxed">
-                  The Anchor is in Stanwell Moor, Surrey (TW19 6AQ) — a quick drive from Heathrow and easy
+                  The Anchor is in Stanwell Moor, Surrey (TW19 6AQ), a quick drive from Heathrow and easy
                   to reach from Staines-upon-Thames, Ashford and Windsor. Free parking on site.
                 </p>
                 <p className="text-anchor-cream-text/70">

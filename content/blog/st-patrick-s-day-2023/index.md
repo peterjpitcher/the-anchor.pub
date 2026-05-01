@@ -99,7 +99,7 @@ Green is the colour associated with Ireland and is used to represent the country
 Our special **Irish menu** for St Patrick's Day includes:
 
 **Traditional Irish Mains:**
-- Irish-themed food specials alongside our regular menu (availability varies — ask the team on the day)
+- Irish-themed food specials alongside our regular menu (availability varies, ask the team on the day)
 
 **Irish Drinks Specials:**
 - **Guinness** perfectly poured

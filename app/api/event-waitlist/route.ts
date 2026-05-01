@@ -166,7 +166,7 @@ export async function POST(request: NextRequest) {
     // Handle BOOKINGS_DISABLED rejection from management API
     if (upstream.status === 409 && hasUpstreamErrorCode(parsed, 'BOOKINGS_DISABLED')) {
       return NextResponse.json(
-        { success: false, error: { code: 'BOOKINGS_DISABLED', message: 'Bookings are not available for this event. No booking is needed — just turn up!' } },
+        { success: false, error: { code: 'BOOKINGS_DISABLED', message: 'Bookings are not available for this event. No booking is needed, just turn up!' } },
         { status: 409, headers: { 'X-Idempotency-Key': idempotencyKey } }
       )
     }

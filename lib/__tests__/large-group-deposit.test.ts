@@ -72,7 +72,7 @@ describe('Large-group deposit helpers', () => {
       expect(LARGE_GROUP_DEPOSIT_PER_PERSON_GBP).toBe(10)
     })
 
-    it('handles non-finite party size defensively (returns 0 — no deposit gating)', () => {
+    it('handles non-finite party size defensively (returns 0, no deposit gating)', () => {
       // computeLargeGroupDepositAmount short-circuits via requiresDeposit
       // for unreasonable inputs; the contract is "no deposit if not required".
       expect(computeLargeGroupDepositAmount(Number.NaN)).toBe(0)

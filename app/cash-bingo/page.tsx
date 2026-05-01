@@ -126,7 +126,7 @@ const FAQS = [
   {
     question: 'Do I need to book in advance?',
     answer:
-      'Yes—tables sell fast. If booking is open you’ll see a reserve table button above. If not, booking options are available closer to the event — check back nearer the date or call 01753 682707 and we’ll help.'
+      'Yes, tables sell fast. If booking is open you’ll see a reserve table button above. If not, booking options are available closer to the event, check back nearer the date or call 01753 682707 and we’ll help.'
   },
   {
     question: 'Is there an age limit for bingo night?',
@@ -221,7 +221,7 @@ function BingoEventCards({ events }: { events: Event[] }) {
                   <p className="text-anchor-cream-text/70 leading-relaxed">{event.description}</p>
                 )}
 	                <p className="text-sm text-anchor-cream-text/55">
-	                  £10 cash-only books cover all ten games. The jackpot pot grows with every ticket sold, and the snowball bonus increases by £20—and two extra calls—each time it rolls over. Stay loyal, sign the Snowball Register and the prize gets easier to win.
+	                  £10 cash-only books cover all ten games. The jackpot pot grows with every ticket sold, and the snowball bonus increases by £20, and two extra calls, each time it rolls over. Stay loyal, sign the Snowball Register and the prize gets easier to win.
 	                </p>
               </div>
 
@@ -323,7 +323,7 @@ export default async function CashBingoPage() {
           <div className="max-w-5xl mx-auto">
             <h2 className="text-3xl font-bold text-anchor-cream-text text-center mb-6">Upcoming cash bingo dates</h2>
             <p className="text-anchor-cream-text/70 text-center mb-8">
-              We’ve listed confirmed bingo nights below. For the very latest schedule—including bonus specials—visit our <Link href="/whats-on" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">What’s On page</Link> or call 01753 682707.
+              We’ve listed confirmed bingo nights below. For the very latest schedule, including bonus specials, visit our <Link href="/whats-on" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">What’s On page</Link> or call 01753 682707.
             </p>
             <BingoEventCards events={events} />
           </div>
@@ -429,7 +429,7 @@ export default async function CashBingoPage() {
           <div className="max-w-4xl mx-auto text-anchor-cream-text/70 space-y-4">
             <h2 className="text-3xl font-bold text-anchor-cream-text text-center">What’s up for grabs?</h2>
 	            <p>
-	              We keep prizes fresh so every cash bingo night feels different. Expect a lively mix of bingo prizes and cash prizes: free drinks, chocolate bars, quiz night tickets, food vouchers, £10 cash boosts, cheeky spot prizes and a jackpot bingo pot that grows with every £10 book sold. The snowball bonus carries over an extra £20—and two additional calls—each month it survives, so loyal dabbers see the prize get juicier and easier to win.
+	              We keep prizes fresh so every cash bingo night feels different. Expect a lively mix of bingo prizes and cash prizes: free drinks, chocolate bars, quiz night tickets, food vouchers, £10 cash boosts, cheeky spot prizes and a jackpot bingo pot that grows with every £10 book sold. The snowball bonus carries over an extra £20, and two additional calls, each month it survives, so loyal dabbers see the prize get juicier and easier to win.
 	            </p>
           </div>
         </Container>
@@ -447,7 +447,7 @@ export default async function CashBingoPage() {
                 <CardBody className="space-y-3">
 	                  <h3 className="text-xl font-semibold text-anchor-cream-text">Bring the right kit</h3>
 	                  <p className="text-anchor-cream-text/70 text-sm leading-relaxed">
-	                    Cash-only entry, so bring notes and coins for bingo tickets, £10 bingo books and £1 daubers. Pack spare daubers or lucky charms—confidence helps when the jackpot numbers fall.
+	                    Cash-only entry, so bring notes and coins for bingo tickets, £10 bingo books and £1 daubers. Pack spare daubers or lucky charms, confidence helps when the jackpot numbers fall.
 	                  </p>
                 </CardBody>
               </Card>

@@ -38,7 +38,7 @@ export default function PubNearTravelodgeHeathrowPage() {
       <HeroWrapper
         route="/pub-near-travelodge-heathrow"
         title="Pub Near Travelodge Heathrow"
-        description="10 minutes away — proper British pub, proper food, proper prices"
+        description="10 minutes away, proper British pub, proper food, proper prices"
         variant="default"
         enableSmartCtas={true}
         showContextStrip={true}
@@ -51,7 +51,7 @@ export default function PubNearTravelodgeHeathrowPage() {
               Pub Near Travelodge London Heathrow
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
-              Staying at a Travelodge near Heathrow? You&apos;ve made a smart choice saving on your room — now reward yourself with a proper evening at The Anchor, just 10 minutes away. One of the best places to eat near Heathrow, we serve real food, draught beers, and offer a real pub atmosphere you won&apos;t find at the airport.
+              Staying at a Travelodge near Heathrow? You&apos;ve made a smart choice saving on your room, now reward yourself with a proper evening at The Anchor, just 10 minutes away. One of the best places to eat near Heathrow, we serve real food, draught beers, and offer a real pub atmosphere you won&apos;t find at the airport.
             </p>
           </div>
         </Container>
@@ -65,7 +65,7 @@ export default function PubNearTravelodgeHeathrowPage() {
               features={[
                 { icon: '', title: '10 Mins', description: 'By taxi from Travelodge Heathrow Central', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
                 { icon: '', title: '~£12–15', description: 'Short taxi fare each way', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: 'Free Parking', description: '20 spaces — drive and park for free', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: 'Free Parking', description: '20 spaces, drive and park for free', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
                 { icon: '', title: 'From £8.99', description: 'Mains at proper pub prices', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
               ]}
               className="mb-8"
@@ -79,7 +79,7 @@ export default function PubNearTravelodgeHeathrowPage() {
           <div className="max-w-4xl mx-auto">
             <SectionHeader
               title="The Smart Traveller's Dinner Near Travelodge Heathrow"
-              subtitle="You saved on accommodation — The Anchor lets you eat brilliantly without blowing the budget. Independent, home-cooked, and genuinely welcoming."
+              subtitle="You saved on accommodation, The Anchor lets you eat brilliantly without blowing the budget. Independent, home-cooked, and genuinely welcoming."
             />
             <div className="grid md:grid-cols-2 gap-8">
               <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
@@ -165,7 +165,7 @@ export default function PubNearTravelodgeHeathrowPage() {
         faqs={[
           {
             question: 'Is there a pub near Travelodge London Heathrow?',
-            answer: 'Yes — The Anchor in Stanwell Moor is 10–15 minutes from most Travelodge Heathrow properties. It\'s an independent British pub with home-cooked food, draught beers, and 20 free parking spaces. A short taxi or Uber ride costs around £12–15.'
+            answer: 'Yes, The Anchor in Stanwell Moor is 10–15 minutes from most Travelodge Heathrow properties. It\'s an independent British pub with home-cooked food, draught beers, and 20 free parking spaces. A short taxi or Uber ride costs around £12–15.'
           },
           {
             question: 'What\'s the nearest pub to Travelodge Heathrow Central?',
@@ -173,7 +173,7 @@ export default function PubNearTravelodgeHeathrowPage() {
           },
           {
             question: 'Is food near Travelodge Heathrow affordable?',
-            answer: 'Yes — The Anchor serves home-cooked British pub food with mains from £8.99. Stone-baked pizzas from £12 and classic pub dishes are available throughout the week. It\'s significantly cheaper than hotel or airport dining.'
+            answer: 'Yes, The Anchor serves home-cooked British pub food with mains from £8.99. Stone-baked pizzas from £12 and classic pub dishes are available throughout the week. It\'s significantly cheaper than hotel or airport dining.'
           },
           {
             question: 'Can I walk from Travelodge Heathrow to The Anchor?',
@@ -182,8 +182,8 @@ export default function PubNearTravelodgeHeathrowPage() {
           {
             question: 'Are there any food deals near Travelodge Heathrow?',
             answer: sunday.isLive
-              ? 'Yes — The Anchor serves stone-baked pizzas from £12 and classic British pub food with mains from £8.99. We also have a Sunday roast from £19 at weekends. Check our menu for other specials and seasonal deals.'
-              : `Yes — The Anchor serves stone-baked pizzas from £12 and classic British pub food with mains from £8.99. Sunday roast starts ${SUNDAY_ROAST.launchDateLabel}. Check our menu for other specials and seasonal deals.`
+              ? 'Yes, The Anchor serves stone-baked pizzas from £12 and classic British pub food with mains from £8.99. We also have a Sunday roast from £19 at weekends. Check our menu for other specials and seasonal deals.'
+              : `Yes, The Anchor serves stone-baked pizzas from £12 and classic British pub food with mains from £8.99. Sunday roast starts ${SUNDAY_ROAST.launchDateLabel}. Check our menu for other specials and seasonal deals.`
           },
         ]}
         className="bg-anchor-bg"

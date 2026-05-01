@@ -3,12 +3,12 @@
  *
  * Spec §6, §8.1: the public proxy must:
  *   1. Silently strip inbound `sunday_lunch` and `booking_type` regardless
- *      of value (defence in depth — hostile or stale clients can't sneak
+ *      of value (defence in depth, hostile or stale clients can't sneak
  *      Sunday-lunch behaviour back in).
  *   2. Always forward booking_type='regular' to the management API.
  *   3. NOT enforce any Saturday-1pm cutoff (Sunday-lunch cutoff retired).
  *   4. Forward `purpose` through unchanged when valid; reject with 400 when
- *      missing or invalid (AB-001 — direct API callers must declare purpose).
+ *      missing or invalid (AB-001, direct API callers must declare purpose).
  */
 
 export {}
@@ -107,7 +107,7 @@ afterEach(() => {
   jest.useRealTimers()
 })
 
-describe('website /api/table-bookings proxy — walk-in launch sanitisation', () => {
+describe('website /api/table-bookings proxy, walk-in launch sanitisation', () => {
   it('silently strips inbound sunday_lunch=true (does not error, does not forward)', async () => {
     const calls = installUpstreamFetch()
     const POST = await getPostHandler()
@@ -199,7 +199,7 @@ describe('website /api/table-bookings proxy — walk-in launch sanitisation', ()
   })
 
   it('does NOT enforce a Sunday-lunch Saturday-1pm cutoff (cutoff retired)', async () => {
-    // Pretend it's Saturday 14:00 — the legacy cutoff would have rejected
+    // Pretend it's Saturday 14:00, the legacy cutoff would have rejected
     // a Sunday booking made after 13:00. Walk-in launch removes that gate.
     jest.useFakeTimers()
     jest.setSystemTime(new Date('2026-05-23T14:00:00.000+01:00'))
@@ -324,7 +324,7 @@ describe('website /api/table-bookings proxy — walk-in launch sanitisation', ()
 
   it('rejects a food booking outside kitchen hours with neutral customer-facing copy', async () => {
     // Direct API submission for purpose=food at 22:30, after kitchen close (21:00).
-    // Validation must still block — copy must not mention food/drinks/kitchen/bar.
+    // Validation must still block, copy must not mention food/drinks/kitchen/bar.
     const calls = installUpstreamFetch()
     const POST = await getPostHandler()
 

@@ -62,7 +62,7 @@ export default function FindUsPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify([findUsPlaceSchema, howToFromHeathrowSchema, parkingFacilitySchema, {
           "@context": "https://schema.org",
           "@type": "ContactPage",
-          "name": "Find The Anchor — Directions & Contact",
+          "name": "Find The Anchor, Directions & Contact",
           "description": "Get directions to The Anchor on Horton Road, Stanwell Moor TW19 6AQ. Seven minutes from Heathrow Terminal 5 with free parking.",
           "url": "https://www.the-anchor.pub/find-us",
           "mainEntity": { "@id": "https://www.the-anchor.pub/#business" }

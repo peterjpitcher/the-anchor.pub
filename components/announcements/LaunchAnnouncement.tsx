@@ -13,7 +13,7 @@ export interface LaunchAnnouncementProps {
 
 const PRE_LAUNCH_COPY = getSundayRoastContent(new Date(0)).availabilityLong
 const LAUNCH_DAY_COPY =
-  'Walk-ins welcome today from 1pm — turn up between 1pm-6pm or book ahead'
+  'Walk-ins welcome today from 1pm, turn up between 1pm-6pm or book ahead'
 
 const VARIANT_CLASSES: Record<LaunchAnnouncementVariant, string> = {
   hero: 'mt-4 rounded-lg bg-anchor-gold/15 px-6 py-3 text-base font-semibold text-anchor-gold-vivid text-center',

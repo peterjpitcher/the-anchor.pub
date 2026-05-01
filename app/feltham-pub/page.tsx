@@ -23,12 +23,12 @@ export function generateMetadata(): Metadata {
     description: `Looking for pubs near Feltham? The Anchor is just 10 minutes away with free parking, ${sundayPhrase}, stone-baked pizzas and quiz nights in a relaxed village pub.`,
     openGraph: {
       title: 'Pub Near Feltham | Free Parking & Sunday Roasts | The Anchor',
-      description: `Pubs near Feltham — just 10 minutes away with free parking, ${sundayPhrase}, stone-baked pizzas and quiz nights.`,
+      description: `Pubs near Feltham, just 10 minutes away with free parking, ${sundayPhrase}, stone-baked pizzas and quiz nights.`,
       images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
     },
     twitter: getTwitterMetadata({
       title: 'Pub Near Feltham | Free Parking & Sunday Roasts | The Anchor',
-      description: `Pubs near Feltham — just 10 minutes away with free parking, ${sundayPhrase}, stone-baked pizzas and quiz nights.`,
+      description: `Pubs near Feltham, just 10 minutes away with free parking, ${sundayPhrase}, stone-baked pizzas and quiz nights.`,
       images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
     alternates: {
@@ -117,7 +117,7 @@ export default function FelthamPubPage() {
               }}
               className="text-anchor-cream-text mb-4"
             >
-              Pub Near Feltham — Traditional British Pub with Free Parking
+              Pub Near Feltham, Traditional British Pub with Free Parking
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
               Your local traditional pub just 10 minutes from Feltham with free parking
@@ -178,7 +178,7 @@ export default function FelthamPubPage() {
                 </li>
 	                <li className="flex items-start">
 	                  <span className="text-anchor-gold mr-3"></span>
-	                  <span>Celebrated Sunday roasts {sunday.isLive ? 'served 1pm-6pm — walk in or book ahead, no pre-order needed.' : `start ${SUNDAY_ROAST.launchDateLabel}.`}</span>
+	                  <span>Celebrated Sunday roasts {sunday.isLive ? 'served 1pm-6pm, walk in or book ahead, no pre-order needed.' : `start ${SUNDAY_ROAST.launchDateLabel}.`}</span>
 	                </li>
                 <li className="flex items-start">
                   <span className="text-anchor-gold mr-3"></span>
@@ -301,7 +301,7 @@ export default function FelthamPubPage() {
                         </li>
 	                        <li className="flex items-start">
 	                          <span className="text-anchor-gold mr-2">•</span>
-	                          Sunday roasts {sunday.isLive ? 'served 1pm-6pm — walk in or book ahead, no pre-order needed.' : `start ${SUNDAY_ROAST.launchDateLabel}.`}
+	                          Sunday roasts {sunday.isLive ? 'served 1pm-6pm, walk in or book ahead, no pre-order needed.' : `start ${SUNDAY_ROAST.launchDateLabel}.`}
 	                        </li>
                         <li className="flex items-start">
                           <span className="text-anchor-gold mr-2">•</span>
@@ -421,7 +421,7 @@ export default function FelthamPubPage() {
             <div className="prose prose-invert max-w-none text-anchor-cream-text/70 space-y-4">
               <p>
                 Feltham's commercial corridor stretches from Bedfont Lakes Business Park through to the trading estates
-                along Feltham Hill Road — thousands of people finishing shifts every evening with limited options for a
+                along Feltham Hill Road, thousands of people finishing shifts every evening with limited options for a
                 proper sit-down meal nearby. Most end up in chain restaurants or grabbing a takeaway. The Anchor is just
                 ten minutes down Feltham Hill Road and the A30, with free parking and a kitchen serving hearty pub food
                 from 6pm on weeknights. It is the kind of place where you can unwind with a pint of draught beer and a
@@ -429,13 +429,13 @@ export default function FelthamPubPage() {
               </p>
               <p>
                 Coming from Feltham station? A taxi takes about fifteen minutes and costs less than a tenner. For those
-                heading home after an England match at Twickenham, skip the crush around the rugby ground pubs — The
+                heading home after an England match at Twickenham, skip the crush around the rugby ground pubs, The
                 Anchor is roughly twenty minutes via the A316 and M3, even on a busy match day, with guaranteed free
                 parking at the other end. It is a much more relaxed way to keep the evening going.
               </p>
               <p>
                 If you have been searching for pubs in Feltham, you will know the options are fairly thin on the ground
-                these days — mostly chains, a handful of takeaways, and the odd sports bar. For those after pubs near Feltham
+                these days, mostly chains, a handful of takeaways, and the odd sports bar. For those after pubs near Feltham
                 with real character, a proper beer garden under the Heathrow flight path, and events like Music Bingo and
                 Thursday quiz nights, The Anchor is well worth the short drive. Plenty of Feltham regulars have made us their
                 go-to midweek escape, and once you have tried a lazy Sunday roast here you will wonder why you ever queued

@@ -1,6 +1,6 @@
 ---
 title: "Cheap Christmas Party Venues Near Heathrow (2026 Guide)"
-description: "Find affordable Christmas party venues near Heathrow. Compare hotel packages vs local pub prices — from £12/head at a proper pub to £80+ at airport hotels."
+description: "Find affordable Christmas party venues near Heathrow. Compare hotel packages vs local pub prices, from £12/head at a proper pub to £80+ at airport hotels."
 date: "2026-03-20"
 author: "The Anchor Team"
 keywords:
@@ -31,7 +31,7 @@ There are better options. If you're willing to look five minutes beyond the term
 | Chain pubs (Wetherspoons, Harvester) | £20–35 | Varies | Limited | Rarely private | £600–1,200 |
 | Independent pubs (The Anchor) | From £12 (buffet) | £500–1,500 | Free | Yes (private dining room) | £500–1,500 |
 
-Those are real 2026 figures. The gap is significant — especially when you factor in parking, which hotels treat as a separate revenue stream.
+Those are real 2026 figures. The gap is significant, especially when you factor in parking, which hotels treat as a separate revenue stream.
 
 ## What hotel Christmas packages actually include
 
@@ -49,16 +49,16 @@ For some companies, that's fine. The hotel handles everything, there's a dance f
 
 ## What a local pub Christmas party looks like
 
-At The Anchor in Stanwell Moor — seven minutes from Heathrow Terminal 5 — a Christmas party starts from £12 per head for a buffet. That's not a loss-leader price that requires a £3,000 bar tab. It's what a buffet costs when you're not paying for a hotel lobby and concierge desk.
+At The Anchor in Stanwell Moor, seven minutes from Heathrow Terminal 5, a Christmas party starts from £12 per head for a buffet. That's not a loss-leader price that requires a £3,000 bar tab. It's what a buffet costs when you're not paying for a hotel lobby and concierge desk.
 
 Here's what we typically put together for office Christmas parties:
 
-- **Buffet from £12 per head** — proper food, not crisps and sausage rolls. Think carved turkey, pigs in blankets, stuffing, roast potatoes, and a selection of cold platters
-- **Sit-down meal from £22 per head** — two or three courses with a genuine choice of mains
-- **Private dining room** — seats up to 40, with AV equipment if you want to do a quick presentation or awards before the party starts
-- **Free parking** — 20 spaces on site, no charge, no validation stamps
-- **Real pub bar prices** — pints from £4.95, not hotel rates
-- **Bespoke planning** — we'll build a menu around your group, your budget, and any dietary requirements
+- **Buffet from £12 per head**, proper food, not crisps and sausage rolls. Think carved turkey, pigs in blankets, stuffing, roast potatoes, and a selection of cold platters
+- **Sit-down meal from £22 per head**, two or three courses with a genuine choice of mains
+- **Private dining room**, seats up to 40, with AV equipment if you want to do a quick presentation or awards before the party starts
+- **Free parking**, 20 spaces on site, no charge, no validation stamps
+- **Real pub bar prices**, pints from £4.95, not hotel rates
+- **Bespoke planning**, we'll build a menu around your group, your budget, and any dietary requirements
 
 The difference isn't just price. It's that you're having a Christmas party in an actual pub, with a real fire, proper atmosphere, and staff who know your name by the second round.
 
@@ -66,10 +66,10 @@ The difference isn't just price. It's that you're having a Christmas party in an
 
 Most groups who book with us add at least one of these:
 
-- **Quiz round** — we run quiz nights regularly, so putting together a Christmas-themed quiz for your group takes about ten minutes
-- **Music bingo** — surprisingly competitive, works brilliantly for mixed groups
-- **Tab behind the bar** — set a limit, we'll manage it, and let you know when it's getting close
-- **Decorations** — we deck the pub out for Christmas anyway, but if you want your room done up specifically, just ask
+- **Quiz round**, we run quiz nights regularly, so putting together a Christmas-themed quiz for your group takes about ten minutes
+- **Music bingo**, surprisingly competitive, works brilliantly for mixed groups
+- **Tab behind the bar**, set a limit, we'll manage it, and let you know when it's getting close
+- **Decorations**, we deck the pub out for Christmas anyway, but if you want your room done up specifically, just ask
 
 ## Planning timeline: when to book
 
@@ -87,7 +87,7 @@ Our advice: if you know your group size and preferred date, get in touch by Sept
 
 The honest answer is that airport hotel Christmas parties are designed for large companies with generous budgets and no interest in logistics. They're reliable, predictable, and expensive.
 
-For groups of 15–40 people — which covers most office teams, friend groups, and family gatherings — a local venue gives you more flexibility, better value, and a more memorable evening. Nobody reminisces about the time they had the set menu at the Hilton. People do remember the year they did a quiz in a proper pub and Dave fell off his chair during the music round.
+For groups of 15–40 people, which covers most office teams, friend groups, and family gatherings, a local venue gives you more flexibility, better value, and a more memorable evening. Nobody reminisces about the time they had the set menu at the Hilton. People do remember the year they did a quiz in a proper pub and Dave fell off his chair during the music round.
 
 ## Frequently asked questions
 
@@ -109,7 +109,7 @@ Always. We need to know in advance, but we handle vegetarian, vegan, gluten-free
 
 ### Is there a deposit?
 
-Yes, we ask for a deposit to secure your date — typically £100–200 depending on group size. It's deducted from your final bill. Fully refundable if you cancel with at least two weeks' notice.
+Yes, we ask for a deposit to secure your date, typically £100–200 depending on group size. It's deducted from your final bill. Fully refundable if you cancel with at least two weeks' notice.
 
 ---
 

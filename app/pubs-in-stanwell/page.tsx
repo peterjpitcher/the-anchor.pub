@@ -83,7 +83,7 @@ export default async function PubsInStanwellPage() {
       <HeroWrapper
         route="/pubs-in-stanwell"
         title="Stanwell Moor's Village Pub & Beer Garden"
-        description="The heart of Stanwell Moor village — traditional British pub since 1995"
+        description="The heart of Stanwell Moor village, traditional British pub since 1995"
         variant="default"
         enableSmartCtas={true}
         showContextStrip={true}
@@ -413,16 +413,16 @@ export default async function PubsInStanwellPage() {
             />
             <div className="prose prose-invert max-w-none space-y-4 text-anchor-cream-text/80">
               <p>
-                Stanwell Moor is one of those villages that people drive through without realising what&rsquo;s here. Tucked between the M25 and the King George VI Reservoir, it&rsquo;s a proper little community with more going on than you&rsquo;d think. The village sits on Horton Road, which connects Stanwell to Horton and Wraysbury to the west &mdash; and The Anchor sits right at the heart of it, the village&rsquo;s gathering place for nearly three decades.
+                Stanwell Moor is one of those villages that people drive through without realising what&rsquo;s here. Tucked between the M25 and the King George VI Reservoir, it&rsquo;s a proper little community with more going on than you&rsquo;d think. The village sits on Horton Road, which connects Stanwell to Horton and Wraysbury to the west, and The Anchor sits right at the heart of it, the village&rsquo;s gathering place for nearly three decades.
               </p>
               <p>
-                The area around Stanwell Moor is surprisingly green for somewhere so close to Heathrow. The reservoir walks are a local favourite &mdash; the path around the King George VI and Staines reservoirs gives you miles of flat, easy walking with big skies and good birdwatching. The Stanwell Moor nature reserve, just off Horton Road, is a quiet spot that most visitors to the area never discover. St Mary&rsquo;s Church in nearby Stanwell village dates back to the 12th century and is worth a look if you&rsquo;re interested in local history.
+                The area around Stanwell Moor is surprisingly green for somewhere so close to Heathrow. The reservoir walks are a local favourite, the path around the King George VI and Staines reservoirs gives you miles of flat, easy walking with big skies and good birdwatching. The Stanwell Moor nature reserve, just off Horton Road, is a quiet spot that most visitors to the area never discover. St Mary&rsquo;s Church in nearby Stanwell village dates back to the 12th century and is worth a look if you&rsquo;re interested in local history.
               </p>
               <p>
-                What makes Stanwell Moor different from Stanwell village is the feel. Stanwell proper is bigger and more suburban, with its own high street and shops. Stanwell Moor has kept its village character &mdash; smaller, quieter, and with a stronger sense of community. Everyone knows everyone, and The Anchor is where those connections happen. Whether it&rsquo;s the Tuesday night pizza crowd, the quiz night regulars, or the Sunday roast families, the pub is where the village comes together.
+                What makes Stanwell Moor different from Stanwell village is the feel. Stanwell proper is bigger and more suburban, with its own high street and shops. Stanwell Moor has kept its village character, smaller, quieter, and with a stronger sense of community. Everyone knows everyone, and The Anchor is where those connections happen. Whether it&rsquo;s the Tuesday night pizza crowd, the quiz night regulars, or the Sunday roast families, the pub is where the village comes together.
               </p>
               <p>
-                We&rsquo;re proud to be the heart of this community. From charity fundraisers to Christmas parties, from welcoming new residents to hosting retirement dos for people who&rsquo;ve been coming here for years &mdash; this is what a village pub is supposed to be. If you&rsquo;re in Stanwell or Stanwell Moor and haven&rsquo;t been in yet, you&rsquo;re missing out on your own local.
+                We&rsquo;re proud to be the heart of this community. From charity fundraisers to Christmas parties, from welcoming new residents to hosting retirement dos for people who&rsquo;ve been coming here for years, this is what a village pub is supposed to be. If you&rsquo;re in Stanwell or Stanwell Moor and haven&rsquo;t been in yet, you&rsquo;re missing out on your own local.
               </p>
             </div>
           </div>

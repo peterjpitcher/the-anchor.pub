@@ -37,11 +37,11 @@ noindex: true
 
 ## Double Up Spirits for £2 Near Heathrow Airport
 
-At **The Anchor** in **Stanwell Moor**, just **7 minutes from Heathrow Terminal 5**, we believe in **great value, great drinks, and great times**. That's why we're making it even easier for you to **enjoy your favourite spirits** with our **Double Up Offer**—where you can **double your measure for just £2 extra**. Perfect for **Heathrow workers** unwinding after shifts, **Staines residents** enjoying their local, and anyone near the **airport** who appreciates proper pub prices instead of inflated airport costs.
+At **The Anchor** in **Stanwell Moor**, just **7 minutes from Heathrow Terminal 5**, we believe in **great value, great drinks, and great times**. That's why we're making it even easier for you to **enjoy your favourite spirits** with our **Double Up Offer**, where you can **double your measure for just £2 extra**. Perfect for **Heathrow workers** unwinding after shifts, **Staines residents** enjoying their local, and anyone near the **airport** who appreciates proper pub prices instead of inflated airport costs.
 
   
 
-No need to wait for a special promotion—**this offer is available at all times**. Whether you're a fan of whisky, rum, vodka, or gin, you can **upgrade your pour and make your drink last longer, without breaking the bank**. Compare this to **£8+ for a single at Heathrow bars** and you'll see why locals choose The Anchor!
+No need to wait for a special promotion, **this offer is available at all times**. Whether you're a fan of whisky, rum, vodka, or gin, you can **upgrade your pour and make your drink last longer, without breaking the bank**. Compare this to **£8+ for a single at Heathrow bars** and you'll see why locals choose The Anchor!
 
   
 
@@ -51,7 +51,7 @@ The **Double Up Offer** lets you **enjoy a larger serving of your favourite spir
 
   
 
-👉 **No sign-ups, no special requests—just ask for a double, and it's yours for £2 extra.**
+👉 **No sign-ups, no special requests, just ask for a double, and it's yours for £2 extra.**
 
   
 
@@ -335,11 +335,11 @@ At **The Anchor**, we want you to enjoy **great drinks responsibly**. Here are t
 
 Offer applies to **participating spirits only** (listed above)
 
-No sign-ups or special actions required—the offer **applies at all times**
+No sign-ups or special actions required, the offer **applies at all times**
 
 Offer is **strictly for customers aged 18+**
 
-**Challenge 25 policy in effect**—ID may be required
+**Challenge 25 policy in effect**, ID may be required
 
 Management reserves the right to **refuse service in line with responsible drinking policies**
 
@@ -351,7 +351,7 @@ Management reserves the right to **refuse service in line with responsible drink
 
 ## **Visit The Anchor for Double Spirits Near Heathrow**
 
-The **Double Up Offer** makes **premium drinks more accessible**—because **great spirits deserve great value**.
+The **Double Up Offer** makes **premium drinks more accessible**, because **great spirits deserve great value**.
 
   
 

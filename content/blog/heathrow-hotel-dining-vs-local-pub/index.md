@@ -1,5 +1,5 @@
 ---
-title: Heathrow Hotel Dining vs Local Pub — An Honest Comparison (2026)
+title: Heathrow Hotel Dining vs Local Pub, An Honest Comparison (2026)
 description: >-
   Should you eat in your Heathrow hotel restaurant or head out to a local pub?
   We compare prices, atmosphere, food quality and practicality to help you
@@ -63,7 +63,7 @@ A typical two-course dinner with a drink: **£25–35 per person**.
 ### Hotel Restaurant
 
 **Pros:**
-- Convenient — literally downstairs
+- Convenient, literally downstairs
 - Consistent, predictable
 - No need to think or plan
 
@@ -76,7 +76,7 @@ A typical two-course dinner with a drink: **£25–35 per person**.
 ### Local Pub (The Anchor)
 
 **Pros:**
-- Genuine atmosphere — local regulars, real conversations possible
+- Genuine atmosphere, local regulars, real conversations possible
 - Far more interesting if you're visiting the UK and want to understand British culture
 - Beer garden (weather permitting)
 - Regular events: quiz nights, music bingo, karaoke
@@ -92,7 +92,7 @@ This is where the comparison gets interesting. Hotel restaurants have the advant
 
 The Anchor's kitchen cooks traditional British food from scratch every day. The fish is properly battered, the Sunday roast is an actual event (slow-roasted, cooked to order, served with proper accompaniments), and the pizzas are stone-baked rather than conveyor-belt chain style.
 
-**The honest verdict:** for everyday pub food — fish & chips, burgers, pizza — The Anchor is likely better than a hotel equivalent and reliably better value. For a formal multi-course meal with extensive wine selection, a hotel restaurant has advantages.
+**The honest verdict:** for everyday pub food, fish & chips, burgers, pizza, The Anchor is likely better than a hotel equivalent and reliably better value. For a formal multi-course meal with extensive wine selection, a hotel restaurant has advantages.
 
 ## The Practicality Calculation
 
@@ -125,25 +125,25 @@ Otherwise, the 10-minute journey is worth making.
 3. No booking needed for small groups (1–4 people) on most weekday evenings
 4. For groups of 5+, or if you want the Sunday roast, call ahead: **01753 682707**
 5. Request a VAT receipt when paying if you're on expenses
-6. Use Uber for the return journey — consistent from TW19 6AQ
+6. Use Uber for the return journey, consistent from TW19 6AQ
 
 ## Hotel-Specific Pages
 
 We have detailed guides for guests at:
 
-- [Sofitel London Heathrow](/pub-near-sofitel-heathrow) — 7 mins
-- [Premier Inn Heathrow T5](/pub-near-premier-inn-heathrow) — 8 mins
-- [Hilton London Heathrow](/pub-near-hilton-heathrow) — 10 mins
-- [Marriott London Heathrow](/pub-near-marriott-heathrow) — 12 mins
-- [Crowne Plaza Heathrow](/pub-near-crowne-plaza-heathrow) — 12 mins
-- [Radisson Blu Heathrow](/pub-near-radisson-blu-heathrow) — 12 mins
-- [Holiday Inn Heathrow](/pub-near-holiday-inn-heathrow) — 12 mins
-- [ibis London Heathrow](/pub-near-ibis-heathrow) — 12 mins
-- [Travelodge London Heathrow](/pub-near-travelodge-heathrow) — 10 mins
-- [Novotel London Heathrow](/pub-near-novotel-heathrow) — 15 mins
-- [Renaissance London Heathrow](/pub-near-renaissance-heathrow) — 12 mins
+- [Sofitel London Heathrow](/pub-near-sofitel-heathrow), 7 mins
+- [Premier Inn Heathrow T5](/pub-near-premier-inn-heathrow), 8 mins
+- [Hilton London Heathrow](/pub-near-hilton-heathrow), 10 mins
+- [Marriott London Heathrow](/pub-near-marriott-heathrow), 12 mins
+- [Crowne Plaza Heathrow](/pub-near-crowne-plaza-heathrow), 12 mins
+- [Radisson Blu Heathrow](/pub-near-radisson-blu-heathrow), 12 mins
+- [Holiday Inn Heathrow](/pub-near-holiday-inn-heathrow), 12 mins
+- [ibis London Heathrow](/pub-near-ibis-heathrow), 12 mins
+- [Travelodge London Heathrow](/pub-near-travelodge-heathrow), 10 mins
+- [Novotel London Heathrow](/pub-near-novotel-heathrow), 15 mins
+- [Renaissance London Heathrow](/pub-near-renaissance-heathrow), 12 mins
 
 ---
 
-*The Anchor is open Tuesday–Sunday. Kitchen closed Monday. Free parking — postcode TW19 6AQ.*
+*The Anchor is open Tuesday–Sunday. Kitchen closed Monday. Free parking, postcode TW19 6AQ.*
 *[Book a table online](/book-table) or call 01753 682707.*

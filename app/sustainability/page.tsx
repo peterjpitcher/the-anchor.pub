@@ -48,7 +48,7 @@ export default function SustainabilityPage() {
         <Container>
           <div className="max-w-3xl mx-auto text-center">
             <p className="text-lg text-anchor-cream-text/70 leading-relaxed">
-              We take our environmental responsibilities seriously &mdash; not because it&rsquo;s a marketing opportunity,
+              We take our environmental responsibilities seriously, not because it&rsquo;s a marketing opportunity,
               but because it&rsquo;s the right thing to do. Here&rsquo;s what we&rsquo;re doing, what it means in practice,
               and what we&rsquo;re not claiming.
             </p>
@@ -66,12 +66,12 @@ export default function SustainabilityPage() {
             <div className="bg-anchor-bg-card rounded-2xl p-8 shadow-sm border border-anchor-gold/15">
               <p className="text-anchor-cream-text/70 mb-4">
                 The British Institute of Innkeeping (BII) is the UK&rsquo;s leading professional body for the licensed
-                hospitality industry. They recognised The Anchor as a Sustainability Champion &mdash; an award that
+                hospitality industry. They recognised The Anchor as a Sustainability Champion, an award that
                 reflects an independent evaluation of our environmental practices and investments.
               </p>
               <p className="text-anchor-cream-text/70">
-                This isn&rsquo;t a badge we bought. It&rsquo;s recognition that the steps we&rsquo;ve taken &mdash; from
-                how we cool our cellar to how we clean our beer lines &mdash; meet a genuine standard. We&rsquo;re proud
+                This isn&rsquo;t a badge we bought. It&rsquo;s recognition that the steps we&rsquo;ve taken, from
+                how we cool our cellar to how we clean our beer lines, meet a genuine standard. We&rsquo;re proud
                 of it, and we intend to keep earning it.
               </p>
             </div>
@@ -232,11 +232,11 @@ export default function SustainabilityPage() {
         faqs={[
           {
             question: 'Has The Anchor won a sustainability award?',
-            answer: 'Yes — we\'re a BII Sustainability Champion. The BII (British Institute of Innkeeping) is the UK\'s leading professional body for the licensed hospitality sector, and this recognition reflects our investment in environmental technology and practice.'
+            answer: 'Yes, we\'re a BII Sustainability Champion. The BII (British Institute of Innkeeping) is the UK\'s leading professional body for the licensed hospitality sector, and this recognition reflects our investment in environmental technology and practice.'
           },
           {
             question: 'What is FlowMaster?',
-            answer: 'FlowMaster reduces how frequently we need to clean beer lines and uses less water and chemicals when we do. The result is less environmental impact — and consistently fresher draught beer for our guests.'
+            answer: 'FlowMaster reduces how frequently we need to clean beer lines and uses less water and chemicals when we do. The result is less environmental impact, and consistently fresher draught beer for our guests.'
           },
           {
             question: 'Do you have any community environmental initiatives?',

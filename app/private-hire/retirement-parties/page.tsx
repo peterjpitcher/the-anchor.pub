@@ -188,7 +188,7 @@ export default async function RetirementPartiesPage() {
                         <CateringPackagesTable
                             packages={foodPackages}
                             title="Catering Packages"
-                            subtitle="Prices per person — minimum guest numbers may apply"
+                            subtitle="Prices per person, minimum guest numbers may apply"
                             showDescription={true}
                         />
                     </div>

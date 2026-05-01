@@ -61,7 +61,7 @@ export default function StPatricksDayPage(): React.JSX.Element {
     {
       question: 'Is there parking?',
       answer:
-        'Yes. We have 20 free parking spaces on site. No meters, no charges, no stress — just turn up and park.',
+        'Yes. We have 20 free parking spaces on site. No meters, no charges, no stress, just turn up and park.',
     },
   ]
 
@@ -71,7 +71,7 @@ export default function StPatricksDayPage(): React.JSX.Element {
             <HeroWrapper
         route="/st-patricks-day"
         title="St Patrick's Day Pub at The Anchor"
-        description="Guinness on tap, Irish whiskey, live music and a proper St Patrick's Day atmosphere — without the city centre crowds. Join us every 17 March."
+        description="Guinness on tap, Irish whiskey, live music and a proper St Patrick's Day atmosphere, without the city centre crowds. Join us every 17 March."
         eyebrow="17 March"
         lead={
           <p className="text-white/90 text-base sm:text-lg">
@@ -92,7 +92,7 @@ export default function StPatricksDayPage(): React.JSX.Element {
             <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
               Every St Patrick&apos;s Day, The Anchor goes green. Guinness flowing, Irish whiskey on the shelf, themed
               cocktails at the bar, and live music and entertainment to set the mood. It&apos;s a proper celebration
-              in a proper pub — none of the overpriced, overcrowded city centre nonsense.
+              in a proper pub, none of the overpriced, overcrowded city centre nonsense.
             </p>
             <p className="text-anchor-cream-text/70 leading-relaxed">
               Whether you&apos;re Irish, half-Irish, or just fancy a pint of the black stuff with good company,
@@ -118,7 +118,7 @@ export default function StPatricksDayPage(): React.JSX.Element {
             <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
               We put together a special Irish-themed menu for St Patrick&apos;s Day alongside our regular menu.
               Previous years have featured hearty Irish stew, colcannon, soda bread, and other comfort food
-              done properly — the kind of dishes that go perfectly with a pint of Guinness.
+              done properly, the kind of dishes that go perfectly with a pint of Guinness.
             </p>
             <p className="text-anchor-cream-text/70 leading-relaxed">
               If you&apos;re planning to eat, we&apos;d recommend booking a table in advance. Walk-ins are
@@ -164,7 +164,7 @@ export default function StPatricksDayPage(): React.JSX.Element {
             </h2>
             <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
               We deck the place out, put the Irish music on, and create a St Patrick&apos;s Day atmosphere
-              that actually feels like a celebration — not a queue. No fighting for space at the bar,
+              that actually feels like a celebration, not a queue. No fighting for space at the bar,
               no surge pricing, and no scrambling for a taxi home.
             </p>
             <p className="text-anchor-cream-text/70 leading-relaxed">
@@ -203,7 +203,7 @@ export default function StPatricksDayPage(): React.JSX.Element {
             </h2>
             <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
               Staying near Heathrow? Passing through on business? Irish expat flying home and want a proper
-              pint before your flight? We&apos;re just {HEATHROW_TIMES.terminal5} minutes from Terminal 5 — far
+              pint before your flight? We&apos;re just {HEATHROW_TIMES.terminal5} minutes from Terminal 5, far
               better than the hotel bar, and with a real St Patrick&apos;s Day atmosphere.
             </p>
             <p className="text-anchor-cream-text/70 leading-relaxed">
@@ -229,7 +229,7 @@ export default function StPatricksDayPage(): React.JSX.Element {
               Book your St Patrick&apos;s Day table
             </h2>
             <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
-              If you&apos;re planning to eat, we&apos;d recommend booking in advance — the kitchen gets busy.
+              If you&apos;re planning to eat, we&apos;d recommend booking in advance, the kitchen gets busy.
               Walk-ins are always welcome for drinks. Large groups (8+), give us a call so we can sort the right space.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -248,7 +248,7 @@ export default function StPatricksDayPage(): React.JSX.Element {
                 Call {CONTACT.phone}
               </PhoneButton>
             </div>
-            <p className="text-sm text-anchor-cream-text/70">Tables for 8+ guests — please call.</p>
+            <p className="text-sm text-anchor-cream-text/70">Tables for 8+ guests, please call.</p>
           </div>
         </Container>
       </Section>
@@ -261,7 +261,7 @@ export default function StPatricksDayPage(): React.JSX.Element {
               <div className="space-y-4">
                 <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">Where we are</h2>
                 <p className="text-anchor-cream-text/70 leading-relaxed">
-                  The Anchor is in Stanwell Moor, Surrey (TW19 6AQ) — a quick drive from Heathrow and easy
+                  The Anchor is in Stanwell Moor, Surrey (TW19 6AQ), a quick drive from Heathrow and easy
                   to reach from Staines-upon-Thames, Ashford and Windsor. Free parking on site.
                 </p>
                 <p className="text-anchor-cream-text/70">

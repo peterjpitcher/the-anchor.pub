@@ -191,7 +191,7 @@ export function PrivateHire2026PromoPopup() {
             Book your 2026 party early
           </h2>
           <p className="mt-1 text-lg font-medium text-anchor-gold drop-shadow-sm">
-            — and the bubbles are on us
+            and the bubbles are on us
           </p>
         </div>
       </div>

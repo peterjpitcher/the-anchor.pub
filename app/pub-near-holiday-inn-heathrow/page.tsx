@@ -35,7 +35,7 @@ export default function PubNearHolidayInnHeathrowPage() {
       <HeroWrapper
         route="/pub-near-holiday-inn-heathrow"
         title="Pub Near Holiday Inn Heathrow"
-        description="12 minutes away — family-friendly British pub with great food and free parking"
+        description="12 minutes away, family-friendly British pub with great food and free parking"
         variant="default"
         enableSmartCtas={true}
         showContextStrip={true}
@@ -48,7 +48,7 @@ export default function PubNearHolidayInnHeathrowPage() {
               Pub Near Holiday Inn Heathrow
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
-              Staying at a Holiday Inn near Heathrow? The Anchor is just 12 minutes away — a family-friendly British pub with home-cooked food, draught beers, a beer garden and free parking. If you&apos;re looking for places to eat near Heathrow that aren&apos;t a hotel chain, we&apos;re one of the best pubs near Heathrow Airport for families.
+              Staying at a Holiday Inn near Heathrow? The Anchor is just 12 minutes away, a family-friendly British pub with home-cooked food, draught beers, a beer garden and free parking. If you&apos;re looking for places to eat near Heathrow that aren&apos;t a hotel chain, we&apos;re one of the best pubs near Heathrow Airport for families.
             </p>
           </div>
         </Container>
@@ -62,7 +62,7 @@ export default function PubNearHolidayInnHeathrowPage() {
               features={[
                 { icon: '', title: '12 Minutes', description: 'By taxi from Holiday Inn Heathrow', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
                 { icon: '', title: '~£15–18', description: 'Typical taxi fare each way', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: 'Free Parking', description: '20 spaces — no charges', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: 'Free Parking', description: '20 spaces, no charges', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
                 { icon: '‍‍', title: 'Family Friendly', description: 'Beer garden, high chairs & dog welcome', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
               ]}
               className="mb-8"
@@ -83,11 +83,11 @@ export default function PubNearHolidayInnHeathrowPage() {
                 <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Family-Friendly Features</h3>
                 <ul className="space-y-3">
                   {[
-                    'Large beer garden — great for kids to run around',
+                    'Large beer garden, great for kids to run around',
                     'High chairs and children\'s menu options',
                     'Dogs welcome in bar and garden',
                     'Games and a relaxed atmosphere',
-                    'Plenty of space — no cramped hotel dining',
+                    'Plenty of space, no cramped hotel dining',
                     'Free parking so you can come by car',
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-3">
@@ -106,7 +106,7 @@ export default function PubNearHolidayInnHeathrowPage() {
                   </div>
                   <div>
                     <p className="font-semibold">By Car</p>
-                    <p className="text-sm">Head south on the A3044 from the Heathrow area, continuing through Stanwell. Turn right onto Horton Road — free parking on arrival.</p>
+                    <p className="text-sm">Head south on the A3044 from the Heathrow area, continuing through Stanwell. Turn right onto Horton Road, free parking on arrival.</p>
                   </div>
                   <div className="pt-2 border-t border-anchor-gold/15">
                     <p className="text-sm font-medium">Postcode: <strong>TW19 6AQ</strong></p>
@@ -156,20 +156,20 @@ export default function PubNearHolidayInnHeathrowPage() {
           <div className="max-w-4xl mx-auto">
             <SectionHeader
               title="Why Holiday Inn Guests Keep Coming Back"
-              subtitle="Holiday Inn sits on Bath Road, right in the thick of the Heathrow hotel strip. It&rsquo;s convenient for catching a flight &mdash; but when it comes to dinner, you deserve better than room service."
+              subtitle="Holiday Inn sits on Bath Road, right in the thick of the Heathrow hotel strip. It&rsquo;s convenient for catching a flight, but when it comes to dinner, you deserve better than room service."
             />
             <div className="prose prose-invert max-w-none space-y-4 text-anchor-cream-text/70">
               <p>
-                Getting here is straightforward. A taxi from Holiday Inn on Bath Road takes around 12&ndash;15 minutes and costs approximately &pound;12&ndash;15. The 423 bus runs along Bath Road but it&rsquo;s not practical for an evening out &mdash; Uber or Bolt are the easiest option. Just type in &ldquo;The Anchor, Stanwell Moor, TW19 6AQ&rdquo; and you&rsquo;re on your way.
+                Getting here is straightforward. A taxi from Holiday Inn on Bath Road takes around 12&ndash;15 minutes and costs approximately &pound;12&ndash;15. The 423 bus runs along Bath Road but it&rsquo;s not practical for an evening out, Uber or Bolt are the easiest option. Just type in &ldquo;The Anchor, Stanwell Moor, TW19 6AQ&rdquo; and you&rsquo;re on your way.
               </p>
               <p>
-                Here&rsquo;s the bit that matters: Holiday Inn restaurant mains typically run &pound;16&ndash;22, plus a 12.5% service charge on top. At The Anchor, mains are &pound;10&ndash;17 with no service charge. For a couple dining out, that&rsquo;s roughly &pound;15&ndash;20 saved &mdash; enough to cover your taxi one way. Add a couple of pints of a proper bottled ale or a pint of Moretti instead of hotel-price lager and the difference is even starker.
+                Here&rsquo;s the bit that matters: Holiday Inn restaurant mains typically run &pound;16&ndash;22, plus a 12.5% service charge on top. At The Anchor, mains are &pound;10&ndash;17 with no service charge. For a couple dining out, that&rsquo;s roughly &pound;15&ndash;20 saved, enough to cover your taxi one way. Add a couple of pints of a proper bottled ale or a pint of Moretti instead of hotel-price lager and the difference is even starker.
               </p>
               <p>
                 What Holiday Inn guests tell us they love most is how different it feels. No laminated menus, no reheated food, no identikit hotel bar atmosphere. Just a proper village pub with proper beer on tap, food cooked from scratch, and a beer garden that comes alive in summer. It&rsquo;s the kind of place you&rsquo;d actually choose to spend an evening, not just default to because you&rsquo;re tired from travelling.
               </p>
               <p>
-                <strong>A practical tip:</strong> if you&rsquo;re visiting on a Friday or Saturday evening, book a table &mdash; we get busy. Tuesday and Wednesday evenings are quieter and a great time to enjoy our stone-baked pizzas from &pound;12.
+                <strong>A practical tip:</strong> if you&rsquo;re visiting on a Friday or Saturday evening, book a table, we get busy. Tuesday and Wednesday evenings are quieter and a great time to enjoy our stone-baked pizzas from &pound;12.
               </p>
             </div>
           </div>
@@ -180,11 +180,11 @@ export default function PubNearHolidayInnHeathrowPage() {
         faqs={[
           {
             question: 'How far is The Anchor from Holiday Inn Heathrow?',
-            answer: 'The Anchor is approximately 12 minutes by taxi from Holiday Inn Heathrow locations. Taxi fare is typically £15–18 each way. Free parking is available if you\'re driving a rental car — postcode TW19 6AQ.'
+            answer: 'The Anchor is approximately 12 minutes by taxi from Holiday Inn Heathrow locations. Taxi fare is typically £15–18 each way. Free parking is available if you\'re driving a rental car, postcode TW19 6AQ.'
           },
           {
             question: 'Is The Anchor near Holiday Inn Heathrow family-friendly?',
-            answer: 'Yes — The Anchor is very family-friendly. We have a large beer garden, high chairs, children\'s menu options, and dogs are welcome in the bar and garden. It\'s a much more relaxed and enjoyable experience than hotel dining for families.'
+            answer: 'Yes, The Anchor is very family-friendly. We have a large beer garden, high chairs, children\'s menu options, and dogs are welcome in the bar and garden. It\'s a much more relaxed and enjoyable experience than hotel dining for families.'
           },
           {
             question: 'What restaurants are near Holiday Inn Heathrow?',

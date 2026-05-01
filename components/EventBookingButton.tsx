@@ -55,7 +55,7 @@ function normalizeBookingUrl(rawUrl: string | null | undefined, event: Event): s
     }
 
     // Reject same-origin URLs that point to SEO category pages (e.g. /quiz-night,
-    // /cash-bingo). These are not booking destinations — the event detail page is.
+    // /cash-bingo). These are not booking destinations, the event detail page is.
     const sameOrigin = parsed.origin === eventUrlParsed.origin
     if (sameOrigin && CATEGORY_PAGE_PATHS.has(normalisedPath)) {
       return null

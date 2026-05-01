@@ -365,7 +365,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
         </div>
       </Section>
 
-      {/* Heathrow / Plane-Spotting Booking CTA — only shown for relevant posts */}
+      {/* Heathrow / Plane-Spotting Booking CTA, only shown for relevant posts */}
       {showHeathrowCta && (
         <Section spacing="md" container containerSize="md" className="bg-anchor-bg-card border-y border-anchor-gold/20">
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
@@ -374,7 +374,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
                 Visiting Heathrow? The Anchor is 5 minutes away
               </h2>
               <p className="text-anchor-cream-text/70">
-                Book a table for lunch in our beer garden — great food, cold drinks, and a proper base for a day of spotting.
+                Book a table for lunch in our beer garden, great food, cold drinks, and a proper base for a day of spotting.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3 shrink-0">

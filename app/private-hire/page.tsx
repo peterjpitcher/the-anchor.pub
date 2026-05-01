@@ -170,7 +170,7 @@ export default async function PrivateHirePage() {
             <section className="py-12 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <PageTitle className="text-center mb-8" seo={{ structured: true, speakable: true }}>
-                        Function Room &amp; Party Venue Near Heathrow — Private Hire
+                        Function Room &amp; Party Venue Near Heathrow, Private Hire
                     </PageTitle>
 
                     <p className="text-center text-lg text-anchor-cream-text/70 mb-8 max-w-4xl mx-auto">
@@ -369,7 +369,7 @@ export default async function PrivateHirePage() {
                                 <div>
                                     <div className="mb-4">
                                         <h3 className="text-xl font-bold text-anchor-gold-vivid">Venue Hire</h3>
-                                        <p className="text-sm text-anchor-cream-text/60 mt-1">Hourly rates — no minimum spend required</p>
+                                        <p className="text-sm text-anchor-cream-text/60 mt-1">Hourly rates, no minimum spend required</p>
                                     </div>
                                     <VenueSpacesTable spaces={spaces} />
                                 </div>
@@ -377,7 +377,7 @@ export default async function PrivateHirePage() {
                         </div>
 
                         <p className="mt-8 text-sm text-anchor-cream-text/60 italic">
-                            Sit-down meals and Sunday lunches are priced à la carte from our menu. Bespoke packages available — get in touch to discuss your requirements.
+                            Sit-down meals and Sunday lunches are priced à la carte from our menu. Bespoke packages available, get in touch to discuss your requirements.
                         </p>
 
                         <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
@@ -429,7 +429,7 @@ export default async function PrivateHirePage() {
                             </div>
                         </div>
                         <p className="text-center text-sm text-anchor-cream-text/50 mt-4">
-                            Our main function room — seating for up to 26 guests with standing room for more, and French doors opening onto the beer garden.{' '}
+                            Our main function room, seating for up to 26 guests with standing room for more, and French doors opening onto the beer garden.{' '}
                             <Link href="/our-pub" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid hover:underline">
                                 View all venue photos &rarr;
                             </Link>
@@ -505,11 +505,11 @@ export default async function PrivateHirePage() {
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
                             title="Small Parties Welcome"
-                            subtitle="No minimum of 50 guests here — we love intimate gatherings"
+                            subtitle="No minimum of 50 guests here, we love intimate gatherings"
                         />
 
                         <p className="text-lg text-anchor-cream-text/70 mb-8 max-w-3xl mx-auto">
-                            Most hotel venues require 50 or more guests before they&apos;ll even take your call. At The Anchor, we welcome groups from just 10. Whether it&apos;s an intimate birthday dinner, a retirement lunch, a christening tea, or a small work gathering — we&apos;ll give your event the same care and attention as a larger celebration.
+                            Most hotel venues require 50 or more guests before they&apos;ll even take your call. At The Anchor, we welcome groups from just 10. Whether it&apos;s an intimate birthday dinner, a retirement lunch, a christening tea, or a small work gathering, we&apos;ll give your event the same care and attention as a larger celebration.
                         </p>
 
                         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -547,30 +547,30 @@ export default async function PrivateHirePage() {
                             <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg p-6">
                                 <p className="text-sm text-anchor-cream-text/55 mb-3">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
                                 <p className="text-anchor-cream-text/80 italic mb-4">
-                                    &ldquo;We had our baby&apos;s Baptism party at The Anchor. Billy and Peter made the whole event run so smoothly. The new conservatory room is amazing for any event. The buffet food was delicious &mdash; family and friends all commented on how lovely it was. Will definitely return for future family events.&rdquo;
+                                    &ldquo;We had our baby&apos;s Baptism party at The Anchor. Billy and Peter made the whole event run so smoothly. The new conservatory room is amazing for any event. The buffet food was delicious, family and friends all commented on how lovely it was. Will definitely return for future family events.&rdquo;
                                 </p>
-                                <p className="text-sm text-anchor-cream-text/50">— Rachel, TripAdvisor</p>
+                                <p className="text-sm text-anchor-cream-text/50">Rachel, TripAdvisor</p>
                             </div>
                             <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg p-6">
                                 <p className="text-sm text-anchor-cream-text/55 mb-3">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
                                 <p className="text-anchor-cream-text/80 italic mb-4">
                                     &ldquo;Hired the function room for my 50th. Staff sorted everything, the buffet was spot on and everyone had a great night. Could not have asked for more.&rdquo;
                                 </p>
-                                <p className="text-sm text-anchor-cream-text/50">— Dave, Google Review</p>
+                                <p className="text-sm text-anchor-cream-text/50">Dave, Google Review</p>
                             </div>
                             <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg p-6">
                                 <p className="text-sm text-anchor-cream-text/55 mb-3">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
                                 <p className="text-anchor-cream-text/80 italic mb-4">
                                     &ldquo;Had our daughter&apos;s christening party here. They went above and beyond with the setup and the food was really impressive for the price. Everyone commented on how good the venue was.&rdquo;
                                 </p>
-                                <p className="text-sm text-anchor-cream-text/50">— Priya, Google Review</p>
+                                <p className="text-sm text-anchor-cream-text/50">Priya, Google Review</p>
                             </div>
                             <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg p-6">
                                 <p className="text-sm text-anchor-cream-text/55 mb-3">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
                                 <p className="text-anchor-cream-text/80 italic mb-4">
                                     &ldquo;Used The Anchor for our team Christmas lunch. Free parking was a huge bonus with 15 of us driving. Will definitely book again.&rdquo;
                                 </p>
-                                <p className="text-sm text-anchor-cream-text/50">— Google Review</p>
+                                <p className="text-sm text-anchor-cream-text/50">Google Review</p>
                             </div>
                         </div>
                     </div>

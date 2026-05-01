@@ -31,7 +31,7 @@ noindex: true
 
 ## Price Freeze Near Heathrow Airport - No Increases Until Autumn 2025
 
-When everything around us keeps going up—from your weekly shop to a pint at the pub—we're doing something different at The Anchor in **Stanwell Moor**, just **7 minutes from Heathrow Terminal 5**. We've made the decision to keep our **prices frozen until autumn** 2025. That means no draught price increases and a summer full of solid value, brilliant drinks, and welcoming community vibes. Perfect for **Heathrow workers** escaping airport prices, **Staines residents** enjoying their local, and anyone near the **airport** who values proper pub prices.
+When everything around us keeps going up, from your weekly shop to a pint at the pub, we're doing something different at The Anchor in **Stanwell Moor**, just **7 minutes from Heathrow Terminal 5**. We've made the decision to keep our **prices frozen until autumn** 2025. That means no draught price increases and a summer full of solid value, brilliant drinks, and welcoming community vibes. Perfect for **Heathrow workers** escaping airport prices, **Staines residents** enjoying their local, and anyone near the **airport** who values proper pub prices.
 
   
 
@@ -43,7 +43,7 @@ This isn't a gimmick or a flash sale. It's a promise. Because at The Anchor, we 
 
 ### Community First, Always
 
-We know the pressure people are under right now. That's why we've chosen to **hold our draught prices at their April 2024 rate**—with no increases planned until autumn 2025. Whether you're popping in after work, meeting friends for a quiz night, or sharing dinner with the family, **we're keeping things fair and accessible** for everyone in the village.
+We know the pressure people are under right now. That's why we've chosen to **hold our draught prices at their April 2024 rate**, with no increases planned until autumn 2025. Whether you're popping in after work, meeting friends for a quiz night, or sharing dinner with the family, **we're keeping things fair and accessible** for everyone in the village.
 
   
 
@@ -53,7 +53,7 @@ It's not about being the cheapest. It's about being a pub you can count on.
 
 ### Built on Real Partnership
 
-Thanks to our strong relationship with [Greene King](https://www.greeneking.co.uk/), we're able to offer **great products at fair prices**. Being a tied pub can have its challenges, but this partnership means we can **introduce value where it matters most**—and that's exactly what we're doing with new drinks and deals.
+Thanks to our strong relationship with [Greene King](https://www.greeneking.co.uk/), we're able to offer **great products at fair prices**. Being a tied pub can have its challenges, but this partnership means we can **introduce value where it matters most**, and that's exactly what we're doing with new drinks and deals.
 
   
 
@@ -69,13 +69,13 @@ We're excited to bring Carlsberg Pilsner to the bar at just **£4.75 a pint**. I
 
 ### Sip the Summer – Now Pouring Aspall Cider
 
-Sunshine meets cider with [Aspall](https://www.aspall.co.uk/)—our latest addition that's perfect for garden days or a relaxed evening indoors. It's premium, crisp, and perfectly complements our **prices frozen until autumn** approach.
+Sunshine meets cider with [Aspall](https://www.aspall.co.uk/), our latest addition that's perfect for garden days or a relaxed evening indoors. It's premium, crisp, and perfectly complements our **prices frozen until autumn** approach.
 
   
 
 ### Double Up for £2 – Every Day
 
-Love a proper spirit? You can **double up any of our optic spirits for just £2 extra**, any time, any day. No time limits, no catch—just straight-up value. That's a full double measure for less than a single costs at the airport!
+Love a proper spirit? You can **double up any of our optic spirits for just £2 extra**, any time, any day. No time limits, no catch, just straight-up value. That's a full double measure for less than a single costs at the airport!
 
   
 
@@ -99,7 +99,7 @@ Love a proper spirit? You can **double up any of our optic spirits for just £2 
 
 ### 🍸 Monthly Manager's Special
 
-Each month we feature a **premium spirit at 25% off**. Past favourites include Bombay Sapphire, Kraken Rum, and The Botanist Gin. Premium quality, smartly priced—right in line with our **prices frozen until autumn** commitment.
+Each month we feature a **premium spirit at 25% off**. Past favourites include Bombay Sapphire, Kraken Rum, and The Botanist Gin. Premium quality, smartly priced, right in line with our **prices frozen until autumn** commitment.
 
   
 
@@ -107,7 +107,7 @@ Each month we feature a **premium spirit at 25% off**. Past favourites include B
 
 ### Local Fun Without Leaving the Village
 
-Our events aren't just entertainment—they're tradition. They're what make us _the living room of the village_.
+Our events aren't just entertainment, they're tradition. They're what make us _the living room of the village_.
 
 *   [**Pub Quiz**](https://www.the-anchor.pub/whats-on) – _Monthly quiz nights_, £3 entry
     
@@ -118,7 +118,7 @@ Our events aren't just entertainment—they're tradition. They're what make us _
 
   
 
-These events are made for locals, by locals—with **prices that respect your budget**.
+These events are made for locals, by locals, with **prices that respect your budget**.
 
   
 
@@ -135,7 +135,7 @@ There's always something to do:
 
   
 
-Whether you're playing, singing, or spectating—you're part of it.
+Whether you're playing, singing, or spectating, you're part of it.
 
   
 
@@ -149,11 +149,11 @@ On a sunny day, our **garden space** is the place to be. And with **plenty of pa
 
 ### No Compromise on Quality
 
-Clean beer, clean pub, clean conscience. We don't cut corners—we raise standards. From hygiene to hospitality, we're proud of how we do things.
+Clean beer, clean pub, clean conscience. We don't cut corners, we raise standards. From hygiene to hospitality, we're proud of how we do things.
 
   
 
-Because **holding prices steady doesn't mean lowering our standards**—it means raising our game.
+Because **holding prices steady doesn't mean lowering our standards**, it means raising our game.
 
   
 
@@ -179,7 +179,7 @@ Because **holding prices steady doesn't mean lowering our standards**—it means
 
 ## We've Got You
 
-So here's the bottom line: at The Anchor, our **prices are frozen until autumn** 2025. We're holding firm on draught prices, offering cracking new deals, and keeping our events buzzing—all without compromising what makes us your proper local.
+So here's the bottom line: at The Anchor, our **prices are frozen until autumn** 2025. We're holding firm on draught prices, offering cracking new deals, and keeping our events buzzing, all without compromising what makes us your proper local.
 
   
 

@@ -69,7 +69,7 @@ describe('Booking Agent API - walk-in launch behaviour', () => {
         date: '2026-05-24', // Sunday
         time: '13:00',
         partySize: 2,
-        type: 'sunday_lunch', // hostile/legacy input — must be ignored
+        type: 'sunday_lunch', // hostile/legacy input, must be ignored
         purpose: 'food',
         customer: {
           firstName: 'Pat',

@@ -53,7 +53,7 @@ export const HEATHROW_TIMES = {
 
 // Large-group deposit policy: applies to groups at or above the threshold,
 // regardless of booking type. The website does NOT have a state-aware
-// `getCanonicalDeposit` helper — that lives only in the management app
+// `getCanonicalDeposit` helper, that lives only in the management app
 // (it owns the booking row in the database). The website trusts the
 // management API's response after booking creation. See spec §7.3.
 export const LARGE_GROUP_DEPOSIT_PER_PERSON_GBP = 10

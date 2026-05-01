@@ -76,13 +76,13 @@ And here’s the truth that matters right now:
 
 So this isn’t just about a business doing well. It’s about whether our village keeps a place that helps people connect in real life.
 
-We’re writing this because hospitality is going through a genuinely hard period — and we don’t want to watch community pubs quietly disappear and then pretend we didn’t see it coming.
+We’re writing this because hospitality is going through a genuinely hard period, and we don’t want to watch community pubs quietly disappear and then pretend we didn’t see it coming.
 
 This isn’t a “doom post”. It’s a **community post**.
 
 And whether you choose to support **The Anchor** or another pub you love elsewhere, the message is the same:
 
-**Please support a pub — because once it’s gone, it rarely comes back.**
+**Please support a pub, because once it’s gone, it rarely comes back.**
 
 ---
 
@@ -101,7 +101,7 @@ That last one matters more than people realise.
 
 When a pub is working properly, it becomes **an anchor point**: something you can rely on being there, week after week, year after year. You don’t have to be a “regular” to belong. You just have to walk in.
 
-And when pubs disappear, it’s not just the building that goes — it’s the **habit of community** that goes with it.
+And when pubs disappear, it’s not just the building that goes, it’s the **habit of community** that goes with it.
 
 ---
 
@@ -112,19 +112,19 @@ Across the UK, pubs and hospitality venues have been pushed harder and harder ov
 Here’s the simple version:
 
 - **Running costs have climbed** (utilities, suppliers, maintenance, compliance).  
-- **Wage costs have risen** (as they should in principle — people deserve fair pay — but it adds serious pressure when everything else has also gone up).  
+- **Wage costs have risen** (as they should in principle, people deserve fair pay, but it adds serious pressure when everything else has also gone up).
 - **Taxes and business rates** have become a bigger burden in real terms.  
 - And customers, understandably, have been dealing with their own cost-of-living pressures.  
 
-The result is that a venue can look “busy enough” and still be struggling behind the scenes — because “busy” doesn’t automatically mean “profitable” anymore.
+The result is that a venue can look “busy enough” and still be struggling behind the scenes, because “busy” doesn’t automatically mean “profitable” anymore.
 
-This is also why the “support your local” message matters right now. Not because pubs want sympathy — but because the reality is:
+This is also why the “support your local” message matters right now. Not because pubs want sympathy, but because the reality is:
 
 **If the community doesn’t use its community spaces, those spaces don’t survive.**
 
-And once a pub closes, there often isn’t a clean re-open. Sometimes it becomes a long-term empty building. Sometimes it becomes something else entirely. If you’ve seen that happen locally — like the **Golden Cross in Combrook**, once thriving and now boarded up — you already know how quickly a place can become… nothing.
+And once a pub closes, there often isn’t a clean re-open. Sometimes it becomes a long-term empty building. Sometimes it becomes something else entirely. If you’ve seen that happen locally, like the **Golden Cross in Combrook**, once thriving and now boarded up, you already know how quickly a place can become… nothing.
 
-So yes — this is a trying time for hospitality. And no — this isn’t just about us.
+So yes, this is a trying time for hospitality. And no, this isn’t just about us.
 
 It’s about stopping the slow, quiet loss of the places that hold communities together.
 
@@ -146,7 +146,7 @@ Support often looks like small, ordinary choices made consistently:
 
 Consistency matters more than spikes.
 
-A packed pub once every two months is lovely — but it’s the steady rhythm of normal visits that keeps a place alive through the quieter weeks.
+A packed pub once every two months is lovely, but it’s the steady rhythm of normal visits that keeps a place alive through the quieter weeks.
 
 If you’ve ever thought: *“We should go in soon”*, this is your nudge.
 
@@ -156,7 +156,7 @@ If you’ve ever thought: *“We should go in soon”*, this is your nudge.
 
 We’re not trying to be a “destination gastropub”. That’s not our vision.
 
-Our aim is simpler — and, in our view, more important:
+Our aim is simpler, and, in our view, more important:
 
 **We want Stanwell Moor to have a pub that feels like it belongs to Stanwell Moor.**
 
@@ -164,7 +164,7 @@ Here’s what we try to be, every day:
 
 ### Welcoming and inclusive
 
-We want people to feel comfortable walking in — whether they’re surrounded by friends or they’re coming in on their own.
+We want people to feel comfortable walking in, whether they’re surrounded by friends or they’re coming in on their own.
 
 ### Community-led
 
@@ -176,19 +176,19 @@ If we say we’re hosting something, we host it.
 If you book something with us, we take it seriously.  
 If you walk in, we’ll look after you.
 
-Not because it’s a marketing line — but because it’s how we believe a community pub should operate.
+Not because it’s a marketing line, but because it’s how we believe a community pub should operate.
 
 ### Purpose beyond drinking
 
 Yes, we serve drinks. Yes, we serve food.
 
-But we also believe pubs should bring people together **through purpose**, not just pints — which is exactly why events and shared moments matter.
+But we also believe pubs should bring people together **through purpose**, not just pints, which is exactly why events and shared moments matter.
 
 ---
 
 ## A week at The Anchor
 
-If you’ve never really thought about “using” your local pub, here’s what a great community week looks like at ours — the kind of routine we’re trying to build with Stanwell Moor.
+If you’ve never really thought about “using” your local pub, here’s what a great community week looks like at ours, the kind of routine we’re trying to build with Stanwell Moor.
 
 ### Monday: easy catch-ups (drinks)
 
@@ -196,11 +196,11 @@ A soft landing after the weekend. A place to talk, decompress, and start the wee
 
 ### Tuesday and Thursday: food, drinks, and midweek connection
 
-Midweek meals matter. They’re not about splashing out — they’re about breaking the week up and feeling human again.
+Midweek meals matter. They’re not about splashing out, they’re about breaking the week up and feeling human again.
 
 ### Wednesday: games nights and togetherness
 
-Quiz nights, music bingo, cash bingo — the kind of stuff that gets people laughing with neighbours they might otherwise only wave at.
+Quiz nights, music bingo, cash bingo, the kind of stuff that gets people laughing with neighbours they might otherwise only wave at.
 
 ### Friday: after-work drinks and end-of-week exhale
 
@@ -208,17 +208,17 @@ A chance to switch off, catch up, and start the weekend properly.
 
 ### Saturday: bring your people
 
-Lunch with friends, family popping in, enjoying the garden when the weather plays ball — and then live music or karaoke when it’s time to celebrate.
+Lunch with friends, family popping in, enjoying the garden when the weather plays ball, and then live music or karaoke when it’s time to celebrate.
 
 ### Sunday: the “everyone together” day
 
-For many people, Sunday lunch isn’t just food — it’s a weekly reset. A shared moment. A tradition.
+For many people, Sunday lunch isn’t just food, it’s a weekly reset. A shared moment. A tradition.
 
 ---
 
 ## Why we’re saying this now
 
-We can promote quiz nights, bingo, karaoke, live music, Sunday lunches and private parties all day long — and we do.
+We can promote quiz nights, bingo, karaoke, live music, Sunday lunches and private parties all day long, and we do.
 
 But the real issue isn’t “does the pub have enough going on?”
 
@@ -237,7 +237,7 @@ Because when community pubs fade out, it isn’t sudden. It’s slow. And by the
 
 ## If you do one thing this week, do this
 
-Pick one option — whatever fits your life right now:
+Pick one option, whatever fits your life right now:
 
 1) **Come in for one drink** with one person you like  
 2) **Book a table** for a midweek meal or Sunday lunch  
@@ -251,7 +251,7 @@ Small actions. Real impact.
 
 We’ll say it clearly:
 
-**Whether you support us or someone else — please support a pub.**
+**Whether you support us or someone else, please support a pub.**
 
 Support hospitality. Support local.
 
@@ -267,7 +267,7 @@ At village level, the most powerful thing you can do is still the simplest:
 
 ### Is The Anchor family-friendly?
 
-Yes — we want families to feel comfortable here, especially at daytime and food-led moments like lunch and Sundays.
+Yes, we want families to feel comfortable here, especially at daytime and food-led moments like lunch and Sundays.
 
 ### Do you serve food every day?
 
@@ -279,21 +279,21 @@ We host regular community events including quiz nights, bingo (including cash bi
 
 ### Do I need to book?
 
-For busier times (especially Sunday lunch and popular event nights), booking is a smart idea. For quieter moments, we often welcome walk-ins — just check what’s on that day.
+For busier times (especially Sunday lunch and popular event nights), booking is a smart idea. For quieter moments, we often welcome walk-ins, just check what’s on that day.
 
 ### Can I book the pub for a party or gathering?
 
 Yes. We host things like birthdays, christenings, baby showers and other get-togethers. If you’re thinking about something, talk to us early and we’ll help you shape it.
 
-### I’ve never come in before — will it feel awkward?
+### I’ve never come in before, will it feel awkward?
 
-It **can** feel awkward walking into a pub where other people already know each other — and if you’ve felt that before, you’re not the only one.
+It **can** feel awkward walking into a pub where other people already know each other, and if you’ve felt that before, you’re not the only one.
 
 If you come in for the first time, we’ll help make it easy: we’ll say hello, get you sorted at the bar, help you find a comfortable spot, and make sure you feel welcome. You don’t need to know anyone to come in.
 
 ### What’s the best way to keep up with what’s on?
 
-Our website and social channels are the quickest way — and if you’re in local WhatsApp/community groups, you’ll likely see updates there too.
+Our website and social channels are the quickest way, and if you’re in local WhatsApp/community groups, you’ll likely see updates there too.
 
 ---
 
@@ -301,7 +301,7 @@ Our website and social channels are the quickest way — and if you’re in loca
 
 If you’ve read this far, thank you.
 
-The Anchor exists to be a **community space**, not just a business. We’re proud of what we do, and we care about doing it properly — warmly, reliably, and with the village at the centre.
+The Anchor exists to be a **community space**, not just a business. We’re proud of what we do, and we care about doing it properly, warmly, reliably, and with the village at the centre.
 
 If you value having a local pub in Stanwell Moor, the best way to protect it is beautifully simple:
 

@@ -102,7 +102,7 @@ export function getTodaysActiveEvents(events: Event[], now: Date): Event[] {
 /**
  * Pure check: is Sunday lunch available right now?
  * Checks day, service status, overrides, schedule_config, and cutoff.
- * All inputs from BusinessHours — no fetch.
+ * All inputs from BusinessHours, no fetch.
  */
 export function isSundayLunchAvailableNow(
   businessHours: BusinessHours,
@@ -209,7 +209,7 @@ export function findNextBarOpening(
     const opensMinutes = parseTimeToMinutes(opens)
     if (opensMinutes === null) continue
     // Skip today if the opens time has already passed (we'd already be open then,
-    // which is contradicted by isOpen === false — but defensively skip).
+    // which is contradicted by isOpen === false, but defensively skip).
     if (offset === 0 && opensMinutes <= nowMinutes) continue
     const timeLabel = formatTime12h(opens)
     if (!timeLabel) continue
@@ -253,7 +253,7 @@ export function resolveHeroContext(
   const isOpen = currentStatus.isOpen
   const kitchenOpen = currentStatus.kitchenOpen
 
-  // Bookings — default true if absent
+  // Bookings, default true if absent
   const statusAny = currentStatus as Record<string, unknown>
   const services = statusAny.services as Record<string, Record<string, unknown>> | undefined
   const bookingsAccepting =
@@ -288,7 +288,7 @@ export function resolveHeroContext(
   // Sunday lunch
   const sundayLunchAvailable = isSundayLunchAvailableNow(businessHours, now)
 
-  // Next-opens label — only computed when currently closed, so the hero
+  // Next-opens label, only computed when currently closed, so the hero
   // ContextStrip can replace bare "Closed" with "Closed · Opens at 4pm" etc.
   const nextOpensLabel = isOpen ? null : findNextBarOpening(businessHours, now)
 

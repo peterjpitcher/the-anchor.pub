@@ -3,7 +3,7 @@ title: Things to Do Near Heathrow Between Flights (Layover Guide 2026)
 description: >-
   Got 4–10 hours at Heathrow? This guide covers the best things to do near
   Heathrow Airport during a layover, from a proper pub lunch to local
-  attractions — all within 15 minutes of the terminals.
+  attractions, all within 15 minutes of the terminals.
 date: '2026-03-01'
 author: The Anchor Team
 keywords:
@@ -22,7 +22,7 @@ hero: hero.jpg
 images: []
 ---
 
-A Heathrow layover between 4 and 10 hours is long enough to do something worthwhile, but short enough that central London isn't practical. This guide covers the best **things to do near Heathrow** that actually make use of your time — whether you want to eat, explore, or simply decompress before your next flight.
+A Heathrow layover between 4 and 10 hours is long enough to do something worthwhile, but short enough that central London isn't practical. This guide covers the best **things to do near Heathrow** that actually make use of your time, whether you want to eat, explore, or simply decompress before your next flight.
 
 ## First: Know Your Timings
 
@@ -46,7 +46,7 @@ For most Heathrow layover travellers, this is the single best use of time.
 - A large beer garden for sunny days
 - Free parking if you've picked up a rental car
 
-For many international travellers, a layover stop at a proper British local pub is itself the attraction — the kind of place you can't find in an airport terminal anywhere in the world.
+For many international travellers, a layover stop at a proper British local pub is itself the attraction, the kind of place you can't find in an airport terminal anywhere in the world.
 
 **Practical details:**
 - Postcode for taxi: TW19 6AQ
@@ -66,7 +66,7 @@ Realistic time needed: **minimum 3 hours** including travel. Only viable for lay
 
 **Staines** is 10–15 minutes from Heathrow and has a pleasant riverside walk along the Thames, a range of cafés and restaurants, and enough to fill 2–3 hours. Less iconic than Windsor but much more practical for shorter layovers.
 
-The Anchor is actually closer to Staines than most airport hotels — about 8 minutes — if you want to combine a riverside walk with a pub lunch.
+The Anchor is actually closer to Staines than most airport hotels, about 8 minutes, if you want to combine a riverside walk with a pub lunch.
 
 ## 4. Plane Spotting from The Anchor's Beer Garden
 
@@ -78,7 +78,7 @@ Not a joke. The Anchor's beer garden has views of Heathrow approach paths, and w
 
 Worth mentioning for completeness: Terminal 5's airside facilities are better than most airports in Europe. If you're staying landside, Terminal 5's restaurants and shops are serviceable. Terminals 2 and 3 share the Queen's Terminal complex which has a good range of options.
 
-But if you've already been through Heathrow before, the terminals offer little that can't be found elsewhere — and certainly nothing as memorable as a proper British pub.
+But if you've already been through Heathrow before, the terminals offer little that can't be found elsewhere, and certainly nothing as memorable as a proper British pub.
 
 ## The Quick-Reference Layover Plan
 

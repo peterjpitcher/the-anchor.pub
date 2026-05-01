@@ -16,14 +16,14 @@ export const metadata: Metadata = {
   title: 'Pubs in Windsor | Free Parking Alternative',
   description: `Pubs near Windsor? ${BRAND.name} is 15 minutes from Windsor Castle with free parking, Sunday roasts and stone-baked pizzas. Outside the ULEZ zone.`,
   openGraph: {
-    title: 'Pubs in Windsor — The Anchor, Stanwell Moor',
-    description: 'One of the best pubs near Windsor — 15 minutes away with free parking, Sunday roast, stone-baked pizzas and countryside atmosphere.',
+    title: 'Pubs in Windsor, The Anchor, Stanwell Moor',
+    description: 'One of the best pubs near Windsor, 15 minutes away with free parking, Sunday roast, stone-baked pizzas and countryside atmosphere.',
     images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
     type: 'website',
   },
   twitter: getTwitterMetadata({
-    title: 'Pubs in Windsor — The Anchor, Stanwell Moor',
-    description: 'One of the best pubs near Windsor — 15 minutes away with free parking, Sunday roast, stone-baked pizzas and countryside atmosphere.',
+    title: 'Pubs in Windsor, The Anchor, Stanwell Moor',
+    description: 'One of the best pubs near Windsor, 15 minutes away with free parking, Sunday roast, stone-baked pizzas and countryside atmosphere.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   }),
   alternates: {
@@ -121,7 +121,7 @@ export default function WindsorPubPage() {
               }}
               className="text-anchor-cream-text mb-4"
             >
-              Pubs in Windsor — Traditional British Pub Near Windsor
+              Pubs in Windsor, Traditional British Pub Near Windsor
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
               Searching for pubs in Windsor? Your local traditional pub is just 15 minutes from Windsor Castle with free parking
@@ -430,16 +430,16 @@ export default function WindsorPubPage() {
             />
             <div className="prose prose-invert max-w-none space-y-4 text-anchor-cream-text/80">
               <p>
-                If you&rsquo;re looking for pubs near Windsor, you know the drill: fight for a parking space in River Street or King Edward VII car park, pay through the nose, then squeeze into a packed High Street pub where half the crowd are day-trippers clutching castle guidebooks. There&rsquo;s nothing wrong with the tourist pubs &mdash; they serve their purpose &mdash; but sometimes you want somewhere that feels like <em>yours</em>.
+                If you&rsquo;re looking for pubs near Windsor, you know the drill: fight for a parking space in River Street or King Edward VII car park, pay through the nose, then squeeze into a packed High Street pub where half the crowd are day-trippers clutching castle guidebooks. There&rsquo;s nothing wrong with the tourist pubs, they serve their purpose, but sometimes you want somewhere that feels like <em>yours</em>.
               </p>
               <p>
-                That&rsquo;s the drive that brings Windsor residents our way. The quickest route is straight down the A308 through Datchet, picking up Horton Road past Wraysbury &mdash; about 20 minutes of easy, mostly single-carriageway driving with barely a traffic light in sight. If you&rsquo;d rather use the motorway, the M25 from Junction 13 or 14 drops you practically on our doorstep. Either way, you swap Windsor&rsquo;s parking charges (easily three or four quid an hour) for 20 free spaces right outside the door.
+                That&rsquo;s the drive that brings Windsor residents our way. The quickest route is straight down the A308 through Datchet, picking up Horton Road past Wraysbury, about 20 minutes of easy, mostly single-carriageway driving with barely a traffic light in sight. If you&rsquo;d rather use the motorway, the M25 from Junction 13 or 14 drops you practically on our doorstep. Either way, you swap Windsor&rsquo;s parking charges (easily three or four quid an hour) for 20 free spaces right outside the door.
               </p>
               <p>
-                We get a lot of Windsor Great Park walkers who have spent the morning on the Long Walk or around Virginia Water and want a proper pub lunch without heading back into town. Castle staff pop in after their shifts too &mdash; they&rsquo;ve told us they prefer somewhere they won&rsquo;t bump into visitors from work. And if you&rsquo;ve just done the Theatre Royal or a Windsor Racecourse meeting, we&rsquo;re a brilliant pit-stop on the way home &mdash; quieter, cheaper, and you can actually hear your mates talk.
+                We get a lot of Windsor Great Park walkers who have spent the morning on the Long Walk or around Virginia Water and want a proper pub lunch without heading back into town. Castle staff pop in after their shifts too, they&rsquo;ve told us they prefer somewhere they won&rsquo;t bump into visitors from work. And if you&rsquo;ve just done the Theatre Royal or a Windsor Racecourse meeting, we&rsquo;re a brilliant pit-stop on the way home, quieter, cheaper, and you can actually hear your mates talk.
               </p>
               <p>
-                The beer garden is the clincher for most people. Sit outside with a pint and watch the planes coming into Heathrow overhead &mdash; it&rsquo;s genuinely one of the best free shows in Surrey. Dogs are welcome throughout, so if you&rsquo;ve brought the spaniel along for that Great Park walk, they&rsquo;re sorted too.
+                The beer garden is the clincher for most people. Sit outside with a pint and watch the planes coming into Heathrow overhead, it&rsquo;s genuinely one of the best free shows in Surrey. Dogs are welcome throughout, so if you&rsquo;ve brought the spaniel along for that Great Park walk, they&rsquo;re sorted too.
               </p>
             </div>
           </div>

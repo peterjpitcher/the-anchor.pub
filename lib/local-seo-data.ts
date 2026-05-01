@@ -116,7 +116,7 @@ export const landmarks: Landmark[] = [
         type: 'crematorium',
         address: 'Feltham Road, Hanworth TW13 4LY',
         distance: '12 mins drive',
-        description: 'The Anchor offers a private, peaceful setting for families gathering after services at Kempton Park Crematorium — a straightforward 12-minute drive via the A316.'
+        description: 'The Anchor offers a private, peaceful setting for families gathering after services at Kempton Park Crematorium, a straightforward 12-minute drive via the A316.'
     },
 
     // Additional Registry Offices
@@ -144,7 +144,7 @@ export const landmarks: Landmark[] = [
         type: 'other',
         address: 'Heathrow Airport TW6',
         distance: '7 mins drive',
-        description: 'The Anchor is 7 minutes from Heathrow Terminal 5 — ideal for airport staff events, farewell dinners, and gatherings for those travelling or arriving at Heathrow.'
+        description: 'The Anchor is 7 minutes from Heathrow Terminal 5, ideal for airport staff events, farewell dinners, and gatherings for those travelling or arriving at Heathrow.'
     },
 
     // Sports Venues

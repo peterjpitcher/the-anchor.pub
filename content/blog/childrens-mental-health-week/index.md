@@ -44,7 +44,7 @@ At **The Anchor**, we understand how important it is for families to spend quali
 
   
 
-This is more than just a meal—it’s a chance to **pause, connect, and check in on the children in our lives**.
+This is more than just a meal, it’s a chance to **pause, connect, and check in on the children in our lives**.
 
   
 
@@ -118,7 +118,7 @@ For expert advice, visit [**YoungMinds**](https://www.youngminds.org.uk/), a lea
 
 ## **Practical Ways to Support a Child’s Mental Health**
 
-Supporting a child’s mental health doesn’t have to be complicated—small, everyday actions can **make a big difference**.
+Supporting a child’s mental health doesn’t have to be complicated, small, everyday actions can **make a big difference**.
 
   
 
@@ -222,7 +222,7 @@ Children’s Mental Health Week is an important reminder that **mental health ne
 
   
 
-At **The Anchor**, we believe that **small moments—like sharing a meal together—can create lasting bonds and open up important conversations**.
+At **The Anchor**, we believe that **small moments, like sharing a meal together, can create lasting bonds and open up important conversations**.
 
   
 

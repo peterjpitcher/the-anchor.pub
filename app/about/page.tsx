@@ -136,7 +136,7 @@ export default function AboutPage() {
                 When Heathrow grew from a grass airstrip in the 1940s into one of the
                 world&apos;s busiest airports, the village changed around us. Roads were
                 widened, reservoirs were dug, and flight paths were drawn overhead. But
-                The Anchor stayed put. We kept doing what we&apos;d always done &mdash;
+                The Anchor stayed put. We kept doing what we&apos;d always done,
                 pulling pints, serving proper food, and making people feel at home.
               </p>
 
@@ -153,7 +153,7 @@ export default function AboutPage() {
                 But for all that, we&apos;re still a village pub at heart. We have our regulars
                 who prop up the bar every week. We run quiz nights, music bingo, and karaoke.
                 The kids play in the garden while the dogs snooze under the tables. The kitchen
-                turns out honest British food &mdash; nothing fussy, just good ingredients
+                turns out honest British food, nothing fussy, just good ingredients
                 cooked well. That&apos;s what we&apos;ve been doing since George II was on the
                 throne, and we don&apos;t plan on stopping.
               </p>
@@ -177,14 +177,14 @@ export default function AboutPage() {
                 icon: '',
                 title: 'Under the Flight Path',
                 description:
-                  'Our beer garden sits directly beneath Heathrow\u2019s approach path. Aircraft pass overhead every 90 seconds at peak times \u2014 a view you won\u2019t find at any other pub.',
+                  'Our beer garden sits directly beneath Heathrow\u2019s approach path. Aircraft pass overhead every 90 seconds at peak times, a view you won\u2019t find at any other pub.',
                 className: 'text-center',
               },
               {
                 icon: '',
                 title: '20 Free Parking Spaces',
                 description:
-                  'No meters, no apps, no charges. Free on-site parking for every guest \u2014 a rare thing this close to Heathrow.',
+                  'No meters, no apps, no charges. Free on-site parking for every guest, a rare thing this close to Heathrow.',
                 className: 'text-center',
               },
               {
@@ -288,7 +288,7 @@ export default function AboutPage() {
                     </h3>
                     <p className="text-anchor-cream-text/70 mb-4">
                       Flexible room bookings for 10 to 50 guests, with larger events by enquiry. Birthdays, corporate events,
-                      celebrations &mdash; we handle the lot.
+                      celebrations, we handle the lot.
                     </p>
                     <p className="text-anchor-gold-vivid font-semibold">Plan your event &rarr;</p>
                   </CardBody>
@@ -373,7 +373,7 @@ export default function AboutPage() {
                   5-Star Food Hygiene
                 </h3>
                 <p className="text-anchor-cream-text/70">
-                  Awarded the top rating by the Food Standards Agency &mdash; the highest
+                  Awarded the top rating by the Food Standards Agency, the highest
                   standard of food safety and cleanliness.
                 </p>
               </div>
@@ -421,7 +421,7 @@ export default function AboutPage() {
           {
             question: 'Does The Anchor have parking?',
             answer:
-              'Yes \u2014 we have 20 free parking spaces for guests with no time limit while you are visiting. No meters, no apps, no charges.',
+              'Yes, we have 20 free parking spaces for guests with no time limit while you are visiting. No meters, no apps, no charges.',
           },
           {
             question: 'Is The Anchor inside the ULEZ zone?',
@@ -440,7 +440,7 @@ export default function AboutPage() {
             </h2>
             <p className="text-xl text-white/90 mb-8">
               Book a table, grab a pint, or just pop in and say hello. We&apos;ve been here
-              since 1751 &mdash; we&apos;re not going anywhere.
+              since 1751, we&apos;re not going anywhere.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <BookTableButton

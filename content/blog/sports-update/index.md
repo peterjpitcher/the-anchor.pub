@@ -76,7 +76,7 @@ In addition to rising costs, customer interest in sport has dwindled dramaticall
 
 ## **Our Commitment to Community and Core Services**
 
-By stepping away from subscription-based sports broadcasting, we can ensure that our focus remains where it should be—on providing an exceptional experience for the majority of our community. This includes:
+By stepping away from subscription-based sports broadcasting, we can ensure that our focus remains where it should be, on providing an exceptional experience for the majority of our community. This includes:
 
 *   **Continued investment** in high-quality food, drinks, and events.
     

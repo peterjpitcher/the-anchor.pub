@@ -41,7 +41,7 @@ export default function Terminal4Page() {
       {/* Hero Section */}
       <HeroWrapper
         route="/near-heathrow/terminal-4"
-        title="Pubs Near Heathrow Terminal 4 — The Anchor"
+        title="Pubs Near Heathrow Terminal 4, The Anchor"
         description="Perfect for SkyTeam & budget travelers • Free parking • Real British hospitality"
         variant="default"
         primaryCta={
@@ -142,7 +142,7 @@ export default function Terminal4Page() {
               <div className="card-dark rounded-none p-6">
                 <h3 className="text-xl font-semibold text-anchor-gold-vivid mb-2">Stone-Baked Pizzas</h3>
                 <p className="text-sm text-anchor-cream-text/70 mb-4">
-                  Hand-stretched pizzas with bold toppings — ideal for crew nights or family send-offs.
+                  Hand-stretched pizzas with bold toppings, ideal for crew nights or family send-offs.
                 </p>
                 <div className="flex flex-col gap-2">
                   <BookTableButton
@@ -162,7 +162,7 @@ export default function Terminal4Page() {
               <div className="card-dark rounded-none p-6">
                 <h3 className="text-xl font-semibold text-anchor-gold-vivid mb-2">All-Day Menu & Drinks</h3>
                 <p className="text-sm text-anchor-cream-text/70 mb-4">
-                  Burgers, fish & chips, cocktails and draught beers served fast with free parking — a better alternative to hotel bars.
+                  Burgers, fish & chips, cocktails and draught beers served fast with free parking, a better alternative to hotel bars.
                 </p>
                 <div className="flex flex-col gap-2">
                   <BookTableButton
@@ -363,7 +363,7 @@ export default function Terminal4Page() {
                 {
                   title: "Budget-Friendly Option",
                   icon: "",
-                  content: "T4 also serves many budget airlines. Enjoy proper British pub food with generous portions in a relaxed atmosphere — just 12 minutes from T4."
+                  content: "T4 also serves many budget airlines. Enjoy proper British pub food with generous portions in a relaxed atmosphere, just 12 minutes from T4."
                 },
                 {
                   title: "Transit Alternative",
@@ -598,7 +598,7 @@ export default function Terminal4Page() {
           },
           {
             question: "Do you have parking for Terminal 4 travelers?",
-            answer: `Yes! We offer free parking for all customers with space for ${PARKING.capacity} cars. No fees, no time limits — free while you're visiting us.`
+            answer: `Yes! We offer free parking for all customers with space for ${PARKING.capacity} cars. No fees, no time limits, free while you're visiting us.`
           },
           {
             question: "What time should I leave for Terminal 4?",

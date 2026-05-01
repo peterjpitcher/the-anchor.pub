@@ -12,15 +12,15 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
     title: 'Luggage Friendly Pub Near Heathrow | Bring Your Bags',
-    description: `Visiting near Heathrow with luggage? You're welcome to bring your bags to ${BRAND.name} — we have plenty of space. Enjoy a meal just 7 mins from T5 with free parking.`,
+    description: `Visiting near Heathrow with luggage? You're welcome to bring your bags to ${BRAND.name}, we have plenty of space. Enjoy a meal just 7 mins from T5 with free parking.`,
     openGraph: {
-        title: 'Luggage Friendly Pub Near Heathrow — Bring Your Bags to The Anchor',
+        title: 'Luggage Friendly Pub Near Heathrow, Bring Your Bags to The Anchor',
         description: 'Visiting near Heathrow with luggage? Bring your bags with you and enjoy a proper British meal, 7 minutes from Terminal 5.',
         images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({
-        title: 'Luggage Friendly Pub Near Heathrow — Bring Your Bags to The Anchor',
+        title: 'Luggage Friendly Pub Near Heathrow, Bring Your Bags to The Anchor',
         description: 'Visiting near Heathrow with luggage? Bring your bags with you and enjoy a proper British meal, 7 minutes from Terminal 5.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
@@ -34,17 +34,17 @@ export default function LuggageStoragePage() {
         "@context": "https://schema.org",
         "@type": "HowTo",
         "name": "How to Visit The Anchor with Luggage",
-        "description": "Enjoy a meal at The Anchor near Heathrow — you're welcome to bring your luggage with you.",
+        "description": "Enjoy a meal at The Anchor near Heathrow, you're welcome to bring your luggage with you.",
         "step": [
             {
                 "@type": "HowToStep",
                 "name": "Book a Table",
-                "text": "Reserve a table for lunch or dinner. No need to mention luggage — just bring it along."
+                "text": "Reserve a table for lunch or dinner. No need to mention luggage, just bring it along."
             },
             {
                 "@type": "HowToStep",
                 "name": "Arrive with Your Bags",
-                "text": "Bring your luggage inside — we have plenty of space and you're welcome to keep it beside you."
+                "text": "Bring your luggage inside, we have plenty of space and you're welcome to keep it beside you."
             },
             {
                 "@type": "HowToStep",
@@ -64,7 +64,7 @@ export default function LuggageStoragePage() {
             <HeroWrapper
                 route="/luggage-storage-heathrow"
                 title="Luggage Friendly Pub Near Heathrow"
-                description="Visiting before or after a flight? Bring your luggage with you — we have plenty of space."
+                description="Visiting before or after a flight? Bring your luggage with you, we have plenty of space."
                 variant="default"
                 enableSmartCtas={true}
                 showContextStrip={true}
@@ -77,7 +77,7 @@ export default function LuggageStoragePage() {
                             Hours to Kill Before Your Flight? Bring Your Bags to The Anchor
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">
-                            Checking out of your hotel at 11am but your flight isn't until 8pm? Don't spend 9 hours sitting on a hard plastic chair at Terminal 5. Come to The Anchor and bring your luggage with you — we have plenty of space, and you're very welcome. Enjoy a few hours of proper British hospitality before you fly.
+                            Checking out of your hotel at 11am but your flight isn't until 8pm? Don't spend 9 hours sitting on a hard plastic chair at Terminal 5. Come to The Anchor and bring your luggage with you, we have plenty of space, and you're very welcome. Enjoy a few hours of proper British hospitality before you fly.
                         </p>
                     </div>
                 </Container>
@@ -88,7 +88,7 @@ export default function LuggageStoragePage() {
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
                             title="How It Works"
-                            subtitle="Simple — just bring your bags along."
+                            subtitle="Simple, just bring your bags along."
                         />
 
                         <FeatureGrid
@@ -97,7 +97,7 @@ export default function LuggageStoragePage() {
                                 {
                                     icon: "",
                                     title: "1. Book a Table",
-                                    description: "Book a table for a meal — no need to mention luggage, just turn up with it.",
+                                    description: "Book a table for a meal, no need to mention luggage, just turn up with it.",
                                     variant: "colored",
                                     color: "bg-anchor-bg-card",
                                     className: "rounded-xl p-6 text-center"
@@ -105,7 +105,7 @@ export default function LuggageStoragePage() {
                                 {
                                     icon: "",
                                     title: "2. Bring Your Bags",
-                                    description: "Wheel your luggage right in — we have plenty of room and you can keep it beside you.",
+                                    description: "Wheel your luggage right in, we have plenty of room and you can keep it beside you.",
                                     variant: "colored",
                                     color: "bg-anchor-bg-card",
                                     className: "rounded-xl p-6 text-center"
@@ -143,7 +143,7 @@ export default function LuggageStoragePage() {
                             <div className="bg-anchor-bg-raised p-6 rounded-xl border border-anchor-gold/15">
                                 <h3 className="text-xl font-bold text-anchor-cream-text mb-2">The Anchor</h3>
                                 <ul className="space-y-3">
-                                    <li className="flex items-center">Luggage welcome — plenty of space</li>
+                                    <li className="flex items-center">Luggage welcome, plenty of space</li>
                                     <li className="flex items-center">Comfortable seating & WiFi</li>
                                     <li className="flex items-center">Great food & beer</li>
                                     <li className="flex items-center">Fresh air in the garden</li>
@@ -171,7 +171,7 @@ export default function LuggageStoragePage() {
                     },
                     {
                         question: "Is there enough room for suitcases?",
-                        answer: "Yes — we are a spacious venue with lots of room. Standard suitcases and cabin bags are no problem at all. If you have particularly large or unusual items, give us a call and we will do our best to accommodate you."
+                        answer: "Yes, we are a spacious venue with lots of room. Standard suitcases and cabin bags are no problem at all. If you have particularly large or unusual items, give us a call and we will do our best to accommodate you."
                     },
                     {
                         question: "How far are you from Terminal 5?",
@@ -183,7 +183,7 @@ export default function LuggageStoragePage() {
 
             <CTASection
                 title="Bring Your Bags, Grab a Bite"
-                description="Book your table now — luggage is always welcome."
+                description="Book your table now, luggage is always welcome."
                 buttons={[
                     {
                         text: "Book a Table",

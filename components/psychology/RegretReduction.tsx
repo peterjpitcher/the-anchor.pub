@@ -19,7 +19,7 @@ const SIGNALS: Record<RegretVariant, Array<{ text: string }>> = {
     { text: 'Confirmation in seconds' },
   ],
   enquiry: [
-    { text: 'No commitment — just a conversation' },
+    { text: 'No commitment, just a conversation' },
     { text: "We'll get back to you within 24 hours" },
     { text: 'Free parking for all your guests' },
   ],

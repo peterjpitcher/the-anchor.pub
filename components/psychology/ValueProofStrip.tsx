@@ -15,7 +15,7 @@ const ITEMS: Record<ValueProofVariant, Array<{ icon: string; text: string }>> = 
   ],
   'private-hire': [
     { icon: '', text: 'Free parking for all your guests' },
-    { icon: '', text: 'Outside ULEZ — saves each driver £12.50' },
+    { icon: '', text: 'Outside ULEZ, saves each driver £12.50' },
     { icon: '', text: 'Free WiFi throughout' },
   ],
 }

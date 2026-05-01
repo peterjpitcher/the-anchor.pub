@@ -23,10 +23,10 @@ export function VenueSpacesTable({ spaces }: VenueSpacesTableProps): JSX.Element
             <tr key={space.id}>
               <td className="py-3 pr-4 text-anchor-cream-text font-medium">{space.name}</td>
               <td className="py-3 pr-4 text-anchor-cream-text">
-                {space.capacitySeated ? `Up to ${space.capacitySeated}` : '—'}
+                {space.capacitySeated ? `Up to ${space.capacitySeated}` : ', '}
               </td>
               <td className="py-3 pr-4 text-anchor-cream-text">
-                {space.capacityStanding ? `Up to ${space.capacityStanding}` : '—'}
+                {space.capacityStanding ? `Up to ${space.capacityStanding}` : ', '}
               </td>
               <td className="py-3 text-anchor-cream-text whitespace-nowrap">
                 £{space.ratePerHour}/hr

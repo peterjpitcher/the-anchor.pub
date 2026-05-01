@@ -18,19 +18,19 @@ const mapQuery = `The Anchor, ${CONTACT.address.street}, ${CONTACT.address.postc
 export const metadata: Metadata = {
   title: 'Boxing Day Pub Near Heathrow | Walk & Lunch',
   description:
-    'Boxing Day 2026 at The Anchor near Heathrow. Escape the leftovers \u2014 proper pub food, craft beer, and a walk around Stanwell Moor. Free parking. Dog-friendly.',
+    'Boxing Day 2026 at The Anchor near Heathrow. Escape the leftovers, proper pub food, craft beer, and a walk around Stanwell Moor. Free parking. Dog-friendly.',
   alternates: { canonical: '/boxing-day' },
   openGraph: {
     title: 'Boxing Day Pub Near Heathrow | Walk & Lunch at The Anchor',
     description:
-      'Boxing Day 2026 at The Anchor near Heathrow. Escape the leftovers \u2014 proper pub food, craft beer, and a walk around Stanwell Moor. Free parking. Dog-friendly.',
+      'Boxing Day 2026 at The Anchor near Heathrow. Escape the leftovers, proper pub food, craft beer, and a walk around Stanwell Moor. Free parking. Dog-friendly.',
     images: [DEFAULT_PAGE_HEADER_IMAGE],
     type: 'website',
   },
   twitter: getTwitterMetadata({
     title: 'Boxing Day Pub Near Heathrow | Walk & Lunch at The Anchor',
     description:
-      'Boxing Day 2026 at The Anchor near Heathrow. Escape the leftovers \u2014 proper pub food, craft beer, and a walk around Stanwell Moor. Free parking. Dog-friendly.',
+      'Boxing Day 2026 at The Anchor near Heathrow. Escape the leftovers, proper pub food, craft beer, and a walk around Stanwell Moor. Free parking. Dog-friendly.',
     images: [DEFAULT_PAGE_HEADER_IMAGE],
   }),
 }
@@ -39,12 +39,12 @@ const faqs = [
   {
     question: 'Are you open on Boxing Day?',
     answer:
-      'Yes \u2014 we\u2019re open on Boxing Day. Boxing Day 2026 falls on a Saturday, so we\u2019ll be open our usual Saturday hours. The kitchen is open 1pm\u20137pm.',
+      'Yes, we\u2019re open on Boxing Day. Boxing Day 2026 falls on a Saturday, so we\u2019ll be open our usual Saturday hours. The kitchen is open 1pm\u20137pm.',
   },
   {
     question: 'What\u2019s the menu on Boxing Day?',
     answer:
-      'We serve our regular Saturday menu on Boxing Day \u2014 burgers, fish and chips, stone-baked pizza, and pub classics. It\u2019s not a set Christmas menu and it\u2019s not Sunday roast (that\u2019s Sunday). Just proper pub food, cooked fresh.',
+      'We serve our regular Saturday menu on Boxing Day, burgers, fish and chips, stone-baked pizza, and pub classics. It\u2019s not a set Christmas menu and it\u2019s not Sunday roast (that\u2019s Sunday). Just proper pub food, cooked fresh.',
   },
   {
     question: 'Is the beer garden open in December?',
@@ -65,7 +65,7 @@ export default function BoxingDayPage() {
             <HeroWrapper
         route="/boxing-day"
         title="Boxing Day Pub at The Anchor"
-        description="Escape the house, walk off the turkey, and end up at a proper pub. The Anchor is the perfect Boxing Day destination \u2014 close enough to not be a mission, far enough from the sofa to feel like an outing."
+        description="Escape the house, walk off the turkey, and end up at a proper pub. The Anchor is the perfect Boxing Day destination, close enough to not be a mission, far enough from the sofa to feel like an outing."
         eyebrow="Saturday 26 December 2026"
         lead={
           <p className="text-white/90 text-base sm:text-lg">
@@ -91,7 +91,7 @@ export default function BoxingDayPage() {
               </p>
               <p className="text-anchor-cream-text/70 leading-relaxed">
                 The Anchor is the perfect Boxing Day destination. We&apos;re close enough to not be a
-                mission &mdash; about {HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5 &mdash;
+                mission, about {HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5,
                 but far enough from the sofa to feel like a proper outing. Free parking, a warm welcome,
                 and food that isn&apos;t reheated Christmas dinner.
               </p>
@@ -104,12 +104,12 @@ export default function BoxingDayPage() {
               </h2>
               <p className="text-anchor-cream-text/70 leading-relaxed">
                 Stanwell Moor and the King George VI Reservoir are right on the doorstep. It&apos;s a lovely
-                2&ndash;3 mile walk &mdash; flat, easy-going, and dog-friendly. Start (or finish) at The
+                2&ndash;3 mile walk, flat, easy-going, and dog-friendly. Start (or finish) at The
                 Anchor for lunch, and you&apos;ve got yourself the perfect Boxing Day.
               </p>
               <p className="text-anchor-cream-text/70 leading-relaxed">
                 The beer garden in December has a charm all of its own. Wrapped up warm with a hot drink
-                or a pint, planes coming in overhead &mdash; it&apos;s one of those unexpectedly brilliant spots
+                or a pint, planes coming in overhead, it&apos;s one of those unexpectedly brilliant spots
                 that you only really appreciate when you&apos;re there.
               </p>
               <div className="flex flex-wrap items-center gap-3">
@@ -128,7 +128,7 @@ export default function BoxingDayPage() {
               <p className="text-anchor-cream-text/70 leading-relaxed">
                 Boxing Day falls on a Saturday in 2026, so the kitchen is open{' '}
                 <span className="font-semibold">1pm&ndash;7pm</span>. We serve our regular Saturday
-                menu &mdash; not a set Christmas menu, and not Sunday roast (that&apos;s Sunday).
+                menu, not a set Christmas menu, and not Sunday roast (that&apos;s Sunday).
               </p>
               <p className="text-anchor-cream-text/70 leading-relaxed">
                 Think burgers, fish and chips, stone-baked pizza, and pub classics. Proper food, cooked
@@ -203,7 +203,7 @@ export default function BoxingDayPage() {
                 </PhoneButton>
               </div>
               <p className="text-sm text-anchor-cream-text/70">
-                Tables for 8+ guests &mdash; please call.
+                Tables for 8+ guests, please call.
               </p>
             </div>
           </div>
@@ -247,7 +247,7 @@ export default function BoxingDayPage() {
                   Where we are
                 </h2>
                 <p className="text-anchor-cream-text/70 leading-relaxed">
-                  The Anchor is in Stanwell Moor, Surrey (TW19 6AQ) &mdash; about {HEATHROW_TIMES.terminal5} minutes
+                  The Anchor is in Stanwell Moor, Surrey (TW19 6AQ), about {HEATHROW_TIMES.terminal5} minutes
                   from Heathrow Terminal 5, with free on-site parking. Easy to reach from Staines-upon-Thames,
                   Ashford, and Windsor.
                 </p>

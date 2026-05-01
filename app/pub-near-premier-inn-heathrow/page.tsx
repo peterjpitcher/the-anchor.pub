@@ -35,7 +35,7 @@ export default function PubNearPremierInnHeathrowPage() {
       <HeroWrapper
         route="/pub-near-premier-inn-heathrow"
         title="Pub Near Premier Inn Heathrow"
-        description="8 minutes away — independent British pub with proper food and free parking"
+        description="8 minutes away, independent British pub with proper food and free parking"
         variant="default"
         enableSmartCtas={true}
         showContextStrip={true}
@@ -48,7 +48,7 @@ export default function PubNearPremierInnHeathrowPage() {
               Pub Near Premier Inn Heathrow Terminal 5
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
-              Staying at Premier Inn Heathrow? Skip the Brewers Fayre and discover The Anchor — an independent British pub just 8 minutes away with better food, draught beers, and free parking. One of the best pubs near Heathrow Airport, we offer a proper alternative to hotel dining with home-cooked meals and a genuinely local atmosphere.
+              Staying at Premier Inn Heathrow? Skip the Brewers Fayre and discover The Anchor, an independent British pub just 8 minutes away with better food, draught beers, and free parking. One of the best pubs near Heathrow Airport, we offer a proper alternative to hotel dining with home-cooked meals and a genuinely local atmosphere.
             </p>
           </div>
         </Container>
@@ -63,7 +63,7 @@ export default function PubNearPremierInnHeathrowPage() {
               features={[
                 { icon: '', title: '8 Minutes', description: 'By taxi from Premier Inn Heathrow T5', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
                 { icon: '', title: '~£10–12', description: 'Short taxi fare each way', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
-                { icon: '', title: 'Free Parking', description: '20 spaces — no hourly charges', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
+                { icon: '', title: 'Free Parking', description: '20 spaces, no hourly charges', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
                 { icon: '', title: 'Draught Beers', description: 'Proper draught beer, not just lager', variant: 'colored', color: 'bg-anchor-bg-card', className: 'rounded-xl p-6 text-center' },
               ]}
               className="mb-8"
@@ -78,18 +78,18 @@ export default function PubNearPremierInnHeathrowPage() {
           <div className="max-w-4xl mx-auto">
             <SectionHeader
               title="An Independent Pub Alternative Near Premier Inn Heathrow"
-              subtitle="Premier Inn is great value accommodation — but for your evening out, The Anchor offers something the hotel bar simply can't: a genuine British local pub experience."
+              subtitle="Premier Inn is great value accommodation, but for your evening out, The Anchor offers something the hotel bar simply can't: a genuine British local pub experience."
             />
             <div className="grid md:grid-cols-2 gap-8">
               <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6">
                 <h3 className="text-xl font-bold text-anchor-gold-vivid mb-4">Why Guests Choose Us</h3>
                 <ul className="space-y-3">
                   {[
-                    'Independent pub — not a chain or franchise',
+                    'Independent pub, not a chain or franchise',
                     'Home-cooked food from scratch daily',
                     'Rotating specials and seasonal dishes',
                     'Dog-friendly beer garden (bring your pet!)',
-                    'Local regulars — meet real people',
+                    'Local regulars, meet real people',
                     'Quiz nights, music bingo & live events',
                   ].map((item) => (
                     <li key={item} className="flex items-start gap-3">
@@ -164,7 +164,7 @@ export default function PubNearPremierInnHeathrowPage() {
         faqs={[
           {
             question: 'Is there a pub near Premier Inn Heathrow Terminal 5?',
-            answer: 'Yes — The Anchor in Stanwell Moor is just 8 minutes by taxi from Premier Inn Heathrow Terminal 5. It\'s an independent British pub with home-cooked food, draught beers, and 20 free parking spaces. Taxi fare is typically £10–12 each way.'
+            answer: 'Yes, The Anchor in Stanwell Moor is just 8 minutes by taxi from Premier Inn Heathrow Terminal 5. It\'s an independent British pub with home-cooked food, draught beers, and 20 free parking spaces. Taxi fare is typically £10–12 each way.'
           },
           {
             question: 'What\'s the nearest pub to Premier Inn Heathrow Bath Road?',

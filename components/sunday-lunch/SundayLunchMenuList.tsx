@@ -5,13 +5,13 @@ export interface SundayLunchMenuItem {
   description: string
   /**
    * Display price label (e.g. `£22`). Required so menu rows always show
-   * what the dish costs — pricing is a customer expectation on the
+   * what the dish costs, pricing is a customer expectation on the
    * Sunday lunch page.
    */
   priceLabel: string
   /**
    * Optional badge text shown next to the dish name (e.g. `Vegan`, `Kids menu`).
-   * Purely decorative — keep short.
+   * Purely decorative, keep short.
    */
   badge?: string
 }

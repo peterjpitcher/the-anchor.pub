@@ -22,3 +22,6 @@ Use the conventional commit prefixes already in history (`feat`, `fix`, `chore`,
 
 ## Content & Asset Workflow
 Edit Markdown or JSON copy in `content/`, keeping front matter keys stable for sorting and sitemap jobs. Store new docs in `docs/` and static files in `public/`. Before committing imagery run `npm run optimize:images` and mention any large or animated assets in the PR.
+
+## Customer-Facing Copy Style
+Do not use em dashes in customer-facing text. Prefer commas, short sentences, or parentheses where needed.
