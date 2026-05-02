@@ -68,7 +68,7 @@ export default function CookieBanner() {
   return (
     <>
       {/* Main Banner - Mobile-optimized with collapsible design */}
-      <div className="fixed bottom-0 left-0 right-0 bg-anchor-bg-card border-t border-anchor-gold/20 shadow-[0_-18px_50px_rgba(0,0,0,0.45)] z-50 animate-slide-up safe-area-inset-bottom">
+      <div className="fixed bottom-0 left-0 right-0 bg-anchor-bg-card border-t border-anchor-gold/20 shadow-[0_-18px_50px_rgba(0,0,0,0.45)] z-[80] animate-slide-up safe-area-inset-bottom">
         <div className="max-w-7xl mx-auto px-3 py-2 sm:px-6 sm:py-3 lg:px-8">
           {/* Mobile: Compact single-line design */}
           <div className="sm:hidden">
@@ -161,7 +161,7 @@ export default function CookieBanner() {
 
       {/* Preferences Modal */}
       {showPreferences && (
-        <div className="fixed inset-0 bg-black/70 z-50 flex items-end sm:items-center justify-center sm:p-4">
+        <div className="fixed inset-0 bg-black/70 z-[90] flex items-end sm:items-center justify-center sm:p-4">
           <div className="bg-anchor-bg-card border border-anchor-gold/30 rounded-t-lg sm:rounded-lg max-w-2xl w-full max-h-[90vh] sm:max-h-[85vh] overflow-y-auto animate-slide-up sm:animate-none">
             <div className="sticky top-0 bg-anchor-bg-card border-b border-anchor-gold/20 p-4 sm:p-6 flex items-center justify-between">
               <h2 className="text-lg sm:text-2xl font-bold text-anchor-cream-text">Cookie Preferences</h2>
