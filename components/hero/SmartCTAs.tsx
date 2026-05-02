@@ -26,7 +26,7 @@ function renderAction(action: HeroCtaAction, variant: 'primary' | 'secondary') {
           source={action.source}
           variant={variant}
           size={size === 'lg' ? 'md' : size}
-          className="min-w-[180px]"
+          className="w-full sm:min-w-[180px]"
         >
           {action.label}
         </BookTableButton>
@@ -39,7 +39,7 @@ function renderAction(action: HeroCtaAction, variant: 'primary' | 'secondary') {
           source={action.source}
           variant={variant === 'primary' ? 'primary' : 'secondary'}
           size={size}
-          className="min-w-[180px]"
+          className="w-full sm:min-w-[180px]"
         >
           {action.label}
         </PhoneButton>
@@ -57,7 +57,7 @@ function renderAction(action: HeroCtaAction, variant: 'primary' | 'secondary') {
             context: 'smart_hero'
           })}
         >
-          <Button variant={variant} size={size} className="min-w-[180px]">
+          <Button variant={variant} size={size} className="w-full sm:min-w-[180px]">
             {action.label}
           </Button>
         </Link>
@@ -75,7 +75,7 @@ function renderAction(action: HeroCtaAction, variant: 'primary' | 'secondary') {
             context: 'smart_hero'
           })}
         >
-          <Button variant={variant} size={size} className="min-w-[180px]">
+          <Button variant={variant} size={size} className="w-full sm:min-w-[180px]">
             {action.label}
           </Button>
         </Link>
@@ -100,11 +100,11 @@ export function SmartCTAs({ route, heroEvents }: SmartCTAsProps) {
   )
 
   return (
-    <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center">
-      <div className="w-full sm:w-auto">
+    <div className="flex min-w-0 flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center">
+      <div className="min-w-0 w-full sm:w-auto">
         {renderAction(primary, 'primary')}
       </div>
-      <div className="w-full sm:w-auto">
+      <div className="min-w-0 w-full sm:w-auto">
         {renderAction(secondary, 'secondary')}
       </div>
     </div>

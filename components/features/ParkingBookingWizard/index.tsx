@@ -620,17 +620,17 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
               {/* Booking summary */}
               <div className="rounded-xl border border-anchor-gold/20 bg-anchor-bg-card p-5 space-y-3 text-sm">
                 <h3 className="font-semibold text-anchor-cream-text text-base">Booking summary</h3>
-                <div className="grid grid-cols-2 gap-y-2 text-anchor-cream-text">
+                <div className="grid min-w-0 grid-cols-1 gap-y-1 text-anchor-cream-text sm:grid-cols-2 sm:gap-y-2">
                   <span className="text-anchor-sage">Arrival</span>
-                  <span className="font-medium">{new Date(start).toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' })}</span>
+                  <span className="break-words font-medium">{new Date(start).toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' })}</span>
                   <span className="text-anchor-sage">Departure</span>
-                  <span className="font-medium">{new Date(end).toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' })}</span>
+                  <span className="break-words font-medium">{new Date(end).toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' })}</span>
                   <span className="text-anchor-sage">Name</span>
-                  <span className="font-medium">{customer.firstName} {customer.lastName}</span>
+                  <span className="break-words font-medium">{customer.firstName} {customer.lastName}</span>
                   <span className="text-anchor-sage">Mobile</span>
-                  <span className="font-medium">{customer.phone}</span>
+                  <span className="break-words font-medium">{customer.phone}</span>
                   <span className="text-anchor-sage">Vehicle</span>
-                  <span className="font-medium">{vehicle.registration.toUpperCase()}{vehicle.make ? ` · ${vehicle.make}` : ''}</span>
+                  <span className="break-words font-medium">{vehicle.registration.toUpperCase()}{vehicle.make ? ` · ${vehicle.make}` : ''}</span>
                 </div>
 
                 {/* Pricing */}

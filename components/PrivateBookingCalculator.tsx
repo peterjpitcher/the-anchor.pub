@@ -245,8 +245,8 @@ export function PrivateBookingCalculator({ eventType }: PrivateBookingCalculator
                         <div className="mt-6 border border-anchor-gold/40 bg-anchor-bg-card p-5 relative overflow-hidden group transition-shadow">
                             <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-anchor-gold/10 to-transparent rounded-bl-full -mr-8 -mt-8"></div>
 
-                            <div className="relative z-10 flex flex-col md:flex-row md:items-center gap-4">
-                                <div className="flex-1">
+                            <div className="relative z-10 flex min-w-0 flex-col md:flex-row md:items-center gap-4">
+                                <div className="min-w-0 flex-1">
                                     <p className="text-sm font-bold text-anchor-gold-vivid flex items-center gap-2 mb-1">
                                         <span className="text-lg"></span>
                                         <span className="uppercase tracking-wider text-xs">Limited Time Offer</span>
@@ -257,7 +257,7 @@ export function PrivateBookingCalculator({ eventType }: PrivateBookingCalculator
                                     </p>
                                 </div>
                                 {promoCountdownText && (
-                                    <div className="flex-shrink-0 bg-anchor-bg-raised px-4 py-2 rounded-lg border border-anchor-gold/30 text-center min-w-[140px]">
+                                    <div className="flex-shrink-0 bg-anchor-bg-raised px-4 py-2 rounded-lg border border-anchor-gold/30 text-center sm:min-w-[140px]">
                                         <span className="text-[10px] text-anchor-cream-text/55 font-bold uppercase tracking-widest block mb-1">Offer Ends In</span>
                                         <span className="font-mono text-anchor-cream-text font-bold text-lg">{promoCountdownText}</span>
                                     </div>
@@ -531,13 +531,13 @@ export function PrivateBookingCalculator({ eventType }: PrivateBookingCalculator
                                                             <button
                                                                 key={pkg.id}
                                                                 onClick={() => addPackage(pkg.id)}
-                                                                className="w-full text-left p-4 hover:bg-anchor-bg-raised transition-all border border-transparent hover:border-anchor-gold/20 flex justify-between items-center group relative overflow-hidden"
+                                                                className="w-full text-left p-4 hover:bg-anchor-bg-raised transition-all border border-transparent hover:border-anchor-gold/20 flex min-w-0 justify-between items-start gap-3 group relative overflow-hidden sm:items-center"
                                                             >
-                                                                <div className="relative z-10 pr-4">
-                                                                    <div className="font-serif font-bold text-lg text-anchor-cream-text group-hover:text-anchor-gold-vivid">{pkg.name}</div>
+                                                                <div className="relative z-10 min-w-0">
+                                                                    <div className="break-words font-serif font-bold text-lg text-anchor-cream-text group-hover:text-anchor-gold-vivid">{pkg.name}</div>
                                                                     {pkg.guest_description && <div className="text-sm text-anchor-cream-text/55 mt-1 leading-relaxed max-w-md">{pkg.guest_description}</div>}
                                                                 </div>
-                                                                <div className="relative z-10 flex flex-col items-end">
+                                                                <div className="relative z-10 flex shrink-0 flex-col items-end">
                                                                     <div className="text-anchor-gold-vivid font-bold text-lg whitespace-nowrap bg-anchor-bg-raised px-3 py-1 group-hover:bg-anchor-bg-card transition-colors">
                                                                         {formatPrice(pkg.cost_per_head)}
                                                                     </div>
@@ -561,13 +561,13 @@ export function PrivateBookingCalculator({ eventType }: PrivateBookingCalculator
                                                             <button
                                                                 key={pkg.id}
                                                                 onClick={() => addPackage(pkg.id)}
-                                                                className="w-full text-left p-4 hover:bg-anchor-bg-raised transition-all border border-transparent hover:border-anchor-gold/20 flex justify-between items-center group"
+                                                                className="w-full text-left p-4 hover:bg-anchor-bg-raised transition-all border border-transparent hover:border-anchor-gold/20 flex min-w-0 justify-between items-start gap-3 group sm:items-center"
                                                             >
-                                                                <div className="pr-4">
-                                                                    <div className="font-serif font-bold text-anchor-cream-text group-hover:text-anchor-gold-vivid">{pkg.name}</div>
+                                                                <div className="min-w-0">
+                                                                    <div className="break-words font-serif font-bold text-anchor-cream-text group-hover:text-anchor-gold-vivid">{pkg.name}</div>
                                                                     {pkg.guest_description && <div className="text-sm text-anchor-cream-text/55 mt-1">{pkg.guest_description}</div>}
                                                                 </div>
-                                                                <div className="text-anchor-gold-vivid font-bold text-lg whitespace-nowrap bg-anchor-bg-raised px-3 py-1">
+                                                                <div className="shrink-0 text-anchor-gold-vivid font-bold text-lg whitespace-nowrap bg-anchor-bg-raised px-3 py-1">
                                                                     {formatPrice(pkg.cost_per_head)}
                                                                 </div>
                                                             </button>
@@ -586,13 +586,13 @@ export function PrivateBookingCalculator({ eventType }: PrivateBookingCalculator
                                                             <button
                                                                 key={pkg.id}
                                                                 onClick={() => addPackage(pkg.id)}
-                                                                className="w-full text-left p-4 hover:bg-anchor-bg-raised transition-all border border-transparent hover:border-anchor-gold/20 flex justify-between items-center group"
+                                                                className="w-full text-left p-4 hover:bg-anchor-bg-raised transition-all border border-transparent hover:border-anchor-gold/20 flex min-w-0 justify-between items-start gap-3 group sm:items-center"
                                                             >
-                                                                <div className="pr-4">
-                                                                    <div className="font-serif font-bold text-anchor-cream-text group-hover:text-anchor-gold-vivid">{pkg.name}</div>
+                                                                <div className="min-w-0">
+                                                                    <div className="break-words font-serif font-bold text-anchor-cream-text group-hover:text-anchor-gold-vivid">{pkg.name}</div>
                                                                     {pkg.guest_description && <div className="text-sm text-anchor-cream-text/55 mt-1">{pkg.guest_description}</div>}
                                                                 </div>
-                                                                <div className="text-anchor-gold-vivid font-bold text-lg whitespace-nowrap bg-anchor-bg-raised px-3 py-1">
+                                                                <div className="shrink-0 text-anchor-gold-vivid font-bold text-lg whitespace-nowrap bg-anchor-bg-raised px-3 py-1">
                                                                     {formatPrice(pkg.cost_per_head)}
                                                                 </div>
                                                             </button>
@@ -645,7 +645,7 @@ export function PrivateBookingCalculator({ eventType }: PrivateBookingCalculator
                         <span className="text-[11px] font-bold uppercase tracking-[0.22em] text-anchor-gold-vivid">Estimated Event Total</span>
                         <span className="h-px w-5 bg-anchor-gold/55" aria-hidden="true" />
                     </div>
-                    <span className="text-5xl font-serif font-bold text-anchor-cream-text tracking-tight">{formatCurrency(total)}</span>
+                    <span className="break-words text-4xl font-serif font-bold text-anchor-cream-text tracking-tight sm:text-5xl">{formatCurrency(total)}</span>
                 </div>
 
                 <button
@@ -658,7 +658,7 @@ export function PrivateBookingCalculator({ eventType }: PrivateBookingCalculator
                         })
                         setShowInquiryForm(true)
                     }}
-                    className="group px-8 py-4 bg-anchor-gold-vivid hover:bg-anchor-gold text-anchor-bg font-bold text-lg rounded-none transition-all w-full md:w-auto flex items-center justify-center gap-2"
+                    className="group flex min-w-0 w-full items-center justify-center gap-2 break-words px-6 py-4 bg-anchor-gold-vivid hover:bg-anchor-gold text-anchor-bg font-bold text-lg rounded-none transition-all md:w-auto md:px-8"
                 >
                     Check Availability
                     <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">

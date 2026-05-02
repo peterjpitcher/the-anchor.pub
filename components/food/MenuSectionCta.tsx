@@ -70,7 +70,7 @@ export function MenuSectionCta({
       variant={variant}
       size="lg"
       fullWidth={fullWidth}
-      className={cn('min-w-[200px]', className)}
+      className={cn('w-full sm:w-auto sm:min-w-[200px]', className)}
       onClick={handleClick}
       data-destination={destination}
     >

@@ -133,7 +133,7 @@ export function EventBookingButton({
   if (event.bookings_enabled === false) {
     return (
       <Button
-        className={cn('whitespace-normal break-words', className)}
+        className={cn('min-w-0 max-w-full whitespace-normal break-words', className)}
         disabled
         fullWidth={fullWidth}
         size={size}
@@ -151,7 +151,7 @@ export function EventBookingButton({
   if (!bookingUrl) {
     return (
       <Button
-        className={cn('whitespace-normal break-words', className)}
+        className={cn('min-w-0 max-w-full whitespace-normal break-words', className)}
         disabled
         fullWidth={fullWidth}
         size={size}
@@ -165,7 +165,7 @@ export function EventBookingButton({
   return (
     <Button
       asChild
-      className={className}
+      className={cn('min-w-0 max-w-full whitespace-normal break-words', className)}
       fullWidth={fullWidth}
       size={size}
       variant={variant}

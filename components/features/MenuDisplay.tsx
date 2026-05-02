@@ -240,14 +240,14 @@ const MenuItemCard = memo(function MenuItemCard({ item, itemId, isFocused, onFoc
       aria-label={`${item.name}, ${item.price}${item.vegetarian ? ', vegetarian' : ''}`}
     >
       <CardBody>
-        <div className="flex justify-between items-start mb-2">
-          <h3 className="font-bold text-xl text-anchor-gold-vivid flex items-center gap-2" itemProp="name">
+        <div className="flex min-w-0 justify-between gap-3 items-start mb-2">
+          <h3 className="min-w-0 break-words font-bold text-xl text-anchor-gold-vivid flex items-center gap-2" itemProp="name">
             {item.name}
             {item.vegetarian && (
               <Badge variant="success" size="sm">(V)</Badge>
             )}
           </h3>
-	          <span className="text-xl font-bold text-anchor-gold whitespace-nowrap ml-4" itemProp="offers" itemScope itemType="https://schema.org/Offer">
+	          <span className="shrink-0 text-xl font-bold text-anchor-gold whitespace-nowrap" itemProp="offers" itemScope itemType="https://schema.org/Offer">
 	            <span itemProp="price" content={item.price.replace(/\u00A3/g, '').trim()}>
 	              {item.price.replace(/\u00A3/g, '').trim()}
 	            </span>

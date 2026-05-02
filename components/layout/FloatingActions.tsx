@@ -60,7 +60,7 @@ export function FloatingActions() {
           id={menuId}
           ref={menuRef}
         >
-          <div className="card-dark rounded-none shadow-2xl p-3 min-w-[200px] space-y-2 border border-anchor-gold/20">
+          <div className="card-dark min-w-[200px] max-w-[calc(100vw-3rem)] rounded-none shadow-2xl p-3 space-y-2 border border-anchor-gold/20">
             <a
               href="/book-table"
               onClick={() => {
@@ -70,7 +70,7 @@ export function FloatingActions() {
               className="flex items-center gap-3 p-3 hover:bg-anchor-bg-raised rounded-lg transition-colours w-full justify-start text-left"
               role="menuitem"
             >
-              <span className="flex items-center gap-3 whitespace-nowrap">
+              <span className="flex min-w-0 items-center gap-3">
                 <span className="font-medium">Book a Table</span>
               </span>
             </a>

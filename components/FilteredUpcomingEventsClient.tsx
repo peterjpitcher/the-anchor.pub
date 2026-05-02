@@ -211,7 +211,7 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
     return (
       <div className="border-l-2 border-anchor-gold/40 bg-anchor-bg-raised/30 px-4 py-3">
         <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 text-base">
-          <span className="font-semibold text-anchor-cream-text whitespace-nowrap">{eventDate}</span>
+          <span className="font-semibold text-anchor-cream-text sm:whitespace-nowrap">{eventDate}</span>
           <span className="text-anchor-cream-text/50 hidden sm:inline">·</span>
           <span className="text-anchor-cream-text/70">{hoursParts.join(' · ')}</span>
           {timeChangeMessage && timeChangeMessage !== 'Opening hours have been adjusted for this date.' && (

@@ -8,6 +8,17 @@ describe('Button', () => {
     expect(screen.getByRole('button')).toHaveTextContent('Click me')
   })
 
+  it('allows long labels to wrap on narrow screens', () => {
+    render(<Button>Reserve a table, pay quiz entry on arrival</Button>)
+
+    expect(screen.getByRole('button')).toHaveClass(
+      'min-w-0',
+      'max-w-full',
+      'whitespace-normal',
+      'break-words'
+    )
+  })
+
   it('applies variant classes correctly', () => {
     const { rerender } = render(<Button variant="primary">Primary</Button>)
     expect(screen.getByRole('button')).toHaveClass('bg-anchor-gold')

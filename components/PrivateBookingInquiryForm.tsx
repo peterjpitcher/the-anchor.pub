@@ -298,7 +298,7 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
                 </div>
 
                 {detailsUnlocked && (
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="grid min-w-0 grid-cols-1 md:grid-cols-2 gap-6">
                         {!isKnownCustomer && (
                             <div className="space-y-4">
                                 <h4 className="font-medium text-anchor-cream-text border-b border-anchor-gold/15 pb-2">Personal Details</h4>
@@ -359,7 +359,7 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
                                 />
                             </div>
 
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                                 <div>
                                     <label className="block text-sm font-medium text-anchor-cream-text/70 mb-1">Start Time</label>
                                     <input
@@ -439,7 +439,7 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
                         <button
                             type="submit"
                             disabled={loading || (TURNSTILE_SITE_KEY ? !turnstileToken : false)}
-                            className="w-full md:w-auto px-8 py-3 bg-anchor-gold hover:bg-anchor-gold-vivid text-anchor-charcoal font-semibold rounded-lg shadow-sm disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                            className="min-w-0 w-full max-w-full break-words px-6 py-3 bg-anchor-gold hover:bg-anchor-gold-vivid text-anchor-charcoal font-semibold rounded-lg shadow-sm disabled:opacity-50 disabled:cursor-not-allowed transition-colors md:w-auto md:px-8"
                         >
                             {loading ? 'Submitting...' : 'Send Inquiry'}
                         </button>

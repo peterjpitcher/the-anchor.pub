@@ -217,13 +217,13 @@ export function MenuRenderer({ menuData, eyebrow = menuData.title || 'Menu' }: M
 
                   {/* Compact two-column layout for add-on sections */}
                   {section.style === 'list' && section.title?.toLowerCase().includes('add') ? (
-                    <div className="grid grid-cols-2 gap-x-6 gap-y-1.5" role="list">
+                    <div className="grid min-w-0 grid-cols-1 gap-x-6 gap-y-1.5 sm:grid-cols-2" role="list">
                       {section.items.map((item) => {
                         const { displayPrice } = normalizePrice(item.price)
                         return (
-                          <div key={item.name} className="flex items-baseline justify-between gap-2 py-1" role="listitem">
-                            <span className="text-sm text-anchor-cream-text/70">{item.name}</span>
-                            <span className="text-sm text-anchor-cream-text/50 whitespace-nowrap">
+                          <div key={item.name} className="flex min-w-0 items-baseline justify-between gap-2 py-1" role="listitem">
+                            <span className="min-w-0 break-words text-sm text-anchor-cream-text/70">{item.name}</span>
+                            <span className="shrink-0 whitespace-nowrap text-sm text-anchor-cream-text/50">
                               {item.vegan && <span className="text-[10px] font-bold text-emerald-400/80 mr-1">VE</span>}
                               {item.vegetarian && !item.vegan && <span className="text-[10px] font-bold text-emerald-400/80 mr-1">V</span>}
                               £{displayPrice}

@@ -122,6 +122,23 @@ describe('EventBookingButton', () => {
     expect(link).not.toHaveAttribute('target', '_blank')
   })
 
+  it('keeps long dynamic event labels wrap-safe', () => {
+    const event = makeEvent({
+      name: 'Quiz Night',
+      slug: 'quiz-night',
+      bookingUrl: null,
+      offers: undefined
+    })
+
+    render(<EventBookingButton event={event} />)
+
+    expect(
+      screen.getByRole('link', {
+        name: 'Reserve a table, pay quiz entry on arrival for Quiz Night'
+      })
+    ).toHaveClass('min-w-0', 'max-w-full', 'whitespace-normal', 'break-words')
+  })
+
   it('treats event page URLs as non-bookable and falls back to the internal event page', () => {
     const event = makeEvent({
       startDate: 'invalid-date',

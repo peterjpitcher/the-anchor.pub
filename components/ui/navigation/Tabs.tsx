@@ -96,7 +96,7 @@ Tabs.displayName = 'Tabs'
 
 // Tab List container
 const tabListVariants = cva(
-  'flex',
+  'flex min-w-0',
   {
     variants: {
       variant: {
@@ -105,7 +105,7 @@ const tabListVariants = cva(
         pills: 'gap-2'
       },
       orientation: {
-        horizontal: 'flex-row',
+        horizontal: 'flex-row overflow-x-auto',
         vertical: 'flex-col'
       }
     },

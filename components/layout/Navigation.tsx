@@ -854,7 +854,7 @@ export function Navigation({
             }
           }}
         >
-          <span className="whitespace-nowrap">{button.icon ? `${button.icon} ` : ''}{button.label}</span>
+          <span className="whitespace-normal sm:whitespace-nowrap">{button.icon ? `${button.icon} ` : ''}{button.label}</span>
         </BookTableButton>
       )
     }
@@ -894,7 +894,7 @@ export function Navigation({
 	            }
 	          }}
 	        >
-	          <span className="whitespace-nowrap">{button.icon ? `${button.icon} ` : ''}{button.label}</span>
+	          <span className="whitespace-normal sm:whitespace-nowrap">{button.icon ? `${button.icon} ` : ''}{button.label}</span>
 	        </a>
       )
     }
@@ -919,7 +919,7 @@ export function Navigation({
 	          }
 	        }}
 	      >
-	        <span className="whitespace-nowrap">{button.icon ? `${button.icon} ` : ''}{button.label}</span>
+	        <span className="whitespace-normal sm:whitespace-nowrap">{button.icon ? `${button.icon} ` : ''}{button.label}</span>
 	      </Link>
     )
   }
