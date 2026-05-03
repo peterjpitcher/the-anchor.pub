@@ -145,6 +145,9 @@ export function trackEventBookClick(eventData: {
 export function trackEventBookingComplete(eventData: {
   eventId: string
   eventName: string
+  eventSlug?: string | null
+  eventCategoryName?: string | null
+  eventCategorySlug?: string | null
   tickets: number
   totalValue?: number
   eventDate?: string
@@ -155,6 +158,9 @@ export function trackEventBookingComplete(eventData: {
     event: 'event_booking_completed',
     event_id: eventData.eventId,
     event_name: eventData.eventName,
+    event_slug: eventData.eventSlug,
+    event_category: eventData.eventCategoryName,
+    event_category_slug: eventData.eventCategorySlug,
     event_date: eventData.eventDate,
     booking_id: eventData.bookingId,
     party_size: eventData.tickets,
@@ -167,6 +173,7 @@ export function trackEventBookingComplete(eventData: {
     event: 'purchase',
     event_id: eventData.eventId,
     event_name: eventData.eventName,
+    event_category: eventData.eventCategoryName,
     transaction_id: eventData.bookingId || undefined,
     quantity: eventData.tickets,
     value: eventData.totalValue,
@@ -180,7 +187,15 @@ export function trackEventBookingComplete(eventData: {
       currency: 'GBP',
       bookingType: 'event',
       bookingSource: 'event_booking',
-      contentName: eventData.eventName
+      contentName: eventData.eventName,
+      contentIds: [eventData.eventId],
+      contentCategory: eventData.eventCategoryName ?? eventData.eventCategorySlug ?? null,
+      contentType: 'event_booking',
+      numItems: eventData.tickets,
+      eventDate: eventData.eventDate ?? null,
+      foodIntent: eventData.foodIntent ?? null,
+      eventSlug: eventData.eventSlug ?? null,
+      eventCategorySlug: eventData.eventCategorySlug ?? null
     })
   }
 }

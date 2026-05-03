@@ -49,7 +49,8 @@ type WaitlistResult = {
 }
 
 interface ManagementEventBookingFormProps {
-  event: Pick<Event, 'id' | 'name' | 'startDate' | 'time'>
+  event: Pick<Event, 'id' | 'name' | 'startDate'> &
+    Partial<Pick<Event, 'time' | 'slug' | 'category' | 'price' | 'price_per_seat' | 'offers'>>
   title?: string
   compact?: boolean
   foodPrompt?: string
@@ -301,11 +302,16 @@ export function ManagementEventBookingForm({
       setResult(bookingData)
 
       if (bookingData.state === 'confirmed') {
+        const totalValue = calculateBookingValue(event, clampedSeats)
         trackEventBookingComplete({
           eventId: event.id,
           eventName: event.name,
+          eventSlug: event.slug,
+          eventCategoryName: event.category?.name ?? null,
+          eventCategorySlug: event.category?.slug ?? null,
           eventDate: event.startDate,
           tickets: clampedSeats,
+          totalValue,
           foodIntent,
           bookingId: bookingData.booking_id
         })
@@ -607,4 +613,28 @@ export function ManagementEventBookingForm({
       </CardBody>
     </Card>
   )
+}
+
+function calculateBookingValue(
+  event: ManagementEventBookingFormProps['event'],
+  tickets: number
+): number {
+  const priceCandidates = [
+    event.price,
+    event.price_per_seat,
+    event.offers?.price
+  ]
+
+  const price = priceCandidates
+    .map((value) => {
+      if (typeof value === 'number' && Number.isFinite(value)) return value
+      if (typeof value === 'string' && value.trim()) {
+        const parsed = Number(value)
+        return Number.isFinite(parsed) ? parsed : null
+      }
+      return null
+    })
+    .find((value): value is number => typeof value === 'number' && value > 0)
+
+  return price ? price * tickets : 0
 }

@@ -1639,6 +1639,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
           event={{
             id: selectedSuggestedEvent.id,
             name: selectedSuggestedEvent.name,
+            slug: selectedSuggestedEvent.slug ?? undefined,
             startDate: selectedSuggestedEvent.startDate
           }}
           title="Reserve event table"

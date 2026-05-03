@@ -1,5 +1,6 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { ManagementEventBookingForm } from '@/components/features/EventBooking/ManagementEventBookingForm'
+import { trackEventBookingComplete } from '@/lib/gtm-events'
 
 jest.mock('@/lib/gtm-events', () => ({
   trackEventBookingStart: jest.fn(),
@@ -151,8 +152,16 @@ describe('ManagementEventBookingForm', () => {
         event={{
           id: '550e8400-e29b-41d4-a716-446655440000',
           name: 'Music Bingo',
+          slug: 'music-bingo',
           startDate: '2026-05-08T20:00:00+01:00',
-          time: '20:00'
+          time: '20:00',
+          price_per_seat: 6,
+          category: {
+            id: 'cat-bingo',
+            name: 'Bingo',
+            slug: 'bingo',
+            color: '#f2c94c'
+          }
         }}
         foodPrompt="Arrive from 6:30pm for food. Music Bingo starts at 8pm."
       />
@@ -178,5 +187,19 @@ describe('ManagementEventBookingForm', () => {
 
     expect(payload.seats).toBe(6)
     expect(payload.notes).toBe('Event dining intent: Event or drinks only')
+    expect(trackEventBookingComplete).toHaveBeenCalledWith(
+      expect.objectContaining({
+        eventId: '550e8400-e29b-41d4-a716-446655440000',
+        eventName: 'Music Bingo',
+        eventSlug: 'music-bingo',
+        eventCategoryName: 'Bingo',
+        eventCategorySlug: 'bingo',
+        eventDate: '2026-05-08T20:00:00+01:00',
+        tickets: 6,
+        totalValue: 36,
+        foodIntent: 'event_only',
+        bookingId: 'booking-123'
+      })
+    )
   })
 })
