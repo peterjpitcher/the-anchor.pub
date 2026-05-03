@@ -145,12 +145,16 @@ export async function POST(request: NextRequest) {
     const idempotencyKey =
       asTrimmedString(request.headers.get('Idempotency-Key')) || createIdempotencyKey('wlt')
 
+    const turnstileToken = typeof body.turnstile_token === 'string' ? body.turnstile_token : null
+
     const upstream = await fetch(`${API_BASE_URL}/event-waitlist`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'X-API-Key': API_KEY,
-        'Idempotency-Key': idempotencyKey
+        'Idempotency-Key': idempotencyKey,
+        // Management API validates the single-use Turnstile token.
+        ...(turnstileToken ? { 'x-turnstile-token': turnstileToken } : {})
       },
       cache: 'no-store',
       body: JSON.stringify(normalized.payload)

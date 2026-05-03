@@ -2,13 +2,13 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile'
 import { ChevronDown } from 'lucide-react'
 import { Alert } from '@/components/ui/feedback/Alert'
 import { Card, CardBody } from '@/components/ui/layout/Card'
 import { Input, Textarea } from '@/components/ui/primitives/Input'
 import { Button } from '@/components/ui/primitives/Button'
 import { ManagementEventBookingForm } from '@/components/features/EventBooking/ManagementEventBookingForm'
+import { TurnstileField, type TurnstileFieldRef } from '@/components/security/TurnstileField'
 import { useBusinessHoursContext } from '@/components/providers/BusinessHoursProvider'
 import { pickSlotWindow } from '@/lib/table-booking-slot-window'
 import {
@@ -607,7 +607,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
-  const turnstileRef = useRef<TurnstileInstance | null>(null)
+  const turnstileRef = useRef<TurnstileFieldRef>(null)
   const [website, setWebsite] = useState('')
   const formLoadedAt = useRef(Date.now())
   const [result, setResult] = useState<ManagementTableBookingResult | null>(null)
@@ -2239,13 +2239,10 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                 </div>
 
                 {TURNSTILE_SITE_KEY && (
-                  <Turnstile
-                    ref={turnstileRef}
-                    siteKey={TURNSTILE_SITE_KEY}
-                    onSuccess={setTurnstileToken}
-                    onError={() => setTurnstileToken(null)}
-                    onExpire={() => setTurnstileToken(null)}
-                    options={{ theme: 'dark', size: 'flexible' }}
+                  <TurnstileField
+                    id="table-booking-turnstile"
+                    turnstileRef={turnstileRef}
+                    onTokenChange={setTurnstileToken}
                   />
                 )}
 

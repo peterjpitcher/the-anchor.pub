@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useState } from 'react'
-import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile'
+import { TurnstileField, type TurnstileFieldRef } from '@/components/security/TurnstileField'
 import { PrivateBookingRequest, createPrivateBooking } from '@/lib/api'
 import { trackPrivateHireEnquiryStarted, trackPrivateHireEnquirySubmitted } from '@/lib/gtm-events'
 
@@ -49,7 +49,7 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
     const [knownCustomer, setKnownCustomer] = useState<CustomerLookupResult['customer']>(null)
     const [lookupDegraded, setLookupDegraded] = useState(false)
     const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
-    const turnstileRef = useRef<TurnstileInstance | null>(null)
+    const turnstileRef = useRef<TurnstileFieldRef>(null)
     const [honeypot, setHoneypot] = useState('')
     const formLoadedAt = useRef(Date.now())
     const enquiryStartedRef = useRef(false)
@@ -426,13 +426,10 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
                         </div>
 
                         {TURNSTILE_SITE_KEY && (
-                            <Turnstile
-                                ref={turnstileRef}
-                                siteKey={TURNSTILE_SITE_KEY}
-                                onSuccess={setTurnstileToken}
-                                onError={() => setTurnstileToken(null)}
-                                onExpire={() => setTurnstileToken(null)}
-                                options={{ theme: 'dark', size: 'flexible' }}
+                            <TurnstileField
+                                id="private-booking-turnstile"
+                                turnstileRef={turnstileRef}
+                                onTokenChange={setTurnstileToken}
                             />
                         )}
 

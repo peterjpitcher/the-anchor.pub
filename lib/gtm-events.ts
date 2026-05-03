@@ -2,6 +2,7 @@
 // Centralised event tracking for The Anchor website
 
 import { dispatchTrackingEvent, TrackingDispatchOptions } from './tracking/dispatcher'
+import { trackMetaBookingPurchase } from './meta-pixel'
 
 interface GTMEvent {
   event: string
@@ -171,6 +172,17 @@ export function trackEventBookingComplete(eventData: {
     value: eventData.totalValue,
     currency: 'GBP'
   })
+
+  if (eventData.bookingId) {
+    trackMetaBookingPurchase({
+      eventId: eventData.bookingId,
+      value: eventData.totalValue,
+      currency: 'GBP',
+      bookingType: 'event',
+      bookingSource: 'event_booking',
+      contentName: eventData.eventName
+    })
+  }
 }
 
 // Restaurant actions
@@ -324,6 +336,17 @@ export function trackTableBookingFunnel(data: {
         booking_date: data.bookingDate,
         booking_time: data.bookingTime
       }, { sendToApi: true })
+    }
+
+    if (data.bookingReference) {
+      trackMetaBookingPurchase({
+        eventId: data.bookingReference,
+        value: 0,
+        currency: 'GBP',
+        bookingType: data.bookingType || 'table',
+        bookingSource: data.source,
+        contentName: 'Table booking'
+      })
     }
   }
 }

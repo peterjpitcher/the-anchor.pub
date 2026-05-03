@@ -1,11 +1,11 @@
 'use client'
 
 import { type FormEvent, useRef, useState } from 'react'
-import { Turnstile, type TurnstileInstance } from '@marsidev/react-turnstile'
 import { Alert } from '@/components/ui/feedback/Alert'
 import { Card, CardBody } from '@/components/ui/layout/Card'
 import { Button } from '@/components/ui/primitives/Button'
 import { Input } from '@/components/ui/primitives/Input'
+import { TurnstileField, type TurnstileFieldRef } from '@/components/security/TurnstileField'
 import { trackEventBookingComplete, trackEventBookingStart } from '@/lib/gtm-events'
 import type { Event } from '@/lib/api'
 import { formatEventLocalDate, formatEventLocalTime } from '@/lib/event-calendar'
@@ -129,7 +129,7 @@ export function ManagementEventBookingForm({
   const [waitlistLoading, setWaitlistLoading] = useState(false)
   const [waitlistResult, setWaitlistResult] = useState<WaitlistResult | null>(null)
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
-  const turnstileRef = useRef<TurnstileInstance | null>(null)
+  const turnstileRef = useRef<TurnstileFieldRef>(null)
   const [honeypot, setHoneypot] = useState('')
   const formLoadedAt = useRef(Date.now())
 
@@ -526,13 +526,10 @@ export function ManagementEventBookingForm({
               </div>
 
               {TURNSTILE_SITE_KEY && (
-                <Turnstile
-                  ref={turnstileRef}
-                  siteKey={TURNSTILE_SITE_KEY}
-                  onSuccess={setTurnstileToken}
-                  onError={() => setTurnstileToken(null)}
-                  onExpire={() => setTurnstileToken(null)}
-                  options={{ theme: 'dark', size: 'flexible' }}
+                <TurnstileField
+                  id="event-booking-turnstile"
+                  turnstileRef={turnstileRef}
+                  onTokenChange={setTurnstileToken}
                 />
               )}
 
