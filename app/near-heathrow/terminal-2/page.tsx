@@ -15,10 +15,12 @@ import { DirectionsButton } from '@/components/DirectionsButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { PARKING } from '@/lib/constants'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
+import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
+import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 export const metadata: Metadata = {
-  title: 'Pubs Near Heathrow Terminal 2 | 11 Mins | Free Parking',
-  description: "Nearest pub to Heathrow Terminal 2 (Queen's Terminal). 11 minutes by taxi, free parking if driving. Home-cooked British food and dog-friendly beer garden.",
+  title: 'Pub Near Heathrow Terminal 2 | Food & Free Parking',
+  description: "Pub near Heathrow Terminal 2, 11 minutes by taxi. British pub food, free customer parking, Sunday roasts, pizza and table booking.",
   openGraph: {
     title: "Pubs Near Heathrow Terminal 2 | 11 Mins Away | Free Parking",
     description: "11 minutes from T2 (Queen's Terminal). Free parking for 20 cars. Home-cooked British food & dog-friendly beer garden.",
@@ -37,11 +39,18 @@ export const metadata: Metadata = {
 export default function Terminal2Page() {
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Near Heathrow', url: '/near-heathrow' },
+          { name: 'Terminal 2', url: '/near-heathrow/terminal-2' }
+        ]}
+      />
       
       {/* Hero Section */}
       <HeroWrapper
         route="/near-heathrow/terminal-2"
-        title="Pubs Near Heathrow Terminal 2, The Anchor"
+        title="Pub Near Heathrow Terminal 2 for Food and Free Parking"
         description="Perfect for Star Alliance travelers • Free parking • Traditional British hospitality"
         variant="default"
         breadcrumbs={[
@@ -614,6 +623,13 @@ export default function Terminal2Page() {
             </div>
         </Container>
       </section>
+
+      <OrganicSearchClusterLinks
+        cluster="pubsNearHeathrow"
+        currentPath="/near-heathrow/terminal-2"
+        title="More Heathrow pub options"
+        intro="Compare the main Heathrow pub guide, terminal routes and directions before you book."
+      />
 
       {/* FAQ Section */}
       <FAQAccordionWithSchema 

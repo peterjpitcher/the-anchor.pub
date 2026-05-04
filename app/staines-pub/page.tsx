@@ -12,6 +12,8 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 import { SUNDAY_ROAST, getSundayRoastContent } from '@/lib/sunday-roast'
+import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
+import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 export function generateMetadata(): Metadata {
   const sunday = getSundayRoastContent()
@@ -20,8 +22,8 @@ export function generateMetadata(): Metadata {
     : `Sunday roast starts ${SUNDAY_ROAST.launchDateLabel}`
 
   return {
-    title: 'Pubs in Staines-upon-Thames | Roasts & Free Parking',
-    description: `Pub near Staines rated 4.6/5 on Google. ${sundayPhrase}, dog-friendly beer garden, quiz nights and free parking. 8 mins from Staines centre.`,
+    title: 'Pub Near Staines | Food, Events & Free Parking',
+    description: `Pub near Staines with ${sundayPhrase}, stone-baked pizza, quiz nights, private rooms, dog-friendly beer garden and free customer parking.`,
     openGraph: {
       title: 'Pub Near Staines, Beer Garden, Sunday Roasts & Free Parking',
       description: `Rated 4.6/5 on Google. ${sundayPhrase}, dog-friendly beer garden, quiz nights and free parking, 8 mins from Staines-upon-Thames.`,
@@ -83,6 +85,12 @@ export default function StainesPubPage() {
 
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Pub Near Staines', url: '/staines-pub' }
+        ]}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify([localBusinessSchema]) }}
@@ -501,6 +509,13 @@ export default function StainesPubPage() {
           { href: '/drinks', title: 'Drinks Menu', description: 'Perfect garden cocktail before strolling along the Thames' }
         ]}
         className="section-spacing-md"
+      />
+
+      <OrganicSearchClusterLinks
+        cluster="localPub"
+        currentPath="/staines-pub"
+        title="Compare local pub pages"
+        intro="Use these local pages for Stanwell, Staines and directions searches before you book."
       />
 
       {/* FAQ Section */}

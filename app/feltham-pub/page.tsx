@@ -11,6 +11,8 @@ import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { SUNDAY_ROAST, getSundayRoastContent } from '@/lib/sunday-roast'
+import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
+import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 export function generateMetadata(): Metadata {
   const sunday = getSundayRoastContent()
@@ -83,6 +85,12 @@ export default function FelthamPubPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify([localBusinessSchema, directionsSchema]) }}
+      />
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Pub Near Feltham', url: '/feltham-pub' }
+        ]}
       />
       
       {/* Hero Section */}
@@ -457,6 +465,13 @@ export default function FelthamPubPage() {
           </div>
         </Container>
       </section>
+
+      <OrganicSearchClusterLinks
+        cluster="localPub"
+        currentPath="/feltham-pub"
+        title="Compare local pub pages"
+        intro="Use these local pages for nearby pub, food and directions searches before you visit."
+      />
 
       {/* FAQ Section */}
       <FAQAccordionWithSchema 

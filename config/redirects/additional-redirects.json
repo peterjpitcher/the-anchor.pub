@@ -5,6 +5,21 @@
     "permanent": true
   },
   {
+    "source": "/blog/plane-spotting-heathrow-guide",
+    "destination": "/blog/heathrow-plane-spotting-locations",
+    "permanent": true
+  },
+  {
+    "source": "/blog/best-places-to-eat-near-heathrow",
+    "destination": "/blog/eating-near-heathrow-prices-compared",
+    "permanent": true
+  },
+  {
+    "source": "/blog/best-pub-food-near-heathrow",
+    "destination": "/blog/eating-near-heathrow-prices-compared",
+    "permanent": true
+  },
+  {
     "source": "/pizza-tuesday",
     "destination": "/food-menu",
     "permanent": true

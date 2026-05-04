@@ -5,6 +5,8 @@ import { Container, Section, SectionHeader, FeatureGrid, InfoBoxGrid, CTASection
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BookTableButton } from '@/components/BookTableButton'
+import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
+import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
@@ -12,16 +14,16 @@ import { getBusinessHours } from '@/lib/api'
 import { generateOpeningHoursSpecification } from '@/lib/schema-utils'
 
 export const metadata: Metadata = {
-  title: 'Plane Spotting Heathrow | Best Viewing Spots & Locations',
-  description: 'Heathrow plane spotting guide. Best viewing areas, spotting locations and where to watch planes land. Visit our beer garden with free parking and food.',
+  title: 'Heathrow Plane Spotting Pub | Beer Garden Views',
+  description: 'Watch planes at Heathrow from The Anchor beer garden in Stanwell Moor. Free customer parking, food, WiFi and aircraft overhead near Terminal 5.',
   openGraph: {
-    title: 'Plane Spotting Heathrow, Best Viewing Spots & Locations | The Anchor',
-    description: 'Heathrow plane spotting guide: best viewing areas and spotting locations. Watch planes land every 90 seconds from our beer garden with free parking, food and WiFi.',
+    title: 'Heathrow Plane Spotting Pub and Beer Garden | The Anchor',
+    description: 'Watch Heathrow aircraft from a proper pub beer garden with food, drinks, WiFi and free customer parking near Terminal 5.',
     images: [{ url: DEFAULT_NEAR_HEATHROW_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Heathrow Airport' }]
   },
   twitter: getTwitterMetadata({
-    title: 'Plane Spotting Heathrow, Best Viewing Spots & Locations | The Anchor',
-    description: 'Heathrow plane spotting guide: best viewing areas, spotting locations and where to watch planes. Free parking, food and WiFi at The Anchor.',
+    title: 'Heathrow Plane Spotting Pub and Beer Garden | The Anchor',
+    description: 'Watch aircraft from our Stanwell Moor beer garden with food, drinks, WiFi and free customer parking.',
     images: [DEFAULT_NEAR_HEATHROW_IMAGE]
   }),
   alternates: {
@@ -65,6 +67,12 @@ export default async function PlaneSpottingHeathrowPage() {
   }
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Plane Spotting Heathrow', url: '/plane-spotting-heathrow' }
+        ]}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(planeSpottingSchema) }}
@@ -72,12 +80,27 @@ export default async function PlaneSpottingHeathrowPage() {
 
       <HeroWrapper
         route="/plane-spotting-heathrow"
-        title="Heathrow Plane Spotting, The Best Places to Watch Planes"
-        description="The definitive guide to plane spotting at Heathrow. Watch planes land every 90 seconds from our beer garden, plus the best Heathrow viewing areas and spotting locations. Free parking & food."
+        title="Heathrow Plane Spotting Pub and Beer Garden"
+        description="Watch aircraft pass overhead from a proper pub table in Stanwell Moor. Food, drinks, WiFi and free customer parking minutes from Terminal 5."
         variant="default"
         enableSmartCtas={true}
         showContextStrip={true}
       />
+
+      <Section background="dark" spacing="sm">
+        <Container>
+          <p className="mx-auto max-w-4xl text-center text-lg text-anchor-cream-text/80">
+            Looking for a Heathrow viewing area with food and shelter? The Anchor is the commercial landing page for visiting our beer garden. For a full comparison of every spotting location, use our dedicated Heathrow plane spotting locations guide.
+          </p>
+          <div className="mt-4 flex justify-center">
+            <Link href="/blog/heathrow-plane-spotting-locations">
+              <Button variant="secondary" size="md">
+                Compare all Heathrow viewing areas
+              </Button>
+            </Link>
+          </div>
+        </Container>
+      </Section>
 
       <Section background="dark" spacing="sm">
         <Container>
@@ -150,7 +173,7 @@ export default async function PlaneSpottingHeathrowPage() {
       <Section background="dark" spacing="sm">
         <Container>
           <PageTitle className="text-center text-anchor-cream-text" seo={{ structured: true, speakable: true }}>
-            Plane Spotting Heathrow, Best Viewing Spots & Locations
+            Heathrow Plane Spotting Pub, Food and Free Customer Parking
           </PageTitle>
         </Container>
       </Section>
@@ -293,6 +316,13 @@ export default async function PlaneSpottingHeathrowPage() {
             answer: 'Absolutely. The beer garden is dog friendly and we have children’s meals plus soft drinks, mocktails and hot drinks for family visits.'
           }
         ]}
+      />
+
+      <OrganicSearchClusterLinks
+        cluster="planeSpotting"
+        currentPath="/plane-spotting-heathrow"
+        title="Plan the full spotting day"
+        intro="Compare locations, check our beer garden details and choose food before you visit."
       />
 
       <CTASection

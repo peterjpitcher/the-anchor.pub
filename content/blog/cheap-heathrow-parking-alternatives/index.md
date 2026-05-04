@@ -30,23 +30,23 @@ Looking for **cheap parking near Heathrow** without surrendering your keys or ga
 
 Airport pricing is designed to confuse. Between dynamic rates, early-bird deals and hidden surcharges, it is easy to assume the official long stay or a glossy meet-and-greet is the cheapest. In reality, most bargain hunters face three frustrations:
 
-1. **Dynamic pricing** – book late and official car parks jump to £39+ per day.
-2. **Hidden extras** – meet-and-greet operators often add damage waivers, late return fees or credit card charges.
-3. **Time penalties** – shuttle waits and drop-off queues eat into the “savings” by keeping you on the road longer.
+1. **Dynamic pricing** - book late and official car park prices can jump quickly.
+2. **Hidden extras** - meet-and-greet operators often add damage waivers, late return fees or credit card charges.
+3. **Time penalties** - shuttle waits and drop-off queues eat into the “savings” by keeping you on the road longer.
 
 That is why more Heathrow travellers are searching for independent “cheap parking near Heathrow airport” solutions that keep pricing flat and journeys predictable.
 
-## Price snapshot (February 2026)
+## Price snapshot (checked May 2026)
 
-| Parking option | Typical 24 hrs | Typical 1 week | Keys retained? | Transfer time |
-| -------------- | -------------- | -------------- | --------------- | ------------- |
-| Heathrow Short Stay (official) | £39 | £273 | Yes | Walk/ shuttle |
-| Heathrow Long Stay (official) | £33 | £118 | Yes | Shuttle bus |
-| Meet-and-Greet (independent) | £28–35 | £105–140 + extras | No | Hand over at terminal |
-| Park & Fly hotel bundles | £120+ incl. room | £200+ | Yes | Hotel shuttle |
-| **The Anchor Stanwell Moor** | **£15** | **£75** | **Yes** | 7–12 mins taxi/442 bus |
+| Parking option | Published price signal | Keys retained? | Transfer time |
+| -------------- | ---------------------- | -------------- | ------------- |
+| Heathrow Terminal Parking (official T5) | From £8 for 29 minutes | Yes | 1-2 minute walk |
+| Heathrow Park & Ride (official T5) | From £46.80 | Yes | Around 15 minutes by bus |
+| Meet-and-greet or valet | Heathrow T5 pages list official premium options from £143.40 | No for valet-style parking | Terminal handover |
+| Park & Fly hotel bundles | Package-led, check live hotel rates | Usually yes | Hotel shuttle or taxi |
+| **The Anchor Stanwell Moor** | **£15 per day or £75 per week** | **Yes** | **7-12 mins taxi/442 bus** |
 
-Prices compiled from Heathrow official rate cards, aggregator listings and The Anchor’s booking wizard (updated 18 February 2026). Always check live rates before you travel.
+Official Heathrow examples are taken from Heathrow's Terminal 5 parking pages in May 2026. Airport pricing can change by date, product and availability, so always check live rates before you travel.
 
 ## Option 1: Official Heathrow parking
 

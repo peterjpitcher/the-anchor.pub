@@ -16,10 +16,12 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { PARKING } from '@/lib/constants'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
+import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
+import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 export const metadata: Metadata = {
-  title: 'Pubs Near Heathrow Terminal 4 | 12 Mins | Free Parking',
-  description: 'Nearest pub to Heathrow Terminal 4. 12 minutes by taxi, free parking if driving. British pub food, Sunday roasts & draught beers. Dog-friendly beer garden. Book a table.',
+  title: 'Pub Near Heathrow Terminal 4 | Food & Free Parking',
+  description: 'Pub near Heathrow Terminal 4, 12 minutes by taxi. British pub food, free customer parking, Sunday roasts, pizza and table booking.',
   openGraph: {
     title: 'Pubs Near Heathrow Terminal 4 | 12 Mins Away | Free Parking',
     description: '12 minutes from T4. Free parking for 20 cars. British pub food, Sunday roasts & draught beers. Dog-friendly beer garden.',
@@ -38,10 +40,17 @@ export const metadata: Metadata = {
 export default function Terminal4Page() {
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Near Heathrow', url: '/near-heathrow' },
+          { name: 'Terminal 4', url: '/near-heathrow/terminal-4' }
+        ]}
+      />
       {/* Hero Section */}
       <HeroWrapper
         route="/near-heathrow/terminal-4"
-        title="Pubs Near Heathrow Terminal 4, The Anchor"
+        title="Pub Near Heathrow Terminal 4 for Food and Free Parking"
         description="Perfect for SkyTeam & budget travelers • Free parking • Real British hospitality"
         variant="default"
         primaryCta={
@@ -587,6 +596,13 @@ export default function Terminal4Page() {
           { href: '/near-heathrow/terminal-2', title: 'Terminal 2 Guide', description: 'See our tips for other Heathrow terminals' }
         ]}
         className="section-spacing-md"
+      />
+
+      <OrganicSearchClusterLinks
+        cluster="pubsNearHeathrow"
+        currentPath="/near-heathrow/terminal-4"
+        title="More Heathrow pub options"
+        intro="Compare the main Heathrow pub guide, terminal routes and directions before you book."
       />
 
       {/* FAQ Section */}

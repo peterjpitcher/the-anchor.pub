@@ -159,6 +159,15 @@ const nextConfig = {
         ],
       },
       {
+        source: '/downloads/:path*.pdf',
+        headers: [
+          {
+            key: 'X-Robots-Tag',
+            value: 'noindex, follow',
+          },
+        ],
+      },
+      {
         // Static assets only need long-lived caching. Crawlability is required
         // (Googlebot fetches CSS/JS to render pages); X-Robots-Tag is
         // intentionally NOT set here because Cloudflare overrides it to "all"

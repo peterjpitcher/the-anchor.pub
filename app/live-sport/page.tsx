@@ -11,10 +11,12 @@ import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
+import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 export const metadata: Metadata = {
-    title: 'Watch Live Sport Near Heathrow | Big Screens',
-    description: `Watch Six Nations, Euros, F1 & World Cup on big screens at The Anchor, Stanwell Moor. Terrestrial sport, great atmosphere, free parking, 7 mins from Heathrow T5.`,
+    title: 'Live Sport Pub Near Heathrow | Big Screens',
+    description: `Watch free-to-air sport, Six Nations, F1 and major tournaments on pub screens at The Anchor, Stanwell Moor. Food, drinks and free parking.`,
     openGraph: {
         title: 'Watch Live Sport Near Heathrow, Major Tournaments on Big Screens',
         description: 'Six Nations, World Cup, Euros and F1 on big screens with a cold pint and free parking. 7 mins from Heathrow T5.',
@@ -82,6 +84,12 @@ export default async function LiveSportPage() {
 
     return (
         <>
+            <BreadcrumbJsonLd
+                items={[
+                    { name: 'Home', url: '/' },
+                    { name: 'Live Sport', url: '/live-sport' }
+                ]}
+            />
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([sportsSchema, screeningEventSchema]) }}
@@ -260,6 +268,13 @@ export default async function LiveSportPage() {
                     </div>
                 </Container>
             </section>
+
+            <OrganicSearchClusterLinks
+                cluster="events"
+                currentPath="/live-sport"
+                title="More events and sport at The Anchor"
+                intro="Check the full events calendar, quiz night and Music Bingo pages before you book."
+            />
 
             <CTASection
                 title="Secure Your Spot for the Big Game"

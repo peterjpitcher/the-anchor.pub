@@ -21,10 +21,12 @@ import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
 import { buildOpeningHoursSchema } from '@/lib/opening-hours-schema'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { seasonalOccasionLinks } from '@/lib/internal-linking-data'
+import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
+import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 export const metadata: Metadata = {
-  title: "Quiz, Karaoke & Bingo Every Week",
-  description: "Pub quiz, karaoke Fridays, Music Bingo, cash bingo & live music at The Anchor, Stanwell Moor. Entry from £3. Free parking, 7 mins from Heathrow T5. See all dates.",
+  title: "What's On Near Heathrow | Quiz, Bingo & Pub Events",
+  description: "Pub events near Heathrow: Music Bingo, quiz nights, cash bingo, karaoke and one-off events at The Anchor, Stanwell Moor. See dates and book.",
   openGraph: {
     title: "What's On Near Heathrow, Quiz, Bingo & Live Music Every Week",
     description: "Weekly pub events: Music Bingo, cash bingo, pub quiz, karaoke and live music at The Anchor, Stanwell Moor. From £3, free parking.",
@@ -84,6 +86,12 @@ export default async function WhatsOnPage() {
 
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: "What's On", url: '/whats-on' }
+        ]}
+      />
       <SpeakableSchema />
       <ScrollDepthTracker />
       {/* JSON-LD Event Series Schemas */}
@@ -623,6 +631,13 @@ export default async function WhatsOnPage() {
           />
         </Container>
       </Section>
+
+      <OrganicSearchClusterLinks
+        cluster="events"
+        currentPath="/whats-on"
+        title="Find the right event page"
+        intro="Use these pages for live sport, quiz night and Music Bingo searches before you reserve a table."
+      />
 
       <FAQAccordionWithSchema
         faqs={[

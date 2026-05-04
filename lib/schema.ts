@@ -11,6 +11,12 @@ export const organizationSchema = {
   "@type": "Organization",
   "@id": "https://www.the-anchor.pub/#organization",
   "name": "The Anchor",
+  "alternateName": [
+    "The Anchor Stanwell Moor",
+    "The Anchor Pub Stanwell Moor",
+    "The Anchor Heathrow",
+    "The Anchor Pub Heathrow"
+  ],
   "url": "https://www.the-anchor.pub",
   "logo": "https://www.the-anchor.pub/images/the-anchor-pub-logo-black-transparent.png",
   "sameAs": [
@@ -40,6 +46,12 @@ export const localBusinessSchema = {
   "@type": ["Restaurant", "BarOrPub"],
   "@id": "https://www.the-anchor.pub/#business",
   "name": "The Anchor",
+  "alternateName": [
+    "The Anchor Stanwell Moor",
+    "The Anchor Pub Stanwell Moor",
+    "The Anchor Heathrow",
+    "The Anchor Pub Heathrow"
+  ],
   "image": DEFAULT_SCHEMA_IMAGES,
   "address": {
     "@type": "PostalAddress",

@@ -22,6 +22,8 @@ A burger inside Heathrow Terminal 5 costs between £16 and £22. Seven minutes d
 
 We've put together a real price comparison between eating at Heathrow Airport, eating at one of the nearby hotels, and eating at a local pub. The numbers come from current menus as of March 2026. No estimates, no rounding in our favour -- just what things actually cost.
 
+**Fast answer:** if you want the main restaurant guide, start with [restaurants near Heathrow](/restaurants-near-heathrow). If you already know you want a pub meal, check the [live food menu](/food-menu) or [book a table](/book-table). This article keeps the price comparison detail so the main restaurant page can stay focused on where to eat.
+
 ## The Price Comparison: Heathrow Airport vs Hotel vs Local Pub
 
 This is the table that tells the whole story. We've compared six common meals across three types of venue: airside at Heathrow, a hotel restaurant near the airport, and The Anchor (that's us -- seven minutes from Terminal 5).
@@ -44,6 +46,18 @@ This is the table that tells the whole story. We've compared six common meals ac
 - **At The Anchor:** £35--50, parking included
 
 That's a saving of roughly £20--40 for the same kind of meal. Over a holiday, that's a decent chunk of spending money.
+
+## Best Pub Food to Order Near Heathrow
+
+If you are leaving the terminal for a proper sit-down meal, choose dishes that are quick, filling, and good value compared with airport restaurants.
+
+- **Burger and chips:** a strong choice before or after a flight, especially if you want a full meal without airport pricing.
+- **Fish and chips:** the classic pub order, useful if you are showing visitors a proper British meal near Heathrow.
+- **Stone-baked pizza:** good for families, groups, and anyone who wants something easy to share.
+- **Sunday roast:** best for longer waits, Sunday arrivals, or family meals near Heathrow. See the [Sunday lunch page](/sunday-lunch) for current details.
+- **Kids meals:** cheaper than most terminal sit-down restaurants and easier if you have already left the airport by car.
+
+For current dishes and prices, use the [food menu](/food-menu). For the broader where-to-eat overview, use the [restaurants near Heathrow guide](/restaurants-near-heathrow).
 
 ### A note on honesty
 

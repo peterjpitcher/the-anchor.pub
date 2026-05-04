@@ -9,6 +9,8 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
+import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
+import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { getCateringData, getLowestFoodPrice } from '@/lib/api/catering-packages'
 import { CateringPackagesTable } from '@/components/features/CateringPackagesTable'
 import { VenueSpacesTable } from '@/components/features/VenueSpacesTable'
@@ -44,18 +46,18 @@ const landmarkGroups: LandmarkGroup[] = [
 export async function generateMetadata(): Promise<Metadata> {
     const { foodPackages } = await getCateringData()
     const fromPrice = getLowestFoodPrice(foodPackages) || '£11' // fallback only if API returns no per-head food packages
-    const desc = `Book a function room or party venue near Heathrow. ${PRIVATE_HIRE_CAPACITY.summary} Buffets from ${fromPrice}pp, free parking, and a dedicated events team.`
+    const desc = `Book private rooms near Staines and Heathrow for wakes, parties, meetings and family events. ${PRIVATE_HIRE_CAPACITY.summary} Buffets from ${fromPrice}pp, free parking, and a dedicated events team.`
 
     return {
-        title: 'Private Hire Venue Near Heathrow | Wakes, Parties & Events',
+        title: 'Private Rooms Near Staines & Heathrow | Event Venue',
         description: `${desc} The Anchor, Stanwell Moor.`,
         openGraph: {
-            title: 'Private Hire Venue Near Heathrow | Wakes, Parties & Events | The Anchor',
+            title: 'Private Rooms Near Staines & Heathrow | The Anchor',
             description: desc,
             images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Private hire venue at The Anchor near Heathrow Airport' }],
         },
         twitter: getTwitterMetadata({
-            title: 'Private Hire Venue Near Heathrow | Wakes, Parties & Events | The Anchor',
+            title: 'Private Rooms Near Staines & Heathrow | The Anchor',
             description: desc,
             images: [DEFAULT_CORPORATE_IMAGE]
         }),
@@ -116,18 +118,24 @@ export default async function PrivateHirePage() {
                     {
                         "@context": "https://schema.org",
                         "@type": "WebPage",
-                        "name": "Private Hire Venue Near Heathrow",
-                        "description": `Book a function room or party venue near Heathrow. ${PRIVATE_HIRE_CAPACITY.summary} Free parking and a dedicated events team.`,
+                        "name": "Private Rooms Near Staines and Heathrow",
+                        "description": `Book private rooms near Staines and Heathrow for wakes, parties, meetings and family events. ${PRIVATE_HIRE_CAPACITY.summary} Free parking and a dedicated events team.`,
                         "url": "https://www.the-anchor.pub/private-hire",
                         "about": { "@id": "https://www.the-anchor.pub/#business" }
                     },
                     eventVenueSchema
                 ]) }}
             />
+            <BreadcrumbJsonLd
+                items={[
+                    { name: 'Home', url: 'https://www.the-anchor.pub' },
+                    { name: 'Private Hire', url: 'https://www.the-anchor.pub/private-hire' }
+                ]}
+            />
             <HeroWrapper
                 showContextStrip={true}
                 route="/private-hire"
-                title="Function Room & Party Venue"
+                title="Private Rooms and Party Venue Near Heathrow"
                 description={`Room bookings for 10–50 guests · Larger events by enquiry · Free parking · Buffet packages from ${fromPrice}pp · 7 mins from Heathrow`}
 
                 tags={[
@@ -170,7 +178,7 @@ export default async function PrivateHirePage() {
             <section className="py-12 bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <PageTitle className="text-center mb-8" seo={{ structured: true, speakable: true }}>
-                        Function Room &amp; Party Venue Near Heathrow, Private Hire
+                        Private Rooms Near Staines and Heathrow, Function Room and Party Venue
                     </PageTitle>
 
                     <p className="text-center text-lg text-anchor-cream-text/70 mb-8 max-w-4xl mx-auto">
@@ -674,6 +682,13 @@ export default async function PrivateHirePage() {
                     { href: '/corporate-events', title: 'Corporate Events', description: 'Professional meeting rooms and business event packages' },
                 ]}
                 className="section-spacing-md"
+            />
+
+            <OrganicSearchClusterLinks
+                cluster="privateRooms"
+                currentPath="/private-hire"
+                title="Plan a private room booking near Heathrow"
+                intro="Compare room sizes, catering, meeting options and routes from Staines, Stanwell Moor and Heathrow before you enquire."
             />
 
             <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">

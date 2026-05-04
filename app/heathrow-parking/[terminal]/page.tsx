@@ -6,6 +6,8 @@ import { Button, Container, Section, CTASection } from '@/components/ui'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { DEFAULT_PARKING_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
+import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
+import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 const TERMINAL_PAGES = {
   'terminal-2': {
@@ -117,6 +119,13 @@ export default function TerminalParkingPage({ params }: { params: { terminal: st
 
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Heathrow Parking', url: '/heathrow-parking' },
+          { name: `Terminal ${terminalNumber}`, url: currentPath }
+        ]}
+      />
 
       <HeroWrapper
         showContextStrip={true}
@@ -185,6 +194,9 @@ export default function TerminalParkingPage({ params }: { params: { terminal: st
               live parking pages for the latest official postcodes and routing. If you want a cheaper off-airport option,
               The Anchor postcode is <strong>TW19 6AQ</strong> with online booking from <strong>£15/day</strong>.
             </p>
+            <p className="mt-3 text-sm text-anchor-cream-text/55">
+              Heathrow now describes Short Stay as Terminal Parking and Long Stay as Park &amp; Ride on its official parking pages.
+            </p>
             <div className="mt-5 flex flex-col gap-3 sm:flex-row">
               <Link href="/heathrow-parking#book-parking">
                 <Button variant="primary" size="lg">
@@ -231,6 +243,13 @@ export default function TerminalParkingPage({ params }: { params: { terminal: st
         title={`Terminal ${terminalNumber} parking FAQs`}
         faqs={buildFaqs(terminalNumber)}
         className="bg-anchor-bg"
+      />
+
+      <OrganicSearchClusterLinks
+        cluster="heathrowParking"
+        currentPath={currentPath}
+        title={`More Heathrow Terminal ${terminalNumber} parking help`}
+        intro="Compare the main parking page, the savings guide and directions before you book."
       />
 
       <CTASection

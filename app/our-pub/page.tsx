@@ -275,7 +275,7 @@ export default function OurPubPage() {
                 or a bigger group. It&apos;s dog-friendly too, so bring the whole
                 pack. On a warm afternoon, this{' '}
                 <Link
-                  href="/pub-garden-heathrow"
+                  href="/beer-garden"
                   className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid hover:underline"
                 >
                   pub garden near Heathrow

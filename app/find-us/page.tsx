@@ -20,10 +20,12 @@ import { SpeakableSchema } from '@/components/seo/SpeakableSchema'
 import { SpeakableContent } from '@/components/voice/SpeakableContent'
 import { parkingFacilitySchema } from '@/lib/schemas/parking'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
+import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
+import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 export const metadata: Metadata = {
-  title: 'Directions (TW19 6AQ) | Free Parking | Near Heathrow T5',
-  description: 'Directions to The Anchor, Horton Road, Stanwell Moor TW19 6AQ. Seven minutes from Heathrow T5 with free parking. Easy access from M25 J14 and Staines.',
+  title: 'The Anchor Directions | TW19 6AQ, Near Heathrow T5',
+  description: 'Directions to The Anchor, Horton Road, Stanwell Moor TW19 6AQ. Seven minutes from Heathrow T5 with free customer parking, taxi and bus details.',
   openGraph: {
     title: 'Directions to The Anchor (TW19 6AQ)',
     description: 'Driving and public transport directions from Heathrow terminals to The Anchor on Horton Road with free parking.',
@@ -56,6 +58,12 @@ export default function FindUsPage() {
 
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Find Us', url: '/find-us' }
+        ]}
+      />
       <SpeakableSchema />
       <script
         type="application/ld+json"
@@ -590,6 +598,13 @@ export default function FindUsPage() {
           </div>
         </Container>
       </Section>
+
+      <OrganicSearchClusterLinks
+        cluster="workspace"
+        currentPath="/find-us"
+        title="Plan your route and visit"
+        intro="Use these related pages for workspace, food and booking decisions once you know how to reach us."
+      />
 
       {/* FAQ Section */}
       <FAQAccordionWithSchema

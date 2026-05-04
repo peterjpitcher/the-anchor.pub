@@ -22,6 +22,8 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { getSundayRoastContent, SUNDAY_ROAST, type SundayRoastContent } from '@/lib/sunday-roast'
 import { getSundayLunchMenuPageData, type MenuPageItem } from '@/lib/menu-page-data'
 import { MenuRenderer } from '@/components/MenuRenderer'
+import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
+import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 const SUNDAY_LUNCH_BOOKING_URL = SUNDAY_ROAST.bookingHref
 const WEBSITE_ORIGIN = 'https://www.the-anchor.pub'
@@ -144,6 +146,12 @@ export default async function SundayLunchPage() {
           dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(menuJsonLd) }}
         />
       )}
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Sunday Lunch', url: '/sunday-lunch' }
+        ]}
+      />
 
       <HeroWrapper
         route="/sunday-lunch"
@@ -401,6 +409,13 @@ export default async function SundayLunchPage() {
           </div>
         </Container>
       </section>
+
+      <OrganicSearchClusterLinks
+        cluster="heathrowDining"
+        currentPath="/sunday-lunch"
+        title="More food near Heathrow"
+        intro="Compare the restaurant guide, live menu and table booking page before planning your Sunday visit."
+      />
 
       <FAQAccordionWithSchema
         title="Sunday Roast FAQs"

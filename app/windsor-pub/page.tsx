@@ -11,6 +11,8 @@ import { CONTACT, BRAND, PARKING } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
+import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
+import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 export const metadata: Metadata = {
   title: 'Pubs in Windsor | Free Parking Alternative',
@@ -93,6 +95,12 @@ export default function WindsorPubPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify([localBusinessSchema, directionsSchema]) }}
+      />
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Pub Near Windsor', url: '/windsor-pub' }
+        ]}
       />
       
       {/* Hero Section */}
@@ -460,6 +468,13 @@ export default function WindsorPubPage() {
           </div>
         </Container>
       </section>
+
+      <OrganicSearchClusterLinks
+        cluster="localPub"
+        currentPath="/windsor-pub"
+        title="Compare local pub pages"
+        intro="Use these local pages for nearby pub, food and directions searches before you visit."
+      />
 
       {/* FAQ Section */}
       <FAQAccordionWithSchema 

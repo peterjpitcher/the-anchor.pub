@@ -12,21 +12,23 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
+import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
+import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { JsonLd } from '@/components/JsonLd'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 import { TrustBar, ValueProofStrip, RegretReduction } from '@/components/psychology'
 
 export const metadata: Metadata = {
-  title: 'Function Room Hire Near Heathrow | 10-50 Guests | Free Parking',
-  description: 'Flexible function room hire for 10-50 guests near Heathrow, with larger events by enquiry. Layout options, AV support and free parking included.',
+  title: 'Private Function Room Near Heathrow | 10-50 Guests',
+  description: 'Private function room near Heathrow and Staines for 10-50 guests, with larger events by enquiry. Layout options, AV support and free parking included.',
   openGraph: {
-    title: 'Function Room Hire Near Heathrow | 10-50 Guests | Free Parking',
-    description: 'Flexible function room with 6 layouts, AV equipment and free parking near Heathrow. View room specs and capacities.',
+    title: 'Private Function Room Near Heathrow | 10-50 Guests',
+    description: 'Flexible private function room with 6 layouts, AV equipment and free parking near Heathrow. View room specs and capacities.',
     images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Private hire venue at The Anchor near Heathrow Airport' }],
   },
   twitter: getTwitterMetadata({
-    title: 'Function Room Hire Near Heathrow | 10-50 Guests | Free Parking',
-    description: 'Flexible function room with 6 layouts, AV equipment and free parking near Heathrow. View room specs and capacities.',
+    title: 'Private Function Room Near Heathrow | 10-50 Guests',
+    description: 'Flexible private function room with 6 layouts, AV equipment and free parking near Heathrow. View room specs and capacities.',
     images: [DEFAULT_CORPORATE_IMAGE]
   }),
   alternates: {
@@ -76,12 +78,18 @@ export default function FunctionRoomHirePage() {
   return (
     <>
       <JsonLd data={[functionRoomSchema]} />
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: 'https://www.the-anchor.pub' },
+          { name: 'Function Room Hire', url: 'https://www.the-anchor.pub/function-room-hire' }
+        ]}
+      />
 
       {/* Hero Section */}
       <HeroWrapper
         showContextStrip={true}
         route="/function-room-hire"
-        title="Function Room Hire, 10-50 Guests, Larger Events by Enquiry"
+        title="Private Function Room Near Heathrow, 10 to 50 Guests"
         description="Ground-floor rooms with 6 layout options, AV equipment, climate control and wheelchair access. Free parking included."
 
         tags={[
@@ -623,6 +631,13 @@ export default function FunctionRoomHirePage() {
           { href: '/food-menu', title: 'Menu Ideas', description: 'Select canapés, buffets or two-course meals' }
         ]}
         className="section-spacing-md"
+      />
+
+      <OrganicSearchClusterLinks
+        cluster="privateRooms"
+        currentPath="/function-room-hire"
+        title="Private room hire near Heathrow and Staines"
+        intro="Find the right event route from private hire, room layouts, catering packages and corporate event options."
       />
 
       {/* FAQ Section */}

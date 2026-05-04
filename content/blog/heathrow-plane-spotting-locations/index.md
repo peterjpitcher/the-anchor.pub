@@ -1,6 +1,6 @@
 ---
-title: "7 Best Plane Spotting Locations at Heathrow (2026 Guide)"
-description: "The definitive guide to plane spotting at Heathrow Airport. Compare 7 locations for accessibility, views, parking, and nearby food. Updated for 2026."
+title: "7 Best Heathrow Plane Spotting & Viewing Areas (2026)"
+description: "Compare the best Heathrow plane spotting locations and viewing areas for 2026, including access, parking, food, shelter and photography angles."
 date: "2026-03-22"
 author: "The Anchor Team"
 keywords:
@@ -24,6 +24,12 @@ Heathrow handles roughly 1,300 flights a day. During peak hours, that works out 
 Most guides focus on photography angles and runway configurations. This one takes a different approach: we compare seven locations on everything that determines whether you actually enjoy the day -- parking, food, shelter, toilets, and ease of access. Standing on a grass verge with a thermos is fine for an hour, but a proper spotting day needs a base camp.
 
 We should be upfront: we run The Anchor, a pub in Stanwell Moor that sits directly under the flight path. We think it is the best all-round spotting location, and we will make that case below. But we have included six other spots that are genuinely worth your time, with honest assessments of each.
+
+## Fast Answer: Is There a Heathrow Viewing Area?
+
+Heathrow does not currently offer a dedicated public spectators' terrace. The best Heathrow viewing areas are informal public spots around the airport: The Anchor beer garden for food, shelter and casual watching, Myrtle Avenue for close runway 27L arrivals, Hatton Cross for public transport access, terminal windows for ticketed passengers, Southern Perimeter Road for departures, Cranford for easterly arrivals and King George VI Reservoir for wider landscape views.
+
+If you want comfort, toilets, food and parking, start with [The Anchor beer garden](/beer-garden). If you want the pure photographer's spot, start with Myrtle Avenue and plan your facilities separately.
 
 ## Quick Comparison: All 7 Locations at a Glance
 

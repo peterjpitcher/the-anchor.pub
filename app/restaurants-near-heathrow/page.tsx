@@ -11,18 +11,20 @@ import { HEATHROW_TIMES } from '@/lib/constants'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
 import { getBusinessHours } from '@/lib/api'
 import { generateKitchenHoursSpecification } from '@/lib/schema-utils'
+import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
+import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 export const metadata: Metadata = {
-  title: 'Where to Eat Near Heathrow Before Your Flight | 7 Mins from T5',
-  description: 'Pre-flight dining 7 minutes from Heathrow T5. Proper pub meals before you fly, free parking and prices that beat the terminal. Book a table.',
+  title: 'Restaurants Near Heathrow | Pub Food 7 Mins from T5',
+  description: 'Where to eat near Heathrow before a flight, after landing or during a layover. Pub food, free customer parking and online table booking.',
   openGraph: {
-    title: 'Where to Eat Near Heathrow Before Your Flight | 7 Mins from T5',
-    description: 'Pre-flight dining near Heathrow. Proper meals, free parking, 7 minutes from Terminal 5, worth the detour.',
+    title: 'Restaurants Near Heathrow | Pub Food 7 Mins from T5',
+    description: 'Pre-flight, layover and post-landing meals near Heathrow with pub food, free customer parking and online booking.',
     images: [{ url: DEFAULT_NEAR_HEATHROW_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Heathrow Airport' }],
   },
   twitter: getTwitterMetadata({
-    title: 'Where to Eat Near Heathrow Before Your Flight | 7 Mins from T5',
-    description: 'Pre-flight dining near Heathrow. Proper meals, free parking, 7 minutes from Terminal 5, worth the detour.',
+    title: 'Restaurants Near Heathrow | Pub Food 7 Mins from T5',
+    description: 'Pre-flight, layover and post-landing meals near Heathrow with pub food, free customer parking and online booking.',
     images: [DEFAULT_NEAR_HEATHROW_IMAGE]
   }),
   alternates: {
@@ -106,6 +108,12 @@ export default async function RestaurantsNearHeathrowPage() {
   }
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Restaurants Near Heathrow', url: '/restaurants-near-heathrow' }
+        ]}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(restaurantSchema) }}
@@ -138,7 +146,7 @@ export default async function RestaurantsNearHeathrowPage() {
         <Container>
           <div className="max-w-4xl mx-auto">
             <p className="text-lg leading-relaxed text-anchor-cream-text/80">
-              Wondering where to eat near Heathrow before your flight? Travellers with a few hours to spare are ditching overpriced terminal food for proper meals nearby. The Anchor in Stanwell Moor is just 7 minutes from Terminal 5, ideal for pre-flight dining, layover meals, or a post-landing bite. Free parking, freshly cooked food from &pound;10, and a genuine atmosphere make it worth the short detour.
+              Wondering where to eat near Heathrow before your flight? The Anchor in Stanwell Moor is a real pub restaurant just 7 minutes from Terminal 5 and 11 to 12 minutes from the other terminals. Book a table for pre-flight dining, a layover meal or a post-landing bite, with free customer parking, freshly cooked food and a calmer setting than the terminal.
             </p>
           </div>
         </Container>
@@ -692,6 +700,13 @@ export default async function RestaurantsNearHeathrowPage() {
           }
         ]}
         className="bg-anchor-bg"
+      />
+
+      <OrganicSearchClusterLinks
+        cluster="heathrowDining"
+        currentPath="/restaurants-near-heathrow"
+        title="Compare Heathrow dining options"
+        intro="Use the live menu, layover guide and Sunday lunch page to choose the right meal before you book."
       />
 
       {/* CTA Section */}

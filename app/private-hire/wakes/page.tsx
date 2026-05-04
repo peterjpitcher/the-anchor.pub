@@ -13,6 +13,8 @@ import { CONTACT, BRAND } from '@/lib/constants'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { getCateringData, getLowestFoodPrice } from '@/lib/api/catering-packages'
 import { CateringPackagesTable } from '@/components/features/CateringPackagesTable'
+import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
+import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 const WAKE_PACKAGE_NAMES = ['Sandwich Buffet', 'Finger Buffet', 'Premium Buffet', 'Afternoon Tea']
 
@@ -22,15 +24,15 @@ export async function generateMetadata(): Promise<Metadata> {
     const fromPrice = getLowestFoodPrice(wakePackages) || '£12' // fallback only if API returns no wake packages
 
     return {
-        title: 'Wake & Funeral Reception Venue | Near Heathrow',
+        title: 'Wake Venue Near Staines & Heathrow | Private Room',
         description: `Private room for wakes, funeral teas & celebrations of life near Staines & Heathrow. Up to 50 guests, buffet packages from ${fromPrice}pp, free parking. Compassionate staff.`,
         openGraph: {
-            title: 'Wake Venue & Celebration of Life | The Anchor Stanwell Moor',
+            title: 'Wake Venue Near Staines & Heathrow | The Anchor Stanwell Moor',
             description: `Respectful, private spaces for wakes, funeral teas and celebrations of life. Buffet packages from ${fromPrice}pp. Minutes from local crematoriums.`,
             images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Private hire venue at The Anchor near Heathrow Airport' }],
         },
         twitter: getTwitterMetadata({
-            title: 'Wake Venue & Celebration of Life | The Anchor Stanwell Moor',
+            title: 'Wake Venue Near Staines & Heathrow | The Anchor Stanwell Moor',
             description: `Wakes, funeral teas and celebrations of life. Buffet packages from ${fromPrice}pp, free parking, minutes from local crematoriums.`,
             images: [DEFAULT_CORPORATE_IMAGE]
         }),
@@ -90,6 +92,13 @@ export default async function WakesPage() {
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify(eventVenueSchema) }}
+            />
+            <BreadcrumbJsonLd
+                items={[
+                    { name: 'Home', url: '/' },
+                    { name: 'Private Hire', url: '/private-hire' },
+                    { name: 'Wake Venue', url: '/private-hire/wakes' }
+                ]}
             />
 
             <HeroWrapper
@@ -414,6 +423,13 @@ export default async function WakesPage() {
                     </div>
                 </Container>
             </section>
+
+            <OrganicSearchClusterLinks
+                cluster="privateRooms"
+                currentPath="/private-hire/wakes"
+                title="Private rooms for wakes near Staines and Heathrow"
+                intro="Compare private room, function room and party venue options before you call or enquire."
+            />
 
             <FAQAccordionWithSchema
                 faqs={[

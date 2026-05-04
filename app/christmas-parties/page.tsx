@@ -5,9 +5,11 @@ import { ChristmasHeroPrimaryCta, ChristmasHeroSecondaryCta } from './christmas-
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { TrustBar } from '@/components/psychology'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
+import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
+import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 export const metadata: Metadata = {
-  title: 'Christmas Parties & Festive Lunch Near Heathrow',
+  title: 'Christmas Party Venue Near Heathrow & Staines | 2026',
   description:
     'Book your Christmas party or festive lunch at The Anchor, Surrey. Three-course meals from £36.95, buffets for 26+, free parking near Heathrow T5. Enquire now.',
   openGraph: {
@@ -161,6 +163,12 @@ const structuredData = {
 export default function ChristmasPartiesPage() {
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Christmas Parties', url: '/christmas-parties' }
+        ]}
+      />
       <HeroWrapper
         showContextStrip={true}
         id="christmas-hero"
@@ -208,6 +216,12 @@ export default function ChristmasPartiesPage() {
             description: 'Post-Christmas pub visits, food and drinks at The Anchor.',
           },
         ]}
+      />
+      <OrganicSearchClusterLinks
+        cluster="privateRooms"
+        currentPath="/christmas-parties"
+        title="Private room and party venue options"
+        intro="Compare Christmas parties with private hire, function rooms and corporate event options near Heathrow."
       />
     </>
   )

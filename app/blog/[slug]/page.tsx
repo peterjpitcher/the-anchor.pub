@@ -11,6 +11,9 @@ import { getBlogHeroUrl } from '@/lib/blog-image'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { BookTableButton } from '@/components/BookTableButton'
+import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
+import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
+import type { OrganicSearchClusterKey } from '@/lib/seo/organic-search-map'
 
 export const revalidate = 3600
 
@@ -104,6 +107,48 @@ function shouldShowHeathrowBookingCta(slug: string, tags: string[]): boolean {
   return HEATHROW_SLUG_KEYWORDS.some((kw) => slug.toLowerCase().includes(kw))
 }
 
+function getBlogOrganicSearchCluster(slug: string, tags: string[]): OrganicSearchClusterKey | null {
+  const tagSet = new Set(tags.map((tag) => tag.toLowerCase().trim()))
+  const lowerSlug = slug.toLowerCase()
+
+  if (lowerSlug.includes('plane') || tagSet.has('plane-spotting')) return 'planeSpotting'
+  if (lowerSlug.includes('parking') || tagSet.has('parking')) return 'heathrowParking'
+  if (lowerSlug.includes('beer-garden')) return 'beerGarden'
+  if (
+    lowerSlug.includes('restaurant') ||
+    lowerSlug.includes('where-to-eat') ||
+    lowerSlug.includes('eating-near-heathrow') ||
+    lowerSlug.includes('layover') ||
+    lowerSlug.includes('pub-food') ||
+    lowerSlug.includes('fish-chips') ||
+    lowerSlug.includes('sunday-roast') ||
+    tagSet.has('food-and-drink')
+  ) {
+    return 'heathrowDining'
+  }
+  if (
+    lowerSlug.includes('live-sport') ||
+    lowerSlug.includes('quiz') ||
+    lowerSlug.includes('bingo') ||
+    lowerSlug.includes('karaoke') ||
+    lowerSlug.includes('music')
+  ) {
+    return 'events'
+  }
+  if (
+    lowerSlug.includes('private') ||
+    lowerSlug.includes('function-room') ||
+    lowerSlug.includes('party') ||
+    lowerSlug.includes('christening') ||
+    lowerSlug.includes('wake')
+  ) {
+    return 'privateRooms'
+  }
+  if (lowerSlug.includes('digital-nomad') || lowerSlug.includes('business-travellers')) return 'workspace'
+
+  return null
+}
+
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const post = await getBlogPost(params.slug)
   
@@ -183,6 +228,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
   const faqEntries = extractFaqEntries(post.content)
 
   const showHeathrowCta = shouldShowHeathrowBookingCta(post.slug, post.tags)
+  const organicSearchCluster = getBlogOrganicSearchCluster(post.slug, post.tags)
 
   // BlogPosting structured data for better SEO
   const blogPostingSchema = {
@@ -277,6 +323,13 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
 
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Blog', url: '/blog' },
+          { name: post.title, url: `/blog/${post.slug}` }
+        ]}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -426,6 +479,14 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
       </Section>
 
       {/* Internal Linking for Better SEO */}
+      {organicSearchCluster && (
+        <OrganicSearchClusterLinks
+          cluster={organicSearchCluster}
+          currentPath={`/blog/${post.slug}`}
+          title="Continue planning your visit"
+          intro="Use these related pages to move from research to booking, directions, menu choices or parking."
+        />
+      )}
       <InternalLinkingSection 
         links={commonLinkGroups.events}
         className="section-spacing-md"

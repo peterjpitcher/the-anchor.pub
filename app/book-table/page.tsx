@@ -17,6 +17,8 @@ import {
   getSundayLunchMenuPageData,
   type MenuPageItem
 } from '@/lib/menu-page-data'
+import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
+import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 // Revalidate every 1 hour for the walk-in launch fortnight (10–22 May 2026)
 // so the LaunchAnnouncement banner flips reliably at the cutover even on
@@ -37,15 +39,15 @@ export async function generateMetadata(): Promise<Metadata> {
   const description = `Reserve your table at The Anchor, Stanwell Moor, instant confirmation.${foodPhrase}${sundayPhrase} Dog-friendly, free parking, 7 mins from T5.`
 
   return {
-    title: 'Book a Table Near Heathrow | Sunday Roast',
+    title: 'Book a Table at The Anchor | Pub Near Heathrow T5',
     description,
     openGraph: {
-      title: 'Book a Table Near Heathrow | Sunday Roast | The Anchor',
+      title: 'Book a Table at The Anchor | Pub Near Heathrow T5',
       description,
       images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }]
     },
     twitter: getTwitterMetadata({
-      title: 'Book a Table Near Heathrow | Sunday Roast | The Anchor',
+      title: 'Book a Table at The Anchor | Pub Near Heathrow T5',
       description,
       images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
@@ -140,6 +142,12 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
             }
           ])
         }}
+      />
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Book a Table', url: '/book-table' }
+        ]}
       />
 
       <HeroWrapper
@@ -380,6 +388,13 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
           </Link>
         </p>
       </Section>
+
+      <OrganicSearchClusterLinks
+        cluster="heathrowDining"
+        currentPath="/book-table"
+        title="Plan your meal near Heathrow"
+        intro="Compare the restaurant guide, live menu and Sunday lunch options before reserving."
+      />
 
       {/* Customer Review */}
       <Section spacing="md" container containerSize="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">

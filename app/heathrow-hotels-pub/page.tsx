@@ -11,10 +11,12 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
+import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
+import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 export const metadata: Metadata = {
-  title: 'Pub Near Heathrow Hotels | Surrey Pub Escape',
-  description: `Traditional Surrey pub minutes from Heathrow hotels. Free parking in Surrey countryside, authentic British food, draught beer. Escape airport hotel prices.`,
+  title: 'Pub Near Heathrow Hotels | Food, Beer & Free Parking',
+  description: `Traditional Surrey pub minutes from Heathrow hotels. Free parking, British pub food, draught beer, WiFi and an easy taxi from Terminal 5 hotels.`,
   openGraph: {
     title: 'The Anchor - Traditional Pub Near Heathrow Hotels',
     description: 'Escape expensive hotel restaurants! Authentic British pub with free parking, just minutes from all Heathrow hotels.',
@@ -93,6 +95,13 @@ export default function HeathrowHotelsPubPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify([localBusinessSchema, directionsSchema]) }}
+      />
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Near Heathrow', url: '/near-heathrow' },
+          { name: 'Pub Near Heathrow Hotels', url: '/heathrow-hotels-pub' }
+        ]}
       />
       
       {/* Hero Section */}
@@ -597,6 +606,13 @@ export default function HeathrowHotelsPubPage() {
           </div>
         </Container>
       </section>
+
+      <OrganicSearchClusterLinks
+        cluster="pubsNearHeathrow"
+        currentPath="/heathrow-hotels-pub"
+        title="More pub options near Heathrow"
+        intro="Compare hotel guest, terminal and directions pages before you leave the airport or hotel."
+      />
 
       {/* FAQ Section */}
       <FAQAccordionWithSchema 

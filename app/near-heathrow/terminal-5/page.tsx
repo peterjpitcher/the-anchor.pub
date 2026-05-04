@@ -16,10 +16,12 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
+import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
+import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 export const metadata: Metadata = {
-  title: 'Pubs Near Heathrow Terminal 5 | 7 Mins | Free Parking',
-  description: 'Nearest pub to Heathrow Terminal 5, just 7 minutes by taxi or drive and park free. British pub food, dog-friendly beer garden and draught beers.',
+  title: 'Pub Near Heathrow Terminal 5 | Food & Free Parking',
+  description: 'Pub near Heathrow Terminal 5, 7 minutes by taxi or car. British pub food, free customer parking, dog-friendly beer garden and table booking.',
   openGraph: {
     title: 'Pubs Near Heathrow Terminal 5 | 7 Mins Away | Free Parking',
     description: 'Looking for pubs near Heathrow Terminal 5? Just 7 minutes by taxi. Free parking for 20 cars. British pub food, dog-friendly beer garden & draught beers.',
@@ -38,10 +40,17 @@ export const metadata: Metadata = {
 export default function Terminal5Page() {
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Near Heathrow', url: '/near-heathrow' },
+          { name: 'Terminal 5', url: '/near-heathrow/terminal-5' }
+        ]}
+      />
       {/* Hero Section */}
       <HeroWrapper
         route="/near-heathrow/terminal-5"
-        title="The Best Pub Near Heathrow Terminal 5"
+        title="Pub Near Heathrow Terminal 5 for Food and Free Parking"
         description="Perfect for British Airways travelers • Free parking • Traditional British pub"
         variant="default"
         primaryCta={
@@ -615,6 +624,13 @@ export default function Terminal5Page() {
           { href: '/near-heathrow/terminal-3', title: 'Terminal 3 Guide', description: 'Directions and tips for Virgin and Emirates flights' }
         ]}
         className="section-spacing-md"
+      />
+
+      <OrganicSearchClusterLinks
+        cluster="pubsNearHeathrow"
+        currentPath="/near-heathrow/terminal-5"
+        title="More Heathrow pub options"
+        intro="Compare the main Heathrow pub guide, hotel routes and directions before you book."
       />
 
       {/* FAQ Section */}

@@ -11,20 +11,22 @@ import { BookTableButton } from '@/components/BookTableButton'
 import { parkingFacilitySchema } from '@/lib/schemas/parking'
 import { getBusinessHours } from '@/lib/api'
 import { generateOpeningHoursSpecification } from '@/lib/schema-utils'
+import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
+import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 export const revalidate = 86400 // Revalidate every 24 hours
 
 export const metadata: Metadata = {
-  title: 'Beer Garden Near Heathrow | Dog-Friendly Pub',
-  description: '64-seat outdoor pub garden 7 mins from Heathrow with outdoor dining under the flight path. Dog-friendly, heated areas, full food menu served to your table. Free parking.',
+  title: 'Beer Garden Near Heathrow | Plane Spotting Pub Garden',
+  description: 'Outdoor pub garden near Heathrow with plane spotting views, food, dog-friendly tables, heated areas and free customer parking in Stanwell Moor.',
   openGraph: {
-    title: 'Beer Garden Near Heathrow | Dog-Friendly Pub | The Anchor',
-    description: '64-seat outdoor pub garden 7 mins from Heathrow with outdoor dining under the flight path. Dog-friendly, heated areas, full food menu served to your table. Free parking.',
+    title: 'Beer Garden Near Heathrow | Plane Spotting Pub Garden | The Anchor',
+    description: 'Outdoor pub garden near Heathrow with plane spotting views, food, dog-friendly tables, heated areas and free customer parking.',
     images: ['/images/garden/beer-garden/the-anchor-beer-garden-heathrow-flight-path.jpg'],
   },
   twitter: getTwitterMetadata({
-    title: 'Beer Garden Near Heathrow | Dog-Friendly Pub | The Anchor',
-    description: 'Outdoor pub garden 7 mins from Heathrow. Dog-friendly, heated areas, full food menu. Free parking.',
+    title: 'Beer Garden Near Heathrow | Plane Spotting Pub Garden | The Anchor',
+    description: 'Outdoor pub garden near Heathrow with plane spotting views, food, dog-friendly tables and free customer parking.',
     images: ['/images/garden/beer-garden/the-anchor-beer-garden-heathrow-flight-path.jpg']
   }),
   alternates: {
@@ -73,6 +75,12 @@ export default async function BeerGardenPage() {
   }
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Beer Garden', url: '/beer-garden' }
+        ]}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify([planeSpottingSchema, parkingFacilitySchema]) }}
@@ -412,6 +420,13 @@ export default async function BeerGardenPage() {
             answer: "Absolutely! Our beer garden is a popular spot for aviation photographers. The planes pass low overhead providing excellent photo opportunities."
           }
         ]}
+      />
+
+      <OrganicSearchClusterLinks
+        cluster="beerGarden"
+        currentPath="/beer-garden"
+        title="Plan your garden visit"
+        intro="Compare plane spotting, food and dog-friendly options before you book a table."
       />
 
       {/* CTA Section */}

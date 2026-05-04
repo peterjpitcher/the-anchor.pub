@@ -244,6 +244,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const excludedBlogSlugs = new Set([
     'euro-2024-viewing',
     'autumn-internationals-2024-full-fixtures-highlight',
+    'plane-spotting-heathrow-guide',
+    'best-places-to-eat-near-heathrow',
+    'best-pub-food-near-heathrow',
     // Cannibalises /sunday-lunch, 301 redirected via additional-redirects.json.
     'sunday-lunch-at-the-anchor-is-back-pre-order-now'
   ])

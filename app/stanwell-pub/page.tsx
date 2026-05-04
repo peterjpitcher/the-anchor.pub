@@ -12,6 +12,8 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { SUNDAY_ROAST, getSundayRoastContent } from '@/lib/sunday-roast'
+import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
+import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 export function generateMetadata(): Metadata {
   const sunday = getSundayRoastContent()
@@ -20,16 +22,16 @@ export function generateMetadata(): Metadata {
     : `Sunday roast starts ${SUNDAY_ROAST.launchDateLabel}`
 
   return {
-    title: 'Stanwell Moor Pub | Rated 4.6★ on Google',
-    description: `Your local in Stanwell Moor, rated 4.6/5 on Google. ${sundayPhrase}, stone-baked pizzas, dog-friendly beer garden, quiz nights & free parking.`,
+    title: 'Stanwell Moor Pub | The Anchor, Horton Road',
+    description: `Your local pub in Stanwell Moor near Staines and Heathrow, rated 4.6/5 on Google. ${sundayPhrase}, stone-baked pizzas, dog-friendly beer garden, quiz nights and free parking.`,
     openGraph: {
-      title: 'Stanwell Village Pub, Beer Garden, Food & Free Parking',
+      title: 'Stanwell Moor Pub, Beer Garden, Food and Free Parking',
       description: `Rated 4.6/5 on Google. ${sundayPhrase}, stone-baked pizzas and a dog-friendly beer garden at The Anchor, Stanwell Moor.`,
       images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
       type: 'website',
     },
     twitter: getTwitterMetadata({
-      title: 'Stanwell Village Pub, Beer Garden, Food & Free Parking',
+      title: 'Stanwell Moor Pub, Beer Garden, Food and Free Parking',
       description: `Rated 4.6/5 on Google. ${sundayPhrase}, stone-baked pizzas and a dog-friendly beer garden at The Anchor, Stanwell Moor.`,
       images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
@@ -93,6 +95,12 @@ export default function StanwellPubPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify([localBusinessSchema, directionsSchema]) }}
       />
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: 'https://www.the-anchor.pub' },
+          { name: 'Stanwell Pub', url: 'https://www.the-anchor.pub/stanwell-pub' }
+        ]}
+      />
 
       {/* Hero Section */}
       <HeroWrapper
@@ -126,7 +134,7 @@ export default function StanwellPubPage() {
               }}
               className="text-anchor-cream-text mb-4"
             >
-              Your Local Pub in Stanwell Moor
+              Your Local Pub in Stanwell Moor and Stanwell
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
               Your local village pub serving the Stanwell community for generations
@@ -463,6 +471,13 @@ export default function StanwellPubPage() {
           </div>
         </Container>
       </section>
+
+      <OrganicSearchClusterLinks
+        cluster="localPub"
+        currentPath="/stanwell-pub"
+        title="More local pub routes near Stanwell Moor"
+        intro="Compare nearby local pub pages for Heathrow, Staines, Stanwell Moor and directions to The Anchor."
+      />
 
       {/* FAQ Section */}
       <FAQAccordionWithSchema

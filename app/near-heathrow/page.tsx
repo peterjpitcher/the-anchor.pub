@@ -13,6 +13,8 @@ import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 import { SUNDAY_ROAST, getSundayRoastContent } from '@/lib/sunday-roast'
+import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
+import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 export function generateMetadata(): Metadata {
   const sunday = getSundayRoastContent()
@@ -21,16 +23,16 @@ export function generateMetadata(): Metadata {
     : `Sunday roast starts ${SUNDAY_ROAST.launchDateLabel}`
 
   return {
-    title: 'Pub Near Heathrow Airport | 7 Mins from T5',
-    description: `Rated 4.6/5 on Google. Traditional pub 7 mins from Heathrow T5, free parking, dog-friendly beer garden, ${sundayPhrase}, quiz nights & live events.`,
+    title: 'Pub Near Heathrow Airport | Food, Parking, 7 Mins T5',
+    description: `Traditional pub near Heathrow with food, free customer parking, WiFi, dog-friendly beer garden, ${sundayPhrase}, events and table booking.`,
     openGraph: {
-      title: 'Pubs Near Heathrow Airport | 7 Mins from T5 | Free Parking | The Anchor',
-      description: 'Rated 4.6/5 on Google. The closest traditional pub to Heathrow, 7 mins from T5, free parking, dog-friendly beer garden and food served daily.',
+      title: 'Pub Near Heathrow Airport | Food, Parking, 7 Mins T5',
+      description: 'The closest traditional pub to Heathrow Terminal 5, with pub food, WiFi, free customer parking, events and a dog-friendly beer garden.',
       images: [{ url: DEFAULT_NEAR_HEATHROW_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Heathrow Airport' }],
     },
     twitter: getTwitterMetadata({
-      title: 'Pubs Near Heathrow Airport | 7 Mins from T5 | Free Parking | The Anchor',
-      description: `Rated 4.6/5. The closest traditional pub to Heathrow, 7 mins from T5, free parking, dog-friendly beer garden, ${sundayPhrase} and pub food.`,
+      title: 'Pub Near Heathrow Airport | Food, Parking, 7 Mins T5',
+      description: `The closest traditional pub to Heathrow Terminal 5, with pub food, WiFi, free customer parking, events and ${sundayPhrase}.`,
       images: [DEFAULT_NEAR_HEATHROW_IMAGE]
     }),
     alternates: {
@@ -44,6 +46,12 @@ export default function NearHeathrowPage() {
 
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Near Heathrow', url: '/near-heathrow' }
+        ]}
+      />
       <FoodStickyCtaBar
         ctaContext="heathrow_layover"
         label="Book a Table"
@@ -78,11 +86,11 @@ export default function NearHeathrowPage() {
       {/* Page Title for SEO */}
       <section className="bg-anchor-bg border-b border-anchor-gold/15 py-8">
         <Container>
-          <PageTitle
+            <PageTitle
             className="text-center text-anchor-cream-text"
             seo={{ structured: true, speakable: true }}
           >
-            The Best Pub Near Heathrow Airport
+            Pub Near Heathrow Airport for Food, Parking and WiFi
           </PageTitle>
           <p className="mt-4 text-center text-lg text-anchor-cream-text/70 max-w-4xl mx-auto">
             The Anchor is the closest traditional pub to Heathrow Airport, just 7 minutes by car from Terminal 5, 11 minutes from Terminals 2 and 3, and 12 minutes from Terminal 4. Free parking for 20 cars is available with no time limit while dining.
@@ -233,6 +241,47 @@ export default function NearHeathrowPage() {
                 Dietary requirements catered for. Everyone&apos;s local.
               </p>
             </div>
+          </div>
+        </Container>
+      </section>
+
+      <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+        <Container>
+          <SectionHeader
+            title="Workspace Near Heathrow Airport"
+            subtitle="A useful base for travellers, cabin crew, contractors and remote workers who need WiFi, food and a table close to the terminals."
+          />
+          <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-3">
+            <div className="border border-anchor-gold/15 bg-anchor-bg-raised p-6">
+              <h2 className="text-xl font-bold text-anchor-gold-vivid">Free guest WiFi</h2>
+              <p className="mt-3 text-anchor-cream-text/70">
+                Check emails, track flights, join a quick call or plan the next leg of your journey from the dining room.
+              </p>
+            </div>
+            <div className="border border-anchor-gold/15 bg-anchor-bg-raised p-6">
+              <h2 className="text-xl font-bold text-anchor-gold-vivid">Food and coffee</h2>
+              <p className="mt-3 text-anchor-cream-text/70">
+                Order from the live menu during kitchen hours, with hot drinks, soft drinks and pub classics available.
+              </p>
+            </div>
+            <div className="border border-anchor-gold/15 bg-anchor-bg-raised p-6">
+              <h2 className="text-xl font-bold text-anchor-gold-vivid">Close to T5</h2>
+              <p className="mt-3 text-anchor-cream-text/70">
+                We are 7 minutes from Terminal 5 and outside the airport bubble, with free customer parking while you visit.
+              </p>
+            </div>
+          </div>
+          <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+            <Link href="/book-table?source=workspace_near_heathrow">
+              <Button variant="primary" size="lg">
+                Book a work table
+              </Button>
+            </Link>
+            <Link href="/food-menu">
+              <Button variant="secondary" size="lg">
+                View food menu
+              </Button>
+            </Link>
           </div>
         </Container>
       </section>
@@ -754,6 +803,13 @@ export default function NearHeathrowPage() {
           </div>
         </Container>
       </section>
+
+      <OrganicSearchClusterLinks
+        cluster="pubsNearHeathrow"
+        currentPath="/near-heathrow"
+        title="Choose the right Heathrow pub page"
+        intro="Use these pages for terminal-specific directions, Heathrow hotel alternatives and route planning."
+      />
 
       {/* FAQ Section */}
       <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">

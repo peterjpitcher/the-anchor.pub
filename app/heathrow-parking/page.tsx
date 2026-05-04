@@ -9,6 +9,8 @@ import { ReviewSection } from '@/components/reviews'
 import { DEFAULT_PARKING_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { anchorAPI, ParkingRateCard } from '@/lib/api'
+import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
+import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 const formatRate = (value: number | null | undefined, fallback: string) =>
   typeof value === 'number' && Number.isFinite(value) ? value.toFixed(2) : fallback
@@ -103,24 +105,24 @@ const terminalGuides = [
 
 const comparisonRows = [
   {
-    label: 'Price for 24 hours',
-    anchor: '£15 with us (daily rate)',
-    heathrow: '£39 at Heathrow short stay'
+    label: 'Published starting price',
+    anchor: '£15 daily rate or £75 weekly rate',
+    heathrow: 'T5 Park & Ride starts from £46.80'
   },
   {
-    label: 'Price for 1 week',
-    anchor: '£75 with us (weekly rate)',
-    heathrow: '£118-£140 Heathrow long stay'
+    label: 'Short parking comparison',
+    anchor: '£5 per hour for short visits',
+    heathrow: 'T5 Terminal Parking starts from £8 for 29 minutes'
   },
   {
-    label: 'Price for 2 weeks',
-    anchor: '£140 with us (weekly x2 minus loyalty credit)',
-    heathrow: '£216-£260 Heathrow official car parks'
+    label: 'Transfer style',
+    anchor: 'Taxi, rideshare or 442 bus from TW19 6AQ',
+    heathrow: 'Park & Ride uses a bus transfer to the terminal'
   },
   {
     label: 'Distance to terminals',
     anchor: '3.8 miles to T5 · 5.3 miles to T3',
-    heathrow: 'On-airport but requires shuttle waits'
+    heathrow: 'Official T5 Park & Ride is on Northern Perimeter Road'
   },
   {
     label: 'Payment',
@@ -273,6 +275,12 @@ export default async function HeathrowParkingPage() {
 
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Heathrow Parking', url: '/heathrow-parking' }
+        ]}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(parkingFacilitySchema) }}
@@ -490,6 +498,9 @@ export default async function HeathrowParkingPage() {
               ))}
             </div>
           </div>
+          <p className="mt-4 text-center text-xs text-anchor-cream-text/55">
+            Official Heathrow examples checked May 2026 from Heathrow&apos;s Terminal 5 parking pages. Always confirm live airport pricing before travel.
+          </p>
         </Container>
       </Section>
 
@@ -612,6 +623,13 @@ export default async function HeathrowParkingPage() {
         layout="carousel"
         filter={{ minRating: 4, limit: 6 }}
         background="dark"
+      />
+
+      <OrganicSearchClusterLinks
+        cluster="heathrowParking"
+        currentPath="/heathrow-parking"
+        title="Compare parking and terminal guides"
+        intro="Use the comparison guide and terminal pages to choose the best parking route before you book."
       />
 
       <CTASection

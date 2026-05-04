@@ -18,6 +18,8 @@ import { generateKitchenHoursSpecification, generateSuitableForDiet } from '@/li
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 import { DietaryMenuNav } from '@/components/food/DietaryMenuNav'
+import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
+import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import type { KitchenStatusData } from '@/components/psychology'
 import {
   getFishAndChipsMenuPageData,
@@ -127,15 +129,15 @@ export async function generateMetadata(): Promise<Metadata> {
     : 'Pub food menu near Heathrow at The Anchor. Current dishes and prices from the latest kitchen menu.'
 
   return {
-    title: 'Where to Eat Near Heathrow Airport | Pub Food Menu',
+    title: 'Food Menu Near Heathrow | Live Pub Menu & Prices',
     description,
     openGraph: {
-      title: 'Where to Eat Near Heathrow Airport | Pub Food Menu | The Anchor',
+      title: 'Food Menu Near Heathrow | Live Pub Menu & Prices | The Anchor',
       description,
       images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg'],
     },
     twitter: getTwitterMetadata({
-      title: 'Where to Eat Near Heathrow Airport | Pub Food Menu | The Anchor',
+      title: 'Food Menu Near Heathrow | Live Pub Menu & Prices | The Anchor',
       description,
       images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg']
     }),
@@ -223,6 +225,12 @@ export default async function FoodMenuPage() {
 
   return (
     <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Food Menu', url: '/food-menu' }
+        ]}
+      />
       <SpeakableSchema />
       <MenuPageTracker
         menuType="food"
@@ -555,6 +563,13 @@ export default async function FoodMenuPage() {
         faqs={faqItems}
         className="bg-anchor-bg-card"
         renderSchema={false}
+      />
+
+      <OrganicSearchClusterLinks
+        cluster="heathrowDining"
+        currentPath="/food-menu"
+        title="Food, restaurants and layover planning"
+        intro="The menu page owns live dishes and prices. Use these related pages for restaurant comparisons and Heathrow timing."
       />
 
       <div data-sticky-cta-guard="true">

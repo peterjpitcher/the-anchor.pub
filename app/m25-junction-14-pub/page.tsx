@@ -12,6 +12,8 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
+import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
+import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 export const metadata: Metadata = {
   title: 'M25 Junction 14 Pub | 5 Mins | Free Parking & Food',
@@ -90,6 +92,12 @@ export default function M25Junction14PubPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify([localBusinessSchema, directionsSchema]) }}
+      />
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'M25 Junction 14 Pub', url: '/m25-junction-14-pub' }
+        ]}
       />
       
       {/* Hero Section */}
@@ -525,6 +533,13 @@ export default function M25Junction14PubPage() {
           { href: '/near-heathrow', title: 'Near Heathrow Hub', description: 'Travel tips for every airport terminal' }
         ]}
         className="section-spacing-md"
+      />
+
+      <OrganicSearchClusterLinks
+        cluster="pubsNearHeathrow"
+        currentPath="/m25-junction-14-pub"
+        title="More Heathrow pub pages"
+        intro="Compare terminal, hotel and directions pages if your M25 stop is part of a Heathrow journey."
       />
 
       {/* FAQ Section */}

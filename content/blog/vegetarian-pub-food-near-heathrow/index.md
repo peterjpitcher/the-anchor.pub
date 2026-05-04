@@ -22,6 +22,8 @@ Finding proper **vegetarian pub food near Heathrow** used to mean a jacket potat
 
 If you are vegetarian, vegan, or just eating less meat and looking for somewhere near Heathrow that does not treat you as an afterthought, here is what is worth knowing.
 
+**Fast answer:** The Anchor has vegetarian and vegan pub food seven minutes from Heathrow Terminal 5, including pizza, burgers, sides and a meat-free Sunday roast option when Sunday lunch is running. Check the [live food menu](/food-menu), the [vegetarian menu page](/food-menu/vegetarian), or the [vegan menu page](/food-menu/vegan) before you travel.
+
 ## What The Anchor Offers for Vegetarians and Vegans
 
 The Anchor in Stanwell Moor, about seven minutes from Heathrow Terminal 5, takes its meat-free options seriously. This is not a vegetarian restaurant, but the kitchen has built out a proper selection rather than just ticking a box.

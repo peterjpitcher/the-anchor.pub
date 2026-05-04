@@ -20,6 +20,8 @@ images: []
 
 Heathrow's not exactly known for al fresco dining, but there are proper beer gardens within 15 minutes of the airport. Not hotel terraces overlooking a car park, actual pub gardens with grass, benches, and decent drinks. Whether you're killing time between flights, looking for somewhere dog-friendly, or just want a pint in the sun, here's where to go.
 
+**Fast answer:** for a beer garden near Heathrow with plane spotting, free parking, dog-friendly tables and food, go to [The Anchor beer garden](/beer-garden) in Stanwell Moor. If aircraft views are the main reason for visiting, see the [Heathrow plane spotting pub page](/plane-spotting-heathrow). For food outside, check the [live menu](/food-menu) or [book a table](/book-table).
+
 ## Quick Comparison: Beer Gardens Near Heathrow
 
 | Pub | Garden Seats | Dog Friendly | Unique Feature | Parking | Distance from T5 |
