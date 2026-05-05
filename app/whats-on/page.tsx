@@ -14,7 +14,6 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { SpeakableSchema } from '@/components/seo/SpeakableSchema'
 import { SpeakableContent } from '@/components/voice/SpeakableContent'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
-import { BookTableButton } from '@/components/BookTableButton'
 import { quizNightEventSeries, bingoEventSeries } from '@/lib/schema'
 import { getBusinessHours, getRecentEvents, getUpcomingEvents, formatEventDate, type Event } from '@/lib/api'
 import { PRIVATE_HIRE_CAPACITY } from '@/lib/private-hire-capacity'
@@ -159,62 +158,19 @@ export default async function WhatsOnPage() {
       <HeroWrapper
         route="/whats-on"
         title="Pub Events at The Anchor"
-        description="From Music Bingo hosted by Nikki Manfadge to quiz nights and one-off events, check the listings for the latest."
+        description="Choose an upcoming event, check the date, price and seats, then reserve through the event-specific booking form."
         showContextStrip={true}
         primaryCta={
-          <BookTableButton
-            source="whats_on_hero"
-            variant="primary"
-            size="lg"
-            fullWidth
-            className="w-full sm:w-auto"
-          >
-            Reserve Event Table
-          </BookTableButton>
-        }
-        secondaryCta={
-          <>
-            <Link href="#upcoming-events" className="w-full sm:w-auto">
-              <Button
-                variant="secondary"
-                size="lg"
-                fullWidth
-                className="sm:w-auto"
-              >
-                View All Events
-              </Button>
-            </Link>
-            <Link href="/food-menu#pizza" className="w-full sm:w-auto">
-              <Button
-                variant="secondary"
-                size="lg"
-                fullWidth
-                className="sm:w-auto"
-              >
-                Pizza Menu
-              </Button>
-            </Link>
-            <Link href="/sunday-lunch" className="w-full sm:w-auto">
-              <Button
-                variant="secondary"
-                size="lg"
-                fullWidth
-                className="sm:w-auto"
-              >
-                Sunday Roast Info
-              </Button>
-            </Link>
-            <Link href="/private-hire#enquiry" className="w-full sm:w-auto">
-              <Button
-                variant="secondary"
-                size="lg"
-                fullWidth
-                className="sm:w-auto"
-              >
-                Book Private Event
-              </Button>
-            </Link>
-          </>
+          <Link href="#upcoming-events" className="w-full sm:w-auto">
+            <Button
+              variant="primary"
+              size="lg"
+              fullWidth
+              className="w-full sm:w-auto"
+            >
+              Choose an Event to Reserve
+            </Button>
+          </Link>
         }
       />
 
@@ -692,12 +648,14 @@ export default async function WhatsOnPage() {
               Follow us on social media for the latest updates, special events, and last-minute changes
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-              <BookTableButton
-                source="whats_on_cta"
+              <Button
+                asChild
                 size="lg"
                 variant="secondary"
                 className="bg-anchor-gold text-anchor-green hover:bg-anchor-gold-light"
-              />
+              >
+                <Link href="#upcoming-events">Reserve an Upcoming Event</Link>
+              </Button>
             </div>
             <div className="flex justify-center gap-6 mb-8">
               <SocialLink

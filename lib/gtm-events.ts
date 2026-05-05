@@ -92,6 +92,26 @@ export function trackEventView(eventData: {
   })
 }
 
+export function trackEventDetailImpression(eventData: {
+  eventId: string
+  eventName: string
+  eventDate: string
+  eventCategory?: string
+  eventPrice?: number
+  source?: string
+}) {
+  pushToDataLayer({
+    event: 'event_detail_impression',
+    event_id: eventData.eventId,
+    event_name: eventData.eventName,
+    event_date: eventData.eventDate,
+    event_category: eventData.eventCategory,
+    booking_source: eventData.source,
+    value: eventData.eventPrice,
+    currency: 'GBP'
+  }, { sendToApi: true })
+}
+
 export function trackEventBookingStart(eventData: {
   eventId: string
   eventName: string

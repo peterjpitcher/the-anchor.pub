@@ -6,11 +6,13 @@ import { Button, Container, Section, Card, CardBody, Alert } from '@/components/
 import { EventSchema } from '@/components/seo/EventSchema'
 import { EventBookingButton } from '@/components/EventBookingButton'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
-import { anchorAPI, formatEventDate, formatEventTime, formatDoorTime, formatEventDuration, formatPrice } from '@/lib/api'
+import { anchorAPI, formatEventDate, formatEventTime, formatDoorTime, formatEventDuration } from '@/lib/api'
 import { EventPageTracker } from '@/components/tracking/EventPageTracker'
 import { PhoneButton } from '@/components/PhoneButton'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { EventSecondaryActions } from '@/components/events/EventSecondaryActions'
+import { EventBookingFactsStrip } from '@/components/events/EventBookingFactsStrip'
+import { EventStickyBookingCTA } from '@/components/events/EventStickyBookingCTA'
 import { ManagementEventBookingForm } from '@/components/features/EventBooking/ManagementEventBookingForm'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import {
@@ -29,6 +31,7 @@ import {
 } from '@/lib/mothers-day-booking'
 import { getEventPriceLabel } from '@/lib/event-pricing'
 import { getEventBookingCopy } from '@/lib/event-booking-copy'
+import { getEventBookingHeroStatement } from '@/lib/event-booking-experience'
 import { getEventSeoStrategy, getCategoryPageUrl, isFallbackEvent, PAST_EVENT_REDIRECT_DAYS, CANCELLED_INDEX_DAYS } from '@/lib/event-seo-strategy'
 import { getUpcomingEventsByCategory, isRetiredEvent } from '@/lib/api/events'
 import RelatedEvents from '@/components/events/RelatedEvents'
@@ -143,14 +146,14 @@ function EventHighlights({
       padding={compact ? 'none' : undefined}
       className={`border border-anchor-gold/15 bg-anchor-bg-card rounded-none ${className}`.trim()}
     >
-      <CardBody className={compact ? 'p-4' : 'p-4 md:p-6'}>
-        <h3 className={compact ? 'text-xl font-bold text-anchor-gold-vivid mb-2' : 'text-xl md:text-2xl font-bold text-anchor-gold-vivid mb-3 md:mb-4'}>
+      <CardBody className={compact ? 'p-3' : 'p-4 md:p-6'}>
+        <h3 className={compact ? 'mb-2 text-lg font-bold leading-tight text-anchor-gold-vivid' : 'text-xl md:text-2xl font-bold text-anchor-gold-vivid mb-3 md:mb-4'}>
           Event Highlights
         </h3>
-        <ul className={compact ? 'space-y-1.5' : 'space-y-2'}>
+        <ul className={compact ? 'space-y-1' : 'space-y-2'}>
           {highlights.map((highlight, index) => (
-            <li key={`${highlight}-${index}`} className="flex items-start gap-3">
-              <svg className="w-5 h-5 text-anchor-gold flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+            <li key={`${highlight}-${index}`} className={compact ? 'flex items-start gap-2' : 'flex items-start gap-3'}>
+              <svg className={compact ? 'mt-0.5 h-4 w-4 flex-shrink-0 text-anchor-gold' : 'w-5 h-5 text-anchor-gold flex-shrink-0 mt-0.5'} fill="currentColor" viewBox="0 0 20 20">
                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
               </svg>
               <span className={compact ? 'text-anchor-cream-text/70 text-sm' : 'text-anchor-cream-text/70 text-base'}>
@@ -161,6 +164,26 @@ function EventHighlights({
         </ul>
       </CardBody>
     </Card>
+  )
+}
+
+type EventInformationItem = {
+  label: string
+  value?: string | null
+}
+
+function EventInformationList({ items }: { items: EventInformationItem[] }) {
+  const visibleItems = items.filter((item) => item.value)
+
+  return (
+    <dl className="grid gap-x-4 gap-y-3 text-sm text-anchor-cream-text/70 sm:grid-cols-2">
+      {visibleItems.map((item) => (
+        <div key={item.label}>
+          <dt className="font-semibold text-anchor-gold-vivid">{item.label}</dt>
+          <dd>{item.value}</dd>
+        </div>
+      ))}
+    </dl>
   )
 }
 
@@ -324,18 +347,22 @@ export default async function EventPage({ params }: Props) {
     !isPastEvent
   const mothersDayBookingUrl = buildMothersDayBookingUrl()
   const mothersDayBookingCopy =
-    'Reserve your Mother’s Day table online. Walk-ins are welcome, but booking ahead is recommended because this Sunday fills quickly.'
+    'Reserve your Mother’s Day table online. Booking ahead is recommended because this Sunday fills quickly.'
+  const eventImageSrc = event.heroImageUrl || event.image?.[0] || null
   const imageAlt = event.image_alt_text || `${event.name} - ${event.category?.name || 'Event'} at The Anchor, Stanwell Moor`
   const blurDataURL = `data:image/svg+xml;base64,${Buffer.from(
     `<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1"><rect fill="${event.category?.color || '#1a1a2e'}" width="1" height="1"/></svg>`
   ).toString('base64')}`
   const heroRoute = `/events/${encodeURIComponent(canonicalSegment || params.id)}`
   const rawHeroDescription = event.shortDescription || event.brief || null
-  const heroDescription = rawHeroDescription
+  const eventSummary = rawHeroDescription
     ? rawHeroDescription.length > 160
       ? rawHeroDescription.substring(0, 157).trimEnd() + '…'
       : rawHeroDescription
     : undefined
+  const heroDescription = bookingBlockReason
+    ? eventSummary
+    : getEventBookingHeroStatement(event)
   const heroTags = [
     ...(event.category?.name ? [{ label: event.category.name, variant: 'primary' as const }] : []),
     { label: eventDate, variant: 'default' as const },
@@ -356,7 +383,7 @@ export default async function EventPage({ params }: Props) {
       className="w-full sm:w-auto"
       fullWidth={false}
       size="lg"
-      label="Reserve Event Table"
+      label="Reserve table"
       customHref="#event-booking"
       source={`event_page_hero_${params.id}`}
     />
@@ -373,13 +400,22 @@ export default async function EventPage({ params }: Props) {
       >
          Call: 01753 682707
       </PhoneButton>
-      <Link href="/whats-on" className="w-full sm:w-auto">
-        <Button variant="secondary" size="lg" fullWidth className="sm:w-auto">
-          View All Events
-        </Button>
-      </Link>
     </>
   )
+  const eventInformationItems: EventInformationItem[] = [
+    { label: 'Date', value: eventDate },
+    { label: 'Start time', value: eventTime },
+    { label: 'End time', value: endTime },
+    { label: 'Doors open', value: doorsTime },
+    { label: 'Last entry', value: lastEntryTime },
+    { label: 'Duration', value: durationLabel },
+    { label: 'Status', value: statusLabel },
+    { label: 'Booking type', value: bookingModeLabel },
+    { label: 'Event type', value: event.event_type },
+    { label: 'Category', value: event.category?.name },
+    { label: 'Performer', value: event.performer?.name || event.performer_name },
+    { label: 'Price', value: priceLabel }
+  ]
   
   return (
     <>
@@ -406,7 +442,14 @@ export default async function EventPage({ params }: Props) {
       <HeroWrapper
         showContextStrip={true}
         route={heroRoute}
-       
+        image={eventImageSrc ? {
+          src: eventImageSrc,
+          alt: imageAlt,
+          priority: true,
+          objectPosition: 'center',
+          blurDataURL
+        } : undefined}
+        size="medium"
         seasonalFallback="always"
         title={event.name}
         description={heroDescription}
@@ -429,165 +472,63 @@ export default async function EventPage({ params }: Props) {
         }
       />
 
+      <Section background="white" spacing="none" className="bg-anchor-bg">
+        <Container>
+          <div className="mx-auto max-w-6xl">
+            <EventBookingFactsStrip
+              event={event}
+              eventDate={eventDate}
+              eventTime={eventTime}
+              foodPrompt={eventBookingCopy.foodPrompt}
+            />
+          </div>
+        </Container>
+      </Section>
+
       {/* Event Details - Mobile First */}
-      <Section background="white" spacing="md" className="py-4 sm:py-6 md:py-8 bg-anchor-bg">
+      <Section background="white" spacing="md" className="bg-anchor-bg py-4 pb-28 sm:py-6 md:py-8 lg:pb-8">
         <Container>
           <div className="max-w-6xl mx-auto">
-            {/* Mobile: Image First, Desktop: Grid Layout */}
-            {/* Event image - mobile */}
-            {(event.heroImageUrl || event.image?.[0]) && (
-              <div className="lg:hidden mb-6">
-                <div className="relative aspect-square rounded-2xl overflow-hidden shadow-lg max-w-md mx-auto">
-                  <Image
-                    src={event.heroImageUrl || event.image![0]}
-                    alt={imageAlt}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 420px"
-                    priority
-                    placeholder="blur"
-                    blurDataURL={blurDataURL}
-                  />
-                </div>
-              </div>
-            )}
-            
             {/* Main Content Grid */}
-            <div className="grid lg:grid-cols-[minmax(0,420px),minmax(0,1fr)] gap-6 lg:gap-10">
-              {/* Left Column - Event Image and Info */}
-              <div className="order-1 lg:order-1">
-                {/* Event image - desktop */}
-                {(event.heroImageUrl || event.image?.[0]) && (
-                  <div className="hidden lg:block relative aspect-square rounded-2xl overflow-hidden mb-6 shadow-lg">
+            <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr),minmax(340px,420px)] lg:gap-10">
+              {/* Left Column - Event Image and Details */}
+              <div className="order-2 lg:order-1">
+                {eventImageSrc && (
+                  <div className="relative mx-auto mb-6 hidden aspect-square max-w-md overflow-hidden rounded-2xl shadow-lg lg:block lg:max-w-none">
                     <Image
-                      src={event.heroImageUrl || event.image![0]}
+                      src={eventImageSrc}
                       alt={imageAlt}
                       fill
                       className="object-cover"
                       sizes="420px"
-                      priority
                       placeholder="blur"
                       blurDataURL={blurDataURL}
                     />
                   </div>
                 )}
 
-                <div id="event-booking" className="mb-6 scroll-mt-24">
-                  {mothersDayBookingFlow ? (
-                    <Card variant="elevated" padding="none" className="bg-anchor-bg-card rounded-none border border-anchor-gold/15">
-                      <CardBody className="space-y-3 p-4">
-                        <h2 className="text-xl font-bold text-anchor-gold-vivid">{MOTHERS_DAY_BOOKING_CTA_LABEL}</h2>
-                        <p className="text-sm text-anchor-cream-text/70">{mothersDayBookingCopy}</p>
-                        <Button asChild fullWidth size="lg">
-                          <Link href={mothersDayBookingUrl}>
-                            {MOTHERS_DAY_BOOKING_CTA_LABEL}
-                          </Link>
-                        </Button>
-                      </CardBody>
-                    </Card>
-                  ) : bookingBlockReason ? (
-                    <Alert variant="info" title={bookingDisabledCopy?.title}>
-                      <p>{bookingDisabledCopy?.message}</p>
-                    </Alert>
-                  ) : (
-                    <ManagementEventBookingForm
-                      event={event}
-                      title="Reserve your event table"
-                      compact
-                      foodPrompt={eventBookingCopy.foodPrompt}
-                    />
-                  )}
-                </div>
-
-                <div className="mb-6">
-                  <EventSecondaryActions
-                    event={event}
-                    source="event_page_sidebar_actions"
-                    className="justify-start"
-                    size="sm"
-                  />
-                </div>
-
                 <EventHighlights highlights={event.highlights} compact />
-              </div>
 
-              {/* Right Column - Details */}
-              <div className="order-2 lg:order-2">
-                <Card variant="default" padding="none" className="mb-6 border border-anchor-gold/15 bg-anchor-bg-card rounded-none lg:mb-8">
+                <details className="mb-3 border border-anchor-gold/15 bg-anchor-bg-card lg:hidden">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-3 p-3 text-lg font-bold text-anchor-gold-vivid [&::-webkit-details-marker]:hidden">
+                    <span>More event details</span>
+                    <span className="text-xl leading-none text-anchor-cream-text/60" aria-hidden="true">+</span>
+                  </summary>
+                  <div className="border-t border-anchor-gold/15 p-3">
+                    <EventInformationList items={eventInformationItems} />
+                  </div>
+                </details>
+
+                <Card variant="default" padding="none" className="mb-6 mt-6 hidden border border-anchor-gold/15 bg-anchor-bg-card rounded-none lg:mb-8 lg:block">
                   <CardBody className="p-4">
                     <h2 className="text-lg font-bold text-anchor-gold-vivid md:text-xl">Event information</h2>
-                    <dl className="mt-4 grid gap-x-4 gap-y-3 text-sm text-anchor-cream-text/70 sm:grid-cols-2">
-                      <div>
-                        <dt className="font-semibold text-anchor-gold-vivid">Date</dt>
-                        <dd>{eventDate}</dd>
-                      </div>
-                      <div>
-                        <dt className="font-semibold text-anchor-gold-vivid">Start time</dt>
-                        <dd>{eventTime}</dd>
-                      </div>
-                      {endTime ? (
-                        <div>
-                          <dt className="font-semibold text-anchor-gold-vivid">End time</dt>
-                          <dd>{endTime}</dd>
-                        </div>
-                      ) : null}
-                      {doorsTime ? (
-                        <div>
-                          <dt className="font-semibold text-anchor-gold-vivid">Doors open</dt>
-                          <dd>{doorsTime}</dd>
-                        </div>
-                      ) : null}
-                      {lastEntryTime ? (
-                        <div>
-                          <dt className="font-semibold text-anchor-gold-vivid">Last entry</dt>
-                          <dd>{lastEntryTime}</dd>
-                        </div>
-                      ) : null}
-                      {durationLabel ? (
-                        <div>
-                          <dt className="font-semibold text-anchor-gold-vivid">Duration</dt>
-                          <dd>{durationLabel}</dd>
-                        </div>
-                      ) : null}
-                      <div>
-                        <dt className="font-semibold text-anchor-gold-vivid">Status</dt>
-                        <dd>{statusLabel}</dd>
-                      </div>
-                      {bookingModeLabel ? (
-                        <div>
-                          <dt className="font-semibold text-anchor-gold-vivid">Booking type</dt>
-                          <dd>{bookingModeLabel}</dd>
-                        </div>
-                      ) : null}
-                      {event.event_type ? (
-                        <div>
-                          <dt className="font-semibold text-anchor-gold-vivid">Event type</dt>
-                          <dd>{event.event_type}</dd>
-                        </div>
-                      ) : null}
-                      {event.category?.name ? (
-                        <div>
-                          <dt className="font-semibold text-anchor-gold-vivid">Category</dt>
-                          <dd>{event.category.name}</dd>
-                        </div>
-                      ) : null}
-                      {(event.performer?.name || event.performer_name) ? (
-                        <div>
-                          <dt className="font-semibold text-anchor-gold-vivid">Performer</dt>
-                          <dd>{event.performer?.name || event.performer_name}</dd>
-                        </div>
-                      ) : null}
-                      {priceLabel ? (
-                        <div>
-                          <dt className="font-semibold text-anchor-gold-vivid">Price</dt>
-                          <dd>{priceLabel}</dd>
-                        </div>
-                      ) : null}
-                    </dl>
+                    <div className="mt-4">
+                      <EventInformationList items={eventInformationItems} />
+                    </div>
                   </CardBody>
                 </Card>
 
-                <Card variant="default" padding="none" className="mb-6 border border-anchor-gold/15 bg-anchor-bg-card rounded-none lg:mb-8">
+                <Card variant="default" padding="none" className="mb-6 hidden border border-anchor-gold/15 bg-anchor-bg-card rounded-none lg:mb-8 lg:block">
                   <CardBody className="p-4">
                     <h2 className="text-lg font-bold text-anchor-gold-vivid md:text-xl">Booking and payment</h2>
                     <div className="mt-3 space-y-2 text-sm text-anchor-cream-text/70">
@@ -596,22 +537,6 @@ export default async function EventPage({ params }: Props) {
                     </div>
                   </CardBody>
                 </Card>
-
-                {/* Social Proof */}
-                {(event.previous_event_summary || event.attendance_note) && (
-                  <div className="mb-6 p-4 rounded-lg bg-anchor-bg-raised/30 border border-anchor-gold/10">
-                    {event.previous_event_summary && (
-                      <p className="text-sm text-anchor-cream-text/70">
-                        <span className="font-medium text-anchor-gold-vivid">Last time:</span> {event.previous_event_summary}
-                      </p>
-                    )}
-                    {event.attendance_note && (
-                      <p className="text-sm text-anchor-cream-text/70 mt-1">
-                        {event.attendance_note}
-                      </p>
-                    )}
-                  </div>
-                )}
 
                 {/* Description */}
                 {(event.longDescription || event.about || event.description) && (
@@ -639,6 +564,62 @@ export default async function EventPage({ params }: Props) {
                   </div>
                 )}
 
+              </div>
+
+              {/* Right Column - Reservation */}
+              <div className="order-1 lg:order-2">
+                <div className="lg:sticky lg:top-24">
+                  {(event.previous_event_summary || event.attendance_note) && (
+                    <div className="mb-4 rounded-lg border border-anchor-gold/10 bg-anchor-bg-raised/30 p-4">
+                      {event.previous_event_summary && (
+                        <p className="text-sm text-anchor-cream-text/70">
+                          <span className="font-medium text-anchor-gold-vivid">Last time:</span> {event.previous_event_summary}
+                        </p>
+                      )}
+                      {event.attendance_note && (
+                        <p className="mt-1 text-sm text-anchor-cream-text/70">
+                          {event.attendance_note}
+                        </p>
+                      )}
+                    </div>
+                  )}
+
+                  <div id="event-booking" className="mb-3 scroll-mt-24 lg:mb-6">
+                    {mothersDayBookingFlow ? (
+                      <Card variant="elevated" padding="none" className="bg-anchor-bg-card rounded-none border border-anchor-gold/15">
+                        <CardBody className="space-y-3 p-4">
+                          <h2 className="text-xl font-bold text-anchor-gold-vivid">{MOTHERS_DAY_BOOKING_CTA_LABEL}</h2>
+                          <p className="text-sm text-anchor-cream-text/70">{mothersDayBookingCopy}</p>
+                          <Button asChild fullWidth size="lg">
+                            <Link href={mothersDayBookingUrl}>
+                              {MOTHERS_DAY_BOOKING_CTA_LABEL}
+                            </Link>
+                          </Button>
+                        </CardBody>
+                      </Card>
+                    ) : bookingBlockReason ? (
+                      <Alert variant="info" title={bookingDisabledCopy?.title}>
+                        <p>{bookingDisabledCopy?.message}</p>
+                      </Alert>
+                    ) : (
+                      <ManagementEventBookingForm
+                        event={event}
+                        title="Reserve table"
+                        compact
+                        foodPrompt={eventBookingCopy.foodPrompt}
+                      />
+                    )}
+                  </div>
+
+                  <div className="mb-6 hidden lg:block">
+                    <EventSecondaryActions
+                      event={event}
+                      source="event_page_sidebar_actions"
+                      className="justify-start"
+                      size="sm"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
             
@@ -748,12 +729,12 @@ export default async function EventPage({ params }: Props) {
       <Section className="bg-anchor-green" spacing="md">
         <Container className="text-center text-white">
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4 md:mb-6">
-            Reserve Your Spot
+            Ready to reserve your event table?
           </h2>
           <p className="text-base md:text-lg lg:text-xl mb-6 md:mb-8 max-w-2xl mx-auto px-2">
             {mothersDayBookingFlow
-              ? 'Reserve your Mother’s Day table online. Walk-ins are welcome, but booking ahead is recommended because this Sunday fills quickly.'
-              : 'Choose your preferred time and booking option using the button below.'}
+              ? mothersDayBookingCopy
+              : getEventBookingHeroStatement(event)}
           </p>
           
           <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center max-w-md mx-auto sm:max-w-none">
@@ -770,7 +751,7 @@ export default async function EventPage({ params }: Props) {
                   className="w-full sm:w-auto"
                   fullWidth={false}
                   size="xl"
-                  label="Reserve Event Table"
+                  label="Reserve table"
                   customHref="#event-booking"
                   source={`event_page_cta_${params.id}`}
                 />
@@ -787,20 +768,17 @@ export default async function EventPage({ params }: Props) {
                  Call: 01753 682707
               </PhoneButton>
             </div>
-            
-            <Link href="/whats-on" className="w-full sm:w-auto">
-              <Button 
-                variant="secondary"
-                size="lg"
-                fullWidth
-                className="bg-anchor-gold text-anchor-green hover:bg-anchor-gold-light sm:w-auto"
-              >
-                View All Events
-              </Button>
-            </Link>
           </div>
         </Container>
       </Section>
+
+      {!bookingBlockReason ? (
+        <EventStickyBookingCTA
+          event={event}
+          source={`event_page_sticky_${params.id}`}
+          label={mothersDayBookingFlow ? MOTHERS_DAY_BOOKING_CTA_LABEL : 'Reserve table'}
+        />
+      ) : null}
       
     </>
   )

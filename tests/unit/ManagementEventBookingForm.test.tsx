@@ -55,7 +55,7 @@ describe('ManagementEventBookingForm', () => {
     })
   })
 
-  it('shows event context and single-step booking fields', () => {
+  it('shows a compact single-step booking form', () => {
     render(
       <ManagementEventBookingForm
         event={{
@@ -69,16 +69,17 @@ describe('ManagementEventBookingForm', () => {
       />
     )
 
-    expect(screen.getByText('Pub Quiz Night')).toBeInTheDocument()
-    expect(screen.getByText((content) => content.includes('Wed 6 May') && content.includes('7pm'))).toBeInTheDocument()
-    expect(screen.getByLabelText('Number of Seats')).toBeInTheDocument()
-    expect(screen.getByText('Want to eat before the event?')).toBeInTheDocument()
-    expect(screen.getByRole('radio', { name: /Planning to eat before the event/i })).toBeChecked()
-    expect(screen.getByText('This is not a food pre-order. Please order with the bar team on arrival.')).toBeInTheDocument()
+    expect(screen.getByLabelText('Seats')).toBeInTheDocument()
+    expect(screen.getByLabelText('First name')).toBeInTheDocument()
+    expect(screen.getByLabelText('Last name')).toBeInTheDocument()
+    expect(screen.getByLabelText('Mobile number')).toBeInTheDocument()
+    expect(screen.getByRole('checkbox', { name: /Planning to eat before the event/i })).toBeChecked()
+    expect(screen.getByText('Not a food pre-order.')).toBeInTheDocument()
     expect(screen.getByText('No payment now. Reserve seats online and pay £3 per person on arrival.')).toBeInTheDocument()
     expect(screen.getByText('18 seats currently available.')).toBeInTheDocument()
-    expect(screen.getByLabelText('First Name')).toBeInTheDocument()
-    expect(screen.getByLabelText('Last Name')).toBeInTheDocument()
+    expect(screen.queryByText('How many seats should we hold?')).not.toBeInTheDocument()
+    expect(screen.queryByText('Want to eat before the event?')).not.toBeInTheDocument()
+    expect(screen.queryByLabelText('Name')).not.toBeInTheDocument()
     expect(screen.queryByRole('button', { name: 'Continue' })).not.toBeInTheDocument()
   })
 
@@ -94,10 +95,10 @@ describe('ManagementEventBookingForm', () => {
       />
     )
 
-    fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-    fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Jane' } })
-    fireEvent.change(screen.getByLabelText('Last Name'), { target: { value: 'Guest' } })
-    fireEvent.click(screen.getByRole('button', { name: 'Book Event' }))
+    fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+    fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
+    fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
 
     // Error message from the API should appear inline in the form
     await waitFor(() => expect(screen.getByText('Sunday lunch only')).toBeInTheDocument())
@@ -170,13 +171,13 @@ describe('ManagementEventBookingForm', () => {
       />
     )
 
-    fireEvent.change(screen.getByLabelText('Number of Seats'), { target: { value: '6' } })
-    fireEvent.click(screen.getByRole('radio', { name: /Event or drinks only/i }))
+    fireEvent.change(screen.getByLabelText('Seats'), { target: { value: '6' } })
+    fireEvent.click(screen.getByRole('checkbox', { name: /Planning to eat before the event/i }))
     expect(screen.queryByLabelText('Food notes (optional)')).not.toBeInTheDocument()
-    fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-    fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Jane' } })
-    fireEvent.change(screen.getByLabelText('Last Name'), { target: { value: 'Guest' } })
-    fireEvent.click(screen.getByRole('button', { name: 'Book Event' }))
+    fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+    fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
+    fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
 
     await waitFor(() => expect(screen.getByText('Your seats are confirmed for Music Bingo.')).toBeInTheDocument())
 
@@ -185,6 +186,8 @@ describe('ManagementEventBookingForm', () => {
     const payload = JSON.parse(String((bookingCall?.[1] as RequestInit).body))
 
     expect(payload.seats).toBe(6)
+    expect(payload.first_name).toBe('Jane')
+    expect(payload.last_name).toBe('Guest')
     expect(payload.notes).toBe('Event dining intent: Event or drinks only')
     expect(payload.food_intent).toBe('event_only')
     expect(payload.event_slug).toBe('music-bingo')
@@ -206,5 +209,88 @@ describe('ManagementEventBookingForm', () => {
         bookingId: 'booking-123'
       })
     )
+  })
+
+  it('sends first and last name directly when joining the waitlist', async () => {
+    ;(global as any).fetch = jest.fn((input: RequestInfo | URL, init?: RequestInit) => {
+      const url = typeof input === 'string' ? input : input.toString()
+
+      if (url === '/api/event-bookings') {
+        return Promise.resolve(
+          new Response(
+            JSON.stringify({
+              success: true,
+              data: {
+                state: 'full_with_waitlist_option',
+                booking_id: null,
+                reason: 'sold_out',
+                seats_remaining: 0,
+                next_step_url: null,
+                manage_booking_url: null
+              }
+            }),
+            {
+              status: 200,
+              headers: { 'Content-Type': 'application/json' }
+            }
+          )
+        )
+      }
+
+      if (url === '/api/event-waitlist') {
+        return Promise.resolve(
+          new Response(
+            JSON.stringify({
+              success: true,
+              data: {
+                queued: true,
+                state: 'queued',
+                waitlist_entry_id: 'waitlist-123',
+                reason: null,
+                seats_remaining: 0
+              }
+            }),
+            {
+              status: 200,
+              headers: { 'Content-Type': 'application/json' }
+            }
+          )
+        )
+      }
+
+      return Promise.reject(new Error(`Unexpected fetch call: ${url}`))
+    })
+
+    render(
+      <ManagementEventBookingForm
+        event={{
+          id: '550e8400-e29b-41d4-a716-446655440000',
+          name: 'Music Bingo',
+          slug: 'music-bingo',
+          startDate: '2026-05-08T20:00:00+01:00',
+          time: '20:00',
+          price_per_seat: 6
+        }}
+      />
+    )
+
+    fireEvent.change(screen.getByLabelText('Seats'), { target: { value: '4' } })
+    fireEvent.change(screen.getByLabelText('First name'), { target: { value: 'Jane' } })
+    fireEvent.change(screen.getByLabelText('Last name'), { target: { value: 'Guest' } })
+    fireEvent.change(screen.getByLabelText('Mobile number'), { target: { value: '07700900000' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Reserve my seats' }))
+
+    await waitFor(() => expect(screen.getByRole('button', { name: 'Join Waitlist' })).toBeInTheDocument())
+    fireEvent.click(screen.getByRole('button', { name: 'Join Waitlist' }))
+
+    await waitFor(() => expect(screen.getByText('You’re on the waitlist. We’ll text you if seats open up.')).toBeInTheDocument())
+
+    const waitlistCall = (global.fetch as jest.Mock).mock.calls.find(([url]) => url === '/api/event-waitlist')
+    expect(waitlistCall).toBeDefined()
+    const payload = JSON.parse(String((waitlistCall?.[1] as RequestInit).body))
+
+    expect(payload.first_name).toBe('Jane')
+    expect(payload.last_name).toBe('Guest')
+    expect(payload.requested_seats).toBe(4)
   })
 })

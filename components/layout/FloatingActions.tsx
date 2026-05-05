@@ -1,16 +1,20 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { usePathname } from 'next/navigation'
 import { PhoneLink } from '@/components/PhoneLink'
 import { DirectionsLink } from '@/components/DirectionsButton'
 import { WhatsAppLink } from '@/components/WhatsAppLink'
 import { trackTableBookingClick } from '@/lib/gtm-events'
+import { cn } from '@/lib/utils'
 
 export function FloatingActions() {
   const [isOpen, setIsOpen] = useState(false)
+  const pathname = usePathname()
   const menuRef = useRef<HTMLDivElement | null>(null)
   const buttonRef = useRef<HTMLButtonElement | null>(null)
   const menuId = 'floating-actions-menu'
+  const hideOnMobileEventPage = pathname?.startsWith('/events/')
 
   useEffect(() => {
     if (!isOpen) return
@@ -40,7 +44,7 @@ export function FloatingActions() {
       {/* Backdrop */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/20 z-40 md:hidden"
+          className={cn('fixed inset-0 bg-black/20 z-40 md:hidden', hideOnMobileEventPage && 'hidden lg:block')}
           onClick={() => setIsOpen(false)}
           role="presentation"
           aria-hidden="true"
@@ -48,7 +52,10 @@ export function FloatingActions() {
       )}
 
       {/* Floating Action Button, z-[70] to sit above FoodStickyCtaBar (z-[60]) */}
-      <div className="fixed bottom-6 right-6 z-[70]">
+      <div
+        className={cn('fixed bottom-6 right-6 z-[70]', hideOnMobileEventPage && 'hidden lg:block')}
+        data-testid="floating-actions"
+      >
         {/* Action Menu */}
         <div
           className={`absolute bottom-16 right-0 transition-all duration-300 ${

@@ -1,8 +1,9 @@
 import type { Event } from '@/lib/api'
+import { formatEventBookingMoney, getEventBookingReassurance, getEventUnitPrice } from '@/lib/event-booking-experience'
 
 type EventBookingCopySource = Pick<
   Event,
-  'name' | 'category' | 'event_type' | 'booking_mode' | 'payment_mode' | 'offers' | 'isAccessibleForFree' | 'is_free'
+  'name' | 'category' | 'event_type' | 'booking_mode' | 'payment_mode' | 'offers' | 'isAccessibleForFree' | 'is_free' | 'price' | 'price_per_seat'
 >
 
 export type EventBookingCopy = {
@@ -33,6 +34,13 @@ function hasPaidOnlineSignal(event: EventBookingCopySource): boolean {
 function hasFreeSignal(event: EventBookingCopySource): boolean {
   const rawPrice = event.offers?.price
   const numericPrice = typeof rawPrice === 'string' ? Number.parseFloat(rawPrice) : Number(rawPrice)
+  const directPrices = [event.price, event.price_per_seat]
+    .map((value) => (typeof value === 'string' ? Number(value) : value))
+    .filter((value): value is number => typeof value === 'number' && Number.isFinite(value))
+
+  if ((Number.isFinite(numericPrice) && numericPrice > 0) || directPrices.some((value) => value > 0)) {
+    return false
+  }
 
   return event.isAccessibleForFree === true ||
     event.is_free === true ||
@@ -41,6 +49,8 @@ function hasFreeSignal(event: EventBookingCopySource): boolean {
 
 export function getEventBookingCopy(event: EventBookingCopySource): EventBookingCopy {
   const text = eventText(event)
+  const unitPrice = getEventUnitPrice(event)
+  const arrivalReassurance = getEventBookingReassurance(event)
 
   if (text.includes('cash bingo')) {
     return {
@@ -54,16 +64,17 @@ export function getEventBookingCopy(event: EventBookingCopySource): EventBooking
   if (text.includes('music bingo')) {
     return {
       label: 'Reserve a table for Music Bingo',
-      policy: 'Reserve your table online. Pay any event costs on the night unless the booking step asks for payment.',
+      policy: `${arrivalReassurance} Booking holds your table for Music Bingo.`,
       foodPrompt: 'Arrive from 6:30pm for food. Music Bingo starts at 8pm.',
       suppressRawCancellationPolicy: true
     }
   }
 
   if (text.includes('quiz')) {
+    const entryPrice = unitPrice ? formatEventBookingMoney(unitPrice) : '£3'
     return {
       label: 'Reserve a table, pay quiz entry on arrival',
-      policy: 'Reserve your table online. Pay £3 cash entry per person on the night.',
+      policy: `No payment now. Reserve your table online and pay ${entryPrice} cash entry per person on arrival.`,
       foodPrompt: 'Arrive from 6pm for food. Quiz starts at 7pm.',
       suppressRawCancellationPolicy: true
     }
@@ -81,7 +92,7 @@ export function getEventBookingCopy(event: EventBookingCopySource): EventBooking
   if (hasFreeSignal(event)) {
     return {
       label: 'Free entry, reserve table',
-      policy: 'Reserve your table online. Food and drinks are paid for on the night.',
+      policy: 'No payment needed. Reserve seats online so your table is held. Food and drinks are paid for on the night.',
       foodPrompt: 'Food is available before most hosted events. Arrive early if your group wants to eat first.',
       suppressRawCancellationPolicy: true
     }
@@ -89,7 +100,7 @@ export function getEventBookingCopy(event: EventBookingCopySource): EventBooking
 
   return {
     label: 'Reserve event table',
-    policy: 'Reserve your table online. If an entry fee applies, pay on arrival unless the booking step asks for payment.',
+    policy: arrivalReassurance,
     foodPrompt: 'Food is available before most hosted events. Arrive early if your group wants to eat first.',
     suppressRawCancellationPolicy: true
   }

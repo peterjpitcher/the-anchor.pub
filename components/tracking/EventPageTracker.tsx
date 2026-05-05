@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from 'react'
-import { trackEventView, trackViewItem } from '@/lib/gtm-events'
+import { trackEventDetailImpression, trackEventView, trackViewItem } from '@/lib/gtm-events'
 
 interface EventPageTrackerProps {
   eventId: string
@@ -29,6 +29,14 @@ export function EventPageTracker({
     })
     
     trackViewItem({ category: 'event', name: eventName, id: eventId })
+    trackEventDetailImpression({
+      eventId,
+      eventName,
+      eventDate,
+      eventCategory,
+      eventPrice,
+      source: 'event_detail_page'
+    })
   }, [eventId, eventName, eventDate, eventCategory, eventPrice])
   
   return null

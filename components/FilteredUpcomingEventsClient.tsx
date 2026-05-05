@@ -10,6 +10,12 @@ import { EventBookingButton } from '@/components/EventBookingButton'
 import { Button } from '@/components/ui'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getEventPriceLabel } from '@/lib/event-pricing'
+import {
+  getEventBookingAnchorHref,
+  getEventSeatAvailabilityLabel,
+  getEventShortPaymentReassurance
+} from '@/lib/event-booking-experience'
+import { getEventBookingBlockReason } from '@/lib/event-lifecycle'
 import type { DisplayEvent } from '@/types/display-event'
 
 const MAX_URGENCY_DAYS = 3
@@ -142,22 +148,21 @@ function formatSimpleTime(time?: string | null): string | null {
   return `${displayHour}${minutePart}${period}`
 }
 
-/** Build a /book-table link pre-filled with the event date (YYYY-MM-DD in Europe/London). */
-function getTableBookingHref(event: DisplayEvent): string | null {
-  if (!event.startDate) return null
-  const start = getEventDateRangeUtc(event).start
-  if (Number.isNaN(start.getTime())) return null
-  // Only offer table booking for future events
-  if (start.getTime() < Date.now()) return null
-  // Use Europe/London to match the displayed event date (avoids UTC midnight edge cases in BST)
-  const parts = start.toLocaleDateString('en-CA', { timeZone: LONDON_TIME_ZONE })
-  // en-CA locale outputs YYYY-MM-DD format
-  return `/book-table?date=${parts}`
-}
-
 interface EventCardProps {
   event: DisplayEvent
   index: number
+}
+
+function getReserveDisabledLabel(event: DisplayEvent): string | null {
+  const blockReason = getEventBookingBlockReason(event)
+  const seatLabel = getEventSeatAvailabilityLabel(event)
+
+  if (seatLabel === 'Sold out' || blockReason === 'sold_out') return 'Sold out'
+  if (blockReason === 'bookings_disabled') return 'No booking needed'
+  if (blockReason === 'cancelled') return 'Cancelled'
+  if (blockReason === 'past') return 'Event ended'
+  if (blockReason) return 'Unavailable'
+  return null
 }
 
 const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
@@ -165,6 +170,10 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
   const eventImage = event.image?.[0] || event.heroImageUrl || DEFAULT_EVENT_IMAGE
   const timingInfo = isTimeChange ? null : getEventTimingInfo(event)
   const priceLabel = isTimeChange ? null : getEventPriceLabel(event)
+  const reserveHref = isTimeChange ? null : getEventBookingAnchorHref(event)
+  const reserveDisabledLabel = isTimeChange ? null : getReserveDisabledLabel(event)
+  const seatAvailabilityLabel = isTimeChange ? null : getEventSeatAvailabilityLabel(event)
+  const paymentSignal = isTimeChange ? null : getEventShortPaymentReassurance(event)
 
   const startTime = isTimeChange
     ? event.timeChangeStatus === 'closed'
@@ -285,8 +294,35 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
               )}
 
               {!isTimeChange && (
+                <div className="mt-3 flex flex-wrap gap-2 text-xs">
+                  {paymentSignal ? (
+                    <span className="rounded-full border border-anchor-gold/25 bg-anchor-gold/10 px-2.5 py-1 font-medium text-anchor-gold-vivid">
+                      {paymentSignal}
+                    </span>
+                  ) : null}
+                  {seatAvailabilityLabel ? (
+                    <span className="rounded-full border border-anchor-cream-text/15 bg-anchor-bg-raised px-2.5 py-1 font-medium text-anchor-cream-text/80">
+                      {seatAvailabilityLabel}
+                    </span>
+                  ) : null}
+                </div>
+              )}
+
+              {!isTimeChange && (
                 <div className="mt-3 flex flex-wrap gap-2">
-                  <EventBookingButton event={event} size="sm" source="whats_on_event_card_mobile" />
+                  {reserveDisabledLabel ? (
+                    <Button disabled size="sm" variant="secondary">
+                      {reserveDisabledLabel}
+                    </Button>
+                  ) : (
+                    <EventBookingButton
+                      event={event}
+                      size="sm"
+                      label="Reserve"
+                      customHref={reserveHref || undefined}
+                      source="whats_on_event_card_mobile"
+                    />
+                  )}
                   <Button asChild size="sm" className="bg-anchor-green text-white hover:bg-anchor-green/80">
                     <Link href={`/events/${event.slug || event.id}`}>
                       Details
@@ -354,17 +390,40 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
                     <p className="mt-1">{timingInfo.urgency.message}</p>
                   </div>
                 )}
+
+                {!isTimeChange && (
+                  <div className="mt-3 flex flex-wrap gap-2 text-xs">
+                    {paymentSignal ? (
+                      <span className="rounded-full border border-anchor-gold/25 bg-anchor-gold/10 px-2.5 py-1 font-medium text-anchor-gold-vivid">
+                        {paymentSignal}
+                      </span>
+                    ) : null}
+                    {seatAvailabilityLabel ? (
+                      <span className="rounded-full border border-anchor-cream-text/15 bg-anchor-bg-raised px-2.5 py-1 font-medium text-anchor-cream-text/80">
+                        {seatAvailabilityLabel}
+                      </span>
+                    ) : null}
+                  </div>
+                )}
               </div>
 
               {!isTimeChange && (
                 <div className="flex flex-wrap items-center gap-3 mt-4">
-                  <EventBookingButton
-                    event={event}
-                    className="sm:min-w-[180px]"
-                    fullWidth={false}
-                    size="md"
-                    source="whats_on_event_card_desktop"
-                  />
+                  {reserveDisabledLabel ? (
+                    <Button disabled size="md" variant="secondary" className="sm:min-w-[180px]">
+                      {reserveDisabledLabel}
+                    </Button>
+                  ) : (
+                    <EventBookingButton
+                      event={event}
+                      className="sm:min-w-[180px]"
+                      fullWidth={false}
+                      size="md"
+                      label="Reserve"
+                      customHref={reserveHref || undefined}
+                      source="whats_on_event_card_desktop"
+                    />
+                  )}
                   <Button asChild size="md" className="bg-anchor-green text-white hover:bg-anchor-green/80">
                     <Link href={`/events/${event.slug || event.id}`}>
                       View Details
