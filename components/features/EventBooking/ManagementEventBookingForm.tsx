@@ -1,35 +1,19 @@
 'use client'
 
-import { type FormEvent, useRef, useState } from 'react'
+import { type FormEvent, useEffect, useRef, useState } from 'react'
 import { Alert } from '@/components/ui/feedback/Alert'
 import { Card, CardBody } from '@/components/ui/layout/Card'
 import { Button } from '@/components/ui/primitives/Button'
 import { Input } from '@/components/ui/primitives/Input'
 import { TurnstileField, type TurnstileFieldRef } from '@/components/security/TurnstileField'
-import { trackEventBookingComplete, trackEventBookingStart } from '@/lib/gtm-events'
+import { trackEventBookingComplete, trackEventBookingFunnelStep, trackEventBookingStart } from '@/lib/gtm-events'
 import type { Event } from '@/lib/api'
 import { formatEventLocalDate, formatEventLocalTime } from '@/lib/event-calendar'
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
 
-type LookupState = 'idle' | 'loading' | 'known' | 'unknown'
 type EventBookingState = 'confirmed' | 'pending_payment' | 'full_with_waitlist_option' | 'blocked'
 type FoodIntent = 'planning_to_eat' | 'event_only'
-
-type CustomerLookupResult = {
-  known: boolean
-  lookup_degraded?: boolean
-  normalized_phone?: string
-  customer?: {
-    id?: string
-    first_name?: string | null
-    last_name?: string | null
-    full_name?: string | null
-    email?: string | null
-    mobile_e164?: string | null
-    mobile_number?: string | null
-  } | null
-}
 
 type EventBookingResult = {
   state: EventBookingState
@@ -50,7 +34,7 @@ type WaitlistResult = {
 
 interface ManagementEventBookingFormProps {
   event: Pick<Event, 'id' | 'name' | 'startDate'> &
-    Partial<Pick<Event, 'time' | 'slug' | 'category' | 'price' | 'price_per_seat' | 'offers'>>
+    Partial<Pick<Event, 'time' | 'slug' | 'category' | 'price' | 'price_per_seat' | 'offers' | 'payment_mode' | 'is_free' | 'seats_remaining'>>
   title?: string
   compact?: boolean
   foodPrompt?: string
@@ -82,16 +66,6 @@ function getBlockedMessage(reason: string | null | undefined): string {
   return BLOCKED_COPY[key] || reason
 }
 
-function parseLookupResponse(payload: any): CustomerLookupResult {
-  const data = payload?.data || payload
-  return {
-    known: Boolean(data?.known),
-    lookup_degraded: Boolean(data?.lookup_degraded),
-    normalized_phone: data?.normalized_phone,
-    customer: data?.customer || null
-  }
-}
-
 function hasPolicyViolation(payload: any): boolean {
   const data = payload?.data || payload
   const candidates = [
@@ -107,6 +81,57 @@ function hasPolicyViolation(payload: any): boolean {
   return candidates.some((value) => typeof value === 'string' && value.toUpperCase() === 'POLICY_VIOLATION')
 }
 
+function getEventUnitPrice(event: ManagementEventBookingFormProps['event']): number | null {
+  const candidates = [event.price_per_seat, event.price, event.offers?.price]
+  for (const value of candidates) {
+    const parsed = typeof value === 'string' ? Number(value) : value
+    if (typeof parsed === 'number' && Number.isFinite(parsed) && parsed > 0) {
+      return parsed
+    }
+  }
+  return null
+}
+
+function formatMoney(value: number): string {
+  return new Intl.NumberFormat('en-GB', {
+    style: 'currency',
+    currency: 'GBP',
+    maximumFractionDigits: value % 1 === 0 ? 0 : 2
+  }).format(value)
+}
+
+function getBookingReassurance(event: ManagementEventBookingFormProps['event']): string {
+  const unitPrice = getEventUnitPrice(event)
+  if (event.payment_mode === 'prepaid') {
+    return 'Reserve seats online. If payment is needed today, the next step will explain it clearly.'
+  }
+  if (event.payment_mode === 'cash_only' || (!event.payment_mode && unitPrice)) {
+    const priceText = unitPrice ? ` ${formatMoney(unitPrice)} per person` : ''
+    return `No payment now. Reserve seats online and pay${priceText} on arrival.`
+  }
+  if (event.is_free) {
+    return 'No payment needed. Reserve seats online so your table is held.'
+  }
+  return 'Reserve seats online now. If any payment is needed, the next step will explain it clearly.'
+}
+
+function collectBookingAttribution() {
+  if (typeof window === 'undefined') return {}
+  const url = new URL(window.location.href)
+  const read = (key: string) => url.searchParams.get(key) || undefined
+  return {
+    source_url: url.toString(),
+    landing_path: url.pathname,
+    utm_source: read('utm_source'),
+    utm_medium: read('utm_medium'),
+    utm_campaign: read('utm_campaign'),
+    utm_content: read('utm_content'),
+    utm_term: read('utm_term'),
+    fbclid: read('fbclid'),
+    short_code: read('short_code')
+  }
+}
+
 export function ManagementEventBookingForm({
   event,
   title,
@@ -114,11 +139,6 @@ export function ManagementEventBookingForm({
   foodPrompt = 'Food is available before most hosted events. Book early if your group wants to eat first.'
 }: ManagementEventBookingFormProps) {
   const [phone, setPhone] = useState('')
-  const [lookupState, setLookupState] = useState<LookupState>('idle')
-  const [knownCustomer, setKnownCustomer] = useState<CustomerLookupResult['customer']>(null)
-  const [lookupError, setLookupError] = useState<string | null>(null)
-  const [lookupDegraded, setLookupDegraded] = useState(false)
-
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [seats, setSeats] = useState(2)
@@ -133,9 +153,9 @@ export function ManagementEventBookingForm({
   const turnstileRef = useRef<TurnstileFieldRef>(null)
   const [honeypot, setHoneypot] = useState('')
   const formLoadedAt = useRef(Date.now())
+  const phoneEnteredTracked = useRef(false)
+  const formViewedTracked = useRef(false)
 
-  const detailsUnlocked = lookupState === 'known' || lookupState === 'unknown'
-  const isKnownCustomer = lookupState === 'known'
   const eventDate = formatEventLocalDate(event.startDate, {
     weekday: 'short',
     day: 'numeric',
@@ -143,68 +163,25 @@ export function ManagementEventBookingForm({
   })
   const eventTime = formatEventLocalTime(event.startDate)
   const selectedFoodIntent = FOOD_INTENT_OPTIONS.find((option) => option.value === foodIntent) || FOOD_INTENT_OPTIONS[0]
+  const bookingReassurance = getBookingReassurance(event)
+  const seatsRemaining = typeof event.seats_remaining === 'number' && event.seats_remaining > 0
+    ? event.seats_remaining
+    : null
+
+  useEffect(() => {
+    if (formViewedTracked.current) return
+    formViewedTracked.current = true
+    trackEventBookingFunnelStep({
+      step: 'form_view',
+      eventId: event.id,
+      eventName: event.name,
+      eventDate: event.startDate,
+      source: 'event_booking_form'
+    })
+  }, [event.id, event.name, event.startDate])
 
   function buildFoodNotes(): string {
     return `Event dining intent: ${selectedFoodIntent.label}`
-  }
-
-  async function handlePhoneLookup() {
-    setLookupError(null)
-    setError(null)
-    setResult(null)
-    setLookupDegraded(false)
-
-    if (!phone.trim()) {
-      setLookupError('Please enter a mobile number first.')
-      return
-    }
-
-    setLookupState('loading')
-
-    try {
-      const params = new URLSearchParams({ phone: phone.trim(), default_country_code: '44' })
-      const response = await fetch(`/api/customers/lookup?${params.toString()}`, { cache: 'no-store' })
-      const payload = await response.json()
-
-      if (!response.ok || payload?.success === false) {
-        const message =
-          payload?.error?.message || payload?.error || 'Unable to verify this number right now. Please try again.'
-        throw new Error(message)
-      }
-
-      const lookup = parseLookupResponse(payload)
-      if (lookup.known) {
-        setLookupState('known')
-        setKnownCustomer(lookup.customer || null)
-        setLookupDegraded(false)
-        if (lookup.customer?.first_name) {
-          setFirstName(String(lookup.customer.first_name))
-        }
-        if (lookup.customer?.last_name) {
-          setLastName(String(lookup.customer.last_name))
-        }
-      } else {
-        setLookupState('unknown')
-        setKnownCustomer(null)
-        setLookupDegraded(Boolean(lookup.lookup_degraded))
-      }
-    } catch (lookupFailure: any) {
-      setLookupState('idle')
-      setLookupError(lookupFailure?.message || 'Unable to verify this number right now.')
-      setLookupDegraded(false)
-    }
-  }
-
-  function resetPhoneLookup() {
-    setLookupState('idle')
-    setKnownCustomer(null)
-    setLookupError(null)
-    setLookupDegraded(false)
-    setFirstName('')
-    setLastName('')
-    setError(null)
-    setResult(null)
-    setWaitlistResult(null)
   }
 
   async function handleSubmit(formEvent: FormEvent<HTMLFormElement>) {
@@ -227,16 +204,10 @@ export function ManagementEventBookingForm({
       return
     }
 
-    if (!detailsUnlocked) {
-      setLoading(false)
-      setError('Please verify your mobile number first.')
-      return
-    }
-
     const resolvedFirstName = firstName.trim()
     const resolvedLastName = lastName.trim()
 
-    if (!isKnownCustomer && (!resolvedFirstName || !resolvedLastName)) {
+    if (!resolvedFirstName || !resolvedLastName) {
       setLoading(false)
       setError('Please enter your first name and last name.')
       return
@@ -250,8 +221,19 @@ export function ManagementEventBookingForm({
       foodIntent,
       source: 'event_booking_form'
     })
+    trackEventBookingFunnelStep({
+      step: 'submit',
+      eventId: event.id,
+      eventName: event.name,
+      eventDate: event.startDate,
+      partySize: clampedSeats,
+      foodIntent,
+      source: 'event_booking_form'
+    })
 
     const notes = buildFoodNotes()
+    const attribution = collectBookingAttribution()
+    const totalValue = calculateBookingValue(event, clampedSeats)
 
     try {
       const response = await fetch('/api/event-bookings', {
@@ -265,9 +247,17 @@ export function ManagementEventBookingForm({
           default_country_code: '44',
           ...(resolvedFirstName ? { first_name: resolvedFirstName } : {}),
           ...(resolvedLastName ? { last_name: resolvedLastName } : {}),
-          ...(knownCustomer?.email ? { email: knownCustomer.email } : {}),
           seats: clampedSeats,
           notes,
+          food_intent: foodIntent,
+          event_slug: event.slug,
+          event_name: event.name,
+          event_date: event.startDate,
+          event_category_name: event.category?.name,
+          event_category_slug: event.category?.slug,
+          event_price: getEventUnitPrice(event),
+          event_value: totalValue,
+          ...attribution,
           ...(turnstileToken ? { turnstile_token: turnstileToken } : {}),
           ...(honeypot ? { website: honeypot } : {}),
           _t: Math.floor((Date.now() - formLoadedAt.current) / 1000)
@@ -302,7 +292,16 @@ export function ManagementEventBookingForm({
       setResult(bookingData)
 
       if (bookingData.state === 'confirmed') {
-        const totalValue = calculateBookingValue(event, clampedSeats)
+        trackEventBookingFunnelStep({
+          step: 'confirmed',
+          eventId: event.id,
+          eventName: event.name,
+          eventDate: event.startDate,
+          partySize: clampedSeats,
+          foodIntent,
+          bookingId: bookingData.booking_id,
+          source: 'event_booking_form'
+        })
         trackEventBookingComplete({
           eventId: event.id,
           eventName: event.name,
@@ -318,9 +317,29 @@ export function ManagementEventBookingForm({
       }
 
       if (bookingData.state === 'blocked') {
+        trackEventBookingFunnelStep({
+          step: 'blocked',
+          eventId: event.id,
+          eventName: event.name,
+          eventDate: event.startDate,
+          partySize: clampedSeats,
+          foodIntent,
+          reason: bookingData.reason,
+          source: 'event_booking_form'
+        })
         setError(getBlockedMessage(bookingData.reason))
       }
     } catch (submitError: any) {
+      trackEventBookingFunnelStep({
+        step: 'blocked',
+        eventId: event.id,
+        eventName: event.name,
+        eventDate: event.startDate,
+        partySize: clampedSeats,
+        foodIntent,
+        reason: submitError?.message || 'submission_error',
+        source: 'event_booking_form'
+      })
       setError(submitError?.message || 'We could not complete this event booking.')
     } finally {
       setLoading(false)
@@ -346,7 +365,6 @@ export function ManagementEventBookingForm({
           default_country_code: '44',
           ...(firstName.trim() ? { first_name: firstName.trim() } : {}),
           ...(lastName.trim() ? { last_name: lastName.trim() } : {}),
-          ...(knownCustomer?.email ? { email: knownCustomer.email } : {}),
           requested_seats: seats,
           notes: buildFoodNotes(),
           ...(turnstileToken ? { turnstile_token: turnstileToken } : {}),
@@ -394,6 +412,10 @@ export function ManagementEventBookingForm({
               <p className="text-xs font-semibold uppercase tracking-wide text-anchor-gold-vivid">Selected event</p>
               <p className="mt-1 text-sm font-semibold text-anchor-cream-text">{event.name}</p>
               <p className="text-sm text-anchor-cream-text/70">{eventDate} at {eventTime}</p>
+              <p className="mt-2 text-sm font-medium text-anchor-gold-vivid">{bookingReassurance}</p>
+              {seatsRemaining ? (
+                <p className="mt-1 text-xs text-anchor-cream-text/60">{seatsRemaining} seats currently available.</p>
+              ) : null}
             </div>
 
             <Input
@@ -461,89 +483,86 @@ export function ManagementEventBookingForm({
               type="tel"
               required
               value={phone}
-              disabled={detailsUnlocked}
-              onChange={(event) => setPhone(event.target.value)}
+              onChange={(inputEvent) => {
+                const nextPhone = inputEvent.target.value
+                setPhone(nextPhone)
+                if (!phoneEnteredTracked.current && nextPhone.replace(/\D/g, '').length >= 7) {
+                  phoneEnteredTracked.current = true
+                  trackEventBookingFunnelStep({
+                    step: 'phone_entered',
+                    eventId: event.id,
+                    eventName: event.name,
+                    eventDate: event.startDate,
+                    source: 'event_booking_form'
+                  })
+                }
+              }}
               placeholder="07xxx xxxxxx"
-              helperText="Enter your mobile so we can confirm the reservation and check whether you are already in our system."
+              helperText="We use this to text your booking confirmation."
             />
-
-            <div className="mt-3 flex flex-wrap gap-2">
-              {!detailsUnlocked ? (
-                <Button type="button" size="sm" loading={lookupState === 'loading'} onClick={handlePhoneLookup}>
-                  Continue
-                </Button>
-              ) : (
-                <Button type="button" size="sm" variant="outline" onClick={resetPhoneLookup}>
-                  Use Different Number
-                </Button>
-              )}
-            </div>
-
-            {lookupError && <p className="mt-3 text-sm text-red-400">{lookupError}</p>}
-            {isKnownCustomer && (
-              <p className="mt-3 text-sm font-medium text-green-400">
-                Recognized customer{knownCustomer?.full_name ? `: ${knownCustomer.full_name}` : ''}. You can continue with booking details.
-              </p>
-            )}
-            {lookupState === 'unknown' && (
-              <p className="mt-3 text-sm font-medium text-amber-400">
-                {lookupDegraded
-                  ? 'We could not verify this number right now. Please continue by entering your details below.'
-                  : 'New customer detected. Please enter your personal details below.'}
-              </p>
-            )}
           </div>
 
-          {detailsUnlocked && !isKnownCustomer && (
-            <div className="grid gap-4 md:grid-cols-2">
-              <Input
-                label="First Name"
-                type="text"
-                required
-                value={firstName}
-                onChange={(event) => setFirstName(event.target.value)}
-                placeholder="John"
-              />
-              <Input
-                label="Last Name"
-                type="text"
-                required
-                value={lastName}
-                onChange={(event) => setLastName(event.target.value)}
-                placeholder="Smith"
-              />
-            </div>
+          <div className="grid gap-4 md:grid-cols-2">
+            <Input
+              label="First Name"
+              type="text"
+              required
+              value={firstName}
+              onChange={(event) => setFirstName(event.target.value)}
+              placeholder="John"
+            />
+            <Input
+              label="Last Name"
+              type="text"
+              required
+              value={lastName}
+              onChange={(event) => setLastName(event.target.value)}
+              placeholder="Smith"
+            />
+          </div>
+
+          {/* Honeypot, hidden from real users, filled by bots */}
+          <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', top: '-9999px', opacity: 0, height: 0, overflow: 'hidden' }}>
+            <label htmlFor="evt-website">Website</label>
+            <input
+              id="evt-website"
+              name="website"
+              type="text"
+              tabIndex={-1}
+              autoComplete="off"
+              value={honeypot}
+              onChange={(e) => setHoneypot(e.target.value)}
+            />
+          </div>
+
+          {TURNSTILE_SITE_KEY && (
+            <TurnstileField
+              id="event-booking-turnstile"
+              turnstileRef={turnstileRef}
+              onTokenChange={setTurnstileToken}
+            />
           )}
 
-          {detailsUnlocked && (
-            <>
-              {/* Honeypot, hidden from real users, filled by bots */}
-              <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', top: '-9999px', opacity: 0, height: 0, overflow: 'hidden' }}>
-                <label htmlFor="evt-website">Website</label>
-                <input
-                  id="evt-website"
-                  name="website"
-                  type="text"
-                  tabIndex={-1}
-                  autoComplete="off"
-                  value={honeypot}
-                  onChange={(e) => setHoneypot(e.target.value)}
-                />
-              </div>
-
-              {TURNSTILE_SITE_KEY && (
-                <TurnstileField
-                  id="event-booking-turnstile"
-                  turnstileRef={turnstileRef}
-                  onTokenChange={setTurnstileToken}
-                />
-              )}
-
-              <Button type="submit" fullWidth size="lg" loading={loading} disabled={TURNSTILE_SITE_KEY ? !turnstileToken : false}>
-                Book Event
-              </Button>
-            </>
-          )}
+          <Button
+            type="submit"
+            fullWidth
+            size="lg"
+            loading={loading}
+            disabled={TURNSTILE_SITE_KEY ? !turnstileToken : false}
+            onClick={() => {
+              trackEventBookingFunnelStep({
+                step: 'cta_click',
+                eventId: event.id,
+                eventName: event.name,
+                eventDate: event.startDate,
+                partySize: seats,
+                foodIntent,
+                source: 'event_booking_form'
+              })
+            }}
+          >
+            Book Event
+          </Button>
         </form>
 
         {error && (

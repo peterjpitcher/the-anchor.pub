@@ -4,7 +4,8 @@ import { trackEventBookingComplete } from '@/lib/gtm-events'
 
 jest.mock('@/lib/gtm-events', () => ({
   trackEventBookingStart: jest.fn(),
-  trackEventBookingComplete: jest.fn()
+  trackEventBookingComplete: jest.fn(),
+  trackEventBookingFunnelStep: jest.fn()
 }))
 
 describe('ManagementEventBookingForm', () => {
@@ -54,14 +55,16 @@ describe('ManagementEventBookingForm', () => {
     })
   })
 
-  it('shows event context and party size before mobile lookup', () => {
+  it('shows event context and single-step booking fields', () => {
     render(
       <ManagementEventBookingForm
         event={{
           id: 'evt-quiz',
           name: 'Pub Quiz Night',
           startDate: '2026-05-06T19:00:00+00:00',
-          time: '19:00'
+          time: '19:00',
+          price_per_seat: 3,
+          seats_remaining: 18
         }}
       />
     )
@@ -72,7 +75,11 @@ describe('ManagementEventBookingForm', () => {
     expect(screen.getByText('Want to eat before the event?')).toBeInTheDocument()
     expect(screen.getByRole('radio', { name: /Planning to eat before the event/i })).toBeChecked()
     expect(screen.getByText('This is not a food pre-order. Please order with the bar team on arrival.')).toBeInTheDocument()
-    expect(screen.queryByLabelText('First Name')).not.toBeInTheDocument()
+    expect(screen.getByText('No payment now. Reserve seats online and pay £3 per person on arrival.')).toBeInTheDocument()
+    expect(screen.getByText('18 seats currently available.')).toBeInTheDocument()
+    expect(screen.getByLabelText('First Name')).toBeInTheDocument()
+    expect(screen.getByLabelText('Last Name')).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'Continue' })).not.toBeInTheDocument()
   })
 
   it('displays an inline error message on POLICY_VIOLATION instead of redirecting', async () => {
@@ -88,10 +95,6 @@ describe('ManagementEventBookingForm', () => {
     )
 
     fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-    fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
-
-    await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
-
     fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Jane' } })
     fireEvent.change(screen.getByLabelText('Last Name'), { target: { value: 'Guest' } })
     fireEvent.click(screen.getByRole('button', { name: 'Book Event' }))
@@ -171,10 +174,6 @@ describe('ManagementEventBookingForm', () => {
     fireEvent.click(screen.getByRole('radio', { name: /Event or drinks only/i }))
     expect(screen.queryByLabelText('Food notes (optional)')).not.toBeInTheDocument()
     fireEvent.change(screen.getByLabelText('Mobile Number'), { target: { value: '07700900000' } })
-    fireEvent.click(screen.getByRole('button', { name: 'Continue' }))
-
-    await waitFor(() => expect(screen.getByLabelText('First Name')).toBeInTheDocument())
-
     fireEvent.change(screen.getByLabelText('First Name'), { target: { value: 'Jane' } })
     fireEvent.change(screen.getByLabelText('Last Name'), { target: { value: 'Guest' } })
     fireEvent.click(screen.getByRole('button', { name: 'Book Event' }))
@@ -187,6 +186,12 @@ describe('ManagementEventBookingForm', () => {
 
     expect(payload.seats).toBe(6)
     expect(payload.notes).toBe('Event dining intent: Event or drinks only')
+    expect(payload.food_intent).toBe('event_only')
+    expect(payload.event_slug).toBe('music-bingo')
+    expect(payload.event_name).toBe('Music Bingo')
+    expect(payload.event_category_name).toBe('Bingo')
+    expect(payload.event_price).toBe(6)
+    expect(payload.event_value).toBe(36)
     expect(trackEventBookingComplete).toHaveBeenCalledWith(
       expect.objectContaining({
         eventId: '550e8400-e29b-41d4-a716-446655440000',

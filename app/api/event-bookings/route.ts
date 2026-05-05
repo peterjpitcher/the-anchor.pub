@@ -3,6 +3,7 @@ import { createApiErrorResponse, logError } from '@/lib/error-handling'
 import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { getSafeUpstreamErrorMessage, safeJsonParse } from '@/lib/upstream-json'
 import { checkSpamProtection } from '@/lib/spam-protection'
+import { forwardBookingConversionToCheersAI } from '@/lib/booking-conversion-forwarding'
 
 const API_BASE_URL = getManagementApiBaseUrl()
 const API_KEY = process.env.ANCHOR_API_KEY
@@ -16,6 +17,23 @@ type EventBookingPayload = {
   email?: string
   notes?: string
   default_country_code?: string
+  source_url?: string
+  landing_path?: string
+  utm_source?: string
+  utm_medium?: string
+  utm_campaign?: string
+  utm_content?: string
+  utm_term?: string
+  fbclid?: string
+  short_code?: string
+  event_slug?: string
+  event_name?: string
+  event_category_name?: string
+  event_category_slug?: string
+  event_date?: string
+  event_price?: number
+  event_value?: number
+  food_intent?: string
 }
 
 function createIdempotencyKey(prefix: string): string {
@@ -42,6 +60,19 @@ function asPositiveInt(value: unknown): number | undefined {
   return undefined
 }
 
+function asNonNegativeNumber(value: unknown): number | undefined {
+  if (typeof value === 'number' && Number.isFinite(value) && value >= 0) {
+    return value
+  }
+
+  if (typeof value === 'string' && value.trim().length > 0) {
+    const parsed = Number(value)
+    if (Number.isFinite(parsed) && parsed >= 0) return parsed
+  }
+
+  return undefined
+}
+
 function normalizePayload(input: unknown): { payload?: EventBookingPayload; error?: string } {
   if (!input || typeof input !== 'object') {
     return { error: 'Invalid request body' }
@@ -56,6 +87,8 @@ function normalizePayload(input: unknown): { payload?: EventBookingPayload; erro
   const email = asTrimmedString(body.email)
   const notes = asTrimmedString(body.notes)
   const defaultCountryCode = asTrimmedString(body.default_country_code)
+  const eventPrice = asNonNegativeNumber(body.event_price)
+  const eventValue = asNonNegativeNumber(body.event_value)
 
   if (!eventId || !phone || !seats) {
     return { error: 'Missing required fields: event_id, phone, seats' }
@@ -70,9 +103,37 @@ function normalizePayload(input: unknown): { payload?: EventBookingPayload; erro
       ...(lastName ? { last_name: lastName } : {}),
       ...(email ? { email } : {}),
       ...(notes ? { notes } : {}),
-      ...(defaultCountryCode ? { default_country_code: defaultCountryCode } : {})
+      ...(defaultCountryCode ? { default_country_code: defaultCountryCode } : {}),
+      ...copyOptionalStrings(body, [
+        'source_url',
+        'landing_path',
+        'utm_source',
+        'utm_medium',
+        'utm_campaign',
+        'utm_content',
+        'utm_term',
+        'fbclid',
+        'short_code',
+        'event_slug',
+        'event_name',
+        'event_category_name',
+        'event_category_slug',
+        'event_date',
+        'food_intent'
+      ]),
+      ...(eventPrice !== undefined ? { event_price: eventPrice } : {}),
+      ...(eventValue !== undefined ? { event_value: eventValue } : {})
     }
   }
+}
+
+function copyOptionalStrings(source: Record<string, unknown>, keys: string[]): Record<string, string> {
+  const result: Record<string, string> = {}
+  for (const key of keys) {
+    const value = asTrimmedString(source[key])
+    if (value) result[key] = value
+  }
+  return result
 }
 
 function validatePayload(payload: EventBookingPayload): string | null {
@@ -143,6 +204,71 @@ function hasPolicyViolation(input: unknown): boolean {
   ]
 
   return codes.some((value) => typeof value === 'string' && value.toUpperCase() === 'POLICY_VIOLATION')
+}
+
+function pickResponseData(responseBody: unknown): Record<string, unknown> | null {
+  if (!responseBody || typeof responseBody !== 'object') return null
+  const body = responseBody as Record<string, unknown>
+  const data = body.data && typeof body.data === 'object'
+    ? body.data as Record<string, unknown>
+    : body
+  return data && typeof data === 'object' ? data : null
+}
+
+function buildSourceUrl(payload: EventBookingPayload, request: NextRequest): string | null {
+  if (payload.source_url) return payload.source_url
+  const referer = request.headers.get('referer')?.trim()
+  return referer || null
+}
+
+async function forwardConfirmedBookingConversion(
+  request: NextRequest,
+  payload: EventBookingPayload,
+  responseBody: unknown
+) {
+  const data = pickResponseData(responseBody)
+  const state = typeof data?.state === 'string' ? data.state : null
+  const bookingId = typeof data?.booking_id === 'string' ? data.booking_id.trim() : ''
+
+  if (state !== 'confirmed' || !bookingId) {
+    return
+  }
+
+  const sourceUrl = buildSourceUrl(payload, request)
+  const landingPath = payload.landing_path || (() => {
+    if (!sourceUrl) return null
+    try {
+      return new URL(sourceUrl).pathname
+    } catch {
+      return null
+    }
+  })()
+
+  await forwardBookingConversionToCheersAI({
+    sourceSite: 'www.the-anchor.pub',
+    bookingId,
+    metaEventId: bookingId,
+    bookingType: 'event',
+    eventId: payload.event_id,
+    eventSlug: payload.event_slug ?? null,
+    eventName: payload.event_name ?? null,
+    eventCategoryName: payload.event_category_name ?? null,
+    eventCategorySlug: payload.event_category_slug ?? null,
+    eventDate: payload.event_date ?? null,
+    tickets: payload.seats,
+    value: payload.event_value ?? (payload.event_price !== undefined ? payload.event_price * payload.seats : null),
+    currency: 'GBP',
+    foodIntent: payload.food_intent ?? null,
+    sourceUrl,
+    landingPath,
+    utmSource: payload.utm_source ?? null,
+    utmMedium: payload.utm_medium ?? null,
+    utmCampaign: payload.utm_campaign ?? null,
+    utmContent: payload.utm_content ?? null,
+    utmTerm: payload.utm_term ?? null,
+    fbclid: payload.fbclid ?? null,
+    occurredAt: new Date().toISOString()
+  }).catch(() => undefined)
 }
 
 export async function POST(request: NextRequest) {
@@ -218,6 +344,10 @@ export async function POST(request: NextRequest) {
     }
 
     const responseBody = parsed ?? fallbackPayload
+
+    if (upstream.ok) {
+      await forwardConfirmedBookingConversion(request, normalized.payload, responseBody)
+    }
 
     return NextResponse.json(responseBody, {
       status: upstream.status,

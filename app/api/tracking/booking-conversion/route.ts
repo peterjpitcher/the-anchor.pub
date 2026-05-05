@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { z } from 'zod'
+import { forwardBookingConversionToCheersAI } from '@/lib/booking-conversion-forwarding'
 
 export const dynamic = 'force-dynamic'
 
@@ -29,17 +30,7 @@ const payloadSchema = z.object({
   occurredAt: z.string().datetime().optional().nullable()
 })
 
-function getIngestUrl() {
-  return process.env.CHEERSAI_BOOKING_CONVERSIONS_URL?.trim()
-    || 'https://www.cheersai.uk/api/booking-conversions'
-}
-
 export async function POST(request: Request) {
-  const secret = process.env.CHEERSAI_BOOKING_CONVERSIONS_SECRET?.trim()
-  if (!secret) {
-    return NextResponse.json({ accepted: false, reason: 'not_configured' }, { status: 202 })
-  }
-
   let payload: z.infer<typeof payloadSchema>
   try {
     payload = payloadSchema.parse(await request.json())
@@ -47,29 +38,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Invalid booking conversion payload' }, { status: 400 })
   }
 
-  try {
-    const response = await fetch(getIngestUrl(), {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${secret}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(payload),
-      cache: 'no-store'
-    })
-
-    if (!response.ok) {
-      const body = await response.text().catch(() => '')
-      console.error('[booking-conversion] CheersAI ingest failed', {
-        status: response.status,
-        body: body.slice(0, 500)
-      })
-      return NextResponse.json({ accepted: false }, { status: 202 })
-    }
-
-    return NextResponse.json({ accepted: true })
-  } catch (error) {
-    console.error('[booking-conversion] Could not forward conversion', error)
-    return NextResponse.json({ accepted: false }, { status: 202 })
-  }
+  const result = await forwardBookingConversionToCheersAI(payload)
+  return NextResponse.json(result, { status: 202 })
 }

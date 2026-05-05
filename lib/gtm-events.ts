@@ -122,6 +122,31 @@ export function trackEventBookingStart(eventData: {
   })
 }
 
+export function trackEventBookingFunnelStep(eventData: {
+  step: 'form_view' | 'cta_click' | 'phone_entered' | 'submit' | 'confirmed' | 'blocked'
+  eventId: string
+  eventName: string
+  eventDate?: string
+  partySize?: number
+  foodIntent?: string
+  bookingId?: string | null
+  reason?: string | null
+  source?: string
+}) {
+  pushToDataLayer({
+    event: 'event_booking_funnel_step',
+    funnel_step: eventData.step,
+    event_id: eventData.eventId,
+    event_name: eventData.eventName,
+    event_date: eventData.eventDate,
+    party_size: eventData.partySize,
+    food_intent: eventData.foodIntent,
+    booking_id: eventData.bookingId,
+    blocked_reason: eventData.reason,
+    booking_source: eventData.source
+  }, { sendToApi: true })
+}
+
 export function trackEventBookClick(eventData: {
   eventId: string
   eventName: string

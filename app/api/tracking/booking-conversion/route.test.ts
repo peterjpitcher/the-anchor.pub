@@ -79,7 +79,7 @@ describe('POST /api/tracking/booking-conversion', () => {
     const response = await POST(makeRequest(validPayload))
     const body = await response.json()
 
-    expect(response.status).toBe(200)
+    expect(response.status).toBe(202)
     expect(body).toEqual({ accepted: true })
     expect(global.fetch).toHaveBeenCalledWith(
       'https://cheers.example.com/api/booking-conversions',
@@ -102,6 +102,6 @@ describe('POST /api/tracking/booking-conversion', () => {
     const body = await response.json()
 
     expect(response.status).toBe(202)
-    expect(body).toEqual({ accepted: false })
+    expect(body).toEqual({ accepted: false, reason: 'upstream_rejected' })
   })
 })
