@@ -52,6 +52,7 @@ const countryLabel = (countryCode?: WorldCup2026Match['countryCode']) => {
 const EXTENDED_CLOSE_DATES: Record<string, number> = {
   '2026-07-03': 24 * 60, // Fri — Round of 32 (Match 86, 23:00)
   '2026-07-04': 24 * 60, // Sat — Round of 16 (Match 89, 22:00)
+  '2026-07-09': 24 * 60, // Thu — Quarter-final (Match 97, 21:00)
   '2026-07-11': 24 * 60, // Sat — Quarter-final (Match 99, 22:00)
   '2026-07-18': 24 * 60, // Sat — Third-place playoff (Match 103, 22:00)
 }

@@ -58,8 +58,8 @@ General range to use in copy: **7–12 minutes** from any Heathrow terminal.
 |---|---|---|
 | Monday | Closed | Closed (always, unless a special-hours record explicitly opens it) |
 | Tuesday – Thursday | 4pm – 11pm | 4pm – 9pm |
-| Friday | 4pm – midnight | 4pm – 9pm |
-| Saturday | 1pm – midnight | 12pm – 7pm |
+| Friday | 4pm – 10pm | 4pm – 9pm |
+| Saturday | 12pm – 10pm | 12pm – 7pm |
 | Sunday | 1pm – 6pm | 1pm – 6pm (last bookable arrival 5:30pm) |
 
 **Live-music nights:** Kitchen open until midnight.
