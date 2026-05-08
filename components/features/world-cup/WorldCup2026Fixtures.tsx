@@ -49,16 +49,23 @@ const countryLabel = (countryCode?: WorldCup2026Match['countryCode']) => {
   return countryCode
 }
 
+const EXTENDED_CLOSE_DATES: Record<string, number> = {
+  '2026-07-03': 24 * 60, // Fri — Round of 32 (Match 86, 23:00)
+  '2026-07-04': 24 * 60, // Sat — Round of 16 (Match 89, 22:00)
+  '2026-07-11': 24 * 60, // Sat — Quarter-final (Match 99, 22:00)
+  '2026-07-18': 24 * 60, // Sat — Third-place playoff (Match 103, 22:00)
+}
+
 function getCoreHoursForWeekday(weekday: number): { openMinutes: number; closeMinutes: number } {
   // Luxon weekday: 1 = Monday ... 7 = Sunday
   if (weekday >= 1 && weekday <= 4) {
     return { openMinutes: 16 * 60, closeMinutes: 22 * 60 }
   }
   if (weekday === 5) {
-    return { openMinutes: 16 * 60, closeMinutes: 24 * 60 } // Midnight
+    return { openMinutes: 16 * 60, closeMinutes: 22 * 60 }
   }
   if (weekday === 6) {
-    return { openMinutes: 12 * 60, closeMinutes: 24 * 60 } // Midnight
+    return { openMinutes: 12 * 60, closeMinutes: 22 * 60 }
   }
   return { openMinutes: 12 * 60, closeMinutes: 22 * 60 }
 }
@@ -69,9 +76,11 @@ function getShowingStatus(londonDateTime: DateTime): {
   closeTime: DateTime
 } {
   const { openMinutes, closeMinutes } = getCoreHoursForWeekday(londonDateTime.weekday)
+  const dateKey = londonDateTime.toISODate()
+  const effectiveClose = (dateKey ? EXTENDED_CLOSE_DATES[dateKey] : undefined) ?? closeMinutes
   const dayStart = londonDateTime.startOf('day')
   const openTime = dayStart.plus({ minutes: openMinutes })
-  const closeTime = dayStart.plus({ minutes: closeMinutes })
+  const closeTime = dayStart.plus({ minutes: effectiveClose })
   const earlyStart = openTime.minus({ hours: 1 })
 
   if (londonDateTime < earlyStart || londonDateTime > closeTime) {

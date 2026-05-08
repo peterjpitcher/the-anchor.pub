@@ -174,7 +174,7 @@ export default async function WorldCupPage() {
                   <li>If we’re empty at close, we’ll close as normal</li>
                 </ul>
                 <p className="mt-4 text-xs text-anchor-cream-text/55">
-                  Core hours: Mon–Thu 4pm–10pm • Fri 4pm–midnight • Sat 12pm–midnight • Sun 12pm–10pm.
+                  Core hours: Mon–Thu 4pm–10pm • Fri 4pm–10pm • Sat 12pm–10pm • Sun 12pm–10pm. Extended to midnight for selected knockout matches.
                 </p>
                 <div className="mt-4">
                   <Link href="#fixtures" className="font-semibold text-anchor-gold hover:underline">
