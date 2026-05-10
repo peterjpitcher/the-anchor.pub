@@ -18,8 +18,6 @@ const STAGE_ORDER: WorldCup2026MatchStage[] = [
   'Final',
 ]
 
-type MatchShowingStatus = 'showing' | 'opening_early' | 'not_showing'
-
 const stageLabel: Record<WorldCup2026MatchStage, string> = {
   'First Stage': 'Group Stage',
   'Round of 32': 'Round of 32',
@@ -30,17 +28,6 @@ const stageLabel: Record<WorldCup2026MatchStage, string> = {
   'Final': 'Final',
 }
 
-function buildTableBookingUrl(bookingTime: DateTime) {
-  const params = new URLSearchParams({
-    date: bookingTime.toFormat('yyyy-MM-dd'),
-    time: bookingTime.toFormat('HH:mm'),
-    party_size: '2',
-    purpose: 'drinks'
-  })
-
-  return `/book-table?${params.toString()}`
-}
-
 const countryLabel = (countryCode?: WorldCup2026Match['countryCode']) => {
   if (!countryCode) return null
   if (countryCode === 'USA') return 'USA'
@@ -49,59 +36,12 @@ const countryLabel = (countryCode?: WorldCup2026Match['countryCode']) => {
   return countryCode
 }
 
-const EXTENDED_CLOSE_DATES: Record<string, number> = {
-  '2026-07-03': 24 * 60, // Fri — Round of 32 (Match 86, 23:00)
-  '2026-07-04': 24 * 60, // Sat — Round of 16 (Match 89, 22:00)
-  '2026-07-09': 24 * 60, // Thu — Quarter-final (Match 97, 21:00)
-  '2026-07-11': 24 * 60, // Sat — Quarter-final (Match 99, 22:00)
-  '2026-07-18': 24 * 60, // Sat — Third-place playoff (Match 103, 22:00)
-}
-
-function getCoreHoursForWeekday(weekday: number): { openMinutes: number; closeMinutes: number } {
-  // Luxon weekday: 1 = Monday ... 7 = Sunday
-  if (weekday >= 1 && weekday <= 4) {
-    return { openMinutes: 16 * 60, closeMinutes: 22 * 60 }
-  }
-  if (weekday === 5) {
-    return { openMinutes: 16 * 60, closeMinutes: 22 * 60 }
-  }
-  if (weekday === 6) {
-    return { openMinutes: 12 * 60, closeMinutes: 22 * 60 }
-  }
-  return { openMinutes: 12 * 60, closeMinutes: 22 * 60 }
-}
-
-function getShowingStatus(londonDateTime: DateTime): {
-  status: MatchShowingStatus
-  openTime: DateTime
-  closeTime: DateTime
-} {
-  const { openMinutes, closeMinutes } = getCoreHoursForWeekday(londonDateTime.weekday)
-  const dateKey = londonDateTime.toISODate()
-  const effectiveClose = (dateKey ? EXTENDED_CLOSE_DATES[dateKey] : undefined) ?? closeMinutes
-  const dayStart = londonDateTime.startOf('day')
-  const openTime = dayStart.plus({ minutes: openMinutes })
-  const closeTime = dayStart.plus({ minutes: effectiveClose })
-  const earlyStart = openTime.minus({ hours: 1 })
-
-  if (londonDateTime < earlyStart || londonDateTime > closeTime) {
-    return { status: 'not_showing', openTime, closeTime }
-  }
-  if (londonDateTime < openTime) {
-    return { status: 'opening_early', openTime, closeTime }
-  }
-  return { status: 'showing', openTime, closeTime }
-}
-
 type FixturesByDate = Array<{
   dateKey: string
   londonDate: DateTime
   matches: Array<{
     match: WorldCup2026Match
     londonDateTime: DateTime
-    status: MatchShowingStatus
-    openTime: DateTime
-    closeTime: DateTime
   }>
 }>
 
@@ -129,18 +69,14 @@ export function WorldCup2026Fixtures({ matches, className }: WorldCup2026Fixture
     const buckets = new Map<string, Array<{
       match: WorldCup2026Match
       londonDateTime: DateTime
-      status: MatchShowingStatus
-      openTime: DateTime
-      closeTime: DateTime
     }>>()
 
     filteredMatches.forEach((match) => {
       const londonDateTime = DateTime.fromISO(match.utcDateTime, { zone: 'utc' }).setZone('Europe/London')
       const dateKey = londonDateTime.toISODate()
       if (!dateKey) return
-      const { status, openTime, closeTime } = getShowingStatus(londonDateTime)
       const existing = buckets.get(dateKey) ?? []
-      existing.push({ match, londonDateTime, status, openTime, closeTime })
+      existing.push({ match, londonDateTime })
       buckets.set(dateKey, existing)
     })
 
@@ -204,16 +140,16 @@ export function WorldCup2026Fixtures({ matches, className }: WorldCup2026Fixture
       <div className="space-y-6">
         {fixturesByDate.map(({ dateKey, londonDate, matches }) => {
           const displayDate = londonDate.toFormat('EEEE d MMMM yyyy')
-          const showingCount = matches.filter(({ status }) => status !== 'not_showing').length
+          const showingCount = matches.filter(({ match }) => match.showing).length
           const notShowingCount = matches.length - showingCount
           const visibleMatches =
             fixtureVisibility === 'all'
               ? matches
-              : matches.filter(({ status }) => status !== 'not_showing')
+              : matches.filter(({ match }) => match.showing)
           const hiddenMatches =
             fixtureVisibility === 'all'
               ? []
-              : matches.filter(({ status }) => status === 'not_showing')
+              : matches.filter(({ match }) => !match.showing)
           return (
             <Card key={dateKey} className="overflow-hidden border border-anchor-gold/15">
               <div className="flex flex-col gap-3 bg-anchor-bg-raised px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
@@ -234,7 +170,7 @@ export function WorldCup2026Fixtures({ matches, className }: WorldCup2026Fixture
               </div>
 
               <div className="divide-y divide-anchor-gold/15">
-                {visibleMatches.map(({ match, londonDateTime, status, closeTime }) => {
+                {visibleMatches.map(({ match, londonDateTime }) => {
                   const timeLabel = londonDateTime.toFormat('HH:mm')
                   const stageText = stageLabel[match.stage]
                   const country = countryLabel(match.countryCode)
@@ -242,24 +178,6 @@ export function WorldCup2026Fixtures({ matches, className }: WorldCup2026Fixture
                   const teamsLabel = match.placeholderA && match.placeholderB ? `${match.placeholderA} vs ${match.placeholderB}` : `Match ${match.matchNumber}`
                   const isEnglandMatch = teamsLabel.toLowerCase().includes('england')
                   const secondaryBits = [match.group, stageText].filter(Boolean)
-                  const isShowing = status !== 'not_showing'
-                  const startsBeforeOpen = status === 'opening_early'
-                  const estimatedEnd = londonDateTime.plus({ minutes: 120 })
-                  const mayRunPastClose = isShowing && estimatedEnd.toMillis() > closeTime.toMillis()
-                  const bookingDateTime = londonDateTime.minus({ minutes: 30 })
-                  const bookingUrl = buildTableBookingUrl(bookingDateTime)
-
-                  const statusLabelText = (() => {
-                    if (!isShowing) return 'Not showing'
-                    if (startsBeforeOpen) return 'Opening early'
-                    return 'Showing'
-                  })()
-
-                  const statusPillClassName = (() => {
-                    if (!isShowing) return 'bg-anchor-bg-raised text-anchor-cream-text/55'
-                    if (startsBeforeOpen) return 'bg-amber-500/20 text-amber-400'
-                    return 'bg-anchor-green/20 text-anchor-gold-vivid'
-                  })()
 
                   return (
                     <div
@@ -267,7 +185,7 @@ export function WorldCup2026Fixtures({ matches, className }: WorldCup2026Fixture
                       id={`match-${match.matchNumber}`}
                       className={cn(
                         'flex flex-col gap-3 px-5 py-4 sm:flex-row sm:items-center sm:justify-between',
-                        !isShowing && 'bg-anchor-bg-raised'
+                        !match.showing && 'bg-anchor-bg-raised'
                       )}
                     >
                       <div className="min-w-0">
@@ -275,8 +193,13 @@ export function WorldCup2026Fixtures({ matches, className }: WorldCup2026Fixture
                           <span className="inline-flex rounded-full bg-anchor-green/20 px-2.5 py-1 text-xs font-bold text-anchor-gold-vivid">
                             {timeLabel}
                           </span>
-                          <span className={cn('inline-flex rounded-full px-2.5 py-1 text-xs font-semibold', statusPillClassName)}>
-                            {statusLabelText}
+                          <span className={cn(
+                            'inline-flex rounded-full px-2.5 py-1 text-xs font-semibold',
+                            match.showing
+                              ? 'bg-anchor-green/20 text-anchor-gold-vivid'
+                              : 'bg-anchor-bg-raised text-anchor-cream-text/55'
+                          )}>
+                            {match.showing ? 'Showing' : 'Not showing'}
                           </span>
                           {isEnglandMatch && (
                             <span className="inline-flex rounded-full bg-anchor-gold/20 px-2.5 py-1 text-xs font-semibold text-anchor-gold-vivid">
@@ -289,20 +212,16 @@ export function WorldCup2026Fixtures({ matches, className }: WorldCup2026Fixture
                         <div className="mt-1 flex flex-wrap gap-x-3 gap-y-1 text-xs text-anchor-cream-text/70">
                           {secondaryBits.length > 0 && <span>{secondaryBits.join(' • ')}</span>}
                           {locationParts && <span>{locationParts}</span>}
-                          {mayRunPastClose && (
-                            <span className="text-amber-400">
-                              May run past closing
-                            </span>
-                          )}
+                          {match.showingNote && <span className="text-amber-400">{match.showingNote}</span>}
                         </div>
-                        {!isShowing && (
+                        {!match.showing && (
                           <p className="mt-2 text-xs text-anchor-cream-text/70">
                             Kick-off is outside our opening hours.
                           </p>
                         )}
                       </div>
 
-                      {isShowing && (
+                      {match.showing && match.bookingUrl && (
                         <div className="inline-flex w-full flex-col sm:w-auto">
                           <BookTableButton
                             source={`world_cup_match_${match.matchNumber}`}
@@ -311,7 +230,7 @@ export function WorldCup2026Fixtures({ matches, className }: WorldCup2026Fixture
                             variant="outline"
                             size="sm"
                             className="w-full sm:w-auto"
-                            customHref={bookingUrl}
+                            customHref={match.bookingUrl}
                           >
                             Book Table
                           </BookTableButton>
@@ -328,7 +247,7 @@ export function WorldCup2026Fixtures({ matches, className }: WorldCup2026Fixture
                     {hiddenMatches.length} match{hiddenMatches.length === 1 ? '' : 'es'} not showing (outside opening hours)
                   </summary>
                   <div className="divide-y divide-anchor-gold/15">
-                    {hiddenMatches.map(({ match, londonDateTime, status, closeTime }) => {
+                    {hiddenMatches.map(({ match, londonDateTime }) => {
                       const timeLabel = londonDateTime.toFormat('HH:mm')
                       const stageText = stageLabel[match.stage]
                       const country = countryLabel(match.countryCode)
@@ -339,8 +258,6 @@ export function WorldCup2026Fixtures({ matches, className }: WorldCup2026Fixture
                           : `Match ${match.matchNumber}`
                       const isEnglandMatch = teamsLabel.toLowerCase().includes('england')
                       const secondaryBits = [match.group, stageText].filter(Boolean)
-                      const estimatedEnd = londonDateTime.plus({ minutes: 120 })
-                      const mayRunPastClose = estimatedEnd.toMillis() > closeTime.toMillis()
 
                       return (
                         <div
@@ -367,7 +284,6 @@ export function WorldCup2026Fixtures({ matches, className }: WorldCup2026Fixture
                             <div className="mt-1 flex flex-wrap gap-x-3 gap-y-1 text-xs text-anchor-cream-text/70">
                               {secondaryBits.length > 0 && <span>{secondaryBits.join(' • ')}</span>}
                               {locationParts && <span>{locationParts}</span>}
-                              {mayRunPastClose && <span className="text-amber-400">May run past closing</span>}
                             </div>
                             <p className="mt-2 text-xs text-anchor-cream-text/70">Kick-off is outside our opening hours.</p>
                           </div>

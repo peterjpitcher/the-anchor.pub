@@ -19,92 +19,81 @@ export type WorldCup2026Match = {
   stadium?: string
   city?: string
   countryCode?: WorldCupHostCountryCode
+  showing: boolean
+  showingNote?: string
+  bookingUrl?: string
+  teamsConfirmed: boolean
 }
 
-const STAGE_SET = new Set<WorldCup2026MatchStage>([
-  'First Stage',
-  'Round of 32',
-  'Round of 16',
-  'Quarter-final',
-  'Semi-final',
-  'Play-off for third place',
-  'Final',
-])
-
-const COUNTRY_CODE_SET = new Set<WorldCupHostCountryCode>(['CAN', 'MEX', 'USA'])
-
-const FIFA_MATCHES_URL =
-  'https://api.fifa.com/api/v3/calendar/matches?language=en&idCompetition=17&idSeason=285023&count=200'
-
-type FifaLocalizedName = { Description?: string }
-type FifaMatch = {
-  MatchNumber?: number
-  Date?: string
-  StageName?: FifaLocalizedName[]
-  GroupName?: FifaLocalizedName[]
-  PlaceHolderA?: string
-  PlaceHolderB?: string
-  Stadium?: {
-    Name?: FifaLocalizedName[]
-    CityName?: FifaLocalizedName[]
-    IdCountry?: string
-  }
+type CheersAIFixture = {
+  id: string
+  matchNumber: number
+  round: string
+  groupName: string | null
+  teamA: string
+  teamB: string
+  teamsConfirmed: boolean
+  kickOffAt: string
+  venueCity: string | null
+  showing: boolean
+  showingNote: string | null
+  bookingUrl: string | null
 }
 
-function getFirstDescription(value?: FifaLocalizedName[]): string | undefined {
-  const description = value?.[0]?.Description
-  return typeof description === 'string' && description.trim().length > 0 ? description : undefined
+type CheersAIResponse = {
+  tournament: { id: string; name: string; slug: string; status: string }
+  fixtures: CheersAIFixture[]
+  meta: { total: number; generatedAt: string }
 }
 
-function isStage(value: string): value is WorldCup2026MatchStage {
-  return STAGE_SET.has(value as WorldCup2026MatchStage)
+const ROUND_TO_STAGE: Record<string, WorldCup2026MatchStage> = {
+  group_stage: 'First Stage',
+  round_of_32: 'Round of 32',
+  round_of_16: 'Round of 16',
+  quarter_final: 'Quarter-final',
+  semi_final: 'Semi-final',
+  third_place: 'Play-off for third place',
+  final: 'Final',
 }
 
-function isHostCountryCode(value: string): value is WorldCupHostCountryCode {
-  return COUNTRY_CODE_SET.has(value as WorldCupHostCountryCode)
-}
+const CHEERSAI_FEED_URL = 'https://www.cheersai.uk/api/feed/f40ef35f-5a1c-4409-8d02-27f2f97d0a0e'
 
 export async function getWorldCup2026Matches(): Promise<WorldCup2026Match[]> {
-  const response = await fetch(FIFA_MATCHES_URL, { next: { revalidate: 60 * 60 * 24 } })
-  if (!response.ok) {
-    throw new Error(`FIFA API error (${response.status})`)
+  const apiKey = process.env.CHEERSAI_FEED_API_KEY
+  if (!apiKey) {
+    throw new Error('CHEERSAI_FEED_API_KEY environment variable is not set')
   }
 
-  const payload = (await response.json()) as { Results?: unknown }
-  const results = Array.isArray(payload?.Results) ? (payload.Results as FifaMatch[]) : []
+  const response = await fetch(`${CHEERSAI_FEED_URL}?showing=false`, {
+    headers: { 'x-api-key': apiKey },
+    next: { revalidate: 300 },
+  })
 
-  return results
-    .map((match): WorldCup2026Match | null => {
-      const matchNumber = typeof match.MatchNumber === 'number' ? match.MatchNumber : null
-      const utcDateTime = typeof match.Date === 'string' ? match.Date : null
-      const stageRaw = getFirstDescription(match.StageName)
+  if (!response.ok) {
+    throw new Error(`CheersAI feed error (${response.status})`)
+  }
 
-      if (!matchNumber || !utcDateTime || !stageRaw || !isStage(stageRaw)) {
-        return null
-      }
+  const data = (await response.json()) as CheersAIResponse
 
-      const group = getFirstDescription(match.GroupName)
-      const stadium = getFirstDescription(match.Stadium?.Name)
-      const city = getFirstDescription(match.Stadium?.CityName)
-      const countryCodeRaw = typeof match.Stadium?.IdCountry === 'string' ? match.Stadium.IdCountry : undefined
-      const countryCode = countryCodeRaw && isHostCountryCode(countryCodeRaw) ? countryCodeRaw : undefined
-
-      const placeholderA = typeof match.PlaceHolderA === 'string' ? match.PlaceHolderA : undefined
-      const placeholderB = typeof match.PlaceHolderB === 'string' ? match.PlaceHolderB : undefined
+  return data.fixtures
+    .map((fixture): WorldCup2026Match | null => {
+      const stage = ROUND_TO_STAGE[fixture.round]
+      if (!stage) return null
 
       return {
-        matchNumber,
-        stage: stageRaw,
-        utcDateTime,
-        ...(group ? { group } : {}),
-        ...(placeholderA ? { placeholderA } : {}),
-        ...(placeholderB ? { placeholderB } : {}),
-        ...(stadium ? { stadium } : {}),
-        ...(city ? { city } : {}),
-        ...(countryCode ? { countryCode } : {}),
+        matchNumber: fixture.matchNumber,
+        stage,
+        utcDateTime: fixture.kickOffAt,
+        ...(fixture.groupName ? { group: fixture.groupName } : {}),
+        placeholderA: fixture.teamA,
+        placeholderB: fixture.teamB,
+        ...(fixture.venueCity ? { city: fixture.venueCity } : {}),
+        showing: fixture.showing,
+        ...(fixture.showingNote ? { showingNote: fixture.showingNote } : {}),
+        ...(fixture.bookingUrl ? { bookingUrl: fixture.bookingUrl } : {}),
+        teamsConfirmed: fixture.teamsConfirmed,
       }
     })
     .filter((match): match is WorldCup2026Match => Boolean(match))
     .sort((a, b) => a.matchNumber - b.matchNumber)
 }
-

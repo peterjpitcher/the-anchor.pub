@@ -53,7 +53,7 @@ export const metadata: Metadata = {
   },
 }
 
-export const revalidate = 60 * 60 * 24 // 24 hours
+export const revalidate = 300 // 5 minutes — matches CheersAI feed CDN cache
 
 function getTeamsLabel(match: WorldCup2026Match) {
   return match.placeholderA && match.placeholderB
