@@ -77,7 +77,7 @@ jest.mock('@/lib/markdown', () => {
   }
 
   function getIndexableBlogPosts() {
-    return getAllBlogPosts().filter((post: { noindex?: boolean }) => !post.noindex)
+    return getAllBlogPosts().filter((post): post is NonNullable<typeof post> => post !== null && !post.noindex)
   }
 
   return { getAllBlogPosts, getIndexableBlogPosts }
