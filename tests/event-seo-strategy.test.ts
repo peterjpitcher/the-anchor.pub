@@ -40,7 +40,7 @@ describe('getEventSeoStrategy', () => {
   describe('active events (future, not cancelled)', () => {
     it('marks an upcoming scheduled event as indexable with no banner', () => {
       const result = getEventSeoStrategy(
-        { startDate: isoDaysFromNow(3), event_status: 'scheduled' },
+        { startDate: isoDaysFromNow(3), event_status: 'scheduled', eventStatus: 'scheduled' },
         null,
       )
       expect(result).toEqual({
@@ -53,7 +53,7 @@ describe('getEventSeoStrategy', () => {
 
     it('marks an upcoming sold_out event as active and indexable', () => {
       const result = getEventSeoStrategy(
-        { startDate: isoDaysFromNow(7), event_status: 'sold_out' },
+        { startDate: isoDaysFromNow(7), event_status: 'sold_out', eventStatus: 'sold_out' },
         null,
       )
       expect(result.stage).toBe('active')
@@ -65,7 +65,7 @@ describe('getEventSeoStrategy', () => {
   describe('recent past events (≤ 30 days, not cancelled)', () => {
     it('keeps an event that ended yesterday indexable with the ended banner', () => {
       const result = getEventSeoStrategy(
-        { startDate: isoDaysAgo(1), event_status: 'scheduled' },
+        { startDate: isoDaysAgo(1), event_status: 'scheduled', eventStatus: 'scheduled' },
         null,
       )
       expect(result).toEqual({
@@ -81,6 +81,7 @@ describe('getEventSeoStrategy', () => {
         {
           startDate: isoDaysAgo(PAST_EVENT_REDIRECT_DAYS),
           event_status: 'scheduled',
+          eventStatus: 'scheduled',
         },
         NEXT_EVENT,
       )
@@ -96,6 +97,7 @@ describe('getEventSeoStrategy', () => {
         {
           startDate: isoDaysAgo(PAST_EVENT_REDIRECT_DAYS + 1),
           event_status: 'scheduled',
+          eventStatus: 'scheduled',
         },
         NEXT_EVENT,
       )
@@ -112,6 +114,7 @@ describe('getEventSeoStrategy', () => {
         {
           startDate: isoDaysAgo(45),
           event_status: 'scheduled',
+          eventStatus: 'scheduled',
         },
         { id: 'fallback-id', slug: undefined as unknown as string },
       )
@@ -123,6 +126,7 @@ describe('getEventSeoStrategy', () => {
         {
           startDate: isoDaysAgo(60),
           event_status: 'scheduled',
+          eventStatus: 'scheduled',
         },
         null,
       )
@@ -138,7 +142,7 @@ describe('getEventSeoStrategy', () => {
   describe('cancelled events', () => {
     it('keeps a recently cancelled event indexable for the 7-day window', () => {
       const result = getEventSeoStrategy(
-        { startDate: isoDaysAgo(CANCELLED_INDEX_DAYS), event_status: 'cancelled' },
+        { startDate: isoDaysAgo(CANCELLED_INDEX_DAYS), event_status: 'cancelled', eventStatus: 'cancelled' },
         NEXT_EVENT,
       )
       expect(result).toEqual({
@@ -152,7 +156,7 @@ describe('getEventSeoStrategy', () => {
 
     it('marks an old cancelled event as noindex but does not redirect', () => {
       const result = getEventSeoStrategy(
-        { startDate: isoDaysAgo(CANCELLED_INDEX_DAYS + 1), event_status: 'cancelled' },
+        { startDate: isoDaysAgo(CANCELLED_INDEX_DAYS + 1), event_status: 'cancelled', eventStatus: 'cancelled' },
         NEXT_EVENT,
       )
       expect(result.index).toBe(false)
@@ -166,7 +170,7 @@ describe('getEventSeoStrategy', () => {
       // still be indexable for the 7-day window from event date, never
       // redirected.
       const result = getEventSeoStrategy(
-        { startDate: isoDaysFromNow(2), event_status: 'cancelled' },
+        { startDate: isoDaysFromNow(2), event_status: 'cancelled', eventStatus: 'cancelled' },
         NEXT_EVENT,
       )
       expect(result.index).toBe(true)
