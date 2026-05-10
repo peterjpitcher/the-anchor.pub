@@ -221,7 +221,7 @@ export function WorldCup2026Fixtures({ matches, className }: WorldCup2026Fixture
                         )}
                       </div>
 
-                      {match.showing && match.bookingUrl && (
+                      {match.showing && (
                         <div className="inline-flex w-full flex-col sm:w-auto">
                           <BookTableButton
                             source={`world_cup_match_${match.matchNumber}`}
@@ -230,7 +230,7 @@ export function WorldCup2026Fixtures({ matches, className }: WorldCup2026Fixture
                             variant="outline"
                             size="sm"
                             className="w-full sm:w-auto"
-                            customHref={match.bookingUrl}
+                            customHref={match.bookingUrl ?? `/book-table?date=${londonDateTime.toISODate()}&type=drinks`}
                           >
                             Book Table
                           </BookTableButton>
