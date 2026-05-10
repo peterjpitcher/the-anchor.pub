@@ -64,7 +64,7 @@ export async function getWorldCup2026Matches(): Promise<WorldCup2026Match[]> {
     throw new Error('CHEERSAI_FEED_API_KEY environment variable is not set')
   }
 
-  const response = await fetch(`${CHEERSAI_FEED_URL}?showing=false`, {
+  const response = await fetch(`${CHEERSAI_FEED_URL}?showing=all`, {
     headers: { 'x-api-key': apiKey },
     next: { revalidate: 300 },
   })
