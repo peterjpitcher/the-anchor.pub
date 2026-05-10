@@ -154,7 +154,7 @@ export default async function WorldCupPage() {
           />
 
           <p className="mx-auto mb-8 max-w-4xl text-center text-sm text-anchor-cream-text/70">
-            Complete World Cup 2026 match schedule with UK kick-off times, showing status at The Anchor, and table booking links. Fixtures sourced from FIFA.
+            Complete World Cup 2026 match schedule with UK kick-off times, showing status at The Anchor, and table booking links.
           </p>
 
           <AlertBox
@@ -164,15 +164,15 @@ export default async function WorldCupPage() {
             content={
               <div className="space-y-3 text-sm">
                 <p>
-                  By default you'll see <strong>Showing Only</strong> matches (plus any we'll <strong>open early</strong> for).
+                  By default you'll see <strong>Showing Only</strong> matches.
                   Switch to <strong>All Fixtures</strong> to see the full tournament schedule.
                 </p>
                 <p>
-                  <strong>Showing</strong> = kick-off during opening hours. <strong>Opening early</strong> = kick-off up to{' '}
-                  <strong>1 hour before we open</strong>. <strong>Not showing</strong> = kick-off outside those hours.
+                  <strong>Showing</strong> = we're screening this match. <strong>Not showing</strong> = kick-off is outside
+                  our opening hours.
                 </p>
                 <p>
-                  Book now buttons are live for matches marked <strong>Showing</strong> or <strong>Opening early</strong>. We
+                  Book Table buttons are live for matches marked <strong>Showing</strong>. We
                   don't show booking buttons for matches marked <strong>Not showing</strong>.
                 </p>
                 <p>
@@ -252,9 +252,8 @@ export default async function WorldCupPage() {
                 <h2 className="text-lg font-bold text-anchor-gold-vivid">What We're Showing</h2>
                 <ul className="mt-4 space-y-2 text-sm text-anchor-cream-text/70">
                   <li>Matches we show are on BBC and ITV (no subscription needed)</li>
-                  <li>Matches that kick off during opening hours</li>
-                  <li>Or up to 1 hour before we open</li>
-                  <li>Matches outside those hours aren't shown</li>
+                  <li>Matches marked Showing will be on our screens</li>
+                  <li>Matches outside our opening hours aren't shown</li>
                   <li>If it's busy at close, we'll stay open while it's on</li>
                   <li>If we're empty at close, we'll close as normal</li>
                 </ul>
@@ -431,7 +430,7 @@ export default async function WorldCupPage() {
               {
                 question: 'Which World Cup 2026 matches are you showing?',
                 answer:
-                  'We show matches (screenings) that kick off during our opening hours (or up to 1 hour before we open). Matches are on BBC and ITV — no subscription needed. In the fixtures list, look for "Showing" or "Opening early".',
+                  'We show matches that kick off during our opening hours. Matches are on BBC and ITV — no subscription needed. In the fixtures list, look for matches marked "Showing".',
               },
               {
                 question: 'Is the World Cup 2026 free to watch?',
@@ -449,12 +448,12 @@ export default async function WorldCupPage() {
               {
                 question: 'Do you show England World Cup fixtures?',
                 answer:
-                  'Yes, we show England World Cup fixtures when the kick-off is during our opening hours or up to 1 hour before we open. England fixtures will be highlighted on this page once confirmed.',
+                  'Yes, we show England World Cup fixtures when they are marked as Showing in our fixtures list. England fixtures will be highlighted on this page once confirmed.',
               },
               {
                 question: 'Can I book a table for the World Cup final?',
                 answer:
-                  'Yes, if the World Cup final is marked as Showing or Opening early in our fixtures list, you can book a table from the fixture row. Final weekend fills up fast, so booking ahead is recommended.',
+                  'Yes, if the World Cup final is marked as Showing in our fixtures list, you can book a table from the fixture row. Final weekend fills up fast, so booking ahead is recommended.',
               },
               {
                 question: 'Is The Anchor a sports bar near Heathrow?',
