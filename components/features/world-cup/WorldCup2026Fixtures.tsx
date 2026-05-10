@@ -230,7 +230,7 @@ export function WorldCup2026Fixtures({ matches, className }: WorldCup2026Fixture
                             variant="outline"
                             size="sm"
                             className="w-full sm:w-auto"
-                            customHref={match.bookingUrl ?? `/book-table?date=${londonDateTime.toISODate()}&type=drinks`}
+                            customHref={match.bookingUrl ?? `/book-table?date=${londonDateTime.toISODate()}&time=${londonDateTime.minus({ minutes: 30 }).toFormat('HH:mm')}&type=drinks`}
                           >
                             Book Table
                           </BookTableButton>
