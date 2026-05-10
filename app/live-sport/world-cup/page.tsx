@@ -1,13 +1,12 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { DateTime } from 'luxon'
-import { AlertBox, Button, Container, CTASection, FeatureGrid, SectionHeader } from '@/components/ui'
+import { AlertBox, Button, Container, CTASection, SectionHeader } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BRAND, CONTACT, HEATHROW_TIMES, PARKING } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { BookTableButton } from '@/components/BookTableButton'
-import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { WorldCup2026Fixtures } from '@/components/features/world-cup/WorldCup2026Fixtures'
 import { getWorldCup2026Matches } from '@/lib/world-cup-2026'
@@ -16,6 +15,7 @@ import { PhoneButton } from '@/components/PhoneButton'
 import { DirectionsButton } from '@/components/DirectionsButton'
 import { WhatsAppLink } from '@/components/WhatsAppLink'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 const AREA_LINKS = [
   { label: 'Ashford', href: '/ashford-pub' },
@@ -35,17 +35,17 @@ const AREA_LINKS = [
 ]
 
 export const metadata: Metadata = {
-  title: 'World Cup Pub Near Heathrow | Watch FIFA 2026 Live',
-  description: `Watch FIFA World Cup 2026 at ${BRAND.name}, a sports pub near Heathrow T5. UK kick-off times, fixtures, 4 screens, sound on, free parking. Book a table.`,
+  title: 'World Cup 2026 Fixtures & UK Kick-Off Times | The Anchor Near Heathrow',
+  description: `World Cup 2026 fixtures with UK kick-off times, showing status and table bookings. Watch at ${BRAND.name} near Heathrow T5 — 4 screens, sound on, free parking.`,
   openGraph: {
-    title: 'Watch FIFA World Cup 2026 Near Heathrow',
-    description: 'World Cup 2026 fixtures, UK kick-off times, 4 screens, sound on for games we show, and table bookings near Heathrow.',
+    title: 'World Cup 2026 Fixtures & UK Kick-Off Times | The Anchor Near Heathrow',
+    description: `World Cup 2026 fixtures with UK kick-off times and showing status. Watch at ${BRAND.name} near Heathrow T5 — 4 screens, sound on, free parking. Book a table.`,
     images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
     type: 'website',
   },
   twitter: getTwitterMetadata({
-    title: 'Watch FIFA World Cup 2026 Near Heathrow',
-    description: 'World Cup 2026 fixtures, UK kick-off times, 4 screens, sound on, and table bookings near Heathrow.',
+    title: 'World Cup 2026 Fixtures & UK Kick-Off Times | The Anchor Near Heathrow',
+    description: `World Cup 2026 fixtures with UK kick-off times and showing status. Watch at ${BRAND.name} near Heathrow T5 — 4 screens, sound on, free parking. Book a table.`,
     images: [DEFAULT_PAGE_HEADER_IMAGE],
   }),
   alternates: {
@@ -82,6 +82,7 @@ export default async function WorldCupPage() {
   const eventSchema = {
     '@context': 'https://schema.org',
     '@type': 'Event',
+    '@id': 'https://www.the-anchor.pub/live-sport/world-cup#event',
     name: 'FIFA World Cup 2026 Screenings Near Heathrow',
     startDate: '2026-06-11',
     endDate: '2026-07-19',
@@ -112,10 +113,6 @@ export default async function WorldCupPage() {
       name: BRAND.name,
       url: 'https://www.the-anchor.pub',
     },
-    performer: {
-      '@type': 'Organization',
-      name: 'FIFA',
-    },
     offers: {
       '@type': 'Offer',
       price: '0',
@@ -134,6 +131,12 @@ export default async function WorldCupPage() {
         dangerouslySetInnerHTML={{ __html: jsonLdSafeStringify([eventSchema]) }}
       />
 
+      <BreadcrumbJsonLd items={[
+        { name: 'Home', url: '/' },
+        { name: 'Live Sport', url: '/live-sport' },
+        { name: 'World Cup 2026', url: '/live-sport/world-cup' },
+      ]} />
+
       <HeroWrapper
         route="/live-sport/world-cup"
         title="Watch FIFA World Cup 2026 Near Heathrow"
@@ -143,19 +146,100 @@ export default async function WorldCupPage() {
         showContextStrip={true}
       />
 
-      <section className="bg-anchor-bg py-8">
+      <section className="section-spacing bg-anchor-bg" id="fixtures">
         <Container>
-          <div className="mx-auto max-w-5xl text-center">
-            <PageTitle className="mb-4 text-anchor-gold-vivid">World Cup Pub Near Heathrow for FIFA World Cup 2026</PageTitle>
-            <p className="text-lg text-anchor-cream-text/70">
-              The FIFA World Cup 2026 runs from <strong>11 June to 19 July 2026</strong>. If you’re searching for a
-              “World Cup pub near me”, a football pub near me, or a sports pub near Heathrow, The Anchor is a proper
-              pub atmosphere in Stanwell Moor, just {HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5.
-            </p>
-            <p className="mt-4 text-lg text-anchor-cream-text/70">
-              Use our World Cup 2026 fixtures and UK kick-off times below to pick a match we’re showing, then book a
-              table so you’ve got a screen view.
-            </p>
+          <SectionHeader
+            title="World Cup 2026 Fixtures and UK Kick-Off Times"
+            subtitle="World Cup 2026 screenings, showing status, and table booking links."
+          />
+
+          <p className="mx-auto mb-8 max-w-4xl text-center text-sm text-anchor-cream-text/70">
+            Complete World Cup 2026 match schedule with UK kick-off times, showing status at The Anchor, and table booking links. Fixtures sourced from FIFA.
+          </p>
+
+          <AlertBox
+            variant="info"
+            className="mx-auto mb-10 max-w-5xl"
+            title="How this fixtures list works"
+            content={
+              <div className="space-y-3 text-sm">
+                <p>
+                  By default you'll see <strong>Showing Only</strong> matches (plus any we'll <strong>open early</strong> for).
+                  Switch to <strong>All Fixtures</strong> to see the full tournament schedule.
+                </p>
+                <p>
+                  <strong>Showing</strong> = kick-off during opening hours. <strong>Opening early</strong> = kick-off up to{' '}
+                  <strong>1 hour before we open</strong>. <strong>Not showing</strong> = kick-off outside those hours.
+                </p>
+                <p>
+                  Book now buttons are live for matches marked <strong>Showing</strong> or <strong>Opening early</strong>. We
+                  don't show booking buttons for matches marked <strong>Not showing</strong>.
+                </p>
+                <p>
+                  If a match runs past our normal closing time we'll stay open while it's on{' '}
+                  <strong>if the pub is busy</strong>. If the pub is empty at closing time, we'll close as normal.
+                </p>
+              </div>
+            }
+          />
+
+          <div className="mx-auto max-w-5xl">
+            {matches.length > 0 ? (
+              <WorldCup2026Fixtures matches={matches} />
+            ) : (
+              <AlertBox
+                variant="warning"
+                title="Fixtures temporarily unavailable"
+                className="mx-auto max-w-2xl"
+                content="We're having trouble loading the full match schedule right now. Please check back soon, in the meantime you can still book a table for any date."
+              />
+            )}
+          </div>
+
+          <div className="mt-12 text-center">
+            <AlertBox
+              variant="warning"
+              title="Book Early for Knockouts"
+              className="mx-auto max-w-2xl"
+              content="The knockouts and final weekend fill up fast. Book ahead to guarantee a table with a good screen view."
+            />
+          </div>
+        </Container>
+      </section>
+
+      <section className="section-spacing bg-anchor-bg">
+        <Container>
+          <div className="mx-auto max-w-5xl rounded-2xl bg-anchor-bg-raised p-8 ring-1 ring-anchor-gold/15">
+            <SectionHeader
+              title="England World Cup Fixtures at The Anchor"
+              subtitle="England fixtures, screenings and table bookings near Heathrow."
+            />
+            {englandMatches.length > 0 ? (
+              <div className="mx-auto mt-8 max-w-3xl space-y-3">
+                <p className="text-center text-sm text-anchor-cream-text/70">
+                  England are in Group L alongside Croatia, Ghana and Panama.
+                </p>
+                <div className="divide-y divide-anchor-gold/15 rounded-xl bg-anchor-bg-card ring-1 ring-anchor-gold/15">
+                  {englandMatches.map((match) => (
+                    <Link
+                      key={match.matchNumber}
+                      href={`#match-${match.matchNumber}`}
+                      className="flex flex-col gap-1 px-5 py-4 hover:bg-anchor-bg-raised sm:flex-row sm:items-center sm:justify-between"
+                    >
+                      <span className="font-semibold text-anchor-cream-text">{getTeamsLabel(match)}</span>
+                      <span className="text-sm text-anchor-cream-text/70">
+                        {formatUkFixtureTime(match.utcDateTime)} UK
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <p className="mx-auto mt-6 max-w-3xl text-center text-sm text-anchor-cream-text/70">
+                England's World Cup 2026 fixtures will be highlighted here once confirmed. For now, use the full World
+                Cup 2026 schedule below for UK kick-off times, showing status, and table booking links.
+              </p>
+            )}
           </div>
         </Container>
       </section>
@@ -165,20 +249,21 @@ export default async function WorldCupPage() {
           <div className="mx-auto max-w-6xl">
             <div className="grid gap-6 md:grid-cols-3">
               <div className="rounded-2xl bg-anchor-bg-card p-6 shadow-sm ring-1 ring-anchor-gold/15">
-                <h2 className="text-lg font-bold text-anchor-gold-vivid">What We’re Showing</h2>
+                <h2 className="text-lg font-bold text-anchor-gold-vivid">What We're Showing</h2>
                 <ul className="mt-4 space-y-2 text-sm text-anchor-cream-text/70">
+                  <li>Matches we show are on BBC and ITV (no subscription needed)</li>
                   <li>Matches that kick off during opening hours</li>
                   <li>Or up to 1 hour before we open</li>
-                  <li>Matches outside those hours aren’t shown</li>
-                  <li>If it’s busy at close, we’ll stay open while it’s on</li>
-                  <li>If we’re empty at close, we’ll close as normal</li>
+                  <li>Matches outside those hours aren't shown</li>
+                  <li>If it's busy at close, we'll stay open while it's on</li>
+                  <li>If we're empty at close, we'll close as normal</li>
                 </ul>
                 <p className="mt-4 text-xs text-anchor-cream-text/55">
                   Core hours: Mon–Thu 4pm–10pm • Fri 4pm–10pm • Sat 12pm–10pm • Sun 12pm–10pm. Extended to midnight for selected knockout matches.
                 </p>
                 <div className="mt-4">
                   <Link href="#fixtures" className="font-semibold text-anchor-gold hover:underline">
-                    See fixtures we’re showing →
+                    See fixtures we're showing →
                   </Link>
                 </div>
               </div>
@@ -187,7 +272,8 @@ export default async function WorldCupPage() {
                 <h2 className="text-lg font-bold text-anchor-gold-vivid">Booking Rules</h2>
                 <ul className="mt-4 space-y-2 text-sm text-anchor-cream-text/70">
                   <li>Book any showing match now</li>
-                  <li>No deposits and no minimum spend</li>
+                  <li>No deposits for groups under 10</li>
+                  <li>Groups of 10+: £10 per person deposit, deducted from your bill</li>
                   <li>Large groups: book early for the best tables</li>
                   <li>Tables are held until kick-off, then released</li>
                 </ul>
@@ -233,7 +319,7 @@ export default async function WorldCupPage() {
                 <WhatsAppLink
                   phone={CONTACT.phone}
                   source="world_cup_quick_cta"
-                  message="Hi! I’d like to book a table for a World Cup match."
+                  message="Hi! I'd like to book a table for a World Cup match."
                   showIcon={false}
                 >
                   WhatsApp
@@ -249,157 +335,6 @@ export default async function WorldCupPage() {
                 Directions
               </DirectionsButton>
             </div>
-          </div>
-        </Container>
-      </section>
-
-      <section className="section-spacing bg-anchor-bg">
-        <Container>
-          <div className="mx-auto max-w-5xl rounded-2xl bg-anchor-bg-raised p-8 ring-1 ring-anchor-gold/15">
-            <SectionHeader
-              title="England World Cup Fixtures at The Anchor"
-              subtitle="England fixtures, pub atmosphere, and table bookings near Heathrow."
-            />
-            {englandMatches.length > 0 ? (
-              <div className="mx-auto mt-8 max-w-3xl space-y-3">
-                <p className="text-center text-sm text-anchor-cream-text/70">
-                  Looking for a pub showing an England game near me? These England World Cup fixtures are in our full
-                  World Cup 2026 schedule below.
-                </p>
-                <div className="divide-y divide-anchor-gold/15 rounded-xl bg-anchor-bg-card ring-1 ring-anchor-gold/15">
-                  {englandMatches.map((match) => (
-                    <Link
-                      key={match.matchNumber}
-                      href={`#match-${match.matchNumber}`}
-                      className="flex flex-col gap-1 px-5 py-4 hover:bg-anchor-bg-raised sm:flex-row sm:items-center sm:justify-between"
-                    >
-                      <span className="font-semibold text-anchor-cream-text">{getTeamsLabel(match)}</span>
-                      <span className="text-sm text-anchor-cream-text/70">
-                        {formatUkFixtureTime(match.utcDateTime)} UK
-                      </span>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            ) : (
-              <p className="mx-auto mt-6 max-w-3xl text-center text-sm text-anchor-cream-text/70">
-                England’s World Cup 2026 fixtures will be highlighted here once confirmed. For now, use the full World
-                Cup 2026 schedule below for UK kick-off times, showing status, and table booking links.
-              </p>
-            )}
-          </div>
-        </Container>
-      </section>
-
-      <section className="section-spacing bg-anchor-bg" id="fixtures">
-        <Container>
-          <SectionHeader
-            title="World Cup 2026 Fixtures and UK Kick-Off Times"
-            subtitle="The Anchor’s World Cup 2026 schedule, with showing status and table booking links."
-          />
-
-          <p className="mx-auto mb-8 max-w-4xl text-center text-sm text-anchor-cream-text/70">
-            This fixtures table shows World Cup 2026 match dates in UK time. Start with <strong>Showing Only</strong> for
-            matches we plan to show and bookable kick-offs, or switch to <strong>All Fixtures</strong> for the full
-            tournament schedule.
-          </p>
-
-          <AlertBox
-            variant="info"
-            className="mx-auto mb-10 max-w-5xl"
-            title="How this fixtures list works"
-            content={
-              <div className="space-y-3 text-sm">
-                <p>
-                  By default you’ll see <strong>Showing Only</strong> matches (plus any we’ll <strong>open early</strong> for).
-                  Switch to <strong>All Fixtures</strong> to see the full tournament schedule.
-                </p>
-                <p>
-                  <strong>Showing</strong> = kick-off during opening hours. <strong>Opening early</strong> = kick-off up to{' '}
-                  <strong>1 hour before we open</strong>. <strong>Not showing</strong> = kick-off outside those hours.
-                </p>
-                <p>
-                  Book now buttons are live for matches marked <strong>Showing</strong> or <strong>Opening early</strong>. We
-                  don’t show booking buttons for matches marked <strong>Not showing</strong>.
-                </p>
-                <p>
-                  If a match runs past our normal closing time we’ll stay open while it’s on{' '}
-                  <strong>if the pub is busy</strong>. If the pub is empty at closing time, we’ll close as normal.
-                </p>
-              </div>
-            }
-          />
-
-          <div className="mx-auto max-w-5xl">
-            {matches.length > 0 ? (
-              <WorldCup2026Fixtures matches={matches} />
-            ) : (
-              <AlertBox
-                variant="warning"
-                title="Fixtures temporarily unavailable"
-                className="mx-auto max-w-2xl"
-                content="We’re having trouble loading the full match schedule right now. Please check back soon, in the meantime you can still book a table for any date."
-              />
-            )}
-          </div>
-
-          <div className="mt-12 text-center">
-            <AlertBox
-              variant="warning"
-              title="Book Early for Knockouts"
-              className="mx-auto max-w-2xl"
-              content="The knockouts and final weekend fill up fast. Book ahead to guarantee a table with a good screen view."
-            />
-          </div>
-        </Container>
-      </section>
-
-      <section className="section-spacing bg-anchor-bg-raised">
-        <Container>
-          <div className="mx-auto max-w-4xl text-center">
-            <SectionHeader title="Matchday Essentials" subtitle="Everything you need for a proper World Cup watch." />
-
-            <FeatureGrid
-              columns={4}
-              features={[
-                {
-                  icon: '',
-                  title: 'Sound On',
-                  description: 'Sound on for all games we show (reviewed if another event clashes).',
-                  variant: 'default',
-                  className: 'border border-anchor-gold/15 text-center',
-                },
-                {
-                  icon: '',
-                  title: '4 Screens',
-                  description: '4 screens across the bar and dining areas (no projector).',
-                  variant: 'default',
-                  className: 'border border-anchor-gold/15 text-center',
-                },
-                {
-                  icon: '',
-                  title: 'Kitchen Open',
-                  description: 'Food served during our opening hours.',
-                  variant: 'default',
-                  className: 'border border-anchor-gold/15 text-center',
-                },
-                {
-                  icon: '',
-                  title: 'Free Parking',
-                  description: `Free on-site parking (${PARKING.capacity} spaces).`,
-                  variant: 'default',
-                  className: 'border border-anchor-gold/15 text-center',
-                },
-              ]}
-              className="mt-10"
-            />
-
-            <AlertBox
-              variant="info"
-              title="Late Kick-offs"
-              className="mx-auto mt-10 max-w-2xl"
-              content="Many games in the USA/Canada/Mexico will be late-night (or overnight) in the UK. Matches marked “Not showing” won’t be on our screens."
-            />
           </div>
         </Container>
       </section>
@@ -462,14 +397,12 @@ export default async function WorldCupPage() {
       <section className="section-spacing bg-anchor-bg">
         <Container>
           <SectionHeader
-            title="A Football and Live Sport Pub Near Heathrow"
-            subtitle="Stanwell Moor, Staines, Ashford, Feltham, Egham and around Heathrow."
+            title="Watch Live Sport Near Heathrow"
+            subtitle="Easy to reach from Stanwell Moor, Staines, Ashford, Feltham, Egham, and around Heathrow."
           />
           <div className="mx-auto max-w-5xl rounded-2xl bg-anchor-bg-raised p-8 ring-1 ring-anchor-gold/15">
             <p className="text-center text-sm text-anchor-cream-text/70">
-              Searching for “World Cup pub near me”, “football pub near me”, “live sport pub near me”, or a sports bar
-              near Heathrow? The Anchor is a proper pub alternative near Stanwell Moor, Staines, Ashford, Feltham,
-              Egham, Heathrow hotels, and Heathrow Terminal 5, with free parking on-site.
+              The Anchor is in Stanwell Moor, just off the M25 and {HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5. Free parking for {PARKING.capacity} cars makes us easy to reach from Staines, Ashford, Feltham, Egham, Colnbrook, and Windsor.
             </p>
             <div className="mt-6 flex flex-wrap justify-center gap-3">
               {AREA_LINKS.map((area) => (
@@ -498,12 +431,20 @@ export default async function WorldCupPage() {
               {
                 question: 'Which World Cup 2026 matches are you showing?',
                 answer:
-                  'We show matches that kick off during our opening hours (or up to 1 hour before we open). In the fixtures list, look for “Showing” or “Opening early”.',
+                  'We show matches (screenings) that kick off during our opening hours (or up to 1 hour before we open). Matches are on BBC and ITV — no subscription needed. In the fixtures list, look for "Showing" or "Opening early".',
               },
               {
-                question: 'Why are some matches marked “Not showing”?',
+                question: 'Is the World Cup 2026 free to watch?',
+                answer: 'Yes. World Cup 2026 matches are on BBC and ITV in the UK. We show them on our 4 screens with sound on — no subscription needed.',
+              },
+              {
+                question: 'Are you extending opening hours for the World Cup?',
+                answer: 'Selected knockout matches have extended hours until midnight. Check the fixtures list for specific matches. For all other games, standard opening hours apply.',
+              },
+              {
+                question: 'Why are some matches marked "Not showing"?',
                 answer:
-                  'Those kick-offs are outside our opening hours, so they won’t be on our screens.',
+                  'Those kick-offs are outside our opening hours, so they won\'t be on our screens.',
               },
               {
                 question: 'Do you show England World Cup fixtures?',
@@ -522,11 +463,11 @@ export default async function WorldCupPage() {
               },
               {
                 question: 'When do bookings open?',
-                answer: 'Bookings are open now for all matches we’re showing. Use the Book Table button next to the fixture.',
+                answer: 'Bookings are open now for all matches we\'re showing. Use the Book Table button next to the fixture.',
               },
               {
                 question: 'Do you take deposits or minimum spend?',
-                answer: 'No, there are no deposits required and no minimum spend.',
+                answer: 'No deposits for groups under 10. Groups of 10 or more: a £10 per person deposit, fully deducted from your bill. No minimum spend.',
               },
               {
                 question: 'How long do you hold tables?',
@@ -536,7 +477,7 @@ export default async function WorldCupPage() {
               {
                 question: 'Will you stay open until full time?',
                 answer:
-                  'If a match is still being played at our normal closing time, we’ll stay open while it’s on if the pub is busy. If the pub is empty at closing time, we’ll close as normal.',
+                  'If a match is still being played at our normal closing time, we\'ll stay open while it\'s on if the pub is busy. If the pub is empty at closing time, we\'ll close as normal.',
               },
               {
                 question: 'Is the sound on?',
@@ -553,7 +494,7 @@ export default async function WorldCupPage() {
               },
               {
                 question: 'Do you have parking and how do I get there?',
-                answer: `Yes, free on-site parking for guests (${PARKING.capacity} spaces). We’re ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5, and the 442 bus from Staines Heathrow stops outside.`,
+                answer: `Yes, free on-site parking for guests (${PARKING.capacity} spaces). We're ${HEATHROW_TIMES.terminal5} minutes from Heathrow Terminal 5, and the 442 bus from Staines Heathrow stops outside.`,
               },
             ]}
             className="mx-auto max-w-3xl bg-anchor-bg-raised"
@@ -563,7 +504,7 @@ export default async function WorldCupPage() {
 
       <CTASection
         title="Book Your World Cup Table"
-        description="Choose a match we’re showing, then book your table now."
+        description="Choose a match we're showing, then book your table now."
         buttons={[
           {
             text: 'Book a Table',
