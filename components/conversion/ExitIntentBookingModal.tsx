@@ -92,7 +92,7 @@ export function ExitIntentBookingModal() {
       </ModalHeader>
       <ModalBody>
         <p className="text-base text-anchor-cream-text/90 leading-relaxed">
-          Sunday lunch books up fast, want to grab a table while you&apos;re here?
+          Sunday roast books up fast, want to grab a table while you&apos;re here?
         </p>
       </ModalBody>
       <ModalFooter>

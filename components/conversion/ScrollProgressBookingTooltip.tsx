@@ -122,7 +122,7 @@ export function ScrollProgressBookingTooltip() {
         <div className="flex-1 text-sm">
           <p className="font-semibold text-anchor-cream-text">Ready to book?</p>
           <p className="mt-1 text-anchor-cream-text/80">
-            Sunday lunch books up fast.
+            Sunday roast books up fast.
           </p>
           <Link
             href="/book-table?source=sunday_lunch_scroll_tooltip"

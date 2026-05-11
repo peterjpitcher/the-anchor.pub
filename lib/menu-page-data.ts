@@ -359,15 +359,15 @@ function rejectStaleSundayMenu(menu: SundayLunchMenuResponse): string | null {
   const items = [...(menu.mains || []), ...(menu.sides || [])]
 
   if (items.length === 0) {
-    return 'Sunday lunch menu returned no items.'
+    return 'Sunday roast menu returned no items.'
   }
 
   if (items.some((item) => /^fallback-/i.test(item.id || ''))) {
-    return 'Sunday lunch menu returned fallback items.'
+    return 'Sunday roast menu returned fallback items.'
   }
 
   if (items.some((item) => SUNDAY_RETIRED_PATTERN.test(item.name || ''))) {
-    return 'Sunday lunch menu returned retired items.'
+    return 'Sunday roast menu returned retired items.'
   }
 
   return null
@@ -426,8 +426,8 @@ async function fetchSundayLunchPageData(): Promise<SundayLunchPageData> {
 
     const menuData: MenuData | null = categories.length > 0
       ? {
-          title: 'Sunday Lunch Menu',
-          description: 'Current Sunday lunch menu at The Anchor.',
+          title: 'Sunday Roast Menu',
+          description: 'Current Sunday roast menu at The Anchor.',
           lastUpdated: menu.menu_date || String(CURRENT_YEAR),
           categories
         }
@@ -440,12 +440,12 @@ async function fetchSundayLunchPageData(): Promise<SundayLunchPageData> {
       priceFromLabel: getPriceFrom(mains)
     }
   } catch (error) {
-    console.warn('[menu-page-data] Failed to fetch Sunday lunch menu', error)
+    console.warn('[menu-page-data] Failed to fetch Sunday roast menu', error)
     return {
       menuData: null,
       mains: [],
       sides: [],
-      unavailableReason: 'Sunday lunch menu failed to load.'
+      unavailableReason: 'Sunday roast menu failed to load.'
     }
   }
 }

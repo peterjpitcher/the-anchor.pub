@@ -46,8 +46,10 @@ describe('/sunday-lunch source order', () => {
     expect(source).toContain('<SundayLunchHowItWorks')
   })
 
-  it('does not expose implementation wording in Sunday lunch menu copy', () => {
+  it('does not expose implementation or old Sunday lunch wording in menu copy', () => {
     expect(source).not.toMatch(/available online|shown online/i)
+    expect(source).not.toMatch(/Sunday lunch|Sunday Lunch|sunday lunch/)
+    expect(menuDataSource).not.toMatch(/Sunday lunch|Sunday Lunch|sunday lunch/)
     expect(menuDataSource).not.toContain('menu API')
   })
 

@@ -38,15 +38,15 @@ export async function generateMetadata(): Promise<Metadata> {
     : 'Sunday roast served 1pm-6pm at The Anchor, Stanwell Moor. Call us for the current Sunday dish list.'
 
   return {
-    title: 'Sunday Roast & Lunch Near Heathrow | The Anchor, Stanwell Moor',
+    title: 'Sunday Roast Near Heathrow | The Anchor, Stanwell Moor',
     description,
     openGraph: {
-      title: 'Sunday Roast & Lunch Near Heathrow | The Anchor, Stanwell Moor',
+      title: 'Sunday Roast Near Heathrow | The Anchor, Stanwell Moor',
       description,
       images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg']
     },
     twitter: getTwitterMetadata({
-      title: 'Sunday Roast & Lunch Near Heathrow | The Anchor, Stanwell Moor',
+      title: 'Sunday Roast Near Heathrow | The Anchor, Stanwell Moor',
       description,
       images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg']
     }),
@@ -57,7 +57,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 function joinItemNames(items: MenuPageItem[]): string {
-  if (items.length === 0) return 'the current Sunday lunch menu'
+  if (items.length === 0) return 'the current Sunday roast menu'
   if (items.length === 1) return items[0].name
   return `${items.slice(0, -1).map((item) => item.name).join(', ')} and ${items[items.length - 1].name}`
 }
@@ -66,10 +66,10 @@ function getSundayLunchFaqs(sunday: SundayRoastContent, currentMains: MenuPageIt
   return [
     {
       question: 'Do I need to book a Sunday roast near me?',
-      answer: 'Walk-ins are welcome during Sunday lunch service. Booking is still recommended for larger groups and peak slots.'
+      answer: 'Walk-ins are welcome during Sunday roast service. Booking is still recommended for larger groups and peak slots.'
     },
     {
-      question: 'Is there a deposit for Sunday lunch?',
+      question: 'Is there a deposit for Sunday roast?',
       answer: `${sunday.smallPartyCopy} ${sunday.depositCopy}`
     },
     {
@@ -77,9 +77,9 @@ function getSundayLunchFaqs(sunday: SundayRoastContent, currentMains: MenuPageIt
       answer: 'Sunday roast is served 1pm to 6pm every Sunday. Last table booking is 5:30pm.'
     },
     {
-      question: 'What is on the Sunday lunch menu?',
+      question: 'What is on the Sunday roast menu?',
       answer: currentMains.length > 0
-        ? `The current Sunday lunch mains are ${joinItemNames(currentMains)}.`
+        ? `The current Sunday roast mains are ${joinItemNames(currentMains)}.`
         : 'Please call us for the current Sunday dish list.'
     },
     {
@@ -92,13 +92,13 @@ function getSundayLunchFaqs(sunday: SundayRoastContent, currentMains: MenuPageIt
     },
     {
       question: 'Is The Anchor a carvery?',
-      answer: 'No. Sunday lunch is cooked and plated by the kitchen rather than served from a self-serve carvery line.'
+      answer: 'No. Sunday roast is cooked and plated by the kitchen rather than served from a self-serve carvery line.'
     },
     {
       question: 'Do you serve a vegan or vegetarian Sunday roast?',
       answer: currentMains.some((item) => item.vegan || item.vegetarian)
-        ? 'Yes. The current Sunday menu includes a vegetarian or vegan option. Ask at the bar for allergen guidance before ordering.'
-        : 'Please call us for the current Sunday dietary options.'
+        ? 'Yes. The current Sunday roast menu includes a vegetarian or vegan option. Ask at the bar for allergen guidance before ordering.'
+        : 'Please call us for the current Sunday roast dietary options.'
     }
   ] as const
 }
@@ -109,14 +109,14 @@ function buildMenuJsonLd(menuItems: MenuPageItem[]) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Menu',
-    name: 'The Anchor Sunday Lunch Menu',
-    description: 'Sunday lunch menu at The Anchor, Stanwell Moor.',
+    name: 'The Anchor Sunday Roast Menu',
+    description: 'Sunday roast menu at The Anchor, Stanwell Moor.',
     url: `${WEBSITE_ORIGIN}/sunday-lunch`,
     isPartOf: { '@id': `${WEBSITE_ORIGIN}/#business` },
     hasMenuSection: [
       {
         '@type': 'MenuSection',
-        name: 'Sunday Lunch Mains',
+        name: 'Sunday Roast Mains',
         hasMenuItem: menuItems.map((item) => ({
           '@type': 'MenuItem',
           name: item.name,
@@ -149,14 +149,14 @@ export default async function SundayLunchPage() {
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', url: '/' },
-          { name: 'Sunday Lunch', url: '/sunday-lunch' }
+          { name: 'Sunday Roast', url: '/sunday-lunch' }
         ]}
       />
 
       <HeroWrapper
         route="/sunday-lunch"
-        title="Sunday Roast & Lunch Near Heathrow"
-        description="Sunday lunch is served 1pm-6pm. Current dishes and prices are listed below."
+        title="Sunday Roast Near Heathrow"
+        description="Sunday roast is served 1pm-6pm. Current dishes and prices are listed below."
         eyebrow="The Anchor, Stanwell Moor"
         lead={
           <p className="text-white/90 text-base sm:text-lg">
@@ -165,7 +165,7 @@ export default async function SundayLunchPage() {
         }
         image={{
           src: '/images/food/sunday-roast/the-anchor-sunday-roast-hero.jpg',
-          alt: 'Sunday lunch plate at The Anchor pub near Heathrow'
+          alt: 'Sunday roast plate at The Anchor pub near Heathrow'
         }}
         primaryCta={
           <BookTableButton
@@ -207,10 +207,10 @@ export default async function SundayLunchPage() {
       <div className="bg-anchor-bg pt-12 pb-8 border-b border-anchor-gold/15">
         <Container>
           <PageTitle className="text-center text-anchor-cream-text" seo={{ structured: true, speakable: true }}>
-            Sunday Roast &amp; Lunch Near Heathrow at The Anchor
+            Sunday Roast Near Heathrow at The Anchor
           </PageTitle>
           <p className="mt-4 text-center text-lg text-anchor-cream-text/70 max-w-3xl mx-auto">
-            Sunday lunch is served every Sunday from 1pm to 6pm. Walk-ins are welcome, booking is recommended for busier slots, and the current dishes are listed below.
+            Sunday roast is served every Sunday from 1pm to 6pm. Walk-ins are welcome, booking is recommended for busier slots, and the current dishes are listed below.
           </p>
           <ul
             aria-label="At a glance"
@@ -230,13 +230,13 @@ export default async function SundayLunchPage() {
       <section className="bg-anchor-bg py-12 border-b border-anchor-gold/15">
         <Container>
           <SectionHeader
-            title="Current Sunday Lunch Menu"
-            subtitle={sundayMenu.menuData ? 'Choose from our current Sunday lunch menu.' : 'Call us for the current Sunday dish list.'}
+            title="Current Sunday Roast Menu"
+            subtitle={sundayMenu.menuData ? 'Choose from our current Sunday roast menu.' : 'Call us for the current Sunday roast dish list.'}
             align="center"
           />
 
           {sundayMenu.menuData ? (
-            <MenuRenderer menuData={sundayMenu.menuData} eyebrow="Sunday lunch menu" />
+            <MenuRenderer menuData={sundayMenu.menuData} eyebrow="Sunday roast menu" />
           ) : (
             <Alert
               variant="warning"
@@ -244,7 +244,7 @@ export default async function SundayLunchPage() {
               className="mx-auto max-w-3xl"
             >
               <p className="text-anchor-cream-text/70">
-                The current Sunday lunch menu is temporarily unavailable. Please call{' '}
+                The current Sunday roast menu is temporarily unavailable. Please call{' '}
                 <PhoneLink
                   phone="01753 682707"
                   source="sunday_lunch_menu_unavailable"
@@ -285,7 +285,7 @@ export default async function SundayLunchPage() {
             </ul>
             <Image
               src="/images/food/sunday-roast/sunday-roast-potatoes-tossed.jpg"
-              alt="Sunday lunch prep at The Anchor pub near Heathrow"
+              alt="Sunday roast prep at The Anchor pub near Heathrow"
               width={1200}
               height={900}
               loading="lazy"
@@ -304,7 +304,7 @@ export default async function SundayLunchPage() {
                 Sunday Roast or Carvery? What to Expect Near Heathrow
               </h2>
               <p className="text-anchor-cream-text/70 leading-relaxed mb-6">
-                If you are weighing up a chain carvery near Heathrow versus an independent pub Sunday lunch, the main difference is service style: we plate from the kitchen rather than running a self-serve carvery line.
+                If you are weighing up a chain carvery near Heathrow versus an independent pub Sunday roast, the main difference is service style: we plate from the kitchen rather than running a self-serve carvery line.
               </p>
               <div className="overflow-x-auto rounded-lg border border-anchor-gold/15">
                 <table className="w-full text-sm md:text-base text-left">
@@ -355,7 +355,7 @@ export default async function SundayLunchPage() {
       <section className="bg-anchor-bg-raised py-12 border-b border-anchor-gold/15">
         <Container>
           <SectionHeader
-            title="Why Locals Choose Sunday Lunch Here"
+            title="Why Locals Choose Sunday Roast Here"
             subtitle="Free parking, easy booking and a village pub setting minutes from Heathrow."
             align="center"
           />
@@ -378,7 +378,7 @@ export default async function SundayLunchPage() {
         <Container>
           <div className="mx-auto max-w-3xl">
             <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text mb-3">
-              Sunday Lunch Between Flights
+              Sunday Roast Between Flights
             </h2>
             <p className="text-anchor-cream-text/70 leading-relaxed mb-6">
               Best for layovers with enough time to leave the airport, post-arrival meals before checking into a Heathrow hotel, or a proper pub lunch before an evening flight.
@@ -394,7 +394,7 @@ export default async function SundayLunchPage() {
               <li className="flex gap-4">
                 <span aria-hidden="true" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-anchor-gold-bright text-anchor-charcoal font-bold">2</span>
                 <div>
-                  <p className="font-semibold text-anchor-cream-text">Sunday lunch</p>
+                  <p className="font-semibold text-anchor-cream-text">Sunday roast</p>
                   <p className="text-sm text-anchor-cream-text/70">Walk in during service or book ahead for a guaranteed table.</p>
                 </div>
               </li>
@@ -426,7 +426,7 @@ export default async function SundayLunchPage() {
         <Container>
           <div className="max-w-2xl mx-auto space-y-5">
             <h2 className="text-2xl md:text-3xl font-bold text-white">
-              Book your Sunday lunch at The Anchor
+              Book your Sunday roast at The Anchor
             </h2>
             <p className="text-white/85 text-base">
               Sunday service runs 1pm to 6pm. 7 minutes from Heathrow Terminal 5.
