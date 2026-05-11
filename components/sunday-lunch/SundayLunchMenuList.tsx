@@ -6,7 +6,7 @@ export interface SundayLunchMenuItem {
   /**
    * Display price label (e.g. `£22`). Required so menu rows always show
    * what the dish costs, pricing is a customer expectation on the
-   * Sunday lunch page.
+   * Sunday roast page.
    */
   priceLabel: string
   /**

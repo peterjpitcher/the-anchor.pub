@@ -134,7 +134,7 @@ const defaultItems: NavigationItem[] = [
       {
         label: 'Sunday Roast',
         href: '/sunday-lunch',
-        description: 'Sunday lunch details, timings and table bookings.'
+        description: 'Sunday roast details, timings and table bookings.'
       },
       {
         label: 'Stone-Baked Pizza',
@@ -372,7 +372,7 @@ const mobilePriorityTasks: Array<{
   {
     label: 'Sunday Roast',
     href: '/sunday-lunch',
-    description: 'Sunday lunch tables',
+    description: 'Sunday roast tables',
     icon: 'calendar'
   },
   {
