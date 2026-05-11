@@ -17,7 +17,9 @@ import path from 'path'
  */
 describe('/sunday-lunch source order', () => {
   const pagePath = path.resolve(__dirname, '../../app/sunday-lunch/page.tsx')
+  const menuDataPath = path.resolve(__dirname, '../../lib/menu-page-data.ts')
   const source = fs.readFileSync(pagePath, 'utf8')
+  const menuDataSource = fs.readFileSync(menuDataPath, 'utf8')
 
   it('renders <LaunchAnnouncement /> before the <PageTitle> H1', () => {
     const launchIndex = source.indexOf('<LaunchAnnouncement')
@@ -42,5 +44,14 @@ describe('/sunday-lunch source order', () => {
     // into the body, the bridge breaks for cached pages even if the banner
     // is still there.
     expect(source).toContain('<SundayLunchHowItWorks')
+  })
+
+  it('does not expose implementation wording in Sunday lunch menu copy', () => {
+    expect(source).not.toMatch(/available online|shown online/i)
+    expect(menuDataSource).not.toContain('menu API')
+  })
+
+  it('renders Sunday menu sections as cards so item descriptions are visible', () => {
+    expect(menuDataSource).toContain("style: 'grid' as const")
   })
 })

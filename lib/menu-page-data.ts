@@ -359,15 +359,15 @@ function rejectStaleSundayMenu(menu: SundayLunchMenuResponse): string | null {
   const items = [...(menu.mains || []), ...(menu.sides || [])]
 
   if (items.length === 0) {
-    return 'Sunday lunch menu API returned no items.'
+    return 'Sunday lunch menu returned no items.'
   }
 
   if (items.some((item) => /^fallback-/i.test(item.id || ''))) {
-    return 'Sunday lunch menu API returned fallback items.'
+    return 'Sunday lunch menu returned fallback items.'
   }
 
   if (items.some((item) => SUNDAY_RETIRED_PATTERN.test(item.name || ''))) {
-    return 'Sunday lunch menu API returned retired SSOT items.'
+    return 'Sunday lunch menu returned retired items.'
   }
 
   return null
@@ -397,11 +397,12 @@ async function fetchSundayLunchPageData(): Promise<SundayLunchPageData> {
       {
         id: 'sunday-roast-mains',
         title: 'Sunday Roast Mains',
-        description: 'Current Sunday roast mains from the menu API.',
+        description: 'Choose from our current Sunday roast mains.',
         sections: [
           {
             title: 'Sunday Roast Mains',
-            items: mains
+            items: mains,
+            style: 'grid' as const
           }
         ]
       },
@@ -410,11 +411,12 @@ async function fetchSundayLunchPageData(): Promise<SundayLunchPageData> {
             {
               id: 'sunday-roast-sides',
               title: 'Sunday Roast Sides',
-              description: 'Current Sunday roast sides from the menu API.',
+              description: 'Add a little extra to the table.',
               sections: [
                 {
                   title: 'Sunday Roast Sides',
-                  items: sides
+                  items: sides,
+                  style: 'grid' as const
                 }
               ]
             }
@@ -443,7 +445,7 @@ async function fetchSundayLunchPageData(): Promise<SundayLunchPageData> {
       menuData: null,
       mains: [],
       sides: [],
-      unavailableReason: 'Sunday lunch menu API failed.'
+      unavailableReason: 'Sunday lunch menu failed to load.'
     }
   }
 }
@@ -487,7 +489,7 @@ export const getFishAndChipsMenuPageData = cache(async () => {
       {
         id: 'fish-and-chips',
         title: 'Fish and Chips',
-        description: 'Current fish and chip options from the menu API.',
+        description: 'Current fish and chip options at The Anchor.',
         sections: [
           {
             title: 'Fish and Chips',

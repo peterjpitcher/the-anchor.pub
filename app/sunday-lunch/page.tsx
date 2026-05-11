@@ -156,7 +156,7 @@ export default async function SundayLunchPage() {
       <HeroWrapper
         route="/sunday-lunch"
         title="Sunday Roast & Lunch Near Heathrow"
-        description="Sunday lunch is served 1pm-6pm. Current dishes and prices are shown when available online."
+        description="Sunday lunch is served 1pm-6pm. Current dishes and prices are listed below."
         eyebrow="The Anchor, Stanwell Moor"
         lead={
           <p className="text-white/90 text-base sm:text-lg">
@@ -210,7 +210,7 @@ export default async function SundayLunchPage() {
             Sunday Roast &amp; Lunch Near Heathrow at The Anchor
           </PageTitle>
           <p className="mt-4 text-center text-lg text-anchor-cream-text/70 max-w-3xl mx-auto">
-            Sunday lunch is served every Sunday from 1pm to 6pm. Walk-ins are welcome, booking is recommended for busier slots, and current dishes are shown here when available online.
+            Sunday lunch is served every Sunday from 1pm to 6pm. Walk-ins are welcome, booking is recommended for busier slots, and the current dishes are listed below.
           </p>
           <ul
             aria-label="At a glance"
@@ -231,7 +231,7 @@ export default async function SundayLunchPage() {
         <Container>
           <SectionHeader
             title="Current Sunday Lunch Menu"
-            subtitle={sundayMenu.menuData ? 'From the current Sunday lunch menu.' : 'Call us for the current Sunday dish list.'}
+            subtitle={sundayMenu.menuData ? 'Choose from our current Sunday lunch menu.' : 'Call us for the current Sunday dish list.'}
             align="center"
           />
 
@@ -244,7 +244,7 @@ export default async function SundayLunchPage() {
               className="mx-auto max-w-3xl"
             >
               <p className="text-anchor-cream-text/70">
-                The current Sunday dish list is temporarily unavailable online. Please call{' '}
+                The current Sunday lunch menu is temporarily unavailable. Please call{' '}
                 <PhoneLink
                   phone="01753 682707"
                   source="sunday_lunch_menu_unavailable"
@@ -329,7 +329,7 @@ export default async function SundayLunchPage() {
                     <tr className="border-t border-anchor-gold/10">
                       <th scope="row" className="px-4 py-3 font-semibold align-top text-anchor-cream-text">Menu details</th>
                       <td className="px-4 py-3 align-top">Check with the venue</td>
-                      <td className="px-4 py-3 align-top">Shown online when available, or confirmed by phone</td>
+                      <td className="px-4 py-3 align-top">Current dishes listed above, or confirmed by phone</td>
                     </tr>
                   </tbody>
                 </table>
