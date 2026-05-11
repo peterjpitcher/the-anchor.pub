@@ -1,6 +1,6 @@
 ---
 generated: true
-last_updated: 2026-05-10T00:00:00Z
+last_updated: 2026-05-11T00:00:00Z
 source: session-setup
 project: the-anchor-pub
 ---
@@ -13,17 +13,18 @@ project: the-anchor-pub
 
 | Document | Description | Last Updated |
 |----------|------------|-------------|
-| [[overview]] | Project summary, stack, key counts, auth model, integrations | 2026-05-10 |
-| [[routes]] | Full route table: 33 API routes, ~108 page routes, middleware | 2026-05-10 |
-| [[server-actions]] | Server action inventory (none -- mutations via API routes) | 2026-05-10 |
-| [[data-model]] | Data model notes, API client architecture, supporting utilities | 2026-05-10 |
-| [[relationships]] | Cross-reference map: routes to APIs, integrations to files, env vars | 2026-05-10 |
+| [[overview]] | Project summary, stack, key counts, auth model, integrations | 2026-05-11 |
+| [[routes]] | Full route table: 38 API routes, 117 page routes, middleware | 2026-05-11 |
+| [[server-actions]] | Server action inventory (none -- mutations via API routes) | 2026-05-11 |
+| [[data-model]] | Data model notes, API client architecture, AnchorAPI methods, supporting utilities | 2026-05-11 |
+| [[relationships]] | Cross-reference map: routes to APIs, integrations to files, env vars to files | 2026-05-11 |
 
 ## Quick Stats
 
-- **Page routes:** ~108
-- **API routes:** 33 (all proxy to management API)
+- **Page routes:** 117
+- **API routes:** 38 (37 in `app/api/` + 1 in `app/content/`)
 - **Server actions:** 0
 - **Layouts:** 2
-- **Key integrations:** Management API, PayPal, Microsoft Graph, Cloudflare Turnstile, AviationStack, GTM, Meta Pixel, Clarity, CheersAI
+- **Environment variables:** 20 (9 public, 11 server-side)
+- **Key integrations:** Management API, PayPal, Microsoft Graph, Cloudflare Turnstile, AviationStack, CheersAI Feed, GTM, Meta Pixel, Clarity, CheersAI Conversions
 - **Auth model:** No user auth; API key proxy pattern only

@@ -26,7 +26,7 @@
   },
   {
     "source": "/join-the-team",
-    "destination": "/",
+    "destination": "/join-our-team",
     "permanent": true
   },
   {
@@ -296,7 +296,7 @@
   },
   {
     "source": "/post/pub-jobs-near-heathrow",
-    "destination": "/blog/pub-jobs-heathrow",
+    "destination": "/join-our-team",
     "permanent": true
   },
   {
@@ -431,7 +431,7 @@
   },
   {
     "source": "/post/bar-staff-wanted",
-    "destination": "/blog/pub-jobs-heathrow",
+    "destination": "/join-our-team",
     "permanent": true
   },
   {

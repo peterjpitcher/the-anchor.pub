@@ -67,7 +67,21 @@ export default function PrivacyPolicyPage() {
             <li>Referring website addresses</li>
           </ul>
 
-          <h2>3. How We Use Your Information</h2>
+          <h2>3. Job Applications</h2>
+          <p>
+            When you apply for a position through our Join Our Team page, we collect your name, email address, phone number, the role you are interested in, a summary of your experience, and optionally a CV.
+          </p>
+          <p>
+            We use this information solely to assess your suitability for the role and to contact you about your application. Applications are sent by email to our hiring manager. CVs are attached to that email and are not stored on the website server.
+          </p>
+          <p>
+            If your application is unsuccessful, we delete your personal data within 6 months unless you ask us to keep it on file for future opportunities.
+          </p>
+          <p>
+            The legal basis for processing this data is our legitimate interests in recruitment, combined with the consent you give when submitting the application form.
+          </p>
+
+          <h2>4. How We Use Your Information</h2>
           <p>We use the information we collect to:</p>
           <ul>
             <li>Process your bookings and reservations</li>
@@ -77,7 +91,7 @@ export default function PrivacyPolicyPage() {
             <li>Comply with legal obligations</li>
           </ul>
 
-          <h2>4. Cookie Policy</h2>
+          <h2>5. Cookie Policy</h2>
           <p>
             We use cookies and similar tracking technologies to improve your browsing experience on our website. Cookies are small data files stored on your device.
           </p>
@@ -109,7 +123,7 @@ export default function PrivacyPolicyPage() {
             You can control and manage cookies through your browser settings. Please note that removing or blocking cookies may impact your user experience and parts of our website may no longer be fully accessible.
           </p>
 
-          <h2>5. Third-Party Services</h2>
+          <h2>6. Third-Party Services</h2>
           <p>
             We use the following third-party services that may collect data:
           </p>
@@ -121,12 +135,12 @@ export default function PrivacyPolicyPage() {
             <li><strong>Booking Systems</strong> - For table reservations</li>
           </ul>
 
-          <h2>6. Data Security</h2>
+          <h2>7. Data Security</h2>
           <p>
             We implement appropriate technical and organizational security measures to protect your personal information against accidental or unlawful destruction, loss, alteration, unauthorized disclosure, or access.
           </p>
 
-          <h2>7. Your Rights</h2>
+          <h2>8. Your Rights</h2>
           <p>Under UK data protection law, you have rights including:</p>
           <ul>
             <li>The right to access your personal data</li>
@@ -137,17 +151,17 @@ export default function PrivacyPolicyPage() {
             <li>The right to object to processing</li>
           </ul>
 
-          <h2>8. Children's Privacy</h2>
+          <h2>9. Children&apos;s Privacy</h2>
           <p>
             Our website is not intended for children under 18 years of age. We do not knowingly collect personal information from children under 18.
           </p>
 
-          <h2>9. Changes to This Policy</h2>
+          <h2>10. Changes to This Policy</h2>
           <p>
             We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last updated" date.
           </p>
 
-          <h2>10. Contact Us</h2>
+          <h2>11. Contact Us</h2>
           <p>
             If you have any questions about this Privacy Policy or our privacy practices, please contact us:
           </p>
@@ -162,7 +176,7 @@ export default function PrivacyPolicyPage() {
             Phone: <PhoneLink phone="01753 682707" source="privacy_policy" />
           </address>
 
-          <h2>11. Complaints</h2>
+          <h2>12. Complaints</h2>
           <p>
             If you're not satisfied with our response to your privacy concerns, you have the right to lodge a complaint with the Information Commissioner's Office (ICO):
           </p>

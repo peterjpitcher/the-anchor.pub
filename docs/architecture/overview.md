@@ -1,6 +1,6 @@
 ---
 generated: true
-last_updated: 2026-05-10T00:00:00Z
+last_updated: 2026-05-11T00:00:00Z
 source: session-setup
 project: the-anchor-pub
 ---
@@ -19,8 +19,7 @@ The Anchor pub website is a **customer-facing marketing and booking site** built
 |-------|-----------|
 | Framework | Next.js 14 (App Router) |
 | Language | TypeScript (strict) |
-| Styling | Tailwind CSS 3 + CVA (class-variance-authority) |
-| Date handling | Luxon |
+| Styling | Tailwind CSS + CVA (class-variance-authority) |
 | Validation | Zod |
 | Anti-spam | Cloudflare Turnstile |
 | Payments | PayPal (inline checkout for deposits/parking) |
@@ -34,11 +33,11 @@ The Anchor pub website is a **customer-facing marketing and booking site** built
 
 | Asset | Count |
 |-------|-------|
-| Page routes | ~108 |
-| API routes | 33 |
+| Page routes | 117 |
+| API routes | 38 (37 in `app/api/` + 1 in `app/content/`) |
 | Server actions | 0 |
 | Layouts | 2 (`app/layout.tsx`, `app/private-hire/layout.tsx`) |
-| lib/api modules | 10 (shared, private-bookings, events, menu, hours, bookings, parking, client, catering-packages, index) |
+| lib/api modules | 10 (client, shared, bookings, events, hours, menu, parking, private-bookings, catering-packages, index) |
 
 ## Auth Model
 
@@ -80,10 +79,11 @@ See [[relationships]] for the full cross-reference map.
 | Microsoft Graph | Christmas enquiry emails | `app/api/enquiry/christmas/route.ts` |
 | Cloudflare Turnstile | Anti-spam on forms | `lib/turnstile.ts`, `@marsidev/react-turnstile` |
 | AviationStack | Heathrow flight data for parking feature | `lib/flights.ts` |
+| CheersAI Feed | World Cup 2026 fixture data | `lib/world-cup-2026.ts` |
 | Google Tag Manager | Analytics tracking | `app/layout.tsx`, `lib/gtm-events.ts` |
 | Meta Pixel | Booking conversion tracking | `lib/meta-pixel.ts` |
 | Microsoft Clarity | Session recording/heatmaps | `lib/use-clarity.ts` |
-| CheersAI | Booking conversion forwarding | `lib/booking-conversion-forwarding.ts` |
+| CheersAI Conversions | Booking conversion forwarding | `lib/booking-conversion-forwarding.ts` |
 
 ## Related Docs
 

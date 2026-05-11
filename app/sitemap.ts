@@ -108,6 +108,7 @@ const DATES = {
   launch: new Date('2025-06-01'),       // Original site launch pages
   seoOverhaul: new Date('2026-03-22'),  // SEO overhaul batch
   apr2026: new Date('2026-04-21'),      // April 2026 additions
+  careers: new Date('2026-05-11'),      // Join Our Team recruitment pages
 } as const
 
 type StaticRoute = { path: string; lastModified: Date }
@@ -230,6 +231,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/wraysbury-pub', lastModified: DATES.apr2026 },
     { path: '/pubs-in-stanwell', lastModified: DATES.apr2026 },
 
+    // Careers
+    { path: '/join-our-team', lastModified: DATES.careers },
+    { path: '/join-our-team/bar-staff', lastModified: DATES.careers },
+    { path: '/join-our-team/kitchen-team', lastModified: DATES.careers },
+
     // Footer / legal
     { path: '/sitemap-page', lastModified: DATES.launch },
     { path: '/privacy-policy', lastModified: DATES.launch },
@@ -248,7 +254,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     'best-places-to-eat-near-heathrow',
     'best-pub-food-near-heathrow',
     // Cannibalises /sunday-lunch, 301 redirected via additional-redirects.json.
-    'sunday-lunch-at-the-anchor-is-back-pre-order-now'
+    'sunday-lunch-at-the-anchor-is-back-pre-order-now',
+    'pub-jobs-heathrow',
   ])
   const indexableBlogPosts = blogPosts.filter((post) => !excludedBlogSlugs.has(post.slug) && !post.noindex)
 

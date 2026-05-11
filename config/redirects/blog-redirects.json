@@ -186,7 +186,7 @@
   },
   {
     "source": "/blog/pub-jobs-near-heathrow-bar-staff-and-sunday-runner",
-    "destination": "/blog/pub-jobs-heathrow",
+    "destination": "/join-our-team",
     "permanent": true
   },
   {
@@ -601,7 +601,12 @@
   },
   {
     "source": "/post/pub-jobs-near-heathrow-bar-staff-and-sunday-runner",
-    "destination": "/blog/pub-jobs-heathrow",
+    "destination": "/join-our-team",
+    "permanent": true
+  },
+  {
+    "source": "/blog/pub-jobs-heathrow",
+    "destination": "/join-our-team",
     "permanent": true
   },
   {

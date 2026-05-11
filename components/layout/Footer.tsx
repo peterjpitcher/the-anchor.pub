@@ -368,6 +368,22 @@ export function Footer({
               </details>
             )}
           </div>
+          <div className="mt-6">
+            <Link
+              href="/join-our-team"
+              className="block w-full rounded-lg border border-anchor-gold/40 bg-anchor-gold/10 px-4 py-3 text-center text-base font-semibold text-anchor-gold-vivid hover:bg-anchor-gold/20 transition-colors"
+              onClick={() => trackNavigationClick({
+                label: 'Join Our Team',
+                url: '/join-our-team',
+                level: 'main',
+                deviceType: 'mobile',
+                isExternal: false,
+                location: 'footer'
+              })}
+            >
+              We&apos;re Hiring &mdash; Join Our Team
+            </Link>
+          </div>
         </div>
 
         <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-8 mb-8">
@@ -486,6 +502,24 @@ export function Footer({
               </ul>
             </div>
           )}
+
+          {/* Hiring CTA */}
+          <div className="col-span-full mt-4">
+            <Link
+              href="/join-our-team"
+              className="inline-flex items-center gap-2 rounded-lg border border-anchor-gold/40 bg-anchor-gold/10 px-5 py-2.5 text-sm font-semibold text-anchor-gold-vivid hover:bg-anchor-gold/20 transition-colors"
+              onClick={() => trackNavigationClick({
+                label: 'Join Our Team',
+                url: '/join-our-team',
+                level: 'main',
+                deviceType: 'desktop',
+                isExternal: false,
+                location: 'footer'
+              })}
+            >
+              We&apos;re Hiring &mdash; Join Our Team
+            </Link>
+          </div>
         </div>
 
         {/* Copyright */}

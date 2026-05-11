@@ -35,6 +35,7 @@ const DEFAULT_HEADER_IMAGE_ALLOWED_ROUTES = new Set([
   '/heathrow-family-dining',
   '/heathrow-layover-dining',
   '/horton-pub',
+  '/join-our-team',
   '/karaoke',
   '/live-music',
   '/live-sport',

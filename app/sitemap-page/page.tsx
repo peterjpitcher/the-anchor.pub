@@ -48,6 +48,7 @@ const sitemapSections: SitemapSection[] = [
       { label: 'Book a Table', href: '/book-table' },
       { label: 'Private Hire & Events', href: '/private-hire' },
       { label: 'Sitemap', href: '/sitemap-page' },
+      { label: 'Join Our Team', href: '/join-our-team' },
     ]
   },
   {
