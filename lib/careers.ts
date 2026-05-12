@@ -196,6 +196,12 @@ export function buildJobPostingSchema(role: CareerRole): Record<string, unknown>
     },
     qualifications: role.requirements.join(' '),
     responsibilities: role.responsibilities.join(' '),
+    jobBenefits: [
+      'Free staff parking on site',
+      'Training provided (Level 2 Food Hygiene, Health and Safety, COSHH)',
+      'Shifts planned up to two months in advance',
+      'Overtime available',
+    ].join(', '),
   }
 
   if (role.pay.baseHourly && role.pay.holidayPayRolledUp) {

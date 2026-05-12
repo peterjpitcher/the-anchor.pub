@@ -86,3 +86,4 @@ temp/
 # Prevent accidental website folder creation
 website/
 .claude/session-context.md
+.claude/launch.json

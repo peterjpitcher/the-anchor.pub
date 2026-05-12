@@ -56,6 +56,29 @@ export default async function CareerRolePage({ params }: Props): Promise<React.J
   }
 
   const jobPostingSchema = buildJobPostingSchema(role)
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: 'https://www.the-anchor.pub/',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Join Our Team',
+        item: 'https://www.the-anchor.pub/join-our-team',
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: role.title,
+      },
+    ],
+  }
   const payDisplay = formatCareerPay(role)
 
   const isBarStaff = role.slug === 'bar-staff'
@@ -66,6 +89,7 @@ export default async function CareerRolePage({ params }: Props): Promise<React.J
   return (
     <>
       <JsonLd data={jobPostingSchema} />
+      <JsonLd data={breadcrumbSchema} />
 
       {/* Hero */}
       <HeroWrapper
