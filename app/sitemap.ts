@@ -252,7 +252,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     'best-places-to-eat-near-heathrow',
     'best-pub-food-near-heathrow',
     // Cannibalises /sunday-lunch, 301 redirected via additional-redirects.json.
-    'sunday-lunch-at-the-anchor-is-back-pre-order-now'
+    'sunday-lunch-at-the-anchor-is-back-pre-order-now',
+    'pub-jobs-heathrow',
   ])
   const indexableBlogPosts = blogPosts.filter((post) => !excludedBlogSlugs.has(post.slug) && !post.noindex)
 

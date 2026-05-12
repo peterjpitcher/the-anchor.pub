@@ -142,7 +142,18 @@ export default async function WorldCupPage() {
         title="Watch FIFA World Cup 2026 Near Heathrow"
         description="World Cup 2026 fixtures • UK kick-off times • 4 screens • Sound on • Free parking near Terminal 5."
         variant="default"
-        enableSmartCtas={true}
+        primaryCta={
+          <BookTableButton source="world_cup_hero" variant="primary" size="lg" className="w-full sm:min-w-[200px]">
+            Book a Table
+          </BookTableButton>
+        }
+        secondaryCta={
+          <Link href="/menus">
+            <Button variant="secondary" size="lg" className="w-full sm:min-w-[200px]">
+              View Menu
+            </Button>
+          </Link>
+        }
         showContextStrip={true}
       />
 

@@ -431,6 +431,25 @@ export default function AboutPage() {
         ]}
       />
 
+      {/* Hiring Callout */}
+      <Section background="dark" spacing="md" className="bg-anchor-bg border-b border-anchor-gold/15">
+        <Container>
+          <div className="max-w-3xl mx-auto text-center">
+            <p className="text-lg text-anchor-cream-text/80 leading-relaxed">
+              Interested in joining our team? We are looking for experienced bar staff and kitchen
+              team members.{' '}
+              <Link
+                href="/join-our-team"
+                className="text-anchor-gold-vivid hover:text-anchor-gold font-semibold underline underline-offset-4"
+              >
+                Find out more
+              </Link>
+              .
+            </p>
+          </div>
+        </Container>
+      </Section>
+
       {/* CTA Section */}
       <section className="bg-gradient-to-br from-anchor-green to-anchor-green/90 py-16 md:py-24">
         <Container>

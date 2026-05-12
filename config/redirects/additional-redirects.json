@@ -412,7 +412,7 @@
   },
   {
     "source": "/join-the-team",
-    "destination": "/",
+    "destination": "/join-our-team",
     "permanent": true
   },
   {

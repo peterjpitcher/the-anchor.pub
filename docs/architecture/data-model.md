@@ -1,6 +1,6 @@
 ---
 generated: true
-last_updated: 2026-05-10T00:00:00Z
+last_updated: 2026-05-11T00:00:00Z
 source: session-setup
 project: the-anchor-pub
 ---
@@ -32,6 +32,28 @@ The API client lives in `lib/api/` and is organised into domain modules:
 
 The singleton API client is exported as `anchorAPI` from `lib/api/client.ts`.
 
+### Key AnchorAPI Methods
+
+| Method | Purpose |
+|--------|---------|
+| `getBusinessHours()` | Opening hours with special hours overrides |
+| `getEvents(params)` | List events with filtering |
+| `getEvent(idOrSlug)` | Single event detail |
+| `getTodaysEvents(status)` | Events scheduled for today |
+| `getEventCategories()` | Event category list |
+| `getMenu()` | Full food menu |
+| `getMenuSpecials()` | Daily specials |
+| `getDietaryMenu(type)` | Filtered dietary menus |
+| `getSundayLunchMenu(date)` | Sunday roast menu |
+| `createTableBooking(data)` | Create a table booking |
+| `getTableBooking(reference)` | Look up booking by reference |
+| `getParkingRates()` | Parking rate card |
+| `getParkingAvailability(params)` | Available parking slots |
+| `createParkingBooking(data)` | Create parking booking |
+| `getParkingBooking(id)` | Get parking booking details |
+| `createParkingPaymentOrder(data)` | PayPal order for parking |
+| `getAmenities()` | Venue amenities |
+
 ## Data Flow
 
 ```
@@ -60,6 +82,7 @@ Data types are defined within each `lib/api/*.ts` module. Key types include:
 - **TableAvailabilitySlot** -- Bookable time slots
 - **Event** -- Event listing with availability, pricing, categories
 - **ParkingAvailability** -- Parking slot availability and rates
+- **SundayLunchMenuResponse** -- Sunday roast menu with items and prices
 
 ## Supporting Utilities
 
@@ -74,6 +97,7 @@ Data types are defined within each `lib/api/*.ts` module. Key types include:
 | `lib/event-booking-experience.ts` | Booking experience logic |
 | `lib/managers-special.ts` | Manager's Special feature logic |
 | `lib/turnstile.ts` | Cloudflare Turnstile verification |
+| `lib/world-cup-2026.ts` | CheersAI fixture feed for World Cup 2026 |
 
 ## Related Docs
 

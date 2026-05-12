@@ -1,6 +1,6 @@
 ---
 generated: true
-last_updated: 2026-05-10T00:00:00Z
+last_updated: 2026-05-11T00:00:00Z
 source: session-setup
 project: the-anchor-pub
 ---
@@ -63,7 +63,7 @@ Env vars: `MICROSOFT_TENANT_ID`, `MICROSOFT_CLIENT_ID`, `MICROSOFT_CLIENT_SECRET
 | Meta Pixel | `lib/meta-pixel.ts` | `app/api/tracking/booking-conversion/route.ts` | `NEXT_PUBLIC_META_PIXEL_ID` |
 | Microsoft Clarity | `lib/use-clarity.ts` | -- | `NEXT_PUBLIC_CLARITY_PROJECT_ID` |
 | Web Vitals | -- | `app/api/web-vitals/route.ts` | -- |
-| CheersAI | -- | `lib/booking-conversion-forwarding.ts` | `CHEERSAI_BOOKING_CONVERSIONS_URL`, `CHEERSAI_BOOKING_CONVERSIONS_SECRET` |
+| CheersAI Conversions | -- | `lib/booking-conversion-forwarding.ts` | `CHEERSAI_BOOKING_CONVERSIONS_URL`, `CHEERSAI_BOOKING_CONVERSIONS_SECRET` |
 | Analytics (custom) | `lib/analytics.ts` | `app/api/analytics/route.ts` | `NEXT_PUBLIC_ANALYTICS_DEBUG` |
 
 ## Anti-Spam Integration
@@ -80,7 +80,8 @@ Used on: table booking form, event booking form, private hire enquiry form.
 | Service | File | Env Var | Purpose |
 |---------|------|---------|---------|
 | AviationStack | `lib/flights.ts` | `NEXT_PUBLIC_AVIATIONSTACK_API_KEY` | Heathrow flight data for parking feature |
-| OpenWeatherMap | (component) | `NEXT_PUBLIC_OPENWEATHERMAP_API_KEY` | Weather display |
+| OpenWeatherMap | (component) | `OPENWEATHER_API_KEY` | Weather display |
+| CheersAI Feed | `lib/world-cup-2026.ts` | `CHEERSAI_FEED_API_KEY` | World Cup 2026 fixture data |
 
 ## lib/api Module to Route Map
 
@@ -105,21 +106,24 @@ Used on: table booking form, event booking form, private hire enquiry form.
 | What's On (`/whats-on`) | `/api/events`, `/api/calendar/upcoming` |
 | Food Menu (`/food-menu*`) | `/api/managers-special` (Manager's Special widget) |
 | Reviews (`/reviews`) | `/api/reviews`, `/api/reviews/status` |
+| World Cup (`/live-sport/world-cup`) | CheersAI Feed (via `lib/world-cup-2026.ts`) |
 | All pages (StatusBar) | `/api/business/hours` |
 
 ## Environment Variable to File Map
 
-See [[overview]] for the full env var table. Key mappings:
-
 | Env Var | Scope | Files |
 |---------|-------|-------|
 | `ANCHOR_API_KEY` | Server | `lib/api/client.ts`, 8+ API route files |
+| `ANCHOR_API_BASE_URL` | Server | `lib/api/client.ts` (optional, defaults to production) |
 | `NEXT_PUBLIC_GTM_ID` | Public | `app/layout.tsx` |
 | `NEXT_PUBLIC_META_PIXEL_ID` | Public | `lib/meta-pixel.ts` |
 | `NEXT_PUBLIC_CLARITY_PROJECT_ID` | Public | `lib/use-clarity.ts` |
 | `NEXT_PUBLIC_AVIATIONSTACK_API_KEY` | Public | `lib/flights.ts` |
+| `NEXT_PUBLIC_GA_MEASUREMENT_ID` | Public | Declared in `.env.example` (not used in code) |
 | `NEXT_PUBLIC_PAYPAL_CLIENT_ID` | Public | PayPal components |
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Public | Turnstile components |
+| `NEXT_PUBLIC_ANALYTICS_DEBUG` | Public | `lib/analytics.ts` |
+| `OPENWEATHER_API_KEY` | Server | Declared in `.env.example` (not referenced in app/lib) |
 | `TURNSTILE_SECRET_KEY` | Server | `lib/turnstile.ts` |
 | `MICROSOFT_TENANT_ID` | Server | `app/api/enquiry/christmas/route.ts` |
 | `MICROSOFT_CLIENT_ID` | Server | `app/api/enquiry/christmas/route.ts` |
@@ -128,7 +132,7 @@ See [[overview]] for the full env var table. Key mappings:
 | `MS_PREVIEW_TOKEN` | Server | `app/api/managers-special/route.ts`, `app/drinks/managers-special/page.tsx` |
 | `CHEERSAI_BOOKING_CONVERSIONS_URL` | Server | `lib/booking-conversion-forwarding.ts` |
 | `CHEERSAI_BOOKING_CONVERSIONS_SECRET` | Server | `lib/booking-conversion-forwarding.ts` |
-| `NEXT_PUBLIC_OPENWEATHERMAP_API_KEY` | Public | Weather component |
+| `CHEERSAI_FEED_API_KEY` | Server | `lib/world-cup-2026.ts` |
 
 ## Related Docs
 
