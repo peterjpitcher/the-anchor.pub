@@ -47,7 +47,16 @@ const sitemapSections: SitemapSection[] = [
       { label: 'Find Us', href: '/find-us' },
       { label: 'Book a Table', href: '/book-table' },
       { label: 'Private Hire & Events', href: '/private-hire' },
+      { label: 'Join Our Team', href: '/join-our-team' },
       { label: 'Sitemap', href: '/sitemap-page' },
+    ]
+  },
+  {
+    title: 'Jobs at The Anchor',
+    links: [
+      { label: 'Join Our Team', href: '/join-our-team' },
+      { label: 'Bar Staff Jobs Near Heathrow', href: '/join-our-team/bar-staff' },
+      { label: 'Kitchen Jobs Near Heathrow', href: '/join-our-team/kitchen-team' },
     ]
   },
   {

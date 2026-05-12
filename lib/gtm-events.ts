@@ -603,6 +603,21 @@ export function trackFormComplete(form: FormEventInput) {
   })
 }
 
+export function trackRecruitmentApplicationSubmitted(data: {
+  role?: string
+  availabilityCount?: number
+  relevantExperience?: string
+  startDate?: string
+}) {
+  pushToDataLayer({
+    event: 'recruitment_application_submitted',
+    job_role: safeText(data.role),
+    availability_count: data.availabilityCount,
+    relevant_experience_answer: safeText(data.relevantExperience),
+    start_date_answer: safeText(data.startDate)
+  }, { sendToApi: true })
+}
+
 export function trackFormAbandon(form: FormEventInput, lastField?: string) {
   const { name, metadata } = normaliseFormEvent(form)
 

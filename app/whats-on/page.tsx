@@ -583,7 +583,11 @@ export default async function WhatsOnPage() {
         <Container>
           <InternalLinkingSection
             title="Discover More at The Anchor"
-            links={[...commonLinkGroups.dining, { href: '/blog', title: 'Latest News', description: 'Updates and announcements' }]}
+            links={[
+              ...commonLinkGroups.dining,
+              { href: '/join-our-team', title: "We're Hiring", description: 'Bar and kitchen jobs near Heathrow' },
+              { href: '/blog', title: 'Latest News', description: 'Updates and announcements' }
+            ]}
           />
         </Container>
       </Section>

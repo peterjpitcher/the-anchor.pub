@@ -539,6 +539,13 @@ export default async function FoodMenuPage() {
                 <li>&bull; 11 minutes to Terminals 2 and 3 avoiding car-park queues.</li>
                 <li>&bull; Free on-site parking with downloadable receipts.</li>
                 <li>&bull; Book ahead for groups and busy weekend slots.</li>
+                <li>
+                  &bull; Interested in part-time kitchen jobs near Heathrow?{' '}
+                  <Link href="/join-our-team" className="font-semibold text-anchor-gold-vivid hover:text-anchor-gold-bright">
+                    Join our team
+                  </Link>
+                  .
+                </li>
               </ul>
             </CardBody>
           </Card>

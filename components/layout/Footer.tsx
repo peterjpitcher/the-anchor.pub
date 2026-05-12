@@ -60,6 +60,7 @@ const defaultSections: FooterSection[] = [
       { label: 'Drinks Menu', href: '/drinks' },
       { label: "Manager's Special", href: '/drinks/managers-special' },
       { label: 'Private Hire & Events', href: '/private-hire' },
+      { label: 'Join Our Team', href: '/join-our-team' },
       { label: 'Sitemap', href: '/sitemap-page' }
     ]
   },

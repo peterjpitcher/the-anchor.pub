@@ -278,6 +278,11 @@ const defaultItems: NavigationItem[] = [
         description: 'What to expect when you visit The Anchor.'
       },
       {
+        label: 'Join Our Team',
+        href: '/join-our-team',
+        description: 'Bar and kitchen jobs near Heathrow.'
+      },
+      {
         label: 'Beer Garden',
         href: '/beer-garden',
         description: 'Outdoor tables under the Heathrow flight path.'

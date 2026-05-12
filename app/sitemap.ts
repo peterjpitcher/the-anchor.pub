@@ -108,6 +108,7 @@ const DATES = {
   launch: new Date('2025-06-01'),       // Original site launch pages
   seoOverhaul: new Date('2026-03-22'),  // SEO overhaul batch
   apr2026: new Date('2026-04-21'),      // April 2026 additions
+  may2026: new Date('2026-05-12'),      // Recruitment pages
 } as const
 
 type StaticRoute = { path: string; lastModified: Date }
@@ -122,6 +123,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/about', lastModified: DATES.launch },
     { path: '/blog', lastModified: DATES.apr2026 },
     { path: '/blog/tags', lastModified: DATES.seoOverhaul },
+    { path: '/join-our-team', lastModified: DATES.may2026 },
+    { path: '/join-our-team/bar-staff', lastModified: DATES.may2026 },
+    { path: '/join-our-team/kitchen-team', lastModified: DATES.may2026 },
     { path: '/food-menu', lastModified: DATES.apr2026 },
     { path: '/food-menu/vegetarian', lastModified: DATES.seoOverhaul },
     { path: '/food-menu/vegan', lastModified: DATES.seoOverhaul },

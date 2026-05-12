@@ -466,6 +466,15 @@ export default function FindUsPage() {
                 >
                   Call: 01753 682707
                 </PhoneButton>
+                <Link href="/join-our-team">
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="!bg-transparent !text-white !border-white hover:!bg-white/10"
+                  >
+                    Join Our Team
+                  </Button>
+                </Link>
               </div>
 
               {/* Quick Info */}

@@ -680,6 +680,7 @@ export default async function PrivateHirePage() {
                     { href: '/our-pub', title: 'See Inside The Anchor', description: 'Photos of the bar, dining room, garden and games area' },
                     { href: '/function-room-hire', title: 'Function Room Hire', description: 'Room bookings for 10-50 guests; larger events by enquiry' },
                     { href: '/corporate-events', title: 'Corporate Events', description: 'Professional meeting rooms and business event packages' },
+                    { href: '/join-our-team', title: 'Work at The Anchor', description: 'Bar and kitchen jobs near Heathrow' },
                 ]}
                 className="section-spacing-md"
             />

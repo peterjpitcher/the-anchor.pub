@@ -242,6 +242,14 @@ export default function HomePage() {
                 </Link>
               ))}
             </div>
+            <div className="mt-5 rounded-lg border border-anchor-gold/20 bg-anchor-bg px-5 py-4 text-center">
+              <p className="text-sm text-anchor-cream-text/70">
+                We are hiring experienced bar and kitchen team members for part-time pub jobs near Heathrow.
+                <Link href="/join-our-team" className="ml-2 font-semibold text-anchor-gold-vivid hover:text-anchor-gold-bright">
+                  Join our team
+                </Link>
+              </p>
+            </div>
           </div>
         </Container>
       </section>
