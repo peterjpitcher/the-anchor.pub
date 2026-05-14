@@ -1,3 +1,5 @@
+import { CONTACT } from '@/lib/constants'
+
 export const PRIVATE_HIRE_2026_PROMO_ID = 'private_hire_2026_prosecco'
 
 // 1 March 2026 00:00 UK time (GMT) == 1 March 2026 00:00 UTC.
@@ -17,8 +19,8 @@ export const PRIVATE_HIRE_2026_PROMO_ENABLED =
   process.env.NEXT_PUBLIC_PRIVATE_HIRE_2026_PROMO_ENABLED !== 'false'
 
 export const PRIVATE_HIRE_2026_PROMO_CTA_HREF = '/private-hire#enquiry'
-export const PRIVATE_HIRE_2026_PROMO_PHONE = '01753 682707'
-export const PRIVATE_HIRE_2026_PROMO_PHONE_HREF = 'tel:+441753682707'
+export const PRIVATE_HIRE_2026_PROMO_PHONE = CONTACT.phone
+export const PRIVATE_HIRE_2026_PROMO_PHONE_HREF = CONTACT.phoneHref
 
 // Optional hero image for the popup (stored in /public).
 // Replace this with a dedicated promo image when available.

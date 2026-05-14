@@ -3,6 +3,7 @@
  */
 
 import { trackError } from '@/lib/gtm-events'
+import { CONTACT } from '@/lib/constants'
 
 export interface ErrorContext {
   feature: 'events' | 'booking' | 'flights' | 'hours' | 'business-hours' | 'general'
@@ -161,9 +162,9 @@ export function isRecoverableError(error: unknown): boolean {
  * Format contact information consistently
  */
 export const CONTACT_INFO = {
-  phone: '01753 682707',
-  phoneFormatted: '01753 682707',
-  phoneLink: 'tel:+441753682707',
+  phone: CONTACT.phone,
+  phoneFormatted: CONTACT.phone,
+  phoneLink: CONTACT.phoneHref,
   getCallToAction: (context?: string) => {
     if (context === 'booking') {
       return `Call us at ${CONTACT_INFO.phone} and we'll help you right away`

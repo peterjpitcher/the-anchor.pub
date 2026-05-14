@@ -3,6 +3,7 @@ import { Metadata } from 'next'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { Container, Section, SectionHeader, FeatureGrid, InfoBoxGrid, Button, AlertBox } from '@/components/ui'
 import { PhoneButton } from '@/components/PhoneButton'
+import { PhoneLink } from '@/components/PhoneLink'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
@@ -401,7 +402,7 @@ export default async function WakesPage() {
                             We can have the private dining room set and ready before you arrive from the service. Whether you need space for a small, intimate gathering or up to 50 guests, we will prepare the room accordingly. Our staff understand that timings after a cremation can be unpredictable, and we will always accommodate a slightly later start without fuss.
                         </p>
                         <p className="text-anchor-cream-text/70">
-                            If you are travelling from the Slough or Langley area, we are easily reached via the M25 junction 14. There is no need to navigate central Staines or Heathrow traffic, the approach from the north is straightforward and signposted. Call us on <a href="tel:+441753682707" className="text-anchor-gold hover:underline">01753 682707</a> to discuss arrangements, and we will take care of the rest.
+                            If you are travelling from the Slough or Langley area, we are easily reached via the M25 junction 14. There is no need to navigate central Staines or Heathrow traffic, the approach from the north is straightforward and signposted. Call us on <PhoneLink phone={CONTACT.phone} source="wakes_slough" className="text-anchor-gold hover:underline" showIcon={false} /> to discuss arrangements, and we will take care of the rest.
                         </p>
                     </div>
                 </Container>
@@ -418,7 +419,7 @@ export default async function WakesPage() {
                             Families travelling from Staines will find our location in Stanwell Moor easy to reach by car or taxi. For guests using public transport, there are bus services connecting Staines town centre to Stanwell Moor. Our 20-space car park is free for all guests, and there is additional unrestricted street parking nearby for larger gatherings.
                         </p>
                         <p className="text-anchor-cream-text/70">
-                            We welcome families from Staines, Ashford, Laleham, and Shepperton who are looking for a quiet, private venue after a service at Staines Cemetery. Our team is accustomed to arranging wakes at short notice, and we will do everything we can to support you. Please call us on <a href="tel:+441753682707" className="text-anchor-gold hover:underline">01753 682707</a>, there is always someone here to help.
+                            We welcome families from Staines, Ashford, Laleham, and Shepperton who are looking for a quiet, private venue after a service at Staines Cemetery. Our team is accustomed to arranging wakes at short notice, and we will do everything we can to support you. Please call us on <PhoneLink phone={CONTACT.phone} source="wakes_staines" className="text-anchor-gold hover:underline" showIcon={false} />, there is always someone here to help.
                         </p>
                     </div>
                 </Container>

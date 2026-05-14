@@ -16,10 +16,11 @@ import { trackBannerEvent, trackCtaClick, trackEmailClick, trackFormComplete, tr
 import { CHRISTMAS_OPEN_FORM_EVENT } from './christmas-hero-ctas'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { ValueProofStrip, RegretReduction } from '@/components/psychology'
+import { CONTACT } from '@/lib/constants'
 
-const CONTACT_EMAIL = 'manager@the-anchor.pub'
-const CONTACT_PHONE = '01753 682707'
-const CONTACT_PHONE_LINK = 'tel:+441753682707'
+const CONTACT_EMAIL = CONTACT.email
+const CONTACT_PHONE = CONTACT.phone
+const CONTACT_PHONE_LINK = CONTACT.phoneHref
 const CONTACT_EMAIL_LINK = `mailto:${CONTACT_EMAIL}`
 
 export type EnquiryMode = 'dinner' | 'buffet'

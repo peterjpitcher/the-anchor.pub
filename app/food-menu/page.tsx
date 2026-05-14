@@ -20,6 +20,8 @@ import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 import { DietaryMenuNav } from '@/components/food/DietaryMenuNav'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
+import { PhoneLink } from '@/components/PhoneLink'
+import { CONTACT } from '@/lib/constants'
 import type { KitchenStatusData } from '@/components/psychology'
 import {
   getFishAndChipsMenuPageData,
@@ -490,9 +492,9 @@ export default async function FoodMenuPage() {
                 <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-3">Kitchen Today</h3>
                 <p className="text-sm text-anchor-cream-text/70">
                   {kitchenSchedule ? (
-                    <>Kitchen open: {kitchenSchedule}. Call ahead on <a href="tel:+441753682707" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid">01753 682707</a> for large parties.</>
+                    <>Kitchen open: {kitchenSchedule}. Call ahead on <PhoneLink phone={CONTACT.phone} source="food-menu_kitchen-notice" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid" showIcon={false} /> for large parties.</>
                   ) : (
-                    <>Kitchen hours are updated live on this page. Call ahead on <a href="tel:+441753682707" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid">01753 682707</a> for large parties.</>
+                    <>Kitchen hours are updated live on this page. Call ahead on <PhoneLink phone={CONTACT.phone} source="food-menu_kitchen-notice" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid" showIcon={false} /> for large parties.</>
                   )}
                 </p>
               </CardBody>

@@ -5,6 +5,8 @@ import { JsonLd } from '@/components/JsonLd'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BookTableButton } from '@/components/BookTableButton'
 import { DirectionsButton } from '@/components/DirectionsButton'
+import { PhoneButton } from '@/components/PhoneButton'
+import { CONTACT } from '@/lib/constants'
 import {
   Button,
   Container,
@@ -477,15 +479,9 @@ export default function AboutPage() {
               >
                 Get Directions
               </DirectionsButton>
-              <Link href="tel:+441753682707">
-                <Button
-                  size="lg"
-                  variant="secondary"
-                  className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm"
-                >
-                  Call 01753 682707
-                </Button>
-              </Link>
+              <PhoneButton phone={CONTACT.phone} source="about_cta" size="lg" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
+                  Call {CONTACT.phone}
+              </PhoneButton>
             </div>
             <p className="text-white/80 mt-8 text-sm">
               Horton Road, Stanwell Moor, Surrey TW19 6AQ &middot; 7 mins from Heathrow T5 &middot; Free parking

@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { PhoneButton } from '@/components/PhoneButton'
+import { PhoneLink } from '@/components/PhoneLink'
+import { CONTACT } from '@/lib/constants'
 import { ManagementTableBookingForm } from '@/components/features/TableBooking/ManagementTableBookingForm'
 import { BookTableUpcomingEventsPanel } from '@/components/features/TableBooking/BookTableUpcomingEventsPanel'
 import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncement'
@@ -301,7 +303,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
         </p>
         <p className="text-anchor-cream-text/70 mb-4">
           We currently don&apos;t have an accessible toilet. If you&apos;d like to visit and want to check what will work best for you, give us a call on{' '}
-          <a href="tel:+441753682707" className="text-anchor-gold-vivid font-semibold hover:underline">+44 1753 682707</a> and we&apos;ll help.
+          <PhoneLink phone={CONTACT.phone} source="book-table_accessibility" className="text-anchor-gold-vivid font-semibold hover:underline" showIcon={false} /> and we&apos;ll help.
         </p>
         <Link href="/accessibility" className="text-anchor-gold-vivid font-semibold hover:underline">
           Full accessibility information &rarr;

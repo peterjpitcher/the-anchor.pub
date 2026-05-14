@@ -15,6 +15,8 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/InternalLinkingSection'
 import { generateNutritionInfo, generateOpeningHoursSpecification } from '@/lib/schema-utils'
 import { BookTableButton } from '@/components/BookTableButton'
+import { PhoneButton } from '@/components/PhoneButton'
+import { CONTACT } from '@/lib/constants'
 import { DEFAULT_DRINKS_IMAGE } from '@/lib/image-fallbacks'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { getBusinessHours } from '@/lib/api'
@@ -587,11 +589,9 @@ export default async function DrinksMenuPage() {
               >
                 Reserve a Table
               </BookTableButton>
-              <Link href="tel:+441753682707" className="w-full sm:w-auto">
-                <Button size="lg" variant="secondary" fullWidth className="sm:w-auto bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
+              <PhoneButton phone={CONTACT.phone} source="drinks_cta" size="lg" className="sm:w-auto bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
                   Call Us
-                </Button>
-              </Link>
+              </PhoneButton>
               <Link href="/food-menu#pizza" className="w-full sm:w-auto">
                 <Button size="lg" variant="secondary" fullWidth className="sm:w-auto bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
                   Pizza Menu

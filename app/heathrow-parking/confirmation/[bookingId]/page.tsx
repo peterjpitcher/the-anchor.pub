@@ -1,6 +1,8 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
 import { anchorAPI } from '@/lib/api'
+import { PhoneLink } from '@/components/PhoneLink'
+import { CONTACT } from '@/lib/constants'
 
 // Next.js 15: params is a Promise, must be awaited before use.
 interface Props {
@@ -42,7 +44,7 @@ export default async function ParkingConfirmationPage({ params }: Props) {
           <p className="text-anchor-sage text-sm">
             Your booking is being processed. You should receive a confirmation text shortly.
             If you have any questions, call us on{' '}
-            <a href="tel:01753682707" className="text-anchor-gold underline">01753 682707</a>.
+            <PhoneLink phone={CONTACT.phone} source="parking-confirmation_fallback" className="text-anchor-gold underline" showIcon={false} />.
           </p>
           <Link href="/" className="inline-block mt-4 text-anchor-gold underline text-sm">
             Return to The Anchor

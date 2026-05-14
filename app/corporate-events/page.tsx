@@ -8,6 +8,7 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { EventSchema } from '@/components/seo/EventSchema'
 import { staticEvents } from '@/lib/static-events'
 import { BookTableButton } from '@/components/BookTableButton'
+import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
@@ -535,11 +536,9 @@ export default function CorporateEventsPage() {
               >
                 Book Your Event
               </BookTableButton>
-              <Link href="tel:+441753682707" className="w-full sm:w-auto">
-                <Button size="lg" variant="secondary" fullWidth className="sm:w-auto bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
-                  Call: 01753 682707
-                </Button>
-              </Link>
+              <PhoneButton phone={CONTACT.phone} source="corporate-events_cta" size="lg" className="sm:w-auto bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
+                  Call: {CONTACT.phone}
+              </PhoneButton>
               <Link
                 href="https://wa.me/441753682707?text=Hi,%20I'd%20like%20to%20enquire%20about%20corporate%20events"
                 target="_blank"

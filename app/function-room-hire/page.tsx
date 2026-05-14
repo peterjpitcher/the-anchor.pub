@@ -698,11 +698,9 @@ export default function FunctionRoomHirePage() {
               >
                  Book Function Room
               </BookTableButton>
-              <Link href="tel:+441753682707">
-                <Button size="lg" variant="secondary">
-                   Call: 01753 682707
-                </Button>
-              </Link>
+              <PhoneButton phone={CONTACT.phone} source="function-room_cta" size="lg">
+                   Call: {CONTACT.phone}
+              </PhoneButton>
               <Link href="https://wa.me/441753682707?text=Hi,%20I'd%20like%20to%20enquire%20about%20function%20room%20hire" target="_blank" rel="noopener noreferrer">
                 <Button size="lg" variant="secondary">
                    WhatsApp Us

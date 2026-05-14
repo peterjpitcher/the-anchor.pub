@@ -13,6 +13,7 @@ import {
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { PhoneButton } from '@/components/PhoneButton'
+import { CONTACT } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -314,13 +315,9 @@ export default async function QuizNightPage() {
                   {nextEvent ? (
                     <EventBookingButton event={nextEvent} className="w-full" source="quiz_night_next_event" />
                   ) : (
-                    <Button
-                      size="lg"
-                      asChild
-                      className="w-full bg-anchor-green text-white hover:bg-anchor-green-dark"
-                    >
-                      <Link href="tel:+441753682707">Call 01753 682707</Link>
-                    </Button>
+                    <PhoneButton phone={CONTACT.phone} source="quiz-night_fallback" size="lg" className="w-full bg-anchor-green text-white hover:bg-anchor-green-dark">
+                      Call {CONTACT.phone}
+                    </PhoneButton>
                   )}
                 </div>
               </CardBody>

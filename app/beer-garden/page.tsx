@@ -13,6 +13,9 @@ import { getBusinessHours } from '@/lib/api'
 import { generateOpeningHoursSpecification } from '@/lib/schema-utils'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
+import { PhoneButton } from '@/components/PhoneButton'
+import { PhoneLink } from '@/components/PhoneLink'
+import { CONTACT } from '@/lib/constants'
 
 export const revalidate = 86400 // Revalidate every 24 hours
 
@@ -334,7 +337,7 @@ export default async function BeerGardenPage() {
             </p>
             <p className="text-anchor-cream-text/70 mb-4">
               We currently don&apos;t have an accessible toilet. If you&apos;d like to visit and want to check what will work best for you, give us a call on{' '}
-              <a href="tel:+441753682707" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid">+44 1753 682707</a> and we&apos;ll help.
+              <PhoneLink phone={CONTACT.phone} source="beer-garden_accessibility" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid" showIcon={false} /> and we&apos;ll help.
             </p>
             <Link href="/accessibility" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid hover:underline">
               Full accessibility information &rarr;
@@ -446,11 +449,9 @@ export default async function BeerGardenPage() {
                 variant="secondary"
                 className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm"
               />
-              <Link href="tel:+441753682707">
-                <Button size="lg" variant="secondary" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
-                   Call 01753 682707
-                </Button>
-              </Link>
+              <PhoneButton phone={CONTACT.phone} source="beer-garden_cta" size="lg" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
+                   Call {CONTACT.phone}
+              </PhoneButton>
               <Link href="/our-pub">
                 <Button size="lg" variant="secondary" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
                    See Inside The Pub
