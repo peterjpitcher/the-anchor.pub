@@ -18,7 +18,7 @@ Last menu refresh: **2026-04-29** (Sunday roast line-up rebuilt; wellington reaf
 - **Pub group:** Greene King Tenants network.
 - **Motto:** Eat, Drink, Enjoy.
 - **Tagline:** Where Everyone's Welcome.
-- **Founded:** 1751. Approximately 275 years old.
+- **Founded:** 1751.
 - **Heritage line:** A village pub since 1751. Stood here before Heathrow existed; Heathrow grew from a grass airstrip in the 1940s.
 - **Marketing description:** The closest traditional British pub to Heathrow Airport. Famous Sunday roasts, beer garden under the flight path, and FREE parking for all guests.
 - **Tone:** Friendly, cheeky, inclusive.
@@ -30,7 +30,7 @@ Last menu refresh: **2026-04-29** (Sunday roast line-up rebuilt; wellington reaf
 ## 2. Contact & Location
 
 - **Phone:** 01753 682707.
-- **Email:** manager@the-anchor.pub. **This is the only correct email.** `info@theanchorpub.co.uk` is legacy and must not be used.
+- **Email:** manager@the-anchor.pub. **This is the only correct email.**
 - **WhatsApp:** wa.me/441753682707.
 - **Address:** Horton Road, Stanwell Moor, Surrey, TW19 6AQ.
 - **Coordinates:** 51.462509, -0.502067.
@@ -54,16 +54,7 @@ General range to use in copy: **7–12 minutes** from any Heathrow terminal.
 
 ## 3. Opening Hours (regular)
 
-| Day | Bar | Kitchen |
-|---|---|---|
-| Monday | Closed | Closed (always, unless a special-hours record explicitly opens it) |
-| Tuesday – Thursday | 4pm – 11pm | 4pm – 9pm |
-| Friday | 4pm – 10pm | 4pm – 9pm |
-| Saturday | 12pm – 10pm | 12pm – 7pm |
-| Sunday | 1pm – 6pm | 1pm – 6pm (last bookable arrival 5:30pm) |
-
-**Live-music nights:** Kitchen open until midnight.
-**Quiz nights:** Kitchen open until 9pm.
+Only ever use the API for opening hours in case they have to change. No hard coded opening times.
 
 > Special-hours overrides come from the management API (`/business/hours`) and **always win**. `kitchen: null` for a date means the kitchen is closed for that date, treat as deliberate, not as missing data. Use `??` (not `||`) when resolving special vs. regular kitchen data; `||` will silently fall through and has caused real bugs.
 
@@ -73,9 +64,9 @@ Effective from the **17 May 2026 walk-in launch**. Menu refreshed **29 April 202
 
 - **Service window:** Sundays 1pm – 6pm. Kitchen 1pm – 6pm. Last bookable arrival 5:30pm.
 - **Pre-order:** **Not required.** No Saturday cutoff. No per-roast prepayment.
-- **Walk-ins:** Welcome the whole window.
-- **Booking:** Recommended for groups and peak slots, but not required.
-- **Max online party size:** 20. Larger groups must call.
+- **Walk-ins:** Welcome the whole window. Last seating is 5:30pm.
+- **Booking:** Strongly recommended for groups and peak slots, but not required.
+- **Max online party size:** 10. Larger groups must call.
 - **Deposit:** No Sunday-specific deposit. The standard large-group deposit (groups of 10+) applies on any day, any booking type, see §7.
 
 ### Current menu
@@ -94,7 +85,7 @@ Effective from the **17 May 2026 walk-in launch**. Menu refreshed **29 April 202
 
 ### Accompaniments
 
-Triple-cooked, herb-and-garlic crusted roast potatoes. Seasonal vegetables. Yorkshire pudding with the three sliced roasts and the kids roast (not with the pies). Our signature gravy.
+Triple-cooked, herb-and-garlic crusted roast potatoes. Seasonal vegetables. Yorkshire pudding with the three sliced roasts and the kids roast (no yorkshire with the pies). Our signature gravy.
 
 > **We do not use beef dripping.** Never claim that we do. Never describe the potatoes as "beef-dripping potatoes". The correct phrase is "triple-cooked, herb-and-garlic crusted".
 
@@ -230,18 +221,6 @@ When the kitchen is closed for a date, food and Sunday-lunch slots return empty.
 
 Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under Heathrow flight path) · Pool table · Darts · Jukebox · Live sport on terrestrial TV · Luggage storage · Private event space / function room · Dog friendly · Board games · Community notice board.
 
-### Pool table
-
-- **Ball colours:** Yellow and red (not spots and stripes). Do not describe as "spots and stripes" or "solids and stripes".
-- **Cost:** £1 per game.
-- **No team.** We do not currently have a pool team but are always looking for a great captain to pull a team together.
-
-### Dartboard
-
-- **Current setup:** Standard dartboard. No electronic scorer. No specialist lighting.
-- **Planned upgrade (2026):** Professional-grade dartboard, electronic scorer, and upgraded lighting. Do not describe the current setup as "professional grade" or mention the electronic scorer or lighting as existing features.
-- **No team.** We do not currently have a darts team but are always looking for a great captain to lead one.
-
 ### Things The Anchor does NOT have
 
 - Sky Sports
@@ -354,8 +333,8 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 - **Capacity:** 10 – 50 guests. (250 max venue-wide; 60 seated at Christmas, 200 standing.)
 - **Dining room:** 26 seated, with standing room for more. French doors open onto the beer garden.
 - **Spaces available:** Beer garden, dining room.
-- **Room hire charge:** Yes. Fee varies by event type, day, and party size. Contact us for a quote.
-- **Minimum spend:** None.
+- **Room hire charge:** None. We use a minimum-spend model.
+- **Minimum spend:** £500 – £1,500 depending on day and size.
 - **Deposit:** £250.
 
 ### Catering, Buffet (verified prices)
@@ -388,38 +367,6 @@ Free parking · Free WiFi (throughout pub and beer garden) · Beer garden (under
 - Kids Chicken Nuggets and Chips: £8/head.
 - Kids Mini Pizza and Chips: £8/head.
 
-### Christmas Party Menu (verified prices)
-
-| Dish | Price | Notes |
-|---|---|---|
-| Roasted Turkey | £16 | With sage and onion stuffing ball |
-| Roasted Beef | £18 | Rich and full of flavour |
-| Roasted Pork | £17 | Juicy with proper home-cooked flavour |
-| Beetroot & Butternut Squash Wellington | £17 | Golden puff pastry, fully vegan |
-
-All served with triple-cooked herb-crusted roast potatoes, Yorkshire pudding, oven-roasted carrots and parsnips, buttery sauteed cabbage, and gravy (signature gravy for meat dishes; regular gravy for wellington).
-
-### Sides (Christmas and regular)
-
-| Dish | Price | Notes |
-|---|---|---|
-| Broccoli Cheese | £4 | Broccoli baked in a creamy cheese sauce until golden and bubbling |
-| Gourmet Broccoli Cheese | £6 | Richer bake, finished with a hint of truffle and a crisp golden crumb |
-
-> **Cauliflower cheese is retired.** Replaced by broccoli cheese. Do not list cauliflower cheese on any page.
-
-### Festive Buffet Packages (verified prices)
-
-| Package | Price |
-|---|---|
-| Festive Sandwich Buffet | £13/head |
-| Festive Hot Finger Buffet | £16/head |
-| Festive Premium Grazing | £19/head |
-
-### Christmas offers rule
-
-**Offers cannot be combined.** If a customer takes the early bird offer, they cannot also use the festive offer (or vice versa). Make this clear on all Christmas pages.
-
 ### Equipment & services
 
 AV equipment (projector, screen, sound system) · Dedicated events coordinator · Free WiFi · Free parking for all attendees.
@@ -433,7 +380,7 @@ Wakes / memorials · Christenings · Baby showers · Gender reveals · Retiremen
 ### Wakes, speciality
 
 - Private entrance area.
-- **No room hire charge** (wakes are the exception to the standard room hire policy).
+- No room hire charge.
 - Short notice accepted (24–48 hours).
 
 ### Nearby venues for wakes
@@ -448,60 +395,6 @@ Wakes / memorials · Christenings · Baby showers · Gender reveals · Retiremen
 - **Claim:** Highest-rated independent pub near Heathrow.
 - **TripAdvisor:** #22 of 95 restaurants in Staines.
 - **Food Hygiene:** 5-star rating, maintained 7 years (since 2019). All staff Level 2 qualified.
-
-### Curated Google Reviews
-
-Use these real reviews on pages where social proof is appropriate. Always attribute by first name and initial only (privacy). These are real, verified Google reviews.
-
-**Food & Sunday roast:**
-- "Best meal we had in England. We had the Sunday Roast before our flight back." — IJ
-- "Sunday roast was amazing. Found by chance, would definitely go back." — Gemma D
-- "Sunday roasts are to die for." — Michael F
-- "Came for the rugby, stayed for the Sunday lunch." — James S
-- "Fantastic food, great service and a real feel of home." — Vince F
-- "Piping hot pies and mash. Super tasty desserts." — Jain S
-- "Great place to get a well cooked burger." — Claire C
-- "Exceptionaly delicious. Second visit, piping hot food." — Adrian F
-- "Pizza was excellent. Exceptionally clean." — Anita T
-- "Knocks it out of the park." — Miguel L
-
-**Heathrow travellers:**
-- "I could not have started my trip to London out better anywhere else." — Sam R
-- "Ideal place to visit when picking up from Heathrow." — Paul S
-- "Oasis of calm and authenticity just minutes from LHR." — Ben S
-- "Nice pub with a view of planes flying past." — Papa S
-- "Lovely pub nestled in a quiet village near Terminal 5." — SJ P
-- "Great few beers watching the planes take off." — Paul S
-
-**Atmosphere & hospitality:**
-- "LOVE LOVE LOVE this pub. Bill and Peter are amazing." — Kylie P
-- "Charming staff and very pleasant, personable landlord." — Catherine B
-- "Friendly staff, great selection of drinks, and tasty food." — Pav
-- "Amazing atmosphere, lovely owners and a fun family and dog friendly place." — Louise K
-- "Best local pub." — Samael
-- "First visit. Very friendly, great service and good food, very dog friendly." — Lesley S
-- "Management are the best." — Denise T
-- "Goes above and beyond to put on events." — Shane P
-
-**Events & entertainment:**
-- "Great quiz night on Wednesday, party nights, dog and child friendly." — Karen K
-- "Music bingo, great fun, great food, great hosts." — Lorraine P
-- "The gameshow was brilliant." — Jade A
-- "Delicious Christmas meal, with perfect hosting." — Ally M
-- "Great live music. True local feel." — Simon C
-- "Held Christmas party there last 2 years and many more to come." — Dean C
-
-**Accessibility & inclusivity:**
-- "Wheelchair access. Everyone helped to support my husband." — Laney F
-- "Veggie treated really well by Emma. Meals huge and piping hot." — Ann W
-- "4 families with young kids given whole conservatory." — Gobika S
-- "Dementia-friendly staff." — Lorraine P
-
-**Going the extra mile:**
-- "Van broke down, let us use secure carpark. Amazing owners." — Michael C
-- "Ran out of battery, staff let him charge phone and gave coke." — Kane B
-- "Between flights, kitchen reopened specially for us." — Ian
-- "Staff let us wait inside for hours. Food absolutely delicious." — Cristina
 
 ## 13. Areas Served & Nearby Hotels
 
@@ -532,14 +425,6 @@ These are verified incorrect or risky. **Never use them in any content** (page c
 - **Stanwell Moor Brew**, discontinued.
 - **Pravha beer**, no longer stocked.
 - **Champions League viewing**, we cannot show it (no Sky/TNT). Fix any old pizza-Tuesday content that implies otherwise.
-
-### Venue & amenities
-- **"Spots and stripes" pool balls**, they are yellow and red. Never describe as "spots and stripes" or "solids and stripes".
-- **"Professional grade dartboard"**, the current board is standard. Upgrade planned for 2026 but not yet installed.
-- **"Electronic scorer" for darts**, not yet installed. Part of the 2026 upgrade.
-- **"No room hire fee"** (except for wakes, which genuinely have no room hire charge). The pub charges room hire for private events.
-- **"Minimum spend model"**, there is no minimum spend. We charge room hire instead.
-- **"Cauliflower cheese"**, retired. Replaced by broccoli cheese (£4) and gourmet broccoli cheese (£6).
 
 ### Operations
 - **`info@theanchorpub.co.uk`**, legacy email. Use `manager@the-anchor.pub`.
