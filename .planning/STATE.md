@@ -1,7 +1,7 @@
 # Project State: The Anchor — Component Standardisation
 
 **Last updated:** 2026-05-14
-**Session:** Phase 1 context gathered
+**Session:** Plan 01-01 executed
 
 ---
 
@@ -9,7 +9,7 @@
 
 **Core value:** Every page delivers a consistent, professional brand experience with full analytics coverage — no copy-pasted markup, no untracked interactions, no stale data.
 
-**Current focus:** Phase 1 context gathered. Ready for planning.
+**Current focus:** Phase 1 Plan 01 complete. PhoneLink icon fixed, HeroBadge rebuilt on Badge primitive.
 
 ---
 
@@ -18,11 +18,11 @@
 | Field | Value |
 |-------|-------|
 | Milestone | v1.0 Component Standardisation |
-| Phase | — (not started) |
-| Plan | — |
-| Status | Phase 1 context gathered, ready for planning |
+| Phase | 01-tracking-herobadge |
+| Plan | 01 complete, 02 next |
+| Status | Plan 01-01 complete, ready for 01-02 |
 
-**Progress:** `[ ][ ][ ][ ][ ]` — 0/5 phases complete
+**Progress:** `[ ][ ][ ][ ][ ]` — 0/5 phases complete (Plan 1/2 in Phase 1)
 
 ---
 
@@ -32,8 +32,8 @@
 |--------|-------|
 | Phases defined | 5 |
 | Requirements mapped | 18/18 |
-| Plans written | 0 |
-| Plans complete | 0 |
+| Plans written | 2 |
+| Plans complete | 1 |
 
 ---
 
@@ -47,6 +47,8 @@
 | 2026-05-14 | Phase 5 for FindUsSection last | It is a new standalone component with no dependencies on other phases; deferring reduces blast radius if spec changes |
 | 2026-05-14 | Phase 3 depends on Phase 1 only | CTA work is independent of Testimonial; parallelisable in theory but sequenced for focus |
 | 2026-05-14 | DATA-01 grouped with DS-01–04 in Phase 4 | Both are site-wide audit-and-replace tasks; doing them together in one sweep is more efficient |
+| 2026-05-14 | Added ItemBadge export for backward compatibility | ManagersSpecial and MenuRenderer use old HeroBadge API directly; ItemBadge preserves that API via Badge primitive |
+| 2026-05-14 | HeroBadge is a Server Component | Trust badges have no interactivity; no 'use client' needed |
 
 ### Spec reference
 
@@ -57,7 +59,9 @@
 ### Todos
 
 - [x] Run `/gsd:discuss-phase 1` to capture Phase 1 context
-- [ ] Run `/gsd:plan-phase 1` to plan Phase 1
+- [x] Run `/gsd:plan-phase 1` to plan Phase 1
+- [x] Execute Plan 01-01 (PhoneLink icon fix + HeroBadge rebuild)
+- [ ] Execute Plan 01-02 (site-wide migration)
 
 ### Blockers
 
@@ -67,7 +71,9 @@
 
 ## Session Continuity
 
-**To resume:** Read this file and ROADMAP.md. Run `/gsd:plan-phase 1` to start Phase 1 planning.
+**To resume:** Read this file and ROADMAP.md. Execute Plan 01-02 to complete Phase 1.
+**Last session:** 2026-05-14T11:36:00Z
+**Stopped at:** Completed 01-01-PLAN.md
 
 **Worktree:** `admiring-dhawan-3da8c8`
 **Branch:** `claude/admiring-dhawan-3da8c8`

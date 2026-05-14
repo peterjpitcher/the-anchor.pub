@@ -8,11 +8,11 @@
 ### Tracking
 
 - [ ] **TRACK-01**: All inline telephone links fire GTM tracking events (17+ raw `tel:` links currently untracked)
-- [ ] **TRACK-02**: PhoneLink component renders as inline text while tracking clicks
+- [x] **TRACK-02**: PhoneLink component renders as inline text while tracking clicks
 
 ### Components
 
-- [ ] **COMP-01**: HeroBadge component extracts the duplicated badge/pill pattern from 10+ pages
+- [x] **COMP-01**: HeroBadge component extracts the duplicated badge/pill pattern from 10+ pages
 - [ ] **COMP-02**: TestimonialSection displays reviews in full-section variant (heading + cards)
 - [ ] **COMP-03**: TestimonialSection displays reviews in compact card-strip variant
 - [ ] **COMP-04**: TestimonialSection displays reviews in single pull-quote variant
@@ -66,8 +66,8 @@
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | TRACK-01 | Phase 1 | Pending |
-| TRACK-02 | Phase 1 | Pending |
-| COMP-01 | Phase 1 | Pending |
+| TRACK-02 | Phase 1 | Complete |
+| COMP-01 | Phase 1 | Complete |
 | COMP-02 | Phase 2 | Pending |
 | COMP-03 | Phase 2 | Pending |
 | COMP-04 | Phase 2 | Pending |
