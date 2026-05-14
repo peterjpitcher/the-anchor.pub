@@ -99,7 +99,7 @@ export default function OurPubPage() {
       />
 
       {/* Intro */}
-      <section className="bg-anchor-bg-raised border-b border-anchor-gold/15 py-8">
+      <section className="section-spacing-sm bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <p className="text-center text-lg md:text-xl text-anchor-cream-text/80 max-w-3xl mx-auto leading-relaxed">
             We could tell you all about The Anchor, a village pub since 1751,
@@ -423,7 +423,7 @@ export default function OurPubPage() {
       />
 
       {/* CTA */}
-      <section className="bg-gradient-to-br from-anchor-green to-anchor-green/90 py-16 md:py-24">
+      <section className="section-spacing-lg bg-gradient-to-br from-anchor-green to-anchor-green/90">
         <Container>
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">

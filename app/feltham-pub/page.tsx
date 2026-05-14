@@ -109,14 +109,14 @@ export default function FelthamPubPage() {
         showContextStrip={true}
       />
 
-      <section className="bg-anchor-bg py-6">
+      <section className="section-spacing-tight bg-anchor-bg">
         <Container>
           <HeroBadge className="text-sm" />
         </Container>
       </section>
 
       {/* Page Title */}
-      <section className="py-8 bg-anchor-bg">
+      <section className="section-spacing-sm bg-anchor-bg">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <PageTitle

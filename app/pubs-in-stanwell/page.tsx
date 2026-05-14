@@ -90,7 +90,7 @@ export default async function PubsInStanwellPage() {
       />
 
       {/* Page Title for SEO */}
-      <section className="bg-anchor-bg py-8">
+      <section className="section-spacing-sm bg-anchor-bg">
         <Container>
           <PageTitle 
             className="text-center text-anchor-cream-text"

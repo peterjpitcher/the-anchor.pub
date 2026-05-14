@@ -118,14 +118,14 @@ export default function StanwellPubPage() {
         showContextStrip={true}
       />
 
-      <section className="bg-anchor-bg-card py-6 border-b border-anchor-gold/15">
+      <section className="section-spacing-tight bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <HeroBadge className="text-sm" />
         </Container>
       </section>
 
       {/* Page Title */}
-      <section className="py-8 bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing-sm bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <PageTitle

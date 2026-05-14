@@ -112,7 +112,7 @@ export default function StainesPubPage() {
         showContextStrip={true}
       />
 
-      <section className="bg-anchor-bg-card py-6 border-b border-anchor-gold/15">
+      <section className="section-spacing-tight bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <HeroBadge className="text-sm" />
         </Container>
@@ -146,7 +146,7 @@ export default function StainesPubPage() {
       </section>
 
       {/* Page Title for SEO */}
-      <section className="bg-anchor-bg py-8 border-b border-anchor-gold/15">
+      <section className="section-spacing-sm bg-anchor-bg border-b border-anchor-gold/15">
         <Container>
           <PageTitle
             className="text-center text-anchor-cream-text"

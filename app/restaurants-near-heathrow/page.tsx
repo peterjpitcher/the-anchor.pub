@@ -130,7 +130,7 @@ export default async function RestaurantsNearHeathrowPage() {
       />
 
       {/* Page Title for SEO */}
-      <section className="bg-anchor-bg-card py-8 border-b border-anchor-gold/15">
+      <section className="section-spacing-sm bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <PageTitle
             className="text-center text-anchor-cream-text"
