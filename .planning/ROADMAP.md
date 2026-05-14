@@ -9,7 +9,7 @@
 ## Phases
 
 - [x] **Phase 1: Tracking & HeroBadge** - Close phone analytics gaps and extract duplicated hero badge markup
-- [ ] **Phase 2: TestimonialSection** - Build and deploy a multi-variant testimonial component across all review pages
+- [x] **Phase 2: TestimonialSection** - Build and deploy a multi-variant testimonial component across all review pages
 - [ ] **Phase 3: CTA Coverage** - Add CTASection to all terminal/review pages and enable Smart CTAs on location and service pages
 - [ ] **Phase 4: Design Tokens & BusinessHours** - Define section spacing tokens and replace all static hours text site-wide
 - [ ] **Phase 5: FindUsSection** - Build the reusable map/location display component
@@ -45,7 +45,7 @@ Plans:
 **Plans:** 2 plans
 Plans:
 - [x] 02-01-PLAN.md — Build TestimonialSection component with full, compact, pull-quote CVA variants + unit tests
-- [ ] 02-02-PLAN.md — Replace all 8 pages of hand-rolled testimonial markup with TestimonialSection
+- [x] 02-02-PLAN.md — Replace all 8 pages of hand-rolled testimonial markup with TestimonialSection
 
 ### Phase 3: CTA Coverage
 **Goal**: Every terminal page has a CTA section and Smart CTAs are enabled everywhere appropriate
@@ -87,7 +87,7 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Tracking & HeroBadge | 2/2 | Complete | 2026-05-14 |
-| 2. TestimonialSection | 1/2 | In Progress | - |
+| 2. TestimonialSection | 2/2 | Complete | 2026-05-14 |
 | 3. CTA Coverage | 0/? | Not started | - |
 | 4. Design Tokens & BusinessHours | 0/? | Not started | - |
 | 5. FindUsSection | 0/? | Not started | - |
@@ -95,4 +95,4 @@ Plans:
 ---
 
 *Roadmap created: 2026-05-14*
-*Last updated: 2026-05-14 after Plan 02-01 execution — TestimonialSection component built*
+*Last updated: 2026-05-14 after Plan 02-02 execution — site-wide TestimonialSection deployment complete*

@@ -17,7 +17,7 @@
 - [x] **COMP-03**: TestimonialSection displays reviews in compact card-strip variant
 - [x] **COMP-04**: TestimonialSection displays reviews in single pull-quote variant
 - [ ] **COMP-05**: FindUsSection shows Google Maps embed, address, phone, parking info, and directions link
-- [ ] **COMP-06**: All existing ad-hoc testimonial/review markup replaced with TestimonialSection
+- [x] **COMP-06**: All existing ad-hoc testimonial/review markup replaced with TestimonialSection
 
 ### Conversion
 
@@ -71,7 +71,7 @@
 | COMP-02 | Phase 2 | Complete |
 | COMP-03 | Phase 2 | Complete |
 | COMP-04 | Phase 2 | Complete |
-| COMP-06 | Phase 2 | Pending |
+| COMP-06 | Phase 2 | Complete |
 | CONV-01 | Phase 3 | Pending |
 | CONV-02 | Phase 3 | Pending |
 | CONV-03 | Phase 3 | Pending |
