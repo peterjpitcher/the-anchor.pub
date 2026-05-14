@@ -14,6 +14,7 @@ import { CONTACT, BRAND } from '@/lib/constants'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { getCateringData } from '@/lib/api/catering-packages'
 import { CateringPackagesTable } from '@/components/features/CateringPackagesTable'
+import { TestimonialSection } from '@/components/TestimonialSection'
 
 export const metadata: Metadata = {
     title: 'Christening Venue Near Heathrow & Staines',
@@ -359,24 +360,14 @@ export default async function ChristeningsPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
-                <Container>
-                    <SectionHeader
-                        title="What Families Say"
-                        subtitle="From recent christening celebrations at The Anchor"
-                    />
-                    <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-6">
-                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
-                            <p className="text-anchor-cream-text/70 italic mb-4">&ldquo;We held our daughter&apos;s christening reception here after the service at St Mary&apos;s. The buffet was generous, the staff were brilliant with all the children, and having free parking right outside made life so much easier with all the grandparents. Lovely afternoon.&rdquo;</p>
-                            <p className="text-sm text-anchor-gold-vivid font-semibold">Rachel, Staines</p>
-                        </div>
-                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
-                            <p className="text-anchor-cream-text/70 italic mb-4">&ldquo;The enclosed garden was perfect for the children to run around while we enjoyed drinks and food inside. The team set up a beautiful table for gifts and our christening cake. Could not recommend this christening venue enough.&rdquo;</p>
-                            <p className="text-sm text-anchor-gold-vivid font-semibold">David, Ashford</p>
-                        </div>
-                    </div>
-                </Container>
-            </section>
+            <TestimonialSection
+                variant="compact"
+                className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15 px-4"
+                reviews={[
+                    { quote: "We held our daughter's christening reception here after the service at St Mary's. The buffet was generous, the staff were brilliant with all the children, and having free parking right outside made life so much easier with all the grandparents. Lovely afternoon.", author: "Rachel, Staines", source: "Google Review", rating: 5 },
+                    { quote: "The enclosed garden was perfect for the children to run around while we enjoyed drinks and food inside. The team set up a beautiful table for gifts and our christening cake. Could not recommend this christening venue enough.", author: "David, Ashford", source: "Google Review", rating: 5 },
+                ]}
+            />
 
             <PrivateBookingSection eventType="Christening / Baby Shower" />
 

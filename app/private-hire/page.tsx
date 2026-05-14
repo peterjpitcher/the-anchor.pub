@@ -10,6 +10,7 @@ import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
+import { TestimonialSection } from '@/components/TestimonialSection'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
@@ -545,47 +546,18 @@ export default async function PrivateHirePage() {
             </section>
 
             {/* Testimonials */}
-            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
-                <Container>
-                    <div className="max-w-4xl mx-auto">
-                        <SectionHeader
-                            title="What Our Guests Say"
-                            subtitle="From Google Reviews"
-                        />
-
-                        <div className="grid md:grid-cols-2 gap-6">
-                            <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg p-6">
-                                <p className="text-sm text-anchor-cream-text/55 mb-3">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
-                                <p className="text-anchor-cream-text/80 italic mb-4">
-                                    &ldquo;We had our baby&apos;s Baptism party at The Anchor. Billy and Peter made the whole event run so smoothly. The new conservatory room is amazing for any event. The buffet food was delicious, family and friends all commented on how lovely it was. Will definitely return for future family events.&rdquo;
-                                </p>
-                                <p className="text-sm text-anchor-cream-text/50">Rachel, TripAdvisor</p>
-                            </div>
-                            <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg p-6">
-                                <p className="text-sm text-anchor-cream-text/55 mb-3">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
-                                <p className="text-anchor-cream-text/80 italic mb-4">
-                                    &ldquo;Hired the function room for my 50th. Staff sorted everything, the buffet was spot on and everyone had a great night. Could not have asked for more.&rdquo;
-                                </p>
-                                <p className="text-sm text-anchor-cream-text/50">Dave, Google Review</p>
-                            </div>
-                            <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg p-6">
-                                <p className="text-sm text-anchor-cream-text/55 mb-3">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
-                                <p className="text-anchor-cream-text/80 italic mb-4">
-                                    &ldquo;Had our daughter&apos;s christening party here. They went above and beyond with the setup and the food was really impressive for the price. Everyone commented on how good the venue was.&rdquo;
-                                </p>
-                                <p className="text-sm text-anchor-cream-text/50">Priya, Google Review</p>
-                            </div>
-                            <div className="rounded-none border border-anchor-gold/15 bg-anchor-bg p-6">
-                                <p className="text-sm text-anchor-cream-text/55 mb-3">&#9733;&#9733;&#9733;&#9733;&#9733;</p>
-                                <p className="text-anchor-cream-text/80 italic mb-4">
-                                    &ldquo;Used The Anchor for our team Christmas lunch. Free parking was a huge bonus with 15 of us driving. Will definitely book again.&rdquo;
-                                </p>
-                                <p className="text-sm text-anchor-cream-text/50">Google Review</p>
-                            </div>
-                        </div>
-                    </div>
-                </Container>
-            </section>
+            <TestimonialSection
+                variant="full"
+                title="What Our Guests Say"
+                subtitle="From Google Reviews"
+                className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15"
+                reviews={[
+                    { quote: "We had our baby's Baptism party at The Anchor. Billy and Peter made the whole event run so smoothly. The new conservatory room is amazing for any event. The buffet food was delicious, family and friends all commented on how lovely it was. Will definitely return for future family events.", author: "Rachel", source: "TripAdvisor", rating: 5 },
+                    { quote: "Hired the function room for my 50th. Staff sorted everything, the buffet was spot on and everyone had a great night. Could not have asked for more.", author: "Dave", source: "Google Review", rating: 5 },
+                    { quote: "Had our daughter's christening party here. They went above and beyond with the setup and the food was really impressive for the price. Everyone commented on how good the venue was.", author: "Priya", source: "Google Review", rating: 5 },
+                    { quote: "Used The Anchor for our team Christmas lunch. Free parking was a huge bonus with 15 of us driving. Will definitely book again.", author: "Google Review", source: "Google Review", rating: 5 },
+                ]}
+            />
 
             {/* WhatsApp & Contact CTA */}
             <section className="section-spacing bg-anchor-green text-white border-b border-anchor-gold/15">

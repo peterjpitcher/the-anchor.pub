@@ -16,6 +16,7 @@ import { getCateringData, getLowestFoodPrice } from '@/lib/api/catering-packages
 import { CateringPackagesTable } from '@/components/features/CateringPackagesTable'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
+import { TestimonialSection } from '@/components/TestimonialSection'
 
 const WAKE_PACKAGE_NAMES = ['Sandwich Buffet', 'Finger Buffet', 'Premium Buffet', 'Afternoon Tea']
 
@@ -327,28 +328,17 @@ export default async function WakesPage() {
                 </Container>
             </Section>
 
-            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
-                <Container>
-                    <SectionHeader
-                        title="What Families Say About Us"
-                        subtitle="Words from families who have trusted us with their arrangements"
-                    />
-                    <div className="max-w-4xl mx-auto grid md:grid-cols-3 gap-6">
-                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
-                            <p className="text-anchor-cream-text/70 italic mb-4">&ldquo;The team at The Anchor made a difficult day so much easier. The room was set up beautifully, the food was lovely, and the staff were incredibly kind and discreet. We could not have asked for more.&rdquo;</p>
-                            <p className="text-sm text-anchor-gold-vivid font-semibold">Sarah, Staines</p>
-                        </div>
-                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
-                            <p className="text-anchor-cream-text/70 italic mb-4">&ldquo;We held a celebration of life for my father here and it was exactly what he would have wanted. Relaxed, warm, and full of laughter. The staff even arranged his favourite beer on each table. That meant the world to us.&rdquo;</p>
-                            <p className="text-sm text-anchor-gold-vivid font-semibold">James, Ashford</p>
-                        </div>
-                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
-                            <p className="text-anchor-cream-text/70 italic mb-4">&ldquo;Everything was arranged at very short notice and the team handled it all with great care. The funeral director recommended The Anchor and we are so glad they did. A peaceful venue with genuinely compassionate staff.&rdquo;</p>
-                            <p className="text-sm text-anchor-gold-vivid font-semibold">Priya, Feltham</p>
-                        </div>
-                    </div>
-                </Container>
-            </section>
+            <TestimonialSection
+                variant="full"
+                title="What Families Say About Us"
+                subtitle="Words from families who have trusted us with their arrangements"
+                className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15"
+                reviews={[
+                    { quote: "The team at The Anchor made a difficult day so much easier. The room was set up beautifully, the food was lovely, and the staff were incredibly kind and discreet. We could not have asked for more.", author: "Sarah, Staines", source: "Google Review", rating: 5 },
+                    { quote: "We held a celebration of life for my father here and it was exactly what he would have wanted. Relaxed, warm, and full of laughter. The staff even arranged his favourite beer on each table. That meant the world to us.", author: "James, Ashford", source: "Google Review", rating: 5 },
+                    { quote: "Everything was arranged at very short notice and the team handled it all with great care. The funeral director recommended The Anchor and we are so glad they did. A peaceful venue with genuinely compassionate staff.", author: "Priya, Feltham", source: "Google Review", rating: 5 },
+                ]}
+            />
 
             <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
                 <Container>

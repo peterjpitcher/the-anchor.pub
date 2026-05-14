@@ -14,6 +14,7 @@ import { CONTACT, BRAND } from '@/lib/constants'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { getCateringData } from '@/lib/api/catering-packages'
 import { CateringPackagesTable } from '@/components/features/CateringPackagesTable'
+import { TestimonialSection } from '@/components/TestimonialSection'
 
 export const metadata: Metadata = {
     title: 'Baby Shower Venue Near Ashford Hospital',
@@ -303,24 +304,14 @@ export default async function BabyShowersPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
-                <Container>
-                    <SectionHeader
-                        title="What Our Guests Say"
-                        subtitle="From recent baby showers at The Anchor"
-                    />
-                    <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-6">
-                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
-                            <p className="text-anchor-cream-text/70 italic mb-4">&ldquo;We hosted my sister&apos;s baby shower here and it was absolutely perfect. The afternoon tea was delicious, the mocktails were a lovely touch, and the staff helped us set up all the decorations beforehand. Such a relaxed and happy afternoon.&rdquo;</p>
-                            <p className="text-sm text-anchor-gold-vivid font-semibold">Emma, Staines</p>
-                        </div>
-                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
-                            <p className="text-anchor-cream-text/70 italic mb-4">&ldquo;The baby shower venue was ideal, the private space meant we could play games and open gifts without feeling self-conscious. Free parking was a huge bonus with all the presents and decorations we had to carry in. Highly recommend.&rdquo;</p>
-                            <p className="text-sm text-anchor-gold-vivid font-semibold">Jasmine, Ashford</p>
-                        </div>
-                    </div>
-                </Container>
-            </section>
+            <TestimonialSection
+                variant="compact"
+                className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15 px-4"
+                reviews={[
+                    { quote: "We hosted my sister's baby shower here and it was absolutely perfect. The afternoon tea was delicious, the mocktails were a lovely touch, and the staff helped us set up all the decorations beforehand. Such a relaxed and happy afternoon.", author: "Emma, Staines", source: "Google Review", rating: 5 },
+                    { quote: "The baby shower venue was ideal, the private space meant we could play games and open gifts without feeling self-conscious. Free parking was a huge bonus with all the presents and decorations we had to carry in. Highly recommend.", author: "Jasmine, Ashford", source: "Google Review", rating: 5 },
+                ]}
+            />
 
             <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
                 <Container>

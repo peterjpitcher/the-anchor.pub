@@ -22,6 +22,7 @@ import {
 } from '@/lib/menu-page-data'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
+import { TestimonialSection } from '@/components/TestimonialSection'
 
 // Revalidate every 1 hour for the walk-in launch fortnight (10–22 May 2026)
 // so the LaunchAnnouncement banner flips reliably at the cutover even on
@@ -400,14 +401,16 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
       />
 
       {/* Customer Review */}
-      <Section spacing="md" container containerSize="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
-        <div className="max-w-2xl mx-auto text-center">
-          <p className="text-2xl text-anchor-cream-text/80 italic leading-relaxed">
-            &ldquo;Lovely pub, great food, friendly staff. We stopped in on our way to Heathrow and wished we&apos;d found it sooner. Will definitely be back.&rdquo;
-          </p>
-          <p className="mt-4 text-sm text-anchor-cream-text/50">, Google Review, rated 5/5</p>
-        </div>
-      </Section>
+      <TestimonialSection
+        variant="pull-quote"
+        className="bg-anchor-bg-raised border-b border-anchor-gold/15"
+        reviews={[{
+          quote: "Lovely pub, great food, friendly staff. We stopped in on our way to Heathrow and wished we'd found it sooner. Will definitely be back.",
+          author: "Anonymous",
+          source: "Google Review",
+          rating: 5
+        }]}
+      />
 
       {/* Getting Here */}
       <Section spacing="md" container containerSize="md" className="bg-anchor-bg border-b border-anchor-gold/15">
