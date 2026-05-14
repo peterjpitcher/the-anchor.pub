@@ -77,12 +77,12 @@
 | CONV-03 | Phase 3 | Pending |
 | CONV-04 | Phase 3 | Pending |
 | CONV-05 | Phase 3 | Pending |
-| DS-01 | Phase 4 | Pending |
-| DS-02 | Phase 4 | Pending |
-| DS-03 | Phase 4 | Pending |
-| DS-04 | Phase 4 | Pending |
-| DATA-01 | Phase 4 | Pending |
-| COMP-05 | Phase 5 | Pending |
+| DS-01 | Phase 3 | Pending |
+| DS-02 | Phase 3 | Pending |
+| DS-03 | Phase 3 | Pending |
+| DS-04 | Phase 3 | Pending |
+| DATA-01 | Phase 3 | Pending |
+| COMP-05 | Phase 3 | Pending |
 
 **Coverage:**
 - v1 requirements: 18 total

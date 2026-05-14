@@ -9,7 +9,7 @@
 
 **Core value:** Every page delivers a consistent, professional brand experience with full analytics coverage — no copy-pasted markup, no untracked interactions, no stale data.
 
-**Current focus:** Phase 2 complete. TestimonialSection built and deployed across all 7 pages with testimonial markup. Ready for Phase 3.
+**Current focus:** Phase 2 complete. Phases 3-5 consolidated into single Phase 3: Final Standardisation (CTA + tokens + BusinessHours + FindUsSection). Ready for Phase 3.
 
 ---
 
@@ -20,9 +20,9 @@
 | Milestone | v1.0 Component Standardisation |
 | Phase | 02-testimonialsection (complete) |
 | Plan | 02 complete (2/2) |
-| Status | Phase 2 complete, ready for Phase 3 |
+| Status | Phase 2 complete, ready for Phase 3 (consolidated) |
 
-**Progress:** `[X][X][ ][ ][ ]` -- 2/5 phases complete
+**Progress:** `[X][X][ ]` -- 2/3 phases complete
 
 ---
 
@@ -30,7 +30,7 @@
 
 | Metric | Value |
 |--------|-------|
-| Phases defined | 5 |
+| Phases defined | 3 |
 | Requirements mapped | 18/18 |
 | Plans written | 2 |
 | Plans complete | 4 |
@@ -77,7 +77,7 @@
 
 ## Session Continuity
 
-**To resume:** Read this file and ROADMAP.md. Phase 2 complete. Transition to Phase 3 next.
+**To resume:** Read this file and ROADMAP.md. Phase 2 complete. Phases 3-5 consolidated into Phase 3: Final Standardisation (11 reqs).
 **Last session:** 2026-05-14T13:19:10Z
 **Stopped at:** Completed 02-02-PLAN.md
 

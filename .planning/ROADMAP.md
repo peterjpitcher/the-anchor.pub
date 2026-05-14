@@ -2,7 +2,7 @@
 
 **Milestone:** v1.0 Component Standardisation
 **Created:** 2026-05-14
-**Granularity:** Standard (5 phases)
+**Granularity:** Standard (3 phases)
 
 ---
 
@@ -10,9 +10,7 @@
 
 - [x] **Phase 1: Tracking & HeroBadge** - Close phone analytics gaps and extract duplicated hero badge markup
 - [x] **Phase 2: TestimonialSection** - Build and deploy a multi-variant testimonial component across all review pages
-- [ ] **Phase 3: CTA Coverage** - Add CTASection to all terminal/review pages and enable Smart CTAs on location and service pages
-- [ ] **Phase 4: Design Tokens & BusinessHours** - Define section spacing tokens and replace all static hours text site-wide
-- [ ] **Phase 5: FindUsSection** - Build the reusable map/location display component
+- [ ] **Phase 3: Final Standardisation** - CTA coverage, design tokens, BusinessHours component, and FindUsSection
 
 ---
 
@@ -47,37 +45,23 @@ Plans:
 - [x] 02-01-PLAN.md — Build TestimonialSection component with full, compact, pull-quote CVA variants + unit tests
 - [x] 02-02-PLAN.md — Replace all 8 pages of hand-rolled testimonial markup with TestimonialSection
 
-### Phase 3: CTA Coverage
-**Goal**: Every terminal page has a CTA section and Smart CTAs are enabled everywhere appropriate
-**Depends on**: Phase 1
-**Requirements**: CONV-01, CONV-02, CONV-03, CONV-04, CONV-05
+### Phase 3: Final Standardisation
+**Goal**: CTA sections on all terminal pages, spacing tokens replace inline padding, static hours replaced with BusinessHours, and FindUsSection deployed
+**Depends on**: Phase 1, Phase 2
+**Requirements**: CONV-01, CONV-02, CONV-03, CONV-04, CONV-05, DS-01, DS-02, DS-03, DS-04, DATA-01, COMP-05
 **Success Criteria** (what must be TRUE):
   1. Terminal subpages (T2, T3, T4, T5) each have a CTASection at the bottom of the page
   2. The reviews page has a CTASection prompting visitors to book
   3. All CTASections use a consistent primary/secondary button variant pairing (no mixed or inverted pairs)
   4. Location and hotel pages that were missing enableSmartCtas now have it enabled
   5. Service pages (food-menu, sunday-lunch, book-table) have enableSmartCtas enabled
-**Plans**: TBD
-
-### Phase 4: Design Tokens & BusinessHours
-**Goal**: Section spacing is token-driven and no page shows static hours text
-**Depends on**: Phase 1
-**Requirements**: DS-01, DS-02, DS-03, DS-04, DATA-01
-**Success Criteria** (what must be TRUE):
-  1. Three spacing utility classes exist in globals.css: `section-spacing`, `section-spacing-sm`, `section-spacing-lg`
-  2. A site-wide search returns zero inline `py-16`, `py-20`, `py-24`, `py-8`, `py-12`, `py-32` classes on section elements (all replaced with tokens)
-  3. Every page that previously showed hardcoded hours text now renders the BusinessHours component
-  4. Updating hours in the management app is reflected on all pages without a code change
-**Plans**: TBD
-
-### Phase 5: FindUsSection
-**Goal**: A reusable map and location component is available and deployed
-**Depends on**: Phase 1
-**Requirements**: COMP-05
-**Success Criteria** (what must be TRUE):
-  1. FindUsSection renders a Google Maps embed, the pub address, phone number, parking info, and a directions link
-  2. The component accepts a variant or layout prop so it can fit different page contexts
-  3. At least one page (e.g. contact or visit page) uses FindUsSection in place of any prior ad-hoc map/location markup
+  6. Three spacing utility classes exist in globals.css: `section-spacing`, `section-spacing-sm`, `section-spacing-lg`
+  7. A site-wide search returns zero inline `py-16`, `py-20`, `py-24`, `py-8`, `py-12`, `py-32` classes on section elements (all replaced with tokens)
+  8. Every page that previously showed hardcoded hours text now renders the BusinessHours component
+  9. Updating hours in the management app is reflected on all pages without a code change
+  10. FindUsSection renders a Google Maps embed, the pub address, phone number, parking info, and a directions link
+  11. The FindUsSection component accepts a variant or layout prop so it can fit different page contexts
+  12. At least one page uses FindUsSection in place of any prior ad-hoc map/location markup
 **Plans**: TBD
 
 ---
@@ -88,11 +72,9 @@ Plans:
 |-------|----------------|--------|-----------|
 | 1. Tracking & HeroBadge | 2/2 | Complete | 2026-05-14 |
 | 2. TestimonialSection | 2/2 | Complete | 2026-05-14 |
-| 3. CTA Coverage | 0/? | Not started | - |
-| 4. Design Tokens & BusinessHours | 0/? | Not started | - |
-| 5. FindUsSection | 0/? | Not started | - |
+| 3. Final Standardisation | 0/? | Not started | - |
 
 ---
 
 *Roadmap created: 2026-05-14*
-*Last updated: 2026-05-14 after Plan 02-02 execution — site-wide TestimonialSection deployment complete*
+*Last updated: 2026-05-14 — consolidated Phases 3-5 into single Phase 3 (11 requirements, 3 workstreams)*
