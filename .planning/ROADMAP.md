@@ -8,7 +8,7 @@
 
 ## Phases
 
-- [ ] **Phase 1: Tracking & HeroBadge** - Close phone analytics gaps and extract duplicated hero badge markup
+- [x] **Phase 1: Tracking & HeroBadge** - Close phone analytics gaps and extract duplicated hero badge markup
 - [ ] **Phase 2: TestimonialSection** - Build and deploy a multi-variant testimonial component across all review pages
 - [ ] **Phase 3: CTA Coverage** - Add CTASection to all terminal/review pages and enable Smart CTAs on location and service pages
 - [ ] **Phase 4: Design Tokens & BusinessHours** - Define section spacing tokens and replace all static hours text site-wide
@@ -30,7 +30,7 @@
 **Plans:** 2 plans
 Plans:
 - [x] 01-01-PLAN.md — Fix PhoneLink icon, add PHONE_NUMBER constant, rebuild HeroBadge on Badge primitive
-- [ ] 01-02-PLAN.md — Site-wide migration of raw tel: links and inline badge markup
+- [x] 01-02-PLAN.md — Site-wide migration of raw tel: links and inline badge markup
 
 ### Phase 2: TestimonialSection
 **Goal**: All review/testimonial content uses a single consistent component
@@ -83,7 +83,7 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Tracking & HeroBadge | 1/2 | In progress | - |
+| 1. Tracking & HeroBadge | 2/2 | Complete | 2026-05-14 |
 | 2. TestimonialSection | 0/? | Not started | - |
 | 3. CTA Coverage | 0/? | Not started | - |
 | 4. Design Tokens & BusinessHours | 0/? | Not started | - |
@@ -92,4 +92,4 @@ Plans:
 ---
 
 *Roadmap created: 2026-05-14*
-*Last updated: 2026-05-14 after Phase 1 planning — 2 plans created*
+*Last updated: 2026-05-14 after Phase 1 execution complete — 2/2 plans done*

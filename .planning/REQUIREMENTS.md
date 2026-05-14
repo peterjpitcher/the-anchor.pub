@@ -7,7 +7,7 @@
 
 ### Tracking
 
-- [ ] **TRACK-01**: All inline telephone links fire GTM tracking events (17+ raw `tel:` links currently untracked)
+- [x] **TRACK-01**: All inline telephone links fire GTM tracking events (17+ raw `tel:` links currently untracked)
 - [x] **TRACK-02**: PhoneLink component renders as inline text while tracking clicks
 
 ### Components
@@ -65,7 +65,7 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| TRACK-01 | Phase 1 | Pending |
+| TRACK-01 | Phase 1 | Complete |
 | TRACK-02 | Phase 1 | Complete |
 | COMP-01 | Phase 1 | Complete |
 | COMP-02 | Phase 2 | Pending |
