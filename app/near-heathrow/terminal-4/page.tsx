@@ -98,7 +98,7 @@ export default function Terminal4Page() {
         </div>
       </section>
 
-      <section className="py-8 bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing-sm bg-anchor-bg-card border-b border-anchor-gold/15">
         <div className="container mx-auto px-4">
           <CTASection
             title="Overnight at Terminal 4?"
@@ -194,7 +194,7 @@ export default function Terminal4Page() {
       </section>
 
       {/* Google Rating Strip */}
-      <section className="bg-anchor-bg-raised py-6 border-b border-anchor-gold/15">
+      <section className="section-spacing-tight bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <HeroBadge className="text-sm" />
         </Container>

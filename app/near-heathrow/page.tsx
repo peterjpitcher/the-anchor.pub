@@ -78,7 +78,7 @@ export default function NearHeathrowPage() {
       />
 
       {/* Definitive answer for featured snippets */}
-      <section className="bg-anchor-bg-raised border-b border-anchor-gold/15 py-6">
+      <section className="section-spacing-tight bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <p className="text-center text-lg md:text-xl text-anchor-cream-text/80 max-w-4xl mx-auto leading-relaxed">
             Searching for pubs near Heathrow Airport or restaurants near Heathrow Airport? The Anchor is one of the best places to eat near Heathrow, a proper country pub in Stanwell Moor, just 7 minutes from Terminal 5. We serve freshly prepared British pub food with free parking, a dog-friendly beer garden under the flight path, and a warm welcome for travellers and locals alike.
@@ -87,7 +87,7 @@ export default function NearHeathrowPage() {
       </section>
 
       {/* Page Title for SEO */}
-      <section className="bg-anchor-bg border-b border-anchor-gold/15 py-8">
+      <section className="section-spacing-sm bg-anchor-bg border-b border-anchor-gold/15">
         <Container>
             <PageTitle
             className="text-center text-anchor-cream-text"
@@ -290,7 +290,7 @@ export default function NearHeathrowPage() {
       </section>
 
       {/* Google Rating Badge */}
-      <section className="py-8 bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing-sm bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="text-center">
             <HeroBadge className="text-sm" />
