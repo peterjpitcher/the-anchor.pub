@@ -1,6 +1,6 @@
 ---
 generated: true
-last_updated: 2026-05-12T00:00:00Z
+last_updated: 2026-05-13T00:00:00Z
 source: session-setup
 project: the-anchor-pub
 ---
@@ -36,10 +36,13 @@ The following API routes accept POST/DELETE (i.e., perform writes):
 | `/api/parking/payment/create-order` | POST | Management API | Create parking PayPal order |
 | `/api/parking/payment/capture` | POST | Management API | Capture parking payment |
 | `/api/public/private-booking` | POST | `{API_BASE_URL}/private-booking-enquiry` | Submit private hire enquiry |
+| `/api/private-booking-enquiry` | POST | Management API | Private booking enquiry |
 | `/api/enquiry/christmas` | POST | MS Graph (email) + Management API | Christmas party enquiry |
+| `/api/enquiry/recruitment` | POST | MS Graph (email) | Recruitment application |
 | `/api/careers` | POST | MS Graph (email) | Job application with CV |
 | `/api/tracking/booking-conversion` | POST | CheersAI | Forward conversion data |
 | `/api/analytics` | POST | None (logging) | Client analytics |
 | `/api/web-vitals` | POST | None (logging) | Web vitals data |
 | `/api/bookings/initiate` | POST | Management API | Initiate booking |
 | `/api/booking/agent` | POST | Management API | AI booking agent |
+| `/api/events/[id]/availability` | POST | Management API | Event availability check |

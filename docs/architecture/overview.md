@@ -1,6 +1,6 @@
 ---
 generated: true
-last_updated: 2026-05-12T00:00:00Z
+last_updated: 2026-05-13T00:00:00Z
 source: session-setup
 project: the-anchor-pub
 ---
@@ -34,23 +34,25 @@ project: the-anchor-pub
 
 | Resource | Count |
 |----------|-------|
-| Pages (page.tsx) | 108 |
-| API routes (route.ts) | 39 |
+| Pages (page.tsx) | 120 |
+| API routes (route.ts) | 40 |
 | Layouts | 2 (root + private-hire) |
+| Components (.tsx) | 204 |
+| Library modules (lib/) | 95 |
 | Server actions | 0 (all mutations go through API routes) |
-| Environment variables (declared) | 12 |
-| Environment variables (used in code) | ~22 (some undeclared in .env.example) |
+| Environment variables (declared in .env.example) | 12 |
+| Environment variables (used in code) | ~28 (many undeclared in .env.example) |
 
 ## Database
 
-**None.** This is a static marketing website. All data lives in the management app (OJ-AnchorManagementTools) and is consumed via REST API through proxy routes.
+**None.** This is a static marketing website. All data lives in the management app (OJ-AnchorManagementTools) and is consumed via REST API through proxy routes. See [[data-model]] for the full data flow.
 
 ## Key Integrations
 
 | Service | Purpose | Auth Method |
 |---------|---------|------------|
 | Management API (management.orangejelly.co.uk) | Bookings, hours, events, menus, parking | Bearer token (ANCHOR_API_KEY) |
-| Microsoft Graph API | Sending emails (christmas enquiries, careers) | OAuth2 client credentials (tenant/client/secret) |
+| Microsoft Graph API | Sending emails (christmas enquiries, careers, recruitment) | OAuth2 client credentials (tenant/client/secret) |
 | PayPal | Deposit payments for group bookings + parking | Client-side SDK (NEXT_PUBLIC_PAYPAL_CLIENT_ID) |
 | Cloudflare Turnstile | Anti-spam on booking/waitlist forms | Site key (public) + secret key (server verify) |
 | AviationStack | Heathrow flight data for parking feature | API key (public) |
@@ -59,7 +61,7 @@ project: the-anchor-pub
 | Google Analytics 4 | Page/event analytics | Measurement ID (public) |
 | Meta Pixel | Booking conversion tracking | Pixel ID (public) |
 | Microsoft Clarity | Session recordings/heatmaps | Project ID (public) |
-| CheersAI | Booking conversion forwarding | URL + shared secret (server) |
+| CheersAI | Booking conversion forwarding + tournament fixtures | URL + shared secret (server) |
 
 ## Auth Model
 
@@ -67,7 +69,7 @@ This is a **public website with no user authentication**. There are no login flo
 
 Security is handled at two layers:
 
-1. **Middleware** (`middleware.ts`): Handles domain redirects (non-www to www), HTTPS enforcement, redirect lookups, and cache-control headers. Excludes `_next/static`, `_next/image`, and `favicon.ico`.
+1. **Middleware** (`middleware.ts`): Handles domain redirects (non-www to www), HTTPS enforcement, trailing-slash normalisation, blog pagination normalisation, redirect lookups (via `lib/middleware-redirects.ts`), security headers (X-Content-Type-Options, X-Frame-Options, X-XSS-Protection), and cache-control headers. Matches all paths except `_next/static`, `_next/image`, and `favicon.ico`.
 
 2. **API route proxy pattern**: All calls to the management API go through Next.js API routes (`app/api/*/route.ts`). The `ANCHOR_API_KEY` is stored server-side and never exposed to the client. Several routes also forward Turnstile tokens for server-side bot verification.
 

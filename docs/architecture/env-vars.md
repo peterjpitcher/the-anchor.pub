@@ -1,6 +1,6 @@
 ---
 generated: true
-last_updated: 2026-04-29T00:00:00Z
+last_updated: 2026-05-13T00:00:00Z
 source: session-setup
 project: the-anchor-pub
 ---
@@ -19,12 +19,16 @@ This is the canonical list of environment variables consumed by the website. Sou
 | `ANCHOR_API_BASE_URL` | Optional override for the management API base URL (defaults to production) | yes (commented) | `lib/management-api-base.ts`, used by all proxy routes |
 | `OPENWEATHER_API_KEY` | Weather widget data | yes | weather features in `lib/`/`components/` (server-side fetch) |
 | `TURNSTILE_SECRET_KEY` | Verifies Cloudflare Turnstile tokens server-side | yes | `lib/turnstile.ts` (consumed by `lib/spam-protection.ts`) |
-| `MICROSOFT_CLIENT_ID` | Graph app registration — for sending enquiry emails | no | `app/api/enquiry/christmas/route.ts` |
+| `MICROSOFT_CLIENT_ID` | Graph app registration -- for sending enquiry emails | no | `app/api/enquiry/christmas/route.ts`, `app/api/enquiry/recruitment/route.ts` |
 | `MICROSOFT_CLIENT_SECRET` | Graph app registration | no | same as above |
 | `MICROSOFT_TENANT_ID` | Graph app registration | no | same as above |
-| `MICROSOFT_USER_EMAIL` | The mailbox used to send enquiry emails | no | same as above |
-| `MS_PREVIEW_TOKEN` | Token gating CMS preview content | no | `app/content/blog/[...path]/route.ts` |
+| `MICROSOFT_USER_EMAIL` | The mailbox used to send enquiry emails | no | `app/api/careers/route.ts`, `app/api/enquiry/christmas/route.ts`, `app/api/enquiry/recruitment/route.ts` |
+| `MS_PREVIEW_TOKEN` | Token gating CMS preview content | no | `app/drinks/managers-special/page.tsx`, `app/api/managers-special/route.ts` |
 | `CHRISTMAS_ENQUIRY_TO` | Recipient address override for Christmas enquiries | no | `app/api/enquiry/christmas/route.ts` |
+| `RECRUITMENT_APPLICATION_TO` | Recipient address override for recruitment applications | no | `app/api/enquiry/recruitment/route.ts` |
+| `CHEERSAI_BOOKING_CONVERSIONS_URL` | CheersAI booking conversion webhook URL | yes | `lib/booking-conversion-forwarding.ts` |
+| `CHEERSAI_BOOKING_CONVERSIONS_SECRET` | Shared secret for CheersAI conversion forwarding | yes | `lib/booking-conversion-forwarding.ts` |
+| `CHEERSAI_FEED_API_KEY` | CheersAI tournament fixture feed API key | yes | CheersAI feed integration |
 | `API_DEBUG_LOGS` | Toggles verbose API client logging | no | `lib/api/client.ts` |
 | `ENABLE_BUILD_TIME_EXTERNAL_API` | Allows external API calls during `next build` | no | `lib/api/client.ts` and similar |
 | `SEASONAL_IMAGE_LOGS` | Verbose logging for seasonal image picker | no | `lib/` (seasonal helpers) |
@@ -32,13 +36,14 @@ This is the canonical list of environment variables consumed by the website. Sou
 | `NODE_ENV` | Standard | no (toolchain) | various |
 | `VERCEL_URL` | Vercel-set host | no (Vercel-managed) | URL helpers |
 
-## Public (`NEXT_PUBLIC_*` — bundled into the client)
+## Public (`NEXT_PUBLIC_*` -- bundled into the client)
 
 | Var | Purpose | Declared in `.env.example` | Used in |
 |---|---|---|---|
-| `NEXT_PUBLIC_GTM_ID` | Google Tag Manager container ID | no (project CLAUDE.md lists it) | `components/tracking/*` |
+| `NEXT_PUBLIC_GTM_ID` | Google Tag Manager container ID | no (hardcoded default `GTM-WWFQTQS`) | `app/layout.tsx`, `components/tracking/*` |
 | `NEXT_PUBLIC_AVIATIONSTACK_API_KEY` | Heathrow flight data on parking pages | yes | parking page client modules |
 | `NEXT_PUBLIC_CLARITY_PROJECT_ID` | Microsoft Clarity script ID | yes | analytics bootstrap |
+| `NEXT_PUBLIC_META_PIXEL_ID` | Meta Pixel ID for booking conversion tracking | yes | `lib/meta-pixel.ts` |
 | `NEXT_PUBLIC_PAYPAL_CLIENT_ID` | PayPal SDK client ID for inline checkout | yes | parking + table-booking PayPal buttons |
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Cloudflare Turnstile site key (widget) | yes | booking + enquiry forms |
 | `NEXT_PUBLIC_GA_MEASUREMENT_ID` | Reserved for direct GA4 (currently using GTM) | yes | not directly referenced in source |

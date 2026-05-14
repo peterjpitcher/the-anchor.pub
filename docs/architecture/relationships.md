@@ -1,6 +1,6 @@
 ---
 generated: true
-last_updated: 2026-05-12T00:00:00Z
+last_updated: 2026-05-13T00:00:00Z
 source: session-setup
 project: the-anchor-pub
 ---
@@ -11,10 +11,12 @@ project: the-anchor-pub
 
 ## Environment Variables
 
+See [[env-vars]] for the full annotated list. Summary:
+
 | Variable | Scope | Declared in .env.example | Used In |
 |----------|-------|--------------------------|---------|
 | `ANCHOR_API_KEY` | Server | Yes | 10+ API routes (customers, events, bookings, parking, hours, reviews, private-booking, enquiry) |
-| `ANCHOR_API_BASE_URL` | Server | No (hardcoded default) | `lib/management-api-base.ts` (default: `https://management.orangejelly.co.uk/api`) |
+| `ANCHOR_API_BASE_URL` | Server | Yes (commented) | `lib/management-api-base.ts` (default: `https://management.orangejelly.co.uk/api`) |
 | `NEXT_PUBLIC_AVIATIONSTACK_API_KEY` | Public | Yes | Flight data components |
 | `OPENWEATHER_API_KEY` | Server | Yes | Weather display |
 | `NEXT_PUBLIC_GA_MEASUREMENT_ID` | Public | Yes | `lib/analytics.ts` |
@@ -32,6 +34,7 @@ project: the-anchor-pub
 | `MICROSOFT_CLIENT_SECRET` | Server | No | `lib/microsoft-graph-mail.ts`, `app/api/enquiry/christmas/route.ts` |
 | `MICROSOFT_USER_EMAIL` | Server | No | `app/api/careers/route.ts`, `app/api/enquiry/christmas/route.ts` |
 | `CHRISTMAS_ENQUIRY_TO` | Server | No | `app/api/enquiry/christmas/route.ts` |
+| `RECRUITMENT_APPLICATION_TO` | Server | No | `app/api/enquiry/recruitment/route.ts` |
 | `MS_PREVIEW_TOKEN` | Server | No | `app/drinks/managers-special/page.tsx`, `app/api/managers-special/route.ts` |
 | `API_DEBUG_LOGS` | Server | No | `app/api/analytics/route.ts` |
 | `NEXT_PUBLIC_ANALYTICS_DEBUG` | Public | No | `lib/analytics.ts` |
@@ -43,7 +46,7 @@ project: the-anchor-pub
 | Core pages | 15 | `/`, `/about`, `/our-pub`, `/find-us`, `/reviews`, `/food-menu`, `/drinks` |
 | Booking flow | 4 | `/book-table`, `/book-event`, `/booking-confirmation`, `/leave-review` |
 | Sunday roast | 2 | `/sunday-lunch`, `/sunday-roast` |
-| Events/entertainment | 8 | `/live-music`, `/live-sport`, `/karaoke`, `/quiz-night`, `/cash-bingo`, `/music-bingo`, `/whats-on` |
+| Events/entertainment | 9 | `/live-music`, `/live-sport`, `/karaoke`, `/quiz-night`, `/cash-bingo`, `/music-bingo`, `/whats-on`, `/whats-on/drag-shows` |
 | Live sport | 4 | `/live-sport/boxing`, `/live-sport/f1`, `/live-sport/six-nations`, `/live-sport/world-cup` |
 | Heathrow/parking | 9 | `/heathrow-parking`, `/heathrow-parking/[terminal]`, `/near-heathrow/terminal-*`, `/luggage-storage-heathrow` |
 | Private hire | 10 | `/private-hire`, `/private-hire/baby-showers`, `/private-hire/near/[slug]`, etc. |
@@ -52,7 +55,7 @@ project: the-anchor-pub
 | Seasonal | 9 | `/christmas-parties`, `/easter`, `/valentines-day`, `/mothers-day`, etc. |
 | Dietary menus | 3 | `/food-menu/gluten-free`, `/food-menu/vegan`, `/food-menu/vegetarian` |
 | Blog | 4 | `/blog`, `/blog/[slug]`, `/blog/tag/[tag]`, `/blog/tags` |
-| Careers | 2 | `/join-our-team`, `/join-our-team/[role]` |
+| Careers | 4 | `/join-our-team`, `/join-our-team/bar-staff`, `/join-our-team/kitchen-team` |
 | Legal/policy | 3 | `/privacy-policy`, `/accessibility`, `/safety-and-respect` |
 | Utility | 2 | `/sitemap-page`, `[...unmatched]` (404) |
 
@@ -64,10 +67,12 @@ project: the-anchor-pub
 | Events | 5 routes | Management API `/events/*`, `/event-bookings`, `/event-waitlist` |
 | Parking | 5 routes | Management API `/parking/*` |
 | Private Hire | 3 routes | Management API `/public/private-booking/*`, `/private-booking-enquiry` |
-| Email/Enquiry | 2 routes | Microsoft Graph API (OAuth) |
+| Email/Enquiry | 3 routes | Microsoft Graph API (OAuth) -- careers, christmas, recruitment |
 | Analytics/Tracking | 3 routes | GTM, CheersAI, Web Vitals |
 | Content | 4 routes | Management API `/business/hours`, `/customers/lookup`, managers-special |
 | Reviews | 2 routes | Management API `/reviews/*` |
+| Booking Agent | 2 routes | Management API (AI agent) |
+| Calendar | 2 routes | Management API `/calendar/*` |
 
 ## Key Library Files
 
@@ -75,15 +80,32 @@ project: the-anchor-pub
 |------|---------|---------|
 | `lib/management-api-base.ts` | Resolves management API base URL | All API proxy routes |
 | `lib/api.ts` | Main API client, availability logic | Booking pages |
+| `lib/api/client.ts` | Client-side API helpers | Client components |
+| `lib/api/bookings.ts` | Booking API calls | Booking flow |
+| `lib/api/events.ts` | Event API calls | Event pages |
+| `lib/api/hours.ts` | Hours API calls | Hours components |
+| `lib/api/parking.ts` | Parking API calls | Parking pages |
+| `lib/api/private-bookings.ts` | Private hire API calls | Private hire pages |
+| `lib/api/menu.ts` | Menu API calls | Menu pages |
+| `lib/api/catering-packages.ts` | Catering packages data | Private hire/events |
 | `lib/table-booking-service-windows.ts` | Slot resolution from business hours | Booking flow |
 | `lib/hours-utils.ts` | Business hours display utilities | Multiple pages |
 | `lib/turnstile.ts` | Server-side Turnstile verification | Booking/waitlist routes |
-| `lib/microsoft-graph-mail.ts` | MS Graph email sending with OAuth | Careers, Christmas enquiry |
+| `lib/spam-protection.ts` | Spam detection wrapper | Form submissions |
+| `lib/microsoft-graph-mail.ts` | MS Graph email sending with OAuth | Careers, Christmas, Recruitment |
 | `lib/meta-pixel.ts` | Meta Pixel tracking + conversion forwarding | Analytics, booking pages |
 | `lib/analytics.ts` | GA4 analytics helpers | Multiple components |
 | `lib/use-clarity.ts` | Microsoft Clarity hook | Root layout |
 | `lib/gtm-events.ts` | GTM event helpers | Interactive components |
 | `lib/booking-conversion-forwarding.ts` | CheersAI conversion forwarding | Booking tracking |
-| `lib/api/client.ts` | Client-side API helpers | Client components |
-| `lib/api/private-bookings.ts` | Private hire API calls | Private hire pages |
 | `lib/middleware-redirects.ts` | Redirect lookup table | middleware.ts |
+| `lib/sunday-roast.ts` | Sunday roast menu data + logic | Sunday roast pages |
+| `lib/careers.ts` | Careers/recruitment data | Join our team pages |
+| `lib/jsonld.ts` | JSON-LD structured data builder | SEO across pages |
+| `lib/schema.ts` | Schema.org helpers | Multiple pages |
+| `lib/enhanced-schemas.ts` | Enhanced schema generation | SEO pages |
+| `lib/constants.ts` | Business constants | Multiple files |
+| `lib/canonical-url.ts` | Canonical URL helpers | Layout/SEO |
+| `lib/form-validation.ts` | Zod form schemas | Booking/enquiry forms |
+| `lib/event-calendar.ts` | Event calendar logic | Events pages |
+| `lib/world-cup-2026.ts` | World Cup fixture data | World Cup page |

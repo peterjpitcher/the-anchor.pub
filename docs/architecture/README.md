@@ -1,6 +1,6 @@
 ---
 generated: true
-last_updated: 2026-05-12T00:00:00Z
+last_updated: 2026-05-13T00:00:00Z
 source: session-setup
 project: the-anchor-pub
 ---
@@ -13,18 +13,21 @@ project: the-anchor-pub
 
 | Document | Status | Description |
 |----------|--------|-------------|
-| [overview.md](overview.md) | Complete | Tech stack, counts, integrations, auth model |
-| [routes.md](routes.md) | Complete | 108 pages + 39 API routes with methods and auth |
-| [server-actions.md](server-actions.md) | Complete | No server actions; mutation endpoints listed |
-| [data-model.md](data-model.md) | Complete | No database; API proxy pattern documented |
-| [relationships.md](relationships.md) | Complete | Env vars, page categories, API clusters, key libraries |
+| [[overview]] | Complete | Tech stack, counts, integrations, auth model |
+| [[routes]] | Complete | 120 pages + 40 API routes with methods and auth |
+| [[server-actions]] | Complete | No server actions; mutation endpoints listed |
+| [[data-model]] | Complete | No database; API proxy pattern documented |
+| [[relationships]] | Complete | Env vars, page categories, API clusters, key libraries |
+| [[env-vars]] | Complete | 16 server-only + 12 public env vars documented |
 
 ## Project Summary
 
 - **Type:** Customer-facing marketing website + booking flow
-- **Pages:** 108
-- **API routes:** 39 (all proxy to management API)
+- **Pages:** 120
+- **API routes:** 40 (all proxy to management API)
 - **Server actions:** 0
+- **Components:** 204 (.tsx files in components/)
+- **Library modules:** 95 files in lib/
 - **Database:** None (consumes management API)
 - **Auth model:** Public site, no user auth; API key on server-side proxy routes
 - **Key integrations:** Management API, Microsoft Graph, PayPal, Cloudflare Turnstile, GTM/GA4, Meta Pixel, Clarity, CheersAI, AviationStack, OpenWeatherMap
