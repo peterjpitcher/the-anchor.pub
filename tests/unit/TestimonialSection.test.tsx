@@ -59,8 +59,11 @@ describe('TestimonialSection', () => {
 
     it('should render author name and source text', () => {
       render(<TestimonialSection reviews={[sampleReviews[0]]} />)
-      expect(screen.getByText(/Dave/)).toBeInTheDocument()
-      expect(screen.getByText(/Google Review/)).toBeInTheDocument()
+      // Find the attribution paragraph within the card
+      const card = screen.getByTestId('card')
+      const attribution = within(card).getByText(/Dave/)
+      expect(attribution).toBeInTheDocument()
+      expect(attribution.textContent).toContain('Google Review')
     })
 
     it('should wrap quotes with curly double quotes', () => {
