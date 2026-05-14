@@ -13,9 +13,9 @@
 ### Components
 
 - [x] **COMP-01**: HeroBadge component extracts the duplicated badge/pill pattern from 10+ pages
-- [ ] **COMP-02**: TestimonialSection displays reviews in full-section variant (heading + cards)
-- [ ] **COMP-03**: TestimonialSection displays reviews in compact card-strip variant
-- [ ] **COMP-04**: TestimonialSection displays reviews in single pull-quote variant
+- [x] **COMP-02**: TestimonialSection displays reviews in full-section variant (heading + cards)
+- [x] **COMP-03**: TestimonialSection displays reviews in compact card-strip variant
+- [x] **COMP-04**: TestimonialSection displays reviews in single pull-quote variant
 - [ ] **COMP-05**: FindUsSection shows Google Maps embed, address, phone, parking info, and directions link
 - [ ] **COMP-06**: All existing ad-hoc testimonial/review markup replaced with TestimonialSection
 
@@ -68,9 +68,9 @@
 | TRACK-01 | Phase 1 | Complete |
 | TRACK-02 | Phase 1 | Complete |
 | COMP-01 | Phase 1 | Complete |
-| COMP-02 | Phase 2 | Pending |
-| COMP-03 | Phase 2 | Pending |
-| COMP-04 | Phase 2 | Pending |
+| COMP-02 | Phase 2 | Complete |
+| COMP-03 | Phase 2 | Complete |
+| COMP-04 | Phase 2 | Complete |
 | COMP-06 | Phase 2 | Pending |
 | CONV-01 | Phase 3 | Pending |
 | CONV-02 | Phase 3 | Pending |
@@ -91,4 +91,4 @@
 
 ---
 *Requirements defined: 2026-05-14*
-*Last updated: 2026-05-14 after roadmap creation — all 18 requirements mapped*
+*Last updated: 2026-05-14 after Plan 02-01 — COMP-02, COMP-03, COMP-04 complete*

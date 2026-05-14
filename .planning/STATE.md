@@ -1,7 +1,7 @@
 # Project State: The Anchor — Component Standardisation
 
 **Last updated:** 2026-05-14
-**Session:** Plan 01-02 executed (Phase 1 complete)
+**Session:** Plan 02-01 executed (TestimonialSection component built)
 
 ---
 
@@ -9,7 +9,7 @@
 
 **Core value:** Every page delivers a consistent, professional brand experience with full analytics coverage — no copy-pasted markup, no untracked interactions, no stale data.
 
-**Current focus:** Phase 1 complete. All phone links tracked, all hero badges standardised. Ready for Phase 2.
+**Current focus:** Phase 2 in progress. TestimonialSection component built (Plan 01). Ready for Plan 02 (site-wide deployment).
 
 ---
 
@@ -18,11 +18,11 @@
 | Field | Value |
 |-------|-------|
 | Milestone | v1.0 Component Standardisation |
-| Phase | 01-tracking-herobadge (complete) |
-| Plan | 02 complete (2/2) |
-| Status | Phase 1 complete, ready for Phase 2 |
+| Phase | 02-testimonialsection (in progress) |
+| Plan | 01 complete (1/2) |
+| Status | Plan 02-01 complete, ready for Plan 02-02 |
 
-**Progress:** `[X][ ][ ][ ][ ]` -- 1/5 phases complete
+**Progress:** `[X][/][ ][ ][ ]` -- 1/5 phases complete, Phase 2 in progress
 
 ---
 
@@ -33,7 +33,7 @@
 | Phases defined | 5 |
 | Requirements mapped | 18/18 |
 | Plans written | 2 |
-| Plans complete | 2 |
+| Plans complete | 3 |
 
 ---
 
@@ -51,6 +51,8 @@
 | 2026-05-14 | HeroBadge is a Server Component | Trust badges have no interactivity; no 'use client' needed |
 | 2026-05-14 | PhoneLink showIcon=false for mid-sentence links | Icon breaks text flow when phone number is inline in a sentence |
 | 2026-05-14 | Source names use page-name_location convention | Clear GTM attribution e.g. drinks_cta, heathrow-parking_terms |
+| 2026-05-14 | StarRating/TestimonialCard are internal sub-components | Not exported — only used within TestimonialSection; keeps public API minimal |
+| 2026-05-14 | Pull-quote uses text-based rating, not star icons | "rated 5/5" in attribution text per UI spec; cleaner for single-quote layout |
 
 ### Spec reference
 
@@ -64,6 +66,7 @@
 - [x] Run `/gsd:plan-phase 1` to plan Phase 1
 - [x] Execute Plan 01-01 (PhoneLink icon fix + HeroBadge rebuild)
 - [x] Execute Plan 01-02 (site-wide migration)
+- [x] Execute Plan 02-01 (TestimonialSection component build)
 
 ### Blockers
 
@@ -73,9 +76,9 @@
 
 ## Session Continuity
 
-**To resume:** Read this file and ROADMAP.md. Phase 1 complete. Start Phase 2 planning.
-**Last session:** 2026-05-14T11:52:31Z
-**Stopped at:** Completed 01-02-PLAN.md (Phase 1 complete)
+**To resume:** Read this file and ROADMAP.md. Phase 2 Plan 01 complete. Execute Plan 02-02 next.
+**Last session:** 2026-05-14T13:12:17Z
+**Stopped at:** Completed 02-01-PLAN.md
 
 **Worktree:** `admiring-dhawan-3da8c8`
 **Branch:** `claude/admiring-dhawan-3da8c8`
