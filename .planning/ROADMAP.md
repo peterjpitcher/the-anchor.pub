@@ -62,12 +62,16 @@ Plans:
   10. FindUsSection renders a Google Maps embed, the pub address, phone number, parking info, and a directions link
   11. The FindUsSection component accepts a variant or layout prop so it can fit different page contexts
   12. At least one page uses FindUsSection in place of any prior ad-hoc map/location markup
-**Plans:** 4 plans
+**Plans:** 8 plans
 Plans:
 - [ ] 03-01-PLAN.md — CTA coverage: reviews CTASection, enableSmartCtas on service pages, button variant audit
 - [ ] 03-02-PLAN.md — FindUsSection build with full/compact variants + deploy on find-us page
 - [ ] 03-03-PLAN.md — Spacing tokens verification + hardcoded hours replacement with BusinessHours
-- [ ] 03-04-PLAN.md — Site-wide inline py-* replacement with spacing tokens (72 files)
+- [ ] 03-04-PLAN.md — DS-04 batch 1: hotel and near-heathrow pages (17 files)
+- [ ] 03-05-PLAN.md — DS-04 batch 2: location pub pages (16 files)
+- [ ] 03-06-PLAN.md — DS-04 batch 3: event and entertainment pages (11 files)
+- [ ] 03-07-PLAN.md — DS-04 batch 4: private-hire and venue pages (11 files)
+- [ ] 03-08-PLAN.md — DS-04 batch 5: homepage + core pages + site-wide verification (17 files)
 
 ---
 
@@ -77,9 +81,9 @@ Plans:
 |-------|----------------|--------|-----------|
 | 1. Tracking & HeroBadge | 2/2 | Complete | 2026-05-14 |
 | 2. TestimonialSection | 2/2 | Complete | 2026-05-14 |
-| 3. Final Standardisation | 0/4 | Planned | - |
+| 3. Final Standardisation | 0/8 | Planned | - |
 
 ---
 
 *Roadmap created: 2026-05-14*
-*Last updated: 2026-05-14 — Phase 3 planned: 4 plans in 2 waves*
+*Last updated: 2026-05-14 — Phase 3 revised: 8 plans in 2 waves (DS-04 split into 5 batches)*
