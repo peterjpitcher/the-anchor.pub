@@ -1,7 +1,7 @@
 # Project State: The Anchor — Component Standardisation
 
 **Last updated:** 2026-05-14
-**Session:** Plan 02-02 executed (site-wide TestimonialSection deployment)
+**Session:** Plan 03-03 executed (spacing tokens verified + BusinessHours deployment)
 
 ---
 
@@ -19,7 +19,7 @@
 |-------|-------|
 | Milestone | v1.0 Component Standardisation |
 | Phase | 03-final-standardisation |
-| Plan | 01 complete (1/?) |
+| Plan | 03 complete (3/?) |
 | Status | Phase 3 in progress |
 
 **Progress:** `[X][X][/]` -- 2/3 phases complete, Phase 3 started
@@ -33,7 +33,7 @@
 | Phases defined | 3 |
 | Requirements mapped | 18/18 |
 | Plans written | 2 |
-| Plans complete | 5 |
+| Plans complete | 7 |
 
 ---
 
@@ -55,6 +55,7 @@
 | 2026-05-14 | All CTASection button arrays use variant white for secondary buttons | Not secondary -- white renders correctly on coloured backgrounds |
 | 2026-05-14 | StarRating/TestimonialCard are internal sub-components | Not exported — only used within TestimonialSection; keeps public API minimal |
 | 2026-05-14 | Pull-quote uses text-based rating, not star icons | "rated 5/5" in attribution text per UI spec; cleaner for single-quote layout |
+| 2026-05-14 | BusinessHours for standalone hours, generic phrasing for prose/FAQ | React components cannot render in JSON-LD strings; mid-sentence prose needs static text |
 
 ### Spec reference
 
@@ -79,9 +80,9 @@
 
 ## Session Continuity
 
-**To resume:** Read this file and ROADMAP.md. Phase 3 in progress, plan 01 (CTA standardisation) complete.
-**Last session:** 2026-05-14T14:03:13Z
-**Stopped at:** Completed 03-01-PLAN.md
+**To resume:** Read this file and ROADMAP.md. Phase 3 in progress, plans 01-03 complete.
+**Last session:** 2026-05-14T14:04:41Z
+**Stopped at:** Completed 03-03-PLAN.md
 
 **Worktree:** `admiring-dhawan-3da8c8`
 **Branch:** `claude/admiring-dhawan-3da8c8`
