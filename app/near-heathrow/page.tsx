@@ -882,7 +882,9 @@ export default function NearHeathrowPage() {
           {
             text: "Call: 01753 682707",
             href: "tel:+441753682707",
-            variant: "white"
+            variant: "white",
+            isPhone: true,
+            phoneSource: "near_heathrow_cta"
           },
           {
             text: "Get Directions",

@@ -8,6 +8,8 @@ import { Input, Textarea } from '@/components/ui/primitives/Input'
 import { Icon } from '@/components/ui/Icon'
 import type { ParkingRateCard, ParkingPricingBreakdownItem } from '@/lib/api'
 import { formatPrice } from '@/lib/utils'
+import { PhoneLink } from '@/components/PhoneLink'
+import { CONTACT } from '@/lib/constants'
 
 
 interface AvailabilityResult {
@@ -658,7 +660,7 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
               )}
               {captureState === 'error' && (
                 <p className="text-sm text-red-400 bg-anchor-bg-raised rounded-lg px-4 py-3">
-                  Payment could not be completed. Please try again or call us on <a href="tel:01753682707" className="font-semibold underline">01753 682707</a>.
+                  Payment could not be completed. Please try again or call us on <PhoneLink phone={CONTACT.phone} source="parking_wizard_error" showIcon={false} className="font-semibold underline">01753 682707</PhoneLink>.
                 </p>
               )}
               {captureState === 'capturing' && (
@@ -671,7 +673,7 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
               {/* Error state, shown if SDK fails to load or client ID is missing */}
               {(paypalLoadError || !process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID) && (
                 <p className="text-sm text-red-400 bg-anchor-bg-raised rounded-lg px-4 py-3">
-                  Payment could not be loaded. Please call us on <a href="tel:01753682707" className="font-semibold underline">01753 682707</a> to complete your booking.
+                  Payment could not be loaded. Please call us on <PhoneLink phone={CONTACT.phone} source="parking_wizard_paypal_error" showIcon={false} className="font-semibold underline">01753 682707</PhoneLink> to complete your booking.
                 </p>
               )}
               {/* Skeleton shown while SDK loads, sibling to the container, not inside it */}
@@ -767,9 +769,9 @@ export function ParkingBookingWizard({ initialRates = null }: ParkingBookingWiza
             departure time, registration and phone number.
           </p>
           <div className="mt-3 flex flex-wrap gap-3">
-            <a className="font-semibold underline" href="tel:+441753682707">
+            <PhoneLink phone={CONTACT.phone} source="parking_wizard_fallback" showIcon={false} className="font-semibold underline">
               Call 01753 682707
-            </a>
+            </PhoneLink>
             <a
               className="font-semibold underline"
               href="https://wa.me/441753682707?text=Hi%20Anchor%20Team%2C%20I%20need%20to%20book%20parking%20without%20the%20online%20form."

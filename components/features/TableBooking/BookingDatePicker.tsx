@@ -4,6 +4,8 @@ import { useState, useEffect, useCallback } from 'react'
 import { DatePicker, Select, Button, ErrorDisplay } from '@/components/ui'
 import { getBusinessHours, BusinessHours, isKitchenClosed } from '@/lib/api'
 import { trackTableBookingClick, trackFormStart } from '@/lib/gtm-events'
+import { PhoneLink } from '@/components/PhoneLink'
+import { CONTACT } from '@/lib/constants'
 
 export interface BookingDatePickerProps {
   onDateTimeSelect: (date: string, time: string, partySize: number) => void
@@ -250,7 +252,7 @@ export default function BookingDatePicker({
           </p>
           {kitchenMessage.toLowerCase().includes('monday') && (
             <p className="text-sm text-anchor-cream-text/70 mt-1">
-              The bar is open for drinks. Call us at <a href="tel:+441753682707" className="font-medium underline">01753 682707</a> for drinks-only reservations.
+              The bar is open for drinks. Call us at <PhoneLink phone={CONTACT.phone} source="booking_kitchen_closed" showIcon={false} className="font-medium underline">01753 682707</PhoneLink> for drinks-only reservations.
             </p>
           )}
         </div>

@@ -34,6 +34,9 @@ import {
   isVenueClosed,
 } from '@/lib/hours-utils'
 import { PayPalDepositSection } from './PayPalDepositSection'
+import { PhoneLink } from '@/components/PhoneLink'
+import { PhoneButton } from '@/components/PhoneButton'
+import { CONTACT } from '@/lib/constants'
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
 
@@ -1709,7 +1712,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
           <Alert variant="error" title="Booking not completed">
             <p>{error}</p>
             <p className="mt-2">
-              Call <a href="tel:+441753682707" className="font-semibold underline">01753 682707</a> if you need help.
+              Call <PhoneLink phone={CONTACT.phone} source="table_booking_error" showIcon={false} className="font-semibold underline">01753 682707</PhoneLink> if you need help.
             </p>
           </Alert>
         )}
@@ -1931,9 +1934,9 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                   <p className="font-semibold">Join waitlist</p>
                   <p className="mt-1">Call us and we'll add you to the waitlist for cancellations.</p>
                   <div className="mt-2">
-                    <Button asChild size="sm" variant="secondary" className="min-h-12">
-                      <a href="tel:+441753682707">Join waitlist by phone</a>
-                    </Button>
+                    <PhoneButton phone={CONTACT.phone} source="table_booking_waitlist" size="sm" variant="secondary" className="min-h-12">
+                      Join waitlist by phone
+                    </PhoneButton>
                   </div>
                 </div>
               </div>
@@ -2140,9 +2143,9 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
 
             <p className="text-sm text-anchor-cream-text/70">
               Plans changed?{' '}
-              <a href="tel:+441753682707" className="font-semibold underline">
+              <PhoneLink phone={CONTACT.phone} source="table_booking_change" showIcon={false} className="font-semibold underline">
                 A quick call to 01753 682707
-              </a>{' '}
+              </PhoneLink>{' '}
               lets us offer your table to someone else. Thanks for letting us know.
             </p>
 
@@ -2162,9 +2165,9 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                     <ul className="mt-2 list-disc space-y-1 pl-6">
                       <li>
                         Call us on{' '}
-                        <a href="tel:+441753682707" className="font-semibold underline">
+                        <PhoneLink phone={CONTACT.phone} source="table_booking_payment_error" showIcon={false} className="font-semibold underline">
                           01753 682707
-                        </a>{' '}
+                        </PhoneLink>{' '}
                         we'll take payment over the phone.
                       </li>
                       {result?.fallback_payment_url ? (

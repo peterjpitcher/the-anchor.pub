@@ -722,7 +722,9 @@ export default async function RestaurantsNearHeathrowPage() {
           {
             text: "Call: 01753 682707",
             href: "tel:+441753682707",
-            variant: "secondary"
+            variant: "secondary",
+            isPhone: true,
+            phoneSource: "restaurants_near_heathrow_cta"
           }
         ]}
         variant="green"

@@ -9,6 +9,8 @@ import { TurnstileField, type TurnstileFieldRef } from '@/components/security/Tu
 import { trackEventBookingComplete, trackEventBookingFunnelStep, trackEventBookingStart } from '@/lib/gtm-events'
 import type { Event } from '@/lib/api'
 import { getEventBookingReassurance, getEventUnitPrice } from '@/lib/event-booking-experience'
+import { PhoneLink } from '@/components/PhoneLink'
+import { CONTACT } from '@/lib/constants'
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
 
@@ -521,7 +523,7 @@ export function ManagementEventBookingForm({
           <Alert variant="error" title="Booking not completed">
             <p>{error}</p>
             <p className="mt-2">
-              Call <a href="tel:+441753682707" className="font-semibold underline">01753 682707</a> if you need help.
+              Call <PhoneLink phone={CONTACT.phone} source="event_booking_error" showIcon={false} className="font-semibold underline">01753 682707</PhoneLink> if you need help.
             </p>
           </Alert>
         )}
