@@ -377,7 +377,7 @@ export default async function PrivateHirePage() {
                                 <div>
                                     <div className="mb-4">
                                         <h3 className="text-xl font-bold text-anchor-gold-vivid">Venue Hire</h3>
-                                        <p className="text-sm text-anchor-cream-text/60 mt-1">Hourly rates, no minimum spend required</p>
+                                        <p className="text-sm text-anchor-cream-text/60 mt-1">Room hire rates vary by day and group size</p>
                                     </div>
                                     <VenueSpacesTable spaces={spaces} />
                                 </div>

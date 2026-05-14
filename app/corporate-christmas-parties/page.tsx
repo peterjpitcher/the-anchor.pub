@@ -179,7 +179,7 @@ export default function ChristmasPartiesPage() {
                     <div className="max-w-5xl mx-auto text-center">
                         <SectionHeader
                             title="Christmas party packages & pricing for office groups"
-                            subtitle="Transparent per-person pricing, no hidden hire fees, and flexible formats to suit your team size. Pick a setup, send your enquiry, and we'll hold your date."
+                            subtitle="Transparent per-person pricing and flexible formats to suit your team size. Pick a setup, send your enquiry, and we'll hold your date."
                         />
 
                         <FeatureGrid
@@ -276,7 +276,7 @@ export default function ChristmasPartiesPage() {
                     },
                     {
                         question: "What's included in your christmas party packages?",
-                        answer: "All christmas party packages include a three-course festive menu with crackers and candlelit tables. Tue–Thu from £36.95pp, Fri–Sat from £39.95pp. Buffets are available from £10.95pp for groups of 26 or more. There are no hidden hire fees, the per-person price covers everything except drinks."
+                        answer: "All christmas party packages include a three-course festive menu with crackers and candlelit tables. Tue–Thu from £36.95pp, Fri–Sat from £39.95pp. Buffets are available from £10.95pp for groups of 26 or more. The per-person price covers your meal, room hire, and table setup — drinks are additional."
                     },
                     {
                         question: "Do you provide VAT invoices and corporate billing?",
@@ -303,26 +303,26 @@ export default function ChristmasPartiesPage() {
             />
 
             <CTASection
-                title="Ready to book your office christmas party?"
-                description="Send your enquiry and we'll come back within one working day with availability, pricing and everything you need to get sign-off. Prefer a quick chat? Call the team, we'll talk you through the options. The sooner you get in touch, the better your date options. Friday and Saturday nights sell out by October. Midweek slots follow shortly after."
+                title="Ready to Book Your Office Christmas Party?"
+                description="Send your enquiry and we'll come back within one working day with availability, pricing and everything you need to get sign-off. Friday and Saturday nights sell out by October, so the sooner you get in touch, the better your date options."
                 buttons={[
                     {
-                        text: " Enquire about your Christmas party booking",
+                        text: "Enquire Now",
                         href: "/christmas-parties#christmas-enquiry",
                         variant: "primary"
                     },
                     {
-                        text: " Call 01753 682707",
+                        text: "Call 01753 682707",
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
-                        phoneSource: "christmas_cta",
-                        variant: "secondary"
+                        phoneSource: "corporate_christmas_cta",
+                        variant: "white"
                     },
                     {
-                        text: " Email manager@the-anchor.pub",
-                        href: "mailto:manager@the-anchor.pub?subject=Christmas%20Party%20Enquiry",
+                        text: "Email Us",
+                        href: "mailto:manager@the-anchor.pub?subject=Corporate%20Christmas%20Party%20Enquiry",
                         isEmail: true,
-                        variant: "secondary"
+                        variant: "white"
                     }
                 ]}
                 variant="green"

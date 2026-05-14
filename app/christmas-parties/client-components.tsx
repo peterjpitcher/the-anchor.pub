@@ -142,8 +142,8 @@ const FESTIVE_PRICING = [
   },
   {
     tier: 'Festive buffets (26+ guests)',
-    price: 'From £10.95 per person',
-    includes: 'Three buffet tiers with hot finger food, salads and grazing boards refreshed for the first hour. Great for standing receptions and team gatherings.'
+    price: 'From £13 per person',
+    includes: 'Three festive buffet tiers: sandwich buffet (£13pp), hot finger buffet (£16pp), or premium grazing (£19pp). Great for standing receptions and team gatherings.'
   }
 ]
 
@@ -170,12 +170,12 @@ const EarlyBirdCountdown = ({ className = '' }: { className?: string }) => {
 
 const FAQ_ITEMS = [
   {
-    question: "Is there a minimum spend for shared party nights or private hire?",
-    answer: "Weeknight shared Christmas party nights start at £36.95 per guest with no additional room hire. Weekend private dinners run from £39.95 per guest, we agree a minimum guest count, not a bar spend, so you keep control of the budget."
+    question: "How much does a Christmas party cost?",
+    answer: "Mid-week three-course Christmas dinners start at £36.95 per person. Weekend private dinners run from £39.95 per person. Festive buffets start from £13 per person. Room hire applies separately and varies by date and party size. Call us on 01753 682707 for a quote tailored to your group."
   },
   {
-    question: "Is there a hire fee for Christmas parties?",
-    answer: "No hire fee when you book one of our festive packages. If you need exclusive use of a space, get in touch and we'll talk through the options."
+    question: "Can I combine the early bird offer with the festive offer?",
+    answer: "No, our offers cannot be combined. If you take the early bird discount, the festive offer won't apply on top, and vice versa. Each offer is great value on its own though."
   },
   {
     question: "Is there a minimum group size?",
@@ -758,12 +758,12 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                       <p className="text-anchor-cream-text/70">Hand-carved British turkey breast with sage &amp; onion stuffing, pigs in blankets and a homemade Yorkshire pudding, served with herb-crusted triple-cooked roast potatoes, seasonal vegetables and plenty of our signature gravy.</p>
                     </li>
                     <li>
-                      <p className="font-semibold text-anchor-cream-text">Crispy pork belly &amp; Christmas trimmings</p>
-                      <p className="text-anchor-cream-text/70">Slow-roasted pork belly finished with crisp crackling, Bramley apple sauce, sage &amp; onion stuffing, pigs in blankets and a homemade Yorkshire pudding, served with herb-crusted triple-cooked roast potatoes, seasonal vegetables and our signature gravy.</p>
+                      <p className="font-semibold text-anchor-cream-text">Roasted beef &amp; Christmas trimmings</p>
+                      <p className="text-anchor-cream-text/70">Rich and full of flavour, served with golden triple-cooked herb-crusted roast potatoes, a fluffy Yorkshire pudding, oven-roasted carrots and parsnips, buttery sauteed cabbage and our signature gravy.</p>
                     </li>
                     <li>
-                      <p className="font-semibold text-anchor-cream-text">Slow-cooked lamb shank &amp; Christmas trimmings</p>
-                      <p className="text-anchor-cream-text/70">Tender slow-braised lamb shank in rich red wine gravy, served with herb-crusted triple-cooked roast potatoes, seasonal vegetables, sage &amp; onion stuffing, pigs in blankets, a Yorkshire pudding and our signature gravy.</p>
+                      <p className="font-semibold text-anchor-cream-text">Roasted pork &amp; Christmas trimmings</p>
+                      <p className="text-anchor-cream-text/70">Juicy roasted pork with proper home-cooked flavour, served with golden triple-cooked herb-crusted roast potatoes, a fluffy Yorkshire pudding, oven-roasted carrots and parsnips, buttery sauteed cabbage and our signature gravy.</p>
                     </li>
                     <li>
                       <p className="font-semibold text-anchor-cream-text">Beetroot &amp; butternut squash Wellington &amp; Christmas trimmings (VG)</p>
@@ -950,7 +950,8 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
                 <ul className="space-y-2 text-sm text-anchor-cream-text/70">
                   <li>Pigs in blankets (tray of 50) - £39</li>
                   <li>Stuffing balls (tray of 40) - £28</li>
-                  <li>Cauliflower cheese (serves ~12) - £24</li>
+                  <li>Broccoli cheese (serves ~12) - £24</li>
+                  <li>Gourmet broccoli cheese with truffle crumb (serves ~12) - £36</li>
                   <li>Roast potatoes & gravy (serves ~12) - £19</li>
                   <li>Mini Yorkshire puddings with gravy (24) - £22</li>
                 </ul>

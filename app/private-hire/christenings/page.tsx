@@ -352,7 +352,7 @@ export default async function ChristeningsPage() {
 
                         <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6 text-center mt-6">
                             <p className="text-anchor-cream-text/70 text-sm">
-                                All christening party pub packages include use of a reserved area, dedicated staff, and free parking. No separate room hire fee when booking a catering package. Call us on <strong className="text-anchor-gold-vivid">01753 682707</strong> for a quote tailored to your guest numbers.
+                                All christening party pub packages include use of a reserved area, dedicated staff, and free parking. Room hire applies and varies by day and group size, with no minimum spend required. Call us on <strong className="text-anchor-gold-vivid">01753 682707</strong> for a quote tailored to your guest numbers.
                             </p>
                         </div>
                     </div>
@@ -416,7 +416,7 @@ export default async function ChristeningsPage() {
                     },
                     {
                         question: "Is there a room hire fee?",
-                        answer: "For most christening parties booking a buffet or meal, there is no separate room hire fee, just a minimum spend on food and drink. Contact us for specific details based on your guest numbers."
+                        answer: "Yes, a room hire fee applies for christening parties. The fee varies depending on the day, time, and group size. There is no minimum spend required. Contact us for specific details based on your guest numbers."
                     }
                 ]}
             />

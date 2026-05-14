@@ -392,8 +392,8 @@ export default function PrivatePartyVenuePage() {
             answer: "Yes! We're a family-friendly venue and welcome guests of all ages. Children must be supervised, and we stop serving alcohol to under-18s at 9pm. We have children's menu options available."
           },
 	          {
-	            question: "Is there a minimum spend for private parties?",
-	            answer: "Yes, minimum spends vary depending on the day and time. Typically from £200 for weekday daytime parties to £500 for Saturday evenings. We'll discuss this when you enquire."
+	            question: "Is there a room hire fee for private parties?",
+	            answer: "Yes, room hire fees vary depending on the day, time, and group size. There is no minimum spend required. We'll discuss pricing when you enquire."
 	          },
           {
             question: "Can we have music and dancing?",

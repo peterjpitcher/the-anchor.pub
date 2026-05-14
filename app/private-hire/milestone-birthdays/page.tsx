@@ -110,7 +110,7 @@ export default async function MilestoneBirthdaysPage() {
                             Birthday Party Venue Near Heathrow &amp; Staines &mdash; 21st, 30th, 40th, 50th
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">
-                            You only turn 30 (or 40, or 50) once. Make it count. The Anchor is a birthday party pub in Stanwell Moor with birthday party room hire for 10&ndash;50 guests, no room hire charge, buffets from &pound;9.95pp, and free parking. Whether you want a DJ and a dance floor or a quiet dinner with your closest friends, we&apos;ll set it up.
+                            You only turn 30 (or 40, or 50) once. Make it count. The Anchor is a birthday party pub in Stanwell Moor with birthday party room hire for 10&ndash;50 guests, buffets from &pound;9.95pp, and free parking. No minimum spend &mdash; you only pay for what you order on top of the room hire. Whether you want a DJ and a dance floor or a quiet dinner with your closest friends, we&apos;ll set it up.
                         </p>
                     </div>
                 </Container>
@@ -199,7 +199,7 @@ export default async function MilestoneBirthdaysPage() {
                             <div className="space-y-3">
                                 <h3 className="text-2xl font-bold text-anchor-gold-vivid">30th Birthday Party Venue Near Heathrow</h3>
                                 <p className="text-anchor-cream-text/70">
-                                    Turning 30 deserves more than drinks at a chain bar. Our dining room seats 26 for a sit-down meal, or clear the space for a dance floor with a DJ and a burger buffet. No room hire charge means your budget goes on food, drinks, and entertainment — not an empty room. Read our <Link href="/blog/30th-birthday-party-ideas-venues" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">30th birthday party ideas</Link> for inspiration.
+                                    Turning 30 deserves more than drinks at a chain bar. Our dining room seats 26 for a sit-down meal, or clear the space for a dance floor with a DJ and a burger buffet. No minimum spend means your budget goes on exactly what you want — food, drinks, and entertainment. Read our <Link href="/blog/30th-birthday-party-ideas-venues" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">30th birthday party ideas</Link> for inspiration.
                                 </p>
                             </div>
                             <div className="space-y-3">

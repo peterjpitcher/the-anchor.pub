@@ -247,7 +247,7 @@ export default async function BabyShowersPage() {
 
                         <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6 text-center">
                             <p className="text-anchor-cream-text/70 text-sm">
-                                All baby shower packages include use of a reserved area, dedicated staff, and free parking. No room hire fee when booking a catering package. Call us on <strong className="text-anchor-gold-vivid">01753 682707</strong> for a bespoke quote based on your guest numbers and preferences.
+                                All baby shower packages include use of a reserved area, dedicated staff, and free parking. Room hire applies and varies by day and group size, with no minimum spend required. Call us on <strong className="text-anchor-gold-vivid">01753 682707</strong> for a bespoke quote based on your guest numbers and preferences.
                             </p>
                         </div>
                     </div>
@@ -381,7 +381,7 @@ export default async function BabyShowersPage() {
                     },
                     {
                         question: "Is there a room hire fee?",
-                        answer: "We generally do not charge a room hire fee for baby showers that include a catering package. A minimum spend on food and drink applies. Contact us for specific details based on your guest numbers."
+                        answer: "Yes, a room hire fee applies for baby showers. The fee varies depending on the day, time, and group size. There is no minimum spend required. Contact us for specific details based on your guest numbers."
                     }
                 ]}
             />

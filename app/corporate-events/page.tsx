@@ -268,7 +268,7 @@ export default function CorporateEventsPage() {
                     <>
                       <p className="mb-4">We believe in fair, flexible pricing:</p>
                       <ul className="space-y-3">
-                        <li className="flex items-start gap-2"><span className="text-anchor-gold">•</span><span><strong>No venue hire fees</strong> - Just minimum spend requirements</span></li>
+                        <li className="flex items-start gap-2"><span className="text-anchor-gold">•</span><span><strong>Venue hire fees</strong> - Vary by day, time, and group size with no minimum spend</span></li>
                         <li className="flex items-start gap-2"><span className="text-anchor-gold">•</span><span><strong>Weekday rates</strong> - More competitive for daytime events</span></li>
                         <li className="flex items-start gap-2"><span className="text-anchor-gold">•</span><span><strong>Bespoke quotes</strong> - Based on your specific requirements</span></li>
                         <li className="flex items-start gap-2"><span className="text-anchor-gold">•</span><span><strong>All-inclusive options</strong> - Know your total cost upfront</span></li>

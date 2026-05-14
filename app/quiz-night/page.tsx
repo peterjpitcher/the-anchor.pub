@@ -155,7 +155,7 @@ const FAQS = [
   {
     question: 'Do you run quiz nights on weekends?',
     answer:
-      'Dates move around with our events calendar, so keep an eye on the What’s On page or call 01753 682707. We often stick to midweek slots but add bonus Saturday or Sunday quiz specials when demand is high.'
+      "Our quiz night is on the first Wednesday of each month. Keep an eye on the What’s On page or call 01753 682707 for the next date."
   }
 ]
 
@@ -372,21 +372,21 @@ export default async function QuizNightPage() {
           <div className="max-w-5xl mx-auto grid gap-6 md:grid-cols-3">
             <Card className="card-dark rounded-none border border-anchor-gold/15">
               <CardBody>
-                <h3 className="text-xl font-semibold text-anchor-gold-vivid mb-2">Sunday Roast Quiz Warm-Up</h3>
+                <h3 className="text-xl font-semibold text-anchor-gold-vivid mb-2">Eat Before You Quiz</h3>
                 <p className="text-sm text-anchor-cream-text/70 mb-4">
-                  Walk in for Sunday roast 1pm-6pm and bring the team for a proper pub lunch before quizzing.
+                  Kitchen open until 9pm on quiz night. Arrive early and fuel up on pizzas, burgers, or pie and mash before the first round.
                 </p>
                 <div className="flex flex-col gap-2">
                   <BookTableButton
-                    source="quiz_night_roast_cta"
+                    source="quiz_night_food_cta"
                     variant="primary"
                     size="sm"
                     className="w-full"
                   >
-                    Book Sunday Roast
+                    Book a Table
                   </BookTableButton>
-                  <Link href="/sunday-lunch" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
-                    Sunday roast menu →
+                  <Link href="/food-menu" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
+                    See the food menu →
                   </Link>
                 </div>
               </CardBody>
@@ -481,7 +481,7 @@ export default async function QuizNightPage() {
               <CardBody className="space-y-4">
                 <h3 className="text-2xl font-bold text-anchor-cream-text">Make a night of it</h3>
                 <ul className="space-y-3 text-anchor-cream-text/70">
-                  <li><strong>Food served until 9pm:</strong> pizzas, nacho mountains, burger stacks and seasonal specials.</li>
+                  <li><strong>Food served until 9pm:</strong> pizzas, burger stacks, pies and seasonal specials.</li>
                   <li><strong>Drinks menu:</strong> draught lagers, bottled ales, zero-proof spritzes and themed cocktails like the Black Shuck Spritz.</li>
                   <li><strong>Stay comfy:</strong> heated areas, step-free access and plenty of parking right outside.</li>
                   <li><strong>Travelling?</strong> We’re 7 minutes from Heathrow Terminal 5 and on the 441/555 bus routes.</li>
