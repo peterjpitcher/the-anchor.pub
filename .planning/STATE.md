@@ -1,7 +1,7 @@
 # Project State: The Anchor — Component Standardisation
 
 **Last updated:** 2026-05-14
-**Session:** Plan 03-07 executed (private-hire and venue pages spacing token migration)
+**Session:** Plan 03-08 executed (core/homepage pages spacing token migration + site-wide DS-04 verification)
 
 ---
 
@@ -19,7 +19,7 @@
 |-------|-------|
 | Milestone | v1.0 Component Standardisation |
 | Phase | 03-final-standardisation |
-| Plan | 07 complete (7/?) |
+| Plan | 08 complete (8/?) |
 | Status | Phase 3 in progress |
 
 **Progress:** `[X][X][/]` -- 2/3 phases complete, Phase 3 started
@@ -59,6 +59,8 @@
 | 2026-05-14 | FindUsSection is a Server Component with variant-driven showMap | No interactivity needed; full variant shows map, compact hides it by default |
 | 2026-05-14 | py-16 md:py-24 CTA section in corporate-events mapped to section-spacing-lg token | Closest large-spacing token; removes responsive hardcoding |
 | 2026-05-14 | py-12 alone maps to section-spacing-lg across private-hire subtree | Matches plan mapping; py-12 is in the large spacing group |
+| 2026-05-14 | py-16 md:py-24 on CTA sections maps to section-spacing-lg | Closest large token; same decision applied across all 5 CTA-pattern sections in 03-08 |
+| 2026-05-14 | DS-04 complete: zero inline py-* on section elements site-wide | Verified by site-wide grep returning 0 matches after 03-08 completes |
 
 ### Spec reference
 
@@ -84,8 +86,8 @@
 ## Session Continuity
 
 **To resume:** Read this file and ROADMAP.md. Phase 3 in progress, plans 01-06 complete.
-**Last session:** 2026-05-14T14:09:42Z
-**Stopped at:** Completed 03-07-PLAN.md
+**Last session:** 2026-05-14T14:30:00Z
+**Stopped at:** Completed 03-08-PLAN.md
 
 **Worktree:** `admiring-dhawan-3da8c8`
 **Branch:** `claude/admiring-dhawan-3da8c8`
