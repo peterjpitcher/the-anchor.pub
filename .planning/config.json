@@ -1,0 +1,17 @@
+{
+  "workflow": {
+    "research": false,
+    "plan_checker": true,
+    "verifier": true,
+    "nyquist_validation": true,
+    "parallelization": true
+  },
+  "branching": {
+    "strategy": "none"
+  },
+  "models": {},
+  "project": {
+    "name": "The Anchor — Component Standardisation",
+    "phase_naming": "sequential"
+  }
+}
