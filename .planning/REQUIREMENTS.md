@@ -29,9 +29,9 @@
 
 ### Design System
 
-- [ ] **DS-01**: `section-spacing` utility class defined (py-16 md:py-24)
-- [ ] **DS-02**: `section-spacing-sm` utility class defined (py-8 md:py-12)
-- [ ] **DS-03**: `section-spacing-lg` utility class defined (py-20 md:py-32)
+- [ ] **DS-01**: `section-spacing` utility class defined (py-10 md:py-12)
+- [ ] **DS-02**: `section-spacing-sm` utility class defined (py-8 md:py-10)
+- [ ] **DS-03**: `section-spacing-lg` utility class defined (py-12 md:py-14 lg:py-16)
 - [ ] **DS-04**: All inline py-* section padding replaced with spacing tokens across the site
 
 ### Data Freshness
