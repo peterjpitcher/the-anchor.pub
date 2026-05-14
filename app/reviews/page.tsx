@@ -7,6 +7,7 @@ import {
   Card,
   CardBody,
   SectionHeader,
+  CTASection,
 } from '@/components/ui'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
@@ -258,6 +259,26 @@ export default function ReviewsPage() {
             question: 'Can I leave a review for The Anchor?',
             answer:
               'Yes! We welcome all feedback. You can leave a review on our Google Business page. Just search for "The Anchor Stanwell Moor" on Google Maps, or use the "Leave a Google Review" button on this page.',
+          },
+        ]}
+      />
+
+      <CTASection
+        title="Ready to Visit?"
+        description="See what the fuss is about. Book a table or give us a call."
+        variant="green"
+        buttons={[
+          {
+            text: 'Book a Table',
+            href: 'https://ordertab.menu/theanchor/bookings',
+            bookingContext: 'reviews',
+          },
+          {
+            text: 'Call Us',
+            href: 'tel:+441753682707',
+            variant: 'white',
+            isPhone: true,
+            phoneSource: 'reviews_cta',
           },
         ]}
       />

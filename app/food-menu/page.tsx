@@ -246,6 +246,7 @@ export default async function FoodMenuPage() {
         title="Where to Eat Near Heathrow Airport, Our Menu"
         description="Current dishes, descriptions and prices from the latest kitchen menu."
         variant="default"
+        enableSmartCtas={true}
         breadcrumbs={[{ name: 'Food & Drink' }]}
         tags={[
           { label: 'Live menu', variant: 'default' },

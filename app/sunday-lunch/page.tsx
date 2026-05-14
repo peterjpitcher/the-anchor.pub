@@ -158,6 +158,7 @@ export default async function SundayLunchPage() {
         title="Sunday Roast Near Heathrow"
         description="Sunday roast is served 1pm-6pm. Current dishes and prices are listed below."
         eyebrow="The Anchor, Stanwell Moor"
+        enableSmartCtas={true}
         lead={
           <p className="text-white/90 text-base sm:text-lg">
             Walk in during service or book ahead for busy slots. 7 minutes from Heathrow Terminal 5.

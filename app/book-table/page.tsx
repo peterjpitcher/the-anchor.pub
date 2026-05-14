@@ -160,6 +160,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
         title="Book a Table at The Anchor"
         description="Reserve your table online with mobile confirmation."
         variant="default"
+        enableSmartCtas={true}
         statusBarPosition="above"
         primaryCta={
           <Link href="#booking-form">
@@ -465,7 +466,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
           },
           {
             question: 'What are your kitchen hours?',
-            answer: 'Our kitchen is open Tuesday to Saturday from noon until 9pm, and Sunday from 1pm until 6pm. The kitchen is closed on Mondays. Check our food menu page for the latest hours, as they can vary on bank holidays.'
+            answer: 'Kitchen hours are updated live on our website. Check the opening hours section on our homepage or call 01753 682707 for today\'s kitchen times, as they can vary on bank holidays.'
           },
           {
             question: 'Is The Anchor dog-friendly?',
