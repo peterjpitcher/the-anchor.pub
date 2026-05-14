@@ -21,11 +21,11 @@
 
 ### Conversion
 
-- [ ] **CONV-01**: CTASection added to all terminal subpages (T2, T3, T4, T5)
-- [ ] **CONV-02**: CTASection added to reviews page
-- [ ] **CONV-03**: Button variant pairing standardised across all CTASections (consistent primary/secondary usage)
-- [ ] **CONV-04**: enableSmartCtas added to all location/hotel pages missing it
-- [ ] **CONV-05**: enableSmartCtas added to service pages (food-menu, sunday-lunch, book-table)
+- [x] **CONV-01**: CTASection added to all terminal subpages (T2, T3, T4, T5)
+- [x] **CONV-02**: CTASection added to reviews page
+- [x] **CONV-03**: Button variant pairing standardised across all CTASections (consistent primary/secondary usage)
+- [x] **CONV-04**: enableSmartCtas added to all location/hotel pages missing it
+- [x] **CONV-05**: enableSmartCtas added to service pages (food-menu, sunday-lunch, book-table)
 
 ### Design System
 
@@ -72,11 +72,11 @@
 | COMP-03 | Phase 2 | Complete |
 | COMP-04 | Phase 2 | Complete |
 | COMP-06 | Phase 2 | Complete |
-| CONV-01 | Phase 3 | Pending |
-| CONV-02 | Phase 3 | Pending |
-| CONV-03 | Phase 3 | Pending |
-| CONV-04 | Phase 3 | Pending |
-| CONV-05 | Phase 3 | Pending |
+| CONV-01 | Phase 3 | Complete |
+| CONV-02 | Phase 3 | Complete |
+| CONV-03 | Phase 3 | Complete |
+| CONV-04 | Phase 3 | Complete |
+| CONV-05 | Phase 3 | Complete |
 | DS-01 | Phase 3 | Pending |
 | DS-02 | Phase 3 | Pending |
 | DS-03 | Phase 3 | Pending |
@@ -91,4 +91,4 @@
 
 ---
 *Requirements defined: 2026-05-14*
-*Last updated: 2026-05-14 after Plan 02-01 — COMP-02, COMP-03, COMP-04 complete*
+*Last updated: 2026-05-14 after Plan 03-01 — CONV-01 through CONV-05 complete*

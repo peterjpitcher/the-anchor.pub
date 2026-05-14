@@ -18,11 +18,11 @@
 | Field | Value |
 |-------|-------|
 | Milestone | v1.0 Component Standardisation |
-| Phase | 02-testimonialsection (complete) |
-| Plan | 02 complete (2/2) |
-| Status | Phase 2 complete, ready for Phase 3 (consolidated) |
+| Phase | 03-final-standardisation |
+| Plan | 01 complete (1/?) |
+| Status | Phase 3 in progress |
 
-**Progress:** `[X][X][ ]` -- 2/3 phases complete
+**Progress:** `[X][X][/]` -- 2/3 phases complete, Phase 3 started
 
 ---
 
@@ -33,7 +33,7 @@
 | Phases defined | 3 |
 | Requirements mapped | 18/18 |
 | Plans written | 2 |
-| Plans complete | 4 |
+| Plans complete | 5 |
 
 ---
 
@@ -51,6 +51,8 @@
 | 2026-05-14 | HeroBadge is a Server Component | Trust badges have no interactivity; no 'use client' needed |
 | 2026-05-14 | PhoneLink showIcon=false for mid-sentence links | Icon breaks text flow when phone number is inline in a sentence |
 | 2026-05-14 | Source names use page-name_location convention | Clear GTM attribution e.g. drinks_cta, heathrow-parking_terms |
+| 2026-05-14 | CTASection on reviews uses green variant with Book a Table + Call Us pairing | Consistent with all other booking CTAs site-wide |
+| 2026-05-14 | All CTASection button arrays use variant white for secondary buttons | Not secondary -- white renders correctly on coloured backgrounds |
 | 2026-05-14 | StarRating/TestimonialCard are internal sub-components | Not exported — only used within TestimonialSection; keeps public API minimal |
 | 2026-05-14 | Pull-quote uses text-based rating, not star icons | "rated 5/5" in attribution text per UI spec; cleaner for single-quote layout |
 
@@ -77,9 +79,9 @@
 
 ## Session Continuity
 
-**To resume:** Read this file and ROADMAP.md. Phase 2 complete. Phases 3-5 consolidated into Phase 3: Final Standardisation (11 reqs).
-**Last session:** 2026-05-14T13:19:10Z
-**Stopped at:** Completed 02-02-PLAN.md
+**To resume:** Read this file and ROADMAP.md. Phase 3 in progress, plan 01 (CTA standardisation) complete.
+**Last session:** 2026-05-14T14:03:13Z
+**Stopped at:** Completed 03-01-PLAN.md
 
 **Worktree:** `admiring-dhawan-3da8c8`
 **Branch:** `claude/admiring-dhawan-3da8c8`

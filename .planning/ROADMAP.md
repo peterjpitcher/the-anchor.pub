@@ -64,7 +64,7 @@ Plans:
   12. At least one page uses FindUsSection in place of any prior ad-hoc map/location markup
 **Plans:** 8 plans
 Plans:
-- [ ] 03-01-PLAN.md — CTA coverage: reviews CTASection, enableSmartCtas on service pages, button variant audit
+- [x] 03-01-PLAN.md — CTA coverage: reviews CTASection, enableSmartCtas on service pages, button variant audit
 - [ ] 03-02-PLAN.md — FindUsSection build with full/compact variants + deploy on find-us page
 - [ ] 03-03-PLAN.md — Spacing tokens verification + hardcoded hours replacement with BusinessHours
 - [ ] 03-04-PLAN.md — DS-04 batch 1: hotel and near-heathrow pages (17 files)
@@ -81,7 +81,7 @@ Plans:
 |-------|----------------|--------|-----------|
 | 1. Tracking & HeroBadge | 2/2 | Complete | 2026-05-14 |
 | 2. TestimonialSection | 2/2 | Complete | 2026-05-14 |
-| 3. Final Standardisation | 0/8 | Planned | - |
+| 3. Final Standardisation | 1/8 | In Progress | - |
 
 ---
 
