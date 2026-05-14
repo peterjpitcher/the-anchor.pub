@@ -19,7 +19,7 @@
 |-------|-------|
 | Milestone | v1.0 Component Standardisation |
 | Phase | 03-final-standardisation |
-| Plan | 03 complete (3/?) |
+| Plan | 06 complete (6/?) |
 | Status | Phase 3 in progress |
 
 **Progress:** `[X][X][/]` -- 2/3 phases complete, Phase 3 started
@@ -57,6 +57,7 @@
 | 2026-05-14 | Pull-quote uses text-based rating, not star icons | "rated 5/5" in attribution text per UI spec; cleaner for single-quote layout |
 | 2026-05-14 | BusinessHours for standalone hours, generic phrasing for prose/FAQ | React components cannot render in JSON-LD strings; mid-sentence prose needs static text |
 | 2026-05-14 | FindUsSection is a Server Component with variant-driven showMap | No interactivity needed; full variant shows map, compact hides it by default |
+| 2026-05-14 | py-16 md:py-24 CTA section in corporate-events mapped to section-spacing-lg token | Closest large-spacing token; removes responsive hardcoding |
 
 ### Spec reference
 
@@ -81,9 +82,9 @@
 
 ## Session Continuity
 
-**To resume:** Read this file and ROADMAP.md. Phase 3 in progress, plans 01-03 complete.
+**To resume:** Read this file and ROADMAP.md. Phase 3 in progress, plans 01-06 complete.
 **Last session:** 2026-05-14T14:04:41Z
-**Stopped at:** Completed 03-03-PLAN.md
+**Stopped at:** Completed 03-06-PLAN.md
 
 **Worktree:** `admiring-dhawan-3da8c8`
 **Branch:** `claude/admiring-dhawan-3da8c8`
