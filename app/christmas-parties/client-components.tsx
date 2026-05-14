@@ -16,6 +16,7 @@ import { trackBannerEvent, trackCtaClick, trackEmailClick, trackFormComplete, tr
 import { CHRISTMAS_OPEN_FORM_EVENT } from './christmas-hero-ctas'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { ValueProofStrip, RegretReduction } from '@/components/psychology'
+import { TestimonialSection } from '@/components/TestimonialSection'
 import { CONTACT } from '@/lib/constants'
 
 const CONTACT_EMAIL = CONTACT.email
@@ -249,24 +250,6 @@ const FAQ_ITEMS = [
   {
     question: "Can I find you by searching \"xmas party near me\"?",
     answer: "Yes, whether you search for \"xmas party near me,\" \"Christmas party near me\" or \"Christmas lunch near me,\" you'll find us. We're in Stanwell Moor, Surrey, seven minutes from Heathrow Terminal 5 and ten minutes from Staines-upon-Thames. The postcode is TW19 6AQ if you want to check the drive time from your office."
-  }
-]
-
-const TESTIMONIALS = [
-  {
-    quote: "We've booked our works Christmas do at The Anchor three years running. The food is brilliant, the staff remember our names, and nobody has to fight for parking. Best Christmas party pub near Heathrow, hands down.",
-    author: "Sarah T.",
-    detail: "Office manager, Poyle business park"
-  },
-  {
-    quote: "Organised a Christmas buffet for 40 crew from different terminals. Everyone found the place easily, the buffet was generous, and the bar tab system meant zero fuss on the night. Already rebooked.",
-    author: "James R.",
-    detail: "Airline operations team, Heathrow"
-  },
-  {
-    quote: "We booked a Christmas lunch for twelve, the turkey was honestly better than my nan's. Don't tell her. Crackers, candles, the lot. Proper festive without being tacky.",
-    author: "Michelle K.",
-    detail: "Staines-upon-Thames"
   }
 ]
 
@@ -1197,28 +1180,32 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
         </Container>
       </Section>
 
-      <Section background="gray" spacing="md">
-        <Container>
-          <div className="max-w-4xl mx-auto space-y-8">
-            <div className="text-center space-y-4">
-              <h2 className="text-3xl font-bold text-anchor-cream-text">What our guests say about Christmas at The Anchor</h2>
-            </div>
-            <Grid cols={3} gap="md">
-              {TESTIMONIALS.map(testimonial => (
-                <Card key={testimonial.author} className="h-full">
-                  <div className="p-6 space-y-4">
-                    <p className="text-sm text-anchor-cream-text/70 italic leading-relaxed">&ldquo;{testimonial.quote}&rdquo;</p>
-                    <div>
-                      <p className="text-sm font-semibold text-anchor-cream-text">{testimonial.author}</p>
-                      <p className="text-xs text-anchor-cream-text/55">{testimonial.detail}</p>
-                    </div>
-                  </div>
-                </Card>
-              ))}
-            </Grid>
-          </div>
-        </Container>
-      </Section>
+      <TestimonialSection
+        variant="full"
+        title="What Our Guests Say"
+        subtitle="From Previous Christmas Parties"
+        className="section-spacing"
+        reviews={[
+          {
+            quote: "We've booked our works Christmas do at The Anchor three years running. The food is brilliant, the staff remember our names, and nobody has to fight for parking. Best Christmas party pub near Heathrow, hands down.",
+            author: "Sarah T.",
+            source: "Office manager, Poyle business park",
+            rating: 5
+          },
+          {
+            quote: "Organised a Christmas buffet for 40 crew from different terminals. Everyone found the place easily, the buffet was generous, and the bar tab system meant zero fuss on the night. Already rebooked.",
+            author: "James R.",
+            source: "Airline operations team, Heathrow",
+            rating: 5
+          },
+          {
+            quote: "We booked a Christmas lunch for twelve, the turkey was honestly better than my nan's. Don't tell her. Crackers, candles, the lot. Proper festive without being tacky.",
+            author: "Michelle K.",
+            source: "Staines-upon-Thames",
+            rating: 5
+          }
+        ]}
+      />
 
       <Section background="white" spacing="sm">
         <Container>
