@@ -40,7 +40,9 @@ describe('FindUsSection', () => {
     it('renders address text containing Horton Road, Stanwell Moor, and TW19 6AQ', () => {
       render(<FindUsSection />)
       expect(screen.getByText(/Horton Road/)).toBeInTheDocument()
-      expect(screen.getByText(/Stanwell Moor/)).toBeInTheDocument()
+      // "Stanwell Moor" appears in both address and map mock — use getAllByText
+      const stanwellMoorElements = screen.getAllByText(/Stanwell Moor/)
+      expect(stanwellMoorElements.length).toBeGreaterThanOrEqual(1)
       expect(screen.getByText(/TW19 6AQ/)).toBeInTheDocument()
     })
 
@@ -73,6 +75,7 @@ describe('FindUsSection', () => {
     it('renders address and phone', () => {
       render(<FindUsSection variant="compact" />)
       expect(screen.getByText(/Horton Road/)).toBeInTheDocument()
+      expect(screen.getByText(/Stanwell Moor/)).toBeInTheDocument()
       expect(screen.getByTestId('phone-link')).toBeInTheDocument()
     })
   })
