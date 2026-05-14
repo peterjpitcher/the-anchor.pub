@@ -104,7 +104,7 @@ export default function SixNationsPage() {
               showContextStrip={true}
             />
 
-            <section className="py-12 bg-anchor-bg">
+            <section className="section-spacing-lg bg-anchor-bg">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center mb-12">
                         <PageTitle className="text-anchor-gold-vivid mb-4">

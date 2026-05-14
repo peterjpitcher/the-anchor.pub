@@ -289,7 +289,7 @@ export default async function QuizNightPage() {
       />
 
       {/* Definitive answer for featured snippets */}
-      <section className="bg-anchor-bg-raised border-b border-anchor-gold/15 py-6">
+      <section className="bg-anchor-bg-raised border-b border-anchor-gold/15 section-spacing-tight">
         <Container>
           <p className="text-center text-lg md:text-xl text-anchor-cream-text/80 max-w-4xl mx-auto leading-relaxed">
             The Anchor hosts a popular monthly pub quiz in Stanwell Moor with a &pound;25 bar tab prize, team-based rounds, and a lively atmosphere. Entry is &pound;3 per player with teams of up to six.

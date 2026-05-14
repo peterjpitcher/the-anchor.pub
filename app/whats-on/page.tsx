@@ -193,7 +193,7 @@ export default async function WhatsOnPage() {
         </Container>
       </Section>
 
-      <section className="bg-anchor-bg-raised border-b border-anchor-gold/15 py-6">
+      <section className="bg-anchor-bg-raised border-b border-anchor-gold/15 section-spacing-tight">
         <Container>
           <HeroBadge className="text-sm" />
         </Container>

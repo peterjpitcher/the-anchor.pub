@@ -111,13 +111,13 @@ export default async function LiveSportPage() {
                 </PageTitle>
             </Container>
 
-            <section className="bg-anchor-bg py-6">
+            <section className="bg-anchor-bg section-spacing-tight">
                 <Container>
                     <HeroBadge className="text-sm" />
                 </Container>
             </section>
 
-            <section className="py-8 bg-anchor-bg">
+            <section className="section-spacing-sm bg-anchor-bg">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle className="text-anchor-gold-vivid mb-4">

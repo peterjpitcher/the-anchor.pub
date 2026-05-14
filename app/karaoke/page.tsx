@@ -304,7 +304,7 @@ export default async function KaraokePage() {
                 showContextStrip={true}
             />
 
-            <section className="bg-anchor-bg py-6">
+            <section className="bg-anchor-bg section-spacing-tight">
                 <Container>
                     <HeroBadge className="text-sm" />
                 </Container>
