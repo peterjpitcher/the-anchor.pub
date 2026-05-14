@@ -16,6 +16,7 @@ import { trackBannerEvent, trackCtaClick, trackEmailClick, trackFormComplete, tr
 import { CHRISTMAS_OPEN_FORM_EVENT } from './christmas-hero-ctas'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { ValueProofStrip, RegretReduction } from '@/components/psychology'
+import { StickyDrawer, StickyDrawerTrigger } from '@/components/ui'
 
 const CONTACT_EMAIL = 'manager@the-anchor.pub'
 const CONTACT_PHONE = '01753 682707'
@@ -352,6 +353,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
   const [extrasNotice, setExtrasNotice] = useState(false)
   const [perkNotice, setPerkNotice] = useState(false)
   const [stickyVisible, setStickyVisible] = useState(false)
+  const [drawerOpen, setDrawerOpen] = useState(false)
   const enquiryRef = useRef<HTMLDivElement | null>(null)
   const extrasTimeoutRef = useRef<number | null>(null)
   const perkTimeoutRef = useRef<number | null>(null)
@@ -385,14 +387,8 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
     })
   }, [])
 
-  const scrollToForm = useCallback(() => {
-    if (typeof window === 'undefined' || !enquiryRef.current) return
-
-    const element = enquiryRef.current
-    const top = element.getBoundingClientRect().top + window.scrollY
-    const offset = window.innerWidth >= 1024 ? 140 : 96
-
-    window.scrollTo({ top: Math.max(top - offset, 0), behavior: 'smooth' })
+  const openDrawer = useCallback(() => {
+    setDrawerOpen(true)
   }, [])
 
   const handleOpenForm = useCallback((
@@ -413,9 +409,9 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
       journey: 'christmas_parties_page'
     })
     requestAnimationFrame(() => {
-      scrollToForm()
+      openDrawer()
     })
-  }, [scrollToForm])
+  }, [openDrawer])
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -514,12 +510,17 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
         </Container>
       </Section>
 
-      <StickyEnquiryBar
-        visible={stickyVisible}
-        context={context}
-        onContextChange={handleContextChange}
-        onOpenForm={(mode, source) => handleOpenForm(mode, {}, source)}
-      />
+      <StickyDrawerTrigger
+        onClick={() => handleOpenForm(context.mode, {}, 'sticky_trigger')}
+        visible={stickyVisible && !drawerOpen}
+        position="bottom-right"
+        testId="christmas-enquiry-trigger"
+      >
+        <span className="flex items-center gap-2">
+          <Icon name="mail" className="h-5 w-5" />
+          Enquire Now
+        </span>
+      </StickyDrawerTrigger>
 
       <Section background="white" spacing="md" container>
         <Container>
@@ -1353,7 +1354,7 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
         </Container>
       </Section>
 
-      <Section background="white" className="py-16">
+      <Section background="white" className="py-16" id="christmas-enquiry" data-sticky-cta-guard="true">
         <Container>
           <div className="max-w-3xl mx-auto mb-6">
             <div className="mb-6">
@@ -1363,15 +1364,55 @@ export function ChristmasPartiesPageClient({ structuredData }: ChristmasPartiesP
               <RegretReduction variant="enquiry" />
             </div>
           </div>
-          <div ref={enquiryRef} id="christmas-enquiry" className="max-w-3xl mx-auto scroll-mt-32">
-            <ChristmasEnquiryForm
-              context={context}
-              onContextChange={handleContextChange}
-              onSuccess={handleFormSuccess}
-            />
+          <div ref={enquiryRef} className="max-w-md mx-auto text-center">
+            <p className="text-anchor-cream-text/70 mb-6">
+              Tell us about your Christmas plans and we&apos;ll put together a bespoke package. Dinner parties up to 25, buffets for larger groups.
+            </p>
+            <Button
+              size="lg"
+              className="w-full sm:w-auto"
+              onClick={() => handleOpenForm(context.mode, {}, 'inline_section')}
+            >
+              <span className="flex items-center gap-2">
+                <Icon name="mail" className="h-5 w-5" />
+                Open Enquiry Form
+              </span>
+            </Button>
           </div>
         </Container>
       </Section>
+
+      <StickyDrawer
+        open={drawerOpen}
+        onClose={() => setDrawerOpen(false)}
+        title="Christmas Party Enquiry"
+        description={context.mode === 'dinner' ? 'Sit-down dinner for up to 25 guests' : 'Buffet for larger groups'}
+        side="right"
+        testId="christmas-enquiry-drawer"
+      >
+        <div className="p-4 sm:p-6">
+          <div className="flex gap-2 bg-anchor-bg-raised rounded-full p-1 mb-6">
+            {(['dinner', 'buffet'] as EnquiryMode[]).map(mode => (
+              <button
+                key={mode}
+                type="button"
+                onClick={() => handleContextChange({ mode })}
+                className={`flex-1 rounded-full px-3 py-2 text-sm font-semibold transition ${context.mode === mode ? 'bg-red-600 text-white shadow-sm' : 'text-anchor-cream-text/70 hover:bg-anchor-bg-card'}`}
+              >
+                {mode === 'dinner' ? 'Dinner (up to 25)' : 'Buffet (26+)'}
+              </button>
+            ))}
+          </div>
+          <ChristmasEnquiryForm
+            context={context}
+            onContextChange={handleContextChange}
+            onSuccess={() => {
+              handleFormSuccess()
+              setDrawerOpen(false)
+            }}
+          />
+        </div>
+      </StickyDrawer>
 
       <ChristmasLightbox
         suppressed={formSubmitted}

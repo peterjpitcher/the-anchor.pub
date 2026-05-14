@@ -34,6 +34,7 @@ export * from './overlays/Modal'
 export * from './overlays/Toast'
 export * from './overlays/Tooltip'
 export * from './overlays/Popover'
+export * from './overlays/StickyDrawer'
 
 // Feedback components (Loading)
 export * from './feedback/Loading'
