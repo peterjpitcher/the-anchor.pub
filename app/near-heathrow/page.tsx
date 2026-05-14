@@ -17,6 +17,7 @@ import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchCluster
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { PhoneLink } from '@/components/PhoneLink'
 import { CONTACT } from '@/lib/constants'
+import { HeroBadge } from '@/components/HeroBadge'
 
 export function generateMetadata(): Metadata {
   const sunday = getSundayRoastContent()
@@ -292,7 +293,7 @@ export default function NearHeathrowPage() {
       <section className="py-8 bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="text-center">
-            <p className="text-sm text-anchor-cream-text/70"><strong className="text-anchor-cream-text">Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
+            <HeroBadge className="text-sm" />
           </div>
         </Container>
       </section>

@@ -13,6 +13,7 @@ import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncemen
 import { PhoneLinksSection, QuickEnquiryLinks } from '@/components/homepage/PhoneLinksSection'
 import { PhoneLink } from '@/components/PhoneLink'
 import { BookTableButton } from '@/components/BookTableButton'
+import { HeroBadge } from '@/components/HeroBadge'
 import { DirectionsButton } from '@/components/DirectionsButton'
 import { DeferredHomepageTrackers } from '@/components/tracking/DeferredHomepageTrackers'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
@@ -168,9 +169,7 @@ export default function HomePage() {
               />
             </div>
 
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-white shadow-sm backdrop-blur-sm">
-              Rated 4.6/5 on Google · Highest-rated non-airport pub near Heathrow
-            </span>
+            <HeroBadge />
           </div>
         }
         showContextStrip={true}

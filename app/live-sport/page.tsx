@@ -13,6 +13,7 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
+import { HeroBadge } from '@/components/HeroBadge'
 
 export const metadata: Metadata = {
     title: 'Live Sport Pub Near Heathrow | Big Screens',
@@ -112,7 +113,7 @@ export default async function LiveSportPage() {
 
             <section className="bg-anchor-bg py-6">
                 <Container>
-                    <p className="text-center text-sm text-anchor-cream-text/55"><strong>Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
+                    <HeroBadge className="text-sm" />
                 </Container>
             </section>
 

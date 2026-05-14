@@ -5,7 +5,7 @@ import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { Container, SectionHeader, FeatureGrid, Button } from '@/components/ui'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PhoneLink } from '@/components/PhoneLink'
-import { CONTACT } from '@/lib/constants'
+import { HeroBadge } from '@/components/HeroBadge'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
@@ -188,7 +188,7 @@ export default async function PrivateHirePage() {
                     </p>
 
                     <div className="flex justify-center mb-10">
-                        <p className="text-sm text-anchor-cream-text/70">⭐⭐⭐⭐⭐ <strong>Rated 4.6/5 on Google</strong> · Trusted for private events near Heathrow</p>
+                        <HeroBadge className="text-sm" />
                     </div>
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">

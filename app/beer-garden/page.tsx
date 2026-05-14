@@ -16,6 +16,7 @@ import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PhoneLink } from '@/components/PhoneLink'
 import { CONTACT } from '@/lib/constants'
+import { HeroBadge } from '@/components/HeroBadge'
 
 export const revalidate = 86400 // Revalidate every 24 hours
 
@@ -184,7 +185,7 @@ export default async function BeerGardenPage() {
       {/* Google Rating */}
       <section className="bg-anchor-bg py-6 border-b border-anchor-gold/15">
         <Container>
-          <p className="text-center text-sm text-anchor-cream-text/55"> <strong className="text-anchor-cream-text">Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
+          <HeroBadge className="text-sm" />
         </Container>
       </section>
 
