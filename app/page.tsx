@@ -203,7 +203,7 @@ export default function HomePage() {
         </Container>
       </div>
 
-      <section className="bg-anchor-bg-card py-8 border-b border-anchor-gold/15">
+      <section className="bg-anchor-bg-card section-spacing-sm border-b border-anchor-gold/15">
         <Container>
           <div className="mx-auto max-w-6xl">
             <h2 className="text-center text-2xl md:text-3xl font-bold text-anchor-cream-text">What are you here for?</h2>

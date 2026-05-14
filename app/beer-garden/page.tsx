@@ -105,7 +105,7 @@ export default async function BeerGardenPage() {
       </HeroWrapper>
 
       {/* Definitive answer for featured snippets */}
-      <section className="bg-anchor-bg-raised border-b border-anchor-gold/15 py-6">
+      <section className="bg-anchor-bg-raised border-b border-anchor-gold/15 section-spacing-tight">
         <Container>
           <p className="text-center text-lg md:text-xl text-anchor-cream-text/80 max-w-4xl mx-auto leading-relaxed">
             The Anchor&apos;s beer garden in Stanwell Moor sits directly under the Heathrow flight path, offering a unique plane spotting experience with your pint. Dog-friendly with outdoor seating and free parking.
@@ -183,14 +183,14 @@ export default async function BeerGardenPage() {
       </Section>
 
       {/* Google Rating */}
-      <section className="bg-anchor-bg py-6 border-b border-anchor-gold/15">
+      <section className="bg-anchor-bg section-spacing-tight border-b border-anchor-gold/15">
         <Container>
           <HeroBadge className="text-sm" />
         </Container>
       </section>
 
       {/* Page Title for SEO */}
-      <section className="bg-anchor-bg-raised py-8 border-b border-anchor-gold/15">
+      <section className="bg-anchor-bg-raised section-spacing-sm border-b border-anchor-gold/15">
         <Container>
           <PageTitle
             className="text-center text-anchor-cream-text"
@@ -434,7 +434,7 @@ export default async function BeerGardenPage() {
       />
 
       {/* CTA Section */}
-      <section className="bg-gradient-to-br from-anchor-green to-anchor-green/90 py-16 md:py-24">
+      <section className="bg-gradient-to-br from-anchor-green to-anchor-green/90 section-spacing-lg">
         <Container>
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">

@@ -43,7 +43,7 @@ export default async function DogFriendlyPage() {
             />
 
             {/* Definitive answer for featured snippets */}
-            <section className="bg-anchor-bg-raised border-b border-anchor-gold/15 py-6">
+            <section className="bg-anchor-bg-raised border-b border-anchor-gold/15 section-spacing-tight">
                 <Container>
                     <p className="text-center text-lg md:text-xl text-anchor-cream-text/80 max-w-4xl mx-auto leading-relaxed">
                         The Anchor is a dog-friendly pub near Heathrow Airport in Stanwell Moor, welcoming dogs in both our bar area and beer garden. We provide water bowls and dog treats for four-legged visitors.
@@ -51,7 +51,7 @@ export default async function DogFriendlyPage() {
                 </Container>
             </section>
 
-            <section className="py-8 bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing-sm bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle className="text-anchor-cream-text mb-4">

@@ -251,7 +251,7 @@ export default function SustainabilityPage() {
       />
 
       {/* CTA */}
-      <section className="bg-gradient-to-br from-anchor-green to-anchor-green/90 py-16 md:py-24">
+      <section className="bg-gradient-to-br from-anchor-green to-anchor-green/90 section-spacing-lg">
         <Container>
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
