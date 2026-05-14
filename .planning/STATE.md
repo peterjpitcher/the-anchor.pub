@@ -1,7 +1,7 @@
 # Project State: The Anchor — Component Standardisation
 
 **Last updated:** 2026-05-14
-**Session:** Plan 03-03 executed (spacing tokens verified + BusinessHours deployment)
+**Session:** Plan 03-02 executed (FindUsSection component build + find-us page deployment)
 
 ---
 
@@ -56,6 +56,7 @@
 | 2026-05-14 | StarRating/TestimonialCard are internal sub-components | Not exported — only used within TestimonialSection; keeps public API minimal |
 | 2026-05-14 | Pull-quote uses text-based rating, not star icons | "rated 5/5" in attribution text per UI spec; cleaner for single-quote layout |
 | 2026-05-14 | BusinessHours for standalone hours, generic phrasing for prose/FAQ | React components cannot render in JSON-LD strings; mid-sentence prose needs static text |
+| 2026-05-14 | FindUsSection is a Server Component with variant-driven showMap | No interactivity needed; full variant shows map, compact hides it by default |
 
 ### Spec reference
 
