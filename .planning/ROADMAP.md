@@ -42,7 +42,10 @@ Plans:
   3. A single pull-quote variant displays one prominent review quote
   4. All ad-hoc testimonial/review markup across existing pages is replaced with one of the three TestimonialSection variants
   5. No pages contain hand-rolled review markup outside the TestimonialSection component
-**Plans**: TBD
+**Plans:** 2 plans
+Plans:
+- [ ] 02-01-PLAN.md — Build TestimonialSection component with full, compact, pull-quote CVA variants + unit tests
+- [ ] 02-02-PLAN.md — Replace all 8 pages of hand-rolled testimonial markup with TestimonialSection
 
 ### Phase 3: CTA Coverage
 **Goal**: Every terminal page has a CTA section and Smart CTAs are enabled everywhere appropriate
@@ -84,7 +87,7 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Tracking & HeroBadge | 2/2 | Complete | 2026-05-14 |
-| 2. TestimonialSection | 0/? | Not started | - |
+| 2. TestimonialSection | 0/2 | Planned | - |
 | 3. CTA Coverage | 0/? | Not started | - |
 | 4. Design Tokens & BusinessHours | 0/? | Not started | - |
 | 5. FindUsSection | 0/? | Not started | - |
@@ -92,4 +95,4 @@ Plans:
 ---
 
 *Roadmap created: 2026-05-14*
-*Last updated: 2026-05-14 after Phase 1 execution complete — 2/2 plans done*
+*Last updated: 2026-05-14 after Phase 2 planning — 2 plans created*
