@@ -299,7 +299,7 @@ export default function StanwellPubPage() {
                   <li>• Chicken Katsu Curry</li>
                   <li>• Stone-baked Pizzas</li>
                 </ul>
-                <p className="mt-3 text-sm text-anchor-gold">Kitchen: Tue-Fri 6-9pm, Sat 1-7pm, Sun 1-6pm</p>
+                <div className="mt-3 text-sm text-anchor-gold"><BusinessHours showKitchen={true} /></div>
               </div>
             </div>
 

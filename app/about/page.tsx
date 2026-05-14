@@ -242,7 +242,7 @@ export default function AboutPage() {
                     </h3>
                     <p className="text-anchor-cream-text/70 mb-4">
                       Pub classics, stone-baked pizzas, burgers, and sharers. Honest food at
-                      fair prices, served Tuesday to Sunday.
+                      fair prices, with food served daily (check our opening hours for times).
                     </p>
                     <p className="text-anchor-gold-vivid font-semibold">View menu &rarr;</p>
                   </CardBody>
