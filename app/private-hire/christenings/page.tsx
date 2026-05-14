@@ -129,7 +129,7 @@ export default async function ChristeningsPage() {
                 }
             />
 
-            <section className="py-12 bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing-lg bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <PageTitle className="text-center mb-6" as="h2" seo={{ structured: true, speakable: true }}>
                         Christening & Naming Ceremony Venue Near Heathrow

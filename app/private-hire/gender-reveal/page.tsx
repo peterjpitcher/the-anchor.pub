@@ -102,7 +102,7 @@ export default async function GenderRevealPage() {
                 }
             />
 
-            <section className="py-8 bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing-sm bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle className="text-anchor-cream-text mb-4" as="h2" seo={{ structured: true, speakable: true }}>

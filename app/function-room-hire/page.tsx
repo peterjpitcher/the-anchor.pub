@@ -145,7 +145,7 @@ export default function FunctionRoomHirePage() {
       <TrustBar variant="private-hire" />
 
       {/* Google Rating */}
-      <section className="bg-anchor-bg-card py-6 border-b border-anchor-gold/15">
+      <section className="section-spacing-tight bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <HeroBadge className="text-sm" />
         </Container>
@@ -681,7 +681,7 @@ export default function FunctionRoomHirePage() {
       />
 
       {/* CTA Section */}
-      <section className="bg-anchor-bg-raised border-t border-anchor-gold/15 py-16 md:py-24">
+      <section className="section-spacing-lg bg-anchor-bg-raised border-t border-anchor-gold/15">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-5xl font-bold text-anchor-gold-vivid mb-6">

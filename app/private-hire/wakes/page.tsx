@@ -145,7 +145,7 @@ export default async function WakesPage() {
                 }
             />
 
-            <section className="py-12 bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing-lg bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container size="md">
                     <PageTitle className="text-center mb-6" as="h2" seo={{ structured: true, speakable: true }}>
                         Wake Venue & Funeral Receptions Near Heathrow
@@ -463,7 +463,7 @@ export default async function WakesPage() {
                 ]}
             />
 
-            <section className="bg-anchor-bg-raised py-12 border-t border-anchor-gold/15">
+            <section className="section-spacing-lg bg-anchor-bg-raised border-t border-anchor-gold/15">
                 <Container size="sm" className="text-center">
                     <h2 className="text-2xl font-bold text-anchor-gold-vivid mb-4">Contact Our Team</h2>
                     <p className="mb-8 text-anchor-cream-text/70">We are here to help make this day as stress-free as possible.</p>

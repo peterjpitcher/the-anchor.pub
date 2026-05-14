@@ -178,7 +178,7 @@ export default async function PrivateHirePage() {
 
             <PrivateBookingSection id="enquiry" eventType="Other" />
 
-            <section className="py-12 bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing-lg bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <PageTitle className="text-center mb-8" seo={{ structured: true, speakable: true }}>
                         Private Rooms Near Staines and Heathrow, Function Room and Party Venue

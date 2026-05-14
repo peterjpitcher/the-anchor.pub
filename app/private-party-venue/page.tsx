@@ -102,7 +102,7 @@ export default function PrivatePartyVenuePage() {
       />
 
       {/* Page Title */}
-      <section className="py-8 bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing-sm bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container size="md">
           <div className="text-center">
             <PageTitle
@@ -409,7 +409,7 @@ export default function PrivatePartyVenuePage() {
       />
 
       {/* CTA Section */}
-      <section className="bg-anchor-bg-raised py-16 md:py-24 border-t border-anchor-gold/15">
+      <section className="section-spacing-lg bg-anchor-bg-raised border-t border-anchor-gold/15">
         <Container>
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-5xl font-bold text-anchor-gold-vivid mb-6">
