@@ -15,6 +15,11 @@ export function FloatingActions() {
   const buttonRef = useRef<HTMLButtonElement | null>(null)
   const menuId = 'floating-actions-menu'
   const hideOnMobileEventPage = pathname?.startsWith('/events/')
+  const hideForCustomCta =
+    pathname?.startsWith('/private-hire') ||
+    pathname === '/function-room-hire' ||
+    pathname === '/corporate-events' ||
+    pathname === '/private-party-venue'
 
   useEffect(() => {
     if (!isOpen) return
@@ -42,7 +47,7 @@ export function FloatingActions() {
   return (
     <>
       {/* Backdrop */}
-      {isOpen && (
+      {isOpen && !hideForCustomCta && (
         <div
           className={cn('fixed inset-0 bg-black/20 z-40 md:hidden', hideOnMobileEventPage && 'hidden lg:block')}
           onClick={() => setIsOpen(false)}
@@ -53,7 +58,7 @@ export function FloatingActions() {
 
       {/* Floating Action Button, z-[70] to sit above FoodStickyCtaBar (z-[60]) */}
       <div
-        className={cn('fixed bottom-6 right-6 z-[70]', hideOnMobileEventPage && 'hidden lg:block')}
+        className={cn('fixed bottom-6 right-6 z-[70]', hideForCustomCta && 'hidden', hideOnMobileEventPage && 'hidden lg:block')}
         data-testid="floating-actions"
       >
         {/* Action Menu */}

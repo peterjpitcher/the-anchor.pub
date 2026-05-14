@@ -8,11 +8,11 @@ import { trackModalClose, trackModalEngage, trackModalOpen, type ModalCloseReaso
 import type { BaseComponentProps } from '../types'
 
 const drawerVariants = cva(
-  'fixed z-50 bg-anchor-bg-card border-anchor-gold/15 shadow-2xl flex flex-col overflow-hidden',
+  'fixed z-50 bg-anchor-bg-card border-anchor-gold/15 shadow-xl flex flex-col overflow-hidden',
   {
     variants: {
       side: {
-        right: 'top-0 right-0 h-full w-full sm:max-w-md border-l translate-x-full data-[state=open]:translate-x-0',
+        right: 'top-0 right-0 h-full w-full sm:max-w-lg border-l translate-x-full data-[state=open]:translate-x-0',
         bottom: 'bottom-0 left-0 right-0 max-h-[85vh] border-t rounded-t-2xl translate-y-full data-[state=open]:translate-y-0'
       }
     },
@@ -197,27 +197,27 @@ export const StickyDrawer = forwardRef<HTMLDivElement, StickyDrawerProps>(
           {...props}
         >
           {/* Header */}
-          <div className="flex items-center justify-between border-b border-anchor-gold/15 px-4 py-3 sm:px-6">
+          <div className="flex items-center justify-between border-b border-anchor-gold/15 px-4 py-2.5">
             <div className="min-w-0 flex-1">
               {title && (
-                <h2 id={titleId} className="text-lg font-semibold text-anchor-cream-text truncate">
+                <h2 id={titleId} className="text-sm font-semibold text-anchor-cream-text truncate">
                   {title}
                 </h2>
               )}
               {description && (
-                <p id={descriptionId} className="mt-0.5 text-sm text-anchor-cream-text/60 truncate">
+                <p id={descriptionId} className="text-xs text-anchor-cream-text/50 truncate">
                   {description}
                 </p>
               )}
             </div>
             <button
               type="button"
-              className="ml-3 flex-shrink-0 rounded-full p-2 text-anchor-cream-text/70 transition-colors hover:bg-anchor-bg-raised hover:text-anchor-cream-text focus:outline-none focus:ring-2 focus:ring-anchor-gold"
+              className="ml-3 flex-shrink-0 rounded-full p-1.5 text-anchor-cream-text/50 transition-colors hover:bg-anchor-bg-raised hover:text-anchor-cream-text focus:outline-none focus:ring-2 focus:ring-anchor-gold"
               onClick={() => requestClose('close_button')}
               aria-label="Close"
               data-drawer-close="true"
             >
-              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
@@ -264,12 +264,12 @@ export function StickyDrawerTrigger({
       type="button"
       onClick={onClick}
       className={cn(
-        'fixed z-40 shadow-xl transition-all duration-300',
+        'fixed z-40 shadow-lg transition-all duration-300 text-sm',
         'bg-anchor-gold text-anchor-bg font-semibold',
-        'hover:bg-anchor-gold-vivid hover:scale-105',
+        'hover:bg-anchor-gold-vivid',
         'focus:outline-none focus:ring-2 focus:ring-anchor-gold focus:ring-offset-2 focus:ring-offset-anchor-bg',
-        position === 'bottom-right' && 'bottom-4 right-4 rounded-full px-5 py-3 sm:bottom-6 sm:right-6',
-        position === 'bottom-center' && 'bottom-4 left-1/2 -translate-x-1/2 rounded-full px-6 py-3',
+        position === 'bottom-right' && 'bottom-5 right-5 rounded-full px-4 py-2.5',
+        position === 'bottom-center' && 'bottom-5 left-1/2 -translate-x-1/2 rounded-full px-5 py-2.5',
         visible ? 'translate-y-0 opacity-100' : 'translate-y-4 opacity-0',
         className
       )}
