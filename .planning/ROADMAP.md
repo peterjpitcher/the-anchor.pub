@@ -27,7 +27,10 @@
   2. PhoneLink renders visually as an inline text link (not a button) and accepts a className prop
   3. A HeroBadge component exists and all 10+ pages that previously had inline badge markup now use it
   4. No raw `tel:` href links remain outside the PhoneLink or PhoneButton components
-**Plans**: TBD
+**Plans:** 2 plans
+Plans:
+- [ ] 01-01-PLAN.md — Fix PhoneLink icon, add PHONE_NUMBER constant, rebuild HeroBadge on Badge primitive
+- [ ] 01-02-PLAN.md — Site-wide migration of raw tel: links and inline badge markup
 
 ### Phase 2: TestimonialSection
 **Goal**: All review/testimonial content uses a single consistent component
@@ -80,7 +83,7 @@
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Tracking & HeroBadge | 0/? | Not started | - |
+| 1. Tracking & HeroBadge | 0/2 | Planned | - |
 | 2. TestimonialSection | 0/? | Not started | - |
 | 3. CTA Coverage | 0/? | Not started | - |
 | 4. Design Tokens & BusinessHours | 0/? | Not started | - |
@@ -89,4 +92,4 @@
 ---
 
 *Roadmap created: 2026-05-14*
-*Last updated: 2026-05-14 after initial creation*
+*Last updated: 2026-05-14 after Phase 1 planning — 2 plans created*
