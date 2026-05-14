@@ -24,16 +24,16 @@ import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchCluster
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 export const metadata: Metadata = {
-  title: "What's On Near Heathrow | Quiz, Bingo & Pub Events",
-  description: "Pub events near Heathrow: Music Bingo, quiz nights, cash bingo, karaoke and one-off events at The Anchor, Stanwell Moor. See dates and book.",
+  title: "Pub Events Near Heathrow | Quiz, Bingo, Karaoke & Live Music",
+  description: "Pub events near Heathrow this week — Music Bingo, pub quiz, cash bingo, karaoke & live music at The Anchor, Stanwell Moor. Free parking, from £3.",
   openGraph: {
-    title: "What's On Near Heathrow, Quiz, Bingo & Live Music Every Week",
+    title: "Pub Events & Entertainment Near Heathrow | The Anchor",
     description: "Weekly pub events: Music Bingo, cash bingo, pub quiz, karaoke and live music at The Anchor, Stanwell Moor. From £3, free parking.",
     images: ["/images/events/quiz-night/the-anchor-quiz-night-stanwell-moor.jpg"],
   },
   twitter: getTwitterMetadata({
-    title: "What's On Near Heathrow, Quiz, Bingo & Live Music Every Week",
-    description: "Weekly pub events: Music Bingo, cash bingo, pub quiz, karaoke and live music at The Anchor, Stanwell Moor. From £3, free parking.",
+    title: "Pub Events & Entertainment Near Heathrow | The Anchor",
+    description: "Weekly pub entertainment: Music Bingo, cash bingo, pub quiz, karaoke and live music at The Anchor, Stanwell Moor. From £3, free parking.",
     images: ["/images/events/quiz-night/the-anchor-quiz-night-stanwell-moor.jpg"]
   }),
   alternates: {
@@ -157,7 +157,7 @@ export default async function WhatsOnPage() {
       {/* Hero Section */}
       <HeroWrapper
         route="/whats-on"
-        title="Pub Events at The Anchor"
+        title="Pub Events Near Heathrow at The Anchor"
         description="Choose an upcoming event, check the date, price and seats, then reserve through the event-specific booking form."
         showContextStrip={true}
         primaryCta={
@@ -202,7 +202,7 @@ export default async function WhatsOnPage() {
       <Section background="white" spacing="sm" className="bg-anchor-bg border-b border-anchor-gold/15">
         <Container>
           <PageTitle className="text-center text-anchor-cream-text" seo={{ structured: true, speakable: true }}>
-            What's On - Events & Entertainment at The Anchor - Heathrow Pub & Dining
+            Pub Events &amp; Entertainment Near Heathrow &mdash; What&apos;s On at The Anchor
           </PageTitle>
         </Container>
       </Section>

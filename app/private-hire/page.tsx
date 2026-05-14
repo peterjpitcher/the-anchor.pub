@@ -49,15 +49,15 @@ export async function generateMetadata(): Promise<Metadata> {
     const desc = `Book private rooms near Staines and Heathrow for wakes, parties, meetings and family events. ${PRIVATE_HIRE_CAPACITY.summary} Buffets from ${fromPrice}pp, free parking, and a dedicated events team.`
 
     return {
-        title: 'Private Rooms Near Staines & Heathrow | Event Venue',
+        title: 'Private Hire Pub Near Heathrow & Staines | Event Venue',
         description: `${desc} The Anchor, Stanwell Moor.`,
         openGraph: {
-            title: 'Private Rooms Near Staines & Heathrow | The Anchor',
+            title: 'Private Hire Pub Near Heathrow & Staines | The Anchor',
             description: desc,
             images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Private hire venue at The Anchor near Heathrow Airport' }],
         },
         twitter: getTwitterMetadata({
-            title: 'Private Rooms Near Staines & Heathrow | The Anchor',
+            title: 'Private Hire Pub Near Heathrow & Staines | The Anchor',
             description: desc,
             images: [DEFAULT_CORPORATE_IMAGE]
         }),

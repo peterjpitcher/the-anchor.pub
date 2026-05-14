@@ -16,7 +16,7 @@ import { CateringPackagesTable } from '@/components/features/CateringPackagesTab
 
 export const metadata: Metadata = {
     title: 'Engagement Party Venue Near Heathrow',
-    description: `Looking for an engagement party venue? Celebrate at ${BRAND.name} with prosecco packages, flexible buffets, and private areas. Free parking near Staines and Heathrow.`,
+    description: `Engagement party venue near Heathrow and Staines. No room hire fee, buffets from £9.95pp, prosecco packages, and free parking at ${BRAND.name}. 10–50 guests.`,
     openGraph: {
         title: 'Engagement Party Venue | The Anchor Stanwell Moor',
         description: 'She said yes! Now let\'s celebrate. Discover our engagement party packages with prosecco, buffets, and private areas.',
@@ -51,7 +51,7 @@ export default async function EngagementPartiesPage() {
         "telephone": CONTACT.phoneIntl,
         "url": "https://www.the-anchor.pub/private-hire/engagement-parties",
         "image": `https://www.the-anchor.pub${DEFAULT_CORPORATE_IMAGE}`,
-        "description": "A romantic and flexible venue for engagement parties, intimate gatherings, and celebrations.",
+        "description": "Engagement party venue near Heathrow Airport with no room hire charge, buffets from £9.95pp, prosecco packages, and free parking. Private dining room for 10–50 guests in Stanwell Moor, Surrey.",
         "potentialAction": {
             "@type": "CommunicateAction",
             "target": {
@@ -76,8 +76,8 @@ export default async function EngagementPartiesPage() {
                 showContextStrip={true}
                 route="/private-hire/engagement-parties"
                 variant="feature"
-                title="Engagement Parties at The Anchor"
-                description="Raise a glass to your future in a warm, traditional setting"
+                title="Engagement Party Venue Near Heathrow — celebrate at The Anchor"
+                description="No room hire charge, buffets from £9.95pp, prosecco packages, and free parking for up to 50 guests"
                
                 image={{ src: DEFAULT_CORPORATE_IMAGE, alt: "Engagement party setup" }}
                 primaryCta={
@@ -110,7 +110,7 @@ export default async function EngagementPartiesPage() {
                             Engagement Party Venue Near Heathrow & Staines
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">
-                            Congratulations on your engagement! Whether you want a quiet family dinner to share the news or a big bash with all your friends, The Anchor is the ideal engagement party venue near Heathrow, the perfect backdrop for your first celebration as a fianc&eacute;(e).
+                            Congratulations on your engagement! Whether you want a quiet family dinner to share the news or a big bash with all your friends, The Anchor is an engagement party venue near Heathrow with no room hire charge, free parking, and space for 10 to 50 guests. Seven minutes from Terminal 5 in Stanwell Moor, we handle the catering, the drinks, and the space — you just turn up and celebrate.
                         </p>
                     </div>
                 </Container>
@@ -154,6 +154,74 @@ export default async function EngagementPartiesPage() {
                             ]}
                             className="mb-8"
                         />
+                    </div>
+                </Container>
+            </section>
+
+            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
+                <Container>
+                    <div className="max-w-4xl mx-auto">
+                        <SectionHeader
+                            title="What's Included"
+                            subtitle="Everything you need for your engagement party, nothing you don't."
+                        />
+                        <div className="grid md:grid-cols-2 gap-6 mb-8">
+                            <div className="space-y-3">
+                                <h3 className="text-xl font-bold text-anchor-cream-text">The Venue</h3>
+                                <ul className="space-y-2 text-anchor-cream-text/70">
+                                    <li><strong>No room hire charge</strong> — we use a minimum-spend model (from &pound;500) instead of a flat hire fee, so every penny goes towards your food and drinks.</li>
+                                    <li><strong>Dining room:</strong> 26 seated with standing room for more. French doors open straight onto the beer garden in summer.</li>
+                                    <li><strong>Capacity:</strong> 10 to 50 guests. Smaller groups get a reserved area; larger parties get the dining room to yourselves.</li>
+                                    <li><strong>Decorations welcome:</strong> Balloons, banners, table decorations, engagement signs — go for it. We just ask for no confetti or glitter.</li>
+                                </ul>
+                            </div>
+                            <div className="space-y-3">
+                                <h3 className="text-xl font-bold text-anchor-cream-text">The Practical Bits</h3>
+                                <ul className="space-y-2 text-anchor-cream-text/70">
+                                    <li><strong>Free parking:</strong> 20 spaces right outside the door. No meters, no time limits.</li>
+                                    <li><strong>7 minutes from Heathrow T5</strong> — handy if guests are flying in for the celebration.</li>
+                                    <li><strong>AV equipment:</strong> Projector, screen, and sound system available for slideshows or speeches.</li>
+                                    <li><strong>Deposit:</strong> &pound;250 to secure your date, deducted from the final bill.</li>
+                                    <li><strong>Dedicated events coordinator</strong> to help with planning and on-the-day logistics.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </Container>
+            </section>
+
+            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+                <Container>
+                    <div className="max-w-4xl mx-auto">
+                        <SectionHeader
+                            title="Why a Pub Engagement Party?"
+                            subtitle="More atmosphere, less hassle, and you'll actually enjoy it."
+                        />
+                        <div className="grid md:grid-cols-3 gap-6 mb-6">
+                            <div className="text-center space-y-2">
+                                <p className="text-3xl font-bold text-anchor-gold-vivid">&pound;0</p>
+                                <p className="text-sm text-anchor-cream-text/70">Room hire charge</p>
+                            </div>
+                            <div className="text-center space-y-2">
+                                <p className="text-3xl font-bold text-anchor-gold-vivid">From &pound;9.95pp</p>
+                                <p className="text-sm text-anchor-cream-text/70">Buffet catering</p>
+                            </div>
+                            <div className="text-center space-y-2">
+                                <p className="text-3xl font-bold text-anchor-gold-vivid">20 free</p>
+                                <p className="text-sm text-anchor-cream-text/70">Parking spaces</p>
+                            </div>
+                        </div>
+                        <div className="prose prose-invert max-w-none text-anchor-cream-text/70 space-y-4">
+                            <p>
+                                Hotel function rooms are expensive. Home parties mean you&apos;re cleaning up at midnight. A pub engagement party gives you the atmosphere, the catering, and the bar — without the venue hire bill or the aftermath.
+                            </p>
+                            <p>
+                                At The Anchor, your engagement party feels like a celebration, not a corporate event. Your guests can spread between the dining room and the beer garden, order from the bar at their own pace, and stay as late as the evening takes them. There&apos;s no ticking clock and no room turnover pressure.
+                            </p>
+                            <p>
+                                We&apos;re a proper village pub in Stanwell Moor, not a chain venue. Our events coordinator works with you to get the details right — from the welcome prosecco to the food service timing — so you can focus on enjoying the night.
+                            </p>
+                        </div>
                     </div>
                 </Container>
             </section>
@@ -242,19 +310,43 @@ export default async function EngagementPartiesPage() {
                 faqs={[
                     {
                         question: "How much does an engagement party at The Anchor cost?",
-                        answer: "It depends on your guest count, catering choices, and any extras like DJ or decorations. Use our pricing calculator on this page for an instant estimate, or call us on 01753 682707 for a personalised quote. There are no hidden charges."
+                        answer: "There's no room hire charge — we use a minimum-spend model starting from £500. Buffets start at £9.95 per person, welcome prosecco is £7.99 per person, and the deposit is £250 (deducted from your final bill). Use our pricing calculator on this page for an instant estimate, or call 01753 682707 for a personalised quote."
+                    },
+                    {
+                        question: "How many guests can you fit for an engagement party?",
+                        answer: "Our private dining room seats 26 with standing room for more. For larger engagement parties, we can accommodate up to 50 guests across the dining room and beer garden. Groups of 10 to 50 are our sweet spot."
                     },
                     {
                         question: "Can we decorate the area?",
-                        answer: "Absolutely! You are welcome to bring balloons, banners, and table decorations. We just ask for no confetti or glitter as it's hard to clean up!"
+                        answer: "Absolutely. Bring balloons, banners, table decorations, engagement signs — whatever makes it feel like yours. We just ask for no confetti or glitter as it's tricky to clean up."
                     },
                     {
                         question: "Do you require a deposit?",
-                        answer: "For large area bookings or private hire requiring food, we typically ask for a small deposit to secure the date. This will be deducted from your final bill."
+                        answer: "Yes, we ask for a £250 deposit to secure your date. This is fully deducted from the final bill, so it's not an extra cost — just a commitment to the booking."
                     },
                     {
                         question: "Can we bring a cake?",
-                        answer: "Yes, please do! We can store it in our kitchen until you are ready. We can also provide plates and napkins."
+                        answer: "Please do! We'll store it in our kitchen until you're ready. We can provide plates, napkins, and a knife for cutting. Let us know when you want it brought out and we'll time it perfectly."
+                    },
+                    {
+                        question: "Is there parking for engagement party guests?",
+                        answer: "Yes. We have 20 free parking spaces right outside the pub — no meters, no time limits. It's one of the biggest advantages of choosing a pub venue over a town-centre hotel."
+                    },
+                    {
+                        question: "How far in advance should we book?",
+                        answer: "We recommend booking at least 4 weeks ahead for Friday and Saturday evenings. Midweek and Sunday dates are usually easier to get at shorter notice. Popular months like December and summer fill up faster."
+                    },
+                    {
+                        question: "Can we have music or a DJ?",
+                        answer: "Yes. Our function area has space for a DJ setup and we have a sound system available. You can also bring your own playlist — just let our events coordinator know what you need and we'll set it up."
+                    },
+                    {
+                        question: "What food options are there?",
+                        answer: "We offer buffets from £9.95 per person (sandwich, finger, burger, premium, and pizza options), or you can let guests order from the à la carte menu. For drinks, welcome prosecco packages start at £7.99 per person, or we can set up a bar tab."
+                    },
+                    {
+                        question: "Where is The Anchor?",
+                        answer: "We're in Stanwell Moor, Surrey — 7 minutes from Heathrow Terminal 5 and about 8 minutes from Staines. Postcode for sat nav: TW19 6AQ. We're just off the M25 at Junction 14."
                     }
                 ]}
                 className="bg-anchor-bg-card"

@@ -397,7 +397,7 @@ export default async function LiveMusicPage() {
                     <div className="max-w-5xl mx-auto">
                         <h2 className="text-3xl font-bold text-anchor-cream-text text-center mb-6">Upcoming Gigs</h2>
                         <p className="text-anchor-cream-text/70 text-center mb-8">
-                            Here’s who’s playing next. For the most up-to-date info, keep an eye on our <Link href="https://facebook.com/theanchorstanwellmoor" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">Facebook page</Link>.
+                            Looking for live music tonight or this week? Here&apos;s who&apos;s playing next. For the most up-to-date info, check <Link href="/whats-on" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">What&apos;s On this week</Link> or our <Link href="https://facebook.com/theanchorstanwellmoor" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">Facebook page</Link>.
                         </p>
                         <MusicEventCards events={events} />
                     </div>

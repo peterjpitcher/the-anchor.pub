@@ -38,17 +38,17 @@ import { JsonLd } from '@/components/JsonLd'
 import { bingoEventSeries } from '@/lib/schema'
 
 export const metadata: Metadata = {
-  title: 'Cash Bingo Near Heathrow | Bingo Games & Jackpots',
+  title: 'Pub Bingo Night Near Heathrow | Cash Prizes & Jackpots',
   description:
-    'Play cash bingo and bingo games near Heathrow at The Anchor. £10 bingo tickets, bingo calls, cash prizes, snowball bonus, and jackpot bingo in Stanwell Moor.',
+    'Pub bingo night near Heathrow at The Anchor. Cash bingo with £10 tickets, cash prizes, snowball bonus, and jackpot rounds in Stanwell Moor.',
   openGraph: {
-    title: 'Cash Bingo Near Heathrow | The Anchor',
-    description: '£10 bingo tickets, cash prizes, snowball bonus, and jackpot bingo in Stanwell Moor near Heathrow.',
+    title: 'Pub Bingo Night Near Heathrow | The Anchor',
+    description: 'Bingo night near Heathrow with cash prizes, snowball bonus, and jackpot rounds at The Anchor, Stanwell Moor.',
     images: [{ url: DEFAULT_EVENT_IMAGE, width: 1200, height: 630, alt: 'Events at The Anchor pub near Heathrow' }]
   },
   twitter: getTwitterMetadata({
-    title: 'Cash Bingo Near Heathrow | The Anchor',
-    description: '£10 bingo tickets, cash prizes, snowball bonus, and jackpot bingo in Stanwell Moor near Heathrow.',
+    title: 'Pub Bingo Night Near Heathrow | The Anchor',
+    description: 'Bingo night near Heathrow with cash prizes, snowball bonus, and jackpot rounds at The Anchor, Stanwell Moor.',
     images: [DEFAULT_EVENT_IMAGE]
   }),
   alternates: {
@@ -481,6 +481,17 @@ export default async function CashBingoPage() {
       </Section>
 
       <FAQAccordionWithSchema faqs={FAQS} />
+
+      <Section spacing="sm" background="white">
+        <Container>
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-2xl font-bold text-anchor-cream-text mb-3">Prefer music bingo?</h2>
+            <p className="text-anchor-cream-text/70 mb-4">
+              We also run <Link href="/music-bingo" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">Music Bingo</Link> — a separate event where you mark off songs instead of numbers. Same pub, different buzz. Check <Link href="/whats-on" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">What&apos;s On</Link> for upcoming dates of both.
+            </p>
+          </div>
+        </Container>
+      </Section>
 
       <Section spacing="md" background="white">
         <Container>

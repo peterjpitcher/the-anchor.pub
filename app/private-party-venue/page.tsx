@@ -14,16 +14,16 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-  title: 'Birthday Party Venue Near Heathrow & Staines',
-  description: 'Book The Anchor for birthday parties near Heathrow and Staines. DJ space, late licence, decorations welcome. 10-50 room bookings, larger events by enquiry, and free parking.',
+  title: 'Party Venue Near Heathrow & Staines | The Anchor Pub',
+  description: 'Book a party venue near Heathrow and Staines for birthdays, celebrations & private events. DJ space, late licence, 10-50 room bookings, free parking.',
   openGraph: {
-    title: 'Birthday Party Venue Near Heathrow - Celebrations at The Anchor',
-    description: 'Birthday parties and celebrations with DJ space, late licence, and free parking near Heathrow.',
+    title: 'Party Venue Near Heathrow & Staines | The Anchor',
+    description: 'Party venue near Heathrow with DJ space, late licence, and free parking. 10-50 room bookings for birthdays and celebrations.',
     images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Private hire venue at The Anchor near Heathrow Airport' }],
   },
   twitter: getTwitterMetadata({
-    title: 'Birthday Party Venue Near Heathrow - Celebrations at The Anchor',
-    description: 'Birthday parties and celebrations with DJ space, late licence, and free parking near Heathrow.',
+    title: 'Party Venue Near Heathrow & Staines | The Anchor',
+    description: 'Party venue near Heathrow with DJ space, late licence, and free parking. 10-50 room bookings for birthdays and celebrations.',
     images: [DEFAULT_CORPORATE_IMAGE]
   }),
   alternates: {
@@ -41,7 +41,7 @@ export default function PrivatePartyVenuePage() {
       <HeroWrapper
         showContextStrip={true}
         route="/private-party-venue"
-        title="Birthday Party Venue & Celebrations"
+        title="Party Venue Near Heathrow & Staines"
         description="The perfect spot for birthdays, milestones and social celebrations near Heathrow"
         tags={[
           { label: "10-50 Room Bookings", variant: "success" },
@@ -108,7 +108,7 @@ export default function PrivatePartyVenuePage() {
               seo={{ structured: true, speakable: true }}
               className="text-anchor-cream-text mb-4"
             >
-              Birthday Party Venue &amp; Celebrations at The Anchor
+              Party Venue Near Heathrow &amp; Staines &mdash; Birthdays &amp; Celebrations at The Anchor
             </PageTitle>
             <p className="text-lg text-anchor-cream-text/70">
               DJ space, late licence, decorations welcome, everything you need for birthdays and celebrations

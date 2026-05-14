@@ -37,17 +37,17 @@ import { JsonLd } from '@/components/JsonLd'
 import { quizNightEventSeries } from '@/lib/schema'
 
 export const metadata: Metadata = {
-  title: 'Pub Quiz Near Heathrow | £3 Entry, Cash Prizes',
+  title: 'Pub Quiz Night Near Heathrow | £3 Entry, Cash Prizes',
   description:
-    "Monthly quiz night at The Anchor, Stanwell Moor. £3 entry, £25 bar tab for the winners. Teams of up to 6. Free parking, 7 mins from Heathrow T5. Book your spot.",
+    "Monthly pub quiz night at The Anchor near Heathrow and Staines. £3 entry, £25 bar tab for the winners. Teams of up to 6. Free parking, 7 mins from T5.",
   openGraph: {
-    title: 'Pub Quiz Near Heathrow | £3 Entry, Cash Prizes | The Anchor',
-    description: 'Monthly quiz night at The Anchor, Stanwell Moor. £3 entry, £25 bar tab for the winners. Teams of up to 6. Free parking, 7 mins from Heathrow T5. Book your spot.',
+    title: 'Pub Quiz Night Near Heathrow & Staines | The Anchor',
+    description: 'Monthly pub quiz night at The Anchor near Heathrow and Staines. £3 entry, £25 bar tab for the winners. Teams of up to 6. Free parking, 7 mins from T5.',
     images: [{ url: DEFAULT_EVENT_IMAGE, width: 1200, height: 630, alt: 'Events at The Anchor pub near Heathrow' }]
   },
   twitter: getTwitterMetadata({
-    title: 'Pub Quiz Near Heathrow | £3 Entry, Cash Prizes | The Anchor',
-    description: 'Monthly quiz night at The Anchor, Stanwell Moor. £3 entry, £25 bar tab for the winners. Teams of up to 6. Free parking, 7 mins from Heathrow T5. Book your spot.',
+    title: 'Pub Quiz Night Near Heathrow & Staines | The Anchor',
+    description: 'Monthly pub quiz night at The Anchor near Heathrow and Staines. £3 entry, £25 bar tab for the winners. Teams of up to 6. Free parking, 7 mins from T5.',
     images: [DEFAULT_EVENT_IMAGE]
   }),
   alternates: {
@@ -282,7 +282,7 @@ export default async function QuizNightPage() {
       <HeroWrapper
         route="/quiz-night"
         title="Pub Quiz Night at The Anchor Near Heathrow"
-        description="Proper quiz night pub energy with trivia rounds, seasonal themes and prizes worth bragging about. Your Heathrow pub trivia night HQ."
+        description="Monthly pub quiz near Heathrow and Staines. Trivia rounds, seasonal themes, £25 bar tab for the winners and a proper pub quiz atmosphere."
         enableSmartCtas={true}
         showContextStrip={true}
       />
@@ -291,7 +291,7 @@ export default async function QuizNightPage() {
       <section className="bg-anchor-bg-raised border-b border-anchor-gold/15 py-6">
         <Container>
           <p className="text-center text-lg md:text-xl text-anchor-cream-text/80 max-w-4xl mx-auto leading-relaxed">
-            The Anchor hosts a popular monthly pub quiz in Stanwell Moor with a &pound;25 bar tab prize, team-based rounds, and a lively atmosphere. Entry is &pound;3 per player with teams of up to six.
+            The Anchor hosts a popular monthly pub quiz in Stanwell Moor, near Staines and Heathrow Airport, with a &pound;25 bar tab prize, team-based rounds, and a lively atmosphere. Entry is &pound;3 per player with teams of up to six.
           </p>
         </Container>
       </section>
@@ -347,10 +347,10 @@ export default async function QuizNightPage() {
       <Section spacing="sm" background="white">
         <Container>
           <PageTitle className="text-center text-anchor-gold-vivid" seo={{ structured: true, speakable: true }}>
-            Pub Quiz Night at The Anchor Near Heathrow
+            Pub Quiz Night Near Heathrow &amp; Staines &mdash; Monthly at The Anchor
           </PageTitle>
           <p className="text-lg text-anchor-cream-text/70 text-center max-w-3xl mx-auto">
-            Looking for things to do near Heathrow? Once a month we turn The Anchor into a trivia night HQ for Stanwell Moor, Staines, Ashford, Bedfont and stopover crews. {heroDescription}
+            Looking for a pub quiz in Staines, Stanwell Moor or near Heathrow? Once a month we turn The Anchor into a trivia night for locals, airport crews and anyone who fancies a proper pub quiz in Surrey. {heroDescription}
           </p>
         </Container>
       </Section>

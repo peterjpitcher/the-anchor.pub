@@ -32,20 +32,20 @@ function extractSchemaPrice(item?: MenuPageItem): string | undefined {
 export async function generateMetadata(): Promise<Metadata> {
   const data = await getFishAndChipsMenuPageData()
   const description = data
-    ? "Fish and chips near Heathrow from The Anchor's live menu. Free parking, 7 minutes from Terminal 5."
-    : 'Fish and chips near Heathrow at The Anchor. Current menu details with free parking near Terminal 5.'
+    ? "Fish and chips in Staines — see The Anchor's live menu with prices. Free parking, 7 mins from Heathrow Terminal 5."
+    : 'Fish and chips in Staines at The Anchor pub near Heathrow. Current menu with prices and free parking.'
 
   return {
-    title: 'Fish and Chips Near Heathrow | The Anchor',
+    title: 'Fish and Chips Staines | Pub Fish & Chips Near Heathrow',
     description,
     openGraph: {
-      title: 'Fish and Chips Near Heathrow | The Anchor',
+      title: 'Fish and Chips Staines | Pub Fish & Chips Near Heathrow',
       description,
       images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
       type: 'website',
     },
     twitter: getTwitterMetadata({
-      title: 'Fish and Chips Near Heathrow | The Anchor',
+      title: 'Fish and Chips Staines | Pub Fish & Chips Near Heathrow',
       description,
       images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),

@@ -9,17 +9,17 @@ import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 
 export const metadata: Metadata = {
-    title: 'Office Christmas Party Near Heathrow | Corporate',
-    description: 'Book your office or corporate Christmas party at The Anchor, Surrey. Free parking, 7 min from Heathrow T5. Three-course festive menu from £36.95pp. Enquire now.',
+    title: 'Corporate Christmas Party Near Heathrow | The Anchor 2026',
+    description: 'Book your corporate Christmas party or work Christmas do at The Anchor, a pub near Heathrow & Staines. Free parking, three-course festive menu from £36.95pp. Enquire now.',
     openGraph: {
-        title: 'Office & Corporate Christmas Party 2026 | Near Heathrow T5 | The Anchor Pub',
-        description: 'The easy-to-reach corporate Christmas party venue near Heathrow. Festive menus from £36.95pp, free parking, VAT invoices, and a simple pre-order system. No spreadsheets required.',
+        title: 'Corporate Christmas Party Near Heathrow 2026 | The Anchor',
+        description: 'Corporate Christmas party venue near Heathrow with festive menus from £36.95pp, free parking, VAT invoices, and a simple pre-order system for office teams.',
         images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({
-        title: 'Office & Corporate Christmas Party 2026 | Near Heathrow T5 | The Anchor Pub',
-        description: 'The easy-to-reach corporate Christmas party venue near Heathrow. Festive menus from £36.95pp, free parking, VAT invoices, and a simple pre-order system. No spreadsheets required.',
+        title: 'Corporate Christmas Party Near Heathrow 2026 | The Anchor',
+        description: 'Corporate Christmas party venue near Heathrow with festive menus from £36.95pp, free parking, VAT invoices, and a simple pre-order system for office teams.',
         images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),
     alternates: {
@@ -35,7 +35,7 @@ export default function ChristmasPartiesPage() {
                 showContextStrip={true}
                 route="/corporate-christmas-parties"
                 eyebrow="Corporate Christmas 2026"
-                title="Office Christmas party & corporate Christmas party venue near Heathrow"
+                title="Corporate Christmas party near Heathrow — for offices, airport teams & Surrey businesses"
                 description="You've been handed the job of organising the works christmas do. Deep breath. We've hosted office parties for Heathrow crews, Poyle business parks and Surrey teams for years, so we know exactly what you need: great food, easy parking, and zero drama on the night. Three-course festive menu from £36.95 per person, with a proper pub atmosphere that actually feels like Christmas."
                 variant="default"
                 primaryCta={
@@ -67,7 +67,7 @@ export default function ChristmasPartiesPage() {
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle className="text-anchor-cream-text mb-4">
-                            Make it the staff Christmas party they actually talk about
+                            Corporate Christmas Party &mdash; Make It the Works Do They Actually Talk About
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70 mb-4">
                             Every office has that one legendary Christmas do. The food was brilliant. Nobody had to argue about parking. Someone from accounts sang karaoke. Let&apos;s make yours the one people remember this year.

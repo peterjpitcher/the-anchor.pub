@@ -15,17 +15,17 @@ import { getCateringData } from '@/lib/api/catering-packages'
 import { CateringPackagesTable } from '@/components/features/CateringPackagesTable'
 
 export const metadata: Metadata = {
-    title: 'Milestone Birthday Party Venue | 30th, 40th, 50th Parties',
-    description: `Celebrate your 21st, 30th, 40th or 50th birthday at ${BRAND.name}. The best party venue near Heathrow with DJ space, buffets, and late license options.`,
+    title: 'Birthday Party Venue Near Heathrow | 30th, 40th, 50th Parties',
+    description: 'Birthday party venue near Heathrow for 21st, 30th, 40th & 50th celebrations. A pub with private room hire, DJ space, buffets, and free parking in Surrey.',
     openGraph: {
-        title: 'Milestone Birthday Parties at The Anchor',
-        description: 'Planning a big birthday? Discover our party packages perfect for 30ths, 40ths, and 50ths. Great food, music, and atmosphere.',
+        title: 'Birthday Party Venue Near Heathrow | The Anchor',
+        description: 'Birthday party pub near Heathrow with private room hire for 30th, 40th & 50th celebrations. Free parking, DJ space, and catering packages.',
         images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Private hire venue at The Anchor near Heathrow Airport' }],
         type: 'website',
     },
     twitter: getTwitterMetadata({
-        title: 'Milestone Birthday Parties at The Anchor',
-        description: 'Planning a big birthday? Discover our party packages perfect for 30ths, 40ths, and 50ths. Great food, music, and atmosphere.',
+        title: 'Birthday Party Venue Near Heathrow | The Anchor',
+        description: 'Birthday party pub near Heathrow with private room hire for 30th, 40th & 50th celebrations. Free parking, DJ space, and catering packages.',
         images: [DEFAULT_CORPORATE_IMAGE]
     }),
     alternates: {
@@ -51,7 +51,7 @@ export default async function MilestoneBirthdaysPage() {
         "telephone": CONTACT.phoneIntl,
         "url": "https://www.the-anchor.pub/private-hire/milestone-birthdays",
         "image": `https://www.the-anchor.pub${DEFAULT_CORPORATE_IMAGE}`,
-        "description": "A lively venue for milestone birthday celebrations including 21st, 30th, 40th, and 50th parties.",
+        "description": "Birthday party venue near Heathrow Airport for milestone celebrations. Private room hire for 21st, 30th, 40th, and 50th birthday parties with catering and entertainment.",
         "potentialAction": {
             "@type": "CommunicateAction",
             "target": {
@@ -76,8 +76,8 @@ export default async function MilestoneBirthdaysPage() {
                 showContextStrip={true}
                 route="/private-hire/milestone-birthdays"
                 variant="feature"
-                title="The Ultimate Birthday Party Venue"
-                description="Celebrate the big numbers in style: 21st, 30th, 40th, 50th & Beyond!"
+                title="Birthday Party Venue Near Heathrow — 21st to 50th Celebrations"
+                description="A pub birthday party venue with private rooms, DJ space, and catering. Celebrate the big numbers in style near Staines and Heathrow Airport."
                
                 image={{ src: DEFAULT_CORPORATE_IMAGE, alt: "Milestone birthday party" }}
                 primaryCta={
@@ -107,10 +107,10 @@ export default async function MilestoneBirthdaysPage() {
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle className="text-anchor-cream-text mb-4" as="h2" seo={{ structured: true, speakable: true }}>
-                            Milestone Birthday Party Venue, 21st, 30th, 40th, 50th
+                            Birthday Party Venue Near Heathrow &amp; Staines &mdash; 21st, 30th, 40th, 50th
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">
-                            You only turn 30 (or 40, or 50...) once! Make it a night to remember at The Anchor. We specialize in hosting lively milestone parties where the atmosphere is buzzing, the drinks are flowing, and the food keeps everyone going.
+                            You only turn 30 (or 40, or 50) once. Make it count. The Anchor is a birthday party pub in Stanwell Moor with birthday party room hire for 10&ndash;50 guests, no room hire charge, buffets from &pound;9.95pp, and free parking. Whether you want a DJ and a dance floor or a quiet dinner with your closest friends, we&apos;ll set it up.
                         </p>
                     </div>
                 </Container>
@@ -186,6 +186,46 @@ export default async function MilestoneBirthdaysPage() {
             </section>
 
             <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
+                <Container>
+                    <div className="max-w-4xl mx-auto">
+                        <h2 className="text-3xl font-bold text-center mb-8 text-anchor-cream-text">Birthday Party Venue by Age</h2>
+                        <div className="space-y-8">
+                            <div className="space-y-3">
+                                <h3 className="text-2xl font-bold text-anchor-gold-vivid">21st Birthday Venue</h3>
+                                <p className="text-anchor-cream-text/70">
+                                    A 21st is the first big one worth celebrating properly. Our beer garden works brilliantly for summer 21sts — reserve an area, order a buffet, and let the evening unfold naturally. Strict ID policies apply, but the vibe is relaxed. Most 21sts here run 15&ndash;30 guests with a finger buffet and a bar tab.
+                                </p>
+                            </div>
+                            <div className="space-y-3">
+                                <h3 className="text-2xl font-bold text-anchor-gold-vivid">30th Birthday Party Venue Near Heathrow</h3>
+                                <p className="text-anchor-cream-text/70">
+                                    Turning 30 deserves more than drinks at a chain bar. Our dining room seats 26 for a sit-down meal, or clear the space for a dance floor with a DJ and a burger buffet. No room hire charge means your budget goes on food, drinks, and entertainment — not an empty room. Read our <Link href="/blog/30th-birthday-party-ideas-venues" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">30th birthday party ideas</Link> for inspiration.
+                                </p>
+                            </div>
+                            <div className="space-y-3">
+                                <h3 className="text-2xl font-bold text-anchor-gold-vivid">40th Birthday Party Venue</h3>
+                                <p className="text-anchor-cream-text/70">
+                                    The big four-oh is when parties get good — people know what they like, and the crowd is always up for it. Most 40th birthday parties here are 30&ndash;50 guests with a premium buffet, welcome drinks, and a DJ. Free parking means nobody needs a designated driver. See our <Link href="/blog/40th-birthday-party-ideas-venues" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">40th birthday party ideas</Link> guide.
+                                </p>
+                            </div>
+                            <div className="space-y-3">
+                                <h3 className="text-2xl font-bold text-anchor-gold-vivid">50th Birthday Party Venue Near Staines</h3>
+                                <p className="text-anchor-cream-text/70">
+                                    Half a century calls for a proper celebration. Our 50th birthday parties often start with afternoon tea or a sit-down dinner, then transition to an evening party with music and drinks. The dining room works well for a more elegant feel, with French doors opening onto the garden in warmer months. Browse our <Link href="/blog/50th-birthday-party-ideas-venues" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">50th birthday party ideas</Link> for more.
+                                </p>
+                            </div>
+                            <div className="space-y-3">
+                                <h3 className="text-2xl font-bold text-anchor-gold-vivid">60th &amp; Beyond</h3>
+                                <p className="text-anchor-cream-text/70">
+                                    60th, 70th, and 80th birthdays tend to be more intimate — a long table, a great meal, and the people who matter most. We can set a private dining area for 10&ndash;20 guests with a set menu or à la carte service. The atmosphere is warm without being fussy, and there&apos;s no pressure to rush. See our <Link href="/blog/60th-birthday-party-ideas-venues" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">60th birthday party ideas</Link>.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </Container>
+            </section>
+
+            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto">
                         <CateringPackagesTable

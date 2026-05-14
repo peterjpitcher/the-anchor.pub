@@ -20,6 +20,8 @@ hero: hero.jpg
 images: []
 ---
 
+> **Want the menu?** [See The Anchor's live food menu](/food-menu) with current prices, dietary options, and booking info. Free parking, 7 mins from Terminal 5.
+
 Let's start with the obvious: eating at Heathrow Airport is expensive. A mediocre burger and a pint will set you back £25-30 in the terminal. A sandwich and a coffee is pushing £12. And the quality is, let's be generous, functional. You're paying a captive-audience tax because you're already through security and your options are limited.
 
 Here's the thing that most people don't realise: there are excellent pubs and restaurants within 7-15 minutes of every Heathrow terminal, with proper food, proper prices, and free parking. If your flight isn't for a few hours, or you've just landed and you're starving, eating outside the airport is cheaper, better, and more relaxing in every way.

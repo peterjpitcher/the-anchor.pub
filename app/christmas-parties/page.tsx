@@ -11,16 +11,16 @@ import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 export const metadata: Metadata = {
   title: 'Christmas Party Venue Near Heathrow & Staines | 2026',
   description:
-    'Book your Christmas party or festive lunch at The Anchor, Surrey. Three-course meals from £36.95, buffets for 26+, free parking near Heathrow T5. Enquire now.',
+    'Book your Christmas party at The Anchor, a pub Christmas dinner venue near Heathrow & Staines. Festive meals from £36.95, free parking, 10–200 guests.',
   openGraph: {
-    title: 'Christmas Parties & Lunch 2026 Near Heathrow Terminal 5 | Shared Nights & Private Hire',
+    title: 'Christmas Party Venue Near Heathrow & Staines 2026 | The Anchor',
     description:
-      'A proper village-pub Christmas with shared party nights, private hire, festive lunches and generous roasts. Free parking minutes from Heathrow Terminal 5, near Staines, Ashford and Windsor.',
+      'Book a Christmas party at The Anchor — a pub dinner venue near Heathrow with free parking, three-course festive meals from £36.95, and space for 10–200 guests.',
     images: [{ url: '/images/page-headers/christmas-parties/2026/hero-table.jpg', width: 1200, height: 630, alt: 'Christmas parties at The Anchor near Heathrow' }]
   },
   twitter: getTwitterMetadata({
-    title: 'Christmas Parties & Lunch 2026 Near Heathrow Terminal 5 | Shared Nights & Private Hire',
-    description: 'A proper village-pub Christmas with shared party nights, private hire, festive lunches and generous roasts. Free parking minutes from Heathrow Terminal 5, near Staines, Ashford and Windsor.',
+    title: 'Christmas Party Venue Near Heathrow & Staines 2026 | The Anchor',
+    description: 'Book a Christmas party at The Anchor — a pub dinner venue near Heathrow with free parking, three-course festive meals from £36.95, and space for 10–200 guests.',
     images: ['/images/page-headers/christmas-parties/2026/hero-table.jpg']
   }),
   alternates: {
@@ -31,9 +31,9 @@ export const metadata: Metadata = {
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'Event',
-  name: 'Christmas Parties & Festive Lunch 2026 at The Anchor, Stanwell Moor',
+  name: 'Christmas Party Venue 2026 — The Anchor, Stanwell Moor near Heathrow',
   description:
-    'Book your Christmas party or festive lunch at The Anchor near Heathrow Terminal 5. Three-course meals from £36.95, buffets for 26+, free parking outside the ULEZ, and space for up to 60 seated guests.',
+    'Christmas party venue near Heathrow Airport. Three-course pub Christmas dinners from £36.95, buffets for 26+, free parking outside the ULEZ, and space for up to 60 seated or 200 standing guests.',
   startDate: '2026-11-24',
   endDate: '2026-12-23',
   eventStatus: 'https://schema.org/EventScheduled',
@@ -174,7 +174,7 @@ export default function ChristmasPartiesPage() {
         id="christmas-hero"
         route="/christmas-parties"
        
-        title="Christmas parties & festive lunch near Heathrow, a proper village-pub celebration"
+        title="Christmas party near Heathrow — pub dinners, party nights & festive lunch 2026"
         description="Three-course Christmas dinners and lunches piled with herb-crusted triple-cooked roast potatoes, pigs in blankets and sage & onion stuffing. Crackers on the table, candles lit, and your Christmas do sorted, whether it's a works night out or a family Christmas meal."
         eyebrow={<span className="text-red-100">Christmas 2026</span>}
         image={{

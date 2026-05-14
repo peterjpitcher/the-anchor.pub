@@ -125,19 +125,19 @@ export async function generateMetadata(): Promise<Metadata> {
   const data = await getFoodMenuPageData()
   const pricePhrase = data?.priceFromLabel ? ` Dishes ${data.priceFromLabel}.` : ''
   const description = data
-    ? `Pub food menu near Heathrow from The Anchor's live menu.${pricePhrase} Free parking, 7 minutes from Terminal 5.`
-    : 'Pub food menu near Heathrow at The Anchor. Current dishes and prices from the latest kitchen menu.'
+    ? `Food near Heathrow Airport — see The Anchor's live pub menu with prices.${pricePhrase} Free parking, 7 mins from Terminal 5.`
+    : 'Food near Heathrow Airport at The Anchor. See the live pub menu with current dishes and prices from the kitchen.'
 
   return {
-    title: 'Food Menu Near Heathrow | Live Pub Menu & Prices',
+    title: 'Food Near Heathrow Airport | Live Pub Menu & Prices',
     description,
     openGraph: {
-      title: 'Food Menu Near Heathrow | Live Pub Menu & Prices | The Anchor',
+      title: 'Food Near Heathrow Airport | Pub Menu & Prices | The Anchor',
       description,
       images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg'],
     },
     twitter: getTwitterMetadata({
-      title: 'Food Menu Near Heathrow | Live Pub Menu & Prices | The Anchor',
+      title: 'Food Near Heathrow Airport | Pub Menu & Prices | The Anchor',
       description,
       images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg']
     }),

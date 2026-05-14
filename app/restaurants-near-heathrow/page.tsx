@@ -15,16 +15,16 @@ import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchCluster
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 
 export const metadata: Metadata = {
-  title: 'Restaurants Near Heathrow | Pub Food 7 Mins from T5',
-  description: 'Where to eat near Heathrow before a flight, after landing or during a layover. Pub food, free customer parking and online table booking.',
+  title: 'Restaurants Near Heathrow Airport | The Anchor, Stanwell Moor',
+  description: 'Looking for restaurants near Heathrow Airport? The Anchor serves pub food from £8.99, 7 mins from T5 with free parking. Book a table or walk in.',
   openGraph: {
-    title: 'Restaurants Near Heathrow | Pub Food 7 Mins from T5',
-    description: 'Pre-flight, layover and post-landing meals near Heathrow with pub food, free customer parking and online booking.',
-    images: [{ url: DEFAULT_NEAR_HEATHROW_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub near Heathrow Airport' }],
+    title: 'Best Restaurants Near Heathrow Airport | The Anchor',
+    description: 'Proper pub food 7 minutes from Heathrow Terminal 5. Free parking, honest prices, and a calmer meal than anything inside the airport.',
+    images: [{ url: DEFAULT_NEAR_HEATHROW_IMAGE, width: 1200, height: 630, alt: 'The Anchor restaurant near Heathrow Airport — pub food with free parking' }],
   },
   twitter: getTwitterMetadata({
-    title: 'Restaurants Near Heathrow | Pub Food 7 Mins from T5',
-    description: 'Pre-flight, layover and post-landing meals near Heathrow with pub food, free customer parking and online booking.',
+    title: 'Best Restaurants Near Heathrow Airport | The Anchor',
+    description: 'Proper pub food 7 minutes from Heathrow Terminal 5. Free parking, honest prices, and a calmer meal than anything inside the airport.',
     images: [DEFAULT_NEAR_HEATHROW_IMAGE]
   }),
   alternates: {
@@ -41,7 +41,7 @@ export default async function RestaurantsNearHeathrowPage() {
     "@type": "Restaurant",
     "@id": "https://www.the-anchor.pub/restaurants-near-heathrow",
     "name": "The Anchor",
-    "description": "Traditional British restaurant near Heathrow Airport offering better value than terminal dining with free parking",
+    "description": "Restaurant near Heathrow Airport serving traditional British pub food with free parking, 7 minutes from Terminal 5",
     "url": "https://www.the-anchor.pub/restaurants-near-heathrow",
     "telephone": "+441753682707",
     "address": {
@@ -122,8 +122,8 @@ export default async function RestaurantsNearHeathrowPage() {
       {/* Hero Section */}
       <HeroWrapper
         route="/restaurants-near-heathrow"
-        title="Where to Eat Near Heathrow Before Your Flight"
-        description="Pre-flight dining, layover meals and post-landing food, just 7 minutes from Terminal 5"
+        title="Restaurants Near Heathrow Airport"
+        description="Proper pub food, free parking, and a 7-minute drive from Terminal 5. A better meal than anything inside the airport."
         variant="default"
         enableSmartCtas={true}
         showContextStrip={true}
@@ -136,7 +136,7 @@ export default async function RestaurantsNearHeathrowPage() {
             className="text-center text-anchor-cream-text"
             seo={{ structured: true, speakable: true }}
           >
-            Where to Eat Near Heathrow - Pre-Flight Dining &amp; Layover Meals Just Minutes Away
+            Restaurants Near Heathrow Airport &mdash; The Best Place to Eat Before You Fly
           </PageTitle>
         </Container>
       </section>
@@ -146,7 +146,7 @@ export default async function RestaurantsNearHeathrowPage() {
         <Container>
           <div className="max-w-4xl mx-auto">
             <p className="text-lg leading-relaxed text-anchor-cream-text/80">
-              Wondering where to eat near Heathrow before your flight? The Anchor in Stanwell Moor is a real pub restaurant just 7 minutes from Terminal 5 and 11 to 12 minutes from the other terminals. Book a table for pre-flight dining, a layover meal or a post-landing bite, with free customer parking, freshly cooked food and a calmer setting than the terminal.
+              The Anchor is one of the best restaurants near Heathrow Airport &mdash; a proper pub restaurant in Stanwell Moor, just 7 minutes from Terminal 5 and 11 to 12 minutes from the other terminals. If you&apos;re looking for places to eat near Heathrow before a flight, after landing or during a layover, we serve freshly cooked British food with free parking and a calmer setting than anything inside the terminal.
             </p>
           </div>
         </Container>
@@ -601,11 +601,11 @@ export default async function RestaurantsNearHeathrowPage() {
                     </li>
                     <li className="flex justify-between">
                       <span className="font-medium">Tuesday-Friday:</span>
-                      <span>6pm - 9pm</span>
+                      <span>4pm - 9pm</span>
                     </li>
                     <li className="flex justify-between">
                       <span className="font-medium">Saturday:</span>
-                      <span>1pm - 7pm</span>
+                      <span>12pm - 7pm</span>
                     </li>
                     <li className="flex justify-between">
                       <span className="font-medium">Sunday:</span>
@@ -621,20 +621,24 @@ export default async function RestaurantsNearHeathrowPage() {
                   <h3 className="font-bold text-lg mb-4 text-anchor-cream-text">Bar Hours</h3>
                   <ul className="space-y-2">
                     <li className="flex justify-between">
-                      <span className="font-medium">Mon-Thu:</span>
-                      <span>4pm - 10pm</span>
+                      <span className="font-medium">Monday:</span>
+                      <span className="text-red-600 font-semibold">CLOSED</span>
+                    </li>
+                    <li className="flex justify-between">
+                      <span className="font-medium">Tue-Thu:</span>
+                      <span>4pm - 11pm</span>
                     </li>
                     <li className="flex justify-between">
                       <span className="font-medium">Friday:</span>
-                      <span>4pm - 12am</span>
+                      <span>4pm - 10pm</span>
                     </li>
                     <li className="flex justify-between">
                       <span className="font-medium">Saturday:</span>
-                      <span>12pm - 12am</span>
+                      <span>12pm - 10pm</span>
                     </li>
                     <li className="flex justify-between">
                       <span className="font-medium">Sunday:</span>
-                      <span>12pm - 10pm</span>
+                      <span>1pm - 6pm</span>
                     </li>
                   </ul>
                   <p className="text-sm text-anchor-cream-text/55 mt-4">

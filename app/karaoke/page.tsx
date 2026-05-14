@@ -371,7 +371,7 @@ export default async function KaraokePage() {
                     <div className="max-w-5xl mx-auto">
                         <h2 className="text-3xl font-bold text-anchor-cream-text text-center mb-6">Upcoming Karaoke Nights</h2>
                         <p className="text-anchor-cream-text/70 text-center mb-8">
-                            Mic check, one two! Here's when you can next take the stage. For updates, check our <Link href="https://facebook.com/theanchorstanwellmoor" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">Facebook page</Link>.
+                            Mic check, one two! Here's when you can next take the stage. For updates, check <Link href="/whats-on" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">What&apos;s On this week</Link> or our <Link href="https://facebook.com/theanchorstanwellmoor" className="text-anchor-gold hover:text-anchor-gold-light font-semibold">Facebook page</Link>.
                         </p>
                         <KaraokeEventCards events={events} />
                     </div>

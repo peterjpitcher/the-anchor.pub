@@ -19,16 +19,16 @@ import { PrivateBookingSection } from '@/components/PrivateBookingSection'
 import { TrustBar, ValueProofStrip, RegretReduction } from '@/components/psychology'
 
 export const metadata: Metadata = {
-  title: 'Private Function Room Near Heathrow | 10-50 Guests',
-  description: 'Private function room near Heathrow and Staines for 10-50 guests, with larger events by enquiry. Layout options, AV support and free parking included.',
+  title: 'Function Room Hire Near Heathrow | The Anchor Pub',
+  description: 'Hire a pub function room near Heathrow for 10-50 guests. No room hire fee, minimum-spend model, free parking, flexible catering. Call 01753 682707.',
   openGraph: {
-    title: 'Private Function Room Near Heathrow | 10-50 Guests',
-    description: 'Flexible private function room with 6 layouts, AV equipment and free parking near Heathrow. View room specs and capacities.',
-    images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Private hire venue at The Anchor near Heathrow Airport' }],
+    title: 'Function Room Hire Near Heathrow | The Anchor Pub',
+    description: 'Pub with function rooms near Heathrow for 10-50 guests. No hire fee — minimum-spend model. Free parking, 6 layouts, in-house catering.',
+    images: [{ url: DEFAULT_CORPORATE_IMAGE, width: 1200, height: 630, alt: 'Function room hire at The Anchor pub near Heathrow' }],
   },
   twitter: getTwitterMetadata({
-    title: 'Private Function Room Near Heathrow | 10-50 Guests',
-    description: 'Flexible private function room with 6 layouts, AV equipment and free parking near Heathrow. View room specs and capacities.',
+    title: 'Function Room Hire Near Heathrow | The Anchor Pub',
+    description: 'Pub with function rooms near Heathrow for 10-50 guests. No hire fee — minimum-spend model. Free parking, 6 layouts, in-house catering.',
     images: [DEFAULT_CORPORATE_IMAGE]
   }),
   alternates: {
@@ -41,7 +41,7 @@ const functionRoomSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
   name: "Function Room Hire at The Anchor",
-  description: "Flexible function room and event space hire for all occasions. Room bookings for 10-50 guests, with larger events by enquiry, catering and free parking.",
+  description: "Function room hire at a pub near Heathrow Airport and Staines. Private rooms for 10-50 guests with no hire fee, minimum-spend model, catering and free parking.",
   provider: {
     "@type": "Organization",
     name: "The Anchor",
@@ -59,7 +59,7 @@ const functionRoomSchema = {
     "@type": "Offer",
     price: "0",
     priceCurrency: "GBP",
-    description: "Flexible venue hire pricing - tailored to your event"
+    description: "No room hire fee — minimum-spend model from £500 to £1,500 depending on day and event size"
   },
   potentialAction: {
     "@type": "CommunicateAction",
@@ -89,8 +89,8 @@ export default function FunctionRoomHirePage() {
       <HeroWrapper
         showContextStrip={true}
         route="/function-room-hire"
-        title="Private Function Room Near Heathrow, 10 to 50 Guests"
-        description="Ground-floor rooms with 6 layout options, AV equipment, climate control and wheelchair access. Free parking included."
+        title="Function Room Hire Near Heathrow"
+        description="A pub with private rooms for 10 to 50 guests. No room hire charge — just a minimum spend. Free parking, flexible layouts, and in-house catering."
 
         tags={[
           { label: " Multiple Spaces", variant: "default" },
@@ -181,7 +181,7 @@ export default function FunctionRoomHirePage() {
       <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
         <div className="container mx-auto px-4">
           <PageTitle className="text-center text-anchor-cream-text mb-8" seo={{ structured: true, speakable: true }}>
-            Function Room Hire - Room Specs, Layouts &amp; Capacities at The Anchor
+            Function Room Hire &mdash; A Pub with Private Rooms Near Heathrow &amp; Staines
           </PageTitle>
         </div>
       </section>
@@ -236,12 +236,11 @@ export default function FunctionRoomHirePage() {
 
           <AlertBox
             variant="success"
-            title="Great Value Venue Hire"
+            title="No Room Hire Fee"
             content={
               <p className="text-center">
-                We offer flexible venue hire pricing tailored to your event.
-                Our competitive rates vary by day/time and we're always willing to discuss your needs.
-                Contact us for a personalised quote.
+                We don&apos;t charge a separate room hire fee. Our minimum-spend model means your budget goes directly towards food, drinks and services.
+                Minimum spend from £500 depending on day and event size. Contact us for a personalised quote.
               </p>
             }
           />
@@ -403,7 +402,7 @@ export default function FunctionRoomHirePage() {
               {
                 icon: "",
                 title: "Flexible Catering",
-                description: "From tea & biscuits to five-course dinners - your choice",
+                description: "From tea & coffee to premium buffets and indoor BBQ",
                 className: "text-center"
               },
               {
@@ -519,16 +518,16 @@ export default function FunctionRoomHirePage() {
           <div className="max-w-4xl mx-auto">
             <SectionHeader
               title="Simple, Transparent Pricing"
-              subtitle="Hourly venue hire tailored to your event"
+              subtitle="No room hire fee — minimum-spend model from £500"
             />
 
             <div className="card-dark rounded-none p-8 mb-8">
-              <h3 className="text-xl font-bold text-anchor-gold-vivid mb-6 text-center">Venue Hire Rates</h3>
+              <h3 className="text-xl font-bold text-anchor-gold-vivid mb-6 text-center">How Our Pricing Works</h3>
               <div className="text-center">
-                <p className="text-3xl font-bold text-anchor-gold mb-2">From £25/hr</p>
-                <p className="text-anchor-cream-text/70 mb-4">for our private dining room</p>
+                <p className="text-3xl font-bold text-anchor-gold mb-2">No Room Hire Fee</p>
+                <p className="text-anchor-cream-text/70 mb-4">minimum spend from £500</p>
                 <p className="text-anchor-cream-text/70">
-                  Venue hire is charged at an hourly rate, with pricing based on the space you need, the day of the week, and your event requirements. Catering and drinks are quoted separately so you only pay for what you need.
+                  We don&apos;t charge a separate room hire fee. Instead, we use a minimum-spend model &mdash; from £500 to £1,500 depending on the day and size of your event. That spend goes towards food, drinks and services, so you&apos;re paying for what you actually use. Deposit is £250 to secure your date.
                 </p>
               </div>
             </div>
@@ -645,11 +644,11 @@ export default function FunctionRoomHirePage() {
         faqs={[
           {
             question: "What exactly is included in function room hire?",
-            answer: "Everything you need is included: the space configured to your requirements, tables, chairs, linens, basic AV equipment (microphone, music system), dedicated staff, setup/breakdown, and cleaning. Venue hire is charged at an hourly rate, and catering is quoted separately."
+            answer: "Everything you need is included: the space configured to your requirements, tables, chairs, linens, basic AV equipment (microphone, music system), dedicated staff, setup/breakdown, and cleaning. There's no separate room hire fee — we use a minimum-spend model, and catering is included in your spend."
           },
           {
             question: "How does your venue hire pricing work?",
-            answer: "Venue hire is charged at an hourly rate, from £25/hr for our private dining room. Rates vary by day, time, and the space required. Catering and drinks are quoted separately. Contact us for a personalised quote tailored to your event."
+            answer: "We don't charge a room hire fee. Instead, we use a minimum-spend model — from £500 to £1,500 depending on the day and event size. That spend covers food, drinks and services. Deposit is £250 to secure your date. Contact us for a personalised quote."
           },
           {
             question: "Can I view the function rooms before booking?",
@@ -657,7 +656,7 @@ export default function FunctionRoomHirePage() {
           },
           {
             question: "What catering options are available?",
-            answer: "We offer everything from tea and biscuits to five-course dinners. Options include finger buffets, hot fork buffets, formal plated meals, canapés, BBQs, and more. All dietary requirements can be accommodated. We'll create a menu to match your event and budget."
+            answer: "We offer a range of catering from tea and coffee to premium buffets and indoor BBQ. Options include sandwich buffets (from £9.95/head), finger buffets, burger buffets, pizza buffets and more. Welcome drinks packages are also available. We'll put together a menu to match your event and budget."
           },
           {
             question: "Can I bring my own decorations or entertainment?",

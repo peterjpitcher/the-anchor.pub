@@ -18,6 +18,8 @@ hero: "hero.jpg"
 images: []
 ---
 
+> **Skip the comparison and eat well.** [See The Anchor's live food menu](/food-menu) with current prices, or browse the [restaurants near Heathrow guide](/restaurants-near-heathrow) for more options.
+
 A burger inside Heathrow Terminal 5 costs between £16 and £22. Seven minutes down the road, you can get one for £11 with chips, a pint for around £6, and park for free. That's not a typo -- it's the reality of airport pricing versus what's available just outside the perimeter.
 
 We've put together a real price comparison between eating at Heathrow Airport, eating at one of the nearby hotels, and eating at a local pub. The numbers come from current menus as of March 2026. No estimates, no rounding in our favour -- just what things actually cost.
