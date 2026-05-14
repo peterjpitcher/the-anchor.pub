@@ -1,7 +1,7 @@
 # Project State: The Anchor — Component Standardisation
 
 **Last updated:** 2026-05-14
-**Session:** Plan 03-02 executed (FindUsSection component build + find-us page deployment)
+**Session:** Plan 03-07 executed (private-hire and venue pages spacing token migration)
 
 ---
 
@@ -19,7 +19,7 @@
 |-------|-------|
 | Milestone | v1.0 Component Standardisation |
 | Phase | 03-final-standardisation |
-| Plan | 06 complete (6/?) |
+| Plan | 07 complete (7/?) |
 | Status | Phase 3 in progress |
 
 **Progress:** `[X][X][/]` -- 2/3 phases complete, Phase 3 started
@@ -58,6 +58,7 @@
 | 2026-05-14 | BusinessHours for standalone hours, generic phrasing for prose/FAQ | React components cannot render in JSON-LD strings; mid-sentence prose needs static text |
 | 2026-05-14 | FindUsSection is a Server Component with variant-driven showMap | No interactivity needed; full variant shows map, compact hides it by default |
 | 2026-05-14 | py-16 md:py-24 CTA section in corporate-events mapped to section-spacing-lg token | Closest large-spacing token; removes responsive hardcoding |
+| 2026-05-14 | py-12 alone maps to section-spacing-lg across private-hire subtree | Matches plan mapping; py-12 is in the large spacing group |
 
 ### Spec reference
 
@@ -83,8 +84,8 @@
 ## Session Continuity
 
 **To resume:** Read this file and ROADMAP.md. Phase 3 in progress, plans 01-06 complete.
-**Last session:** 2026-05-14T14:04:41Z
-**Stopped at:** Completed 03-06-PLAN.md
+**Last session:** 2026-05-14T14:09:42Z
+**Stopped at:** Completed 03-07-PLAN.md
 
 **Worktree:** `admiring-dhawan-3da8c8`
 **Branch:** `claude/admiring-dhawan-3da8c8`
