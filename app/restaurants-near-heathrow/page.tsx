@@ -130,7 +130,7 @@ export default async function RestaurantsNearHeathrowPage() {
       />
 
       {/* Page Title for SEO */}
-      <section className="bg-anchor-bg-card py-8 border-b border-anchor-gold/15">
+      <section className="section-spacing-sm bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <PageTitle
             className="text-center text-anchor-cream-text"
@@ -726,7 +726,9 @@ export default async function RestaurantsNearHeathrowPage() {
           {
             text: "Call: 01753 682707",
             href: "tel:+441753682707",
-            variant: "secondary"
+            variant: "secondary",
+            isPhone: true,
+            phoneSource: "restaurants_near_heathrow_cta"
           }
         ]}
         variant="green"

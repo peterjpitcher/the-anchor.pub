@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
 import { Button, CTASection, SectionHeader, FeatureGrid, AlertBox, Container } from '@/components/ui'
+import { BusinessHours } from '@/components/BusinessHours'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
@@ -103,7 +104,7 @@ export default function SixNationsPage() {
               showContextStrip={true}
             />
 
-            <section className="py-12 bg-anchor-bg">
+            <section className="section-spacing-lg bg-anchor-bg">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center mb-12">
                         <PageTitle className="text-anchor-gold-vivid mb-4">
@@ -202,9 +203,12 @@ export default function SixNationsPage() {
                                     Whether you're after a half-time burger or a celebratory post-match meal, our kitchen is open throughout every Six Nations game.
                                 </p>
                                 <p>
-                                    <strong>Normal Hours:</strong> Tue–Fri 6–9pm, Sat 1–7pm, Sun 1–6pm<br />
-                                    <strong>Match Day Promise:</strong> Kitchen remains open for all live Six Nations fixtures, even outside standout hours.
+                                    <strong>Match Day Promise:</strong> Kitchen remains open for all live Six Nations fixtures, even outside normal hours.
                                 </p>
+                                <div className="mt-4">
+                                    <strong className="text-anchor-cream-text">Current Opening Hours:</strong>
+                                    <BusinessHours />
+                                </div>
                             </div>
                             <div className="flex gap-4">
                                 <Link href="/food-menu"><Button variant="primary">View Food Menu</Button></Link>

@@ -11,6 +11,10 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { anchorAPI, ParkingRateCard } from '@/lib/api'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
+import { PhoneButton } from '@/components/PhoneButton'
+import { PhoneLink } from '@/components/PhoneLink'
+import { CONTACT } from '@/lib/constants'
+import { HeroBadge } from '@/components/HeroBadge'
 
 const formatRate = (value: number | null | undefined, fallback: string) =>
   typeof value === 'number' && Number.isFinite(value) ? value.toFixed(2) : fallback
@@ -314,11 +318,9 @@ export default async function HeathrowParkingPage() {
           </Link>
         }
         secondaryCta={
-          <Link href="tel:+441753682707" className="w-full sm:w-auto">
-            <Button size="lg" variant="secondary" fullWidth className="sm:w-auto">
-               Speak to the team 01753 682707
-            </Button>
-          </Link>
+          <PhoneButton phone={CONTACT.phone} source="heathrow-parking_cta" size="lg" className="sm:w-auto">
+               Speak to the team {CONTACT.phone}
+          </PhoneButton>
         }
         secondaryInfo={
           <div className="flex flex-wrap justify-center gap-x-2 gap-y-2 mt-2">
@@ -326,7 +328,7 @@ export default async function HeathrowParkingPage() {
             <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
             <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog & family friendly</span>
             <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Rated 4.6/5 on Google</span>
+            <HeroBadge />
           </div>
         }
       />
@@ -583,7 +585,7 @@ export default async function HeathrowParkingPage() {
 
               <div>
                 <h3 className="font-semibold text-anchor-cream-text">3. Arrival, access &amp; departure</h3>
-                <p className="mt-1">You must arrive and depart within the times stated in your booking. If your plans change, please contact us as soon as possible on <a href="tel:01753682707" className="underline">01753 682707</a> or at <a href="mailto:manager@the-anchor.pub" className="underline">manager@the-anchor.pub</a>. Overstaying your booked period may incur additional charges at the prevailing hourly rate.</p>
+                <p className="mt-1">You must arrive and depart within the times stated in your booking. If your plans change, please contact us as soon as possible on <PhoneLink phone={CONTACT.phone} source="heathrow-parking_terms" className="underline" showIcon={false} /> or at <a href="mailto:manager@the-anchor.pub" className="underline">manager@the-anchor.pub</a>. Overstaying your booked period may incur additional charges at the prevailing hourly rate.</p>
               </div>
 
               <div>
@@ -609,7 +611,7 @@ export default async function HeathrowParkingPage() {
 
               <div>
                 <h3 className="font-semibold text-anchor-cream-text">8. Contact</h3>
-                <p className="mt-1">For any queries relating to your booking or these terms, please contact us at <a href="mailto:manager@the-anchor.pub" className="underline">manager@the-anchor.pub</a> or call <a href="tel:01753682707" className="underline">01753 682707</a>.</p>
+                <p className="mt-1">For any queries relating to your booking or these terms, please contact us at <a href="mailto:manager@the-anchor.pub" className="underline">manager@the-anchor.pub</a> or call <PhoneLink phone={CONTACT.phone} source="heathrow-parking_contact" className="underline" showIcon={false} />.</p>
               </div>
 
             </div>

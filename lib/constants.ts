@@ -81,3 +81,6 @@ export const LARGE_GROUP_DEPOSIT_POLICY_COPY =
 //   at this point and replacement content is designed collaboratively after)
 export const WALK_IN_LAUNCH_STARTS_AT_MS = new Date('2026-05-17T00:00:00+01:00').getTime()
 export const WALK_IN_LAUNCH_BANNER_ENDS_AT_MS = new Date('2026-05-17T18:00:00+01:00').getTime()
+
+/** Convenience alias — use this in components instead of CONTACT.phone */
+export const PHONE_NUMBER = CONTACT.phone

@@ -8,6 +8,8 @@ import { DEFAULT_PARKING_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
+import { PhoneButton } from '@/components/PhoneButton'
+import { CONTACT } from '@/lib/constants'
 
 const TERMINAL_PAGES = {
   'terminal-2': {
@@ -147,11 +149,9 @@ export default function TerminalParkingPage({ params }: { params: { terminal: st
           </Link>
         }
         secondaryCta={
-          <Link href="tel:+441753682707" className="w-full sm:w-auto">
-            <Button size="lg" variant="secondary" fullWidth className="sm:w-auto">
-              Call 01753 682707
-            </Button>
-          </Link>
+          <PhoneButton phone={CONTACT.phone} source="heathrow-parking-terminal_cta" size="lg" className="sm:w-auto">
+              Call {CONTACT.phone}
+          </PhoneButton>
         }
       />
 

@@ -13,6 +13,7 @@ import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncemen
 import { PhoneLinksSection, QuickEnquiryLinks } from '@/components/homepage/PhoneLinksSection'
 import { PhoneLink } from '@/components/PhoneLink'
 import { BookTableButton } from '@/components/BookTableButton'
+import { HeroBadge } from '@/components/HeroBadge'
 import { DirectionsButton } from '@/components/DirectionsButton'
 import { DeferredHomepageTrackers } from '@/components/tracking/DeferredHomepageTrackers'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
@@ -168,9 +169,7 @@ export default function HomePage() {
               />
             </div>
 
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-xs font-semibold uppercase tracking-wide text-white shadow-sm backdrop-blur-sm">
-              Rated 4.6/5 on Google · Highest-rated non-airport pub near Heathrow
-            </span>
+            <HeroBadge />
           </div>
         }
         showContextStrip={true}
@@ -204,7 +203,7 @@ export default function HomePage() {
         </Container>
       </div>
 
-      <section className="bg-anchor-bg-card py-8 border-b border-anchor-gold/15">
+      <section className="bg-anchor-bg-card section-spacing-sm border-b border-anchor-gold/15">
         <Container>
           <div className="mx-auto max-w-6xl">
             <h2 className="text-center text-2xl md:text-3xl font-bold text-anchor-cream-text">What are you here for?</h2>
@@ -264,7 +263,7 @@ export default function HomePage() {
             The Anchor -- Your Local Pub Near Heathrow in Stanwell Moor
           </PageTitle>
           <p className="text-center text-lg text-anchor-cream-text/70 mt-4">
-            The Anchor is the closest traditional British pub to Heathrow Airport, located 7 minutes from Terminal 5 at Horton Road, Stanwell Moor, Surrey TW19 6AQ. With 20 free parking spaces, a dog-friendly beer garden under the flight path, and food served Tuesday to Sunday, it is the highest-rated independent pub near Heathrow.
+            The Anchor is the closest traditional British pub to Heathrow Airport, located 7 minutes from Terminal 5 at Horton Road, Stanwell Moor, Surrey TW19 6AQ. With 20 free parking spaces, a dog-friendly beer garden under the flight path, and freshly prepared pub food, it is the highest-rated independent pub near Heathrow.
           </p>
 
           {/* Trust Signals */}

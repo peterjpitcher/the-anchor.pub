@@ -13,6 +13,10 @@ import { getBusinessHours } from '@/lib/api'
 import { generateOpeningHoursSpecification } from '@/lib/schema-utils'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
+import { PhoneButton } from '@/components/PhoneButton'
+import { PhoneLink } from '@/components/PhoneLink'
+import { CONTACT } from '@/lib/constants'
+import { HeroBadge } from '@/components/HeroBadge'
 
 export const revalidate = 86400 // Revalidate every 24 hours
 
@@ -101,7 +105,7 @@ export default async function BeerGardenPage() {
       </HeroWrapper>
 
       {/* Definitive answer for featured snippets */}
-      <section className="bg-anchor-bg-raised border-b border-anchor-gold/15 py-6">
+      <section className="bg-anchor-bg-raised border-b border-anchor-gold/15 section-spacing-tight">
         <Container>
           <p className="text-center text-lg md:text-xl text-anchor-cream-text/80 max-w-4xl mx-auto leading-relaxed">
             The Anchor&apos;s beer garden in Stanwell Moor sits directly under the Heathrow flight path, offering a unique plane spotting experience with your pint. Dog-friendly with outdoor seating and free parking.
@@ -179,14 +183,14 @@ export default async function BeerGardenPage() {
       </Section>
 
       {/* Google Rating */}
-      <section className="bg-anchor-bg py-6 border-b border-anchor-gold/15">
+      <section className="bg-anchor-bg section-spacing-tight border-b border-anchor-gold/15">
         <Container>
-          <p className="text-center text-sm text-anchor-cream-text/55"> <strong className="text-anchor-cream-text">Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
+          <HeroBadge className="text-sm" />
         </Container>
       </section>
 
       {/* Page Title for SEO */}
-      <section className="bg-anchor-bg-raised py-8 border-b border-anchor-gold/15">
+      <section className="bg-anchor-bg-raised section-spacing-sm border-b border-anchor-gold/15">
         <Container>
           <PageTitle
             className="text-center text-anchor-cream-text"
@@ -334,7 +338,7 @@ export default async function BeerGardenPage() {
             </p>
             <p className="text-anchor-cream-text/70 mb-4">
               We currently don&apos;t have an accessible toilet. If you&apos;d like to visit and want to check what will work best for you, give us a call on{' '}
-              <a href="tel:+441753682707" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid">+44 1753 682707</a> and we&apos;ll help.
+              <PhoneLink phone={CONTACT.phone} source="beer-garden_accessibility" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid" showIcon={false} /> and we&apos;ll help.
             </p>
             <Link href="/accessibility" className="text-anchor-gold font-semibold hover:text-anchor-gold-vivid hover:underline">
               Full accessibility information &rarr;
@@ -430,7 +434,7 @@ export default async function BeerGardenPage() {
       />
 
       {/* CTA Section */}
-      <section className="bg-gradient-to-br from-anchor-green to-anchor-green/90 py-16 md:py-24">
+      <section className="bg-gradient-to-br from-anchor-green to-anchor-green/90 section-spacing-lg">
         <Container>
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
@@ -446,11 +450,9 @@ export default async function BeerGardenPage() {
                 variant="secondary"
                 className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm"
               />
-              <Link href="tel:+441753682707">
-                <Button size="lg" variant="secondary" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
-                   Call 01753 682707
-                </Button>
-              </Link>
+              <PhoneButton phone={CONTACT.phone} source="beer-garden_cta" size="lg" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
+                   Call {CONTACT.phone}
+              </PhoneButton>
               <Link href="/our-pub">
                 <Button size="lg" variant="secondary" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
                    See Inside The Pub

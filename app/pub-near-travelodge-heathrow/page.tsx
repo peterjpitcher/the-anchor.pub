@@ -44,7 +44,7 @@ export default function PubNearTravelodgeHeathrowPage() {
         showContextStrip={true}
       />
 
-      <section className="py-8 bg-anchor-bg">
+      <section className="section-spacing-sm bg-anchor-bg">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <PageTitle seo={{ structured: true, speakable: true }} className="text-anchor-cream-text mb-4">
@@ -194,7 +194,7 @@ export default function PubNearTravelodgeHeathrowPage() {
         description="Real British pub with home-cooked food, draught beers and free parking. Smart travellers love it."
         buttons={[
           { text: 'Book a Table', href: '/book-table', variant: 'white' },
-          { text: 'Call Us', href: CONTACT.phoneHref, isPhone: true, phoneSource: 'travelodge_heathrow_cta', variant: 'secondary' },
+          { text: 'Call Us', href: CONTACT.phoneHref, isPhone: true, phoneSource: 'travelodge_heathrow_cta', variant: 'white' },
           { text: 'View Menu', href: '/food-menu', variant: 'white' },
         ]}
         variant="green"

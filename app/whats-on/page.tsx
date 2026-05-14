@@ -22,6 +22,7 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { seasonalOccasionLinks } from '@/lib/internal-linking-data'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
+import { HeroBadge } from '@/components/HeroBadge'
 
 export const metadata: Metadata = {
   title: "Pub Events Near Heathrow | Quiz, Bingo, Karaoke & Live Music",
@@ -192,9 +193,9 @@ export default async function WhatsOnPage() {
         </Container>
       </Section>
 
-      <section className="bg-anchor-bg-raised border-b border-anchor-gold/15 py-6">
+      <section className="bg-anchor-bg-raised border-b border-anchor-gold/15 section-spacing-tight">
         <Container>
-          <p className="text-center text-sm text-anchor-cream-text/70"><strong className="text-anchor-cream-text">Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
+          <HeroBadge className="text-sm" />
         </Container>
       </section>
 

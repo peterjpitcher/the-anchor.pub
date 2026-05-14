@@ -15,6 +15,9 @@ import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 import { SUNDAY_ROAST, getSundayRoastContent } from '@/lib/sunday-roast'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
+import { PhoneLink } from '@/components/PhoneLink'
+import { CONTACT } from '@/lib/constants'
+import { HeroBadge } from '@/components/HeroBadge'
 
 export function generateMetadata(): Metadata {
   const sunday = getSundayRoastContent()
@@ -75,7 +78,7 @@ export default function NearHeathrowPage() {
       />
 
       {/* Definitive answer for featured snippets */}
-      <section className="bg-anchor-bg-raised border-b border-anchor-gold/15 py-6">
+      <section className="section-spacing-tight bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <p className="text-center text-lg md:text-xl text-anchor-cream-text/80 max-w-4xl mx-auto leading-relaxed">
             Searching for pubs near Heathrow Airport or restaurants near Heathrow Airport? The Anchor is one of the best places to eat near Heathrow, a proper country pub in Stanwell Moor, just 7 minutes from Terminal 5. We serve freshly prepared British pub food with free parking, a dog-friendly beer garden under the flight path, and a warm welcome for travellers and locals alike.
@@ -84,7 +87,7 @@ export default function NearHeathrowPage() {
       </section>
 
       {/* Page Title for SEO */}
-      <section className="bg-anchor-bg border-b border-anchor-gold/15 py-8">
+      <section className="section-spacing-sm bg-anchor-bg border-b border-anchor-gold/15">
         <Container>
             <PageTitle
             className="text-center text-anchor-cream-text"
@@ -287,10 +290,10 @@ export default function NearHeathrowPage() {
       </section>
 
       {/* Google Rating Badge */}
-      <section className="py-8 bg-anchor-bg-raised border-b border-anchor-gold/15">
+      <section className="section-spacing-sm bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="text-center">
-            <p className="text-sm text-anchor-cream-text/70"><strong className="text-anchor-cream-text">Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
+            <HeroBadge className="text-sm" />
           </div>
         </Container>
       </section>
@@ -710,7 +713,7 @@ export default function NearHeathrowPage() {
             </p>
             <p className="text-anchor-cream-text/70 mb-4">
               We currently don&apos;t have an accessible toilet. If you&apos;d like to visit and want to check what will work best for you, give us a call on{' '}
-              <a href="tel:+441753682707" className="text-anchor-gold-vivid font-semibold hover:underline">+44 1753 682707</a> and we&apos;ll help.
+              <PhoneLink phone={CONTACT.phone} source="near-heathrow_accessibility" className="text-anchor-gold-vivid font-semibold hover:underline" showIcon={false} /> and we&apos;ll help.
             </p>
             <Link href="/accessibility" className="text-anchor-gold-vivid font-semibold hover:underline">
               Full accessibility information &rarr;
@@ -879,7 +882,9 @@ export default function NearHeathrowPage() {
           {
             text: "Call: 01753 682707",
             href: "tel:+441753682707",
-            variant: "white"
+            variant: "white",
+            isPhone: true,
+            phoneSource: "near_heathrow_cta"
           },
           {
             text: "Get Directions",

@@ -4,6 +4,8 @@ import { notFound } from 'next/navigation'
 import { anchorAPI, formatPrice, ParkingBookingDetails } from '@/lib/api'
 import { Section, Container, Button } from '@/components/ui'
 import { Icon } from '@/components/ui/Icon'
+import { PhoneLink } from '@/components/PhoneLink'
+import { CONTACT } from '@/lib/constants'
 
 interface PageProps {
   params: { id: string }
@@ -121,7 +123,7 @@ export default async function ParkingBookingStatusPage({ params, searchParams }:
 
             <div className="rounded-2xl bg-anchor-bg-raised px-6 py-4 text-sm text-anchor-cream-text/70">
               <p>
-                Need to adjust flight dates or extend your Heathrow parking stay? Email <a href="mailto:parking@the-anchor.pub" className="font-semibold text-anchor-gold-vivid">parking@the-anchor.pub</a> or call <a href="tel:+441753682707" className="font-semibold text-anchor-gold-vivid">01753 682707</a> with your reference {booking.reference}.
+                Need to adjust flight dates or extend your Heathrow parking stay? Email <a href="mailto:parking@the-anchor.pub" className="font-semibold text-anchor-gold-vivid">parking@the-anchor.pub</a> or call <PhoneLink phone={CONTACT.phone} source="parking-booking_contact" className="font-semibold text-anchor-gold-vivid" showIcon={false} /> with your reference {booking.reference}.
               </p>
             </div>
 

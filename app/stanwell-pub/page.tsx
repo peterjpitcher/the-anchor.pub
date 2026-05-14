@@ -14,6 +14,7 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { SUNDAY_ROAST, getSundayRoastContent } from '@/lib/sunday-roast'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
+import { HeroBadge } from '@/components/HeroBadge'
 
 export function generateMetadata(): Metadata {
   const sunday = getSundayRoastContent()
@@ -117,14 +118,14 @@ export default function StanwellPubPage() {
         showContextStrip={true}
       />
 
-      <section className="bg-anchor-bg-card py-6 border-b border-anchor-gold/15">
+      <section className="section-spacing-tight bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
-          <p className="text-center text-sm text-anchor-cream-text/70">⭐⭐⭐⭐⭐ <strong className="text-anchor-cream-text">Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
+          <HeroBadge className="text-sm" />
         </Container>
       </section>
 
       {/* Page Title */}
-      <section className="py-8 bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing-sm bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <PageTitle
@@ -298,7 +299,7 @@ export default function StanwellPubPage() {
                   <li>• Chicken Katsu Curry</li>
                   <li>• Stone-baked Pizzas</li>
                 </ul>
-                <p className="mt-3 text-sm text-anchor-gold">Kitchen: Tue-Fri 6-9pm, Sat 1-7pm, Sun 1-6pm</p>
+                <div className="mt-3 text-sm text-anchor-gold"><BusinessHours showKitchen={true} /></div>
               </div>
             </div>
 
@@ -514,7 +515,7 @@ export default function StanwellPubPage() {
           {
             text: "Book a Table",
             href: "/book-table",
-            variant: "secondary"
+            variant: "white"
           },
           {
             text: "Call Us",

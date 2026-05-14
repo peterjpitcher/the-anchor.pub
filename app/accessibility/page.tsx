@@ -4,6 +4,9 @@ import { HeroWrapper } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { BookTableButton } from '@/components/BookTableButton'
+import { PhoneLink } from '@/components/PhoneLink'
+import { PhoneButton } from '@/components/PhoneButton'
+import { CONTACT } from '@/lib/constants'
 
 export const metadata: Metadata = {
   title: 'Accessibility | Stanwell Moor Pub',
@@ -77,9 +80,7 @@ export default function AccessibilityPage() {
               <p className="text-anchor-cream-text/70 leading-relaxed">
                 We currently don&apos;t have an accessible toilet. If you&apos;d like to visit and want to
                 check what will work best for you, give us a call on{' '}
-                <Link href="tel:+441753682707" className="font-semibold text-anchor-gold hover:underline">
-                  +44 1753 682707
-                </Link>{' '}
+                <PhoneLink phone={CONTACT.phone} source="accessibility_toilet" className="font-semibold text-anchor-gold hover:underline" showIcon={false} />{' '}
                 and we&apos;ll help you plan your visit.
               </p>
             </div>
@@ -129,11 +130,9 @@ export default function AccessibilityPage() {
               that conversation.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="tel:+441753682707">
-                <Button variant="primary" size="lg" className="w-full sm:w-auto">
-                  Call +44 1753 682707
-                </Button>
-              </Link>
+              <PhoneButton phone={CONTACT.phone} source="accessibility_call-ahead" variant="primary" size="lg" className="w-full sm:w-auto">
+                  Call {CONTACT.phone}
+              </PhoneButton>
             </div>
           </div>
         </Container>
@@ -172,7 +171,7 @@ export default function AccessibilityPage() {
       />
 
       {/* Internal Links / CTA */}
-      <section className="bg-gradient-to-br from-anchor-green to-anchor-green/90 py-16 md:py-24">
+      <section className="bg-gradient-to-br from-anchor-green to-anchor-green/90 section-spacing-lg">
         <Container>
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">

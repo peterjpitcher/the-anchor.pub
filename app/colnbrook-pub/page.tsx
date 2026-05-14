@@ -99,7 +99,7 @@ export default function ColnbrookPubPage() {
                 showContextStrip={true}
             />
 
-            <section className="py-8 bg-anchor-bg">
+            <section className="section-spacing-sm bg-anchor-bg">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle
@@ -276,7 +276,7 @@ export default function ColnbrookPubPage() {
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "colnbrook_pub_cta",
-                        variant: "secondary"
+                        variant: "white"
                     },
                     {
                         text: " Book an Event",

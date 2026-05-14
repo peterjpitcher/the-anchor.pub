@@ -100,7 +100,7 @@ export default function SunburyPubPage() {
                 showContextStrip={true}
             />
 
-            <section className="py-8 bg-anchor-bg">
+            <section className="section-spacing-sm bg-anchor-bg">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle

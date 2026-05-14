@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
-import { HeroBadge } from './HeroBadge'
+import { ItemBadge } from './HeroBadge'
 
 interface ManagersSpecialProps {
   variant?: 'full' | 'compact'
@@ -78,7 +78,7 @@ export function ManagersSpecial({ variant = 'full', className = '' }: ManagersSp
               {/* Left Column - Product Info */}
               <div className="p-8 md:p-12">
                 <div className="relative mb-6">
-                  <HeroBadge
+                  <ItemBadge
                     text={spirit.discount}
                     variant="featured"
                     position="absolute"

@@ -13,6 +13,7 @@ import {
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { PhoneButton } from '@/components/PhoneButton'
+import { CONTACT } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -288,7 +289,7 @@ export default async function QuizNightPage() {
       />
 
       {/* Definitive answer for featured snippets */}
-      <section className="bg-anchor-bg-raised border-b border-anchor-gold/15 py-6">
+      <section className="bg-anchor-bg-raised border-b border-anchor-gold/15 section-spacing-tight">
         <Container>
           <p className="text-center text-lg md:text-xl text-anchor-cream-text/80 max-w-4xl mx-auto leading-relaxed">
             The Anchor hosts a popular monthly pub quiz in Stanwell Moor, near Staines and Heathrow Airport, with a &pound;25 bar tab prize, team-based rounds, and a lively atmosphere. Entry is &pound;3 per player with teams of up to six.
@@ -314,13 +315,9 @@ export default async function QuizNightPage() {
                   {nextEvent ? (
                     <EventBookingButton event={nextEvent} className="w-full" source="quiz_night_next_event" />
                   ) : (
-                    <Button
-                      size="lg"
-                      asChild
-                      className="w-full bg-anchor-green text-white hover:bg-anchor-green-dark"
-                    >
-                      <Link href="tel:+441753682707">Call 01753 682707</Link>
-                    </Button>
+                    <PhoneButton phone={CONTACT.phone} source="quiz-night_fallback" size="lg" className="w-full bg-anchor-green text-white hover:bg-anchor-green-dark">
+                      Call {CONTACT.phone}
+                    </PhoneButton>
                   )}
                 </div>
               </CardBody>

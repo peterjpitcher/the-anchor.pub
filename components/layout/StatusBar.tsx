@@ -3,6 +3,8 @@
 import { cn } from '@/lib/utils'
 import { StatusIndicator } from '@/components/ui/StatusIndicator'
 import { useBusinessHours } from '@/hooks/useBusinessHours'
+import { PhoneLink } from '@/components/PhoneLink'
+import { CONTACT } from '@/lib/constants'
 import { formatTime12Hour, getTodayHours, getTomorrowHours, findNextKitchenOpening } from '@/lib/status-boundary-calculator'
 import { KitchenStatus } from '@/lib/api'
 import { useBusinessHoursContext } from '@/components/providers/BusinessHoursProvider'
@@ -237,9 +239,9 @@ export function StatusBar({
           {showKitchen && (
             <div className="flex items-center gap-1.5">
               <StatusIndicator status="warning" size="sm" />
-              <a href="tel:+441753682707" className="whitespace-normal break-words text-left leading-snug uppercase tracking-wider text-white underline decoration-white/40 underline-offset-2">
+              <PhoneLink phone={CONTACT.phone} source="status_bar_nav" showIcon={false} className="whitespace-normal break-words text-left leading-snug uppercase tracking-wider text-white underline decoration-white/40 underline-offset-2">
                 {kitchenFallback}
-              </a>
+              </PhoneLink>
             </div>
           )}
         </div>
@@ -261,9 +263,9 @@ export function StatusBar({
           {showKitchen && (
             <div className="flex items-center justify-center gap-1.5 leading-tight">
               <StatusIndicator status="warning" size={variant === 'compact' ? 'sm' : 'md'} />
-              <a href="tel:+441753682707" className="leading-tight uppercase tracking-wider underline decoration-white/40 underline-offset-2">
+              <PhoneLink phone={CONTACT.phone} source="status_bar" showIcon={false} className="leading-tight uppercase tracking-wider underline decoration-white/40 underline-offset-2">
                 {kitchenFallback}
-              </a>
+              </PhoneLink>
             </div>
           )}
         </div>

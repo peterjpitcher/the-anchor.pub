@@ -8,6 +8,7 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { EventSchema } from '@/components/seo/EventSchema'
 import { staticEvents } from '@/lib/static-events'
 import { BookTableButton } from '@/components/BookTableButton'
+import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
@@ -89,7 +90,7 @@ export default function CorporateEventsPage() {
       <TrustBar variant="private-hire" />
 
       {/* Page Title */}
-      <section className="py-8 bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing-sm bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <PageTitle
@@ -515,7 +516,7 @@ export default function CorporateEventsPage() {
       />
 
       {/* CTA Section */}
-      <section className="bg-anchor-bg-raised py-16 md:py-24 border-t border-anchor-gold/15">
+      <section className="bg-anchor-bg-raised section-spacing-lg border-t border-anchor-gold/15">
         <Container>
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-5xl font-bold text-anchor-gold-vivid mb-6">
@@ -535,11 +536,9 @@ export default function CorporateEventsPage() {
               >
                 Book Your Event
               </BookTableButton>
-              <Link href="tel:+441753682707" className="w-full sm:w-auto">
-                <Button size="lg" variant="secondary" fullWidth className="sm:w-auto bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
-                  Call: 01753 682707
-                </Button>
-              </Link>
+              <PhoneButton phone={CONTACT.phone} source="corporate-events_cta" size="lg" className="sm:w-auto bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
+                  Call: {CONTACT.phone}
+              </PhoneButton>
               <Link
                 href="https://wa.me/441753682707?text=Hi,%20I'd%20like%20to%20enquire%20about%20corporate%20events"
                 target="_blank"

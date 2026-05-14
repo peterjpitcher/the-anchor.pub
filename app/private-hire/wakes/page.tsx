@@ -3,6 +3,7 @@ import { Metadata } from 'next'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { Container, Section, SectionHeader, FeatureGrid, InfoBoxGrid, Button, AlertBox } from '@/components/ui'
 import { PhoneButton } from '@/components/PhoneButton'
+import { PhoneLink } from '@/components/PhoneLink'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
@@ -15,6 +16,7 @@ import { getCateringData, getLowestFoodPrice } from '@/lib/api/catering-packages
 import { CateringPackagesTable } from '@/components/features/CateringPackagesTable'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
+import { TestimonialSection } from '@/components/TestimonialSection'
 
 const WAKE_PACKAGE_NAMES = ['Sandwich Buffet', 'Finger Buffet', 'Premium Buffet', 'Afternoon Tea']
 
@@ -143,7 +145,7 @@ export default async function WakesPage() {
                 }
             />
 
-            <section className="py-12 bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing-lg bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container size="md">
                     <PageTitle className="text-center mb-6" as="h2" seo={{ structured: true, speakable: true }}>
                         Wake Venue & Funeral Receptions Near Heathrow
@@ -326,28 +328,17 @@ export default async function WakesPage() {
                 </Container>
             </Section>
 
-            <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
-                <Container>
-                    <SectionHeader
-                        title="What Families Say About Us"
-                        subtitle="Words from families who have trusted us with their arrangements"
-                    />
-                    <div className="max-w-4xl mx-auto grid md:grid-cols-3 gap-6">
-                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
-                            <p className="text-anchor-cream-text/70 italic mb-4">&ldquo;The team at The Anchor made a difficult day so much easier. The room was set up beautifully, the food was lovely, and the staff were incredibly kind and discreet. We could not have asked for more.&rdquo;</p>
-                            <p className="text-sm text-anchor-gold-vivid font-semibold">Sarah, Staines</p>
-                        </div>
-                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
-                            <p className="text-anchor-cream-text/70 italic mb-4">&ldquo;We held a celebration of life for my father here and it was exactly what he would have wanted. Relaxed, warm, and full of laughter. The staff even arranged his favourite beer on each table. That meant the world to us.&rdquo;</p>
-                            <p className="text-sm text-anchor-gold-vivid font-semibold">James, Ashford</p>
-                        </div>
-                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
-                            <p className="text-anchor-cream-text/70 italic mb-4">&ldquo;Everything was arranged at very short notice and the team handled it all with great care. The funeral director recommended The Anchor and we are so glad they did. A peaceful venue with genuinely compassionate staff.&rdquo;</p>
-                            <p className="text-sm text-anchor-gold-vivid font-semibold">Priya, Feltham</p>
-                        </div>
-                    </div>
-                </Container>
-            </section>
+            <TestimonialSection
+                variant="full"
+                title="What Families Say About Us"
+                subtitle="Words from families who have trusted us with their arrangements"
+                className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15"
+                reviews={[
+                    { quote: "The team at The Anchor made a difficult day so much easier. The room was set up beautifully, the food was lovely, and the staff were incredibly kind and discreet. We could not have asked for more.", author: "Sarah, Staines", source: "Google Review", rating: 5 },
+                    { quote: "We held a celebration of life for my father here and it was exactly what he would have wanted. Relaxed, warm, and full of laughter. The staff even arranged his favourite beer on each table. That meant the world to us.", author: "James, Ashford", source: "Google Review", rating: 5 },
+                    { quote: "Everything was arranged at very short notice and the team handled it all with great care. The funeral director recommended The Anchor and we are so glad they did. A peaceful venue with genuinely compassionate staff.", author: "Priya, Feltham", source: "Google Review", rating: 5 },
+                ]}
+            />
 
             <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
                 <Container>
@@ -401,7 +392,7 @@ export default async function WakesPage() {
                             We can have the private dining room set and ready before you arrive from the service. Whether you need space for a small, intimate gathering or up to 50 guests, we will prepare the room accordingly. Our staff understand that timings after a cremation can be unpredictable, and we will always accommodate a slightly later start without fuss.
                         </p>
                         <p className="text-anchor-cream-text/70">
-                            If you are travelling from the Slough or Langley area, we are easily reached via the M25 junction 14. There is no need to navigate central Staines or Heathrow traffic, the approach from the north is straightforward and signposted. Call us on <a href="tel:+441753682707" className="text-anchor-gold hover:underline">01753 682707</a> to discuss arrangements, and we will take care of the rest.
+                            If you are travelling from the Slough or Langley area, we are easily reached via the M25 junction 14. There is no need to navigate central Staines or Heathrow traffic, the approach from the north is straightforward and signposted. Call us on <PhoneLink phone={CONTACT.phone} source="wakes_slough" className="text-anchor-gold hover:underline" showIcon={false} /> to discuss arrangements, and we will take care of the rest.
                         </p>
                     </div>
                 </Container>
@@ -418,7 +409,7 @@ export default async function WakesPage() {
                             Families travelling from Staines will find our location in Stanwell Moor easy to reach by car or taxi. For guests using public transport, there are bus services connecting Staines town centre to Stanwell Moor. Our 20-space car park is free for all guests, and there is additional unrestricted street parking nearby for larger gatherings.
                         </p>
                         <p className="text-anchor-cream-text/70">
-                            We welcome families from Staines, Ashford, Laleham, and Shepperton who are looking for a quiet, private venue after a service at Staines Cemetery. Our team is accustomed to arranging wakes at short notice, and we will do everything we can to support you. Please call us on <a href="tel:+441753682707" className="text-anchor-gold hover:underline">01753 682707</a>, there is always someone here to help.
+                            We welcome families from Staines, Ashford, Laleham, and Shepperton who are looking for a quiet, private venue after a service at Staines Cemetery. Our team is accustomed to arranging wakes at short notice, and we will do everything we can to support you. Please call us on <PhoneLink phone={CONTACT.phone} source="wakes_staines" className="text-anchor-gold hover:underline" showIcon={false} />, there is always someone here to help.
                         </p>
                     </div>
                 </Container>
@@ -472,7 +463,7 @@ export default async function WakesPage() {
                 ]}
             />
 
-            <section className="bg-anchor-bg-raised py-12 border-t border-anchor-gold/15">
+            <section className="section-spacing-lg bg-anchor-bg-raised border-t border-anchor-gold/15">
                 <Container size="sm" className="text-center">
                     <h2 className="text-2xl font-bold text-anchor-gold-vivid mb-4">Contact Our Team</h2>
                     <p className="mb-8 text-anchor-cream-text/70">We are here to help make this day as stress-free as possible.</p>

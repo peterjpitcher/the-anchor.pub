@@ -14,6 +14,8 @@ import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { PhoneButton } from '@/components/PhoneButton'
+import { CONTACT } from '@/lib/constants'
+import { HeroBadge } from '@/components/HeroBadge'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { EventSchema } from '@/components/seo/EventSchema'
 import { EventBookingButton } from '@/components/EventBookingButton'
@@ -302,9 +304,9 @@ export default async function KaraokePage() {
                 showContextStrip={true}
             />
 
-            <section className="bg-anchor-bg py-6">
+            <section className="bg-anchor-bg section-spacing-tight">
                 <Container>
-                    <p className="text-center text-sm text-anchor-cream-text/55"><strong>Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
+                    <HeroBadge className="text-sm" />
                 </Container>
             </section>
 
@@ -337,13 +339,9 @@ export default async function KaraokePage() {
                                     {nextEvent ? (
                                         <EventBookingButton event={nextEvent} className="w-full" source="karaoke_next_event" />
                                     ) : (
-                                        <Button
-                                            size="lg"
-                                            asChild
-                                            className="w-full bg-anchor-green text-white hover:bg-anchor-green-dark"
-                                        >
-                                            <Link href="tel:+441753682707">Call 01753 682707</Link>
-                                        </Button>
+                                        <PhoneButton phone={CONTACT.phone} source="karaoke_fallback" size="lg" className="w-full bg-anchor-green text-white hover:bg-anchor-green-dark">
+                                            Call {CONTACT.phone}
+                                        </PhoneButton>
                                     )}
                                 </div>
                             </CardBody>

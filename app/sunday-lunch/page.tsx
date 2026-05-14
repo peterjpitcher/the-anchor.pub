@@ -158,6 +158,7 @@ export default async function SundayLunchPage() {
         title="Sunday Roast Near Heathrow"
         description="Sunday roast is served 1pm-6pm. Current dishes and prices are listed below."
         eyebrow="The Anchor, Stanwell Moor"
+        enableSmartCtas={true}
         lead={
           <p className="text-white/90 text-base sm:text-lg">
             Walk in during service or book ahead for busy slots. 7 minutes from Heathrow Terminal 5.
@@ -227,7 +228,7 @@ export default async function SundayLunchPage() {
         </Container>
       </div>
 
-      <section className="bg-anchor-bg py-12 border-b border-anchor-gold/15">
+      <section className="bg-anchor-bg section-spacing-lg border-b border-anchor-gold/15">
         <Container>
           <SectionHeader
             title="Current Sunday Roast Menu"
@@ -260,7 +261,7 @@ export default async function SundayLunchPage() {
         </Container>
       </section>
 
-      <section className="bg-anchor-bg-raised py-12 border-b border-anchor-gold/15">
+      <section className="bg-anchor-bg-raised section-spacing-lg border-b border-anchor-gold/15">
         <Container>
           <div className="mx-auto max-w-3xl">
             <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text mb-4">
@@ -297,7 +298,7 @@ export default async function SundayLunchPage() {
       </section>
 
       <SectionViewTracker sectionId="carvery_comparison">
-        <section className="bg-anchor-bg py-12 border-b border-anchor-gold/15">
+        <section className="bg-anchor-bg section-spacing-lg border-b border-anchor-gold/15">
           <Container>
             <div className="mx-auto max-w-4xl">
               <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text mb-4">
@@ -352,7 +353,7 @@ export default async function SundayLunchPage() {
         </section>
       </SectionViewTracker>
 
-      <section className="bg-anchor-bg-raised py-12 border-b border-anchor-gold/15">
+      <section className="bg-anchor-bg-raised section-spacing-lg border-b border-anchor-gold/15">
         <Container>
           <SectionHeader
             title="Why Locals Choose Sunday Roast Here"
@@ -374,7 +375,7 @@ export default async function SundayLunchPage() {
         </Container>
       </section>
 
-      <section className="bg-anchor-bg py-12 border-b border-anchor-gold/15">
+      <section className="bg-anchor-bg section-spacing-lg border-b border-anchor-gold/15">
         <Container>
           <div className="mx-auto max-w-3xl">
             <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text mb-3">
@@ -422,7 +423,7 @@ export default async function SundayLunchPage() {
         faqs={faqs.map((faq) => ({ question: faq.question, answer: faq.answer }))}
       />
 
-      <section className="bg-anchor-green py-12 text-center">
+      <section className="bg-anchor-green section-spacing-lg text-center">
         <Container>
           <div className="max-w-2xl mx-auto space-y-5">
             <h2 className="text-2xl md:text-3xl font-bold text-white">

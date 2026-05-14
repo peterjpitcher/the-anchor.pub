@@ -117,7 +117,7 @@ export default async function PizzaMenuPage() {
         showContextStrip={true}
       />
 
-      <section className="py-12 bg-anchor-bg border-b border-anchor-gold/15">
+      <section className="section-spacing-lg bg-anchor-bg border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center mb-12">
             <PageTitle className="text-anchor-cream-text mb-6">

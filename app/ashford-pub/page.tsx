@@ -15,6 +15,7 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
+import { HeroBadge } from '@/components/HeroBadge'
 
 export const metadata: Metadata = {
   title: 'Pubs in Ashford Middlesex | Free Parking',
@@ -110,14 +111,14 @@ export default function AshfordPubPage() {
         showContextStrip={true}
       />
 
-      <section className="bg-anchor-bg-card py-6 border-b border-anchor-gold/15">
+      <section className="section-spacing-tight bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
-          <p className="text-center text-sm text-anchor-cream-text/70"> <strong className="text-anchor-cream-text">Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
+          <HeroBadge className="text-sm" />
         </Container>
       </section>
 
       {/* Page Title */}
-      <section className="py-8 bg-anchor-bg-card border-b border-anchor-gold/15">
+      <section className="section-spacing-sm bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <PageTitle

@@ -3,6 +3,7 @@
 import { Button } from '@/components/ui/primitives/Button'
 import { Icon } from '@/components/ui/Icon'
 import { trackCtaClick, trackEmailClick, trackPhoneCallClick } from '@/lib/gtm-events'
+import { CONTACT } from '@/lib/constants'
 
 type ChristmasHeroMode = 'dinner' | 'buffet'
 
@@ -13,9 +14,9 @@ interface ChristmasHeroOpenFormDetail {
 
 export const CHRISTMAS_OPEN_FORM_EVENT = 'christmas-open-form'
 
-const CONTACT_EMAIL = 'manager@the-anchor.pub'
-const CONTACT_PHONE = '01753 682707'
-const CONTACT_PHONE_LINK = 'tel:+441753682707'
+const CONTACT_EMAIL = CONTACT.email
+const CONTACT_PHONE = CONTACT.phone
+const CONTACT_PHONE_LINK = CONTACT.phoneHref
 const CONTACT_EMAIL_LINK = `mailto:${CONTACT_EMAIL}`
 
 function dispatchChristmasOpenForm(detail: ChristmasHeroOpenFormDetail) {

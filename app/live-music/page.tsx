@@ -15,6 +15,7 @@ import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { PhoneButton } from '@/components/PhoneButton'
+import { CONTACT } from '@/lib/constants'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { EventSchema } from '@/components/seo/EventSchema'
 import { EventBookingButton } from '@/components/EventBookingButton'
@@ -363,13 +364,9 @@ export default async function LiveMusicPage() {
                   {nextEvent ? (
                     <EventBookingButton event={nextEvent} className="w-full" source="live_music_next_event" />
                   ) : (
-                    <Button
-                      size="lg"
-                      asChild
-                                            className="w-full bg-anchor-green text-white hover:bg-anchor-green-dark"
-                                        >
-                                            <Link href="tel:+441753682707">Call 01753 682707</Link>
-                                        </Button>
+                    <PhoneButton phone={CONTACT.phone} source="live-music_fallback" size="lg" className="w-full bg-anchor-green text-white hover:bg-anchor-green-dark">
+                                            Call {CONTACT.phone}
+                                        </PhoneButton>
                                     )}
                                 </div>
                             </CardBody>

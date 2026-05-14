@@ -1,5 +1,7 @@
 import Link from 'next/link'
 import { Button, Container, SectionHeader } from '@/components/ui'
+import { PhoneButton } from '@/components/PhoneButton'
+import { CONTACT } from '@/lib/constants'
 import { HeroWrapper } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
@@ -136,7 +138,7 @@ export default function SafetyAndRespectPage() {
       />
 
       {/* Contact / CTA */}
-      <section className="bg-gradient-to-br from-anchor-green to-anchor-green/90 py-16 md:py-24">
+      <section className="bg-gradient-to-br from-anchor-green to-anchor-green/90 section-spacing-lg">
         <Container>
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
@@ -146,11 +148,9 @@ export default function SafetyAndRespectPage() {
               If you have any questions about accessibility, events, or anything else, we're happy to help.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="tel:+441753682707">
-                <Button size="lg" variant="secondary" className="bg-anchor-bg-card text-anchor-gold-vivid hover:bg-anchor-bg-raised">
-                  Call 01753 682707
-                </Button>
-              </Link>
+              <PhoneButton phone={CONTACT.phone} source="safety-and-respect_cta" size="lg" className="bg-anchor-bg-card text-anchor-gold-vivid hover:bg-anchor-bg-raised">
+                  Call {CONTACT.phone}
+              </PhoneButton>
               <Link href="/book-table">
                 <Button size="lg" variant="secondary" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
                   Book a Table

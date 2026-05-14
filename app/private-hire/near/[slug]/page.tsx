@@ -111,7 +111,7 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
                 }
             />
 
-            <section className="py-12 bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing-lg bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <h2 className="text-3xl font-bold text-anchor-gold-vivid mb-6">
@@ -193,7 +193,7 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
 
             <PrivateBookingSection eventType={eventType} />
 
-            <section className="bg-anchor-bg-raised py-16 text-center border-t border-anchor-gold/15">
+            <section className="section-spacing-lg bg-anchor-bg-raised text-center border-t border-anchor-gold/15">
                 <Container>
                     <h2 className="text-3xl font-bold mb-4 text-anchor-gold-vivid">Book Your Event</h2>
                     <p className="text-xl mb-8 text-anchor-cream-text/70">Secure the date for your gathering near {landmark.name}</p>

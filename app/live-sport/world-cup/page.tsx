@@ -255,7 +255,7 @@ export default async function WorldCupPage() {
         </Container>
       </section>
 
-      <section className="bg-anchor-bg-raised py-10">
+      <section className="bg-anchor-bg-raised section-spacing">
         <Container>
           <div className="mx-auto max-w-6xl">
             <div className="grid gap-6 md:grid-cols-3">

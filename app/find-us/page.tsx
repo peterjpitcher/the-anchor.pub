@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { Button, Container, Section, Card, CardBody, Grid, Alert } from '@/components/ui'
 import { StatusBar } from '@/components/layout/StatusBar'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
-import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
+import { FindUsSection } from '@/components/FindUsSection'
 import { Metadata } from 'next'
 import { BusinessHours } from '@/components/BusinessHours'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
@@ -211,17 +211,7 @@ export default function FindUsPage() {
                 />
                 <div className="bg-anchor-bg-card rounded-none border border-anchor-gold/15 p-8">
                   <SpeakableContent selector="contact-info" priority="high">
-                    <div className="mb-8">
-                      <GoogleMapEmbed query="The Anchor, Stanwell Moor" height="250px" className="mb-6 rounded-xl" />
-
-                      <address className="not-italic text-lg space-y-2 text-anchor-cream-text/70">
-                        <p className="font-bold text-xl text-anchor-cream-text">The Anchor</p>
-                        <p>Horton Road</p>
-                        <p>Stanwell Moor</p>
-                        <p>Surrey</p>
-                        <p className="font-bold text-anchor-cream-text">TW19 6AQ</p>
-                      </address>
-                    </div>
+                    <FindUsSection variant="full" mapHeight="250px" />
 
                     <div className="mt-6 pt-6 border-t border-anchor-gold/15">
                       <p className="font-bold text-anchor-gold-vivid mb-3">Contact</p>

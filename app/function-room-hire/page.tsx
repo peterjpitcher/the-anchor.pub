@@ -5,6 +5,7 @@ import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
+import { HeroBadge } from '@/components/HeroBadge'
 import { CTASection, SectionHeader, FeatureGrid, InfoBoxGrid, AlertBox, QuickInfoGrid, Container } from '@/components/ui'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneButton } from '@/components/PhoneButton'
@@ -143,9 +144,9 @@ export default function FunctionRoomHirePage() {
       <TrustBar variant="private-hire" />
 
       {/* Google Rating */}
-      <section className="bg-anchor-bg-card py-6 border-b border-anchor-gold/15">
+      <section className="section-spacing-tight bg-anchor-bg-card border-b border-anchor-gold/15">
         <Container>
-          <p className="text-center text-sm text-anchor-cream-text/70"> <strong>Rated 4.6/5 on Google</strong> · Trusted for private events near Heathrow</p>
+          <HeroBadge className="text-sm" />
         </Container>
       </section>
 
@@ -677,7 +678,7 @@ export default function FunctionRoomHirePage() {
       />
 
       {/* CTA Section */}
-      <section className="bg-anchor-bg-raised border-t border-anchor-gold/15 py-16 md:py-24">
+      <section className="section-spacing-lg bg-anchor-bg-raised border-t border-anchor-gold/15">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-5xl font-bold text-anchor-gold-vivid mb-6">
@@ -695,11 +696,9 @@ export default function FunctionRoomHirePage() {
               >
                  Book Function Room
               </BookTableButton>
-              <Link href="tel:+441753682707">
-                <Button size="lg" variant="secondary">
-                   Call: 01753 682707
-                </Button>
-              </Link>
+              <PhoneButton phone={CONTACT.phone} source="function-room_cta" size="lg">
+                   Call: {CONTACT.phone}
+              </PhoneButton>
               <Link href="https://wa.me/441753682707?text=Hi,%20I'd%20like%20to%20enquire%20about%20function%20room%20hire" target="_blank" rel="noopener noreferrer">
                 <Button size="lg" variant="secondary">
                    WhatsApp Us

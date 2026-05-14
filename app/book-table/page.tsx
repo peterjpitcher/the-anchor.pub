@@ -2,6 +2,9 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { HeroWrapper } from '@/components/hero/HeroWrapper'
 import { PhoneButton } from '@/components/PhoneButton'
+import { PhoneLink } from '@/components/PhoneLink'
+import { CONTACT } from '@/lib/constants'
+import { HeroBadge } from '@/components/HeroBadge'
 import { ManagementTableBookingForm } from '@/components/features/TableBooking/ManagementTableBookingForm'
 import { BookTableUpcomingEventsPanel } from '@/components/features/TableBooking/BookTableUpcomingEventsPanel'
 import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncement'
@@ -19,6 +22,7 @@ import {
 } from '@/lib/menu-page-data'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
+import { TestimonialSection } from '@/components/TestimonialSection'
 
 // Revalidate every 1 hour for the walk-in launch fortnight (10–22 May 2026)
 // so the LaunchAnnouncement banner flips reliably at the cutover even on
@@ -156,6 +160,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
         title="Book a Table at The Anchor"
         description="Reserve your table online with mobile confirmation."
         variant="default"
+        enableSmartCtas={true}
         statusBarPosition="above"
         primaryCta={
           <Link href="#booking-form">
@@ -199,7 +204,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
             <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">7 min from Heathrow T5</span>
             <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Dog & family friendly</span>
             <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Super-fast fibre broadband</span>
-            <span className="inline-flex items-center gap-1.5 bg-white/10 border border-white/25 rounded-full px-3 py-1 text-xs font-medium text-white/90 backdrop-blur-sm">Rated 4.6/5 on Google</span>
+            <HeroBadge />
           </div>
         }
       />
@@ -301,7 +306,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
         </p>
         <p className="text-anchor-cream-text/70 mb-4">
           We currently don&apos;t have an accessible toilet. If you&apos;d like to visit and want to check what will work best for you, give us a call on{' '}
-          <a href="tel:+441753682707" className="text-anchor-gold-vivid font-semibold hover:underline">+44 1753 682707</a> and we&apos;ll help.
+          <PhoneLink phone={CONTACT.phone} source="book-table_accessibility" className="text-anchor-gold-vivid font-semibold hover:underline" showIcon={false} /> and we&apos;ll help.
         </p>
         <Link href="/accessibility" className="text-anchor-gold-vivid font-semibold hover:underline">
           Full accessibility information &rarr;
@@ -397,14 +402,16 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
       />
 
       {/* Customer Review */}
-      <Section spacing="md" container containerSize="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
-        <div className="max-w-2xl mx-auto text-center">
-          <p className="text-2xl text-anchor-cream-text/80 italic leading-relaxed">
-            &ldquo;Lovely pub, great food, friendly staff. We stopped in on our way to Heathrow and wished we&apos;d found it sooner. Will definitely be back.&rdquo;
-          </p>
-          <p className="mt-4 text-sm text-anchor-cream-text/50">, Google Review, rated 5/5</p>
-        </div>
-      </Section>
+      <TestimonialSection
+        variant="pull-quote"
+        className="bg-anchor-bg-raised border-b border-anchor-gold/15"
+        reviews={[{
+          quote: "Lovely pub, great food, friendly staff. We stopped in on our way to Heathrow and wished we'd found it sooner. Will definitely be back.",
+          author: "Anonymous",
+          source: "Google Review",
+          rating: 5
+        }]}
+      />
 
       {/* Getting Here */}
       <Section spacing="md" container containerSize="md" className="bg-anchor-bg border-b border-anchor-gold/15">
@@ -459,7 +466,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
           },
           {
             question: 'What are your kitchen hours?',
-            answer: 'Our kitchen is open Tuesday to Saturday from noon until 9pm, and Sunday from 1pm until 6pm. The kitchen is closed on Mondays. Check our food menu page for the latest hours, as they can vary on bank holidays.'
+            answer: 'Kitchen hours are updated live on our website. Check the opening hours section on our homepage or call 01753 682707 for today\'s kitchen times, as they can vary on bank holidays.'
           },
           {
             question: 'Is The Anchor dog-friendly?',

@@ -3,7 +3,7 @@
 import { useMemo, memo, useRef, useState } from 'react'
 import { MenuData, MenuCategory, MenuSection, MenuItem } from '@/lib/menu-parser'
 import { SpecialOfferNotifications } from './SpecialOfferNotifications'
-import { HeroBadge } from './HeroBadge'
+import { ItemBadge } from './HeroBadge'
 import Link from 'next/link'
 import { ALLERGEN_TYPES } from '@/hooks/useAllergenFilter'
 import { cn } from '@/lib/utils'
@@ -247,7 +247,7 @@ export function MenuRenderer({ menuData, eyebrow = menuData.title || 'Menu' }: M
                         const { displayPrice, schemaPrice } = normalizePrice(item.price)
                         return (
                           <Link key={item.name} href="/drinks/managers-special" className="relative block group">
-                            <HeroBadge text="25% OFF" variant="special" position="absolute" />
+                            <ItemBadge text="25% OFF" variant="special" position="absolute" />
                             <div
                               className="h-full bg-anchor-green/10 border-2 border-anchor-green/40 rounded-lg p-5 group-hover:shadow-xl group-hover:scale-[1.01] transition-all cursor-pointer"
                               itemScope
@@ -363,7 +363,7 @@ const MenuItemRow = memo(function MenuItemRow({ item, itemId, isFocused, onFocus
       <p className="text-anchor-cream-text leading-snug">
         <span className="font-semibold" itemProp="name">{item.name}</span>
         {isHighlighted && (
-          <HeroBadge text="NEW" variant="new" position="inline" />
+          <ItemBadge text="NEW" variant="new" position="inline" />
         )}
         {item.featured && (
           <span className="text-[11px] font-semibold text-amber-400 bg-amber-400/10 px-1.5 py-0.5 rounded leading-none ml-1.5">
@@ -452,7 +452,7 @@ const MenuItemCard = memo(function MenuItemCard({ item, itemId, isFocused, onFoc
       </div>
 
       <div className="mt-2 flex flex-wrap gap-1.5">
-        {isHighlighted && <HeroBadge text="NEW" variant="new" position="inline" />}
+        {isHighlighted && <ItemBadge text="NEW" variant="new" position="inline" />}
         {item.featured && (
           <span className="text-[11px] font-semibold text-amber-400 bg-amber-400/10 px-1.5 py-0.5 rounded leading-none">
             Guest favourite

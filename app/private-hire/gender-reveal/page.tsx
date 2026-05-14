@@ -6,6 +6,7 @@ import { Metadata } from 'next'
 import { CONTACT, BRAND } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PhoneButton } from '@/components/PhoneButton'
+import { TestimonialSection } from '@/components/TestimonialSection'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
@@ -101,7 +102,7 @@ export default async function GenderRevealPage() {
                 }
             />
 
-            <section className="py-8 bg-anchor-bg-card border-b border-anchor-gold/15">
+            <section className="section-spacing-sm bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>
                     <div className="max-w-4xl mx-auto text-center">
                         <PageTitle className="text-anchor-cream-text mb-4" as="h2" seo={{ structured: true, speakable: true }}>
@@ -307,24 +308,14 @@ export default async function GenderRevealPage() {
                 </Container>
             </section>
 
-            <section className="section-spacing bg-anchor-bg border-b border-anchor-gold/15">
-                <Container>
-                    <SectionHeader
-                        title="What Our Guests Say"
-                        subtitle="From recent gender reveal parties at The Anchor"
-                    />
-                    <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-6">
-                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
-                            <p className="text-anchor-cream-text/70 italic mb-4">&ldquo;We did our gender reveal in the beer garden with smoke cannons and it was absolutely amazing. The photos came out brilliantly. The staff helped us time everything perfectly so our photographer was ready. Could not have gone better.&rdquo;</p>
-                            <p className="text-sm text-anchor-gold-vivid font-semibold">Chloe &amp; Dan, Staines</p>
-                        </div>
-                        <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6">
-                            <p className="text-anchor-cream-text/70 italic mb-4">&ldquo;We used the keeper of the gender service and it was brilliant, we were just as surprised as our guests! The buffet was generous, the garden was lovely, and the staff were genuinely excited for us. Such a fun afternoon at a great gender reveal venue.&rdquo;</p>
-                            <p className="text-sm text-anchor-gold-vivid font-semibold">Priya &amp; Raj, Feltham</p>
-                        </div>
-                    </div>
-                </Container>
-            </section>
+            <TestimonialSection
+                variant="compact"
+                className="section-spacing bg-anchor-bg border-b border-anchor-gold/15 px-4"
+                reviews={[
+                    { quote: "We did our gender reveal in the beer garden with smoke cannons and it was absolutely amazing. The photos came out brilliantly. The staff helped us time everything perfectly so our photographer was ready. Could not have gone better.", author: "Chloe & Dan, Staines", source: "Google Review", rating: 5 },
+                    { quote: "We used the keeper of the gender service and it was brilliant, we were just as surprised as our guests! The buffet was generous, the garden was lovely, and the staff were genuinely excited for us. Such a fun afternoon at a great gender reveal venue.", author: "Priya & Raj, Feltham", source: "Google Review", rating: 5 },
+                ]}
+            />
 
             <section className="section-spacing bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>

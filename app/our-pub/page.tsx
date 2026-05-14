@@ -5,6 +5,8 @@ import { Button, Container } from '@/components/ui'
 import { HeroWrapper } from '@/components/hero'
 import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { BookTableButton } from '@/components/BookTableButton'
+import { PhoneButton } from '@/components/PhoneButton'
+import { CONTACT } from '@/lib/constants'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { JsonLd } from '@/components/JsonLd'
 
@@ -97,7 +99,7 @@ export default function OurPubPage() {
       />
 
       {/* Intro */}
-      <section className="bg-anchor-bg-raised border-b border-anchor-gold/15 py-8">
+      <section className="section-spacing-sm bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <p className="text-center text-lg md:text-xl text-anchor-cream-text/80 max-w-3xl mx-auto leading-relaxed">
             We could tell you all about The Anchor, a village pub since 1751,
@@ -421,7 +423,7 @@ export default function OurPubPage() {
       />
 
       {/* CTA */}
-      <section className="bg-gradient-to-br from-anchor-green to-anchor-green/90 py-16 md:py-24">
+      <section className="section-spacing-lg bg-gradient-to-br from-anchor-green to-anchor-green/90">
         <Container>
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
@@ -439,15 +441,9 @@ export default function OurPubPage() {
                 variant="secondary"
                 className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm"
               />
-              <Link href="tel:+441753682707">
-                <Button
-                  size="lg"
-                  variant="secondary"
-                  className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm"
-                >
-                  Call 01753 682707
-                </Button>
-              </Link>
+              <PhoneButton phone={CONTACT.phone} source="our-pub_cta" size="lg" className="bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
+                  Call {CONTACT.phone}
+              </PhoneButton>
               <Link
                 href="https://maps.google.com/maps?q=The+Anchor+Stanwell+Moor"
                 target="_blank"

@@ -13,6 +13,7 @@ import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { SUNDAY_ROAST, getSundayRoastContent } from '@/lib/sunday-roast'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
+import { HeroBadge } from '@/components/HeroBadge'
 
 export function generateMetadata(): Metadata {
   const sunday = getSundayRoastContent()
@@ -108,14 +109,14 @@ export default function FelthamPubPage() {
         showContextStrip={true}
       />
 
-      <section className="bg-anchor-bg py-6">
+      <section className="section-spacing-tight bg-anchor-bg">
         <Container>
-          <p className="text-center text-sm text-anchor-cream-text/70"> <strong>Rated 4.6/5 on Google</strong> · Highest-rated non-airport pub near Heathrow</p>
+          <HeroBadge className="text-sm" />
         </Container>
       </section>
 
       {/* Page Title */}
-      <section className="py-8 bg-anchor-bg">
+      <section className="section-spacing-sm bg-anchor-bg">
         <Container>
           <div className="max-w-4xl mx-auto text-center">
             <PageTitle
@@ -500,7 +501,7 @@ export default function FelthamPubPage() {
           {
             text: " Book a Table",
             href: "/book-table",
-            variant: "secondary"
+            variant: "white"
           },
           {
             text: " Call: 01753 682707",
