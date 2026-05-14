@@ -10,7 +10,7 @@
 
 - [x] **Phase 1: Tracking & HeroBadge** - Close phone analytics gaps and extract duplicated hero badge markup
 - [x] **Phase 2: TestimonialSection** - Build and deploy a multi-variant testimonial component across all review pages
-- [ ] **Phase 3: Final Standardisation** - CTA coverage, design tokens, BusinessHours component, and FindUsSection
+- [x] **Phase 3: Final Standardisation** - CTA coverage, design tokens, BusinessHours component, and FindUsSection
 
 ---
 
@@ -65,13 +65,13 @@ Plans:
 **Plans:** 8 plans
 Plans:
 - [x] 03-01-PLAN.md — CTA coverage: reviews CTASection, enableSmartCtas on service pages, button variant audit
-- [ ] 03-02-PLAN.md — FindUsSection build with full/compact variants + deploy on find-us page
-- [ ] 03-03-PLAN.md — Spacing tokens verification + hardcoded hours replacement with BusinessHours
-- [ ] 03-04-PLAN.md — DS-04 batch 1: hotel and near-heathrow pages (17 files)
-- [ ] 03-05-PLAN.md — DS-04 batch 2: location pub pages (16 files)
-- [ ] 03-06-PLAN.md — DS-04 batch 3: event and entertainment pages (11 files)
-- [ ] 03-07-PLAN.md — DS-04 batch 4: private-hire and venue pages (11 files)
-- [ ] 03-08-PLAN.md — DS-04 batch 5: homepage + core pages + site-wide verification (17 files)
+- [x] 03-02-PLAN.md — FindUsSection build with full/compact variants + deploy on find-us page
+- [x] 03-03-PLAN.md — Spacing tokens verification + hardcoded hours replacement with BusinessHours
+- [x] 03-04-PLAN.md — DS-04 batch 1: hotel and near-heathrow pages (17 files)
+- [x] 03-05-PLAN.md — DS-04 batch 2: location pub pages (16 files)
+- [x] 03-06-PLAN.md — DS-04 batch 3: event and entertainment pages (11 files)
+- [x] 03-07-PLAN.md — DS-04 batch 4: private-hire and venue pages (11 files)
+- [x] 03-08-PLAN.md — DS-04 batch 5: homepage + core pages + site-wide verification (17 files)
 
 ---
 
@@ -81,9 +81,9 @@ Plans:
 |-------|----------------|--------|-----------|
 | 1. Tracking & HeroBadge | 2/2 | Complete | 2026-05-14 |
 | 2. TestimonialSection | 2/2 | Complete | 2026-05-14 |
-| 3. Final Standardisation | 1/8 | In Progress | - |
+| 3. Final Standardisation | 8/8 | Complete | 2026-05-14 |
 
 ---
 
 *Roadmap created: 2026-05-14*
-*Last updated: 2026-05-14 — Phase 3 revised: 8 plans in 2 waves (DS-04 split into 5 batches)*
+*Last updated: 2026-05-14 — Milestone v1.0 complete: all 3 phases done, 18/18 requirements delivered*

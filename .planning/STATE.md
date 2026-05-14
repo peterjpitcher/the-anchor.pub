@@ -1,7 +1,7 @@
 # Project State: The Anchor — Component Standardisation
 
 **Last updated:** 2026-05-14
-**Session:** Plan 03-08 executed (core/homepage pages spacing token migration + site-wide DS-04 verification)
+**Session:** Milestone v1.0 complete — all 3 phases done, 18/18 requirements delivered, CONV-03 gap closed
 
 ---
 
@@ -9,7 +9,7 @@
 
 **Core value:** Every page delivers a consistent, professional brand experience with full analytics coverage — no copy-pasted markup, no untracked interactions, no stale data.
 
-**Current focus:** Phase 2 complete. Phases 3-5 consolidated into single Phase 3: Final Standardisation (CTA + tokens + BusinessHours + FindUsSection). Ready for Phase 3.
+**Current focus:** Milestone v1.0 Component Standardisation complete. All 18 requirements delivered across 3 phases.
 
 ---
 
@@ -19,10 +19,10 @@
 |-------|-------|
 | Milestone | v1.0 Component Standardisation |
 | Phase | 03-final-standardisation |
-| Plan | 08 complete (8/?) |
-| Status | Phase 3 in progress |
+| Plan | 08 complete (8/8) |
+| Status | Milestone complete |
 
-**Progress:** `[X][X][/]` -- 2/3 phases complete, Phase 3 started
+**Progress:** `[X][X][X]` -- 3/3 phases complete
 
 ---
 
@@ -32,8 +32,9 @@
 |--------|-------|
 | Phases defined | 3 |
 | Requirements mapped | 18/18 |
-| Plans written | 2 |
-| Plans complete | 7 |
+| Requirements complete | 18/18 |
+| Plans written | 12 |
+| Plans complete | 12 |
 
 ---
 
@@ -61,6 +62,7 @@
 | 2026-05-14 | py-12 alone maps to section-spacing-lg across private-hire subtree | Matches plan mapping; py-12 is in the large spacing group |
 | 2026-05-14 | py-16 md:py-24 on CTA sections maps to section-spacing-lg | Closest large token; same decision applied across all 5 CTA-pattern sections in 03-08 |
 | 2026-05-14 | DS-04 complete: zero inline py-* on section elements site-wide | Verified by site-wide grep returning 0 matches after 03-08 completes |
+| 2026-05-14 | CONV-03 gap closure: 15 CTASection pages fixed (6 location + 9 hotel) | Original verifier caught 6; wider grep found 9 more hotel pages with same pattern |
 
 ### Spec reference
 
@@ -85,9 +87,9 @@
 
 ## Session Continuity
 
-**To resume:** Read this file and ROADMAP.md. Phase 3 in progress, plans 01-06 complete.
-**Last session:** 2026-05-14T14:30:00Z
-**Stopped at:** Completed 03-08-PLAN.md
+**To resume:** Milestone v1.0 complete. Run `/gsd:complete-milestone` to archive.
+**Last session:** 2026-05-14
+**Stopped at:** Milestone v1.0 Component Standardisation complete
 
 **Worktree:** `admiring-dhawan-3da8c8`
 **Branch:** `claude/admiring-dhawan-3da8c8`

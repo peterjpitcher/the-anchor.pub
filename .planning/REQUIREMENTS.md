@@ -16,7 +16,7 @@
 - [x] **COMP-02**: TestimonialSection displays reviews in full-section variant (heading + cards)
 - [x] **COMP-03**: TestimonialSection displays reviews in compact card-strip variant
 - [x] **COMP-04**: TestimonialSection displays reviews in single pull-quote variant
-- [ ] **COMP-05**: FindUsSection shows Google Maps embed, address, phone, parking info, and directions link
+- [x] **COMP-05**: FindUsSection shows Google Maps embed, address, phone, parking info, and directions link
 - [x] **COMP-06**: All existing ad-hoc testimonial/review markup replaced with TestimonialSection
 
 ### Conversion
@@ -29,14 +29,14 @@
 
 ### Design System
 
-- [ ] **DS-01**: `section-spacing` utility class defined (py-10 md:py-12)
-- [ ] **DS-02**: `section-spacing-sm` utility class defined (py-8 md:py-10)
-- [ ] **DS-03**: `section-spacing-lg` utility class defined (py-12 md:py-14 lg:py-16)
-- [ ] **DS-04**: All inline py-* section padding replaced with spacing tokens across the site
+- [x] **DS-01**: `section-spacing` utility class defined (py-10 md:py-12)
+- [x] **DS-02**: `section-spacing-sm` utility class defined (py-8 md:py-10)
+- [x] **DS-03**: `section-spacing-lg` utility class defined (py-12 md:py-14 lg:py-16)
+- [x] **DS-04**: All inline py-* section padding replaced with spacing tokens across the site
 
 ### Data Freshness
 
-- [ ] **DATA-01**: All pages with static hours text replaced with BusinessHours component
+- [x] **DATA-01**: All pages with static hours text replaced with BusinessHours component
 
 ## v2 Requirements
 
@@ -77,12 +77,12 @@
 | CONV-03 | Phase 3 | Complete |
 | CONV-04 | Phase 3 | Complete |
 | CONV-05 | Phase 3 | Complete |
-| DS-01 | Phase 3 | Pending |
-| DS-02 | Phase 3 | Pending |
-| DS-03 | Phase 3 | Pending |
-| DS-04 | Phase 3 | Pending |
-| DATA-01 | Phase 3 | Pending |
-| COMP-05 | Phase 3 | Pending |
+| DS-01 | Phase 3 | Complete |
+| DS-02 | Phase 3 | Complete |
+| DS-03 | Phase 3 | Complete |
+| DS-04 | Phase 3 | Complete |
+| DATA-01 | Phase 3 | Complete |
+| COMP-05 | Phase 3 | Complete |
 
 **Coverage:**
 - v1 requirements: 18 total
@@ -91,4 +91,4 @@
 
 ---
 *Requirements defined: 2026-05-14*
-*Last updated: 2026-05-14 after Plan 03-01 — CONV-01 through CONV-05 complete*
+*Last updated: 2026-05-14 — Milestone v1.0 complete: 18/18 requirements delivered*
