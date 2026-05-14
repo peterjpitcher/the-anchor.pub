@@ -208,7 +208,7 @@ export default function PubNearHiltonHeathrowPage() {
         description="Traditional British pub with home-cooked food, draught beers and free parking. Perfect for business or leisure."
         buttons={[
           { text: 'Book a Table', href: '/book-table', variant: 'white' },
-          { text: 'Call Us', href: CONTACT.phoneHref, isPhone: true, phoneSource: 'hilton_heathrow_cta', variant: 'secondary' },
+          { text: 'Call Us', href: CONTACT.phoneHref, isPhone: true, phoneSource: 'hilton_heathrow_cta', variant: 'white' },
           { text: 'Private Hire', href: '/private-hire', variant: 'white' },
         ]}
         variant="green"

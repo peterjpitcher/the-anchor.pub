@@ -187,7 +187,7 @@ export default function PubNearIbisHeathrowPage() {
         description="Independent British pub with home-cooked food, draught beers and free parking. Walk-ins welcome."
         buttons={[
           { text: 'Book a Table', href: '/book-table', variant: 'white' },
-          { text: 'Call Us', href: CONTACT.phoneHref, isPhone: true, phoneSource: 'ibis_heathrow_cta', variant: 'secondary' },
+          { text: 'Call Us', href: CONTACT.phoneHref, isPhone: true, phoneSource: 'ibis_heathrow_cta', variant: 'white' },
           { text: 'View Menu', href: '/food-menu', variant: 'white' },
         ]}
         variant="green"

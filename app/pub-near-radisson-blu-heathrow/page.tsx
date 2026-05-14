@@ -212,7 +212,7 @@ export default function PubNearRadissonBluHeathrowPage() {
         description="Authentic British pub with home-cooked food, draught beers and free parking. A genuine local experience."
         buttons={[
           { text: 'Book a Table', href: '/book-table', variant: 'white' },
-          { text: 'Call Us', href: CONTACT.phoneHref, isPhone: true, phoneSource: 'radisson_blu_heathrow_cta', variant: 'secondary' },
+          { text: 'Call Us', href: CONTACT.phoneHref, isPhone: true, phoneSource: 'radisson_blu_heathrow_cta', variant: 'white' },
           { text: 'View Menu', href: '/food-menu', variant: 'white' },
         ]}
         variant="green"

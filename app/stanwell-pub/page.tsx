@@ -515,7 +515,7 @@ export default function StanwellPubPage() {
           {
             text: "Book a Table",
             href: "/book-table",
-            variant: "secondary"
+            variant: "white"
           },
           {
             text: "Call Us",

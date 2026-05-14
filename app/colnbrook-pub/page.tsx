@@ -276,7 +276,7 @@ export default function ColnbrookPubPage() {
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "colnbrook_pub_cta",
-                        variant: "secondary"
+                        variant: "white"
                     },
                     {
                         text: " Book an Event",

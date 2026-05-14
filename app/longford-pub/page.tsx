@@ -267,7 +267,7 @@ export default function LongfordPubPage() {
                         href: `${CONTACT.phoneHref}`,
                         isPhone: true,
                         phoneSource: "longford_pub_cta",
-                        variant: "secondary"
+                        variant: "white"
                     },
                     {
                         text: "Book an Event",

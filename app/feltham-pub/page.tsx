@@ -501,7 +501,7 @@ export default function FelthamPubPage() {
           {
             text: " Book a Table",
             href: "/book-table",
-            variant: "secondary"
+            variant: "white"
           },
           {
             text: " Call: 01753 682707",

@@ -194,7 +194,7 @@ export default function PubNearTravelodgeHeathrowPage() {
         description="Real British pub with home-cooked food, draught beers and free parking. Smart travellers love it."
         buttons={[
           { text: 'Book a Table', href: '/book-table', variant: 'white' },
-          { text: 'Call Us', href: CONTACT.phoneHref, isPhone: true, phoneSource: 'travelodge_heathrow_cta', variant: 'secondary' },
+          { text: 'Call Us', href: CONTACT.phoneHref, isPhone: true, phoneSource: 'travelodge_heathrow_cta', variant: 'white' },
           { text: 'View Menu', href: '/food-menu', variant: 'white' },
         ]}
         variant="green"
