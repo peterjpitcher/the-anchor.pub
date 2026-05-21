@@ -349,7 +349,27 @@ const defaultItems: NavigationItem[] = [
       }
     ]
   },
-  { label: 'Our Story', href: '/about' },
+  {
+    label: 'Our Story',
+    href: '/about',
+    items: [
+      {
+        label: 'About Us',
+        href: '/about',
+        description: 'Meet the team and see what makes us different.'
+      },
+      {
+        label: 'Our History',
+        href: '/history',
+        description: 'A village pub since 1751, from moorland inn to Heathrow landmark.'
+      },
+      {
+        label: 'See Inside',
+        href: '/our-pub',
+        description: 'Photos of the bar, dining room, garden and games area.'
+      }
+    ]
+  },
   { label: 'Blog', href: '/blog' }
 ]
 

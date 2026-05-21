@@ -18,8 +18,10 @@ Last menu refresh: **2026-04-29** (Sunday roast line-up rebuilt; wellington reaf
 - **Pub group:** Greene King Tenants network.
 - **Motto:** Eat, Drink, Enjoy.
 - **Tagline:** Where Everyone's Welcome.
-- **Founded:** 1751.
+- **Founded:** 1751 (the pub's established date). Evidence from British History Online and Spelthorne's local list suggests an Anchor Inn on the site by at least 1730, though the present building is mid-Victorian.
 - **Heritage line:** A village pub since 1751. Stood here before Heathrow existed; Heathrow grew from a grass airstrip in the 1940s.
+- **Local listing:** Locally listed by Spelthorne Borough Council as **The Anchor Public House**, building reference **LL/072**, listed **19 February 2004**. Described as a mid-Victorian pub on the site of an earlier pub dating from at least 1730.
+- **Heritage safe wording:** "The Anchor has served Stanwell Moor since at least 1751, with evidence of an Anchor Inn on the site by 1730. The present building appears to be mid-Victorian, standing on the site of the earlier pub."
 - **Marketing description:** The closest traditional British pub to Heathrow Airport. Famous Sunday roasts, beer garden under the flight path, and FREE parking for all guests.
 - **Tone:** Friendly, cheeky, inclusive.
 - **Perspective:** First-person plural, "we" / "our".
@@ -410,6 +412,7 @@ These are verified incorrect or risky. **Never use them in any content** (page c
 ### Identity & history
 - **1866 or 1869 as founding year**, correct year is 1751.
 - **"Since the 1800s"**, too vague; use 1751.
+- **"Community hub since 1995"**, this conflicts with the 1751 established date and weakens trust with Google. Only use 1995 if it refers specifically to the current ownership or operating chapter, and always clarify the distinction.
 - **"Best" or "premier" claims** without substantiation.
 
 ### Sunday roast
