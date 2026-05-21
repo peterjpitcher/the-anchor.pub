@@ -211,6 +211,22 @@ export default function HistoryPage(): React.JSX.Element {
               subtitle="The families who called this pub home"
             />
 
+            <div className="max-w-2xl mx-auto mb-10">
+              <div className="relative w-full overflow-hidden border border-anchor-gold/20">
+                <Image
+                  src="/images/history/the-anchor-c1910.png"
+                  alt="The Anchor, Stanwell Moor, around 1910 — the brick pub with Isleworth Brewery 'Ales and Stout' signage and a group of villagers gathered outside the entrance"
+                  width={1532}
+                  height={1027}
+                  className="w-full h-auto"
+                  sizes="(max-width: 768px) 100vw, 672px"
+                />
+              </div>
+              <p className="text-sm text-anchor-cream-text/50 mt-3 text-center">
+                The Anchor around 1910, in its Isleworth Brewery days
+              </p>
+            </div>
+
             <div className="space-y-6 text-lg text-anchor-cream-text/80 leading-relaxed">
               <p>
                 Victorian records bring some of The Anchor&apos;s early publicans into
