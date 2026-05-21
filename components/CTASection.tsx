@@ -61,6 +61,13 @@ export function CTASection({
     dark: 'bg-anchor-charcoal text-white'
   }
 
+  // Stays a column on mobile; on larger screens the row widens with the button
+  // count so labels (e.g. a phone number) sit on one line instead of wrapping.
+  const buttonRowMaxWidth =
+    buttons.length >= 4 ? 'max-w-md sm:max-w-4xl' :
+    buttons.length === 3 ? 'max-w-md sm:max-w-2xl' :
+    'max-w-md'
+
   return (
     <section className={`section-spacing ${bgClasses[variant]} ${className}`}>
       <div className="container mx-auto px-4 text-center">
@@ -72,7 +79,7 @@ export function CTASection({
             {description}
           </p>
         )}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+        <div className={`flex flex-col sm:flex-row gap-4 justify-center ${buttonRowMaxWidth} mx-auto`}>
           {buttons.map((button, index) => {
             // Check if this is a phone link
             if (button.isPhone && button.href.startsWith('tel:')) {
