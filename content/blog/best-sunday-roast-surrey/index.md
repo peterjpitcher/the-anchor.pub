@@ -64,7 +64,7 @@ Walk in or book ahead, no pre-order needed. Kitchen hours on Sunday are 1pm-6pm,
 
 Free parking for about 20 cars. Dogs welcome throughout the venue. The beer garden seats 64, with planes coming over every 90 seconds (directly under Heathrow's flight path, kids love it). Outside the ULEZ zone.
 
-[Book your Sunday roast at The Anchor](/sunday-lunch) or call **01753 682707**.
+[Book your Sunday roast at The Anchor](/sunday-roast) or call **01753 682707**.
 
 ---
 
@@ -246,7 +246,7 @@ Seasonal, with colour and bite. Not boiled into submission. A good pub serves ve
 
 ### What's the best Sunday roast in Surrey?
 
-It depends what you're after. For cooked-to-order quality with free parking and a family-friendly atmosphere, [The Anchor in Stanwell Moor](/sunday-lunch) is hard to beat. For a gastropub experience, The Victoria in Oxshott is excellent. For a classic village pub setting, The White Horse in Shere is the one.
+It depends what you're after. For cooked-to-order quality with free parking and a family-friendly atmosphere, [The Anchor in Stanwell Moor](/sunday-roast) is hard to beat. For a gastropub experience, The Victoria in Oxshott is excellent. For a classic village pub setting, The White Horse in Shere is the one.
 
 ### How much is a Sunday roast in Surrey?
 

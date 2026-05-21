@@ -31,7 +31,6 @@ import {
   type EventCategory
 } from '@/lib/api'
 import { getEventWebsiteUrl } from '@/lib/event-url'
-import { staticEvents } from '@/lib/static-events'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { JsonLd } from '@/components/JsonLd'
@@ -266,7 +265,7 @@ function QuizNightEvents({ events }: { events: Event[] }) {
 export default async function QuizNightPage() {
   const events = await getQuizEvents()
   const nextEvent = events[0]
-  const nextEventDate = nextEvent ? formatEventDate(nextEvent.startDate) : 'Next date announced soon'
+  const nextEventDate = nextEvent ? formatEventDate(nextEvent.startDate) : 'Next date to be confirmed'
   const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '7:30 pm start'
   const doorTime = nextEvent ? formatDoorTime(nextEvent.doorTime) ?? '6:30 pm' : '6:30 pm'
 
@@ -303,7 +302,7 @@ export default async function QuizNightPage() {
             <Card className="card-dark rounded-none border border-anchor-gold/15">
               <CardBody className="space-y-4">
                 <p className="text-sm uppercase tracking-wide text-anchor-gold font-semibold">Next quiz night</p>
-                <h2 className="text-3xl font-bold text-anchor-cream-text">{nextEvent ? nextEvent.name : 'Next quiz night announced soon'}</h2>
+                <h2 className="text-3xl font-bold text-anchor-cream-text">{nextEvent ? nextEvent.name : 'Next date to be confirmed'}</h2>
                 <p className="text-anchor-gold-vivid font-semibold">{nextEvent ? `${nextEventDate} · ${nextEventTime}` : 'Check back for the next date'}</p>
                 {nextEvent?.longDescription && (
                   <p className="text-anchor-cream-text/70 whitespace-pre-line">{nextEvent.longDescription}</p>
@@ -589,7 +588,6 @@ export default async function QuizNightPage() {
       </Section>
 
       <JsonLd data={quizNightEventSeries} />
-      <EventSchema event={staticEvents.quizNight} />
       {events.map(event => (
         <EventSchema key={`event-schema-${event.id}`} event={event} />
       ))}

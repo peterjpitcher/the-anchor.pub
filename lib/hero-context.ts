@@ -346,7 +346,7 @@ export function resolveHeroCtas(
   if (context.sundayLunchAvailable && context.bookingsAccepting) {
     return {
       primary: { kind: 'booking', label: 'Book Sunday Lunch', source },
-      secondary: { kind: 'link', label: 'View Menu', href: '/sunday-lunch', source }
+      secondary: { kind: 'link', label: 'View Menu', href: '/sunday-roast', source }
     }
   }
 

@@ -5,6 +5,11 @@ import { DateTime } from 'luxon'
 import { StatusBar } from '@/components/layout/StatusBar'
 import { CONTACT_INFO } from '@/lib/error-handling'
 import { useBusinessHoursContext } from '@/components/providers/BusinessHoursProvider'
+import {
+  STATIC_BAR_HOURS_SUMMARY,
+  STATIC_HOURS_REVIEW_NOTE,
+  STATIC_KITCHEN_HOURS_SUMMARY
+} from '@/lib/business-hours-fallback'
 
 interface BusinessHoursProps {
   showKitchen?: boolean
@@ -20,14 +25,10 @@ export function BusinessHours({ showKitchen = true, className = '' }: BusinessHo
   if (loading) {
     return (
       <div className={`bg-anchor-bg-raised border border-anchor-gold/15 rounded-lg p-4 ${className}`}>
-        <p className="text-sm font-semibold text-anchor-gold-vivid">Opening hours are loading</p>
-        <p className="mt-1 text-sm text-anchor-cream-text/70">
-          Call{' '}
-          <a href={CONTACT_INFO.phoneLink} className="text-anchor-gold hover:text-anchor-gold-light font-semibold underline">
-            {CONTACT_INFO.phone}
-          </a>{' '}
-          for today&apos;s bar and kitchen times.
-        </p>
+        <p className="text-sm font-semibold text-anchor-gold-vivid">Opening hours</p>
+        <p className="mt-1 text-sm text-anchor-cream-text/70">{STATIC_BAR_HOURS_SUMMARY}</p>
+        <p className="mt-1 text-sm text-anchor-cream-text/70">{STATIC_KITCHEN_HOURS_SUMMARY}</p>
+        <p className="mt-1 text-xs text-anchor-cream-text/55">{STATIC_HOURS_REVIEW_NOTE}</p>
       </div>
     )
   }
@@ -38,10 +39,13 @@ export function BusinessHours({ showKitchen = true, className = '' }: BusinessHo
     return (
       <div className={`bg-red-900/20 border border-red-500/30 rounded-lg p-4 ${className}`}>
         <p className="text-red-400 text-sm mb-2">{errorMessage}</p>
-        <div className="text-sm text-anchor-cream-text/70">
+        <div className="space-y-1 text-sm text-anchor-cream-text/70">
+          <p>{STATIC_BAR_HOURS_SUMMARY}</p>
+          <p>{STATIC_KITCHEN_HOURS_SUMMARY}</p>
           <a href={CONTACT_INFO.phoneLink} className="text-anchor-gold hover:text-anchor-gold-light font-semibold underline">
             Call {CONTACT_INFO.phone}
-          </a> for today&apos;s hours
+          </a>{' '}
+          for today&apos;s live status.
         </div>
       </div>
     )

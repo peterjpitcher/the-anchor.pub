@@ -76,7 +76,7 @@ export const organicSearchClusters: Record<OrganicSearchClusterKey, OrganicSearc
         anchor: 'Heathrow layover dining guide'
       },
       {
-        href: '/sunday-lunch',
+        href: '/sunday-roast',
         label: 'Sunday lunch',
         description: 'Traditional roast dinners near Heathrow and Staines.',
         anchor: 'Sunday roast near Heathrow'

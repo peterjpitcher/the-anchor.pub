@@ -198,7 +198,7 @@ export default function FathersDayPage() {
               <p className="mt-3 text-sm text-anchor-cream-text/70 leading-relaxed">
                 Planning the day? Take a look at our{' '}
                 <Link
-                  href="/sunday-lunch"
+                  href="/sunday-roast"
                   className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted"
                 >
                   Sunday lunch menu
@@ -359,7 +359,7 @@ export default function FathersDayPage() {
             </div>
             <p className="text-sm text-anchor-cream-text/70">
               Or visit our{' '}
-              <Link href="/sunday-lunch" className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted">
+              <Link href="/sunday-roast" className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted">
                 Sunday lunch page
               </Link>{' '}
               for the full menu.
@@ -412,7 +412,7 @@ export default function FathersDayPage() {
         title="More to explore at The Anchor"
         links={[
           { href: FATHERS_DAY_BOOKING_URL, title: "Book Father's Day lunch", description: 'Reserve online in minutes' },
-          { href: '/sunday-lunch', title: 'Sunday lunch menu', description: 'Full menu and prices' },
+          { href: '/sunday-roast', title: 'Sunday lunch menu', description: 'Full menu and prices' },
           ...commonLinkGroups.dining,
           ...commonLinkGroups.location
         ]}

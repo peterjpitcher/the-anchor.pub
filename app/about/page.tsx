@@ -249,7 +249,7 @@ export default function AboutPage() {
                 </Card>
               </Link>
 
-              <Link href="/sunday-lunch" className="group">
+              <Link href="/sunday-roast" className="group">
                 <Card variant="default" className="h-full transition-all hover:-translate-y-1 hover:shadow-[0_16px_40px_rgba(0,0,0,0.4)]">
                   <CardBody className="text-center">
                     <div className="text-4xl mb-4" aria-hidden="true"></div>

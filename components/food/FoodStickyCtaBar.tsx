@@ -63,7 +63,7 @@ function buildSecondaryCta(): SecondaryCta {
       label: 'Pre-Order Roast',
       analyticsLabel: 'preorder_roast',
       action: 'link',
-      href: '/sunday-lunch#preorder'
+      href: '/sunday-roast#preorder'
     }
   }
 

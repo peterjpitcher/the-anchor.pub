@@ -84,7 +84,7 @@ export function EventsToday() {
           name: 'Sunday Roast',
           time: 'See today\'s kitchen hours',
           description: 'Traditional British roast dinner with all the trimmings',
-          link: '/sunday-lunch'
+          link: '/sunday-roast'
         }
       ],
       1: [ // Monday

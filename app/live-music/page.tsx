@@ -29,7 +29,6 @@ import {
     type EventCategory
 } from '@/lib/api'
 import { getEventWebsiteUrl } from '@/lib/event-url'
-import { staticEvents } from '@/lib/static-events'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { BookTableButton } from '@/components/BookTableButton'
@@ -155,7 +154,7 @@ function MusicEventCards({ events }: { events: Event[] }) {
     if (!events.length) {
         return (
             <div className="bg-anchor-bg-card border border-anchor-gold/15 rounded-xl p-6 text-center">
-                <p className="text-lg font-semibold text-anchor-gold-vivid mb-2">New gigs announced soon</p>
+                <p className="text-lg font-semibold text-anchor-gold-vivid mb-2">Next date to be confirmed</p>
                 <p className="text-anchor-cream-text/70">
                     We’re booking our next acts right now. Call 01753 682707 or check back soon for the latest lineup.
                 </p>
@@ -243,7 +242,7 @@ function MusicEventCards({ events }: { events: Event[] }) {
 export default async function LiveMusicPage() {
     const events = await getLiveMusicEvents()
     const nextEvent = events[0]
-    const nextEventDate = nextEvent ? formatEventDate(nextEvent.startDate) : 'Check our socials'
+    const nextEventDate = nextEvent ? formatEventDate(nextEvent.startDate) : 'Next date to be confirmed'
     const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '8:30pm approx'
 
     const heroDescription = nextEvent
@@ -355,7 +354,7 @@ export default async function LiveMusicPage() {
                         <Card className="card-dark rounded-none border border-anchor-gold/15">
                             <CardBody className="space-y-4">
                                 <p className="text-sm uppercase tracking-wide text-anchor-gold font-semibold">Next live gig</p>
-                                <h2 className="text-3xl font-bold text-anchor-cream-text">{nextEvent ? nextEvent.name : 'Next gig announced soon'}</h2>
+                                <h2 className="text-3xl font-bold text-anchor-cream-text">{nextEvent ? nextEvent.name : 'Next date to be confirmed'}</h2>
                                 <p className="text-anchor-gold-vivid font-semibold">{nextEvent ? `${nextEventDate} · ${nextEventTime}` : 'Check back for the next date'}</p>
                                 <p className="text-anchor-cream-text/70 whitespace-pre-line">
                                     {nextEvent?.description || 'From acoustic sessions to full rock bands, our live music nights are always free entry and full of energy.'}
@@ -440,7 +439,7 @@ export default async function LiveMusicPage() {
                                     >
                                         Book Sunday Roast
                                     </BookTableButton>
-                                    <Link href="/sunday-lunch" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
+                                    <Link href="/sunday-roast" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
                                         Sunday Menu →
                                     </Link>
                                 </div>
@@ -532,7 +531,6 @@ export default async function LiveMusicPage() {
                 </Container>
             </Section>
 
-            <EventSchema event={staticEvents.liveMusic} />
             {events.map(event => (
                 <EventSchema key={`event-schema-${event.id}`} event={event} />
             ))}

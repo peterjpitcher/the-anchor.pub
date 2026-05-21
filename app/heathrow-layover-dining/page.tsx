@@ -11,6 +11,7 @@ import { SpeakableContent } from '@/components/voice/SpeakableContent'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
 import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
+import { HeathrowFoodBestFor } from '@/components/food/HeathrowFoodBestFor'
 
 export const metadata: Metadata = {
   title: 'Heathrow Layover Dining (Near T5) | Eat in 90 Minutes',
@@ -92,6 +93,16 @@ export default function HeathrowLayoverDiningPage() {
           </SpeakableContent>
         </Container>
       </Section>
+      <HeathrowFoodBestFor
+        title="Best For Heathrow Layovers"
+        items={[
+          ['90-minute meal', 'Book ahead, share your flight time and keep the visit controlled.'],
+          ['Post-flight reset', 'Leave the terminal for proper food before hotel check-in.'],
+          ['Family stop', 'A calmer table for children, luggage and a real meal.'],
+          ['Sunday arrival', 'Book Sunday roast from 1pm to 6pm when timings work.'],
+          ['Crew and groups', 'Fast pub food, WiFi and free parking minutes from Terminal 5.'],
+        ]}
+      />
 
       <Section background="dark" spacing="md">
         <Container>
@@ -366,7 +377,7 @@ export default function HeathrowLayoverDiningPage() {
 
       <FoodStickyCtaBar
         ctaContext="heathrow_layover"
-        label="Book Layover Meal"
+        label="Book a Table for Food"
       />
     </>
   )

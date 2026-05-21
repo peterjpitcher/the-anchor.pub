@@ -3,6 +3,7 @@ import { FilteredUpcomingEventsClient } from './FilteredUpcomingEventsClient'
 import { EventSchema } from '@/components/seo/EventSchema'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getEventDateRangeUtc } from '@/lib/event-calendar'
+import { dedupeUpcomingEvents } from '@/lib/event-normalization'
 import type { DisplayEvent } from '@/types/display-event'
 
 interface FilteredUpcomingEventsProps {
@@ -19,8 +20,10 @@ export async function FilteredUpcomingEvents({ events: prefetchedEvents }: Filte
 
     const timeChangeEvents = mapSpecialHoursToEvents(businessHours)
 
-    // Merge time changes and sort chronologically
-    const mergedEvents: DisplayEvent[] = [...events, ...timeChangeEvents].sort((a, b) => {
+    const uniqueHostedEvents = dedupeUpcomingEvents(events)
+
+    // Merge venue notices and hosted events, then sort chronologically.
+    const mergedEvents: DisplayEvent[] = [...uniqueHostedEvents, ...timeChangeEvents].sort((a, b) => {
       return getEventDateRangeUtc(a).start.getTime() - getEventDateRangeUtc(b).start.getTime()
     })
 

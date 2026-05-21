@@ -71,7 +71,7 @@ Friendly, well-behaved dogs are welcome in the bar and garden areas. We have wat
 
 ## Make Your Booking Easy
 
-1. [Book Sunday lunch](/sunday-lunch) (or call/WhatsApp **+44 1753 682707**) with your party details.
+1. [Book Sunday lunch](/sunday-roast) (or call/WhatsApp **+44 1753 682707**) with your party details.
 2. Tell us if you need high chairs, booster seats, or pram space.
 3. Walk in or book ahead, no pre-order needed. Groups of 10 or more take a **£10 per person deposit** on booking, fully deducted from the bill on the day.
 4. Want a cake or balloons? Drop them off the day before and we’ll set the table.
@@ -80,7 +80,7 @@ Friendly, well-behaved dogs are welcome in the bar and garden areas. We have wat
 
 If you're comparing options before you book, these pages answer the usual family questions:
 
-- [Sunday lunch](/sunday-lunch) for roast options, prices, and serving times.
+- [Sunday lunch](/sunday-roast) for roast options, prices, and serving times.
 - [Family-friendly pub near Heathrow](/family-friendly-pub-heathrow) for facilities, children’s meals, and garden details.
 - [Food menu](/food-menu) for everyday pub food outside Sunday lunch.
 - [Find us](/find-us) for directions, parking, and the quickest route from Heathrow.

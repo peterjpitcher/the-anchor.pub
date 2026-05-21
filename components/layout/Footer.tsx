@@ -49,107 +49,70 @@ const defaultBusinessInfo: BusinessInfo = {
 
 const defaultSections: FooterSection[] = [
   {
-    title: 'Quick Links',
+    title: 'Book & Eat',
+    titleClass: 'text-anchor-gold',
+    items: [
+      { label: 'Book a Table', href: '/book-table' },
+      { label: 'Food Menu', href: '/food-menu' },
+      { label: 'Sunday Roast', href: '/sunday-roast' },
+      { label: 'Stone-Baked Pizza', href: '/pizza-menu' },
+      { label: 'Fish & Chips', href: '/fish-and-chips-heathrow' },
+      { label: 'Drinks Menu', href: '/drinks' },
+      { label: 'Find Us', href: '/find-us' }
+    ]
+  },
+  {
+    title: 'Private Hire',
+    titleClass: 'text-anchor-gold',
+    items: [
+      { label: 'Check Availability', href: '/private-hire#enquiry' },
+      { label: 'Private Hire Overview', href: '/private-hire' },
+      { label: 'Function Room Hire', href: '/function-room-hire' },
+      { label: 'Private Parties', href: '/private-party-venue' },
+      { label: 'Wakes & Memorials', href: '/private-hire/wakes' },
+      { label: 'Christenings', href: '/private-hire/christenings' },
+      { label: 'Corporate Events', href: '/corporate-events' },
+      { label: 'Christmas Parties', href: '/christmas-parties' }
+    ]
+  },
+  {
+    title: 'Hosted Events',
     titleClass: 'text-anchor-gold',
     items: [
       { label: "What's On", href: '/whats-on' },
-      { label: 'Valentine’s Day', href: '/valentines-day' },
-      { label: 'Food Menu', href: '/food-menu' },
-      { label: 'Sunday Roast', href: '/sunday-lunch' },
-      { label: "Mother's Day Lunch", href: '/mothers-day' },
-      { label: 'Drinks Menu', href: '/drinks' },
-      { label: "Manager's Special", href: '/drinks/managers-special' },
-      { label: 'Private Hire & Events', href: '/private-hire' },
+      { label: 'Quiz Night', href: '/quiz-night' },
+      { label: 'Music Bingo', href: '/music-bingo' },
+      { label: 'Cash Bingo', href: '/cash-bingo' },
+      { label: 'Karaoke', href: '/karaoke' },
+      { label: 'Live Music', href: '/live-music' },
+      { label: 'Live Sport Pub', href: '/live-sport' }
+    ]
+  },
+  {
+    title: 'Heathrow & Plane Spotting',
+    titleClass: 'text-anchor-gold',
+    items: [
+      { label: 'Near Heathrow', href: '/near-heathrow' },
+      { label: 'Terminal 5', href: '/near-heathrow/terminal-5' },
+      { label: 'Restaurants Near Heathrow', href: '/restaurants-near-heathrow' },
+      { label: 'Plane Spotting Pub', href: '/plane-spotting-heathrow' },
+      { label: 'Beer Garden', href: '/beer-garden' },
+      { label: 'Pre-Flight Meal', href: '/pre-flight-meal' },
+      { label: 'Layover Dining', href: '/heathrow-layover-dining' },
+      { label: 'Heathrow Parking', href: '/heathrow-parking' }
+    ]
+  },
+  {
+    title: 'More',
+    titleClass: 'text-anchor-gold',
+    items: [
+      { label: 'About The Anchor', href: '/about' },
+      { label: 'The Anchor Facts', href: '/about/the-anchor-facts' },
+      { label: 'Our Pub', href: '/our-pub' },
       { label: 'Our History', href: '/history' },
+      { label: 'Blog', href: '/blog' },
       { label: 'Join Our Team', href: '/join-our-team' },
       { label: 'Sitemap', href: '/sitemap-page' }
-    ]
-  },
-  {
-    title: 'Private Events',
-    titleClass: 'text-anchor-gold',
-    items: [
-      { label: 'Private Hire & Events', href: '/private-hire' },
-      { label: 'Christmas Parties', href: '/christmas-parties' },
-      { label: 'Corporate Christmas Parties', href: '/corporate-christmas-parties' },
-      { label: 'Corporate Events', href: '/corporate-events' },
-      { label: 'Function Room Hire', href: '/function-room-hire' },
-      { label: 'Private Parties', href: '/private-party-venue' },
-      { label: 'Milestone Birthdays', href: '/private-hire/milestone-birthdays' },
-      { label: 'Engagement Parties', href: '/private-hire/engagement-parties' },
-      { label: 'Gender Reveal Parties', href: '/private-hire/gender-reveal' },
-      { label: 'Baby Showers', href: '/private-hire/baby-showers' },
-      { label: 'Christenings', href: '/private-hire/christenings' },
-      { label: 'Wakes & Memorials', href: '/private-hire/wakes' },
-      { label: 'Retirement Parties', href: '/private-hire/retirement-parties' }
-    ]
-  },
-  {
-    title: 'Special Features',
-    titleClass: 'text-anchor-gold',
-    items: [
-      { label: 'Our Pub', href: '/our-pub' },
-      { label: 'Beer Garden & Plane Spotting', href: '/beer-garden' },
-      { label: 'Pub Garden', href: '/beer-garden' },
-      { label: 'Plane Spotting Guide', href: '/plane-spotting-heathrow' },
-      { label: 'Live Sport Pub', href: '/live-sport' },
-      { label: 'Stone-Baked Pizza', href: '/pizza-menu' },
-      { label: 'Fish & Chips', href: '/fish-and-chips-heathrow' },
-      { label: 'Six Nations Rugby', href: '/live-sport/six-nations' },
-      { label: 'World Cup 2026', href: '/live-sport/world-cup' },
-      { label: 'F1 Racing', href: '/live-sport/f1' },
-      { label: 'Boxing Nights', href: '/live-sport/boxing' },
-      { label: 'Pool & Darts', href: '/pool-darts-pub' },
-      { label: 'Dog Friendly Pub', href: '/dog-friendly-pub-heathrow' },
-      { label: 'Family Friendly', href: '/family-friendly-pub-heathrow' },
-      { label: 'Music Bingo & Hosted Nights', href: '/music-bingo' },
-      { label: 'Free Parking', href: '/heathrow-parking' }
-    ]
-  },
-  {
-    title: 'Travel & Services',
-    titleClass: 'text-anchor-gold',
-    items: [
-      { label: 'Heathrow Parking', href: '/heathrow-parking' },
-      { label: 'Coach Parking', href: '/coach-parking-heathrow' },
-      { label: 'Luggage Storage', href: '/luggage-storage-heathrow' },
-      { label: 'Pre-Flight Meal', href: '/pre-flight-meal' },
-      { label: 'Family Dining', href: '/heathrow-family-dining' },
-      { label: 'Layover Dining', href: '/heathrow-layover-dining' },
-      { label: 'Restaurants Near Heathrow', href: '/restaurants-near-heathrow' },
-      { label: 'Pubs in Stanwell', href: '/pubs-in-stanwell' }
-    ]
-  },
-  {
-    title: 'Near Heathrow',
-    titleClass: 'text-anchor-gold',
-    items: [
-      { label: 'All Terminals', href: '/near-heathrow' },
-      { label: 'Terminal 2', href: '/near-heathrow/terminal-2' },
-      { label: 'Terminal 3', href: '/near-heathrow/terminal-3' },
-      { label: 'Terminal 4', href: '/near-heathrow/terminal-4' },
-      { label: 'Terminal 5', href: '/near-heathrow/terminal-5' },
-      { label: 'Plane Spotting Pub', href: '/plane-spotting-heathrow' }
-    ]
-  },
-  {
-    title: 'Areas We Serve',
-    titleClass: 'text-anchor-gold',
-    items: [
-      { label: 'Ashford', href: '/ashford-pub' },
-      { label: 'Bedfont', href: '/bedfont-pub' },
-      { label: 'Colnbrook', href: '/colnbrook-pub' },
-      { label: 'Egham', href: '/egham-pub' },
-      { label: 'Feltham', href: '/feltham-pub' },
-      { label: 'Horton', href: '/horton-pub' },
-      { label: 'Heathrow Hotels', href: '/heathrow-hotels-pub' },
-      { label: 'Longford', href: '/longford-pub' },
-      { label: 'M25 Junction 14', href: '/m25-junction-14-pub' },
-      { label: 'Staines', href: '/staines-pub' },
-      { label: 'Stanwell', href: '/stanwell-pub' },
-      { label: 'Sunbury', href: '/sunbury-pub' },
-      { label: 'Windsor', href: '/windsor-pub' },
-      { label: 'Wraysbury', href: '/wraysbury-pub' }
     ]
   },
   {

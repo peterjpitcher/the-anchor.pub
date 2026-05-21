@@ -131,7 +131,7 @@ export default async function BeerGardenPage() {
                   >
                     Book Sunday Roast
                   </BookTableButton>
-                  <Link href="/sunday-lunch" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
+                  <Link href="/sunday-roast" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
                     View roast menu 
                   </Link>
                 </div>

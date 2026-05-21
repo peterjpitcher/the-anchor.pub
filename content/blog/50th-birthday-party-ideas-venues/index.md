@@ -58,7 +58,7 @@ For a certain kind of person (and you probably know whether the birthday person 
 
 No fuss, no speeches unless someone insists, just an exceptional meal with the people who matter most. This works particularly well when the guest list is tight, close family and lifelong friends rather than the full address book.
 
-At The Anchor, a [Sunday roast celebration](/sunday-lunch) starts from £19.99 per person, with options including slow-cooked lamb shank (£23.99), crispy pork belly (£21.99), and a beetroot and butternut squash wellington for vegetarians (£19.99). Walk in or book ahead, no pre-order needed, served 1pm-6pm. Groups of 10 or more take a £10 per person deposit, fully deducted from the final bill on the day.
+At The Anchor, a [Sunday roast celebration](/sunday-roast) starts from £19.99 per person, with options including slow-cooked lamb shank (£23.99), crispy pork belly (£21.99), and a beetroot and butternut squash wellington for vegetarians (£19.99). Walk in or book ahead, no pre-order needed, served 1pm-6pm. Groups of 10 or more take a £10 per person deposit, fully deducted from the final bill on the day.
 
 ### The beer garden party
 
@@ -253,7 +253,7 @@ The best venue depends on your group size, budget, and style. Airport hotels sui
 
 **Ready to plan your 50th birthday celebration?** Use our [milestone birthday calculator](/private-hire/milestone-birthdays) to get an instant estimate based on your guest numbers and preferences. Or call us on 01753 682707 to talk through your plans, we'll help you put together something that fits your budget and makes the birthday person feel properly celebrated.
 
-You can also explore our [private hire options](/private-hire), [Sunday lunch menu](/sunday-lunch), and [full food menu](/food-menu) to start shaping your ideas.
+You can also explore our [private hire options](/private-hire), [Sunday lunch menu](/sunday-roast), and [full food menu](/food-menu) to start shaping your ideas.
 
 **The Anchor**
 Horton Road, Stanwell Moor, Surrey, TW19 6AQ

@@ -122,6 +122,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Core pages, original launch
     { path: '', lastModified: DATES.apr2026 },
     { path: '/about', lastModified: DATES.launch },
+    { path: '/about/the-anchor-facts', lastModified: DATES.may2026Late },
     { path: '/history', lastModified: DATES.may2026Late },
     { path: '/blog', lastModified: DATES.apr2026 },
     { path: '/blog/tags', lastModified: DATES.seoOverhaul },
@@ -142,7 +143,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { path: '/boxing-day', lastModified: DATES.seoOverhaul },
     { path: '/bonfire-night', lastModified: DATES.seoOverhaul },
     { path: '/bank-holiday-weekends', lastModified: DATES.seoOverhaul },
-    { path: '/sunday-lunch', lastModified: DATES.apr2026 },
+    { path: '/sunday-roast', lastModified: DATES.apr2026 },
     { path: '/pizza-menu', lastModified: DATES.seoOverhaul },
     { path: '/fish-and-chips-heathrow', lastModified: DATES.seoOverhaul },
     { path: '/drinks', lastModified: DATES.apr2026 },
@@ -253,7 +254,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     'plane-spotting-heathrow-guide',
     'best-places-to-eat-near-heathrow',
     'best-pub-food-near-heathrow',
-    // Cannibalises /sunday-lunch, 301 redirected via additional-redirects.json.
+    // Cannibalises /sunday-roast, 301 redirected via additional-redirects.json.
     'sunday-lunch-at-the-anchor-is-back-pre-order-now',
     'pub-jobs-heathrow',
   ])

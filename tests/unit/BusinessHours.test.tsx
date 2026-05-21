@@ -78,8 +78,9 @@ describe('BusinessHours', () => {
     it('should render useful fallback copy when loading', () => {
       mockContextValue.loading = true
       render(<BusinessHours />)
-      expect(screen.getByText(/Opening hours are loading/i)).toBeInTheDocument()
-      expect(screen.getByText(/01753 682707/)).toBeInTheDocument()
+      expect(screen.getByText(/Opening hours/i)).toBeInTheDocument()
+      expect(screen.getByText(/Bar hours: Tuesday to Thursday 4pm-11pm/i)).toBeInTheDocument()
+      expect(screen.getByText(/Kitchen hours: Tuesday to Friday 4pm-9pm/i)).toBeInTheDocument()
     })
 
     it('should render error fallback with phone number when error', () => {

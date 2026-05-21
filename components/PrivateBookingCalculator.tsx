@@ -15,6 +15,7 @@ import {
 interface PrivateBookingCalculatorProps {
     eventType?: string
     compact?: boolean
+    quoteStartedOnMount?: boolean
 }
 
 const EVENT_TYPE_OPTIONS = [
@@ -27,7 +28,7 @@ const EVENT_TYPE_OPTIONS = [
     'Other'
 ]
 
-export function PrivateBookingCalculator({ eventType, compact = false }: PrivateBookingCalculatorProps) {
+export function PrivateBookingCalculator({ eventType, compact = false, quoteStartedOnMount = false }: PrivateBookingCalculatorProps) {
     const [config, setConfig] = useState<PrivateBookingConfig | null>(null)
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
@@ -41,7 +42,7 @@ export function PrivateBookingCalculator({ eventType, compact = false }: Private
     const [hours, setHours] = useState<number>(4)
     const [selectedPackages, setSelectedPackages] = useState<Array<{ id: string, quantity: number }>>([])
     const [selectedVendorIds, setSelectedVendorIds] = useState<Set<string>>(new Set())
-    const quoteStartedRef = useRef(false)
+    const quoteStartedRef = useRef(quoteStartedOnMount)
 
     // UI State
     const [isAddingItem, setIsAddingItem] = useState(false)

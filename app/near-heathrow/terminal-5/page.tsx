@@ -19,6 +19,7 @@ import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
 import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
+import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 
 export const metadata: Metadata = {
   title: 'Pub Near Heathrow Terminal 5 | Food & Free Parking',
@@ -47,6 +48,10 @@ export default function Terminal5Page() {
           { name: 'Near Heathrow', url: '/near-heathrow' },
           { name: 'Terminal 5', url: '/near-heathrow/terminal-5' }
         ]}
+      />
+      <FoodStickyCtaBar
+        ctaContext="heathrow_layover"
+        label="Book a Table for Food"
       />
       {/* Hero Section */}
       <HeroWrapper
@@ -142,7 +147,7 @@ export default function Terminal5Page() {
                 >
                   Book Roast Table
                 </BookTableButton>
-                <Link href="/sunday-lunch" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
+                <Link href="/sunday-roast" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
                   Sunday roast 7 minutes from Terminal 5 →
                 </Link>
               </div>

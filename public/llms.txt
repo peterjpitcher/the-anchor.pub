@@ -67,7 +67,7 @@
 ## Pages
 - [Home](https://www.the-anchor.pub/)
 - [Food Menu](https://www.the-anchor.pub/food-menu)
-- [Sunday Lunch](https://www.the-anchor.pub/sunday-lunch)
+- [Sunday Roast](https://www.the-anchor.pub/sunday-roast)
 - [Drinks](https://www.the-anchor.pub/drinks)
 - [Book a Table](https://www.the-anchor.pub/book-table)
 - [What's On](https://www.the-anchor.pub/whats-on)

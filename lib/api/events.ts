@@ -3,6 +3,7 @@
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { logError } from '@/lib/error-handling'
 import { formatEventLocalDate, formatEventLocalTime } from '@/lib/event-calendar'
+import { dedupeUpcomingEvents } from '@/lib/event-normalization'
 
 export interface Event {
   '@type': 'Event'
@@ -530,10 +531,7 @@ export async function getUpcomingEvents(limit: number = 10, daysLookahead?: numb
     const events = response.events || []
     const nowMs = Date.now()
 
-    return removeRetiredEvents(events).filter(event => {
-      const startMs = Date.parse(event.startDate)
-      return Number.isFinite(startMs) && startMs > nowMs
-    })
+    return dedupeUpcomingEvents(removeRetiredEvents(events), nowMs)
   } catch (error) {
     logError('api-upcoming-events', error, { limit, daysLookahead })
     // Return empty array on failure, UI components should handle the empty state.
@@ -616,10 +614,7 @@ export async function getUpcomingEventsByCategory(
     const events = response.events || []
     const nowMs = Date.now()
 
-    return removeRetiredEvents(events).filter(event => {
-      const startMs = Date.parse(event.startDate)
-      return Number.isFinite(startMs) && startMs > nowMs
-    })
+    return dedupeUpcomingEvents(removeRetiredEvents(events), nowMs)
   } catch (error) {
     logError('api-upcoming-events-by-category', error, { categoryId, limit, daysLookahead })
     return []

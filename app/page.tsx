@@ -15,6 +15,7 @@ import { PhoneLink } from '@/components/PhoneLink'
 import { BookTableButton } from '@/components/BookTableButton'
 import { HeroBadge } from '@/components/HeroBadge'
 import { DirectionsButton } from '@/components/DirectionsButton'
+import { StaticHoursSummary } from '@/components/StaticHoursSummary'
 import { DeferredHomepageTrackers } from '@/components/tracking/DeferredHomepageTrackers'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { SpeakableSchema } from '@/components/seo/SpeakableSchema'
@@ -51,14 +52,14 @@ import {
 export const revalidate = 60 * 60 // 1 hour during launch fortnight
 
 export const metadata: Metadata = {
-  title: 'Pub Near Heathrow T5 | Food, Sunday Roast & Events',
-  description: 'Traditional pub 7 minutes from Heathrow Terminal 5 with free parking, pub food, Sunday roast, hosted events and private hire. Book a table at The Anchor.',
+  title: 'Pub Food in Stanwell Moor | 7 Mins from Heathrow T5',
+  description: 'Proper pub food in Stanwell Moor, 7 minutes from Heathrow Terminal 5. Book a table for pub classics, pizzas, Sunday roasts and free customer parking.',
   alternates: {
     canonical: '/'
   },
   openGraph: {
-    title: 'The Anchor Stanwell Moor | Pub Near Heathrow With Parking',
-    description: 'Traditional pub 7 minutes from Heathrow Terminal 5 with free parking, pub food, Sunday roast, hosted events and private hire.',
+    title: 'The Anchor Stanwell Moor | Pub Food Near Heathrow T5',
+    description: 'Proper pub food in Stanwell Moor, 7 minutes from Heathrow Terminal 5 with free parking, Sunday roast, events and private hire.',
     url: '/',
     siteName: 'The Anchor',
     images: [
@@ -73,8 +74,8 @@ export const metadata: Metadata = {
     type: 'website'
   },
   twitter: getTwitterMetadata({
-    title: 'Pub Near Heathrow T5 | Food, Sunday Roast & Events',
-    description: 'Free parking, pub food, Sunday roast, hosted events and private hire 7 minutes from Heathrow Terminal 5.',
+    title: 'Pub Food in Stanwell Moor | 7 Mins from Heathrow T5',
+    description: 'Book a table for pub classics, stone-baked pizzas, Sunday roasts and relaxed local dining with free parking.',
     images: [DEFAULT_OG_IMAGE]
   })
 }
@@ -124,7 +125,7 @@ export default function HomePage() {
         titleClassName="text-5xl sm:text-5xl md:text-6xl lg:text-7xl"
         title={
           <span className="drop-shadow-[0_2px_6px_rgba(0,0,0,0.65)]">
-            Proper pub food, Sunday roasts and events near Heathrow
+            Proper Pub Food in Stanwell Moor, 7 Minutes from Heathrow T5
           </span>
         }
         className="hero-focal"
@@ -159,7 +160,7 @@ export default function HomePage() {
               The Anchor, Stanwell Moor
             </p>
             <p className="text-base sm:text-lg text-white/90 font-medium drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)] max-w-xl mx-auto text-center px-4">
-              Seven minutes from Terminal 5 with free parking, traditional pub food, hosted nights and private hire.
+              Book a table for pub classics, stone-baked pizzas, Sunday roasts and relaxed local dining with free parking.
             </p>
 
             <div className="flex justify-center px-2 sm:px-0 w-full">
@@ -184,11 +185,25 @@ export default function HomePage() {
           />
         }
         secondaryCta={
-          <Link href={SUNDAY_ROAST.bookingHref} className="w-full">
+          <Link href="/food-menu" className="w-full">
             <Button variant="secondary" size="lg" fullWidth>
-              Book Sunday Roast
+              View Food Menu
             </Button>
           </Link>
+        }
+        secondaryInfo={
+          <div className="flex flex-col items-center gap-3">
+            <Link href={SUNDAY_ROAST.menuHref} className="text-sm font-semibold text-white underline decoration-white/40 underline-offset-4 hover:text-anchor-gold-vivid">
+              Sunday Roast
+            </Link>
+            <div className="flex flex-wrap justify-center gap-2 text-xs font-medium text-white/90">
+              <span className="rounded-full border border-white/25 bg-white/10 px-3 py-1">Free parking</span>
+              <span className="rounded-full border border-white/25 bg-white/10 px-3 py-1">Dog friendly</span>
+              <span className="rounded-full border border-white/25 bg-white/10 px-3 py-1">Beer garden under the flight path</span>
+              <span className="rounded-full border border-white/25 bg-white/10 px-3 py-1">4.6/5 Google rating</span>
+              <span className="rounded-full border border-white/25 bg-white/10 px-3 py-1">7 mins from T5</span>
+            </div>
+          </div>
         }
         showStatusBar={false}
         showBreadcrumbs={false}
@@ -210,8 +225,8 @@ export default function HomePage() {
             <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {[
                 {
-                  title: 'Food today',
-                  copy: 'Pub classics, pizza and drinks minutes from Heathrow.',
+                  title: 'Pub food today',
+                  copy: 'Pub classics, fish and chips, burgers and drinks minutes from Heathrow.',
                   href: '/book-table?source=homepage_path_food&bookingType=food',
                   cta: 'Book a Table'
                 },
@@ -240,14 +255,6 @@ export default function HomePage() {
                   <p className="mt-4 text-sm font-semibold text-anchor-gold-vivid">{item.cta} →</p>
                 </Link>
               ))}
-            </div>
-            <div className="mt-5 rounded-lg border border-anchor-gold/20 bg-anchor-bg px-5 py-4 text-center">
-              <p className="text-sm text-anchor-cream-text/70">
-                We are hiring experienced bar and kitchen team members for part-time pub jobs near Heathrow.
-                <Link href="/join-our-team" className="ml-2 font-semibold text-anchor-gold-vivid hover:text-anchor-gold-bright">
-                  Join our team
-                </Link>
-              </p>
             </div>
           </div>
         </Container>
@@ -334,7 +341,7 @@ export default function HomePage() {
               <span className="block text-lg font-bold text-anchor-cream-text">Karaoke</span>
               <span className="text-sm text-anchor-body-text">Monthly &middot; Free entry</span>
             </Link>
-            <Link href="/sunday-lunch" className="block p-4 bg-anchor-green rounded-lg text-center hover:bg-anchor-green/90 transition-colors">
+            <Link href="/sunday-roast" className="block p-4 bg-anchor-green rounded-lg text-center hover:bg-anchor-green/90 transition-colors">
               <span className="block text-lg font-bold text-white">Sunday Lunch</span>
               <span className="text-sm text-white/80">{sunday.isLive ? 'From £19 · Walk in or book ahead' : 'Starts 17 May · Book ahead'}</span>
             </Link>
@@ -418,8 +425,7 @@ export default function HomePage() {
                   title: "Opening Hours",
                   subtitle: (
                     <SpeakableContent selector="opening-hours" priority="high">
-                      Live hours shown above<br />
-                      Including kitchen times<br />
+                      Bar and kitchen hours are shown on this page<br />
                       <span className="text-sm sm:text-xs">May vary on holidays</span>
                     </SpeakableContent>
                   )
@@ -467,7 +473,7 @@ export default function HomePage() {
               >
                 Book a Table
               </BookTableButton>
-              <Link href="/sunday-lunch">
+              <Link href="/sunday-roast">
                 <Button variant="secondary" size="lg" className="w-full sm:w-auto bg-white/10 text-white hover:bg-white/20 border border-white/25">
                   {sunday.isLive ? 'Sunday Lunch, from £19' : 'Sunday Roast, starts 17 May'}
                 </Button>
@@ -636,7 +642,7 @@ export default function HomePage() {
                 Take a Look Around
               </Button>
             </Link>
-            <Link href="/sunday-lunch">
+            <Link href="/sunday-roast">
               <Button variant="secondary" size="lg">
                 {sunday.isLive ? 'Book Sunday Lunch, from £19' : 'Book Sunday Roast, starts 17 May'}
               </Button>
@@ -862,6 +868,7 @@ export default function HomePage() {
 
               <div className="card-dark p-4">
                 <h3 className="text-lg font-bold mb-3 text-anchor-gold-vivid">Opening Hours</h3>
+                <StaticHoursSummary compact className="mb-4" />
                 <BusinessHours />
               </div>
             </Grid>

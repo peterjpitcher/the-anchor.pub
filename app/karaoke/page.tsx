@@ -29,7 +29,6 @@ import {
     type EventCategory
 } from '@/lib/api'
 import { getEventWebsiteUrl } from '@/lib/event-url'
-import { staticEvents } from '@/lib/static-events'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { BookTableButton } from '@/components/BookTableButton'
@@ -239,7 +238,7 @@ function KaraokeEventCards({ events }: { events: Event[] }) {
 export default async function KaraokePage() {
     const events = await getKaraokeEvents()
     const nextEvent = events[0]
-    const nextEventDate = nextEvent ? formatEventDate(nextEvent.startDate) : 'Dates announced soon'
+    const nextEventDate = nextEvent ? formatEventDate(nextEvent.startDate) : 'Next date to be confirmed'
     const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '8:00pm approx'
 
     const heroDescription = nextEvent
@@ -327,7 +326,7 @@ export default async function KaraokePage() {
                         <Card className="card-dark rounded-none border border-anchor-gold/15">
                             <CardBody className="space-y-4">
                                 <p className="text-sm uppercase tracking-wide text-anchor-gold font-semibold">Next karaoke night</p>
-                                <h2 className="text-3xl font-bold text-anchor-cream-text">{nextEvent ? nextEvent.name : 'Next karaoke night announced soon'}</h2>
+                                <h2 className="text-3xl font-bold text-anchor-cream-text">{nextEvent ? nextEvent.name : 'Next date to be confirmed'}</h2>
                                 <p className="text-anchor-gold-vivid font-semibold">{nextEvent ? `${nextEventDate} · ${nextEventTime}` : 'Check back for the next date'}</p>
                                 <p className="text-anchor-cream-text/70 whitespace-pre-line">
                                     Join us for free-entry karaoke. Thousands of songs, no cover charge, and a crowd that cheers for everyone.
@@ -537,7 +536,6 @@ export default async function KaraokePage() {
                 </Container>
             </Section>
 
-            <EventSchema event={staticEvents.karaoke} />
             {events.map(event => (
                 <EventSchema key={`event-schema-${event.id}`} event={event} />
             ))}

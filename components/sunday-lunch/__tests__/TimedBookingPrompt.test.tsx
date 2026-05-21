@@ -13,7 +13,7 @@ jest.mock('@/lib/gtm-events', () => ({
 }))
 
 jest.mock('next/navigation', () => ({
-  usePathname: () => '/sunday-lunch',
+  usePathname: () => '/sunday-roast',
   useRouter: () => ({ push: jest.fn() }),
 }))
 

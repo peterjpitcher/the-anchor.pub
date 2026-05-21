@@ -12,6 +12,8 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
 import { getBusinessHours } from '@/lib/api'
 import { generateOpeningHoursSpecification } from '@/lib/schema-utils'
+import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
+import { HeathrowFoodBestFor } from '@/components/food/HeathrowFoodBestFor'
 
 export const metadata: Metadata = {
   title: 'Heathrow Plane Spotting Pub | Beer Garden Views',
@@ -77,6 +79,10 @@ export default async function PlaneSpottingHeathrowPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(planeSpottingSchema) }}
       />
+      <FoodStickyCtaBar
+        ctaContext="heathrow_layover"
+        label="Book a Table for Food"
+      />
 
       <HeroWrapper
         route="/plane-spotting-heathrow"
@@ -101,6 +107,16 @@ export default async function PlaneSpottingHeathrowPage() {
           </div>
         </Container>
       </Section>
+      <HeathrowFoodBestFor
+        title="Best For Plane Spotters"
+        items={[
+          ['Plane spotting day', 'Watch aircraft from the beer garden with food, drinks and shelter nearby.'],
+          ['Lunch between arrivals', 'Book a table and keep your group settled between busy approach windows.'],
+          ['Family meal', 'Pub classics, pizzas and a garden that keeps the visit relaxed.'],
+          ['Sunday roast', 'Served Sundays from 1pm to 6pm, ideal after a morning in the garden.'],
+          ['Aviation meet-up', 'Food, WiFi, free parking and a clear meeting point near Terminal 5.'],
+        ]}
+      />
 
       <Section background="dark" spacing="sm">
         <Container>
@@ -119,7 +135,7 @@ export default async function PlaneSpottingHeathrowPage() {
                   >
                     Book Sunday Roast
                   </BookTableButton>
-                  <Link href="/sunday-lunch" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
+                  <Link href="/sunday-roast" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
                     Sunday roast menu →
                   </Link>
                 </div>

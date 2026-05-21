@@ -9,9 +9,10 @@ import { trackFilterResults } from '@/lib/gtm-events/menu-events'
 
 interface FilteredMenuRendererProps {
   menuData: MenuData
+  showBookingCtas?: boolean
 }
 
-export function FilteredMenuRenderer({ menuData }: FilteredMenuRendererProps) {
+export function FilteredMenuRenderer({ menuData, showBookingCtas = false }: FilteredMenuRendererProps) {
   const [isFilterOpen, setIsFilterOpen] = useState(false)
 
   const {
@@ -109,7 +110,7 @@ export function FilteredMenuRenderer({ menuData }: FilteredMenuRendererProps) {
           </div>
         </div>
       ) : (
-        <MenuRenderer menuData={filteredMenuData} eyebrow="Food menu" />
+        <MenuRenderer menuData={filteredMenuData} eyebrow="Food menu" showBookingCtas={showBookingCtas} />
       )}
     </>
   )

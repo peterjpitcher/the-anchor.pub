@@ -82,7 +82,8 @@ export const BookTableButton = forwardRef<HTMLButtonElement, BookTableButtonProp
         dayOfWeek: new Date().toLocaleDateString('en-GB', { weekday: 'long' }),
         variant: variant ?? undefined,
         destination: bookingUrl,
-        originPath: pathname
+        originPath: pathname,
+        cta_text: trackingLabel
       })
 
       // Call custom onClick handler if provided

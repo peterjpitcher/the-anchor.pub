@@ -51,7 +51,7 @@ export async function generateMetadata(): Promise<Metadata> {
       images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg']
     }),
     alternates: {
-      canonical: '/sunday-lunch'
+      canonical: '/sunday-roast'
     }
   }
 }
@@ -111,7 +111,7 @@ function buildMenuJsonLd(menuItems: MenuPageItem[]) {
     '@type': 'Menu',
     name: 'The Anchor Sunday Roast Menu',
     description: 'Sunday roast menu at The Anchor, Stanwell Moor.',
-    url: `${WEBSITE_ORIGIN}/sunday-lunch`,
+    url: `${WEBSITE_ORIGIN}/sunday-roast`,
     isPartOf: { '@id': `${WEBSITE_ORIGIN}/#business` },
     hasMenuSection: [
       {
@@ -149,12 +149,12 @@ export default async function SundayLunchPage() {
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', url: '/' },
-          { name: 'Sunday Roast', url: '/sunday-lunch' }
+          { name: 'Sunday Roast', url: '/sunday-roast' }
         ]}
       />
 
       <HeroWrapper
-        route="/sunday-lunch"
+        route="/sunday-roast"
         title="Sunday Roast Near Heathrow"
         description="Sunday roast is served 1pm-6pm. Current dishes and prices are listed below."
         eyebrow="The Anchor, Stanwell Moor"
@@ -170,7 +170,7 @@ export default async function SundayLunchPage() {
         }}
         primaryCta={
           <BookTableButton
-            source="sunday_lunch_hero"
+            source="sunday_roast_hero"
             context="sunday_roast"
             variant="primary"
             size="lg"
@@ -186,7 +186,7 @@ export default async function SundayLunchPage() {
         secondaryCta={
           <PhoneButton
             phone="01753 682707"
-            source="sunday_lunch_hero"
+            source="sunday_roast_hero"
             variant="outline"
             size="lg"
             className="w-full sm:w-auto !bg-white/10 !text-white !border-white/30 hover:!bg-white/20"
@@ -248,7 +248,7 @@ export default async function SundayLunchPage() {
                 The current Sunday roast menu is temporarily unavailable. Please call{' '}
                 <PhoneLink
                   phone="01753 682707"
-                  source="sunday_lunch_menu_unavailable"
+                  source="sunday_roast_menu_unavailable"
                   className="font-semibold underline"
                   showIcon={false}
                 >
@@ -276,7 +276,7 @@ export default async function SundayLunchPage() {
               <li>&bull; Plans changed? A quick call to{' '}
                 <PhoneLink
                   phone="01753 682707"
-                  source="sunday_lunch_inline"
+                  source="sunday_roast_inline"
                   className="font-semibold underline"
                   showIcon={false}
                 >
@@ -337,7 +337,7 @@ export default async function SundayLunchPage() {
               </div>
               <div className="mt-6 flex justify-center">
                 <BookTableButton
-                  source="sunday_lunch_carvery"
+                  source="sunday_roast_carvery"
                   context="sunday_roast"
                   variant="primary"
                   size="md"
@@ -413,7 +413,7 @@ export default async function SundayLunchPage() {
 
       <OrganicSearchClusterLinks
         cluster="heathrowDining"
-        currentPath="/sunday-lunch"
+        currentPath="/sunday-roast"
         title="More food near Heathrow"
         intro="Compare the restaurant guide, live menu and table booking page before planning your Sunday visit."
       />
@@ -434,7 +434,7 @@ export default async function SundayLunchPage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <BookTableButton
-                source="sunday_lunch_final_cta"
+                source="sunday_roast_final_cta"
                 context="sunday_roast"
                 variant="secondary"
                 size="lg"
@@ -447,7 +447,7 @@ export default async function SundayLunchPage() {
               </BookTableButton>
               <PhoneButton
                 phone="01753 682707"
-                source="sunday_lunch_final_cta"
+                source="sunday_roast_final_cta"
                 variant="outline"
                 size="lg"
                 className="!bg-transparent !text-white !border-white/40 hover:!bg-white/10"

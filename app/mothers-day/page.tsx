@@ -371,7 +371,7 @@ export default function MothersDayPage() {
                   <p className="mt-3 text-sm text-anchor-cream-text/70 leading-relaxed">
                     Planning your visit? Take a look at our{' '}
                     <Link
-                      href="/sunday-lunch"
+                      href="/sunday-roast"
                       className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted"
                     >
                       Sunday lunch menu

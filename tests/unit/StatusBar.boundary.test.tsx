@@ -212,8 +212,8 @@ describe('StatusBar Boundary Tests', () => {
 
     render(<StatusBar />)
 
-    expect(screen.getByText('Opening times unavailable')).toBeInTheDocument()
-    expect(screen.getByText("Call 01753 682707 for today's times")).toHaveAttribute('href', 'tel:+441753682707')
+    expect(screen.getByText(/live status unavailable/i)).toBeInTheDocument()
+    expect(screen.getByText(/Kitchen: Tue-Fri 4pm-9pm/i)).toHaveAttribute('href', 'tel:+441753682707')
   })
 
   it('should show useful fallback content when loading and no cached data', () => {
@@ -228,7 +228,7 @@ describe('StatusBar Boundary Tests', () => {
     
     render(<StatusBar />)
 
-    expect(screen.getByText('Opening times loading')).toBeInTheDocument()
-    expect(screen.getByText("Call 01753 682707 for today's times")).toHaveAttribute('href', 'tel:+441753682707')
+    expect(screen.getByText(/Bar: Tue-Thu 4pm-11pm/i)).toBeInTheDocument()
+    expect(screen.getByText(/Kitchen: Tue-Fri 4pm-9pm/i)).toHaveAttribute('href', 'tel:+441753682707')
   })
 })

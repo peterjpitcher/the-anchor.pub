@@ -8,6 +8,11 @@ import { CONTACT } from '@/lib/constants'
 import { formatTime12Hour, getTodayHours, getTomorrowHours, findNextKitchenOpening } from '@/lib/status-boundary-calculator'
 import { KitchenStatus } from '@/lib/api'
 import { useBusinessHoursContext } from '@/components/providers/BusinessHoursProvider'
+import {
+  STATIC_BAR_HOURS_SHORT,
+  STATIC_HOURS_REVIEW_NOTE,
+  STATIC_KITCHEN_HOURS_SHORT
+} from '@/lib/business-hours-fallback'
 
 interface StatusBarProps {
   variant?: 'default' | 'compact' | 'navigation' | 'hero'
@@ -221,11 +226,8 @@ export function StatusBar({
   const mergedLabels = { ...defaultLabels, ...labels }
   
   function renderFallbackStatus(reason: 'loading' | 'unavailable') {
-    const barFallback =
-      reason === 'loading'
-        ? 'Opening times loading'
-        : 'Opening times unavailable'
-    const kitchenFallback = "Call 01753 682707 for today's times"
+    const barFallback = reason === 'loading' ? STATIC_BAR_HOURS_SHORT : `${STATIC_BAR_HOURS_SHORT} (live status unavailable)`
+    const kitchenFallback = STATIC_KITCHEN_HOURS_SHORT
 
     if (variant === 'navigation') {
       return (
@@ -244,6 +246,7 @@ export function StatusBar({
               </PhoneLink>
             </div>
           )}
+          <span className="text-[11px] leading-snug text-white/65">{STATIC_HOURS_REVIEW_NOTE}</span>
         </div>
       )
     }
@@ -268,6 +271,7 @@ export function StatusBar({
               </PhoneLink>
             </div>
           )}
+          <span className="text-[11px] leading-tight text-white/70">{STATIC_HOURS_REVIEW_NOTE}</span>
         </div>
       </div>
     )

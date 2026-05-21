@@ -18,6 +18,7 @@ import { PARKING } from '@/lib/constants'
 import { DEFAULT_NEAR_HEATHROW_IMAGE } from '@/lib/image-fallbacks'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
+import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 
 export const metadata: Metadata = {
   title: 'Pub Near Heathrow Terminal 2 | Food & Free Parking',
@@ -46,6 +47,10 @@ export default function Terminal2Page() {
           { name: 'Near Heathrow', url: '/near-heathrow' },
           { name: 'Terminal 2', url: '/near-heathrow/terminal-2' }
         ]}
+      />
+      <FoodStickyCtaBar
+        ctaContext="heathrow_layover"
+        label="Book a Table for Food"
       />
       
       {/* Hero Section */}
@@ -134,7 +139,7 @@ export default function Terminal2Page() {
                   >
                     Book Roast Table
                   </BookTableButton>
-                  <Link href="/sunday-lunch" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
+                  <Link href="/sunday-roast" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
                     Sunday roast 11 minutes from Terminal 2 →
                   </Link>
                 </div>
@@ -699,7 +704,7 @@ export default function Terminal2Page() {
           },
           {
             text: "Sunday Roast Info",
-            href: "/sunday-lunch",
+            href: "/sunday-roast",
             variant: "white",
             size: "lg"
           },

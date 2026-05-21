@@ -1,5 +1,1 @@
-import { permanentRedirect } from 'next/navigation'
-
-export default function SundayRoastPage() {
-  permanentRedirect('/sunday-lunch')
-}
+export { default, generateMetadata, revalidate } from '../sunday-lunch/page'

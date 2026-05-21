@@ -166,12 +166,12 @@
   },
   {
     "source": "/post/sunday-lunch-at-the-anchor",
-    "destination": "/sunday-lunch",
+    "destination": "/sunday-roast",
     "permanent": true
   },
   {
     "source": "/post/welcoming-back-sunday-lunches",
-    "destination": "/sunday-lunch",
+    "destination": "/sunday-roast",
     "permanent": true
   },
   {

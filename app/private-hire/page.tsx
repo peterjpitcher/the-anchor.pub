@@ -21,6 +21,7 @@ import { CONTACT, BRAND } from '@/lib/constants'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { landmarks, type LandmarkType } from '@/lib/local-seo-data'
 import { PRIVATE_HIRE_CAPACITY, PRIVATE_HIRE_CAPACITY_SUMMARY } from '@/lib/private-hire-capacity'
+import { StaticHoursSummary } from '@/components/StaticHoursSummary'
 
 type LandmarkGroup = {
     title: string
@@ -93,7 +94,8 @@ export default async function PrivateHirePage() {
         "maximumAttendeeCapacity": PRIVATE_HIRE_CAPACITY.spaces.entirePub.standing,
         "amenityFeature": [
             { "@type": "LocationFeatureSpecification", "name": "Free Parking", "value": true },
-            { "@type": "LocationFeatureSpecification", "name": "Wheelchair Accessible", "value": true },
+            { "@type": "LocationFeatureSpecification", "name": "Step-free access to most areas", "value": true },
+            { "@type": "LocationFeatureSpecification", "name": "Accessible toilet", "value": false },
             { "@type": "LocationFeatureSpecification", "name": "Catering", "value": true },
             { "@type": "LocationFeatureSpecification", "name": "Private Dining Room", "value": true },
             { "@type": "LocationFeatureSpecification", "name": "AV Equipment", "value": true },
@@ -138,8 +140,8 @@ export default async function PrivateHirePage() {
             <HeroWrapper
                 showContextStrip={true}
                 route="/private-hire"
-                title="Private Rooms and Party Venue Near Heathrow"
-                description={`Room bookings for 10–50 guests · Larger events by enquiry · Free parking · Buffet packages from ${fromPrice}pp · 7 mins from Heathrow`}
+                title="Private Hire and Function Room in Stanwell Moor, Near Staines and Heathrow"
+                description={`Room bookings for 10 to 50 guests. Larger events by enquiry. Free parking, buffet packages from ${fromPrice}pp, function room, garden and full venue options.`}
 
                 tags={[
                     { label: "7 Mins from Heathrow", variant: "success" },
@@ -148,20 +150,16 @@ export default async function PrivateHirePage() {
                     { label: `From ${fromPrice}pp`, variant: "success" }
                 ]}
                 primaryCta={
-                    <PhoneButton
-                        phone="01753 682707"
-                        source="private_hire_hero_primary"
-                        variant="primary"
-                        size="lg"
-                        className="w-full sm:w-auto"
-                    >
-                        Call to Discuss Your Event
-                    </PhoneButton>
+                    <Link href="/private-hire#enquiry" className="w-full sm:w-auto">
+                        <Button variant="primary" size="lg" className="w-full sm:w-auto">
+                            Check Availability
+                        </Button>
+                    </Link>
                 }
                 secondaryCta={
                     <Link href="/private-hire#enquiry" className="w-full sm:w-auto">
                         <Button variant="secondary" size="lg" className="w-full sm:w-auto">
-                            Enquire Online
+                            Get a Quote
                         </Button>
                     </Link>
                 }
@@ -176,7 +174,18 @@ export default async function PrivateHirePage() {
                 }
             />
 
-            <PrivateBookingSection id="enquiry" eventType="Other" />
+            <PrivateBookingSection
+                id="enquiry"
+                eventType="Other"
+                title="Check Availability and Build a Quote"
+                subtitle="Choose your event type, preferred date, guest count, timing and food options."
+            />
+
+            <section className="bg-anchor-bg border-b border-anchor-gold/15 py-8">
+                <Container size="md">
+                    <StaticHoursSummary compact />
+                </Container>
+            </section>
 
             <section className="section-spacing-lg bg-anchor-bg-card border-b border-anchor-gold/15">
                 <Container>

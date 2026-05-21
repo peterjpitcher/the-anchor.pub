@@ -225,7 +225,7 @@ export default function EasterPage() {
               >
                 Book Easter Sunday Lunch
               </BookTableButton>
-              <Link href="/sunday-lunch" className="w-full sm:w-auto">
+              <Link href="/sunday-roast" className="w-full sm:w-auto">
                 <Button variant="secondary" size="lg" fullWidth className="w-full sm:w-auto">
                   View Sunday lunch menu
                 </Button>
@@ -363,7 +363,7 @@ export default function EasterPage() {
             </div>
             <p className="text-sm text-anchor-cream-text/70">
               Or browse{' '}
-              <Link href="/sunday-lunch" className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted">
+              <Link href="/sunday-roast" className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted">
                 our Sunday roast menu
               </Link>{' '}
               for the full lineup.
@@ -416,7 +416,7 @@ export default function EasterPage() {
         title="More to explore at The Anchor"
         links={[
           { href: EASTER_BOOKING_URL, title: 'Book Easter Sunday lunch', description: 'Reserve online in minutes' },
-          { href: '/sunday-lunch', title: 'Sunday roast near Heathrow', description: 'Full menu, prices and walk-in info' },
+          { href: '/sunday-roast', title: 'Sunday roast near Heathrow', description: 'Full menu, prices and walk-in info' },
           ...commonLinkGroups.dining,
           ...commonLinkGroups.location
         ]}

@@ -7,6 +7,7 @@ import { CONTACT } from '@/lib/constants'
 import { HeroBadge } from '@/components/HeroBadge'
 import { ManagementTableBookingForm } from '@/components/features/TableBooking/ManagementTableBookingForm'
 import { BookTableUpcomingEventsPanel } from '@/components/features/TableBooking/BookTableUpcomingEventsPanel'
+import { StaticHoursSummary } from '@/components/StaticHoursSummary'
 import { LaunchAnnouncement } from '@/components/announcements/LaunchAnnouncement'
 import { Section, Button, Grid, Card, CardBody, SectionHeader } from '@/components/ui'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
@@ -43,10 +44,10 @@ export async function generateMetadata(): Promise<Metadata> {
   const description = `Reserve your table at The Anchor, Stanwell Moor, instant confirmation.${foodPhrase}${sundayPhrase} Dog-friendly, free parking, 7 mins from T5.`
 
   return {
-    title: 'Book a Table at The Anchor | Pub Near Heathrow T5',
+    title: 'Book a Table for Pub Food | The Anchor Stanwell Moor',
     description,
     openGraph: {
-      title: 'Book a Table at The Anchor | Pub Near Heathrow T5',
+        title: 'Book a Table for Pub Food | The Anchor Stanwell Moor',
       description,
       images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }]
     },
@@ -157,8 +158,8 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
       <HeroWrapper
         showContextStrip={true}
         route="/book-table"
-        title="Book a Table at The Anchor"
-        description="Reserve your table online with mobile confirmation."
+        title="Book a Table for Pub Food at The Anchor, Stanwell Moor"
+        description="Reserve for pub classics, stone-baked pizzas, Sunday roast, drinks or a relaxed meal seven minutes from Heathrow T5."
         variant="default"
         enableSmartCtas={true}
         statusBarPosition="above"
@@ -230,7 +231,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
 
           <aside className="order-2 space-y-4 lg:space-y-6">
             <div className="card-dark p-4 lg:hidden">
-              <h2 className="text-lg font-semibold text-anchor-gold-vivid">Need help with your booking?</h2>
+              <h2 className="text-lg font-semibold text-anchor-gold-vivid">Need help with your food booking?</h2>
               <p className="mt-2 text-sm text-anchor-cream-text/70">
                 If you need a larger table, can't find your preferred time, or want a quick answer, call us directly.
               </p>
@@ -243,13 +244,15 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
                 >
                   Call 01753 682707
                 </PhoneButton>
-                <Link href="/whats-on" className="block">
+                <Link href="/food-menu" className="block">
                   <Button variant="outline" className="w-full">
-                    See upcoming events
+                    View food menu
                   </Button>
                 </Link>
               </div>
             </div>
+
+            <StaticHoursSummary compact />
 
             <div className="hidden card-dark p-5 lg:block">
               <h3 className="text-base font-semibold text-anchor-gold-vivid mb-3">Why The Anchor?</h3>
@@ -292,9 +295,6 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
               </ul>
             </div>
 
-            <div className="hidden lg:block">
-              <BookTableUpcomingEventsPanel />
-            </div>
           </aside>
         </div>
       </Section>
@@ -339,7 +339,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
               <p className="text-anchor-cream-text/70 text-sm mb-4">
                 Sunday lunch has a dedicated page. {sundayMenu.menuData ? 'Current Sunday dishes are listed there.' : 'Call us for the current Sunday menu while the online dish list is unavailable.'}
               </p>
-              <Link href="/sunday-lunch" className="text-anchor-gold-vivid font-semibold text-sm hover:underline">
+              <Link href="/sunday-roast" className="text-anchor-gold-vivid font-semibold text-sm hover:underline">
                 About Sunday roast &rarr;
               </Link>
             </CardBody>
@@ -392,6 +392,17 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
             See the full food menu &rarr;
           </Link>
         </p>
+      </Section>
+
+      <Section spacing="md" container containerSize="lg" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+        <SectionHeader
+          title="Events are a bonus, food booking comes first"
+          subtitle="If you are booking around quiz, bingo or live music, reserve food early and then choose your event."
+          align="center"
+        />
+        <div className="mx-auto max-w-3xl">
+          <BookTableUpcomingEventsPanel />
+        </div>
       </Section>
 
       <OrganicSearchClusterLinks

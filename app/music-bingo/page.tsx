@@ -29,7 +29,6 @@ import {
   type EventCategory
 } from '@/lib/api'
 import { getEventWebsiteUrl } from '@/lib/event-url'
-import { staticEvents } from '@/lib/static-events'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
@@ -262,7 +261,7 @@ function MusicBingoEventCards({ events }: { events: Event[] }) {
 export default async function MusicBingoPage() {
   const events = await getMusicBingoEvents()
   const nextEvent = events[0]
-  const nextEventDate = nextEvent ? formatEventDate(nextEvent.startDate) : 'Next date announced soon'
+  const nextEventDate = nextEvent ? formatEventDate(nextEvent.startDate) : 'Next date to be confirmed'
   const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '7:30pm'
   const doorTime = nextEvent ? formatDoorTime(nextEvent.doorTime) ?? '6:30pm' : '6:30pm'
   const entryLabel = nextEvent ? getEntryLabel(nextEvent) : '£3 entry'
@@ -347,7 +346,7 @@ export default async function MusicBingoPage() {
               <CardBody className="space-y-4">
                 <p className="text-sm font-semibold uppercase tracking-wide text-anchor-gold">Next Music Bingo</p>
                 <h2 className="text-3xl font-bold text-anchor-cream-text">
-                  {nextEvent ? nextEvent.name : 'Next Music Bingo announced soon'}
+                  {nextEvent ? nextEvent.name : 'Next date to be confirmed'}
                 </h2>
                 <p className="font-semibold text-anchor-gold-vivid">
                   {nextEvent ? `${nextEventDate} - ${nextEventTime}` : 'Check back for the next date'}
@@ -426,7 +425,7 @@ export default async function MusicBingoPage() {
                   >
                     Book Sunday Roast
                   </BookTableButton>
-                  <Link href="/sunday-lunch" className="text-sm font-semibold text-anchor-gold transition hover:text-anchor-green">
+                  <Link href="/sunday-roast" className="text-sm font-semibold text-anchor-gold transition hover:text-anchor-green">
                     Sunday roast menu {'>'}
                   </Link>
                 </div>
@@ -645,7 +644,6 @@ export default async function MusicBingoPage() {
       </Section>
 
       <JsonLd data={bingoEventSeries} />
-      <EventSchema event={staticEvents.musicBingo} />
       {events.map(event => (
         <EventSchema key={`event-schema-${event.id}`} event={event} />
       ))}

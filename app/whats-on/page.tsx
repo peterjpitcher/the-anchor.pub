@@ -23,6 +23,7 @@ import { seasonalOccasionLinks } from '@/lib/internal-linking-data'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { HeroBadge } from '@/components/HeroBadge'
+import { StaticHoursSummary } from '@/components/StaticHoursSummary'
 
 export const metadata: Metadata = {
   title: "Pub Events Near Heathrow | Quiz, Bingo, Karaoke & Live Music",
@@ -180,16 +181,45 @@ export default async function WhatsOnPage() {
         <Container>
           <SectionHeader
             title="Upcoming Events"
-            subtitle="Live updates from our events calendar"
+            subtitle="Choose a hosted night, check the date and reserve your table."
           />
 
           <SpeakableContent selector="events-list" priority="high">
             <div className="max-w-5xl mx-auto">
-              <Suspense fallback={<div className="text-center py-8 text-anchor-cream-text/70">Upcoming events are loading. Call 01753 682707 if you need today&apos;s listings.</div>}>
+              <Suspense fallback={<div className="text-center py-8 text-anchor-cream-text/70">Call 01753 682707 if you need today&apos;s event listings.</div>}>
                 <FilteredUpcomingEvents events={upcomingEvents} />
               </Suspense>
             </div>
           </SpeakableContent>
+        </Container>
+      </Section>
+
+      <Section background="white" spacing="sm" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+        <Container>
+          <div className="mx-auto grid max-w-5xl gap-4 md:grid-cols-[1.4fr,1fr,1fr]">
+            <div>
+              <h2 className="text-2xl font-bold text-anchor-cream-text">Eat before the event</h2>
+              <p className="mt-2 text-anchor-cream-text/70">
+                Arrive early for pub classics, stone-baked pizzas and sharers before quiz, bingo, karaoke or live music starts.
+              </p>
+            </div>
+            <Link href="/food-menu" className="rounded-none border border-anchor-gold/15 bg-anchor-bg-card p-4 hover:border-anchor-gold/40">
+              <span className="block text-sm font-semibold text-anchor-gold-vivid">View Food Menu</span>
+              <span className="mt-1 block text-sm text-anchor-cream-text/70">Current dishes, prices and dietary filters.</span>
+            </Link>
+            <Link href="/book-table?source=whats_on_eat_before_event" className="rounded-none border border-anchor-gold/15 bg-anchor-bg-card p-4 hover:border-anchor-gold/40">
+              <span className="block text-sm font-semibold text-anchor-gold-vivid">Book a Table</span>
+              <span className="mt-1 block text-sm text-anchor-cream-text/70">Reserve food before your event table.</span>
+            </Link>
+          </div>
+        </Container>
+      </Section>
+
+      <Section background="white" spacing="sm" className="bg-anchor-bg border-b border-anchor-gold/15">
+        <Container>
+          <div className="mx-auto max-w-3xl">
+            <StaticHoursSummary compact />
+          </div>
         </Container>
       </Section>
 

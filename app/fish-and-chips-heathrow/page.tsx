@@ -36,16 +36,16 @@ export async function generateMetadata(): Promise<Metadata> {
     : 'Fish and chips in Staines at The Anchor pub near Heathrow. Current menu with prices and free parking.'
 
   return {
-    title: 'Fish and Chips Staines | Pub Fish & Chips Near Heathrow',
+    title: 'Fish and Chips Staines | Pub Food Near Heathrow',
     description,
     openGraph: {
-      title: 'Fish and Chips Staines | Pub Fish & Chips Near Heathrow',
+      title: 'Fish and Chips Staines | Pub Food Near Heathrow',
       description,
       images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
       type: 'website',
     },
     twitter: getTwitterMetadata({
-      title: 'Fish and Chips Staines | Pub Fish & Chips Near Heathrow',
+      title: 'Fish and Chips Staines | Pub Food Near Heathrow',
       description,
       images: [DEFAULT_PAGE_HEADER_IMAGE]
     }),

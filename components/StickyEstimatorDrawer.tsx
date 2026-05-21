@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { StickyDrawer, StickyDrawerTrigger } from '@/components/ui'
 import { PrivateBookingCalculator } from '@/components/PrivateBookingCalculator'
 import { Button } from '@/components/ui'
-import { trackCtaClick } from '@/lib/gtm-events'
+import { trackCtaClick, trackQuoteToolStarted } from '@/lib/gtm-events'
 
 const OPEN_EVENT = 'open-estimator-drawer'
 
@@ -68,8 +68,12 @@ export function StickyEstimatorDrawer({
       location: 'sticky_trigger',
       destination: 'estimator_drawer'
     })
+    trackQuoteToolStarted({
+      eventType,
+      pageSource: source
+    })
     setOpen(true)
-  }, [source, triggerLabel])
+  }, [eventType, source, triggerLabel])
 
   const handleInlineOpen = useCallback(() => {
     trackCtaClick({
@@ -78,8 +82,12 @@ export function StickyEstimatorDrawer({
       location: 'inline_section',
       destination: 'estimator_drawer'
     })
+    trackQuoteToolStarted({
+      eventType,
+      pageSource: source
+    })
     setOpen(true)
-  }, [source, inlineButtonLabel])
+  }, [eventType, source, inlineButtonLabel])
 
   const handleClose = useCallback(() => {
     setOpen(false)
@@ -127,7 +135,7 @@ export function StickyEstimatorDrawer({
         side="right"
         testId="estimator-drawer"
       >
-        <PrivateBookingCalculator eventType={eventType} compact />
+        <PrivateBookingCalculator eventType={eventType} compact quoteStartedOnMount />
       </StickyDrawer>
     </>
   )

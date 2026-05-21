@@ -121,8 +121,15 @@ export function trackEventBookingStart(eventData: {
   foodIntent?: string
   source?: string
 }) {
+  const common = {
+    funnel: 'hosted_event_booking',
+    source_component: eventData.source,
+    destination: 'event_booking_form'
+  }
+
   pushToDataLayer({
     event: 'event_booking_started',
+    ...common,
     event_id: eventData.eventId,
     event_name: eventData.eventName,
     event_date: eventData.eventDate,
@@ -153,8 +160,15 @@ export function trackEventBookingFunnelStep(eventData: {
   reason?: string | null
   source?: string
 }) {
+  const common = {
+    funnel: 'hosted_event_booking',
+    source_component: eventData.source,
+    destination: 'event_booking_form'
+  }
+
   pushToDataLayer({
     event: 'event_booking_funnel_step',
+    ...common,
     funnel_step: eventData.step,
     event_id: eventData.eventId,
     event_name: eventData.eventName,
@@ -165,6 +179,19 @@ export function trackEventBookingFunnelStep(eventData: {
     blocked_reason: eventData.reason,
     booking_source: eventData.source
   }, { sendToApi: true })
+
+  if (eventData.step === 'submit') {
+    pushToDataLayer({
+      event: 'event_booking_submit',
+      ...common,
+      event_id: eventData.eventId,
+      event_name: eventData.eventName,
+      event_date: eventData.eventDate,
+      party_size: eventData.partySize,
+      food_intent: eventData.foodIntent,
+      booking_source: eventData.source
+    }, { sendToApi: true })
+  }
 }
 
 export function trackEventBookClick(eventData: {
@@ -175,8 +202,11 @@ export function trackEventBookClick(eventData: {
   source?: string
   ctaLabel?: string
 }) {
-  pushToDataLayer({
-    event: 'event_book_click',
+  const payload = {
+    funnel: 'hosted_event_booking',
+    source_component: eventData.source,
+    cta_text: eventData.ctaLabel,
+    destination: 'event_detail_or_booking',
     event_id: eventData.eventId,
     event_name: eventData.eventName,
     event_date: eventData.eventDate,
@@ -184,6 +214,34 @@ export function trackEventBookClick(eventData: {
     cta_label: eventData.ctaLabel,
     value: eventData.eventPrice,
     currency: 'GBP'
+  }
+
+  pushToDataLayer({
+    event: 'event_book_click',
+    ...payload
+  }, { sendToApi: true })
+
+  pushToDataLayer({
+    event: 'event_reserve_click',
+    ...payload
+  }, { sendToApi: true })
+}
+
+export function trackEventCardView(eventData: {
+  eventId: string
+  eventName: string
+  eventDate?: string
+  eventType?: string
+  source?: string
+}) {
+  pushToDataLayer({
+    event: 'event_card_view',
+    funnel: 'hosted_event_booking',
+    source_component: eventData.source,
+    event_id: eventData.eventId,
+    event_name: eventData.eventName,
+    event_date: eventData.eventDate,
+    event_type: eventData.eventType
   }, { sendToApi: true })
 }
 
@@ -201,6 +259,9 @@ export function trackEventBookingComplete(eventData: {
 }) {
   pushToDataLayer({
     event: 'event_booking_completed',
+    funnel: 'hosted_event_booking',
+    source_component: 'event_booking_form',
+    destination: 'event_booking_confirmation',
     event_id: eventData.eventId,
     event_name: eventData.eventName,
     event_slug: eventData.eventSlug,
@@ -301,6 +362,10 @@ export function trackTableBookingClick(data: TableBookingClickInput) {
     bookingDestination.includes('sunday_roast')
 
   const payload = {
+    funnel: 'food_table_booking',
+    source_component: source,
+    cta_text: metadata.cta_text || 'Book a Table',
+    destination: metadata.booking_destination || '/book-table',
     booking_method: 'internal_management_platform',
     booking_source: source,
     ...metadata
@@ -339,6 +404,9 @@ export function trackTableBookingFunnel(data: {
 }) {
   const eventData: GTMEvent = {
     event: 'table_booking_funnel',
+    funnel: 'food_table_booking',
+    source_component: data.source,
+    destination: '/book-table',
     funnel_step: data.step,
     booking_source: data.source,
     device_type: data.deviceType
@@ -358,6 +426,9 @@ export function trackTableBookingFunnel(data: {
   if (data.step === 'start') {
     pushToDataLayer({
       event: 'table_booking_started',
+      funnel: 'food_table_booking',
+      source_component: data.source,
+      destination: '/book-table',
       booking_source: data.source,
       booking_type: data.bookingType,
       party_size: data.partySize,
@@ -368,6 +439,9 @@ export function trackTableBookingFunnel(data: {
     if (data.bookingType === 'sunday_roast') {
       pushToDataLayer({
         event: 'sunday_roast_booking_started',
+        funnel: 'food_table_booking',
+        source_component: data.source,
+        destination: '/book-table',
         booking_source: data.source,
         party_size: data.partySize,
         booking_date: data.bookingDate,
@@ -379,6 +453,9 @@ export function trackTableBookingFunnel(data: {
   if (data.step === 'success') {
     pushToDataLayer({
       event: 'table_booking_completed',
+      funnel: 'food_table_booking',
+      source_component: data.source,
+      destination: '/booking-confirmation',
       booking_source: data.source,
       booking_type: data.bookingType,
       booking_reference: data.bookingReference,
@@ -390,6 +467,9 @@ export function trackTableBookingFunnel(data: {
     if (data.bookingType === 'sunday_roast') {
       pushToDataLayer({
         event: 'sunday_roast_booking_completed',
+        funnel: 'food_table_booking',
+        source_component: data.source,
+        destination: '/booking-confirmation',
         booking_source: data.source,
         booking_reference: data.bookingReference,
         party_size: data.partySize,
@@ -414,11 +494,17 @@ export function trackTableBookingFunnel(data: {
 export function trackMenuView(menuType: 'food' | 'drinks' | 'sunday') {
   pushToDataLayer({
     event: 'view_menu',
+    funnel: menuType === 'drinks' ? 'drinks_browsing' : 'food_table_booking',
+    source_component: `${menuType}_menu_page`,
+    destination: `/${menuType === 'food' ? 'food-menu' : menuType}`,
     menu_type: menuType
   })
 
   pushToDataLayer({
     event: 'menu_view',
+    funnel: menuType === 'drinks' ? 'drinks_browsing' : 'food_table_booking',
+    source_component: `${menuType}_menu_page`,
+    destination: `/${menuType === 'food' ? 'food-menu' : menuType}`,
     menu_type: menuType
   })
 }
@@ -426,6 +512,10 @@ export function trackMenuView(menuType: 'food' | 'drinks' | 'sunday') {
 export function trackPhoneCallClick(data: { phone?: string; source: string }) {
   pushToDataLayer({
     event: 'phone_call_click',
+    funnel: inferFunnelFromSource(data.source),
+    source_component: data.source,
+    cta_text: 'Call',
+    destination: 'tel',
     contact_method: 'phone',
     contact_source: data.source,
     phone: data.phone
@@ -456,9 +546,20 @@ export function trackEmailClick(data: { email: string; source: string; subject?:
 export function trackWhatsAppClick(context: string) {
   pushToDataLayer({
     event: 'whatsapp_click',
+    funnel: inferFunnelFromSource(context),
+    source_component: context,
+    cta_text: 'WhatsApp',
+    destination: 'whatsapp',
     contact_method: 'whatsapp',
     contact_source: context
   })
+}
+
+function inferFunnelFromSource(source?: string): string {
+  const value = String(source || '').toLowerCase()
+  if (value.includes('private')) return 'private_hire_enquiry'
+  if (value.includes('event') || value.includes('quiz') || value.includes('bingo') || value.includes('karaoke') || value.includes('music')) return 'hosted_event_booking'
+  return 'food_table_booking'
 }
 
 // Location/directions tracking
@@ -511,6 +612,22 @@ export function trackFilterChange(data: {
     filter_value: data.value,
     filter_action: data.action ?? 'apply'
   })
+}
+
+export function trackWhatsOnFilterUse(data: {
+  filter: string
+  visibleCount: number
+  totalCount: number
+}) {
+  pushToDataLayer({
+    event: 'whats_on_filter_use',
+    funnel: 'hosted_event_booking',
+    source_component: 'whats_on_filters',
+    filter_type: 'event_type',
+    filter_value: data.filter,
+    visible_count: data.visibleCount,
+    total_count: data.totalCount
+  }, { sendToApi: true })
 }
 
 export function trackSocialClick(data: {
@@ -821,6 +938,10 @@ export function trackPrivateHireEnquirySubmitted(data: {
 }) {
   pushToDataLayer({
     event: 'private_hire_enquiry_submitted',
+    funnel: 'private_hire_enquiry',
+    source_component: data.pageSource,
+    destination: '/private-hire#enquiry',
+    cta_text: 'Submit private hire enquiry',
     enquiry_type: data.enquiryType,
     page_source: data.pageSource,
     party_size: data.guestCount,
@@ -834,6 +955,10 @@ export function trackPrivateHireEnquiryStarted(data: {
 }) {
   pushToDataLayer({
     event: 'private_hire_enquiry_started',
+    funnel: 'private_hire_enquiry',
+    source_component: data.pageSource,
+    destination: '/private-hire#enquiry',
+    cta_text: 'Start private hire enquiry',
     enquiry_type: data.enquiryType,
     page_source: data.pageSource,
     party_size: data.guestCount,
@@ -847,6 +972,10 @@ export function trackQuoteToolStarted(data: {
 }) {
   pushToDataLayer({
     event: 'quote_tool_started',
+    funnel: 'private_hire_enquiry',
+    source_component: data.pageSource || 'private_hire_quote_tool',
+    destination: '/private-hire#enquiry',
+    cta_text: 'Open quote tool',
     enquiry_type: data.eventType,
     party_size: data.guestCount,
     page_source: data.pageSource,
@@ -861,6 +990,10 @@ export function trackQuoteToolCompleted(data: {
 }) {
   pushToDataLayer({
     event: 'quote_tool_completed',
+    funnel: 'private_hire_enquiry',
+    source_component: data.pageSource || 'private_hire_quote_tool',
+    destination: '/private-hire#enquiry',
+    cta_text: 'Check availability',
     enquiry_type: data.eventType,
     party_size: data.guestCount,
     value: data.estimateValue,

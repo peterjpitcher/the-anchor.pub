@@ -63,7 +63,7 @@ const sitemapSections: SitemapSection[] = [
     title: 'Food & Drink',
     links: [
       { label: 'Food Menu', href: '/food-menu' },
-      { label: 'Sunday Lunch', href: '/sunday-lunch' },
+      { label: 'Sunday Lunch', href: '/sunday-roast' },
       { label: 'Stone-Baked Pizza', href: '/pizza-menu' },
       { label: 'Fish & Chips', href: '/fish-and-chips-heathrow' },
       { label: 'Vegetarian Menu', href: '/food-menu/vegetarian' },

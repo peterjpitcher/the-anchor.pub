@@ -58,7 +58,7 @@ For a quick lunch, the burgers and pizzas are your best bet. They come out fast 
 
 For a proper dinner, the steaks and pie selection are worth the trip. Our steak and ale pie in particular is a regular favourite.
 
-On Sundays from 17 May 2026, we do a [traditional roast](/sunday-lunch) served 1pm-6pm, walk in or book ahead once service launches, no pre-order needed. It is the real thing: roast chicken, slow-cooked lamb shank, crispy pork belly, or beetroot and butternut squash wellington, all served with herb and garlic-crusted potatoes, seasonal vegetables, Yorkshire pudding, and proper red wine gravy. Prices start from £19. If you are visiting on a Sunday and want a proper British roast dinner experience, this is where to get it.
+On Sundays from 17 May 2026, we do a [traditional roast](/sunday-roast) served 1pm-6pm, walk in or book ahead once service launches, no pre-order needed. It is the real thing: roast chicken, slow-cooked lamb shank, crispy pork belly, or beetroot and butternut squash wellington, all served with herb and garlic-crusted potatoes, seasonal vegetables, Yorkshire pudding, and proper red wine gravy. Prices start from £19. If you are visiting on a Sunday and want a proper British roast dinner experience, this is where to get it.
 
 Browse our full [food menu](/food-menu) to see current prices and options, including [vegetarian](/food-menu/vegetarian), [vegan](/food-menu/vegan), and [gluten-free](/food-menu/gluten-free) choices.
 

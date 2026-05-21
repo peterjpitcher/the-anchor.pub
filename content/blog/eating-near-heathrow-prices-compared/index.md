@@ -56,7 +56,7 @@ If you are leaving the terminal for a proper sit-down meal, choose dishes that a
 - **Burger and chips:** a strong choice before or after a flight, especially if you want a full meal without airport pricing.
 - **Fish and chips:** the classic pub order, useful if you are showing visitors a proper British meal near Heathrow.
 - **Stone-baked pizza:** good for families, groups, and anyone who wants something easy to share.
-- **Sunday roast:** best for longer waits, Sunday arrivals, or family meals near Heathrow. See the [Sunday lunch page](/sunday-lunch) for current details.
+- **Sunday roast:** best for longer waits, Sunday arrivals, or family meals near Heathrow. See the [Sunday lunch page](/sunday-roast) for current details.
 - **Kids meals:** cheaper than most terminal sit-down restaurants and easier if you have already left the airport by car.
 
 For current dishes and prices, use the [food menu](/food-menu). For the broader where-to-eat overview, use the [restaurants near Heathrow guide](/restaurants-near-heathrow).

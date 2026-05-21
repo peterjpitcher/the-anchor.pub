@@ -65,75 +65,18 @@ const defaultTheme = {
 
 const defaultItems: NavigationItem[] = [
   {
-    label: "What's On",
-    href: '/whats-on',
-    description: 'Events, games, live music and sport nights.',
-    items: [
-      {
-        label: 'Upcoming Events',
-        href: '/whats-on#upcoming-events',
-        description: 'See the next ticketed events and weekly nights.'
-      },
-      {
-        label: "Mother's Day Lunch",
-        href: '/mothers-day',
-        description: 'Family lunch bookings for Mothering Sunday.'
-      },
-      {
-        label: 'Music Bingo (Nikki)',
-        href: '/music-bingo',
-        description: 'Hosted music bingo with food, drinks and prizes.'
-      },
-      {
-        label: 'Quiz Night',
-        href: '/quiz-night',
-        description: 'Pub quiz nights, teams, timings and prizes.'
-      },
-      {
-        label: 'Cash Bingo',
-        href: '/cash-bingo',
-        description: 'Classic bingo sessions with cash prizes.'
-      },
-      {
-        label: 'Karaoke',
-        href: '/karaoke',
-        description: 'Singalong nights, party groups and bar tables.'
-      },
-      {
-        label: 'Live Music',
-        href: '/live-music',
-        description: 'Bands, acoustic sessions and live pub nights.'
-      },
-      {
-        label: 'Live Sport Pub',
-        href: '/live-sport',
-        description: 'Big-screen sport, match days and table bookings.'
-      },
-      {
-        label: 'Six Nations 2026',
-        href: '/live-sport/six-nations',
-        description: 'Rugby fixtures, atmosphere and match-day plans.'
-      },
-      {
-        label: 'World Cup 2026',
-        href: '/live-sport/world-cup',
-        description: 'Football viewing, groups and World Cup fixtures.'
-      }
-    ]
-  },
-  {
-    label: 'Menus',
+    label: 'Food Menu',
     href: '/food-menu',
-    description: 'Food menus, dietary options and table bookings.',
+    description: 'Pub classics, pizzas, Sunday roast and table bookings.',
     items: [
       {
         label: 'Full Food Menu',
         href: '/food-menu',
-        description: 'Current dishes, dietary filters and live menu details.'
+        description: 'Current dishes, prices, dietary filters and menu details.'
       },
       {
         label: 'Sunday Roast',
-        href: '/sunday-lunch',
+        href: '/sunday-roast',
         description: 'Sunday roast details, timings and table bookings.'
       },
       {
@@ -160,45 +103,33 @@ const defaultItems: NavigationItem[] = [
         label: 'Gluten-Free Options',
         href: '/food-menu/gluten-free',
         description: 'Gluten-free options and allergen guidance.'
-      },
-      {
-        label: 'Book a Table',
-        href: '/book-table',
-        description: 'Reserve for lunch, dinner, Sunday roast or a group meal.'
       }
     ]
   },
   {
-    label: 'Drinks',
-    href: '/drinks',
-    description: 'Bar menu, seasonal drinks and manager picks.',
-    items: [
-      {
-        label: 'Drinks Menu',
-        href: '/drinks',
-        description: 'Draught pints, cocktails, spirits, wine and soft drinks.'
-      },
-      {
-        label: "Manager's Special",
-        href: '/drinks/managers-special',
-        description: 'Current bottle of the month, tasting notes and serves.'
-      }
-    ]
+    label: 'Sunday Roast',
+    href: '/sunday-roast',
+    description: 'Book Sunday roast in Stanwell Moor near Heathrow.'
   },
   {
-    label: 'Events & Hire',
+    label: 'Private Hire',
     href: '/private-hire',
-    description: 'Private parties, celebrations and venue hire.',
+    description: 'Parties, wakes, work events and venue hire.',
     items: [
       {
-        label: 'Private Hire & Events',
-        href: '/private-hire',
-        description: 'Overview of spaces, food, drinks and capacity.'
-      },
-      {
-        label: 'Get a Quote / Enquire',
+        label: 'Check Availability',
         href: '/private-hire#enquiry',
         description: 'Tell us your date, guest count and event plans.'
+      },
+      {
+        label: 'Private Hire Overview',
+        href: '/private-hire',
+        description: 'Capacity, food packages, prices and room options.'
+      },
+      {
+        label: 'Function Room Hire',
+        href: '/function-room-hire',
+        description: 'Room hire details, layouts and practical info.'
       },
       {
         label: 'Private Parties',
@@ -206,24 +137,9 @@ const defaultItems: NavigationItem[] = [
         description: 'Birthdays, family parties and relaxed celebrations.'
       },
       {
-        label: 'Milestone Birthdays',
-        href: '/private-hire/milestone-birthdays',
-        description: '30th, 40th, 50th and big birthday gatherings.'
-      },
-      {
-        label: 'Engagement Parties',
-        href: '/private-hire/engagement-parties',
-        description: 'Engagement celebrations with food and bar options.'
-      },
-      {
-        label: 'Gender Reveal Parties',
-        href: '/private-hire/gender-reveal',
-        description: 'Garden-friendly parties with flexible layouts.'
-      },
-      {
-        label: 'Baby Showers',
-        href: '/private-hire/baby-showers',
-        description: 'Daytime showers, buffets and family tables.'
+        label: 'Wakes & Memorials',
+        href: '/private-hire/wakes',
+        description: 'Respectful gatherings with simple catering.'
       },
       {
         label: 'Christenings',
@@ -231,41 +147,58 @@ const defaultItems: NavigationItem[] = [
         description: 'Post-service meals and family receptions.'
       },
       {
-        label: 'Wakes & Memorials',
-        href: '/private-hire/wakes',
-        description: 'Respectful gatherings with simple catering.'
-      },
-      {
-        label: 'Retirement Parties',
-        href: '/private-hire/retirement-parties',
-        description: 'Work send-offs, speeches and drinks packages.'
-      },
-      {
         label: 'Corporate Events',
         href: '/corporate-events',
         description: 'Team meals, away days and work socials.'
       },
       {
-        label: 'Corporate Christmas Parties',
-        href: '/corporate-christmas-parties',
-        description: 'Office Christmas parties near Heathrow.'
-      },
-      {
         label: 'Christmas Parties',
         href: '/christmas-parties',
         description: 'Festive private hire, menus and group bookings.'
-      },
-      {
-        label: 'Function Room Hire',
-        href: '/function-room-hire',
-        description: 'Room hire details, layouts and practical info.'
       }
     ]
   },
   {
-    label: 'Visit Us',
+    label: "What's On",
+    href: '/whats-on',
+    description: 'Quiz nights, bingo, live music and hosted events.',
+    items: [
+      {
+        label: 'Upcoming Events',
+        href: '/whats-on#upcoming-events',
+        description: 'See the next hosted events and weekly nights.'
+      },
+      {
+        label: 'Quiz Night',
+        href: '/quiz-night',
+        description: 'Pub quiz nights, teams, timings and prizes.'
+      },
+      {
+        label: 'Music Bingo',
+        href: '/music-bingo',
+        description: 'Hosted music bingo with food, drinks and prizes.'
+      },
+      {
+        label: 'Cash Bingo',
+        href: '/cash-bingo',
+        description: 'Classic bingo sessions with cash prizes.'
+      },
+      {
+        label: 'Karaoke',
+        href: '/karaoke',
+        description: 'Singalong nights, party groups and bar tables.'
+      },
+      {
+        label: 'Live Music',
+        href: '/live-music',
+        description: 'Bands, acoustic sessions and live pub nights.'
+      }
+    ]
+  },
+  {
+    label: 'Find Us',
     href: '/find-us',
-    description: 'Directions, parking, Heathrow stops and local guides.',
+    description: 'Address, directions and customer parking.',
     items: [
       {
         label: 'Find Us',
@@ -273,54 +206,9 @@ const defaultItems: NavigationItem[] = [
         description: 'Address, map, phone number and travel info.'
       },
       {
-        label: 'Our Pub',
-        href: '/our-pub',
-        description: 'What to expect when you visit The Anchor.'
-      },
-      {
-        label: 'Join Our Team',
-        href: '/join-our-team',
-        description: 'Bar and kitchen jobs near Heathrow.'
-      },
-      {
-        label: 'Beer Garden',
-        href: '/beer-garden',
-        description: 'Outdoor tables under the Heathrow flight path.'
-      },
-      {
-        label: 'Free Parking',
-        href: '/heathrow-parking',
-        description: 'On-site parking for pub guests and bookings.'
-      },
-      {
-        label: 'Dog-Friendly Pub',
-        href: '/dog-friendly-pub-heathrow',
-        description: 'Dogs welcome in the bar and beer garden.'
-      },
-      {
-        label: 'Near Heathrow Overview',
+        label: 'Near Heathrow',
         href: '/near-heathrow',
         description: 'Why we work well for airport stops.'
-      },
-      {
-        label: 'Layover Dining',
-        href: '/heathrow-layover-dining',
-        description: 'A proper pub meal between flights.'
-      },
-      {
-        label: 'Terminal 2',
-        href: '/near-heathrow/terminal-2',
-        description: 'Food, drinks and parking near T2.'
-      },
-      {
-        label: 'Terminal 3',
-        href: '/near-heathrow/terminal-3',
-        description: 'A local pub stop near Terminal 3.'
-      },
-      {
-        label: 'Terminal 4',
-        href: '/near-heathrow/terminal-4',
-        description: 'Directions and dining from Terminal 4.'
       },
       {
         label: 'Terminal 5',
@@ -328,49 +216,64 @@ const defaultItems: NavigationItem[] = [
         description: 'Seven minutes from Terminal 5.'
       },
       {
-        label: 'Heathrow Hotels',
-        href: '/heathrow-hotels-pub',
-        description: 'A pub alternative to hotel restaurants.'
-      },
-      {
-        label: 'M25 Junction 14',
-        href: '/m25-junction-14-pub',
-        description: 'Easy stop-off near the motorway.'
-      },
-      {
         label: 'Restaurants Near Heathrow',
         href: '/restaurants-near-heathrow',
         description: 'Compare nearby dining and pub food.'
-      },
-      {
-        label: 'Plane Spotting Guide',
-        href: '/plane-spotting-heathrow',
-        description: 'Watch aircraft from the garden.'
       }
     ]
   },
   {
-    label: 'Our Story',
-    href: '/about',
+    label: 'More',
+    href: '/near-heathrow',
+    description: 'Heathrow guides, plane spotting, drinks and local info.',
     items: [
       {
-        label: 'About Us',
-        href: '/about',
-        description: 'Meet the team and see what makes us different.'
+        label: 'Heathrow Guide',
+        href: '/near-heathrow',
+        description: 'Airport dining, directions and terminal pages.'
       },
       {
-        label: 'Our History',
-        href: '/history',
-        description: 'A village pub since 1751, from moorland inn to Heathrow landmark.'
+        label: 'Plane Spotting',
+        href: '/plane-spotting-heathrow',
+        description: 'Watch aircraft from the beer garden.'
       },
       {
-        label: 'See Inside',
+        label: 'Parking',
+        href: '/heathrow-parking',
+        description: 'Parking details for pub guests and airport stays.'
+      },
+      {
+        label: 'Drinks',
+        href: '/drinks',
+        description: 'Draught pints, cocktails, spirits, wine and soft drinks.'
+      },
+      {
+        label: 'Dog Friendly',
+        href: '/dog-friendly-pub-heathrow',
+        description: 'Dogs welcome in the bar and beer garden.'
+      },
+      {
+        label: 'Our Pub',
         href: '/our-pub',
         description: 'Photos of the bar, dining room, garden and games area.'
+      },
+      {
+        label: 'Blog',
+        href: '/blog',
+        description: 'Guides, food posts and local recommendations.'
+      },
+      {
+        label: 'Jobs',
+        href: '/join-our-team',
+        description: 'Bar and kitchen jobs near Heathrow.'
+      },
+      {
+        label: 'History',
+        href: '/history',
+        description: 'A village pub since 1751.'
       }
     ]
-  },
-  { label: 'Blog', href: '/blog' }
+  }
 ]
 
 const defaultLogo = {
@@ -396,7 +299,7 @@ const mobilePriorityTasks: Array<{
   },
   {
     label: 'Sunday Roast',
-    href: '/sunday-lunch',
+    href: '/sunday-roast',
     description: 'Sunday roast tables',
     icon: 'calendar'
   },
@@ -415,18 +318,16 @@ const mobilePriorityTasks: Array<{
 ]
 
 const mobileSectionPriority = [
-  'Menus',
-  'Events & Hire',
+  'Food Menu',
+  'Sunday Roast',
+  'Private Hire',
   "What's On",
-  'Drinks',
-  'Visit Us',
-  'Our Story',
-  'Blog'
+  'Find Us',
+  'More'
 ]
 
 const mobileLabelOverrides: Record<string, string> = {
-  Menus: 'Food Menus',
-  'Events & Hire': 'Private Hire',
+  'Food Menu': 'Food Menu',
 }
 
 const toMenuId = (label: string) =>
@@ -441,18 +342,8 @@ export function Navigation({
     external: false,
     variant: 'primary'
   },
-  secondaryCtaButton = {
-    label: 'Book Parking',
-    href: '/heathrow-parking',
-    external: false,
-    variant: 'secondary'
-  },
-  tertiaryCtaButton = {
-    label: 'Christmas 2026',
-    href: '/christmas-parties',
-    external: false,
-    variant: 'secondary'
-  },
+  secondaryCtaButton = null,
+  tertiaryCtaButton = null,
   promoCtaButtons = [],
   theme = defaultTheme,
   sticky = true,
@@ -632,7 +523,7 @@ export function Navigation({
       const dropdownId = toMenuId(item.label)
       const hasItemDescriptions = item.items.some((subItem) => Boolean(subItem.description))
       const hasManyDropdownItems = hasItemDescriptions && item.items.length > 6
-      const alignDropdownRight = item.label === 'Menus' || item.label === 'Events & Hire' || item.label === 'Visit Us'
+      const alignDropdownRight = item.label === 'Private Hire' || item.label === 'Find Us' || item.label === 'More'
 
       return (
         <div

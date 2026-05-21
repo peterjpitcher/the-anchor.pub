@@ -15,7 +15,7 @@ describe('Sunday roast availability copy', () => {
     const content = getSundayRoastContent(now)
 
     expect(content.status).toBe('live')
-    expect(content.availabilityLong).toContain('Sunday roast served sundays, 1pm to 6pm.')
+    expect(content.availabilityLong).toContain('Sunday roast served Sundays, 1pm to 6pm.')
     expect(content.availabilityLong).toContain('Groups of 10 or more')
   })
 })

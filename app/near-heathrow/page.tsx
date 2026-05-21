@@ -18,6 +18,7 @@ import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { PhoneLink } from '@/components/PhoneLink'
 import { CONTACT } from '@/lib/constants'
 import { HeroBadge } from '@/components/HeroBadge'
+import { HeathrowFoodBestFor } from '@/components/food/HeathrowFoodBestFor'
 
 export function generateMetadata(): Metadata {
   const sunday = getSundayRoastContent()
@@ -57,7 +58,7 @@ export default function NearHeathrowPage() {
       />
       <FoodStickyCtaBar
         ctaContext="heathrow_layover"
-        label="Book a Table"
+        label="Book a Table for Food"
       />
       <SpeakableSchema />
       <script
@@ -100,6 +101,7 @@ export default function NearHeathrowPage() {
           </p>
         </Container>
       </section>
+      <HeathrowFoodBestFor />
 
       {/* Food CTA for Travellers */}
       <section className="section-spacing bg-anchor-bg-raised border-b border-anchor-gold/15">
@@ -124,7 +126,7 @@ export default function NearHeathrowPage() {
                   >
                     Book Roast Table
                   </BookTableButton>
-                  <Link href="/sunday-lunch" className="text-sm text-anchor-gold font-semibold hover:text-anchor-gold-light transition">
+                  <Link href="/sunday-roast" className="text-sm text-anchor-gold font-semibold hover:text-anchor-gold-light transition">
                     View roast menu →
                   </Link>
                 </div>

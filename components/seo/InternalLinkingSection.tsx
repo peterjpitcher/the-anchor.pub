@@ -66,7 +66,7 @@ export const commonLinkGroups = {
     { href: '/beer-garden', title: 'Beer Garden', description: 'Outdoor seating area' }
   ],
   dining: [
-    { href: '/sunday-lunch', title: 'Sunday Lunch', description: 'Traditional roast dinners' },
+    { href: '/sunday-roast', title: 'Sunday Lunch', description: 'Traditional roast dinners' },
     { href: '/food-menu#pizza', title: 'Pizza Menu', description: 'Stone-baked pizzas and toppings' },
     { href: '/drinks/managers-special', title: "Manager's Special", description: 'This month\'s featured drink' }
   ]

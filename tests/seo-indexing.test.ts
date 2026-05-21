@@ -247,7 +247,7 @@ describe('middleware redirect lookup (apex/host chain flattening)', () => {
 
   it('returns undefined for paths that should not redirect', () => {
     expect(lookupRedirect('/')).toBeUndefined()
-    expect(lookupRedirect('/sunday-lunch')).toBeUndefined()
+    expect(lookupRedirect('/sunday-roast')).toBeUndefined()
     expect(lookupRedirect('/whats-on')).toBeUndefined()
   })
 

@@ -170,7 +170,7 @@ export default function BankHolidayWeekendsPage() {
                     Book Sunday Lunch
                   </a>
                 </Button>
-                <Link href="/sunday-lunch" className="w-full sm:w-auto">
+                <Link href="/sunday-roast" className="w-full sm:w-auto">
                   <Button variant="secondary" size="lg" fullWidth className="w-full sm:w-auto">
                     View Sunday lunch menu
                   </Button>
@@ -365,7 +365,7 @@ export default function BankHolidayWeekendsPage() {
         title="More to explore at The Anchor"
         links={[
           { href: '/book-table', title: 'Book a Table', description: 'Reserve online in minutes' },
-          { href: '/sunday-lunch', title: 'Sunday Lunch', description: 'Traditional roast dinners' },
+          { href: '/sunday-roast', title: 'Sunday Lunch', description: 'Traditional roast dinners' },
           { href: '/whats-on', title: "What's On", description: 'Events and entertainment' },
           ...commonLinkGroups.location,
         ]}

@@ -589,7 +589,7 @@ export default function HistoryPage(): React.JSX.Element {
                   kitchen turns out honest British food
                 </Link>
                 , and on Sundays we serve{' '}
-                <Link href="/sunday-lunch" className="text-anchor-gold-vivid hover:text-anchor-gold underline underline-offset-4">
+                <Link href="/sunday-roast" className="text-anchor-gold-vivid hover:text-anchor-gold underline underline-offset-4">
                   proper roasts with all the trimmings
                 </Link>
                 . That&apos;s what we&apos;ve been doing since George II was on the

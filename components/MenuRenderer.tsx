@@ -9,6 +9,7 @@ import { ALLERGEN_TYPES } from '@/hooks/useAllergenFilter'
 import { cn } from '@/lib/utils'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { Container } from '@/components/ui'
+import { BookTableButton } from '@/components/BookTableButton'
 
 function extractSchemaPrice(price?: string): string {
   if (!price) return ''
@@ -45,9 +46,10 @@ function normalizePrice(price?: string): {
 interface MenuRendererProps {
   menuData: MenuData
   eyebrow?: string
+  showBookingCtas?: boolean
 }
 
-export function MenuRenderer({ menuData, eyebrow = menuData.title || 'Menu' }: MenuRendererProps) {
+export function MenuRenderer({ menuData, eyebrow = menuData.title || 'Menu', showBookingCtas = false }: MenuRendererProps) {
   const [focusedItem, setFocusedItem] = useState<string | null>(null)
   const menuRef = useRef<HTMLDivElement>(null)
 
@@ -308,6 +310,19 @@ export function MenuRenderer({ menuData, eyebrow = menuData.title || 'Menu' }: M
                   )}
                 </div>
               ))}
+              {showBookingCtas && (
+                <div className="mt-2 flex justify-start">
+                  <BookTableButton
+                    source={`menu_section_${category.id}`}
+                    context="food"
+                    variant="primary"
+                    size="md"
+                    trackingLabel={`Book from ${category.title}`}
+                  >
+                    Book a Table
+                  </BookTableButton>
+                </div>
+              )}
             </div>
           </Container>
         </section>

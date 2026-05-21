@@ -405,7 +405,7 @@ describe('resolveHeroCtas', () => {
     expect(primary.kind).toBe('booking')
     expect(primary.label).toBe('Book Sunday Lunch')
     expect(secondary.kind).toBe('link')
-    expect((secondary as any).href).toBe('/sunday-lunch')
+    expect((secondary as any).href).toBe('/sunday-roast')
   })
 
   it('P3: kitchen open + bookings accepting', () => {

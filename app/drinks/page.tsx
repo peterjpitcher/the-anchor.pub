@@ -227,7 +227,7 @@ export default async function DrinksMenuPage() {
                 Pizza Menu
               </Button>
             </Link>
-            <Link href="/sunday-lunch" className="w-full sm:w-auto">
+            <Link href="/sunday-roast" className="w-full sm:w-auto">
               <Button
                 variant="secondary"
                 size="lg"
@@ -293,7 +293,7 @@ export default async function DrinksMenuPage() {
               Pizza Menu
             </Link>
             <Link
-              href="/sunday-lunch"
+              href="/sunday-roast"
               className="rounded-full bg-anchor-bg-card px-5 py-3 border border-anchor-gold/15 transition-colors hover:border-anchor-gold/30 text-anchor-cream-text"
             >
               Sunday Roast Booking
@@ -598,7 +598,7 @@ export default async function DrinksMenuPage() {
                   Pizza Menu
                 </Button>
               </Link>
-              <Link href="/sunday-lunch" className="w-full sm:w-auto">
+              <Link href="/sunday-roast" className="w-full sm:w-auto">
                 <Button size="lg" variant="secondary" fullWidth className="sm:w-auto bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm">
                   Sunday Roast Info
                 </Button>

@@ -25,7 +25,7 @@ images: []
 
 Finding a proper Sunday roast near Heathrow Airport isn't as easy as you'd think. Airport restaurants don't do them, hotel carveries are hit-and-miss, and you need to know where the locals actually go. We've rounded up the best roast dinner options within 20 minutes of Heathrow for 2026, with real prices, booking info, and what to expect when you get there.
 
-> **Ready to book?** [Book your Sunday roast at The Anchor](/sunday-lunch), from £19.99, served 1pm-6pm. Walk in or book ahead, no pre-order needed. Free parking, 7 mins from T5.
+> **Ready to book?** [Book your Sunday roast at The Anchor](/sunday-roast), from £19.99, served 1pm-6pm. Walk in or book ahead, no pre-order needed. Free parking, 7 mins from T5.
 
 ## Quick Comparison: Sunday Roasts Near Heathrow
 
@@ -79,7 +79,7 @@ Planes come over every 90 seconds or so as you're directly under the Heathrow fl
 
 What sets The Anchor apart from the chain options is that everything is cooked to order. You're not getting slices off a carvery counter that's been sitting under heat lamps. The lamb shank has been braised for hours. The pork belly has proper crackling. It takes a bit more planning because of the pre-order system, but the quality difference is noticeable.
 
-[Book your Sunday roast at The Anchor](/sunday-lunch) or call **01753 682707**. Sunday roast starts Sunday 17 May 2026; from launch, walk-ins are welcome but peak slots fill up quickly, so booking ahead saves a wait.
+[Book your Sunday roast at The Anchor](/sunday-roast) or call **01753 682707**. Sunday roast starts Sunday 17 May 2026; from launch, walk-ins are welcome but peak slots fill up quickly, so booking ahead saves a wait.
 
 ---
 
@@ -190,4 +190,4 @@ From the airport, head south on the M25 and come off at Junction 14. Stanwell Mo
 
 ---
 
-Ready to book your Sunday roast? [Reserve a table at The Anchor](/sunday-lunch) or call **01753 682707**. Sunday roast starts Sunday 17 May 2026, from £19 per person, with free parking, a dog-friendly garden, and just seven minutes from Terminal 5. From launch, walk-ins are welcome, but booking ahead saves a wait at peak times.
+Ready to book your Sunday roast? [Reserve a table at The Anchor](/sunday-roast) or call **01753 682707**. Sunday roast starts Sunday 17 May 2026, from £19 per person, with free parking, a dog-friendly garden, and just seven minutes from Terminal 5. From launch, walk-ins are welcome, but booking ahead saves a wait at peak times.

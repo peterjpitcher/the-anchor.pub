@@ -13,6 +13,8 @@ import { getBusinessHours } from '@/lib/api'
 import { generateKitchenHoursSpecification } from '@/lib/schema-utils'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
+import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
+import { HeathrowFoodBestFor } from '@/components/food/HeathrowFoodBestFor'
 
 export const metadata: Metadata = {
   title: 'Restaurants Near Heathrow Airport | The Anchor, Stanwell Moor',
@@ -118,6 +120,10 @@ export default async function RestaurantsNearHeathrowPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(restaurantSchema) }}
       />
+      <FoodStickyCtaBar
+        ctaContext="heathrow_layover"
+        label="Book a Table for Food"
+      />
       
       {/* Hero Section */}
       <HeroWrapper
@@ -151,6 +157,16 @@ export default async function RestaurantsNearHeathrowPage() {
           </div>
         </Container>
       </section>
+      <HeathrowFoodBestFor
+        title="Best For Food Near Heathrow"
+        items={[
+          ['Pre-flight meal', 'Book a table before departure and avoid terminal queues.'],
+          ['Post-flight meal', 'Meet arrivals somewhere calmer with free customer parking.'],
+          ['Layover dining', 'A proper pub meal when you have time to leave the airport.'],
+          ['Plane spotting day', 'Food and drinks in the beer garden under the flight path.'],
+          ['Sunday roast', 'A proper British roast near Heathrow, served Sundays 1pm to 6pm.'],
+        ]}
+      />
 
       {/* Price Comparison Table */}
       <section className="section-spacing bg-anchor-bg-card border-t border-anchor-gold/15">

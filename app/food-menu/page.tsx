@@ -23,6 +23,7 @@ import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { PhoneLink } from '@/components/PhoneLink'
 import { CONTACT } from '@/lib/constants'
 import { HeroBadge } from '@/components/HeroBadge'
+import { StaticHoursSummary } from '@/components/StaticHoursSummary'
 import type { KitchenStatusData } from '@/components/psychology'
 import {
   getFishAndChipsMenuPageData,
@@ -128,19 +129,19 @@ export async function generateMetadata(): Promise<Metadata> {
   const data = await getFoodMenuPageData()
   const pricePhrase = data?.priceFromLabel ? ` Dishes ${data.priceFromLabel}.` : ''
   const description = data
-    ? `Food near Heathrow Airport — see The Anchor's live pub menu with prices.${pricePhrase} Free parking, 7 mins from Terminal 5.`
+    ? `Pub food menu in Stanwell Moor near Heathrow T5, with live dishes and prices.${pricePhrase} Free parking, Sunday roast and table booking.`
     : 'Food near Heathrow Airport at The Anchor. See the live pub menu with current dishes and prices from the kitchen.'
 
   return {
-    title: 'Food Near Heathrow Airport | Live Pub Menu & Prices',
+      title: 'Pub Food Menu in Stanwell Moor | Near Heathrow T5',
     description,
     openGraph: {
-      title: 'Food Near Heathrow Airport | Pub Menu & Prices | The Anchor',
+      title: 'Pub Food Menu in Stanwell Moor | Near Heathrow T5',
       description,
       images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg'],
     },
     twitter: getTwitterMetadata({
-      title: 'Food Near Heathrow Airport | Pub Menu & Prices | The Anchor',
+      title: 'Pub Food Menu in Stanwell Moor | Near Heathrow T5',
       description,
       images: ['/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg']
     }),
@@ -243,8 +244,8 @@ export default async function FoodMenuPage() {
 
       <HeroWrapper
         route="/food-menu"
-        title="Where to Eat Near Heathrow Airport, Our Menu"
-        description="Current dishes, descriptions and prices from the latest kitchen menu."
+        title="Pub Food Menu in Stanwell Moor, Near Heathrow T5"
+        description="Book a table for pub classics, burgers, fish and chips, stone-baked pizzas, vegetarian options and Sunday roasts in Stanwell Moor."
         variant="default"
         enableSmartCtas={true}
         breadcrumbs={[{ name: 'Food & Drink' }]}
@@ -310,10 +311,10 @@ export default async function FoodMenuPage() {
             <CardBody>
               <SectionHeader
                 title="Live Food Menu at The Anchor"
-                subtitle="Current dishes, descriptions and prices in one place."
+                subtitle="Current dishes, descriptions, prices and booking links in one place."
               />
               <p className="text-anchor-cream-text/70">
-                Looking for food near Heathrow Airport? The menu below is grouped by current kitchen sections and can be filtered by dietary need.
+                The Anchor serves pub food, burgers, fish and chips, stone-baked pizzas, vegetarian options and Sunday roasts in Stanwell Moor, seven minutes from Heathrow Terminal 5 with free customer parking.
               </p>
               <ul className="mt-4 space-y-2 text-anchor-cream-text/70">
                 <li>&bull; {menuData.items.length} current food items listed.</li>
@@ -327,6 +328,17 @@ export default async function FoodMenuPage() {
 
       <div id="menu" className="section-spacing bg-anchor-bg">
         <Container>
+          <div className="mb-8 grid gap-4 md:grid-cols-2">
+            <StaticHoursSummary />
+            <div className="rounded-lg border border-anchor-gold/20 bg-anchor-bg-card p-4">
+              <p className="text-sm font-semibold text-anchor-gold-vivid">Popular for</p>
+              <div className="mt-3 flex flex-wrap gap-2 text-sm text-anchor-cream-text/75">
+                {['Heathrow travellers', 'Plane spotters', 'Local family meals', 'Sunday lunch', 'Small group meals'].map((item) => (
+                  <span key={item} className="rounded-full border border-anchor-gold/20 bg-anchor-bg-raised px-3 py-1">{item}</span>
+                ))}
+              </div>
+            </div>
+          </div>
           <SectionHeader
             title="Full Food Menu & Pub Menu"
             subtitle="Use the dietary filters to tailor the menu to your table."
@@ -334,7 +346,7 @@ export default async function FoodMenuPage() {
             className="mb-10"
           />
           <DietaryMenuNav />
-          <FilteredMenuRenderer menuData={menuDataWithKitchenHours} />
+          <FilteredMenuRenderer menuData={menuDataWithKitchenHours} showBookingCtas />
         </Container>
       </div>
 
@@ -387,8 +399,8 @@ export default async function FoodMenuPage() {
                 Sunday lunch has a dedicated page. Current Sunday dishes and prices are shown there when available online.
               </p>
               <MenuSectionCta
-                label="View Sunday Lunch Menu & Book"
-                href="/sunday-lunch"
+                label="View Sunday Roast Menu & Book"
+                href="/sunday-roast"
                 analyticsLabel="view_roast_menu"
                 location="food_menu_roast_summary"
                 variant="primary"

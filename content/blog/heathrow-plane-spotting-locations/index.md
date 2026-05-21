@@ -54,7 +54,7 @@ The Anchor's 64-seat [beer garden](/beer-garden) in Stanwell Moor sits beneath t
 What makes this different from every other location on this list: you are sitting at a pub table with a pint of Moretti and a plate of stone-baked pizza while a Qatar Airways A350 thunders above you. No thermos, no camping chair, no standing on a pavement.
 
 **Facilities:**
-- Full kitchen serving burgers, fish and chips, pizzas, sharers, and a proper [Sunday roast](/sunday-lunch) (booking required, from £19.99)
+- Full kitchen serving burgers, fish and chips, pizzas, sharers, and a proper [Sunday roast](/sunday-roast) (booking required, from £19.99)
 - Draught lagers, bottled ales, wines, spirits, and soft drinks
 - Free WiFi for Flightradar24 tracking
 - Heated covered areas for year-round spotting

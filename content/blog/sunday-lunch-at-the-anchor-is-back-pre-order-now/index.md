@@ -127,7 +127,7 @@ Our **book-ahead** policy ensures:
 
 **Booking is simple:**
 
-1. **Book online** via [/sunday-lunch](/sunday-lunch) or call the team
+1. **Book online** via [/sunday-roast](/sunday-roast) or call the team
 2. **Let us know your preferred roasts** so the kitchen can plan portions
 3. **Book your time slot** (1pm-6pm Sundays)
 4. **Mention dietary requirements** when booking
@@ -147,7 +147,7 @@ Our **book-ahead** policy ensures:
 **Booking Timeline:**
 - Book any day during the week, or just walk in
 - No Saturday cutoff, book or walk in right up to service
-- Book online at [/sunday-lunch](/sunday-lunch)
+- Book online at [/sunday-roast](/sunday-roast)
 - Group bookings welcome
 
 ### Getting to The Anchor for Sunday Lunch

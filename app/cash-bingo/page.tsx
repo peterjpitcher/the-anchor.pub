@@ -28,7 +28,6 @@ import {
   type EventCategory
 } from '@/lib/api'
 import { getEventWebsiteUrl } from '@/lib/event-url'
-import { staticEvents } from '@/lib/static-events'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { BookTableButton } from '@/components/BookTableButton'
@@ -240,7 +239,7 @@ function BingoEventCards({ events }: { events: Event[] }) {
 export default async function CashBingoPage() {
   const events = await getBingoEvents()
   const nextEvent = events[0]
-  const nextEventDate = nextEvent ? formatEventDate(nextEvent.startDate) : 'Next date announced soon'
+  const nextEventDate = nextEvent ? formatEventDate(nextEvent.startDate) : 'Next date to be confirmed'
   const nextEventTime = nextEvent ? formatEventTime(nextEvent.startDate) : '7:00 pm start'
   const doorTime = nextEvent ? formatDoorTime(nextEvent.doorTime) ?? '6:00 pm' : '6:00 pm'
 
@@ -278,7 +277,7 @@ export default async function CashBingoPage() {
             <Card className="card-dark rounded-none border border-anchor-gold/15">
               <CardBody className="space-y-4">
                 <p className="text-sm uppercase tracking-wide text-anchor-gold font-semibold">Next cash bingo night</p>
-                <h2 className="text-3xl font-bold text-anchor-cream-text">{nextEvent ? nextEvent.name : 'Next cash bingo announced soon'}</h2>
+                <h2 className="text-3xl font-bold text-anchor-cream-text">{nextEvent ? nextEvent.name : 'Next date to be confirmed'}</h2>
                 <p className="text-anchor-gold-vivid font-semibold">{nextEvent ? `${nextEventDate} · ${nextEventTime}` : 'Check back for the next date'}</p>
 	                <p className="text-anchor-cream-text/70 whitespace-pre-line">
 	                  £10 cash book includes all ten bingo games, two breaks and eligibility for instant cash prizes, the rolling snowball bingo bonus (we add £20 and two extra calls every time it rolls over) and the jackpot bingo pot.
@@ -345,7 +344,7 @@ export default async function CashBingoPage() {
                   >
                     Book Sunday Roast
                   </BookTableButton>
-                  <Link href="/sunday-lunch" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
+                  <Link href="/sunday-roast" className="text-sm text-anchor-gold font-semibold hover:text-anchor-green transition">
                     Sunday roast menu 
                   </Link>
                 </div>
@@ -557,7 +556,6 @@ export default async function CashBingoPage() {
       </Section>
 
       <JsonLd data={bingoEventSeries} />
-      <EventSchema event={staticEvents.bingoNight} />
       {events.map(event => (
         <EventSchema key={`event-schema-${event.id}`} event={event} />
       ))}
