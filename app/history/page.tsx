@@ -506,6 +506,22 @@ export default function HistoryPage(): React.JSX.Element {
               subtitle="A village pub in the shadow of the world's busiest airport"
             />
 
+            <div className="max-w-xs mx-auto mb-10">
+              <div className="relative aspect-square w-full overflow-hidden border border-anchor-gold/20">
+                <Image
+                  src="/images/history/handover-day-2019.jpg"
+                  alt="Handover day at The Anchor, 5 March 2019 — Martine and Ronnie's last drink and Billy and Peter's first"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 320px"
+                />
+              </div>
+              <p className="text-sm text-anchor-cream-text/50 mt-3 text-center">
+                Handover day, 5 March 2019 — Martine and Ronnie&apos;s last drink
+                and Billy and Peter&apos;s first
+              </p>
+            </div>
+
             <div className="space-y-6 text-lg text-anchor-cream-text/80 leading-relaxed">
               <p>
                 Today, The Anchor has a new identity as a traditional village pub beside
