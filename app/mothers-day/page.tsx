@@ -27,16 +27,16 @@ const WEBSITE_ORIGIN = 'https://www.the-anchor.pub'
 // the post-launch walk-in model unconditionally, no date-aware switch needed
 // because no claim references a date before 17 May 2026. Keyword cluster
 // layered (per spec §8.6 + keyword plan): mothers day lunch near me,
-// mothers day sunday lunch near me, mothers day sunday lunch, mothers day pub
+// mothers day sunday roast near me, mothers day sunday roast, mothers day pub
 // lunch, mothers day sunday roast.
 const MOTHERS_DAY_DATE = '2027-03-14'
 const MOTHERS_DAY_SERVICE_START_ISO = `${MOTHERS_DAY_DATE}T13:00:00+00:00`
 const MOTHERS_DAY_SERVICE_END_ISO = `${MOTHERS_DAY_DATE}T18:00:00+00:00`
 const MOTHERS_DAY_SERVICE_WINDOW_LABEL = '1pm–6pm'
 const MOTHERS_DAY_LAST_BOOKING_LABEL = '5:30pm'
-const MOTHERS_DAY_ADULT_PRICE_LOW = 19
+const MOTHERS_DAY_ADULT_PRICE_LOW = 16
 const MOTHERS_DAY_ADULT_PRICE_HIGH = 22
-const MOTHERS_DAY_KIDS_ROAST_PRICE = 13
+const MOTHERS_DAY_KIDS_ROAST_PRICE = 14
 
 const MOTHERS_DAY_BOOKING_URL = '/book-table'
 const MOTHERS_DAY_BOOKING_CTA_LABEL = 'Book Mother’s Day Lunch'
@@ -87,7 +87,7 @@ const descriptionStatic =
   `Served ${MOTHERS_DAY_SERVICE_WINDOW_LABEL} (last booking ${MOTHERS_DAY_LAST_BOOKING_LABEL}). ` +
   `Walk-ins welcome, booking recommended. From £${String(MOTHERS_DAY_ADULT_PRICE_LOW)}.`
 const keywordsStatic =
-  "mothers day lunch near me, mothers day sunday lunch near me, mothers day sunday lunch, mothers day pub lunch, mothers day sunday roast, mother's day lunch near staines, stanwell moor TW19"
+  "mothers day lunch near me, mothers day sunday roast near me, mothers day sunday roast, mothers day pub lunch, mothers day sunday roast, mother's day lunch near staines, stanwell moor TW19"
 
 export const metadata: Metadata = {
   title: titleStatic,
@@ -117,7 +117,7 @@ export default function MothersDayPage() {
   const mapQuery = `The Anchor, ${CONTACT.address.street}, ${CONTACT.address.postcode}`
 
   const heroDescription =
-    `Make Mother’s Day easy with a relaxed, cooked-from-scratch Sunday lunch at The Anchor in Stanwell Moor (TW19), ` +
+    `Make Mother’s Day easy with a relaxed, cooked-from-scratch Sunday roast at The Anchor in Stanwell Moor (TW19), ` +
     `near Staines-upon-Thames and Heathrow Terminal 5. Serving ${MOTHERS_DAY_SERVICE_WINDOW_LABEL} ` +
     `(last table ${MOTHERS_DAY_LAST_BOOKING_LABEL}). Walk in or book ahead. No set sittings.`
 
@@ -132,10 +132,10 @@ export default function MothersDayPage() {
       answer: `Mother’s Day Lunch is on ${eventDateText}. We serve from 1pm–6pm, with the last table booking at 5:30pm.`
     },
     {
-      question: 'Where can I find a Mother’s Day Sunday lunch near me?',
+      question: 'Where can I find a Mother’s Day Sunday roast near me?',
       answer:
         `The Anchor in Stanwell Moor (TW19), close to Staines-upon-Thames and Heathrow Terminal 5. ` +
-        `Mother’s Day Sunday roast cooked from scratch, chicken, pork belly, vegetarian wellington, mains from £${String(MOTHERS_DAY_ADULT_PRICE_LOW)}. ` +
+        `Mother’s Day Sunday roast cooked from scratch, with roast turkey, roast pork, roast beef, pies and a vegan wellington, mains from £${String(MOTHERS_DAY_ADULT_PRICE_LOW)}. ` +
         `Walk-ins welcome 1pm–6pm, booking recommended.`
     },
     {
@@ -171,9 +171,9 @@ export default function MothersDayPage() {
     '@context': 'https://schema.org',
     '@type': 'Event',
     '@id': `${WEBSITE_ORIGIN}/mothers-day#event`,
-    name: 'Mother’s Day Sunday Lunch near Staines at The Anchor',
+    name: 'Mother’s Day Sunday Roast near Staines at The Anchor',
     description:
-      `Mother’s Day Sunday lunch near Staines at The Anchor in Stanwell Moor (TW19), close to Heathrow Terminal 5. ` +
+      `Mother’s Day Sunday roast near Staines at The Anchor in Stanwell Moor (TW19), close to Heathrow Terminal 5. ` +
       `Serving ${MOTHERS_DAY_SERVICE_WINDOW_LABEL} (last table booking ${MOTHERS_DAY_LAST_BOOKING_LABEL}). ` +
       `No set sittings, walk in or book ahead. ` +
       `Adults mains £${String(MOTHERS_DAY_ADULT_PRICE_LOW)}–£${String(MOTHERS_DAY_ADULT_PRICE_HIGH)}; ` +
@@ -240,7 +240,7 @@ export default function MothersDayPage() {
 
             <HeroWrapper
         route="/mothers-day"
-        title="Mother’s Day Sunday Lunch Near Staines"
+        title="Mother’s Day Sunday Roast Near Staines"
         description={heroDescription}
         eyebrow={eventDateLabelStatic}
         lead={
@@ -331,7 +331,7 @@ export default function MothersDayPage() {
                   Mother&rsquo;s Day Pub Lunch, What to Expect
                 </h2>
                 <p className="mt-4 text-anchor-cream-text/70 text-lg leading-relaxed">
-                  Make Mother&apos;s Day easy. Join us at The Anchor in Stanwell Moor (TW19) for a relaxed, cooked-from-scratch Mother&apos;s Day Sunday lunch
+                  Make Mother&apos;s Day easy. Join us at The Anchor in Stanwell Moor (TW19) for a relaxed, cooked-from-scratch Mother&apos;s Day Sunday roast
                   where Mum can properly switch off and enjoy being looked after, near{' '}
                   <Link
                     href="/staines-pub"
@@ -350,7 +350,7 @@ export default function MothersDayPage() {
                 </p>
                 <p className="mt-4 text-anchor-cream-text/70 leading-relaxed">
                   Expect a proper Mother&apos;s Day Sunday roast, cooked from scratch and served fresh to order, with everything you&apos;d want from a
-                  traditional Sunday lunch: golden roast potatoes, seasonal vegetables, a generous Yorkshire pudding, and our signature gravy.
+                  traditional Sunday roast: golden roast potatoes, seasonal vegetables, a generous Yorkshire pudding, and our signature gravy.
                 </p>
                 <p className="mt-3 text-anchor-cream-text/70 leading-relaxed">
                   We also offer vegetarian and vegan options, including a dedicated vegan main. Vegetarian and vegan dishes are served with
@@ -374,7 +374,7 @@ export default function MothersDayPage() {
                       href="/sunday-roast"
                       className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted"
                     >
-                      Sunday lunch menu
+                      Sunday roast menu
                     </Link>
                     ,{' '}
                     <Link
@@ -617,7 +617,7 @@ export default function MothersDayPage() {
       <InternalLinkingSection
         title="More to explore at The Anchor"
         links={[
-          { href: MOTHERS_DAY_BOOKING_URL, title: 'Book Mother’s Day Sunday lunch', description: 'Reserve online in minutes' },
+          { href: MOTHERS_DAY_BOOKING_URL, title: 'Book Mother’s Day Sunday roast', description: 'Reserve online in minutes' },
           ...commonLinkGroups.dining,
           ...commonLinkGroups.location
         ]}

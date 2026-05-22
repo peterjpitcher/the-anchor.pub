@@ -190,7 +190,7 @@ For small formal events (business dinners, retirement presentations, intimate ce
 
 ### What about dietary requirements at a pub?
 
-We cater for vegetarian, vegan, gluten-free, and dairy-free diets. Gluten-free pizza bases are available, and the vegetarian Sunday roast (beetroot and butternut squash wellington, £19.99) is genuinely excellent. Let us know requirements when you book and the kitchen will prepare.
+We cater for vegetarian, vegan, gluten-free, and dairy-free diets. Gluten-free pizza bases are available, and the vegan Sunday roast option (beetroot and butternut squash wellington, £20) is genuinely excellent. Let us know requirements when you book and the kitchen will prepare.
 
 ### Is a pub appropriate for a wake?
 

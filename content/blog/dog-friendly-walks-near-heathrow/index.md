@@ -99,7 +99,7 @@ Every walk on this list ends the same way, at The Anchor in Stanwell Moor. We've
 - **Muddy boots and paws welcome**, we're a country pub, not a show home. Come as you are.
 - **Beer garden**, enclosed, with planes from Heathrow passing overhead. Dogs seem to enjoy watching them as much as the kids do.
 - **Free parking**, about 20 spaces. Handy if you've driven to a walk and are stopping in on the way home.
-- **Food served Tuesday to Sunday**, proper pub grub, cooked fresh. Our Sunday roast starts from £19.99, and yes, you can bring the dog to lunch.
+- **Food served Tuesday to Sunday**, proper pub grub, cooked fresh. Our Sunday roast starts from £16, and yes, you can bring the dog to the pub.
 
 We're on Horton Road, Stanwell Moor, TW19 6AQ, about seven minutes from Heathrow Terminal 5. Call us on 01753 682707 if you want to book a table.
 

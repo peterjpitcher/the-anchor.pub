@@ -185,7 +185,7 @@ What makes The Anchor truly cosy:
 Make the most of a cosy pub visit by checking the pages that matter before you set off:
 
 - [Food menu](/food-menu) for current dishes and dietary options.
-- [Sunday lunch](/sunday-roast) if you want a proper roast near Heathrow.
+- [Sunday roast](/sunday-roast) if you want a proper roast near Heathrow.
 - [What's on](/whats-on) for quiz nights, bingo, and hosted event nights.
 - [Dog-friendly pub guide](/dog-friendly-pub-heathrow) if you're bringing your dog.
 - [Find us](/find-us) for directions, parking, and contact details.

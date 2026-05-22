@@ -52,13 +52,13 @@ Surprise parties for a 50th are either spectacular or catastrophic. There's no m
 
 If you're going the surprise route, pick a venue with a separate entrance or a private room that's out of the main sightline. Arrive at least 45 minutes early. And have a backup plan for the guest of honour's outfit, nobody wants to walk into their own surprise party in joggers.
 
-### Sunday lunch as a 50th celebration
+### Sunday roast as a 50th celebration
 
 For a certain kind of person (and you probably know whether the birthday person is this kind of person), a beautifully done Sunday roast with 15 or 20 of their favourite people is the perfect 50th.
 
 No fuss, no speeches unless someone insists, just an exceptional meal with the people who matter most. This works particularly well when the guest list is tight, close family and lifelong friends rather than the full address book.
 
-At The Anchor, a [Sunday roast celebration](/sunday-roast) starts from £19.99 per person, with options including slow-cooked lamb shank (£23.99), crispy pork belly (£21.99), and a beetroot and butternut squash wellington for vegetarians (£19.99). Walk in or book ahead, no pre-order needed, served 1pm-6pm. Groups of 10 or more take a £10 per person deposit, fully deducted from the final bill on the day.
+At The Anchor, a [Sunday roast celebration](/sunday-roast) starts from £16 per person, with options including roast turkey (£16), roast pork (£20), roast beef (£22), pies (£21), and a vegan beetroot and butternut squash wellington (£20). Walk in or book ahead, no pre-order needed, served 1pm-6pm. Groups of 10 or more take a £10 per person deposit, fully deducted from the final bill on the day.
 
 ### The beer garden party
 
@@ -74,7 +74,7 @@ For a 50th, book your venue at least eight to twelve weeks in advance. Saturdays
 
 If you're planning a surprise, you might need even longer. You'll want to send save-the-date messages early enough that people keep the date free, but vague enough that nobody accidentally tips off the birthday person.
 
-For a Sunday lunch celebration, two to four weeks is usually enough, but check with the venue, popular Sunday slots can fill up, especially for groups of 15 or more.
+For a Sunday roast celebration, two to four weeks is usually enough, but check with the venue, popular Sunday slots can fill up, especially for groups of 15 or more.
 
 ### Guest numbers: how many people actually come?
 
@@ -200,7 +200,7 @@ The best milestone birthday parties have personal touches that a venue can't pro
 Use this timeline to stay on track:
 
 **12 weeks before:**
-- Choose your format (afternoon, evening, Sunday lunch, surprise)
+- Choose your format (afternoon, evening, Sunday roast, surprise)
 - Set your budget
 - Book your venue and pay the deposit
 - Start your guest list
@@ -235,7 +235,7 @@ A 50th birthday party for 30-40 guests typically costs between £800 and £3,000
 
 ### How far in advance should I book a 50th birthday venue?
 
-For Saturday evening events, book eight to twelve weeks ahead. Friday evenings and Sunday lunchtimes need four to eight weeks. Midweek celebrations can often be arranged with two to four weeks' notice. If you're planning a surprise party, add extra time, you'll need to coordinate with guests before confirming with the venue.
+For Saturday evening events, book eight to twelve weeks ahead. Friday evenings and Sunday roast times need four to eight weeks. Midweek celebrations can often be arranged with two to four weeks' notice. If you're planning a surprise party, add extra time, you'll need to coordinate with guests before confirming with the venue.
 
 ### What food works best for a 50th birthday party?
 
@@ -243,7 +243,7 @@ Buffets are the most popular format for 50th birthday parties because they accom
 
 ### Can I hold a 50th birthday party on a Sunday?
 
-Absolutely, and it's increasingly popular. A Sunday celebration, particularly a long lunch, works well for milestone birthdays because it suits guests with families, tends to cost less than Saturday, and has a naturally relaxed pace. At The Anchor, Sunday roasts are available from £19.99 per person with advance booking, or you can arrange a buffet for larger groups.
+Absolutely, and it's increasingly popular. A Sunday celebration, particularly a long lunch, works well for milestone birthdays because it suits guests with families, tends to cost less than Saturday, and has a naturally relaxed pace. At The Anchor, Sunday roasts are available from £16 per person, or you can arrange a buffet for larger groups.
 
 ### What's the best venue for a 50th birthday near Heathrow?
 
@@ -253,7 +253,7 @@ The best venue depends on your group size, budget, and style. Airport hotels sui
 
 **Ready to plan your 50th birthday celebration?** Use our [milestone birthday calculator](/private-hire/milestone-birthdays) to get an instant estimate based on your guest numbers and preferences. Or call us on 01753 682707 to talk through your plans, we'll help you put together something that fits your budget and makes the birthday person feel properly celebrated.
 
-You can also explore our [private hire options](/private-hire), [Sunday lunch menu](/sunday-roast), and [full food menu](/food-menu) to start shaping your ideas.
+You can also explore our [private hire options](/private-hire), [Sunday roast menu](/sunday-roast), and [full food menu](/food-menu) to start shaping your ideas.
 
 **The Anchor**
 Horton Road, Stanwell Moor, Surrey, TW19 6AQ

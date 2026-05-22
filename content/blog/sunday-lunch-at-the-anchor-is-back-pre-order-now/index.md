@@ -1,7 +1,7 @@
 ---
-title: Sunday Lunch Near Heathrow | Traditional Roasts at The Anchor
+title: Sunday Roast Near Heathrow | Traditional Roasts at The Anchor
 description: >-
-  Book your traditional Sunday lunch near Heathrow Airport at The Anchor pub.
+  Book your traditional Sunday roast near Heathrow Airport at The Anchor pub.
   Fresh roast dinners with Yorkshire puddings served Sundays 1–6pm (last orders
   5:30pm). Walk in or book ahead, no pre-order needed.
 date: '2025-02-02'
@@ -9,13 +9,13 @@ oldUrl: >-
   https://www.the-anchor.pub/post/sunday-lunch-at-the-anchor-is-back-pre-order-now
 author: Billy
 keywords:
-  - sunday lunch near heathrow
+  - sunday roast near heathrow
   - traditional roast dinner
   - sunday roast stanwell moor
-  - dog friendly sunday lunch
-  - best sunday lunch near me
+  - dog friendly sunday roast
+  - best sunday roast near me
   - pub roast dinner staines
-  - quality sunday lunch
+  - quality sunday roast
   - the anchor sunday menu
 tags:
   - news
@@ -25,11 +25,11 @@ hero: hero.jpg
 images: []
 ---
 
-![Close-up of a Sunday lunch with Yorkshire pudding, roast, and veggies. Text: "The Anchor, serving 1pm-6pm." Bright, inviting setting.](/content/blog/sunday-lunch-at-the-anchor-is-back-pre-order-now/hero.jpg)
+![Close-up of a Sunday roast with Yorkshire pudding, roast, and veggies. Text: "The Anchor, serving 1pm-6pm." Bright, inviting setting.](/content/blog/sunday-lunch-at-the-anchor-is-back-pre-order-now/hero.jpg)
 
-Looking for the perfect **Sunday lunch near Heathrow**? The Anchor's traditional roast dinners are back! Fresh from February 9th, 2025, enjoy quality Sunday roasts in our cozy **dog-friendly pub** just 7 minutes from Terminal 5. No heat lamps, no shortcuts - just proper British Sunday lunch cooked fresh to order.
+Looking for the perfect **Sunday roast near Heathrow**? The Anchor's traditional roast dinners are back! Fresh from February 9th, 2025, enjoy quality Sunday roasts in our cozy **dog-friendly pub** just 7 minutes from Terminal 5. No heat lamps, no shortcuts - just proper British Sunday roast cooked fresh to order.
 
-## Why The Anchor Serves the Best Sunday Lunch Near Heathrow Airport
+## Why The Anchor Serves the Best Sunday Roast Near Heathrow Airport
 
 ### Fresh, Traditional, and Made to Order
 
@@ -37,12 +37,12 @@ Unlike chain pubs and airport restaurants, our **traditional roast dinner** phil
 
 - **Cooked fresh to order** - No heat lamps or pre-prepared dishes
 - **Quality local ingredients** - Supporting British farmers
-- **Traditional cooking methods** - Just like Sunday lunch at home
+- **Traditional cooking methods** - Just like Sunday roast at home
 - **Generous portions** - Proper pub-sized servings
 - **Fair prices** - Better value than airport dining
 - **Walk in or book ahead** - Booking is recommended for peak slots, but not required
 
-## Our Traditional Sunday Lunch Menu
+## Our Traditional Sunday Roast Menu
 
 ### Classic Roasts Done Right
 
@@ -55,40 +55,43 @@ Each **Sunday roast** at our **Stanwell Moor pub** includes:
 
 #### Choose Your Perfect Roast:
 
-**Roasted Chicken - £19.99**
-- Oven-roasted chicken breast with sage & onion stuffing balls
+**Roast Turkey with Stuffing Ball - £16**
+- Carved turkey with a sage and onion stuffing ball
 - Herb and garlic-crusted roast potatoes
-- Seasonal vegetables and Yorkshire pudding
-- Red wine gravy
+- Seasonal vegetables, Yorkshire pudding and gravy
 
-**Slow-Cooked Lamb Shank - £23.99**
-- Tender slow-braised lamb shank
-- Rich red wine gravy
+**Roast Pork Leg - £20**
+- Roasted pork leg sliced to order with Bramley apple sauce
 - Herb and garlic-crusted roast potatoes
-- Seasonal vegetables and a Yorkshire pudding
+- Seasonal vegetables, Yorkshire pudding and gravy
 
-**Crispy Pork Belly - £21.99**
-- Crispy crackling and tender slow-roasted pork belly
-- Bramley apple sauce
+**Roast Beef Topside - £22**
+- 28-day topside, slow-roasted and carved fresh per plate
 - Herb and garlic-crusted roast potatoes
-- Seasonal vegetables, Yorkshire pudding, and red wine gravy
+- Seasonal vegetables, Yorkshire pudding and gravy
 
-**Beetroot & Butternut Squash Wellington (V) - £19.99**
-- Golden puff pastry filled with beetroot & butternut squash
-- Herb and garlic-crusted roast potatoes
-- Seasonal vegetables
-- Vegetarian gravy
+**Beef & Ale Pie - £21**
+- Slow-cooked British beef in ale gravy under golden short-crust pastry
+- Served with roast potatoes, seasonal vegetables and gravy
 
-**Kids Roasted Chicken - £13.99**
-- Smaller portion of our roasted chicken
-- Served with roast potatoes, seasonal vegetables, Yorkshire pudding, and gravy
+**Chicken & Wild Mushroom Pie - £21**
+- Tender chicken and wild mushrooms in creamy sauce under golden short-crust pastry
+- Served with roast potatoes, seasonal vegetables and gravy
+
+**Beetroot & Butternut Squash Wellington (VG) - £20**
+- Golden puff pastry filled with beetroot and butternut squash
+- Served with roast potatoes, seasonal vegetables and vegan gravy
+
+**Kids Roast - £14**
+- Smaller child-sized plate
+- Choice of roast pork, roast turkey or beetroot and butternut squash wellington
 - Perfect for little appetites
 
-## The Anchor Sunday Lunch Experience
+## The Anchor Sunday Roast Experience
 
 ### More Than Just a Meal
 
-Our **dog friendly Sunday lunch** offers:
+Our **dog friendly Sunday roast** offers:
 
 #### Perfect for Families
 - Relaxed, welcoming atmosphere
@@ -111,7 +114,7 @@ Our **dog friendly Sunday lunch** offers:
 - **Crew favourite** - Where airline staff dine
 - **Hotel alternative** - Escape hotel dining
 
-## Why Book Your Sunday Lunch in Advance
+## Why Book Your Sunday Roast in Advance
 
 ### Quality Guaranteed System
 
@@ -134,7 +137,7 @@ Our **book-ahead** policy ensures:
 5. **Walk in or book any time**, no Saturday cutoff
 6. **Groups of 10 or more** take a **£10 per person deposit**, fully deducted from the bill
 
-## Sunday Lunch Service Details
+## Sunday Roast Service Details
 
 ### When to Visit
 
@@ -150,7 +153,7 @@ Our **book-ahead** policy ensures:
 - Book online at [/sunday-roast](/sunday-roast)
 - Group bookings welcome
 
-### Getting to The Anchor for Sunday Lunch
+### Getting to The Anchor for Sunday Roast
 
 **From Heathrow Airport:**
 - Terminal 5: 7 minutes drive
@@ -164,7 +167,7 @@ Our **book-ahead** policy ensures:
 - Walking distance from Stanwell
 - Easy access from Staines
 
-## What Makes Our Sunday Lunch Special
+## What Makes Our Sunday Roast Special
 
 ### The Traditional Pub Difference
 
@@ -180,17 +183,17 @@ Unlike rushed **Heathrow dining** or chain restaurants:
 ### Perfect Sunday Scenarios
 
 #### Family Gatherings
-"Three generations around one table, proper Sunday lunch like nan used to make" - The Roberts Family
+"Three generations around one table, proper Sunday roast like nan used to make" - The Roberts Family
 
 #### Dog Walkers' Lunch
-"After our walk on Staines Moor, Sunday lunch at The Anchor is our reward" - Local Dog Walking Group
+"After our walk on Staines Moor, Sunday roast at The Anchor is our reward" - Local Dog Walking Group
 
 #### Heathrow Connections
-"We always book Sunday lunch before our afternoon flight. Beats airport food every time!" - The Traveling Smiths
+"We always book Sunday roast before our afternoon flight. Beats airport food every time!" - The Traveling Smiths
 
 ## Frequently Asked Questions
 
-### About Sunday Lunch at The Anchor
+### About Sunday Roast at The Anchor
 
 **Can I just turn up on Sunday?**
 Yes, Sunday roasts are walk-in friendly. Booking ahead is recommended for peak slots, but not required.
@@ -208,18 +211,18 @@ Yes! We love family gatherings and group bookings. Book early for best availabil
 Only for groups of 10 or more, £10 per person, fully deducted from the bill on the day. Smaller bookings don't require a deposit.
 
 **Is parking available?**
-Free parking for all Sunday lunch guests.
+Free parking for all Sunday roast guests.
 
-**Do you serve Sunday lunch all year?**
+**Do you serve Sunday roast all year?**
 Yes, every Sunday from 1pm-6pm (except Christmas Day).
 
-## Experience Traditional Sunday Lunch Near Heathrow
+## Experience Traditional Sunday Roast Near Heathrow
 
 Skip the overpriced **airport restaurants** and chain pub heat lamps. The Anchor offers authentic **traditional Sunday roast** dinners just like home cooking, but without the washing up!
 
-Whether you're a **Stanwell Moor local**, **Heathrow traveler**, or visiting from **Staines** and beyond, our Sunday lunch brings families together over quality food in a warm, welcoming environment.
+Whether you're a **Stanwell Moor local**, **Heathrow traveler**, or visiting from **Staines** and beyond, our Sunday roast brings families together over quality food in a warm, welcoming environment.
 
-### Book Your Sunday Lunch Today
+### Book Your Sunday Roast Today
 
 Don't miss out - tables fill fast!
 
@@ -230,4 +233,4 @@ Don't miss out - tables fill fast!
 
 **Booking ahead is recommended for peak slots, but never required.**
 
-*Follow The Anchor on social media for Sunday lunch updates and special offers.*
+*Follow The Anchor on social media for Sunday roast updates and special offers.*

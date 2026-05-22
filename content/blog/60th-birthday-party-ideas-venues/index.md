@@ -33,11 +33,11 @@ It also means choosing a venue that doesn't feel like a corporate event. Nobody 
 
 ## 60th birthday party ideas that people genuinely enjoy
 
-### Sunday lunch celebration
+### Sunday roast celebration
 
-A Sunday lunch party is arguably the perfect format for a 60th. It's familiar, it's relaxed, and it gives the celebration a natural structure, arrive, sit down, eat, toast, pudding, more chatting, without needing a programme or activities.
+A Sunday roast party is arguably the perfect format for a 60th. It's familiar, it's relaxed, and it gives the celebration a natural structure, arrive, sit down, eat, toast, pudding, more chatting, without needing a programme or activities.
 
-At The Anchor, [Sunday roast](/sunday-roast) starts from £19.99 per person, with options including roasted chicken (£19.99), crispy pork belly (£21.99), slow-cooked lamb shank (£23.99), and a vegetarian beetroot and butternut squash Wellington (£19.99). Kids roasted chicken is £13.99. All roasts come with herb and garlic-crusted roast potatoes, seasonal vegetables, Yorkshire pudding, and red wine gravy (vegetarian gravy available on request). Add cauliflower cheese for £3.99.
+At The Anchor, [Sunday roast](/sunday-roast) starts from £16 per person, with options including roast turkey (£16), roast pork (£20), roast beef (£22), pies (£21), and a vegan beetroot and butternut squash wellington (£20). Kids roast is £14. All mains come with herb and garlic-crusted roast potatoes, seasonal vegetables and gravy, with Yorkshire puddings on sliced roasts and kids roasts.
 
 **Make it work:** Walk in or book ahead, no pre-order needed and no Saturday cutoff. Sunday roast is served 1pm to 6pm, with last bookings at 5:30pm. Maximum online party size is 20; for larger groups call 01753 682707 directly. Groups of 10 or more take a £10 per person deposit, fully deducted from the bill on the day. The regular weekday menu is also available on Sundays for guests who fancy something different.
 
@@ -156,7 +156,7 @@ If you're organising a 60th for someone else (as is often the case), here's a pr
 **10-12 weeks before:**
 - Book the venue. At The Anchor, you can [get an instant quote for a milestone birthday](/private-hire/milestone-birthdays) online. Saturdays and Sundays fill fastest.
 - Set the budget and guest list. Be realistic about numbers, people over 60 are more likely to actually RSVP (a welcome change from planning younger people's parties).
-- Decide on the format: Sunday lunch, afternoon gathering, or evening buffet.
+- Decide on the format: Sunday roast, afternoon gathering, or evening buffet.
 
 **6-8 weeks before:**
 - Send invitations. For a 60th, physical invitations still carry weight. But digital works too.
@@ -170,7 +170,7 @@ If you're organising a 60th for someone else (as is often the case), here's a pr
 
 **2 weeks before:**
 - Final headcount to the venue. Pay the deposit (£250 at The Anchor).
-- Sunday lunch is now walk-in friendly (1pm-6pm), no pre-order or Saturday cutoff to worry about.
+- Sunday roast is now walk-in friendly (1pm-6pm), no pre-order or Saturday cutoff to worry about.
 - Confirm access arrangements for any guests with mobility needs.
 
 **On the day:**
@@ -191,8 +191,8 @@ Real numbers for 35 guests at The Anchor.
 - Parking: free
 - **Total: approximately £535**
 
-**The Sunday lunch (around £1,000):**
-- Sunday roast from £19/head: ~£665 (35 guests, mixed choices)
+**The Sunday roast (around £1,000):**
+- Sunday roast from £16/head: ~£560 (35 guests, mixed choices)
 - Welcome prosecco: £280 (35 x £7.99)
 - Decorations: ~£40
 - **Total: approximately £985**
@@ -210,11 +210,11 @@ Every option includes free parking, a private space, AV equipment, a dedicated e
 
 **What's the best format for a 60th birthday party?**
 
-A Sunday lunch or afternoon gathering works best for most 60th celebrations. The guest list typically includes older family members and young children, and a daytime format accommodates everyone without late nights or taxi logistics. That said, an evening buffet works beautifully too if the guest of honour is a night owl.
+A Sunday roast or afternoon gathering works best for most 60th celebrations. The guest list typically includes older family members and young children, and a daytime format accommodates everyone without late nights or taxi logistics. That said, an evening buffet works beautifully too if the guest of honour is a night owl.
 
 **How far in advance should I book?**
 
-Eight to twelve weeks is ideal. Sunday lunch dates at popular venues book up quickly, especially in summer. [Check availability online](/private-hire/milestone-birthdays) or call 01753 682707.
+Eight to twelve weeks is ideal. Sunday roast dates at popular venues book up quickly, especially in summer. [Check availability online](/private-hire/milestone-birthdays) or call 01753 682707.
 
 **Is The Anchor suitable for guests in wheelchairs?**
 

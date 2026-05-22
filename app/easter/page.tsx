@@ -24,28 +24,28 @@ const EASTER_SUNDAY_DATE = '2027-04-04'
 const EASTER_SUNDAY_LABEL = 'Sunday 4 April 2027'
 const EASTER_SUNDAY_SERVICE_WINDOW = '1pm–6pm'
 const EASTER_SUNDAY_LAST_BOOKING = '5:30pm'
-const EASTER_ROAST_PRICE_FROM = 19
+const EASTER_ROAST_PRICE_FROM = 16
 
 const EASTER_BOOKING_URL = '/book-table'
 
 const WEBSITE_ORIGIN = 'https://www.the-anchor.pub'
 
 export const metadata: Metadata = {
-  title: 'Easter Sunday Lunch & Beer Garden',
+  title: 'Easter Sunday Roast & Beer Garden',
   description:
-    'Celebrate Easter at The Anchor near Heathrow. Easter Sunday roast served 1pm–6pm, from £19. Walk in or book ahead. Dog-friendly beer garden, free parking.',
+    'Celebrate Easter at The Anchor near Heathrow. Easter Sunday roast served 1pm–6pm, from £16. Walk in or book ahead. Dog-friendly beer garden, free parking.',
   alternates: { canonical: '/easter' },
   openGraph: {
-    title: 'Easter at The Anchor | Sunday Lunch & Beer Garden',
+    title: 'Easter at The Anchor | Sunday Roast & Beer Garden',
     description:
-      'Celebrate Easter at The Anchor near Heathrow. Easter Sunday roast served 1pm–6pm, from £19. Walk in or book ahead. Dog-friendly beer garden, free parking.',
+      'Celebrate Easter at The Anchor near Heathrow. Easter Sunday roast served 1pm–6pm, from £16. Walk in or book ahead. Dog-friendly beer garden, free parking.',
     images: [DEFAULT_PAGE_HEADER_IMAGE],
     type: 'website'
   },
   twitter: getTwitterMetadata({
-    title: 'Easter at The Anchor | Sunday Lunch & Beer Garden',
+    title: 'Easter at The Anchor | Sunday Roast & Beer Garden',
     description:
-      'Celebrate Easter at The Anchor near Heathrow. Easter Sunday roast served 1pm–6pm, from £19. Walk in or book ahead. Dog-friendly beer garden, free parking.',
+      'Celebrate Easter at The Anchor near Heathrow. Easter Sunday roast served 1pm–6pm, from £16. Walk in or book ahead. Dog-friendly beer garden, free parking.',
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   })
 }
@@ -62,7 +62,7 @@ export default function EasterPage() {
         'Easter Monday: open for drinks only, the kitchen is closed on Mondays, including bank holidays.'
     },
     {
-      question: 'Do I need to book for Easter Sunday lunch?',
+      question: 'Do I need to book for Easter Sunday roast?',
       answer:
         'Walk-ins are welcome on Easter Sunday between 1pm and 6pm, no pre-order needed. Booking is still recommended for groups, especially for parties of six or more. ' +
         'Groups of 10 or more take a £10 per person deposit on booking, fully deducted from the bill on the day.'
@@ -71,13 +71,13 @@ export default function EasterPage() {
       question: 'Is The Anchor dog-friendly?',
       answer:
         'Absolutely. Well-behaved dogs are welcome inside the pub and in the beer garden. Water bowls are always available. ' +
-        'It’s a great spot for a post-walk Easter Sunday lunch.'
+        'It’s a great spot for a post-walk Easter Sunday roast.'
     },
     {
       question: 'What’s on the Easter menu?',
       answer:
-        'Our Easter Sunday menu is the same as our regular Sunday roast, choose from chicken, pork belly, or a vegetarian option. ' +
-        'Mains start from £19. All served with roast potatoes, seasonal vegetables, Yorkshire pudding and gravy.'
+        'Our Easter Sunday menu is the same as our regular Sunday roast, with roast turkey, roast pork, roast beef, pies, or a vegan wellington. ' +
+        'Mains start from £16. All served with roast potatoes, seasonal vegetables and gravy, with Yorkshire pudding on sliced roasts.'
     },
     {
       question: 'Is there parking?',
@@ -91,9 +91,9 @@ export default function EasterPage() {
     '@context': 'https://schema.org',
     '@type': 'Event',
     '@id': `${WEBSITE_ORIGIN}/easter#event`,
-    name: 'Easter Sunday Lunch at The Anchor',
+    name: 'Easter Sunday Roast at The Anchor',
     description:
-      `Easter Sunday lunch at The Anchor in Stanwell Moor (TW19), near Heathrow. ` +
+      `Easter Sunday roast at The Anchor in Stanwell Moor (TW19), near Heathrow. ` +
       `Traditional roast from £${String(EASTER_ROAST_PRICE_FROM)}. Serving ${EASTER_SUNDAY_SERVICE_WINDOW}. ` +
       `Walk in or book ahead. Dog-friendly beer garden, free parking.`,
     startDate: `${EASTER_SUNDAY_DATE}T13:00:00+01:00`,
@@ -164,27 +164,27 @@ export default function EasterPage() {
         }
         image={{
           src: DEFAULT_PAGE_HEADER_IMAGE,
-          alt: 'Easter Sunday lunch at The Anchor near Heathrow'
+          alt: 'Easter Sunday roast at The Anchor near Heathrow'
         }}
         enableSmartCtas={true}
         showContextStrip={true}
       />
 
-      {/* Easter Sunday Lunch */}
+      {/* Easter Sunday Roast */}
       <Section background="white" spacing="md">
         <Container size="lg">
           <div className="mx-auto max-w-4xl space-y-6">
             <LaunchAnnouncement variant="banner" />
             <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">
-              Easter Sunday Lunch
+              Easter Sunday Roast
             </h2>
             <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
               Easter Sunday is one of those meals that deserves a proper table. Join us at The Anchor for a traditional roast
               cooked from scratch, the kind of lunch that marks the start of spring and brings the whole family together.
             </p>
             <p className="text-anchor-cream-text/70 leading-relaxed">
-              Choose from chicken, pork belly, or a vegetarian option, all served with golden roast potatoes,
-              seasonal vegetables, a generous Yorkshire pudding and our signature gravy. Mains start from{' '}
+              Choose from roast turkey, roast pork, roast beef, pies or a vegan wellington, all served with golden roast potatoes,
+              seasonal vegetables and gravy. Yorkshire puddings come with the sliced roasts. Mains start from{' '}
               <span className="font-semibold">&pound;{String(EASTER_ROAST_PRICE_FROM)}</span>.
             </p>
             <p className="text-anchor-cream-text/70 leading-relaxed">
@@ -219,15 +219,15 @@ export default function EasterPage() {
                 size="lg"
                 fullWidth
                 className="w-full sm:w-auto sm:min-w-[240px]"
-                trackingLabel="Book Easter Sunday Lunch"
-                eventName="Easter Sunday Lunch"
+                trackingLabel="Book Easter Sunday Roast"
+                eventName="Easter Sunday Roast"
                 customHref={EASTER_BOOKING_URL}
               >
-                Book Easter Sunday Lunch
+                Book Easter Sunday Roast
               </BookTableButton>
               <Link href="/sunday-roast" className="w-full sm:w-auto">
                 <Button variant="secondary" size="lg" fullWidth className="w-full sm:w-auto">
-                  View Sunday lunch menu
+                  View Sunday roast menu
                 </Button>
               </Link>
             </div>
@@ -332,7 +332,7 @@ export default function EasterPage() {
           <div className="mx-auto max-w-4xl text-center space-y-6">
             <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">Book your Easter table</h2>
             <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
-              Easter Sunday lunch is on <span className="font-semibold">{EASTER_SUNDAY_LABEL}</span>. Serving{' '}
+              Easter Sunday roast is on <span className="font-semibold">{EASTER_SUNDAY_LABEL}</span>. Serving{' '}
               <span className="font-semibold">{EASTER_SUNDAY_SERVICE_WINDOW}</span> (last booking{' '}
               <span className="font-semibold">{EASTER_SUNDAY_LAST_BOOKING}</span>).
               Walk in or book ahead, deposits only apply to groups of 10 or more.
@@ -345,11 +345,11 @@ export default function EasterPage() {
                 size="lg"
                 fullWidth
                 className="w-full sm:w-auto sm:min-w-[240px]"
-                trackingLabel="Book Easter Sunday Lunch"
-                eventName="Easter Sunday Lunch"
+                trackingLabel="Book Easter Sunday Roast"
+                eventName="Easter Sunday Roast"
                 customHref={EASTER_BOOKING_URL}
               >
-                Book Easter Sunday Lunch
+                Book Easter Sunday Roast
               </BookTableButton>
               <PhoneButton
                 phone={CONTACT.phone}
@@ -415,7 +415,7 @@ export default function EasterPage() {
       <InternalLinkingSection
         title="More to explore at The Anchor"
         links={[
-          { href: EASTER_BOOKING_URL, title: 'Book Easter Sunday lunch', description: 'Reserve online in minutes' },
+          { href: EASTER_BOOKING_URL, title: 'Book Easter Sunday roast', description: 'Reserve online in minutes' },
           { href: '/sunday-roast', title: 'Sunday roast near Heathrow', description: 'Full menu, prices and walk-in info' },
           ...commonLinkGroups.dining,
           ...commonLinkGroups.location

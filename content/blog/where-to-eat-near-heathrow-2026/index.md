@@ -58,7 +58,7 @@ For a quick lunch, the burgers and pizzas are your best bet. They come out fast 
 
 For a proper dinner, the steaks and pie selection are worth the trip. Our steak and ale pie in particular is a regular favourite.
 
-On Sundays from 17 May 2026, we do a [traditional roast](/sunday-roast) served 1pm-6pm, walk in or book ahead once service launches, no pre-order needed. It is the real thing: roast chicken, slow-cooked lamb shank, crispy pork belly, or beetroot and butternut squash wellington, all served with herb and garlic-crusted potatoes, seasonal vegetables, Yorkshire pudding, and proper red wine gravy. Prices start from £19. If you are visiting on a Sunday and want a proper British roast dinner experience, this is where to get it.
+On Sundays, we do a [traditional roast](/sunday-roast) served 1pm-6pm, walk in or book ahead, no pre-order needed. It is the real thing: roast turkey, roast pork, roast beef, pies, or beetroot and butternut squash wellington, all served with herb and garlic-crusted potatoes, seasonal vegetables and proper gravy. Prices start from £16. If you are visiting on a Sunday and want a proper British roast dinner experience, this is where to get it.
 
 Browse our full [food menu](/food-menu) to see current prices and options, including [vegetarian](/food-menu/vegetarian), [vegan](/food-menu/vegan), and [gluten-free](/food-menu/gluten-free) choices.
 
@@ -67,7 +67,7 @@ Browse our full [food menu](/food-menu) to see current prices and options, inclu
 - **Address:** Horton Road, Stanwell Moor, TW19 6AQ
 - **Phone:** 01753 682707
 - **Kitchen hours:** Open Tuesday to Sunday (kitchen closed on Mondays, though the pub is open for drinks)
-- **Booking:** [Book a table online](/book-table) or call us. Walk-ins are welcome for standard food service; Sunday roast starts Sunday 17 May 2026 and booking is recommended for launch Sundays and groups of 4 or more
+- **Booking:** [Book a table online](/book-table) or call us. Walk-ins are welcome for standard food service; booking is recommended for Sunday roast peak slots and groups of 4 or more
 - **Getting there:** 7 minutes from Terminal 5, 12 minutes from Terminals 2 and 3, 15 minutes from Terminal 4
 
 ## Other Places to Eat Near Heathrow
@@ -199,7 +199,7 @@ If you are comparing a hotel restaurant meal to a local pub, remember to add par
 
 This is worth mentioning because it affects where you can eat. Heathrow's terminal restaurants handle dietary requirements well (they have to, given the international clientele). Hotel restaurants are similarly accommodating.
 
-Local pubs vary. At The Anchor, we have dedicated [vegetarian](/food-menu/vegetarian), [vegan](/food-menu/vegan), and [gluten-free](/food-menu/gluten-free) menus. Not token options, but proper menus with multiple choices. Our Sunday roast includes a beetroot and butternut squash wellington for vegetarians.
+Local pubs vary. At The Anchor, we have dedicated [vegetarian](/food-menu/vegetarian), [vegan](/food-menu/vegan), and [gluten-free](/food-menu/gluten-free) menus. Not token options, but proper menus with multiple choices. Our Sunday roast includes a beetroot and butternut squash wellington that is vegan as standard.
 
 Chain pubs along Bath Road generally have vegetarian options marked on their menus, plus allergen information available on request.
 

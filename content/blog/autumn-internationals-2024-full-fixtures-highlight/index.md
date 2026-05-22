@@ -98,7 +98,7 @@ Why travel to Twickenham when you can enjoy the **Autumn Internationals 2024** a
 
 ### Match Day Specials
 - **Multiple HD screens** showing every match live
-- **Traditional pub food** including our famous Sunday roasts (pre-order required)
+- **Traditional pub food** including our famous Sunday roasts (walk in or book ahead)
 - **Quality drinks** and match-day specials
 - **Free parking** for all guests
 - **Dog-friendly** atmosphere - bring the whole family

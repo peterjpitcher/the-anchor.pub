@@ -22,7 +22,7 @@ Finding proper **vegetarian pub food near Heathrow** used to mean a jacket potat
 
 If you are vegetarian, vegan, or just eating less meat and looking for somewhere near Heathrow that does not treat you as an afterthought, here is what is worth knowing.
 
-**Fast answer:** The Anchor has vegetarian and vegan pub food seven minutes from Heathrow Terminal 5, including pizza, burgers, sides and a meat-free Sunday roast option when Sunday lunch is running. Check the [live food menu](/food-menu), the [vegetarian menu page](/food-menu/vegetarian), or the [vegan menu page](/food-menu/vegan) before you travel.
+**Fast answer:** The Anchor has vegetarian and vegan pub food seven minutes from Heathrow Terminal 5, including pizza, burgers, sides and a meat-free Sunday roast option when Sunday roast is running. Check the [live food menu](/food-menu), the [vegetarian menu page](/food-menu/vegetarian), or the [vegan menu page](/food-menu/vegan) before you travel.
 
 ## What The Anchor Offers for Vegetarians and Vegans
 
@@ -30,7 +30,7 @@ The Anchor in Stanwell Moor, about seven minutes from Heathrow Terminal 5, takes
 
 ### Vegetarian Highlights
 
-- **Butternut squash wellington**, available as part of the Sunday roast menu (£19.99). A proper centrepiece dish with all the trimmings, not a sad plate of vegetables with gravy poured over them. Walk in or book ahead, served 1pm-6pm, no pre-order needed.
+- **Beetroot and butternut squash wellington**, available as part of the Sunday roast menu (£20). A proper vegan centrepiece dish with all the trimmings, not a sad plate of vegetables with gravy poured over them. Walk in or book ahead, served 1pm-6pm, no pre-order needed.
 - **Stone-baked Margherita pizza**, from £11, with a proper thin base and fresh toppings. Available every day the kitchen is open.
 - **Vegetable stone-baked pizza**, loaded with roasted veg, same thin base, same price bracket.
 - **Veggie burger**, a substantial patty with proper toppings, not a frozen disc from a catering supplier.
@@ -86,7 +86,7 @@ There are no dedicated vegetarian restaurants in the immediate Heathrow area. Yo
 
 ### Can I get a vegan Sunday roast near Heathrow?
 
-Yes. The Anchor offers a butternut squash wellington as part of their Sunday roast menu at £19.99, served with all the trimmings. Walk in or book ahead, no pre-order needed. Some chain carveries also offer plant-based options, though the quality is inconsistent.
+Yes. The Anchor offers a beetroot and butternut squash wellington as part of the Sunday roast menu at £20, served with all the trimmings. Walk in or book ahead, no pre-order needed. Some chain carveries also offer plant-based options, though the quality is inconsistent.
 
 ### Does The Anchor offer vegetarian pizzas?
 

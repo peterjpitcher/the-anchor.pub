@@ -48,7 +48,7 @@ Download Set Menu Template
 
 1.  Pick up a copy of our Father's Day set menu order form from the bar, or download one here: [https://bit.ly/43qrfZ5](https://bit.ly/43qrfZ5)
     
-2.  Fill in your details and drop the order form off at the bar. Sunday lunch bookings require a £10 per person deposit.
+2.  Fill in your details and drop the order form off at the bar. Sunday roast bookings require a £10 per person deposit.
     
 3.  If you can't make it in person, you can message your order form over to us on email or WhatsApp, we'll reply with any confirmation or deposit payment link needed to secure your booking.
     
@@ -68,12 +68,12 @@ Our **Father's Day special menu** at this **family restaurant near Heathrow** fe
 - **Hearty Tomato Soup** - Served with fresh crusty bread
 
 **Main Courses at Our Pub Near Heathrow:**
-- **Roasted Chicken** - Traditional Sunday roast style
-- **Lamb Shank** - Slow-cooked to perfection
-- **Pork Belly** - Crispy crackling guaranteed
-- **Vegetarian Option** - Butternut Squash, Mixed Bean & Cheese Pie
+- **Roast Turkey with Stuffing Ball** - Traditional Sunday roast style
+- **Roast Pork Leg** - Sliced to order with Bramley apple sauce
+- **Roast Beef Topside** - Slow-roasted and carved fresh per plate
+- **Beetroot & Butternut Squash Wellington** - Vegan Sunday roast option
 
-All mains served with roast potatoes, seasonal vegetables, creamy mash, Yorkshire pudding, and rich gravy - a proper **British Father's Day meal near Terminal 5**.
+Mains are served with roast potatoes, seasonal vegetables and gravy, with Yorkshire pudding on sliced roasts - a proper **British Father's Day meal near Terminal 5**.
 
 **Desserts:**
 - **Frozen Eton Mess** - British summer classic

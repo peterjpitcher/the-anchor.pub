@@ -837,7 +837,7 @@ export default function NearHeathrowPage() {
                 },
                 {
                   question: "Can I eat at The Anchor before my flight?",
-                  answer: "Absolutely. We serve a full British pub menu all day including stone-baked pizzas, burgers, fish & chips, and Sunday roasts (booking required for Sunday). We're just minutes from Terminal 5, so you can enjoy a proper meal and still make your flight with time to spare."
+                  answer: "Absolutely. We serve a full British pub menu including stone-baked pizzas, burgers, fish & chips, and Sunday roasts. Walk-ins are welcome for Sunday roast, with booking recommended for larger groups. We're just minutes from Terminal 5, so you can enjoy a proper meal and still make your flight with time to spare."
                 },
                 {
                   question: "Is The Anchor dog friendly?",

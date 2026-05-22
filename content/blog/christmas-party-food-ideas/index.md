@@ -64,7 +64,7 @@ Whatever format you choose, certain things separate a forgettable festive menu f
 
 It wouldn't be a Christmas meal without turkey. But the trimmings are what people actually get excited about, pigs in blankets, proper stuffing, Yorkshire puddings, roast potatoes done in goose fat, and enough gravy to fill a small lake. At The Anchor, we serve our roast turkey with all the trimmings, and there's a reason it's the most popular choice on our festive menu every year.
 
-If you want to go beyond turkey, look for venues that offer alternatives on the same menu. Slow-roasted pork belly, lamb shank, or a good cut of beef give your guests options without making the kitchen's life impossible.
+If you want to go beyond turkey, look for venues that offer alternatives on the same menu. Slow-roasted pork, a good cut of beef, or a vegan wellington give your guests options without making the kitchen's life impossible.
 
 ### Vegetarian and vegan options that someone actually thought about
 
@@ -140,8 +140,8 @@ We've been hosting Christmas parties for years, and we know what works. Our fest
 
 **What's on the menu:**
 - Roast turkey with all the trimmings
-- Slow-roasted pork belly
-- Lamb shank
+- Slow-roasted pork
+- Vegan wellington
 - Beetroot Wellington (vegetarian)
 - A full dessert selection including Christmas pudding
 - Trimmings boards for sharing (£11.95 for 4, £21.95 for 8)

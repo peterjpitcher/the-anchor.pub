@@ -16,12 +16,12 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 // the 17 May walk-in launch, the page ships in the post-launch walk-in state
 // from launch onward. Keyword cluster layered: 'fathers day pub lunch',
 // 'fathers day sunday roast', 'fathers day pub near me', 'where to take dad
-// for sunday lunch'. (Spec §8.6, keyword plan delivered in conversation.)
+// for sunday roast'. (Spec §8.6, keyword plan delivered in conversation.)
 const FATHERS_DAY_DATE = '2026-06-21'
 const FATHERS_DAY_LABEL = 'Sunday 21 June 2026'
 const FATHERS_DAY_SERVICE_WINDOW = '1pm–6pm'
 const FATHERS_DAY_LAST_BOOKING = '5:30pm'
-const FATHERS_DAY_ROAST_PRICE_FROM = 19
+const FATHERS_DAY_ROAST_PRICE_FROM = 16
 
 const FATHERS_DAY_BOOKING_URL = '/book-table'
 
@@ -30,19 +30,19 @@ const WEBSITE_ORIGIN = 'https://www.the-anchor.pub'
 export const metadata: Metadata = {
   title: "Father's Day Pub Lunch Near Heathrow | Sunday Roast",
   description:
-    "Father's Day pub lunch at The Anchor near Heathrow, Sunday roast served 1pm–6pm, walk-ins welcome. From £19. Beer garden, free parking, planes overhead.",
+    "Father's Day pub lunch at The Anchor near Heathrow, Sunday roast served 1pm–6pm, walk-ins welcome. From £16. Beer garden, free parking, planes overhead.",
   alternates: { canonical: '/fathers-day' },
   openGraph: {
     title: "Father's Day Pub Lunch & Sunday Roast Near Heathrow | The Anchor",
     description:
-      "Father's Day pub lunch at The Anchor near Heathrow, Sunday roast served 1pm–6pm, walk-ins welcome. From £19. Beer garden, free parking, planes overhead.",
+      "Father's Day pub lunch at The Anchor near Heathrow, Sunday roast served 1pm–6pm, walk-ins welcome. From £16. Beer garden, free parking, planes overhead.",
     images: [DEFAULT_PAGE_HEADER_IMAGE],
     type: 'website'
   },
   twitter: getTwitterMetadata({
     title: "Father's Day Pub Lunch & Sunday Roast Near Heathrow | The Anchor",
     description:
-      "Father's Day pub lunch at The Anchor near Heathrow, Sunday roast served 1pm–6pm, walk-ins welcome. From £19. Beer garden, free parking, planes overhead.",
+      "Father's Day pub lunch at The Anchor near Heathrow, Sunday roast served 1pm–6pm, walk-ins welcome. From £16. Beer garden, free parking, planes overhead.",
     images: [DEFAULT_PAGE_HEADER_IMAGE]
   })
 }
@@ -55,8 +55,8 @@ export default function FathersDayPage() {
     {
       question: "What's on the Father's Day menu?",
       answer:
-        "Father's Day falls on a Sunday, so the full Sunday roast menu is on, chicken, pork belly, or a vegetarian wellington. " +
-        "Mains start from £19. All served with roast potatoes, seasonal vegetables, Yorkshire pudding and gravy."
+        "Father's Day falls on a Sunday, so the full Sunday roast menu is on, with roast turkey, roast pork, roast beef, pies, or a vegan wellington. " +
+        "Mains start from £16. All served with roast potatoes, seasonal vegetables and gravy, with Yorkshire pudding on sliced roasts."
     },
     {
       question: "Do I need to book for Father's Day?",
@@ -65,21 +65,21 @@ export default function FathersDayPage() {
         "Groups of 10 or more take a £10 per person deposit on booking, fully deducted from the bill on the day."
     },
     {
-      question: "Where to take dad for Sunday lunch near Heathrow?",
+      question: "Where to take dad for Sunday roast near Heathrow?",
       answer:
         "The Anchor in Stanwell Moor, 7 minutes from Heathrow Terminal 5 by car, with 20 free parking spaces, a dog-friendly beer garden and planes passing overhead every 90 seconds. " +
-        "It's a proper local pub, not a chain, Sunday roast cooked from scratch, mains from £19."
+        "It's a proper local pub, not a chain, Sunday roasts cooked from scratch, mains from £16."
     },
     {
       question: 'Is there a set menu or special pricing?',
       answer:
         "There's no separate set menu, it's our regular Sunday roast menu, which is what makes it special. " +
-        "Proper food, cooked from scratch. Mains from £19."
+        "Proper food, cooked from scratch. Mains from £16."
     },
     {
       question: "What time is Father's Day lunch served?",
       answer:
-        "We serve Sunday lunch from 1pm to 6pm, with the last table booking at 5:30pm. " +
+        "We serve Sunday roast from 1pm to 6pm, with the last table booking at 5:30pm. " +
         "No set sittings, book a time that suits you, or just walk in."
     },
     {
@@ -182,9 +182,9 @@ export default function FathersDayPage() {
               Treat Dad to a Proper Father&rsquo;s Day Pub Lunch
             </h2>
             <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
-              Father&apos;s Day pub lunch lands on a Sunday, which means the full Father&apos;s Day Sunday roast menu is on. Chicken,
-              pork belly or a vegetarian wellington, all cooked from scratch, served with golden roast potatoes,
-              seasonal vegetables, a generous Yorkshire pudding and our signature gravy.
+              Father&apos;s Day pub lunch lands on a Sunday, which means the full Father&apos;s Day Sunday roast menu is on. Roast turkey,
+              roast pork, roast beef, pies or a vegan wellington, all cooked from scratch, served with golden roast potatoes,
+              seasonal vegetables and proper gravy. Yorkshire puddings come with the sliced roasts.
             </p>
             <p className="text-anchor-cream-text/70 leading-relaxed">
               Mains start from <span className="font-semibold">&pound;{String(FATHERS_DAY_ROAST_PRICE_FROM)}</span>.
@@ -201,7 +201,7 @@ export default function FathersDayPage() {
                   href="/sunday-roast"
                   className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted"
                 >
-                  Sunday lunch menu
+                  Sunday roast menu
                 </Link>
                 ,{' '}
                 <Link
@@ -224,12 +224,12 @@ export default function FathersDayPage() {
         </Container>
       </Section>
 
-      {/* Where to take dad for Sunday lunch */}
+      {/* Where to take dad for Sunday roast */}
       <Section background="gray" spacing="md">
         <Container size="lg">
           <div className="mx-auto max-w-4xl space-y-6">
             <h2 className="text-2xl md:text-3xl font-bold text-anchor-cream-text">
-              Where to Take Dad for Sunday Lunch Near Heathrow
+              Where to Take Dad for Sunday Roast Near Heathrow
             </h2>
             <p className="text-anchor-cream-text/70 text-lg leading-relaxed">
               The short answer: a proper Father&apos;s Day pub near me, not a chain restaurant, not a hotel buffet.
@@ -360,7 +360,7 @@ export default function FathersDayPage() {
             <p className="text-sm text-anchor-cream-text/70">
               Or visit our{' '}
               <Link href="/sunday-roast" className="font-semibold text-anchor-gold hover:text-anchor-gold-light underline decoration-dotted">
-                Sunday lunch page
+                Sunday roast page
               </Link>{' '}
               for the full menu.
             </p>
@@ -412,7 +412,7 @@ export default function FathersDayPage() {
         title="More to explore at The Anchor"
         links={[
           { href: FATHERS_DAY_BOOKING_URL, title: "Book Father's Day lunch", description: 'Reserve online in minutes' },
-          { href: '/sunday-roast', title: 'Sunday lunch menu', description: 'Full menu and prices' },
+          { href: '/sunday-roast', title: 'Sunday roast menu', description: 'Full menu and prices' },
           ...commonLinkGroups.dining,
           ...commonLinkGroups.location
         ]}

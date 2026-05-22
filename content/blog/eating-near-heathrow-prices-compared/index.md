@@ -35,7 +35,7 @@ This is the table that tells the whole story. We've compared six common meals ac
 | **Burger & chips** | £18--22 (Plane Food, Perfectionist's Cafe) | £18--21 + service (Sofitel, Hilton) | £11--14 |
 | **Fish & chips** | £17--20 (Plane Food, Wetherspoons airside) | £18--22 + service | £15 (beer-battered, mushy peas, tartare) |
 | **Pizza (12")** | £15--18 (Giraffe, various T2/T3) | £16--20 + service | £12--14 (stone-baked) |
-| **Sunday roast** | Not widely available airside | £22--28 + service | From £19.99 (advance booking, proper trimmings) |
+| **Sunday roast** | Not widely available airside | £22--28 + service | From £16 (walk in or book ahead, proper trimmings) |
 | **Pie & mash** | £16--19 | £17--22 + service | £15--16 (golden pastry, rich gravy) |
 | **Kids meal** | £9--12 | £10--14 + service | £8--9 (burger, goujons, or fish fingers with chips) |
 | **Coffee** | £4.50--5.50 | £4--5 | £3 |
@@ -56,7 +56,7 @@ If you are leaving the terminal for a proper sit-down meal, choose dishes that a
 - **Burger and chips:** a strong choice before or after a flight, especially if you want a full meal without airport pricing.
 - **Fish and chips:** the classic pub order, useful if you are showing visitors a proper British meal near Heathrow.
 - **Stone-baked pizza:** good for families, groups, and anyone who wants something easy to share.
-- **Sunday roast:** best for longer waits, Sunday arrivals, or family meals near Heathrow. See the [Sunday lunch page](/sunday-roast) for current details.
+- **Sunday roast:** best for longer waits, Sunday arrivals, or family meals near Heathrow. See the [Sunday roast page](/sunday-roast) for current details.
 - **Kids meals:** cheaper than most terminal sit-down restaurants and easier if you have already left the airport by car.
 
 For current dishes and prices, use the [food menu](/food-menu). For the broader where-to-eat overview, use the [restaurants near Heathrow guide](/restaurants-near-heathrow).
@@ -132,9 +132,9 @@ Full disclosure: this is the bit where we talk about ourselves. We've tried to k
 
 Proper British pub food, cooked fresh to order. Our menu covers pub classics (fish and chips at £15, bangers and mash at £14), gourmet burgers from £11, stone-baked pizzas from £12, comfort dishes like lasagne and chicken katsu curry at £14--15, and traditional pies from £15. Desserts are all £5--6.
 
-On Sundays from 17 May 2026, we do a proper roast: roasted chicken, slow-cooked lamb shank, crispy pork belly, or beetroot and butternut squash wellington. Prices start from £19. Roasts are served 1pm-6pm, walk in or book ahead once service launches, no pre-order needed. It's a proper roast with herb and garlic-crusted potatoes, seasonal veg, Yorkshire pudding, and red wine gravy. Not a microwave in sight.
+On Sundays, we do proper roasts from £16: roast turkey, roast pork, roast beef, pies, or beetroot and butternut squash wellington. Roasts are served 1pm-6pm, walk in or book ahead, no pre-order needed. It's proper Sunday food with herb and garlic-crusted potatoes, seasonal veg and gravy. Not a microwave in sight.
 
-We also have a kids menu: sausage and mash, fish fingers, chicken goujons, or tomato pasta, all at sensible prices. On Sundays, kids can have a mini roast for £13.99.
+We also have a kids menu: sausage and mash, fish fingers, chicken goujons, or tomato pasta, all at sensible prices. On Sundays, kids can have a kids roast for £14.
 
 ### The setting
 

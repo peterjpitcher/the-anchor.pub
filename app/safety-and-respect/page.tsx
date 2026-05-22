@@ -42,7 +42,7 @@ export default function SafetyAndRespectPage() {
             <SectionHeader title="Everyone's welcome" />
             <div className="space-y-4 text-anchor-cream-text/70 leading-relaxed">
               <p>
-                The Anchor is a proper local, but you don't need to be local to feel welcome here. We get solo visitors who just want a quiet pint, families out for Sunday lunch, groups celebrating birthdays, regulars who've been coming for years, and people who've never set foot in the place before. They all get the same thing: a decent drink, good food if they want it, and staff who actually pay attention.
+                The Anchor is a proper local, but you don't need to be local to feel welcome here. We get solo visitors who just want a quiet pint, families out for Sunday roast, groups celebrating birthdays, regulars who've been coming for years, and people who've never set foot in the place before. They all get the same thing: a decent drink, good food if they want it, and staff who actually pay attention.
               </p>
               <p>
                 We're near Heathrow, so we see travellers, airline crew, people killing time before a flight, and people who've just landed and want something that isn't an airport bar. We get new residents who've moved to the area and are looking for somewhere to become a regular. We get older couples, younger groups, dog walkers, plane spotters, the lot.

@@ -260,7 +260,7 @@ export default function AboutPage() {
                       Proper roasts with all the trimmings. Yorkshire puddings, roast
                       potatoes, and rich gravy. Walk-ins welcome 1pm-6pm.
                     </p>
-                    <p className="text-anchor-gold-vivid font-semibold">Book Sunday lunch &rarr;</p>
+                    <p className="text-anchor-gold-vivid font-semibold">Book Sunday roast &rarr;</p>
                   </CardBody>
                 </Card>
               </Link>

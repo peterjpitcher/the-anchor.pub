@@ -113,7 +113,7 @@ export default function SunburyPubPage() {
                             Pubs in Sunbury, The Best Sunday Roast Near You
                         </PageTitle>
                         <p className="text-lg text-anchor-cream-text/70">
-                            Many Sunbury residents make the short drive to The Anchor for our famous Sunday lunches. If you&rsquo;re looking for pubs near Sunbury with quality food, better value, and easy parking, we tick every box.
+                            Many Sunbury residents make the short drive to The Anchor for our famous Sunday roasts. If you&rsquo;re looking for pubs near Sunbury with quality food, better value, and easy parking, we tick every box.
                         </p>
                     </div>
                 </Container>
@@ -243,7 +243,7 @@ export default function SunburyPubPage() {
                         answer: "We offer better value for money, guaranteed free parking, and a more relaxed village atmosphere. Plus, many say our Sunday Roast is superior!"
                     },
                     {
-                        question: "Do I need to book for Sunday Lunch?",
+                        question: "Do I need to book for Sunday Roast?",
                         answer: "Yes, Sunday is our busiest day and we are often fully booked with regulars from Sunbury and surrounding areas. We recommend booking by Wednesday/Thursday for the coming Sunday."
                     }
                 ]}

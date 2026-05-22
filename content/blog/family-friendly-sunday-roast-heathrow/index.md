@@ -1,14 +1,14 @@
 ---
-title: Family-Friendly Sunday Lunch Near Heathrow | The Anchor Pub Guide
+title: Family-Friendly Sunday Roast Near Heathrow | The Anchor Pub Guide
 description: >-
-  Plan a stress-free family Sunday lunch minutes from Heathrow. Kids’ roasts,
+  Plan a stress-free family Sunday roast minutes from Heathrow. Kids’ roasts,
   high chairs, a selection of games, and free parking at The Anchor Stanwell Moor.
 date: '2025-10-13'
 author: The Anchor Team
 keywords:
-  - family sunday lunch heathrow
+  - family sunday roast heathrow
   - kid friendly roast near heathrow
-  - sunday lunch for families staines
+  - sunday roast for families staines
   - child friendly pub near heathrow
   - sunday roast with kids near airport
 tags:
@@ -17,12 +17,12 @@ tags:
 featured: false
 hero: hero.jpg
 images: []
-canonical: 'https://www.the-anchor.pub/blog/family-friendly-sunday-lunch-heathrow'
+canonical: 'https://www.the-anchor.pub/blog/family-friendly-sunday-roast-heathrow'
 ---
 
-![Family Sunday lunch table setup at The Anchor](/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg)
+![Family Sunday roast table setup at The Anchor](/images/food/sunday-roast/the-anchor-sunday-roast-stanwell-moor.jpg)
 
-Planning a **family Sunday lunch near Heathrow**? Whether you’re welcoming relatives from the airport or gathering the crew before a flight, **The Anchor in Stanwell Moor** makes it effortless. We’re a village pub with plenty of space, a children’s roast menu, and free parking, just 7 minutes from Terminal 5.
+Planning a **family Sunday roast near Heathrow**? Whether you’re welcoming relatives from the airport or gathering the crew before a flight, **The Anchor in Stanwell Moor** makes it effortless. We’re a village pub with plenty of space, a children’s roast menu, and free parking, just 7 minutes from Terminal 5.
 
 ## Everything Families Need Under One Roof
 
@@ -32,8 +32,8 @@ Planning a **family Sunday lunch near Heathrow**? Whether you’re welcoming rel
 - Dog-friendly bar area for four-legged family members.
 
 ### Kids Eat Like Grown-Ups
-- Kids roasted chicken roast for **£13.99** (a smaller portion of our roast with all the trimmings).
-- Adult roasts are typically **£19.99–23.99** depending on your choice.
+- Kids roast for **£14** (a smaller portion with all the trimmings).
+- Adult roasts are from **£16** depending on your choice.
 - Desserts and hot drinks are available to add on the day.
 - Juices and soft drinks keep younger guests happy.
 
@@ -42,7 +42,7 @@ Planning a **family Sunday lunch near Heathrow**? Whether you’re welcoming rel
 - Our big garden is perfect for kids to stretch their legs (with adult supervision).
 - We have TVs in the bar area for sport, but we don’t show cartoons.
 
-## Sample Family Sunday Lunch Timeline
+## Sample Family Sunday Roast Timeline
 
 | Time | What Happens | Family Hack |
 | --- | --- | --- |
@@ -71,7 +71,7 @@ Friendly, well-behaved dogs are welcome in the bar and garden areas. We have wat
 
 ## Make Your Booking Easy
 
-1. [Book Sunday lunch](/sunday-roast) (or call/WhatsApp **+44 1753 682707**) with your party details.
+1. [Book Sunday roast](/sunday-roast) (or call/WhatsApp **+44 1753 682707**) with your party details.
 2. Tell us if you need high chairs, booster seats, or pram space.
 3. Walk in or book ahead, no pre-order needed. Groups of 10 or more take a **£10 per person deposit** on booking, fully deducted from the bill on the day.
 4. Want a cake or balloons? Drop them off the day before and we’ll set the table.
@@ -80,11 +80,11 @@ Friendly, well-behaved dogs are welcome in the bar and garden areas. We have wat
 
 If you're comparing options before you book, these pages answer the usual family questions:
 
-- [Sunday lunch](/sunday-roast) for roast options, prices, and serving times.
+- [Sunday roast](/sunday-roast) for roast options, prices, and serving times.
 - [Family-friendly pub near Heathrow](/family-friendly-pub-heathrow) for facilities, children’s meals, and garden details.
-- [Food menu](/food-menu) for everyday pub food outside Sunday lunch.
+- [Food menu](/food-menu) for everyday pub food outside Sunday roast.
 - [Find us](/find-us) for directions, parking, and the quickest route from Heathrow.
 
 ---
 
-**Ready for a relaxed family roast near Heathrow?** Book now and experience why local families and visiting travellers choose The Anchor for Sunday lunch. Free parking, hearty plates, and warm service await.
+**Ready for a relaxed family roast near Heathrow?** Book now and experience why local families and visiting travellers choose The Anchor for Sunday roast. Free parking, hearty plates, and warm service await.

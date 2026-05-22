@@ -28,7 +28,7 @@ type DeviceType = 'mobile' | 'tablet' | 'desktop' | 'unknown'
 
 interface SecondaryCta {
   label: string
-  analyticsLabel: 'preorder_roast' | 'pizza_menu' | 'view_hours'
+  analyticsLabel: 'view_roast_menu' | 'pizza_menu' | 'view_hours'
   action: 'scroll' | 'link'
   targetId?: string
   href?: string
@@ -60,10 +60,10 @@ function buildSecondaryCta(): SecondaryCta {
 
   if (day === 0 && minutes < 17 * 60) {
     return {
-      label: 'Pre-Order Roast',
-      analyticsLabel: 'preorder_roast',
+      label: 'View Roast Menu',
+      analyticsLabel: 'view_roast_menu',
       action: 'link',
-      href: '/sunday-roast#preorder'
+      href: '/sunday-roast'
     }
   }
 

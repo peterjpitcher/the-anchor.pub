@@ -100,7 +100,7 @@ export function getTodaysActiveEvents(events: Event[], now: Date): Event[] {
 }
 
 /**
- * Pure check: is Sunday lunch available right now?
+ * Pure check: is Sunday roast available right now?
  * Checks day, service status, overrides, schedule_config, and cutoff.
  * All inputs from BusinessHours, no fetch.
  */
@@ -285,7 +285,7 @@ export function resolveHeroContext(
   const todaySpecial = businessHours.specialHours?.find(s => s.date === todayStr)
   const specialNote = todaySpecial?.note || null
 
-  // Sunday lunch
+  // Sunday roast
   const sundayLunchAvailable = isSundayLunchAvailableNow(businessHours, now)
 
   // Next-opens label, only computed when currently closed, so the hero
@@ -342,10 +342,10 @@ export function resolveHeroCtas(
     }
   }
 
-  // P2: Sunday lunch available + bookings accepting
+  // P2: Sunday roast available + bookings accepting
   if (context.sundayLunchAvailable && context.bookingsAccepting) {
     return {
-      primary: { kind: 'booking', label: 'Book Sunday Lunch', source },
+      primary: { kind: 'booking', label: 'Book Sunday Roast', source },
       secondary: { kind: 'link', label: 'View Menu', href: '/sunday-roast', source }
     }
   }

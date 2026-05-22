@@ -7,9 +7,9 @@ keywords:
   - best sunday roast surrey
   - sunday roast surrey
   - best roast dinner surrey
-  - sunday lunch surrey
+  - sunday roast surrey
   - sunday carvery surrey
-  - best pub sunday lunch surrey
+  - best pub sunday roast surrey
   - sunday roast pub surrey
   - roast dinner near me surrey
 tags:
@@ -20,7 +20,7 @@ hero: hero.jpg
 images: []
 ---
 
-Surrey does Sunday roasts properly. Whether you're after a cooked-to-order lamb shank in a village pub, a budget-friendly carvery, or a gastropub roast with all the trimmings, the county has enough options to keep you busy for months. The hard part is knowing which places are actually worth the drive, and which ones coast on reputation.
+Surrey does Sunday roasts properly. Whether you're after a cooked-to-order roast in a village pub, a budget-friendly carvery, or a gastropub roast with all the trimmings, the county has enough options to keep you busy for months. The hard part is knowing which places are actually worth the drive, and which ones coast on reputation.
 
 We've pulled together seven of the best Sunday roast pubs across Surrey for 2026, covering everything from the villages near Heathrow to the Surrey Hills. Every pub listed here has been chosen for a reason: quality of the roast, value for money, atmosphere, or a combination of all three.
 
@@ -30,7 +30,7 @@ We've pulled together seven of the best Sunday roast pubs across Surrey for 2026
 
 | Pub | Location | Price Range | Booking? | Parking | Dog Friendly | Best For |
 | --- | --- | --- | --- | --- | --- | --- |
-| **The Anchor** | Stanwell Moor | From £19.99 | Yes (by Sat 1pm) | Free (20 spaces) | Yes | Cooked-to-order quality, families |
+| **The Anchor** | Stanwell Moor | From £16 | Recommended, walk-ins welcome | Free (20 spaces) | Yes | Cooked-to-order quality, families |
 | **The White Horse** | Shere | ~£18-24 | Recommended | Limited free | Garden only | Picture-perfect village setting |
 | **The Cricketers** | Cobham | ~£17-22 | Recommended | Pub car park | Check ahead | Classic Surrey pub, reliable quality |
 | **The Victoria** | Oxshott | ~£20-28 | Essential | Own car park | Garden only | Gastropub quality, special occasions |
@@ -48,15 +48,17 @@ The Anchor sits in the village of Stanwell Moor on the Surrey/Middlesex border, 
 
 ### The roast
 
-Four options, all served with herb and garlic-crusted roast potatoes, a Yorkshire pudding, seasonal veg, and gravy:
+Current options are all served with herb and garlic-crusted roast potatoes, seasonal veg and gravy:
 
-- **Roasted Chicken** (£19.99), breast with sage and onion stuffing balls, red wine gravy
-- **Slow-Cooked Lamb Shank** (£23.99), braised until it falls apart
-- **Crispy Pork Belly** (£21.99), proper crackling, Bramley apple sauce
-- **Beetroot & Butternut Squash Wellington** (£19.99), puff pastry, vegetarian gravy (V)
-- **Kids Roasted Chicken** (£13.99), full trimmings, smaller portion
+- **Roast Turkey with Stuffing Ball** (£16), carved turkey with sage and onion stuffing
+- **Roast Pork Leg** (£20), sliced to order with Bramley apple sauce
+- **Roast Beef Topside** (£22), 28-day topside carved fresh per plate
+- **Beef & Ale Pie** (£21), slow-cooked British beef in ale gravy
+- **Chicken & Wild Mushroom Pie** (£21), chicken and wild mushrooms in a creamy sauce
+- **Beetroot & Butternut Squash Wellington** (£20), vegan gravy (VG)
+- **Kids Roast** (£14), full trimmings, smaller portion
 
-The gravy is gluten-free by default. Vegan options available with advance notice.
+Yorkshire puddings come with the sliced roasts and kids roast. The wellington is vegan as standard.
 
 ### What you need to know
 
@@ -82,7 +84,7 @@ The vegetables tend to be well-cooked rather than the grey mush you get at lesse
 
 ### What you need to know
 
-Booking is recommended, especially for Sunday lunch. The pub gets busy, it's a destination village for walkers and cyclists, particularly in spring and summer. Parking is limited in the village itself; there's a small car park nearby but it fills quickly. Arriving before 12:30 helps.
+Booking is recommended, especially for Sunday roast. The pub gets busy, it's a destination village for walkers and cyclists, particularly in spring and summer. Parking is limited in the village itself; there's a small car park nearby but it fills quickly. Arriving before 12:30 helps.
 
 Dogs are welcome in the garden area. The village has a lovely stream running through it, which makes for a pleasant post-lunch walk. If you're combining a roast with a countryside walk, the trails up to the North Downs Way start from the village.
 
@@ -104,7 +106,7 @@ Portions are generous enough that you won't need a starter, though the starters 
 
 ### What you need to know
 
-Booking is recommended for Sunday lunch, particularly for groups of four or more. The pub has its own car park, which is a genuine advantage in Cobham where street parking can be tricky. Check ahead on dog policy, it varies by area of the pub.
+Booking is recommended for Sunday roast, particularly for groups of four or more. The pub has its own car park, which is a genuine advantage in Cobham where street parking can be tricky. Check ahead on dog policy, it varies by area of the pub.
 
 Cobham itself has a pleasant high street with independent shops and cafes if you want to extend the outing.
 
@@ -126,7 +128,7 @@ The potatoes are excellent, properly crispy, well-seasoned. The gravy is made fr
 
 ### What you need to know
 
-Booking is essential, this place fills up for Sunday lunch, often a week or two in advance. The pub has its own car park with reasonable space. Dogs are welcome in the garden area. The wine list is notably better than most pubs in the area, which makes it a good choice if wine with your roast matters to you.
+Booking is essential, this place fills up for Sunday roast, often a week or two in advance. The pub has its own car park with reasonable space. Dogs are welcome in the garden area. The wine list is notably better than most pubs in the area, which makes it a good choice if wine with your roast matters to you.
 
 It's on the pricier side for a pub roast, so this is one for a special Sunday rather than an every-week habit.
 
@@ -192,7 +194,7 @@ The meat quality is excellent. The accompanying vegetables and potatoes are trea
 
 ### What you need to know
 
-Booking is essential. This place is popular, and Sunday lunch tables go quickly, booking a week in advance is sensible. The pub has its own car park. Dogs are welcome in the garden. The interior is comfortable and well-maintained, with a slightly more formal feel than the average country pub.
+Booking is essential. This place is popular, and Sunday roast tables go quickly, booking a week in advance is sensible. The pub has its own car park. Dogs are welcome in the garden. The interior is comfortable and well-maintained, with a slightly more formal feel than the average country pub.
 
 It's a good date-night-but-Sunday-lunch option. The kind of place where you might linger over a bottle of wine after the plates are cleared.
 
@@ -206,7 +208,7 @@ Every pub claims to do a "proper" Sunday roast, but there's a world of differenc
 
 ### Meat quality and cooking
 
-The single biggest factor. A cooked-to-order roast, where the meat is prepared for your specific table, is a fundamentally different experience from a carvery counter where slices have been sitting under heat lamps. A braised lamb shank that's had hours of slow cooking, or a pork belly with proper crackling, can't be replicated on a carvery line.
+The single biggest factor. A cooked-to-order roast, where the meat is prepared for your specific table, is a fundamentally different experience from a carvery counter where slices have been sitting under heat lamps. Slow-roasted meat carved fresh per plate can't be replicated on a carvery line.
 
 ### Yorkshire puddings
 
@@ -252,7 +254,7 @@ It depends what you're after. For cooked-to-order quality with free parking and 
 
 Prices across Surrey range from about £16 to £28 per person for a main course with trimmings. The average sits around £19-22. Drinks, starters, and desserts are extra.
 
-### Do I need to book Sunday lunch in Surrey?
+### Do I need to book Sunday roast in Surrey?
 
 At most of the pubs on this list, yes. Some accept walk-ins, but booking is recommended at all of them, particularly for groups. The Anchor accepts walk-ins on Sundays, booking is recommended but not required. The Victoria and Running Horses book up a week or more in advance.
 
@@ -266,7 +268,7 @@ Several. The Anchor, King William IV, Barley Mow, and Running Horses all welcome
 
 ### What's the best Sunday roast in Surrey for vegetarians?
 
-The Anchor's beetroot and butternut squash wellington (£19.99) is a standout, a proper dish, not a token option. The Victoria in Oxshott also consistently does an excellent vegetarian roast. Any pub that lists a creative veggie option rather than "vegetable lasagne" is usually a good sign.
+The Anchor's beetroot and butternut squash wellington (£20) is a standout, a proper vegan dish, not a token option. The Victoria in Oxshott also consistently does an excellent vegetarian roast. Any pub that lists a creative veggie option rather than "vegetable lasagne" is usually a good sign.
 
 ---
 

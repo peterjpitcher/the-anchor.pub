@@ -74,14 +74,14 @@ For one week only, enjoy 25% off these warming favourites:
 | Fish & Chips | £14.99 | **£11.24** |
 | Jumbo Sausage & Chips | £12.99 | **£9.74** |
 | Sausage & Mash | £13.99 | **£10.49** |
-| Lamb Shank | £14.99 | **£11.24** |
+| Roast Turkey | £14.99 | **£11.24** |
 | Apple Crumble | £5.99 | **£4.49** |
 
 Our menu is built on comfort and nostalgia – recipes that feel like Sunday afternoons and remind you of nan's kitchen. It's food that brings people together, perfect for Heathrow workers seeking authentic British cuisine.
 
-### Don't Miss the Sunday Lunch Tradition
+### Don't Miss the Sunday Roast Tradition
 
-🗓 **Sunday 11 May** | 🍽 **Pre-order by Saturday 10 May at 1 PM**
+🗓 **Sunday 11 May** | 🍽 **Walk in or book ahead**
 
 Our Sunday kitchen service runs during regular kitchen hours. Browse the full menu and ask the team about any specials running that week.
 
@@ -138,6 +138,6 @@ At The Anchor, we believe in keeping tradition alive – not through speeches, b
 
 So bring your appetite. Bring your voice. Bring someone who needs a good night out. Whether you're clinking glasses with neighbours or singing your heart out to _Sweet Caroline_, our **VE Day celebrations near Heathrow** are your invitation to step back into the good old days – and make new memories along the way.
 
-👉 [**Book your quiz team**](https://bit.ly/4lER6WF) | [**Pre-order your roast**](https://bit.ly/4jGj9Dm)
+👉 [**Book your quiz team**](https://bit.ly/4lER6WF) | [**Book your roast**](/sunday-roast)
 
 We can't wait to see you at our **traditional British pub near Heathrow Airport**!

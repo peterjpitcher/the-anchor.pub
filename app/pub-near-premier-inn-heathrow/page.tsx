@@ -130,7 +130,7 @@ export default function PubNearPremierInnHeathrowPage() {
               <div className="card-dark rounded-none p-6 text-center">
                 <p className="text-4xl mb-2"></p>
                 <h3 className="text-xl font-bold text-anchor-cream-text mb-2">Sunday Roast</h3>
-                <p className="text-3xl font-bold text-amber-300 mb-2">From £19</p>
+                <p className="text-3xl font-bold text-amber-300 mb-2">From £16</p>
                 <p className="text-anchor-cream-text/70">Traditional British roast with all the trimmings</p>
                 <p className="text-sm text-anchor-cream-text/55 mt-2">Pre-booking recommended for Sundays</p>
               </div>

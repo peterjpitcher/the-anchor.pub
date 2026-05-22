@@ -21,7 +21,7 @@ export function DailySpecials({ isOpen }: DailySpecialsProps) {
   // Don't show specials if closed
   if (!isOpen) return null
 
-  // Saturday = 6, remind customers to book Sunday roast
+  // Saturday = 6, remind customers about Sunday roast
   const showSundayBooking = currentDay === 6
 
   if (!showSundayBooking) return null
@@ -32,16 +32,16 @@ export function DailySpecials({ isOpen }: DailySpecialsProps) {
         {showSundayBooking && (
           <div className="max-w-4xl mx-auto text-center">
             <div className="bg-yellow-400 text-red-900 font-bold text-lg md:text-xl px-6 py-3 rounded-full inline-block mb-4">
-              BOOK YOUR SUNDAY ROAST
+              SUNDAY ROAST TOMORROW
             </div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-              Last Chance to Book Tomorrow's Roast!
+              Walk In or Book Tomorrow's Roast
             </h2>
             <p className="text-xl mb-6 text-white/90">
-              Bookings required by 1pm today
+              Served 1pm to 6pm
             </p>
             <p className="text-lg mb-8">
-              Don't miss out on our famous Sunday roasts
+              Booking ahead is recommended for peak slots and larger groups
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <PhoneButton 

@@ -51,7 +51,7 @@ For many international travellers, a layover stop at a proper British local pub 
 **Practical details:**
 - Postcode for taxi: TW19 6AQ
 - Open from 4pm Tuesday–Friday, noon Saturday–Sunday
-- Sunday roast requires advance booking (call 01753 682707)
+- Sunday roast is walk-in friendly, with booking recommended for peak slots (call 01753 682707)
 - Monday: pub open, kitchen closed
 
 [Plan your pre-flight meal at The Anchor →](/heathrow-layover-dining)

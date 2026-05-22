@@ -170,7 +170,7 @@ export default async function ChristeningsPage() {
                             },
                             {
                                 title: "Sunday Roast",
-                                content: "If your christening is on a Sunday, why not book a large area for our famous Sunday Roast? Pre-orders available for large groups to ensure smooth service.",
+                                content: "If your christening is on a Sunday, why not book a large area for our famous Sunday Roast? Walk in or book ahead, and call us for large groups so we can keep service smooth.",
                                 variant: "default"
                             }
                         ]}
@@ -348,7 +348,7 @@ export default async function ChristeningsPage() {
                         />
 
                         <p className="text-anchor-cream-text/70 text-sm mt-6">
-                            Sunday lunches are also available for Sunday christenings, priced &agrave; la carte from our menu.
+                            Sunday roasts are also available for Sunday christenings, priced &agrave; la carte from our menu.
                         </p>
 
                         <div className="bg-anchor-bg-raised border border-anchor-gold/15 rounded-xl p-6 text-center mt-6">

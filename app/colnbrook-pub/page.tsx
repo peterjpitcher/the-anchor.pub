@@ -226,7 +226,7 @@ export default function ColnbrookPubPage() {
                                 friendly to sit down for a proper meal. Our pub is dog-friendly, child-friendly, and
                                 has the kind of relaxed atmosphere where people linger over a second coffee or an extra
                                 round. Whether you are a warehouse supervisor winding down after a twelve-hour shift or
-                                a family looking for a Sunday lunch spot away from the airport chaos, you will find a
+                                a family looking for a Sunday roast spot away from the airport chaos, you will find a
                                 genuine welcome at The Anchor.
                             </p>
                         </div>

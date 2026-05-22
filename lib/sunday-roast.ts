@@ -11,7 +11,7 @@ export const SUNDAY_ROAST = {
   serviceStart: '1pm',
   serviceEnd: '6pm',
   lastBooking: '5:30pm',
-  fromPriceLabel: 'from £19',
+  fromPriceLabel: 'from £16',
   bookingHref: '/book-table?source=sunday_roast&bookingType=sunday_roast',
   menuHref: '/sunday-roast',
   largePartyThreshold: LARGE_GROUP_DEPOSIT_THRESHOLD,

@@ -275,6 +275,11 @@ function getPriceFrom(items: MenuPageItem[]): string | undefined {
   return `from ${formatPriceLabel(Math.min(...prices))}`
 }
 
+function getAdultSundayRoastPriceFrom(items: MenuPageItem[]): string | undefined {
+  const adultItems = items.filter((item) => !/^kids?\b/i.test(item.name.trim()))
+  return getPriceFrom(adultItems.length > 0 ? adultItems : items)
+}
+
 function fishPagePriority(item: MenuPageItem): number {
   const name = item.name.toLowerCase()
   if (/^fish\s*&\s*chips$/.test(name)) return 0
@@ -437,7 +442,7 @@ async function fetchSundayLunchPageData(): Promise<SundayLunchPageData> {
       menuData,
       mains,
       sides,
-      priceFromLabel: getPriceFrom(mains)
+      priceFromLabel: getAdultSundayRoastPriceFrom(mains)
     }
   } catch (error) {
     console.warn('[menu-page-data] Failed to fetch Sunday roast menu', error)

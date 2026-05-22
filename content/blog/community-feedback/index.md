@@ -55,7 +55,7 @@ From its inception in 1730, The Anchor has been more than just a pub. It's been 
 
 As we envision the next five years, we see The Anchor as:
 - **The go-to place** for weeknight meals after Heathrow shifts
-- **A cosy haven** for Sunday lunches with family
+- **A cosy haven** for Sunday roasts with family
 - **A hub for small businesses** and remote workers near the airport
 - **A meeting point** for community groups and local organizations
 - **An event space** for celebrations and gatherings
@@ -133,7 +133,7 @@ Have more to share? Drop us an email at [manager@the-anchor.pub](mailto:manager@
 ### For Local Families
 - Guide our children's menu development
 - Suggest family event ideas
-- Help plan Sunday lunch improvements
+- Help plan Sunday roast improvements
 - Share accessibility needs
 
 ### For Business Users

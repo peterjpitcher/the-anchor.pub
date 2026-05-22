@@ -342,8 +342,8 @@ export default function HomePage() {
               <span className="text-sm text-anchor-body-text">Monthly &middot; Free entry</span>
             </Link>
             <Link href="/sunday-roast" className="block p-4 bg-anchor-green rounded-lg text-center hover:bg-anchor-green/90 transition-colors">
-              <span className="block text-lg font-bold text-white">Sunday Lunch</span>
-              <span className="text-sm text-white/80">{sunday.isLive ? 'From £19 · Walk in or book ahead' : 'Starts 17 May · Book ahead'}</span>
+              <span className="block text-lg font-bold text-white">Sunday Roast</span>
+              <span className="text-sm text-white/80">{sunday.isLive ? 'From £16 · Walk in or book ahead' : 'Starts 17 May · Book ahead'}</span>
             </Link>
           </div>
         </Container>
@@ -475,7 +475,7 @@ export default function HomePage() {
               </BookTableButton>
               <Link href="/sunday-roast">
                 <Button variant="secondary" size="lg" className="w-full sm:w-auto bg-white/10 text-white hover:bg-white/20 border border-white/25">
-                  {sunday.isLive ? 'Sunday Lunch, from £19' : 'Sunday Roast, starts 17 May'}
+                  {sunday.isLive ? 'Sunday Roast, from £16' : 'Sunday Roast, starts 17 May'}
                 </Button>
               </Link>
             </div>
@@ -644,7 +644,7 @@ export default function HomePage() {
             </Link>
             <Link href="/sunday-roast">
               <Button variant="secondary" size="lg">
-                {sunday.isLive ? 'Book Sunday Lunch, from £19' : 'Book Sunday Roast, starts 17 May'}
+                {sunday.isLive ? 'Book Sunday Roast, from £16' : 'Book Sunday Roast, starts 17 May'}
               </Button>
             </Link>
             <Link href="/drinks">
@@ -782,11 +782,11 @@ export default function HomePage() {
           },
           {
             question: 'What food does The Anchor serve?',
-            answer: `We serve traditional British pub food including stone-baked pizzas, fish & chips, burgers, and Sunday roast. ${sunday.availabilityShort} Prices range from approximately £10–£20 for mains; Sunday roast from £19.`
+            answer: `We serve traditional British pub food including stone-baked pizzas, fish & chips, burgers, and Sunday roast. ${sunday.availabilityShort} Prices range from approximately £10–£20 for mains; Sunday roast from £16.`
           },
           {
             question: 'When is the kitchen open?',
-            answer: 'Kitchen hours are updated live on our website. We serve food Tuesday to Friday evenings, Saturday and Sunday lunchtimes. Please check the opening hours section or call 01753 682707 for today\'s kitchen times. Note: the kitchen is closed on Mondays.'
+            answer: 'Kitchen hours are updated live on our website. We serve food Tuesday to Friday evenings, Saturday, and Sundays for roast service. Please check the opening hours section or call 01753 682707 for today\'s kitchen times. Note: the kitchen is closed on Mondays.'
           },
           {
             question: 'Can I watch planes from The Anchor?',

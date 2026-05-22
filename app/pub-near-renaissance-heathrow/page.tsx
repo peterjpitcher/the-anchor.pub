@@ -126,7 +126,7 @@ export default function PubNearRenaissanceHeathrowPage() {
             <FeatureGrid
               columns={3}
               features={[
-                { icon: '', title: 'Sunday Roast', description: 'Traditional British roast from £19, the definitive Sunday lunch experience.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Sunday Roast', description: 'Traditional British roast from £16, the definitive Sunday roast experience.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
                 { icon: '', title: 'Great Drinks', description: 'Draught beers and familiar draught lagers. A very British ritual worth experiencing.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
                 { icon: '', title: 'Fish & Chips', description: 'Fresh battered cod with chips, the British classic every visitor should try.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
               ]}
@@ -150,7 +150,7 @@ export default function PubNearRenaissanceHeathrowPage() {
               variant="info"
               title="Book ahead for weekends"
               className="mt-6"
-              content={<p>Sunday roasts require advance booking. We open from noon at weekends and 4pm on weekdays. Perfect for a pre- or post-flight dinner.</p>}
+              content={<p>Sunday roasts are walk-in friendly, with booking recommended for peak slots and groups. We open from noon at weekends and 4pm on weekdays. Perfect for a pre- or post-flight dinner.</p>}
             />
           </div>
         </Container>

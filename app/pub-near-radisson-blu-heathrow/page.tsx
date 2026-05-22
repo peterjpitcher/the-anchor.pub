@@ -127,7 +127,7 @@ export default function PubNearRadissonBluHeathrowPage() {
               columns={3}
               features={[
                 { icon: '', title: 'Fish & Chips', description: 'The quintessential British dish, fresh battered cod with chips and mushy peas.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Sunday Roast', description: 'Traditional roast from £19, pre-booking recommended for weekends.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Sunday Roast', description: 'Traditional roast from £16, walk in or book ahead.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
                 { icon: '', title: 'Great Drinks Selection', description: 'Draught beers and lagers. Proper British beer culture.', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
               ]}
               className="mb-6"

@@ -122,24 +122,28 @@ And the best part? The Chip Shop menu will be available all week, so you don’t
 
   
 
-## Sunday Lunch Returns
+## Sunday Roast Returns
 
-We’re **very excited** to be welcoming back our **Sunday Lunch menu** every Sunday in 2025 starting February 9th. We’ll be taking **pre-orders** for our roast menu, featuring:
+We’re **very excited** to be serving our **Sunday Roast menu** every Sunday. The current roast menu features:
 
-*   Roasted chicken breast
+*   Roast turkey with stuffing ball
     
-*   Crispy pork belly
+*   Roast pork leg
     
-*   Juicy lamb shank
+*   Roast beef topside
     
-*   Succulent vegetable wellington
+*   Beef & ale pie
     
-*   (Plus a **kids’ chicken option** for under 12s)
+*   Chicken & wild mushroom pie
+    
+*   Beetroot & butternut squash wellington
+    
+*   Kids roast
     
 
   
 
-We’ll be accepting pre-orders **until 1pm on the Saturday** before each Sunday service. We’ll also continue to offer our weekday menu on Sundays for anyone who couldn’t order ahead of time. Keep an eye on [the-anchor.pub](https://www.the-anchor.pub) for more details and updates on our Sunday lunches.
+Walk-ins are welcome and booking ahead is recommended for peak slots. We’ll also continue to offer our weekday menu on Sundays for anyone who fancies something different. Keep an eye on [the-anchor.pub](https://www.the-anchor.pub) for more details and updates on our Sunday roasts.
 
   
 

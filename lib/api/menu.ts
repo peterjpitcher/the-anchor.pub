@@ -119,37 +119,64 @@ export const FALLBACK_SUNDAY_LUNCH_MENU: SundayLunchMenuResponse = {
   menu_date: '2024-01-01',
   mains: [
     {
-      id: 'fallback-roasted-chicken',
-      name: 'Roasted Chicken',
-      description: 'Oven-roasted chicken breast with sage & onion stuffing balls, herb and garlic-crusted roast potatoes, seasonal vegetables, Yorkshire pudding, and red wine gravy',
-      price: 19,
-      dietary_info: [],
-      allergens: [],
-      is_available: true
-    },
-    {
-      id: 'fallback-crispy-pork-belly',
-      name: 'Crispy Pork Belly',
-      description: 'Crispy crackling and tender slow-roasted pork belly with Bramley apple sauce, herb and garlic-crusted roast potatoes, seasonal vegetables, Yorkshire pudding, and red wine gravy',
+      id: 'fallback-roast-beef-topside',
+      name: 'Roast Beef Topside',
+      description: '28-day topside, slow-roasted and carved fresh per plate, served with roast potatoes, seasonal vegetables, Yorkshire pudding and gravy',
       price: 22,
       dietary_info: [],
       allergens: [],
       is_available: true
     },
     {
-      id: 'fallback-wellington-v',
-      name: 'Beetroot & Butternut Squash Wellington (V)',
-      description: 'Golden puff pastry filled with beetroot & butternut squash, served with herb and garlic-crusted roast potatoes, seasonal vegetables, and vegetarian gravy',
-      price: 19,
-      dietary_info: ['vegetarian'],
+      id: 'fallback-roast-pork-leg',
+      name: 'Roast Pork Leg',
+      description: 'Roasted pork leg sliced to order with Bramley apple sauce, roast potatoes, seasonal vegetables, Yorkshire pudding and gravy',
+      price: 20,
+      dietary_info: [],
+      allergens: [],
+      is_available: true
+    },
+    {
+      id: 'fallback-roast-turkey-stuffing',
+      name: 'Roast Turkey with Stuffing Ball',
+      description: 'Carved turkey served with a sage and onion stuffing ball, roast potatoes, seasonal vegetables, Yorkshire pudding and gravy',
+      price: 16,
+      dietary_info: [],
+      allergens: [],
+      is_available: true
+    },
+    {
+      id: 'fallback-beef-ale-pie',
+      name: 'Beef & Ale Pie',
+      description: 'Slow-cooked British beef in ale gravy under golden short-crust pastry, served with roast potatoes, seasonal vegetables and gravy',
+      price: 21,
+      dietary_info: [],
       allergens: ['gluten'],
       is_available: true
     },
     {
-      id: 'fallback-kids-roasted-chicken',
-      name: 'Kids Roasted Chicken',
-      description: 'A smaller portion of our roasted chicken with herb and garlic-crusted roast potatoes, seasonal vegetables, Yorkshire pudding, and red wine gravy',
-      price: 13,
+      id: 'fallback-chicken-wild-mushroom-pie',
+      name: 'Chicken & Wild Mushroom Pie',
+      description: 'Tender chicken and wild mushrooms in creamy sauce under golden short-crust pastry, served with roast potatoes, seasonal vegetables and gravy',
+      price: 21,
+      dietary_info: [],
+      allergens: ['gluten', 'milk'],
+      is_available: true
+    },
+    {
+      id: 'fallback-wellington-vegan',
+      name: 'Beetroot & Butternut Squash Wellington',
+      description: 'Golden puff pastry filled with beetroot and butternut squash, served with roast potatoes, seasonal vegetables and vegan gravy',
+      price: 20,
+      dietary_info: ['vegan'],
+      allergens: ['gluten'],
+      is_available: true
+    },
+    {
+      id: 'fallback-kids-roast',
+      name: 'Kids Roast',
+      description: 'A smaller child-sized plate with roast potatoes, seasonal vegetables and gravy',
+      price: 14,
       dietary_info: [],
       allergens: [],
       is_available: true

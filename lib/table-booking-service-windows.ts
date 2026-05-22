@@ -271,7 +271,7 @@ export function resolveServiceRanges(
     return {
       ranges: [],
       closed: false,
-      message: 'Sunday lunch is unavailable for that date. Please choose another date or call us.'
+      message: 'Sunday roast is unavailable for that date. Please choose another date or call us.'
     }
   }
 

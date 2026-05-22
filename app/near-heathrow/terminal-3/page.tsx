@@ -468,7 +468,7 @@ export default function Terminal3Page() {
                   </li>
                   <li className="flex gap-3">
                     <span></span>
-                    <span>We&apos;re popular with Virgin cabin crew - great stories over Sunday lunch!</span>
+                    <span>We&apos;re popular with Virgin cabin crew - great stories over Sunday roast!</span>
                   </li>
                 </ul>
               }

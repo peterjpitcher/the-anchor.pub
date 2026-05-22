@@ -241,7 +241,7 @@ There's no right number, but 30-50 is the sweet spot for most 40th celebrations.
 
 **What's the best time of day for a 40th birthday party?**
 
-Evening (7pm onwards) is the most popular for a 40th. But don't overlook Saturday or Sunday afternoons, especially if your guest list includes families with young children or relatives who'd rather not drive home late. An afternoon format (1pm-5pm) with a [Sunday lunch booking](/sunday-roast) from £19.99 per person gives you a proper meal in a relaxed setting.
+Evening (7pm onwards) is the most popular for a 40th. But don't overlook Saturday or Sunday afternoons, especially if your guest list includes families with young children or relatives who'd rather not drive home late. An afternoon format (1pm-5pm) with a [Sunday roast booking](/sunday-roast) from £16 per person gives you a proper meal in a relaxed setting.
 
 **Can I bring my own cake?**
 

@@ -132,7 +132,7 @@ export default function PreFlightDiningPage() {
                 faqs={[
                     {
                         question: "Do I need to book?",
-                        answer: "We highly recommend booking, especially for dinner or Sunday Lunch. We hate turning hungry travellers away!"
+                        answer: "We highly recommend booking, especially for dinner or Sunday Roast. We hate turning hungry travellers away!"
                     },
                     {
                         question: "Is there a kids menu?",

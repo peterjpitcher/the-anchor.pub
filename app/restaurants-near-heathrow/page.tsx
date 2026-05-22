@@ -481,7 +481,7 @@ export default async function RestaurantsNearHeathrowPage() {
 	                {
 	                  icon: "",
 	                  title: "Famous Sunday Roasts",
-	                  description: "Traditional roast dinners with Yorkshire puddings, roast potatoes & homemade gravy. £19-£22, served Sundays 1pm-6pm.",
+	                  description: "Traditional roast dinners with Yorkshire puddings, roast potatoes & homemade gravy. From £16, served Sundays 1pm-6pm.",
 	                  className: "text-center"
 	                },
                 {
@@ -704,7 +704,7 @@ export default async function RestaurantsNearHeathrowPage() {
 	          },
           {
             question: "What type of food does your restaurant serve?",
-            answer: "We serve traditional British pub food including famous Sunday roasts (£19-£22), fish & chips, burgers, pies, and stone-baked pizzas. Everything is cooked fresh to order within 15 minutes."
+            answer: "We serve traditional British pub food including famous Sunday roasts from £16, fish & chips, burgers, pies, and stone-baked pizzas. Everything is cooked fresh to order within 15 minutes."
           },
 	          {
 	            question: "Are you cheaper than airport restaurants?",
@@ -726,7 +726,7 @@ export default async function RestaurantsNearHeathrowPage() {
         cluster="heathrowDining"
         currentPath="/restaurants-near-heathrow"
         title="Compare Heathrow dining options"
-        intro="Use the live menu, layover guide and Sunday lunch page to choose the right meal before you book."
+        intro="Use the live menu, layover guide and Sunday roast page to choose the right meal before you book."
       />
 
       {/* CTA Section */}

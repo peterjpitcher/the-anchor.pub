@@ -70,7 +70,7 @@ A proper Sunday roast includes:
 
 At The Anchor, Sunday roasts are served 1pm-6pm from Sunday 17 May 2026, walk in or book ahead once service launches, no pre-order needed. Everything is still cooked fresh to order, not warmed up under heat lamps.
 
-[Book Sunday lunch →](/sunday-roast)
+[Book Sunday roast →](/sunday-roast)
 
 ## What to Expect When You Arrive
 

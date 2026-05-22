@@ -128,7 +128,7 @@ export default function PubNearCrownePlazaHeathrowPage() {
               features={[
                 { icon: '', title: 'British Classics', description: 'Steaks, fish & chips, burgers and daily specials, all cooked fresh from £8.99', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
                 { icon: '', title: 'Great Drinks', description: 'Draught lagers, bottled ales and craft beers, proper pub drinking from £4.80 a pint', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
-                { icon: '', title: 'Sunday Roast', description: 'Traditional British roast from £19, pre-booking recommended for weekends', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
+                { icon: '', title: 'Sunday Roast', description: 'Traditional British roast from £16, walk in or book ahead', variant: 'default', className: 'bg-anchor-bg-card border border-anchor-gold/15 rounded-none p-6 text-center' },
               ]}
               className="mb-6"
             />

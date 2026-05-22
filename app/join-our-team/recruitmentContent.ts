@@ -205,7 +205,7 @@ export const recruitmentRolePages: Record<RoleSlug, RecruitmentRolePage> = {
     shifts: [
       'Friday evenings',
       'Saturday daytime or evening shifts',
-      'Sunday lunch or evening shifts',
+      'Sunday roast or evening shifts',
       'weekday evening cover',
       'event nights such as quiz nights, music bingo, karaoke and private bookings',
       'occasional bank holiday shifts'

@@ -80,7 +80,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     heroContent: 'Savor exceptional pub food at The Anchor Stanwell Moor, where traditional favourites meet modern culinary excellence. Our chefs use fresh, locally-sourced ingredients to create memorable dining experiences.',
     introContent: 'The Anchor\'s kitchen serves up the perfect blend of traditional pub classics and contemporary dishes during kitchen hours. From our famous Sunday roasts to stone-baked pizzas, beer-battered fish and chips to gourmet burgers, every dish is prepared with care using the finest ingredients. We accommodate all dietary requirements with vegetarian, vegan, and gluten-free options available throughout our menu.',
     valueProposition: 'Whether you\'re joining us for a quick lunch, romantic dinner, or Sunday family gathering, The Anchor delivers exceptional food in a warm, welcoming atmosphere. Book your table today and taste why we\'re Stanwell Moor\'s favourite dining destination.',
-    keywords: ['pub food stanwell moor', 'restaurant near heathrow', 'sunday lunch stanwell moor', 'dining near airport', 'best food TW19']
+    keywords: ['pub food stanwell moor', 'restaurant near heathrow', 'sunday roast stanwell moor', 'dining near airport', 'best food TW19']
   },
 
   'community': {
@@ -131,12 +131,12 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
   'easter': {
     name: 'Easter Celebrations',
     description: 'Easter celebrations and springtime events',
-    metaTitle: 'Easter Sunday Lunch Stanwell Moor | Easter Events at The Anchor',
+    metaTitle: 'Easter Sunday Roast Stanwell Moor | Easter Events at The Anchor',
     metaDescription: 'Celebrate Easter at The Anchor Stanwell Moor. Special Easter menu, family events, egg hunts & spring celebrations. Book your table near Heathrow.',
     heroContent: 'Hop into spring with Easter celebrations at The Anchor. Join us for special menus, family fun, and the warmest welcome in Stanwell Moor.',
     introContent: 'Easter at The Anchor brings families together for joyful spring celebrations. Our special Easter menu features seasonal ingredients at their best, including succulent spring lamb and fresh seasonal vegetables. For the little ones, we organise Easter egg hunts in our beer garden, making it a perfect family day out.',
-    valueProposition: 'Make Easter extra special with a visit to The Anchor. Book your table early for our popular Easter Sunday lunch and create memories that will last long after the chocolate eggs are gone.',
-    keywords: ['easter sunday lunch stanwell moor', 'easter events surrey pub', 'family easter heathrow', 'spring events TW19', 'easter menu stanwell moor']
+    valueProposition: 'Make Easter extra special with a visit to The Anchor. Book your table early for our popular Easter Sunday roast and create memories that will last long after the chocolate eggs are gone.',
+    keywords: ['easter sunday roast stanwell moor', 'easter events surrey pub', 'family easter heathrow', 'spring events TW19', 'easter menu stanwell moor']
   },
 
   'halloween': {
@@ -224,20 +224,20 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     metaTitle: 'Stanwell Moor Village Pub | The Anchor - Best Local Pub TW19',
     metaDescription: 'The Anchor: Stanwell Moor\'s beloved village pub. Traditional atmosphere, community hub, local favourite. Your true local in the heart of TW19.',
     heroContent: 'The Anchor has been at the heart of Stanwell Moor village for generations, serving as the community\'s favourite gathering place and true local pub.',
-    introContent: 'Deeply rooted in Stanwell Moor\'s history, The Anchor embodies everything a village pub should be. We\'re where locals catch up over a pint, families gather for Sunday lunch, and the community comes together for celebrations. Our connection to the village runs deep - from supporting local suppliers to sponsoring village events, we\'re proud to be Stanwell Moor\'s pub.',
+    introContent: 'Deeply rooted in Stanwell Moor\'s history, The Anchor embodies everything a village pub should be. We\'re where locals catch up over a pint, families gather for Sunday roast, and the community comes together for celebrations. Our connection to the village runs deep - from supporting local suppliers to sponsoring village events, we\'re proud to be Stanwell Moor\'s pub.',
     valueProposition: 'Whether you\'re a long-time resident or new to Stanwell Moor, you\'ll find a warm welcome at The Anchor. Join us and discover why we\'ve been the village\'s favourite pub for generations.',
     keywords: ['stanwell moor village pub', 'best pub in stanwell moor', 'local pub tw19', 'stanwell moor local', 'village pub surrey']
   },
 
   'sunday-roast': {
     name: 'Sunday Roast',
-    description: 'Traditional Sunday lunches with all the trimmings',
-    metaTitle: 'Sunday Roast Stanwell Moor | Best Sunday Lunch at The Anchor',
-    metaDescription: 'Our renowned Sunday roast at The Anchor Stanwell Moor. Traditional roasts, vegetarian options, book ahead. Best Sunday lunch near Heathrow Airport.',
-    heroContent: 'Sundays are special at The Anchor, where our traditional roast dinners have become legendary in Stanwell Moor. Join us for the perfect Sunday lunch.',
-    introContent: 'Our Sunday roasts are a labour of love. Each week, our chefs prepare succulent roasted meats including beef, lamb, pork, and chicken, accompanied by crispy roast potatoes, seasonal vegetables, Yorkshire puddings, and rich gravies. Vegetarian and vegan roasts ensure everyone can enjoy Sunday lunch at its finest. The generous portions and homemade touches make our Sunday roasts the talk of the village.',
-    valueProposition: 'Sunday lunch at The Anchor is more than a meal - it\'s a tradition. Book your table early as we fill up fast, especially for larger family groups. Experience why locals vote us the best Sunday roast in the area.',
-    keywords: ['sunday roast stanwell moor', 'sunday lunch near heathrow', 'best roast dinner surrey', 'traditional sunday lunch TW19', 'carvery stanwell moor']
+    description: 'Traditional Sunday roasts with all the trimmings',
+    metaTitle: 'Sunday Roast Stanwell Moor | Best Sunday Roast at The Anchor',
+    metaDescription: 'Our renowned Sunday roast at The Anchor Stanwell Moor. Traditional roasts, vegetarian options, book ahead. Best Sunday roast near Heathrow Airport.',
+    heroContent: 'Sundays are special at The Anchor, where our traditional roast dinners have become legendary in Stanwell Moor. Join us for the perfect Sunday roast.',
+    introContent: 'Our Sunday roasts are a labour of love. Each week, our chefs prepare succulent roasted meats including beef, lamb, pork, and chicken, accompanied by crispy roast potatoes, seasonal vegetables, Yorkshire puddings, and rich gravies. Vegetarian and vegan roasts ensure everyone can enjoy Sunday roast at its finest. The generous portions and homemade touches make our Sunday roasts the talk of the village.',
+    valueProposition: 'Sunday roast at The Anchor is more than a meal - it\'s a tradition. Book your table early as we fill up fast, especially for larger family groups. Experience why locals vote us the best Sunday roast in the area.',
+    keywords: ['sunday roast stanwell moor', 'sunday roast near heathrow', 'best roast dinner surrey', 'traditional sunday roast TW19', 'carvery stanwell moor']
   },
 
   'dog-friendly': {
@@ -564,7 +564,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     name: 'Family Dining',
     description: 'Family meals and kid-friendly dining',
     metaTitle: 'Family Dining Stanwell Moor | Family Restaurant at The Anchor',
-    metaDescription: 'Family-friendly dining at The Anchor Stanwell Moor. Kids menu, high chairs, family meals & Sunday lunch. Perfect for families near Heathrow.',
+    metaDescription: 'Family-friendly dining at The Anchor Stanwell Moor. Kids menu, high chairs, family meals & Sunday roast. Perfect for families near Heathrow.',
     heroContent: 'The Anchor welcomes families with dedicated menus, comfortable spaces, and warm hospitality that makes dining out with children a pleasure.',
     introContent: 'Family dining at The Anchor is designed to be stress-free and enjoyable for all ages. Our children\'s menu offers healthy, tasty options alongside kid favourites, all at family-friendly prices. High chairs, colouring materials, and patient staff ensure parents can relax while children are entertained. Our spacious layout provides room for pushchairs, and our beer garden offers safe outdoor space for little ones to explore.',
     valueProposition: 'Make The Anchor your family\'s regular dining destination. With something for everyone and a genuine welcome for children, we\'re where family memories are made.',
@@ -788,7 +788,7 @@ export const tagSEOContent: Record<string, TagSEOContent> = {
     metaTitle: 'Guides | The Anchor Stanwell Moor',
     metaDescription: 'Practical guides from The Anchor Stanwell Moor. Visitor tips, event planning, Heathrow parking advice and local know-how, 7 min from the airport.',
     heroContent: 'Whether you\'re visiting for the first time, planning an event or trying to sort Heathrow parking, our guides cut through the noise with practical advice you can actually use.',
-    introContent: 'We\'ve put together guides on everything from booking your first Sunday lunch to planning a private event in our function room. You\'ll also find Heathrow-specific advice, parking options, terminal transfer times, and why a proper meal before security beats an overpriced airport sandwich. These aren\'t generic travel articles. They\'re written by people who live and work seven minutes from the airport and know the area properly.',
+    introContent: 'We\'ve put together guides on everything from booking your first Sunday roast to planning a private event in our function room. You\'ll also find Heathrow-specific advice, parking options, terminal transfer times, and why a proper meal before security beats an overpriced airport sandwich. These aren\'t generic travel articles. They\'re written by people who live and work seven minutes from the airport and know the area properly.',
     valueProposition: 'Got a question our guides don\'t cover? Drop us an email at manager@the-anchor.pub or call 01753 682707. We\'re always happy to help.',
     keywords: ['visitor guide stanwell moor pub', 'heathrow area guide TW19', 'pub near heathrow tips', 'planning events stanwell moor', 'things to know the anchor pub']
   },

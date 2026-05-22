@@ -10,7 +10,7 @@ keywords:
   - local pub stanwell moor
   - the anchor stanwell moor
   - family friendly pub stanwell moor
-  - sunday lunch stanwell moor
+  - sunday roast stanwell moor
   - pub events stanwell moor
   - why local pubs matter
 tags:
@@ -92,7 +92,7 @@ A pub can be a lot of things, depending on the person:
 
 - A place to grab a quick drink with a friend  
 - Somewhere to meet the neighbours without planning a “big night”  
-- A Sunday lunch tradition  
+- A Sunday roast tradition  
 - A warm, familiar room when home feels too quiet  
 - A venue for christenings, birthdays, baby showers, wakes, and “we just needed somewhere to gather”  
 - A place where people can be included without needing an invitation  
@@ -142,7 +142,7 @@ Support often looks like small, ordinary choices made consistently:
 - Choose the pub for **one** midweek meal  
 - Bring family in on a Saturday afternoon  
 - Come to **one** event a month and bring **one** person with you  
-- Book Sunday lunch occasionally, not just on special days  
+- Book Sunday roast occasionally, not just on special days  
 
 Consistency matters more than spikes.
 
@@ -212,13 +212,13 @@ Lunch with friends, family popping in, enjoying the garden when the weather play
 
 ### Sunday: the “everyone together” day
 
-For many people, Sunday lunch isn’t just food, it’s a weekly reset. A shared moment. A tradition.
+For many people, Sunday roast isn’t just food, it’s a weekly reset. A shared moment. A tradition.
 
 ---
 
 ## Why we’re saying this now
 
-We can promote quiz nights, bingo, karaoke, live music, Sunday lunches and private parties all day long, and we do.
+We can promote quiz nights, bingo, karaoke, live music, Sunday roasts and private parties all day long, and we do.
 
 But the real issue isn’t “does the pub have enough going on?”
 
@@ -240,7 +240,7 @@ Because when community pubs fade out, it isn’t sudden. It’s slow. And by the
 Pick one option, whatever fits your life right now:
 
 1) **Come in for one drink** with one person you like  
-2) **Book a table** for a midweek meal or Sunday lunch  
+2) **Book a table** for a midweek meal or Sunday roast  
 3) **Choose one event** (quiz/bingo/karaoke/live music) and bring a friend or neighbour  
 
 Small actions. Real impact.
@@ -279,7 +279,7 @@ We host regular community events including quiz nights, bingo (including cash bi
 
 ### Do I need to book?
 
-For busier times (especially Sunday lunch and popular event nights), booking is a smart idea. For quieter moments, we often welcome walk-ins, just check what’s on that day.
+For busier times (especially Sunday roast and popular event nights), booking is a smart idea. For quieter moments, we often welcome walk-ins, just check what’s on that day.
 
 ### Can I book the pub for a party or gathering?
 

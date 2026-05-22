@@ -4,7 +4,7 @@ slug: st-patricks-day-2024
 description: >-
   Celebrate St Patrick's Day at The Anchor pub near Heathrow Airport. Irish
   festivities in Stanwell Moor, just 7 minutes from Terminal 5. Traditional
-  Sunday lunch, Guinness specials, live Irish music. Perfect for Heathrow
+  Sunday roast, Guinness specials, live Irish music. Perfect for Heathrow
   workers and Staines residents. Family-friendly celebrations, free parking.
   Book your table for March 17th festivities.
 date: '2024-03-10'
@@ -18,7 +18,7 @@ keywords:
   - guinness specials near airport
   - irish food staines
   - the anchor st patricks
-  - sunday lunch heathrow
+  - sunday roast heathrow
   - irish music near terminal 5
   - family celebration stanwell moor
   - paddys day near airport
@@ -45,7 +45,7 @@ March 17th rolls around once more, and with it comes the sea of green, vibrant c
 
   
 
-As you step into our cosy pub, you're not just stepping into any old local – you're entering a place where history meets festivity. And what better way to revel in this age-old celebration than over our scrumptious Sunday lunch, a feast fitting for St. Patrick himself?
+As you step into our cosy pub, you're not just stepping into any old local – you're entering a place where history meets festivity. And what better way to revel in this age-old celebration than over our scrumptious Sunday roast, a feast fitting for St. Patrick himself?
 
   
 
@@ -156,7 +156,7 @@ As we wrap up our journey through the history of St Patrick's Day, why not make 
 
   
 
-At The Anchor, we're all about creating moments that last a lifetime. This St Patrick's Day, we invite you to join us for a day filled with warmth, cheer, and a delicious Sunday lunch. Imagine tucking into our hearty meals, raising a glass with friends and family, and being part of a tradition that's spanned centuries.
+At The Anchor, we're all about creating moments that last a lifetime. This St Patrick's Day, we invite you to join us for a day filled with warmth, cheer, and a delicious Sunday roast. Imagine tucking into our hearty meals, raising a glass with friends and family, and being part of a tradition that's spanned centuries.
 
   
 

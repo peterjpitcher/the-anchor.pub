@@ -18,7 +18,7 @@ keywords:
   - special menu near heathrow
   - mothers day booking stanwell moor
   - the anchor mothers day
-  - traditional sunday lunch heathrow
+  - traditional sunday roast heathrow
 tags:
   - events
   - seasonal
@@ -51,9 +51,9 @@ Looking for the perfect **Mother's Day lunch near Heathrow Airport**? The Anchor
 - 📞 **Call**: 01753 682707
 - 💬 **Facebook**: [Message us](http://m.me/theanchorpubsm)
 - 📱 **WhatsApp**: [01753 682707](https://api.whatsapp.com/send?phone=4401753682707)
-- **Sunday lunch bookings**: A £10 per person deposit is required.
+- **Sunday roast bookings**: A £10 per person deposit applies to groups of 10 or more.
 
-**Important**: Pre-orders typically close the Friday before Mother's Day. Walk-ins subject to availability only.
+**Important**: Walk-ins are welcome, but Mother's Day fills quickly. Book ahead for peak slots.
 
 ### Our Mother's Day Menu Near Heathrow
 

@@ -49,7 +49,7 @@ A typical two-course dinner with a drink comes to £50–70 per person.
 |------|-------------------|
 | Burger and chips | £13.99 |
 | Fish & chips | £13.99 |
-| Sunday Roast (weekends) | from £19.99 |
+| Sunday Roast (weekends) | from £16 |
 | Stone-baked pizza | from £13.99 |
 | Real ale (pint) | from £4.80 |
 | House wine (glass) | from £5.50 |

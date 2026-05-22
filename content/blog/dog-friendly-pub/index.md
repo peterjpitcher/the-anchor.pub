@@ -11,7 +11,7 @@ oldUrl: 'https://www.the-anchor.pub/post/the-importance-of-being-dog-friendly'
 author: Billy
 keywords:
   - dog friendly pub near heathrow
-  - dog friendly sunday lunch
+  - dog friendly sunday roast
   - family friendly pub stanwell moor
   - pub with dogs near me
   - dog friendly restaurants near heathrow
@@ -45,20 +45,20 @@ Unlike many pubs that merely tolerate dogs, The Anchor actively welcomes them. A
 - **Other dog-friendly guests** - Your pup can make friends
 - **Free parking** - Easy access for you and your dog
 
-## Dog Friendly Sunday Lunch at The Anchor
+## Dog Friendly Sunday Roast at The Anchor
 
 ### The Ultimate Sunday Experience for Dog Owners
 
-Our famous **dog friendly Sunday lunch** is a highlight for local families and Heathrow travelers alike. Picture this: a traditional roast dinner in our cozy pub while your dog relaxes at your feet. It's the perfect Sunday afternoon!
+Our famous **dog friendly Sunday roast** is a highlight for local families and Heathrow travelers alike. Picture this: a traditional roast dinner in our cozy pub while your dog relaxes at your feet. It's the perfect Sunday afternoon!
 
-### Sunday Lunch with Your Dog Includes:
+### Sunday Roast with Your Dog Includes:
 - **Reserved dog-friendly seating** in our garden area (weather permitting)
 - **Traditional Sunday roasts** - beef, pork, chicken, or vegetarian
 - **Children welcome** - A true family friendly pub experience
 - **Relaxed atmosphere** - No rushing, enjoy your meal
 - **Special doggy Sunday dinners** available (ask staff)
 
-Book early for Sunday lunch - our dog-friendly tables fill up fast!
+Book early for Sunday roast - our dog-friendly tables fill up fast!
 
 ## Our Dog-Friendly Garden Terrace
 
@@ -211,7 +211,7 @@ Join us for:
 
 ## Why Choose The Anchor as Your Dog Friendly Local
 
-When searching for a **dog friendly pub near Heathrow** or **dog friendly Sunday lunch**, The Anchor stands out:
+When searching for a **dog friendly pub near Heathrow** or **dog friendly Sunday roast**, The Anchor stands out:
 
 ✅ Genuine love for dogs - not just tolerance
 ✅ Purpose-built facilities for four-legged guests

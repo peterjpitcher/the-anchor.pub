@@ -396,7 +396,7 @@ export default async function PubsInStanwellPage() {
                 <div className="text-3xl"></div>
                 <div className="flex-1">
                   <h3 className="font-bold">Sunday - Roast Day</h3>
-                  <p className="text-anchor-cream-text/70">Traditional Sunday lunch • Kitchen 1pm-6pm</p>
+                  <p className="text-anchor-cream-text/70">Traditional Sunday roast • Kitchen 1pm-6pm</p>
                 </div>
               </div>
             </div>

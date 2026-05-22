@@ -79,7 +79,7 @@ Here's how a typical corporate day runs with us:
 |---|---|
 | 10:00 | Arrive. Coffee and pastries in the function room. Settle in. |
 | 10:30 | Morning session, presentation, workshop, or planning meeting. AV set up and ready. |
-| 12:30 | Pub lunch. Mains from £10. If it's a Sunday, the roast is from £19.99 and worth building the day around. |
+| 12:30 | Pub lunch. Mains from £10. If it's a Sunday, the roast is from £16 and worth building the day around. |
 | 14:00 | Afternoon session, or take it outside to the beer garden for something less formal. |
 | 16:00 | Team quiz or informal drinks at the bar. This is where the real conversations happen. |
 | 17:30 | Wrap up. Free parking means nobody's clock-watching or rushing to beat a car park barrier. |

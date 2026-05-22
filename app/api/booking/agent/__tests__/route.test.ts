@@ -148,7 +148,7 @@ describe('Booking Agent API - walk-in launch behaviour', () => {
     expect(body.booking.specialInstructions).toContain('10 or more')
     expect(body.booking.specialInstructions).toContain('£10 per person')
     // Crucially: no Sunday-lunch-specific copy
-    expect(body.booking.specialInstructions).not.toMatch(/sunday lunch/i)
+    expect(body.booking.specialInstructions).not.toMatch(/sunday roast/i)
     expect(body.booking.specialInstructions).not.toMatch(/saturday/i)
     expect(body.booking.specialInstructions).not.toMatch(/cutoff/i)
   })

@@ -2,7 +2,7 @@ import type { Event } from '@/lib/api'
 
 export const MOTHERS_DAY_SERVICE_DATE = '2026-03-15'
 export const MOTHERS_DAY_PAGE_PATH = '/mothers-day'
-export const MOTHERS_DAY_BOOKING_CTA_LABEL = 'Book Mother’s Day Sunday Lunch'
+export const MOTHERS_DAY_BOOKING_CTA_LABEL = 'Book Mother’s Day Sunday Roast'
 export const MOTHERS_DAY_DEFAULT_TIME = '12:30'
 
 const MOTHERS_DAY_MATCHER = /mother'?s day|mothering sunday/i

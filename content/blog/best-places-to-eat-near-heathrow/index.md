@@ -66,7 +66,7 @@ Full disclosure: this is us. We're writing this guide, so take what follows with
 
 The Anchor sits in Stanwell Moor, about seven minutes from Terminal 5 by car. It's a proper village pub with a full kitchen, a beer garden that happens to sit under the Heathrow flight path (which, depending on your outlook, is either a nuisance or brilliant plane-spotting territory), and free parking.
 
-**What it costs:** Mains run £10--17. A burger is around £13. Fish and chips is £14. Our Sunday roast starts from £19.99 and needs to be booked in advance -- it's a proper roast with all the trimmings, not a microwaved approximation.
+**What it costs:** Mains run £10--17. A burger is around £13. Fish and chips is £14. Our Sunday roast starts from £16 and is walk-in friendly, booking is recommended for peak slots. It's a proper roast with all the trimmings, not a microwaved approximation.
 
 **What you get that you won't find at the airport:** A log fire in winter. A beer garden in summer. Dogs welcome. Bottled real ales alongside draught lagers and ciders. A kitchen that makes its own food rather than reheating pre-prepped dishes. And no one hovering to turn your table.
 
@@ -103,7 +103,7 @@ The right choice depends on your situation. We just think more people should kno
 ## Practical Tips for Heathrow Diners
 
 - **Factor in travel time.** If you're heading to a local pub, allow 20 minutes each way plus an hour for the meal itself. Budget 90 minutes minimum from leaving the terminal to getting back.
-- **Best times to eat locally.** Weekday lunchtimes are quietest at most pubs. Friday and Saturday evenings get busy -- book ahead. Sunday lunch at The Anchor always needs a reservation.
+- **Best times to eat locally.** Weekday lunchtimes are quietest at most pubs. Friday and Saturday evenings get busy, book ahead. Sunday roast at The Anchor is walk-in friendly, with booking recommended for peak slots.
 - **Between flights?** If you're transiting through Heathrow with a long layover, it's perfectly feasible to leave the airport, eat locally, and return. You'll clear security again, so keep that in mind.
 - **Check kitchen hours.** Most local pubs stop serving food by 9pm on weeknights. Some, including The Anchor, don't serve food on Mondays. Ring ahead if you're arriving late.
 - **Luggage.** If you're arriving with bags, most local pubs will happily let you stash them by your table. It's not a formal luggage storage service, but nobody minds.
@@ -132,4 +132,4 @@ The Anchor welcomes dogs in the bar area and beer garden. Several other local pu
 
 ### Do I need to book a table at local pubs near Heathrow?
 
-For weekday lunches, you can usually walk in. For weekend evenings and Sunday lunch, booking ahead is strongly recommended. You can book a table at The Anchor through our website or by calling 01753 682707.
+For weekday lunches, you can usually walk in. For weekend evenings and Sunday roast peak slots, booking ahead is strongly recommended. You can book a table at The Anchor through our website or by calling 01753 682707.

@@ -124,7 +124,7 @@ export default function HortonPubPage() {
                     <div className="max-w-4xl mx-auto text-center">
                         <SectionHeader
                             title="A Proper Village Pub for Horton Residents"
-                            subtitle="Whether you're walking over for a pint or driving over for Sunday lunch, we are Horton's local choice for great food and entertainment."
+                            subtitle="Whether you're walking over for a pint or driving over for Sunday roast, we are Horton's local choice for great food and entertainment."
                         />
 
                         <FeatureGrid

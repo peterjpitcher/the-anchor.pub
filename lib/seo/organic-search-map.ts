@@ -77,7 +77,7 @@ export const organicSearchClusters: Record<OrganicSearchClusterKey, OrganicSearc
       },
       {
         href: '/sunday-roast',
-        label: 'Sunday lunch',
+        label: 'Sunday roast',
         description: 'Traditional roast dinners near Heathrow and Staines.',
         anchor: 'Sunday roast near Heathrow'
       }

@@ -153,7 +153,7 @@ export class AnchorAPI {
       .filter((entry): entry is string => Boolean(entry))
       .join(' | ')
 
-    return summary ? `Sunday lunch pre-order: ${summary}` : undefined
+    return summary ? `Sunday roast pre-order: ${summary}` : undefined
   }
 
   private buildLegacyTableBookingNotes(data: TableBookingRequest): string | undefined {

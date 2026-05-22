@@ -167,12 +167,12 @@ export default function BankHolidayWeekendsPage() {
               <div className="flex flex-col gap-3 sm:flex-row">
                 <Button asChild variant="primary" size="lg" fullWidth className="w-full sm:w-auto">
                   <a href="/book-table?purpose=sunday_lunch">
-                    Book Sunday Lunch
+                    Book Sunday Roast
                   </a>
                 </Button>
                 <Link href="/sunday-roast" className="w-full sm:w-auto">
                   <Button variant="secondary" size="lg" fullWidth className="w-full sm:w-auto">
-                    View Sunday lunch menu
+                    View Sunday roast menu
                   </Button>
                 </Link>
               </div>
@@ -365,7 +365,7 @@ export default function BankHolidayWeekendsPage() {
         title="More to explore at The Anchor"
         links={[
           { href: '/book-table', title: 'Book a Table', description: 'Reserve online in minutes' },
-          { href: '/sunday-roast', title: 'Sunday Lunch', description: 'Traditional roast dinners' },
+          { href: '/sunday-roast', title: 'Sunday Roast', description: 'Traditional roast dinners' },
           { href: '/whats-on', title: "What's On", description: 'Events and entertainment' },
           ...commonLinkGroups.location,
         ]}

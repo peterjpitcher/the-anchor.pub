@@ -593,7 +593,7 @@
   },
   "sunday_roast": {
     "_source": "Menu refreshed 2026-04-29. DB table sunday_lunch_menu_items in the management project is the live source; old rows soft-deleted (is_active=false) because table_booking_items has FKs into them.",
-    "price_from": 19,
+    "price_from": 16,
     "currency": "GBP",
     "options": [
       {
@@ -610,7 +610,7 @@
       },
       {
         "name": "Roast Turkey with Stuffing Ball",
-        "price": 19,
+        "price": 16,
         "yorkshire_pudding": true,
         "notes": "Carved fresh, served with a sage and onion stuffing ball."
       },

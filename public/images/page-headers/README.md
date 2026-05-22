@@ -8,7 +8,7 @@ This directory contains header images for each page of the website. Each page ha
 - `whats-on/` - What's On page header
 - `food-menu/` - Food Menu page header
 - `drinks/` - Drinks page header
-- `sunday-lunch/` - Sunday Lunch page header
+- `sunday-lunch/` - Sunday Roast page header
 - `find-us/` - Find Us page header
 - `private-hire/` - Private Hire page header
 - `near-heathrow-terminal-2/` - Terminal 2 page header

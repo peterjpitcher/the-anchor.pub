@@ -397,7 +397,7 @@ export default async function PrivateHirePage() {
                         </div>
 
                         <p className="mt-8 text-sm text-anchor-cream-text/60 italic">
-                            Sit-down meals and Sunday lunches are priced à la carte from our menu. Bespoke packages available, get in touch to discuss your requirements.
+                            Sit-down meals and Sunday roasts are priced à la carte from our menu. Bespoke packages available, get in touch to discuss your requirements.
                         </p>
 
                         <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">

@@ -282,12 +282,13 @@ export default function StanwellPubPage() {
                   The talk of Stanwell! {sunday.isLive ? 'Traditional Sunday roasts served 1pm-6pm, walk in or book ahead, no pre-order needed.' : `Traditional Sunday roasts start ${SUNDAY_ROAST.launchDateLabel}.`}
                 </p>
 	                <ul className="space-y-2 text-anchor-cream-text/70">
-	                  <li>• Roasted Chicken - £19</li>
-	                  <li>• Crispy Pork Belly - £22</li>
-	                  <li>• Beetroot &amp; Butternut Squash Wellington (V) - £19</li>
-	                  <li>• Kids Roasted Chicken - £13</li>
+	                  <li>• Roast Turkey with Stuffing Ball - £16</li>
+	                  <li>• Roast Pork Leg - £20</li>
+	                  <li>• Roast Beef Topside - £22</li>
+	                  <li>• Beetroot &amp; Butternut Squash Wellington (VG) - £20</li>
+	                  <li>• Kids Roast - £14</li>
 	                </ul>
-                <p className="mt-3 text-sm text-anchor-gold">Book early - Stanwell locals fill tables fast!</p>
+                <p className="mt-3 text-sm text-anchor-gold">Book ahead for peak slots - walk-ins are welcome.</p>
               </div>
 
               <div className="card-dark rounded-none p-6">

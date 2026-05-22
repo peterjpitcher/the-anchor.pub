@@ -136,7 +136,7 @@ export function BusinessHours({ showKitchen = true, className = '' }: BusinessHo
 
     return {
       available: effectiveEnabled,
-      message: override?.message || sundayLunchStatus?.message || 'Sunday lunch service unavailable',
+      message: override?.message || sundayLunchStatus?.message || 'Sunday roast service unavailable',
     }
   }
 
@@ -240,7 +240,7 @@ export function BusinessHours({ showKitchen = true, className = '' }: BusinessHo
           if (!displayHours) return null
 
           const noteText = specialHours?.note || specialHours?.reason
-          const sundayLunchMessage = hasSundayLunchNotice ? (sundayLunchInfo?.message || 'Sunday lunch unavailable') : null
+          const sundayLunchMessage = hasSundayLunchNotice ? (sundayLunchInfo?.message || 'Sunday roast unavailable') : null
 
           return (
             <div

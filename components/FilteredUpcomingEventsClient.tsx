@@ -239,7 +239,7 @@ const EventCard = memo(function EventCard({ event, index }: EventCardProps) {
         hoursParts.push(`Kitchen ${event.timeChangeKitchenOpens}–${event.timeChangeKitchenCloses}`)
       }
       if (event.timeChangeHasSundayLunch) {
-        hoursParts.push('Sunday lunch available')
+        hoursParts.push('Sunday roast available')
       }
     }
 

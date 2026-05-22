@@ -380,7 +380,7 @@ export default function HeathrowHotelsPubPage() {
 	                {
 	                  icon: "",
 	                  title: "Sunday Roast",
-	                  description: "Must-try British tradition for Sunday visitors. From £19",
+	                  description: "Must-try British tradition for Sunday visitors. From £16",
 	                  variant: "default",
 	                  className: "bg-anchor-bg-raised rounded-lg p-6 border border-anchor-gold/15 text-center"
 	                }

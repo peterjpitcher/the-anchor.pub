@@ -113,7 +113,7 @@ Our **Christmas menu** celebrates the best of British festive cuisine:
 - **Traditional turkey** with all the trimmings
 - **Roast beef** with Yorkshire pudding
 - **Honey-glazed ham** with pineapple
-- **Vegetarian wellington** with roasted vegetables
+- **Vegan wellington** with roasted vegetables
 - **Pan-fried salmon** with festive sides
 
 #### All mains include:

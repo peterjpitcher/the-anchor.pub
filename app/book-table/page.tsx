@@ -39,8 +39,8 @@ export async function generateMetadata(): Promise<Metadata> {
   ])
   const foodPhrase = foodMenu?.priceFromLabel ? ` Food ${foodMenu.priceFromLabel}.` : ''
   const sundayPhrase = sundayMenu.menuData
-    ? ' Sunday lunch menu details are loaded live.'
-    : ' Sunday lunch details are available on request.'
+    ? ' Sunday roast menu details are loaded live.'
+    : ' Sunday roast details are available on request.'
   const description = `Reserve your table at The Anchor, Stanwell Moor, instant confirmation.${foodPhrase}${sundayPhrase} Dog-friendly, free parking, 7 mins from T5.`
 
   return {
@@ -337,7 +337,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
             <CardBody>
               <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-2">Sunday Roast</h3>
               <p className="text-anchor-cream-text/70 text-sm mb-4">
-                Sunday lunch has a dedicated page. {sundayMenu.menuData ? 'Current Sunday dishes are listed there.' : 'Call us for the current Sunday menu while the online dish list is unavailable.'}
+                Sunday roast has a dedicated page. {sundayMenu.menuData ? 'Current Sunday dishes are listed there.' : 'Call us for the current Sunday menu while the online dish list is unavailable.'}
               </p>
               <Link href="/sunday-roast" className="text-anchor-gold-vivid font-semibold text-sm hover:underline">
                 About Sunday roast &rarr;
@@ -409,7 +409,7 @@ export default async function BookPage({ searchParams }: BookTablePageProps) {
         cluster="heathrowDining"
         currentPath="/book-table"
         title="Plan your meal near Heathrow"
-        intro="Compare the restaurant guide, live menu and Sunday lunch options before reserving."
+        intro="Compare the restaurant guide, live menu and Sunday roast options before reserving."
       />
 
       {/* Customer Review */}

@@ -12,7 +12,7 @@ keywords:
   - easter pub near heathrow
   - easter weekend stanwell moor
   - family dining near terminal 5
-  - easter sunday lunch heathrow
+  - easter sunday roast heathrow
   - easter events staines
   - good friday pub near airport
   - easter monday near heathrow
@@ -72,9 +72,9 @@ Kick off your Easter weekend at our **family pub near Heathrow**. Enjoy:
 
 ### Easter Sunday - Special Roast Menu
 **Hours**: 12:00 PM to 10:00 PM
-**Sunday Lunch**: 12:00 PM to 5:00 PM
+**Sunday Roast**: 12:00 PM to 5:00 PM
 
-Our **Easter Sunday lunch near Heathrow** features:
+Our **Easter Sunday roast near Heathrow** features:
 - **Traditional roast lamb** with mint sauce
 - **Roast beef** with Yorkshire puddings
 - **Roast chicken** with all trimmings
@@ -154,7 +154,7 @@ Eating chocolate at Easter is a modern twist on the egg tradition. Chocolate egg
 ✈️ **Near**: 7 minutes from Heathrow Terminal 5
 
 **Easter Booking Tips:**
-- Book early for Easter Sunday lunch
+- Book early for Easter Sunday roast
 - Large groups welcome (call for arrangements)
 - Special dietary requirements catered for
 - High chairs available

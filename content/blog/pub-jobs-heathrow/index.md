@@ -137,19 +137,19 @@ We are keen to fill the roles quickly so please pick whichever works best for yo
 
 ### **About The Anchor**
 
-The Anchor, located in the heart of **Stanwell Moor Village** near **Heathrow Airport**, is a beloved family-friendly pub known for its cosy atmosphere and delicious Sunday lunches. We pride ourselves on maintaining high standards of cleanliness and customer service. Just **7 minutes from Terminal 5**, we're easily accessible for young people from Staines, Stanwell, and surrounding areas.
+The Anchor, located in the heart of **Stanwell Moor Village** near **Heathrow Airport**, is a beloved family-friendly pub known for its cosy atmosphere and delicious Sunday roasts. We pride ourselves on maintaining high standards of cleanliness and customer service. Just **7 minutes from Terminal 5**, we're easily accessible for young people from Staines, Stanwell, and surrounding areas.
 
   
 
 ### **Job Overview**
 
-We're looking for a young, enthusiastic Sunday Runner to join our team. This role is ideal for individuals aged between 16 and 18 who are keen to develop their work ethic and interpersonal skills in a dynamic pub environment. The Sunday Runner will play a crucial role in supporting our Sunday lunch service and maintaining our high standards. Perfect first job for students in the Heathrow area!
+We're looking for a young, enthusiastic Sunday Runner to join our team. This role is ideal for individuals aged between 16 and 18 who are keen to develop their work ethic and interpersonal skills in a dynamic pub environment. The Sunday Runner will play a crucial role in supporting our Sunday roast service and maintaining our high standards. Perfect first job for students in the Heathrow area!
 
   
 
 ### **Key Responsibilities**
 
-*   Preparing and laying out tables for the Sunday lunch service
+*   Preparing and laying out tables for the Sunday roast service
     
 *   Running food orders to tables and ensuring guests have everything they need
     

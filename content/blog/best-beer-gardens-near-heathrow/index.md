@@ -110,7 +110,7 @@ The golden hours. Warm enough to sit outside without a coat, light until 9pm, an
 
 ### Sunday afternoons
 
-After a roast, before the week starts again. Sunday afternoons in a beer garden are a British institution. The Anchor is particularly good for this, book a Sunday lunch, then take your drinks outside and watch the planes.
+After a roast, before the week starts again. Sunday afternoons in a beer garden are a British institution. The Anchor is particularly good for this, book a Sunday roast, then take your drinks outside and watch the planes.
 
 ### Post-walk pints
 

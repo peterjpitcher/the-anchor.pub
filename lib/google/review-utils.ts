@@ -132,7 +132,7 @@ export const mockReviews: GoogleReview[] = [
     language: "en",
     rating: 5,
     relative_time_description: "2 months ago",
-    text: "Family tradition now - Sunday lunch at The Anchor. Kids love it, great atmosphere, and the food is consistently excellent.",
+    text: "Family tradition now - Sunday roast at The Anchor. Kids love it, great atmosphere, and the food is consistently excellent.",
     time: Math.floor(Date.now() / 1000) - 5184000
   }
 ]

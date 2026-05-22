@@ -10,6 +10,11 @@
     "permanent": true
   },
   {
+    "source": "/blog/family-friendly-sunday-lunch-heathrow",
+    "destination": "/blog/family-friendly-sunday-roast-heathrow",
+    "permanent": true
+  },
+  {
     "source": "/blog/plane-spotting-heathrow-guide",
     "destination": "/blog/heathrow-plane-spotting-locations",
     "permanent": true

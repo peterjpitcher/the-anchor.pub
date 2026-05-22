@@ -5,7 +5,7 @@ description: >-
   The Anchor pub near Heathrow Airport unveils new dining room extension. Modern
   renovation in Stanwell Moor, 7 minutes from Terminal 5. Bright conservatory
   replacement with French doors, perfect for Heathrow workers and Staines
-  families. Private dining available, Sunday lunch service expanded. Opening
+  families. Private dining available, Sunday roast service expanded. Opening
   Spring 2024. Free parking.
 date: '2024-03-15'
 oldUrl: >-
@@ -16,7 +16,7 @@ keywords:
   - pub extension stanwell moor
   - restaurant renovation near terminal 5
   - private dining near airport
-  - sunday lunch near heathrow
+  - sunday roast near heathrow
   - the anchor new dining room
   - conservatory replacement staines
   - pub refurbishment near terminal 5
@@ -90,7 +90,7 @@ In line with our commitment to the environment and the future, the new Dining Ro
 The new Dining Room will not merely be a space; it will be an experience. Envisioned as a more formal dining area, it will cater to:
 - **Business lunches** for Heathrow professionals
 - **Family celebrations** for Staines residents
-- **Sunday lunch service** with expanded capacity
+- **Sunday roast service** with expanded capacity
 - **Private dinner bookings** for groups and parties
 - **Corporate events** for local businesses
 - **Special occasions** throughout the year

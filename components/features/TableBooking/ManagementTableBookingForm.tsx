@@ -640,7 +640,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const submitIntentKeyRef = useRef<{ fingerprint: string; key: string } | null>(null)
 
   const holdExpiry = formatHoldExpiry(result?.hold_expires_at || null)
-  // Sunday lunch as a separate booking type, the Saturday-1pm cutoff, the
+  // Sunday roast as a separate booking type, the Saturday-1pm cutoff, the
   // dedicated Mother's Day mode, and the Sunday menu pre-order flow are all
   // retired with the walk-in launch (spec §6, §7.8, §8.1). Sundays are now
   // regular food bookings; deposit gating is purely group-size based (10+).

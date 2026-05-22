@@ -13,7 +13,7 @@ export const seasonalOccasionLinks: InternalSeoLink[] = [
   {
     label: "Mother's Day",
     href: '/mothers-day',
-    description: 'Sunday lunch and family tables for Mothering Sunday.',
+    description: 'Sunday roast and family tables for Mothering Sunday.',
   },
   {
     label: "St Patrick's Day",
@@ -28,7 +28,7 @@ export const seasonalOccasionLinks: InternalSeoLink[] = [
   {
     label: "Father's Day",
     href: '/fathers-day',
-    description: 'Sunday lunch, pints and family bookings for dads.',
+    description: 'Sunday roast, pints and family bookings for dads.',
   },
   {
     label: 'Summer Garden Parties',

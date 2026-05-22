@@ -200,8 +200,8 @@ export default async function FoodMenuPage() {
     {
       question: 'Do you serve Sunday roast at The Anchor?',
       answer: sundayData.menuData
-        ? `Yes. The Sunday lunch page lists the current Sunday menu. ${sundayData.priceFromLabel ? `Mains ${sundayData.priceFromLabel}.` : ''}`
-        : 'Yes. Sunday roast details are handled on the Sunday lunch page. Please call us for the current dish list.'
+        ? `Yes. The Sunday roast page lists the current Sunday menu. ${sundayData.priceFromLabel ? `Mains ${sundayData.priceFromLabel}.` : ''}`
+        : 'Yes. Sunday roast details are handled on the Sunday roast page. Please call us for the current dish list.'
     },
     {
       question: "Is there a children's menu?",
@@ -333,7 +333,7 @@ export default async function FoodMenuPage() {
             <div className="rounded-lg border border-anchor-gold/20 bg-anchor-bg-card p-4">
               <p className="text-sm font-semibold text-anchor-gold-vivid">Popular for</p>
               <div className="mt-3 flex flex-wrap gap-2 text-sm text-anchor-cream-text/75">
-                {['Heathrow travellers', 'Plane spotters', 'Local family meals', 'Sunday lunch', 'Small group meals'].map((item) => (
+                {['Heathrow travellers', 'Plane spotters', 'Local family meals', 'Sunday roast', 'Small group meals'].map((item) => (
                   <span key={item} className="rounded-full border border-anchor-gold/20 bg-anchor-bg-raised px-3 py-1">{item}</span>
                 ))}
               </div>
@@ -396,7 +396,7 @@ export default async function FoodMenuPage() {
             <CardBody className="text-center py-8">
               <h2 className="text-2xl font-bold text-anchor-cream-text mb-3">Sunday Roast</h2>
               <p className="text-anchor-cream-text/70 mb-4 max-w-lg mx-auto">
-                Sunday lunch has a dedicated page. Current Sunday dishes and prices are shown there when available online.
+                Sunday roast has a dedicated page. Current Sunday dishes and prices are shown there when available online.
               </p>
               <MenuSectionCta
                 label="View Sunday Roast Menu & Book"

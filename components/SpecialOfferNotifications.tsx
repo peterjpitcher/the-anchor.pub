@@ -15,13 +15,11 @@ interface SpecialOffer {
 
 const specialOffers: SpecialOffer[] = [
   {
-    id: 'sunday-lunch-deadline',
-    title: 'Sunday Lunch - Booking Deadline Today!',
-    description: 'Bookings required by 1pm today for tomorrow\'s roast',
+    id: 'sunday-roast-reminder',
+    title: 'Sunday Roast Tomorrow',
+    description: 'Walk in from 1pm to 6pm or book ahead for peak slots',
     emoji: '',
-    dayOfWeek: [6], // Saturday
-    showCountdown: true,
-    countdownDeadline: { hour: 13, minute: 0 } // 1pm
+    dayOfWeek: [6] // Saturday
   }
 ]
 
