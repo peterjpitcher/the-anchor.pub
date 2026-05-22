@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import { DateTime } from 'luxon'
-import { StatusBar } from '@/components/layout/StatusBar'
 import { CONTACT_INFO } from '@/lib/error-handling'
 import { useBusinessHoursContext } from '@/components/providers/BusinessHoursProvider'
 import {
@@ -54,7 +53,7 @@ export function BusinessHours({ showKitchen = true, className = '' }: BusinessHo
   // --- Data resolution (preserved from existing component) ---
 
   const londonNow = DateTime.now().setZone('Europe/London')
-  const todayKey = londonNow.toFormat('cccc').toLowerCase()
+  const londonToday = londonNow.startOf('day')
   const dayOrder = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] as const
 
   const sundayLunchOverrides = (hours.serviceOverrides?.sunday_lunch ?? []) as Array<{
@@ -64,18 +63,6 @@ export function BusinessHours({ showKitchen = true, className = '' }: BusinessHo
     message: string | null
   }>
   const sundayLunchStatus = hours.serviceStatus?.sunday_lunch
-
-  // Map each day to the next occurrence of that weekday (including today)
-  const getIsoForDayKey = (key: string): string | null => {
-    const targetIndex = dayOrder.indexOf(key as typeof dayOrder[number])
-    const todayIndex = dayOrder.indexOf(todayKey as typeof dayOrder[number])
-    if (targetIndex === -1 || todayIndex === -1) return null
-
-    let delta = targetIndex - todayIndex
-    if (delta < 0) delta += 7
-
-    return londonNow.plus({ days: delta }).toISODate()
-  }
 
   const getSpecialHoursForDate = (isoDate?: string | null) => {
     if (!isoDate || !hours.specialHours || hours.specialHours.length === 0) return null
@@ -140,13 +127,14 @@ export function BusinessHours({ showKitchen = true, className = '' }: BusinessHo
     }
   }
 
-  // --- Build main day list (Mon-Sun, mapped to next occurrence) ---
+  // --- Build main day list (today + next six days) ---
 
   const mainDates = new Set<string>()
-  const mainDays = dayOrder.map((day) => {
-    const isoDate = getIsoForDayKey(day)
+  const mainDays = Array.from({ length: 7 }, (_, offset) => {
+    const date = londonToday.plus({ days: offset })
+    const isoDate = date.toISODate()
+    const day = date.toFormat('cccc').toLowerCase() as typeof dayOrder[number]
     if (isoDate) mainDates.add(isoDate)
-    const isToday = day === todayKey
     const dayHours = hours.regularHours[day]
     const specialHours = getSpecialHoursForDate(isoDate)
     const displayHours = specialHours || dayHours
@@ -158,7 +146,7 @@ export function BusinessHours({ showKitchen = true, className = '' }: BusinessHo
     return {
       day,
       isoDate,
-      isToday,
+      isToday: offset === 0,
       dayHours,
       displayHours,
       hasSpecialHours,
@@ -226,12 +214,7 @@ export function BusinessHours({ showKitchen = true, className = '' }: BusinessHo
 
   return (
     <div className={`space-y-3 ${className}`}>
-      {/* Status Bar */}
-      <div className="flex justify-center">
-        <StatusBar showKitchen={showKitchen} />
-      </div>
-
-      {/* Main Mon-Sun list */}
+      {/* Main seven-day list */}
       <div className="space-y-1">
         {mainDays.map(({
           day, isoDate, isToday, displayHours, hasSpecialHours, specialHours,

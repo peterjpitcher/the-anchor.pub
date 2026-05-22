@@ -15,7 +15,6 @@ import { PhoneLink } from '@/components/PhoneLink'
 import { BookTableButton } from '@/components/BookTableButton'
 import { HeroBadge } from '@/components/HeroBadge'
 import { DirectionsButton } from '@/components/DirectionsButton'
-import { StaticHoursSummary } from '@/components/StaticHoursSummary'
 import { DeferredHomepageTrackers } from '@/components/tracking/DeferredHomepageTrackers'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
 import { SpeakableSchema } from '@/components/seo/SpeakableSchema'
@@ -868,7 +867,6 @@ export default function HomePage() {
 
               <div className="card-dark p-4">
                 <h3 className="text-lg font-bold mb-3 text-anchor-gold-vivid">Opening Hours</h3>
-                <StaticHoursSummary compact className="mb-4" />
                 <BusinessHours />
               </div>
             </Grid>

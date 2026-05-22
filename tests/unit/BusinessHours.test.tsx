@@ -14,15 +14,6 @@ jest.mock('@/components/providers/BusinessHoursProvider', () => ({
   useBusinessHoursContext: () => mockContextValue,
 }))
 
-// Mock StatusBar to avoid its own hook dependencies
-jest.mock('@/components/layout/StatusBar', () => ({
-  StatusBar: ({ showKitchen }: { showKitchen?: boolean }) => (
-    <div data-testid="status-bar" data-show-kitchen={showKitchen}>
-      StatusBar
-    </div>
-  ),
-}))
-
 // Freeze time to Wednesday 2026-04-29 at 14:00 London time (BST = UTC+1).
 // Day-to-date mapping:
 //   Mon = 2026-05-04, Tue = 2026-05-05, Wed = 2026-04-29 (today),
@@ -97,13 +88,17 @@ describe('BusinessHours', () => {
       expect(screen.getByText(/01753 682707/)).toBeInTheDocument()
     })
 
-    it('should render 7 day rows Mon-Sun when hours loaded', () => {
+    it('should render 7 day rows starting with today when hours loaded', () => {
       mockContextValue.hours = makeHours()
       render(<BusinessHours />)
-      const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+      const days = ['Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Mon', 'Tue']
       days.forEach(day => {
         expect(screen.getByText(new RegExp(`^${day}`))).toBeInTheDocument()
       })
+      const renderedDays = screen
+        .getAllByText(/^(Mon|Tue|Wed|Thu|Fri|Sat|Sun)/)
+        .map(day => day.textContent?.replace(/\s*•$/, ''))
+      expect(renderedDays).toEqual(days)
     })
   })
 
