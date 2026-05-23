@@ -314,6 +314,12 @@ const mobilePriorityTasks: Array<{
     href: '/whats-on#upcoming-events',
     description: 'Hosted event bookings',
     icon: 'music'
+  },
+  {
+    label: 'Book Parking',
+    href: '/heathrow-parking#book-parking',
+    description: 'Reserve airport parking',
+    icon: 'parking'
   }
 ]
 
@@ -342,7 +348,12 @@ export function Navigation({
     external: false,
     variant: 'primary'
   },
-  secondaryCtaButton = null,
+  secondaryCtaButton = {
+    label: 'Book Parking',
+    href: '/heathrow-parking#book-parking',
+    external: false,
+    variant: 'secondary'
+  },
   tertiaryCtaButton = null,
   promoCtaButtons = [],
   theme = defaultTheme,
