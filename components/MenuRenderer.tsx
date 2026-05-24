@@ -227,13 +227,18 @@ export function MenuRenderer({ menuData, eyebrow = menuData.title || 'Menu', sho
                     <div className="grid min-w-0 grid-cols-1 gap-x-6 gap-y-1.5 sm:grid-cols-2" role="list">
                       {section.items.map((item) => {
                         const { displayPrice } = normalizePrice(item.price)
+                        const formattedPrice = formatDisplayPrice(displayPrice)
                         return (
-                          <div key={item.name} className="flex min-w-0 items-baseline justify-between gap-2 py-1" role="listitem">
-                            <span className="min-w-0 break-words text-sm text-anchor-cream-text/70">{item.name}</span>
+                          <div key={item.name} className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-1 py-1" role="listitem">
+                            <span className="min-w-0 break-words text-sm text-anchor-cream-text/70">
+                              {item.name}
+                              {formattedPrice && (
+                                <span className="ml-1 text-anchor-cream-text/50">{formattedPrice}</span>
+                              )}
+                            </span>
                             <span className="shrink-0 whitespace-nowrap text-sm text-anchor-cream-text/50">
                               {item.vegan && <span className="text-[10px] font-bold text-emerald-400/80 mr-1">VE</span>}
                               {item.vegetarian && !item.vegan && <span className="text-[10px] font-bold text-emerald-400/80 mr-1">V</span>}
-                              {formatDisplayPrice(displayPrice)}
                             </span>
                           </div>
                         )
@@ -363,7 +368,8 @@ interface MenuItemProps {
 
 const MenuItemRow = memo(function MenuItemRow({ item, itemId, isFocused, onFocus, isHighlighted }: MenuItemProps) {
   const { displayPrice, schemaPrice, gfAvailable } = normalizePrice(item.price)
-  const priceLabel = displayPrice ? `, ${displayPrice}` : ''
+  const formattedPrice = formatDisplayPrice(displayPrice)
+  const priceLabel = formattedPrice ? `, ${formattedPrice}` : ''
 
   return (
     <div
@@ -380,8 +386,20 @@ const MenuItemRow = memo(function MenuItemRow({ item, itemId, isFocused, onFocus
       tabIndex={0}
       onFocus={() => onFocus(itemId)}
     >
-      <p className="text-anchor-cream-text leading-snug">
-        <span className="font-semibold" itemProp="name">{item.name}</span>
+      <div className="text-anchor-cream-text leading-snug">
+        <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+          <span className="font-semibold" itemProp="name">{item.name}</span>
+          {formattedPrice && (
+            <span
+              className="text-anchor-cream-text/70 font-normal"
+              itemProp="offers"
+              itemScope
+              itemType="https://schema.org/Offer"
+            >
+              <span itemProp="price" content={schemaPrice}>{formattedPrice}</span>
+              <meta itemProp="priceCurrency" content="GBP" />
+            </span>
+          )}
         {isHighlighted && (
           <ItemBadge text="NEW" variant="new" position="inline" />
         )}
@@ -405,22 +423,13 @@ const MenuItemRow = memo(function MenuItemRow({ item, itemId, isFocused, onFocus
         {(gfAvailable || item.glutenFreeAvailable) && !item.glutenFree && (
           <span className="text-[11px] font-semibold text-anchor-green/80 bg-anchor-green/10 px-1.5 py-0.5 rounded leading-none ml-1.5">GF opt</span>
         )}
+        </div>
         {item.description && (
-          <span className="text-anchor-cream-text/60 font-normal" itemProp="description">, {item.description}</span>
+          <p className="mt-1 text-sm leading-relaxed text-anchor-cream-text/60" itemProp="description">
+            {item.description}
+          </p>
         )}
-        {displayPrice && (
-          <span
-            className="text-anchor-cream-text/50 font-normal ml-1"
-            itemProp="offers"
-            itemScope
-            itemType="https://schema.org/Offer"
-          >
-            {' · '}
-            <span itemProp="price" content={schemaPrice}>{formatDisplayPrice(displayPrice)}</span>
-            <meta itemProp="priceCurrency" content="GBP" />
-          </span>
-        )}
-      </p>
+      </div>
       <AllergenInfo item={item} />
       {item.vegan && (
         <meta itemProp="suitableForDiet" content="https://schema.org/VeganDiet" />
@@ -437,7 +446,8 @@ const MenuItemRow = memo(function MenuItemRow({ item, itemId, isFocused, onFocus
 
 const MenuItemCard = memo(function MenuItemCard({ item, itemId, isFocused, onFocus, isHighlighted }: MenuItemProps) {
   const { displayPrice, schemaPrice, gfAvailable } = normalizePrice(item.price)
-  const priceLabel = displayPrice ? `, ${displayPrice}` : ''
+  const formattedPrice = formatDisplayPrice(displayPrice)
+  const priceLabel = formattedPrice ? `, ${formattedPrice}` : ''
 
   return (
     <div
@@ -454,24 +464,21 @@ const MenuItemCard = memo(function MenuItemCard({ item, itemId, isFocused, onFoc
       tabIndex={0}
       onFocus={() => onFocus(itemId)}
     >
-      <div className="flex items-start justify-between gap-3">
+      <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
         <h4 className="text-base font-semibold leading-snug text-anchor-cream-text" itemProp="name">
           {item.name}
         </h4>
-        {displayPrice && (
+        {formattedPrice && (
           <span
-            className="shrink-0 text-sm font-semibold text-anchor-gold-vivid"
+            className="text-sm font-semibold text-anchor-gold-vivid"
             itemProp="offers"
             itemScope
             itemType="https://schema.org/Offer"
           >
-            <span itemProp="price" content={schemaPrice}>{formatDisplayPrice(displayPrice)}</span>
+            <span itemProp="price" content={schemaPrice}>{formattedPrice}</span>
             <meta itemProp="priceCurrency" content="GBP" />
           </span>
         )}
-      </div>
-
-      <div className="mt-2 flex flex-wrap gap-1.5">
         {isHighlighted && <ItemBadge text="NEW" variant="new" position="inline" />}
         {item.featured && (
           <span className="text-[11px] font-semibold text-amber-400 bg-amber-400/10 px-1.5 py-0.5 rounded leading-none">
@@ -496,7 +503,7 @@ const MenuItemCard = memo(function MenuItemCard({ item, itemId, isFocused, onFoc
       </div>
 
       {item.description && (
-        <p className="mt-3 text-sm leading-relaxed text-anchor-cream-text/60" itemProp="description">
+        <p className="mt-2 text-sm leading-relaxed text-anchor-cream-text/60" itemProp="description">
           {item.description}
         </p>
       )}
