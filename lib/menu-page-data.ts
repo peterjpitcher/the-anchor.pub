@@ -175,7 +175,7 @@ function formatMenuPrice(price: number | string | undefined): string {
 
 function formatPriceLabel(price: number | string | undefined): string {
   const formatted = formatMenuPrice(price)
-  return formatted ? `£${formatted}` : ''
+  return formatted ? `(${formatted})` : ''
 }
 
 function mapApiItem(
@@ -272,7 +272,7 @@ function getPriceFrom(items: MenuPageItem[]): string | undefined {
     .filter((price) => Number.isFinite(price) && price > 0)
 
   if (prices.length === 0) return undefined
-  return `from ${formatPriceLabel(Math.min(...prices))}`
+  return `from ${formatMenuPrice(Math.min(...prices))}`
 }
 
 function getAdultSundayRoastPriceFrom(items: MenuPageItem[]): string | undefined {

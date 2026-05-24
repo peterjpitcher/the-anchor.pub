@@ -5,12 +5,12 @@ const ITEMS: SundayLunchMenuItem[] = [
   {
     name: 'Roast Beef Topside',
     description: 'Slow-roasted topside, carved fresh per plate.',
-    priceLabel: '£22',
+    priceLabel: '(22)',
   },
   {
     name: 'Beetroot & Butternut Squash Wellington',
     description: 'Golden puff pastry with seasonal vegetables and our vegan gravy.',
-    priceLabel: '£20',
+    priceLabel: '(20)',
     badge: 'Vegan',
   },
 ]
@@ -31,8 +31,8 @@ describe('SundayLunchMenuList', () => {
     expect(
       screen.getByText(/golden puff pastry with seasonal vegetables/i)
     ).toBeInTheDocument()
-    expect(screen.getByText('£22')).toBeInTheDocument()
-    expect(screen.getByText('£20')).toBeInTheDocument()
+    expect(screen.getByText('(22)')).toBeInTheDocument()
+    expect(screen.getByText('(20)')).toBeInTheDocument()
   })
 
   it('renders an optional badge next to the dish name', () => {

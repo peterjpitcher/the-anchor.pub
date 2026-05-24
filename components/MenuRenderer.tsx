@@ -43,6 +43,11 @@ function normalizePrice(price?: string): {
   }
 }
 
+function formatDisplayPrice(displayPrice: string): string {
+  if (!displayPrice) return ''
+  return /\d/.test(displayPrice) ? `(${displayPrice})` : displayPrice
+}
+
 interface MenuRendererProps {
   menuData: MenuData
   eyebrow?: string
@@ -228,7 +233,7 @@ export function MenuRenderer({ menuData, eyebrow = menuData.title || 'Menu', sho
                             <span className="shrink-0 whitespace-nowrap text-sm text-anchor-cream-text/50">
                               {item.vegan && <span className="text-[10px] font-bold text-emerald-400/80 mr-1">VE</span>}
                               {item.vegetarian && !item.vegan && <span className="text-[10px] font-bold text-emerald-400/80 mr-1">V</span>}
-                              £{displayPrice}
+                              {formatDisplayPrice(displayPrice)}
                             </span>
                           </div>
                         )
@@ -276,7 +281,7 @@ export function MenuRenderer({ menuData, eyebrow = menuData.title || 'Menu', sho
                                     itemScope
                                     itemType="https://schema.org/Offer"
                                   >
-                                    <span itemProp="price" content={schemaPrice}>£{displayPrice}</span>
+                                    <span itemProp="price" content={schemaPrice}>{formatDisplayPrice(displayPrice)}</span>
                                     <meta itemProp="priceCurrency" content="GBP" />
                                   </span>
                                 )}
@@ -358,7 +363,7 @@ interface MenuItemProps {
 
 const MenuItemRow = memo(function MenuItemRow({ item, itemId, isFocused, onFocus, isHighlighted }: MenuItemProps) {
   const { displayPrice, schemaPrice, gfAvailable } = normalizePrice(item.price)
-  const priceLabel = displayPrice ? `, £${displayPrice}` : ''
+  const priceLabel = displayPrice ? `, ${displayPrice}` : ''
 
   return (
     <div
@@ -411,7 +416,7 @@ const MenuItemRow = memo(function MenuItemRow({ item, itemId, isFocused, onFocus
             itemType="https://schema.org/Offer"
           >
             {' · '}
-            <span itemProp="price" content={schemaPrice}>£{displayPrice}</span>
+            <span itemProp="price" content={schemaPrice}>{formatDisplayPrice(displayPrice)}</span>
             <meta itemProp="priceCurrency" content="GBP" />
           </span>
         )}
@@ -432,7 +437,7 @@ const MenuItemRow = memo(function MenuItemRow({ item, itemId, isFocused, onFocus
 
 const MenuItemCard = memo(function MenuItemCard({ item, itemId, isFocused, onFocus, isHighlighted }: MenuItemProps) {
   const { displayPrice, schemaPrice, gfAvailable } = normalizePrice(item.price)
-  const priceLabel = displayPrice ? `, £${displayPrice}` : ''
+  const priceLabel = displayPrice ? `, ${displayPrice}` : ''
 
   return (
     <div
@@ -460,7 +465,7 @@ const MenuItemCard = memo(function MenuItemCard({ item, itemId, isFocused, onFoc
             itemScope
             itemType="https://schema.org/Offer"
           >
-            <span itemProp="price" content={schemaPrice}>£{displayPrice}</span>
+            <span itemProp="price" content={schemaPrice}>{formatDisplayPrice(displayPrice)}</span>
             <meta itemProp="priceCurrency" content="GBP" />
           </span>
         )}

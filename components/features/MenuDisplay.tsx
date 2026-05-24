@@ -15,6 +15,15 @@ interface MenuDisplayProps {
   accentColor?: string
 }
 
+function normalizeMenuPrice(price: string): string {
+  return price.replace(/\u00A3/g, '').trim()
+}
+
+function formatMenuPrice(price: string): string {
+  const displayPrice = normalizeMenuPrice(price)
+  return /\d/.test(displayPrice) ? `(${displayPrice})` : displayPrice
+}
+
 export function MenuDisplay({ menuData, accentColor = 'anchor-gold' }: MenuDisplayProps) {
   const [focusedItem, setFocusedItem] = useState<string | null>(null)
   const menuRef = useRef<HTMLDivElement>(null)
@@ -37,7 +46,7 @@ export function MenuDisplay({ menuData, accentColor = 'anchor-gold' }: MenuDispl
           "description": item.description,
           "offers": {
             "@type": "Offer",
-            "price": item.price.replace(/\u00A3/g, '').trim(),
+            "price": normalizeMenuPrice(item.price),
             "priceCurrency": "GBP"
           },
           "suitableForDiet": item.vegetarian ? "https://schema.org/VegetarianDiet" : undefined
@@ -227,6 +236,9 @@ interface MenuItemProps {
 }
 
 const MenuItemCard = memo(function MenuItemCard({ item, itemId, isFocused, onFocus }: MenuItemProps) {
+  const displayPrice = formatMenuPrice(item.price)
+  const schemaPrice = normalizeMenuPrice(item.price)
+
   return (
     <Card 
       variant={isFocused ? 'outlined' : 'elevated'}
@@ -237,7 +249,7 @@ const MenuItemCard = memo(function MenuItemCard({ item, itemId, isFocused, onFoc
       // Removed tabIndex to improve keyboard navigation
       data-menu-item
       data-item-id={itemId}
-      aria-label={`${item.name}, ${item.price}${item.vegetarian ? ', vegetarian' : ''}`}
+      aria-label={`${item.name}, ${schemaPrice}${item.vegetarian ? ', vegetarian' : ''}`}
     >
       <CardBody>
         <div className="flex min-w-0 justify-between gap-3 items-start mb-2">
@@ -247,12 +259,12 @@ const MenuItemCard = memo(function MenuItemCard({ item, itemId, isFocused, onFoc
               <Badge variant="success" size="sm">(V)</Badge>
             )}
           </h3>
-	          <span className="shrink-0 text-xl font-bold text-anchor-gold whitespace-nowrap" itemProp="offers" itemScope itemType="https://schema.org/Offer">
-	            <span itemProp="price" content={item.price.replace(/\u00A3/g, '').trim()}>
-	              {item.price.replace(/\u00A3/g, '').trim()}
-	            </span>
-	            <meta itemProp="priceCurrency" content="GBP" />
-	          </span>
+          <span className="shrink-0 text-xl font-bold text-anchor-gold whitespace-nowrap" itemProp="offers" itemScope itemType="https://schema.org/Offer">
+            <span itemProp="price" content={schemaPrice}>
+              {displayPrice}
+            </span>
+            <meta itemProp="priceCurrency" content="GBP" />
+          </span>
         </div>
         {item.description && (
           <p className="text-anchor-cream-text/70" itemProp="description">{item.description}</p>
@@ -266,6 +278,9 @@ const MenuItemCard = memo(function MenuItemCard({ item, itemId, isFocused, onFoc
 })
 
 const MenuItemList = memo(function MenuItemList({ item, itemId, isFocused, onFocus }: MenuItemProps) {
+  const displayPrice = formatMenuPrice(item.price)
+  const schemaPrice = normalizeMenuPrice(item.price)
+
   return (
     <div 
       className={`flex justify-between items-center p-2 rounded-lg transition-colours ${
@@ -277,18 +292,18 @@ const MenuItemList = memo(function MenuItemList({ item, itemId, isFocused, onFoc
       // Removed tabIndex to improve keyboard navigation
       data-menu-item
       data-item-id={itemId}
-      aria-label={`${item.name}, ${item.price}${item.vegetarian ? ', vegetarian' : ''}`}
-	    >
+      aria-label={`${item.name}, ${schemaPrice}${item.vegetarian ? ', vegetarian' : ''}`}
+    >
       <span className="flex items-center gap-2" itemProp="name">
         {item.name}
         {item.vegetarian && <Badge variant="success" size="sm" dot>(V)</Badge>}
       </span>
-	      <span className="text-anchor-gold font-semibold" itemProp="offers" itemScope itemType="https://schema.org/Offer">
-	        <span itemProp="price" content={item.price.replace(/\u00A3/g, '').trim()}>
-	          {item.price.replace(/\u00A3/g, '').trim()}
-	        </span>
-	        <meta itemProp="priceCurrency" content="GBP" />
-	      </span>
+      <span className="text-anchor-gold font-semibold" itemProp="offers" itemScope itemType="https://schema.org/Offer">
+        <span itemProp="price" content={schemaPrice}>
+          {displayPrice}
+        </span>
+        <meta itemProp="priceCurrency" content="GBP" />
+      </span>
       {item.vegetarian && (
         <meta itemProp="suitableForDiet" content="https://schema.org/VegetarianDiet" />
       )}
