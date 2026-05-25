@@ -1613,7 +1613,8 @@ function ChristmasEnquiryForm({ context, onContextChange, onSuccess }: Christmas
               type="date"
               value={preferredDate}
               onChange={event => setPreferredDate(event.target.value)}
-              className="mt-1 w-full rounded-lg border border-anchor-gold/30 bg-anchor-bg px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
+              data-native-date-time="true"
+              className="mt-1 block w-full min-w-0 max-w-full rounded-lg border border-anchor-gold/30 bg-anchor-bg px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
               required
             />
           </div>
@@ -1945,7 +1946,8 @@ function ChristmasLightbox({ suppressed, context, onContextChange, onSubmitSucce
                 type="date"
                 value={preferredDate}
                 onChange={event => setPreferredDate(event.target.value)}
-                className="w-full rounded-lg border border-anchor-gold/30 bg-anchor-bg px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
+                data-native-date-time="true"
+                className="block w-full min-w-0 max-w-full rounded-lg border border-anchor-gold/30 bg-anchor-bg px-3 py-2 text-sm text-anchor-cream-text focus:border-red-600 focus:outline-none focus:ring-2 focus:ring-red-100"
               />
             </div>
             <div className="flex gap-2">

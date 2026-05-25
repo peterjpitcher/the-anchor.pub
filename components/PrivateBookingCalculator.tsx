@@ -305,8 +305,9 @@ export function PrivateBookingCalculator({ eventType, compact = false, quoteStar
                                 trackQuoteStartedOnce()
                                 setSelectedDate(e.target.value)
                             }}
+                            data-native-date-time="true"
                             className={cn(
-                                'w-full bg-anchor-bg-card border border-anchor-gold/30 rounded-none focus:ring-2 focus:ring-anchor-gold focus:border-anchor-gold transition-all font-bold text-anchor-cream-text',
+                                'block w-full min-w-0 max-w-full bg-anchor-bg-card border border-anchor-gold/30 rounded-none focus:ring-2 focus:ring-anchor-gold focus:border-anchor-gold transition-all font-bold text-anchor-cream-text',
                                 compact ? 'px-3 py-2 text-sm' : 'px-5 py-4 text-xl',
                                 !selectedDate && 'text-anchor-cream-text/40'
                             )}

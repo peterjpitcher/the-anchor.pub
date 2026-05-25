@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils'
 import type { BaseComponentProps } from '../types'
 
 const datePickerVariants = cva(
-  'w-full rounded-lg border bg-anchor-bg-card px-4 py-2 text-anchor-cream-text placeholder:text-anchor-cream-text/40 transition-colors focus:outline-none focus:ring-2 focus:ring-anchor-gold focus:border-anchor-gold focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed',
+  'block w-full min-w-0 max-w-full rounded-lg border bg-anchor-bg-card px-4 py-2 text-left text-anchor-cream-text placeholder:text-anchor-cream-text/40 transition-colors focus:outline-none focus:ring-2 focus:ring-anchor-gold focus:border-anchor-gold focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed',
   {
     variants: {
       variant: {
@@ -93,7 +93,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
     }, [isMobile])
 
     return (
-      <div className="w-full">
+      <div className="w-full min-w-0">
         {label && (
           <label 
             htmlFor={datePickerId}
@@ -103,7 +103,7 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
           </label>
         )}
         
-        <div className="relative">
+        <div className="relative w-full min-w-0 overflow-hidden rounded-lg">
           <input
             ref={ref || inputRef}
             id={datePickerId}
@@ -112,8 +112,10 @@ export const DatePicker = forwardRef<HTMLInputElement, DatePickerProps>(
             max={maxDate}
             className={cn(
               datePickerVariants({ variant: errorVariant, size }),
+              'appearance-none',
               className
             )}
+            data-native-date-time="true"
             data-testid={testId}
             aria-invalid={!!error}
             aria-describedby={error ? `${datePickerId}-error` : helperText ? `${datePickerId}-helper` : undefined}
@@ -291,7 +293,7 @@ export const TimePicker = forwardRef<HTMLInputElement, TimePickerProps>(
     const errorVariant = error ? 'error' : variant
 
     return (
-      <div className="w-full">
+      <div className="w-full min-w-0">
         {label && (
           <label 
             htmlFor={timePickerId}
@@ -301,7 +303,7 @@ export const TimePicker = forwardRef<HTMLInputElement, TimePickerProps>(
           </label>
         )}
         
-        <div className="relative">
+        <div className="relative w-full min-w-0 overflow-hidden rounded-lg">
           <input
             ref={ref}
             id={timePickerId}
@@ -311,8 +313,10 @@ export const TimePicker = forwardRef<HTMLInputElement, TimePickerProps>(
             step={step}
             className={cn(
               datePickerVariants({ variant: errorVariant, size }),
+              'appearance-none',
               className
             )}
+            data-native-date-time="true"
             data-testid={testId}
             aria-invalid={!!error}
             aria-describedby={error ? `${timePickerId}-error` : helperText ? `${timePickerId}-helper` : undefined}

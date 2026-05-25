@@ -355,7 +355,8 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
                                     type="date"
                                     value={formData.event_date || ''}
                                     onChange={e => setFormData({ ...formData, event_date: e.target.value })}
-                                    className="w-full px-4 py-2 bg-anchor-bg-card border border-anchor-gold/30 text-anchor-cream-text rounded-lg focus:ring-2 focus:ring-anchor-gold focus:border-anchor-gold"
+                                    data-native-date-time="true"
+                                    className="block w-full min-w-0 max-w-full px-4 py-2 bg-anchor-bg-card border border-anchor-gold/30 text-anchor-cream-text rounded-lg focus:ring-2 focus:ring-anchor-gold focus:border-anchor-gold"
                                 />
                             </div>
 
@@ -366,7 +367,8 @@ export function PrivateBookingInquiryForm({ initialData, onCancel }: Props) {
                                         type="time"
                                         value={formData.start_time || ''}
                                         onChange={e => setFormData({ ...formData, start_time: e.target.value })}
-                                        className="w-full px-4 py-2 bg-anchor-bg-card border border-anchor-gold/30 text-anchor-cream-text rounded-lg focus:ring-2 focus:ring-anchor-gold focus:border-anchor-gold"
+                                        data-native-date-time="true"
+                                        className="block w-full min-w-0 max-w-full px-4 py-2 bg-anchor-bg-card border border-anchor-gold/30 text-anchor-cream-text rounded-lg focus:ring-2 focus:ring-anchor-gold focus:border-anchor-gold"
                                     />
                                 </div>
                                 <div>
