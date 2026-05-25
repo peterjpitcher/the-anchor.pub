@@ -20,6 +20,35 @@
   select:focus-visible {
     border-color: var(--anchor-focus-ring-color);
   }
+
+  input,
+  textarea,
+  select {
+    max-width: 100%;
+  }
+
+  /*
+   * iOS Safari gives native date/time inputs an intrinsic width that can
+   * overflow narrow forms even when Tailwind sets w-full. Keep them bounded
+   * to their container and align the native value text with other inputs.
+   */
+  input[type='date'],
+  input[type='time'],
+  input[type='datetime-local'],
+  input[type='month'] {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  input[type='date']::-webkit-date-and-time-value,
+  input[type='time']::-webkit-date-and-time-value,
+  input[type='datetime-local']::-webkit-date-and-time-value,
+  input[type='month']::-webkit-date-and-time-value {
+    min-width: 0;
+    text-align: left;
+  }
   
   /* Skip to content link */
   .skip-link:focus {
