@@ -54,6 +54,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
   }, ref) => {
     const inputId = id || label?.toLowerCase().replace(/\s+/g, '-')
     const errorVariant = error ? 'error' : variant
+    const isNativeDateTimeInput =
+      props.type === 'date' ||
+      props.type === 'time' ||
+      props.type === 'datetime-local' ||
+      props.type === 'month'
 
     return (
       <div className="w-full min-w-0">
@@ -66,7 +71,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           </label>
         )}
 
-        <div className="relative w-full min-w-0">
+        <div className={cn('relative w-full min-w-0', isNativeDateTimeInput && 'overflow-hidden rounded-lg')}>
           {leftIcon && (
             <div className="absolute left-3 top-1/2 -translate-y-1/2 text-anchor-cream-text/70">
               {leftIcon}
@@ -78,10 +83,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             id={inputId}
             className={cn(
               inputVariants({ variant: errorVariant, size }),
+              isNativeDateTimeInput && 'appearance-none text-left',
               leftIcon && 'pl-10',
               rightIcon && 'pr-10',
               className
             )}
+            data-native-date-time={isNativeDateTimeInput ? 'true' : undefined}
             data-testid={testId}
             aria-invalid={!!error}
             aria-describedby={error ? `${inputId}-error` : helperText ? `${inputId}-helper` : undefined}

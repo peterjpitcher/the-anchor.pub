@@ -96,6 +96,21 @@ describe('Input', () => {
     render(<Input disabled />)
     expect(screen.getByRole('textbox')).toBeDisabled()
   })
+
+  it('marks native date and time controls for iOS sizing rules', () => {
+    const { rerender } = render(<Input label="Date" type="date" />)
+    expect(screen.getByLabelText('Date')).toHaveAttribute('data-native-date-time', 'true')
+    expect(screen.getByLabelText('Date')).toHaveClass('appearance-none')
+
+    rerender(<Input label="Preferred Time" type="time" />)
+    expect(screen.getByLabelText('Preferred Time')).toHaveAttribute('data-native-date-time', 'true')
+    expect(screen.getByLabelText('Preferred Time')).toHaveClass('text-left')
+  })
+
+  it('does not mark ordinary text controls as native date and time controls', () => {
+    render(<Input label="Name" />)
+    expect(screen.getByLabelText('Name')).not.toHaveAttribute('data-native-date-time')
+  })
 })
 
 describe('Textarea', () => {
