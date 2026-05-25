@@ -187,6 +187,28 @@ describe('ManagementTableBookingForm', () => {
     ).not.toBeInTheDocument()
   })
 
+  it('updates the aircraft overhead note when the booking date and time change', async () => {
+    setupFetchMock({ availability: [] })
+    render(<ManagementTableBookingForm prefill={{ date: '2026-05-18', time: '14:00' }} />)
+
+    expect(
+      screen.getByText(/Aircraft overhead are expected around this time/i)
+    ).toBeInTheDocument()
+    expect(screen.queryByText(/Plane spotting/i)).not.toBeInTheDocument()
+
+    fireEvent.change(screen.getByLabelText('Preferred Time'), { target: { value: '16:00' } })
+
+    expect(
+      screen.getByText(/Aircraft overhead is usually expected until 3pm on this date/i)
+    ).toBeInTheDocument()
+
+    fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-05-25' } })
+
+    expect(
+      screen.getByText(/Aircraft overhead are expected around this time/i)
+    ).toBeInTheDocument()
+  })
+
   it('does not include purpose in the availability fetch URL', async () => {
     const captureUrl = { ref: { current: null as string | null } }
     setupFetchMock({
@@ -462,7 +484,7 @@ describe('ManagementTableBookingForm', () => {
             JSON.stringify({
               success: true,
               data: {
-                date: '2026-05-24',
+                date: '2026-05-26',
                 available: true,
                 time_slots: [
                   {
@@ -549,7 +571,7 @@ describe('ManagementTableBookingForm', () => {
 
     fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '10' } })
     fireEvent.blur(screen.getByLabelText('Party Size'))
-    fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-05-24' } })
+    fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-05-26' } })
 
     fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 

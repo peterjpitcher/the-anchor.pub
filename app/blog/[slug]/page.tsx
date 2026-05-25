@@ -13,6 +13,8 @@ import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { BookTableButton } from '@/components/BookTableButton'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
+import { PlaneSpottingBookingPrompt } from '@/components/plane-spotting/PlaneSpottingBookingPrompt'
+import { PlaneSpottingScheduleNote } from '@/components/plane-spotting/PlaneSpottingScheduleNote'
 import type { OrganicSearchClusterKey } from '@/lib/seo/organic-search-map'
 
 export const revalidate = 3600
@@ -339,6 +341,9 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
         }}
       />
       <ScrollDepthTracker />
+      {organicSearchCluster === 'planeSpotting' ? (
+        <PlaneSpottingBookingPrompt source="blog_plane_spotting_prompt" />
+      ) : null}
       {/* Hero Section */}
       <HeroWrapper
         showContextStrip={true}
@@ -429,6 +434,9 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
               <p className="text-anchor-cream-text/70">
                 Book a table for lunch in our beer garden, great food, cold drinks, and a proper base for a day of spotting.
               </p>
+              {organicSearchCluster === 'planeSpotting' ? (
+                <PlaneSpottingScheduleNote variant="compact" className="mt-3" />
+              ) : null}
             </div>
             <div className="flex flex-col sm:flex-row gap-3 shrink-0">
               <BookTableButton source="blog_heathrow_cta" context="heathrow_visitor" size="md">

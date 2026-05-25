@@ -231,4 +231,37 @@ describe('StatusBar Boundary Tests', () => {
     expect(screen.getByText(/Bar: Tue-Thu 4pm-11pm/i)).toBeInTheDocument()
     expect(screen.getByText(/Kitchen: Tue-Fri 4pm-9pm/i)).toHaveAttribute('href', 'tel:+441753682707')
   })
+
+  it('shows the plane status in navigation but not hero status bars by default', () => {
+    jest.useFakeTimers()
+    jest.setSystemTime(new Date('2026-05-25T12:00:00.000Z'))
+
+    const mockUseBusinessHours = useBusinessHours as jest.MockedFunction<typeof useBusinessHours>
+    mockUseBusinessHours.mockReturnValue({
+      hours: {
+        currentStatus: { isOpen: true, kitchenOpen: true },
+        today: {
+          opens: '12:00:00',
+          closes: '22:00:00',
+          kitchen: { opens: '12:00:00', closes: '19:00:00' }
+        },
+        regularHours: {}
+      } as any,
+      loading: false,
+      error: null,
+      isStale: false,
+      refresh: async () => {}
+    })
+
+    render(
+      <>
+        <StatusBar variant="hero" />
+        <StatusBar variant="navigation" />
+      </>
+    )
+
+    expect(screen.getAllByText('Planes: expected from 3pm')).toHaveLength(1)
+
+    jest.useRealTimers()
+  })
 })

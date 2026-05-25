@@ -13,10 +13,15 @@ import {
   STATIC_HOURS_REVIEW_NOTE,
   STATIC_KITCHEN_HOURS_SHORT
 } from '@/lib/business-hours-fallback'
+import {
+  getTodayPlaneSpottingWindow,
+  PLANE_SPOTTING_COMPACT_CAVEAT
+} from '@/lib/heathrow-runway-alternation'
 
 interface StatusBarProps {
   variant?: 'default' | 'compact' | 'navigation' | 'hero'
   showKitchen?: boolean
+  showPlaneSpotting?: boolean
   className?: string
   apiEndpoint?: string
   theme?: {
@@ -213,6 +218,7 @@ function getKitchenStatus(hours: any): {
 export function StatusBar({ 
   variant = 'default', 
   showKitchen = true,
+  showPlaneSpotting,
   className = '',
   apiEndpoint = '/api/business/hours',
   theme = defaultTheme,
@@ -224,6 +230,8 @@ export function StatusBar({
   
   const mergedTheme = { ...defaultTheme, ...theme }
   const mergedLabels = { ...defaultLabels, ...labels }
+  const shouldShowPlaneSpotting = showPlaneSpotting ?? variant === 'navigation'
+  const planeSpottingInfo = shouldShowPlaneSpotting ? getTodayPlaneSpottingWindow() : null
   
   function renderFallbackStatus(reason: 'loading' | 'unavailable') {
     const barFallback = reason === 'loading' ? STATIC_BAR_HOURS_SHORT : `${STATIC_BAR_HOURS_SHORT} (live status unavailable)`
@@ -244,6 +252,17 @@ export function StatusBar({
               <PhoneLink phone={CONTACT.phone} source="status_bar_nav" showIcon={false} className="whitespace-normal break-words text-left leading-snug uppercase tracking-wider text-white underline decoration-white/40 underline-offset-2">
                 {kitchenFallback}
               </PhoneLink>
+            </div>
+          )}
+          {planeSpottingInfo && (
+            <div className="flex items-center gap-1" title={PLANE_SPOTTING_COMPACT_CAVEAT}>
+              <StatusIndicator status="warning" size="sm" />
+              <span
+                className="whitespace-normal break-words text-left text-[11px] font-medium leading-snug uppercase tracking-wider text-white sm:text-xs"
+                aria-label={`${planeSpottingInfo.statusText}. ${PLANE_SPOTTING_COMPACT_CAVEAT}`}
+              >
+                {planeSpottingInfo.statusText}
+              </span>
             </div>
           )}
           <span className="text-[11px] leading-snug text-white/65">{STATIC_HOURS_REVIEW_NOTE}</span>
@@ -269,6 +288,17 @@ export function StatusBar({
               <PhoneLink phone={CONTACT.phone} source="status_bar" showIcon={false} className="leading-tight uppercase tracking-wider underline decoration-white/40 underline-offset-2">
                 {kitchenFallback}
               </PhoneLink>
+            </div>
+          )}
+          {planeSpottingInfo && (
+            <div className="flex items-center justify-center gap-1.5 leading-tight" title={PLANE_SPOTTING_COMPACT_CAVEAT}>
+              <StatusIndicator status="warning" size={variant === 'compact' ? 'sm' : 'md'} />
+              <span
+                className="leading-tight uppercase tracking-wider"
+                aria-label={`${planeSpottingInfo.statusText}. ${PLANE_SPOTTING_COMPACT_CAVEAT}`}
+              >
+                {planeSpottingInfo.statusText}
+              </span>
             </div>
           )}
           <span className="text-[11px] leading-tight text-white/70">{STATIC_HOURS_REVIEW_NOTE}</span>
@@ -317,6 +347,15 @@ export function StatusBar({
   } else if (variant === 'hero') {
     statusTextClass = 'text-left leading-tight text-base sm:text-xl font-semibold uppercase tracking-wider'
   }
+
+  let planeStatusTextClass = 'text-xs font-medium leading-tight uppercase tracking-wider sm:text-sm'
+  if (variant === 'navigation') {
+    planeStatusTextClass =
+      'whitespace-normal break-words text-left text-[11px] font-medium leading-snug uppercase tracking-wider sm:text-xs'
+  } else if (variant === 'hero') {
+    planeStatusTextClass =
+      'text-left text-xs font-medium leading-tight uppercase tracking-wider sm:text-sm'
+  }
   
   const indicatorSize = variant === 'navigation' || variant === 'compact' ? 'sm' : 'md'
 
@@ -344,6 +383,17 @@ export function StatusBar({
                 <span className={statusTextClass}>{kitchenInfo.status}</span>
               </div>
             )}
+            {planeSpottingInfo && (
+              <div className="flex items-center gap-1" title={PLANE_SPOTTING_COMPACT_CAVEAT}>
+                <StatusIndicator status="warning" size={indicatorSize} />
+                <span
+                  className={planeStatusTextClass}
+                  aria-label={`${planeSpottingInfo.statusText}. ${PLANE_SPOTTING_COMPACT_CAVEAT}`}
+                >
+                  {planeSpottingInfo.statusText}
+                </span>
+              </div>
+            )}
           </>
         ) : (
           // Default/compact variants: stacked vertically, centred
@@ -360,6 +410,17 @@ export function StatusBar({
                   size={indicatorSize}
                 />
                 <span className={statusTextClass}>{kitchenInfo.status}</span>
+              </div>
+            )}
+            {planeSpottingInfo && (
+              <div className="flex items-center justify-center gap-1.5" title={PLANE_SPOTTING_COMPACT_CAVEAT}>
+                <StatusIndicator status="warning" size={indicatorSize} />
+                <span
+                  className={planeStatusTextClass}
+                  aria-label={`${planeSpottingInfo.statusText}. ${PLANE_SPOTTING_COMPACT_CAVEAT}`}
+                >
+                  {planeSpottingInfo.statusText}
+                </span>
               </div>
             )}
           </>

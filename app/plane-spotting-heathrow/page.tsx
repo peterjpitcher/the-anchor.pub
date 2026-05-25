@@ -14,6 +14,8 @@ import { getBusinessHours } from '@/lib/api'
 import { generateOpeningHoursSpecification } from '@/lib/schema-utils'
 import { FoodStickyCtaBar } from '@/components/food/FoodStickyCtaBar'
 import { HeathrowFoodBestFor } from '@/components/food/HeathrowFoodBestFor'
+import { PlaneSpottingScheduleNote } from '@/components/plane-spotting/PlaneSpottingScheduleNote'
+import { PlaneSpottingBookingPrompt } from '@/components/plane-spotting/PlaneSpottingBookingPrompt'
 
 export const metadata: Metadata = {
   title: 'Heathrow Plane Spotting Pub | Beer Garden Views',
@@ -41,7 +43,7 @@ export default async function PlaneSpottingHeathrowPage() {
     '@type': 'TouristAttraction',
     '@id': 'https://www.the-anchor.pub/plane-spotting-heathrow',
     name: 'The Anchor - Heathrow Plane Spotting Pub',
-    description: 'Heathrow plane spotting venue with beer garden directly under the flight path, offering food, drinks and shelter year-round.',
+    description: 'Heathrow plane spotting venue with a beer garden under the expected 27R flight path, offering food, drinks and shelter year-round.',
     url: 'https://www.the-anchor.pub/plane-spotting-heathrow',
     image: DEFAULT_NEAR_HEATHROW_IMAGE,
     address: {
@@ -83,15 +85,26 @@ export default async function PlaneSpottingHeathrowPage() {
         ctaContext="heathrow_layover"
         label="Book a Table for Food"
       />
+      <PlaneSpottingBookingPrompt source="plane_spotting_page_prompt" />
 
       <HeroWrapper
         route="/plane-spotting-heathrow"
         title="Heathrow Plane Spotting Pub and Beer Garden"
-        description="Watch aircraft pass overhead from a proper pub table in Stanwell Moor. Food, drinks, WiFi and free customer parking minutes from Terminal 5."
+        description="Plan a spotting visit from a proper pub table in Stanwell Moor. Food, drinks, WiFi and free customer parking minutes from Terminal 5."
         variant="default"
         enableSmartCtas={true}
         showContextStrip={true}
       />
+
+      <Section background="dark" spacing="sm" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
+        <Container>
+          <PlaneSpottingScheduleNote
+            variant="panel"
+            showCta
+            ctaSource="plane_spotting_today_panel"
+          />
+        </Container>
+      </Section>
 
       <Section background="dark" spacing="sm">
         <Container>
@@ -110,7 +123,7 @@ export default async function PlaneSpottingHeathrowPage() {
       <HeathrowFoodBestFor
         title="Best For Plane Spotters"
         items={[
-          ['Plane spotting day', 'Watch aircraft from the beer garden with food, drinks and shelter nearby.'],
+          ['Plane spotting day', 'Use the beer garden as a comfortable base when overhead arrivals are operating.'],
           ['Lunch between arrivals', 'Book a table and keep your group settled between busy approach windows.'],
           ['Family meal', 'Pub classics, pizzas and a garden that keeps the visit relaxed.'],
           ['Sunday roast', 'Served Sundays from 1pm to 6pm, ideal after a morning in the garden.'],
@@ -125,7 +138,7 @@ export default async function PlaneSpottingHeathrowPage() {
               <CardBody>
                 <h3 className="text-lg font-semibold text-anchor-gold-vivid mb-2">Sunday Roast Before/After Spotting</h3>
                 <p className="text-sm text-anchor-cream-text/70 mb-4">
-                  Walk in 1pm-6pm or book ahead - Yorkshire puddings, crispy potatoes and real gravy after a morning watching arrivals.
+                  Walk in 1pm-6pm or book ahead - Yorkshire puddings, crispy potatoes and real gravy after a spotting morning.
                 </p>
                 <div className="flex flex-col gap-2">
                   <BookTableButton
@@ -206,7 +219,7 @@ export default async function PlaneSpottingHeathrowPage() {
               {
                 icon: '',
                 title: 'Under the Flight Path',
-                description: 'On westerly operations you are aligned with the landing path. Expect A380s, 787s, A350s and narrow bodies at 500-800 ft.',
+                description: 'On westerly operations with 27R arrivals, you are aligned with the landing path. Aircraft overhead is expected, not guaranteed.',
                 variant: 'default',
                 className: 'bg-anchor-bg-raised rounded-2xl p-6 border border-anchor-gold/15 text-left'
               },
@@ -321,7 +334,7 @@ export default async function PlaneSpottingHeathrowPage() {
           },
           {
             question: 'What aircraft will I see from The Anchor?',
-            answer: 'Expect British Airways, Virgin Atlantic, Emirates A380, Qatar Airways, American Airlines, plus cargo airlines. We sit on the approach to runway 27R which operates ~50% of the year on an alternating weekly schedule.'
+            answer: 'When runway 27R arrivals are operating, you may see British Airways, Virgin Atlantic, Emirates A380s, Qatar Airways, American Airlines and cargo airlines. Plane spotting is weather and Heathrow operations dependent, so aircraft overhead cannot be guaranteed.'
           },
           {
             question: 'Can I charge batteries or use WiFi?',

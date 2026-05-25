@@ -8,6 +8,8 @@ const GOOGLE_REVIEW_COUNT = ssot.ratings.google.review_count
 
 interface HeroBadgeProps {
   className?: string
+  badgeClassName?: string
+  reviewBadgeClassName?: string
 }
 
 /**
@@ -15,13 +17,13 @@ interface HeroBadgeProps {
  * All pages show the same badges (per D-02). Content comes from SSOT.json (per D-03).
  * Wraps the Badge primitive (per D-01).
  */
-export function HeroBadge({ className }: HeroBadgeProps) {
+export function HeroBadge({ className, badgeClassName, reviewBadgeClassName }: HeroBadgeProps) {
   return (
     <div className={cn('flex flex-wrap items-center justify-center gap-2', className)}>
-      <Badge variant="primary" size="sm">
+      <Badge variant="primary" size="sm" className={badgeClassName}>
         {GOOGLE_RATING}/5 on Google
       </Badge>
-      <Badge variant="outline" size="sm">
+      <Badge variant="outline" size="sm" className={reviewBadgeClassName || badgeClassName}>
         {GOOGLE_REVIEW_COUNT} reviews
       </Badge>
     </div>

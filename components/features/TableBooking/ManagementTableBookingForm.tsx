@@ -37,6 +37,7 @@ import { PayPalDepositSection } from './PayPalDepositSection'
 import { PhoneLink } from '@/components/PhoneLink'
 import { PhoneButton } from '@/components/PhoneButton'
 import { CONTACT } from '@/lib/constants'
+import { getAircraftOverheadNotePartsForDateTime } from '@/lib/heathrow-runway-alternation'
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
 
@@ -614,6 +615,10 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const [website, setWebsite] = useState('')
   const formLoadedAt = useRef(Date.now())
   const [result, setResult] = useState<ManagementTableBookingResult | null>(null)
+  const aircraftOverheadNote = useMemo(
+    () => getAircraftOverheadNotePartsForDateTime(date, requestedTime),
+    [date, requestedTime]
+  )
 
   // Wizard root ref for scroll-to-top on step transitions. Mounted-guard ref
   // prevents the effect from firing on initial mount, only step changes
@@ -1797,6 +1802,14 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
               value={requestedTime}
               onChange={(event) => handleRequestedTimeChange(event.target.value)}
             />
+
+            <div
+              className="rounded-lg border border-anchor-gold/15 bg-anchor-bg-raised/50 p-3 text-sm text-anchor-cream-text/80"
+              aria-live="polite"
+            >
+              <p className="font-medium text-anchor-cream-text">{aircraftOverheadNote.message}</p>
+              <p className="mt-1 text-xs text-anchor-cream-text/65">{aircraftOverheadNote.caveat}</p>
+            </div>
 
             {(showDateEventSuggestions || selectedDateEventsLoading) &&
               renderDateEventSuggestions({

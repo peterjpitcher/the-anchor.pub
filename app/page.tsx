@@ -74,7 +74,7 @@ export const metadata: Metadata = {
   },
   twitter: getTwitterMetadata({
     title: 'Pub Food in Stanwell Moor | 7 Mins from Heathrow T5',
-    description: 'Book a table for pub classics, stone-baked pizzas, Sunday roasts and relaxed local dining with free parking.',
+    description: 'Book a table for pub classics, stone-baked pizzas, Sunday roasts and relaxed local dining. Parking is free for guests while visiting us, with paid parking available for longer stays.',
     images: [DEFAULT_OG_IMAGE]
   })
 }
@@ -159,7 +159,7 @@ export default function HomePage() {
               The Anchor, Stanwell Moor
             </p>
             <p className="text-base sm:text-lg text-white/90 font-medium drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)] max-w-xl mx-auto text-center px-4">
-              Book a table for pub classics, stone-baked pizzas, Sunday roasts and relaxed local dining with free parking.
+              Book a table for pub classics, stone-baked pizzas, Sunday roasts and relaxed local dining. Parking is free for guests while visiting us, with paid parking available for longer stays.
             </p>
 
             <div className="flex justify-center px-2 sm:px-0 w-full">
@@ -169,7 +169,10 @@ export default function HomePage() {
               />
             </div>
 
-            <HeroBadge />
+            <HeroBadge
+              className="mt-1"
+              badgeClassName="border border-white/30 bg-black/55 px-3 py-1 text-sm font-semibold text-white shadow-lg backdrop-blur-sm sm:text-sm"
+            />
           </div>
         }
         showContextStrip={true}

@@ -17,6 +17,8 @@ import { PhoneButton } from '@/components/PhoneButton'
 import { PhoneLink } from '@/components/PhoneLink'
 import { CONTACT } from '@/lib/constants'
 import { HeroBadge } from '@/components/HeroBadge'
+import { PlaneSpottingScheduleNote } from '@/components/plane-spotting/PlaneSpottingScheduleNote'
+import { PlaneSpottingBookingPrompt } from '@/components/plane-spotting/PlaneSpottingBookingPrompt'
 
 export const revalidate = 86400 // Revalidate every 24 hours
 
@@ -45,7 +47,7 @@ export default async function BeerGardenPage() {
     "@context": "https://schema.org",
     "@type": "TouristAttraction",
     "name": "The Anchor Beer Garden - Heathrow Plane Spotting",
-    "description": "Unique beer garden directly under Heathrow flight path offering spectacular plane spotting opportunities",
+    "description": "Beer garden under Heathrow's expected 27R flight path with food, drinks and plane spotting opportunities",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Horton Road",
@@ -89,12 +91,13 @@ export default async function BeerGardenPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify([planeSpottingSchema, parkingFacilitySchema]) }}
       />
+      <PlaneSpottingBookingPrompt source="beer_garden_plane_spotting_prompt" />
 
       {/* Hero Section */}
       <HeroWrapper
         route="/beer-garden"
         title="Beer Garden Near Heathrow"
-        description="Watch aircraft every 90 seconds while enjoying a pint, food from £10, dogs welcome"
+        description="Plan a plane spotting visit with a pint, food from £10, dogs welcome"
         variant="default"
         enableSmartCtas={true}
         showContextStrip={true}
@@ -108,10 +111,20 @@ export default async function BeerGardenPage() {
       <section className="bg-anchor-bg-raised border-b border-anchor-gold/15 section-spacing-tight">
         <Container>
           <p className="text-center text-lg md:text-xl text-anchor-cream-text/80 max-w-4xl mx-auto leading-relaxed">
-            The Anchor&apos;s beer garden in Stanwell Moor sits directly under the Heathrow flight path, offering a unique plane spotting experience with your pint. Dog-friendly with outdoor seating and free parking.
+            The Anchor&apos;s beer garden in Stanwell Moor sits under Heathrow&apos;s expected 27R arrivals path, offering a unique plane spotting base with your pint. Dog-friendly with outdoor seating and free parking.
           </p>
         </Container>
       </section>
+
+      <Section background="dark" spacing="sm" className="bg-anchor-bg border-b border-anchor-gold/15">
+        <Container>
+          <PlaneSpottingScheduleNote
+            variant="panel"
+            showCta
+            ctaSource="beer_garden_today_panel"
+          />
+        </Container>
+      </Section>
 
       {/* Grab Food & Deals */}
       <Section background="dark" spacing="sm" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
@@ -199,7 +212,7 @@ export default async function BeerGardenPage() {
             Beer Garden Near Heathrow, Outdoor Pub Dining Under the Flight Path
           </PageTitle>
           <p className="text-center text-lg text-anchor-cream-text/70 mt-4 max-w-4xl mx-auto">
-            The Anchor&apos;s beer garden sits directly under Heathrow&apos;s southern runway flight path, with aircraft passing overhead approximately every 90 seconds during peak hours. The 64-seat garden features heated areas and is fully dog-friendly with water bowls provided.
+            The Anchor&apos;s beer garden sits under Heathrow&apos;s southern runway arrivals path when 27R is in use. Aircraft overhead is expected during the active window, but plane spotting is weather and Heathrow operations dependent. The 64-seat garden features heated areas and is fully dog-friendly with water bowls provided.
           </p>
         </Container>
       </section>
@@ -220,8 +233,8 @@ export default async function BeerGardenPage() {
                   content: (
                     <AmenityList
                       items={[
-                        { icon: "", title: "Perfect Position", description: "Directly under the Heathrow approach path" },
-                        { icon: "", title: "Low & Loud", description: "Aircraft pass at approximately 500-800 feet" },
+                        { icon: "", title: "Perfect Position", description: "Under the expected Heathrow 27R approach path" },
+                        { icon: "", title: "Low & Loud", description: "When operating, aircraft pass at approximately 500-800 feet" },
                         { icon: "", title: "Photo Friendly", description: "Unobstructed views perfect for photography" },
                         { icon: "", title: "Refreshments", description: "Full bar service delivered to your table" },
                         { icon: "", title: "Free WiFi", description: "Free high-speed guest WiFi throughout the venue" }
@@ -248,8 +261,8 @@ export default async function BeerGardenPage() {
                       </div>
                       <div className="bg-anchor-bg rounded-lg p-4 border border-anchor-gold/15">
                         <p className="text-sm text-anchor-cream-text/55">
-                          <strong>Schedule:</strong> Planes operate on a rotating weekly schedule, one week landings are overhead until 3pm, the next week from 3pm<br />
-                          <strong>Frequency:</strong> Every 90 seconds (peak)<br />
+                          <strong>Schedule:</strong> Planes operate on a rotating weekly schedule, one week landings are expected overhead until 3pm, the next week from 3pm<br />
+                          <strong>Caveat:</strong> Weather and Heathrow operations dependent, not guaranteed<br />
                           <strong>Overhead Operations:</strong> ~50% of the year (alternating weekly schedule)
                         </p>
                       </div>
@@ -409,11 +422,11 @@ export default async function BeerGardenPage() {
         faqs={[
           {
             question: "What planes can I see from The Anchor beer garden?",
-            answer: "You'll see all types of aircraft using Heathrow including A380s, Boeing 777s, 787 Dreamliners, and A350s. Planes pass directly overhead approximately every 90 seconds during peak times."
+            answer: "When runway 27R arrivals are operating, you may see A380s, Boeing 777s, 787 Dreamliners, A350s and other Heathrow traffic. Plane spotting is weather and Heathrow operations dependent, so aircraft overhead cannot be guaranteed."
           },
           {
             question: "When is the best time for plane spotting at The Anchor?",
-            answer: "Planes operate on a rotating weekly schedule, one week landings are overhead until 3pm, the next week from 3pm. The schedule alternates weekly, so there's always a good chance of seeing planes during your visit."
+            answer: "Planes operate on a rotating weekly schedule, one week landings are expected overhead until 3pm, the next week from 3pm. The schedule alternates weekly, but aircraft overhead cannot be guaranteed because runway use is weather and Heathrow operations dependent."
           },
           {
             question: "Is the beer garden dog friendly?",
@@ -421,7 +434,7 @@ export default async function BeerGardenPage() {
           },
           {
             question: "Can I take photos of planes from the beer garden?",
-            answer: "Absolutely! Our beer garden is a popular spot for aviation photographers. The planes pass low overhead providing excellent photo opportunities."
+            answer: "Absolutely. Our beer garden is a popular spot for aviation photographers when 27R arrivals are operating. Bring a camera, check runway use before travelling, and remember aircraft overhead cannot be guaranteed."
           }
         ]}
       />
