@@ -35,6 +35,7 @@ import { DEFAULT_EVENT_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { JsonLd } from '@/components/JsonLd'
 import { quizNightEventSeries } from '@/lib/schema'
+import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 
 export const metadata: Metadata = {
   title: 'Pub Quiz Night Near Heathrow | £3 Entry, Cash Prizes',
@@ -586,6 +587,15 @@ export default async function QuizNightPage() {
           </div>
         </Container>
       </Section>
+
+      <InternalLinkingSection
+        title="Plan your night out"
+        links={[
+          { href: '/blog/what-is-race-night', title: 'What Is a Race Night?', description: 'Our guide to how race nights work' },
+          { href: '/whats-on', title: "What's On", description: 'All upcoming events and entertainment' },
+          { href: '/music-bingo', title: 'Music Bingo', description: 'Another hosted night at The Anchor' },
+        ]}
+      />
 
       <JsonLd data={quizNightEventSeries} />
       {events.map(event => (

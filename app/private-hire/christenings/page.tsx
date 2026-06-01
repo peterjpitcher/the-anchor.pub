@@ -15,6 +15,7 @@ import { jsonLdSafeStringify } from '@/lib/jsonld'
 import { getCateringData } from '@/lib/api/catering-packages'
 import { CateringPackagesTable } from '@/components/features/CateringPackagesTable'
 import { TestimonialSection } from '@/components/TestimonialSection'
+import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 
 export const metadata: Metadata = {
     title: 'Christening Venue Near Heathrow & Staines',
@@ -409,6 +410,15 @@ export default async function ChristeningsPage() {
                         question: "Is there a room hire fee?",
                         answer: "Yes, a room hire fee applies for christening parties. The fee varies depending on the day, time, and group size. There is no minimum spend required. Contact us for specific details based on your guest numbers."
                     }
+                ]}
+            />
+
+            <InternalLinkingSection
+                title="Planning a christening or family celebration?"
+                links={[
+                    { href: '/blog/christening-party-ideas-venues', title: 'Christening Party Ideas & Venues', description: 'Ideas and tips for planning a christening celebration' },
+                    { href: '/blog/leaving-party-ideas', title: 'Leaving Party Ideas', description: 'How to plan a memorable send-off' },
+                    { href: '/private-hire', title: 'Private Hire & Events', description: 'Rooms, catering and availability' },
                 ]}
             />
         </>

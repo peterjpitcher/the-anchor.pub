@@ -15,6 +15,7 @@ import { SUNDAY_ROAST, getSundayRoastContent } from '@/lib/sunday-roast'
 import { OrganicSearchClusterLinks } from '@/components/seo/OrganicSearchClusterLinks'
 import { BreadcrumbJsonLd } from '@/components/seo/BreadcrumbJsonLd'
 import { HeroBadge } from '@/components/HeroBadge'
+import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 
 export function generateMetadata(): Metadata {
   const sunday = getSundayRoastContent()
@@ -538,6 +539,15 @@ export default function StanwellPubPage() {
         ]}
         variant="green"
         footer={`${CONTACT.address.street}, Stanwell Moor • Free Parking • Dog Friendly`}
+      />
+
+      <InternalLinkingSection
+        title="More about The Anchor, Stanwell Moor"
+        links={[
+          { href: '/blog/cosy-pub-stanwell', title: 'A Cosy Pub in Stanwell Moor', description: 'What makes The Anchor a proper local' },
+          { href: '/sunday-roast', title: 'Sunday Roast', description: 'Traditional roast dinners, walk-ins welcome' },
+          { href: '/near-heathrow', title: 'Near Heathrow', description: 'Close to all Heathrow terminals' },
+        ]}
       />
     </>
   )

@@ -19,6 +19,7 @@ import { PhoneLink } from '@/components/PhoneLink'
 import { CONTACT } from '@/lib/constants'
 import { HeroBadge } from '@/components/HeroBadge'
 import { HeathrowFoodBestFor } from '@/components/food/HeathrowFoodBestFor'
+import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 
 export function generateMetadata(): Metadata {
   const sunday = getSundayRoastContent()
@@ -897,6 +898,15 @@ export default function NearHeathrowPage() {
         ]}
         variant="green"
         footer="The Anchor, Horton Road, Stanwell Moor, Surrey TW19 6AQ\nFree Parking • Family Friendly • Dog Friendly • Garden • Late Opening"
+      />
+
+      <InternalLinkingSection
+        title="More for Heathrow visitors"
+        links={[
+          { href: '/blog/tag/heathrow', title: 'Heathrow Guides', description: 'Our guides for visitors and workers near Heathrow' },
+          { href: '/heathrow-parking', title: 'Heathrow Parking', description: 'Parking options near Heathrow' },
+          { href: '/find-us', title: 'Find Us', description: 'Directions and free parking' },
+        ]}
       />
 
       {/* JSON-LD Schema */}
