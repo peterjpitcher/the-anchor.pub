@@ -11,6 +11,7 @@ import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import { DEFAULT_CORPORATE_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 import { PrivateBookingSection } from '@/components/PrivateBookingSection'
+import { InternalLinkingSection } from '@/components/seo/InternalLinkingSection'
 
 // Generate static params for all landmarks at build time
 export async function generateStaticParams() {
@@ -65,6 +66,15 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
         : isBaby
             ? 'Christening / Baby Shower'
             : 'Other'
+
+    // Cross-link to other nearby venues (same type first) so each page carries a
+    // distinct internal-link set and the /private-hire/near/* cluster is densely
+    // interlinked — strengthens crawl signals and reduces the near-duplicate
+    // template footprint without inventing per-landmark facts.
+    const relatedLandmarks = [
+        ...landmarks.filter((l) => l.slug !== landmark.slug && l.type === landmark.type),
+        ...landmarks.filter((l) => l.slug !== landmark.slug && l.type !== landmark.type),
+    ].slice(0, 6)
 
     return (
         <>
@@ -190,6 +200,15 @@ export default function NearLandmarkPage({ params }: { params: { slug: string } 
                     />
                 </Container>
             </section>
+
+            <InternalLinkingSection
+                title="Other venues near you"
+                links={relatedLandmarks.map((l) => ({
+                    href: `/private-hire/near/${l.slug}`,
+                    title: l.name,
+                    description: `${l.distance} from The Anchor`,
+                }))}
+            />
 
             <PrivateBookingSection eventType={eventType} />
 
