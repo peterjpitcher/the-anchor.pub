@@ -231,11 +231,14 @@ Mobile: 104 good, 0 need-improvement, 0 poor. Desktop: effectively no data/all c
 
 **Phase 1b — robots.txt consolidation** (small separate PR) — move AI-bot + crawl rules into `app/robots.ts`, disable Cloudflare managed robots.txt, keep the robots CI test green.
 
-**Phase 2 — Crawled-not-indexed (223)** — re-run `node tasks/gsc-indexing-fix/audit-gsc-csvs.mjs` on the 2026-06-01 export; asset/OG/redirect/noindex rows → monitor; genuine-content rows → internal links (home, `/whats-on`, `/food-menu`) + intent-matched copy via the **editorial-team** skill (owner-driven).
+**Phase 2 — Crawled-not-indexed (223) — ✅ triaged 2026-06-01** via `triage-crawled-not-indexed.mjs` → `crawled-not-indexed-triage-2026-06-01.csv`. Result:
+- **212/223 non-actionable** — monitor only, clears on recrawl: 53 static assets, 49 redirect sources, 40 legacy Wix (`/post/`, `/event-details/`), 26 OG-images, 17 param variants, 16 now-redirect-live, 11 intentional noindex.
+- **1 broken** — `/private-hire/near` returned 404 (section parent of the `near/[slug]` pages). Fixed: 301 → `/private-hire` (`config/redirects/additional-redirects.json`).
+- **10 genuine content pages** (live 200, indexable, not indexed) — owner-driven content/internal-linking task (editorial-team), **not auto-edited** per FINAL-SPEC: `/about/the-anchor-facts`, `/heathrow-parking/terminal-5`, `/blog/tag/heathrow`, `/private-hire/near/ashford-hospital`, `/private-hire/near/stockley-park`, `/events/cash-bingo-night-2026-07-01`, and blog posts `what-is-race-night`, `christening-party-ideas-venues`, `leaving-party-ideas`, `cosy-pub-stanwell`.
 
 **Phase 3 — Monitor** — re-export GSC in 2–4 weeks; track each report toward target.
 
-> **Implemented 2026-06-01** on branch `fix/gsc-structured-data` (Phase 1 — Events, JobPosting, breadcrumbs + regression tests). lint/typecheck/build/SEO-tests pass. **Still outstanding:** Phase 0 (GSC: validate Redirect-error, remove 5 stale sitemaps — owner action), Phase 1b (robots.txt consolidation — blocked on the Cloudflare managed-robots toggle, code not yet changed to avoid duplicate groups), Phase 2 (crawled-not-indexed triage). Not pushed; no PR opened.
+> **Implemented 2026-06-01** on branch `fix/gsc-structured-data`: Phase 1 (Events, JobPosting, breadcrumbs + tests) and Phase 2 (triage + `/private-hire/near` 301). lint/typecheck/build/SEO-tests pass. **Still outstanding (owner-side):** Phase 0 (GSC — validate Redirect-error [owner doing], remove 5 stale sitemaps), Phase 1b (robots.txt consolidation — blocked on the Cloudflare managed-robots toggle), and the 10 Phase-2 content pages (editorial via editorial-team). Not pushed; no PR opened.
 
 ---
 

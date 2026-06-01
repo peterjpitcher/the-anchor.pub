@@ -1,5 +1,10 @@
 [
   {
+    "source": "/private-hire/near",
+    "destination": "/private-hire",
+    "permanent": true
+  },
+  {
     "source": "/sunday-lunch",
     "destination": "/sunday-roast",
     "permanent": true
