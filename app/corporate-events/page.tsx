@@ -5,8 +5,6 @@ import { Metadata } from 'next'
 import { CONTACT } from '@/lib/constants'
 import { Button, Container, SectionHeader, FeatureGrid, InfoBoxGrid, AlertBox } from '@/components/ui'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
-import { EventSchema } from '@/components/seo/EventSchema'
-import { staticEvents } from '@/lib/static-events'
 import { BookTableButton } from '@/components/BookTableButton'
 import { PhoneButton } from '@/components/PhoneButton'
 import { PageTitle } from '@/components/ui/typography/PageTitle'
@@ -37,8 +35,6 @@ export const metadata: Metadata = {
 export default function CorporateEventsPage() {
   return (
     <>
-      <EventSchema event={staticEvents.corporateEvents} />
-
       {/* Hero Section */}
       <HeroWrapper
         showContextStrip={true}

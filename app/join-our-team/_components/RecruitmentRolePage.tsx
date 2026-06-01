@@ -3,6 +3,7 @@ import { Button, Container, Icon } from '@/components/ui'
 import { CONTACT } from '@/lib/constants'
 import {
   recruitmentDatePosted,
+  recruitmentValidThrough,
   type RecruitmentRolePage as RecruitmentRolePageContent
 } from '../recruitmentContent'
 import {
@@ -21,6 +22,7 @@ export function buildJobPostingSchema(role: RecruitmentRolePageContent) {
     title: `${role.role} at The Anchor`,
     description: role.jobPostingDescription,
     datePosted: recruitmentDatePosted,
+    validThrough: recruitmentValidThrough,
     directApply: true,
     employmentType: 'PART_TIME',
     industry: ['Hospitality', 'Pub', 'Food and Beverage'],

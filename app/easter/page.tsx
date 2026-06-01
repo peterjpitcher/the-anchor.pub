@@ -9,26 +9,18 @@ import { InternalLinkingSection, commonLinkGroups } from '@/components/seo/Inter
 import { Badge, Button, Card, CardBody, Container, Section } from '@/components/ui'
 import { GoogleMapEmbed } from '@/components/ui/GoogleMapEmbed'
 import { CONTACT, HEATHROW_TIMES } from '@/lib/constants'
-import {
-  DEFAULT_PAGE_HEADER_IMAGE,
-  DEFAULT_SUNDAY_LUNCH_IMAGE,
-  DEFAULT_FOOD_IMAGE,
-  DEFAULT_DRINKS_IMAGE
-} from '@/lib/image-fallbacks'
+import { DEFAULT_PAGE_HEADER_IMAGE } from '@/lib/image-fallbacks'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
 
 // Easter 2026 (5 April) is past at time of authoring. The page persists for
 // rolling SEO and Easter 2027 (Sunday 4 April 2027). Copy describes the
 // post-launch walk-in model unconditionally.
-const EASTER_SUNDAY_DATE = '2027-04-04'
 const EASTER_SUNDAY_LABEL = 'Sunday 4 April 2027'
 const EASTER_SUNDAY_SERVICE_WINDOW = '1pm–6pm'
 const EASTER_SUNDAY_LAST_BOOKING = '5:30pm'
 const EASTER_ROAST_PRICE_FROM = 16
 
 const EASTER_BOOKING_URL = '/book-table'
-
-const WEBSITE_ORIGIN = 'https://www.the-anchor.pub'
 
 export const metadata: Metadata = {
   title: 'Easter Sunday Roast & Beer Garden',
@@ -87,68 +79,8 @@ export default function EasterPage() {
     }
   ]
 
-  const easterEventSchema = {
-    '@context': 'https://schema.org',
-    '@type': 'Event',
-    '@id': `${WEBSITE_ORIGIN}/easter#event`,
-    name: 'Easter Sunday Roast at The Anchor',
-    description:
-      `Easter Sunday roast at The Anchor in Stanwell Moor (TW19), near Heathrow. ` +
-      `Traditional roast from £${String(EASTER_ROAST_PRICE_FROM)}. Serving ${EASTER_SUNDAY_SERVICE_WINDOW}. ` +
-      `Walk in or book ahead. Dog-friendly beer garden, free parking.`,
-    startDate: `${EASTER_SUNDAY_DATE}T13:00:00+01:00`,
-    endDate: `${EASTER_SUNDAY_DATE}T18:00:00+01:00`,
-    eventStatus: 'https://schema.org/EventScheduled',
-    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
-    location: {
-      '@type': 'Place',
-      name: 'The Anchor',
-      address: {
-        '@type': 'PostalAddress',
-        streetAddress: CONTACT.address.street,
-        addressLocality: CONTACT.address.town,
-        addressRegion: CONTACT.address.county,
-        postalCode: CONTACT.address.postcode,
-        addressCountry: CONTACT.address.country
-      },
-      geo: {
-        '@type': 'GeoCoordinates',
-        latitude: CONTACT.coordinates.lat,
-        longitude: CONTACT.coordinates.lng
-      }
-    },
-    organizer: {
-      '@type': 'Organization',
-      name: 'The Anchor',
-      url: WEBSITE_ORIGIN,
-      telephone: CONTACT.phoneIntl,
-      email: CONTACT.email
-    },
-    offers: {
-      '@type': 'Offer',
-      url: `${WEBSITE_ORIGIN}${EASTER_BOOKING_URL}`,
-      priceCurrency: 'GBP',
-      price: String(EASTER_ROAST_PRICE_FROM),
-      availability: 'https://schema.org/InStock'
-    },
-    image: [
-      `${WEBSITE_ORIGIN}${DEFAULT_SUNDAY_LUNCH_IMAGE}`,
-      `${WEBSITE_ORIGIN}${DEFAULT_FOOD_IMAGE}`,
-      `${WEBSITE_ORIGIN}${DEFAULT_DRINKS_IMAGE}`
-    ],
-    url: `${WEBSITE_ORIGIN}/easter`
-  }
-
   return (
     <>
-
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(easterEventSchema)
-        }}
-      />
-
             <HeroWrapper
         route="/easter"
         title="Easter at The Anchor"

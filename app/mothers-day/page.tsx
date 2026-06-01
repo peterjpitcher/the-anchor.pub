@@ -29,7 +29,7 @@ const WEBSITE_ORIGIN = 'https://www.the-anchor.pub'
 // layered (per spec §8.6 + keyword plan): mothers day lunch near me,
 // mothers day sunday roast near me, mothers day sunday roast, mothers day pub
 // lunch, mothers day sunday roast.
-const MOTHERS_DAY_DATE = '2027-03-14'
+const MOTHERS_DAY_DATE = '2027-03-07' // Mothering Sunday 2027 (owner-confirmed)
 const MOTHERS_DAY_SERVICE_START_ISO = `${MOTHERS_DAY_DATE}T13:00:00+00:00`
 const MOTHERS_DAY_SERVICE_END_ISO = `${MOTHERS_DAY_DATE}T18:00:00+00:00`
 const MOTHERS_DAY_SERVICE_WINDOW_LABEL = '1pm–6pm'
@@ -37,6 +37,9 @@ const MOTHERS_DAY_LAST_BOOKING_LABEL = '5:30pm'
 const MOTHERS_DAY_ADULT_PRICE_LOW = 16
 const MOTHERS_DAY_ADULT_PRICE_HIGH = 22
 const MOTHERS_DAY_KIDS_ROAST_PRICE = 14
+// Offer validity start for the 2027 service. Walk-in/booking model — no
+// pre-order or cut-off; validFrom only satisfies Google's Event offer schema.
+const MOTHERS_DAY_OFFER_VALID_FROM = '2027-01-01'
 
 const MOTHERS_DAY_BOOKING_URL = '/book-table'
 const MOTHERS_DAY_BOOKING_CTA_LABEL = 'Book Mother’s Day Lunch'
@@ -213,7 +216,8 @@ export default function MothersDayPage() {
       priceCurrency: 'GBP',
       lowPrice: String(MOTHERS_DAY_KIDS_ROAST_PRICE),
       highPrice: String(MOTHERS_DAY_ADULT_PRICE_HIGH),
-      availability: 'https://schema.org/InStock'
+      availability: 'https://schema.org/InStock',
+      validFrom: MOTHERS_DAY_OFFER_VALID_FROM
     },
     image: [
       toAbsoluteUrl(eventImage),

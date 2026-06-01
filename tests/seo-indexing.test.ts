@@ -100,6 +100,9 @@ import {
 } from '@/lib/middleware-redirects'
 import { seasonalOccasionLinks, trustLinks } from '@/lib/internal-linking-data'
 import { landmarks } from '@/lib/local-seo-data'
+import { buildBreadcrumbItemList } from '@/lib/breadcrumb-schema'
+import { buildJobPostingSchema } from '@/app/join-our-team/_components/RecruitmentRolePage'
+import { recruitmentDatePosted, recruitmentValidThrough } from '@/app/join-our-team/recruitmentContent'
 
 import additionalRedirects from '@/config/redirects/additional-redirects.json'
 import blogRedirects from '@/config/redirects/blog-redirects.json'
@@ -583,5 +586,52 @@ describe('redirect-loops', () => {
     ).map((r) => `${r.source} -> ${r.destination}`)
 
     expect(chained).toEqual([])
+  })
+})
+
+describe('structured data — breadcrumbs', () => {
+  // Guards GSC "Breadcrumbs: Missing field 'item' (in 'itemListElement')".
+  // The shape below mirrors HeroWrapper.generateBreadcrumbsFromRoute output for
+  // /private-hire/near/slough-crematorium: Home + a clickable parent + the
+  // section-only `near` segment (no page) + the current page (url, no href).
+  it('emits an item URL for every ListItem, including the current page', () => {
+    const trail = [
+      { name: 'Home', href: '/' },
+      { name: 'Private Hire', href: '/private-hire', url: '/private-hire' },
+      { name: 'Near' },
+      { name: 'Slough Crematorium', url: '/private-hire/near/slough-crematorium' },
+    ]
+
+    const items = buildBreadcrumbItemList(trail)
+
+    // Every ListItem carries a non-empty `item` (the previous bug emitted
+    // `item: undefined`, which JSON.stringify drops entirely).
+    expect(items.every((i) => typeof i.item === 'string' && i.item.length > 0)).toBe(true)
+    // The section-only `near` segment is dropped, leaving contiguous positions.
+    expect(items.map((i) => i.name)).toEqual(['Home', 'Private Hire', 'Slough Crematorium'])
+    expect(items.map((i) => i.position)).toEqual([1, 2, 3])
+    expect(items[2].item).toBe('https://www.the-anchor.pub/private-hire/near/slough-crematorium')
+  })
+})
+
+describe('structured data — JobPosting', () => {
+  // Guards GSC "Job Postings: Missing field 'validThrough'". Google can drop a
+  // posting once validThrough passes, so it must be present and in the future
+  // relative to datePosted.
+  it('sets validThrough later than datePosted so postings do not silently expire', () => {
+    const role = {
+      slug: 'bar-staff',
+      role: 'Bar Staff',
+      jobPostingDescription: 'Test description',
+      workHours: 'Part-time, evenings and weekends',
+    } as unknown as Parameters<typeof buildJobPostingSchema>[0]
+
+    const schema = buildJobPostingSchema(role)
+
+    expect(schema.datePosted).toBe(recruitmentDatePosted)
+    expect(schema.validThrough).toBe(recruitmentValidThrough)
+    expect(new Date(schema.validThrough).getTime()).toBeGreaterThan(
+      new Date(schema.datePosted).getTime(),
+    )
   })
 })

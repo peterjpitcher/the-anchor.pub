@@ -5,8 +5,6 @@ import { FAQAccordionWithSchema } from '@/components/FAQAccordionWithSchema'
 import { Metadata } from 'next'
 import { SectionHeader, FeatureGrid, InfoBoxGrid, AlertBox, QuickInfoGrid, Container } from '@/components/ui'
 import { getTwitterMetadata } from '@/lib/twitter-metadata'
-import { EventSchema } from '@/components/seo/EventSchema'
-import { staticEvents } from '@/lib/static-events'
 import { PhoneButton } from '@/components/PhoneButton'
 import { CONTACT } from '@/lib/constants'
 import { BookTableButton } from '@/components/BookTableButton'
@@ -36,8 +34,6 @@ export const metadata: Metadata = {
 export default function PrivatePartyVenuePage() {
   return (
     <>
-      <EventSchema event={staticEvents.privateParties} />
-
       {/* Hero Section */}
       <HeroWrapper
         showContextStrip={true}

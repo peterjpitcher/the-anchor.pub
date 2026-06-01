@@ -3,6 +3,10 @@ export type RecruitmentRoleValue = 'Bar Staff' | 'Kitchen Team' | 'Either role' 
 export type RoleSlug = 'bar-staff' | 'kitchen-team'
 
 export const recruitmentDatePosted = '2026-05-12'
+// JobPosting validity. Google can drop postings whose validThrough has passed,
+// so keep this ~1 year ahead and bump it alongside recruitmentDatePosted when
+// the recruitment pages are refreshed.
+export const recruitmentValidThrough = '2027-05-12'
 
 export const recruitmentRoleOptions: RecruitmentRoleValue[] = [
   'Bar Staff',

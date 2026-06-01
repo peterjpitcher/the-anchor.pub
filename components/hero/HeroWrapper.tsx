@@ -380,7 +380,11 @@ function generateBreadcrumbsFromRoute(route: string): BreadcrumbItem[] {
       name,
       // Last segment is always non-clickable (current page).
       // Intermediate segments that don't have a real page are also non-clickable.
-      href: !isLastSegment && !isNonPagePath ? path : undefined
+      href: !isLastSegment && !isNonPagePath ? path : undefined,
+      // Canonical URL for the BreadcrumbList JSON-LD: the current page gets one
+      // (so its ListItem carries `item`); section-only paths (NON_PAGE_PATHS)
+      // get none and are dropped from the schema.
+      url: !isNonPagePath ? path : undefined
     })
   })
 

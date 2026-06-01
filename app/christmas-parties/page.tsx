@@ -34,7 +34,8 @@ const structuredData = {
   name: 'Christmas Party Venue 2026 — The Anchor, Stanwell Moor near Heathrow',
   description:
     'Christmas party venue near Heathrow Airport. Three-course pub Christmas dinners from £36.95, buffets for 26+, free parking outside the ULEZ, and space for up to 60 seated or 200 standing guests.',
-  startDate: '2026-11-24',
+  // Christmas party service window (owner-confirmed): 1 Nov – 23 Dec 2026.
+  startDate: '2026-11-01',
   endDate: '2026-12-23',
   eventStatus: 'https://schema.org/EventScheduled',
   image: ['https://www.the-anchor.pub/images/page-headers/christmas-parties/2026/hero-table.jpg'],
@@ -102,6 +103,7 @@ const structuredData = {
       price: '36.95',
       priceCurrency: 'GBP',
       availability: 'https://schema.org/InStock',
+      validFrom: '2026-09-01',
       availabilityStarts: '2026-09-01',
       availabilityEnds: '2026-12-23',
       url: 'https://www.the-anchor.pub/christmas-parties',
@@ -113,6 +115,7 @@ const structuredData = {
       price: '39.95',
       priceCurrency: 'GBP',
       availability: 'https://schema.org/InStock',
+      validFrom: '2026-09-01',
       availabilityStarts: '2026-09-01',
       availabilityEnds: '2026-12-23',
       url: 'https://www.the-anchor.pub/christmas-parties',
@@ -124,6 +127,10 @@ const structuredData = {
       price: '15.95',
       priceCurrency: 'GBP',
       availability: 'https://schema.org/InStock',
+      validFrom: '2026-09-01',
+      availabilityStarts: '2026-09-01',
+      availabilityEnds: '2026-12-23',
+      url: 'https://www.the-anchor.pub/christmas-parties',
       description: 'Two or three-course children’s Christmas menu with smaller portions and the same trimmings.'
     },
     {
@@ -132,6 +139,10 @@ const structuredData = {
       price: '36.95',
       priceCurrency: 'GBP',
       availability: 'https://schema.org/InStock',
+      validFrom: '2026-09-01',
+      availabilityStarts: '2026-09-01',
+      availabilityEnds: '2026-12-23',
+      url: 'https://www.the-anchor.pub/christmas-parties',
       description: 'Shared Christmas party nights with crackers, festive playlists and three-course menus – ideal for airport teams and Surrey offices.'
     }
   ],

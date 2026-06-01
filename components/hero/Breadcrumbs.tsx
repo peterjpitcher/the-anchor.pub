@@ -2,11 +2,9 @@ import Link from 'next/link'
 import { ChevronRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { jsonLdSafeStringify } from '@/lib/jsonld'
+import { buildBreadcrumbItemList, type BreadcrumbItem } from '@/lib/breadcrumb-schema'
 
-export interface BreadcrumbItem {
-  name: string
-  href?: string
-}
+export type { BreadcrumbItem }
 
 interface BreadcrumbsProps {
   items: BreadcrumbItem[]
@@ -26,18 +24,12 @@ export function Breadcrumbs({
     ? [{ name: 'Home', href: '/' }, ...items]
     : items
 
-  // Generate schema
+  // Generate schema. Every ListItem must carry an `item` URL; section-only
+  // paths without a canonical page are dropped (see lib/breadcrumb-schema).
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "itemListElement": breadcrumbTrail.map((item, index) => ({
-      "@type": "ListItem",
-      "position": index + 1,
-      "name": item.name,
-      "item": item.href === '/'
-        ? 'https://www.the-anchor.pub'
-        : item.href ? `https://www.the-anchor.pub${item.href}` : undefined
-    }))
+    "itemListElement": buildBreadcrumbItemList(breadcrumbTrail)
   }
 
   const textColor = theme === 'dark' ? 'text-white/70' : 'text-anchor-cream-text/65'
