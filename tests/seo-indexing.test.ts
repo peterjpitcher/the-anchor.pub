@@ -183,6 +183,22 @@ describe('robots.txt', () => {
     const offending = disallow.filter((rule) => rule.includes('opengraph-image'))
     expect(offending).toEqual([])
   })
+
+  it('keeps the AI-scraper opt-out in version control (was Cloudflare-managed)', () => {
+    // Cloudflare's managed robots.txt previously injected these Disallow groups.
+    // With that feature disabled, the opt-out must live in app/robots.ts so it
+    // is not silently lost from production.
+    const groups = Array.isArray(result.rules) ? result.rules : [result.rules]
+    const aiGroup = groups.find((g) => {
+      const ua = Array.isArray(g.userAgent) ? g.userAgent : g.userAgent ? [g.userAgent] : []
+      return ua.includes('GPTBot')
+    })
+    expect(aiGroup).toBeDefined()
+    const ua = Array.isArray(aiGroup!.userAgent) ? aiGroup!.userAgent : [aiGroup!.userAgent!]
+    expect(ua).toEqual(expect.arrayContaining(['GPTBot', 'CCBot', 'ClaudeBot', 'Google-Extended', 'Bytespider']))
+    const dis = Array.isArray(aiGroup!.disallow) ? aiGroup!.disallow : [aiGroup!.disallow!]
+    expect(dis).toContain('/')
+  })
 })
 
 describe('middleware redirect lookup (apex/host chain flattening)', () => {
