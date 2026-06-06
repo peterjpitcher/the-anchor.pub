@@ -41,7 +41,11 @@ const validPayload = {
   utmSource: 'facebook',
   utmMedium: 'paid_social',
   utmCampaign: 'quiz-night',
+  gclid: 'gclid-123',
   fbclid: 'fb-123',
+  shortCode: 'ma-quiz',
+  attributionCapturedAt: '2026-05-10T18:45:00.000Z',
+  attributionUpdatedAt: '2026-05-10T18:55:00.000Z',
   occurredAt: '2026-05-10T19:01:00.000Z'
 }
 
@@ -80,6 +84,7 @@ describe('POST /api/tracking/booking-conversion', () => {
     const body = await response.json()
 
     expect(response.status).toBe(202)
+    expect(response.headers.get('Cache-Control')).toBe('no-store, max-age=0')
     expect(body).toEqual({ accepted: true })
     expect(global.fetch).toHaveBeenCalledWith(
       'https://cheers.example.com/api/booking-conversions',
@@ -89,10 +94,10 @@ describe('POST /api/tracking/booking-conversion', () => {
           Authorization: 'Bearer secret-123',
           'Content-Type': 'application/json'
         }),
-        body: JSON.stringify(validPayload),
         cache: 'no-store'
       })
     )
+    expect(JSON.parse(String((global.fetch as jest.Mock).mock.calls[0]?.[1]?.body))).toEqual(validPayload)
   })
 
   it('does not fail the booking UX when CheersAI rejects the forward', async () => {

@@ -89,8 +89,18 @@ export function middleware(request: NextRequest) {
         response.headers.set('Cache-Control', 'public, max-age=31536000, immutable')
     }
 
-    // Stale-while-revalidate for API routes
+    // Stale-while-revalidate for cacheable API routes. Mutating API calls,
+    // especially booking and conversion POSTs, must never be cached.
     if (pathname.startsWith('/api/')) {
+        const method = request.method.toUpperCase()
+        if (method !== 'GET' && method !== 'HEAD') {
+            response.headers.set('Cache-Control', 'no-store, max-age=0')
+            response.headers.set('CDN-Cache-Control', 'no-store')
+            response.headers.set('Pragma', 'no-cache')
+            response.headers.set('Expires', '0')
+            return response
+        }
+
         // Business hours powers the StatusBar and must always be live.
         if (pathname === '/api/business/hours') {
             response.headers.set('Cache-Control', 'no-store, max-age=0')

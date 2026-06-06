@@ -184,7 +184,10 @@ describe('Event Bookings API - policy violation handling', () => {
         utm_campaign: 'music-bingo',
         utm_content: 'ad-1',
         fbclid: 'fb-123',
+        gclid: 'g-123',
         short_code: 'ma83ed9d',
+        attribution_captured_at: '2026-05-08T18:30:00.000Z',
+        attribution_updated_at: '2026-05-08T18:45:00.000Z',
         _t: 4
       }),
       headers: new Headers({ referer: 'https://www.the-anchor.pub/events/music-bingo-2026-05-08' })
@@ -223,7 +226,11 @@ describe('Event Bookings API - policy violation handling', () => {
         utmMedium: 'paid_social',
         utmCampaign: 'music-bingo',
         utmContent: 'ad-1',
-        fbclid: 'fb-123'
+        fbclid: 'fb-123',
+        gclid: 'g-123',
+        shortCode: 'ma83ed9d',
+        attributionCapturedAt: '2026-05-08T18:30:00.000Z',
+        attributionUpdatedAt: '2026-05-08T18:45:00.000Z'
       })
     )
   })

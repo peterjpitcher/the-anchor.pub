@@ -11,6 +11,7 @@ import type { Event } from '@/lib/api'
 import { getEventBookingReassurance, getEventUnitPrice } from '@/lib/event-booking-experience'
 import { PhoneLink } from '@/components/PhoneLink'
 import { CONTACT } from '@/lib/constants'
+import { getBookingAttributionPayload } from '@/lib/booking-attribution'
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
 
@@ -96,7 +97,9 @@ function collectBookingAttribution() {
     utm_content: read('utm_content'),
     utm_term: read('utm_term'),
     fbclid: read('fbclid'),
-    short_code: read('short_code')
+    gclid: read('gclid'),
+    short_code: read('short_code'),
+    ...getBookingAttributionPayload()
   }
 }
 

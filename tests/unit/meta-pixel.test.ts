@@ -7,6 +7,7 @@ jest.mock('@/lib/cookies', () => ({
 }))
 
 const mockedCanUseCookieCategory = canUseCookieCategory as jest.MockedFunction<typeof canUseCookieCategory>
+const originalPixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID
 
 function fbqQueue() {
   return (window.fbq?.queue ?? []) as unknown[][]
@@ -14,15 +15,26 @@ function fbqQueue() {
 
 describe('Meta Pixel booking tracking', () => {
   beforeEach(() => {
+    process.env.NEXT_PUBLIC_META_PIXEL_ID = '757659911002159'
     mockedCanUseCookieCategory.mockImplementation((category) => category === 'marketing' || category === 'analytics')
     delete window.fbq
     delete window._fbq
     delete window.__anchorMetaPixelInitialized
     delete window.__anchorMetaPixelPurchaseEvents
+    window.localStorage.clear()
     document.head.innerHTML = '<script id="first-script"></script>'
     window.dataLayer = []
     window.history.pushState({}, '', '/book-table?utm_source=facebook&utm_medium=paid_social&utm_campaign=quiz-night&fbclid=fb-123')
     ;(global as any).fetch = jest.fn().mockResolvedValue(new Response('{}', { status: 202 }))
+  })
+
+  afterEach(() => {
+    if (originalPixelId === undefined) {
+      delete process.env.NEXT_PUBLIC_META_PIXEL_ID
+    } else {
+      process.env.NEXT_PUBLIC_META_PIXEL_ID = originalPixelId
+    }
+    window.localStorage.clear()
   })
 
   it('initialises the configured Pixel only when marketing consent is granted', () => {
@@ -148,6 +160,6 @@ describe('Meta Pixel booking tracking', () => {
       bookingSource: 'booking_widget'
     })).toBe(false)
     expect(fbqQueue().filter((entry) => entry[1] === 'Purchase')).toHaveLength(0)
-    expect(global.fetch).not.toHaveBeenCalled()
+    expect(global.fetch).toHaveBeenCalledTimes(1)
   })
 })

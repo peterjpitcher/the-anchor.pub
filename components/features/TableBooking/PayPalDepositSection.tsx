@@ -2,12 +2,26 @@
 
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js'
 import { useState } from 'react'
+import type { BookingAttributionPayload } from '@/lib/booking-attribution'
+
+interface TableDepositConversionPayload {
+  bookingReference?: string | null
+  depositAmount?: number | null
+  bookingDate?: string | null
+  bookingTime?: string | null
+  partySize?: number | null
+  bookingType?: string | null
+  purpose?: string | null
+  bookingSource?: string | null
+  attribution?: BookingAttributionPayload | null
+}
 
 interface Props {
   bookingId: string
   orderId: string
   depositAmount: number    // GBP integer (e.g. 80)
   bookingSummary: string   // e.g. "Sunday 22 March · 1:00pm · 8 guests"
+  conversionPayload?: TableDepositConversionPayload
   onSuccess: () => void
   onError: (message: string) => void
 }
@@ -17,6 +31,7 @@ export function PayPalDepositSection({
   orderId,
   depositAmount,
   bookingSummary,
+  conversionPayload,
   onSuccess,
   onError,
 }: Props) {
@@ -28,7 +43,19 @@ export function PayPalDepositSection({
       const response = await fetch('/api/table-bookings/paypal/capture-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ bookingId, orderId }),
+        body: JSON.stringify({
+          bookingId,
+          orderId,
+          bookingReference: conversionPayload?.bookingReference ?? null,
+          depositAmount: conversionPayload?.depositAmount ?? depositAmount,
+          bookingDate: conversionPayload?.bookingDate ?? null,
+          bookingTime: conversionPayload?.bookingTime ?? null,
+          partySize: conversionPayload?.partySize ?? null,
+          bookingType: conversionPayload?.bookingType ?? null,
+          purpose: conversionPayload?.purpose ?? null,
+          bookingSource: conversionPayload?.bookingSource ?? null,
+          ...(conversionPayload?.attribution ?? {}),
+        }),
       })
       const data = await response.json()
 

@@ -21,6 +21,10 @@ export type BookingConversionForwardPayload = {
   utmContent?: string | null
   utmTerm?: string | null
   fbclid?: string | null
+  gclid?: string | null
+  shortCode?: string | null
+  attributionCapturedAt?: string | null
+  attributionUpdatedAt?: string | null
   occurredAt?: string | null
 }
 

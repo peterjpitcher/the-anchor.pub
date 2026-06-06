@@ -1,6 +1,10 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { ManagementEventBookingForm } from '@/components/features/EventBooking/ManagementEventBookingForm'
 import { trackEventBookingComplete } from '@/lib/gtm-events'
+import {
+  captureBookingAttributionFromLocation,
+  clearBookingAttributionForTest,
+} from '@/lib/booking-attribution'
 
 jest.mock('@/lib/gtm-events', () => ({
   trackEventBookingStart: jest.fn(),
@@ -11,6 +15,8 @@ jest.mock('@/lib/gtm-events', () => ({
 describe('ManagementEventBookingForm', () => {
   beforeEach(() => {
     jest.clearAllMocks()
+    clearBookingAttributionForTest()
+    window.localStorage.clear()
 
     ;(global as any).fetch = jest.fn((input: RequestInfo | URL) => {
       const url = typeof input === 'string' ? input : input.toString()
@@ -53,6 +59,11 @@ describe('ManagementEventBookingForm', () => {
 
       return Promise.reject(new Error(`Unexpected fetch call: ${url}`))
     })
+  })
+
+  afterEach(() => {
+    clearBookingAttributionForTest()
+    window.localStorage.clear()
   })
 
   it('shows a compact single-step booking form', () => {
@@ -151,6 +162,14 @@ describe('ManagementEventBookingForm', () => {
       return Promise.reject(new Error(`Unexpected fetch call: ${url}`))
     })
 
+    window.history.pushState(
+      {},
+      '',
+      '/events/music-bingo?utm_source=facebook&utm_medium=paid_social&utm_campaign=music-bingo&gclid=g-123&short_code=ma-bingo&email=jane@example.com',
+    )
+    captureBookingAttributionFromLocation(new Date('2026-05-08T18:30:00.000Z'))
+    window.history.pushState({}, '', '/events/music-bingo')
+
     render(
       <ManagementEventBookingForm
         event={{
@@ -195,6 +214,13 @@ describe('ManagementEventBookingForm', () => {
     expect(payload.event_category_name).toBe('Bingo')
     expect(payload.event_price).toBe(6)
     expect(payload.event_value).toBe(36)
+    expect(payload.utm_source).toBe('facebook')
+    expect(payload.utm_medium).toBe('paid_social')
+    expect(payload.utm_campaign).toBe('music-bingo')
+    expect(payload.gclid).toBe('g-123')
+    expect(payload.short_code).toBe('ma-bingo')
+    expect(payload.attribution_captured_at).toBe('2026-05-08T18:30:00.000Z')
+    expect(JSON.stringify(payload)).not.toMatch(/jane@example\.com|email/)
     expect(trackEventBookingComplete).toHaveBeenCalledWith(
       expect.objectContaining({
         eventId: '550e8400-e29b-41d4-a716-446655440000',

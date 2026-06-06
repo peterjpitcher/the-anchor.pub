@@ -60,6 +60,59 @@ describe('PayPalDepositSection', () => {
     })
   })
 
+  it('submits conversion attribution with successful capture requests', async () => {
+    mockFetch.mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ success: true }),
+    })
+
+    render(
+      <PayPalDepositSection
+        {...defaultProps}
+        conversionPayload={{
+          bookingReference: 'TB-PAID-123',
+          depositAmount: 100,
+          bookingDate: '2026-05-23',
+          bookingTime: '19:30',
+          partySize: 10,
+          purpose: 'food',
+          bookingSource: 'website',
+          attribution: {
+            source_url: 'https://www.the-anchor.pub/book-table?utm_campaign=party-booking&short_code=ma-party',
+            landing_path: '/book-table',
+            utm_source: 'facebook',
+            utm_medium: 'paid_social',
+            utm_campaign: 'party-booking',
+            gclid: 'g-123',
+            short_code: 'ma-party',
+            attribution_captured_at: '2026-05-23T18:00:00.000Z',
+            attribution_updated_at: '2026-05-23T18:20:00.000Z',
+          },
+        }}
+      />,
+    )
+    screen.getByTestId('paypal-approve').click()
+
+    await waitFor(() => {
+      expect(defaultProps.onSuccess).toHaveBeenCalled()
+    })
+    const body = JSON.parse(String(mockFetch.mock.calls[0]?.[1]?.body))
+    expect(body).toMatchObject({
+      bookingId: defaultProps.bookingId,
+      orderId: defaultProps.orderId,
+      bookingReference: 'TB-PAID-123',
+      depositAmount: 100,
+      bookingDate: '2026-05-23',
+      bookingTime: '19:30',
+      partySize: 10,
+      purpose: 'food',
+      bookingSource: 'website',
+      utm_campaign: 'party-booking',
+      gclid: 'g-123',
+      short_code: 'ma-party',
+    })
+  })
+
   it('calls onError on PayPal error', async () => {
     render(<PayPalDepositSection {...defaultProps} />)
     screen.getByTestId('paypal-error').click()

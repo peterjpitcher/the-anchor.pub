@@ -1,5 +1,9 @@
 import { cleanup, fireEvent, render, screen, waitFor, within } from '@testing-library/react'
 import { ManagementTableBookingForm } from '@/components/features/TableBooking/ManagementTableBookingForm'
+import {
+  captureBookingAttributionFromLocation,
+  clearBookingAttributionForTest,
+} from '@/lib/booking-attribution'
 
 const trackTableBookingFunnel = jest.fn()
 const pushToDataLayer = jest.fn()
@@ -165,6 +169,8 @@ beforeAll(() => {
 
 describe('ManagementTableBookingForm', () => {
   afterEach(() => {
+    clearBookingAttributionForTest()
+    window.localStorage.clear()
     jest.clearAllMocks()
   })
 
@@ -484,7 +490,7 @@ describe('ManagementTableBookingForm', () => {
             JSON.stringify({
               success: true,
               data: {
-                date: '2026-05-26',
+                date: '2026-06-10',
                 available: true,
                 time_slots: [
                   {
@@ -567,11 +573,19 @@ describe('ManagementTableBookingForm', () => {
       return Promise.reject(new Error(`Unexpected fetch call: ${url}`))
     })
 
+    window.history.pushState(
+      {},
+      '',
+      '/book-table?utm_source=facebook&utm_medium=paid_social&utm_campaign=deposit-table&fbclid=fb-123&gclid=g-123&short_code=ma-table&email=jane@example.com',
+    )
+    captureBookingAttributionFromLocation(new Date('2026-06-10T11:30:00.000Z'))
+    window.history.pushState({}, '', '/book-table')
+
     render(<ManagementTableBookingForm />)
 
     fireEvent.change(screen.getByLabelText('Party Size'), { target: { value: '10' } })
     fireEvent.blur(screen.getByLabelText('Party Size'))
-    fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-05-26' } })
+    fireEvent.change(screen.getByLabelText('Date'), { target: { value: '2026-06-10' } })
 
     fireEvent.click(screen.getByRole('button', { name: 'Find a table' }))
 
@@ -611,6 +625,14 @@ describe('ManagementTableBookingForm', () => {
     expect(payload.menu_selections).toBeUndefined()
     expect(payload.booking_type).toBeUndefined()
     expect(payload.purpose).toBe('food')
+    expect(payload.utm_source).toBe('facebook')
+    expect(payload.utm_medium).toBe('paid_social')
+    expect(payload.utm_campaign).toBe('deposit-table')
+    expect(payload.fbclid).toBe('fb-123')
+    expect(payload.gclid).toBe('g-123')
+    expect(payload.short_code).toBe('ma-table')
+    expect(payload.attribution_captured_at).toBe('2026-06-10T11:30:00.000Z')
+    expect(JSON.stringify(payload)).not.toMatch(/jane@example\.com|email/)
   })
 
   it('fires the booking funnel sequence on a happy-path confirmed booking', async () => {

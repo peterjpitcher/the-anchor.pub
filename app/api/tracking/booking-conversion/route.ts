@@ -27,6 +27,10 @@ const payloadSchema = z.object({
   utmContent: z.string().trim().max(240).optional().nullable(),
   utmTerm: z.string().trim().max(240).optional().nullable(),
   fbclid: z.string().trim().max(500).optional().nullable(),
+  gclid: z.string().trim().max(500).optional().nullable(),
+  shortCode: z.string().trim().max(120).optional().nullable(),
+  attributionCapturedAt: z.string().datetime().optional().nullable(),
+  attributionUpdatedAt: z.string().datetime().optional().nullable(),
   occurredAt: z.string().datetime().optional().nullable()
 })
 
@@ -39,5 +43,8 @@ export async function POST(request: Request) {
   }
 
   const result = await forwardBookingConversionToCheersAI(payload)
-  return NextResponse.json(result, { status: 202 })
+  return NextResponse.json(result, {
+    status: 202,
+    headers: { 'Cache-Control': 'no-store, max-age=0' },
+  })
 }

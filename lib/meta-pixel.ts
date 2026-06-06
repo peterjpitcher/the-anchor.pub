@@ -1,6 +1,5 @@
 import { canUseCookieCategory } from './cookies'
-
-const DEFAULT_META_PIXEL_ID = '757659911002159'
+import { getBookingAttributionPayload } from './booking-attribution'
 
 type FbqCommand = 'init' | 'track' | 'trackCustom' | 'consent'
 
@@ -40,7 +39,7 @@ export interface MetaBookingPurchase {
 }
 
 export function getMetaPixelId() {
-  return process.env.NEXT_PUBLIC_META_PIXEL_ID || DEFAULT_META_PIXEL_ID
+  return process.env.NEXT_PUBLIC_META_PIXEL_ID?.trim() || ''
 }
 
 export function ensureMetaPixel() {
@@ -62,12 +61,18 @@ export function ensureMetaPixel() {
 
 export function trackMetaBookingPurchase(data: MetaBookingPurchase) {
   if (!data.eventId.trim()) return false
-  if (!ensureMetaPixel()) return false
 
   const eventId = data.eventId.trim()
   window.__anchorMetaPixelPurchaseEvents = window.__anchorMetaPixelPurchaseEvents ?? new Set<string>()
   if (window.__anchorMetaPixelPurchaseEvents.has(eventId)) return false
   window.__anchorMetaPixelPurchaseEvents.add(eventId)
+
+  forwardBookingConversion({
+    ...data,
+    eventId
+  })
+
+  if (!ensureMetaPixel()) return false
 
   window.fbq?.(
     'track',
@@ -88,11 +93,6 @@ export function trackMetaBookingPurchase(data: MetaBookingPurchase) {
     { eventID: eventId }
   )
 
-  forwardBookingConversion({
-    ...data,
-    eventId
-  })
-
   return true
 }
 
@@ -111,6 +111,7 @@ function forwardBookingConversion(data: MetaBookingPurchase) {
 
   try {
     const url = new URL(window.location.href)
+    const attribution = getBookingAttributionPayload()
     const payload = {
       sourceSite: window.location.hostname,
       bookingId: data.eventId,
@@ -126,14 +127,18 @@ function forwardBookingConversion(data: MetaBookingPurchase) {
       value: normaliseValue(data.value),
       currency: data.currency || 'GBP',
       foodIntent: data.foodIntent ?? null,
-      sourceUrl: url.toString(),
-      landingPath: url.pathname,
-      utmSource: url.searchParams.get('utm_source'),
-      utmMedium: url.searchParams.get('utm_medium'),
-      utmCampaign: url.searchParams.get('utm_campaign'),
-      utmContent: url.searchParams.get('utm_content'),
-      utmTerm: url.searchParams.get('utm_term'),
-      fbclid: url.searchParams.get('fbclid'),
+      sourceUrl: attribution.source_url ?? `${url.origin}${url.pathname}`,
+      landingPath: attribution.landing_path ?? url.pathname,
+      utmSource: attribution.utm_source ?? url.searchParams.get('utm_source'),
+      utmMedium: attribution.utm_medium ?? url.searchParams.get('utm_medium'),
+      utmCampaign: attribution.utm_campaign ?? url.searchParams.get('utm_campaign'),
+      utmContent: attribution.utm_content ?? url.searchParams.get('utm_content'),
+      utmTerm: attribution.utm_term ?? url.searchParams.get('utm_term'),
+      fbclid: attribution.fbclid ?? url.searchParams.get('fbclid'),
+      gclid: attribution.gclid ?? url.searchParams.get('gclid'),
+      shortCode: attribution.short_code ?? url.searchParams.get('short_code'),
+      attributionCapturedAt: attribution.attribution_captured_at ?? null,
+      attributionUpdatedAt: attribution.attribution_updated_at ?? null,
       occurredAt: new Date().toISOString()
     }
 

@@ -9,9 +9,9 @@ import {
   resolveServiceRanges
 } from '@/lib/table-booking-service-windows'
 import { checkSpamProtection } from '@/lib/spam-protection'
+import { forwardBookingConversionToCheersAI } from '@/lib/booking-conversion-forwarding'
 
 const API_BASE_URL = getManagementApiBaseUrl()
-const API_KEY = process.env.ANCHOR_API_KEY
 
 type BookingPurpose = 'food' | 'drinks'
 
@@ -28,6 +28,21 @@ type ManagementTableBookingPayload = {
   dietary_requirements?: string[]
   allergies?: string[]
   default_country_code?: string
+}
+
+type BookingAttributionPayload = {
+  source_url?: string
+  landing_path?: string
+  utm_source?: string
+  utm_medium?: string
+  utm_campaign?: string
+  utm_content?: string
+  utm_term?: string
+  fbclid?: string
+  gclid?: string
+  short_code?: string
+  attribution_captured_at?: string
+  attribution_updated_at?: string
 }
 
 type LegacyTableBookingPayload = {
@@ -86,6 +101,19 @@ function asPositiveInt(value: unknown): number | undefined {
   return undefined
 }
 
+function asNonNegativeNumber(value: unknown): number | undefined {
+  if (typeof value === 'number' && Number.isFinite(value) && value >= 0) {
+    return value
+  }
+
+  if (typeof value === 'string' && value.trim().length > 0) {
+    const parsed = Number(value)
+    if (Number.isFinite(parsed) && parsed >= 0) return parsed
+  }
+
+  return undefined
+}
+
 function toStringList(value: unknown): string[] {
   if (Array.isArray(value)) {
     return value
@@ -109,6 +137,7 @@ function toStringList(value: unknown): string[] {
 // booking_type='regular' to the management API.
 function normaliseIncomingPayload(input: unknown): {
   payload?: ManagementTableBookingPayload
+  attribution?: BookingAttributionPayload
   error?: string
 } {
   if (!input || typeof input !== 'object') {
@@ -178,7 +207,36 @@ function normaliseIncomingPayload(input: unknown): {
       ...(allergies.length > 0 ? { allergies } : {}),
       ...(defaultCountryCode ? { default_country_code: defaultCountryCode } : {}),
     },
+    attribution: normaliseAttribution(body),
   }
+}
+
+function normaliseAttribution(body: Record<string, unknown>): BookingAttributionPayload {
+  return copyOptionalStrings(body, [
+    'source_url',
+    'landing_path',
+    'utm_source',
+    'utm_medium',
+    'utm_campaign',
+    'utm_content',
+    'utm_term',
+    'fbclid',
+    'gclid',
+    'short_code',
+    'attribution_captured_at',
+    'attribution_updated_at'
+  ])
+}
+
+function copyOptionalStrings<T extends string>(body: Record<string, unknown>, keys: readonly T[]): Partial<Record<T, string>> {
+  const output: Partial<Record<T, string>> = {}
+
+  for (const key of keys) {
+    const value = asTrimmedString(body[key])
+    if (value) output[key] = value
+  }
+
+  return output
 }
 
 function validatePayload(payload: ManagementTableBookingPayload): string | null {
@@ -214,8 +272,86 @@ function buildServiceWindowError(_payload: ManagementTableBookingPayload): strin
   return 'That time is outside online booking hours. Please choose another time or call 01753 682707.'
 }
 
+function pickResponseData(responseBody: unknown): Record<string, unknown> | null {
+  if (!responseBody || typeof responseBody !== 'object') return null
+  const body = responseBody as Record<string, unknown>
+  const data = body.data && typeof body.data === 'object'
+    ? body.data as Record<string, unknown>
+    : body
+  return data && typeof data === 'object' ? data : null
+}
+
+function buildSourceUrl(attribution: BookingAttributionPayload | undefined, request: NextRequest): string | null {
+  if (attribution?.source_url) return attribution.source_url
+  const referer = request.headers.get('referer')?.trim()
+  if (!referer) return null
+
+  try {
+    const url = new URL(referer)
+    return `${url.origin}${url.pathname}`
+  } catch {
+    return referer
+  }
+}
+
+function resolveLandingPath(attribution: BookingAttributionPayload | undefined, sourceUrl: string | null): string | null {
+  if (attribution?.landing_path) return attribution.landing_path
+  if (!sourceUrl) return null
+  try {
+    return new URL(sourceUrl).pathname
+  } catch {
+    return null
+  }
+}
+
+async function forwardConfirmedTableBookingConversion(
+  request: NextRequest,
+  payload: ManagementTableBookingPayload,
+  attribution: BookingAttributionPayload | undefined,
+  responseBody: unknown
+) {
+  const data = pickResponseData(responseBody)
+  const state = typeof data?.state === 'string' ? data.state : null
+  if (state !== 'confirmed') return
+
+  const bookingId =
+    asTrimmedString(data?.booking_reference) ||
+    asTrimmedString(data?.booking_id) ||
+    asTrimmedString(data?.table_booking_id)
+
+  if (!bookingId) return
+
+  const sourceUrl = buildSourceUrl(attribution, request)
+  const depositAmount = asNonNegativeNumber(data?.deposit_amount)
+
+  await forwardBookingConversionToCheersAI({
+    sourceSite: 'www.the-anchor.pub',
+    bookingId,
+    metaEventId: bookingId,
+    bookingType: 'table',
+    tickets: payload.party_size,
+    value: depositAmount ?? 0,
+    currency: 'GBP',
+    foodIntent: payload.purpose,
+    sourceUrl,
+    landingPath: resolveLandingPath(attribution, sourceUrl),
+    utmSource: attribution?.utm_source ?? null,
+    utmMedium: attribution?.utm_medium ?? null,
+    utmCampaign: attribution?.utm_campaign ?? null,
+    utmContent: attribution?.utm_content ?? null,
+    utmTerm: attribution?.utm_term ?? null,
+    fbclid: attribution?.fbclid ?? null,
+    gclid: attribution?.gclid ?? null,
+    shortCode: attribution?.short_code ?? null,
+    attributionCapturedAt: attribution?.attribution_captured_at ?? null,
+    attributionUpdatedAt: attribution?.attribution_updated_at ?? null,
+    occurredAt: new Date().toISOString()
+  }).catch(() => undefined)
+}
+
 export async function POST(request: NextRequest) {
-  if (!API_KEY) {
+  const apiKey = process.env.ANCHOR_API_KEY
+  if (!apiKey) {
     return createApiErrorResponse('Booking service unavailable', 503)
   }
 
@@ -277,7 +413,7 @@ export async function POST(request: NextRequest) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-API-Key': API_KEY,
+        'X-API-Key': apiKey,
         'Idempotency-Key': idempotencyKey,
         // Management API reads the Turnstile token from this header, not from the body
         ...(turnstileToken ? { 'x-turnstile-token': turnstileToken } : {})
@@ -303,10 +439,17 @@ export async function POST(request: NextRequest) {
       error: getSafeUpstreamErrorMessage(rawText, 'Booking request failed')
     }
 
-    return new Response(JSON.stringify(parsed ?? fallbackPayload), {
+    const responseBody = parsed ?? fallbackPayload
+
+    if (upstream.ok) {
+      await forwardConfirmedTableBookingConversion(request, normalized.payload, normalized.attribution, responseBody)
+    }
+
+    return new Response(JSON.stringify(responseBody), {
       status: upstream.status,
       headers: {
         'Content-Type': 'application/json',
+        'Cache-Control': 'no-store, max-age=0',
         'X-Idempotency-Key': idempotencyKey
       }
     })

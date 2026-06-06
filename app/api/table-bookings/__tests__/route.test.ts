@@ -99,10 +99,13 @@ afterAll(() => {
 })
 
 beforeEach(() => {
+  process.env.ANCHOR_API_KEY = 'test-key'
   mockGetBusinessHours.mockResolvedValue(ALWAYS_OPEN_HOURS)
 })
 
 afterEach(() => {
+  delete process.env.CHEERSAI_BOOKING_CONVERSIONS_SECRET
+  delete process.env.CHEERSAI_BOOKING_CONVERSIONS_URL
   jest.clearAllMocks()
   jest.useRealTimers()
 })
@@ -117,7 +120,7 @@ describe('website /api/table-bookings proxy, walk-in launch sanitisation', () =>
         phone: '07700900000',
         first_name: 'Hostile',
         last_name: 'Client',
-        date: '2026-05-24',
+        date: '2026-06-14',
         time: '13:00',
         party_size: 4,
         purpose: 'food',
@@ -140,7 +143,7 @@ describe('website /api/table-bookings proxy, walk-in launch sanitisation', () =>
     const res = await POST(
       buildRequest({
         phone: '07700900000',
-        date: '2026-05-24',
+        date: '2026-06-14',
         time: '13:00',
         party_size: 2,
         purpose: 'food',
@@ -161,7 +164,7 @@ describe('website /api/table-bookings proxy, walk-in launch sanitisation', () =>
     const res = await POST(
       buildRequest({
         phone: '07700900000',
-        date: '2026-05-24',
+        date: '2026-06-14',
         time: '13:00',
         party_size: 6,
         purpose: 'food',
@@ -186,7 +189,7 @@ describe('website /api/table-bookings proxy, walk-in launch sanitisation', () =>
     const res = await POST(
       buildRequest({
         phone: '07700900000',
-        date: '2026-05-24',
+        date: '2026-06-14',
         time: '13:00',
         party_size: 2,
         purpose: 'food'
@@ -202,7 +205,7 @@ describe('website /api/table-bookings proxy, walk-in launch sanitisation', () =>
     // Pretend it's Saturday 14:00, the legacy cutoff would have rejected
     // a Sunday booking made after 13:00. Walk-in launch removes that gate.
     jest.useFakeTimers()
-    jest.setSystemTime(new Date('2026-05-23T14:00:00.000+01:00'))
+    jest.setSystemTime(new Date('2026-06-13T14:00:00.000+01:00'))
 
     const calls = installUpstreamFetch()
     const POST = await getPostHandler()
@@ -210,7 +213,7 @@ describe('website /api/table-bookings proxy, walk-in launch sanitisation', () =>
     const res = await POST(
       buildRequest({
         phone: '07700900000',
-        date: '2026-05-24', // Sunday
+        date: '2026-06-14', // Sunday
         time: '13:00',
         party_size: 2,
         purpose: 'food'
@@ -230,7 +233,7 @@ describe('website /api/table-bookings proxy, walk-in launch sanitisation', () =>
     const res = await POST(
       buildRequest({
         phone: '07700900000',
-        date: '2026-05-22',
+        date: '2026-06-12',
         time: '20:30',
         party_size: 2,
         purpose: 'drinks'
@@ -241,6 +244,65 @@ describe('website /api/table-bookings proxy, walk-in launch sanitisation', () =>
     const forwarded = JSON.parse(String(calls[0].init.body))
     expect(forwarded.purpose).toBe('drinks')
     expect(forwarded.booking_type).toBe('regular')
+  })
+
+  it('forwards confirmed table bookings to CheersAI with stored attribution and no PII', async () => {
+    process.env.CHEERSAI_BOOKING_CONVERSIONS_SECRET = 'cheers-secret'
+    process.env.CHEERSAI_BOOKING_CONVERSIONS_URL = 'https://cheers.example.com/api/booking-conversions'
+    const calls = installUpstreamFetch()
+    const POST = await getPostHandler()
+
+    const res = await POST(
+      buildRequest({
+        phone: '07700900000',
+        first_name: 'Jane',
+        last_name: 'Guest',
+        email: 'jane@example.com',
+        date: '2026-06-12',
+        time: '20:30',
+        party_size: 3,
+        purpose: 'food',
+        source_url: 'https://www.the-anchor.pub/book-table?utm_campaign=summer-food&fbclid=fb-123&gclid=g-123&short_code=ma-food',
+        landing_path: '/book-table',
+        utm_source: 'facebook',
+        utm_medium: 'paid_social',
+        utm_campaign: 'summer-food',
+        fbclid: 'fb-123',
+        gclid: 'g-123',
+        short_code: 'ma-food',
+        attribution_captured_at: '2026-05-22T18:30:00.000Z',
+        attribution_updated_at: '2026-05-22T18:45:00.000Z'
+      }) as any
+    )
+
+    expect(res.status).toBe(201)
+    expect(res.headers.get('Cache-Control')).toBe('no-store, max-age=0')
+    expect(calls).toHaveLength(2)
+    expect(calls[1].url).toBe('https://cheers.example.com/api/booking-conversions')
+
+    const conversion = JSON.parse(String(calls[1].init.body))
+    expect(conversion).toMatchObject({
+      bookingId: 'TB-OK',
+      metaEventId: 'TB-OK',
+      bookingType: 'table',
+      tickets: 3,
+      value: 0,
+      currency: 'GBP',
+      foodIntent: 'food',
+      landingPath: '/book-table',
+      utmSource: 'facebook',
+      utmMedium: 'paid_social',
+      utmCampaign: 'summer-food',
+      fbclid: 'fb-123',
+      gclid: 'g-123',
+      shortCode: 'ma-food',
+      attributionCapturedAt: '2026-05-22T18:30:00.000Z',
+      attributionUpdatedAt: '2026-05-22T18:45:00.000Z',
+    })
+    expect(JSON.stringify(conversion)).not.toMatch(/07700900000|Jane|Guest|jane@example\.com/)
+
+    delete process.env.CHEERSAI_BOOKING_CONVERSIONS_SECRET
+    delete process.env.CHEERSAI_BOOKING_CONVERSIONS_URL
   })
 
   it('accepts a drinks booking at 22:30 even when schedule_config drinks entry matches kitchen hours', async () => {
@@ -269,7 +331,7 @@ describe('website /api/table-bookings proxy, walk-in launch sanitisation', () =>
     const res = await POST(
       buildRequest({
         phone: '07700900000',
-        date: '2026-05-22', // Friday
+        date: '2026-06-12', // Friday
         time: '22:30',
         party_size: 2,
         purpose: 'drinks'
@@ -289,7 +351,7 @@ describe('website /api/table-bookings proxy, walk-in launch sanitisation', () =>
     const res = await POST(
       buildRequest({
         phone: '07700900000',
-        date: '2026-05-22',
+        date: '2026-06-12',
         time: '13:00',
         party_size: 2
         // purpose deliberately omitted
@@ -309,7 +371,7 @@ describe('website /api/table-bookings proxy, walk-in launch sanitisation', () =>
     const res = await POST(
       buildRequest({
         phone: '07700900000',
-        date: '2026-05-22',
+        date: '2026-06-12',
         time: '13:00',
         party_size: 2,
         purpose: 'lunch' // typo / unsupported value
@@ -331,7 +393,7 @@ describe('website /api/table-bookings proxy, walk-in launch sanitisation', () =>
     const res = await POST(
       buildRequest({
         phone: '07700900000',
-        date: '2026-05-22',
+        date: '2026-06-12',
         time: '22:30',
         party_size: 2,
         purpose: 'food'

@@ -1,5 +1,8 @@
 'use client'
 
+import { useEffect } from 'react'
+
+import { captureBookingAttributionFromLocation } from '@/lib/booking-attribution'
 import { useAnalytics } from '@/lib/use-analytics'
 import { useClarity } from '@/lib/use-clarity'
 
@@ -9,6 +12,10 @@ export function AnalyticsProvider({ children }: { children: React.ReactNode }) {
   // The hook is kept as a no-op to preserve the API without removing the call.
   useAnalytics()
   useClarity()
+
+  useEffect(() => {
+    captureBookingAttributionFromLocation()
+  }, [])
   
   return <>{children}</>
 }

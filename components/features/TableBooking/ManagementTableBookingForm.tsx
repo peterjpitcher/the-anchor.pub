@@ -27,6 +27,7 @@ import {
   requiresDeposit,
 } from '@/lib/constants'
 import { formatEventLocalTime, getEventDateRangeUtc, getEventLocalIsoDate } from '@/lib/event-calendar'
+import { getBookingAttributionPayload, type BookingAttributionPayload } from '@/lib/booking-attribution'
 import {
   formatTimeNoSeconds,
   getEffectiveDayHours,
@@ -606,6 +607,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
   const [depositAmountForPayment, setDepositAmountForPayment] = useState<number>(0)
   const [paymentState, setPaymentState] = useState<'idle' | 'confirmed' | 'error'>('idle')
   const [paymentError, setPaymentError] = useState<string | null>(null)
+  const [submittedAttribution, setSubmittedAttribution] = useState<BookingAttributionPayload | null>(null)
 
   const [policyAccepted, setPolicyAccepted] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -1455,6 +1457,9 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       // and always forwards booking_type='regular' to the management API.
       // `purpose` is derived from the selected slot's kitchen_open flag, see
       // deriveSubmitPurpose() above.
+      const attribution = getBookingAttributionPayload()
+      setSubmittedAttribution(attribution)
+
       const payload = {
         phone: trimmedPhone,
         default_country_code: '44',
@@ -1466,6 +1471,7 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
         party_size: partySize,
         purpose,
         ...(trimmedNotes ? { notes: trimmedNotes } : {}),
+        ...attribution,
         // Volatile fields below, added after the idempotency key has already
         // been selected so they cannot influence the submit-intent fingerprint.
         ...(turnstileToken ? { turnstile_token: turnstileToken } : {}),
@@ -2213,19 +2219,53 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
                         <p>{paymentError}</p>
                       </Alert>
                     )}
-                    <PayPalDepositSection
-                      bookingId={bookingIdForPayment}
-                      orderId={paypalOrderId}
-                      depositAmount={depositAmountForPayment}
-                      bookingSummary={[
-                        date ? new Date(`${date}T12:00:00`).toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' }) : null,
-                        selectedTime ? (() => { const [h, m] = selectedTime.split(':').map(Number); const ampm = h >= 12 ? 'pm' : 'am'; const hour = h % 12 || 12; return `${hour}:${String(m).padStart(2, '0')}${ampm}`; })() : null,
-                        partySize ? `${partySize} guests` : null
-                      ].filter(Boolean).join(' · ')}
-                      onSuccess={() => setPaymentState('confirmed')}
-                      onError={(msg) => {
-                        setPaymentError(msg)
-                        setPaymentState('error')
+	                    <PayPalDepositSection
+	                      bookingId={bookingIdForPayment}
+	                      orderId={paypalOrderId}
+	                      depositAmount={depositAmountForPayment}
+	                      conversionPayload={{
+	                        bookingReference: result.booking_reference,
+	                        depositAmount: depositAmountForPayment,
+	                        bookingDate: date,
+	                        bookingTime: selectedTime,
+	                        partySize,
+	                        bookingType,
+	                        purpose: selectedSlotService?.kitchen_open === false ? 'drinks' : 'food',
+	                        bookingSource,
+	                        attribution: submittedAttribution,
+	                      }}
+	                      bookingSummary={[
+	                        date ? new Date(`${date}T12:00:00`).toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' }) : null,
+	                        selectedTime ? (() => { const [h, m] = selectedTime.split(':').map(Number); const ampm = h >= 12 ? 'pm' : 'am'; const hour = h % 12 || 12; return `${hour}:${String(m).padStart(2, '0')}${ampm}`; })() : null,
+	                        partySize ? `${partySize} guests` : null
+	                      ].filter(Boolean).join(' · ')}
+	                      onSuccess={() => {
+	                        setPaymentState('confirmed')
+	                        const transactionId = result.booking_reference || bookingIdForPayment || undefined
+	                        trackTableBookingFunnel({
+	                          step: 'success',
+	                          partySize,
+	                          bookingDate: date,
+	                          bookingTime: selectedTime,
+	                          bookingReference: transactionId,
+	                          bookingType,
+	                          source: bookingSource,
+	                          deviceType: getDeviceType(),
+	                          value: depositAmountForPayment,
+	                        })
+	                        if (transactionId) {
+	                          pushToDataLayer({
+	                            event: 'purchase',
+	                            transaction_id: transactionId,
+	                            value: depositAmountForPayment,
+	                            currency: 'GBP',
+	                            booking_source: bookingSource,
+	                          })
+	                        }
+	                      }}
+	                      onError={(msg) => {
+	                        setPaymentError(msg)
+	                        setPaymentState('error')
                       }}
                     />
                   </>

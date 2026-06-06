@@ -25,7 +25,10 @@ type EventBookingPayload = {
   utm_content?: string
   utm_term?: string
   fbclid?: string
+  gclid?: string
   short_code?: string
+  attribution_captured_at?: string
+  attribution_updated_at?: string
   event_slug?: string
   event_name?: string
   event_category_name?: string
@@ -113,7 +116,10 @@ function normalizePayload(input: unknown): { payload?: EventBookingPayload; erro
         'utm_content',
         'utm_term',
         'fbclid',
+        'gclid',
         'short_code',
+        'attribution_captured_at',
+        'attribution_updated_at',
         'event_slug',
         'event_name',
         'event_category_name',
@@ -267,6 +273,10 @@ async function forwardConfirmedBookingConversion(
     utmContent: payload.utm_content ?? null,
     utmTerm: payload.utm_term ?? null,
     fbclid: payload.fbclid ?? null,
+    gclid: payload.gclid ?? null,
+    shortCode: payload.short_code ?? null,
+    attributionCapturedAt: payload.attribution_captured_at ?? null,
+    attributionUpdatedAt: payload.attribution_updated_at ?? null,
     occurredAt: new Date().toISOString()
   }).catch(() => undefined)
 }

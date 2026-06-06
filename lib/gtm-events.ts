@@ -395,11 +395,12 @@ export function trackTableBookingFunnel(data: {
   partySize?: number
   bookingDate?: string
   bookingTime?: string
-  bookingReference?: string
-  bookingType?: string
-  errorType?: string
-  errorMessage?: string
-  source: string
+	  bookingReference?: string
+	  bookingType?: string
+	  value?: number
+	  errorType?: string
+	  errorMessage?: string
+	  source: string
   deviceType: 'mobile' | 'desktop'
 }) {
   const eventData: GTMEvent = {
@@ -478,12 +479,12 @@ export function trackTableBookingFunnel(data: {
       }, { sendToApi: true })
     }
 
-    if (data.bookingReference) {
-      trackMetaBookingPurchase({
-        eventId: data.bookingReference,
-        value: 0,
-        currency: 'GBP',
-        bookingType: data.bookingType || 'table',
+	    if (data.bookingReference) {
+	      trackMetaBookingPurchase({
+	        eventId: data.bookingReference,
+	        value: data.value ?? 0,
+	        currency: 'GBP',
+	        bookingType: data.bookingType || 'table',
         bookingSource: data.source,
         contentName: 'Table booking'
       })
