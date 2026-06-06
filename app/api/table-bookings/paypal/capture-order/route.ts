@@ -26,6 +26,10 @@ const BodySchema = z.object({
   short_code: z.string().trim().min(1).nullable().optional(),
   attribution_captured_at: z.string().trim().min(1).nullable().optional(),
   attribution_updated_at: z.string().trim().min(1).nullable().optional(),
+  meta_consent_granted: z.boolean().nullable().optional(),
+  fbp: z.string().trim().min(1).nullable().optional(),
+  fbc: z.string().trim().min(1).nullable().optional(),
+  client_user_agent: z.string().trim().min(1).nullable().optional(),
 })
 
 function jsonNoStore(body: unknown, init?: ResponseInit) {
@@ -91,6 +95,12 @@ async function forwardCapturedDepositConversion(
     shortCode: payload.short_code ?? null,
     attributionCapturedAt: payload.attribution_captured_at ?? null,
     attributionUpdatedAt: payload.attribution_updated_at ?? null,
+    metaConsentGranted: payload.meta_consent_granted === true,
+    fbp: payload.meta_consent_granted === true ? payload.fbp ?? null : null,
+    fbc: payload.meta_consent_granted === true ? payload.fbc ?? null : null,
+    clientUserAgent: payload.meta_consent_granted === true
+      ? payload.client_user_agent ?? request.headers.get('user-agent')
+      : null,
     occurredAt: new Date().toISOString(),
   }).catch(() => undefined)
 }

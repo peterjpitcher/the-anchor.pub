@@ -2,18 +2,25 @@ import {
   captureBookingAttributionFromLocation,
   clearBookingAttributionForTest,
   getBookingAttributionPayload,
+  getMarketingConsentSignalPayload,
 } from '@/lib/booking-attribution'
+import { setConsentStatus } from '@/lib/cookies'
 
 describe('booking attribution persistence', () => {
   beforeEach(() => {
     clearBookingAttributionForTest()
     window.localStorage.clear()
-    document.cookie = ''
+    document.cookie = 'anchor-cookie-consent=; path=/; max-age=0'
+    document.cookie = '_fbp=; path=/; max-age=0'
+    document.cookie = '_fbc=; path=/; max-age=0'
   })
 
   afterEach(() => {
     clearBookingAttributionForTest()
     window.localStorage.clear()
+    document.cookie = 'anchor-cookie-consent=; path=/; max-age=0'
+    document.cookie = '_fbp=; path=/; max-age=0'
+    document.cookie = '_fbc=; path=/; max-age=0'
   })
 
   it('captures only allowed paid-click params and drops customer-like query data', () => {
@@ -70,6 +77,23 @@ describe('booking attribution persistence', () => {
       landing_path: '/events/quiz-night',
       utm_campaign: 'quiz-night',
       short_code: 'ma-quiz',
+    })
+  })
+
+  it('adds Meta browser IDs only when marketing consent is granted', () => {
+    window.history.pushState({}, '', '/events/quiz-night?fbclid=fb-consented')
+    document.cookie = '_fbp=fb.1.1710000000.browser-123; path=/'
+
+    expect(getMarketingConsentSignalPayload('fb-consented')).toEqual({
+      meta_consent_granted: false,
+    })
+
+    setConsentStatus({ marketing: true })
+
+    expect(getMarketingConsentSignalPayload('fb-consented')).toMatchObject({
+      meta_consent_granted: true,
+      fbp: 'fb.1.1710000000.browser-123',
+      fbc: expect.stringContaining('fb-consented'),
     })
   })
 })

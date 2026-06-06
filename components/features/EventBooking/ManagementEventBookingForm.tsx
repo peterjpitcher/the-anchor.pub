@@ -11,7 +11,7 @@ import type { Event } from '@/lib/api'
 import { getEventBookingReassurance, getEventUnitPrice } from '@/lib/event-booking-experience'
 import { PhoneLink } from '@/components/PhoneLink'
 import { CONTACT } from '@/lib/constants'
-import { getBookingAttributionPayload } from '@/lib/booking-attribution'
+import { getBookingAttributionPayload, getMarketingConsentSignalPayload } from '@/lib/booking-attribution'
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
 
@@ -88,6 +88,8 @@ function collectBookingAttribution() {
   if (typeof window === 'undefined') return {}
   const url = new URL(window.location.href)
   const read = (key: string) => url.searchParams.get(key) || undefined
+  const storedAttribution = getBookingAttributionPayload()
+  const fbclid = storedAttribution.fbclid ?? read('fbclid')
   return {
     source_url: url.toString(),
     landing_path: url.pathname,
@@ -96,10 +98,11 @@ function collectBookingAttribution() {
     utm_campaign: read('utm_campaign'),
     utm_content: read('utm_content'),
     utm_term: read('utm_term'),
-    fbclid: read('fbclid'),
+    fbclid,
     gclid: read('gclid'),
     short_code: read('short_code'),
-    ...getBookingAttributionPayload()
+    ...storedAttribution,
+    ...getMarketingConsentSignalPayload(fbclid)
   }
 }
 

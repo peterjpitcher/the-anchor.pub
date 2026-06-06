@@ -46,6 +46,10 @@ const validPayload = {
   shortCode: 'ma-quiz',
   attributionCapturedAt: '2026-05-10T18:45:00.000Z',
   attributionUpdatedAt: '2026-05-10T18:55:00.000Z',
+  metaConsentGranted: true,
+  fbp: 'fb.1.1710000000.browser-123',
+  fbc: 'fb.1.1710000000.fbclid-123',
+  clientUserAgent: 'Mozilla/5.0 Test',
   occurredAt: '2026-05-10T19:01:00.000Z'
 }
 

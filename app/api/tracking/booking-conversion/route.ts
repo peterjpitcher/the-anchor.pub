@@ -31,6 +31,10 @@ const payloadSchema = z.object({
   shortCode: z.string().trim().max(120).optional().nullable(),
   attributionCapturedAt: z.string().datetime().optional().nullable(),
   attributionUpdatedAt: z.string().datetime().optional().nullable(),
+  metaConsentGranted: z.boolean().optional().nullable(),
+  fbp: z.string().trim().max(500).optional().nullable(),
+  fbc: z.string().trim().max(500).optional().nullable(),
+  clientUserAgent: z.string().trim().max(500).optional().nullable(),
   occurredAt: z.string().datetime().optional().nullable()
 })
 

@@ -27,7 +27,11 @@ import {
   requiresDeposit,
 } from '@/lib/constants'
 import { formatEventLocalTime, getEventDateRangeUtc, getEventLocalIsoDate } from '@/lib/event-calendar'
-import { getBookingAttributionPayload, type BookingAttributionPayload } from '@/lib/booking-attribution'
+import {
+  getBookingAttributionPayload,
+  getMarketingConsentSignalPayload,
+  type BookingAttributionPayload,
+} from '@/lib/booking-attribution'
 import {
   formatTimeNoSeconds,
   getEffectiveDayHours,
@@ -1457,7 +1461,11 @@ export function ManagementTableBookingForm({ prefill }: ManagementTableBookingFo
       // and always forwards booking_type='regular' to the management API.
       // `purpose` is derived from the selected slot's kitchen_open flag, see
       // deriveSubmitPurpose() above.
-      const attribution = getBookingAttributionPayload()
+      const storedAttribution = getBookingAttributionPayload()
+      const attribution = {
+        ...storedAttribution,
+        ...getMarketingConsentSignalPayload(storedAttribution.fbclid),
+      }
       setSubmittedAttribution(attribution)
 
       const payload = {

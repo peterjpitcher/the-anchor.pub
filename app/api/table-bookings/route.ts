@@ -43,6 +43,10 @@ type BookingAttributionPayload = {
   short_code?: string
   attribution_captured_at?: string
   attribution_updated_at?: string
+  meta_consent_granted?: boolean
+  fbp?: string
+  fbc?: string
+  client_user_agent?: string
 }
 
 type LegacyTableBookingPayload = {
@@ -212,7 +216,8 @@ function normaliseIncomingPayload(input: unknown): {
 }
 
 function normaliseAttribution(body: Record<string, unknown>): BookingAttributionPayload {
-  return copyOptionalStrings(body, [
+  return {
+    ...copyOptionalStrings(body, [
     'source_url',
     'landing_path',
     'utm_source',
@@ -224,8 +229,13 @@ function normaliseAttribution(body: Record<string, unknown>): BookingAttribution
     'gclid',
     'short_code',
     'attribution_captured_at',
-    'attribution_updated_at'
-  ])
+    'attribution_updated_at',
+    'fbp',
+    'fbc',
+    'client_user_agent',
+    ]),
+    ...(body.meta_consent_granted === true ? { meta_consent_granted: true } : {}),
+  }
 }
 
 function copyOptionalStrings<T extends string>(body: Record<string, unknown>, keys: readonly T[]): Partial<Record<T, string>> {
@@ -345,6 +355,12 @@ async function forwardConfirmedTableBookingConversion(
     shortCode: attribution?.short_code ?? null,
     attributionCapturedAt: attribution?.attribution_captured_at ?? null,
     attributionUpdatedAt: attribution?.attribution_updated_at ?? null,
+    metaConsentGranted: attribution?.meta_consent_granted === true,
+    fbp: attribution?.meta_consent_granted === true ? attribution.fbp ?? null : null,
+    fbc: attribution?.meta_consent_granted === true ? attribution.fbc ?? null : null,
+    clientUserAgent: attribution?.meta_consent_granted === true
+      ? attribution.client_user_agent ?? request.headers.get('user-agent')
+      : null,
     occurredAt: new Date().toISOString()
   }).catch(() => undefined)
 }

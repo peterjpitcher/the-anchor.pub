@@ -25,6 +25,10 @@ export type BookingConversionForwardPayload = {
   shortCode?: string | null
   attributionCapturedAt?: string | null
   attributionUpdatedAt?: string | null
+  metaConsentGranted?: boolean | null
+  fbp?: string | null
+  fbc?: string | null
+  clientUserAgent?: string | null
   occurredAt?: string | null
 }
 

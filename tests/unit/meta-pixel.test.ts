@@ -25,6 +25,7 @@ describe('Meta Pixel booking tracking', () => {
     document.head.innerHTML = '<script id="first-script"></script>'
     window.dataLayer = []
     window.history.pushState({}, '', '/book-table?utm_source=facebook&utm_medium=paid_social&utm_campaign=quiz-night&fbclid=fb-123')
+    document.cookie = '_fbp=fb.1.1710000000.browser-123; path=/'
     ;(global as any).fetch = jest.fn().mockResolvedValue(new Response('{}', { status: 202 }))
   })
 
@@ -90,7 +91,10 @@ describe('Meta Pixel booking tracking', () => {
       utmSource: 'facebook',
       utmMedium: 'paid_social',
       utmCampaign: 'quiz-night',
-      fbclid: 'fb-123'
+      fbclid: 'fb-123',
+      metaConsentGranted: true,
+      fbp: 'fb.1.1710000000.browser-123',
+      fbc: expect.stringContaining('fb-123')
     })
     expect(JSON.stringify(forwardedPayload)).not.toMatch(/07700900000|Jane|Smith|@/)
   })
@@ -161,5 +165,13 @@ describe('Meta Pixel booking tracking', () => {
     })).toBe(false)
     expect(fbqQueue().filter((entry) => entry[1] === 'Purchase')).toHaveLength(0)
     expect(global.fetch).toHaveBeenCalledTimes(1)
+    const forwardedPayload = JSON.parse(String((global.fetch as jest.Mock).mock.calls[0]?.[1]?.body))
+    expect(forwardedPayload).toMatchObject({
+      bookingId: 'BK-789',
+      metaConsentGranted: false,
+      fbp: null,
+      fbc: null,
+      clientUserAgent: null
+    })
   })
 })

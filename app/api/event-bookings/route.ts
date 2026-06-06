@@ -29,6 +29,10 @@ type EventBookingPayload = {
   short_code?: string
   attribution_captured_at?: string
   attribution_updated_at?: string
+  meta_consent_granted?: boolean
+  fbp?: string
+  fbc?: string
+  client_user_agent?: string
   event_slug?: string
   event_name?: string
   event_category_name?: string
@@ -92,6 +96,7 @@ function normalizePayload(input: unknown): { payload?: EventBookingPayload; erro
   const defaultCountryCode = asTrimmedString(body.default_country_code)
   const eventPrice = asNonNegativeNumber(body.event_price)
   const eventValue = asNonNegativeNumber(body.event_value)
+  const metaConsentGranted = body.meta_consent_granted === true
 
   if (!eventId || !phone || !seats) {
     return { error: 'Missing required fields: event_id, phone, seats' }
@@ -107,6 +112,7 @@ function normalizePayload(input: unknown): { payload?: EventBookingPayload; erro
       ...(email ? { email } : {}),
       ...(notes ? { notes } : {}),
       ...(defaultCountryCode ? { default_country_code: defaultCountryCode } : {}),
+      ...(metaConsentGranted ? { meta_consent_granted: true } : {}),
       ...copyOptionalStrings(body, [
         'source_url',
         'landing_path',
@@ -120,6 +126,9 @@ function normalizePayload(input: unknown): { payload?: EventBookingPayload; erro
         'short_code',
         'attribution_captured_at',
         'attribution_updated_at',
+        'fbp',
+        'fbc',
+        'client_user_agent',
         'event_slug',
         'event_name',
         'event_category_name',
@@ -277,6 +286,12 @@ async function forwardConfirmedBookingConversion(
     shortCode: payload.short_code ?? null,
     attributionCapturedAt: payload.attribution_captured_at ?? null,
     attributionUpdatedAt: payload.attribution_updated_at ?? null,
+    metaConsentGranted: payload.meta_consent_granted === true,
+    fbp: payload.meta_consent_granted === true ? payload.fbp ?? null : null,
+    fbc: payload.meta_consent_granted === true ? payload.fbc ?? null : null,
+    clientUserAgent: payload.meta_consent_granted === true
+      ? payload.client_user_agent ?? request.headers.get('user-agent')
+      : null,
     occurredAt: new Date().toISOString()
   }).catch(() => undefined)
 }

@@ -1,7 +1,11 @@
+import { canUseCookieCategory } from './cookies'
+
 const ATTRIBUTION_STORAGE_KEY = 'anchor-booking-attribution'
 const ATTRIBUTION_COOKIE_NAME = 'anchor-booking-attribution'
 const ATTRIBUTION_TTL_DAYS = 90
 const ATTRIBUTION_TTL_MS = ATTRIBUTION_TTL_DAYS * 24 * 60 * 60 * 1000
+const FBC_COOKIE_NAME = '_fbc'
+const FBP_COOKIE_NAME = '_fbp'
 
 const PARAM_LIMITS: Record<AttributionParam, number> = {
   utm_source: 160,
@@ -54,6 +58,10 @@ export interface BookingAttributionPayload {
   short_code?: string
   attribution_captured_at?: string
   attribution_updated_at?: string
+  meta_consent_granted?: boolean
+  fbp?: string
+  fbc?: string
+  client_user_agent?: string
 }
 
 export function captureBookingAttributionFromLocation(now = new Date()): BookingAttributionPayload {
@@ -84,6 +92,20 @@ export function getBookingAttributionPayload(): BookingAttributionPayload {
 
   const stored = readStoredAttribution()
   return stored ? storedToPayload(stored) : {}
+}
+
+export function getMarketingConsentSignalPayload(fbclid?: string | null): BookingAttributionPayload {
+  if (typeof window === 'undefined' || !canUseCookieCategory('marketing')) {
+    return { meta_consent_granted: false }
+  }
+
+  const resolvedFbclid = fbclid ?? getBookingAttributionPayload().fbclid ?? currentFbclid()
+  return removeUndefined({
+    meta_consent_granted: true,
+    fbp: sanitizeSignal(readCookieValue(FBP_COOKIE_NAME), 500),
+    fbc: sanitizeSignal(readCookieValue(FBC_COOKIE_NAME) ?? buildFbcFromFbclid(resolvedFbclid), 500),
+    client_user_agent: sanitizeSignal(window.navigator?.userAgent, 500),
+  })
 }
 
 export function clearBookingAttributionForTest() {
@@ -196,6 +218,36 @@ function readCookie() {
   }
 }
 
+function readCookieValue(name: string) {
+  const escapedName = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  const match = document.cookie.match(new RegExp(`(?:^|; )${escapedName}=([^;]*)`))
+  if (!match?.[1]) return null
+  try {
+    return decodeURIComponent(match[1])
+  } catch {
+    return null
+  }
+}
+
+function currentFbclid() {
+  try {
+    return new URL(window.location.href).searchParams.get('fbclid')
+  } catch {
+    return null
+  }
+}
+
+function buildFbcFromFbclid(fbclid: string | null | undefined) {
+  const value = sanitizeSignal(fbclid, 500)
+  if (!value) return undefined
+  return `fb.1.${Date.now()}.${value}`
+}
+
+function sanitizeSignal(value: string | null | undefined, max: number) {
+  const trimmed = value?.trim()
+  return trimmed ? trimmed.slice(0, max) : undefined
+}
+
 function storedToPayload(stored: StoredBookingAttribution): BookingAttributionPayload {
   const latest = stored.latest.params
   return removeUndefined({
@@ -214,7 +266,7 @@ function storedToPayload(stored: StoredBookingAttribution): BookingAttributionPa
   })
 }
 
-function removeUndefined<T extends Record<string, string | undefined>>(input: T): T {
+function removeUndefined<T extends Record<string, unknown>>(input: T): T {
   const output = { ...input }
   for (const key of Object.keys(output) as Array<keyof T>) {
     if (output[key] === undefined) delete output[key]

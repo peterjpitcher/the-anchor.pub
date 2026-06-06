@@ -1,5 +1,5 @@
 import { canUseCookieCategory } from './cookies'
-import { getBookingAttributionPayload } from './booking-attribution'
+import { getBookingAttributionPayload, getMarketingConsentSignalPayload } from './booking-attribution'
 
 type FbqCommand = 'init' | 'track' | 'trackCustom' | 'consent'
 
@@ -112,6 +112,8 @@ function forwardBookingConversion(data: MetaBookingPurchase) {
   try {
     const url = new URL(window.location.href)
     const attribution = getBookingAttributionPayload()
+    const fbclid = attribution.fbclid ?? url.searchParams.get('fbclid')
+    const marketingSignal = getMarketingConsentSignalPayload(fbclid)
     const payload = {
       sourceSite: window.location.hostname,
       bookingId: data.eventId,
@@ -134,11 +136,15 @@ function forwardBookingConversion(data: MetaBookingPurchase) {
       utmCampaign: attribution.utm_campaign ?? url.searchParams.get('utm_campaign'),
       utmContent: attribution.utm_content ?? url.searchParams.get('utm_content'),
       utmTerm: attribution.utm_term ?? url.searchParams.get('utm_term'),
-      fbclid: attribution.fbclid ?? url.searchParams.get('fbclid'),
+      fbclid,
       gclid: attribution.gclid ?? url.searchParams.get('gclid'),
       shortCode: attribution.short_code ?? url.searchParams.get('short_code'),
       attributionCapturedAt: attribution.attribution_captured_at ?? null,
       attributionUpdatedAt: attribution.attribution_updated_at ?? null,
+      metaConsentGranted: marketingSignal.meta_consent_granted === true,
+      fbp: marketingSignal.meta_consent_granted === true ? marketingSignal.fbp ?? null : null,
+      fbc: marketingSignal.meta_consent_granted === true ? marketingSignal.fbc ?? null : null,
+      clientUserAgent: marketingSignal.meta_consent_granted === true ? marketingSignal.client_user_agent ?? null : null,
       occurredAt: new Date().toISOString()
     }
 
