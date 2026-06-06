@@ -227,11 +227,14 @@ export default async function LiveSportPage() {
                     <div className="mx-auto max-w-2xl rounded-2xl bg-anchor-bg-card p-8 text-center shadow-sm ring-1 ring-anchor-gold/15">
                         <h2 className="text-xl font-bold text-anchor-gold-vivid">World Cup 2026</h2>
                         <p className="mt-3 text-sm text-anchor-cream-text/70">
-                            Full fixtures with UK kick-off times, showing status, and table bookings.
+                            Full fixtures with UK kick-off times, showing status, table bookings, and the pub sweep draw.
                         </p>
-                        <div className="mt-5">
+                        <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:justify-center">
                             <Link href="/live-sport/world-cup">
                                 <Button variant="primary">World Cup 2026 Fixtures &amp; Bookings →</Button>
+                            </Link>
+                            <Link href="/live-sport/world-cup/sweepstake">
+                                <Button variant="outline">Sweep Draw Results</Button>
                             </Link>
                         </div>
                     </div>

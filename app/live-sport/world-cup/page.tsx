@@ -36,16 +36,16 @@ const AREA_LINKS = [
 
 export const metadata: Metadata = {
   title: 'World Cup 2026 Fixtures & UK Kick-Off Times | The Anchor Near Heathrow',
-  description: `World Cup 2026 fixtures with UK kick-off times, showing status and table bookings. Watch at ${BRAND.name} near Heathrow T5 — 4 screens, sound on, free parking.`,
+  description: `World Cup 2026 fixtures with UK kick-off times, showing status and table bookings. Watch at ${BRAND.name} near Heathrow T5, with 4 screens, sound on, free parking.`,
   openGraph: {
     title: 'World Cup 2026 Fixtures & UK Kick-Off Times | The Anchor Near Heathrow',
-    description: `World Cup 2026 fixtures with UK kick-off times and showing status. Watch at ${BRAND.name} near Heathrow T5 — 4 screens, sound on, free parking. Book a table.`,
+    description: `World Cup 2026 fixtures with UK kick-off times and showing status. Watch at ${BRAND.name} near Heathrow T5, with 4 screens, sound on, free parking. Book a table.`,
     images: [{ url: DEFAULT_PAGE_HEADER_IMAGE, width: 1200, height: 630, alt: 'The Anchor pub in Stanwell Moor near Heathrow' }],
     type: 'website',
   },
   twitter: getTwitterMetadata({
     title: 'World Cup 2026 Fixtures & UK Kick-Off Times | The Anchor Near Heathrow',
-    description: `World Cup 2026 fixtures with UK kick-off times and showing status. Watch at ${BRAND.name} near Heathrow T5 — 4 screens, sound on, free parking. Book a table.`,
+    description: `World Cup 2026 fixtures with UK kick-off times and showing status. Watch at ${BRAND.name} near Heathrow T5, with 4 screens, sound on, free parking. Book a table.`,
     images: [DEFAULT_PAGE_HEADER_IMAGE],
   }),
   alternates: {
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
   },
 }
 
-export const revalidate = 300 // 5 minutes — matches CheersAI feed CDN cache
+export const revalidate = 300 // 5 minutes, matches CheersAI feed CDN cache
 
 function getTeamsLabel(match: WorldCup2026Match) {
   return match.placeholderA && match.placeholderB
@@ -156,6 +156,25 @@ export default async function WorldCupPage() {
         }
         showContextStrip={true}
       />
+
+      <section className="section-spacing-sm bg-anchor-bg">
+        <Container>
+          <div className="mx-auto flex max-w-5xl flex-col gap-5 rounded-xl bg-anchor-bg-card p-6 ring-1 ring-anchor-gold/15 sm:p-8 md:flex-row md:items-center md:justify-between">
+            <div>
+              <p className="text-sm font-bold uppercase tracking-[0.22em] text-anchor-gold-vivid">World Cup Sweep</p>
+              <h2 className="mt-2 text-2xl font-bold text-anchor-cream-text">Sweep Draw Results Are Live</h2>
+              <p className="mt-2 max-w-2xl text-sm text-anchor-cream-text/70">
+                All 48 teams are drawn and assigned. Find your name, check the prize pot, and follow your team through the tournament.
+              </p>
+            </div>
+            <Link href="/live-sport/world-cup/sweepstake" className="w-full shrink-0 md:w-auto">
+              <Button variant="primary" size="lg" className="w-full md:w-auto">
+                View Sweep Draw
+              </Button>
+            </Link>
+          </div>
+        </Container>
+      </section>
 
       <section className="section-spacing bg-anchor-bg" id="fixtures">
         <Container>
@@ -269,7 +288,7 @@ export default async function WorldCupPage() {
                   <li>If we're empty at close, we'll close as normal</li>
                 </ul>
                 <p className="mt-4 text-xs text-anchor-cream-text/55">
-                  Core hours: Mon–Thu 4pm–10pm • Fri 4pm–10pm • Sat 12pm–10pm • Sun 12pm–10pm. Extended to midnight for selected knockout matches.
+                  Core hours: Mon-Thu 4pm-10pm • Fri 4pm-10pm • Sat 12pm-10pm • Sun 12pm-10pm. Extended to midnight for selected knockout matches.
                 </p>
                 <div className="mt-4">
                   <Link href="#fixtures" className="font-semibold text-anchor-gold hover:underline">
@@ -441,11 +460,11 @@ export default async function WorldCupPage() {
               {
                 question: 'Which World Cup 2026 matches are you showing?',
                 answer:
-                  'We show matches that kick off during our opening hours. Matches are on BBC and ITV — no subscription needed. In the fixtures list, look for matches marked "Showing".',
+                  'We show matches that kick off during our opening hours. Matches are on BBC and ITV, no subscription needed. In the fixtures list, look for matches marked "Showing".',
               },
               {
                 question: 'Is the World Cup 2026 free to watch?',
-                answer: 'Yes. World Cup 2026 matches are on BBC and ITV in the UK. We show them on our 4 screens with sound on — no subscription needed.',
+                answer: 'Yes. World Cup 2026 matches are on BBC and ITV in the UK. We show them on our 4 screens with sound on, no subscription needed.',
               },
               {
                 question: 'Are you extending opening hours for the World Cup?',
