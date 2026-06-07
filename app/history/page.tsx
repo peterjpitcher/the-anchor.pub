@@ -55,7 +55,7 @@ const historyPageSchema = {
     'The history of The Anchor in Stanwell Moor, a village pub since at least 1751 with roots reaching back to 1730. Locally listed Victorian building near Heathrow.',
   url: 'https://www.the-anchor.pub/history',
   datePublished: '2026-05-21',
-  dateModified: '2026-05-21',
+  dateModified: '2026-06-07',
   publisher: {
     '@type': 'BarOrPub',
     name: 'The Anchor',
@@ -276,7 +276,9 @@ export default function HistoryPage(): React.JSX.Element {
                   { year: '1915', event: 'Former forge adjoining The Anchor offered for sale' },
                   { year: '1917', event: 'Harry Cooper lost on HMS Vanguard' },
                   { year: '1922', event: 'Charles Edwin Eeles placed at The Anchor Inn' },
-                  { year: '1937', event: 'Sarah Cooper last recorded at the pub' },
+                  { year: '1937', event: 'Sarah Cooper still recorded at the pub' },
+                  { year: '1939', event: 'Family account places Sarah Cooper at The Anchor with Charlie and Lal Eeles' },
+                  { year: '1947', event: 'Family account says Sarah Cooper was still living at The Anchor when she died' },
                   { year: '1951–52', event: 'Charlie Eeles identified in Stanwell Moor FC photo' },
                   { year: '2004', event: 'Locally listed by Spelthorne Borough Council (LL/072)' },
                   { year: '2005–19', event: 'Martine and Ronnie at The Anchor' },
@@ -297,24 +299,37 @@ export default function HistoryPage(): React.JSX.Element {
         </Container>
       </Section>
 
-      {/* Sarah Cooper and Harry Cooper */}
+      {/* Sarah Cooper and Family Memory */}
       <Section background="dark" spacing="md" className="bg-anchor-bg-raised border-b border-anchor-gold/15">
         <Container>
           <div className="max-w-4xl mx-auto">
             <SectionHeader
-              title="Sarah Cooper and the Loss of Harry Cooper"
-              subtitle="A wartime story that begins and ends at The Anchor"
+              title="Sarah Cooper, Family Memory and the Loss of Harry Cooper"
+              subtitle="A family address, a wartime loss and memories passed down"
             />
 
             <div className="space-y-6 text-lg text-anchor-cream-text/80 leading-relaxed">
               <p>
-                <strong>Sarah Cooper</strong> is one of the most important names in The
-                Anchor&apos;s story. She is recorded as landlady from at least{' '}
-                <strong>1914</strong> through to <strong>1937</strong>. Family history says
-                William and Sarah Cooper became landlords around 1902, with Sarah running
-                the pub while William worked elsewhere during the day. After William died
-                in <strong>1907</strong>, Sarah continued as licensee with help from her
-                family.
+                <strong>Sarah Cooper</strong>, nee Austin, is one of the most important
+                names in The Anchor&apos;s story. She is recorded as landlady from at least{' '}
+                <strong>1914</strong> through to <strong>1937</strong>. A descendant&apos;s
+                family-history account adds that Sarah was still at The Anchor in{' '}
+                <strong>1939</strong> with Charlie and Lal Eeles, and that she was still
+                living at the pub when she died in <strong>1947</strong>. Earlier family
+                history says William and Sarah Cooper became landlords around 1902, with
+                Sarah running the pub while William worked elsewhere during the day. After
+                William died in <strong>1907</strong>, Sarah continued as licensee with
+                help from her family.
+              </p>
+
+              <p>
+                That same account also links the Cooper story to the Beal family. Sarah
+                Jessie Cooper (<strong>1866&ndash;1918</strong>), Sarah Cooper&apos;s
+                daughter, and William Beal (<strong>1866&ndash;1945</strong>) had a son,
+                Frederick Beal (<strong>1895&ndash;1973</strong>). Frederick&apos;s son,
+                Denys Beal (<strong>1923&ndash;2006</strong>), clearly remembered visiting
+                family at The Anchor, a reminder that the pub was not only a licence and a
+                business. It was a family home.
               </p>
 
               <p>
@@ -377,6 +392,14 @@ export default function HistoryPage(): React.JSX.Element {
                   photograph here shows them behind the bar, with Watney&apos;s Special
                   Mild, Carlsberg and Ben Truman on the pumps, a snapshot of a proper
                   village local in its heyday.
+                </p>
+
+                <p>
+                  A family-history contribution has also helped explain the continuity
+                  between the Cooper and Eeles years. The family tree records Lal&apos;s
+                  given name as <strong>Norma</strong> and links her to Sarah Cooper as
+                  Sarah&apos;s daughter, suggesting that The Anchor remained within the
+                  wider family after Sarah&apos;s time as landlady.
                 </p>
 
                 <p className="text-anchor-cream-text/60 italic">
@@ -659,7 +682,7 @@ export default function HistoryPage(): React.JSX.Element {
           {
             question: 'Who were Lal and Charlie Eeles?',
             answer:
-              'The Eeles family were closely connected with The Anchor across the mid-twentieth century. A 1922 London Gazette notice places Charles Edwin Eeles at The Anchor Inn, and a 1951-52 Stanwell Moor Football Club photo identifies Charlie Eeles with the pub. Lal Eeles, his wife, was also landlady and wrote "Lal\'s Prayer," a poem about pub life.',
+              'The Eeles family were closely connected with The Anchor across the mid-twentieth century. A 1922 London Gazette notice places Charles Edwin Eeles at The Anchor Inn, and a 1951-52 Stanwell Moor Football Club photo identifies Charlie Eeles with the pub. Norma "Lal" Eeles, his wife, was also landlady and wrote "Lal\'s Prayer," a poem about pub life. A descendant family account links Lal to Sarah Cooper, suggesting the pub stayed within the wider family.',
           },
           {
             question: 'How old is The Anchor compared to Heathrow Airport?',
