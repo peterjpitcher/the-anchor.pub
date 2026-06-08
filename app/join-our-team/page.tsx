@@ -15,6 +15,7 @@ import {
   StandardsPledge
 } from './_components/RecruitmentSections'
 import { RecruitmentApplicationForm } from './_components/RecruitmentApplicationForm'
+import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import {
   mainRoleCards,
   poorFitSignals,
@@ -87,18 +88,25 @@ function resolveInitialRole(searchParams?: JoinOurTeamPageProps['searchParams'])
   return 'Not sure yet'
 }
 
-function managementBaseUrl(): string {
-  return (
+function normalizeManagementApiBaseUrl(value: string): string {
+  const normalized = value.trim().replace(/\/+$/, '')
+  return normalized.endsWith('/api') ? normalized : `${normalized}/api`
+}
+
+function recruitmentManagementApiBaseUrl(): string {
+  const configuredBaseUrl =
     process.env.RECRUITMENT_MANAGEMENT_API_BASE_URL ||
     process.env.MANAGEMENT_API_BASE_URL ||
-    process.env.NEXT_PUBLIC_MANAGEMENT_APP_URL ||
-    'https://manage.the-anchor.pub'
-  ).replace(/\/$/, '')
+    process.env.NEXT_PUBLIC_MANAGEMENT_APP_URL
+
+  return configuredBaseUrl
+    ? normalizeManagementApiBaseUrl(configuredBaseUrl)
+    : getManagementApiBaseUrl()
 }
 
 async function getPublicRecruitmentPostings(): Promise<PublicRecruitmentPosting[]> {
   try {
-    const response = await fetch(`${managementBaseUrl()}/api/recruitment/postings`, {
+    const response = await fetch(`${recruitmentManagementApiBaseUrl()}/recruitment/postings`, {
       cache: 'no-store'
     })
     if (!response.ok) return []

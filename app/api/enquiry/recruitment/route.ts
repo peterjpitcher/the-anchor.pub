@@ -1,6 +1,7 @@
 import { Buffer } from 'node:buffer'
 import { randomUUID } from 'node:crypto'
 import { NextRequest, NextResponse } from 'next/server'
+import { getManagementApiBaseUrl } from '@/lib/management-api-base'
 import { checkSpamProtection } from '@/lib/spam-protection'
 
 export const runtime = 'nodejs'
@@ -126,17 +127,24 @@ function buildEmailContent(payload: RecruitmentPayload, options: { possibleDupli
   return { subject, textContent, htmlContent }
 }
 
-function managementBaseUrl(): string | null {
-  return (
+function normalizeManagementApiBaseUrl(value: string): string {
+  const normalized = value.trim().replace(/\/+$/, '')
+  return normalized.endsWith('/api') ? normalized : `${normalized}/api`
+}
+
+function managementApiBaseUrl(): string {
+  const configuredBaseUrl =
     process.env.RECRUITMENT_MANAGEMENT_API_BASE_URL ||
     process.env.MANAGEMENT_API_BASE_URL ||
-    process.env.NEXT_PUBLIC_MANAGEMENT_APP_URL ||
-    null
-  )?.replace(/\/$/, '') ?? null
+    process.env.NEXT_PUBLIC_MANAGEMENT_APP_URL
+
+  return configuredBaseUrl
+    ? normalizeManagementApiBaseUrl(configuredBaseUrl)
+    : getManagementApiBaseUrl()
 }
 
 function managementApiKey(): string | null {
-  return process.env.RECRUITMENT_MANAGEMENT_API_KEY || process.env.MANAGEMENT_API_KEY || null
+  return process.env.RECRUITMENT_MANAGEMENT_API_KEY || process.env.MANAGEMENT_API_KEY || process.env.ANCHOR_API_KEY || null
 }
 
 function appendIfPresent(formData: FormData, key: string, value: string | undefined | null) {
@@ -152,10 +160,10 @@ async function proxyToManagementApi(
   | { state: 'validation_error'; status: number; error: string }
   | { state: 'infrastructure_error'; reason: string; possibleDuplicate: boolean }
 > {
-  const baseUrl = managementBaseUrl()
+  const baseUrl = managementApiBaseUrl()
   const apiKey = managementApiKey()
 
-  if (!baseUrl || !apiKey) {
+  if (!apiKey) {
     return { state: 'infrastructure_error', reason: 'Management recruitment API is not configured', possibleDuplicate: false }
   }
 
@@ -197,7 +205,7 @@ async function proxyToManagementApi(
   const timeout = setTimeout(() => controller.abort(), 15_000)
 
   try {
-    const response = await fetch(`${baseUrl}/api/recruitment/applications`, {
+    const response = await fetch(`${baseUrl}/recruitment/applications`, {
       method: 'POST',
       headers: {
         'x-api-key': apiKey,

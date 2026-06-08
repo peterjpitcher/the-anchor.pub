@@ -60,6 +60,8 @@ describe('recruitment enquiry proxy', () => {
   afterEach(() => {
     delete process.env.RECRUITMENT_MANAGEMENT_API_BASE_URL
     delete process.env.RECRUITMENT_MANAGEMENT_API_KEY
+    delete process.env.ANCHOR_API_BASE_URL
+    delete process.env.ANCHOR_API_KEY
     delete process.env.MICROSOFT_TENANT_ID
     delete process.env.MICROSOFT_CLIENT_ID
     delete process.env.MICROSOFT_CLIENT_SECRET
@@ -90,6 +92,31 @@ describe('recruitment enquiry proxy', () => {
     expect(init.body.get('sms_consent')).toBe('true')
     expect(init.body.get('future_recruitment_consent')).toBe('true')
     expect(init.body.get('turnstile_token')).toBe('turnstile-1')
+  })
+
+  it('falls back to the existing Anchor management API env vars used in production', async () => {
+    delete process.env.RECRUITMENT_MANAGEMENT_API_BASE_URL
+    delete process.env.RECRUITMENT_MANAGEMENT_API_KEY
+    process.env.ANCHOR_API_BASE_URL = 'https://management.example.test/api'
+    process.env.ANCHOR_API_KEY = 'anchor-api-key-1'
+    ;(global.fetch as jest.Mock).mockResolvedValueOnce(jsonResponse({
+      success: true,
+      data: { application_id: 'application-1' },
+    }))
+
+    const { POST } = await import('@/app/api/enquiry/recruitment/route')
+    const response = await POST({ formData: async () => formData() } as any)
+    const payload = await response.json()
+
+    expect(response.status).toBe(200)
+    expect(payload).toMatchObject({ success: true, source: 'management' })
+
+    const [url, init] = (global.fetch as jest.Mock).mock.calls[0]
+    expect(url).toBe('https://management.example.test/api/recruitment/applications')
+    expect(init.headers).toMatchObject({
+      'x-api-key': 'anchor-api-key-1',
+      'Idempotency-Key': 'idem-1',
+    })
   })
 
   it('returns upstream validation errors without sending fallback email', async () => {
