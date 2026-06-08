@@ -32,6 +32,16 @@ type JoinOurTeamPageProps = {
   }
 }
 
+type PublicRecruitmentPosting = {
+  id: string
+  title: string
+  slug: string
+  description: string
+  requirements: string
+  employment_type: string
+  positions_available: number
+}
+
 export const metadata: Metadata = {
   title: {
     absolute: 'Jobs at The Anchor Pub Near Staines | Bar & Kitchen Roles'
@@ -63,8 +73,13 @@ export const metadata: Metadata = {
   })
 }
 
-function resolveInitialRole(searchParams?: JoinOurTeamPageProps['searchParams']): RecruitmentRoleValue {
+function rawRoleParam(searchParams?: JoinOurTeamPageProps['searchParams']): string | undefined {
   const rawRole = Array.isArray(searchParams?.role) ? searchParams?.role[0] : searchParams?.role
+  return rawRole
+}
+
+function resolveInitialRole(searchParams?: JoinOurTeamPageProps['searchParams']): RecruitmentRoleValue {
+  const rawRole = rawRoleParam(searchParams)
 
   if (rawRole === 'bar-staff') return 'Bar Staff'
   if (rawRole === 'kitchen-team') return 'Kitchen Team'
@@ -72,8 +87,48 @@ function resolveInitialRole(searchParams?: JoinOurTeamPageProps['searchParams'])
   return 'Not sure yet'
 }
 
-export default function JoinOurTeamPage({ searchParams }: JoinOurTeamPageProps) {
-  const initialRole = resolveInitialRole(searchParams)
+function managementBaseUrl(): string {
+  return (
+    process.env.RECRUITMENT_MANAGEMENT_API_BASE_URL ||
+    process.env.MANAGEMENT_API_BASE_URL ||
+    process.env.NEXT_PUBLIC_MANAGEMENT_APP_URL ||
+    'https://manage.the-anchor.pub'
+  ).replace(/\/$/, '')
+}
+
+async function getPublicRecruitmentPostings(): Promise<PublicRecruitmentPosting[]> {
+  try {
+    const response = await fetch(`${managementBaseUrl()}/api/recruitment/postings`, {
+      cache: 'no-store'
+    })
+    if (!response.ok) return []
+    const payload = await response.json()
+    return Array.isArray(payload?.data?.postings) ? payload.data.postings : []
+  } catch {
+    return []
+  }
+}
+
+function roleCardsFromPostings(postings: PublicRecruitmentPosting[]) {
+  if (postings.length === 0) return mainRoleCards
+
+  return postings.map((posting) => ({
+    title: posting.title,
+    href: `/join-our-team?role=${encodeURIComponent(posting.slug || posting.title)}#apply`,
+    description: posting.description,
+    outcome: posting.requirements,
+    cta: 'Apply for this role'
+  }))
+}
+
+export default async function JoinOurTeamPage({ searchParams }: JoinOurTeamPageProps) {
+  const dynamicPostings = await getPublicRecruitmentPostings()
+  const currentRoleCards = roleCardsFromPostings(dynamicPostings)
+  const requestedRole = rawRoleParam(searchParams)
+  const dynamicInitialRole = dynamicPostings.find((posting) =>
+    posting.slug === requestedRole || posting.title === requestedRole
+  )?.title
+  const initialRole = dynamicInitialRole ?? resolveInitialRole(searchParams)
 
   return (
     <>
@@ -155,7 +210,7 @@ export default function JoinOurTeamPage({ searchParams }: JoinOurTeamPageProps) 
                 Moor and kitchen jobs in Stanwell Moor.
               </p>
             </div>
-            <RoleCards roles={mainRoleCards} />
+            <RoleCards roles={currentRoleCards} />
           </div>
         </Container>
       </section>
@@ -259,7 +314,14 @@ export default function JoinOurTeamPage({ searchParams }: JoinOurTeamPageProps) 
       <section id="apply" className="section-spacing-lg bg-anchor-bg-raised border-b border-anchor-gold/15 scroll-mt-28">
         <Container>
           <div className="mx-auto max-w-4xl">
-            <RecruitmentApplicationForm initialRole={initialRole} />
+            <RecruitmentApplicationForm
+              initialRole={initialRole}
+              postingOptions={dynamicPostings.map((posting) => ({
+                id: posting.id,
+                title: posting.title,
+                slug: posting.slug
+              }))}
+            />
           </div>
         </Container>
       </section>

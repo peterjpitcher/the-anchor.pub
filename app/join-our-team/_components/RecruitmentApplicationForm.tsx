@@ -17,19 +17,37 @@ import {
 } from '@/lib/gtm-events'
 
 type SubmissionState = 'idle' | 'success' | 'error'
+type PostingOption = {
+  id: string
+  title: string
+  slug?: string | null
+}
 
 const maxCvBytes = 5 * 1024 * 1024
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''
 
-export function RecruitmentApplicationForm({ initialRole = 'Not sure yet' }: { initialRole?: RecruitmentRoleValue }) {
-  const [role, setRole] = useState<RecruitmentRoleValue>(initialRole)
+function createIdempotencyKey() {
+  return globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`
+}
+
+export function RecruitmentApplicationForm({
+  initialRole = 'Not sure yet',
+  postingOptions = []
+}: {
+  initialRole?: RecruitmentRoleValue | string
+  postingOptions?: PostingOption[]
+}) {
+  const [role, setRole] = useState<string>(initialRole)
   const [consent, setConsent] = useState(false)
+  const [smsConsent, setSmsConsent] = useState(false)
+  const [futureRecruitmentConsent, setFutureRecruitmentConsent] = useState(false)
   const [turnstileToken, setTurnstileToken] = useState<string | null>(null)
   const [honeypot, setHoneypot] = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [status, setStatus] = useState<SubmissionState>('idle')
   const [message, setMessage] = useState('')
   const [cvName, setCvName] = useState('')
+  const [idempotencyKey, setIdempotencyKey] = useState(createIdempotencyKey)
   const formLoadedAt = useRef(Date.now())
   const startedTracking = useRef(false)
   const formRef = useRef<HTMLFormElement>(null)
@@ -38,6 +56,12 @@ export function RecruitmentApplicationForm({ initialRole = 'Not sure yet' }: { i
   useEffect(() => {
     setRole(initialRole)
   }, [initialRole])
+
+  const roleOptions = postingOptions.length > 0
+    ? [...postingOptions.map((posting) => posting.title), 'Not sure yet']
+    : recruitmentRoleOptions
+
+  const selectedPosting = postingOptions.find((posting) => posting.title === role)
 
   const trackStartOnce = () => {
     if (startedTracking.current) return
@@ -96,7 +120,14 @@ export function RecruitmentApplicationForm({ initialRole = 'Not sure yet' }: { i
     const form = event.currentTarget
     const formData = new FormData(form)
     formData.set('role', role)
+    if (selectedPosting) {
+      formData.set('job_posting_id', selectedPosting.id)
+      if (selectedPosting.slug) formData.set('job_slug', selectedPosting.slug)
+    }
     formData.set('consent', consent ? 'yes' : '')
+    formData.set('sms_consent', smsConsent ? 'yes' : '')
+    formData.set('future_recruitment_consent', futureRecruitmentConsent ? 'yes' : '')
+    formData.set('idempotency_key', idempotencyKey)
     formData.set('turnstile_token', turnstileToken || '')
     formData.set('_t', String(Math.floor((Date.now() - formLoadedAt.current) / 1000)))
     if (typeof window !== 'undefined') formData.set('pageUrl', window.location.href)
@@ -144,10 +175,13 @@ export function RecruitmentApplicationForm({ initialRole = 'Not sure yet' }: { i
       setMessage("Thanks. We have sent your application to the team and will be in touch if it looks like a good fit.")
       form.reset()
       setConsent(false)
+      setSmsConsent(false)
+      setFutureRecruitmentConsent(false)
       setTurnstileToken(null)
       setHoneypot('')
       setCvName('')
       setRole(initialRole)
+      setIdempotencyKey(createIdempotencyKey())
       turnstileRef.current?.reset()
       formLoadedAt.current = Date.now()
       startedTracking.current = false
@@ -236,10 +270,10 @@ export function RecruitmentApplicationForm({ initialRole = 'Not sure yet' }: { i
             id="role"
             name="role"
             value={role}
-            onChange={(event) => setRole(event.target.value as RecruitmentRoleValue)}
+            onChange={(event) => setRole(event.target.value)}
             className="w-full rounded-md border border-anchor-gold/30 bg-anchor-bg px-3 py-3 text-anchor-cream-text focus:border-anchor-gold focus:outline-none focus:ring-2 focus:ring-anchor-gold/30"
           >
-            {recruitmentRoleOptions.map((option) => (
+            {roleOptions.map((option) => (
               <option key={option} value={option}>
                 {option}
               </option>
@@ -389,6 +423,28 @@ export function RecruitmentApplicationForm({ initialRole = 'Not sure yet' }: { i
             I agree for The Anchor to contact me about my application and understand my details will only be used
             for recruitment purposes.
           </span>
+        </label>
+
+        <label className="flex items-start gap-3 rounded-md border border-anchor-gold/15 bg-anchor-bg px-4 py-4 text-sm text-anchor-cream-text/80">
+          <input
+            type="checkbox"
+            name="sms_consent"
+            checked={smsConsent}
+            onChange={(event) => setSmsConsent(event.target.checked)}
+            className="mt-1 h-4 w-4 rounded border-anchor-gold/40 bg-anchor-bg-card text-anchor-gold focus:ring-anchor-gold"
+          />
+          <span>I agree to receive recruitment SMS messages about this application.</span>
+        </label>
+
+        <label className="flex items-start gap-3 rounded-md border border-anchor-gold/15 bg-anchor-bg px-4 py-4 text-sm text-anchor-cream-text/80">
+          <input
+            type="checkbox"
+            name="future_recruitment_consent"
+            checked={futureRecruitmentConsent}
+            onChange={(event) => setFutureRecruitmentConsent(event.target.checked)}
+            className="mt-1 h-4 w-4 rounded border-anchor-gold/40 bg-anchor-bg-card text-anchor-gold focus:ring-anchor-gold"
+          />
+          <span>I agree for The Anchor to keep my details for future suitable roles.</span>
         </label>
 
         {TURNSTILE_SITE_KEY ? (

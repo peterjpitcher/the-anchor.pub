@@ -403,7 +403,7 @@ describe('resolveHeroCtas', () => {
     const ctx = { ...baseContext, sundayLunchAvailable: true }
     const { primary, secondary } = resolveHeroCtas(ctx, '/about', new Date('2026-05-10T13:00:00Z'))
     expect(primary.kind).toBe('booking')
-    expect(primary.label).toBe('Book Sunday Lunch')
+    expect(primary.label).toBe('Book Sunday Roast')
     expect(secondary.kind).toBe('link')
     expect((secondary as any).href).toBe('/sunday-roast')
   })

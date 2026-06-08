@@ -1,0 +1,136 @@
+export {}
+
+jest.mock('@/lib/spam-protection', () => ({
+  checkSpamProtection: jest.fn(async () => ({ blocked: false, response: null })),
+}))
+
+function jsonResponse(body: unknown, init: ResponseInit = { status: 200 }): Response {
+  return new Response(JSON.stringify(body), {
+    ...init,
+    headers: { 'Content-Type': 'application/json', ...(init.headers || {}) }
+  })
+}
+
+function formData(overrides: Record<string, string> = {}) {
+  const data = new FormData()
+  data.set('name', overrides.name ?? 'Jane Smith')
+  data.set('email', overrides.email ?? 'jane@example.com')
+  data.set('phone', overrides.phone ?? '07700900123')
+  data.set('role', overrides.role ?? 'Bartender')
+  data.set('job_posting_id', overrides.job_posting_id ?? 'posting-1')
+  data.set('job_slug', overrides.job_slug ?? 'bartender')
+  data.set('experience', overrides.experience ?? 'Two years behind a pub bar.')
+  data.set('fit', overrides.fit ?? 'Reliable and friendly.')
+  data.append('availability', overrides.availability ?? 'Weekends')
+  data.set('travel', overrides.travel ?? 'I can drive.')
+  data.set('relevantExperience', overrides.relevantExperience ?? 'Yes')
+  data.set('startDate', overrides.startDate ?? 'Immediately')
+  data.set('consent', overrides.consent ?? 'yes')
+  data.set('sms_consent', overrides.sms_consent ?? 'yes')
+  data.set('future_recruitment_consent', overrides.future_recruitment_consent ?? 'yes')
+  data.set('idempotency_key', overrides.idempotency_key ?? 'idem-1')
+  data.set('turnstile_token', overrides.turnstile_token ?? 'turnstile-1')
+  data.set('_t', '5')
+  return data
+}
+
+describe('recruitment enquiry proxy', () => {
+  beforeEach(() => {
+    jest.resetModules()
+    if (typeof (Response as any).json !== 'function') {
+      ;(Response as any).json = (body: unknown, init?: ResponseInit) =>
+        new Response(JSON.stringify(body), {
+          ...init,
+          headers: {
+            'Content-Type': 'application/json',
+            ...(init?.headers || {})
+          }
+        })
+    }
+    process.env.RECRUITMENT_MANAGEMENT_API_BASE_URL = 'https://manage.example.test'
+    process.env.RECRUITMENT_MANAGEMENT_API_KEY = 'api-key-1'
+    process.env.MICROSOFT_TENANT_ID = 'tenant-1'
+    process.env.MICROSOFT_CLIENT_ID = 'client-1'
+    process.env.MICROSOFT_CLIENT_SECRET = 'secret-1'
+    process.env.MICROSOFT_USER_EMAIL = 'peter@orangejelly.co.uk'
+    process.env.RECRUITMENT_APPLICATION_TO = 'manager@the-anchor.pub'
+    ;(global as any).fetch = jest.fn()
+  })
+
+  afterEach(() => {
+    delete process.env.RECRUITMENT_MANAGEMENT_API_BASE_URL
+    delete process.env.RECRUITMENT_MANAGEMENT_API_KEY
+    delete process.env.MICROSOFT_TENANT_ID
+    delete process.env.MICROSOFT_CLIENT_ID
+    delete process.env.MICROSOFT_CLIENT_SECRET
+    delete process.env.MICROSOFT_USER_EMAIL
+    delete process.env.RECRUITMENT_APPLICATION_TO
+    jest.clearAllMocks()
+  })
+
+  it('forwards valid applications to the management API with idempotency and consent fields', async () => {
+    ;(global.fetch as jest.Mock).mockResolvedValueOnce(jsonResponse({
+      success: true,
+      data: { application_id: 'application-1' },
+    }))
+
+    const { POST } = await import('@/app/api/enquiry/recruitment/route')
+    const response = await POST({ formData: async () => formData() } as any)
+    const payload = await response.json()
+
+    expect(response.status).toBe(200)
+    expect(payload).toMatchObject({ success: true, source: 'management' })
+
+    const [url, init] = (global.fetch as jest.Mock).mock.calls[0]
+    expect(url).toBe('https://manage.example.test/api/recruitment/applications')
+    expect(init.headers).toMatchObject({
+      'x-api-key': 'api-key-1',
+      'Idempotency-Key': 'idem-1',
+    })
+    expect(init.body.get('sms_consent')).toBe('true')
+    expect(init.body.get('future_recruitment_consent')).toBe('true')
+    expect(init.body.get('turnstile_token')).toBe('turnstile-1')
+  })
+
+  it('returns upstream validation errors without sending fallback email', async () => {
+    ;(global.fetch as jest.Mock).mockResolvedValueOnce(jsonResponse({
+      success: false,
+      error: { message: 'Please upload a PDF, DOC or DOCX CV.' },
+    }, { status: 400 }))
+
+    const { POST } = await import('@/app/api/enquiry/recruitment/route')
+    const response = await POST({ formData: async () => formData() } as any)
+    const payload = await response.json()
+
+    expect(response.status).toBe(400)
+    expect(payload.error).toBe('Please upload a PDF, DOC or DOCX CV.')
+    expect(global.fetch).toHaveBeenCalledTimes(1)
+  })
+
+  it('uses email fallback only for management infrastructure failures', async () => {
+    ;(global.fetch as jest.Mock)
+      .mockResolvedValueOnce(jsonResponse({
+        success: false,
+        error: { message: 'Database unavailable' },
+      }, { status: 500 }))
+      .mockResolvedValueOnce(jsonResponse({ access_token: 'graph-token' }))
+      .mockResolvedValueOnce(new Response(null, { status: 202 }))
+
+    const { POST } = await import('@/app/api/enquiry/recruitment/route')
+    const response = await POST({ formData: async () => formData() } as any)
+    const payload = await response.json()
+
+    expect(response.status).toBe(200)
+    expect(payload).toMatchObject({
+      success: true,
+      source: 'email_fallback',
+      possibleDuplicate: false,
+    })
+
+    const [, sendMailInit] = (global.fetch as jest.Mock).mock.calls[2]
+    const sendMailBody = JSON.parse(String(sendMailInit.body))
+    expect(sendMailBody.message.subject).toContain('Recruitment application')
+    expect(sendMailBody.message.body.content).toContain('Fallback reason')
+    expect(sendMailBody.message.replyTo[0].emailAddress.address).toBe('jane@example.com')
+  })
+})

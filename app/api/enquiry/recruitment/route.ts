@@ -1,4 +1,5 @@
 import { Buffer } from 'node:buffer'
+import { randomUUID } from 'node:crypto'
 import { NextRequest, NextResponse } from 'next/server'
 import { checkSpamProtection } from '@/lib/spam-protection'
 
@@ -15,6 +16,8 @@ type RecruitmentPayload = {
   email: string
   phone: string
   role: string
+  jobPostingId?: string
+  jobSlug?: string
   experience: string
   fit: string
   availability: string[]
@@ -22,6 +25,9 @@ type RecruitmentPayload = {
   relevantExperience: string
   startDate: string
   consent: string
+  smsConsent: string
+  futureRecruitmentConsent: string
+  idempotencyKey: string
   pageUrl?: string
 }
 
@@ -70,10 +76,13 @@ function validatePayload(payload: RecruitmentPayload): string | null {
   return null
 }
 
-function buildEmailContent(payload: RecruitmentPayload) {
-  const subject = `Recruitment application - ${payload.role} - ${payload.name}`
+function buildEmailContent(payload: RecruitmentPayload, options: { possibleDuplicate?: boolean; fallbackReason?: string } = {}) {
+  const subjectPrefix = options.possibleDuplicate ? 'Possible duplicate recruitment application' : 'Recruitment application'
+  const subject = `${subjectPrefix} - ${payload.role} - ${payload.name}`
   const textContent = [
-    'New recruitment application',
+    options.possibleDuplicate ? 'New recruitment application - possible duplicate' : 'New recruitment application',
+    options.fallbackReason ? `Fallback reason: ${options.fallbackReason}` : '',
+    `Idempotency key: ${payload.idempotencyKey}`,
     '',
     `Name: ${payload.name}`,
     `Email: ${payload.email}`,
@@ -83,6 +92,8 @@ function buildEmailContent(payload: RecruitmentPayload) {
     `One year relevant experience: ${payload.relevantExperience}`,
     `Start date: ${payload.startDate}`,
     `Travel: ${payload.travel}`,
+    `SMS consent: ${payload.smsConsent === 'yes' ? 'Yes' : 'No'}`,
+    `Future recruitment consent: ${payload.futureRecruitmentConsent === 'yes' ? 'Yes' : 'No'}`,
     '',
     'Relevant experience:',
     payload.experience,
@@ -94,7 +105,9 @@ function buildEmailContent(payload: RecruitmentPayload) {
   ].join('\n')
 
   const htmlContent = [
-    '<h2>New recruitment application</h2>',
+    `<h2>${options.possibleDuplicate ? 'New recruitment application - possible duplicate' : 'New recruitment application'}</h2>`,
+    options.fallbackReason ? `<p><strong>Fallback reason:</strong> ${escapeHtml(options.fallbackReason)}</p>` : '',
+    `<p><strong>Idempotency key:</strong> ${escapeHtml(payload.idempotencyKey)}</p>`,
     `<p><strong>Name:</strong> ${escapeHtml(payload.name)}</p>`,
     `<p><strong>Email:</strong> ${escapeHtml(payload.email)}</p>`,
     `<p><strong>Phone:</strong> ${escapeHtml(payload.phone)}</p>`,
@@ -102,6 +115,8 @@ function buildEmailContent(payload: RecruitmentPayload) {
     `<p><strong>Availability:</strong> ${payload.availability.map(escapeHtml).join(', ')}</p>`,
     `<p><strong>One year relevant experience:</strong> ${escapeHtml(payload.relevantExperience)}</p>`,
     `<p><strong>Start date:</strong> ${escapeHtml(payload.startDate)}</p>`,
+    `<p><strong>SMS consent:</strong> ${payload.smsConsent === 'yes' ? 'Yes' : 'No'}</p>`,
+    `<p><strong>Future recruitment consent:</strong> ${payload.futureRecruitmentConsent === 'yes' ? 'Yes' : 'No'}</p>`,
     `<p><strong>Travel:</strong><br />${formatMultiline(payload.travel)}</p>`,
     `<p><strong>Relevant experience:</strong><br />${formatMultiline(payload.experience)}</p>`,
     `<p><strong>Good fit:</strong><br />${formatMultiline(payload.fit)}</p>`,
@@ -109,6 +124,118 @@ function buildEmailContent(payload: RecruitmentPayload) {
   ].join('\n')
 
   return { subject, textContent, htmlContent }
+}
+
+function managementBaseUrl(): string | null {
+  return (
+    process.env.RECRUITMENT_MANAGEMENT_API_BASE_URL ||
+    process.env.MANAGEMENT_API_BASE_URL ||
+    process.env.NEXT_PUBLIC_MANAGEMENT_APP_URL ||
+    null
+  )?.replace(/\/$/, '') ?? null
+}
+
+function managementApiKey(): string | null {
+  return process.env.RECRUITMENT_MANAGEMENT_API_KEY || process.env.MANAGEMENT_API_KEY || null
+}
+
+function appendIfPresent(formData: FormData, key: string, value: string | undefined | null) {
+  if (value) formData.set(key, value)
+}
+
+async function proxyToManagementApi(
+  payload: RecruitmentPayload,
+  cvFile: File | null,
+  originalFormData: FormData
+): Promise<
+  | { state: 'success'; response: unknown }
+  | { state: 'validation_error'; status: number; error: string }
+  | { state: 'infrastructure_error'; reason: string; possibleDuplicate: boolean }
+> {
+  const baseUrl = managementBaseUrl()
+  const apiKey = managementApiKey()
+
+  if (!baseUrl || !apiKey) {
+    return { state: 'infrastructure_error', reason: 'Management recruitment API is not configured', possibleDuplicate: false }
+  }
+
+  const upstreamForm = new FormData()
+  appendIfPresent(upstreamForm, 'first_name', payload.name.split(/\s+/)[0])
+  appendIfPresent(upstreamForm, 'last_name', payload.name.split(/\s+/).slice(1).join(' '))
+  appendIfPresent(upstreamForm, 'email', payload.email)
+  appendIfPresent(upstreamForm, 'phone', payload.phone)
+  appendIfPresent(upstreamForm, 'job_posting_id', payload.jobPostingId)
+  appendIfPresent(upstreamForm, 'job_slug', payload.jobSlug)
+  appendIfPresent(upstreamForm, 'preferred_role', payload.role)
+  appendIfPresent(upstreamForm, 'experience', payload.experience)
+  appendIfPresent(upstreamForm, 'cover_note', payload.fit)
+  appendIfPresent(upstreamForm, 'relevant_experience_answer', payload.relevantExperience)
+  appendIfPresent(upstreamForm, 'travel_answer', payload.travel)
+  appendIfPresent(upstreamForm, 'start_availability', payload.startDate)
+  appendIfPresent(upstreamForm, 'availability', payload.availability.join(', '))
+  appendIfPresent(upstreamForm, 'provided_details', [
+    `Role: ${payload.role}`,
+    `Availability: ${payload.availability.join(', ')}`,
+    `Experience: ${payload.experience}`,
+    `Fit: ${payload.fit}`,
+    `Travel: ${payload.travel}`,
+    `Relevant experience: ${payload.relevantExperience}`,
+    `Start date: ${payload.startDate}`,
+    `Page URL: ${payload.pageUrl || 'N/A'}`,
+  ].join('\n\n'))
+  upstreamForm.set('privacy_consent', 'true')
+  upstreamForm.set('sms_consent', payload.smsConsent === 'yes' ? 'true' : 'false')
+  upstreamForm.set('future_recruitment_consent', payload.futureRecruitmentConsent === 'yes' ? 'true' : 'false')
+  appendIfPresent(upstreamForm, 'privacy_notice_version', 'join-our-team-2026-06-07')
+  appendIfPresent(upstreamForm, 'turnstile_token', asTrimmedString(originalFormData.get('turnstile_token')))
+
+  if (cvFile && cvFile.size > 0) {
+    upstreamForm.set('cv', cvFile)
+  }
+
+  const controller = new AbortController()
+  const timeout = setTimeout(() => controller.abort(), 15_000)
+
+  try {
+    const response = await fetch(`${baseUrl}/api/recruitment/applications`, {
+      method: 'POST',
+      headers: {
+        'x-api-key': apiKey,
+        'Idempotency-Key': payload.idempotencyKey,
+      },
+      body: upstreamForm,
+      signal: controller.signal,
+    })
+
+    const responsePayload = await response.json().catch(() => null)
+    if (response.ok) {
+      return { state: 'success', response: responsePayload }
+    }
+
+    if (response.status >= 500 || response.status === 408) {
+      return {
+        state: 'infrastructure_error',
+        reason: responsePayload?.error?.message || `Management API returned ${response.status}`,
+        possibleDuplicate: response.status === 408,
+      }
+    }
+
+    return {
+      state: 'validation_error',
+      status: response.status,
+      error: responsePayload?.error?.message || responsePayload?.error || 'Application was rejected by recruitment validation.',
+    }
+  } catch (error) {
+    return {
+      state: 'infrastructure_error',
+      reason: error instanceof Error && error.name === 'AbortError'
+        ? 'Management API request timed out'
+        : error instanceof Error ? error.message : 'Management API request failed',
+      possibleDuplicate: error instanceof Error && error.name === 'AbortError',
+    }
+  } finally {
+    clearTimeout(timeout)
+  }
 }
 
 async function getMicrosoftGraphToken() {
@@ -221,6 +348,8 @@ export async function POST(request: NextRequest) {
       email: asTrimmedString(formData.get('email')),
       phone: asTrimmedString(formData.get('phone')),
       role: asTrimmedString(formData.get('role')),
+      jobPostingId: asTrimmedString(formData.get('job_posting_id')) || undefined,
+      jobSlug: asTrimmedString(formData.get('job_slug')) || undefined,
       experience: asTrimmedString(formData.get('experience')),
       fit: asTrimmedString(formData.get('fit')),
       availability,
@@ -228,6 +357,9 @@ export async function POST(request: NextRequest) {
       relevantExperience: asTrimmedString(formData.get('relevantExperience')),
       startDate: asTrimmedString(formData.get('startDate')),
       consent: asTrimmedString(formData.get('consent')),
+      smsConsent: asTrimmedString(formData.get('sms_consent')),
+      futureRecruitmentConsent: asTrimmedString(formData.get('future_recruitment_consent')),
+      idempotencyKey: asTrimmedString(formData.get('idempotency_key')) || randomUUID(),
       pageUrl: asTrimmedString(formData.get('pageUrl')) || undefined
     }
 
@@ -268,6 +400,18 @@ export async function POST(request: NextRequest) {
       throw error
     }
 
+    const proxyResult = await proxyToManagementApi(payload, cvFile instanceof File ? cvFile : null, formData)
+    if (proxyResult.state === 'success') {
+      return NextResponse.json({ success: true, source: 'management', data: proxyResult.response })
+    }
+
+    if (proxyResult.state === 'validation_error') {
+      return NextResponse.json(
+        { success: false, error: proxyResult.error },
+        { status: proxyResult.status }
+      )
+    }
+
     const graphUser = process.env.MICROSOFT_USER_EMAIL
     if (!graphUser) {
       console.error('MICROSOFT_USER_EMAIL is not configured.')
@@ -277,7 +421,10 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { subject, htmlContent } = buildEmailContent(payload)
+    const { subject, htmlContent } = buildEmailContent(payload, {
+      possibleDuplicate: proxyResult.possibleDuplicate,
+      fallbackReason: proxyResult.reason,
+    })
     const accessToken = await getMicrosoftGraphToken()
 
     await sendMicrosoftGraphEmail(accessToken, {
@@ -289,7 +436,7 @@ export async function POST(request: NextRequest) {
       attachments: cvAttachment ? [cvAttachment] : undefined
     })
 
-    return NextResponse.json({ success: true })
+    return NextResponse.json({ success: true, source: 'email_fallback', possibleDuplicate: proxyResult.possibleDuplicate })
   } catch (error) {
     console.error('Recruitment application submission failed:', error)
     return NextResponse.json(
