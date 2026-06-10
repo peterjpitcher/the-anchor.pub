@@ -335,8 +335,8 @@ rg -l "FloatingActions|StickyMobileBookingCTA|FoodStickyCtaBar|EventStickyBookin
 
 ## O. Tracking checklist (tick as PRs merge)
 
-- [ ] Pre-flight B1–B5
-- [ ] PR 0.1 Foundations
+- [x] Pre-flight B1 (defaults recorded; O2=#8b6914) · B4 (docs committed) · B5 (jest+lint confirmed) — B2 logos present at `public/images/branding/`; **B3 visual baseline still outstanding (needed before Phase 5)**
+- [x] PR 0.1 Foundations — committed `032618cc`; audit 0, tsc clean, build 322pp, 0 test regression vs main, tokens byte-exact, 0 AA-risk gold-text
 - [ ] PR 1.1 Button · [ ] 1.2 Badge+Card · [ ] 1.3 Input+SectionHeading
 - [ ] PR 2.1a InteriorHero foundation · [ ] 2.1b Hero low/medium families · [ ] 2.1c Hero conversion families · [ ] 2.2 Header · [ ] 2.3 Footer · [ ] 2.4 StickyCtas+strips
 - [ ] PR 3.1 WeekHours · [ ] 3.2 Events
